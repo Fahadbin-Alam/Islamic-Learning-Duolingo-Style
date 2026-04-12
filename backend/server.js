@@ -318,6 +318,7 @@ function sanitizeUserProfile(profile, email, name, role, reminderPreferences) {
     accountEmail: email,
     accountCreatedAt: typeof safeProfile.accountCreatedAt === "string" ? safeProfile.accountCreatedAt : now,
     lastLoginAt: typeof safeProfile.lastLoginAt === "string" ? safeProfile.lastLoginAt : now,
+    lastLearningAt: typeof safeProfile.lastLearningAt === "string" ? safeProfile.lastLearningAt : safeProfile.lastLoginAt,
     reminderPreferences,
     preferredLanguage: sanitizePreferredLanguage(safeProfile.preferredLanguage),
     reviewHeartRestoreUsed: Boolean(safeProfile.reviewHeartRestoreUsed),
@@ -405,7 +406,9 @@ function sanitizeReminderPreferences(value) {
   const safe = value && typeof value === "object" ? value : {};
   return {
     dailyInactivity: safe.dailyInactivity !== false,
-    weeklyInactivity: safe.weeklyInactivity !== false
+    weeklyInactivity: safe.weeklyInactivity !== false,
+    streakReminders: safe.streakReminders !== false,
+    islamicReminders: safe.islamicReminders !== false
   };
 }
 

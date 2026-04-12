@@ -23,6 +23,8 @@ export type SupportedLanguage = "en" | "fr" | "ar" | "bn" | "ur" | "hi";
 export interface ReminderPreferences {
   dailyInactivity: boolean;
   weeklyInactivity: boolean;
+  streakReminders?: boolean;
+  islamicReminders?: boolean;
 }
 
 export interface HeartsBalance {
@@ -42,6 +44,7 @@ export interface UserProfile {
   accountEmail?: string;
   accountCreatedAt?: string;
   lastLoginAt?: string;
+  lastLearningAt?: string;
   reminderPreferences?: ReminderPreferences;
   preferredLanguage?: SupportedLanguage;
   reviewHeartRestoreUsed?: boolean;

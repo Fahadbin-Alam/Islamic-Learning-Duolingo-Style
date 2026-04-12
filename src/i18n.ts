@@ -72,6 +72,10 @@ export interface UiStrings {
   reminderSettings: string;
   dailyReminder: string;
   weeklyReminder: string;
+  personalReminderSettings: string;
+  streakReminder: string;
+  islamicReminder: string;
+  notificationHelp: string;
   later: string;
   firstHeartReset: string;
   outOfHearts: string;
@@ -165,6 +169,10 @@ const UI_STRINGS: Record<SupportedLanguage, Partial<UiStrings>> = {
     reminderSettings: "Accountability reminders",
     dailyReminder: "Remind me if a connected account misses today",
     weeklyReminder: "Remind me if a connected account is away for a week",
+    personalReminderSettings: "Islamic app reminders",
+    streakReminder: "Send me a streak reminder if I have not learned today",
+    islamicReminder: "Send me Islamic nudges to come back and keep learning",
+    notificationHelp: "On web this uses browser notifications. On mobile this reminder flow is ready to be connected to native app notifications.",
     later: "Later",
     firstHeartReset: "First heart reset",
     outOfHearts: "Out of hearts?",

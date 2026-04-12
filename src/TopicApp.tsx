@@ -55,6 +55,10 @@ import {
   runBattle,
   saveSocialHubState
 } from "./services/socialHub";
+import {
+  requestIslamicNotificationPermission,
+  scheduleIslamicReminderChecks
+} from "./services/islamicNotifications";
 import type {
   AccountRole,
   BattleResult,
@@ -207,6 +211,8 @@ export default function TopicApp() {
   const [settingsRole, setSettingsRole] = useState<AccountRole | undefined>(undefined);
   const [settingsDailyReminder, setSettingsDailyReminder] = useState(true);
   const [settingsWeeklyReminder, setSettingsWeeklyReminder] = useState(true);
+  const [settingsStreakReminder, setSettingsStreakReminder] = useState(true);
+  const [settingsIslamicReminder, setSettingsIslamicReminder] = useState(true);
   const [socialHub, setSocialHub] = useState<SocialHubState>(() => loadSocialHubState());
   const [inviteName, setInviteName] = useState("");
   const [inviteEmail, setInviteEmail] = useState("");
@@ -242,6 +248,8 @@ export default function TopicApp() {
         setSettingsRole(user.accountRole);
         setSettingsDailyReminder(user.reminderPreferences?.dailyInactivity !== false);
         setSettingsWeeklyReminder(user.reminderPreferences?.weeklyInactivity !== false);
+        setSettingsStreakReminder(user.reminderPreferences?.streakReminders !== false);
+        setSettingsIslamicReminder(user.reminderPreferences?.islamicReminders !== false);
 
         if (!user.preferredLanguage) {
           setLanguageModalVisible(true);
@@ -274,6 +282,21 @@ export default function TopicApp() {
 
   const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? pendingLanguage);
   const strings = useMemo(() => getUiStrings(currentLanguage), [currentLanguage]);
+
+  useEffect(() => {
+    if (!state.user) {
+      return;
+    }
+
+    return scheduleIslamicReminderChecks(state.user, currentLanguage);
+  }, [
+    currentLanguage,
+    state.user?.id,
+    state.user?.lastLearningAt,
+    state.user?.lastLoginAt,
+    state.user?.reminderPreferences?.streakReminders,
+    state.user?.reminderPreferences?.islamicReminders
+  ]);
 
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
@@ -473,7 +496,13 @@ export default function TopicApp() {
       return;
     }
 
-    const session = await learningApi.getLessonSession(node.firstLessonId, state.user);
+    const activeUser = {
+      ...state.user,
+      lastLearningAt: new Date().toISOString()
+    };
+
+    dispatch({ type: "apply_user", user: activeUser });
+    const session = await learningApi.getLessonSession(node.firstLessonId, activeUser);
     dispatch({ type: "start_lesson", session });
   }
 
@@ -515,7 +544,10 @@ export default function TopicApp() {
       return;
     }
 
-    const nextUser = completeLesson(state.user, state.activeSession.lesson);
+    const nextUser = {
+      ...completeLesson(state.user, state.activeSession.lesson),
+      lastLearningAt: new Date().toISOString()
+    };
     const xpSummary = await learningApi.getXpSummaries(nextUser);
     dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
   }
@@ -567,6 +599,8 @@ export default function TopicApp() {
     setSettingsRole(state.user.accountRole);
     setSettingsDailyReminder(state.user.reminderPreferences?.dailyInactivity !== false);
     setSettingsWeeklyReminder(state.user.reminderPreferences?.weeklyInactivity !== false);
+    setSettingsStreakReminder(state.user.reminderPreferences?.streakReminders !== false);
+    setSettingsIslamicReminder(state.user.reminderPreferences?.islamicReminders !== false);
     setSettingsModalVisible(true);
   }
 
@@ -705,14 +739,16 @@ export default function TopicApp() {
     setAccountModalVisible(false);
   }
 
-  function saveAccountSettings() {
+  async function saveAccountSettings() {
     if (!state.user) {
       return;
     }
 
     const reminderPreferences = {
       dailyInactivity: settingsRole ? settingsDailyReminder : false,
-      weeklyInactivity: settingsRole ? settingsWeeklyReminder : false
+      weeklyInactivity: settingsRole ? settingsWeeklyReminder : false,
+      streakReminders: settingsStreakReminder,
+      islamicReminders: settingsIslamicReminder
     };
 
     const nextUser: UserProfile = {
@@ -728,6 +764,10 @@ export default function TopicApp() {
     });
     dispatch({ type: "apply_user", user: nextUser });
     setSettingsModalVisible(false);
+
+    if (settingsStreakReminder || settingsIslamicReminder) {
+      await requestIslamicNotificationPermission();
+    }
   }
 
   function handleSocialLogin(provider: SocialProvider) {
@@ -985,10 +1025,14 @@ export default function TopicApp() {
           role={settingsRole}
           dailyReminder={settingsDailyReminder}
           weeklyReminder={settingsWeeklyReminder}
+          streakReminder={settingsStreakReminder}
+          islamicReminder={settingsIslamicReminder}
           onClose={() => setSettingsModalVisible(false)}
           onSelectRole={setSettingsRole}
           onToggleDaily={() => setSettingsDailyReminder((value) => !value)}
           onToggleWeekly={() => setSettingsWeeklyReminder((value) => !value)}
+          onToggleStreak={() => setSettingsStreakReminder((value) => !value)}
+          onToggleIslamic={() => setSettingsIslamicReminder((value) => !value)}
           onSave={saveAccountSettings}
         />
         <ReviewRestoreModal
@@ -2174,10 +2218,14 @@ function SettingsModal({
   role,
   dailyReminder,
   weeklyReminder,
+  streakReminder,
+  islamicReminder,
   onClose,
   onSelectRole,
   onToggleDaily,
   onToggleWeekly,
+  onToggleStreak,
+  onToggleIslamic,
   onSave
 }: {
   visible: boolean;
@@ -2185,10 +2233,14 @@ function SettingsModal({
   role?: AccountRole;
   dailyReminder: boolean;
   weeklyReminder: boolean;
+  streakReminder: boolean;
+  islamicReminder: boolean;
   onClose: () => void;
   onSelectRole: (role?: AccountRole) => void;
   onToggleDaily: () => void;
   onToggleWeekly: () => void;
+  onToggleStreak: () => void;
+  onToggleIslamic: () => void;
   onSave: () => void;
 }) {
   const options: Array<{
@@ -2259,6 +2311,27 @@ function SettingsModal({
               </Pressable>
             </View>
           )}
+
+          <View style={styles.settingsReminderCard}>
+            <Text style={styles.settingsReminderTitle}>{strings.personalReminderSettings}</Text>
+            <Pressable onPress={onToggleStreak} style={styles.settingsToggleRow}>
+              <View style={styles.settingsToggleTextWrap}>
+                <Text style={styles.settingsToggleLabel}>{strings.streakReminder}</Text>
+              </View>
+              <View style={[styles.settingsTogglePill, streakReminder && styles.settingsTogglePillActive]}>
+                <View style={[styles.settingsToggleKnob, streakReminder && styles.settingsToggleKnobActive]} />
+              </View>
+            </Pressable>
+            <Pressable onPress={onToggleIslamic} style={styles.settingsToggleRow}>
+              <View style={styles.settingsToggleTextWrap}>
+                <Text style={styles.settingsToggleLabel}>{strings.islamicReminder}</Text>
+              </View>
+              <View style={[styles.settingsTogglePill, islamicReminder && styles.settingsTogglePillActive]}>
+                <View style={[styles.settingsToggleKnob, islamicReminder && styles.settingsToggleKnobActive]} />
+              </View>
+            </Pressable>
+            <Text style={styles.settingsReminderHelp}>{strings.notificationHelp}</Text>
+          </View>
 
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
@@ -2801,7 +2874,9 @@ function defaultSourceGrade(source: LessonSource) {
 function defaultReminderPreferences(): ReminderPreferences {
   return {
     dailyInactivity: true,
-    weeklyInactivity: true
+    weeklyInactivity: true,
+    streakReminders: true,
+    islamicReminders: true
   };
 }
 
@@ -3306,6 +3381,7 @@ const styles = StyleSheet.create({
   settingsTogglePillActive: { backgroundColor: colors.green },
   settingsToggleKnob: { width: 22, height: 22, borderRadius: 999, backgroundColor: colors.white },
   settingsToggleKnobActive: { alignSelf: "flex-end" },
+  settingsReminderHelp: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "600", letterSpacing: 0 },
   input: { minHeight: 48, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#FBFDFC", paddingHorizontal: 14, color: colors.ink, marginTop: 10 },
   socialStack: { gap: 10, marginTop: 14 },
   socialButton: { minHeight: 48, borderRadius: 8, paddingHorizontal: 14, borderWidth: 1, alignItems: "center", flexDirection: "row", gap: 10 },

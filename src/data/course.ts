@@ -124,6 +124,7 @@ export const STARTER_USER: UserProfile = {
   displayName: "New Learner",
   avatarInitials: "NL",
   reviewHeartRestoreUsed: false,
+  lastLearningAt: today,
   streakDays: 1,
   totalXp: 0,
   dailyGoalXp: 40,
