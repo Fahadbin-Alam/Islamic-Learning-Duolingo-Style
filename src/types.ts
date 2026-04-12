@@ -1,5 +1,6 @@
 export type TopicId =
   | "foundation"
+  | "prayer"
   | "manners"
   | "marriage"
   | "sahabah"
@@ -125,8 +126,8 @@ export interface Lesson {
 
 export interface LessonSource {
   id: string;
-  site: "Quran.com" | "Sunnah.com";
-  category: "tafsir" | "hadith";
+  site: "Quran.com" | "Sunnah.com" | "YouTube";
+  category: "tafsir" | "hadith" | "video";
   title: string;
   url: string;
   summary: string;

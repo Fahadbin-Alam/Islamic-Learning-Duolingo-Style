@@ -200,6 +200,11 @@ const TOPIC_DISTRACTOR_BANK: Record<TopicId, string[]> = {
     "Answer people however you feel without caring about adab",
     "Treat daily Muslim phrases like they do not shape the heart"
   ],
+  prayer: [
+    "Prayer can begin without any care for purification or order",
+    "Wudu is mainly about speed, not about following the taught steps",
+    "Preparation for salah matters less than how confident someone feels"
+  ],
   manners: [
     "Good character only matters when other people are watching",
     "Family rights are less important than winning arguments",

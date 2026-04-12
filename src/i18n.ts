@@ -494,6 +494,7 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
 const TOPIC_COPY: Record<SupportedLanguage, Partial<Record<TopicId, { title: string; description: string; focus: string; badge: string }>>> = {
   en: {
     foundation: { title: "Foundation", description: "The first Muslim habits: greeting with peace, praising Allah, saying Bismillah, and answering people well.", focus: "Salam, Alhamdulillah, Bismillah, everyday phrases, and gentle replies.", badge: "Start Here" },
+    prayer: { title: "Prayer", description: "Get ready for salah with clean, step-by-step wudu and simple prayer readiness.", focus: "Purity, wudu order, calm preparation, and getting ready to stand before Allah.", badge: "Prayer Basics" },
     manners: { title: "Manners", description: "Daily adab for speech, family, mercy, and the way Muslims carry themselves.", focus: "Spread peace, speak truth, honor parents, show mercy, and eat with adab.", badge: "Topic 2" },
     marriage: { title: "Marriage", description: "Learn the Islamic purpose of marriage, how to choose well, and how mercy and kindness build a home.", focus: "Righteous choices, mercy, kindness, rights, and building a peaceful home.", badge: "Topic 3" },
     sahabah: { title: "Sahabah", description: "Stories and qualities from the companions who carried Islam with courage and loyalty.", focus: "Truthfulness, justice, modesty, courage, patience, and firm faith.", badge: "Topic 4" },

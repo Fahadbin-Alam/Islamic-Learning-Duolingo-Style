@@ -47,6 +47,26 @@ function hadithSource(
   };
 }
 
+function videoSource(
+  id: string,
+  title: string,
+  url: string,
+  summary: string,
+  from = "YouTube video guide"
+): LessonSource {
+  return {
+    id,
+    site: "YouTube",
+    category: "video",
+    title,
+    url,
+    reference: "Video guide",
+    from,
+    grade: "Visual walkthrough",
+    summary
+  };
+}
+
 function mc(
   id: string,
   prompt: string,
@@ -121,7 +141,7 @@ export const STARTER_USER: UserProfile = {
 export const COURSE: LearningCourse = {
   id: "islam-foundations",
   title: "Sira Path",
-  subtitle: "Start with foundations, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, travel from Adam to Muhammad, and learn from the women honored in revelation.",
+  subtitle: "Start with foundations, get ready for prayer, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, travel from Adam to Muhammad, and learn from the women honored in revelation.",
   sections: [
     {
       id: "foundation",
@@ -204,6 +224,62 @@ export const COURSE: LearningCourse = {
           lessonIds: ["lesson-foundation-character"],
           requiredNodeIds: ["foundation-sneeze"],
           xpReward: 10,
+          starsReward: 3
+        }
+      ]
+    },
+    {
+      id: "prayer",
+      topicId: "prayer",
+      title: "Prayer",
+      description: "Learn how to prepare for salah with step-by-step wudu, clean order, and calm readiness before standing in prayer.",
+      badge: "Prayer Basics",
+      focus: "Purity, wudu order, washing and wiping correctly, and preparing for salah.",
+      mascot: "muslim_man",
+      accentColor: "#3A9FE8",
+      starsTarget: 9,
+      branches: [
+        {
+          id: "prayer-wudu",
+          title: "Wudu and preparation",
+          description: "Go step by step through wudu so prayer begins with cleanliness and calm."
+        }
+      ],
+      nodes: [
+        {
+          id: "prayer-wudu-why",
+          skillId: "skill_prayer_001",
+          title: "Why Wudu Matters",
+          topicId: "prayer",
+          branchId: "prayer-wudu",
+          kind: "skill",
+          lessonIds: ["lesson-prayer-wudu-why"],
+          requiredNodeIds: [],
+          xpReward: 10,
+          starsReward: 3
+        },
+        {
+          id: "prayer-wudu-steps",
+          skillId: "skill_prayer_002",
+          title: "Wudu Step by Step",
+          topicId: "prayer",
+          branchId: "prayer-wudu",
+          kind: "skill",
+          lessonIds: ["lesson-prayer-wudu-steps"],
+          requiredNodeIds: ["prayer-wudu-why"],
+          xpReward: 10,
+          starsReward: 3
+        },
+        {
+          id: "prayer-wudu-ready",
+          skillId: "skill_prayer_003",
+          title: "Ready for Salah",
+          topicId: "prayer",
+          branchId: "prayer-wudu",
+          kind: "review",
+          lessonIds: ["lesson-prayer-wudu-ready"],
+          requiredNodeIds: ["prayer-wudu-steps"],
+          xpReward: 12,
           starsReward: 3
         }
       ]
@@ -1069,6 +1145,192 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
         ],
         "a",
         "The fuller reply carries more beauty and reward in the sunnah."
+      )
+    ]
+  ),
+  "lesson-prayer-wudu-why": lesson(
+    "lesson-prayer-wudu-why",
+    "prayer-wudu-why",
+    "Why Wudu Matters",
+    "Before salah, a Muslim learns wudu so prayer begins with purity, obedience, and calm.",
+    10,
+    [
+      quranSource(
+        "source-prayer-wudu-why-quran-5-6",
+        "Wash before prayer",
+        "https://quran.com/en/5:6/tafsirs",
+        "Quran 5:6",
+        "Allah commands believers to wash key parts of the body before prayer, making wudu part of preparing to stand before Him."
+      ),
+      hadithSource(
+        "source-prayer-wudu-why-muslim-224",
+        "Prayer is not accepted without purification",
+        "https://sunnah.com/muslim:224",
+        "Sahih Muslim 224",
+        "Abu Hurairah; collected by Imam Muslim",
+        "Sahih",
+        "The Prophet taught that prayer is not accepted without purification, showing why wudu matters so much."
+      )
+    ],
+    [
+      mc(
+        "prayer-wudu-why-1",
+        "Why does a Muslim learn wudu before salah?",
+        [
+          ["a", "Because prayer begins with purification"],
+          ["b", "Because prayer has nothing to do with cleanliness"],
+          ["c", "Because wudu is only for special days"]
+        ],
+        "a",
+        "Wudu prepares the believer to stand in prayer with purity and obedience."
+      ),
+      tf(
+        "prayer-wudu-why-2",
+        "Wudu is connected to preparing for prayer in the Quran.",
+        true,
+        "Quran 5:6 links washing directly to getting ready for salah."
+      ),
+      mc(
+        "prayer-wudu-why-3",
+        "What feeling should wudu bring before prayer?",
+        [
+          ["a", "Clean readiness and calm"],
+          ["b", "Rush and carelessness"],
+          ["c", "Confusion about whether purity matters"]
+        ],
+        "a",
+        "Wudu is both physical cleanliness and a calm preparation for worship."
+      )
+    ]
+  ),
+  "lesson-prayer-wudu-steps": lesson(
+    "lesson-prayer-wudu-steps",
+    "prayer-wudu-steps",
+    "Wudu Step by Step",
+    "Go through wudu in order: wash, rinse, wipe, and finish clean and ready for salah.",
+    10,
+    [
+      quranSource(
+        "source-prayer-wudu-steps-quran-5-6",
+        "The order of washing and wiping",
+        "https://quran.com/en/5:6/tafsirs",
+        "Quran 5:6",
+        "The verse lays out the central parts of wudu: face, arms, head, and feet."
+      ),
+      hadithSource(
+        "source-prayer-wudu-steps-bukhari-164",
+        "Uthman showed the Prophet's wudu",
+        "https://sunnah.com/bukhari:164",
+        "Sahih al-Bukhari 164",
+        "Humran, the freed slave of Uthman; collected by Imam al-Bukhari",
+        "Sahih",
+        "Uthman demonstrated the wudu of the Prophet so Muslims could learn the order carefully."
+      ),
+      videoSource(
+        "source-prayer-wudu-video-1",
+        "Wudu video guide 1",
+        "https://youtu.be/6kt_POiIVZE?si=6KbLFWt1QZgJvDpt",
+        "A visual walk-through of wudu so learners can watch the order of the steps.",
+        "YouTube walk-through"
+      ),
+      videoSource(
+        "source-prayer-wudu-video-2",
+        "Wudu video guide 2",
+        "https://youtu.be/P29LMOHhpjE?si=x1H_8H_kQgI2dCFP",
+        "Another visual guide to reinforce the washing and wiping order in wudu.",
+        "YouTube walk-through"
+      ),
+      videoSource(
+        "source-prayer-wudu-video-3",
+        "Wudu video guide 3",
+        "https://youtu.be/iaj1wlQHRFA?si=2_nOF0QOGt4k5Nhv",
+        "A third walk-through for learners who want to see the sequence again and again.",
+        "YouTube walk-through"
+      )
+    ],
+    [
+      mc(
+        "prayer-wudu-steps-1",
+        "Which set is named in the Quran as part of wudu?",
+        [
+          ["a", "Face, arms, head, and feet"],
+          ["b", "Only the face and hands"],
+          ["c", "Only the feet and ears"]
+        ],
+        "a",
+        "Quran 5:6 names the core body parts to wash or wipe in wudu."
+      ),
+      mc(
+        "prayer-wudu-steps-2",
+        "In wudu, what happens with the head?",
+        [
+          ["a", "It is wiped"],
+          ["b", "It is washed like the arms"],
+          ["c", "It is skipped completely"]
+        ],
+        "a",
+        "The Quran teaches wiping the head, not washing it like the face or arms."
+      ),
+      tf(
+        "prayer-wudu-steps-3",
+        "Learning the order of wudu is easier when you watch and practice it carefully.",
+        true,
+        "That is why this lesson gives both source texts and video walk-throughs."
+      )
+    ]
+  ),
+  "lesson-prayer-wudu-ready": lesson(
+    "lesson-prayer-wudu-ready",
+    "prayer-wudu-ready",
+    "Ready for Salah",
+    "Now pull it together: wudu is an ordered preparation that leaves a Muslim clean and ready to pray.",
+    12,
+    [
+      quranSource(
+        "source-prayer-wudu-ready-quran-5-6",
+        "Purity before standing for prayer",
+        "https://quran.com/en/5:6/tafsirs",
+        "Quran 5:6",
+        "The verse ties washing directly to rising for prayer, so the believer learns order and readiness together."
+      ),
+      hadithSource(
+        "source-prayer-wudu-ready-muslim-224",
+        "Purification before accepted prayer",
+        "https://sunnah.com/muslim:224",
+        "Sahih Muslim 224",
+        "Abu Hurairah; collected by Imam Muslim",
+        "Sahih",
+        "The hadith keeps the learner focused: wudu is not random washing, but preparation for accepted worship."
+      )
+    ],
+    [
+      mc(
+        "prayer-wudu-ready-1",
+        "What is the main idea of this review lesson?",
+        [
+          ["a", "Wudu prepares the believer for prayer in an ordered way"],
+          ["b", "Wudu is optional whenever someone feels serious"],
+          ["c", "Prayer can start without caring about purity"]
+        ],
+        "a",
+        "This topic teaches that wudu is a real preparation for salah, not a side detail."
+      ),
+      mc(
+        "prayer-wudu-ready-2",
+        "Which habit fits this topic best?",
+        [
+          ["a", "Do wudu calmly and in order before prayer"],
+          ["b", "Rush through it and guess the steps"],
+          ["c", "Skip the order because it does not matter"]
+        ],
+        "a",
+        "Prayer readiness grows when a learner practices the steps with care."
+      ),
+      tf(
+        "prayer-wudu-ready-3",
+        "Wudu is both cleanliness and obedience before salah.",
+        true,
+        "The Quran and hadith both frame wudu as preparation to stand before Allah."
       )
     ]
   ),

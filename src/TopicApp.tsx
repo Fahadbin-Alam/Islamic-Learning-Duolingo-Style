@@ -32,6 +32,7 @@ import {
   normalizeLanguage,
   type UiStrings
 } from "./i18n";
+import { localizeLessonContent } from "./services/contentLocalization";
 import {
   createLocalAuthAccount,
   loadLocalAuthAccount,
@@ -316,12 +317,17 @@ export default function TopicApp() {
       return undefined;
     }
 
-    return {
-      ...state.activeSession,
-      lesson: {
+    const localizedLesson = localizeLessonContent(
+      {
         ...state.activeSession.lesson,
         title: getNodeTitle(state.activeSession.lesson.nodeId, state.activeSession.lesson.title, currentLanguage)
-      }
+      },
+      currentLanguage
+    );
+
+    return {
+      ...state.activeSession,
+      lesson: localizedLesson
     };
   }, [currentLanguage, state.activeSession]);
 
@@ -2491,6 +2497,10 @@ function GuideMascot({
 }
 
 function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
+  if (topicId === "prayer") {
+    return "sparkle_badge";
+  }
+
   if (topicId === "manners") {
     return "brain";
   }
@@ -2525,6 +2535,9 @@ function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accen
     "foundation-bismillah": { glyph: "sparkle_badge", outerColor: "#4ED7A5", innerColor: "#DDFBF1" },
     "foundation-sneeze": { glyph: "sparkle_badge", outerColor: "#A98BFF", innerColor: "#EFE8FF" },
     "foundation-character": { glyph: "sparkle_badge", outerColor: "#FF9D7A", innerColor: "#FFD7C8" },
+    "prayer-wudu-why": { glyph: "sparkle_badge", outerColor: "#4AA9F5", innerColor: "#DFF3FF" },
+    "prayer-wudu-steps": { glyph: "sparkle_badge", outerColor: "#58C5F4", innerColor: "#DFF8FF" },
+    "prayer-wudu-ready": { glyph: "sparkle_badge", outerColor: "#6B8DFF", innerColor: "#E8EEFF" },
     "manners-salam": { glyph: "brain", outerColor: "#49C38F", innerColor: "#CFF5E2" },
     "manners-truthful": { glyph: "brain", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
     "manners-parents": { glyph: "brain", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
@@ -2610,12 +2623,20 @@ function defaultSourceFrom(source: LessonSource) {
     return "The Quran and tafsir on Quran.com";
   }
 
+  if (source.site === "YouTube") {
+    return "YouTube video guide";
+  }
+
   return "Hadith collection on Sunnah.com";
 }
 
 function defaultSourceGrade(source: LessonSource) {
   if (source.site === "Quran.com") {
     return "Quran / tafsir";
+  }
+
+  if (source.site === "YouTube") {
+    return "Visual guide";
   }
 
   return "See source";
