@@ -2,6 +2,7 @@ export type TopicId =
   | "foundation"
   | "manners"
   | "sahabah"
+  | "prophets"
   | "quran_tafseer";
 
 export type CharacterVariant = "hijabi" | "muslim_man";

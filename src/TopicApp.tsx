@@ -2204,6 +2204,10 @@ function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
     return "shield_sword";
   }
 
+  if (topicId === "prophets") {
+    return "book_seal";
+  }
+
   if (topicId === "quran_tafseer") {
     return "book_open";
   }
@@ -2215,16 +2219,32 @@ function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accen
   const visualMap: Record<string, { glyph: NodeGlyphKind; outerColor: string; innerColor: string }> = {
     "foundation-niyyah": { glyph: "sparkle_badge", outerColor: "#FFC928", innerColor: "#FFE58A" },
     "foundation-guidance": { glyph: "sparkle_badge", outerColor: "#7ED7FF", innerColor: "#DDF5FF" },
+    "foundation-bismillah": { glyph: "sparkle_badge", outerColor: "#4ED7A5", innerColor: "#DDFBF1" },
+    "foundation-sneeze": { glyph: "sparkle_badge", outerColor: "#A98BFF", innerColor: "#EFE8FF" },
     "foundation-character": { glyph: "sparkle_badge", outerColor: "#FF9D7A", innerColor: "#FFD7C8" },
     "manners-salam": { glyph: "brain", outerColor: "#49C38F", innerColor: "#CFF5E2" },
     "manners-truthful": { glyph: "brain", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
     "manners-parents": { glyph: "brain", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
+    "manners-mercy": { glyph: "brain", outerColor: "#F3A84E", innerColor: "#FFF0D8" },
+    "manners-eating": { glyph: "brain", outerColor: "#F46F67", innerColor: "#FFE5E2" },
     "sahabah-abubakr": { glyph: "shield_sword", outerColor: "#1FC1A3", innerColor: "#D7FBF4" },
     "sahabah-umar": { glyph: "shield_sword", outerColor: "#2AB7A6", innerColor: "#D7F7F3" },
+    "sahabah-uthman": { glyph: "shield_sword", outerColor: "#3DB5C8", innerColor: "#DDF6FB" },
+    "sahabah-ali": { glyph: "shield_sword", outerColor: "#2D9AE0", innerColor: "#DCEEFF" },
     "sahabah-bilal": { glyph: "shield_sword", outerColor: "#5EC0A7", innerColor: "#DDF7EF" },
     "quran-fatiha": { glyph: "book_open", outerColor: "#40A8FF", innerColor: "#DDF0FF" },
     "quran-ikhlas": { glyph: "book_marked", outerColor: "#6AA4FF", innerColor: "#E2ECFF" },
+    "quran-kursi": { glyph: "book_seal", outerColor: "#6A7FFF", innerColor: "#E7EBFF" },
+    "quran-asr": { glyph: "book_closed", outerColor: "#4A78E8", innerColor: "#DDE7FF" },
     "quran-tafseer": { glyph: "book_stack", outerColor: "#7D8CFF", innerColor: "#E7E9FF" }
+    ,
+    "prophets-adam": { glyph: "book_seal", outerColor: "#F0A53E", innerColor: "#FFF0D8" },
+    "prophets-nuh": { glyph: "book_seal", outerColor: "#48A5D9", innerColor: "#DDF2FF" },
+    "prophets-ibrahim": { glyph: "book_seal", outerColor: "#D97B2D", innerColor: "#FFE8D4" },
+    "prophets-yusuf": { glyph: "book_seal", outerColor: "#7CCB6A", innerColor: "#E6F8E0" },
+    "prophets-musa": { glyph: "book_seal", outerColor: "#27B3A2", innerColor: "#D8F7F2" },
+    "prophets-isa": { glyph: "book_seal", outerColor: "#7C92FF", innerColor: "#E7EBFF" },
+    "prophets-muhammad": { glyph: "book_seal", outerColor: "#F47C5D", innerColor: "#FFE4DB" }
   };
   const fallback = { glyph: "book_closed" as NodeGlyphKind, outerColor: accentColor, innerColor: lightenColor(accentColor, 0.88) };
   const selected = visualMap[nodeId] ?? fallback;
