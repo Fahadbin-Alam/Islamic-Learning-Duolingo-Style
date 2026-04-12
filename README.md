@@ -25,7 +25,10 @@ npx eas build -p android --profile production
 ## What is included
 
 - A path screen with locked, current, available, and completed circular lesson nodes.
-- Starter lessons for manners, Sahabah, prayer, Quran, and daily review.
+- A foundation-first flow, followed by manners, Sahabah, and Quran with tafsir.
+- Source-backed lesson notes linked to Quran.com and Sunnah.com.
+- A timed account prompt during Foundation so learners can save their progress.
+- Topic-based star progress for each learning path.
 - Challenge sessions with correct/wrong feedback and XP rewards.
 - A daily hearts model with wrong-answer heart loss.
 - A shop with rewarded-ad hearts, paid heart packs, and a monthly membership state.

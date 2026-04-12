@@ -1,4 +1,5 @@
 export type TopicId =
+  | "foundation"
   | "manners"
   | "sahabah"
   | "quran_tafseer";
@@ -23,6 +24,9 @@ export interface UserProfile {
   username: string;
   displayName: string;
   avatarInitials: string;
+  hasAccount?: boolean;
+  accountEmail?: string;
+  accountCreatedAt?: string;
   streakDays: number;
   totalXp: number;
   dailyGoalXp: number;
@@ -49,6 +53,7 @@ export interface LearningSection {
   focus: string;
   mascot: CharacterVariant;
   accentColor: string;
+  starsTarget: number;
   nodes: LearningNode[];
 }
 
@@ -61,6 +66,7 @@ export interface LearningNode {
   lessonIds: string[];
   requiredNodeIds: string[];
   xpReward: number;
+  starsReward: number;
 }
 
 export interface LearningNodeView extends LearningNode {
@@ -88,7 +94,17 @@ export interface Lesson {
   title: string;
   intro: string;
   xpReward: number;
+  sources: LessonSource[];
   challenges: Challenge[];
+}
+
+export interface LessonSource {
+  id: string;
+  site: "Quran.com" | "Sunnah.com";
+  category: "tafsir" | "hadith";
+  title: string;
+  url: string;
+  summary: string;
 }
 
 export interface LessonSession {

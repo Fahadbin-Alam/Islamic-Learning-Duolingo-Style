@@ -1,12 +1,15 @@
-import React, { useEffect, useMemo, useReducer } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import {
   Alert,
+  Linking,
+  Modal,
   Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   View
 } from "react-native";
 import {
@@ -23,6 +26,7 @@ import type {
   CharacterVariant,
   LearningNodeView,
   LearningSection,
+  LessonSource,
   LessonSession,
   ShopItem,
   TopicId,
@@ -60,7 +64,7 @@ type Action =
 
 const initialState: AppState = {
   screen: "path",
-  selectedTopic: "manners",
+  selectedTopic: "foundation",
   xpSummary: [],
   challengeIndex: 0,
   answerState: undefined,
@@ -126,6 +130,10 @@ function reducer(state: AppState, action: Action): AppState {
 
 export default function TopicApp() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [accountModalVisible, setAccountModalVisible] = useState(false);
+  const [accountPromptShown, setAccountPromptShown] = useState(false);
+  const [accountName, setAccountName] = useState("");
+  const [accountEmail, setAccountEmail] = useState("");
 
   useEffect(() => {
     let mounted = true;
@@ -165,6 +173,25 @@ export default function TopicApp() {
 
     return getSectionByNodeId(state.activeSession.lesson.nodeId) ?? selectedSection;
   }, [selectedSection, state.activeSession]);
+
+  const isInFoundationExperience =
+    (state.screen === "path" && selectedSection.topicId === "foundation") ||
+    (state.screen === "lesson" && currentLessonSection.topicId === "foundation");
+
+  useEffect(() => {
+    if (!state.user || state.user.hasAccount || accountPromptShown || !isInFoundationExperience) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setAccountPromptShown(true);
+      setAccountModalVisible(true);
+    }, 180000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [accountPromptShown, isInFoundationExperience, state.user]);
 
   async function startLesson(node: LearningNodeView) {
     if (!state.user) {
@@ -241,6 +268,38 @@ export default function TopicApp() {
     }
   }
 
+  function createAccount() {
+    if (!state.user) {
+      return;
+    }
+
+    if (!accountName.trim() || !accountEmail.trim()) {
+      Alert.alert("Almost there", "Add your name and email so your progress has an account.");
+      return;
+    }
+
+    const initials = accountName
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase() ?? "")
+      .join("") || "SP";
+
+    dispatch({
+      type: "apply_user",
+      user: {
+        ...state.user,
+        hasAccount: true,
+        displayName: accountName.trim(),
+        username: accountEmail.trim().split("@")[0] || state.user.username,
+        avatarInitials: initials,
+        accountEmail: accountEmail.trim(),
+        accountCreatedAt: new Date().toISOString()
+      }
+    });
+    setAccountModalVisible(false);
+  }
+
   if (state.loading || !state.user) {
     return (
       <SafeAreaView style={styles.safeArea}>
@@ -293,6 +352,15 @@ export default function TopicApp() {
           />
         )}
         <AdBanner hidden={state.user.hearts.unlimited || state.screen === "lesson"} />
+        <FoundationAccountModal
+          visible={accountModalVisible}
+          onClose={() => setAccountModalVisible(false)}
+          onCreate={createAccount}
+          accountName={accountName}
+          accountEmail={accountEmail}
+          onChangeName={setAccountName}
+          onChangeEmail={setAccountEmail}
+        />
       </View>
     </SafeAreaView>
   );
@@ -347,10 +415,17 @@ function PathScreen({
 }) {
   const progress = Math.min(1, user.totalXp / user.dailyGoalXp);
   const nextNode = nodes.find((node) => node.status === "current") ?? nodes.find((node) => node.status === "available");
+  const earnedStars = getSectionStars(user, section);
 
   return (
     <ScrollView contentContainerStyle={styles.pathContent} showsVerticalScrollIndicator={false}>
-      <HeroCard section={section} progress={progress} gainedXp={xpSummary?.gainedXp ?? user.totalXp} onContinue={() => nextNode && onStartLesson(nextNode)} />
+      <HeroCard
+        section={section}
+        progress={progress}
+        gainedXp={xpSummary?.gainedXp ?? user.totalXp}
+        earnedStars={earnedStars}
+        onContinue={() => nextNode && onStartLesson(nextNode)}
+      />
 
       <View style={styles.topicHeader}>
         <Text style={styles.sectionTitle}>Choose a topic</Text>
@@ -362,6 +437,7 @@ function PathScreen({
           <TopicCard
             key={topic.topicId}
             section={topic}
+            earnedStars={getSectionStars(user, topic)}
             selected={topic.topicId === selectedTopic}
             onPress={() => onSelectTopic(topic.topicId)}
           />
@@ -374,6 +450,7 @@ function PathScreen({
             <Text style={styles.routeBadge}>{section.badge}</Text>
             <Text style={styles.routeTitle}>{section.title}</Text>
             <Text style={styles.routeDescription}>{section.focus}</Text>
+            <StarMeter earned={earnedStars} total={section.starsTarget} compact={false} />
           </View>
           <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={92} />
         </View>
@@ -411,11 +488,13 @@ function HeroCard({
   section,
   progress,
   gainedXp,
+  earnedStars,
   onContinue
 }: {
   section: LearningSection;
   progress: number;
   gainedXp: number;
+  earnedStars: number;
   onContinue: () => void;
 }) {
   return (
@@ -424,6 +503,7 @@ function HeroCard({
         <Text style={styles.heroBadge}>{section.badge}</Text>
         <Text style={styles.heroTitle}>Learn {section.title}</Text>
         <Text style={styles.heroCopy}>{section.description}</Text>
+        <StarMeter earned={earnedStars} total={section.starsTarget} light compact={false} />
         <View style={styles.heroTrack}>
           <View style={[styles.heroFill, { width: `${progress * 100}%` }]} />
         </View>
@@ -441,10 +521,12 @@ function HeroCard({
 
 function TopicCard({
   section,
+  earnedStars,
   selected,
   onPress
 }: {
   section: LearningSection;
+  earnedStars: number;
   selected: boolean;
   onPress: () => void;
 }) {
@@ -459,6 +541,7 @@ function TopicCard({
       <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={72} />
       <Text style={styles.topicCardTitle}>{section.title}</Text>
       <Text style={styles.topicCardCopy}>{section.focus}</Text>
+      <StarMeter earned={earnedStars} total={section.starsTarget} compact />
     </Pressable>
   );
 }
@@ -496,6 +579,9 @@ function PathNode({
           <Text style={[styles.nodeMark, node.status === "locked" && styles.nodeMarkLocked]}>
             {node.status === "completed" ? "OK" : getTopicMark(node.topicId)}
           </Text>
+          <View style={styles.nodeStarsBadge}>
+            <Text style={styles.nodeStarsText}>{`${node.starsReward}★`}</Text>
+          </View>
         </Pressable>
         {!isLast && <View style={[styles.nodeConnector, { backgroundColor: accentColor }]} />}
       </View>
@@ -594,6 +680,8 @@ function LessonScreen({
             );
           })}
         </View>
+
+        {session.lesson.sources.length > 0 && <LessonSources sources={session.lesson.sources} accentColor={section.accentColor} />}
       </View>
 
       <LessonFooter
@@ -701,6 +789,98 @@ function ShopScreen({
   );
 }
 
+function LessonSources({ sources, accentColor }: { sources: LessonSource[]; accentColor: string }) {
+  return (
+    <View style={styles.sourcesBlock}>
+      <Text style={styles.sourcesTitle}>Source notes</Text>
+      {sources.map((source) => (
+        <Pressable key={source.id} onPress={() => Linking.openURL(source.url)} style={[styles.sourceCard, { borderColor: accentColor }]}>
+          <View style={styles.sourceHeader}>
+            <Text style={[styles.sourceBadge, { backgroundColor: lightenColor(accentColor, 0.88) }]}>{source.site}</Text>
+            <Text style={styles.sourceCategory}>{source.category}</Text>
+          </View>
+          <Text style={styles.sourceTitle}>{source.title}</Text>
+          <Text style={styles.sourceCopy}>{source.summary}</Text>
+          <Text style={styles.sourceLink}>Open source</Text>
+        </Pressable>
+      ))}
+    </View>
+  );
+}
+
+function StarMeter({
+  earned,
+  total,
+  compact = false,
+  light = false
+}: {
+  earned: number;
+  total: number;
+  compact?: boolean;
+  light?: boolean;
+}) {
+  return (
+    <View style={[styles.starMeter, compact && styles.starMeterCompact]}>
+      <Text style={[styles.starMeterValue, light && styles.starMeterValueLight]}>{`${earned}/${total} ★`}</Text>
+      {!compact && <Text style={[styles.starMeterLabel, light && styles.starMeterLabelLight]}>Stars in this part</Text>}
+    </View>
+  );
+}
+
+function FoundationAccountModal({
+  visible,
+  onClose,
+  onCreate,
+  accountName,
+  accountEmail,
+  onChangeName,
+  onChangeEmail
+}: {
+  visible: boolean;
+  onClose: () => void;
+  onCreate: () => void;
+  accountName: string;
+  accountEmail: string;
+  onChangeName: (value: string) => void;
+  onChangeEmail: (value: string) => void;
+}) {
+  return (
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+      <View style={styles.modalBackdrop}>
+        <View style={styles.modalCard}>
+          <Text style={styles.modalEyebrow}>Keep your progress</Text>
+          <Text style={styles.modalTitle}>Having fun learning?</Text>
+          <Text style={styles.modalCopy}>Create an account to save your Foundation progress and keep your stars, streak, and lesson path.</Text>
+          <TextInput
+            value={accountName}
+            onChangeText={onChangeName}
+            placeholder="Your name"
+            placeholderTextColor={colors.muted}
+            style={styles.input}
+          />
+          <TextInput
+            value={accountEmail}
+            onChangeText={onChangeEmail}
+            placeholder="Email address"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            placeholderTextColor={colors.muted}
+            style={styles.input}
+          />
+          <View style={styles.modalActions}>
+            <Pressable onPress={onClose} style={styles.modalGhostButton}>
+              <Text style={styles.modalGhostText}>Later</Text>
+            </Pressable>
+            <Pressable onPress={onCreate} style={styles.modalPrimaryButton}>
+              <Text style={styles.modalPrimaryText}>Create account</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
 function AdBanner({ hidden }: { hidden: boolean }) {
   if (hidden) {
     return null;
@@ -723,44 +903,60 @@ function GuideMascot({
   accentColor: string;
   size: number;
 }) {
-  const head = size * 0.33;
-  const headBottom = size * 0.39;
+  const head = size * 0.3;
+  const faceBottom = size * 0.4;
   const skin = "#F6C7A8";
-  const dark = "#27313B";
+  const dark = "#243245";
+  const cloak = lightenColor(accentColor, 0.72);
 
   return (
     <View style={{ width: size, height: size, alignItems: "center", justifyContent: "flex-end" }}>
-      <View style={{ position: "absolute", bottom: size * 0.04, width: size * 0.48, height: size * 0.11, borderRadius: size * 0.06, backgroundColor: "rgba(20,37,27,0.10)" }} />
-      <View style={{ position: "absolute", bottom: size * 0.02, width: size * 0.7, height: size * 0.14, borderRadius: 999, backgroundColor: "#FFFFFF" }} />
-      <View style={{ position: "absolute", bottom: size * 0.14, width: size * 0.4, height: size * 0.1, borderRadius: 999, backgroundColor: "#EDF3F1" }} />
-      <View style={{ position: "absolute", bottom: size * 0.14, width: size * 0.46, height: size * 0.34, borderRadius: size * 0.18, backgroundColor: accentColor }} />
+      <View style={{ position: "absolute", top: size * 0.12, left: size * 0.08, width: size * 0.1, height: size * 0.1, borderRadius: 999, backgroundColor: "#FFFFFF", opacity: 0.9 }} />
+      <Text style={{ position: "absolute", top: size * 0.07, left: size * 0.05, color: "#FFFFFF", fontSize: size * 0.13 }}>★</Text>
+      <Text style={{ position: "absolute", top: size * 0.14, right: size * 0.08, color: "#FFFFFF", fontSize: size * 0.1 }}>✦</Text>
+      <View style={{ position: "absolute", bottom: size * 0.03, width: size * 0.62, height: size * 0.12, borderRadius: 999, backgroundColor: "rgba(20,37,27,0.10)" }} />
+      <View style={{ position: "absolute", bottom: size * 0.02, width: size * 0.74, height: size * 0.14, borderRadius: 999, backgroundColor: "#FFFFFF" }} />
+      <View style={{ position: "absolute", bottom: size * 0.13, width: size * 0.5, height: size * 0.36, borderTopLeftRadius: size * 0.16, borderTopRightRadius: size * 0.16, borderBottomLeftRadius: size * 0.12, borderBottomRightRadius: size * 0.12, backgroundColor: accentColor }} />
+      <View style={{ position: "absolute", bottom: size * 0.19, width: size * 0.56, height: size * 0.16, borderRadius: 999, backgroundColor: cloak }} />
+      <View style={{ position: "absolute", bottom: size * 0.18, left: size * 0.18, width: size * 0.12, height: size * 0.08, borderRadius: 999, backgroundColor: accentColor, transform: [{ rotate: "-20deg" }] }} />
+      <View style={{ position: "absolute", bottom: size * 0.18, right: size * 0.18, width: size * 0.12, height: size * 0.08, borderRadius: 999, backgroundColor: accentColor, transform: [{ rotate: "20deg" }] }} />
+      <View style={{ position: "absolute", bottom: size * 0.2, width: size * 0.26, height: size * 0.1, borderRadius: 8, backgroundColor: "#FFFFFF", borderWidth: 1, borderColor: "rgba(36,50,69,0.12)" }} />
+      <View style={{ position: "absolute", bottom: size * 0.232, width: size * 0.18, height: size * 0.01, borderRadius: 999, backgroundColor: accentColor }} />
+      <View style={{ position: "absolute", bottom: size * 0.215, width: size * 0.14, height: size * 0.01, borderRadius: 999, backgroundColor: accentColor }} />
 
       {variant === "hijabi" ? (
         <>
-          <View style={{ position: "absolute", bottom: headBottom - size * 0.04, width: head * 1.2, height: head * 1.28, borderRadius: head * 0.64, backgroundColor: "#24394F" }} />
-          <View style={{ position: "absolute", bottom: headBottom - size * 0.05, width: head * 1.02, height: head * 0.72, borderBottomLeftRadius: head * 0.5, borderBottomRightRadius: head * 0.5, borderTopLeftRadius: head * 0.22, borderTopRightRadius: head * 0.22, backgroundColor: "#24394F" }} />
+          <View style={{ position: "absolute", bottom: faceBottom - size * 0.05, width: head * 1.32, height: head * 1.38, borderRadius: head * 0.7, backgroundColor: "#324C6B" }} />
+          <View style={{ position: "absolute", bottom: faceBottom - size * 0.01, width: head * 0.94, height: head * 0.84, borderBottomLeftRadius: head * 0.44, borderBottomRightRadius: head * 0.44, borderTopLeftRadius: head * 0.18, borderTopRightRadius: head * 0.18, backgroundColor: "#324C6B" }} />
+          <View style={{ position: "absolute", bottom: faceBottom - size * 0.03, left: size * 0.31, width: head * 0.25, height: head * 0.84, borderRadius: head * 0.18, backgroundColor: "#24394F" }} />
+          <View style={{ position: "absolute", bottom: faceBottom - size * 0.03, right: size * 0.31, width: head * 0.25, height: head * 0.84, borderRadius: head * 0.18, backgroundColor: "#24394F" }} />
         </>
       ) : (
         <>
-          <View style={{ position: "absolute", bottom: headBottom + head * 0.34, width: head * 0.95, height: head * 0.34, borderTopLeftRadius: head * 0.24, borderTopRightRadius: head * 0.24, borderBottomLeftRadius: head * 0.12, borderBottomRightRadius: head * 0.12, backgroundColor: dark }} />
-          <View style={{ position: "absolute", bottom: headBottom - head * 0.18, width: head * 0.88, height: head * 0.46, borderBottomLeftRadius: head * 0.3, borderBottomRightRadius: head * 0.3, borderTopLeftRadius: head * 0.2, borderTopRightRadius: head * 0.2, backgroundColor: dark }} />
-          <View style={{ position: "absolute", bottom: headBottom + head * 0.08, left: size * 0.22, width: head * 0.18, height: head * 0.18, borderRadius: 999, backgroundColor: dark }} />
-          <View style={{ position: "absolute", bottom: headBottom + head * 0.08, right: size * 0.22, width: head * 0.18, height: head * 0.18, borderRadius: 999, backgroundColor: dark }} />
+          <View style={{ position: "absolute", bottom: faceBottom + head * 0.55, width: head * 0.92, height: head * 0.26, borderTopLeftRadius: head * 0.18, borderTopRightRadius: head * 0.18, borderBottomLeftRadius: head * 0.1, borderBottomRightRadius: head * 0.1, backgroundColor: "#EDEFF2" }} />
+          <View style={{ position: "absolute", bottom: faceBottom + head * 0.38, width: head * 0.98, height: head * 0.28, borderRadius: 999, backgroundColor: dark }} />
+          <View style={{ position: "absolute", bottom: faceBottom + head * 0.2, width: head * 1.02, height: head * 0.22, borderRadius: 999, backgroundColor: dark }} />
+          <View style={{ position: "absolute", bottom: faceBottom - head * 0.02, width: head * 0.94, height: head * 0.48, borderBottomLeftRadius: head * 0.32, borderBottomRightRadius: head * 0.32, borderTopLeftRadius: head * 0.2, borderTopRightRadius: head * 0.2, backgroundColor: dark }} />
+          <View style={{ position: "absolute", bottom: faceBottom + head * 0.12, left: size * 0.22, width: head * 0.18, height: head * 0.18, borderRadius: 999, backgroundColor: dark }} />
+          <View style={{ position: "absolute", bottom: faceBottom + head * 0.12, right: size * 0.22, width: head * 0.18, height: head * 0.18, borderRadius: 999, backgroundColor: dark }} />
         </>
       )}
 
-      <View style={{ position: "absolute", bottom: headBottom, width: head, height: head, borderRadius: head / 2, backgroundColor: skin }} />
-      <View style={{ position: "absolute", bottom: headBottom + head * 0.56, width: head * 0.75, height: head * 0.16, borderRadius: 999, backgroundColor: variant === "hijabi" ? "#24394F" : dark }} />
-      <View style={{ position: "absolute", bottom: headBottom + head * 0.36, left: size * 0.39, width: head * 0.08, height: head * 0.08, borderRadius: 999, backgroundColor: dark }} />
-      <View style={{ position: "absolute", bottom: headBottom + head * 0.36, right: size * 0.39, width: head * 0.08, height: head * 0.08, borderRadius: 999, backgroundColor: dark }} />
-      <View style={{ position: "absolute", bottom: headBottom + head * 0.18, width: head * 0.16, height: head * 0.03, borderRadius: 999, backgroundColor: "#BC8A70" }} />
-      <View style={{ position: "absolute", bottom: headBottom + head * 0.1, width: head * 0.22, height: head * 0.05, borderRadius: 999, backgroundColor: "#C77068" }} />
+      <View style={{ position: "absolute", bottom: faceBottom, width: head, height: head, borderRadius: head / 2, backgroundColor: skin }} />
+      <View style={{ position: "absolute", bottom: faceBottom + head * 0.62, width: head * 0.72, height: head * 0.13, borderRadius: 999, backgroundColor: variant === "hijabi" ? "#324C6B" : dark }} />
+      <View style={{ position: "absolute", bottom: faceBottom + head * 0.38, left: size * 0.385, width: head * 0.07, height: head * 0.07, borderRadius: 999, backgroundColor: dark }} />
+      <View style={{ position: "absolute", bottom: faceBottom + head * 0.38, right: size * 0.385, width: head * 0.07, height: head * 0.07, borderRadius: 999, backgroundColor: dark }} />
+      <View style={{ position: "absolute", bottom: faceBottom + head * 0.2, width: head * 0.14, height: head * 0.03, borderRadius: 999, backgroundColor: "#BC8A70" }} />
+      <View style={{ position: "absolute", bottom: faceBottom + head * 0.1, width: head * 0.24, height: head * 0.05, borderRadius: 999, backgroundColor: "#D47D74" }} />
+      <View style={{ position: "absolute", bottom: faceBottom - head * 0.06, width: head * 0.26, height: head * 0.09, borderRadius: 999, backgroundColor: "#F1B28D" }} />
     </View>
   );
 }
 
 function getTopicMark(topicId: TopicId) {
   switch (topicId) {
+    case "foundation":
+      return "FD";
     case "manners":
       return "MN";
     case "sahabah":
@@ -798,6 +994,14 @@ function formatHearts(user: UserProfile, compact = false) {
 
 function getSectionByNodeId(nodeId: string) {
   return COURSE.sections.find((section) => section.nodes.some((node) => node.id === nodeId));
+}
+
+function getSectionStars(user: UserProfile, section: LearningSection) {
+  const completed = new Set(user.completedNodeIds);
+
+  return section.nodes.reduce((total, node) => {
+    return total + (completed.has(node.id) ? node.starsReward : 0);
+  }, 0);
 }
 
 function lightenColor(hex: string, ratio = 0.82) {
@@ -862,6 +1066,12 @@ const styles = StyleSheet.create({
   heroBadge: { color: "#DFF7EE", fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   heroTitle: { color: colors.white, fontSize: 30, lineHeight: 35, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   heroCopy: { color: "#EAF8F2", fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0, marginTop: 6 },
+  starMeter: { marginTop: 10, alignSelf: "flex-start", borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6, backgroundColor: "rgba(255,255,255,0.18)" },
+  starMeterCompact: { marginTop: 10, paddingHorizontal: 10, paddingVertical: 5, backgroundColor: "#FFF7DA" },
+  starMeterValue: { color: colors.ink, fontSize: 13, fontWeight: "900", letterSpacing: 0 },
+  starMeterValueLight: { color: colors.white },
+  starMeterLabel: { color: colors.muted, fontSize: 11, fontWeight: "700", letterSpacing: 0, marginTop: 2 },
+  starMeterLabelLight: { color: "#EAF8F2" },
   heroTrack: { height: 12, borderRadius: 6, overflow: "hidden", backgroundColor: "rgba(255,255,255,0.28)", marginTop: 16 },
   heroFill: { height: 12, backgroundColor: colors.white },
   heroProgress: { color: "#EAF8F2", fontSize: 13, fontWeight: "800", letterSpacing: 0, marginTop: 8 },
@@ -891,6 +1101,8 @@ const styles = StyleSheet.create({
   nodeLocked: { backgroundColor: colors.gray, borderColor: colors.line },
   nodePressed: { transform: [{ scale: 0.97 }] },
   nodeMark: { color: colors.ink, fontWeight: "900", fontSize: 18, letterSpacing: 0 },
+  nodeStarsBadge: { position: "absolute", bottom: -6, paddingHorizontal: 8, paddingVertical: 2, borderRadius: 999, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line },
+  nodeStarsText: { color: colors.ink, fontSize: 11, fontWeight: "900", letterSpacing: 0 },
   nodeMarkLocked: { color: colors.muted },
   nodeTextBlock: { width: 164, marginTop: 8 },
   nodeTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", textAlign: "center", letterSpacing: 0 },
@@ -921,6 +1133,15 @@ const styles = StyleSheet.create({
   choiceSelected: { borderColor: colors.sky, backgroundColor: colors.skySoft },
   choiceWrong: { borderColor: colors.coral, backgroundColor: colors.coralSoft },
   choiceText: { color: colors.ink, fontSize: 16, lineHeight: 22, fontWeight: "800", letterSpacing: 0 },
+  sourcesBlock: { marginTop: 24, gap: 10 },
+  sourcesTitle: { color: colors.ink, fontSize: 17, fontWeight: "900", letterSpacing: 0 },
+  sourceCard: { borderRadius: 8, borderWidth: 1, backgroundColor: "#FBFDFC", padding: 14 },
+  sourceHeader: { flexDirection: "row", alignItems: "center", gap: 8 },
+  sourceBadge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999, color: colors.ink, fontSize: 11, fontWeight: "900", overflow: "hidden" },
+  sourceCategory: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0 },
+  sourceTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
+  sourceCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 6 },
+  sourceLink: { color: colors.sky, fontSize: 12, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
   feedbackPane: { padding: 18, gap: 12, borderTopWidth: 1, borderTopColor: colors.line, backgroundColor: colors.white },
   feedbackBad: { backgroundColor: colors.coralSoft },
   feedbackTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0 },
@@ -939,6 +1160,17 @@ const styles = StyleSheet.create({
   shopItemCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   secondaryButton: { minWidth: 84, minHeight: 44, alignItems: "center", justifyContent: "center", borderRadius: 8 },
   secondaryButtonText: { color: colors.white, fontWeight: "900", letterSpacing: 0 },
+  modalBackdrop: { flex: 1, backgroundColor: "rgba(20,37,27,0.45)", alignItems: "center", justifyContent: "center", padding: 24 },
+  modalCard: { width: "100%", maxWidth: 420, borderRadius: 8, backgroundColor: colors.white, padding: 18, borderWidth: 1, borderColor: colors.line },
+  modalEyebrow: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
+  modalTitle: { color: colors.ink, fontSize: 26, lineHeight: 31, fontWeight: "900", letterSpacing: 0, marginTop: 6 },
+  modalCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 8, marginBottom: 14 },
+  input: { minHeight: 48, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#FBFDFC", paddingHorizontal: 14, color: colors.ink, marginTop: 10 },
+  modalActions: { flexDirection: "row", gap: 10, marginTop: 16 },
+  modalGhostButton: { flex: 1, minHeight: 48, borderRadius: 8, alignItems: "center", justifyContent: "center", backgroundColor: colors.gray },
+  modalGhostText: { color: colors.ink, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
+  modalPrimaryButton: { flex: 1, minHeight: 48, borderRadius: 8, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
+  modalPrimaryText: { color: colors.white, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
   adBanner: { position: "absolute", left: 12, right: 12, bottom: 10, minHeight: 56, borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   adLabel: { color: colors.sky, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   adCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", letterSpacing: 0, marginTop: 2 }

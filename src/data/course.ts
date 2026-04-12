@@ -7,8 +7,8 @@ export const STARTER_USER: UserProfile = {
   username: "learner",
   displayName: "New Learner",
   avatarInitials: "NL",
-  streakDays: 3,
-  totalXp: 10,
+  streakDays: 1,
+  totalXp: 0,
   dailyGoalXp: 40,
   gems: 120,
   hearts: {
@@ -17,24 +17,71 @@ export const STARTER_USER: UserProfile = {
     unlimited: false,
     lastRefillDate: today
   },
-  completedLessonIds: ["lesson-salam"],
-  completedNodeIds: ["manners-salam"]
+  completedLessonIds: [],
+  completedNodeIds: []
 };
 
 export const COURSE: LearningCourse = {
   id: "islam-foundations",
   title: "Sira Path",
-  subtitle: "Pick a topic and move through it one circle at a time.",
+  subtitle: "Start with foundations, then move into manners, Sahabah, and Quran with tafsir.",
   sections: [
+    {
+      id: "foundation",
+      topicId: "foundation",
+      title: "Foundation",
+      description: "The first steps: intention, Quran as guidance, and prophetic character.",
+      badge: "Start Here",
+      focus: "Belief, intention, guidance, and character.",
+      mascot: "hijabi",
+      accentColor: "#F3A712",
+      starsTarget: 9,
+      nodes: [
+        {
+          id: "foundation-niyyah",
+          skillId: "skill_foundation_001",
+          title: "Intentions",
+          topicId: "foundation",
+          kind: "skill",
+          lessonIds: ["lesson-foundation-niyyah"],
+          requiredNodeIds: [],
+          xpReward: 8,
+          starsReward: 3
+        },
+        {
+          id: "foundation-guidance",
+          skillId: "skill_foundation_002",
+          title: "Guidance from the Quran",
+          topicId: "foundation",
+          kind: "skill",
+          lessonIds: ["lesson-foundation-guidance"],
+          requiredNodeIds: ["foundation-niyyah"],
+          xpReward: 8,
+          starsReward: 3
+        },
+        {
+          id: "foundation-character",
+          skillId: "skill_foundation_003",
+          title: "Best character",
+          topicId: "foundation",
+          kind: "review",
+          lessonIds: ["lesson-foundation-character"],
+          requiredNodeIds: ["foundation-guidance"],
+          xpReward: 10,
+          starsReward: 3
+        }
+      ]
+    },
     {
       id: "manners",
       topicId: "manners",
       title: "Manners",
       description: "Daily adab for speech, family, and honesty.",
-      badge: "Topic 1",
-      focus: "Kindness, respect, and truthful behavior.",
+      badge: "Topic 2",
+      focus: "Kindness, respect, truthful speech, and good conduct.",
       mascot: "hijabi",
       accentColor: "#14B884",
+      starsTarget: 9,
       nodes: [
         {
           id: "manners-salam",
@@ -44,7 +91,8 @@ export const COURSE: LearningCourse = {
           kind: "skill",
           lessonIds: ["lesson-salam"],
           requiredNodeIds: [],
-          xpReward: 10
+          xpReward: 10,
+          starsReward: 3
         },
         {
           id: "manners-truthful",
@@ -54,7 +102,8 @@ export const COURSE: LearningCourse = {
           kind: "skill",
           lessonIds: ["lesson-truthful"],
           requiredNodeIds: ["manners-salam"],
-          xpReward: 10
+          xpReward: 10,
+          starsReward: 3
         },
         {
           id: "manners-parents",
@@ -64,7 +113,8 @@ export const COURSE: LearningCourse = {
           kind: "skill",
           lessonIds: ["lesson-parents"],
           requiredNodeIds: ["manners-truthful"],
-          xpReward: 12
+          xpReward: 12,
+          starsReward: 3
         }
       ]
     },
@@ -73,10 +123,11 @@ export const COURSE: LearningCourse = {
       topicId: "sahabah",
       title: "Sahabah",
       description: "Stories and qualities from the companions.",
-      badge: "Topic 2",
+      badge: "Topic 3",
       focus: "Truthfulness, courage, patience, and loyalty.",
       mascot: "muslim_man",
       accentColor: "#0C9F8C",
+      starsTarget: 9,
       nodes: [
         {
           id: "sahabah-abubakr",
@@ -86,7 +137,8 @@ export const COURSE: LearningCourse = {
           kind: "story",
           lessonIds: ["lesson-abubakr"],
           requiredNodeIds: [],
-          xpReward: 12
+          xpReward: 12,
+          starsReward: 3
         },
         {
           id: "sahabah-umar",
@@ -96,7 +148,8 @@ export const COURSE: LearningCourse = {
           kind: "story",
           lessonIds: ["lesson-umar"],
           requiredNodeIds: ["sahabah-abubakr"],
-          xpReward: 12
+          xpReward: 12,
+          starsReward: 3
         },
         {
           id: "sahabah-bilal",
@@ -106,7 +159,8 @@ export const COURSE: LearningCourse = {
           kind: "story",
           lessonIds: ["lesson-bilal"],
           requiredNodeIds: ["sahabah-umar"],
-          xpReward: 14
+          xpReward: 14,
+          starsReward: 3
         }
       ]
     },
@@ -114,11 +168,12 @@ export const COURSE: LearningCourse = {
       id: "quran_tafseer",
       topicId: "quran_tafseer",
       title: "Quran and Tafseer",
-      description: "Short lessons on verses, themes, and meanings.",
-      badge: "Topic 3",
-      focus: "Guidance, mercy, sincerity, and reflection.",
+      description: "Short lessons on verses, tafsir, and the meanings behind them.",
+      badge: "Topic 4",
+      focus: "Guidance, oneness, reflection, and learning the Quran well.",
       mascot: "hijabi",
       accentColor: "#1688C4",
+      starsTarget: 9,
       nodes: [
         {
           id: "quran-fatiha",
@@ -128,7 +183,8 @@ export const COURSE: LearningCourse = {
           kind: "skill",
           lessonIds: ["lesson-fatiha"],
           requiredNodeIds: [],
-          xpReward: 12
+          xpReward: 12,
+          starsReward: 3
         },
         {
           id: "quran-ikhlas",
@@ -138,7 +194,8 @@ export const COURSE: LearningCourse = {
           kind: "skill",
           lessonIds: ["lesson-ikhlas"],
           requiredNodeIds: ["quran-fatiha"],
-          xpReward: 12
+          xpReward: 12,
+          starsReward: 3
         },
         {
           id: "quran-tafseer",
@@ -148,7 +205,8 @@ export const COURSE: LearningCourse = {
           kind: "review",
           lessonIds: ["lesson-tafseer"],
           requiredNodeIds: ["quran-ikhlas"],
-          xpReward: 14
+          xpReward: 14,
+          starsReward: 3
         }
       ]
     }
@@ -156,12 +214,200 @@ export const COURSE: LearningCourse = {
 };
 
 export const LESSONS_BY_ID: Record<string, Lesson> = {
+  "lesson-foundation-niyyah": {
+    id: "lesson-foundation-niyyah",
+    nodeId: "foundation-niyyah",
+    title: "Intentions",
+    intro: "Start learning by asking why you are doing it and who you want to please.",
+    xpReward: 8,
+    sources: [
+      {
+        id: "source-niyyah-bukhari-1",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "Sahih al-Bukhari 1",
+        url: "https://sunnah.com/bukhari/1/1",
+        summary: "This hadith teaches that actions are valued according to intention, making sincerity the foundation of learning and worship."
+      }
+    ],
+    challenges: [
+      {
+        id: "foundation-niyyah-1",
+        type: "multiple_choice",
+        prompt: "What does this foundation lesson center first?",
+        choices: [
+          { id: "a", label: "Your intention" },
+          { id: "b", label: "Looking impressive" },
+          { id: "c", label: "Winning arguments" }
+        ],
+        correctChoiceId: "a",
+        explanation: "A strong start begins with a clear intention for Allah."
+      },
+      {
+        id: "foundation-niyyah-2",
+        type: "true_false",
+        prompt: "The same action can change in value depending on intention.",
+        choices: [
+          { id: "true", label: "True" },
+          { id: "false", label: "False" }
+        ],
+        correctChoiceId: "true",
+        explanation: "Intention shapes the meaning of what we do."
+      },
+      {
+        id: "foundation-niyyah-3",
+        type: "multiple_choice",
+        prompt: "Before learning, a good inner question is:",
+        choices: [
+          { id: "a", label: "Why am I doing this?" },
+          { id: "b", label: "How do I show off?" },
+          { id: "c", label: "How fast can I skip ahead?" }
+        ],
+        correctChoiceId: "a",
+        explanation: "A sincere learner checks the heart first."
+      }
+    ]
+  },
+  "lesson-foundation-guidance": {
+    id: "lesson-foundation-guidance",
+    nodeId: "foundation-guidance",
+    title: "Guidance from the Quran",
+    intro: "The Quran introduces itself as guidance and the Prophet explains what it teaches.",
+    xpReward: 8,
+    sources: [
+      {
+        id: "source-guidance-quran-2-2",
+        site: "Quran.com",
+        category: "tafsir",
+        title: "Al-Baqarah 2:2 Tafsir",
+        url: "https://quran.com/en/al-baqarah/2/tafsirs",
+        summary: "This verse presents the Quran as a book free of doubt and as guidance for people who approach it with mindfulness."
+      },
+      {
+        id: "source-guidance-quran-16-44",
+        site: "Quran.com",
+        category: "tafsir",
+        title: "An-Nahl 16:44 Tafsir",
+        url: "https://quran.com/en/16:44/tafsirs/tazkirul-quran-en",
+        summary: "This tafsir highlights that the Prophet was sent to explain revelation so people can reflect and understand."
+      }
+    ],
+    challenges: [
+      {
+        id: "foundation-guidance-1",
+        type: "multiple_choice",
+        prompt: "According to this topic, the Quran is first described as:",
+        choices: [
+          { id: "a", label: "Guidance" },
+          { id: "b", label: "A puzzle only scholars may touch" },
+          { id: "c", label: "Something to leave closed" }
+        ],
+        correctChoiceId: "a",
+        explanation: "The Quran introduces itself as guidance."
+      },
+      {
+        id: "foundation-guidance-2",
+        type: "true_false",
+        prompt: "The Prophet explains what was revealed so people can reflect.",
+        choices: [
+          { id: "true", label: "True" },
+          { id: "false", label: "False" }
+        ],
+        correctChoiceId: "true",
+        explanation: "That is one of the core ideas tied to tafsir and understanding."
+      },
+      {
+        id: "foundation-guidance-3",
+        type: "multiple_choice",
+        prompt: "What should a learner do with Quran study?",
+        choices: [
+          { id: "a", label: "Read and reflect" },
+          { id: "b", label: "Rush past the meaning" },
+          { id: "c", label: "Treat it like trivia only" }
+        ],
+        correctChoiceId: "a",
+        explanation: "Reflection is part of how guidance becomes lived guidance."
+      }
+    ]
+  },
+  "lesson-foundation-character": {
+    id: "lesson-foundation-character",
+    nodeId: "foundation-character",
+    title: "Best character",
+    intro: "Good Islam shows up in speech, mercy, and everyday character.",
+    xpReward: 10,
+    sources: [
+      {
+        id: "source-character-bukhari-6029",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "Sahih al-Bukhari 6029",
+        url: "https://sunnah.com/bukhari:6029",
+        summary: "This hadith ties the best people to the best character and manners."
+      },
+      {
+        id: "source-salam-tirmidhi-2688",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "Jami` at-Tirmidhi 2688",
+        url: "https://sunnah.com/tirmidhi:2688",
+        summary: "Spreading salam builds love between believers and turns manners into a living practice."
+      }
+    ],
+    challenges: [
+      {
+        id: "foundation-character-1",
+        type: "multiple_choice",
+        prompt: "What does the foundation of character point toward?",
+        choices: [
+          { id: "a", label: "Good manners" },
+          { id: "b", label: "Sharp sarcasm" },
+          { id: "c", label: "Winning every debate" }
+        ],
+        correctChoiceId: "a",
+        explanation: "Strong faith should show up in strong character."
+      },
+      {
+        id: "foundation-character-2",
+        type: "true_false",
+        prompt: "Salam helps grow love between people.",
+        choices: [
+          { id: "true", label: "True" },
+          { id: "false", label: "False" }
+        ],
+        correctChoiceId: "true",
+        explanation: "Spreading peace builds closeness and trust."
+      },
+      {
+        id: "foundation-character-3",
+        type: "multiple_choice",
+        prompt: "Which habit fits this lesson?",
+        choices: [
+          { id: "a", label: "Speak kindly" },
+          { id: "b", label: "Be harsh for no reason" },
+          { id: "c", label: "Mock people freely" }
+        ],
+        correctChoiceId: "a",
+        explanation: "The best character is seen in everyday speech."
+      }
+    ]
+  },
   "lesson-salam": {
     id: "lesson-salam",
     nodeId: "manners-salam",
     title: "Salam",
     intro: "Start with peace, warmth, and respect.",
     xpReward: 10,
+    sources: [
+      {
+        id: "source-salam-ibnmajah-68",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "Sunan Ibn Majah 68",
+        url: "https://sunnah.com/ibnmajah:68",
+        summary: "Spreading salam is presented as a way to build love among believers."
+      }
+    ],
     challenges: [
       {
         id: "salam-1",
@@ -206,6 +452,16 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     title: "Truthfulness",
     intro: "Adab includes honesty, trust, and clear speech.",
     xpReward: 10,
+    sources: [
+      {
+        id: "source-truth-bukhari-1",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "Sahih al-Bukhari 1",
+        url: "https://sunnah.com/bukhari/1/1",
+        summary: "A sincere intention pushes a learner toward honesty and away from showing off."
+      }
+    ],
     challenges: [
       {
         id: "truth-1",
@@ -250,6 +506,16 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     title: "Parents and elders",
     intro: "Respect shows up in speech, attention, and service.",
     xpReward: 12,
+    sources: [
+      {
+        id: "source-parents-riyad-308",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "Riyad as-Salihin 308",
+        url: "https://sunnah.com/riyadussalihin:308",
+        summary: "Speaking good or remaining silent is part of faith, and it directly shapes family manners."
+      }
+    ],
     challenges: [
       {
         id: "parents-1",
@@ -294,6 +560,7 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     title: "Abu Bakr",
     intro: "A lesson in truthfulness, loyalty, and calm faith.",
     xpReward: 12,
+    sources: [],
     challenges: [
       {
         id: "abubakr-1",
@@ -338,6 +605,7 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     title: "Umar ibn al-Khattab",
     intro: "Justice and courage belong together.",
     xpReward: 12,
+    sources: [],
     challenges: [
       {
         id: "umar-1",
@@ -382,6 +650,7 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     title: "Bilal ibn Rabah",
     intro: "Patience, sincerity, and strength under hardship.",
     xpReward: 14,
+    sources: [],
     challenges: [
       {
         id: "bilal-1",
@@ -426,6 +695,24 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     title: "Al-Fatihah",
     intro: "The opening surah teaches praise, mercy, and guidance.",
     xpReward: 12,
+    sources: [
+      {
+        id: "source-fatiha-2-2",
+        site: "Quran.com",
+        category: "tafsir",
+        title: "Al-Baqarah 2:2 Tafsir",
+        url: "https://quran.com/en/al-baqarah/2/tafsirs",
+        summary: "This source frames revelation as certain guidance, which helps learners connect Al-Fatihah's request for guidance with Quran study."
+      },
+      {
+        id: "source-quran-teach-abudawud-1452",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "Sunan Abi Dawud 1452",
+        url: "https://sunnah.com/abudawud:1452",
+        summary: "This hadith honors learning and teaching the Quran, reinforcing why beginning with Al-Fatihah matters."
+      }
+    ],
     challenges: [
       {
         id: "fatiha-1",
@@ -470,6 +757,16 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     title: "Surah Al-Ikhlas",
     intro: "A short surah with a strong lesson about the oneness of Allah.",
     xpReward: 12,
+    sources: [
+      {
+        id: "source-ikhlas-quran-112-1",
+        site: "Quran.com",
+        category: "tafsir",
+        title: "Al-Ikhlas 112:1 Tafsir",
+        url: "https://quran.com/al-ikhlas/1/tafsirs",
+        summary: "The tafsir centers this surah on pure monotheism and the uniqueness of Allah."
+      }
+    ],
     challenges: [
       {
         id: "ikhlas-1",
@@ -497,14 +794,14 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
       {
         id: "ikhlas-3",
         type: "multiple_choice",
-        prompt: "What does tafseer help with?",
+        prompt: "What does tafsir help with?",
         choices: [
           { id: "a", label: "Understanding meaning" },
           { id: "b", label: "Ignoring context" },
           { id: "c", label: "Skipping reflection" }
         ],
         correctChoiceId: "a",
-        explanation: "Tafseer helps learners understand message and context."
+        explanation: "Tafsir helps learners understand message and context."
       }
     ]
   },
@@ -512,20 +809,38 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     id: "lesson-tafseer",
     nodeId: "quran-tafseer",
     title: "Tafseer themes",
-    intro: "Look for big themes like mercy, guidance, sincerity, and gratitude.",
+    intro: "Look for big themes like guidance, mercy, sincerity, and reflection.",
     xpReward: 14,
+    sources: [
+      {
+        id: "source-tafsir-quran-16-44",
+        site: "Quran.com",
+        category: "tafsir",
+        title: "An-Nahl 16:44 Tafsir",
+        url: "https://quran.com/en/16:44/tafsirs/tazkirul-quran-en",
+        summary: "This tafsir highlights that revelation is meant to be explained and reflected on, not rushed through."
+      },
+      {
+        id: "source-tafsir-quran-hadith",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "Sunan Abi Dawud 1452",
+        url: "https://sunnah.com/abudawud:1452",
+        summary: "Learning the Quran well is praised, which gives motivation to study its meanings with care."
+      }
+    ],
     challenges: [
       {
         id: "tafseer-1",
         type: "multiple_choice",
-        prompt: "Which phrase best describes tafseer?",
+        prompt: "Which phrase best describes tafsir?",
         choices: [
           { id: "a", label: "Explaining the meaning of verses" },
           { id: "b", label: "Collecting random words" },
           { id: "c", label: "Avoiding reflection" }
         ],
         correctChoiceId: "a",
-        explanation: "Tafseer helps learners understand what verses are teaching."
+        explanation: "Tafsir helps learners understand what verses are teaching."
       },
       {
         id: "tafseer-2",
