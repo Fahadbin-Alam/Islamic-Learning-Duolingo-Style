@@ -914,52 +914,213 @@ function GuideMascot({
   accentColor: string;
   size: number;
 }) {
-  const head = size * 0.3;
+  const headSize = size * 0.28;
   const faceBottom = size * 0.4;
-  const skin = "#F6C7A8";
-  const dark = "#243245";
-  const cloak = lightenColor(accentColor, 0.72);
+  const skin = "#E8B18A";
+  const outline = "#1F2C3B";
+  const robe = lightenColor(accentColor, 0.78);
 
   return (
     <View style={{ width: size, height: size, alignItems: "center", justifyContent: "flex-end" }}>
-      <View style={{ position: "absolute", top: size * 0.12, left: size * 0.08, width: size * 0.1, height: size * 0.1, borderRadius: 999, backgroundColor: "#FFFFFF", opacity: 0.9 }} />
-      <Text style={{ position: "absolute", top: size * 0.07, left: size * 0.05, color: "#FFFFFF", fontSize: size * 0.13 }}>★</Text>
-      <Text style={{ position: "absolute", top: size * 0.14, right: size * 0.08, color: "#FFFFFF", fontSize: size * 0.1 }}>✦</Text>
-      <View style={{ position: "absolute", bottom: size * 0.03, width: size * 0.62, height: size * 0.12, borderRadius: 999, backgroundColor: "rgba(20,37,27,0.10)" }} />
-      <View style={{ position: "absolute", bottom: size * 0.02, width: size * 0.74, height: size * 0.14, borderRadius: 999, backgroundColor: "#FFFFFF" }} />
-      <View style={{ position: "absolute", bottom: size * 0.13, width: size * 0.5, height: size * 0.36, borderTopLeftRadius: size * 0.16, borderTopRightRadius: size * 0.16, borderBottomLeftRadius: size * 0.12, borderBottomRightRadius: size * 0.12, backgroundColor: accentColor }} />
-      <View style={{ position: "absolute", bottom: size * 0.19, width: size * 0.56, height: size * 0.16, borderRadius: 999, backgroundColor: cloak }} />
-      <View style={{ position: "absolute", bottom: size * 0.18, left: size * 0.18, width: size * 0.12, height: size * 0.08, borderRadius: 999, backgroundColor: accentColor, transform: [{ rotate: "-20deg" }] }} />
-      <View style={{ position: "absolute", bottom: size * 0.18, right: size * 0.18, width: size * 0.12, height: size * 0.08, borderRadius: 999, backgroundColor: accentColor, transform: [{ rotate: "20deg" }] }} />
-      <View style={{ position: "absolute", bottom: size * 0.2, width: size * 0.26, height: size * 0.1, borderRadius: 8, backgroundColor: "#FFFFFF", borderWidth: 1, borderColor: "rgba(36,50,69,0.12)" }} />
-      <View style={{ position: "absolute", bottom: size * 0.232, width: size * 0.18, height: size * 0.01, borderRadius: 999, backgroundColor: accentColor }} />
-      <View style={{ position: "absolute", bottom: size * 0.215, width: size * 0.14, height: size * 0.01, borderRadius: 999, backgroundColor: accentColor }} />
+      <View
+        style={{
+          position: "absolute",
+          bottom: size * 0.03,
+          width: size * 0.58,
+          height: size * 0.1,
+          borderRadius: 999,
+          backgroundColor: "rgba(19,38,29,0.10)"
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: size * 0.11,
+          width: size * 0.5,
+          height: size * 0.34,
+          borderTopLeftRadius: size * 0.16,
+          borderTopRightRadius: size * 0.16,
+          borderBottomLeftRadius: size * 0.12,
+          borderBottomRightRadius: size * 0.12,
+          backgroundColor: accentColor
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: size * 0.18,
+          width: size * 0.56,
+          height: size * 0.14,
+          borderRadius: 999,
+          backgroundColor: robe
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: size * 0.16,
+          left: size * 0.18,
+          width: size * 0.11,
+          height: size * 0.08,
+          borderRadius: 999,
+          backgroundColor: accentColor,
+          transform: [{ rotate: "-22deg" }]
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: size * 0.16,
+          right: size * 0.18,
+          width: size * 0.11,
+          height: size * 0.08,
+          borderRadius: 999,
+          backgroundColor: accentColor,
+          transform: [{ rotate: "22deg" }]
+        }}
+      />
 
       {variant === "hijabi" ? (
         <>
-          <View style={{ position: "absolute", bottom: faceBottom - size * 0.05, width: head * 1.32, height: head * 1.38, borderRadius: head * 0.7, backgroundColor: "#324C6B" }} />
-          <View style={{ position: "absolute", bottom: faceBottom - size * 0.01, width: head * 0.94, height: head * 0.84, borderBottomLeftRadius: head * 0.44, borderBottomRightRadius: head * 0.44, borderTopLeftRadius: head * 0.18, borderTopRightRadius: head * 0.18, backgroundColor: "#324C6B" }} />
-          <View style={{ position: "absolute", bottom: faceBottom - size * 0.03, left: size * 0.31, width: head * 0.25, height: head * 0.84, borderRadius: head * 0.18, backgroundColor: "#24394F" }} />
-          <View style={{ position: "absolute", bottom: faceBottom - size * 0.03, right: size * 0.31, width: head * 0.25, height: head * 0.84, borderRadius: head * 0.18, backgroundColor: "#24394F" }} />
+          <View
+            style={{
+              position: "absolute",
+              bottom: faceBottom - size * 0.03,
+              width: headSize * 1.28,
+              height: headSize * 1.4,
+              borderRadius: headSize * 0.72,
+              backgroundColor: "#324F73"
+            }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              bottom: faceBottom + headSize * 0.06,
+              width: headSize * 0.9,
+              height: headSize * 0.18,
+              borderRadius: 999,
+              backgroundColor: "#243C56"
+            }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              bottom: faceBottom - size * 0.03,
+              width: headSize * 1.02,
+              height: headSize * 0.92,
+              borderBottomLeftRadius: headSize * 0.42,
+              borderBottomRightRadius: headSize * 0.42,
+              borderTopLeftRadius: headSize * 0.2,
+              borderTopRightRadius: headSize * 0.2,
+              backgroundColor: "#243C56"
+            }}
+          />
         </>
       ) : (
         <>
-          <View style={{ position: "absolute", bottom: faceBottom + head * 0.55, width: head * 0.92, height: head * 0.26, borderTopLeftRadius: head * 0.18, borderTopRightRadius: head * 0.18, borderBottomLeftRadius: head * 0.1, borderBottomRightRadius: head * 0.1, backgroundColor: "#EDEFF2" }} />
-          <View style={{ position: "absolute", bottom: faceBottom + head * 0.38, width: head * 0.98, height: head * 0.28, borderRadius: 999, backgroundColor: dark }} />
-          <View style={{ position: "absolute", bottom: faceBottom + head * 0.2, width: head * 1.02, height: head * 0.22, borderRadius: 999, backgroundColor: dark }} />
-          <View style={{ position: "absolute", bottom: faceBottom - head * 0.02, width: head * 0.94, height: head * 0.48, borderBottomLeftRadius: head * 0.32, borderBottomRightRadius: head * 0.32, borderTopLeftRadius: head * 0.2, borderTopRightRadius: head * 0.2, backgroundColor: dark }} />
-          <View style={{ position: "absolute", bottom: faceBottom + head * 0.12, left: size * 0.22, width: head * 0.18, height: head * 0.18, borderRadius: 999, backgroundColor: dark }} />
-          <View style={{ position: "absolute", bottom: faceBottom + head * 0.12, right: size * 0.22, width: head * 0.18, height: head * 0.18, borderRadius: 999, backgroundColor: dark }} />
+          <View
+            style={{
+              position: "absolute",
+              bottom: faceBottom + headSize * 0.62,
+              width: headSize * 0.94,
+              height: headSize * 0.22,
+              borderTopLeftRadius: headSize * 0.16,
+              borderTopRightRadius: headSize * 0.16,
+              borderBottomLeftRadius: headSize * 0.08,
+              borderBottomRightRadius: headSize * 0.08,
+              backgroundColor: "#F5F7FA",
+              borderWidth: 1,
+              borderColor: "#D6DEE6"
+            }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              bottom: faceBottom + headSize * 0.42,
+              width: headSize * 0.98,
+              height: headSize * 0.2,
+              borderRadius: 999,
+              backgroundColor: outline
+            }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              bottom: faceBottom - headSize * 0.06,
+              width: headSize * 0.94,
+              height: headSize * 0.42,
+              borderBottomLeftRadius: headSize * 0.34,
+              borderBottomRightRadius: headSize * 0.34,
+              borderTopLeftRadius: headSize * 0.2,
+              borderTopRightRadius: headSize * 0.2,
+              backgroundColor: outline
+            }}
+          />
         </>
       )}
 
-      <View style={{ position: "absolute", bottom: faceBottom, width: head, height: head, borderRadius: head / 2, backgroundColor: skin }} />
-      <View style={{ position: "absolute", bottom: faceBottom + head * 0.62, width: head * 0.72, height: head * 0.13, borderRadius: 999, backgroundColor: variant === "hijabi" ? "#324C6B" : dark }} />
-      <View style={{ position: "absolute", bottom: faceBottom + head * 0.38, left: size * 0.385, width: head * 0.07, height: head * 0.07, borderRadius: 999, backgroundColor: dark }} />
-      <View style={{ position: "absolute", bottom: faceBottom + head * 0.38, right: size * 0.385, width: head * 0.07, height: head * 0.07, borderRadius: 999, backgroundColor: dark }} />
-      <View style={{ position: "absolute", bottom: faceBottom + head * 0.2, width: head * 0.14, height: head * 0.03, borderRadius: 999, backgroundColor: "#BC8A70" }} />
-      <View style={{ position: "absolute", bottom: faceBottom + head * 0.1, width: head * 0.24, height: head * 0.05, borderRadius: 999, backgroundColor: "#D47D74" }} />
-      <View style={{ position: "absolute", bottom: faceBottom - head * 0.06, width: head * 0.26, height: head * 0.09, borderRadius: 999, backgroundColor: "#F1B28D" }} />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom,
+          width: headSize,
+          height: headSize * 1.04,
+          borderRadius: headSize * 0.5,
+          backgroundColor: skin
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom - headSize * 0.08,
+          width: headSize * 0.28,
+          height: headSize * 0.12,
+          borderRadius: 999,
+          backgroundColor: skin
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom + headSize * 0.42,
+          left: size * 0.39,
+          width: headSize * 0.08,
+          height: headSize * 0.08,
+          borderRadius: 999,
+          backgroundColor: outline
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom + headSize * 0.42,
+          right: size * 0.39,
+          width: headSize * 0.08,
+          height: headSize * 0.08,
+          borderRadius: 999,
+          backgroundColor: outline
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom + headSize * 0.2,
+          width: headSize * 0.14,
+          height: headSize * 0.03,
+          borderRadius: 999,
+          backgroundColor: "#B37A5A"
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom + headSize * 0.08,
+          width: headSize * 0.24,
+          height: headSize * 0.05,
+          borderRadius: 999,
+          backgroundColor: "#C46A62"
+        }}
+      />
     </View>
   );
 }
