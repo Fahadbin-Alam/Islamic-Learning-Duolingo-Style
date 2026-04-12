@@ -233,17 +233,22 @@ export const COURSE: LearningCourse = {
       id: "prayer",
       topicId: "prayer",
       title: "Prayer",
-      description: "Learn how to prepare for salah with step-by-step wudu, clean order, and calm readiness before standing in prayer.",
+      description: "Learn how to prepare with wudu, then pray step by step the Sunnah way from opening takbir to final taslim.",
       badge: "Prayer Basics",
-      focus: "Purity, wudu order, washing and wiping correctly, and preparing for salah.",
+      focus: "Purity, calm preparation, takbir, recitation, ruku, sujud, tashahhud, and taslim.",
       mascot: "muslim_man",
       accentColor: "#3A9FE8",
-      starsTarget: 9,
+      starsTarget: 27,
       branches: [
         {
           id: "prayer-wudu",
           title: "Wudu and preparation",
           description: "Go step by step through wudu so prayer begins with cleanliness and calm."
+        },
+        {
+          id: "prayer-salah-steps",
+          title: "How to Pray",
+          description: "Learn every prayer position the Sunnah way, from opening takbir to final taslim."
         }
       ],
       nodes: [
@@ -281,6 +286,78 @@ export const COURSE: LearningCourse = {
           lessonIds: ["lesson-prayer-wudu-ready"],
           requiredNodeIds: ["prayer-wudu-steps"],
           xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "prayer-salah-open",
+          skillId: "skill_prayer_004",
+          title: "Open the Prayer",
+          topicId: "prayer",
+          branchId: "prayer-salah-steps",
+          kind: "skill",
+          lessonIds: ["lesson-prayer-salah-open"],
+          requiredNodeIds: ["prayer-wudu-ready"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "prayer-salah-recite",
+          skillId: "skill_prayer_005",
+          title: "Recite in Qiyam",
+          topicId: "prayer",
+          branchId: "prayer-salah-steps",
+          kind: "skill",
+          lessonIds: ["lesson-prayer-salah-recite"],
+          requiredNodeIds: ["prayer-salah-open"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "prayer-salah-ruku",
+          skillId: "skill_prayer_006",
+          title: "Ruku and Rising",
+          topicId: "prayer",
+          branchId: "prayer-salah-steps",
+          kind: "skill",
+          lessonIds: ["lesson-prayer-salah-ruku"],
+          requiredNodeIds: ["prayer-salah-recite"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "prayer-salah-sujud",
+          skillId: "skill_prayer_007",
+          title: "Sujud and Sitting",
+          topicId: "prayer",
+          branchId: "prayer-salah-steps",
+          kind: "skill",
+          lessonIds: ["lesson-prayer-salah-sujud"],
+          requiredNodeIds: ["prayer-salah-ruku"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "prayer-salah-tashahhud",
+          skillId: "skill_prayer_008",
+          title: "Tashahhud and Taslim",
+          topicId: "prayer",
+          branchId: "prayer-salah-steps",
+          kind: "skill",
+          lessonIds: ["lesson-prayer-salah-tashahhud"],
+          requiredNodeIds: ["prayer-salah-sujud"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "prayer-salah-flow",
+          skillId: "skill_prayer_009",
+          title: "Full Sunnah Salah",
+          topicId: "prayer",
+          branchId: "prayer-salah-steps",
+          kind: "review",
+          lessonIds: ["lesson-prayer-salah-flow"],
+          requiredNodeIds: ["prayer-salah-tashahhud"],
+          xpReward: 14,
           starsReward: 3
         }
       ]
@@ -1332,6 +1409,451 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
         "Wudu is both cleanliness and obedience before salah.",
         true,
         "The Quran and hadith both frame wudu as preparation to stand before Allah."
+      )
+    ]
+  ),
+  "lesson-prayer-salah-open": lesson(
+    "lesson-prayer-salah-open",
+    "prayer-salah-open",
+    "Open the Prayer",
+    "After wudu, face the qiblah, settle yourself, and begin salah with takbir just as the Prophet taught.",
+    12,
+    [
+      hadithSource(
+        "source-prayer-salah-open-bukhari-631",
+        "Pray as you have seen me pray",
+        "https://sunnah.com/bukhari:631",
+        "Sahih al-Bukhari 631",
+        "Malik bin Al-Huwairith; collected by Imam al-Bukhari",
+        "Sahih",
+        "The Prophet instructed the believers to model their prayer on his own prayer."
+      ),
+      hadithSource(
+        "source-prayer-salah-open-abudawud-856",
+        "Begin with takbir and pray with calmness",
+        "https://sunnah.com/abudawud:856",
+        "Sunan Abi Dawud 856",
+        "Abu Hurairah; collected by Imam Abu Dawud",
+        "Sahih",
+        "The Prophet corrected a man's prayer by teaching him to face the qiblah, say takbir, and move with calm stillness."
+      ),
+      videoSource(
+        "source-prayer-salah-open-video-1",
+        "How to pray step by step",
+        "https://youtu.be/vx1rz-28HNk?si=zXJCptHWOBVFk7VB",
+        "A detailed visual walk-through of the opening of salah and the first movements.",
+        "Provided YouTube guide"
+      )
+    ],
+    [
+      mc(
+        "prayer-salah-open-1",
+        "What begins the prayer after you are ready and facing the qiblah?",
+        [
+          ["a", "Say 'Allahu Akbar'"],
+          ["b", "Bow down first"],
+          ["c", "End with salam"]
+        ],
+        "a",
+        "The opening takbir begins the prayer."
+      ),
+      tf(
+        "prayer-salah-open-2",
+        "A calm, settled beginning is part of the Sunnah way to start salah.",
+        true,
+        "The Prophet taught prayer with calmness, not rushed movement."
+      ),
+      mc(
+        "prayer-salah-open-3",
+        "Which source in this lesson directly tells believers to follow the Prophet's way of praying?",
+        [
+          ["a", "Sahih al-Bukhari 631"],
+          ["b", "Sahih Muslim 224"],
+          ["c", "Quran 5:6"]
+        ],
+        "a",
+        "This hadith gives the famous command to pray as the Prophet prayed."
+      ),
+      mc(
+        "prayer-salah-open-4",
+        "Which habit best matches the Sunnah opening of salah?",
+        [
+          ["a", "Stand straight, face the qiblah, and begin with takbir"],
+          ["b", "Rush into sujud without settling"],
+          ["c", "Start talking and then pray later"]
+        ],
+        "a",
+        "The prayer opens with intention, direction, and takbir in a composed way."
+      )
+    ]
+  ),
+  "lesson-prayer-salah-recite": lesson(
+    "lesson-prayer-salah-recite",
+    "prayer-salah-recite",
+    "Recite in Qiyam",
+    "In qiyam, stand and recite with presence. Learn the place of Al-Fatihah and calm recitation before ruku.",
+    12,
+    [
+      hadithSource(
+        "source-prayer-salah-recite-nasai-910",
+        "There is no salah without Fatihat al-Kitab",
+        "https://sunnah.com/nasai/11/35",
+        "Sunan an-Nasa'i 910",
+        "Ubadah bin As-Samit; collected by Imam an-Nasa'i",
+        "Sahih",
+        "The Prophet taught that reciting Fatihat al-Kitab is essential in prayer."
+      ),
+      hadithSource(
+        "source-prayer-salah-recite-abudawud-856",
+        "Recite from the Quran, then bow",
+        "https://sunnah.com/abudawud:856",
+        "Sunan Abi Dawud 856",
+        "Abu Hurairah; collected by Imam Abu Dawud",
+        "Sahih",
+        "The corrected prayer taught by the Prophet includes recitation before going into ruku."
+      ),
+      videoSource(
+        "source-prayer-salah-recite-video-2",
+        "The Prophet prayed",
+        "https://youtu.be/2ZEmsdEOpbk",
+        "A guided look at standing, recitation, and the early flow of the prayer.",
+        "Provided YouTube guide"
+      )
+    ],
+    [
+      mc(
+        "prayer-salah-recite-1",
+        "According to this lesson, what recitation is essential in salah?",
+        [
+          ["a", "Fatihat al-Kitab"],
+          ["b", "Only a greeting"],
+          ["c", "No recitation is needed"]
+        ],
+        "a",
+        "The hadith teaches that the prayer is not complete without Fatihat al-Kitab."
+      ),
+      mc(
+        "prayer-salah-recite-2",
+        "In which posture does this recitation happen?",
+        [
+          ["a", "Standing in qiyam"],
+          ["b", "While leaving the prayer"],
+          ["c", "Only after taslim"]
+        ],
+        "a",
+        "Qiyam is the standing part of the prayer where recitation is made."
+      ),
+      tf(
+        "prayer-salah-recite-3",
+        "Recitation should be calm enough that the learner knows what part of prayer they are in.",
+        true,
+        "The Sunnah prayer is composed and aware, not rushed and careless."
+      ),
+      mc(
+        "prayer-salah-recite-4",
+        "What comes next in the normal Sunnah flow after standing recitation?",
+        [
+          ["a", "Ruku"],
+          ["b", "Taslim"],
+          ["c", "Leaving the prayer"]
+        ],
+        "a",
+        "After standing recitation, the prayer moves into ruku."
+      )
+    ]
+  ),
+  "lesson-prayer-salah-ruku": lesson(
+    "lesson-prayer-salah-ruku",
+    "prayer-salah-ruku",
+    "Ruku and Rising",
+    "Bow with steadiness, place the hands on the knees, then rise until you are upright again before moving on.",
+    12,
+    [
+      hadithSource(
+        "source-prayer-salah-ruku-abudawud-730",
+        "Abu Humayd described the Prophet's bowing and rising",
+        "https://sunnah.com/abudawud:730",
+        "Sunan Abi Dawud 730",
+        "Abu Humayd al-Sa'idi; collected by Imam Abu Dawud",
+        "Sahih",
+        "This narration describes the Prophet raising his hands, bowing with hands on the knees, and standing erect again before going to sujud."
+      ),
+      hadithSource(
+        "source-prayer-salah-ruku-nasai-1055",
+        "Allah hears the one who praises Him",
+        "https://sunnah.com/nasai:1055",
+        "Sunan an-Nasa'i 1055",
+        "Wa'il bin Hujr; collected by Imam an-Nasa'i",
+        "Sahih",
+        "Wa'il described the Prophet raising his hands and saying 'Sami' Allahu liman hamidah' when rising from ruku."
+      )
+    ],
+    [
+      mc(
+        "prayer-salah-ruku-1",
+        "Where do the hands go in ruku according to the lesson sources?",
+        [
+          ["a", "On the knees"],
+          ["b", "Folded behind the back"],
+          ["c", "Under the feet"]
+        ],
+        "a",
+        "The Sunnah description places the hands on the knees in ruku."
+      ),
+      mc(
+        "prayer-salah-ruku-2",
+        "What phrase is taught when rising from ruku?",
+        [
+          ["a", "Sami' Allahu liman hamidah"],
+          ["b", "As-salamu alaikum"],
+          ["c", "Bismillah before eating"]
+        ],
+        "a",
+        "This is the phrase described in the hadith when rising from bowing."
+      ),
+      tf(
+        "prayer-salah-ruku-3",
+        "The Prophet stood upright again before going down to sujud.",
+        true,
+        "The narrations emphasize straightness and calm after rising from ruku."
+      ),
+      mc(
+        "prayer-salah-ruku-4",
+        "Which action would break the calm Sunnah sequence taught here?",
+        [
+          ["a", "Dropping straight from ruku into sujud without standing upright"],
+          ["b", "Standing upright before going down"],
+          ["c", "Keeping the hands on the knees while bowing"]
+        ],
+        "a",
+        "The Sunnah sequence includes a complete rising before moving into sujud."
+      )
+    ]
+  ),
+  "lesson-prayer-salah-sujud": lesson(
+    "lesson-prayer-salah-sujud",
+    "prayer-salah-sujud",
+    "Sujud and Sitting",
+    "Learn the Sunnah shape of sujud, then the calm sitting between the two prostrations before returning to the ground.",
+    12,
+    [
+      hadithSource(
+        "source-prayer-salah-sujud-tirmidhi-270",
+        "Forehead and nose in sujud",
+        "https://sunnah.com/tirmidhi:270",
+        "Jami` at-Tirmidhi 270",
+        "Abu Humayd al-Sa'idi; collected by Imam at-Tirmidhi",
+        "Hasan Sahih",
+        "The Prophet placed his nose and forehead on the ground, kept his forearms away from his sides, and set his hands parallel to his shoulders."
+      ),
+      hadithSource(
+        "source-prayer-salah-sujud-abudawud-856",
+        "Prostrate and sit with calmness",
+        "https://sunnah.com/abudawud:856",
+        "Sunan Abi Dawud 856",
+        "Abu Hurairah; collected by Imam Abu Dawud",
+        "Sahih",
+        "The Prophet taught that each prostration and the sitting between them should be calm and complete."
+      ),
+      videoSource(
+        "source-prayer-salah-sujud-video-3",
+        "Detailed salah walk-through",
+        "https://youtu.be/di0u-K09Su4",
+        "A detailed visual walk-through of sujud, the sitting between sajdahs, and calm transitions.",
+        "Provided YouTube guide"
+      )
+    ],
+    [
+      mc(
+        "prayer-salah-sujud-1",
+        "According to the source in this lesson, which parts are explicitly placed on the ground in sujud?",
+        [
+          ["a", "The forehead and the nose"],
+          ["b", "Only the elbows"],
+          ["c", "Only the back"]
+        ],
+        "a",
+        "The hadith specifically mentions the forehead and nose in sujud."
+      ),
+      mc(
+        "prayer-salah-sujud-2",
+        "What should happen in the sitting between the two sajdahs?",
+        [
+          ["a", "Sit calmly before going back down"],
+          ["b", "Jump back down immediately"],
+          ["c", "End the prayer there"]
+        ],
+        "a",
+        "The prayer includes a real seated pause between the two prostrations."
+      ),
+      tf(
+        "prayer-salah-sujud-3",
+        "Rushing from one sajdah to the next without settling does not match the lesson's Sunnah sources.",
+        true,
+        "The Prophet taught calmness in sujud and in the sitting between the two sajdahs."
+      ),
+      mc(
+        "prayer-salah-sujud-4",
+        "Which posture best fits the Sunnah in sujud?",
+        [
+          ["a", "Forearms away from the sides and calm stillness in the posture"],
+          ["b", "Flatten everything and hurry up"],
+          ["c", "Skip the seated pause completely"]
+        ],
+        "a",
+        "The source describes a careful, composed sujud rather than a collapsed or rushed one."
+      )
+    ]
+  ),
+  "lesson-prayer-salah-tashahhud": lesson(
+    "lesson-prayer-salah-tashahhud",
+    "prayer-salah-tashahhud",
+    "Tashahhud and Taslim",
+    "Finish the prayer with the final sitting, the words of tashahhud, and the taslim to the right and left.",
+    12,
+    [
+      hadithSource(
+        "source-prayer-salah-tashahhud-nasai-1278",
+        "The Prophet taught tashahhud like a surah",
+        "https://sunnah.com/nasai:1278",
+        "Sunan an-Nasa'i 1278",
+        "Ibn Abbas; collected by Imam an-Nasa'i",
+        "Sahih",
+        "The Prophet taught tashahhud with care and precision, the way a surah of the Quran is taught."
+      ),
+      hadithSource(
+        "source-prayer-salah-tashahhud-abudawud-974",
+        "Words of the tashahhud",
+        "https://sunnah.com/abudawud:974",
+        "Sunan Abi Dawud 974",
+        "Ibn Abbas; collected by Imam Abu Dawud",
+        "Sahih",
+        "This narration records the words of tashahhud that the Prophet taught in prayer."
+      ),
+      hadithSource(
+        "source-prayer-salah-tashahhud-abudawud-933",
+        "Taslim to the right and left",
+        "https://sunnah.com/abudawud:933",
+        "Sunan Abi Dawud 933",
+        "Wa'il bin Hujr; collected by Imam Abu Dawud",
+        "Sahih",
+        "The Prophet ended the prayer with taslim to the right and left."
+      )
+    ],
+    [
+      mc(
+        "prayer-salah-tashahhud-1",
+        "What does this lesson focus on at the end of prayer?",
+        [
+          ["a", "The final sitting, tashahhud, and taslim"],
+          ["b", "Starting wudu from the beginning"],
+          ["c", "Eating manners"]
+        ],
+        "a",
+        "This lesson is about finishing the prayer the Sunnah way."
+      ),
+      tf(
+        "prayer-salah-tashahhud-2",
+        "The Prophet taught tashahhud carefully, like teaching a surah from the Quran.",
+        true,
+        "That is exactly how the narration in Sunan an-Nasa'i describes it."
+      ),
+      mc(
+        "prayer-salah-tashahhud-3",
+        "Which source in this lesson gives the wording of tashahhud?",
+        [
+          ["a", "Sunan Abi Dawud 974"],
+          ["b", "Sahih Muslim 224"],
+          ["c", "Quran 5:6"]
+        ],
+        "a",
+        "This hadith records the wording of the tashahhud."
+      ),
+      mc(
+        "prayer-salah-tashahhud-4",
+        "What closes the prayer after the final sitting?",
+        [
+          ["a", "Taslim to the right and left"],
+          ["b", "Starting another takbir"],
+          ["c", "Going back to wudu"]
+        ],
+        "a",
+        "The prayer ends with taslim."
+      )
+    ]
+  ),
+  "lesson-prayer-salah-flow": lesson(
+    "lesson-prayer-salah-flow",
+    "prayer-salah-flow",
+    "Full Sunnah Salah",
+    "Now pull the steps together: begin well, recite calmly, bow and rise properly, prostrate with stillness, then end with tashahhud and taslim.",
+    14,
+    [
+      hadithSource(
+        "source-prayer-salah-flow-bukhari-631",
+        "Pray as you have seen me pray",
+        "https://sunnah.com/bukhari:631",
+        "Sahih al-Bukhari 631",
+        "Malik bin Al-Huwairith; collected by Imam al-Bukhari",
+        "Sahih",
+        "The whole lesson returns to the Prophet's command to follow his prayer closely."
+      ),
+      hadithSource(
+        "source-prayer-salah-flow-abudawud-856",
+        "Each pillar is done with calmness",
+        "https://sunnah.com/abudawud:856",
+        "Sunan Abi Dawud 856",
+        "Abu Hurairah; collected by Imam Abu Dawud",
+        "Sahih",
+        "The Prophet's correction of prayer teaches calm completeness in every posture."
+      ),
+      videoSource(
+        "source-prayer-salah-flow-video-2",
+        "Step-by-step salah review",
+        "https://youtu.be/2ZEmsdEOpbk",
+        "A visual review of the full prayer flow from opening takbir to taslim.",
+        "Provided YouTube guide"
+      )
+    ],
+    [
+      mc(
+        "prayer-salah-flow-1",
+        "Which sequence best matches the Sunnah flow taught in this topic?",
+        [
+          ["a", "Takbir, recitation, ruku, rising, sujud, sitting, sujud, tashahhud, taslim"],
+          ["b", "Taslim, ruku, takbir, sujud, recitation"],
+          ["c", "Sujud, taslim, wudu, tashahhud"]
+        ],
+        "a",
+        "This is the full flow the learner has been building through the prayer branch."
+      ),
+      mc(
+        "prayer-salah-flow-2",
+        "What principle runs through the whole Sunnah prayer in these sources?",
+        [
+          ["a", "Calmness and completing each posture well"],
+          ["b", "Finishing as fast as possible"],
+          ["c", "Skipping steps if you remember most of them"]
+        ],
+        "a",
+        "The repeated teaching is that every posture should be complete and calm."
+      ),
+      tf(
+        "prayer-salah-flow-3",
+        "The Sunnah way of prayer is more than memorizing a list; it is moving through each pillar correctly and with stillness.",
+        true,
+        "The lesson ties the positions, phrases, and calmness together into one living act of worship."
+      ),
+      mc(
+        "prayer-salah-flow-4",
+        "If you forget what happens after ruku, which lesson in this branch should you review next?",
+        [
+          ["a", "Ruku and Rising"],
+          ["b", "Why Wudu Matters"],
+          ["c", "Spread Salam"]
+        ],
+        "a",
+        "That lesson focuses on the bowing posture and what follows it."
       )
     ]
   ),

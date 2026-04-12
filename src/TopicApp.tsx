@@ -2887,7 +2887,7 @@ function GuideMascot({
 
 function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
   if (topicId === "prayer") {
-    return "sparkle_badge";
+    return "book_open";
   }
 
   if (topicId === "manners") {
@@ -2927,6 +2927,12 @@ function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accen
     "prayer-wudu-why": { glyph: "sparkle_badge", outerColor: "#4AA9F5", innerColor: "#DFF3FF" },
     "prayer-wudu-steps": { glyph: "sparkle_badge", outerColor: "#58C5F4", innerColor: "#DFF8FF" },
     "prayer-wudu-ready": { glyph: "sparkle_badge", outerColor: "#6B8DFF", innerColor: "#E8EEFF" },
+    "prayer-salah-open": { glyph: "book_open", outerColor: "#32B4F2", innerColor: "#DDF5FF" },
+    "prayer-salah-recite": { glyph: "book_marked", outerColor: "#4B9BFF", innerColor: "#DFEAFF" },
+    "prayer-salah-ruku": { glyph: "book_seal", outerColor: "#5F87F8", innerColor: "#E3E9FF" },
+    "prayer-salah-sujud": { glyph: "book_stack", outerColor: "#7E7BF3", innerColor: "#ECE9FF" },
+    "prayer-salah-tashahhud": { glyph: "book_closed", outerColor: "#5C6DEB", innerColor: "#E3E7FF" },
+    "prayer-salah-flow": { glyph: "book_open", outerColor: "#2A90E0", innerColor: "#DCEFFF" },
     "manners-salam": { glyph: "brain", outerColor: "#49C38F", innerColor: "#CFF5E2" },
     "manners-truthful": { glyph: "brain", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
     "manners-parents": { glyph: "brain", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
