@@ -32,7 +32,7 @@ import {
   normalizeLanguage,
   type UiStrings
 } from "./i18n";
-import { localizeLessonContent } from "./services/contentLocalization";
+import { localizeLessonContent, translateStudyText } from "./services/contentLocalization";
 import {
   createLocalAuthAccount,
   loadLocalAuthAccount,
@@ -874,6 +874,7 @@ export default function TopicApp() {
         {state.screen === "lesson" && currentLessonSession && (
           <LessonScreen
             strings={strings}
+            language={currentLanguage}
             section={currentLessonSection}
             session={currentLessonSession}
             challengeIndex={state.challengeIndex}
@@ -1491,6 +1492,7 @@ function CoachCard({ section, title, copy }: { section: LearningSection; title: 
 function LessonScreen({
   section,
   strings,
+  language,
   session,
   challengeIndex,
   selectedChoiceId,
@@ -1502,6 +1504,7 @@ function LessonScreen({
 }: {
   section: LearningSection;
   strings: UiStrings;
+  language: SupportedLanguage;
   session: LessonSession;
   challengeIndex: number;
   selectedChoiceId?: string;
@@ -1565,7 +1568,7 @@ function LessonScreen({
           })}
         </View>
 
-        {session.lesson.sources.length > 0 && <LessonSources sources={session.lesson.sources} accentColor={section.accentColor} strings={strings} />}
+        {session.lesson.sources.length > 0 && <LessonSources sources={session.lesson.sources} accentColor={section.accentColor} strings={strings} language={language} />}
       </View>
 
       <LessonFooter
@@ -1927,7 +1930,17 @@ function SocialScreen({
   );
 }
 
-function LessonSources({ sources, accentColor, strings }: { sources: LessonSource[]; accentColor: string; strings: UiStrings }) {
+function LessonSources({
+  sources,
+  accentColor,
+  strings,
+  language
+}: {
+  sources: LessonSource[];
+  accentColor: string;
+  strings: UiStrings;
+  language: SupportedLanguage;
+}) {
   return (
     <View style={styles.sourcesBlock}>
       <Text style={styles.sourcesTitle}>{strings.sourceNotes}</Text>
@@ -1935,7 +1948,7 @@ function LessonSources({ sources, accentColor, strings }: { sources: LessonSourc
         <Pressable key={source.id} onPress={() => Linking.openURL(source.url)} style={[styles.sourceCard, { borderColor: accentColor }]}>
           <View style={styles.sourceHeader}>
             <Text style={[styles.sourceBadge, { backgroundColor: lightenColor(accentColor, 0.88) }]}>{source.site}</Text>
-            <Text style={styles.sourceCategory}>{source.category}</Text>
+            <Text style={styles.sourceCategory}>{formatSourceCategory(source.category, language)}</Text>
           </View>
           <Text style={styles.sourceTitle}>{source.title}</Text>
           <View style={styles.sourceMetaStack}>
@@ -2647,6 +2660,17 @@ function defaultReminderPreferences(): ReminderPreferences {
     dailyInactivity: true,
     weeklyInactivity: true
   };
+}
+
+function formatSourceCategory(category: LessonSource["category"], language: SupportedLanguage) {
+  const label =
+    category === "hadith"
+      ? "Hadith"
+      : category === "tafsir"
+        ? "Tafsir"
+        : "Video";
+
+  return translateStudyText(label, language).toUpperCase();
 }
 
 function startCaseRelation(relation: SocialRelation) {

@@ -9,6 +9,16 @@ function makeLocalized(fr: string, ar: string, bn: string, ur: string, hi: strin
 const EXACT_REPLACEMENTS: Array<[string, LocalizedValue]> = [
   ["True", makeLocalized("Vrai", "صح", "সত্য", "درست", "सही")],
   ["False", makeLocalized("Faux", "خطأ", "মিথ্যা", "غلط", "गलत")],
+  ["Hadith", makeLocalized("Hadith", "حديث", "হাদীস", "حدیث", "हदीस")],
+  ["Tafsir", makeLocalized("Tafsir", "تفسير", "তাফসীর", "تفسیر", "तफ़सीर")],
+  ["Video", makeLocalized("Vidéo", "فيديو", "ভিডিও", "ویڈیو", "वीडियो")],
+  ["Islamic manners include honesty, trust, and words people can rely on.", makeLocalized("Les bonnes manières islamiques incluent l'honnêteté, la confiance et des paroles sur lesquelles les gens peuvent compter.", "تشمل الآداب الإسلامية الصدق والأمانة والكلمات التي يستطيع الناس الاعتماد عليها.", "ইসলামী আদবের মধ্যে আছে সততা, বিশ্বাসযোগ্যতা এবং এমন কথা যা মানুষেরা ভরসা করতে পারে।", "اسلامی آداب میں سچائی، امانت داری اور ایسے الفاظ شامل ہیں جن پر لوگ بھروسہ کر سکیں۔", "इस्लामी अदब में सच्चाई, भरोसेमंदी और ऐसे शब्द शामिल हैं जिन पर लोग भरोसा कर सकें।")],
+  ["Truthfulness is part of strong character.", makeLocalized("La sincérité fait partie d'un caractère fort.", "الصدق جزء من الخلق القوي.", "সত্যবাদিতা দৃঢ় চরিত্রের অংশ।", "سچائی مضبوط کردار کا حصہ ہے۔", "सच्चाई मजबूत चरित्र का हिस्सा है।")],
+  ["Truth leads to righteousness", makeLocalized("La vérité mène à la droiture", "الصدق يهدي إلى البر", "সত্য নেকির দিকে নিয়ে যায়", "سچائی نیکی کی طرف لے جاتی ہے", "सच नेक़ी की ओर ले जाता है")],
+  ["Be with the truthful", makeLocalized("Soyez avec les véridiques", "كونوا مع الصادقين", "সত্যবাদীদের সাথে থাকো", "سچے لوگوں کے ساتھ رہو", "सच्चों के साथ रहो")],
+  ["The Quran, with tafsir on Quran.com", makeLocalized("Le Coran, avec tafsir sur Quran.com", "القرآن مع التفسير على Quran.com", "Quran.com-এ তাফসীরসহ কুরআন", "Quran.com پر تفسیر کے ساتھ قرآن", "Quran.com पर तफ़सीर के साथ कुरआन")],
+  ["Hadith collection on Sunnah.com", makeLocalized("Collection de hadith sur Sunnah.com", "مجموعة حديث على Sunnah.com", "Sunnah.com-এর হাদীস সংগ্রহ", "Sunnah.com پر حدیث کا مجموعہ", "Sunnah.com पर हदीस संग्रह")],
+  ["Open source", makeLocalized("Ouvrir la source", "افتح المصدر", "উৎস খুলুন", "ماخذ کھولیں", "स्रोत खोलें")],
   ["Which reference is actually used in this lesson?", makeLocalized("Quelle référence est réellement utilisée dans cette leçon ?", "ما المرجع المستخدم فعلًا في هذا الدرس؟", "এই পাঠে আসলে কোন রেফারেন্সটি ব্যবহার করা হয়েছে?", "اس سبق میں اصل میں کون سا حوالہ استعمال ہوا ہے؟", "इस पाठ में वास्तव में कौन सा संदर्भ इस्तेमाल हुआ है?")],
   ["Which reference best anchors this lesson's evidence?", makeLocalized("Quelle référence ancre le mieux la preuve de cette leçon ?", "أي مرجع يثبت دليل هذا الدرس بأفضل صورة؟", "কোন রেফারেন্সটি এই পাঠের প্রমাণকে সবচেয়ে ভালোভাবে ধরে?", "کون سا حوالہ اس سبق کی دلیل کو سب سے بہتر مضبوط کرتا ہے؟", "कौन सा संदर्भ इस पाठ की दलील को सबसे बेहतर आधार देता है?")],
   ["Later lessons start asking you to notice the evidence, not only the headline.", makeLocalized("Les leçons suivantes commencent à vous demander de remarquer la preuve, pas seulement l'idée générale.", "تبدأ الدروس اللاحقة بطلب ملاحظة الدليل لا العنوان فقط.", "পরের পাঠগুলোতে শুধু শিরোনাম নয়, প্রমাণও লক্ষ্য করতে হবে।", "اگلے اسباق میں صرف عنوان نہیں بلکہ دلیل کو بھی دیکھنا ہوگا۔", "आगे के पाठ सिर्फ शीर्षक नहीं बल्कि दलील पर भी ध्यान दिलाते हैं।")],
@@ -24,6 +34,17 @@ const EXACT_REPLACEMENTS: Array<[string, LocalizedValue]> = [
 ];
 
 const PHRASE_REPLACEMENTS: Array<[string, LocalizedValue]> = [
+  ["Islamic manners include", makeLocalized("Les bonnes manières islamiques incluent", "تشمل الآداب الإسلامية", "ইসলামী আদবের মধ্যে আছে", "اسلامی آداب میں شامل ہے", "इस्लामी अदब में शामिल है")],
+  ["collected by Imam", makeLocalized("rapporté par l'Imam", "جمعه الإمام", "সংকলন করেছেন ইমাম", "جمع کیا امام", "इमाम ने संकलित किया")],
+  ["collected by", makeLocalized("rapporté par", "جمعه", "সংকলন করেছেন", "جمع کیا", "संकलित किया")],
+  ["gathered by Imam", makeLocalized("rassemblé par l'Imam", "جمعه الإمام", "সংগ্রহ করেছেন ইমাম", "جمع کیا امام", "इमाम ने एकत्र किया")],
+  ["gathered by", makeLocalized("rassemblé par", "جمعه", "সংগ্রহ করেছেন", "جمع کیا", "एकत्र किया")],
+  ["with tafsir on Quran.com", makeLocalized("avec tafsir sur Quran.com", "مع التفسير على Quran.com", "Quran.com-এ তাফসীরসহ", "Quran.com پر تفسیر کے ساتھ", "Quran.com पर तफ़सीर के साथ")],
+  ["ultimately toward Paradise", makeLocalized("et finalement vers le Paradis", "وفي النهاية إلى الجنة", "এবং শেষ পর্যন্ত জান্নাতের দিকে", "اور آخرکار جنت کی طرف", "और आखिरकार जन्नत की ओर")],
+  ["while lying leads the other way", makeLocalized("tandis que le mensonge mène dans l'autre direction", "بينما يقود الكذب إلى الطريق الآخر", "আর মিথ্যা মানুষকে উল্টো পথে নিয়ে যায়", "جبکہ جھوٹ دوسری طرف لے جاتا ہے", "जबकि झूठ दूसरी दिशा में ले जाता है")],
+  ["words people can rely on", makeLocalized("des paroles sur lesquelles les gens peuvent compter", "الكلمات التي يستطيع الناس الاعتماد عليها", "এমন কথা যা মানুষেরা ভরসা করতে পারে", "ایسے الفاظ جن پر لوگ بھروسہ کر سکیں", "ऐसे शब्द जिन पर लोग भरोसा कर सकें")],
+  ["Truth leads a person toward righteousness and ultimately toward Paradise, while lying leads the other way.", makeLocalized("La vérité guide une personne vers la droiture et finalement vers le Paradis, tandis que le mensonge l'entraîne dans l'autre direction.", "الصدق يقود الإنسان إلى البر ثم إلى الجنة، بينما يقود الكذب إلى الطريق الآخر.", "সত্য একজন মানুষকে নেকির দিকে এবং শেষ পর্যন্ত জান্নাতের দিকে নিয়ে যায়, আর মিথ্যা তাকে উল্টো পথে নিয়ে যায়।", "سچائی انسان کو نیکی اور آخرکار جنت کی طرف لے جاتی ہے، جبکہ جھوٹ اسے دوسری راہ پر لے جاتا ہے۔", "सच इंसान को नेक़ी और आखिरकार जन्नत की ओर ले जाता है, जबकि झूठ उसे दूसरी राह पर ले जाता है।")],
+  ["Allah commands believers to have taqwa and stay with the truthful, making honesty part of faith.", makeLocalized("Allah ordonne aux croyants d'avoir la taqwa et de rester avec les véridiques, faisant de l'honnêteté une partie de la foi.", "يأمر الله المؤمنين بالتقوى وأن يكونوا مع الصادقين، فيجعل الصدق جزءًا من الإيمان.", "আল্লাহ মুমিনদের তাকওয়া অবলম্বন করতে এবং সত্যবাদীদের সাথে থাকতে আদেশ করেন, ফলে সততা ঈমানের অংশ হয়ে যায়।", "اللہ مومنوں کو تقویٰ اختیار کرنے اور سچوں کے ساتھ رہنے کا حکم دیتا ہے، یوں سچائی ایمان کا حصہ بن جاتی ہے۔", "अल्लाह मोमिनों को तक़वा अपनाने और सच्चों के साथ रहने का हुक्म देता है, जिससे सच्चाई ईमान का हिस्सा बनती है।")],
   ["According to this lesson", makeLocalized("Selon cette leçon", "وفقًا لهذا الدرس", "এই পাঠ অনুযায়ী", "اس سبق کے مطابق", "इस पाठ के अनुसार")],
   ["according to this lesson", makeLocalized("selon cette leçon", "وفقًا لهذا الدرس", "এই পাঠ অনুযায়ী", "اس سبق کے مطابق", "इस पाठ के अनुसार")],
   ["in this lesson", makeLocalized("dans cette leçon", "في هذا الدرس", "এই পাঠে", "اس سبق میں", "इस पाठ में")],
@@ -69,6 +90,14 @@ const PHRASE_REPLACEMENTS: Array<[string, LocalizedValue]> = [
   ["Allah fulfilled His promise", makeLocalized("Allah a accompli Sa promesse", "أوفى الله بوعده", "আল্লাহ তাঁর অঙ্গীকার পূর্ণ করলেন", "اللہ نے اپنا وعدہ پورا کیا", "अल्लाह ने अपना वादा पूरा किया")],
   ["The first family", makeLocalized("La première famille", "أول أسرة", "প্রথম পরিবার", "پہلا خاندان", "पहला परिवार")],
   ["good news", makeLocalized("une bonne nouvelle", "خبرًا طيبًا", "সুসংবাদ", "اچھی خبر", "अच्छी खबर")],
+  ["honesty", makeLocalized("honnêteté", "الصدق", "সততা", "سچائی", "सच्चाई")],
+  ["trust", makeLocalized("confiance", "الثقة", "বিশ্বাসযোগ্যতা", "بھروسہ", "भरोसा")],
+  ["words", makeLocalized("paroles", "كلمات", "কথা", "الفاظ", "शब्द")],
+  ["people", makeLocalized("gens", "الناس", "মানুষ", "لوگ", "लोग")],
+  ["rely on", makeLocalized("compter sur", "الاعتماد عليها", "ভরসা করতে পারে", "بھروسہ کر سکیں", "भरोसा किया जा सके")],
+  ["righteousness", makeLocalized("droiture", "البر", "নেকি", "نیکی", "नेक़ी")],
+  ["lying", makeLocalized("mensonge", "الكذب", "মিথ্যা বলা", "جھوٹ", "झूठ")],
+  ["taqwa", makeLocalized("taqwa", "التقوى", "তাকওয়া", "تقویٰ", "तक़वा")],
   ["turn back to Allah", makeLocalized("revenir vers Allah", "يرجع إلى الله", "আল্লাহর দিকে ফিরে আসে", "اللہ کی طرف لوٹتا ہے", "अल्लाह की ओर लौटता है")],
   ["peace and warmth", makeLocalized("paix et chaleur", "سلام ودفء", "শান্তি ও উষ্ণতা", "امن اور نرمی", "सुकून और गर्मजोशी")],
   ["with kindness and patience", makeLocalized("avec bonté et patience", "بلطف وصبر", "দয়া ও ধৈর্যের সাথে", "نرمی اور صبر کے ساتھ", "नरमी और सब्र के साथ")],
@@ -178,6 +207,7 @@ export function localizeLessonContent(lesson: Lesson, language: SupportedLanguag
 
   return {
     ...lesson,
+    title: translateStudyText(lesson.title, language),
     intro: translateStudyText(lesson.intro, language),
     sources: lesson.sources.map((source) => localizeSource(source, language)),
     challenges: lesson.challenges.map((challenge) => localizeChallenge(challenge, language))
@@ -188,9 +218,12 @@ function localizeSource(source: LessonSource, language: SupportedLanguage): Less
   return {
     ...source,
     title: translateStudyText(source.title, language),
+    reference: source.reference ? translateStudyText(source.reference, language) : source.reference,
     summary: translateStudyText(source.summary, language),
     from: source.from ? translateStudyText(source.from, language) : source.from,
     grade: source.grade ? translateStudyText(source.grade, language) : source.grade
+    ,
+    url: localizeSourceUrl(source.url, source.site, language)
   };
 }
 
@@ -243,4 +276,13 @@ function replaceWordInsensitive(value: string, source: string, replacement: stri
 
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function localizeSourceUrl(url: string, site: LessonSource["site"], language: SupportedLanguage) {
+  if (language === "en" || site === "YouTube") {
+    return url;
+  }
+
+  const targetLanguage = language === "bn" ? "bn" : language === "ur" ? "ur" : language === "hi" ? "hi" : language === "fr" ? "fr" : "ar";
+  return `https://translate.google.com/translate?sl=auto&tl=${targetLanguage}&u=${encodeURIComponent(url)}`;
 }
