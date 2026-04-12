@@ -46,7 +46,15 @@ type Screen = "path" | "lesson" | "shop";
 type AnswerState = "correct" | "wrong" | undefined;
 type AuthMode = "create" | "login";
 type SocialProvider = keyof typeof SOCIAL_AUTH_CONFIG;
-type NodeGlyphKind = "book_closed" | "book_open" | "book_stack" | "book_marked" | "book_seal";
+type NodeGlyphKind =
+  | "book_closed"
+  | "book_open"
+  | "book_stack"
+  | "book_marked"
+  | "book_seal"
+  | "sparkle_badge"
+  | "brain"
+  | "shield_sword";
 
 interface AppState {
   screen: Screen;
@@ -624,7 +632,10 @@ function HeroCard({
   return (
     <View style={[styles.heroCard, { backgroundColor: section.accentColor }]}>
       <View style={styles.heroText}>
-        <Text style={styles.heroBadge}>{section.badge}</Text>
+        <View style={styles.heroBadgeRow}>
+          <Text style={styles.heroBadge}>{section.badge}</Text>
+          <TopicIcon topicId={section.topicId} accentColor="#FFFFFF" light />
+        </View>
         <Text style={styles.heroTitle}>Learn {section.title}</Text>
         <Text style={styles.heroCopy}>{section.description}</Text>
         <StarMeter earned={earnedStars} total={section.starsTarget} light compact={false} />
@@ -662,11 +673,37 @@ function TopicCard({
         selected && { borderColor: section.accentColor, backgroundColor: lightenColor(section.accentColor, 0.9) }
       ]}
     >
-      <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={72} />
+      <View style={styles.topicCardIconRow}>
+        <TopicIcon topicId={section.topicId} accentColor={section.accentColor} />
+      </View>
       <Text style={styles.topicCardTitle}>{section.title}</Text>
       <Text style={styles.topicCardCopy}>{section.focus}</Text>
       <StarMeter earned={earnedStars} total={section.starsTarget} compact />
     </Pressable>
+  );
+}
+
+function TopicIcon({
+  topicId,
+  accentColor,
+  light = false
+}: {
+  topicId: TopicId;
+  accentColor: string;
+  light?: boolean;
+}) {
+  const glyph = getTopicGlyph(topicId);
+  const frameColor = light ? "rgba(255,255,255,0.18)" : lightenColor(accentColor, 0.9);
+  const innerColor = light ? "rgba(255,255,255,0.96)" : "#FFFFFF";
+  const strokeColor = light ? accentColor : darkenColor(accentColor);
+  const trimColor = light ? "#FFE38C" : "#F2C94C";
+
+  return (
+    <View style={[styles.topicIconFrame, { backgroundColor: frameColor, borderColor: light ? "rgba(255,255,255,0.24)" : lightenColor(accentColor, 0.82) }]}>
+      <View style={[styles.topicIconInner, { backgroundColor: innerColor }]}>
+        <NodeGlyph kind={glyph} coverColor={strokeColor} pageColor={innerColor} accentColor={trimColor} />
+      </View>
+    </View>
   );
 }
 
@@ -703,7 +740,7 @@ function PathNode({
         >
           <View style={[styles.nodeInnerOrb, { backgroundColor: node.status === "locked" ? "#F1F4F3" : visual.innerColor }]}>
             <NodeGlyph
-              kind={node.status === "completed" ? "book_seal" : visual.glyph}
+              kind={visual.glyph}
               coverColor={node.status === "locked" ? "#B6C2BC" : darkenColor(visual.outerColor)}
               pageColor={node.status === "locked" ? "#E0E7E3" : "#FFFFFF"}
               accentColor={node.status === "locked" ? "#C7D2CC" : "#F2C94C"}
@@ -831,6 +868,44 @@ function NodeGlyph({
         <View style={styles.bookSeal}>
           <SparkleIcon size={10} color={accentColor} />
         </View>
+      </View>
+    );
+  }
+
+  if (kind === "sparkle_badge") {
+    return (
+      <View style={styles.nodeGlyphWrap}>
+        <View style={[styles.sparkleBadgeBase, { backgroundColor: coverColor }]} />
+        <View style={styles.sparkleBadgeMark}>
+          <SparkleIcon size={14} color={accentColor} />
+        </View>
+      </View>
+    );
+  }
+
+  if (kind === "brain") {
+    return (
+      <View style={styles.nodeGlyphWrap}>
+        <View style={[styles.brainLobe, styles.brainLobeLeft, { backgroundColor: coverColor }]} />
+        <View style={[styles.brainLobe, styles.brainLobeRight, { backgroundColor: coverColor }]} />
+        <View style={[styles.brainLobe, styles.brainLobeBottomLeft, { backgroundColor: coverColor }]} />
+        <View style={[styles.brainLobe, styles.brainLobeBottomRight, { backgroundColor: coverColor }]} />
+        <View style={[styles.brainStem, { backgroundColor: accentColor }]} />
+        <View style={[styles.brainFold, styles.brainFoldTop]} />
+        <View style={[styles.brainFold, styles.brainFoldBottom]} />
+      </View>
+    );
+  }
+
+  if (kind === "shield_sword") {
+    return (
+      <View style={styles.nodeGlyphWrap}>
+        <View style={[styles.shieldBody, { backgroundColor: coverColor }]}>
+          <View style={[styles.shieldInset, { backgroundColor: pageColor }]} />
+        </View>
+        <View style={[styles.swordBlade, { backgroundColor: accentColor }]} />
+        <View style={[styles.swordGuard, { backgroundColor: coverColor }]} />
+        <View style={[styles.swordHandle, { backgroundColor: coverColor }]} />
       </View>
     );
   }
@@ -1239,6 +1314,10 @@ function GuideMascot({
   const skin = "#E8B18A";
   const outline = "#1F2C3B";
   const robe = lightenColor(accentColor, 0.78);
+  const eyeWidth = headSize * 0.15;
+  const eyeHeight = headSize * 0.08;
+  const smileWidth = headSize * 0.36;
+  const smileHeight = headSize * 0.16;
 
   return (
     <View style={{ width: size, height: size, alignItems: "center", justifyContent: "flex-end" }}>
@@ -1404,10 +1483,11 @@ function GuideMascot({
           position: "absolute",
           bottom: faceBottom + headSize * 0.42,
           left: size * 0.39,
-          width: headSize * 0.08,
-          height: headSize * 0.08,
+          width: eyeWidth,
+          height: eyeHeight,
           borderRadius: 999,
-          backgroundColor: outline
+          borderBottomWidth: Math.max(2, size * 0.018),
+          borderColor: outline
         }}
       />
       <View
@@ -1415,10 +1495,11 @@ function GuideMascot({
           position: "absolute",
           bottom: faceBottom + headSize * 0.42,
           right: size * 0.39,
-          width: headSize * 0.08,
-          height: headSize * 0.08,
+          width: eyeWidth,
+          height: eyeHeight,
           borderRadius: 999,
-          backgroundColor: outline
+          borderBottomWidth: Math.max(2, size * 0.018),
+          borderColor: outline
         }}
       />
       <View
@@ -1434,28 +1515,45 @@ function GuideMascot({
       <View
         style={{
           position: "absolute",
-          bottom: faceBottom + headSize * 0.08,
-          width: headSize * 0.24,
-          height: headSize * 0.05,
+          bottom: faceBottom + headSize * 0.03,
+          width: smileWidth,
+          height: smileHeight,
           borderRadius: 999,
-          backgroundColor: "#C46A62"
+          borderBottomWidth: Math.max(2, size * 0.018),
+          borderColor: "#C46A62"
         }}
       />
     </View>
   );
 }
 
+function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
+  if (topicId === "manners") {
+    return "brain";
+  }
+
+  if (topicId === "sahabah") {
+    return "shield_sword";
+  }
+
+  if (topicId === "quran_tafseer") {
+    return "book_open";
+  }
+
+  return "sparkle_badge";
+}
+
 function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accentColor: string) {
   const visualMap: Record<string, { glyph: NodeGlyphKind; outerColor: string; innerColor: string }> = {
-    "foundation-niyyah": { glyph: "book_marked", outerColor: "#FFC928", innerColor: "#FFE58A" },
-    "foundation-guidance": { glyph: "book_open", outerColor: "#7ED7FF", innerColor: "#DDF5FF" },
-    "foundation-character": { glyph: "book_seal", outerColor: "#FF9D7A", innerColor: "#FFD7C8" },
-    "manners-salam": { glyph: "book_open", outerColor: "#49C38F", innerColor: "#CFF5E2" },
-    "manners-truthful": { glyph: "book_closed", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
-    "manners-parents": { glyph: "book_marked", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
-    "sahabah-abubakr": { glyph: "book_stack", outerColor: "#1FC1A3", innerColor: "#D7FBF4" },
-    "sahabah-umar": { glyph: "book_closed", outerColor: "#2AB7A6", innerColor: "#D7F7F3" },
-    "sahabah-bilal": { glyph: "book_seal", outerColor: "#5EC0A7", innerColor: "#DDF7EF" },
+    "foundation-niyyah": { glyph: "sparkle_badge", outerColor: "#FFC928", innerColor: "#FFE58A" },
+    "foundation-guidance": { glyph: "sparkle_badge", outerColor: "#7ED7FF", innerColor: "#DDF5FF" },
+    "foundation-character": { glyph: "sparkle_badge", outerColor: "#FF9D7A", innerColor: "#FFD7C8" },
+    "manners-salam": { glyph: "brain", outerColor: "#49C38F", innerColor: "#CFF5E2" },
+    "manners-truthful": { glyph: "brain", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
+    "manners-parents": { glyph: "brain", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
+    "sahabah-abubakr": { glyph: "shield_sword", outerColor: "#1FC1A3", innerColor: "#D7FBF4" },
+    "sahabah-umar": { glyph: "shield_sword", outerColor: "#2AB7A6", innerColor: "#D7F7F3" },
+    "sahabah-bilal": { glyph: "shield_sword", outerColor: "#5EC0A7", innerColor: "#DDF7EF" },
     "quran-fatiha": { glyph: "book_open", outerColor: "#40A8FF", innerColor: "#DDF0FF" },
     "quran-ikhlas": { glyph: "book_marked", outerColor: "#6AA4FF", innerColor: "#E2ECFF" },
     "quran-tafseer": { glyph: "book_stack", outerColor: "#7D8CFF", innerColor: "#E7E9FF" }
@@ -1687,6 +1785,7 @@ const styles = StyleSheet.create({
   heroCard: { flexDirection: "row", alignItems: "center", overflow: "hidden", borderRadius: 8, padding: 18 },
   heroText: { flex: 1, paddingRight: 12 },
   heroArt: { width: 144, alignItems: "center", justifyContent: "center" },
+  heroBadgeRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   heroBadge: { color: "#DFF7EE", fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   heroTitle: { color: colors.white, fontSize: 30, lineHeight: 35, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   heroCopy: { color: "#EAF8F2", fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0, marginTop: 6 },
@@ -1707,6 +1806,9 @@ const styles = StyleSheet.create({
   sectionDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   topicRow: { gap: 12, paddingVertical: 16, paddingRight: 18 },
   topicCard: { width: 168, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  topicCardIconRow: { minHeight: 64, justifyContent: "center" },
+  topicIconFrame: { width: 58, height: 58, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
+  topicIconInner: { width: 42, height: 42, borderRadius: 14, alignItems: "center", justifyContent: "center" },
   topicCardTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
   topicCardCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   routeCard: { alignSelf: "center", width: "100%", maxWidth: 640, borderRadius: 8, padding: 16, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
@@ -1741,6 +1843,22 @@ const styles = StyleSheet.create({
   bookOpenCenter: { position: "absolute", width: 4, height: 20, borderRadius: 999, top: 7 },
   bookStackBack: { position: "absolute", width: 20, height: 24, borderRadius: 5, borderWidth: 2, left: 4, top: 4 },
   bookStackFront: { position: "absolute", width: 22, height: 26, borderRadius: 5, left: 9, top: 8 },
+  sparkleBadgeBase: { width: 22, height: 22, borderRadius: 11, alignItems: "center", justifyContent: "center" },
+  sparkleBadgeMark: { position: "absolute" },
+  brainLobe: { position: "absolute", width: 13, height: 13, borderRadius: 7 },
+  brainLobeLeft: { left: 6, top: 6 },
+  brainLobeRight: { right: 6, top: 6 },
+  brainLobeBottomLeft: { left: 8, top: 14 },
+  brainLobeBottomRight: { right: 8, top: 14 },
+  brainStem: { position: "absolute", width: 6, height: 10, borderRadius: 4, bottom: 2 },
+  brainFold: { position: "absolute", width: 2, height: 12, borderRadius: 999, backgroundColor: "rgba(255,255,255,0.75)" },
+  brainFoldTop: { top: 8, left: 16 },
+  brainFoldBottom: { top: 14, right: 16 },
+  shieldBody: { position: "absolute", width: 22, height: 26, left: 6, top: 5, borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomLeftRadius: 12, borderBottomRightRadius: 12, transform: [{ rotate: "-6deg" }], overflow: "hidden" },
+  shieldInset: { position: "absolute", left: 5, top: 4, width: 12, height: 15, borderTopLeftRadius: 7, borderTopRightRadius: 7, borderBottomLeftRadius: 8, borderBottomRightRadius: 8, opacity: 0.95 },
+  swordBlade: { position: "absolute", width: 4, height: 22, borderRadius: 999, right: 8, top: 6, transform: [{ rotate: "26deg" }] },
+  swordGuard: { position: "absolute", width: 10, height: 4, borderRadius: 999, right: 7, top: 18, transform: [{ rotate: "26deg" }] },
+  swordHandle: { position: "absolute", width: 4, height: 9, borderRadius: 999, right: 6, top: 23, transform: [{ rotate: "26deg" }] },
   nodeSparkle: { position: "absolute", top: 9 },
   nodeSparkleLeft: { left: 12 },
   nodeSparkleRight: { right: 12 },
