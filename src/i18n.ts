@@ -51,15 +51,27 @@ export interface UiStrings {
   welcomeBack: string;
   createCopy: string;
   loginCopy: string;
+  settings: string;
+  accountSettingsTitle: string;
+  accountSettingsCopy: string;
   createAccount: string;
   iAmChild: string;
   iAmParent: string;
+  regularLearner: string;
+  regularLearnerCopy: string;
+  childMode: string;
+  childModeCopy: string;
+  parentMode: string;
+  parentModeCopy: string;
   yourName: string;
   emailAddress: string;
   createPassword: string;
   password: string;
   savedAccountHint: string;
   socialHint: string;
+  reminderSettings: string;
+  dailyReminder: string;
+  weeklyReminder: string;
   later: string;
   firstHeartReset: string;
   outOfHearts: string;
@@ -73,6 +85,7 @@ export interface UiStrings {
   languageCopy: string;
   saveLanguage: string;
   changeLanguage: string;
+  saveSettings: string;
 }
 
 export const DEFAULT_LANGUAGE: SupportedLanguage = "en";
@@ -86,7 +99,7 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
   { id: "hi", code: "HI", label: "Hindi", nativeLabel: "हिन्दी" }
 ];
 
-const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
+const UI_STRINGS: Record<SupportedLanguage, Partial<UiStrings>> = {
   en: {
     loadingPath: "Preparing your learning path...",
     streak: "Streak",
@@ -131,15 +144,27 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     welcomeBack: "Welcome back",
     createCopy: "Create an account to save your progress, stars, streak, and lesson path.",
     loginCopy: "Log in to pick up your path, stars, and streak right where you left them.",
+    settings: "Settings",
+    accountSettingsTitle: "Choose your account mode",
+    accountSettingsCopy: "Family mode is optional. Adults can keep this as a regular learning account and skip parent or child tools.",
     createAccount: "Create account",
     iAmChild: "I am a child",
     iAmParent: "I am a parent",
+    regularLearner: "Regular learner",
+    regularLearnerCopy: "Best for adults and anyone learning on their own.",
+    childMode: "Child mode",
+    childModeCopy: "Lets a parent follow progress and send accountability reminders.",
+    parentMode: "Parent mode",
+    parentModeCopy: "Gives you accountability tools to support a child.",
     yourName: "Your name",
     emailAddress: "Email address",
     createPassword: "Create a password",
     password: "Password",
     savedAccountHint: "This device already has a saved account, so you can log in any time.",
     socialHint: "Google and Facebook are ready for your app IDs in config when you want to turn them on.",
+    reminderSettings: "Accountability reminders",
+    dailyReminder: "Remind me if a connected account misses today",
+    weeklyReminder: "Remind me if a connected account is away for a week",
     later: "Later",
     firstHeartReset: "First heart reset",
     outOfHearts: "Out of hearts?",
@@ -152,7 +177,8 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     languageTitle: "Which language do you prefer?",
     languageCopy: "Pick the language you want for the app. You can change it later too.",
     saveLanguage: "Save language",
-    changeLanguage: "Change language"
+    changeLanguage: "Change language",
+    saveSettings: "Save settings"
   },
   fr: {
     loadingPath: "Préparation de votre parcours d'apprentissage...",
@@ -198,15 +224,27 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     welcomeBack: "Bon retour",
     createCopy: "Créez un compte pour enregistrer votre progression, vos étoiles, votre série et votre parcours.",
     loginCopy: "Connectez-vous pour reprendre votre parcours, vos étoiles et votre série.",
+    settings: "Settings",
+    accountSettingsTitle: "Choose your account mode",
+    accountSettingsCopy: "Family mode is optional. Adults can keep this as a regular learning account and skip parent or child tools.",
     createAccount: "Créer un compte",
     iAmChild: "Je suis un enfant",
     iAmParent: "Je suis un parent",
+    regularLearner: "Regular learner",
+    regularLearnerCopy: "Best for adults and anyone learning on their own.",
+    childMode: "Child mode",
+    childModeCopy: "Lets a parent follow progress and send accountability reminders.",
+    parentMode: "Parent mode",
+    parentModeCopy: "Gives you accountability tools to support a child.",
     yourName: "Votre nom",
     emailAddress: "Adresse e-mail",
     createPassword: "Créer un mot de passe",
     password: "Mot de passe",
     savedAccountHint: "Cet appareil a déjà un compte enregistré, vous pouvez vous connecter à tout moment.",
     socialHint: "Google et Facebook sont prêts pour vos identifiants d'application dans la config.",
+    reminderSettings: "Accountability reminders",
+    dailyReminder: "Remind me if a connected account misses today",
+    weeklyReminder: "Remind me if a connected account is away for a week",
     later: "Plus tard",
     firstHeartReset: "Premier retour de vies",
     outOfHearts: "Plus de vies ?",
@@ -219,7 +257,8 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     languageTitle: "Quelle langue préférez-vous ?",
     languageCopy: "Choisissez la langue de l'application. Vous pourrez la changer plus tard.",
     saveLanguage: "Enregistrer la langue",
-    changeLanguage: "Changer la langue"
+    changeLanguage: "Changer la langue",
+    saveSettings: "Save settings"
   },
   ar: {
     loadingPath: "يتم تجهيز مسار التعلم...",
@@ -265,15 +304,27 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     welcomeBack: "مرحبا بعودتك",
     createCopy: "أنشئ حسابا لحفظ تقدمك ونجومك وسلسلتك ومسارك.",
     loginCopy: "سجل الدخول لتكمل مسارك ونجومك وسلسلتك من حيث توقفت.",
+    settings: "Settings",
+    accountSettingsTitle: "Choose your account mode",
+    accountSettingsCopy: "Family mode is optional. Adults can keep this as a regular learning account and skip parent or child tools.",
     createAccount: "إنشاء حساب",
     iAmChild: "أنا طفل",
     iAmParent: "أنا والد",
+    regularLearner: "Regular learner",
+    regularLearnerCopy: "Best for adults and anyone learning on their own.",
+    childMode: "Child mode",
+    childModeCopy: "Lets a parent follow progress and send accountability reminders.",
+    parentMode: "Parent mode",
+    parentModeCopy: "Gives you accountability tools to support a child.",
     yourName: "اسمك",
     emailAddress: "البريد الإلكتروني",
     createPassword: "أنشئ كلمة مرور",
     password: "كلمة المرور",
     savedAccountHint: "يوجد حساب محفوظ على هذا الجهاز ويمكنك تسجيل الدخول في أي وقت.",
     socialHint: "يمكن تفعيل Google وFacebook بعد إضافة بيانات التطبيق في الإعدادات.",
+    reminderSettings: "Accountability reminders",
+    dailyReminder: "Remind me if a connected account misses today",
+    weeklyReminder: "Remind me if a connected account is away for a week",
     later: "لاحقا",
     firstHeartReset: "أول استعادة للقلوب",
     outOfHearts: "نفدت القلوب؟",
@@ -286,7 +337,8 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     languageTitle: "ما اللغة التي تفضلها؟",
     languageCopy: "اختر اللغة التي تريدها للتطبيق. يمكنك تغييرها لاحقا.",
     saveLanguage: "حفظ اللغة",
-    changeLanguage: "تغيير اللغة"
+    changeLanguage: "تغيير اللغة",
+    saveSettings: "Save settings"
   },
   bn: {
     loadingPath: "আপনার শেখার পথ তৈরি হচ্ছে...",
@@ -332,15 +384,27 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     welcomeBack: "আবার স্বাগতম",
     createCopy: "অ্যাকাউন্ট তৈরি করে আপনার অগ্রগতি, তারকা, স্ট্রিক আর পথ সংরক্ষণ করুন।",
     loginCopy: "লগ ইন করে আপনার পথ, তারকা আর স্ট্রিক আবার শুরু করুন।",
+    settings: "Settings",
+    accountSettingsTitle: "Choose your account mode",
+    accountSettingsCopy: "Family mode is optional. Adults can keep this as a regular learning account and skip parent or child tools.",
     createAccount: "অ্যাকাউন্ট তৈরি করুন",
     iAmChild: "আমি শিশু",
     iAmParent: "আমি অভিভাবক",
+    regularLearner: "Regular learner",
+    regularLearnerCopy: "Best for adults and anyone learning on their own.",
+    childMode: "Child mode",
+    childModeCopy: "Lets a parent follow progress and send accountability reminders.",
+    parentMode: "Parent mode",
+    parentModeCopy: "Gives you accountability tools to support a child.",
     yourName: "আপনার নাম",
     emailAddress: "ইমেইল ঠিকানা",
     createPassword: "পাসওয়ার্ড তৈরি করুন",
     password: "পাসওয়ার্ড",
     savedAccountHint: "এই ডিভাইসে আগে থেকেই একটি সেভ করা অ্যাকাউন্ট আছে।",
     socialHint: "Google আর Facebook চালু করতে কনফিগে অ্যাপ আইডি দিন।",
+    reminderSettings: "Accountability reminders",
+    dailyReminder: "Remind me if a connected account misses today",
+    weeklyReminder: "Remind me if a connected account is away for a week",
     later: "পরে",
     firstHeartReset: "প্রথম হার্ট রিস্টোর",
     outOfHearts: "হার্ট শেষ?",
@@ -353,7 +417,8 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     languageTitle: "আপনি কোন ভাষা পছন্দ করেন?",
     languageCopy: "অ্যাপের জন্য ভাষা বেছে নিন। পরে বদলাতে পারবেন।",
     saveLanguage: "ভাষা সেভ করুন",
-    changeLanguage: "ভাষা বদলান"
+    changeLanguage: "ভাষা বদলান",
+    saveSettings: "Save settings"
   },
   ur: {
     loadingPath: "آپ کا سیکھنے کا راستہ تیار ہو رہا ہے...",
@@ -399,15 +464,27 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     welcomeBack: "واپسی پر خوش آمدید",
     createCopy: "اکاؤنٹ بنا کر اپنی پیش رفت، ستارے، اسٹریک اور راستہ محفوظ کریں۔",
     loginCopy: "لاگ اِن کریں اور وہیں سے شروع کریں جہاں آپ رکے تھے۔",
+    settings: "Settings",
+    accountSettingsTitle: "Choose your account mode",
+    accountSettingsCopy: "Family mode is optional. Adults can keep this as a regular learning account and skip parent or child tools.",
     createAccount: "اکاؤنٹ بنائیں",
     iAmChild: "میں بچہ ہوں",
     iAmParent: "میں والدین میں سے ہوں",
+    regularLearner: "Regular learner",
+    regularLearnerCopy: "Best for adults and anyone learning on their own.",
+    childMode: "Child mode",
+    childModeCopy: "Lets a parent follow progress and send accountability reminders.",
+    parentMode: "Parent mode",
+    parentModeCopy: "Gives you accountability tools to support a child.",
     yourName: "آپ کا نام",
     emailAddress: "ای میل ایڈریس",
     createPassword: "پاس ورڈ بنائیں",
     password: "پاس ورڈ",
     savedAccountHint: "اس ڈیوائس پر ایک محفوظ اکاؤنٹ پہلے سے موجود ہے۔",
     socialHint: "Google اور Facebook کو فعال کرنے کے لیے config میں app IDs شامل کریں۔",
+    reminderSettings: "Accountability reminders",
+    dailyReminder: "Remind me if a connected account misses today",
+    weeklyReminder: "Remind me if a connected account is away for a week",
     later: "بعد میں",
     firstHeartReset: "پہلا ہارٹ ری سیٹ",
     outOfHearts: "ہارٹس ختم ہو گئے؟",
@@ -420,7 +497,8 @@ const UI_STRINGS: Record<SupportedLanguage, UiStrings> = {
     languageTitle: "آپ کون سی زبان پسند کرتے ہیں؟",
     languageCopy: "ایپ کے لیے زبان منتخب کریں۔ آپ بعد میں بھی بدل سکتے ہیں۔",
     saveLanguage: "زبان محفوظ کریں",
-    changeLanguage: "زبان بدلیں"
+    changeLanguage: "زبان بدلیں",
+    saveSettings: "Save settings"
   },
   hi: {
     loadingPath: "आपका सीखने का रास्ता तैयार किया जा रहा है...",
@@ -729,7 +807,10 @@ const NODE_TITLES: Record<SupportedLanguage, Record<string, string>> = {
 };
 
 export function getUiStrings(language?: SupportedLanguage) {
-  return UI_STRINGS[language ?? DEFAULT_LANGUAGE] ?? UI_STRINGS.en;
+  return {
+    ...UI_STRINGS.en,
+    ...(UI_STRINGS[language ?? DEFAULT_LANGUAGE] ?? {})
+  } as UiStrings;
 }
 
 export function getLanguageOption(language: SupportedLanguage) {

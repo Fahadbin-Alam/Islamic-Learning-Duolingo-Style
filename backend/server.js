@@ -78,7 +78,7 @@ function handleRegister(body, res) {
   const name = typeof body?.name === "string" ? body.name.trim() : "";
   const email = normalizeEmail(body?.email);
   const password = typeof body?.password === "string" ? body.password : "";
-  const role = body?.role === "parent" ? "parent" : "child";
+  const role = sanitizeAccountRole(body?.role);
   const reminderPreferences = sanitizeReminderPreferences(body?.reminderPreferences);
   const profile = sanitizeUserProfile(body?.user, email, name, role, reminderPreferences);
   const socialHub = sanitizeSocialHub(body?.socialHub);
@@ -230,12 +230,20 @@ function handleSaveUser(req, body, res) {
     return sendJson(res, 401, { error: "Unauthorized" });
   }
 
+  const nextRole = sanitizeAccountRole(body?.user?.accountRole);
+  const nextReminderPreferences = sanitizeReminderPreferences(
+    body?.user?.reminderPreferences ?? context.userRecord.reminderPreferences
+  );
+
+  context.userRecord.role = nextRole;
+  context.userRecord.reminderPreferences = nextReminderPreferences;
+
   const nextProfile = sanitizeUserProfile(
     body?.user,
     context.userRecord.email,
     context.userRecord.name,
-    context.userRecord.role,
-    sanitizeReminderPreferences(context.userRecord.reminderPreferences)
+    nextRole,
+    nextReminderPreferences
   );
 
   context.userRecord.profile = {
@@ -245,7 +253,7 @@ function handleSaveUser(req, body, res) {
     hasAccount: true,
     accountEmail: context.userRecord.email,
     accountRole: context.userRecord.role,
-    reminderPreferences: sanitizeReminderPreferences(context.userRecord.reminderPreferences)
+    reminderPreferences: nextReminderPreferences
   };
 
   writeDb(context.db);
@@ -322,6 +330,14 @@ function sanitizeUserProfile(profile, email, name, role, reminderPreferences) {
     completedNodeIds: Array.isArray(safeProfile.completedNodeIds) ? safeProfile.completedNodeIds : [],
     activeSubscriptionId: typeof safeProfile.activeSubscriptionId === "string" ? safeProfile.activeSubscriptionId : undefined
   };
+}
+
+function sanitizeAccountRole(value) {
+  if (value === "parent" || value === "child") {
+    return value;
+  }
+
+  return undefined;
 }
 
 function sanitizePreferredLanguage(value) {

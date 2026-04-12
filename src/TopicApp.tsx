@@ -36,7 +36,8 @@ import { localizeLessonContent, translateStudyText } from "./services/contentLoc
 import {
   createLocalAuthAccount,
   loadLocalAuthAccount,
-  loginLocalAuthAccount
+  loginLocalAuthAccount,
+  updateLocalAuthAccount
 } from "./services/localAuth";
 import {
   hydrateRemoteSession,
@@ -197,12 +198,15 @@ export default function TopicApp() {
   const [reviewRestoreVisible, setReviewRestoreVisible] = useState(false);
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
+  const [settingsModalVisible, setSettingsModalVisible] = useState(false);
   const [authMode, setAuthMode] = useState<AuthMode>("create");
   const [hasSavedAccount, setHasSavedAccount] = useState(false);
   const [accountName, setAccountName] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
   const [accountPassword, setAccountPassword] = useState("");
-  const [accountRole, setAccountRole] = useState<AccountRole>("child");
+  const [settingsRole, setSettingsRole] = useState<AccountRole | undefined>(undefined);
+  const [settingsDailyReminder, setSettingsDailyReminder] = useState(true);
+  const [settingsWeeklyReminder, setSettingsWeeklyReminder] = useState(true);
   const [socialHub, setSocialHub] = useState<SocialHubState>(() => loadSocialHubState());
   const [inviteName, setInviteName] = useState("");
   const [inviteEmail, setInviteEmail] = useState("");
@@ -232,9 +236,12 @@ export default function TopicApp() {
         if (accountSeed) {
           setAccountName(accountSeed.name);
           setAccountEmail(accountSeed.email);
-          setAccountRole(accountSeed.role);
           setAuthMode("login");
         }
+
+        setSettingsRole(user.accountRole);
+        setSettingsDailyReminder(user.reminderPreferences?.dailyInactivity !== false);
+        setSettingsWeeklyReminder(user.reminderPreferences?.weeklyInactivity !== false);
 
         if (!user.preferredLanguage) {
           setLanguageModalVisible(true);
@@ -541,6 +548,7 @@ export default function TopicApp() {
     }
 
     setPendingLanguage(language);
+    updateLocalAuthAccount({ preferredLanguage: language });
     dispatch({
       type: "apply_user",
       user: {
@@ -551,8 +559,24 @@ export default function TopicApp() {
     setLanguageModalVisible(false);
   }
 
-  function openAccountModal(mode?: AuthMode) {
-    setAuthMode(mode ?? (hasSavedAccount ? "login" : "create"));
+  function openSettingsModal() {
+    if (!state.user || !state.user.hasAccount) {
+      return;
+    }
+
+    setSettingsRole(state.user.accountRole);
+    setSettingsDailyReminder(state.user.reminderPreferences?.dailyInactivity !== false);
+    setSettingsWeeklyReminder(state.user.reminderPreferences?.weeklyInactivity !== false);
+    setSettingsModalVisible(true);
+  }
+
+  function openAccountPanel() {
+    if (state.user?.hasAccount) {
+      openSettingsModal();
+      return;
+    }
+
+    setAuthMode(hasSavedAccount ? "login" : "create");
     setAccountModalVisible(true);
   }
 
@@ -578,7 +602,6 @@ export default function TopicApp() {
       email: normalizeEmail(accountEmail),
       password: accountPassword,
       createdAt,
-      role: accountRole,
       reminderPreferences,
       preferredLanguage: state.user.preferredLanguage
     };
@@ -590,7 +613,6 @@ export default function TopicApp() {
         name: pendingAccount.name,
         email: pendingAccount.email,
         password: pendingAccount.password,
-        role: pendingAccount.role,
         reminderPreferences: pendingAccount.reminderPreferences,
         user: nextUser,
         socialHub
@@ -638,12 +660,12 @@ export default function TopicApp() {
       createLocalAuthAccount({
         name: remote.account.name,
         email: remote.account.email,
-      password: accountPassword,
-      createdAt: remote.account.createdAt,
-      role: remote.account.role,
-      reminderPreferences: remote.account.reminderPreferences,
-      preferredLanguage: remote.user.preferredLanguage
-    });
+        password: accountPassword,
+        createdAt: remote.account.createdAt,
+        role: remote.account.role,
+        reminderPreferences: remote.account.reminderPreferences,
+        preferredLanguage: remote.user.preferredLanguage
+      });
 
       dispatch({
         type: "apply_user",
@@ -652,7 +674,6 @@ export default function TopicApp() {
       setSocialHub(remote.socialHub);
       setAccountName(remote.account.name);
       setAccountEmail(remote.account.email);
-      setAccountRole(remote.account.role);
       setHasSavedAccount(true);
       setAccountPromptShown(true);
       setAccountPassword("");
@@ -678,11 +699,35 @@ export default function TopicApp() {
     });
     setAccountName(account.name);
     setAccountEmail(account.email);
-    setAccountRole(account.role);
     setHasSavedAccount(true);
     setAccountPromptShown(true);
     setAccountPassword("");
     setAccountModalVisible(false);
+  }
+
+  function saveAccountSettings() {
+    if (!state.user) {
+      return;
+    }
+
+    const reminderPreferences = {
+      dailyInactivity: settingsRole ? settingsDailyReminder : false,
+      weeklyInactivity: settingsRole ? settingsWeeklyReminder : false
+    };
+
+    const nextUser: UserProfile = {
+      ...state.user,
+      accountRole: settingsRole,
+      reminderPreferences
+    };
+
+    updateLocalAuthAccount({
+      role: settingsRole,
+      reminderPreferences,
+      preferredLanguage: nextUser.preferredLanguage
+    });
+    dispatch({ type: "apply_user", user: nextUser });
+    setSettingsModalVisible(false);
   }
 
   function handleSocialLogin(provider: SocialProvider) {
@@ -846,7 +891,7 @@ export default function TopicApp() {
           user={state.user}
           strings={strings}
           languageCode={getLanguageOption(currentLanguage).code}
-          onAccount={() => openAccountModal()}
+          onAccount={() => openAccountPanel()}
           onLanguage={() => {
             setPendingLanguage(currentLanguage);
             setLanguageModalVisible(true);
@@ -930,11 +975,21 @@ export default function TopicApp() {
           accountName={accountName}
           accountEmail={accountEmail}
           accountPassword={accountPassword}
-          accountRole={accountRole}
-          onChangeRole={setAccountRole}
           onChangeName={setAccountName}
           onChangeEmail={setAccountEmail}
           onChangePassword={setAccountPassword}
+        />
+        <SettingsModal
+          visible={settingsModalVisible}
+          strings={strings}
+          role={settingsRole}
+          dailyReminder={settingsDailyReminder}
+          weeklyReminder={settingsWeeklyReminder}
+          onClose={() => setSettingsModalVisible(false)}
+          onSelectRole={setSettingsRole}
+          onToggleDaily={() => setSettingsDailyReminder((value) => !value)}
+          onToggleWeekly={() => setSettingsWeeklyReminder((value) => !value)}
+          onSave={saveAccountSettings}
         />
         <ReviewRestoreModal
           visible={reviewRestoreVisible}
@@ -1000,7 +1055,7 @@ function TopBar({
           </Text>
         </View>
         <View>
-          <Text style={styles.accountLabel}>{user.hasAccount ? strings.account : strings.save}</Text>
+          <Text style={styles.accountLabel}>{user.hasAccount ? strings.settings : strings.save}</Text>
           <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : strings.logIn}</Text>
         </View>
       </Pressable>
@@ -1755,9 +1810,11 @@ function SocialScreen({
           <Text style={styles.eyebrow}>Crew</Text>
           <Text style={styles.title}>Parents, friends, and battles</Text>
           <Text style={styles.subtitle}>Add people to follow each other, race on the leaderboard, and battle live score against score.</Text>
-          <View style={styles.socialRolePill}>
-            <Text style={styles.socialRolePillText}>{`You are a ${startCaseAccountRole(user.accountRole ?? "child")}`}</Text>
-          </View>
+          {user.accountRole && (
+            <View style={styles.socialRolePill}>
+              <Text style={styles.socialRolePillText}>{`You are a ${startCaseAccountRole(user.accountRole)}`}</Text>
+            </View>
+          )}
         </View>
         <View style={styles.socialHeroScore}>
           <Text style={styles.socialHeroScoreLabel}>Your score</Text>
@@ -2010,8 +2067,6 @@ function AccountModal({
   accountName,
   accountEmail,
   accountPassword,
-  accountRole,
-  onChangeRole,
   onChangeName,
   onChangeEmail,
   onChangePassword
@@ -2028,8 +2083,6 @@ function AccountModal({
   accountName: string;
   accountEmail: string;
   accountPassword: string;
-  accountRole: AccountRole;
-  onChangeRole: (value: AccountRole) => void;
   onChangeName: (value: string) => void;
   onChangeEmail: (value: string) => void;
   onChangePassword: (value: string) => void;
@@ -2059,22 +2112,6 @@ function AccountModal({
               <Text style={[styles.authModeText, mode === "login" && styles.authModeTextActive]}>{strings.logIn}</Text>
             </Pressable>
           </View>
-          {mode === "create" && (
-            <View style={styles.roleRow}>
-              <Pressable
-                onPress={() => onChangeRole("child")}
-                style={[styles.roleButton, accountRole === "child" && styles.roleButtonActive]}
-              >
-                <Text style={[styles.roleButtonText, accountRole === "child" && styles.roleButtonTextActive]}>{strings.iAmChild}</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => onChangeRole("parent")}
-                style={[styles.roleButton, accountRole === "parent" && styles.roleButtonActive]}
-              >
-                <Text style={[styles.roleButtonText, accountRole === "parent" && styles.roleButtonTextActive]}>{strings.iAmParent}</Text>
-              </Pressable>
-            </View>
-          )}
           {mode === "create" && (
             <TextInput
               value={accountName}
@@ -2123,6 +2160,112 @@ function AccountModal({
             </Pressable>
             <Pressable onPress={mode === "create" ? onCreate : onLogin} style={styles.modalPrimaryButton}>
               <Text style={styles.modalPrimaryText}>{mode === "create" ? strings.createAccount : strings.logIn}</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+function SettingsModal({
+  visible,
+  strings,
+  role,
+  dailyReminder,
+  weeklyReminder,
+  onClose,
+  onSelectRole,
+  onToggleDaily,
+  onToggleWeekly,
+  onSave
+}: {
+  visible: boolean;
+  strings: UiStrings;
+  role?: AccountRole;
+  dailyReminder: boolean;
+  weeklyReminder: boolean;
+  onClose: () => void;
+  onSelectRole: (role?: AccountRole) => void;
+  onToggleDaily: () => void;
+  onToggleWeekly: () => void;
+  onSave: () => void;
+}) {
+  const options: Array<{
+    id: "adult" | AccountRole;
+    title: string;
+    copy: string;
+  }> = [
+    {
+      id: "adult",
+      title: strings.regularLearner,
+      copy: strings.regularLearnerCopy
+    },
+    {
+      id: "child",
+      title: strings.childMode,
+      copy: strings.childModeCopy
+    },
+    {
+      id: "parent",
+      title: strings.parentMode,
+      copy: strings.parentModeCopy
+    }
+  ];
+
+  return (
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+      <View style={styles.modalBackdrop}>
+        <View style={styles.modalCard}>
+          <Text style={styles.modalEyebrow}>{strings.settings}</Text>
+          <Text style={styles.modalTitle}>{strings.accountSettingsTitle}</Text>
+          <Text style={styles.modalCopy}>{strings.accountSettingsCopy}</Text>
+
+          <View style={styles.settingsOptionStack}>
+            {options.map((option) => {
+              const selected = option.id === (role ?? "adult");
+
+              return (
+                <Pressable
+                  key={option.id}
+                  onPress={() => onSelectRole(option.id === "adult" ? undefined : option.id)}
+                  style={[styles.settingsOptionCard, selected && styles.settingsOptionCardActive]}
+                >
+                  <Text style={[styles.settingsOptionTitle, selected && styles.settingsOptionTitleActive]}>{option.title}</Text>
+                  <Text style={[styles.settingsOptionCopy, selected && styles.settingsOptionCopyActive]}>{option.copy}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          {role && (
+            <View style={styles.settingsReminderCard}>
+              <Text style={styles.settingsReminderTitle}>{strings.reminderSettings}</Text>
+              <Pressable onPress={onToggleDaily} style={styles.settingsToggleRow}>
+                <View style={styles.settingsToggleTextWrap}>
+                  <Text style={styles.settingsToggleLabel}>{strings.dailyReminder}</Text>
+                </View>
+                <View style={[styles.settingsTogglePill, dailyReminder && styles.settingsTogglePillActive]}>
+                  <View style={[styles.settingsToggleKnob, dailyReminder && styles.settingsToggleKnobActive]} />
+                </View>
+              </Pressable>
+              <Pressable onPress={onToggleWeekly} style={styles.settingsToggleRow}>
+                <View style={styles.settingsToggleTextWrap}>
+                  <Text style={styles.settingsToggleLabel}>{strings.weeklyReminder}</Text>
+                </View>
+                <View style={[styles.settingsTogglePill, weeklyReminder && styles.settingsTogglePillActive]}>
+                  <View style={[styles.settingsToggleKnob, weeklyReminder && styles.settingsToggleKnobActive]} />
+                </View>
+              </Pressable>
+            </View>
+          )}
+
+          <View style={styles.modalActions}>
+            <Pressable onPress={onClose} style={styles.modalGhostButton}>
+              <Text style={styles.modalGhostText}>{strings.later}</Text>
+            </Pressable>
+            <Pressable onPress={onSave} style={styles.modalPrimaryButton}>
+              <Text style={styles.modalPrimaryText}>{strings.saveSettings}</Text>
             </Pressable>
           </View>
         </View>
@@ -2716,8 +2859,8 @@ function applyAccountIdentity(
     name: string;
     email: string;
     createdAt: string;
-    role: AccountRole;
-    reminderPreferences: ReminderPreferences;
+    role?: AccountRole;
+    reminderPreferences?: ReminderPreferences;
     preferredLanguage?: SupportedLanguage;
   }
 ) {
@@ -2727,7 +2870,7 @@ function applyAccountIdentity(
     displayName: account.name.trim(),
     username: normalizeEmail(account.email).split("@")[0] || user.username,
     avatarInitials: getInitials(account.name),
-    accountRole: account.role,
+    accountRole: account.role ?? user.accountRole,
     accountEmail: normalizeEmail(account.email),
     accountCreatedAt: account.createdAt,
     lastLoginAt: new Date().toISOString(),
@@ -3147,11 +3290,22 @@ const styles = StyleSheet.create({
   authModeButtonActive: { borderColor: colors.green, backgroundColor: colors.mint },
   authModeText: { color: colors.muted, fontSize: 13, fontWeight: "800", letterSpacing: 0 },
   authModeTextActive: { color: colors.greenDark },
-  roleRow: { flexDirection: "row", gap: 8, marginTop: 10 },
-  roleButton: { flex: 1, minHeight: 42, alignItems: "center", justifyContent: "center", borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
-  roleButtonActive: { borderColor: colors.green, backgroundColor: colors.mint },
-  roleButtonText: { color: colors.muted, fontSize: 13, fontWeight: "800", letterSpacing: 0 },
-  roleButtonTextActive: { color: colors.greenDark },
+  settingsOptionStack: { gap: 10 },
+  settingsOptionCard: { borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8", padding: 14 },
+  settingsOptionCardActive: { borderColor: colors.green, backgroundColor: colors.mint },
+  settingsOptionTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  settingsOptionTitleActive: { color: colors.greenDark },
+  settingsOptionCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
+  settingsOptionCopyActive: { color: colors.greenDark },
+  settingsReminderCard: { marginTop: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F7FBF8", padding: 14, gap: 12 },
+  settingsReminderTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  settingsToggleRow: { flexDirection: "row", alignItems: "center", gap: 12 },
+  settingsToggleTextWrap: { flex: 1 },
+  settingsToggleLabel: { color: colors.ink, fontSize: 13, lineHeight: 18, fontWeight: "700", letterSpacing: 0 },
+  settingsTogglePill: { width: 48, height: 28, borderRadius: 999, backgroundColor: "#D8E6DD", padding: 3, justifyContent: "center" },
+  settingsTogglePillActive: { backgroundColor: colors.green },
+  settingsToggleKnob: { width: 22, height: 22, borderRadius: 999, backgroundColor: colors.white },
+  settingsToggleKnobActive: { alignSelf: "flex-end" },
   input: { minHeight: 48, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#FBFDFC", paddingHorizontal: 14, color: colors.ink, marginTop: 10 },
   socialStack: { gap: 10, marginTop: 14 },
   socialButton: { minHeight: 48, borderRadius: 8, paddingHorizontal: 14, borderWidth: 1, alignItems: "center", flexDirection: "row", gap: 10 },

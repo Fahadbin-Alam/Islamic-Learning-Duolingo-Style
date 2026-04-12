@@ -11,9 +11,9 @@ const SESSION_KEY = "sira-path-session-token";
 type RemoteAccount = {
   name: string;
   email: string;
-  role: AccountRole;
+  role?: AccountRole;
   createdAt: string;
-  reminderPreferences: ReminderPreferences;
+  reminderPreferences?: ReminderPreferences;
 };
 
 type RemoteSessionPayload = {
@@ -52,7 +52,7 @@ export async function registerRemoteAccount(input: {
   name: string;
   email: string;
   password: string;
-  role: AccountRole;
+  role?: AccountRole;
   reminderPreferences: ReminderPreferences;
   user: UserProfile;
   socialHub: SocialHubState;

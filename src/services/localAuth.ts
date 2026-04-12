@@ -5,8 +5,8 @@ export interface LocalAuthAccount {
   email: string;
   password: string;
   createdAt: string;
-  role: AccountRole;
-  reminderPreferences: ReminderPreferences;
+  role?: AccountRole;
+  reminderPreferences?: ReminderPreferences;
   preferredLanguage?: SupportedLanguage;
 }
 
@@ -35,11 +35,8 @@ export function loadLocalAuthAccount(): LocalAuthAccount | null {
       email: parsed.email,
       password: parsed.password,
       createdAt: parsed.createdAt,
-      role: parsed.role ?? "child",
-      reminderPreferences: parsed.reminderPreferences ?? {
-        dailyInactivity: true,
-        weeklyInactivity: true
-      },
+      role: parsed.role,
+      reminderPreferences: parsed.reminderPreferences,
       preferredLanguage: parsed.preferredLanguage
     };
   } catch {
@@ -59,6 +56,19 @@ export function createLocalAuthAccount(account: LocalAuthAccount) {
 
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedAccount));
   return normalizedAccount;
+}
+
+export function updateLocalAuthAccount(updates: Partial<Pick<LocalAuthAccount, "name" | "role" | "reminderPreferences" | "preferredLanguage">>) {
+  const current = loadLocalAuthAccount();
+
+  if (!current) {
+    return null;
+  }
+
+  return createLocalAuthAccount({
+    ...current,
+    ...updates
+  });
 }
 
 export function loginLocalAuthAccount(email: string, password: string) {
