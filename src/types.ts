@@ -4,6 +4,7 @@ export type TopicId =
   | "marriage"
   | "sahabah"
   | "prophets"
+  | "women_of_the_book"
   | "quran_tafseer";
 
 export type CharacterVariant = "hijabi" | "muslim_man";

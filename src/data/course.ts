@@ -121,7 +121,7 @@ export const STARTER_USER: UserProfile = {
 export const COURSE: LearningCourse = {
   id: "islam-foundations",
   title: "Sira Path",
-  subtitle: "Start with foundations, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, and travel from Adam to Muhammad.",
+  subtitle: "Start with foundations, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, travel from Adam to Muhammad, and learn from the women honored in revelation.",
   sections: [
     {
       id: "foundation",
@@ -686,6 +686,115 @@ export const COURSE: LearningCourse = {
           kind: "review",
           lessonIds: ["lesson-muhammad"],
           requiredNodeIds: ["prophets-isa"],
+          xpReward: 14,
+          starsReward: 3
+        }
+      ]
+    },
+    {
+      id: "women-of-the-book",
+      topicId: "women_of_the_book",
+      title: "Women of the Book",
+      description: "Go in order through women honored in the Quran, then learn from the Mothers of the Believers and the strengths they brought to the Ummah.",
+      badge: "Topic 7",
+      focus: "Repentance, trust, courage, purity, loyalty, knowledge, and preserving revelation.",
+      mascot: "hijabi",
+      accentColor: "#D96C8E",
+      starsTarget: 21,
+      branches: [
+        {
+          id: "women-quran",
+          title: "Women in the Quran",
+          description: "Move in order through women whose stories teach repentance, trust, courage, and purity."
+        },
+        {
+          id: "women-mothers",
+          title: "Mothers of the Believers",
+          description: "Continue in order through key wives of the Prophet and the gifts they gave the Ummah."
+        }
+      ],
+      nodes: [
+        {
+          id: "women-hawwa",
+          skillId: "skill_women_001",
+          title: "Hawwa",
+          topicId: "women_of_the_book",
+          branchId: "women-quran",
+          kind: "story",
+          lessonIds: ["lesson-women-hawwa"],
+          requiredNodeIds: [],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "women-mother-musa",
+          skillId: "skill_women_002",
+          title: "Mother of Musa",
+          topicId: "women_of_the_book",
+          branchId: "women-quran",
+          kind: "story",
+          lessonIds: ["lesson-women-mother-musa"],
+          requiredNodeIds: ["women-hawwa"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "women-asiyah",
+          skillId: "skill_women_003",
+          title: "Asiyah",
+          topicId: "women_of_the_book",
+          branchId: "women-quran",
+          kind: "story",
+          lessonIds: ["lesson-women-asiyah"],
+          requiredNodeIds: ["women-mother-musa"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "women-maryam",
+          skillId: "skill_women_004",
+          title: "Maryam",
+          topicId: "women_of_the_book",
+          branchId: "women-quran",
+          kind: "story",
+          lessonIds: ["lesson-women-maryam"],
+          requiredNodeIds: ["women-asiyah"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "women-khadijah",
+          skillId: "skill_women_005",
+          title: "Khadijah",
+          topicId: "women_of_the_book",
+          branchId: "women-mothers",
+          kind: "story",
+          lessonIds: ["lesson-women-khadijah"],
+          requiredNodeIds: ["women-maryam"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "women-aishah",
+          skillId: "skill_women_006",
+          title: "Aishah",
+          topicId: "women_of_the_book",
+          branchId: "women-mothers",
+          kind: "story",
+          lessonIds: ["lesson-women-aishah"],
+          requiredNodeIds: ["women-khadijah"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "women-hafsah",
+          skillId: "skill_women_007",
+          title: "Hafsah",
+          topicId: "women_of_the_book",
+          branchId: "women-mothers",
+          kind: "review",
+          lessonIds: ["lesson-women-hafsah"],
+          requiredNodeIds: ["women-aishah"],
           xpReward: 14,
           starsReward: 3
         }
@@ -2533,6 +2642,391 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
         ],
         "a",
         "Love of the Prophet should show up in character."
+      )
+    ]
+  ),
+  "lesson-women-hawwa": lesson(
+    "lesson-women-hawwa",
+    "women-hawwa",
+    "Hawwa",
+    "The first woman in the human story teaches closeness to Allah, shared responsibility, and turning back to Him after a mistake.",
+    12,
+    [
+      quranSource(
+        "source-women-hawwa-quran-2-35",
+        "Adam and his wife in the garden",
+        "https://quran.com/2:35/tafsirs/tazkirul-quran-en",
+        "Quran 2:35-36",
+        "The first household begins with Allah's command, showing that human life starts with worship and obedience."
+      ),
+      quranSource(
+        "source-women-hawwa-quran-7-23",
+        "The dua of repentance",
+        "https://quran.com/en/7:23/tafsirs",
+        "Quran 7:23",
+        "After slipping, Adam and Hawwa turned back to Allah with repentance, teaching the first family how to return."
+      )
+    ],
+    [
+      mc(
+        "women-hawwa-1",
+        "What early lesson comes through Hawwa in this topic?",
+        [
+          ["a", "A Muslim returns to Allah after a mistake"],
+          ["b", "A mistake ends all hope"],
+          ["c", "The first family lived without guidance"]
+        ],
+        "a",
+        "Their story teaches repentance, not despair."
+      ),
+      tf(
+        "women-hawwa-2",
+        "The first family shows that life begins with Allah's guidance, not random living.",
+        true,
+        "The first commands given to Adam and Hawwa frame life around obedience."
+      ),
+      mc(
+        "women-hawwa-3",
+        "Which habit fits this lesson best?",
+        [
+          ["a", "Own your mistake and turn back to Allah"],
+          ["b", "Blame everyone else and stay stubborn"],
+          ["c", "Treat tawbah like it does not matter"]
+        ],
+        "a",
+        "Hawwa's place in the story helps teach the heart to return."
+      )
+    ]
+  ),
+  "lesson-women-mother-musa": lesson(
+    "lesson-women-mother-musa",
+    "women-mother-musa",
+    "Mother of Musa",
+    "The mother of Musa teaches extraordinary trust: she obeyed Allah in fear, and Allah returned her son to her.",
+    12,
+    [
+      quranSource(
+        "source-women-mother-musa-quran-28-7",
+        "Put him in the river and do not fear",
+        "https://quran.com/en/28:7/tafsirs/ar-tafsir-al-tabari",
+        "Quran 28:7",
+        "Allah inspired the mother of Musa with a command that looked terrifying on the outside but carried perfect protection."
+      ),
+      quranSource(
+        "source-women-mother-musa-quran-28-13",
+        "Allah returned Musa to his mother",
+        "https://quran.com/en/28:13/tafsirs",
+        "Quran 28:13",
+        "Allah fulfilled His promise by bringing Musa back to his mother so her heart could be at peace."
+      )
+    ],
+    [
+      mc(
+        "women-mother-musa-1",
+        "What shines most in the story of Musa's mother?",
+        [
+          ["a", "Trust in Allah during fear"],
+          ["b", "Panic without guidance"],
+          ["c", "Depending only on worldly power"]
+        ],
+        "a",
+        "Her courage was rooted in confidence that Allah's promise was true."
+      ),
+      tf(
+        "women-mother-musa-2",
+        "Allah left the mother of Musa without comfort or promise.",
+        false,
+        "Allah told her not to fear or grieve and promised He would return Musa."
+      ),
+      mc(
+        "women-mother-musa-3",
+        "What special thing did she do in this story?",
+        [
+          ["a", "She obeyed Allah even when it was emotionally hard"],
+          ["b", "She rejected every command out of fear"],
+          ["c", "She chose comfort over trust"]
+        ],
+        "a",
+        "Her story makes tawakkul feel real and costly in the best way."
+      )
+    ]
+  ),
+  "lesson-women-asiyah": lesson(
+    "lesson-women-asiyah",
+    "women-asiyah",
+    "Asiyah",
+    "Asiyah, the wife of Pharaoh, stands as a model of faith and courage even inside a house ruled by tyranny.",
+    12,
+    [
+      quranSource(
+        "source-women-asiyah-quran-66-11",
+        "A house near Allah in Paradise",
+        "https://quran.com/en/66:11/tafsirs/tazkirul-quran-en",
+        "Quran 66:11",
+        "Allah presents Asiyah as an example for believers, showing that faith can stay firm even in a brutal environment."
+      ),
+      hadithSource(
+        "source-women-asiyah-bukhari-3433",
+        "Asiyah among the greatest women",
+        "https://sunnah.com/bukhari:3433",
+        "Sahih al-Bukhari 3433",
+        "Abu Musa al-Ashari; collected by Imam al-Bukhari",
+        "Sahih",
+        "The Prophet named Asiyah among the women of highest perfection, highlighting the greatness of her iman."
+      )
+    ],
+    [
+      mc(
+        "women-asiyah-1",
+        "What makes Asiyah stand out in this lesson?",
+        [
+          ["a", "Steadfast faith under oppression"],
+          ["b", "Following Pharaoh in disbelief"],
+          ["c", "Choosing comfort over Allah"]
+        ],
+        "a",
+        "Asiyah's greatness appears in staying loyal to Allah when the cost was severe."
+      ),
+      tf(
+        "women-asiyah-2",
+        "A difficult household can never contain a righteous believer.",
+        false,
+        "Allah gave Asiyah as proof that a believer can remain true even in a corrupt home."
+      ),
+      mc(
+        "women-asiyah-3",
+        "What special dua is tied to Asiyah in the Quran?",
+        [
+          ["a", "Asking Allah for a house near Him in Paradise"],
+          ["b", "Asking for worldly status only"],
+          ["c", "Asking to stay close to Pharaoh"]
+        ],
+        "a",
+        "Her dua shows where her heart truly lived."
+      )
+    ]
+  ),
+  "lesson-women-maryam": lesson(
+    "lesson-women-maryam",
+    "women-maryam",
+    "Maryam",
+    "Maryam is honored for purity, worship, and the miracle Allah placed through her life.",
+    12,
+    [
+      quranSource(
+        "source-women-maryam-quran-3-42",
+        "Allah chose and purified Maryam",
+        "https://quran.com/al-i-imran/42/tafsirs",
+        "Quran 3:42",
+        "The Quran names Maryam as chosen and purified, marking her as one of the most honored women in revelation."
+      ),
+      hadithSource(
+        "source-women-maryam-bukhari-3433",
+        "Maryam among the women of perfection",
+        "https://sunnah.com/bukhari:3433",
+        "Sahih al-Bukhari 3433",
+        "Abu Musa al-Ashari; collected by Imam al-Bukhari",
+        "Sahih",
+        "The Prophet named Maryam among the women of greatest perfection, showing her special station."
+      )
+    ],
+    [
+      mc(
+        "women-maryam-1",
+        "Which qualities define Maryam in this lesson?",
+        [
+          ["a", "Purity, worship, and chosen honor"],
+          ["b", "Pride and rebellion"],
+          ["c", "Carelessness toward faith"]
+        ],
+        "a",
+        "Maryam's story is marked by devotion and purity."
+      ),
+      tf(
+        "women-maryam-2",
+        "Maryam is honored in both Quran and hadith.",
+        true,
+        "Her station is made clear in revelation and the Prophet's words."
+      ),
+      mc(
+        "women-maryam-3",
+        "What special thing is Maryam known for here?",
+        [
+          ["a", "Being chosen and purified by Allah"],
+          ["b", "Leading armies into battle"],
+          ["c", "Protecting Pharaoh's palace"]
+        ],
+        "a",
+        "Her greatness is spiritual purity and the miracle connected to her."
+      )
+    ]
+  ),
+  "lesson-women-khadijah": lesson(
+    "lesson-women-khadijah",
+    "women-khadijah",
+    "Khadijah",
+    "Khadijah was the first wife of the Prophet, the first believer from his household, and a source of strength, loyalty, and calm support.",
+    12,
+    [
+      hadithSource(
+        "source-women-khadijah-muslim-2432",
+        "Glad tidings of a house in Paradise",
+        "https://sunnah.com/muslim/44/103-104",
+        "Sahih Muslim 2432",
+        "Abu Hurairah; collected by Imam Muslim",
+        "Sahih",
+        "Jibril brought Khadijah greetings from Allah and glad tidings of a house in Paradise, showing her immense rank."
+      ),
+      hadithSource(
+        "source-women-khadijah-bukhari-3815",
+        "Khadijah among the best women",
+        "https://sunnah.com/bukhari:3815",
+        "Sahih al-Bukhari 3815",
+        "Ali ibn Abi Talib; collected by Imam al-Bukhari",
+        "Sahih",
+        "The Prophet described Khadijah as among the best women, highlighting her special excellence."
+      )
+    ],
+    [
+      mc(
+        "women-khadijah-1",
+        "What special role did Khadijah play at the beginning of Islam?",
+        [
+          ["a", "She supported the Prophet with loyalty and calm belief"],
+          ["b", "She turned away from the message"],
+          ["c", "She mocked revelation"]
+        ],
+        "a",
+        "Khadijah's strength shows up in how she stood with the Prophet at the beginning."
+      ),
+      tf(
+        "women-khadijah-2",
+        "Khadijah was honored with glad tidings from Allah and Jibril.",
+        true,
+        "That glad tiding marks one of the clearest signs of her rank."
+      ),
+      mc(
+        "women-khadijah-3",
+        "Which trait best captures Khadijah in this lesson?",
+        [
+          ["a", "Loyal support"],
+          ["b", "Emotional instability"],
+          ["c", "Seeking attention from people"]
+        ],
+        "a",
+        "Her support for the Prophet is one of the most beautiful parts of her story."
+      )
+    ]
+  ),
+  "lesson-women-aishah": lesson(
+    "lesson-women-aishah",
+    "women-aishah",
+    "Aishah",
+    "Aishah is remembered for sharp understanding, close knowledge of the Prophet's life, and a special place among the Mothers of the Believers.",
+    12,
+    [
+      hadithSource(
+        "source-women-aishah-bukhari-3770",
+        "The virtue of Aishah",
+        "https://sunnah.com/bukhari:3770",
+        "Sahih al-Bukhari 3770",
+        "Anas ibn Malik; collected by Imam al-Bukhari",
+        "Sahih",
+        "The Prophet described Aishah's virtue over other women with a well-known comparison, marking her high station."
+      ),
+      hadithSource(
+        "source-women-aishah-bukhari-6201",
+        "Jibril sent salam to Aishah",
+        "https://sunnah.com/bukhari:6201",
+        "Sahih al-Bukhari 6201",
+        "Aishah; collected by Imam al-Bukhari",
+        "Sahih",
+        "This narration shows the special closeness and honor Aishah experienced in the Prophet's household."
+      )
+    ],
+    [
+      mc(
+        "women-aishah-1",
+        "What special strength stands out for Aishah in this topic?",
+        [
+          ["a", "Knowledge and closeness to the Prophetic home"],
+          ["b", "Living far from the Prophet's teachings"],
+          ["c", "Keeping faith hidden from the Ummah"]
+        ],
+        "a",
+        "Aishah's life became one of the great windows into the sunnah."
+      ),
+      tf(
+        "women-aishah-2",
+        "Aishah is honored in hadith with a special virtue and greeting.",
+        true,
+        "The hadith record her special station in more than one way."
+      ),
+      mc(
+        "women-aishah-3",
+        "How should a learner remember Aishah here?",
+        [
+          ["a", "As a mother of believers known for understanding and transmission"],
+          ["b", "As someone detached from learning"],
+          ["c", "As someone with no role in teaching the Ummah"]
+        ],
+        "a",
+        "Her life became part of how the Ummah learned the Prophet's way."
+      )
+    ]
+  ),
+  "lesson-women-hafsah": lesson(
+    "lesson-women-hafsah",
+    "women-hafsah",
+    "Hafsah",
+    "Hafsah helps this topic end with preservation: the suhuf kept in her care became part of protecting the Quran for the Ummah.",
+    14,
+    [
+      quranSource(
+        "source-women-hafsah-quran-33-6",
+        "The wives of the Prophet are mothers of the believers",
+        "https://quran.com/en/33:6/tafsirs",
+        "Quran 33:6",
+        "The Quran gives the wives of the Prophet a special status as mothers of the believers, including Hafsah."
+      ),
+      hadithSource(
+        "source-women-hafsah-bukhari-4987",
+        "Hafsah preserved the manuscripts",
+        "https://sunnah.com/bukhari:4987",
+        "Sahih al-Bukhari 4987",
+        "Anas ibn Malik; collected by Imam al-Bukhari",
+        "Sahih",
+        "The early written sheets of the Quran were kept with Hafsah and used in the later standard copying, showing her quiet but vital role in preservation."
+      )
+    ],
+    [
+      mc(
+        "women-hafsah-1",
+        "What special contribution of Hafsah is highlighted here?",
+        [
+          ["a", "Safeguarding the sheets used in preserving the Quran"],
+          ["b", "Leading armies in conquest"],
+          ["c", "Writing a new revelation"]
+        ],
+        "a",
+        "Her role was one of trust and preservation."
+      ),
+      tf(
+        "women-hafsah-2",
+        "Hafsah's lesson shows that some huge services to Islam happen quietly.",
+        true,
+        "Her care for the suhuf is a major service carried without spectacle."
+      ),
+      mc(
+        "women-hafsah-3",
+        "How does this lesson complete the topic?",
+        [
+          ["a", "It ends with preservation of revelation and trust"],
+          ["b", "It ends by leaving the Quran unguarded"],
+          ["c", "It ends with no lasting contribution"]
+        ],
+        "a",
+        "The topic closes with a woman tied directly to protecting the Book for the Ummah."
       )
     ]
   )

@@ -2231,10 +2231,12 @@ function GuideMascot({
   const skin = "#E8B18A";
   const outline = "#1F2C3B";
   const robe = lightenColor(accentColor, 0.78);
-  const eyeWidth = headSize * 0.15;
-  const eyeHeight = headSize * 0.08;
-  const smileWidth = headSize * 0.36;
-  const smileHeight = headSize * 0.16;
+  const eyeWidth = headSize * 0.16;
+  const eyeHeight = headSize * 0.13;
+  const eyeHighlight = headSize * 0.04;
+  const cheekSize = headSize * 0.16;
+  const smileWidth = headSize * 0.44;
+  const smileHeight = headSize * 0.2;
 
   return (
     <View style={{ width: size, height: size, alignItems: "center", justifyContent: "flex-end" }}>
@@ -2274,25 +2276,25 @@ function GuideMascot({
       <View
         style={{
           position: "absolute",
-          bottom: size * 0.16,
+          bottom: size * 0.18,
           left: size * 0.18,
-          width: size * 0.11,
+          width: size * 0.12,
           height: size * 0.08,
           borderRadius: 999,
           backgroundColor: accentColor,
-          transform: [{ rotate: "-22deg" }]
+          transform: [{ rotate: "-30deg" }]
         }}
       />
       <View
         style={{
           position: "absolute",
-          bottom: size * 0.16,
+          bottom: size * 0.18,
           right: size * 0.18,
-          width: size * 0.11,
+          width: size * 0.12,
           height: size * 0.08,
           borderRadius: 999,
           backgroundColor: accentColor,
-          transform: [{ rotate: "22deg" }]
+          transform: [{ rotate: "30deg" }]
         }}
       />
 
@@ -2403,8 +2405,19 @@ function GuideMascot({
           width: eyeWidth,
           height: eyeHeight,
           borderRadius: 999,
-          borderBottomWidth: Math.max(2, size * 0.018),
-          borderColor: outline
+          backgroundColor: outline
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom + headSize * 0.42,
+          left: size * 0.405,
+          width: eyeHighlight,
+          height: eyeHighlight,
+          borderRadius: 999,
+          backgroundColor: "#F8FBFF",
+          opacity: 0.92
         }}
       />
       <View
@@ -2415,8 +2428,19 @@ function GuideMascot({
           width: eyeWidth,
           height: eyeHeight,
           borderRadius: 999,
-          borderBottomWidth: Math.max(2, size * 0.018),
-          borderColor: outline
+          backgroundColor: outline
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom + headSize * 0.42,
+          right: size * 0.405,
+          width: eyeHighlight,
+          height: eyeHighlight,
+          borderRadius: 999,
+          backgroundColor: "#F8FBFF",
+          opacity: 0.92
         }}
       />
       <View
@@ -2432,12 +2456,34 @@ function GuideMascot({
       <View
         style={{
           position: "absolute",
-          bottom: faceBottom + headSize * 0.03,
+          bottom: faceBottom + headSize * 0.14,
+          left: size * 0.325,
+          width: cheekSize,
+          height: cheekSize,
+          borderRadius: 999,
+          backgroundColor: "rgba(247, 139, 151, 0.28)"
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom + headSize * 0.14,
+          right: size * 0.325,
+          width: cheekSize,
+          height: cheekSize,
+          borderRadius: 999,
+          backgroundColor: "rgba(247, 139, 151, 0.28)"
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          bottom: faceBottom + headSize * 0.02,
           width: smileWidth,
           height: smileHeight,
           borderRadius: 999,
-          borderBottomWidth: Math.max(2, size * 0.018),
-          borderColor: "#C46A62"
+          borderBottomWidth: Math.max(3, size * 0.022),
+          borderColor: "#C95A67"
         }}
       />
     </View>
@@ -2459,6 +2505,10 @@ function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
 
   if (topicId === "prophets") {
     return "book_seal";
+  }
+
+  if (topicId === "women_of_the_book") {
+    return "book_marked";
   }
 
   if (topicId === "quran_tafseer") {
@@ -2504,7 +2554,14 @@ function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accen
     "prophets-yusuf": { glyph: "book_seal", outerColor: "#7CCB6A", innerColor: "#E6F8E0" },
     "prophets-musa": { glyph: "book_seal", outerColor: "#27B3A2", innerColor: "#D8F7F2" },
     "prophets-isa": { glyph: "book_seal", outerColor: "#7C92FF", innerColor: "#E7EBFF" },
-    "prophets-muhammad": { glyph: "book_seal", outerColor: "#F47C5D", innerColor: "#FFE4DB" }
+    "prophets-muhammad": { glyph: "book_seal", outerColor: "#F47C5D", innerColor: "#FFE4DB" },
+    "women-hawwa": { glyph: "book_marked", outerColor: "#EE7D92", innerColor: "#FFE6EB" },
+    "women-mother-musa": { glyph: "book_marked", outerColor: "#F39A74", innerColor: "#FFEBDD" },
+    "women-asiyah": { glyph: "book_seal", outerColor: "#D45A86", innerColor: "#FFE1EC" },
+    "women-maryam": { glyph: "book_open", outerColor: "#B66CE8", innerColor: "#F0E2FF" },
+    "women-khadijah": { glyph: "book_stack", outerColor: "#F06B7A", innerColor: "#FFE1E5" },
+    "women-aishah": { glyph: "book_open", outerColor: "#8D7BFF", innerColor: "#ECE8FF" },
+    "women-hafsah": { glyph: "book_seal", outerColor: "#C15FA9", innerColor: "#FBE2F5" }
   };
   const fallback = { glyph: "book_closed" as NodeGlyphKind, outerColor: accentColor, innerColor: lightenColor(accentColor, 0.88) };
   const selected = visualMap[nodeId] ?? fallback;
