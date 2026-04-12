@@ -1,0 +1,257 @@
+swagger: "2.0"
+info:
+  title: Sira Path API
+  description: Duolingo-style learning API shape for Islamic lessons, hearts, XP, shop items, subscriptions, and rewarded ads.
+  version: 1.0.0
+host: api.sirapath.local
+basePath: /
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /users/{userID}:
+    get:
+      tags: ["Users"]
+      operationId: getUser
+      summary: Returns a learner profile.
+      parameters:
+        - in: path
+          name: userID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A learner profile.
+          schema:
+            $ref: "#/definitions/UserProfile"
+  /users/{userID}/course-path:
+    get:
+      tags: ["Learning"]
+      operationId: getCoursePath
+      summary: Returns the user's circular lesson path.
+      parameters:
+        - in: path
+          name: userID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: A course path with locked, current, available, and completed nodes.
+          schema:
+            $ref: "#/definitions/CoursePath"
+  /lessons/{lessonID}/sessions:
+    post:
+      tags: ["Learning"]
+      operationId: startLessonSession
+      summary: Starts a lesson session.
+      parameters:
+        - in: path
+          name: lessonID
+          required: true
+          type: string
+      responses:
+        200:
+          description: A lesson session.
+          schema:
+            $ref: "#/definitions/LessonSession"
+  /2017-06-30/shop-items:
+    get:
+      tags: ["ShopItems"]
+      operationId: getShopItems
+      summary: Returns monetized shop items.
+      responses:
+        200:
+          description: Shop items for hearts, membership, and rewarded ads.
+          schema:
+            type: object
+            properties:
+              shopItems:
+                type: array
+                items:
+                  $ref: "#/definitions/ShopItem"
+  /2017-06-30/users/{userID}/subscriptions:
+    get:
+      tags: ["Users"]
+      operationId: getSubscriptions
+      summary: Returns user subscription list.
+      parameters:
+        - in: path
+          name: userID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Active subscriptions.
+          schema:
+            type: object
+            properties:
+              subscriptions:
+                type: array
+                items:
+                  $ref: "#/definitions/Subscription"
+  /2017-06-30/users/{userID}/xp_summaries:
+    get:
+      tags: ["Users"]
+      operationId: getXpSummaries
+      summary: Returns daily XP summaries.
+      parameters:
+        - in: path
+          name: userID
+          required: true
+          type: integer
+        - in: query
+          name: timezone
+          required: true
+          type: string
+      responses:
+        200:
+          description: XP summaries.
+          schema:
+            type: object
+            properties:
+              summaries:
+                type: array
+                items:
+                  $ref: "#/definitions/XpSummary"
+  /users/{userID}/rewarded-heart-ad:
+    post:
+      tags: ["Monetization"]
+      operationId: grantRewardedAdHeart
+      summary: Grants a heart after a rewarded ad completes.
+      parameters:
+        - in: path
+          name: userID
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Rewarded ad result.
+          schema:
+            $ref: "#/definitions/RewardedAdResult"
+definitions:
+  UserProfile:
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+      displayName:
+        type: string
+      streakDays:
+        type: integer
+      totalXp:
+        type: integer
+      dailyGoalXp:
+        type: integer
+      hearts:
+        $ref: "#/definitions/HeartsBalance"
+      completedNodeIds:
+        type: array
+        items:
+          type: string
+  HeartsBalance:
+    properties:
+      current:
+        type: integer
+      max:
+        type: integer
+      unlimited:
+        type: boolean
+      lastRefillDate:
+        type: string
+  CoursePath:
+    properties:
+      courseId:
+        type: string
+      nodes:
+        type: array
+        items:
+          $ref: "#/definitions/LearningNode"
+  LearningNode:
+    properties:
+      id:
+        type: string
+      skillId:
+        type: string
+      title:
+        type: string
+      topicId:
+        type: string
+      status:
+        type: string
+        enum: ["locked", "available", "current", "completed"]
+      lessonIds:
+        type: array
+        items:
+          type: string
+      xpReward:
+        type: integer
+  LessonSession:
+    properties:
+      id:
+        type: string
+      startedAt:
+        type: string
+      heartsAtStart:
+        type: integer
+      lesson:
+        type: object
+  ShopItem:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      localizedDescription:
+        type: string
+      price:
+        type: number
+      type:
+        type: string
+      currencyType:
+        type: string
+      productId:
+        type: string
+      heartsGranted:
+        type: integer
+      unlimitedHearts:
+        type: boolean
+      removesAds:
+        type: boolean
+  Subscription:
+    properties:
+      id:
+        type: string
+      productId:
+        type: string
+      active:
+        type: boolean
+      expiresAt:
+        type: string
+  XpSummary:
+    properties:
+      gainedXp:
+        type: integer
+      streakExtended:
+        type: boolean
+      userId:
+        type: integer
+      dailyGoalXp:
+        type: integer
+      date:
+        type: string
+      totalSessionTime:
+        type: integer
+      numSessions:
+        type: integer
+  RewardedAdResult:
+    properties:
+      ok:
+        type: boolean
+      transactionId:
+        type: string
+      heartsGranted:
+        type: integer

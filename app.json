@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Sira Path",
+    "slug": "sira-path",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "sirapath",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.islamiclearning.sirapath"
+    },
+    "android": {
+      "package": "com.islamiclearning.sirapath"
+    },
+    "extra": {
+      "monetization": {
+        "heartPackSmallProductId": "heart_pack_small",
+        "membershipMonthlyProductId": "membership_monthly",
+        "rewardedHeartAdUnitId": "rewarded_heart_test",
+        "bannerAdUnitId": "banner_test"
+      }
+    }
+  }
+}
