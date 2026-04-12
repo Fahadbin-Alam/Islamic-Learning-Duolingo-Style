@@ -1,4 +1,4 @@
-import type { AccountRole, ReminderPreferences } from "../types";
+import type { AccountRole, ReminderPreferences, SupportedLanguage } from "../types";
 
 export interface LocalAuthAccount {
   name: string;
@@ -7,6 +7,7 @@ export interface LocalAuthAccount {
   createdAt: string;
   role: AccountRole;
   reminderPreferences: ReminderPreferences;
+  preferredLanguage?: SupportedLanguage;
 }
 
 const STORAGE_KEY = "sira-path-local-auth";
@@ -38,7 +39,8 @@ export function loadLocalAuthAccount(): LocalAuthAccount | null {
       reminderPreferences: parsed.reminderPreferences ?? {
         dailyInactivity: true,
         weeklyInactivity: true
-      }
+      },
+      preferredLanguage: parsed.preferredLanguage
     };
   } catch {
     return null;

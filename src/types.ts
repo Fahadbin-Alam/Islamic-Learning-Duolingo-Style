@@ -15,6 +15,7 @@ export type ShopItemType = "heart_pack" | "monthly_membership" | "rewarded_ad";
 
 export type SocialRelation = "parent" | "friend";
 export type AccountRole = "parent" | "child";
+export type SupportedLanguage = "en" | "fr" | "ar" | "bn" | "ur" | "hi";
 
 export interface ReminderPreferences {
   dailyInactivity: boolean;
@@ -39,6 +40,7 @@ export interface UserProfile {
   accountCreatedAt?: string;
   lastLoginAt?: string;
   reminderPreferences?: ReminderPreferences;
+  preferredLanguage?: SupportedLanguage;
   reviewHeartRestoreUsed?: boolean;
   streakDays: number;
   totalXp: number;

@@ -311,6 +311,7 @@ function sanitizeUserProfile(profile, email, name, role, reminderPreferences) {
     accountCreatedAt: typeof safeProfile.accountCreatedAt === "string" ? safeProfile.accountCreatedAt : now,
     lastLoginAt: typeof safeProfile.lastLoginAt === "string" ? safeProfile.lastLoginAt : now,
     reminderPreferences,
+    preferredLanguage: sanitizePreferredLanguage(safeProfile.preferredLanguage),
     reviewHeartRestoreUsed: Boolean(safeProfile.reviewHeartRestoreUsed),
     streakDays: Number(safeProfile.streakDays) || 1,
     totalXp: Number(safeProfile.totalXp) || 0,
@@ -321,6 +322,10 @@ function sanitizeUserProfile(profile, email, name, role, reminderPreferences) {
     completedNodeIds: Array.isArray(safeProfile.completedNodeIds) ? safeProfile.completedNodeIds : [],
     activeSubscriptionId: typeof safeProfile.activeSubscriptionId === "string" ? safeProfile.activeSubscriptionId : undefined
   };
+}
+
+function sanitizePreferredLanguage(value) {
+  return ["en", "fr", "ar", "bn", "ur", "hi"].includes(value) ? value : "en";
 }
 
 function sanitizeHearts(hearts) {

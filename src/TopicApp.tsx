@@ -23,6 +23,16 @@ import {
 import { SOCIAL_AUTH_CONFIG } from "./config/auth";
 import { COURSE, SHOP_ITEMS } from "./data/course";
 import {
+  DEFAULT_LANGUAGE,
+  getLanguageOption,
+  getNodeTitle,
+  getTopicCopy,
+  getUiStrings,
+  LANGUAGE_OPTIONS,
+  normalizeLanguage,
+  type UiStrings
+} from "./i18n";
+import {
   createLocalAuthAccount,
   loadLocalAuthAccount,
   loginLocalAuthAccount
@@ -57,6 +67,7 @@ import type {
   SocialHubState,
   SocialRelation,
   ShopItem,
+  SupportedLanguage,
   TopicId,
   UserProfile,
   XpSummary
@@ -177,6 +188,7 @@ export default function TopicApp() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountModalVisible, setAccountModalVisible] = useState(false);
   const [reviewRestoreVisible, setReviewRestoreVisible] = useState(false);
+  const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
   const [authMode, setAuthMode] = useState<AuthMode>("create");
   const [hasSavedAccount, setHasSavedAccount] = useState(false);
@@ -189,6 +201,7 @@ export default function TopicApp() {
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   const [accountabilityPermissionAsked, setAccountabilityPermissionAsked] = useState(false);
+  const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     let mounted = true;
@@ -207,12 +220,17 @@ export default function TopicApp() {
       if (mounted) {
         setSocialHub(remoteSession?.socialHub ?? savedSocialHub);
         setHasSavedAccount(Boolean(accountSeed));
+        setPendingLanguage(normalizeLanguage(user.preferredLanguage));
 
         if (accountSeed) {
           setAccountName(accountSeed.name);
           setAccountEmail(accountSeed.email);
           setAccountRole(accountSeed.role);
           setAuthMode("login");
+        }
+
+        if (!user.preferredLanguage) {
+          setLanguageModalVisible(true);
         }
 
         dispatch({ type: "loaded", user, xpSummary });
@@ -240,25 +258,62 @@ export default function TopicApp() {
     void syncRemoteSocialHub(socialHub).catch(() => undefined);
   }, [socialHub]);
 
+  const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? pendingLanguage);
+  const strings = useMemo(() => getUiStrings(currentLanguage), [currentLanguage]);
+
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
   }, [state.user]);
 
+  const localizedSections = useMemo(() => {
+    return COURSE.sections.map((section) => {
+      const topicCopy = getTopicCopy(section.topicId, currentLanguage);
+
+      return {
+        ...section,
+        title: topicCopy.title,
+        description: topicCopy.description,
+        focus: topicCopy.focus,
+        badge: topicCopy.badge
+      };
+    });
+  }, [currentLanguage]);
+
   const selectedSection = useMemo(() => {
-    return COURSE.sections.find((section) => section.topicId === state.selectedTopic) ?? COURSE.sections[0];
-  }, [state.selectedTopic]);
+    return localizedSections.find((section) => section.topicId === state.selectedTopic) ?? localizedSections[0];
+  }, [localizedSections, state.selectedTopic]);
 
   const selectedNodes = useMemo(() => {
-    return pathNodes.filter((node) => node.topicId === selectedSection.topicId);
-  }, [pathNodes, selectedSection.topicId]);
+    return pathNodes
+      .filter((node) => node.topicId === selectedSection.topicId)
+      .map((node) => ({
+        ...node,
+        title: getNodeTitle(node.id, node.title, currentLanguage)
+      }));
+  }, [currentLanguage, pathNodes, selectedSection.topicId]);
 
   const currentLessonSection = useMemo(() => {
     if (!state.activeSession) {
       return selectedSection;
     }
 
-    return getSectionByNodeId(state.activeSession.lesson.nodeId) ?? selectedSection;
-  }, [selectedSection, state.activeSession]);
+    const section = localizedSections.find((item) => item.nodes.some((node) => node.id === state.activeSession!.lesson.nodeId));
+    return section ?? selectedSection;
+  }, [localizedSections, selectedSection, state.activeSession]);
+
+  const currentLessonSession = useMemo(() => {
+    if (!state.activeSession) {
+      return undefined;
+    }
+
+    return {
+      ...state.activeSession,
+      lesson: {
+        ...state.activeSession.lesson,
+        title: getNodeTitle(state.activeSession.lesson.nodeId, state.activeSession.lesson.title, currentLanguage)
+      }
+    };
+  }, [currentLanguage, state.activeSession]);
 
   const isInFoundationExperience =
     (state.screen === "path" && selectedSection.topicId === "foundation") ||
@@ -464,6 +519,22 @@ export default function TopicApp() {
     }
   }
 
+  function savePreferredLanguage(language: SupportedLanguage) {
+    if (!state.user) {
+      return;
+    }
+
+    setPendingLanguage(language);
+    dispatch({
+      type: "apply_user",
+      user: {
+        ...state.user,
+        preferredLanguage: language
+      }
+    });
+    setLanguageModalVisible(false);
+  }
+
   function openAccountModal(mode?: AuthMode) {
     setAuthMode(mode ?? (hasSavedAccount ? "login" : "create"));
     setAccountModalVisible(true);
@@ -492,7 +563,8 @@ export default function TopicApp() {
       password: accountPassword,
       createdAt,
       role: accountRole,
-      reminderPreferences
+      reminderPreferences,
+      preferredLanguage: state.user.preferredLanguage
     };
     let nextUser: UserProfile = applyAccountIdentity(state.user, pendingAccount);
     let nextSocialHub = socialHub;
@@ -550,11 +622,12 @@ export default function TopicApp() {
       createLocalAuthAccount({
         name: remote.account.name,
         email: remote.account.email,
-        password: accountPassword,
-        createdAt: remote.account.createdAt,
-        role: remote.account.role,
-        reminderPreferences: remote.account.reminderPreferences
-      });
+      password: accountPassword,
+      createdAt: remote.account.createdAt,
+      role: remote.account.role,
+      reminderPreferences: remote.account.reminderPreferences,
+      preferredLanguage: remote.user.preferredLanguage
+    });
 
       dispatch({
         type: "apply_user",
@@ -743,7 +816,7 @@ export default function TopicApp() {
       <SafeAreaView style={styles.safeArea}>
         <StatusBar barStyle="dark-content" />
         <View style={styles.centerPane}>
-          <Text style={styles.loadingText}>Preparing your learning path...</Text>
+          <Text style={styles.loadingText}>{strings.loadingPath}</Text>
         </View>
       </SafeAreaView>
     );
@@ -755,16 +828,23 @@ export default function TopicApp() {
       <View style={styles.appShell}>
         <TopBar
           user={state.user}
+          strings={strings}
+          languageCode={getLanguageOption(currentLanguage).code}
           onAccount={() => openAccountModal()}
+          onLanguage={() => {
+            setPendingLanguage(currentLanguage);
+            setLanguageModalVisible(true);
+          }}
           onSocial={() => dispatch({ type: "open_social" })}
           onShop={() => dispatch({ type: "open_shop" })}
         />
         {state.screen === "path" && (
           <PathScreen
             user={state.user}
+            strings={strings}
             xpSummary={state.xpSummary[0]}
             section={selectedSection}
-            sections={COURSE.sections}
+            sections={localizedSections}
             nodes={selectedNodes}
             selectedTopic={state.selectedTopic}
             onSelectTopic={(topicId) => dispatch({ type: "select_topic", topicId })}
@@ -772,10 +852,11 @@ export default function TopicApp() {
             onOpenShop={() => dispatch({ type: "open_shop" })}
           />
         )}
-        {state.screen === "lesson" && state.activeSession && (
+        {state.screen === "lesson" && currentLessonSession && (
           <LessonScreen
+            strings={strings}
             section={currentLessonSection}
-            session={state.activeSession}
+            session={currentLessonSession}
             challengeIndex={state.challengeIndex}
             selectedChoiceId={state.selectedChoiceId}
             answerState={state.answerState}
@@ -788,6 +869,7 @@ export default function TopicApp() {
         {state.screen === "shop" && (
           <ShopScreen
             user={state.user}
+            strings={strings}
             items={SHOP_ITEMS}
             section={selectedSection}
             onUseItem={useShopItem}
@@ -818,6 +900,7 @@ export default function TopicApp() {
         <AccountModal
           visible={accountModalVisible}
           onClose={() => setAccountModalVisible(false)}
+          strings={strings}
           mode={authMode}
           hasSavedAccount={hasSavedAccount}
           onChangeMode={setAuthMode}
@@ -835,8 +918,18 @@ export default function TopicApp() {
         />
         <ReviewRestoreModal
           visible={reviewRestoreVisible}
+          strings={strings}
           onClose={skipReviewHeartRestore}
           onRestore={claimReviewHeartRestore}
+        />
+        <LanguageModal
+          visible={languageModalVisible}
+          strings={strings}
+          selectedLanguage={pendingLanguage}
+          canClose={Boolean(state.user.preferredLanguage)}
+          onClose={() => setLanguageModalVisible(false)}
+          onSelectLanguage={setPendingLanguage}
+          onSave={() => savePreferredLanguage(pendingLanguage)}
         />
       </View>
     </SafeAreaView>
@@ -845,12 +938,18 @@ export default function TopicApp() {
 
 function TopBar({
   user,
+  strings,
+  languageCode,
   onAccount,
+  onLanguage,
   onSocial,
   onShop
 }: {
   user: UserProfile;
+  strings: UiStrings;
+  languageCode: string;
   onAccount: () => void;
+  onLanguage: () => void;
   onSocial: () => void;
   onShop: () => void;
 }) {
@@ -860,7 +959,7 @@ function TopBar({
         <GuideMascot variant="hijabi" accentColor={colors.green} size={42} />
       </View>
       <View style={styles.topMetric}>
-        <Text style={styles.metricLabel}>Streak</Text>
+        <Text style={styles.metricLabel}>{strings.streak}</Text>
         <Text style={styles.metricValue}>{user.streakDays} day</Text>
       </View>
       <View style={styles.topMetric}>
@@ -881,16 +980,20 @@ function TopBar({
           </Text>
         </View>
         <View>
-          <Text style={styles.accountLabel}>{user.hasAccount ? "Account" : "Save"}</Text>
-          <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : "Log in"}</Text>
+          <Text style={styles.accountLabel}>{user.hasAccount ? strings.account : strings.save}</Text>
+          <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : strings.logIn}</Text>
         </View>
       </Pressable>
+      <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
+        <Text style={styles.metricLabel}>{strings.language}</Text>
+        <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
+      </Pressable>
       <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
-        <Text style={styles.metricLabel}>Crew</Text>
-        <Text style={styles.socialButtonSmallValue}>Battle</Text>
+        <Text style={styles.metricLabel}>{strings.crew}</Text>
+        <Text style={styles.socialButtonSmallValue}>{strings.battle}</Text>
       </Pressable>
       <Pressable onPress={onShop} style={styles.heartButton}>
-        <Text style={styles.metricLabel}>Hearts</Text>
+        <Text style={styles.metricLabel}>{strings.hearts}</Text>
         <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
       </Pressable>
     </View>
@@ -899,6 +1002,7 @@ function TopBar({
 
 function PathScreen({
   user,
+  strings,
   xpSummary,
   section,
   sections,
@@ -909,6 +1013,7 @@ function PathScreen({
   onOpenShop
 }: {
   user: UserProfile;
+  strings: UiStrings;
   xpSummary?: XpSummary;
   section: LearningSection;
   sections: LearningSection[];
@@ -926,6 +1031,7 @@ function PathScreen({
     <ScrollView contentContainerStyle={styles.pathContent} showsVerticalScrollIndicator={false}>
       <HeroCard
         section={section}
+        strings={strings}
         progress={progress}
         gainedXp={xpSummary?.gainedXp ?? user.totalXp}
         earnedStars={earnedStars}
@@ -933,8 +1039,8 @@ function PathScreen({
       />
 
       <View style={styles.topicHeader}>
-        <Text style={styles.sectionTitle}>Choose a topic</Text>
-        <Text style={styles.sectionDescription}>Tap one and move through its circles.</Text>
+        <Text style={styles.sectionTitle}>{strings.chooseTopic}</Text>
+        <Text style={styles.sectionDescription}>{strings.tapTopic}</Text>
       </View>
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.topicRow}>
@@ -942,6 +1048,7 @@ function PathScreen({
           <TopicCard
             key={topic.topicId}
             section={topic}
+            strings={strings}
             earnedStars={getSectionStars(user, topic)}
             selected={topic.topicId === selectedTopic}
             onPress={() => onSelectTopic(topic.topicId)}
@@ -955,7 +1062,7 @@ function PathScreen({
             <Text style={styles.routeBadge}>{section.badge}</Text>
             <Text style={styles.routeTitle}>{section.title}</Text>
             <Text style={styles.routeDescription}>{section.focus}</Text>
-            <StarMeter earned={earnedStars} total={section.starsTarget} compact={false} />
+            <StarMeter earned={earnedStars} total={section.starsTarget} compact={false} strings={strings} />
           </View>
           <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={92} />
         </View>
@@ -972,8 +1079,8 @@ function PathScreen({
               {index === 1 && (
                 <CoachCard
                   section={section}
-                  title="Guide moment"
-                  copy={`Want ${section.title.toLowerCase()} right now? Tap the bright button and keep moving.`}
+                  title={strings.guideMoment}
+                  copy={`${strings.learnTopic} ${section.title}. ${strings.guideMomentCopy}`}
                 />
               )}
             </View>
@@ -993,12 +1100,14 @@ function PathScreen({
 
 function HeroCard({
   section,
+  strings,
   progress,
   gainedXp,
   earnedStars,
   onContinue
 }: {
   section: LearningSection;
+  strings: UiStrings;
   progress: number;
   gainedXp: number;
   earnedStars: number;
@@ -1011,15 +1120,15 @@ function HeroCard({
           <Text style={styles.heroBadge}>{section.badge}</Text>
           <TopicIcon topicId={section.topicId} accentColor="#FFFFFF" light />
         </View>
-        <Text style={styles.heroTitle}>Learn {section.title}</Text>
+        <Text style={styles.heroTitle}>{`${strings.learnTopic} ${section.title}`}</Text>
         <Text style={styles.heroCopy}>{section.description}</Text>
-        <StarMeter earned={earnedStars} total={section.starsTarget} light compact={false} />
+        <StarMeter earned={earnedStars} total={section.starsTarget} light compact={false} strings={strings} />
         <View style={styles.heroTrack}>
           <View style={[styles.heroFill, { width: `${progress * 100}%` }]} />
         </View>
-        <Text style={styles.heroProgress}>{gainedXp} XP today</Text>
+        <Text style={styles.heroProgress}>{`${gainedXp} ${strings.xpToday}`}</Text>
         <Pressable onPress={onContinue} style={styles.heroButton}>
-          <Text style={styles.heroButtonText}>Continue topic</Text>
+          <Text style={styles.heroButtonText}>{strings.continueTopic}</Text>
         </Pressable>
       </View>
       <View style={styles.heroArt}>
@@ -1031,11 +1140,13 @@ function HeroCard({
 
 function TopicCard({
   section,
+  strings,
   earnedStars,
   selected,
   onPress
 }: {
   section: LearningSection;
+  strings: UiStrings;
   earnedStars: number;
   selected: boolean;
   onPress: () => void;
@@ -1053,7 +1164,7 @@ function TopicCard({
       </View>
       <Text style={styles.topicCardTitle}>{section.title}</Text>
       <Text style={styles.topicCardCopy}>{section.focus}</Text>
-      <StarMeter earned={earnedStars} total={section.starsTarget} compact />
+      <StarMeter earned={earnedStars} total={section.starsTarget} compact strings={strings} />
     </Pressable>
   );
 }
@@ -1302,6 +1413,7 @@ function CoachCard({ section, title, copy }: { section: LearningSection; title: 
 
 function LessonScreen({
   section,
+  strings,
   session,
   challengeIndex,
   selectedChoiceId,
@@ -1312,6 +1424,7 @@ function LessonScreen({
   onExit
 }: {
   section: LearningSection;
+  strings: UiStrings;
   session: LessonSession;
   challengeIndex: number;
   selectedChoiceId?: string;
@@ -1375,10 +1488,11 @@ function LessonScreen({
           })}
         </View>
 
-        {session.lesson.sources.length > 0 && <LessonSources sources={session.lesson.sources} accentColor={section.accentColor} />}
+        {session.lesson.sources.length > 0 && <LessonSources sources={session.lesson.sources} accentColor={section.accentColor} strings={strings} />}
       </View>
 
       <LessonFooter
+        strings={strings}
         challenge={challenge}
         answerState={answerState}
         selectedChoiceId={selectedChoiceId}
@@ -1391,6 +1505,7 @@ function LessonScreen({
 }
 
 function LessonFooter({
+  strings,
   challenge,
   answerState,
   selectedChoiceId,
@@ -1398,6 +1513,7 @@ function LessonFooter({
   onAnswer,
   onContinue
 }: {
+  strings: UiStrings;
   challenge: Challenge;
   answerState: AnswerState;
   selectedChoiceId?: string;
@@ -1414,7 +1530,7 @@ function LessonFooter({
         ]}
       >
         <Text style={[styles.feedbackTitle, answerState === "correct" ? styles.feedbackTitleGood : styles.feedbackTitleBad]}>
-          {answerState === "correct" ? "Correct" : "Not quite"}
+          {answerState === "correct" ? strings.correct : strings.notQuite}
         </Text>
         <Text style={styles.feedbackCopy}>{challenge.explanation}</Text>
         {answerState === "correct" && (
@@ -1424,11 +1540,11 @@ function LessonFooter({
                 <SparkleIcon key={`reward-star-${index}`} size={14} color="#F0B90B" />
               ))}
             </View>
-            <Text style={styles.rewardCopy}>{`+${starsReward} stars for this part`}</Text>
+            <Text style={styles.rewardCopy}>{`+${starsReward} ${strings.starsForPart}`}</Text>
           </View>
         )}
         <Pressable onPress={onContinue} style={[styles.primaryButton, answerState === "correct" ? styles.correctButton : styles.wrongButton]}>
-          <Text style={styles.primaryButtonText}>Continue</Text>
+          <Text style={styles.primaryButtonText}>{strings.continue}</Text>
         </Pressable>
       </View>
     );
@@ -1436,13 +1552,13 @@ function LessonFooter({
 
   return (
     <View style={styles.feedbackPane}>
-      <Text style={styles.feedbackCopy}>Pick the answer that matches best.</Text>
+      <Text style={styles.feedbackCopy}>{strings.pickAnswer}</Text>
       <Pressable
         onPress={onAnswer}
         disabled={!selectedChoiceId}
         style={[styles.primaryButton, styles.checkButton, !selectedChoiceId && styles.primaryButtonDisabled]}
       >
-        <Text style={styles.primaryButtonText}>Check</Text>
+        <Text style={styles.primaryButtonText}>{strings.check}</Text>
       </Pressable>
     </View>
   );
@@ -1450,12 +1566,14 @@ function LessonFooter({
 
 function ShopScreen({
   user,
+  strings,
   items,
   section,
   onUseItem,
   onDone
 }: {
   user: UserProfile;
+  strings: UiStrings;
   items: ShopItem[];
   section: LearningSection;
   onUseItem: (item: ShopItem) => void;
@@ -1465,12 +1583,12 @@ function ShopScreen({
     <ScrollView contentContainerStyle={styles.shopContent}>
       <View style={[styles.shopHero, { backgroundColor: lightenColor(section.accentColor, 0.92) }]}>
         <View style={styles.shopHeroText}>
-          <Text style={styles.eyebrow}>Heart shop</Text>
-          <Text style={styles.title}>Keep learning {section.title}</Text>
+          <Text style={styles.eyebrow}>{strings.heartShop}</Text>
+          <Text style={styles.title}>{`${strings.keepLearning} ${section.title}`}</Text>
           <Text style={styles.subtitle}>
             {user.hearts.unlimited
-              ? "Membership is active. Hearts stay full."
-              : `You have ${formatHearts(user)}.`}
+              ? strings.membershipActive
+              : `${strings.youHave} ${formatHearts(user)}.`}
           </Text>
         </View>
         <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={112} />
@@ -1489,7 +1607,7 @@ function ShopScreen({
       ))}
 
       <Pressable onPress={onDone} style={[styles.primaryButton, { backgroundColor: section.accentColor }]}>
-        <Text style={styles.primaryButtonText}>Back to path</Text>
+        <Text style={styles.primaryButtonText}>{strings.backToPath}</Text>
       </Pressable>
     </ScrollView>
   );
@@ -1732,10 +1850,10 @@ function SocialScreen({
   );
 }
 
-function LessonSources({ sources, accentColor }: { sources: LessonSource[]; accentColor: string }) {
+function LessonSources({ sources, accentColor, strings }: { sources: LessonSource[]; accentColor: string; strings: UiStrings }) {
   return (
     <View style={styles.sourcesBlock}>
-      <Text style={styles.sourcesTitle}>Source notes</Text>
+      <Text style={styles.sourcesTitle}>{strings.sourceNotes}</Text>
       {sources.map((source) => (
         <Pressable key={source.id} onPress={() => Linking.openURL(source.url)} style={[styles.sourceCard, { borderColor: accentColor }]}>
           <View style={styles.sourceHeader}>
@@ -1745,20 +1863,20 @@ function LessonSources({ sources, accentColor }: { sources: LessonSource[]; acce
           <Text style={styles.sourceTitle}>{source.title}</Text>
           <View style={styles.sourceMetaStack}>
             <View style={styles.sourceMetaRow}>
-              <Text style={styles.sourceMetaLabel}>Reference</Text>
+              <Text style={styles.sourceMetaLabel}>{strings.reference}</Text>
               <Text style={styles.sourceMetaValue}>{source.reference ?? source.title}</Text>
             </View>
             <View style={styles.sourceMetaRow}>
-              <Text style={styles.sourceMetaLabel}>From</Text>
+              <Text style={styles.sourceMetaLabel}>{strings.from}</Text>
               <Text style={styles.sourceMetaValue}>{source.from ?? defaultSourceFrom(source)}</Text>
             </View>
             <View style={styles.sourceMetaRow}>
-              <Text style={styles.sourceMetaLabel}>Grade</Text>
+              <Text style={styles.sourceMetaLabel}>{strings.grade}</Text>
               <Text style={styles.sourceMetaValue}>{source.grade ?? defaultSourceGrade(source)}</Text>
             </View>
           </View>
           <Text style={styles.sourceCopy}>{source.summary}</Text>
-          <Text style={styles.sourceLink}>Open source</Text>
+          <Text style={styles.sourceLink}>{strings.openSource}</Text>
         </Pressable>
       ))}
     </View>
@@ -1768,11 +1886,13 @@ function LessonSources({ sources, accentColor }: { sources: LessonSource[]; acce
 function StarMeter({
   earned,
   total,
+  strings,
   compact = false,
   light = false
 }: {
   earned: number;
   total: number;
+  strings: UiStrings;
   compact?: boolean;
   light?: boolean;
 }) {
@@ -1780,9 +1900,9 @@ function StarMeter({
     <View style={[styles.starMeter, compact && styles.starMeterCompact]}>
       <View style={styles.starMeterValueRow}>
         <SparkleIcon size={12} color={light ? "#FFF1A8" : "#F0B90B"} />
-        <Text style={[styles.starMeterValue, light && styles.starMeterValueLight]}>{`${earned}/${total} stars`}</Text>
+        <Text style={[styles.starMeterValue, light && styles.starMeterValueLight]}>{`${earned}/${total} ${strings.stars}`}</Text>
       </View>
-      {!compact && <Text style={[styles.starMeterLabel, light && styles.starMeterLabelLight]}>Stars in this part</Text>}
+      {!compact && <Text style={[styles.starMeterLabel, light && styles.starMeterLabelLight]}>{strings.starsInPart}</Text>}
     </View>
   );
 }
@@ -1790,6 +1910,7 @@ function StarMeter({
 function AccountModal({
   visible,
   onClose,
+  strings,
   mode,
   hasSavedAccount,
   onChangeMode,
@@ -1807,6 +1928,7 @@ function AccountModal({
 }: {
   visible: boolean;
   onClose: () => void;
+  strings: UiStrings;
   mode: AuthMode;
   hasSavedAccount: boolean;
   onChangeMode: (mode: AuthMode) => void;
@@ -1826,25 +1948,25 @@ function AccountModal({
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
         <View style={styles.modalCard}>
-          <Text style={styles.modalEyebrow}>Keep your progress</Text>
-          <Text style={styles.modalTitle}>{mode === "create" ? "Having fun learning?" : "Welcome back"}</Text>
+          <Text style={styles.modalEyebrow}>{strings.keepYourProgress}</Text>
+          <Text style={styles.modalTitle}>{mode === "create" ? strings.havingFun : strings.welcomeBack}</Text>
           <Text style={styles.modalCopy}>
             {mode === "create"
-              ? "Create an account to save your Foundation progress and keep your stars, streak, and lesson path."
-              : "Log in to pick up your path, stars, and streak right where you left them."}
+              ? strings.createCopy
+              : strings.loginCopy}
           </Text>
           <View style={styles.authModeRow}>
             <Pressable
               onPress={() => onChangeMode("create")}
               style={[styles.authModeButton, mode === "create" && styles.authModeButtonActive]}
             >
-              <Text style={[styles.authModeText, mode === "create" && styles.authModeTextActive]}>Create account</Text>
+              <Text style={[styles.authModeText, mode === "create" && styles.authModeTextActive]}>{strings.createAccount}</Text>
             </Pressable>
             <Pressable
               onPress={() => onChangeMode("login")}
               style={[styles.authModeButton, mode === "login" && styles.authModeButtonActive]}
             >
-              <Text style={[styles.authModeText, mode === "login" && styles.authModeTextActive]}>Log in</Text>
+              <Text style={[styles.authModeText, mode === "login" && styles.authModeTextActive]}>{strings.logIn}</Text>
             </Pressable>
           </View>
           {mode === "create" && (
@@ -1853,13 +1975,13 @@ function AccountModal({
                 onPress={() => onChangeRole("child")}
                 style={[styles.roleButton, accountRole === "child" && styles.roleButtonActive]}
               >
-                <Text style={[styles.roleButtonText, accountRole === "child" && styles.roleButtonTextActive]}>I am a child</Text>
+                <Text style={[styles.roleButtonText, accountRole === "child" && styles.roleButtonTextActive]}>{strings.iAmChild}</Text>
               </Pressable>
               <Pressable
                 onPress={() => onChangeRole("parent")}
                 style={[styles.roleButton, accountRole === "parent" && styles.roleButtonActive]}
               >
-                <Text style={[styles.roleButtonText, accountRole === "parent" && styles.roleButtonTextActive]}>I am a parent</Text>
+                <Text style={[styles.roleButtonText, accountRole === "parent" && styles.roleButtonTextActive]}>{strings.iAmParent}</Text>
               </Pressable>
             </View>
           )}
@@ -1867,7 +1989,7 @@ function AccountModal({
             <TextInput
               value={accountName}
               onChangeText={onChangeName}
-              placeholder="Your name"
+              placeholder={strings.yourName}
               placeholderTextColor={colors.muted}
               style={styles.input}
             />
@@ -1875,7 +1997,7 @@ function AccountModal({
           <TextInput
             value={accountEmail}
             onChangeText={onChangeEmail}
-            placeholder="Email address"
+            placeholder={strings.emailAddress}
             autoCapitalize="none"
             keyboardType="email-address"
             placeholderTextColor={colors.muted}
@@ -1884,7 +2006,7 @@ function AccountModal({
           <TextInput
             value={accountPassword}
             onChangeText={onChangePassword}
-            placeholder={mode === "create" ? "Create a password" : "Password"}
+            placeholder={mode === "create" ? strings.createPassword : strings.password}
             autoCapitalize="none"
             secureTextEntry
             placeholderTextColor={colors.muted}
@@ -1902,15 +2024,15 @@ function AccountModal({
           </View>
           <Text style={styles.modalHint}>
             {hasSavedAccount
-              ? "This device already has a saved account, so you can log in any time."
-              : "Google and Facebook are ready for your app IDs in config when you want to turn them on."}
+              ? strings.savedAccountHint
+              : strings.socialHint}
           </Text>
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
-              <Text style={styles.modalGhostText}>Later</Text>
+              <Text style={styles.modalGhostText}>{strings.later}</Text>
             </Pressable>
             <Pressable onPress={mode === "create" ? onCreate : onLogin} style={styles.modalPrimaryButton}>
-              <Text style={styles.modalPrimaryText}>{mode === "create" ? "Create account" : "Log in"}</Text>
+              <Text style={styles.modalPrimaryText}>{mode === "create" ? strings.createAccount : strings.logIn}</Text>
             </Pressable>
           </View>
         </View>
@@ -1921,10 +2043,12 @@ function AccountModal({
 
 function ReviewRestoreModal({
   visible,
+  strings,
   onClose,
   onRestore
 }: {
   visible: boolean;
+  strings: UiStrings;
   onClose: () => void;
   onRestore: () => void;
 }) {
@@ -1932,21 +2056,75 @@ function ReviewRestoreModal({
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
         <View style={styles.modalCard}>
-          <Text style={styles.modalEyebrow}>First heart reset</Text>
-          <Text style={styles.modalTitle}>Out of hearts?</Text>
-          <Text style={styles.modalCopy}>
-            Leave a 5-star review on the App Store or Play Store, then tap restore to refill your hearts one time.
-          </Text>
+          <Text style={styles.modalEyebrow}>{strings.firstHeartReset}</Text>
+          <Text style={styles.modalTitle}>{strings.outOfHearts}</Text>
+          <Text style={styles.modalCopy}>{strings.reviewCopy}</Text>
           <View style={styles.reviewRestoreCard}>
-            <Text style={styles.reviewRestoreTitle}>One-time refill</Text>
-            <Text style={styles.reviewRestoreCopy}>This only appears the first time someone runs out of hearts.</Text>
+            <Text style={styles.reviewRestoreTitle}>{strings.oneTimeRefill}</Text>
+            <Text style={styles.reviewRestoreCopy}>{strings.reviewRestoreCopy}</Text>
           </View>
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
-              <Text style={styles.modalGhostText}>Maybe later</Text>
+              <Text style={styles.modalGhostText}>{strings.maybeLater}</Text>
             </Pressable>
             <Pressable onPress={onRestore} style={styles.modalPrimaryButton}>
-              <Text style={styles.modalPrimaryText}>I left 5 stars</Text>
+              <Text style={styles.modalPrimaryText}>{strings.iLeft5Stars}</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+function LanguageModal({
+  visible,
+  strings,
+  selectedLanguage,
+  canClose,
+  onClose,
+  onSelectLanguage,
+  onSave
+}: {
+  visible: boolean;
+  strings: UiStrings;
+  selectedLanguage: SupportedLanguage;
+  canClose: boolean;
+  onClose: () => void;
+  onSelectLanguage: (language: SupportedLanguage) => void;
+  onSave: () => void;
+}) {
+  return (
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={canClose ? onClose : onSave}>
+      <View style={styles.modalBackdrop}>
+        <View style={styles.modalCard}>
+          <Text style={styles.modalEyebrow}>{strings.languageEyebrow}</Text>
+          <Text style={styles.modalTitle}>{strings.languageTitle}</Text>
+          <Text style={styles.modalCopy}>{strings.languageCopy}</Text>
+          <View style={styles.languageGrid}>
+            {LANGUAGE_OPTIONS.map((option) => {
+              const selected = option.id === selectedLanguage;
+              return (
+                <Pressable
+                  key={option.id}
+                  onPress={() => onSelectLanguage(option.id)}
+                  style={[styles.languageOption, selected && styles.languageOptionActive]}
+                >
+                  <Text style={[styles.languageOptionCode, selected && styles.languageOptionCodeActive]}>{option.code}</Text>
+                  <Text style={[styles.languageOptionNative, selected && styles.languageOptionNativeActive]}>{option.nativeLabel}</Text>
+                  <Text style={[styles.languageOptionLabel, selected && styles.languageOptionLabelActive]}>{option.label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <View style={styles.modalActions}>
+            {canClose && (
+              <Pressable onPress={onClose} style={styles.modalGhostButton}>
+                <Text style={styles.modalGhostText}>{strings.later}</Text>
+              </Pressable>
+            )}
+            <Pressable onPress={onSave} style={styles.modalPrimaryButton}>
+              <Text style={styles.modalPrimaryText}>{strings.saveLanguage}</Text>
             </Pressable>
           </View>
         </View>
@@ -2350,7 +2528,14 @@ function isWeeklyReminderDue(connection: SocialConnection) {
 
 function applyAccountIdentity(
   user: UserProfile,
-  account: { name: string; email: string; createdAt: string; role: AccountRole; reminderPreferences: ReminderPreferences }
+  account: {
+    name: string;
+    email: string;
+    createdAt: string;
+    role: AccountRole;
+    reminderPreferences: ReminderPreferences;
+    preferredLanguage?: SupportedLanguage;
+  }
 ) {
   return {
     ...user,
@@ -2362,7 +2547,8 @@ function applyAccountIdentity(
     accountEmail: normalizeEmail(account.email),
     accountCreatedAt: account.createdAt,
     lastLoginAt: new Date().toISOString(),
-    reminderPreferences: account.reminderPreferences ?? user.reminderPreferences ?? defaultReminderPreferences()
+    reminderPreferences: account.reminderPreferences ?? user.reminderPreferences ?? defaultReminderPreferences(),
+    preferredLanguage: account.preferredLanguage ?? user.preferredLanguage ?? DEFAULT_LANGUAGE
   };
 }
 
@@ -2387,10 +2573,6 @@ function isValidEmail(email: string) {
 
 function isBackendOfflineError(error: Error) {
   return /fetch|network|failed|load|backend request failed with 5/i.test(error.message);
-}
-
-function getSectionByNodeId(nodeId: string) {
-  return COURSE.sections.find((section) => section.nodes.some((node) => node.id === nodeId));
 }
 
 function getSectionStars(user: UserProfile, section: LearningSection) {
@@ -2509,7 +2691,7 @@ const styles = StyleSheet.create({
   appShell: { flex: 1, backgroundColor: colors.bg },
   centerPane: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
   loadingText: { color: colors.ink, fontSize: 18, fontWeight: "700", letterSpacing: 0 },
-  topBar: { flexDirection: "row", alignItems: "center", gap: 10, paddingHorizontal: 16, paddingVertical: 12, backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.line },
+  topBar: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10, paddingHorizontal: 16, paddingVertical: 12, backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.line },
   miniGuideWrap: { width: 42, height: 42, borderRadius: 8, overflow: "hidden", backgroundColor: colors.mint },
   topMetric: { minWidth: 50 },
   metricLabel: { color: colors.muted, fontSize: 12, fontWeight: "700", letterSpacing: 0 },
@@ -2522,6 +2704,7 @@ const styles = StyleSheet.create({
   accountBadgeTextActive: { color: colors.white },
   accountLabel: { color: colors.muted, fontSize: 10, fontWeight: "800", letterSpacing: 0, textTransform: "uppercase" },
   accountValue: { color: colors.ink, fontSize: 13, fontWeight: "900", letterSpacing: 0, marginTop: 1 },
+  languageButtonSmall: { minWidth: 72, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: "#D8D6F7", backgroundColor: "#F3F0FF" },
   socialButtonSmall: { minWidth: 72, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: "#CBE4D6", backgroundColor: "#EEF8F2" },
   socialButtonSmallValue: { color: colors.greenDark, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
   heartButton: { marginLeft: "auto", minWidth: 84, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
@@ -2762,6 +2945,15 @@ const styles = StyleSheet.create({
   socialButtonBrand: { width: 24, textAlign: "center", color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0 },
   socialButtonText: { color: colors.ink, fontSize: 14, fontWeight: "800", letterSpacing: 0 },
   modalHint: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "600", letterSpacing: 0, marginTop: 10 },
+  languageGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 2 },
+  languageOption: { width: "48%", minHeight: 86, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8", paddingHorizontal: 12, paddingVertical: 10, justifyContent: "center" },
+  languageOptionActive: { borderColor: colors.green, backgroundColor: colors.mint },
+  languageOptionCode: { color: colors.greenDark, fontSize: 11, fontWeight: "900", letterSpacing: 0, textTransform: "uppercase" },
+  languageOptionCodeActive: { color: colors.greenDark },
+  languageOptionNative: { color: colors.ink, fontSize: 17, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
+  languageOptionNativeActive: { color: colors.greenDark },
+  languageOptionLabel: { color: colors.muted, fontSize: 12, fontWeight: "700", letterSpacing: 0, marginTop: 3 },
+  languageOptionLabelActive: { color: colors.greenDark },
   modalActions: { flexDirection: "row", gap: 10, marginTop: 16 },
   modalGhostButton: { flex: 1, minHeight: 48, borderRadius: 8, alignItems: "center", justifyContent: "center", backgroundColor: colors.gray },
   modalGhostText: { color: colors.ink, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
