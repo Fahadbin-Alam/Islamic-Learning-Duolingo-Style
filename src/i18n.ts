@@ -495,44 +495,50 @@ const TOPIC_COPY: Record<SupportedLanguage, Record<TopicId, { title: string; des
   en: {
     foundation: { title: "Foundation", description: "The first Muslim habits: greeting with peace, praising Allah, saying Bismillah, and answering people well.", focus: "Salam, Alhamdulillah, Bismillah, everyday phrases, and gentle replies.", badge: "Start Here" },
     manners: { title: "Manners", description: "Daily adab for speech, family, mercy, and the way Muslims carry themselves.", focus: "Spread peace, speak truth, honor parents, show mercy, and eat with adab.", badge: "Topic 2" },
-    sahabah: { title: "Sahabah", description: "Stories and qualities from the companions who carried Islam with courage and loyalty.", focus: "Truthfulness, justice, modesty, courage, patience, and firm faith.", badge: "Topic 3" },
-    prophets: { title: "Lives of the Prophets", description: "Travel from Adam to Muhammad and learn the big lessons each prophet left for the Ummah.", focus: "Creation, patience, trust, forgiveness, courage, mercy, and the final example.", badge: "Topic 5" },
-    quran_tafseer: { title: "Quran and Tafseer", description: "Short lessons on verses, tafsir, and the big meanings Allah wants believers to hold onto.", focus: "Guidance, oneness, protection, patience, and learning to reflect on the Quran.", badge: "Topic 4" }
+    marriage: { title: "Marriage", description: "Learn the Islamic purpose of marriage, how to choose well, and how mercy and kindness build a home.", focus: "Righteous choices, mercy, kindness, rights, and building a peaceful home.", badge: "Topic 3" },
+    sahabah: { title: "Sahabah", description: "Stories and qualities from the companions who carried Islam with courage and loyalty.", focus: "Truthfulness, justice, modesty, courage, patience, and firm faith.", badge: "Topic 4" },
+    prophets: { title: "Lives of the Prophets", description: "Travel from Adam to Muhammad and learn the big lessons each prophet left for the Ummah.", focus: "Creation, patience, trust, forgiveness, courage, mercy, and the final example.", badge: "Topic 6" },
+    quran_tafseer: { title: "Quran and Tafseer", description: "Short lessons on verses, tafsir, and the big meanings Allah wants believers to hold onto.", focus: "Guidance, oneness, protection, patience, and learning to reflect on the Quran.", badge: "Topic 5" }
   },
   fr: {
     foundation: { title: "Fondation", description: "Les premières habitudes musulmanes: le salam, Alhamdulillah, Bismillah et les bonnes réponses.", focus: "Salam, Alhamdulillah, Bismillah et réponses bienveillantes.", badge: "Commencez ici" },
     manners: { title: "Comportement", description: "L'adab quotidien pour la parole, la famille et la miséricorde.", focus: "Paix, vérité, parents, miséricorde et adab à table.", badge: "Thème 2" },
-    sahabah: { title: "Compagnons", description: "Histoires et qualités des compagnons du Prophète.", focus: "Vérité, justice, pudeur, courage et patience.", badge: "Thème 3" },
-    prophets: { title: "Vie des prophètes", description: "Voyagez d'Adam à Muhammad et découvrez leurs grandes leçons.", focus: "Création, patience, confiance, pardon et miséricorde.", badge: "Thème 5" },
-    quran_tafseer: { title: "Coran et Tafsir", description: "Courtes leçons sur les versets, le tafsir et les grands sens.", focus: "Guidance, unicité, protection, patience et réflexion.", badge: "Thème 4" }
+    marriage: { title: "Mariage", description: "Découvrez le but du mariage en Islam, comment bien choisir, et comment la miséricorde construit un foyer.", focus: "Bon choix, miséricorde, bonté, droits et foyer paisible.", badge: "Thème 3" },
+    sahabah: { title: "Compagnons", description: "Histoires et qualités des compagnons du Prophète.", focus: "Vérité, justice, pudeur, courage et patience.", badge: "Thème 4" },
+    prophets: { title: "Vie des prophètes", description: "Voyagez d'Adam à Muhammad et découvrez leurs grandes leçons.", focus: "Création, patience, confiance, pardon et miséricorde.", badge: "Thème 6" },
+    quran_tafseer: { title: "Coran et Tafsir", description: "Courtes leçons sur les versets, le tafsir et les grands sens.", focus: "Guidance, unicité, protection, patience et réflexion.", badge: "Thème 5" }
   },
   ar: {
     foundation: { title: "الأساس", description: "أول العادات الإسلامية: السلام والحمد لله وبسم الله وحسن الجواب.", focus: "السلام والحمد لله وبسم الله والرد اللطيف.", badge: "ابدأ هنا" },
     manners: { title: "الآداب", description: "آداب يومية للكلام والأسرة والرحمة.", focus: "نشر السلام والصدق وبر الوالدين والرحمة وآداب الطعام.", badge: "الموضوع 2" },
-    sahabah: { title: "الصحابة", description: "قصص وصفات الصحابة الذين حملوا الإسلام.", focus: "الصدق والعدل والحياء والشجاعة والصبر.", badge: "الموضوع 3" },
-    prophets: { title: "حياة الأنبياء", description: "رحلة من آدم إلى محمد مع أعظم الدروس.", focus: "الخلق والصبر والثقة والمغفرة والرحمة.", badge: "الموضوع 5" },
-    quran_tafseer: { title: "القرآن والتفسير", description: "دروس قصيرة في الآيات والتفسير والمعاني الكبرى.", focus: "الهداية والتوحيد والحفظ والصبر والتدبر.", badge: "الموضوع 4" }
+    marriage: { title: "الزواج", description: "تعرّف على مقصد الزواج في الإسلام وكيفية حسن الاختيار وبناء بيت فيه رحمة ولطف.", focus: "الاختيار الصالح والرحمة والحقوق وبناء بيت مطمئن.", badge: "الموضوع 3" },
+    sahabah: { title: "الصحابة", description: "قصص وصفات الصحابة الذين حملوا الإسلام.", focus: "الصدق والعدل والحياء والشجاعة والصبر.", badge: "الموضوع 4" },
+    prophets: { title: "حياة الأنبياء", description: "رحلة من آدم إلى محمد مع أعظم الدروس.", focus: "الخلق والصبر والثقة والمغفرة والرحمة.", badge: "الموضوع 6" },
+    quran_tafseer: { title: "القرآن والتفسير", description: "دروس قصيرة في الآيات والتفسير والمعاني الكبرى.", focus: "الهداية والتوحيد والحفظ والصبر والتدبر.", badge: "الموضوع 5" }
   },
   bn: {
     foundation: { title: "ভিত্তি", description: "প্রথম মুসলিম অভ্যাস: সালাম, আলহামদুলিল্লাহ, বিসমিল্লাহ ও সুন্দর জবাব।", focus: "সালাম, আলহামদুলিল্লাহ, বিসমিল্লাহ এবং নরম কথা।", badge: "এখান থেকে শুরু" },
     manners: { title: "আদব", description: "কথা, পরিবার আর দয়ার দৈনন্দিন আদব।", focus: "সালাম, সত্যবাদিতা, বাবা-মা, দয়া আর খাবারের আদব।", badge: "বিষয় ২" },
-    sahabah: { title: "সাহাবি", description: "যারা ইসলাম বহন করেছেন সেই সাহাবিদের গল্প।", focus: "সত্য, ন্যায়, লজ্জাশীলতা, সাহস আর ধৈর্য।", badge: "বিষয় ৩" },
-    prophets: { title: "নবীদের জীবন", description: "আদম থেকে মুহাম্মদ পর্যন্ত বড় বড় শিক্ষা শিখুন।", focus: "সৃষ্টি, ধৈর্য, ভরসা, ক্ষমা আর রহমত।", badge: "বিষয় ৫" },
-    quran_tafseer: { title: "কুরআন ও তাফসীর", description: "আয়াত, তাফসীর ও বড় অর্থ নিয়ে ছোট ছোট পাঠ।", focus: "হেদায়াত, তাওহীদ, সুরক্ষা, ধৈর্য আর চিন্তা।", badge: "বিষয় ৪" }
+    marriage: { title: "বিবাহ", description: "ইসলামে বিবাহের উদ্দেশ্য, সঠিকভাবে জীবনসঙ্গী বেছে নেওয়া, আর রহমতে ঘর গড়া শিখুন।", focus: "দীনদার নির্বাচন, দয়া, অধিকার, সৌন্দর্যপূর্ণ ব্যবহার আর শান্ত ঘর।", badge: "বিষয় ৩" },
+    sahabah: { title: "সাহাবি", description: "যারা ইসলাম বহন করেছেন সেই সাহাবিদের গল্প।", focus: "সত্য, ন্যায়, লজ্জাশীলতা, সাহস আর ধৈর্য।", badge: "বিষয় ৪" },
+    prophets: { title: "নবীদের জীবন", description: "আদম থেকে মুহাম্মদ পর্যন্ত বড় বড় শিক্ষা শিখুন।", focus: "সৃষ্টি, ধৈর্য, ভরসা, ক্ষমা আর রহমত।", badge: "বিষয় ৬" },
+    quran_tafseer: { title: "কুরআন ও তাফসীর", description: "আয়াত, তাফসীর ও বড় অর্থ নিয়ে ছোট ছোট পাঠ।", focus: "হেদায়াত, তাওহীদ, সুরক্ষা, ধৈর্য আর চিন্তা।", badge: "বিষয় ৫" }
   },
   ur: {
     foundation: { title: "بنیاد", description: "پہلی مسلم عادات: سلام، الحمدللہ، بسم اللہ اور اچھا جواب۔", focus: "سلام، الحمدللہ، بسم اللہ اور نرم جواب۔", badge: "یہاں سے شروع کریں" },
     manners: { title: "آداب", description: "گفتگو، خاندان اور رحمت کے روزمرہ آداب۔", focus: "سلام، سچائی، والدین، رحمت اور کھانے کے آداب۔", badge: "موضوع 2" },
-    sahabah: { title: "صحابہ", description: "صحابہ کی کہانیاں اور خوبیاں۔", focus: "سچائی، انصاف، حیا، ہمت اور صبر۔", badge: "موضوع 3" },
-    prophets: { title: "انبیاء کی زندگیاں", description: "آدم سے محمد تک سفر کریں اور بڑے سبق سیکھیں۔", focus: "تخلیق، صبر، بھروسہ، معافی اور رحمت۔", badge: "موضوع 5" },
-    quran_tafseer: { title: "قرآن اور تفسیر", description: "آیات، تفسیر اور بڑے معانی پر مختصر اسباق۔", focus: "ہدایت، توحید، حفاظت، صبر اور غور و فکر۔", badge: "موضوع 4" }
+    marriage: { title: "نکاح", description: "اسلام میں نکاح کا مقصد، اچھا انتخاب، اور رحمت والا گھر کیسے بنتا ہے یہ سیکھیں۔", focus: "دین دار انتخاب، رحمت، نرمی، حقوق، اور پر سکون گھر۔", badge: "موضوع 3" },
+    sahabah: { title: "صحابہ", description: "صحابہ کی کہانیاں اور خوبیاں۔", focus: "سچائی، انصاف، حیا، ہمت اور صبر۔", badge: "موضوع 4" },
+    prophets: { title: "انبیاء کی زندگیاں", description: "آدم سے محمد تک سفر کریں اور بڑے سبق سیکھیں۔", focus: "تخلیق، صبر، بھروسہ، معافی اور رحمت۔", badge: "موضوع 6" },
+    quran_tafseer: { title: "قرآن اور تفسیر", description: "آیات، تفسیر اور بڑے معانی پر مختصر اسباق۔", focus: "ہدایت، توحید، حفاظت، صبر اور غور و فکر۔", badge: "موضوع 5" }
   },
   hi: {
     foundation: { title: "बुनियाद", description: "पहली मुस्लिम आदतें: सलाम, अल्हम्दुलिल्लाह, बिस्मिल्लाह और अच्छा जवाब।", focus: "सलाम, अल्हम्दुलिल्लाह, बिस्मिल्लाह और नरम जवाब।", badge: "यहीं से शुरू" },
     manners: { title: "अदब", description: "बोलचाल, परिवार और रहमत के रोज़मर्रा के अदब।", focus: "सलाम, सच्चाई, माता-पिता, रहमत और खाने का अदब।", badge: "विषय 2" },
-    sahabah: { title: "सहाबा", description: "उन सहाबा की कहानियां और खूबियां जिन्होंने इस्लाम उठाया।", focus: "सच्चाई, इंसाफ, हया, हिम्मत और सब्र।", badge: "विषय 3" },
-    prophets: { title: "नबियों की ज़िंदगी", description: "आदम से मुहम्मद तक सफर कीजिए और बड़ी सीखें लीजिए।", focus: "सृष्टि, सब्र, भरोसा, माफी और रहमत।", badge: "विषय 5" },
-    quran_tafseer: { title: "कुरआन और तफ़सीर", description: "आयतों, तफ़सीर और बड़े मतलबों पर छोटे पाठ।", focus: "हिदायत, तौहीद, हिफाज़त, सब्र और तदब्बुर।", badge: "विषय 4" }
+    marriage: { title: "निकाह", description: "इस्लाम में निकाह का मकसद, सही चुनाव, और रहमत वाला घर कैसे बनता है यह सीखिए।", focus: "दीनदार चुनाव, रहमत, नरमी, अधिकार, और सुकून वाला घर।", badge: "विषय 3" },
+    sahabah: { title: "सहाबा", description: "उन सहाबा की कहानियां और खूबियां जिन्होंने इस्लाम उठाया।", focus: "सच्चाई, इंसाफ, हया, हिम्मत और सब्र।", badge: "विषय 4" },
+    prophets: { title: "नबियों की ज़िंदगी", description: "आदम से मुहम्मद तक सफर कीजिए और बड़ी सीखें लीजिए।", focus: "सृष्टि, सब्र, भरोसा, माफी और रहमत।", badge: "विषय 6" },
+    quran_tafseer: { title: "कुरआन और तफ़सीर", description: "आयतों, तफ़सीर और बड़े मतलबों पर छोटे पाठ।", focus: "हिदायत, तौहीद, हिफाज़त, सब्र और तदब्बुर।", badge: "विषय 5" }
   }
 };
 
@@ -551,6 +557,11 @@ const NODE_TITLES: Record<SupportedLanguage, Record<string, string>> = {
     "manners-service": "Servir avec humilité",
     "manners-mercy": "Miséricorde et respect",
     "manners-eating": "Manger avec adab",
+    "marriage-purpose": "Pourquoi le mariage compte",
+    "marriage-choose": "Choisir pour la religion",
+    "marriage-kindness": "Vivre avec bonté",
+    "marriage-clothing": "Un vêtement l'un pour l'autre",
+    "marriage-mercy": "Un foyer de miséricorde",
     "sahabah-abubakr": "Abou Bakr",
     "sahabah-umar": "Omar ibn al-Khattab",
     "sahabah-uthman": "Othman ibn Affan",
@@ -582,6 +593,11 @@ const NODE_TITLES: Record<SupportedLanguage, Record<string, string>> = {
     "manners-service": "الخدمة بتواضع",
     "manners-mercy": "الرحمة والاحترام",
     "manners-eating": "آداب الطعام",
+    "marriage-purpose": "لماذا الزواج مهم",
+    "marriage-choose": "اختر على أساس الدين",
+    "marriage-kindness": "عش بالمعروف",
+    "marriage-clothing": "لباس لبعضكما",
+    "marriage-mercy": "بيت من الرحمة",
     "sahabah-abubakr": "أبو بكر",
     "sahabah-umar": "عمر بن الخطاب",
     "sahabah-uthman": "عثمان بن عفان",
@@ -613,6 +629,11 @@ const NODE_TITLES: Record<SupportedLanguage, Record<string, string>> = {
     "manners-service": "নম্রভাবে সেবা করো",
     "manners-mercy": "দয়া ও সম্মান",
     "manners-eating": "খাওয়ার আদব",
+    "marriage-purpose": "বিবাহ কেন গুরুত্বপূর্ণ",
+    "marriage-choose": "দীনের জন্য বেছে নাও",
+    "marriage-kindness": "সৌন্দর্যের সাথে বসবাস",
+    "marriage-clothing": "একজন আরেকজনের পোশাক",
+    "marriage-mercy": "রহমতের ঘর",
     "sahabah-abubakr": "আবু বকর",
     "sahabah-umar": "উমার ইবনুল খাত্তাব",
     "sahabah-uthman": "উসমান ইবন আফফান",
@@ -644,6 +665,11 @@ const NODE_TITLES: Record<SupportedLanguage, Record<string, string>> = {
     "manners-service": "عاجزی سے خدمت",
     "manners-mercy": "رحمت اور احترام",
     "manners-eating": "کھانے کے آداب",
+    "marriage-purpose": "نکاح کیوں اہم ہے",
+    "marriage-choose": "دین کے لیے انتخاب",
+    "marriage-kindness": "حسن سلوک سے رہو",
+    "marriage-clothing": "ایک دوسرے کا لباس",
+    "marriage-mercy": "رحمت والا گھر",
     "sahabah-abubakr": "ابو بکر",
     "sahabah-umar": "عمر بن الخطاب",
     "sahabah-uthman": "عثمان بن عفان",
@@ -675,6 +701,11 @@ const NODE_TITLES: Record<SupportedLanguage, Record<string, string>> = {
     "manners-service": "नम्रता से सेवा",
     "manners-mercy": "रहमत और सम्मान",
     "manners-eating": "खाने का अदब",
+    "marriage-purpose": "निकाह क्यों अहम है",
+    "marriage-choose": "दीन के लिए चुनाव",
+    "marriage-kindness": "नेकी से साथ रहो",
+    "marriage-clothing": "एक-दूसरे का लिबास",
+    "marriage-mercy": "रहमत वाला घर",
     "sahabah-abubakr": "अबू बक्र",
     "sahabah-umar": "उमर इब्न अल-ख़त्ताब",
     "sahabah-uthman": "उस्मान इब्न अफ्फान",

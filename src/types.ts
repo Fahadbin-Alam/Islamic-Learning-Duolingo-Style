@@ -1,6 +1,7 @@
 export type TopicId =
   | "foundation"
   | "manners"
+  | "marriage"
   | "sahabah"
   | "prophets"
   | "quran_tafseer";

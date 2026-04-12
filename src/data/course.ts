@@ -121,7 +121,7 @@ export const STARTER_USER: UserProfile = {
 export const COURSE: LearningCourse = {
   id: "islam-foundations",
   title: "Sira Path",
-  subtitle: "Start with foundations, build your manners, meet the Sahabah, reflect on Quran and tafsir, and travel from Adam to Muhammad.",
+  subtitle: "Start with foundations, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, and travel from Adam to Muhammad.",
   sections: [
     {
       id: "foundation",
@@ -323,11 +323,96 @@ export const COURSE: LearningCourse = {
       ]
     },
     {
+      id: "marriage",
+      topicId: "marriage",
+      title: "Marriage",
+      description: "Learn the Islamic purpose of marriage, how to choose well, and how mercy and kindness build a home.",
+      badge: "Topic 3",
+      focus: "Righteous choices, mercy, kindness, rights, and building a peaceful home.",
+      mascot: "muslim_man",
+      accentColor: "#D45E74",
+      starsTarget: 15,
+      branches: [
+        {
+          id: "marriage-foundations",
+          title: "Purpose and choosing well",
+          description: "Start with why marriage matters in Islam and what to look for first."
+        },
+        {
+          id: "marriage-home",
+          title: "Mercy inside the home",
+          description: "Go deeper on kindness, clothing one another, and treating a spouse with excellence."
+        }
+      ],
+      nodes: [
+        {
+          id: "marriage-purpose",
+          skillId: "skill_marriage_001",
+          title: "Why Marriage Matters",
+          topicId: "marriage",
+          branchId: "marriage-foundations",
+          kind: "skill",
+          lessonIds: ["lesson-marriage-purpose"],
+          requiredNodeIds: [],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "marriage-choose",
+          skillId: "skill_marriage_002",
+          title: "Choose for Deen",
+          topicId: "marriage",
+          branchId: "marriage-foundations",
+          kind: "skill",
+          lessonIds: ["lesson-marriage-choose"],
+          requiredNodeIds: ["marriage-purpose"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "marriage-kindness",
+          skillId: "skill_marriage_003",
+          title: "Live with Kindness",
+          topicId: "marriage",
+          branchId: "marriage-home",
+          kind: "skill",
+          lessonIds: ["lesson-marriage-kindness"],
+          requiredNodeIds: ["marriage-choose"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "marriage-clothing",
+          skillId: "skill_marriage_004",
+          title: "Clothing for One Another",
+          topicId: "marriage",
+          branchId: "marriage-home",
+          kind: "skill",
+          lessonIds: ["lesson-marriage-clothing"],
+          requiredNodeIds: ["marriage-kindness"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "marriage-mercy",
+          skillId: "skill_marriage_005",
+          title: "A Home of Mercy",
+          topicId: "marriage",
+          branchId: "marriage-home",
+          kind: "review",
+          lessonIds: ["lesson-marriage-mercy"],
+          requiredNodeIds: ["marriage-clothing"],
+          xpReward: 14,
+          starsReward: 3
+        }
+      ]
+    },
+    {
       id: "sahabah",
       topicId: "sahabah",
       title: "Sahabah",
       description: "Stories and qualities from the companions who carried Islam with courage and loyalty.",
-      badge: "Topic 3",
+      badge: "Topic 4",
       focus: "Truthfulness, justice, modesty, courage, patience, and firm faith.",
       mascot: "muslim_man",
       accentColor: "#0C9F8C",
@@ -412,7 +497,7 @@ export const COURSE: LearningCourse = {
       topicId: "quran_tafseer",
       title: "Quran and Tafseer",
       description: "Short lessons on verses, tafsir, and the big meanings Allah wants believers to hold onto.",
-      badge: "Topic 4",
+      badge: "Topic 5",
       focus: "Guidance, oneness, protection, patience, and learning to reflect on the Quran.",
       mascot: "hijabi",
       accentColor: "#1688C4",
@@ -497,7 +582,7 @@ export const COURSE: LearningCourse = {
       topicId: "prophets",
       title: "Lives of the Prophets",
       description: "Travel from Adam to Muhammad and learn the big lessons each prophet left for the Ummah.",
-      badge: "Topic 5",
+      badge: "Topic 6",
       focus: "Creation, patience, trust, forgiveness, courage, mercy, and the final example.",
       mascot: "muslim_man",
       accentColor: "#D97B2D",
@@ -1260,6 +1345,272 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
         ],
         "a",
         "Islamic adab trains the body as well as the heart."
+      )
+    ]
+  ),
+  "lesson-marriage-purpose": lesson(
+    "lesson-marriage-purpose",
+    "marriage-purpose",
+    "Why Marriage Matters",
+    "Marriage in Islam is meant to bring tranquility, affection, mercy, and a guarded life built around Allah.",
+    12,
+    [
+      quranSource(
+        "source-marriage-purpose-quran-30-21",
+        "Marriage as tranquility, affection, and mercy",
+        "https://quran.com/en/30:21/tafsirs",
+        "Quran 30:21",
+        "Allah describes spouses as a source of sakinah, mawaddah, and rahmah, making marriage about more than a contract."
+      ),
+      hadithSource(
+        "source-marriage-purpose-muslim-1400c",
+        "Marriage protects the gaze and chastity",
+        "https://sunnah.com/muslim/16/3",
+        "Sahih Muslim 1400c",
+        "Abdullah ibn Masud; collected by Imam Muslim",
+        "Sahih",
+        "The Prophet encouraged marriage for those able to do it because it protects the eyes and guards chastity."
+      )
+    ],
+    [
+      mc(
+        "marriage-purpose-1",
+        "What does the Quran connect marriage with in this lesson?",
+        [
+          ["a", "Tranquility, affection, and mercy"],
+          ["b", "Only status and money"],
+          ["c", "Competition and pride"]
+        ],
+        "a",
+        "The Quran presents marriage as a place of peace and mercy."
+      ),
+      tf(
+        "marriage-purpose-2",
+        "In Islam, marriage is supposed to help protect a person's character.",
+        true,
+        "The Prophet directly tied marriage to guarding the gaze and chastity."
+      ),
+      mc(
+        "marriage-purpose-3",
+        "Which picture fits this lesson best?",
+        [
+          ["a", "A home built on mercy and Allah-consciousness"],
+          ["b", "A relationship built only on image"],
+          ["c", "A household without responsibility"]
+        ],
+        "a",
+        "Marriage is meant to be rooted in calm, care, and responsibility."
+      )
+    ]
+  ),
+  "lesson-marriage-choose": lesson(
+    "lesson-marriage-choose",
+    "marriage-choose",
+    "Choose for Deen",
+    "Islam teaches that deen and character matter deeply when choosing a spouse.",
+    12,
+    [
+      hadithSource(
+        "source-marriage-choose-bukhari-5090",
+        "A woman is married for four things",
+        "https://sunnah.com/bukhari:5090",
+        "Sahih al-Bukhari 5090",
+        "Abu Hurairah; collected by Imam al-Bukhari",
+        "Sahih",
+        "The Prophet pointed the believer toward religion as the quality that brings real success in marriage."
+      ),
+      quranSource(
+        "source-marriage-choose-quran-24-32",
+        "Facilitate marriage for the unmarried",
+        "https://quran.com/24:32/tafsirs/en-tafsir-maarif-ul-quran",
+        "Quran 24:32",
+        "The Quran encourages marriage and ties trust in Allah to building lawful homes."
+      )
+    ],
+    [
+      mc(
+        "marriage-choose-1",
+        "What quality does this lesson tell a Muslim to value highly in a spouse?",
+        [
+          ["a", "Deen and character"],
+          ["b", "Attention from people"],
+          ["c", "Only appearance"]
+        ],
+        "a",
+        "The sunnah teaches that faith and character are what carry a marriage well."
+      ),
+      tf(
+        "marriage-choose-2",
+        "A wise marriage choice looks beyond surface things.",
+        true,
+        "This lesson pushes the learner to value what lasts and benefits the home."
+      ),
+      mc(
+        "marriage-choose-3",
+        "Which question fits this lesson best?",
+        [
+          ["a", "Will this person help me obey Allah?"],
+          ["b", "Will people be impressed by this match?"],
+          ["c", "Will this look impressive online?"]
+        ],
+        "a",
+        "Marriage choices are stronger when they are rooted in deen."
+      )
+    ]
+  ),
+  "lesson-marriage-kindness": lesson(
+    "lesson-marriage-kindness",
+    "marriage-kindness",
+    "Live with Kindness",
+    "The Quran teaches believers to live with a spouse in kindness, not harshness or arrogance.",
+    12,
+    [
+      quranSource(
+        "source-marriage-kindness-quran-4-19",
+        "Live with them in kindness",
+        "https://quran.com/en/4:19/tafsirs",
+        "Quran 4:19",
+        "Allah commands believers to live with spouses in kindness and patience, even when emotions are not simple."
+      ),
+      hadithSource(
+        "source-marriage-kindness-tirmidhi-3895",
+        "The best of you are best to their families",
+        "https://sunnah.com/tirmidhi:3895",
+        "Jami at-Tirmidhi 3895",
+        "Aishah; collected by Imam at-Tirmidhi",
+        "Hasan Gharib Sahih",
+        "The Prophet made excellence to one's family a measure of real goodness."
+      )
+    ],
+    [
+      mc(
+        "marriage-kindness-1",
+        "How should a Muslim live with a spouse according to this lesson?",
+        [
+          ["a", "With kindness and patience"],
+          ["b", "With cruelty when upset"],
+          ["c", "With pride and distance"]
+        ],
+        "a",
+        "The Quran uses kindness as the standard for married life."
+      ),
+      tf(
+        "marriage-kindness-2",
+        "Good character at home matters just as much as good character outside.",
+        true,
+        "The Prophet tied true goodness directly to how someone treats family."
+      ),
+      mc(
+        "marriage-kindness-3",
+        "Which habit fits this lesson best?",
+        [
+          ["a", "Speak softly and stay fair in disagreement"],
+          ["b", "Save your best manners for strangers only"],
+          ["c", "Use anger to control the home"]
+        ],
+        "a",
+        "Kindness shows itself most clearly when things are difficult."
+      )
+    ]
+  ),
+  "lesson-marriage-clothing": lesson(
+    "lesson-marriage-clothing",
+    "marriage-clothing",
+    "Clothing for One Another",
+    "The Quran describes spouses as clothing for one another, showing closeness, protection, and dignity.",
+    12,
+    [
+      quranSource(
+        "source-marriage-clothing-quran-2-187",
+        "They are clothing for you and you are clothing for them",
+        "https://quran.com/2:187/tafsirs/arabic-tanweer-tafseer",
+        "Quran 2:187",
+        "This image shows how spouses are meant to protect, cover, support, and stay close to one another."
+      )
+    ],
+    [
+      mc(
+        "marriage-clothing-1",
+        "What does the image of clothing suggest in marriage?",
+        [
+          ["a", "Protection, closeness, and dignity"],
+          ["b", "Distance and coldness"],
+          ["c", "A relationship with no responsibility"]
+        ],
+        "a",
+        "Clothing is close, protective, and covering, and the Quran uses that image intentionally."
+      ),
+      tf(
+        "marriage-clothing-2",
+        "A spouse should help protect the dignity of the other.",
+        true,
+        "That is part of the meaning carried by this Quranic image."
+      ),
+      mc(
+        "marriage-clothing-3",
+        "Which action matches this lesson?",
+        [
+          ["a", "Protect your spouse's honor and private matters"],
+          ["b", "Expose every weakness publicly"],
+          ["c", "Treat the relationship carelessly"]
+        ],
+        "a",
+        "Covering and protecting are part of this verse's meaning."
+      )
+    ]
+  ),
+  "lesson-marriage-mercy": lesson(
+    "lesson-marriage-mercy",
+    "marriage-mercy",
+    "A Home of Mercy",
+    "A strong Muslim home is built when mercy, deen, and kind treatment keep showing up day after day.",
+    14,
+    [
+      quranSource(
+        "source-marriage-mercy-quran-30-21",
+        "Mercy placed between spouses",
+        "https://quran.com/en/30:21/tafsirs",
+        "Quran 30:21",
+        "Allah names mercy as one of the signs within marriage, so it has to stay alive in the home."
+      ),
+      hadithSource(
+        "source-marriage-mercy-tirmidhi-3895",
+        "Best to family",
+        "https://sunnah.com/tirmidhi:3895",
+        "Jami at-Tirmidhi 3895",
+        "Aishah; collected by Imam at-Tirmidhi",
+        "Hasan Gharib Sahih",
+        "The Prophet turned daily family treatment into a real measure of spiritual character."
+      )
+    ],
+    [
+      mc(
+        "marriage-mercy-1",
+        "What keeps a Muslim home strong according to this review?",
+        [
+          ["a", "Mercy and good character"],
+          ["b", "Harshness and ego"],
+          ["c", "Winning every argument"]
+        ],
+        "a",
+        "Mercy is not extra decoration. It is one of the foundations."
+      ),
+      tf(
+        "marriage-mercy-2",
+        "Marriage in Islam should pull both people closer to Allah.",
+        true,
+        "The best home is not only peaceful. It is also rooted in deen."
+      ),
+      mc(
+        "marriage-mercy-3",
+        "Which daily practice fits this topic best?",
+        [
+          ["a", "Keep showing kindness even in small moments"],
+          ["b", "Treat mercy as unnecessary once married"],
+          ["c", "Ignore the emotional needs of the home"]
+        ],
+        "a",
+        "The home is built by repeated mercy, not one big speech."
       )
     ]
   ),

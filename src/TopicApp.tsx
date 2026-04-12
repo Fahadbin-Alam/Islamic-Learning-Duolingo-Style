@@ -86,7 +86,8 @@ type NodeGlyphKind =
   | "book_seal"
   | "sparkle_badge"
   | "brain"
-  | "shield_sword";
+  | "shield_sword"
+  | "home_heart";
 
 interface AppState {
   screen: Screen;
@@ -1450,6 +1451,22 @@ function NodeGlyph({
     );
   }
 
+  if (kind === "home_heart") {
+    return (
+      <View style={styles.nodeGlyphWrap}>
+        <View style={[styles.homeRoof, { borderBottomColor: coverColor }]} />
+        <View style={[styles.homeBody, { backgroundColor: coverColor }]}>
+          <View style={[styles.homeDoor, { backgroundColor: pageColor }]} />
+        </View>
+        <View style={styles.homeHeartWrap}>
+          <View style={[styles.homeHeartCircle, styles.homeHeartLeft, { backgroundColor: accentColor }]} />
+          <View style={[styles.homeHeartCircle, styles.homeHeartRight, { backgroundColor: accentColor }]} />
+          <View style={[styles.homeHeartPoint, { backgroundColor: accentColor }]} />
+        </View>
+      </View>
+    );
+  }
+
   return <View style={styles.nodeGlyphWrap}>{baseBook}</View>;
 }
 
@@ -2432,6 +2449,10 @@ function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
     return "brain";
   }
 
+  if (topicId === "marriage") {
+    return "home_heart";
+  }
+
   if (topicId === "sahabah") {
     return "shield_sword";
   }
@@ -2461,6 +2482,11 @@ function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accen
     "manners-service": { glyph: "brain", outerColor: "#C47CF2", innerColor: "#F1E3FF" },
     "manners-mercy": { glyph: "brain", outerColor: "#F3A84E", innerColor: "#FFF0D8" },
     "manners-eating": { glyph: "brain", outerColor: "#F46F67", innerColor: "#FFE5E2" },
+    "marriage-purpose": { glyph: "home_heart", outerColor: "#E9778B", innerColor: "#FFE3E8" },
+    "marriage-choose": { glyph: "home_heart", outerColor: "#D95E74", innerColor: "#FFDCE4" },
+    "marriage-kindness": { glyph: "home_heart", outerColor: "#C56BC9", innerColor: "#F7E1FA" },
+    "marriage-clothing": { glyph: "home_heart", outerColor: "#A86BE8", innerColor: "#EDE2FF" },
+    "marriage-mercy": { glyph: "home_heart", outerColor: "#F08C5C", innerColor: "#FFE9DD" },
     "sahabah-abubakr": { glyph: "shield_sword", outerColor: "#1FC1A3", innerColor: "#D7FBF4" },
     "sahabah-umar": { glyph: "shield_sword", outerColor: "#2AB7A6", innerColor: "#D7F7F3" },
     "sahabah-uthman": { glyph: "shield_sword", outerColor: "#3DB5C8", innerColor: "#DDF6FB" },
@@ -2866,6 +2892,14 @@ const styles = StyleSheet.create({
   swordBlade: { position: "absolute", width: 4, height: 22, borderRadius: 999, right: 8, top: 6, transform: [{ rotate: "26deg" }] },
   swordGuard: { position: "absolute", width: 10, height: 4, borderRadius: 999, right: 7, top: 18, transform: [{ rotate: "26deg" }] },
   swordHandle: { position: "absolute", width: 4, height: 9, borderRadius: 999, right: 6, top: 23, transform: [{ rotate: "26deg" }] },
+  homeRoof: { position: "absolute", top: 4, left: 6, width: 0, height: 0, borderLeftWidth: 11, borderRightWidth: 11, borderBottomWidth: 11, borderLeftColor: "transparent", borderRightColor: "transparent" },
+  homeBody: { position: "absolute", width: 22, height: 16, borderRadius: 5, left: 6, top: 14, alignItems: "center", justifyContent: "flex-end" },
+  homeDoor: { width: 6, height: 8, borderTopLeftRadius: 3, borderTopRightRadius: 3, marginBottom: 1 },
+  homeHeartWrap: { position: "absolute", top: 2, right: 1, width: 13, height: 13 },
+  homeHeartCircle: { position: "absolute", width: 7, height: 7, borderRadius: 4 },
+  homeHeartLeft: { left: 1, top: 0 },
+  homeHeartRight: { right: 1, top: 0 },
+  homeHeartPoint: { position: "absolute", width: 8, height: 8, left: 2.5, top: 3.5, transform: [{ rotate: "45deg" }] },
   nodeSparkle: { position: "absolute", top: 9 },
   nodeSparkleLeft: { left: 12 },
   nodeSparkleRight: { right: 12 },
