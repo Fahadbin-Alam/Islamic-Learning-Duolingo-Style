@@ -34,7 +34,7 @@ export const COURSE: LearningCourse = {
       badge: "Start Here",
       focus: "Belief, intention, guidance, and character.",
       mascot: "hijabi",
-      accentColor: "#F3A712",
+      accentColor: "#1CB66D",
       starsTarget: 9,
       nodes: [
         {

@@ -17,9 +17,17 @@ import {
   completeLesson,
   grantHearts,
   learningApi,
-  loseHeart
+  loseHeart,
+  refillHeartsForToday
 } from "./api/islamicLearningApi";
+import { SOCIAL_AUTH_CONFIG } from "./config/auth";
 import { COURSE, SHOP_ITEMS } from "./data/course";
+import {
+  createLocalAuthAccount,
+  loadLocalAuthAccount,
+  loginLocalAuthAccount
+} from "./services/localAuth";
+import { loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
 import { sandboxMonetizationClient } from "./services/monetization";
 import type {
   Challenge,
@@ -36,6 +44,8 @@ import type {
 
 type Screen = "path" | "lesson" | "shop";
 type AnswerState = "correct" | "wrong" | undefined;
+type AuthMode = "create" | "login";
+type SocialProvider = keyof typeof SOCIAL_AUTH_CONFIG;
 
 interface AppState {
   screen: Screen;
@@ -132,17 +142,32 @@ export default function TopicApp() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountModalVisible, setAccountModalVisible] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
+  const [authMode, setAuthMode] = useState<AuthMode>("create");
+  const [hasSavedAccount, setHasSavedAccount] = useState(false);
   const [accountName, setAccountName] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
+  const [accountPassword, setAccountPassword] = useState("");
 
   useEffect(() => {
     let mounted = true;
 
     async function load() {
-      const user = await learningApi.getUser(1001);
+      const fallbackUser = await learningApi.getUser(1001);
+      const savedUser = loadSavedUserProfile();
+      const savedAccount = loadLocalAuthAccount();
+      const baseUser = refillHeartsForToday(savedUser ?? fallbackUser);
+      const user = savedAccount ? applyAccountIdentity(baseUser, savedAccount) : baseUser;
       const xpSummary = await learningApi.getXpSummaries(user);
 
       if (mounted) {
+        setHasSavedAccount(Boolean(savedAccount));
+
+        if (savedAccount) {
+          setAccountName(savedAccount.name);
+          setAccountEmail(savedAccount.email);
+          setAuthMode("login");
+        }
+
         dispatch({ type: "loaded", user, xpSummary });
       }
     }
@@ -153,6 +178,14 @@ export default function TopicApp() {
       mounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (!state.user) {
+      return;
+    }
+
+    saveUserProfile(state.user);
+  }, [state.user]);
 
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
@@ -185,13 +218,14 @@ export default function TopicApp() {
 
     const timer = setTimeout(() => {
       setAccountPromptShown(true);
+      setAuthMode(hasSavedAccount ? "login" : "create");
       setAccountModalVisible(true);
     }, 180000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [accountPromptShown, isInFoundationExperience, state.user]);
+  }, [accountPromptShown, hasSavedAccount, isInFoundationExperience, state.user]);
 
   async function startLesson(node: LearningNodeView) {
     if (!state.user) {
@@ -221,6 +255,7 @@ export default function TopicApp() {
     const correct = challenge.correctChoiceId === state.selectedChoiceId;
     const nextUser = correct ? state.user : loseHeart(state.user);
 
+    playFeedbackSound(correct);
     dispatch({ type: "answer", correct, user: nextUser });
   }
 
@@ -268,36 +303,89 @@ export default function TopicApp() {
     }
   }
 
+  function openAccountModal(mode?: AuthMode) {
+    setAuthMode(mode ?? (hasSavedAccount ? "login" : "create"));
+    setAccountModalVisible(true);
+  }
+
   function createAccount() {
     if (!state.user) {
       return;
     }
 
-    if (!accountName.trim() || !accountEmail.trim()) {
-      Alert.alert("Almost there", "Add your name and email so your progress has an account.");
+    if (!accountName.trim() || !accountEmail.trim() || !accountPassword.trim()) {
+      Alert.alert("Almost there", "Add your name, email, and password so we can create your account.");
       return;
     }
 
-    const initials = accountName
-      .trim()
-      .split(/\s+/)
-      .slice(0, 2)
-      .map((part) => part[0]?.toUpperCase() ?? "")
-      .join("") || "SP";
+    if (!isValidEmail(accountEmail)) {
+      Alert.alert("Check your email", "Please use a valid email address.");
+      return;
+    }
+
+    const account = createLocalAuthAccount({
+      name: accountName.trim(),
+      email: normalizeEmail(accountEmail),
+      password: accountPassword,
+      createdAt: new Date().toISOString()
+    });
 
     dispatch({
       type: "apply_user",
-      user: {
-        ...state.user,
-        hasAccount: true,
-        displayName: accountName.trim(),
-        username: accountEmail.trim().split("@")[0] || state.user.username,
-        avatarInitials: initials,
-        accountEmail: accountEmail.trim(),
-        accountCreatedAt: new Date().toISOString()
-      }
+      user: applyAccountIdentity(state.user, account)
     });
+    setHasSavedAccount(true);
+    setAuthMode("login");
+    setAccountPromptShown(true);
+    setAccountPassword("");
     setAccountModalVisible(false);
+  }
+
+  function loginAccount() {
+    if (!state.user) {
+      return;
+    }
+
+    if (!accountEmail.trim() || !accountPassword.trim()) {
+      Alert.alert("Welcome back", "Enter your email and password to log in.");
+      return;
+    }
+
+    const account = loginLocalAuthAccount(accountEmail, accountPassword);
+
+    if (!account) {
+      Alert.alert("We couldn't sign you in", "That email or password does not match the saved account on this device.");
+      return;
+    }
+
+    dispatch({
+      type: "apply_user",
+      user: applyAccountIdentity(state.user, account)
+    });
+    setAccountName(account.name);
+    setAccountEmail(account.email);
+    setHasSavedAccount(true);
+    setAccountPromptShown(true);
+    setAccountPassword("");
+    setAccountModalVisible(false);
+  }
+
+  function handleSocialLogin(provider: SocialProvider) {
+    const config = SOCIAL_AUTH_CONFIG[provider];
+
+    if (!config.enabled) {
+      const idLabel = provider === "google" ? "Google client ID" : "Facebook app ID";
+      Alert.alert(
+        `${provider === "google" ? "Google" : "Facebook"} sign-in is ready`,
+        `Add your ${idLabel} in src/config/auth.ts to turn this button on for the real app build.`
+      );
+      return;
+    }
+
+    Alert.alert(
+      `${provider === "google" ? "Google" : "Facebook"} sign-in`,
+      "This button is wired into the app flow, but it still needs the provider redirect setup for the final mobile release."
+    );
   }
 
   if (state.loading || !state.user) {
@@ -315,7 +403,11 @@ export default function TopicApp() {
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.appShell}>
-        <TopBar user={state.user} onShop={() => dispatch({ type: "open_shop" })} />
+        <TopBar
+          user={state.user}
+          onAccount={() => openAccountModal()}
+          onShop={() => dispatch({ type: "open_shop" })}
+        />
         {state.screen === "path" && (
           <PathScreen
             user={state.user}
@@ -352,21 +444,36 @@ export default function TopicApp() {
           />
         )}
         <AdBanner hidden={state.user.hearts.unlimited || state.screen === "lesson"} />
-        <FoundationAccountModal
+        <AccountModal
           visible={accountModalVisible}
           onClose={() => setAccountModalVisible(false)}
+          mode={authMode}
+          hasSavedAccount={hasSavedAccount}
+          onChangeMode={setAuthMode}
           onCreate={createAccount}
+          onLogin={loginAccount}
+          onSocialLogin={handleSocialLogin}
           accountName={accountName}
           accountEmail={accountEmail}
+          accountPassword={accountPassword}
           onChangeName={setAccountName}
           onChangeEmail={setAccountEmail}
+          onChangePassword={setAccountPassword}
         />
       </View>
     </SafeAreaView>
   );
 }
 
-function TopBar({ user, onShop }: { user: UserProfile; onShop: () => void }) {
+function TopBar({
+  user,
+  onAccount,
+  onShop
+}: {
+  user: UserProfile;
+  onAccount: () => void;
+  onShop: () => void;
+}) {
   return (
     <View style={styles.topBar}>
       <View style={styles.miniGuideWrap}>
@@ -384,6 +491,20 @@ function TopBar({ user, onShop }: { user: UserProfile; onShop: () => void }) {
         <Text style={styles.metricLabel}>Gems</Text>
         <Text style={styles.metricValue}>{user.gems}</Text>
       </View>
+      <Pressable
+        onPress={onAccount}
+        style={[styles.accountButton, user.hasAccount && styles.accountButtonActive]}
+      >
+        <View style={[styles.accountBadge, user.hasAccount && styles.accountBadgeActive]}>
+          <Text style={[styles.accountBadgeText, user.hasAccount && styles.accountBadgeTextActive]}>
+            {user.hasAccount ? user.avatarInitials : "AC"}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.accountLabel}>{user.hasAccount ? "Account" : "Save"}</Text>
+          <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : "Log in"}</Text>
+        </View>
+      </Pressable>
       <Pressable onPress={onShop} style={styles.heartButton}>
         <Text style={styles.metricLabel}>Hearts</Text>
         <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
@@ -641,6 +762,7 @@ function LessonScreen({
 }) {
   const challenge = session.lesson.challenges[challengeIndex];
   const progress = (challengeIndex + 1) / session.lesson.challenges.length;
+  const lessonStars = getNodeStarsReward(session.lesson.nodeId);
 
   return (
     <View style={styles.lessonScreen}>
@@ -699,7 +821,7 @@ function LessonScreen({
         challenge={challenge}
         answerState={answerState}
         selectedChoiceId={selectedChoiceId}
-        accentColor={section.accentColor}
+        starsReward={lessonStars}
         onAnswer={onAnswer}
         onContinue={onContinue}
       />
@@ -711,14 +833,14 @@ function LessonFooter({
   challenge,
   answerState,
   selectedChoiceId,
-  accentColor,
+  starsReward,
   onAnswer,
   onContinue
 }: {
   challenge: Challenge;
   answerState: AnswerState;
   selectedChoiceId?: string;
-  accentColor: string;
+  starsReward: number;
   onAnswer: () => void;
   onContinue: () => void;
 }) {
@@ -727,12 +849,20 @@ function LessonFooter({
       <View
         style={[
           styles.feedbackPane,
-          answerState === "correct" ? { backgroundColor: lightenColor(accentColor, 0.9) } : styles.feedbackBad
+          answerState === "correct" ? styles.feedbackGood : styles.feedbackBad
         ]}
       >
-        <Text style={styles.feedbackTitle}>{answerState === "correct" ? "That fits" : "Review this one"}</Text>
+        <Text style={[styles.feedbackTitle, answerState === "correct" ? styles.feedbackTitleGood : styles.feedbackTitleBad]}>
+          {answerState === "correct" ? "Correct" : "Not quite"}
+        </Text>
         <Text style={styles.feedbackCopy}>{challenge.explanation}</Text>
-        <Pressable onPress={onContinue} style={[styles.primaryButton, { backgroundColor: accentColor }]}>
+        {answerState === "correct" && (
+          <View style={styles.rewardRow}>
+            <Text style={styles.rewardStars}>{`${"★".repeat(Math.max(1, Math.min(starsReward, 3)))}`}</Text>
+            <Text style={styles.rewardCopy}>{`+${starsReward} stars for this part`}</Text>
+          </View>
+        )}
+        <Pressable onPress={onContinue} style={[styles.primaryButton, answerState === "correct" ? styles.correctButton : styles.wrongButton]}>
           <Text style={styles.primaryButtonText}>Continue</Text>
         </Pressable>
       </View>
@@ -745,7 +875,7 @@ function LessonFooter({
       <Pressable
         onPress={onAnswer}
         disabled={!selectedChoiceId}
-        style={[styles.primaryButton, { backgroundColor: accentColor }, !selectedChoiceId && styles.primaryButtonDisabled]}
+        style={[styles.primaryButton, styles.checkButton, !selectedChoiceId && styles.primaryButtonDisabled]}
       >
         <Text style={styles.primaryButtonText}>Check</Text>
       </Pressable>
@@ -838,37 +968,71 @@ function StarMeter({
   );
 }
 
-function FoundationAccountModal({
+function AccountModal({
   visible,
   onClose,
+  mode,
+  hasSavedAccount,
+  onChangeMode,
   onCreate,
+  onLogin,
+  onSocialLogin,
   accountName,
   accountEmail,
+  accountPassword,
   onChangeName,
-  onChangeEmail
+  onChangeEmail,
+  onChangePassword
 }: {
   visible: boolean;
   onClose: () => void;
+  mode: AuthMode;
+  hasSavedAccount: boolean;
+  onChangeMode: (mode: AuthMode) => void;
   onCreate: () => void;
+  onLogin: () => void;
+  onSocialLogin: (provider: SocialProvider) => void;
   accountName: string;
   accountEmail: string;
+  accountPassword: string;
   onChangeName: (value: string) => void;
   onChangeEmail: (value: string) => void;
+  onChangePassword: (value: string) => void;
 }) {
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
         <View style={styles.modalCard}>
           <Text style={styles.modalEyebrow}>Keep your progress</Text>
-          <Text style={styles.modalTitle}>Having fun learning?</Text>
-          <Text style={styles.modalCopy}>Create an account to save your Foundation progress and keep your stars, streak, and lesson path.</Text>
-          <TextInput
-            value={accountName}
-            onChangeText={onChangeName}
-            placeholder="Your name"
-            placeholderTextColor={colors.muted}
-            style={styles.input}
-          />
+          <Text style={styles.modalTitle}>{mode === "create" ? "Having fun learning?" : "Welcome back"}</Text>
+          <Text style={styles.modalCopy}>
+            {mode === "create"
+              ? "Create an account to save your Foundation progress and keep your stars, streak, and lesson path."
+              : "Log in to pick up your path, stars, and streak right where you left them."}
+          </Text>
+          <View style={styles.authModeRow}>
+            <Pressable
+              onPress={() => onChangeMode("create")}
+              style={[styles.authModeButton, mode === "create" && styles.authModeButtonActive]}
+            >
+              <Text style={[styles.authModeText, mode === "create" && styles.authModeTextActive]}>Create account</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => onChangeMode("login")}
+              style={[styles.authModeButton, mode === "login" && styles.authModeButtonActive]}
+            >
+              <Text style={[styles.authModeText, mode === "login" && styles.authModeTextActive]}>Log in</Text>
+            </Pressable>
+          </View>
+          {mode === "create" && (
+            <TextInput
+              value={accountName}
+              onChangeText={onChangeName}
+              placeholder="Your name"
+              placeholderTextColor={colors.muted}
+              style={styles.input}
+            />
+          )}
           <TextInput
             value={accountEmail}
             onChangeText={onChangeEmail}
@@ -878,12 +1042,36 @@ function FoundationAccountModal({
             placeholderTextColor={colors.muted}
             style={styles.input}
           />
+          <TextInput
+            value={accountPassword}
+            onChangeText={onChangePassword}
+            placeholder={mode === "create" ? "Create a password" : "Password"}
+            autoCapitalize="none"
+            secureTextEntry
+            placeholderTextColor={colors.muted}
+            style={styles.input}
+          />
+          <View style={styles.socialStack}>
+            <Pressable onPress={() => onSocialLogin("google")} style={[styles.socialButton, styles.googleButton]}>
+              <Text style={styles.socialButtonBrand}>G</Text>
+              <Text style={styles.socialButtonText}>{SOCIAL_AUTH_CONFIG.google.label}</Text>
+            </Pressable>
+            <Pressable onPress={() => onSocialLogin("facebook")} style={[styles.socialButton, styles.facebookButton]}>
+              <Text style={styles.socialButtonBrand}>f</Text>
+              <Text style={styles.socialButtonText}>{SOCIAL_AUTH_CONFIG.facebook.label}</Text>
+            </Pressable>
+          </View>
+          <Text style={styles.modalHint}>
+            {hasSavedAccount
+              ? "This device already has a saved account, so you can log in any time."
+              : "Google and Facebook are ready for your app IDs in config when you want to turn them on."}
+          </Text>
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
               <Text style={styles.modalGhostText}>Later</Text>
             </Pressable>
-            <Pressable onPress={onCreate} style={styles.modalPrimaryButton}>
-              <Text style={styles.modalPrimaryText}>Create account</Text>
+            <Pressable onPress={mode === "create" ? onCreate : onLogin} style={styles.modalPrimaryButton}>
+              <Text style={styles.modalPrimaryText}>{mode === "create" ? "Create account" : "Log in"}</Text>
             </Pressable>
           </View>
         </View>
@@ -1178,6 +1366,40 @@ function formatHearts(user: UserProfile, compact = false) {
   return compact ? `${user.hearts.current}/${user.hearts.max}` : `${user.hearts.current} of ${user.hearts.max} hearts`;
 }
 
+function applyAccountIdentity(
+  user: UserProfile,
+  account: { name: string; email: string; createdAt: string }
+) {
+  return {
+    ...user,
+    hasAccount: true,
+    displayName: account.name.trim(),
+    username: normalizeEmail(account.email).split("@")[0] || user.username,
+    avatarInitials: getInitials(account.name),
+    accountEmail: normalizeEmail(account.email),
+    accountCreatedAt: account.createdAt
+  };
+}
+
+function getInitials(name: string) {
+  return (
+    name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase() ?? "")
+      .join("") || "SP"
+  );
+}
+
+function normalizeEmail(email: string) {
+  return email.trim().toLowerCase();
+}
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizeEmail(email));
+}
+
 function getSectionByNodeId(nodeId: string) {
   return COURSE.sections.find((section) => section.nodes.some((node) => node.id === nodeId));
 }
@@ -1188,6 +1410,66 @@ function getSectionStars(user: UserProfile, section: LearningSection) {
   return section.nodes.reduce((total, node) => {
     return total + (completed.has(node.id) ? node.starsReward : 0);
   }, 0);
+}
+
+function getNodeStarsReward(nodeId: string) {
+  for (const section of COURSE.sections) {
+    const node = section.nodes.find((item) => item.id === nodeId);
+
+    if (node) {
+      return node.starsReward;
+    }
+  }
+
+  return 1;
+}
+
+function playFeedbackSound(correct: boolean) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const AudioCtx =
+    (window as typeof window & { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext }).AudioContext ??
+    (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+
+  if (!AudioCtx) {
+    return;
+  }
+
+  try {
+    const context = new AudioCtx();
+    const now = context.currentTime;
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+
+    oscillator.type = correct ? "triangle" : "sawtooth";
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+
+    if (correct) {
+      oscillator.frequency.setValueAtTime(740, now);
+      oscillator.frequency.linearRampToValueAtTime(980, now + 0.08);
+      oscillator.frequency.linearRampToValueAtTime(1180, now + 0.18);
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.08, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.34);
+    } else {
+      oscillator.frequency.setValueAtTime(290, now);
+      oscillator.frequency.linearRampToValueAtTime(220, now + 0.14);
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.05, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+    }
+
+    oscillator.start(now);
+    oscillator.stop(now + (correct ? 0.36 : 0.26));
+    oscillator.onended = () => {
+      void context.close();
+    };
+  } catch {
+    // Ignore audio failures and keep the answer flow responsive.
+  }
 }
 
 function lightenColor(hex: string, ratio = 0.82) {
@@ -1243,6 +1525,14 @@ const styles = StyleSheet.create({
   topMetric: { minWidth: 50 },
   metricLabel: { color: colors.muted, fontSize: 12, fontWeight: "700", letterSpacing: 0 },
   metricValue: { color: colors.ink, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
+  accountButton: { flexDirection: "row", alignItems: "center", gap: 8, minHeight: 44, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
+  accountButtonActive: { borderColor: "#B7E3C8", backgroundColor: "#EAF8F0" },
+  accountBadge: { width: 28, height: 28, borderRadius: 14, alignItems: "center", justifyContent: "center", backgroundColor: colors.white },
+  accountBadgeActive: { backgroundColor: colors.green },
+  accountBadgeText: { color: colors.greenDark, fontSize: 11, fontWeight: "900", letterSpacing: 0 },
+  accountBadgeTextActive: { color: colors.white },
+  accountLabel: { color: colors.muted, fontSize: 10, fontWeight: "800", letterSpacing: 0, textTransform: "uppercase" },
+  accountValue: { color: colors.ink, fontSize: 13, fontWeight: "900", letterSpacing: 0, marginTop: 1 },
   heartButton: { marginLeft: "auto", minWidth: 84, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   heartValue: { color: colors.coral, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
   pathContent: { padding: 18, paddingBottom: 128 },
@@ -1334,11 +1624,20 @@ const styles = StyleSheet.create({
   sourceCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 6 },
   sourceLink: { color: colors.sky, fontSize: 12, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
   feedbackPane: { padding: 18, gap: 12, borderTopWidth: 1, borderTopColor: colors.line, backgroundColor: colors.white },
+  feedbackGood: { backgroundColor: "#DCF7E8" },
   feedbackBad: { backgroundColor: colors.coralSoft },
   feedbackTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0 },
+  feedbackTitleGood: { color: colors.greenDark },
+  feedbackTitleBad: { color: "#B5392D" },
   feedbackCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0 },
+  rewardRow: { flexDirection: "row", alignItems: "center", gap: 10, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 8, backgroundColor: "rgba(255,255,255,0.72)" },
+  rewardStars: { color: "#F0B90B", fontSize: 18, fontWeight: "900", letterSpacing: 0 },
+  rewardCopy: { color: colors.ink, fontSize: 14, fontWeight: "800", letterSpacing: 0 },
   primaryButton: { minHeight: 52, borderRadius: 8, alignItems: "center", justifyContent: "center" },
   primaryButtonDisabled: { backgroundColor: colors.line },
+  checkButton: { backgroundColor: colors.green },
+  correctButton: { backgroundColor: colors.green },
+  wrongButton: { backgroundColor: "#D84B3E" },
   primaryButtonText: { color: colors.white, fontSize: 16, fontWeight: "900", letterSpacing: 0 },
   shopContent: { padding: 18, paddingBottom: 128, gap: 14 },
   shopHero: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12, padding: 16, borderRadius: 8 },
@@ -1356,7 +1655,19 @@ const styles = StyleSheet.create({
   modalEyebrow: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   modalTitle: { color: colors.ink, fontSize: 26, lineHeight: 31, fontWeight: "900", letterSpacing: 0, marginTop: 6 },
   modalCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 8, marginBottom: 14 },
+  authModeRow: { flexDirection: "row", gap: 8, marginBottom: 2 },
+  authModeButton: { flex: 1, minHeight: 40, alignItems: "center", justifyContent: "center", borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
+  authModeButtonActive: { borderColor: colors.green, backgroundColor: colors.mint },
+  authModeText: { color: colors.muted, fontSize: 13, fontWeight: "800", letterSpacing: 0 },
+  authModeTextActive: { color: colors.greenDark },
   input: { minHeight: 48, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#FBFDFC", paddingHorizontal: 14, color: colors.ink, marginTop: 10 },
+  socialStack: { gap: 10, marginTop: 14 },
+  socialButton: { minHeight: 48, borderRadius: 8, paddingHorizontal: 14, borderWidth: 1, alignItems: "center", flexDirection: "row", gap: 10 },
+  googleButton: { borderColor: "#C7D8F0", backgroundColor: "#F4F8FE" },
+  facebookButton: { borderColor: "#BFD2FF", backgroundColor: "#EEF3FF" },
+  socialButtonBrand: { width: 24, textAlign: "center", color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0 },
+  socialButtonText: { color: colors.ink, fontSize: 14, fontWeight: "800", letterSpacing: 0 },
+  modalHint: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "600", letterSpacing: 0, marginTop: 10 },
   modalActions: { flexDirection: "row", gap: 10, marginTop: 16 },
   modalGhostButton: { flex: 1, minHeight: 48, borderRadius: 8, alignItems: "center", justifyContent: "center", backgroundColor: colors.gray },
   modalGhostText: { color: colors.ink, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
