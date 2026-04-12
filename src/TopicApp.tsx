@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useReducer, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import {
   Alert,
+  Animated,
+  Easing,
   Linking,
   Modal,
   Pressable,
@@ -65,12 +67,14 @@ import {
 } from "./components/FoundationLearning";
 import {
   advanceFoundationAssessment,
+  applyLessonSignalToLearnerProfile,
   createEmptyLearnerProfile,
   createFoundationAssessment,
   ensureLearnerProfile,
   finalizeFoundationAssessment,
   submitFoundationAssessmentAnswer
 } from "./services/foundationAssessment";
+import { playGameSound } from "./services/gameAudio";
 import type {
   AccountRole,
   AssessmentFeedback,
@@ -78,6 +82,7 @@ import type {
   Challenge,
   CharacterVariant,
   FoundationAssessmentState,
+  FoundationCategoryId,
   LearningBranch,
   LearningNodeView,
   LearningSection,
@@ -108,6 +113,24 @@ type NodeGlyphKind =
   | "brain"
   | "shield_sword"
   | "home_heart";
+
+type JourneyRewardStop = {
+  id: string;
+  title: string;
+  copy: string;
+  gemsReward: number;
+  unlocked: boolean;
+  claimed: boolean;
+};
+
+type LessonCelebration = {
+  title: string;
+  xp: number;
+  stars: number;
+  unlockedTitle?: string;
+  streakDays: number;
+  gemsReward?: number;
+};
 
 interface AppState {
   screen: Screen;
@@ -234,12 +257,16 @@ export default function TopicApp() {
   const [settingsWeeklyReminder, setSettingsWeeklyReminder] = useState(true);
   const [settingsStreakReminder, setSettingsStreakReminder] = useState(true);
   const [settingsIslamicReminder, setSettingsIslamicReminder] = useState(true);
+  const [settingsSoundEnabled, setSettingsSoundEnabled] = useState(true);
+  const [settingsReducedSound, setSettingsReducedSound] = useState(false);
   const [socialHub, setSocialHub] = useState<SocialHubState>(() => loadSocialHubState());
   const [inviteName, setInviteName] = useState("");
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   const [accountabilityPermissionAsked, setAccountabilityPermissionAsked] = useState(false);
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
+  const [celebration, setCelebration] = useState<LessonCelebration | undefined>(undefined);
+  const challengeStartedAtRef = useRef(Date.now());
 
   useEffect(() => {
     let mounted = true;
@@ -250,9 +277,9 @@ export default function TopicApp() {
       const savedAccount = loadLocalAuthAccount();
       const savedSocialHub = loadSocialHubState();
       const remoteSession = await hydrateRemoteSession();
-      const baseUser = ensureLearnerProfile(refillHeartsForToday(remoteSession?.user ?? savedUser ?? fallbackUser));
+      const baseUser = withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday(remoteSession?.user ?? savedUser ?? fallbackUser)));
       const accountSeed = remoteSession?.account ?? savedAccount;
-      const user = accountSeed ? ensureLearnerProfile(applyAccountIdentity(baseUser, accountSeed)) : baseUser;
+      const user = accountSeed ? withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, accountSeed))) : baseUser;
       const xpSummary = await learningApi.getXpSummaries(user);
 
       if (mounted) {
@@ -271,6 +298,8 @@ export default function TopicApp() {
         setSettingsWeeklyReminder(user.reminderPreferences?.weeklyInactivity !== false);
         setSettingsStreakReminder(user.reminderPreferences?.streakReminders !== false);
         setSettingsIslamicReminder(user.reminderPreferences?.islamicReminders !== false);
+        setSettingsSoundEnabled(user.soundEffectsEnabled !== false);
+        setSettingsReducedSound(Boolean(user.reducedSoundEffects));
 
         if (!user.preferredLanguage) {
           setLanguageModalVisible(true);
@@ -304,6 +333,13 @@ export default function TopicApp() {
   const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? pendingLanguage);
   const strings = useMemo(() => getUiStrings(currentLanguage), [currentLanguage]);
   const learnerProfile = state.user?.learnerProfile ?? createEmptyLearnerProfile();
+  const soundPreferences = useMemo(
+    () => ({
+      enabled: state.user?.soundEffectsEnabled !== false,
+      reduced: Boolean(state.user?.reducedSoundEffects)
+    }),
+    [state.user?.soundEffectsEnabled, state.user?.reducedSoundEffects]
+  );
 
   useEffect(() => {
     if (!state.user) {
@@ -503,7 +539,10 @@ export default function TopicApp() {
       return;
     }
 
-    const hydratedUser = ensureLearnerProfile(state.user);
+    const hydratedUser = withExperienceDefaults(ensureLearnerProfile({
+      ...state.user,
+      foundationAssessmentSkipped: mode === "placement" ? false : state.user.foundationAssessmentSkipped
+    }));
 
     if (hydratedUser !== state.user) {
       dispatch({ type: "apply_user", user: hydratedUser });
@@ -569,11 +608,12 @@ export default function TopicApp() {
 
     dispatch({
       type: "apply_user",
-      user: ensureLearnerProfile({
+      user: withExperienceDefaults(ensureLearnerProfile({
         ...state.user,
+        foundationAssessmentSkipped: activeAssessment.mode === "placement" ? false : state.user.foundationAssessmentSkipped,
         learnerProfile: finalizedProfile,
         lastLearningAt: new Date().toISOString()
-      })
+      }))
     });
     setActiveAssessment(undefined);
     dispatch({ type: "close_assessment" });
@@ -592,18 +632,44 @@ export default function TopicApp() {
     dispatch({ type: "close_assessment" });
   }
 
-  async function startLesson(node: LearningNodeView) {
+  function skipFoundationAssessment() {
     if (!state.user) {
       return;
     }
 
-    if (node.topicId !== "foundation" && !learnerProfile.assessmentCompleted) {
-      Alert.alert(
-        "Foundation first",
-        "Take the foundation assessment before opening harder topic paths so the app can place you at the right level."
-      );
-      dispatch({ type: "select_topic", topicId: "foundation" });
-      openFoundationAssessment("placement");
+    dispatch({
+      type: "apply_user",
+      user: withExperienceDefaults({
+        ...state.user,
+        foundationAssessmentSkipped: true
+      })
+    });
+  }
+
+  function exploreTopicsFreely() {
+    skipFoundationAssessment();
+    dispatch({ type: "select_topic", topicId: "prayer" });
+  }
+
+  function toggleSoundEffects() {
+    if (!state.user) {
+      return;
+    }
+
+    const nextUser = withExperienceDefaults({
+      ...state.user,
+      soundEffectsEnabled: !(state.user.soundEffectsEnabled !== false)
+    });
+
+    dispatch({ type: "apply_user", user: nextUser });
+
+    if (nextUser.soundEffectsEnabled) {
+      playGameSound("soft_ui", { enabled: true, reduced: Boolean(nextUser.reducedSoundEffects) });
+    }
+  }
+
+  async function startLesson(node: LearningNodeView) {
+    if (!state.user) {
       return;
     }
 
@@ -627,8 +693,10 @@ export default function TopicApp() {
       lastLearningAt: new Date().toISOString()
     };
 
+    playGameSound("node_tap", soundPreferences);
     dispatch({ type: "apply_user", user: activeUser });
     const session = await learningApi.getLessonSession(node.firstLessonId, activeUser);
+    challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
   }
 
@@ -639,9 +707,28 @@ export default function TopicApp() {
 
     const challenge = state.activeSession.lesson.challenges[state.challengeIndex];
     const correct = challenge.correctChoiceId === state.selectedChoiceId;
-    const nextUser = correct ? state.user : loseHeart(state.user);
+    const responseTimeMs = Math.max(900, Date.now() - challengeStartedAtRef.current);
+    const lessonSignal = buildLessonSignal(state.activeSession.lesson.nodeId, challenge, state.challengeIndex, state.activeSession.lesson.challenges.length, correct, responseTimeMs);
+    const nextProfile = applyLessonSignalToLearnerProfile({
+      profile: learnerProfile,
+      category: lessonSignal.category,
+      signalId: lessonSignal.signalId,
+      difficulty: lessonSignal.difficulty,
+      correct,
+      responseTimeMs,
+      confidence: correct ? 3 : 2,
+      tags: lessonSignal.tags,
+      prompt: challenge.prompt,
+      reviewNext: lessonSignal.reviewNext
+    });
+    const heartAdjustedUser = correct ? state.user : loseHeart(state.user);
+    const nextUser = withExperienceDefaults({
+      ...heartAdjustedUser,
+      learnerProfile: nextProfile,
+      lastLearningAt: new Date().toISOString()
+    });
 
-    playFeedbackSound(correct);
+    playGameSound(correct ? "correct" : "wrong", soundPreferences);
     if (!correct && shouldOfferReviewHeartRestore(nextUser)) {
       setReviewRestoreVisible(true);
     }
@@ -666,16 +753,73 @@ export default function TopicApp() {
         return;
       }
 
+      challengeStartedAtRef.current = Date.now();
       dispatch({ type: "next_challenge" });
       return;
     }
 
-    const nextUser = {
+    const beforeNodes = learningApi.getPathNodes(state.user);
+    const nextUser = withExperienceDefaults({
       ...completeLesson(state.user, state.activeSession.lesson),
       lastLearningAt: new Date().toISOString()
-    };
+    });
+    const afterNodes = learningApi.getPathNodes(nextUser);
+    const unlockedNode = afterNodes.find((node) => {
+      const previous = beforeNodes.find((item) => item.id === node.id);
+      return previous?.status === "locked" && node.status !== "locked";
+    });
+
+    playGameSound("lesson_complete", soundPreferences);
+    playGameSound("xp", soundPreferences);
+    if (unlockedNode) {
+      playGameSound("unlock", soundPreferences);
+    }
+    if (nextUser.streakDays > 0 && nextUser.streakDays % 7 === 0) {
+      playGameSound("streak", soundPreferences);
+    }
+
+    setCelebration({
+      title: state.activeSession.lesson.title,
+      xp: state.activeSession.lesson.xpReward,
+      stars: getNodeStarsReward(state.activeSession.lesson.nodeId),
+      unlockedTitle: unlockedNode?.title,
+      streakDays: nextUser.streakDays
+    });
     const xpSummary = await learningApi.getXpSummaries(nextUser);
     dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
+  }
+
+  function claimJourneyReward(stop: JourneyRewardStop) {
+    if (!state.user) {
+      return;
+    }
+
+    if (!stop.unlocked) {
+      Alert.alert("Keep going", "Finish the circles before this chest to unlock the reward.");
+      return;
+    }
+
+    if (stop.claimed) {
+      Alert.alert("Already opened", "You already collected this branch reward.");
+      return;
+    }
+
+    const claimedRewardIds = [...(state.user.claimedRewardIds ?? []), stop.id];
+    const nextUser = withExperienceDefaults({
+      ...state.user,
+      gems: state.user.gems + stop.gemsReward,
+      claimedRewardIds
+    });
+
+    playGameSound("reward_chest", soundPreferences);
+    setCelebration({
+      title: stop.title,
+      xp: 0,
+      stars: 0,
+      streakDays: nextUser.streakDays,
+      gemsReward: stop.gemsReward
+    });
+    dispatch({ type: "apply_user", user: nextUser });
   }
 
   async function useShopItem(item: ShopItem) {
@@ -727,6 +871,8 @@ export default function TopicApp() {
     setSettingsWeeklyReminder(state.user.reminderPreferences?.weeklyInactivity !== false);
     setSettingsStreakReminder(state.user.reminderPreferences?.streakReminders !== false);
     setSettingsIslamicReminder(state.user.reminderPreferences?.islamicReminders !== false);
+    setSettingsSoundEnabled(state.user.soundEffectsEnabled !== false);
+    setSettingsReducedSound(Boolean(state.user.reducedSoundEffects));
     setSettingsModalVisible(true);
   }
 
@@ -765,7 +911,7 @@ export default function TopicApp() {
       reminderPreferences,
       preferredLanguage: state.user.preferredLanguage
     };
-    let nextUser: UserProfile = ensureLearnerProfile(applyAccountIdentity(state.user, pendingAccount));
+    let nextUser: UserProfile = withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, pendingAccount)));
     let nextSocialHub = socialHub;
 
     try {
@@ -778,7 +924,7 @@ export default function TopicApp() {
         socialHub
       });
 
-      nextUser = ensureLearnerProfile(refillHeartsForToday(remote.user));
+      nextUser = withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday(remote.user)));
       nextSocialHub = remote.socialHub;
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
@@ -791,7 +937,7 @@ export default function TopicApp() {
 
     dispatch({
       type: "apply_user",
-      user: ensureLearnerProfile(nextUser)
+      user: withExperienceDefaults(ensureLearnerProfile(nextUser))
     });
     setSocialHub(nextSocialHub);
     setHasSavedAccount(true);
@@ -829,7 +975,7 @@ export default function TopicApp() {
 
       dispatch({
         type: "apply_user",
-        user: ensureLearnerProfile(refillHeartsForToday(remote.user))
+        user: withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday(remote.user)))
       });
       setSocialHub(remote.socialHub);
       setAccountName(remote.account.name);
@@ -855,7 +1001,7 @@ export default function TopicApp() {
 
     dispatch({
       type: "apply_user",
-      user: ensureLearnerProfile(applyAccountIdentity(state.user, account))
+      user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, account)))
     });
     setAccountName(account.name);
     setAccountEmail(account.email);
@@ -880,7 +1026,9 @@ export default function TopicApp() {
     const nextUser: UserProfile = {
       ...state.user,
       accountRole: settingsRole,
-      reminderPreferences
+      reminderPreferences,
+      soundEffectsEnabled: settingsSoundEnabled,
+      reducedSoundEffects: settingsReducedSound
     };
 
     updateLocalAuthAccount({
@@ -1057,6 +1205,8 @@ export default function TopicApp() {
           user={state.user}
           strings={strings}
           languageCode={getLanguageOption(currentLanguage).code}
+          dailyProgress={Math.min(1, state.user.totalXp / Math.max(1, state.user.dailyGoalXp))}
+          soundEnabled={state.user.soundEffectsEnabled !== false}
           onAccount={() => openAccountPanel()}
           onLanguage={() => {
             setPendingLanguage(currentLanguage);
@@ -1064,12 +1214,14 @@ export default function TopicApp() {
           }}
           onSocial={() => dispatch({ type: "open_social" })}
           onShop={() => dispatch({ type: "open_shop" })}
+          onToggleSound={toggleSoundEffects}
         />
         {state.screen === "path" && (
           <PathScreen
             user={state.user}
             learnerProfile={learnerProfile}
             strings={strings}
+            language={currentLanguage}
             xpSummary={state.xpSummary[0]}
             section={selectedSection}
             sections={localizedSections}
@@ -1083,7 +1235,10 @@ export default function TopicApp() {
             onStartPlacement={() => openFoundationAssessment("placement")}
             onStartReview={() => openFoundationAssessment("review")}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
+            onSkipFoundation={skipFoundationAssessment}
+            onExploreTopics={exploreTopicsFreely}
             onOpenShop={() => dispatch({ type: "open_shop" })}
+            onClaimReward={claimJourneyReward}
           />
         )}
         {state.screen === "lesson" && currentLessonSession && (
@@ -1165,18 +1320,28 @@ export default function TopicApp() {
         <SettingsModal
           visible={settingsModalVisible}
           strings={strings}
+          language={currentLanguage}
           role={settingsRole}
           dailyReminder={settingsDailyReminder}
           weeklyReminder={settingsWeeklyReminder}
           streakReminder={settingsStreakReminder}
           islamicReminder={settingsIslamicReminder}
+          soundEnabled={settingsSoundEnabled}
+          reducedSound={settingsReducedSound}
           onClose={() => setSettingsModalVisible(false)}
           onSelectRole={setSettingsRole}
           onToggleDaily={() => setSettingsDailyReminder((value) => !value)}
           onToggleWeekly={() => setSettingsWeeklyReminder((value) => !value)}
           onToggleStreak={() => setSettingsStreakReminder((value) => !value)}
           onToggleIslamic={() => setSettingsIslamicReminder((value) => !value)}
+          onToggleSound={() => setSettingsSoundEnabled((value) => !value)}
+          onToggleReducedSound={() => setSettingsReducedSound((value) => !value)}
           onSave={saveAccountSettings}
+        />
+        <CelebrationModal
+          visible={Boolean(celebration)}
+          celebration={celebration}
+          onClose={() => setCelebration(undefined)}
         />
         <ReviewRestoreModal
           visible={reviewRestoreVisible}
@@ -1202,62 +1367,145 @@ function TopBar({
   user,
   strings,
   languageCode,
+  dailyProgress,
+  soundEnabled,
   onAccount,
   onLanguage,
   onSocial,
-  onShop
+  onShop,
+  onToggleSound
 }: {
   user: UserProfile;
   strings: UiStrings;
   languageCode: string;
+  dailyProgress: number;
+  soundEnabled: boolean;
   onAccount: () => void;
   onLanguage: () => void;
   onSocial: () => void;
   onShop: () => void;
+  onToggleSound: () => void;
 }) {
   return (
     <View style={styles.topBar}>
-      <View style={styles.miniGuideWrap}>
-        <GuideMascot variant="hijabi" accentColor={colors.green} size={42} />
-      </View>
-      <View style={styles.topMetric}>
-        <Text style={styles.metricLabel}>{strings.streak}</Text>
-        <Text style={styles.metricValue}>{user.streakDays} day</Text>
-      </View>
-      <View style={styles.topMetric}>
-        <Text style={styles.metricLabel}>XP</Text>
-        <Text style={styles.metricValue}>{user.totalXp}</Text>
-      </View>
-      <View style={styles.topMetric}>
-        <Text style={styles.metricLabel}>Gems</Text>
-        <Text style={styles.metricValue}>{user.gems}</Text>
-      </View>
-      <Pressable
-        onPress={onAccount}
-        style={[styles.accountButton, user.hasAccount && styles.accountButtonActive]}
-      >
-        <View style={[styles.accountBadge, user.hasAccount && styles.accountBadgeActive]}>
-          <Text style={[styles.accountBadgeText, user.hasAccount && styles.accountBadgeTextActive]}>
-            {user.hasAccount ? user.avatarInitials : "AC"}
-          </Text>
+      <View style={styles.topBarBrand}>
+        <View style={styles.miniGuideWrap}>
+          <GuideMascot variant="hijabi" accentColor={colors.green} size={42} />
         </View>
-        <View>
-          <Text style={styles.accountLabel}>{user.hasAccount ? strings.settings : strings.save}</Text>
-          <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : strings.logIn}</Text>
+        <View style={styles.topBarBrandText}>
+          <Text style={styles.topBarBrandTitle}>Sira Path</Text>
+          <Text style={styles.topBarBrandCopy}>Keep your streak glowing and tap the next lesson fast.</Text>
         </View>
-      </Pressable>
-      <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
-        <Text style={styles.metricLabel}>{strings.language}</Text>
-        <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
-      </Pressable>
-      <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
-        <Text style={styles.metricLabel}>{strings.crew}</Text>
-        <Text style={styles.socialButtonSmallValue}>{strings.battle}</Text>
-      </Pressable>
-      <Pressable onPress={onShop} style={styles.heartButton}>
-        <Text style={styles.metricLabel}>{strings.hearts}</Text>
-        <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
-      </Pressable>
+      </View>
+
+      <View style={styles.topBarMetricRow}>
+        <TopMetricPill label={strings.streak} value={`${user.streakDays}d`} tint="#FFF3CF" valueColor="#A66C00" />
+        <TopMetricPill label="XP" value={`${user.totalXp}`} tint="#DFF5FF" valueColor="#126A99" />
+        <TopMetricPill label="Gems" value={`${user.gems}`} tint="#F0E7FF" valueColor="#6C3BC6" />
+        <TopMetricPill label={strings.hearts} value={formatHearts(user, true)} tint="#FFE4E0" valueColor="#BC4336" />
+      </View>
+
+      <View style={styles.topBarActionRow}>
+        <View style={styles.dailyQuestCard}>
+          <View style={styles.dailyQuestHeader}>
+            <Text style={styles.metricLabel}>Daily quest</Text>
+            <Text style={styles.metricValue}>{Math.round(dailyProgress * 100)}%</Text>
+          </View>
+          <AnimatedProgressBar progress={dailyProgress} color={colors.gold} trackColor="rgba(23, 49, 35, 0.08)" height={10} />
+        </View>
+
+        <Pressable onPress={onToggleSound} style={[styles.soundButton, !soundEnabled && styles.soundButtonMuted]}>
+          <Text style={styles.metricLabel}>Sound</Text>
+          <Text style={styles.soundButtonValue}>{soundEnabled ? "SFX on" : "Muted"}</Text>
+        </Pressable>
+
+        <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
+          <Text style={styles.metricLabel}>{strings.language}</Text>
+          <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
+        </Pressable>
+        <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
+          <Text style={styles.metricLabel}>{strings.crew}</Text>
+          <Text style={styles.socialButtonSmallValue}>{strings.battle}</Text>
+        </Pressable>
+        <Pressable onPress={onShop} style={styles.heartButton}>
+          <Text style={styles.metricLabel}>{strings.hearts}</Text>
+          <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
+        </Pressable>
+        <Pressable
+          onPress={onAccount}
+          style={[styles.accountButton, user.hasAccount && styles.accountButtonActive]}
+        >
+          <View style={[styles.accountBadge, user.hasAccount && styles.accountBadgeActive]}>
+            <Text style={[styles.accountBadgeText, user.hasAccount && styles.accountBadgeTextActive]}>
+              {user.hasAccount ? user.avatarInitials : "AC"}
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.accountLabel}>{user.hasAccount ? strings.settings : strings.save}</Text>
+            <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : strings.logIn}</Text>
+          </View>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
+function TopMetricPill({
+  label,
+  value,
+  tint,
+  valueColor
+}: {
+  label: string;
+  value: string;
+  tint: string;
+  valueColor: string;
+}) {
+  return (
+    <View style={[styles.topMetricPill, { backgroundColor: tint }]}>
+      <Text style={styles.metricLabel}>{label}</Text>
+      <Text style={[styles.metricValue, { color: valueColor }]}>{value}</Text>
+    </View>
+  );
+}
+
+function AnimatedProgressBar({
+  progress,
+  color,
+  trackColor,
+  height = 12
+}: {
+  progress: number;
+  color: string;
+  trackColor: string;
+  height?: number;
+}) {
+  const fill = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fill, {
+      toValue: Math.max(0.02, Math.min(1, progress || 0)),
+      duration: 420,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: false
+    }).start();
+  }, [fill, progress]);
+
+  return (
+    <View style={[styles.animatedTrack, { backgroundColor: trackColor, height, borderRadius: height / 2 }]}>
+      <Animated.View
+        style={[
+          styles.animatedFill,
+          {
+            backgroundColor: color,
+            width: fill.interpolate({
+              inputRange: [0, 1],
+              outputRange: ["0%", "100%"]
+            }),
+            borderRadius: height / 2
+          }
+        ]}
+      />
     </View>
   );
 }
@@ -1266,6 +1514,7 @@ function PathScreen({
   user,
   learnerProfile,
   strings,
+  language,
   xpSummary,
   section,
   sections,
@@ -1279,11 +1528,15 @@ function PathScreen({
   onStartPlacement,
   onStartReview,
   onStartDailyChallenge,
-  onOpenShop
+  onSkipFoundation,
+  onExploreTopics,
+  onOpenShop,
+  onClaimReward
 }: {
   user: UserProfile;
   learnerProfile: NonNullable<UserProfile["learnerProfile"]>;
   strings: UiStrings;
+  language: SupportedLanguage;
   xpSummary?: XpSummary;
   section: LearningSection;
   sections: LearningSection[];
@@ -1297,22 +1550,61 @@ function PathScreen({
   onStartPlacement: () => void;
   onStartReview: () => void;
   onStartDailyChallenge: () => void;
+  onSkipFoundation: () => void;
+  onExploreTopics: () => void;
   onOpenShop: () => void;
+  onClaimReward: (stop: JourneyRewardStop) => void;
 }) {
   const progress = Math.min(1, user.totalXp / user.dailyGoalXp);
   const nextNode = nodes.find((node) => node.status === "current") ?? nodes.find((node) => node.status === "available") ?? nodes[0];
   const earnedStars = getSectionStars(user, section);
+  const branchProgress = getBranchCompletionRatio(user, section, branch.id);
+  const journeyRewards = getJourneyRewardStops(user, section, branch, nodes);
+  const topicNeedsReview = topicNeedsReviewHint(section.topicId, learnerProfile);
+  const shouldRecommendFoundation = !learnerProfile.assessmentCompleted && section.topicId !== "foundation";
+  const recommendedFoundationCopy = learnerProfile.weak_areas.length
+    ? `We are already spotting weaker areas in ${learnerProfile.weak_areas.slice(0, 2).join(" and ")}. A quick foundation check will tune your path better.`
+    : "You can explore freely now, and the app will keep estimating your level as you learn.";
+  const translatedFoundationCopy = translateStudyText(recommendedFoundationCopy, language);
 
   return (
     <ScrollView contentContainerStyle={styles.pathContent} showsVerticalScrollIndicator={false}>
       <HeroCard
         section={section}
         strings={strings}
+        language={language}
         progress={progress}
         gainedXp={xpSummary?.gainedXp ?? user.totalXp}
         earnedStars={earnedStars}
+        branchProgress={branchProgress}
+        nextLessonTitle={nextNode?.title}
         onContinue={() => nextNode && onStartLesson(nextNode)}
       />
+
+      <View style={styles.journeyStatsRow}>
+        <JourneyStatCard
+          eyebrow="Next lesson"
+          title={nextNode?.title ?? section.title}
+          copy={translateStudyText("Tap the glowing circle and keep the path moving.", language)}
+          accentColor={section.accentColor}
+        />
+        <JourneyStatCard
+          eyebrow="Mastery"
+          title={`${Math.round(branchProgress * 100)}% ${translateStudyText("mastery", language)}`}
+          copy={translateStudyText("Every lesson builds stars, mastery, and review memory in the background.", language)}
+          accentColor={colors.gold}
+        />
+        <JourneyStatCard
+          eyebrow={topicNeedsReview ? "Needs review" : "Daily challenge"}
+          title={topicNeedsReview ? translateStudyText("Weak area spotted", language) : translateStudyText("Fresh challenge ready", language)}
+          copy={
+            topicNeedsReview
+              ? translateStudyText("This topic has concepts the learner profile wants to revisit soon.", language)
+              : translateStudyText("Mix a quick challenge in with your path to keep momentum high.", language)
+          }
+          accentColor={topicNeedsReview ? colors.coral : "#6C3BC6"}
+        />
+      </View>
 
       <View style={styles.topicHeader}>
         <Text style={styles.sectionTitle}>{strings.chooseTopic}</Text>
@@ -1347,9 +1639,10 @@ function PathScreen({
             <Pressable
               key={item.id}
               onPress={() => onSelectBranch(item.id)}
-              style={[
+              style={({ pressed }) => [
                 styles.branchCard,
-                selected && { borderColor: section.accentColor, backgroundColor: lightenColor(section.accentColor, 0.92) }
+                selected && { borderColor: section.accentColor, backgroundColor: lightenColor(section.accentColor, 0.92) },
+                pressed && styles.topicCardPressed
               ]}
             >
               <Text style={[styles.branchCardTitle, selected && { color: darkenColor(section.accentColor) }]}>{item.title}</Text>
@@ -1369,25 +1662,53 @@ function PathScreen({
           onStartPlacement={onStartPlacement}
           onStartReview={onStartReview}
           onStartDailyChallenge={onStartDailyChallenge}
+          onSkipAssessment={onSkipFoundation}
+          onExploreFreely={onExploreTopics}
         />
+      )}
+
+      {shouldRecommendFoundation && (
+        <View style={styles.foundationFreePlayBanner}>
+          <View style={styles.foundationFreePlayText}>
+            <Text style={styles.foundationFreePlayTitle}>{translateStudyText("Explore freely", language)}</Text>
+            <Text style={styles.foundationFreePlayCopy}>{translatedFoundationCopy}</Text>
+          </View>
+          <Pressable onPress={onStartPlacement} style={styles.foundationFreePlayButton}>
+            <Text style={styles.foundationFreePlayButtonText}>{translateStudyText("Take foundation now", language)}</Text>
+          </Pressable>
+        </View>
       )}
 
       <View style={styles.routeCard}>
         <View style={styles.routeHeader}>
-          <View>
+          <View style={styles.routeHeaderText}>
             <Text style={styles.routeBadge}>{section.badge}</Text>
             <Text style={styles.routeTitle}>{section.title}</Text>
             <Text style={styles.routeDescription}>{section.focus}</Text>
+          </View>
+          <View style={styles.routeHeaderAside}>
+            <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={92} />
             <StarMeter earned={earnedStars} total={section.starsTarget} compact={false} strings={strings} />
           </View>
-          <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={92} />
         </View>
+
         <View style={styles.branchSummaryCard}>
-          <Text style={[styles.branchSummaryEyebrow, { color: section.accentColor }]}>{strings.branch}</Text>
-          <Text style={styles.branchSummaryTitle}>{branch.title}</Text>
+          <View style={styles.branchSummaryTop}>
+            <View>
+              <Text style={[styles.branchSummaryEyebrow, { color: section.accentColor }]}>{strings.branch}</Text>
+              <Text style={styles.branchSummaryTitle}>{branch.title}</Text>
+            </View>
+            <View style={styles.branchProgressWrap}>
+              <Text style={styles.branchProgressLabel}>{translateStudyText("Journey progress", language)}</Text>
+              <Text style={styles.branchProgressValue}>{Math.round(branchProgress * 100)}%</Text>
+            </View>
+          </View>
           <Text style={styles.branchSummaryCopy}>{branch.description}</Text>
+          <AnimatedProgressBar progress={branchProgress} color={section.accentColor} trackColor={lightenColor(section.accentColor, 0.92)} />
         </View>
+
         <View style={styles.pathLane}>
+          <View style={[styles.pathBackdrop, { backgroundColor: lightenColor(section.accentColor, 0.95) }]} />
           {nodes.map((node, index) => (
             <View key={node.id}>
               <PathNode
@@ -1395,8 +1716,14 @@ function PathScreen({
                 index={index}
                 isLast={index === nodes.length - 1}
                 accentColor={section.accentColor}
+                reviewNeeded={topicNeedsReview && node.kind === "review"}
                 onPress={() => onStartLesson(node)}
               />
+              {journeyRewards
+                .filter((reward) => reward.id.endsWith(`_${index}`))
+                .map((reward) => (
+                  <RewardChestStop key={reward.id} reward={reward} accentColor={section.accentColor} onPress={() => onClaimReward(reward)} />
+                ))}
               {index === 1 && (
                 <CoachCard
                   section={section}
@@ -1422,20 +1749,28 @@ function PathScreen({
 function HeroCard({
   section,
   strings,
+  language,
   progress,
   gainedXp,
   earnedStars,
+  branchProgress,
+  nextLessonTitle,
   onContinue
 }: {
   section: LearningSection;
   strings: UiStrings;
+  language: SupportedLanguage;
   progress: number;
   gainedXp: number;
   earnedStars: number;
+  branchProgress: number;
+  nextLessonTitle?: string;
   onContinue: () => void;
 }) {
   return (
     <View style={[styles.heroCard, { backgroundColor: section.accentColor }]}>
+      <View style={styles.heroPatternStripe} />
+      <View style={styles.heroPatternStripeSecondary} />
       <View style={styles.heroText}>
         <View style={styles.heroBadgeRow}>
           <Text style={styles.heroBadge}>{section.badge}</Text>
@@ -1443,9 +1778,19 @@ function HeroCard({
         </View>
         <Text style={styles.heroTitle}>{`${strings.learnTopic} ${section.title}`}</Text>
         <Text style={styles.heroCopy}>{section.description}</Text>
+        <View style={styles.heroRewardRow}>
+          <View style={styles.heroChip}>
+            <Text style={styles.heroChipLabel}>{translateStudyText("Up next", language)}</Text>
+            <Text style={styles.heroChipValue}>{nextLessonTitle ?? section.title}</Text>
+          </View>
+          <View style={styles.heroChip}>
+            <Text style={styles.heroChipLabel}>{translateStudyText("Branch mastery", language)}</Text>
+            <Text style={styles.heroChipValue}>{Math.round(branchProgress * 100)}%</Text>
+          </View>
+        </View>
         <StarMeter earned={earnedStars} total={section.starsTarget} light compact={false} strings={strings} />
-        <View style={styles.heroTrack}>
-          <View style={[styles.heroFill, { width: `${progress * 100}%` }]} />
+        <View style={styles.heroProgressBarWrap}>
+          <AnimatedProgressBar progress={progress} color={colors.white} trackColor="rgba(255,255,255,0.22)" height={12} />
         </View>
         <Text style={styles.heroProgress}>{`${gainedXp} ${strings.xpToday}`}</Text>
         <Pressable onPress={onContinue} style={styles.heroButton}>
@@ -1455,6 +1800,26 @@ function HeroCard({
       <View style={styles.heroArt}>
         <GuideMascot variant={section.mascot} accentColor={lightenColor(section.accentColor)} size={136} />
       </View>
+    </View>
+  );
+}
+
+function JourneyStatCard({
+  eyebrow,
+  title,
+  copy,
+  accentColor
+}: {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  accentColor: string;
+}) {
+  return (
+    <View style={[styles.journeyStatCard, { borderColor: lightenColor(accentColor, 0.84) }]}>
+      <Text style={[styles.journeyStatEyebrow, { color: darkenColor(accentColor) }]}>{eyebrow}</Text>
+      <Text style={styles.journeyStatTitle}>{title}</Text>
+      <Text style={styles.journeyStatCopy}>{copy}</Text>
     </View>
   );
 }
@@ -1475,9 +1840,11 @@ function TopicCard({
   return (
     <Pressable
       onPress={onPress}
-      style={[
+      style={({ pressed }) => [
         styles.topicCard,
         selected && { borderColor: section.accentColor, backgroundColor: lightenColor(section.accentColor, 0.9) }
+        ,
+        pressed && styles.topicCardPressed
       ]}
     >
       <View style={styles.topicCardIconRow}>
@@ -1519,66 +1886,268 @@ function PathNode({
   index,
   isLast,
   accentColor,
+  reviewNeeded,
   onPress
 }: {
   node: LearningNodeView;
   index: number;
   isLast: boolean;
   accentColor: string;
+  reviewNeeded: boolean;
   onPress: () => void;
 }) {
   const alignments = [styles.nodeLeft, styles.nodeCenter, styles.nodeRight];
   const visual = getNodeVisual(node.id, node.status, accentColor);
+  const pulse = useRef(new Animated.Value(node.status === "current" ? 1 : 0)).current;
+  const scale = useRef(new Animated.Value(1)).current;
+  const stateInfo = describeNodeState(node, reviewNeeded);
+
+  useEffect(() => {
+    if (node.status !== "current") {
+      pulse.stopAnimation();
+      pulse.setValue(0);
+      return;
+    }
+
+    const animation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 900,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: false
+        }),
+        Animated.timing(pulse, {
+          toValue: 0.2,
+          duration: 900,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: false
+        })
+      ])
+    );
+
+    animation.start();
+
+    return () => {
+      animation.stop();
+    };
+  }, [node.status, pulse]);
 
   return (
     <View style={[styles.nodeWrap, alignments[index % alignments.length]]}>
       <View style={styles.nodeRail}>
-        <Pressable
-          onPress={onPress}
-          disabled={node.status === "locked"}
-          style={({ pressed }) => [
-            styles.nodeCircle,
-            node.status === "completed" && { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) },
-            node.status === "current" && [styles.nodeCurrent, { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) }],
-            node.status === "available" && { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) },
-            node.status === "locked" && styles.nodeLocked,
-            pressed && node.status !== "locked" && styles.nodePressed
+        <Animated.View
+          style={[
+            styles.nodePulseHalo,
+            {
+              backgroundColor: lightenColor(accentColor, 0.78),
+              opacity: pulse.interpolate({ inputRange: [0, 1], outputRange: [0, 0.32] }),
+              transform: [
+                {
+                  scale: pulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.22] })
+                }
+              ]
+            }
           ]}
-        >
-          <View style={[styles.nodeInnerOrb, { backgroundColor: node.status === "locked" ? "#F1F4F3" : visual.innerColor }]}>
-            <NodeGlyph
-              kind={visual.glyph}
-              coverColor={node.status === "locked" ? "#B6C2BC" : darkenColor(visual.outerColor)}
-              pageColor={node.status === "locked" ? "#E0E7E3" : "#FFFFFF"}
-              accentColor={node.status === "locked" ? "#C7D2CC" : "#F2C94C"}
-            />
-          </View>
-          {node.status === "current" && (
-            <>
-              <View style={[styles.nodeSparkle, styles.nodeSparkleLeft]}>
-                <SparkleIcon size={11} color={colors.white} />
-              </View>
-              <View style={[styles.nodeSparkle, styles.nodeSparkleRight]}>
-                <SparkleIcon size={13} color="#FFE38C" />
-              </View>
-            </>
-          )}
-          <View style={styles.nodeStarsBadge}>
-            <View style={styles.nodeStarsBadgeInner}>
-              <SparkleIcon size={10} color="#F0B90B" />
-              <Text style={styles.nodeStarsText}>{`${node.starsReward}`}</Text>
+        />
+        <Animated.View style={{ transform: [{ scale }] }}>
+          <Pressable
+            onPress={onPress}
+            disabled={node.status === "locked"}
+            onHoverIn={() => {
+              Animated.spring(scale, { toValue: 1.06, useNativeDriver: true, speed: 20, bounciness: 10 }).start();
+            }}
+            onHoverOut={() => {
+              Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 8 }).start();
+            }}
+            onPressIn={() => {
+              Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, speed: 26, bounciness: 6 }).start();
+            }}
+            onPressOut={() => {
+              Animated.spring(scale, { toValue: 1.04, useNativeDriver: true, speed: 20, bounciness: 10 }).start(() => {
+                Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 8 }).start();
+              });
+            }}
+            style={[
+              styles.nodeCircle,
+              node.status === "completed" && { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) },
+              node.status === "current" && [styles.nodeCurrent, { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) }],
+              node.status === "available" && { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) },
+              node.status === "locked" && styles.nodeLocked
+            ]}
+          >
+            <View style={styles.nodeGloss} />
+            <View style={[styles.nodeInnerOrb, { backgroundColor: node.status === "locked" ? "#F1F4F3" : visual.innerColor }]}>
+              <NodeGlyph
+                kind={stateInfo.legendary ? "book_seal" : visual.glyph}
+                coverColor={node.status === "locked" ? "#B6C2BC" : darkenColor(visual.outerColor)}
+                pageColor={node.status === "locked" ? "#E0E7E3" : "#FFFFFF"}
+                accentColor={stateInfo.legendary ? "#FFE38C" : node.status === "locked" ? "#C7D2CC" : "#F2C94C"}
+              />
             </View>
+            {(node.status === "current" || stateInfo.legendary) && (
+              <>
+                <View style={[styles.nodeSparkle, styles.nodeSparkleLeft]}>
+                  <SparkleIcon size={11} color={colors.white} />
+                </View>
+                <View style={[styles.nodeSparkle, styles.nodeSparkleRight]}>
+                  <SparkleIcon size={13} color="#FFE38C" />
+                </View>
+              </>
+            )}
+            <View style={styles.nodeStarsBadge}>
+              <View style={styles.nodeStarsBadgeInner}>
+                <SparkleIcon size={10} color="#F0B90B" />
+                <Text style={styles.nodeStarsText}>{`${node.starsReward}`}</Text>
+              </View>
+            </View>
+          </Pressable>
+        </Animated.View>
+        {!isLast && (
+          <View style={styles.nodeConnectorWrap}>
+            <View style={[styles.nodeConnector, { backgroundColor: accentColor }]} />
+            <View style={[styles.nodeConnectorGlow, { backgroundColor: lightenColor(accentColor, 0.86) }]} />
           </View>
-        </Pressable>
-        {!isLast && <View style={[styles.nodeConnector, { backgroundColor: accentColor }]} />}
+        )}
       </View>
       <View style={styles.nodeTextBlock}>
         <Text style={styles.nodeTitle}>{node.title}</Text>
-        <Text style={styles.nodeMeta}>
-          {node.status === "locked" ? "Locked" : node.status === "current" ? "Start here" : `${node.xpReward} XP`}
-        </Text>
+        <View style={[styles.nodeStatePill, { backgroundColor: stateInfo.tint }]}>
+          <Text style={[styles.nodeStateText, { color: stateInfo.textColor }]}>{stateInfo.label}</Text>
+        </View>
+        <Text style={styles.nodeMeta}>{stateInfo.meta ?? `${node.xpReward} XP`}</Text>
       </View>
     </View>
+  );
+}
+
+function RewardChestStop({
+  reward,
+  accentColor,
+  onPress
+}: {
+  reward: JourneyRewardStop;
+  accentColor: string;
+  onPress: () => void;
+}) {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  return (
+    <View style={styles.rewardStopWrap}>
+      <Animated.View style={{ transform: [{ scale }] }}>
+        <Pressable
+          onPress={onPress}
+          onHoverIn={() => Animated.spring(scale, { toValue: 1.04, useNativeDriver: true, speed: 20, bounciness: 8 }).start()}
+          onHoverOut={() => Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 6 }).start()}
+          style={[
+            styles.rewardStopCard,
+            reward.unlocked && { borderColor: accentColor, backgroundColor: lightenColor(accentColor, 0.93) },
+            reward.claimed && styles.rewardStopCardClaimed
+          ]}
+        >
+          <View style={[styles.rewardStopChest, reward.unlocked && { backgroundColor: accentColor }]}>
+            <View style={styles.rewardStopChestLid} />
+            <SparkleIcon size={14} color={reward.unlocked ? "#FFE38C" : "#B8C2BD"} />
+          </View>
+          <View style={styles.rewardStopText}>
+            <Text style={styles.rewardStopTitle}>{reward.title}</Text>
+            <Text style={styles.rewardStopCopy}>{reward.copy}</Text>
+          </View>
+          <View style={styles.rewardStopMeta}>
+            <Text style={styles.rewardStopGems}>{`+${reward.gemsReward}`}</Text>
+            <Text style={styles.rewardStopMetaLabel}>{reward.claimed ? "Collected" : reward.unlocked ? "Open" : "Locked"}</Text>
+          </View>
+        </Pressable>
+      </Animated.View>
+    </View>
+  );
+}
+
+function CelebrationModal({
+  visible,
+  celebration,
+  onClose
+}: {
+  visible: boolean;
+  celebration?: LessonCelebration;
+  onClose: () => void;
+}) {
+  const scale = useRef(new Animated.Value(0.88)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (!visible) {
+      scale.setValue(0.88);
+      opacity.setValue(0);
+      return;
+    }
+
+    Animated.parallel([
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 220,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true
+      }),
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true,
+        speed: 18,
+        bounciness: 10
+      })
+    ]).start();
+  }, [opacity, scale, visible]);
+
+  if (!celebration) {
+    return null;
+  }
+
+  return (
+    <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
+      <View style={styles.modalBackdrop}>
+        <Animated.View style={[styles.celebrationCard, { opacity, transform: [{ scale }] }]}>
+          <View style={styles.celebrationSparkle}>
+            <SparkleIcon size={24} color="#FFE38C" />
+          </View>
+          <Text style={styles.modalEyebrow}>Lesson complete</Text>
+          <Text style={styles.modalTitle}>{celebration.title}</Text>
+          <Text style={styles.modalCopy}>Bright work. The path just moved forward.</Text>
+          <View style={styles.celebrationStats}>
+            {celebration.xp > 0 && (
+              <View style={styles.celebrationStat}>
+                <Text style={styles.celebrationStatValue}>{`+${celebration.xp}`}</Text>
+                <Text style={styles.celebrationStatLabel}>XP</Text>
+              </View>
+            )}
+            {celebration.stars > 0 && (
+              <View style={styles.celebrationStat}>
+                <Text style={styles.celebrationStatValue}>{`+${celebration.stars}`}</Text>
+                <Text style={styles.celebrationStatLabel}>Stars</Text>
+              </View>
+            )}
+            {celebration.gemsReward ? (
+              <View style={styles.celebrationStat}>
+                <Text style={styles.celebrationStatValue}>{`+${celebration.gemsReward}`}</Text>
+                <Text style={styles.celebrationStatLabel}>Gems</Text>
+              </View>
+            ) : null}
+            <View style={styles.celebrationStat}>
+              <Text style={styles.celebrationStatValue}>{celebration.streakDays}</Text>
+              <Text style={styles.celebrationStatLabel}>Streak</Text>
+            </View>
+          </View>
+          {celebration.unlockedTitle ? (
+            <View style={styles.celebrationUnlock}>
+              <Text style={styles.celebrationUnlockEyebrow}>Unlocked next</Text>
+              <Text style={styles.celebrationUnlockTitle}>{celebration.unlockedTitle}</Text>
+            </View>
+          ) : null}
+          <Pressable onPress={onClose} style={styles.modalPrimaryButton}>
+            <Text style={styles.modalPrimaryText}>Keep going</Text>
+          </Pressable>
+        </Animated.View>
+      </View>
+    </Modal>
   );
 }
 
@@ -1784,7 +2353,7 @@ function LessonScreen({
           <Text style={styles.closeText}>Exit</Text>
         </Pressable>
         <View style={styles.lessonProgressTrack}>
-          <View style={[styles.lessonProgressFill, { width: `${progress * 100}%`, backgroundColor: section.accentColor }]} />
+          <AnimatedProgressBar progress={progress} color={section.accentColor} trackColor={colors.gray} height={12} />
         </View>
       </View>
 
@@ -2375,32 +2944,42 @@ function AccountModal({
 function SettingsModal({
   visible,
   strings,
+  language,
   role,
   dailyReminder,
   weeklyReminder,
   streakReminder,
   islamicReminder,
+  soundEnabled,
+  reducedSound,
   onClose,
   onSelectRole,
   onToggleDaily,
   onToggleWeekly,
   onToggleStreak,
   onToggleIslamic,
+  onToggleSound,
+  onToggleReducedSound,
   onSave
 }: {
   visible: boolean;
   strings: UiStrings;
+  language: SupportedLanguage;
   role?: AccountRole;
   dailyReminder: boolean;
   weeklyReminder: boolean;
   streakReminder: boolean;
   islamicReminder: boolean;
+  soundEnabled: boolean;
+  reducedSound: boolean;
   onClose: () => void;
   onSelectRole: (role?: AccountRole) => void;
   onToggleDaily: () => void;
   onToggleWeekly: () => void;
   onToggleStreak: () => void;
   onToggleIslamic: () => void;
+  onToggleSound: () => void;
+  onToggleReducedSound: () => void;
   onSave: () => void;
 }) {
   const options: Array<{
@@ -2491,6 +3070,27 @@ function SettingsModal({
               </View>
             </Pressable>
             <Text style={styles.settingsReminderHelp}>{strings.notificationHelp}</Text>
+          </View>
+
+          <View style={styles.settingsReminderCard}>
+            <Text style={styles.settingsReminderTitle}>{translateStudyText("Game feel", language)}</Text>
+            <Pressable onPress={onToggleSound} style={styles.settingsToggleRow}>
+              <View style={styles.settingsToggleTextWrap}>
+                <Text style={styles.settingsToggleLabel}>{translateStudyText("Sound effects", language)}</Text>
+              </View>
+              <View style={[styles.settingsTogglePill, soundEnabled && styles.settingsTogglePillActive]}>
+                <View style={[styles.settingsToggleKnob, soundEnabled && styles.settingsToggleKnobActive]} />
+              </View>
+            </Pressable>
+            <Pressable onPress={onToggleReducedSound} style={styles.settingsToggleRow}>
+              <View style={styles.settingsToggleTextWrap}>
+                <Text style={styles.settingsToggleLabel}>{translateStudyText("Reduced sound mode", language)}</Text>
+              </View>
+              <View style={[styles.settingsTogglePill, reducedSound && styles.settingsTogglePillActive]}>
+                <View style={[styles.settingsToggleKnob, reducedSound && styles.settingsToggleKnobActive]} />
+              </View>
+            </Pressable>
+            <Text style={styles.settingsReminderHelp}>{translateStudyText("Keep the cute feedback, or soften it if you want a calmer session.", language)}</Text>
           </View>
 
           <View style={styles.modalActions}>
@@ -3177,52 +3777,204 @@ function getNodeStarsReward(nodeId: string) {
   return 1;
 }
 
-function playFeedbackSound(correct: boolean) {
-  if (typeof window === "undefined") {
-    return;
+function buildLessonSignal(
+  nodeId: string,
+  challenge: Challenge,
+  challengeIndex: number,
+  totalChallenges: number,
+  correct: boolean,
+  responseTimeMs: number
+) {
+  const node = findNodeById(nodeId);
+  const branchNodes = node
+    ? COURSE.sections
+        .flatMap((section) => section.nodes)
+        .filter((item) => item.topicId === node.topicId && item.branchId === node.branchId)
+    : [];
+  const nodePosition = Math.max(0, branchNodes.findIndex((item) => item.id === nodeId));
+  const baseDifficulty = Math.max(1, Math.min(5, Math.ceil(((nodePosition + 1) / Math.max(1, branchNodes.length)) * 4))) as 1 | 2 | 3 | 4 | 5;
+  const boostedDifficulty = Math.min(5, baseDifficulty + (challengeIndex >= Math.max(1, totalChallenges - 2) ? 1 : 0)) as 1 | 2 | 3 | 4 | 5;
+  const difficulty = node?.kind === "review" ? (Math.min(5, boostedDifficulty + 1) as 1 | 2 | 3 | 4 | 5) : boostedDifficulty;
+  const category = mapTopicToFoundationCategory(node?.topicId, node?.branchId);
+  const tags = unique([
+    node?.title ?? "lesson",
+    node?.branchId?.replace(/-/g, " ") ?? category,
+    challenge.prompt.split(" ").slice(0, 3).join(" ")
+  ]).slice(0, 5);
+
+  return {
+    category,
+    difficulty,
+    signalId: `${nodeId}_${challenge.id}`,
+    tags,
+    reviewNext: node?.title ?? "Review this lesson",
+    responseTimeMs,
+    correct
+  };
+}
+
+function mapTopicToFoundationCategory(topicId?: TopicId, branchId?: string): FoundationCategoryId {
+  if (topicId === "prayer") {
+    return branchId === "prayer-wudu" ? "taharah" : "salah";
   }
 
-  const AudioCtx =
-    (window as typeof window & { AudioContext?: typeof AudioContext; webkitAudioContext?: typeof AudioContext }).AudioContext ??
-    (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-
-  if (!AudioCtx) {
-    return;
+  if (topicId === "quran_tafseer") {
+    return "quran";
   }
 
-  try {
-    const context = new AudioCtx();
-    const now = context.currentTime;
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
+  if (topicId === "prophets" || topicId === "women_of_the_book" || topicId === "sahabah") {
+    return "seerah";
+  }
 
-    oscillator.type = correct ? "triangle" : "sawtooth";
-    oscillator.connect(gain);
-    gain.connect(context.destination);
+  if (topicId === "foundation" || topicId === "manners" || topicId === "marriage") {
+    return "manners";
+  }
 
-    if (correct) {
-      oscillator.frequency.setValueAtTime(740, now);
-      oscillator.frequency.linearRampToValueAtTime(980, now + 0.08);
-      oscillator.frequency.linearRampToValueAtTime(1180, now + 0.18);
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.08, now + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.34);
-    } else {
-      oscillator.frequency.setValueAtTime(290, now);
-      oscillator.frequency.linearRampToValueAtTime(220, now + 0.14);
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.05, now + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+  return "iman";
+}
+
+function findNodeById(nodeId: string) {
+  for (const section of COURSE.sections) {
+    const node = section.nodes.find((item) => item.id === nodeId);
+
+    if (node) {
+      return node;
     }
-
-    oscillator.start(now);
-    oscillator.stop(now + (correct ? 0.36 : 0.26));
-    oscillator.onended = () => {
-      void context.close();
-    };
-  } catch {
-    // Ignore audio failures and keep the answer flow responsive.
   }
+
+  return undefined;
+}
+
+function withExperienceDefaults(user: UserProfile): UserProfile {
+  return {
+    ...user,
+    foundationAssessmentSkipped: Boolean(user.foundationAssessmentSkipped),
+    soundEffectsEnabled: user.soundEffectsEnabled !== false,
+    reducedSoundEffects: Boolean(user.reducedSoundEffects),
+    claimedRewardIds: Array.isArray(user.claimedRewardIds) ? user.claimedRewardIds : []
+  };
+}
+
+function getBranchCompletionRatio(user: UserProfile, section: LearningSection, branchId: string) {
+  const branchNodes = section.nodes.filter((node) => node.branchId === branchId);
+
+  if (!branchNodes.length) {
+    return 0;
+  }
+
+  const completed = new Set(user.completedNodeIds);
+  const completedCount = branchNodes.filter((node) => completed.has(node.id)).length;
+  return completedCount / branchNodes.length;
+}
+
+function getJourneyRewardStops(user: UserProfile, section: LearningSection, branch: LearningBranch, nodes: LearningNodeView[]): JourneyRewardStop[] {
+  const completed = new Set(user.completedNodeIds);
+  const claimed = new Set(user.claimedRewardIds ?? []);
+
+  return nodes
+    .map((node, index) => {
+      if ((index + 1) % 2 !== 0) {
+        return null;
+      }
+
+      const rewardId = `${section.id}_${branch.id}_reward_${index}`;
+      const unlockNodeIds = nodes.slice(0, index + 1).map((item) => item.id);
+      const unlocked = unlockNodeIds.every((nodeId) => completed.has(nodeId));
+
+      return {
+        id: rewardId,
+        title: index === nodes.length - 1 ? "Branch treasure" : "Reward chest",
+        copy: index === nodes.length - 1 ? "A tidy little gem drop for finishing this stretch of the path." : "Open this after clearing the path up to here.",
+        gemsReward: index === nodes.length - 1 ? 25 : 12,
+        unlocked,
+        claimed: claimed.has(rewardId)
+      };
+    })
+    .filter(Boolean) as JourneyRewardStop[];
+}
+
+function topicNeedsReviewHint(topicId: TopicId, learnerProfile: NonNullable<UserProfile["learnerProfile"]>) {
+  const watch = new Set(
+    topicId === "prayer"
+      ? ["salah", "taharah"]
+      : topicId === "quran_tafseer"
+        ? ["quran"]
+        : topicId === "prophets" || topicId === "women_of_the_book" || topicId === "sahabah"
+          ? ["seerah"]
+          : ["manners", "iman"]
+  );
+
+  return learnerProfile.weak_areas.some((area) => watch.has(area));
+}
+
+function describeNodeState(node: LearningNodeView, reviewNeeded: boolean) {
+  if (node.status === "locked") {
+    return {
+      label: "Locked",
+      meta: "Finish the earlier circles first",
+      tint: "#E8EEEA",
+      textColor: "#607267",
+      legendary: false
+    };
+  }
+
+  if (reviewNeeded) {
+    return {
+      label: "Review needed",
+      meta: "This checkpoint is worth revisiting",
+      tint: "#FFE5E2",
+      textColor: "#B5392D",
+      legendary: false
+    };
+  }
+
+  if (node.kind === "review" && node.status === "completed") {
+    return {
+      label: "Legendary",
+      meta: "Mastery checkpoint cleared",
+      tint: "#FFF3CF",
+      textColor: "#A66C00",
+      legendary: true
+    };
+  }
+
+  if (node.kind === "review") {
+    return {
+      label: node.status === "current" ? "Checkpoint" : "Quiz ready",
+      meta: `${node.xpReward} XP`,
+      tint: "#E9E3FF",
+      textColor: "#6C3BC6",
+      legendary: false
+    };
+  }
+
+  if (node.status === "completed") {
+    return {
+      label: "Complete",
+      meta: "Bright and cleared",
+      tint: "#DCF7E8",
+      textColor: "#167144",
+      legendary: false
+    };
+  }
+
+  if (node.status === "current") {
+    return {
+      label: "Start here",
+      meta: "Recommended next lesson",
+      tint: "#DFF5FF",
+      textColor: "#126A99",
+      legendary: false
+    };
+  }
+
+  return {
+    label: "Ready",
+    meta: `${node.xpReward} XP`,
+    tint: "#E8F7EF",
+    textColor: "#167144",
+    legendary: false
+  };
 }
 
 function lightenColor(hex: string, ratio = 0.82) {
@@ -3251,6 +4003,10 @@ function hexToRgb(hex: string) {
   ] as const;
 }
 
+function unique<T>(items: T[]) {
+  return Array.from(new Set(items));
+}
+
 const colors = {
   bg: "#F4F9F6",
   ink: "#183126",
@@ -3273,32 +4029,50 @@ const styles = StyleSheet.create({
   appShell: { flex: 1, backgroundColor: colors.bg },
   centerPane: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
   loadingText: { color: colors.ink, fontSize: 18, fontWeight: "700", letterSpacing: 0 },
-  topBar: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10, paddingHorizontal: 16, paddingVertical: 12, backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.line },
-  miniGuideWrap: { width: 42, height: 42, borderRadius: 8, overflow: "hidden", backgroundColor: colors.mint },
+  topBar: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 12, paddingHorizontal: 18, paddingVertical: 14, backgroundColor: "#FDFEFC", borderBottomWidth: 1, borderBottomColor: "#E3ECE6", shadowColor: "rgba(17,49,35,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.12, shadowRadius: 16, elevation: 3 },
+  topBarBrand: { minWidth: 250, flexDirection: "row", alignItems: "center", gap: 12, flex: 1 },
+  topBarBrandText: { flexShrink: 1 },
+  topBarBrandTitle: { color: colors.ink, fontSize: 20, fontWeight: "900", letterSpacing: 0 },
+  topBarBrandCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", marginTop: 2 },
+  miniGuideWrap: { width: 52, height: 52, borderRadius: 16, overflow: "hidden", backgroundColor: colors.mint, borderWidth: 1, borderColor: "#BEE7CF" },
   topMetric: { minWidth: 50 },
+  topBarMetricRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10 },
+  topMetricPill: { minWidth: 82, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "rgba(27,52,39,0.06)" },
+  topBarActionRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-end", gap: 10, flex: 1 },
   metricLabel: { color: colors.muted, fontSize: 12, fontWeight: "700", letterSpacing: 0 },
   metricValue: { color: colors.ink, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
-  accountButton: { flexDirection: "row", alignItems: "center", gap: 8, minHeight: 44, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
+  dailyQuestCard: { minWidth: 148, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "#F2E1A3", backgroundColor: "#FFF8DB" },
+  dailyQuestHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
+  soundButton: { minWidth: 92, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "#D7E9DE", backgroundColor: "#EEF8F2" },
+  soundButtonMuted: { borderColor: "#E6D8D8", backgroundColor: "#F8EEEE" },
+  soundButtonValue: { color: colors.greenDark, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
+  accountButton: { flexDirection: "row", alignItems: "center", gap: 8, minHeight: 50, paddingHorizontal: 12, borderRadius: 16, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
   accountButtonActive: { borderColor: "#B7E3C8", backgroundColor: "#EAF8F0" },
-  accountBadge: { width: 28, height: 28, borderRadius: 14, alignItems: "center", justifyContent: "center", backgroundColor: colors.white },
+  accountBadge: { width: 32, height: 32, borderRadius: 16, alignItems: "center", justifyContent: "center", backgroundColor: colors.white },
   accountBadgeActive: { backgroundColor: colors.green },
   accountBadgeText: { color: colors.greenDark, fontSize: 11, fontWeight: "900", letterSpacing: 0 },
   accountBadgeTextActive: { color: colors.white },
   accountLabel: { color: colors.muted, fontSize: 10, fontWeight: "800", letterSpacing: 0, textTransform: "uppercase" },
   accountValue: { color: colors.ink, fontSize: 13, fontWeight: "900", letterSpacing: 0, marginTop: 1 },
-  languageButtonSmall: { minWidth: 72, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: "#D8D6F7", backgroundColor: "#F3F0FF" },
-  socialButtonSmall: { minWidth: 72, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: "#CBE4D6", backgroundColor: "#EEF8F2" },
+  languageButtonSmall: { minWidth: 82, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "#D8D6F7", backgroundColor: "#F3F0FF" },
+  socialButtonSmall: { minWidth: 82, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "#CBE4D6", backgroundColor: "#EEF8F2" },
   socialButtonSmallValue: { color: colors.greenDark, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
-  heartButton: { marginLeft: "auto", minWidth: 84, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  heartButton: { minWidth: 92, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "#F1D0C9", backgroundColor: "#FFF5F2" },
   heartValue: { color: colors.coral, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
-  pathContent: { padding: 18, paddingBottom: 128 },
-  heroCard: { flexDirection: "row", alignItems: "center", overflow: "hidden", borderRadius: 8, padding: 18 },
+  pathContent: { padding: 20, paddingBottom: 144, gap: 2 },
+  heroCard: { flexDirection: "row", alignItems: "center", overflow: "hidden", borderRadius: 24, padding: 22, minHeight: 248, position: "relative", shadowColor: "rgba(16,47,32,0.2)", shadowOffset: { width: 0, height: 18 }, shadowOpacity: 0.18, shadowRadius: 24, elevation: 5 },
+  heroPatternStripe: { position: "absolute", width: 220, height: 220, borderRadius: 48, backgroundColor: "rgba(255,255,255,0.08)", right: -42, top: -52, transform: [{ rotate: "22deg" }] },
+  heroPatternStripeSecondary: { position: "absolute", width: 160, height: 160, borderRadius: 40, backgroundColor: "rgba(255,255,255,0.08)", left: -44, bottom: -66, transform: [{ rotate: "-18deg" }] },
   heroText: { flex: 1, paddingRight: 12 },
   heroArt: { width: 144, alignItems: "center", justifyContent: "center" },
   heroBadgeRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   heroBadge: { color: "#DFF7EE", fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   heroTitle: { color: colors.white, fontSize: 30, lineHeight: 35, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   heroCopy: { color: "#EAF8F2", fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0, marginTop: 6 },
+  heroRewardRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 4 },
+  heroChip: { minWidth: 120, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, backgroundColor: "rgba(255,255,255,0.16)", borderWidth: 1, borderColor: "rgba(255,255,255,0.18)" },
+  heroChipLabel: { color: "#DFF7EE", fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  heroChipValue: { color: colors.white, fontSize: 14, fontWeight: "900", marginTop: 4 },
   starMeter: { marginTop: 10, alignSelf: "flex-start", borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6, backgroundColor: "rgba(255,255,255,0.18)" },
   starMeterCompact: { marginTop: 10, paddingHorizontal: 10, paddingVertical: 5, backgroundColor: "#FFF7DA" },
   starMeterValueRow: { flexDirection: "row", alignItems: "center", gap: 6 },
@@ -3306,46 +4080,72 @@ const styles = StyleSheet.create({
   starMeterValueLight: { color: colors.white },
   starMeterLabel: { color: colors.muted, fontSize: 11, fontWeight: "700", letterSpacing: 0, marginTop: 2 },
   starMeterLabelLight: { color: "#EAF8F2" },
+  animatedTrack: { overflow: "hidden", width: "100%" },
+  animatedFill: { height: "100%" },
+  heroProgressBarWrap: { marginTop: 16 },
   heroTrack: { height: 12, borderRadius: 6, overflow: "hidden", backgroundColor: "rgba(255,255,255,0.28)", marginTop: 16 },
   heroFill: { height: 12, backgroundColor: colors.white },
   heroProgress: { color: "#EAF8F2", fontSize: 13, fontWeight: "800", letterSpacing: 0, marginTop: 8 },
-  heroButton: { minHeight: 46, paddingHorizontal: 16, borderRadius: 8, alignSelf: "flex-start", alignItems: "center", justifyContent: "center", backgroundColor: colors.white, marginTop: 16 },
+  heroButton: { minHeight: 50, paddingHorizontal: 18, borderRadius: 16, alignSelf: "flex-start", alignItems: "center", justifyContent: "center", backgroundColor: colors.white, marginTop: 16, shadowColor: "rgba(0,0,0,0.16)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.18, shadowRadius: 14, elevation: 3 },
   heroButtonText: { color: colors.greenDark, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  journeyStatsRow: { flexDirection: "row", flexWrap: "wrap", gap: 12, marginTop: 18, marginBottom: 8 },
+  journeyStatCard: { flexGrow: 1, flexBasis: 220, minHeight: 120, padding: 16, borderRadius: 20, borderWidth: 1, backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.12, shadowRadius: 16, elevation: 2 },
+  journeyStatEyebrow: { fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  journeyStatTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", marginTop: 6 },
+  journeyStatCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", marginTop: 6 },
   topicHeader: { marginTop: 24 },
   sectionTitle: { color: colors.ink, fontSize: 22, lineHeight: 27, fontWeight: "900", letterSpacing: 0 },
   sectionDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   topicRow: { gap: 12, paddingVertical: 16, paddingRight: 18 },
   branchHeader: { marginTop: 4 },
   branchRow: { gap: 12, paddingVertical: 14, paddingRight: 18 },
-  branchCard: { width: 220, minHeight: 128, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  branchCard: { width: 240, minHeight: 132, padding: 16, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 2 },
   branchCardTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", letterSpacing: 0 },
   branchCardCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 6 },
   branchCardMetaRow: { flexDirection: "row", justifyContent: "space-between", gap: 8, marginTop: 10 },
   branchCardMeta: { color: colors.greenDark, fontSize: 12, fontWeight: "800", letterSpacing: 0 },
-  topicCard: { width: 168, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  topicCard: { width: 178, padding: 14, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 2 },
+  topicCardPressed: { transform: [{ scale: 0.98 }, { translateY: 2 }] },
   topicCardIconRow: { minHeight: 64, justifyContent: "center" },
   topicIconFrame: { width: 58, height: 58, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
   topicIconInner: { width: 42, height: 42, borderRadius: 14, alignItems: "center", justifyContent: "center" },
   topicCardTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
   topicCardCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
-  routeCard: { alignSelf: "center", width: "100%", maxWidth: 640, borderRadius: 8, padding: 16, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
-  routeHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 10 },
+  foundationFreePlayBanner: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 12, marginTop: 4, marginBottom: 14, padding: 16, borderRadius: 20, borderWidth: 1, borderColor: "#CFE2D5", backgroundColor: "#F5FBF7" },
+  foundationFreePlayText: { flex: 1, minWidth: 220 },
+  foundationFreePlayTitle: { color: colors.ink, fontSize: 18, fontWeight: "900" },
+  foundationFreePlayCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", marginTop: 4 },
+  foundationFreePlayButton: { minHeight: 46, paddingHorizontal: 16, borderRadius: 14, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
+  foundationFreePlayButtonText: { color: colors.white, fontSize: 14, fontWeight: "900" },
+  routeCard: { alignSelf: "center", width: "100%", maxWidth: 920, borderRadius: 28, padding: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.1)", shadowOffset: { width: 0, height: 14 }, shadowOpacity: 0.12, shadowRadius: 24, elevation: 3 },
+  routeHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 18, marginBottom: 14, flexWrap: "wrap" },
+  routeHeaderText: { flex: 1, minWidth: 260 },
+  routeHeaderAside: { alignItems: "flex-end", gap: 10 },
   routeBadge: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   routeTitle: { color: colors.ink, fontSize: 24, lineHeight: 30, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
-  routeDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4, maxWidth: 220 },
-  branchSummaryCard: { marginTop: 4, marginBottom: 14, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
+  routeDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4, maxWidth: 420 },
+  branchSummaryCard: { marginTop: 4, marginBottom: 16, padding: 16, borderRadius: 22, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8", gap: 10 },
+  branchSummaryTop: { flexDirection: "row", justifyContent: "space-between", gap: 10, alignItems: "flex-start" },
   branchSummaryEyebrow: { fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   branchSummaryTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   branchSummaryCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
-  pathLane: { width: "100%", maxWidth: 360, alignSelf: "center", marginTop: 8 },
-  nodeWrap: { width: "100%", marginVertical: 8 },
+  branchProgressWrap: { alignItems: "flex-end", minWidth: 88 },
+  branchProgressLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase" },
+  branchProgressValue: { color: colors.ink, fontSize: 18, fontWeight: "900", marginTop: 4 },
+  pathLane: { width: "100%", maxWidth: 620, minHeight: 200, alignSelf: "center", marginTop: 10, paddingVertical: 10, position: "relative" },
+  pathBackdrop: { position: "absolute", left: "50%", marginLeft: -7, top: 6, bottom: 6, width: 14, borderRadius: 999, opacity: 0.8 },
+  nodeWrap: { width: "100%", marginVertical: 10 },
   nodeRail: { alignItems: "center" },
   nodeLeft: { alignItems: "flex-start" },
   nodeCenter: { alignItems: "center" },
   nodeRight: { alignItems: "flex-end" },
-  nodeCircle: { width: 86, height: 86, borderRadius: 43, alignItems: "center", justifyContent: "center", borderWidth: 4, borderColor: colors.green, backgroundColor: colors.white, position: "relative", shadowColor: "rgba(0,0,0,0.16)", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.18, shadowRadius: 10, elevation: 4 },
-  nodeInnerOrb: { width: 58, height: 58, borderRadius: 29, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "rgba(36,50,69,0.08)" },
-  nodeConnector: { width: 6, height: 34, borderRadius: 999, opacity: 0.25, marginTop: 6 },
+  nodePulseHalo: { position: "absolute", width: 116, height: 116, borderRadius: 58, top: -10, left: "50%", marginLeft: -58 },
+  nodeCircle: { width: 98, height: 98, borderRadius: 49, alignItems: "center", justifyContent: "center", borderWidth: 5, borderColor: colors.green, backgroundColor: colors.white, position: "relative", shadowColor: "rgba(0,0,0,0.18)", shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.18, shadowRadius: 16, elevation: 5 },
+  nodeGloss: { position: "absolute", top: 9, width: 62, height: 20, borderRadius: 999, backgroundColor: "rgba(255,255,255,0.28)" },
+  nodeInnerOrb: { width: 66, height: 66, borderRadius: 33, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "rgba(36,50,69,0.08)" },
+  nodeConnectorWrap: { alignItems: "center", marginTop: 8, width: 24 },
+  nodeConnector: { width: 8, height: 42, borderRadius: 999, opacity: 0.42 },
+  nodeConnectorGlow: { position: "absolute", width: 16, height: 28, borderRadius: 999, top: 7, opacity: 0.42 },
   nodeCurrent: { backgroundColor: colors.gold, borderColor: colors.greenDark },
   nodeAvailable: { backgroundColor: colors.white },
   nodeLocked: { backgroundColor: colors.gray, borderColor: colors.line },
@@ -3394,14 +4194,27 @@ const styles = StyleSheet.create({
   nodeStarsBadge: { position: "absolute", bottom: -6, paddingHorizontal: 8, paddingVertical: 2, borderRadius: 999, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line },
   nodeStarsBadgeInner: { flexDirection: "row", alignItems: "center", gap: 4 },
   nodeStarsText: { color: colors.ink, fontSize: 11, fontWeight: "900", letterSpacing: 0 },
-  nodeTextBlock: { width: 164, marginTop: 8 },
+  nodeTextBlock: { width: 190, marginTop: 10, alignItems: "center" },
   nodeTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", textAlign: "center", letterSpacing: 0 },
-  nodeMeta: { color: colors.muted, fontSize: 12, fontWeight: "700", textAlign: "center", letterSpacing: 0, marginTop: 2 },
+  nodeStatePill: { marginTop: 8, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 999 },
+  nodeStateText: { fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  nodeMeta: { color: colors.muted, fontSize: 12, fontWeight: "700", textAlign: "center", letterSpacing: 0, marginTop: 4 },
+  rewardStopWrap: { alignItems: "center", marginVertical: 8 },
+  rewardStopCard: { width: 280, flexDirection: "row", alignItems: "center", gap: 12, padding: 14, borderRadius: 20, borderWidth: 1, borderColor: "#E3ECE6", backgroundColor: "#F6FAF7" },
+  rewardStopCardClaimed: { opacity: 0.72 },
+  rewardStopChest: { width: 52, height: 44, borderRadius: 14, backgroundColor: "#B8C2BD", alignItems: "center", justifyContent: "center", position: "relative" },
+  rewardStopChestLid: { position: "absolute", top: -4, width: 44, height: 12, borderRadius: 10, backgroundColor: "#8D9A93" },
+  rewardStopText: { flex: 1 },
+  rewardStopTitle: { color: colors.ink, fontSize: 15, fontWeight: "900" },
+  rewardStopCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "600", marginTop: 4 },
+  rewardStopMeta: { alignItems: "flex-end" },
+  rewardStopGems: { color: "#6C3BC6", fontSize: 18, fontWeight: "900" },
+  rewardStopMetaLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", marginTop: 4, textTransform: "uppercase" },
   coachCard: { flexDirection: "row", alignItems: "center", gap: 12, paddingVertical: 8, paddingHorizontal: 6, marginVertical: 6 },
-  coachBubble: { flex: 1, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F7FBF8" },
+  coachBubble: { flex: 1, padding: 14, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F7FBF8" },
   coachTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
   coachCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
-  heartsPrompt: { marginTop: 18, padding: 16, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.coralSoft },
+  heartsPrompt: { marginTop: 18, padding: 16, borderRadius: 20, borderWidth: 1, borderColor: "#F1C7C1", backgroundColor: colors.coralSoft },
   heartsPromptTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", letterSpacing: 0 },
   heartsPromptCopy: { color: colors.muted, fontSize: 14, lineHeight: 19, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   lessonScreen: { flex: 1, backgroundColor: colors.white },
@@ -3525,6 +4338,15 @@ const styles = StyleSheet.create({
   secondaryButtonText: { color: colors.white, fontWeight: "900", letterSpacing: 0 },
   modalBackdrop: { flex: 1, backgroundColor: "rgba(20,37,27,0.45)", alignItems: "center", justifyContent: "center", padding: 24 },
   modalCard: { width: "100%", maxWidth: 420, borderRadius: 8, backgroundColor: colors.white, padding: 18, borderWidth: 1, borderColor: colors.line },
+  celebrationCard: { width: "100%", maxWidth: 420, borderRadius: 24, backgroundColor: colors.white, padding: 22, borderWidth: 1, borderColor: colors.line, shadowColor: "rgba(16,47,32,0.18)", shadowOffset: { width: 0, height: 16 }, shadowOpacity: 0.2, shadowRadius: 28, elevation: 6 },
+  celebrationSparkle: { alignSelf: "center", marginBottom: 8 },
+  celebrationStats: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 14 },
+  celebrationStat: { flexGrow: 1, minWidth: 80, paddingVertical: 12, paddingHorizontal: 10, borderRadius: 16, backgroundColor: "#F7FBF8", alignItems: "center" },
+  celebrationStatValue: { color: colors.ink, fontSize: 20, fontWeight: "900" },
+  celebrationStatLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase", marginTop: 3 },
+  celebrationUnlock: { marginBottom: 16, padding: 14, borderRadius: 18, backgroundColor: "#FFF8DB" },
+  celebrationUnlockEyebrow: { color: "#A66C00", fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  celebrationUnlockTitle: { color: colors.ink, fontSize: 17, fontWeight: "900", marginTop: 4 },
   modalEyebrow: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   modalTitle: { color: colors.ink, fontSize: 26, lineHeight: 31, fontWeight: "900", letterSpacing: 0, marginTop: 6 },
   modalCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 8, marginBottom: 14 },

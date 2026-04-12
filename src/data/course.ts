@@ -123,6 +123,9 @@ export const STARTER_USER: UserProfile = {
   username: "learner",
   displayName: "New Learner",
   avatarInitials: "NL",
+  foundationAssessmentSkipped: false,
+  soundEffectsEnabled: true,
+  reducedSoundEffects: false,
   reviewHeartRestoreUsed: false,
   lastLearningAt: today,
   streakDays: 1,
@@ -136,7 +139,8 @@ export const STARTER_USER: UserProfile = {
     lastRefillDate: today
   },
   completedLessonIds: [],
-  completedNodeIds: []
+  completedNodeIds: [],
+  claimedRewardIds: []
 };
 
 export const COURSE: LearningCourse = {

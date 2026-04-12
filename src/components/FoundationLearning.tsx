@@ -19,12 +19,16 @@ export function FoundationDashboard({
   profile,
   onStartPlacement,
   onStartReview,
-  onStartDailyChallenge
+  onStartDailyChallenge,
+  onSkipAssessment,
+  onExploreFreely
 }: {
   profile: LearnerProfile;
   onStartPlacement: () => void;
   onStartReview: () => void;
   onStartDailyChallenge: () => void;
+  onSkipAssessment: () => void;
+  onExploreFreely: () => void;
 }) {
   const rows = useMemo(() => getFoundationDashboard(profile), [profile]);
   const progressIndex = getProgressMapIndex(profile.readiness_label);
@@ -57,6 +61,16 @@ export function FoundationDashboard({
           <Pressable onPress={onStartDailyChallenge} style={styles.secondaryButton}>
             <Text style={styles.secondaryButtonText}>Daily challenge</Text>
           </Pressable>
+          {!profile.assessmentCompleted && (
+            <>
+              <Pressable onPress={onSkipAssessment} style={styles.secondaryButton}>
+                <Text style={styles.secondaryButtonText}>Skip assessment for now</Text>
+              </Pressable>
+              <Pressable onPress={onExploreFreely} style={styles.secondaryButton}>
+                <Text style={styles.secondaryButtonText}>Jump into a topic</Text>
+              </Pressable>
+            </>
+          )}
         </View>
       </View>
 

@@ -177,6 +177,9 @@ export interface UserProfile {
   lastLearningAt?: string;
   reminderPreferences?: ReminderPreferences;
   preferredLanguage?: SupportedLanguage;
+  foundationAssessmentSkipped?: boolean;
+  soundEffectsEnabled?: boolean;
+  reducedSoundEffects?: boolean;
   reviewHeartRestoreUsed?: boolean;
   learnerProfile?: LearnerProfile;
   streakDays: number;
@@ -186,6 +189,7 @@ export interface UserProfile {
   hearts: HeartsBalance;
   completedLessonIds: string[];
   completedNodeIds: string[];
+  claimedRewardIds?: string[];
   activeSubscriptionId?: string;
 }
 

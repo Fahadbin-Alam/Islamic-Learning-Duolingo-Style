@@ -499,6 +499,9 @@ function sanitizeUserProfile(profile, email, name, role, reminderPreferences, pr
     lastLearningAt: typeof safeProfile.lastLearningAt === "string" ? safeProfile.lastLearningAt : safeProfile.lastLoginAt,
     reminderPreferences,
     preferredLanguage: sanitizePreferredLanguage(safeProfile.preferredLanguage),
+    foundationAssessmentSkipped: Boolean(safeProfile.foundationAssessmentSkipped),
+    soundEffectsEnabled: safeProfile.soundEffectsEnabled !== false,
+    reducedSoundEffects: Boolean(safeProfile.reducedSoundEffects),
     reviewHeartRestoreUsed: Boolean(safeProfile.reviewHeartRestoreUsed),
     learnerProfile: sanitizeLearnerProfile(safeProfile.learnerProfile),
     streakDays: Number(safeProfile.streakDays) || 1,
@@ -508,6 +511,7 @@ function sanitizeUserProfile(profile, email, name, role, reminderPreferences, pr
     hearts: sanitizeHearts(safeProfile.hearts),
     completedLessonIds: Array.isArray(safeProfile.completedLessonIds) ? safeProfile.completedLessonIds : [],
     completedNodeIds: Array.isArray(safeProfile.completedNodeIds) ? safeProfile.completedNodeIds : [],
+    claimedRewardIds: Array.isArray(safeProfile.claimedRewardIds) ? safeProfile.claimedRewardIds.filter((item) => typeof item === "string") : [],
     activeSubscriptionId: typeof safeProfile.activeSubscriptionId === "string" ? safeProfile.activeSubscriptionId : undefined
   };
 }

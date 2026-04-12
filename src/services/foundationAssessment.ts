@@ -229,6 +229,49 @@ export function finalizeFoundationAssessment(
   return recomputeLearnerProfile(nextProfile);
 }
 
+export function applyLessonSignalToLearnerProfile(input: {
+  profile: LearnerProfile;
+  category: FoundationCategoryId;
+  signalId: string;
+  difficulty: DifficultyTier;
+  correct: boolean;
+  responseTimeMs: number;
+  confidence?: number;
+  tags?: string[];
+  prompt?: string;
+  reviewNext?: string;
+}) {
+  const question: FoundationQuestion = {
+    id: input.signalId,
+    category: input.category,
+    subtopic: input.tags?.[0] ?? input.category,
+    difficulty: input.difficulty,
+    type: "multiple_choice",
+    prompt: input.prompt ?? "Lesson mastery signal",
+    options: ["Correct", "Incorrect"],
+    correctAnswer: "Correct",
+    explanationShort: "This lesson result updates the learner profile in the background.",
+    explanationLong: "The app uses lesson accuracy and consistency to quietly estimate strengths and weak areas over time.",
+    misconceptionNotes: ["Review the lesson path again if this concept keeps slipping."],
+    tags: unique([input.category, ...(input.tags ?? [])]).slice(0, 6),
+    xpReward: 0,
+    reviewNext: input.reviewNext ?? FOUNDATION_CATEGORY_META[input.category].title,
+    whyThisMatters: "Background adaptive tracking helps future recommendations match the learner's level."
+  };
+  const answerRecord: AssessmentAnswerRecord = {
+    questionId: question.id,
+    category: question.category,
+    difficulty: question.difficulty,
+    selectedAnswer: input.correct ? "Correct" : "Incorrect",
+    isCorrect: input.correct,
+    confidence: input.confidence ?? (input.correct ? 3 : 2),
+    responseTimeMs: input.responseTimeMs,
+    answeredAt: new Date().toISOString()
+  };
+
+  return applyAnswerToLearnerProfile(input.profile, question, answerRecord, "review");
+}
+
 export function getProgressMapIndex(label: LearnerReadinessLabel) {
   return FOUNDATION_PROGRESS_LABELS.findIndex((value) => value === label);
 }
