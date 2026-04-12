@@ -7,11 +7,14 @@ import {
   findNodeByLessonId
 } from "../data/course";
 import type {
+  Challenge,
   LearningCourse,
+  LearningNode,
   LearningNodeView,
   Lesson,
   LessonSession,
   ShopItem,
+  TopicId,
   UserProfile,
   XpSummary
 } from "../types";
@@ -66,9 +69,11 @@ export const learningApi: IslamicLearningApi = {
       throw new Error(`Unknown lesson: ${lessonId}`);
     }
 
+    const progressiveLesson = buildProgressiveLesson(lesson);
+
     return {
       id: `session_${lessonId}_${Date.now()}`,
-      lesson,
+      lesson: progressiveLesson,
       startedAt: new Date().toISOString(),
       heartsAtStart: user.hearts.current
     };
@@ -185,4 +190,216 @@ function cloneUser(user: UserProfile): UserProfile {
     completedLessonIds: [...user.completedLessonIds],
     completedNodeIds: [...user.completedNodeIds]
   };
+}
+
+type LessonTier = "easy" | "medium" | "hard";
+
+const TOPIC_DISTRACTOR_BANK: Record<TopicId, string[]> = {
+  foundation: [
+    "Rush past remembrance and let habits form on their own",
+    "Answer people however you feel without caring about adab",
+    "Treat daily Muslim phrases like they do not shape the heart"
+  ],
+  manners: [
+    "Good character only matters when other people are watching",
+    "Family rights are less important than winning arguments",
+    "Mercy can be skipped if someone annoys you"
+  ],
+  marriage: [
+    "A home succeeds mainly through image and status",
+    "Kindness matters outside the home more than inside it",
+    "Marriage works best when mercy is treated as optional"
+  ],
+  sahabah: [
+    "The companions are remembered mainly for wealth and comfort",
+    "Their stories matter as history but not for character",
+    "Courage in Islam means acting without guidance"
+  ],
+  prophets: [
+    "The prophets teach disconnected stories with no shared lessons",
+    "Tests are signs that trust in Allah should be abandoned",
+    "Sacred history matters less than personal preference"
+  ],
+  women_of_the_book: [
+    "These women are remembered mostly for status without sacrifice",
+    "Their stories are admired but not meant to shape Muslim character",
+    "Revelation honors them without giving believers any lesson to follow"
+  ],
+  quran_tafseer: [
+    "The Quran is best approached without reflection or explanation",
+    "Verses should be memorized but never connected to life",
+    "Tafsir matters less than quick guesses about meaning"
+  ]
+};
+
+function buildProgressiveLesson(lesson: Lesson): Lesson {
+  const node = findNodeByLessonId(lesson.id);
+
+  if (!node) {
+    return lesson;
+  }
+
+  const tier = getLessonTier(node);
+  const baseChallenges = lesson.challenges.map((challenge, index) =>
+    widenChallengeChoices(challenge, node.topicId, lesson.id, index, tier)
+  );
+  const extraChallenges: Challenge[] = [];
+
+  if (tier !== "easy") {
+    extraChallenges.push(buildSourceReferenceChallenge(lesson, node, tier));
+  }
+
+  if (tier === "hard") {
+    extraChallenges.push(buildSynthesisChallenge(lesson, node));
+  }
+
+  return {
+    ...lesson,
+    xpReward: lesson.xpReward + extraChallenges.length * 2,
+    challenges: [...baseChallenges, ...extraChallenges]
+  };
+}
+
+function getLessonTier(node: LearningNode): LessonTier {
+  const section = COURSE.sections.find((item) => item.topicId === node.topicId);
+
+  if (!section || section.nodes.length <= 2) {
+    return "easy";
+  }
+
+  const index = section.nodes.findIndex((item) => item.id === node.id);
+  const progress = index / Math.max(1, section.nodes.length - 1);
+
+  if (progress < 0.34) {
+    return "easy";
+  }
+
+  if (progress < 0.68) {
+    return "medium";
+  }
+
+  return "hard";
+}
+
+function widenChallengeChoices(
+  challenge: Challenge,
+  topicId: TopicId,
+  lessonId: string,
+  index: number,
+  tier: LessonTier
+): Challenge {
+  if (challenge.type !== "multiple_choice" || tier === "easy" || challenge.choices.length >= 4) {
+    return challenge;
+  }
+
+  const distractor = pickExtraDistractor(topicId, challenge.choices.map((choice) => choice.label), lessonId, index);
+
+  if (!distractor) {
+    return challenge;
+  }
+
+  return {
+    ...challenge,
+    choices: [...challenge.choices, { id: `extra_${challenge.id}`, label: distractor }]
+  };
+}
+
+function pickExtraDistractor(topicId: TopicId, existingLabels: string[], lessonId: string, index: number) {
+  const bank = TOPIC_DISTRACTOR_BANK[topicId];
+
+  if (!bank?.length) {
+    return undefined;
+  }
+
+  const start = Math.abs(hashCode(`${lessonId}:${index}`)) % bank.length;
+
+  for (let offset = 0; offset < bank.length; offset += 1) {
+    const candidate = bank[(start + offset) % bank.length];
+
+    if (!existingLabels.includes(candidate)) {
+      return candidate;
+    }
+  }
+
+  return undefined;
+}
+
+function buildSourceReferenceChallenge(lesson: Lesson, node: LearningNode, tier: LessonTier): Challenge {
+  const correctSource = lesson.sources[0];
+  const distractors = getReferenceDistractors(lesson.id, correctSource.reference ?? correctSource.title, 2);
+
+  return {
+    id: `${lesson.id}_sources_${tier}`,
+    type: "multiple_choice",
+    prompt: tier === "medium"
+      ? "Which reference is actually used in this lesson?"
+      : "Which reference best anchors this lesson's evidence?",
+    choices: [
+      { id: "a", label: correctSource.reference ?? correctSource.title },
+      { id: "b", label: distractors[0] ?? "A source from a different lesson" },
+      { id: "c", label: distractors[1] ?? "A source that belongs somewhere else" }
+    ],
+    correctChoiceId: "a",
+    explanation:
+      tier === "medium"
+        ? "Later lessons start asking you to notice the evidence, not only the headline."
+        : `This lesson is now asking you to connect the idea to its proof in ${node.title}.`
+  };
+}
+
+function buildSynthesisChallenge(lesson: Lesson, node: LearningNode): Challenge {
+  return {
+    id: `${lesson.id}_synthesis`,
+    type: "multiple_choice",
+    prompt: "Which summary best brings this whole lesson together?",
+    choices: [
+      { id: "a", label: buildLessonSummary(lesson) },
+      { id: "b", label: "Revelation matters less than opinion, so practice can be improvised freely" },
+      { id: "c", label: "The main goal is to memorize isolated facts without letting them shape character" },
+      { id: "d", label: `The lesson on ${node.title} is mostly about historical trivia instead of guidance` }
+    ],
+    correctChoiceId: "a",
+    explanation: "The harder lessons now ask for synthesis: not just what happened, but what the believer should carry from it."
+  };
+}
+
+function buildLessonSummary(lesson: Lesson) {
+  const intro = lesson.intro.trim();
+
+  if (intro.length <= 88) {
+    return intro;
+  }
+
+  const shortened = intro.slice(0, 85).trimEnd();
+  return shortened.endsWith(".") ? shortened : `${shortened}...`;
+}
+
+function getReferenceDistractors(lessonId: string, correctReference: string, count: number) {
+  const references = Object.values(LESSONS_BY_ID)
+    .filter((item) => item.id !== lessonId)
+    .flatMap((item) => item.sources.map((source) => source.reference ?? source.title))
+    .filter((reference) => reference !== correctReference);
+  const picked: string[] = [];
+  const start = Math.abs(hashCode(lessonId)) % Math.max(1, references.length);
+
+  for (let offset = 0; offset < references.length && picked.length < count; offset += 1) {
+    const candidate = references[(start + offset) % references.length];
+
+    if (!picked.includes(candidate)) {
+      picked.push(candidate);
+    }
+  }
+
+  return picked;
+}
+
+function hashCode(value: string) {
+  let hash = 0;
+
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(index);
+    hash |= 0;
+  }
+
+  return hash;
 }
