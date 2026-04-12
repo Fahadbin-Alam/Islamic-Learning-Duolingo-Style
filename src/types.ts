@@ -59,6 +59,12 @@ export interface LearningCourse {
   sections: LearningSection[];
 }
 
+export interface LearningBranch {
+  id: string;
+  title: string;
+  description: string;
+}
+
 export interface LearningSection {
   id: string;
   topicId: TopicId;
@@ -69,6 +75,7 @@ export interface LearningSection {
   mascot: CharacterVariant;
   accentColor: string;
   starsTarget: number;
+  branches: LearningBranch[];
   nodes: LearningNode[];
 }
 
@@ -77,6 +84,7 @@ export interface LearningNode {
   skillId: string;
   title: string;
   topicId: TopicId;
+  branchId: string;
   kind: "skill" | "story" | "review";
   lessonIds: string[];
   requiredNodeIds: string[];

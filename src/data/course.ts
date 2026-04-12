@@ -133,12 +133,25 @@ export const COURSE: LearningCourse = {
       mascot: "hijabi",
       accentColor: "#1CB66D",
       starsTarget: 15,
+      branches: [
+        {
+          id: "foundation-greetings",
+          title: "Greetings and replies",
+          description: "Begin with salam and learn how Muslims return peace beautifully."
+        },
+        {
+          id: "foundation-daily-words",
+          title: "Daily words of dhikr",
+          description: "Practice the small phrases Muslims use all day: Alhamdulillah, Bismillah, and more."
+        }
+      ],
       nodes: [
         {
           id: "foundation-niyyah",
           skillId: "skill_foundation_001",
           title: "As-Salamu Alaikum",
           topicId: "foundation",
+          branchId: "foundation-greetings",
           kind: "skill",
           lessonIds: ["lesson-foundation-niyyah"],
           requiredNodeIds: [],
@@ -150,6 +163,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_foundation_002",
           title: "Say Alhamdulillah",
           topicId: "foundation",
+          branchId: "foundation-daily-words",
           kind: "skill",
           lessonIds: ["lesson-foundation-guidance"],
           requiredNodeIds: ["foundation-niyyah"],
@@ -161,6 +175,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_foundation_003",
           title: "Say Bismillah",
           topicId: "foundation",
+          branchId: "foundation-daily-words",
           kind: "skill",
           lessonIds: ["lesson-foundation-bismillah"],
           requiredNodeIds: ["foundation-guidance"],
@@ -172,6 +187,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_foundation_004",
           title: "Sneezing Manners",
           topicId: "foundation",
+          branchId: "foundation-daily-words",
           kind: "skill",
           lessonIds: ["lesson-foundation-sneeze"],
           requiredNodeIds: ["foundation-bismillah"],
@@ -183,6 +199,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_foundation_005",
           title: "Reply with Peace",
           topicId: "foundation",
+          branchId: "foundation-greetings",
           kind: "review",
           lessonIds: ["lesson-foundation-character"],
           requiredNodeIds: ["foundation-sneeze"],
@@ -200,13 +217,31 @@ export const COURSE: LearningCourse = {
       focus: "Spread peace, speak truth, honor parents, show mercy, and eat with adab.",
       mascot: "hijabi",
       accentColor: "#14B884",
-      starsTarget: 15,
+      starsTarget: 21,
+      branches: [
+        {
+          id: "manners-speech",
+          title: "Speech and truth",
+          description: "Learn how a Muslim speaks with peace, honesty, and care."
+        },
+        {
+          id: "manners-parents-family",
+          title: "Parents and family",
+          description: "Go deeper on how to treat parents with gentleness, gratitude, and service."
+        },
+        {
+          id: "manners-rahmah",
+          title: "Mercy in daily life",
+          description: "Practice mercy, respect, and disciplined habits in everyday actions."
+        }
+      ],
       nodes: [
         {
           id: "manners-salam",
           skillId: "skill_adab_001",
           title: "Spread Salam",
           topicId: "manners",
+          branchId: "manners-speech",
           kind: "skill",
           lessonIds: ["lesson-salam"],
           requiredNodeIds: [],
@@ -218,6 +253,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_adab_002",
           title: "Truthfulness",
           topicId: "manners",
+          branchId: "manners-speech",
           kind: "skill",
           lessonIds: ["lesson-truthful"],
           requiredNodeIds: ["manners-salam"],
@@ -229,6 +265,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_adab_003",
           title: "Parents and Elders",
           topicId: "manners",
+          branchId: "manners-parents-family",
           kind: "skill",
           lessonIds: ["lesson-parents"],
           requiredNodeIds: ["manners-truthful"],
@@ -236,21 +273,47 @@ export const COURSE: LearningCourse = {
           starsReward: 3
         },
         {
-          id: "manners-mercy",
+          id: "manners-mother",
           skillId: "skill_adab_004",
-          title: "Mercy and Respect",
+          title: "Honor Your Mother",
           topicId: "manners",
+          branchId: "manners-parents-family",
           kind: "skill",
-          lessonIds: ["lesson-mercy"],
+          lessonIds: ["lesson-mother"],
           requiredNodeIds: ["manners-parents"],
           xpReward: 12,
           starsReward: 3
         },
         {
-          id: "manners-eating",
+          id: "manners-service",
           skillId: "skill_adab_005",
+          title: "Serve with Humility",
+          topicId: "manners",
+          branchId: "manners-parents-family",
+          kind: "skill",
+          lessonIds: ["lesson-service"],
+          requiredNodeIds: ["manners-mother"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "manners-mercy",
+          skillId: "skill_adab_006",
+          title: "Mercy and Respect",
+          topicId: "manners",
+          branchId: "manners-rahmah",
+          kind: "skill",
+          lessonIds: ["lesson-mercy"],
+          requiredNodeIds: ["manners-service"],
+          xpReward: 12,
+          starsReward: 3
+        },
+        {
+          id: "manners-eating",
+          skillId: "skill_adab_007",
           title: "Eating with Adab",
           topicId: "manners",
+          branchId: "manners-rahmah",
           kind: "review",
           lessonIds: ["lesson-eating"],
           requiredNodeIds: ["manners-mercy"],
@@ -269,12 +332,25 @@ export const COURSE: LearningCourse = {
       mascot: "muslim_man",
       accentColor: "#0C9F8C",
       starsTarget: 15,
+      branches: [
+        {
+          id: "sahabah-rightly-guided",
+          title: "Rightly guided leaders",
+          description: "Follow Abu Bakr, Umar, Uthman, and Ali through truth, justice, and leadership."
+        },
+        {
+          id: "sahabah-steadfast-hearts",
+          title: "Steadfast hearts",
+          description: "See how deep faith looked in companions like Bilal under pressure and hardship."
+        }
+      ],
       nodes: [
         {
           id: "sahabah-abubakr",
           skillId: "skill_sahabah_001",
           title: "Abu Bakr",
           topicId: "sahabah",
+          branchId: "sahabah-rightly-guided",
           kind: "story",
           lessonIds: ["lesson-abubakr"],
           requiredNodeIds: [],
@@ -286,6 +362,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_sahabah_002",
           title: "Umar ibn al-Khattab",
           topicId: "sahabah",
+          branchId: "sahabah-rightly-guided",
           kind: "story",
           lessonIds: ["lesson-umar"],
           requiredNodeIds: ["sahabah-abubakr"],
@@ -297,6 +374,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_sahabah_003",
           title: "Uthman ibn Affan",
           topicId: "sahabah",
+          branchId: "sahabah-rightly-guided",
           kind: "story",
           lessonIds: ["lesson-uthman"],
           requiredNodeIds: ["sahabah-umar"],
@@ -308,6 +386,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_sahabah_004",
           title: "Ali ibn Abi Talib",
           topicId: "sahabah",
+          branchId: "sahabah-rightly-guided",
           kind: "story",
           lessonIds: ["lesson-ali"],
           requiredNodeIds: ["sahabah-uthman"],
@@ -319,6 +398,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_sahabah_005",
           title: "Bilal ibn Rabah",
           topicId: "sahabah",
+          branchId: "sahabah-steadfast-hearts",
           kind: "review",
           lessonIds: ["lesson-bilal"],
           requiredNodeIds: ["sahabah-ali"],
@@ -337,12 +417,25 @@ export const COURSE: LearningCourse = {
       mascot: "hijabi",
       accentColor: "#1688C4",
       starsTarget: 15,
+      branches: [
+        {
+          id: "quran-short-surahs",
+          title: "Core surahs",
+          description: "Build a strong base in short surahs every Muslim should know well."
+        },
+        {
+          id: "quran-reflection",
+          title: "Reflection and tafsir",
+          description: "Slow down and think through protection, time, and the meanings behind the verses."
+        }
+      ],
       nodes: [
         {
           id: "quran-fatiha",
           skillId: "skill_quran_001",
           title: "Al-Fatihah",
           topicId: "quran_tafseer",
+          branchId: "quran-short-surahs",
           kind: "skill",
           lessonIds: ["lesson-fatiha"],
           requiredNodeIds: [],
@@ -354,6 +447,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_quran_002",
           title: "Surah Al-Ikhlas",
           topicId: "quran_tafseer",
+          branchId: "quran-short-surahs",
           kind: "skill",
           lessonIds: ["lesson-ikhlas"],
           requiredNodeIds: ["quran-fatiha"],
@@ -365,6 +459,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_quran_003",
           title: "Ayat al-Kursi",
           topicId: "quran_tafseer",
+          branchId: "quran-reflection",
           kind: "skill",
           lessonIds: ["lesson-kursi"],
           requiredNodeIds: ["quran-ikhlas"],
@@ -376,6 +471,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_quran_004",
           title: "Surah Al-Asr",
           topicId: "quran_tafseer",
+          branchId: "quran-reflection",
           kind: "skill",
           lessonIds: ["lesson-asr"],
           requiredNodeIds: ["quran-kursi"],
@@ -387,6 +483,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_quran_005",
           title: "Tafseer Themes",
           topicId: "quran_tafseer",
+          branchId: "quran-reflection",
           kind: "review",
           lessonIds: ["lesson-tafseer"],
           requiredNodeIds: ["quran-asr"],
@@ -405,12 +502,30 @@ export const COURSE: LearningCourse = {
       mascot: "muslim_man",
       accentColor: "#D97B2D",
       starsTarget: 21,
+      branches: [
+        {
+          id: "prophets-beginnings",
+          title: "Beginnings of mankind",
+          description: "Start with the earliest prophets and the first lessons of repentance and patience."
+        },
+        {
+          id: "prophets-tested",
+          title: "Tested messengers",
+          description: "Go through the prophets whose lives teach sacrifice, purity, courage, and trust."
+        },
+        {
+          id: "prophets-final-example",
+          title: "Final example",
+          description: "End with the mercy and model of Prophet Muhammad."
+        }
+      ],
       nodes: [
         {
           id: "prophets-adam",
           skillId: "skill_prophets_001",
           title: "Adam",
           topicId: "prophets",
+          branchId: "prophets-beginnings",
           kind: "story",
           lessonIds: ["lesson-adam"],
           requiredNodeIds: [],
@@ -422,6 +537,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_prophets_002",
           title: "Nuh",
           topicId: "prophets",
+          branchId: "prophets-beginnings",
           kind: "story",
           lessonIds: ["lesson-nuh"],
           requiredNodeIds: ["prophets-adam"],
@@ -433,6 +549,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_prophets_003",
           title: "Ibrahim",
           topicId: "prophets",
+          branchId: "prophets-tested",
           kind: "story",
           lessonIds: ["lesson-ibrahim"],
           requiredNodeIds: ["prophets-nuh"],
@@ -444,6 +561,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_prophets_004",
           title: "Yusuf",
           topicId: "prophets",
+          branchId: "prophets-tested",
           kind: "story",
           lessonIds: ["lesson-yusuf"],
           requiredNodeIds: ["prophets-ibrahim"],
@@ -455,6 +573,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_prophets_005",
           title: "Musa",
           topicId: "prophets",
+          branchId: "prophets-tested",
           kind: "story",
           lessonIds: ["lesson-musa"],
           requiredNodeIds: ["prophets-yusuf"],
@@ -466,6 +585,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_prophets_006",
           title: "Isa",
           topicId: "prophets",
+          branchId: "prophets-tested",
           kind: "story",
           lessonIds: ["lesson-isa"],
           requiredNodeIds: ["prophets-musa"],
@@ -477,6 +597,7 @@ export const COURSE: LearningCourse = {
           skillId: "skill_prophets_007",
           title: "Muhammad",
           topicId: "prophets",
+          branchId: "prophets-final-example",
           kind: "review",
           lessonIds: ["lesson-muhammad"],
           requiredNodeIds: ["prophets-isa"],
@@ -919,6 +1040,116 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
         ],
         "a",
         "Listening is one of the clearest forms of respect."
+      )
+    ]
+  ),
+  "lesson-mother": lesson(
+    "lesson-mother",
+    "manners-mother",
+    "Honor Your Mother",
+    "Islam teaches a special level of gratitude, patience, and good company toward your mother.",
+    12,
+    [
+      hadithSource(
+        "source-mother-bukhari-5971",
+        "Your mother, then your mother, then your mother",
+        "https://sunnah.com/bukhari:5971",
+        "Sahih al-Bukhari 5971",
+        "Abu Hurairah; collected by Imam al-Bukhari",
+        "Sahih",
+        "When asked who deserves the best companionship, the Prophet named the mother three times before the father."
+      ),
+      quranSource(
+        "source-mother-quran-31-14",
+        "Be grateful to Me and to your parents",
+        "https://quran.com/en/31:14/tafsirs",
+        "Quran 31:14",
+        "Allah reminds believers of the hardship a mother carries and ties gratitude to parents directly to gratitude to Him."
+      )
+    ],
+    [
+      mc(
+        "mother-1",
+        "Who did the Prophet mention first when asked about the best companionship?",
+        [
+          ["a", "Your mother"],
+          ["b", "Only your friends"],
+          ["c", "People with money"]
+        ],
+        "a",
+        "The Prophet repeated the mother's right three times before mentioning the father."
+      ),
+      tf(
+        "mother-2",
+        "Islam teaches that mothers have a very high right to care and kindness.",
+        true,
+        "That high right shows up clearly in both the Quran and hadith."
+      ),
+      mc(
+        "mother-3",
+        "Which action fits this lesson best?",
+        [
+          ["a", "Speak kindly and stay patient with your mother"],
+          ["b", "Treat her care like it means nothing"],
+          ["c", "Save your best character for strangers only"]
+        ],
+        "a",
+        "A learner shows this lesson through gentleness and gratitude."
+      )
+    ]
+  ),
+  "lesson-service": lesson(
+    "lesson-service",
+    "manners-service",
+    "Serve with Humility",
+    "Going deeper with parents means lowering yourself with mercy, making dua, and serving without arrogance.",
+    12,
+    [
+      quranSource(
+        "source-service-quran-17-24",
+        "Lower the wing of humility for them",
+        "https://quran.com/en/17:24/tafsirs",
+        "Quran 17:24",
+        "Allah teaches believers to lower the wing of humility to their parents and pray for mercy on them."
+      ),
+      hadithSource(
+        "source-service-adab-31",
+        "Making parents cry is part of disobedience",
+        "https://sunnah.com/adab:31",
+        "Al-Adab Al-Mufrad 31",
+        "Ibn Umar; collected by Imam al-Bukhari in Al-Adab Al-Mufrad",
+        "See source",
+        "The report warns that hurting parents emotionally is a form of disobedience, so service to them must carry gentleness."
+      )
+    ],
+    [
+      mc(
+        "service-1",
+        "What does Quran 17:24 teach toward parents?",
+        [
+          ["a", "Lower yourself with humility and mercy"],
+          ["b", "Act proud and impatient"],
+          ["c", "Keep your distance and avoid helping"]
+        ],
+        "a",
+        "The verse teaches service shaped by softness, not ego."
+      ),
+      tf(
+        "service-2",
+        "Making dua for your parents is part of honoring them.",
+        true,
+        "The Quran itself teaches a dua for parents in this passage."
+      ),
+      mc(
+        "service-3",
+        "Which habit matches serving parents well?",
+        [
+          ["a", "Help before being asked every time you can"],
+          ["b", "Complain loudly about every small task"],
+          ["c", "Only act kind when others are watching"]
+        ],
+        "a",
+        "Real service grows from humility and gratitude."
       )
     ]
   ),

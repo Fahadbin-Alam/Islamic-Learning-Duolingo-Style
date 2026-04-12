@@ -58,6 +58,7 @@ import type {
   BattleResult,
   Challenge,
   CharacterVariant,
+  LearningBranch,
   LearningNodeView,
   LearningSection,
   LessonSource,
@@ -90,6 +91,7 @@ type NodeGlyphKind =
 interface AppState {
   screen: Screen;
   selectedTopic: TopicId;
+  selectedBranchId?: string;
   user?: UserProfile;
   xpSummary: XpSummary[];
   activeSession?: LessonSession;
@@ -102,6 +104,7 @@ interface AppState {
 type Action =
   | { type: "loaded"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "select_topic"; topicId: TopicId }
+  | { type: "select_branch"; branchId: string }
   | { type: "open_shop" }
   | { type: "open_social" }
   | { type: "close_shop" }
@@ -128,7 +131,9 @@ function reducer(state: AppState, action: Action): AppState {
     case "loaded":
       return { ...state, user: action.user, xpSummary: action.xpSummary, loading: false };
     case "select_topic":
-      return { ...state, selectedTopic: action.topicId, screen: "path" };
+      return { ...state, selectedTopic: action.topicId, selectedBranchId: undefined, screen: "path" };
+    case "select_branch":
+      return { ...state, selectedBranchId: action.branchId, screen: "path" };
     case "open_shop":
       return { ...state, screen: "shop" };
     case "open_social":
@@ -283,14 +288,18 @@ export default function TopicApp() {
     return localizedSections.find((section) => section.topicId === state.selectedTopic) ?? localizedSections[0];
   }, [localizedSections, state.selectedTopic]);
 
+  const selectedBranch = useMemo(() => {
+    return selectedSection.branches.find((branch) => branch.id === state.selectedBranchId) ?? selectedSection.branches[0];
+  }, [selectedSection, state.selectedBranchId]);
+
   const selectedNodes = useMemo(() => {
     return pathNodes
-      .filter((node) => node.topicId === selectedSection.topicId)
+      .filter((node) => node.topicId === selectedSection.topicId && node.branchId === selectedBranch.id)
       .map((node) => ({
         ...node,
         title: getNodeTitle(node.id, node.title, currentLanguage)
       }));
-  }, [currentLanguage, pathNodes, selectedSection.topicId]);
+  }, [currentLanguage, pathNodes, selectedBranch.id, selectedSection.topicId]);
 
   const currentLessonSection = useMemo(() => {
     if (!state.activeSession) {
@@ -845,9 +854,12 @@ export default function TopicApp() {
             xpSummary={state.xpSummary[0]}
             section={selectedSection}
             sections={localizedSections}
+            branch={selectedBranch}
+            branches={selectedSection.branches}
             nodes={selectedNodes}
             selectedTopic={state.selectedTopic}
             onSelectTopic={(topicId) => dispatch({ type: "select_topic", topicId })}
+            onSelectBranch={(branchId) => dispatch({ type: "select_branch", branchId })}
             onStartLesson={startLesson}
             onOpenShop={() => dispatch({ type: "open_shop" })}
           />
@@ -1006,9 +1018,12 @@ function PathScreen({
   xpSummary,
   section,
   sections,
+  branch,
+  branches,
   nodes,
   selectedTopic,
   onSelectTopic,
+  onSelectBranch,
   onStartLesson,
   onOpenShop
 }: {
@@ -1017,14 +1032,17 @@ function PathScreen({
   xpSummary?: XpSummary;
   section: LearningSection;
   sections: LearningSection[];
+  branch: LearningBranch;
+  branches: LearningBranch[];
   nodes: LearningNodeView[];
   selectedTopic: TopicId;
   onSelectTopic: (topicId: TopicId) => void;
+  onSelectBranch: (branchId: string) => void;
   onStartLesson: (node: LearningNodeView) => void;
   onOpenShop: () => void;
 }) {
   const progress = Math.min(1, user.totalXp / user.dailyGoalXp);
-  const nextNode = nodes.find((node) => node.status === "current") ?? nodes.find((node) => node.status === "available");
+  const nextNode = nodes.find((node) => node.status === "current") ?? nodes.find((node) => node.status === "available") ?? nodes[0];
   const earnedStars = getSectionStars(user, section);
 
   return (
@@ -1056,6 +1074,37 @@ function PathScreen({
         ))}
       </ScrollView>
 
+      <View style={styles.branchHeader}>
+        <Text style={styles.sectionTitle}>{strings.chooseBranch}</Text>
+        <Text style={styles.sectionDescription}>{strings.tapBranch}</Text>
+      </View>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.branchRow}>
+        {branches.map((item) => {
+          const branchStars = getBranchStars(user, section, item.id);
+          const lessonCount = section.nodes.filter((node) => node.branchId === item.id).length;
+          const selected = item.id === branch.id;
+
+          return (
+            <Pressable
+              key={item.id}
+              onPress={() => onSelectBranch(item.id)}
+              style={[
+                styles.branchCard,
+                selected && { borderColor: section.accentColor, backgroundColor: lightenColor(section.accentColor, 0.92) }
+              ]}
+            >
+              <Text style={[styles.branchCardTitle, selected && { color: darkenColor(section.accentColor) }]}>{item.title}</Text>
+              <Text style={styles.branchCardCopy}>{item.description}</Text>
+              <View style={styles.branchCardMetaRow}>
+                <Text style={styles.branchCardMeta}>{`${lessonCount} ${strings.lessons}`}</Text>
+                <Text style={styles.branchCardMeta}>{`${branchStars}/${section.nodes.filter((node) => node.branchId === item.id).reduce((total, node) => total + node.starsReward, 0)} ${strings.stars}`}</Text>
+              </View>
+            </Pressable>
+          );
+        })}
+      </ScrollView>
+
       <View style={styles.routeCard}>
         <View style={styles.routeHeader}>
           <View>
@@ -1065,6 +1114,11 @@ function PathScreen({
             <StarMeter earned={earnedStars} total={section.starsTarget} compact={false} strings={strings} />
           </View>
           <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={92} />
+        </View>
+        <View style={styles.branchSummaryCard}>
+          <Text style={[styles.branchSummaryEyebrow, { color: section.accentColor }]}>{strings.branch}</Text>
+          <Text style={styles.branchSummaryTitle}>{branch.title}</Text>
+          <Text style={styles.branchSummaryCopy}>{branch.description}</Text>
         </View>
         <View style={styles.pathLane}>
           {nodes.map((node, index) => (
@@ -2403,6 +2457,8 @@ function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accen
     "manners-salam": { glyph: "brain", outerColor: "#49C38F", innerColor: "#CFF5E2" },
     "manners-truthful": { glyph: "brain", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
     "manners-parents": { glyph: "brain", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
+    "manners-mother": { glyph: "brain", outerColor: "#F5A26C", innerColor: "#FFE9D9" },
+    "manners-service": { glyph: "brain", outerColor: "#C47CF2", innerColor: "#F1E3FF" },
     "manners-mercy": { glyph: "brain", outerColor: "#F3A84E", innerColor: "#FFF0D8" },
     "manners-eating": { glyph: "brain", outerColor: "#F46F67", innerColor: "#FFE5E2" },
     "sahabah-abubakr": { glyph: "shield_sword", outerColor: "#1FC1A3", innerColor: "#D7FBF4" },
@@ -2583,6 +2639,18 @@ function getSectionStars(user: UserProfile, section: LearningSection) {
   }, 0);
 }
 
+function getBranchStars(user: UserProfile, section: LearningSection, branchId: string) {
+  const completed = new Set(user.completedNodeIds);
+
+  return section.nodes.reduce((total, node) => {
+    if (node.branchId !== branchId) {
+      return total;
+    }
+
+    return total + (completed.has(node.id) ? node.starsReward : 0);
+  }, 0);
+}
+
 function getNodeStarsReward(nodeId: string) {
   for (const section of COURSE.sections) {
     const node = section.nodes.find((item) => item.id === nodeId);
@@ -2733,6 +2801,13 @@ const styles = StyleSheet.create({
   sectionTitle: { color: colors.ink, fontSize: 22, lineHeight: 27, fontWeight: "900", letterSpacing: 0 },
   sectionDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   topicRow: { gap: 12, paddingVertical: 16, paddingRight: 18 },
+  branchHeader: { marginTop: 4 },
+  branchRow: { gap: 12, paddingVertical: 14, paddingRight: 18 },
+  branchCard: { width: 220, minHeight: 128, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  branchCardTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", letterSpacing: 0 },
+  branchCardCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 6 },
+  branchCardMetaRow: { flexDirection: "row", justifyContent: "space-between", gap: 8, marginTop: 10 },
+  branchCardMeta: { color: colors.greenDark, fontSize: 12, fontWeight: "800", letterSpacing: 0 },
   topicCard: { width: 168, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   topicCardIconRow: { minHeight: 64, justifyContent: "center" },
   topicIconFrame: { width: 58, height: 58, borderRadius: 18, borderWidth: 1, alignItems: "center", justifyContent: "center" },
@@ -2744,6 +2819,10 @@ const styles = StyleSheet.create({
   routeBadge: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   routeTitle: { color: colors.ink, fontSize: 24, lineHeight: 30, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   routeDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4, maxWidth: 220 },
+  branchSummaryCard: { marginTop: 4, marginBottom: 14, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
+  branchSummaryEyebrow: { fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
+  branchSummaryTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
+  branchSummaryCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   pathLane: { width: "100%", maxWidth: 360, alignSelf: "center", marginTop: 8 },
   nodeWrap: { width: "100%", marginVertical: 8 },
   nodeRail: { alignItems: "center" },
