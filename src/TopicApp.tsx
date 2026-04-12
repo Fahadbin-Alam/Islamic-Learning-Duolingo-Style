@@ -454,24 +454,26 @@ function PathScreen({
           </View>
           <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={92} />
         </View>
-        {nodes.map((node, index) => (
-          <View key={node.id}>
-            <PathNode
-              node={node}
-              index={index}
-              isLast={index === nodes.length - 1}
-              accentColor={section.accentColor}
-              onPress={() => onStartLesson(node)}
-            />
-            {index === 1 && (
-              <CoachCard
-                section={section}
-                title="Guide moment"
-                copy={`Want ${section.title.toLowerCase()} right now? Tap the bright circle and keep moving.`}
+        <View style={styles.pathLane}>
+          {nodes.map((node, index) => (
+            <View key={node.id}>
+              <PathNode
+                node={node}
+                index={index}
+                isLast={index === nodes.length - 1}
+                accentColor={section.accentColor}
+                onPress={() => onStartLesson(node)}
               />
-            )}
-          </View>
-        ))}
+              {index === 1 && (
+                <CoachCard
+                  section={section}
+                  title="Guide moment"
+                  copy={`Want ${section.title.toLowerCase()} right now? Tap the bright button and keep moving.`}
+                />
+              )}
+            </View>
+          ))}
+        </View>
       </View>
 
       {!user.hearts.unlimited && user.hearts.current <= 2 && (
@@ -560,6 +562,7 @@ function PathNode({
   onPress: () => void;
 }) {
   const alignments = [styles.nodeLeft, styles.nodeCenter, styles.nodeRight];
+  const visual = getNodeVisual(node.id, node.status, accentColor);
 
   return (
     <View style={[styles.nodeWrap, alignments[index % alignments.length]]}>
@@ -569,16 +572,24 @@ function PathNode({
           disabled={node.status === "locked"}
           style={({ pressed }) => [
             styles.nodeCircle,
-            node.status === "completed" && { backgroundColor: accentColor, borderColor: darkenColor(accentColor) },
-            node.status === "current" && styles.nodeCurrent,
-            node.status === "available" && styles.nodeAvailable,
+            node.status === "completed" && { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) },
+            node.status === "current" && [styles.nodeCurrent, { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) }],
+            node.status === "available" && { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) },
             node.status === "locked" && styles.nodeLocked,
             pressed && node.status !== "locked" && styles.nodePressed
           ]}
         >
-          <Text style={[styles.nodeMark, node.status === "locked" && styles.nodeMarkLocked]}>
-            {node.status === "completed" ? "OK" : getTopicMark(node.topicId)}
-          </Text>
+          <View style={[styles.nodeInnerOrb, { backgroundColor: node.status === "locked" ? "#F1F4F3" : visual.innerColor }]}>
+            <Text style={[styles.nodeEmoji, node.status === "locked" && styles.nodeEmojiLocked]}>
+              {node.status === "completed" ? "✓" : visual.icon}
+            </Text>
+          </View>
+          {node.status === "current" && (
+            <>
+              <Text style={[styles.nodeSparkle, styles.nodeSparkleLeft]}>✦</Text>
+              <Text style={[styles.nodeSparkle, styles.nodeSparkleRight]}>★</Text>
+            </>
+          )}
           <View style={styles.nodeStarsBadge}>
             <Text style={styles.nodeStarsText}>{`${node.starsReward}★`}</Text>
           </View>
@@ -953,19 +964,33 @@ function GuideMascot({
   );
 }
 
-function getTopicMark(topicId: TopicId) {
-  switch (topicId) {
-    case "foundation":
-      return "FD";
-    case "manners":
-      return "MN";
-    case "sahabah":
-      return "SH";
-    case "quran_tafseer":
-      return "QT";
-    default:
-      return "GO";
+function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accentColor: string) {
+  const visualMap: Record<string, { icon: string; outerColor: string; innerColor: string }> = {
+    "foundation-niyyah": { icon: "✨", outerColor: "#FFC928", innerColor: "#FFE58A" },
+    "foundation-guidance": { icon: "🧭", outerColor: "#7ED7FF", innerColor: "#DDF5FF" },
+    "foundation-character": { icon: "💛", outerColor: "#FF9D7A", innerColor: "#FFD7C8" },
+    "manners-salam": { icon: "💬", outerColor: "#49C38F", innerColor: "#CFF5E2" },
+    "manners-truthful": { icon: "🤝", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
+    "manners-parents": { icon: "🌿", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
+    "sahabah-abubakr": { icon: "📜", outerColor: "#1FC1A3", innerColor: "#D7FBF4" },
+    "sahabah-umar": { icon: "🛡", outerColor: "#2AB7A6", innerColor: "#D7F7F3" },
+    "sahabah-bilal": { icon: "📣", outerColor: "#5EC0A7", innerColor: "#DDF7EF" },
+    "quran-fatiha": { icon: "📖", outerColor: "#40A8FF", innerColor: "#DDF0FF" },
+    "quran-ikhlas": { icon: "☀️", outerColor: "#6AA4FF", innerColor: "#E2ECFF" },
+    "quran-tafseer": { icon: "💎", outerColor: "#7D8CFF", innerColor: "#E7E9FF" }
+  };
+  const fallback = { icon: "⭐", outerColor: accentColor, innerColor: lightenColor(accentColor, 0.88) };
+  const selected = visualMap[nodeId] ?? fallback;
+
+  if (status === "locked") {
+    return {
+      icon: selected.icon,
+      outerColor: "#E2E8E5",
+      innerColor: "#F3F6F4"
+    };
   }
+
+  return selected;
 }
 
 function formatPrice(item: ShopItem) {
@@ -1084,26 +1109,31 @@ const styles = StyleSheet.create({
   topicCard: { width: 168, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   topicCardTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
   topicCardCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
-  routeCard: { borderRadius: 8, padding: 16, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  routeCard: { alignSelf: "center", width: "100%", maxWidth: 640, borderRadius: 8, padding: 16, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   routeHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 10 },
   routeBadge: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   routeTitle: { color: colors.ink, fontSize: 24, lineHeight: 30, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   routeDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4, maxWidth: 220 },
+  pathLane: { width: "100%", maxWidth: 360, alignSelf: "center", marginTop: 8 },
   nodeWrap: { width: "100%", marginVertical: 8 },
   nodeRail: { alignItems: "center" },
   nodeLeft: { alignItems: "flex-start" },
   nodeCenter: { alignItems: "center" },
   nodeRight: { alignItems: "flex-end" },
-  nodeCircle: { width: 78, height: 78, borderRadius: 39, alignItems: "center", justifyContent: "center", borderWidth: 4, borderColor: colors.green, backgroundColor: colors.white },
+  nodeCircle: { width: 86, height: 86, borderRadius: 43, alignItems: "center", justifyContent: "center", borderWidth: 4, borderColor: colors.green, backgroundColor: colors.white, position: "relative", shadowColor: "rgba(0,0,0,0.16)", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.18, shadowRadius: 10, elevation: 4 },
+  nodeInnerOrb: { width: 58, height: 58, borderRadius: 29, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "rgba(36,50,69,0.08)" },
   nodeConnector: { width: 6, height: 34, borderRadius: 999, opacity: 0.25, marginTop: 6 },
   nodeCurrent: { backgroundColor: colors.gold, borderColor: colors.greenDark },
   nodeAvailable: { backgroundColor: colors.white },
   nodeLocked: { backgroundColor: colors.gray, borderColor: colors.line },
   nodePressed: { transform: [{ scale: 0.97 }] },
-  nodeMark: { color: colors.ink, fontWeight: "900", fontSize: 18, letterSpacing: 0 },
+  nodeEmoji: { fontSize: 28 },
+  nodeEmojiLocked: { opacity: 0.45 },
+  nodeSparkle: { position: "absolute", top: 8, color: colors.white, fontSize: 15, fontWeight: "900" },
+  nodeSparkleLeft: { left: 12 },
+  nodeSparkleRight: { right: 12 },
   nodeStarsBadge: { position: "absolute", bottom: -6, paddingHorizontal: 8, paddingVertical: 2, borderRadius: 999, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line },
   nodeStarsText: { color: colors.ink, fontSize: 11, fontWeight: "900", letterSpacing: 0 },
-  nodeMarkLocked: { color: colors.muted },
   nodeTextBlock: { width: 164, marginTop: 8 },
   nodeTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", textAlign: "center", letterSpacing: 0 },
   nodeMeta: { color: colors.muted, fontSize: 12, fontWeight: "700", textAlign: "center", letterSpacing: 0, marginTop: 2 },
