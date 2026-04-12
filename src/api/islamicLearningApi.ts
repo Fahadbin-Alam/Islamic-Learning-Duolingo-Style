@@ -37,11 +37,13 @@ export const learningApi: IslamicLearningApi = {
   },
   getPathNodes(user) {
     const completed = new Set(user.completedNodeIds);
-    const firstIncompleteByTopic = new Map(
-      COURSE.sections.map((section) => [
-        section.topicId,
-        section.nodes.find((node) => !completed.has(node.id))
-      ])
+    const firstIncompleteByBranch = new Map(
+      COURSE.sections.flatMap((section) =>
+        section.branches.map((branch) => [
+          branch.id,
+          section.nodes.find((node) => node.branchId === branch.id && !completed.has(node.id))
+        ] as const)
+      )
     );
 
     return allNodes.map((node) => {
@@ -51,7 +53,7 @@ export const learningApi: IslamicLearningApi = {
         ? "completed"
         : !prereqsComplete
           ? "locked"
-          : firstIncompleteByTopic.get(node.topicId)?.id === node.id
+          : firstIncompleteByBranch.get(node.branchId)?.id === node.id
             ? "current"
             : "available";
 
@@ -205,6 +207,26 @@ const TOPIC_DISTRACTOR_BANK: Record<TopicId, string[]> = {
     "Wudu is mainly about speed, not about following the taught steps",
     "Preparation for salah matters less than how confident someone feels"
   ],
+  aqidah: [
+    "Belief stays healthy even when revelation is treated like a background detail",
+    "Tawhid can stay theoretical without shaping worship or reliance",
+    "Clear belief matters less than spiritual mood"
+  ],
+  fasting: [
+    "The point of fasting is mainly hunger and public discipline",
+    "Protecting the stomach matters more than protecting the tongue",
+    "Ramadan is mostly a schedule change and not a training season"
+  ],
+  zakat: [
+    "Zakat works best when it follows personal preference instead of revealed categories",
+    "The inner state of the giver matters less than just moving money out",
+    "Wealth grows purer when its duties stay vague"
+  ],
+  hajj: [
+    "The meaning of Hajj matters less than travel logistics and atmosphere",
+    "The rites are strongest when sequence stays loose",
+    "Pilgrimage is mainly memory-making rather than submission"
+  ],
   manners: [
     "Good character only matters when other people are watching",
     "Family rights are less important than winning arguments",
@@ -266,6 +288,18 @@ function buildProgressiveLesson(lesson: Lesson): Lesson {
 }
 
 function getLessonTier(node: LearningNode): LessonTier {
+  if (node.difficulty) {
+    if (node.difficulty <= 2) {
+      return "easy";
+    }
+
+    if (node.difficulty <= 4) {
+      return "medium";
+    }
+
+    return "hard";
+  }
+
   const section = COURSE.sections.find((item) => item.topicId === node.topicId);
 
   if (!section || section.nodes.length <= 2) {

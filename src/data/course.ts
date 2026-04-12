@@ -1,3 +1,4 @@
+import { buildExpandedContent } from "./scalableCurriculum";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 
 const today = new Date().toISOString().slice(0, 10);
@@ -143,7 +144,7 @@ export const STARTER_USER: UserProfile = {
   claimedRewardIds: []
 };
 
-export const COURSE: LearningCourse = {
+const BASE_COURSE: LearningCourse = {
   id: "islam-foundations",
   title: "Sira Path",
   subtitle: "Start with foundations, get ready for prayer, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, travel from Adam to Muhammad, and learn from the women honored in revelation.",
@@ -961,7 +962,7 @@ export const COURSE: LearningCourse = {
   ]
 };
 
-export const LESSONS_BY_ID: Record<string, Lesson> = {
+const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
   "lesson-foundation-niyyah": lesson(
     "lesson-foundation-niyyah",
     "foundation-niyyah",
@@ -3820,6 +3821,11 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
     ]
   )
 };
+
+const expandedContent = buildExpandedContent(BASE_COURSE, BASE_LESSONS_BY_ID);
+
+export const COURSE = expandedContent.course;
+export const LESSONS_BY_ID = expandedContent.lessonsById;
 
 export const SHOP_ITEMS: ShopItem[] = [
   {

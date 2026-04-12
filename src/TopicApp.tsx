@@ -1634,6 +1634,8 @@ function PathScreen({
           const branchStars = getBranchStars(user, section, item.id);
           const lessonCount = section.nodes.filter((node) => node.branchId === item.id).length;
           const selected = item.id === branch.id;
+          const branchMeta = item.difficultyRange ? `D${item.difficultyRange.start}-${item.difficultyRange.end}` : "D1-5";
+          const sourceMeta = item.sourceReferences?.length ? `${item.sourceReferences.length} sources` : undefined;
 
           return (
             <Pressable
@@ -1647,6 +1649,7 @@ function PathScreen({
             >
               <Text style={[styles.branchCardTitle, selected && { color: darkenColor(section.accentColor) }]}>{item.title}</Text>
               <Text style={styles.branchCardCopy}>{item.description}</Text>
+              <Text style={styles.branchCardSubMeta}>{sourceMeta ? `${branchMeta} • ${sourceMeta}` : branchMeta}</Text>
               <View style={styles.branchCardMetaRow}>
                 <Text style={styles.branchCardMeta}>{`${lessonCount} ${strings.lessons}`}</Text>
                 <Text style={styles.branchCardMeta}>{`${branchStars}/${section.nodes.filter((node) => node.branchId === item.id).reduce((total, node) => total + node.starsReward, 0)} ${strings.stars}`}</Text>
@@ -1704,6 +1707,14 @@ function PathScreen({
             </View>
           </View>
           <Text style={styles.branchSummaryCopy}>{branch.description}</Text>
+          <View style={styles.branchSummaryMetaRow}>
+            <Text style={styles.branchSummaryMetaText}>
+              {branch.difficultyRange ? `Difficulty ${branch.difficultyRange.start}-${branch.difficultyRange.end}` : "Difficulty 1-5"}
+            </Text>
+            {branch.sourceReferences?.length ? <Text style={styles.branchSummaryMetaText}>{`${branch.sourceReferences.length} source references`}</Text> : null}
+            {branch.surahName ? <Text style={styles.branchSummaryMetaText}>{branch.surahName}</Text> : null}
+            {branch.ayahRange ? <Text style={styles.branchSummaryMetaText}>{branch.ayahRange}</Text> : null}
+          </View>
           <AnimatedProgressBar progress={branchProgress} color={section.accentColor} trackColor={lightenColor(section.accentColor, 0.92)} />
         </View>
 
@@ -1837,6 +1848,8 @@ function TopicCard({
   selected: boolean;
   onPress: () => void;
 }) {
+  const topicStats = `${section.branches.length} branches • ${section.nodes.length} lessons`;
+
   return (
     <Pressable
       onPress={onPress}
@@ -1852,6 +1865,7 @@ function TopicCard({
       </View>
       <Text style={styles.topicCardTitle}>{section.title}</Text>
       <Text style={styles.topicCardCopy}>{section.focus}</Text>
+      <Text style={styles.topicCardMeta}>{topicStats}</Text>
       <StarMeter earned={earnedStars} total={section.starsTarget} compact strings={strings} />
     </Pressable>
   );
@@ -3490,6 +3504,22 @@ function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
     return "book_open";
   }
 
+  if (topicId === "aqidah") {
+    return "book_seal";
+  }
+
+  if (topicId === "fasting") {
+    return "sparkle_badge";
+  }
+
+  if (topicId === "zakat") {
+    return "book_stack";
+  }
+
+  if (topicId === "hajj") {
+    return "book_marked";
+  }
+
   if (topicId === "manners") {
     return "brain";
   }
@@ -3792,7 +3822,7 @@ function buildLessonSignal(
         .filter((item) => item.topicId === node.topicId && item.branchId === node.branchId)
     : [];
   const nodePosition = Math.max(0, branchNodes.findIndex((item) => item.id === nodeId));
-  const baseDifficulty = Math.max(1, Math.min(5, Math.ceil(((nodePosition + 1) / Math.max(1, branchNodes.length)) * 4))) as 1 | 2 | 3 | 4 | 5;
+  const baseDifficulty = (node?.difficulty ?? Math.max(1, Math.min(5, Math.ceil(((nodePosition + 1) / Math.max(1, branchNodes.length)) * 4)))) as 1 | 2 | 3 | 4 | 5;
   const boostedDifficulty = Math.min(5, baseDifficulty + (challengeIndex >= Math.max(1, totalChallenges - 2) ? 1 : 0)) as 1 | 2 | 3 | 4 | 5;
   const difficulty = node?.kind === "review" ? (Math.min(5, boostedDifficulty + 1) as 1 | 2 | 3 | 4 | 5) : boostedDifficulty;
   const category = mapTopicToFoundationCategory(node?.topicId, node?.branchId);
@@ -3815,7 +3845,23 @@ function buildLessonSignal(
 
 function mapTopicToFoundationCategory(topicId?: TopicId, branchId?: string): FoundationCategoryId {
   if (topicId === "prayer") {
-    return branchId === "prayer-wudu" ? "taharah" : "salah";
+    return branchId?.includes("wudu") || branchId?.includes("taharah") ? "taharah" : "salah";
+  }
+
+  if (topicId === "aqidah") {
+    return "iman";
+  }
+
+  if (topicId === "fasting") {
+    return "fasting";
+  }
+
+  if (topicId === "zakat") {
+    return "zakat";
+  }
+
+  if (topicId === "hajj") {
+    return "hajj";
   }
 
   if (topicId === "quran_tafseer") {
@@ -3870,10 +3916,11 @@ function getBranchCompletionRatio(user: UserProfile, section: LearningSection, b
 function getJourneyRewardStops(user: UserProfile, section: LearningSection, branch: LearningBranch, nodes: LearningNodeView[]): JourneyRewardStop[] {
   const completed = new Set(user.completedNodeIds);
   const claimed = new Set(user.claimedRewardIds ?? []);
+  const rewardStride = nodes.length > 14 ? 5 : nodes.length > 8 ? 4 : 2;
 
   return nodes
     .map((node, index) => {
-      if ((index + 1) % 2 !== 0) {
+      if ((index + 1) % rewardStride !== 0 && index !== nodes.length - 1) {
         return null;
       }
 
@@ -3897,6 +3944,14 @@ function topicNeedsReviewHint(topicId: TopicId, learnerProfile: NonNullable<User
   const watch = new Set(
     topicId === "prayer"
       ? ["salah", "taharah"]
+      : topicId === "aqidah"
+        ? ["iman"]
+        : topicId === "fasting"
+          ? ["fasting"]
+          : topicId === "zakat"
+            ? ["zakat"]
+            : topicId === "hajj"
+              ? ["hajj"]
       : topicId === "quran_tafseer"
         ? ["quran"]
         : topicId === "prophets" || topicId === "women_of_the_book" || topicId === "sahabah"
@@ -4102,6 +4157,7 @@ const styles = StyleSheet.create({
   branchCard: { width: 240, minHeight: 132, padding: 16, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 2 },
   branchCardTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", letterSpacing: 0 },
   branchCardCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 6 },
+  branchCardSubMeta: { color: colors.greenDark, fontSize: 11, fontWeight: "800", letterSpacing: 0, marginTop: 8 },
   branchCardMetaRow: { flexDirection: "row", justifyContent: "space-between", gap: 8, marginTop: 10 },
   branchCardMeta: { color: colors.greenDark, fontSize: 12, fontWeight: "800", letterSpacing: 0 },
   topicCard: { width: 178, padding: 14, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 2 },
@@ -4111,6 +4167,7 @@ const styles = StyleSheet.create({
   topicIconInner: { width: 42, height: 42, borderRadius: 14, alignItems: "center", justifyContent: "center" },
   topicCardTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
   topicCardCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
+  topicCardMeta: { color: colors.greenDark, fontSize: 11, fontWeight: "800", letterSpacing: 0, marginTop: 8 },
   foundationFreePlayBanner: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 12, marginTop: 4, marginBottom: 14, padding: 16, borderRadius: 20, borderWidth: 1, borderColor: "#CFE2D5", backgroundColor: "#F5FBF7" },
   foundationFreePlayText: { flex: 1, minWidth: 220 },
   foundationFreePlayTitle: { color: colors.ink, fontSize: 18, fontWeight: "900" },
@@ -4129,6 +4186,8 @@ const styles = StyleSheet.create({
   branchSummaryEyebrow: { fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   branchSummaryTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   branchSummaryCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
+  branchSummaryMetaRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 2 },
+  branchSummaryMetaText: { color: colors.greenDark, fontSize: 11, fontWeight: "800", letterSpacing: 0 },
   branchProgressWrap: { alignItems: "flex-end", minWidth: 88 },
   branchProgressLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase" },
   branchProgressValue: { color: colors.ink, fontSize: 18, fontWeight: "900", marginTop: 4 },

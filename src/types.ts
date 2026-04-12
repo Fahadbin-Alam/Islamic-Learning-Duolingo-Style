@@ -1,6 +1,10 @@
 export type TopicId =
   | "foundation"
   | "prayer"
+  | "aqidah"
+  | "fasting"
+  | "zakat"
+  | "hajj"
   | "manners"
   | "marriage"
   | "sahabah"
@@ -202,8 +206,17 @@ export interface LearningCourse {
 
 export interface LearningBranch {
   id: string;
+  topicId?: TopicId;
   title: string;
   description: string;
+  order?: number;
+  surahName?: string;
+  ayahRange?: string;
+  difficultyRange?: {
+    start: DifficultyTier;
+    end: DifficultyTier;
+  };
+  sourceReferences?: LessonSource[];
 }
 
 export interface LearningSection {
@@ -216,6 +229,7 @@ export interface LearningSection {
   mascot: CharacterVariant;
   accentColor: string;
   starsTarget: number;
+  pathStyle?: "standard" | "surah";
   branches: LearningBranch[];
   nodes: LearningNode[];
 }
@@ -231,6 +245,12 @@ export interface LearningNode {
   requiredNodeIds: string[];
   xpReward: number;
   starsReward: number;
+  order?: number;
+  difficulty?: DifficultyTier;
+  surahName?: string;
+  ayahRange?: string;
+  sourceReferences?: LessonSource[];
+  masteryState?: "new" | "learning" | "mastery";
 }
 
 export interface LearningNodeView extends LearningNode {
@@ -255,10 +275,18 @@ export interface Challenge {
 export interface Lesson {
   id: string;
   nodeId: string;
+  branchId?: string;
+  surahName?: string;
+  ayahRange?: string;
   title: string;
   intro: string;
+  lessonType?: "skill" | "story" | "surah" | "scenario" | "review" | "mastery";
+  difficulty?: DifficultyTier;
   xpReward: number;
   sources: LessonSource[];
+  sourceReferences?: LessonSource[];
+  unlockRules?: string[];
+  masteryState?: "new" | "learning" | "mastery";
   challenges: Challenge[];
 }
 
