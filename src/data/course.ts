@@ -30,9 +30,9 @@ export const COURSE: LearningCourse = {
       id: "foundation",
       topicId: "foundation",
       title: "Foundation",
-      description: "The first steps: intention, Quran as guidance, and prophetic character.",
+      description: "The first steps: greetings, praising Allah, and the kind words Muslims start with.",
       badge: "Start Here",
-      focus: "Belief, intention, guidance, and character.",
+      focus: "Salam, Alhamdulillah, and replying with kindness.",
       mascot: "hijabi",
       accentColor: "#1CB66D",
       starsTarget: 9,
@@ -40,7 +40,7 @@ export const COURSE: LearningCourse = {
         {
           id: "foundation-niyyah",
           skillId: "skill_foundation_001",
-          title: "Intentions",
+          title: "As-Salamu Alaikum",
           topicId: "foundation",
           kind: "skill",
           lessonIds: ["lesson-foundation-niyyah"],
@@ -51,7 +51,7 @@ export const COURSE: LearningCourse = {
         {
           id: "foundation-guidance",
           skillId: "skill_foundation_002",
-          title: "Guidance from the Quran",
+          title: "Say Alhamdulillah",
           topicId: "foundation",
           kind: "skill",
           lessonIds: ["lesson-foundation-guidance"],
@@ -62,7 +62,7 @@ export const COURSE: LearningCourse = {
         {
           id: "foundation-character",
           skillId: "skill_foundation_003",
-          title: "Best character",
+          title: "Reply with Peace",
           topicId: "foundation",
           kind: "review",
           lessonIds: ["lesson-foundation-character"],
@@ -217,178 +217,204 @@ export const LESSONS_BY_ID: Record<string, Lesson> = {
   "lesson-foundation-niyyah": {
     id: "lesson-foundation-niyyah",
     nodeId: "foundation-niyyah",
-    title: "Intentions",
-    intro: "Start learning by asking why you are doing it and who you want to please.",
+    title: "As-Salamu Alaikum",
+    intro: "One of the first Muslim habits is greeting people with peace: As-salamu alaikum.",
     xpReward: 8,
     sources: [
       {
-        id: "source-niyyah-bukhari-1",
+        id: "source-foundation-salam-riyad-844",
         site: "Sunnah.com",
         category: "hadith",
-        title: "Sahih al-Bukhari 1",
-        url: "https://sunnah.com/bukhari/1/1",
-        summary: "This hadith teaches that actions are valued according to intention, making sincerity the foundation of learning and worship."
+        title: "The excellence of spreading salam",
+        url: "https://sunnah.com/riyadussalihin:844",
+        reference: "Riyad as-Salihin 844",
+        from: "Abdullah bin 'Amr bin Al-'As; gathered by Imam an-Nawawi from Al-Bukhari and Muslim",
+        grade: "Muttafaqun 'alayh",
+        summary: "The Prophet taught that a beautiful act of Islam is to greet people with salam whether you know them or not."
+      },
+      {
+        id: "source-foundation-salam-quran-4-86",
+        site: "Quran.com",
+        category: "tafsir",
+        title: "Return greetings well",
+        url: "https://quran.com/en/4:86/tafsirs/ar-tafsir-ibn-kathir",
+        reference: "Quran 4:86",
+        from: "The Quran, with Tafsir Ibn Kathir on Quran.com",
+        grade: "Quran",
+        summary: "Allah teaches believers to answer a greeting with one that is equal or better, making salam part of everyday worship."
       }
     ],
     challenges: [
       {
         id: "foundation-niyyah-1",
         type: "multiple_choice",
-        prompt: "What does this foundation lesson center first?",
+        prompt: "What is the basic Muslim greeting you should learn first?",
         choices: [
-          { id: "a", label: "Your intention" },
-          { id: "b", label: "Looking impressive" },
-          { id: "c", label: "Winning arguments" }
+          { id: "a", label: "As-salamu alaikum" },
+          { id: "b", label: "Nice to meet you only" },
+          { id: "c", label: "See you later" }
         ],
         correctChoiceId: "a",
-        explanation: "A strong start begins with a clear intention for Allah."
+        explanation: "As-salamu alaikum is the greeting of peace Muslims begin with."
       },
       {
         id: "foundation-niyyah-2",
         type: "true_false",
-        prompt: "The same action can change in value depending on intention.",
+        prompt: "A Muslim should keep salam for friends only and skip strangers.",
         choices: [
           { id: "true", label: "True" },
           { id: "false", label: "False" }
         ],
-        correctChoiceId: "true",
-        explanation: "Intention shapes the meaning of what we do."
+        correctChoiceId: "false",
+        explanation: "The Prophet encouraged greeting people whether you know them or not."
       },
       {
         id: "foundation-niyyah-3",
         type: "multiple_choice",
-        prompt: "Before learning, a good inner question is:",
+        prompt: "What does salam bring into a conversation first?",
         choices: [
-          { id: "a", label: "Why am I doing this?" },
-          { id: "b", label: "How do I show off?" },
-          { id: "c", label: "How fast can I skip ahead?" }
+          { id: "a", label: "Peace and warmth" },
+          { id: "b", label: "Showing off" },
+          { id: "c", label: "Awkward silence" }
         ],
         correctChoiceId: "a",
-        explanation: "A sincere learner checks the heart first."
+        explanation: "Salam begins with peace, and that shapes the tone of the whole meeting."
       }
     ]
   },
   "lesson-foundation-guidance": {
     id: "lesson-foundation-guidance",
     nodeId: "foundation-guidance",
-    title: "Guidance from the Quran",
-    intro: "The Quran introduces itself as guidance and the Prophet explains what it teaches.",
+    title: "Say Alhamdulillah",
+    intro: "When something good happens, Muslims praise Allah and say Alhamdulillah.",
     xpReward: 8,
     sources: [
       {
-        id: "source-guidance-quran-2-2",
-        site: "Quran.com",
-        category: "tafsir",
-        title: "Al-Baqarah 2:2 Tafsir",
-        url: "https://quran.com/en/al-baqarah/2/tafsirs",
-        summary: "This verse presents the Quran as a book free of doubt and as guidance for people who approach it with mindfulness."
+        id: "source-foundation-alhamdulillah-hisn-218",
+        site: "Sunnah.com",
+        category: "hadith",
+        title: "What to say after pleasing news",
+        url: "https://sunnah.com/hisn:218",
+        reference: "Hisn al-Muslim 218",
+        from: "A Prophetic dhikr cited in Ibn As-Sunni's 'Amal al-Yawm wa al-Laylah and authenticated by Al-Hakim; also noted by Al-Albani",
+        grade: "Authentic",
+        summary: "When something pleased him, the Prophet said: Alhamdu lillahi alladhi bi ni'matihi tatimmu as-salihat."
       },
       {
-        id: "source-guidance-quran-16-44",
+        id: "source-foundation-alhamdulillah-quran-93-11",
         site: "Quran.com",
         category: "tafsir",
-        title: "An-Nahl 16:44 Tafsir",
-        url: "https://quran.com/en/16:44/tafsirs/tazkirul-quran-en",
-        summary: "This tafsir highlights that the Prophet was sent to explain revelation so people can reflect and understand."
+        title: "Proclaim the blessings of your Lord",
+        url: "https://quran.com/en/93:11/tafsirs/ar-tafsir-ibn-kathir",
+        reference: "Quran 93:11",
+        from: "The Quran, with Tafsir Ibn Kathir on Quran.com",
+        grade: "Quran",
+        summary: "Allah teaches believers to mention His blessings, which fits the habit of thanking Him when good comes."
       }
     ],
     challenges: [
       {
         id: "foundation-guidance-1",
         type: "multiple_choice",
-        prompt: "According to this topic, the Quran is first described as:",
+        prompt: "What should a Muslim say when good news comes?",
         choices: [
-          { id: "a", label: "Guidance" },
-          { id: "b", label: "A puzzle only scholars may touch" },
-          { id: "c", label: "Something to leave closed" }
+          { id: "a", label: "Alhamdulillah" },
+          { id: "b", label: "Whatever" },
+          { id: "c", label: "That was all me" }
         ],
         correctChoiceId: "a",
-        explanation: "The Quran introduces itself as guidance."
+        explanation: "Praising Allah is a beginner Muslim habit when something good happens."
       },
       {
         id: "foundation-guidance-2",
         type: "true_false",
-        prompt: "The Prophet explains what was revealed so people can reflect.",
+        prompt: "Alhamdulillah means praise belongs to Allah.",
         choices: [
           { id: "true", label: "True" },
           { id: "false", label: "False" }
         ],
         correctChoiceId: "true",
-        explanation: "That is one of the core ideas tied to tafsir and understanding."
+        explanation: "That is why Muslims say it after blessings and good news."
       },
       {
         id: "foundation-guidance-3",
         type: "multiple_choice",
-        prompt: "What should a learner do with Quran study?",
+        prompt: "Which thought matches this lesson best?",
         choices: [
-          { id: "a", label: "Read and reflect" },
-          { id: "b", label: "Rush past the meaning" },
-          { id: "c", label: "Treat it like trivia only" }
+          { id: "a", label: "Thank Allah for the blessing" },
+          { id: "b", label: "Pretend the blessing came from nowhere" },
+          { id: "c", label: "Keep praise only for yourself" }
         ],
         correctChoiceId: "a",
-        explanation: "Reflection is part of how guidance becomes lived guidance."
+        explanation: "A Muslim connects good moments back to Allah with gratitude."
       }
     ]
   },
   "lesson-foundation-character": {
     id: "lesson-foundation-character",
     nodeId: "foundation-character",
-    title: "Best character",
-    intro: "Good Islam shows up in speech, mercy, and everyday character.",
+    title: "Reply with peace",
+    intro: "When someone greets you, answer with wa alaykum as-salam, and answer well.",
     xpReward: 10,
     sources: [
       {
-        id: "source-character-bukhari-6029",
-        site: "Sunnah.com",
-        category: "hadith",
-        title: "Sahih al-Bukhari 6029",
-        url: "https://sunnah.com/bukhari:6029",
-        summary: "This hadith ties the best people to the best character and manners."
+        id: "source-foundation-reply-quran-4-86",
+        site: "Quran.com",
+        category: "tafsir",
+        title: "Return a greeting with one better",
+        url: "https://quran.com/en/4:86/tafsirs/ar-tafsir-ibn-kathir",
+        reference: "Quran 4:86",
+        from: "The Quran, with Tafsir Ibn Kathir on Quran.com",
+        grade: "Quran",
+        summary: "Allah commands believers to return greetings with something equal or better."
       },
       {
-        id: "source-salam-tirmidhi-2688",
+        id: "source-foundation-reply-tirmidhi-2689",
         site: "Sunnah.com",
         category: "hadith",
-        title: "Jami` at-Tirmidhi 2688",
-        url: "https://sunnah.com/tirmidhi:2688",
-        summary: "Spreading salam builds love between believers and turns manners into a living practice."
+        title: "More complete salam brings more reward",
+        url: "https://sunnah.com/tirmidhi:2689",
+        reference: "Jami` at-Tirmidhi 2689",
+        from: "'Imran bin Husain; collected by Imam at-Tirmidhi",
+        grade: "Hasan",
+        summary: "The Prophet counted more reward for the fuller forms of salam, teaching Muslims to answer generously."
       }
     ],
     challenges: [
       {
         id: "foundation-character-1",
         type: "multiple_choice",
-        prompt: "What does the foundation of character point toward?",
+        prompt: "If someone says 'As-salamu alaikum,' what should you answer?",
         choices: [
-          { id: "a", label: "Good manners" },
-          { id: "b", label: "Sharp sarcasm" },
-          { id: "c", label: "Winning every debate" }
+          { id: "a", label: "Wa alaykum as-salam" },
+          { id: "b", label: "Maybe later" },
+          { id: "c", label: "No response needed" }
         ],
         correctChoiceId: "a",
-        explanation: "Strong faith should show up in strong character."
+        explanation: "Returning salam is part of the Muslim way of speaking with kindness."
       },
       {
         id: "foundation-character-2",
         type: "true_false",
-        prompt: "Salam helps grow love between people.",
+        prompt: "The Quran teaches believers to answer a greeting with one equal or better.",
         choices: [
           { id: "true", label: "True" },
           { id: "false", label: "False" }
         ],
         correctChoiceId: "true",
-        explanation: "Spreading peace builds closeness and trust."
+        explanation: "That is exactly what Allah teaches in Quran 4:86."
       },
       {
         id: "foundation-character-3",
         type: "multiple_choice",
-        prompt: "Which habit fits this lesson?",
+        prompt: "Which reply is the more complete salam?",
         choices: [
-          { id: "a", label: "Speak kindly" },
-          { id: "b", label: "Be harsh for no reason" },
-          { id: "c", label: "Mock people freely" }
+          { id: "a", label: "Wa alaykum as-salam wa rahmatullah" },
+          { id: "b", label: "Hey" },
+          { id: "c", label: "Silence" }
         ],
         correctChoiceId: "a",
-        explanation: "The best character is seen in everyday speech."
+        explanation: "The fuller reply carries more beauty and reward in the sunnah."
       }
     ]
   },

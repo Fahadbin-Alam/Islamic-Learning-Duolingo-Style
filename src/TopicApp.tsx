@@ -1056,6 +1056,20 @@ function LessonSources({ sources, accentColor }: { sources: LessonSource[]; acce
             <Text style={styles.sourceCategory}>{source.category}</Text>
           </View>
           <Text style={styles.sourceTitle}>{source.title}</Text>
+          <View style={styles.sourceMetaStack}>
+            <View style={styles.sourceMetaRow}>
+              <Text style={styles.sourceMetaLabel}>Reference</Text>
+              <Text style={styles.sourceMetaValue}>{source.reference ?? source.title}</Text>
+            </View>
+            <View style={styles.sourceMetaRow}>
+              <Text style={styles.sourceMetaLabel}>From</Text>
+              <Text style={styles.sourceMetaValue}>{source.from ?? defaultSourceFrom(source)}</Text>
+            </View>
+            <View style={styles.sourceMetaRow}>
+              <Text style={styles.sourceMetaLabel}>Grade</Text>
+              <Text style={styles.sourceMetaValue}>{source.grade ?? defaultSourceGrade(source)}</Text>
+            </View>
+          </View>
           <Text style={styles.sourceCopy}>{source.summary}</Text>
           <Text style={styles.sourceLink}>Open source</Text>
         </Pressable>
@@ -1484,6 +1498,22 @@ function formatHearts(user: UserProfile, compact = false) {
   return compact ? `${user.hearts.current}/${user.hearts.max}` : `${user.hearts.current} of ${user.hearts.max} hearts`;
 }
 
+function defaultSourceFrom(source: LessonSource) {
+  if (source.site === "Quran.com") {
+    return "The Quran and tafsir on Quran.com";
+  }
+
+  return "Hadith collection on Sunnah.com";
+}
+
+function defaultSourceGrade(source: LessonSource) {
+  if (source.site === "Quran.com") {
+    return "Quran / tafsir";
+  }
+
+  return "See source";
+}
+
 function applyAccountIdentity(
   user: UserProfile,
   account: { name: string; email: string; createdAt: string }
@@ -1753,6 +1783,10 @@ const styles = StyleSheet.create({
   sourceBadge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999, color: colors.ink, fontSize: 11, fontWeight: "900", overflow: "hidden" },
   sourceCategory: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0 },
   sourceTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
+  sourceMetaStack: { gap: 6, marginTop: 10 },
+  sourceMetaRow: { flexDirection: "row", alignItems: "flex-start", gap: 8 },
+  sourceMetaLabel: { width: 66, color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
+  sourceMetaValue: { flex: 1, color: colors.ink, fontSize: 12, lineHeight: 17, fontWeight: "700", letterSpacing: 0 },
   sourceCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 6 },
   sourceLink: { color: colors.sky, fontSize: 12, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
   feedbackPane: { padding: 18, gap: 12, borderTopWidth: 1, borderTopColor: colors.line, backgroundColor: colors.white },

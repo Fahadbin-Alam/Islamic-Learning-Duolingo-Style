@@ -105,6 +105,9 @@ export interface LessonSource {
   title: string;
   url: string;
   summary: string;
+  reference?: string;
+  from?: string;
+  grade?: string;
 }
 
 export interface LessonSession {
