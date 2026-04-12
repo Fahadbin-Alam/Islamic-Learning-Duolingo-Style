@@ -13,6 +13,12 @@ export type LearningNodeStatus = "locked" | "available" | "current" | "completed
 export type ShopItemType = "heart_pack" | "monthly_membership" | "rewarded_ad";
 
 export type SocialRelation = "parent" | "friend";
+export type AccountRole = "parent" | "child";
+
+export interface ReminderPreferences {
+  dailyInactivity: boolean;
+  weeklyInactivity: boolean;
+}
 
 export interface HeartsBalance {
   current: number;
@@ -27,8 +33,11 @@ export interface UserProfile {
   displayName: string;
   avatarInitials: string;
   hasAccount?: boolean;
+  accountRole?: AccountRole;
   accountEmail?: string;
   accountCreatedAt?: string;
+  lastLoginAt?: string;
+  reminderPreferences?: ReminderPreferences;
   streakDays: number;
   totalXp: number;
   dailyGoalXp: number;
@@ -160,6 +169,8 @@ export interface SocialConnection {
   name: string;
   relation: SocialRelation;
   email?: string;
+  connectedWithAccount?: boolean;
+  reminderPreferences?: ReminderPreferences;
   avatarInitials: string;
   totalXp: number;
   streakDays: number;

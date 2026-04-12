@@ -37,6 +37,7 @@ import {
   saveSocialHubState
 } from "./services/socialHub";
 import type {
+  AccountRole,
   BattleResult,
   Challenge,
   CharacterVariant,
@@ -44,6 +45,7 @@ import type {
   LearningSection,
   LessonSource,
   LessonSession,
+  ReminderPreferences,
   SocialConnection,
   SocialHubState,
   SocialRelation,
@@ -173,10 +175,12 @@ export default function TopicApp() {
   const [accountName, setAccountName] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
   const [accountPassword, setAccountPassword] = useState("");
+  const [accountRole, setAccountRole] = useState<AccountRole>("child");
   const [socialHub, setSocialHub] = useState<SocialHubState>(() => loadSocialHubState());
   const [inviteName, setInviteName] = useState("");
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
+  const [accountabilityPermissionAsked, setAccountabilityPermissionAsked] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -197,6 +201,7 @@ export default function TopicApp() {
         if (savedAccount) {
           setAccountName(savedAccount.name);
           setAccountEmail(savedAccount.email);
+          setAccountRole(savedAccount.role);
           setAuthMode("login");
         }
 
@@ -301,6 +306,46 @@ export default function TopicApp() {
 
     return [me, ...peers].sort((left, right) => right.score - left.score);
   }, [socialHub.connections, state.user, userBattleRecord.losses, userBattleRecord.wins, userStars]);
+  const accountabilityAlerts = useMemo(() => {
+    return socialHub.connections.flatMap((connection) => {
+      if (!connection.connectedWithAccount) {
+        return [];
+      }
+
+      const alerts: Array<{
+        id: string;
+        connectionId: string;
+        name: string;
+        relation: SocialRelation;
+        kind: "daily" | "weekly";
+        copy: string;
+      }> = [];
+
+      if (isDailyReminderDue(connection) && connection.reminderPreferences?.dailyInactivity !== false) {
+        alerts.push({
+          id: `${connection.id}_daily`,
+          connectionId: connection.id,
+          name: connection.name,
+          relation: connection.relation,
+          kind: "daily",
+          copy: `${connection.name} has not logged in today. Send a quick accountability nudge.`
+        });
+      }
+
+      if (isWeeklyReminderDue(connection) && connection.reminderPreferences?.weeklyInactivity !== false) {
+        alerts.push({
+          id: `${connection.id}_weekly`,
+          connectionId: connection.id,
+          name: connection.name,
+          relation: connection.relation,
+          kind: "weekly",
+          copy: `${connection.name} has been away for a week. Time for a stronger check-in.`
+        });
+      }
+
+      return alerts;
+    });
+  }, [socialHub.connections]);
 
   useEffect(() => {
     if (!state.user || state.user.hasAccount || accountPromptShown || !isInFoundationExperience) {
@@ -418,7 +463,9 @@ export default function TopicApp() {
       name: accountName.trim(),
       email: normalizeEmail(accountEmail),
       password: accountPassword,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      role: accountRole,
+      reminderPreferences: defaultReminderPreferences()
     });
 
     dispatch({
@@ -455,6 +502,7 @@ export default function TopicApp() {
     });
     setAccountName(account.name);
     setAccountEmail(account.email);
+    setAccountRole(account.role);
     setHasSavedAccount(true);
     setAccountPromptShown(true);
     setAccountPassword("");
@@ -508,6 +556,7 @@ export default function TopicApp() {
       name: inviteName,
       relation: inviteRelation,
       email: inviteEmail,
+      connectedWithAccount: Boolean(inviteEmail.trim()),
       existingCount: socialHub.connections.length
     });
 
@@ -518,6 +567,18 @@ export default function TopicApp() {
     setInviteName("");
     setInviteEmail("");
     setInviteRelation("friend");
+  }
+
+  async function sendAccountabilityReminder(connection: SocialConnection, kind: "daily" | "weekly") {
+    const title = kind === "weekly"
+      ? `${connection.name} has been away for a week`
+      : `${connection.name} has not logged in today`;
+    const body = kind === "weekly"
+      ? `Check in with your ${startCaseRelation(connection.relation).toLowerCase()} and help them return to today's lessons.`
+      : `A quick accountability reminder can help your ${startCaseRelation(connection.relation).toLowerCase()} stay on track today.`;
+
+    await notifyAccountability(title, body);
+    Alert.alert("Reminder sent", `${connection.name} now has a ${kind === "weekly" ? "weekly" : "daily"} accountability reminder queued.`);
   }
 
   function battleConnection(connection: SocialConnection) {
@@ -540,6 +601,30 @@ export default function TopicApp() {
       battle.result.winner === "user" ? "Battle won" : "Battle finished",
       `${state.user.displayName} ${battle.result.myScore} - ${battle.result.theirScore} ${connection.name}`
     );
+  }
+
+  async function notifyAccountability(title: string, body: string) {
+    if (typeof window === "undefined" || typeof Notification === "undefined") {
+      return;
+    }
+
+    try {
+      if (Notification.permission === "granted") {
+        new Notification(title, { body });
+        return;
+      }
+
+      if (!accountabilityPermissionAsked && Notification.permission !== "denied") {
+        setAccountabilityPermissionAsked(true);
+        const permission = await Notification.requestPermission();
+
+        if (permission === "granted") {
+          new Notification(title, { body });
+        }
+      }
+    } catch {
+      // Keep accountability available even if browser notifications are not supported.
+    }
   }
 
   if (state.loading || !state.user) {
@@ -605,6 +690,7 @@ export default function TopicApp() {
             leaderboard={leaderboard}
             connections={socialHub.connections}
             battleHistory={socialHub.battleHistory}
+            alerts={accountabilityAlerts}
             inviteName={inviteName}
             inviteEmail={inviteEmail}
             inviteRelation={inviteRelation}
@@ -613,6 +699,7 @@ export default function TopicApp() {
             onChangeInviteRelation={setInviteRelation}
             onAddConnection={addConnection}
             onBattle={battleConnection}
+            onSendReminder={sendAccountabilityReminder}
             onDone={() => dispatch({ type: "close_social" })}
           />
         )}
@@ -629,6 +716,8 @@ export default function TopicApp() {
           accountName={accountName}
           accountEmail={accountEmail}
           accountPassword={accountPassword}
+          accountRole={accountRole}
+          onChangeRole={setAccountRole}
           onChangeName={setAccountName}
           onChangeEmail={setAccountEmail}
           onChangePassword={setAccountPassword}
@@ -1296,6 +1385,7 @@ function SocialScreen({
   leaderboard,
   connections,
   battleHistory,
+  alerts,
   inviteName,
   inviteEmail,
   inviteRelation,
@@ -1304,6 +1394,7 @@ function SocialScreen({
   onChangeInviteRelation,
   onAddConnection,
   onBattle,
+  onSendReminder,
   onDone
 }: {
   user: UserProfile;
@@ -1322,6 +1413,14 @@ function SocialScreen({
   }>;
   connections: SocialConnection[];
   battleHistory: BattleResult[];
+  alerts: Array<{
+    id: string;
+    connectionId: string;
+    name: string;
+    relation: SocialRelation;
+    kind: "daily" | "weekly";
+    copy: string;
+  }>;
   inviteName: string;
   inviteEmail: string;
   inviteRelation: SocialRelation;
@@ -1330,6 +1429,7 @@ function SocialScreen({
   onChangeInviteRelation: (value: SocialRelation) => void;
   onAddConnection: () => void;
   onBattle: (connection: SocialConnection) => void;
+  onSendReminder: (connection: SocialConnection, kind: "daily" | "weekly") => void;
   onDone: () => void;
 }) {
   const userScore = leaderboard.find((entry) => entry.id === "me")?.score ?? getSocialScore({ totalXp: user.totalXp, streakDays: user.streakDays, stars: userStars, wins: 0 });
@@ -1341,6 +1441,9 @@ function SocialScreen({
           <Text style={styles.eyebrow}>Crew</Text>
           <Text style={styles.title}>Parents, friends, and battles</Text>
           <Text style={styles.subtitle}>Add people to follow each other, race on the leaderboard, and battle live score against score.</Text>
+          <View style={styles.socialRolePill}>
+            <Text style={styles.socialRolePillText}>{`You are a ${startCaseAccountRole(user.accountRole ?? "child")}`}</Text>
+          </View>
         </View>
         <View style={styles.socialHeroScore}>
           <Text style={styles.socialHeroScoreLabel}>Your score</Text>
@@ -1350,7 +1453,7 @@ function SocialScreen({
 
       <View style={styles.socialCard}>
         <Text style={styles.socialCardTitle}>Add a parent or friend</Text>
-        <Text style={styles.socialCardCopy}>Invite someone into your circle so you can track progress and challenge each other.</Text>
+        <Text style={styles.socialCardCopy}>Invite someone into your circle so you can track progress, challenge each other, and keep accountability.</Text>
         <View style={styles.relationRow}>
           <Pressable
             onPress={() => onChangeInviteRelation("friend")}
@@ -1387,6 +1490,39 @@ function SocialScreen({
       </View>
 
       <View style={styles.socialCard}>
+        <Text style={styles.socialCardTitle}>Accountability reminders</Text>
+        <Text style={styles.socialCardCopy}>If someone misses today or goes quiet for a week, you can send a quick reminder.</Text>
+        {alerts.length === 0 ? (
+          <View style={styles.emptySocialState}>
+            <Text style={styles.emptySocialTitle}>Everyone is on track</Text>
+            <Text style={styles.emptySocialCopy}>No reminder is due right now. Once someone slips on daily or weekly activity, they will show up here.</Text>
+          </View>
+        ) : (
+          <View style={styles.alertStack}>
+            {alerts.map((alert) => {
+              const connection = connections.find((item) => item.id === alert.connectionId);
+
+              if (!connection) {
+                return null;
+              }
+
+              return (
+                <View key={alert.id} style={styles.alertCard}>
+                  <View style={styles.alertTextWrap}>
+                    <Text style={styles.alertTitle}>{`${alert.name} - ${alert.kind === "weekly" ? "Weekly reminder" : "Daily reminder"}`}</Text>
+                    <Text style={styles.alertCopy}>{alert.copy}</Text>
+                  </View>
+                  <Pressable onPress={() => onSendReminder(connection, alert.kind)} style={styles.remindButton}>
+                    <Text style={styles.remindButtonText}>Notify</Text>
+                  </Pressable>
+                </View>
+              );
+            })}
+          </View>
+        )}
+      </View>
+
+      <View style={styles.socialCard}>
         <Text style={styles.socialCardTitle}>Leaderboard</Text>
         <Text style={styles.socialCardCopy}>Everyone can see the score and where they stand.</Text>
         <View style={styles.leaderboardStack}>
@@ -1401,7 +1537,7 @@ function SocialScreen({
               <View style={styles.leaderboardMain}>
                 <Text style={styles.leaderboardName}>{entry.name}</Text>
                 <Text style={styles.leaderboardMeta}>
-                  {entry.relation === "you" ? "You" : startCaseRelation(entry.relation)} · {entry.totalXp} XP · {entry.streakDays} day streak · {entry.stars} stars
+                  {entry.relation === "you" ? "You" : startCaseRelation(entry.relation)} - {entry.totalXp} XP - {entry.streakDays} day streak - {entry.stars} stars
                 </Text>
               </View>
               <View style={styles.leaderboardScore}>
@@ -1431,13 +1567,15 @@ function SocialScreen({
                   </View>
                   <View style={styles.connectionText}>
                     <Text style={styles.connectionName}>{connection.name}</Text>
-                    <Text style={styles.connectionMeta}>{startCaseRelation(connection.relation)} · {connection.totalXp} XP · {connection.stars} stars</Text>
+                    <Text style={styles.connectionMeta}>{startCaseRelation(connection.relation)} - {connection.totalXp} XP - {connection.stars} stars</Text>
                   </View>
                   <Pressable onPress={() => onBattle(connection)} style={styles.battleButton}>
                     <Text style={styles.battleButtonText}>Battle</Text>
                   </Pressable>
                 </View>
-                <Text style={styles.connectionRecord}>Record {connection.wins}-{connection.losses} · Last active {formatRelativeTime(connection.lastActiveAt)}</Text>
+                <Text style={styles.connectionRecord}>
+                  {`Record ${connection.wins}-${connection.losses} - Last active ${formatRelativeTime(connection.lastActiveAt)}${connection.connectedWithAccount ? " - Connected account" : ""}`}
+                </Text>
               </View>
             ))}
           </View>
@@ -1459,7 +1597,7 @@ function SocialScreen({
                 <View style={styles.battleHistoryText}>
                   <Text style={styles.battleHistoryTitle}>{`You vs ${battle.opponentName}`}</Text>
                   <Text style={styles.battleHistoryMeta}>
-                    {battle.winner === "user" ? "You won" : `${battle.opponentName} won`} · {startCaseRelation(battle.opponentRelation)} · {formatRelativeTime(battle.createdAt)}
+                    {battle.winner === "user" ? "You won" : `${battle.opponentName} won`} - {startCaseRelation(battle.opponentRelation)} - {formatRelativeTime(battle.createdAt)}
                   </Text>
                 </View>
                 <View style={styles.battleScorePill}>
@@ -1545,6 +1683,8 @@ function AccountModal({
   accountName,
   accountEmail,
   accountPassword,
+  accountRole,
+  onChangeRole,
   onChangeName,
   onChangeEmail,
   onChangePassword
@@ -1560,6 +1700,8 @@ function AccountModal({
   accountName: string;
   accountEmail: string;
   accountPassword: string;
+  accountRole: AccountRole;
+  onChangeRole: (value: AccountRole) => void;
   onChangeName: (value: string) => void;
   onChangeEmail: (value: string) => void;
   onChangePassword: (value: string) => void;
@@ -1589,6 +1731,22 @@ function AccountModal({
               <Text style={[styles.authModeText, mode === "login" && styles.authModeTextActive]}>Log in</Text>
             </Pressable>
           </View>
+          {mode === "create" && (
+            <View style={styles.roleRow}>
+              <Pressable
+                onPress={() => onChangeRole("child")}
+                style={[styles.roleButton, accountRole === "child" && styles.roleButtonActive]}
+              >
+                <Text style={[styles.roleButtonText, accountRole === "child" && styles.roleButtonTextActive]}>I am a child</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => onChangeRole("parent")}
+                style={[styles.roleButton, accountRole === "parent" && styles.roleButtonActive]}
+              >
+                <Text style={[styles.roleButtonText, accountRole === "parent" && styles.roleButtonTextActive]}>I am a parent</Text>
+              </Pressable>
+            </View>
+          )}
           {mode === "create" && (
             <TextInput
               value={accountName}
@@ -1970,8 +2128,19 @@ function defaultSourceGrade(source: LessonSource) {
   return "See source";
 }
 
+function defaultReminderPreferences(): ReminderPreferences {
+  return {
+    dailyInactivity: true,
+    weeklyInactivity: true
+  };
+}
+
 function startCaseRelation(relation: SocialRelation) {
   return relation === "parent" ? "Parent" : "Friend";
+}
+
+function startCaseAccountRole(role: AccountRole) {
+  return role === "parent" ? "Parent" : "Child";
 }
 
 function formatRelativeTime(value: string) {
@@ -1995,9 +2164,17 @@ function formatRelativeTime(value: string) {
   return `${Math.floor(diffHours / 24)}d ago`;
 }
 
+function isDailyReminderDue(connection: SocialConnection) {
+  return Date.now() - new Date(connection.lastActiveAt).getTime() >= 24 * 60 * 60 * 1000;
+}
+
+function isWeeklyReminderDue(connection: SocialConnection) {
+  return Date.now() - new Date(connection.lastActiveAt).getTime() >= 7 * 24 * 60 * 60 * 1000;
+}
+
 function applyAccountIdentity(
   user: UserProfile,
-  account: { name: string; email: string; createdAt: string }
+  account: { name: string; email: string; createdAt: string; role: AccountRole; reminderPreferences: ReminderPreferences }
 ) {
   return {
     ...user,
@@ -2005,8 +2182,11 @@ function applyAccountIdentity(
     displayName: account.name.trim(),
     username: normalizeEmail(account.email).split("@")[0] || user.username,
     avatarInitials: getInitials(account.name),
+    accountRole: account.role,
     accountEmail: normalizeEmail(account.email),
-    accountCreatedAt: account.createdAt
+    accountCreatedAt: account.createdAt,
+    lastLoginAt: new Date().toISOString(),
+    reminderPreferences: account.reminderPreferences ?? user.reminderPreferences ?? defaultReminderPreferences()
   };
 }
 
@@ -2317,6 +2497,8 @@ const styles = StyleSheet.create({
   socialHeroScore: { width: 108, borderRadius: 8, backgroundColor: colors.white, alignItems: "center", justifyContent: "center", padding: 12 },
   socialHeroScoreLabel: { color: colors.muted, fontSize: 12, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0 },
   socialHeroScoreValue: { color: colors.greenDark, fontSize: 28, lineHeight: 32, fontWeight: "900", letterSpacing: 0, marginTop: 6 },
+  socialRolePill: { alignSelf: "flex-start", marginTop: 12, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6, backgroundColor: "rgba(255,255,255,0.72)" },
+  socialRolePillText: { color: colors.greenDark, fontSize: 12, fontWeight: "900", letterSpacing: 0, textTransform: "uppercase" },
   socialCard: { borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, padding: 16 },
   socialCardTitle: { color: colors.ink, fontSize: 19, fontWeight: "900", letterSpacing: 0 },
   socialCardCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4, marginBottom: 12 },
@@ -2326,6 +2508,13 @@ const styles = StyleSheet.create({
   relationButtonText: { color: colors.muted, fontSize: 14, fontWeight: "800", letterSpacing: 0 },
   relationButtonTextActive: { color: colors.greenDark },
   socialAddButton: { marginTop: 14, backgroundColor: colors.green },
+  alertStack: { gap: 10 },
+  alertCard: { flexDirection: "row", alignItems: "center", gap: 12, borderRadius: 8, backgroundColor: "#F9FCFA", padding: 14 },
+  alertTextWrap: { flex: 1 },
+  alertTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  alertCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", letterSpacing: 0, marginTop: 4 },
+  remindButton: { minWidth: 78, minHeight: 40, borderRadius: 8, alignItems: "center", justifyContent: "center", backgroundColor: colors.sky },
+  remindButtonText: { color: colors.white, fontSize: 13, fontWeight: "900", letterSpacing: 0 },
   leaderboardStack: { gap: 10 },
   leaderboardRow: { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 10, borderTopWidth: 1, borderTopColor: "#EEF3EF" },
   leaderboardRank: { width: 28, alignItems: "center", justifyContent: "center" },
@@ -2380,6 +2569,11 @@ const styles = StyleSheet.create({
   authModeButtonActive: { borderColor: colors.green, backgroundColor: colors.mint },
   authModeText: { color: colors.muted, fontSize: 13, fontWeight: "800", letterSpacing: 0 },
   authModeTextActive: { color: colors.greenDark },
+  roleRow: { flexDirection: "row", gap: 8, marginTop: 10 },
+  roleButton: { flex: 1, minHeight: 42, alignItems: "center", justifyContent: "center", borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
+  roleButtonActive: { borderColor: colors.green, backgroundColor: colors.mint },
+  roleButtonText: { color: colors.muted, fontSize: 13, fontWeight: "800", letterSpacing: 0 },
+  roleButtonTextActive: { color: colors.greenDark },
   input: { minHeight: 48, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#FBFDFC", paddingHorizontal: 14, color: colors.ink, marginTop: 10 },
   socialStack: { gap: 10, marginTop: 14 },
   socialButton: { minHeight: 48, borderRadius: 8, paddingHorizontal: 14, borderWidth: 1, alignItems: "center", flexDirection: "row", gap: 10 },

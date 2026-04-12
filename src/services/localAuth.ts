@@ -1,8 +1,12 @@
+import type { AccountRole, ReminderPreferences } from "../types";
+
 export interface LocalAuthAccount {
   name: string;
   email: string;
   password: string;
   createdAt: string;
+  role: AccountRole;
+  reminderPreferences: ReminderPreferences;
 }
 
 const STORAGE_KEY = "sira-path-local-auth";
@@ -19,7 +23,23 @@ export function loadLocalAuthAccount(): LocalAuthAccount | null {
       return null;
     }
 
-    return JSON.parse(raw) as LocalAuthAccount;
+    const parsed = JSON.parse(raw) as Partial<LocalAuthAccount>;
+
+    if (!parsed.name || !parsed.email || !parsed.password || !parsed.createdAt) {
+      return null;
+    }
+
+    return {
+      name: parsed.name,
+      email: parsed.email,
+      password: parsed.password,
+      createdAt: parsed.createdAt,
+      role: parsed.role ?? "child",
+      reminderPreferences: parsed.reminderPreferences ?? {
+        dailyInactivity: true,
+        weeklyInactivity: true
+      }
+    };
   } catch {
     return null;
   }

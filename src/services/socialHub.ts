@@ -27,7 +27,14 @@ export function loadSocialHubState(): SocialHubState {
 
     const parsed = JSON.parse(raw) as SocialHubState;
     return {
-      connections: parsed.connections ?? [],
+      connections: (parsed.connections ?? []).map((connection) => ({
+        ...connection,
+        connectedWithAccount: connection.connectedWithAccount ?? Boolean(connection.email),
+        reminderPreferences: connection.reminderPreferences ?? {
+          dailyInactivity: true,
+          weeklyInactivity: true
+        }
+      })),
       battleHistory: parsed.battleHistory ?? []
     };
   } catch {
@@ -47,6 +54,7 @@ export function createSocialConnection(input: {
   name: string;
   relation: SocialRelation;
   email?: string;
+  connectedWithAccount?: boolean;
   existingCount: number;
 }): SocialConnection {
   const createdAt = new Date().toISOString();
@@ -58,6 +66,11 @@ export function createSocialConnection(input: {
     name: input.name.trim(),
     relation: input.relation,
     email: input.email?.trim() || undefined,
+    connectedWithAccount: input.connectedWithAccount ?? Boolean(input.email?.trim()),
+    reminderPreferences: {
+      dailyInactivity: true,
+      weeklyInactivity: true
+    },
     avatarInitials: getInitials(input.name),
     totalXp: 36 + bias + level * 12,
     streakDays: 2 + level,
