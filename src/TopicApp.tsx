@@ -27,6 +27,13 @@ import {
   loadLocalAuthAccount,
   loginLocalAuthAccount
 } from "./services/localAuth";
+import {
+  hydrateRemoteSession,
+  loginRemoteAccount,
+  registerRemoteAccount,
+  syncRemoteSocialHub,
+  syncRemoteUser
+} from "./services/backendSync";
 import { loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
 import { sandboxMonetizationClient } from "./services/monetization";
 import {
@@ -169,6 +176,7 @@ function reducer(state: AppState, action: Action): AppState {
 export default function TopicApp() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountModalVisible, setAccountModalVisible] = useState(false);
+  const [reviewRestoreVisible, setReviewRestoreVisible] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
   const [authMode, setAuthMode] = useState<AuthMode>("create");
   const [hasSavedAccount, setHasSavedAccount] = useState(false);
@@ -190,18 +198,20 @@ export default function TopicApp() {
       const savedUser = loadSavedUserProfile();
       const savedAccount = loadLocalAuthAccount();
       const savedSocialHub = loadSocialHubState();
-      const baseUser = refillHeartsForToday(savedUser ?? fallbackUser);
-      const user = savedAccount ? applyAccountIdentity(baseUser, savedAccount) : baseUser;
+      const remoteSession = await hydrateRemoteSession();
+      const baseUser = refillHeartsForToday(remoteSession?.user ?? savedUser ?? fallbackUser);
+      const accountSeed = remoteSession?.account ?? savedAccount;
+      const user = accountSeed ? applyAccountIdentity(baseUser, accountSeed) : baseUser;
       const xpSummary = await learningApi.getXpSummaries(user);
 
       if (mounted) {
-        setSocialHub(savedSocialHub);
-        setHasSavedAccount(Boolean(savedAccount));
+        setSocialHub(remoteSession?.socialHub ?? savedSocialHub);
+        setHasSavedAccount(Boolean(accountSeed));
 
-        if (savedAccount) {
-          setAccountName(savedAccount.name);
-          setAccountEmail(savedAccount.email);
-          setAccountRole(savedAccount.role);
+        if (accountSeed) {
+          setAccountName(accountSeed.name);
+          setAccountEmail(accountSeed.email);
+          setAccountRole(accountSeed.role);
           setAuthMode("login");
         }
 
@@ -222,10 +232,12 @@ export default function TopicApp() {
     }
 
     saveUserProfile(state.user);
+    void syncRemoteUser(state.user).catch(() => undefined);
   }, [state.user]);
 
   useEffect(() => {
     saveSocialHubState(socialHub);
+    void syncRemoteSocialHub(socialHub).catch(() => undefined);
   }, [socialHub]);
 
   const pathNodes = useMemo(() => {
@@ -374,6 +386,11 @@ export default function TopicApp() {
     }
 
     if (!state.user.hearts.unlimited && state.user.hearts.current === 0) {
+      if (shouldOfferReviewHeartRestore(state.user)) {
+        setReviewRestoreVisible(true);
+        return;
+      }
+
       dispatch({ type: "open_shop" });
       return;
     }
@@ -392,6 +409,9 @@ export default function TopicApp() {
     const nextUser = correct ? state.user : loseHeart(state.user);
 
     playFeedbackSound(correct);
+    if (!correct && shouldOfferReviewHeartRestore(nextUser)) {
+      setReviewRestoreVisible(true);
+    }
     dispatch({ type: "answer", correct, user: nextUser });
   }
 
@@ -404,6 +424,11 @@ export default function TopicApp() {
 
     if (!lastChallenge) {
       if (!state.user.hearts.unlimited && state.user.hearts.current === 0 && state.answerState === "wrong") {
+        if (shouldOfferReviewHeartRestore(state.user)) {
+          setReviewRestoreVisible(true);
+          return;
+        }
+
         dispatch({ type: "open_shop" });
         return;
       }
@@ -444,7 +469,7 @@ export default function TopicApp() {
     setAccountModalVisible(true);
   }
 
-  function createAccount() {
+  async function createAccount() {
     if (!state.user) {
       return;
     }
@@ -459,19 +484,46 @@ export default function TopicApp() {
       return;
     }
 
-    const account = createLocalAuthAccount({
+    const createdAt = new Date().toISOString();
+    const reminderPreferences = defaultReminderPreferences();
+    const pendingAccount = {
       name: accountName.trim(),
       email: normalizeEmail(accountEmail),
       password: accountPassword,
-      createdAt: new Date().toISOString(),
+      createdAt,
       role: accountRole,
-      reminderPreferences: defaultReminderPreferences()
-    });
+      reminderPreferences
+    };
+    let nextUser: UserProfile = applyAccountIdentity(state.user, pendingAccount);
+    let nextSocialHub = socialHub;
+
+    try {
+      const remote = await registerRemoteAccount({
+        name: pendingAccount.name,
+        email: pendingAccount.email,
+        password: pendingAccount.password,
+        role: pendingAccount.role,
+        reminderPreferences: pendingAccount.reminderPreferences,
+        user: nextUser,
+        socialHub
+      });
+
+      nextUser = refillHeartsForToday(remote.user);
+      nextSocialHub = remote.socialHub;
+    } catch (error) {
+      if (error instanceof Error && !isBackendOfflineError(error)) {
+        Alert.alert("Could not create account", error.message);
+        return;
+      }
+    }
+
+    createLocalAuthAccount(pendingAccount);
 
     dispatch({
       type: "apply_user",
-      user: applyAccountIdentity(state.user, account)
+      user: nextUser
     });
+    setSocialHub(nextSocialHub);
     setHasSavedAccount(true);
     setAuthMode("login");
     setAccountPromptShown(true);
@@ -479,7 +531,7 @@ export default function TopicApp() {
     setAccountModalVisible(false);
   }
 
-  function loginAccount() {
+  async function loginAccount() {
     if (!state.user) {
       return;
     }
@@ -487,6 +539,41 @@ export default function TopicApp() {
     if (!accountEmail.trim() || !accountPassword.trim()) {
       Alert.alert("Welcome back", "Enter your email and password to log in.");
       return;
+    }
+
+    try {
+      const remote = await loginRemoteAccount({
+        email: normalizeEmail(accountEmail),
+        password: accountPassword
+      });
+
+      createLocalAuthAccount({
+        name: remote.account.name,
+        email: remote.account.email,
+        password: accountPassword,
+        createdAt: remote.account.createdAt,
+        role: remote.account.role,
+        reminderPreferences: remote.account.reminderPreferences
+      });
+
+      dispatch({
+        type: "apply_user",
+        user: refillHeartsForToday(remote.user)
+      });
+      setSocialHub(remote.socialHub);
+      setAccountName(remote.account.name);
+      setAccountEmail(remote.account.email);
+      setAccountRole(remote.account.role);
+      setHasSavedAccount(true);
+      setAccountPromptShown(true);
+      setAccountPassword("");
+      setAccountModalVisible(false);
+      return;
+    } catch (error) {
+      if (error instanceof Error && !isBackendOfflineError(error)) {
+        Alert.alert("We couldn't sign you in", error.message);
+        return;
+      }
     }
 
     const account = loginLocalAuthAccount(accountEmail, accountPassword);
@@ -601,6 +688,30 @@ export default function TopicApp() {
       battle.result.winner === "user" ? "Battle won" : "Battle finished",
       `${state.user.displayName} ${battle.result.myScore} - ${battle.result.theirScore} ${connection.name}`
     );
+  }
+
+  function claimReviewHeartRestore() {
+    if (!state.user) {
+      return;
+    }
+
+    dispatch({
+      type: "apply_user",
+      user: grantHearts(
+        {
+          ...state.user,
+          reviewHeartRestoreUsed: true
+        },
+        state.user.hearts.max,
+        true
+      )
+    });
+    setReviewRestoreVisible(false);
+  }
+
+  function skipReviewHeartRestore() {
+    setReviewRestoreVisible(false);
+    dispatch({ type: "open_shop" });
   }
 
   async function notifyAccountability(title: string, body: string) {
@@ -721,6 +832,11 @@ export default function TopicApp() {
           onChangeName={setAccountName}
           onChangeEmail={setAccountEmail}
           onChangePassword={setAccountPassword}
+        />
+        <ReviewRestoreModal
+          visible={reviewRestoreVisible}
+          onClose={skipReviewHeartRestore}
+          onRestore={claimReviewHeartRestore}
         />
       </View>
     </SafeAreaView>
@@ -1803,6 +1919,42 @@ function AccountModal({
   );
 }
 
+function ReviewRestoreModal({
+  visible,
+  onClose,
+  onRestore
+}: {
+  visible: boolean;
+  onClose: () => void;
+  onRestore: () => void;
+}) {
+  return (
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+      <View style={styles.modalBackdrop}>
+        <View style={styles.modalCard}>
+          <Text style={styles.modalEyebrow}>First heart reset</Text>
+          <Text style={styles.modalTitle}>Out of hearts?</Text>
+          <Text style={styles.modalCopy}>
+            Leave a 5-star review on the App Store or Play Store, then tap restore to refill your hearts one time.
+          </Text>
+          <View style={styles.reviewRestoreCard}>
+            <Text style={styles.reviewRestoreTitle}>One-time refill</Text>
+            <Text style={styles.reviewRestoreCopy}>This only appears the first time someone runs out of hearts.</Text>
+          </View>
+          <View style={styles.modalActions}>
+            <Pressable onPress={onClose} style={styles.modalGhostButton}>
+              <Text style={styles.modalGhostText}>Maybe later</Text>
+            </Pressable>
+            <Pressable onPress={onRestore} style={styles.modalPrimaryButton}>
+              <Text style={styles.modalPrimaryText}>I left 5 stars</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
 function AdBanner({ hidden }: { hidden: boolean }) {
   if (hidden) {
     return null;
@@ -2112,6 +2264,10 @@ function formatHearts(user: UserProfile, compact = false) {
   return compact ? `${user.hearts.current}/${user.hearts.max}` : `${user.hearts.current} of ${user.hearts.max} hearts`;
 }
 
+function shouldOfferReviewHeartRestore(user: UserProfile) {
+  return !user.hearts.unlimited && user.hearts.current === 0 && !user.reviewHeartRestoreUsed;
+}
+
 function defaultSourceFrom(source: LessonSource) {
   if (source.site === "Quran.com") {
     return "The Quran and tafsir on Quran.com";
@@ -2207,6 +2363,10 @@ function normalizeEmail(email: string) {
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizeEmail(email));
+}
+
+function isBackendOfflineError(error: Error) {
+  return /fetch|network|failed|load|backend request failed with 5/i.test(error.message);
 }
 
 function getSectionByNodeId(nodeId: string) {
@@ -2587,6 +2747,9 @@ const styles = StyleSheet.create({
   modalGhostText: { color: colors.ink, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
   modalPrimaryButton: { flex: 1, minHeight: 48, borderRadius: 8, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
   modalPrimaryText: { color: colors.white, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
+  reviewRestoreCard: { marginTop: 2, borderRadius: 8, backgroundColor: "#F7FBF8", padding: 14 },
+  reviewRestoreTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  reviewRestoreCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   adBanner: { position: "absolute", left: 12, right: 12, bottom: 10, minHeight: 56, borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   adLabel: { color: colors.sky, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   adCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", letterSpacing: 0, marginTop: 2 }

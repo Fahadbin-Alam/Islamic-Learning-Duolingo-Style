@@ -15,6 +15,14 @@ npm run start
 
 Then press `i` for iOS Simulator, `a` for Android Emulator, or scan the Expo QR code from a phone.
 
+To run the backend for real account storage and synced progress:
+
+```bash
+npm run backend
+```
+
+The API listens on `http://localhost:4100`.
+
 For store builds:
 
 ```bash
@@ -33,6 +41,7 @@ npx eas build -p android --profile production
 - A daily hearts model with wrong-answer heart loss.
 - A shop with rewarded-ad hearts, paid heart packs, and a monthly membership state.
 - A typed local API layer modeled after the linked Duolingo OpenAPI shape: users, shop items, subscriptions, and XP summaries.
+- A lightweight Node backend with file-backed persistence for accounts, login sessions, saved progress, and social state.
 - `api/islamic-learning.swagger.yaml` as a backend contract starter.
 
 ## Monetization

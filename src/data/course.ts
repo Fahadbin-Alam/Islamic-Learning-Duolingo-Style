@@ -7,6 +7,7 @@ export const STARTER_USER: UserProfile = {
   username: "learner",
   displayName: "New Learner",
   avatarInitials: "NL",
+  reviewHeartRestoreUsed: false,
   streakDays: 1,
   totalXp: 0,
   dailyGoalXp: 40,

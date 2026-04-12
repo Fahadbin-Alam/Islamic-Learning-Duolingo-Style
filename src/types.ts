@@ -38,6 +38,7 @@ export interface UserProfile {
   accountCreatedAt?: string;
   lastLoginAt?: string;
   reminderPreferences?: ReminderPreferences;
+  reviewHeartRestoreUsed?: boolean;
   streakDays: number;
   totalXp: number;
   dailyGoalXp: number;
