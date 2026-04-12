@@ -20,6 +20,9 @@
         "rewardedHeartAdUnitId": "rewarded_heart_test",
         "bannerAdUnitId": "banner_test"
       }
-    }
+    },
+    "plugins": [
+      "expo-web-browser"
+    ]
   }
 }

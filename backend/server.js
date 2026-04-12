@@ -14,6 +14,25 @@ const EMPTY_DB = {
   users: [],
   sessions: []
 };
+const FOUNDATION_CATEGORY_IDS = [
+  "shahadah",
+  "salah",
+  "taharah",
+  "fasting",
+  "zakat",
+  "hajj",
+  "iman",
+  "manners",
+  "quran",
+  "seerah"
+];
+const FOUNDATION_PROGRESS_LABELS = [
+  "New learner",
+  "Basic foundation",
+  "Growing student",
+  "Strong foundation",
+  "Ready for advanced topics"
+];
 
 bootstrapDb();
 
@@ -41,6 +60,11 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "POST" && url.pathname === "/api/auth/login") {
       const body = await readJsonBody(req);
       return handleLogin(body, res);
+    }
+
+    if (req.method === "POST" && url.pathname === "/api/auth/social") {
+      const body = await readJsonBody(req);
+      return handleSocialLogin(body, res);
     }
 
     if (req.method === "POST" && url.pathname === "/api/auth/logout") {
@@ -80,7 +104,7 @@ function handleRegister(body, res) {
   const password = typeof body?.password === "string" ? body.password : "";
   const role = sanitizeAccountRole(body?.role);
   const reminderPreferences = sanitizeReminderPreferences(body?.reminderPreferences);
-  const profile = sanitizeUserProfile(body?.user, email, name, role, reminderPreferences);
+  const profile = sanitizeUserProfile(body?.user, email, name, role, reminderPreferences, "password");
   const socialHub = sanitizeSocialHub(body?.socialHub);
 
   if (!name || !email || !password) {
@@ -116,6 +140,8 @@ function handleRegister(body, res) {
     role,
     reminderPreferences,
     createdAt,
+    authProvider: "password",
+    linkedProviders: {},
     profile: persistedProfile,
     socialHub
   });
@@ -128,6 +154,7 @@ function handleRegister(body, res) {
     account: {
       name,
       email,
+      provider: "password",
       role,
       createdAt,
       reminderPreferences
@@ -148,7 +175,17 @@ function handleLogin(body, res) {
   const db = readDb();
   const userRecord = db.users.find((item) => item.email === email);
 
-  if (!userRecord || !verifyPassword(password, userRecord.passwordSalt, userRecord.passwordHash)) {
+  if (!userRecord) {
+    return sendJson(res, 401, { error: "Invalid email or password." });
+  }
+
+  if (!userRecord.passwordSalt || !userRecord.passwordHash) {
+    return sendJson(res, 400, {
+      error: `This account uses ${startCaseAuthProvider(getPrimaryAuthProvider(userRecord))} sign-in. Continue with that provider instead.`
+    });
+  }
+
+  if (!verifyPassword(password, userRecord.passwordSalt, userRecord.passwordHash)) {
     return sendJson(res, 401, { error: "Invalid email or password." });
   }
 
@@ -157,6 +194,7 @@ function handleLogin(body, res) {
     hasAccount: true,
     accountEmail: userRecord.email,
     accountRole: userRecord.role,
+    accountProvider: getPrimaryAuthProvider(userRecord),
     lastLoginAt: new Date().toISOString(),
     reminderPreferences: sanitizeReminderPreferences(userRecord.reminderPreferences)
   };
@@ -169,12 +207,146 @@ function handleLogin(body, res) {
     account: {
       name: userRecord.name,
       email: userRecord.email,
+      provider: getPrimaryAuthProvider(userRecord),
       role: userRecord.role,
       createdAt: userRecord.createdAt,
       reminderPreferences: sanitizeReminderPreferences(userRecord.reminderPreferences)
     },
     user: userRecord.profile,
     socialHub: userRecord.socialHub
+  });
+}
+
+async function handleSocialLogin(body, res) {
+  const provider = sanitizeAuthProvider(body?.provider);
+
+  if (!provider || provider === "password") {
+    return sendJson(res, 400, { error: "A supported social provider is required." });
+  }
+
+  let identity;
+
+  try {
+    identity = await verifySocialIdentity(provider, body);
+  } catch (error) {
+    return sendJson(res, 401, {
+      error: error instanceof Error ? error.message : "Could not verify social sign-in."
+    });
+  }
+
+  const db = readDb();
+  const reminderPreferences = sanitizeReminderPreferences(body?.reminderPreferences);
+  const role = sanitizeAccountRole(body?.role);
+  const socialHub = sanitizeSocialHub(body?.socialHub);
+  const createdAt = new Date().toISOString();
+  const normalizedEmail = normalizeEmail(identity.email) || `${provider}_${identity.id}@${provider}.local`;
+
+  let userRecord = db.users.find((item) => item.linkedProviders?.[provider]?.id === identity.id);
+
+  if (!userRecord) {
+    userRecord = db.users.find((item) => item.email === normalizedEmail);
+  }
+
+  if (!userRecord) {
+    const profile = sanitizeUserProfile(body?.user, normalizedEmail, identity.name, role, reminderPreferences, provider);
+    const userId = Number(profile.id) || Date.now();
+    const persistedProfile = {
+      ...profile,
+      id: userId,
+      hasAccount: true,
+      accountEmail: normalizedEmail,
+      accountRole: role,
+      accountProvider: provider,
+      accountCreatedAt: createdAt,
+      lastLoginAt: createdAt,
+      reminderPreferences
+    };
+
+    userRecord = {
+      id: userId,
+      email: normalizedEmail,
+      passwordHash: null,
+      passwordSalt: null,
+      name: identity.name,
+      role,
+      reminderPreferences,
+      createdAt,
+      authProvider: provider,
+      linkedProviders: {
+        [provider]: {
+          id: identity.id,
+          email: identity.email,
+          name: identity.name
+        }
+      },
+      profile: persistedProfile,
+      socialHub
+    };
+
+    db.users.push(userRecord);
+  } else {
+    const nextRole = role ?? userRecord.role;
+    const nextReminderPreferences = sanitizeReminderPreferences(body?.reminderPreferences ?? userRecord.reminderPreferences);
+    const currentEmail = normalizeEmail(userRecord.email);
+    const shouldReplaceSyntheticEmail =
+      !currentEmail || (identity.email && currentEmail.endsWith(`@${provider}.local`));
+
+    if (shouldReplaceSyntheticEmail) {
+      userRecord.email = normalizedEmail;
+    }
+
+    userRecord.name = identity.name || userRecord.name || "Learner";
+    userRecord.role = nextRole;
+    userRecord.reminderPreferences = nextReminderPreferences;
+    userRecord.authProvider = provider;
+    userRecord.linkedProviders = {
+      ...(userRecord.linkedProviders ?? {}),
+      [provider]: {
+        id: identity.id,
+        email: identity.email,
+        name: identity.name
+      }
+    };
+    userRecord.profile = {
+      ...userRecord.profile,
+      ...sanitizeUserProfile(body?.user ?? userRecord.profile, userRecord.email, userRecord.name, nextRole, nextReminderPreferences, provider),
+      id: userRecord.id,
+      hasAccount: true,
+      accountEmail: userRecord.email,
+      accountRole: nextRole,
+      accountProvider: provider,
+      accountCreatedAt: userRecord.createdAt || createdAt,
+      lastLoginAt: createdAt,
+      reminderPreferences: nextReminderPreferences
+    };
+    userRecord.socialHub = (userRecord.socialHub?.connections?.length || userRecord.socialHub?.battleHistory?.length)
+      ? sanitizeSocialHub(userRecord.socialHub)
+      : socialHub;
+  }
+
+  const session = createSession(db, userRecord.id);
+  writeDb(db);
+
+  return sendJson(res, 200, {
+    token: session.token,
+    account: {
+      name: userRecord.name,
+      email: userRecord.email,
+      provider,
+      role: userRecord.role,
+      createdAt: userRecord.createdAt,
+      reminderPreferences: sanitizeReminderPreferences(userRecord.reminderPreferences)
+    },
+    user: {
+      ...userRecord.profile,
+      hasAccount: true,
+      accountEmail: userRecord.email,
+      accountRole: userRecord.role,
+      accountProvider: provider,
+      lastLoginAt: createdAt,
+      reminderPreferences: sanitizeReminderPreferences(userRecord.reminderPreferences)
+    },
+    socialHub: sanitizeSocialHub(userRecord.socialHub)
   });
 }
 
@@ -202,6 +374,7 @@ function handleSession(req, res) {
     account: {
       name: userRecord.name,
       email: userRecord.email,
+      provider: getPrimaryAuthProvider(userRecord),
       role: userRecord.role,
       createdAt: userRecord.createdAt,
       reminderPreferences: sanitizeReminderPreferences(userRecord.reminderPreferences)
@@ -212,12 +385,14 @@ function handleSession(req, res) {
         hasAccount: true,
         accountEmail: userRecord.email,
         accountRole: userRecord.role,
+        accountProvider: getPrimaryAuthProvider(userRecord),
         reminderPreferences: sanitizeReminderPreferences(userRecord.reminderPreferences)
       },
       userRecord.email,
       userRecord.name,
       userRecord.role,
-      sanitizeReminderPreferences(userRecord.reminderPreferences)
+      sanitizeReminderPreferences(userRecord.reminderPreferences),
+      getPrimaryAuthProvider(userRecord)
     ),
     socialHub: sanitizeSocialHub(userRecord.socialHub)
   });
@@ -243,7 +418,8 @@ function handleSaveUser(req, body, res) {
     context.userRecord.email,
     context.userRecord.name,
     nextRole,
-    nextReminderPreferences
+    nextReminderPreferences,
+    getPrimaryAuthProvider(context.userRecord)
   );
 
   context.userRecord.profile = {
@@ -253,6 +429,7 @@ function handleSaveUser(req, body, res) {
     hasAccount: true,
     accountEmail: context.userRecord.email,
     accountRole: context.userRecord.role,
+    accountProvider: getPrimaryAuthProvider(context.userRecord),
     reminderPreferences: nextReminderPreferences
   };
 
@@ -304,7 +481,7 @@ function requireUserContext(req) {
   return { db, session, userRecord };
 }
 
-function sanitizeUserProfile(profile, email, name, role, reminderPreferences) {
+function sanitizeUserProfile(profile, email, name, role, reminderPreferences, provider) {
   const now = new Date().toISOString();
   const safeProfile = profile && typeof profile === "object" ? profile : {};
 
@@ -315,6 +492,7 @@ function sanitizeUserProfile(profile, email, name, role, reminderPreferences) {
     avatarInitials: typeof safeProfile.avatarInitials === "string" ? safeProfile.avatarInitials : getInitials(name),
     hasAccount: true,
     accountRole: role,
+    accountProvider: sanitizeAuthProvider(safeProfile.accountProvider) || provider || "password",
     accountEmail: email,
     accountCreatedAt: typeof safeProfile.accountCreatedAt === "string" ? safeProfile.accountCreatedAt : now,
     lastLoginAt: typeof safeProfile.lastLoginAt === "string" ? safeProfile.lastLoginAt : now,
@@ -322,6 +500,7 @@ function sanitizeUserProfile(profile, email, name, role, reminderPreferences) {
     reminderPreferences,
     preferredLanguage: sanitizePreferredLanguage(safeProfile.preferredLanguage),
     reviewHeartRestoreUsed: Boolean(safeProfile.reviewHeartRestoreUsed),
+    learnerProfile: sanitizeLearnerProfile(safeProfile.learnerProfile),
     streakDays: Number(safeProfile.streakDays) || 1,
     totalXp: Number(safeProfile.totalXp) || 0,
     dailyGoalXp: Number(safeProfile.dailyGoalXp) || 40,
@@ -410,6 +589,141 @@ function sanitizeReminderPreferences(value) {
     streakReminders: safe.streakReminders !== false,
     islamicReminders: safe.islamicReminders !== false
   };
+}
+
+function sanitizeAuthProvider(value) {
+  return value === "password" || value === "google" || value === "facebook" ? value : undefined;
+}
+
+function getPrimaryAuthProvider(userRecord) {
+  return sanitizeAuthProvider(userRecord?.authProvider)
+    || Object.keys(userRecord?.linkedProviders || {}).find((provider) => Boolean(sanitizeAuthProvider(provider)))
+    || "password";
+}
+
+function startCaseAuthProvider(provider) {
+  if (provider === "google") {
+    return "Google";
+  }
+
+  if (provider === "facebook") {
+    return "Facebook";
+  }
+
+  return "Password";
+}
+
+async function verifySocialIdentity(provider, body) {
+  const idToken = typeof body?.idToken === "string" ? body.idToken.trim() : "";
+  const accessToken = typeof body?.accessToken === "string" ? body.accessToken.trim() : "";
+  const token = idToken || accessToken;
+
+  if (!token) {
+    throw new Error(`${startCaseAuthProvider(provider)} sign-in is missing a token.`);
+  }
+
+  const safeProfile = body?.profile && typeof body.profile === "object" ? body.profile : {};
+  const email = normalizeEmail(safeProfile.email || body?.user?.accountEmail);
+  const displayName = typeof safeProfile.name === "string"
+    ? safeProfile.name.trim()
+    : typeof body?.user?.displayName === "string"
+      ? body.user.displayName.trim()
+      : "";
+  const name = displayName || (email ? email.split("@")[0] : "Learner");
+  const id = typeof safeProfile.id === "string" && safeProfile.id.trim()
+    ? safeProfile.id.trim()
+    : crypto.createHash("sha256").update(`${provider}:${token}`).digest("hex").slice(0, 24);
+
+  return {
+    id,
+    email,
+    name
+  };
+}
+
+function sanitizeLearnerProfile(value) {
+  const safe = value && typeof value === "object" ? value : {};
+  const categoryLevels = FOUNDATION_CATEGORY_IDS.reduce((map, category) => {
+    map[category] = sanitizeLearnerCategoryProfile(safe.category_levels?.[category]);
+    return map;
+  }, {});
+
+  return {
+    overall_level: ["beginner", "developing", "intermediate", "advanced"].includes(safe.overall_level)
+      ? safe.overall_level
+      : "beginner",
+    readiness_label: sanitizeReadinessLabel(safe.readiness_label),
+    assessmentCompleted: Boolean(safe.assessmentCompleted),
+    category_levels: categoryLevels,
+    weak_areas: sanitizeCategoryList(safe.weak_areas),
+    strong_areas: sanitizeCategoryList(safe.strong_areas),
+    needs_review_question_ids: Array.isArray(safe.needs_review_question_ids)
+      ? safe.needs_review_question_ids.filter((item) => typeof item === "string").slice(0, 24)
+      : [],
+    assessmentHistory: Array.isArray(safe.assessmentHistory)
+      ? safe.assessmentHistory.map((item) => sanitizeAssessmentAnswerRecord(item)).slice(-240)
+      : [],
+    totalQuestionsAnswered: Number(safe.totalQuestionsAnswered) || 0,
+    dailyChallengeQuestionIds: Array.isArray(safe.dailyChallengeQuestionIds)
+      ? safe.dailyChallengeQuestionIds.filter((item) => typeof item === "string").slice(0, 12)
+      : [],
+    lastAssessmentAt: typeof safe.lastAssessmentAt === "string" ? safe.lastAssessmentAt : undefined,
+    lastDailyChallengeAt: typeof safe.lastDailyChallengeAt === "string" ? safe.lastDailyChallengeAt : undefined
+  };
+}
+
+function sanitizeLearnerCategoryProfile(value) {
+  const safe = value && typeof value === "object" ? value : {};
+  return {
+    accuracyPercentage: clampNumber(safe.accuracyPercentage, 0, 100),
+    currentEstimatedDifficulty: clampNumber(safe.currentEstimatedDifficulty, 1, 5) || 1,
+    confidenceScore: clampNumber(safe.confidenceScore, 0, 100),
+    streakConsistency: Math.max(0, Number(safe.streakConsistency) || 0),
+    questionsAttempted: Math.max(0, Number(safe.questionsAttempted) || 0),
+    questionsAnsweredCorrectly: Math.max(0, Number(safe.questionsAnsweredCorrectly) || 0),
+    weaknessTags: Array.isArray(safe.weaknessTags) ? safe.weaknessTags.filter((item) => typeof item === "string").slice(0, 8) : [],
+    recentMistakeQuestionIds: Array.isArray(safe.recentMistakeQuestionIds)
+      ? safe.recentMistakeQuestionIds.filter((item) => typeof item === "string").slice(0, 8)
+      : [],
+    averageResponseTimeMs: Math.max(0, Number(safe.averageResponseTimeMs) || 0),
+    readinessLabel: sanitizeReadinessLabel(safe.readinessLabel)
+  };
+}
+
+function sanitizeAssessmentAnswerRecord(value) {
+  const safe = value && typeof value === "object" ? value : {};
+  return {
+    questionId: typeof safe.questionId === "string" ? safe.questionId : `question_${Date.now()}`,
+    category: FOUNDATION_CATEGORY_IDS.includes(safe.category) ? safe.category : "shahadah",
+    difficulty: clampNumber(safe.difficulty, 1, 5) || 1,
+    selectedAnswer: safe.selectedAnswer,
+    isCorrect: Boolean(safe.isCorrect),
+    confidence: Math.max(0, Number(safe.confidence) || 0),
+    responseTimeMs: Math.max(0, Number(safe.responseTimeMs) || 0),
+    answeredAt: typeof safe.answeredAt === "string" ? safe.answeredAt : new Date().toISOString()
+  };
+}
+
+function sanitizeReadinessLabel(value) {
+  return FOUNDATION_PROGRESS_LABELS.includes(value)
+    ? value
+    : "New learner";
+}
+
+function sanitizeCategoryList(value) {
+  return Array.isArray(value)
+    ? value.filter((item) => FOUNDATION_CATEGORY_IDS.includes(item))
+    : [];
+}
+
+function clampNumber(value, min, max) {
+  const numeric = Number(value);
+
+  if (!Number.isFinite(numeric)) {
+    return 0;
+  }
+
+  return Math.min(max, Math.max(min, numeric));
 }
 
 function setCorsHeaders(res) {

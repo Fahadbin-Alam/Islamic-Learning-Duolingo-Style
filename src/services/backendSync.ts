@@ -1,6 +1,7 @@
 import { BACKEND_CONFIG } from "../config/backend";
 import type {
   AccountRole,
+  AuthProvider,
   ReminderPreferences,
   SocialHubState,
   UserProfile
@@ -11,6 +12,7 @@ const SESSION_KEY = "sira-path-session-token";
 type RemoteAccount = {
   name: string;
   email: string;
+  provider?: AuthProvider;
   role?: AccountRole;
   createdAt: string;
   reminderPreferences?: ReminderPreferences;
@@ -71,6 +73,27 @@ export async function registerRemoteAccount(input: {
 
 export async function loginRemoteAccount(input: { email: string; password: string }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/login", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+
+  if (payload.token) {
+    setSessionToken(payload.token);
+  }
+
+  return payload;
+}
+
+export async function socialLoginRemoteAccount(input: {
+  provider: Exclude<AuthProvider, "password">;
+  accessToken?: string;
+  idToken?: string;
+  role?: AccountRole;
+  reminderPreferences: ReminderPreferences;
+  user: UserProfile;
+  socialHub: SocialHubState;
+}) {
+  const payload = await backendRequest<RemoteSessionPayload>("/api/auth/social", {
     method: "POST",
     body: JSON.stringify(input)
   });

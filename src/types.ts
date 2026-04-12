@@ -18,6 +18,7 @@ export type ShopItemType = "heart_pack" | "monthly_membership" | "rewarded_ad";
 
 export type SocialRelation = "parent" | "friend";
 export type AccountRole = "parent" | "child";
+export type AuthProvider = "password" | "google" | "facebook";
 export type SupportedLanguage = "en" | "fr" | "ar" | "bn" | "ur" | "hi";
 
 export interface ReminderPreferences {
@@ -25,6 +26,134 @@ export interface ReminderPreferences {
   weeklyInactivity: boolean;
   streakReminders?: boolean;
   islamicReminders?: boolean;
+}
+
+export type FoundationCategoryId =
+  | "shahadah"
+  | "salah"
+  | "taharah"
+  | "fasting"
+  | "zakat"
+  | "hajj"
+  | "iman"
+  | "manners"
+  | "quran"
+  | "seerah";
+
+export type DifficultyTier = 1 | 2 | 3 | 4 | 5;
+export type LearnerBand = "beginner" | "developing" | "intermediate" | "advanced";
+export type LearnerReadinessLabel =
+  | "New learner"
+  | "Basic foundation"
+  | "Growing student"
+  | "Strong foundation"
+  | "Ready for advanced topics";
+
+export type AssessmentQuestionType =
+  | "multiple_choice"
+  | "multi_select"
+  | "true_false"
+  | "match_pairs"
+  | "correct_order"
+  | "fill_in_blank"
+  | "scenario_judgment"
+  | "identify_mistake"
+  | "best_response"
+  | "mini_case_study"
+  | "confidence_check"
+  | "reflection_prompt";
+
+export interface FoundationPair {
+  left: string;
+  right: string;
+}
+
+export interface FoundationQuestion {
+  id: string;
+  category: FoundationCategoryId;
+  subtopic: string;
+  difficulty: DifficultyTier;
+  type: AssessmentQuestionType;
+  prompt: string;
+  scenario?: string;
+  options?: string[];
+  correctAnswer?: string | string[] | Record<string, string>;
+  acceptedAnswers?: string[];
+  pairs?: FoundationPair[];
+  orderItems?: string[];
+  explanationShort: string;
+  explanationLong: string;
+  misconceptionNotes: string[];
+  wrongAnswerNotes?: Record<string, string>;
+  tags: string[];
+  xpReward: number;
+  reviewNext: string;
+  whyThisMatters: string;
+}
+
+export interface LearnerCategoryProfile {
+  accuracyPercentage: number;
+  currentEstimatedDifficulty: DifficultyTier;
+  confidenceScore: number;
+  streakConsistency: number;
+  questionsAttempted: number;
+  questionsAnsweredCorrectly: number;
+  weaknessTags: string[];
+  recentMistakeQuestionIds: string[];
+  averageResponseTimeMs: number;
+  readinessLabel: LearnerReadinessLabel;
+}
+
+export interface LearnerProfile {
+  overall_level: LearnerBand;
+  readiness_label: LearnerReadinessLabel;
+  assessmentCompleted: boolean;
+  category_levels: Record<FoundationCategoryId, LearnerCategoryProfile>;
+  weak_areas: FoundationCategoryId[];
+  strong_areas: FoundationCategoryId[];
+  needs_review_question_ids: string[];
+  assessmentHistory: AssessmentAnswerRecord[];
+  totalQuestionsAnswered: number;
+  dailyChallengeQuestionIds: string[];
+  lastAssessmentAt?: string;
+  lastDailyChallengeAt?: string;
+}
+
+export interface AssessmentAnswerRecord {
+  questionId: string;
+  category: FoundationCategoryId;
+  difficulty: DifficultyTier;
+  selectedAnswer?: string | string[] | Record<string, string>;
+  isCorrect: boolean;
+  confidence: number;
+  responseTimeMs: number;
+  answeredAt: string;
+}
+
+export interface AssessmentFeedback {
+  correct: boolean;
+  explanationShort: string;
+  explanationLong: string;
+  whyThisMatters: string;
+  misconceptionNotes: string[];
+  wrongAnswerReasons: string[];
+  reviewNext: string;
+  confidenceLabel: string;
+  reflectionPrompt: string;
+}
+
+export interface FoundationAssessmentState {
+  mode: "placement" | "review" | "daily_challenge";
+  currentQuestion: FoundationQuestion;
+  questionNumber: number;
+  totalQuestions: number;
+  askedQuestionIds: string[];
+  answerHistory: AssessmentAnswerRecord[];
+  feedback?: AssessmentFeedback;
+  selectedAnswer?: string | string[] | Record<string, string>;
+  confidence: number;
+  startedAt: string;
+  questionStartedAt: number;
 }
 
 export interface HeartsBalance {
@@ -41,6 +170,7 @@ export interface UserProfile {
   avatarInitials: string;
   hasAccount?: boolean;
   accountRole?: AccountRole;
+  accountProvider?: AuthProvider;
   accountEmail?: string;
   accountCreatedAt?: string;
   lastLoginAt?: string;
@@ -48,6 +178,7 @@ export interface UserProfile {
   reminderPreferences?: ReminderPreferences;
   preferredLanguage?: SupportedLanguage;
   reviewHeartRestoreUsed?: boolean;
+  learnerProfile?: LearnerProfile;
   streakDays: number;
   totalXp: number;
   dailyGoalXp: number;

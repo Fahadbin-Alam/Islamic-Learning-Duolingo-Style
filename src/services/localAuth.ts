@@ -1,9 +1,10 @@
-import type { AccountRole, ReminderPreferences, SupportedLanguage } from "../types";
+import type { AccountRole, AuthProvider, ReminderPreferences, SupportedLanguage } from "../types";
 
 export interface LocalAuthAccount {
   name: string;
   email: string;
-  password: string;
+  password?: string;
+  provider?: AuthProvider;
   createdAt: string;
   role?: AccountRole;
   reminderPreferences?: ReminderPreferences;
@@ -26,7 +27,7 @@ export function loadLocalAuthAccount(): LocalAuthAccount | null {
 
     const parsed = JSON.parse(raw) as Partial<LocalAuthAccount>;
 
-    if (!parsed.name || !parsed.email || !parsed.password || !parsed.createdAt) {
+    if (!parsed.name || !parsed.email || !parsed.createdAt) {
       return null;
     }
 
@@ -34,6 +35,7 @@ export function loadLocalAuthAccount(): LocalAuthAccount | null {
       name: parsed.name,
       email: parsed.email,
       password: parsed.password,
+      provider: parsed.provider,
       createdAt: parsed.createdAt,
       role: parsed.role,
       reminderPreferences: parsed.reminderPreferences,
@@ -58,7 +60,7 @@ export function createLocalAuthAccount(account: LocalAuthAccount) {
   return normalizedAccount;
 }
 
-export function updateLocalAuthAccount(updates: Partial<Pick<LocalAuthAccount, "name" | "role" | "reminderPreferences" | "preferredLanguage">>) {
+export function updateLocalAuthAccount(updates: Partial<Pick<LocalAuthAccount, "name" | "role" | "reminderPreferences" | "preferredLanguage" | "provider">>) {
   const current = loadLocalAuthAccount();
 
   if (!current) {

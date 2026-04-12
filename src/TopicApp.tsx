@@ -59,11 +59,25 @@ import {
   requestIslamicNotificationPermission,
   scheduleIslamicReminderChecks
 } from "./services/islamicNotifications";
+import {
+  FoundationAssessmentScreen,
+  FoundationDashboard
+} from "./components/FoundationLearning";
+import {
+  advanceFoundationAssessment,
+  createEmptyLearnerProfile,
+  createFoundationAssessment,
+  ensureLearnerProfile,
+  finalizeFoundationAssessment,
+  submitFoundationAssessmentAnswer
+} from "./services/foundationAssessment";
 import type {
   AccountRole,
+  AssessmentFeedback,
   BattleResult,
   Challenge,
   CharacterVariant,
+  FoundationAssessmentState,
   LearningBranch,
   LearningNodeView,
   LearningSection,
@@ -80,7 +94,7 @@ import type {
   XpSummary
 } from "./types";
 
-type Screen = "path" | "lesson" | "shop" | "social";
+type Screen = "path" | "lesson" | "assessment" | "shop" | "social";
 type AnswerState = "correct" | "wrong" | undefined;
 type AuthMode = "create" | "login";
 type SocialProvider = keyof typeof SOCIAL_AUTH_CONFIG;
@@ -112,6 +126,8 @@ type Action =
   | { type: "loaded"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "select_topic"; topicId: TopicId }
   | { type: "select_branch"; branchId: string }
+  | { type: "open_assessment" }
+  | { type: "close_assessment" }
   | { type: "open_shop" }
   | { type: "open_social" }
   | { type: "close_shop" }
@@ -141,6 +157,10 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, selectedTopic: action.topicId, selectedBranchId: undefined, screen: "path" };
     case "select_branch":
       return { ...state, selectedBranchId: action.branchId, screen: "path" };
+    case "open_assessment":
+      return { ...state, screen: "assessment" };
+    case "close_assessment":
+      return { ...state, screen: "path" };
     case "open_shop":
       return { ...state, screen: "shop" };
     case "open_social":
@@ -203,6 +223,7 @@ export default function TopicApp() {
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+  const [activeAssessment, setActiveAssessment] = useState<FoundationAssessmentState | undefined>(undefined);
   const [authMode, setAuthMode] = useState<AuthMode>("create");
   const [hasSavedAccount, setHasSavedAccount] = useState(false);
   const [accountName, setAccountName] = useState("");
@@ -229,9 +250,9 @@ export default function TopicApp() {
       const savedAccount = loadLocalAuthAccount();
       const savedSocialHub = loadSocialHubState();
       const remoteSession = await hydrateRemoteSession();
-      const baseUser = refillHeartsForToday(remoteSession?.user ?? savedUser ?? fallbackUser);
+      const baseUser = ensureLearnerProfile(refillHeartsForToday(remoteSession?.user ?? savedUser ?? fallbackUser));
       const accountSeed = remoteSession?.account ?? savedAccount;
-      const user = accountSeed ? applyAccountIdentity(baseUser, accountSeed) : baseUser;
+      const user = accountSeed ? ensureLearnerProfile(applyAccountIdentity(baseUser, accountSeed)) : baseUser;
       const xpSummary = await learningApi.getXpSummaries(user);
 
       if (mounted) {
@@ -282,6 +303,7 @@ export default function TopicApp() {
 
   const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? pendingLanguage);
   const strings = useMemo(() => getUiStrings(currentLanguage), [currentLanguage]);
+  const learnerProfile = state.user?.learnerProfile ?? createEmptyLearnerProfile();
 
   useEffect(() => {
     if (!state.user) {
@@ -476,8 +498,112 @@ export default function TopicApp() {
     };
   }, [accountPromptShown, hasSavedAccount, isInFoundationExperience, state.user]);
 
+  function openFoundationAssessment(mode: FoundationAssessmentState["mode"]) {
+    if (!state.user) {
+      return;
+    }
+
+    const hydratedUser = ensureLearnerProfile(state.user);
+
+    if (hydratedUser !== state.user) {
+      dispatch({ type: "apply_user", user: hydratedUser });
+    }
+
+    setActiveAssessment(createFoundationAssessment(hydratedUser.learnerProfile ?? createEmptyLearnerProfile(), mode));
+    dispatch({ type: "open_assessment" });
+  }
+
+  function updateAssessmentSelection(value: string | string[] | Record<string, string> | undefined) {
+    setActiveAssessment((current) => current ? { ...current, selectedAnswer: value } : current);
+  }
+
+  function updateAssessmentConfidence(value: number) {
+    setActiveAssessment((current) => current ? { ...current, confidence: value } : current);
+  }
+
+  function submitAssessmentAnswer() {
+    if (!state.user || !activeAssessment || activeAssessment.feedback || activeAssessment.selectedAnswer == null) {
+      return;
+    }
+
+    const result = submitFoundationAssessmentAnswer({
+      profile: learnerProfile,
+      state: activeAssessment,
+      selectedAnswer: activeAssessment.selectedAnswer,
+      confidence: activeAssessment.confidence,
+      responseTimeMs: Date.now() - activeAssessment.questionStartedAt
+    });
+    const gainedXp = result.feedback.correct
+      ? activeAssessment.currentQuestion.xpReward
+      : Math.max(2, Math.floor(activeAssessment.currentQuestion.xpReward / 2));
+
+    dispatch({
+      type: "apply_user",
+      user: ensureLearnerProfile({
+        ...state.user,
+        totalXp: state.user.totalXp + gainedXp,
+        learnerProfile: result.nextProfile,
+        lastLearningAt: new Date().toISOString()
+      })
+    });
+    setActiveAssessment(result.stateWithFeedback);
+  }
+
+  function continueAssessment() {
+    if (!state.user || !activeAssessment || !activeAssessment.feedback) {
+      return;
+    }
+
+    const nextState = advanceFoundationAssessment(learnerProfile, activeAssessment);
+
+    if (nextState) {
+      setActiveAssessment(nextState);
+      return;
+    }
+
+    const finalizedProfile = finalizeFoundationAssessment(
+      learnerProfile,
+      activeAssessment.mode,
+      activeAssessment.askedQuestionIds
+    );
+
+    dispatch({
+      type: "apply_user",
+      user: ensureLearnerProfile({
+        ...state.user,
+        learnerProfile: finalizedProfile,
+        lastLearningAt: new Date().toISOString()
+      })
+    });
+    setActiveAssessment(undefined);
+    dispatch({ type: "close_assessment" });
+    Alert.alert(
+      activeAssessment.mode === "placement" ? "Foundation updated" : "Session complete",
+      `${finalizedProfile.readiness_label}. ${
+        finalizedProfile.weak_areas.length
+          ? `Needs review: ${finalizedProfile.weak_areas.slice(0, 3).join(", ")}.`
+          : "No major weak area is standing out right now."
+      }`
+    );
+  }
+
+  function closeAssessment() {
+    setActiveAssessment(undefined);
+    dispatch({ type: "close_assessment" });
+  }
+
   async function startLesson(node: LearningNodeView) {
     if (!state.user) {
+      return;
+    }
+
+    if (node.topicId !== "foundation" && !learnerProfile.assessmentCompleted) {
+      Alert.alert(
+        "Foundation first",
+        "Take the foundation assessment before opening harder topic paths so the app can place you at the right level."
+      );
+      dispatch({ type: "select_topic", topicId: "foundation" });
+      openFoundationAssessment("placement");
       return;
     }
 
@@ -639,7 +765,7 @@ export default function TopicApp() {
       reminderPreferences,
       preferredLanguage: state.user.preferredLanguage
     };
-    let nextUser: UserProfile = applyAccountIdentity(state.user, pendingAccount);
+    let nextUser: UserProfile = ensureLearnerProfile(applyAccountIdentity(state.user, pendingAccount));
     let nextSocialHub = socialHub;
 
     try {
@@ -652,7 +778,7 @@ export default function TopicApp() {
         socialHub
       });
 
-      nextUser = refillHeartsForToday(remote.user);
+      nextUser = ensureLearnerProfile(refillHeartsForToday(remote.user));
       nextSocialHub = remote.socialHub;
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
@@ -665,7 +791,7 @@ export default function TopicApp() {
 
     dispatch({
       type: "apply_user",
-      user: nextUser
+      user: ensureLearnerProfile(nextUser)
     });
     setSocialHub(nextSocialHub);
     setHasSavedAccount(true);
@@ -703,7 +829,7 @@ export default function TopicApp() {
 
       dispatch({
         type: "apply_user",
-        user: refillHeartsForToday(remote.user)
+        user: ensureLearnerProfile(refillHeartsForToday(remote.user))
       });
       setSocialHub(remote.socialHub);
       setAccountName(remote.account.name);
@@ -729,7 +855,7 @@ export default function TopicApp() {
 
     dispatch({
       type: "apply_user",
-      user: applyAccountIdentity(state.user, account)
+      user: ensureLearnerProfile(applyAccountIdentity(state.user, account))
     });
     setAccountName(account.name);
     setAccountEmail(account.email);
@@ -942,6 +1068,7 @@ export default function TopicApp() {
         {state.screen === "path" && (
           <PathScreen
             user={state.user}
+            learnerProfile={learnerProfile}
             strings={strings}
             xpSummary={state.xpSummary[0]}
             section={selectedSection}
@@ -953,6 +1080,9 @@ export default function TopicApp() {
             onSelectTopic={(topicId) => dispatch({ type: "select_topic", topicId })}
             onSelectBranch={(branchId) => dispatch({ type: "select_branch", branchId })}
             onStartLesson={startLesson}
+            onStartPlacement={() => openFoundationAssessment("placement")}
+            onStartReview={() => openFoundationAssessment("review")}
+            onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
             onOpenShop={() => dispatch({ type: "open_shop" })}
           />
         )}
@@ -969,6 +1099,19 @@ export default function TopicApp() {
             onAnswer={answerChallenge}
             onContinue={continueLesson}
             onExit={() => dispatch({ type: "reset_lesson" })}
+          />
+        )}
+        {state.screen === "assessment" && activeAssessment && (
+          <FoundationAssessmentScreen
+            assessment={activeAssessment}
+            language={currentLanguage}
+            selectedAnswer={activeAssessment.selectedAnswer}
+            confidence={activeAssessment.confidence}
+            onChangeSelectedAnswer={updateAssessmentSelection}
+            onChangeConfidence={updateAssessmentConfidence}
+            onSubmit={submitAssessmentAnswer}
+            onContinue={continueAssessment}
+            onExit={closeAssessment}
           />
         )}
         {state.screen === "shop" && (
@@ -1121,6 +1264,7 @@ function TopBar({
 
 function PathScreen({
   user,
+  learnerProfile,
   strings,
   xpSummary,
   section,
@@ -1132,9 +1276,13 @@ function PathScreen({
   onSelectTopic,
   onSelectBranch,
   onStartLesson,
+  onStartPlacement,
+  onStartReview,
+  onStartDailyChallenge,
   onOpenShop
 }: {
   user: UserProfile;
+  learnerProfile: NonNullable<UserProfile["learnerProfile"]>;
   strings: UiStrings;
   xpSummary?: XpSummary;
   section: LearningSection;
@@ -1146,6 +1294,9 @@ function PathScreen({
   onSelectTopic: (topicId: TopicId) => void;
   onSelectBranch: (branchId: string) => void;
   onStartLesson: (node: LearningNodeView) => void;
+  onStartPlacement: () => void;
+  onStartReview: () => void;
+  onStartDailyChallenge: () => void;
   onOpenShop: () => void;
 }) {
   const progress = Math.min(1, user.totalXp / user.dailyGoalXp);
@@ -1211,6 +1362,15 @@ function PathScreen({
           );
         })}
       </ScrollView>
+
+      {section.topicId === "foundation" && (
+        <FoundationDashboard
+          profile={learnerProfile}
+          onStartPlacement={onStartPlacement}
+          onStartReview={onStartReview}
+          onStartDailyChallenge={onStartDailyChallenge}
+        />
+      )}
 
       <View style={styles.routeCard}>
         <View style={styles.routeHeader}>
@@ -2935,6 +3095,7 @@ function applyAccountIdentity(
     email: string;
     createdAt: string;
     role?: AccountRole;
+    provider?: UserProfile["accountProvider"];
     reminderPreferences?: ReminderPreferences;
     preferredLanguage?: SupportedLanguage;
   }
@@ -2946,6 +3107,7 @@ function applyAccountIdentity(
     username: normalizeEmail(account.email).split("@")[0] || user.username,
     avatarInitials: getInitials(account.name),
     accountRole: account.role ?? user.accountRole,
+    accountProvider: account.provider ?? user.accountProvider,
     accountEmail: normalizeEmail(account.email),
     accountCreatedAt: account.createdAt,
     lastLoginAt: new Date().toISOString(),
