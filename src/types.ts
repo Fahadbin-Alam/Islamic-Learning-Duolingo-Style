@@ -12,6 +12,8 @@ export type LearningNodeStatus = "locked" | "available" | "current" | "completed
 
 export type ShopItemType = "heart_pack" | "monthly_membership" | "rewarded_ad";
 
+export type SocialRelation = "parent" | "friend";
+
 export interface HeartsBalance {
   current: number;
   max: number;
@@ -151,4 +153,34 @@ export interface RewardedAdResult {
   ok: boolean;
   transactionId: string;
   heartsGranted: number;
+}
+
+export interface SocialConnection {
+  id: string;
+  name: string;
+  relation: SocialRelation;
+  email?: string;
+  avatarInitials: string;
+  totalXp: number;
+  streakDays: number;
+  stars: number;
+  wins: number;
+  losses: number;
+  lastActiveAt: string;
+}
+
+export interface BattleResult {
+  id: string;
+  opponentId: string;
+  opponentName: string;
+  opponentRelation: SocialRelation;
+  myScore: number;
+  theirScore: number;
+  winner: "user" | "opponent";
+  createdAt: string;
+}
+
+export interface SocialHubState {
+  connections: SocialConnection[];
+  battleHistory: BattleResult[];
 }

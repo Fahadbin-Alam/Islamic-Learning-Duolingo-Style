@@ -29,20 +29,31 @@ import {
 } from "./services/localAuth";
 import { loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
 import { sandboxMonetizationClient } from "./services/monetization";
+import {
+  createSocialConnection,
+  getSocialScore,
+  loadSocialHubState,
+  runBattle,
+  saveSocialHubState
+} from "./services/socialHub";
 import type {
+  BattleResult,
   Challenge,
   CharacterVariant,
   LearningNodeView,
   LearningSection,
   LessonSource,
   LessonSession,
+  SocialConnection,
+  SocialHubState,
+  SocialRelation,
   ShopItem,
   TopicId,
   UserProfile,
   XpSummary
 } from "./types";
 
-type Screen = "path" | "lesson" | "shop";
+type Screen = "path" | "lesson" | "shop" | "social";
 type AnswerState = "correct" | "wrong" | undefined;
 type AuthMode = "create" | "login";
 type SocialProvider = keyof typeof SOCIAL_AUTH_CONFIG;
@@ -72,7 +83,9 @@ type Action =
   | { type: "loaded"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "select_topic"; topicId: TopicId }
   | { type: "open_shop" }
+  | { type: "open_social" }
   | { type: "close_shop" }
+  | { type: "close_social" }
   | { type: "start_lesson"; session: LessonSession }
   | { type: "select_choice"; choiceId: string }
   | { type: "answer"; correct: boolean; user: UserProfile }
@@ -98,7 +111,11 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, selectedTopic: action.topicId, screen: "path" };
     case "open_shop":
       return { ...state, screen: "shop" };
+    case "open_social":
+      return { ...state, screen: "social" };
     case "close_shop":
+      return { ...state, screen: "path" };
+    case "close_social":
       return { ...state, screen: "path" };
     case "start_lesson":
       return {
@@ -156,6 +173,10 @@ export default function TopicApp() {
   const [accountName, setAccountName] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
   const [accountPassword, setAccountPassword] = useState("");
+  const [socialHub, setSocialHub] = useState<SocialHubState>(() => loadSocialHubState());
+  const [inviteName, setInviteName] = useState("");
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
 
   useEffect(() => {
     let mounted = true;
@@ -164,11 +185,13 @@ export default function TopicApp() {
       const fallbackUser = await learningApi.getUser(1001);
       const savedUser = loadSavedUserProfile();
       const savedAccount = loadLocalAuthAccount();
+      const savedSocialHub = loadSocialHubState();
       const baseUser = refillHeartsForToday(savedUser ?? fallbackUser);
       const user = savedAccount ? applyAccountIdentity(baseUser, savedAccount) : baseUser;
       const xpSummary = await learningApi.getXpSummaries(user);
 
       if (mounted) {
+        setSocialHub(savedSocialHub);
         setHasSavedAccount(Boolean(savedAccount));
 
         if (savedAccount) {
@@ -196,6 +219,10 @@ export default function TopicApp() {
     saveUserProfile(state.user);
   }, [state.user]);
 
+  useEffect(() => {
+    saveSocialHubState(socialHub);
+  }, [socialHub]);
+
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
   }, [state.user]);
@@ -219,6 +246,61 @@ export default function TopicApp() {
   const isInFoundationExperience =
     (state.screen === "path" && selectedSection.topicId === "foundation") ||
     (state.screen === "lesson" && currentLessonSection.topicId === "foundation");
+  const userStars = useMemo(() => {
+    return state.user ? COURSE.sections.reduce((total, item) => total + getSectionStars(state.user!, item), 0) : 0;
+  }, [state.user]);
+  const userBattleRecord = useMemo(() => {
+    return socialHub.battleHistory.reduce(
+      (record, battle) => {
+        if (battle.winner === "user") {
+          record.wins += 1;
+        } else {
+          record.losses += 1;
+        }
+
+        return record;
+      },
+      { wins: 0, losses: 0 }
+    );
+  }, [socialHub.battleHistory]);
+  const leaderboard = useMemo(() => {
+    if (!state.user) {
+      return [];
+    }
+
+    const me = {
+      id: "me",
+      name: state.user.displayName,
+      relation: "you" as const,
+      avatarInitials: state.user.avatarInitials,
+      totalXp: state.user.totalXp,
+      streakDays: state.user.streakDays,
+      stars: userStars,
+      wins: userBattleRecord.wins,
+      losses: userBattleRecord.losses,
+      score: getSocialScore({
+        totalXp: state.user.totalXp,
+        streakDays: state.user.streakDays,
+        stars: userStars,
+        wins: userBattleRecord.wins
+      })
+    };
+
+    const peers = socialHub.connections.map((connection) => ({
+      id: connection.id,
+      name: connection.name,
+      relation: connection.relation,
+      avatarInitials: connection.avatarInitials,
+      totalXp: connection.totalXp,
+      streakDays: connection.streakDays,
+      stars: connection.stars,
+      wins: connection.wins,
+      losses: connection.losses,
+      score: getSocialScore(connection)
+    }));
+
+    return [me, ...peers].sort((left, right) => right.score - left.score);
+  }, [socialHub.connections, state.user, userBattleRecord.losses, userBattleRecord.wins, userStars]);
 
   useEffect(() => {
     if (!state.user || state.user.hasAccount || accountPromptShown || !isInFoundationExperience) {
@@ -397,6 +479,69 @@ export default function TopicApp() {
     );
   }
 
+  function addConnection() {
+    if (!inviteName.trim()) {
+      Alert.alert("Add someone", "Enter a name for the parent or friend you want to track.");
+      return;
+    }
+
+    if (inviteEmail.trim() && !isValidEmail(inviteEmail)) {
+      Alert.alert("Check the email", "Use a valid email address if you want to save one.");
+      return;
+    }
+
+    const normalizedEmail = inviteEmail.trim().toLowerCase();
+    const duplicate = socialHub.connections.some((connection) => {
+      if (normalizedEmail && connection.email) {
+        return connection.email.toLowerCase() === normalizedEmail;
+      }
+
+      return connection.name.trim().toLowerCase() === inviteName.trim().toLowerCase();
+    });
+
+    if (duplicate) {
+      Alert.alert("Already added", "That parent or friend is already in your crew.");
+      return;
+    }
+
+    const nextConnection = createSocialConnection({
+      name: inviteName,
+      relation: inviteRelation,
+      email: inviteEmail,
+      existingCount: socialHub.connections.length
+    });
+
+    setSocialHub((current) => ({
+      ...current,
+      connections: [nextConnection, ...current.connections]
+    }));
+    setInviteName("");
+    setInviteEmail("");
+    setInviteRelation("friend");
+  }
+
+  function battleConnection(connection: SocialConnection) {
+    if (!state.user) {
+      return;
+    }
+
+    const battle = runBattle({
+      user: state.user,
+      userStars,
+      opponent: connection
+    });
+
+    setSocialHub((current) => ({
+      connections: current.connections.map((item) => item.id === connection.id ? battle.updatedConnection : item),
+      battleHistory: [battle.result, ...current.battleHistory].slice(0, 10)
+    }));
+
+    Alert.alert(
+      battle.result.winner === "user" ? "Battle won" : "Battle finished",
+      `${state.user.displayName} ${battle.result.myScore} - ${battle.result.theirScore} ${connection.name}`
+    );
+  }
+
   if (state.loading || !state.user) {
     return (
       <SafeAreaView style={styles.safeArea}>
@@ -415,6 +560,7 @@ export default function TopicApp() {
         <TopBar
           user={state.user}
           onAccount={() => openAccountModal()}
+          onSocial={() => dispatch({ type: "open_social" })}
           onShop={() => dispatch({ type: "open_shop" })}
         />
         {state.screen === "path" && (
@@ -452,6 +598,24 @@ export default function TopicApp() {
             onDone={() => dispatch({ type: "close_shop" })}
           />
         )}
+        {state.screen === "social" && (
+          <SocialScreen
+            user={state.user}
+            userStars={userStars}
+            leaderboard={leaderboard}
+            connections={socialHub.connections}
+            battleHistory={socialHub.battleHistory}
+            inviteName={inviteName}
+            inviteEmail={inviteEmail}
+            inviteRelation={inviteRelation}
+            onChangeInviteName={setInviteName}
+            onChangeInviteEmail={setInviteEmail}
+            onChangeInviteRelation={setInviteRelation}
+            onAddConnection={addConnection}
+            onBattle={battleConnection}
+            onDone={() => dispatch({ type: "close_social" })}
+          />
+        )}
         <AdBanner hidden={state.user.hearts.unlimited || state.screen === "lesson"} />
         <AccountModal
           visible={accountModalVisible}
@@ -477,10 +641,12 @@ export default function TopicApp() {
 function TopBar({
   user,
   onAccount,
+  onSocial,
   onShop
 }: {
   user: UserProfile;
   onAccount: () => void;
+  onSocial: () => void;
   onShop: () => void;
 }) {
   return (
@@ -513,6 +679,10 @@ function TopBar({
           <Text style={styles.accountLabel}>{user.hasAccount ? "Account" : "Save"}</Text>
           <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : "Log in"}</Text>
         </View>
+      </Pressable>
+      <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
+        <Text style={styles.metricLabel}>Crew</Text>
+        <Text style={styles.socialButtonSmallValue}>Battle</Text>
       </Pressable>
       <Pressable onPress={onShop} style={styles.heartButton}>
         <Text style={styles.metricLabel}>Hearts</Text>
@@ -1120,6 +1290,194 @@ function ShopScreen({
   );
 }
 
+function SocialScreen({
+  user,
+  userStars,
+  leaderboard,
+  connections,
+  battleHistory,
+  inviteName,
+  inviteEmail,
+  inviteRelation,
+  onChangeInviteName,
+  onChangeInviteEmail,
+  onChangeInviteRelation,
+  onAddConnection,
+  onBattle,
+  onDone
+}: {
+  user: UserProfile;
+  userStars: number;
+  leaderboard: Array<{
+    id: string;
+    name: string;
+    relation: "you" | SocialRelation;
+    avatarInitials: string;
+    totalXp: number;
+    streakDays: number;
+    stars: number;
+    wins: number;
+    losses: number;
+    score: number;
+  }>;
+  connections: SocialConnection[];
+  battleHistory: BattleResult[];
+  inviteName: string;
+  inviteEmail: string;
+  inviteRelation: SocialRelation;
+  onChangeInviteName: (value: string) => void;
+  onChangeInviteEmail: (value: string) => void;
+  onChangeInviteRelation: (value: SocialRelation) => void;
+  onAddConnection: () => void;
+  onBattle: (connection: SocialConnection) => void;
+  onDone: () => void;
+}) {
+  const userScore = leaderboard.find((entry) => entry.id === "me")?.score ?? getSocialScore({ totalXp: user.totalXp, streakDays: user.streakDays, stars: userStars, wins: 0 });
+
+  return (
+    <ScrollView contentContainerStyle={styles.socialContent} showsVerticalScrollIndicator={false}>
+      <View style={styles.socialHero}>
+        <View style={styles.socialHeroText}>
+          <Text style={styles.eyebrow}>Crew</Text>
+          <Text style={styles.title}>Parents, friends, and battles</Text>
+          <Text style={styles.subtitle}>Add people to follow each other, race on the leaderboard, and battle live score against score.</Text>
+        </View>
+        <View style={styles.socialHeroScore}>
+          <Text style={styles.socialHeroScoreLabel}>Your score</Text>
+          <Text style={styles.socialHeroScoreValue}>{userScore}</Text>
+        </View>
+      </View>
+
+      <View style={styles.socialCard}>
+        <Text style={styles.socialCardTitle}>Add a parent or friend</Text>
+        <Text style={styles.socialCardCopy}>Invite someone into your circle so you can track progress and challenge each other.</Text>
+        <View style={styles.relationRow}>
+          <Pressable
+            onPress={() => onChangeInviteRelation("friend")}
+            style={[styles.relationButton, inviteRelation === "friend" && styles.relationButtonActive]}
+          >
+            <Text style={[styles.relationButtonText, inviteRelation === "friend" && styles.relationButtonTextActive]}>Friend</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => onChangeInviteRelation("parent")}
+            style={[styles.relationButton, inviteRelation === "parent" && styles.relationButtonActive]}
+          >
+            <Text style={[styles.relationButtonText, inviteRelation === "parent" && styles.relationButtonTextActive]}>Parent</Text>
+          </Pressable>
+        </View>
+        <TextInput
+          value={inviteName}
+          onChangeText={onChangeInviteName}
+          placeholder={inviteRelation === "parent" ? "Parent name" : "Friend name"}
+          placeholderTextColor={colors.muted}
+          style={styles.input}
+        />
+        <TextInput
+          value={inviteEmail}
+          onChangeText={onChangeInviteEmail}
+          placeholder="Email address (optional)"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholderTextColor={colors.muted}
+          style={styles.input}
+        />
+        <Pressable onPress={onAddConnection} style={[styles.primaryButton, styles.socialAddButton]}>
+          <Text style={styles.primaryButtonText}>Add to crew</Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.socialCard}>
+        <Text style={styles.socialCardTitle}>Leaderboard</Text>
+        <Text style={styles.socialCardCopy}>Everyone can see the score and where they stand.</Text>
+        <View style={styles.leaderboardStack}>
+          {leaderboard.map((entry, index) => (
+            <View key={entry.id} style={styles.leaderboardRow}>
+              <View style={styles.leaderboardRank}>
+                <Text style={styles.leaderboardRankText}>{index + 1}</Text>
+              </View>
+              <View style={[styles.leaderboardAvatar, entry.relation === "you" && styles.leaderboardAvatarUser]}>
+                <Text style={[styles.leaderboardAvatarText, entry.relation === "you" && styles.leaderboardAvatarTextUser]}>{entry.avatarInitials}</Text>
+              </View>
+              <View style={styles.leaderboardMain}>
+                <Text style={styles.leaderboardName}>{entry.name}</Text>
+                <Text style={styles.leaderboardMeta}>
+                  {entry.relation === "you" ? "You" : startCaseRelation(entry.relation)} · {entry.totalXp} XP · {entry.streakDays} day streak · {entry.stars} stars
+                </Text>
+              </View>
+              <View style={styles.leaderboardScore}>
+                <Text style={styles.leaderboardScoreValue}>{entry.score}</Text>
+                <Text style={styles.leaderboardScoreLabel}>score</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
+
+      <View style={styles.socialCard}>
+        <Text style={styles.socialCardTitle}>Battle someone</Text>
+        <Text style={styles.socialCardCopy}>Tap battle and the live match score is posted right here.</Text>
+        {connections.length === 0 ? (
+          <View style={styles.emptySocialState}>
+            <Text style={styles.emptySocialTitle}>Your crew is empty</Text>
+            <Text style={styles.emptySocialCopy}>Add a parent or friend above and the battle board will light up.</Text>
+          </View>
+        ) : (
+          <View style={styles.socialRoster}>
+            {connections.map((connection) => (
+              <View key={connection.id} style={styles.connectionCard}>
+                <View style={styles.connectionHeader}>
+                  <View style={styles.connectionAvatar}>
+                    <Text style={styles.connectionAvatarText}>{connection.avatarInitials}</Text>
+                  </View>
+                  <View style={styles.connectionText}>
+                    <Text style={styles.connectionName}>{connection.name}</Text>
+                    <Text style={styles.connectionMeta}>{startCaseRelation(connection.relation)} · {connection.totalXp} XP · {connection.stars} stars</Text>
+                  </View>
+                  <Pressable onPress={() => onBattle(connection)} style={styles.battleButton}>
+                    <Text style={styles.battleButtonText}>Battle</Text>
+                  </Pressable>
+                </View>
+                <Text style={styles.connectionRecord}>Record {connection.wins}-{connection.losses} · Last active {formatRelativeTime(connection.lastActiveAt)}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+      </View>
+
+      <View style={styles.socialCard}>
+        <Text style={styles.socialCardTitle}>Recent battle scores</Text>
+        <Text style={styles.socialCardCopy}>Every match score stays visible so everyone knows who edged ahead.</Text>
+        {battleHistory.length === 0 ? (
+          <View style={styles.emptySocialState}>
+            <Text style={styles.emptySocialTitle}>No battles yet</Text>
+            <Text style={styles.emptySocialCopy}>Once you battle a friend or parent, the score lands here.</Text>
+          </View>
+        ) : (
+          <View style={styles.battleHistoryStack}>
+            {battleHistory.map((battle) => (
+              <View key={battle.id} style={styles.battleHistoryRow}>
+                <View style={styles.battleHistoryText}>
+                  <Text style={styles.battleHistoryTitle}>{`You vs ${battle.opponentName}`}</Text>
+                  <Text style={styles.battleHistoryMeta}>
+                    {battle.winner === "user" ? "You won" : `${battle.opponentName} won`} · {startCaseRelation(battle.opponentRelation)} · {formatRelativeTime(battle.createdAt)}
+                  </Text>
+                </View>
+                <View style={styles.battleScorePill}>
+                  <Text style={styles.battleScoreText}>{`${battle.myScore} - ${battle.theirScore}`}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        )}
+      </View>
+
+      <Pressable onPress={onDone} style={[styles.primaryButton, styles.socialDoneButton]}>
+        <Text style={styles.primaryButtonText}>Back to path</Text>
+      </Pressable>
+    </ScrollView>
+  );
+}
+
 function LessonSources({ sources, accentColor }: { sources: LessonSource[]; accentColor: string }) {
   return (
     <View style={styles.sourcesBlock}>
@@ -1612,6 +1970,31 @@ function defaultSourceGrade(source: LessonSource) {
   return "See source";
 }
 
+function startCaseRelation(relation: SocialRelation) {
+  return relation === "parent" ? "Parent" : "Friend";
+}
+
+function formatRelativeTime(value: string) {
+  const diffMs = Date.now() - new Date(value).getTime();
+  const diffMinutes = Math.max(0, Math.floor(diffMs / 60000));
+
+  if (diffMinutes < 1) {
+    return "just now";
+  }
+
+  if (diffMinutes < 60) {
+    return `${diffMinutes}m ago`;
+  }
+
+  const diffHours = Math.floor(diffMinutes / 60);
+
+  if (diffHours < 24) {
+    return `${diffHours}h ago`;
+  }
+
+  return `${Math.floor(diffHours / 24)}d ago`;
+}
+
 function applyAccountIdentity(
   user: UserProfile,
   account: { name: string; email: string; createdAt: string }
@@ -1779,6 +2162,8 @@ const styles = StyleSheet.create({
   accountBadgeTextActive: { color: colors.white },
   accountLabel: { color: colors.muted, fontSize: 10, fontWeight: "800", letterSpacing: 0, textTransform: "uppercase" },
   accountValue: { color: colors.ink, fontSize: 13, fontWeight: "900", letterSpacing: 0, marginTop: 1 },
+  socialButtonSmall: { minWidth: 72, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: "#CBE4D6", backgroundColor: "#EEF8F2" },
+  socialButtonSmallValue: { color: colors.greenDark, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
   heartButton: { marginLeft: "auto", minWidth: 84, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   heartValue: { color: colors.coral, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
   pathContent: { padding: 18, paddingBottom: 128 },
@@ -1926,6 +2311,57 @@ const styles = StyleSheet.create({
   shopContent: { padding: 18, paddingBottom: 128, gap: 14 },
   shopHero: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12, padding: 16, borderRadius: 8 },
   shopHeroText: { flex: 1 },
+  socialContent: { padding: 18, paddingBottom: 128, gap: 14 },
+  socialHero: { flexDirection: "row", alignItems: "stretch", gap: 12, padding: 18, borderRadius: 8, backgroundColor: "#DCF7E8" },
+  socialHeroText: { flex: 1 },
+  socialHeroScore: { width: 108, borderRadius: 8, backgroundColor: colors.white, alignItems: "center", justifyContent: "center", padding: 12 },
+  socialHeroScoreLabel: { color: colors.muted, fontSize: 12, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0 },
+  socialHeroScoreValue: { color: colors.greenDark, fontSize: 28, lineHeight: 32, fontWeight: "900", letterSpacing: 0, marginTop: 6 },
+  socialCard: { borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, padding: 16 },
+  socialCardTitle: { color: colors.ink, fontSize: 19, fontWeight: "900", letterSpacing: 0 },
+  socialCardCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4, marginBottom: 12 },
+  relationRow: { flexDirection: "row", gap: 10, marginBottom: 2 },
+  relationButton: { flex: 1, minHeight: 42, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F7FBF8", alignItems: "center", justifyContent: "center" },
+  relationButtonActive: { borderColor: colors.green, backgroundColor: colors.mint },
+  relationButtonText: { color: colors.muted, fontSize: 14, fontWeight: "800", letterSpacing: 0 },
+  relationButtonTextActive: { color: colors.greenDark },
+  socialAddButton: { marginTop: 14, backgroundColor: colors.green },
+  leaderboardStack: { gap: 10 },
+  leaderboardRow: { flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 10, borderTopWidth: 1, borderTopColor: "#EEF3EF" },
+  leaderboardRank: { width: 28, alignItems: "center", justifyContent: "center" },
+  leaderboardRankText: { color: colors.greenDark, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  leaderboardAvatar: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center", backgroundColor: "#EEF4F0" },
+  leaderboardAvatarUser: { backgroundColor: colors.green },
+  leaderboardAvatarText: { color: colors.greenDark, fontSize: 12, fontWeight: "900", letterSpacing: 0 },
+  leaderboardAvatarTextUser: { color: colors.white },
+  leaderboardMain: { flex: 1 },
+  leaderboardName: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  leaderboardMeta: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", letterSpacing: 0, marginTop: 2 },
+  leaderboardScore: { minWidth: 70, alignItems: "flex-end" },
+  leaderboardScoreValue: { color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0 },
+  leaderboardScoreLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0 },
+  emptySocialState: { borderRadius: 8, backgroundColor: "#F7FBF8", padding: 14 },
+  emptySocialTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  emptySocialCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
+  socialRoster: { gap: 10 },
+  connectionCard: { borderRadius: 8, backgroundColor: "#F9FCFA", padding: 14 },
+  connectionHeader: { flexDirection: "row", alignItems: "center", gap: 10 },
+  connectionAvatar: { width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center", backgroundColor: "#E9F6EE" },
+  connectionAvatarText: { color: colors.greenDark, fontSize: 13, fontWeight: "900", letterSpacing: 0 },
+  connectionText: { flex: 1 },
+  connectionName: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  connectionMeta: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", letterSpacing: 0, marginTop: 2 },
+  connectionRecord: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", letterSpacing: 0, marginTop: 10 },
+  battleButton: { minWidth: 82, minHeight: 40, borderRadius: 8, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
+  battleButtonText: { color: colors.white, fontSize: 13, fontWeight: "900", letterSpacing: 0 },
+  battleHistoryStack: { gap: 10 },
+  battleHistoryRow: { flexDirection: "row", alignItems: "center", gap: 10, borderRadius: 8, backgroundColor: "#F9FCFA", padding: 14 },
+  battleHistoryText: { flex: 1 },
+  battleHistoryTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  battleHistoryMeta: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", letterSpacing: 0, marginTop: 4 },
+  battleScorePill: { minWidth: 86, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 8, alignItems: "center", justifyContent: "center", backgroundColor: "#EAF8F0" },
+  battleScoreText: { color: colors.greenDark, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  socialDoneButton: { backgroundColor: colors.green },
   title: { color: colors.ink, fontSize: 28, lineHeight: 34, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   subtitle: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "600", letterSpacing: 0, marginTop: 6 },
   shopItem: { flexDirection: "row", alignItems: "center", gap: 12, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
