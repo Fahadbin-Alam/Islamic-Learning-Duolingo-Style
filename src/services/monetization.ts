@@ -7,7 +7,8 @@ export interface MonetizationClient {
 
 export const monetizationProductIds = {
   heartPackSmall: "heart_pack_small",
-  membershipMonthly: "membership_monthly"
+  membershipMonthly: "membership_monthly",
+  membershipYearly: "membership_yearly"
 };
 
 export const adUnitIds = {

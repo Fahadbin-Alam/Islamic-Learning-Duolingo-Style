@@ -166,7 +166,7 @@ export function grantHearts(user: UserProfile, hearts: number, capAtMax = false)
 }
 
 export function applyShopItem(user: UserProfile, item: ShopItem) {
-  if (item.type === "monthly_membership") {
+  if (item.type === "monthly_membership" || item.type === "yearly_membership") {
     return {
       ...user,
       activeSubscriptionId: item.productId ?? item.id,
@@ -183,6 +183,92 @@ export function applyShopItem(user: UserProfile, item: ShopItem) {
   }
 
   return user;
+}
+
+export function completeLessonCluster(user: UserProfile, lessons: Lesson[]) {
+  const completedLessonIds = new Set(user.completedLessonIds);
+  const completedNodeIds = new Set(user.completedNodeIds);
+  let gainedXp = 0;
+
+  for (const lesson of lessons) {
+    if (!completedLessonIds.has(lesson.id)) {
+      completedLessonIds.add(lesson.id);
+      gainedXp += lesson.xpReward;
+    }
+
+    const node = findNodeByLessonId(lesson.id);
+    if (node) {
+      completedNodeIds.add(node.id);
+    }
+  }
+
+  const nextXp = user.totalXp + gainedXp;
+
+  return {
+    ...user,
+    totalXp: nextXp,
+    streakDays: nextXp >= user.dailyGoalXp ? Math.max(user.streakDays, 1) : user.streakDays,
+    completedLessonIds: Array.from(completedLessonIds),
+    completedNodeIds: Array.from(completedNodeIds)
+  };
+}
+
+export function createTestOutSession(input: {
+  branchTitle: string;
+  branchId: string;
+  lessons: Lesson[];
+  nodeIds: string[];
+  heartsAtStart: number;
+}): LessonSession {
+  const selectedLessons = input.lessons.slice(0, 5);
+  const uniqueSources = uniqueById(selectedLessons.flatMap((lesson) => lesson.sources));
+  const challenges = selectedLessons.map((lesson, lessonIndex) => {
+    const progressiveLesson = buildProgressiveLesson(lesson);
+    const baseChallenge = progressiveLesson.challenges[0];
+
+    if (!baseChallenge) {
+      return undefined;
+    }
+
+    return {
+      ...baseChallenge,
+      id: `test_out_${input.branchId}_${lessonIndex}_${baseChallenge.id}`,
+      sourceNodeId: baseChallenge.sourceNodeId ?? lesson.nodeId,
+      sourceLessonId: baseChallenge.sourceLessonId ?? lesson.id,
+      miniLesson: baseChallenge.miniLesson ?? lesson.explanationContent ?? lesson.intro,
+      easierExplanation: baseChallenge.easierExplanation ?? `Start with the main teaching from ${lesson.title}.`,
+      reviewSuggestion: baseChallenge.reviewSuggestion ?? `Review ${lesson.title}`,
+      resourceLabel: baseChallenge.resourceLabel ?? (lesson.sources[0] ? "Open source" : undefined),
+      resourceUrl: baseChallenge.resourceUrl ?? lesson.sources[0]?.url
+    };
+  }).filter(Boolean) as Challenge[];
+  const xpReward = selectedLessons.reduce((total, lesson) => total + lesson.xpReward, 0);
+
+  return {
+    id: `session_test_out_${input.branchId}_${Date.now()}`,
+    lesson: {
+      id: `lesson_test_out_${input.branchId}`,
+      nodeId: input.nodeIds[0] ?? selectedLessons[0]?.nodeId ?? input.branchId,
+      branchId: input.branchId,
+      title: input.branchTitle,
+      intro: "Prove this lesson stretch and unlock the next group if you pass.",
+      explanationContent: "A test-out should feel like real understanding: recognition, application, and correction under a little pressure.",
+      lessonType: "mastery",
+      xpReward,
+      sources: uniqueSources,
+      sourceReferences: uniqueSources,
+      masteryState: "mastery",
+      masteryTestEligible: true,
+      challenges
+    },
+    startedAt: new Date().toISOString(),
+    heartsAtStart: input.heartsAtStart,
+    mode: "test_out" as const,
+    clusterTitle: input.branchTitle,
+    targetNodeIds: input.nodeIds,
+    targetLessonIds: selectedLessons.map((lesson) => lesson.id),
+    passingScore: Math.max(3, Math.ceil(challenges.length * 0.8))
+  };
 }
 
 function cloneUser(user: UserProfile): UserProfile {
@@ -379,10 +465,17 @@ function buildSourceReferenceChallenge(lesson: Lesson, node: LearningNode, tier:
       { id: "c", label: distractors[1] ?? "A source that belongs somewhere else" }
     ],
     correctChoiceId: "a",
+    sourceNodeId: lesson.nodeId,
+    sourceLessonId: lesson.id,
     explanation:
       tier === "medium"
         ? "Later lessons start asking you to notice the evidence, not only the headline."
-        : `This lesson is now asking you to connect the idea to its proof in ${node.title}.`
+        : `This lesson is now asking you to connect the idea to its proof in ${node.title}.`,
+    miniLesson: `Evidence matters. This lesson is anchored to ${correctSource.reference ?? correctSource.title}.`,
+    easierExplanation: `Look for the source that actually belongs to ${lesson.title}.`,
+    reviewSuggestion: `Review the evidence used in ${lesson.title}`,
+    resourceLabel: "Open source",
+    resourceUrl: correctSource.url
   };
 }
 
@@ -398,7 +491,14 @@ function buildSynthesisChallenge(lesson: Lesson, node: LearningNode): Challenge 
       { id: "d", label: `The lesson on ${node.title} is mostly about historical trivia instead of guidance` }
     ],
     correctChoiceId: "a",
-    explanation: "The harder lessons now ask for synthesis: not just what happened, but what the believer should carry from it."
+    sourceNodeId: lesson.nodeId,
+    sourceLessonId: lesson.id,
+    explanation: "The harder lessons now ask for synthesis: not just what happened, but what the believer should carry from it.",
+    miniLesson: buildLessonSummary(lesson),
+    easierExplanation: `Pick the summary that stays closest to the real teaching of ${lesson.title}.`,
+    reviewSuggestion: `Review the main point of ${lesson.title}`,
+    resourceLabel: lesson.sources[0] ? "Open source" : undefined,
+    resourceUrl: lesson.sources[0]?.url
   };
 }
 
@@ -430,6 +530,22 @@ function getReferenceDistractors(lessonId: string, correctReference: string, cou
   }
 
   return picked;
+}
+
+function uniqueById<T extends { id: string }>(items: T[]) {
+  const seen = new Set<string>();
+  const result: T[] = [];
+
+  for (const item of items) {
+    if (!item || seen.has(item.id)) {
+      continue;
+    }
+
+    seen.add(item.id);
+    result.push(item);
+  }
+
+  return result;
 }
 
 function hashCode(value: string) {

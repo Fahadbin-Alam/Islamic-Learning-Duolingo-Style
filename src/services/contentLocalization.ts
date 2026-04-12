@@ -232,6 +232,10 @@ function localizeChallenge(challenge: Challenge, language: SupportedLanguage): C
     ...challenge,
     prompt: translateStudyText(challenge.prompt, language),
     explanation: translateStudyText(challenge.explanation, language),
+    miniLesson: challenge.miniLesson ? translateStudyText(challenge.miniLesson, language) : challenge.miniLesson,
+    easierExplanation: challenge.easierExplanation ? translateStudyText(challenge.easierExplanation, language) : challenge.easierExplanation,
+    reviewSuggestion: challenge.reviewSuggestion ? translateStudyText(challenge.reviewSuggestion, language) : challenge.reviewSuggestion,
+    resourceLabel: challenge.resourceLabel ? translateStudyText(challenge.resourceLabel, language) : challenge.resourceLabel,
     choices: challenge.choices.map((choice) => ({
       ...choice,
       label: translateStudyText(choice.label, language)

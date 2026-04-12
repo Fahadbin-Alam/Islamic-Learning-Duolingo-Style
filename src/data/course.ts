@@ -3829,13 +3829,43 @@ export const LESSONS_BY_ID = expandedContent.lessonsById;
 
 export const SHOP_ITEMS: ShopItem[] = [
   {
-    id: "watch-ad-heart",
-    type: "rewarded_ad",
-    name: "Watch and recover",
-    localizedDescription: "Earn one heart after a short sponsor break.",
-    price: 0,
-    currencyType: "rewarded_ad",
-    heartsGranted: 1
+    id: "membership-monthly",
+    type: "monthly_membership",
+    tier: "premium_monthly",
+    name: "Monthly premium",
+    localizedDescription: "Unlock premium lessons, deeper review, bonus resources, and unlimited hearts.",
+    price: 9.99,
+    currencyType: "USD",
+    productId: "membership_monthly",
+    unlimitedHearts: true,
+    removesAds: true,
+    durationDays: 30,
+    benefits: [
+      "Full access to premium branches",
+      "Advanced lessons and deeper review",
+      "Bonus resources and premium quizzes",
+      "Unlimited hearts and sponsor-free study"
+    ]
+  },
+  {
+    id: "membership-yearly",
+    type: "yearly_membership",
+    tier: "premium_yearly",
+    name: "Yearly premium",
+    localizedDescription: "Save 20% with a full year of premium access, unlimited hearts, and advanced study tools.",
+    price: 95.9,
+    currencyType: "USD",
+    productId: "membership_yearly",
+    unlimitedHearts: true,
+    removesAds: true,
+    durationDays: 365,
+    highlightBadge: "20% off yearly",
+    benefits: [
+      "Everything in monthly premium",
+      "Lower yearly price for long-term learning",
+      "Premium tests, review mode, and branch unlocks",
+      "Ready for account sync across devices"
+    ]
   },
   {
     id: "heart-pack-small",
@@ -3848,16 +3878,13 @@ export const SHOP_ITEMS: ShopItem[] = [
     heartsGranted: 5
   },
   {
-    id: "membership-monthly",
-    type: "monthly_membership",
-    name: "Monthly membership",
-    localizedDescription: "Study with unlimited hearts and no sponsor breaks.",
-    price: 4.99,
-    currencyType: "USD",
-    productId: "membership_monthly",
-    unlimitedHearts: true,
-    removesAds: true,
-    durationDays: 30
+    id: "watch-ad-heart",
+    type: "rewarded_ad",
+    name: "Watch and recover",
+    localizedDescription: "Earn one heart after a short sponsor break.",
+    price: 0,
+    currencyType: "rewarded_ad",
+    heartsGranted: 1
   }
 ];
 

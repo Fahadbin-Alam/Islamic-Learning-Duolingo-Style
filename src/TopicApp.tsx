@@ -17,13 +17,15 @@ import {
 import {
   applyShopItem,
   completeLesson,
+  completeLessonCluster,
+  createTestOutSession,
   grantHearts,
   learningApi,
   loseHeart,
   refillHeartsForToday
 } from "./api/islamicLearningApi";
 import { SOCIAL_AUTH_CONFIG } from "./config/auth";
-import { COURSE, SHOP_ITEMS } from "./data/course";
+import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import {
   DEFAULT_LANGUAGE,
   getLanguageOption,
@@ -142,6 +144,8 @@ interface AppState {
   challengeIndex: number;
   selectedChoiceId?: string;
   answerState: AnswerState;
+  sessionCorrectCount: number;
+  sessionMissedLessonIds: string[];
   loading: boolean;
 }
 
@@ -157,7 +161,7 @@ type Action =
   | { type: "close_social" }
   | { type: "start_lesson"; session: LessonSession }
   | { type: "select_choice"; choiceId: string }
-  | { type: "answer"; correct: boolean; user: UserProfile }
+  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string }
   | { type: "next_challenge" }
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "apply_user"; user: UserProfile }
@@ -169,6 +173,8 @@ const initialState: AppState = {
   xpSummary: [],
   challengeIndex: 0,
   answerState: undefined,
+  sessionCorrectCount: 0,
+  sessionMissedLessonIds: [],
   loading: true
 };
 
@@ -199,12 +205,22 @@ function reducer(state: AppState, action: Action): AppState {
         activeSession: action.session,
         challengeIndex: 0,
         selectedChoiceId: undefined,
-        answerState: undefined
+        answerState: undefined,
+        sessionCorrectCount: 0,
+        sessionMissedLessonIds: []
       };
     case "select_choice":
       return { ...state, selectedChoiceId: action.choiceId };
     case "answer":
-      return { ...state, user: action.user, answerState: action.correct ? "correct" : "wrong" };
+      return {
+        ...state,
+        user: action.user,
+        answerState: action.correct ? "correct" : "wrong",
+        sessionCorrectCount: action.correct ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
+        sessionMissedLessonIds: action.correct || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
+          ? state.sessionMissedLessonIds
+          : [...state.sessionMissedLessonIds, action.missedLessonId]
+      };
     case "next_challenge":
       return {
         ...state,
@@ -221,7 +237,9 @@ function reducer(state: AppState, action: Action): AppState {
         activeSession: undefined,
         challengeIndex: 0,
         selectedChoiceId: undefined,
-        answerState: undefined
+        answerState: undefined,
+        sessionCorrectCount: 0,
+        sessionMissedLessonIds: []
       };
     case "apply_user":
       return { ...state, user: action.user };
@@ -232,7 +250,9 @@ function reducer(state: AppState, action: Action): AppState {
         activeSession: undefined,
         challengeIndex: 0,
         selectedChoiceId: undefined,
-        answerState: undefined
+        answerState: undefined,
+        sessionCorrectCount: 0,
+        sessionMissedLessonIds: []
       };
     default:
       return state;
@@ -390,6 +410,7 @@ export default function TopicApp() {
         title: getNodeTitle(node.id, node.title, currentLanguage)
       }));
   }, [currentLanguage, pathNodes, selectedBranch.id, selectedSection.topicId]);
+  const currentTestOutCluster = useMemo(() => getCurrentTestOutCluster(selectedNodes), [selectedNodes]);
 
   const currentLessonSection = useMemo(() => {
     if (!state.activeSession) {
@@ -673,6 +694,12 @@ export default function TopicApp() {
       return;
     }
 
+    if (selectedBranch.premiumOnly && !state.user.activeSubscriptionId) {
+      Alert.alert("Premium branch", "Upgrade to premium to unlock this advanced branch and its deeper mastery lessons.");
+      dispatch({ type: "open_shop" });
+      return;
+    }
+
     if (node.status === "locked") {
       Alert.alert("Locked", "Finish the earlier circles in this topic first.");
       return;
@@ -700,6 +727,55 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
+  async function startBranchTestOut() {
+    if (!state.user) {
+      return;
+    }
+
+    if (selectedBranch.premiumOnly && !state.user.activeSubscriptionId) {
+      Alert.alert("Premium test out", "This mastery branch is part of premium. Upgrade to unlock its advanced lessons and tests.");
+      dispatch({ type: "open_shop" });
+      return;
+    }
+
+    if (!currentTestOutCluster) {
+      Alert.alert("Branch cleared", "There is no active lesson cluster to test out right now.");
+      return;
+    }
+
+    if (!state.user.hearts.unlimited && state.user.hearts.current === 0) {
+      dispatch({ type: "open_shop" });
+      return;
+    }
+
+    const activeUser = {
+      ...state.user,
+      lastLearningAt: new Date().toISOString()
+    };
+
+    playGameSound("node_tap", soundPreferences);
+    dispatch({ type: "apply_user", user: activeUser });
+    const lessons = currentTestOutCluster.lessonIds
+      .map((lessonId) => LESSONS_BY_ID[lessonId])
+      .filter(Boolean);
+
+    if (!lessons.length) {
+      Alert.alert("Test unavailable", "This lesson stretch is still being prepared.");
+      return;
+    }
+
+    const session = createTestOutSession({
+      branchTitle: currentTestOutCluster.title,
+      branchId: selectedBranch.id,
+      lessons,
+      nodeIds: currentTestOutCluster.nodeIds,
+      heartsAtStart: activeUser.hearts.current
+    });
+
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "start_lesson", session });
+  }
+
   function answerChallenge() {
     if (!state.user || !state.activeSession || !state.selectedChoiceId || state.answerState) {
       return;
@@ -708,7 +784,8 @@ export default function TopicApp() {
     const challenge = state.activeSession.lesson.challenges[state.challengeIndex];
     const correct = challenge.correctChoiceId === state.selectedChoiceId;
     const responseTimeMs = Math.max(900, Date.now() - challengeStartedAtRef.current);
-    const lessonSignal = buildLessonSignal(state.activeSession.lesson.nodeId, challenge, state.challengeIndex, state.activeSession.lesson.challenges.length, correct, responseTimeMs);
+    const signalNodeId = challenge.sourceNodeId ?? state.activeSession.lesson.nodeId;
+    const lessonSignal = buildLessonSignal(signalNodeId, challenge, state.challengeIndex, state.activeSession.lesson.challenges.length, correct, responseTimeMs);
     const nextProfile = applyLessonSignalToLearnerProfile({
       profile: learnerProfile,
       category: lessonSignal.category,
@@ -732,7 +809,12 @@ export default function TopicApp() {
     if (!correct && shouldOfferReviewHeartRestore(nextUser)) {
       setReviewRestoreVisible(true);
     }
-    dispatch({ type: "answer", correct, user: nextUser });
+    dispatch({
+      type: "answer",
+      correct,
+      user: nextUser,
+      missedLessonId: correct ? undefined : challenge.sourceLessonId ?? state.activeSession.lesson.id
+    });
   }
 
   async function continueLesson() {
@@ -755,6 +837,58 @@ export default function TopicApp() {
 
       challengeStartedAtRef.current = Date.now();
       dispatch({ type: "next_challenge" });
+      return;
+    }
+
+    if (state.activeSession.mode === "test_out") {
+      const totalChallenges = state.activeSession.lesson.challenges.length;
+      const passingScore = state.activeSession.passingScore ?? Math.max(3, Math.ceil(totalChallenges * 0.8));
+      const passed = state.sessionCorrectCount >= passingScore;
+
+      if (!passed) {
+        const recommendedTitles = state.sessionMissedLessonIds
+          .map((lessonId) => LESSONS_BY_ID[lessonId]?.title)
+          .filter(Boolean)
+          .slice(0, 3);
+        const recommendationCopy = recommendedTitles.length
+          ? `Review next: ${recommendedTitles.join(", ")}.`
+          : "Review the current lesson stretch and try again.";
+
+        Alert.alert(
+          "Test out missed",
+          `You got ${state.sessionCorrectCount} of ${totalChallenges}. ${recommendationCopy}`
+        );
+        dispatch({ type: "reset_lesson" });
+        return;
+      }
+
+      const clusterLessons = (state.activeSession.targetLessonIds ?? [])
+        .map((lessonId) => LESSONS_BY_ID[lessonId])
+        .filter(Boolean);
+      const beforeNodes = learningApi.getPathNodes(state.user);
+      const nextUser = withExperienceDefaults({
+        ...completeLessonCluster(state.user, clusterLessons),
+        lastLearningAt: new Date().toISOString()
+      });
+      const afterNodes = learningApi.getPathNodes(nextUser);
+      const unlockedNode = afterNodes.find((node) => {
+        const previous = beforeNodes.find((item) => item.id === node.id);
+        return previous?.status === "locked" && node.status !== "locked";
+      });
+
+      playGameSound("lesson_complete", soundPreferences);
+      playGameSound("unlock", soundPreferences);
+      setCelebration({
+        title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
+        xp: clusterLessons.reduce((total, lesson) => total + lesson.xpReward, 0),
+        stars: (state.activeSession.targetNodeIds ?? [])
+          .map((nodeId) => getNodeStarsReward(nodeId))
+          .reduce((total, value) => total + value, 0),
+        unlockedTitle: unlockedNode?.title,
+        streakDays: nextUser.streakDays
+      });
+      const xpSummary = await learningApi.getXpSummaries(nextUser);
+      dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
       return;
     }
 
@@ -1232,6 +1366,7 @@ export default function TopicApp() {
             onSelectTopic={(topicId) => dispatch({ type: "select_topic", topicId })}
             onSelectBranch={(branchId) => dispatch({ type: "select_branch", branchId })}
             onStartLesson={startLesson}
+            onStartTestOut={startBranchTestOut}
             onStartPlacement={() => openFoundationAssessment("placement")}
             onStartReview={() => openFoundationAssessment("review")}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
@@ -1253,6 +1388,7 @@ export default function TopicApp() {
             onSelectChoice={(choiceId) => dispatch({ type: "select_choice", choiceId })}
             onAnswer={answerChallenge}
             onContinue={continueLesson}
+            onSkip={() => dispatch({ type: "reset_lesson" })}
             onExit={() => dispatch({ type: "reset_lesson" })}
           />
         )}
@@ -1525,6 +1661,7 @@ function PathScreen({
   onSelectTopic,
   onSelectBranch,
   onStartLesson,
+  onStartTestOut,
   onStartPlacement,
   onStartReview,
   onStartDailyChallenge,
@@ -1547,6 +1684,7 @@ function PathScreen({
   onSelectTopic: (topicId: TopicId) => void;
   onSelectBranch: (branchId: string) => void;
   onStartLesson: (node: LearningNodeView) => void;
+  onStartTestOut: () => void;
   onStartPlacement: () => void;
   onStartReview: () => void;
   onStartDailyChallenge: () => void;
@@ -1562,6 +1700,7 @@ function PathScreen({
   const journeyRewards = getJourneyRewardStops(user, section, branch, nodes);
   const topicNeedsReview = topicNeedsReviewHint(section.topicId, learnerProfile);
   const shouldRecommendFoundation = !learnerProfile.assessmentCompleted && section.topicId !== "foundation";
+  const currentCluster = getCurrentTestOutCluster(nodes);
   const recommendedFoundationCopy = learnerProfile.weak_areas.length
     ? `We are already spotting weaker areas in ${learnerProfile.weak_areas.slice(0, 2).join(" and ")}. A quick foundation check will tune your path better.`
     : "You can explore freely now, and the app will keep estimating your level as you learn.";
@@ -1712,10 +1851,28 @@ function PathScreen({
               {branch.difficultyRange ? `Difficulty ${branch.difficultyRange.start}-${branch.difficultyRange.end}` : "Difficulty 1-5"}
             </Text>
             {branch.sourceReferences?.length ? <Text style={styles.branchSummaryMetaText}>{`${branch.sourceReferences.length} source references`}</Text> : null}
+            {branch.premiumOnly ? <Text style={styles.branchSummaryMetaText}>Premium mastery branch</Text> : null}
             {branch.surahName ? <Text style={styles.branchSummaryMetaText}>{branch.surahName}</Text> : null}
             {branch.ayahRange ? <Text style={styles.branchSummaryMetaText}>{branch.ayahRange}</Text> : null}
           </View>
           <AnimatedProgressBar progress={branchProgress} color={section.accentColor} trackColor={lightenColor(section.accentColor, 0.92)} />
+          <View style={styles.branchActionRow}>
+            <Pressable onPress={() => nextNode && onStartLesson(nextNode)} style={[styles.branchPrimaryAction, { backgroundColor: section.accentColor }]}>
+              <Text style={styles.primaryButtonText}>{strings.continueTopic}</Text>
+            </Pressable>
+            <Pressable onPress={onStartTestOut} style={styles.branchSecondaryAction}>
+              <Text style={styles.branchSecondaryActionText}>
+                {currentCluster ? `Test out ${currentCluster.label}` : "Test out"}
+              </Text>
+            </Pressable>
+          </View>
+          {currentCluster ? (
+            <Text style={styles.branchTestOutCopy}>
+              {`${currentCluster.nodeIds.length} lessons in this cluster. Pass the test to unlock the next stretch.`}
+            </Text>
+          ) : (
+            <Text style={styles.branchTestOutCopy}>This branch is fully cleared. The current cluster is already behind you.</Text>
+          )}
         </View>
 
         <View style={styles.pathLane}>
@@ -2342,6 +2499,7 @@ function LessonScreen({
   onSelectChoice,
   onAnswer,
   onContinue,
+  onSkip,
   onExit
 }: {
   section: LearningSection;
@@ -2354,6 +2512,7 @@ function LessonScreen({
   onSelectChoice: (choiceId: string) => void;
   onAnswer: () => void;
   onContinue: () => void;
+  onSkip: () => void;
   onExit: () => void;
 }) {
   const challenge = session.lesson.challenges[challengeIndex];
@@ -2363,9 +2522,14 @@ function LessonScreen({
   return (
     <View style={styles.lessonScreen}>
       <View style={styles.lessonTop}>
-        <Pressable onPress={onExit} style={styles.closeButton}>
-          <Text style={styles.closeText}>Exit</Text>
-        </Pressable>
+        <View style={styles.lessonTopActions}>
+          <Pressable onPress={onExit} style={styles.closeButton}>
+            <Text style={styles.closeText}>Exit</Text>
+          </Pressable>
+          <Pressable onPress={onSkip} style={styles.skipLessonButton}>
+            <Text style={styles.skipLessonText}>{session.mode === "test_out" ? "Leave test" : "Skip for now"}</Text>
+          </Pressable>
+        </View>
         <View style={styles.lessonProgressTrack}>
           <AnimatedProgressBar progress={progress} color={section.accentColor} trackColor={colors.gray} height={12} />
         </View>
@@ -2415,6 +2579,7 @@ function LessonScreen({
 
       <LessonFooter
         strings={strings}
+        lesson={session.lesson}
         challenge={challenge}
         answerState={answerState}
         selectedChoiceId={selectedChoiceId}
@@ -2428,6 +2593,7 @@ function LessonScreen({
 
 function LessonFooter({
   strings,
+  lesson,
   challenge,
   answerState,
   selectedChoiceId,
@@ -2436,6 +2602,7 @@ function LessonFooter({
   onContinue
 }: {
   strings: UiStrings;
+  lesson: LessonSession["lesson"];
   challenge: Challenge;
   answerState: AnswerState;
   selectedChoiceId?: string;
@@ -2455,6 +2622,21 @@ function LessonFooter({
           {answerState === "correct" ? strings.correct : strings.notQuite}
         </Text>
         <Text style={styles.feedbackCopy}>{challenge.explanation}</Text>
+        <View style={styles.feedbackTeachCard}>
+          <Text style={styles.feedbackTeachTitle}>Mini-lesson</Text>
+          <Text style={styles.feedbackTeachCopy}>{challenge.miniLesson ?? lesson.explanationContent ?? lesson.intro}</Text>
+        </View>
+        {answerState === "wrong" && (challenge.easierExplanation || challenge.reviewSuggestion) ? (
+          <View style={styles.feedbackSupportCard}>
+            {challenge.easierExplanation ? <Text style={styles.feedbackSupportCopy}>{challenge.easierExplanation}</Text> : null}
+            {challenge.reviewSuggestion ? <Text style={styles.feedbackSupportHint}>{`Review next: ${challenge.reviewSuggestion}`}</Text> : null}
+            {challenge.resourceUrl ? (
+              <Pressable onPress={() => Linking.openURL(challenge.resourceUrl!)} style={styles.feedbackSupportLinkWrap}>
+                <Text style={styles.feedbackSupportLink}>{challenge.resourceLabel ?? "Open source"}</Text>
+              </Pressable>
+            ) : null}
+          </View>
+        ) : null}
         {answerState === "correct" && (
           <View style={styles.rewardRow}>
             <View style={styles.rewardStars}>
@@ -2516,14 +2698,41 @@ function ShopScreen({
         <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={112} />
       </View>
 
+      <View style={styles.planCard}>
+        <View style={styles.planHeaderRow}>
+          <View>
+            <Text style={styles.planTierEyebrow}>Free tier</Text>
+            <Text style={styles.planTitle}>Start free</Text>
+          </View>
+          <Text style={styles.planPrice}>$0</Text>
+        </View>
+        <Text style={styles.planCopy}>Learn the basics, keep your streak alive, and unlock more depth when you are ready.</Text>
+        {[
+          "Core topic access",
+          "Daily learning path",
+          "Hearts, streak, and XP tracking"
+        ].map((benefit) => (
+          <Text key={benefit} style={styles.planBenefit}>{`• ${benefit}`}</Text>
+        ))}
+      </View>
+
       {items.map((item) => (
-        <View key={item.id} style={styles.shopItem}>
+        <View key={item.id} style={[styles.shopItem, item.tier && styles.shopPlanCard]}>
           <View style={styles.shopItemText}>
-            <Text style={styles.shopItemTitle}>{item.name}</Text>
+            <View style={styles.planHeaderRow}>
+              <View style={styles.planTitleWrap}>
+                <Text style={styles.shopItemTitle}>{item.name}</Text>
+                {item.highlightBadge ? <Text style={styles.planBadge}>{item.highlightBadge}</Text> : null}
+              </View>
+              <Text style={styles.planPrice}>{formatPrice(item)}</Text>
+            </View>
             <Text style={styles.shopItemCopy}>{item.localizedDescription}</Text>
+            {item.benefits?.map((benefit) => (
+              <Text key={`${item.id}_${benefit}`} style={styles.planBenefit}>{`• ${benefit}`}</Text>
+            ))}
           </View>
           <Pressable onPress={() => onUseItem(item)} style={[styles.secondaryButton, { backgroundColor: section.accentColor }]}>
-            <Text style={styles.secondaryButtonText}>{formatPrice(item)}</Text>
+            <Text style={styles.secondaryButtonText}>{item.tier ? "Upgrade" : formatPrice(item)}</Text>
           </Pressable>
         </View>
       ))}
@@ -3891,6 +4100,35 @@ function findNodeById(nodeId: string) {
   return undefined;
 }
 
+function getCurrentTestOutCluster(nodes: LearningNodeView[]) {
+  const firstActiveNode = nodes.find((node) => node.status === "current" || node.status === "available");
+
+  if (!firstActiveNode) {
+    return undefined;
+  }
+
+  const clusterId = firstActiveNode.clusterId;
+  const activeClusterNodes = nodes.filter((node) =>
+    clusterId ? node.clusterId === clusterId && node.status !== "completed" && node.status !== "locked" : node.status !== "completed" && node.status !== "locked"
+  );
+
+  const nodeIds = activeClusterNodes.map((node) => node.id);
+  const lessonIds = activeClusterNodes.flatMap((node) => node.lessonIds).slice(0, 5);
+  const clusterIndex = clusterId
+    ? Number(clusterId.split("_").pop() || "1")
+    : Math.floor(nodes.findIndex((node) => node.id === firstActiveNode.id) / 5) + 1;
+  const startTitle = activeClusterNodes[0]?.title ?? firstActiveNode.title;
+  const endTitle = activeClusterNodes[activeClusterNodes.length - 1]?.title ?? firstActiveNode.title;
+
+  return {
+    clusterId: clusterId ?? `${firstActiveNode.branchId}_cluster_${clusterIndex}`,
+    label: `cluster ${clusterIndex}`,
+    title: `Test out ${startTitle}${endTitle !== startTitle ? ` to ${endTitle}` : ""}`,
+    nodeIds,
+    lessonIds
+  };
+}
+
 function withExperienceDefaults(user: UserProfile): UserProfile {
   return {
     ...user,
@@ -4191,6 +4429,11 @@ const styles = StyleSheet.create({
   branchProgressWrap: { alignItems: "flex-end", minWidth: 88 },
   branchProgressLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase" },
   branchProgressValue: { color: colors.ink, fontSize: 18, fontWeight: "900", marginTop: 4 },
+  branchActionRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 4 },
+  branchPrimaryAction: { minHeight: 46, paddingHorizontal: 16, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  branchSecondaryAction: { minHeight: 46, paddingHorizontal: 16, borderRadius: 14, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, alignItems: "center", justifyContent: "center" },
+  branchSecondaryActionText: { color: colors.greenDark, fontSize: 14, fontWeight: "900" },
+  branchTestOutCopy: { color: colors.muted, fontSize: 12, lineHeight: 18, fontWeight: "700", marginTop: 2 },
   pathLane: { width: "100%", maxWidth: 620, minHeight: 200, alignSelf: "center", marginTop: 10, paddingVertical: 10, position: "relative" },
   pathBackdrop: { position: "absolute", left: "50%", marginLeft: -7, top: 6, bottom: 6, width: 14, borderRadius: 999, opacity: 0.8 },
   nodeWrap: { width: "100%", marginVertical: 10 },
@@ -4278,8 +4521,11 @@ const styles = StyleSheet.create({
   heartsPromptCopy: { color: colors.muted, fontSize: 14, lineHeight: 19, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
   lessonScreen: { flex: 1, backgroundColor: colors.white },
   lessonTop: { flexDirection: "row", alignItems: "center", gap: 12, padding: 16, borderBottomWidth: 1, borderBottomColor: colors.line },
+  lessonTopActions: { flexDirection: "row", alignItems: "center", gap: 8 },
   closeButton: { paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, backgroundColor: colors.gray },
   closeText: { color: colors.ink, fontWeight: "900", letterSpacing: 0 },
+  skipLessonButton: { paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  skipLessonText: { color: colors.muted, fontSize: 13, fontWeight: "800", letterSpacing: 0 },
   lessonProgressTrack: { flex: 1, height: 12, overflow: "hidden", borderRadius: 6, backgroundColor: colors.gray },
   lessonProgressFill: { height: 12 },
   lessonBody: { flex: 1, padding: 20 },
@@ -4315,6 +4561,14 @@ const styles = StyleSheet.create({
   feedbackTitleGood: { color: colors.greenDark },
   feedbackTitleBad: { color: "#B5392D" },
   feedbackCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0 },
+  feedbackTeachCard: { padding: 12, borderRadius: 12, backgroundColor: "rgba(255,255,255,0.7)", borderWidth: 1, borderColor: "rgba(24,49,38,0.06)" },
+  feedbackTeachTitle: { color: colors.ink, fontSize: 12, fontWeight: "900", textTransform: "uppercase" },
+  feedbackTeachCopy: { color: colors.ink, fontSize: 14, lineHeight: 20, fontWeight: "700", marginTop: 6 },
+  feedbackSupportCard: { padding: 12, borderRadius: 12, backgroundColor: "rgba(255,255,255,0.82)", borderWidth: 1, borderColor: "rgba(24,49,38,0.06)" },
+  feedbackSupportCopy: { color: colors.ink, fontSize: 13, lineHeight: 18, fontWeight: "700" },
+  feedbackSupportHint: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "800", marginTop: 6 },
+  feedbackSupportLinkWrap: { alignSelf: "flex-start", marginTop: 8 },
+  feedbackSupportLink: { color: colors.sky, fontSize: 13, fontWeight: "900" },
   rewardRow: { flexDirection: "row", alignItems: "center", gap: 10, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 8, backgroundColor: "rgba(255,255,255,0.72)" },
   rewardStars: { flexDirection: "row", alignItems: "center", gap: 4 },
   rewardCopy: { color: colors.ink, fontSize: 14, fontWeight: "800", letterSpacing: 0 },
@@ -4327,6 +4581,16 @@ const styles = StyleSheet.create({
   shopContent: { padding: 18, paddingBottom: 128, gap: 14 },
   shopHero: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12, padding: 16, borderRadius: 8 },
   shopHeroText: { flex: 1 },
+  planCard: { borderRadius: 14, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, padding: 16 },
+  planHeaderRow: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 12 },
+  planTitleWrap: { flex: 1, gap: 6 },
+  planTierEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  planTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", marginTop: 4 },
+  planPrice: { color: colors.ink, fontSize: 20, fontWeight: "900" },
+  planCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", marginTop: 8 },
+  planBenefit: { color: colors.ink, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 8 },
+  planBadge: { alignSelf: "flex-start", paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999, backgroundColor: "#FFF3CF", color: "#A66C00", fontSize: 11, fontWeight: "900", overflow: "hidden" },
+  shopPlanCard: { alignItems: "flex-start" },
   socialContent: { padding: 18, paddingBottom: 128, gap: 14 },
   socialHero: { flexDirection: "row", alignItems: "stretch", gap: 12, padding: 18, borderRadius: 8, backgroundColor: "#DCF7E8" },
   socialHeroText: { flex: 1 },

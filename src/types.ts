@@ -18,7 +18,7 @@ export type ChallengeType = "multiple_choice" | "true_false";
 
 export type LearningNodeStatus = "locked" | "available" | "current" | "completed";
 
-export type ShopItemType = "heart_pack" | "monthly_membership" | "rewarded_ad";
+export type ShopItemType = "heart_pack" | "monthly_membership" | "yearly_membership" | "rewarded_ad";
 
 export type SocialRelation = "parent" | "friend";
 export type AccountRole = "parent" | "child";
@@ -210,6 +210,8 @@ export interface LearningBranch {
   title: string;
   description: string;
   order?: number;
+  clusterSize?: number;
+  premiumOnly?: boolean;
   surahName?: string;
   ayahRange?: string;
   difficultyRange?: {
@@ -240,6 +242,7 @@ export interface LearningNode {
   title: string;
   topicId: TopicId;
   branchId: string;
+  clusterId?: string;
   kind: "skill" | "story" | "review";
   lessonIds: string[];
   requiredNodeIds: string[];
@@ -251,6 +254,7 @@ export interface LearningNode {
   ayahRange?: string;
   sourceReferences?: LessonSource[];
   masteryState?: "new" | "learning" | "mastery";
+  masteryTestEligible?: boolean;
 }
 
 export interface LearningNodeView extends LearningNode {
@@ -270,6 +274,13 @@ export interface Challenge {
   choices: ChallengeChoice[];
   correctChoiceId: string;
   explanation: string;
+  sourceNodeId?: string;
+  sourceLessonId?: string;
+  miniLesson?: string;
+  easierExplanation?: string;
+  reviewSuggestion?: string;
+  resourceLabel?: string;
+  resourceUrl?: string;
 }
 
 export interface Lesson {
@@ -280,6 +291,7 @@ export interface Lesson {
   ayahRange?: string;
   title: string;
   intro: string;
+  explanationContent?: string;
   lessonType?: "skill" | "story" | "surah" | "scenario" | "review" | "mastery";
   difficulty?: DifficultyTier;
   xpReward: number;
@@ -287,6 +299,7 @@ export interface Lesson {
   sourceReferences?: LessonSource[];
   unlockRules?: string[];
   masteryState?: "new" | "learning" | "mastery";
+  masteryTestEligible?: boolean;
   challenges: Challenge[];
 }
 
@@ -307,6 +320,11 @@ export interface LessonSession {
   lesson: Lesson;
   startedAt: string;
   heartsAtStart: number;
+  mode?: "standard" | "test_out";
+  clusterTitle?: string;
+  targetNodeIds?: string[];
+  targetLessonIds?: string[];
+  passingScore?: number;
 }
 
 export interface ShopItem {
@@ -321,6 +339,9 @@ export interface ShopItem {
   unlimitedHearts?: boolean;
   removesAds?: boolean;
   durationDays?: number;
+  tier?: "free" | "premium_monthly" | "premium_yearly";
+  highlightBadge?: string;
+  benefits?: string[];
 }
 
 export interface XpSummary {
