@@ -46,6 +46,7 @@ type Screen = "path" | "lesson" | "shop";
 type AnswerState = "correct" | "wrong" | undefined;
 type AuthMode = "create" | "login";
 type SocialProvider = keyof typeof SOCIAL_AUTH_CONFIG;
+type NodeGlyphKind = "book_closed" | "book_open" | "book_stack" | "book_marked" | "book_seal";
 
 interface AppState {
   screen: Screen;
@@ -701,18 +702,28 @@ function PathNode({
           ]}
         >
           <View style={[styles.nodeInnerOrb, { backgroundColor: node.status === "locked" ? "#F1F4F3" : visual.innerColor }]}>
-            <Text style={[styles.nodeEmoji, node.status === "locked" && styles.nodeEmojiLocked]}>
-              {node.status === "completed" ? "✓" : visual.icon}
-            </Text>
+            <NodeGlyph
+              kind={node.status === "completed" ? "book_seal" : visual.glyph}
+              coverColor={node.status === "locked" ? "#B6C2BC" : darkenColor(visual.outerColor)}
+              pageColor={node.status === "locked" ? "#E0E7E3" : "#FFFFFF"}
+              accentColor={node.status === "locked" ? "#C7D2CC" : "#F2C94C"}
+            />
           </View>
           {node.status === "current" && (
             <>
-              <Text style={[styles.nodeSparkle, styles.nodeSparkleLeft]}>✦</Text>
-              <Text style={[styles.nodeSparkle, styles.nodeSparkleRight]}>★</Text>
+              <View style={[styles.nodeSparkle, styles.nodeSparkleLeft]}>
+                <SparkleIcon size={11} color={colors.white} />
+              </View>
+              <View style={[styles.nodeSparkle, styles.nodeSparkleRight]}>
+                <SparkleIcon size={13} color="#FFE38C" />
+              </View>
             </>
           )}
           <View style={styles.nodeStarsBadge}>
-            <Text style={styles.nodeStarsText}>{`${node.starsReward}★`}</Text>
+            <View style={styles.nodeStarsBadgeInner}>
+              <SparkleIcon size={10} color="#F0B90B" />
+              <Text style={styles.nodeStarsText}>{`${node.starsReward}`}</Text>
+            </View>
           </View>
         </Pressable>
         {!isLast && <View style={[styles.nodeConnector, { backgroundColor: accentColor }]} />}
@@ -725,6 +736,106 @@ function PathNode({
       </View>
     </View>
   );
+}
+
+function SparkleIcon({ size, color }: { size: number; color: string }) {
+  const bar = Math.max(2, Math.round(size * 0.22));
+  const diamond = Math.max(6, Math.round(size * 0.62));
+
+  return (
+    <View style={{ width: size, height: size, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          position: "absolute",
+          width: bar,
+          height: size,
+          borderRadius: 999,
+          backgroundColor: color
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          width: size,
+          height: bar,
+          borderRadius: 999,
+          backgroundColor: color
+        }}
+      />
+      <View
+        style={{
+          width: diamond,
+          height: diamond,
+          borderRadius: Math.max(2, Math.round(diamond * 0.18)),
+          backgroundColor: color,
+          transform: [{ rotate: "45deg" }]
+        }}
+      />
+    </View>
+  );
+}
+
+function NodeGlyph({
+  kind,
+  coverColor,
+  pageColor,
+  accentColor
+}: {
+  kind: NodeGlyphKind;
+  coverColor: string;
+  pageColor: string;
+  accentColor: string;
+}) {
+  const baseBook = (
+    <>
+      <View style={[styles.bookCover, { backgroundColor: coverColor }]} />
+      <View style={[styles.bookPageBlock, { backgroundColor: pageColor }]} />
+      <View style={[styles.bookSpine, { backgroundColor: accentColor }]} />
+    </>
+  );
+
+  if (kind === "book_open") {
+    return (
+      <View style={styles.nodeGlyphWrap}>
+        <View style={[styles.bookOpenPage, styles.bookOpenLeft, { backgroundColor: pageColor, borderColor: coverColor }]} />
+        <View style={[styles.bookOpenPage, styles.bookOpenRight, { backgroundColor: pageColor, borderColor: coverColor }]} />
+        <View style={[styles.bookOpenCenter, { backgroundColor: coverColor }]} />
+      </View>
+    );
+  }
+
+  if (kind === "book_stack") {
+    return (
+      <View style={styles.nodeGlyphWrap}>
+        <View style={[styles.bookStackBack, { backgroundColor: pageColor, borderColor: coverColor }]} />
+        <View style={[styles.bookStackFront, { backgroundColor: coverColor }]} />
+        <View style={[styles.bookPageBlock, styles.bookPageBlockFront, { backgroundColor: pageColor }]} />
+        <View style={[styles.bookSpine, styles.bookSpineFront, { backgroundColor: accentColor }]} />
+      </View>
+    );
+  }
+
+  if (kind === "book_marked") {
+    return (
+      <View style={styles.nodeGlyphWrap}>
+        {baseBook}
+        <View style={[styles.bookRibbon, { backgroundColor: accentColor }]} />
+      </View>
+    );
+  }
+
+  if (kind === "book_seal") {
+    return (
+      <View style={styles.nodeGlyphWrap}>
+        {baseBook}
+        <View style={styles.bookSeal}>
+          <SparkleIcon size={10} color={accentColor} />
+        </View>
+      </View>
+    );
+  }
+
+  return <View style={styles.nodeGlyphWrap}>{baseBook}</View>;
 }
 
 function CoachCard({ section, title, copy }: { section: LearningSection; title: string; copy: string }) {
@@ -858,7 +969,11 @@ function LessonFooter({
         <Text style={styles.feedbackCopy}>{challenge.explanation}</Text>
         {answerState === "correct" && (
           <View style={styles.rewardRow}>
-            <Text style={styles.rewardStars}>{`${"★".repeat(Math.max(1, Math.min(starsReward, 3)))}`}</Text>
+            <View style={styles.rewardStars}>
+              {Array.from({ length: Math.max(1, Math.min(starsReward, 3)) }).map((_, index) => (
+                <SparkleIcon key={`reward-star-${index}`} size={14} color="#F0B90B" />
+              ))}
+            </View>
             <Text style={styles.rewardCopy}>{`+${starsReward} stars for this part`}</Text>
           </View>
         )}
@@ -962,7 +1077,10 @@ function StarMeter({
 }) {
   return (
     <View style={[styles.starMeter, compact && styles.starMeterCompact]}>
-      <Text style={[styles.starMeterValue, light && styles.starMeterValueLight]}>{`${earned}/${total} ★`}</Text>
+      <View style={styles.starMeterValueRow}>
+        <SparkleIcon size={12} color={light ? "#FFF1A8" : "#F0B90B"} />
+        <Text style={[styles.starMeterValue, light && styles.starMeterValueLight]}>{`${earned}/${total} stars`}</Text>
+      </View>
       {!compact && <Text style={[styles.starMeterLabel, light && styles.starMeterLabelLight]}>Stars in this part</Text>}
     </View>
   );
@@ -1314,26 +1432,26 @@ function GuideMascot({
 }
 
 function getNodeVisual(nodeId: string, status: LearningNodeView["status"], accentColor: string) {
-  const visualMap: Record<string, { icon: string; outerColor: string; innerColor: string }> = {
-    "foundation-niyyah": { icon: "✨", outerColor: "#FFC928", innerColor: "#FFE58A" },
-    "foundation-guidance": { icon: "🧭", outerColor: "#7ED7FF", innerColor: "#DDF5FF" },
-    "foundation-character": { icon: "💛", outerColor: "#FF9D7A", innerColor: "#FFD7C8" },
-    "manners-salam": { icon: "💬", outerColor: "#49C38F", innerColor: "#CFF5E2" },
-    "manners-truthful": { icon: "🤝", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
-    "manners-parents": { icon: "🌿", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
-    "sahabah-abubakr": { icon: "📜", outerColor: "#1FC1A3", innerColor: "#D7FBF4" },
-    "sahabah-umar": { icon: "🛡", outerColor: "#2AB7A6", innerColor: "#D7F7F3" },
-    "sahabah-bilal": { icon: "📣", outerColor: "#5EC0A7", innerColor: "#DDF7EF" },
-    "quran-fatiha": { icon: "📖", outerColor: "#40A8FF", innerColor: "#DDF0FF" },
-    "quran-ikhlas": { icon: "☀️", outerColor: "#6AA4FF", innerColor: "#E2ECFF" },
-    "quran-tafseer": { icon: "💎", outerColor: "#7D8CFF", innerColor: "#E7E9FF" }
+  const visualMap: Record<string, { glyph: NodeGlyphKind; outerColor: string; innerColor: string }> = {
+    "foundation-niyyah": { glyph: "book_marked", outerColor: "#FFC928", innerColor: "#FFE58A" },
+    "foundation-guidance": { glyph: "book_open", outerColor: "#7ED7FF", innerColor: "#DDF5FF" },
+    "foundation-character": { glyph: "book_seal", outerColor: "#FF9D7A", innerColor: "#FFD7C8" },
+    "manners-salam": { glyph: "book_open", outerColor: "#49C38F", innerColor: "#CFF5E2" },
+    "manners-truthful": { glyph: "book_closed", outerColor: "#34C8B8", innerColor: "#D5FBF6" },
+    "manners-parents": { glyph: "book_marked", outerColor: "#7CCF65", innerColor: "#E4F8DC" },
+    "sahabah-abubakr": { glyph: "book_stack", outerColor: "#1FC1A3", innerColor: "#D7FBF4" },
+    "sahabah-umar": { glyph: "book_closed", outerColor: "#2AB7A6", innerColor: "#D7F7F3" },
+    "sahabah-bilal": { glyph: "book_seal", outerColor: "#5EC0A7", innerColor: "#DDF7EF" },
+    "quran-fatiha": { glyph: "book_open", outerColor: "#40A8FF", innerColor: "#DDF0FF" },
+    "quran-ikhlas": { glyph: "book_marked", outerColor: "#6AA4FF", innerColor: "#E2ECFF" },
+    "quran-tafseer": { glyph: "book_stack", outerColor: "#7D8CFF", innerColor: "#E7E9FF" }
   };
-  const fallback = { icon: "⭐", outerColor: accentColor, innerColor: lightenColor(accentColor, 0.88) };
+  const fallback = { glyph: "book_closed" as NodeGlyphKind, outerColor: accentColor, innerColor: lightenColor(accentColor, 0.88) };
   const selected = visualMap[nodeId] ?? fallback;
 
   if (status === "locked") {
     return {
-      icon: selected.icon,
+      glyph: selected.glyph,
       outerColor: "#E2E8E5",
       innerColor: "#F3F6F4"
     };
@@ -1544,6 +1662,7 @@ const styles = StyleSheet.create({
   heroCopy: { color: "#EAF8F2", fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0, marginTop: 6 },
   starMeter: { marginTop: 10, alignSelf: "flex-start", borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6, backgroundColor: "rgba(255,255,255,0.18)" },
   starMeterCompact: { marginTop: 10, paddingHorizontal: 10, paddingVertical: 5, backgroundColor: "#FFF7DA" },
+  starMeterValueRow: { flexDirection: "row", alignItems: "center", gap: 6 },
   starMeterValue: { color: colors.ink, fontSize: 13, fontWeight: "900", letterSpacing: 0 },
   starMeterValueLight: { color: colors.white },
   starMeterLabel: { color: colors.muted, fontSize: 11, fontWeight: "700", letterSpacing: 0, marginTop: 2 },
@@ -1578,12 +1697,25 @@ const styles = StyleSheet.create({
   nodeAvailable: { backgroundColor: colors.white },
   nodeLocked: { backgroundColor: colors.gray, borderColor: colors.line },
   nodePressed: { transform: [{ scale: 0.97 }] },
-  nodeEmoji: { fontSize: 28 },
-  nodeEmojiLocked: { opacity: 0.45 },
-  nodeSparkle: { position: "absolute", top: 8, color: colors.white, fontSize: 15, fontWeight: "900" },
+  nodeGlyphWrap: { width: 34, height: 34, alignItems: "center", justifyContent: "center" },
+  bookCover: { position: "absolute", width: 22, height: 28, borderRadius: 5, left: 7, top: 3 },
+  bookPageBlock: { position: "absolute", width: 13, height: 24, borderRadius: 4, right: 6, top: 5 },
+  bookPageBlockFront: { right: 5, top: 6 },
+  bookSpine: { position: "absolute", width: 5, height: 28, borderRadius: 4, left: 7, top: 3 },
+  bookSpineFront: { left: 8, top: 4 },
+  bookRibbon: { position: "absolute", width: 5, height: 15, borderBottomLeftRadius: 3, borderBottomRightRadius: 3, top: 1, right: 8 },
+  bookSeal: { position: "absolute", right: 2, top: 2 },
+  bookOpenPage: { position: "absolute", top: 6, width: 14, height: 22, borderRadius: 4, borderWidth: 2 },
+  bookOpenLeft: { left: 3, transform: [{ rotate: "-6deg" }] },
+  bookOpenRight: { right: 3, transform: [{ rotate: "6deg" }] },
+  bookOpenCenter: { position: "absolute", width: 4, height: 20, borderRadius: 999, top: 7 },
+  bookStackBack: { position: "absolute", width: 20, height: 24, borderRadius: 5, borderWidth: 2, left: 4, top: 4 },
+  bookStackFront: { position: "absolute", width: 22, height: 26, borderRadius: 5, left: 9, top: 8 },
+  nodeSparkle: { position: "absolute", top: 9 },
   nodeSparkleLeft: { left: 12 },
   nodeSparkleRight: { right: 12 },
   nodeStarsBadge: { position: "absolute", bottom: -6, paddingHorizontal: 8, paddingVertical: 2, borderRadius: 999, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line },
+  nodeStarsBadgeInner: { flexDirection: "row", alignItems: "center", gap: 4 },
   nodeStarsText: { color: colors.ink, fontSize: 11, fontWeight: "900", letterSpacing: 0 },
   nodeTextBlock: { width: 164, marginTop: 8 },
   nodeTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", textAlign: "center", letterSpacing: 0 },
@@ -1631,7 +1763,7 @@ const styles = StyleSheet.create({
   feedbackTitleBad: { color: "#B5392D" },
   feedbackCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0 },
   rewardRow: { flexDirection: "row", alignItems: "center", gap: 10, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 8, backgroundColor: "rgba(255,255,255,0.72)" },
-  rewardStars: { color: "#F0B90B", fontSize: 18, fontWeight: "900", letterSpacing: 0 },
+  rewardStars: { flexDirection: "row", alignItems: "center", gap: 4 },
   rewardCopy: { color: colors.ink, fontSize: 14, fontWeight: "800", letterSpacing: 0 },
   primaryButton: { minHeight: 52, borderRadius: 8, alignItems: "center", justifyContent: "center" },
   primaryButtonDisabled: { backgroundColor: colors.line },
