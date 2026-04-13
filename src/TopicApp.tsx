@@ -38,6 +38,7 @@ import {
 } from "./i18n";
 import { localizeLessonContent, translateStudyText } from "./services/contentLocalization";
 import {
+  clearLocalAuthAccount,
   createLocalAuthAccount,
   loadLocalAuthAccount,
   loginLocalAuthAccount,
@@ -46,13 +47,15 @@ import {
 import {
   hydrateRemoteSession,
   loginRemoteAccount,
+  logoutRemoteAccount,
   registerRemoteAccount,
   syncRemoteSocialHub,
   syncRemoteUser
 } from "./services/backendSync";
-import { loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
+import { clearSavedUserProfile, loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
 import { sandboxMonetizationClient } from "./services/monetization";
 import {
+  clearSocialHubState,
   createSocialConnection,
   getSocialScore,
   loadSocialHubState,
@@ -1035,6 +1038,11 @@ export default function TopicApp() {
       return;
     }
 
+    if (accountPassword.trim().length < 8) {
+      Alert.alert("Use a stronger password", "Please use at least 8 characters so your account is better protected.");
+      return;
+    }
+
     const createdAt = new Date().toISOString();
     const reminderPreferences = defaultReminderPreferences();
     const pendingAccount = {
@@ -1176,6 +1184,48 @@ export default function TopicApp() {
     if (settingsStreakReminder || settingsIslamicReminder) {
       await requestIslamicNotificationPermission();
     }
+  }
+
+  async function logoutAccount() {
+    if (!state.user) {
+      return;
+    }
+
+    const fallbackUser = await learningApi.getUser(1001);
+    const guestUser = withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday({
+      ...fallbackUser,
+      preferredLanguage: state.user.preferredLanguage ?? DEFAULT_LANGUAGE,
+      soundEffectsEnabled: state.user.soundEffectsEnabled !== false,
+      reducedSoundEffects: Boolean(state.user.reducedSoundEffects)
+    })));
+
+    try {
+      await logoutRemoteAccount();
+    } catch {
+      // Best effort is enough here because we still clear the local session below.
+    }
+
+    clearLocalAuthAccount();
+    clearSocialHubState();
+    clearSavedUserProfile();
+    setSocialHub({ connections: [], battleHistory: [] });
+    setHasSavedAccount(false);
+    setAccountPromptShown(false);
+    setAccountName("");
+    setAccountEmail("");
+    setAccountPassword("");
+    setAuthMode("create");
+    setSettingsRole(undefined);
+    setSettingsDailyReminder(true);
+    setSettingsWeeklyReminder(true);
+    setSettingsStreakReminder(true);
+    setSettingsIslamicReminder(true);
+    setSettingsSoundEnabled(guestUser.soundEffectsEnabled !== false);
+    setSettingsReducedSound(Boolean(guestUser.reducedSoundEffects));
+    setReviewRestoreVisible(false);
+    setSettingsModalVisible(false);
+    dispatch({ type: "apply_user", user: guestUser });
+    Alert.alert("Logged out", "You are back in guest mode. Create an account or log in any time to save progress again.");
   }
 
   function handleSocialLogin(provider: SocialProvider) {
@@ -1472,6 +1522,7 @@ export default function TopicApp() {
           onToggleIslamic={() => setSettingsIslamicReminder((value) => !value)}
           onToggleSound={() => setSettingsSoundEnabled((value) => !value)}
           onToggleReducedSound={() => setSettingsReducedSound((value) => !value)}
+          onLogout={logoutAccount}
           onSave={saveAccountSettings}
         />
         <CelebrationModal
@@ -3183,6 +3234,7 @@ function SettingsModal({
   onToggleIslamic,
   onToggleSound,
   onToggleReducedSound,
+  onLogout,
   onSave
 }: {
   visible: boolean;
@@ -3203,6 +3255,7 @@ function SettingsModal({
   onToggleIslamic: () => void;
   onToggleSound: () => void;
   onToggleReducedSound: () => void;
+  onLogout: () => void;
   onSave: () => void;
 }) {
   const options: Array<{
@@ -3314,6 +3367,12 @@ function SettingsModal({
               </View>
             </Pressable>
             <Text style={styles.settingsReminderHelp}>{translateStudyText("Keep the cute feedback, or soften it if you want a calmer session.", language)}</Text>
+          </View>
+
+          <View style={styles.modalActions}>
+            <Pressable onPress={onLogout} style={styles.modalDangerButton}>
+              <Text style={styles.modalDangerText}>{translateStudyText("Log out", language)}</Text>
+            </Pressable>
           </View>
 
           <View style={styles.modalActions}>
@@ -4717,6 +4776,17 @@ const styles = StyleSheet.create({
   modalGhostText: { color: colors.ink, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
   modalPrimaryButton: { flex: 1, minHeight: 48, borderRadius: 8, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
   modalPrimaryText: { color: colors.white, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
+  modalDangerButton: {
+    flex: 1,
+    minHeight: 46,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFF1F1",
+    borderWidth: 1,
+    borderColor: "#F4C7C7"
+  },
+  modalDangerText: { color: "#B42318", fontSize: 14, fontWeight: "900", letterSpacing: 0 },
   reviewRestoreCard: { marginTop: 2, borderRadius: 8, backgroundColor: "#F7FBF8", padding: 14 },
   reviewRestoreTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
   reviewRestoreCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },

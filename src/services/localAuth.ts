@@ -86,3 +86,11 @@ export function loginLocalAuthAccount(email: string, password: string) {
 
   return account;
 }
+
+export function clearLocalAuthAccount() {
+  if (typeof window === "undefined" || !window.localStorage) {
+    return;
+  }
+
+  window.localStorage.removeItem(STORAGE_KEY);
+}

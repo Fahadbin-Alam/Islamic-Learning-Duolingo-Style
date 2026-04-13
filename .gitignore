@@ -15,3 +15,8 @@ android/
 *.mobileprovision
 *.orig.*
 eas.json.local
+.env
+backend/.env
+backend/data/sira_path.db
+__pycache__/
+*.pyc

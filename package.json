@@ -8,7 +8,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "backend": "node backend/server.js",
+    "backend": "python -m uvicorn backend.app.main:app --reload --port 8000",
+    "backend:legacy": "node backend/server.js",
+    "backend:migrate": "python -m alembic -c backend/alembic.ini upgrade head",
+    "backend:seed": "python -m backend.scripts.seed_content",
+    "backend:bootstrap": "python -m backend.scripts.bootstrap",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

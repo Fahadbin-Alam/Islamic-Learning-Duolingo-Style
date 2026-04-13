@@ -50,6 +50,14 @@ export function saveSocialHubState(state: SocialHubState) {
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
+export function clearSocialHubState() {
+  if (typeof window === "undefined" || !window.localStorage) {
+    return;
+  }
+
+  window.localStorage.removeItem(STORAGE_KEY);
+}
+
 export function createSocialConnection(input: {
   name: string;
   relation: SocialRelation;

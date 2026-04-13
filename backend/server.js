@@ -111,6 +111,10 @@ function handleRegister(body, res) {
     return sendJson(res, 400, { error: "Name, email, and password are required." });
   }
 
+  if (password.length < 8) {
+    return sendJson(res, 400, { error: "Password must be at least 8 characters long." });
+  }
+
   const db = readDb();
 
   if (db.users.some((user) => user.email === email)) {

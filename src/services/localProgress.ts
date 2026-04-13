@@ -27,3 +27,11 @@ export function saveUserProfile(user: UserProfile) {
 
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
 }
+
+export function clearSavedUserProfile() {
+  if (typeof window === "undefined" || !window.localStorage) {
+    return;
+  }
+
+  window.localStorage.removeItem(STORAGE_KEY);
+}

@@ -819,9 +819,18 @@ const NODE_TITLES: Record<SupportedLanguage, Record<string, string>> = {
 };
 
 export function getUiStrings(language?: SupportedLanguage) {
+  const safeHeartRestoreCopy = {
+    firstHeartReset: "First mercy refill",
+    reviewCopy: "Use this one-time refill to get back into your lesson path right away.",
+    oneTimeRefill: "One-time mercy refill",
+    reviewRestoreCopy: "After this first refill, you can use the heart shop, a membership, or a sponsor reward to keep going.",
+    iLeft5Stars: "Use refill now"
+  };
+
   return {
     ...UI_STRINGS.en,
-    ...(UI_STRINGS[language ?? DEFAULT_LANGUAGE] ?? {})
+    ...(UI_STRINGS[language ?? DEFAULT_LANGUAGE] ?? {}),
+    ...safeHeartRestoreCopy
   } as UiStrings;
 }
 

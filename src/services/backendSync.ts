@@ -25,6 +25,16 @@ type RemoteSessionPayload = {
   socialHub: SocialHubState;
 };
 
+export type RemoteSubscriptionPlan = {
+  id: string;
+  title: string;
+  price: number;
+  interval: string;
+  badge?: string | null;
+  entitlementName: string;
+  benefits: string[];
+};
+
 export async function hydrateRemoteSession() {
   const token = getSessionToken();
 
@@ -134,6 +144,101 @@ export async function syncRemoteSocialHub(socialHub: SocialHubState) {
       Authorization: `Bearer ${token}`
     },
     body: JSON.stringify({ socialHub })
+  });
+}
+
+export async function logoutRemoteAccount() {
+  const token = getSessionToken();
+
+  if (!token) {
+    clearSessionToken();
+    return;
+  }
+
+  try {
+    await backendRequest("/api/auth/logout", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } finally {
+    clearSessionToken();
+  }
+}
+
+export async function recordRemoteQuestionAttempt(input: {
+  questionId: number;
+  lessonId: number;
+  selectedAnswerJson: Record<string, unknown>;
+  isCorrect: boolean;
+  responseTimeMs?: number;
+  confidenceRating?: number;
+  topicId?: number;
+  branchId?: number;
+}) {
+  const token = getSessionToken();
+
+  if (!token) {
+    return;
+  }
+
+  await backendRequest(`/api/questions/${input.questionId}/attempts`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(input)
+  });
+}
+
+export async function completeRemoteLesson(input: {
+  lessonSlug: string;
+  status: string;
+  masteryScore: number;
+  xpEarned: number;
+  bestScore: number;
+}) {
+  const token = getSessionToken();
+
+  if (!token) {
+    return;
+  }
+
+  await backendRequest(`/api/lessons/${input.lessonSlug}/completion`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(input)
+  });
+}
+
+export async function fetchRemoteSubscriptionPlans() {
+  return backendRequest<RemoteSubscriptionPlan[]>("/api/subscriptions/plans");
+}
+
+export async function syncSubscriptionEntitlement(input: {
+  provider: string;
+  providerCustomerId?: string;
+  planType: string;
+  status: string;
+  startedAt?: string;
+  expiresAt?: string;
+  entitlementName: string;
+}) {
+  const token = getSessionToken();
+
+  if (!token) {
+    return;
+  }
+
+  await backendRequest("/api/subscriptions/sync", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(input)
   });
 }
 
