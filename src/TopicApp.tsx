@@ -150,6 +150,18 @@ type LessonCelebration = {
   gemsReward?: number;
 };
 
+type PathTheme = {
+  primary: string;
+  secondary: string;
+  tertiary: string;
+  glow: string;
+  shell: string;
+  lane: string;
+  reward: string;
+  review: string;
+  candy: string;
+};
+
 interface AppState {
   screen: Screen;
   returnScreen?: Screen;
@@ -2131,6 +2143,7 @@ function BranchScreen({
   const journeyRewards = getJourneyRewardStops(user, section, branch, nodes);
   const topicNeedsReview = topicNeedsReviewHint(section.topicId, learnerProfile);
   const currentCluster = getCurrentTestOutCluster(nodes);
+  const pathTheme = getTopicPathTheme(section.topicId, section.accentColor);
 
   return (
     <ScrollView contentContainerStyle={styles.screenScrollContent} showsVerticalScrollIndicator={false}>
@@ -2142,7 +2155,9 @@ function BranchScreen({
         onAction={() => nextNode && onStartLesson(nextNode)}
       />
 
-      <View style={styles.branchHeroCard}>
+      <View style={[styles.branchHeroCard, { borderColor: lightenColor(pathTheme.primary, 0.78), backgroundColor: pathTheme.shell }]}>
+        <View style={[styles.branchHeroGlow, { backgroundColor: withAlpha(pathTheme.secondary, 0.16) }]} />
+        <View style={[styles.branchHeroGlow, styles.branchHeroGlowRight, { backgroundColor: withAlpha(pathTheme.candy, 0.14) }]} />
         <View style={styles.branchHeroText}>
           <Text style={styles.routeBadge}>{section.badge}</Text>
           <Text style={styles.routeTitle}>{branch.title}</Text>
@@ -2168,7 +2183,8 @@ function BranchScreen({
         ))}
       </ScrollView>
 
-      <View style={styles.focusPanelCompact}>
+      <View style={[styles.focusPanelCompact, { borderColor: lightenColor(pathTheme.primary, 0.78), backgroundColor: withAlpha(pathTheme.shell, 0.96) }]}>
+        <View style={[styles.focusPanelGlow, { backgroundColor: withAlpha(pathTheme.glow, 0.22) }]} />
         <Text style={styles.focusPanelEyebrow}>{translateStudyText("Recommended next step", language)}</Text>
         <Text style={styles.focusPanelTitle}>{nextNode?.title ?? branch.title}</Text>
         <Text style={styles.focusPanelCopy}>
@@ -2186,8 +2202,11 @@ function BranchScreen({
         </View>
       </View>
 
-      <View style={styles.cleanPathCard}>
-        <View style={[styles.pathBackdrop, { backgroundColor: lightenColor(section.accentColor, 0.95) }]} />
+      <View style={[styles.cleanPathCard, { borderColor: lightenColor(pathTheme.primary, 0.8), backgroundColor: pathTheme.shell }]}>
+        <PathBackdropDecor theme={pathTheme} compact />
+        <View style={[styles.pathBackdropAura, { backgroundColor: withAlpha(pathTheme.glow, 0.28) }]} />
+        <View style={[styles.pathBackdropShell, { backgroundColor: withAlpha(pathTheme.secondary, 0.24) }]} />
+        <View style={[styles.pathBackdrop, { backgroundColor: pathTheme.lane }]} />
         <View style={styles.cleanPathLane}>
           {nodes.map((node, index) => (
             <View key={node.id}>
@@ -2196,13 +2215,14 @@ function BranchScreen({
                 index={index}
                 isLast={index === nodes.length - 1}
                 accentColor={section.accentColor}
+                theme={pathTheme}
                 reviewNeeded={topicNeedsReview && node.kind === "review"}
                 onPress={() => onStartLesson(node)}
               />
               {journeyRewards
                 .filter((reward) => reward.id.endsWith(`_${index}`))
                 .map((reward) => (
-                  <RewardChestStop key={reward.id} reward={reward} accentColor={section.accentColor} onPress={() => onClaimReward(reward)} />
+                  <RewardChestStop key={reward.id} reward={reward} accentColor={section.accentColor} theme={pathTheme} onPress={() => onClaimReward(reward)} />
                 ))}
             </View>
           ))}
@@ -2470,7 +2490,8 @@ function LessonCompleteScreen({
 }) {
   return (
     <View style={styles.lessonStageScreen}>
-      <View style={styles.lessonCompleteCard}>
+      <View style={[styles.lessonCompleteCard, { borderColor: lightenColor(section.accentColor, 0.82), backgroundColor: lightenColor(section.accentColor, 0.95) }]}>
+        <CelebrationBurst accentColor={section.accentColor} xp={summary.xp} stars={summary.stars} />
         <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={128} />
         <Text style={styles.modalEyebrow}>Lesson complete</Text>
         <Text style={styles.lessonCompleteTitle}>{summary.title}</Text>
@@ -2852,6 +2873,7 @@ function PathScreen({
   const topicNeedsReview = topicNeedsReviewHint(section.topicId, learnerProfile);
   const shouldRecommendFoundation = !learnerProfile.assessmentCompleted && section.topicId !== "foundation";
   const currentCluster = getCurrentTestOutCluster(nodes);
+  const pathTheme = getTopicPathTheme(section.topicId, section.accentColor);
   const recommendedFoundationCopy = learnerProfile.weak_areas.length
     ? `We are already spotting weaker areas in ${learnerProfile.weak_areas.slice(0, 2).join(" and ")}. A quick foundation check will tune your path better.`
     : "You can explore freely now, and the app will keep estimating your level as you learn.";
@@ -2972,7 +2994,8 @@ function PathScreen({
         </View>
       )}
 
-      <View style={styles.routeCard}>
+      <View style={[styles.routeCard, { borderColor: lightenColor(pathTheme.primary, 0.8), backgroundColor: pathTheme.shell }]}>
+        <PathBackdropDecor theme={pathTheme} />
         <View style={styles.routeHeader}>
           <View style={styles.routeHeaderText}>
             <Text style={styles.routeBadge}>{section.badge}</Text>
@@ -2985,7 +3008,7 @@ function PathScreen({
           </View>
         </View>
 
-        <View style={styles.branchSummaryCard}>
+        <View style={[styles.branchSummaryCard, { borderColor: lightenColor(pathTheme.primary, 0.84), backgroundColor: withAlpha(pathTheme.secondary, 0.08) }]}>
           <View style={styles.branchSummaryTop}>
             <View>
               <Text style={[styles.branchSummaryEyebrow, { color: section.accentColor }]}>{strings.branch}</Text>
@@ -3027,7 +3050,9 @@ function PathScreen({
         </View>
 
         <View style={styles.pathLane}>
-          <View style={[styles.pathBackdrop, { backgroundColor: lightenColor(section.accentColor, 0.95) }]} />
+          <View style={[styles.pathBackdropAura, { backgroundColor: withAlpha(pathTheme.glow, 0.24) }]} />
+          <View style={[styles.pathBackdropShell, { backgroundColor: withAlpha(pathTheme.secondary, 0.22) }]} />
+          <View style={[styles.pathBackdrop, { backgroundColor: pathTheme.lane }]} />
           {nodes.map((node, index) => (
             <View key={node.id}>
               <PathNode
@@ -3035,13 +3060,14 @@ function PathScreen({
                 index={index}
                 isLast={index === nodes.length - 1}
                 accentColor={section.accentColor}
+                theme={pathTheme}
                 reviewNeeded={topicNeedsReview && node.kind === "review"}
                 onPress={() => onStartLesson(node)}
               />
               {journeyRewards
                 .filter((reward) => reward.id.endsWith(`_${index}`))
                 .map((reward) => (
-                  <RewardChestStop key={reward.id} reward={reward} accentColor={section.accentColor} onPress={() => onClaimReward(reward)} />
+                  <RewardChestStop key={reward.id} reward={reward} accentColor={section.accentColor} theme={pathTheme} onPress={() => onClaimReward(reward)} />
                 ))}
               {index === 1 && (
                 <CoachCard
@@ -3203,11 +3229,70 @@ function TopicIcon({
   );
 }
 
+function PathBackdropDecor({
+  theme,
+  compact = false
+}: {
+  theme: PathTheme;
+  compact?: boolean;
+}) {
+  const scale = compact ? 0.82 : 1;
+
+  return (
+    <View pointerEvents="none" style={styles.pathDecorLayer}>
+      <View style={[styles.pathDecorBlob, styles.pathDecorBlobTopLeft, { backgroundColor: withAlpha(theme.secondary, 0.18), transform: [{ scale }] }]} />
+      <View style={[styles.pathDecorBlob, styles.pathDecorBlobMiddle, { backgroundColor: withAlpha(theme.candy, 0.12), transform: [{ scale: scale * 0.92 }] }]} />
+      <View style={[styles.pathDecorBlob, styles.pathDecorBlobBottomRight, { backgroundColor: withAlpha(theme.glow, 0.18), transform: [{ scale }] }]} />
+      <View style={[styles.pathDecorDot, styles.pathDecorDotLeft, { backgroundColor: withAlpha(theme.reward, 0.36) }]} />
+      <View style={[styles.pathDecorDot, styles.pathDecorDotRight, { backgroundColor: withAlpha(theme.secondary, 0.34) }]} />
+      <View style={[styles.pathDecorDot, styles.pathDecorDotBottom, { backgroundColor: withAlpha(theme.candy, 0.3) }]} />
+    </View>
+  );
+}
+
+function CheckMarkIcon({
+  size,
+  color
+}: {
+  size: number;
+  color: string;
+}) {
+  return (
+    <View style={{ width: size, height: size, alignItems: "center", justifyContent: "center" }}>
+      <View
+        style={{
+          position: "absolute",
+          width: Math.max(2, size * 0.18),
+          height: Math.max(6, size * 0.4),
+          borderRadius: 999,
+          backgroundColor: color,
+          left: size * 0.28,
+          top: size * 0.4,
+          transform: [{ rotate: "-42deg" }]
+        }}
+      />
+      <View
+        style={{
+          position: "absolute",
+          width: Math.max(2, size * 0.18),
+          height: Math.max(9, size * 0.62),
+          borderRadius: 999,
+          backgroundColor: color,
+          left: size * 0.54,
+          top: size * 0.16,
+          transform: [{ rotate: "42deg" }]
+        }}
+      />
+    </View>
+  );
+}
+
 function PathNode({
   node,
   index,
   isLast,
   accentColor,
+  theme,
   reviewNeeded,
   onPress
 }: {
@@ -3215,6 +3300,7 @@ function PathNode({
   index: number;
   isLast: boolean;
   accentColor: string;
+  theme: PathTheme;
   reviewNeeded: boolean;
   onPress: () => void;
 }) {
@@ -3222,7 +3308,15 @@ function PathNode({
   const visual = getNodeVisual(node.id, node.status, accentColor);
   const pulse = useRef(new Animated.Value(node.status === "current" ? 1 : 0)).current;
   const scale = useRef(new Animated.Value(1)).current;
+  const float = useRef(new Animated.Value(0)).current;
+  const shine = useRef(new Animated.Value(node.status === "completed" ? 1 : 0)).current;
+  const starPulse = useRef(new Animated.Value(node.status === "current" ? 1 : 0)).current;
   const stateInfo = describeNodeState(node, reviewNeeded);
+  const isReviewNode = node.kind === "review";
+  const isRewardingNode = stateInfo.legendary || node.kind === "story";
+  const nodeColor = isRewardingNode ? theme.reward : isReviewNode ? theme.review : visual.outerColor;
+  const innerColor = node.status === "locked" ? "#F3F6F4" : isRewardingNode ? lightenColor(theme.reward, 0.84) : isReviewNode ? lightenColor(theme.review, 0.82) : visual.innerColor;
+  const badgeColor = isRewardingNode ? theme.reward : node.status === "completed" ? theme.secondary : theme.candy;
 
   useEffect(() => {
     if (node.status !== "current") {
@@ -3255,6 +3349,99 @@ function PathNode({
     };
   }, [node.status, pulse]);
 
+  useEffect(() => {
+    if (node.status === "locked") {
+      float.stopAnimation();
+      float.setValue(0);
+      return;
+    }
+
+    const animation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(float, {
+          toValue: 1,
+          duration: 1800 + (index % 3) * 120,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true
+        }),
+        Animated.timing(float, {
+          toValue: 0,
+          duration: 1800 + (index % 3) * 120,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true
+        })
+      ])
+    );
+
+    animation.start();
+
+    return () => {
+      animation.stop();
+    };
+  }, [float, index, node.status]);
+
+  useEffect(() => {
+    if (node.status !== "completed") {
+      shine.stopAnimation();
+      shine.setValue(0);
+      return;
+    }
+
+    const animation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(shine, {
+          toValue: 1,
+          duration: 2600,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true
+        }),
+        Animated.timing(shine, {
+          toValue: 0,
+          duration: 2600,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true
+        })
+      ])
+    );
+
+    animation.start();
+
+    return () => {
+      animation.stop();
+    };
+  }, [node.status, shine]);
+
+  useEffect(() => {
+    if (node.status !== "current" && node.status !== "completed") {
+      starPulse.stopAnimation();
+      starPulse.setValue(0);
+      return;
+    }
+
+    const animation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(starPulse, {
+          toValue: 1,
+          duration: 640,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true
+        }),
+        Animated.timing(starPulse, {
+          toValue: 0,
+          duration: 640,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true
+        })
+      ])
+    );
+
+    animation.start();
+
+    return () => {
+      animation.stop();
+    };
+  }, [node.status, starPulse]);
+
   return (
     <View style={[styles.nodeWrap, alignments[index % alignments.length]]}>
       <View style={styles.nodeRail}>
@@ -3262,7 +3449,7 @@ function PathNode({
           style={[
             styles.nodePulseHalo,
             {
-              backgroundColor: lightenColor(accentColor, 0.78),
+              backgroundColor: withAlpha(theme.glow, 0.72),
               opacity: pulse.interpolate({ inputRange: [0, 1], outputRange: [0, 0.32] }),
               transform: [
                 {
@@ -3272,7 +3459,16 @@ function PathNode({
             }
           ]}
         />
-        <Animated.View style={{ transform: [{ scale }] }}>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateY: float.interpolate({ inputRange: [0, 1], outputRange: [0, -6] })
+              },
+              { scale }
+            ]
+          }}
+        >
           <Pressable
             onPress={onPress}
             disabled={node.status === "locked"}
@@ -3292,17 +3488,34 @@ function PathNode({
             }}
             style={[
               styles.nodeCircle,
-              node.status === "completed" && { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) },
-              node.status === "current" && [styles.nodeCurrent, { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) }],
-              node.status === "available" && { backgroundColor: visual.outerColor, borderColor: darkenColor(visual.outerColor) },
+              node.status === "completed" && { backgroundColor: nodeColor, borderColor: darkenColor(nodeColor) },
+              node.status === "current" && [styles.nodeCurrent, { backgroundColor: nodeColor, borderColor: darkenColor(nodeColor) }],
+              node.status === "available" && { backgroundColor: nodeColor, borderColor: darkenColor(nodeColor) },
               node.status === "locked" && styles.nodeLocked
             ]}
           >
-            <View style={styles.nodeGloss} />
-            <View style={[styles.nodeInnerOrb, { backgroundColor: node.status === "locked" ? "#F1F4F3" : visual.innerColor }]}>
+            <View style={[styles.nodeShadowPad, { backgroundColor: withAlpha(nodeColor, 0.22) }]} />
+            <View style={[styles.nodeOuterRing, { borderColor: node.status === "locked" ? "#DBE5DF" : withAlpha(theme.glow, 0.7) }]} />
+            <View style={[styles.nodeGloss, { backgroundColor: node.status === "locked" ? "rgba(255,255,255,0.18)" : withAlpha("#FFFFFF", 0.32) }]} />
+            <Animated.View
+              style={[
+                styles.nodeShineSweep,
+                {
+                  opacity: node.status === "completed" ? 0.42 : 0,
+                  transform: [
+                    {
+                      translateX: shine.interpolate({ inputRange: [0, 1], outputRange: [-72, 72] })
+                    },
+                    { rotate: "-18deg" }
+                  ]
+                }
+              ]}
+            />
+            <View style={[styles.nodeInnerOrb, { backgroundColor: innerColor }]}>
+              <View style={[styles.nodeInnerRing, { borderColor: node.status === "locked" ? "#DCE5E0" : withAlpha(theme.secondary, 0.26) }]} />
               <NodeGlyph
                 kind={stateInfo.legendary ? "book_seal" : visual.glyph}
-                coverColor={node.status === "locked" ? "#B6C2BC" : darkenColor(visual.outerColor)}
+                coverColor={node.status === "locked" ? "#B6C2BC" : darkenColor(nodeColor)}
                 pageColor={node.status === "locked" ? "#E0E7E3" : "#FFFFFF"}
                 accentColor={stateInfo.legendary ? "#FFE38C" : node.status === "locked" ? "#C7D2CC" : "#F2C94C"}
               />
@@ -3317,18 +3530,46 @@ function PathNode({
                 </View>
               </>
             )}
-            <View style={styles.nodeStarsBadge}>
+            {node.status === "completed" && (
+              <View style={[styles.nodeCornerBadge, { backgroundColor: colors.white, borderColor: withAlpha(theme.secondary, 0.34) }]}>
+                <CheckMarkIcon size={12} color={darkenColor(theme.secondary)} />
+              </View>
+            )}
+            {isReviewNode && node.status !== "locked" && (
+              <View style={[styles.nodeCornerBadge, styles.nodeCornerBadgeAlt, { backgroundColor: lightenColor(theme.review, 0.84), borderColor: withAlpha(theme.review, 0.3) }]}>
+                <SparkleIcon size={10} color={darkenColor(theme.review)} />
+              </View>
+            )}
+            <Animated.View
+              style={[
+                styles.nodeStarsBadge,
+                {
+                  backgroundColor: node.status === "locked" ? "#F8FBF9" : colors.white,
+                  borderColor: withAlpha(badgeColor, 0.3),
+                  transform: [
+                    {
+                      scale: starPulse.interpolate({ inputRange: [0, 1], outputRange: [1, 1.08] })
+                    }
+                  ]
+                }
+              ]}
+            >
               <View style={styles.nodeStarsBadgeInner}>
-                <SparkleIcon size={10} color="#F0B90B" />
+                <SparkleIcon size={10} color={node.status === "locked" ? "#B8C2BD" : badgeColor} />
                 <Text style={styles.nodeStarsText}>{`${node.starsReward}`}</Text>
               </View>
-            </View>
+            </Animated.View>
           </Pressable>
         </Animated.View>
         {!isLast && (
           <View style={styles.nodeConnectorWrap}>
-            <View style={[styles.nodeConnector, { backgroundColor: accentColor }]} />
-            <View style={[styles.nodeConnectorGlow, { backgroundColor: lightenColor(accentColor, 0.86) }]} />
+            <View style={[styles.nodeConnectorAura, { backgroundColor: withAlpha(theme.glow, 0.22) }]} />
+            <View style={[styles.nodeConnectorShell, { backgroundColor: withAlpha(theme.secondary, 0.28) }]} />
+            <View style={[styles.nodeConnector, { backgroundColor: theme.lane }]} />
+            <View style={[styles.nodeConnectorGlow, { backgroundColor: withAlpha(theme.candy, 0.58) }]} />
+            <View style={[styles.nodeConnectorDot, styles.nodeConnectorDotTop, { backgroundColor: theme.secondary }]} />
+            <View style={[styles.nodeConnectorDot, styles.nodeConnectorDotMid, { backgroundColor: theme.candy }]} />
+            <View style={[styles.nodeConnectorDot, styles.nodeConnectorDotBottom, { backgroundColor: theme.reward }]} />
           </View>
         )}
       </View>
@@ -3346,30 +3587,88 @@ function PathNode({
 function RewardChestStop({
   reward,
   accentColor,
+  theme,
   onPress
 }: {
   reward: JourneyRewardStop;
   accentColor: string;
+  theme: PathTheme;
   onPress: () => void;
 }) {
   const scale = useRef(new Animated.Value(1)).current;
+  const glow = useRef(new Animated.Value(reward.unlocked && !reward.claimed ? 1 : 0)).current;
+
+  useEffect(() => {
+    if (!reward.unlocked || reward.claimed) {
+      glow.stopAnimation();
+      glow.setValue(0);
+      return;
+    }
+
+    const animation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(glow, {
+          toValue: 1,
+          duration: 760,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true
+        }),
+        Animated.timing(glow, {
+          toValue: 0,
+          duration: 760,
+          easing: Easing.inOut(Easing.quad),
+          useNativeDriver: true
+        })
+      ])
+    );
+
+    animation.start();
+
+    return () => {
+      animation.stop();
+    };
+  }, [glow, reward.claimed, reward.unlocked]);
 
   return (
     <View style={styles.rewardStopWrap}>
-      <Animated.View style={{ transform: [{ scale }] }}>
+      <Animated.View
+        style={{
+          transform: [
+            {
+              translateY: glow.interpolate({ inputRange: [0, 1], outputRange: [0, -3] })
+            },
+            { scale }
+          ]
+        }}
+      >
         <Pressable
           onPress={onPress}
           onHoverIn={() => Animated.spring(scale, { toValue: 1.04, useNativeDriver: true, speed: 20, bounciness: 8 }).start()}
           onHoverOut={() => Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 6 }).start()}
           style={[
             styles.rewardStopCard,
-            reward.unlocked && { borderColor: accentColor, backgroundColor: lightenColor(accentColor, 0.93) },
+            reward.unlocked && { borderColor: accentColor, backgroundColor: lightenColor(theme.reward, 0.86) },
             reward.claimed && styles.rewardStopCardClaimed
           ]}
         >
-          <View style={[styles.rewardStopChest, reward.unlocked && { backgroundColor: accentColor }]}>
-            <View style={styles.rewardStopChestLid} />
-            <SparkleIcon size={14} color={reward.unlocked ? "#FFE38C" : "#B8C2BD"} />
+          <Animated.View
+            style={[
+              styles.rewardStopHalo,
+              {
+                backgroundColor: withAlpha(theme.reward, 0.26),
+                opacity: glow.interpolate({ inputRange: [0, 1], outputRange: [0.2, 0.62] }),
+                transform: [
+                  {
+                    scale: glow.interpolate({ inputRange: [0, 1], outputRange: [1, 1.12] })
+                  }
+                ]
+              }
+            ]}
+          />
+          <View style={[styles.rewardStopChest, reward.unlocked && { backgroundColor: theme.reward }]}>
+            <View style={[styles.rewardStopChestLid, reward.unlocked && { backgroundColor: darkenColor(theme.reward) }]} />
+            <View style={[styles.rewardStopChestTrim, { backgroundColor: reward.unlocked ? "#FFF4B0" : "#D9E1DC" }]} />
+            <SparkleIcon size={15} color={reward.unlocked ? "#FFF7D0" : "#B8C2BD"} />
           </View>
           <View style={styles.rewardStopText}>
             <Text style={styles.rewardStopTitle}>{reward.title}</Text>
@@ -3381,6 +3680,72 @@ function RewardChestStop({
           </View>
         </Pressable>
       </Animated.View>
+    </View>
+  );
+}
+
+function CelebrationBurst({
+  accentColor,
+  xp,
+  stars
+}: {
+  accentColor: string;
+  xp: number;
+  stars: number;
+}) {
+  const lift = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    lift.setValue(0);
+    Animated.timing(lift, {
+      toValue: 1,
+      duration: 950,
+      easing: Easing.out(Easing.quad),
+      useNativeDriver: true
+    }).start();
+  }, [lift, stars, xp]);
+
+  const chips = [
+    xp > 0 ? { id: "xp", label: `+${xp} XP`, color: accentColor, left: 16 } : undefined,
+    stars > 0 ? { id: "stars", label: `+${stars} stars`, color: "#F0B90B", left: 126 } : undefined,
+    { id: "streak", label: "Streak up", color: "#8A63FF", left: 236 }
+  ].filter(Boolean) as { id: string; label: string; color: string; left: number }[];
+
+  return (
+    <View pointerEvents="none" style={styles.celebrationBurstLayer}>
+      {chips.map((chip, index) => (
+        <Animated.View
+          key={chip.id}
+          style={[
+            styles.celebrationBurstChip,
+            {
+              left: chip.left,
+              backgroundColor: withAlpha(chip.color, 0.14),
+              borderColor: withAlpha(chip.color, 0.28),
+              opacity: lift.interpolate({
+                inputRange: [0, 0.2, 0.75, 1],
+                outputRange: [0, 1, 1, 0]
+              }),
+              transform: [
+                {
+                  translateY: lift.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [16 + index * 3, -34 - index * 4]
+                  })
+                },
+                {
+                  scale: lift.interpolate({
+                    inputRange: [0, 0.18, 1],
+                    outputRange: [0.86, 1, 1.04]
+                  })
+                }
+              ]
+            }
+          ]}
+        >
+          <Text style={[styles.celebrationBurstText, { color: darkenColor(chip.color) }]}>{chip.label}</Text>
+        </Animated.View>
+      ))}
     </View>
   );
 }
@@ -3428,6 +3793,7 @@ function CelebrationModal({
     <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
         <Animated.View style={[styles.celebrationCard, { opacity, transform: [{ scale }] }]}>
+          <CelebrationBurst accentColor={colors.green} xp={celebration.xp} stars={celebration.stars} />
           <View style={styles.celebrationSparkle}>
             <SparkleIcon size={24} color="#FFE38C" />
           </View>
@@ -5477,6 +5843,11 @@ function darkenColor(hex: string) {
   return `rgb(${amount(r)}, ${amount(g)}, ${amount(b)})`;
 }
 
+function withAlpha(hex: string, alpha: number) {
+  const [r, g, b] = hexToRgb(hex);
+  return `rgba(${r}, ${g}, ${b}, ${Math.max(0, Math.min(1, alpha))})`;
+}
+
 function hexToRgb(hex: string) {
   const clean = hex.replace("#", "");
   const normalized = clean.length === 3
@@ -5495,8 +5866,157 @@ function unique<T>(items: T[]) {
   return Array.from(new Set(items));
 }
 
+function getTopicPathTheme(topicId: TopicId, accentColor: string): PathTheme {
+  const themes: Record<TopicId, PathTheme> = {
+    foundation: {
+      primary: "#1FC78D",
+      secondary: "#2AD0C5",
+      tertiary: "#6DE0FF",
+      glow: "#8AF6D7",
+      shell: "#F7FFFB",
+      lane: "#28C6B9",
+      reward: "#FFC83D",
+      review: "#4AA8FF",
+      candy: "#FF92B2"
+    },
+    prayer: {
+      primary: "#31A8F5",
+      secondary: "#3FD2FF",
+      tertiary: "#6D8FFF",
+      glow: "#9CE9FF",
+      shell: "#F7FBFF",
+      lane: "#35B7F0",
+      reward: "#FFD447",
+      review: "#4E7FFF",
+      candy: "#7A8BFF"
+    },
+    quran_tafseer: {
+      primary: "#22B17A",
+      secondary: "#4BC3A5",
+      tertiary: "#57B5FF",
+      glow: "#9BF3CC",
+      shell: "#FAFFFC",
+      lane: "#2BBE92",
+      reward: "#FFCF52",
+      review: "#5E8CFF",
+      candy: "#C28CFF"
+    },
+    manners: {
+      primary: "#35C98E",
+      secondary: "#5FD2B6",
+      tertiary: "#B7E86E",
+      glow: "#9CF0C8",
+      shell: "#FBFFFC",
+      lane: "#40C7A2",
+      reward: "#FFC44D",
+      review: "#57B0FF",
+      candy: "#FF8D7D"
+    },
+    sahabah: {
+      primary: "#20C3A2",
+      secondary: "#38D0C3",
+      tertiary: "#4DA3F5",
+      glow: "#95F0E2",
+      shell: "#F8FFFE",
+      lane: "#2EC7B0",
+      reward: "#FFD451",
+      review: "#48A8FF",
+      candy: "#8E83FF"
+    },
+    prophets: {
+      primary: "#F2A63F",
+      secondary: "#FFBF5C",
+      tertiary: "#5BC5F3",
+      glow: "#FFE1A2",
+      shell: "#FFFDF8",
+      lane: "#F4B452",
+      reward: "#FFD451",
+      review: "#50A3FF",
+      candy: "#FF8C74"
+    },
+    women_of_the_book: {
+      primary: "#EA7396",
+      secondary: "#F58EB0",
+      tertiary: "#C17DFF",
+      glow: "#FFD3E2",
+      shell: "#FFF9FB",
+      lane: "#EE7DAB",
+      reward: "#FFD053",
+      review: "#8B83FF",
+      candy: "#FFAC7B"
+    },
+    marriage: {
+      primary: "#EE7695",
+      secondary: "#F08DA9",
+      tertiary: "#F4A17C",
+      glow: "#FFD2DD",
+      shell: "#FFF9FA",
+      lane: "#EB7C95",
+      reward: "#FFCF56",
+      review: "#B47BFF",
+      candy: "#FF9F7E"
+    },
+    fasting: {
+      primary: "#35B59A",
+      secondary: "#56C9AD",
+      tertiary: "#7FB5FF",
+      glow: "#AFF5DB",
+      shell: "#F8FFFD",
+      lane: "#36C5A5",
+      reward: "#FFCE4D",
+      review: "#5E90FF",
+      candy: "#FF9B73"
+    },
+    zakat: {
+      primary: "#29B476",
+      secondary: "#52C887",
+      tertiary: "#75B6FF",
+      glow: "#A6F1BF",
+      shell: "#F9FFFB",
+      lane: "#30C285",
+      reward: "#FFCF4F",
+      review: "#4AA9FF",
+      candy: "#C591FF"
+    },
+    hajj: {
+      primary: "#F0A856",
+      secondary: "#FFC56C",
+      tertiary: "#6DBDF5",
+      glow: "#FFE0AD",
+      shell: "#FFFDF8",
+      lane: "#F1B064",
+      reward: "#FFD454",
+      review: "#4CA9FF",
+      candy: "#FF9279"
+    },
+    aqidah: {
+      primary: "#47B090",
+      secondary: "#64C6A8",
+      tertiary: "#66A5FF",
+      glow: "#A9F0D1",
+      shell: "#F8FFFC",
+      lane: "#4AC09C",
+      reward: "#FFCF52",
+      review: "#5D88FF",
+      candy: "#A08EFF"
+    }
+  };
+
+  return themes[topicId] ?? {
+    primary: accentColor,
+    secondary: "#62CBE9",
+    tertiary: "#88ACFF",
+    glow: "#B5F1E1",
+    shell: "#FBFFFD",
+    lane: accentColor,
+    reward: "#FFCF52",
+    review: "#58A6FF",
+    candy: "#FF9A82"
+  };
+}
+
 const colors = {
-  bg: "#F4F9F6",
+  bg: "#EEF7F4",
   ink: "#183126",
   muted: "#607267",
   line: "#D7E4DD",
@@ -5607,14 +6127,14 @@ const styles = StyleSheet.create({
   foundationFreePlayCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", marginTop: 4 },
   foundationFreePlayButton: { minHeight: 46, paddingHorizontal: 16, borderRadius: 14, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
   foundationFreePlayButtonText: { color: colors.white, fontSize: 14, fontWeight: "900" },
-  routeCard: { alignSelf: "center", width: "100%", maxWidth: 920, borderRadius: 28, padding: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.1)", shadowOffset: { width: 0, height: 14 }, shadowOpacity: 0.12, shadowRadius: 24, elevation: 3 },
+  routeCard: { alignSelf: "center", width: "100%", maxWidth: 920, borderRadius: 30, padding: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.12)", shadowOffset: { width: 0, height: 16 }, shadowOpacity: 0.16, shadowRadius: 26, elevation: 4, overflow: "hidden" },
   routeHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 18, marginBottom: 14, flexWrap: "wrap" },
   routeHeaderText: { flex: 1, minWidth: 260 },
   routeHeaderAside: { alignItems: "flex-end", gap: 10 },
   routeBadge: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   routeTitle: { color: colors.ink, fontSize: 24, lineHeight: 30, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   routeDescription: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "600", letterSpacing: 0, marginTop: 4, maxWidth: 420 },
-  branchSummaryCard: { marginTop: 4, marginBottom: 16, padding: 16, borderRadius: 22, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8", gap: 10 },
+  branchSummaryCard: { marginTop: 4, marginBottom: 16, padding: 18, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8", gap: 10, overflow: "hidden" },
   branchSummaryTop: { flexDirection: "row", justifyContent: "space-between", gap: 10, alignItems: "flex-start" },
   branchSummaryEyebrow: { fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   branchSummaryTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
@@ -5629,25 +6149,46 @@ const styles = StyleSheet.create({
   branchSecondaryAction: { minHeight: 46, paddingHorizontal: 16, borderRadius: 14, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, alignItems: "center", justifyContent: "center" },
   branchSecondaryActionText: { color: colors.greenDark, fontSize: 14, fontWeight: "900" },
   branchTestOutCopy: { color: colors.muted, fontSize: 12, lineHeight: 18, fontWeight: "700", marginTop: 2 },
-  pathLane: { width: "100%", maxWidth: 620, minHeight: 200, alignSelf: "center", marginTop: 10, paddingVertical: 10, position: "relative" },
-  pathBackdrop: { position: "absolute", left: "50%", marginLeft: -7, top: 6, bottom: 6, width: 14, borderRadius: 999, opacity: 0.8 },
-  nodeWrap: { width: "100%", marginVertical: 10 },
+  pathLane: { width: "100%", maxWidth: 620, minHeight: 220, alignSelf: "center", marginTop: 10, paddingVertical: 18, position: "relative" },
+  pathDecorLayer: { ...StyleSheet.absoluteFillObject },
+  pathDecorBlob: { position: "absolute", borderRadius: 999 },
+  pathDecorBlobTopLeft: { width: 220, height: 220, left: -110, top: -28 },
+  pathDecorBlobMiddle: { width: 180, height: 180, right: -76, top: 180 },
+  pathDecorBlobBottomRight: { width: 240, height: 240, right: -126, bottom: -54 },
+  pathDecorDot: { position: "absolute", borderRadius: 999 },
+  pathDecorDotLeft: { width: 12, height: 12, left: 70, top: 180 },
+  pathDecorDotRight: { width: 16, height: 16, right: 72, top: 114 },
+  pathDecorDotBottom: { width: 10, height: 10, left: 140, bottom: 88 },
+  pathBackdropAura: { position: "absolute", left: "50%", marginLeft: -18, top: -8, bottom: -8, width: 36, borderRadius: 999 },
+  pathBackdropShell: { position: "absolute", left: "50%", marginLeft: -11, top: -2, bottom: -2, width: 22, borderRadius: 999 },
+  pathBackdrop: { position: "absolute", left: "50%", marginLeft: -6, top: 6, bottom: 6, width: 12, borderRadius: 999, opacity: 0.94 },
+  nodeWrap: { width: "100%", marginVertical: 12 },
   nodeRail: { alignItems: "center" },
   nodeLeft: { alignItems: "flex-start" },
   nodeCenter: { alignItems: "center" },
   nodeRight: { alignItems: "flex-end" },
-  nodePulseHalo: { position: "absolute", width: 116, height: 116, borderRadius: 58, top: -10, left: "50%", marginLeft: -58 },
-  nodeCircle: { width: 98, height: 98, borderRadius: 49, alignItems: "center", justifyContent: "center", borderWidth: 5, borderColor: colors.green, backgroundColor: colors.white, position: "relative", shadowColor: "rgba(0,0,0,0.18)", shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.18, shadowRadius: 16, elevation: 5 },
-  nodeGloss: { position: "absolute", top: 9, width: 62, height: 20, borderRadius: 999, backgroundColor: "rgba(255,255,255,0.28)" },
-  nodeInnerOrb: { width: 66, height: 66, borderRadius: 33, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "rgba(36,50,69,0.08)" },
-  nodeConnectorWrap: { alignItems: "center", marginTop: 8, width: 24 },
-  nodeConnector: { width: 8, height: 42, borderRadius: 999, opacity: 0.42 },
-  nodeConnectorGlow: { position: "absolute", width: 16, height: 28, borderRadius: 999, top: 7, opacity: 0.42 },
+  nodePulseHalo: { position: "absolute", width: 134, height: 134, borderRadius: 67, top: -13, left: "50%", marginLeft: -67 },
+  nodeCircle: { width: 108, height: 108, borderRadius: 54, alignItems: "center", justifyContent: "center", borderWidth: 5, borderColor: colors.green, backgroundColor: colors.white, position: "relative", shadowColor: "rgba(0,0,0,0.22)", shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 6, overflow: "hidden" },
+  nodeShadowPad: { position: "absolute", width: 108, height: 108, borderRadius: 54, top: 8, opacity: 0.82 },
+  nodeOuterRing: { position: "absolute", inset: 5, borderRadius: 999, borderWidth: 2 },
+  nodeGloss: { position: "absolute", top: 10, width: 72, height: 22, borderRadius: 999, backgroundColor: "rgba(255,255,255,0.28)" },
+  nodeShineSweep: { position: "absolute", width: 26, height: 128, top: -10, backgroundColor: "rgba(255,255,255,0.26)" },
+  nodeInnerOrb: { width: 72, height: 72, borderRadius: 36, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "rgba(36,50,69,0.08)", overflow: "hidden" },
+  nodeInnerRing: { position: "absolute", inset: 4, borderRadius: 999, borderWidth: 1 },
+  nodeConnectorWrap: { alignItems: "center", marginTop: 8, width: 36, height: 62 },
+  nodeConnectorAura: { position: "absolute", width: 26, height: 60, borderRadius: 999, top: 0 },
+  nodeConnectorShell: { position: "absolute", width: 16, height: 60, borderRadius: 999, top: 0 },
+  nodeConnector: { width: 10, height: 60, borderRadius: 999, opacity: 0.96 },
+  nodeConnectorGlow: { position: "absolute", width: 20, height: 30, borderRadius: 999, top: 14, opacity: 0.42 },
+  nodeConnectorDot: { position: "absolute", width: 8, height: 8, borderRadius: 999, borderWidth: 2, borderColor: colors.white, shadowColor: "rgba(0,0,0,0.12)", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.16, shadowRadius: 4, elevation: 1 },
+  nodeConnectorDotTop: { top: 8 },
+  nodeConnectorDotMid: { top: 26 },
+  nodeConnectorDotBottom: { bottom: 8 },
   nodeCurrent: { backgroundColor: colors.gold, borderColor: colors.greenDark },
   nodeAvailable: { backgroundColor: colors.white },
   nodeLocked: { backgroundColor: colors.gray, borderColor: colors.line },
   nodePressed: { transform: [{ scale: 0.97 }] },
-  nodeGlyphWrap: { width: 34, height: 34, alignItems: "center", justifyContent: "center" },
+  nodeGlyphWrap: { width: 38, height: 38, alignItems: "center", justifyContent: "center" },
   bookCover: { position: "absolute", width: 22, height: 28, borderRadius: 5, left: 7, top: 3 },
   bookPageBlock: { position: "absolute", width: 13, height: 24, borderRadius: 4, right: 6, top: 5 },
   bookPageBlockFront: { right: 5, top: 6 },
@@ -5688,19 +6229,23 @@ const styles = StyleSheet.create({
   nodeSparkle: { position: "absolute", top: 9 },
   nodeSparkleLeft: { left: 12 },
   nodeSparkleRight: { right: 12 },
-  nodeStarsBadge: { position: "absolute", bottom: -6, paddingHorizontal: 8, paddingVertical: 2, borderRadius: 999, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line },
+  nodeCornerBadge: { position: "absolute", top: 7, right: 8, width: 24, height: 24, borderRadius: 12, alignItems: "center", justifyContent: "center", borderWidth: 1 },
+  nodeCornerBadgeAlt: { top: 8, left: 8, right: undefined },
+  nodeStarsBadge: { position: "absolute", bottom: -7, paddingHorizontal: 9, paddingVertical: 3, borderRadius: 999, backgroundColor: colors.white, borderWidth: 1, borderColor: colors.line, shadowColor: "rgba(0,0,0,0.12)", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.16, shadowRadius: 8, elevation: 2 },
   nodeStarsBadgeInner: { flexDirection: "row", alignItems: "center", gap: 4 },
   nodeStarsText: { color: colors.ink, fontSize: 11, fontWeight: "900", letterSpacing: 0 },
-  nodeTextBlock: { width: 190, marginTop: 10, alignItems: "center" },
+  nodeTextBlock: { width: 206, marginTop: 12, alignItems: "center" },
   nodeTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", textAlign: "center", letterSpacing: 0 },
   nodeStatePill: { marginTop: 8, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 999 },
   nodeStateText: { fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
   nodeMeta: { color: colors.muted, fontSize: 12, fontWeight: "700", textAlign: "center", letterSpacing: 0, marginTop: 4 },
-  rewardStopWrap: { alignItems: "center", marginVertical: 8 },
-  rewardStopCard: { width: 280, flexDirection: "row", alignItems: "center", gap: 12, padding: 14, borderRadius: 20, borderWidth: 1, borderColor: "#E3ECE6", backgroundColor: "#F6FAF7" },
+  rewardStopWrap: { alignItems: "center", marginVertical: 12 },
+  rewardStopCard: { width: 304, flexDirection: "row", alignItems: "center", gap: 12, padding: 15, borderRadius: 22, borderWidth: 1, borderColor: "#E3ECE6", backgroundColor: "#F6FAF7", shadowColor: "rgba(15,39,30,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.12, shadowRadius: 16, elevation: 2, position: "relative", overflow: "hidden" },
   rewardStopCardClaimed: { opacity: 0.72 },
-  rewardStopChest: { width: 52, height: 44, borderRadius: 14, backgroundColor: "#B8C2BD", alignItems: "center", justifyContent: "center", position: "relative" },
-  rewardStopChestLid: { position: "absolute", top: -4, width: 44, height: 12, borderRadius: 10, backgroundColor: "#8D9A93" },
+  rewardStopHalo: { position: "absolute", left: 8, top: 4, width: 76, height: 76, borderRadius: 38 },
+  rewardStopChest: { width: 58, height: 48, borderRadius: 16, backgroundColor: "#B8C2BD", alignItems: "center", justifyContent: "center", position: "relative" },
+  rewardStopChestLid: { position: "absolute", top: -4, width: 48, height: 13, borderRadius: 10, backgroundColor: "#8D9A93" },
+  rewardStopChestTrim: { position: "absolute", width: 10, height: 44, borderRadius: 999, left: 24, top: 1 },
   rewardStopText: { flex: 1 },
   rewardStopTitle: { color: colors.ink, fontSize: 15, fontWeight: "900" },
   rewardStopCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "600", marginTop: 4 },
@@ -5856,7 +6401,10 @@ const styles = StyleSheet.create({
   secondaryButtonText: { color: colors.white, fontWeight: "900", letterSpacing: 0 },
   modalBackdrop: { flex: 1, backgroundColor: "rgba(20,37,27,0.45)", alignItems: "center", justifyContent: "center", padding: 24 },
   modalCard: { width: "100%", maxWidth: 420, borderRadius: 8, backgroundColor: colors.white, padding: 18, borderWidth: 1, borderColor: colors.line },
-  celebrationCard: { width: "100%", maxWidth: 420, borderRadius: 24, backgroundColor: colors.white, padding: 22, borderWidth: 1, borderColor: colors.line, shadowColor: "rgba(16,47,32,0.18)", shadowOffset: { width: 0, height: 16 }, shadowOpacity: 0.2, shadowRadius: 28, elevation: 6 },
+  celebrationCard: { width: "100%", maxWidth: 420, borderRadius: 24, backgroundColor: colors.white, padding: 22, borderWidth: 1, borderColor: colors.line, shadowColor: "rgba(16,47,32,0.18)", shadowOffset: { width: 0, height: 16 }, shadowOpacity: 0.2, shadowRadius: 28, elevation: 6, overflow: "hidden" },
+  celebrationBurstLayer: { position: "absolute", left: 0, right: 0, top: 6, height: 88 },
+  celebrationBurstChip: { position: "absolute", top: 22, minWidth: 82, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 999, borderWidth: 1, alignItems: "center" },
+  celebrationBurstText: { fontSize: 11, fontWeight: "900", letterSpacing: 0 },
   celebrationSparkle: { alignSelf: "center", marginBottom: 8 },
   celebrationStats: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 14 },
   celebrationStat: { flexGrow: 1, minWidth: 80, paddingVertical: 12, paddingHorizontal: 10, borderRadius: 16, backgroundColor: "#F7FBF8", alignItems: "center" },
@@ -5939,7 +6487,8 @@ const styles = StyleSheet.create({
   sectionHeaderSimple: { marginTop: 2 },
   topicGrid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
   focusPanel: { padding: 18, borderRadius: 22, borderWidth: 1, borderColor: "#DCE8E0", backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 2 },
-  focusPanelCompact: { padding: 18, borderRadius: 22, borderWidth: 1, borderColor: "#DCE8E0", backgroundColor: "#FBFDFC" },
+  focusPanelCompact: { padding: 18, borderRadius: 22, borderWidth: 1, borderColor: "#DCE8E0", backgroundColor: "#FBFDFC", overflow: "hidden" },
+  focusPanelGlow: { position: "absolute", width: 180, height: 180, borderRadius: 90, right: -38, top: -56 },
   focusPanelEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
   focusPanelTitle: { color: colors.ink, fontSize: 24, fontWeight: "900", marginTop: 6 },
   focusPanelCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "700", marginTop: 6 },
@@ -5955,13 +6504,15 @@ const styles = StyleSheet.create({
   branchListMeta: { color: colors.greenDark, fontSize: 12, fontWeight: "800" },
   branchListCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 6 },
   branchListMetaRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 10, marginBottom: 10 },
-  branchHeroCard: { flexDirection: "row", alignItems: "center", gap: 14, padding: 18, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  branchHeroCard: { flexDirection: "row", alignItems: "center", gap: 14, padding: 18, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, overflow: "hidden" },
+  branchHeroGlow: { position: "absolute", width: 180, height: 180, borderRadius: 90, left: -36, top: -58 },
+  branchHeroGlowRight: { right: -46, top: 24 },
   branchHeroText: { flex: 1 },
   branchHeroMeta: { color: colors.muted, fontSize: 12, fontWeight: "800", marginTop: 8 },
   branchChip: { minHeight: 42, paddingHorizontal: 14, borderRadius: 999, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, alignItems: "center", justifyContent: "center" },
   branchChipText: { color: colors.ink, fontSize: 13, fontWeight: "800" },
-  cleanPathCard: { width: "100%", maxWidth: 700, alignSelf: "center", paddingVertical: 8, paddingHorizontal: 10, borderRadius: 28, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, position: "relative", overflow: "hidden" },
-  cleanPathLane: { width: "100%", alignSelf: "center", paddingVertical: 14, minHeight: 220 },
+  cleanPathCard: { width: "100%", maxWidth: 700, alignSelf: "center", paddingVertical: 14, paddingHorizontal: 14, borderRadius: 32, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, position: "relative", overflow: "hidden", shadowColor: "rgba(22,52,39,0.12)", shadowOffset: { width: 0, height: 14 }, shadowOpacity: 0.18, shadowRadius: 28, elevation: 4 },
+  cleanPathLane: { width: "100%", alignSelf: "center", paddingVertical: 22, minHeight: 260 },
   lessonStageScreen: { flex: 1, backgroundColor: colors.bg, padding: 18 },
   lessonStageCard: { flex: 1, alignItems: "center", justifyContent: "center", gap: 10, padding: 24, borderRadius: 24, borderWidth: 1, backgroundColor: colors.white },
   lessonStageEyebrow: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase" },
@@ -5985,7 +6536,7 @@ const styles = StyleSheet.create({
   lessonTeachSupportCard: { padding: 14, borderRadius: 18, backgroundColor: "#F7FBF8" },
   lessonTeachSupportCopy: { color: colors.ink, fontSize: 14, lineHeight: 20, fontWeight: "700" },
   lessonTeachSupportHint: { color: colors.muted, fontSize: 12, lineHeight: 18, fontWeight: "800", marginTop: 6 },
-  lessonCompleteCard: { flex: 1, alignItems: "center", justifyContent: "center", padding: 26, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  lessonCompleteCard: { flex: 1, alignItems: "center", justifyContent: "center", padding: 26, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, overflow: "hidden" },
   lessonCompleteTitle: { color: colors.ink, fontSize: 28, fontWeight: "900", marginTop: 8, textAlign: "center" },
   lessonCompleteCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", textAlign: "center", marginTop: 6, maxWidth: 520 },
   nextLessonCard: { width: "100%", maxWidth: 420, padding: 16, borderRadius: 18, backgroundColor: "#F7FBF8", marginBottom: 16 },
