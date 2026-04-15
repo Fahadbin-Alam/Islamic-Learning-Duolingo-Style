@@ -255,19 +255,19 @@ def generate_quran_surah_lessons(surah: str) -> List[Dict[str, Any]]:
 
 def quran_branches() -> List[Dict[str, Any]]:
     surahs = [
-        "Al-Fatihah",
-        "Al-Baqarah",
-        "Ali Imran",
-        "An-Nisa",
-        "Al-Ma'idah",
-        "Al-An'am",
-        "Yusuf",
-        "Maryam",
-        "Ya-Sin",
-        "Al-Mulk"
+        ("Al-Fatihah", "https://quran.com/1"),
+        ("Al-Baqarah", "https://quran.com/2"),
+        ("Ali Imran", "https://quran.com/3"),
+        ("An-Nisa", "https://quran.com/4"),
+        ("Al-Ma'idah", "https://quran.com/5"),
+        ("Al-An'am", "https://quran.com/6"),
+        ("Yusuf", "https://quran.com/12"),
+        ("Maryam", "https://quran.com/19"),
+        ("Ya-Sin", "https://quran.com/36"),
+        ("Al-Mulk", "https://quran.com/67"),
     ]
     branches = []
-    for surah in surahs:
+    for surah, surah_url in surahs:
         branches.append(
             {
                 "title": surah,
@@ -277,7 +277,7 @@ def quran_branches() -> List[Dict[str, Any]]:
                 "resources": [
                     {
                         "title": f"{surah} on Quran.com",
-                        "url": f"https://quran.com/search?page=1&q={surah.replace(' ', '%20')}",
+                        "url": surah_url,
                         "source_type": "quran",
                         "speaker": None,
                         "notes": "Starter surah entry for future ayah-level expansion."

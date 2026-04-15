@@ -209,6 +209,33 @@ export function localizeLessonContent(lesson: Lesson, language: SupportedLanguag
     ...lesson,
     title: translateStudyText(lesson.title, language),
     intro: translateStudyText(lesson.intro, language),
+    explanationContent: lesson.explanationContent ? translateStudyText(lesson.explanationContent, language) : lesson.explanationContent,
+    whatYouWillLearn: lesson.whatYouWillLearn ? translateStudyText(lesson.whatYouWillLearn, language) : lesson.whatYouWillLearn,
+    whyItMatters: lesson.whyItMatters ? translateStudyText(lesson.whyItMatters, language) : lesson.whyItMatters,
+    keyTakeaway: lesson.keyTakeaway ? translateStudyText(lesson.keyTakeaway, language) : lesson.keyTakeaway,
+    storyMoment: lesson.storyMoment ? translateStudyText(lesson.storyMoment, language) : lesson.storyMoment,
+    teachingMoments: lesson.teachingMoments?.map((moment) => ({
+      ...moment,
+      eyebrow: translateStudyText(moment.eyebrow, language),
+      title: translateStudyText(moment.title, language),
+      body: translateStudyText(moment.body, language),
+      actionLabel: moment.actionLabel ? translateStudyText(moment.actionLabel, language) : moment.actionLabel,
+      revealLabel: moment.revealLabel ? translateStudyText(moment.revealLabel, language) : moment.revealLabel,
+      revealBody: moment.revealBody ? translateStudyText(moment.revealBody, language) : moment.revealBody
+    })),
+    practiceActivities: lesson.practiceActivities?.map((activity) => ({
+      ...activity,
+      title: translateStudyText(activity.title, language),
+      prompt: translateStudyText(activity.prompt, language),
+      instructions: translateStudyText(activity.instructions, language),
+      explanation: translateStudyText(activity.explanation, language),
+      successLabel: activity.successLabel ? translateStudyText(activity.successLabel, language) : activity.successLabel,
+      retryLabel: activity.retryLabel ? translateStudyText(activity.retryLabel, language) : activity.retryLabel,
+      options: activity.options.map((choice) => ({
+        ...choice,
+        label: translateStudyText(choice.label, language)
+      }))
+    })),
     sources: lesson.sources.map((source) => localizeSource(source, language)),
     challenges: lesson.challenges.map((challenge) => localizeChallenge(challenge, language))
   };
@@ -221,8 +248,9 @@ function localizeSource(source: LessonSource, language: SupportedLanguage): Less
     reference: source.reference ? translateStudyText(source.reference, language) : source.reference,
     summary: translateStudyText(source.summary, language),
     from: source.from ? translateStudyText(source.from, language) : source.from,
-    grade: source.grade ? translateStudyText(source.grade, language) : source.grade
-    ,
+    grade: source.grade ? translateStudyText(source.grade, language) : source.grade,
+    teaches: source.teaches ? translateStudyText(source.teaches, language) : source.teaches,
+    whyAttached: source.whyAttached ? translateStudyText(source.whyAttached, language) : source.whyAttached,
     url: localizeSourceUrl(source.url, source.site, language)
   };
 }

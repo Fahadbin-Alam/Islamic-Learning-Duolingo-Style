@@ -91,9 +91,13 @@ import type {
   LearningBranch,
   LearningNodeView,
   LearningSection,
+  LessonPracticeActivity,
   LessonSource,
   LessonSession,
+  LessonTeachingMoment,
   ReminderPreferences,
+  ResourceSupportType,
+  ResourceValidationStatus,
   SocialConnection,
   SocialHubState,
   SocialRelation,
@@ -109,9 +113,12 @@ type Screen =
   | "topic"
   | "branch"
   | "lesson_intro"
+  | "lesson_teach"
+  | "lesson_example"
+  | "lesson_practice"
   | "lesson_question"
   | "lesson_feedback"
-  | "lesson_teach"
+  | "lesson_help"
   | "lesson_complete"
   | "assessment"
   | "review"
@@ -173,6 +180,8 @@ interface AppState {
   challengeIndex: number;
   selectedChoiceId?: string;
   answerState: AnswerState;
+  retryingCurrentChallenge: boolean;
+  lastAnswerWasRetry: boolean;
   sessionCorrectCount: number;
   sessionMissedLessonIds: string[];
   loading: boolean;
@@ -196,10 +205,14 @@ type Action =
   | { type: "close_shop" }
   | { type: "close_social" }
   | { type: "start_lesson"; session: LessonSession }
+  | { type: "show_teach_screen" }
+  | { type: "show_example_screen" }
+  | { type: "show_practice_screen" }
   | { type: "begin_lesson_questions" }
   | { type: "select_choice"; choiceId: string }
-  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string }
-  | { type: "show_teach_screen" }
+  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string; scored?: boolean; retried?: boolean }
+  | { type: "show_help_screen" }
+  | { type: "retry_challenge" }
   | { type: "next_challenge" }
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "close_lesson_complete" }
@@ -212,6 +225,8 @@ const initialState: AppState = {
   xpSummary: [],
   challengeIndex: 0,
   answerState: undefined,
+  retryingCurrentChallenge: false,
+  lastAnswerWasRetry: false,
   sessionCorrectCount: 0,
   sessionMissedLessonIds: [],
   loading: true
@@ -259,38 +274,70 @@ function reducer(state: AppState, action: Action): AppState {
         challengeIndex: 0,
         selectedChoiceId: undefined,
         answerState: undefined,
+        retryingCurrentChallenge: false,
+        lastAnswerWasRetry: false,
         sessionCorrectCount: 0,
         sessionMissedLessonIds: []
       };
+    case "show_teach_screen":
+      return {
+        ...state,
+        screen: "lesson_teach",
+        selectedChoiceId: undefined,
+        answerState: undefined,
+        retryingCurrentChallenge: false,
+        lastAnswerWasRetry: false
+      };
+    case "show_example_screen":
+      return { ...state, screen: "lesson_example" };
+    case "show_practice_screen":
+      return { ...state, screen: "lesson_practice" };
     case "begin_lesson_questions":
       return {
         ...state,
         screen: "lesson_question",
         selectedChoiceId: undefined,
-        answerState: undefined
+        answerState: undefined,
+        retryingCurrentChallenge: false
       };
     case "select_choice":
       return { ...state, selectedChoiceId: action.choiceId };
     case "answer":
+      {
+      const scored = action.scored ?? true;
       return {
         ...state,
         user: action.user,
         screen: "lesson_feedback",
         answerState: action.correct ? "correct" : "wrong",
-        sessionCorrectCount: action.correct ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
-        sessionMissedLessonIds: action.correct || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
+        retryingCurrentChallenge: false,
+        lastAnswerWasRetry: action.retried ?? false,
+        sessionCorrectCount: action.correct && scored ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
+        sessionMissedLessonIds: action.correct || !scored || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
           ? state.sessionMissedLessonIds
           : [...state.sessionMissedLessonIds, action.missedLessonId]
       };
-    case "show_teach_screen":
-      return { ...state, screen: "lesson_teach" };
+      }
+    case "show_help_screen":
+      return { ...state, screen: "lesson_help" };
+    case "retry_challenge":
+      return {
+        ...state,
+        screen: "lesson_question",
+        selectedChoiceId: undefined,
+        answerState: undefined,
+        retryingCurrentChallenge: true,
+        lastAnswerWasRetry: false
+      };
     case "next_challenge":
       return {
         ...state,
         screen: "lesson_question",
         challengeIndex: state.challengeIndex + 1,
         selectedChoiceId: undefined,
-        answerState: undefined
+        answerState: undefined,
+        retryingCurrentChallenge: false,
+        lastAnswerWasRetry: false
       };
     case "finish_lesson":
       return {
@@ -299,7 +346,9 @@ function reducer(state: AppState, action: Action): AppState {
         user: action.user,
         xpSummary: action.xpSummary,
         selectedChoiceId: undefined,
-        answerState: undefined
+        answerState: undefined,
+        retryingCurrentChallenge: false,
+        lastAnswerWasRetry: false
       };
     case "close_lesson_complete":
       return {
@@ -309,6 +358,8 @@ function reducer(state: AppState, action: Action): AppState {
         challengeIndex: 0,
         selectedChoiceId: undefined,
         answerState: undefined,
+        retryingCurrentChallenge: false,
+        lastAnswerWasRetry: false,
         sessionCorrectCount: 0,
         sessionMissedLessonIds: []
       };
@@ -322,6 +373,8 @@ function reducer(state: AppState, action: Action): AppState {
         challengeIndex: 0,
         selectedChoiceId: undefined,
         answerState: undefined,
+        retryingCurrentChallenge: false,
+        lastAnswerWasRetry: false,
         sessionCorrectCount: 0,
         sessionMissedLessonIds: []
       };
@@ -540,6 +593,18 @@ export default function TopicApp() {
       lesson: localizedLesson
     };
   }, [currentLanguage, state.activeSession]);
+  const currentTeachMoment = useMemo(
+    () => (currentLessonSession ? pickTeachMoment(currentLessonSession.lesson) : undefined),
+    [currentLessonSession]
+  );
+  const currentExampleMoment = useMemo(
+    () => (currentLessonSession ? pickExampleMoment(currentLessonSession.lesson) : undefined),
+    [currentLessonSession]
+  );
+  const currentPracticeActivity = useMemo(
+    () => currentLessonSession?.lesson.practiceActivities?.[0],
+    [currentLessonSession]
+  );
 
   const isInFoundationExperience =
     ((state.screen === "home" || state.screen === "topic" || state.screen === "branch" || state.screen === "review") && selectedSection.topicId === "foundation") ||
@@ -943,40 +1008,97 @@ export default function TopicApp() {
     const challenge = state.activeSession.lesson.challenges[state.challengeIndex];
     const correct = challenge.correctChoiceId === state.selectedChoiceId;
     const responseTimeMs = Math.max(900, Date.now() - challengeStartedAtRef.current);
-    const signalNodeId = challenge.sourceNodeId ?? state.activeSession.lesson.nodeId;
-    const lessonSignal = buildLessonSignal(signalNodeId, challenge, state.challengeIndex, state.activeSession.lesson.challenges.length, correct, responseTimeMs);
-    const nextProfile = applyLessonSignalToLearnerProfile({
-      profile: learnerProfile,
-      category: lessonSignal.category,
-      signalId: lessonSignal.signalId,
-      difficulty: lessonSignal.difficulty,
-      correct,
-      responseTimeMs,
-      confidence: correct ? 3 : 2,
-      tags: lessonSignal.tags,
-      prompt: challenge.prompt,
-      reviewNext: lessonSignal.reviewNext
-    });
-    const heartAdjustedUser = correct ? state.user : loseHeart(state.user);
-    const nextUser = withExperienceDefaults({
-      ...heartAdjustedUser,
-      learnerProfile: nextProfile,
+    const isRetry = state.retryingCurrentChallenge;
+    let nextUser = withExperienceDefaults({
+      ...state.user,
       lastLearningAt: new Date().toISOString()
     });
 
+    if (!isRetry) {
+      const signalNodeId = challenge.sourceNodeId ?? state.activeSession.lesson.nodeId;
+      const lessonSignal = buildLessonSignal(signalNodeId, challenge, state.challengeIndex, state.activeSession.lesson.challenges.length, correct, responseTimeMs);
+      const nextProfile = applyLessonSignalToLearnerProfile({
+        profile: learnerProfile,
+        category: lessonSignal.category,
+        signalId: lessonSignal.signalId,
+        difficulty: lessonSignal.difficulty,
+        correct,
+        responseTimeMs,
+        confidence: correct ? 3 : 2,
+        tags: lessonSignal.tags,
+        prompt: challenge.prompt,
+        reviewNext: lessonSignal.reviewNext
+      });
+      const heartAdjustedUser = correct ? state.user : loseHeart(state.user);
+      nextUser = withExperienceDefaults({
+        ...heartAdjustedUser,
+        learnerProfile: nextProfile,
+        lastLearningAt: new Date().toISOString()
+      });
+    }
+
     playUiSound(correct ? "correct" : "wrong");
-    if (!correct && shouldOfferReviewHeartRestore(nextUser)) {
+    if (!isRetry && !correct && shouldOfferReviewHeartRestore(nextUser)) {
       setReviewRestoreVisible(true);
     }
     dispatch({
       type: "answer",
       correct,
       user: nextUser,
-      missedLessonId: correct ? undefined : challenge.sourceLessonId ?? state.activeSession.lesson.id
+      missedLessonId: correct ? undefined : challenge.sourceLessonId ?? state.activeSession.lesson.id,
+      scored: !isRetry,
+      retried: isRetry
     });
   }
 
-  function beginLessonQuestionFlow() {
+  function startLessonFlow() {
+    playUiSound("soft_ui");
+    dispatch({ type: "show_teach_screen" });
+  }
+
+  function continueFromTeach() {
+    playUiSound("soft_ui");
+    if (currentExampleMoment) {
+      dispatch({ type: "show_example_screen" });
+      return;
+    }
+
+    if (currentPracticeActivity) {
+      dispatch({ type: "show_practice_screen" });
+      return;
+    }
+
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "begin_lesson_questions" });
+  }
+
+  function goBackToTeach() {
+    playUiSound("soft_ui");
+    dispatch({ type: "show_teach_screen" });
+  }
+
+  function continueFromExample() {
+    playUiSound("soft_ui");
+    if (currentPracticeActivity) {
+      dispatch({ type: "show_practice_screen" });
+      return;
+    }
+
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "begin_lesson_questions" });
+  }
+
+  function goBackToExample() {
+    playUiSound("soft_ui");
+    if (currentExampleMoment) {
+      dispatch({ type: "show_example_screen" });
+      return;
+    }
+
+    dispatch({ type: "show_teach_screen" });
+  }
+
+  function continueFromPractice() {
     playUiSound("soft_ui");
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "begin_lesson_questions" });
@@ -984,7 +1106,18 @@ export default function TopicApp() {
 
   function continueFromFeedback() {
     playUiSound("soft_ui");
-    dispatch({ type: "show_teach_screen" });
+    if (state.answerState === "wrong" && !state.lastAnswerWasRetry) {
+      dispatch({ type: "show_help_screen" });
+      return;
+    }
+
+    void continueLesson();
+  }
+
+  function retryCurrentChallenge() {
+    playUiSound("soft_ui");
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "retry_challenge" });
   }
 
   async function continueLesson() {
@@ -1657,7 +1790,6 @@ export default function TopicApp() {
         )}
         {state.screen === "lesson_intro" && currentLessonSession && (
           <LessonIntroScreen
-            strings={strings}
             language={currentLanguage}
             section={currentLessonSection}
             session={currentLessonSession}
@@ -1665,17 +1797,62 @@ export default function TopicApp() {
               playUiSound("soft_ui");
               dispatch({ type: "reset_lesson" });
             }}
-            onStart={beginLessonQuestionFlow}
+            onStart={startLessonFlow}
+          />
+        )}
+        {state.screen === "lesson_teach" && currentLessonSession && currentTeachMoment && (
+          <LessonTeachScreen
+            language={currentLanguage}
+            section={currentLessonSection}
+            lessonTitle={currentLessonSession.lesson.title}
+            moment={currentTeachMoment}
+            onBack={() => {
+              playUiSound("soft_ui");
+              dispatch({ type: "reset_lesson" });
+            }}
+            onContinue={continueFromTeach}
+            onSoftTap={() => playUiSound("soft_ui")}
+            onOpenSource={(url) => {
+              playUiSound("soft_ui");
+              void Linking.openURL(url);
+            }}
+          />
+        )}
+        {state.screen === "lesson_example" && currentLessonSession && currentExampleMoment && (
+          <LessonExampleScreen
+            language={currentLanguage}
+            section={currentLessonSection}
+            lessonTitle={currentLessonSession.lesson.title}
+            moment={currentExampleMoment}
+            onBack={goBackToTeach}
+            onContinue={continueFromExample}
+            onSoftTap={() => playUiSound("soft_ui")}
+            onOpenSource={(url) => {
+              playUiSound("soft_ui");
+              void Linking.openURL(url);
+            }}
+          />
+        )}
+        {state.screen === "lesson_practice" && currentLessonSession && currentPracticeActivity && (
+          <LessonPracticeScreen
+            language={currentLanguage}
+            section={currentLessonSection}
+            lessonTitle={currentLessonSession.lesson.title}
+            activity={currentPracticeActivity}
+            onBack={goBackToExample}
+            onContinue={continueFromPractice}
+            onSoftTap={() => playUiSound("soft_ui")}
+            onPracticeResult={(correct) => playUiSound(correct ? "correct" : "wrong")}
           />
         )}
         {state.screen === "lesson_question" && currentLessonSession && (
           <QuestionScreen
-            strings={strings}
             language={currentLanguage}
             section={currentLessonSection}
             session={currentLessonSession}
             challengeIndex={state.challengeIndex}
             selectedChoiceId={state.selectedChoiceId}
+            retrying={state.retryingCurrentChallenge}
             onSelectChoice={(choiceId) => {
               playUiSound("soft_ui");
               dispatch({ type: "select_choice", choiceId });
@@ -1690,22 +1867,28 @@ export default function TopicApp() {
         {state.screen === "lesson_feedback" && currentLessonSession && (
           <AnswerFeedbackScreen
             strings={strings}
+            language={currentLanguage}
             session={currentLessonSession}
             challengeIndex={state.challengeIndex}
             answerState={state.answerState}
+            retried={state.lastAnswerWasRetry}
             selectedChoiceId={state.selectedChoiceId}
             onContinue={continueFromFeedback}
           />
         )}
-        {state.screen === "lesson_teach" && currentLessonSession && (
-          <MiniLessonScreen
+        {state.screen === "lesson_help" && currentLessonSession && (
+          <LessonHelpScreen
             strings={strings}
             language={currentLanguage}
             section={currentLessonSection}
             session={currentLessonSession}
             challengeIndex={state.challengeIndex}
-            answerState={state.answerState}
-            onContinue={continueLesson}
+            onContinue={() => void continueLesson()}
+            onRetry={retryCurrentChallenge}
+            onOpenSource={(url) => {
+              playUiSound("soft_ui");
+              void Linking.openURL(url);
+            }}
           />
         )}
         {state.screen === "lesson_complete" && lessonCompleteSummary && (
@@ -2203,7 +2386,7 @@ function BranchScreen({
       </View>
 
       <View style={[styles.cleanPathCard, { borderColor: lightenColor(pathTheme.primary, 0.8), backgroundColor: pathTheme.shell }]}>
-        <PathBackdropDecor theme={pathTheme} compact />
+        <PathBackdropDecor theme={pathTheme} topicId={section.topicId} compact />
         <View style={[styles.pathBackdropAura, { backgroundColor: withAlpha(pathTheme.glow, 0.28) }]} />
         <View style={[styles.pathBackdropShell, { backgroundColor: withAlpha(pathTheme.secondary, 0.24) }]} />
         <View style={[styles.pathBackdrop, { backgroundColor: pathTheme.lane }]} />
@@ -2239,15 +2422,228 @@ function BranchScreen({
   );
 }
 
+function TeachingMomentCard({
+  moment,
+  accentColor,
+  language,
+  onSoftTap,
+  onOpenSource
+}: {
+  moment: LessonTeachingMoment;
+  accentColor: string;
+  language: SupportedLanguage;
+  onSoftTap: () => void;
+  onOpenSource: (url: string) => void;
+}) {
+  const [revealed, setRevealed] = useState(false);
+  const tone = getTeachingMomentTone(moment.kind, accentColor);
+
+  return (
+    <View style={[styles.teachingMomentCard, { borderColor: tone.border, backgroundColor: tone.background }]}>
+      <View style={styles.teachingMomentTop}>
+        <Text style={[styles.teachingMomentEyebrow, { color: tone.eyebrow }]}>{moment.eyebrow}</Text>
+        <View style={[styles.teachingMomentKindPill, { backgroundColor: tone.pillBackground }]}>
+          <Text style={[styles.teachingMomentKindText, { color: tone.pillText }]}>{getTeachingMomentLabel(moment.kind, language)}</Text>
+        </View>
+      </View>
+      <Text style={styles.teachingMomentTitle}>{moment.title}</Text>
+      <Text style={styles.teachingMomentBody}>{moment.body}</Text>
+      <View style={styles.teachingMomentActionRow}>
+        {moment.actionUrl ? (
+          <Pressable
+            onPress={() => {
+              onSoftTap();
+              onOpenSource(moment.actionUrl!);
+            }}
+            style={[styles.teachingMomentActionButton, { backgroundColor: tone.actionBackground }]}
+          >
+            <Text style={[styles.teachingMomentActionText, { color: tone.actionText }]}>
+              {moment.actionLabel ?? getTeachingMomentLabel(moment.kind, language)}
+            </Text>
+          </Pressable>
+        ) : null}
+        {moment.revealBody ? (
+          <Pressable
+            onPress={() => {
+              onSoftTap();
+              setRevealed((current) => !current);
+            }}
+            style={styles.teachingMomentGhostButton}
+          >
+            <Text style={styles.teachingMomentGhostText}>
+              {revealed
+                ? translateStudyText("Hide the takeaway", language)
+                : moment.revealLabel ?? translateStudyText("Tap to reveal", language)}
+            </Text>
+          </Pressable>
+        ) : null}
+      </View>
+      {revealed && moment.revealBody ? (
+        <View style={styles.teachingMomentRevealCard}>
+          <Text style={styles.teachingMomentRevealText}>{moment.revealBody}</Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+function PracticeActivityCard({
+  activity,
+  accentColor,
+  language,
+  onSoftTap,
+  onPracticeResult
+}: {
+  activity: LessonPracticeActivity;
+  accentColor: string;
+  language: SupportedLanguage;
+  onSoftTap: () => void;
+  onPracticeResult: (correct: boolean) => void;
+}) {
+  const [selectedChoiceId, setSelectedChoiceId] = useState<string | undefined>(undefined);
+  const [selectedOrderIds, setSelectedOrderIds] = useState<string[]>([]);
+  const [checked, setChecked] = useState(false);
+  const [isCorrect, setIsCorrect] = useState<boolean | undefined>(undefined);
+
+  const selectedOrderLabels = selectedOrderIds
+    .map((id) => activity.options.find((option) => option.id === id)?.label)
+    .filter(Boolean) as string[];
+
+  const unusedOptions = activity.kind === "sequence"
+    ? activity.options.filter((option) => !selectedOrderIds.includes(option.id))
+    : activity.options;
+
+  const readyToCheck = activity.kind === "sequence"
+    ? selectedOrderIds.length === Math.max(1, activity.correctOrderIds?.length ?? activity.options.length)
+    : Boolean(selectedChoiceId);
+
+  function resetPractice() {
+    onSoftTap();
+    setSelectedChoiceId(undefined);
+    setSelectedOrderIds([]);
+    setChecked(false);
+    setIsCorrect(undefined);
+  }
+
+  function checkPractice() {
+    if (!readyToCheck) {
+      return;
+    }
+
+    onSoftTap();
+    const correct = activity.kind === "sequence"
+      ? JSON.stringify(selectedOrderIds) === JSON.stringify(activity.correctOrderIds ?? [])
+      : selectedChoiceId === activity.correctChoiceId;
+
+    setChecked(true);
+    setIsCorrect(correct);
+    onPracticeResult(correct);
+  }
+
+  return (
+    <View style={[styles.practiceCard, checked && isCorrect === true && styles.practiceCardGood, checked && isCorrect === false && styles.practiceCardBad]}>
+      <View style={styles.practiceCardTop}>
+        <Text style={styles.practiceCardEyebrow}>{translateStudyText("Practice first", language)}</Text>
+        <View style={[styles.practiceKindPill, { backgroundColor: lightenColor(accentColor, 0.9) }]}>
+          <Text style={[styles.practiceKindText, { color: darkenColor(accentColor) }]}>{getPracticeActivityLabel(activity.kind, language)}</Text>
+        </View>
+      </View>
+      <Text style={styles.practiceCardTitle}>{activity.title}</Text>
+      <Text style={styles.practiceCardPrompt}>{activity.prompt}</Text>
+      <Text style={styles.practiceCardInstructions}>{activity.instructions}</Text>
+
+      {activity.kind === "sequence" ? (
+        <>
+          <View style={styles.sequencePreviewCard}>
+            <Text style={styles.sequencePreviewLabel}>{translateStudyText("Your order", language)}</Text>
+            {selectedOrderLabels.length ? (
+              <View style={styles.sequenceChosenRow}>
+                {selectedOrderLabels.map((label, index) => (
+                  <View key={`${activity.id}_${label}_${index}`} style={[styles.sequenceChosenChip, { borderColor: lightenColor(accentColor, 0.82), backgroundColor: lightenColor(accentColor, 0.94) }]}>
+                    <Text style={styles.sequenceChosenCount}>{index + 1}</Text>
+                    <Text style={styles.sequenceChosenText}>{label}</Text>
+                  </View>
+                ))}
+              </View>
+            ) : (
+              <Text style={styles.sequencePreviewHint}>{translateStudyText("Tap the steps in order to build the sequence.", language)}</Text>
+            )}
+          </View>
+          <View style={styles.practiceOptionsWrap}>
+            {unusedOptions.map((option) => (
+              <Pressable
+                key={option.id}
+                disabled={checked}
+                onPress={() => {
+                  onSoftTap();
+                  setSelectedOrderIds((current) => [...current, option.id]);
+                }}
+                style={[styles.practiceOptionButton, { borderColor: lightenColor(accentColor, 0.82) }]}
+              >
+                <Text style={styles.practiceOptionText}>{option.label}</Text>
+              </Pressable>
+            ))}
+          </View>
+        </>
+      ) : (
+        <View style={styles.practiceOptionsWrap}>
+          {unusedOptions.map((option) => {
+            const selected = option.id === selectedChoiceId;
+
+            return (
+              <Pressable
+                key={option.id}
+                disabled={checked}
+                onPress={() => {
+                  onSoftTap();
+                  setSelectedChoiceId(option.id);
+                }}
+                style={[
+                  styles.practiceOptionButton,
+                  { borderColor: selected ? accentColor : "#D6E5DD", backgroundColor: selected ? lightenColor(accentColor, 0.92) : "#FFFFFF" }
+                ]}
+              >
+                <Text style={styles.practiceOptionText}>{option.label}</Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      )}
+
+      <View style={styles.practiceActionRow}>
+        <Pressable onPress={resetPractice} style={styles.practiceResetButton}>
+          <Text style={styles.practiceResetText}>{translateStudyText("Reset", language)}</Text>
+        </Pressable>
+        <Pressable
+          onPress={checkPractice}
+          disabled={!readyToCheck}
+          style={[styles.practiceCheckButton, { backgroundColor: accentColor }, !readyToCheck && styles.primaryButtonDisabled]}
+        >
+          <Text style={styles.practiceCheckText}>{translateStudyText("Check practice", language)}</Text>
+        </Pressable>
+      </View>
+
+      {checked && isCorrect !== undefined ? (
+        <View style={[styles.practiceFeedbackCard, isCorrect ? styles.practiceFeedbackGood : styles.practiceFeedbackBad]}>
+          <Text style={[styles.practiceFeedbackTitle, isCorrect ? styles.feedbackTitleGood : styles.feedbackTitleBad]}>
+            {isCorrect
+              ? activity.successLabel ?? translateStudyText("Nice work", language)
+              : activity.retryLabel ?? translateStudyText("Try once more", language)}
+          </Text>
+          <Text style={styles.practiceFeedbackCopy}>{activity.explanation}</Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
 function LessonIntroScreen({
-  strings,
   language,
   section,
   session,
   onBack,
   onStart
 }: {
-  strings: UiStrings;
   language: SupportedLanguage;
   section: LearningSection;
   session: LessonSession;
@@ -2261,29 +2657,34 @@ function LessonIntroScreen({
     <View style={styles.lessonStageScreen}>
       <ScreenHeader
         title={session.lesson.title}
-        subtitle={translateStudyText("A short guided lesson before the questions begin.", language)}
+        subtitle={translateStudyText("One small lesson path. We teach first, then you answer.", language)}
         onBack={onBack}
       />
-      <View style={[styles.lessonStageCard, { borderColor: lightenColor(section.accentColor, 0.84) }]}>
+      <View style={[styles.lessonFocusCard, { borderColor: lightenColor(section.accentColor, 0.82), backgroundColor: lightenColor(section.accentColor, 0.96) }]}>
+        <View style={styles.lessonFocusBadgeRow}>
+          <Text style={styles.lessonStageEyebrow}>{translateStudyText("Lesson intro", language)}</Text>
+          <View style={[styles.lessonFocusPill, { backgroundColor: lightenColor(section.accentColor, 0.88) }]}>
+            <Text style={[styles.lessonFocusPillText, { color: darkenColor(section.accentColor) }]}>{translateStudyText("Ready", language)}</Text>
+          </View>
+        </View>
         <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={118} />
-        <Text style={styles.lessonStageEyebrow}>{section.title}</Text>
         <Text style={styles.lessonStageTitle}>{session.lesson.title}</Text>
-        <Text style={styles.lessonStageCopy}>{session.lesson.intro}</Text>
+        <Text style={styles.lessonStageCopy}>{session.lesson.whatYouWillLearn ?? session.lesson.intro}</Text>
         <View style={styles.lessonStageMetaRow}>
           <View style={styles.lessonStageMetaChip}>
-            <Text style={styles.lessonStageMetaLabel}>Difficulty</Text>
+            <Text style={styles.lessonStageMetaLabel}>{translateStudyText("Difficulty", language)}</Text>
             <Text style={styles.lessonStageMetaValue}>{`Level ${difficulty}`}</Text>
           </View>
           <View style={styles.lessonStageMetaChip}>
-            <Text style={styles.lessonStageMetaLabel}>Reward</Text>
+            <Text style={styles.lessonStageMetaLabel}>{translateStudyText("Reward", language)}</Text>
             <Text style={styles.lessonStageMetaValue}>{`+${session.lesson.xpReward} XP`}</Text>
           </View>
           <View style={styles.lessonStageMetaChip}>
-            <Text style={styles.lessonStageMetaLabel}>Time</Text>
+            <Text style={styles.lessonStageMetaLabel}>{translateStudyText("Time", language)}</Text>
             <Text style={styles.lessonStageMetaValue}>{`${estimatedMinutes} min`}</Text>
           </View>
         </View>
-        <Pressable onPress={onStart} style={[styles.primaryButton, { backgroundColor: section.accentColor }]}>
+        <Pressable onPress={onStart} style={[styles.primaryButton, styles.lessonFocusPrimaryButton, { backgroundColor: section.accentColor }]}>
           <Text style={styles.primaryButtonText}>{translateStudyText("Start lesson", language)}</Text>
         </Pressable>
       </View>
@@ -2291,23 +2692,159 @@ function LessonIntroScreen({
   );
 }
 
+function LessonTeachScreen({
+  language,
+  section,
+  lessonTitle,
+  moment,
+  onBack,
+  onContinue,
+  onSoftTap,
+  onOpenSource
+}: {
+  language: SupportedLanguage;
+  section: LearningSection;
+  lessonTitle: string;
+  moment: LessonTeachingMoment;
+  onBack: () => void;
+  onContinue: () => void;
+  onSoftTap: () => void;
+  onOpenSource: (url: string) => void;
+}) {
+  return (
+    <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={lessonTitle}
+        subtitle={translateStudyText("Step 1 of 3: learn one clear idea before the practice starts.", language)}
+        onBack={onBack}
+      />
+      <View style={[styles.lessonTeachStageCard, { borderColor: lightenColor(section.accentColor, 0.82) }]}>
+        <View style={styles.lessonFocusBadgeRow}>
+          <Text style={styles.lessonStageEyebrow}>{translateStudyText("Teach", language)}</Text>
+          <View style={[styles.lessonFocusPill, { backgroundColor: lightenColor(section.accentColor, 0.88) }]}>
+            <Text style={[styles.lessonFocusPillText, { color: darkenColor(section.accentColor) }]}>{translateStudyText("Core idea", language)}</Text>
+          </View>
+        </View>
+        <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={104} />
+        <Text style={styles.lessonTeachTitle}>{moment.title}</Text>
+        <Text style={styles.lessonTeachCopy}>{moment.body}</Text>
+        {moment.actionUrl ? (
+          <Pressable
+            onPress={() => {
+              onSoftTap();
+              onOpenSource(moment.actionUrl!);
+            }}
+            style={[styles.lessonLightLinkCard, { borderColor: lightenColor(section.accentColor, 0.82) }]}
+          >
+            <Text style={styles.lessonLightLinkEyebrow}>{moment.kind === "watch" ? translateStudyText("Watch this", language) : translateStudyText("Read this", language)}</Text>
+            <Text style={styles.lessonLightLinkTitle}>{moment.actionLabel ?? translateStudyText("Open support", language)}</Text>
+          </Pressable>
+        ) : null}
+        <Pressable onPress={onContinue} style={[styles.primaryButton, styles.lessonFlowPrimaryButton, { backgroundColor: section.accentColor }]}>
+          <Text style={styles.primaryButtonText}>{translateStudyText("Continue", language)}</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
+  );
+}
+
+function LessonExampleScreen({
+  language,
+  section,
+  lessonTitle,
+  moment,
+  onBack,
+  onContinue,
+  onSoftTap,
+  onOpenSource
+}: {
+  language: SupportedLanguage;
+  section: LearningSection;
+  lessonTitle: string;
+  moment: LessonTeachingMoment;
+  onBack: () => void;
+  onContinue: () => void;
+  onSoftTap: () => void;
+  onOpenSource: (url: string) => void;
+}) {
+  return (
+    <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={lessonTitle}
+        subtitle={translateStudyText("Step 2 of 3: see one example before the practice screen.", language)}
+        onBack={onBack}
+      />
+      <TeachingMomentCard
+        moment={moment}
+        accentColor={section.accentColor}
+        language={language}
+        onSoftTap={onSoftTap}
+        onOpenSource={onOpenSource}
+      />
+      <Pressable onPress={onContinue} style={[styles.primaryButton, styles.lessonFlowPrimaryButton, { backgroundColor: section.accentColor }]}>
+        <Text style={styles.primaryButtonText}>{translateStudyText("Try it", language)}</Text>
+      </Pressable>
+    </ScrollView>
+  );
+}
+
+function LessonPracticeScreen({
+  language,
+  section,
+  lessonTitle,
+  activity,
+  onBack,
+  onContinue,
+  onSoftTap,
+  onPracticeResult
+}: {
+  language: SupportedLanguage;
+  section: LearningSection;
+  lessonTitle: string;
+  activity: LessonPracticeActivity;
+  onBack: () => void;
+  onContinue: () => void;
+  onSoftTap: () => void;
+  onPracticeResult: (correct: boolean) => void;
+}) {
+  return (
+    <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={lessonTitle}
+        subtitle={translateStudyText("Step 3 of 3: practice lightly, then answer for real.", language)}
+        onBack={onBack}
+      />
+      <PracticeActivityCard
+        activity={activity}
+        accentColor={section.accentColor}
+        language={language}
+        onSoftTap={onSoftTap}
+        onPracticeResult={onPracticeResult}
+      />
+      <Pressable onPress={onContinue} style={[styles.primaryButton, styles.lessonFlowPrimaryButton, { backgroundColor: section.accentColor }]}>
+        <Text style={styles.primaryButtonText}>{translateStudyText("Go to question", language)}</Text>
+      </Pressable>
+    </ScrollView>
+  );
+}
+
 function QuestionScreen({
-  strings,
   language,
   section,
   session,
   challengeIndex,
   selectedChoiceId,
+  retrying,
   onSelectChoice,
   onAnswer,
   onExit
 }: {
-  strings: UiStrings;
   language: SupportedLanguage;
   section: LearningSection;
   session: LessonSession;
   challengeIndex: number;
   selectedChoiceId?: string;
+  retrying: boolean;
   onSelectChoice: (choiceId: string) => void;
   onAnswer: () => void;
   onExit: () => void;
@@ -2320,21 +2857,31 @@ function QuestionScreen({
       <View style={styles.lessonTop}>
         <View style={styles.lessonTopActions}>
           <Pressable onPress={onExit} style={styles.closeButton}>
-            <Text style={styles.closeText}>Exit</Text>
+            <Text style={styles.closeText}>{translateStudyText("Exit", language)}</Text>
           </Pressable>
-          <Text style={styles.lessonStageCounter}>{`${challengeIndex + 1}/${session.lesson.challenges.length}`}</Text>
+          {retrying ? (
+            <View style={styles.retryBadge}>
+              <Text style={styles.retryBadgeText}>{translateStudyText("Retry", language)}</Text>
+            </View>
+          ) : (
+            <Text style={styles.lessonStageCounter}>{`${challengeIndex + 1}/${session.lesson.challenges.length}`}</Text>
+          )}
         </View>
         <View style={styles.lessonProgressTrack}>
           <AnimatedProgressBar progress={progress} color={section.accentColor} trackColor={colors.gray} height={12} />
         </View>
       </View>
 
-      <View style={styles.lessonBody}>
+      <View style={styles.lessonQuestionWrap}>
         <View style={styles.lessonCoachCard}>
           <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={88} />
           <View style={styles.lessonSpeechBubble}>
-            <Text style={styles.lessonSpeechTitle}>{session.lesson.title}</Text>
-            <Text style={styles.lessonSpeechCopy}>{translateStudyText("Take your time and choose the best answer.", language)}</Text>
+            <Text style={styles.lessonSpeechTitle}>{translateStudyText("Now answer", language)}</Text>
+            <Text style={styles.lessonSpeechCopy}>
+              {retrying
+                ? translateStudyText("Take the idea slowly and choose with confidence this time.", language)
+                : translateStudyText("One question, one choice, and then we move forward.", language)}
+            </Text>
           </View>
         </View>
 
@@ -2364,13 +2911,13 @@ function QuestionScreen({
       </View>
 
       <View style={styles.feedbackPane}>
-        <Text style={styles.feedbackCopy}>{strings.pickAnswer}</Text>
+        <Text style={styles.feedbackCopy}>{translateStudyText("Pick the best answer and then check it.", language)}</Text>
         <Pressable
           onPress={onAnswer}
           disabled={!selectedChoiceId}
           style={[styles.primaryButton, styles.checkButton, !selectedChoiceId && styles.primaryButtonDisabled]}
         >
-          <Text style={styles.primaryButtonText}>{strings.check}</Text>
+          <Text style={styles.primaryButtonText}>{translateStudyText("Check", language)}</Text>
         </Pressable>
       </View>
     </View>
@@ -2379,21 +2926,31 @@ function QuestionScreen({
 
 function AnswerFeedbackScreen({
   strings,
+  language,
   session,
   challengeIndex,
   answerState,
+  retried,
   selectedChoiceId,
   onContinue
 }: {
   strings: UiStrings;
+  language: SupportedLanguage;
   session: LessonSession;
   challengeIndex: number;
   answerState: AnswerState;
+  retried: boolean;
   selectedChoiceId?: string;
   onContinue: () => void;
 }) {
   const challenge = session.lesson.challenges[challengeIndex];
   const selectedChoice = challenge.choices.find((choice) => choice.id === selectedChoiceId);
+  const feedbackTitle = answerState === "correct"
+    ? (retried ? translateStudyText("Nice recovery", language) : strings.correct)
+    : strings.notQuite;
+  const feedbackCopy = answerState === "correct"
+    ? challenge.explanation
+    : challenge.easierExplanation ?? challenge.explanation;
 
   return (
     <View style={styles.lessonStageScreen}>
@@ -2402,15 +2959,26 @@ function AnswerFeedbackScreen({
         answerState === "correct" ? styles.feedbackGood : styles.feedbackBad
       ]}>
         <Text style={[styles.feedbackTitle, answerState === "correct" ? styles.feedbackTitleGood : styles.feedbackTitleBad]}>
-          {answerState === "correct" ? strings.correct : strings.notQuite}
+          {feedbackTitle}
         </Text>
-        <Text style={styles.feedbackCopyLarge}>{challenge.explanation}</Text>
+        <Text style={styles.feedbackCopyLarge}>{feedbackCopy}</Text>
         {selectedChoice ? (
           <View style={styles.answerPickedCard}>
-            <Text style={styles.answerPickedEyebrow}>Your answer</Text>
+            <Text style={styles.answerPickedEyebrow}>
+              {retried ? translateStudyText("You tried again", language) : translateStudyText("Your answer", language)}
+            </Text>
             <Text style={styles.answerPickedValue}>{selectedChoice.label}</Text>
           </View>
         ) : null}
+        <Text style={styles.feedbackHintText}>
+          {answerState === "correct"
+            ? (retried
+              ? translateStudyText("That extra pass helped lock the idea in.", language)
+              : translateStudyText("Good. Keep the pace and move to the next step.", language))
+            : (retried
+              ? translateStudyText("You have the explanation now, so we will keep the lesson moving.", language)
+              : translateStudyText("One quick help screen is next so the idea becomes clearer before you continue.", language))}
+        </Text>
         <Pressable onPress={onContinue} style={[styles.primaryButton, answerState === "correct" ? styles.correctButton : styles.wrongButton]}>
           <Text style={styles.primaryButtonText}>{strings.continue}</Text>
         </Pressable>
@@ -2419,53 +2987,66 @@ function AnswerFeedbackScreen({
   );
 }
 
-function MiniLessonScreen({
+function LessonHelpScreen({
   strings,
   language,
   section,
   session,
   challengeIndex,
-  answerState,
-  onContinue
+  onContinue,
+  onRetry,
+  onOpenSource
 }: {
   strings: UiStrings;
   language: SupportedLanguage;
   section: LearningSection;
   session: LessonSession;
   challengeIndex: number;
-  answerState: AnswerState;
   onContinue: () => void;
+  onRetry: () => void;
+  onOpenSource: (url: string) => void;
 }) {
   const challenge = session.lesson.challenges[challengeIndex];
+  const primarySource = session.lesson.sources.find((source) => source.supportType === "primary") ?? session.lesson.sources[0];
 
   return (
-    <ScrollView contentContainerStyle={styles.lessonTeachContent} showsVerticalScrollIndicator={false}>
+    <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
       <ScreenHeader
-        title={translateStudyText("Why this matters", language)}
-        subtitle={translateStudyText("A short teaching moment before the next step.", language)}
-        onBack={onContinue}
+        title={translateStudyText("Quick help", language)}
+        subtitle={translateStudyText("A short clarification before you either retry or keep moving.", language)}
+        onBack={onRetry}
       />
-      <View style={styles.lessonTeachCard}>
-        <Text style={styles.lessonTeachEyebrow}>{answerState === "correct" ? strings.correct : strings.notQuite}</Text>
+
+      <View style={[styles.lessonHelpCard, { borderColor: lightenColor(section.accentColor, 0.82), backgroundColor: lightenColor(section.accentColor, 0.96) }]}>
+        <Text style={styles.lessonTeachEyebrow}>{translateStudyText("Clear it up", language)}</Text>
         <Text style={styles.lessonTeachTitle}>{session.lesson.title}</Text>
-        <Text style={styles.lessonTeachCopy}>{challenge.miniLesson ?? session.lesson.explanationContent ?? session.lesson.intro}</Text>
-        {(challenge.easierExplanation || challenge.reviewSuggestion) ? (
+        <Text style={styles.lessonTeachCopy}>{challenge.easierExplanation ?? challenge.miniLesson ?? session.lesson.whyItMatters ?? challenge.explanation}</Text>
+        {challenge.reviewSuggestion ? (
           <View style={styles.lessonTeachSupportCard}>
-            {challenge.easierExplanation ? <Text style={styles.lessonTeachSupportCopy}>{challenge.easierExplanation}</Text> : null}
-            {challenge.reviewSuggestion ? <Text style={styles.lessonTeachSupportHint}>{`Review next: ${challenge.reviewSuggestion}`}</Text> : null}
+            <Text style={styles.lessonTeachSupportCopy}>{translateStudyText("Review next", language)}</Text>
+            <Text style={styles.lessonTeachSupportHint}>{challenge.reviewSuggestion}</Text>
           </View>
         ) : null}
-        {session.lesson.sources.length > 0 && (
-          <LessonSources
-            sources={session.lesson.sources}
-            accentColor={section.accentColor}
-            strings={strings}
-            language={language}
-          />
-        )}
-        <Pressable onPress={onContinue} style={[styles.primaryButton, { backgroundColor: section.accentColor }]}>
-          <Text style={styles.primaryButtonText}>{translateStudyText("Next question", language)}</Text>
-        </Pressable>
+        {primarySource ? (
+          <Pressable onPress={() => onOpenSource(primarySource.url)} style={[styles.watchReadCard, { borderColor: lightenColor(section.accentColor, 0.8) }]}>
+            <View style={styles.watchReadText}>
+              <Text style={styles.watchReadEyebrow}>{translateStudyText("Best support for this step", language)}</Text>
+              <Text style={styles.watchReadTitle}>{primarySource.reference ?? primarySource.title}</Text>
+              <Text style={styles.watchReadCopy}>{primarySource.teaches ?? primarySource.summary}</Text>
+            </View>
+            <View style={[styles.watchReadButton, { backgroundColor: section.accentColor }]}>
+              <Text style={styles.watchReadButtonText}>{strings.openSource}</Text>
+            </View>
+          </Pressable>
+        ) : null}
+        <View style={styles.lessonHelpButtonRow}>
+          <Pressable onPress={onRetry} style={styles.modalGhostButton}>
+            <Text style={styles.modalGhostText}>{translateStudyText("Try again", language)}</Text>
+          </Pressable>
+          <Pressable onPress={onContinue} style={[styles.modalPrimaryButton, { backgroundColor: section.accentColor }]}>
+            <Text style={styles.modalPrimaryText}>{translateStudyText("Continue", language)}</Text>
+          </Pressable>
+        </View>
       </View>
     </ScrollView>
   );
@@ -2697,23 +3278,24 @@ function TopBar({
         </View>
         <View style={styles.topBarBrandText}>
           <Text style={styles.topBarBrandTitle}>Sira Path</Text>
-          <Text style={styles.topBarBrandCopy}>Keep your streak glowing and tap the next lesson fast.</Text>
+          <Text style={styles.topBarBrandCopy}>A guided learning path that stays light, playful, and easy to follow.</Text>
         </View>
       </View>
 
       <View style={styles.topBarMetricRow}>
-        <TopMetricPill label={strings.streak} value={`${user.streakDays}d`} tint="#FFF3CF" valueColor="#A66C00" />
-        <TopMetricPill label="XP" value={`${user.totalXp}`} tint="#DFF5FF" valueColor="#126A99" />
-        <TopMetricPill label="Gems" value={`${user.gems}`} tint="#F0E7FF" valueColor="#6C3BC6" />
-        <TopMetricPill label={strings.hearts} value={formatHearts(user, true)} tint="#FFE4E0" valueColor="#BC4336" />
+        <TopMetricPill label={strings.streak} value={`${user.streakDays}d`} tint="#FFF5D6" valueColor="#A66C00" />
+        <TopMetricPill label="XP" value={`${user.totalXp}`} tint="#E2F5FF" valueColor="#126A99" />
+        <TopMetricPill label="Gems" value={`${user.gems}`} tint="#F3EBFF" valueColor="#6C3BC6" />
+        <TopMetricPill label={strings.hearts} value={formatHearts(user, true)} tint="#FFE8E4" valueColor="#BC4336" />
       </View>
 
       <View style={styles.topBarActionRow}>
         <Pressable onPress={onHome} style={styles.dailyQuestCard}>
           <View style={styles.dailyQuestHeader}>
-            <Text style={styles.metricLabel}>Home</Text>
-            <Text style={styles.metricValue}>{Math.round(dailyProgress * 100)}%</Text>
+            <Text style={styles.metricLabel}>Today</Text>
+            <Text style={styles.metricValue}>{`${Math.round(dailyProgress * 100)}%`}</Text>
           </View>
+          <Text style={styles.dailyQuestCopy}>Keep the streak alive with one more lesson.</Text>
           <AnimatedProgressBar progress={dailyProgress} color={colors.gold} trackColor="rgba(23, 49, 35, 0.08)" height={10} />
         </Pressable>
 
@@ -2724,7 +3306,7 @@ function TopBar({
 
         <Pressable onPress={onReview} style={styles.languageButtonSmall}>
           <Text style={styles.metricLabel}>Review</Text>
-          <Text style={styles.socialButtonSmallValue}>Queue</Text>
+          <Text style={styles.socialButtonSmallValue}>Ready</Text>
         </Pressable>
 
         <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
@@ -2733,10 +3315,10 @@ function TopBar({
         </Pressable>
         <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
           <Text style={styles.metricLabel}>{strings.crew}</Text>
-          <Text style={styles.socialButtonSmallValue}>{strings.battle}</Text>
+          <Text style={styles.socialButtonSmallValue}>Rankings</Text>
         </Pressable>
         <Pressable onPress={onShop} style={styles.heartButton}>
-          <Text style={styles.metricLabel}>{strings.hearts}</Text>
+          <Text style={styles.metricLabel}>Shop</Text>
           <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
         </Pressable>
         <Pressable
@@ -2995,7 +3577,7 @@ function PathScreen({
       )}
 
       <View style={[styles.routeCard, { borderColor: lightenColor(pathTheme.primary, 0.8), backgroundColor: pathTheme.shell }]}>
-        <PathBackdropDecor theme={pathTheme} />
+        <PathBackdropDecor theme={pathTheme} topicId={section.topicId} />
         <View style={styles.routeHeader}>
           <View style={styles.routeHeaderText}>
             <Text style={styles.routeBadge}>{section.badge}</Text>
@@ -3231,18 +3813,66 @@ function TopicIcon({
 
 function PathBackdropDecor({
   theme,
+  topicId,
   compact = false
 }: {
   theme: PathTheme;
+  topicId: TopicId;
   compact?: boolean;
 }) {
   const scale = compact ? 0.82 : 1;
+  const terrain = getPathTerrainMood(topicId);
 
   return (
     <View pointerEvents="none" style={styles.pathDecorLayer}>
+      <View style={[styles.pathSkyWash, { backgroundColor: withAlpha(theme.tertiary, compact ? 0.18 : 0.24) }]} />
+      <View style={[styles.pathAtmosphereBand, styles.pathAtmosphereBandFar, { backgroundColor: withAlpha(theme.secondary, 0.14) }]} />
+      <View style={[styles.pathAtmosphereBand, styles.pathAtmosphereBandNear, { backgroundColor: withAlpha(theme.primary, 0.12) }]} />
       <View style={[styles.pathDecorBlob, styles.pathDecorBlobTopLeft, { backgroundColor: withAlpha(theme.secondary, 0.18), transform: [{ scale }] }]} />
       <View style={[styles.pathDecorBlob, styles.pathDecorBlobMiddle, { backgroundColor: withAlpha(theme.candy, 0.12), transform: [{ scale: scale * 0.92 }] }]} />
       <View style={[styles.pathDecorBlob, styles.pathDecorBlobBottomRight, { backgroundColor: withAlpha(theme.glow, 0.18), transform: [{ scale }] }]} />
+      <View style={[styles.pathTerrainRidge, styles.pathTerrainRidgeFar, { backgroundColor: withAlpha(terrain.ridge, 0.28) }]} />
+      <View style={[styles.pathTerrainRidge, styles.pathTerrainRidgeNear, { backgroundColor: withAlpha(terrain.ridgeSoft, 0.36) }]} />
+      <View style={[styles.pathTerrainBase, { backgroundColor: withAlpha(terrain.base, compact ? 0.14 : 0.18) }]} />
+      <View style={[styles.pathTerrainDune, styles.pathTerrainDuneLeft, { backgroundColor: withAlpha(terrain.dune, 0.24), transform: [{ scale: scale * 0.98 }] }]} />
+      <View style={[styles.pathTerrainDune, styles.pathTerrainDuneCenter, { backgroundColor: withAlpha(terrain.duneSoft, 0.26), transform: [{ scale: scale }] }]} />
+      <View style={[styles.pathTerrainDune, styles.pathTerrainDuneRight, { backgroundColor: withAlpha(terrain.base, 0.2), transform: [{ scale: scale * 0.9 }] }]} />
+      {terrain.night && (
+        <>
+          <View style={[styles.pathStar, styles.pathStarTop, { backgroundColor: withAlpha("#FFFFFF", 0.8) }]} />
+          <View style={[styles.pathStar, styles.pathStarMid, { backgroundColor: withAlpha("#FFF4B0", 0.78) }]} />
+          <View style={[styles.pathStar, styles.pathStarRight, { backgroundColor: withAlpha("#FFFFFF", 0.72) }]} />
+          <View style={[styles.pathMoonGlow, { backgroundColor: withAlpha(theme.glow, 0.22) }]} />
+        </>
+      )}
+      {terrain.city && (
+        <View style={styles.pathCityWrap}>
+          <View style={[styles.pathCityDome, { backgroundColor: withAlpha(terrain.landmark, 0.28) }]} />
+          <View style={[styles.pathCityArch, { backgroundColor: withAlpha(terrain.landmark, 0.32) }]} />
+          <View style={[styles.pathCityTower, { backgroundColor: withAlpha(terrain.landmark, 0.26) }]} />
+        </View>
+      )}
+      {terrain.mountains && (
+        <View style={styles.pathMountainWrap}>
+          <View style={[styles.pathMountain, styles.pathMountainLeft, { borderBottomColor: withAlpha(terrain.landmark, 0.3) }]} />
+          <View style={[styles.pathMountain, styles.pathMountainCenter, { borderBottomColor: withAlpha(terrain.landmark, 0.34) }]} />
+          <View style={[styles.pathMountain, styles.pathMountainRight, { borderBottomColor: withAlpha(terrain.landmark, 0.26) }]} />
+        </View>
+      )}
+      {terrain.garden && (
+        <>
+          <View style={[styles.pathGardenLeaf, styles.pathGardenLeafLeft, { backgroundColor: withAlpha(terrain.landmark, 0.22) }]} />
+          <View style={[styles.pathGardenLeaf, styles.pathGardenLeafRight, { backgroundColor: withAlpha(terrain.landmark, 0.2) }]} />
+          <View style={[styles.pathGardenPool, { backgroundColor: withAlpha(theme.secondary, 0.18) }]} />
+        </>
+      )}
+      {terrain.caravan && (
+        <View style={styles.pathCaravanWrap}>
+          <View style={[styles.pathCaravanDot, { backgroundColor: withAlpha(terrain.landmark, 0.34) }]} />
+          <View style={[styles.pathCaravanDot, styles.pathCaravanDotMid, { backgroundColor: withAlpha(terrain.landmark, 0.28) }]} />
+          <View style={[styles.pathCaravanDot, styles.pathCaravanDotLast, { backgroundColor: withAlpha(terrain.landmark, 0.24) }]} />
+        </View>
+      )}
       <View style={[styles.pathDecorDot, styles.pathDecorDotLeft, { backgroundColor: withAlpha(theme.reward, 0.36) }]} />
       <View style={[styles.pathDecorDot, styles.pathDecorDotRight, { backgroundColor: withAlpha(theme.secondary, 0.34) }]} />
       <View style={[styles.pathDecorDot, styles.pathDecorDotBottom, { backgroundColor: withAlpha(theme.candy, 0.3) }]} />
@@ -4504,41 +5134,83 @@ function LessonSources({
   sources,
   accentColor,
   strings,
-  language
+  language,
+  limit,
+  onOpenSource
 }: {
   sources: LessonSource[];
   accentColor: string;
   strings: UiStrings;
   language: SupportedLanguage;
+  limit?: number;
+  onOpenSource?: (url: string) => void;
 }) {
+  const visibleSources = limit ? sources.slice(0, limit) : sources;
+
   return (
     <View style={styles.sourcesBlock}>
       <Text style={styles.sourcesTitle}>{strings.sourceNotes}</Text>
-      {sources.map((source) => (
-        <Pressable key={source.id} onPress={() => Linking.openURL(source.url)} style={[styles.sourceCard, { borderColor: accentColor }]}>
-          <View style={styles.sourceHeader}>
-            <Text style={[styles.sourceBadge, { backgroundColor: lightenColor(accentColor, 0.88) }]}>{source.site}</Text>
-            <Text style={styles.sourceCategory}>{formatSourceCategory(source.category, language)}</Text>
-          </View>
-          <Text style={styles.sourceTitle}>{source.title}</Text>
-          <View style={styles.sourceMetaStack}>
-            <View style={styles.sourceMetaRow}>
-              <Text style={styles.sourceMetaLabel}>{strings.reference}</Text>
-              <Text style={styles.sourceMetaValue}>{source.reference ?? source.title}</Text>
+      {visibleSources.map((source) => {
+        const statusTone = getSourceValidationTone(source.validationStatus ?? "needs_review");
+
+        return (
+          <Pressable
+            key={source.id}
+            onPress={() => onOpenSource ? onOpenSource(source.url) : Linking.openURL(source.url)}
+            style={[styles.sourceCard, { borderColor: accentColor }]}
+          >
+            <View style={styles.sourceHeader}>
+              <Text style={[styles.sourceBadge, { backgroundColor: lightenColor(accentColor, 0.88) }]}>{source.site}</Text>
+              <Text style={styles.sourceCategory}>{formatSourceCategory(source.category, language)}</Text>
+              {source.reviewed ? (
+                <View style={styles.sourceReviewedPill}>
+                  <Text style={styles.sourceReviewedText}>{translateStudyText("Reviewed", language)}</Text>
+                </View>
+              ) : null}
+              <View style={[styles.sourceStatusPill, { backgroundColor: statusTone.background }]}>
+                <Text style={[styles.sourceStatusText, { color: statusTone.text }]}>{formatSourceValidationStatus(source.validationStatus ?? "needs_review", language)}</Text>
+              </View>
             </View>
-            <View style={styles.sourceMetaRow}>
-              <Text style={styles.sourceMetaLabel}>{strings.from}</Text>
-              <Text style={styles.sourceMetaValue}>{source.from ?? defaultSourceFrom(source)}</Text>
+            <Text style={styles.sourceTitle}>{source.title}</Text>
+            <View style={styles.sourceSupportRow}>
+              <Text style={[styles.sourceSupportPill, { color: darkenColor(accentColor), backgroundColor: lightenColor(accentColor, 0.93) }]}>
+                {formatSourceSupportType(source.supportType ?? "support", language)}
+              </Text>
             </View>
-            <View style={styles.sourceMetaRow}>
-              <Text style={styles.sourceMetaLabel}>{strings.grade}</Text>
-              <Text style={styles.sourceMetaValue}>{source.grade ?? defaultSourceGrade(source)}</Text>
+            <View style={styles.sourceMetaStack}>
+              <View style={styles.sourceMetaRow}>
+                <Text style={styles.sourceMetaLabel}>{strings.reference}</Text>
+                <Text style={styles.sourceMetaValue}>{source.reference ?? source.title}</Text>
+              </View>
+              <View style={styles.sourceMetaRow}>
+                <Text style={styles.sourceMetaLabel}>{strings.from}</Text>
+                <Text style={styles.sourceMetaValue}>{source.from ?? defaultSourceFrom(source)}</Text>
+              </View>
+              <View style={styles.sourceMetaRow}>
+                <Text style={styles.sourceMetaLabel}>{strings.grade}</Text>
+                <Text style={styles.sourceMetaValue}>{source.grade ?? defaultSourceGrade(source)}</Text>
+              </View>
             </View>
-          </View>
-          <Text style={styles.sourceCopy}>{source.summary}</Text>
-          <Text style={styles.sourceLink}>{strings.openSource}</Text>
-        </Pressable>
-      ))}
+            {source.teaches ? (
+              <View style={styles.sourceTeachingCard}>
+                <Text style={styles.sourceTeachingLabel}>{translateStudyText("What it teaches", language)}</Text>
+                <Text style={styles.sourceTeachingCopy}>{source.teaches}</Text>
+              </View>
+            ) : null}
+            <Text style={styles.sourceCopy}>{source.summary}</Text>
+            {source.whyAttached ? (
+              <View style={styles.sourceAttachmentCard}>
+                <Text style={styles.sourceAttachmentLabel}>{translateStudyText("Why this is attached", language)}</Text>
+                <Text style={styles.sourceAttachmentCopy}>{source.whyAttached}</Text>
+              </View>
+            ) : null}
+            <Text style={styles.sourceLink}>{strings.openSource}</Text>
+          </Pressable>
+        );
+      })}
+      {limit && sources.length > visibleSources.length ? (
+        <Text style={styles.sourceListHint}>{translateStudyText("More lesson evidence appears after the question review.", language)}</Text>
+      ) : null}
     </View>
   );
 }
@@ -5386,6 +6058,17 @@ function shouldOfferReviewHeartRestore(user: UserProfile) {
   return !user.hearts.unlimited && user.hearts.current === 0 && !user.reviewHeartRestoreUsed;
 }
 
+function pickTeachMoment(lesson: LessonSession["lesson"]) {
+  return lesson.teachingMoments?.find((moment) => moment.kind === "learn")
+    ?? lesson.teachingMoments?.find((moment) => moment.kind === "takeaway")
+    ?? lesson.teachingMoments?.[0];
+}
+
+function pickExampleMoment(lesson: LessonSession["lesson"]) {
+  return lesson.teachingMoments?.find((moment) => ["story", "watch", "read", "reveal"].includes(moment.kind))
+    ?? lesson.teachingMoments?.find((moment) => moment.kind === "takeaway");
+}
+
 function defaultSourceFrom(source: LessonSource) {
   if (source.site === "Quran.com") {
     return "The Quran and tafsir on Quran.com";
@@ -5393,6 +6076,10 @@ function defaultSourceFrom(source: LessonSource) {
 
   if (source.site === "YouTube") {
     return "YouTube video guide";
+  }
+
+  if (source.site === "Yaqeen Institute") {
+    return "Yaqeen Institute explainer";
   }
 
   return "Hadith collection on Sunnah.com";
@@ -5405,6 +6092,10 @@ function defaultSourceGrade(source: LessonSource) {
 
   if (source.site === "YouTube") {
     return "Visual guide";
+  }
+
+  if (source.site === "Yaqeen Institute") {
+    return "Reviewed explainer";
   }
 
   return "See source";
@@ -5425,9 +6116,141 @@ function formatSourceCategory(category: LessonSource["category"], language: Supp
       ? "Hadith"
       : category === "tafsir"
         ? "Tafsir"
-        : "Video";
+        : category === "biography"
+          ? "Biography"
+          : category === "article"
+            ? "Article"
+            : category === "beginner_explainer"
+              ? "Beginner explainer"
+              : "Video";
 
   return translateStudyText(label, language).toUpperCase();
+}
+
+function formatSourceValidationStatus(status: ResourceValidationStatus, language: SupportedLanguage) {
+  const label =
+    status === "exact_match"
+      ? "Exact match"
+      : status === "strong_support"
+        ? "Strong support"
+        : status === "weak_support"
+          ? "Broader support"
+          : "Needs review";
+
+  return translateStudyText(label, language);
+}
+
+function formatSourceSupportType(type: ResourceSupportType, language: SupportedLanguage) {
+  return translateStudyText(type === "primary" ? "Primary evidence" : "Support material", language);
+}
+
+function getSourceValidationTone(status: ResourceValidationStatus) {
+  if (status === "exact_match") {
+    return { background: "#DFF7E8", text: colors.greenDark };
+  }
+
+  if (status === "strong_support") {
+    return { background: "#E5F2FF", text: "#215E98" };
+  }
+
+  if (status === "weak_support") {
+    return { background: "#FFF1D6", text: "#996100" };
+  }
+
+  return { background: "#FFE4E2", text: "#B5392D" };
+}
+
+function getTeachingMomentLabel(kind: LessonTeachingMoment["kind"], language: SupportedLanguage) {
+  const label =
+    kind === "watch"
+      ? "Watch"
+      : kind === "read"
+        ? "Read"
+        : kind === "story"
+          ? "Story"
+          : kind === "reveal"
+            ? "Reveal"
+            : kind === "takeaway"
+              ? "Carry it"
+              : "Learn";
+
+  return translateStudyText(label, language);
+}
+
+function getTeachingMomentTone(kind: LessonTeachingMoment["kind"], accentColor: string) {
+  if (kind === "watch") {
+    return {
+      background: "#EEF5FF",
+      border: "#C7DAFA",
+      eyebrow: "#235D95",
+      pillBackground: "#DCEBFF",
+      pillText: "#235D95",
+      actionBackground: "#2E8BC0",
+      actionText: colors.white
+    };
+  }
+
+  if (kind === "story") {
+    return {
+      background: "#FFF7E6",
+      border: "#F5D38A",
+      eyebrow: "#9B6700",
+      pillBackground: "#FFE7B3",
+      pillText: "#8C5D00",
+      actionBackground: "#F2C94C",
+      actionText: colors.ink
+    };
+  }
+
+  if (kind === "reveal" || kind === "takeaway") {
+    return {
+      background: lightenColor(accentColor, 0.96),
+      border: lightenColor(accentColor, 0.8),
+      eyebrow: darkenColor(accentColor),
+      pillBackground: lightenColor(accentColor, 0.9),
+      pillText: darkenColor(accentColor),
+      actionBackground: accentColor,
+      actionText: colors.white
+    };
+  }
+
+  return {
+    background: "#F7FBF8",
+    border: "#D7E7DE",
+    eyebrow: colors.greenDark,
+    pillBackground: "#E7F6ED",
+    pillText: colors.greenDark,
+    actionBackground: accentColor,
+    actionText: colors.white
+  };
+}
+
+function getPracticeActivityLabel(kind: LessonPracticeActivity["kind"], language: SupportedLanguage) {
+  return translateStudyText(kind === "sequence" ? "Tap in order" : "Choose the best fit", language);
+}
+
+function getPathTerrainMood(topicId: TopicId) {
+  switch (topicId) {
+    case "sahabah":
+      return { ridge: "#7CBFA7", ridgeSoft: "#A6D9C8", base: "#DDBA74", dune: "#E6C98B", duneSoft: "#F1DFC0", landmark: "#8F6C3B", caravan: true, city: false, mountains: false, garden: false, night: false };
+    case "prayer":
+      return { ridge: "#88C5F2", ridgeSoft: "#B4E1FF", base: "#D8E7F3", dune: "#DCEFFE", duneSoft: "#ECF7FF", landmark: "#7AA2C0", caravan: false, city: true, mountains: false, garden: false, night: false };
+    case "quran_tafseer":
+      return { ridge: "#5F8ED6", ridgeSoft: "#8CB5F2", base: "#A5D6C0", dune: "#CBEAD9", duneSoft: "#E7F8EF", landmark: "#F3E4A2", caravan: false, city: false, mountains: false, garden: false, night: true };
+    case "prophets":
+      return { ridge: "#9B8F65", ridgeSoft: "#C6B88D", base: "#D8C69A", dune: "#E8D7AF", duneSoft: "#F4E7C8", landmark: "#7A6B4A", caravan: true, city: false, mountains: true, garden: false, night: false };
+    case "women_of_the_book":
+    case "marriage":
+      return { ridge: "#B8D79C", ridgeSoft: "#D5E8B9", base: "#E7D3B8", dune: "#F1E0C8", duneSoft: "#FAEFE2", landmark: "#B85F7A", caravan: false, city: false, mountains: false, garden: true, night: false };
+    case "fasting":
+      return { ridge: "#6A86B6", ridgeSoft: "#93ACD6", base: "#CAB998", dune: "#D9C8A5", duneSoft: "#E9DCBF", landmark: "#FFF0B3", caravan: false, city: false, mountains: false, garden: false, night: true };
+    case "hajj":
+      return { ridge: "#C3B189", ridgeSoft: "#E0D0AA", base: "#E7D4AA", dune: "#F1E1BE", duneSoft: "#F8EDD5", landmark: "#8E7A58", caravan: true, city: true, mountains: false, garden: false, night: false };
+    case "manners":
+      return { ridge: "#96D8B9", ridgeSoft: "#BFEBD7", base: "#DCE8C6", dune: "#EBF5D7", duneSoft: "#F6FAE8", landmark: "#5EA47D", caravan: false, city: false, mountains: false, garden: true, night: false };
+    default:
+      return { ridge: "#92D7C2", ridgeSoft: "#BDECDD", base: "#DDEBCB", dune: "#EBF6DA", duneSoft: "#F7FBEA", landmark: "#6AAB91", caravan: false, city: false, mountains: false, garden: true, night: false };
+  }
 }
 
 function startCaseRelation(relation: SocialRelation) {
@@ -6037,20 +6860,21 @@ const styles = StyleSheet.create({
   appShell: { flex: 1, backgroundColor: colors.bg },
   centerPane: { flex: 1, alignItems: "center", justifyContent: "center", padding: 24 },
   loadingText: { color: colors.ink, fontSize: 18, fontWeight: "700", letterSpacing: 0 },
-  topBar: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 12, paddingHorizontal: 18, paddingVertical: 14, backgroundColor: "#FDFEFC", borderBottomWidth: 1, borderBottomColor: "#E3ECE6", shadowColor: "rgba(17,49,35,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.12, shadowRadius: 16, elevation: 3 },
+  topBar: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 12, paddingHorizontal: 18, paddingVertical: 14, backgroundColor: "#FCFFFD", borderBottomWidth: 1, borderBottomColor: "#DDEBE2", shadowColor: "rgba(17,49,35,0.10)", shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.14, shadowRadius: 20, elevation: 4 },
   topBarBrand: { minWidth: 250, flexDirection: "row", alignItems: "center", gap: 12, flex: 1 },
   topBarBrandText: { flexShrink: 1 },
   topBarBrandTitle: { color: colors.ink, fontSize: 20, fontWeight: "900", letterSpacing: 0 },
   topBarBrandCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", marginTop: 2 },
-  miniGuideWrap: { width: 52, height: 52, borderRadius: 16, overflow: "hidden", backgroundColor: colors.mint, borderWidth: 1, borderColor: "#BEE7CF" },
+  miniGuideWrap: { width: 54, height: 54, borderRadius: 18, overflow: "hidden", backgroundColor: colors.mint, borderWidth: 1, borderColor: "#BEE7CF" },
   topMetric: { minWidth: 50 },
   topBarMetricRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10 },
-  topMetricPill: { minWidth: 82, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "rgba(27,52,39,0.06)" },
+  topMetricPill: { minWidth: 82, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 18, borderWidth: 1, borderColor: "rgba(27,52,39,0.06)", shadowColor: "rgba(17,49,35,0.08)", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.12, shadowRadius: 10, elevation: 2 },
   topBarActionRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-end", gap: 10, flex: 1 },
-  metricLabel: { color: colors.muted, fontSize: 12, fontWeight: "700", letterSpacing: 0 },
-  metricValue: { color: colors.ink, fontSize: 15, fontWeight: "800", letterSpacing: 0 },
-  dailyQuestCard: { minWidth: 148, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "#F2E1A3", backgroundColor: "#FFF8DB" },
+  metricLabel: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
+  metricValue: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
+  dailyQuestCard: { minWidth: 184, paddingHorizontal: 14, paddingVertical: 12, borderRadius: 18, borderWidth: 1, borderColor: "#F2E1A3", backgroundColor: "#FFF8DB" },
   dailyQuestHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 8 },
+  dailyQuestCopy: { color: colors.ink, fontSize: 12, lineHeight: 17, fontWeight: "700", marginBottom: 10 },
   soundButton: { minWidth: 92, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, borderWidth: 1, borderColor: "#D7E9DE", backgroundColor: "#EEF8F2" },
   soundButtonMuted: { borderColor: "#E6D8D8", backgroundColor: "#F8EEEE" },
   soundButtonValue: { color: colors.greenDark, fontSize: 14, fontWeight: "900", letterSpacing: 0 },
@@ -6159,6 +6983,40 @@ const styles = StyleSheet.create({
   pathDecorDotLeft: { width: 12, height: 12, left: 70, top: 180 },
   pathDecorDotRight: { width: 16, height: 16, right: 72, top: 114 },
   pathDecorDotBottom: { width: 10, height: 10, left: 140, bottom: 88 },
+  pathSkyWash: { position: "absolute", left: 12, right: 12, top: 10, height: 120, borderRadius: 28 },
+  pathAtmosphereBand: { position: "absolute", left: 24, right: 24, borderRadius: 999 },
+  pathAtmosphereBandFar: { top: 88, height: 54 },
+  pathAtmosphereBandNear: { top: 124, height: 44 },
+  pathTerrainRidge: { position: "absolute", left: 18, right: 18, borderRadius: 999 },
+  pathTerrainRidgeFar: { top: 140, height: 72 },
+  pathTerrainRidgeNear: { top: 170, height: 84 },
+  pathTerrainBase: { position: "absolute", left: 10, right: 10, bottom: 12, height: 118, borderTopLeftRadius: 54, borderTopRightRadius: 54, borderBottomLeftRadius: 26, borderBottomRightRadius: 26 },
+  pathTerrainDune: { position: "absolute", bottom: 24, borderRadius: 999 },
+  pathTerrainDuneLeft: { width: 210, height: 76, left: -24 },
+  pathTerrainDuneCenter: { width: 280, height: 104, left: "50%", marginLeft: -140 },
+  pathTerrainDuneRight: { width: 190, height: 72, right: -26 },
+  pathStar: { position: "absolute", width: 6, height: 6, borderRadius: 999 },
+  pathStarTop: { top: 36, left: 112 },
+  pathStarMid: { top: 66, right: 126 },
+  pathStarRight: { top: 98, right: 68 },
+  pathMoonGlow: { position: "absolute", width: 74, height: 74, borderRadius: 37, right: 34, top: 24 },
+  pathCityWrap: { position: "absolute", right: 28, top: 134, width: 92, height: 64, alignItems: "center", justifyContent: "flex-end" },
+  pathCityDome: { position: "absolute", bottom: 16, width: 40, height: 22, borderTopLeftRadius: 22, borderTopRightRadius: 22, borderBottomLeftRadius: 6, borderBottomRightRadius: 6 },
+  pathCityArch: { position: "absolute", bottom: 12, left: 8, width: 24, height: 28, borderTopLeftRadius: 14, borderTopRightRadius: 14, borderBottomLeftRadius: 6, borderBottomRightRadius: 6 },
+  pathCityTower: { position: "absolute", bottom: 14, right: 10, width: 12, height: 34, borderTopLeftRadius: 7, borderTopRightRadius: 7, borderBottomLeftRadius: 4, borderBottomRightRadius: 4 },
+  pathMountainWrap: { position: "absolute", left: 22, top: 138, width: 156, height: 72 },
+  pathMountain: { position: "absolute", width: 0, height: 0, borderLeftWidth: 26, borderRightWidth: 26, borderBottomWidth: 56, borderLeftColor: "transparent", borderRightColor: "transparent" },
+  pathMountainLeft: { left: 0, top: 14 },
+  pathMountainCenter: { left: 42, borderLeftWidth: 32, borderRightWidth: 32, borderBottomWidth: 66 },
+  pathMountainRight: { left: 96, top: 18, borderLeftWidth: 24, borderRightWidth: 24, borderBottomWidth: 50 },
+  pathGardenLeaf: { position: "absolute", width: 44, height: 20, borderRadius: 999, bottom: 118, transform: [{ rotate: "-18deg" }] },
+  pathGardenLeafLeft: { left: 32 },
+  pathGardenLeafRight: { right: 28, transform: [{ rotate: "18deg" }] },
+  pathGardenPool: { position: "absolute", left: "50%", marginLeft: -34, bottom: 102, width: 68, height: 18, borderRadius: 999 },
+  pathCaravanWrap: { position: "absolute", left: 34, bottom: 92, width: 64, height: 22, flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  pathCaravanDot: { width: 12, height: 12, borderRadius: 999 },
+  pathCaravanDotMid: { width: 10, height: 10 },
+  pathCaravanDotLast: { width: 8, height: 8 },
   pathBackdropAura: { position: "absolute", left: "50%", marginLeft: -18, top: -8, bottom: -8, width: 36, borderRadius: 999 },
   pathBackdropShell: { position: "absolute", left: "50%", marginLeft: -11, top: -2, bottom: -2, width: 22, borderRadius: 999 },
   pathBackdrop: { position: "absolute", left: "50%", marginLeft: -6, top: 6, bottom: 6, width: 12, borderRadius: 999, opacity: 0.94 },
@@ -6264,15 +7122,23 @@ const styles = StyleSheet.create({
   lessonTopActions: { flexDirection: "row", alignItems: "center", gap: 8 },
   closeButton: { paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, backgroundColor: colors.gray },
   closeText: { color: colors.ink, fontWeight: "900", letterSpacing: 0 },
+  retryBadge: { paddingHorizontal: 10, paddingVertical: 8, borderRadius: 999, backgroundColor: "#FFF3CF" },
+  retryBadgeText: { color: "#A66C00", fontSize: 12, fontWeight: "900", letterSpacing: 0 },
   skipLessonButton: { paddingVertical: 8, paddingHorizontal: 10, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   skipLessonText: { color: colors.muted, fontSize: 13, fontWeight: "800", letterSpacing: 0 },
   lessonProgressTrack: { flex: 1, height: 12, overflow: "hidden", borderRadius: 6, backgroundColor: colors.gray },
   lessonProgressFill: { height: 12 },
   lessonBody: { flex: 1, padding: 20 },
+  lessonQuestionWrap: { flex: 1, width: "100%", maxWidth: 640, alignSelf: "center", paddingHorizontal: 4, paddingVertical: 18 },
   lessonCoachCard: { flexDirection: "row", alignItems: "center", gap: 12 },
   lessonSpeechBubble: { flex: 1, padding: 14, borderRadius: 8, borderWidth: 1, borderColor: colors.line, backgroundColor: "#F8FBF8" },
   lessonSpeechTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
   lessonSpeechCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
+  questionPrepCard: { marginTop: 16, padding: 14, borderRadius: 18, borderWidth: 1, borderColor: "#D6E7DE", backgroundColor: "#F7FBF8" },
+  questionPrepEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  questionPrepCopy: { color: colors.ink, fontSize: 13, lineHeight: 19, fontWeight: "700", marginTop: 5 },
+  questionPrepLink: { alignSelf: "flex-start", marginTop: 8, paddingHorizontal: 10, paddingVertical: 8, borderRadius: 999, backgroundColor: "#E6F0FB" },
+  questionPrepLinkText: { color: colors.sky, fontSize: 12, fontWeight: "900" },
   promptCard: { marginTop: 24 },
   eyebrow: { color: colors.greenDark, fontSize: 13, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   challengePrompt: { color: colors.ink, fontSize: 28, lineHeight: 34, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
@@ -6287,13 +7153,26 @@ const styles = StyleSheet.create({
   sourceHeader: { flexDirection: "row", alignItems: "center", gap: 8 },
   sourceBadge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999, color: colors.ink, fontSize: 11, fontWeight: "900", overflow: "hidden" },
   sourceCategory: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0 },
+  sourceReviewedPill: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999, backgroundColor: "#E9F7EF" },
+  sourceReviewedText: { color: colors.greenDark, fontSize: 10, fontWeight: "900", textTransform: "uppercase" },
   sourceTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
+  sourceStatusPill: { marginLeft: "auto", paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999 },
+  sourceStatusText: { fontSize: 10, fontWeight: "900", textTransform: "uppercase" },
+  sourceSupportRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 10 },
+  sourceSupportPill: { paddingHorizontal: 10, paddingVertical: 6, borderRadius: 999, fontSize: 11, fontWeight: "900", overflow: "hidden" },
   sourceMetaStack: { gap: 6, marginTop: 10 },
   sourceMetaRow: { flexDirection: "row", alignItems: "flex-start", gap: 8 },
   sourceMetaLabel: { width: 66, color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   sourceMetaValue: { flex: 1, color: colors.ink, fontSize: 12, lineHeight: 17, fontWeight: "700", letterSpacing: 0 },
+  sourceTeachingCard: { marginTop: 10, padding: 12, borderRadius: 14, backgroundColor: "#F4FBF7" },
+  sourceTeachingLabel: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  sourceTeachingCopy: { color: colors.ink, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 5 },
   sourceCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 6 },
+  sourceAttachmentCard: { marginTop: 10, padding: 12, borderRadius: 14, backgroundColor: "#FFF8EA" },
+  sourceAttachmentLabel: { color: "#996100", fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  sourceAttachmentCopy: { color: colors.ink, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 5 },
   sourceLink: { color: colors.sky, fontSize: 12, fontWeight: "900", letterSpacing: 0, marginTop: 8 },
+  sourceListHint: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700" },
   feedbackPane: { padding: 18, gap: 12, borderTopWidth: 1, borderTopColor: colors.line, backgroundColor: colors.white },
   feedbackGood: { backgroundColor: "#DCF7E8" },
   feedbackBad: { backgroundColor: colors.coralSoft },
@@ -6518,24 +7397,104 @@ const styles = StyleSheet.create({
   lessonStageEyebrow: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase" },
   lessonStageTitle: { color: colors.ink, fontSize: 28, lineHeight: 34, fontWeight: "900", textAlign: "center" },
   lessonStageCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", textAlign: "center", maxWidth: 520 },
+  lessonFlowContent: { padding: 18, paddingBottom: 128, gap: 14 },
+  lessonFocusCard: { alignItems: "center", gap: 14, padding: 22, borderRadius: 26, borderWidth: 1, backgroundColor: colors.white },
+  lessonFocusBadgeRow: { width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" },
+  lessonFocusPill: { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 999 },
+  lessonFocusPillText: { fontSize: 12, fontWeight: "900", letterSpacing: 0 },
+  lessonFocusPrimaryButton: { width: "100%", maxWidth: 320, marginTop: 4 },
   lessonStageMetaRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 8, marginBottom: 8 },
   lessonStageMetaChip: { minWidth: 96, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, backgroundColor: "#F7FBF8", alignItems: "center" },
   lessonStageMetaLabel: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
   lessonStageMetaValue: { color: colors.ink, fontSize: 14, fontWeight: "900", marginTop: 4 },
+  lessonGuideHeroCard: { padding: 18, borderRadius: 26, borderWidth: 1, gap: 14, backgroundColor: colors.white },
+  lessonGuideHeroTop: { flexDirection: "row", alignItems: "center", gap: 14 },
+  lessonGuideHeroText: { flex: 1, minWidth: 220 },
+  lessonGuideHeroTitle: { textAlign: "left", fontSize: 26, lineHeight: 31 },
+  lessonGuideHeroCopy: { textAlign: "left" },
+  lessonGuideInfoGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  lessonGuideInfoCard: { flexGrow: 1, minWidth: 220, padding: 14, borderRadius: 18, backgroundColor: "rgba(255,255,255,0.72)" },
+  lessonGuideInfoEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  lessonGuideInfoCopy: { color: colors.ink, fontSize: 14, lineHeight: 20, fontWeight: "700", marginTop: 6 },
+  storyMomentCard: { padding: 16, borderRadius: 20, backgroundColor: "rgba(255,255,255,0.76)", borderWidth: 1, borderColor: "rgba(24,49,38,0.06)" },
+  storyMomentEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  storyMomentCopy: { color: colors.ink, fontSize: 14, lineHeight: 21, fontWeight: "700", marginTop: 6 },
+  watchReadCard: { flexDirection: "row", alignItems: "center", gap: 12, padding: 16, borderRadius: 20, borderWidth: 1, backgroundColor: "#FFFFFF" },
+  watchReadText: { flex: 1 },
+  watchReadEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  watchReadTitle: { color: colors.ink, fontSize: 16, fontWeight: "900", marginTop: 4 },
+  watchReadCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 5 },
+  watchReadButton: { minWidth: 78, minHeight: 42, paddingHorizontal: 12, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  watchReadButtonText: { color: colors.white, fontSize: 13, fontWeight: "900" },
+  lessonMomentStack: { gap: 12 },
+  teachingMomentCard: { padding: 16, borderRadius: 22, borderWidth: 1, gap: 10 },
+  teachingMomentTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" },
+  teachingMomentEyebrow: { fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  teachingMomentKindPill: { paddingHorizontal: 10, paddingVertical: 5, borderRadius: 999 },
+  teachingMomentKindText: { fontSize: 11, fontWeight: "900" },
+  teachingMomentTitle: { color: colors.ink, fontSize: 19, lineHeight: 24, fontWeight: "900" },
+  teachingMomentBody: { color: colors.ink, fontSize: 14, lineHeight: 20, fontWeight: "700" },
+  teachingMomentActionRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 2 },
+  teachingMomentActionButton: { minHeight: 42, paddingHorizontal: 14, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  teachingMomentActionText: { fontSize: 13, fontWeight: "900" },
+  teachingMomentGhostButton: { minHeight: 42, paddingHorizontal: 14, borderRadius: 14, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: colors.line, backgroundColor: "#FFFFFF" },
+  teachingMomentGhostText: { color: colors.ink, fontSize: 13, fontWeight: "900" },
+  teachingMomentRevealCard: { padding: 14, borderRadius: 16, backgroundColor: "rgba(255,255,255,0.82)", borderWidth: 1, borderColor: "rgba(24,49,38,0.06)" },
+  teachingMomentRevealText: { color: colors.ink, fontSize: 14, lineHeight: 20, fontWeight: "700" },
+  practiceCard: { padding: 16, borderRadius: 22, borderWidth: 1, borderColor: "#DCE9E1", backgroundColor: "#FFFFFF", gap: 10 },
+  practiceCardGood: { borderColor: "#A2D7B7", backgroundColor: "#F3FCF6" },
+  practiceCardBad: { borderColor: "#F5C7C0", backgroundColor: "#FFF8F7" },
+  practiceCardTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" },
+  practiceCardEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  practiceKindPill: { paddingHorizontal: 10, paddingVertical: 5, borderRadius: 999 },
+  practiceKindText: { fontSize: 11, fontWeight: "900" },
+  practiceCardTitle: { color: colors.ink, fontSize: 18, fontWeight: "900" },
+  practiceCardPrompt: { color: colors.ink, fontSize: 14, lineHeight: 20, fontWeight: "800" },
+  practiceCardInstructions: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700" },
+  sequencePreviewCard: { padding: 14, borderRadius: 18, backgroundColor: "#F7FBF8", gap: 8 },
+  sequencePreviewLabel: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  sequencePreviewHint: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700" },
+  sequenceChosenRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  sequenceChosenChip: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 10, paddingVertical: 8, borderRadius: 999, borderWidth: 1 },
+  sequenceChosenCount: { color: colors.greenDark, fontSize: 11, fontWeight: "900" },
+  sequenceChosenText: { color: colors.ink, fontSize: 12, fontWeight: "800" },
+  practiceOptionsWrap: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
+  practiceOptionButton: { minHeight: 48, paddingHorizontal: 14, borderRadius: 16, borderWidth: 1, alignItems: "center", justifyContent: "center", backgroundColor: "#FFFFFF" },
+  practiceOptionText: { color: colors.ink, fontSize: 13, lineHeight: 18, fontWeight: "800" },
+  practiceActionRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 4 },
+  practiceResetButton: { minHeight: 42, paddingHorizontal: 14, borderRadius: 14, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: colors.line, backgroundColor: "#FFFFFF" },
+  practiceResetText: { color: colors.ink, fontSize: 13, fontWeight: "900" },
+  practiceCheckButton: { minHeight: 42, paddingHorizontal: 16, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  practiceCheckText: { color: colors.white, fontSize: 13, fontWeight: "900" },
+  practiceFeedbackCard: { padding: 14, borderRadius: 18, borderWidth: 1 },
+  practiceFeedbackGood: { borderColor: "#B8E2C8", backgroundColor: "#EDF9F1" },
+  practiceFeedbackBad: { borderColor: "#F2C7C1", backgroundColor: "#FFF3F1" },
+  practiceFeedbackTitle: { fontSize: 14, fontWeight: "900" },
+  practiceFeedbackCopy: { color: colors.ink, fontSize: 13, lineHeight: 19, fontWeight: "700", marginTop: 6 },
+  lessonStartButton: { marginTop: 4 },
+  lessonStartHint: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", textAlign: "center", marginTop: -4 },
   lessonStageCounter: { color: colors.greenDark, fontSize: 13, fontWeight: "900" },
   feedbackStageCard: { flex: 1, alignItems: "center", justifyContent: "center", gap: 14, padding: 26, borderRadius: 24 },
   feedbackCopyLarge: { color: colors.ink, fontSize: 16, lineHeight: 23, fontWeight: "700", textAlign: "center", maxWidth: 540 },
+  feedbackHintText: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", textAlign: "center", maxWidth: 460 },
   answerPickedCard: { width: "100%", maxWidth: 420, padding: 16, borderRadius: 18, backgroundColor: "rgba(255,255,255,0.72)" },
   answerPickedEyebrow: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
   answerPickedValue: { color: colors.ink, fontSize: 17, fontWeight: "900", marginTop: 4 },
   lessonTeachContent: { padding: 18, paddingBottom: 128, gap: 14 },
   lessonTeachCard: { padding: 18, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, gap: 12 },
+  lessonTeachStageCard: { padding: 20, borderRadius: 24, borderWidth: 1, backgroundColor: colors.white, gap: 14, alignItems: "center" },
   lessonTeachEyebrow: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase" },
   lessonTeachTitle: { color: colors.ink, fontSize: 26, fontWeight: "900" },
   lessonTeachCopy: { color: colors.ink, fontSize: 15, lineHeight: 22, fontWeight: "700" },
   lessonTeachSupportCard: { padding: 14, borderRadius: 18, backgroundColor: "#F7FBF8" },
   lessonTeachSupportCopy: { color: colors.ink, fontSize: 14, lineHeight: 20, fontWeight: "700" },
   lessonTeachSupportHint: { color: colors.muted, fontSize: 12, lineHeight: 18, fontWeight: "800", marginTop: 6 },
+  lessonLightLinkCard: { width: "100%", padding: 14, borderRadius: 18, borderWidth: 1, backgroundColor: "#FFFFFF" },
+  lessonLightLinkEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  lessonLightLinkTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", marginTop: 5 },
+  lessonFlowPrimaryButton: { width: "100%", marginTop: 2 },
+  lessonHelpCard: { padding: 18, borderRadius: 24, borderWidth: 1, gap: 12 },
+  lessonHelpButtonRow: { flexDirection: "row", gap: 10, marginTop: 4 },
   lessonCompleteCard: { flex: 1, alignItems: "center", justifyContent: "center", padding: 26, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, overflow: "hidden" },
   lessonCompleteTitle: { color: colors.ink, fontSize: 28, fontWeight: "900", marginTop: 8, textAlign: "center" },
   lessonCompleteCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", textAlign: "center", marginTop: 6, maxWidth: 520 },

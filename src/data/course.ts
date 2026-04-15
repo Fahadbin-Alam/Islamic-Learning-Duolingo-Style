@@ -1,5 +1,6 @@
 import { buildExpandedContent } from "./scalableCurriculum";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
+import { preciseResourceUrl } from "../services/resourceSupport";
 
 const today = new Date().toISOString().slice(0, 10);
 
@@ -18,7 +19,7 @@ function quranSource(
     site: "Quran.com",
     category: "tafsir",
     title,
-    url,
+    url: preciseResourceUrl("Quran.com", url, reference),
     reference,
     from,
     grade: "Quran",
@@ -40,7 +41,7 @@ function hadithSource(
     site: "Sunnah.com",
     category: "hadith",
     title,
-    url,
+    url: preciseResourceUrl("Sunnah.com", url, reference),
     reference,
     from,
     grade,
@@ -60,7 +61,7 @@ function videoSource(
     site: "YouTube",
     category: "video",
     title,
-    url,
+    url: preciseResourceUrl("YouTube", url, "Video guide"),
     reference: "Video guide",
     from,
     grade: "Visual walkthrough",

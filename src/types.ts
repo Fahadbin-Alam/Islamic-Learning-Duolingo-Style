@@ -15,6 +15,10 @@ export type TopicId =
 export type CharacterVariant = "hijabi" | "muslim_man";
 
 export type ChallengeType = "multiple_choice" | "true_false";
+export type ResourceValidationStatus = "exact_match" | "strong_support" | "weak_support" | "needs_review";
+export type ResourceSupportType = "primary" | "support";
+export type LessonSourceSite = "Quran.com" | "Sunnah.com" | "YouTube" | "Yaqeen Institute";
+export type LessonSourceCategory = "tafsir" | "hadith" | "video" | "biography" | "article" | "beginner_explainer";
 
 export type LearningNodeStatus = "locked" | "available" | "current" | "completed";
 
@@ -283,6 +287,33 @@ export interface Challenge {
   resourceUrl?: string;
 }
 
+export interface LessonTeachingMoment {
+  id: string;
+  kind: "learn" | "story" | "watch" | "read" | "reveal" | "takeaway";
+  eyebrow: string;
+  title: string;
+  body: string;
+  actionLabel?: string;
+  actionUrl?: string;
+  revealLabel?: string;
+  revealBody?: string;
+  sourceId?: string;
+}
+
+export interface LessonPracticeActivity {
+  id: string;
+  kind: "sequence" | "guided_choice";
+  title: string;
+  prompt: string;
+  instructions: string;
+  options: ChallengeChoice[];
+  correctChoiceId?: string;
+  correctOrderIds?: string[];
+  explanation: string;
+  successLabel?: string;
+  retryLabel?: string;
+}
+
 export interface Lesson {
   id: string;
   nodeId: string;
@@ -292,6 +323,10 @@ export interface Lesson {
   title: string;
   intro: string;
   explanationContent?: string;
+  whatYouWillLearn?: string;
+  whyItMatters?: string;
+  keyTakeaway?: string;
+  storyMoment?: string;
   lessonType?: "skill" | "story" | "surah" | "scenario" | "review" | "mastery";
   difficulty?: DifficultyTier;
   xpReward: number;
@@ -300,19 +335,26 @@ export interface Lesson {
   unlockRules?: string[];
   masteryState?: "new" | "learning" | "mastery";
   masteryTestEligible?: boolean;
+  teachingMoments?: LessonTeachingMoment[];
+  practiceActivities?: LessonPracticeActivity[];
   challenges: Challenge[];
 }
 
 export interface LessonSource {
   id: string;
-  site: "Quran.com" | "Sunnah.com" | "YouTube";
-  category: "tafsir" | "hadith" | "video";
+  site: LessonSourceSite;
+  category: LessonSourceCategory;
   title: string;
   url: string;
   summary: string;
   reference?: string;
   from?: string;
   grade?: string;
+  teaches?: string;
+  whyAttached?: string;
+  validationStatus?: ResourceValidationStatus;
+  supportType?: ResourceSupportType;
+  reviewed?: boolean;
 }
 
 export interface LessonSession {

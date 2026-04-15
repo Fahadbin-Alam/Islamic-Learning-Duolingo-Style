@@ -10,6 +10,7 @@ import type {
   LessonSource,
   TopicId
 } from "../types";
+import { preciseResourceUrl } from "../services/resourceSupport";
 
 type LessonSeed = {
   slug: string;
@@ -66,7 +67,7 @@ function quranSource(id: string, title: string, reference: string, url: string, 
     site: "Quran.com",
     category: "tafsir",
     title,
-    url,
+    url: preciseResourceUrl("Quran.com", url, reference),
     reference,
     from: "The Quran with tafsir on Quran.com",
     grade: "Quran",
@@ -88,7 +89,7 @@ function hadithSource(
     site: "Sunnah.com",
     category: "hadith",
     title,
-    url,
+    url: preciseResourceUrl("Sunnah.com", url, reference),
     reference,
     from,
     grade,
@@ -102,7 +103,7 @@ function videoSource(id: string, title: string, url: string, summary: string): L
     site: "YouTube",
     category: "video",
     title,
-    url,
+    url: preciseResourceUrl("YouTube", url, "Video guide"),
     reference: "Video guide",
     from: "Provided YouTube guide",
     grade: "Visual walkthrough",

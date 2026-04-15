@@ -18,6 +18,8 @@ import type {
   UserProfile,
   XpSummary
 } from "../types";
+import { buildGuidedLesson } from "../services/lessonGuidance";
+import { enrichLessonSources, getPrimaryLessonSource } from "../services/resourceSupport";
 
 export interface IslamicLearningApi {
   getUser(userId: number): Promise<UserProfile>;
@@ -71,7 +73,7 @@ export const learningApi: IslamicLearningApi = {
       throw new Error(`Unknown lesson: ${lessonId}`);
     }
 
-    const progressiveLesson = buildProgressiveLesson(lesson);
+    const progressiveLesson = prepareLessonForSession(lesson);
 
     return {
       id: `session_${lessonId}_${Date.now()}`,
@@ -220,10 +222,10 @@ export function createTestOutSession(input: {
   nodeIds: string[];
   heartsAtStart: number;
 }): LessonSession {
-  const selectedLessons = input.lessons.slice(0, 5);
+  const selectedLessons = input.lessons.slice(0, 5).map((lesson) => prepareLessonForSession(lesson));
   const uniqueSources = uniqueById(selectedLessons.flatMap((lesson) => lesson.sources));
   const challenges = selectedLessons.map((lesson, lessonIndex) => {
-    const progressiveLesson = buildProgressiveLesson(lesson);
+    const progressiveLesson = lesson;
     const baseChallenge = progressiveLesson.challenges[0];
 
     if (!baseChallenge) {
@@ -371,6 +373,25 @@ function buildProgressiveLesson(lesson: Lesson): Lesson {
     xpReward: lesson.xpReward + extraChallenges.length * 2,
     challenges: [...baseChallenges, ...extraChallenges]
   };
+}
+
+function prepareLessonForSession(lesson: Lesson): Lesson {
+  const node = findNodeByLessonId(lesson.id);
+  const progressiveLesson = buildProgressiveLesson(lesson);
+  const enrichedSources = enrichLessonSources(progressiveLesson, node);
+  const primarySource = getPrimaryLessonSource(enrichedSources);
+  const sourcedLesson = {
+    ...progressiveLesson,
+    sources: enrichedSources,
+    sourceReferences: enrichedSources,
+    challenges: progressiveLesson.challenges.map((challenge) => ({
+      ...challenge,
+      resourceUrl: challenge.resourceUrl ?? primarySource?.url,
+      resourceLabel: challenge.resourceLabel ?? (primarySource ? "Open exact source" : undefined)
+    }))
+  };
+
+  return buildGuidedLesson(sourcedLesson, node);
 }
 
 function getLessonTier(node: LearningNode): LessonTier {
