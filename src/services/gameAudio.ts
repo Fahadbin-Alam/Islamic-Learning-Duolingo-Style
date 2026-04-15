@@ -70,6 +70,7 @@ const SOUND_LIBRARY: Record<GameSoundEvent, SoundTone[]> = {
 };
 
 let audioContext: AudioContext | null = null;
+let audioUnlocked = false;
 
 export function playGameSound(event: GameSoundEvent, preferences?: SoundPreferences) {
   if (preferences?.enabled === false) {
@@ -78,7 +79,7 @@ export function playGameSound(event: GameSoundEvent, preferences?: SoundPreferen
 
   const context = getAudioContext();
 
-  if (!context) {
+  if (!context || context.state !== "running") {
     return;
   }
 
@@ -110,6 +111,32 @@ export function playGameSound(event: GameSoundEvent, preferences?: SoundPreferen
   }
 }
 
+export function primeGameAudio(preferences?: SoundPreferences) {
+  if (preferences?.enabled === false) {
+    return false;
+  }
+
+  const context = getAudioContext();
+
+  if (!context) {
+    return false;
+  }
+
+  if (context.state === "suspended") {
+    void context.resume().then(() => {
+      audioUnlocked = context.state === "running";
+    }).catch(() => undefined);
+  } else {
+    audioUnlocked = context.state === "running";
+  }
+
+  return audioUnlocked;
+}
+
+export function hasUnlockedGameAudio() {
+  return audioUnlocked;
+}
+
 function getAudioContext() {
   if (typeof window === "undefined") {
     return null;
@@ -128,7 +155,7 @@ function getAudioContext() {
   }
 
   if (audioContext.state === "suspended") {
-    void audioContext.resume().catch(() => undefined);
+    return audioContext;
   }
 
   return audioContext;

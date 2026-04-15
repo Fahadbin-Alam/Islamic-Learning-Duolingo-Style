@@ -79,7 +79,7 @@ import {
   finalizeFoundationAssessment,
   submitFoundationAssessmentAnswer
 } from "./services/foundationAssessment";
-import { playGameSound } from "./services/gameAudio";
+import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import type {
   AccountRole,
   AssessmentFeedback,
@@ -104,7 +104,20 @@ import type {
   XpSummary
 } from "./types";
 
-type Screen = "path" | "lesson" | "assessment" | "shop" | "social";
+type Screen =
+  | "home"
+  | "topic"
+  | "branch"
+  | "lesson_intro"
+  | "lesson_question"
+  | "lesson_feedback"
+  | "lesson_teach"
+  | "lesson_complete"
+  | "assessment"
+  | "review"
+  | "profile"
+  | "shop"
+  | "social";
 type AnswerState = "correct" | "wrong" | undefined;
 type AuthMode = "create" | "login";
 type SocialProvider = keyof typeof SOCIAL_AUTH_CONFIG;
@@ -139,6 +152,7 @@ type LessonCelebration = {
 
 interface AppState {
   screen: Screen;
+  returnScreen?: Screen;
   selectedTopic: TopicId;
   selectedBranchId?: string;
   user?: UserProfile;
@@ -154,24 +168,34 @@ interface AppState {
 
 type Action =
   | { type: "loaded"; user: UserProfile; xpSummary: XpSummary[] }
+  | { type: "go_home" }
+  | { type: "show_topic" }
+  | { type: "show_branch" }
   | { type: "select_topic"; topicId: TopicId }
   | { type: "select_branch"; branchId: string }
-  | { type: "open_assessment" }
+  | { type: "open_review" }
+  | { type: "close_review" }
+  | { type: "open_profile" }
+  | { type: "close_profile" }
+  | { type: "open_assessment"; returnScreen?: Screen }
   | { type: "close_assessment" }
   | { type: "open_shop" }
   | { type: "open_social" }
   | { type: "close_shop" }
   | { type: "close_social" }
   | { type: "start_lesson"; session: LessonSession }
+  | { type: "begin_lesson_questions" }
   | { type: "select_choice"; choiceId: string }
   | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string }
+  | { type: "show_teach_screen" }
   | { type: "next_challenge" }
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
+  | { type: "close_lesson_complete" }
   | { type: "apply_user"; user: UserProfile }
   | { type: "reset_lesson" };
 
 const initialState: AppState = {
-  screen: "path",
+  screen: "home",
   selectedTopic: "foundation",
   xpSummary: [],
   challengeIndex: 0,
@@ -185,26 +209,40 @@ function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "loaded":
       return { ...state, user: action.user, xpSummary: action.xpSummary, loading: false };
+    case "go_home":
+      return { ...state, screen: "home", returnScreen: undefined };
+    case "show_topic":
+      return { ...state, screen: "topic", returnScreen: undefined };
+    case "show_branch":
+      return { ...state, screen: "branch", returnScreen: undefined };
     case "select_topic":
-      return { ...state, selectedTopic: action.topicId, selectedBranchId: undefined, screen: "path" };
+      return { ...state, selectedTopic: action.topicId, selectedBranchId: undefined, screen: "topic", returnScreen: undefined };
     case "select_branch":
-      return { ...state, selectedBranchId: action.branchId, screen: "path" };
+      return { ...state, selectedBranchId: action.branchId, screen: "branch", returnScreen: undefined };
+    case "open_review":
+      return { ...state, returnScreen: state.screen, screen: "review" };
+    case "close_review":
+      return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
+    case "open_profile":
+      return { ...state, returnScreen: state.screen, screen: "profile" };
+    case "close_profile":
+      return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
     case "open_assessment":
-      return { ...state, screen: "assessment" };
+      return { ...state, screen: "assessment", returnScreen: action.returnScreen ?? state.screen };
     case "close_assessment":
-      return { ...state, screen: "path" };
+      return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
     case "open_shop":
-      return { ...state, screen: "shop" };
+      return { ...state, returnScreen: state.screen, screen: "shop" };
     case "open_social":
-      return { ...state, screen: "social" };
+      return { ...state, returnScreen: state.screen, screen: "social" };
     case "close_shop":
-      return { ...state, screen: "path" };
+      return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
     case "close_social":
-      return { ...state, screen: "path" };
+      return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
     case "start_lesson":
       return {
         ...state,
-        screen: "lesson",
+        screen: "lesson_intro",
         activeSession: action.session,
         challengeIndex: 0,
         selectedChoiceId: undefined,
@@ -212,21 +250,32 @@ function reducer(state: AppState, action: Action): AppState {
         sessionCorrectCount: 0,
         sessionMissedLessonIds: []
       };
+    case "begin_lesson_questions":
+      return {
+        ...state,
+        screen: "lesson_question",
+        selectedChoiceId: undefined,
+        answerState: undefined
+      };
     case "select_choice":
       return { ...state, selectedChoiceId: action.choiceId };
     case "answer":
       return {
         ...state,
         user: action.user,
+        screen: "lesson_feedback",
         answerState: action.correct ? "correct" : "wrong",
         sessionCorrectCount: action.correct ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
         sessionMissedLessonIds: action.correct || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
           ? state.sessionMissedLessonIds
           : [...state.sessionMissedLessonIds, action.missedLessonId]
       };
+    case "show_teach_screen":
+      return { ...state, screen: "lesson_teach" };
     case "next_challenge":
       return {
         ...state,
+        screen: "lesson_question",
         challengeIndex: state.challengeIndex + 1,
         selectedChoiceId: undefined,
         answerState: undefined
@@ -234,9 +283,16 @@ function reducer(state: AppState, action: Action): AppState {
     case "finish_lesson":
       return {
         ...state,
-        screen: "path",
+        screen: "lesson_complete",
         user: action.user,
         xpSummary: action.xpSummary,
+        selectedChoiceId: undefined,
+        answerState: undefined
+      };
+    case "close_lesson_complete":
+      return {
+        ...state,
+        screen: "branch",
         activeSession: undefined,
         challengeIndex: 0,
         selectedChoiceId: undefined,
@@ -249,7 +305,7 @@ function reducer(state: AppState, action: Action): AppState {
     case "reset_lesson":
       return {
         ...state,
-        screen: "path",
+        screen: "branch",
         activeSession: undefined,
         challengeIndex: 0,
         selectedChoiceId: undefined,
@@ -288,7 +344,8 @@ export default function TopicApp() {
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   const [accountabilityPermissionAsked, setAccountabilityPermissionAsked] = useState(false);
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
-  const [celebration, setCelebration] = useState<LessonCelebration | undefined>(undefined);
+  const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
+  const [rewardCelebration, setRewardCelebration] = useState<LessonCelebration | undefined>(undefined);
   const challengeStartedAtRef = useRef(Date.now());
 
   useEffect(() => {
@@ -365,6 +422,31 @@ export default function TopicApp() {
   );
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const unlock = () => {
+      primeGameAudio(soundPreferences);
+    };
+
+    window.addEventListener("pointerdown", unlock, { passive: true });
+    window.addEventListener("keydown", unlock);
+
+    return () => {
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("keydown", unlock);
+    };
+  }, [soundPreferences]);
+
+  function playUiSound(event: "soft_ui" | "node_tap" | "correct" | "wrong" | "xp" | "unlock" | "lesson_complete" | "streak" | "reward_chest") {
+    primeGameAudio(event === "soft_ui" && state.user?.soundEffectsEnabled === false
+      ? { enabled: false, reduced: soundPreferences.reduced }
+      : soundPreferences);
+    playGameSound(event, soundPreferences);
+  }
+
+  useEffect(() => {
     if (!state.user) {
       return;
     }
@@ -413,6 +495,10 @@ export default function TopicApp() {
         title: getNodeTitle(node.id, node.title, currentLanguage)
       }));
   }, [currentLanguage, pathNodes, selectedBranch.id, selectedSection.topicId]);
+  const selectedNextNode = useMemo(
+    () => selectedNodes.find((node) => node.status === "current") ?? selectedNodes.find((node) => node.status === "available") ?? selectedNodes[0],
+    [selectedNodes]
+  );
   const currentTestOutCluster = useMemo(() => getCurrentTestOutCluster(selectedNodes), [selectedNodes]);
 
   const currentLessonSection = useMemo(() => {
@@ -444,8 +530,8 @@ export default function TopicApp() {
   }, [currentLanguage, state.activeSession]);
 
   const isInFoundationExperience =
-    (state.screen === "path" && selectedSection.topicId === "foundation") ||
-    (state.screen === "lesson" && currentLessonSection.topicId === "foundation");
+    ((state.screen === "home" || state.screen === "topic" || state.screen === "branch" || state.screen === "review") && selectedSection.topicId === "foundation") ||
+    (state.screen.startsWith("lesson_") && currentLessonSection.topicId === "foundation");
   const userStars = useMemo(() => {
     return state.user ? COURSE.sections.reduce((total, item) => total + getSectionStars(state.user!, item), 0) : 0;
   }, [state.user]);
@@ -562,6 +648,7 @@ export default function TopicApp() {
     if (!state.user) {
       return;
     }
+    playUiSound("soft_ui");
 
     const hydratedUser = withExperienceDefaults(ensureLearnerProfile({
       ...state.user,
@@ -577,6 +664,7 @@ export default function TopicApp() {
   }
 
   function updateAssessmentSelection(value: string | string[] | Record<string, string> | undefined) {
+    playUiSound("soft_ui");
     setActiveAssessment((current) => current ? { ...current, selectedAnswer: value } : current);
   }
 
@@ -588,6 +676,7 @@ export default function TopicApp() {
     if (!state.user || !activeAssessment || activeAssessment.feedback || activeAssessment.selectedAnswer == null) {
       return;
     }
+    playUiSound("soft_ui");
 
     const result = submitFoundationAssessmentAnswer({
       profile: learnerProfile,
@@ -616,6 +705,7 @@ export default function TopicApp() {
     if (!state.user || !activeAssessment || !activeAssessment.feedback) {
       return;
     }
+    playUiSound("soft_ui");
 
     const nextState = advanceFoundationAssessment(learnerProfile, activeAssessment);
 
@@ -652,6 +742,7 @@ export default function TopicApp() {
   }
 
   function closeAssessment() {
+    playUiSound("soft_ui");
     setActiveAssessment(undefined);
     dispatch({ type: "close_assessment" });
   }
@@ -660,6 +751,7 @@ export default function TopicApp() {
     if (!state.user) {
       return;
     }
+    playUiSound("soft_ui");
 
     dispatch({
       type: "apply_user",
@@ -671,6 +763,7 @@ export default function TopicApp() {
   }
 
   function exploreTopicsFreely() {
+    playUiSound("soft_ui");
     skipFoundationAssessment();
     dispatch({ type: "select_topic", topicId: "prayer" });
   }
@@ -688,8 +781,59 @@ export default function TopicApp() {
     dispatch({ type: "apply_user", user: nextUser });
 
     if (nextUser.soundEffectsEnabled) {
+      primeGameAudio({ enabled: true, reduced: Boolean(nextUser.reducedSoundEffects) });
       playGameSound("soft_ui", { enabled: true, reduced: Boolean(nextUser.reducedSoundEffects) });
     }
+  }
+
+  function goHomeScreen() {
+    playUiSound("soft_ui");
+    dispatch({ type: "go_home" });
+  }
+
+  function openTopicScreen(topicId: TopicId) {
+    playUiSound("soft_ui");
+    dispatch({ type: "select_topic", topicId });
+  }
+
+  function showSelectedTopicScreen() {
+    playUiSound("soft_ui");
+    dispatch({ type: "show_topic" });
+  }
+
+  function openBranchScreen(branchId: string) {
+    playUiSound("soft_ui");
+    dispatch({ type: "select_branch", branchId });
+  }
+
+  function showSelectedBranchScreen() {
+    playUiSound("soft_ui");
+    dispatch({ type: "show_branch" });
+  }
+
+  function openReviewScreen() {
+    playUiSound("soft_ui");
+    dispatch({ type: "open_review" });
+  }
+
+  function closeReviewScreen() {
+    playUiSound("soft_ui");
+    dispatch({ type: "close_review" });
+  }
+
+  function closeProfileScreen() {
+    playUiSound("soft_ui");
+    dispatch({ type: "close_profile" });
+  }
+
+  function openShopScreen() {
+    playUiSound("soft_ui");
+    dispatch({ type: "open_shop" });
+  }
+
+  function openSocialScreen() {
+    playUiSound("soft_ui");
+    dispatch({ type: "open_social" });
   }
 
   async function startLesson(node: LearningNodeView) {
@@ -723,7 +867,7 @@ export default function TopicApp() {
       lastLearningAt: new Date().toISOString()
     };
 
-    playGameSound("node_tap", soundPreferences);
+    playUiSound("node_tap");
     dispatch({ type: "apply_user", user: activeUser });
     const session = await learningApi.getLessonSession(node.firstLessonId, activeUser);
     challengeStartedAtRef.current = Date.now();
@@ -756,7 +900,7 @@ export default function TopicApp() {
       lastLearningAt: new Date().toISOString()
     };
 
-    playGameSound("node_tap", soundPreferences);
+    playUiSound("node_tap");
     dispatch({ type: "apply_user", user: activeUser });
     const lessons = currentTestOutCluster.lessonIds
       .map((lessonId) => LESSONS_BY_ID[lessonId])
@@ -808,7 +952,7 @@ export default function TopicApp() {
       lastLearningAt: new Date().toISOString()
     });
 
-    playGameSound(correct ? "correct" : "wrong", soundPreferences);
+    playUiSound(correct ? "correct" : "wrong");
     if (!correct && shouldOfferReviewHeartRestore(nextUser)) {
       setReviewRestoreVisible(true);
     }
@@ -820,10 +964,22 @@ export default function TopicApp() {
     });
   }
 
+  function beginLessonQuestionFlow() {
+    playUiSound("soft_ui");
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "begin_lesson_questions" });
+  }
+
+  function continueFromFeedback() {
+    playUiSound("soft_ui");
+    dispatch({ type: "show_teach_screen" });
+  }
+
   async function continueLesson() {
     if (!state.user || !state.activeSession) {
       return;
     }
+    playUiSound("soft_ui");
 
     const lastChallenge = state.challengeIndex >= state.activeSession.lesson.challenges.length - 1;
 
@@ -879,9 +1035,9 @@ export default function TopicApp() {
         return previous?.status === "locked" && node.status !== "locked";
       });
 
-      playGameSound("lesson_complete", soundPreferences);
-      playGameSound("unlock", soundPreferences);
-      setCelebration({
+      playUiSound("lesson_complete");
+      playUiSound("unlock");
+      setLessonCompleteSummary({
         title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
         xp: clusterLessons.reduce((total, lesson) => total + lesson.xpReward, 0),
         stars: (state.activeSession.targetNodeIds ?? [])
@@ -906,16 +1062,16 @@ export default function TopicApp() {
       return previous?.status === "locked" && node.status !== "locked";
     });
 
-    playGameSound("lesson_complete", soundPreferences);
-    playGameSound("xp", soundPreferences);
+      playUiSound("lesson_complete");
+      playUiSound("xp");
     if (unlockedNode) {
-      playGameSound("unlock", soundPreferences);
+      playUiSound("unlock");
     }
     if (nextUser.streakDays > 0 && nextUser.streakDays % 7 === 0) {
-      playGameSound("streak", soundPreferences);
+      playUiSound("streak");
     }
 
-    setCelebration({
+    setLessonCompleteSummary({
       title: state.activeSession.lesson.title,
       xp: state.activeSession.lesson.xpReward,
       stars: getNodeStarsReward(state.activeSession.lesson.nodeId),
@@ -948,8 +1104,8 @@ export default function TopicApp() {
       claimedRewardIds
     });
 
-    playGameSound("reward_chest", soundPreferences);
-    setCelebration({
+    playUiSound("reward_chest");
+    setRewardCelebration({
       title: stop.title,
       xp: 0,
       stars: 0,
@@ -963,6 +1119,7 @@ export default function TopicApp() {
     if (!state.user) {
       return;
     }
+    playUiSound("soft_ui");
 
     if (item.type === "rewarded_ad") {
       const reward = await monetizationClient.showRewardedHeartAd(item);
@@ -989,6 +1146,7 @@ export default function TopicApp() {
     if (!state.user) {
       return;
     }
+    playUiSound("soft_ui");
 
     setPendingLanguage(language);
     updateLocalAuthAccount({ preferredLanguage: language });
@@ -1006,6 +1164,7 @@ export default function TopicApp() {
     if (!state.user || !state.user.hasAccount) {
       return;
     }
+    playUiSound("soft_ui");
 
     setSettingsRole(state.user.accountRole);
     setSettingsDailyReminder(state.user.reminderPreferences?.dailyInactivity !== false);
@@ -1018,8 +1177,9 @@ export default function TopicApp() {
   }
 
   function openAccountPanel() {
+    playUiSound("soft_ui");
     if (state.user?.hasAccount) {
-      openSettingsModal();
+      dispatch({ type: "open_profile" });
       return;
     }
 
@@ -1036,6 +1196,7 @@ export default function TopicApp() {
       Alert.alert("Almost there", "Add your name, email, and password so we can create your account.");
       return;
     }
+    playUiSound("soft_ui");
 
     if (!isValidEmail(accountEmail)) {
       Alert.alert("Check your email", "Please use a valid email address.");
@@ -1102,6 +1263,7 @@ export default function TopicApp() {
       Alert.alert("Welcome back", "Enter your email and password to log in.");
       return;
     }
+    playUiSound("soft_ui");
 
     try {
       const remote = await loginRemoteAccount({
@@ -1161,6 +1323,7 @@ export default function TopicApp() {
     if (!state.user) {
       return;
     }
+    playUiSound("soft_ui");
 
     const reminderPreferences = {
       dailyInactivity: settingsRole ? settingsDailyReminder : false,
@@ -1194,6 +1357,7 @@ export default function TopicApp() {
     if (!state.user) {
       return;
     }
+    playUiSound("soft_ui");
 
     const fallbackUser = await learningApi.getUser(1001);
     const guestUser = withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday({
@@ -1233,6 +1397,7 @@ export default function TopicApp() {
   }
 
   function handleSocialLogin(provider: SocialProvider) {
+    playUiSound("soft_ui");
     const config = SOCIAL_AUTH_CONFIG[provider];
 
     if (!config.enabled) {
@@ -1275,6 +1440,7 @@ export default function TopicApp() {
       return;
     }
 
+    playUiSound("soft_ui");
     const nextConnection = createSocialConnection({
       name: inviteName,
       relation: inviteRelation,
@@ -1293,6 +1459,7 @@ export default function TopicApp() {
   }
 
   async function sendAccountabilityReminder(connection: SocialConnection, kind: "daily" | "weekly") {
+    playUiSound("soft_ui");
     const title = kind === "weekly"
       ? `${connection.name} has been away for a week`
       : `${connection.name} has not logged in today`;
@@ -1308,6 +1475,7 @@ export default function TopicApp() {
     if (!state.user) {
       return;
     }
+    playUiSound("soft_ui");
 
     const battle = runBattle({
       user: state.user,
@@ -1330,6 +1498,7 @@ export default function TopicApp() {
     if (!state.user) {
       return;
     }
+    playUiSound("soft_ui");
 
     dispatch({
       type: "apply_user",
@@ -1346,6 +1515,7 @@ export default function TopicApp() {
   }
 
   function skipReviewHeartRestore() {
+    playUiSound("soft_ui");
     setReviewRestoreVisible(false);
     dispatch({ type: "open_shop" });
   }
@@ -1385,65 +1555,167 @@ export default function TopicApp() {
     );
   }
 
+  const showTopBar = !state.screen.startsWith("lesson_") && state.screen !== "assessment";
+  const canContinueToNextLesson = Boolean(
+    selectedNextNode &&
+    (selectedNextNode.status === "current" || selectedNextNode.status === "available")
+  );
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.appShell}>
-        <TopBar
-          user={state.user}
-          strings={strings}
-          languageCode={getLanguageOption(currentLanguage).code}
-          dailyProgress={Math.min(1, state.user.totalXp / Math.max(1, state.user.dailyGoalXp))}
-          soundEnabled={state.user.soundEffectsEnabled !== false}
-          onAccount={() => openAccountPanel()}
-          onLanguage={() => {
-            setPendingLanguage(currentLanguage);
-            setLanguageModalVisible(true);
-          }}
-          onSocial={() => dispatch({ type: "open_social" })}
-          onShop={() => dispatch({ type: "open_shop" })}
-          onToggleSound={toggleSoundEffects}
-        />
-        {state.screen === "path" && (
-          <PathScreen
+        {showTopBar && (
+          <TopBar
+            user={state.user}
+            strings={strings}
+            languageCode={getLanguageOption(currentLanguage).code}
+            dailyProgress={Math.min(1, state.user.totalXp / Math.max(1, state.user.dailyGoalXp))}
+            soundEnabled={state.user.soundEffectsEnabled !== false}
+            onHome={goHomeScreen}
+            onReview={openReviewScreen}
+            onAccount={() => openAccountPanel()}
+            onLanguage={() => {
+              playUiSound("soft_ui");
+              setPendingLanguage(currentLanguage);
+              setLanguageModalVisible(true);
+            }}
+            onSocial={openSocialScreen}
+            onShop={openShopScreen}
+            onToggleSound={toggleSoundEffects}
+          />
+        )}
+        {state.screen === "home" && (
+          <HomeScreen
+            user={state.user}
+            strings={strings}
+            language={currentLanguage}
+            section={selectedSection}
+            sections={localizedSections}
+            nextNode={selectedNextNode}
+            onSelectTopic={openTopicScreen}
+            onContinueTopic={() => openTopicScreen(selectedSection.topicId)}
+            onContinueLesson={() => {
+              if (selectedNextNode) {
+                void startLesson(selectedNextNode);
+              } else {
+                openTopicScreen(selectedSection.topicId);
+              }
+            }}
+          />
+        )}
+        {state.screen === "topic" && (
+          <TopicScreen
             user={state.user}
             learnerProfile={learnerProfile}
             strings={strings}
             language={currentLanguage}
-            xpSummary={state.xpSummary[0]}
             section={selectedSection}
             sections={localizedSections}
             branch={selectedBranch}
-            branches={selectedSection.branches}
-            nodes={selectedNodes}
-            selectedTopic={state.selectedTopic}
-            onSelectTopic={(topicId) => dispatch({ type: "select_topic", topicId })}
-            onSelectBranch={(branchId) => dispatch({ type: "select_branch", branchId })}
-            onStartLesson={startLesson}
-            onStartTestOut={startBranchTestOut}
+            xpSummary={state.xpSummary[0]}
+            onBack={goHomeScreen}
+            onSelectTopic={openTopicScreen}
+            onSelectBranch={openBranchScreen}
+            onContinueBranch={showSelectedBranchScreen}
             onStartPlacement={() => openFoundationAssessment("placement")}
             onStartReview={() => openFoundationAssessment("review")}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
             onSkipFoundation={skipFoundationAssessment}
             onExploreTopics={exploreTopicsFreely}
-            onOpenShop={() => dispatch({ type: "open_shop" })}
+          />
+        )}
+        {state.screen === "branch" && (
+          <BranchScreen
+            user={state.user}
+            learnerProfile={learnerProfile}
+            strings={strings}
+            language={currentLanguage}
+            section={selectedSection}
+            branch={selectedBranch}
+            branches={selectedSection.branches}
+            nodes={selectedNodes}
+            onBack={showSelectedTopicScreen}
+            onSelectBranch={openBranchScreen}
+            onStartLesson={startLesson}
+            onStartTestOut={startBranchTestOut}
+            onOpenShop={openShopScreen}
             onClaimReward={claimJourneyReward}
           />
         )}
-        {state.screen === "lesson" && currentLessonSession && (
-          <LessonScreen
+        {state.screen === "lesson_intro" && currentLessonSession && (
+          <LessonIntroScreen
+            strings={strings}
+            language={currentLanguage}
+            section={currentLessonSection}
+            session={currentLessonSession}
+            onBack={() => {
+              playUiSound("soft_ui");
+              dispatch({ type: "reset_lesson" });
+            }}
+            onStart={beginLessonQuestionFlow}
+          />
+        )}
+        {state.screen === "lesson_question" && currentLessonSession && (
+          <QuestionScreen
             strings={strings}
             language={currentLanguage}
             section={currentLessonSection}
             session={currentLessonSession}
             challengeIndex={state.challengeIndex}
             selectedChoiceId={state.selectedChoiceId}
-            answerState={state.answerState}
-            onSelectChoice={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+            onSelectChoice={(choiceId) => {
+              playUiSound("soft_ui");
+              dispatch({ type: "select_choice", choiceId });
+            }}
             onAnswer={answerChallenge}
+            onExit={() => {
+              playUiSound("soft_ui");
+              dispatch({ type: "reset_lesson" });
+            }}
+          />
+        )}
+        {state.screen === "lesson_feedback" && currentLessonSession && (
+          <AnswerFeedbackScreen
+            strings={strings}
+            session={currentLessonSession}
+            challengeIndex={state.challengeIndex}
+            answerState={state.answerState}
+            selectedChoiceId={state.selectedChoiceId}
+            onContinue={continueFromFeedback}
+          />
+        )}
+        {state.screen === "lesson_teach" && currentLessonSession && (
+          <MiniLessonScreen
+            strings={strings}
+            language={currentLanguage}
+            section={currentLessonSection}
+            session={currentLessonSession}
+            challengeIndex={state.challengeIndex}
+            answerState={state.answerState}
             onContinue={continueLesson}
-            onSkip={() => dispatch({ type: "reset_lesson" })}
-            onExit={() => dispatch({ type: "reset_lesson" })}
+          />
+        )}
+        {state.screen === "lesson_complete" && lessonCompleteSummary && (
+          <LessonCompleteScreen
+            strings={strings}
+            language={currentLanguage}
+            section={selectedSection}
+            summary={lessonCompleteSummary}
+            nextNode={canContinueToNextLesson ? selectedNextNode : undefined}
+            onContinue={() => {
+              setLessonCompleteSummary(undefined);
+              if (canContinueToNextLesson && selectedNextNode) {
+                void startLesson(selectedNextNode);
+                return;
+              }
+              dispatch({ type: "close_lesson_complete" });
+            }}
+            onReturnToPath={() => {
+              playUiSound("soft_ui");
+              setLessonCompleteSummary(undefined);
+              dispatch({ type: "close_lesson_complete" });
+            }}
           />
         )}
         {state.screen === "assessment" && activeAssessment && (
@@ -1459,6 +1731,30 @@ export default function TopicApp() {
             onExit={closeAssessment}
           />
         )}
+        {state.screen === "review" && (
+          <ReviewScreen
+            user={state.user}
+            learnerProfile={learnerProfile}
+            language={currentLanguage}
+            strings={strings}
+            onBack={closeReviewScreen}
+            onStartPlacement={() => openFoundationAssessment("placement")}
+            onStartReview={() => openFoundationAssessment("review")}
+            onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
+            onGoFoundation={() => openTopicScreen("foundation")}
+          />
+        )}
+        {state.screen === "profile" && (
+          <ProfileScreen
+            user={state.user}
+            strings={strings}
+            learnerProfile={learnerProfile}
+            onBack={closeProfileScreen}
+            onOpenSettings={openSettingsModal}
+            onOpenCrew={openSocialScreen}
+            onOpenShop={openShopScreen}
+          />
+        )}
         {state.screen === "shop" && (
           <ShopScreen
             user={state.user}
@@ -1466,7 +1762,10 @@ export default function TopicApp() {
             items={SHOP_ITEMS}
             section={selectedSection}
             onUseItem={useShopItem}
-            onDone={() => dispatch({ type: "close_shop" })}
+            onDone={() => {
+              playUiSound("soft_ui");
+              dispatch({ type: "close_shop" });
+            }}
           />
         )}
         {state.screen === "social" && (
@@ -1486,10 +1785,13 @@ export default function TopicApp() {
             onAddConnection={addConnection}
             onBattle={battleConnection}
             onSendReminder={sendAccountabilityReminder}
-            onDone={() => dispatch({ type: "close_social" })}
+            onDone={() => {
+              playUiSound("soft_ui");
+              dispatch({ type: "close_social" });
+            }}
           />
         )}
-        <AdBanner hidden={state.user.hearts.unlimited || state.screen === "lesson"} />
+        <AdBanner hidden={state.user.hearts.unlimited || state.screen.startsWith("lesson_")} />
         <AccountModal
           visible={accountModalVisible}
           onClose={() => setAccountModalVisible(false)}
@@ -1530,9 +1832,9 @@ export default function TopicApp() {
           onSave={saveAccountSettings}
         />
         <CelebrationModal
-          visible={Boolean(celebration)}
-          celebration={celebration}
-          onClose={() => setCelebration(undefined)}
+          visible={Boolean(rewardCelebration)}
+          celebration={rewardCelebration}
+          onClose={() => setRewardCelebration(undefined)}
         />
         <ReviewRestoreModal
           visible={reviewRestoreVisible}
@@ -1554,12 +1856,799 @@ export default function TopicApp() {
   );
 }
 
+function ScreenHeader({
+  title,
+  subtitle,
+  onBack,
+  actionLabel,
+  onAction
+}: {
+  title: string;
+  subtitle?: string;
+  onBack: () => void;
+  actionLabel?: string;
+  onAction?: () => void;
+}) {
+  return (
+    <View style={styles.screenHeader}>
+      <Pressable onPress={onBack} style={styles.screenBackButton}>
+        <Text style={styles.screenBackButtonText}>Back</Text>
+      </Pressable>
+      <View style={styles.screenHeaderText}>
+        <Text style={styles.screenHeaderTitle}>{title}</Text>
+        {subtitle ? <Text style={styles.screenHeaderSubtitle}>{subtitle}</Text> : null}
+      </View>
+      {actionLabel && onAction ? (
+        <Pressable onPress={onAction} style={styles.screenActionButton}>
+          <Text style={styles.screenActionButtonText}>{actionLabel}</Text>
+        </Pressable>
+      ) : (
+        <View style={styles.screenActionSpacer} />
+      )}
+    </View>
+  );
+}
+
+function HomeScreen({
+  user,
+  strings,
+  language,
+  section,
+  sections,
+  nextNode,
+  onSelectTopic,
+  onContinueTopic,
+  onContinueLesson
+}: {
+  user: UserProfile;
+  strings: UiStrings;
+  language: SupportedLanguage;
+  section: LearningSection;
+  sections: LearningSection[];
+  nextNode?: LearningNodeView;
+  onSelectTopic: (topicId: TopicId) => void;
+  onContinueTopic: () => void;
+  onContinueLesson: () => void;
+}) {
+  return (
+    <ScrollView contentContainerStyle={styles.screenScrollContent} showsVerticalScrollIndicator={false}>
+      <HeroCard
+        section={section}
+        strings={strings}
+        language={language}
+        progress={Math.min(1, user.totalXp / Math.max(1, user.dailyGoalXp))}
+        gainedXp={user.totalXp}
+        earnedStars={getSectionStars(user, section)}
+        branchProgress={getBranchCompletionRatio(user, section, section.branches[0]?.id ?? "")}
+        nextLessonTitle={nextNode?.title}
+        onContinue={onContinueLesson}
+      />
+
+      <View style={styles.focusPanel}>
+        <Text style={styles.focusPanelEyebrow}>Continue learning</Text>
+        <Text style={styles.focusPanelTitle}>{nextNode?.title ?? section.title}</Text>
+        <Text style={styles.focusPanelCopy}>
+          {translateStudyText("One clear step at a time. Open your topic, pick a branch, and keep the streak alive.", language)}
+        </Text>
+        <View style={styles.focusPanelButtonRow}>
+          <Pressable onPress={onContinueTopic} style={styles.focusPrimaryButton}>
+            <Text style={styles.focusPrimaryButtonText}>{strings.continueTopic}</Text>
+          </Pressable>
+        </View>
+      </View>
+
+      <View style={styles.sectionHeaderSimple}>
+        <Text style={styles.sectionTitle}>{strings.chooseTopic}</Text>
+        <Text style={styles.sectionDescription}>{translateStudyText("Pick one world and let the path guide you.", language)}</Text>
+      </View>
+
+      <View style={styles.topicGrid}>
+        {sections.map((topic) => (
+          <TopicCard
+            key={topic.topicId}
+            section={topic}
+            strings={strings}
+            earnedStars={getSectionStars(user, topic)}
+            selected={topic.topicId === section.topicId}
+            onPress={() => onSelectTopic(topic.topicId)}
+          />
+        ))}
+      </View>
+    </ScrollView>
+  );
+}
+
+function TopicScreen({
+  user,
+  learnerProfile,
+  strings,
+  language,
+  section,
+  sections,
+  branch,
+  xpSummary,
+  onBack,
+  onSelectTopic,
+  onSelectBranch,
+  onContinueBranch,
+  onStartPlacement,
+  onStartReview,
+  onStartDailyChallenge,
+  onSkipFoundation,
+  onExploreTopics
+}: {
+  user: UserProfile;
+  learnerProfile: NonNullable<UserProfile["learnerProfile"]>;
+  strings: UiStrings;
+  language: SupportedLanguage;
+  section: LearningSection;
+  sections: LearningSection[];
+  branch: LearningBranch;
+  xpSummary?: XpSummary;
+  onBack: () => void;
+  onSelectTopic: (topicId: TopicId) => void;
+  onSelectBranch: (branchId: string) => void;
+  onContinueBranch: () => void;
+  onStartPlacement: () => void;
+  onStartReview: () => void;
+  onStartDailyChallenge: () => void;
+  onSkipFoundation: () => void;
+  onExploreTopics: () => void;
+}) {
+  const nextNode = section.nodes.find((node) => node.branchId === branch.id);
+  const shouldRecommendFoundation = !learnerProfile.assessmentCompleted && section.topicId !== "foundation";
+
+  return (
+    <ScrollView contentContainerStyle={styles.screenScrollContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={section.title}
+        subtitle={translateStudyText("Choose a branch and keep moving with one guided path.", language)}
+        onBack={onBack}
+      />
+
+      <HeroCard
+        section={section}
+        strings={strings}
+        language={language}
+        progress={Math.min(1, user.totalXp / Math.max(1, user.dailyGoalXp))}
+        gainedXp={xpSummary?.gainedXp ?? user.totalXp}
+        earnedStars={getSectionStars(user, section)}
+        branchProgress={getBranchCompletionRatio(user, section, branch.id)}
+        nextLessonTitle={nextNode?.title}
+        onContinue={onContinueBranch}
+      />
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.topicRow}>
+        {sections.map((topic) => (
+          <TopicCard
+            key={topic.topicId}
+            section={topic}
+            strings={strings}
+            earnedStars={getSectionStars(user, topic)}
+            selected={topic.topicId === section.topicId}
+            onPress={() => onSelectTopic(topic.topicId)}
+          />
+        ))}
+      </ScrollView>
+
+      <View style={styles.sectionHeaderSimple}>
+        <Text style={styles.sectionTitle}>{strings.chooseBranch}</Text>
+        <Text style={styles.sectionDescription}>{translateStudyText("Each branch is its own guided path.", language)}</Text>
+      </View>
+
+      <View style={styles.branchListColumn}>
+        {section.branches.map((item) => {
+          const lessonCount = section.nodes.filter((node) => node.branchId === item.id).length;
+          const progress = getBranchCompletionRatio(user, section, item.id);
+          const selected = item.id === branch.id;
+
+          return (
+            <Pressable
+              key={item.id}
+              onPress={() => onSelectBranch(item.id)}
+              style={[
+                styles.branchListCard,
+                selected && { borderColor: section.accentColor, backgroundColor: lightenColor(section.accentColor, 0.94) }
+              ]}
+            >
+              <View style={styles.branchListCardTop}>
+                <Text style={styles.branchListTitle}>{item.title}</Text>
+                <Text style={styles.branchListMeta}>{`${Math.round(progress * 100)}%`}</Text>
+              </View>
+              <Text style={styles.branchListCopy}>{item.description}</Text>
+              <View style={styles.branchListMetaRow}>
+                <Text style={styles.branchListMeta}>{`${lessonCount} ${strings.lessons}`}</Text>
+                {item.premiumOnly ? <Text style={styles.branchListMeta}>Premium</Text> : null}
+              </View>
+              <AnimatedProgressBar progress={progress} color={section.accentColor} trackColor={lightenColor(section.accentColor, 0.92)} />
+            </Pressable>
+          );
+        })}
+      </View>
+
+      {section.topicId === "foundation" && (
+        <FoundationDashboard
+          profile={learnerProfile}
+          onStartPlacement={onStartPlacement}
+          onStartReview={onStartReview}
+          onStartDailyChallenge={onStartDailyChallenge}
+          onSkipAssessment={onSkipFoundation}
+          onExploreFreely={onExploreTopics}
+        />
+      )}
+
+      {shouldRecommendFoundation && (
+        <View style={styles.foundationFreePlayBanner}>
+          <View style={styles.foundationFreePlayText}>
+            <Text style={styles.foundationFreePlayTitle}>{translateStudyText("Foundation can still help", language)}</Text>
+            <Text style={styles.foundationFreePlayCopy}>
+              {translateStudyText("You can keep exploring, but a short placement check will sharpen the path and review system.", language)}
+            </Text>
+          </View>
+          <Pressable onPress={onStartPlacement} style={styles.foundationFreePlayButton}>
+            <Text style={styles.foundationFreePlayButtonText}>{translateStudyText("Take foundation now", language)}</Text>
+          </Pressable>
+        </View>
+      )}
+    </ScrollView>
+  );
+}
+
+function BranchScreen({
+  user,
+  learnerProfile,
+  strings,
+  language,
+  section,
+  branch,
+  branches,
+  nodes,
+  onBack,
+  onSelectBranch,
+  onStartLesson,
+  onStartTestOut,
+  onOpenShop,
+  onClaimReward
+}: {
+  user: UserProfile;
+  learnerProfile: NonNullable<UserProfile["learnerProfile"]>;
+  strings: UiStrings;
+  language: SupportedLanguage;
+  section: LearningSection;
+  branch: LearningBranch;
+  branches: LearningBranch[];
+  nodes: LearningNodeView[];
+  onBack: () => void;
+  onSelectBranch: (branchId: string) => void;
+  onStartLesson: (node: LearningNodeView) => void;
+  onStartTestOut: () => void;
+  onOpenShop: () => void;
+  onClaimReward: (stop: JourneyRewardStop) => void;
+}) {
+  const earnedStars = getSectionStars(user, section);
+  const branchProgress = getBranchCompletionRatio(user, section, branch.id);
+  const nextNode = nodes.find((node) => node.status === "current") ?? nodes.find((node) => node.status === "available") ?? nodes[0];
+  const journeyRewards = getJourneyRewardStops(user, section, branch, nodes);
+  const topicNeedsReview = topicNeedsReviewHint(section.topicId, learnerProfile);
+  const currentCluster = getCurrentTestOutCluster(nodes);
+
+  return (
+    <ScrollView contentContainerStyle={styles.screenScrollContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={branch.title}
+        subtitle={translateStudyText("Follow the path circle by circle.", language)}
+        onBack={onBack}
+        actionLabel={strings.continueTopic}
+        onAction={() => nextNode && onStartLesson(nextNode)}
+      />
+
+      <View style={styles.branchHeroCard}>
+        <View style={styles.branchHeroText}>
+          <Text style={styles.routeBadge}>{section.badge}</Text>
+          <Text style={styles.routeTitle}>{branch.title}</Text>
+          <Text style={styles.routeDescription}>{branch.description}</Text>
+          <AnimatedProgressBar progress={branchProgress} color={section.accentColor} trackColor={lightenColor(section.accentColor, 0.93)} />
+          <Text style={styles.branchHeroMeta}>{`${Math.round(branchProgress * 100)}% complete • ${earnedStars}/${section.starsTarget} ${strings.stars}`}</Text>
+        </View>
+        <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={100} />
+      </View>
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.branchRow}>
+        {branches.map((item) => (
+          <Pressable
+            key={item.id}
+            onPress={() => onSelectBranch(item.id)}
+            style={[
+              styles.branchChip,
+              item.id === branch.id && { borderColor: section.accentColor, backgroundColor: lightenColor(section.accentColor, 0.92) }
+            ]}
+          >
+            <Text style={styles.branchChipText}>{item.title}</Text>
+          </Pressable>
+        ))}
+      </ScrollView>
+
+      <View style={styles.focusPanelCompact}>
+        <Text style={styles.focusPanelEyebrow}>{translateStudyText("Recommended next step", language)}</Text>
+        <Text style={styles.focusPanelTitle}>{nextNode?.title ?? branch.title}</Text>
+        <Text style={styles.focusPanelCopy}>
+          {topicNeedsReview
+            ? translateStudyText("This branch has a few review signals, so keep the pace steady and let the path guide you.", language)
+            : translateStudyText("Tap the bright lesson circle and keep the branch flowing.", language)}
+        </Text>
+        <View style={styles.focusPanelButtonRow}>
+          <Pressable onPress={() => nextNode && onStartLesson(nextNode)} style={styles.focusPrimaryButton}>
+            <Text style={styles.focusPrimaryButtonText}>{strings.continueTopic}</Text>
+          </Pressable>
+          <Pressable onPress={onStartTestOut} style={styles.focusSecondaryButton}>
+            <Text style={styles.focusSecondaryButtonText}>{currentCluster ? `Test out ${currentCluster.label}` : "Test out"}</Text>
+          </Pressable>
+        </View>
+      </View>
+
+      <View style={styles.cleanPathCard}>
+        <View style={[styles.pathBackdrop, { backgroundColor: lightenColor(section.accentColor, 0.95) }]} />
+        <View style={styles.cleanPathLane}>
+          {nodes.map((node, index) => (
+            <View key={node.id}>
+              <PathNode
+                node={node}
+                index={index}
+                isLast={index === nodes.length - 1}
+                accentColor={section.accentColor}
+                reviewNeeded={topicNeedsReview && node.kind === "review"}
+                onPress={() => onStartLesson(node)}
+              />
+              {journeyRewards
+                .filter((reward) => reward.id.endsWith(`_${index}`))
+                .map((reward) => (
+                  <RewardChestStop key={reward.id} reward={reward} accentColor={section.accentColor} onPress={() => onClaimReward(reward)} />
+                ))}
+            </View>
+          ))}
+        </View>
+      </View>
+
+      {!user.hearts.unlimited && user.hearts.current <= 2 && (
+        <Pressable onPress={onOpenShop} style={styles.heartsPrompt}>
+          <Text style={styles.heartsPromptTitle}>Low on hearts</Text>
+          <Text style={styles.heartsPromptCopy}>Recover one by watching a sponsor break or pick up a heart pack.</Text>
+        </Pressable>
+      )}
+    </ScrollView>
+  );
+}
+
+function LessonIntroScreen({
+  strings,
+  language,
+  section,
+  session,
+  onBack,
+  onStart
+}: {
+  strings: UiStrings;
+  language: SupportedLanguage;
+  section: LearningSection;
+  session: LessonSession;
+  onBack: () => void;
+  onStart: () => void;
+}) {
+  const estimatedMinutes = Math.max(2, Math.ceil(session.lesson.challenges.length * 0.75));
+  const difficulty = session.lesson.difficulty ?? 1;
+
+  return (
+    <View style={styles.lessonStageScreen}>
+      <ScreenHeader
+        title={session.lesson.title}
+        subtitle={translateStudyText("A short guided lesson before the questions begin.", language)}
+        onBack={onBack}
+      />
+      <View style={[styles.lessonStageCard, { borderColor: lightenColor(section.accentColor, 0.84) }]}>
+        <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={118} />
+        <Text style={styles.lessonStageEyebrow}>{section.title}</Text>
+        <Text style={styles.lessonStageTitle}>{session.lesson.title}</Text>
+        <Text style={styles.lessonStageCopy}>{session.lesson.intro}</Text>
+        <View style={styles.lessonStageMetaRow}>
+          <View style={styles.lessonStageMetaChip}>
+            <Text style={styles.lessonStageMetaLabel}>Difficulty</Text>
+            <Text style={styles.lessonStageMetaValue}>{`Level ${difficulty}`}</Text>
+          </View>
+          <View style={styles.lessonStageMetaChip}>
+            <Text style={styles.lessonStageMetaLabel}>Reward</Text>
+            <Text style={styles.lessonStageMetaValue}>{`+${session.lesson.xpReward} XP`}</Text>
+          </View>
+          <View style={styles.lessonStageMetaChip}>
+            <Text style={styles.lessonStageMetaLabel}>Time</Text>
+            <Text style={styles.lessonStageMetaValue}>{`${estimatedMinutes} min`}</Text>
+          </View>
+        </View>
+        <Pressable onPress={onStart} style={[styles.primaryButton, { backgroundColor: section.accentColor }]}>
+          <Text style={styles.primaryButtonText}>{translateStudyText("Start lesson", language)}</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
+function QuestionScreen({
+  strings,
+  language,
+  section,
+  session,
+  challengeIndex,
+  selectedChoiceId,
+  onSelectChoice,
+  onAnswer,
+  onExit
+}: {
+  strings: UiStrings;
+  language: SupportedLanguage;
+  section: LearningSection;
+  session: LessonSession;
+  challengeIndex: number;
+  selectedChoiceId?: string;
+  onSelectChoice: (choiceId: string) => void;
+  onAnswer: () => void;
+  onExit: () => void;
+}) {
+  const challenge = session.lesson.challenges[challengeIndex];
+  const progress = (challengeIndex + 1) / session.lesson.challenges.length;
+
+  return (
+    <View style={styles.lessonStageScreen}>
+      <View style={styles.lessonTop}>
+        <View style={styles.lessonTopActions}>
+          <Pressable onPress={onExit} style={styles.closeButton}>
+            <Text style={styles.closeText}>Exit</Text>
+          </Pressable>
+          <Text style={styles.lessonStageCounter}>{`${challengeIndex + 1}/${session.lesson.challenges.length}`}</Text>
+        </View>
+        <View style={styles.lessonProgressTrack}>
+          <AnimatedProgressBar progress={progress} color={section.accentColor} trackColor={colors.gray} height={12} />
+        </View>
+      </View>
+
+      <View style={styles.lessonBody}>
+        <View style={styles.lessonCoachCard}>
+          <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={88} />
+          <View style={styles.lessonSpeechBubble}>
+            <Text style={styles.lessonSpeechTitle}>{session.lesson.title}</Text>
+            <Text style={styles.lessonSpeechCopy}>{translateStudyText("Take your time and choose the best answer.", language)}</Text>
+          </View>
+        </View>
+
+        <View style={styles.promptCard}>
+          <Text style={styles.eyebrow}>{translateStudyText("Question", language)}</Text>
+          <Text style={styles.challengePrompt}>{challenge.prompt}</Text>
+        </View>
+
+        <View style={styles.choiceStack}>
+          {challenge.choices.map((choice) => {
+            const isSelected = choice.id === selectedChoiceId;
+
+            return (
+              <Pressable
+                key={choice.id}
+                onPress={() => onSelectChoice(choice.id)}
+                style={[
+                  styles.choiceButton,
+                  isSelected && styles.choiceSelected
+                ]}
+              >
+                <Text style={styles.choiceText}>{choice.label}</Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
+
+      <View style={styles.feedbackPane}>
+        <Text style={styles.feedbackCopy}>{strings.pickAnswer}</Text>
+        <Pressable
+          onPress={onAnswer}
+          disabled={!selectedChoiceId}
+          style={[styles.primaryButton, styles.checkButton, !selectedChoiceId && styles.primaryButtonDisabled]}
+        >
+          <Text style={styles.primaryButtonText}>{strings.check}</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
+function AnswerFeedbackScreen({
+  strings,
+  session,
+  challengeIndex,
+  answerState,
+  selectedChoiceId,
+  onContinue
+}: {
+  strings: UiStrings;
+  session: LessonSession;
+  challengeIndex: number;
+  answerState: AnswerState;
+  selectedChoiceId?: string;
+  onContinue: () => void;
+}) {
+  const challenge = session.lesson.challenges[challengeIndex];
+  const selectedChoice = challenge.choices.find((choice) => choice.id === selectedChoiceId);
+
+  return (
+    <View style={styles.lessonStageScreen}>
+      <View style={[
+        styles.feedbackStageCard,
+        answerState === "correct" ? styles.feedbackGood : styles.feedbackBad
+      ]}>
+        <Text style={[styles.feedbackTitle, answerState === "correct" ? styles.feedbackTitleGood : styles.feedbackTitleBad]}>
+          {answerState === "correct" ? strings.correct : strings.notQuite}
+        </Text>
+        <Text style={styles.feedbackCopyLarge}>{challenge.explanation}</Text>
+        {selectedChoice ? (
+          <View style={styles.answerPickedCard}>
+            <Text style={styles.answerPickedEyebrow}>Your answer</Text>
+            <Text style={styles.answerPickedValue}>{selectedChoice.label}</Text>
+          </View>
+        ) : null}
+        <Pressable onPress={onContinue} style={[styles.primaryButton, answerState === "correct" ? styles.correctButton : styles.wrongButton]}>
+          <Text style={styles.primaryButtonText}>{strings.continue}</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
+function MiniLessonScreen({
+  strings,
+  language,
+  section,
+  session,
+  challengeIndex,
+  answerState,
+  onContinue
+}: {
+  strings: UiStrings;
+  language: SupportedLanguage;
+  section: LearningSection;
+  session: LessonSession;
+  challengeIndex: number;
+  answerState: AnswerState;
+  onContinue: () => void;
+}) {
+  const challenge = session.lesson.challenges[challengeIndex];
+
+  return (
+    <ScrollView contentContainerStyle={styles.lessonTeachContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={translateStudyText("Why this matters", language)}
+        subtitle={translateStudyText("A short teaching moment before the next step.", language)}
+        onBack={onContinue}
+      />
+      <View style={styles.lessonTeachCard}>
+        <Text style={styles.lessonTeachEyebrow}>{answerState === "correct" ? strings.correct : strings.notQuite}</Text>
+        <Text style={styles.lessonTeachTitle}>{session.lesson.title}</Text>
+        <Text style={styles.lessonTeachCopy}>{challenge.miniLesson ?? session.lesson.explanationContent ?? session.lesson.intro}</Text>
+        {(challenge.easierExplanation || challenge.reviewSuggestion) ? (
+          <View style={styles.lessonTeachSupportCard}>
+            {challenge.easierExplanation ? <Text style={styles.lessonTeachSupportCopy}>{challenge.easierExplanation}</Text> : null}
+            {challenge.reviewSuggestion ? <Text style={styles.lessonTeachSupportHint}>{`Review next: ${challenge.reviewSuggestion}`}</Text> : null}
+          </View>
+        ) : null}
+        {session.lesson.sources.length > 0 && (
+          <LessonSources
+            sources={session.lesson.sources}
+            accentColor={section.accentColor}
+            strings={strings}
+            language={language}
+          />
+        )}
+        <Pressable onPress={onContinue} style={[styles.primaryButton, { backgroundColor: section.accentColor }]}>
+          <Text style={styles.primaryButtonText}>{translateStudyText("Next question", language)}</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
+  );
+}
+
+function LessonCompleteScreen({
+  strings,
+  language,
+  section,
+  summary,
+  nextNode,
+  onContinue,
+  onReturnToPath
+}: {
+  strings: UiStrings;
+  language: SupportedLanguage;
+  section: LearningSection;
+  summary: LessonCelebration;
+  nextNode?: LearningNodeView;
+  onContinue: () => void;
+  onReturnToPath: () => void;
+}) {
+  return (
+    <View style={styles.lessonStageScreen}>
+      <View style={styles.lessonCompleteCard}>
+        <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={128} />
+        <Text style={styles.modalEyebrow}>Lesson complete</Text>
+        <Text style={styles.lessonCompleteTitle}>{summary.title}</Text>
+        <Text style={styles.lessonCompleteCopy}>{translateStudyText("You finished the lesson and pushed the path forward.", language)}</Text>
+        <View style={styles.celebrationStats}>
+          {summary.xp > 0 && (
+            <View style={styles.celebrationStat}>
+              <Text style={styles.celebrationStatValue}>{`+${summary.xp}`}</Text>
+              <Text style={styles.celebrationStatLabel}>XP</Text>
+            </View>
+          )}
+          {summary.stars > 0 && (
+            <View style={styles.celebrationStat}>
+              <Text style={styles.celebrationStatValue}>{`+${summary.stars}`}</Text>
+              <Text style={styles.celebrationStatLabel}>Stars</Text>
+            </View>
+          )}
+          <View style={styles.celebrationStat}>
+            <Text style={styles.celebrationStatValue}>{summary.streakDays}</Text>
+            <Text style={styles.celebrationStatLabel}>{strings.streak}</Text>
+          </View>
+        </View>
+        {nextNode ? (
+          <View style={styles.nextLessonCard}>
+            <Text style={styles.answerPickedEyebrow}>Up next</Text>
+            <Text style={styles.nextLessonTitle}>{nextNode.title}</Text>
+          </View>
+        ) : null}
+        <View style={styles.lessonCompleteButtonRow}>
+          <Pressable onPress={onReturnToPath} style={styles.modalGhostButton}>
+            <Text style={styles.modalGhostText}>{strings.backToPath}</Text>
+          </Pressable>
+          <Pressable onPress={onContinue} style={[styles.modalPrimaryButton, { backgroundColor: section.accentColor }]}>
+            <Text style={styles.modalPrimaryText}>{nextNode ? strings.continue : strings.backToPath}</Text>
+          </Pressable>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+function ReviewScreen({
+  user,
+  learnerProfile,
+  language,
+  strings,
+  onBack,
+  onStartPlacement,
+  onStartReview,
+  onStartDailyChallenge,
+  onGoFoundation
+}: {
+  user: UserProfile;
+  learnerProfile: NonNullable<UserProfile["learnerProfile"]>;
+  language: SupportedLanguage;
+  strings: UiStrings;
+  onBack: () => void;
+  onStartPlacement: () => void;
+  onStartReview: () => void;
+  onStartDailyChallenge: () => void;
+  onGoFoundation: () => void;
+}) {
+  return (
+    <ScrollView contentContainerStyle={styles.screenScrollContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={translateStudyText("Review center", language)}
+        subtitle={translateStudyText("See what needs another pass and jump back in quickly.", language)}
+        onBack={onBack}
+      />
+
+      <View style={styles.reviewHeroCard}>
+        <Text style={styles.reviewHeroEyebrow}>{learnerProfile.readiness_label}</Text>
+        <Text style={styles.reviewHeroTitle}>{translateStudyText("Keep your foundation steady", language)}</Text>
+        <Text style={styles.reviewHeroCopy}>
+          {translateStudyText("The app is tracking weak spots quietly in the background. Use this screen when you want a guided review.", language)}
+        </Text>
+        <View style={styles.focusPanelButtonRow}>
+          <Pressable onPress={onStartReview} style={styles.focusPrimaryButton}>
+            <Text style={styles.focusPrimaryButtonText}>{translateStudyText("Start review", language)}</Text>
+          </Pressable>
+          <Pressable onPress={onStartDailyChallenge} style={styles.focusSecondaryButton}>
+            <Text style={styles.focusSecondaryButtonText}>{translateStudyText("Daily challenge", language)}</Text>
+          </Pressable>
+        </View>
+      </View>
+
+      <View style={styles.reviewListCard}>
+        <Text style={styles.sectionTitle}>{translateStudyText("Needs review", language)}</Text>
+        {learnerProfile.weak_areas.length ? learnerProfile.weak_areas.map((area) => (
+          <View key={area} style={styles.reviewListItem}>
+            <Text style={styles.reviewListTitle}>{translateStudyText(startCaseFoundationCategory(area), language)}</Text>
+            <Text style={styles.reviewListCopy}>{translateStudyText("This area has missed answers or lower confidence right now.", language)}</Text>
+          </View>
+        )) : (
+          <Text style={styles.reviewListCopy}>{translateStudyText("No major weak area is standing out right now. Keep going and let the app keep measuring.", language)}</Text>
+        )}
+      </View>
+
+      <View style={styles.reviewListCard}>
+        <Text style={styles.sectionTitle}>{translateStudyText("Quick actions", language)}</Text>
+        <Pressable onPress={onStartPlacement} style={styles.reviewActionButton}>
+          <Text style={styles.reviewActionButtonTitle}>{translateStudyText("Retake foundation placement", language)}</Text>
+          <Text style={styles.reviewActionButtonCopy}>{translateStudyText("Refresh the estimate of your level across core basics.", language)}</Text>
+        </Pressable>
+        <Pressable onPress={onGoFoundation} style={styles.reviewActionButton}>
+          <Text style={styles.reviewActionButtonTitle}>{translateStudyText("Open foundation topic", language)}</Text>
+          <Text style={styles.reviewActionButtonCopy}>{translateStudyText("Jump straight into the beginner path and guided review.", language)}</Text>
+        </Pressable>
+        <Text style={styles.reviewListCopy}>{`${translateStudyText("Current streak", language)}: ${user.streakDays}d`}</Text>
+      </View>
+    </ScrollView>
+  );
+}
+
+function ProfileScreen({
+  user,
+  strings,
+  learnerProfile,
+  onBack,
+  onOpenSettings,
+  onOpenCrew,
+  onOpenShop
+}: {
+  user: UserProfile;
+  strings: UiStrings;
+  learnerProfile: NonNullable<UserProfile["learnerProfile"]>;
+  onBack: () => void;
+  onOpenSettings: () => void;
+  onOpenCrew: () => void;
+  onOpenShop: () => void;
+}) {
+  return (
+    <ScrollView contentContainerStyle={styles.screenScrollContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={user.displayName}
+        subtitle={user.hasAccount ? strings.settings : strings.save}
+        onBack={onBack}
+      />
+
+      <View style={styles.profileHeroCard}>
+        <View style={styles.profileAvatar}>
+          <Text style={styles.profileAvatarText}>{user.avatarInitials}</Text>
+        </View>
+        <Text style={styles.profileHeroTitle}>{user.displayName}</Text>
+        <Text style={styles.profileHeroCopy}>{learnerProfile.readiness_label}</Text>
+        <View style={styles.profileStatsRow}>
+          <TopMetricPill label={strings.streak} value={`${user.streakDays}d`} tint="#FFF3CF" valueColor="#A66C00" />
+          <TopMetricPill label="XP" value={`${user.totalXp}`} tint="#DFF5FF" valueColor="#126A99" />
+          <TopMetricPill label={strings.hearts} value={formatHearts(user, true)} tint="#FFE4E0" valueColor="#BC4336" />
+        </View>
+      </View>
+
+      <View style={styles.profileActionStack}>
+        <Pressable onPress={onOpenSettings} style={styles.profileActionCard}>
+          <Text style={styles.profileActionTitle}>{strings.settings}</Text>
+          <Text style={styles.profileActionCopy}>{translateStudyText("Manage reminders, sound, language, and account mode.", user.preferredLanguage ?? DEFAULT_LANGUAGE)}</Text>
+        </Pressable>
+        <Pressable onPress={onOpenCrew} style={styles.profileActionCard}>
+          <Text style={styles.profileActionTitle}>{strings.crew}</Text>
+          <Text style={styles.profileActionCopy}>{translateStudyText("Open your accountability and battle space.", user.preferredLanguage ?? DEFAULT_LANGUAGE)}</Text>
+        </Pressable>
+        <Pressable onPress={onOpenShop} style={styles.profileActionCard}>
+          <Text style={styles.profileActionTitle}>{strings.heartShop}</Text>
+          <Text style={styles.profileActionCopy}>{translateStudyText("See premium plans, hearts, and saved perks.", user.preferredLanguage ?? DEFAULT_LANGUAGE)}</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
+  );
+}
+
 function TopBar({
   user,
   strings,
   languageCode,
   dailyProgress,
   soundEnabled,
+  onHome,
+  onReview,
   onAccount,
   onLanguage,
   onSocial,
@@ -1571,6 +2660,8 @@ function TopBar({
   languageCode: string;
   dailyProgress: number;
   soundEnabled: boolean;
+  onHome: () => void;
+  onReview: () => void;
   onAccount: () => void;
   onLanguage: () => void;
   onSocial: () => void;
@@ -1597,17 +2688,22 @@ function TopBar({
       </View>
 
       <View style={styles.topBarActionRow}>
-        <View style={styles.dailyQuestCard}>
+        <Pressable onPress={onHome} style={styles.dailyQuestCard}>
           <View style={styles.dailyQuestHeader}>
-            <Text style={styles.metricLabel}>Daily quest</Text>
+            <Text style={styles.metricLabel}>Home</Text>
             <Text style={styles.metricValue}>{Math.round(dailyProgress * 100)}%</Text>
           </View>
           <AnimatedProgressBar progress={dailyProgress} color={colors.gold} trackColor="rgba(23, 49, 35, 0.08)" height={10} />
-        </View>
+        </Pressable>
 
         <Pressable onPress={onToggleSound} style={[styles.soundButton, !soundEnabled && styles.soundButtonMuted]}>
           <Text style={styles.metricLabel}>Sound</Text>
           <Text style={styles.soundButtonValue}>{soundEnabled ? "SFX on" : "Muted"}</Text>
+        </Pressable>
+
+        <Pressable onPress={onReview} style={styles.languageButtonSmall}>
+          <Text style={styles.metricLabel}>Review</Text>
+          <Text style={styles.socialButtonSmallValue}>Queue</Text>
         </Pressable>
 
         <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
@@ -3976,6 +5072,33 @@ function startCaseAccountRole(role: AccountRole) {
   return role === "parent" ? "Parent" : "Child";
 }
 
+function startCaseFoundationCategory(category: FoundationCategoryId) {
+  switch (category) {
+    case "shahadah":
+      return "Shahadah";
+    case "salah":
+      return "Salah";
+    case "taharah":
+      return "Wudu and Taharah";
+    case "fasting":
+      return "Fasting";
+    case "zakat":
+      return "Zakat";
+    case "hajj":
+      return "Hajj";
+    case "iman":
+      return "Pillars of Iman";
+    case "manners":
+      return "Daily manners and phrases";
+    case "quran":
+      return "Quran literacy";
+    case "seerah":
+      return "Prophets and seerah";
+    default:
+      return category;
+  }
+}
+
 function formatRelativeTime(value: string) {
   const diffMs = Date.now() - new Date(value).getTime();
   const diffMinutes = Math.max(0, Math.floor(diffMs / 60000));
@@ -4803,6 +5926,92 @@ const styles = StyleSheet.create({
   reviewRestoreCard: { marginTop: 2, borderRadius: 8, backgroundColor: "#F7FBF8", padding: 14 },
   reviewRestoreTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
   reviewRestoreCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
+  screenScrollContent: { padding: 18, paddingBottom: 128, gap: 14 },
+  screenHeader: { flexDirection: "row", alignItems: "center", gap: 12, paddingTop: 4, paddingBottom: 6 },
+  screenBackButton: { minWidth: 68, minHeight: 40, paddingHorizontal: 12, borderRadius: 12, alignItems: "center", justifyContent: "center", backgroundColor: colors.gray },
+  screenBackButtonText: { color: colors.ink, fontSize: 13, fontWeight: "900" },
+  screenHeaderText: { flex: 1 },
+  screenHeaderTitle: { color: colors.ink, fontSize: 24, fontWeight: "900" },
+  screenHeaderSubtitle: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 2 },
+  screenActionButton: { minHeight: 40, paddingHorizontal: 14, borderRadius: 12, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
+  screenActionButtonText: { color: colors.white, fontSize: 13, fontWeight: "900" },
+  screenActionSpacer: { width: 68 },
+  sectionHeaderSimple: { marginTop: 2 },
+  topicGrid: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
+  focusPanel: { padding: 18, borderRadius: 22, borderWidth: 1, borderColor: "#DCE8E0", backgroundColor: colors.white, shadowColor: "rgba(16,47,32,0.08)", shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.1, shadowRadius: 16, elevation: 2 },
+  focusPanelCompact: { padding: 18, borderRadius: 22, borderWidth: 1, borderColor: "#DCE8E0", backgroundColor: "#FBFDFC" },
+  focusPanelEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  focusPanelTitle: { color: colors.ink, fontSize: 24, fontWeight: "900", marginTop: 6 },
+  focusPanelCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "700", marginTop: 6 },
+  focusPanelButtonRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 14 },
+  focusPrimaryButton: { minHeight: 48, paddingHorizontal: 16, borderRadius: 14, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
+  focusPrimaryButtonText: { color: colors.white, fontSize: 14, fontWeight: "900" },
+  focusSecondaryButton: { minHeight: 48, paddingHorizontal: 16, borderRadius: 14, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  focusSecondaryButtonText: { color: colors.greenDark, fontSize: 14, fontWeight: "900" },
+  branchListColumn: { gap: 12 },
+  branchListCard: { padding: 16, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  branchListCardTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 12 },
+  branchListTitle: { color: colors.ink, fontSize: 17, fontWeight: "900" },
+  branchListMeta: { color: colors.greenDark, fontSize: 12, fontWeight: "800" },
+  branchListCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 6 },
+  branchListMetaRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 10, marginBottom: 10 },
+  branchHeroCard: { flexDirection: "row", alignItems: "center", gap: 14, padding: 18, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  branchHeroText: { flex: 1 },
+  branchHeroMeta: { color: colors.muted, fontSize: 12, fontWeight: "800", marginTop: 8 },
+  branchChip: { minHeight: 42, paddingHorizontal: 14, borderRadius: 999, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, alignItems: "center", justifyContent: "center" },
+  branchChipText: { color: colors.ink, fontSize: 13, fontWeight: "800" },
+  cleanPathCard: { width: "100%", maxWidth: 700, alignSelf: "center", paddingVertical: 8, paddingHorizontal: 10, borderRadius: 28, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, position: "relative", overflow: "hidden" },
+  cleanPathLane: { width: "100%", alignSelf: "center", paddingVertical: 14, minHeight: 220 },
+  lessonStageScreen: { flex: 1, backgroundColor: colors.bg, padding: 18 },
+  lessonStageCard: { flex: 1, alignItems: "center", justifyContent: "center", gap: 10, padding: 24, borderRadius: 24, borderWidth: 1, backgroundColor: colors.white },
+  lessonStageEyebrow: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase" },
+  lessonStageTitle: { color: colors.ink, fontSize: 28, lineHeight: 34, fontWeight: "900", textAlign: "center" },
+  lessonStageCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", textAlign: "center", maxWidth: 520 },
+  lessonStageMetaRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 8, marginBottom: 8 },
+  lessonStageMetaChip: { minWidth: 96, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, backgroundColor: "#F7FBF8", alignItems: "center" },
+  lessonStageMetaLabel: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  lessonStageMetaValue: { color: colors.ink, fontSize: 14, fontWeight: "900", marginTop: 4 },
+  lessonStageCounter: { color: colors.greenDark, fontSize: 13, fontWeight: "900" },
+  feedbackStageCard: { flex: 1, alignItems: "center", justifyContent: "center", gap: 14, padding: 26, borderRadius: 24 },
+  feedbackCopyLarge: { color: colors.ink, fontSize: 16, lineHeight: 23, fontWeight: "700", textAlign: "center", maxWidth: 540 },
+  answerPickedCard: { width: "100%", maxWidth: 420, padding: 16, borderRadius: 18, backgroundColor: "rgba(255,255,255,0.72)" },
+  answerPickedEyebrow: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  answerPickedValue: { color: colors.ink, fontSize: 17, fontWeight: "900", marginTop: 4 },
+  lessonTeachContent: { padding: 18, paddingBottom: 128, gap: 14 },
+  lessonTeachCard: { padding: 18, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, gap: 12 },
+  lessonTeachEyebrow: { color: colors.greenDark, fontSize: 12, fontWeight: "900", textTransform: "uppercase" },
+  lessonTeachTitle: { color: colors.ink, fontSize: 26, fontWeight: "900" },
+  lessonTeachCopy: { color: colors.ink, fontSize: 15, lineHeight: 22, fontWeight: "700" },
+  lessonTeachSupportCard: { padding: 14, borderRadius: 18, backgroundColor: "#F7FBF8" },
+  lessonTeachSupportCopy: { color: colors.ink, fontSize: 14, lineHeight: 20, fontWeight: "700" },
+  lessonTeachSupportHint: { color: colors.muted, fontSize: 12, lineHeight: 18, fontWeight: "800", marginTop: 6 },
+  lessonCompleteCard: { flex: 1, alignItems: "center", justifyContent: "center", padding: 26, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  lessonCompleteTitle: { color: colors.ink, fontSize: 28, fontWeight: "900", marginTop: 8, textAlign: "center" },
+  lessonCompleteCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", textAlign: "center", marginTop: 6, maxWidth: 520 },
+  nextLessonCard: { width: "100%", maxWidth: 420, padding: 16, borderRadius: 18, backgroundColor: "#F7FBF8", marginBottom: 16 },
+  nextLessonTitle: { color: colors.ink, fontSize: 18, fontWeight: "900", marginTop: 4 },
+  lessonCompleteButtonRow: { width: "100%", flexDirection: "row", gap: 10, marginTop: 4 },
+  reviewHeroCard: { padding: 20, borderRadius: 24, backgroundColor: "#EAF8F0", borderWidth: 1, borderColor: "#CDEBD8" },
+  reviewHeroEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
+  reviewHeroTitle: { color: colors.ink, fontSize: 24, fontWeight: "900", marginTop: 6 },
+  reviewHeroCopy: { color: colors.muted, fontSize: 14, lineHeight: 20, fontWeight: "700", marginTop: 6 },
+  reviewListCard: { padding: 18, borderRadius: 22, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white, gap: 10 },
+  reviewListItem: { paddingVertical: 8, borderTopWidth: 1, borderTopColor: "#EEF3EF" },
+  reviewListTitle: { color: colors.ink, fontSize: 15, fontWeight: "900" },
+  reviewListCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700" },
+  reviewActionButton: { padding: 14, borderRadius: 18, backgroundColor: "#F7FBF8", borderWidth: 1, borderColor: "#E4EEE8" },
+  reviewActionButtonTitle: { color: colors.ink, fontSize: 15, fontWeight: "900" },
+  reviewActionButtonCopy: { color: colors.muted, fontSize: 12, lineHeight: 18, fontWeight: "700", marginTop: 4 },
+  profileHeroCard: { alignItems: "center", padding: 22, borderRadius: 24, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  profileAvatar: { width: 80, height: 80, borderRadius: 40, alignItems: "center", justifyContent: "center", backgroundColor: colors.green },
+  profileAvatarText: { color: colors.white, fontSize: 24, fontWeight: "900" },
+  profileHeroTitle: { color: colors.ink, fontSize: 24, fontWeight: "900", marginTop: 10 },
+  profileHeroCopy: { color: colors.muted, fontSize: 14, fontWeight: "700", marginTop: 4 },
+  profileStatsRow: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: 10, marginTop: 16 },
+  profileActionStack: { gap: 12 },
+  profileActionCard: { padding: 18, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
+  profileActionTitle: { color: colors.ink, fontSize: 16, fontWeight: "900" },
+  profileActionCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 5 },
   adBanner: { position: "absolute", left: 12, right: 12, bottom: 10, minHeight: 56, borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   adLabel: { color: colors.sky, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   adCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", letterSpacing: 0, marginTop: 2 }
