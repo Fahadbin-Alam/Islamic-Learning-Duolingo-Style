@@ -53,7 +53,7 @@ import {
   syncRemoteUser
 } from "./services/backendSync";
 import { clearSavedUserProfile, loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
-import { sandboxMonetizationClient } from "./services/monetization";
+import { monetizationClient } from "./services/monetization";
 import {
   clearSocialHubState,
   createSocialConnection,
@@ -965,19 +965,23 @@ export default function TopicApp() {
     }
 
     if (item.type === "rewarded_ad") {
-      const reward = await sandboxMonetizationClient.showRewardedHeartAd(item);
+      const reward = await monetizationClient.showRewardedHeartAd(item);
 
       if (reward.ok) {
         dispatch({ type: "apply_user", user: grantHearts(state.user, reward.heartsGranted, true) });
+      } else if (reward.message) {
+        Alert.alert("Rewarded hearts are not ready yet", reward.message);
       }
 
       return;
     }
 
-    const purchase = await sandboxMonetizationClient.purchaseShopItem(item);
+    const purchase = await monetizationClient.purchaseShopItem(item);
 
     if (purchase.ok) {
       dispatch({ type: "apply_user", user: applyShopItem(state.user, item) });
+    } else if (purchase.message) {
+      Alert.alert("Premium checkout is not ready yet", purchase.message);
     }
   }
 
@@ -3134,6 +3138,9 @@ function AccountModal({
   onChangeEmail: (value: string) => void;
   onChangePassword: (value: string) => void;
 }) {
+  const enabledSocialProviders = (Object.entries(SOCIAL_AUTH_CONFIG) as [SocialProvider, typeof SOCIAL_AUTH_CONFIG[SocialProvider]][])
+    .filter(([, config]) => config.enabled);
+
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
@@ -3186,20 +3193,26 @@ function AccountModal({
             placeholderTextColor={colors.muted}
             style={styles.input}
           />
-          <View style={styles.socialStack}>
-            <Pressable onPress={() => onSocialLogin("google")} style={[styles.socialButton, styles.googleButton]}>
-              <Text style={styles.socialButtonBrand}>G</Text>
-              <Text style={styles.socialButtonText}>{SOCIAL_AUTH_CONFIG.google.label}</Text>
-            </Pressable>
-            <Pressable onPress={() => onSocialLogin("facebook")} style={[styles.socialButton, styles.facebookButton]}>
-              <Text style={styles.socialButtonBrand}>f</Text>
-              <Text style={styles.socialButtonText}>{SOCIAL_AUTH_CONFIG.facebook.label}</Text>
-            </Pressable>
-          </View>
+          {enabledSocialProviders.length > 0 && (
+            <View style={styles.socialStack}>
+              {enabledSocialProviders.map(([provider, config]) => (
+                <Pressable
+                  key={provider}
+                  onPress={() => onSocialLogin(provider)}
+                  style={[styles.socialButton, provider === "google" ? styles.googleButton : styles.facebookButton]}
+                >
+                  <Text style={styles.socialButtonBrand}>{provider === "google" ? "G" : "f"}</Text>
+                  <Text style={styles.socialButtonText}>{config.label}</Text>
+                </Pressable>
+              ))}
+            </View>
+          )}
           <Text style={styles.modalHint}>
             {hasSavedAccount
               ? strings.savedAccountHint
-              : strings.socialHint}
+              : enabledSocialProviders.length > 0
+                ? strings.socialHint
+                : "Email and password are ready now. Google and Facebook will appear here once their mobile app credentials are connected."}
           </Text>
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>

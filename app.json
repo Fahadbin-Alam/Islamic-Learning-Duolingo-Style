@@ -3,15 +3,35 @@
     "name": "Sira Path",
     "slug": "sira-path",
     "version": "1.0.0",
+    "description": "An Islamic learning journey with playful lesson paths rooted in Quran and authentic Sunnah.",
     "orientation": "portrait",
     "scheme": "sirapath",
     "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F4FBF7"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.islamiclearning.sirapath"
+      "bundleIdentifier": "com.islamiclearning.sirapath",
+      "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.islamiclearning.sirapath"
+      "package": "com.islamiclearning.sirapath",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#F4FBF7"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "monetization": {

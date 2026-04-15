@@ -358,12 +358,14 @@ export interface PurchaseResult {
   ok: boolean;
   transactionId: string;
   itemId: string;
+  message?: string;
 }
 
 export interface RewardedAdResult {
   ok: boolean;
   transactionId: string;
   heartsGranted: number;
+  message?: string;
 }
 
 export interface SocialConnection {

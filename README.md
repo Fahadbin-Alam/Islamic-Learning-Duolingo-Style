@@ -130,3 +130,5 @@ The current seed data intentionally creates large trees so the app stops behavin
 
 - [backend/README.md](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/README.md)
 - [docs/architecture.md](C:/Users/ME/Islamic-Learning-Duolingo-Style/docs/architecture.md)
+- [docs/google-play-android-release.md](C:/Users/ME/Islamic-Learning-Duolingo-Style/docs/google-play-android-release.md)
+- [docs/privacy-policy.md](C:/Users/ME/Islamic-Learning-Duolingo-Style/docs/privacy-policy.md)

@@ -16,7 +16,9 @@ android/
 *.orig.*
 eas.json.local
 .env
+.env.local
 backend/.env
 backend/data/sira_path.db
 __pycache__/
 *.pyc
+secrets/
