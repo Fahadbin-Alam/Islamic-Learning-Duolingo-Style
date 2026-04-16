@@ -114,6 +114,7 @@ type Screen =
   | "branch"
   | "lesson_intro"
   | "lesson_teach"
+  | "lesson_sources"
   | "lesson_example"
   | "lesson_practice"
   | "lesson_question"
@@ -246,6 +247,7 @@ type Action =
   | { type: "close_social" }
   | { type: "start_lesson"; session: LessonSession }
   | { type: "show_teach_screen" }
+  | { type: "show_source_screen" }
   | { type: "show_example_screen" }
   | { type: "show_practice_screen" }
   | { type: "begin_lesson_questions" }
@@ -328,6 +330,8 @@ function reducer(state: AppState, action: Action): AppState {
         retryingCurrentChallenge: false,
         lastAnswerWasRetry: false
       };
+    case "show_source_screen":
+      return { ...state, screen: "lesson_sources" };
     case "show_example_screen":
       return { ...state, screen: "lesson_example" };
     case "show_practice_screen":
@@ -643,6 +647,10 @@ export default function TopicApp() {
   );
   const currentPracticeActivity = useMemo(
     () => currentLessonSession?.lesson.practiceActivities?.[0],
+    [currentLessonSession]
+  );
+  const currentLessonSources = useMemo(
+    () => currentLessonSession?.lesson.sources ?? [],
     [currentLessonSession]
   );
 
@@ -1098,6 +1106,11 @@ export default function TopicApp() {
 
   function continueFromTeach() {
     playUiSound("soft_ui");
+    if (currentLessonSources.length > 0) {
+      dispatch({ type: "show_source_screen" });
+      return;
+    }
+
     if (currentExampleMoment) {
       dispatch({ type: "show_example_screen" });
       return;
@@ -1117,6 +1130,22 @@ export default function TopicApp() {
     dispatch({ type: "show_teach_screen" });
   }
 
+  function continueFromSourceLearning() {
+    playUiSound("soft_ui");
+    if (currentExampleMoment) {
+      dispatch({ type: "show_example_screen" });
+      return;
+    }
+
+    if (currentPracticeActivity) {
+      dispatch({ type: "show_practice_screen" });
+      return;
+    }
+
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "begin_lesson_questions" });
+  }
+
   function continueFromExample() {
     playUiSound("soft_ui");
     if (currentPracticeActivity) {
@@ -1132,6 +1161,11 @@ export default function TopicApp() {
     playUiSound("soft_ui");
     if (currentExampleMoment) {
       dispatch({ type: "show_example_screen" });
+      return;
+    }
+
+    if (currentLessonSources.length > 0) {
+      dispatch({ type: "show_source_screen" });
       return;
     }
 
@@ -1851,6 +1885,22 @@ export default function TopicApp() {
               dispatch({ type: "reset_lesson" });
             }}
             onContinue={continueFromTeach}
+            onSoftTap={() => playUiSound("soft_ui")}
+            onOpenSource={(url) => {
+              playUiSound("soft_ui");
+              void Linking.openURL(url);
+            }}
+          />
+        )}
+        {state.screen === "lesson_sources" && currentLessonSession && (
+          <LessonSourceLearnScreen
+            language={currentLanguage}
+            section={currentLessonSection}
+            lessonTitle={currentLessonSession.lesson.title}
+            sources={currentLessonSources}
+            strings={strings}
+            onBack={goBackToTeach}
+            onContinue={continueFromSourceLearning}
             onSoftTap={() => playUiSound("soft_ui")}
             onOpenSource={(url) => {
               playUiSound("soft_ui");
@@ -2704,7 +2754,7 @@ function LessonIntroScreen({
         subtitle={translateStudyText("One small lesson path. We teach first, then you answer.", language)}
         onBack={onBack}
       />
-      <LessonStageRail currentStep={1} totalSteps={4} accentColor={section.accentColor} />
+      <LessonStageRail currentStep={1} totalSteps={5} accentColor={section.accentColor} />
       <View style={[styles.lessonFocusCard, { borderColor: lightenColor(section.accentColor, 0.82), backgroundColor: lightenColor(section.accentColor, 0.96) }]}>
         <View style={styles.lessonFocusBadgeRow}>
           <Text style={styles.lessonStageEyebrow}>{translateStudyText("Lesson intro", language)}</Text>
@@ -2760,10 +2810,10 @@ function LessonTeachScreen({
     <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
       <ScreenHeader
         title={lessonTitle}
-        subtitle={translateStudyText("Step 1 of 3: learn one clear idea before the practice starts.", language)}
+        subtitle={translateStudyText("Learn one clear idea first. Sources and practice come next.", language)}
         onBack={onBack}
       />
-      <LessonStageRail currentStep={2} totalSteps={4} accentColor={section.accentColor} />
+      <LessonStageRail currentStep={2} totalSteps={5} accentColor={section.accentColor} />
       <View style={[styles.lessonTeachStageCard, { borderColor: lightenColor(section.accentColor, 0.82) }]}>
         <View style={styles.lessonFocusBadgeRow}>
           <Text style={styles.lessonStageEyebrow}>{translateStudyText("Teach", language)}</Text>
@@ -2794,6 +2844,130 @@ function LessonTeachScreen({
   );
 }
 
+function LessonSourceLearnScreen({
+  language,
+  section,
+  lessonTitle,
+  sources,
+  strings,
+  onBack,
+  onContinue,
+  onSoftTap,
+  onOpenSource
+}: {
+  language: SupportedLanguage;
+  section: LearningSection;
+  lessonTitle: string;
+  sources: LessonSource[];
+  strings: UiStrings;
+  onBack: () => void;
+  onContinue: () => void;
+  onSoftTap: () => void;
+  onOpenSource: (url: string) => void;
+}) {
+  const [openedSourceIds, setOpenedSourceIds] = useState<string[]>([]);
+  const visibleSources = sources.slice(0, 4);
+  const canContinue = openedSourceIds.length > 0 || visibleSources.length === 0;
+
+  function handleOpenSource(source: LessonSource) {
+    onSoftTap();
+    setOpenedSourceIds((current) => (current.includes(source.id) ? current : [...current, source.id]));
+    onOpenSource(source.url);
+  }
+
+  return (
+    <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
+      <ScreenHeader
+        title={lessonTitle}
+        subtitle={translateStudyText("Learn from one source first, then move into practice and questions.", language)}
+        onBack={onBack}
+      />
+      <LessonStageRail currentStep={3} totalSteps={5} accentColor={section.accentColor} />
+      <View style={[styles.lessonSourceStageCard, { borderColor: lightenColor(section.accentColor, 0.82), backgroundColor: lightenColor(section.accentColor, 0.97) }]}>
+        <View style={styles.lessonFocusBadgeRow}>
+          <Text style={styles.lessonStageEyebrow}>{translateStudyText("Watch / Read", language)}</Text>
+          <View style={[styles.lessonFocusPill, { backgroundColor: lightenColor(section.accentColor, 0.88) }]}>
+            <Text style={[styles.lessonFocusPillText, { color: darkenColor(section.accentColor) }]}>{translateStudyText("Interactive source", language)}</Text>
+          </View>
+        </View>
+        <Text style={styles.lessonTeachTitle}>{translateStudyText("Open one source before the test", language)}</Text>
+        <Text style={styles.lessonTeachCopy}>{translateStudyText("Pick a source below, open it, and come back. This keeps the lesson teach-first, not guess-first.", language)}</Text>
+
+        <View style={styles.lessonSourceStack}>
+          {visibleSources.map((source) => {
+            const opened = openedSourceIds.includes(source.id);
+            const statusTone = getSourceValidationTone(source.validationStatus ?? "needs_review");
+            const actionLabel = source.site === "YouTube"
+              ? translateStudyText("Watch now", language)
+              : translateStudyText("Read now", language);
+
+            return (
+              <Pressable
+                key={source.id}
+                onPress={() => handleOpenSource(source)}
+                style={[styles.lessonSourceCard, { borderColor: lightenColor(section.accentColor, 0.8) }, opened && styles.lessonSourceCardOpened]}
+              >
+                <View style={styles.lessonSourceCardTop}>
+                  <View style={styles.lessonSourceTagRow}>
+                    <Text style={[styles.lessonSourceSiteBadge, { backgroundColor: lightenColor(section.accentColor, 0.88) }]}>{source.site}</Text>
+                    <Text style={styles.lessonSourceCategory}>{formatSourceCategory(source.category, language)}</Text>
+                  </View>
+                  <View style={[styles.lessonSourceStatusPill, { backgroundColor: statusTone.background }]}>
+                    <Text style={[styles.lessonSourceStatusText, { color: statusTone.text }]}>
+                      {formatSourceValidationStatus(source.validationStatus ?? "needs_review", language)}
+                    </Text>
+                  </View>
+                </View>
+                <Text style={styles.lessonSourceTitle}>{source.reference ?? source.title}</Text>
+                <Text style={styles.lessonSourceCopy}>{source.teaches ?? source.summary}</Text>
+                <View style={styles.lessonSourceActionRow}>
+                  <View style={[styles.lessonSourceActionButton, { backgroundColor: section.accentColor }]}>
+                    <Text style={styles.lessonSourceActionText}>{opened ? translateStudyText("Opened", language) : actionLabel}</Text>
+                  </View>
+                  {opened ? (
+                    <Text style={styles.lessonSourceOpenedHint}>{translateStudyText("Ready to continue", language)}</Text>
+                  ) : null}
+                </View>
+              </Pressable>
+            );
+          })}
+        </View>
+
+        <Pressable
+          onPress={onContinue}
+          disabled={!canContinue}
+          style={[
+            styles.primaryButton,
+            styles.lessonFlowPrimaryButton,
+            { backgroundColor: section.accentColor },
+            !canContinue && styles.primaryButtonDisabled
+          ]}
+        >
+          <Text style={styles.primaryButtonText}>{translateStudyText("Continue to practice", language)}</Text>
+        </Pressable>
+        {!canContinue ? (
+          <Text style={styles.lessonFlowHint}>{translateStudyText("Open at least one source so you learn first, then answer.", language)}</Text>
+        ) : (
+          <Text style={styles.lessonFlowHint}>{translateStudyText("You can always open more sources later from feedback and review.", language)}</Text>
+        )}
+      </View>
+      {sources.length > visibleSources.length ? (
+        <LessonSources
+          sources={sources}
+          accentColor={section.accentColor}
+          strings={strings}
+          language={language}
+          limit={4}
+          onOpenSource={(url) => {
+            onSoftTap();
+            onOpenSource(url);
+          }}
+        />
+      ) : null}
+    </ScrollView>
+  );
+}
+
 function LessonExampleScreen({
   language,
   section,
@@ -2817,10 +2991,10 @@ function LessonExampleScreen({
     <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
       <ScreenHeader
         title={lessonTitle}
-        subtitle={translateStudyText("Step 2 of 3: see one example before the practice screen.", language)}
+        subtitle={translateStudyText("See one guided example before you practice.", language)}
         onBack={onBack}
       />
-      <LessonStageRail currentStep={2} totalSteps={4} accentColor={section.accentColor} />
+      <LessonStageRail currentStep={4} totalSteps={5} accentColor={section.accentColor} />
       <TeachingMomentCard
         moment={moment}
         accentColor={section.accentColor}
@@ -2860,10 +3034,10 @@ function LessonPracticeScreen({
     <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
       <ScreenHeader
         title={lessonTitle}
-        subtitle={translateStudyText("Step 3 of 3: practice lightly, then answer for real.", language)}
+        subtitle={translateStudyText("Practice lightly, then answer for real.", language)}
         onBack={onBack}
       />
-      <LessonStageRail currentStep={3} totalSteps={4} accentColor={section.accentColor} />
+      <LessonStageRail currentStep={4} totalSteps={5} accentColor={section.accentColor} />
       <PracticeActivityCard
         activity={activity}
         accentColor={section.accentColor}
@@ -2936,7 +3110,7 @@ function QuestionScreen({
       </View>
 
       <View style={styles.lessonQuestionWrap}>
-        <LessonStageRail currentStep={4} totalSteps={4} accentColor={section.accentColor} />
+        <LessonStageRail currentStep={5} totalSteps={5} accentColor={section.accentColor} />
         <View style={styles.lessonCoachCard}>
           <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={88} />
           <View style={styles.lessonSpeechBubble}>
@@ -7597,6 +7771,22 @@ const styles = StyleSheet.create({
   lessonLightLinkCard: { width: "100%", padding: 14, borderRadius: 18, borderWidth: 1, backgroundColor: "#FFFFFF" },
   lessonLightLinkEyebrow: { color: colors.greenDark, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
   lessonLightLinkTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", marginTop: 5 },
+  lessonSourceStageCard: { padding: 20, borderRadius: 24, borderWidth: 1, gap: 12 },
+  lessonSourceStack: { gap: 10 },
+  lessonSourceCard: { borderRadius: 18, borderWidth: 1, backgroundColor: "#FFFFFF", padding: 14, gap: 8 },
+  lessonSourceCardOpened: { borderColor: "#98D5B4", backgroundColor: "#F3FCF7" },
+  lessonSourceCardTop: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", gap: 10 },
+  lessonSourceTagRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 8, flex: 1 },
+  lessonSourceSiteBadge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999, color: colors.ink, fontSize: 11, fontWeight: "900", overflow: "hidden" },
+  lessonSourceCategory: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase" },
+  lessonSourceStatusPill: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999 },
+  lessonSourceStatusText: { fontSize: 10, fontWeight: "900", textTransform: "uppercase" },
+  lessonSourceTitle: { color: colors.ink, fontSize: 15, lineHeight: 20, fontWeight: "900" },
+  lessonSourceCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700" },
+  lessonSourceActionRow: { flexDirection: "row", alignItems: "center", gap: 10, marginTop: 2 },
+  lessonSourceActionButton: { minHeight: 38, paddingHorizontal: 14, borderRadius: 12, alignItems: "center", justifyContent: "center" },
+  lessonSourceActionText: { color: colors.white, fontSize: 12, fontWeight: "900" },
+  lessonSourceOpenedHint: { color: colors.greenDark, fontSize: 12, fontWeight: "800" },
   lessonFlowPrimaryButton: { width: "100%", marginTop: 2 },
   lessonHelpCard: { padding: 18, borderRadius: 24, borderWidth: 1, gap: 12 },
   lessonHelpButtonRow: { flexDirection: "row", gap: 10, marginTop: 4 },
