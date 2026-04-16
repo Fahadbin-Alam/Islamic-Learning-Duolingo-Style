@@ -169,6 +169,46 @@ type PathTheme = {
   candy: string;
 };
 
+type MotionSpring = {
+  speed: number;
+  bounciness: number;
+};
+
+const MOTION = {
+  duration: {
+    progressFill: 520,
+    nodePulse: 1200,
+    nodeFloat: 2100,
+    nodeShine: 3000,
+    nodeStarPulse: 840,
+    rewardGlow: 940,
+    celebrationLift: 1120,
+    modalFade: 280
+  },
+  easing: {
+    smoothOut: Easing.bezier(0.22, 1, 0.36, 1),
+    smoothInOut: Easing.bezier(0.4, 0, 0.2, 1),
+    drift: Easing.inOut(Easing.sin)
+  },
+  spring: {
+    hoverIn: { speed: 15, bounciness: 8 },
+    hoverOut: { speed: 15, bounciness: 5 },
+    pressIn: { speed: 18, bounciness: 4 },
+    pressOut: { speed: 16, bounciness: 7 },
+    settle: { speed: 15, bounciness: 5 },
+    modalPop: { speed: 14, bounciness: 8 }
+  }
+} as const;
+
+function smoothScaleSpring(value: Animated.Value, toValue: number, spring: MotionSpring) {
+  return Animated.spring(value, {
+    toValue,
+    useNativeDriver: true,
+    speed: spring.speed,
+    bounciness: spring.bounciness
+  });
+}
+
 interface AppState {
   screen: Screen;
   returnScreen?: Screen;
@@ -3435,8 +3475,8 @@ function AnimatedProgressBar({
   useEffect(() => {
     Animated.timing(fill, {
       toValue: Math.max(0.02, Math.min(1, progress || 0)),
-      duration: 420,
-      easing: Easing.out(Easing.cubic),
+      duration: MOTION.duration.progressFill,
+      easing: MOTION.easing.smoothOut,
       useNativeDriver: false
     }).start();
   }, [fill, progress]);
@@ -4019,14 +4059,14 @@ function PathNode({
       Animated.sequence([
         Animated.timing(pulse, {
           toValue: 1,
-          duration: 900,
-          easing: Easing.inOut(Easing.quad),
+          duration: MOTION.duration.nodePulse,
+          easing: MOTION.easing.smoothInOut,
           useNativeDriver: false
         }),
         Animated.timing(pulse, {
-          toValue: 0.2,
-          duration: 900,
-          easing: Easing.inOut(Easing.quad),
+          toValue: 0.28,
+          duration: MOTION.duration.nodePulse,
+          easing: MOTION.easing.smoothInOut,
           useNativeDriver: false
         })
       ])
@@ -4050,14 +4090,14 @@ function PathNode({
       Animated.sequence([
         Animated.timing(float, {
           toValue: 1,
-          duration: 1800 + (index % 3) * 120,
-          easing: Easing.inOut(Easing.sin),
+          duration: MOTION.duration.nodeFloat + (index % 3) * 180,
+          easing: MOTION.easing.drift,
           useNativeDriver: true
         }),
         Animated.timing(float, {
           toValue: 0,
-          duration: 1800 + (index % 3) * 120,
-          easing: Easing.inOut(Easing.sin),
+          duration: MOTION.duration.nodeFloat + (index % 3) * 180,
+          easing: MOTION.easing.drift,
           useNativeDriver: true
         })
       ])
@@ -4081,14 +4121,14 @@ function PathNode({
       Animated.sequence([
         Animated.timing(shine, {
           toValue: 1,
-          duration: 2600,
-          easing: Easing.inOut(Easing.quad),
+          duration: MOTION.duration.nodeShine,
+          easing: MOTION.easing.smoothInOut,
           useNativeDriver: true
         }),
         Animated.timing(shine, {
           toValue: 0,
-          duration: 2600,
-          easing: Easing.inOut(Easing.quad),
+          duration: MOTION.duration.nodeShine,
+          easing: MOTION.easing.smoothInOut,
           useNativeDriver: true
         })
       ])
@@ -4112,14 +4152,14 @@ function PathNode({
       Animated.sequence([
         Animated.timing(starPulse, {
           toValue: 1,
-          duration: 640,
-          easing: Easing.inOut(Easing.quad),
+          duration: MOTION.duration.nodeStarPulse,
+          easing: MOTION.easing.smoothInOut,
           useNativeDriver: true
         }),
         Animated.timing(starPulse, {
           toValue: 0,
-          duration: 640,
-          easing: Easing.inOut(Easing.quad),
+          duration: MOTION.duration.nodeStarPulse,
+          easing: MOTION.easing.smoothInOut,
           useNativeDriver: true
         })
       ])
@@ -4163,17 +4203,17 @@ function PathNode({
             onPress={onPress}
             disabled={node.status === "locked"}
             onHoverIn={() => {
-              Animated.spring(scale, { toValue: 1.06, useNativeDriver: true, speed: 20, bounciness: 10 }).start();
+              smoothScaleSpring(scale, 1.055, MOTION.spring.hoverIn).start();
             }}
             onHoverOut={() => {
-              Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 8 }).start();
+              smoothScaleSpring(scale, 1, MOTION.spring.hoverOut).start();
             }}
             onPressIn={() => {
-              Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, speed: 26, bounciness: 6 }).start();
+              smoothScaleSpring(scale, 0.972, MOTION.spring.pressIn).start();
             }}
             onPressOut={() => {
-              Animated.spring(scale, { toValue: 1.04, useNativeDriver: true, speed: 20, bounciness: 10 }).start(() => {
-                Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 8 }).start();
+              smoothScaleSpring(scale, 1.03, MOTION.spring.pressOut).start(() => {
+                smoothScaleSpring(scale, 1, MOTION.spring.settle).start();
               });
             }}
             style={[
@@ -4299,14 +4339,14 @@ function RewardChestStop({
       Animated.sequence([
         Animated.timing(glow, {
           toValue: 1,
-          duration: 760,
-          easing: Easing.inOut(Easing.quad),
+          duration: MOTION.duration.rewardGlow,
+          easing: MOTION.easing.smoothInOut,
           useNativeDriver: true
         }),
         Animated.timing(glow, {
           toValue: 0,
-          duration: 760,
-          easing: Easing.inOut(Easing.quad),
+          duration: MOTION.duration.rewardGlow,
+          easing: MOTION.easing.smoothInOut,
           useNativeDriver: true
         })
       ])
@@ -4333,8 +4373,8 @@ function RewardChestStop({
       >
         <Pressable
           onPress={onPress}
-          onHoverIn={() => Animated.spring(scale, { toValue: 1.04, useNativeDriver: true, speed: 20, bounciness: 8 }).start()}
-          onHoverOut={() => Animated.spring(scale, { toValue: 1, useNativeDriver: true, speed: 20, bounciness: 6 }).start()}
+          onHoverIn={() => smoothScaleSpring(scale, 1.035, MOTION.spring.hoverIn).start()}
+          onHoverOut={() => smoothScaleSpring(scale, 1, MOTION.spring.hoverOut).start()}
           style={[
             styles.rewardStopCard,
             reward.unlocked && { borderColor: accentColor, backgroundColor: lightenColor(theme.reward, 0.86) },
@@ -4389,8 +4429,8 @@ function CelebrationBurst({
     lift.setValue(0);
     Animated.timing(lift, {
       toValue: 1,
-      duration: 950,
-      easing: Easing.out(Easing.quad),
+      duration: MOTION.duration.celebrationLift,
+      easing: MOTION.easing.smoothOut,
       useNativeDriver: true
     }).start();
   }, [lift, stars, xp]);
@@ -4462,15 +4502,15 @@ function CelebrationModal({
     Animated.parallel([
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 220,
-        easing: Easing.out(Easing.quad),
+        duration: MOTION.duration.modalFade,
+        easing: MOTION.easing.smoothOut,
         useNativeDriver: true
       }),
       Animated.spring(scale, {
         toValue: 1,
         useNativeDriver: true,
-        speed: 18,
-        bounciness: 10
+        speed: MOTION.spring.modalPop.speed,
+        bounciness: MOTION.spring.modalPop.bounciness
       })
     ]).start();
   }, [opacity, scale, visible]);
