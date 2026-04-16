@@ -317,7 +317,7 @@ function buildChallenges(topicId: TopicId, lessonId: string, lesson: LessonSeed)
     {
       ...mc(
         `${lessonId}_focus`,
-        `What is the main learning point in "${lesson.title}"?`,
+        mainLearningPrompt(topicId, lesson),
         focusChoices,
         lesson.focus,
         `${lesson.focus} This lesson is meant to deepen understanding, not just recognition.`
@@ -361,6 +361,29 @@ function buildChallenges(topicId: TopicId, lessonId: string, lesson: LessonSeed)
     });
   }
   return challenges;
+}
+
+function mainLearningPrompt(topicId: TopicId, lesson: LessonSeed) {
+  switch (topicId) {
+    case "foundation":
+      return `Which Muslim habit is this lesson training you to use?`;
+    case "prayer":
+      return lesson.slug.includes("wudu") || /wudu|wash|rinse|wipe/i.test(lesson.title)
+        ? "What is the main wudu teaching in this step?"
+        : "What prayer teaching is this lesson trying to make clear?";
+    case "quran_tafseer":
+      return `What Quran theme is this lesson helping you notice?`;
+    case "sahabah":
+    case "prophets":
+    case "women_of_the_book":
+      return `What lesson should a learner carry from this story moment?`;
+    case "manners":
+      return `What character trait or response is this lesson training?`;
+    case "marriage":
+      return `What home-building lesson is this step trying to strengthen?`;
+    default:
+      return `What is the main learning point in "${lesson.title}"?`;
+  }
 }
 
 type CompanionBranchConfig = {

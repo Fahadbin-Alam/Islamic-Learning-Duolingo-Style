@@ -247,8 +247,6 @@ export function enrichLessonSources(lesson: Lesson, node?: LearningNode) {
   ]);
   const lessonAyahRange = normalizeAyahRange(lesson.ayahRange);
   const topicalPractical = node?.topicId === "prayer";
-  let primaryAssigned = false;
-
   const candidateSources = dedupeSources([
     ...lesson.sources,
     ...getSupplementalSources(lesson, node)
@@ -257,30 +255,37 @@ export function enrichLessonSources(lesson: Lesson, node?: LearningNode) {
   const enriched = candidateSources.map((source, index) => {
     const preciseUrl = preciseResourceUrl(source.site, source.url, source.reference);
     const validationStatus = validateLessonSource(source, lessonKeywords, lessonAyahRange, topicalPractical);
-    const supportType = pickSupportType(primaryAssigned, validationStatus, index);
-
-    if (supportType === "primary") {
-      primaryAssigned = true;
-    }
 
     return {
       ...source,
       url: preciseUrl,
       teaches: source.teaches ?? extractPrimarySentence(source.summary) ?? source.summary,
-      whyAttached: source.whyAttached ?? describeSourceAttachment(source, validationStatus, supportType, lesson.title),
+      whyAttached: source.whyAttached ?? describeSourceAttachment(source, validationStatus, "support", lesson.title),
       validationStatus,
-      supportType,
+      supportType: "support" as const,
       reviewed: source.reviewed ?? source.site !== "YouTube"
     } satisfies LessonSource;
   });
 
-  return enriched.sort((left, right) => {
-    if (left.supportType !== right.supportType) {
-      return left.supportType === "primary" ? -1 : 1;
-    }
-
+  const sorted = enriched.sort((left, right) => {
     return SOURCE_STATUS_ORDER[left.validationStatus ?? "needs_review"] - SOURCE_STATUS_ORDER[right.validationStatus ?? "needs_review"];
   });
+
+  const primaryIndex = sorted.findIndex((source) =>
+    source.validationStatus === "exact_match" || source.validationStatus === "strong_support"
+  );
+  const fallbackPrimaryIndex = primaryIndex >= 0 ? primaryIndex : 0;
+
+  return sorted.map((source, index) => ({
+    ...source,
+    supportType: (index === fallbackPrimaryIndex ? "primary" : "support") as ResourceSupportType,
+    whyAttached: source.whyAttached ?? describeSourceAttachment(
+      source,
+      source.validationStatus ?? "needs_review",
+      (index === fallbackPrimaryIndex ? "primary" : "support") as ResourceSupportType,
+      lesson.title
+    )
+  }));
 }
 
 function getSupplementalSources(lesson: Lesson, node?: LearningNode) {
@@ -386,7 +391,7 @@ function validateLessonSource(
     }
 
     if (!referenceMatch?.[2]) {
-      return keywordOverlap >= 2 ? "weak_support" : "needs_review";
+      return keywordOverlap >= 1 ? "strong_support" : "needs_review";
     }
   }
 
@@ -413,6 +418,10 @@ function validateLessonSource(
   }
 
   if (source.site === "Yaqeen Institute") {
+    if (source.category === "biography" && keywordOverlap >= 1) {
+      return "exact_match";
+    }
+
     if (keywordOverlap >= 2) {
       return "strong_support";
     }
@@ -429,18 +438,6 @@ function validateLessonSource(
   }
 
   return "needs_review";
-}
-
-function pickSupportType(
-  primaryAssigned: boolean,
-  validationStatus: ResourceValidationStatus,
-  index: number
-): ResourceSupportType {
-  if (!primaryAssigned && (validationStatus === "exact_match" || validationStatus === "strong_support" || index === 0)) {
-    return "primary";
-  }
-
-  return "support";
 }
 
 function describeSourceAttachment(

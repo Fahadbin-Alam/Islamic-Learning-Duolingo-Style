@@ -2492,13 +2492,15 @@ function PracticeActivityCard({
   accentColor,
   language,
   onSoftTap,
-  onPracticeResult
+  onPracticeResult,
+  onResolved
 }: {
   activity: LessonPracticeActivity;
   accentColor: string;
   language: SupportedLanguage;
   onSoftTap: () => void;
   onPracticeResult: (correct: boolean) => void;
+  onResolved?: (resolved: boolean, correct: boolean) => void;
 }) {
   const [selectedChoiceId, setSelectedChoiceId] = useState<string | undefined>(undefined);
   const [selectedOrderIds, setSelectedOrderIds] = useState<string[]>([]);
@@ -2523,6 +2525,7 @@ function PracticeActivityCard({
     setSelectedOrderIds([]);
     setChecked(false);
     setIsCorrect(undefined);
+    onResolved?.(false, false);
   }
 
   function checkPractice() {
@@ -2538,6 +2541,7 @@ function PracticeActivityCard({
     setChecked(true);
     setIsCorrect(correct);
     onPracticeResult(correct);
+    onResolved?.(true, correct);
   }
 
   return (
@@ -2660,6 +2664,7 @@ function LessonIntroScreen({
         subtitle={translateStudyText("One small lesson path. We teach first, then you answer.", language)}
         onBack={onBack}
       />
+      <LessonStageRail currentStep={1} totalSteps={4} accentColor={section.accentColor} />
       <View style={[styles.lessonFocusCard, { borderColor: lightenColor(section.accentColor, 0.82), backgroundColor: lightenColor(section.accentColor, 0.96) }]}>
         <View style={styles.lessonFocusBadgeRow}>
           <Text style={styles.lessonStageEyebrow}>{translateStudyText("Lesson intro", language)}</Text>
@@ -2718,6 +2723,7 @@ function LessonTeachScreen({
         subtitle={translateStudyText("Step 1 of 3: learn one clear idea before the practice starts.", language)}
         onBack={onBack}
       />
+      <LessonStageRail currentStep={2} totalSteps={4} accentColor={section.accentColor} />
       <View style={[styles.lessonTeachStageCard, { borderColor: lightenColor(section.accentColor, 0.82) }]}>
         <View style={styles.lessonFocusBadgeRow}>
           <Text style={styles.lessonStageEyebrow}>{translateStudyText("Teach", language)}</Text>
@@ -2774,6 +2780,7 @@ function LessonExampleScreen({
         subtitle={translateStudyText("Step 2 of 3: see one example before the practice screen.", language)}
         onBack={onBack}
       />
+      <LessonStageRail currentStep={2} totalSteps={4} accentColor={section.accentColor} />
       <TeachingMomentCard
         moment={moment}
         accentColor={section.accentColor}
@@ -2807,6 +2814,8 @@ function LessonPracticeScreen({
   onSoftTap: () => void;
   onPracticeResult: (correct: boolean) => void;
 }) {
+  const [practiceResolved, setPracticeResolved] = useState(false);
+
   return (
     <ScrollView contentContainerStyle={styles.lessonFlowContent} showsVerticalScrollIndicator={false}>
       <ScreenHeader
@@ -2814,16 +2823,30 @@ function LessonPracticeScreen({
         subtitle={translateStudyText("Step 3 of 3: practice lightly, then answer for real.", language)}
         onBack={onBack}
       />
+      <LessonStageRail currentStep={3} totalSteps={4} accentColor={section.accentColor} />
       <PracticeActivityCard
         activity={activity}
         accentColor={section.accentColor}
         language={language}
         onSoftTap={onSoftTap}
         onPracticeResult={onPracticeResult}
+        onResolved={(resolved) => setPracticeResolved(resolved)}
       />
-      <Pressable onPress={onContinue} style={[styles.primaryButton, styles.lessonFlowPrimaryButton, { backgroundColor: section.accentColor }]}>
+      <Pressable
+        onPress={onContinue}
+        disabled={!practiceResolved}
+        style={[
+          styles.primaryButton,
+          styles.lessonFlowPrimaryButton,
+          { backgroundColor: section.accentColor },
+          !practiceResolved && styles.primaryButtonDisabled
+        ]}
+      >
         <Text style={styles.primaryButtonText}>{translateStudyText("Go to question", language)}</Text>
       </Pressable>
+      {!practiceResolved ? (
+        <Text style={styles.lessonFlowHint}>{translateStudyText("Finish one quick practice check first so the question feels easier.", language)}</Text>
+      ) : null}
     </ScrollView>
   );
 }
@@ -2873,6 +2896,7 @@ function QuestionScreen({
       </View>
 
       <View style={styles.lessonQuestionWrap}>
+        <LessonStageRail currentStep={4} totalSteps={4} accentColor={section.accentColor} />
         <View style={styles.lessonCoachCard}>
           <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={88} />
           <View style={styles.lessonSpeechBubble}>
@@ -2951,6 +2975,9 @@ function AnswerFeedbackScreen({
   const feedbackCopy = answerState === "correct"
     ? challenge.explanation
     : challenge.easierExplanation ?? challenge.explanation;
+  const rewardText = answerState === "correct"
+    ? (retried ? "Recovered and ready for the next step." : "Nice. You earned progress and kept the lesson moving.")
+    : "You got the support you need, and you can try again without getting lost.";
 
   return (
     <View style={styles.lessonStageScreen}>
@@ -2979,6 +3006,10 @@ function AnswerFeedbackScreen({
               ? translateStudyText("You have the explanation now, so we will keep the lesson moving.", language)
               : translateStudyText("One quick help screen is next so the idea becomes clearer before you continue.", language))}
         </Text>
+        <View style={styles.feedbackRewardStrip}>
+          <SparkleIcon size={14} color={answerState === "correct" ? "#F0B90B" : "#215E98"} />
+          <Text style={styles.feedbackRewardText}>{translateStudyText(rewardText, language)}</Text>
+        </View>
         <Pressable onPress={onContinue} style={[styles.primaryButton, answerState === "correct" ? styles.correctButton : styles.wrongButton]}>
           <Text style={styles.primaryButtonText}>{strings.continue}</Text>
         </Pressable>
@@ -3016,6 +3047,7 @@ function LessonHelpScreen({
         subtitle={translateStudyText("A short clarification before you either retry or keep moving.", language)}
         onBack={onRetry}
       />
+      <LessonStageRail currentStep={4} totalSteps={4} accentColor={section.accentColor} />
 
       <View style={[styles.lessonHelpCard, { borderColor: lightenColor(section.accentColor, 0.82), backgroundColor: lightenColor(section.accentColor, 0.96) }]}>
         <Text style={styles.lessonTeachEyebrow}>{translateStudyText("Clear it up", language)}</Text>
@@ -3049,6 +3081,34 @@ function LessonHelpScreen({
         </View>
       </View>
     </ScrollView>
+  );
+}
+
+function LessonStageRail({
+  currentStep,
+  totalSteps,
+  accentColor
+}: {
+  currentStep: number;
+  totalSteps: number;
+  accentColor: string;
+}) {
+  return (
+    <View style={styles.lessonStageRail}>
+      {Array.from({ length: totalSteps }).map((_, index) => {
+        const step = index + 1;
+        const active = step <= currentStep;
+        return (
+          <View
+            key={`lesson-step-${step}`}
+            style={[
+              styles.lessonStageDot,
+              { backgroundColor: active ? accentColor : "#DCE7E1", transform: [{ scaleX: step === currentStep ? 1.12 : 1 }] }
+            ]}
+          />
+        );
+      })}
+    </View>
   );
 }
 
@@ -7398,11 +7458,14 @@ const styles = StyleSheet.create({
   lessonStageTitle: { color: colors.ink, fontSize: 28, lineHeight: 34, fontWeight: "900", textAlign: "center" },
   lessonStageCopy: { color: colors.muted, fontSize: 15, lineHeight: 21, fontWeight: "700", textAlign: "center", maxWidth: 520 },
   lessonFlowContent: { padding: 18, paddingBottom: 128, gap: 14 },
+  lessonFlowHint: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", textAlign: "center" },
   lessonFocusCard: { alignItems: "center", gap: 14, padding: 22, borderRadius: 26, borderWidth: 1, backgroundColor: colors.white },
   lessonFocusBadgeRow: { width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap" },
   lessonFocusPill: { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 999 },
   lessonFocusPillText: { fontSize: 12, fontWeight: "900", letterSpacing: 0 },
   lessonFocusPrimaryButton: { width: "100%", maxWidth: 320, marginTop: 4 },
+  lessonStageRail: { flexDirection: "row", alignItems: "center", gap: 8, alignSelf: "center", marginTop: -2, marginBottom: 2 },
+  lessonStageDot: { width: 56, height: 8, borderRadius: 999 },
   lessonStageMetaRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 8, marginBottom: 8 },
   lessonStageMetaChip: { minWidth: 96, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, backgroundColor: "#F7FBF8", alignItems: "center" },
   lessonStageMetaLabel: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
@@ -7477,6 +7540,8 @@ const styles = StyleSheet.create({
   feedbackStageCard: { flex: 1, alignItems: "center", justifyContent: "center", gap: 14, padding: 26, borderRadius: 24 },
   feedbackCopyLarge: { color: colors.ink, fontSize: 16, lineHeight: 23, fontWeight: "700", textAlign: "center", maxWidth: 540 },
   feedbackHintText: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", textAlign: "center", maxWidth: 460 },
+  feedbackRewardStrip: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 999, backgroundColor: "rgba(255,255,255,0.74)" },
+  feedbackRewardText: { color: colors.ink, fontSize: 13, lineHeight: 18, fontWeight: "800" },
   answerPickedCard: { width: "100%", maxWidth: 420, padding: 16, borderRadius: 18, backgroundColor: "rgba(255,255,255,0.72)" },
   answerPickedEyebrow: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase" },
   answerPickedValue: { color: colors.ink, fontSize: 17, fontWeight: "900", marginTop: 4 },

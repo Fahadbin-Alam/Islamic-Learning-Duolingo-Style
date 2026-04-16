@@ -10,8 +10,8 @@ import { getPrimaryLessonSource } from "./resourceSupport";
 export function buildGuidedLesson(lesson: Lesson, node?: LearningNode): Lesson {
   const primarySource = getPrimaryLessonSource(lesson.sources);
   const whatYouWillLearn = lesson.whatYouWillLearn ?? firstSentence(lesson.intro) ?? lesson.title;
-  const whyItMatters = lesson.whyItMatters ?? firstSentence(lesson.explanationContent ?? lesson.intro) ?? lesson.intro;
-  const keyTakeaway = lesson.keyTakeaway ?? lesson.challenges[0]?.miniLesson ?? whatYouWillLearn;
+  const whyItMatters = lesson.whyItMatters ?? deriveWhyItMatters(lesson, node, whatYouWillLearn);
+  const keyTakeaway = lesson.keyTakeaway ?? deriveKeyTakeaway(lesson, node, whatYouWillLearn);
   const storyMoment = lesson.storyMoment ?? deriveStoryMoment(lesson, node);
   const teachingMoments = lesson.teachingMoments ?? buildTeachingMoments(lesson, node, whatYouWillLearn, whyItMatters, keyTakeaway, storyMoment, primarySource);
   const practiceActivities = lesson.practiceActivities ?? buildPracticeActivities(lesson, node, keyTakeaway);
@@ -223,7 +223,14 @@ function deriveStoryMoment(lesson: Lesson, node?: LearningNode) {
   }
 
   if (lesson.lessonType === "story" || node.topicId === "sahabah" || node.topicId === "prophets" || node.topicId === "women_of_the_book") {
-    return `${firstSentence(lesson.intro) ?? lesson.intro} ${firstSentence(lesson.explanationContent ?? "") ?? ""}`.trim();
+    const introSentence = firstSentence(lesson.intro) ?? lesson.intro;
+    const explanationSentence = firstSentence(lesson.explanationContent ?? "");
+
+    if (!explanationSentence || normalizeSentence(introSentence) === normalizeSentence(explanationSentence)) {
+      return biographyScene(node, introSentence);
+    }
+
+    return `${introSentence} ${explanationSentence}`.trim();
   }
 
   if (node.topicId === "prayer" && node.branchId.includes("wudu")) {
@@ -239,4 +246,80 @@ function firstSentence(value?: string) {
   }
 
   return value.match(/^[^.?!]+[.?!]?/)?.[0]?.trim();
+}
+
+function deriveWhyItMatters(lesson: Lesson, node: LearningNode | undefined, whatYouWillLearn: string) {
+  const explanation = firstSentence(lesson.explanationContent ?? "");
+
+  if (explanation && normalizeSentence(explanation) !== normalizeSentence(whatYouWillLearn)) {
+    return explanation;
+  }
+
+  if (!node) {
+    return `This matters because ${whatYouWillLearn.charAt(0).toLowerCase()}${whatYouWillLearn.slice(1)}`;
+  }
+
+  switch (node.topicId) {
+    case "foundation":
+      return "Small Muslim habits shape the heart early, so it helps to practice them before they are tested.";
+    case "prayer":
+      return node.branchId.includes("wudu")
+        ? "Wudu matters because prayer begins with purification, order, and calm obedience."
+        : "Prayer becomes easier when the body learns the sequence and the heart understands why each step matters.";
+    case "quran_tafseer":
+      return "Quran learning should move from recitation into meaning, worship, and daily guidance.";
+    case "sahabah":
+    case "prophets":
+    case "women_of_the_book":
+      return "These lives matter because revelation changed real people, and their examples still teach courage, worship, and character.";
+    case "manners":
+      return "Character lessons are meant for ordinary moments, not only for ideal situations.";
+    default:
+      return `This matters because ${whatYouWillLearn.charAt(0).toLowerCase()}${whatYouWillLearn.slice(1)}`;
+  }
+}
+
+function deriveKeyTakeaway(lesson: Lesson, node: LearningNode | undefined, whatYouWillLearn: string) {
+  const miniLesson = lesson.challenges[0]?.miniLesson;
+
+  if (miniLesson && normalizeSentence(miniLesson) !== normalizeSentence(whatYouWillLearn)) {
+    return miniLesson;
+  }
+
+  if (!node) {
+    return whatYouWillLearn;
+  }
+
+  switch (node.topicId) {
+    case "foundation":
+      return "Start using the phrase or habit in the next ordinary moment where it belongs.";
+    case "prayer":
+      return node.branchId.includes("wudu")
+        ? "Learn the order calmly now so the body remembers it later."
+        : "Prayer is strongest when its order, words, and stillness are learned together.";
+    case "quran_tafseer":
+      return "Stay with the surah long enough to carry one clear theme into worship and daily life.";
+    case "sahabah":
+    case "prophets":
+    case "women_of_the_book":
+      return "Notice the scene, the sacrifice, and the lesson you can imitate today.";
+    default:
+      return whatYouWillLearn;
+  }
+}
+
+function biographyScene(node: LearningNode, introSentence: string) {
+  if (node.topicId === "sahabah") {
+    return `${introSentence} This branch is easier to feel when you picture a real life being reshaped by revelation.`;
+  }
+
+  if (node.topicId === "prophets" || node.topicId === "women_of_the_book") {
+    return `${introSentence} Stay with the scene first, then let the lesson unfold from it.`;
+  }
+
+  return introSentence;
+}
+
+function normalizeSentence(value?: string) {
+  return (value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
 }
