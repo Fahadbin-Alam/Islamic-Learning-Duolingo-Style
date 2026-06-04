@@ -1,0 +1,101 @@
+<!-- Author: Fahadbin Alam (fma52), 4/19/26 -->
+<!-- Mod by Codex, 4/23/26 -->
+<!-- From One World Relief multi-page landing page refresh, 4/23/26 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One World Relief | Donate</title>
+  <meta
+    name="description"
+    content="Donate to One World Relief for clean water, orphan support, food campaigns, zakat, and urgent humanitarian support."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="one-world-relief.css" />
+</head>
+<body class="site-body">
+  <div class="background-shape background-shape-top" aria-hidden="true"></div>
+  <div class="background-shape background-shape-bottom" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="container header-wrap">
+      <a href="index.html" class="brand" aria-label="One World Relief Home">
+        <span class="brand-mark">OWR</span>
+        <span class="brand-text">One World Relief</span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="donate.html">Donate</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a class="button button-primary header-cta" href="donate.html">Donate</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-shell hero-shell-home reveal">
+      <div class="container hero hero-home hero-donate-first">
+        <div class="hero-copy">
+          <p class="eyebrow">One World Relief</p>
+          <h1>Donate today.</h1>
+          <p class="lead">
+            Choose an amount, pick where it should go, and continue to the secure donation form.
+          </p>
+        </div>
+
+        <form class="quick-donation" id="quickDonationForm" aria-label="Start a donation">
+          <fieldset class="quick-amounts">
+            <legend>Amount</legend>
+            <label><input type="radio" name="quickAmount" value="10" />$10</label>
+            <label><input type="radio" name="quickAmount" value="25" checked />$25</label>
+            <label><input type="radio" name="quickAmount" value="50" />$50</label>
+            <label><input type="radio" name="quickAmount" value="100" />$100</label>
+          </fieldset>
+
+          <label class="quick-category" for="quickCampaign">
+            Donation type
+            <select id="quickCampaign" name="quickCampaign">
+              <option value="General Fund">Regular Donation</option>
+              <option value="Orphan Support">Orphan Support</option>
+              <option value="Wells">Wells</option>
+              <option value="Zakat">Zakat</option>
+              <option value="Feeding">Feeding</option>
+            </select>
+          </label>
+
+          <button class="button button-primary quick-donation-button" type="submit">Start Donation</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="container home-trust-row reveal" aria-label="Donation focus areas">
+      <span>Wells</span>
+      <span>Orphan Support</span>
+      <span>Zakat</span>
+      <span>Feeding</span>
+      <span>Emergency Relief</span>
+    </section>
+  </main>
+
+  <footer class="site-footer site-footer-minimal">
+    <div class="container footer-bar">
+      <p>One World Relief</p>
+      <div class="footer-links">
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="donate.html">Donate</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="one-world-relief.js"></script>
+</body>
+</html>
