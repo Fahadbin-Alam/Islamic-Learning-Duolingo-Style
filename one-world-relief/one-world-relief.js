@@ -4,10 +4,7 @@
 (function () {
   const configuredApiBase = window.ONE_WORLD_RELIEF_API_BASE || "";
   const API_BASE = (configuredApiBase || window.location.origin).replace(/\/$/, "");
-  const HAS_CHECKOUT_API =
-    Boolean(configuredApiBase) ||
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1";
+  const HAS_CHECKOUT_API = Boolean(configuredApiBase);
   const CONTACT_EMAIL = "Oneworldrelief.fma@gmail.com";
   const donationForm = document.getElementById("donationForm");
   const quickDonationForm = document.getElementById("quickDonationForm");
@@ -227,7 +224,7 @@
       }
 
       if (!response.ok) {
-        const errMessage = payload.detail || "Could not start checkout. Please try again.";
+        const errMessage = payload.detail || "Checkout is not connected for this page yet.";
         throw new Error(errMessage);
       }
 
@@ -244,9 +241,9 @@
     } catch (error) {
       openDonationEmail({ donorName, donorEmail, amountUsd, paymentMethod, campaign });
       const checkoutMessage = error.message
-        ? `Checkout could not start: ${error.message}`
-        : "Checkout could not start from this page.";
-      setStatus(`${checkoutMessage} A prefilled donation email has been opened instead.`, true);
+        ? `Secure checkout is not available right now: ${error.message}`
+        : "Secure checkout is not available from this page right now.";
+      setStatus(`${checkoutMessage} A prefilled donation email has been opened instead.`, false);
     } finally {
       donateButton.disabled = false;
       donateButton.textContent = "Send Donation Request";
