@@ -6,6 +6,7 @@
   const API_BASE = (configuredApiBase || window.location.origin).replace(/\/$/, "");
   const HAS_CHECKOUT_API = Boolean(configuredApiBase);
   const CONTACT_EMAIL = "Oneworldrelief.fma@gmail.com";
+  const CLOUDFLARE_DONATION_ENDPOINT = "/api/donation-request";
   const donationForm = document.getElementById("donationForm");
   const quickDonationForm = document.getElementById("quickDonationForm");
   const contactForm = document.getElementById("contactForm");
@@ -165,6 +166,27 @@
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
   };
 
+  const sendCloudflareDonationRequest = async ({ donorName, donorEmail, amountUsd, paymentMethod, campaign }) => {
+    const response = await fetch(CLOUDFLARE_DONATION_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        donor_name: donorName,
+        donor_email: donorEmail,
+        amount_usd: amountUsd,
+        campaign,
+        schedule: "One-time donation",
+        payment_method: paymentMethod,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Cloudflare donation endpoint is not deployed yet.");
+    }
+
+    return response.json();
+  };
+
   const getDonationAmount = () => {
     const customInput = document.getElementById("customDonation");
     const customValue = customInput ? Number(customInput.value) : 0;
@@ -195,8 +217,13 @@
     }
 
     if (!HAS_CHECKOUT_API || paymentMethod === "contact") {
-      openDonationEmail({ donorName, donorEmail, amountUsd, paymentMethod, campaign });
-      setStatus("Donation request prepared. Your email app should open with the details ready to send.", false);
+      try {
+        await sendCloudflareDonationRequest({ donorName, donorEmail, amountUsd, paymentMethod, campaign });
+        setStatus("Donation request sent through Cloudflare. Check your email for the next payment step.", false);
+      } catch (_error) {
+        openDonationEmail({ donorName, donorEmail, amountUsd, paymentMethod, campaign });
+        setStatus("Cloudflare is not receiving requests on this preview yet, so a prefilled donation email opened instead.", false);
+      }
       return;
     }
 
