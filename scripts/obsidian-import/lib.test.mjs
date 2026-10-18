@@ -4,7 +4,8 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { cleanText, extractQuestions, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic } from "./lib.mjs";
+import { pickDistractors } from "./facts.mjs";
+import { cleanText, extractQuestions, firstSentence, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic } from "./lib.mjs";
 
 const sampleVault = join(dirname(fileURLToPath(import.meta.url)), "sample-vault");
 
@@ -159,8 +160,9 @@ test("builds surah lessons with ayah meaning questions", () => {
   assert.equal(ikhlas.sources[0].url, "https://quran.com/112");
   const meaning = ikhlas.challenges.find((challenge) => challenge.prompt.startsWith("What does this ayah mean?"));
   assert.match(meaning.prompt, /[؀-ۿ]/, "shows the Arabic");
-  const revealed = ikhlas.challenges.find((challenge) => challenge.prompt.startsWith("Where was"));
-  assert.equal(revealed.choices.find((choice) => choice.id === revealed.correctChoiceId).label, "Makkah");
+  const revealed = ikhlas.challenges.find((challenge) => / was revealed in /.test(challenge.prompt));
+  assert.equal(revealed.type, "true_false");
+  assert.equal(revealed.correctChoiceId, revealed.prompt.endsWith("Makkah.") ? "true" : "false");
 });
 
 test("puts hadith notes in the Hadith topic and skips untagged people", () => {
@@ -171,4 +173,41 @@ test("puts hadith notes in the Hadith topic and skips untagged people", () => {
   assert.doesNotMatch(lesson.explanationContent, /[؀-ۿ]|Chapter 60/);
   assert.ok(result.warnings.some((warning) => warning.includes("Abu Jahl")));
   assert.deepEqual(Object.keys(result.backend.topics).sort(), ["hadith", "manners", "quran", "sahabi"]);
+});
+
+test("first sentences skip list markers and abbreviations", () => {
+  assert.equal(firstSentence("1. Abdullah b. Umar narrated it. More."), "Abdullah b. Umar narrated it.");
+  assert.equal(firstSentence("Notes:\n- He died c. 40 AH in Kufa. Then"), "He died c. 40 AH in Kufa.");
+});
+
+test("wrong choices are written like the answer", () => {
+  const picked = pickDistractors("Quraysh", ["Banu Kalb", "Banu Kilab", "Thaqif", "Khazraj", "Aws", "Banu Mustaliq"], "seed");
+  assert.ok(picked.every((value) => !value.startsWith("Banu")), picked.join(", "));
+  assert.equal(pickDistractors("Banu Adi", ["Banu Taym", "Banu Hashim", "Banu Makhzum", "Quraysh"], "seed").every((value) => value.startsWith("Banu")), true);
+});
+
+test("hadith choices are cut to the same length and drop reference text", () => {
+  const long = (n) => Array.from({ length: 30 }, (_, index) => `w${n}${index}`).join(" ");
+  const hadith = (name, body, collection) => [`Hadith/${name}.md`, `---\ntype: hadith\ncollection: ${collection}\naliases:\n  - ${name}\n---\n${body}`];
+  const vault = vaultWith(
+    Object.fromEntries([
+      hadith("Sahih Muslim 1", `The Messenger of Allah said: ${long(1)}`, "Sahih Muslim"),
+      hadith("Mishkat 2", `Anas reported him saying, “${long(2)}” Baihaqi transmitted it in Shu'ab al-iman. Mishkat al-Masabih 3096`, "Mishkat al-Masabih"),
+      hadith("Sahih Bukhari 3", `Narrated Umar: ${long(3)}`, "Sahih al-Bukhari")
+    ])
+  );
+  const { content } = importVault(vault);
+  for (const lesson of Object.values(content.lessonsById)) {
+    assert.doesNotMatch(lesson.explanationContent, /transmitted|Mishkat al-Masabih 3096/);
+    const which = lesson.challenges.find((challenge) => challenge.prompt.startsWith("Which narration"));
+    if (!which) continue;
+    assert.ok(which.choices.every((choice) => choice.label.endsWith("...")), which.choices.map((choice) => choice.label).join(" | "));
+  }
+});
+
+test("index and FAQ notes with a type but no questions are skipped quietly", () => {
+  const vault = vaultWith({ "Quran/Quran.md": "---\ntype: index\n---\n## Table of Contents\n1. Surahs\n## Sources\nLinks here.\n## More\nText here." });
+  const result = importVault(vault);
+  assert.equal(result.stats.lessons, 0);
+  assert.ok(result.warnings.some((warning) => warning.includes("1 notes skipped because their type")));
 });

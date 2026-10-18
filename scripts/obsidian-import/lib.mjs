@@ -162,10 +162,23 @@ export function cleanText(text) {
     .trim();
 }
 
-function firstSentence(text) {
-  const flat = text.replace(/\s+/g, " ").trim();
-  const match = /^(.+?[.!?])(\s|$)/.exec(flat);
-  return (match ? match[1] : flat).trim();
+// First sentence of a note's text, ignoring list markers and not stopping at "b." (bin) or "c." (circa).
+export function firstSentence(text) {
+  const flat = text
+    .split("\n")
+    .map((line) => line.replace(/^\s*(?:[-*+]|\d+[.)])\s+/, "").replace(/^[A-Za-z ]{1,20}:\s*$/, ""))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const sentence = /[.!?](?=\s|$)/g;
+  let match;
+  while ((match = sentence.exec(flat))) {
+    const before = flat.slice(0, match.index);
+    if (/(^|\s)(\w|\d+|[A-Z][a-z]?|al|ibn|bint)$/.test(before)) continue;
+    const result = flat.slice(0, match.index + 1).trim();
+    return result.length > 300 ? `${result.slice(0, 297).replace(/\s+\S*$/, "")}...` : result;
+  }
+  return flat.length > 300 ? `${flat.slice(0, 297).replace(/\s+\S*$/, "")}...` : flat;
 }
 
 const SOURCE_SITES = [
@@ -668,6 +681,7 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
   const noTopic = [];
   const unplacedPeople = [];
   const unknownTopics = new Map();
+  const structural = [];
 
   for (const file of listNotes(vaultDir)) {
     const relPath = relative(vaultDir, file);
@@ -689,6 +703,11 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
     const note = parseNote(text, { filePath: relPath, folderTopic, defaultTopic });
     if (note.skipped && note.warnings.some((warning) => warning.includes("no topic found"))) {
       noTopic.push(relPath);
+      continue;
+    }
+    if (!note.skipped && data.type && !note.lessons.some((lesson) => lesson.questions.length)) {
+      // Index, FAQ and other vault-structure notes have a type but nothing to quiz.
+      structural.push(relPath);
       continue;
     }
     warnings.push(...note.warnings);
@@ -725,6 +744,9 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
   }
   if (unplacedPeople.length) {
     warnings.push(`${unplacedPeople.length} person notes skipped because they aren't tagged Sahabi or Prophet, e.g. ${unplacedPeople.slice(0, 5).join("; ")}`);
+  }
+  if (structural.length) {
+    warnings.push(`${structural.length} notes skipped because their type: isn't person, surah or hadith and they have no Q:/A: questions, e.g. ${structural.slice(0, 5).join("; ")}`);
   }
   for (const [topicId, count] of unknownTopics) {
     warnings.push(`${count} notes skipped because the app has no "${topicId}" topic yet`);

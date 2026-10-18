@@ -5,16 +5,18 @@ import { cleanText, resolveTopic, slugify } from "./lib.mjs";
 
 export const FACT_TYPES = ["person", "surah", "hadith"];
 
+// byTopic: wrong choices come from people in the same topic (a companion's "known for" shouldn't be
+// confused with a prophet's).
 const PERSON_FACTS = [
-  { key: "tribe", prompt: (name) => `Which tribe was ${name} from?` },
-  { key: "clan", prompt: (name) => `Which clan did ${name} belong to?` },
-  { key: "known_for", prompt: (name) => `What is ${name} known for?` },
-  { key: "died", prompt: (name) => `When did ${name} pass away?` },
-  { key: "death_place", prompt: (name) => `Where did ${name} pass away?` },
-  { key: "birth_place", prompt: (name) => `Where was ${name} born?` },
-  { key: "father", prompt: (name) => `Who was the father of ${name}?` },
-  { key: "mother", prompt: (name) => `Who was the mother of ${name}?` },
-  { key: "burial_place", prompt: (name) => `Where is ${name} buried?` }
+  { key: "tribe", prompt: (name) => `Which tribe was ${name} from?`, explain: (name, value) => `${name} was from ${value}.` },
+  { key: "clan", prompt: (name) => `Which clan did ${name} belong to?`, explain: (name, value) => `${name} belonged to ${value}.` },
+  { key: "known_for", prompt: (name) => `What is ${name} known for?`, explain: (name, value) => `${name}: ${value}.`, byTopic: true },
+  { key: "died", prompt: (name) => `When did ${name} pass away?`, explain: (name, value) => `${name} passed away in ${value}.`, byTopic: true },
+  { key: "death_place", prompt: (name) => `Where did ${name} pass away?`, explain: (name, value) => `${name} passed away in ${value}.` },
+  { key: "birth_place", prompt: (name) => `Where was ${name} born?`, explain: (name, value) => `${name} was born in ${value}.` },
+  { key: "father", prompt: (name) => `Who was the father of ${name}?`, explain: (name, value) => `The father of ${name} was ${value}.`, byTopic: true },
+  { key: "mother", prompt: (name) => `Who was the mother of ${name}?`, explain: (name, value) => `The mother of ${name} was ${value}.`, byTopic: true },
+  { key: "burial_place", prompt: (name) => `Where is ${name} buried?`, explain: (name, value) => `${name} is buried at ${value}.` }
 ];
 
 // Checked in this order, so a Mother of the Believers who is also tagged Sahabi lands in Women of the Book.
@@ -62,14 +64,26 @@ function significantWords(text) {
     .filter((word) => /^\d+$/.test(word) || (word.length >= 4 && !STOP_WORDS.has(word)));
 }
 
-// Picks up to `count` wrong choices from `pool` that can't be confused with `answer`.
+// How a value is written ("Banu ...", "c. 40 AH", a plain name), so wrong choices look like the answer.
+function valueShape(value) {
+  const first = value.trim().split(/\s+/)[0].toLowerCase();
+  if (["banu", "bani", "c.", "the", "al", "an", "as", "at"].includes(first)) return first;
+  if (/^al-/.test(first)) return "al-";
+  return /\d/.test(value) ? "number" : "";
+}
+
+// Picks up to `count` wrong choices from `pool` that can't be confused with `answer`,
+// preferring ones written the same way so the answer doesn't stand out.
 export function pickDistractors(answer, pool, seed, count = 3) {
   const answerKey = answer.toLowerCase();
   const answerWords = significantWords(answer);
+  const shape = valueShape(answer);
   const candidates = [...new Set(pool)].filter(
     (value) => value && value.toLowerCase() !== answerKey && !significantWords(value).some((word) => answerWords.includes(word))
   );
   candidates.sort();
+  const sameShape = candidates.filter((value) => valueShape(value) === shape);
+  if (sameShape.length >= count) candidates.splice(0, candidates.length, ...sameShape);
   const start = candidates.length ? hashCode(seed) % candidates.length : 0;
   const picked = [];
   const usedWords = new Set();
@@ -159,13 +173,16 @@ function personLesson(note, pools) {
   for (const fact of PERSON_FACTS) {
     const answer = facts[fact.key];
     if (!answer) continue;
-    const distractors = pickDistractors(answer, pools.person[fact.key] ?? [], `${name}:${fact.key}`);
+    const topicPool = pools.personByTopic[note.topicId]?.[fact.key] ?? [];
+    let distractors = pickDistractors(answer, fact.byTopic ? topicPool : pools.person[fact.key], `${name}:${fact.key}`);
+    if (fact.byTopic && distractors.length < 2) distractors = pickDistractors(answer, pools.person[fact.key], `${name}:${fact.key}`);
     if (distractors.length < 2) continue;
-    questions.push(multipleChoice(fact.prompt(name), answer, distractors, summary || `${name}: ${answer}.`));
+    questions.push(multipleChoice(fact.prompt(name), answer, distractors, fact.explain(name, answer)));
   }
   return {
     title: name,
-    content: [prose, summary].filter(Boolean).join("\n"),
+    // The fact summary leads so the lesson intro is a clean sentence, then the note's own text.
+    content: [summary, prose].filter(Boolean).join("\n"),
     extras: facts.known_for ? { keyTakeaway: `${name}: ${facts.known_for}.` } : {},
     questions,
     sourceUrls: note.urls
@@ -234,15 +251,24 @@ function surahLesson(note, pools) {
     if (distractors.length >= 2) questions.push(multipleChoice(`What does the name ${name} mean?`, facts.englishName, distractors, summary));
   }
   if (facts.place) {
-    questions.push(multipleChoice(`Where was ${name} revealed?`, facts.place, [facts.place === "Makkah" ? "Madinah" : "Makkah"], summary));
+    const stated = hashCode(`${name}:place`) % 2 === 0 ? facts.place : facts.place === "Makkah" ? "Madinah" : "Makkah";
+    questions.push({
+      prompt: `${name} was revealed in ${stated}.`,
+      options: [
+        { label: "True", correct: stated === facts.place },
+        { label: "False", correct: stated !== facts.place }
+      ],
+      explanation: `${name} was revealed in ${facts.place}.`
+    });
   }
   if (facts.ayahCount) {
     const distractors = pickDistractors(String(facts.ayahCount), pools.surah.ayahCount, `${name}:ayahs`);
     if (distractors.length >= 2) questions.push(multipleChoice(`How many ayahs does ${name} have?`, String(facts.ayahCount), distractors, summary));
   }
-  if (ayahs.length >= 3) {
-    const target = ayahs[hashCode(name) % ayahs.length];
-    const distractors = pickDistractors(target.text, ayahs.map((ayah) => ayah.text), `${name}:ayah`);
+  const ayahTargets = ayahs.length >= 3 ? [...new Set([hashCode(name) % ayahs.length, hashCode(`${name}:2`) % ayahs.length])] : [];
+  for (const index of ayahTargets.slice(0, ayahs.length >= 6 ? 2 : 1)) {
+    const target = ayahs[index];
+    const distractors = pickDistractors(target.text, ayahs.map((ayah) => ayah.text), `${name}:ayah:${index}`);
     if (distractors.length >= 2) {
       const prompt = target.arabic ? `What does this ayah mean? ${target.arabic} (Quran ${target.ref})` : `Which is the meaning of Quran ${target.ref}?`;
       questions.push(multipleChoice(prompt, target.text, distractors, `Quran ${target.ref}: ${target.text}`));
@@ -260,29 +286,42 @@ function surahLesson(note, pools) {
   };
 }
 
+// Sentences that only cite where a narration is recorded ("Baihaqi transmitted it in ...", "Mishkat al-Masabih 3096").
+const HADITH_REFERENCE = /\b(transmitted (it|this|in|by)|Mishkat al-Masabih\s*\d+|reported by (Bukhari|Muslim)|\((Bukhari|Muslim|Tirmidhi|Abu Dawud)[^)]*\))/i;
+
 // English text of a hadith note: the prose that isn't Arabic, the reference line or the chapter line.
 function hadithText(note) {
   return bodyProse(note.body)
     .split("\n")
-    .filter((line) => !/^(sahih|sunan|jami|musnad|riyad|al-adab|muwatta)/i.test(line) && !/^chapter\s/i.test(line) && !/^book\s/i.test(line))
+    .filter((line) => !/^(sahih|sunan|jami|musnad|riyad|al-adab|muwatta|mishkat)/i.test(line) && !/^(chapter|book)\s/i.test(line))
+    .join(" ")
+    .split(/(?<=[.!?”"])\s+/)
+    .filter((sentence) => !HADITH_REFERENCE.test(sentence))
     .join(" ")
     .trim();
+}
+
+// The Prophet's words, cut to the same length for every hadith so no choice stands out.
+function sayingOf(note, words = 18) {
+  const text = hadithText(note);
+  const saying = (/(?:said|saying)\s*[,:]\s*(.+)$/i.exec(text)?.[1] ?? text).replace(/^["“'‘]+|["”'’]+$/g, "").trim();
+  const parts = saying.split(/\s+/);
+  return parts.length > words ? `${parts.slice(0, words).join(" ").replace(/[,;:]$/, "")}...` : saying;
 }
 
 function hadithLesson(note, pools) {
   const reference = cleanText(String(note.data.aliases?.[0] ?? `${note.data.collection ?? ""} ${note.data.reference ?? ""}`)).trim() || noteName(note.data, note.fileName);
   const text = hadithText(note);
-  const saying = /said:\s*(.+)$/i.exec(text)?.[1] ?? text;
-  const short = saying.length > 220 ? `${saying.slice(0, 217).replace(/\s+\S*$/, "")}...` : saying;
+  const saying = sayingOf(note);
   const questions = [];
-  const distractors = pickDistractors(short, pools.hadith.saying, `${reference}:saying`);
-  if (short && distractors.length >= 2) {
-    questions.push(multipleChoice(`Which narration is recorded in ${reference}?`, short, distractors, text));
+  const distractors = pickDistractors(saying, pools.hadith.saying, `${reference}:saying`);
+  if (saying && distractors.length >= 2) {
+    questions.push(multipleChoice(`Which narration is recorded in ${reference}?`, saying, distractors, text));
   }
   const collection = cleanText(String(note.data.collection ?? ""));
   const collectionDistractors = pickDistractors(collection, pools.hadith.collection, `${reference}:collection`);
   if (collection && collectionDistractors.length >= 2) {
-    questions.push(multipleChoice(`Which collection records the hadith: "${short}"`, collection, collectionDistractors, `${reference}.`));
+    questions.push(multipleChoice(`Which collection records the hadith: "${saying}"`, collection, collectionDistractors, `${reference}.`));
   }
   return {
     title: reference,
@@ -293,25 +332,22 @@ function hadithLesson(note, pools) {
   };
 }
 
-function shortSaying(note) {
-  const text = hadithText(note);
-  const saying = /said:\s*(.+)$/i.exec(text)?.[1] ?? text;
-  return saying.length > 220 ? `${saying.slice(0, 217).replace(/\s+\S*$/, "")}...` : saying;
-}
-
 function buildPools(notes) {
-  const person = {};
-  for (const fact of PERSON_FACTS) person[fact.key] = notes.filter((note) => note.kind === "person").map((note) => factText(note.data[fact.key])).filter(Boolean);
+  const people = notes.filter((note) => note.kind === "person");
+  const factPool = (members) => Object.fromEntries(PERSON_FACTS.map((fact) => [fact.key, members.map((note) => factText(note.data[fact.key])).filter(Boolean)]));
+  const person = factPool(people);
+  const personByTopic = Object.fromEntries([...new Set(people.map((note) => note.topicId))].map((topicId) => [topicId, factPool(people.filter((note) => note.topicId === topicId))]));
   const surahs = notes.filter((note) => note.kind === "surah").map(surahFacts);
   const hadiths = notes.filter((note) => note.kind === "hadith");
   return {
     person,
+    personByTopic,
     surah: {
       englishName: surahs.map((facts) => facts.englishName).filter(Boolean),
       ayahCount: surahs.map((facts) => (facts.ayahCount ? String(facts.ayahCount) : "")).filter(Boolean)
     },
     hadith: {
-      saying: hadiths.map(shortSaying).filter(Boolean),
+      saying: hadiths.map((note) => sayingOf(note)).filter(Boolean),
       collection: [...hadiths.map((note) => cleanText(String(note.data.collection ?? ""))), "Sahih al-Bukhari", "Sahih Muslim", "Sunan Abi Dawud", "Jami at-Tirmidhi", "Sunan an-Nasa'i"].filter(Boolean)
     }
   };
