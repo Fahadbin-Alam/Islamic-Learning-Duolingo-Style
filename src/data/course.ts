@@ -2,7 +2,8 @@ import { buildExpandedContent } from "./scalableCurriculum";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
 
-const today = new Date().toISOString().slice(0, 10);
+const now = new Date();
+const today = `${now.getFullYear()}-${`${now.getMonth() + 1}`.padStart(2, "0")}-${`${now.getDate()}`.padStart(2, "0")}`;
 
 type ChoiceTuple = [string, string];
 
@@ -129,8 +130,7 @@ export const STARTER_USER: UserProfile = {
   soundEffectsEnabled: true,
   reducedSoundEffects: false,
   reviewHeartRestoreUsed: false,
-  lastLearningAt: today,
-  streakDays: 1,
+  streakDays: 0,
   totalXp: 0,
   dailyGoalXp: 40,
   gems: 120,

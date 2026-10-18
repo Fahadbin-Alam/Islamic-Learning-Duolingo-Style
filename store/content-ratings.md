@@ -18,7 +18,7 @@ Play Console → Policy and programs → App content → Content rating.
 | Language: profanity or crude humour? | No |
 | Controlled substances: drugs, alcohol or tobacco? | No (rulings may mention that alcohol is forbidden, which is not depiction or promotion) |
 | Gambling: real or simulated gambling? | No |
-| Does the app let users interact or exchange content with each other? | **No**. Family and friend progress and practice matches are scored by the app; there is no chat, messaging or user-posted content |
+| Does the app let users interact or exchange content with each other? | **No**. Learners can follow each other by account email and see each other's display name, XP and streak on a weekly leaderboard; there is no chat, messaging or user-posted content |
 | Does the app share the user's current physical location with other users? | No |
 | Does the app allow users to purchase digital goods? | **Yes** (subscription, heart packs, gems) |
 | Does the app contain randomised items offered for purchase (loot boxes)? | No |

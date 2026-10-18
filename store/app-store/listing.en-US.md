@@ -55,7 +55,7 @@ STAY MOTIVATED
 • Daily streaks, XP, gems and reward chests
 • A daily goal you choose
 • Gentle reminders to learn, and Islamic reminders through the day
-• Friendly practice matches with family and friends
+• A weekly XP race with family and friends
 
 LEARN WITH OR WITHOUT AN ACCOUNT
 Start learning straight away. Create a free account to save your progress and keep it on a new device.

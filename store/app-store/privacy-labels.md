@@ -27,7 +27,7 @@ For each type, pick the purposes shown, then answer "Linked to the user's identi
 | --- | --- | --- | --- |
 | Contact Info → Name | App Functionality | Yes | No |
 | Contact Info → Email Address | App Functionality | Yes | No |
-| Contact Info → Other User Contact Info | App Functionality (family and friends a user adds) | Yes | No |
+| Other Data → Other Data Types | App Functionality (which accounts a user follows on the Crew screen; the email typed to find them is not stored) | Yes | No |
 | Identifiers → User ID | App Functionality | Yes | No |
 | Identifiers → Device ID | Third-Party Advertising, Analytics | No | No (see Tracking) |
 | Purchases → Purchase History | App Functionality | Yes | No |

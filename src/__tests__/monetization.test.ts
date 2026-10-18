@@ -1,10 +1,15 @@
-import { applyPremiumStatus, applyShopItem, canSpendGems, isPremiumUser } from "../api/islamicLearningApi";
+jest.mock("@react-native-async-storage/async-storage", () =>
+  require("@react-native-async-storage/async-storage/jest/async-storage-mock")
+);
+
+import { applyPremiumStatus, applyShopItem, canSpendGems, isPremiumUser, localDateKey } from "../api/islamicLearningApi";
 import { SHOP_ITEMS } from "../data/course";
+import { removeStoredItem } from "../services/appStorage";
 import { createSandboxClient } from "../services/monetizationShared";
 import { isRealAdUnitId, resolveMode, shouldShowLessonBreakAd } from "../services/monetizationConfig";
 import { makeUser } from "./testUtils";
 
-const today = () => new Date().toISOString().slice(0, 10);
+const today = () => localDateKey();
 const shopItem = (id: string) => {
   const item = SHOP_ITEMS.find((candidate) => candidate.id === id);
   if (!item) {
@@ -98,6 +103,8 @@ describe("monetization config", () => {
 });
 
 describe("sandbox store", () => {
+  beforeEach(() => removeStoredItem("sira-path-sandbox-premium"));
+
   it("simulates a subscription purchase and restore in development", async () => {
     const client = createSandboxClient("sandbox");
 
@@ -108,6 +115,13 @@ describe("sandbox store", () => {
     expect(purchase.premium?.active).toBe(true);
     expect(restored.premium?.active).toBe(true);
     expect(await client.getPremiumStatus()).toMatchObject({ active: true });
+  });
+
+  it("keeps a simulated membership after the app reloads", async () => {
+    expect(await createSandboxClient("sandbox").getPremiumStatus()).toMatchObject({ active: false });
+    await createSandboxClient("sandbox").purchaseShopItem(shopItem("membership-yearly"));
+
+    expect(await createSandboxClient("sandbox").getPremiumStatus()).toMatchObject({ active: true });
   });
 
   it("refuses purchases and reports no store state when monetization is off", async () => {
