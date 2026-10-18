@@ -138,6 +138,8 @@ The content model now supports:
 
 The current seed data intentionally creates large trees so the app stops behaving like a tiny prototype.
 
+Lessons can also come straight from Obsidian notes: `npm run import:notes -- "<vault folder>"` turns each note into a branch and each `##` heading into a lesson with its questions. See [docs/obsidian-import.md](docs/obsidian-import.md).
+
 ## Important Notes
 
 - The frontend still carries local lesson presentation and path rendering logic while the backend catalog foundation is brought online.
@@ -153,3 +155,4 @@ The current seed data intentionally creates large trees so the app stops behavin
 - [docs/release.md](docs/release.md): building and submitting to Google Play and the App Store
 - [docs/monetization.md](docs/monetization.md)
 - [docs/privacy-policy.md](docs/privacy-policy.md)
+- [docs/obsidian-import.md](docs/obsidian-import.md)

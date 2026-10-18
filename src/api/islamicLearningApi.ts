@@ -465,6 +465,11 @@ const TOPIC_DISTRACTOR_BANK: Record<TopicId, string[]> = {
     "Their stories are admired but not meant to shape Muslim character",
     "Revelation honors them without giving believers any lesson to follow"
   ],
+  hadith: [
+    "A hadith only matters if it is about worship",
+    "The reference of a narration never matters",
+    "Narrations should be quoted without checking where they come from"
+  ],
   quran_tafseer: [
     "The Quran is best approached without reflection or explanation",
     "Verses should be memorized but never connected to life",
