@@ -159,24 +159,25 @@ const SOURCE_LIBRARY: Record<string, LessonSource> = {
   quran_112: quranSource("quran_112", "Surah Al-Ikhlas", "Quran 112", "https://quran.com/112", "Al-Ikhlas teaches pure tawhid and Allah's unmatched oneness."),
   hadith_riyad_844: hadithSource("hadith_riyad_844", "The excellence of salam", "Riyad as-Salihin 844", "https://sunnah.com/riyadussalihin:844", "Abdullah bin Amr; gathered by Imam an-Nawawi from Al-Bukhari and Muslim", "Muttafaqun alayh", "A beautiful act of Islam is greeting people with salam whether you know them or not."),
   hadith_bukhari_5376: hadithSource("hadith_bukhari_5376", "Mention Allah's name before eating", "Sahih al-Bukhari 5376", "https://sunnah.com/bukhari:5376", "Umar bin Abi Salamah; collected by Imam al-Bukhari", "Sahih", "The Prophet taught saying Allah's name and eating with the right hand."),
-  hadith_muslim_224: hadithSource("hadith_muslim_224", "Purification before accepted prayer", "Sahih Muslim 224", "https://sunnah.com/muslim:224", "Abu Hurairah; collected by Imam Muslim", "Sahih", "Prayer is not accepted without purification."),
+  hadith_muslim_224: hadithSource("hadith_muslim_224", "Purification before accepted prayer", "Sahih Muslim 224", "https://sunnah.com/muslim:224", "Ibn Umar; collected by Imam Muslim", "Sahih", "Prayer is not accepted without purification."),
   hadith_muslim_2992: hadithSource("hadith_muslim_2992", "Sneezing manners", "Sahih Muslim 2992", "https://sunnah.com/muslim:2992", "Abu Musa al-Ashari; collected by Imam Muslim", "Sahih", "If someone sneezes and praises Allah, the other Muslim replies with mercy."),
   hadith_bukhari_164: hadithSource("hadith_bukhari_164", "Uthman showed the Prophet's wudu", "Sahih al-Bukhari 164", "https://sunnah.com/bukhari:164", "Humran, the freed slave of Uthman; collected by Imam al-Bukhari", "Sahih", "Uthman demonstrated the wudu of the Prophet so Muslims could learn the order carefully."),
   hadith_bukhari_631: hadithSource("hadith_bukhari_631", "Pray as you have seen me pray", "Sahih al-Bukhari 631", "https://sunnah.com/bukhari:631", "Malik bin Al-Huwairith; collected by Imam al-Bukhari", "Sahih", "The Prophet instructed believers to model their prayer on his prayer."),
   hadith_abudawud_730: hadithSource("hadith_abudawud_730", "Bowing and rising in prayer", "Sunan Abi Dawud 730", "https://sunnah.com/abudawud:730", "Abu Humayd al-Sa'idi; collected by Imam Abu Dawud", "Sahih", "This narration describes the Prophet's bowing and rising with steadiness."),
   hadith_abudawud_856: hadithSource("hadith_abudawud_856", "Pray with calm stillness", "Sunan Abi Dawud 856", "https://sunnah.com/abudawud:856", "Abu Hurairah; collected by Imam Abu Dawud", "Sahih", "The Prophet corrected a man's prayer by teaching calm completeness in each pillar."),
-  hadith_abudawud_933: hadithSource("hadith_abudawud_933", "Calmness between sajdahs", "Sunan Abi Dawud 933", "https://sunnah.com/abudawud:933", "Abu Hurairah; collected by Imam Abu Dawud", "Sahih", "The sitting between sajdahs is part of the composed flow of prayer."),
-  hadith_abudawud_974: hadithSource("hadith_abudawud_974", "Taslim ends the prayer", "Sunan Abi Dawud 974", "https://sunnah.com/abudawud:974", "Ali bin Abi Talib; collected by Imam Abu Dawud", "Hasan", "The prayer closes with taslim."),
+  hadith_abudawud_933: hadithSource("hadith_abudawud_933", "Taslim to the right and left", "Sunan Abi Dawud 933", "https://sunnah.com/abudawud:933", "Wa'il bin Hujr; collected by Imam Abu Dawud", "Hasan Sahih", "The Prophet ended the prayer with taslim to the right and to the left."),
+  hadith_abudawud_974: hadithSource("hadith_abudawud_974", "Words of the tashahhud", "Sunan Abi Dawud 974", "https://sunnah.com/abudawud:974", "Ibn Abbas; collected by Imam Abu Dawud", "Sahih", "Ibn Abbas recorded the words of the tashahhud the Prophet taught for the sitting in prayer."),
   hadith_nasai_910: hadithSource("hadith_nasai_910", "No salah without Fatihat al-Kitab", "Sunan an-Nasa'i 910", "https://sunnah.com/nasai/11/35", "Ubadah bin As-Samit; collected by Imam an-Nasa'i", "Sahih", "Reciting Al-Fatihah is central in prayer."),
   hadith_nasai_1055: hadithSource("hadith_nasai_1055", "Sami' Allahu liman hamidah", "Sunan an-Nasa'i 1055", "https://sunnah.com/nasai:1055", "Wa'il bin Hujr; collected by Imam an-Nasa'i", "Sahih", "Wa'il described the Prophet's rising from ruku and praising Allah."),
-  hadith_nasai_1278: hadithSource("hadith_nasai_1278", "The tashahhud", "Sunan an-Nasa'i 1278", "https://sunnah.com/nasai:1278", "Ibn Mas'ud; collected by Imam an-Nasa'i", "Sahih", "The Prophet taught the wording of the tashahhud carefully."),
-  hadith_tirmidhi_270: hadithSource("hadith_tirmidhi_270", "Seven bones in sujud", "Jami` at-Tirmidhi 270", "https://sunnah.com/tirmidhi:270", "Ibn Abbas; collected by Imam at-Tirmidhi", "Hasan Sahih", "The Prophet taught that prostration is done on seven body parts."),
-  hadith_bukhari_6029: hadithSource("hadith_bukhari_6029", "Mercy is at the heart of character", "Sahih al-Bukhari 6029", "https://sunnah.com/bukhari:6029", "Jarir bin Abdullah; collected by Imam al-Bukhari", "Sahih", "Mercy is at the heart of Muslim character."),
+  hadith_nasai_1278: hadithSource("hadith_nasai_1278", "The tashahhud", "Sunan an-Nasa'i 1278", "https://sunnah.com/nasai:1278", "Ibn Abbas; collected by Imam an-Nasa'i", "Sahih", "The Prophet taught the tashahhud as carefully as he taught a surah of the Quran."),
+  hadith_tirmidhi_270: hadithSource("hadith_tirmidhi_270", "Forehead and nose in sujud", "Jami` at-Tirmidhi 270", "https://sunnah.com/tirmidhi:270", "Abu Humayd al-Sa'idi; collected by Imam at-Tirmidhi", "Hasan Sahih", "The Prophet placed his nose and forehead on the ground and kept his arms away from his sides in sujud."),
+  hadith_tirmidhi_272: hadithSource("hadith_tirmidhi_272", "Seven limbs in sujud", "Jami` at-Tirmidhi 272", "https://sunnah.com/tirmidhi:272", "Al-Abbas bin Abdul-Muttalib; collected by Imam at-Tirmidhi", "Sahih", "When the servant prostrates, seven limbs prostrate with him: the face, the hands, the knees, and the feet."),
+  hadith_bukhari_6013: hadithSource("hadith_bukhari_6013", "Mercy is at the heart of character", "Sahih al-Bukhari 6013", "https://sunnah.com/bukhari:6013", "Jarir bin Abdullah; collected by Imam al-Bukhari", "Sahih", "Whoever is not merciful to others will not be treated with mercy."),
   hadith_muslim_2607: hadithSource("hadith_muslim_2607", "Truth leads to righteousness", "Sahih Muslim 2607c", "https://sunnah.com/muslim:2607c", "Abdullah ibn Mas'ud; collected by Imam Muslim", "Sahih", "Truthfulness trains the soul toward righteousness."),
-  hadith_tirmidhi_2689: hadithSource("hadith_tirmidhi_2689", "Good character is weighty", "Jami` at-Tirmidhi 2689", "https://sunnah.com/tirmidhi:2689", "Abu Darda; collected by Imam at-Tirmidhi", "Hasan", "Nothing is heavier on the scale than good character."),
-  hadith_bukhari_3433: hadithSource("hadith_bukhari_3433", "The excellence of Khadijah", "Sahih al-Bukhari 3433", "https://sunnah.com/bukhari:3433", "Abu Hurairah; collected by Imam al-Bukhari", "Sahih", "Khadijah is honored with glad tidings from Allah."),
-  hadith_bukhari_3770: hadithSource("hadith_bukhari_3770", "Knowledge and transmission from Aishah", "Sahih al-Bukhari 3770", "https://sunnah.com/bukhari:3770", "Narrations about Aishah; collected by Imam al-Bukhari", "Sahih", "Aishah carried deep knowledge and transmitted much to the Ummah."),
-  hadith_bukhari_4987: hadithSource("hadith_bukhari_4987", "Hafsah and preservation", "Sahih al-Bukhari 4987", "https://sunnah.com/bukhari:4987", "Zaid bin Thabit and reports around compilation; collected by Imam al-Bukhari", "Sahih", "Hafsah's copy played an important role in preserving written Quranic material."),
+  hadith_tirmidhi_2002: hadithSource("hadith_tirmidhi_2002", "Good character is weighty", "Jami` at-Tirmidhi 2002", "https://sunnah.com/tirmidhi:2002", "Abu Darda; collected by Imam at-Tirmidhi", "Sahih", "Nothing is heavier on the scale than good character."),
+  hadith_bukhari_3820: hadithSource("hadith_bukhari_3820", "The excellence of Khadijah", "Sahih al-Bukhari 3820", "https://sunnah.com/bukhari:3820", "Abu Hurairah; collected by Imam al-Bukhari", "Sahih", "Jibril brought Khadijah greetings from her Lord and glad tidings of a house in Paradise."),
+  hadith_bukhari_3770: hadithSource("hadith_bukhari_3770", "The virtue of Aishah", "Sahih al-Bukhari 3770", "https://sunnah.com/bukhari:3770", "Anas ibn Malik; collected by Imam al-Bukhari", "Sahih", "The Prophet described Aishah's superiority over other women as like tharid over other food."),
+  hadith_bukhari_4987: hadithSource("hadith_bukhari_4987", "Hafsah and preservation", "Sahih al-Bukhari 4987", "https://sunnah.com/bukhari:4987", "Anas ibn Malik; collected by Imam al-Bukhari", "Sahih", "Hafsah's copy played an important role in preserving written Quranic material."),
   video_wudu_1: videoSource("video_wudu_1", "Wudu guide 1", "https://youtu.be/6kt_POiIVZE?si=6KbLFWt1QZgJvDpt", "A step-by-step walk-through of wudu."),
   video_wudu_2: videoSource("video_wudu_2", "Wudu guide 2", "https://youtu.be/P29LMOHhpjE?si=x1H_8H_kQgI2dCFP", "A second wudu walk-through for repetition and corrections."),
   video_wudu_3: videoSource("video_wudu_3", "Wudu guide 3", "https://youtu.be/iaj1wlQHRFA?si=2_nOF0QOGt4k5Nhv", "A third wudu walk-through to reinforce order and common mistakes."),
@@ -284,26 +285,44 @@ function tf(id: string, prompt: string, isTrue: boolean, explanation: string): C
   };
 }
 
+const PROPER_NOUN_START =
+  /^(Abu|Adam|Aishah|Al-|Ali\b|Allah|An-|As-|Asiyah|Ayat|Bilal|Dawud|Hafsah|Harun|Hawwa|Hud\b|Ibrahim|Isa\b|Ismail|Khadijah|Lut\b|Maryam|Mina\b|Muhammad|Musa|Muzdalifah|Nuh\b|Quran|Ramadan|Sa'i|Sawdah|Sulayman|Sunnah|Surah|Umar|Uthman|Ya'qub|Yusuf)/;
+
+// Lowercases only a leading common word so titles read naturally mid-sentence
+// without turning names like "Surah Yusuf" or "Abu Bakr" into "surah yusuf".
+function inSentence(title: string) {
+  return PROPER_NOUN_START.test(title) ? title : title.charAt(0).toLowerCase() + title.slice(1);
+}
+
 function lessonPractice(topicId: TopicId, title: string, fallback?: string) {
   if (fallback) return fallback;
   return {
-    prayer: `Practice ${title.toLowerCase()} with calmness, order, and awareness before the next prayer.`,
-    quran_tafseer: `Pause with ${title.toLowerCase()} long enough to connect the surah to worship and daily life.`,
-    aqidah: `Return to ${title.toLowerCase()} when beliefs or words start getting blurry.`,
-    fasting: `Use ${title.toLowerCase()} to guard both the body and the heart in Ramadan.`,
-    zakat: `Let ${title.toLowerCase()} guide real giving decisions instead of guesswork.`,
-    hajj: `Study ${title.toLowerCase()} as worship, sequence, and submission together.`,
-    manners: `Carry ${title.toLowerCase()} into ordinary social moments instead of waiting for ideal ones.`,
-    marriage: `Use ${title.toLowerCase()} to protect mercy inside the home when it is tested.`,
-    sahabah: `Read ${title.toLowerCase()} as a model to imitate, not a story to admire from far away.`,
-    prophets: `Translate ${title.toLowerCase()} into present-day obedience, patience, and trust.`,
-    women_of_the_book: `Turn ${title.toLowerCase()} into a present-day virtue worth practicing.`,
-    foundation: `Repeat ${title.toLowerCase()} in the next small moment where it belongs.`
+    prayer: `Practice ${inSentence(title)} with calmness, order, and awareness before the next prayer.`,
+    quran_tafseer: `Pause with ${inSentence(title)} long enough to connect the surah to worship and daily life.`,
+    aqidah: `Return to ${inSentence(title)} when beliefs or words start getting blurry.`,
+    fasting: `Use ${inSentence(title)} to guard both the body and the heart in Ramadan.`,
+    zakat: `Let ${inSentence(title)} guide real giving decisions instead of guesswork.`,
+    hajj: `Study ${inSentence(title)} as worship, sequence, and submission together.`,
+    manners: `Carry ${inSentence(title)} into ordinary social moments instead of waiting for ideal ones.`,
+    marriage: `Use ${inSentence(title)} to protect mercy inside the home when it is tested.`,
+    sahabah: `Read ${inSentence(title)} as a model to imitate, not a story to admire from far away.`,
+    prophets: `Translate ${inSentence(title)} into present-day obedience, patience, and trust.`,
+    women_of_the_book: `Turn ${inSentence(title)} into a present-day virtue worth practicing.`,
+    foundation: `Repeat ${inSentence(title)} in the next small moment where it belongs.`
   }[topicId];
 }
 
 function lessonMisconception(title: string, fallback?: string) {
   return fallback ?? `${title} can stay fuzzy because the basics are already enough.`;
+}
+
+// Every true/false check used to be a misconception marked False, so learners could
+// pass by always tapping False. About half now state the lesson's focus as True instead.
+// Review and mastery focuses are instructions rather than claims, so they stay False.
+function statesFocusAsTrue(lessonId: string, lesson: LessonSeed) {
+  if (lesson.kind === "review" || lesson.lessonType === "review" || lesson.lessonType === "mastery") return false;
+  if (/^(Review|Put|Move|Use|Mastery)\b/.test(lesson.focus)) return false;
+  return Math.abs(hashCode(`${lessonId}:truth`)) % 2 === 0;
 }
 
 function buildChallenges(topicId: TopicId, lessonId: string, lesson: LessonSeed) {
@@ -335,18 +354,25 @@ function buildChallenges(topicId: TopicId, lessonId: string, lesson: LessonSeed)
         `${practice} This lesson should become practice, not just information.`
       ),
       miniLesson: practice,
-      easierExplanation: `Think about the next small moment where ${lesson.title.toLowerCase()} would matter.`,
-      reviewSuggestion: `Practice ${lesson.title.toLowerCase()} again in a real-life setting`
+      easierExplanation: `Think about the next small moment where ${inSentence(lesson.title)} would matter.`,
+      reviewSuggestion: `Practice ${inSentence(lesson.title)} again in a real-life setting`
     },
-    {
-      ...tf(`${lessonId}_watchout`, misconception, false, `Watch out for this mistake: ${misconception} ${lesson.focus}`),
-      miniLesson: `Watch out for this confusion: ${misconception}`,
-      easierExplanation: `${lesson.focus} Keep the lesson anchored to what was actually taught.`,
-      reviewSuggestion: `Review the common misconception in ${lesson.title}`
-    }
+    statesFocusAsTrue(lessonId, lesson)
+      ? {
+          ...tf(`${lessonId}_watchout`, lesson.focus, true, `True. ${lesson.focus} Watch out for the opposite idea: ${misconception}`),
+          miniLesson: lesson.focus,
+          easierExplanation: `${lesson.focus} This is the core teaching of the lesson.`,
+          reviewSuggestion: `Review the main teaching in ${lesson.title}`
+        }
+      : {
+          ...tf(`${lessonId}_watchout`, misconception, false, `Watch out for this mistake: ${misconception} ${lesson.focus}`),
+          miniLesson: `Watch out for this confusion: ${misconception}`,
+          easierExplanation: `${lesson.focus} Keep the lesson anchored to what was actually taught.`,
+          reviewSuggestion: `Review the common misconception in ${lesson.title}`
+        }
   ];
   if (lesson.difficulty >= 4) {
-    const correctionChoices = rotate([misconception, practice, lesson.focus, `Review ${lesson.title.toLowerCase()} from its source text before reacting.`], Math.abs(hashCode(`${lessonId}:correction`)) % 4);
+    const correctionChoices = rotate([misconception, practice, lesson.focus, `Review ${inSentence(lesson.title)} from its source text before reacting.`], Math.abs(hashCode(`${lessonId}:correction`)) % 4);
     challenges.push({
       ...mc(
         `${lessonId}_correction`,
@@ -401,7 +427,7 @@ type CompanionBranchConfig = {
 const SAHABI_SOURCE_KEYS = ["quran_9_100", "quran_48_29", "quran_33_21"];
 
 function buildCompanionLessons(config: CompanionBranchConfig): LessonSeed[] {
-  const lowerName = config.title.toLowerCase();
+  const lowerName = config.title;
 
   return [
     seed("early-life", "Early life", `${config.title} began life in a society that revelation would soon transform completely.`, 1),
@@ -730,7 +756,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       order: 5,
       clusterSize: 5,
       difficultyRange: [2, 5],
-      sourceKeys: ["hadith_abudawud_730", "hadith_nasai_1055", "hadith_abudawud_933", "hadith_tirmidhi_270", "video_salah_1", "video_salah_3"],
+      sourceKeys: ["hadith_abudawud_730", "hadith_nasai_1055", "hadith_abudawud_856", "hadith_tirmidhi_270", "hadith_tirmidhi_272", "video_salah_1", "video_salah_3"],
       lessons: [
         seed("what-ruku-teaches", "What ruku teaches", "Ruku is not a dip of the body only; it teaches submission, stillness, and praise.", 2),
         seed("shape-of-ruku", "The shape of ruku", "The learner should know how the body settles into ruku with calmness and order.", 2),
@@ -752,7 +778,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       order: 6,
       clusterSize: 4,
       difficultyRange: [2, 5],
-      sourceKeys: ["hadith_nasai_1278", "hadith_abudawud_974", "video_salah_1"],
+      sourceKeys: ["hadith_nasai_1278", "hadith_abudawud_974", "hadith_abudawud_933", "video_salah_1"],
       lessons: [
         seed("why-the-sitting-matters", "Why the sitting matters", "The sitting in prayer carries taught words and should be learned carefully.", 2),
         seed("wording-of-tashahhud", "Wording of the tashahhud", "The learner should recognize the taught wording and its seriousness.", 3),
@@ -1072,7 +1098,7 @@ function createGeneratedBranch(section: LearningSection, branch: BranchSeed) {
       ayahRange: entry.ayahRange ?? branch.ayahRange,
       title: entry.title,
       intro: `${entry.focus} ${lessonPractice(section.topicId, entry.title, entry.practice)}`,
-      explanationContent: `${entry.focus} Watch for this misconception: ${lessonMisconception(entry.title, entry.misconception)}.`,
+      explanationContent: `${entry.focus} Watch for this misconception: ${lessonMisconception(entry.title, entry.misconception).replace(/\.$/, "")}.`,
       lessonType: entry.lessonType ?? defaultLessonType(section.topicId, kind),
       difficulty: entry.difficulty,
       xpReward,
@@ -1279,7 +1305,7 @@ SECTION_SEEDS.push(
         seed("maryam-and-purity", "Maryam and purity", "Maryam teaches worship, purity, patience, and trust in Allah's decree.", 3),
         seed("quran-women-review", "Women in the Quran review", "These women teach repentance, trust, steadfastness, and purity under pressure.", 4, { kind: "review", lessonType: "review" })
       ]},
-      { id: "women-mothers-depth", title: "Mothers of the Believers", description: "Move in order through the Prophet's wives and the special gifts they gave the Ummah.", order: 4, difficultyRange: [2, 5], sourceKeys: ["quran_33_6", "hadith_bukhari_3433", "hadith_bukhari_3770", "hadith_bukhari_4987"], lessons: [
+      { id: "women-mothers-depth", title: "Mothers of the Believers", description: "Move in order through the Prophet's wives and the special gifts they gave the Ummah.", order: 4, difficultyRange: [2, 5], sourceKeys: ["quran_33_6", "hadith_bukhari_3820", "hadith_bukhari_3770", "hadith_bukhari_4987"], lessons: [
         seed("khadijah-and-support", "Khadijah and support", "Khadijah teaches support, reassurance, and sacrifice at the birth of revelation.", 2),
         seed("sawdah-and-stability", "Sawdah and stability", "Sawdah teaches steadiness, generosity, and the quiet stabilizing roles inside the Prophetic household.", 3),
         seed("aishah-and-knowledge", "Aishah and knowledge", "Aishah teaches intelligence, memory, worship, and transmission of the Sunnah.", 4),
@@ -1308,21 +1334,21 @@ SECTION_SEEDS.push(
     mascot: "hijabi",
     accentColor: "#14B884",
     branches: [
-      { id: "manners-neighbors-and-guests", title: "Neighbors and guests", description: "Grow beyond basic kindness into the social adab that binds homes together.", order: 4, difficultyRange: [1, 4], sourceKeys: ["quran_4_36", "hadith_bukhari_6029"], lessons: [
+      { id: "manners-neighbors-and-guests", title: "Neighbors and guests", description: "Grow beyond basic kindness into the social adab that binds homes together.", order: 4, difficultyRange: [1, 4], sourceKeys: ["quran_4_36", "hadith_bukhari_6013"], lessons: [
         seed("neighbor-rights", "Neighbor rights", "Islamic manners extend beyond the self and family into the rights of neighbors.", 1),
         seed("guest-honor", "Honor the guest", "Guests should feel welcomed, not managed like a burden.", 2),
         seed("sharing-space", "Sharing space well", "Adab in shared spaces means patience, cleanliness, and not crowding others with selfishness.", 2),
         seed("helping-neighbors", "Helping nearby people", "Mercy becomes concrete when help reaches nearby people in ordinary needs.", 3),
         seed("social-adab-review", "Neighbor and guest review", "Good adab should be visible in the home, at the door, and around daily contact.", 4, { kind: "review", lessonType: "review" })
       ]},
-      { id: "manners-emotional-discipline", title: "Emotional discipline", description: "Learn how patience, restraint, and soft strength protect Muslim character.", order: 5, difficultyRange: [2, 5], sourceKeys: ["hadith_bukhari_6029", "hadith_tirmidhi_2689"], lessons: [
+      { id: "manners-emotional-discipline", title: "Emotional discipline", description: "Learn how patience, restraint, and soft strength protect Muslim character.", order: 5, difficultyRange: [2, 5], sourceKeys: ["hadith_bukhari_6013", "hadith_tirmidhi_2002"], lessons: [
         seed("anger-and-restraint", "Anger and restraint", "Strong manners often show most clearly when anger rises.", 2),
         seed("gentleness", "Gentleness with strength", "Gentleness is not weakness; it is disciplined strength governed by revelation.", 3),
         seed("apologizing", "Repairing with apology", "A well-mannered Muslim knows how to repair harm, not only avoid it.", 3),
         seed("self-awareness", "Notice your own patterns", "Growth in character requires noticing when and where the self keeps slipping.", 4),
         seed("emotional-review", "Emotional discipline review", "Adab under pressure needs mercy, self-control, humility, and repair.", 5, { kind: "review", lessonType: "mastery" })
       ]},
-      { id: "manners-public-conduct", title: "Public conduct", description: "Take adab into masjid, public spaces, disagreement, and online life.", order: 6, difficultyRange: [2, 5], sourceKeys: ["quran_9_119", "hadith_tirmidhi_2689"], lessons: [
+      { id: "manners-public-conduct", title: "Public conduct", description: "Take adab into masjid, public spaces, disagreement, and online life.", order: 6, difficultyRange: [2, 5], sourceKeys: ["quran_9_119", "hadith_tirmidhi_2002"], lessons: [
         seed("masjid-adab", "Masjid adab", "The masjid should train reverence, restraint, and respect for others in worship.", 2),
         seed("disagreement", "Disagreement with adab", "Truth and firmness do not excuse mockery, contempt, or reckless speech.", 3),
         seed("public-posture", "Public posture", "A Muslim should feel watched by Allah in posture, speech, and the way space is taken up.", 4),
