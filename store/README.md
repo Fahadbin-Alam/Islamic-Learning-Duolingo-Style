@@ -26,16 +26,19 @@ The pages in `site/` replace the draft in `docs/privacy-policy.md`.
 
 If you later buy a domain (for example `sirapath.app`), point it at GitHub Pages under Settings → Pages → Custom domain and update these URLs in the files above and in the app's environment.
 
-## Must be fixed in the app before submitting
+## App changes the store answers depend on
 
-These are app or backend changes, so they belong with the builds work, not this paperwork.
+The release builds PR (#6) covers most of these. The answers in this folder assume all of them ship.
 
-1. **In-app account deletion.** Apple (guideline 5.1.1(v)) and Google both require apps that create accounts to let people delete them from inside the app. There is no delete endpoint or button yet. Needed: `DELETE /api/profile/me` that removes the user (the models already cascade), a "Delete account" button under Profile → Account with a confirmation, and a reminder that subscriptions are cancelled in the store. The pages and review notes already describe it at that path.
-2. **iOS ad tracking.** Without Apple's tracking prompt, iOS ad requests must ask AdMob for non-personalised ads, or the privacy label in `app-store/privacy-labels.md` is wrong. See the table there.
-3. **Privacy and terms links in the app.** Set `EXPO_PUBLIC_PRIVACY_URL` and `EXPO_PUBLIC_TERMS_URL` to the URLs above. Apple requires both links on the subscription screen.
-4. **Sign in with Apple.** If Google or Facebook sign-in is ever switched on for iOS, Apple requires Sign in with Apple as well (guideline 4.8). Keep them off for launch, as they are now.
-5. **"Child" account role.** The sign-up form offers parent and child roles. Child-directed accounts would pull the app into COPPA and Google's Families policy, which do not allow AdMob's normal ads. Either relabel the role "Learner" or keep accounts 13+ as the privacy policy says.
-6. **Production API on HTTPS**, and `usesNonExemptEncryption: false` under `ios.config` in `app.json` so App Store Connect stops asking about export compliance on every build.
+| Requirement | Status |
+| --- | --- |
+| In-app account deletion (Apple 5.1.1(v), Google account deletion policy): Profile → Settings → Delete account, backed by `DELETE /api/profile/me` | Done in #6 |
+| iOS ads non-personalised, since the app has no tracking prompt | Done in #6 |
+| "Child mode" renamed "Learner mode", so accounts are not child-directed (COPPA, Google Families policy) | Done in #6 |
+| `ITSAppUsesNonExemptEncryption: false` so App Store Connect stops asking about export compliance | Done in #6 |
+| `EXPO_PUBLIC_PRIVACY_URL` and `EXPO_PUBLIC_TERMS_URL` set to the Pages URLs above. Apple requires both links on the subscription screen | **Still to set in the EAS environment.** `.env.example` in #6 points at `https://sirapath.app/privacy`, which does not exist yet, and leaves terms blank |
+| Production API served over HTTPS | Needed before release |
+| Sign in with Apple, if Google or Facebook sign-in is ever switched on for iOS (guideline 4.8) | Not needed while they stay off |
 
 ## Steps that need you
 

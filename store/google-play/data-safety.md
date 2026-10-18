@@ -32,7 +32,7 @@ No precise location, contacts, photos, files, microphone, camera, health, messag
 | Personal info → Name | Yes | No | Optional (only with an account) | App functionality, Account management |
 | Personal info → Email address | Yes | No | Optional (only with an account) | App functionality, Account management |
 | Personal info → User IDs | Yes | No | Optional (only with an account) | App functionality, Account management |
-| Personal info → Other info | Yes | No | Optional | App functionality. Covers the parent/learner role and names/emails of family and friends the user adds |
+| Personal info → Other info | Yes | No | Optional | App functionality. Covers parent or learner mode and names/emails of family and friends the user adds |
 | Financial info → Purchase history | Yes | No | Optional (only if the user buys something) | App functionality, Account management |
 | Location → Approximate location | Yes | Yes | Required for free users | Advertising or marketing, Fraud prevention, security and compliance. From the IP address via AdMob |
 | App activity → App interactions | Yes | Yes | Required | App functionality, Analytics, Personalization, Advertising or marketing (AdMob: ad interactions only), Fraud prevention |

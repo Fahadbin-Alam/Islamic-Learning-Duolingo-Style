@@ -10,11 +10,11 @@ For App Store Connect → your app → App Privacy. These answers match the code
 
 Apple calls it tracking when data from this app is linked with data from other companies' apps or websites for targeted ads, or shared with a data broker.
 
-The current build does not show Apple's App Tracking Transparency (ATT) prompt, so iOS gives AdMob no advertising identifier (IDFA). Before submitting, the iOS build has to take one of two paths, and the label follows from it:
+The app does not show Apple's App Tracking Transparency (ATT) prompt, so iOS gives AdMob no advertising identifier (IDFA), and iOS ad requests ask for non-personalised ads (`adRequestOptions` in `src/services/monetization.native.ts`). That is the first row below, so **Data Used to Track You: none**.
 
 | iOS ads setup | Answer |
 | --- | --- |
-| **Recommended for launch:** no ATT prompt, and iOS ad requests ask for non-personalised ads (`requestNonPersonalizedAdsOnly: true`) | **Data Used to Track You: none.** Use the table below as written |
+| **Current build:** no ATT prompt, and iOS ad requests ask for non-personalised ads (`requestNonPersonalizedAdsOnly: true`) | **Data Used to Track You: none.** Use the table below as written |
 | ATT prompt added (`expo-tracking-transparency`) and personalised ads shown to people who allow tracking | Move **Device ID**, **Advertising Data** and **Coarse Location** to "Used to Track You" for Third-Party Advertising |
 
 Apple rejects apps that track without the prompt, so do not ship personalised iOS ads without ATT.
@@ -37,7 +37,7 @@ For each type, pick the purposes shown, then answer "Linked to the user's identi
 | Diagnostics → Crash Data | Analytics | No | No |
 | Diagnostics → Performance Data | Analytics | No | No |
 | Diagnostics → Other Diagnostic Data | Analytics, Third-Party Advertising | No | No |
-| Other Data → Other Data Types | App Functionality (parent or learner role, reminder and sound settings) | Yes | No |
+| Other Data → Other Data Types | App Functionality (parent or learner mode, reminder and sound settings) | Yes | No |
 
 Not collected: Health and Fitness, Financial Info (card numbers stay with Apple), Precise Location, Sensitive Info, Contacts (the address book), User Content, Browsing History, Search History.
 
