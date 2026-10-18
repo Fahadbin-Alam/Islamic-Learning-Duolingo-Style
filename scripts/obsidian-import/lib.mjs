@@ -2,6 +2,7 @@
 // See docs/obsidian-import.md for the note format this understands.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, extname, join, relative, sep } from "node:path";
+import { buildFactBranches, classifyFactNote, labelFields } from "./facts.mjs";
 
 export const TOPIC_IDS = [
   "foundation",
@@ -15,7 +16,8 @@ export const TOPIC_IDS = [
   "sahabah",
   "prophets",
   "women_of_the_book",
-  "quran_tafseer"
+  "quran_tafseer",
+  "hadith"
 ];
 
 // Folder names and frontmatter values people are likely to use, mapped to TopicId.
@@ -51,7 +53,10 @@ const TOPIC_ALIASES = {
   women_of_the_book: "women_of_the_book",
   women: "women_of_the_book",
   foundation: "foundation",
-  basics: "foundation"
+  basics: "foundation",
+  hadith: "hadith",
+  ahadith: "hadith",
+  sunnah: "hadith"
 };
 
 // Backend topic slugs differ from the app's TopicId for a few topics.
@@ -67,7 +72,8 @@ export const BACKEND_TOPIC_SLUGS = {
   sahabah: "sahabi",
   prophets: "prophets",
   women_of_the_book: "women-of-the-book",
-  quran_tafseer: "quran"
+  quran_tafseer: "quran",
+  hadith: "hadith"
 };
 
 export function slugify(value) {
@@ -200,10 +206,8 @@ export function buildSources(urls, idPrefix, warn) {
       continue;
     }
     const known = SOURCE_SITES.find((entrySite) => entrySite.pattern.test(host));
-    if (!known) {
-      warn(`Skipping source ${url}: the app only links Quran.com, Sunnah.com, YouTube and Yaqeen Institute`);
-      continue;
-    }
+    // The app only links Quran.com, Sunnah.com, YouTube and Yaqeen Institute; other links (Wikipedia etc.) stay out.
+    if (!known) continue;
     const label = raw.replace(url, "").replace(/[[\]()<>]/g, "").replace(/^[\s:-]+|[\s:-]+$/g, "");
     const reference = referenceFromUrl(url, known.site);
     sources.push({
@@ -228,7 +232,7 @@ const STOP_WORDS = new Set(["the", "and", "with", "from", "that", "this", "surah
 function significantWords(text) {
   return slugify(text)
     .split("-")
-    .filter((word) => word.length >= 4 && !STOP_WORDS.has(word));
+    .filter((word) => /^\d+$/.test(word) || (word.length >= 4 && !STOP_WORDS.has(word)));
 }
 
 function isTrueFalseOptions(options) {
@@ -659,14 +663,41 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
   const branchIds = new Set();
   let noteCount = 0;
 
+  const notes = [];
+  const factNotes = [];
+  const noTopic = [];
+  const unplacedPeople = [];
+  const unknownTopics = new Map();
+
   for (const file of listNotes(vaultDir)) {
     const relPath = relative(vaultDir, file);
     const folders = relPath.split(sep).slice(0, -1);
     const folderTopic = folders.map(resolveTopic).find(Boolean);
-    const note = parseNote(readFileSync(file, "utf8"), { filePath: relPath, folderTopic, defaultTopic });
-    warnings.push(...note.warnings);
-    if (note.skipped) continue;
+    const text = readFileSync(file, "utf8");
+    const { data, body } = parseFrontmatter(text);
+    if (data.import === false || data.skip === true) continue;
 
+    // Structured notes (type: person / surah / hadith) get their questions from their facts.
+    const fact = classifyFactNote(data, folderTopic);
+    if (fact) {
+      if (!fact.topicId) unplacedPeople.push(relPath);
+      else if (!TOPIC_IDS.includes(fact.topicId)) unknownTopics.set(fact.topicId, (unknownTopics.get(fact.topicId) ?? 0) + 1);
+      else factNotes.push({ ...fact, data, body, labels: labelFields(body), relPath, fileName: basename(file, extname(file)), urls: findUrls(body) });
+      continue;
+    }
+
+    const note = parseNote(text, { filePath: relPath, folderTopic, defaultTopic });
+    if (note.skipped && note.warnings.some((warning) => warning.includes("no topic found"))) {
+      noTopic.push(relPath);
+      continue;
+    }
+    warnings.push(...note.warnings);
+    if (!note.skipped) notes.push({ note, relPath });
+  }
+
+  for (const branch of buildFactBranches(factNotes)) notes.push({ note: branch, relPath: branch.title });
+
+  for (const { note, relPath } of notes) {
     const built = buildBranch(note, { idPrefix });
     warnings.push(...built.warnings.map((message) => `${relPath}: ${message}`));
     if (!built.nodes.length) {
@@ -678,13 +709,25 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
       continue;
     }
     branchIds.add(built.branch.id);
-    noteCount += 1;
+    noteCount += note.lessons.some((lesson) => lesson.relPath) ? note.lessons.length : 1;
 
     const entry = sectionsByTopic.get(note.topicId) ?? { topicId: note.topicId, branches: [], nodes: [] };
     entry.branches.push(built.branch);
     entry.nodes.push(...built.nodes);
     sectionsByTopic.set(note.topicId, entry);
     Object.assign(lessonsById, built.lessonsById);
+  }
+
+  if (noTopic.length) {
+    warnings.push(
+      `${noTopic.length} notes skipped because no topic was found (add "topic:" or put them in a topic folder), e.g. ${noTopic.slice(0, 5).join("; ")}`
+    );
+  }
+  if (unplacedPeople.length) {
+    warnings.push(`${unplacedPeople.length} person notes skipped because they aren't tagged Sahabi or Prophet, e.g. ${unplacedPeople.slice(0, 5).join("; ")}`);
+  }
+  for (const [topicId, count] of unknownTopics) {
+    warnings.push(`${count} notes skipped because the app has no "${topicId}" topic yet`);
   }
 
   const sections = [...sectionsByTopic.values()]

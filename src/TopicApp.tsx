@@ -6233,6 +6233,10 @@ function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
     return "book_open";
   }
 
+  if (topicId === "hadith") {
+    return "book_stack";
+  }
+
   return "sparkle_badge";
 }
 
@@ -6986,6 +6990,17 @@ function getTopicPathTheme(topicId: TopicId, accentColor: string): PathTheme {
       reward: "#FFD447",
       review: "#4E7FFF",
       candy: "#7A8BFF"
+    },
+    hadith: {
+      primary: "#3E8E7E",
+      secondary: "#5FB3A1",
+      tertiary: "#E2B04A",
+      glow: "#BDEBDD",
+      shell: "#F8FFFC",
+      lane: "#4AA391",
+      reward: "#FFCF52",
+      review: "#6A8CFF",
+      candy: "#F29E6D"
     },
     quran_tafseer: {
       primary: "#22B17A",

@@ -590,7 +590,8 @@ const TOPIC_COPY: Record<SupportedLanguage, Partial<Record<TopicId, { title: str
     sahabah: { title: "Sahabi", description: "Deep companion branches that grow through biography, virtue, judgment, review, and mastery.", focus: "Abu Bakr, Umar, Uthman, Ali, Bilal, Khalid, and more companions over long-form lesson paths.", badge: "Companion World" },
     prophets: { title: "Lives of the Prophets", description: "Travel from Adam to Muhammad and learn the big lessons each prophet left for the Ummah.", focus: "Creation, patience, trust, forgiveness, courage, mercy, and the final example.", badge: "Topic 6" },
     women_of_the_book: { title: "Women of the Book", description: "Move in order through women in the Quran and key wives of the Prophet.", focus: "Repentance, trust, courage, purity, knowledge, and preserving revelation.", badge: "Topic 7" },
-    quran_tafseer: { title: "Quran and Tafseer", description: "Short lessons on verses, tafsir, and the big meanings Allah wants believers to hold onto.", focus: "Guidance, oneness, protection, patience, and learning to reflect on the Quran.", badge: "Topic 5" }
+    quran_tafseer: { title: "Quran and Tafseer", description: "Short lessons on verses, tafsir, and the big meanings Allah wants believers to hold onto.", focus: "Guidance, oneness, protection, patience, and learning to reflect on the Quran.", badge: "Topic 5" },
+    hadith: { title: "Hadith", description: "Narrations of the Prophet ﷺ with their references, one hadith at a time.", focus: "The words of the Prophet ﷺ, where they are recorded, and what they teach.", badge: "Topic 8" }
   },
   fr: {
     foundation: { title: "Fondation", description: "Les premières habitudes musulmanes: le salam, Alhamdulillah, Bismillah et les bonnes réponses.", focus: "Salam, Alhamdulillah, Bismillah et réponses bienveillantes.", badge: "Commencez ici" },

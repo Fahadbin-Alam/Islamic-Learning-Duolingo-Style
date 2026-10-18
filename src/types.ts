@@ -10,7 +10,8 @@ export type TopicId =
   | "sahabah"
   | "prophets"
   | "women_of_the_book"
-  | "quran_tafseer";
+  | "quran_tafseer"
+  | "hadith";
 
 export type CharacterVariant = "hijabi" | "muslim_man";
 

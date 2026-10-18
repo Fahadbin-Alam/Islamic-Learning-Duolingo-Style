@@ -39,6 +39,23 @@ Topic folder names that work: `Sahabah`/`Sahaba`/`Sahabi`/`Companions`, `Quran`/
 Lessons named with "review", "quiz", "recap" or "mastery" become review lessons. Difficulty climbs from 1
 through the note unless the note sets `difficulty:`.
 
+## Structured notes (`type: person`, `surah`, `hadith`)
+
+Notes with one of these `type:` properties don't need written questions; the importer quizzes their facts,
+taking wrong choices from the same fact on other notes of the same type (never one that overlaps the right
+answer, so two choices can't both be true).
+
+| `type:` | Goes to | Lessons | Questions from |
+| --- | --- | --- | --- |
+| `person` tagged `Mothers-of-the-Believers` or `Women-of-Islam` | Women of the Book | one per person, 10 per branch | `tribe`, `clan`, `known_for`, `died`, `death_place`, `birth_place`, `father`, `mother`, `burial_place` |
+| `person` tagged `Prophet` | Lives of the Prophets | same | same |
+| `person` tagged `Sahabi` | Sahabi | same | same |
+| `surah` | Quran and Tafseer, "Surahs 1-10" and so on | one per surah | `**English name:**`, `**Revelation:**`, `**Ayahs:**` lines, and the `### Quran 103:1` ayahs (Arabic shown, pick the meaning) |
+| `hadith` | Hadith (a new topic) | one per hadith | the English text and `collection:` |
+
+Other people (scholars, Tabi'in) and other note types are skipped and counted in one warning. Sources come
+from Sunnah.com and Quran.com links in the note, and `source_url:`; Wikipedia and other sites are left out.
+
 ## Writing questions
 
 Any of these can go under a lesson heading:

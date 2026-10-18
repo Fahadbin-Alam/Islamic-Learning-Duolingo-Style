@@ -1,4 +1,4 @@
-import type { LearningBranch, LearningCourse, LearningNode, Lesson, TopicId } from "../types";
+import type { LearningBranch, LearningCourse, LearningNode, LearningSection, Lesson, TopicId } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
 
 export interface ImportedNotesSection {
@@ -11,6 +11,19 @@ export interface ImportedNotesContent {
   sections: ImportedNotesSection[];
   lessonsById: Record<string, Lesson>;
 }
+
+// Topics that only exist through imported notes get their section from here.
+const NEW_SECTIONS: Partial<Record<TopicId, Omit<LearningSection, "topicId" | "starsTarget" | "branches" | "nodes">>> = {
+  hadith: {
+    id: "hadith",
+    title: "Hadith",
+    description: "Narrations of the Prophet ﷺ with their references, one hadith at a time.",
+    badge: "Topic 8",
+    focus: "The words of the Prophet ﷺ, where they are recorded, and what they teach.",
+    mascot: "muslim_man",
+    accentColor: "#3E8E7E"
+  }
+};
 
 // Adds branches generated from Obsidian notes (scripts/obsidian-import) after each topic's existing branches.
 export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<string, Lesson>, imported: ImportedNotesContent) {
@@ -25,8 +38,11 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
     })
   );
   const importedByTopic = new Map(imported.sections.map((section) => [section.topicId, section]));
+  const missingSections = imported.sections
+    .filter((extra) => !course.sections.some((section) => section.topicId === extra.topicId) && NEW_SECTIONS[extra.topicId])
+    .map((extra) => ({ ...NEW_SECTIONS[extra.topicId]!, topicId: extra.topicId, starsTarget: 0, branches: [], nodes: [] }));
 
-  const sections = course.sections.map((section) => {
+  const sections = [...course.sections, ...missingSections].map((section) => {
     const extra = importedByTopic.get(section.topicId);
     if (!extra) return section;
 

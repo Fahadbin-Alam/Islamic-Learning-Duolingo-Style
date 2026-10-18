@@ -41,5 +41,11 @@ class ImportedNotesSeedTest(unittest.TestCase):
         self.assertEqual(titles, [f"{existing_title} (notes)", "Treaty of Hudaybiyyah study"])
 
 
+    def test_adds_topics_that_only_come_from_notes(self) -> None:
+        topics = with_imported_branches(built_in_topic_seed(), {"hadith": [imported_branch("Hadith from your notes")]})
+        hadith = next(topic for topic in topics if topic["slug"] == "hadith")
+        self.assertEqual([branch["title"] for branch in hadith["branches"]], ["Hadith from your notes"])
+
+
 if __name__ == "__main__":
     unittest.main()

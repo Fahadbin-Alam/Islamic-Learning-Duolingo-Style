@@ -487,7 +487,17 @@ def load_imported_branches(path: Path = IMPORTED_NOTES_PATH) -> Dict[str, List[D
     return data.get("topics", {})
 
 
+# Topics that only exist through imported notes.
+IMPORTED_ONLY_TOPICS = {
+    "hadith": {"title": "Hadith", "description": "Narrations of the Prophet with their references, one hadith at a time.", "icon": "book_stack", "color_theme": "teal"},
+}
+
+
 def with_imported_branches(topics: List[Dict[str, Any]], imported: Dict[str, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
+    known_slugs = {topic["slug"] for topic in topics}
+    for slug, meta in IMPORTED_ONLY_TOPICS.items():
+        if slug in imported and slug not in known_slugs:
+            topics.append({**meta, "slug": slug, "branches": []})
     for topic in topics:
         existing_slugs = {slugify(branch["title"]) for branch in topic["branches"]}
         for branch in imported.get(topic["slug"], []):

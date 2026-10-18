@@ -70,12 +70,12 @@ test("a note without ## headings becomes a single lesson", () => {
 
 test("imports the sample vault into app lessons", () => {
   const result = importVault(sampleVault);
-  assert.deepEqual(result.stats, { notes: 2, branches: 2, lessons: 6, questions: 9 });
-  assert.deepEqual(result.content.sections.map((section) => section.topicId), ["manners", "sahabah"]);
+  assert.deepEqual(result.stats, { notes: 10, branches: 5, lessons: 14, questions: 31 });
+  assert.deepEqual(result.content.sections.map((section) => section.topicId), ["manners", "sahabah", "quran_tafseer", "hadith"]);
 
   const sahabah = result.content.sections[1];
   assert.equal(sahabah.branches[0].title, "Abu Bakr as-Siddiq");
-  assert.deepEqual(sahabah.nodes.map((node) => node.requiredNodeIds.length), [0, 1, 1]);
+  assert.deepEqual(sahabah.nodes.slice(0, 3).map((node) => node.requiredNodeIds.length), [0, 1, 1]);
   assert.equal(sahabah.nodes[1].requiredNodeIds[0], sahabah.nodes[0].id);
 
   const hijrah = result.content.lessonsById["lesson-notes-sahabah-abu-bakr-as-siddiq-the-hijrah"];
@@ -112,7 +112,7 @@ test("skips opted-out notes, notes without a topic and broken questions with war
   const result = importVault(vault);
   assert.equal(result.stats.notes, 1);
   assert.equal(result.stats.lessons, 1);
-  assert.ok(result.warnings.some((warning) => warning.includes("no topic found")));
+  assert.ok(result.warnings.some((warning) => warning.includes("1 notes skipped because no topic was found")));
   assert.ok(result.warnings.some((warning) => warning.includes("exactly one [x]")));
   assert.ok(result.warnings.some((warning) => warning.includes("already produced branch")));
 });
@@ -124,10 +124,51 @@ test("--topic fills in notes without one", () => {
 
 test("builds backend seed branches in catalog_seed's shape", () => {
   const { backend } = importVault(sampleVault);
-  assert.deepEqual(Object.keys(backend.topics), ["manners", "sahabi"]);
+  assert.deepEqual(Object.keys(backend.topics), ["manners", "sahabi", "quran", "hadith"]);
   const branch = backend.topics.sahabi[0];
   assert.equal(branch.lessons.length, 3);
   const question = branch.lessons[1].questions[0];
   assert.deepEqual(Object.keys(question).sort(), ["correct_answer_json", "explanation_long", "explanation_short", "options_json", "prompt", "tags_json", "type"]);
   assert.ok(question.options_json.some((option) => option.id === question.correct_answer_json.choiceId));
+});
+
+test("builds quizzes from Sahabi person notes", () => {
+  const { content } = importVault(sampleVault);
+  const companions = content.sections.find((section) => section.topicId === "sahabah").branches.find((branch) => branch.title === "Companions from your notes");
+  assert.ok(companions);
+  const lesson = content.lessonsById[`lesson-${companions.id}-abdullah-ibn-rawahah`];
+  assert.match(lesson.explanationContent, /Tribe: Khazraj/);
+  assert.equal(lesson.sources[0].url, "https://sunnah.com/bukhari:4261", "Wikipedia links are left out");
+  const tribe = lesson.challenges.find((challenge) => challenge.prompt === "Which tribe was Abdullah ibn Rawahah from?");
+  assert.equal(tribe.choices.find((choice) => choice.id === tribe.correctChoiceId).label, "Khazraj");
+  assert.ok(!tribe.choices.some((choice) => choice.id !== tribe.correctChoiceId && choice.label === "Khazraj"));
+  for (const challenge of lesson.challenges) {
+    const wrong = challenge.choices.filter((choice) => choice.id !== challenge.correctChoiceId).map((choice) => choice.label);
+    assert.ok(!wrong.some((label) => /8 AH/.test(label)), `"${challenge.prompt}" offers another 8 AH date as a wrong answer`);
+  }
+});
+
+test("builds surah lessons with ayah meaning questions", () => {
+  const { content } = importVault(sampleVault);
+  const quran = content.sections.find((section) => section.topicId === "quran_tafseer");
+  assert.deepEqual(quran.branches.map((branch) => branch.title), ["Surahs 103-112"]);
+  assert.deepEqual(quran.nodes.map((node) => node.title), ["Surah Al-'Asr", "Surah Al-Kawthar", "Surah Al-Ikhlas"]);
+  const ikhlas = content.lessonsById[quran.nodes[2].lessonIds[0]];
+  assert.match(ikhlas.explanationContent, /112:1 Say: He is Allah, the One!/);
+  assert.equal(ikhlas.sources.length, 1);
+  assert.equal(ikhlas.sources[0].url, "https://quran.com/112");
+  const meaning = ikhlas.challenges.find((challenge) => challenge.prompt.startsWith("What does this ayah mean?"));
+  assert.match(meaning.prompt, /[؀-ۿ]/, "shows the Arabic");
+  const revealed = ikhlas.challenges.find((challenge) => challenge.prompt.startsWith("Where was"));
+  assert.equal(revealed.choices.find((choice) => choice.id === revealed.correctChoiceId).label, "Makkah");
+});
+
+test("puts hadith notes in the Hadith topic and skips untagged people", () => {
+  const result = importVault(sampleVault);
+  const hadith = result.content.sections.find((section) => section.topicId === "hadith");
+  assert.equal(hadith.nodes[0].title, "Sahih Muslim 134a");
+  const lesson = result.content.lessonsById[hadith.nodes[0].lessonIds[0]];
+  assert.doesNotMatch(lesson.explanationContent, /[؀-ۿ]|Chapter 60/);
+  assert.ok(result.warnings.some((warning) => warning.includes("Abu Jahl")));
+  assert.deepEqual(Object.keys(result.backend.topics).sort(), ["hadith", "manners", "quran", "sahabi"]);
 });
