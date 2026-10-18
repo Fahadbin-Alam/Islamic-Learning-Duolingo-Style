@@ -63,7 +63,7 @@ On Apple, put both subscriptions in one subscription group. A 7-day free trial o
 
 ### 5. Store paperwork
 - Fill in Google Play **Data safety** and Apple **App Privacy** to say the app uses advertising ids and purchase history (AdMob and RevenueCat).
-- Host the privacy policy (`docs/privacy-policy.md`) and set `EXPO_PUBLIC_PRIVACY_URL`. Optionally set `EXPO_PUBLIC_TERMS_URL` (defaults to Apple's standard terms).
+- The paywall links to the privacy policy and terms. They default to the GitHub Pages copies (`https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html` and `terms.html`); override with `EXPO_PUBLIC_PRIVACY_URL` / `EXPO_PUBLIC_TERMS_URL` if you host them elsewhere.
 
 ### Audience note
 Do not list the app in Apple's **Kids** category or Google Play's **Designed for Families / Teacher Approved** programs while ads are on: those programs ban or heavily restrict third-party ads. Target ages 13+ in the store questionnaires, or ask for the ads to be switched to child-directed mode first.

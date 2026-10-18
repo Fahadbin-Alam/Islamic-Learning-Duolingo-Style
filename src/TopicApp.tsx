@@ -5326,11 +5326,9 @@ function ShopScreen({
         <Pressable onPress={() => void Linking.openURL(legalLinks.terms)}>
           <Text style={styles.shopLegalLink}>Terms of use</Text>
         </Pressable>
-        {legalLinks.privacy ? (
-          <Pressable onPress={() => void Linking.openURL(legalLinks.privacy)}>
-            <Text style={styles.shopLegalLink}>Privacy policy</Text>
-          </Pressable>
-        ) : null}
+        <Pressable onPress={() => void Linking.openURL(legalLinks.privacy)}>
+          <Text style={styles.shopLegalLink}>Privacy policy</Text>
+        </Pressable>
       </View>
 
       <Pressable onPress={onDone} style={[styles.primaryButton, { backgroundColor: section.accentColor }]}>
