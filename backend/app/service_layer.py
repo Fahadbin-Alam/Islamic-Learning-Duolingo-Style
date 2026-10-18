@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from typing import Any, Dict, Optional
 
 from fastapi import HTTPException, status
@@ -79,6 +79,33 @@ def account_payload(user: User) -> Dict[str, Any]:
     }
 
 
+XP_HISTORY_DAYS = 28
+
+
+def parse_local_date(value: Any) -> Optional[datetime]:
+    """Turn a device's YYYY-MM-DD into a timestamp that reads back as the same date."""
+    if not isinstance(value, str):
+        return None
+    try:
+        parsed = date.fromisoformat(value[:10])
+    except ValueError:
+        return None
+    return datetime(parsed.year, parsed.month, parsed.day, tzinfo=timezone.utc)
+
+
+def apply_daily_xp(user: User, daily_xp: Any) -> None:
+    if not isinstance(daily_xp, dict) or not parse_local_date(daily_xp.get("date")):
+        return
+    day = str(daily_xp["date"])[:10]
+    xp = max(0, int(daily_xp.get("xp") or 0))
+    user.daily_xp_date = day
+    user.daily_xp = xp
+    history = dict(user.xp_history_json or {})
+    history[day] = xp
+    # Keep only recent days; ISO dates sort in calendar order.
+    user.xp_history_json = {key: history[key] for key in sorted(history)[-XP_HISTORY_DAYS:]}
+
+
 def frontend_user_payload(user: User) -> Dict[str, Any]:
     entitlement = get_active_entitlement(user)
     last_refill = user.last_heart_refill_at or user.created_at
@@ -102,14 +129,16 @@ def frontend_user_payload(user: User) -> Dict[str, Any]:
         "reviewHeartRestoreUsed": user.review_heart_restore_used,
         "learnerProfile": user.learner_profile_json or {},
         "streakDays": user.streak_days,
+        "lastStreakDate": user.last_streak_date,
         "totalXp": user.total_xp,
+        "dailyXp": {"date": user.daily_xp_date, "xp": user.daily_xp} if user.daily_xp_date else None,
         "dailyGoalXp": user.daily_goal_xp,
         "gems": user.gems,
         "hearts": {
             "current": user.hearts_current,
             "max": user.hearts_max,
             "unlimited": user.hearts_unlimited or bool(entitlement),
-            "lastRefillDate": last_refill.date().isoformat() if last_refill else datetime.now(timezone.utc).date().isoformat(),
+            "lastRefillDate": as_utc(last_refill).astimezone(timezone.utc).date().isoformat() if last_refill else datetime.now(timezone.utc).date().isoformat(),
         },
         "completedLessonIds": user.completed_lesson_ids_json or [],
         "completedNodeIds": user.completed_node_ids_json or [],
@@ -129,7 +158,12 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     user.skipped_foundation = snapshot.get("foundationAssessmentSkipped", user.skipped_foundation)
     user.review_heart_restore_used = snapshot.get("reviewHeartRestoreUsed", user.review_heart_restore_used)
     user.streak_days = snapshot.get("streakDays", user.streak_days)
+    user.last_streak_date = snapshot.get("lastStreakDate", user.last_streak_date)
     user.total_xp = snapshot.get("totalXp", user.total_xp)
+    apply_daily_xp(user, snapshot.get("dailyXp"))
+    refill_date = parse_local_date(hearts.get("lastRefillDate"))
+    if refill_date:
+        user.last_heart_refill_at = refill_date
     user.daily_goal_xp = snapshot.get("dailyGoalXp", user.daily_goal_xp)
     user.gems = snapshot.get("gems", user.gems)
     user.hearts_current = hearts.get("current", user.hearts_current)

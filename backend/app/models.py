@@ -36,7 +36,13 @@ class User(Base, TimestampMixin):
     skipped_foundation: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     premium_status: Mapped[str] = mapped_column(String(40), default="free", nullable=False)
     review_heart_restore_used: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    streak_days: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
+    streak_days: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    # Local calendar dates (YYYY-MM-DD) from the learner's device, so day boundaries follow their clock.
+    last_streak_date: Mapped[Optional[str]] = mapped_column(String(10), nullable=True)
+    daily_xp_date: Mapped[Optional[str]] = mapped_column(String(10), nullable=True)
+    daily_xp: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
+    # XP per local date for the last few weeks, used for the weekly race on the Crew screen.
+    xp_history_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     total_xp: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     daily_goal_xp: Mapped[int] = mapped_column(Integer, default=40, nullable=False)
     gems: Mapped[int] = mapped_column(Integer, default=120, nullable=False)
@@ -59,6 +65,23 @@ class User(Base, TimestampMixin):
     review_queue_items: Mapped[List["ReviewQueueItem"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     entitlements: Mapped[List["SubscriptionEntitlement"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     event_logs: Mapped[List["EventLog"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    following: Mapped[List["Friendship"]] = relationship(foreign_keys="Friendship.user_id", cascade="all, delete-orphan")
+    followers: Mapped[List["Friendship"]] = relationship(foreign_keys="Friendship.friend_id", cascade="all, delete-orphan", overlaps="friend")
+
+
+class Friendship(Base):
+    """One learner following another on the Crew screen. Following is one-way, like Duolingo."""
+
+    __tablename__ = "friendships"
+    __table_args__ = (UniqueConstraint("user_id", "friend_id", name="uq_friendship_pair"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    friend_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    relation: Mapped[str] = mapped_column(String(20), default="friend", server_default="friend", nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    friend: Mapped["User"] = relationship(foreign_keys=[friend_id])
 
 
 class AuthSession(Base):

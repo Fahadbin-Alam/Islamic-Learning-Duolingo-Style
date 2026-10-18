@@ -22,6 +22,8 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test -- --ci
+      - name: Obsidian notes importer tests
+        run: node --test scripts/obsidian-import/lib.test.mjs
       - name: Bundle the Android and iOS apps
         run: npx expo export --platform android --platform ios --output-dir /tmp/sira-export
       - name: Check native config (permissions, privacy manifest)

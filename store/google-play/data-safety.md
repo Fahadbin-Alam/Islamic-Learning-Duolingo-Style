@@ -6,7 +6,7 @@ For Play Console → Policy and programs → App content → Data safety. These 
 
 | Source | What it handles |
 | --- | --- |
-| Sira Path backend (`backend/app/models.py`) | Account (name, email, password hash, parent/learner role, language), progress, XP, gems, hearts, answers with response time and confidence, review queue, reminder settings, family/friend entries (name, optional email), subscription status, sign-in tokens |
+| Sira Path backend (`backend/app/models.py`) | Account (name, email, password hash, parent/learner role, language), progress, XP, gems, hearts, answers with response time and confidence, review queue, reminder settings, the accounts a user follows on the Crew screen, subscription status, sign-in tokens |
 | Google Mobile Ads SDK (AdMob) | Advertising ID / app set ID, IP address (approximate location), device info, ad interactions, diagnostics |
 | RevenueCat SDK | App user id, purchase history |
 | On device only | Learning progress for guests, local reminders (`expo-notifications`, scheduled on the device), sound settings |
@@ -32,7 +32,7 @@ No precise location, contacts, photos, files, microphone, camera, health, messag
 | Personal info → Name | Yes | No | Optional (only with an account) | App functionality, Account management |
 | Personal info → Email address | Yes | No | Optional (only with an account) | App functionality, Account management |
 | Personal info → User IDs | Yes | No | Optional (only with an account) | App functionality, Account management |
-| Personal info → Other info | Yes | No | Optional | App functionality. Covers parent or learner mode and names/emails of family and friends the user adds |
+| Personal info → Other info | Yes | No | Optional | App functionality. Covers parent or learner mode and which other accounts the user follows. A followed learner's display name, XP and streak are shown to the people who follow them |
 | Financial info → Purchase history | Yes | No | Optional (only if the user buys something) | App functionality, Account management |
 | Location → Approximate location | Yes | Yes | Required for free users | Advertising or marketing, Fraud prevention, security and compliance. From the IP address via AdMob |
 | App activity → App interactions | Yes | Yes | Required | App functionality, Analytics, Personalization, Advertising or marketing (AdMob: ad interactions only), Fraud prevention |

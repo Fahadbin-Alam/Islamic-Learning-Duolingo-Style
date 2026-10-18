@@ -14,6 +14,8 @@
     "backend:seed": "python -m backend.scripts.seed_content",
     "backend:bootstrap": "python -m backend.scripts.bootstrap",
     "typecheck": "tsc --noEmit",
+    "import:notes": "node scripts/obsidian-import/import-obsidian-notes.mjs",
+    "test:notes": "node --test scripts/obsidian-import/lib.test.mjs && python -m pytest backend/tests/test_imported_notes.py -q",
     "test": "jest",
     "test:backend": "python -m pytest backend/tests",
     "sounds:generate": "node scripts/generate-game-sounds.mts"

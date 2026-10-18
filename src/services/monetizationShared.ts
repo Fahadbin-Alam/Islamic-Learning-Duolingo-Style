@@ -1,5 +1,8 @@
 import type { PremiumStatus, PurchaseResult, RewardedAdResult, ShopItem } from "../types";
+import { getStoredItem, setStoredItem } from "./appStorage";
 import { monetizationMode, type MonetizationMode } from "./monetizationConfig";
+
+const SANDBOX_PREMIUM_KEY = "sira-path-sandbox-premium";
 
 export interface RestoreResult {
   ok: boolean;
@@ -34,14 +37,27 @@ export function isSubscriptionItem(item: ShopItem) {
 }
 
 // Simulated store used in development and on web, where there is no App Store or Google Play.
+// A simulated membership is saved like a real store receipt, so it survives a reload.
 export function createSandboxClient(mode: MonetizationMode): MonetizationClient {
-  let premium: PremiumStatus = { active: false };
+  let premium: PremiumStatus | undefined;
+
+  function loadPremium(): PremiumStatus {
+    if (!premium) {
+      try {
+        premium = JSON.parse(getStoredItem(SANDBOX_PREMIUM_KEY) ?? "null") ?? { active: false };
+      } catch {
+        premium = { active: false };
+      }
+    }
+
+    return premium as PremiumStatus;
+  }
 
   return {
     mode,
     async initialize() {},
     async getPremiumStatus() {
-      return mode === "sandbox" ? premium : null;
+      return mode === "sandbox" ? loadPremium() : null;
     },
     async getStorePrices() {
       return {};
@@ -53,13 +69,14 @@ export function createSandboxClient(mode: MonetizationMode): MonetizationClient 
 
       if (isSubscriptionItem(item)) {
         premium = { active: true, productId: item.productId ?? item.id, willRenew: true };
+        setStoredItem(SANDBOX_PREMIUM_KEY, JSON.stringify(premium));
       }
 
       return {
         ok: true,
         itemId: item.id,
         transactionId: `sandbox_${item.productId ?? item.id}_${Date.now()}`,
-        premium: isSubscriptionItem(item) ? premium : undefined
+        premium: isSubscriptionItem(item) ? loadPremium() : undefined
       };
     },
     async restorePurchases() {
@@ -67,7 +84,7 @@ export function createSandboxClient(mode: MonetizationMode): MonetizationClient 
         return { ok: false, message: "Restore purchases from the iPhone or Android app you bought on." };
       }
 
-      return { ok: true, premium };
+      return { ok: true, premium: loadPremium() };
     },
     async showRewardedHeartAd(item) {
       if (mode !== "sandbox") {

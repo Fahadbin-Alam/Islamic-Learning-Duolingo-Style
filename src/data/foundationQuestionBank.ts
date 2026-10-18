@@ -56,9 +56,32 @@ function withDefaultWrongNotes(
   }, {});
 }
 
+const ROTATED_OPTION_TYPES = new Set<FoundationQuestion["type"]>([
+  "multiple_choice",
+  "scenario_judgment",
+  "best_response",
+  "identify_mistake",
+  "mini_case_study"
+]);
+
+// Seeds list the correct option first, so options are rotated by a stable hash of the
+// question id; otherwise "always pick the first answer" would pass the assessment.
+function rotateOptions(id: string, options: string[] | undefined) {
+  if (!options?.length) {
+    return options;
+  }
+  let hash = 0;
+  for (let index = 0; index < id.length; index += 1) {
+    hash = (hash * 31 + id.charCodeAt(index)) | 0;
+  }
+  const start = Math.abs(hash) % options.length;
+  return options.map((_, index) => options[(start + index) % options.length]);
+}
+
 function q(seed: QuestionSeed): FoundationQuestion {
   return {
     ...seed,
+    options: ROTATED_OPTION_TYPES.has(seed.type) ? rotateOptions(seed.id, seed.options) : seed.options,
     acceptedAnswers: seed.acceptedAnswers,
     pairs: seed.pairs,
     orderItems: seed.orderItems,

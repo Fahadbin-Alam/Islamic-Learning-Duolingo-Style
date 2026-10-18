@@ -22,13 +22,19 @@ import {
   canSpendGems,
   completeLesson,
   addXp,
+  localDateKey,
   completeLessonCluster,
   createTestOutSession,
+  didExtendStreak,
+  findNextPlayableNode,
+  getAssessmentXp,
+  isOutOfHeartsAfterAnswer,
   getXpToday,
   grantHearts,
   isPremiumUser,
   learningApi,
   loseHeart,
+  prepareUserForToday,
   refillHeartsForToday
 } from "./api/islamicLearningApi";
 import { SOCIAL_AUTH_CONFIG } from "./config/auth";
@@ -40,6 +46,7 @@ import {
   getTopicCopy,
   getUiStrings,
   LANGUAGE_OPTIONS,
+  LANGUAGE_PICKER_ENABLED,
   normalizeLanguage,
   type UiStrings
 } from "./i18n";
@@ -59,25 +66,22 @@ import {
   loginRemoteAccount,
   logoutRemoteAccount,
   registerRemoteAccount,
-  syncRemoteSocialHub,
-  syncRemoteUser
+  addCrewMember,
+  fetchCrew,
+  rankWeeklyRace,
+  removeCrewMember,
+  syncRemoteUser,
+  type CrewMember,
+  type CrewPayload
 } from "./services/backendSync";
 import { clearSavedUserProfile, loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
 import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
 import { legalLinks, shouldShowLessonBreakAd } from "./services/monetizationConfig";
-import {
-  clearSocialHubState,
-  createSocialConnection,
-  getSocialScore,
-  loadSocialHubState,
-  runBattle,
-  saveSocialHubState
-} from "./services/socialHub";
+import { clearSocialHubState } from "./services/socialHub";
 import {
   requestIslamicNotificationPermission,
-  scheduleIslamicReminderChecks,
-  sendAccountabilityNotification
+  scheduleIslamicReminderChecks
 } from "./services/islamicNotifications";
 import {
   FoundationAssessmentScreen,
@@ -96,7 +100,6 @@ import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import type {
   AccountRole,
   AssessmentFeedback,
-  BattleResult,
   Challenge,
   CharacterVariant,
   FoundationAssessmentState,
@@ -112,8 +115,6 @@ import type {
   ReminderPreferences,
   ResourceSupportType,
   ResourceValidationStatus,
-  SocialConnection,
-  SocialHubState,
   SocialRelation,
   ShopItem,
   SupportedLanguage,
@@ -163,12 +164,18 @@ type JourneyRewardStop = {
   claimed: boolean;
 };
 
+type CrewState =
+  | { status: "idle" | "loading" | "signed_out" }
+  | { status: "ready"; payload: CrewPayload }
+  | { status: "error"; message: string };
+
 type LessonCelebration = {
   title: string;
   xp: number;
   stars: number;
   unlockedTitle?: string;
   streakDays: number;
+  streakExtended?: boolean;
   gemsReward?: number;
 };
 
@@ -467,11 +474,9 @@ export default function TopicApp() {
   const [settingsIslamicReminder, setSettingsIslamicReminder] = useState(true);
   const [settingsSoundEnabled, setSettingsSoundEnabled] = useState(true);
   const [settingsReducedSound, setSettingsReducedSound] = useState(false);
-  const [socialHub, setSocialHub] = useState<SocialHubState>(() => loadSocialHubState());
-  const [inviteName, setInviteName] = useState("");
+  const [crew, setCrew] = useState<CrewState>({ status: "idle" });
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
-  const [accountabilityPermissionAsked, setAccountabilityPermissionAsked] = useState(false);
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
   const [rewardCelebration, setRewardCelebration] = useState<LessonCelebration | undefined>(undefined);
@@ -520,15 +525,13 @@ export default function TopicApp() {
       const fallbackUser = await learningApi.getUser(1001);
       const savedUser = loadSavedUserProfile();
       const savedAccount = loadLocalAuthAccount();
-      const savedSocialHub = loadSocialHubState();
       const remoteSession = await hydrateRemoteSession();
-      const baseUser = withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday(remoteSession?.user ?? savedUser ?? fallbackUser)));
+      const baseUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remoteSession?.user ?? savedUser ?? fallbackUser)));
       const accountSeed = remoteSession?.account ?? savedAccount;
       const user = accountSeed ? withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, accountSeed))) : baseUser;
       const xpSummary = await learningApi.getXpSummaries(user);
 
       if (mounted) {
-        setSocialHub(remoteSession?.socialHub ?? savedSocialHub);
         setHasSavedAccount(Boolean(accountSeed));
         setPendingLanguage(normalizeLanguage(user.preferredLanguage));
 
@@ -546,7 +549,7 @@ export default function TopicApp() {
         setSettingsSoundEnabled(user.soundEffectsEnabled !== false);
         setSettingsReducedSound(Boolean(user.reducedSoundEffects));
 
-        if (!user.preferredLanguage) {
+        if (LANGUAGE_PICKER_ENABLED && !user.preferredLanguage) {
           setLanguageModalVisible(true);
         }
 
@@ -570,10 +573,6 @@ export default function TopicApp() {
     void syncRemoteUser(state.user).catch(() => undefined);
   }, [state.user]);
 
-  useEffect(() => {
-    saveSocialHubState(socialHub);
-    void syncRemoteSocialHub(socialHub).catch(() => undefined);
-  }, [socialHub]);
 
   const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? pendingLanguage);
   const strings = useMemo(() => getUiStrings(currentLanguage), [currentLanguage]);
@@ -661,10 +660,15 @@ export default function TopicApp() {
         title: getNodeTitle(node.id, node.title, currentLanguage)
       }));
   }, [currentLanguage, pathNodes, selectedBranch.id, selectedSection.topicId]);
-  const selectedNextNode = useMemo(
-    () => selectedNodes.find((node) => node.status === "current") ?? selectedNodes.find((node) => node.status === "available") ?? selectedNodes[0],
-    [selectedNodes]
-  );
+  // Once the selected branch is finished (or waits on another branch), continue with the next open
+  // circle elsewhere in the topic instead of replaying a finished lesson.
+  const selectedNextNode = useMemo(() => {
+    const topicNodes = pathNodes
+      .filter((node) => node.topicId === selectedSection.topicId)
+      .map((node) => ({ ...node, title: getNodeTitle(node.id, node.title, currentLanguage) }));
+
+    return findNextPlayableNode(selectedNodes) ?? findNextPlayableNode(topicNodes) ?? selectedNodes[0];
+  }, [currentLanguage, pathNodes, selectedNodes, selectedSection.topicId]);
   const currentTestOutCluster = useMemo(() => getCurrentTestOutCluster(selectedNodes), [selectedNodes]);
 
   const currentLessonSection = useMemo(() => {
@@ -717,98 +721,6 @@ export default function TopicApp() {
   const userStars = useMemo(() => {
     return state.user ? COURSE.sections.reduce((total, item) => total + getSectionStars(state.user!, item), 0) : 0;
   }, [state.user]);
-  const userBattleRecord = useMemo(() => {
-    return socialHub.battleHistory.reduce(
-      (record, battle) => {
-        if (battle.winner === "user") {
-          record.wins += 1;
-        } else {
-          record.losses += 1;
-        }
-
-        return record;
-      },
-      { wins: 0, losses: 0 }
-    );
-  }, [socialHub.battleHistory]);
-  const leaderboard = useMemo(() => {
-    if (!state.user) {
-      return [];
-    }
-
-    const me = {
-      id: "me",
-      name: state.user.displayName,
-      relation: "you" as const,
-      avatarInitials: state.user.avatarInitials,
-      totalXp: state.user.totalXp,
-      streakDays: state.user.streakDays,
-      stars: userStars,
-      wins: userBattleRecord.wins,
-      losses: userBattleRecord.losses,
-      score: getSocialScore({
-        totalXp: state.user.totalXp,
-        streakDays: state.user.streakDays,
-        stars: userStars,
-        wins: userBattleRecord.wins
-      })
-    };
-
-    const peers = socialHub.connections.map((connection) => ({
-      id: connection.id,
-      name: connection.name,
-      relation: connection.relation,
-      avatarInitials: connection.avatarInitials,
-      totalXp: connection.totalXp,
-      streakDays: connection.streakDays,
-      stars: connection.stars,
-      wins: connection.wins,
-      losses: connection.losses,
-      score: getSocialScore(connection)
-    }));
-
-    return [me, ...peers].sort((left, right) => right.score - left.score);
-  }, [socialHub.connections, state.user, userBattleRecord.losses, userBattleRecord.wins, userStars]);
-  const accountabilityAlerts = useMemo(() => {
-    return socialHub.connections.flatMap((connection) => {
-      if (!connection.connectedWithAccount) {
-        return [];
-      }
-
-      const alerts: Array<{
-        id: string;
-        connectionId: string;
-        name: string;
-        relation: SocialRelation;
-        kind: "daily" | "weekly";
-        copy: string;
-      }> = [];
-
-      if (isDailyReminderDue(connection) && connection.reminderPreferences?.dailyInactivity !== false) {
-        alerts.push({
-          id: `${connection.id}_daily`,
-          connectionId: connection.id,
-          name: connection.name,
-          relation: connection.relation,
-          kind: "daily",
-          copy: `${connection.name} has not logged in today. Send a quick accountability nudge.`
-        });
-      }
-
-      if (isWeeklyReminderDue(connection) && connection.reminderPreferences?.weeklyInactivity !== false) {
-        alerts.push({
-          id: `${connection.id}_weekly`,
-          connectionId: connection.id,
-          name: connection.name,
-          relation: connection.relation,
-          kind: "weekly",
-          copy: `${connection.name} has been away for a week. Time for a stronger check-in.`
-        });
-      }
-
-      return alerts;
-    });
-  }, [socialHub.connections]);
 
   useEffect(() => {
     if (!state.user || state.user.hasAccount || accountPromptShown || !isInFoundationExperience) {
@@ -867,9 +779,7 @@ export default function TopicApp() {
       confidence: activeAssessment.confidence,
       responseTimeMs: Date.now() - activeAssessment.questionStartedAt
     });
-    const gainedXp = result.feedback.correct
-      ? activeAssessment.currentQuestion.xpReward
-      : Math.max(2, Math.floor(activeAssessment.currentQuestion.xpReward / 2));
+    const gainedXp = getAssessmentXp(activeAssessment.mode, result.feedback.correct);
 
     dispatch({
       type: "apply_user",
@@ -1015,6 +925,7 @@ export default function TopicApp() {
   function openSocialScreen() {
     playUiSound("soft_ui");
     dispatch({ type: "open_social" });
+    void loadCrew();
   }
 
   async function startLesson(node: LearningNodeView) {
@@ -1022,7 +933,9 @@ export default function TopicApp() {
       return;
     }
 
-    if (selectedBranch.premiumOnly && !state.user.activeSubscriptionId) {
+    const nodeBranch = COURSE.sections.flatMap((section) => section.branches).find((branch) => branch.id === node.branchId) ?? selectedBranch;
+
+    if (nodeBranch.premiumOnly && !state.user.activeSubscriptionId) {
       Alert.alert("Premium branch", "Upgrade to premium to unlock this advanced branch and its deeper mastery lessons.");
       dispatch({ type: "open_shop" });
       return;
@@ -1258,17 +1171,17 @@ export default function TopicApp() {
 
     const lastChallenge = state.challengeIndex >= state.activeSession.lesson.challenges.length - 1;
 
-    if (!lastChallenge) {
-      if (!state.user.hearts.unlimited && state.user.hearts.current === 0 && state.answerState === "wrong") {
-        if (shouldOfferReviewHeartRestore(state.user)) {
-          setReviewRestoreVisible(true);
-          return;
-        }
-
-        dispatch({ type: "open_shop" });
+    if (isOutOfHeartsAfterAnswer(state.user, state.answerState)) {
+      if (shouldOfferReviewHeartRestore(state.user)) {
+        setReviewRestoreVisible(true);
         return;
       }
 
+      dispatch({ type: "open_shop" });
+      return;
+    }
+
+    if (!lastChallenge) {
       challengeStartedAtRef.current = Date.now();
       dispatch({ type: "next_challenge" });
       return;
@@ -1314,8 +1227,10 @@ export default function TopicApp() {
       playUiSound("unlock");
       setLessonCompleteSummary({
         title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
-        xp: clusterLessons.reduce((total, lesson) => total + lesson.xpReward, 0),
+        xp: nextUser.totalXp - state.user.totalXp,
+        streakExtended: didExtendStreak(state.user, nextUser),
         stars: (state.activeSession.targetNodeIds ?? [])
+          .filter((nodeId) => !state.user!.completedNodeIds.includes(nodeId))
           .map((nodeId) => getNodeStarsReward(nodeId))
           .reduce((total, value) => total + value, 0),
         unlockedTitle: unlockedNode?.title,
@@ -1349,8 +1264,10 @@ export default function TopicApp() {
 
     setLessonCompleteSummary({
       title: state.activeSession.lesson.title,
-      xp: state.activeSession.lesson.xpReward,
-      stars: getNodeStarsReward(state.activeSession.lesson.nodeId),
+      // A replayed lesson earns nothing, so show what was actually added.
+      xp: nextUser.totalXp - state.user.totalXp,
+      streakExtended: didExtendStreak(state.user, nextUser),
+      stars: state.user.completedNodeIds.includes(state.activeSession.lesson.nodeId) ? 0 : getNodeStarsReward(state.activeSession.lesson.nodeId),
       unlockedTitle: unlockedNode?.title,
       streakDays: nextUser.streakDays
     });
@@ -1548,7 +1465,6 @@ export default function TopicApp() {
       preferredLanguage: state.user.preferredLanguage
     };
     let nextUser: UserProfile = withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, pendingAccount)));
-    let nextSocialHub = socialHub;
 
     try {
       const remote = await registerRemoteAccount({
@@ -1557,11 +1473,10 @@ export default function TopicApp() {
         password: pendingAccount.password,
         reminderPreferences: pendingAccount.reminderPreferences,
         user: nextUser,
-        socialHub
+        socialHub: { connections: [], battleHistory: [] }
       });
 
-      nextUser = withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday(remote.user)));
-      nextSocialHub = remote.socialHub;
+      nextUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user)));
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
         Alert.alert("Could not create account", error.message);
@@ -1575,7 +1490,6 @@ export default function TopicApp() {
       type: "apply_user",
       user: withExperienceDefaults(ensureLearnerProfile(nextUser))
     });
-    setSocialHub(nextSocialHub);
     setHasSavedAccount(true);
     setAuthMode("login");
     setAccountPromptShown(true);
@@ -1612,9 +1526,8 @@ export default function TopicApp() {
 
       dispatch({
         type: "apply_user",
-        user: withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday(remote.user)))
+        user: withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user)))
       });
-      setSocialHub(remote.socialHub);
       setAccountName(remote.account.name);
       setAccountEmail(remote.account.email);
       setHasSavedAccount(true);
@@ -1747,7 +1660,7 @@ export default function TopicApp() {
     clearLocalAuthAccount();
     clearSocialHubState();
     clearSavedUserProfile();
-    setSocialHub({ connections: [], battleHistory: [] });
+    setCrew({ status: "idle" });
     setHasSavedAccount(false);
     setAccountPromptShown(false);
     setAccountName("");
@@ -1785,83 +1698,64 @@ export default function TopicApp() {
     );
   }
 
-  function addConnection() {
-    if (!inviteName.trim()) {
-      Alert.alert("Add someone", "Enter a name for the parent or friend you want to track.");
+  async function loadCrew() {
+    if (!state.user?.hasAccount || !getSessionToken()) {
+      setCrew({ status: "signed_out" });
       return;
     }
 
-    if (inviteEmail.trim() && !isValidEmail(inviteEmail)) {
-      Alert.alert("Check the email", "Use a valid email address if you want to save one.");
-      return;
+    setCrew((current) => ({ ...current, status: "loading" }));
+
+    try {
+      const payload = await fetchCrew(localDateKey());
+      setCrew({ status: "ready", payload });
+    } catch (error) {
+      setCrew({
+        status: "error",
+        message: error instanceof Error && !isBackendOfflineError(error)
+          ? error.message
+          : "Your crew needs an internet connection. Check your connection and try again."
+      });
     }
-
-    const normalizedEmail = inviteEmail.trim().toLowerCase();
-    const duplicate = socialHub.connections.some((connection) => {
-      if (normalizedEmail && connection.email) {
-        return connection.email.toLowerCase() === normalizedEmail;
-      }
-
-      return connection.name.trim().toLowerCase() === inviteName.trim().toLowerCase();
-    });
-
-    if (duplicate) {
-      Alert.alert("Already added", "That parent or friend is already in your crew.");
-      return;
-    }
-
-    playUiSound("soft_ui");
-    const nextConnection = createSocialConnection({
-      name: inviteName,
-      relation: inviteRelation,
-      email: inviteEmail,
-      connectedWithAccount: Boolean(inviteEmail.trim()),
-      existingCount: socialHub.connections.length
-    });
-
-    setSocialHub((current) => ({
-      ...current,
-      connections: [nextConnection, ...current.connections]
-    }));
-    setInviteName("");
-    setInviteEmail("");
-    setInviteRelation("friend");
   }
 
-  async function sendAccountabilityReminder(connection: SocialConnection, kind: "daily" | "weekly") {
-    playUiSound("soft_ui");
-    const title = kind === "weekly"
-      ? `${connection.name} has been away for a week`
-      : `${connection.name} has not logged in today`;
-    const body = kind === "weekly"
-      ? `Check in with your ${startCaseRelation(connection.relation).toLowerCase()} and help them return to today's lessons.`
-      : `A quick accountability reminder can help your ${startCaseRelation(connection.relation).toLowerCase()} stay on track today.`;
-
-    await notifyAccountability(title, body);
-    Alert.alert("Reminder sent", `${connection.name} now has a ${kind === "weekly" ? "weekly" : "daily"} accountability reminder queued.`);
-  }
-
-  function battleConnection(connection: SocialConnection) {
-    if (!state.user) {
+  async function addCrewFriend() {
+    if (!isValidEmail(inviteEmail)) {
+      Alert.alert("Check the email", "Enter the email address they use for their Sira Path account.");
       return;
     }
     playUiSound("soft_ui");
 
-    const battle = runBattle({
-      user: state.user,
-      userStars,
-      opponent: connection
-    });
+    try {
+      const member = await addCrewMember({ email: normalizeEmail(inviteEmail), relation: inviteRelation, today: localDateKey() });
+      setCrew((current) => current.status === "ready"
+        ? { ...current, payload: { ...current.payload, friends: [...current.payload.friends, member] } }
+        : current);
+      setInviteEmail("");
+      setInviteRelation("friend");
+    } catch (error) {
+      Alert.alert(
+        "Could not add them",
+        error instanceof Error && !isBackendOfflineError(error) ? error.message : "Check your connection and try again."
+      );
+    }
+  }
 
-    setSocialHub((current) => ({
-      connections: current.connections.map((item) => item.id === connection.id ? battle.updatedConnection : item),
-      battleHistory: [battle.result, ...current.battleHistory].slice(0, 10)
-    }));
+  async function removeCrewFriend(member: CrewMember) {
+    const confirmed = await confirmDestructive("Remove from crew?", `${member.name} will leave your leaderboard.`, "Remove");
 
-    Alert.alert(
-      battle.result.winner === "user" ? "Battle won" : "Battle finished",
-      `${state.user.displayName} ${battle.result.myScore} - ${battle.result.theirScore} ${connection.name}`
-    );
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await removeCrewMember(member.id);
+      setCrew((current) => current.status === "ready"
+        ? { ...current, payload: { ...current.payload, friends: current.payload.friends.filter((item) => item.id !== member.id) } }
+        : current);
+    } catch (error) {
+      Alert.alert("Could not remove them", error instanceof Error && !isBackendOfflineError(error) ? error.message : "Check your connection and try again.");
+    }
   }
 
   function claimReviewHeartRestore() {
@@ -1890,15 +1784,6 @@ export default function TopicApp() {
     dispatch({ type: "open_shop" });
   }
 
-  async function notifyAccountability(title: string, body: string) {
-    const allowPermissionPrompt = !accountabilityPermissionAsked;
-
-    if (allowPermissionPrompt) {
-      setAccountabilityPermissionAsked(true);
-    }
-
-    await sendAccountabilityNotification(title, body, allowPermissionPrompt);
-  }
 
   if (state.loading || !state.user) {
     return (
@@ -2196,20 +2081,15 @@ export default function TopicApp() {
         {state.screen === "social" && (
           <SocialScreen
             user={state.user}
-            userStars={userStars}
-            leaderboard={leaderboard}
-            connections={socialHub.connections}
-            battleHistory={socialHub.battleHistory}
-            alerts={accountabilityAlerts}
-            inviteName={inviteName}
+            crew={crew}
             inviteEmail={inviteEmail}
             inviteRelation={inviteRelation}
-            onChangeInviteName={setInviteName}
             onChangeInviteEmail={setInviteEmail}
             onChangeInviteRelation={setInviteRelation}
-            onAddConnection={addConnection}
-            onBattle={battleConnection}
-            onSendReminder={sendAccountabilityReminder}
+            onAddFriend={addCrewFriend}
+            onRemoveFriend={removeCrewFriend}
+            onRefresh={loadCrew}
+            onCreateAccount={openAccountPanel}
             onDone={() => {
               playUiSound("soft_ui");
               dispatch({ type: "close_social" });
@@ -3487,7 +3367,7 @@ function LessonCompleteScreen({
   return (
     <View style={styles.lessonStageScreen}>
       <View style={[styles.lessonCompleteCard, { borderColor: lightenColor(section.accentColor, 0.82), backgroundColor: lightenColor(section.accentColor, 0.95) }]}>
-        <CelebrationBurst accentColor={section.accentColor} xp={summary.xp} stars={summary.stars} />
+        <CelebrationBurst accentColor={section.accentColor} xp={summary.xp} stars={summary.stars} streakExtended={summary.streakExtended} />
         <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={128} />
         <Text style={styles.modalEyebrow}>Lesson complete</Text>
         <Text style={styles.lessonCompleteTitle}>{summary.title}</Text>
@@ -3645,7 +3525,7 @@ function ProfileScreen({
       <View style={styles.profileActionStack}>
         <Pressable onPress={onOpenSettings} style={styles.profileActionCard}>
           <Text style={styles.profileActionTitle}>{strings.settings}</Text>
-          <Text style={styles.profileActionCopy}>{translateStudyText("Manage reminders, sound, language, and account mode.", user.preferredLanguage ?? DEFAULT_LANGUAGE)}</Text>
+          <Text style={styles.profileActionCopy}>{translateStudyText("Manage reminders, sound, and account mode.", user.preferredLanguage ?? DEFAULT_LANGUAGE)}</Text>
         </Pressable>
         <Pressable onPress={onOpenCrew} style={styles.profileActionCard}>
           <Text style={styles.profileActionTitle}>{strings.crew}</Text>
@@ -3710,10 +3590,12 @@ function TopBar({
         <Text style={styles.socialButtonSmallValue}>Ready</Text>
       </Pressable>
 
-      <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
-        <Text style={styles.metricLabel}>{strings.language}</Text>
-        <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
-      </Pressable>
+      {LANGUAGE_PICKER_ENABLED ? (
+        <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
+          <Text style={styles.metricLabel}>{strings.language}</Text>
+          <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
+        </Pressable>
+      ) : null}
       <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
         <Text style={styles.metricLabel}>{strings.crew}</Text>
         <Text style={styles.socialButtonSmallValue}>Rankings</Text>
@@ -4750,11 +4632,13 @@ function RewardChestStop({
 function CelebrationBurst({
   accentColor,
   xp,
-  stars
+  stars,
+  streakExtended
 }: {
   accentColor: string;
   xp: number;
   stars: number;
+  streakExtended?: boolean;
 }) {
   const lift = useRef(new Animated.Value(0)).current;
 
@@ -4771,7 +4655,7 @@ function CelebrationBurst({
   const chips = [
     xp > 0 ? { id: "xp", label: `+${xp} XP`, color: accentColor, left: 16 } : undefined,
     stars > 0 ? { id: "stars", label: `+${stars} stars`, color: "#F0B90B", left: 126 } : undefined,
-    { id: "streak", label: "Streak up", color: "#8A63FF", left: 236 }
+    streakExtended ? { id: "streak", label: "Streak up", color: "#8A63FF", left: 236 } : undefined
   ].filter(Boolean) as { id: string; label: string; color: string; left: number }[];
 
   return (
@@ -4856,7 +4740,7 @@ function CelebrationModal({
     <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
         <Animated.View style={[styles.celebrationCard, { opacity, transform: [{ scale }] }]}>
-          <CelebrationBurst accentColor={colors.green} xp={celebration.xp} stars={celebration.stars} />
+          <CelebrationBurst accentColor={colors.green} xp={celebration.xp} stars={celebration.stars} streakExtended={celebration.streakExtended} />
           <View style={styles.celebrationSparkle}>
             <SparkleIcon size={24} color="#FFE38C" />
           </View>
@@ -5360,235 +5244,149 @@ function ShopScreen({
 
 function SocialScreen({
   user,
-  userStars,
-  leaderboard,
-  connections,
-  battleHistory,
-  alerts,
-  inviteName,
+  crew,
   inviteEmail,
   inviteRelation,
-  onChangeInviteName,
   onChangeInviteEmail,
   onChangeInviteRelation,
-  onAddConnection,
-  onBattle,
-  onSendReminder,
+  onAddFriend,
+  onRemoveFriend,
+  onRefresh,
+  onCreateAccount,
   onDone
 }: {
   user: UserProfile;
-  userStars: number;
-  leaderboard: Array<{
-    id: string;
-    name: string;
-    relation: "you" | SocialRelation;
-    avatarInitials: string;
-    totalXp: number;
-    streakDays: number;
-    stars: number;
-    wins: number;
-    losses: number;
-    score: number;
-  }>;
-  connections: SocialConnection[];
-  battleHistory: BattleResult[];
-  alerts: Array<{
-    id: string;
-    connectionId: string;
-    name: string;
-    relation: SocialRelation;
-    kind: "daily" | "weekly";
-    copy: string;
-  }>;
-  inviteName: string;
+  crew: CrewState;
   inviteEmail: string;
   inviteRelation: SocialRelation;
-  onChangeInviteName: (value: string) => void;
   onChangeInviteEmail: (value: string) => void;
   onChangeInviteRelation: (value: SocialRelation) => void;
-  onAddConnection: () => void;
-  onBattle: (connection: SocialConnection) => void;
-  onSendReminder: (connection: SocialConnection, kind: "daily" | "weekly") => void;
+  onAddFriend: () => void;
+  onRemoveFriend: (member: CrewMember) => void;
+  onRefresh: () => void;
+  onCreateAccount: () => void;
   onDone: () => void;
 }) {
-  const userScore = leaderboard.find((entry) => entry.id === "me")?.score ?? getSocialScore({ totalXp: user.totalXp, streakDays: user.streakDays, stars: userStars, wins: 0 });
+  const payload = crew.status === "ready" ? crew.payload : undefined;
+  const race = payload ? rankWeeklyRace(payload.me, payload.friends) : [];
+  const myRank = race.findIndex((entry) => entry.relation === "you") + 1;
+  const quietFriends = payload ? payload.friends.filter((friend) => daysSince(friend.lastLearningAt) >= 1) : [];
 
   return (
     <ScrollView contentContainerStyle={styles.socialContent} showsVerticalScrollIndicator={false}>
       <View style={styles.socialHero}>
         <View style={styles.socialHeroText}>
           <Text style={styles.eyebrow}>Crew</Text>
-          <Text style={styles.title}>Parents, friends, and battles</Text>
-          <Text style={styles.subtitle}>Add people to follow each other, race on the leaderboard, and battle live score against score.</Text>
-          {user.accountRole && (
-            <View style={styles.socialRolePill}>
-              <Text style={styles.socialRolePillText}>{`You are a ${startCaseAccountRole(user.accountRole)}`}</Text>
-            </View>
-          )}
+          <Text style={styles.title}>Weekly XP race</Text>
+          <Text style={styles.subtitle}>Follow friends and family by their Sira Path account and see who learns the most this week.</Text>
         </View>
         <View style={styles.socialHeroScore}>
-          <Text style={styles.socialHeroScoreLabel}>Your score</Text>
-          <Text style={styles.socialHeroScoreValue}>{userScore}</Text>
+          <Text style={styles.socialHeroScoreLabel}>This week</Text>
+          <Text style={styles.socialHeroScoreValue}>{payload ? payload.me.weeklyXp : "-"}</Text>
+          <Text style={styles.socialHeroScoreLabel}>XP</Text>
         </View>
       </View>
 
-      <View style={styles.socialCard}>
-        <Text style={styles.socialCardTitle}>Add a parent or friend</Text>
-        <Text style={styles.socialCardCopy}>Invite someone into your circle so you can track progress, challenge each other, and keep accountability.</Text>
-        <View style={styles.relationRow}>
-          <Pressable
-            onPress={() => onChangeInviteRelation("friend")}
-            style={[styles.relationButton, inviteRelation === "friend" && styles.relationButtonActive]}
-          >
-            <Text style={[styles.relationButtonText, inviteRelation === "friend" && styles.relationButtonTextActive]}>Friend</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => onChangeInviteRelation("parent")}
-            style={[styles.relationButton, inviteRelation === "parent" && styles.relationButtonActive]}
-          >
-            <Text style={[styles.relationButtonText, inviteRelation === "parent" && styles.relationButtonTextActive]}>Parent</Text>
+      {crew.status === "signed_out" || !user.hasAccount ? (
+        <View style={styles.socialCard}>
+          <Text style={styles.socialCardTitle}>Create an account to race</Text>
+          <Text style={styles.socialCardCopy}>Your crew is linked to your account, so friends can find you by email and see your weekly XP.</Text>
+          <Pressable onPress={onCreateAccount} style={[styles.primaryButton, styles.socialAddButton]}>
+            <Text style={styles.primaryButtonText}>Create account or log in</Text>
           </Pressable>
         </View>
-        <TextInput
-          value={inviteName}
-          onChangeText={onChangeInviteName}
-          placeholder={inviteRelation === "parent" ? "Parent name" : "Friend name"}
-          placeholderTextColor={colors.muted}
-          style={styles.input}
-        />
-        <TextInput
-          value={inviteEmail}
-          onChangeText={onChangeInviteEmail}
-          placeholder="Email address (optional)"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          placeholderTextColor={colors.muted}
-          style={styles.input}
-        />
-        <Pressable onPress={onAddConnection} style={[styles.primaryButton, styles.socialAddButton]}>
-          <Text style={styles.primaryButtonText}>Add to crew</Text>
-        </Pressable>
-      </View>
-
-      <View style={styles.socialCard}>
-        <Text style={styles.socialCardTitle}>Accountability reminders</Text>
-        <Text style={styles.socialCardCopy}>If someone misses today or goes quiet for a week, you can send a quick reminder.</Text>
-        {alerts.length === 0 ? (
-          <View style={styles.emptySocialState}>
-            <Text style={styles.emptySocialTitle}>Everyone is on track</Text>
-            <Text style={styles.emptySocialCopy}>No reminder is due right now. Once someone slips on daily or weekly activity, they will show up here.</Text>
-          </View>
-        ) : (
-          <View style={styles.alertStack}>
-            {alerts.map((alert) => {
-              const connection = connections.find((item) => item.id === alert.connectionId);
-
-              if (!connection) {
-                return null;
-              }
-
-              return (
-                <View key={alert.id} style={styles.alertCard}>
-                  <View style={styles.alertTextWrap}>
-                    <Text style={styles.alertTitle}>{`${alert.name} - ${alert.kind === "weekly" ? "Weekly reminder" : "Daily reminder"}`}</Text>
-                    <Text style={styles.alertCopy}>{alert.copy}</Text>
-                  </View>
-                  <Pressable onPress={() => onSendReminder(connection, alert.kind)} style={styles.remindButton}>
-                    <Text style={styles.remindButtonText}>Notify</Text>
-                  </Pressable>
-                </View>
-              );
-            })}
-          </View>
-        )}
-      </View>
-
-      <View style={styles.socialCard}>
-        <Text style={styles.socialCardTitle}>Leaderboard</Text>
-        <Text style={styles.socialCardCopy}>Everyone can see the score and where they stand.</Text>
-        <View style={styles.leaderboardStack}>
-          {leaderboard.map((entry, index) => (
-            <View key={entry.id} style={styles.leaderboardRow}>
-              <View style={styles.leaderboardRank}>
-                <Text style={styles.leaderboardRankText}>{index + 1}</Text>
-              </View>
-              <View style={[styles.leaderboardAvatar, entry.relation === "you" && styles.leaderboardAvatarUser]}>
-                <Text style={[styles.leaderboardAvatarText, entry.relation === "you" && styles.leaderboardAvatarTextUser]}>{entry.avatarInitials}</Text>
-              </View>
-              <View style={styles.leaderboardMain}>
-                <Text style={styles.leaderboardName}>{entry.name}</Text>
-                <Text style={styles.leaderboardMeta}>
-                  {entry.relation === "you" ? "You" : startCaseRelation(entry.relation)} - {entry.totalXp} XP - {entry.streakDays} day streak - {entry.stars} stars
-                </Text>
-              </View>
-              <View style={styles.leaderboardScore}>
-                <Text style={styles.leaderboardScoreValue}>{entry.score}</Text>
-                <Text style={styles.leaderboardScoreLabel}>score</Text>
-              </View>
+      ) : (
+        <>
+          <View style={styles.socialCard}>
+            <Text style={styles.socialCardTitle}>Add a friend or parent</Text>
+            <Text style={styles.socialCardCopy}>Enter the email they use for Sira Path. They will appear on your leaderboard with their real progress.</Text>
+            <View style={styles.relationRow}>
+              {(["friend", "parent"] as const).map((relation) => (
+                <Pressable
+                  key={relation}
+                  onPress={() => onChangeInviteRelation(relation)}
+                  style={[styles.relationButton, inviteRelation === relation && styles.relationButtonActive]}
+                >
+                  <Text style={[styles.relationButtonText, inviteRelation === relation && styles.relationButtonTextActive]}>{startCaseRelation(relation)}</Text>
+                </Pressable>
+              ))}
             </View>
-          ))}
-        </View>
-      </View>
+            <TextInput
+              value={inviteEmail}
+              onChangeText={onChangeInviteEmail}
+              placeholder="Their account email"
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              placeholderTextColor={colors.muted}
+              style={styles.input}
+            />
+            <Pressable onPress={onAddFriend} style={[styles.primaryButton, styles.socialAddButton]}>
+              <Text style={styles.primaryButtonText}>Add to crew</Text>
+            </Pressable>
+          </View>
 
-      <View style={styles.socialCard}>
-        <Text style={styles.socialCardTitle}>Battle someone</Text>
-        <Text style={styles.socialCardCopy}>Tap battle and the live match score is posted right here.</Text>
-        {connections.length === 0 ? (
-          <View style={styles.emptySocialState}>
-            <Text style={styles.emptySocialTitle}>Your crew is empty</Text>
-            <Text style={styles.emptySocialCopy}>Add a parent or friend above and the battle board will light up.</Text>
-          </View>
-        ) : (
-          <View style={styles.socialRoster}>
-            {connections.map((connection) => (
-              <View key={connection.id} style={styles.connectionCard}>
-                <View style={styles.connectionHeader}>
-                  <View style={styles.connectionAvatar}>
-                    <Text style={styles.connectionAvatarText}>{connection.avatarInitials}</Text>
-                  </View>
-                  <View style={styles.connectionText}>
-                    <Text style={styles.connectionName}>{connection.name}</Text>
-                    <Text style={styles.connectionMeta}>{startCaseRelation(connection.relation)} - {connection.totalXp} XP - {connection.stars} stars</Text>
-                  </View>
-                  <Pressable onPress={() => onBattle(connection)} style={styles.battleButton}>
-                    <Text style={styles.battleButtonText}>Battle</Text>
-                  </Pressable>
-                </View>
-                <Text style={styles.connectionRecord}>
-                  {`Record ${connection.wins}-${connection.losses} - Last active ${formatRelativeTime(connection.lastActiveAt)}${connection.connectedWithAccount ? " - Connected account" : ""}`}
-                </Text>
+          <View style={styles.socialCard}>
+            <Text style={styles.socialCardTitle}>{myRank ? `You are #${myRank} this week` : "This week"}</Text>
+            <Text style={styles.socialCardCopy}>Ranked by XP earned in the last seven days.</Text>
+            {crew.status === "loading" || crew.status === "idle" ? (
+              <Text style={styles.emptySocialCopy}>Loading your crew...</Text>
+            ) : crew.status === "error" ? (
+              <View style={styles.emptySocialState}>
+                <Text style={styles.emptySocialTitle}>Could not load your crew</Text>
+                <Text style={styles.emptySocialCopy}>{crew.message}</Text>
+                <Pressable onPress={onRefresh} style={[styles.primaryButton, styles.socialAddButton]}>
+                  <Text style={styles.primaryButtonText}>Try again</Text>
+                </Pressable>
               </View>
-            ))}
+            ) : (
+              <View style={styles.leaderboardStack}>
+                {race.map((entry, index) => (
+                  <View key={`${entry.relation}_${entry.id}`} style={styles.leaderboardRow}>
+                    <View style={styles.leaderboardRank}>
+                      <Text style={styles.leaderboardRankText}>{index + 1}</Text>
+                    </View>
+                    <View style={[styles.leaderboardAvatar, entry.relation === "you" && styles.leaderboardAvatarUser]}>
+                      <Text style={[styles.leaderboardAvatarText, entry.relation === "you" && styles.leaderboardAvatarTextUser]}>{entry.avatarInitials}</Text>
+                    </View>
+                    <View style={styles.leaderboardMain}>
+                      <Text style={styles.leaderboardName}>{entry.relation === "you" ? `${entry.name} (you)` : entry.name}</Text>
+                      <Text style={styles.leaderboardMeta}>
+                        {`${entry.streakDays} day streak - ${entry.totalXp} XP total${entry.relation === "you" ? "" : ` - ${describeLastLearning(entry.lastLearningAt)}`}`}
+                      </Text>
+                    </View>
+                    <View style={styles.leaderboardScore}>
+                      <Text style={styles.leaderboardScoreValue}>{entry.weeklyXp}</Text>
+                      <Text style={styles.leaderboardScoreLabel}>XP</Text>
+                      {entry.relation !== "you" ? (
+                        <Pressable onPress={() => onRemoveFriend(entry)} hitSlop={8}>
+                          <Text style={styles.leaderboardRemoveText}>Remove</Text>
+                        </Pressable>
+                      ) : null}
+                    </View>
+                  </View>
+                ))}
+                {payload && payload.friends.length === 0 ? (
+                  <View style={styles.emptySocialState}>
+                    <Text style={styles.emptySocialTitle}>Your crew is empty</Text>
+                    <Text style={styles.emptySocialCopy}>Add a friend or parent above to start racing.</Text>
+                  </View>
+                ) : null}
+              </View>
+            )}
           </View>
-        )}
-      </View>
 
-      <View style={styles.socialCard}>
-        <Text style={styles.socialCardTitle}>Recent battle scores</Text>
-        <Text style={styles.socialCardCopy}>Every match score stays visible so everyone knows who edged ahead.</Text>
-        {battleHistory.length === 0 ? (
-          <View style={styles.emptySocialState}>
-            <Text style={styles.emptySocialTitle}>No battles yet</Text>
-            <Text style={styles.emptySocialCopy}>Once you battle a friend or parent, the score lands here.</Text>
-          </View>
-        ) : (
-          <View style={styles.battleHistoryStack}>
-            {battleHistory.map((battle) => (
-              <View key={battle.id} style={styles.battleHistoryRow}>
-                <View style={styles.battleHistoryText}>
-                  <Text style={styles.battleHistoryTitle}>{`You vs ${battle.opponentName}`}</Text>
-                  <Text style={styles.battleHistoryMeta}>
-                    {battle.winner === "user" ? "You won" : `${battle.opponentName} won`} - {startCaseRelation(battle.opponentRelation)} - {formatRelativeTime(battle.createdAt)}
-                  </Text>
-                </View>
-                <View style={styles.battleScorePill}>
-                  <Text style={styles.battleScoreText}>{`${battle.myScore} - ${battle.theirScore}`}</Text>
-                </View>
-              </View>
-            ))}
-          </View>
-        )}
-      </View>
+          {quietFriends.length ? (
+            <View style={styles.socialCard}>
+              <Text style={styles.socialCardTitle}>Check in</Text>
+              <Text style={styles.socialCardCopy}>These people have not learned today. A kind word can help them keep going.</Text>
+              {quietFriends.map((friend) => (
+                <Text key={friend.id} style={styles.emptySocialCopy}>{`${friend.name} - ${describeLastLearning(friend.lastLearningAt)}`}</Text>
+              ))}
+            </View>
+          ) : null}
+        </>
+      )}
 
       <Pressable onPress={onDone} style={[styles.primaryButton, styles.socialDoneButton]}>
         <Text style={styles.primaryButtonText}>Back to path</Text>
@@ -5745,7 +5543,9 @@ function AccountModal({
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
-        <View style={styles.modalCard}>
+        <View style={[styles.modalCard, styles.modalCardTall]}>
+          {/* Scrolls on short phones and when the keyboard is up, so the buttons stay reachable. */}
+          <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
           <Text style={styles.modalEyebrow}>{strings.keepYourProgress}</Text>
           <Text style={styles.modalTitle}>{mode === "create" ? strings.havingFun : strings.welcomeBack}</Text>
           <Text style={styles.modalCopy}>
@@ -5823,6 +5623,7 @@ function AccountModal({
               <Text style={styles.modalPrimaryText}>{mode === "create" ? strings.createAccount : strings.logIn}</Text>
             </Pressable>
           </View>
+          </ScrollView>
         </View>
       </View>
     </Modal>
@@ -6422,6 +6223,10 @@ function getTopicGlyph(topicId: TopicId): NodeGlyphKind {
     return "book_open";
   }
 
+  if (topicId === "hadith") {
+    return "book_stack";
+  }
+
   return "sparkle_badge";
 }
 
@@ -6751,33 +6556,24 @@ function startCaseFoundationCategory(category: FoundationCategoryId) {
   }
 }
 
-function formatRelativeTime(value: string) {
-  const diffMs = Date.now() - new Date(value).getTime();
-  const diffMinutes = Math.max(0, Math.floor(diffMs / 60000));
-
-  if (diffMinutes < 1) {
-    return "just now";
+function daysSince(value: string | null, now = new Date()) {
+  if (!value) {
+    return Infinity;
   }
 
-  if (diffMinutes < 60) {
-    return `${diffMinutes}m ago`;
-  }
-
-  const diffHours = Math.floor(diffMinutes / 60);
-
-  if (diffHours < 24) {
-    return `${diffHours}h ago`;
-  }
-
-  return `${Math.floor(diffHours / 24)}d ago`;
+  const then = new Date(value);
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  return then.getTime() >= startOfToday ? 0 : Math.ceil((startOfToday - then.getTime()) / (24 * 60 * 60 * 1000));
 }
 
-function isDailyReminderDue(connection: SocialConnection) {
-  return Date.now() - new Date(connection.lastActiveAt).getTime() >= 24 * 60 * 60 * 1000;
-}
+function describeLastLearning(value: string | null) {
+  const days = daysSince(value);
 
-function isWeeklyReminderDue(connection: SocialConnection) {
-  return Date.now() - new Date(connection.lastActiveAt).getTime() >= 7 * 24 * 60 * 60 * 1000;
+  if (days === Infinity) {
+    return "has not started yet";
+  }
+
+  return days === 0 ? "learned today" : days === 1 ? "last learned yesterday" : `last learned ${days} days ago`;
 }
 
 function applyAccountIdentity(
@@ -7195,6 +6991,17 @@ function getTopicPathTheme(topicId: TopicId, accentColor: string): PathTheme {
       reward: "#FFD447",
       review: "#4E7FFF",
       candy: "#7A8BFF"
+    },
+    hadith: {
+      primary: "#3E8E7E",
+      secondary: "#5FB3A1",
+      tertiary: "#E2B04A",
+      glow: "#BDEBDD",
+      shell: "#F8FFFC",
+      lane: "#4AA391",
+      reward: "#FFCF52",
+      review: "#6A8CFF",
+      candy: "#F29E6D"
     },
     quran_tafseer: {
       primary: "#22B17A",
@@ -7737,6 +7544,7 @@ const styles = StyleSheet.create({
   leaderboardMeta: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", letterSpacing: 0, marginTop: 2 },
   leaderboardScore: { minWidth: 70, alignItems: "flex-end" },
   leaderboardScoreValue: { color: colors.ink, fontSize: 18, fontWeight: "900", letterSpacing: 0 },
+  leaderboardRemoveText: { color: colors.coral, fontSize: 12, fontWeight: "800", letterSpacing: 0, marginTop: 4 },
   leaderboardScoreLabel: { color: colors.muted, fontSize: 11, fontWeight: "800", textTransform: "uppercase", letterSpacing: 0 },
   emptySocialState: { borderRadius: 8, backgroundColor: "#F7FBF8", padding: 14 },
   emptySocialTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
