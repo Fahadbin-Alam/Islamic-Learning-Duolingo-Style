@@ -17,7 +17,7 @@ Ads never appear inside a lesson, and they are requested with the G (general aud
 - **Backend:** `POST /api/subscriptions/revenuecat/webhook` keeps each account's premium state in sync when a plan starts, renews, is cancelled or expires. `/api/subscriptions/sync` is blocked when `SIRA_ENVIRONMENT=production` so the app cannot grant itself premium.
 - **Code:** `src/services/monetization.native.ts` (phones), `src/services/monetization.ts` (web, simulated), `src/services/monetizationConfig.ts` (keys and ad rules), `src/components/AdBanner*.tsx`.
 
-The native libraries do not run in Expo Go. Use a development build: `npx eas build --profile development`.
+The native libraries do not run in Expo Go. Use a development build: `eas build --profile development` (install the CLI with `npm install -g eas-cli`).
 
 ### Modes
 

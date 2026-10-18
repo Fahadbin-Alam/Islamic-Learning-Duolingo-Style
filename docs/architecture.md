@@ -41,7 +41,7 @@ The frontend still uses some local persistence as a resilience layer, but the ar
 
 - SQLite
 - easy bootstrap
-- lives at [backend/data/sira_path.db](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/data/sira_path.db)
+- lives at [backend/data/sira_path.db](../backend/data/sira_path.db)
 
 ### Production
 

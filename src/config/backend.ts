@@ -1,6 +1,8 @@
-// Release builds get their API address from EXPO_PUBLIC_API_BASE_URL (set per profile in eas.json).
+// Release builds get their API address from EXPO_PUBLIC_API_BASE_URL (set with `eas env:create`).
 // Without one, a release build stays fully offline instead of calling localhost on the learner's phone.
-const configuredBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL?.trim().replace(/\/+$/, "") ?? "";
+// Expo only inlines EXPO_PUBLIC_* values read as a plain `process.env.NAME` expression.
+const rawBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL;
+const configuredBaseUrl = (rawBaseUrl ?? "").trim().replace(/\/+$/, "");
 const isDevelopment = typeof __DEV__ !== "undefined" && __DEV__;
 
 export const BACKEND_CONFIG = {

@@ -16,8 +16,6 @@ services:
         fromDatabase:
           name: sira-path-db
           property: connectionString
-      - key: SIRA_CORS_ORIGINS_RAW
-        value: https://sirapath.app
       - key: SIRA_REVENUECAT_WEBHOOK_AUTH
         sync: false
 

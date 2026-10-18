@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 
-import { activeAdUnitIds, loadAdsModule } from "../services/monetization.native";
+import { activeAdUnitIds, adRequestOptions, loadAdsModule } from "../services/monetization.native";
 
 export function AdBanner({ hidden }: { hidden: boolean }) {
   const [failed, setFailed] = useState(false);
@@ -16,7 +16,7 @@ export function AdBanner({ hidden }: { hidden: boolean }) {
 
   return (
     <View style={{ position: "absolute", left: 0, right: 0, bottom: 0, alignItems: "center" }}>
-      <BannerAd unitId={unitId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} onAdFailedToLoad={() => setFailed(true)} />
+      <BannerAd unitId={unitId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} requestOptions={adRequestOptions} onAdFailedToLoad={() => setFailed(true)} />
     </View>
   );
 }

@@ -5795,7 +5795,7 @@ function AccountModal({
               ? strings.savedAccountHint
               : enabledSocialProviders.length > 0
                 ? strings.socialHint
-                : "Create an account to keep your streak, XP and progress safe."}
+                : "Until then, your progress is saved on this device only."}
           </Text>
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
@@ -5881,7 +5881,8 @@ function SettingsModal({
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
-        <View style={styles.modalCard}>
+        <View style={[styles.modalCard, styles.modalCardTall]}>
+          <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
           <Text style={styles.modalEyebrow}>{strings.settings}</Text>
           <Text style={styles.modalTitle}>{strings.accountSettingsTitle}</Text>
           <Text style={styles.modalCopy}>{strings.accountSettingsCopy}</Text>
@@ -5986,6 +5987,7 @@ function SettingsModal({
               <Text style={styles.modalPrimaryText}>{strings.saveSettings}</Text>
             </Pressable>
           </View>
+          </ScrollView>
         </View>
       </View>
     </Modal>
@@ -6701,7 +6703,7 @@ function startCaseRelation(relation: SocialRelation) {
 }
 
 function startCaseAccountRole(role: AccountRole) {
-  return role === "parent" ? "Parent" : "Child";
+  return role === "parent" ? "Parent" : "Learner";
 }
 
 function startCaseFoundationCategory(category: FoundationCategoryId) {
@@ -7742,6 +7744,7 @@ const styles = StyleSheet.create({
   secondaryButtonText: { color: colors.white, fontWeight: "900", letterSpacing: 0 },
   modalBackdrop: { flex: 1, backgroundColor: "rgba(20,37,27,0.45)", alignItems: "center", justifyContent: "center", padding: 24 },
   modalCard: { width: "100%", maxWidth: 420, borderRadius: 8, backgroundColor: colors.white, padding: 18, borderWidth: 1, borderColor: colors.line },
+  modalCardTall: { maxHeight: "92%" },
   celebrationCard: { width: "100%", maxWidth: 420, borderRadius: 24, backgroundColor: colors.white, padding: 22, borderWidth: 1, borderColor: colors.line, shadowColor: "rgba(16,47,32,0.18)", shadowOffset: { width: 0, height: 16 }, shadowOpacity: 0.2, shadowRadius: 28, elevation: 6, overflow: "hidden" },
   celebrationBurstLayer: { position: "absolute", left: 0, right: 0, top: 6, height: 88 },
   celebrationBurstChip: { position: "absolute", top: 22, minWidth: 82, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 999, borderWidth: 1, alignItems: "center" },

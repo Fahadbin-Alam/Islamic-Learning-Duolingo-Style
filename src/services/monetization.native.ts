@@ -52,6 +52,10 @@ export function loadAdsModule(): AdsModule | null {
   return adsModule;
 }
 
+// The app does not ask for App Tracking Transparency, so iOS only ever requests non-personalised ads.
+// Android personalisation follows Google's consent form (EEA/UK) and the user's device ad settings.
+export const adRequestOptions = { requestNonPersonalizedAdsOnly: Platform.OS === "ios" } as const;
+
 // Google's test units are always used in development builds so real ad accounts are never put at risk.
 export function activeAdUnitIds(): AdUnitIds | null {
   const ads = loadAdsModule();
@@ -175,7 +179,7 @@ function createLiveClient(): MonetizationClient {
       }
 
       const ad = (
-        kind === "rewarded" ? ads.RewardedAd.createForAdRequest(unitId) : ads.InterstitialAd.createForAdRequest(unitId)
+        kind === "rewarded" ? ads.RewardedAd.createForAdRequest(unitId, adRequestOptions) : ads.InterstitialAd.createForAdRequest(unitId, adRequestOptions)
       ) as unknown as FullScreenAd;
       let rewarded = false;
       let settled = false;
