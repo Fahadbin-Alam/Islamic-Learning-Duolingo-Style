@@ -1,0 +1,328 @@
+import React, { useEffect, useRef } from "react";
+import { Animated, Easing, ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { Confetti } from "../Confetti";
+import { CountUp } from "../CountUp";
+import { GameButton } from "../GameButton";
+import { Icon, type IconName } from "../Icon";
+import { Mascot } from "../Mascot";
+import { PopIn } from "../PopIn";
+import { playUi } from "../sound";
+import { colors, darken, fonts, lighten, radii, space } from "../theme";
+import { LessonBottomBar } from "./LessonHeader";
+
+export type LessonCompleteProps = {
+  title: string;
+  xp: number;
+  stars: number;
+  streakDays: number;
+  unlockedTitle?: string;
+  gemsReward?: number;
+  mascotVariant: string;
+  accent: string;
+  /** When set, the main button reads NEXT LESSON. */
+  nextTitle?: string;
+  onContinue: () => void;
+  onBackToPath?: () => void;
+  /** Play lesson_complete on mount and xp when the counters finish. Default true. */
+  playSounds?: boolean;
+  bottomInset?: number;
+  testID?: string;
+};
+
+const COUNT_DURATION = 900;
+const MAX_STARS = 3;
+
+// Numbers a step darker than the card fills so they read on white (all at least 4:1).
+const XP_INK = darken(colors.goldLip, 0.25);
+const GOLD_LABEL = darken(colors.goldLip, 0.45);
+const STREAK_INK = darken(colors.flame, 0.3);
+const HEADLINE = darken(colors.goldLip, 0.2);
+const CARD_DELAY = 350;
+const CARD_STAGGER = 140;
+
+function StatCard({
+  label,
+  icon,
+  value,
+  color,
+  ink,
+  labelColor = colors.white,
+  index,
+  children,
+  accessibilityLabel,
+  testID
+}: {
+  label: string;
+  icon?: IconName;
+  value?: number;
+  color: string;
+  ink?: string;
+  labelColor?: string;
+  index: number;
+  /** Replaces the icon + counter (the stars card draws stars). */
+  children?: React.ReactNode;
+  accessibilityLabel?: string;
+  testID: string;
+}) {
+  return (
+    <PopIn delay={CARD_DELAY + index * CARD_STAGGER} style={styles.cardSlot}>
+      <View style={[styles.card, { backgroundColor: color, borderColor: color }]} testID={testID} accessibilityLabel={accessibilityLabel}>
+        <Text style={[styles.cardLabel, { color: labelColor }]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
+          {label}
+        </Text>
+        <View style={styles.cardBody}>
+          {children ?? (
+            <>
+              {icon ? <Icon name={icon} size={26} /> : null}
+              <CountUp value={value ?? 0} duration={COUNT_DURATION} style={[styles.cardValue, { color: ink ?? color }]} />
+            </>
+          )}
+        </View>
+      </View>
+    </PopIn>
+  );
+}
+
+/** Up to three stars that pop in one by one; unearned ones are grey. */
+function StarRow({ stars }: { stars: number }) {
+  const earned = Math.max(0, Math.min(MAX_STARS, Math.round(stars)));
+  return (
+    <View style={styles.starRow}>
+      {Array.from({ length: MAX_STARS }, (_, index) => (
+        <PopIn key={index} delay={CARD_DELAY + CARD_STAGGER + 260 + index * 160} style={index === 1 ? styles.starMiddle : styles.starSide}>
+          <Icon name="star" size={index === 1 ? 28 : 24} color={index < earned ? undefined : colors.lockedLip} />
+        </PopIn>
+      ))}
+    </View>
+  );
+}
+
+/** End-of-lesson celebration: confetti, cheering mascot, three counting stat cards, CONTINUE. */
+export function LessonComplete({
+  title,
+  xp,
+  stars,
+  streakDays,
+  unlockedTitle,
+  gemsReward,
+  mascotVariant,
+  accent,
+  nextTitle,
+  onContinue,
+  onBackToPath,
+  playSounds = true,
+  bottomInset,
+  testID = "lesson-complete"
+}: LessonCompleteProps) {
+  const bounce = useRef(new Animated.Value(0)).current;
+  const { height } = useWindowDimensions();
+  const mascotSize = height > 0 && height < 720 ? 112 : 150;
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(bounce, { toValue: 1, duration: 320, easing: Easing.out(Easing.quad), useNativeDriver: true }),
+        Animated.timing(bounce, { toValue: 0, duration: 380, easing: Easing.bounce, useNativeDriver: true }),
+        Animated.delay(500)
+      ])
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [bounce]);
+
+  useEffect(() => {
+    if (!playSounds) {
+      return undefined;
+    }
+    playUi("lesson_complete");
+    const timer = setTimeout(() => playUi("xp"), CARD_DELAY + 2 * CARD_STAGGER + COUNT_DURATION + 120);
+    return () => clearTimeout(timer);
+  }, [playSounds]);
+
+  const jump = bounce.interpolate({ inputRange: [0, 1], outputRange: [0, -18] });
+  const squash = bounce.interpolate({ inputRange: [0, 1], outputRange: [1, 1.04] });
+
+  return (
+    <View style={styles.root} testID={testID}>
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
+        <Animated.View style={{ transform: [{ translateY: jump }, { scale: squash }] }}>
+          <Mascot variant={mascotVariant} mood="cheer" accent={accent} size={mascotSize} />
+        </Animated.View>
+        <PopIn delay={120}>
+          <Text style={styles.headline} accessibilityRole="header">
+            Lesson complete!
+          </Text>
+        </PopIn>
+        <Text style={styles.lessonTitle}>{title}</Text>
+
+        <View style={styles.cards}>
+          <StatCard label="TOTAL XP" icon="bolt" value={xp} color={colors.gold} ink={XP_INK} labelColor={GOLD_LABEL} index={0} testID="stat-xp" />
+          <StatCard
+            label="STARS"
+            color={colors.gem}
+            index={1}
+            accessibilityLabel={`${Math.min(MAX_STARS, stars)} of ${MAX_STARS} stars`}
+            testID="stat-stars"
+          >
+            <StarRow stars={stars} />
+          </StatCard>
+          <StatCard label="STREAK" icon="flame" value={streakDays} color={colors.flame} ink={STREAK_INK} index={2} testID="stat-streak" />
+        </View>
+
+        {unlockedTitle || gemsReward ? (
+          <View style={styles.pills}>
+            {unlockedTitle ? (
+              <PopIn delay={CARD_DELAY + 3 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.green, 0.85) }]}>
+                <Icon name="key" size={18} />
+                <Text style={[styles.pillText, { color: darken(colors.correctInk, 0.12) }]}>Unlocked: {unlockedTitle}</Text>
+              </PopIn>
+            ) : null}
+            {gemsReward ? (
+              <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.gem, 0.85) }]}>
+                <Icon name="gem" size={18} />
+                <Text style={[styles.pillText, { color: colors.gemLip }]}>+{gemsReward} gems</Text>
+              </PopIn>
+            ) : null}
+          </View>
+        ) : null}
+      </ScrollView>
+
+      <LessonBottomBar bottomInset={bottomInset}>
+        <GameButton label={nextTitle ? "Next lesson" : "Continue"} fullWidth onPress={onContinue} testID="complete-continue" />
+        {onBackToPath ? (
+          <GameButton
+            label="Back to path"
+            variant="ghost"
+            color={colors.inkSoft}
+            fullWidth
+            onPress={onBackToPath}
+            style={styles.ghost}
+            testID="complete-back"
+          />
+        ) : null}
+      </LessonBottomBar>
+
+      <Confetti active />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    position: "relative",
+    backgroundColor: colors.snow
+  },
+  scroll: {
+    flex: 1
+  },
+  content: {
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: space.lg,
+    paddingTop: space.xxl,
+    paddingBottom: space.xxl
+  },
+  headline: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 34,
+    lineHeight: 42,
+    color: HEADLINE,
+    textAlign: "center",
+    marginTop: space.md
+  },
+  lessonTitle: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 16,
+    lineHeight: 22,
+    color: colors.inkSoft,
+    textAlign: "center",
+    flexShrink: 1,
+    maxWidth: "100%"
+  },
+  cards: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignSelf: "stretch",
+    marginTop: space.xxl,
+    marginHorizontal: -space.xs
+  },
+  cardSlot: {
+    flexGrow: 1,
+    flexBasis: 88,
+    maxWidth: 140,
+    minWidth: 84,
+    padding: space.xs
+  },
+  card: {
+    borderWidth: 2,
+    borderRadius: radii.md,
+    overflow: "hidden"
+  },
+  cardLabel: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    letterSpacing: 0.6,
+    color: colors.white,
+    textAlign: "center",
+    paddingVertical: 3,
+    paddingHorizontal: 4
+  },
+  cardBody: {
+    backgroundColor: colors.white,
+    borderRadius: radii.md - 3,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: space.md,
+    paddingHorizontal: 6
+  },
+  cardValue: {
+    marginLeft: 4,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 24,
+    lineHeight: 30,
+    flexShrink: 1
+  },
+  starRow: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    height: 30
+  },
+  starSide: {
+    marginBottom: 1
+  },
+  starMiddle: {
+    marginHorizontal: 1,
+    marginBottom: 3
+  },
+  pills: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginTop: space.lg
+  },
+  pill: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: radii.pill,
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    margin: space.xs,
+    maxWidth: "100%"
+  },
+  pillText: {
+    marginLeft: 6,
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 15,
+    lineHeight: 20
+  },
+  ghost: {
+    marginTop: space.xs
+  }
+});
