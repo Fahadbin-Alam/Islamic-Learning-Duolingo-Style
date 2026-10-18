@@ -13,7 +13,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
+  useWindowDimensions
 } from "react-native";
 import {
   applyPremiumStatus,
@@ -3515,9 +3516,11 @@ function LessonCompleteScreen({
           </View>
         ) : null}
         <View style={styles.lessonCompleteButtonRow}>
-          <Pressable onPress={onReturnToPath} style={styles.modalGhostButton}>
-            <Text style={styles.modalGhostText}>{strings.backToPath}</Text>
-          </Pressable>
+          {nextNode ? (
+            <Pressable onPress={onReturnToPath} style={styles.modalGhostButton}>
+              <Text style={styles.modalGhostText}>{strings.backToPath}</Text>
+            </Pressable>
+          ) : null}
           <Pressable onPress={onContinue} style={[styles.modalPrimaryButton, { backgroundColor: section.accentColor }]}>
             <Text style={styles.modalPrimaryText}>{nextNode ? strings.continue : strings.backToPath}</Text>
           </Pressable>
@@ -3683,72 +3686,84 @@ function TopBar({
   onShop: () => void;
   onToggleSound: () => void;
 }) {
+  // Phones get a shorter bar: no tagline, one row of stats, and actions that scroll sideways.
+  const compact = useWindowDimensions().width < 600;
+  const actionRow = (
+    <View style={[styles.topBarActionRow, compact && styles.topBarActionRowCompact]}>
+      <Pressable onPress={onHome} style={styles.dailyQuestCard}>
+        <View style={styles.dailyQuestHeader}>
+          <Text style={styles.metricLabel}>Today</Text>
+          <Text style={styles.metricValue}>{`${Math.round(dailyProgress * 100)}%`}</Text>
+        </View>
+        <Text style={styles.dailyQuestCopy}>Keep the streak alive with one more lesson.</Text>
+        <AnimatedProgressBar progress={dailyProgress} color={colors.gold} trackColor="rgba(23, 49, 35, 0.08)" height={10} />
+      </Pressable>
+
+      <Pressable onPress={onToggleSound} style={[styles.soundButton, !soundEnabled && styles.soundButtonMuted]}>
+        <Text style={styles.metricLabel}>Sound</Text>
+        <Text style={styles.soundButtonValue}>{soundEnabled ? "SFX on" : "Muted"}</Text>
+      </Pressable>
+
+      <Pressable onPress={onReview} style={styles.languageButtonSmall}>
+        <Text style={styles.metricLabel}>Review</Text>
+        <Text style={styles.socialButtonSmallValue}>Ready</Text>
+      </Pressable>
+
+      <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
+        <Text style={styles.metricLabel}>{strings.language}</Text>
+        <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
+      </Pressable>
+      <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
+        <Text style={styles.metricLabel}>{strings.crew}</Text>
+        <Text style={styles.socialButtonSmallValue}>Rankings</Text>
+      </Pressable>
+      <Pressable onPress={onShop} style={styles.heartButton}>
+        <Text style={styles.metricLabel}>Shop</Text>
+        <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
+      </Pressable>
+      <Pressable
+        onPress={onAccount}
+        style={[styles.accountButton, user.hasAccount && styles.accountButtonActive]}
+      >
+        <View style={[styles.accountBadge, user.hasAccount && styles.accountBadgeActive]}>
+          <Text style={[styles.accountBadgeText, user.hasAccount && styles.accountBadgeTextActive]}>
+            {user.hasAccount ? user.avatarInitials : "AC"}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.accountLabel}>{user.hasAccount ? strings.settings : strings.save}</Text>
+          <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : strings.logIn}</Text>
+        </View>
+      </Pressable>
+    </View>
+  );
+
   return (
-    <View style={styles.topBar}>
-      <View style={styles.topBarBrand}>
+    <View style={[styles.topBar, compact && styles.topBarCompact]}>
+      <View style={[styles.topBarBrand, compact && styles.topBarBrandCompact]}>
         <View style={styles.miniGuideWrap}>
           <GuideMascot variant="hijabi" accentColor={colors.green} size={42} />
         </View>
         <View style={styles.topBarBrandText}>
           <Text style={styles.topBarBrandTitle}>Sira Path</Text>
-          <Text style={styles.topBarBrandCopy}>A guided learning path that stays light, playful, and easy to follow.</Text>
+          {!compact && <Text style={styles.topBarBrandCopy}>A guided learning path that stays light, playful, and easy to follow.</Text>}
         </View>
       </View>
 
       <View style={styles.topBarMetricRow}>
-        <TopMetricPill label={strings.streak} value={`${user.streakDays}d`} tint="#FFF5D6" valueColor="#A66C00" />
-        <TopMetricPill label="XP" value={`${user.totalXp}`} tint="#E2F5FF" valueColor="#126A99" />
-        <TopMetricPill label="Gems" value={`${user.gems}`} tint="#F3EBFF" valueColor="#6C3BC6" />
-        <TopMetricPill label={strings.hearts} value={formatHearts(user, true)} tint="#FFE8E4" valueColor="#BC4336" />
+        <TopMetricPill compact={compact} label={strings.streak} value={`${user.streakDays}d`} tint="#FFF5D6" valueColor="#A66C00" />
+        <TopMetricPill compact={compact} label="XP" value={`${user.totalXp}`} tint="#E2F5FF" valueColor="#126A99" />
+        <TopMetricPill compact={compact} label="Gems" value={`${user.gems}`} tint="#F3EBFF" valueColor="#6C3BC6" />
+        <TopMetricPill compact={compact} label={strings.hearts} value={formatHearts(user, true)} tint="#FFE8E4" valueColor="#BC4336" />
       </View>
 
-      <View style={styles.topBarActionRow}>
-        <Pressable onPress={onHome} style={styles.dailyQuestCard}>
-          <View style={styles.dailyQuestHeader}>
-            <Text style={styles.metricLabel}>Today</Text>
-            <Text style={styles.metricValue}>{`${Math.round(dailyProgress * 100)}%`}</Text>
-          </View>
-          <Text style={styles.dailyQuestCopy}>Keep the streak alive with one more lesson.</Text>
-          <AnimatedProgressBar progress={dailyProgress} color={colors.gold} trackColor="rgba(23, 49, 35, 0.08)" height={10} />
-        </Pressable>
-
-        <Pressable onPress={onToggleSound} style={[styles.soundButton, !soundEnabled && styles.soundButtonMuted]}>
-          <Text style={styles.metricLabel}>Sound</Text>
-          <Text style={styles.soundButtonValue}>{soundEnabled ? "SFX on" : "Muted"}</Text>
-        </Pressable>
-
-        <Pressable onPress={onReview} style={styles.languageButtonSmall}>
-          <Text style={styles.metricLabel}>Review</Text>
-          <Text style={styles.socialButtonSmallValue}>Ready</Text>
-        </Pressable>
-
-        <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
-          <Text style={styles.metricLabel}>{strings.language}</Text>
-          <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
-        </Pressable>
-        <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
-          <Text style={styles.metricLabel}>{strings.crew}</Text>
-          <Text style={styles.socialButtonSmallValue}>Rankings</Text>
-        </Pressable>
-        <Pressable onPress={onShop} style={styles.heartButton}>
-          <Text style={styles.metricLabel}>Shop</Text>
-          <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
-        </Pressable>
-        <Pressable
-          onPress={onAccount}
-          style={[styles.accountButton, user.hasAccount && styles.accountButtonActive]}
-        >
-          <View style={[styles.accountBadge, user.hasAccount && styles.accountBadgeActive]}>
-            <Text style={[styles.accountBadgeText, user.hasAccount && styles.accountBadgeTextActive]}>
-              {user.hasAccount ? user.avatarInitials : "AC"}
-            </Text>
-          </View>
-          <View>
-            <Text style={styles.accountLabel}>{user.hasAccount ? strings.settings : strings.save}</Text>
-            <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : strings.logIn}</Text>
-          </View>
-        </Pressable>
-      </View>
+      {compact ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.topBarActionScroll}>
+          {actionRow}
+        </ScrollView>
+      ) : (
+        actionRow
+      )}
     </View>
   );
 }
@@ -3757,15 +3772,17 @@ function TopMetricPill({
   label,
   value,
   tint,
-  valueColor
+  valueColor,
+  compact = false
 }: {
   label: string;
   value: string;
   tint: string;
   valueColor: string;
+  compact?: boolean;
 }) {
   return (
-    <View style={[styles.topMetricPill, { backgroundColor: tint }]}>
+    <View style={[styles.topMetricPill, compact && styles.topMetricPillCompact, { backgroundColor: tint }]}>
       <Text style={styles.metricLabel}>{label}</Text>
       <Text style={[styles.metricValue, { color: valueColor }]}>{value}</Text>
     </View>
@@ -4107,6 +4124,8 @@ function HeroCard({
   nextLessonTitle?: string;
   onContinue: () => void;
 }) {
+  // On narrow phones a smaller mascot leaves room for long one-word titles such as "Foundation".
+  const narrow = useWindowDimensions().width < 430;
   return (
     <View style={[styles.heroCard, { backgroundColor: section.accentColor }]}>
       <View style={styles.heroPatternStripe} />
@@ -4116,7 +4135,7 @@ function HeroCard({
           <Text style={styles.heroBadge}>{section.badge}</Text>
           <TopicIcon topicId={section.topicId} accentColor="#FFFFFF" light />
         </View>
-        <Text style={styles.heroTitle}>{`${strings.learnTopic} ${section.title}`}</Text>
+        <Text style={[styles.heroTitle, narrow && styles.heroTitleNarrow]}>{`${strings.learnTopic} ${section.title}`}</Text>
         <Text style={styles.heroCopy}>{section.description}</Text>
         <View style={styles.heroRewardRow}>
           <View style={styles.heroChip}>
@@ -4137,8 +4156,8 @@ function HeroCard({
           <Text style={styles.heroButtonText}>{strings.continueTopic}</Text>
         </Pressable>
       </View>
-      <View style={styles.heroArt}>
-        <GuideMascot variant={section.mascot} accentColor={lightenColor(section.accentColor)} size={136} />
+      <View style={[styles.heroArt, narrow && styles.heroArtNarrow]}>
+        <GuideMascot variant={section.mascot} accentColor={lightenColor(section.accentColor, 0.18)} size={narrow ? 88 : 136} />
       </View>
     </View>
   );
@@ -6099,7 +6118,7 @@ function GuideMascot({
   const faceBottom = size * 0.4;
   const skin = "#E8B18A";
   const outline = "#1F2C3B";
-  const robe = lightenColor(accentColor, 0.78);
+  const robe = lightenColor(accentColor, 0.22);
   const eyeWidth = headSize * 0.16;
   const eyeHeight = headSize * 0.13;
   const eyeHighlight = headSize * 0.04;
@@ -7118,8 +7137,9 @@ function describeNodeState(node: LearningNodeView, reviewNeeded: boolean) {
   };
 }
 
+// ratio is how much white to mix in: 0 keeps the color, 1 gives white.
 function lightenColor(hex: string, ratio = 0.82) {
-  const amount = (channel: number) => Math.round(channel + (255 - channel) * (1 - ratio));
+  const amount = (channel: number) => Math.round(channel + (255 - channel) * ratio);
   const [r, g, b] = hexToRgb(hex);
   return `rgb(${amount(r)}, ${amount(g)}, ${amount(b)})`;
 }
@@ -7326,6 +7346,11 @@ const styles = StyleSheet.create({
   loadingText: { color: colors.ink, fontSize: 18, fontWeight: "700", letterSpacing: 0 },
   topBar: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 12, paddingHorizontal: 18, paddingVertical: 14, backgroundColor: "#FCFFFD", borderBottomWidth: 1, borderBottomColor: "#DDEBE2", shadowColor: "rgba(17,49,35,0.10)", shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.14, shadowRadius: 20, elevation: 4 },
   topBarBrand: { minWidth: 250, flexDirection: "row", alignItems: "center", gap: 12, flex: 1 },
+  topBarCompact: { flexDirection: "column", flexWrap: "nowrap", alignItems: "stretch", gap: 10, paddingHorizontal: 14, paddingVertical: 10 },
+  topBarBrandCompact: { minWidth: 0, flexGrow: 0, flexShrink: 0, flexBasis: "auto" },
+  topBarActionScroll: { flexGrow: 0, flexShrink: 0 },
+  topMetricPillCompact: { flex: 1, minWidth: 0, paddingHorizontal: 10, paddingVertical: 8 },
+  topBarActionRowCompact: { flexWrap: "nowrap", justifyContent: "flex-start", flexGrow: 0, flexBasis: "auto" },
   topBarBrandText: { flexShrink: 1 },
   topBarBrandTitle: { color: colors.ink, fontSize: 20, fontWeight: "900", letterSpacing: 0 },
   topBarBrandCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", marginTop: 2 },
@@ -7333,7 +7358,7 @@ const styles = StyleSheet.create({
   topMetric: { minWidth: 50 },
   topBarMetricRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10 },
   topMetricPill: { minWidth: 82, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 18, borderWidth: 1, borderColor: "rgba(27,52,39,0.06)", shadowColor: "rgba(17,49,35,0.08)", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.12, shadowRadius: 10, elevation: 2 },
-  topBarActionRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-end", gap: 10, flex: 1 },
+  topBarActionRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-end", gap: 10, flexGrow: 1, flexBasis: "100%" },
   metricLabel: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   metricValue: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   dailyQuestCard: { minWidth: 184, paddingHorizontal: 14, paddingVertical: 12, borderRadius: 18, borderWidth: 1, borderColor: "#F2E1A3", backgroundColor: "#FFF8DB" },
@@ -7361,9 +7386,11 @@ const styles = StyleSheet.create({
   heroPatternStripeSecondary: { position: "absolute", width: 160, height: 160, borderRadius: 40, backgroundColor: "rgba(255,255,255,0.08)", left: -44, bottom: -66, transform: [{ rotate: "-18deg" }] },
   heroText: { flex: 1, paddingRight: 12 },
   heroArt: { width: 144, alignItems: "center", justifyContent: "center" },
+  heroArtNarrow: { width: 88 },
   heroBadgeRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   heroBadge: { color: "#DFF7EE", fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   heroTitle: { color: colors.white, fontSize: 30, lineHeight: 35, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
+  heroTitleNarrow: { fontSize: 26, lineHeight: 31 },
   heroCopy: { color: "#EAF8F2", fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0, marginTop: 6 },
   heroRewardRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 4 },
   heroChip: { minWidth: 120, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, backgroundColor: "rgba(255,255,255,0.16)", borderWidth: 1, borderColor: "rgba(255,255,255,0.18)" },
