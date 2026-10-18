@@ -1,4 +1,4 @@
-import { addXp, completeLesson, completeLessonCluster, getXpToday, learningApi } from "../api/islamicLearningApi";
+import { addXp, completeLesson, completeLessonCluster, getXpToday, learningApi, localDateKey } from "../api/islamicLearningApi";
 import { LESSONS_BY_ID, findNodeByLessonId } from "../data/course";
 import { makeUser } from "./testUtils";
 
@@ -73,7 +73,7 @@ describe("completeLessonCluster", () => {
 });
 
 describe("XP earned today", () => {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = localDateKey();
 
   it("counts only XP earned today, not the lifetime total", () => {
     const user = makeUser({ totalXp: 900, dailyXp: { date: today, xp: 12 } });
@@ -103,7 +103,7 @@ describe("XP earned today", () => {
 });
 
 describe("getXpSummaries", () => {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = localDateKey();
 
   it("reports today's XP and whether it met the daily goal", async () => {
     const [under] = await learningApi.getXpSummaries(makeUser({ totalXp: 500, dailyXp: { date: today, xp: 10 }, dailyGoalXp: 40 }));

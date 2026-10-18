@@ -198,8 +198,10 @@ export interface UserProfile {
   learnerProfile?: LearnerProfile;
   streakDays: number;
   totalXp: number;
-  // XP earned on one day (UTC date, same as the heart refill), for the daily goal.
+  // XP earned on one local calendar day (YYYY-MM-DD, same as the heart refill), for the daily goal.
   dailyXp?: { date: string; xp: number };
+  // Local day the daily goal was last met; the streak ends once a whole day passes without it.
+  lastStreakDate?: string;
   dailyGoalXp: number;
   gems: number;
   hearts: HeartsBalance;

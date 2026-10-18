@@ -92,7 +92,7 @@ export const learningApi: IslamicLearningApi = {
         userId: user.id,
         gainedXp: getXpToday(user),
         dailyGoalXp: user.dailyGoalXp,
-        date: new Date().toISOString().slice(0, 10),
+        date: localDateKey(),
         streakExtended: getXpToday(user) >= user.dailyGoalXp,
         totalSessionTime: Math.max(120, user.completedLessonIds.length * 90),
         numSessions: user.completedLessonIds.length
@@ -101,21 +101,81 @@ export const learningApi: IslamicLearningApi = {
   }
 };
 
-export function getXpToday(user: UserProfile, now = new Date()) {
-  const today = now.toISOString().slice(0, 10);
-  return user.dailyXp?.date === today ? user.dailyXp.xp : 0;
+// Days follow the learner's own clock, so the daily goal and streak roll over at their midnight, not UTC's.
+export function localDateKey(date = new Date()) {
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
 }
 
+function previousDateKey(now: Date) {
+  return localDateKey(new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1));
+}
+
+// The circle to open next: the current one, else any unlocked one that is not finished yet.
+export function findNextPlayableNode<T extends Pick<LearningNodeView, "status">>(nodes: T[]) {
+  return nodes.find((node) => node.status === "current") ?? nodes.find((node) => node.status === "available");
+}
+
+// Review and the daily challenge pay about what a lesson pays per question, and only for right answers.
+// The placement test measures level and pays nothing, so retaking it cannot farm XP.
+export const PRACTICE_XP_PER_CORRECT_ANSWER = 2;
+
+export function getAssessmentXp(mode: "placement" | "review" | "daily_challenge", correct: boolean) {
+  return mode === "placement" || !correct ? 0 : PRACTICE_XP_PER_CORRECT_ANSWER;
+}
+
+export function getXpToday(user: UserProfile, now = new Date()) {
+  return user.dailyXp?.date === localDateKey(now) ? user.dailyXp.xp : 0;
+}
+
+// Any XP counts toward the daily goal. Meeting it extends the streak once per day: by one after a
+// goal met yesterday, otherwise the streak starts again at one.
 export function addXp(user: UserProfile, amount: number, now = new Date()): UserProfile {
-  return {
+  const today = localDateKey(now);
+  const withXp: UserProfile = {
     ...user,
     totalXp: user.totalXp + amount,
-    dailyXp: { date: now.toISOString().slice(0, 10), xp: getXpToday(user, now) + amount }
+    dailyXp: { date: today, xp: getXpToday(user, now) + amount }
+  };
+
+  if (amount <= 0 || user.lastStreakDate === today || getXpToday(withXp, now) < user.dailyGoalXp) {
+    return withXp;
+  }
+
+  const continues = user.lastStreakDate === previousDateKey(now);
+
+  return {
+    ...withXp,
+    streakDays: continues ? user.streakDays + 1 : 1,
+    lastStreakDate: today
   };
 }
 
-export function refillHeartsForToday(user: UserProfile) {
-  const today = new Date().toISOString().slice(0, 10);
+// A streak survives until the end of the day after the goal was last met; after that it is lost.
+export function refreshStreak(user: UserProfile, now = new Date()) {
+  if (!user.lastStreakDate || user.streakDays === 0) {
+    return user;
+  }
+
+  if (user.lastStreakDate === localDateKey(now) || user.lastStreakDate === previousDateKey(now)) {
+    return user;
+  }
+
+  return { ...user, streakDays: 0 };
+}
+
+// Run whenever a saved profile is opened: refill today's hearts and drop a streak that has lapsed.
+export function prepareUserForToday(user: UserProfile, now = new Date()) {
+  return refreshStreak(refillHeartsForToday(user, now), now);
+}
+
+export function didExtendStreak(before: UserProfile, after: UserProfile) {
+  return Boolean(after.lastStreakDate) && after.lastStreakDate !== before.lastStreakDate;
+}
+
+export function refillHeartsForToday(user: UserProfile, now = new Date()) {
+  const today = localDateKey(now);
 
   if (user.hearts.unlimited || user.hearts.lastRefillDate === today) {
     return user;
@@ -144,10 +204,15 @@ export function completeLesson(user: UserProfile, lesson: Lesson) {
 
   return {
     ...withXp,
-    streakDays: getXpToday(withXp) >= user.dailyGoalXp ? Math.max(user.streakDays, 1) : user.streakDays,
     completedLessonIds,
     completedNodeIds
   };
+}
+
+// Running out of hearts stops a lesson, including on its final question; otherwise the last
+// mistake would still finish the lesson and award its XP and stars.
+export function isOutOfHeartsAfterAnswer(user: UserProfile, answerState: "correct" | "wrong" | undefined) {
+  return !user.hearts.unlimited && user.hearts.current === 0 && answerState === "wrong";
 }
 
 export function loseHeart(user: UserProfile) {
@@ -270,7 +335,6 @@ export function completeLessonCluster(user: UserProfile, lessons: Lesson[]) {
 
   return {
     ...withXp,
-    streakDays: getXpToday(withXp) >= user.dailyGoalXp ? Math.max(user.streakDays, 1) : user.streakDays,
     completedLessonIds: Array.from(completedLessonIds),
     completedNodeIds: Array.from(completedNodeIds)
   };

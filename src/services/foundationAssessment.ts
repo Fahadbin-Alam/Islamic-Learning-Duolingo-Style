@@ -422,7 +422,7 @@ function getTargetDifficulty(
   return difficulty;
 }
 
-function evaluateFoundationAnswer(
+export function evaluateFoundationAnswer(
   question: FoundationQuestion,
   selectedAnswer: string | string[] | Record<string, string>
 ) {
@@ -431,7 +431,16 @@ function evaluateFoundationAnswer(
       return false;
     }
 
-    return normalizeArray(selectedAnswer).join("|") === normalizeArray(question.correctAnswer).join("|");
+    // Order matters only when putting steps in order; picking several answers can happen in any order.
+    const chosen = normalizeArray(selectedAnswer);
+    const expected = normalizeArray(question.correctAnswer);
+
+    if (question.type === "multi_select") {
+      chosen.sort();
+      expected.sort();
+    }
+
+    return chosen.join("|") === expected.join("|");
   }
 
   if (question.type === "match_pairs") {
@@ -686,8 +695,14 @@ function getRecentCorrectStreak(answerHistory: AssessmentAnswerRecord[]) {
   return streak;
 }
 
-function normalizeText(value: string) {
-  return value.trim().toLowerCase().replace(/\s+/g, " ");
+// Typed answers ignore case, punctuation and apostrophe or hyphen style, so "Allah." and "as salamu alaikum" count.
+export function normalizeText(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/['\u2018\u2019\u02bc\u02bf`]/g, "")
+    .replace(/[-\u2010-\u2015_.,!?;:"\u201c\u201d()]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function localizeAnswerShape(

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TopicApp from "./src/TopicApp";
 import { hydrateAppStorage } from "./src/services/appStorage";
+import { installWebAlert } from "./src/services/webAlert";
+
+installWebAlert();
 
 export default function App() {
   const [storageReady, setStorageReady] = useState(false);

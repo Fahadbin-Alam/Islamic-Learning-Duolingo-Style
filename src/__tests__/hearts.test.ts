@@ -1,8 +1,8 @@
-import { applyShopItem, grantHearts, loseHeart, refillHeartsForToday } from "../api/islamicLearningApi";
+import { applyShopItem, grantHearts, isOutOfHeartsAfterAnswer, localDateKey, loseHeart, refillHeartsForToday } from "../api/islamicLearningApi";
 import { SHOP_ITEMS } from "../data/course";
 import { makeUser } from "./testUtils";
 
-const today = () => new Date().toISOString().slice(0, 10);
+const today = () => localDateKey();
 const shopItem = (id: string) => {
   const item = SHOP_ITEMS.find((candidate) => candidate.id === id);
   if (!item) {
@@ -79,5 +79,18 @@ describe("applyShopItem", () => {
     const user = makeUser();
 
     expect(applyShopItem(user, shopItem("watch-ad-heart"))).toBe(user);
+  });
+});
+
+describe("isOutOfHeartsAfterAnswer", () => {
+  const empty = makeUser({ hearts: { current: 0, max: 5, unlimited: false, lastRefillDate: today() } });
+
+  it("stops the lesson when the last heart goes on a wrong answer", () => {
+    expect(isOutOfHeartsAfterAnswer(empty, "wrong")).toBe(true);
+  });
+
+  it("lets a right answer or a member with unlimited hearts carry on", () => {
+    expect(isOutOfHeartsAfterAnswer(empty, "correct")).toBe(false);
+    expect(isOutOfHeartsAfterAnswer({ ...empty, hearts: { ...empty.hearts, unlimited: true } }, "wrong")).toBe(false);
   });
 });

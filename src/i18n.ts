@@ -848,6 +848,14 @@ export function getNodeTitle(nodeId: string, fallback: string, language?: Suppor
   return selected[nodeId] ?? fallback;
 }
 
-export function normalizeLanguage(language?: string): SupportedLanguage {
+// Launch ships in English only: the other languages swap words one at a time and leave most lesson
+// text in English. Turn this on once each language has a full, reviewed translation.
+export const LANGUAGE_PICKER_ENABLED = false;
+
+export function normalizeLanguage(language?: string, pickerEnabled = LANGUAGE_PICKER_ENABLED): SupportedLanguage {
+  if (!pickerEnabled) {
+    return DEFAULT_LANGUAGE;
+  }
+
   return LANGUAGE_OPTIONS.some((option) => option.id === language) ? (language as SupportedLanguage) : DEFAULT_LANGUAGE;
 }

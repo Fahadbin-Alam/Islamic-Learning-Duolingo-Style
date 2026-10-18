@@ -11,7 +11,8 @@ const STORAGE_KEYS = [
   "sira-path-local-auth",
   "sira-path-social-hub",
   "sira-path-session-token",
-  "sira-path-islamic-reminder-history"
+  "sira-path-islamic-reminder-history",
+  "sira-path-sandbox-premium"
 ] as const;
 
 type StorageKey = (typeof STORAGE_KEYS)[number];

@@ -4,6 +4,7 @@ import type {
   AuthProvider,
   ReminderPreferences,
   SocialHubState,
+  SocialRelation,
   UserProfile
 } from "../types";
 import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
@@ -135,22 +136,6 @@ export async function syncRemoteUser(user: UserProfile) {
   });
 }
 
-export async function syncRemoteSocialHub(socialHub: SocialHubState) {
-  const token = getSessionToken();
-
-  if (!token) {
-    return;
-  }
-
-  await backendRequest("/api/me/social", {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({ socialHub })
-  });
-}
-
 export async function logoutRemoteAccount() {
   const token = getSessionToken();
 
@@ -260,6 +245,58 @@ export async function syncSubscriptionEntitlement(input: {
     },
     body: JSON.stringify(input)
   });
+}
+
+export type CrewMember = {
+  id: number;
+  name: string;
+  avatarInitials: string;
+  relation: "you" | SocialRelation;
+  totalXp: number;
+  weeklyXp: number;
+  streakDays: number;
+  lastLearningAt: string | null;
+};
+
+export type CrewPayload = {
+  me: CrewMember;
+  friends: CrewMember[];
+};
+
+export function rankWeeklyRace(me: CrewMember, friends: CrewMember[]) {
+  // Ties go to the learner, then to the bigger lifetime total.
+  return [me, ...friends].sort((left, right) =>
+    right.weeklyXp - left.weeklyXp ||
+    Number(right.relation === "you") - Number(left.relation === "you") ||
+    right.totalXp - left.totalXp
+  );
+}
+
+function authHeaders() {
+  const token = getSessionToken();
+
+  if (!token) {
+    throw new BackendRequestError("Log in to see your crew.", 401);
+  }
+
+  return { Authorization: `Bearer ${token}` };
+}
+
+// `today` is the learner's local date so the weekly race lines up with their own week.
+export async function fetchCrew(today: string) {
+  return backendRequest<CrewPayload>(`/api/friends?today=${encodeURIComponent(today)}`, { headers: authHeaders() });
+}
+
+export async function addCrewMember(input: { email: string; relation: SocialRelation; today: string }) {
+  return backendRequest<CrewMember>(`/api/friends?today=${encodeURIComponent(input.today)}`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ email: input.email, relation: input.relation })
+  });
+}
+
+export async function removeCrewMember(friendId: number) {
+  await backendRequest(`/api/friends/${friendId}`, { method: "DELETE", headers: authHeaders() });
 }
 
 export function getSessionToken() {
