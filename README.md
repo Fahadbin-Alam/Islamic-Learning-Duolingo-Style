@@ -121,7 +121,8 @@ Main routes now include:
 - `/api/review-queue`
 - `/api/subscriptions/plans`
 - `/api/subscriptions/entitlements`
-- `/api/subscriptions/sync`
+- `/api/subscriptions/sync` (blocked in production)
+- `/api/subscriptions/revenuecat/webhook`
 - `/api/analytics/events`
 
 ## Content Scaling
@@ -142,7 +143,7 @@ The current seed data intentionally creates large trees so the app stops behavin
 - The frontend still carries local lesson presentation and path rendering logic while the backend catalog foundation is brought online.
 - User accounts, synced profile state, entitlement tables, review queue, and analytics-ready event logging now have a real backend home.
 - Social login still needs provider credentials and secure verification before it should be turned on in production.
-- RevenueCat is not wired yet, but the backend entitlement model is structured so we can add that cleanly next.
+- Purchases run through RevenueCat and ads through AdMob. See [docs/monetization.md](docs/monetization.md) for setup.
 
 ## More Docs
 

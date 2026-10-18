@@ -13,6 +13,7 @@ import type {
   LearningNodeView,
   Lesson,
   LessonSession,
+  PremiumStatus,
   ShopItem,
   TopicId,
   UserProfile,
@@ -184,7 +185,56 @@ export function applyShopItem(user: UserProfile, item: ShopItem) {
     return grantHearts(user, item.heartsGranted ?? 0, false);
   }
 
+  if (item.type === "gem_pack") {
+    return { ...user, gems: user.gems + (item.gemsGranted ?? 0) };
+  }
+
+  if (item.type === "gem_heart_refill") {
+    if (!canSpendGems(user, item)) {
+      return user;
+    }
+
+    return {
+      ...user,
+      gems: user.gems - item.price,
+      hearts: { ...user.hearts, current: Math.max(user.hearts.current, user.hearts.max) }
+    };
+  }
+
   return user;
+}
+
+export function canSpendGems(user: UserProfile, item: ShopItem) {
+  return item.currencyType === "gems" && !user.hearts.unlimited && user.gems >= item.price && user.hearts.current < user.hearts.max;
+}
+
+export function isPremiumUser(user: UserProfile) {
+  return Boolean(user.activeSubscriptionId);
+}
+
+// Store state wins over local state, so a lapsed subscription stops granting unlimited hearts and ad-free study.
+export function applyPremiumStatus(user: UserProfile, status: PremiumStatus) {
+  if (status.active) {
+    if (user.activeSubscriptionId && user.hearts.unlimited) {
+      return user;
+    }
+
+    return {
+      ...user,
+      activeSubscriptionId: status.productId ?? user.activeSubscriptionId ?? "premium",
+      hearts: { ...user.hearts, current: user.hearts.max, unlimited: true }
+    };
+  }
+
+  if (!user.activeSubscriptionId && !user.hearts.unlimited) {
+    return user;
+  }
+
+  return {
+    ...user,
+    activeSubscriptionId: undefined,
+    hearts: { ...user.hearts, current: Math.min(user.hearts.current, user.hearts.max), unlimited: false }
+  };
 }
 
 export function completeLessonCluster(user: UserProfile, lessons: Lesson[]) {

@@ -33,14 +33,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "monetization": {
-        "heartPackSmallProductId": "heart_pack_small",
-        "membershipMonthlyProductId": "membership_monthly",
-        "rewardedHeartAdUnitId": "rewarded_heart_test",
-        "bannerAdUnitId": "banner_test"
-      }
-    },
     "plugins": [
       "expo-web-browser"
     ]

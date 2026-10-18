@@ -53,10 +53,19 @@ def get_active_entitlement(user: User) -> Optional[SubscriptionEntitlement]:
     active = [
         entitlement
         for entitlement in user.entitlements
-        if entitlement.status in {"active", "trialing"} and (entitlement.expires_at is None or as_utc(entitlement.expires_at) >= now)
+        if entitlement_grants_access(entitlement.status, entitlement.expires_at, now)
     ]
     active.sort(key=lambda item: as_utc(item.expires_at) or now, reverse=True)
     return active[0] if active else None
+
+
+def entitlement_grants_access(status: str, expires_at: Optional[datetime], now: datetime) -> bool:
+    # A cancelled plan or one with a failed renewal keeps access until the period it was paid for ends.
+    if status in {"active", "trialing"}:
+        return expires_at is None or as_utc(expires_at) >= now
+    if status in {"cancelled", "billing_issue"}:
+        return expires_at is not None and as_utc(expires_at) >= now
+    return False
 
 
 def account_payload(user: User) -> Dict[str, Any]:

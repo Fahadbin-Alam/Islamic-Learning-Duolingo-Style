@@ -24,6 +24,12 @@ We use information to:
 
 We do not sell personal information. We may share limited data with service providers that help run authentication, hosting, analytics, notifications, or billing.
 
+## Advertising and Purchases
+
+Free learners see ads served by Google AdMob, which may use your device's advertising identifier and approximate location to show and measure ads. Where the law requires it, you are asked for consent first, and you can change that choice later. Premium members do not see ads.
+
+In-app purchases are processed by Apple or Google. RevenueCat receives an anonymous purchase id (or your account id if you are signed in) and your purchase history so premium can be restored on your other devices. We never see your card details.
+
 ## Your Choices
 
 You can:

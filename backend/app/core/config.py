@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     session_ttl_hours: int = 24 * 30
     cors_origins_raw: str = "http://localhost:8082,http://localhost:19006,http://localhost:3000"
     trusted_social_login: bool = False
+    # Shared secret RevenueCat sends in the Authorization header of every webhook call.
+    revenuecat_webhook_auth: str = ""
 
     model_config = SettingsConfigDict(
         env_file=".env",

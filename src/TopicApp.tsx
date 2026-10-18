@@ -15,11 +15,14 @@ import {
   View
 } from "react-native";
 import {
+  applyPremiumStatus,
   applyShopItem,
+  canSpendGems,
   completeLesson,
   completeLessonCluster,
   createTestOutSession,
   grantHearts,
+  isPremiumUser,
   learningApi,
   loseHeart,
   refillHeartsForToday
@@ -53,7 +56,9 @@ import {
   syncRemoteUser
 } from "./services/backendSync";
 import { clearSavedUserProfile, loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
+import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
+import { legalLinks, shouldShowLessonBreakAd } from "./services/monetizationConfig";
 import {
   clearSocialHubState,
   createSocialConnection,
@@ -95,6 +100,7 @@ import type {
   LessonSource,
   LessonSession,
   LessonTeachingMoment,
+  PremiumStatus,
   ReminderPreferences,
   ResourceSupportType,
   ResourceValidationStatus,
@@ -259,6 +265,8 @@ type Action =
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "close_lesson_complete" }
   | { type: "apply_user"; user: UserProfile }
+  | { type: "apply_user_latest"; update: (user: UserProfile) => UserProfile }
+  | { type: "sync_premium"; premium: PremiumStatus }
   | { type: "reset_lesson" };
 
 const initialState: AppState = {
@@ -409,6 +417,10 @@ function reducer(state: AppState, action: Action): AppState {
       };
     case "apply_user":
       return { ...state, user: action.user };
+    case "apply_user_latest":
+      return state.user ? { ...state, user: action.update(state.user) } : state;
+    case "sync_premium":
+      return state.user ? { ...state, user: applyPremiumStatus(state.user, action.premium) } : state;
     case "reset_lesson":
       return {
         ...state,
@@ -456,6 +468,42 @@ export default function TopicApp() {
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
   const [rewardCelebration, setRewardCelebration] = useState<LessonCelebration | undefined>(undefined);
   const challengeStartedAtRef = useRef(Date.now());
+  const lessonsFinishedRef = useRef(0);
+  const [storePrices, setStorePrices] = useState<Record<string, string>>({});
+  const [shopBusy, setShopBusy] = useState(false);
+  const monetizationUserId = state.user?.hasAccount ? String(state.user.id) : undefined;
+  const hasUser = Boolean(state.user);
+
+  // Connect the store once a learner is loaded, then let the store's record of premium override local state.
+  useEffect(() => {
+    if (!hasUser) {
+      return;
+    }
+
+    let cancelled = false;
+
+    (async () => {
+      await monetizationClient.initialize(monetizationUserId);
+      const [premium, prices] = await Promise.all([
+        monetizationClient.getPremiumStatus(),
+        monetizationClient.getStorePrices(SHOP_ITEMS)
+      ]);
+
+      if (cancelled) {
+        return;
+      }
+
+      setStorePrices(prices);
+
+      if (premium) {
+        dispatch({ type: "sync_premium", premium });
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [hasUser, monetizationUserId]);
 
   useEffect(() => {
     let mounted = true;
@@ -1267,6 +1315,7 @@ export default function TopicApp() {
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
+    maybeShowLessonBreakAd(nextUser);
       return;
     }
 
@@ -1299,6 +1348,7 @@ export default function TopicApp() {
     });
     const xpSummary = await learningApi.getXpSummaries(nextUser);
     dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
+    maybeShowLessonBreakAd(nextUser);
   }
 
   function claimJourneyReward(stop: JourneyRewardStop) {
@@ -1334,30 +1384,82 @@ export default function TopicApp() {
     dispatch({ type: "apply_user", user: nextUser });
   }
 
+  function maybeShowLessonBreakAd(user: UserProfile) {
+    lessonsFinishedRef.current += 1;
+
+    if (shouldShowLessonBreakAd(lessonsFinishedRef.current, isPremiumUser(user))) {
+      void monetizationClient.showLessonBreakAd();
+    }
+  }
+
   async function useShopItem(item: ShopItem) {
-    if (!state.user) {
+    if (!state.user || shopBusy) {
       return;
     }
     playUiSound("soft_ui");
 
-    if (item.type === "rewarded_ad") {
-      const reward = await monetizationClient.showRewardedHeartAd(item);
-
-      if (reward.ok) {
-        dispatch({ type: "apply_user", user: grantHearts(state.user, reward.heartsGranted, true) });
-      } else if (reward.message) {
-        Alert.alert("Rewarded hearts are not ready yet", reward.message);
+    if (item.currencyType === "gems") {
+      if (canSpendGems(state.user, item)) {
+        dispatch({ type: "apply_user", user: applyShopItem(state.user, item) });
+      } else {
+        Alert.alert(
+          "Not available right now",
+          state.user.gems < item.price ? `You need ${item.price} gems. Earn more by finishing lessons and reward chests.` : "Your hearts are already full."
+        );
       }
-
       return;
     }
 
-    const purchase = await monetizationClient.purchaseShopItem(item);
+    setShopBusy(true);
 
-    if (purchase.ok) {
-      dispatch({ type: "apply_user", user: applyShopItem(state.user, item) });
-    } else if (purchase.message) {
-      Alert.alert("Premium checkout is not ready yet", purchase.message);
+    try {
+      if (item.type === "rewarded_ad") {
+        const reward = await monetizationClient.showRewardedHeartAd(item);
+
+        if (reward.ok) {
+          dispatch({ type: "apply_user_latest", update: (user) => grantHearts(user, reward.heartsGranted, true) });
+        } else if (reward.message) {
+          Alert.alert("Sponsor break", reward.message);
+        }
+
+        return;
+      }
+
+      const purchase = await monetizationClient.purchaseShopItem(item);
+
+      if (purchase.ok) {
+        dispatch({ type: "apply_user_latest", update: (user) => applyShopItem(user, item) });
+        if (purchase.premium) {
+          dispatch({ type: "sync_premium", premium: purchase.premium });
+        }
+      } else if (!purchase.cancelled && purchase.message) {
+        Alert.alert("Purchase not completed", purchase.message);
+      }
+    } finally {
+      setShopBusy(false);
+    }
+  }
+
+  async function restorePurchases() {
+    if (shopBusy) {
+      return;
+    }
+
+    setShopBusy(true);
+
+    try {
+      const result = await monetizationClient.restorePurchases();
+
+      if (result.premium) {
+        dispatch({ type: "sync_premium", premium: result.premium });
+      }
+
+      Alert.alert(
+        "Restore purchases",
+        result.premium?.active ? "Your premium plan is active again." : result.message ?? "No active premium plan was found."
+      );
+    } finally {
+      setShopBusy(false);
     }
   }
 
@@ -2045,8 +2147,11 @@ export default function TopicApp() {
             user={state.user}
             strings={strings}
             items={SHOP_ITEMS}
+            storePrices={storePrices}
+            busy={shopBusy}
             section={selectedSection}
             onUseItem={useShopItem}
+            onRestore={restorePurchases}
             onDone={() => {
               playUiSound("soft_ui");
               dispatch({ type: "close_shop" });
@@ -2076,7 +2181,7 @@ export default function TopicApp() {
             }}
           />
         )}
-        <AdBanner hidden={state.user.hearts.unlimited || state.screen.startsWith("lesson_")} />
+        <AdBanner hidden={isPremiumUser(state.user) || state.user.hearts.unlimited || state.screen.startsWith("lesson_")} />
         <AccountModal
           visible={accountModalVisible}
           onClose={() => setAccountModalVisible(false)}
@@ -5093,17 +5198,25 @@ function ShopScreen({
   user,
   strings,
   items,
+  storePrices,
+  busy,
   section,
   onUseItem,
+  onRestore,
   onDone
 }: {
   user: UserProfile;
   strings: UiStrings;
   items: ShopItem[];
+  storePrices: Record<string, string>;
+  busy: boolean;
   section: LearningSection;
   onUseItem: (item: ShopItem) => void;
+  onRestore: () => void;
   onDone: () => void;
 }) {
+  // Premium learners already have unlimited hearts and no ads, so nothing here is worth selling them again.
+  const visibleItems = isPremiumUser(user) ? [] : items;
   return (
     <ScrollView contentContainerStyle={styles.shopContent}>
       <View style={[styles.shopHero, { backgroundColor: lightenColor(section.accentColor, 0.92) }]}>
@@ -5115,6 +5228,7 @@ function ShopScreen({
               ? strings.membershipActive
               : `${strings.youHave} ${formatHearts(user)}.`}
           </Text>
+          <Text style={styles.shopGemBalance}>{`${user.gems} gems`}</Text>
         </View>
         <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={112} />
       </View>
@@ -5137,7 +5251,11 @@ function ShopScreen({
         ))}
       </View>
 
-      {items.map((item) => (
+      {visibleItems.map((item) => {
+        const price = storePrices[item.id] ?? formatPrice(item);
+        const unavailable = item.currencyType === "gems" && !canSpendGems(user, item);
+
+        return (
         <View key={item.id} style={[styles.shopItem, item.tier && styles.shopPlanCard]}>
           <View style={styles.shopItemText}>
             <View style={styles.planHeaderRow}>
@@ -5145,18 +5263,41 @@ function ShopScreen({
                 <Text style={styles.shopItemTitle}>{item.name}</Text>
                 {item.highlightBadge ? <Text style={styles.planBadge}>{item.highlightBadge}</Text> : null}
               </View>
-              <Text style={styles.planPrice}>{formatPrice(item)}</Text>
+              <Text style={styles.planPrice}>{item.durationDays ? `${price}${item.durationDays >= 365 ? "/yr" : "/mo"}` : price}</Text>
             </View>
             <Text style={styles.shopItemCopy}>{item.localizedDescription}</Text>
             {item.benefits?.map((benefit) => (
               <Text key={`${item.id}_${benefit}`} style={styles.planBenefit}>{`• ${benefit}`}</Text>
             ))}
           </View>
-          <Pressable onPress={() => onUseItem(item)} style={[styles.secondaryButton, { backgroundColor: section.accentColor }]}>
-            <Text style={styles.secondaryButtonText}>{item.tier ? "Upgrade" : formatPrice(item)}</Text>
+          <Pressable
+            onPress={() => onUseItem(item)}
+            disabled={busy}
+            style={[styles.secondaryButton, { backgroundColor: section.accentColor }, (busy || unavailable) && styles.shopButtonMuted]}
+          >
+            <Text style={styles.secondaryButtonText}>{item.tier ? "Upgrade" : price}</Text>
           </Pressable>
         </View>
-      ))}
+        );
+      })}
+
+      <Pressable onPress={onRestore} disabled={busy} style={styles.shopRestoreButton}>
+        <Text style={styles.shopRestoreText}>Restore purchases</Text>
+      </Pressable>
+      <Text style={styles.shopLegalCopy}>
+        Premium renews automatically at the price shown until you cancel. Payment is charged to your App Store or Google Play
+        account, and you can cancel any time in your store subscription settings at least 24 hours before the period ends.
+      </Text>
+      <View style={styles.shopLegalLinks}>
+        <Pressable onPress={() => void Linking.openURL(legalLinks.terms)}>
+          <Text style={styles.shopLegalLink}>Terms of use</Text>
+        </Pressable>
+        {legalLinks.privacy ? (
+          <Pressable onPress={() => void Linking.openURL(legalLinks.privacy)}>
+            <Text style={styles.shopLegalLink}>Privacy policy</Text>
+          </Pressable>
+        ) : null}
+      </View>
 
       <Pressable onPress={onDone} style={[styles.primaryButton, { backgroundColor: section.accentColor }]}>
         <Text style={styles.primaryButtonText}>{strings.backToPath}</Text>
@@ -5899,19 +6040,6 @@ function LanguageModal({
         </View>
       </View>
     </Modal>
-  );
-}
-
-function AdBanner({ hidden }: { hidden: boolean }) {
-  if (hidden) {
-    return null;
-  }
-
-  return (
-    <View style={styles.adBanner}>
-      <Text style={styles.adLabel}>Sponsor</Text>
-      <Text style={styles.adCopy}>A short sponsor helps keep today's lessons moving.</Text>
-    </View>
   );
 }
 
@@ -7817,7 +7945,11 @@ const styles = StyleSheet.create({
   profileActionCard: { padding: 18, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   profileActionTitle: { color: colors.ink, fontSize: 16, fontWeight: "900" },
   profileActionCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 5 },
-  adBanner: { position: "absolute", left: 12, right: 12, bottom: 10, minHeight: 56, borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
-  adLabel: { color: colors.sky, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
-  adCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", letterSpacing: 0, marginTop: 2 }
+  shopGemBalance: { color: "#6C3BC6", fontSize: 14, fontWeight: "900", letterSpacing: 0, marginTop: 6 },
+  shopButtonMuted: { opacity: 0.55 },
+  shopRestoreButton: { alignSelf: "center", paddingVertical: 10, paddingHorizontal: 16 },
+  shopRestoreText: { color: colors.sky, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  shopLegalCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "600", letterSpacing: 0, textAlign: "center" },
+  shopLegalLinks: { flexDirection: "row", justifyContent: "center", gap: 18 },
+  shopLegalLink: { color: colors.sky, fontSize: 12, fontWeight: "800", letterSpacing: 0, textDecorationLine: "underline" }
 });

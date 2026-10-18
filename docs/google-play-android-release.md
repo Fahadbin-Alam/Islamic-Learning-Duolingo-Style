@@ -34,12 +34,7 @@ This repo is now prepared for the Android release path, but there are still a fe
 Frontend:
 
 - `EXPO_PUBLIC_API_BASE_URL`
-- `EXPO_PUBLIC_MONETIZATION_MODE`
-- `EXPO_PUBLIC_PLAY_BILLING_HEART_PACK_PRODUCT_ID`
-- `EXPO_PUBLIC_PLAY_BILLING_MONTHLY_PRODUCT_ID`
-- `EXPO_PUBLIC_PLAY_BILLING_YEARLY_PRODUCT_ID`
-- `EXPO_PUBLIC_ADMOB_BANNER_UNIT_ID`
-- `EXPO_PUBLIC_ADMOB_REWARDED_UNIT_ID`
+- `EXPO_PUBLIC_MONETIZATION_MODE` and the RevenueCat / AdMob values listed in [monetization.md](monetization.md)
 - `EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID`
 - `EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID`
 - `EXPO_PUBLIC_FACEBOOK_APP_ID`
@@ -88,23 +83,10 @@ Use the real backend behavior as the source of truth before answering the consol
 
 ## Monetization Readiness
 
-The app now defaults to safe behavior:
+Purchases run through RevenueCat and ads through Google AdMob. The full setup, including the steps that need your own store and ad accounts, is in [monetization.md](monetization.md).
 
-- development builds use sandbox monetization flow
-- non-development builds default to `disabled`
-- live purchases should only be turned on when Google Play Billing is truly connected
-
-Set:
-
-```bash
-EXPO_PUBLIC_MONETIZATION_MODE=live
-```
-
-only after:
-
-- monthly and yearly Play products exist
-- the Android purchase client is real
-- entitlement sync is verified end to end
+- development builds use the simulated store and Google's test ads
+- release builds stay `disabled` until `EXPO_PUBLIC_MONETIZATION_MODE=live` is set with real keys
 
 ## Social Login Readiness
 
@@ -165,6 +147,6 @@ Keep a short note ready for Google review:
 ## Strong Next Steps
 
 1. create real Play Console products for monthly and yearly premium
-2. connect RevenueCat or store-native purchase verification
+2. finish the RevenueCat and AdMob setup in [monetization.md](monetization.md)
 3. host a public privacy policy URL
 4. install EAS CLI and run the Android preview build
