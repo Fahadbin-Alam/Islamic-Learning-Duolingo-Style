@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+import json
 import re
+from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from backend.app.models import Branch, Lesson, LessonResource, Question, Topic
+
+IMPORTED_NOTES_PATH = Path(__file__).resolve().parent.parent / "data" / "obsidian_import.json"
 
 
 def slugify(value: str) -> str:
@@ -475,7 +479,30 @@ def prayer_branches() -> List[Dict[str, Any]]:
     ]
 
 
+def load_imported_branches(path: Path = IMPORTED_NOTES_PATH) -> Dict[str, List[Dict[str, Any]]]:
+    """Branches written by scripts/obsidian-import, keyed by topic slug. Empty when no import has run."""
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return data.get("topics", {})
+
+
+def with_imported_branches(topics: List[Dict[str, Any]], imported: Dict[str, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
+    for topic in topics:
+        existing_slugs = {slugify(branch["title"]) for branch in topic["branches"]}
+        for branch in imported.get(topic["slug"], []):
+            # Keep imported notes in their own branch even when a built-in branch shares the title.
+            title = branch["title"] if slugify(branch["title"]) not in existing_slugs else f"{branch['title']} (notes)"
+            existing_slugs.add(slugify(title))
+            topic["branches"].append({**branch, "title": title})
+    return topics
+
+
 def topic_seed() -> List[Dict[str, Any]]:
+    return with_imported_branches(built_in_topic_seed(), load_imported_branches())
+
+
+def built_in_topic_seed() -> List[Dict[str, Any]]:
     generic = generic_topic_branches()
     return [
         {"title": "Foundation", "slug": "foundation", "description": "Placement-friendly basics for belief, worship, Quran recognition, and everyday Muslim language.", "icon": "sparkle_badge", "color_theme": "emerald", "branches": generic["foundation"]},

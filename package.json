@@ -13,7 +13,9 @@
     "backend:migrate": "python -m alembic -c backend/alembic.ini upgrade head",
     "backend:seed": "python -m backend.scripts.seed_content",
     "backend:bootstrap": "python -m backend.scripts.bootstrap",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "import:notes": "node scripts/obsidian-import/import-obsidian-notes.mjs",
+    "test:notes": "node --test scripts/obsidian-import/lib.test.mjs && python -m unittest backend.tests.test_imported_notes"
   },
   "dependencies": {
     "expo": "~55.0.0",

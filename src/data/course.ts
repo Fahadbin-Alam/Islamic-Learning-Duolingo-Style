@@ -1,4 +1,6 @@
 import { buildExpandedContent } from "./scalableCurriculum";
+import { mergeImportedNotes } from "./importedNotes";
+import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
 
@@ -3823,7 +3825,8 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
   )
 };
 
-const expandedContent = buildExpandedContent(BASE_COURSE, BASE_LESSONS_BY_ID);
+const scaledContent = buildExpandedContent(BASE_COURSE, BASE_LESSONS_BY_ID);
+const expandedContent = mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES);
 
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;
