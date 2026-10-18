@@ -15,11 +15,15 @@
     "backend:bootstrap": "python -m backend.scripts.bootstrap",
     "typecheck": "tsc --noEmit",
     "test": "jest",
-    "test:backend": "python -m pytest backend/tests"
+    "test:backend": "python -m pytest backend/tests",
+    "sounds:generate": "node scripts/generate-game-sounds.mts"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
     "expo": "~55.0.0",
+    "expo-audio": "~55.0.13",
     "expo-auth-session": "~55.0.13",
+    "expo-notifications": "~55.0.18",
     "expo-web-browser": "~55.0.14",
     "react": "19.2.0",
     "react-dom": "19.2.0",

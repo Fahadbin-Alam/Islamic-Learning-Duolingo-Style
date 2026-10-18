@@ -5,6 +5,7 @@ import {
   Easing,
   Linking,
   Modal,
+  Platform,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -69,7 +70,8 @@ import {
 } from "./services/socialHub";
 import {
   requestIslamicNotificationPermission,
-  scheduleIslamicReminderChecks
+  scheduleIslamicReminderChecks,
+  sendAccountabilityNotification
 } from "./services/islamicNotifications";
 import {
   FoundationAssessmentScreen,
@@ -579,7 +581,8 @@ export default function TopicApp() {
   );
 
   useEffect(() => {
-    if (typeof window === "undefined") {
+    // Browsers only allow audio after a user gesture; phones need no unlock.
+    if (Platform.OS !== "web" || typeof window === "undefined") {
       return;
     }
 
@@ -1842,27 +1845,13 @@ export default function TopicApp() {
   }
 
   async function notifyAccountability(title: string, body: string) {
-    if (typeof window === "undefined" || typeof Notification === "undefined") {
-      return;
+    const allowPermissionPrompt = !accountabilityPermissionAsked;
+
+    if (allowPermissionPrompt) {
+      setAccountabilityPermissionAsked(true);
     }
 
-    try {
-      if (Notification.permission === "granted") {
-        new Notification(title, { body });
-        return;
-      }
-
-      if (!accountabilityPermissionAsked && Notification.permission !== "denied") {
-        setAccountabilityPermissionAsked(true);
-        const permission = await Notification.requestPermission();
-
-        if (permission === "granted") {
-          new Notification(title, { body });
-        }
-      }
-    } catch {
-      // Keep accountability available even if browser notifications are not supported.
-    }
+    await sendAccountabilityNotification(title, body, allowPermissionPrompt);
   }
 
   if (state.loading || !state.user) {
