@@ -1,0 +1,157 @@
+:root {
+  --bg: #f4fbf7;
+  --surface: #ffffff;
+  --text: #17322a;
+  --muted: #4f6b61;
+  --accent: #138a5e;
+  --accent-soft: #e3f4ec;
+  --border: #d5e8de;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1d18;
+    --surface: #15271f;
+    --text: #e6f2ec;
+    --muted: #a8c2b7;
+    --accent: #4fd1a0;
+    --accent-soft: #1d382d;
+    --border: #2a4339;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+header {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.bar {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--text);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.brand img {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 15px;
+  margin-left: 14px;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+  color: var(--accent);
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 16px 64px;
+}
+
+h1 {
+  font-size: 30px;
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+
+h2 {
+  font-size: 21px;
+  margin: 36px 0 8px;
+}
+
+h3 {
+  font-size: 17px;
+  margin: 22px 0 4px;
+}
+
+a {
+  color: var(--accent);
+}
+
+.updated {
+  color: var(--muted);
+  font-size: 15px;
+  margin: 0 0 24px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin: 18px 0;
+}
+
+.callout {
+  background: var(--accent-soft);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin: 18px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  margin: 12px 0;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+footer {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  color: var(--muted);
+  font-size: 14px;
+}

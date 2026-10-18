@@ -54,7 +54,7 @@ Each value goes in once with `eas env:create --environment production --visibili
 | Name | Value |
 | --- | --- |
 | `EXPO_PUBLIC_API_BASE_URL` | The API address from step 3, e.g. `https://sira-path-api.onrender.com`. Leave unset for an offline-only build. |
-| `EXPO_PUBLIC_PRIVACY_URL` | The hosted privacy policy page. Both stores require it. |
+| `EXPO_PUBLIC_PRIVACY_URL`, `EXPO_PUBLIC_TERMS_URL` | Only if the policy and terms live somewhere other than the GitHub Pages site (the default once Pages is turned on). |
 | `EXPO_PUBLIC_MONETIZATION_MODE` | `live` once RevenueCat and AdMob are set up (see `docs/monetization.md`), otherwise leave unset and the release ships with no ads or purchases. |
 | RevenueCat and AdMob keys | As listed in `docs/monetization.md`. |
 

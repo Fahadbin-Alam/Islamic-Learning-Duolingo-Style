@@ -93,9 +93,12 @@ export function isRealAdUnitId(value: string) {
   return /^ca-app-pub-\d+\/\d+$/.test(value) && !value.startsWith("ca-app-pub-3940256099942544/");
 }
 
+// Defaults are the pages GitHub Pages publishes from site/; Apple wants both links on the paywall.
+const LEGAL_SITE = "https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style";
+
 export const legalLinks = {
-  terms: clean(env.termsUrl) || "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
-  privacy: clean(env.privacyUrl)
+  terms: clean(env.termsUrl) || `${LEGAL_SITE}/terms.html`,
+  privacy: clean(env.privacyUrl) || `${LEGAL_SITE}/privacy.html`
 };
 
 // Free learners see a short break ad after every few finished lessons, never mid-lesson.
