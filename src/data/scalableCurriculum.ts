@@ -198,7 +198,8 @@ const OBJECTIVE_DISTRACTORS: TopicBank = {
   sahabah: ["Read the companions as distant history only", "Treat courage without knowledge as the model", "Forget the companions carried revelation with sacrifice"],
   prophets: ["Treat prophetic stories as disconnected tales", "Ignore the repeating themes of patience and tawhid", "Read revelation history without applying its lessons"],
   women_of_the_book: ["Reduce honored women to names without lessons", "Forget the courage and worship in their stories", "Treat these lives as distant from Muslim growth"],
-  quran_tafseer: ["Read surahs without theme or reflection", "Memorize words without asking what Allah teaches", "Treat tafsir like an optional extra"]
+  quran_tafseer: ["Read surahs without theme or reflection", "Memorize words without asking what Allah teaches", "Treat tafsir like an optional extra"],
+  hadith: ["Quote narrations without knowing their source", "Treat the Sunnah as optional extra reading", "Remember the words but not the lesson"]
 };
 
 const PRACTICE_DISTRACTORS: TopicBank = {
@@ -213,7 +214,8 @@ const PRACTICE_DISTRACTORS: TopicBank = {
   sahabah: ["Admire the companions without imitating them", "Focus on names but not traits", "Keep the stories away from present obedience"],
   prophets: ["Read the story and skip the lesson", "Notice the miracle but ignore the patience", "Treat tests as proof that guidance failed"],
   women_of_the_book: ["Remember the name but not the virtue", "Skip the lesson because the life feels distant", "Miss how faith looked under pressure"],
-  quran_tafseer: ["Recite quickly without pausing over meaning", "Learn vocabulary without connecting it to theme", "Treat reflection as optional once the text is familiar"]
+  quran_tafseer: ["Recite quickly without pausing over meaning", "Learn vocabulary without connecting it to theme", "Treat reflection as optional once the text is familiar"],
+  hadith: ["Hear the hadith and change nothing", "Share narrations without checking them", "Keep the Sunnah for special occasions only"]
 };
 
 const SECTION_SEEDS: SectionSeed[] = [];
@@ -230,7 +232,8 @@ const TOPIC_ORDER: TopicId[] = [
   "marriage",
   "sahabah",
   "prophets",
-  "women_of_the_book"
+  "women_of_the_book",
+  "hadith"
 ];
 
 function hashCode(input: string) {
@@ -308,7 +311,8 @@ function lessonPractice(topicId: TopicId, title: string, fallback?: string) {
     sahabah: `Read ${inSentence(title)} as a model to imitate, not a story to admire from far away.`,
     prophets: `Translate ${inSentence(title)} into present-day obedience, patience, and trust.`,
     women_of_the_book: `Turn ${inSentence(title)} into a present-day virtue worth practicing.`,
-    foundation: `Repeat ${inSentence(title)} in the next small moment where it belongs.`
+    foundation: `Repeat ${inSentence(title)} in the next small moment where it belongs.`,
+    hadith: `Act on ${inSentence(title)} the next time the situation it describes comes up.`
   }[topicId];
 }
 
