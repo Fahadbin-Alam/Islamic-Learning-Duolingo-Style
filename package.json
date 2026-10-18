@@ -13,20 +13,39 @@
     "backend:migrate": "python -m alembic -c backend/alembic.ini upgrade head",
     "backend:seed": "python -m backend.scripts.seed_content",
     "backend:bootstrap": "python -m backend.scripts.bootstrap",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:backend": "python -m pytest backend/tests",
+    "sounds:generate": "node scripts/generate-game-sounds.mts"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "2.2.0",
     "expo": "~55.0.0",
+    "expo-audio": "~55.0.13",
     "expo-auth-session": "~55.0.13",
+    "expo-notifications": "~55.0.18",
+    "expo-system-ui": "~55.0.15",
     "expo-web-browser": "~55.0.14",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-native": "0.83.2",
+    "react-native": "0.83.4",
+    "react-native-google-mobile-ads": "~17.0.0",
+    "react-native-purchases": "^10.14.0",
     "react-native-web": "~0.21.0"
   },
   "devDependencies": {
+    "@testing-library/react-native": "^14.1.0",
+    "@types/jest": "^29.5.14",
     "@types/react": "^19.2.0",
-    "eas-cli": "^18.7.0",
+    "jest": "^29.7.0",
+    "jest-expo": "~55.0.22",
+    "test-renderer": "^1.3.1",
     "typescript": "^5.9.0"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.test.ts?(x)"
+    ]
   }
 }

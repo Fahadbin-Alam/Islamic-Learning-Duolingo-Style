@@ -5,6 +5,7 @@ import type {
   SocialRelation,
   UserProfile
 } from "../types";
+import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
 
 const STORAGE_KEY = "sira-path-social-hub";
 
@@ -14,12 +15,8 @@ const EMPTY_SOCIAL_STATE: SocialHubState = {
 };
 
 export function loadSocialHubState(): SocialHubState {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return EMPTY_SOCIAL_STATE;
-  }
-
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = getStoredItem(STORAGE_KEY);
 
     if (!raw) {
       return EMPTY_SOCIAL_STATE;
@@ -43,19 +40,11 @@ export function loadSocialHubState(): SocialHubState {
 }
 
 export function saveSocialHubState(state: SocialHubState) {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return;
-  }
-
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  setStoredItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 export function clearSocialHubState() {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return;
-  }
-
-  window.localStorage.removeItem(STORAGE_KEY);
+  removeStoredItem(STORAGE_KEY);
 }
 
 export function createSocialConnection(input: {

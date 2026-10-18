@@ -51,3 +51,15 @@ SUBSCRIPTION_PLANS: List[Dict[str, Any]] = [
 def premium_plan_ids() -> set[str]:
     return {plan["id"] for plan in SUBSCRIPTION_PLANS if plan["id"] != "free"}
 
+
+
+# Store product ids (Google Play ids may carry a ":basePlanId" suffix) mapped to the plans above.
+STORE_PRODUCT_PLANS: Dict[str, str] = {
+    "membership_monthly": "premium_monthly",
+    "membership_yearly": "premium_yearly",
+}
+
+
+def plan_for_store_product(product_id: str | None) -> str:
+    base_id = (product_id or "").split(":", 1)[0]
+    return STORE_PRODUCT_PLANS.get(base_id, "premium_monthly")

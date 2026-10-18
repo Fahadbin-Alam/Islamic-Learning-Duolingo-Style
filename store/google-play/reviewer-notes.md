@@ -3,7 +3,7 @@
 - Core learning works without creating an account.
 - Account creation is optional and is used for saved progress, social features, and synced profile state.
 - If social login is not configured for the release build, the Google and Facebook buttons are hidden.
-- Premium purchases should remain disabled until real Google Play Billing is connected.
+- Premium is an optional auto-renewing subscription sold through Google Play Billing. Free learners see AdMob ads rated G; premium removes them. Purchases can be restored from the shop.
 
 ## Reviewer Walkthrough
 
