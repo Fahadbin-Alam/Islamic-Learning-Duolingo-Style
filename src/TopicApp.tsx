@@ -21,8 +21,10 @@ import {
   applyShopItem,
   canSpendGems,
   completeLesson,
+  addXp,
   completeLessonCluster,
   createTestOutSession,
+  getXpToday,
   grantHearts,
   isPremiumUser,
   learningApi,
@@ -872,8 +874,7 @@ export default function TopicApp() {
     dispatch({
       type: "apply_user",
       user: ensureLearnerProfile({
-        ...state.user,
-        totalXp: state.user.totalXp + gainedXp,
+        ...addXp(state.user, gainedXp),
         learnerProfile: result.nextProfile,
         lastLearningAt: new Date().toISOString()
       })
@@ -1925,7 +1926,7 @@ export default function TopicApp() {
             user={state.user}
             strings={strings}
             languageCode={getLanguageOption(currentLanguage).code}
-            dailyProgress={Math.min(1, state.user.totalXp / Math.max(1, state.user.dailyGoalXp))}
+            dailyProgress={Math.min(1, getXpToday(state.user) / Math.max(1, state.user.dailyGoalXp))}
             soundEnabled={state.user.soundEffectsEnabled !== false}
             onHome={goHomeScreen}
             onReview={openReviewScreen}
@@ -2341,8 +2342,8 @@ function HomeScreen({
         section={section}
         strings={strings}
         language={language}
-        progress={Math.min(1, user.totalXp / Math.max(1, user.dailyGoalXp))}
-        gainedXp={user.totalXp}
+        progress={Math.min(1, getXpToday(user) / Math.max(1, user.dailyGoalXp))}
+        gainedXp={getXpToday(user)}
         earnedStars={getSectionStars(user, section)}
         branchProgress={getBranchCompletionRatio(user, section, section.branches[0]?.id ?? "")}
         nextLessonTitle={nextNode?.title}
@@ -2435,8 +2436,8 @@ function TopicScreen({
         section={section}
         strings={strings}
         language={language}
-        progress={Math.min(1, user.totalXp / Math.max(1, user.dailyGoalXp))}
-        gainedXp={xpSummary?.gainedXp ?? user.totalXp}
+        progress={Math.min(1, getXpToday(user) / Math.max(1, user.dailyGoalXp))}
+        gainedXp={getXpToday(user)}
         earnedStars={getSectionStars(user, section)}
         branchProgress={getBranchCompletionRatio(user, section, branch.id)}
         nextLessonTitle={nextNode?.title}
@@ -3877,7 +3878,7 @@ function PathScreen({
   onOpenShop: () => void;
   onClaimReward: (stop: JourneyRewardStop) => void;
 }) {
-  const progress = Math.min(1, user.totalXp / user.dailyGoalXp);
+  const progress = Math.min(1, getXpToday(user) / Math.max(1, user.dailyGoalXp));
   const nextNode = nodes.find((node) => node.status === "current") ?? nodes.find((node) => node.status === "available") ?? nodes[0];
   const earnedStars = getSectionStars(user, section);
   const branchProgress = getBranchCompletionRatio(user, section, branch.id);
@@ -3898,7 +3899,7 @@ function PathScreen({
         strings={strings}
         language={language}
         progress={progress}
-        gainedXp={xpSummary?.gainedXp ?? user.totalXp}
+        gainedXp={getXpToday(user)}
         earnedStars={earnedStars}
         branchProgress={branchProgress}
         nextLessonTitle={nextNode?.title}

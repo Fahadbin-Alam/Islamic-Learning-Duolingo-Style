@@ -38,9 +38,10 @@ const CAPTIONS = {
   "08-profile": "Watch your progress grow"
 };
 
-// A learner three lessons into the wudu branch with a 23 day streak.
+// A learner three lessons into the wudu branch with a 23 day streak, partway to today's goal.
 const SEED_PROFILE = () => {
   const key = "sira-path-user-profile";
+  const today = new Date().toISOString().slice(0, 10);
   const user = JSON.parse(localStorage[key]);
   const nodes = ["what-wudu-is", "why-wudu-matters", "conditions-before-wudu"].map((slug) => `prayer-wudu-${slug}`);
   Object.assign(user, {
@@ -52,6 +53,7 @@ const SEED_PROFILE = () => {
     accountEmail: "aisha@example.com",
     streakDays: 23,
     totalXp: 340,
+    dailyXp: { date: today, xp: 24 },
     gems: 640,
     completedNodeIds: nodes,
     completedLessonIds: nodes.map((id) => `lesson-${id}`)
