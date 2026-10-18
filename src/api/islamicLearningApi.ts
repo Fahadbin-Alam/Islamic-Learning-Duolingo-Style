@@ -90,16 +90,29 @@ export const learningApi: IslamicLearningApi = {
     return [
       {
         userId: user.id,
-        gainedXp: user.totalXp,
+        gainedXp: getXpToday(user),
         dailyGoalXp: user.dailyGoalXp,
         date: new Date().toISOString().slice(0, 10),
-        streakExtended: user.totalXp >= user.dailyGoalXp,
+        streakExtended: getXpToday(user) >= user.dailyGoalXp,
         totalSessionTime: Math.max(120, user.completedLessonIds.length * 90),
         numSessions: user.completedLessonIds.length
       }
     ];
   }
 };
+
+export function getXpToday(user: UserProfile, now = new Date()) {
+  const today = now.toISOString().slice(0, 10);
+  return user.dailyXp?.date === today ? user.dailyXp.xp : 0;
+}
+
+export function addXp(user: UserProfile, amount: number, now = new Date()): UserProfile {
+  return {
+    ...user,
+    totalXp: user.totalXp + amount,
+    dailyXp: { date: now.toISOString().slice(0, 10), xp: getXpToday(user, now) + amount }
+  };
+}
 
 export function refillHeartsForToday(user: UserProfile) {
   const today = new Date().toISOString().slice(0, 10);
@@ -127,12 +140,11 @@ export function completeLesson(user: UserProfile, lesson: Lesson) {
   const completedNodeIds = node && !user.completedNodeIds.includes(node.id)
     ? [...user.completedNodeIds, node.id]
     : user.completedNodeIds;
-  const nextXp = alreadyCompleted ? user.totalXp : user.totalXp + lesson.xpReward;
+  const withXp = addXp(user, alreadyCompleted ? 0 : lesson.xpReward);
 
   return {
-    ...user,
-    totalXp: nextXp,
-    streakDays: nextXp >= user.dailyGoalXp ? Math.max(user.streakDays, 1) : user.streakDays,
+    ...withXp,
+    streakDays: getXpToday(withXp) >= user.dailyGoalXp ? Math.max(user.streakDays, 1) : user.streakDays,
     completedLessonIds,
     completedNodeIds
   };
@@ -254,12 +266,11 @@ export function completeLessonCluster(user: UserProfile, lessons: Lesson[]) {
     }
   }
 
-  const nextXp = user.totalXp + gainedXp;
+  const withXp = addXp(user, gainedXp);
 
   return {
-    ...user,
-    totalXp: nextXp,
-    streakDays: nextXp >= user.dailyGoalXp ? Math.max(user.streakDays, 1) : user.streakDays,
+    ...withXp,
+    streakDays: getXpToday(withXp) >= user.dailyGoalXp ? Math.max(user.streakDays, 1) : user.streakDays,
     completedLessonIds: Array.from(completedLessonIds),
     completedNodeIds: Array.from(completedNodeIds)
   };

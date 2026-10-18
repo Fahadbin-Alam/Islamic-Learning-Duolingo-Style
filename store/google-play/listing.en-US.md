@@ -63,7 +63,9 @@ Sira Path is a learning tool, not a fatwa service. For rulings that affect you, 
 | Website | https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/ |
 | Privacy policy | https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html |
 
-## Graphics still needed
+## Graphics
+
+All of these are ready in [`../graphics`](../graphics); its README says which file goes in which slot.
 
 | Asset | Size | Notes |
 | --- | --- | --- |

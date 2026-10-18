@@ -1,4 +1,4 @@
-import { completeLesson, completeLessonCluster, learningApi } from "../api/islamicLearningApi";
+import { addXp, completeLesson, completeLessonCluster, getXpToday, learningApi } from "../api/islamicLearningApi";
 import { LESSONS_BY_ID, findNodeByLessonId } from "../data/course";
 import { makeUser } from "./testUtils";
 
@@ -72,12 +72,45 @@ describe("completeLessonCluster", () => {
   });
 });
 
+describe("XP earned today", () => {
+  const today = new Date().toISOString().slice(0, 10);
+
+  it("counts only XP earned today, not the lifetime total", () => {
+    const user = makeUser({ totalXp: 900, dailyXp: { date: today, xp: 12 } });
+
+    expect(getXpToday(user)).toBe(12);
+  });
+
+  it("starts each day at zero", () => {
+    const user = makeUser({ totalXp: 900, dailyXp: { date: "2020-01-01", xp: 55 } });
+
+    expect(getXpToday(user)).toBe(0);
+    expect(getXpToday(addXp(user, 8))).toBe(8);
+    expect(addXp(user, 8).totalXp).toBe(908);
+  });
+
+  it("adds a finished lesson to today's XP", () => {
+    const user = makeUser({ totalXp: 900, dailyXp: { date: today, xp: 10 } });
+
+    expect(getXpToday(completeLesson(user, lesson))).toBe(10 + lesson.xpReward);
+  });
+
+  it("does not let lifetime XP start a streak on its own", () => {
+    const user = makeUser({ streakDays: 0, totalXp: 900, dailyGoalXp: lesson.xpReward + 1 });
+
+    expect(completeLesson(user, lesson).streakDays).toBe(0);
+  });
+});
+
 describe("getXpSummaries", () => {
-  it("reports whether the daily goal extended the streak", async () => {
-    const [under] = await learningApi.getXpSummaries(makeUser({ totalXp: 10, dailyGoalXp: 40 }));
-    const [met] = await learningApi.getXpSummaries(makeUser({ totalXp: 40, dailyGoalXp: 40 }));
+  const today = new Date().toISOString().slice(0, 10);
+
+  it("reports today's XP and whether it met the daily goal", async () => {
+    const [under] = await learningApi.getXpSummaries(makeUser({ totalXp: 500, dailyXp: { date: today, xp: 10 }, dailyGoalXp: 40 }));
+    const [met] = await learningApi.getXpSummaries(makeUser({ totalXp: 500, dailyXp: { date: today, xp: 40 }, dailyGoalXp: 40 }));
 
     expect(under.streakExtended).toBe(false);
+    expect(under.gainedXp).toBe(10);
     expect(met.streakExtended).toBe(true);
     expect(met.gainedXp).toBe(40);
   });

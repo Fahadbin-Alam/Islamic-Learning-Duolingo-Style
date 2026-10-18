@@ -11,6 +11,7 @@ Everything Google Play and the App Store ask for besides the app build itself.
 | App Store privacy labels | [app-store/privacy-labels.md](app-store/privacy-labels.md) |
 | App Review notes | [app-store/review-notes.md](app-store/review-notes.md) |
 | Content rating answers for both stores | [content-ratings.md](content-ratings.md) |
+| Screenshots, feature graphic and icon, with the slot each fills | [graphics/README.md](graphics/README.md) |
 | Public support, privacy policy, terms of use and account deletion pages | [../site](../site) |
 
 The pages in `site/` replace the draft in `docs/privacy-policy.md`.
@@ -48,7 +49,7 @@ The release builds PR (#6) covers most of these. The answers in this folder assu
 4. **Google Play testing rule:** personal developer accounts created after November 2023 must run a closed test with at least 12 testers for 14 days before they can apply for production. Start this as soon as the first build is ready.
 5. **Apple EU trader status:** App Store Connect asks whether you are a trader under the EU Digital Services Act. Selling subscriptions usually makes you one, which shows your address, phone and email on the EU App Store. Answer it, or remove EU countries from availability until you are ready.
 6. **Paste the listings and answer the forms** from the files in this folder. Recheck `google-play/data-safety.md` and `app-store/privacy-labels.md` if any SDK is added.
-7. **Graphics:** a 1024 × 500 feature graphic for Google Play, and phone and iPad screenshots for both stores (sizes in the listing files).
+7. **Graphics:** upload the files in [graphics](graphics). Its README maps each one to its store slot.
 8. **AdMob `app-ads.txt`:** AdMob looks for it at the root of the developer website's domain. `fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/` is not a root, so either use a custom domain for the site or create a repository named `Fahadbin-Alam.github.io` containing only `app-ads.txt`, and use `https://fahadbin-alam.github.io` as the developer website in both stores.
 9. **Lesson sources:** confirm that any Quran translation or hadith text quoted word for word in lessons is either paraphrased or from a translation whose licence allows use in an app, so you can answer "Yes" to Apple's content rights question.
 
