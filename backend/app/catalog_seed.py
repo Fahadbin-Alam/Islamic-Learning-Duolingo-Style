@@ -43,7 +43,7 @@ def build_question_specs(title: str, description: str, difficulty: int, lesson_t
         "multiple_choice" if difficulty <= 2 else
         "scenario_judgment" if lesson_type in {"scenario", "challenge", "mastery"} else
         "identify_mistake" if lesson_type == "mistake_detection" else
-        "true_false"
+        "multiple_choice"
     )
     questions = [
         {

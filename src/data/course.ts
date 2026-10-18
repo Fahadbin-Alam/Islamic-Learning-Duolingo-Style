@@ -70,6 +70,17 @@ function videoSource(
   };
 }
 
+// The hand-written questions list the correct answer first, so the choices are
+// rotated by a stable hash of the question id to spread the answer across positions.
+function rotateChoices(id: string, choices: ChoiceTuple[]) {
+  let hash = 0;
+  for (let index = 0; index < id.length; index += 1) {
+    hash = (hash * 31 + id.charCodeAt(index)) | 0;
+  }
+  const start = Math.abs(hash) % choices.length;
+  return choices.map((_, index) => choices[(start + index) % choices.length]);
+}
+
 function mc(
   id: string,
   prompt: string,
@@ -81,7 +92,7 @@ function mc(
     id,
     type: "multiple_choice",
     prompt,
-    choices: choices.map(([choiceId, label]) => ({ id: choiceId, label })),
+    choices: rotateChoices(id, choices).map(([choiceId, label]) => ({ id: choiceId, label })),
     correctChoiceId,
     explanation
   };
@@ -1251,7 +1262,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Prayer is not accepted without purification",
         "https://sunnah.com/muslim:224",
         "Sahih Muslim 224",
-        "Abu Hurairah; collected by Imam Muslim",
+        "Ibn Umar; collected by Imam Muslim",
         "Sahih",
         "The Prophet taught that prayer is not accepted without purification, showing why wudu matters so much."
       )
@@ -1382,7 +1393,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Purification before accepted prayer",
         "https://sunnah.com/muslim:224",
         "Sahih Muslim 224",
-        "Abu Hurairah; collected by Imam Muslim",
+        "Ibn Umar; collected by Imam Muslim",
         "Sahih",
         "The hadith keeps the learner focused: wudu is not random washing, but preparation for accepted worship."
       )
@@ -1993,7 +2004,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "https://sunnah.com/adab:354",
         "Al-Adab Al-Mufrad 354",
         "Abdullah ibn Amr ibn al-As; collected by Imam al-Bukhari in Al-Adab Al-Mufrad",
-        "Hasan",
+        "See source",
         "A Muslim community is meant to show mercy to the young and recognize the rights of older people."
       )
     ],
@@ -2693,11 +2704,11 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     12,
     [
       hadithSource(
-        "source-ali-bukhari-3701",
+        "source-ali-bukhari-4210",
         "The flag at Khaybar",
-        "https://sunnah.com/bukhari:3701",
-        "Sahih al-Bukhari 3701",
-        "Salama ibn al-Akwa; collected by Imam al-Bukhari",
+        "https://sunnah.com/bukhari:4210",
+        "Sahih al-Bukhari 4210",
+        "Sahl bin Sa'd; collected by Imam al-Bukhari",
         "Sahih",
         "The Prophet gave Ali the flag at Khaybar, linking him to love of Allah, love of the Messenger, and brave leadership."
       ),
@@ -2860,10 +2871,10 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "The tafsir centers this surah on pure tawhid and the unmatched uniqueness of Allah."
       ),
       hadithSource(
-        "source-ikhlas-bukhari-5013",
+        "source-ikhlas-bukhari-7375",
         "A beloved surah of tawhid",
-        "https://sunnah.com/bukhari:5013",
-        "Sahih al-Bukhari 5013",
+        "https://sunnah.com/bukhari:7375",
+        "Sahih al-Bukhari 7375",
         "Aishah; collected by Imam al-Bukhari",
         "Sahih",
         "The Prophet explained that love of this surah is tied to what it carries about Allah's attributes."
@@ -2972,8 +2983,8 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       hadithSource(
         "source-asr-muslim-55",
         "Religion is sincere advice",
-        "https://sunnah.com/muslim:55",
-        "Sahih Muslim 55",
+        "https://sunnah.com/muslim:55a",
+        "Sahih Muslim 55a",
         "Tamim ad-Dari; collected by Imam Muslim",
         "Sahih",
         "The idea of mutually advising one another in truth matches the spirit of Surah Al-Asr."
