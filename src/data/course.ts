@@ -3882,6 +3882,25 @@ export const SHOP_ITEMS: ShopItem[] = [
     heartsGranted: 5
   },
   {
+    id: "gem-heart-refill",
+    type: "gem_heart_refill",
+    name: "Refill hearts with gems",
+    localizedDescription: "Spend the gems you earned on the path to refill every heart.",
+    price: 350,
+    currencyType: "gems",
+    refillsHearts: true
+  },
+  {
+    id: "gem-pack-medium",
+    type: "gem_pack",
+    name: "Gem chest",
+    localizedDescription: "Add 1,200 gems for heart refills and future rewards.",
+    price: 4.99,
+    currencyType: "USD",
+    productId: "gem_pack_medium",
+    gemsGranted: 1200
+  },
+  {
     id: "watch-ad-heart",
     type: "rewarded_ad",
     name: "Watch and recover",

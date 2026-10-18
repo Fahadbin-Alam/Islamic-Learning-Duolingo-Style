@@ -18,6 +18,10 @@ function isConfigured(value?: string) {
   return Boolean(value && !value.startsWith("ADD_"));
 }
 
+// The Google/Facebook redirect flow and backend token check are not built yet (the API answers 501),
+// so the buttons stay hidden even when ids are set. Turning them on for iOS also requires Sign in with Apple.
+const SOCIAL_SIGN_IN_READY = false;
+
 const googleClientId = readEnv("EXPO_PUBLIC_GOOGLE_CLIENT_ID");
 const googleWebClientId = readEnv("EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID");
 const googleIosClientId = readEnv("EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID");
@@ -26,7 +30,7 @@ const facebookAppId = readEnv("EXPO_PUBLIC_FACEBOOK_APP_ID");
 
 export const SOCIAL_AUTH_CONFIG: Record<"google" | "facebook", SocialAuthProviderConfig> = {
   google: {
-    enabled: [googleClientId, googleWebClientId, googleIosClientId, googleAndroidClientId].some((value) => isConfigured(value)),
+    enabled: SOCIAL_SIGN_IN_READY && [googleClientId, googleWebClientId, googleIosClientId, googleAndroidClientId].some((value) => isConfigured(value)),
     label: "Continue with Google",
     clientId: googleClientId || undefined,
     webClientId: googleWebClientId || googleClientId || undefined,
@@ -34,7 +38,7 @@ export const SOCIAL_AUTH_CONFIG: Record<"google" | "facebook", SocialAuthProvide
     androidClientId: googleAndroidClientId || googleClientId || undefined
   },
   facebook: {
-    enabled: isConfigured(facebookAppId),
+    enabled: SOCIAL_SIGN_IN_READY && isConfigured(facebookAppId),
     label: "Continue with Facebook",
     appId: facebookAppId || undefined,
     clientId: facebookAppId || undefined,

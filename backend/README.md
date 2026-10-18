@@ -12,18 +12,18 @@ The backend is now a FastAPI application prepared for long-term product use inst
 
 ## Main Files
 
-- [app/main.py](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/app/main.py): FastAPI entrypoint
-- [app/models.py](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/app/models.py): database models
-- [app/schemas.py](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/app/schemas.py): request/response schemas
-- [app/catalog_seed.py](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/app/catalog_seed.py): starter scalable content seeding
-- [migrations](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/migrations): Alembic environment and revisions
-- [scripts/bootstrap.py](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/scripts/bootstrap.py): migrate + seed helper
+- [app/main.py](app/main.py): FastAPI entrypoint
+- [app/models.py](app/models.py): database models
+- [app/schemas.py](app/schemas.py): request/response schemas
+- [app/catalog_seed.py](app/catalog_seed.py): starter scalable content seeding
+- [migrations](migrations): Alembic environment and revisions
+- [scripts/bootstrap.py](scripts/bootstrap.py): migrate + seed helper
 
 ## Local Database
 
 By default the local SQLite database is:
 
-- [sira_path.db](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/data/sira_path.db)
+- [sira_path.db](data/sira_path.db)
 
 ## Commands
 
@@ -62,4 +62,4 @@ For production:
 
 ## Legacy Note
 
-- [server.js](C:/Users/ME/Islamic-Learning-Duolingo-Style/backend/server.js) is still in the repo as the old lightweight backend, but it is now a legacy fallback, not the main direction.
+- [server.js](server.js) is still in the repo as the old lightweight backend, but it is now a legacy fallback, not the main direction.

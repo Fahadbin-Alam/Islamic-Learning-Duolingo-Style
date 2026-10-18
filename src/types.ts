@@ -23,7 +23,13 @@ export type LessonSourceCategory = "tafsir" | "hadith" | "video" | "biography" |
 
 export type LearningNodeStatus = "locked" | "available" | "current" | "completed";
 
-export type ShopItemType = "heart_pack" | "monthly_membership" | "yearly_membership" | "rewarded_ad";
+export type ShopItemType =
+  | "heart_pack"
+  | "monthly_membership"
+  | "yearly_membership"
+  | "rewarded_ad"
+  | "gem_heart_refill"
+  | "gem_pack";
 
 export type SocialRelation = "parent" | "friend";
 export type AccountRole = "parent" | "child";
@@ -193,6 +199,8 @@ export interface UserProfile {
   learnerProfile?: LearnerProfile;
   streakDays: number;
   totalXp: number;
+  // XP earned on one day (UTC date, same as the heart refill), for the daily goal.
+  dailyXp?: { date: string; xp: number };
   dailyGoalXp: number;
   gems: number;
   hearts: HeartsBalance;
@@ -379,6 +387,8 @@ export interface ShopItem {
   currencyType: "USD" | "gems" | "rewarded_ad";
   productId?: string;
   heartsGranted?: number;
+  gemsGranted?: number;
+  refillsHearts?: boolean;
   unlimitedHearts?: boolean;
   removesAds?: boolean;
   durationDays?: number;
@@ -402,6 +412,15 @@ export interface PurchaseResult {
   transactionId: string;
   itemId: string;
   message?: string;
+  cancelled?: boolean;
+  premium?: PremiumStatus;
+}
+
+export interface PremiumStatus {
+  active: boolean;
+  productId?: string;
+  expiresAt?: string | null;
+  willRenew?: boolean;
 }
 
 export interface RewardedAdResult {

@@ -1,14 +1,11 @@
 import type { UserProfile } from "../types";
+import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
 
 const STORAGE_KEY = "sira-path-user-profile";
 
 export function loadSavedUserProfile(): UserProfile | null {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return null;
-  }
-
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = getStoredItem(STORAGE_KEY);
 
     if (!raw) {
       return null;
@@ -21,17 +18,9 @@ export function loadSavedUserProfile(): UserProfile | null {
 }
 
 export function saveUserProfile(user: UserProfile) {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return;
-  }
-
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+  setStoredItem(STORAGE_KEY, JSON.stringify(user));
 }
 
 export function clearSavedUserProfile() {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return;
-  }
-
-  window.localStorage.removeItem(STORAGE_KEY);
+  removeStoredItem(STORAGE_KEY);
 }

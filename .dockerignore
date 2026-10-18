@@ -1,0 +1,14 @@
+.git
+node_modules
+.expo
+dist
+android
+ios
+assets
+src
+store
+docs
+backend/data/*.db
+**/__pycache__
+.env
+secrets

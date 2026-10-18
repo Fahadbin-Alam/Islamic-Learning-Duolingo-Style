@@ -5,6 +5,7 @@ import {
   Easing,
   Linking,
   Modal,
+  Platform,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -12,14 +13,20 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
+  useWindowDimensions
 } from "react-native";
 import {
+  applyPremiumStatus,
   applyShopItem,
+  canSpendGems,
   completeLesson,
+  addXp,
   completeLessonCluster,
   createTestOutSession,
+  getXpToday,
   grantHearts,
+  isPremiumUser,
   learningApi,
   loseHeart,
   refillHeartsForToday
@@ -45,6 +52,9 @@ import {
   updateLocalAuthAccount
 } from "./services/localAuth";
 import {
+  BackendRequestError,
+  deleteRemoteAccount,
+  getSessionToken,
   hydrateRemoteSession,
   loginRemoteAccount,
   logoutRemoteAccount,
@@ -53,7 +63,9 @@ import {
   syncRemoteUser
 } from "./services/backendSync";
 import { clearSavedUserProfile, loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
+import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
+import { legalLinks, shouldShowLessonBreakAd } from "./services/monetizationConfig";
 import {
   clearSocialHubState,
   createSocialConnection,
@@ -64,7 +76,8 @@ import {
 } from "./services/socialHub";
 import {
   requestIslamicNotificationPermission,
-  scheduleIslamicReminderChecks
+  scheduleIslamicReminderChecks,
+  sendAccountabilityNotification
 } from "./services/islamicNotifications";
 import {
   FoundationAssessmentScreen,
@@ -95,6 +108,7 @@ import type {
   LessonSource,
   LessonSession,
   LessonTeachingMoment,
+  PremiumStatus,
   ReminderPreferences,
   ResourceSupportType,
   ResourceValidationStatus,
@@ -259,6 +273,8 @@ type Action =
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "close_lesson_complete" }
   | { type: "apply_user"; user: UserProfile }
+  | { type: "apply_user_latest"; update: (user: UserProfile) => UserProfile }
+  | { type: "sync_premium"; premium: PremiumStatus }
   | { type: "reset_lesson" };
 
 const initialState: AppState = {
@@ -409,6 +425,10 @@ function reducer(state: AppState, action: Action): AppState {
       };
     case "apply_user":
       return { ...state, user: action.user };
+    case "apply_user_latest":
+      return state.user ? { ...state, user: action.update(state.user) } : state;
+    case "sync_premium":
+      return state.user ? { ...state, user: applyPremiumStatus(state.user, action.premium) } : state;
     case "reset_lesson":
       return {
         ...state,
@@ -456,6 +476,42 @@ export default function TopicApp() {
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
   const [rewardCelebration, setRewardCelebration] = useState<LessonCelebration | undefined>(undefined);
   const challengeStartedAtRef = useRef(Date.now());
+  const lessonsFinishedRef = useRef(0);
+  const [storePrices, setStorePrices] = useState<Record<string, string>>({});
+  const [shopBusy, setShopBusy] = useState(false);
+  const monetizationUserId = state.user?.hasAccount ? String(state.user.id) : undefined;
+  const hasUser = Boolean(state.user);
+
+  // Connect the store once a learner is loaded, then let the store's record of premium override local state.
+  useEffect(() => {
+    if (!hasUser) {
+      return;
+    }
+
+    let cancelled = false;
+
+    (async () => {
+      await monetizationClient.initialize(monetizationUserId);
+      const [premium, prices] = await Promise.all([
+        monetizationClient.getPremiumStatus(),
+        monetizationClient.getStorePrices(SHOP_ITEMS)
+      ]);
+
+      if (cancelled) {
+        return;
+      }
+
+      setStorePrices(prices);
+
+      if (premium) {
+        dispatch({ type: "sync_premium", premium });
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [hasUser, monetizationUserId]);
 
   useEffect(() => {
     let mounted = true;
@@ -531,7 +587,8 @@ export default function TopicApp() {
   );
 
   useEffect(() => {
-    if (typeof window === "undefined") {
+    // Browsers only allow audio after a user gesture; phones need no unlock.
+    if (Platform.OS !== "web" || typeof window === "undefined") {
       return;
     }
 
@@ -817,8 +874,7 @@ export default function TopicApp() {
     dispatch({
       type: "apply_user",
       user: ensureLearnerProfile({
-        ...state.user,
-        totalXp: state.user.totalXp + gainedXp,
+        ...addXp(state.user, gainedXp),
         learnerProfile: result.nextProfile,
         lastLearningAt: new Date().toISOString()
       })
@@ -1267,6 +1323,7 @@ export default function TopicApp() {
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
+    maybeShowLessonBreakAd(nextUser);
       return;
     }
 
@@ -1299,6 +1356,7 @@ export default function TopicApp() {
     });
     const xpSummary = await learningApi.getXpSummaries(nextUser);
     dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
+    maybeShowLessonBreakAd(nextUser);
   }
 
   function claimJourneyReward(stop: JourneyRewardStop) {
@@ -1334,30 +1392,82 @@ export default function TopicApp() {
     dispatch({ type: "apply_user", user: nextUser });
   }
 
+  function maybeShowLessonBreakAd(user: UserProfile) {
+    lessonsFinishedRef.current += 1;
+
+    if (shouldShowLessonBreakAd(lessonsFinishedRef.current, isPremiumUser(user))) {
+      void monetizationClient.showLessonBreakAd();
+    }
+  }
+
   async function useShopItem(item: ShopItem) {
-    if (!state.user) {
+    if (!state.user || shopBusy) {
       return;
     }
     playUiSound("soft_ui");
 
-    if (item.type === "rewarded_ad") {
-      const reward = await monetizationClient.showRewardedHeartAd(item);
-
-      if (reward.ok) {
-        dispatch({ type: "apply_user", user: grantHearts(state.user, reward.heartsGranted, true) });
-      } else if (reward.message) {
-        Alert.alert("Rewarded hearts are not ready yet", reward.message);
+    if (item.currencyType === "gems") {
+      if (canSpendGems(state.user, item)) {
+        dispatch({ type: "apply_user", user: applyShopItem(state.user, item) });
+      } else {
+        Alert.alert(
+          "Not available right now",
+          state.user.gems < item.price ? `You need ${item.price} gems. Earn more by finishing lessons and reward chests.` : "Your hearts are already full."
+        );
       }
-
       return;
     }
 
-    const purchase = await monetizationClient.purchaseShopItem(item);
+    setShopBusy(true);
 
-    if (purchase.ok) {
-      dispatch({ type: "apply_user", user: applyShopItem(state.user, item) });
-    } else if (purchase.message) {
-      Alert.alert("Premium checkout is not ready yet", purchase.message);
+    try {
+      if (item.type === "rewarded_ad") {
+        const reward = await monetizationClient.showRewardedHeartAd(item);
+
+        if (reward.ok) {
+          dispatch({ type: "apply_user_latest", update: (user) => grantHearts(user, reward.heartsGranted, true) });
+        } else if (reward.message) {
+          Alert.alert("Sponsor break", reward.message);
+        }
+
+        return;
+      }
+
+      const purchase = await monetizationClient.purchaseShopItem(item);
+
+      if (purchase.ok) {
+        dispatch({ type: "apply_user_latest", update: (user) => applyShopItem(user, item) });
+        if (purchase.premium) {
+          dispatch({ type: "sync_premium", premium: purchase.premium });
+        }
+      } else if (!purchase.cancelled && purchase.message) {
+        Alert.alert("Purchase not completed", purchase.message);
+      }
+    } finally {
+      setShopBusy(false);
+    }
+  }
+
+  async function restorePurchases() {
+    if (shopBusy) {
+      return;
+    }
+
+    setShopBusy(true);
+
+    try {
+      const result = await monetizationClient.restorePurchases();
+
+      if (result.premium) {
+        dispatch({ type: "sync_premium", premium: result.premium });
+      }
+
+      Alert.alert(
+        "Restore purchases",
+        result.premium?.active ? "Your premium plan is active again." : result.message ?? "No active premium plan was found."
+      );
+    } finally {
+      setShopBusy(false);
     }
   }
 
@@ -1592,6 +1702,48 @@ export default function TopicApp() {
       // Best effort is enough here because we still clear the local session below.
     }
 
+    resetToGuest(guestUser);
+    Alert.alert("Logged out", "You are back in guest mode. Create an account or log in any time to save progress again.");
+  }
+
+  async function deleteAccount() {
+    if (!state.user) {
+      return;
+    }
+
+    const confirmed = await confirmDestructive(
+      "Delete your account?",
+      "This permanently deletes your account, XP, streak and saved progress. Active subscriptions are managed by the App Store or Google Play and must be cancelled there.",
+      "Delete account"
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    if (getSessionToken()) {
+      try {
+        await deleteRemoteAccount();
+      } catch (error) {
+        Alert.alert(
+          "Could not delete account",
+          error instanceof Error && isBackendOfflineError(error)
+            ? "Connect to the internet and try again so your account can be removed from our servers."
+            : error instanceof Error ? error.message : "Please try again."
+        );
+        return;
+      }
+    }
+
+    const fallbackUser = await learningApi.getUser(1001);
+    resetToGuest(withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday({
+      ...fallbackUser,
+      preferredLanguage: state.user.preferredLanguage ?? DEFAULT_LANGUAGE
+    }))));
+    Alert.alert("Account deleted", "Your account and saved progress have been removed.");
+  }
+
+  function resetToGuest(guestUser: UserProfile) {
     clearLocalAuthAccount();
     clearSocialHubState();
     clearSavedUserProfile();
@@ -1612,7 +1764,6 @@ export default function TopicApp() {
     setReviewRestoreVisible(false);
     setSettingsModalVisible(false);
     dispatch({ type: "apply_user", user: guestUser });
-    Alert.alert("Logged out", "You are back in guest mode. Create an account or log in any time to save progress again.");
   }
 
   function handleSocialLogin(provider: SocialProvider) {
@@ -1740,27 +1891,13 @@ export default function TopicApp() {
   }
 
   async function notifyAccountability(title: string, body: string) {
-    if (typeof window === "undefined" || typeof Notification === "undefined") {
-      return;
+    const allowPermissionPrompt = !accountabilityPermissionAsked;
+
+    if (allowPermissionPrompt) {
+      setAccountabilityPermissionAsked(true);
     }
 
-    try {
-      if (Notification.permission === "granted") {
-        new Notification(title, { body });
-        return;
-      }
-
-      if (!accountabilityPermissionAsked && Notification.permission !== "denied") {
-        setAccountabilityPermissionAsked(true);
-        const permission = await Notification.requestPermission();
-
-        if (permission === "granted") {
-          new Notification(title, { body });
-        }
-      }
-    } catch {
-      // Keep accountability available even if browser notifications are not supported.
-    }
+    await sendAccountabilityNotification(title, body, allowPermissionPrompt);
   }
 
   if (state.loading || !state.user) {
@@ -1789,7 +1926,7 @@ export default function TopicApp() {
             user={state.user}
             strings={strings}
             languageCode={getLanguageOption(currentLanguage).code}
-            dailyProgress={Math.min(1, state.user.totalXp / Math.max(1, state.user.dailyGoalXp))}
+            dailyProgress={Math.min(1, getXpToday(state.user) / Math.max(1, state.user.dailyGoalXp))}
             soundEnabled={state.user.soundEffectsEnabled !== false}
             onHome={goHomeScreen}
             onReview={openReviewScreen}
@@ -2045,8 +2182,11 @@ export default function TopicApp() {
             user={state.user}
             strings={strings}
             items={SHOP_ITEMS}
+            storePrices={storePrices}
+            busy={shopBusy}
             section={selectedSection}
             onUseItem={useShopItem}
+            onRestore={restorePurchases}
             onDone={() => {
               playUiSound("soft_ui");
               dispatch({ type: "close_shop" });
@@ -2076,7 +2216,7 @@ export default function TopicApp() {
             }}
           />
         )}
-        <AdBanner hidden={state.user.hearts.unlimited || state.screen.startsWith("lesson_")} />
+        <AdBanner hidden={isPremiumUser(state.user) || state.user.hearts.unlimited || state.screen.startsWith("lesson_")} />
         <AccountModal
           visible={accountModalVisible}
           onClose={() => setAccountModalVisible(false)}
@@ -2114,6 +2254,7 @@ export default function TopicApp() {
           onToggleSound={() => setSettingsSoundEnabled((value) => !value)}
           onToggleReducedSound={() => setSettingsReducedSound((value) => !value)}
           onLogout={logoutAccount}
+          onDeleteAccount={hasSavedAccount ? deleteAccount : undefined}
           onSave={saveAccountSettings}
         />
         <CelebrationModal
@@ -2201,8 +2342,8 @@ function HomeScreen({
         section={section}
         strings={strings}
         language={language}
-        progress={Math.min(1, user.totalXp / Math.max(1, user.dailyGoalXp))}
-        gainedXp={user.totalXp}
+        progress={Math.min(1, getXpToday(user) / Math.max(1, user.dailyGoalXp))}
+        gainedXp={getXpToday(user)}
         earnedStars={getSectionStars(user, section)}
         branchProgress={getBranchCompletionRatio(user, section, section.branches[0]?.id ?? "")}
         nextLessonTitle={nextNode?.title}
@@ -2295,8 +2436,8 @@ function TopicScreen({
         section={section}
         strings={strings}
         language={language}
-        progress={Math.min(1, user.totalXp / Math.max(1, user.dailyGoalXp))}
-        gainedXp={xpSummary?.gainedXp ?? user.totalXp}
+        progress={Math.min(1, getXpToday(user) / Math.max(1, user.dailyGoalXp))}
+        gainedXp={getXpToday(user)}
         earnedStars={getSectionStars(user, section)}
         branchProgress={getBranchCompletionRatio(user, section, branch.id)}
         nextLessonTitle={nextNode?.title}
@@ -3376,9 +3517,11 @@ function LessonCompleteScreen({
           </View>
         ) : null}
         <View style={styles.lessonCompleteButtonRow}>
-          <Pressable onPress={onReturnToPath} style={styles.modalGhostButton}>
-            <Text style={styles.modalGhostText}>{strings.backToPath}</Text>
-          </Pressable>
+          {nextNode ? (
+            <Pressable onPress={onReturnToPath} style={styles.modalGhostButton}>
+              <Text style={styles.modalGhostText}>{strings.backToPath}</Text>
+            </Pressable>
+          ) : null}
           <Pressable onPress={onContinue} style={[styles.modalPrimaryButton, { backgroundColor: section.accentColor }]}>
             <Text style={styles.modalPrimaryText}>{nextNode ? strings.continue : strings.backToPath}</Text>
           </Pressable>
@@ -3544,72 +3687,84 @@ function TopBar({
   onShop: () => void;
   onToggleSound: () => void;
 }) {
+  // Phones get a shorter bar: no tagline, one row of stats, and actions that scroll sideways.
+  const compact = useWindowDimensions().width < 600;
+  const actionRow = (
+    <View style={[styles.topBarActionRow, compact && styles.topBarActionRowCompact]}>
+      <Pressable onPress={onHome} style={styles.dailyQuestCard}>
+        <View style={styles.dailyQuestHeader}>
+          <Text style={styles.metricLabel}>Today</Text>
+          <Text style={styles.metricValue}>{`${Math.round(dailyProgress * 100)}%`}</Text>
+        </View>
+        <Text style={styles.dailyQuestCopy}>Keep the streak alive with one more lesson.</Text>
+        <AnimatedProgressBar progress={dailyProgress} color={colors.gold} trackColor="rgba(23, 49, 35, 0.08)" height={10} />
+      </Pressable>
+
+      <Pressable onPress={onToggleSound} style={[styles.soundButton, !soundEnabled && styles.soundButtonMuted]}>
+        <Text style={styles.metricLabel}>Sound</Text>
+        <Text style={styles.soundButtonValue}>{soundEnabled ? "SFX on" : "Muted"}</Text>
+      </Pressable>
+
+      <Pressable onPress={onReview} style={styles.languageButtonSmall}>
+        <Text style={styles.metricLabel}>Review</Text>
+        <Text style={styles.socialButtonSmallValue}>Ready</Text>
+      </Pressable>
+
+      <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
+        <Text style={styles.metricLabel}>{strings.language}</Text>
+        <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
+      </Pressable>
+      <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
+        <Text style={styles.metricLabel}>{strings.crew}</Text>
+        <Text style={styles.socialButtonSmallValue}>Rankings</Text>
+      </Pressable>
+      <Pressable onPress={onShop} style={styles.heartButton}>
+        <Text style={styles.metricLabel}>Shop</Text>
+        <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
+      </Pressable>
+      <Pressable
+        onPress={onAccount}
+        style={[styles.accountButton, user.hasAccount && styles.accountButtonActive]}
+      >
+        <View style={[styles.accountBadge, user.hasAccount && styles.accountBadgeActive]}>
+          <Text style={[styles.accountBadgeText, user.hasAccount && styles.accountBadgeTextActive]}>
+            {user.hasAccount ? user.avatarInitials : "AC"}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.accountLabel}>{user.hasAccount ? strings.settings : strings.save}</Text>
+          <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : strings.logIn}</Text>
+        </View>
+      </Pressable>
+    </View>
+  );
+
   return (
-    <View style={styles.topBar}>
-      <View style={styles.topBarBrand}>
+    <View style={[styles.topBar, compact && styles.topBarCompact]}>
+      <View style={[styles.topBarBrand, compact && styles.topBarBrandCompact]}>
         <View style={styles.miniGuideWrap}>
           <GuideMascot variant="hijabi" accentColor={colors.green} size={42} />
         </View>
         <View style={styles.topBarBrandText}>
           <Text style={styles.topBarBrandTitle}>Sira Path</Text>
-          <Text style={styles.topBarBrandCopy}>A guided learning path that stays light, playful, and easy to follow.</Text>
+          {!compact && <Text style={styles.topBarBrandCopy}>A guided learning path that stays light, playful, and easy to follow.</Text>}
         </View>
       </View>
 
       <View style={styles.topBarMetricRow}>
-        <TopMetricPill label={strings.streak} value={`${user.streakDays}d`} tint="#FFF5D6" valueColor="#A66C00" />
-        <TopMetricPill label="XP" value={`${user.totalXp}`} tint="#E2F5FF" valueColor="#126A99" />
-        <TopMetricPill label="Gems" value={`${user.gems}`} tint="#F3EBFF" valueColor="#6C3BC6" />
-        <TopMetricPill label={strings.hearts} value={formatHearts(user, true)} tint="#FFE8E4" valueColor="#BC4336" />
+        <TopMetricPill compact={compact} label={strings.streak} value={`${user.streakDays}d`} tint="#FFF5D6" valueColor="#A66C00" />
+        <TopMetricPill compact={compact} label="XP" value={`${user.totalXp}`} tint="#E2F5FF" valueColor="#126A99" />
+        <TopMetricPill compact={compact} label="Gems" value={`${user.gems}`} tint="#F3EBFF" valueColor="#6C3BC6" />
+        <TopMetricPill compact={compact} label={strings.hearts} value={formatHearts(user, true)} tint="#FFE8E4" valueColor="#BC4336" />
       </View>
 
-      <View style={styles.topBarActionRow}>
-        <Pressable onPress={onHome} style={styles.dailyQuestCard}>
-          <View style={styles.dailyQuestHeader}>
-            <Text style={styles.metricLabel}>Today</Text>
-            <Text style={styles.metricValue}>{`${Math.round(dailyProgress * 100)}%`}</Text>
-          </View>
-          <Text style={styles.dailyQuestCopy}>Keep the streak alive with one more lesson.</Text>
-          <AnimatedProgressBar progress={dailyProgress} color={colors.gold} trackColor="rgba(23, 49, 35, 0.08)" height={10} />
-        </Pressable>
-
-        <Pressable onPress={onToggleSound} style={[styles.soundButton, !soundEnabled && styles.soundButtonMuted]}>
-          <Text style={styles.metricLabel}>Sound</Text>
-          <Text style={styles.soundButtonValue}>{soundEnabled ? "SFX on" : "Muted"}</Text>
-        </Pressable>
-
-        <Pressable onPress={onReview} style={styles.languageButtonSmall}>
-          <Text style={styles.metricLabel}>Review</Text>
-          <Text style={styles.socialButtonSmallValue}>Ready</Text>
-        </Pressable>
-
-        <Pressable onPress={onLanguage} style={styles.languageButtonSmall}>
-          <Text style={styles.metricLabel}>{strings.language}</Text>
-          <Text style={styles.socialButtonSmallValue}>{languageCode}</Text>
-        </Pressable>
-        <Pressable onPress={onSocial} style={styles.socialButtonSmall}>
-          <Text style={styles.metricLabel}>{strings.crew}</Text>
-          <Text style={styles.socialButtonSmallValue}>Rankings</Text>
-        </Pressable>
-        <Pressable onPress={onShop} style={styles.heartButton}>
-          <Text style={styles.metricLabel}>Shop</Text>
-          <Text style={styles.heartValue}>{formatHearts(user, true)}</Text>
-        </Pressable>
-        <Pressable
-          onPress={onAccount}
-          style={[styles.accountButton, user.hasAccount && styles.accountButtonActive]}
-        >
-          <View style={[styles.accountBadge, user.hasAccount && styles.accountBadgeActive]}>
-            <Text style={[styles.accountBadgeText, user.hasAccount && styles.accountBadgeTextActive]}>
-              {user.hasAccount ? user.avatarInitials : "AC"}
-            </Text>
-          </View>
-          <View>
-            <Text style={styles.accountLabel}>{user.hasAccount ? strings.settings : strings.save}</Text>
-            <Text style={styles.accountValue}>{user.hasAccount ? user.displayName.split(" ")[0] : strings.logIn}</Text>
-          </View>
-        </Pressable>
-      </View>
+      {compact ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.topBarActionScroll}>
+          {actionRow}
+        </ScrollView>
+      ) : (
+        actionRow
+      )}
     </View>
   );
 }
@@ -3618,15 +3773,17 @@ function TopMetricPill({
   label,
   value,
   tint,
-  valueColor
+  valueColor,
+  compact = false
 }: {
   label: string;
   value: string;
   tint: string;
   valueColor: string;
+  compact?: boolean;
 }) {
   return (
-    <View style={[styles.topMetricPill, { backgroundColor: tint }]}>
+    <View style={[styles.topMetricPill, compact && styles.topMetricPillCompact, { backgroundColor: tint }]}>
       <Text style={styles.metricLabel}>{label}</Text>
       <Text style={[styles.metricValue, { color: valueColor }]}>{value}</Text>
     </View>
@@ -3721,7 +3878,7 @@ function PathScreen({
   onOpenShop: () => void;
   onClaimReward: (stop: JourneyRewardStop) => void;
 }) {
-  const progress = Math.min(1, user.totalXp / user.dailyGoalXp);
+  const progress = Math.min(1, getXpToday(user) / Math.max(1, user.dailyGoalXp));
   const nextNode = nodes.find((node) => node.status === "current") ?? nodes.find((node) => node.status === "available") ?? nodes[0];
   const earnedStars = getSectionStars(user, section);
   const branchProgress = getBranchCompletionRatio(user, section, branch.id);
@@ -3742,7 +3899,7 @@ function PathScreen({
         strings={strings}
         language={language}
         progress={progress}
-        gainedXp={xpSummary?.gainedXp ?? user.totalXp}
+        gainedXp={getXpToday(user)}
         earnedStars={earnedStars}
         branchProgress={branchProgress}
         nextLessonTitle={nextNode?.title}
@@ -3968,6 +4125,8 @@ function HeroCard({
   nextLessonTitle?: string;
   onContinue: () => void;
 }) {
+  // On narrow phones a smaller mascot leaves room for long one-word titles such as "Foundation".
+  const narrow = useWindowDimensions().width < 430;
   return (
     <View style={[styles.heroCard, { backgroundColor: section.accentColor }]}>
       <View style={styles.heroPatternStripe} />
@@ -3977,7 +4136,7 @@ function HeroCard({
           <Text style={styles.heroBadge}>{section.badge}</Text>
           <TopicIcon topicId={section.topicId} accentColor="#FFFFFF" light />
         </View>
-        <Text style={styles.heroTitle}>{`${strings.learnTopic} ${section.title}`}</Text>
+        <Text style={[styles.heroTitle, narrow && styles.heroTitleNarrow]}>{`${strings.learnTopic} ${section.title}`}</Text>
         <Text style={styles.heroCopy}>{section.description}</Text>
         <View style={styles.heroRewardRow}>
           <View style={styles.heroChip}>
@@ -3998,8 +4157,8 @@ function HeroCard({
           <Text style={styles.heroButtonText}>{strings.continueTopic}</Text>
         </Pressable>
       </View>
-      <View style={styles.heroArt}>
-        <GuideMascot variant={section.mascot} accentColor={lightenColor(section.accentColor)} size={136} />
+      <View style={[styles.heroArt, narrow && styles.heroArtNarrow]}>
+        <GuideMascot variant={section.mascot} accentColor={lightenColor(section.accentColor, 0.18)} size={narrow ? 88 : 136} />
       </View>
     </View>
   );
@@ -5093,17 +5252,25 @@ function ShopScreen({
   user,
   strings,
   items,
+  storePrices,
+  busy,
   section,
   onUseItem,
+  onRestore,
   onDone
 }: {
   user: UserProfile;
   strings: UiStrings;
   items: ShopItem[];
+  storePrices: Record<string, string>;
+  busy: boolean;
   section: LearningSection;
   onUseItem: (item: ShopItem) => void;
+  onRestore: () => void;
   onDone: () => void;
 }) {
+  // Premium learners already have unlimited hearts and no ads, so nothing here is worth selling them again.
+  const visibleItems = isPremiumUser(user) ? [] : items;
   return (
     <ScrollView contentContainerStyle={styles.shopContent}>
       <View style={[styles.shopHero, { backgroundColor: lightenColor(section.accentColor, 0.92) }]}>
@@ -5115,6 +5282,7 @@ function ShopScreen({
               ? strings.membershipActive
               : `${strings.youHave} ${formatHearts(user)}.`}
           </Text>
+          <Text style={styles.shopGemBalance}>{`${user.gems} gems`}</Text>
         </View>
         <GuideMascot variant={section.mascot} accentColor={section.accentColor} size={112} />
       </View>
@@ -5137,7 +5305,11 @@ function ShopScreen({
         ))}
       </View>
 
-      {items.map((item) => (
+      {visibleItems.map((item) => {
+        const price = storePrices[item.id] ?? formatPrice(item);
+        const unavailable = item.currencyType === "gems" && !canSpendGems(user, item);
+
+        return (
         <View key={item.id} style={[styles.shopItem, item.tier && styles.shopPlanCard]}>
           <View style={styles.shopItemText}>
             <View style={styles.planHeaderRow}>
@@ -5145,18 +5317,39 @@ function ShopScreen({
                 <Text style={styles.shopItemTitle}>{item.name}</Text>
                 {item.highlightBadge ? <Text style={styles.planBadge}>{item.highlightBadge}</Text> : null}
               </View>
-              <Text style={styles.planPrice}>{formatPrice(item)}</Text>
+              <Text style={styles.planPrice}>{item.durationDays ? `${price}${item.durationDays >= 365 ? "/yr" : "/mo"}` : price}</Text>
             </View>
             <Text style={styles.shopItemCopy}>{item.localizedDescription}</Text>
             {item.benefits?.map((benefit) => (
               <Text key={`${item.id}_${benefit}`} style={styles.planBenefit}>{`• ${benefit}`}</Text>
             ))}
           </View>
-          <Pressable onPress={() => onUseItem(item)} style={[styles.secondaryButton, { backgroundColor: section.accentColor }]}>
-            <Text style={styles.secondaryButtonText}>{item.tier ? "Upgrade" : formatPrice(item)}</Text>
+          <Pressable
+            onPress={() => onUseItem(item)}
+            disabled={busy}
+            style={[styles.secondaryButton, { backgroundColor: section.accentColor }, (busy || unavailable) && styles.shopButtonMuted]}
+          >
+            <Text style={styles.secondaryButtonText}>{item.tier ? "Upgrade" : price}</Text>
           </Pressable>
         </View>
-      ))}
+        );
+      })}
+
+      <Pressable onPress={onRestore} disabled={busy} style={styles.shopRestoreButton}>
+        <Text style={styles.shopRestoreText}>Restore purchases</Text>
+      </Pressable>
+      <Text style={styles.shopLegalCopy}>
+        Premium renews automatically at the price shown until you cancel. Payment is charged to your App Store or Google Play
+        account, and you can cancel any time in your store subscription settings at least 24 hours before the period ends.
+      </Text>
+      <View style={styles.shopLegalLinks}>
+        <Pressable onPress={() => void Linking.openURL(legalLinks.terms)}>
+          <Text style={styles.shopLegalLink}>Terms of use</Text>
+        </Pressable>
+        <Pressable onPress={() => void Linking.openURL(legalLinks.privacy)}>
+          <Text style={styles.shopLegalLink}>Privacy policy</Text>
+        </Pressable>
+      </View>
 
       <Pressable onPress={onDone} style={[styles.primaryButton, { backgroundColor: section.accentColor }]}>
         <Text style={styles.primaryButtonText}>{strings.backToPath}</Text>
@@ -5620,7 +5813,7 @@ function AccountModal({
               ? strings.savedAccountHint
               : enabledSocialProviders.length > 0
                 ? strings.socialHint
-                : "Email and password are ready now. Google and Facebook will appear here once their mobile app credentials are connected."}
+                : "Until then, your progress is saved on this device only."}
           </Text>
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
@@ -5656,6 +5849,7 @@ function SettingsModal({
   onToggleSound,
   onToggleReducedSound,
   onLogout,
+  onDeleteAccount,
   onSave
 }: {
   visible: boolean;
@@ -5677,6 +5871,7 @@ function SettingsModal({
   onToggleSound: () => void;
   onToggleReducedSound: () => void;
   onLogout: () => void;
+  onDeleteAccount?: () => void;
   onSave: () => void;
 }) {
   const options: Array<{
@@ -5704,7 +5899,8 @@ function SettingsModal({
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
       <View style={styles.modalBackdrop}>
-        <View style={styles.modalCard}>
+        <View style={[styles.modalCard, styles.modalCardTall]}>
+          <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
           <Text style={styles.modalEyebrow}>{strings.settings}</Text>
           <Text style={styles.modalTitle}>{strings.accountSettingsTitle}</Text>
           <Text style={styles.modalCopy}>{strings.accountSettingsCopy}</Text>
@@ -5795,6 +5991,11 @@ function SettingsModal({
               <Text style={styles.modalDangerText}>{translateStudyText("Log out", language)}</Text>
             </Pressable>
           </View>
+          {onDeleteAccount && (
+            <Pressable onPress={onDeleteAccount} style={styles.deleteAccountLink} accessibilityRole="button">
+              <Text style={styles.deleteAccountText}>{translateStudyText("Delete account", language)}</Text>
+            </Pressable>
+          )}
 
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
@@ -5804,6 +6005,7 @@ function SettingsModal({
               <Text style={styles.modalPrimaryText}>{strings.saveSettings}</Text>
             </Pressable>
           </View>
+          </ScrollView>
         </View>
       </View>
     </Modal>
@@ -5902,19 +6104,6 @@ function LanguageModal({
   );
 }
 
-function AdBanner({ hidden }: { hidden: boolean }) {
-  if (hidden) {
-    return null;
-  }
-
-  return (
-    <View style={styles.adBanner}>
-      <Text style={styles.adLabel}>Sponsor</Text>
-      <Text style={styles.adCopy}>A short sponsor helps keep today's lessons moving.</Text>
-    </View>
-  );
-}
-
 function GuideMascot({
   variant,
   accentColor,
@@ -5928,7 +6117,7 @@ function GuideMascot({
   const faceBottom = size * 0.4;
   const skin = "#E8B18A";
   const outline = "#1F2C3B";
-  const robe = lightenColor(accentColor, 0.78);
+  const robe = lightenColor(accentColor, 0.22);
   const eyeWidth = headSize * 0.16;
   const eyeHeight = headSize * 0.13;
   const eyeHighlight = headSize * 0.04;
@@ -6536,7 +6725,7 @@ function startCaseRelation(relation: SocialRelation) {
 }
 
 function startCaseAccountRole(role: AccountRole) {
-  return role === "parent" ? "Parent" : "Child";
+  return role === "parent" ? "Parent" : "Learner";
 }
 
 function startCaseFoundationCategory(category: FoundationCategoryId) {
@@ -6642,8 +6831,27 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizeEmail(email));
 }
 
+// React Native Web has no Alert buttons, so the browser's confirm dialog stands in there.
+function confirmDestructive(title: string, message: string, confirmLabel: string) {
+  if (Platform.OS === "web") {
+    return Promise.resolve(typeof window !== "undefined" && typeof window.confirm === "function" ? window.confirm(`${title}\n\n${message}`) : false);
+  }
+
+  return new Promise<boolean>((resolve) => {
+    Alert.alert(title, message, [
+      { text: "Cancel", style: "cancel", onPress: () => resolve(false) },
+      { text: confirmLabel, style: "destructive", onPress: () => resolve(true) }
+    ], { cancelable: true, onDismiss: () => resolve(false) });
+  });
+}
+
 function isBackendOfflineError(error: Error) {
-  return /fetch|network|failed|load|backend request failed with 5/i.test(error.message);
+  // A server that answered with a 4xx has a real message for the learner; anything else means "keep going offline".
+  if (error instanceof BackendRequestError) {
+    return error.status >= 500;
+  }
+
+  return /fetch|network|timed out|load failed/i.test(error.message);
 }
 
 function getSectionStars(user: UserProfile, section: LearningSection) {
@@ -6932,8 +7140,9 @@ function describeNodeState(node: LearningNodeView, reviewNeeded: boolean) {
   };
 }
 
+// ratio is how much white to mix in: 0 keeps the color, 1 gives white.
 function lightenColor(hex: string, ratio = 0.82) {
-  const amount = (channel: number) => Math.round(channel + (255 - channel) * (1 - ratio));
+  const amount = (channel: number) => Math.round(channel + (255 - channel) * ratio);
   const [r, g, b] = hexToRgb(hex);
   return `rgb(${amount(r)}, ${amount(g)}, ${amount(b)})`;
 }
@@ -7151,6 +7360,11 @@ const styles = StyleSheet.create({
   loadingText: { color: colors.ink, fontSize: 18, fontWeight: "700", letterSpacing: 0 },
   topBar: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 12, paddingHorizontal: 18, paddingVertical: 14, backgroundColor: "#FCFFFD", borderBottomWidth: 1, borderBottomColor: "#DDEBE2", shadowColor: "rgba(17,49,35,0.10)", shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.14, shadowRadius: 20, elevation: 4 },
   topBarBrand: { minWidth: 250, flexDirection: "row", alignItems: "center", gap: 12, flex: 1 },
+  topBarCompact: { flexDirection: "column", flexWrap: "nowrap", alignItems: "stretch", gap: 10, paddingHorizontal: 14, paddingVertical: 10 },
+  topBarBrandCompact: { minWidth: 0, flexGrow: 0, flexShrink: 0, flexBasis: "auto" },
+  topBarActionScroll: { flexGrow: 0, flexShrink: 0 },
+  topMetricPillCompact: { flex: 1, minWidth: 0, paddingHorizontal: 10, paddingVertical: 8 },
+  topBarActionRowCompact: { flexWrap: "nowrap", justifyContent: "flex-start", flexGrow: 0, flexBasis: "auto" },
   topBarBrandText: { flexShrink: 1 },
   topBarBrandTitle: { color: colors.ink, fontSize: 20, fontWeight: "900", letterSpacing: 0 },
   topBarBrandCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "700", marginTop: 2 },
@@ -7158,7 +7372,7 @@ const styles = StyleSheet.create({
   topMetric: { minWidth: 50 },
   topBarMetricRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10 },
   topMetricPill: { minWidth: 82, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 18, borderWidth: 1, borderColor: "rgba(27,52,39,0.06)", shadowColor: "rgba(17,49,35,0.08)", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.12, shadowRadius: 10, elevation: 2 },
-  topBarActionRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-end", gap: 10, flex: 1 },
+  topBarActionRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-end", gap: 10, flexGrow: 1, flexBasis: "100%" },
   metricLabel: { color: colors.muted, fontSize: 11, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   metricValue: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
   dailyQuestCard: { minWidth: 184, paddingHorizontal: 14, paddingVertical: 12, borderRadius: 18, borderWidth: 1, borderColor: "#F2E1A3", backgroundColor: "#FFF8DB" },
@@ -7186,9 +7400,11 @@ const styles = StyleSheet.create({
   heroPatternStripeSecondary: { position: "absolute", width: 160, height: 160, borderRadius: 40, backgroundColor: "rgba(255,255,255,0.08)", left: -44, bottom: -66, transform: [{ rotate: "-18deg" }] },
   heroText: { flex: 1, paddingRight: 12 },
   heroArt: { width: 144, alignItems: "center", justifyContent: "center" },
+  heroArtNarrow: { width: 88 },
   heroBadgeRow: { flexDirection: "row", alignItems: "center", gap: 8 },
   heroBadge: { color: "#DFF7EE", fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
   heroTitle: { color: colors.white, fontSize: 30, lineHeight: 35, fontWeight: "900", letterSpacing: 0, marginTop: 4 },
+  heroTitleNarrow: { fontSize: 26, lineHeight: 31 },
   heroCopy: { color: "#EAF8F2", fontSize: 15, lineHeight: 21, fontWeight: "700", letterSpacing: 0, marginTop: 6 },
   heroRewardRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginTop: 14, marginBottom: 4 },
   heroChip: { minWidth: 120, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 16, backgroundColor: "rgba(255,255,255,0.16)", borderWidth: 1, borderColor: "rgba(255,255,255,0.18)" },
@@ -7569,6 +7785,7 @@ const styles = StyleSheet.create({
   secondaryButtonText: { color: colors.white, fontWeight: "900", letterSpacing: 0 },
   modalBackdrop: { flex: 1, backgroundColor: "rgba(20,37,27,0.45)", alignItems: "center", justifyContent: "center", padding: 24 },
   modalCard: { width: "100%", maxWidth: 420, borderRadius: 8, backgroundColor: colors.white, padding: 18, borderWidth: 1, borderColor: colors.line },
+  modalCardTall: { maxHeight: "92%" },
   celebrationCard: { width: "100%", maxWidth: 420, borderRadius: 24, backgroundColor: colors.white, padding: 22, borderWidth: 1, borderColor: colors.line, shadowColor: "rgba(16,47,32,0.18)", shadowOffset: { width: 0, height: 16 }, shadowOpacity: 0.2, shadowRadius: 28, elevation: 6, overflow: "hidden" },
   celebrationBurstLayer: { position: "absolute", left: 0, right: 0, top: 6, height: 88 },
   celebrationBurstChip: { position: "absolute", top: 22, minWidth: 82, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 999, borderWidth: 1, alignItems: "center" },
@@ -7639,6 +7856,8 @@ const styles = StyleSheet.create({
     borderColor: "#F4C7C7"
   },
   modalDangerText: { color: "#B42318", fontSize: 14, fontWeight: "900", letterSpacing: 0 },
+  deleteAccountLink: { alignSelf: "center", marginTop: 12, paddingVertical: 8, paddingHorizontal: 12 },
+  deleteAccountText: { color: "#B42318", fontSize: 13, fontWeight: "700", textDecorationLine: "underline", letterSpacing: 0 },
   reviewRestoreCard: { marginTop: 2, borderRadius: 8, backgroundColor: "#F7FBF8", padding: 14 },
   reviewRestoreTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
   reviewRestoreCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },
@@ -7832,7 +8051,11 @@ const styles = StyleSheet.create({
   profileActionCard: { padding: 18, borderRadius: 20, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
   profileActionTitle: { color: colors.ink, fontSize: 16, fontWeight: "900" },
   profileActionCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", marginTop: 5 },
-  adBanner: { position: "absolute", left: 12, right: 12, bottom: 10, minHeight: 56, borderRadius: 8, paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.white },
-  adLabel: { color: colors.sky, fontSize: 12, fontWeight: "900", textTransform: "uppercase", letterSpacing: 0 },
-  adCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "700", letterSpacing: 0, marginTop: 2 }
+  shopGemBalance: { color: "#6C3BC6", fontSize: 14, fontWeight: "900", letterSpacing: 0, marginTop: 6 },
+  shopButtonMuted: { opacity: 0.55 },
+  shopRestoreButton: { alignSelf: "center", paddingVertical: 10, paddingHorizontal: 16 },
+  shopRestoreText: { color: colors.sky, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
+  shopLegalCopy: { color: colors.muted, fontSize: 12, lineHeight: 17, fontWeight: "600", letterSpacing: 0, textAlign: "center" },
+  shopLegalLinks: { flexDirection: "row", justifyContent: "center", gap: 18 },
+  shopLegalLink: { color: colors.sky, fontSize: 12, fontWeight: "800", letterSpacing: 0, textDecorationLine: "underline" }
 });
