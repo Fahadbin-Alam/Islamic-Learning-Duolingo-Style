@@ -33,11 +33,10 @@ class ImportedNotesSeedTest(unittest.TestCase):
         topics = built_in_topic_seed()
         sahabi = next(topic for topic in topics if topic["slug"] == "sahabi")
         existing_title = sahabi["branches"][0]["title"]
-        before = len(sahabi["branches"])
 
         with_imported_branches(topics, {"sahabi": [imported_branch(existing_title), imported_branch("Treaty of Hudaybiyyah study")]})
 
-        titles = [branch["title"] for branch in sahabi["branches"][before:]]
+        titles = [branch["title"] for branch in sahabi["branches"][:2]]
         self.assertEqual(titles, [f"{existing_title} (notes)", "Treaty of Hudaybiyyah study"])
 
 

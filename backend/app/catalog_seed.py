@@ -500,11 +500,14 @@ def with_imported_branches(topics: List[Dict[str, Any]], imported: Dict[str, Lis
             topics.append({**meta, "slug": slug, "branches": []})
     for topic in topics:
         existing_slugs = {slugify(branch["title"]) for branch in topic["branches"]}
+        notes_branches = []
         for branch in imported.get(topic["slug"], []):
             # Keep imported notes in their own branch even when a built-in branch shares the title.
             title = branch["title"] if slugify(branch["title"]) not in existing_slugs else f"{branch['title']} (notes)"
             existing_slugs.add(slugify(title))
-            topic["branches"].append({**branch, "title": title})
+            notes_branches.append({**branch, "title": title})
+        # Branches from notes carry real facts, so they come before the built-in ones.
+        topic["branches"] = notes_branches + topic["branches"]
     return topics
 
 

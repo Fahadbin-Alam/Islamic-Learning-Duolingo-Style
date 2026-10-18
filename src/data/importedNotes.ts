@@ -25,7 +25,7 @@ const NEW_SECTIONS: Partial<Record<TopicId, Omit<LearningSection, "topicId" | "s
   }
 };
 
-// Adds branches generated from Obsidian notes (scripts/obsidian-import) after each topic's existing branches.
+// Adds branches generated from Obsidian notes (scripts/obsidian-import) ahead of each topic's built-in branches.
 export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<string, Lesson>, imported: ImportedNotesContent) {
   if (!imported.sections.length) {
     return { course, lessonsById };
@@ -49,12 +49,12 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
     const existingBranchIds = new Set(section.branches.map((branch) => branch.id));
     const branches = extra.branches.filter((branch) => !existingBranchIds.has(branch.id));
     const keptBranchIds = new Set(branches.map((branch) => branch.id));
-    const nextOrder = section.branches.reduce((highest, branch) => Math.max(highest, branch.order ?? 0), 0) + 1;
-    const nodes = [...section.nodes, ...extra.nodes.filter((node) => keptBranchIds.has(node.branchId))];
+    const nodes = [...extra.nodes.filter((node) => keptBranchIds.has(node.branchId)), ...section.nodes];
 
+    // Branches from notes carry real facts, so they come first; the built-in paths follow.
     return {
       ...section,
-      branches: [...section.branches, ...branches.map((branch, index) => ({ ...branch, order: nextOrder + index }))],
+      branches: [...branches, ...section.branches].map((branch, index) => ({ ...branch, order: index + 1 })),
       nodes,
       starsTarget: nodes.reduce((total, node) => total + node.starsReward, 0)
     };

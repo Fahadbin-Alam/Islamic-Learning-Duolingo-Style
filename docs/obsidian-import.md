@@ -11,7 +11,7 @@ npm run backend:seed                                                            
 
 It writes two files, both safe to commit:
 
-- `src/data/importedNotes.generated.ts`: lessons the app shows, added after each topic's built-in branches.
+- `src/data/importedNotes.generated.ts`: lessons the app shows, shown ahead of each topic's built-in branches, since they carry real facts.
 - `backend/data/obsidian_import.json`: the same content for `backend/app/catalog_seed.py`.
 
 Each run replaces both files with whatever the folder contains now, so the notes stay the source of truth.
