@@ -32,3 +32,4 @@ export { shortWhy, noBreakHyphens, looksSame, normalizeText, WHY_MAX, type WhySo
 export { OrderGame, seededShuffle, type OrderGameProps, type OrderOption } from "./OrderGame";
 export { LessonComplete, type LessonCompleteProps } from "./LessonComplete";
 export { QuitSheet, type QuitSheetProps } from "./QuitSheet";
+export { getLessonLine, getLessonProgress, isPlayablePractice, type LessonStepScreen } from "./lessonSteps";

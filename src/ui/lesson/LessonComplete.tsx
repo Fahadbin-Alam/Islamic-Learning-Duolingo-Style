@@ -15,6 +15,8 @@ export type LessonCompleteProps = {
   xp: number;
   stars: number;
   streakDays: number;
+  /** Today's XP against the daily goal. Shown instead of the streak while the streak is still 0. */
+  goal?: { xpToday: number; goalXp: number };
   unlockedTitle?: string;
   gemsReward?: number;
   mascotVariant: string;
@@ -103,6 +105,7 @@ export function LessonComplete({
   xp,
   stars,
   streakDays,
+  goal,
   unlockedTitle,
   gemsReward,
   mascotVariant,
@@ -166,7 +169,22 @@ export function LessonComplete({
           >
             <StarRow stars={stars} />
           </StatCard>
-          <StatCard label="STREAK" icon="flame" value={streakDays} color={colors.flame} ink={STREAK_INK} index={2} testID="stat-streak" />
+          {streakDays === 0 && goal ? (
+            <StatCard
+              label="GOAL"
+              color={colors.flame}
+              index={2}
+              accessibilityLabel={`${Math.min(goal.xpToday, goal.goalXp)} of ${goal.goalXp} XP today`}
+              testID="stat-goal"
+            >
+              <Icon name="trophy" size={24} />
+              <Text style={[styles.cardValue, styles.goalValue, { color: STREAK_INK }]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
+                {Math.min(goal.xpToday, goal.goalXp)}/{goal.goalXp}
+              </Text>
+            </StatCard>
+          ) : (
+            <StatCard label="STREAK" icon="flame" value={streakDays} color={colors.flame} ink={STREAK_INK} index={2} testID="stat-streak" />
+          )}
         </View>
 
         {unlockedTitle || gemsReward ? (
@@ -279,6 +297,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: space.md,
     paddingHorizontal: 6
+  },
+  goalValue: {
+    fontSize: 21
   },
   cardValue: {
     marginLeft: 4,

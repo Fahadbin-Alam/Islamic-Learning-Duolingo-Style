@@ -19,6 +19,7 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   sahabah: { ar: "الصحابة", translit: "As-Sahabah", meaning: "The Companions" },
   prophets: { ar: "قصص الأنبياء", translit: "Qasas al-anbiya", meaning: "Stories of the prophets" },
   women_of_the_book: { ar: "نساء القرآن", translit: "Nisa al-Quran", meaning: "Women of the Quran" },
+  hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's sayings" }
 };
 
 export const BRANCH_ARABIC: Record<string, ArabicTerm> = {

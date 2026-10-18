@@ -6,6 +6,22 @@ import { colors, fonts, lighten } from "../theme";
 
 export type TabKey = "learn" | "practice" | "crew" | "shop" | "me";
 
+/** Which tab an app screen belongs to. Every learning screen sits under Learn. */
+export function tabForScreen(screen: string): TabKey {
+  switch (screen) {
+    case "review":
+      return "practice";
+    case "social":
+      return "crew";
+    case "shop":
+      return "shop";
+    case "profile":
+      return "me";
+    default:
+      return "learn";
+  }
+}
+
 export type BottomTabsProps = {
   active: TabKey;
   onChange: (tab: TabKey) => void;
