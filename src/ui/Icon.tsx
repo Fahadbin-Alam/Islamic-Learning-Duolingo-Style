@@ -131,12 +131,12 @@ const STAR5 = starPoints(12, 12.8, 10, 4.6, 5);
 const STAR5_INNER = starPoints(12, 12.8, 5.2, 2.4, 5);
 const STAR8 = starPoints(12, 12, 10.5, 7.6, 8, -90);
 const STAR8_SMALL = starPoints(12, 12, 4.4, 3.2, 8, -90);
-const CRESCENT_STAR = starPoints(17.6, 11.6, 3.4, 1.4, 5);
+const CRESCENT_STAR = starPoints(18.2, 12.4, 3.6, 1.5, 5);
 const GEAR = gearPath(12, 12, 10.5, 8, 8);
 const QURAN_STAR = starPoints(12, 12, 4.2, 3, 8, -90);
 
 // A crescent opening to the right.
-const CRESCENT = "M15.25 4.14A8.5 8.5 0 1 0 15.25 20.86A7.9 7.9 0 0 1 15.25 4.14Z";
+const CRESCENT = "M15.25 4.14A8.5 8.5 0 1 0 15.25 20.86A11 11 0 0 1 15.25 4.14Z";
 const HEART = "M12 21.2c-.4 0-.8-.1-1.1-.4C7.6 18.3 2.8 14.4 2.8 9.6 2.8 6.6 5.1 4.3 7.9 4.3c1.7 0 3.2.8 4.1 2.1.9-1.3 2.4-2.1 4.1-2.1 2.8 0 5.1 2.3 5.1 5.3 0 4.8-4.8 8.7-8.1 11.2-.3.3-.7.4-1.1.4z";
 
 // ---------- paint helpers ----------
@@ -306,14 +306,15 @@ const ICONS: Record<IconName, Drawer> = {
   ),
   chestOpen: (t) => (
     <G>
-      <Path d="M4.2 2.6h15.6l1.6 6.6H2.6z" {...t.f(C.woodDark)} />
-      <Path d="M2.6 9.2h18.8v1.8H2.6z" {...t.d("#FFE27A")} />
-      {!t.isMono ? <Path d="M5 9.4 3 3.6M12 8.8V2.8M19 9.4l2-5.8" stroke="#FFE27A" strokeWidth={1.6} strokeLinecap="round" /> : null}
-      <Ellipse cx={12} cy={11} rx={7.4} ry={2.4} {...t.d(C.gold)} />
-      <Rect x={3} y={11} width={18} height={9.6} rx={2.2} {...t.f(C.woodDeep)} />
-      <Rect x={6.2} y={11} width={2.2} height={9.6} {...t.d(C.gold)} />
-      <Rect x={15.6} y={11} width={2.2} height={9.6} {...t.d(C.gold)} />
-      <Rect x={10.2} y={11} width={3.6} height={4} rx={1.2} {...t.d(C.gold)} />
+      <Path d="M3.4 10.4 4.6 4.6a2 2 0 0 1 2-1.6h10.8a2 2 0 0 1 2 1.6l1.2 5.8z" {...t.f(C.woodDark)} />
+      <Path d="M6.9 3h2.2l-.6 7.4H6.2zM14.9 3h2.2l.7 7.4h-2.3z" {...t.d(C.goldLip)} />
+      <Ellipse cx={12} cy={11.2} rx={8.4} ry={2.6} {...t.d(C.yellowSoft)} />
+      <Circle cx={9.6} cy={10.6} r={1.6} {...t.d(C.gold)} />
+      <Circle cx={13.4} cy={10.2} r={1.8} {...t.d(C.gold)} />
+      <Rect x={3} y={11.2} width={18} height={9.4} rx={2.2} {...t.f(C.woodDeep)} />
+      <Rect x={6.2} y={11.2} width={2.2} height={9.4} {...t.d(C.gold)} />
+      <Rect x={15.6} y={11.2} width={2.2} height={9.4} {...t.d(C.gold)} />
+      <Rect x={10.2} y={11.2} width={3.6} height={4} rx={1.2} {...t.d(C.gold)} />
     </G>
   ),
   speaker: (t) => (
@@ -370,7 +371,6 @@ const ICONS: Record<IconName, Drawer> = {
   crescent: (t) => (
     <G>
       <Path d={CRESCENT} {...t.f(C.gold)} />
-      <Path d="M4.2 15.6a8.5 8.5 0 0 0 11 5.3 8.5 8.5 0 0 1-9.4-9.5 8.4 8.4 0 0 0-1.6 4.2z" {...t.d(C.goldLip)} />
       <Polygon points={CRESCENT_STAR} strokeWidth={1} strokeLinejoin="round" {...t.r(C.gold)} />
       <Shine t={t} d="M5.8 8.2c.8-1.4 2-2.5 3.4-3.2.5-.2.8.4.4.7-1.2.7-2.2 1.7-2.9 2.9-.3.5-1.1.1-.9-.4z" />
     </G>
@@ -419,21 +419,22 @@ const ICONS: Record<IconName, Drawer> = {
       <Shine t={t} d="M5.4 5.2h1v6h-1z" />
     </G>
   ),
-  dua: (t) => (
-    <G>
-      <Path
-        d="M3.2 11.4c0-.9.8-1.5 1.6-1.3l1 .2V6.6a1.7 1.7 0 0 1 3.4 0v12a3 3 0 0 1-3 3h-.4a2.6 2.6 0 0 1-2.6-2.6z"
-        {...t.f(C.skin)}
-      />
-      <Path
-        d="M20.8 11.4c0-.9-.8-1.5-1.6-1.3l-1 .2V6.6a1.7 1.7 0 0 0-3.4 0v12a3 3 0 0 0 3 3h.4a2.6 2.6 0 0 0 2.6-2.6z"
-        {...t.f(C.skin)}
-      />
-      <Path d="M6.4 10.3v6.4M17.6 10.3v6.4" strokeWidth={1} strokeLinecap="round" {...t.ds(C.skinDeep)} />
-      <Path d="M12 1.6c.3 1.6.8 2.1 2.2 2.4-1.4.3-1.9.8-2.2 2.4-.3-1.6-.8-2.1-2.2-2.4 1.4-.3 1.9-.8 2.2-2.4z" {...t.f(C.gold)} />
-      <Circle cx={12} cy={9.4} r={0.9} {...t.f(C.gold)} />
-    </G>
-  ),
+  dua: (t) => {
+    const palm = "M11.2 6.4v11.8a3.4 3.4 0 0 1-3.4 3.4H7a3.6 3.6 0 0 1-3.6-3.6v-4.6c0-1 .8-1.8 1.8-1.8.2 0 .3 0 .4.1V6.4a2.8 2.8 0 0 1 5.6 0z";
+    const hand = (
+      <G transform="rotate(-8 8 21)">
+        <Path d={palm} {...t.f(C.skin)} />
+        <Path d="M7.5 4.6v4.6M9.4 4.6v4.6" strokeWidth={0.9} strokeLinecap="round" {...t.ds(C.skinDeep)} />
+      </G>
+    );
+    return (
+      <G>
+        <G transform="translate(-0.4 0)">{hand}</G>
+        <G transform="translate(24.4 0) scale(-1 1)">{hand}</G>
+        <Path d="M12 0.8c.3 1.6.8 2.1 2.2 2.4-1.4.3-1.9.8-2.2 2.4-.3-1.6-.8-2.1-2.2-2.4 1.4-.3 1.9-.8 2.2-2.4z" {...t.f(C.gold)} />
+      </G>
+    );
+  },
   palm: (t) => (
     <G>
       <Path d="M11.2 10c.7 4 .4 7.8-1.4 11.6h3.6c1.2-3.8 1.3-7.6.4-11.6z" {...t.f(C.wood)} />

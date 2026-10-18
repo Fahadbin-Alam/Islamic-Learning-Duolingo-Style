@@ -174,10 +174,39 @@ function Face({ mood, blink }: { mood: MascotMood; blink: boolean }) {
   );
 }
 
+function hueOf(hex: string) {
+  const value = hex.replace("#", "");
+  const r = Number.parseInt(value.slice(0, 2), 16) / 255;
+  const g = Number.parseInt(value.slice(2, 4), 16) / 255;
+  const b = Number.parseInt(value.slice(4, 6), 16) / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
+  if (!Number.isFinite(delta) || delta === 0) {
+    return 0;
+  }
+  let hue = max === r ? ((g - b) / delta) % 6 : max === g ? (b - r) / delta + 2 : (r - g) / delta + 4;
+  hue *= 60;
+  return hue < 0 ? hue + 360 : hue;
+}
+
+// Scarf colors in order of preference; the first one that contrasts with the robe wins.
+const SCARF_COLORS = ["#8C7BF4", "#19B3A3", "#FF82AB", "#FFB020"];
+
+function scarfFor(accent: string) {
+  const robeHue = hueOf(accent);
+  const distance = (hex: string) => {
+    const diff = Math.abs(hueOf(hex) - robeHue) % 360;
+    return diff > 180 ? 360 - diff : diff;
+  };
+  return SCARF_COLORS.find((candidate) => distance(candidate) > 70) ?? SCARF_COLORS[0];
+}
+
 function GirlHead({ accent, mood, blink }: { accent: string; mood: MascotMood; blink: boolean }) {
-  const scarf = darken(accent, 0.12);
-  const scarfDeep = darken(accent, 0.28);
-  const band = lighten(accent, 0.72);
+  const scarfBase = scarfFor(accent);
+  const scarf = scarfBase;
+  const scarfDeep = darken(scarfBase, 0.18);
+  const band = lighten(scarfBase, 0.7);
   return (
     <G>
       {/* scarf drape over the shoulders, covering hair and neck */}
@@ -211,11 +240,17 @@ function BoyHead({ mood, blink }: { mood: MascotMood; blink: boolean }) {
       <Ellipse cx={60} cy={56} rx={32} ry={31} fill={SKIN} />
       {/* short dark hair, visible at the sides under the cap */}
       <Path
-        d="M28.4 56 C27 34 41 22 60 22 C79 22 93 34 91.6 56 C89.4 49 86.4 45 82 43.4 L38 43.4 C33.6 45 30.6 49 28.4 56 Z"
+        d="M28.2 62 C26.6 34 41 22 60 22 C79 22 93.4 34 91.8 62 C90.4 54.6 88 50.6 84 48.6 C76 47.2 68 46.6 60 46.6 C52 46.6 44 47.2 36 48.6 C32 50.6 29.6 54.6 28.2 62 Z"
         fill={HAIR}
       />
       {/* kufi */}
-      <Path d="M30 41 C31 25 44 16.5 60 16.5 C76 16.5 89 25 90 41 C81 38 71 37 60 37 C49 37 39 38 30 41 Z" fill="#FFFFFF" />
+      <Path
+        d="M30 41 C31 25 44 16.5 60 16.5 C76 16.5 89 25 90 41 C81 38 71 37 60 37 C49 37 39 38 30 41 Z"
+        fill="#FFFFFF"
+        stroke={colors.lineLip}
+        strokeWidth={1.6}
+        strokeLinejoin="round"
+      />
       <Path
         d="M30 41 C39 38 49 37 60 37 C71 37 81 38 90 41 L90.4 44.6 C81 41.6 71 40.6 60 40.6 C49 40.6 39 41.6 29.6 44.6 Z"
         fill={colors.line}
