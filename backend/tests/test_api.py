@@ -123,3 +123,23 @@ def test_wrong_answers_build_the_review_queue(client, auth_headers):
 
     client.post(f"/api/questions/{question_id}/attempts", json={**attempt, "isCorrect": True}, headers=auth_headers)
     assert client.get("/api/review-queue", headers=auth_headers).json()[0]["priority"] == 3
+
+
+def test_delete_account_removes_user_and_signs_out(client):
+    import uuid
+
+    email = f"leaver-{uuid.uuid4().hex[:10]}@example.com"
+    register = client.post(
+        "/api/auth/register",
+        json={"name": "Leaver", "email": email, "password": "correct-horse-battery", "user": {"totalXp": 40}},
+    )
+    headers = {"Authorization": f"Bearer {register.json()['token']}"}
+    client.post(f"/api/lessons/{first_lesson_with_question()[0]}/completion", headers=headers, json={})
+
+    deleted = client.delete("/api/profile/me", headers=headers)
+
+    assert deleted.status_code == 200
+    assert client.get("/api/session", headers=headers).status_code == 401
+    login = client.post("/api/auth/login", json={"email": email, "password": "correct-horse-battery"})
+    assert login.status_code == 401
+    assert client.delete("/api/profile/me").status_code == 401

@@ -55,8 +55,11 @@ export async function hydrateRemoteSession() {
       user: payload.user,
       socialHub: payload.socialHub
     };
-  } catch {
-    clearSessionToken();
+  } catch (error) {
+    // Only a rejected token signs the learner out; being offline keeps the saved session.
+    if (error instanceof BackendRequestError && error.status === 401) {
+      clearSessionToken();
+    }
     return null;
   }
 }
@@ -168,6 +171,22 @@ export async function logoutRemoteAccount() {
   }
 }
 
+export async function deleteRemoteAccount() {
+  const token = getSessionToken();
+
+  if (!token) {
+    return;
+  }
+
+  await backendRequest("/api/profile/me", {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+  clearSessionToken();
+}
+
 export async function recordRemoteQuestionAttempt(input: {
   questionId: number;
   lessonId: number;
@@ -255,18 +274,48 @@ export function clearSessionToken() {
   removeStoredItem(SESSION_KEY);
 }
 
+export class BackendRequestError extends Error {
+  constructor(message: string, readonly status: number) {
+    super(message);
+    this.name = "BackendRequestError";
+  }
+}
+
+export function isBackendConfigured() {
+  return Boolean(BACKEND_CONFIG.baseUrl);
+}
+
 async function backendRequest<T = unknown>(path: string, options?: RequestInit) {
-  const response = await fetch(`${BACKEND_CONFIG.baseUrl}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(options?.headers ?? {})
+  if (!isBackendConfigured()) {
+    // Offline-only build: callers treat network errors as "keep working locally".
+    throw new Error("Network unavailable: no backend is configured for this build.");
+  }
+
+  const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+  const timeout = controller ? setTimeout(() => controller.abort(), BACKEND_CONFIG.requestTimeoutMs) : null;
+  let response: Response;
+
+  try {
+    response = await fetch(`${BACKEND_CONFIG.baseUrl}${path}`, {
+      ...options,
+      signal: controller?.signal,
+      headers: {
+        "Content-Type": "application/json",
+        ...(options?.headers ?? {})
+      }
+    });
+  } catch (error) {
+    throw new Error(controller?.signal.aborted ? "Network request timed out." : `Network request failed: ${error instanceof Error ? error.message : String(error)}`);
+  } finally {
+    if (timeout) {
+      clearTimeout(timeout);
     }
-  });
+  }
 
   if (!response.ok) {
     const errorBody = await safeJson(response);
-    throw new Error(typeof errorBody?.error === "string" ? errorBody.error : `Backend request failed with ${response.status}`);
+    const detail = typeof errorBody?.error === "string" ? errorBody.error : typeof errorBody?.detail === "string" ? errorBody.detail : "";
+    throw new BackendRequestError(detail || `Backend request failed with ${response.status}`, response.status);
   }
 
   return safeJson(response) as Promise<T>;

@@ -28,6 +28,14 @@ def update_profile(payload: ProfileUpdateInput, db: DbSession, user: User = Depe
     return SessionPayload(account=account_payload(user), user=frontend_user_payload(user), socialHub=user.social_hub_json or {})
 
 
+@router.delete("/profile/me")
+def delete_account(db: DbSession, user: User = Depends(current_user)):
+    # Apple and Google both require in-app account deletion; cascades remove sessions, progress and entitlements.
+    db.delete(user)
+    db.commit()
+    return {"ok": True}
+
+
 @router.put("/me/user", response_model=SessionPayload)
 def update_profile_compat(payload: ProfileUpdateInput, db: DbSession, user: User = Depends(current_user)):
     return update_profile(payload, db, user)

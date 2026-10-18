@@ -1,0 +1,27 @@
+# Render Blueprint for the Sira Path API and its Postgres database.
+# In Render: New > Blueprint, pick this repository, then fill in the secrets it asks for.
+services:
+  - type: web
+    name: sira-path-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: SIRA_ENVIRONMENT
+        value: production
+      - key: SIRA_DATABASE_URL
+        fromDatabase:
+          name: sira-path-db
+          property: connectionString
+      - key: SIRA_CORS_ORIGINS_RAW
+        value: https://sirapath.app
+      - key: SIRA_REVENUECAT_WEBHOOK_AUTH
+        sync: false
+
+databases:
+  - name: sira-path-db
+    databaseName: sira_path
+    plan: basic-256mb

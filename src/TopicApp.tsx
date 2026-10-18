@@ -49,6 +49,9 @@ import {
   updateLocalAuthAccount
 } from "./services/localAuth";
 import {
+  BackendRequestError,
+  deleteRemoteAccount,
+  getSessionToken,
   hydrateRemoteSession,
   loginRemoteAccount,
   logoutRemoteAccount,
@@ -1697,6 +1700,48 @@ export default function TopicApp() {
       // Best effort is enough here because we still clear the local session below.
     }
 
+    resetToGuest(guestUser);
+    Alert.alert("Logged out", "You are back in guest mode. Create an account or log in any time to save progress again.");
+  }
+
+  async function deleteAccount() {
+    if (!state.user) {
+      return;
+    }
+
+    const confirmed = await confirmDestructive(
+      "Delete your account?",
+      "This permanently deletes your account, XP, streak and saved progress. Active subscriptions are managed by the App Store or Google Play and must be cancelled there.",
+      "Delete account"
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    if (getSessionToken()) {
+      try {
+        await deleteRemoteAccount();
+      } catch (error) {
+        Alert.alert(
+          "Could not delete account",
+          error instanceof Error && isBackendOfflineError(error)
+            ? "Connect to the internet and try again so your account can be removed from our servers."
+            : error instanceof Error ? error.message : "Please try again."
+        );
+        return;
+      }
+    }
+
+    const fallbackUser = await learningApi.getUser(1001);
+    resetToGuest(withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday({
+      ...fallbackUser,
+      preferredLanguage: state.user.preferredLanguage ?? DEFAULT_LANGUAGE
+    }))));
+    Alert.alert("Account deleted", "Your account and saved progress have been removed.");
+  }
+
+  function resetToGuest(guestUser: UserProfile) {
     clearLocalAuthAccount();
     clearSocialHubState();
     clearSavedUserProfile();
@@ -1717,7 +1762,6 @@ export default function TopicApp() {
     setReviewRestoreVisible(false);
     setSettingsModalVisible(false);
     dispatch({ type: "apply_user", user: guestUser });
-    Alert.alert("Logged out", "You are back in guest mode. Create an account or log in any time to save progress again.");
   }
 
   function handleSocialLogin(provider: SocialProvider) {
@@ -2208,6 +2252,7 @@ export default function TopicApp() {
           onToggleSound={() => setSettingsSoundEnabled((value) => !value)}
           onToggleReducedSound={() => setSettingsReducedSound((value) => !value)}
           onLogout={logoutAccount}
+          onDeleteAccount={hasSavedAccount ? deleteAccount : undefined}
           onSave={saveAccountSettings}
         />
         <CelebrationModal
@@ -5750,7 +5795,7 @@ function AccountModal({
               ? strings.savedAccountHint
               : enabledSocialProviders.length > 0
                 ? strings.socialHint
-                : "Email and password are ready now. Google and Facebook will appear here once their mobile app credentials are connected."}
+                : "Create an account to keep your streak, XP and progress safe."}
           </Text>
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
@@ -5786,6 +5831,7 @@ function SettingsModal({
   onToggleSound,
   onToggleReducedSound,
   onLogout,
+  onDeleteAccount,
   onSave
 }: {
   visible: boolean;
@@ -5807,6 +5853,7 @@ function SettingsModal({
   onToggleSound: () => void;
   onToggleReducedSound: () => void;
   onLogout: () => void;
+  onDeleteAccount?: () => void;
   onSave: () => void;
 }) {
   const options: Array<{
@@ -5925,6 +5972,11 @@ function SettingsModal({
               <Text style={styles.modalDangerText}>{translateStudyText("Log out", language)}</Text>
             </Pressable>
           </View>
+          {onDeleteAccount && (
+            <Pressable onPress={onDeleteAccount} style={styles.deleteAccountLink} accessibilityRole="button">
+              <Text style={styles.deleteAccountText}>{translateStudyText("Delete account", language)}</Text>
+            </Pressable>
+          )}
 
           <View style={styles.modalActions}>
             <Pressable onPress={onClose} style={styles.modalGhostButton}>
@@ -6755,8 +6807,27 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizeEmail(email));
 }
 
+// React Native Web has no Alert buttons, so the browser's confirm dialog stands in there.
+function confirmDestructive(title: string, message: string, confirmLabel: string) {
+  if (Platform.OS === "web") {
+    return Promise.resolve(typeof window !== "undefined" && typeof window.confirm === "function" ? window.confirm(`${title}\n\n${message}`) : false);
+  }
+
+  return new Promise<boolean>((resolve) => {
+    Alert.alert(title, message, [
+      { text: "Cancel", style: "cancel", onPress: () => resolve(false) },
+      { text: confirmLabel, style: "destructive", onPress: () => resolve(true) }
+    ], { cancelable: true, onDismiss: () => resolve(false) });
+  });
+}
+
 function isBackendOfflineError(error: Error) {
-  return /fetch|network|failed|load|backend request failed with 5/i.test(error.message);
+  // A server that answered with a 4xx has a real message for the learner; anything else means "keep going offline".
+  if (error instanceof BackendRequestError) {
+    return error.status >= 500;
+  }
+
+  return /fetch|network|timed out|load failed/i.test(error.message);
 }
 
 function getSectionStars(user: UserProfile, section: LearningSection) {
@@ -7741,6 +7812,8 @@ const styles = StyleSheet.create({
     borderColor: "#F4C7C7"
   },
   modalDangerText: { color: "#B42318", fontSize: 14, fontWeight: "900", letterSpacing: 0 },
+  deleteAccountLink: { alignSelf: "center", marginTop: 12, paddingVertical: 8, paddingHorizontal: 12 },
+  deleteAccountText: { color: "#B42318", fontSize: 13, fontWeight: "700", textDecorationLine: "underline", letterSpacing: 0 },
   reviewRestoreCard: { marginTop: 2, borderRadius: 8, backgroundColor: "#F7FBF8", padding: 14 },
   reviewRestoreTitle: { color: colors.ink, fontSize: 15, fontWeight: "900", letterSpacing: 0 },
   reviewRestoreCopy: { color: colors.muted, fontSize: 13, lineHeight: 18, fontWeight: "600", letterSpacing: 0, marginTop: 4 },

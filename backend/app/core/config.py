@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import List
 
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -28,6 +28,15 @@ class Settings(BaseSettings):
         case_sensitive=False,
         extra="ignore"
     )
+
+    @field_validator("database_url")
+    @classmethod
+    def use_psycopg_driver(cls, value: str) -> str:
+        # Render, Railway and Heroku hand out postgres:// URLs; SQLAlchemy needs the psycopg driver named.
+        for prefix in ("postgres://", "postgresql://"):
+            if value.startswith(prefix):
+                return "postgresql+psycopg://" + value[len(prefix):]
+        return value
 
     @property
     def cors_origins(self) -> List[str]:

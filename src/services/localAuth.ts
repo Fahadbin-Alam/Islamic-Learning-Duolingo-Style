@@ -1,4 +1,5 @@
 import type { AccountRole, AuthProvider, ReminderPreferences, SupportedLanguage } from "../types";
+import { sha256Hex } from "../utils/sha256";
 import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
 
 export interface LocalAuthAccount {
@@ -13,6 +14,35 @@ export interface LocalAuthAccount {
 }
 
 const STORAGE_KEY = "sira-path-local-auth";
+const HASH_PREFIX = "sha256:";
+const HASH_ROUNDS = 2000;
+
+// Stored as "sha256:<salt>:<digest>" so the saved account never holds the password itself.
+export function hashLocalPassword(password: string, salt = makeSalt()) {
+  let digest = `${salt}:${password}`;
+  for (let round = 0; round < HASH_ROUNDS; round += 1) {
+    digest = sha256Hex(`${digest}:${password}`);
+  }
+  return `${HASH_PREFIX}${salt}:${digest}`;
+}
+
+function matchesStoredPassword(stored: string | undefined, password: string) {
+  if (!stored) {
+    return false;
+  }
+
+  if (!stored.startsWith(HASH_PREFIX)) {
+    // Accounts saved by earlier versions kept the raw password.
+    return stored === password;
+  }
+
+  const salt = stored.slice(HASH_PREFIX.length).split(":")[0];
+  return hashLocalPassword(password, salt) === stored;
+}
+
+function makeSalt() {
+  return Array.from({ length: 4 }, () => Math.floor(Math.random() * 0x100000000).toString(16).padStart(8, "0")).join("");
+}
 
 export function loadLocalAuthAccount(): LocalAuthAccount | null {
   try {
@@ -46,7 +76,8 @@ export function loadLocalAuthAccount(): LocalAuthAccount | null {
 export function createLocalAuthAccount(account: LocalAuthAccount) {
   const normalizedAccount = {
     ...account,
-    email: account.email.trim().toLowerCase()
+    email: account.email.trim().toLowerCase(),
+    password: account.password && !account.password.startsWith(HASH_PREFIX) ? hashLocalPassword(account.password) : account.password
   };
 
   setStoredItem(STORAGE_KEY, JSON.stringify(normalizedAccount));
@@ -73,8 +104,12 @@ export function loginLocalAuthAccount(email: string, password: string) {
     return null;
   }
 
-  if (account.email.toLowerCase() !== email.trim().toLowerCase() || account.password !== password) {
+  if (account.email.toLowerCase() !== email.trim().toLowerCase() || !matchesStoredPassword(account.password, password)) {
     return null;
+  }
+
+  if (account.password && !account.password.startsWith(HASH_PREFIX)) {
+    return createLocalAuthAccount({ ...account, password });
   }
 
   return account;
