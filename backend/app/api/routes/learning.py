@@ -70,7 +70,7 @@ def complete_lesson(lesson_slug: str, payload: LessonCompletionInput, db: DbSess
     topic = db.get(Topic, branch.topic_id) if branch else None
     progress = db.scalar(select(UserProgress).where(UserProgress.user_id == user.id, UserProgress.lesson_id == lesson.id))
     if not progress:
-        progress = UserProgress(user_id=user.id, topic_id=topic.id if topic else None, branch_id=branch.id if branch else None, lesson_id=lesson.id)
+        progress = UserProgress(user_id=user.id, topic_id=topic.id if topic else None, branch_id=branch.id if branch else None, lesson_id=lesson.id, xp_earned=0, best_score=0)
         db.add(progress)
 
     progress.status = payload.status

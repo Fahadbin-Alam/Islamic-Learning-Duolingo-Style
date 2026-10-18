@@ -24,6 +24,13 @@ def initials(name: str) -> str:
     return "".join(parts) or "SP"
 
 
+def as_utc(value: Optional[datetime]) -> Optional[datetime]:
+    # SQLite drops tzinfo on read, so treat naive timestamps as the UTC values we stored.
+    if value is None or value.tzinfo is not None:
+        return value
+    return value.replace(tzinfo=timezone.utc)
+
+
 def get_current_user_from_token(db: Session, authorization: Optional[str]) -> User:
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
@@ -31,7 +38,7 @@ def get_current_user_from_token(db: Session, authorization: Optional[str]) -> Us
     raw_token = authorization.removeprefix("Bearer ").strip()
     session_token = db.scalar(select(AuthSession).where(AuthSession.token_hash == hash_token(raw_token)))
 
-    if not session_token or session_token.expires_at <= datetime.now(timezone.utc):
+    if not session_token or as_utc(session_token.expires_at) <= datetime.now(timezone.utc):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
 
     user = db.get(User, session_token.user_id)
@@ -46,9 +53,9 @@ def get_active_entitlement(user: User) -> Optional[SubscriptionEntitlement]:
     active = [
         entitlement
         for entitlement in user.entitlements
-        if entitlement.status in {"active", "trialing"} and (entitlement.expires_at is None or entitlement.expires_at >= now)
+        if entitlement.status in {"active", "trialing"} and (entitlement.expires_at is None or as_utc(entitlement.expires_at) >= now)
     ]
-    active.sort(key=lambda item: item.expires_at or now, reverse=True)
+    active.sort(key=lambda item: as_utc(item.expires_at) or now, reverse=True)
     return active[0] if active else None
 
 

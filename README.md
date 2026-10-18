@@ -68,6 +68,24 @@ Legacy JSON backend, if you need it temporarily:
 npm run backend:legacy
 ```
 
+## Testing
+
+App typecheck and unit tests (XP, streaks, hearts, lesson flow):
+
+```bash
+npm run typecheck
+npm test
+```
+
+Backend API tests (use a throwaway SQLite database):
+
+```bash
+pip install -r backend/requirements-dev.txt
+npm run test:backend
+```
+
+GitHub Actions runs all three on every pull request and on pushes to `main`.
+
 ## Database
 
 Local development uses SQLite by default:
