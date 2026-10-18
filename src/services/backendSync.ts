@@ -6,6 +6,7 @@ import type {
   SocialHubState,
   UserProfile
 } from "../types";
+import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
 
 const SESSION_KEY = "sira-path-session-token";
 
@@ -243,27 +244,15 @@ export async function syncSubscriptionEntitlement(input: {
 }
 
 export function getSessionToken() {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return null;
-  }
-
-  return window.localStorage.getItem(SESSION_KEY);
+  return getStoredItem(SESSION_KEY);
 }
 
 export function setSessionToken(token: string) {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return;
-  }
-
-  window.localStorage.setItem(SESSION_KEY, token);
+  setStoredItem(SESSION_KEY, token);
 }
 
 export function clearSessionToken() {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return;
-  }
-
-  window.localStorage.removeItem(SESSION_KEY);
+  removeStoredItem(SESSION_KEY);
 }
 
 async function backendRequest<T = unknown>(path: string, options?: RequestInit) {

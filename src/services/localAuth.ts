@@ -1,4 +1,5 @@
 import type { AccountRole, AuthProvider, ReminderPreferences, SupportedLanguage } from "../types";
+import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
 
 export interface LocalAuthAccount {
   name: string;
@@ -14,12 +15,8 @@ export interface LocalAuthAccount {
 const STORAGE_KEY = "sira-path-local-auth";
 
 export function loadLocalAuthAccount(): LocalAuthAccount | null {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return null;
-  }
-
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = getStoredItem(STORAGE_KEY);
 
     if (!raw) {
       return null;
@@ -52,11 +49,7 @@ export function createLocalAuthAccount(account: LocalAuthAccount) {
     email: account.email.trim().toLowerCase()
   };
 
-  if (typeof window === "undefined" || !window.localStorage) {
-    return normalizedAccount;
-  }
-
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedAccount));
+  setStoredItem(STORAGE_KEY, JSON.stringify(normalizedAccount));
   return normalizedAccount;
 }
 
@@ -88,9 +81,5 @@ export function loginLocalAuthAccount(email: string, password: string) {
 }
 
 export function clearLocalAuthAccount() {
-  if (typeof window === "undefined" || !window.localStorage) {
-    return;
-  }
-
-  window.localStorage.removeItem(STORAGE_KEY);
+  removeStoredItem(STORAGE_KEY);
 }
