@@ -100,7 +100,9 @@ Sira Path is a learning tool, not a fatwa service. For rulings that affect you, 
 
 Subscription group name: `Sira Path Premium`. Each product also needs a 1024 × 1024 promotional image only if you want it promoted on the App Store, and a review screenshot of the shop screen showing the product.
 
-## Screenshots still needed
+## Screenshots
+
+Ready in [`../graphics/app-store`](../graphics/app-store); see [`../graphics/README.md`](../graphics/README.md) for the order.
 
 | Device | Size | Required |
 | --- | --- | --- |
