@@ -296,6 +296,8 @@ export interface Challenge {
   reviewSuggestion?: string;
   resourceLabel?: string;
   resourceUrl?: string;
+  /** Asked again from an earlier lesson; the question shows a small review cue. */
+  isReview?: boolean;
 }
 
 export interface LessonTeachingMoment {
@@ -338,6 +340,12 @@ export interface Lesson {
   whyItMatters?: string;
   keyTakeaway?: string;
   storyMoment?: string;
+  /** The one short sentence the mascot says on the learn card (12 words or fewer, plain words for a 6-year-old). */
+  learnLine?: string;
+  /** Up to 3 short facts the learn card shows as chips, e.g. "Father: Umar". Questions only ask what the card shows. */
+  learnFacts?: string[];
+  /** A short narration or ayah the learn card shows in full, with where it is from. */
+  quote?: { text: string; reference?: string };
   lessonType?: "skill" | "story" | "surah" | "scenario" | "review" | "mastery";
   difficulty?: DifficultyTier;
   xpReward: number;
