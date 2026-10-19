@@ -25,11 +25,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Junadah"
+                    "text": "Tha'labah ibn Amr"
                   },
                   {
                     "id": "b",
-                    "text": "Malik ibn an-Nadr"
+                    "text": "Thabit ibn ad-Dahhak"
                   },
                   {
                     "id": "c",
@@ -37,7 +37,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Jubayr ibn an-Nu'man"
+                    "text": "Sham'un"
                   }
                 ],
                 "correct_answer_json": {
@@ -241,15 +241,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Amr ibn al-As"
+                    "text": "Abu Jahl"
                   },
                   {
                     "id": "b",
-                    "text": "Asad ibn Hashim"
+                    "text": "Abu Quhafah"
                   },
                   {
                     "id": "c",
-                    "text": "Awwam ibn Khuwaylid"
+                    "text": "Abu Sufyan ibn Harb"
                   },
                   {
                     "id": "d",
@@ -349,11 +349,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Sham'un"
+                    "text": "Asad ibn Hashim"
                   },
                   {
                     "id": "b",
-                    "text": "Thabit ibn ad-Dahhak"
+                    "text": "Hakim ibn Umayyah"
                   },
                   {
                     "id": "c",
@@ -361,7 +361,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Rawahah ibn Tha'labah"
+                    "text": "Amr ibn al-As"
                   }
                 ],
                 "correct_answer_json": {
@@ -461,15 +461,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Abdullah ibn al-Jarrah"
+                    "text": "Harithah ibn Sharahil"
                   },
                   {
                     "id": "c",
-                    "text": "Abu Amir ar-Rahib"
+                    "text": "Hisham ibn al-Mughirah"
                   },
                   {
                     "id": "d",
-                    "text": "Abu Jahl"
+                    "text": "Hizam ibn Khuwaylid"
                   }
                 ],
                 "correct_answer_json": {
@@ -677,15 +677,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Abbas ibn Abd al-Muttalib"
+                    "text": "Zuhayr ibn Abi Sulma"
                   },
                   {
                     "id": "c",
-                    "text": "Abdullah ibn Amr ibn Haram"
+                    "text": "Zurarah ibn Udas"
                   },
                   {
                     "id": "d",
-                    "text": "Abu Amir ar-Rahib"
+                    "text": "Abbas ibn Abd al-Muttalib"
                   }
                 ],
                 "correct_answer_json": {
@@ -781,7 +781,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Amr ibn Abd Shams"
+                    "text": "Mut'im ibn Adi"
                   },
                   {
                     "id": "b",
@@ -789,11 +789,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Ali ibn Abi Talib"
+                    "text": "Junadah"
                   },
                   {
                     "id": "d",
-                    "text": "Amir ibn Uwaymir"
+                    "text": "Malik ibn an-Nadr"
                   }
                 ],
                 "correct_answer_json": {
@@ -893,15 +893,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Affan ibn Abi al-As"
+                    "text": "Hizam ibn Khuwaylid"
                   },
                   {
                     "id": "c",
-                    "text": "Ali ibn Abi Talib"
+                    "text": "Jahsh ibn Riyab"
                   },
                   {
                     "id": "d",
-                    "text": "Amir ibn Uwaymir"
+                    "text": "Jubayr ibn an-Nu'man"
                   }
                 ],
                 "correct_answer_json": {
@@ -1226,15 +1226,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Malik ibn an-Nadr"
+                    "text": "Hisham ibn al-Mughirah"
                   },
                   {
                     "id": "c",
-                    "text": "Mut'im ibn Adi"
+                    "text": "Hizam ibn Khuwaylid"
                   },
                   {
                     "id": "d",
-                    "text": "Rabah"
+                    "text": "Jahsh ibn Riyab"
                   }
                 ],
                 "correct_answer_json": {
@@ -1334,15 +1334,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Hizam ibn Khuwaylid"
+                    "text": "Walid ibn al-Mughirah"
                   },
                   {
                     "id": "c",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Yasir ibn Amir"
                   },
                   {
                     "id": "d",
-                    "text": "Jubayr ibn an-Nu'man"
+                    "text": "Zayd ibn Harithah"
                   }
                 ],
                 "correct_answer_json": {
@@ -1670,15 +1670,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Zurarah ibn Udas"
+                    "text": "Umays ibn Ma'ad"
                   },
                   {
                     "id": "c",
-                    "text": "Abbas ibn Abd al-Muttalib"
+                    "text": "Walid ibn al-Mughirah"
                   },
                   {
                     "id": "d",
-                    "text": "Abdullah ibn Amr ibn Haram"
+                    "text": "Yasir ibn Amir"
                   }
                 ],
                 "correct_answer_json": {
@@ -1774,15 +1774,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ubadah ibn Dulaym"
+                    "text": "Jahsh ibn Riyab"
                   },
                   {
                     "id": "b",
-                    "text": "Umar ibn al-Khattab"
+                    "text": "Jubayr ibn an-Nu'man"
                   },
                   {
                     "id": "c",
-                    "text": "Umayr ibn Hashim"
+                    "text": "Junadah"
                   },
                   {
                     "id": "d",
@@ -1958,7 +1958,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Amir ar-Rahib"
+                    "text": "Harithah ibn Sharahil"
                   },
                   {
                     "id": "b",
@@ -1966,11 +1966,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Abd al-Muttalib"
+                    "text": "Asad ibn Hashim"
                   },
                   {
                     "id": "d",
-                    "text": "Abdullah ibn Amr ibn Haram"
+                    "text": "Hakim ibn Umayyah"
                   }
                 ],
                 "correct_answer_json": {
@@ -2075,7 +2075,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Yasir ibn Amir"
+                    "text": "Hisham ibn al-Mughirah"
                   },
                   {
                     "id": "b",
@@ -2083,11 +2083,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Umays ibn Ma'ad"
+                    "text": "Hakim ibn Umayyah"
                   },
                   {
                     "id": "d",
-                    "text": "Walid ibn al-Mughirah"
+                    "text": "Harithah ibn Sharahil"
                   }
                 ],
                 "correct_answer_json": {
@@ -2183,11 +2183,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Zuhayr ibn Abi Sulma"
+                    "text": "Zayd ibn Harithah"
                   },
                   {
                     "id": "b",
-                    "text": "Zurarah ibn Udas"
+                    "text": "Zuhayr ibn Abi Sulma"
                   },
                   {
                     "id": "c",
@@ -2195,7 +2195,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Zayd ibn Harithah"
+                    "text": "Yasir ibn Amir"
                   }
                 ],
                 "correct_answer_json": {
@@ -2291,7 +2291,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Walid ibn al-Mughirah"
+                    "text": "Zurarah ibn Udas"
                   },
                   {
                     "id": "b",
@@ -2299,11 +2299,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Umayr ibn Hashim"
+                    "text": "Zayd ibn Harithah"
                   },
                   {
                     "id": "d",
-                    "text": "Umays ibn Ma'ad"
+                    "text": "Zuhayr ibn Abi Sulma"
                   }
                 ],
                 "correct_answer_json": {
@@ -2507,11 +2507,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Az-Zubayr ibn al-Awwam"
+                    "text": "Al-Khattab ibn Nufayl"
                   },
                   {
                     "id": "b",
-                    "text": "Al-As ibn Wa'il"
+                    "text": "Ar-Rabi ibn Abd al-Uzza"
                   },
                   {
                     "id": "c",
@@ -2519,7 +2519,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Ar-Rabi ibn Abd al-Uzza"
+                    "text": "Al-Awwam ibn Khuwaylid"
                   }
                 ],
                 "correct_answer_json": {
@@ -2619,15 +2619,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Harithah ibn Sharahil"
+                    "text": "Asad ibn Hashim"
                   },
                   {
                     "id": "c",
-                    "text": "Hisham ibn al-Mughirah"
+                    "text": "Hakim ibn Umayyah"
                   },
                   {
                     "id": "d",
-                    "text": "Hizam ibn Khuwaylid"
+                    "text": "Harithah ibn Sharahil"
                   }
                 ],
                 "correct_answer_json": {
@@ -2723,11 +2723,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Quhafah"
+                    "text": "Harithah ibn Sharahil"
                   },
                   {
                     "id": "b",
-                    "text": "Abu Rabi'ah ibn al-Mughirah"
+                    "text": "Hisham ibn al-Mughirah"
                   },
                   {
                     "id": "c",
@@ -2735,7 +2735,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Abu Jahl"
+                    "text": "Hakim ibn Umayyah"
                   }
                 ],
                 "correct_answer_json": {
@@ -2835,15 +2835,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Abbas ibn Abd al-Muttalib"
+                    "text": "Affan ibn Abi al-As"
                   },
                   {
                     "id": "c",
-                    "text": "Abdullah ibn Amr ibn Haram"
+                    "text": "Ali ibn Abi Talib"
                   },
                   {
                     "id": "d",
-                    "text": "Abu Amir ar-Rahib"
+                    "text": "Amir ibn Uwaymir"
                   }
                 ],
                 "correct_answer_json": {
@@ -2939,11 +2939,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abbas ibn Abd al-Muttalib"
+                    "text": "Walid ibn al-Mughirah"
                   },
                   {
                     "id": "b",
-                    "text": "Abdullah ibn Amr ibn Haram"
+                    "text": "Yasir ibn Amir"
                   },
                   {
                     "id": "c",
@@ -2951,7 +2951,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Zurarah ibn Udas"
+                    "text": "Umays ibn Ma'ad"
                   }
                 ],
                 "correct_answer_json": {
@@ -3047,15 +3047,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umar ibn al-Khattab"
+                    "text": "Walid ibn al-Mughirah"
                   },
                   {
                     "id": "b",
-                    "text": "Umayr ibn Hashim"
+                    "text": "Yasir ibn Amir"
                   },
                   {
                     "id": "c",
-                    "text": "Umays ibn Ma'ad"
+                    "text": "Zayd ibn Harithah"
                   },
                   {
                     "id": "d",
@@ -3164,15 +3164,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Tha'labah ibn Amr"
+                    "text": "Hakim ibn Umayyah"
                   },
                   {
                     "id": "b",
-                    "text": "Thabit ibn ad-Dahhak"
+                    "text": "Harithah ibn Sharahil"
                   },
                   {
                     "id": "c",
-                    "text": "Ubadah ibn Dulaym"
+                    "text": "Hisham ibn al-Mughirah"
                   },
                   {
                     "id": "d",
@@ -3348,15 +3348,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Amr ibn al-As"
+                    "text": "Jahsh ibn Riyab"
                   },
                   {
                     "id": "b",
-                    "text": "Asad ibn Hashim"
+                    "text": "Jubayr ibn an-Nu'man"
                   },
                   {
                     "id": "c",
-                    "text": "Awwam ibn Khuwaylid"
+                    "text": "Junadah"
                   },
                   {
                     "id": "d",
@@ -3568,15 +3568,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Malik ibn an-Nadr"
+                    "text": "Abdullah ibn Amr ibn Haram"
                   },
                   {
                     "id": "c",
-                    "text": "Mut'im ibn Adi"
+                    "text": "Abu Amir ar-Rahib"
                   },
                   {
                     "id": "d",
-                    "text": "Rabah"
+                    "text": "Abu Jahl"
                   }
                 ],
                 "correct_answer_json": {
@@ -3672,7 +3672,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umays ibn Ma'ad"
+                    "text": "Thabit ibn ad-Dahhak"
                   },
                   {
                     "id": "b",
@@ -3680,11 +3680,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Umar ibn al-Khattab"
+                    "text": "Sham'un"
                   },
                   {
                     "id": "d",
-                    "text": "Umayr ibn Hashim"
+                    "text": "Tha'labah ibn Amr"
                   }
                 ],
                 "correct_answer_json": {
@@ -3780,15 +3780,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abbas ibn Abd al-Muttalib"
+                    "text": "Amr ibn Rifa'ah"
                   },
                   {
                     "id": "b",
-                    "text": "Abdullah ibn Amr ibn Haram"
+                    "text": "Amr ibn al-As"
                   },
                   {
                     "id": "c",
-                    "text": "Abu Amir ar-Rahib"
+                    "text": "Asad ibn Hashim"
                   },
                   {
                     "id": "d",
@@ -3888,11 +3888,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Hakim ibn Umayyah"
+                    "text": "Sham'un"
                   },
                   {
                     "id": "b",
-                    "text": "Harithah ibn Sharahil"
+                    "text": "Thabit ibn ad-Dahhak"
                   },
                   {
                     "id": "c",
@@ -3900,7 +3900,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Awwam ibn Khuwaylid"
+                    "text": "Rawahah ibn Tha'labah"
                   }
                 ],
                 "correct_answer_json": {
@@ -4104,15 +4104,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Quhafah"
+                    "text": "Hakim ibn Umayyah"
                   },
                   {
                     "id": "b",
-                    "text": "Abu Rabi'ah ibn al-Mughirah"
+                    "text": "Harithah ibn Sharahil"
                   },
                   {
                     "id": "c",
-                    "text": "Abu Sufyan ibn Harb"
+                    "text": "Hisham ibn al-Mughirah"
                   },
                   {
                     "id": "d",
@@ -4329,11 +4329,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Yasir ibn Amir"
+                    "text": "Hakim ibn Umayyah"
                   },
                   {
                     "id": "b",
-                    "text": "Zayd ibn Harithah"
+                    "text": "Harithah ibn Sharahil"
                   },
                   {
                     "id": "c",
@@ -4341,7 +4341,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Walid ibn al-Mughirah"
+                    "text": "Asad ibn Hashim"
                   }
                 ],
                 "correct_answer_json": {
@@ -4525,15 +4525,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umayr ibn Hashim"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "b",
-                    "text": "Umays ibn Ma'ad"
+                    "text": "Umayr ibn Hashim"
                   },
                   {
                     "id": "c",
-                    "text": "Yasir ibn Amir"
+                    "text": "Umays ibn Ma'ad"
                   },
                   {
                     "id": "d",
@@ -4633,7 +4633,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Junadah"
+                    "text": "Abbas ibn Abd al-Muttalib"
                   },
                   {
                     "id": "b",
@@ -4641,11 +4641,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Zuhayr ibn Abi Sulma"
                   },
                   {
                     "id": "d",
-                    "text": "Jubayr ibn an-Nu'man"
+                    "text": "Zurarah ibn Udas"
                   }
                 ],
                 "correct_answer_json": {
@@ -4785,15 +4785,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Harithah ibn Sharahil"
+                    "text": "Yasir ibn Amir"
                   },
                   {
                     "id": "b",
-                    "text": "Hisham ibn al-Mughirah"
+                    "text": "Zayd ibn Harithah"
                   },
                   {
                     "id": "c",
-                    "text": "Hizam ibn Khuwaylid"
+                    "text": "Zuhayr ibn Abi Sulma"
                   },
                   {
                     "id": "d",
@@ -4893,15 +4893,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Jahl"
+                    "text": "Zayd ibn Harithah"
                   },
                   {
                     "id": "b",
-                    "text": "Abu Quhafah"
+                    "text": "Zuhayr ibn Abi Sulma"
                   },
                   {
                     "id": "c",
-                    "text": "Abu Rabi'ah ibn al-Mughirah"
+                    "text": "Zurarah ibn Udas"
                   },
                   {
                     "id": "d",
@@ -5118,7 +5118,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Rawahah ibn Tha'labah"
+                    "text": "Hisham ibn al-Mughirah"
                   },
                   {
                     "id": "b",
@@ -5126,11 +5126,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Mut'im ibn Adi"
+                    "text": "Harb ibn Umayyah"
                   },
                   {
                     "id": "d",
-                    "text": "Rabah"
+                    "text": "Harithah ibn Sharahil"
                   }
                 ],
                 "correct_answer_json": {
@@ -5226,11 +5226,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abdullah ibn Amr ibn Haram"
+                    "text": "Walid ibn al-Mughirah"
                   },
                   {
                     "id": "b",
-                    "text": "Abu Amir ar-Rahib"
+                    "text": "Yasir ibn Amir"
                   },
                   {
                     "id": "c",
@@ -5238,7 +5238,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Abd al-Muttalib"
+                    "text": "Umays ibn Ma'ad"
                   }
                 ],
                 "correct_answer_json": {
@@ -5338,15 +5338,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Awwam ibn Khuwaylid"
+                    "text": "Abd al-Muttalib"
                   },
                   {
                     "id": "c",
-                    "text": "Hakim ibn Umayyah"
+                    "text": "Abdullah ibn Amr ibn Haram"
                   },
                   {
                     "id": "d",
-                    "text": "Harithah ibn Sharahil"
+                    "text": "Abu Amir ar-Rahib"
                   }
                 ],
                 "correct_answer_json": {
@@ -5782,15 +5782,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Abu Jahl"
                   },
                   {
                     "id": "c",
-                    "text": "Jubayr ibn an-Nu'man"
+                    "text": "Abu Quhafah"
                   },
                   {
                     "id": "d",
-                    "text": "Junadah"
+                    "text": "Abu Rabi'ah ibn al-Mughirah"
                   }
                 ],
                 "correct_answer_json": {
@@ -6331,15 +6331,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Al-Jamuh"
-                  },
-                  {
-                    "id": "b",
                     "text": "Ar-Rabi ibn Abd al-Uzza"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "Az-Zubayr ibn al-Awwam"
+                  },
+                  {
+                    "id": "c",
+                    "text": "Al-As ibn Wa'il"
                   },
                   {
                     "id": "d",
@@ -6467,15 +6467,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Awwam ibn Khuwaylid"
+                    "text": "Abu Amir ar-Rahib"
                   },
                   {
                     "id": "b",
-                    "text": "Hakim ibn Umayyah"
+                    "text": "Abu Jahl"
                   },
                   {
                     "id": "c",
-                    "text": "Harithah ibn Sharahil"
+                    "text": "Abu Quhafah"
                   },
                   {
                     "id": "d",
@@ -6511,7 +6511,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Sufyan ibn Harb"
+                    "text": "Amir ibn Uwaymir"
                   },
                   {
                     "id": "b",
@@ -6519,11 +6519,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Abu Quhafah"
+                    "text": "Affan ibn Abi al-As"
                   },
                   {
                     "id": "d",
-                    "text": "Abu Rabi'ah ibn al-Mughirah"
+                    "text": "Ali ibn Abi Talib"
                   }
                 ],
                 "correct_answer_json": {
@@ -6619,7 +6619,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Junadah"
                   },
                   {
                     "id": "b",
@@ -6627,11 +6627,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Hisham ibn al-Mughirah"
+                    "text": "Jahsh ibn Riyab"
                   },
                   {
                     "id": "d",
-                    "text": "Hizam ibn Khuwaylid"
+                    "text": "Jubayr ibn an-Nu'man"
                   }
                 ],
                 "correct_answer_json": {
@@ -6807,15 +6807,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Ubadah ibn Dulaym"
+                    "text": "Mut'im ibn Adi"
                   },
                   {
                     "id": "c",
-                    "text": "Umar ibn al-Khattab"
+                    "text": "Rabah"
                   },
                   {
                     "id": "d",
-                    "text": "Umayr ibn Hashim"
+                    "text": "Rawahah ibn Tha'labah"
                   }
                 ],
                 "correct_answer_json": {
@@ -6996,7 +6996,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Rawahah ibn Tha'labah"
+                    "text": "Malik ibn an-Nadr"
                   },
                   {
                     "id": "b",
@@ -7004,11 +7004,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Mut'im ibn Adi"
+                    "text": "Jubayr ibn an-Nu'man"
                   },
                   {
                     "id": "d",
-                    "text": "Rabah"
+                    "text": "Junadah"
                   }
                 ],
                 "correct_answer_json": {
@@ -7108,15 +7108,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Hakim ibn Umayyah"
+                    "text": "Rabah"
                   },
                   {
                     "id": "c",
-                    "text": "Harithah ibn Sharahil"
+                    "text": "Rawahah ibn Tha'labah"
                   },
                   {
                     "id": "d",
-                    "text": "Hizam ibn Khuwaylid"
+                    "text": "Sham'un"
                   }
                 ],
                 "correct_answer_json": {
@@ -7212,11 +7212,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Hisham ibn al-Mughirah"
+                    "text": "Amr ibn Rifa'ah"
                   },
                   {
                     "id": "b",
-                    "text": "Hizam ibn Khuwaylid"
+                    "text": "Amr ibn al-As"
                   },
                   {
                     "id": "c",
@@ -7224,7 +7224,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Harithah ibn Sharahil"
+                    "text": "Amr ibn Abd Shams"
                   }
                 ],
                 "correct_answer_json": {
@@ -7320,7 +7320,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Junadah"
+                    "text": "Abu Jahl"
                   },
                   {
                     "id": "b",
@@ -7328,11 +7328,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Abdullah ibn Amr ibn Haram"
                   },
                   {
                     "id": "d",
-                    "text": "Jubayr ibn an-Nu'man"
+                    "text": "Abu Amir ar-Rahib"
                   }
                 ],
                 "correct_answer_json": {
@@ -7428,11 +7428,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Junadah"
+                    "text": "Rawahah ibn Tha'labah"
                   },
                   {
                     "id": "b",
-                    "text": "Malik ibn an-Nadr"
+                    "text": "Sham'un"
                   },
                   {
                     "id": "c",
@@ -7440,7 +7440,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Jubayr ibn an-Nu'man"
+                    "text": "Rabah"
                   }
                 ],
                 "correct_answer_json": {
@@ -7536,15 +7536,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abdullah ibn Amr ibn Haram"
+                    "text": "Umays ibn Ma'ad"
                   },
                   {
                     "id": "b",
-                    "text": "Abu Amir ar-Rahib"
+                    "text": "Walid ibn al-Mughirah"
                   },
                   {
                     "id": "c",
-                    "text": "Abu Jahl"
+                    "text": "Yasir ibn Amir"
                   },
                   {
                     "id": "d",
@@ -7630,7 +7630,7 @@
           },
           {
             "title": "Az-Zubayr ibn al-Awwam",
-            "description": "Cousin of the Prophet ﷺ and one of the ten promised Paradise; a leading commander. Full name: al-Zubayr ibn al-Awwam ibn Khuwaylid al-Asadi. Tribe: Quraysh, clan of Banu Asad ibn Abd al-Uzza. Father: Awwam ibn Khuwaylid. Passed away in December 656 CE (36 AH).",
+            "description": "Cousin of the Prophet ﷺ and one of the ten promised Paradise; a leading commander. Full name: al-Zubayr ibn al-Awwam ibn Khuwaylid al-Asadi. Tribe: Quraysh, clan of Banu Asad ibn Abd al-Uzza. Father: Al-Awwam ibn Khuwaylid. Passed away in December 656 CE (36 AH).",
             "difficulty": 4,
             "lesson_type": "story",
             "premium": false,
@@ -7644,25 +7644,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Awwam ibn Khuwaylid"
+                    "text": "Al-Awwam ibn Khuwaylid"
                   },
                   {
                     "id": "b",
-                    "text": "Ali ibn Abi Talib"
+                    "text": "Ar-Rabi ibn Abd al-Uzza"
                   },
                   {
                     "id": "c",
-                    "text": "Amir ibn Uwaymir"
+                    "text": "Al-As ibn Wa'il"
                   },
                   {
                     "id": "d",
-                    "text": "Amr ibn Abd Shams"
+                    "text": "Al-Jamuh"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "The father of Az-Zubayr ibn al-Awwam was Awwam ibn Khuwaylid.",
+                "explanation_short": "The father of Az-Zubayr ibn al-Awwam was Al-Awwam ibn Khuwaylid.",
                 "explanation_long": "Az-Zubayr ibn al-Awwam: Cousin of the Prophet ﷺ and one of the ten promised Paradise; a leading commander.",
                 "tags_json": [
                   "az-zubayr-ibn-al-awwam",
@@ -7752,15 +7752,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Hisham ibn al-Mughirah"
+                    "text": "Amr ibn Rifa'ah"
                   },
                   {
                     "id": "b",
-                    "text": "Hizam ibn Khuwaylid"
+                    "text": "Amr ibn al-As"
                   },
                   {
                     "id": "c",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Asad ibn Hashim"
                   },
                   {
                     "id": "d",

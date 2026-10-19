@@ -218,8 +218,12 @@ describe("arabic terms", () => {
     const banners = branches.map((branch) => getBranchArabic(branch.id)?.ar);
     expect(branches.filter((branch, index) => banners.indexOf(banners[index]) !== index).map((branch) => `${branch.id}: ${banners[branches.indexOf(branch)]}`)).toEqual([]);
     expect(branches.filter((branch) => /\d/.test(branch.title) || /^(Review and mastery|Companions|Prophets|Surahs)\b/.test(branch.title)).map((branch) => branch.title)).toEqual([]);
-    expect(getBranchArabic("notes-quran-tafseer-surahs-114-105")).toMatchObject({ ar: "من سورة الناس إلى سورة الفيل" });
-    expect(getLessonArabic("no-such-node", "notes-quran-tafseer-surahs-114-105")?.ar).toBe("مِنْ سُورَةِ النَّاسِ إِلَى سُورَةِ الْفِيلِ");
+    // A no-break space holds "سورة" to its name.
+    expect(getBranchArabic("notes-quran-tafseer-surahs-114-105")).toMatchObject({ ar: "من سورة\u00a0الناس إلى سورة\u00a0الفيل" });
+    expect(getLessonArabic("no-such-node", "notes-quran-tafseer-surahs-114-105")?.ar).toBe("مِنْ سُورَةِ\u00a0النَّاسِ إِلَى سُورَةِ\u00a0الْفِيلِ");
+    const spans = branches.filter((branch) => /^notes-quran-tafseer-surahs-/.test(branch.id)).map((branch) => getBranchArabic(branch.id)?.ar ?? "");
+    expect(spans.length).toBeGreaterThan(5);
+    expect(spans.filter((banner) => /سورة /.test(banner) || /آل عمران/.test(banner))).toEqual([]);
   });
 
   it("names the depth lessons by a word of their own line", () => {

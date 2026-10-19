@@ -66,8 +66,8 @@ const OPENERS: Record<string, { line: string; facts: string[] } | null> = {
   // His Family circle says why he was the Prophet's ﷺ cousin (his mother Safiyyah was the Prophet's ﷺ aunt), so the
   // card only names his parents.
   "zubayr-ibn-al-awwam": {
-    line: "Az-Zubayr's parents were al-Awwam and Safiyyah.",
-    facts: ["Father: Awwam ibn Khuwaylid", "Mother: Safiyyah bint Abd al-Muttalib"]
+    line: "Az-Zubayr's parents were Al-Awwam and Safiyyah.",
+    facts: ["Father: Al-Awwam ibn Khuwaylid", "Mother: Safiyyah bint Abd al-Muttalib"]
   },
   "salmaan-al-faarisiy": { line: "Salman was born in Isfahan and passed away in al-Mada'in.", facts: ["Born in Isfahan", "Passed away in Al-Mada'in"] },
   "abu-dharr-al-ghifaariy": { line: "Abu Dharr's parents were Junadah and Ramlah.", facts: ["Father: Junadah", "Mother: Ramlah"] },

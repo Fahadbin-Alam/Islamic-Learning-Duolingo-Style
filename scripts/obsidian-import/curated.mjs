@@ -11,6 +11,8 @@ export const DISPLAY_NAMES = {
   "abu-al-as-ibn-al-rabi": "Abu al-As ibn ar-Rabi'",
   "abu-hurayra": "Abu Hurayrah",
   "abu-lubaba-ibn-abd-al-mundhir": "Abu Lubabah ibn Abd al-Mundhir",
+  // Az-Zubayr's father: al-Awwam (العوام), as in his son's name, Az-Zubayr ibn al-Awwam.
+  "awwam-ibn-khuwaylid": "Al-Awwam ibn Khuwaylid",
   "asad-ibn-zoraarah": "As'ad ibn Zurarah",
   "asma-bint-umays": "Asma bint Umays",
   bilal: "Bilal ibn Rabah",

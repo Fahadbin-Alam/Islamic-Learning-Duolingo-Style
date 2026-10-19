@@ -692,11 +692,13 @@ const UNIT_LEAD_ARABIC: Record<string, { form: string; translit: string }> = {
 };
 
 // A unit of imported surahs is named after its first and last surah: "مِنْ سُورَةِ النَّاسِ إِلَى سُورَةِ الْفِيلِ".
-// The ids name the span by surah number (src/data/importedNotes.ts).
+// The ids name the span by surah number (src/data/importedNotes.ts). A no-break space holds "سورة" to its name,
+// so a small phone never ends a line on "سورة" with the name alone below it.
 const SURAH_SPAN_UNIT = /^notes-quran-tafseer-surahs-(\d+)(?:-(\d+))?$/;
 
 function surahSpanForm(first: number, last: number) {
-  return first === last ? `سُورَةُ ${SURAH_NAMES[first - 1]}` : `مِنْ سُورَةِ ${SURAH_NAMES[first - 1]} إِلَى سُورَةِ ${SURAH_NAMES[last - 1]}`;
+  const name = (surah: number) => `\u00a0${SURAH_NAMES[surah - 1].replace(/ /g, "\u00a0")}`;
+  return first === last ? `سُورَةُ${name(first)}` : `مِنْ سُورَةِ${name(first)} إِلَى سُورَةِ${name(last)}`;
 }
 
 // Banners of the imported units that are named after what they hold, by branch id, with each banner's vowelled

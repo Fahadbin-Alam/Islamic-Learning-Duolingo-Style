@@ -1,4 +1,5 @@
 import { COURSE, LESSONS_BY_ID } from "../data/course";
+import { asksSameLine } from "../data/scalableCurriculum";
 import { localizeLessonContent } from "../services/contentLocalization";
 import { buildGuidedLesson } from "../services/lessonGuidance";
 import type { Challenge, Lesson } from "../types";
@@ -463,6 +464,24 @@ describe("round 5: reviews stay in their unit, gentle words, names that read rig
     expect(problems).toEqual([]);
   });
 
+  it("never asks a sentence before the fill-in it gives away", () => {
+    // "Allah sent Salih's people a special camel as a sign." (True) told the learner the answer to the
+    // "... a special ____ as a sign." question that came next in the Early messengers review.
+    const problems: string[] = [];
+    for (const lesson of pathLessons) {
+      lesson.challenges.forEach((challenge, index) => {
+        const givenAway = lesson.challenges.slice(index + 1).find((later) => later.prompt.includes("____") && asksSameLine(challenge, later));
+        if (!challenge.prompt.includes("____") && givenAway) problems.push(`${lesson.id}: "${challenge.prompt}" before "${givenAway.prompt}"`);
+      });
+    }
+    expect(problems).toEqual([]);
+    const review = LESSONS_BY_ID["lesson-prophets-early-messengers-early-prophets-review"].challenges.filter((challenge) => challenge.isReview);
+    expect(review.map((challenge) => challenge.id)).toEqual(review.map((_, index) => `lesson-prophets-early-messengers-early-prophets-review_review_${index + 1}`));
+    // With only Salih and Lut to look back on, the review asks Salih's line twice: the fill-in first.
+    const prompts = review.map((challenge) => challenge.prompt);
+    expect(prompts.indexOf("Allah sent Salih's people a special ____ as a sign.")).toBeLessThan(prompts.indexOf("Allah sent Salih's people a special camel as a sign."));
+  });
+
   it("names on a review card only people taught before it in its unit, and quizzes the later Mothers of the Believers", () => {
     const PEOPLE = ["Adam", "Nuh", "Ibrahim", "Ismail", "Ishaq", "Ya'qub", "Yusuf", "Isa", "Hud", "Salih", "Lut", "Musa", "Harun", "Dawud", "Sulayman", "Hawwa", "Asiyah", "Maryam", "Khadijah", "Sawdah", "Aishah", "Hafsah"];
     const problems: string[] = [];
@@ -511,7 +530,7 @@ describe("round 5: reviews stay in their unit, gentle words, names that read rig
       }
     }
     expect(problems).toEqual([]);
-    expect(LESSONS_BY_ID[sahabah.nodes.find((node) => node.branchId === "sahabi-az-zubayr-ibn-al-awwam")!.lessonIds[0]].learnLine).toBe("Az-Zubayr's parents were al-Awwam and Safiyyah.");
+    expect(LESSONS_BY_ID[sahabah.nodes.find((node) => node.branchId === "sahabi-az-zubayr-ibn-al-awwam")!.lessonIds[0]].learnLine).toBe("Az-Zubayr's parents were Al-Awwam and Safiyyah.");
   });
 
   it("keeps frightening words out of every lesson, and keeps the Dajjal lesson to its gentle line", () => {

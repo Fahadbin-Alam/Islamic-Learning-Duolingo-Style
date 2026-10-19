@@ -1,5 +1,5 @@
 import type { Challenge, LearningCourse, LearningNode, LearningSection, Lesson, TopicId } from "../types";
-import { reviewQuestions, type TaughtLesson } from "./scalableCurriculum";
+import { fillInsFirst, reviewQuestions, type TaughtLesson } from "./scalableCurriculum";
 
 // Each person is taught in one unit. A prophet or a woman with a lesson of their own gets the lessons that
 // teach more about them (src/data/scalableCurriculum.ts) right after it, in the same unit, and the Mothers of the
@@ -122,14 +122,10 @@ function refreshReviews(unit: LearningNode[], lessonsById: Record<string, Lesson
       continue;
     }
     const picked = reviewQuestions(lessonId, taught.slice(since), looksBack, recent);
-    if (picked.length < looksBack) {
-      const prompts = new Set(picked.map((challenge) => challenge.prompt));
-      const older = reviewQuestions(lessonId, taught.slice(0, since), looksBack, recent).filter((challenge) => !prompts.has(challenge.prompt));
-      picked.push(...older.slice(0, looksBack - picked.length));
-    }
+    if (picked.length < looksBack) picked.push(...reviewQuestions(lessonId, taught.slice(0, since), looksBack - picked.length, recent, picked));
     const challenges: Challenge[] = [
       ...lesson.challenges.filter((challenge) => !challenge.isReview),
-      ...picked.map((challenge, index) => ({ ...challenge, id: `${lessonId}_review_${index + 1}` }))
+      ...fillInsFirst(lessonId, picked)
     ];
     lessonsById[lessonId] = { ...lesson, challenges };
     since = taught.length;

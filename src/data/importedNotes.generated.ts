@@ -10364,11 +10364,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Junadah"
+              "label": "Tha'labah ibn Amr"
             },
             {
               "id": "b",
-              "label": "Malik ibn an-Nadr"
+              "label": "Thabit ibn ad-Dahhak"
             },
             {
               "id": "c",
@@ -10376,7 +10376,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Jubayr ibn an-Nu'man"
+              "label": "Sham'un"
             }
           ],
           "correctChoiceId": "c",
@@ -10580,15 +10580,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Amr ibn al-As"
+              "label": "Abu Jahl"
             },
             {
               "id": "b",
-              "label": "Asad ibn Hashim"
+              "label": "Abu Quhafah"
             },
             {
               "id": "c",
-              "label": "Awwam ibn Khuwaylid"
+              "label": "Abu Sufyan ibn Harb"
             },
             {
               "id": "d",
@@ -10688,11 +10688,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Sham'un"
+              "label": "Asad ibn Hashim"
             },
             {
               "id": "b",
-              "label": "Thabit ibn ad-Dahhak"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "c",
@@ -10700,7 +10700,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Rawahah ibn Tha'labah"
+              "label": "Amr ibn al-As"
             }
           ],
           "correctChoiceId": "c",
@@ -10800,15 +10800,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Abdullah ibn al-Jarrah"
+              "label": "Harithah ibn Sharahil"
             },
             {
               "id": "c",
-              "label": "Abu Amir ar-Rahib"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "d",
-              "label": "Abu Jahl"
+              "label": "Hizam ibn Khuwaylid"
             }
           ],
           "correctChoiceId": "a",
@@ -11046,15 +11046,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Abbas ibn Abd al-Muttalib"
+              "label": "Zuhayr ibn Abi Sulma"
             },
             {
               "id": "c",
-              "label": "Abdullah ibn Amr ibn Haram"
+              "label": "Zurarah ibn Udas"
             },
             {
               "id": "d",
-              "label": "Abu Amir ar-Rahib"
+              "label": "Abbas ibn Abd al-Muttalib"
             }
           ],
           "correctChoiceId": "a",
@@ -11150,7 +11150,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Amr ibn Abd Shams"
+              "label": "Mut'im ibn Adi"
             },
             {
               "id": "b",
@@ -11158,11 +11158,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Ali ibn Abi Talib"
+              "label": "Junadah"
             },
             {
               "id": "d",
-              "label": "Amir ibn Uwaymir"
+              "label": "Malik ibn an-Nadr"
             }
           ],
           "correctChoiceId": "b",
@@ -11286,15 +11286,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Affan ibn Abi al-As"
+              "label": "Hizam ibn Khuwaylid"
             },
             {
               "id": "c",
-              "label": "Ali ibn Abi Talib"
+              "label": "Jahsh ibn Riyab"
             },
             {
               "id": "d",
-              "label": "Amir ibn Uwaymir"
+              "label": "Jubayr ibn an-Nu'man"
             }
           ],
           "correctChoiceId": "a",
@@ -11664,15 +11664,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Malik ibn an-Nadr"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "c",
-              "label": "Mut'im ibn Adi"
+              "label": "Hizam ibn Khuwaylid"
             },
             {
               "id": "d",
-              "label": "Rabah"
+              "label": "Jahsh ibn Riyab"
             }
           ],
           "correctChoiceId": "a",
@@ -11772,15 +11772,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Hizam ibn Khuwaylid"
+              "label": "Walid ibn al-Mughirah"
             },
             {
               "id": "c",
-              "label": "Jahsh ibn Riyab"
+              "label": "Yasir ibn Amir"
             },
             {
               "id": "d",
-              "label": "Jubayr ibn an-Nu'man"
+              "label": "Zayd ibn Harithah"
             }
           ],
           "correctChoiceId": "a",
@@ -12120,15 +12120,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Zurarah ibn Udas"
+              "label": "Umays ibn Ma'ad"
             },
             {
               "id": "c",
-              "label": "Abbas ibn Abd al-Muttalib"
+              "label": "Walid ibn al-Mughirah"
             },
             {
               "id": "d",
-              "label": "Abdullah ibn Amr ibn Haram"
+              "label": "Yasir ibn Amir"
             }
           ],
           "correctChoiceId": "a",
@@ -12248,15 +12248,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ubadah ibn Dulaym"
+              "label": "Jahsh ibn Riyab"
             },
             {
               "id": "b",
-              "label": "Umar ibn al-Khattab"
+              "label": "Jubayr ibn an-Nu'man"
             },
             {
               "id": "c",
-              "label": "Umayr ibn Hashim"
+              "label": "Junadah"
             },
             {
               "id": "d",
@@ -12442,7 +12442,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Amir ar-Rahib"
+              "label": "Harithah ibn Sharahil"
             },
             {
               "id": "b",
@@ -12450,11 +12450,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Abd al-Muttalib"
+              "label": "Asad ibn Hashim"
             },
             {
               "id": "d",
-              "label": "Abdullah ibn Amr ibn Haram"
+              "label": "Hakim ibn Umayyah"
             }
           ],
           "correctChoiceId": "b",
@@ -12548,7 +12548,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Yasir ibn Amir"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -12556,11 +12556,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Umays ibn Ma'ad"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "d",
-              "label": "Walid ibn al-Mughirah"
+              "label": "Harithah ibn Sharahil"
             }
           ],
           "correctChoiceId": "b",
@@ -12656,11 +12656,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Zuhayr ibn Abi Sulma"
+              "label": "Zayd ibn Harithah"
             },
             {
               "id": "b",
-              "label": "Zurarah ibn Udas"
+              "label": "Zuhayr ibn Abi Sulma"
             },
             {
               "id": "c",
@@ -12668,7 +12668,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Zayd ibn Harithah"
+              "label": "Yasir ibn Amir"
             }
           ],
           "correctChoiceId": "c",
@@ -12763,7 +12763,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Walid ibn al-Mughirah"
+              "label": "Zurarah ibn Udas"
             },
             {
               "id": "b",
@@ -12771,11 +12771,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Umayr ibn Hashim"
+              "label": "Zayd ibn Harithah"
             },
             {
               "id": "d",
-              "label": "Umays ibn Ma'ad"
+              "label": "Zuhayr ibn Abi Sulma"
             }
           ],
           "correctChoiceId": "b",
@@ -13009,11 +13009,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Az-Zubayr ibn al-Awwam"
+              "label": "Al-Khattab ibn Nufayl"
             },
             {
               "id": "b",
-              "label": "Al-As ibn Wa'il"
+              "label": "Ar-Rabi ibn Abd al-Uzza"
             },
             {
               "id": "c",
@@ -13021,7 +13021,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Ar-Rabi ibn Abd al-Uzza"
+              "label": "Al-Awwam ibn Khuwaylid"
             }
           ],
           "correctChoiceId": "c",
@@ -13121,15 +13121,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Harithah ibn Sharahil"
+              "label": "Asad ibn Hashim"
             },
             {
               "id": "c",
-              "label": "Hisham ibn al-Mughirah"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "d",
-              "label": "Hizam ibn Khuwaylid"
+              "label": "Harithah ibn Sharahil"
             }
           ],
           "correctChoiceId": "a",
@@ -13225,11 +13225,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Quhafah"
+              "label": "Harithah ibn Sharahil"
             },
             {
               "id": "b",
-              "label": "Abu Rabi'ah ibn al-Mughirah"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "c",
@@ -13237,7 +13237,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Abu Jahl"
+              "label": "Hakim ibn Umayyah"
             }
           ],
           "correctChoiceId": "c",
@@ -13337,15 +13337,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Abbas ibn Abd al-Muttalib"
+              "label": "Affan ibn Abi al-As"
             },
             {
               "id": "c",
-              "label": "Abdullah ibn Amr ibn Haram"
+              "label": "Ali ibn Abi Talib"
             },
             {
               "id": "d",
-              "label": "Abu Amir ar-Rahib"
+              "label": "Amir ibn Uwaymir"
             }
           ],
           "correctChoiceId": "a",
@@ -13441,11 +13441,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abbas ibn Abd al-Muttalib"
+              "label": "Walid ibn al-Mughirah"
             },
             {
               "id": "b",
-              "label": "Abdullah ibn Amr ibn Haram"
+              "label": "Yasir ibn Amir"
             },
             {
               "id": "c",
@@ -13453,7 +13453,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Zurarah ibn Udas"
+              "label": "Umays ibn Ma'ad"
             }
           ],
           "correctChoiceId": "c",
@@ -13549,15 +13549,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umar ibn al-Khattab"
+              "label": "Walid ibn al-Mughirah"
             },
             {
               "id": "b",
-              "label": "Umayr ibn Hashim"
+              "label": "Yasir ibn Amir"
             },
             {
               "id": "c",
-              "label": "Umays ibn Ma'ad"
+              "label": "Zayd ibn Harithah"
             },
             {
               "id": "d",
@@ -13655,15 +13655,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Tha'labah ibn Amr"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "b",
-              "label": "Thabit ibn ad-Dahhak"
+              "label": "Harithah ibn Sharahil"
             },
             {
               "id": "c",
-              "label": "Ubadah ibn Dulaym"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "d",
@@ -13841,15 +13841,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Amr ibn al-As"
+              "label": "Jahsh ibn Riyab"
             },
             {
               "id": "b",
-              "label": "Asad ibn Hashim"
+              "label": "Jubayr ibn an-Nu'man"
             },
             {
               "id": "c",
-              "label": "Awwam ibn Khuwaylid"
+              "label": "Junadah"
             },
             {
               "id": "d",
@@ -14061,15 +14061,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Malik ibn an-Nadr"
+              "label": "Abdullah ibn Amr ibn Haram"
             },
             {
               "id": "c",
-              "label": "Mut'im ibn Adi"
+              "label": "Abu Amir ar-Rahib"
             },
             {
               "id": "d",
-              "label": "Rabah"
+              "label": "Abu Jahl"
             }
           ],
           "correctChoiceId": "a",
@@ -14165,7 +14165,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umays ibn Ma'ad"
+              "label": "Thabit ibn ad-Dahhak"
             },
             {
               "id": "b",
@@ -14173,11 +14173,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Umar ibn al-Khattab"
+              "label": "Sham'un"
             },
             {
               "id": "d",
-              "label": "Umayr ibn Hashim"
+              "label": "Tha'labah ibn Amr"
             }
           ],
           "correctChoiceId": "b",
@@ -14272,15 +14272,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abbas ibn Abd al-Muttalib"
+              "label": "Amr ibn Rifa'ah"
             },
             {
               "id": "b",
-              "label": "Abdullah ibn Amr ibn Haram"
+              "label": "Amr ibn al-As"
             },
             {
               "id": "c",
-              "label": "Abu Amir ar-Rahib"
+              "label": "Asad ibn Hashim"
             },
             {
               "id": "d",
@@ -14380,11 +14380,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hakim ibn Umayyah"
+              "label": "Sham'un"
             },
             {
               "id": "b",
-              "label": "Harithah ibn Sharahil"
+              "label": "Thabit ibn ad-Dahhak"
             },
             {
               "id": "c",
@@ -14392,7 +14392,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Awwam ibn Khuwaylid"
+              "label": "Rawahah ibn Tha'labah"
             }
           ],
           "correctChoiceId": "c",
@@ -14626,15 +14626,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Quhafah"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "b",
-              "label": "Abu Rabi'ah ibn al-Mughirah"
+              "label": "Harithah ibn Sharahil"
             },
             {
               "id": "c",
-              "label": "Abu Sufyan ibn Harb"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "d",
@@ -14832,11 +14832,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Yasir ibn Amir"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "b",
-              "label": "Zayd ibn Harithah"
+              "label": "Harithah ibn Sharahil"
             },
             {
               "id": "c",
@@ -14844,7 +14844,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Walid ibn al-Mughirah"
+              "label": "Asad ibn Hashim"
             }
           ],
           "correctChoiceId": "c",
@@ -15044,15 +15044,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umayr ibn Hashim"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "b",
-              "label": "Umays ibn Ma'ad"
+              "label": "Umayr ibn Hashim"
             },
             {
               "id": "c",
-              "label": "Yasir ibn Amir"
+              "label": "Umays ibn Ma'ad"
             },
             {
               "id": "d",
@@ -15151,7 +15151,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Junadah"
+              "label": "Abbas ibn Abd al-Muttalib"
             },
             {
               "id": "b",
@@ -15159,11 +15159,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Jahsh ibn Riyab"
+              "label": "Zuhayr ibn Abi Sulma"
             },
             {
               "id": "d",
-              "label": "Jubayr ibn an-Nu'man"
+              "label": "Zurarah ibn Udas"
             }
           ],
           "correctChoiceId": "b",
@@ -15336,15 +15336,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Harithah ibn Sharahil"
+              "label": "Yasir ibn Amir"
             },
             {
               "id": "b",
-              "label": "Hisham ibn al-Mughirah"
+              "label": "Zayd ibn Harithah"
             },
             {
               "id": "c",
-              "label": "Hizam ibn Khuwaylid"
+              "label": "Zuhayr ibn Abi Sulma"
             },
             {
               "id": "d",
@@ -15450,15 +15450,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Jahl"
+              "label": "Zayd ibn Harithah"
             },
             {
               "id": "b",
-              "label": "Abu Quhafah"
+              "label": "Zuhayr ibn Abi Sulma"
             },
             {
               "id": "c",
-              "label": "Abu Rabi'ah ibn al-Mughirah"
+              "label": "Zurarah ibn Udas"
             },
             {
               "id": "d",
@@ -15664,7 +15664,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Rawahah ibn Tha'labah"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -15672,11 +15672,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Mut'im ibn Adi"
+              "label": "Harb ibn Umayyah"
             },
             {
               "id": "d",
-              "label": "Rabah"
+              "label": "Harithah ibn Sharahil"
             }
           ],
           "correctChoiceId": "b",
@@ -15772,11 +15772,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abdullah ibn Amr ibn Haram"
+              "label": "Walid ibn al-Mughirah"
             },
             {
               "id": "b",
-              "label": "Abu Amir ar-Rahib"
+              "label": "Yasir ibn Amir"
             },
             {
               "id": "c",
@@ -15784,7 +15784,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Abd al-Muttalib"
+              "label": "Umays ibn Ma'ad"
             }
           ],
           "correctChoiceId": "c",
@@ -15884,15 +15884,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Awwam ibn Khuwaylid"
+              "label": "Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Hakim ibn Umayyah"
+              "label": "Abdullah ibn Amr ibn Haram"
             },
             {
               "id": "d",
-              "label": "Harithah ibn Sharahil"
+              "label": "Abu Amir ar-Rahib"
             }
           ],
           "correctChoiceId": "a",
@@ -16338,15 +16338,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Jahsh ibn Riyab"
+              "label": "Abu Jahl"
             },
             {
               "id": "c",
-              "label": "Jubayr ibn an-Nu'man"
+              "label": "Abu Quhafah"
             },
             {
               "id": "d",
-              "label": "Junadah"
+              "label": "Abu Rabi'ah ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "a",
@@ -16955,15 +16955,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Al-Jamuh"
-            },
-            {
-              "id": "b",
               "label": "Ar-Rabi ibn Abd al-Uzza"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "Az-Zubayr ibn al-Awwam"
+            },
+            {
+              "id": "c",
+              "label": "Al-As ibn Wa'il"
             },
             {
               "id": "d",
@@ -17084,15 +17084,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Awwam ibn Khuwaylid"
+              "label": "Abu Amir ar-Rahib"
             },
             {
               "id": "b",
-              "label": "Hakim ibn Umayyah"
+              "label": "Abu Jahl"
             },
             {
               "id": "c",
-              "label": "Harithah ibn Sharahil"
+              "label": "Abu Quhafah"
             },
             {
               "id": "d",
@@ -17138,7 +17138,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Sufyan ibn Harb"
+              "label": "Amir ibn Uwaymir"
             },
             {
               "id": "b",
@@ -17146,11 +17146,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Abu Quhafah"
+              "label": "Affan ibn Abi al-As"
             },
             {
               "id": "d",
-              "label": "Abu Rabi'ah ibn al-Mughirah"
+              "label": "Ali ibn Abi Talib"
             }
           ],
           "correctChoiceId": "b",
@@ -17246,7 +17246,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Jahsh ibn Riyab"
+              "label": "Junadah"
             },
             {
               "id": "b",
@@ -17254,11 +17254,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Hisham ibn al-Mughirah"
+              "label": "Jahsh ibn Riyab"
             },
             {
               "id": "d",
-              "label": "Hizam ibn Khuwaylid"
+              "label": "Jubayr ibn an-Nu'man"
             }
           ],
           "correctChoiceId": "b",
@@ -17462,15 +17462,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Ubadah ibn Dulaym"
+              "label": "Mut'im ibn Adi"
             },
             {
               "id": "c",
-              "label": "Umar ibn al-Khattab"
+              "label": "Rabah"
             },
             {
               "id": "d",
-              "label": "Umayr ibn Hashim"
+              "label": "Rawahah ibn Tha'labah"
             }
           ],
           "correctChoiceId": "a",
@@ -17672,7 +17672,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Rawahah ibn Tha'labah"
+              "label": "Malik ibn an-Nadr"
             },
             {
               "id": "b",
@@ -17680,11 +17680,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Mut'im ibn Adi"
+              "label": "Jubayr ibn an-Nu'man"
             },
             {
               "id": "d",
-              "label": "Rabah"
+              "label": "Junadah"
             }
           ],
           "correctChoiceId": "b",
@@ -17808,15 +17808,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Hakim ibn Umayyah"
+              "label": "Rabah"
             },
             {
               "id": "c",
-              "label": "Harithah ibn Sharahil"
+              "label": "Rawahah ibn Tha'labah"
             },
             {
               "id": "d",
-              "label": "Hizam ibn Khuwaylid"
+              "label": "Sham'un"
             }
           ],
           "correctChoiceId": "a",
@@ -17918,11 +17918,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hisham ibn al-Mughirah"
+              "label": "Amr ibn Rifa'ah"
             },
             {
               "id": "b",
-              "label": "Hizam ibn Khuwaylid"
+              "label": "Amr ibn al-As"
             },
             {
               "id": "c",
@@ -17930,7 +17930,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Harithah ibn Sharahil"
+              "label": "Amr ibn Abd Shams"
             }
           ],
           "correctChoiceId": "c",
@@ -18026,7 +18026,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Junadah"
+              "label": "Abu Jahl"
             },
             {
               "id": "b",
@@ -18034,11 +18034,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Jahsh ibn Riyab"
+              "label": "Abdullah ibn Amr ibn Haram"
             },
             {
               "id": "d",
-              "label": "Jubayr ibn an-Nu'man"
+              "label": "Abu Amir ar-Rahib"
             }
           ],
           "correctChoiceId": "b",
@@ -18134,11 +18134,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Junadah"
+              "label": "Rawahah ibn Tha'labah"
             },
             {
               "id": "b",
-              "label": "Malik ibn an-Nadr"
+              "label": "Sham'un"
             },
             {
               "id": "c",
@@ -18146,7 +18146,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Jubayr ibn an-Nu'man"
+              "label": "Rabah"
             }
           ],
           "correctChoiceId": "c",
@@ -18242,15 +18242,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abdullah ibn Amr ibn Haram"
+              "label": "Umays ibn Ma'ad"
             },
             {
               "id": "b",
-              "label": "Abu Amir ar-Rahib"
+              "label": "Walid ibn al-Mughirah"
             },
             {
               "id": "c",
-              "label": "Abu Jahl"
+              "label": "Yasir ibn Amir"
             },
             {
               "id": "d",
@@ -18324,11 +18324,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-8",
       "title": "Az-Zubayr ibn al-Awwam",
       "intro": "Cousin of the Prophet ﷺ and one of the ten promised Paradise; a leading commander.",
-      "explanationContent": "Cousin of the Prophet ﷺ and one of the ten promised Paradise; a leading commander. Full name: al-Zubayr ibn al-Awwam ibn Khuwaylid al-Asadi. Tribe: Quraysh, clan of Banu Asad ibn Abd al-Uzza. Father: Awwam ibn Khuwaylid. Passed away in December 656 CE (36 AH).",
+      "explanationContent": "Cousin of the Prophet ﷺ and one of the ten promised Paradise; a leading commander. Full name: al-Zubayr ibn al-Awwam ibn Khuwaylid al-Asadi. Tribe: Quraysh, clan of Banu Asad ibn Abd al-Uzza. Father: Al-Awwam ibn Khuwaylid. Passed away in December 656 CE (36 AH).",
       "keyTakeaway": "Az-Zubayr ibn al-Awwam: Cousin of the Prophet ﷺ and one of the ten promised Paradise; a leading commander.",
       "learnLine": "He was the Prophet's ﷺ cousin, one of ten promised Paradise.",
       "learnFacts": [
-        "Father: Awwam ibn Khuwaylid",
+        "Father: Al-Awwam ibn Khuwaylid",
         "Mother: Safiyyah bint Abd al-Muttalib",
         "Tribe: Quraysh"
       ],
@@ -18350,23 +18350,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Awwam ibn Khuwaylid"
+              "label": "Al-Awwam ibn Khuwaylid"
             },
             {
               "id": "b",
-              "label": "Ali ibn Abi Talib"
+              "label": "Ar-Rabi ibn Abd al-Uzza"
             },
             {
               "id": "c",
-              "label": "Amir ibn Uwaymir"
+              "label": "Al-As ibn Wa'il"
             },
             {
               "id": "d",
-              "label": "Amr ibn Abd Shams"
+              "label": "Al-Jamuh"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The father of Az-Zubayr ibn al-Awwam was Awwam ibn Khuwaylid.",
+          "explanation": "The father of Az-Zubayr ibn al-Awwam was Al-Awwam ibn Khuwaylid.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-8-zubayr-ibn-al-awwam",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-8-zubayr-ibn-al-awwam"
         },
@@ -18458,15 +18458,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hisham ibn al-Mughirah"
+              "label": "Amr ibn Rifa'ah"
             },
             {
               "id": "b",
-              "label": "Hizam ibn Khuwaylid"
+              "label": "Amr ibn al-As"
             },
             {
               "id": "c",
-              "label": "Jahsh ibn Riyab"
+              "label": "Asad ibn Hashim"
             },
             {
               "id": "d",

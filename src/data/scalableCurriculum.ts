@@ -522,32 +522,68 @@ function teachingQuestions(lessonId: string, lesson: LessonSeed): Challenge[] {
 // A lesson the learner has finished, with its questions, for the reviews after it.
 export type TaughtLesson = { lessonId: string; nodeId: string; questions: Challenge[] };
 
+// A fill-in and a sentence that is the same line with a word in the blank ("Allah sent Salih's people a special
+// ____ as a sign." and "... a special camel as a sign.") ask about the same fact: asked first, the sentence gives
+// the fill-in away.
+const comparable = (text: string) => text.toLowerCase().replace(/[.!?]+$/, "").replace(/\s+/g, " ").trim();
+
+export function asksSameLine(a: Challenge, b: Challenge) {
+  const [blank, line] = a.prompt.includes("____") ? [a, b] : [b, a];
+  if (!blank.prompt.includes("____") || line.prompt.includes("____")) return false;
+  const [before, after = ""] = comparable(blank.prompt).split("____").map((part) => part.trim());
+  const other = comparable(line.prompt);
+  return other.length > before.length + after.length && other.startsWith(before) && other.endsWith(after);
+}
+
+/** A review's questions with each fill-in before any sentence that would give it away, numbered in that order. */
+export function fillInsFirst(lessonId: string, questions: Challenge[]): Challenge[] {
+  const ordered = [...questions];
+  for (let index = 0; index < ordered.length; index += 1) {
+    const later = ordered.findIndex((other, at) => at > index && other.prompt.includes("____") && asksSameLine(ordered[index], other));
+    if (later < 0 || ordered[index].prompt.includes("____")) continue;
+    const [line] = ordered.splice(index, 1);
+    ordered.splice(later, 0, line);
+    index -= 1;
+  }
+  return ordered.map((question, index) => (question.isReview ? { ...question, id: `${lessonId}_review_${index + 1}` } : question));
+}
+
 // `count` questions from the lessons in `pool`, one from each lesson before a second from any, never the same
-// question twice, and the ones the lesson just before asked (`recent`) only when nothing else is left. Each is
-// the same question as in its own lesson, marked as a review of it.
-export function reviewQuestions(lessonId: string, pool: TaughtLesson[], count: number, recent: ReadonlySet<string> = new Set()): Challenge[] {
+// question twice, and the ones the lesson just before asked (`recent`) only when nothing else is left. Two
+// questions on the same line come only when nothing else is left, the fill-in first. `taken` are questions the
+// review already asks. Each is the same question as in its own lesson, marked as a review of it.
+export function reviewQuestions(
+  lessonId: string,
+  pool: TaughtLesson[],
+  count: number,
+  recent: ReadonlySet<string> = new Set(),
+  taken: readonly Challenge[] = []
+): Challenge[] {
   const lessons = pickIndexes(pool.length, pool.length, lessonId).map((index) => pool[index]);
   const lists = lessons.map((lesson) => rotate(lesson.questions, Math.abs(hashCode(`${lessonId}:${lesson.lessonId}`)) % lesson.questions.length));
   const picked: Challenge[] = [];
-  const prompts = new Set<string>();
+  const prompts = new Set<string>(taken.map((question) => question.prompt));
   const rounds = Math.max(0, ...lists.map((list) => list.length));
-  for (const allowRecent of [false, true]) {
-    for (let round = 0; round < rounds && picked.length < count; round += 1) {
-      lists.forEach((list, index) => {
-        const question = list[round];
-        if (!question || picked.length >= count || prompts.has(question.prompt) || (!allowRecent && recent.has(question.prompt))) return;
-        prompts.add(question.prompt);
-        picked.push({
-          ...question,
-          id: `${lessonId}_review_${picked.length + 1}`,
-          isReview: true,
-          sourceLessonId: lessons[index].lessonId,
-          sourceNodeId: lessons[index].nodeId
+  for (const allowSameLine of [false, true]) {
+    for (const allowRecent of [false, true]) {
+      for (let round = 0; round < rounds && picked.length < count; round += 1) {
+        lists.forEach((list, index) => {
+          const question = list[round];
+          if (!question || picked.length >= count || prompts.has(question.prompt) || (!allowRecent && recent.has(question.prompt))) return;
+          if (!allowSameLine && [...taken, ...picked].some((other) => asksSameLine(other, question))) return;
+          prompts.add(question.prompt);
+          picked.push({
+            ...question,
+            id: `${lessonId}_review_${picked.length + 1}`,
+            isReview: true,
+            sourceLessonId: lessons[index].lessonId,
+            sourceNodeId: lessons[index].nodeId
+          });
         });
-      });
+      }
     }
   }
-  return picked;
+  return fillInsFirst(lessonId, picked);
 }
 
 // A review, a mixed review or a lesson with nothing new to teach: questions from the lessons before it, with its
