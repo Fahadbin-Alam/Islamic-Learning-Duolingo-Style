@@ -1,4 +1,5 @@
 import { COURSE, LESSONS_BY_ID } from "../data/course";
+import { localizeLessonContent } from "../services/contentLocalization";
 import { buildGuidedLesson } from "../services/lessonGuidance";
 import type { Challenge, Lesson } from "../types";
 import { getLessonLine, isPlayablePractice, LESSON_LINE_MAX_WORDS, lessonLineWords } from "../ui/lesson/lessonSteps";
@@ -18,7 +19,8 @@ const answerOf = (challenge: Challenge) => challenge.choices.find((choice) => ch
 
 describe("learn card lines", () => {
   it("gives every lesson on the path that is not imported a short line of its own, and shows it", () => {
-    expect(ownLessons.length).toBeGreaterThan(600);
+    // Each companion unit teaches only its own facts now, with no filler lessons, so there are fewer of them.
+    expect(ownLessons.length).toBeGreaterThan(450);
     const problems = ownLessons.flatMap((lesson) => {
       const line = lesson.learnLine ?? "";
       const words = lessonLineWords(line);
@@ -54,7 +56,7 @@ describe("generated questions", () => {
   });
 
   it("asks two or three questions about the lesson's own line, or reviews lessons before it", () => {
-    expect(generated.length).toBeGreaterThan(500);
+    expect(generated.length).toBeGreaterThan(400);
     const problems: string[] = [];
     for (const lesson of generated) {
       const line = lesson.learnLine!;
@@ -89,7 +91,8 @@ describe("generated questions", () => {
   it("gives Why lines that add something instead of repeating the question", () => {
     const own = generated.flatMap((lesson) => lesson.challenges);
     const withWhy = own.filter((challenge) => shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel: answerOf(challenge) }));
-    expect(withWhy.length / own.length).toBeGreaterThan(0.8);
+    // A Why that does not explain the answer (a bonus fact) is left out, so some questions have none.
+    expect(withWhy.length / own.length).toBeGreaterThan(0.65);
     for (const challenge of withWhy) {
       const why = shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel: answerOf(challenge) })!;
       expect(why).not.toBe(challenge.prompt);
@@ -102,9 +105,10 @@ describe("generated questions", () => {
     expect(falses.length).toBeGreaterThan(100);
     const silent = falses.filter((challenge) => !shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel: "False" }));
     expect(silent.map((challenge) => challenge.id)).toEqual([]);
-    // The line alone does not say the face is not last, so the Why does.
-    const face = LESSONS_BY_ID["lesson-prayer-wudu-wash-face"].challenges.find((challenge) => challenge.id.endsWith("_tf"))!;
-    expect(face.prompt === face.explanation || face.explanation === "The feet are washed last.").toBe(true);
+    // The false statement is the card line with one word changed, so its Why is the card line itself.
+    const faceLesson = LESSONS_BY_ID["lesson-prayer-wudu-wash-face"];
+    const face = faceLesson.challenges.find((challenge) => challenge.id.endsWith("_tf"))!;
+    expect(face.prompt === face.explanation || face.explanation === faceLesson.learnLine).toBe(true);
   });
 });
 
@@ -165,5 +169,162 @@ describe("ordering games", () => {
         expect(pathOrder.get(taught)).toBeLessThan(pathOrder.get(node.id)!);
       }
     }
+  });
+});
+
+describe("round 3 copy rules", () => {
+  const ownTexts = (lesson: Lesson) => [
+    lesson.title,
+    lesson.learnLine ?? "",
+    ...(lesson.learnFacts ?? []),
+    ...lesson.challenges.flatMap((challenge) => [challenge.prompt, challenge.explanation, ...challenge.choices.map((choice) => choice.label)])
+  ];
+
+  it("makes the false statement the card line with one word changed, so true and false look alike", () => {
+    const problems: string[] = [];
+    let checked = 0;
+    for (const lesson of generated) {
+      const fill = lesson.challenges.find((challenge) => challenge.id === `${lesson.id}_fill`);
+      const tf = lesson.challenges.find((challenge) => challenge.id === `${lesson.id}_tf`);
+      if (!fill || !tf || answerOf(tf) !== "False") continue;
+      checked += 1;
+      const wrongLines = fill.choices.filter((choice) => choice.id !== fill.correctChoiceId).map((choice) => fill.prompt.replace("____", choice.label));
+      if (!wrongLines.includes(tf.prompt)) problems.push(`${tf.id}: ${tf.prompt}`);
+      if (tf.explanation !== lesson.learnLine && !shortWhy({ explanation: tf.explanation, prompt: tf.prompt, correctLabel: "False" })) problems.push(`${tf.id}: no correction`);
+    }
+    expect(checked).toBeGreaterThan(100);
+    expect(problems).toEqual([]);
+    // Both kinds of answer come up often enough that guessing one does not pay.
+    const tfs = generated.flatMap((lesson) => lesson.challenges).filter((challenge) => !challenge.isReview && challenge.id.endsWith("_tf"));
+    const trueShare = tfs.filter((challenge) => answerOf(challenge) === "True").length / tfs.length;
+    expect(trueShare).toBeGreaterThan(0.3);
+    expect(trueShare).toBeLessThan(0.7);
+  });
+
+  it("gives the source chip only the one source that says the card, first in the lesson's list", () => {
+    const withSource = ownLessons.filter((lesson) => lesson.learnSource);
+    expect(withSource.length).toBeGreaterThan(120);
+    expect(withSource.filter((lesson) => lesson.sources[0]?.id !== lesson.learnSource!.id).map((lesson) => lesson.id)).toEqual([]);
+    // "Allah says: if you are thankful, I will give you more." is Quran 14:7, not the sneezing hadith.
+    const thanks = ownLessons.find((lesson) => /if you are thankful/i.test(lesson.learnLine ?? ""));
+    expect(thanks?.learnSource?.reference).toBe("Quran 14:7");
+    // A companion unit's long article title is never a chip, and its own label is short.
+    const sahabah = ownLessons.filter((lesson) => lesson.nodeId.startsWith("sahabi-"));
+    expect(sahabah.filter((lesson) => /\(ra\)|The Firsts/.test(lesson.learnSource?.reference ?? "")).map((lesson) => lesson.id)).toEqual([]);
+    // A localized lesson keeps its chip, pointing at the same ayah.
+    const localized = localizeLessonContent(thanks!, "fr");
+    expect(decodeURIComponent(localized.learnSource?.url ?? "")).toContain("quran.com/14/7");
+  });
+
+  it("keeps every card line short enough for a small phone", () => {
+    expect(ownLessons.filter((lesson) => (lesson.learnLine ?? "").length > 64).map((lesson) => `${lesson.id}: ${lesson.learnLine}`)).toEqual([]);
+  });
+
+  it("writes the salawat after the Prophet in every lesson the app writes", () => {
+    const missing = new Set<string>();
+    for (const lesson of ownLessons) {
+      for (const text of ownTexts(lesson)) {
+        if (/\b[Tt]he (Prophet|Messenger)(?![a-z])(?!'s\s*ﷺ)(?!\s*ﷺ)(?! of Allah)/.test(text)) missing.add(text);
+      }
+    }
+    expect([...missing]).toEqual([]);
+    expect(LESSONS_BY_ID["lesson-foundation-niyyah"].challenges.map((challenge) => challenge.explanation)).toContain(
+      "The Prophet ﷺ encouraged greeting people whether you know them or not."
+    );
+  });
+
+  it("never cuts a number at its decimal point or leaves a question without its answer", () => {
+    expect(shortWhy({ explanation: "Zakat on savings is 2.5 percent each year.", prompt: "Zakat on savings is 10 percent each year.", correctLabel: "False" })).toBe(
+      "Zakat on savings is 2.5 percent each year."
+    );
+    expect(getLessonLine({ title: "How much?", intro: "", learnLine: "Zakat on savings is 2.5 percent each year." })).toBe("Zakat on savings is 2.5 percent each year.");
+    // "Late, and the imam is bowing?" alone explains nothing, so it stays with its answer.
+    expect(
+      shortWhy({ explanation: "Late, and the imam is bowing? Say Allahu akbar and join.", prompt: "Late, and the imam is bowing? Say Allahu akbar and wait.", correctLabel: "False" })
+    ).toBe("Late, and the imam is bowing? Say Allahu akbar and join.");
+    expect(shortWhy({ explanation: "Who could bring it back?", prompt: "Al-Mulk asks about water.", correctLabel: "True" })).toBeUndefined();
+    const cut = ownLessons.flatMap((lesson) => lesson.challenges).filter((challenge) => {
+      const why = shortWhy({ explanation: challenge.explanation, prompt: challenge.prompt, correctLabel: answerOf(challenge) });
+      if (!why) return false;
+      const at = challenge.explanation.indexOf(why);
+      return /\?["”’)]*$/.test(why) || (at >= 0 && /\d/.test(challenge.explanation.charAt(at + why.length)));
+    });
+    expect(cut.map((challenge) => challenge.id)).toEqual([]);
+  });
+
+  it("teaches each prophet and woman once: no card line is in two units", () => {
+    const units = new Map<string, Set<string>>();
+    for (const section of COURSE.sections.filter((entry) => entry.topicId === "prophets" || entry.topicId === "women_of_the_book")) {
+      for (const node of section.nodes) {
+        for (const id of node.lessonIds) {
+          const lesson = LESSONS_BY_ID[id];
+          if (!lesson?.learnLine || id.startsWith("lesson-notes-")) continue;
+          units.set(lesson.learnLine, new Set([...(units.get(lesson.learnLine) ?? []), node.branchId]));
+        }
+      }
+    }
+    expect([...units].filter(([, branches]) => branches.size > 1).map(([line]) => line)).toEqual([]);
+  });
+
+  it("asks a base person lesson only what its card and chips show", () => {
+    const people = ["lesson-adam", "lesson-nuh", "lesson-ibrahim", "lesson-yusuf", "lesson-musa", "lesson-isa", "lesson-muhammad"]
+      .concat(["hawwa", "mother-musa", "asiyah", "maryam", "khadijah", "aishah", "hafsah"].map((slug) => `lesson-women-${slug}`))
+      .map((id) => LESSONS_BY_ID[id]);
+    const problems: string[] = [];
+    for (const lesson of people) {
+      expect(lesson).toBeDefined();
+      const card = [lesson.learnLine ?? "", ...(lesson.learnFacts ?? [])].join(" ").toLowerCase();
+      for (const challenge of lesson.challenges) {
+        const answer = answerOf(challenge);
+        if (answer === "True" || answer === "False") continue;
+        const words = answer.toLowerCase().replace(/^(the|in|into|a|an|his|her) /, "").split(/[\s,]+/).filter((word) => word.length > 2);
+        if (!words.some((word) => card.includes(word))) problems.push(`${challenge.id}: "${answer}" is not on the card`);
+      }
+    }
+    expect(problems).toEqual([]);
+  });
+
+  it("titles a companion review circle as a review and never shows a look-back line under a content title", () => {
+    const reviewTitles = new Set(["Review", "Challenge", "Quick quiz", "Life in order", "Big quiz"]);
+    const sahabah = ownLessons.filter((lesson) => lesson.nodeId.startsWith("sahabi-"));
+    expect(sahabah.length).toBeGreaterThan(100);
+    const problems = sahabah.filter((lesson) => {
+      const reviewsOnly = lesson.challenges.every((challenge) => challenge.isReview);
+      return reviewsOnly !== reviewTitles.has(lesson.title) && !/_first$/.test(lesson.challenges[0]?.id ?? "");
+    });
+    expect(problems.map((lesson) => `${lesson.id}: ${lesson.title}`)).toEqual([]);
+    expect(ownLessons.filter((lesson) => /\b[Aa] [AEIOU]/.test(lesson.learnLine ?? "")).map((lesson) => lesson.learnLine)).toEqual([]);
+    expect(ownLessons.filter((lesson) => /\b(lessons|block|threshold|seriousness|reinforcement|scenario|mastery)\b/i.test(lesson.title)).map((lesson) => lesson.title)).toEqual([]);
+  });
+
+  it("states Umar's last days exactly", () => {
+    const umar = LESSONS_BY_ID["lesson-sahabi-umar-ibn-al-khattab-final-years-and-advice"];
+    expect(umar.learnLine).toBe("Umar was hurt while leading Fajr and died a few days later.");
+  });
+
+  it("teaches what Al-Fatihah means once, as The Opening", () => {
+    const quran = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
+    const fatihah = quran.nodes.filter((node) => node.branchId === quran.branches[0].id).flatMap((node) => node.lessonIds.map((id) => LESSONS_BY_ID[id]));
+    const texts = fatihah.flatMap(ownTexts);
+    expect(texts.filter((text) => /Opener|Opening of the Book/.test(text))).toEqual([]);
+    expect(texts.filter((text) => /The Opening/.test(text)).length).toBeGreaterThan(0);
+  });
+});
+
+describe("salah ordering game", () => {
+  it("is a whole two-rak'ah prayer: tashahhud and taslim come only after the second rak'ah", () => {
+    const node = pathNodes.find((entry) => entry.id === "prayer-tashahhud-tashahhud-review")!;
+    const lesson = LESSONS_BY_ID[node.lessonIds[0]];
+    const game = (buildGuidedLesson(lesson, node).practiceActivities ?? []).find(isPlayablePractice)!;
+    expect(game.id).toMatch(/_salah_order$/);
+    const order = game.correctOrderIds!;
+    expect(order).toHaveLength(9);
+    expect(order.indexOf("tashahhud")).toBeGreaterThan(order.indexOf("sujud2"));
+    expect(order.indexOf("sujud2")).toBeGreaterThan(order.indexOf("qiyam2"));
+    expect(order.slice(-2)).toEqual(["tashahhud", "taslim"]);
+    // The mascot says what to do, not the lesson's name.
+    expect(game.prompt).not.toBe(lesson.title);
+    expect(game.prompt).toMatch(/order/i);
+    expect(game.options.every((option) => option.label.length <= 20)).toBe(true);
   });
 });

@@ -2,7 +2,20 @@
 // facts in properties rather than written Q:/A: lines. Questions are generated from those facts,
 // with wrong choices drawn from the same fact on other notes of the same type.
 // Every lesson shows a short line and a few facts on its learn card, and asks only about what it shows.
-import { DISPLAY_NAMES, HADITH_LESSONS, LEARN_LINES, NO_WHO_QUESTION, SURAH_NAMED_AFTER, UNSURE_FACTS } from "./curated.mjs";
+import {
+  ADULT_FACTS,
+  DISPLAY_NAMES,
+  HADITH_LESSONS,
+  LEARN_LINES,
+  LEFT_OUT_HADITH,
+  LEFT_OUT_PEOPLE,
+  NO_WHO_QUESTION,
+  REPEATED_HADITH,
+  SURAH_MEANINGS,
+  SURAH_NAMED_AFTER,
+  UNSURE_FACTS,
+  UNSURE_FACTS_BY_TOPIC
+} from "./curated.mjs";
 import { cleanText, extractQuestions, resolveTopic, slugify } from "./lib.mjs";
 
 export const FACT_TYPES = ["person", "surah", "hadith"];
@@ -69,8 +82,6 @@ export const MAX_CHIP_WORDS = 5;
 export const MAX_LINE_WORDS = 12;
 // Answer tiles stay short enough to read at a glance on a phone.
 export const MAX_CHOICE_LENGTH = 90;
-// Arabic shown in a question prompt; a longer ayah is a wall of text on a phone.
-const MAX_PROMPT_ARABIC = 120;
 
 // Words that keep a text out of a children's quiz, as a question, a choice or a learn-card quote.
 export const ADULT_TEXT = /\b(fornicat|adulter|concubine|harlot|whore|lewd|incest|sodom(?!\b)|lust|sexual|intercourse|private parts|menstrua|genital|unchast|naked|nudity)\w*/i;
@@ -227,6 +238,19 @@ export function properName(name) {
 
 const SUN_LETTERS = /\b([Aa])l-(Th|Sh|Dh|T|D|R|Z|S|N)(?=[a-z'])/g;
 
+// Names that end in a ta marbuta are written with a final h, as the rest of the app writes them ("Fatimah",
+// "Safiyyah", "Umayyah"), so a chip never says "Fatima" under a title that says "Fatimah". Only these names:
+// "Asma", "Isa" and "al-Uzza" end in a long a and keep it.
+const TA_MARBUTA = new RegExp(
+  `\\b(${[
+    "Fatima", "Safiyya", "Umayma", "Umayya", "Thumama", "Sumayya", "Lubaba", "Khuzayma", "Mughira", "Tha'laba",
+    "Zurara", "Utba", "Urwa", "Uqba", "Ubada", "Rifa'a", "Rawaha", "Ramla", "Rabi'a", "Quhafa", "Natila", "Nasiba",
+    "Harmala", "Hantama", "Fakhita", "Amra", "Sa'ida", "Najjariyya", "Nabigha", "Zuhra", "Hala", "Mukharriba",
+    "Khawla", "Juwayriya", "Maymuna", "Sawda", "Hafsa", "Aisha", "Halima", "Ruqayya", "Khadija", "Umama", "Za'ida", "Salama"
+  ].join("|")})(?![\\w'])`,
+  "g"
+);
+
 // Simple English transliteration, the way the rest of the app spells names: "Salmaan Al-Faarisiy" is
 // "Salman al-Farisi", "'Abd Allah Ibn Mas'uud" is "Abdullah ibn Mas'ud", "Fatimah al-Zahra" is "Fatimah az-Zahra".
 export function plainName(name) {
@@ -242,6 +266,7 @@ export function plainName(name) {
     .replace(/(\s)Al[- ](?=[A-Z'])/g, "$1al-")
     .replace(/^Al (?=[A-Z])/, "Al-")
     .replace(SUN_LETTERS, (_, a, letter) => `${a}${letter.toLowerCase()}-${letter}`)
+    .replace(TA_MARBUTA, "$1h")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -303,7 +328,7 @@ function personLine(note, rawName, knownFor) {
   if (own) return own;
   const curated = LEARN_LINES[slugify(rawName)];
   if (curated) return curated;
-  const plain = knownFor.replace(/[.\s]+$/, "");
+  const plain = (knownFor ?? "").replace(/[.\s]+$/, "");
   return plain && !/[;()]/.test(plain) && wordCount(plain) <= MAX_LINE_WORDS ? `${plain.charAt(0).toUpperCase()}${plain.slice(1)}.` : undefined;
 }
 
@@ -332,13 +357,16 @@ function personProfile(note) {
   const rawName = properName(noteName(note.data, note.fileName));
   const name = displayName(rawName);
   const facts = personFacts(note);
-  for (const key of UNSURE_FACTS[slugify(rawName)] ?? []) delete facts[key];
+  const slug = slugify(rawName);
+  const byTopic = UNSURE_FACTS_BY_TOPIC[note.topicId];
+  const unsure = [...(UNSURE_FACTS[slug] ?? []), ...(ADULT_FACTS[slug] ?? []), ...(byTopic && !byTopic.except.includes(slug) ? byTopic.facts : [])];
+  for (const key of unsure) delete facts[key];
   const line = personLine(note, rawName, facts.known_for);
   const chips = Object.fromEntries(CHIP_FACTS.map(({ key }) => [key, chipValue(key, facts[key])]));
   // Lessons are put in order by the name exactly as the note types it ("ʿAbd Allāh ibn ʿAbbās" sorts after
   // "Zubayr"), as the first import did, so a spelling fix here never moves a lesson to another unit.
   const sortName = String(note.data.title ?? note.fileName.replace(/^\d+\s*-\s*/, "")).trim();
-  return { note, rawName, sortName, name, facts, line, chips, gender: personGender(note, line) };
+  return { note, rawName, sortName, name, facts, line, chips, gender: personGender(note, line), leftOut: LEFT_OUT_PEOPLE.has(slug), unsure };
 }
 
 function personLesson(profile, pools) {
@@ -346,13 +374,19 @@ function personLesson(profile, pools) {
   const shown = (key, value) => (["father", "mother", "tribe", "clan"].includes(key) && value ? displayName(value) : value);
   const fullName = note.data.full_name && cleanText(String(note.data.full_name));
   // The lesson text is the person's facts only. A note's own study text (lists, asides, typos) stays in the vault.
+  // When the note's known_for was left out as unsure, the hand-checked line stands in for it.
+  const knownFor = facts.known_for ?? (profile.unsure.includes("known_for") ? line : undefined);
   const summary = [
-    facts.known_for ? `${facts.known_for.charAt(0).toUpperCase()}${facts.known_for.slice(1).replace(/[.\s]+$/, "")}.` : "",
+    knownFor ? `${knownFor.charAt(0).toUpperCase()}${knownFor.slice(1).replace(/[.\s]+$/, "")}.` : "",
     fullName && fullName !== rawName && fullName !== name ? `Full name: ${fullName}.` : "",
     facts.tribe ? `Tribe: ${shown("tribe", facts.tribe)}${facts.clan ? `, clan of ${shown("clan", facts.clan)}` : ""}.` : facts.clan ? `Clan: ${shown("clan", facts.clan)}.` : "",
     facts.father ? `Father: ${shown("father", facts.father)}.` : "",
     facts.birth_place ? `Born in ${facts.birth_place}.` : "",
-    facts.died ? `Passed away in ${facts.died}${facts.death_place ? ` at ${facts.death_place}` : ""}.` : facts.death_place ? `Passed away at ${facts.death_place}.` : ""
+    facts.died
+      ? `Passed away ${/^(in|during|at|before|after|around)\b/i.test(facts.died) ? "" : "in "}${facts.died}${facts.death_place ? ` at ${facts.death_place}` : ""}.`
+      : facts.death_place
+        ? `Passed away at ${facts.death_place}.`
+        : ""
   ]
     .filter(Boolean)
     .join(" ");
@@ -399,6 +433,7 @@ function personLesson(profile, pools) {
     title: name,
     idSlug: slugify(rawName),
     sortName: profile.sortName,
+    leftOut: profile.leftOut,
     content: summary,
     extras: facts.known_for ? { keyTakeaway: `${name}: ${facts.known_for.replace(/[.\s]+$/, "")}.` } : {},
     learnLine: line,
@@ -429,10 +464,11 @@ function surahFacts(note) {
   const fields = data(note);
   const pick = (...keys) => keys.map((key) => fields[key]).find((value) => value !== undefined && value !== "");
   const place = String(pick("revelation_place", "place_of_revelation", "revealed", "revelation", "type_of_revelation") ?? "");
+  const number = surahNumber(note);
   return {
-    number: surahNumber(note),
+    number,
     // 'The Letter "Saad"': quotes inside the name would break the "means" line.
-    englishName: cleanText(String(pick("english_name", "english", "translation", "meaning", "name_meaning") ?? "")).replace(/["“”]/g, ""),
+    englishName: SURAH_MEANINGS[number] ?? cleanText(String(pick("english_name", "english", "translation", "meaning", "name_meaning") ?? "")).replace(/["“”]/g, ""),
     ayahCount: Number(pick("ayah_count", "ayahs", "verses", "number_of_ayahs", "number_of_verses", "total_ayahs")) || undefined,
     place: /mak|mec/i.test(place) ? "Makkah" : /mad|med/i.test(place) ? "Madinah" : undefined
   };
@@ -460,6 +496,9 @@ export function surahAyahs(body) {
   return ayahs.map((ayah) => ({ ...ayah, text: cleanText(ayah.text).replace(/^\[!\w+\][-+]?\s*/, "") })).filter((ayah) => ayah.text);
 }
 
+// Old English of the notes' translation ("Woe unto every slandering traducer", "He thinketh"): a child
+// cannot read it, so such an ayah stays out of the lesson text.
+const ARCHAIC = /\b(thee|thou|thy|thine|unto|hath|hast|ye|lo|doth|dost|shalt|wilt|verily|nay|\w{3,}eth)\b/i;
 // Ayahs that frighten a young child when read alone, away from what comes before and after.
 const FRIGHTENING = /\b(slain|slay|slaughter|kill\w*|curse\w*|accursed|torment\w*|hell|doom)\b/i;
 // The quote and the ayah question come from a surah's opening, where children start learning it; an ayah
@@ -491,9 +530,10 @@ function surahLesson(note, pools) {
     .filter(Boolean)
     .join(" ");
 
-  // The learn card shows the surah's first ayah in full (the one after any opening letters), when it is
-  // short; a later ayah alone is often half a sentence. The ayah question asks about that same ayah, with
-  // other opening ayahs as wrong choices.
+  // The learn card shows the surah's first ayah (the one after any opening letters), when it is short and
+  // fit for a child; a later ayah alone is often half a sentence. The app shows it in Arabic, from
+  // src/data/quranAyahs.ts: the old English of the notes ("Woe unto every slandering traducer") is too hard
+  // for a child, so it is never asked about either.
   const readable = ayahs.filter((ayah) => ayahNumber(ayah) <= OPENING_AYAHS && quizAyah(ayah));
   const first = ayahs.find((ayah) => !LETTERS_ONLY.test(ayah.text));
   const quoted = first && readable.includes(first) ? first : undefined;
@@ -516,25 +556,18 @@ function surahLesson(note, pools) {
     const distractors = pickDistractors(String(facts.ayahCount), near, `${name}:ayahs`);
     if (distractors.length >= 2) questions.push(multipleChoice(`How many ayahs does ${name} have?`, String(facts.ayahCount), distractors, summary));
   }
-  if (quoted?.arabic && quoted.arabic.length <= MAX_PROMPT_ARABIC) {
-    // Wrong choices are other short ayahs of the surah, not much shorter than the answer.
-    const similar = readable.filter((ayah) => ayah !== quoted && ayah.text.length >= Math.min(40, quoted.text.length * 0.5));
-    const distractors = pickDistractors(quoted.text, similar.map((ayah) => ayah.text), `${name}:ayah:${quoted.ref}`);
-    if (distractors.length >= 2) {
-      questions.push(multipleChoice(`What does this ayah mean? ${quoted.arabic} (Quran ${quoted.ref})`, quoted.text, distractors, `Quran ${quoted.ref}: ${quoted.text}`));
-    }
-  }
-
   // Surah notes link every ayah's tafsir; the surah page is the one source worth showing.
   const urls = facts.number ? [`${name} https://quran.com/${facts.number}`] : note.urls.slice(0, 1);
   return {
     title: name,
     idSlug: slugify(noted),
-    content: [summary, ...ayahs.filter((ayah) => !ADULT_TEXT.test(ayah.text)).slice(0, 7).map((ayah) => `${ayah.ref} ${ayah.text}`)].filter(Boolean).join("\n"),
+    content: [summary, ...ayahs.filter((ayah) => !ADULT_TEXT.test(ayah.text) && !ARCHAIC.test(ayah.text)).slice(0, 7).map((ayah) => `${ayah.ref} ${ayah.text}`)].filter(Boolean).join("\n"),
     extras: {},
     learnLine: namedAfter ? `${name} is named after ${namedAfter}.` : facts.englishName ? `${name} means "${facts.englishName}".` : undefined,
     learnFacts: [facts.ayahCount ? `${facts.ayahCount} ayahs` : "", facts.place ? `Revealed in ${facts.place}` : ""].filter(Boolean),
     quote: quoted ? { text: quoted.text, reference: `Quran ${quoted.ref}` } : undefined,
+    // The learn card's source is the ayah it shows.
+    learnSource: quoted ? `Quran ${quoted.ref} https://quran.com/${quoted.ref.replace(":", "/")}` : undefined,
     questions,
     sourceUrls: urls,
     sortKey: facts.number,
@@ -593,8 +626,13 @@ function hadithLesson(note, pools) {
     warnings.push(`${reference}: the quote is not in the note word for word; left out`);
     quote = undefined;
   }
-  // "Grade: Da'if (Darussalam)" goes with the reference as "(Da'if, Darussalam)".
+  // "Grade: Hasan (Darussalam)" goes with the reference as "(Hasan, Darussalam)".
   const grade = /\bGrade:\s*([^.]+?)\s*$/i.exec(text)?.[1]?.replace(/\s*\(([^)]+)\)$/, ", $1");
+  // A weak hadith is never taught as the Prophet's ﷺ words; a repeat, or one left out by hand, stays in the vault.
+  const weak = /^(da'?if|daif|weak|mawdu)/i.test(grade ?? "");
+  if (weak) warnings.push(`${reference}: graded ${grade.split(",")[0]}; left out`);
+  const repeats = REPEATED_HADITH[reference];
+  const leftOut = weak || LEFT_OUT_HADITH.has(reference) || Boolean(repeats && pools.hadith.references.has(repeats));
 
   let questions = written.length ? written : curatedQuestions(curated);
   if (!questions.length) {
@@ -603,18 +641,24 @@ function hadithLesson(note, pools) {
     const distractors = pickDistractors(collection, pools.hadith.collection, `${reference}:collection`);
     if (collection && distractors.length >= 2) questions = [multipleChoice("Which book records this hadith?", collection, distractors, `${reference}.`)];
   }
-  if (!title || !learnLine || !written.length && !curated) {
+  if (!leftOut && (!title || !learnLine || !written.length && !curated)) {
     warnings.push(`${reference}: add lesson_title:, learn_line: and Q:/A: questions about what the hadith teaches`);
   }
+  // The learn card's source is the hadith's own page on Sunnah.com.
+  const page = [...asList(note.data.source_url), ...note.urls].map(String).map((entry) => /https:\/\/sunnah\.com\/[a-z]+:\w+/.exec(entry)?.[0]).find(Boolean);
   return {
     title: title || reference,
     idSlug: slugify(reference),
     sortName: reference,
+    leftOut,
     difficulty: curated?.level ?? (Number.isInteger(Number(note.data.level)) ? Number(note.data.level) : undefined),
-    content: text,
+    // The whole narration, unless parts of it are for adults only, or the card shows no quote of it (its
+    // translation spells names its own way, "Ghailan b. Salama"); then just what the card shows.
+    content: ADULT_TEXT.test(text) || (!quote && learnLine) ? quote ?? learnLine ?? "" : text,
     extras: {},
     learnLine,
     quote: quote ? { text: quote, reference: grade ? `${reference} (${grade})` : reference } : undefined,
+    learnSource: page ? `${reference} ${page}` : undefined,
     questions,
     sourceUrls: [...note.urls, ...asList(note.data.source_url).map((url) => `${reference} ${url}`)],
     warnings
@@ -629,6 +673,7 @@ function buildPools(notes) {
   const topics = [...new Set(profiles.map((profile) => profile.note.topicId))];
   const surahs = notes.filter((note) => note.kind === "surah").map(surahFacts);
   const hadiths = notes.filter((note) => note.kind === "hadith");
+  const hadithReferences = new Set(hadiths.map(hadithReference));
   return {
     profiles: new Map(profiles.map((profile) => [profile.note, profile])),
     chips: chipPool(profiles),
@@ -640,6 +685,7 @@ function buildPools(notes) {
       ayahCount: surahs.map((facts) => (facts.ayahCount ? String(facts.ayahCount) : "")).filter(Boolean)
     },
     hadith: {
+      references: hadithReferences,
       collection: [...hadiths.map((note) => cleanText(String(note.data.collection ?? ""))), "Sahih al-Bukhari", "Sahih Muslim", "Sunan Abi Dawud", "Jami at-Tirmidhi", "Sunan an-Nasa'i"].filter(Boolean)
     }
   };
@@ -685,8 +731,11 @@ export function buildFactBranches(notes, { groupSize = 10 } = {}) {
     const lessons = members.map((note) => ({ ...build(note), relPath: note.relPath }));
     lessons.sort((left, right) => (left.sortKey ?? Infinity) - (right.sortKey ?? Infinity) || (left.sortName ?? left.title).localeCompare(right.sortName ?? right.title));
 
+    // Units are cut before left-out lessons are taken away, so the lessons that stay keep their ids.
     for (let start = 0; start < lessons.length; start += groupSize) {
-      const chunk = lessons.slice(start, start + groupSize);
+      const cut = lessons.slice(start, start + groupSize);
+      const chunk = cut.filter((lesson) => !lesson.leftOut);
+      if (!chunk.length) continue;
       const named = (base) =>
         kind === "surah" && chunk[0].sortKey && chunk[chunk.length - 1].sortKey
           ? `${base} ${chunk[0].sortKey}-${chunk[chunk.length - 1].sortKey}`
@@ -697,7 +746,7 @@ export function buildFactBranches(notes, { groupSize = 10 } = {}) {
       const legacyTitle = named(kind === "person" ? LEGACY_ID_TITLES.person[topicId] ?? "People from your notes" : LEGACY_ID_TITLES[kind]);
       branches.push({
         skipped: false,
-        warnings: chunk.flatMap((lesson) => lesson.warnings ?? []),
+        warnings: cut.flatMap((lesson) => lesson.warnings ?? []),
         topicId,
         title,
         idSlug: slugify(legacyTitle),

@@ -86,10 +86,22 @@ describe("app sheets", () => {
     };
   }
 
+  /** Answers the grown-up sum that comes before the sign up form. */
+  async function passGrownUp() {
+    const [a, b] = (String(screen.getByTestId("grownup-question").props.children).match(/\d+/g) ?? []).map(Number);
+    await fireEvent.press(screen.getByTestId(`grownup-option-${a * b}`));
+  }
+
   it("signs up with short labels and switches to log in", async () => {
     const props = accountProps({ name: "Amina", email: "amina@example.com", password: "salaam123" });
     await render(<AccountSheet {...props} />);
     expect(screen.getByText("Save your progress!")).toBeTruthy();
+    // A grown-up answers first: no name, email or password until then.
+    expect(screen.getByTestId("account-grownup")).toBeTruthy();
+    expect(screen.queryByTestId("account-name")).toBeNull();
+    expect(screen.queryByTestId("account-submit")).toBeNull();
+    await passGrownUp();
+    expect(screen.queryByTestId("account-grownup")).toBeNull();
     expect(screen.getByTestId("account-name")).toBeTruthy();
     // One name for making an account everywhere: SIGN UP.
     expect(screen.getByText("SIGN UP")).toBeTruthy();
@@ -103,6 +115,7 @@ describe("app sheets", () => {
     const { playGameSound } = jest.requireMock("../services/gameAudio");
     const props = accountProps();
     const view = await render(<AccountSheet {...props} />);
+    await passGrownUp();
     playGameSound.mockClear();
     await fireEvent.press(screen.getByTestId("account-submit"));
     expect(props.onSubmit).not.toHaveBeenCalled();

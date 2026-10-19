@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { GameButton } from "../GameButton";
-import { ScrollHint, useScrollMore } from "../lesson/ScrollHint";
+import { ScrollHintGap, useScrollMore } from "../lesson/ScrollHint";
 import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, fonts, radii, space, text } from "../theme";
@@ -118,9 +118,9 @@ export function SettingsSheet({
             </Tappable>
           ) : null}
         </ScrollView>
-        <ScrollHint visible={more} onPress={scrollDown} testID="settings-more" />
       </View>
       <View style={styles.footer}>
+        <ScrollHintGap visible={more} onPress={scrollDown} gap={space.lg} testID="settings-more" />
         <GameButton label="Save" fullWidth onPress={onSave} testID="settings-save" />
       </View>
     </Sheet>
@@ -134,16 +134,13 @@ const styles = StyleSheet.create({
   scrollArea: {
     flexShrink: 1,
     minHeight: 0,
-    marginTop: space.md,
-    // Keeps the arrow, which hangs over the footer's top edge, drawn above the footer.
-    zIndex: 1
+    marginTop: space.md
   },
   stack: {
     gap: space.md,
     paddingBottom: space.lg
   },
   footer: {
-    paddingTop: space.lg,
     borderTopWidth: 2,
     borderTopColor: colors.line
   },

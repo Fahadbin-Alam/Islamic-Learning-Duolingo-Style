@@ -1,5 +1,7 @@
 import { COURSE, LESSONS_BY_ID } from "../data/course";
+import { HADITH_BASICS, HADITH_BASICS_BRANCH_ID } from "../data/hadithBasics";
 import { surahLearningRank } from "../data/importedNotes";
+import { QURAN_AYAHS } from "../data/quranAyahs";
 import type { Lesson, TopicId } from "../types";
 
 // Checks on the lessons imported from the Obsidian notes (scripts/obsidian-import) as the course shows
@@ -147,7 +149,8 @@ describe("imported lessons", () => {
 
   it("teach each hadith by what it says, with its reference on the quote", () => {
     const hadith = imported.filter((lesson) => topicOf(lesson) === "hadith");
-    expect(hadith).toHaveLength(15);
+    // 15 notes: a weak one (Tirmidhi 1084) and five repeats or hand-dropped narrations stay in the vault.
+    expect(hadith).toHaveLength(9);
     const problems = hadith.flatMap((lesson) => [
       ...(/\b\d+[a-z]?$/.test(lesson.title) ? [`${lesson.id}: title is a reference`] : []),
       ...(lesson.learnLine ? [] : [`${lesson.id}: no learn line`]),
@@ -160,3 +163,155 @@ describe("imported lessons", () => {
     expect(problems).toEqual([]);
   });
 });
+
+const correctLabel = (challenge: Lesson["challenges"][number]) => challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+const shownText = (lesson: Lesson) => [
+  lesson.title,
+  lesson.learnLine ?? "",
+  ...(lesson.learnFacts ?? []),
+  lesson.quote?.text ?? "",
+  ...lesson.challenges.flatMap((challenge) => [challenge.prompt, challenge.explanation ?? "", ...challenge.choices.map((choice) => choice.label)])
+];
+// A word of the answer is on the card when a card word starts the same way ("Feeding" and "Feed").
+const STOP = new Set(["with", "your", "from", "that", "this", "they", "them", "what", "only", "were", "have", "will", "into", "than", "then"]);
+const onCard = (answer: string, card: string) => {
+  const cardWords = card.toLowerCase().match(/[a-z']+/g) ?? [];
+  const answerWords = (answer.toLowerCase().match(/[a-z']+/g) ?? []).filter((word) => word.length >= 4 && !STOP.has(word));
+  return !answerWords.length || answerWords.some((word) => cardWords.some((cardWord) => cardWord.slice(0, 4) === word.slice(0, 4)));
+};
+
+describe("Hadith topic", () => {
+  const hadith = () => section("hadith");
+  const lessonsOf = (branchId: string) => hadith().nodes.filter((node) => node.branchId === branchId).map((node) => lessonOf(node.id)!);
+
+  it("starts with Hadith for kids and ends with marriage, shut until the unit before it is done", () => {
+    const branches = hadith().branches;
+    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Safe with Allah", "Marriage in the Sunnah"]);
+    expect(branches.map((branch) => Boolean(branch.gated))).toEqual([false, false, true]);
+    const [, safe, marriage] = branches;
+    const safeNodes = hadith().nodes.filter((node) => node.branchId === safe.id);
+    const marriageFirst = hadith().nodes.find((node) => node.branchId === marriage.id)!;
+    expect(marriageFirst.requiredNodeIds).toEqual([safeNodes[safeNodes.length - 1].id]);
+    // Unit ids stay those of the imported units, so saved progress still counts.
+    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "notes-hadith-hadith-from-your-notes-1", "notes-hadith-hadith-from-your-notes-2"]);
+  });
+
+  it("keeps marriage, wives and Iblis's troops out of the units for young children", () => {
+    const [kids, safe, marriage] = hadith().branches;
+    const young = [...lessonsOf(kids.id), ...lessonsOf(safe.id)];
+    const adult = /\bmarr|\bwife\b|\bwives\b|husband|fertile/i;
+    expect(young.filter((lesson) => shownText(lesson).some((text) => adult.test(text))).map((lesson) => lesson.title)).toEqual([]);
+    expect(lessonsOf(marriage.id).map((lesson) => lesson.title)).toEqual(
+      expect.arrayContaining(["Half of the religion", "Keep four", "Marriage or fasting", "Iblis and his troops", "Choosing a wife"])
+    );
+    // Only one gentle lesson on the Dajjal, after Allah's Book and seeking refuge.
+    expect(lessonsOf(safe.id).map((lesson) => lesson.title)).toEqual(["Hold on to Allah's Book", "Seek refuge with Allah", "Every prophet warned"]);
+    expect(young.filter((lesson) => /grape|one-eyed|blind/i.test(shownText(lesson).join(" ")))).toEqual([]);
+  });
+
+  it("teaches each narration once, and never a weak one", () => {
+    const ids = hadith().nodes.map((node) => node.id);
+    for (const gone of ["sahih-al-bukhari-7407", "sahih-muslim-169e", "sahih-muslim-1400a", "sahih-muslim-2933a", "sahih-muslim-134a", "jami-at-tirmidhi-1084"]) {
+      expect(ids.filter((id) => id.endsWith(gone))).toEqual([]);
+    }
+    const references = hadith().nodes.map((node) => lessonOf(node.id)?.learnSource?.reference);
+    expect(references.filter((reference, index) => !reference || references.indexOf(reference) !== index)).toEqual([]);
+  });
+
+  it("has 8 to 12 sayings for kids, each a whole quote with its exact reference and page", () => {
+    const kids = lessonsOf(HADITH_BASICS_BRANCH_ID);
+    expect(kids.length).toBeGreaterThanOrEqual(8);
+    expect(kids.length).toBeLessThanOrEqual(12);
+    expect(kids.map((lesson) => lesson.id)).toEqual(Object.keys(HADITH_BASICS.lessonsById));
+    const problems = kids.flatMap((lesson) => {
+      const source = lesson.learnSource;
+      const number = /(\d+[a-z]?)$/.exec(source?.reference ?? "")?.[1];
+      return [
+        ...(words(lesson.learnLine ?? "") > 12 ? [`${lesson.title}: long line`] : []),
+        ...(/[.!?]$/.test(lesson.quote?.text ?? "") ? [] : [`${lesson.title}: quote cut`]),
+        ...(source && number && source.url.startsWith("https://sunnah.com/") && source.url.endsWith(`:${number}`) ? [] : [`${lesson.title}: source ${source?.url}`]),
+        ...((lesson.quote?.reference ?? "").startsWith(source?.reference ?? "-") ? [] : [`${lesson.title}: quote reference ${lesson.quote?.reference}`]),
+        ...(asked(lesson).length >= 2 && asked(lesson).length <= 3 ? [] : [`${lesson.title}: ${asked(lesson).length} questions`])
+      ];
+    });
+    expect(problems).toEqual([]);
+  });
+
+  it("asks only what the hadith card shows", () => {
+    const lessons = hadith().nodes.map((node) => lessonOf(node.id)!);
+    const problems = lessons.flatMap((lesson) => {
+      const card = [lesson.title, lesson.learnLine ?? "", ...(lesson.learnFacts ?? []), lesson.quote?.text ?? ""].join(" ");
+      return asked(lesson)
+        .filter((question) => question.type === "multiple_choice")
+        .map(correctLabel)
+        .filter((answer) => !onCard(answer, card))
+        .map((answer) => `${lesson.title}: "${answer}"`);
+    });
+    expect(problems).toEqual([]);
+  });
+});
+
+describe("imported lessons stand on their own", () => {
+  const library = () => COURSE.sections.filter((each) => [...PEOPLE_TOPICS, "quran_tafseer", "hadith"].includes(each.topicId));
+
+  it("never ask about 'this' hadith or what was said 'here', so a review question still makes sense in another lesson", () => {
+    const prompts = library().flatMap((each) => each.nodes.flatMap((node) => asked(lessonOf(node.id)!).map((question) => `${node.id}: ${question.prompt}`)));
+    expect(prompts.filter((prompt) => /\bthis (hadith|ayah|surah|narration)\b|\bsaid this\b|\bhere\b/i.test(prompt))).toEqual([]);
+  });
+
+  it("show each quoted ayah in Arabic, from the Uthmani text, linked to that ayah", () => {
+    const quoted = imported.filter((lesson) => topicOf(lesson) === "quran_tafseer" && lesson.quote);
+    expect(quoted.length).toBeGreaterThan(50);
+    const problems = quoted.flatMap((lesson) => {
+      const ref = /^Quran (\d+):(\d+)$/.exec(lesson.quote!.reference ?? "")?.slice(1);
+      if (!ref) return [`${lesson.id}: reference ${lesson.quote!.reference}`];
+      return [
+        ...(lesson.quote!.text === QURAN_AYAHS[ref.join(":")] ? [] : [`${lesson.id}: not the Arabic ayah`]),
+        ...(/[A-Za-z]/.test(lesson.quote!.text) ? [`${lesson.id}: English in the quote`] : []),
+        ...(lesson.learnSource?.url === `https://quran.com/${ref.join("/")}` ? [] : [`${lesson.id}: source ${lesson.learnSource?.url}`])
+      ];
+    });
+    expect(problems).toEqual([]);
+    // Al-Fatihah's first lesson shows the Bismillah.
+    expect(lessonOf("notes-quran-tafseer-surahs-1-10-surah-al-fatihah")?.quote).toEqual({ text: QURAN_AYAHS["1:1"], reference: "Quran 1:1" });
+    expect(QURAN_AYAHS["1:1"].startsWith("بِسۡمِ")).toBe(true);
+  });
+
+  it("spell a name one way within a lesson", () => {
+    const pairs: [RegExp, RegExp][] = [
+      [/\bNuh\b/, /\bNoah\b/],
+      [/\bGhaylan\b/, /\bGhailan\b/],
+      [/\bFatimah\b/, /\bFatima\b/],
+      [/\bSafiyyah\b/, /\bSafiyya\b/],
+      [/\bKa'bah\b/, /\bKaaba\b/],
+      [/\bUmaymah\b/, /\bUmayma\b/],
+      [/\bKhuzaymah\b/, /\bKhuzayma\b/]
+    ];
+    const lessons = library().flatMap((each) => each.nodes.map((node) => lessonOf(node.id)!));
+    const problems = lessons.flatMap((lesson) => {
+      const text = shownText(lesson).join(" | ");
+      return pairs.filter(([one, other]) => one.test(text) && other.test(text)).map(([one]) => `${lesson.id}: ${one.source}`);
+    });
+    expect(problems).toEqual([]);
+  });
+
+  it("leave out facts the sources do not support", () => {
+    const people = COURSE.sections.filter((each) => each.topicId === "prophets" || each.topicId === "women_of_the_book").flatMap((each) => each.nodes);
+    const cards = people.map((node) => ({ node, lesson: lessonOf(node.id)! })).map(({ node, lesson }) => ({ id: node.id, text: shownText(lesson).join(" | ") }));
+    expect(cards.filter(({ text }) => /\bUr\b|Hebron|Jordan|Nineveh|survived Karbala|Yukabid|Lamech|Rifqa/.test(text)).map(({ id }) => id)).toEqual([]);
+    // Where a prophet was born or died is never asked, but for the Prophet Muhammad ﷺ.
+    const prophets = section("prophets").nodes.filter((node) => node.id !== "prophets-muhammad").map((node) => lessonOf(node.id)!);
+    expect(prophets.filter((lesson) => (lesson.learnFacts ?? []).some((fact) => /^(Born in|Passed away in|Buried in)/.test(fact))).map((lesson) => lesson.title)).toEqual([]);
+  });
+
+  it("group the women from the notes by theme, without Umm Jamil or Umm Anmar", () => {
+    const women = section("women_of_the_book");
+    const fromNotes = women.branches.filter((branch) => branch.id.startsWith("notes-"));
+    expect(fromNotes.map((branch) => branch.title)).toEqual(["Mothers", "Wives of the Prophet ﷺ", "Ali's family"]);
+    const titles = women.nodes.map((node) => node.title);
+    expect(titles.filter((title) => /Umm Jamil|Umm Anmar/.test(title))).toEqual([]);
+    const wives = women.nodes.filter((node) => node.branchId === fromNotes[1].id).map((node) => node.title);
+    expect(wives).toEqual(expect.arrayContaining(["Umm Salamah", "Umm Habibah", "Maymunah bint al-Harith"]));
+  });
+});
+

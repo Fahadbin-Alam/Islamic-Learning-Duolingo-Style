@@ -1,4 +1,6 @@
 import type { LearningNode, Lesson, TopicId } from "../types";
+import { COURSE } from "./course";
+import { hadithBasicsNodeId } from "./hadithBasics";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 
 // Every term here was checked by two reviewers. Only add a term you are sure of.
@@ -33,8 +35,9 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   marriage: { ar: "الزواج", translit: "Az-zawaj", meaning: "Marriage" },
   sahabah: { ar: "الصحابة", translit: "As-Sahabah", meaning: "The Companions" },
   prophets: { ar: "قصص الأنبياء", translit: "Qasas al-anbiya", meaning: "Stories of the prophets" },
-  women_of_the_book: { ar: "نساء القرآن", translit: "Nisa al-Quran", meaning: "Women of the Quran" },
-  hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's sayings" }
+  // The topic holds women of the Quran, the Mothers of the Believers and women of the Prophet's ﷺ family.
+  women_of_the_book: { ar: "نساء خالدات", translit: "Nisa' khalidat", meaning: "Great women" },
+  hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's ﷺ sayings" }
 };
 
 export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
@@ -126,12 +129,12 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-bilal-ibn-rabah": { ar: "بلال بن رباح", translit: "Bilal ibn Rabah", meaning: "First muezzin" },
   "sahabi-abu-ubaydah-ibn-al-jarrah": { ar: "أبو عبيدة بن الجراح", translit: "Abu Ubaydah ibn al-Jarrah", meaning: "Trustee of the Ummah" },
   "sahabi-talhah-ibn-ubaydillah": { ar: "طلحة بن عبيد الله", translit: "Talhah ibn Ubaydillah", meaning: "Promised Paradise" },
-  "sahabi-az-zubayr-ibn-al-awwam": { ar: "الزبير بن العوام", translit: "Az-Zubayr ibn al-Awwam", meaning: "The Prophet's disciple" },
+  "sahabi-az-zubayr-ibn-al-awwam": { ar: "الزبير بن العوام", translit: "Az-Zubayr ibn al-Awwam", meaning: "The Prophet's ﷺ disciple" },
   "sahabi-sad-ibn-abi-waqqas": { ar: "سعد بن أبي وقاص", translit: "Sa'd ibn Abi Waqqas", meaning: "First arrow for Islam" },
   "sahabi-salman-al-farisi": { ar: "سلمان الفارسي", translit: "Salman al-Farisi", meaning: "Salman the Persian" },
   "sahabi-abu-dharr-al-ghifari": { ar: "أبو ذر الغفاري", translit: "Abu Dharr al-Ghifari", meaning: "From Ghifar tribe" },
   "sahabi-abdullah-ibn-masud": { ar: "عبد الله بن مسعود", translit: "Abdullah ibn Mas'ud", meaning: "Quran reciter" },
-  "sahabi-anas-ibn-malik": { ar: "أنس بن مالك", translit: "Anas ibn Malik", meaning: "The Prophet's servant" },
+  "sahabi-anas-ibn-malik": { ar: "أنس بن مالك", translit: "Anas ibn Malik", meaning: "The Prophet's ﷺ servant" },
 
   // Women of the Book: women of the Quran and the Mothers of the Believers
   "women-quran": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
@@ -139,6 +142,15 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "women-quran-depth": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
   "women-mothers-depth": { ar: "أمهات المؤمنين", translit: "Ummahat al-muminin", meaning: "Mothers of the Believers" },
   "women-virtues-and-legacy": { ar: "الفضائل والإرث", translit: "Al-fada'il wal-irth", meaning: "Virtues and legacy" },
+  // The imported women, one unit per theme (src/data/importedNotes.ts)
+  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1": { ar: "الأمهات", translit: "Al-ummahat", meaning: "Mothers" },
+  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2": { ar: "زوجات النبي", translit: "Zawjat an-Nabi", meaning: "Wives of the Prophet ﷺ" },
+  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3": { ar: "آل علي", translit: "Al Ali", meaning: "Ali's family" },
+
+  // Hadith: sayings for children first, then the imported hadith in two units (src/data/importedNotes.ts)
+  "hadith-for-kids": { ar: "أحاديث للأطفال", translit: "Ahadith lil-atfal", meaning: "Hadith for children" },
+  "notes-hadith-hadith-from-your-notes-1": { ar: "في حفظ الله", translit: "Fi hifzillah", meaning: "In Allah's care" },
+  "notes-hadith-hadith-from-your-notes-2": { ar: "الزواج في السنة", translit: "Az-zawaj fis-sunnah", meaning: "Marriage in the Sunnah" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -231,7 +243,7 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "quran-surah-nisa-social-justice": { ar: "الْعَدْلُ", translit: "Al-adl", meaning: "Justice" },
   "quran-surah-nisa-rights-of-people": { ar: "حُقُوقُ الْعِبَادِ", translit: "Huquq al-ibad", meaning: "Rights of people" },
   "quran-surah-nisa-family-duty": { ar: "صِلَةُ الرَّحِمِ", translit: "Silat ar-rahim", meaning: "Keeping family ties" },
-  "quran-surah-nisa-belief-and-order": { ar: "أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ", translit: "Ati'ullaha wa ati'ur-rasul", meaning: "Obey Allah and obey the Messenger" },
+  "quran-surah-nisa-belief-and-order": { ar: "أَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ", translit: "Ati'ullaha wa ati'ur-rasul", meaning: "Obey Allah and obey the Messenger ﷺ" },
   "quran-surah-maidah-fulfill-covenants": { ar: "أَوْفُوا بِالْعُقُودِ", translit: "Awfu bil-uqud", meaning: "Keep your promises" },
   "quran-surah-maidah-purity-and-prayer": { ar: "الطَّهَارَةُ", translit: "At-taharah", meaning: "Purity" },
   "quran-surah-maidah-lawful-living": { ar: "الْحَلَالُ وَالْحَرَامُ", translit: "Al-halal wal-haram", meaning: "Allowed and forbidden" },
@@ -285,6 +297,8 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   // Zakat: duty, recipients and generosity
   "zakat-meaning-and-duty-what-zakat-is": { ar: "الزَّكَاةُ", translit: "Az-zakah", meaning: "Purifying charity" },
   "zakat-meaning-and-duty-nisab-and-threshold": { ar: "النِّصَابُ", translit: "An-nisab", meaning: "Minimum amount" },
+  // 2.5 percent is a quarter of a tenth; the hadith on zakat name the rate this way
+  "zakat-meaning-and-duty-obligation-and-seriousness": { ar: "رُبْعُ الْعُشْرِ", translit: "Rub' al-'ushr", meaning: "A quarter of a tenth" },
   "zakat-recipients-eligible-groups": { ar: "الْأَصْنَافُ الثَّمَانِيَةُ", translit: "Al-asnaf ath-thamaniyah", meaning: "The eight groups" },
   "zakat-character-and-intention-sincerity": { ar: "الْإِخْلَاصُ", translit: "Al-ikhlas", meaning: "Sincerity" },
   "zakat-character-and-intention-humility": { ar: "التَّوَاضُعُ", translit: "At-tawadu", meaning: "Humility" },
@@ -347,7 +361,7 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "women-mother-musa": { ar: "أُمُّ مُوسَى", translit: "Umm Musa", meaning: "Mother of Musa" },
   "women-asiyah": { ar: "آسِيَةُ", translit: "Asiyah", meaning: "Pharaoh's believing wife" },
   "women-maryam": { ar: "مَرْيَمُ", translit: "Maryam", meaning: "Mary, mother of Isa" },
-  "women-khadijah": { ar: "خَدِيجَةُ", translit: "Khadijah", meaning: "Prophet's first wife" },
+  "women-khadijah": { ar: "خَدِيجَةُ", translit: "Khadijah", meaning: "The Prophet's ﷺ first wife" },
   "women-aishah": { ar: "عَائِشَةُ", translit: "Aishah", meaning: "Mother of the Believers" },
   "women-hafsah": { ar: "حَفْصَةُ", translit: "Hafsah", meaning: "Daughter of Umar" },
   "women-quran-depth-hawwa-and-return": { ar: "التَّوْبَةُ", translit: "At-tawbah", meaning: "Returning to Allah" },
@@ -361,6 +375,18 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "women-virtues-and-legacy-courage-under-pressure": { ar: "الشَّجَاعَةُ", translit: "Ash-shaja'ah", meaning: "Courage" },
   "women-virtues-and-legacy-worship-and-devotion": { ar: "الْعِبَادَةُ", translit: "Al-ibadah", meaning: "Worship" },
   "women-virtues-and-legacy-service-to-revelation": { ar: "خِدْمَةُ الْوَحْيِ", translit: "Khidmat al-wahy", meaning: "Service to revelation" },
+
+  // Hadith for kids (src/data/hadithBasics.ts): a phrase from the Arabic of each hadith, as sunnah.com gives it
+  [hadithBasicsNodeId("muslim:2626")]: { ar: "بِوَجْهٍ طَلْقٍ", translit: "Bi-wajhin talq", meaning: "With a cheerful face" },
+  [hadithBasicsNodeId("bukhari:28")]: { ar: "السَّلَامُ", translit: "As-salam", meaning: "The greeting of peace" },
+  [hadithBasicsNodeId("bukhari:6018")]: { ar: "فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ", translit: "Fal-yaqul khayran aw li-yasmut", meaning: "Say good or keep quiet" },
+  [hadithBasicsNodeId("abudawud:4811")]: { ar: "لَا يَشْكُرُ اللَّهَ مَنْ لَا يَشْكُرُ النَّاسَ", translit: "La yashkurullaha man la yashkurun-nas", meaning: "Thank people to thank Allah" },
+  [hadithBasicsNodeId("bukhari:5376")]: { ar: "يَا غُلَامُ سَمِّ اللَّهَ", translit: "Ya ghulam, sammi Allah", meaning: "O boy, say Allah's name" },
+  [hadithBasicsNodeId("bukhari:13")]: { ar: "مَا يُحِبُّ لِنَفْسِهِ", translit: "Ma yuhibbu li-nafsih", meaning: "What he loves for himself" },
+  [hadithBasicsNodeId("bukhari:6114")]: { ar: "الشَّدِيدُ", translit: "Ash-shadid", meaning: "The strong one" },
+  [hadithBasicsNodeId("bukhari:69")]: { ar: "يَسِّرُوا وَلَا تُعَسِّرُوا", translit: "Yassiru wa la tu'assiru", meaning: "Make it easy, not hard" },
+  [hadithBasicsNodeId("bukhari:5027")]: { ar: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ", translit: "Khayrukum man ta'allamal-Qur'ana wa 'allamah", meaning: "Best: who learns and teaches the Quran" },
+  [hadithBasicsNodeId("muslim:2564c")]: { ar: "قُلُوبِكُمْ وَأَعْمَالِكُمْ", translit: "Qulubikum wa a'malikum", meaning: "Your hearts and your deeds" },
 };
 
 // Lessons imported from notes (scripts/obsidian-import) get their term from what they are about:
@@ -522,11 +548,8 @@ const PEOPLE: Partial<Record<TopicId, Record<string, PersonTerm>>> = {
     "sawdah-bint-zamah": ["سَوْدَةُ بِنْتُ زَمْعَةَ", MOTHER_OF_BELIEVERS],
     "sayyida-nafisa": ["السَّيِّدَةُ نَفِيسَةُ", "From the Prophet's ﷺ family"],
     "umayma-bint-abd-al-muttalib": ["أُمَيْمَةُ بِنْتُ عَبْدِ الْمُطَّلِبِ", "Aunt of the Prophet ﷺ"],
-    // The note's file name is spelt "Umm Ammaar"; it is about Umm Anmar, who owned Khabbab ibn al-Aratt.
-    "umm-ammaar": ["أُمُّ أَنْمَارٍ", "Khabbab's owner in Makkah"],
     "umm-al-banin": ["أُمُّ الْبَنِينَ", WIFE_OF_ALI],
     "umm-habibah": ["أُمُّ حَبِيبَةَ", MOTHER_OF_BELIEVERS],
-    "umm-jamil": ["أُمُّ جَمِيلٍ", "Wife of Abu Lahab"],
     "umm-kulthoom-bint-ali": ["أُمُّ كُلْثُومٍ بِنْتُ عَلِيٍّ", "Granddaughter of the Prophet ﷺ"],
     "umm-said-bint-urwah-al-thaqafiyyah": ["أُمُّ سَعِيدٍ بِنْتُ عُرْوَةَ الثَّقَفِيَّةُ", WIFE_OF_ALI],
     "umm-salamah-wife-of-the-prophet": ["أُمُّ سَلَمَةَ", MOTHER_OF_BELIEVERS],
@@ -540,19 +563,15 @@ const PEOPLE: Partial<Record<TopicId, Record<string, PersonTerm>>> = {
 // of the node id, which names the hadith (book and number).
 const HADITH_TERMS: Record<string, ArabicTerm> = {
   "sahih-al-bukhari-3276": { ar: "أَعُوذُ بِاللَّهِ", translit: "A'udhu billah", meaning: "I seek refuge with Allah" },
+  // Only in the sample vault: the notes have Bukhari 3276, the same narration, instead.
   "sahih-muslim-134a": { ar: "آمَنْتُ بِاللَّهِ", translit: "Amantu billah", meaning: "I believe in Allah" },
   "sahih-muslim-1218a": { ar: "كِتَابُ اللَّهِ", translit: "Kitab Allah", meaning: "The Book of Allah" },
-  "sahih-al-bukhari-7407": { ar: "عِنَبَةٌ طَافِيَةٌ", translit: "'Inabatun tafiyah", meaning: "A floating grape" },
-  "sahih-muslim-169e": { ar: "الْمَسِيحُ الدَّجَّالُ", translit: "Al-Masih ad-Dajjal", meaning: "The false messiah" },
   "sahih-muslim-2813b": { ar: "إِبْلِيسُ", translit: "Iblis", meaning: "The leader of the devils" },
-  "sahih-muslim-2930a": { ar: "ابْنُ صَيَّادٍ", translit: "Ibn Sayyad", meaning: "A boy the Prophet ﷺ tested" },
-  "sahih-muslim-2933a": { ar: "الْأَعْوَرُ الْكَذَّابُ", translit: "Al-a'war al-kadhdhab", meaning: "The one-eyed liar" },
+  "sahih-muslim-2930a": { ar: "الدَّجَّالُ", translit: "Ad-Dajjal", meaning: "The great liar" },
   "mishkat-al-masabih-3096": { ar: "نِصْفُ الدِّينِ", translit: "Nisf ad-din", meaning: "Half of the religion" },
   "sunan-ibn-majah-1855": { ar: "الْمَرْأَةُ الصَّالِحَةُ", translit: "Al-mar'ah as-salihah", meaning: "A righteous wife" },
-  "jami-at-tirmidhi-1084": { ar: "الدِّينُ وَالْخُلُقُ", translit: "Ad-din wal-khuluq", meaning: "Faith and character" },
-  "mishkat-al-masabih-3176": { ar: "غَيْلَانُ بْنُ سَلَمَةَ", translit: "Ghaylan ibn Salamah", meaning: "Companion in this hadith" },
+  "mishkat-al-masabih-3176": { ar: "غَيْلَانُ بْنُ سَلَمَةَ", translit: "Ghaylan ibn Salamah", meaning: "A companion from Thaqif" },
   "sahih-al-bukhari-5066": { ar: "يَا مَعْشَرَ الشَّبَابِ", translit: "Ya ma'shar ash-shabab", meaning: "O young people" },
-  "sahih-muslim-1400a": { ar: "الصَّوْمُ", translit: "As-sawm", meaning: "Fasting" },
   "sunan-an-nasai-3227": { ar: "الْوَدُودُ الْوَلُودُ", translit: "Al-wadud al-walud", meaning: "Loving and fertile" }
 };
 
@@ -597,7 +616,8 @@ const LEARN_FORMS = [
   "سَلْمَانُ الْفَارِسِيُّ", "أَبُو ذَرٍّ الْغِفَارِيُّ", "عَبْدُ اللَّهِ بْنُ مَسْعُودٍ",
   "أَنَسُ بْنُ مَالِكٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
   "الْفَضَائِلُ وَالْإِرْثُ", "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
-  "الْحَدِيثُ",
+  "الْحَدِيثُ", "الْأُمَّهَاتُ", "زَوْجَاتُ النَّبِيِّ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
+  "الزَّوَاجُ فِي السُّنَّةِ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
@@ -690,4 +710,33 @@ export function getLessonArabic(nodeId: string, branchId?: string): ArabicTerm |
     unitWords.set(banner.ar, word);
   }
   return word;
+}
+
+// The first node of its topic, in path order, to show each own word: a word is new only once.
+let firstUses: Set<string> | undefined;
+
+function buildFirstUses() {
+  const first = new Set<string>();
+  for (const section of COURSE.sections) {
+    const seen = new Set<string>();
+    for (const node of section.nodes) {
+      const term = getNodeArabic(node.id);
+      if (!term) continue;
+      const word = withoutVowels(term.ar);
+      if (seen.has(word)) continue;
+      seen.add(word);
+      first.add(node.id);
+    }
+  }
+  return first;
+}
+
+/**
+ * True when this node's own word is new: no earlier node of its topic, in path order, shows the same word
+ * ("Entering with peace" shows السَّلَامُ عَلَيْكُمْ again after the first lesson taught it). False for a node
+ * without a word of its own. The learn card's NEW pill uses it.
+ */
+export function isFirstUseOfWord(nodeId: string): boolean {
+  firstUses ??= buildFirstUses();
+  return firstUses.has(nodeId);
 }

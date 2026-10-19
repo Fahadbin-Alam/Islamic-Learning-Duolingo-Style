@@ -110,9 +110,22 @@ const NUMBER_WORDS: Record<string, string> = {
 };
 
 function splitSentences(value: string) {
-  // "Ubayy b. Ka'b" and "Q. 2:183" are not sentence ends.
-  const guarded = value.replace(/(^|[\s(])([A-Za-z])\.(?=\s)/g, "$1$2\u2024");
-  return (guarded.match(/[^.!?]+(?:[.!?]+["”’)]*|$)/g) ?? []).map((part) => part.replace(/\u2024/g, ".").trim()).filter(Boolean);
+  // "Ubayy b. Ka'b", "Q. 2:183" and "2.5 percent" are not sentence ends.
+  const guarded = value.replace(/(^|[\s(])([A-Za-z])\.(?=\s)/g, "$1$2\u2024").replace(/(\d)\.(?=\d)/g, "$1\u2024");
+  const parts = (guarded.match(/[^.!?]+(?:[.!?]+["”’)]*|$)/g) ?? []).map((part) => part.replace(/\u2024/g, ".").trim()).filter(Boolean);
+  // A question explains nothing alone: "Late, and the imam is bowing?" stays with its answer, "Say Allahu akbar
+  // and join.", and a question with no answer after it is left out.
+  const sentences: string[] = [];
+  let question = "";
+  for (const part of parts) {
+    if (/\?["”’)]*$/.test(part)) {
+      question = question ? `${question} ${part}` : part;
+      continue;
+    }
+    sentences.push(question ? `${question} ${part}` : part);
+    question = "";
+  }
+  return sentences;
 }
 
 function cleanSentence(sentence: string) {

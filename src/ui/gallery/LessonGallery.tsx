@@ -62,11 +62,6 @@ const longAnswerQuestion: Challenge = {
   correctChoiceId: "a"
 };
 
-function firstSource(lesson: Lesson) {
-  const source = lesson.sources[0];
-  return source ? { label: source.reference ?? source.title, url: source.url } : undefined;
-}
-
 /** A learn card the way TopicApp builds it from a lesson. */
 function LearnDemo({ lesson, accent, mascot = "boy", isNewWord }: { lesson: Lesson; accent: string; mascot?: string; isNewWord?: boolean }) {
   const arabic = getLessonArabic(lesson.nodeId, lesson.branchId);
@@ -80,7 +75,7 @@ function LearnDemo({ lesson, accent, mascot = "boy", isNewWord }: { lesson: Less
         facts={lesson.learnFacts}
         quote={lesson.quote}
         onPlayAudio={arabic ? noop : undefined}
-        source={firstSource(lesson)}
+        learnSource={lesson.learnSource}
         mascotVariant={mascot}
         accent={accent}
         onContinue={noop}
@@ -132,15 +127,15 @@ const WUDU_STEPS = [
   { id: "feet", label: "Wash feet" }
 ];
 const WUDU_ORDER = WUDU_STEPS.map((step) => step.id);
-// Gallery copy of the nine-step rak'ah game (the course builds its own from lessonSteps).
+// Gallery copy of the two-rak'ah prayer game, like Fajr (the course builds its own in lessonGuidance).
 const SALAH_STEPS = [
   { id: "takbir", label: "Opening takbir" },
-  { id: "standing", label: "Standing and recitation" },
-  { id: "ruku", label: "Ruku" },
-  { id: "rise", label: "Rise from ruku" },
-  { id: "sujud1", label: "First sujud" },
-  { id: "sit", label: "Sit between sajdahs" },
-  { id: "sujud2", label: "Second sujud" },
+  { id: "qiyam", label: "Stand and recite" },
+  { id: "ruku", label: "Ruku, then stand" },
+  { id: "sujud", label: "Two sujud" },
+  { id: "qiyam2", label: "Stand for rak'ah 2" },
+  { id: "ruku2", label: "Ruku again" },
+  { id: "sujud2", label: "Two sujud again" },
   { id: "tashahhud", label: "Tashahhud" },
   { id: "taslim", label: "Taslim" }
 ];
@@ -257,7 +252,7 @@ const STATES: State[] = [
           line={getLessonLine(salam)}
           arabic={getLessonArabic(salam.nodeId, salam.branchId)}
           onPlayAudio={noop}
-          source={firstSource(salam)}
+          learnSource={salam.learnSource}
           mascotVariant="girl"
           accent={FOUNDATION_ACCENT}
           onContinue={noop}
@@ -273,7 +268,7 @@ const STATES: State[] = [
         <LearnCard
           title={plainLesson.title}
           line={getLessonLine(plainLesson)}
-          source={firstSource(plainLesson)}
+          learnSource={plainLesson.learnSource}
           mascotVariant="boy"
           accent={COURSE.sections.find((section) => section.id === "sahabah-expansion")?.accentColor ?? colors.green}
           onContinue={noop}
@@ -291,7 +286,7 @@ const STATES: State[] = [
           line={getLessonLine(muhammad)}
           arabic={getLessonArabic(muhammad.nodeId, muhammad.branchId)}
           onPlayAudio={noop}
-          source={firstSource(muhammad)}
+          learnSource={muhammad.learnSource}
           mascotVariant="boy"
           accent={COURSE.sections.find((section) => section.topicId === "prophets")?.accentColor ?? colors.gem}
           onContinue={noop}

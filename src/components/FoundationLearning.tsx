@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, ScrollView, StyleSheet, Text, TextInput, View, type LayoutChangeEvent } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import { getAssessmentXp } from "../api/islamicLearningApi";
-import { getBranchArabic, getLessonArabic, getTopicArabic, type ArabicTerm } from "../data/arabicTerms";
+import { getTopicArabic } from "../data/arabicTerms";
 import { FOUNDATION_CATEGORY_META, FOUNDATION_PROGRESS_LABELS } from "../data/foundationQuestionBank";
 import { translateStudyText } from "../services/contentLocalization";
 import {
@@ -47,23 +47,29 @@ import {
   type ChoiceTileState,
   type IconName,
   type MascotMood,
-  useShake
+  useShake,
+  withHonorifics
 } from "../ui";
 import { FeedbackSheet, LessonBottomBar, PromptText, QuitSheet, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
 
 type SelectedAnswer = string | string[] | Record<string, string> | undefined;
 type Question = ReturnType<typeof localizeFoundationQuestion>;
 
-// Arabic shown next to a skill name. Each one is a checked term from src/data/arabicTerms.ts that
-// says the same thing as the English name (no Arabic for Shahadah, Quran and Prophets yet).
-const CATEGORY_ARABIC: Partial<Record<FoundationCategoryId, () => ArabicTerm | undefined>> = {
-  salah: () => getTopicArabic("prayer"),
-  taharah: () => getBranchArabic("prayer-wudu"),
-  fasting: () => getTopicArabic("fasting"),
-  zakat: () => getTopicArabic("zakat"),
-  hajj: () => getTopicArabic("hajj"),
-  iman: () => getLessonArabic("aqidah-pillars-of-iman-what-iman-covers"),
-  manners: () => getTopicArabic("manners")
+// Arabic next to a skill name, all with full vowel marks (as on the learn cards) so a beginner can read them.
+// Salah, Wudu, Zakat, Iman and Prophets are lesson words in src/data/arabicTerms.ts; Fasting, Hajj and Manners
+// are their topic banners there with the marks added; Quran is the word in "Surahs of the Quran". Shahadah
+// (the testimony of faith) has no term there yet.
+export const SKILL_ARABIC: Record<FoundationCategoryId, string> = {
+  shahadah: "الشَّهَادَةُ",
+  salah: "الصَّلَاةُ",
+  taharah: "الْوُضُوءُ",
+  fasting: "الصِّيَامُ",
+  zakat: "الزَّكَاةُ",
+  hajj: "الْحَجُّ",
+  iman: "الْإِيمَانُ",
+  manners: "الْآدَابُ",
+  quran: "الْقُرْآنُ",
+  seerah: "الْأَنْبِيَاءُ"
 };
 
 /** One short name and an icon per skill, for the badge grid. */
@@ -79,10 +85,6 @@ export const SKILL_LOOK: Record<FoundationCategoryId, { name: string; icon: Icon
   quran: { name: "Quran", icon: "quran" },
   seerah: { name: "Prophets", icon: "scroll" }
 };
-
-function categoryArabic(category: FoundationCategoryId): ArabicTerm | undefined {
-  return CATEGORY_ARABIC[category]?.();
-}
 
 function SkillRing({ progress, color, icon }: { progress: number; color: string; icon: IconName }) {
   const size = 60;
@@ -297,11 +299,11 @@ function BlankPrompt({ prompt, word, checked, size }: { prompt: string; word?: s
   const slotColor = checked === undefined ? colors.gemLip : checked ? colors.correctInk : colors.wrongInk;
   return (
     <Text style={[styles.prompt, { fontSize: size, lineHeight: Math.round(size * 1.4) }]} testID="blank-prompt">
-      {before}
+      {withHonorifics(before)}
       <Text style={[styles.blankSlot, word ? { color: slotColor, textDecorationColor: slotColor } : styles.blankEmpty]}>
         {word ? `\u00A0${word}\u00A0` : "        "}
       </Text>
-      {after}
+      {withHonorifics(after)}
     </Text>
   );
 }
@@ -372,7 +374,7 @@ export function FoundationAssessmentScreen({
   // The bar fills as each answer is checked, so it is empty on the first question and full after the last.
   const progress = (assessment.questionNumber - 1 + (feedback ? 1 : 0)) / Math.max(assessment.totalQuestions, 1);
   const canSubmit = canSubmitAnswer(question.type, selectedAnswer);
-  const arabic = categoryArabic(question.category);
+  const arabic = SKILL_ARABIC[question.category];
   const categoryTitle = SKILL_LOOK[question.category]?.name ?? question.category.charAt(0).toUpperCase() + question.category.slice(1);
   const checked = feedback ? feedback.correct : undefined;
   const locked = checked !== undefined;
@@ -461,7 +463,7 @@ export function FoundationAssessmentScreen({
                 </View>
                 {arabic ? (
                   <ArabicText size={20} weight="bold" color={colors.correctInk}>
-                    {arabic.ar}
+                    {arabic}
                   </ArabicText>
                 ) : null}
                 {retry ? (
@@ -473,7 +475,7 @@ export function FoundationAssessmentScreen({
             </PopIn>
 
             <PromptBubble long={long} hideMascot={hideMascot} mascotVariant={mascotVariant} accent={accent} mood={mood}>
-              {scenario ? <Text style={[styles.scenarioText, { fontSize: promptSize - 2 }]}>{scenario}</Text> : null}
+              {scenario ? <Text style={[styles.scenarioText, { fontSize: promptSize - 2 }]}>{withHonorifics(scenario)}</Text> : null}
               {question.type === "fill_in_blank" ? (
                 <BlankPrompt prompt={prompt} word={typeof selectedAnswer === "string" ? selectedAnswer : undefined} checked={checked} size={promptSize} />
               ) : (
@@ -594,7 +596,7 @@ function CheckTile({ label, state, onPress }: { label: string; state: CheckState
           state === "dimmed" ? styles.dimmedTile : null
         ]}
       >
-        <Text style={[styles.checkLabel, { color: look.text }]}>{label}</Text>
+        <Text style={[styles.checkLabel, { color: look.text }]}>{withHonorifics(label)}</Text>
         <View style={[styles.checkBox, { backgroundColor: ticked ? look.box : colors.white, borderColor: look.boxBorder }, missed ? styles.missedBox : null]}>
           {ticked ? <Icon name={state === "wrong" ? "close" : "check"} size={16} color={colors.white} /> : null}
         </View>
@@ -620,7 +622,7 @@ function OrderSlot({ item, index, verdict, onPress }: { item: string; index: num
           <View style={[styles.slotNumber, verdict === "right" ? { backgroundColor: colors.green } : verdict === "wrong" ? { backgroundColor: colors.heart } : null]}>
             <Text style={styles.slotNumberText}>{index + 1}</Text>
           </View>
-          <Text style={styles.slotText}>{item}</Text>
+          <Text style={styles.slotText}>{withHonorifics(item)}</Text>
         </Tappable>
       </Animated.View>
     </PopIn>
@@ -692,7 +694,7 @@ function PairTile({ label, state, pairNumber, onPress, testID }: { label: string
         pressScale={0.96}
         testID={testID}
       >
-        <Text style={[styles.pairText, { color: ink }]}>{label}</Text>
+        <Text style={[styles.pairText, { color: ink }]}>{withHonorifics(label)}</Text>
         {pairNumber ? (
           <View style={[styles.pairChip, { backgroundColor: chip }]} pointerEvents="none">
             <Text style={styles.pairChipText}>{pairNumber}</Text>

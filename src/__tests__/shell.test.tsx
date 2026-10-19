@@ -108,7 +108,8 @@ describe("LearnPath locked circles and open units", () => {
     // The card gives way to the sheet.
     expect(screen.queryByTestId("node-card")).toBeNull();
     await fireEvent.press(screen.getByText("START TEST"));
-    expect(props.onTestOut).toHaveBeenCalledWith("unit-c");
+    // JUMP HERE tests for the tapped circle.
+    expect(props.onTestOut).toHaveBeenCalledWith("unit-c", locked.node.id);
   });
 
   it("leaves JUMP HERE out when the unit cannot be tested out or there is no handler", async () => {

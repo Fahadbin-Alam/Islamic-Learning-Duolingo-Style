@@ -30,13 +30,8 @@ function makePuzzle(random: () => number = Math.random): Puzzle {
   return { a, b, options };
 }
 
-/**
- * Parental gate before real-money purchases, restores and links that leave the app
- * (Apple guideline 1.3, Kids category). Call `ask(action)` and render `gate` anywhere:
- * it is a kit Sheet, so it covers the whole app shell through the PortalHost.
- */
-export function useGrownUpGate() {
-  const [pending, setPending] = useState<(() => void) | undefined>(undefined);
+/** The sum and its three answers. A right pick calls onPass; a wrong one buzzes, shakes and brings a new sum. */
+export function GrownUpPuzzle({ onPass }: { onPass: () => void }) {
   const [puzzle, setPuzzle] = useState<Puzzle>(() => makePuzzle());
   const [wrongPick, setWrongPick] = useState<number | undefined>(undefined);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -44,25 +39,11 @@ export function useGrownUpGate() {
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  const ask = useCallback((action: () => void) => {
-    clearTimeout(timer.current);
-    setWrongPick(undefined);
-    setPuzzle(makePuzzle());
-    setPending(() => action);
-  }, []);
-
-  const close = useCallback(() => {
-    clearTimeout(timer.current);
-    setPending(undefined);
-  }, []);
-
   const answer = (value: number) => {
     if (wrongPick !== undefined) return;
     if (value === puzzle.a * puzzle.b) {
       feedback("soft_ui", "light");
-      const action = pending;
-      setPending(undefined);
-      action?.();
+      onPass();
       return;
     }
     // Same as a wrong answer in a lesson: buzz, shake, then a new sum.
@@ -77,19 +58,8 @@ export function useGrownUpGate() {
 
   const stateFor = (value: number): ChoiceTileState => (wrongPick === undefined ? "idle" : value === wrongPick ? "wrong" : "dimmed");
 
-  const gate = (
-    <Sheet visible={pending !== undefined} onClose={close} testID="grownup-gate">
-      <View style={styles.head}>
-        <View style={styles.lockCircle}>
-          <Icon name="lock" size={26} />
-        </View>
-        <Text style={styles.title} numberOfLines={2}>
-          Ask a grown-up
-        </Text>
-        <Tappable onPress={close} style={styles.close} accessibilityLabel="Close" hitSlop={8} pressScale={0.9} testID="grownup-close">
-          <Icon name="close" size={20} color={colors.inkSoft} />
-        </Tappable>
-      </View>
+  return (
+    <>
       <Text style={styles.question} testID="grownup-question" accessibilityLabel={`${puzzle.a} times ${puzzle.b}`}>
         {`${puzzle.a} × ${puzzle.b} = ?`}
       </Text>
@@ -111,6 +81,60 @@ export function useGrownUpGate() {
           </Tappable>
         ))}
       </Animated.View>
+    </>
+  );
+}
+
+/** "Ask a grown-up" with its lock, the round close button (when onClose is given) and the sum. */
+export function GrownUpCheck({ onPass, onClose }: { onPass: () => void; onClose?: () => void }) {
+  return (
+    <View testID="grownup-check">
+      <View style={styles.head}>
+        <View style={styles.lockCircle}>
+          <Icon name="lock" size={26} />
+        </View>
+        <Text style={styles.title} numberOfLines={2}>
+          Ask a grown-up
+        </Text>
+        {onClose ? (
+          <Tappable onPress={onClose} style={styles.close} accessibilityLabel="Close" hitSlop={8} pressScale={0.9} testID="grownup-close">
+            <Icon name="close" size={20} color={colors.inkSoft} />
+          </Tappable>
+        ) : null}
+      </View>
+      <GrownUpPuzzle onPass={onPass} />
+    </View>
+  );
+}
+
+/**
+ * Parental gate before real-money purchases, restores, links that leave the app and signing up
+ * (Apple guideline 1.3, Kids category). Call `ask(action)` and render `gate` anywhere:
+ * it is a kit Sheet, so it covers the whole app shell through the PortalHost.
+ */
+export function useGrownUpGate() {
+  const [pending, setPending] = useState<(() => void) | undefined>(undefined);
+  // A fresh sum every time the gate is asked.
+  const [round, setRound] = useState(0);
+
+  const ask = useCallback((action: () => void) => {
+    setRound((value) => value + 1);
+    setPending(() => action);
+  }, []);
+
+  const close = useCallback(() => {
+    setPending(undefined);
+  }, []);
+
+  const pass = () => {
+    const action = pending;
+    setPending(undefined);
+    action?.();
+  };
+
+  const gate = (
+    <Sheet visible={pending !== undefined} onClose={close} testID="grownup-gate">
+      <GrownUpCheck key={round} onPass={pass} onClose={close} />
     </Sheet>
   );
 

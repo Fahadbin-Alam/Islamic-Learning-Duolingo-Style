@@ -8,9 +8,11 @@ import {
   getLessonArabic,
   getNodeArabic,
   getTopicArabic,
+  isFirstUseOfWord,
   withoutVowels,
   type ArabicTerm
 } from "../data/arabicTerms";
+import { HADITH_BASICS } from "../data/hadithBasics";
 
 // Every Arabic term must point at something the course really has, and must
 // read as Arabic with a transliteration and a plain meaning beside it.
@@ -105,7 +107,7 @@ describe("arabic terms", () => {
     expect(getNodeArabic("notes-quran-tafseer-surahs-111-114-surah-an-nas")?.ar).toBe("سُورَةُ النَّاسِ");
     expect(getNodeArabic("notes-prophets-prophets-from-your-notes-2-noah")).toMatchObject({ ar: "نُوحٌ", translit: "Nuh" });
     // A hadith is named by a word from it, not by its book.
-    expect(getNodeArabic("notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a")).toMatchObject({ ar: "آمَنْتُ بِاللَّهِ", translit: "Amantu billah" });
+    expect(getNodeArabic("notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-3276")).toMatchObject({ ar: "أَعُوذُ بِاللَّهِ", translit: "A'udhu billah" });
   });
 
   it("vowels the manners words like the greetings", () => {
@@ -143,9 +145,47 @@ describe("arabic terms", () => {
       ar: "عَيَّاشُ بْنُ أَبِي رَبِيعَةَ",
       translit: "'Ayyash ibn Abi Rabi'ah"
     });
-    expect(getNodeArabic("notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar")).toMatchObject({
-      ar: "أُمُّ أَنْمَارٍ",
-      translit: "Umm Anmar"
+    expect(getNodeArabic("notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah")).toMatchObject({
+      ar: "أُمُّ سَعِيدٍ بِنْتُ عُرْوَةَ الثَّقَفِيَّةُ",
+      translit: "Umm Sa'id bint Urwah ath-Thaqafiyyah"
     });
+  });
+
+  it("marks a word NEW only on the first lesson of its topic to show it", () => {
+    const shownTwice: string[] = [];
+    for (const section of COURSE.sections) {
+      const newWords = section.nodes.filter((node) => isFirstUseOfWord(node.id)).map((node) => withoutVowels(getNodeArabic(node.id)!.ar));
+      shownTwice.push(...newWords.filter((word, index) => newWords.indexOf(word) !== index).map((word) => `${section.topicId}: ${word}`));
+      // Every lesson with a word of its own is either the first to show it or repeats a word already NEW.
+      const firstWords = new Set(newWords);
+      shownTwice.push(
+        ...section.nodes
+          .filter((node) => getNodeArabic(node.id) && !firstWords.has(withoutVowels(getNodeArabic(node.id)!.ar)))
+          .map((node) => `${node.id}: never NEW`)
+      );
+    }
+    expect(shownTwice).toEqual([]);
+    expect(isFirstUseOfWord("foundation-niyyah")).toBe(true);
+    expect(isFirstUseOfWord("foundation-home-adab-entering-home")).toBe(false);
+    expect(isFirstUseOfWord("foundation-home-adab-table-beginning")).toBe(false);
+    expect(isFirstUseOfWord("prophets-power-and-deliverance-musa-and-fear")).toBe(false);
+    // A node with no word of its own is never NEW.
+    expect(isFirstUseOfWord("no-such-node")).toBe(false);
+  });
+
+  it("gives each saying in Hadith for kids a vowelled phrase of its own", () => {
+    const missing = HADITH_BASICS.nodes.filter((node) => !getNodeArabic(node.id) || !HARAKAT.test(getNodeArabic(node.id)!.ar)).map((node) => node.id);
+    expect(missing).toEqual([]);
+    expect(getBranchArabic(HADITH_BASICS.branch.id)).toMatchObject({ ar: "أحاديث للأطفال" });
+  });
+
+  it("names the Hadith and imported women units by what they teach, each with its own Arabic", () => {
+    for (const topicId of ["hadith", "women_of_the_book"]) {
+      const branches = COURSE.sections.find((section) => section.topicId === topicId)!.branches.filter((branch) => branch.id.startsWith("notes-") || branch.topicId === "hadith");
+      const banners = branches.map((branch) => getBranchArabic(branch.id)?.ar);
+      expect(banners.filter((banner, index) => !banner || banners.indexOf(banner) !== index)).toEqual([]);
+      expect(branches.filter((branch) => /\d$/.test(branch.title)).map((branch) => branch.title)).toEqual([]);
+    }
+    expect(getTopicArabic("women_of_the_book")).toMatchObject({ ar: "نساء خالدات", meaning: "Great women" });
   });
 });

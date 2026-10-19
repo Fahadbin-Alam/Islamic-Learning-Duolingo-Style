@@ -19,15 +19,16 @@ const WUDU_STEPS: Array<[string, string]> = [
   ["feet", "Wash the feet"]
 ];
 
-// One rak'ah through to the end of the prayer. Both sujud are pillars, so both are steps.
+// A whole two-rak'ah prayer, like Fajr: tashahhud and taslim come only after the second rak'ah.
+// The rak'ah game has the rising and the sitting between the sujud; here each rak'ah is shown in its big parts.
 const SALAH_STEPS: Array<[string, string]> = [
   ["takbir", "Opening takbir"],
-  ["qiyam", "Standing and recitation"],
-  ["ruku", "Ruku"],
-  ["rise", "Rise from ruku"],
-  ["sujud", "First sujud"],
-  ["sit", "Sit between sajdahs"],
-  ["sujud2", "Second sujud"],
+  ["qiyam", "Stand and recite"],
+  ["ruku", "Ruku, then stand"],
+  ["sujud", "Two sujud"],
+  ["qiyam2", "Stand for rak'ah 2"],
+  ["ruku2", "Ruku again"],
+  ["sujud2", "Two sujud again"],
   ["tashahhud", "Tashahhud"],
   ["taslim", "Taslim"]
 ];
@@ -169,22 +170,22 @@ function buildPracticeActivities(
 
   if (orderGame === "wudu") {
     return [
-      buildSequenceActivity(lesson, node, "wudu_order", "Try arranging the wudu flow", "Tap the steps in the order they are performed.", WUDU_STEPS,
+      buildSequenceActivity(lesson, node, "wudu_order", "Wudu", "Put the wudu steps in order!", "Tap the steps in the order they are performed.", WUDU_STEPS,
         "Wudu goes hands, mouth, nose, face, arms, head, ears, then feet.")
     ];
   }
 
   if (orderGame === "rakah") {
     return [
-      buildSequenceActivity(lesson, node, "rakah_order", "Build the rak'ah", "Tap the steps in the order they come.", RAKAH_STEPS,
+      buildSequenceActivity(lesson, node, "rakah_order", "One rak'ah", "Put the rak'ah steps in order!", "Tap the steps in the order they come.", RAKAH_STEPS,
         "Ruku, stand up, sujud, sit, then the second sujud.")
     ];
   }
 
   if (orderGame === "salah") {
     return [
-      buildSequenceActivity(lesson, node, "salah_order", "Build the salah flow", "Tap the prayer parts in the order they come.", SALAH_STEPS,
-        "Each rak'ah has ruku and two sujud; the prayer ends with tashahhud and taslim.")
+      buildSequenceActivity(lesson, node, "salah_order", "Fajr", "Put Fajr's two rak'ahs in order!", "Tap the prayer parts in the order they come.", SALAH_STEPS,
+        "Fajr has two rak'ahs; after the second, sit for tashahhud, then taslim.")
     ];
   }
 
@@ -200,7 +201,7 @@ function buildPracticeActivities(
 
   if (node.topicId === "sahabah" || node.topicId === "prophets" || node.topicId === "women_of_the_book") {
     return [
-      buildSequenceActivity(lesson, node, "story_arc", "Build the story arc", "Tap the story beats in the order a learner should notice them.", [
+      buildSequenceActivity(lesson, node, "story_arc", "Build the story arc", "Put the story in order!", "Tap the story beats in the order a learner should notice them.", [
         ["scene", "See the setting"],
         ["trial", "Notice the trial or sacrifice"],
         ["lesson", "Carry the lesson into your own life"]
@@ -229,6 +230,7 @@ function buildSequenceActivity(
   node: LearningNode | undefined,
   suffix: string,
   title: string,
+  prompt: string,
   instructions: string,
   items: Array<[string, string]>,
   explanation: string
@@ -238,7 +240,8 @@ function buildSequenceActivity(
     id: `${lesson.id}_${suffix}`,
     kind: "sequence",
     title,
-    prompt: lesson.title,
+    // What the mascot says over the game.
+    prompt,
     instructions,
     options: rotate(items, start).map(([id, label]) => ({ id, label })),
     correctOrderIds: items.map(([id]) => id),

@@ -125,8 +125,8 @@ function isUsableLearnLine(line: string, title: string) {
 }
 
 function splitLineSentences(value: string) {
-  // "Ubayy b. Ka'b" and "Q. 2:183" are not sentence ends.
-  const guarded = value.replace(/(^|[\s(])([A-Za-z])\.(?=\s)/g, "$1$2\u2024");
+  // "Ubayy b. Ka'b", "Q. 2:183" and "2.5 percent" are not sentence ends.
+  const guarded = value.replace(/(^|[\s(])([A-Za-z])\.(?=\s)/g, "$1$2\u2024").replace(/(\d)\.(?=\d)/g, "$1\u2024");
   return (guarded.match(/[^.!?]+(?:[.!?]+["”’')]*|$)/g) ?? []).map((part) => part.replace(/\u2024/g, ".").trim()).filter(Boolean);
 }
 

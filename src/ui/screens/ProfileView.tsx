@@ -32,7 +32,7 @@ export type ProfileViewProps = {
   /** Sound row appears when onToggleSound is given. Default: user.soundEffectsEnabled !== false. */
   soundEnabled?: boolean;
   onToggleSound?: () => void;
-  /** Total stars. Default: sum of starsReward over user.completedNodeIds. */
+  /** Total stars. Default: countStars over user.completedNodeIds. */
   stars?: number;
   /** Avatar color (topic accent). Default green. */
   accent?: string;
@@ -44,19 +44,43 @@ const STARS_BY_NODE = new Map<string, number>(
   COURSE.sections.flatMap((section) => section.nodes.map((node) => [node.id, node.starsReward] as [string, number]))
 );
 
-export function countStars(completedNodeIds: string[]) {
-  return completedNodeIds.reduce((sum, id) => sum + (STARS_BY_NODE.get(id) ?? 0), 0);
+/**
+ * Stars over the finished circles. With `bestStars` (the best a learner earned on each circle, as on
+ * the Lesson complete card) a circle counts what was earned there; one without a record counts its reward.
+ */
+export function countStars(completedNodeIds: string[], bestStars?: Record<string, number>) {
+  return completedNodeIds.reduce((sum, id) => {
+    const best = bestStars?.[id];
+    return sum + (typeof best === "number" ? Math.max(0, best) : STARS_BY_NODE.get(id) ?? 0);
+  }, 0);
 }
 
 /** Gold text on white needs a darker gold to stay readable. */
 const GOLD_INK = darken(colors.gold, 0.45);
+/** Same greys as the top bar's dimmed chip (a streak of 0). */
+const DIM_ICON = colors.lockedLip;
+const DIM_INK = darken(colors.lockedLip, 0.12);
 
-function StatCard({ icon, value, label, color, testID }: { icon: IconName; value: number; label: string; color: string; testID: string }) {
+function StatCard({
+  icon,
+  value,
+  label,
+  color,
+  dim,
+  testID
+}: {
+  icon: IconName;
+  value: number;
+  label: string;
+  color: string;
+  dim?: boolean;
+  testID: string;
+}) {
   return (
     <View style={styles.stat} testID={testID}>
-      <Icon name={icon} size={32} />
+      <Icon name={icon} size={32} color={dim ? DIM_ICON : undefined} />
       <View style={styles.statText}>
-        <FormattedCount value={value} compact style={[styles.statValue, { color }]} />
+        <FormattedCount value={value} compact style={[styles.statValue, { color: dim ? DIM_INK : color }]} />
         <Text style={styles.statLabel} numberOfLines={1}>
           {label}
         </Text>
@@ -172,7 +196,7 @@ export function ProfileView({
       </PopIn>
 
       <View style={styles.grid}>
-        <StatCard testID="profile-streak" icon="flame" value={user.streakDays} label="Day streak" color={colors.flame} />
+        <StatCard testID="profile-streak" icon="flame" value={user.streakDays} label="Day streak" color={colors.flame} dim={user.streakDays <= 0} />
         <StatCard testID="profile-xp" icon="bolt" value={user.totalXp} label="Total XP" color={GOLD_INK} />
         <StatCard testID="profile-stars" icon="star" value={totalStars} label="Stars" color={GOLD_INK} />
         <StatCard testID="profile-gems" icon="gem" value={user.gems} label="Gems" color={colors.gemLip} />

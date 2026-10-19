@@ -22,8 +22,13 @@ import {
   getAssessmentXp,
   getXpToday,
   findNextPlayableNode,
+  getJumpNodeIds,
+  getNodeXp,
   getTestOutPlan,
+  getTotalStars,
   isOutOfHearts,
+  isTestLost,
+  keepStreak,
   testOutPassingScore,
   grantHearts,
   isPremiumUser,
@@ -71,10 +76,13 @@ import {
 import {
   clearAccountProfile,
   clearActiveAssessment,
+  clearPracticeResult,
   clearSavedUserProfile,
   loadActiveAssessment,
+  loadPracticeResult,
   loadSavedUserProfile,
   saveActiveAssessment,
+  savePracticeResult,
   saveUserProfile,
   stashAccountProfile,
   takeAccountProfile
@@ -98,7 +106,8 @@ import {
   createFoundationAssessment,
   ensureLearnerProfile,
   finalizeFoundationAssessment,
-  submitFoundationAssessmentAnswer
+  submitFoundationAssessmentAnswer,
+  type FoundationPracticeResult
 } from "./services/foundationAssessment";
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
@@ -129,13 +138,12 @@ import {
   type TopicPickerTopic
 } from "./ui/screens";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, getLessonProgress, isPlayablePractice, lessonStars, shortWhy } from "./ui/lesson";
-import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic } from "./data/arabicTerms";
+import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import type {
   AccountRole,
   Challenge,
   FoundationAssessmentState,
   FoundationCategoryId,
-  LearnerProfile,
   LearningBranch,
   LearningNodeView,
   LearningSection,
@@ -188,17 +196,21 @@ type OutOfHeartsSheet = {
   open: boolean;
   variant: "free" | "shop";
   inLesson: boolean;
-  resume?: { kind: "node"; node: LearningNodeView } | { kind: "test_out"; unitId: string; attempt?: number };
+  resume?: { kind: "node"; node: LearningNodeView } | { kind: "test_out"; unitId: string; attempt?: number; jumpNodeId?: string };
 };
 
 type TestOutResult = {
   open: boolean;
   correct: number;
+  /** Questions answered: fewer than `total` when the test ended as soon as it could no longer be passed. */
+  asked: number;
   total: number;
   passingScore: number;
   unitId: string;
   /** The try that just ended; TRY AGAIN starts the next one, with other questions. */
   attempt: number;
+  /** The JUMP HERE circle the test was for, so TRY AGAIN tests for the same one. */
+  jumpNodeId?: string;
 };
 
 type LessonCelebration = {
@@ -298,7 +310,14 @@ const NO_LESSON = {
 function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case "loaded":
-      return { ...state, user: action.user, xpSummary: action.xpSummary, loading: false };
+      // The topic the learner had open last time, when the course still has it.
+      return {
+        ...state,
+        user: action.user,
+        xpSummary: action.xpSummary,
+        loading: false,
+        selectedTopic: knownTopic(action.user.lastTopicId) ?? state.selectedTopic
+      };
     case "go_home":
       return { ...state, screen: "home", returnScreen: undefined };
     case "show_topic":
@@ -306,7 +325,15 @@ function reducer(state: AppState, action: Action): AppState {
     case "show_branch":
       return { ...state, screen: "branch", returnScreen: undefined };
     case "select_topic":
-      return { ...state, selectedTopic: action.topicId, selectedBranchId: undefined, screen: "topic", returnScreen: undefined };
+      // Kept on the learner, so the app opens on this topic next time.
+      return {
+        ...state,
+        user: state.user && state.user.lastTopicId !== action.topicId ? { ...state.user, lastTopicId: action.topicId } : state.user,
+        selectedTopic: action.topicId,
+        selectedBranchId: undefined,
+        screen: "topic",
+        returnScreen: undefined
+      };
     case "select_branch":
       return { ...state, selectedBranchId: action.branchId, screen: "branch", returnScreen: undefined };
     case "open_review":
@@ -410,7 +437,8 @@ export default function TopicApp() {
   const [accountPromptDue, setAccountPromptDue] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
   const [activeAssessment, setActiveAssessment] = useState<FoundationAssessmentState | undefined>(undefined);
-  const [practiceResult, setPracticeResult] = useState<{ assessment: FoundationAssessmentState; profile: LearnerProfile } | undefined>(undefined);
+  // The practice end screen. `restored` is one shown again after a reload: its fanfare already played.
+  const [practiceResult, setPracticeResult] = useState<(FoundationPracticeResult & { restored?: boolean }) | undefined>(undefined);
   const [testOutResult, setTestOutResult] = useState<TestOutResult | undefined>(undefined);
   const [authMode, setAuthMode] = useState<AuthMode>("create");
   const [accountError, setAccountError] = useState<string | undefined>(undefined);
@@ -518,6 +546,14 @@ export default function TopicApp() {
         if (savedAssessment) {
           setActiveAssessment({ ...savedAssessment, questionStartedAt: Date.now() });
           dispatch({ type: "open_assessment", returnScreen: "review" });
+        } else {
+          // A reload on a practice end screen shows it again; CONTINUE then goes to Practice.
+          const savedResult = loadPracticeResult(assessmentOwner(user));
+
+          if (savedResult) {
+            setPracticeResult({ ...savedResult, restored: true });
+            dispatch({ type: "open_assessment", returnScreen: "review" });
+          }
         }
       }
     }
@@ -538,7 +574,8 @@ export default function TopicApp() {
     void syncRemoteUser(state.user).catch(() => undefined);
   }, [state.user]);
 
-  // The running practice session is kept next to the saved learner, so a reload resumes it.
+  // The running practice session, and its end screen once it is done, are kept next to the saved
+  // learner, so a reload resumes the one or shows the other again.
   const assessmentOwnerKey = state.user ? assessmentOwner(state.user) : undefined;
   useEffect(() => {
     if (state.loading || !assessmentOwnerKey) {
@@ -550,7 +587,13 @@ export default function TopicApp() {
     } else {
       clearActiveAssessment();
     }
-  }, [activeAssessment, assessmentOwnerKey, state.loading]);
+
+    if (practiceResult) {
+      savePracticeResult(assessmentOwnerKey, { assessment: practiceResult.assessment, profile: practiceResult.profile });
+    } else {
+      clearPracticeResult();
+    }
+  }, [activeAssessment, assessmentOwnerKey, practiceResult, state.loading]);
 
 
   const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? pendingLanguage);
@@ -668,6 +711,14 @@ export default function TopicApp() {
 
     return ids;
   }, [completedNodeIds, subscriptionId, selectedSection]);
+  // The locked circles JUMP HERE can open: a test of the circles before each one (at most 10).
+  const jumpNodeIds = useMemo(() => {
+    if (!state.user) {
+      return new Set<string>();
+    }
+
+    return getJumpNodeIds({ ...state.user, completedNodeIds: completedNodeIds ?? [], activeSubscriptionId: subscriptionId }, selectedSection.topicId);
+  }, [completedNodeIds, subscriptionId, selectedSection]);
   const learnPath = useMemo(() => {
     const units: PathUnit[] = [];
     const chestStops = new Map<string, JourneyRewardStop>();
@@ -765,9 +816,8 @@ export default function TopicApp() {
     [currentLessonSession]
   );
 
-  const userStars = useMemo(() => {
-    return state.user ? COURSE.sections.reduce((total, item) => total + getSectionStars(state.user!, item), 0) : 0;
-  }, [state.user]);
+  // Each finished circle's best run, as its Lesson complete card showed it.
+  const userStars = useMemo(() => (state.user ? getTotalStars(state.user) : 0), [state.user]);
   const { notify, confirm, sheets: noticeSheets, open: noticeOpen } = useNotices({
     mascotVariant: selectedSection.mascot,
     accent: selectedSection.accentColor
@@ -874,7 +924,9 @@ export default function TopicApp() {
     dispatch({
       type: "apply_user",
       user: withExperienceDefaults(ensureLearnerProfile({
-        ...state.user,
+        // A finished review or daily challenge is a lesson too, so it starts or keeps the streak; the
+        // Level check only measures, like its XP.
+        ...(activeAssessment.mode === "placement" ? state.user : keepStreak(state.user)),
         foundationAssessmentSkipped: activeAssessment.mode === "placement" ? false : state.user.foundationAssessmentSkipped,
         learnerProfile: finalizedProfile,
         lastLearningAt: new Date().toISOString()
@@ -952,16 +1004,17 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
-  // LearnPath asks "Jump ahead?" first and calls this on START TEST. A "unit" plan finishes the unit's
-  // circles; a "jump" plan (a locked unit of a topic taught in order) finishes every circle before it.
-  // `attempt` counts the tries from 0: TRY AGAIN passes the next one, so the questions change.
-  async function startBranchTestOut(branchId: string, user = state.user, attempt = 0) {
+  // LearnPath asks "Jump ahead?" first and calls this on START TEST. A "unit" plan (the banner key)
+  // finishes the unit's circles; a "jump" plan finishes the circles before the one it opens: the JUMP HERE
+  // circle (`jumpNodeId`), or a locked unit's first circle. `attempt` counts the tries from 0: TRY AGAIN
+  // passes the next one, so the questions change.
+  async function startBranchTestOut(branchId: string, user = state.user, attempt = 0, jumpNodeId?: string) {
     if (!user) {
       return;
     }
 
     const testBranch = selectedSection.branches.find((branch) => branch.id === branchId) ?? selectedBranch;
-    const plan = getTestOutPlan(user, testBranch.id);
+    const plan = getTestOutPlan(user, testBranch.id, jumpNodeId);
 
     if (!plan && testBranch.premiumOnly && !user.activeSubscriptionId) {
       dispatch({ type: "open_shop", focus: "premium" });
@@ -974,7 +1027,7 @@ export default function TopicApp() {
     }
 
     if (isOutOfHearts(user)) {
-      openOutOfHearts(user, false, { kind: "test_out", unitId: testBranch.id, attempt });
+      openOutOfHearts(user, false, { kind: "test_out", unitId: testBranch.id, attempt, jumpNodeId });
       return;
     }
 
@@ -990,7 +1043,8 @@ export default function TopicApp() {
       lessons: plan.lessons,
       nodeIds: plan.nodeIds,
       heartsAtStart: activeUser.hearts.current,
-      attempt
+      attempt,
+      jumpNodeId: plan.jumpNodeId
     });
 
     challengeStartedAtRef.current = Date.now();
@@ -1033,7 +1087,8 @@ export default function TopicApp() {
         prompt: challenge.prompt,
         reviewNext: lessonSignal.reviewNext
       });
-      const heartAdjustedUser = correct ? state.user : loseHeart(state.user);
+      // A test-out miss only counts against its pass mark: no heart.
+      const heartAdjustedUser = correct ? state.user : loseHeart(state.user, state.activeSession);
       nextUser = withExperienceDefaults({
         ...heartAdjustedUser,
         learnerProfile: nextProfile,
@@ -1119,8 +1174,11 @@ export default function TopicApp() {
       return;
     }
 
+    // A test-out that can no longer be passed ends now, not after the questions it has left.
+    const testLost = state.activeSession.mode === "test_out" && isTestLost(state.activeSession, state.sessionMistakes);
+
     // The queue already holds a first-try miss that this answer sent to the end.
-    if (!isLastLessonStep(state.lessonQueue, state.stepIndex)) {
+    if (!testLost && !isLastLessonStep(state.lessonQueue, state.stepIndex)) {
       challengeStartedAtRef.current = Date.now();
       dispatch({ type: "next_challenge" });
       return;
@@ -1129,7 +1187,7 @@ export default function TopicApp() {
     if (state.activeSession.mode === "test_out") {
       const totalChallenges = state.activeSession.lesson.challenges.length;
       const passingScore = state.activeSession.passingScore ?? testOutPassingScore(totalChallenges);
-      const passed = state.sessionCorrectCount >= passingScore;
+      const passed = !testLost && state.sessionCorrectCount >= passingScore;
 
       if (!passed) {
         // The last question and its sheet close first, so the sad result never sits over a cheering
@@ -1139,10 +1197,12 @@ export default function TopicApp() {
         setTestOutResult({
           open: true,
           correct: state.sessionCorrectCount,
+          asked: state.sessionCorrectCount + state.sessionMistakes,
           total: totalChallenges,
           passingScore,
           unitId: state.activeSession.lesson.branchId ?? selectedBranch.id,
-          attempt: state.activeSession.attempt ?? 0
+          attempt: state.activeSession.attempt ?? 0,
+          jumpNodeId: state.activeSession.jumpNodeId
         });
         return;
       }
@@ -1152,7 +1212,7 @@ export default function TopicApp() {
         .filter(Boolean);
       const beforeNodes = learningApi.getPathNodes(user);
       const nextUser = withExperienceDefaults({
-        ...completeLessonCluster(user, clusterLessons, state.activeSession.lesson.xpReward),
+        ...completeLessonCluster(user, clusterLessons, state.activeSession.lesson.xpReward, lessonStars(state.sessionMistakes)),
         lastLearningAt: new Date().toISOString()
       });
       // The circle that is now next to play, not one the test just skipped.
@@ -1176,7 +1236,8 @@ export default function TopicApp() {
 
     const beforeNodes = learningApi.getPathNodes(user);
     const nextUser = withExperienceDefaults({
-      ...completeLesson(user, state.activeSession.lesson),
+      // The circle keeps its best stars; this run's are on the complete card.
+      ...completeLesson(user, state.activeSession.lesson, lessonStars(state.sessionMistakes)),
       lastLearningAt: new Date().toISOString()
     });
     const unlockedNode = findUnlockedNode(
@@ -1632,6 +1693,7 @@ export default function TopicApp() {
     setActiveAssessment(undefined);
     setPracticeResult(undefined);
     clearActiveAssessment();
+    clearPracticeResult();
     dispatch({ type: "apply_user", user: guestUser });
   }
 
@@ -1718,7 +1780,7 @@ export default function TopicApp() {
     } else if (sheet?.resume?.kind === "node") {
       void startLesson(sheet.resume.node, refilled);
     } else if (sheet?.resume?.kind === "test_out") {
-      void startBranchTestOut(sheet.resume.unitId, refilled, sheet.resume.attempt);
+      void startBranchTestOut(sheet.resume.unitId, refilled, sheet.resume.attempt, sheet.resume.jumpNodeId);
     }
   }
 
@@ -1753,7 +1815,7 @@ export default function TopicApp() {
     dispatch({ type: "reset_lesson" });
 
     if (again && result) {
-      void startBranchTestOut(result.unitId, state.user, result.attempt + 1);
+      void startBranchTestOut(result.unitId, state.user, result.attempt + 1, result.jumpNodeId);
     }
   }
 
@@ -1789,7 +1851,6 @@ export default function TopicApp() {
   const lessonAccent = currentLessonSection.accentColor;
   const lessonMascot = currentLessonSection.mascot;
   const lessonArabic = lesson ? getLessonArabic(lesson.nodeId, lesson.branchId ?? findNodeById(lesson.nodeId)?.branchId) : undefined;
-  const lessonSource = lesson?.sources[0];
   const lessonStep = state.lessonQueue[state.stepIndex];
   const challenge = lessonStep ? lesson?.challenges[lessonStep.index] : undefined;
   const correctLabel = challenge?.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
@@ -1812,7 +1873,7 @@ export default function TopicApp() {
   const continueEndsLesson =
     state.screen === "lesson_feedback" &&
     Boolean(lesson) &&
-    isLastLessonStep(state.lessonQueue, state.stepIndex) &&
+    (isLastLessonStep(state.lessonQueue, state.stepIndex) || (lessonSession?.mode === "test_out" && isTestLost(lessonSession, state.sessionMistakes))) &&
     !isOutOfHearts(state.user);
   const quitSheet = (
     <QuitSheet
@@ -1861,7 +1922,8 @@ export default function TopicApp() {
             topicId={selectedSection.topicId}
             mascotVariant={selectedSection.mascot}
             units={learnPath.units}
-            xpForNode={(node) => node.xpReward}
+            // What START really pays: the lesson's XP with its review bonus, nothing on a replay.
+            xpForNode={(node) => getNodeXp(node, learner)}
             onStartNode={(node) => void startLesson(node)}
             onClaimChest={(chest) => {
               const stop = learnPath.chestStops.get(chest.id);
@@ -1870,7 +1932,8 @@ export default function TopicApp() {
                 claimJourneyReward(stop);
               }
             }}
-            onTestOut={(unitId) => void startBranchTestOut(unitId)}
+            jumpNodeIds={jumpNodeIds}
+            onTestOut={(unitId, nodeId) => void startBranchTestOut(unitId, undefined, 0, nodeId)}
             onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
             onNextTopic={() => setTopicPickerVisible(true)}
           />
@@ -1881,15 +1944,16 @@ export default function TopicApp() {
             title={lesson.title}
             line={getLessonLine(lesson)}
             arabic={lessonArabic}
-            // NEW only for the lesson's own word, not its unit's word met on earlier circles.
-            isNewWord={Boolean(getNodeArabic(lesson.nodeId))}
+            // NEW only the first time the topic shows this word, not on its unit's word or a word met before.
+            isNewWord={isFirstUseOfWord(lesson.nodeId)}
             facts={lesson.learnFacts}
             // The questions ask about the narration or ayah, so the card shows it in full. When its
             // reference names the same narration as the source chip, LearnCard shows them as one.
             quote={lesson.quote}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
-            source={lessonSource ? { label: lessonSource.reference ?? lessonSource.title, url: lessonSource.url } : undefined}
+            // The chip is the one source that says what the card says, by its short reference; none, no chip.
+            learnSource={lesson.learnSource}
             onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
             onPlayAudio={lessonArabic ? () => speakArabic(lessonArabic.ar) : undefined}
             onContinue={continueFromTeach}
@@ -1899,6 +1963,7 @@ export default function TopicApp() {
           <OrderGame
             key={currentPracticeActivity.id}
             title={currentPracticeActivity.title}
+            prompt={currentPracticeActivity.prompt}
             options={currentPracticeActivity.options}
             correctOrderIds={currentPracticeActivity.correctOrderIds ?? currentPracticeActivity.options.map((option) => option.id)}
             mascotVariant={lessonMascot}
@@ -1988,6 +2053,7 @@ export default function TopicApp() {
           <PracticeComplete
             assessment={practiceResult.assessment}
             learnerProfile={practiceResult.profile}
+            playSounds={!practiceResult.restored}
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
             onContinue={closeAssessment}
@@ -2131,8 +2197,8 @@ export default function TopicApp() {
         />
         <ConfirmSheet
           visible={Boolean(testOutResult?.open)}
-          title={`${testOutResult?.correct ?? 0} of ${testOutResult?.total ?? 0} right`}
-          line={`Get ${testOutResult?.passingScore ?? 0} to jump ahead.`}
+          title={`${testOutResult?.correct ?? 0} of ${testOutResult?.asked ?? 0} right`}
+          line={`Get ${testOutResult?.passingScore ?? 0} of ${testOutResult?.total ?? 0} to jump ahead.`}
           confirmLabel="Try again"
           cancelLabel="Back"
           danger={false}
@@ -2161,6 +2227,11 @@ export default function TopicApp() {
       </PortalHost>
     </SafeAreaView>
   );
+}
+
+// A saved topic id the course still has, or undefined.
+function knownTopic(topicId: string | undefined): TopicId | undefined {
+  return COURSE.sections.find((section) => section.topicId === topicId)?.topicId;
 }
 
 // Whose practice session is saved: the account's email, or "guest".
@@ -2260,14 +2331,6 @@ function isBackendOfflineError(error: Error) {
   }
 
   return /fetch|network|timed out|load failed/i.test(error.message);
-}
-
-function getSectionStars(user: UserProfile, section: LearningSection) {
-  const completed = new Set(user.completedNodeIds);
-
-  return section.nodes.reduce((total, node) => {
-    return total + (completed.has(node.id) ? node.starsReward : 0);
-  }, 0);
 }
 
 // A test-out asks each question once: no free retry and no missed question asked again.

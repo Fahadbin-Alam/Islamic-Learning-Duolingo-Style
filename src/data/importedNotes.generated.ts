@@ -2921,10 +2921,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "requiredNodeIds": [
             "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maymunah-bint-al-harith"
           ],
-          "xpReward": 12,
+          "xpReward": 14,
           "starsReward": 3,
           "order": 5,
-          "difficulty": 2,
+          "difficulty": 3,
           "sourceReferences": [],
           "masteryState": "new",
           "masteryTestEligible": false
@@ -2963,10 +2963,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "requiredNodeIds": [
             "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sarah"
           ],
-          "xpReward": 14,
+          "xpReward": 16,
           "starsReward": 3,
           "order": 7,
-          "difficulty": 3,
+          "difficulty": 4,
           "sourceReferences": [],
           "masteryState": "new",
           "masteryTestEligible": false
@@ -3005,30 +3005,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "requiredNodeIds": [
             "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sayyida-nafisa"
           ],
-          "xpReward": 16,
-          "starsReward": 3,
-          "order": 9,
-          "difficulty": 4,
-          "sourceReferences": [],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
-          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_10",
-          "title": "Umm Anmar",
-          "topicId": "women_of_the_book",
-          "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
-          "kind": "story",
-          "lessonIds": [
-            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar"
-          ],
-          "requiredNodeIds": [
-            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umayma-bint-abd-al-muttalib"
-          ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 10,
+          "order": 9,
           "difficulty": 5,
           "sourceReferences": [],
           "masteryState": "new",
@@ -3075,14 +3054,14 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil",
+          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali",
           "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_3",
-          "title": "Umm Jamil",
+          "title": "Umm Kulthum bint Ali",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
           "kind": "story",
           "lessonIds": [
-            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil"
+            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali"
           ],
           "requiredNodeIds": [
             "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-habibah"
@@ -3096,29 +3075,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_4",
-          "title": "Umm Kulthum bint Ali",
-          "topicId": "women_of_the_book",
-          "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
-          "kind": "story",
-          "lessonIds": [
-            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali"
-          ],
-          "requiredNodeIds": [
-            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil"
-          ],
-          "xpReward": 12,
-          "starsReward": 3,
-          "order": 4,
-          "difficulty": 2,
-          "sourceReferences": [],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_5",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_4",
           "title": "Umm Sa'id bint Urwah ath-Thaqafiyyah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3129,17 +3087,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "requiredNodeIds": [
             "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali"
           ],
-          "xpReward": 14,
+          "xpReward": 12,
           "starsReward": 3,
-          "order": 5,
-          "difficulty": 3,
+          "order": 4,
+          "difficulty": 2,
           "sourceReferences": [],
           "masteryState": "new",
           "masteryTestEligible": false
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_6",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_5",
           "title": "Umm Salamah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3152,7 +3110,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 14,
           "starsReward": 3,
-          "order": 6,
+          "order": 5,
           "difficulty": 3,
           "sourceReferences": [],
           "masteryState": "new",
@@ -3160,7 +3118,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-ali",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_7",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_6",
           "title": "Zaynab bint Ali",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3173,7 +3131,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 7,
+          "order": 6,
           "difficulty": 4,
           "sourceReferences": [],
           "masteryState": "new",
@@ -3181,7 +3139,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-jahsh",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_8",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_7",
           "title": "Zaynab bint Jahsh",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3194,7 +3152,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 8,
+          "order": 7,
           "difficulty": 4,
           "sourceReferences": [],
           "masteryState": "new",
@@ -3202,7 +3160,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_9",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_8",
           "title": "Zaynab bint Khuzaymah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3215,7 +3173,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 9,
+          "order": 8,
           "difficulty": 5,
           "sourceReferences": [],
           "masteryState": "new",
@@ -7128,39 +7086,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       ],
       "nodes": [
         {
-          "id": "notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_1",
-          "title": "Faith and good character",
-          "topicId": "hadith",
-          "branchId": "notes-hadith-hadith-from-your-notes-1",
-          "kind": "skill",
-          "lessonIds": [
-            "lesson-notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084"
-          ],
-          "requiredNodeIds": [],
-          "xpReward": 18,
-          "starsReward": 3,
-          "order": 1,
-          "difficulty": 5,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_hadith_hadith_from_your_notes_1_jami_at_tirmidhi_1084_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Tirmidhi 1084",
-              "url": "https://sunnah.com/tirmidhi:1084",
-              "reference": "Tirmidhi 1084",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Reference attached in the notes (Tirmidhi 1084)."
-            }
-          ],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3096",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_2",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_1",
           "title": "Half of the religion",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-1",
@@ -7168,12 +7095,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "lessonIds": [
             "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3096"
           ],
-          "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084"
-          ],
+          "requiredNodeIds": [],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 2,
+          "order": 1,
           "difficulty": 4,
           "sourceReferences": [
             {
@@ -7193,7 +7118,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_3",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_2",
           "title": "Keep four",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-1",
@@ -7206,7 +7131,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 3,
+          "order": 2,
           "difficulty": 5,
           "sourceReferences": [
             {
@@ -7226,7 +7151,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-3276",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_4",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_3",
           "title": "Seek refuge with Allah",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-1",
@@ -7237,10 +7162,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "requiredNodeIds": [
             "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176"
           ],
-          "xpReward": 10,
+          "xpReward": 12,
           "starsReward": 3,
-          "order": 4,
-          "difficulty": 1,
+          "order": 3,
+          "difficulty": 2,
           "sourceReferences": [
             {
               "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_al_bukhari_3276_src_1",
@@ -7259,7 +7184,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-5066",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_5",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_4",
           "title": "Marriage or fasting",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-1",
@@ -7272,7 +7197,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 5,
+          "order": 4,
           "difficulty": 5,
           "sourceReferences": [
             {
@@ -7291,41 +7216,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_6",
-          "title": "The Dajjal's blind eye",
-          "topicId": "hadith",
-          "branchId": "notes-hadith-hadith-from-your-notes-1",
-          "kind": "skill",
-          "lessonIds": [
-            "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407"
-          ],
-          "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-5066"
-          ],
-          "xpReward": 14,
-          "starsReward": 3,
-          "order": 6,
-          "difficulty": 3,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_al_bukhari_7407_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Bukhari 7407",
-              "url": "https://sunnah.com/bukhari:7407",
-              "reference": "Bukhari 7407",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Reference attached in the notes (Bukhari 7407)."
-            }
-          ],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_7",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_5",
           "title": "Hold on to Allah's Book",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-1",
@@ -7334,12 +7226,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a"
           ],
           "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407"
+            "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-5066"
           ],
-          "xpReward": 12,
+          "xpReward": 10,
           "starsReward": 3,
-          "order": 7,
-          "difficulty": 2,
+          "order": 5,
+          "difficulty": 1,
           "sourceReferences": [
             {
               "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_src_1",
@@ -7368,105 +7260,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_8",
-          "title": "I believe in Allah",
-          "topicId": "hadith",
-          "branchId": "notes-hadith-hadith-from-your-notes-1",
-          "kind": "skill",
-          "lessonIds": [
-            "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a"
-          ],
-          "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a"
-          ],
-          "xpReward": 10,
-          "starsReward": 3,
-          "order": 8,
-          "difficulty": 1,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_134a_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Muslim 134a",
-              "url": "https://sunnah.com/muslim:134a",
-              "reference": "Muslim 134a",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Reference attached in the notes (Muslim 134a)."
-            }
-          ],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
-          "id": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_9",
-          "title": "Advice to young men",
-          "topicId": "hadith",
-          "branchId": "notes-hadith-hadith-from-your-notes-1",
-          "kind": "skill",
-          "lessonIds": [
-            "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a"
-          ],
-          "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a"
-          ],
-          "xpReward": 18,
-          "starsReward": 3,
-          "order": 9,
-          "difficulty": 5,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1400a_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Muslim 1400a",
-              "url": "https://sunnah.com/muslim:1400a",
-              "reference": "Muslim 1400a",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Reference attached in the notes (Muslim 1400a)."
-            }
-          ],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
-          "id": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_10",
-          "title": "A warning about the Dajjal",
-          "topicId": "hadith",
-          "branchId": "notes-hadith-hadith-from-your-notes-1",
-          "kind": "skill",
-          "lessonIds": [
-            "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e"
-          ],
-          "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a"
-          ],
-          "xpReward": 14,
-          "starsReward": 3,
-          "order": 10,
-          "difficulty": 3,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_169e_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Muslim 169e",
-              "url": "https://sunnah.com/muslim:169e",
-              "reference": "Muslim 169e",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Reference attached in the notes (Muslim 169e)."
-            }
-          ],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
           "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-2_1",
           "title": "Iblis and his troops",
@@ -7477,10 +7270,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b"
           ],
           "requiredNodeIds": [],
-          "xpReward": 14,
+          "xpReward": 18,
           "starsReward": 3,
           "order": 1,
-          "difficulty": 3,
+          "difficulty": 5,
           "sourceReferences": [
             {
               "id": "lesson_notes_hadith_hadith_from_your_notes_2_sahih_muslim_2813b_src_1",
@@ -7500,7 +7293,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a",
           "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-2_2",
-          "title": "Ibn Sayyad and the Dajjal",
+          "title": "Every prophet warned",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-2",
           "kind": "skill",
@@ -7531,41 +7324,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-2_3",
-          "title": "Every prophet warned",
-          "topicId": "hadith",
-          "branchId": "notes-hadith-hadith-from-your-notes-2",
-          "kind": "skill",
-          "lessonIds": [
-            "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a"
-          ],
-          "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a"
-          ],
-          "xpReward": 14,
-          "starsReward": 3,
-          "order": 3,
-          "difficulty": 3,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_hadith_hadith_from_your_notes_2_sahih_muslim_2933a_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Muslim 2933a",
-              "url": "https://sunnah.com/muslim:2933a",
-              "reference": "Muslim 2933a",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Reference attached in the notes (Muslim 2933a)."
-            }
-          ],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-hadith-hadith-from-your-notes-2-sunan-an-nasai-3227",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-2_4",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-2_3",
           "title": "Choosing a wife",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-2",
@@ -7574,11 +7334,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             "lesson-notes-hadith-hadith-from-your-notes-2-sunan-an-nasai-3227"
           ],
           "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a"
+            "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a"
           ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 4,
+          "order": 3,
           "difficulty": 5,
           "sourceReferences": [
             {
@@ -7598,7 +7358,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-hadith-hadith-from-your-notes-2-sunan-ibn-majah-1855",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-2_5",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-2_4",
           "title": "A righteous wife",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-2",
@@ -7611,7 +7371,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 5,
+          "order": 4,
           "difficulty": 4,
           "sourceReferences": [
             {
@@ -7633,99 +7393,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
     }
   ],
   "lessonsById": {
-    "lesson-notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084": {
-      "id": "lesson-notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084",
-      "nodeId": "notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084",
-      "branchId": "notes-hadith-hadith-from-your-notes-1",
-      "title": "Faith and good character",
-      "intro": "Abu Hurairah narrated that: The Messenger of Allah said: \"When someone whose religion and character you are pleased with proposes to (someone under the care) of one of you, then marry to him.",
-      "explanationContent": "Abu Hurairah narrated that: The Messenger of Allah said: \"When someone whose religion and character you are pleased with proposes to (someone under the care) of one of you, then marry to him. If you do not do so, then there will be turmoil (Fitnah) in the land and abounding discord (Fasad).\" Grade: Da'if (Darussalam)",
-      "learnLine": "If a man of good faith and manners proposes, accept him.",
-      "quote": {
-        "text": "When someone whose religion and character you are pleased with proposes to (someone under the care) of one of you, then marry to him.",
-        "reference": "Jami' at-Tirmidhi 1084 (Da'if, Darussalam)"
-      },
-      "lessonType": "skill",
-      "difficulty": 5,
-      "xpReward": 18,
-      "sources": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_jami_at_tirmidhi_1084_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Tirmidhi 1084",
-          "url": "https://sunnah.com/tirmidhi:1084",
-          "reference": "Tirmidhi 1084",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Tirmidhi 1084)."
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_jami_at_tirmidhi_1084_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Tirmidhi 1084",
-          "url": "https://sunnah.com/tirmidhi:1084",
-          "reference": "Tirmidhi 1084",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Tirmidhi 1084)."
-        }
-      ],
-      "unlockRules": [],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084_q1",
-          "type": "multiple_choice",
-          "prompt": "What should we look for when a man proposes?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "A famous name"
-            },
-            {
-              "id": "b",
-              "label": "Good faith and character"
-            },
-            {
-              "id": "c",
-              "label": "Lots of money"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Marry to the one whose religion and character you are pleased with.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/tirmidhi:1084"
-        },
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084_q2",
-          "type": "true_false",
-          "prompt": "This hadith says to look only at a man's wealth.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "It points to his religion and character.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-jami-at-tirmidhi-1084",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/tirmidhi:1084"
-        }
-      ]
-    },
     "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3096": {
       "id": "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3096",
       "nodeId": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3096",
@@ -7737,6 +7404,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "When a man marries he has fulfilled half of the religion; so let him fear God regarding the remaining half.",
         "reference": "Mishkat al-Masabih 3096"
+      },
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_1_mishkat_al_masabih_3096_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Mishkat al-Masabih 3096",
+        "url": "https://sunnah.com/mishkat:3096",
+        "reference": "Mishkat al-Masabih 3096",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Mishkat al-Masabih 3096"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -7767,9 +7445,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "summary": "Reference attached in the notes (Mishkat 3096)."
         }
       ],
-      "unlockRules": [
-        "Complete Faith and good character"
-      ],
+      "unlockRules": [],
       "masteryState": "learning",
       "masteryTestEligible": false,
       "challenges": [
@@ -7826,12 +7502,19 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
       "branchId": "notes-hadith-hadith-from-your-notes-1",
       "title": "Keep four",
-      "intro": "Ibn ‘Umar told that Ghailan b. Salama ath-Thaqafi accepted Islam and that he had had ten wives in the pre-Islamic period who accepted Islam along with him; so the Prophet told him to keep four and separate from the rest of them.",
-      "explanationContent": "Ibn ‘Umar told that Ghailan b. Salama ath-Thaqafi accepted Islam and that he had had ten wives in the pre-Islamic period who accepted Islam along with him; so the Prophet told him to keep four and separate from the rest of them.",
+      "intro": "Ghaylan became Muslim with ten wives and was told to keep four.",
+      "explanationContent": "Ghaylan became Muslim with ten wives and was told to keep four.",
       "learnLine": "Ghaylan became Muslim with ten wives and was told to keep four.",
-      "quote": {
-        "text": "Ibn ‘Umar told that Ghailan b. Salama ath-Thaqafi accepted Islam and that he had had ten wives in the pre-Islamic period who accepted Islam along with him; so the Prophet told him to keep four and separate from the rest of them.",
-        "reference": "Mishkat al-Masabih 3176"
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_1_mishkat_al_masabih_3176_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Mishkat al-Masabih 3176",
+        "url": "https://sunnah.com/mishkat:3176",
+        "reference": "Mishkat al-Masabih 3176",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Mishkat al-Masabih 3176"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -7896,7 +7579,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176_q2",
           "type": "true_false",
-          "prompt": "Ghaylan's wives accepted Islam along with him.",
+          "prompt": "Ghaylan was told to keep all ten of his wives.",
           "choices": [
             {
               "id": "true",
@@ -7907,8 +7590,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "label": "False"
             }
           ],
-          "correctChoiceId": "true",
-          "explanation": "His ten wives accepted Islam along with him.",
+          "correctChoiceId": "false",
+          "explanation": "The Prophet ﷺ told him to keep four.",
           "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
           "resourceLabel": "Open source",
@@ -7928,9 +7611,20 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "text": "So, when he inspires such a question, one should seek refuge with Allah and give up such thoughts.",
         "reference": "Sahih al-Bukhari 3276"
       },
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_al_bukhari_3276_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Sahih al-Bukhari 3276",
+        "url": "https://sunnah.com/bukhari:3276",
+        "reference": "Sahih al-Bukhari 3276",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Sahih al-Bukhari 3276"
+      },
       "lessonType": "skill",
-      "difficulty": 1,
-      "xpReward": 10,
+      "difficulty": 2,
+      "xpReward": 12,
       "sources": [
         {
           "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_al_bukhari_3276_src_1",
@@ -7991,7 +7685,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-3276_q2",
           "type": "true_false",
-          "prompt": "In this hadith, Shaytan is the one who brings the bad question.",
+          "prompt": "Shaytan is the one who whispers bad questions.",
           "choices": [
             {
               "id": "true",
@@ -8016,9 +7710,20 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-5066",
       "branchId": "notes-hadith-hadith-from-your-notes-1",
       "title": "Marriage or fasting",
-      "intro": "Narrated `Abdullah: We were with the Prophet (ﷺ) while we were young and had no wealth.",
-      "explanationContent": "Narrated `Abdullah: We were with the Prophet (ﷺ) while we were young and had no wealth. So Allah's Messenger (ﷺ) said, \"O young people! Whoever among you can marry, should marry, because it helps him lower his gaze and guard his modesty (i.e. his private parts from committing illegal sexual intercourse etc.), and whoever is not able to marry, should fast, as fasting diminishes his sexual power.\"",
+      "intro": "Young people who can marry should marry; others should fast.",
+      "explanationContent": "Young people who can marry should marry; others should fast.",
       "learnLine": "Young people who can marry should marry; others should fast.",
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_al_bukhari_5066_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Sahih al-Bukhari 5066",
+        "url": "https://sunnah.com/bukhari:5066",
+        "reference": "Sahih al-Bukhari 5066",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Sahih al-Bukhari 5066"
+      },
       "lessonType": "skill",
       "difficulty": 5,
       "xpReward": 18,
@@ -8082,7 +7787,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-5066_q2",
           "type": "multiple_choice",
-          "prompt": "Who was the Prophet ﷺ speaking to here?",
+          "prompt": "Who did the Prophet ﷺ tell to marry, or else to fast?",
           "choices": [
             {
               "id": "a",
@@ -8106,120 +7811,32 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ]
     },
-    "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407": {
-      "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407",
-      "nodeId": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407",
-      "branchId": "notes-hadith-hadith-from-your-notes-1",
-      "title": "The Dajjal's blind eye",
-      "intro": "Narrated `Abdullah: Ad-Dajjal was mentioned in the presence of the Prophet.",
-      "explanationContent": "Narrated `Abdullah: Ad-Dajjal was mentioned in the presence of the Prophet. The Prophet (ﷺ) said, \"Allah is not hidden from you; He is not one-eyed,\" and pointed with his hand towards his eye, adding, \"While Al-Masih Ad-Dajjal is blind in the right eye and his eye looks like a protruding grape.\"",
-      "learnLine": "The Dajjal is blind in his right eye; Allah is not one-eyed.",
-      "quote": {
-        "text": "The Prophet (ﷺ) said, \"Allah is not hidden from you; He is not one-eyed,\" and pointed with his hand towards his eye, adding, \"While Al-Masih Ad-Dajjal is blind in the right eye and his eye looks like a protruding grape.\"",
-        "reference": "Sahih al-Bukhari 7407"
-      },
-      "lessonType": "skill",
-      "difficulty": 3,
-      "xpReward": 14,
-      "sources": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_al_bukhari_7407_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Bukhari 7407",
-          "url": "https://sunnah.com/bukhari:7407",
-          "reference": "Bukhari 7407",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Bukhari 7407)."
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_al_bukhari_7407_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Bukhari 7407",
-          "url": "https://sunnah.com/bukhari:7407",
-          "reference": "Bukhari 7407",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Bukhari 7407)."
-        }
-      ],
-      "unlockRules": [
-        "Complete Marriage or fasting"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407_q1",
-          "type": "multiple_choice",
-          "prompt": "Which eye of the Dajjal is blind?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Neither eye"
-            },
-            {
-              "id": "b",
-              "label": "The right eye"
-            },
-            {
-              "id": "c",
-              "label": "The left eye"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Ad-Dajjal is blind in the right eye.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/bukhari:7407"
-        },
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407_q2",
-          "type": "multiple_choice",
-          "prompt": "What does the Dajjal's eye look like?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "A star"
-            },
-            {
-              "id": "b",
-              "label": "A pearl"
-            },
-            {
-              "id": "c",
-              "label": "A grape"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "His eye looks like a protruding grape.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-7407",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/bukhari:7407"
-        }
-      ]
-    },
     "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a": {
       "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a",
       "nodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a",
       "branchId": "notes-hadith-hadith-from-your-notes-1",
       "title": "Hold on to Allah's Book",
-      "intro": "Ja'far b Muhammad reported on the authority of his father: We went to Jabir b. Abdullah and he began inquiring about the people (who had gone to see him) till it was my turn.",
-      "explanationContent": "Ja'far b Muhammad reported on the authority of his father: We went to Jabir b. Abdullah and he began inquiring about the people (who had gone to see him) till it was my turn. I said: I am Muhammad b. 'Ali b. Husain. He placed his hand upon my head and opened my upper button and then the lower one and then placed his palm on my chest (in order to bless me), and I was, during those days, a young boy, and he said: You are welcome, my nephew. Ask whatever you want to ask. And I asked him but as he was blind (he could not respond to me immediately), and the time for prayer came. He stood up covering himself in his mantle. And whenever he placed its ends upon his shoulders they slipped down on account of being short (in size). Another mantle was, however, lying on the clothes rack near by. And he led us in the prayer. I said to him: Tell me about the Hajj of Allah's Messenger (May peace be upon him). And he pointed with his hand nine, and then stated: The Messenger of Allah (ﷺ) stayed in (Medina) for nine years but did not perform Hajj, then he made a public announcement in the tenth year to the effect that Allah's Messenger (ﷺ) was about to perform the Hajj. A large number of persons came to Medina and all of them were anxious to follow the Messenger of Allah (May peace be upon him) and do according to his doing. We set out with him till we reached Dhu'l-Hulaifa. Asma' daughter of Umais gave birth to Muhammad b. Abu Bakr. She sent message to the Messenger of Allah (May peace be upon him) asking him: What should 1 do? He (the Holy Prophet) said: Take a bath, bandage your private parts and put on Ihram. The Messenger of Allah (May peace be upon him) then prayed in the mosque and then mounted al-Qaswa (his she-camel) and it stood erect with him on its back at al-Baida'. And I saw as far as I could see in front of me but riders and pedestrians, and also on my right and on my left and behind me like this. And the Messenger of Allah (ﷺ) was prominent among us and the (revelation) of the Holy Qur'an was descending upon him. And it is he who knows (its true) significance. And whatever he did, we also did that. He pronounced the Oneness of Allah (saying): \" Labbaik, O Allah, Labbaik, Labbaik. Thou hast no partner, praise and grace is Thine and the Sovereignty too; Thou hast no partner.\" And the people also pronounced this Talbiya which they pronounce (today). The Messenger of Allah (May peace be upon him) did not reject anything out of it. But the Messenger of Allah (May peace. be upon him) adhered to his own Talbiya. Jabir (Allah be pleased with him) said: We did not have any other intention but that of Hajj only, being unaware of the Umra (at that season), but when we came with him to the House, he touched the pillar and (made seven circuits) running three of them and walking four. And then going to the Station of Ibrahim, he recited: \" And adopt the Station of Ibrahim as a place of prayer.\" And this Station was between him and the House. My father said (and I do not know whether he had made a mention of it but that was from Allah's Apostle [May peace be upon him] that he recited in two rak'ahs: \" say: He is Allah One,\" and say: \" Say: O unbelievers.\" He then returned to the pillar (Hajar Aswad) and kissed it. He then went out of the gate to al-Safa' and as he reached near it he recited: \" Al-Safa' and al-Marwa are among the signs appointed by Allah,\" (adding: ) I begin with what Allah (has commanded me) to begin. He first mounted al-Safa' till he saw the House, and facing Qibla he declared the Oneness of Allah and glorified Him, and said: \" There is no god but Allah, One, there is no partner with Him. His is the Sovereignty. to Him praise is due. and He is Powerful over everything. There is no god but Allah alone, Who fulfilled His promise, helped His servant and routed the confederates alone.\" He then made supplication in the course of that saying such words three times. He then descended and walked towards al-Marwa, and when his feet came down in the bottom of the valley, he ran, and when he began to ascend he walked till he reached al-Marwa. There he did as he had done at al-Safa'. And when it was his last running at al-Marwa he said: If I had known beforehand what I have come to know afterwards, I would not have brought sacrificial animals and would have performed an 'Umra. So, he who among you has not the sacrificial animals with him should put off Ihram and treat it as an Umra. Suraqa b. Malik b. Ju'sham got up and said: Messenger of Allah, does it apply to the present year, or does it apply forever? Thereupon the Messenger of Allah (May peace be upon him) intertwined the fingers (of one hand) into another and said twice: The 'Umra has become incorporated in the Hajj (adding): \" No, but for ever and ever.\" 'All came from the Yemen with the sacrificial animals for the Prophet (May peace be upon him) and found Fatimah (Allah be pleased with her) to be one among those who had put off Ihram and had put on dyed clothes and had applied antimony. He (Hadrat'Ali) showed disapproval to it, whereupon she said: My father has commanded me to do this. He (the narrator) said that 'Ali used to say in Iraq: I went to the Messenger of Allah (ﷺ) showing annoyance at Fatimah for what she had done, and asked the (verdict) of Allah's Messenger (ﷺ) regarding what she had narrated from him, and told him that I was angry with her, whereupon he said: She has told the truth, she has told the truth. (The Prophet then asked 'Ali): What did you say when you undertook to go for Hajj? I ('Ali) said: O Allah, I am putting on Ihram for the same purpose as Thy Messenger has put it on. He said: I have with me sacrificial animals, so do not put off the Ihram. He (Jabir) said: The total number of those sacrificial animals brought by 'Ali from the Yemen and of those brought by the Apostle (ﷺ) was one hundred. Then all the people except the Apostle (ﷺ) and those who had with them sacrificial animals, put off Ihram, and got their hair clipped; when it was the day of Tarwiya (8th of Dhu'l-Hijja) they went to Mina and put on the Ihram for Hajj and the Messenger of Ailah (ﷺ) rode and led the noon, afternoon, sunset 'Isha' and dawn prayers. He then waited a little till the sun rose, and commanded that a tent of hair should be pitched at Namira. The Messenger of Allah (ﷺ) then set out and the Quraish did not doubt that he would halt at al-Mash'ar al-Haram (the sacred site) as the Quraish used to do in the pre-Islamic period. The Messenger of Allah (ﷺ), however, passed on till he came to 'Arafa and he found that the tent had been pitched for him at Namira. There he got down till the sun had passed the meridian; he commanded that al-Qaswa should be brought and saddled for him. Then he came to the bottom of the valley, and addressed the people saying: Verily your blood, your property are as sacred and inviolable as the sacredness of this day of yours, in this month of yours, in this town of yours. Behold! Everything pertaining to the Days of Ignorance is under my feet completely abolished. Abolished are also the blood-revenges of the Days of Ignorance. The first claim of ours on blood-revenge which I abolish is that of the son of Rabi'a b. al-Harith, who was nursed among the tribe of Sa'd and killed by Hudhail. And the usury of she pre-Islamic period is abolished, and the first of our usury I abolish is that of 'Abbas b. 'Abd al-Muttalib, for it is all abolished. Fear Allah concerning women! Verily you have taken them on the security of Allah, and intercourse with them has been made lawful unto you by words of Allah. You too have right over them, and that they should not allow anyone to sit on your bed whom you do not like. But if they do that, you can chastise them but not severely. Their rights upon you are that you should provide them with food and clothing in a fitting manner. I have left among you the Book of Allah, and if you hold fast to it, you would never go astray. And you would be asked about me (on the Day of Resurrection), (now tell me) what would you say? They (the audience) said: We will bear witness that you have conveyed (the message), discharged (the ministry of Prophethood) and given wise (sincere) counsel. He (the narrator) said: He (the Holy Prophet) then raised his forefinger towards the sky and pointing it at the people (said): \" O Allah, be witness. O Allah, be witness,\" saying it thrice. (Bilal then) pronounced Adhan and later on Iqama and he (the Holy Prophet) led the noon prayer. He (Bilal) then uttered Iqama and he (the Holy Prophet) led the afternoon prayer and he observed no other prayer in between the two. The Messenger of Allah (ﷺ) then mounted his camel and came to the place of stay, making his she-camel al-Qaswa, turn towards the side where there we are rocks, having the path taken by those who went on foot in front of him, and faced the Qibla. He kept standing there till the sun set, and the yellow light had somewhat gone, and the disc of the sun had disappeared. He made Usama sit behind him, and he pulled the nosestring of Qaswa so forcefully that its head touched the saddle (in order to keep her under perfect control), and he pointed out to the people with his right hand to be moderate (in speed), and whenever he happened to pass over an elevated tract of sand, he slightly loosened it (the nose-string of his camel) till she climbed up and this is how he reached al-Muzdalifa. There he led the evening and 'Isha prayers with one Adhan and two Iqamas and did not glorify (Allah) in between them (i. e. he did not observe supererogatory rak'ahs between Maghrib and 'Isha' prayers). The Messenger of Allah (ﷺ) then lay down till dawn and offered the dawn prayer with an Adhan and Iqama when the morning light was clear. He again mounted al-Qaswa, and when he came to al-Mash'ar al-Haram, he faced towards Qibla, supplicated Him, Glorified Him, and pronounced His Uniqueness (La ilaha illa Allah) and Oneness, and kept standing till the daylight was very clear. He then went quickly before the sun rose, and seated behind him was al-Fadl b. 'Abbas and he was a man having beautiful hair and fair complexion and handsome face. As the Messenger of Allah (May peace be upon him) was moving on, there was also going a group of women (side by side with them). Al-Fadl began to look at them. The Messenger of Allah (ﷺ) placed his hand on the face of Fadl who then turned his face to the other side, and began to see, and the Messenger of Allah (ﷺ) turned his hand to the other side and placed it on the face of al-Fadl. He again turned his face to the other side till he came to the bottom of Muhassir. 1680 He urged her (al-Qaswa) a little, and, following the middle road, which comes out at the greatest jamra, he came to the jamra which is near the tree. At this be threw seven small pebbles, saying Allah-o-Akbar while throwing every one of them in a manner in which the small pebbles are thrown (with the help of fingers) and this he did in the bottom of the valley. He then went to the place of sacrifice, and sacrificed sixty-three (camels) with his own hand. Then he gave the remaining number to 'All who sacrificed them, and he shared him in his sacrifice. He then commanded that a piece of flesh from each animal sacrificed should be put in a pot, and when it was cooked, both of them (the Prophet and Hadrat 'All) took some meat out of it and drank its soup. The Messenger of Allah (May peace be upon him) again rode and came to the House, and offered the Zuhr prayer at Mecca. He came to the tribe of Abd al-Muttalib, who were supplying water at Zamzam, and said: Draw water. O Bani 'Abd al-Muttalib; were it not that people would usurp this right of supplying water from you, I would have drawn it along with you. So they handed him a basket and he drank from it.",
+      "intro": "I have left among you the Book of Allah, and if you hold fast to it, you would never go astray.",
+      "explanationContent": "I have left among you the Book of Allah, and if you hold fast to it, you would never go astray.",
       "learnLine": "On Hajj, the Prophet ﷺ said: hold on to Allah's Book.",
       "quote": {
         "text": "I have left among you the Book of Allah, and if you hold fast to it, you would never go astray.",
         "reference": "Sahih Muslim 1218a"
       },
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Sahih Muslim 1218a",
+        "url": "https://sunnah.com/muslim:1218a",
+        "reference": "Sahih Muslim 1218a",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Sahih Muslim 1218a"
+      },
       "lessonType": "skill",
-      "difficulty": 2,
-      "xpReward": 12,
+      "difficulty": 1,
+      "xpReward": 10,
       "sources": [
         {
           "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_src_1",
@@ -8269,7 +7886,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ],
       "unlockRules": [
-        "Complete The Dajjal's blind eye"
+        "Complete Marriage or fasting"
       ],
       "masteryState": "learning",
       "masteryTestEligible": false,
@@ -8302,7 +7919,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a_q2",
           "type": "multiple_choice",
-          "prompt": "Where was the Prophet ﷺ when he said this?",
+          "prompt": "Where was the Prophet ﷺ when he told us to hold on to Allah's Book?",
           "choices": [
             {
               "id": "a",
@@ -8326,295 +7943,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ]
     },
-    "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a": {
-      "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a",
-      "nodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a",
-      "branchId": "notes-hadith-hadith-from-your-notes-1",
-      "title": "I believe in Allah",
-      "intro": "It is narrated on the authority of Abu Huraira that the Messenger of Allah (ﷺ) said: Men will continue to question one another till this is propounded: Allah created all things but who created Allah?",
-      "explanationContent": "It is narrated on the authority of Abu Huraira that the Messenger of Allah (ﷺ) said: Men will continue to question one another till this is propounded: Allah created all things but who created Allah? He who found himself confronted with such a situation should say: I affirm my faith in Allah.",
-      "learnLine": "If you wonder who created Allah, say: I believe in Allah.",
-      "quote": {
-        "text": "He who found himself confronted with such a situation should say: I affirm my faith in Allah.",
-        "reference": "Sahih Muslim 134a"
-      },
-      "lessonType": "skill",
-      "difficulty": 1,
-      "xpReward": 10,
-      "sources": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_134a_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Muslim 134a",
-          "url": "https://sunnah.com/muslim:134a",
-          "reference": "Muslim 134a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Muslim 134a)."
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_134a_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Muslim 134a",
-          "url": "https://sunnah.com/muslim:134a",
-          "reference": "Muslim 134a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Muslim 134a)."
-        }
-      ],
-      "unlockRules": [
-        "Complete Hold on to Allah's Book"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a_q1",
-          "type": "multiple_choice",
-          "prompt": "What should you say when someone asks who created Allah?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "I affirm my faith in Allah"
-            },
-            {
-              "id": "b",
-              "label": "Let's keep arguing"
-            },
-            {
-              "id": "c",
-              "label": "I don't care"
-            }
-          ],
-          "correctChoiceId": "a",
-          "explanation": "The Prophet ﷺ taught us to say: I affirm my faith in Allah.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:134a"
-        },
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a_q2",
-          "type": "true_false",
-          "prompt": "This hadith tells us to keep asking who created Allah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "It tells us to stop and say: I affirm my faith in Allah.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-134a",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:134a"
-        }
-      ]
-    },
-    "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a": {
-      "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a",
-      "nodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a",
-      "branchId": "notes-hadith-hadith-from-your-notes-1",
-      "title": "Advice to young men",
-      "intro": "'Alqama reported: While I was walking with 'Abdullah at Mina, 'Uthman happened to meet him.",
-      "explanationContent": "'Alqama reported: While I was walking with 'Abdullah at Mina, 'Uthman happened to meet him. He stopped there and began to talk with him. Uthman said to him: Abu 'Abd al-Rahman, should we not marry you to a young girl who may recall to you some of the past of your bygone days; thereupon he said: If you say so, Allah's Messenger (ﷺ) said: O young men, those among you who can support a wife should marry, for it restrains eyes from casting (evil glances). and preserves one from immorality; but those who cannot should devote themselves to fasting for it is a means of controlling sexual desire.",
-      "learnLine": "Young men who can support a wife should marry; others should fast.",
-      "lessonType": "skill",
-      "difficulty": 5,
-      "xpReward": 18,
-      "sources": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1400a_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Muslim 1400a",
-          "url": "https://sunnah.com/muslim:1400a",
-          "reference": "Muslim 1400a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Muslim 1400a)."
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1400a_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Muslim 1400a",
-          "url": "https://sunnah.com/muslim:1400a",
-          "reference": "Muslim 1400a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Muslim 1400a)."
-        }
-      ],
-      "unlockRules": [
-        "Complete I believe in Allah"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a_q1",
-          "type": "multiple_choice",
-          "prompt": "What should young men who cannot support a wife do?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Travel far"
-            },
-            {
-              "id": "b",
-              "label": "Sleep more"
-            },
-            {
-              "id": "c",
-              "label": "Fast"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "Those who cannot should devote themselves to fasting.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:1400a"
-        },
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a_q2",
-          "type": "multiple_choice",
-          "prompt": "Who should marry, says this hadith?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Nobody at all"
-            },
-            {
-              "id": "b",
-              "label": "Young men who can support a wife"
-            },
-            {
-              "id": "c",
-              "label": "Only old men"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Those among you who can support a wife should marry.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1400a",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:1400a"
-        }
-      ]
-    },
-    "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e": {
-      "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e",
-      "nodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e",
-      "branchId": "notes-hadith-hadith-from-your-notes-1",
-      "title": "A warning about the Dajjal",
-      "intro": "Ibn Umar reported that Allah's Messenger (ﷺ).",
-      "explanationContent": "Ibn Umar reported that Allah's Messenger (ﷺ). made a mention of Dajjal in the presence of the people and said: Allah is not one-eyed and behold that Dajjal is blind of the right eye and his eye would be like a floating grape.",
-      "learnLine": "The Prophet ﷺ warned people about the Dajjal and his blind eye.",
-      "quote": {
-        "text": "Allah is not one-eyed and behold that Dajjal is blind of the right eye and his eye would be like a floating grape.",
-        "reference": "Sahih Muslim 169e"
-      },
-      "lessonType": "skill",
-      "difficulty": 3,
-      "xpReward": 14,
-      "sources": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_169e_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Muslim 169e",
-          "url": "https://sunnah.com/muslim:169e",
-          "reference": "Muslim 169e",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Muslim 169e)."
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_169e_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Muslim 169e",
-          "url": "https://sunnah.com/muslim:169e",
-          "reference": "Muslim 169e",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Muslim 169e)."
-        }
-      ],
-      "unlockRules": [
-        "Complete Advice to young men"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e_q1",
-          "type": "multiple_choice",
-          "prompt": "Who did the Prophet ﷺ warn the people about?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "The Dajjal"
-            },
-            {
-              "id": "b",
-              "label": "A wild lion"
-            },
-            {
-              "id": "c",
-              "label": "A bad storm"
-            }
-          ],
-          "correctChoiceId": "a",
-          "explanation": "He spoke about the Dajjal in front of the people.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:169e"
-        },
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e_q2",
-          "type": "multiple_choice",
-          "prompt": "The Dajjal's eye is like a floating what?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Star"
-            },
-            {
-              "id": "b",
-              "label": "Ball"
-            },
-            {
-              "id": "c",
-              "label": "Grape"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "His eye would be like a floating grape.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-169e",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:169e"
-        }
-      ]
-    },
     "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b": {
       "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
       "nodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
@@ -8627,9 +7955,20 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "text": "Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension.",
         "reference": "Sahih Muslim 2813b"
       },
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_2_sahih_muslim_2813b_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Sahih Muslim 2813b",
+        "url": "https://sunnah.com/muslim:2813b",
+        "reference": "Sahih Muslim 2813b",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Sahih Muslim 2813b"
+      },
       "lessonType": "skill",
-      "difficulty": 3,
-      "xpReward": 14,
+      "difficulty": 5,
+      "xpReward": 18,
       "sources": [
         {
           "id": "lesson_notes_hadith_hadith_from_your_notes_2_sahih_muslim_2813b_src_1",
@@ -8716,13 +8055,24 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a",
       "nodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a",
       "branchId": "notes-hadith-hadith-from-your-notes-2",
-      "title": "Ibn Sayyad and the Dajjal",
+      "title": "Every prophet warned",
       "intro": "'Abdullah b. Umar reported: 'Umar b. Khattab went along with Allah's Messenger (ﷺ) in the company of some persons to Ibn Sayyad that he found him playing with children near the battlement of Bani Maghala and Ibn Sayyad was at that time just at the threshold of adolescence and he did not perceive...",
       "explanationContent": "'Abdullah b. Umar reported: 'Umar b. Khattab went along with Allah's Messenger (ﷺ) in the company of some persons to Ibn Sayyad that he found him playing with children near the battlement of Bani Maghala and Ibn Sayyad was at that time just at the threshold of adolescence and he did not perceive (the presence of Holy Prophet) until Allah's Messenger (ﷺ) struck his back with his hands. Allah's Messenger (ﷺ) said: Ibn Sayyad, don't you bear witness that I am the messenger of Allah? Ibn Sayyad looked toward him and he said: I bear witness to the fact that you the messenger of the unlettered. Ibn Sayyad said to the Allah's Messenger (ﷺ): Do you bear witness to the fact that I am the messenger of Allah? Allah's Messenger (ﷺ) rejected this and said: I affirm my faith in Allah and in His messengers. Then Allah's Messenger (ﷺ) said to him: What do you see? Ibn Sayyad said: It is a Dukh. Thereupon Allah's Messenger (ﷺ) said: May you be disgraced and dishonoured, you would not not be able to go beyond your rank. 'Umar b. Khattab said: Allah's Messenger, permit me that I should strike his neck. Thereupon Allah's Messenger (ﷺ) said: If he is the same (Dajjal) who would appear near the Last Hour, you would not be able to overpower him, and if he is not that there is no good for you to kill him. 'Abdullah b. 'Umar further narrated that after some time Allah's Messenger (ﷺ) and Ubayy b. Ka'b went towards the palm trees where Ibn Sayyad was. When Allah's Messenger (ﷺ) went near the tree he hid himself behind a tree with the intention of hearing something from Ibn sayyad before Ibn Sayyad could see him, but Allah's Messenger (ﷺ) saw him on a bed with a blanket around him from which a murmuring sound was being heard and Ibn Sayyad's mother saw Allah's Messenger (ﷺ) behind the trunk of the palm tree. She said to Ibn Sayyad: Saf (that being his name), here is Muhammad. Thereupon Ibn Sayyad jumped up murmuring and Allah's Messenger (ﷺ) said: If she had left him alone he would have made things clear. Abdullah b. Umar told that Allah's Messenger (ﷺ) stood up amongst the people and lauded Allah as He deserved, then he made a mention of the Dajjal and said: I warn you of him and there is no Prophet who has not warned his people against the Dajjal. Even Noah warned (against him) but I am going to tell you a thing which no Prophet told his people. You must know that he (the Dajjal) is one-eyed and Allah, the Exalted and Glorious, is not one-eyed. Ibn Shihab said: 'Umar b. Thabit al-Ansari informed me that some of the Companions of Allah's Messenger (ﷺ) informed him that the day when Allah's Messenger (ﷺ) warned people against the Dajjal, he also said: There would be written between his two eyes (the word) Kafir (infidel) and everyone who would resent his deeds would be able to read or every Muslim would be about to read, and he also said: Bear this thing in mind that none amongst you would be able to see Allah, the Exalted and Glorious, until he dies.",
-      "learnLine": "The Prophet ﷺ tested Ibn Sayyad and warned us about the Dajjal.",
+      "learnLine": "Every prophet warned his people about the Dajjal, a great liar.",
       "quote": {
         "text": "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.",
         "reference": "Sahih Muslim 2930a"
+      },
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_2_sahih_muslim_2930a_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Sahih Muslim 2930a",
+        "url": "https://sunnah.com/muslim:2930a",
+        "reference": "Sahih Muslim 2930a",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Sahih Muslim 2930a"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -8766,7 +8116,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "A bad storm"
+              "label": "A rainy day"
             },
             {
               "id": "b",
@@ -8774,7 +8124,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "A wild lion"
+              "label": "A lost cat"
             }
           ],
           "correctChoiceId": "b",
@@ -8787,7 +8137,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a_q2",
           "type": "multiple_choice",
-          "prompt": "Which other prophets warned about the Dajjal?",
+          "prompt": "Which prophets warned their people about the Dajjal?",
           "choices": [
             {
               "id": "a",
@@ -8808,122 +8158,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a",
           "resourceLabel": "Open source",
           "resourceUrl": "https://sunnah.com/muslim:2930a"
-        },
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a_q3",
-          "type": "true_false",
-          "prompt": "Even Nuh warned his people about the Dajjal.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "The Prophet ﷺ said: Even Noah warned against him.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:2930a"
-        }
-      ]
-    },
-    "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a": {
-      "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a",
-      "nodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a",
-      "branchId": "notes-hadith-hadith-from-your-notes-2",
-      "title": "Every prophet warned",
-      "intro": "Anas b. Malik reported that Allah's Messenger (ﷺ) said: There is never a prophet who has not warned the Ummah of that one-eyed liar; behold he is one-eyed and your Lord is not one-eyed.",
-      "explanationContent": "Anas b. Malik reported that Allah's Messenger (ﷺ) said: There is never a prophet who has not warned the Ummah of that one-eyed liar; behold he is one-eyed and your Lord is not one-eyed. On his forehead are the letters k f. r. (Kafir).",
-      "learnLine": "Every prophet warned his people about the one-eyed liar.",
-      "quote": {
-        "text": "There is never a prophet who has not warned the Ummah of that one-eyed liar; behold he is one-eyed and your Lord is not one-eyed.",
-        "reference": "Sahih Muslim 2933a"
-      },
-      "lessonType": "skill",
-      "difficulty": 3,
-      "xpReward": 14,
-      "sources": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_2_sahih_muslim_2933a_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Muslim 2933a",
-          "url": "https://sunnah.com/muslim:2933a",
-          "reference": "Muslim 2933a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Muslim 2933a)."
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_2_sahih_muslim_2933a_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Muslim 2933a",
-          "url": "https://sunnah.com/muslim:2933a",
-          "reference": "Muslim 2933a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Muslim 2933a)."
-        }
-      ],
-      "unlockRules": [
-        "Complete Ibn Sayyad and the Dajjal"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a_q1",
-          "type": "multiple_choice",
-          "prompt": "Who warned their people about the one-eyed liar?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "No one"
-            },
-            {
-              "id": "b",
-              "label": "Every prophet"
-            },
-            {
-              "id": "c",
-              "label": "Only one prophet"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "There is no prophet who did not warn his people.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:2933a"
-        },
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a_q2",
-          "type": "true_false",
-          "prompt": "Only Prophet Muhammad ﷺ warned about the one-eyed liar.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Every prophet warned his people about him.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2933a",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:2933a"
         }
       ]
     },
@@ -8938,6 +8172,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Marry the one who is fertile and loving, for I will boast of your great numbers.",
         "reference": "Sunan an-Nasa'i 3227 (Hasan, Darussalam)"
+      },
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_2_sunan_an_nasai_3227_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Sunan an-Nasa'i 3227",
+        "url": "https://sunnah.com/nasai:3227",
+        "reference": "Sunan an-Nasa'i 3227",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Sunan an-Nasa'i 3227"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -9001,24 +8246,20 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-2-sunan-an-nasai-3227_q2",
-          "type": "multiple_choice",
-          "prompt": "How many times did the man come to ask?",
+          "type": "true_false",
+          "prompt": "The Prophet ﷺ said he will boast of your great numbers.",
           "choices": [
             {
-              "id": "a",
-              "label": "Three"
+              "id": "true",
+              "label": "True"
             },
             {
-              "id": "b",
-              "label": "One"
-            },
-            {
-              "id": "c",
-              "label": "Five"
+              "id": "false",
+              "label": "False"
             }
           ],
-          "correctChoiceId": "a",
-          "explanation": "He came a first, second and third time.",
+          "correctChoiceId": "true",
+          "explanation": "He said: for I will boast of your great numbers.",
           "sourceNodeId": "notes-hadith-hadith-from-your-notes-2-sunan-an-nasai-3227",
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sunan-an-nasai-3227",
           "resourceLabel": "Open source",
@@ -9037,6 +8278,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "This world is but provisions, and there is no provision in this world better than a righteous wife.",
         "reference": "Sunan Ibn Majah 1855 (Sahih, Darussalam)"
+      },
+      "learnSource": {
+        "id": "lesson_notes_hadith_hadith_from_your_notes_2_sunan_ibn_majah_1855_learn_src_1",
+        "site": "Sunnah.com",
+        "category": "hadith",
+        "title": "Sunan Ibn Majah 1855",
+        "url": "https://sunnah.com/ibnmajah:1855",
+        "reference": "Sunan Ibn Majah 1855",
+        "from": "Imported from Obsidian notes",
+        "grade": "See Sunnah.com grading",
+        "summary": "Sunan Ibn Majah 1855"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -9101,7 +8353,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-2-sunan-ibn-majah-1855_q2",
           "type": "true_false",
-          "prompt": "This hadith says money is the best thing in this world.",
+          "prompt": "The Prophet ﷺ said money is the best thing to have in this world.",
           "choices": [
             {
               "id": "true",
@@ -9113,7 +8365,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "false",
-          "explanation": "It says a righteous wife is the best provision.",
+          "explanation": "He said a righteous wife is the best provision.",
           "sourceNodeId": "notes-hadith-hadith-from-your-notes-2-sunan-ibn-majah-1855",
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sunan-ibn-majah-1855",
           "resourceLabel": "Open source",
@@ -9547,14 +8799,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-1",
       "title": "Harun",
       "intro": "Brother and helper of Musa.",
-      "explanationContent": "Brother and helper of Musa. Full name: Harun ibn Imran. Father: Imran (father of Musa). Born in Egypt. Passed away at Jordan.",
+      "explanationContent": "Brother and helper of Musa. Full name: Harun ibn Imran.",
       "keyTakeaway": "Harun: Brother and helper of Musa.",
       "learnLine": "He was the brother and helper of Musa.",
-      "learnFacts": [
-        "Father: Imran",
-        "Mother: Yukabid",
-        "Born in Egypt"
-      ],
       "lessonType": "story",
       "difficulty": 3,
       "xpReward": 14,
@@ -9569,81 +8816,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-1-harun_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Harun?",
+          "prompt": "What is Harun known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Azar"
+              "label": "He was swallowed by the whale, and his people repented."
             },
             {
               "id": "b",
-              "label": "Dawud"
+              "label": "He was the father of the twelve tribes of Israel."
             },
             {
               "id": "c",
-              "label": "Ibrahim"
+              "label": "He was the first human being and the first prophet."
             },
             {
               "id": "d",
-              "label": "Imran"
+              "label": "He was the brother and helper of Musa."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Harun was Imran.",
+          "explanation": "Harun was the brother and helper of Musa.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-1-harun",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-1-harun"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-1-harun_q2",
           "type": "multiple_choice",
-          "prompt": "Who was the mother of Harun?",
+          "prompt": "Who was the brother and helper of Musa?",
           "choices": [
             {
               "id": "a",
-              "label": "Rifqa"
+              "label": "Lut"
             },
             {
               "id": "b",
-              "label": "Sarah"
+              "label": "Muhammad ﷺ"
             },
             {
               "id": "c",
-              "label": "Yukabid"
+              "label": "Harun"
             },
             {
               "id": "d",
-              "label": "Maryam"
+              "label": "Ismail"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Harun was Yukabid.",
-          "sourceNodeId": "notes-prophets-prophets-from-your-notes-1-harun",
-          "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-1-harun"
-        },
-        {
-          "id": "lesson-notes-prophets-prophets-from-your-notes-1-harun_q3",
-          "type": "multiple_choice",
-          "prompt": "Where was Harun born?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Babylon"
-            },
-            {
-              "id": "b",
-              "label": "Egypt"
-            },
-            {
-              "id": "c",
-              "label": "Nineveh"
-            },
-            {
-              "id": "d",
-              "label": "Ur"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Harun was born in Egypt.",
+          "explanation": "Harun was the brother and helper of Musa.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-1-harun",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-1-harun"
         }
@@ -9731,13 +8951,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-1",
       "title": "Ibrahim",
       "intro": "Khalilullah; built the Kaaba with Ismail.",
-      "explanationContent": "Khalilullah; built the Kaaba with Ismail. Full name: Ibrahim ibn Azar. Father: Azar. Born in Ur. Passed away at Hebron.",
+      "explanationContent": "Khalilullah; built the Kaaba with Ismail. Full name: Ibrahim ibn Azar. Father: Azar.",
       "keyTakeaway": "Ibrahim: Khalilullah; built the Kaaba with Ismail.",
-      "learnLine": "He was the friend of Allah and built the Kaaba with Ismail.",
+      "learnLine": "He was the friend of Allah and built the Ka'bah with Ismail.",
       "learnFacts": [
-        "Father: Azar",
-        "Born in Ur",
-        "Passed away in Hebron"
+        "Father: Azar"
       ],
       "lessonType": "story",
       "difficulty": 4,
@@ -9753,81 +8971,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-1-ibrahim_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Ibrahim?",
+          "prompt": "What is Ibrahim known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Ishaq"
+              "label": "He was born to Maryam without a father and received the Injil."
             },
             {
               "id": "b",
-              "label": "Azar"
+              "label": "He was the friend of Allah and built the Ka'bah with Ismail."
             },
             {
               "id": "c",
-              "label": "Ibrahim"
+              "label": "He was a prophet who confirmed that Isa would come."
             },
             {
               "id": "d",
-              "label": "Imran"
+              "label": "He was a prophet-king who ruled the jinn and spoke with animals."
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The father of Ibrahim was Azar.",
+          "explanation": "Ibrahim was the friend of Allah and built the Ka'bah with Ismail.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-1-ibrahim",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-1-ibrahim"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-1-ibrahim_q2",
           "type": "multiple_choice",
-          "prompt": "Where was Ibrahim born?",
+          "prompt": "Who was the father of Ibrahim?",
           "choices": [
             {
               "id": "a",
-              "label": "Ur"
+              "label": "Azar"
             },
             {
               "id": "b",
-              "label": "Makkah"
+              "label": "Ya'qub"
             },
             {
               "id": "c",
-              "label": "Nineveh"
+              "label": "Zakariyya"
             },
             {
               "id": "d",
-              "label": "Babylon"
+              "label": "Abdullah ibn Abd al-Muttalib"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Ibrahim was born in Ur.",
-          "sourceNodeId": "notes-prophets-prophets-from-your-notes-1-ibrahim",
-          "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-1-ibrahim"
-        },
-        {
-          "id": "lesson-notes-prophets-prophets-from-your-notes-1-ibrahim_q3",
-          "type": "multiple_choice",
-          "prompt": "Where did Ibrahim pass away?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Jerusalem"
-            },
-            {
-              "id": "b",
-              "label": "Jordan"
-            },
-            {
-              "id": "c",
-              "label": "Madinah"
-            },
-            {
-              "id": "d",
-              "label": "Hebron"
-            }
-          ],
-          "correctChoiceId": "d",
-          "explanation": "Ibrahim passed away in Hebron.",
+          "explanation": "The father of Ibrahim was Azar.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-1-ibrahim",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-1-ibrahim"
         }
@@ -9839,12 +9030,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-1",
       "title": "Idris",
       "intro": "Prophet raised to a high station (Q 19:56–57); identified with Enoch.",
-      "explanationContent": "Prophet raised to a high station (Q 19:56–57); identified with Enoch. Born in Babylon.",
+      "explanationContent": "Prophet raised to a high station (Q 19:56–57); identified with Enoch.",
       "keyTakeaway": "Idris: Prophet raised to a high station (Q 19:56–57); identified with Enoch.",
       "learnLine": "Allah raised him to a high place.",
-      "learnFacts": [
-        "Born in Babylon"
-      ],
       "lessonType": "story",
       "difficulty": 4,
       "xpReward": 16,
@@ -9867,7 +9055,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "He helped his father Ibrahim build the Kaaba."
+              "label": "He helped his father Ibrahim build the Ka'bah."
             },
             {
               "id": "c",
@@ -9886,27 +9074,27 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-1-idris_q2",
           "type": "multiple_choice",
-          "prompt": "Where was Idris born?",
+          "prompt": "Who is this? Allah raised him to a high place.",
           "choices": [
             {
               "id": "a",
-              "label": "Canaan"
+              "label": "Yusha' ibn Nun"
             },
             {
               "id": "b",
-              "label": "Babylon"
+              "label": "Idris"
             },
             {
               "id": "c",
-              "label": "Nineveh"
+              "label": "Yahya"
             },
             {
               "id": "d",
-              "label": "Ur"
+              "label": "Yunus"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Idris was born in Babylon.",
+          "explanation": "Idris: Allah raised him to a high place.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-1-idris",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-1-idris"
         }
@@ -10047,11 +9235,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Sarah"
+              "label": "Hajar"
             },
             {
               "id": "c",
-              "label": "Yukabid"
+              "label": "Sarah"
             },
             {
               "id": "d",
@@ -10071,13 +9259,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-2",
       "title": "Ishaq",
       "intro": "Prophet; son of Ibrahim and Sarah, father of Ya'qub (Quran 11:71).",
-      "explanationContent": "Prophet; son of Ibrahim and Sarah, father of Ya'qub (Quran 11:71). Full name: Ishaq ibn Ibrahim. Father: Ibrahim. Born in Canaan.",
+      "explanationContent": "Prophet; son of Ibrahim and Sarah, father of Ya'qub (Quran 11:71). Full name: Ishaq ibn Ibrahim. Father: Ibrahim.",
       "keyTakeaway": "Ishaq: Prophet; son of Ibrahim and Sarah, father of Ya'qub (Quran 11:71).",
       "learnLine": "He was the son of Ibrahim and Sarah, and Ya'qub's father.",
       "learnFacts": [
         "Father: Ibrahim",
-        "Mother: Sarah",
-        "Born in Canaan"
+        "Mother: Sarah"
       ],
       "lessonType": "story",
       "difficulty": 1,
@@ -10125,15 +9312,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Nun"
+              "label": "Abdullah ibn Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Ya'qub"
+              "label": "Azar"
             },
             {
               "id": "d",
-              "label": "Zakariyya"
+              "label": "Dawud"
             }
           ],
           "correctChoiceId": "a",
@@ -10150,7 +9337,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Yukabid"
+              "label": "Maryam"
             },
             {
               "id": "b",
@@ -10171,35 +9358,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-ishaq",
           "resourceLabel": "Open source",
           "resourceUrl": "https://quran.com/6/84-86"
-        },
-        {
-          "id": "lesson-notes-prophets-prophets-from-your-notes-2-ishaq_q3",
-          "type": "multiple_choice",
-          "prompt": "Where was Ishaq born?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Babylon"
-            },
-            {
-              "id": "b",
-              "label": "Egypt"
-            },
-            {
-              "id": "c",
-              "label": "Canaan"
-            },
-            {
-              "id": "d",
-              "label": "Ur"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "Ishaq was born in Canaan.",
-          "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-ishaq",
-          "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-ishaq",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/6/84-86"
         }
       ]
     },
@@ -10209,13 +9367,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-2",
       "title": "Ismail",
       "intro": "Helped build the Kaaba; ancestor of the Arabs and of the Prophet ﷺ.",
-      "explanationContent": "Helped build the Kaaba; ancestor of the Arabs and of the Prophet ﷺ. Full name: Isma'il ibn Ibrahim. Father: Ibrahim. Born in Canaan. Passed away at Makkah.",
+      "explanationContent": "Helped build the Kaaba; ancestor of the Arabs and of the Prophet ﷺ. Full name: Isma'il ibn Ibrahim. Father: Ibrahim.",
       "keyTakeaway": "Ismail: Helped build the Kaaba; ancestor of the Arabs and of the Prophet ﷺ.",
-      "learnLine": "He helped his father Ibrahim build the Kaaba.",
+      "learnLine": "He helped his father Ibrahim build the Ka'bah.",
       "learnFacts": [
         "Father: Ibrahim",
-        "Mother: Hajar",
-        "Born in Canaan"
+        "Mother: Hajar"
       ],
       "lessonType": "story",
       "difficulty": 2,
@@ -10235,15 +9392,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Azar"
+              "label": "Ishaq"
             },
             {
               "id": "b",
-              "label": "Dawud"
+              "label": "Matta"
             },
             {
               "id": "c",
-              "label": "Imran"
+              "label": "Nun"
             },
             {
               "id": "d",
@@ -10266,46 +9423,19 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Maryam"
+              "label": "Sarah"
             },
             {
               "id": "c",
-              "label": "Rifqa"
+              "label": "Aminah bint Wahb"
             },
             {
               "id": "d",
-              "label": "Sarah"
+              "label": "Maryam"
             }
           ],
           "correctChoiceId": "a",
           "explanation": "The mother of Ismail was Hajar.",
-          "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-ismail",
-          "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-ismail"
-        },
-        {
-          "id": "lesson-notes-prophets-prophets-from-your-notes-2-ismail_q3",
-          "type": "multiple_choice",
-          "prompt": "Where was Ismail born?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Egypt"
-            },
-            {
-              "id": "b",
-              "label": "Canaan"
-            },
-            {
-              "id": "c",
-              "label": "Ur"
-            },
-            {
-              "id": "d",
-              "label": "Babylon"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Ismail was born in Canaan.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-ismail",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-ismail"
         }
@@ -10317,13 +9447,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-2",
       "title": "Lut",
       "intro": "Prophet sent to Sodom and Gomorrah; nephew of Ibrahim.",
-      "explanationContent": "Prophet sent to Sodom and Gomorrah; nephew of Ibrahim. Full name: Lut ibn Haran. Father: Haran ibn Azar. Born in Ur.",
+      "explanationContent": "Prophet sent to Sodom and Gomorrah; nephew of Ibrahim. Full name: Lut ibn Haran.",
       "keyTakeaway": "Lut: Prophet sent to Sodom and Gomorrah; nephew of Ibrahim.",
       "learnLine": "He was Ibrahim's nephew and a prophet sent to Sodom.",
-      "learnFacts": [
-        "Father: Haran ibn Azar",
-        "Born in Ur"
-      ],
       "lessonType": "story",
       "difficulty": 2,
       "xpReward": 12,
@@ -10338,54 +9464,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-2-lut_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Lut?",
+          "prompt": "What is Lut known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Dawud"
+              "label": "He was swallowed by the whale, and his people repented."
             },
             {
               "id": "b",
-              "label": "Haran ibn Azar"
+              "label": "He was Ibrahim's nephew and a prophet sent to Sodom."
             },
             {
               "id": "c",
-              "label": "Zakariyya"
+              "label": "He spoke with Allah and received the Tawrah."
             },
             {
               "id": "d",
-              "label": "Abdullah ibn Abd al-Muttalib"
+              "label": "He was a prophet who confirmed that Isa would come."
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The father of Lut was Haran ibn Azar.",
+          "explanation": "Lut was Ibrahim's nephew and a prophet sent to Sodom.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-lut",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-lut"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-2-lut_q2",
           "type": "multiple_choice",
-          "prompt": "Where was Lut born?",
+          "prompt": "Who was Ibrahim's nephew and a prophet sent to Sodom?",
           "choices": [
             {
               "id": "a",
-              "label": "Ur"
+              "label": "Lut"
             },
             {
               "id": "b",
-              "label": "Nineveh"
+              "label": "Musa"
             },
             {
               "id": "c",
-              "label": "Babylon"
+              "label": "Nuh"
             },
             {
               "id": "d",
-              "label": "Canaan"
+              "label": "Sulayman"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Lut was born in Ur.",
+          "explanation": "Lut was Ibrahim's nephew and a prophet sent to Sodom.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-lut",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-lut"
         }
@@ -10427,15 +9553,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Haran ibn Azar"
+              "label": "Azar"
             },
             {
               "id": "c",
-              "label": "Ibrahim"
+              "label": "Dawud"
             },
             {
               "id": "d",
-              "label": "Imran"
+              "label": "Ibrahim"
             }
           ],
           "correctChoiceId": "a",
@@ -10450,15 +9576,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Rifqa"
+              "label": "Hajar"
             },
             {
               "id": "b",
-              "label": "Sarah"
+              "label": "Maryam"
             },
             {
               "id": "c",
-              "label": "Yukabid"
+              "label": "Sarah"
             },
             {
               "id": "d",
@@ -10505,13 +9631,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-2",
       "title": "Musa",
       "intro": "Spoke with Allah; received the Tawrah; led Bani Isra'il out of Egypt.",
-      "explanationContent": "Spoke with Allah; received the Tawrah; led Bani Isra'il out of Egypt. Full name: Musa ibn Imran. Father: Imran (father of Musa).",
+      "explanationContent": "Spoke with Allah; received the Tawrah; led Bani Isra'il out of Egypt. Full name: Musa ibn Imran.",
       "keyTakeaway": "Musa: Spoke with Allah; received the Tawrah; led Bani Isra'il out of Egypt.",
       "learnLine": "He spoke with Allah and received the Tawrah.",
-      "learnFacts": [
-        "Father: Imran",
-        "Mother: Yukabid"
-      ],
       "lessonType": "story",
       "difficulty": 3,
       "xpReward": 14,
@@ -10526,54 +9648,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-2-musa_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Musa?",
+          "prompt": "What is Musa known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Haran ibn Azar"
+              "label": "He is the last messenger Allah sent."
             },
             {
               "id": "b",
-              "label": "Ibrahim"
+              "label": "He looked after Maryam and was the father of Yahya."
             },
             {
               "id": "c",
-              "label": "Imran"
+              "label": "He spoke with Allah and received the Tawrah."
             },
             {
               "id": "d",
-              "label": "Dawud"
+              "label": "He helped Musa, then led Bani Isra'il into the Holy Land."
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The father of Musa was Imran.",
+          "explanation": "Musa spoke with Allah and received the Tawrah.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-musa",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-musa"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-2-musa_q2",
           "type": "multiple_choice",
-          "prompt": "Who was the mother of Musa?",
+          "prompt": "Who spoke with Allah and received the Tawrah?",
           "choices": [
             {
               "id": "a",
-              "label": "Sarah"
+              "label": "Yahya"
             },
             {
               "id": "b",
-              "label": "Aminah bint Wahb"
+              "label": "Yunus"
             },
             {
               "id": "c",
-              "label": "Hajar"
+              "label": "Yusha' ibn Nun"
             },
             {
               "id": "d",
-              "label": "Yukabid"
+              "label": "Musa"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The mother of Musa was Yukabid.",
+          "explanation": "Musa spoke with Allah and received the Tawrah.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-musa",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-musa"
         }
@@ -10585,12 +9707,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-2",
       "title": "Nuh",
       "intro": "Built the Ark; one of the Ulul 'Azm messengers.",
-      "explanationContent": "Built the Ark; one of the Ulul 'Azm messengers. Father: Lamech.",
+      "explanationContent": "Built the Ark; one of the Ulul 'Azm messengers.",
       "keyTakeaway": "Nuh: Built the Ark; one of the Ulul 'Azm messengers.",
       "learnLine": "He built the Ark and was a messenger of firm resolve.",
-      "learnFacts": [
-        "Father: Lamech"
-      ],
       "lessonType": "story",
       "difficulty": 3,
       "xpReward": 14,
@@ -10658,27 +9777,27 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-2-noah_q2",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Nuh?",
+          "prompt": "Who built the Ark and was a messenger of firm resolve?",
           "choices": [
             {
               "id": "a",
-              "label": "Nun"
+              "label": "Isa"
             },
             {
               "id": "b",
-              "label": "Lamech"
+              "label": "Nuh"
             },
             {
               "id": "c",
-              "label": "Ishaq"
+              "label": "Idris"
             },
             {
               "id": "d",
-              "label": "Matta"
+              "label": "Ilyas"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The father of Nuh was Lamech.",
+          "explanation": "Nuh built the Ark and was a messenger of firm resolve.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-noah",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-noah",
           "resourceLabel": "Open source",
@@ -10847,12 +9966,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-2",
       "title": "Sulayman",
       "intro": "Prophet-king who commanded the jinn and spoke with animals.",
-      "explanationContent": "Prophet-king who commanded the jinn and spoke with animals. Full name: Sulayman ibn Dawud. Father: Dawud. Passed away at Jerusalem.",
+      "explanationContent": "Prophet-king who commanded the jinn and spoke with animals. Full name: Sulayman ibn Dawud. Father: Dawud.",
       "keyTakeaway": "Sulayman: Prophet-king who commanded the jinn and spoke with animals.",
       "learnLine": "He was a prophet-king who ruled the jinn and spoke with animals.",
       "learnFacts": [
-        "Father: Dawud",
-        "Passed away in Jerusalem"
+        "Father: Dawud"
       ],
       "lessonType": "story",
       "difficulty": 5,
@@ -10868,54 +9986,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-2-sulaiman_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Sulayman?",
+          "prompt": "What is Sulayman known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Dawud"
+              "label": "He was a prophet-king who ruled the jinn and spoke with animals."
             },
             {
               "id": "b",
-              "label": "Lamech"
+              "label": "He was sent to Thamud, with the she-camel of Allah."
             },
             {
               "id": "c",
-              "label": "Matta"
+              "label": "He was swallowed by the whale, and his people repented."
             },
             {
               "id": "d",
-              "label": "Nun"
+              "label": "He was the brother and helper of Musa."
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The father of Sulayman was Dawud.",
+          "explanation": "Sulayman was a prophet-king who ruled the jinn and spoke with animals.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-sulaiman",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-sulaiman"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-2-sulaiman_q2",
           "type": "multiple_choice",
-          "prompt": "Where did Sulayman pass away?",
+          "prompt": "Who was the father of Sulayman?",
           "choices": [
             {
               "id": "a",
-              "label": "Hebron"
+              "label": "Ya'qub"
             },
             {
               "id": "b",
-              "label": "Jordan"
+              "label": "Zakariyya"
             },
             {
               "id": "c",
-              "label": "Madinah"
+              "label": "Abdullah ibn Abd al-Muttalib"
             },
             {
               "id": "d",
-              "label": "Jerusalem"
+              "label": "Dawud"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Sulayman passed away in Jerusalem.",
+          "explanation": "The father of Sulayman was Dawud.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-2-sulaiman",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-2-sulaiman"
         }
@@ -10931,8 +10049,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "keyTakeaway": "Yahya: Prophet who confirmed the coming of Isa.",
       "learnLine": "He was a prophet who confirmed that Isa would come.",
       "learnFacts": [
-        "Father: Zakariyya",
-        "Mother: Isha bint Faqudh"
+        "Father: Zakariyya"
       ],
       "lessonType": "story",
       "difficulty": 1,
@@ -10946,54 +10063,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yahya_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Yahya?",
+          "prompt": "What is Yahya known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Haran ibn Azar"
+              "label": "He looked after Maryam and was the father of Yahya."
             },
             {
               "id": "b",
-              "label": "Ibrahim"
+              "label": "He spoke with Allah and received the Tawrah."
             },
             {
               "id": "c",
-              "label": "Imran"
+              "label": "He was Ibrahim's nephew and a prophet sent to Sodom."
             },
             {
               "id": "d",
-              "label": "Zakariyya"
+              "label": "He was a prophet who confirmed that Isa would come."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Yahya was Zakariyya.",
+          "explanation": "Yahya was a prophet who confirmed that Isa would come.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yahya",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yahya"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yahya_q2",
           "type": "multiple_choice",
-          "prompt": "Who was the mother of Yahya?",
+          "prompt": "Who was the father of Yahya?",
           "choices": [
             {
               "id": "a",
-              "label": "Sarah"
+              "label": "Ya'qub"
             },
             {
               "id": "b",
-              "label": "Yukabid"
+              "label": "Abdullah ibn Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Isha bint Faqudh"
+              "label": "Zakariyya"
             },
             {
               "id": "d",
-              "label": "Rifqa"
+              "label": "Nun"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Yahya was Isha bint Faqudh.",
+          "explanation": "The father of Yahya was Zakariyya.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yahya",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yahya"
         }
@@ -11009,8 +10126,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "keyTakeaway": "Ya'qub: Father of the Twelve Tribes of Israel.",
       "learnLine": "He was the father of the twelve tribes of Israel.",
       "learnFacts": [
-        "Father: Ishaq",
-        "Mother: Rifqa"
+        "Father: Ishaq"
       ],
       "lessonType": "story",
       "difficulty": 2,
@@ -11050,27 +10166,27 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yaqub_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Ya'qub?",
+          "prompt": "What is Ya'qub known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Imran"
+              "label": "He was a prophet-king who ruled the jinn and spoke with animals."
             },
             {
               "id": "b",
-              "label": "Ishaq"
+              "label": "He was the father of the twelve tribes of Israel."
             },
             {
               "id": "c",
-              "label": "Haran ibn Azar"
+              "label": "He was a prophet sent to the people of Madyan."
             },
             {
               "id": "d",
-              "label": "Ibrahim"
+              "label": "He was a prophet who confirmed that Isa would come."
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The father of Ya'qub was Ishaq.",
+          "explanation": "Ya'qub was the father of the twelve tribes of Israel.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yaqub",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yaqub",
           "resourceLabel": "Open source",
@@ -11079,27 +10195,27 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yaqub_q2",
           "type": "multiple_choice",
-          "prompt": "Who was the mother of Ya'qub?",
+          "prompt": "Who was the father of Ya'qub?",
           "choices": [
             {
               "id": "a",
-              "label": "Rifqa"
+              "label": "Ishaq"
             },
             {
               "id": "b",
-              "label": "Maryam"
+              "label": "Abdullah ibn Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Sarah"
+              "label": "Azar"
             },
             {
               "id": "d",
-              "label": "Yukabid"
+              "label": "Dawud"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Ya'qub was Rifqa.",
+          "explanation": "The father of Ya'qub was Ishaq.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yaqub",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yaqub",
           "resourceLabel": "Open source",
@@ -11113,12 +10229,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-3",
       "title": "Yunus",
       "intro": "Swallowed by the whale; his people repented.",
-      "explanationContent": "Swallowed by the whale; his people repented. Full name: Yunus ibn Matta. Father: Matta. Born in Nineveh.",
+      "explanationContent": "Swallowed by the whale; his people repented. Full name: Yunus ibn Matta. Father: Matta.",
       "keyTakeaway": "Yunus: Swallowed by the whale; his people repented.",
       "learnLine": "He was swallowed by the whale, and his people repented.",
       "learnFacts": [
-        "Father: Matta",
-        "Born in Nineveh"
+        "Father: Matta"
       ],
       "lessonType": "story",
       "difficulty": 2,
@@ -11134,54 +10249,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yunus_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Yunus?",
+          "prompt": "What is Yunus known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Azar"
+              "label": "He was the friend of Allah and built the Ka'bah with Ismail."
             },
             {
               "id": "b",
-              "label": "Dawud"
+              "label": "He was the prophet who came after Ilyas."
             },
             {
               "id": "c",
-              "label": "Ibrahim"
+              "label": "He was the son of Ibrahim and Sarah, and Ya'qub's father."
             },
             {
               "id": "d",
-              "label": "Matta"
+              "label": "He was swallowed by the whale, and his people repented."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Yunus was Matta.",
+          "explanation": "Yunus was swallowed by the whale, and his people repented.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yunus",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yunus"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yunus_q2",
           "type": "multiple_choice",
-          "prompt": "Where was Yunus born?",
+          "prompt": "Who was the father of Yunus?",
           "choices": [
             {
               "id": "a",
-              "label": "Canaan"
+              "label": "Ibrahim"
             },
             {
               "id": "b",
-              "label": "Egypt"
+              "label": "Ishaq"
             },
             {
               "id": "c",
-              "label": "Nineveh"
+              "label": "Matta"
             },
             {
               "id": "d",
-              "label": "Babylon"
+              "label": "Dawud"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Yunus was born in Nineveh.",
+          "explanation": "The father of Yunus was Matta.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yunus",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yunus"
         }
@@ -11193,12 +10308,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-3",
       "title": "Yusha' ibn Nun",
       "intro": "Musa's attendant and successor; led Bani Isra'il into the Holy Land.",
-      "explanationContent": "Musa's attendant and successor; led Bani Isra'il into the Holy Land. Father: Nun. Passed away at Canaan.",
+      "explanationContent": "Musa's attendant and successor; led Bani Isra'il into the Holy Land. Father: Nun.",
       "keyTakeaway": "Yusha' ibn Nun: Musa's attendant and successor; led Bani Isra'il into the Holy Land.",
       "learnLine": "He helped Musa, then led Bani Isra'il into the Holy Land.",
       "learnFacts": [
-        "Father: Nun",
-        "Passed away in Canaan"
+        "Father: Nun"
       ],
       "lessonType": "story",
       "difficulty": 3,
@@ -11214,54 +10328,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yusha-ibn-nun_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Yusha' ibn Nun?",
+          "prompt": "What is Yusha' ibn Nun known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Lamech"
+              "label": "He spoke with Allah and received the Tawrah."
             },
             {
               "id": "b",
-              "label": "Matta"
+              "label": "He was Ibrahim's nephew and a prophet sent to Sodom."
             },
             {
               "id": "c",
-              "label": "Ya'qub"
+              "label": "He was a prophet who confirmed that Isa would come."
             },
             {
               "id": "d",
-              "label": "Nun"
+              "label": "He helped Musa, then led Bani Isra'il into the Holy Land."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Yusha' ibn Nun was Nun.",
+          "explanation": "Yusha' ibn Nun helped Musa, then led Bani Isra'il into the Holy Land.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yusha-ibn-nun",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yusha-ibn-nun"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yusha-ibn-nun_q2",
           "type": "multiple_choice",
-          "prompt": "Where did Yusha' ibn Nun pass away?",
+          "prompt": "Who was the father of Yusha' ibn Nun?",
           "choices": [
             {
               "id": "a",
-              "label": "Canaan"
+              "label": "Nun"
             },
             {
               "id": "b",
-              "label": "Madinah"
+              "label": "Ya'qub"
             },
             {
               "id": "c",
-              "label": "Makkah"
+              "label": "Zakariyya"
             },
             {
               "id": "d",
-              "label": "Egypt"
+              "label": "Abdullah ibn Abd al-Muttalib"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Yusha' ibn Nun passed away in Canaan.",
+          "explanation": "The father of Yusha' ibn Nun was Nun.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yusha-ibn-nun",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yusha-ibn-nun"
         }
@@ -11273,13 +10387,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-prophets-prophets-from-your-notes-3",
       "title": "Yusuf",
       "intro": "Interpreter of dreams; minister of Egypt (Surah Yusuf).",
-      "explanationContent": "Interpreter of dreams; minister of Egypt (Surah Yusuf). Full name: Yusuf ibn Ya'qub ibn Ishaq ibn Ibrahim. Father: Ya'qub. Born in Canaan. Passed away at Egypt.",
+      "explanationContent": "Interpreter of dreams; minister of Egypt (Surah Yusuf). Full name: Yusuf ibn Ya'qub ibn Ishaq ibn Ibrahim. Father: Ya'qub.",
       "keyTakeaway": "Yusuf: Interpreter of dreams; minister of Egypt (Surah Yusuf).",
       "learnLine": "He explained dreams and became a minister of Egypt.",
       "learnFacts": [
-        "Father: Ya'qub",
-        "Born in Canaan",
-        "Passed away in Egypt"
+        "Father: Ya'qub"
       ],
       "lessonType": "story",
       "difficulty": 4,
@@ -11295,81 +10407,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yusuf_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Yusuf?",
+          "prompt": "What is Yusuf known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Haran ibn Azar"
+              "label": "He was the prophet who came after Ilyas."
             },
             {
               "id": "b",
-              "label": "Ibrahim"
+              "label": "He was the son of Ibrahim and Sarah, and Ya'qub's father."
             },
             {
               "id": "c",
-              "label": "Imran"
+              "label": "Allah raised him to a high place."
             },
             {
               "id": "d",
-              "label": "Ya'qub"
+              "label": "He explained dreams and became a minister of Egypt."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Yusuf was Ya'qub.",
+          "explanation": "Yusuf explained dreams and became a minister of Egypt.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yusuf",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yusuf"
         },
         {
           "id": "lesson-notes-prophets-prophets-from-your-notes-3-yusuf_q2",
           "type": "multiple_choice",
-          "prompt": "Where was Yusuf born?",
+          "prompt": "Who was the father of Yusuf?",
           "choices": [
             {
               "id": "a",
-              "label": "Nineveh"
+              "label": "Zakariyya"
             },
             {
               "id": "b",
-              "label": "Ur"
+              "label": "Abdullah ibn Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Canaan"
+              "label": "Ya'qub"
             },
             {
               "id": "d",
-              "label": "Makkah"
+              "label": "Nun"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Yusuf was born in Canaan.",
-          "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yusuf",
-          "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yusuf"
-        },
-        {
-          "id": "lesson-notes-prophets-prophets-from-your-notes-3-yusuf_q3",
-          "type": "multiple_choice",
-          "prompt": "Where did Yusuf pass away?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Canaan"
-            },
-            {
-              "id": "b",
-              "label": "Egypt"
-            },
-            {
-              "id": "c",
-              "label": "Madinah"
-            },
-            {
-              "id": "d",
-              "label": "Makkah"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Yusuf passed away in Egypt.",
+          "explanation": "The father of Yusuf was Ya'qub.",
           "sourceNodeId": "notes-prophets-prophets-from-your-notes-3-yusuf",
           "sourceLessonId": "lesson-notes-prophets-prophets-from-your-notes-3-yusuf"
         }
@@ -11516,7 +10601,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Lubaba as-Sughra bint al-Harith"
+              "label": "Lubabah as-Sughra bint al-Harith"
             },
             {
               "id": "d",
@@ -11671,12 +10756,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-1",
       "title": "'Ayyash ibn Abi Rabi'ah",
       "intro": "Early Muslim tricked back to Makkah by his half-brother Abu Jahl.",
-      "explanationContent": "Early Muslim tricked back to Makkah by his half-brother Abu Jahl. Full name: Ayyash ibn Abi Rabi'a. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Rabi'a ibn al-Mughira.",
+      "explanationContent": "Early Muslim tricked back to Makkah by his half-brother Abu Jahl. Full name: Ayyash ibn Abi Rabi'a. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Rabi'ah ibn al-Mughirah.",
       "keyTakeaway": "'Ayyash ibn Abi Rabi'ah: Early Muslim tricked back to Makkah by his half-brother Abu Jahl.",
       "learnLine": "He was an early Muslim tricked back to Makkah by Abu Jahl.",
       "learnFacts": [
-        "Father: Abu Rabi'a ibn al-Mughira",
-        "Mother: Asma bint Mukharriba",
+        "Father: Abu Rabi'ah ibn al-Mughirah",
+        "Mother: Asma bint Mukharribah",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -11709,11 +10794,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Abu Rabi'a ibn al-Mughira"
+              "label": "Abu Rabi'ah ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of 'Ayyash ibn Abi Rabi'ah was Abu Rabi'a ibn al-Mughira.",
+          "explanation": "The father of 'Ayyash ibn Abi Rabi'ah was Abu Rabi'ah ibn al-Mughirah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-1-lyaash-ibn-abi-rabiyyah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-1-lyaash-ibn-abi-rabiyyah"
         },
@@ -11724,23 +10809,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Asma bint Mukharriba"
+              "label": "Asma bint Mukharribah"
             },
             {
               "id": "b",
-              "label": "Fatimah az-Zahra"
+              "label": "Fatimah bint Asad"
             },
             {
               "id": "c",
-              "label": "Hala bint Khuwaylid"
+              "label": "Halah bint Khuwaylid"
             },
             {
               "id": "d",
-              "label": "Halah bint Wuhayb"
+              "label": "Hamamah"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of 'Ayyash ibn Abi Rabi'ah was Asma bint Mukharriba.",
+          "explanation": "The mother of 'Ayyash ibn Abi Rabi'ah was Asma bint Mukharribah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-1-lyaash-ibn-abi-rabiyyah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-1-lyaash-ibn-abi-rabiyyah"
         },
@@ -11784,7 +10869,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was the Prophet's ﷺ uncle and looked after Zamzam.",
       "learnFacts": [
         "Father: Abd al-Muttalib",
-        "Mother: Natila bint Janab",
+        "Mother: Natilah bint Janab",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -11817,7 +10902,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Rawaha ibn Tha'laba"
+              "label": "Rawahah ibn Tha'labah"
             }
           ],
           "correctChoiceId": "c",
@@ -11832,7 +10917,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Amra bint Mas'ud"
+              "label": "Amrah bint Mas'ud"
             },
             {
               "id": "b",
@@ -11844,11 +10929,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Natila bint Janab"
+              "label": "Natilah bint Janab"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The mother of Abbas ibn Abd al-Muttalib was Natila bint Janab.",
+          "explanation": "The mother of Abbas ibn Abd al-Muttalib was Natilah bint Janab.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-1-abbas-ibn-abd-al-muttalib",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-1-abbas-ibn-abd-al-muttalib"
         },
@@ -12082,7 +11167,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Banu Sa'ida"
+              "label": "Banu Sa'idah"
             },
             {
               "id": "d",
@@ -12186,15 +11271,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Arwa bint Kurayz"
+              "label": "Su'da bint Tha'labah"
             },
             {
               "id": "b",
-              "label": "Asma bint Abi Bakr"
+              "label": "Sumayyah bint Khayyat"
             },
             {
               "id": "c",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Suwad bint Rafi"
             },
             {
               "id": "d",
@@ -12349,11 +11434,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-1",
       "title": "Abdullah ibn Rawahah",
       "intro": "Poet; third commander at Mu'tah, martyred there.",
-      "explanationContent": "Poet; third commander at Mu'tah, martyred there. Full name: Abd Allah ibn Rawaha. Tribe: Khazraj. Father: Rawaha ibn Tha'laba. Born in Madinah. Passed away in Jumada al-Ula 8 AH / 629 CE at Mu'tah.",
+      "explanationContent": "Poet; third commander at Mu'tah, martyred there. Full name: Abd Allah ibn Rawaha. Tribe: Khazraj. Father: Rawahah ibn Tha'labah. Born in Madinah. Passed away in Jumada al-Ula 8 AH / 629 CE at Mu'tah.",
       "keyTakeaway": "Abdullah ibn Rawahah: Poet; third commander at Mu'tah, martyred there.",
       "learnLine": "He was a poet and Mu'tah's third commander, martyred there.",
       "learnFacts": [
-        "Father: Rawaha ibn Tha'laba",
+        "Father: Rawahah ibn Tha'labah",
         "Tribe: Khazraj",
         "Born in Madinah"
       ],
@@ -12399,7 +11484,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Rawaha ibn Tha'laba"
+              "label": "Rawahah ibn Tha'labah"
             },
             {
               "id": "b",
@@ -12415,7 +11500,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The father of Abdullah ibn Rawahah was Rawaha ibn Tha'laba.",
+          "explanation": "The father of Abdullah ibn Rawahah was Rawahah ibn Tha'labah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-1-abdullah-ibn-rawahah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-1-abdullah-ibn-rawahah",
           "resourceLabel": "Open source",
@@ -12552,7 +11637,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Umaymah bint Ghanm"
             }
           ],
           "correctChoiceId": "c",
@@ -12600,7 +11685,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He married the Prophet's ﷺ daughter and was Khadijah's nephew.",
       "learnFacts": [
         "Father: Ar-Rabi ibn Abd al-Uzza",
-        "Mother: Hala bint Khuwaylid",
+        "Mother: Halah bint Khuwaylid",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -12692,23 +11777,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Zaynab bint Maz'un"
+              "label": "Safiyyah bint Abd al-Muttalib"
             },
             {
               "id": "b",
-              "label": "Amra bint Mas'ud"
+              "label": "Su'da bint Tha'labah"
             },
             {
               "id": "c",
-              "label": "Hala bint Khuwaylid"
+              "label": "Halah bint Khuwaylid"
             },
             {
               "id": "d",
-              "label": "Uzza bint Sufyan"
+              "label": "Ramlah"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Abu al-As ibn ar-Rabi' was Hala bint Khuwaylid.",
+          "explanation": "The mother of Abu al-As ibn ar-Rabi' was Halah bint Khuwaylid.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-2-abu-al-as-ibn-al-rabi",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-2-abu-al-as-ibn-al-rabi",
           "resourceLabel": "Open source",
@@ -12751,11 +11836,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-2",
       "title": "Abu Bakr as-Siddiq",
       "intro": "First caliph; al-Siddiq; the Prophet's ﷺ companion in the cave of Thawr.",
-      "explanationContent": "First caliph; al-Siddiq; the Prophet's ﷺ companion in the cave of Thawr. Full name: Abd Allah ibn Abi Quhafa. Tribe: Quraysh, clan of Banu Taym. Father: Abu Quhafa. Born in Makkah. Passed away in 22 Jumada al-Akhirah 13 AH / 23 August 634 CE at Madinah.",
+      "explanationContent": "First caliph; al-Siddiq; the Prophet's ﷺ companion in the cave of Thawr. Full name: Abd Allah ibn Abi Quhafa. Tribe: Quraysh, clan of Banu Taym. Father: Abu Quhafah. Born in Makkah. Passed away in 22 Jumada al-Akhirah 13 AH / 23 August 634 CE at Madinah.",
       "keyTakeaway": "Abu Bakr as-Siddiq: First caliph; al-Siddiq; the Prophet's ﷺ companion in the cave of Thawr.",
       "learnLine": "The first caliph, he was with the Prophet ﷺ in the cave.",
       "learnFacts": [
-        "Father: Abu Quhafa",
+        "Father: Abu Quhafah",
         "Mother: Umm al-Khayr",
         "Tribe: Quraysh"
       ],
@@ -12777,7 +11862,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Quhafa"
+              "label": "Abu Quhafah"
             },
             {
               "id": "b",
@@ -12793,7 +11878,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The father of Abu Bakr as-Siddiq was Abu Quhafa.",
+          "explanation": "The father of Abu Bakr as-Siddiq was Abu Quhafah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-2-abu-bakr-as-siddiq",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-2-abu-bakr-as-siddiq"
         },
@@ -12804,7 +11889,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Su'da bint Tha'laba"
+              "label": "Su'da bint Tha'labah"
             },
             {
               "id": "b",
@@ -12812,11 +11897,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Ramla"
+              "label": "Ramlah"
             },
             {
               "id": "d",
-              "label": "Safiyya bint Abd al-Muttalib"
+              "label": "Safiyyah bint Abd al-Muttalib"
             }
           ],
           "correctChoiceId": "b",
@@ -12864,7 +11949,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was one of the very first people to accept Islam.",
       "learnFacts": [
         "Father: Junadah",
-        "Mother: Ramla",
+        "Mother: Ramlah",
         "Tribe: Ghifar"
       ],
       "lessonType": "story",
@@ -12912,7 +11997,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Sumayya bint Khayyat"
+              "label": "Sumayyah bint Khayyat"
             },
             {
               "id": "b",
@@ -12920,15 +12005,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Umayma bint Ghanm"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "d",
-              "label": "Ramla"
+              "label": "Ramlah"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The mother of Abu Dharr al-Ghifari was Ramla.",
+          "explanation": "The mother of Abu Dharr al-Ghifari was Ramlah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-2-abu-dharr-al-ghifaariy",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-2-abu-dharr-al-ghifaariy"
         },
@@ -13111,7 +12196,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Banu Umayya"
+              "label": "Banu Umayyah"
             }
           ],
           "correctChoiceId": "a",
@@ -13207,11 +12292,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-2",
       "title": "Abu Sufyan ibn Harb",
       "intro": "Leader of Quraysh at Uhud and the Trench; accepted Islam at the conquest of Makkah.",
-      "explanationContent": "Leader of Quraysh at Uhud and the Trench; accepted Islam at the conquest of Makkah. Full name: Sakhr ibn Harb ibn Umayya. Tribe: Quraysh, clan of Banu Abd Shams. Father: Harb ibn Umayya. Born in Makkah. Passed away in c. 32 AH / 653 CE at Madinah.",
+      "explanationContent": "Leader of Quraysh at Uhud and the Trench; accepted Islam at the conquest of Makkah. Full name: Sakhr ibn Harb ibn Umayya. Tribe: Quraysh, clan of Banu Abd Shams. Father: Harb ibn Umayyah. Born in Makkah. Passed away in c. 32 AH / 653 CE at Madinah.",
       "keyTakeaway": "Abu Sufyan ibn Harb: Leader of Quraysh at Uhud and the Trench; accepted Islam at the conquest of Makkah.",
       "learnLine": "He led Quraysh at Uhud, then became Muslim when Makkah was opened.",
       "learnFacts": [
-        "Father: Harb ibn Umayya",
+        "Father: Harb ibn Umayyah",
         "Tribe: Quraysh",
         "Clan: Banu Abd Shams"
       ],
@@ -13233,11 +12318,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Harb ibn Umayya"
+              "label": "Harb ibn Umayyah"
             },
             {
               "id": "b",
-              "label": "Zurara ibn Udas"
+              "label": "Zurarah ibn Udas"
             },
             {
               "id": "c",
@@ -13249,7 +12334,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The father of Abu Sufyan ibn Harb was Harb ibn Umayya.",
+          "explanation": "The father of Abu Sufyan ibn Harb was Harb ibn Umayyah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-2-abu-sufyan-ibn-harb",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-2-abu-sufyan-ibn-harb"
         },
@@ -13287,11 +12372,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Muttalib"
+              "label": "Banu Zuhrah"
             },
             {
               "id": "b",
-              "label": "Banu Najjar"
+              "label": "Banu ad-Dar"
             },
             {
               "id": "c",
@@ -13299,7 +12384,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Banu Makhzum"
+              "label": "Banu Umayyah"
             }
           ],
           "correctChoiceId": "c",
@@ -13320,7 +12405,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was called the Trustee of this Ummah.",
       "learnFacts": [
         "Father: Abdullah ibn al-Jarrah",
-        "Mother: Umayma bint Ghanm",
+        "Mother: Umaymah bint Ghanm",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -13365,7 +12450,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ubada ibn Dulaym"
+              "label": "Ubadah ibn Dulaym"
             },
             {
               "id": "b",
@@ -13394,23 +12479,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umayma bint Ghanm"
+              "label": "Umaymah bint Ghanm"
             },
             {
               "id": "b",
-              "label": "Hind bint Utba"
+              "label": "Zaynab bint Nawfal"
             },
             {
               "id": "c",
-              "label": "Khadijah bint Khuwaylid"
+              "label": "Amrah bint Mas'ud"
             },
             {
               "id": "d",
-              "label": "Khunas bint Malik"
+              "label": "Arwa bint Kurayz"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Abu Ubaydah ibn al-Jarrah was Umayma bint Ghanm.",
+          "explanation": "The mother of Abu Ubaydah ibn al-Jarrah was Umaymah bint Ghanm.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-2-abu-ubaydah-ibn-al-jarrah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-2-abu-ubaydah-ibn-al-jarrah",
           "resourceLabel": "Open source",
@@ -13586,11 +12671,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Safiyya bint Abd al-Muttalib"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "b",
-              "label": "Su'da bint Tha'laba"
+              "label": "Natilah bint Janab"
             },
             {
               "id": "c",
@@ -13598,7 +12683,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Ramla"
+              "label": "Mujalida bint Amr"
             }
           ],
           "correctChoiceId": "c",
@@ -13677,7 +12762,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Walid ibn al-Mughira"
+              "label": "Walid ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "b",
@@ -13696,15 +12781,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Safiyya bint Abd al-Muttalib"
+              "label": "Zaynab bint Nawfal"
             },
             {
               "id": "c",
-              "label": "Su'da bint Tha'laba"
+              "label": "Amrah bint Mas'ud"
             },
             {
               "id": "d",
-              "label": "Sumayya bint Khayyat"
+              "label": "Arwa bint Kurayz"
             }
           ],
           "correctChoiceId": "a",
@@ -13777,7 +12862,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Zurara ibn Udas"
+              "label": "Zurarah ibn Udas"
             },
             {
               "id": "c",
@@ -13800,15 +12885,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Halah bint Wuhayb"
+              "label": "Hantamah bint Hisham"
             },
             {
               "id": "b",
-              "label": "Hamamah"
+              "label": "Hind bint Awf"
             },
             {
               "id": "c",
-              "label": "Hantama bint Hisham"
+              "label": "Khadijah bint Khuwaylid"
             },
             {
               "id": "d",
@@ -13860,7 +12945,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "His parents were the first martyrs of Islam.",
       "learnFacts": [
         "Father: Yasir ibn Amir",
-        "Mother: Sumayya bint Khayyat",
+        "Mother: Sumayyah bint Khayyat",
         "Tribe: Madhhij"
       ],
       "lessonType": "story",
@@ -13881,7 +12966,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Walid ibn al-Mughira"
+              "label": "Walid ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -13916,7 +13001,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Sumayya bint Khayyat"
+              "label": "Sumayyah bint Khayyat"
             },
             {
               "id": "d",
@@ -13924,7 +13009,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Ammar ibn Yasir was Sumayya bint Khayyat.",
+          "explanation": "The mother of Ammar ibn Yasir was Sumayyah bint Khayyat.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-3-ammar-ibn-yasir",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-3-ammar-ibn-yasir"
         },
@@ -13968,7 +13053,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He won Egypt for the Muslims and became its governor.",
       "learnFacts": [
         "Father: Al-As ibn Wa'il",
-        "Mother: An-Nabigha bint Harmala",
+        "Mother: An-Nabighah bint Harmalah",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -14046,11 +13131,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "c",
-              "label": "An-Nabigha bint Harmala"
+              "label": "An-Nabighah bint Harmalah"
             },
             {
               "id": "d",
@@ -14058,7 +13143,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Amr ibn al-As was An-Nabigha bint Harmala.",
+          "explanation": "The mother of Amr ibn al-As was An-Nabighah bint Harmalah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-3-amr-ibn-al-as",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-3-amr-ibn-al-as",
           "resourceLabel": "Open source",
@@ -14243,7 +13328,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Hisham ibn al-Mughira"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "d",
@@ -14270,7 +13355,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "d",
@@ -14317,11 +13402,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-3",
       "title": "As'ad ibn Zurarah",
       "intro": "First chief in Madinah to accept Islam.",
-      "explanationContent": "First chief in Madinah to accept Islam. Full name: As'ad ibn Zurara. Tribe: Khazraj, clan of Banu Najjar. Father: Zurara ibn Udas. Passed away in 1 AH / 623 CE at Madinah.",
+      "explanationContent": "First chief in Madinah to accept Islam. Full name: As'ad ibn Zurara. Tribe: Khazraj, clan of Banu Najjar. Father: Zurarah ibn Udas. Passed away in 1 AH / 623 CE at Madinah.",
       "keyTakeaway": "As'ad ibn Zurarah: First chief in Madinah to accept Islam.",
       "learnLine": "He was the first chief in Madinah to accept Islam.",
       "learnFacts": [
-        "Father: Zurara ibn Udas",
+        "Father: Zurarah ibn Udas",
         "Mother: Suwad bint Rafi",
         "Tribe: Khazraj"
       ],
@@ -14343,15 +13428,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Quhafa"
+              "label": "Abu Quhafah"
             },
             {
               "id": "b",
-              "label": "Abu Rabi'a ibn al-Mughira"
+              "label": "Abu Rabi'ah ibn al-Mughirah"
             },
             {
               "id": "c",
-              "label": "Zurara ibn Udas"
+              "label": "Zurarah ibn Udas"
             },
             {
               "id": "d",
@@ -14359,7 +13444,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The father of As'ad ibn Zurarah was Zurara ibn Udas.",
+          "explanation": "The father of As'ad ibn Zurarah was Zurarah ibn Udas.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-3-asad-ibn-zoraarah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-3-asad-ibn-zoraarah"
         },
@@ -14490,7 +13575,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Amra bint Mas'ud"
+              "label": "Amrah bint Mas'ud"
             }
           ],
           "correctChoiceId": "b",
@@ -14571,7 +13656,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Zurara ibn Udas"
+              "label": "Zurarah ibn Udas"
             }
           ],
           "correctChoiceId": "c",
@@ -14590,7 +13675,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Lubaba as-Sughra bint al-Harith"
+              "label": "Lubabah as-Sughra bint al-Harith"
             },
             {
               "id": "c",
@@ -14698,7 +13783,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Lubaba as-Sughra bint al-Harith"
+              "label": "Lubabah as-Sughra bint al-Harith"
             },
             {
               "id": "c",
@@ -14706,7 +13791,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Hind bint Utba"
+              "label": "Hind bint Utbah"
             }
           ],
           "correctChoiceId": "c",
@@ -14754,7 +13839,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "She was Ali's mother and raised the Prophet ﷺ in her home.",
       "learnFacts": [
         "Father: Asad ibn Hashim",
-        "Mother: Fatima bint Qays",
+        "Mother: Fatimah bint Qays",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -14773,7 +13858,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Tha'laba ibn Amr"
+              "label": "Tha'labah ibn Amr"
             },
             {
               "id": "b",
@@ -14781,7 +13866,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Ubada ibn Dulaym"
+              "label": "Ubadah ibn Dulaym"
             },
             {
               "id": "d",
@@ -14800,23 +13885,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fatimah az-Zahra"
+              "label": "Asma bint Abi Bakr"
             },
             {
               "id": "b",
-              "label": "Hala bint Khuwaylid"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "c",
-              "label": "Fatima bint Qays"
+              "label": "Fatimah bint Qays"
             },
             {
               "id": "d",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Arwa bint Kurayz"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Fatimah bint Asad was Fatima bint Qays.",
+          "explanation": "The mother of Fatimah bint Asad was Fatimah bint Qays.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-4-fatimah-bint-asad",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-fatimah-bint-asad"
         },
@@ -14854,10 +13939,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-sahabah-companions-from-your-notes-4-ghailan-b-salama-ath-thaqafi",
       "branchId": "notes-sahabah-companions-from-your-notes-4",
       "title": "Ghaylan ibn Salamah ath-Thaqafi",
-      "intro": "Accepted Islam with ten wives and was told to keep four.",
-      "explanationContent": "Accepted Islam with ten wives and was told to keep four. Full name: Ghaylan ibn Salama al-Thaqafi. Tribe: Thaqif. Passed away in during the caliphate of Umar.",
-      "keyTakeaway": "Ghaylan ibn Salamah ath-Thaqafi: Accepted Islam with ten wives and was told to keep four.",
-      "learnLine": "He became Muslim with ten wives and was told to keep four.",
+      "intro": "He was a man of Thaqif, from Ta'if, who accepted Islam.",
+      "explanationContent": "He was a man of Thaqif, from Ta'if, who accepted Islam. Full name: Ghaylan ibn Salama al-Thaqafi. Tribe: Thaqif. Passed away during the caliphate of Umar.",
+      "learnLine": "He was a man of Thaqif, from Ta'if, who accepted Islam.",
       "learnFacts": [
         "Tribe: Thaqif"
       ],
@@ -14879,11 +13963,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "He was the first to call the adhan in Islam."
+              "label": "He was the last companion to pass away in Syria."
             },
             {
               "id": "b",
-              "label": "He became Muslim with ten wives and was told to keep four."
+              "label": "He was a man of Thaqif, from Ta'if, who accepted Islam."
             },
             {
               "id": "c",
@@ -14895,7 +13979,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Ghaylan ibn Salamah ath-Thaqafi became Muslim with ten wives and was told to keep four.",
+          "explanation": "Ghaylan ibn Salamah ath-Thaqafi was a man of Thaqif, from Ta'if, who accepted Islam.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-4-ghailan-b-salama-ath-thaqafi",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-ghailan-b-salama-ath-thaqafi"
         },
@@ -14934,11 +14018,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-4",
       "title": "Al-Harith ibn Hisham",
       "intro": "Brother of Abu Jahl who accepted Islam at the conquest of Makkah; died during the conquest of Syria.",
-      "explanationContent": "Brother of Abu Jahl who accepted Islam at the conquest of Makkah; died during the conquest of Syria. Full name: Al-Harith ibn Hisham ibn al-Mughira. Tribe: Quraysh, clan of Banu Makhzum. Father: Hisham ibn al-Mughira. Passed away in 15 or 18 AH / 636 or 639 CE.",
+      "explanationContent": "Brother of Abu Jahl who accepted Islam at the conquest of Makkah; died during the conquest of Syria. Full name: Al-Harith ibn Hisham ibn al-Mughira. Tribe: Quraysh, clan of Banu Makhzum. Father: Hisham ibn al-Mughirah. Passed away in 15 or 18 AH / 636 or 639 CE.",
       "keyTakeaway": "Al-Harith ibn Hisham: Brother of Abu Jahl who accepted Islam at the conquest of Makkah; died during the conquest of Syria.",
       "learnLine": "He was Abu Jahl's brother and became Muslim when Makkah was opened.",
       "learnFacts": [
-        "Father: Hisham ibn al-Mughira",
+        "Father: Hisham ibn al-Mughirah",
         "Tribe: Quraysh",
         "Clan: Banu Makhzum"
       ],
@@ -14972,11 +14056,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Hisham ibn al-Mughira"
+              "label": "Hisham ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Al-Harith ibn Hisham was Hisham ibn al-Mughira.",
+          "explanation": "The father of Al-Harith ibn Hisham was Hisham ibn al-Mughirah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-4-haarith-ibn-hishaan",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-haarith-ibn-hishaan"
         },
@@ -15047,7 +14131,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was Khadijah's nephew and a generous merchant.",
       "learnFacts": [
         "Father: Hizam ibn Khuwaylid",
-        "Mother: Fakhita bint Zuhayr",
+        "Mother: Fakhitah bint Zuhayr",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -15095,11 +14179,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "b",
-              "label": "Lubaba bint al-Harith"
+              "label": "Lubabah bint al-Harith"
             },
             {
               "id": "c",
@@ -15107,11 +14191,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Nasiba bint Uqba"
+              "label": "Nasibah bint Uqbah"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Hakim ibn Hizam was Fakhita bint Zuhayr.",
+          "explanation": "The mother of Hakim ibn Hizam was Fakhitah bint Zuhayr.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-4-hakim-ibn-hizam",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-hakim-ibn-hizam"
         },
@@ -15203,7 +14287,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fatima bint Amr an-Najjariyya"
+              "label": "Ramlah"
             },
             {
               "id": "b",
@@ -15211,11 +14295,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Asma bint Mukharriba"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "d",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Natilah bint Janab"
             }
           ],
           "correctChoiceId": "b",
@@ -15431,7 +14515,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Hantama bint Hisham"
+              "label": "Hantamah bint Hisham"
             }
           ],
           "correctChoiceId": "a",
@@ -15500,7 +14584,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hakim ibn Umayya"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "b",
@@ -15527,7 +14611,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Mujalida bint Amr"
+              "label": "Halah bint Khuwaylid"
             },
             {
               "id": "b",
@@ -15535,11 +14619,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Khunas bint Malik"
+              "label": "Asma bint Mukharribah"
             },
             {
               "id": "d",
-              "label": "Lubaba as-Sughra bint al-Harith"
+              "label": "Fakhitah bint Zuhayr"
             }
           ],
           "correctChoiceId": "b",
@@ -15586,7 +14670,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "keyTakeaway": "Jabir ibn Abdullah: Prolific narrator of hadith.",
       "learnLine": "He passed on very many hadiths.",
       "learnFacts": [
-        "Mother: Nasiba bint Uqba",
+        "Mother: Nasibah bint Uqbah",
         "Tribe: Khazraj",
         "Clan: Banu Salamah"
       ],
@@ -15636,7 +14720,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Amra bint Mas'ud"
+              "label": "Amrah bint Mas'ud"
             },
             {
               "id": "c",
@@ -15644,11 +14728,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Nasiba bint Uqba"
+              "label": "Nasibah bint Uqbah"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The mother of Jabir ibn Abdullah was Nasiba bint Uqba.",
+          "explanation": "The mother of Jabir ibn Abdullah was Nasibah bint Uqbah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah",
           "resourceLabel": "Open source",
@@ -15698,7 +14782,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Banu Sa'ida"
+              "label": "Banu Sa'idah"
             },
             {
               "id": "d",
@@ -15746,11 +14830,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Quhafa"
+              "label": "Abu Quhafah"
             },
             {
               "id": "b",
-              "label": "Abu Rabi'a ibn al-Mughira"
+              "label": "Abu Rabi'ah ibn al-Mughirah"
             },
             {
               "id": "c",
@@ -15965,7 +15049,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Walid ibn al-Mughira"
+              "label": "Walid ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "c",
@@ -16037,11 +15121,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Banu Umayya"
+              "label": "Banu Umayyah"
             },
             {
               "id": "c",
-              "label": "Banu Zuhra"
+              "label": "Banu Zuhrah"
             },
             {
               "id": "d",
@@ -16140,12 +15224,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-5",
       "title": "Khalid ibn al-Walid",
       "intro": "“Sword of Allah”; commander at Mu'tah, in the Ridda Wars and at Yarmuk.",
-      "explanationContent": "“Sword of Allah”; commander at Mu'tah, in the Ridda Wars and at Yarmuk. Full name: Khalid ibn al-Walid ibn al-Mughira ibn Abd Allah ibn Umar ibn Makhzum ibn Yaqaza ibn Ka'b. Tribe: Quraysh, clan of Banu Makhzum. Father: Walid ibn al-Mughira. Born in Makkah. Passed away in 21 AH / 642 CE at Homs or Madinah.",
+      "explanationContent": "“Sword of Allah”; commander at Mu'tah, in the Ridda Wars and at Yarmuk. Full name: Khalid ibn al-Walid ibn al-Mughira ibn Abd Allah ibn Umar ibn Makhzum ibn Yaqaza ibn Ka'b. Tribe: Quraysh, clan of Banu Makhzum. Father: Walid ibn al-Mughirah. Born in Makkah. Passed away in 21 AH / 642 CE at Homs or Madinah.",
       "keyTakeaway": "Khalid ibn al-Walid: “Sword of Allah”; commander at Mu'tah, in the Ridda Wars and at Yarmuk.",
       "learnLine": "He was called the Sword of Allah.",
       "learnFacts": [
-        "Father: Walid ibn al-Mughira",
-        "Mother: Lubaba as-Sughra bint al-Harith",
+        "Father: Walid ibn al-Mughirah",
+        "Mother: Lubabah as-Sughra bint al-Harith",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -16178,11 +15262,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Walid ibn al-Mughira"
+              "label": "Walid ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Khalid ibn al-Walid was Walid ibn al-Mughira.",
+          "explanation": "The father of Khalid ibn al-Walid was Walid ibn al-Mughirah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-5-khalid-ibn-al-walid",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-5-khalid-ibn-al-walid"
         },
@@ -16193,23 +15277,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Lubaba as-Sughra bint al-Harith"
+              "label": "Lubabah as-Sughra bint al-Harith"
             },
             {
               "id": "b",
-              "label": "Safiyya bint Abd al-Muttalib"
+              "label": "Safiyyah bint Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Su'da bint Tha'laba"
+              "label": "Su'da bint Tha'labah"
             },
             {
               "id": "d",
-              "label": "Sumayya bint Khayyat"
+              "label": "Sumayyah bint Khayyat"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Khalid ibn al-Walid was Lubaba as-Sughra bint al-Harith.",
+          "explanation": "The mother of Khalid ibn al-Walid was Lubabah as-Sughra bint al-Harith.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-5-khalid-ibn-al-walid",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-5-khalid-ibn-al-walid"
         },
@@ -16248,11 +15332,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-5",
       "title": "Khawlah bint Hakim",
       "intro": "Early Muslim woman; wife of Uthman ibn Maz'un.",
-      "explanationContent": "Early Muslim woman; wife of Uthman ibn Maz'un. Full name: Khawlah bint Hakim ibn Umayya al-Sulamiyya. Father: Hakim ibn Umayya. Born in Makkah.",
+      "explanationContent": "Early Muslim woman; wife of Uthman ibn Maz'un. Full name: Khawlah bint Hakim ibn Umayya al-Sulamiyya. Father: Hakim ibn Umayyah. Born in Makkah.",
       "keyTakeaway": "Khawlah bint Hakim: Early Muslim woman; wife of Uthman ibn Maz'un.",
       "learnLine": "She was an early Muslim woman, the wife of Uthman ibn Maz'un.",
       "learnFacts": [
-        "Father: Hakim ibn Umayya",
+        "Father: Hakim ibn Umayyah",
         "Born in Makkah"
       ],
       "lessonType": "story",
@@ -16277,7 +15361,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Hakim ibn Umayya"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "c",
@@ -16289,7 +15373,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The father of Khawlah bint Hakim was Hakim ibn Umayya.",
+          "explanation": "The father of Khawlah bint Hakim was Hakim ibn Umayyah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-5-khawlah-bint-hakim",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-5-khawlah-bint-hakim"
         },
@@ -16328,12 +15412,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-5",
       "title": "Makhramah ibn Nawfal",
       "intro": "Zuhri noble; father of the Companion al-Miswar.",
-      "explanationContent": "Zuhri noble; father of the Companion al-Miswar. Full name: Makhrama ibn Nawfal ibn Uhayb ibn Abd Manaf ibn Zuhra ibn Kilab. Tribe: Quraysh, clan of Banu Zuhra. Passed away in 54 AH / 674 CE.",
+      "explanationContent": "Zuhri noble; father of the Companion al-Miswar. Full name: Makhrama ibn Nawfal ibn Uhayb ibn Abd Manaf ibn Zuhra ibn Kilab. Tribe: Quraysh, clan of Banu Zuhrah. Passed away in 54 AH / 674 CE.",
       "keyTakeaway": "Makhramah ibn Nawfal: Zuhri noble; father of the Companion al-Miswar.",
       "learnLine": "He was a noble of Banu Zuhrah and father of al-Miswar.",
       "learnFacts": [
         "Tribe: Quraysh",
-        "Clan: Banu Zuhra"
+        "Clan: Banu Zuhrah"
       ],
       "lessonType": "story",
       "difficulty": 3,
@@ -16388,15 +15472,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Banu Umayya"
+              "label": "Banu Umayyah"
             },
             {
               "id": "d",
-              "label": "Banu Zuhra"
+              "label": "Banu Zuhrah"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Makhramah ibn Nawfal belonged to Banu Zuhra.",
+          "explanation": "Makhramah ibn Nawfal belonged to Banu Zuhrah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-5-makhrama-ibn-nawfal",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-5-makhrama-ibn-nawfal"
         }
@@ -16462,7 +15546,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Hisham ibn al-Mughira"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "c",
@@ -16551,7 +15635,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He founded the Umayyad caliphate.",
       "learnFacts": [
         "Father: Abu Sufyan ibn Harb",
-        "Mother: Hind bint Utba",
+        "Mother: Hind bint Utbah",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -16576,11 +15660,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Abu Quhafa"
+              "label": "Abu Quhafah"
             },
             {
               "id": "c",
-              "label": "Abu Rabi'a ibn al-Mughira"
+              "label": "Abu Rabi'ah ibn al-Mughirah"
             },
             {
               "id": "d",
@@ -16599,23 +15683,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "b",
-              "label": "Fatima bint Amr an-Najjariyya"
+              "label": "Fatimah az-Zahra"
             },
             {
               "id": "c",
-              "label": "Hind bint Utba"
+              "label": "Hind bint Utbah"
             },
             {
               "id": "d",
-              "label": "Asma bint Mukharriba"
+              "label": "Asma bint Mukharribah"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Mu'awiyah ibn Abi Sufyan was Hind bint Utba.",
+          "explanation": "The mother of Mu'awiyah ibn Abi Sufyan was Hind bint Utbah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-5-muawiyah-ibn-abi-sufyan",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-5-muawiyah-ibn-abi-sufyan"
         },
@@ -16711,7 +15795,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Umaymah bint Ghanm"
             },
             {
               "id": "c",
@@ -16762,12 +15846,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-6",
       "title": "Nu'ayman ibn Amr",
       "intro": "Badr veteran famous for his practical jokes.",
-      "explanationContent": "Badr veteran famous for his practical jokes. Full name: Al-Nu'ayman ibn Amr al-Najjari. Tribe: Khazraj, clan of Banu Najjar. Father: Amr ibn Rifa'a.",
+      "explanationContent": "Badr veteran famous for his practical jokes. Full name: Al-Nu'ayman ibn Amr al-Najjari. Tribe: Khazraj, clan of Banu Najjar. Father: Amr ibn Rifa'ah.",
       "keyTakeaway": "Nu'ayman ibn Amr: Badr veteran famous for his practical jokes.",
       "learnLine": "He fought at Badr and was famous for his jokes.",
       "learnFacts": [
-        "Father: Amr ibn Rifa'a",
-        "Mother: Fatima bint Amr an-Najjariyya",
+        "Father: Amr ibn Rifa'ah",
+        "Mother: Fatimah bint Amr an-Najjariyyah",
         "Tribe: Khazraj"
       ],
       "lessonType": "story",
@@ -16786,11 +15870,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Rawaha ibn Tha'laba"
+              "label": "Rawahah ibn Tha'labah"
             },
             {
               "id": "b",
-              "label": "Amr ibn Rifa'a"
+              "label": "Amr ibn Rifa'ah"
             },
             {
               "id": "c",
@@ -16802,7 +15886,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The father of Nu'ayman ibn Amr was Amr ibn Rifa'a.",
+          "explanation": "The father of Nu'ayman ibn Amr was Amr ibn Rifa'ah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-6-nuayman-ibn-amr",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-6-nuayman-ibn-amr"
         },
@@ -16813,23 +15897,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fatima bint Amr an-Najjariyya"
+              "label": "Fatimah bint Amr an-Najjariyyah"
             },
             {
               "id": "b",
-              "label": "Suwad bint Rafi"
+              "label": "Asma bint Mukharribah"
             },
             {
               "id": "c",
-              "label": "Umayma bint Ghanm"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "d",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Halah bint Khuwaylid"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Nu'ayman ibn Amr was Fatima bint Amr an-Najjariyya.",
+          "explanation": "The mother of Nu'ayman ibn Amr was Fatimah bint Amr an-Najjariyyah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-6-nuayman-ibn-amr",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-6-nuayman-ibn-amr"
         },
@@ -16976,12 +16060,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-6",
       "title": "Sa'd ibn Ubadah",
       "intro": "Chief of Khazraj; nominated at Saqifah.",
-      "explanationContent": "Chief of Khazraj; nominated at Saqifah. Full name: Sa'd ibn Ubada. Tribe: Khazraj, clan of Banu Sa'ida. Father: Ubada ibn Dulaym. Passed away in c. 15 AH / 636 CE at Hauran, Syria.",
+      "explanationContent": "Chief of Khazraj; nominated at Saqifah. Full name: Sa'd ibn Ubada. Tribe: Khazraj, clan of Banu Sa'idah. Father: Ubadah ibn Dulaym. Passed away in c. 15 AH / 636 CE at Hauran, Syria.",
       "keyTakeaway": "Sa'd ibn Ubadah: Chief of Khazraj; nominated at Saqifah.",
       "learnLine": "He was the chief of the Khazraj tribe.",
       "learnFacts": [
-        "Father: Ubada ibn Dulaym",
-        "Mother: Amra bint Mas'ud",
+        "Father: Ubadah ibn Dulaym",
+        "Mother: Amrah bint Mas'ud",
         "Tribe: Khazraj"
       ],
       "lessonType": "story",
@@ -17002,7 +16086,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ubada ibn Dulaym"
+              "label": "Ubadah ibn Dulaym"
             },
             {
               "id": "b",
@@ -17010,7 +16094,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Hakim ibn Umayya"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "d",
@@ -17018,7 +16102,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The father of Sa'd ibn Ubadah was Ubada ibn Dulaym.",
+          "explanation": "The father of Sa'd ibn Ubadah was Ubadah ibn Dulaym.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-6-sad-ibn-ubaadah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-6-sad-ibn-ubaadah"
         },
@@ -17029,11 +16113,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "b",
-              "label": "Amra bint Mas'ud"
+              "label": "Amrah bint Mas'ud"
             },
             {
               "id": "c",
@@ -17045,7 +16129,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The mother of Sa'd ibn Ubadah was Amra bint Mas'ud.",
+          "explanation": "The mother of Sa'd ibn Ubadah was Amrah bint Mas'ud.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-6-sad-ibn-ubaadah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-6-sad-ibn-ubaadah"
         },
@@ -17483,7 +16567,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Nasiba bint Uqba"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "b",
@@ -17491,7 +16575,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Lubaba bint al-Harith"
+              "label": "Lubabah bint al-Harith"
             },
             {
               "id": "d",
@@ -18001,11 +17085,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Banu Umayya"
+              "label": "Banu Umayyah"
             },
             {
               "id": "d",
-              "label": "Banu Zuhra"
+              "label": "Banu Zuhrah"
             }
           ],
           "correctChoiceId": "a",
@@ -18057,7 +17141,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was the second caliph, called al-Faruq.",
       "learnFacts": [
         "Father: Al-Khattab ibn Nufayl",
-        "Mother: Hantama bint Hisham",
+        "Mother: Hantamah bint Hisham",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -18105,7 +17189,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hantama bint Hisham"
+              "label": "Hantamah bint Hisham"
             },
             {
               "id": "b",
@@ -18117,11 +17201,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Lubaba as-Sughra bint al-Harith"
+              "label": "Lubabah as-Sughra bint al-Harith"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Umar ibn al-Khattab was Hantama bint Hisham.",
+          "explanation": "The mother of Umar ibn al-Khattab was Hantamah bint Hisham.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-7-umar-ibn-al-khattab",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-7-umar-ibn-al-khattab"
         },
@@ -18160,11 +17244,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-7",
       "title": "Umm Ayman",
       "intro": "Nurse of the Prophet ﷺ from his childhood and one of the first Muslims.",
-      "explanationContent": "Nurse of the Prophet ﷺ from his childhood and one of the first Muslims. Full name: Barakah bint Tha'laba. Father: Tha'laba ibn Amr.",
+      "explanationContent": "Nurse of the Prophet ﷺ from his childhood and one of the first Muslims. Full name: Barakah bint Tha'laba. Father: Tha'labah ibn Amr.",
       "keyTakeaway": "Umm Ayman: Nurse of the Prophet ﷺ from his childhood and one of the first Muslims.",
       "learnLine": "She cared for the young Prophet ﷺ and was an early Muslim.",
       "learnFacts": [
-        "Father: Tha'laba ibn Amr"
+        "Father: Tha'labah ibn Amr"
       ],
       "lessonType": "story",
       "difficulty": 2,
@@ -18211,7 +17295,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Hakim ibn Umayya"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "c",
@@ -18219,11 +17303,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Tha'laba ibn Amr"
+              "label": "Tha'labah ibn Amr"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Umm Ayman was Tha'laba ibn Amr.",
+          "explanation": "The father of Umm Ayman was Tha'labah ibn Amr.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-7-umm-ayman",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-7-umm-ayman"
         }
@@ -18269,11 +17353,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Abu Quhafa"
+              "label": "Abu Quhafah"
             },
             {
               "id": "d",
-              "label": "Abu Rabi'a ibn al-Mughira"
+              "label": "Abu Rabi'ah ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "b",
@@ -18288,11 +17372,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umayma bint Ghanm"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "b",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Umm Ayman"
             },
             {
               "id": "c",
@@ -18377,7 +17461,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Hisham ibn al-Mughira"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "d",
@@ -18585,7 +17669,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Ubada ibn Dulaym"
+              "label": "Ubadah ibn Dulaym"
             },
             {
               "id": "c",
@@ -18608,7 +17692,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Natila bint Janab"
+              "label": "Natilah bint Janab"
             },
             {
               "id": "b",
@@ -18620,7 +17704,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Nasiba bint Uqba"
+              "label": "Nasibah bint Uqbah"
             }
           ],
           "correctChoiceId": "b",
@@ -18771,7 +17855,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-8",
       "title": "Uthman ibn Affan",
       "intro": "Third caliph; Dhu al-Nurayn; standardised the mushaf.",
-      "explanationContent": "Third caliph; Dhu al-Nurayn; standardised the mushaf. Tribe: Quraysh, clan of Banu Umayya. Father: Affan ibn Abi al-As. Born in Makkah or Ta'if. Passed away in 18 Dhu al-Hijjah 35 AH / 17 June 656 CE at Madinah.",
+      "explanationContent": "Third caliph; Dhu al-Nurayn; standardised the mushaf. Tribe: Quraysh, clan of Banu Umayyah. Father: Affan ibn Abi al-As. Born in Makkah or Ta'if. Passed away in 18 Dhu al-Hijjah 35 AH / 17 June 656 CE at Madinah.",
       "keyTakeaway": "Uthman ibn Affan: Third caliph; Dhu al-Nurayn; standardised the mushaf.",
       "learnLine": "The third caliph, he made one standard copy of the Quran.",
       "learnFacts": [
@@ -18795,7 +17879,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Rawaha ibn Tha'laba"
+              "label": "Rawahah ibn Tha'labah"
             },
             {
               "id": "b",
@@ -18826,15 +17910,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Fakhita bint Zuhayr"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "c",
-              "label": "Fatima bint Amr an-Najjariyya"
+              "label": "Fatimah az-Zahra"
             },
             {
               "id": "d",
-              "label": "Fatimah az-Zahra"
+              "label": "Halah bint Khuwaylid"
             }
           ],
           "correctChoiceId": "a",
@@ -18877,11 +17961,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-8",
       "title": "Walid ibn al-Walid ibn al-Mughirah",
       "intro": "Brother of Khalid; captured at Badr, later emigrated to Madinah.",
-      "explanationContent": "Brother of Khalid; captured at Badr, later emigrated to Madinah. Full name: al-Walid ibn al-Walid ibn al-Mughira ibn Abd Allah ibn Umar ibn Makhzum. Tribe: Quraysh, clan of Banu Makhzum. Father: Walid ibn al-Mughira.",
+      "explanationContent": "Brother of Khalid; captured at Badr, later emigrated to Madinah. Full name: al-Walid ibn al-Walid ibn al-Mughira ibn Abd Allah ibn Umar ibn Makhzum. Tribe: Quraysh, clan of Banu Makhzum. Father: Walid ibn al-Mughirah.",
       "keyTakeaway": "Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
       "learnLine": "He was Khalid's brother and later emigrated to Madinah.",
       "learnFacts": [
-        "Father: Walid ibn al-Mughira",
+        "Father: Walid ibn al-Mughirah",
         "Tribe: Quraysh",
         "Clan: Banu Makhzum"
       ],
@@ -18927,11 +18011,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Walid ibn al-Mughira"
+              "label": "Walid ibn al-Mughirah"
             },
             {
               "id": "b",
-              "label": "Hakim ibn Umayya"
+              "label": "Hakim ibn Umayyah"
             },
             {
               "id": "c",
@@ -18943,7 +18027,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The father of Walid ibn al-Walid ibn al-Mughirah was Walid ibn al-Mughira.",
+          "explanation": "The father of Walid ibn al-Walid ibn al-Mughirah was Walid ibn al-Mughirah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "resourceLabel": "Open source",
@@ -19041,7 +18125,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hisham ibn al-Mughira"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -19068,7 +18152,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Lubaba as-Sughra bint al-Harith"
+              "label": "Lubabah as-Sughra bint al-Harith"
             },
             {
               "id": "b",
@@ -19128,7 +18212,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He is the only companion named in the Quran.",
       "learnFacts": [
         "Father: Harithah ibn Sharahil",
-        "Mother: Su'da bint Tha'laba",
+        "Mother: Su'da bint Tha'labah",
         "Tribe: Banu Kalb"
       ],
       "lessonType": "story",
@@ -19176,7 +18260,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Su'da bint Tha'laba"
+              "label": "Su'da bint Tha'labah"
             },
             {
               "id": "b",
@@ -19188,11 +18272,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Lubaba as-Sughra bint al-Harith"
+              "label": "Lubabah as-Sughra bint al-Harith"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Zayd ibn Harithah was Su'da bint Tha'laba.",
+          "explanation": "The mother of Zayd ibn Harithah was Su'da bint Tha'labah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-8-zayd-ibn-harithah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-8-zayd-ibn-harithah"
         },
@@ -19284,7 +18368,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hala bint Khuwaylid"
+              "label": "Hamamah"
             },
             {
               "id": "b",
@@ -19292,11 +18376,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Fatima bint Amr an-Najjariyya"
+              "label": "Fatimah az-Zahra"
             },
             {
               "id": "d",
-              "label": "Fatimah az-Zahra"
+              "label": "Halah bint Khuwaylid"
             }
           ],
           "correctChoiceId": "b",
@@ -19392,11 +18476,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Umm Ayman"
             },
             {
               "id": "b",
-              "label": "Umm Ayman"
+              "label": "Umm Sulaym"
             },
             {
               "id": "c",
@@ -19404,7 +18488,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Umayma bint Ghanm"
+              "label": "Umaymah bint Abd al-Muttalib"
             }
           ],
           "correctChoiceId": "c",
@@ -19452,7 +18536,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was the Prophet's ﷺ cousin, one of ten promised Paradise.",
       "learnFacts": [
         "Father: Awwam ibn Khuwaylid",
-        "Mother: Safiyya bint Abd al-Muttalib",
+        "Mother: Safiyyah bint Abd al-Muttalib",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -19504,7 +18588,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Safiyya bint Abd al-Muttalib"
+              "label": "Safiyyah bint Abd al-Muttalib"
             },
             {
               "id": "c",
@@ -19516,7 +18600,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The mother of Az-Zubayr ibn al-Awwam was Safiyya bint Abd al-Muttalib.",
+          "explanation": "The mother of Az-Zubayr ibn al-Awwam was Safiyyah bint Abd al-Muttalib.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-8-zubayr-ibn-al-awwam",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-8-zubayr-ibn-al-awwam"
         },
@@ -19560,7 +18644,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was called the Explainer of the Quran.",
       "learnFacts": [
         "Father: Abbas ibn Abd al-Muttalib",
-        "Mother: Lubaba bint al-Harith",
+        "Mother: Lubabah bint al-Harith",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -19581,7 +18665,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hisham ibn al-Mughira"
+              "label": "Hisham ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -19608,23 +18692,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umaymah bint Abd al-Muttalib"
-            },
-            {
-              "id": "b",
               "label": "Umm Ayman"
             },
             {
+              "id": "b",
+              "label": "Umm Sulaym"
+            },
+            {
               "id": "c",
-              "label": "Lubaba bint al-Harith"
+              "label": "Lubabah bint al-Harith"
             },
             {
               "id": "d",
-              "label": "Umayma bint Ghanm"
+              "label": "Umaymah bint Abd al-Muttalib"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Abdullah ibn Abbas was Lubaba bint al-Harith.",
+          "explanation": "The mother of Abdullah ibn Abbas was Lubabah bint al-Harith.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-8-abd-allah-ibn-abbas",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-8-abd-allah-ibn-abbas"
         },
@@ -19806,7 +18890,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Safiyya bint Abi al-As"
+              "label": "Safiyyah bint Abi al-As"
             }
           ],
           "correctChoiceId": "a",
@@ -19928,7 +19012,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
       "title": "Aminah bint Wahb",
       "intro": "Mother of the Prophet ﷺ; died at al-Abwa' when he was six.",
-      "explanationContent": "Mother of the Prophet ﷺ; died at al-Abwa' when he was six. Full name: Aminah bint Wahb ibn Abd Manaf al-Zuhriyya. Tribe: Quraysh, clan of Banu Zuhra. Father: Wahb ibn Abd Manaf. Born in Makkah. Passed away in c. 577 CE at al-Abwa'.",
+      "explanationContent": "Mother of the Prophet ﷺ; died at al-Abwa' when he was six. Full name: Aminah bint Wahb ibn Abd Manaf al-Zuhriyya. Tribe: Quraysh, clan of Banu Zuhrah. Father: Wahb ibn Abd Manaf. Born in Makkah. Passed away in c. 577 CE at al-Abwa'.",
       "keyTakeaway": "Aminah bint Wahb: Mother of the Prophet ﷺ; died at al-Abwa' when he was six.",
       "learnLine": "She was the mother of the Prophet ﷺ.",
       "learnFacts": [
@@ -20117,7 +19201,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Harb ibn Umayya"
+              "label": "Harb ibn Umayyah"
             },
             {
               "id": "c",
@@ -20270,7 +19354,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Umayya ibn al-Mughira"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -20352,11 +19436,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
       "title": "Hajar",
       "intro": "Mother of Ismail; ran between Safa and Marwa.",
-      "explanationContent": "Mother of Ismail; ran between Safa and Marwa. Born in Egypt. Passed away at Makkah.",
+      "explanationContent": "Mother of Ismail; ran between Safa and Marwa. Passed away at Makkah.",
       "keyTakeaway": "Hajar: Mother of Ismail; ran between Safa and Marwa.",
       "learnLine": "She was Ismail's mother and ran between Safa and Marwah.",
       "learnFacts": [
-        "Born in Egypt",
         "Passed away in Makkah"
       ],
       "lessonType": "story",
@@ -20373,27 +19456,27 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-hajar_q1",
           "type": "multiple_choice",
-          "prompt": "Where was Hajar born?",
+          "prompt": "What is Hajar known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Ur"
+              "label": "She nursed the Prophet ﷺ as a baby in the desert."
             },
             {
               "id": "b",
-              "label": "Madinah"
+              "label": "She owned Khabbab in Makkah and hurt him for his Islam."
             },
             {
               "id": "c",
-              "label": "Makkah"
+              "label": "She spoke out in Yazid's court after Karbala."
             },
             {
               "id": "d",
-              "label": "Egypt"
+              "label": "She was Ismail's mother and ran between Safa and Marwah."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Hajar was born in Egypt.",
+          "explanation": "Hajar was Ismail's mother and ran between Safa and Marwah.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-hajar",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-hajar"
         },
@@ -20408,15 +19491,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Cairo"
+              "label": "Sarif"
             },
             {
               "id": "c",
-              "label": "Hebron"
+              "label": "Cairo"
             },
             {
               "id": "d",
-              "label": "Jerusalem"
+              "label": "Madinah"
             }
           ],
           "correctChoiceId": "a",
@@ -20432,12 +19515,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
       "title": "Halimah as-Sa'diyyah",
       "intro": "Foster mother who breastfed the Prophet ﷺ in the desert.",
-      "explanationContent": "Foster mother who breastfed the Prophet ﷺ in the desert. Full name: Halimah bint Abi Dhu'ayb al-Sa'diyya. Tribe: Banu Sa'd ibn Bakr (Hawazin). Passed away at Madinah.",
+      "explanationContent": "Foster mother who breastfed the Prophet ﷺ in the desert. Full name: Halimah bint Abi Dhu'ayb al-Sa'diyya. Tribe: Banu Sa'd ibn Bakr (Hawazin).",
       "keyTakeaway": "Halimah as-Sa'diyyah: Foster mother who breastfed the Prophet ﷺ in the desert.",
       "learnLine": "She nursed the Prophet ﷺ as a baby in the desert.",
       "learnFacts": [
-        "Tribe: Banu Sa'd ibn Bakr",
-        "Passed away in Madinah"
+        "Tribe: Banu Sa'd ibn Bakr"
       ],
       "lessonType": "story",
       "difficulty": 4,
@@ -20453,54 +19535,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-halima-al-sadeya_q1",
           "type": "multiple_choice",
-          "prompt": "Which tribe was Halimah as-Sa'diyyah from?",
+          "prompt": "What is Halimah as-Sa'diyyah known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Banu Taghlib"
+              "label": "From the Prophet's ﷺ family, she taught hadith in Egypt."
             },
             {
               "id": "b",
-              "label": "Banu Tamim"
+              "label": "She gave Maryam to Allah's service before Maryam was born."
             },
             {
               "id": "c",
-              "label": "Banu Hanifa"
+              "label": "She is the only woman named in the Quran."
             },
             {
               "id": "d",
-              "label": "Banu Sa'd ibn Bakr"
+              "label": "She nursed the Prophet ﷺ as a baby in the desert."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Halimah as-Sa'diyyah was from Banu Sa'd ibn Bakr.",
+          "explanation": "Halimah as-Sa'diyyah nursed the Prophet ﷺ as a baby in the desert.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-halima-al-sadeya",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-halima-al-sadeya"
         },
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-halima-al-sadeya_q2",
           "type": "multiple_choice",
-          "prompt": "Where did Halimah as-Sa'diyyah pass away?",
+          "prompt": "Which tribe was Halimah as-Sa'diyyah from?",
           "choices": [
             {
               "id": "a",
-              "label": "Madinah"
+              "label": "Banu Sa'd ibn Bakr"
             },
             {
               "id": "b",
-              "label": "Jerusalem"
+              "label": "Banu Taghlib"
             },
             {
               "id": "c",
-              "label": "Makkah"
+              "label": "Banu Tamim"
             },
             {
               "id": "d",
-              "label": "Sarif"
+              "label": "Banu Hanifa"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Halimah as-Sa'diyyah passed away in Madinah.",
+          "explanation": "Halimah as-Sa'diyyah was from Banu Sa'd ibn Bakr.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-halima-al-sadeya",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-halima-al-sadeya"
         }
@@ -20592,7 +19674,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Cairo"
+              "label": "Sarif"
             },
             {
               "id": "b",
@@ -20600,11 +19682,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Makkah"
+              "label": "Cairo"
             },
             {
               "id": "d",
-              "label": "Sarif"
+              "label": "Makkah"
             }
           ],
           "correctChoiceId": "b",
@@ -20674,7 +19756,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Harb ibn Umayya"
+              "label": "Harb ibn Umayyah"
             },
             {
               "id": "c",
@@ -20758,7 +19840,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
       "title": "Khawlah bint Ja'far al-Hanifiyyah",
       "intro": "Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
-      "explanationContent": "Wife of Ali and mother of Muhammad ibn al-Hanafiyya. Full name: Khawla bint Ja'far al-Hanafiyya. Tribe: Banu Hanifa. Father: Ja'far ibn Qays. Born in Al-Yamama. Passed away at Madinah.",
+      "explanationContent": "Wife of Ali and mother of Muhammad ibn al-Hanafiyya. Full name: Khawla bint Ja'far al-Hanafiyya. Tribe: Banu Hanifa. Father: Ja'far ibn Qays.",
       "keyTakeaway": "Khawlah bint Ja'far al-Hanifiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
       "learnLine": "She was Ali's wife and the mother of Muhammad ibn al-Hanafiyyah.",
       "learnFacts": [
@@ -20782,7 +19864,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Harb ibn Umayya"
+              "label": "Harb ibn Umayyah"
             },
             {
               "id": "b",
@@ -20943,13 +20025,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
       "title": "Maryam",
       "intro": "The greatest of women; the only woman named in the Quran.",
-      "explanationContent": "The greatest of women; the only woman named in the Quran. Full name: Maryam bint Imran. Father: Imran (father of Maryam). Passed away at Jerusalem.",
+      "explanationContent": "The greatest of women; the only woman named in the Quran. Full name: Maryam bint Imran. Father: Imran (father of Maryam).",
       "keyTakeaway": "Maryam: The greatest of women; the only woman named in the Quran.",
       "learnLine": "She is the only woman named in the Quran.",
       "learnFacts": [
         "Father: Imran",
-        "Mother: Wife of Imran",
-        "Passed away in Jerusalem"
+        "Mother: Wife of Imran"
       ],
       "lessonType": "story",
       "difficulty": 2,
@@ -21015,33 +20096,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "explanation": "The mother of Maryam was Wife of Imran.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam"
-        },
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam_q3",
-          "type": "multiple_choice",
-          "prompt": "Where did Maryam pass away?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Madinah"
-            },
-            {
-              "id": "b",
-              "label": "Makkah"
-            },
-            {
-              "id": "c",
-              "label": "Sarif"
-            },
-            {
-              "id": "d",
-              "label": "Jerusalem"
-            }
-          ],
-          "correctChoiceId": "d",
-          "explanation": "Maryam passed away in Jerusalem.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam"
         }
       ]
     },
@@ -21085,7 +20139,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Abu Umayya ibn al-Mughira"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "d",
@@ -21168,8 +20222,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "Tribe: Banu Nadir"
       ],
       "lessonType": "story",
-      "difficulty": 2,
-      "xpReward": 12,
+      "difficulty": 3,
+      "xpReward": 14,
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
@@ -21185,7 +20239,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Harb ibn Umayya"
+              "label": "Harb ibn Umayyah"
             },
             {
               "id": "b",
@@ -21267,13 +20321,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
       "title": "Sarah",
       "intro": "Wife of Ibrahim and mother of Ishaq.",
-      "explanationContent": "Wife of Ibrahim and mother of Ishaq. Born in Ur. Passed away at Hebron.",
+      "explanationContent": "Wife of Ibrahim and mother of Ishaq.",
       "keyTakeaway": "Sarah: Wife of Ibrahim and mother of Ishaq.",
       "learnLine": "She was Ibrahim's wife and the mother of Ishaq.",
-      "learnFacts": [
-        "Born in Ur",
-        "Passed away in Hebron"
-      ],
       "lessonType": "story",
       "difficulty": 3,
       "xpReward": 14,
@@ -21288,54 +20338,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sarah_q1",
           "type": "multiple_choice",
-          "prompt": "Where was Sarah born?",
+          "prompt": "What is Sarah known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Makkah"
+              "label": "She spoke out in Yazid's court after Karbala."
             },
             {
               "id": "b",
-              "label": "Egypt"
+              "label": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah."
             },
             {
               "id": "c",
-              "label": "Madinah"
+              "label": "She was the last woman the Prophet ﷺ married."
             },
             {
               "id": "d",
-              "label": "Ur"
+              "label": "She was Ibrahim's wife and the mother of Ishaq."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Sarah was born in Ur.",
+          "explanation": "Sarah was Ibrahim's wife and the mother of Ishaq.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sarah",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sarah"
         },
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sarah_q2",
           "type": "multiple_choice",
-          "prompt": "Where did Sarah pass away?",
+          "prompt": "Who was Ibrahim's wife and the mother of Ishaq?",
           "choices": [
             {
               "id": "a",
-              "label": "Sarif"
+              "label": "Maryam"
             },
             {
               "id": "b",
-              "label": "Cairo"
+              "label": "Sayyidah Nafisah"
             },
             {
               "id": "c",
-              "label": "Hebron"
+              "label": "Sarah"
             },
             {
               "id": "d",
-              "label": "Makkah"
+              "label": "Juwayriyah bint al-Harith"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Sarah passed away in Hebron.",
+          "explanation": "Sarah was Ibrahim's wife and the mother of Ishaq.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sarah",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sarah"
         }
@@ -21356,8 +20406,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
-      "difficulty": 3,
-      "xpReward": 14,
+      "difficulty": 4,
+      "xpReward": 16,
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
@@ -21400,7 +20450,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Safiyya bint Abi al-As"
+              "label": "Safiyyah bint Abi al-As"
             },
             {
               "id": "b",
@@ -21493,7 +20543,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Harb ibn Umayya"
+              "label": "Harb ibn Umayyah"
             }
           ],
           "correctChoiceId": "b",
@@ -21572,8 +20622,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
-      "difficulty": 4,
-      "xpReward": 16,
+      "difficulty": 5,
+      "xpReward": 18,
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
@@ -21589,7 +20639,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Umayya ibn al-Mughira"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -21624,11 +20674,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Safiyya bint Abi al-As"
+              "label": "Safiyyah bint Abi al-As"
             },
             {
               "id": "d",
-              "label": "Thumama bint Sahl"
+              "label": "Thumamah bint Sahl"
             }
           ],
           "correctChoiceId": "a",
@@ -21665,85 +20715,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ]
     },
-    "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar": {
-      "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar",
-      "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar",
-      "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
-      "title": "Umm Anmar",
-      "intro": "Owned Khabbab ibn al-Aratt in Makkah and tortured him for his Islam.",
-      "explanationContent": "Owned Khabbab ibn al-Aratt in Makkah and tortured him for his Islam. Full name: Umm Anmar al-Khuza'iyya. Tribe: Khuza'a.",
-      "keyTakeaway": "Umm Anmar: Owned Khabbab ibn al-Aratt in Makkah and tortured him for his Islam.",
-      "learnLine": "She owned Khabbab in Makkah and hurt him for his Islam.",
-      "learnFacts": [
-        "Tribe: Khuza'a"
-      ],
-      "lessonType": "story",
-      "difficulty": 5,
-      "xpReward": 18,
-      "sources": [],
-      "sourceReferences": [],
-      "unlockRules": [
-        "Complete Umaymah bint Abd al-Muttalib"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar_q1",
-          "type": "multiple_choice",
-          "prompt": "What is Umm Anmar known for?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "She is the only woman named in the Quran."
-            },
-            {
-              "id": "b",
-              "label": "She owned Khabbab in Makkah and hurt him for his Islam."
-            },
-            {
-              "id": "c",
-              "label": "From the Prophet's ﷺ family, she taught hadith in Egypt."
-            },
-            {
-              "id": "d",
-              "label": "She gave Maryam to Allah's service before Maryam was born."
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Umm Anmar owned Khabbab in Makkah and hurt him for his Islam.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar"
-        },
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar_q2",
-          "type": "multiple_choice",
-          "prompt": "Which tribe was Umm Anmar from?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Banu Kilab"
-            },
-            {
-              "id": "b",
-              "label": "Banu Nadir"
-            },
-            {
-              "id": "c",
-              "label": "Khuza'a"
-            },
-            {
-              "id": "d",
-              "label": "Banu Hilal"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "Umm Anmar was from Khuza'a.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umm-ammaar"
-        }
-      ]
-    },
     "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-al-banin": {
       "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-al-banin",
       "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-al-banin",
@@ -21755,7 +20726,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "She was Ali's wife and the mother of al-Abbas ibn Ali.",
       "learnFacts": [
         "Father: Hizam ibn Khalid",
-        "Mother: Thumama bint Sahl",
+        "Mother: Thumamah bint Sahl",
         "Tribe: Banu Kilab"
       ],
       "lessonType": "story",
@@ -21778,7 +20749,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Harb ibn Umayya"
+              "label": "Harb ibn Umayyah"
             },
             {
               "id": "c",
@@ -21809,7 +20780,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Thumama bint Sahl"
+              "label": "Thumamah bint Sahl"
             },
             {
               "id": "d",
@@ -21817,7 +20788,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The mother of Umm al-Banin was Thumama bint Sahl.",
+          "explanation": "The mother of Umm al-Banin was Thumamah bint Sahl.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-al-banin",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-al-banin"
         },
@@ -21861,7 +20832,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "She was the Prophet's ﷺ wife and emigrated to Abyssinia.",
       "learnFacts": [
         "Father: Abu Sufyan ibn Harb",
-        "Mother: Safiyya bint Abi al-As",
+        "Mother: Safiyyah bint Abi al-As",
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
@@ -21886,7 +20857,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Khuzayma ibn al-Harith"
+              "label": "Khuzaymah ibn al-Harith"
             },
             {
               "id": "c",
@@ -21921,11 +20892,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Safiyya bint Abi al-As"
+              "label": "Safiyyah bint Abi al-As"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The mother of Umm Habibah was Safiyya bint Abi al-As.",
+          "explanation": "The mother of Umm Habibah was Safiyyah bint Abi al-As.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-habibah",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-habibah"
         },
@@ -21958,19 +20929,18 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ]
     },
-    "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil": {
-      "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil",
-      "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil",
+    "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali": {
+      "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali",
+      "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali",
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
-      "title": "Umm Jamil",
-      "intro": "“Carrier of firewood” in Surah al-Masad; sister of Abu Sufyan.",
-      "explanationContent": "“Carrier of firewood” in Surah al-Masad; sister of Abu Sufyan. Full name: Arwa bint Harb. Tribe: Quraysh, clan of Banu Abd Shams. Father: Harb ibn Umayya. Passed away at Makkah.",
-      "keyTakeaway": "Umm Jamil: “Carrier of firewood” in Surah al-Masad; sister of Abu Sufyan.",
-      "learnLine": "The Quran calls her the carrier of firewood.",
+      "title": "Umm Kulthum bint Ali",
+      "intro": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah.",
+      "explanationContent": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah. Father: Ali ibn Abi Talib. Born in Madinah.",
+      "learnLine": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah.",
       "learnFacts": [
-        "Father: Harb ibn Umayya",
-        "Tribe: Quraysh",
-        "Clan: Banu Abd Shams"
+        "Father: Ali ibn Abi Talib",
+        "Mother: Fatimah az-Zahra",
+        "Born in Madinah"
       ],
       "lessonType": "story",
       "difficulty": 2,
@@ -21984,121 +20954,13 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "masteryTestEligible": false,
       "challenges": [
         {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil_q1",
-          "type": "multiple_choice",
-          "prompt": "Who was the father of Umm Jamil?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Abu Bakr as-Siddiq"
-            },
-            {
-              "id": "b",
-              "label": "Ali ibn Abi Talib"
-            },
-            {
-              "id": "c",
-              "label": "Harb ibn Umayya"
-            },
-            {
-              "id": "d",
-              "label": "Abd al-Muttalib"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "The father of Umm Jamil was Harb ibn Umayya.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil"
-        },
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil_q2",
-          "type": "multiple_choice",
-          "prompt": "Which tribe was Umm Jamil from?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Banu Hanifa"
-            },
-            {
-              "id": "b",
-              "label": "Quraysh"
-            },
-            {
-              "id": "c",
-              "label": "Khuza'a"
-            },
-            {
-              "id": "d",
-              "label": "Thaqif"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Umm Jamil was from Quraysh.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil"
-        },
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil_q3",
-          "type": "multiple_choice",
-          "prompt": "Which clan did Umm Jamil belong to?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Banu Abd Shams"
-            },
-            {
-              "id": "b",
-              "label": "Banu Hashim"
-            },
-            {
-              "id": "c",
-              "label": "Banu Makhzum"
-            },
-            {
-              "id": "d",
-              "label": "Banu Taym"
-            }
-          ],
-          "correctChoiceId": "a",
-          "explanation": "Umm Jamil belonged to Banu Abd Shams.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-jamil"
-        }
-      ]
-    },
-    "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali": {
-      "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali",
-      "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali",
-      "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
-      "title": "Umm Kulthum bint Ali",
-      "intro": "Granddaughter of the Prophet ﷺ; married Umar ibn al-Khattab; survived Karbala.",
-      "explanationContent": "Granddaughter of the Prophet ﷺ; married Umar ibn al-Khattab; survived Karbala. Father: Ali ibn Abi Talib. Born in Madinah.",
-      "keyTakeaway": "Umm Kulthum bint Ali: Granddaughter of the Prophet ﷺ; married Umar ibn al-Khattab; survived Karbala.",
-      "learnLine": "She was the Prophet's ﷺ granddaughter and survived Karbala.",
-      "learnFacts": [
-        "Father: Ali ibn Abi Talib",
-        "Mother: Fatimah az-Zahra",
-        "Born in Madinah"
-      ],
-      "lessonType": "story",
-      "difficulty": 2,
-      "xpReward": 12,
-      "sources": [],
-      "sourceReferences": [],
-      "unlockRules": [
-        "Complete Umm Jamil"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali_q1",
           "type": "multiple_choice",
           "prompt": "Who was the father of Umm Kulthum bint Ali?",
           "choices": [
             {
               "id": "a",
-              "label": "Abu Umayya ibn al-Mughira"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -22129,11 +20991,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Safiyya bint Abi al-As"
+              "label": "Safiyyah bint Abi al-As"
             },
             {
               "id": "c",
-              "label": "Thumama bint Sahl"
+              "label": "Thumamah bint Sahl"
             },
             {
               "id": "d",
@@ -22152,15 +21014,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ur"
+              "label": "Makkah"
             },
             {
               "id": "b",
-              "label": "Egypt"
+              "label": "Tihamah"
             },
             {
               "id": "c",
-              "label": "Makkah"
+              "label": "Zabid"
             },
             {
               "id": "d",
@@ -22180,16 +21042,16 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
       "title": "Umm Sa'id bint Urwah ath-Thaqafiyyah",
       "intro": "Wife of Ali ibn Abi Talib.",
-      "explanationContent": "Wife of Ali ibn Abi Talib. Tribe: Thaqif. Father: Urwa ibn Mas'ud ath-Thaqafi.",
+      "explanationContent": "Wife of Ali ibn Abi Talib. Tribe: Thaqif. Father: Urwah ibn Mas'ud ath-Thaqafi.",
       "keyTakeaway": "Umm Sa'id bint Urwah ath-Thaqafiyyah: Wife of Ali ibn Abi Talib.",
       "learnLine": "She was a wife of Ali ibn Abi Talib.",
       "learnFacts": [
-        "Father: Urwa ibn Mas'ud ath-Thaqafi",
+        "Father: Urwah ibn Mas'ud ath-Thaqafi",
         "Tribe: Thaqif"
       ],
       "lessonType": "story",
-      "difficulty": 3,
-      "xpReward": 14,
+      "difficulty": 2,
+      "xpReward": 12,
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
@@ -22213,7 +21075,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Urwa ibn Mas'ud ath-Thaqafi"
+              "label": "Urwah ibn Mas'ud ath-Thaqafi"
             },
             {
               "id": "d",
@@ -22221,7 +21083,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The father of Umm Sa'id bint Urwah ath-Thaqafiyyah was Urwa ibn Mas'ud ath-Thaqafi.",
+          "explanation": "The father of Umm Sa'id bint Urwah ath-Thaqafiyyah was Urwah ibn Mas'ud ath-Thaqafi.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah"
         },
@@ -22260,11 +21122,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
       "title": "Umm Salamah",
       "intro": "Wife of the Prophet ﷺ; last of the Mothers of the Believers to die.",
-      "explanationContent": "Wife of the Prophet ﷺ; last of the Mothers of the Believers to die. Full name: Hind bint Abi Umayya. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Umayya ibn al-Mughira. Born in Makkah. Passed away in Dhu al-Qa'dah 62 AH / c. 681 CE at Madinah.",
+      "explanationContent": "Wife of the Prophet ﷺ; last of the Mothers of the Believers to die. Full name: Hind bint Abi Umayya. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Umayyah ibn al-Mughirah. Born in Makkah. Passed away in Dhu al-Qa'dah 62 AH / c. 681 CE at Madinah.",
       "keyTakeaway": "Umm Salamah: Wife of the Prophet ﷺ; last of the Mothers of the Believers to die.",
       "learnLine": "She was the last of the Prophet's ﷺ wives to pass away.",
       "learnFacts": [
-        "Father: Abu Umayya ibn al-Mughira",
+        "Father: Abu Umayyah ibn al-Mughirah",
         "Mother: Atikah bint Amir",
         "Tribe: Quraysh"
       ],
@@ -22294,15 +21156,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Khuzayma ibn al-Harith"
+              "label": "Khuzaymah ibn al-Harith"
             },
             {
               "id": "d",
-              "label": "Abu Umayya ibn al-Mughira"
+              "label": "Abu Umayyah ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The father of Umm Salamah was Abu Umayya ibn al-Mughira.",
+          "explanation": "The father of Umm Salamah was Abu Umayyah ibn al-Mughirah.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet"
         },
@@ -22402,7 +21264,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Urwa ibn Mas'ud ath-Thaqafi"
+              "label": "Urwah ibn Mas'ud ath-Thaqafi"
             },
             {
               "id": "d",
@@ -22425,7 +21287,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Safiyya bint Abi al-As"
+              "label": "Safiyyah bint Abi al-As"
             },
             {
               "id": "c",
@@ -22448,7 +21310,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Egypt"
+              "label": "Zabid"
             },
             {
               "id": "b",
@@ -22460,7 +21322,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Ur"
+              "label": "Tihamah"
             }
           ],
           "correctChoiceId": "b",
@@ -22584,12 +21446,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
       "title": "Zaynab bint Khuzaymah",
       "intro": "“Mother of the Poor”; wife of the Prophet ﷺ who died within months of the marriage.",
-      "explanationContent": "“Mother of the Poor”; wife of the Prophet ﷺ who died within months of the marriage. Full name: Zaynab bint Khuzayma ibn al-Harith ibn Abd Allah ibn Amr ibn Abd Manaf ibn Hilal ibn Amir ibn Sa'sa'a al-Hilaliyya al-Amiriyya. Father: Khuzayma ibn al-Harith. Born in Makkah. Passed away in Rabi al-Thani 4 AH / 625 CE at Madinah.",
+      "explanationContent": "“Mother of the Poor”; wife of the Prophet ﷺ who died within months of the marriage. Full name: Zaynab bint Khuzayma ibn al-Harith ibn Abd Allah ibn Amr ibn Abd Manaf ibn Hilal ibn Amir ibn Sa'sa'a al-Hilaliyya al-Amiriyya. Father: Khuzaymah ibn al-Harith. Passed away in Rabi al-Thani 4 AH / 625 CE at Madinah.",
       "keyTakeaway": "Zaynab bint Khuzaymah: “Mother of the Poor”; wife of the Prophet ﷺ who died within months of the marriage.",
       "learnLine": "She was called the Mother of the Poor.",
       "learnFacts": [
-        "Father: Khuzayma ibn al-Harith",
-        "Born in Makkah",
+        "Father: Khuzaymah ibn al-Harith",
         "Passed away in Madinah"
       ],
       "lessonType": "story",
@@ -22614,7 +21475,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Khuzayma ibn al-Harith"
+              "label": "Khuzaymah ibn al-Harith"
             },
             {
               "id": "c",
@@ -22626,60 +21487,33 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "The father of Zaynab bint Khuzaymah was Khuzayma ibn al-Harith.",
+          "explanation": "The father of Zaynab bint Khuzaymah was Khuzaymah ibn al-Harith.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma"
         },
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma_q2",
           "type": "multiple_choice",
-          "prompt": "Where was Zaynab bint Khuzaymah born?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Egypt"
-            },
-            {
-              "id": "b",
-              "label": "Madinah"
-            },
-            {
-              "id": "c",
-              "label": "Makkah"
-            },
-            {
-              "id": "d",
-              "label": "Ur"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "Zaynab bint Khuzaymah was born in Makkah.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma"
-        },
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma_q3",
-          "type": "multiple_choice",
           "prompt": "Where did Zaynab bint Khuzaymah pass away?",
           "choices": [
             {
               "id": "a",
-              "label": "Makkah"
-            },
-            {
-              "id": "b",
-              "label": "Sarif"
-            },
-            {
-              "id": "c",
               "label": "Cairo"
             },
             {
-              "id": "d",
+              "id": "b",
+              "label": "Makkah"
+            },
+            {
+              "id": "c",
               "label": "Madinah"
+            },
+            {
+              "id": "d",
+              "label": "Sarif"
             }
           ],
-          "correctChoiceId": "d",
+          "correctChoiceId": "c",
           "explanation": "Zaynab bint Khuzaymah passed away in Madinah.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma"
@@ -22691,9 +21525,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Al-Fatihah",
-      "intro": "Surah Al-Fatihah means \"The Opener\".",
-      "explanationContent": "Surah Al-Fatihah means \"The Opener\". It was revealed in Makkah. It has 7 ayahs.\n1:1 In the name of Allah, the Beneficent, the Merciful.\n1:2 Praise be to Allah, Lord of the Worlds,\n1:3 The Beneficent, the Merciful.\n1:4 Master of the Day of Judgment,\n1:5 Thee (alone) we worship; Thee (alone) we ask for help.\n1:6 Show us the straight path,\n1:7 The path of those whom Thou hast favoured; Not the (path) of those who earn Thine anger nor of those who go astray.",
-      "learnLine": "Surah Al-Fatihah means \"The Opener\".",
+      "intro": "Surah Al-Fatihah means \"The Opening\".",
+      "explanationContent": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.\n1:1 In the name of Allah, the Beneficent, the Merciful.\n1:2 Praise be to Allah, Lord of the Worlds,\n1:3 The Beneficent, the Merciful.\n1:4 Master of the Day of Judgment,\n1:6 Show us the straight path,",
+      "learnLine": "Surah Al-Fatihah means \"The Opening\".",
       "learnFacts": [
         "7 ayahs",
         "Revealed in Makkah"
@@ -22701,6 +21535,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "In the name of Allah, the Beneficent, the Merciful.",
         "reference": "Quran 1:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_1_10_surah_al_fatihah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 1:1",
+        "url": "https://quran.com/1/1",
+        "reference": "Quran 1:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 1:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -22742,23 +21587,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Mutual Disillusion"
+              "label": "The Human"
             },
             {
               "id": "b",
-              "label": "The Opener"
+              "label": "The Opening"
             },
             {
               "id": "c",
-              "label": "The Most High"
+              "label": "The Heights"
             },
             {
               "id": "d",
-              "label": "The Mount"
+              "label": "The Help"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Fatihah means \"The Opener\". It was revealed in Makkah. It has 7 ayahs.",
+          "explanation": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
           "resourceLabel": "Open source",
@@ -22808,7 +21653,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Fatihah means \"The Opener\". It was revealed in Makkah. It has 7 ayahs.",
+          "explanation": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
           "resourceLabel": "Open source",
@@ -22822,7 +21667,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Al-Baqarah",
       "intro": "Surah Al-Baqarah means \"The Cow\".",
-      "explanationContent": "Surah Al-Baqarah means \"The Cow\". It was revealed in Madinah. It has 286 ayahs.\n2:1 Alif. Lam. Mim.\n2:2 This is the Scripture whereof there is no doubt, a guidance unto those who ward off (evil).\n2:3 Who believe in the Unseen, and establish worship, and spend of that We have bestowed upon them;\n2:4 And who believe in that which is revealed unto thee (Muhammad) and that which was revealed before thee, and are certain of the Hereafter.\n2:5 These depend on guidance from their Lord. These are the successful.\n2:6 As for the Disbelievers, Whether thou warn them or thou warn them not it is all one for them; they believe not.\n2:7 Allah hath sealed their hearing and their hearts, and on their eyes there is a covering. Theirs will be an awful doom.",
+      "explanationContent": "Surah Al-Baqarah means \"The Cow\". It was revealed in Madinah. It has 286 ayahs.\n2:1 Alif. Lam. Mim.\n2:3 Who believe in the Unseen, and establish worship, and spend of that We have bestowed upon them;\n2:5 These depend on guidance from their Lord. These are the successful.\n2:138 (We take our) colour from Allah, and who is better than Allah at colouring. We are His worshippers.\n2:166 (On the day) when those who were followed disown those who followed (them), and they behold the doom, and all their aims collapse with them.",
       "learnLine": "Surah Al-Baqarah means \"The Cow\".",
       "learnFacts": [
         "286 ayahs",
@@ -22874,15 +21719,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Declining Day"
+              "label": "The Opening"
             },
             {
               "id": "c",
-              "label": "The Defrauding"
+              "label": "The Ornaments of Gold"
             },
             {
               "id": "d",
-              "label": "The Disbelievers"
+              "label": "The Overwhelming"
             }
           ],
           "correctChoiceId": "a",
@@ -22950,7 +21795,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Ali 'Imran",
       "intro": "Surah Ali 'Imran means \"Family of Imran\".",
-      "explanationContent": "Surah Ali 'Imran means \"Family of Imran\". It was revealed in Madinah. It has 200 ayahs.\n3:1 Alim. Lam. Mim.\n3:2 Allah! There is no god save Him, the Alive, the Eternal.\n3:3 He hath revealed unto thee (Muhammad) the Scripture with truth, confirming that which was (revealed) before it, even as He revealed the Torah and the Gospel.\n3:4 Aforetime, for a guidance to mankind; and hath revealed the Criterion (of right and wrong). Lo! those who disbelieve the revelations of Allah, theirs will be a heavy doom. Allah is Mighty, Able to Requite (the wrong).\n3:5 Lo! nothing in the earth or in the heavens is hidden from Allah.\n3:6 He it is Who fashioneth you in the wombs as pleaseth Him. There is no god save Him, the Almighty, the Wise.\n3:7 He it is Who hath revealed unto thee (Muhammad) the Scripture wherein are clear revelations - they are the substance of the Book - and others (which are) allegorical. But those in whose hearts is doubt pursue, forsooth, that which is allegorical seeking (to cause) dissension by seeking to explain it. None knoweth its explanation save Allah. And those who are of sound instruction say: We believe therein; the whole is from our Lord; but only men of understanding really heed.",
+      "explanationContent": "Surah Ali 'Imran means \"Family of Imran\". It was revealed in Madinah. It has 200 ayahs.\n3:1 Alim. Lam. Mim.\n3:2 Allah! There is no god save Him, the Alive, the Eternal.\n3:122 When two parties of you almost fell away, and Allah was their Protecting Friend. In Allah let believers put their trust.",
       "learnLine": "Surah Ali 'Imran means \"Family of Imran\".",
       "learnFacts": [
         "200 ayahs",
@@ -22959,6 +21804,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Allah! There is no god save Him, the Alive, the Eternal.",
         "reference": "Quran 3:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_1_10_surah_ali_imran_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 3:2",
+        "url": "https://quran.com/3/2",
+        "reference": "Quran 3:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 3:2"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -23002,11 +21858,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Explained in Detail"
+              "label": "She that is to be examined"
             },
             {
               "id": "b",
-              "label": "He Frowned"
+              "label": "Those Sent Forth"
             },
             {
               "id": "c",
@@ -23014,7 +21870,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Those who set the Ranks"
+              "label": "Originator"
             }
           ],
           "correctChoiceId": "c",
@@ -23082,7 +21938,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah An-Nisa",
       "intro": "Surah An-Nisa means \"The Women\".",
-      "explanationContent": "Surah An-Nisa means \"The Women\". It was revealed in Madinah. It has 176 ayahs.\n4:1 O mankind! Be careful of your duty to your Lord Who created you from a single soul and from it created its mate and from them twain hath spread abroad a multitude of men and women. Be careful of your duty toward Allah in Whom ye claim (your rights) of one another, and toward the wombs (that bore you). Lo! Allah hath been a watcher over you.\n4:2 Give unto orphans their wealth. Exchange not the good for the bad (in your management thereof) nor absorb their wealth into your own wealth. Lo! that would be a great sin.\n4:3 And if ye fear that ye will not deal fairly by the orphans, marry of the women, who seem good to you, two or three or four; and if ye fear that ye cannot do justice (to so many) then one (only) or (the captives) that your right hands possess. Thus it is more likely that ye will not do injustice.\n4:4 And give unto the women (whom ye marry) free gift of their marriage portions; but if they of their own accord remit unto you a part thereof, then ye are welcome to absorb it (in your wealth).\n4:5 Give not unto the foolish (what is in) your (keeping of their) wealth, which Allah hath given you to maintain; but feed and clothe them from it, and speak kindly unto them.\n4:6 Prove orphans till they reach the marriageable age; then, if ye find them of sound judgment, deliver over unto them their fortune; and devour it not by squandering and in haste lest they should grow up Whoso (of the guardians) is rich, let him abstain generously (from taking of the property of orphans); and whoso is poor let him take thereof in reason (for his guardianship). And when ye deliver up their fortune unto orphans, have (the transaction) witnessed in their presence. Allah sufficeth as a Reckoner.\n4:7 Unto the men (of a family) belongeth a share of that which parents and near kindred leave, and unto the women a share of that which parents and near kindred leave, whether it be little or much - a legal share.",
+      "explanationContent": "Surah An-Nisa means \"The Women\". It was revealed in Madinah. It has 176 ayahs.",
       "learnLine": "Surah An-Nisa means \"The Women\".",
       "learnFacts": [
         "176 ayahs",
@@ -23130,15 +21986,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The City"
+              "label": "The Sun"
             },
             {
               "id": "b",
-              "label": "The Clear Proof"
+              "label": "The Table Spread"
             },
             {
               "id": "c",
-              "label": "The Cleaving"
+              "label": "The Thunder"
             },
             {
               "id": "d",
@@ -23210,7 +22066,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Al-Ma'idah",
       "intro": "Surah Al-Ma'idah means \"The Table Spread\".",
-      "explanationContent": "Surah Al-Ma'idah means \"The Table Spread\". It was revealed in Madinah. It has 120 ayahs.\n5:1 O ye who believe! Fulfil your indentures. The beast of cattle is made lawful unto you (for food) except that which is announced unto you (herein), game being unlawful when ye are on the pilgrimage. Lo! Allah ordaineth that which pleaseth Him.\n5:2 O ye who believe! Profane not Allah's monuments nor the Sacred Month nor the offerings nor the garlands, nor those repairing to the Sacred House, seeking the grace and pleasure of their Lord. But when ye have left the sacred territory, then go hunting (if ye will). And let not your hatred of a folk who (once) stopped your going to the inviolable place of worship seduce you to transgress; but help ye one another unto righteousness and pious duty. Help not one another unto sin and transgression, but keep your duty to Allah. Lo! Allah is severe in punishment.\n5:3 Forbidden unto you (for food) are carrion and blood and swineflesh, and that which hath been dedicated unto any other than Allah, and the strangled, and the dead through beating, and the dead through falling from a height, and that which hath been killed by (the goring of) horns, and the devoured of wild beasts, saving that which ye make lawful (by the death-stroke), and that which hath been immolated unto idols. And (forbidden is it) that ye swear by the divining arrows. This is an abomination. This day are those who disbelieve in despair of (ever harming) your religion; so fear them not, fear Me! This day have I perfected your religion for you and completed My favour unto you, and have chosen for you as religion al-Islam. Whoso is forced by hunger, not by will, to sin: (for him) lo! Allah is Forgiving, Merciful.\n5:4 They ask thee (O Muhammad) what is made lawful for them. Say: (all) good things are made lawful for you. And those beasts and birds of prey which ye have trained as hounds are trained, ye teach them that which Allah taught you; so eat of that which they catch for you and mention Allah's name upon it, and observe your duty to Allah. Lo! Allah is swift to take account.\n5:6 O ye who believe! When ye rise up for prayer, wash you faces, and your hands up to the elbows, and lightly rub your heads and (wash) your feet up to the ankles. And if ye are unclean, purify yourselves. And if ye are sick or on a journey, or one of you cometh from the closet, or ye have had contact with women, and ye find not water, then go to clean, high ground and rub your faces and your hands with some of it. Allah would not place a burden on you, but He would purify you and would perfect His grace upon you, that ye may give thanks.\n5:7 Remember Allah's grace upon you and His covenant by which He bound you when ye said: We hear and we obey; And keep your duty to Allah. Lo! He knoweth what is in the breasts (of men).\n5:53 Then will the believers say (unto the people of the Scripture): are these they who swore by Allah their most binding oaths that they were surely with you? Their works have failed, and they have become the losers.",
+      "explanationContent": "Surah Al-Ma'idah means \"The Table Spread\". It was revealed in Madinah. It has 120 ayahs.",
       "learnLine": "Surah Al-Ma'idah means \"The Table Spread\".",
       "learnFacts": [
         "120 ayahs",
@@ -23258,11 +22114,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Divine Support"
+              "label": "The Exile"
             },
             {
               "id": "b",
-              "label": "The Divorce"
+              "label": "The Fig"
             },
             {
               "id": "c",
@@ -23270,7 +22126,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Disbelievers"
+              "label": "The Elephant"
             }
           ],
           "correctChoiceId": "c",
@@ -23338,7 +22194,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Al-An'am",
       "intro": "Surah Al-An'am means \"The Cattle\".",
-      "explanationContent": "Surah Al-An'am means \"The Cattle\". It was revealed in Makkah. It has 165 ayahs.\n6:1 Praise be to Allah, Who hath created the heavens and the earth, and hath appointed darkness and light. Yet those who disbelieve ascribe rivals unto their Lord.\n6:2 He it is Who hath created you from clay, and hath decreed a term for you. A term is fixed with Him. Yet still ye doubt!\n6:3 He is Allah in the heavens and in the earth. He knoweth both your secret and your utterance, and He knoweth what ye earn.\n6:4 Never came there unto them a revelation of the revelations of Allah but they did turn away from it.\n6:5 And they denied the truth when it came unto them. But there will come unto them the tidings of that which they used to deride.\n6:6 See they not how many a generation We destroyed before them, whom We had established in the earth more firmly than We have established you, and We shed on them abundant showers from the sky, and made the rivers flow beneath them. Yet we destroyed them for their sins, and created after them another generation.\n6:7 Had we sent down unto thee (Muhammad) (actual) writing upon parchment, so that they could feel it with their hands, those who disbelieve would have said: This is naught else than mere magic.",
+      "explanationContent": "Surah Al-An'am means \"The Cattle\". It was revealed in Makkah. It has 165 ayahs.\n6:6 See they not how many a generation We destroyed before them, whom We had established in the earth more firmly than We have established you, and We shed on them abundant showers from the sky, and made the rivers flow beneath them. Yet we destroyed them for their sins, and created after them another generation.",
       "learnLine": "Surah Al-An'am means \"The Cattle\".",
       "learnFacts": [
         "165 ayahs",
@@ -23386,7 +22242,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Resurrection"
+              "label": "The Jinn"
             },
             {
               "id": "b",
@@ -23394,11 +22250,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Relief"
+              "label": "The Inevitable"
             },
             {
               "id": "d",
-              "label": "The Repentance"
+              "label": "The Iron"
             }
           ],
           "correctChoiceId": "b",
@@ -23466,7 +22322,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Al-A'raf",
       "intro": "Surah Al-A'raf means \"The Heights\".",
-      "explanationContent": "Surah Al-A'raf means \"The Heights\". It was revealed in Makkah. It has 206 ayahs.\n7:1 Alif. Lam. Mim. Sad.\n7:2 (It is) a Scripture that is revealed unto thee (Muhammad) - so let there be no heaviness in thy heart therefrom - that thou mayst warn thereby, and (it is) a Reminder unto believers.\n7:3 (Saying): Follow that which is sent down unto you from your Lord, and follow no protecting friends beside Him. Little do ye recollect!\n7:4 How many a township have We destroyed! As a raid by night, or while they slept at noon, Our terror came unto them.\n7:5 No plea had they, when Our terror came unto them, save that they said: Lo! We were wrong-doers.\n7:6 Then verily We shall question those unto whom (Our message) hath been sent, and verily We shall question the messengers.\n7:7 Then verily We shall narrate unto them (the event) with knowledge, for We were not absent (when it came to pass).",
+      "explanationContent": "Surah Al-A'raf means \"The Heights\". It was revealed in Makkah. It has 206 ayahs.\n7:1 Alif. Lam. Mim. Sad.",
       "learnLine": "Surah Al-A'raf means \"The Heights\".",
       "learnFacts": [
         "206 ayahs",
@@ -23514,11 +22370,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Daybreak"
+              "label": "The Jinn"
             },
             {
               "id": "b",
-              "label": "The Declining Day"
+              "label": "The Kingdom"
             },
             {
               "id": "c",
@@ -23526,7 +22382,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Dawn"
+              "label": "The Iron"
             }
           ],
           "correctChoiceId": "c",
@@ -23594,7 +22450,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Al-Anfal",
       "intro": "Surah Al-Anfal means \"The Spoils of War\".",
-      "explanationContent": "Surah Al-Anfal means \"The Spoils of War\". It was revealed in Madinah. It has 75 ayahs.\n8:1 They ask thee (O Muhammad) of the spoils of war. Say: The spoils of war belong to Allah and the messenger, so keep your duty to Allah, and adjust the matter of your difference, and obey Allah and His messenger, if ye are (true) believers.\n8:2 They only are the (true) believers whose hearts feel fear when Allah is mentioned, and when His revelations are recited unto them they increase their faith, and who trust in their Lord;\n8:3 Who establish worship and spend of that We have bestowed on them.\n8:4 Those are they who are in truth believers. For them are grades (of honour) with their Lord, and pardon, and a bountiful provision.\n8:5 Even as thy Lord caused thee (Muhammad) to go forth from thy home with the Truth, and lo! a party of the believers were averse (to it).\n8:6 Disputing with thee of the Truth after it had been made manifest, as if they were being driven to death visible.\n8:7 And when Allah promised you one of the two bands (of the enemy) that it should be yours, and ye longed that other than the armed one might be yours. And Allah willed that He should cause the Truth to triumph by His words, and cut the root of the disbelievers;",
+      "explanationContent": "Surah Al-Anfal means \"The Spoils of War\". It was revealed in Madinah. It has 75 ayahs.\n8:3 Who establish worship and spend of that We have bestowed on them.\n8:4 Those are they who are in truth believers. For them are grades (of honour) with their Lord, and pardon, and a bountiful provision.\n8:54 (Their way is) as the way of Pharaoh's folk and those before them; they denied the revelations of their Lord, so We destroyed them in their sins. And We drowned the folk of Pharaoh. All were evil-doers.",
       "learnLine": "Surah Al-Anfal means \"The Spoils of War\".",
       "learnFacts": [
         "75 ayahs",
@@ -23642,11 +22498,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Congregation, Friday"
+              "label": "The Dawn"
             },
             {
               "id": "b",
-              "label": "The Consultation"
+              "label": "The Daybreak"
             },
             {
               "id": "c",
@@ -23654,7 +22510,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Combined Forces"
+              "label": "The Crouching"
             }
           ],
           "correctChoiceId": "c",
@@ -23722,7 +22578,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah At-Tawbah",
       "intro": "Surah At-Tawbah means \"The Repentance\".",
-      "explanationContent": "Surah At-Tawbah means \"The Repentance\". It was revealed in Madinah. It has 129 ayahs.\n9:1 Freedom from obligation (is proclaimed) from Allah and His messenger toward those of the idolaters with whom ye made a treaty.\n9:2 Travel freely in the land four months, and know that ye cannot escape Allah and that Allah will confound the disbelievers (in His Guidance).\n9:3 And a proclamation from Allah and His messenger to all men on the day of the Greater Pilgrimage that Allah is free from obligation to the idolaters, and (so is) His messenger. So, if ye repent, it will be better for you; but if ye are averse, then know that ye cannot escape Allah. Give tidings (O Muhammad) of a painful doom to those who disbelieve,\n9:4 Excepting those of the idolaters with whom ye (Muslims) have a treaty, and who have since abated nothing of your right nor have supported anyone against you. (As for these), fulfil their treaty to them till their term. Lo! Allah loveth those who keep their duty (unto Him).\n9:5 Then, when the sacred months have passed, slay the idolaters wherever ye find them, and take them (captive), and besiege them, and prepare for them each ambush. But if they repent and establish worship and pay the poor-due, then leave their way free. Lo! Allah is Forgiving, Merciful.\n9:6 And if anyone of the idolaters seeketh thy protection (O Muhammad), then protect him so that he may hear the Word of Allah, and afterward convey him to his place of safety. That is because they are a folk who know not.\n9:7 How can there be a treaty with Allah and with His messenger for the idolaters save those with whom ye made a treaty at the Inviolable Place of Worship? So long as they are true to you, be true to them. Lo! Allah loveth those who keep their duty.",
+      "explanationContent": "Surah At-Tawbah means \"The Repentance\". It was revealed in Madinah. It has 129 ayahs.",
       "learnLine": "Surah At-Tawbah means \"The Repentance\".",
       "learnFacts": [
         "129 ayahs",
@@ -23770,15 +22626,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Star"
+              "label": "The Small kindnesses"
             },
             {
               "id": "b",
-              "label": "The Stories"
+              "label": "The Smoke"
             },
             {
               "id": "c",
-              "label": "The Sun"
+              "label": "The Spider"
             },
             {
               "id": "d",
@@ -23850,7 +22706,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Yunus",
       "intro": "Surah Yunus is named after Prophet Yunus.",
-      "explanationContent": "Surah Yunus is named after Prophet Yunus. It was revealed in Makkah. It has 109 ayahs.\n10:1 Alif. Lam. Ra. These are verses of the Wise Scripture.\n10:2 Is it a wonder for mankind that We have inspired a man among them, saying: Warn mankind and bring unto those who believe the good tidings that they have a sure footing with their Lord? The disbelievers say: Lo! this is a mere wizard.\n10:3 Lo! your Lord is Allah Who created the heavens and the earth in six Days, then He established Himself upon the Throne, directing all things. There is no intercessor (with Him) save after His permission. That is Allah, your Lord, so worship Him. Oh, will ye not remind?\n10:4 Unto Him is the return of all of you; it is a promise of Allah in truth. Lo! He produceth creation, then reproduceth it, that He may reward those who believe and do good works with equity; while, as for those who disbelieve, theirs will be a boiling drink and painful doom because they disbelieved.\n10:5 He it is Who appointed the sun a splendour and the moon a light, and measured for her stages, that ye might know the number of the years, and the reckoning. Allah created not (all) that save in truth. He detaileth the revelations for people who have knowledge.\n10:6 Lo! in the difference of day and night and all that Allah hath created in the heavens and the earth are portents, verily, for folk who ward off (evil).\n10:7 Lo! those who expect not the meeting with Us but desire the life of the world and feel secure therein, and those who are neglectful of Our revelations,",
+      "explanationContent": "Surah Yunus is named after Prophet Yunus. It was revealed in Makkah. It has 109 ayahs.\n10:1 Alif. Lam. Ra. These are verses of the Wise Scripture.",
       "learnLine": "Surah Yunus is named after Prophet Yunus.",
       "learnFacts": [
         "109 ayahs",
@@ -23859,6 +22715,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Alif. Lam. Ra. These are verses of the Wise Scripture.",
         "reference": "Quran 10:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_1_10_surah_yunus_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 10:1",
+        "url": "https://quran.com/10/1",
+        "reference": "Quran 10:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 10:1"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -23953,7 +22820,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Hud",
       "intro": "Surah Hud is named after Prophet Hud.",
-      "explanationContent": "Surah Hud is named after Prophet Hud. It was revealed in Makkah. It has 123 ayahs.\n11:1 Alif. Lam. Ra. (This is) a Scripture the revelations whereof are perfected and then expounded. (It cometh) from One Wise, Informed,\n11:2 (Saying): Serve none but Allah. Lo! I am unto you from Him a warner and a bringer of good tidings.\n11:3 And (bidding you): Ask pardon of your Lord and turn to Him repentant. He will cause you to enjoy a fair estate until a time appointed. He giveth His bounty unto every bountiful one. But if ye turn away, lo! (then) I fear for you the retribution of an awful Day.\n11:4 Unto Allah is your return, and He is Able to do all things.\n11:5 Lo! now they fold up their breasts that they may hide (their thoughts) from Him. At the very moment when they cover themselves with their clothing, Allah knoweth that which they keep hidden and that which they proclaim. Lo! He is Aware of what is in the breasts (of men).\n11:6 And there is not a beast in the earth but the sustenance thereof dependeth on Allah. He knoweth its habitation and its repository. All is in a clear Record.\n11:7 And He it is Who created the heavens and the earth in six Days - and His Throne was upon the water - that He might try you, which of you is best in conduct. Yet if thou (O Muhammad) sayest: Lo! ye will be raised again after death! those who disbelieve will surely say: This is naught but mere magic.",
+      "explanationContent": "Surah Hud is named after Prophet Hud. It was revealed in Makkah. It has 123 ayahs.\n11:89 And, O my people! Let not the schism with me cause you to sin so that there befall you that which befell the folk of Noah and the folk of Hud, and the folk of Salih; and the folk of Lot are not far off from you.",
       "learnLine": "Surah Hud is named after Prophet Hud.",
       "learnFacts": [
         "123 ayahs",
@@ -24050,7 +22917,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Yusuf",
       "intro": "Surah Yusuf is named after Prophet Yusuf.",
-      "explanationContent": "Surah Yusuf is named after Prophet Yusuf. It was revealed in Makkah. It has 111 ayahs.\n12:1 Alif. Lam. Ra. These are verses of the Scripture that maketh plain.\n12:2 Lo! We have revealed it, a Lecture in Arabic, that ye may understand.\n12:3 We narrate unto thee (Muhammad) the best of narratives in that We have inspired in thee this Qur'an, though aforetime thou wast of the heedless.\n12:4 When Joseph said unto his father: O my father! Lo! I saw in a dream eleven planets and the sun and the moon, I saw them prostrating themselves unto me.\n12:5 He said: O my dear son! Tell not thy brethren of thy vision, lest they plot a plot against thee. Lo! Satan is for man an open foe.\n12:6 Thus thy Lord will prefer thee and will teach thee the interpretation of events, and will perfect His grace upon thee and upon the family of Jacob as He perfected it upon thy forefathers, Abraham and Isaac. Lo! thy Lord is Knower, Wise.\n12:7 Verily in Joseph and his brethren are signs (of Allah's Sovereignty) for the inquiring.",
+      "explanationContent": "Surah Yusuf is named after Prophet Yusuf. It was revealed in Makkah. It has 111 ayahs.\n12:35 And it seemed good to them (the men-folk) after they had seen the signs (of his innocence) to imprison him for a time.\n12:58 And Joseph's brethren came and presented themselves before him, and he knew them but they knew him not.",
       "learnLine": "Surah Yusuf is named after Prophet Yusuf.",
       "learnFacts": [
         "111 ayahs",
@@ -24059,6 +22926,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Alif. Lam. Ra. These are verses of the Scripture that maketh plain.",
         "reference": "Quran 12:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_11_20_surah_yusuf_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 12:1",
+        "url": "https://quran.com/12/1",
+        "reference": "Quran 12:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 12:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -24153,7 +23031,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Ar-Ra'd",
       "intro": "Surah Ar-Ra'd means \"The Thunder\".",
-      "explanationContent": "Surah Ar-Ra'd means \"The Thunder\". It was revealed in Madinah. It has 43 ayahs.\n13:1 Alif. Lam. Mim. Ra. These are verses of the Scripture. That which is revealed unto thee from thy Lord is the Truth, but most of mankind believe not.\n13:2 Allah it is Who raised up the heavens without visible supports, then mounted the Throne, and compelled the sun and the moon to be of service, each runneth unto an appointed term; He ordereth the course; He detaileth the revelations, that haply ye may be certain of the meeting with your Lord.\n13:3 And He it is Who spread out the earth and placed therein firm hills and flowing streams, and of all fruits He placed therein two spouses (male and female). He covereth the night with the day. Lo! herein verily are portents for people who take thought.\n13:4 And in the Earth are neighbouring tracts, vineyards and ploughed lands, and date-palms, like and unlike, which are watered with one water. And we have made some of them to excel others in fruit. Lo! herein verily are portents for people who have sense.\n13:5 And if thou wonderest, then wondrous is their saying: When we are dust, are we then forsooth (to be raised) in a new creation? Such are they who disbelieve in their Lord; such have carcans on their necks; such are rightful owners of the Fire, they will abide therein.\n13:6 And they bid thee hasten on the evil rather than the good, when exemplary punishments have indeed occurred before them. But lo! thy Lord is rich in pardon for mankind despite their wrong, and lo! thy Lord is strong in punishment.\n13:7 Those who disbelieve say: If only some portent were sent down upon him from his Lord! Thou art a warner only, and for every folk a guide.",
+      "explanationContent": "Surah Ar-Ra'd means \"The Thunder\". It was revealed in Madinah. It has 43 ayahs.",
       "learnLine": "Surah Ar-Ra'd means \"The Thunder\".",
       "learnFacts": [
         "43 ayahs",
@@ -24201,7 +23079,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Ornaments of Gold"
+              "label": "The Mansions of the Stars"
             },
             {
               "id": "b",
@@ -24209,11 +23087,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Nightcomer"
+              "label": "The Kingdom"
             },
             {
               "id": "d",
-              "label": "The Opener"
+              "label": "The Light"
             }
           ],
           "correctChoiceId": "b",
@@ -24281,7 +23159,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Ibrahim",
       "intro": "Surah Ibrahim is named after Prophet Ibrahim.",
-      "explanationContent": "Surah Ibrahim is named after Prophet Ibrahim. It was revealed in Makkah. It has 52 ayahs.\n14:1 Alif. Lam. Ra. (This is) a Scripture which We have revealed unto thee (Muhammad) that thereby thou mayst bring forth mankind from darkness unto light, by the permission of their Lord, unto the path of the Mighty, the Owner of Praise,\n14:2 Allah, unto Whom belongeth whatsoever is in the heavens and whatsoever is in the earth. and woe unto the disbelievers from an awful doom;\n14:3 Those who love the life of the world more than the Hereafter, and debar (men) from the way of Allah and would have it crooked: such are far astray.\n14:4 And We never sent a messenger save with the language of his folk, that he might make (the message) clear for them. Then Allah sendeth whom He will astray, and guideth whom He will. He is the Mighty, the Wise.\n14:5 We verily sent Moses with Our revelations, saying: Bring thy people forth from darkness unto light. And remind them of the days of Allah. Lo! therein are revelations for each steadfast, thankful (heart).\n14:6 And (remind them) how Moses said unto his people: Remember Allah's favour unto you when He delivered you from Pharaoh's folk who were afflicting you with dreadful torment, and were slaying your sons and sparing your women; that was a tremendous trial from your Lord.\n14:7 And when your Lord proclaimed: If ye give thanks, I will give you more; but if ye are thankless, lo! My punishment is dire.",
+      "explanationContent": "Surah Ibrahim is named after Prophet Ibrahim. It was revealed in Makkah. It has 52 ayahs.\n14:3 Those who love the life of the world more than the Hereafter, and debar (men) from the way of Allah and would have it crooked: such are far astray.",
       "learnLine": "Surah Ibrahim is named after Prophet Ibrahim.",
       "learnFacts": [
         "52 ayahs",
@@ -24380,7 +23258,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Al-Hijr",
       "intro": "Surah Al-Hijr means \"The Rocky Tract\".",
-      "explanationContent": "Surah Al-Hijr means \"The Rocky Tract\". It was revealed in Makkah. It has 99 ayahs.\n15:1 Alif. Lam. Ra. These are verses of the Scripture and a plain Reading.\n15:2 It may be that those who disbelieve wish ardently that they were Muslims.\n15:3 Let them eat and enjoy life, and let (false) hope beguile them. They will come to know!\n15:4 And We destroyed no township but there was a known decree for it.\n15:5 No nation can outstrip its term nor can they lag behind.\n15:6 And they say: O thou unto whom the Reminder is revealed, lo! thou art indeed a madman!\n15:7 Why bringest thou not angels unto us, if thou art of the truthful?",
+      "explanationContent": "Surah Al-Hijr means \"The Rocky Tract\". It was revealed in Makkah. It has 99 ayahs.\n15:1 Alif. Lam. Ra. These are verses of the Scripture and a plain Reading.\n15:2 It may be that those who disbelieve wish ardently that they were Muslims.\n15:3 Let them eat and enjoy life, and let (false) hope beguile them. They will come to know!\n15:4 And We destroyed no township but there was a known decree for it.\n15:5 No nation can outstrip its term nor can they lag behind.\n15:69 And keep your duty to Allah, and shame me not!",
       "learnLine": "Surah Al-Hijr means \"The Rocky Tract\".",
       "learnFacts": [
         "99 ayahs",
@@ -24389,6 +23267,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Alif. Lam. Ra. These are verses of the Scripture and a plain Reading.",
         "reference": "Quran 15:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_11_20_surah_al_hijr_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 15:1",
+        "url": "https://quran.com/15/1",
+        "reference": "Quran 15:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 15:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -24432,15 +23321,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Pen"
+              "label": "The Women"
             },
             {
               "id": "b",
-              "label": "The Pilgrimage"
+              "label": "The Wrapped One"
             },
             {
               "id": "c",
-              "label": "The Pleading Woman"
+              "label": "The Abundance"
             },
             {
               "id": "d",
@@ -24512,7 +23401,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah An-Nahl",
       "intro": "Surah An-Nahl means \"The Bee\".",
-      "explanationContent": "Surah An-Nahl means \"The Bee\". It was revealed in Makkah. It has 128 ayahs.\n16:1 The commandment of Allah will come to pass, so seek not ye to hasten it. Glorified and Exalted be He above all that they associate (with Him).\n16:2 He sendeth down the angels with the Spirit of His command unto whom He will of His bondmen, (saying): Warn mankind that there is no god save Me, so keep your duty unto Me.\n16:3 He hath created the heavens and the earth with truth. High be He Exalted above all that they associate (with Him).\n16:4 He hath created man from a drop of fluid, yet behold! he is an open opponent.\n16:5 And the cattle hath He created, whence ye have warm clothing and uses, and whereof ye eat;\n16:6 And wherein is beauty for you, when ye bring them home, and when ye take them out to pasture.\n16:7 And they bear your loads for you unto a land ye could not reach save with great trouble to yourselves. Lo! your Lord is Full of Pity, Merciful.",
+      "explanationContent": "Surah An-Nahl means \"The Bee\". It was revealed in Makkah. It has 128 ayahs.",
       "learnLine": "Surah An-Nahl means \"The Bee\".",
       "learnFacts": [
         "128 ayahs",
@@ -24560,7 +23449,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Women"
+              "label": "The Pen"
             },
             {
               "id": "b",
@@ -24568,11 +23457,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Overwhelming"
             },
             {
               "id": "d",
-              "label": "The Winnowing Winds"
+              "label": "The Palm Fiber"
             }
           ],
           "correctChoiceId": "b",
@@ -24640,7 +23529,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Al-Isra",
       "intro": "Surah Al-Isra means \"The Night Journey\".",
-      "explanationContent": "Surah Al-Isra means \"The Night Journey\". It was revealed in Makkah. It has 111 ayahs.\n17:1 Glorified be He Who carried His servant by night from the Inviolable Place of Worship to the Far distant place of worship the neighbourhood whereof We have blessed, that We might show him of Our tokens! Lo! He, only He, is the Hearer, the Seer.\n17:2 We gave unto Moses the Scripture, and We appointed it a guidance for the children of Israel, saying: Choose no guardian beside Me.\n17:3 (They were) the seed of those whom We carried (in the ship) along with Noah. Lo! he was a grateful slave.\n17:4 And We decreed for the Children of Israel in the Scripture: Ye verily will work corruption in the earth twice, and ye will become great tyrants.\n17:5 So when the time for the first of the two came, We roused against you slaves of Ours of great might who ravaged (your) country, and it was a threat performed.\n17:6 Then we gave you once again your turn against them, and We aided you with wealth and children and made you more in soldiery.\n17:7 (Saying): If ye do good, ye do good for your own souls, and if ye do evil, it is for them (in like manner). So, when the time for the second (of the judgments) came (We roused against you others of Our slaves) to ravage you, and to enter the Temple even as they entered it the first time, and to lay waste all that they conquered with an utter wasting.",
+      "explanationContent": "Surah Al-Isra means \"The Night Journey\". It was revealed in Makkah. It has 111 ayahs.\n17:5 So when the time for the first of the two came, We roused against you slaves of Ours of great might who ravaged (your) country, and it was a threat performed.\n17:6 Then we gave you once again your turn against them, and We aided you with wealth and children and made you more in soldiery.",
       "learnLine": "Surah Al-Isra means \"The Night Journey\".",
       "learnFacts": [
         "111 ayahs",
@@ -24688,7 +23577,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Emissaries"
+              "label": "The Inevitable"
             },
             {
               "id": "b",
@@ -24696,11 +23585,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Earthquake"
+              "label": "The Human"
             },
             {
               "id": "d",
-              "label": "The Elephant"
+              "label": "The Hypocrites"
             }
           ],
           "correctChoiceId": "b",
@@ -24768,7 +23657,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Al-Kahf",
       "intro": "Surah Al-Kahf means \"The Cave\".",
-      "explanationContent": "Surah Al-Kahf means \"The Cave\". It was revealed in Makkah. It has 110 ayahs.\n18:1 Praise be to Allah Who hath revealed the Scripture unto His slave, and hath not placed therein any crookedness,\n18:2 (But hath made it) straight, to give warning of stern punishment from Him, and to bring unto the believers who do good works the news that theirs will be a fair reward,\n18:3 Wherein they will abide for ever;\n18:4 And to warn those who say: Allah hath chosen a son,\n18:5 (A thing) whereof they have no knowledge, nor (had) their fathers, Dreadful is the word that cometh out of their mouths. They speak naught but a lie.\n18:6 Yet it may be, if they believe not in this statement, that thou (Muhammad) wilt torment thy soul with grief over their footsteps.\n18:7 Lo! We have placed all that is on the earth as an ornament thereof that We may try them: which of them is best in conduct.",
+      "explanationContent": "Surah Al-Kahf means \"The Cave\". It was revealed in Makkah. It has 110 ayahs.\n18:3 Wherein they will abide for ever;\n18:42 And his fruit was beset (with destruction). Then began he to wring his hands for all that he had spent upon it, when (now) it was all ruined on its trellises, and to say: Would that I had ascribed no partner to my Lord!",
       "learnLine": "Surah Al-Kahf means \"The Cave\".",
       "learnFacts": [
         "110 ayahs",
@@ -24816,11 +23705,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Palm Fiber"
+              "label": "The Calamity"
             },
             {
               "id": "b",
-              "label": "The Pen"
+              "label": "The Cattle"
             },
             {
               "id": "c",
@@ -24828,7 +23717,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Overwhelming"
+              "label": "The Beneficent"
             }
           ],
           "correctChoiceId": "c",
@@ -24896,7 +23785,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Maryam",
       "intro": "Surah Maryam is named after Maryam.",
-      "explanationContent": "Surah Maryam is named after Maryam. It was revealed in Makkah. It has 98 ayahs.\n19:1 Kaf. Ha. Ya. A'in. Sad.\n19:2 A mention of the mercy of thy Lord unto His servant Zachariah.\n19:3 When he cried unto his Lord a cry in secret,\n19:4 Saying: My Lord! Lo! the bones of me wax feeble and my head is shining with grey hair, and I have never been unblest in prayer to Thee, my Lord.\n19:5 Lo! I fear my kinsfolk after me, since my wife is barren. Oh, give me from Thy presence a successor\n19:6 Who shall inherit of me and inherit (also) of the house of Jacob. And make him, my Lord, acceptable (unto Thee).\n19:7 (It was said unto him): O Zachariah! Lo! We bring thee tidings of a son whose name is John; we have given the same name to none before (him).",
+      "explanationContent": "Surah Maryam is named after Maryam. It was revealed in Makkah. It has 98 ayahs.\n19:1 Kaf. Ha. Ya. A'in. Sad.\n19:55 He enjoined upon his people worship and almsgiving, and was acceptable in the sight of his Lord.",
       "learnLine": "Surah Maryam is named after Maryam.",
       "learnFacts": [
         "98 ayahs",
@@ -24905,6 +23794,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "A mention of the mercy of thy Lord unto His servant Zachariah.",
         "reference": "Quran 19:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_11_20_surah_maryam_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 19:2",
+        "url": "https://quran.com/19/2",
+        "reference": "Quran 19:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 19:2"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -24999,7 +23899,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Taha",
       "intro": "Surah Taha is named after its opening letters, Ta Ha. It was revealed in Makkah.",
-      "explanationContent": "Surah Taha is named after its opening letters, Ta Ha. It was revealed in Makkah. It has 135 ayahs.\n20:1 Ta. Ha.\n20:2 We have not revealed unto thee (Muhammad) this Qur'an that thou shouldst be distressed,\n20:3 But as a reminder unto him who feareth,\n20:4 A revelation from Him Who created the earth and the high heavens,\n20:5 The Beneficent One, Who is established on the Throne.\n20:6 Unto Him belongeth whatsoever is in the heavens and whatsoever is in the earth, and whatsoever is between them, and whatsoever is beneath the sod.\n20:7 And if thou speakest aloud, then lo! He knoweth the secret (thought) and (that which is yet) more hidden.",
+      "explanationContent": "Surah Taha is named after its opening letters, Ta Ha. It was revealed in Makkah. It has 135 ayahs.\n20:1 Ta. Ha.\n20:4 A revelation from Him Who created the earth and the high heavens,\n20:5 The Beneficent One, Who is established on the Throne.",
       "learnLine": "Surah Taha is named after its opening letters, Ta Ha.",
       "learnFacts": [
         "135 ayahs",
@@ -25008,6 +23908,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "We have not revealed unto thee (Muhammad) this Qur'an that thou shouldst be distressed,",
         "reference": "Quran 20:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_11_20_surah_taha_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 20:2",
+        "url": "https://quran.com/20/2",
+        "reference": "Quran 20:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 20:2"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -25102,7 +24013,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Al-Anbya",
       "intro": "Surah Al-Anbya means \"The Prophets\".",
-      "explanationContent": "Surah Al-Anbya means \"The Prophets\". It was revealed in Makkah. It has 112 ayahs.\n21:1 Their reckoning draweth nigh for mankind, while they turn away in heedlessness.\n21:2 Never cometh there unto them a new reminder from their Lord but they listen to it while they play,\n21:3 With hearts preoccupied. And they confer in secret. The wrong-doers say: Is this other than a mortal like you? Will ye then succumb to magic when ye see (it)?\n21:4 He saith: My Lord knoweth what is spoken in the heaven and the earth. He is the Hearer, the Knower.\n21:5 Nay, say they, (these are but) muddled dreams; nay, he hath but invented it; nay, he is but a poet. Let him bring us a portent even as those of old (who were Allah's messengers) were sent (with portents).\n21:6 Not a township believed of those which We destroyed before them (though We sent them portents): would they then believe?\n21:7 And We sent not (as Our messengers) before thee other than men, whom We inspired. Ask the followers of the Reminder if ye know not?",
+      "explanationContent": "Surah Al-Anbya means \"The Prophets\". It was revealed in Makkah. It has 112 ayahs.\n21:6 Not a township believed of those which We destroyed before them (though We sent them portents): would they then believe?\n21:37 Man is made of haste. I shall show you My portents, but ask Me not to hasten.",
       "learnLine": "Surah Al-Anbya means \"The Prophets\".",
       "learnFacts": [
         "112 ayahs",
@@ -25111,6 +24022,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Their reckoning draweth nigh for mankind, while they turn away in heedlessness.",
         "reference": "Quran 21:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_21_30_surah_al_anbya_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 21:1",
+        "url": "https://quran.com/21/1",
+        "reference": "Quran 21:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 21:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -25152,7 +24074,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Heights"
+              "label": "The Resurrection"
             },
             {
               "id": "b",
@@ -25160,11 +24082,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Fig"
+              "label": "The Relief"
             },
             {
               "id": "d",
-              "label": "The Forgiver"
+              "label": "The Repentance"
             }
           ],
           "correctChoiceId": "b",
@@ -25232,7 +24154,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Al-Hajj",
       "intro": "Surah Al-Hajj means \"The Pilgrimage\".",
-      "explanationContent": "Surah Al-Hajj means \"The Pilgrimage\". It was revealed in Madinah. It has 78 ayahs.\n22:1 O mankind! Fear your Lord. Lo! the earthquake of the Hour (of Doom) is a tremendous thing.\n22:2 On the day when ye behold it, every nursing mother will forget her nursling and every pregnant one will be delivered of her burden, and thou (Muhammad) wilt see mankind as drunken, yet they will not be drunken, but the Doom of Allah will be strong (upon them).\n22:3 Among mankind is he who disputeth concerning Allah without knowledge, and followeth each froward devil;\n22:4 For him it is decreed that whoso taketh him for friend, he verily will mislead him and will guide him to the punishment of the Flame.\n22:5 O mankind! if ye are in doubt concerning the Resurrection, then lo! We have created you from dust, then from a drop of seed, then from a clot, then from a little lump of flesh shapely and shapeless, that We may make (it) clear for you. And We cause what We will to remain in the wombs for an appointed time, and afterward We bring you forth as infants, then (give you growth) that ye attain your full strength. And among you there is he who dieth (young), and among you there is he who is brought back to the most abject time of life, so that, after knowledge, he knoweth naught. And thou (Muhammad) seest the earth barren, but when We send down water thereon, it doth thrill and swell and put forth every lovely kind (of growth).\n22:6 That is because Allah, He is the Truth and because He quickeneth the dead, and because He is Able to do all things;\n22:7 And because the Hour will come, there is no doubt thereof; and because Allah will raise those who are in the graves.",
+      "explanationContent": "Surah Al-Hajj means \"The Pilgrimage\". It was revealed in Madinah. It has 78 ayahs.\n22:7 And because the Hour will come, there is no doubt thereof; and because Allah will raise those who are in the graves.\n22:45 How many a township have We destroyed while it was sinful, so that it lieth (to this day) in ruins, and (how many) a deserted well and lofty tower!",
       "learnLine": "Surah Al-Hajj means \"The Pilgrimage\".",
       "learnFacts": [
         "78 ayahs",
@@ -25280,7 +24202,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Ascending Stairways"
+              "label": "The Romans"
             },
             {
               "id": "b",
@@ -25288,11 +24210,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Abundance"
+              "label": "The Resurrection"
             },
             {
               "id": "d",
-              "label": "The Ant"
+              "label": "The Rocky Tract"
             }
           ],
           "correctChoiceId": "b",
@@ -25360,7 +24282,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Al-Mu'minun",
       "intro": "Surah Al-Mu'minun means \"The Believers\".",
-      "explanationContent": "Surah Al-Mu'minun means \"The Believers\". It was revealed in Makkah. It has 118 ayahs.\n23:1 Successful indeed are the believers\n23:2 Who are humble in their prayers,\n23:3 And who shun vain conversation,\n23:4 And who are payers of the poor-due;\n23:5 And who guard their modesty -\n23:6 Save from their wives or the (slaves) that their right hands possess, for then they are not blameworthy,\n23:7 But whoso craveth beyond that, such are transgressors -",
+      "explanationContent": "Surah Al-Mu'minun means \"The Believers\". It was revealed in Makkah. It has 118 ayahs.\n23:1 Successful indeed are the believers\n23:2 Who are humble in their prayers,\n23:3 And who shun vain conversation,\n23:4 And who are payers of the poor-due;\n23:5 And who guard their modesty -\n23:6 Save from their wives or the (slaves) that their right hands possess, for then they are not blameworthy,\n23:48 So they denied them, and became of those who were destroyed.",
       "learnLine": "Surah Al-Mu'minun means \"The Believers\".",
       "learnFacts": [
         "118 ayahs",
@@ -25369,6 +24291,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Successful indeed are the believers",
         "reference": "Quran 23:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_21_30_surah_al_muminun_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 23:1",
+        "url": "https://quran.com/23/1",
+        "reference": "Quran 23:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 23:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -25412,7 +24345,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Rocky Tract"
+              "label": "The Cow"
             },
             {
               "id": "b",
@@ -25420,11 +24353,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Resurrection"
+              "label": "The Consultation"
             },
             {
               "id": "d",
-              "label": "The Rivalry in world increase"
+              "label": "The Covered One"
             }
           ],
           "correctChoiceId": "b",
@@ -25492,7 +24425,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah An-Nur",
       "intro": "Surah An-Nur means \"The Light\".",
-      "explanationContent": "Surah An-Nur means \"The Light\". It was revealed in Madinah. It has 64 ayahs.\n24:1 (Here is) a surah which We have revealed and enjoined, and wherein We have revealed plain tokens, that haply ye may take heed.\n24:4 And those who accuse honourable women but bring not four witnesses, scourge them (with) eighty stripes and never (afterward) accept their testimony - They indeed are evil-doers -\n24:5 Save those who afterward repent and make amends. (For such) lo! Allah is Forgiving, Merciful.\n24:6 As for those who accuse their wives but have no witnesses except themselves; let the testimony of one of them be four testimonies, (swearing) by Allah that he is of those who speak the truth;\n24:7 And yet a fifth, invoking the curse of Allah on him if he is of those who lie.\n24:13 Why did they not produce four witnesses? Since they produce not witnesses, they verily are liars in the sight of Allah.\n24:45 Allah hath created every animal of water. Of them is (a kind) that goeth upon its belly and (a kind) that goeth upon two legs and (a kind) that goeth upon four. Allah createth what He will. Lo! Allah is Able to do all things.",
+      "explanationContent": "Surah An-Nur means \"The Light\". It was revealed in Madinah. It has 64 ayahs.\n24:4 And those who accuse honourable women but bring not four witnesses, scourge them (with) eighty stripes and never (afterward) accept their testimony - They indeed are evil-doers -\n24:6 As for those who accuse their wives but have no witnesses except themselves; let the testimony of one of them be four testimonies, (swearing) by Allah that he is of those who speak the truth;\n24:7 And yet a fifth, invoking the curse of Allah on him if he is of those who lie.",
       "learnLine": "Surah An-Nur means \"The Light\".",
       "learnFacts": [
         "64 ayahs",
@@ -25540,15 +24473,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Abundance"
+              "label": "The Pleading Woman"
             },
             {
               "id": "b",
-              "label": "The Ant"
+              "label": "The Poets"
             },
             {
               "id": "c",
-              "label": "The Ascending Stairways"
+              "label": "The Power"
             },
             {
               "id": "d",
@@ -25620,7 +24553,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Al-Furqan",
       "intro": "Surah Al-Furqan means \"The Criterion\".",
-      "explanationContent": "Surah Al-Furqan means \"The Criterion\". It was revealed in Makkah. It has 77 ayahs.\n25:1 Blessed is He Who hath revealed unto His slave the Criterion (of right and wrong), that he may be a warner to the peoples.\n25:2 He unto Whom belongeth the Sovereignty of the heavens and the earth, He hath chosen no son nor hath He any partner in the Sovereignty. He hath created everything and hath meted out for it a measure.\n25:3 Yet they choose beside Him other gods who create naught but are themselves created, and possess not hurt nor profit for themselves, and possess not death nor life, nor power to raise the dead.\n25:4 Those who disbelieve say: This is naught but a lie that he hath invented, and other folk have helped him with it, so that they have produced a slander and a lie.\n25:5 And they say: Fables of the men of old which he hath had written down so that they are dictated to him morn and evening.\n25:6 Say (unto them, O Muhammad): He who knoweth the secret of the heavens and the earth hath revealed it. Lo! He ever is Forgiving, Merciful.\n25:7 And they say: What aileth this messenger (of Allah) that he eateth food and walketh in the markets? Why is not an angel sent down unto him, to be a warner with him.",
+      "explanationContent": "Surah Al-Furqan means \"The Criterion\". It was revealed in Makkah. It has 77 ayahs.\n25:3 Yet they choose beside Him other gods who create naught but are themselves created, and possess not hurt nor profit for themselves, and possess not death nor life, nor power to raise the dead.\n25:42 He would have led us far away from our gods if we had not been staunch to them. They will know, when they behold the doom, who is more astray as to the road.",
       "learnLine": "Surah Al-Furqan means \"The Criterion\".",
       "learnFacts": [
         "77 ayahs",
@@ -25668,15 +24601,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Opener"
+              "label": "The Help"
             },
             {
               "id": "b",
-              "label": "The Ornaments of Gold"
+              "label": "The Human"
             },
             {
               "id": "c",
-              "label": "The Overthrowing"
+              "label": "The Hypocrites"
             },
             {
               "id": "d",
@@ -25748,7 +24681,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Ash-Shu'ara",
       "intro": "Surah Ash-Shu'ara means \"The Poets\".",
-      "explanationContent": "Surah Ash-Shu'ara means \"The Poets\". It was revealed in Makkah. It has 227 ayahs.\n26:1 Ta. Sin. Mim.\n26:2 These are revelations of the Scripture that maketh plain.\n26:3 It may be that thou tormentest thyself (O Muhammad) because they believe not.\n26:4 If We will, We can send down on them from the sky a portent so that their necks would remain bowed before it.\n26:5 Never cometh there unto them a fresh reminder from the Beneficent One, but they turn away from it.\n26:6 Now they have denied (the Truth); but there will come unto them tidings of that whereat they used to scoff.\n26:7 Have they not seen the earth, how much of every fruitful kind We make to grow therein?",
+      "explanationContent": "Surah Ash-Shu'ara means \"The Poets\". It was revealed in Makkah. It has 227 ayahs.\n26:1 Ta. Sin. Mim.\n26:4 If We will, We can send down on them from the sky a portent so that their necks would remain bowed before it.\n26:7 Have they not seen the earth, how much of every fruitful kind We make to grow therein?\n26:172 Then afterward We destroyed the others.",
       "learnLine": "Surah Ash-Shu'ara means \"The Poets\".",
       "learnFacts": [
         "227 ayahs",
@@ -25757,6 +24690,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "These are revelations of the Scripture that maketh plain.",
         "reference": "Quran 26:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_21_30_surah_ash_shuara_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 26:2",
+        "url": "https://quran.com/26/2",
+        "reference": "Quran 26:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 26:2"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -25800,7 +24744,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Mutual Disillusion"
+              "label": "The Ant"
             },
             {
               "id": "b",
@@ -25808,11 +24752,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Most High"
+              "label": "The Wrapped One"
             },
             {
               "id": "d",
-              "label": "The Mount"
+              "label": "The Abundance"
             }
           ],
           "correctChoiceId": "b",
@@ -25880,7 +24824,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah An-Naml",
       "intro": "Surah An-Naml means \"The Ant\".",
-      "explanationContent": "Surah An-Naml means \"The Ant\". It was revealed in Makkah. It has 93 ayahs.\n27:1 Ta. Sin. These are revelations of the Qur'an and a Scripture that maketh plain;\n27:2 A guidance and good tidings for believers\n27:3 Who establish worship and pay the poor-due and are sure of the Hereafter.\n27:4 Lo! as for those who believe not in the Hereafter, We have made their works fairseeming unto them so that they are all astray.\n27:5 Those are they for whom is the worst of punishment, and in the Hereafter they will be the greatest losers.\n27:6 Lo! as for thee (Muhammad), thou verily receivest the Qur'an from the presence of One Wise, Aware.\n27:7 (Remember) when Moses said unto his household: Lo! I spy afar off a fire; I will bring you tidings thence, or bring to you a borrowed flame that ye may warm yourselves.",
+      "explanationContent": "Surah An-Naml means \"The Ant\". It was revealed in Makkah. It has 93 ayahs.\n27:2 A guidance and good tidings for believers\n27:3 Who establish worship and pay the poor-due and are sure of the Hereafter.\n27:5 Those are they for whom is the worst of punishment, and in the Hereafter they will be the greatest losers.",
       "learnLine": "Surah An-Naml means \"The Ant\".",
       "learnFacts": [
         "93 ayahs",
@@ -25889,6 +24833,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Ta. Sin. These are revelations of the Qur'an and a Scripture that maketh plain;",
         "reference": "Quran 27:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_21_30_surah_an_naml_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 27:1",
+        "url": "https://quran.com/27/1",
+        "reference": "Quran 27:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 27:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -25932,11 +24887,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Power"
+              "label": "The Wrapped One"
             },
             {
               "id": "b",
-              "label": "The Prohibition"
+              "label": "The Abundance"
             },
             {
               "id": "c",
@@ -25944,7 +24899,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Poets"
+              "label": "The Women"
             }
           ],
           "correctChoiceId": "c",
@@ -26012,7 +24967,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Al-Qasas",
       "intro": "Surah Al-Qasas means \"The Stories\".",
-      "explanationContent": "Surah Al-Qasas means \"The Stories\". It was revealed in Makkah. It has 88 ayahs.\n28:1 Ta. Sin. Mim.\n28:2 These are revelations of the Scripture that maketh plain.\n28:3 We narrate unto thee (somewhat) of the story of Moses and Pharaoh with truth, for folk who believe.\n28:4 Lo! Pharaoh exalted himself in the earth and made its people castes. A tribe among them he oppressed, killing their sons and sparing their women. Lo! he was of those who work corruption.\n28:5 And We desired to show favour unto those who were oppressed in the earth, and to make them examples and to make them the inheritors,\n28:6 And to establish them in the earth, and to show Pharaoh and Haman and their hosts that which they feared from them.\n28:7 And We inspired the mother of Moses, saying: Suckle him and, when thou fearest for him, then cast him into the river and fear not nor grieve. Lo! We shall bring him back unto thee and shall make him (one) of Our messengers.",
+      "explanationContent": "Surah Al-Qasas means \"The Stories\". It was revealed in Makkah. It has 88 ayahs.\n28:1 Ta. Sin. Mim.\n28:6 And to establish them in the earth, and to show Pharaoh and Haman and their hosts that which they feared from them.\n28:13 So We restored him to his mother that she might be comforted and not grieve, and that she might know that the promise of Allah is true. But most of them know not.\n28:61 Is he whom We have promised a fair promise which he will find (true) like him whom We suffer to enjoy awhile the comfort of the life of the world, then on the Day of Resurrection he will be of those arraigned?",
       "learnLine": "Surah Al-Qasas means \"The Stories\".",
       "learnFacts": [
         "88 ayahs",
@@ -26021,6 +24976,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "These are revelations of the Scripture that maketh plain.",
         "reference": "Quran 28:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_21_30_surah_al_qasas_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 28:2",
+        "url": "https://quran.com/28/2",
+        "reference": "Quran 28:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 28:2"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -26064,7 +25030,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Beneficent"
+              "label": "The Disbelievers"
             },
             {
               "id": "b",
@@ -26072,11 +25038,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Bee"
+              "label": "The Dawn"
             },
             {
               "id": "d",
-              "label": "The Believers"
+              "label": "The Daybreak"
             }
           ],
           "correctChoiceId": "b",
@@ -26144,7 +25110,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Al-'Ankabut",
       "intro": "Surah Al-'Ankabut means \"The Spider\".",
-      "explanationContent": "Surah Al-'Ankabut means \"The Spider\". It was revealed in Makkah. It has 69 ayahs.\n29:1 Alif. Lam. Mim.\n29:2 Do men imagine that they will be left (at ease) because they say, We believe, and will not be tested with affliction?\n29:3 Lo! We tested those who were before you. Thus Allah knoweth those who are sincere, and knoweth those who feign.\n29:4 Or do those who do ill-deeds imagine that they can outstrip Us? Evil (for them) is that which they decide.\n29:5 Whoso looketh forward to the meeting with Allah (let him know that) Allah's reckoning is surely nigh, and He is the Hearer, the Knower.\n29:6 And whosoever striveth, striveth only for himself, for lo! Allah is altogether Independent of (His) creatures.\n29:7 And as for those who believe and do good works, We shall remit from them their evil deeds and shall repay them the best that they did.",
+      "explanationContent": "Surah Al-'Ankabut means \"The Spider\". It was revealed in Makkah. It has 69 ayahs.\n29:1 Alif. Lam. Mim.\n29:2 Do men imagine that they will be left (at ease) because they say, We believe, and will not be tested with affliction?\n29:4 Or do those who do ill-deeds imagine that they can outstrip Us? Evil (for them) is that which they decide.\n29:7 And as for those who believe and do good works, We shall remit from them their evil deeds and shall repay them the best that they did.",
       "learnLine": "Surah Al-'Ankabut means \"The Spider\".",
       "learnFacts": [
         "69 ayahs",
@@ -26192,11 +25158,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Abundance"
+              "label": "The Backbiter"
             },
             {
               "id": "b",
-              "label": "The Ant"
+              "label": "The Bee"
             },
             {
               "id": "c",
@@ -26204,7 +25170,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Women"
+              "label": "The Ascending Stairways"
             }
           ],
           "correctChoiceId": "c",
@@ -26272,7 +25238,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Ar-Rum",
       "intro": "Surah Ar-Rum means \"The Romans\".",
-      "explanationContent": "Surah Ar-Rum means \"The Romans\". It was revealed in Makkah. It has 60 ayahs.\n30:1 Alif. Lam. Mim.\n30:2 The Romans have been defeated\n30:3 In the nearer land, and they, after their defeat will be victorious\n30:4 Within ten years - Allah's is the command in the former case and in the latter - and in that day believers will rejoice\n30:5 In Allah's help to victory. He helpeth to victory whom He will. He is the Mighty, the Merciful.\n30:6 It is a promise of Allah. Allah faileth not His promise, but most of mankind know not.\n30:7 They know only some appearance of the life of the world, and are heedless of the Hereafter.",
+      "explanationContent": "Surah Ar-Rum means \"The Romans\". It was revealed in Makkah. It has 60 ayahs.\n30:1 Alif. Lam. Mim.\n30:2 The Romans have been defeated\n30:3 In the nearer land, and they, after their defeat will be victorious\n30:4 Within ten years - Allah's is the command in the former case and in the latter - and in that day believers will rejoice\n30:7 They know only some appearance of the life of the world, and are heedless of the Hereafter.",
       "learnLine": "Surah Ar-Rum means \"The Romans\".",
       "learnFacts": [
         "60 ayahs",
@@ -26281,6 +25247,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The Romans have been defeated",
         "reference": "Quran 30:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_21_30_surah_ar_rum_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 30:2",
+        "url": "https://quran.com/30/2",
+        "reference": "Quran 30:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 30:2"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -26328,15 +25305,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Jinn"
+              "label": "The Abundance"
             },
             {
               "id": "c",
-              "label": "The Light"
+              "label": "The Ant"
             },
             {
               "id": "d",
-              "label": "The Man"
+              "label": "The Ascending Stairways"
             }
           ],
           "correctChoiceId": "a",
@@ -26404,7 +25381,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Luqman",
       "intro": "Surah Luqman is named after Luqman.",
-      "explanationContent": "Surah Luqman is named after Luqman. It was revealed in Makkah. It has 34 ayahs.\n31:1 Alif. Lam. Mim.\n31:2 These are revelations of the wise Scripture,\n31:3 A guidance and a mercy for the good,\n31:4 Those who establish worship and pay the poor-due and have sure faith in the Hereafter.\n31:5 Such have guidance from their Lord. Such are the successful.\n31:6 And of mankind is he who payeth for mere pastime of discourse, that he may mislead from Allah's way without knowledge, and maketh it the butt of mockery. For such there is a shameful doom.\n31:7 And when Our revelations are recited unto him he turneth away in pride as if he heard them not, as if there were a deafness in his ears. So give him tidings of a painful doom.",
+      "explanationContent": "Surah Luqman is named after Luqman. It was revealed in Makkah. It has 34 ayahs.\n31:1 Alif. Lam. Mim.\n31:2 These are revelations of the wise Scripture,\n31:3 A guidance and a mercy for the good,\n31:4 Those who establish worship and pay the poor-due and have sure faith in the Hereafter.\n31:5 Such have guidance from their Lord. Such are the successful.",
       "learnLine": "Surah Luqman is named after Luqman.",
       "learnFacts": [
         "34 ayahs",
@@ -26413,6 +25390,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "These are revelations of the wise Scripture,",
         "reference": "Quran 31:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_31_40_surah_luqman_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 31:2",
+        "url": "https://quran.com/31/2",
+        "reference": "Quran 31:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 31:2"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -26505,7 +25493,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah As-Sajdah",
       "intro": "Surah As-Sajdah means \"The Prostration\".",
-      "explanationContent": "Surah As-Sajdah means \"The Prostration\". It was revealed in Makkah. It has 30 ayahs.\n32:1 Alif. Lam. Mim\n32:2 The revelation of the Scripture whereof there is no doubt is from the Lord of the Worlds.\n32:3 Or say they: He hath invented it? Nay, but it is the Truth from thy Lord, that thou mayst warn a folk to whom no warner came before thee, that haply they may walk aright.\n32:4 Allah it is Who created the heavens and the earth, and that which is between them, in six Days. Then He mounted the Throne. Ye have not, beside Him, a protecting friend or mediator. Will ye not then remember?\n32:5 He directeth the ordinance from the heaven unto the earth; then it ascendeth unto Him in a Day, whereof the measure is a thousand years of that ye reckon.\n32:6 Such is the Knower of the Invisible and the Visible, the Mighty, the Merciful,\n32:7 Who made all things good which He created, and He began the creation of man from clay;",
+      "explanationContent": "Surah As-Sajdah means \"The Prostration\". It was revealed in Makkah. It has 30 ayahs.\n32:1 Alif. Lam. Mim\n32:2 The revelation of the Scripture whereof there is no doubt is from the Lord of the Worlds.\n32:6 Such is the Knower of the Invisible and the Visible, the Mighty, the Merciful,\n32:7 Who made all things good which He created, and He began the creation of man from clay;",
       "learnLine": "Surah As-Sajdah means \"The Prostration\".",
       "learnFacts": [
         "30 ayahs",
@@ -26514,6 +25502,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The revelation of the Scripture whereof there is no doubt is from the Lord of the Worlds.",
         "reference": "Quran 32:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_31_40_surah_as_sajdah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 32:2",
+        "url": "https://quran.com/32/2",
+        "reference": "Quran 32:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 32:2"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -26557,11 +25556,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Winnowing Winds"
+              "label": "The Bee"
             },
             {
               "id": "b",
-              "label": "The Women"
+              "label": "The Believers"
             },
             {
               "id": "c",
@@ -26569,7 +25568,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Backbiter"
             }
           ],
           "correctChoiceId": "c",
@@ -26637,7 +25636,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Al-Ahzab",
       "intro": "Surah Al-Ahzab means \"The Combined Forces\".",
-      "explanationContent": "Surah Al-Ahzab means \"The Combined Forces\". It was revealed in Madinah. It has 73 ayahs.\n33:1 O Prophet! Keep thy duty to Allah and obey not the disbelievers and the hypocrites. Lo! Allah is Knower, Wise.\n33:2 And follow that which is inspired in thee from thy Lord. Lo! Allah is Aware of what ye do.\n33:3 And put thy trust in Allah, for Allah is sufficient as Trustee.\n33:4 Allah hath not assigned unto any man two hearts within his body, nor hath He made your wives whom ye declare (to be your mothers) your mothers, nor hath He made those whom ye claim (to be your sons) your sons. This is but a saying of your mouths. But Allah saith the truth and He showeth the way.\n33:5 Proclaim their real parentage. That will be more equitable in the sight of Allah. And if ye know not their fathers, then (they are) your brethren in the faith, and your clients. And there is no sin for you in the mistakes that ye make unintentionally, but what your hearts purpose (that will be a sin for you). Allah is ever Forgiving, Merciful.\n33:6 The Prophet is closer to the believers than their selves, and his wives are (as) their mothers. And the owners of kinship are closer one to another in the ordinance of Allah than (other) believers and the fugitives (who fled from Mecca), except that ye should do kindness to your friends. This is written in the Book (of nature).\n33:7 And when We exacted a covenant from the prophets, and from thee (O Muhammad) and from Noah and Abraham and Moses and Jesus son of Mary. We took from them a solemn covenant;",
+      "explanationContent": "Surah Al-Ahzab means \"The Combined Forces\". It was revealed in Madinah. It has 73 ayahs.\n33:61 Accursed, they will be seized wherever found and slain with a (fierce) slaughter.",
       "learnLine": "Surah Al-Ahzab means \"The Combined Forces\".",
       "learnFacts": [
         "73 ayahs",
@@ -26689,15 +25688,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Fig"
+              "label": "The Heights"
             },
             {
               "id": "c",
-              "label": "The Forgiver"
+              "label": "The Help"
             },
             {
               "id": "d",
-              "label": "The Heights"
+              "label": "The Human"
             }
           ],
           "correctChoiceId": "a",
@@ -26765,7 +25764,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Saba",
       "intro": "Surah Saba is named after the people of Saba.",
-      "explanationContent": "Surah Saba is named after the people of Saba. It was revealed in Makkah. It has 54 ayahs.\n34:1 Praise be to Allah, unto Whom belongeth whatsoever is in the heavens and whatsoever is in the earth. His is the praise in the Hereafter, and He is the Wise, the Aware.\n34:2 He knoweth that which goeth into the earth and that which cometh forth from it, and that descendeth from the heaven and that which ascendeth into it. He is the Merciful, the Forgiving.\n34:3 Those who disbelieve say: The Hour will never come unto us. Say: Nay, by my Lord, but it is coming unto you surely. (He is) the Knower of the Unseen. Not an atom's weight, or less than that or greater, escapeth Him in the heavens or in the earth, but it is in a clear Record,\n34:4 That He may reward those who believe and do good works. For them is pardon and a rich provision.\n34:5 But those who strive against Our revelations, challenging (Us), theirs will be a painful doom of wrath.\n34:6 Those who have been given knowledge see that what is revealed unto thee from thy Lord is the truth and leadeth unto the path of the Mighty, the Owner of Praise.\n34:7 Those who disbelieve say: Shall we show you a man who will tell you (that) when ye have become dispersed in dust with most complete dispersal still, even then, ye will be created anew?",
+      "explanationContent": "Surah Saba is named after the people of Saba. It was revealed in Makkah. It has 54 ayahs.\n34:4 That He may reward those who believe and do good works. For them is pardon and a rich provision.\n34:5 But those who strive against Our revelations, challenging (Us), theirs will be a painful doom of wrath.",
       "learnLine": "Surah Saba is named after the people of Saba.",
       "learnFacts": [
         "54 ayahs",
@@ -26864,7 +25863,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Fatir",
       "intro": "Surah Fatir means \"Originator\".",
-      "explanationContent": "Surah Fatir means \"Originator\". It was revealed in Makkah. It has 45 ayahs.\n35:1 Praise be to Allah, the Creator of the heavens and the earth, Who appointeth the angels messengers having wings two, three and four. He multiplieth in creation what He will. Lo! Allah is Able to do all things.\n35:2 That which Allah openeth unto mankind of mercy none can withhold it; and that which He withholdeth none can release thereafter. He is the Mighty, the Wise.\n35:3 O mankind! Remember Allah's grace toward you! Is there any creator other than Allah who provideth for you from the sky and the earth? There is no god save Him. Whither then are ye turned?\n35:4 And if they deny thee, (O Muhammad), messengers (of Allah) were denied before thee. Unto Allah all things are brought back.\n35:5 O mankind! Lo! the promise of Allah is true. So let not the life of the world beguile you, and let not the (avowed) beguiler beguile you with regard to Allah.\n35:6 Lo! the devil is an enemy for you, so treat him as an enemy. He only summoneth his faction to be owners of the flaming Fire.\n35:7 Those who disbelieve, theirs will be an awful doom; and those who believe and do good works, theirs will be forgiveness and a great reward.",
+      "explanationContent": "Surah Fatir means \"Originator\". It was revealed in Makkah. It has 45 ayahs.\n35:7 Those who disbelieve, theirs will be an awful doom; and those who believe and do good works, theirs will be forgiveness and a great reward.",
       "learnLine": "Surah Fatir means \"Originator\".",
       "learnFacts": [
         "45 ayahs",
@@ -26912,11 +25911,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "She that is to be examined"
+              "label": "Competing for More"
             },
             {
               "id": "b",
-              "label": "Those who drag forth"
+              "label": "Explained in Detail"
             },
             {
               "id": "c",
@@ -26924,7 +25923,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Mankind"
+              "label": "Time"
             }
           ],
           "correctChoiceId": "c",
@@ -26992,7 +25991,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Ya-Sin",
       "intro": "Surah Ya-Sin is named after its opening letters, Ya Sin.",
-      "explanationContent": "Surah Ya-Sin is named after its opening letters, Ya Sin. It was revealed in Makkah. It has 83 ayahs.\n36:1 Ya Sin.\n36:2 By the wise Qur'an,\n36:3 Lo! thou art of those sent\n36:4 On a straight path,\n36:5 A revelation of the Mighty, the Merciful,\n36:6 That thou mayst warn a folk whose fathers were not warned, so they are heedless.\n36:7 Already hath the judgment, (for their infidelity) proved true of most of them, for they believe not.",
+      "explanationContent": "Surah Ya-Sin is named after its opening letters, Ya Sin. It was revealed in Makkah. It has 83 ayahs.\n36:1 Ya Sin.\n36:2 By the wise Qur'an,\n36:4 On a straight path,\n36:5 A revelation of the Mighty, the Merciful,\n36:46 Never came a token of the tokens of their Lord to them, but they did turn away from it!",
       "learnLine": "Surah Ya-Sin is named after its opening letters, Ya Sin.",
       "learnFacts": [
         "83 ayahs",
@@ -27001,6 +26000,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the wise Qur'an,",
         "reference": "Quran 36:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_31_40_surah_ya_sin_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 36:2",
+        "url": "https://quran.com/36/2",
+        "reference": "Quran 36:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 36:2"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -27095,7 +26105,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah As-Saffat",
       "intro": "Surah As-Saffat means \"Those who set the Ranks\".",
-      "explanationContent": "Surah As-Saffat means \"Those who set the Ranks\". It was revealed in Makkah. It has 182 ayahs.\n37:1 By those who set the ranks in battle order\n37:2 And those who drive away (the wicked) with reproof\n37:3 And those who read (the Word) for a reminder,\n37:4 Lo! thy Lord is surely One;\n37:5 Lord of the heavens and of the earth and all that is between them, and Lord of the sun's risings.\n37:6 Lo! We have adorned the lowest heaven with an ornament, the planets;\n37:7 With security from every froward devil.",
+      "explanationContent": "Surah As-Saffat means \"Those who set the Ranks\". It was revealed in Makkah. It has 182 ayahs.\n37:1 By those who set the ranks in battle order\n37:2 And those who drive away (the wicked) with reproof\n37:3 And those who read (the Word) for a reminder,\n37:5 Lord of the heavens and of the earth and all that is between them, and Lord of the sun's risings.\n37:7 With security from every froward devil.",
       "learnLine": "Surah As-Saffat means \"Those who set the Ranks\".",
       "learnFacts": [
         "182 ayahs",
@@ -27104,6 +26114,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By those who set the ranks in battle order",
         "reference": "Quran 37:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_31_40_surah_as_saffat_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 37:1",
+        "url": "https://quran.com/37/1",
+        "reference": "Quran 37:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 37:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -27151,15 +26172,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "She that is to be examined"
+              "label": "Time"
             },
             {
               "id": "c",
-              "label": "Explained in Detail"
+              "label": "Competing for More"
             },
             {
               "id": "d",
-              "label": "Family of Imran"
+              "label": "Explained in Detail"
             }
           ],
           "correctChoiceId": "a",
@@ -27227,7 +26248,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Sad",
       "intro": "Surah Sad is named after its opening letter, Sad.",
-      "explanationContent": "Surah Sad is named after its opening letter, Sad. It was revealed in Makkah. It has 88 ayahs.\n38:1 Sad. By the renowned Qur'an,\n38:2 Nay, but those who disbelieve are in false pride and schism.\n38:3 How many a generation We destroyed before them, and they cried out when it was no longer the time for escape!\n38:4 And they marvel that a warner from among themselves hath come unto them, and the disbelievers say: This is a wizard, a charlatan.\n38:5 Maketh he the gods One God? Lo! that is an astounding thing.\n38:6 The chiefs among them go about, exhorting: Go and be staunch to your gods! Lo! this is a thing designed.\n38:7 We have not heard of this in later religion. This is naught but an invention.",
+      "explanationContent": "Surah Sad is named after its opening letter, Sad. It was revealed in Makkah. It has 88 ayahs.\n38:1 Sad. By the renowned Qur'an,\n38:3 How many a generation We destroyed before them, and they cried out when it was no longer the time for escape!\n38:7 We have not heard of this in later religion. This is naught but an invention.\n38:12 The folk of Noah before them denied (their messenger) and (so did the tribe of) A'ad, and Pharaoh firmly planted,",
       "learnLine": "Surah Sad is named after its opening letter, Sad.",
       "learnFacts": [
         "88 ayahs",
@@ -27236,6 +26257,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Sad. By the renowned Qur'an,",
         "reference": "Quran 38:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_31_40_surah_sad_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 38:1",
+        "url": "https://quran.com/38/1",
+        "reference": "Quran 38:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 38:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -27330,7 +26362,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Az-Zumar",
       "intro": "Surah Az-Zumar means \"The Troops\".",
-      "explanationContent": "Surah Az-Zumar means \"The Troops\". It was revealed in Makkah. It has 75 ayahs.\n39:1 The revelation of the Scripture is from Allah, the Mighty, the Wise.\n39:2 Lo! We have revealed the Scripture unto thee (Muhammad) with truth; so worship Allah, making religion pure for Him (only).\n39:3 Surely pure religion is for Allah only. And those who choose protecting friends beside Him (say): We worship them only that they may bring us near unto Allah. Lo! Allah will judge between them concerning that wherein they differ. Lo! Allah guideth not him who is a liar, an ingrate.\n39:4 If Allah had willed to choose a son, He could have chosen what He would of that which He hath created. Be He Glorified! He is Allah, the One, the Absolute.\n39:5 He hath created the heavens and the earth with truth. He maketh night to succeed day, and He maketh day to succeed night, and He constraineth the sun and the moon to give service, each running on for an appointed term. Is not He the Mighty, the Forgiver?\n39:6 He created you from one being, then from that (being) He made its mate; and He hath provided for you of cattle eight kinds. He created you in the wombs of your mothers, creation after creation, in a threefold gloom. Such is Allah, your Lord. His is the Sovereignty. There is no god save Him. How then are ye turned away?\n39:7 If ye are thankless, yet Allah is Independent of you, though He is not pleased with thanklessness for His bondmen; and if ye are thankful He is pleased therewith for you. No laden soul will bear another's load. Then unto your Lord is your return; and He will tell you what ye used to do. Lo! He knoweth what is in the breasts (of men).",
+      "explanationContent": "Surah Az-Zumar means \"The Troops\". It was revealed in Makkah. It has 75 ayahs.\n39:1 The revelation of the Scripture is from Allah, the Mighty, the Wise.",
       "learnLine": "Surah Az-Zumar means \"The Troops\".",
       "learnFacts": [
         "75 ayahs",
@@ -27339,6 +26371,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The revelation of the Scripture is from Allah, the Mighty, the Wise.",
         "reference": "Quran 39:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_31_40_surah_az_zumar_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 39:1",
+        "url": "https://quran.com/39/1",
+        "reference": "Quran 39:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 39:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -27382,7 +26425,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Clot"
+              "label": "The Cattle"
             },
             {
               "id": "b",
@@ -27390,11 +26433,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Cleaving"
+              "label": "The Beneficent"
             },
             {
               "id": "d",
-              "label": "The Cloaked One"
+              "label": "The Calamity"
             }
           ],
           "correctChoiceId": "b",
@@ -27462,7 +26505,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Ghafir",
       "intro": "Surah Ghafir means \"The Forgiver\".",
-      "explanationContent": "Surah Ghafir means \"The Forgiver\". It was revealed in Makkah. It has 85 ayahs.\n40:1 Ha. Mim.\n40:2 The revelation of the Scripture is from Allah, the Mighty, the Knower,\n40:3 The Forgiver of sin, the Accepter of repentance, the Stern in punishment, the Bountiful. There is no god save Him. Unto Him is the journeying.\n40:4 None argue concerning the revelations of Allah save those who disbelieve, so let not their turn of fortune in the land deceive thee (O Muhammad).\n40:5 The folk of Noah and the factions after them denied (their messengers) before these, and every nation purposed to seize their messenger and argued falsely, (thinking) thereby to refute the Truth. Then I seized them, and how (awful) was My punishment.\n40:6 Thus was the word of thy Lord concerning those who disbelieve fulfilled: That they are owners of the Fire.\n40:7 Those who bear the Throne, and all who are round about it, hymn the praises of their Lord and believe in Him and ask forgiveness for those who believe (saying): Our Lord! Thou comprehendest all things in mercy and knowledge, therefor forgive those who repent and follow Thy way. Ward off from them the punishment of hell.",
+      "explanationContent": "Surah Ghafir means \"The Forgiver\". It was revealed in Makkah. It has 85 ayahs.\n40:1 Ha. Mim.\n40:2 The revelation of the Scripture is from Allah, the Mighty, the Knower,\n40:5 The folk of Noah and the factions after them denied (their messengers) before these, and every nation purposed to seize their messenger and argued falsely, (thinking) thereby to refute the Truth. Then I seized them, and how (awful) was My punishment.",
       "learnLine": "Surah Ghafir means \"The Forgiver\".",
       "learnFacts": [
         "85 ayahs",
@@ -27471,6 +26514,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The revelation of the Scripture is from Allah, the Mighty, the Knower,",
         "reference": "Quran 40:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_31_40_surah_ghafir_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 40:2",
+        "url": "https://quran.com/40/2",
+        "reference": "Quran 40:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 40:2"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -27514,7 +26568,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Women"
+              "label": "The Ant"
             },
             {
               "id": "b",
@@ -27522,11 +26576,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Wrapped One"
             },
             {
               "id": "d",
-              "label": "The Winnowing Winds"
+              "label": "The Abundance"
             }
           ],
           "correctChoiceId": "b",
@@ -27594,7 +26648,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Fussilat",
       "intro": "Surah Fussilat means \"Explained in Detail\".",
-      "explanationContent": "Surah Fussilat means \"Explained in Detail\". It was revealed in Makkah. It has 54 ayahs.\n41:1 Ha. Mim.\n41:2 A revelation from the Beneficent, the Merciful,\n41:3 A Scripture whereof the verses are expounded, a Lecture in Arabic for people who have knowledge,\n41:4 Good tidings and a warning. But most of them turn away so that they hear not.\n41:5 And they say: Our hearts are protected from that unto which thou (O Muhammad) callest us, and in our ears there is a deafness, and between us and thee there is a veil. Act, then. Lo! we also shall be acting.\n41:6 Say (unto them O Muhammad): I am only a mortal like you. It is inspired in me that your God is One God, therefor take the straight path unto Him and seek forgiveness of Him. And woe unto the idolaters,\n41:7 Who give not the poor-due, and who are disbelievers in the Hereafter.",
+      "explanationContent": "Surah Fussilat means \"Explained in Detail\". It was revealed in Makkah. It has 54 ayahs.\n41:1 Ha. Mim.\n41:2 A revelation from the Beneficent, the Merciful,\n41:3 A Scripture whereof the verses are expounded, a Lecture in Arabic for people who have knowledge,\n41:4 Good tidings and a warning. But most of them turn away so that they hear not.\n41:7 Who give not the poor-due, and who are disbelievers in the Hereafter.",
       "learnLine": "Surah Fussilat means \"Explained in Detail\".",
       "learnFacts": [
         "54 ayahs",
@@ -27603,6 +26657,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "A revelation from the Beneficent, the Merciful,",
         "reference": "Quran 41:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_41_50_surah_fussilat_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 41:2",
+        "url": "https://quran.com/41/2",
+        "reference": "Quran 41:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 41:2"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -27644,7 +26709,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "She that is to be examined"
+              "label": "Competing for More"
             },
             {
               "id": "b",
@@ -27652,11 +26717,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Mankind"
+              "label": "Those Who Cheat"
             },
             {
               "id": "d",
-              "label": "Originator"
+              "label": "Time"
             }
           ],
           "correctChoiceId": "b",
@@ -27724,7 +26789,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Ash-Shura",
       "intro": "Surah Ash-Shura means \"The Consultation\".",
-      "explanationContent": "Surah Ash-Shura means \"The Consultation\". It was revealed in Makkah. It has 53 ayahs.\n42:1 Ha. Mim.\n42:2 A'in. Sin. Qaf.\n42:3 Thus Allah the Mighty, the Knower inspireth thee (Muhammad) as (He inspired) those before thee.\n42:4 Unto Him belongeth all that is in the heavens and all that is in the earth, and He is the Sublime, the Tremendous.\n42:5 Almost might the heavens above be rent asunder while the angels hymn the praise of their Lord and ask forgiveness for those on the earth. Lo! Allah, He is the Forgiver, the Merciful.\n42:6 And as for those who choose protecting friends beside Him, Allah is Warden over them, and thou art in no wise a guardian over them.\n42:7 And thus We have inspired in thee a Lecture in Arabic, that thou mayst warn the mother-town and those around it, and mayst warn of a day of assembling whereof there is no doubt. A host will be in the Garden, and a host of them in the Flame.",
+      "explanationContent": "Surah Ash-Shura means \"The Consultation\". It was revealed in Makkah. It has 53 ayahs.\n42:1 Ha. Mim.\n42:2 A'in. Sin. Qaf.\n42:42 The way (of blame) is only against those who oppress mankind, and wrongfully rebel in the earth. For such there is a painful doom.",
       "learnLine": "Surah Ash-Shura means \"The Consultation\".",
       "learnFacts": [
         "53 ayahs",
@@ -27772,7 +26837,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Table Spread"
+              "label": "The Morning Hours"
             },
             {
               "id": "b",
@@ -27780,11 +26845,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Sun"
+              "label": "The Mansions of the Stars"
             },
             {
               "id": "d",
-              "label": "The Sundering"
+              "label": "The Moon"
             }
           ],
           "correctChoiceId": "b",
@@ -27852,7 +26917,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Az-Zukhruf",
       "intro": "Surah Az-Zukhruf means \"The Ornaments of Gold\".",
-      "explanationContent": "Surah Az-Zukhruf means \"The Ornaments of Gold\". It was revealed in Makkah. It has 89 ayahs.\n43:1 Ha. Mim.\n43:2 By the Scripture which maketh plain,\n43:3 Lo! We have appointed it a Lecture, in Arabic that haply ye may understand.\n43:4 And Lo! in the Source of Decrees, which We possess, it is indeed sublime, decisive.\n43:5 Shall We utterly ignore you because ye are a wanton folk?\n43:6 How many a prophet did We send among the men of old!\n43:7 And never came there unto them a prophet but they used to mock him.",
+      "explanationContent": "Surah Az-Zukhruf means \"The Ornaments of Gold\". It was revealed in Makkah. It has 89 ayahs.\n43:1 Ha. Mim.\n43:6 How many a prophet did We send among the men of old!\n43:53 Why, then, have armlets of gold not been set upon him, or angels sent along with him?",
       "learnLine": "Surah Az-Zukhruf means \"The Ornaments of Gold\".",
       "learnFacts": [
         "89 ayahs",
@@ -27861,6 +26926,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the Scripture which maketh plain,",
         "reference": "Quran 43:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_41_50_surah_az_zukhruf_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 43:2",
+        "url": "https://quran.com/43/2",
+        "reference": "Quran 43:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 43:2"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -27904,7 +26980,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Spider"
+              "label": "The Splitting Open"
             },
             {
               "id": "b",
@@ -27984,7 +27060,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Ad-Dukhan",
       "intro": "Surah Ad-Dukhan means \"The Smoke\".",
-      "explanationContent": "Surah Ad-Dukhan means \"The Smoke\". It was revealed in Makkah. It has 59 ayahs.\n44:1 Ha. Mim.\n44:2 By the Scripture that maketh plain\n44:3 Lo! We revealed it on a blessed night - Lo! We are ever warning -\n44:4 Whereon every wise command is made clear\n44:5 As a command from Our presence - Lo! We are ever sending -\n44:6 A mercy from thy Lord. Lo! He, even He is the Hearer, the Knower,\n44:7 Lord of the heavens and the earth and all that is between them, if ye would be sure.",
+      "explanationContent": "Surah Ad-Dukhan means \"The Smoke\". It was revealed in Makkah. It has 59 ayahs.\n44:1 Ha. Mim.\n44:4 Whereon every wise command is made clear",
       "learnLine": "Surah Ad-Dukhan means \"The Smoke\".",
       "learnFacts": [
         "59 ayahs",
@@ -27993,6 +27069,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the Scripture that maketh plain",
         "reference": "Quran 44:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_41_50_surah_ad_dukhan_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 44:2",
+        "url": "https://quran.com/44/2",
+        "reference": "Quran 44:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 44:2"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -28036,7 +27123,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Mansions of the Stars"
+              "label": "The Most High"
             },
             {
               "id": "b",
@@ -28044,11 +27131,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Light"
+              "label": "The Moon"
             },
             {
               "id": "d",
-              "label": "The Man"
+              "label": "The Morning Hours"
             }
           ],
           "correctChoiceId": "b",
@@ -28116,7 +27203,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Al-Jathiyah",
       "intro": "Surah Al-Jathiyah means \"The Crouching\".",
-      "explanationContent": "Surah Al-Jathiyah means \"The Crouching\". It was revealed in Makkah. It has 37 ayahs.\n45:1 Ha. Mim.\n45:2 The revelation of the Scripture is from Allah, the Mighty, the Wise.\n45:3 Lo! in the heavens and the earth are portents for believers.\n45:4 And in your creation, and all the beasts that He scattereth in the earth, are portents for a folk whose faith is sure.\n45:5 And the difference of night and day and the provision that Allah sendeth down from the sky and thereby quickeneth the earth after her death, and the ordering of the winds, are portents for a people who have sense.\n45:6 These are the portents of Allah which We recite unto thee (Muhammad) with truth. Then in what fact, after Allah and His portents, will they believe?\n45:7 Woe unto each sinful liar,",
+      "explanationContent": "Surah Al-Jathiyah means \"The Crouching\". It was revealed in Makkah. It has 37 ayahs.\n45:1 Ha. Mim.\n45:2 The revelation of the Scripture is from Allah, the Mighty, the Wise.",
       "learnLine": "Surah Al-Jathiyah means \"The Crouching\".",
       "learnFacts": [
         "37 ayahs",
@@ -28125,6 +27212,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The revelation of the Scripture is from Allah, the Mighty, the Wise.",
         "reference": "Quran 45:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_41_50_surah_al_jathiyah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 45:2",
+        "url": "https://quran.com/45/2",
+        "reference": "Quran 45:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 45:2"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -28172,15 +27270,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Cattle"
+              "label": "The Splitting Open"
             },
             {
               "id": "c",
-              "label": "The Cave"
+              "label": "The Spoils of War"
             },
             {
               "id": "d",
-              "label": "The City"
+              "label": "The Star"
             }
           ],
           "correctChoiceId": "a",
@@ -28248,7 +27346,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Al-Ahqaf",
       "intro": "Surah Al-Ahqaf means \"The Wind-Curved Sandhills\".",
-      "explanationContent": "Surah Al-Ahqaf means \"The Wind-Curved Sandhills\". It was revealed in Makkah. It has 35 ayahs.\n46:1 Ha. Mim.\n46:2 The revelation of the Scripture is from Allah the Mighty, the Wise.\n46:3 We created not the heavens and the earth and all that is between them save with truth, and for a term appointed. But those who disbelieve turn away from that whereof they are warned.\n46:4 Say (unto them, O Muhammad): Have ye thought on all that ye invoke beside Allah? Show me what they have created of the earth. Or have they any portion in the heavens? Bring me a scripture before this (Scripture), or some vestige of knowledge (in support of what ye say), if ye are truthful.\n46:5 And who is further astray than those who, instead of Allah, pray unto such as hear not their prayer until the Day of Resurrection, and are unconscious of their prayer,\n46:6 And when mankind are gathered (to the Judgment) will become enemies for them, and will become deniers of having been worshipped.\n46:7 And when Our clear revelations are recited unto them, those who disbelieve say of the Truth when it reacheth them: This is mere magic.",
+      "explanationContent": "Surah Al-Ahqaf means \"The Wind-Curved Sandhills\". It was revealed in Makkah. It has 35 ayahs.\n46:1 Ha. Mim.\n46:2 The revelation of the Scripture is from Allah the Mighty, the Wise.\n46:3 We created not the heavens and the earth and all that is between them save with truth, and for a term appointed. But those who disbelieve turn away from that whereof they are warned.\n46:6 And when mankind are gathered (to the Judgment) will become enemies for them, and will become deniers of having been worshipped.",
       "learnLine": "Surah Al-Ahqaf means \"The Wind-Curved Sandhills\".",
       "learnFacts": [
         "35 ayahs",
@@ -28257,6 +27355,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The revelation of the Scripture is from Allah the Mighty, the Wise.",
         "reference": "Quran 46:2"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_41_50_surah_al_ahqaf_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 46:2",
+        "url": "https://quran.com/46/2",
+        "reference": "Quran 46:2",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 46:2"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -28300,15 +27409,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Winnowing Winds"
+              "label": "The Daybreak"
             },
             {
               "id": "b",
-              "label": "The Women"
+              "label": "The Disbelievers"
             },
             {
               "id": "c",
-              "label": "The Abundance"
+              "label": "The Divorce"
             },
             {
               "id": "d",
@@ -28380,7 +27489,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Muhammad",
       "intro": "Surah Muhammad is named after Prophet Muhammad ﷺ.",
-      "explanationContent": "Surah Muhammad is named after Prophet Muhammad ﷺ. It was revealed in Madinah. It has 38 ayahs.\n47:1 Those who disbelieve and turn (men) from the way of Allah, He rendereth their actions vain.\n47:2 And those who believe and do good works and believe in that which is revealed unto Muhammad - and it is the truth from their Lord - He riddeth them of their ill-deeds and improveth their state.\n47:3 That is because those who disbelieve follow falsehood and because those who believe follow the truth from their Lord. Thus Allah coineth their similitudes for mankind.\n47:4 Now when ye meet in battle those who disbelieve, then it is smiting of the necks until, when ye have routed them, then making fast of bonds; and afterward either grace or ransom till the war lay down its burdens. That (is the ordinance). And if Allah willed He could have punished them (without you) but (thus it is ordained) that He may try some of you by means of others. And those who are slain in the way of Allah, He rendereth not their actions vain.\n47:5 He will guide them and improve their state,\n47:6 And bring them in unto the Garden which He hath made known to them.\n47:7 O ye who believe! If ye help Allah, He will help you and will make your foothold firm.",
+      "explanationContent": "Surah Muhammad is named after Prophet Muhammad ﷺ. It was revealed in Madinah. It has 38 ayahs.\n47:5 He will guide them and improve their state,\n47:24 Will they then not meditate on the Qur'an, or are there locks on the hearts?",
       "learnLine": "Surah Muhammad is named after Prophet Muhammad ﷺ.",
       "learnFacts": [
         "38 ayahs",
@@ -28479,7 +27588,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Al-Fath",
       "intro": "Surah Al-Fath means \"The Victory\".",
-      "explanationContent": "Surah Al-Fath means \"The Victory\". It was revealed in Madinah. It has 29 ayahs.\n48:1 Lo! We have given thee (O Muhammad) a signal victory,\n48:2 That Allah may forgive thee of thy sin that which is past and that which is to come, and may perfect His favour unto thee, and may guide thee on a right path,\n48:3 And that Allah may help thee with strong help -\n48:4 He it is Who sent down peace of reassurance into the hearts of the believers that they might add faith unto their faith. Allah's are the hosts of the heavens and the earth, and Allah is ever Knower, Wise -\n48:5 That He may bring the believing men and the believing women into Gardens underneath which rivers flow, wherein they will abide, and may remit from them their evil deeds - That, in the sight of Allah, is the supreme triumph -\n48:6 And may punish the hypocritical men and the hypocritical women, and the idolatrous men and the idolatrous women, who think an evil thought concerning Allah. For them is the evil turn of fortune, and Allah is wroth against them and hath cursed them, and hath made ready for them hell, a hapless journey's end.\n48:7 Allah's are the hosts of the heavens and the earth, and Allah is ever Mighty, Wise.",
+      "explanationContent": "Surah Al-Fath means \"The Victory\". It was revealed in Madinah. It has 29 ayahs.\n48:5 That He may bring the believing men and the believing women into Gardens underneath which rivers flow, wherein they will abide, and may remit from them their evil deeds - That, in the sight of Allah, is the supreme triumph -\n48:7 Allah's are the hosts of the heavens and the earth, and Allah is ever Mighty, Wise.",
       "learnLine": "Surah Al-Fath means \"The Victory\".",
       "learnFacts": [
         "29 ayahs",
@@ -28488,6 +27597,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Lo! We have given thee (O Muhammad) a signal victory,",
         "reference": "Quran 48:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_41_50_surah_al_fath_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 48:1",
+        "url": "https://quran.com/48/1",
+        "reference": "Quran 48:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 48:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -28531,15 +27651,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Hypocrites"
+              "label": "The Congregation, Friday"
             },
             {
               "id": "b",
-              "label": "The Inevitable"
+              "label": "The Consultation"
             },
             {
               "id": "c",
-              "label": "The Iron"
+              "label": "The Covered One"
             },
             {
               "id": "d",
@@ -28611,7 +27731,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Al-Hujurat",
       "intro": "Surah Al-Hujurat means \"The Rooms\".",
-      "explanationContent": "Surah Al-Hujurat means \"The Rooms\". It was revealed in Madinah. It has 18 ayahs.\n49:1 O ye who believe! Be not forward in the presence of Allah and His messenger, and keep your duty to Allah. Lo! Allah is Hearer, Knower.\n49:2 O ye who believe! Lift not up your voices above the voice of the Prophet, nor shout when speaking to him as ye shout one to another, lest your works be rendered vain while ye perceive not.\n49:3 Lo! they who subdue their voices in the presence of the messenger of Allah, those are they whose hearts Allah hath proven unto righteousness. Theirs will be forgiveness and immense reward.\n49:4 Lo! those who call thee from behind the private apartments, most of them have no sense.\n49:5 And if they had had patience till thou camest forth unto them, it had been better for them. And Allah is Forgiving, Merciful.\n49:6 O ye who believe! If an evil-liver bring you tidings, verify it, lest ye smite some folk in ignorance and afterward repent of what ye did.\n49:9 And if two parties of believers fall to fighting, then make peace between them. And if one party of them doeth wrong to the other, fight ye that which doeth wrong till it return unto the ordinance of Allah; then, if it return, make peace between them justly, and act equitably. Lo! Allah loveth the equitable.",
+      "explanationContent": "Surah Al-Hujurat means \"The Rooms\". It was revealed in Madinah. It has 18 ayahs.",
       "learnLine": "Surah Al-Hujurat means \"The Rooms\".",
       "learnFacts": [
         "18 ayahs",
@@ -28659,7 +27779,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Hypocrites"
+              "label": "The Crouching"
             },
             {
               "id": "b",
@@ -28667,11 +27787,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Forgiver"
+              "label": "The Cow"
             },
             {
               "id": "d",
-              "label": "The Heights"
+              "label": "The Criterion"
             }
           ],
           "correctChoiceId": "b",
@@ -28739,7 +27859,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Qaf",
       "intro": "Surah Qaf is named after its opening letter, Qaf.",
-      "explanationContent": "Surah Qaf is named after its opening letter, Qaf. It was revealed in Makkah. It has 45 ayahs.\n50:1 Qaf. By the Glorious Qur'an,\n50:2 Nay, but they marvel that a warner of their own hath come unto them; and the disbelievers say: This is a strange thing:\n50:3 When we are dead and have become dust (shall we be brought back again)? That would be a far return!\n50:4 We know that which the earth taketh of them, and with Us is a recording Book.\n50:5 Nay, but they have denied the truth when it came unto them, therefor they are now in troubled case.\n50:6 Have they not then observed the sky above them, how We have constructed it and beautified it, and how there are no rifts therein?\n50:7 And the earth have We spread out, and have flung firm hills therein, and have caused of every lovely kind to grow thereon,",
+      "explanationContent": "Surah Qaf is named after its opening letter, Qaf. It was revealed in Makkah. It has 45 ayahs.\n50:1 Qaf. By the Glorious Qur'an,\n50:3 When we are dead and have become dust (shall we be brought back again)? That would be a far return!\n50:6 Have they not then observed the sky above them, how We have constructed it and beautified it, and how there are no rifts therein?\n50:7 And the earth have We spread out, and have flung firm hills therein, and have caused of every lovely kind to grow thereon,",
       "learnLine": "Surah Qaf is named after its opening letter, Qaf.",
       "learnFacts": [
         "45 ayahs",
@@ -28748,6 +27868,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Qaf. By the Glorious Qur'an,",
         "reference": "Quran 50:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_41_50_surah_qaf_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 50:1",
+        "url": "https://quran.com/50/1",
+        "reference": "Quran 50:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 50:1"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -28842,7 +27973,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Adh-Dhariyat",
       "intro": "Surah Adh-Dhariyat means \"The Winnowing Winds\".",
-      "explanationContent": "Surah Adh-Dhariyat means \"The Winnowing Winds\". It was revealed in Makkah. It has 60 ayahs.\n51:1 By those that winnow with a winnowing\n51:2 And those that bear the burden (of the rain)\n51:3 And those that glide with ease (upon the sea)\n51:4 And those who distribute (blessings) by command,\n51:5 Lo! that wherewith ye are threatened is indeed true,\n51:6 And lo! the judgment will indeed befall.\n51:7 By the heaven full of paths,",
+      "explanationContent": "Surah Adh-Dhariyat means \"The Winnowing Winds\". It was revealed in Makkah. It has 60 ayahs.\n51:1 By those that winnow with a winnowing\n51:2 And those that bear the burden (of the rain)\n51:3 And those that glide with ease (upon the sea)\n51:4 And those who distribute (blessings) by command,\n51:7 By the heaven full of paths,\n51:20 And in the earth are portents for those whose faith is sure.\n51:56 I created the jinn and humankind only that they might worship Me.",
       "learnLine": "Surah Adh-Dhariyat means \"The Winnowing Winds\".",
       "learnFacts": [
         "60 ayahs",
@@ -28851,6 +27982,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By those that winnow with a winnowing",
         "reference": "Quran 51:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_51_60_surah_adh_dhariyat_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 51:1",
+        "url": "https://quran.com/51/1",
+        "reference": "Quran 51:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 51:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -28892,11 +28034,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Iron"
+              "label": "The Troops"
             },
             {
               "id": "b",
-              "label": "The Jinn"
+              "label": "The Victory"
             },
             {
               "id": "c",
@@ -28904,7 +28046,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Inevitable"
+              "label": "The Thunder"
             }
           ],
           "correctChoiceId": "c",
@@ -28972,7 +28114,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah At-Tur",
       "intro": "Surah At-Tur means \"The Mount\".",
-      "explanationContent": "Surah At-Tur means \"The Mount\". It was revealed in Makkah. It has 49 ayahs.\n52:1 By the Mount,\n52:2 And a Scripture inscribed\n52:3 On fine parchment unrolled,\n52:4 And the House frequented,\n52:5 And the roof exalted,\n52:6 And the sea kept filled,\n52:7 Lo! the doom of thy Lord will surely come to pass;",
+      "explanationContent": "Surah At-Tur means \"The Mount\". It was revealed in Makkah. It has 49 ayahs.\n52:1 By the Mount,\n52:2 And a Scripture inscribed\n52:3 On fine parchment unrolled,\n52:4 And the House frequented,\n52:5 And the roof exalted,\n52:6 And the sea kept filled,",
       "learnLine": "Surah At-Tur means \"The Mount\".",
       "learnFacts": [
         "49 ayahs",
@@ -28981,6 +28123,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the Mount,",
         "reference": "Quran 52:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_51_60_surah_at_tur_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 52:1",
+        "url": "https://quran.com/52/1",
+        "reference": "Quran 52:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 52:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -29024,15 +28177,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Calamity"
             },
             {
               "id": "b",
-              "label": "The Winnowing Winds"
+              "label": "The Cattle"
             },
             {
               "id": "c",
-              "label": "The Women"
+              "label": "The Cave"
             },
             {
               "id": "d",
@@ -29104,7 +28257,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah An-Najm",
       "intro": "Surah An-Najm means \"The Star\".",
-      "explanationContent": "Surah An-Najm means \"The Star\". It was revealed in Makkah. It has 62 ayahs.\n53:1 By the Star when it setteth,\n53:2 Your comrade erreth not, nor is deceived;\n53:3 Nor doth he speak of (his own) desire.\n53:4 It is naught save an inspiration that is inspired,\n53:5 Which one of mighty powers hath taught him,\n53:6 One vigorous; and he grew clear to view\n53:7 When he was on the uppermost horizon.",
+      "explanationContent": "Surah An-Najm means \"The Star\". It was revealed in Makkah. It has 62 ayahs.\n53:4 It is naught save an inspiration that is inspired,\n53:6 One vigorous; and he grew clear to view\n53:7 When he was on the uppermost horizon.\n53:14 By the lote-tree of the utmost boundary,",
       "learnLine": "Surah An-Najm means \"The Star\".",
       "learnFacts": [
         "62 ayahs",
@@ -29113,6 +28266,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the Star when it setteth,",
         "reference": "Quran 53:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_51_60_surah_an_najm_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 53:1",
+        "url": "https://quran.com/53/1",
+        "reference": "Quran 53:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 53:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -29156,11 +28320,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Cloaked One"
+              "label": "The Troops"
             },
             {
               "id": "b",
-              "label": "The Clot"
+              "label": "The Victory"
             },
             {
               "id": "c",
@@ -29168,7 +28332,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Cleaving"
+              "label": "The Thunder"
             }
           ],
           "correctChoiceId": "c",
@@ -29236,7 +28400,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Al-Qamar",
       "intro": "Surah Al-Qamar means \"The Moon\".",
-      "explanationContent": "Surah Al-Qamar means \"The Moon\". It was revealed in Makkah. It has 55 ayahs.\n54:1 The hour drew nigh and the moon was rent in twain.\n54:2 And if they behold a portent they turn away and say: Prolonged illusion.\n54:4 And surely there hath come unto them news whereof the purport should deter,\n54:5 Effective wisdom; but warnings avail not.\n54:6 So withdraw from them (O Muhammad) on the day when the Summoner summoneth unto a painful thing.\n54:7 With downcast eyes, they come forth from the graves as they were locusts spread abroad,\n54:53 And every small and great thing is recorded.",
+      "explanationContent": "Surah Al-Qamar means \"The Moon\". It was revealed in Makkah. It has 55 ayahs.\n54:1 The hour drew nigh and the moon was rent in twain.\n54:2 And if they behold a portent they turn away and say: Prolonged illusion.\n54:5 Effective wisdom; but warnings avail not.\n54:7 With downcast eyes, they come forth from the graves as they were locusts spread abroad,\n54:53 And every small and great thing is recorded.",
       "learnLine": "Surah Al-Qamar means \"The Moon\".",
       "learnFacts": [
         "55 ayahs",
@@ -29245,6 +28409,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The hour drew nigh and the moon was rent in twain.",
         "reference": "Quran 54:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_51_60_surah_al_qamar_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 54:1",
+        "url": "https://quran.com/54/1",
+        "reference": "Quran 54:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 54:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -29288,11 +28463,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Clot"
+              "label": "The Criterion"
             },
             {
               "id": "b",
-              "label": "The Combined Forces"
+              "label": "The Crouching"
             },
             {
               "id": "c",
@@ -29300,7 +28475,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Cloaked One"
+              "label": "The Cow"
             }
           ],
           "correctChoiceId": "c",
@@ -29359,35 +28534,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-51-60-surah-al-qamar",
           "resourceLabel": "Open source",
           "resourceUrl": "https://quran.com/54"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-51-60-surah-al-qamar_q4",
-          "type": "multiple_choice",
-          "prompt": "What does this ayah mean? ٱقْتَرَبَتِ ٱلسَّاعَةُ وَٱنشَقَّ ٱلْقَمَرُ (Quran 54:1)",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Effective wisdom; but warnings avail not."
-            },
-            {
-              "id": "b",
-              "label": "The hour drew nigh and the moon was rent in twain."
-            },
-            {
-              "id": "c",
-              "label": "And if they behold a portent they turn away and say: Prolonged illusion."
-            },
-            {
-              "id": "d",
-              "label": "And surely there hath come unto them news whereof the purport should deter,"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Quran 54:1: The hour drew nigh and the moon was rent in twain.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-51-60-surah-al-qamar",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-51-60-surah-al-qamar",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/54"
         }
       ]
     },
@@ -29397,7 +28543,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Ar-Rahman",
       "intro": "Surah Ar-Rahman means \"The Beneficent\".",
-      "explanationContent": "Surah Ar-Rahman means \"The Beneficent\". It was revealed in Madinah. It has 78 ayahs.\n55:1 The Beneficent\n55:2 Hath made known the Qur'an.\n55:3 He hath created man.\n55:4 He hath taught him utterance.\n55:5 The sun and the moon are made punctual.\n55:6 The stars and the trees prostrate.\n55:7 And the sky He hath uplifted; and He hath set the measure,",
+      "explanationContent": "Surah Ar-Rahman means \"The Beneficent\". It was revealed in Madinah. It has 78 ayahs.\n55:1 The Beneficent\n55:5 The sun and the moon are made punctual.\n55:6 The stars and the trees prostrate.",
       "learnLine": "Surah Ar-Rahman means \"The Beneficent\".",
       "learnFacts": [
         "78 ayahs",
@@ -29406,6 +28552,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The Beneficent",
         "reference": "Quran 55:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_51_60_surah_ar_rahman_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 55:1",
+        "url": "https://quran.com/55/1",
+        "reference": "Quran 55:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 55:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -29449,15 +28606,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Believers"
+              "label": "The Crouching"
             },
             {
               "id": "b",
-              "label": "The Calamity"
+              "label": "The Dawn"
             },
             {
               "id": "c",
-              "label": "The Cattle"
+              "label": "The Daybreak"
             },
             {
               "id": "d",
@@ -29529,7 +28686,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Al-Waqi'ah",
       "intro": "Surah Al-Waqi'ah means \"The Inevitable\".",
-      "explanationContent": "Surah Al-Waqi'ah means \"The Inevitable\". It was revealed in Makkah. It has 96 ayahs.\n56:1 When the event befalleth -\n56:2 There is no denying that it will befall -\n56:3 Abasing (some), exalting (others);\n56:4 When the earth is shaken with a shock\n56:5 And the hills are ground to powder\n56:6 So that they become a scattered dust,\n56:7 And ye will be three kinds:",
+      "explanationContent": "Surah Al-Waqi'ah means \"The Inevitable\". It was revealed in Makkah. It has 96 ayahs.\n56:2 There is no denying that it will befall -\n56:3 Abasing (some), exalting (others);\n56:4 When the earth is shaken with a shock\n56:5 And the hills are ground to powder\n56:6 So that they become a scattered dust,\n56:20 And fruit that they prefer",
       "learnLine": "Surah Al-Waqi'ah means \"The Inevitable\".",
       "learnFacts": [
         "96 ayahs",
@@ -29538,6 +28695,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "When the event befalleth -",
         "reference": "Quran 56:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_51_60_surah_al_waqiah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 56:1",
+        "url": "https://quran.com/56/1",
+        "reference": "Quran 56:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 56:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -29581,15 +28749,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Abundance"
+              "label": "The Fig"
             },
             {
               "id": "b",
-              "label": "The Ant"
+              "label": "The Folding Up"
             },
             {
               "id": "c",
-              "label": "The Ascending Stairways"
+              "label": "The Forgiver"
             },
             {
               "id": "d",
@@ -29661,7 +28829,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Al-Hadid",
       "intro": "Surah Al-Hadid means \"The Iron\".",
-      "explanationContent": "Surah Al-Hadid means \"The Iron\". It was revealed in Madinah. It has 29 ayahs.\n57:1 All that is in the heavens and the earth glorifieth Allah; and He is the Mighty, the Wise.\n57:2 His is the Sovereignty of the heavens and the earth; He quickeneth and He giveth death; and He is Able to do all things.\n57:3 He is the First and the Last, and the Outward and the Inward; and He is Knower of all things.\n57:4 He it is Who created the heavens and the earth in six Days; then He mounted the Throne. He knoweth all that entereth the earth and all that emergeth therefrom and all that cometh down from the sky and all that ascendeth therein; and He is with you wheresoever ye may be. And Allah is Seer of what ye do.\n57:5 His is the Sovereignty of the heavens and the earth, and unto Allah (all) things are brought back.\n57:6 He causeth the night to pass into the day, and He causeth the day to pass into the night, and He is knower of all that is in the breasts.\n57:7 Believe in Allah and His messenger, and spend of that whereof He hath made you trustees; and such of you as believe and spend (aright), theirs will be a great reward.",
+      "explanationContent": "Surah Al-Hadid means \"The Iron\". It was revealed in Madinah. It has 29 ayahs.\n57:3 He is the First and the Last, and the Outward and the Inward; and He is Knower of all things.",
       "learnLine": "Surah Al-Hadid means \"The Iron\".",
       "learnFacts": [
         "29 ayahs",
@@ -29670,6 +28838,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "All that is in the heavens and the earth glorifieth Allah; and He is the Mighty, the Wise.",
         "reference": "Quran 57:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_51_60_surah_al_hadid_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 57:1",
+        "url": "https://quran.com/57/1",
+        "reference": "Quran 57:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 57:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -29713,11 +28892,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Nightcomer"
+              "label": "The Clear Proof"
             },
             {
               "id": "b",
-              "label": "The Opener"
+              "label": "The Clot"
             },
             {
               "id": "c",
@@ -29725,7 +28904,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Night"
+              "label": "The City"
             }
           ],
           "correctChoiceId": "c",
@@ -29793,7 +28972,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Al-Mujadila",
       "intro": "Surah Al-Mujadila means \"The Pleading Woman\".",
-      "explanationContent": "Surah Al-Mujadila means \"The Pleading Woman\". It was revealed in Madinah. It has 22 ayahs.\n58:1 Allah hath heard the saying of her that disputeth with thee (Muhammad) concerning her husband, and complaineth unto Allah. And Allah heareth your colloquy. Lo! Allah is Hearer, Knower.\n58:2 Such of you as put away your wives (by saying they are as their mothers) - They are not their mothers; none are their mothers except those who gave them birth - they indeed utter an ill word and a lie. And lo! Allah is Forgiving, Merciful.\n58:3 Those who put away their wives (by saying they are as their mothers) and afterward would go back on that which they have said, (the penalty) in that case (is) the freeing of a slave before they touch one another. Unto this ye are exhorted; and Allah is Informed of what ye do.\n58:4 And he who findeth not (the wherewithal), let him fast for two successive months before they touch one another; and for him who is unable to do so (the penance is) the feeding of sixty needy ones. This, that ye may put trust in Allah and His messenger. Such are the limits (imposed by Allah); and for disbelievers is a painful doom.\n58:5 Lo! those who oppose Allah and His messenger will be abased even as those before them were abased; and We have sent down clear tokens, and for disbelievers is a shameful doom\n58:6 On the day when Allah will raise them all together and inform them of what they did. Allah hath kept account of it while they forgot it. And Allah is Witness over all things.\n58:7 Hast thou not seen that Allah knoweth all that is in the heavens and all that is in the earth? There is no secret conference of three but He is their fourth, nor of five but He is their sixth, nor of less than that or more but He is with them wheresoever they may be; and afterward, on the Day of Resurrection, He will inform them of what they did. Lo! Allah is Knower of all things.",
+      "explanationContent": "Surah Al-Mujadila means \"The Pleading Woman\". It was revealed in Madinah. It has 22 ayahs.",
       "learnLine": "Surah Al-Mujadila means \"The Pleading Woman\".",
       "learnFacts": [
         "22 ayahs",
@@ -29841,15 +29020,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Courser"
+              "label": "The Consultation"
             },
             {
               "id": "b",
-              "label": "The Cow"
+              "label": "The Covered One"
             },
             {
               "id": "c",
-              "label": "The Criterion"
+              "label": "The Cow"
             },
             {
               "id": "d",
@@ -29921,7 +29100,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Al-Hashr",
       "intro": "Surah Al-Hashr means \"The Exile\".",
-      "explanationContent": "Surah Al-Hashr means \"The Exile\". It was revealed in Madinah. It has 24 ayahs.\n59:1 All that is in the heavens and all that is in the earth glorifieth Allah, and He is the Mighty, the Wise.\n59:2 He it is Who hath caused those of the People of the Scripture who disbelieved to go forth from their homes unto the first exile. Ye deemed not that they would go forth, while they deemed that their strongholds would protect them from Allah. But Allah reached them from a place whereof they recked not, and cast terror in their hearts so that they ruined their houses with their own hands and the hands of the believers. So learn a lesson, O ye who have eyes!\n59:3 And if Allah had not decreed migration for them, He verily would have punished them in the world, and theirs in the Hereafter is the punishment of the Fire.\n59:4 That is because they were opposed to Allah and His messenger; and whoso is opposed to Allah, (for him) verily Allah is stern in reprisal.\n59:5 Whatsoever palm-trees ye cut down or left standing on their roots, it was by Allah's leave, in order that He might confound the evil-livers.\n59:6 And that which Allah gave as spoil unto His messenger from them, ye urged not any horse or riding-camel for the sake thereof, but Allah giveth His messenger lordship over whom He will. Allah is Able to do all things.\n59:7 That which Allah giveth as spoil unto His messenger from the people of the townships, it is for Allah and His messenger and for the near of kin and the orphans and the needy and the wayfarer, that it become not a commodity between the rich among you. And whatsoever the messenger giveth you, take it. And whatsoever he forbiddeth, abstain (from it). And keep your duty to Allah. Lo! Allah is stern in reprisal.",
+      "explanationContent": "Surah Al-Hashr means \"The Exile\". It was revealed in Madinah. It has 24 ayahs.\n59:12 (For) indeed if they are driven out they go not out with them, and indeed if they are attacked they help them not, and indeed if they had helped them they would have turned and fled, and then they would not have been victorious.\n59:22 He is Allah, than Whom there is no other god, the Knower of the Invisible and the Visible. He is the Beneficent, Merciful.",
       "learnLine": "Surah Al-Hashr means \"The Exile\".",
       "learnFacts": [
         "24 ayahs",
@@ -29973,15 +29152,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Nightcomer"
+              "label": "The Wrapped One"
             },
             {
               "id": "c",
-              "label": "The Opener"
+              "label": "The Abundance"
             },
             {
               "id": "d",
-              "label": "The Ornaments of Gold"
+              "label": "The Ant"
             }
           ],
           "correctChoiceId": "a",
@@ -30049,7 +29228,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Al-Mumtahanah",
       "intro": "Surah Al-Mumtahanah means \"She that is to be examined\".",
-      "explanationContent": "Surah Al-Mumtahanah means \"She that is to be examined\". It was revealed in Madinah. It has 13 ayahs.\n60:1 O ye who believe! Choose not My enemy and your enemy for allies. Do ye give them friendship when they disbelieve in that truth which hath come unto you, driving out the messenger and you because ye believe in Allah, your Lord? If ye have come forth to strive in My way and seeking My good pleasure, (show them not friendship). Do ye show friendship unto them in secret, when I am Best Aware of what ye hide and what ye proclaim? And whosoever doeth it among you, he verily hath strayed from the right way.\n60:2 If they have the upper hand of you, they will be your foes, and will stretch out their hands and their tongues toward you with evil (intent), and they long for you to disbelieve.\n60:3 Your ties of kindred and your children will avail you naught upon the Day of Resurrection. He will part you. Allah is Seer of what ye do.\n60:4 There is a goodly pattern for you in Abraham and those with him, when they told their folk: Lo! we are guiltless of you and all that ye worship beside Allah. We have done with you. And there hath arisen between us and you hostility and hate for ever until ye believe in Allah only - save that which Abraham promised his father (when he said): I will ask forgiveness for thee, though I own nothing for thee from Allah - Our Lord! In Thee we put our trust, and unto Thee we turn repentant, and unto Thee is the journeying.\n60:5 Our Lord! Make us not a prey for those who disbelieve, and forgive us, our Lord! Lo! Thou, only Thou, are the Mighty, the Wise.\n60:6 Verily ye have in them a goodly pattern for everyone who looketh to Allah and the Last Day. And whosoever may turn away, lo! still Allah, He is the Absolute, the Owner of Praise.\n60:7 It may be that Allah will ordain love between you and those of them with whom ye are at enmity. Allah is Mighty, and Allah is Forgiving, Merciful.",
+      "explanationContent": "Surah Al-Mumtahanah means \"She that is to be examined\". It was revealed in Madinah. It has 13 ayahs.\n60:2 If they have the upper hand of you, they will be your foes, and will stretch out their hands and their tongues toward you with evil (intent), and they long for you to disbelieve.",
       "learnLine": "Surah Al-Mumtahanah means \"She that is to be examined\".",
       "learnFacts": [
         "13 ayahs",
@@ -30101,15 +29280,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Mankind"
+              "label": "Those who set the Ranks"
             },
             {
               "id": "c",
-              "label": "Originator"
+              "label": "Time"
             },
             {
               "id": "d",
-              "label": "Those who drag forth"
+              "label": "Competing for More"
             }
           ],
           "correctChoiceId": "a",
@@ -30177,7 +29356,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah As-Saf",
       "intro": "Surah As-Saf means \"The Ranks\".",
-      "explanationContent": "Surah As-Saf means \"The Ranks\". It was revealed in Madinah. It has 14 ayahs.\n61:1 All that is in the heavens and all that is in the earth glorifieth Allah, and He is the Mighty, the Wise.\n61:2 O ye who believe! Why say ye that which ye do not?\n61:3 It is most hateful in the sight of Allah that ye say that which ye do not.\n61:4 Lo! Allah loveth them who battle for His cause in ranks, as if they were a solid structure.\n61:5 And (remember) when Moses said unto his people: O my people! Why persecute ye me, when ye well know that I am Allah's messenger unto you? So when they went astray Allah sent their hearts astray. And Allah guideth not the evil-living folk.\n61:6 And when Jesus son of Mary said: O Children of Israel! Lo! I am the messenger of Allah unto you, confirming that which was (revealed) before me in the Torah, and bringing good tidings of a messenger who cometh after me, whose name is the Praised One. Yet when he hath come unto them with clear proofs, they say: This is mere magic.\n61:7 And who doeth greater wrong than he who inventeth a lie against Allah when he is summoned unto Al-Islam? And Allah guideth not wrongdoing folk.",
+      "explanationContent": "Surah As-Saf means \"The Ranks\". It was revealed in Madinah. It has 14 ayahs.",
       "learnLine": "Surah As-Saf means \"The Ranks\".",
       "learnFacts": [
         "14 ayahs",
@@ -30223,15 +29402,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Victory"
+              "label": "The Disbelievers"
             },
             {
               "id": "b",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Divorce"
             },
             {
               "id": "c",
-              "label": "The Winnowing Winds"
+              "label": "The Earthquake"
             },
             {
               "id": "d",
@@ -30303,7 +29482,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah Al-Jumu'ah",
       "intro": "Surah Al-Jumu'ah means \"The Congregation, Friday\".",
-      "explanationContent": "Surah Al-Jumu'ah means \"The Congregation, Friday\". It was revealed in Madinah. It has 11 ayahs.\n62:1 All that is in the heavens and all that is in the earth glorifieth Allah, the Sovereign Lord, the Holy One, the Mighty, the Wise.\n62:2 He it is Who hath sent among the unlettered ones a messenger of their own, to recite unto them His revelations and to make them grow, and to teach them the Scripture and wisdom, though heretofore they were indeed in error manifest,\n62:3 Along with others of them who have not yet joined them. He is the Mighty, the Wise.\n62:4 That is the bounty of Allah; which He giveth unto whom He will. Allah is of Infinite Bounty.\n62:5 The likeness of those who are entrusted with the Law of Moses, yet apply it not, is as the likeness of the ass carrying books. Wretched is the likeness of folk who deny the revelations of Allah. And Allah guideth not wrongdoing folk.\n62:6 Say (O Muhammad): O ye who are Jews! If ye claim that ye are favoured of Allah apart from (all) mankind, then long for death if ye are truthful.\n62:7 But they will never long for it because of all that their own hands have sent before, and Allah is Aware of evil-doers.",
+      "explanationContent": "Surah Al-Jumu'ah means \"The Congregation, Friday\". It was revealed in Madinah. It has 11 ayahs.\n62:3 Along with others of them who have not yet joined them. He is the Mighty, the Wise.\n62:7 But they will never long for it because of all that their own hands have sent before, and Allah is Aware of evil-doers.",
       "learnLine": "Surah Al-Jumu'ah means \"The Congregation, Friday\".",
       "learnFacts": [
         "11 ayahs",
@@ -30355,15 +29534,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Mount"
+              "label": "The Power"
             },
             {
               "id": "c",
-              "label": "The Mutual Disillusion"
+              "label": "The Prohibition"
             },
             {
               "id": "d",
-              "label": "The Night"
+              "label": "The Prophets"
             }
           ],
           "correctChoiceId": "a",
@@ -30431,7 +29610,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah Al-Munafiqun",
       "intro": "Surah Al-Munafiqun means \"The Hypocrites\".",
-      "explanationContent": "Surah Al-Munafiqun means \"The Hypocrites\". It was revealed in Madinah. It has 11 ayahs.\n63:1 When the hypocrites come unto thee (O Muhammad), they say: We bear witness that thou art indeed Allah's messenger. And Allah knoweth that thou art indeed His messenger, and Allah beareth witness that the hypocrites indeed are speaking falsely.\n63:2 They make their faith a pretext so that they may turn (men) from the way of Allah. Verily evil is that which they are wont to do,\n63:3 That is because they believed, then disbelieved, therefore their hearts are sealed so that they understand not.\n63:4 And when thou seest them their figures please thee; and if they speak thou givest ear unto their speech. (They are) as though they were blocks of wood in striped cloaks. They deem every shout to be against them. They are the enemy, so beware of them. Allah confound them! How they are perverted!\n63:5 And when it is said unto them: Come! The messenger of Allah will ask forgiveness for you! they avert their faces and thou seest them turning away, disdainful.\n63:6 Whether thou ask forgiveness for them or ask not forgiveness for them is all one for them; Allah will not forgive them. Lo! Allah guideth not the evil-living folk.\n63:7 They it is who say: Spend not on behalf of those (who dwell) with Allah's messenger that they may disperse (and go away from you); when Allah's are the treasures of the heavens and the earth; but the hypocrites comprehend not.",
+      "explanationContent": "Surah Al-Munafiqun means \"The Hypocrites\". It was revealed in Madinah. It has 11 ayahs.\n63:3 That is because they believed, then disbelieved, therefore their hearts are sealed so that they understand not.\n63:7 They it is who say: Spend not on behalf of those (who dwell) with Allah's messenger that they may disperse (and go away from you); when Allah's are the treasures of the heavens and the earth; but the hypocrites comprehend not.",
       "learnLine": "Surah Al-Munafiqun means \"The Hypocrites\".",
       "learnFacts": [
         "11 ayahs",
@@ -30483,15 +29662,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Small kindnesses"
+              "label": "The Rocky Tract"
             },
             {
               "id": "c",
-              "label": "The Smoke"
+              "label": "The Romans"
             },
             {
               "id": "d",
-              "label": "The Sovereignty"
+              "label": "The Rooms"
             }
           ],
           "correctChoiceId": "a",
@@ -30559,7 +29738,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah At-Taghabun",
       "intro": "Surah At-Taghabun means \"The Mutual Disillusion\".",
-      "explanationContent": "Surah At-Taghabun means \"The Mutual Disillusion\". It was revealed in Madinah. It has 18 ayahs.\n64:1 All that is in the heavens and all that is in the earth glorifieth Allah; unto Him belongeth Sovereignty and unto Him belongeth praise, and He is Able to do all things.\n64:2 He it is Who created you, but one of you is a disbeliever and one of you is a believer, and Allah is Seer of what ye do.\n64:3 He created the heavens and the earth with truth, and He shaped you and made good your shapes, and unto Him is the journeying.\n64:4 He knoweth all that is in the heavens and the earth, and He knoweth what ye conceal and what ye publish. And Allah is Aware of what is in the breasts (of men).\n64:5 Hath not the story reached you of those who disbelieved of old and so did taste the ill-effects of their conduct, and theirs will be a painful doom.\n64:6 That was because their messengers (from Allah) kept coming unto them with clear proofs (of Allah's Sovereignty), but they said: Shall mere mortals guide us? So they disbelieved and turned away, and Allah was independent (of them). Allah is Absolute, Owner of Praise.\n64:7 Those who disbelieve assert that they will not be raised again. Say (unto them, O Muhammad): Yea, verily, by my Lord! ye will be raised again and then ye will be informed of what ye did; and that is easy for Allah.",
+      "explanationContent": "Surah At-Taghabun means \"The Mutual Disillusion\". It was revealed in Madinah. It has 18 ayahs.",
       "learnLine": "Surah At-Taghabun means \"The Mutual Disillusion\".",
       "learnFacts": [
         "18 ayahs",
@@ -30607,11 +29786,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Nightcomer"
+              "label": "The Star"
             },
             {
               "id": "b",
-              "label": "The Opener"
+              "label": "The Stories"
             },
             {
               "id": "c",
@@ -30619,7 +29798,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Night Journey"
+              "label": "The Spoils of War"
             }
           ],
           "correctChoiceId": "c",
@@ -30687,7 +29866,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah At-Talaq",
       "intro": "Surah At-Talaq means \"The Divorce\".",
-      "explanationContent": "Surah At-Talaq means \"The Divorce\". It was revealed in Madinah. It has 12 ayahs.\n65:1 O Prophet! When ye (men) put away women, put them away for their (legal) period and reckon the period, and keep your duty to Allah, your Lord. Expel them not from their houses nor let them go forth unless they commit open immorality. Such are the limits (imposed by) Allah; and whoso transgresseth Allah's limits, he verily wrongeth his soul. Thou knowest not: it may be that Allah will afterward bring some new thing to pass.\n65:2 Then, when they have reached their term, take them back in kindness or part from them in kindness, and call to witness two just men among you, and keep your testimony upright for Allah. Whoso believeth in Allah and the Last Day is exhorted to act thus. And whosoever keepeth his duty to Allah, Allah will appoint a way out for him,\n65:3 And will provide for him from (a quarter) whence he hath no expectation. And whosoever putteth his trust in Allah, He will suffice him. Lo! Allah bringeth His command to pass. Allah hath set a measure for all things.\n65:5 That is the commandment of Allah which He revealeth unto you. And whoso keepeth his duty to Allah, He will remit from him his evil deeds and magnify reward for him.\n65:6 Lodge them where ye dwell, according to your wealth, and harass them not so as to straiten life for them. And if they are with child, then spend for them till they bring forth their burden. Then, if they give suck for you, give them their due payment and consult together in kindness; but if ye make difficulties for one another, then let some other woman give suck for him (the father of the child).\n65:7 Let him who hath abundance spend of his abundance, and he whose provision is measured, let him spend of that which Allah hath given him. Allah asketh naught of any soul save that which He hath given it. Allah will vouchsafe, after hardship, ease.",
+      "explanationContent": "Surah At-Talaq means \"The Divorce\". It was revealed in Madinah. It has 12 ayahs.",
       "learnLine": "Surah At-Talaq means \"The Divorce\".",
       "learnFacts": [
         "12 ayahs",
@@ -30735,7 +29914,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Cow"
+              "label": "The Stories"
             },
             {
               "id": "b",
@@ -30743,11 +29922,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Consultation"
+              "label": "The Spoils of War"
             },
             {
               "id": "d",
-              "label": "The Courser"
+              "label": "The Star"
             }
           ],
           "correctChoiceId": "b",
@@ -30815,7 +29994,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah At-Tahrim",
       "intro": "Surah At-Tahrim means \"The Prohibition\".",
-      "explanationContent": "Surah At-Tahrim means \"The Prohibition\". It was revealed in Madinah. It has 12 ayahs.\n66:1 O Prophet! Why bannest thou that which Allah hath made lawful for thee, seeking to please thy wives? And Allah is Forgiving, Merciful.\n66:2 Allah hath made lawful for you (Muslims) absolution from your oaths (of such a kind), and Allah is your Protector. He is the Knower, the Wise.\n66:3 When the Prophet confided a fact unto one of his wives and when she afterward divulged it and Allah apprised him thereof, he made known (to her) part thereof and passed over part. And when he told it her she said: Who hath told thee? He said: The Knower, the Aware hath told me.\n66:4 If ye twain turn unto Allah repentant, (ye have cause to do so) for your hearts desired (the ban); and if ye aid one another against him (Muhammad) then lo! Allah, even He, is his Protecting Friend, and Gabriel and the righteous among the believers; and furthermore the angels are his helpers.\n66:5 It may happen that his Lord, if he divorce you, will give him in your stead wives better than you, submissive (to Allah), believing, pious, penitent, devout, inclined to fasting, widows and maids.\n66:6 O ye who believe! Ward off from yourselves and your families a Fire whereof the fuel is men and stones, over which are set angels strong, severe, who resist not Allah in that which He commandeth them, but do that which they are commanded.\n66:7 (Then it will be said): O ye who disbelieve! Make no excuses for yourselves this day. Ye are only being paid for what ye used to do.",
+      "explanationContent": "Surah At-Tahrim means \"The Prohibition\". It was revealed in Madinah. It has 12 ayahs.\n66:5 It may happen that his Lord, if he divorce you, will give him in your stead wives better than you, submissive (to Allah), believing, pious, penitent, devout, inclined to fasting, widows and maids.",
       "learnLine": "Surah At-Tahrim means \"The Prohibition\".",
       "learnFacts": [
         "12 ayahs",
@@ -30863,7 +30042,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Ant"
+              "label": "The Women"
             },
             {
               "id": "b",
@@ -30871,11 +30050,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Women"
+              "label": "The Wind-Curved Sandhills"
             },
             {
               "id": "d",
-              "label": "The Abundance"
+              "label": "The Winnowing Winds"
             }
           ],
           "correctChoiceId": "b",
@@ -30942,9 +30121,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-61-70-surah-al-mulk",
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah Al-Mulk",
-      "intro": "Surah Al-Mulk means \"The Sovereignty\".",
-      "explanationContent": "Surah Al-Mulk means \"The Sovereignty\". It was revealed in Makkah. It has 30 ayahs.\n67:1 Blessed is He in Whose hand is the Sovereignty, and, He is Able to do all things.\n67:2 Who hath created life and death that He may try you which of you is best in conduct; and He is the Mighty, the Forgiving,\n67:3 Who hath created seven heavens in harmony. Thou (Muhammad) canst see no fault in the Beneficent One's creation; then look again: Canst thou see any rifts?\n67:4 Then look again and yet again, thy sight will return unto thee weakened and made dim.\n67:5 And verily We have beautified the world's heaven with lamps, and We have made them missiles for the devils, and for them We have prepared the doom of flame.\n67:6 And for those who disbelieve in their Lord there is the doom of hell, a hapless journey's end!\n67:7 When they are flung therein they hear its roaring as it boileth up,",
-      "learnLine": "Surah Al-Mulk means \"The Sovereignty\".",
+      "intro": "Surah Al-Mulk means \"The Kingdom\".",
+      "explanationContent": "Surah Al-Mulk means \"The Kingdom\". It was revealed in Makkah. It has 30 ayahs.\n67:1 Blessed is He in Whose hand is the Sovereignty, and, He is Able to do all things.\n67:6 And for those who disbelieve in their Lord there is the doom of hell, a hapless journey's end!",
+      "learnLine": "Surah Al-Mulk means \"The Kingdom\".",
       "learnFacts": [
         "30 ayahs",
         "Revealed in Makkah"
@@ -30952,6 +30131,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Blessed is He in Whose hand is the Sovereignty, and, He is Able to do all things.",
         "reference": "Quran 67:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_61_70_surah_al_mulk_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 67:1",
+        "url": "https://quran.com/67/1",
+        "reference": "Quran 67:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 67:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -30995,23 +30185,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Cloaked One"
+              "label": "The Prostration"
             },
             {
               "id": "b",
-              "label": "The Sovereignty"
+              "label": "The Kingdom"
             },
             {
               "id": "c",
-              "label": "The Clear Proof"
+              "label": "The Prohibition"
             },
             {
               "id": "d",
-              "label": "The Cleaving"
+              "label": "The Prophets"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Mulk means \"The Sovereignty\". It was revealed in Makkah. It has 30 ayahs.",
+          "explanation": "Surah Al-Mulk means \"The Kingdom\". It was revealed in Makkah. It has 30 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-61-70-surah-al-mulk",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-61-70-surah-al-mulk",
           "resourceLabel": "Open source",
@@ -31061,7 +30251,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Mulk means \"The Sovereignty\". It was revealed in Makkah. It has 30 ayahs.",
+          "explanation": "Surah Al-Mulk means \"The Kingdom\". It was revealed in Makkah. It has 30 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-61-70-surah-al-mulk",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-61-70-surah-al-mulk",
           "resourceLabel": "Open source",
@@ -31075,7 +30265,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah Al-Qalam",
       "intro": "Surah Al-Qalam means \"The Pen\".",
-      "explanationContent": "Surah Al-Qalam means \"The Pen\". It was revealed in Makkah. It has 52 ayahs.\n68:1 Nun. By the pen and that which they write (therewith),\n68:2 Thou art not, for thy Lord's favour unto thee, a madman.\n68:3 And lo! thine verily will be a reward unfailing.\n68:4 And lo! thou art of a tremendous nature.\n68:5 And thou wilt see and they will see\n68:6 Which of you is the demented.\n68:7 Lo! thy Lord is Best Aware of him who strayeth from His way, and He is Best Aware of those who walk aright.",
+      "explanationContent": "Surah Al-Qalam means \"The Pen\". It was revealed in Makkah. It has 52 ayahs.\n68:1 Nun. By the pen and that which they write (therewith),\n68:6 Which of you is the demented.\n68:16 We shall brand him on the nose.",
       "learnLine": "Surah Al-Qalam means \"The Pen\".",
       "learnFacts": [
         "52 ayahs",
@@ -31084,6 +30274,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Nun. By the pen and that which they write (therewith),",
         "reference": "Quran 68:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_61_70_surah_al_qalam_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 68:1",
+        "url": "https://quran.com/68/1",
+        "reference": "Quran 68:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 68:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -31131,15 +30332,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Declining Day"
+              "label": "The Backbiter"
             },
             {
               "id": "c",
-              "label": "The Defrauding"
+              "label": "The Bee"
             },
             {
               "id": "d",
-              "label": "The Disbelievers"
+              "label": "The Believers"
             }
           ],
           "correctChoiceId": "a",
@@ -31207,7 +30408,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah Al-Haqqah",
       "intro": "Surah Al-Haqqah means \"The Reality\".",
-      "explanationContent": "Surah Al-Haqqah means \"The Reality\". It was revealed in Makkah. It has 52 ayahs.\n69:1 The Reality!\n69:2 What is the Reality?\n69:3 Ah, what will convey unto thee what the reality is!\n69:4 (The tribes of) Thamud and A'ad disbelieved in the judgment to come.\n69:5 As for Thamud, they were destroyed by the lightning.\n69:6 And as for A'ad, they were destroyed by a fierce roaring wind,\n69:7 Which He imposed on them for seven long nights and eight long days so that thou mightest have seen men lying overthrown, as they were hollow trunks of palm-trees.",
+      "explanationContent": "Surah Al-Haqqah means \"The Reality\". It was revealed in Makkah. It has 52 ayahs.\n69:1 The Reality!\n69:2 What is the Reality?\n69:4 (The tribes of) Thamud and A'ad disbelieved in the judgment to come.\n69:5 As for Thamud, they were destroyed by the lightning.\n69:6 And as for A'ad, they were destroyed by a fierce roaring wind,",
       "learnLine": "Surah Al-Haqqah means \"The Reality\".",
       "learnFacts": [
         "52 ayahs",
@@ -31216,6 +30417,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The Reality!",
         "reference": "Quran 69:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_61_70_surah_al_haqqah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 69:1",
+        "url": "https://quran.com/69/1",
+        "reference": "Quran 69:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 69:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -31259,11 +30471,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Cloaked One"
+              "label": "The Iron"
             },
             {
               "id": "b",
-              "label": "The Clot"
+              "label": "The Jinn"
             },
             {
               "id": "c",
@@ -31271,7 +30483,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Cleaving"
+              "label": "The Inevitable"
             }
           ],
           "correctChoiceId": "c",
@@ -31339,7 +30551,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah Al-Ma'arij",
       "intro": "Surah Al-Ma'arij means \"The Ascending Stairways\".",
-      "explanationContent": "Surah Al-Ma'arij means \"The Ascending Stairways\". It was revealed in Makkah. It has 44 ayahs.\n70:1 A questioner questioned concerning the doom about to fall\n70:2 Upon the disbelievers, which none can repel,\n70:3 From Allah, Lord of the Ascending Stairways\n70:4 (Whereby) the angels and the Spirit ascend unto Him in a Day whereof the span is fifty thousand years.\n70:5 But be patient (O Muhammad) with a patience fair to see.\n70:6 Lo! they behold it afar off\n70:7 While we behold it nigh:",
+      "explanationContent": "Surah Al-Ma'arij means \"The Ascending Stairways\". It was revealed in Makkah. It has 44 ayahs.\n70:1 A questioner questioned concerning the doom about to fall\n70:2 Upon the disbelievers, which none can repel,\n70:3 From Allah, Lord of the Ascending Stairways\n70:5 But be patient (O Muhammad) with a patience fair to see.\n70:7 While we behold it nigh:\n70:41 To replace them by (others) better than them. And we are not to be outrun.",
       "learnLine": "Surah Al-Ma'arij means \"The Ascending Stairways\".",
       "learnFacts": [
         "44 ayahs",
@@ -31391,15 +30603,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Palm Fiber"
+              "label": "The Mount"
             },
             {
               "id": "c",
-              "label": "The Pen"
+              "label": "The Mutual Disillusion"
             },
             {
               "id": "d",
-              "label": "The Pilgrimage"
+              "label": "The News"
             }
           ],
           "correctChoiceId": "a",
@@ -31467,7 +30679,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah Nuh",
       "intro": "Surah Nuh is named after Prophet Nuh.",
-      "explanationContent": "Surah Nuh is named after Prophet Nuh. It was revealed in Makkah. It has 28 ayahs.\n71:1 Lo! We sent Noah unto his people (saying): Warn thy people ere the painful doom come unto them.\n71:2 He said: O my people! Lo! I am a plain warner unto you\n71:3 (Bidding you): Serve Allah and keep your duty unto Him and obey me,\n71:4 That He may forgive you somewhat of your sins and respite you to an appointed term. Lo! the term of Allah, when it cometh, cannot be delayed, if ye but knew.\n71:5 He said: My Lord! Lo! I have called unto my people night and day\n71:6 But all my calling doth but add to their repugnance;\n71:7 And lo! whenever I call unto them that Thou mayst pardon them they thrust their fingers in their ears and cover themselves with their garments and persist (in their refusal) and magnify themselves in pride.",
+      "explanationContent": "Surah Nuh is named after Prophet Nuh. It was revealed in Makkah. It has 28 ayahs.",
       "learnLine": "Surah Nuh is named after Prophet Nuh.",
       "learnFacts": [
         "28 ayahs",
@@ -31564,7 +30776,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah Al-Jinn",
       "intro": "Surah Al-Jinn means \"The Jinn\".",
-      "explanationContent": "Surah Al-Jinn means \"The Jinn\". It was revealed in Makkah. It has 28 ayahs.\n72:1 Say (O Muhammad): It is revealed unto me that a company of the Jinn gave ear, and they said: Lo! we have heard a marvellous Qur'an,\n72:2 Which guideth unto righteousness, so we believe in it and we ascribe no partner unto our Lord.\n72:3 And (we believe) that He - exalted be the glory of our Lord! - hath taken neither wife nor son,\n72:4 And that the foolish one among us used to speak concerning Allah an atrocious lie.\n72:5 And lo! we had supposed that humankind and jinn would not speak a lie concerning Allah -\n72:6 And indeed (O Muhammad) individuals of humankind used to invoke the protection of individuals of the jinn, so that they increased them in revolt against Allah);\n72:7 And indeed they supposed, even as ye suppose, that Allah would not raise anyone (from the dead) -",
+      "explanationContent": "Surah Al-Jinn means \"The Jinn\". It was revealed in Makkah. It has 28 ayahs.\n72:4 And that the foolish one among us used to speak concerning Allah an atrocious lie.\n72:6 And indeed (O Muhammad) individuals of humankind used to invoke the protection of individuals of the jinn, so that they increased them in revolt against Allah);",
       "learnLine": "Surah Al-Jinn means \"The Jinn\".",
       "learnFacts": [
         "28 ayahs",
@@ -31612,15 +30824,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Pilgrimage"
             },
             {
               "id": "b",
-              "label": "The Winnowing Winds"
+              "label": "The Pleading Woman"
             },
             {
               "id": "c",
-              "label": "The Women"
+              "label": "The Poets"
             },
             {
               "id": "d",
@@ -31691,9 +30903,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-71-80-surah-al-muzzammil",
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah Al-Muzzammil",
-      "intro": "Surah Al-Muzzammil means \"The Enshrouded One\".",
-      "explanationContent": "Surah Al-Muzzammil means \"The Enshrouded One\". It was revealed in Makkah. It has 20 ayahs.\n73:1 O thou wrapped up in thy raiment!\n73:2 Keep vigil the night long, save a little -\n73:3 A half thereof, or abate a little thereof\n73:4 Or add (a little) thereto - and chant the Qur'an in measure,\n73:5 For we shall charge thee with a word of weight.\n73:6 Lo! the vigil of the night is (a time) when impression is more keen and speech more certain.\n73:7 Lo! thou hast by day a chain of business.",
-      "learnLine": "Surah Al-Muzzammil means \"The Enshrouded One\".",
+      "intro": "Surah Al-Muzzammil means \"The Wrapped One\".",
+      "explanationContent": "Surah Al-Muzzammil means \"The Wrapped One\". It was revealed in Makkah. It has 20 ayahs.\n73:2 Keep vigil the night long, save a little -\n73:3 A half thereof, or abate a little thereof\n73:4 Or add (a little) thereto - and chant the Qur'an in measure,\n73:10 And bear with patience what they utter, and part from them with a fair leave-taking.",
+      "learnLine": "Surah Al-Muzzammil means \"The Wrapped One\".",
       "learnFacts": [
         "20 ayahs",
         "Revealed in Makkah"
@@ -31701,6 +30913,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "O thou wrapped up in thy raiment!",
         "reference": "Quran 73:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_71_80_surah_al_muzzammil_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 73:1",
+        "url": "https://quran.com/73/1",
+        "reference": "Quran 73:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 73:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -31744,11 +30967,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Enshrouded One"
+              "label": "The Wrapped One"
             },
             {
               "id": "b",
-              "label": "The Courser"
+              "label": "The Covered One"
             },
             {
               "id": "c",
@@ -31760,7 +30983,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-Muzzammil means \"The Enshrouded One\". It was revealed in Makkah. It has 20 ayahs.",
+          "explanation": "Surah Al-Muzzammil means \"The Wrapped One\". It was revealed in Makkah. It has 20 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-muzzammil",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-muzzammil",
           "resourceLabel": "Open source",
@@ -31810,7 +31033,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah Al-Muzzammil means \"The Enshrouded One\". It was revealed in Makkah. It has 20 ayahs.",
+          "explanation": "Surah Al-Muzzammil means \"The Wrapped One\". It was revealed in Makkah. It has 20 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-muzzammil",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-muzzammil",
           "resourceLabel": "Open source",
@@ -31823,9 +31046,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-71-80-surah-al-muddaththir",
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah Al-Muddaththir",
-      "intro": "Surah Al-Muddaththir means \"The Cloaked One\".",
-      "explanationContent": "Surah Al-Muddaththir means \"The Cloaked One\". It was revealed in Makkah. It has 56 ayahs.\n74:1 O thou enveloped in thy cloak,\n74:2 Arise and warn!\n74:3 Thy Lord magnify,\n74:4 Thy raiment purify,\n74:5 Pollution shun!\n74:6 And show not favour, seeking wordly gain!\n74:7 For the sake of thy Lord, be patient!",
-      "learnLine": "Surah Al-Muddaththir means \"The Cloaked One\".",
+      "intro": "Surah Al-Muddaththir means \"The Covered One\".",
+      "explanationContent": "Surah Al-Muddaththir means \"The Covered One\". It was revealed in Makkah. It has 56 ayahs.\n74:2 Arise and warn!\n74:5 Pollution shun!\n74:6 And show not favour, seeking wordly gain!\n74:48 The mediation of no mediators will avail them then.",
+      "learnLine": "Surah Al-Muddaththir means \"The Covered One\".",
       "learnFacts": [
         "56 ayahs",
         "Revealed in Makkah"
@@ -31833,6 +31056,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "O thou enveloped in thy cloak,",
         "reference": "Quran 74:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_71_80_surah_al_muddaththir_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 74:1",
+        "url": "https://quran.com/74/1",
+        "reference": "Quran 74:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 74:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -31876,23 +31110,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Declining Day"
+              "label": "The Forgiver"
             },
             {
               "id": "b",
-              "label": "The Defrauding"
+              "label": "The Heights"
             },
             {
               "id": "c",
-              "label": "The Cloaked One"
+              "label": "The Covered One"
             },
             {
               "id": "d",
-              "label": "The Daybreak"
+              "label": "The Folding Up"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah Al-Muddaththir means \"The Cloaked One\". It was revealed in Makkah. It has 56 ayahs.",
+          "explanation": "Surah Al-Muddaththir means \"The Covered One\". It was revealed in Makkah. It has 56 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-muddaththir",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-muddaththir",
           "resourceLabel": "Open source",
@@ -31942,7 +31176,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-Muddaththir means \"The Cloaked One\". It was revealed in Makkah. It has 56 ayahs.",
+          "explanation": "Surah Al-Muddaththir means \"The Covered One\". It was revealed in Makkah. It has 56 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-muddaththir",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-muddaththir",
           "resourceLabel": "Open source",
@@ -31956,7 +31190,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah Al-Qiyamah",
       "intro": "Surah Al-Qiyamah means \"The Resurrection\".",
-      "explanationContent": "Surah Al-Qiyamah means \"The Resurrection\". It was revealed in Makkah. It has 40 ayahs.\n75:1 Nay, I swear by the Day of Resurrection;\n75:2 Nay, I swear by the accusing soul (that this Scripture is true).\n75:3 Thinketh man that We shall not assemble his bones?\n75:4 Yea, verily. We are Able to restore his very fingers!\n75:5 But man would fain deny what is before him.\n75:6 He asketh: When will be this Day of Resurrection?\n75:7 But when sight is confounded",
+      "explanationContent": "Surah Al-Qiyamah means \"The Resurrection\". It was revealed in Makkah. It has 40 ayahs.\n75:5 But man would fain deny what is before him.\n75:7 But when sight is confounded\n75:22 That day will faces be resplendent,",
       "learnLine": "Surah Al-Qiyamah means \"The Resurrection\".",
       "learnFacts": [
         "40 ayahs",
@@ -31965,6 +31199,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Nay, I swear by the Day of Resurrection;",
         "reference": "Quran 75:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_71_80_surah_al_qiyamah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 75:1",
+        "url": "https://quran.com/75/1",
+        "reference": "Quran 75:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 75:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -32012,15 +31257,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Defrauding"
+              "label": "The Pleading Woman"
             },
             {
               "id": "c",
-              "label": "The Disbelievers"
+              "label": "The Poets"
             },
             {
               "id": "d",
-              "label": "The Divine Support"
+              "label": "The Power"
             }
           ],
           "correctChoiceId": "a",
@@ -32087,9 +31332,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-71-80-surah-al-insan",
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah Al-Insan",
-      "intro": "Surah Al-Insan means \"The Man\".",
-      "explanationContent": "Surah Al-Insan means \"The Man\". It was revealed in Madinah. It has 31 ayahs.\n76:1 Hath there come upon man (ever) any period of time in which he was a thing unremembered?\n76:2 Lo! We create man from a drop of thickened fluid to test him; so We make him hearing, knowing.\n76:3 Lo! We have shown him the way, whether he be grateful or disbelieving.\n76:4 Lo! We have prepared for disbelievers manacles and carcans and a raging fire.\n76:5 Lo! the righteous shall drink of a cup whereof the mixture is of Kafur,\n76:6 A spring wherefrom the slaves of Allah drink, making it gush forth abundantly,\n76:7 (Because) they perform the vow and fear a day whereof the evil is wide-spreading,",
-      "learnLine": "Surah Al-Insan means \"The Man\".",
+      "intro": "Surah Al-Insan means \"The Human\".",
+      "explanationContent": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.\n76:6 A spring wherefrom the slaves of Allah drink, making it gush forth abundantly,\n76:7 (Because) they perform the vow and fear a day whereof the evil is wide-spreading,",
+      "learnLine": "Surah Al-Insan means \"The Human\".",
       "learnFacts": [
         "31 ayahs",
         "Revealed in Madinah"
@@ -32097,6 +31342,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Hath there come upon man (ever) any period of time in which he was a thing unremembered?",
         "reference": "Quran 76:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_71_80_surah_al_insan_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 76:1",
+        "url": "https://quran.com/76/1",
+        "reference": "Quran 76:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 76:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -32140,23 +31396,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Enshrouded One"
+              "label": "The Exile"
             },
             {
               "id": "b",
-              "label": "The Man"
+              "label": "The Human"
             },
             {
               "id": "c",
-              "label": "The Elephant"
+              "label": "The Earthquake"
             },
             {
               "id": "d",
-              "label": "The Emissaries"
+              "label": "The Elephant"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Insan means \"The Man\". It was revealed in Madinah. It has 31 ayahs.",
+          "explanation": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-insan",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-insan",
           "resourceLabel": "Open source",
@@ -32206,7 +31462,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Insan means \"The Man\". It was revealed in Madinah. It has 31 ayahs.",
+          "explanation": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-insan",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-insan",
           "resourceLabel": "Open source",
@@ -32219,9 +31475,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-71-80-surah-al-mursalat",
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah Al-Mursalat",
-      "intro": "Surah Al-Mursalat means \"The Emissaries\".",
-      "explanationContent": "Surah Al-Mursalat means \"The Emissaries\". It was revealed in Makkah. It has 50 ayahs.\n77:1 By the emissary winds, (sent) one after another\n77:2 By the raging hurricanes,\n77:3 By those which cause earth's vegetation to revive;\n77:4 By those who winnow with a winnowing,\n77:5 By those who bring down the Reminder,\n77:6 To excuse or to warn,\n77:7 Surely that which ye are promised will befall.",
-      "learnLine": "Surah Al-Mursalat means \"The Emissaries\".",
+      "intro": "Surah Al-Mursalat means \"Those Sent Forth\".",
+      "explanationContent": "Surah Al-Mursalat means \"Those Sent Forth\". It was revealed in Makkah. It has 50 ayahs.\n77:1 By the emissary winds, (sent) one after another\n77:2 By the raging hurricanes,\n77:3 By those which cause earth's vegetation to revive;\n77:4 By those who winnow with a winnowing,\n77:5 By those who bring down the Reminder,\n77:6 To excuse or to warn,",
+      "learnLine": "Surah Al-Mursalat means \"Those Sent Forth\".",
       "learnFacts": [
         "50 ayahs",
         "Revealed in Makkah"
@@ -32229,6 +31485,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the emissary winds, (sent) one after another",
         "reference": "Quran 77:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_71_80_surah_al_mursalat_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 77:1",
+        "url": "https://quran.com/77/1",
+        "reference": "Quran 77:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 77:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -32272,23 +31539,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Ornaments of Gold"
+              "label": "Mankind"
             },
             {
               "id": "b",
-              "label": "The Emissaries"
+              "label": "Those Sent Forth"
             },
             {
               "id": "c",
-              "label": "The Nightcomer"
+              "label": "Family of Imran"
             },
             {
               "id": "d",
-              "label": "The Opener"
+              "label": "He Frowned"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Mursalat means \"The Emissaries\". It was revealed in Makkah. It has 50 ayahs.",
+          "explanation": "Surah Al-Mursalat means \"Those Sent Forth\". It was revealed in Makkah. It has 50 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-mursalat",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-mursalat",
           "resourceLabel": "Open source",
@@ -32338,7 +31605,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Mursalat means \"The Emissaries\". It was revealed in Makkah. It has 50 ayahs.",
+          "explanation": "Surah Al-Mursalat means \"Those Sent Forth\". It was revealed in Makkah. It has 50 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-mursalat",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-mursalat",
           "resourceLabel": "Open source",
@@ -32351,9 +31618,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-71-80-surah-an-naba",
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah An-Naba",
-      "intro": "Surah An-Naba means \"The Tidings\".",
-      "explanationContent": "Surah An-Naba means \"The Tidings\". It was revealed in Makkah. It has 40 ayahs.\n78:1 Whereof do they question one another?\n78:2 (It is) of the awful tidings,\n78:3 Concerning which they are in disagreement.\n78:4 Nay, but they will come to know!\n78:5 Nay, again, but they will come to know!\n78:6 Have We not made the earth an expanse,\n78:7 And the high hills bulwarks?",
-      "learnLine": "Surah An-Naba means \"The Tidings\".",
+      "intro": "Surah An-Naba means \"The News\".",
+      "explanationContent": "Surah An-Naba means \"The News\". It was revealed in Makkah. It has 40 ayahs.\n78:1 Whereof do they question one another?\n78:2 (It is) of the awful tidings,\n78:3 Concerning which they are in disagreement.\n78:6 Have We not made the earth an expanse,\n78:7 And the high hills bulwarks?\n78:26 Reward proportioned (to their evil deeds).",
+      "learnLine": "Surah An-Naba means \"The News\".",
       "learnFacts": [
         "40 ayahs",
         "Revealed in Makkah"
@@ -32361,6 +31628,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Whereof do they question one another?",
         "reference": "Quran 78:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_71_80_surah_an_naba_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 78:1",
+        "url": "https://quran.com/78/1",
+        "reference": "Quran 78:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 78:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -32404,23 +31682,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Smoke"
+              "label": "The Inevitable"
             },
             {
               "id": "b",
-              "label": "The Sovereignty"
+              "label": "The Iron"
             },
             {
               "id": "c",
-              "label": "The Tidings"
+              "label": "The News"
             },
             {
               "id": "d",
-              "label": "The Small kindnesses"
+              "label": "The Hypocrites"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah An-Naba means \"The Tidings\". It was revealed in Makkah. It has 40 ayahs.",
+          "explanation": "Surah An-Naba means \"The News\". It was revealed in Makkah. It has 40 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-an-naba",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-an-naba",
           "resourceLabel": "Open source",
@@ -32470,7 +31748,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah An-Naba means \"The Tidings\". It was revealed in Makkah. It has 40 ayahs.",
+          "explanation": "Surah An-Naba means \"The News\". It was revealed in Makkah. It has 40 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-an-naba",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-an-naba",
           "resourceLabel": "Open source",
@@ -32484,7 +31762,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah An-Nazi'at",
       "intro": "Surah An-Nazi'at means \"Those who drag forth\".",
-      "explanationContent": "Surah An-Nazi'at means \"Those who drag forth\". It was revealed in Makkah. It has 46 ayahs.\n79:1 By those who drag forth to destruction,\n79:2 By the meteors rushing,\n79:3 By the lone stars floating,\n79:4 By the angels hastening,\n79:5 And those who govern the event,\n79:6 On the day when the first trump resoundeth.\n79:7 And the second followeth it,",
+      "explanationContent": "Surah An-Nazi'at means \"Those who drag forth\". It was revealed in Makkah. It has 46 ayahs.\n79:1 By those who drag forth to destruction,\n79:2 By the meteors rushing,\n79:3 By the lone stars floating,\n79:4 By the angels hastening,\n79:5 And those who govern the event,",
       "learnLine": "Surah An-Nazi'at means \"Those who drag forth\".",
       "learnFacts": [
         "46 ayahs",
@@ -32493,6 +31771,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By those who drag forth to destruction,",
         "reference": "Quran 79:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_71_80_surah_an_naziat_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 79:1",
+        "url": "https://quran.com/79/1",
+        "reference": "Quran 79:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 79:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -32536,7 +31825,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Family of Imran"
+              "label": "He Frowned"
             },
             {
               "id": "b",
@@ -32544,11 +31833,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "She that is to be examined"
+              "label": "Explained in Detail"
             },
             {
               "id": "d",
-              "label": "Explained in Detail"
+              "label": "Family of Imran"
             }
           ],
           "correctChoiceId": "b",
@@ -32616,7 +31905,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah 'Abasa",
       "intro": "Surah 'Abasa means \"He Frowned\".",
-      "explanationContent": "Surah 'Abasa means \"He Frowned\". It was revealed in Makkah. It has 42 ayahs.\n80:1 He frowned and turned away\n80:2 Because the blind man came unto him.\n80:3 What could inform thee but that he might grow (in grace)\n80:4 Or take heed and so the reminder might avail him?\n80:5 As for him who thinketh himself independent,\n80:6 Unto him thou payest regard.\n80:7 Yet it is not thy concern if he grow not (in grace).",
+      "explanationContent": "Surah 'Abasa means \"He Frowned\". It was revealed in Makkah. It has 42 ayahs.\n80:1 He frowned and turned away\n80:4 Or take heed and so the reminder might avail him?\n80:13 On honoured leaves",
       "learnLine": "Surah 'Abasa means \"He Frowned\".",
       "learnFacts": [
         "42 ayahs",
@@ -32625,6 +31914,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "He frowned and turned away",
         "reference": "Quran 80:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_71_80_surah_abasa_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 80:1",
+        "url": "https://quran.com/80/1",
+        "reference": "Quran 80:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 80:1"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -32668,11 +31968,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Mankind"
+              "label": "Time"
             },
             {
               "id": "b",
-              "label": "Originator"
+              "label": "Competing for More"
             },
             {
               "id": "c",
@@ -32680,7 +31980,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Family of Imran"
+              "label": "Those who drag forth"
             }
           ],
           "correctChoiceId": "c",
@@ -32747,9 +32047,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-81-90-surah-at-takwir",
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah At-Takwir",
-      "intro": "Surah At-Takwir means \"The Overthrowing\".",
-      "explanationContent": "Surah At-Takwir means \"The Overthrowing\". It was revealed in Makkah. It has 29 ayahs.\n81:1 When the sun is overthrown,\n81:2 And when the stars fall,\n81:3 And when the hills are moved,\n81:4 And when the camels big with young are abandoned,\n81:5 And when the wild beasts are herded together,\n81:6 And when the seas rise,\n81:7 And when souls are reunited,",
-      "learnLine": "Surah At-Takwir means \"The Overthrowing\".",
+      "intro": "Surah At-Takwir means \"The Folding Up\".",
+      "explanationContent": "Surah At-Takwir means \"The Folding Up\". It was revealed in Makkah. It has 29 ayahs.\n81:1 When the sun is overthrown,\n81:2 And when the stars fall,\n81:3 And when the hills are moved,\n81:4 And when the camels big with young are abandoned,\n81:5 And when the wild beasts are herded together,\n81:6 And when the seas rise,\n81:7 And when souls are reunited,",
+      "learnLine": "Surah At-Takwir means \"The Folding Up\".",
       "learnFacts": [
         "29 ayahs",
         "Revealed in Makkah"
@@ -32757,6 +32057,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "When the sun is overthrown,",
         "reference": "Quran 81:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_at_takwir_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 81:1",
+        "url": "https://quran.com/81/1",
+        "reference": "Quran 81:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 81:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -32798,23 +32109,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Overthrowing"
+              "label": "The Folding Up"
             },
             {
               "id": "b",
-              "label": "The Iron"
+              "label": "The Spoils of War"
             },
             {
               "id": "c",
-              "label": "The Jinn"
+              "label": "The Star"
             },
             {
               "id": "d",
-              "label": "The Light"
+              "label": "The Stories"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah At-Takwir means \"The Overthrowing\". It was revealed in Makkah. It has 29 ayahs.",
+          "explanation": "Surah At-Takwir means \"The Folding Up\". It was revealed in Makkah. It has 29 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-at-takwir",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-at-takwir",
           "resourceLabel": "Open source",
@@ -32864,7 +32175,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah At-Takwir means \"The Overthrowing\". It was revealed in Makkah. It has 29 ayahs.",
+          "explanation": "Surah At-Takwir means \"The Folding Up\". It was revealed in Makkah. It has 29 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-at-takwir",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-at-takwir",
           "resourceLabel": "Open source",
@@ -32877,9 +32188,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-81-90-surah-al-infitar",
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-Infitar",
-      "intro": "Surah Al-Infitar means \"The Cleaving\".",
-      "explanationContent": "Surah Al-Infitar means \"The Cleaving\". It was revealed in Makkah. It has 19 ayahs.\n82:1 When the heaven is cleft asunder,\n82:2 When the planets are dispersed,\n82:3 When the seas are poured forth,\n82:4 And the sepulchres are overturned,\n82:5 A soul will know what it hath sent before (it) and what left behind.\n82:6 O man! What hath made thee careless concerning thy Lord, the Bountiful,\n82:7 Who created thee, then fashioned, then proportioned thee?",
-      "learnLine": "Surah Al-Infitar means \"The Cleaving\".",
+      "intro": "Surah Al-Infitar means \"The Splitting Open\".",
+      "explanationContent": "Surah Al-Infitar means \"The Splitting Open\". It was revealed in Makkah. It has 19 ayahs.\n82:1 When the heaven is cleft asunder,\n82:2 When the planets are dispersed,\n82:3 When the seas are poured forth,\n82:4 And the sepulchres are overturned,",
+      "learnLine": "Surah Al-Infitar means \"The Splitting Open\".",
       "learnFacts": [
         "19 ayahs",
         "Revealed in Makkah"
@@ -32887,6 +32198,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "When the heaven is cleft asunder,",
         "reference": "Quran 82:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_al_infitar_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 82:1",
+        "url": "https://quran.com/82/1",
+        "reference": "Quran 82:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 82:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -32930,23 +32252,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Table Spread"
+              "label": "The Rocky Tract"
             },
             {
               "id": "b",
-              "label": "The Cleaving"
+              "label": "The Splitting Open"
             },
             {
               "id": "c",
-              "label": "The Sun"
+              "label": "The Repentance"
             },
             {
               "id": "d",
-              "label": "The Sundering"
+              "label": "The Resurrection"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Infitar means \"The Cleaving\". It was revealed in Makkah. It has 19 ayahs.",
+          "explanation": "Surah Al-Infitar means \"The Splitting Open\". It was revealed in Makkah. It has 19 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-infitar",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-infitar",
           "resourceLabel": "Open source",
@@ -32996,32 +32318,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Infitar means \"The Cleaving\". It was revealed in Makkah. It has 19 ayahs.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-infitar",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-infitar",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/82"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-infitar_q4",
-          "type": "multiple_choice",
-          "prompt": "What does this ayah mean? إِذَا ٱلسَّمَآءُ ٱنفَطَرَتْ (Quran 82:1)",
-          "choices": [
-            {
-              "id": "a",
-              "label": "O man! What hath made thee careless concerning thy Lord, the Bountiful,"
-            },
-            {
-              "id": "b",
-              "label": "And the sepulchres are overturned,"
-            },
-            {
-              "id": "c",
-              "label": "When the heaven is cleft asunder,"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "Quran 82:1: When the heaven is cleft asunder,",
+          "explanation": "Surah Al-Infitar means \"The Splitting Open\". It was revealed in Makkah. It has 19 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-infitar",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-infitar",
           "resourceLabel": "Open source",
@@ -33034,9 +32331,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-Mutaffifin",
-      "intro": "Surah Al-Mutaffifin means \"The Defrauding\".",
-      "explanationContent": "Surah Al-Mutaffifin means \"The Defrauding\". It was revealed in Makkah. It has 36 ayahs.\n83:1 Woe unto the defrauders:\n83:2 Those who when they take the measure from mankind demand it full,\n83:3 But if they measure unto them or weight for them, they cause them loss.\n83:4 Do such (men) not consider that they will be raised again\n83:5 Unto an Awful Day,\n83:6 The day when (all) mankind stand before the Lord of the Worlds?\n83:7 Nay, but the record of the vile is in Sijjin -",
-      "learnLine": "Surah Al-Mutaffifin means \"The Defrauding\".",
+      "intro": "Surah Al-Mutaffifin means \"Those Who Cheat\".",
+      "explanationContent": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.\n83:2 Those who when they take the measure from mankind demand it full,\n83:4 Do such (men) not consider that they will be raised again\n83:6 The day when (all) mankind stand before the Lord of the Worlds?\n83:9 A written record.",
+      "learnLine": "Surah Al-Mutaffifin means \"Those Who Cheat\".",
       "learnFacts": [
         "36 ayahs",
         "Revealed in Makkah"
@@ -33044,6 +32341,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Woe unto the defrauders:",
         "reference": "Quran 83:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_al_mutaffifin_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 83:1",
+        "url": "https://quran.com/83/1",
+        "reference": "Quran 83:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 83:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -33087,23 +32395,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Congregation, Friday"
+              "label": "Family of Imran"
             },
             {
               "id": "b",
-              "label": "The Consultation"
+              "label": "He Frowned"
             },
             {
               "id": "c",
-              "label": "The Courser"
+              "label": "Mankind"
             },
             {
               "id": "d",
-              "label": "The Defrauding"
+              "label": "Those Who Cheat"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Mutaffifin means \"The Defrauding\". It was revealed in Makkah. It has 36 ayahs.",
+          "explanation": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
           "resourceLabel": "Open source",
@@ -33153,7 +32461,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Mutaffifin means \"The Defrauding\". It was revealed in Makkah. It has 36 ayahs.",
+          "explanation": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
           "resourceLabel": "Open source",
@@ -33166,9 +32474,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-81-90-surah-al-inshiqaq",
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-Inshiqaq",
-      "intro": "Surah Al-Inshiqaq means \"The Sundering\".",
-      "explanationContent": "Surah Al-Inshiqaq means \"The Sundering\". It was revealed in Makkah. It has 25 ayahs.\n84:1 When the heaven is split asunder\n84:2 And attentive to her Lord in fear,\n84:3 And when the earth is spread out\n84:4 And hath cast out all that was in her, and is empty\n84:5 And attentive to her Lord in fear!\n84:6 Thou, verily, O man, art working toward thy Lord a work which thou wilt meet (in His presence).\n84:7 Then whoso is given his account in his right hand",
-      "learnLine": "Surah Al-Inshiqaq means \"The Sundering\".",
+      "intro": "Surah Al-Inshiqaq means \"The Splitting Apart\".",
+      "explanationContent": "Surah Al-Inshiqaq means \"The Splitting Apart\". It was revealed in Makkah. It has 25 ayahs.\n84:1 When the heaven is split asunder\n84:2 And attentive to her Lord in fear,\n84:3 And when the earth is spread out\n84:5 And attentive to her Lord in fear!\n84:7 Then whoso is given his account in his right hand\n84:8 He truly will receive an easy reckoning",
+      "learnLine": "Surah Al-Inshiqaq means \"The Splitting Apart\".",
       "learnFacts": [
         "25 ayahs",
         "Revealed in Makkah"
@@ -33176,6 +32484,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "When the heaven is split asunder",
         "reference": "Quran 84:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_al_inshiqaq_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 84:1",
+        "url": "https://quran.com/84/1",
+        "reference": "Quran 84:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 84:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -33219,23 +32538,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Sundering"
+              "label": "The Splitting Apart"
             },
             {
               "id": "b",
-              "label": "The Pleading Woman"
+              "label": "The Small kindnesses"
             },
             {
               "id": "c",
-              "label": "The Poets"
+              "label": "The Smoke"
             },
             {
               "id": "d",
-              "label": "The Power"
+              "label": "The Spider"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-Inshiqaq means \"The Sundering\". It was revealed in Makkah. It has 25 ayahs.",
+          "explanation": "Surah Al-Inshiqaq means \"The Splitting Apart\". It was revealed in Makkah. It has 25 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-inshiqaq",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-inshiqaq",
           "resourceLabel": "Open source",
@@ -33285,36 +32604,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah Al-Inshiqaq means \"The Sundering\". It was revealed in Makkah. It has 25 ayahs.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-inshiqaq",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-inshiqaq",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/84"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-inshiqaq_q4",
-          "type": "multiple_choice",
-          "prompt": "What does this ayah mean? إِذَا ٱلسَّمَآءُ ٱنشَقَّتْ (Quran 84:1)",
-          "choices": [
-            {
-              "id": "a",
-              "label": "And hath cast out all that was in her, and is empty"
-            },
-            {
-              "id": "b",
-              "label": "When the heaven is split asunder"
-            },
-            {
-              "id": "c",
-              "label": "Then whoso is given his account in his right hand"
-            },
-            {
-              "id": "d",
-              "label": "And attentive to her Lord in fear!"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Quran 84:1: When the heaven is split asunder",
+          "explanation": "Surah Al-Inshiqaq means \"The Splitting Apart\". It was revealed in Makkah. It has 25 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-inshiqaq",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-inshiqaq",
           "resourceLabel": "Open source",
@@ -33328,7 +32618,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-Buruj",
       "intro": "Surah Al-Buruj means \"The Mansions of the Stars\".",
-      "explanationContent": "Surah Al-Buruj means \"The Mansions of the Stars\". It was revealed in Makkah. It has 22 ayahs.\n85:1 By the heaven, holding mansions of the stars,\n85:2 And by the Promised Day.\n85:3 And by the witness and that whereunto he beareth testimony,\n85:4 (Self-)destroyed were the owners of the ditch\n85:5 Of the fuel-fed fire,\n85:6 When they sat by it,\n85:7 And were themselves the witnesses of what they did to the believers.",
+      "explanationContent": "Surah Al-Buruj means \"The Mansions of the Stars\". It was revealed in Makkah. It has 22 ayahs.\n85:1 By the heaven, holding mansions of the stars,\n85:2 And by the Promised Day.\n85:4 (Self-)destroyed were the owners of the ditch\n85:5 Of the fuel-fed fire,\n85:6 When they sat by it,\n85:7 And were themselves the witnesses of what they did to the believers.\n85:8 They had naught against them save that they believed in Allah, the Mighty, the Owner of Praise,",
       "learnLine": "Surah Al-Buruj means \"The Mansions of the Stars\".",
       "learnFacts": [
         "22 ayahs",
@@ -33337,6 +32627,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the heaven, holding mansions of the stars,",
         "reference": "Quran 85:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_al_buruj_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 85:1",
+        "url": "https://quran.com/85/1",
+        "reference": "Quran 85:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 85:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -33384,15 +32685,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Criterion"
+              "label": "The Reality"
             },
             {
               "id": "c",
-              "label": "The Crouching"
+              "label": "The Relief"
             },
             {
               "id": "d",
-              "label": "The Dawn"
+              "label": "The Repentance"
             }
           ],
           "correctChoiceId": "a",
@@ -33460,7 +32761,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah At-Tariq",
       "intro": "Surah At-Tariq means \"The Nightcomer\".",
-      "explanationContent": "Surah At-Tariq means \"The Nightcomer\". It was revealed in Makkah. It has 17 ayahs.\n86:1 By the heaven and the Morning Star\n86:2 - Ah, what will tell thee what the Morning Star is!\n86:3 - The piercing Star!\n86:4 No human soul but hath a guardian over it.\n86:5 So let man consider from what he is created.\n86:6 He is created from a gushing fluid\n86:7 That issued from between the loins and ribs.",
+      "explanationContent": "Surah At-Tariq means \"The Nightcomer\". It was revealed in Makkah. It has 17 ayahs.\n86:1 By the heaven and the Morning Star\n86:3 - The piercing Star!\n86:5 So let man consider from what he is created.\n86:6 He is created from a gushing fluid\n86:7 That issued from between the loins and ribs.",
       "learnLine": "Surah At-Tariq means \"The Nightcomer\".",
       "learnFacts": [
         "17 ayahs",
@@ -33469,6 +32770,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the heaven and the Morning Star",
         "reference": "Quran 86:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_at_tariq_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 86:1",
+        "url": "https://quran.com/86/1",
+        "reference": "Quran 86:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 86:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -33512,7 +32824,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Repentance"
+              "label": "The Combined Forces"
             },
             {
               "id": "b",
@@ -33520,11 +32832,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Reality"
+              "label": "The Clear Proof"
             },
             {
               "id": "d",
-              "label": "The Relief"
+              "label": "The Clot"
             }
           ],
           "correctChoiceId": "b",
@@ -33592,7 +32904,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-A'la",
       "intro": "Surah Al-A'la means \"The Most High\".",
-      "explanationContent": "Surah Al-A'la means \"The Most High\". It was revealed in Makkah. It has 19 ayahs.\n87:1 Praise the name of thy Lord the Most High,\n87:2 Who createth, then disposeth;\n87:3 Who measureth, then guideth;\n87:4 Who bringeth forth the pasturage,\n87:5 Then turneth it to russet stubble.\n87:6 We shall make thee read (O Muhammad) so that thou shalt not forget\n87:7 Save that which Allah willeth. Lo! He knoweth the disclosed and that which still is hidden;",
+      "explanationContent": "Surah Al-A'la means \"The Most High\". It was revealed in Makkah. It has 19 ayahs.",
       "learnLine": "Surah Al-A'la means \"The Most High\".",
       "learnFacts": [
         "19 ayahs",
@@ -33601,6 +32913,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Praise the name of thy Lord the Most High,",
         "reference": "Quran 87:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_al_ala_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 87:1",
+        "url": "https://quran.com/87/1",
+        "reference": "Quran 87:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 87:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -33644,11 +32967,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Consultation"
+              "label": "The Kingdom"
             },
             {
               "id": "b",
-              "label": "The Courser"
+              "label": "The Light"
             },
             {
               "id": "c",
@@ -33656,7 +32979,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Congregation, Friday"
+              "label": "The Jinn"
             }
           ],
           "correctChoiceId": "c",
@@ -33724,7 +33047,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-Ghashiyah",
       "intro": "Surah Al-Ghashiyah means \"The Overwhelming\".",
-      "explanationContent": "Surah Al-Ghashiyah means \"The Overwhelming\". It was revealed in Makkah. It has 26 ayahs.\n88:1 Hath there come unto thee tidings of the Overwhelming?\n88:2 On that day (many) faces will be downcast,\n88:3 Toiling, weary,\n88:4 Scorched by burning fire,\n88:5 Drinking from a boiling spring,\n88:6 No food for them save bitter thorn-fruit\n88:7 Which doth not nourish nor release from hunger.",
+      "explanationContent": "Surah Al-Ghashiyah means \"The Overwhelming\". It was revealed in Makkah. It has 26 ayahs.\n88:2 On that day (many) faces will be downcast,\n88:3 Toiling, weary,\n88:4 Scorched by burning fire,\n88:5 Drinking from a boiling spring,\n88:6 No food for them save bitter thorn-fruit",
       "learnLine": "Surah Al-Ghashiyah means \"The Overwhelming\".",
       "learnFacts": [
         "26 ayahs",
@@ -33733,6 +33056,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Hath there come unto thee tidings of the Overwhelming?",
         "reference": "Quran 88:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_al_ghashiyah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 88:1",
+        "url": "https://quran.com/88/1",
+        "reference": "Quran 88:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 88:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -33780,15 +33114,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Star"
+              "label": "The Backbiter"
             },
             {
               "id": "c",
-              "label": "The Stories"
+              "label": "The Bee"
             },
             {
               "id": "d",
-              "label": "The Sun"
+              "label": "The Believers"
             }
           ],
           "correctChoiceId": "a",
@@ -33856,7 +33190,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-Fajr",
       "intro": "Surah Al-Fajr means \"The Dawn\".",
-      "explanationContent": "Surah Al-Fajr means \"The Dawn\". It was revealed in Makkah. It has 30 ayahs.\n89:1 By the Dawn\n89:2 And ten nights,\n89:3 And the Even and the Odd,\n89:4 And the night when it departeth,\n89:5 There surely is an oath for thinking man.\n89:6 Dost thou not consider how thy Lord dealt with (the tribe of) A'ad,\n89:7 With many-columned Iram,",
+      "explanationContent": "Surah Al-Fajr means \"The Dawn\". It was revealed in Makkah. It has 30 ayahs.\n89:1 By the Dawn\n89:2 And ten nights,\n89:3 And the Even and the Odd,\n89:5 There surely is an oath for thinking man.\n89:7 With many-columned Iram,",
       "learnLine": "Surah Al-Fajr means \"The Dawn\".",
       "learnFacts": [
         "30 ayahs",
@@ -33865,6 +33199,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the Dawn",
         "reference": "Quran 89:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_al_fajr_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 89:1",
+        "url": "https://quran.com/89/1",
+        "reference": "Quran 89:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 89:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -33908,7 +33253,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Calamity"
+              "label": "The Small kindnesses"
             },
             {
               "id": "b",
@@ -33916,11 +33261,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Believers"
+              "label": "The Runners"
             },
             {
               "id": "d",
-              "label": "The Beneficent"
+              "label": "The Sincerity"
             }
           ],
           "correctChoiceId": "b",
@@ -33988,7 +33333,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-Balad",
       "intro": "Surah Al-Balad means \"The City\".",
-      "explanationContent": "Surah Al-Balad means \"The City\". It was revealed in Makkah. It has 20 ayahs.\n90:1 Nay, I swear by this city -\n90:2 And thou art an indweller of this city -\n90:3 And the begetter and that which he begat,\n90:4 We verily have created man in an atmosphere:\n90:5 Thinketh he that none hath power over him?\n90:6 And he saith: I have destroyed vast wealth:\n90:7 Thinketh he that none beholdeth him?",
+      "explanationContent": "Surah Al-Balad means \"The City\". It was revealed in Makkah. It has 20 ayahs.\n90:3 And the begetter and that which he begat,\n90:6 And he saith: I have destroyed vast wealth:\n90:18 Their place will be on the right hand.",
       "learnLine": "Surah Al-Balad means \"The City\".",
       "learnFacts": [
         "20 ayahs",
@@ -33997,6 +33342,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Nay, I swear by this city -",
         "reference": "Quran 90:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_81_90_surah_al_balad_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 90:1",
+        "url": "https://quran.com/90/1",
+        "reference": "Quran 90:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 90:1"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -34044,15 +33400,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Smoke"
+              "label": "The Human"
             },
             {
               "id": "c",
-              "label": "The Sovereignty"
+              "label": "The Hypocrites"
             },
             {
               "id": "d",
-              "label": "The Spider"
+              "label": "The Inevitable"
             }
           ],
           "correctChoiceId": "a",
@@ -34120,7 +33476,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Ash-Shams",
       "intro": "Surah Ash-Shams means \"The Sun\".",
-      "explanationContent": "Surah Ash-Shams means \"The Sun\". It was revealed in Makkah. It has 15 ayahs.\n91:1 By the sun and his brightness,\n91:2 And the moon when she followeth him,\n91:3 And the day when it revealeth him,\n91:4 And the night when it enshroudeth him,\n91:5 And the heaven and Him Who built it,\n91:6 And the earth and Him Who spread it,\n91:7 And a soul and Him Who perfected it",
+      "explanationContent": "Surah Ash-Shams means \"The Sun\". It was revealed in Makkah. It has 15 ayahs.\n91:1 By the sun and his brightness,\n91:5 And the heaven and Him Who built it,\n91:6 And the earth and Him Who spread it,\n91:7 And a soul and Him Who perfected it",
       "learnLine": "Surah Ash-Shams means \"The Sun\".",
       "learnFacts": [
         "15 ayahs",
@@ -34129,6 +33485,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the sun and his brightness,",
         "reference": "Quran 91:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_ash_shams_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 91:1",
+        "url": "https://quran.com/91/1",
+        "reference": "Quran 91:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 91:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -34170,11 +33537,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Inevitable"
             },
             {
               "id": "b",
-              "label": "The Winnowing Winds"
+              "label": "The Iron"
             },
             {
               "id": "c",
@@ -34182,7 +33549,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Victory"
+              "label": "The Hypocrites"
             }
           ],
           "correctChoiceId": "c",
@@ -34250,7 +33617,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Al-Layl",
       "intro": "Surah Al-Layl means \"The Night\".",
-      "explanationContent": "Surah Al-Layl means \"The Night\". It was revealed in Makkah. It has 21 ayahs.\n92:1 By the night enshrouding\n92:2 And the day resplendent\n92:3 And Him Who hath created male and female,\n92:4 Lo! your effort is dispersed (toward divers ends).\n92:5 As for him who giveth and is dutiful (toward Allah)\n92:6 And believeth in goodness;\n92:7 Surely We will ease his way unto the state of ease.",
+      "explanationContent": "Surah Al-Layl means \"The Night\". It was revealed in Makkah. It has 21 ayahs.\n92:1 By the night enshrouding\n92:2 And the day resplendent",
       "learnLine": "Surah Al-Layl means \"The Night\".",
       "learnFacts": [
         "21 ayahs",
@@ -34259,6 +33626,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the night enshrouding",
         "reference": "Quran 92:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_al_layl_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 92:1",
+        "url": "https://quran.com/92/1",
+        "reference": "Quran 92:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 92:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -34302,7 +33680,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Table Spread"
+              "label": "The News"
             },
             {
               "id": "b",
@@ -34310,11 +33688,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Sun"
+              "label": "The Mount"
             },
             {
               "id": "d",
-              "label": "The Sundering"
+              "label": "The Mutual Disillusion"
             }
           ],
           "correctChoiceId": "b",
@@ -34382,7 +33760,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Ad-Duha",
       "intro": "Surah Ad-Duha means \"The Morning Hours\".",
-      "explanationContent": "Surah Ad-Duha means \"The Morning Hours\". It was revealed in Makkah. It has 11 ayahs.\n93:1 By the morning hours\n93:2 And by the night when it is stillest,\n93:3 Thy Lord hath not forsaken thee nor doth He hate thee,\n93:4 And verily the latter portion will be better for thee than the former,\n93:5 And verily thy Lord will give unto thee so that thou wilt be content.\n93:6 Did He not find thee an orphan and protect (thee)?\n93:7 Did He not find thee wandering and direct (thee)?",
+      "explanationContent": "Surah Ad-Duha means \"The Morning Hours\". It was revealed in Makkah. It has 11 ayahs.\n93:1 By the morning hours\n93:2 And by the night when it is stillest,",
       "learnLine": "Surah Ad-Duha means \"The Morning Hours\".",
       "learnFacts": [
         "11 ayahs",
@@ -34391,6 +33769,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the morning hours",
         "reference": "Quran 93:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_ad_duhaa_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 93:1",
+        "url": "https://quran.com/93/1",
+        "reference": "Quran 93:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 93:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -34438,15 +33827,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Sovereignty"
+              "label": "The Power"
             },
             {
               "id": "c",
-              "label": "The Spider"
+              "label": "The Prohibition"
             },
             {
               "id": "d",
-              "label": "The Spoils of War"
+              "label": "The Prophets"
             }
           ],
           "correctChoiceId": "a",
@@ -34514,7 +33903,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Ash-Sharh",
       "intro": "Surah Ash-Sharh means \"The Relief\".",
-      "explanationContent": "Surah Ash-Sharh means \"The Relief\". It was revealed in Makkah. It has 8 ayahs.\n94:1 Have We not caused thy bosom to dilate,\n94:2 And eased thee of the burden\n94:3 Which weighed down thy back;\n94:4 And exalted thy fame?\n94:5 But lo! with hardship goeth ease,\n94:6 Lo! with hardship goeth ease;\n94:7 So when thou art relieved, still toil",
+      "explanationContent": "Surah Ash-Sharh means \"The Relief\". It was revealed in Makkah. It has 8 ayahs.",
       "learnLine": "Surah Ash-Sharh means \"The Relief\".",
       "learnFacts": [
         "8 ayahs",
@@ -34523,6 +33912,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Have We not caused thy bosom to dilate,",
         "reference": "Quran 94:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_ash_sharh_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 94:1",
+        "url": "https://quran.com/94/1",
+        "reference": "Quran 94:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 94:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -34566,11 +33966,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Women"
+              "label": "The Mutual Disillusion"
             },
             {
               "id": "b",
-              "label": "The Abundance"
+              "label": "The News"
             },
             {
               "id": "c",
@@ -34578,7 +33978,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Winnowing Winds"
+              "label": "The Mount"
             }
           ],
           "correctChoiceId": "c",
@@ -34646,7 +34046,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah At-Tin",
       "intro": "Surah At-Tin means \"The Fig\".",
-      "explanationContent": "Surah At-Tin means \"The Fig\". It was revealed in Makkah. It has 8 ayahs.\n95:1 By the fig and the olive,\n95:2 By Mount Sinai,\n95:3 And by this land made safe;\n95:4 Surely We created man of the best stature\n95:5 Then we reduced him to the lowest of the low,\n95:6 Save those who believe and do good works, and theirs is a reward unfailing.\n95:7 So who henceforth will give the lie to thee about the judgment?",
+      "explanationContent": "Surah At-Tin means \"The Fig\". It was revealed in Makkah. It has 8 ayahs.\n95:1 By the fig and the olive,\n95:2 By Mount Sinai,\n95:3 And by this land made safe;\n95:4 Surely We created man of the best stature\n95:5 Then we reduced him to the lowest of the low,\n95:6 Save those who believe and do good works, and theirs is a reward unfailing.",
       "learnLine": "Surah At-Tin means \"The Fig\".",
       "learnFacts": [
         "8 ayahs",
@@ -34655,6 +34055,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the fig and the olive,",
         "reference": "Quran 95:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_at_tin_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 95:1",
+        "url": "https://quran.com/95/1",
+        "reference": "Quran 95:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 95:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -34698,11 +34109,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Women"
+              "label": "The Small kindnesses"
             },
             {
               "id": "b",
-              "label": "The Abundance"
+              "label": "The Smoke"
             },
             {
               "id": "c",
@@ -34710,7 +34121,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Winnowing Winds"
+              "label": "The Sincerity"
             }
           ],
           "correctChoiceId": "c",
@@ -34769,35 +34180,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-at-tin",
           "resourceLabel": "Open source",
           "resourceUrl": "https://quran.com/95"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-at-tin_q4",
-          "type": "multiple_choice",
-          "prompt": "What does this ayah mean? وَٱلتِّينِ وَٱلزَّيْتُونِ (Quran 95:1)",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Surely We created man of the best stature"
-            },
-            {
-              "id": "b",
-              "label": "By the fig and the olive,"
-            },
-            {
-              "id": "c",
-              "label": "Save those who believe and do good works, and theirs is a reward unfailing."
-            },
-            {
-              "id": "d",
-              "label": "So who henceforth will give the lie to thee about the judgment?"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Quran 95:1: By the fig and the olive,",
-          "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-at-tin",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-at-tin",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/95"
         }
       ]
     },
@@ -34807,7 +34189,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Al-'Alaq",
       "intro": "Surah Al-'Alaq means \"The Clot\".",
-      "explanationContent": "Surah Al-'Alaq means \"The Clot\". It was revealed in Makkah. It has 19 ayahs.\n96:1 Read: In the name of thy Lord Who createth,\n96:2 Createth man from a clot.\n96:3 Read: And thy Lord is the Most Bounteous,\n96:4 Who teacheth by the pen,\n96:5 Teacheth man that which he knew not.\n96:6 Nay, but verily man is rebellious\n96:7 That he thinketh himself independent!",
+      "explanationContent": "Surah Al-'Alaq means \"The Clot\". It was revealed in Makkah. It has 19 ayahs.\n96:14 Is he then unaware that Allah seeth?",
       "learnLine": "Surah Al-'Alaq means \"The Clot\".",
       "learnFacts": [
         "19 ayahs",
@@ -34816,6 +34198,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Read: In the name of thy Lord Who createth,",
         "reference": "Quran 96:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_al_alaq_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 96:1",
+        "url": "https://quran.com/96/1",
+        "reference": "Quran 96:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 96:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -34863,15 +34256,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Divorce"
+              "label": "The Bee"
             },
             {
               "id": "c",
-              "label": "The Earthquake"
+              "label": "The Believers"
             },
             {
               "id": "d",
-              "label": "The Elephant"
+              "label": "The Beneficent"
             }
           ],
           "correctChoiceId": "a",
@@ -34939,7 +34332,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Al-Qadr",
       "intro": "Surah Al-Qadr means \"The Power\".",
-      "explanationContent": "Surah Al-Qadr means \"The Power\". It was revealed in Makkah. It has 5 ayahs.\n97:1 Lo! We revealed it on the Night of Predestination.\n97:2 Ah, what will convey unto thee what the Night of Power is!\n97:3 The Night of Power is better than a thousand months.\n97:4 The angels and the Spirit descend therein, by the permission of their Lord, with all decrees.\n97:5 (The night is) Peace until the rising of the dawn.",
+      "explanationContent": "Surah Al-Qadr means \"The Power\". It was revealed in Makkah. It has 5 ayahs.\n97:3 The Night of Power is better than a thousand months.\n97:4 The angels and the Spirit descend therein, by the permission of their Lord, with all decrees.\n97:5 (The night is) Peace until the rising of the dawn.",
       "learnLine": "Surah Al-Qadr means \"The Power\".",
       "learnFacts": [
         "5 ayahs",
@@ -34948,6 +34341,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Lo! We revealed it on the Night of Predestination.",
         "reference": "Quran 97:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_al_qadr_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 97:1",
+        "url": "https://quran.com/97/1",
+        "reference": "Quran 97:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 97:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -34991,15 +34395,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Troops"
+              "label": "The Elephant"
             },
             {
               "id": "b",
-              "label": "The Victory"
+              "label": "The Exile"
             },
             {
               "id": "c",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Fig"
             },
             {
               "id": "d",
@@ -35071,7 +34475,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Al-Bayyinah",
       "intro": "Surah Al-Bayyinah means \"The Clear Proof\".",
-      "explanationContent": "Surah Al-Bayyinah means \"The Clear Proof\". It was revealed in Madinah. It has 8 ayahs.\n98:1 Those who disbelieve among the People of the Scripture and the idolaters could not have left off (erring) till the clear proof came unto them,\n98:2 A messenger from Allah, reading purified pages\n98:3 Containing correct scriptures.\n98:4 Nor were the People of the Scripture divided until after the clear proof came unto them.\n98:5 And they are ordered naught else than to serve Allah, keeping religion pure for Him, as men by nature upright, and to establish worship and to pay the poor-due. That is true religion.\n98:6 Lo! those who disbelieve, among the People of the Scripture and the idolaters, will abide in fire of hell. They are the worst of created beings.\n98:7 (And) lo! those who believe and do good works are the best of created beings.",
+      "explanationContent": "Surah Al-Bayyinah means \"The Clear Proof\". It was revealed in Madinah. It has 8 ayahs.\n98:2 A messenger from Allah, reading purified pages\n98:3 Containing correct scriptures.\n98:5 And they are ordered naught else than to serve Allah, keeping religion pure for Him, as men by nature upright, and to establish worship and to pay the poor-due. That is true religion.",
       "learnLine": "Surah Al-Bayyinah means \"The Clear Proof\".",
       "learnFacts": [
         "8 ayahs",
@@ -35123,15 +34527,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Pleading Woman"
+              "label": "The Prohibition"
             },
             {
               "id": "c",
-              "label": "The Poets"
+              "label": "The Prophets"
             },
             {
               "id": "d",
-              "label": "The Power"
+              "label": "The Prostration"
             }
           ],
           "correctChoiceId": "a",
@@ -35199,7 +34603,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Az-Zalzalah",
       "intro": "Surah Az-Zalzalah means \"The Earthquake\".",
-      "explanationContent": "Surah Az-Zalzalah means \"The Earthquake\". It was revealed in Madinah. It has 8 ayahs.\n99:1 When Earth is shaken with her (final) earthquake\n99:2 And Earth yieldeth up her burdens,\n99:3 And man saith: What aileth her?\n99:4 That day she will relate her chronicles,\n99:5 Because thy Lord inspireth her.\n99:6 That day mankind will issue forth in scattered groups to be shown their deeds.\n99:7 And whoso doeth good an atom's weight will see it then,",
+      "explanationContent": "Surah Az-Zalzalah means \"The Earthquake\". It was revealed in Madinah. It has 8 ayahs.\n99:1 When Earth is shaken with her (final) earthquake\n99:4 That day she will relate her chronicles,\n99:6 That day mankind will issue forth in scattered groups to be shown their deeds.\n99:7 And whoso doeth good an atom's weight will see it then,",
       "learnLine": "Surah Az-Zalzalah means \"The Earthquake\".",
       "learnFacts": [
         "8 ayahs",
@@ -35208,6 +34612,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "When Earth is shaken with her (final) earthquake",
         "reference": "Quran 99:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_az_zalzalah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 99:1",
+        "url": "https://quran.com/99/1",
+        "reference": "Quran 99:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 99:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -35251,11 +34666,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Sundering"
+              "label": "The Dawn"
             },
             {
               "id": "b",
-              "label": "The Table Spread"
+              "label": "The Daybreak"
             },
             {
               "id": "c",
@@ -35263,7 +34678,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Sun"
+              "label": "The Crouching"
             }
           ],
           "correctChoiceId": "c",
@@ -35330,9 +34745,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Al-'Adiyat",
-      "intro": "Surah Al-'Adiyat means \"The Courser\".",
-      "explanationContent": "Surah Al-'Adiyat means \"The Courser\". It was revealed in Makkah. It has 11 ayahs.\n100:1 By the snorting courses,\n100:2 Striking sparks of fire\n100:3 And scouring to the raid at dawn,\n100:4 Then, therewith, with their trail of dust,\n100:5 Cleaving, as one, the centre (of the foe),\n100:6 Lo! man is an ingrate unto his Lord\n100:7 And lo! he is a witness unto that;",
-      "learnLine": "Surah Al-'Adiyat means \"The Courser\".",
+      "intro": "Surah Al-'Adiyat means \"The Runners\".",
+      "explanationContent": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.\n100:1 By the snorting courses,\n100:2 Striking sparks of fire\n100:3 And scouring to the raid at dawn,\n100:4 Then, therewith, with their trail of dust,\n100:5 Cleaving, as one, the centre (of the foe),",
+      "learnLine": "Surah Al-'Adiyat means \"The Runners\".",
       "learnFacts": [
         "11 ayahs",
         "Revealed in Makkah"
@@ -35340,6 +34755,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the snorting courses,",
         "reference": "Quran 100:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_91_100_surah_al_adiyat_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 100:1",
+        "url": "https://quran.com/100/1",
+        "reference": "Quran 100:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 100:1"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -35383,23 +34809,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Enshrouded One"
+              "label": "The Clear Proof"
             },
             {
               "id": "b",
-              "label": "The Exile"
+              "label": "The Clot"
             },
             {
               "id": "c",
-              "label": "The Fig"
+              "label": "The Combined Forces"
             },
             {
               "id": "d",
-              "label": "The Courser"
+              "label": "The Runners"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-'Adiyat means \"The Courser\". It was revealed in Makkah. It has 11 ayahs.",
+          "explanation": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
           "resourceLabel": "Open source",
@@ -35449,7 +34875,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-'Adiyat means \"The Courser\". It was revealed in Makkah. It has 11 ayahs.",
+          "explanation": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
           "resourceLabel": "Open source",
@@ -35463,7 +34889,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-Qari'ah",
       "intro": "Surah Al-Qari'ah means \"The Calamity\".",
-      "explanationContent": "Surah Al-Qari'ah means \"The Calamity\". It was revealed in Makkah. It has 11 ayahs.\n101:1 The Calamity!\n101:2 What is the Calamity?\n101:3 Ah, what will convey unto thee what the Calamity is!\n101:4 A day wherein mankind will be as thickly-scattered moths\n101:5 And the mountains will become as carded wool.\n101:6 Then, as for him whose scales are heavy (with good works),\n101:7 He will live a pleasant life.",
+      "explanationContent": "Surah Al-Qari'ah means \"The Calamity\". It was revealed in Makkah. It has 11 ayahs.\n101:1 The Calamity!\n101:2 What is the Calamity?\n101:4 A day wherein mankind will be as thickly-scattered moths\n101:5 And the mountains will become as carded wool.\n101:6 Then, as for him whose scales are heavy (with good works),\n101:7 He will live a pleasant life.\n101:9 A bereft and Hungry One will be his mother,",
       "learnLine": "Surah Al-Qari'ah means \"The Calamity\".",
       "learnFacts": [
         "11 ayahs",
@@ -35472,6 +34898,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The Calamity!",
         "reference": "Quran 101:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_al_qariah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 101:1",
+        "url": "https://quran.com/101/1",
+        "reference": "Quran 101:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 101:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -35513,11 +34950,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Pleading Woman"
+              "label": "The Palm Fiber"
             },
             {
               "id": "b",
-              "label": "The Poets"
+              "label": "The Pen"
             },
             {
               "id": "c",
@@ -35525,7 +34962,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "The Pilgrimage"
+              "label": "The Overwhelming"
             }
           ],
           "correctChoiceId": "c",
@@ -35584,31 +35021,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-qariah",
           "resourceLabel": "Open source",
           "resourceUrl": "https://quran.com/101"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-qariah_q4",
-          "type": "multiple_choice",
-          "prompt": "What does this ayah mean? ٱلْقَارِعَةُ (Quran 101:1)",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Then, as for him whose scales are heavy (with good works),"
-            },
-            {
-              "id": "b",
-              "label": "The Calamity!"
-            },
-            {
-              "id": "c",
-              "label": "He will live a pleasant life."
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Quran 101:1: The Calamity!",
-          "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-qariah",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-qariah",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/101"
         }
       ]
     },
@@ -35617,9 +35029,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-101-110-surah-at-takathur",
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah At-Takathur",
-      "intro": "Surah At-Takathur means \"The Rivalry in world increase\".",
-      "explanationContent": "Surah At-Takathur means \"The Rivalry in world increase\". It was revealed in Makkah. It has 8 ayahs.\n102:1 Rivalry in worldly increase distracteth you\n102:2 Until ye come to the graves.\n102:3 Nay, but ye will come to know!\n102:4 Nay, but ye will come to know!\n102:5 Nay, would that ye knew (now) with a sure knowledge!\n102:6 For ye will behold hell-fire.\n102:7 Aye, ye will behold it with sure vision.",
-      "learnLine": "Surah At-Takathur means \"The Rivalry in world increase\".",
+      "intro": "Surah At-Takathur means \"Competing for More\".",
+      "explanationContent": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
+      "learnLine": "Surah At-Takathur means \"Competing for More\".",
       "learnFacts": [
         "8 ayahs",
         "Revealed in Makkah"
@@ -35627,6 +35039,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Rivalry in worldly increase distracteth you",
         "reference": "Quran 102:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_at_takathur_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 102:1",
+        "url": "https://quran.com/102/1",
+        "reference": "Quran 102:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 102:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -35670,23 +35093,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Rivalry in world increase"
+              "label": "Competing for More"
             },
             {
               "id": "b",
-              "label": "The Heights"
+              "label": "He Frowned"
             },
             {
               "id": "c",
-              "label": "The Hypocrites"
+              "label": "Mankind"
             },
             {
               "id": "d",
-              "label": "The Inevitable"
+              "label": "Originator"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah At-Takathur means \"The Rivalry in world increase\". It was revealed in Makkah. It has 8 ayahs.",
+          "explanation": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-at-takathur",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-at-takathur",
           "resourceLabel": "Open source",
@@ -35736,7 +35159,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah At-Takathur means \"The Rivalry in world increase\". It was revealed in Makkah. It has 8 ayahs.",
+          "explanation": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-at-takathur",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-at-takathur",
           "resourceLabel": "Open source",
@@ -35749,9 +35172,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-101-110-surah-al-asr",
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-'Asr",
-      "intro": "Surah Al-'Asr means \"The Declining Day\".",
-      "explanationContent": "Surah Al-'Asr means \"The Declining Day\". It was revealed in Makkah. It has 3 ayahs.\n103:1 By the declining day,\n103:2 Lo! man is a state of loss,\n103:3 Save those who believe and do good works, and exhort one another to truth and exhort one another to endurance.",
-      "learnLine": "Surah Al-'Asr means \"The Declining Day\".",
+      "intro": "Surah Al-'Asr means \"Time\".",
+      "explanationContent": "Surah Al-'Asr means \"Time\". It was revealed in Makkah. It has 3 ayahs.\n103:1 By the declining day,\n103:3 Save those who believe and do good works, and exhort one another to truth and exhort one another to endurance.",
+      "learnLine": "Surah Al-'Asr means \"Time\".",
       "learnFacts": [
         "3 ayahs",
         "Revealed in Makkah"
@@ -35759,6 +35182,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "By the declining day,",
         "reference": "Quran 103:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_al_asr_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 103:1",
+        "url": "https://quran.com/103/1",
+        "reference": "Quran 103:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 103:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -35802,23 +35236,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Wind-Curved Sandhills"
+              "label": "Mankind"
             },
             {
               "id": "b",
-              "label": "The Winnowing Winds"
+              "label": "Originator"
             },
             {
               "id": "c",
-              "label": "The Declining Day"
+              "label": "Time"
             },
             {
               "id": "d",
-              "label": "The Victory"
+              "label": "He Frowned"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah Al-'Asr means \"The Declining Day\". It was revealed in Makkah. It has 3 ayahs.",
+          "explanation": "Surah Al-'Asr means \"Time\". It was revealed in Makkah. It has 3 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-asr",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-asr",
           "resourceLabel": "Open source",
@@ -35868,7 +35302,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-'Asr means \"The Declining Day\". It was revealed in Makkah. It has 3 ayahs.",
+          "explanation": "Surah Al-'Asr means \"Time\". It was revealed in Makkah. It has 3 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-asr",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-asr",
           "resourceLabel": "Open source",
@@ -35881,9 +35315,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-101-110-surah-al-humazah",
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-Humazah",
-      "intro": "Surah Al-Humazah means \"The Traducer\".",
-      "explanationContent": "Surah Al-Humazah means \"The Traducer\". It was revealed in Makkah. It has 9 ayahs.\n104:1 Woe unto every slandering traducer,\n104:2 Who hath gathered wealth (of this world) and arranged it.\n104:3 He thinketh that his wealth will render him immortal.\n104:4 Nay, but verily he will be flung to the Consuming One.\n104:5 Ah, what will convey unto thee what the Consuming One is!\n104:6 (It is) the fire of Allah, kindled,\n104:7 Which leapeth up over the hearts (of men).",
-      "learnLine": "Surah Al-Humazah means \"The Traducer\".",
+      "intro": "Surah Al-Humazah means \"The Backbiter\".",
+      "explanationContent": "Surah Al-Humazah means \"The Backbiter\". It was revealed in Makkah. It has 9 ayahs.\n104:6 (It is) the fire of Allah, kindled,\n104:9 In outstretched columns.",
+      "learnLine": "Surah Al-Humazah means \"The Backbiter\".",
       "learnFacts": [
         "9 ayahs",
         "Revealed in Makkah"
@@ -35891,6 +35325,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Woe unto every slandering traducer,",
         "reference": "Quran 104:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_al_humazah_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 104:1",
+        "url": "https://quran.com/104/1",
+        "reference": "Quran 104:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 104:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -35934,23 +35379,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Night"
+              "label": "The Moon"
             },
             {
               "id": "b",
-              "label": "The Nightcomer"
+              "label": "The Morning Hours"
             },
             {
               "id": "c",
-              "label": "The Traducer"
+              "label": "The Backbiter"
             },
             {
               "id": "d",
-              "label": "The Mutual Disillusion"
+              "label": "The Mansions of the Stars"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah Al-Humazah means \"The Traducer\". It was revealed in Makkah. It has 9 ayahs.",
+          "explanation": "Surah Al-Humazah means \"The Backbiter\". It was revealed in Makkah. It has 9 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-humazah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-humazah",
           "resourceLabel": "Open source",
@@ -36000,7 +35445,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-Humazah means \"The Traducer\". It was revealed in Makkah. It has 9 ayahs.",
+          "explanation": "Surah Al-Humazah means \"The Backbiter\". It was revealed in Makkah. It has 9 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-humazah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-humazah",
           "resourceLabel": "Open source",
@@ -36014,7 +35459,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-Fil",
       "intro": "Surah Al-Fil means \"The Elephant\".",
-      "explanationContent": "Surah Al-Fil means \"The Elephant\". It was revealed in Makkah. It has 5 ayahs.\n105:1 Hast thou not seen how thy Lord dealt with the owners of the Elephant?\n105:2 Did He not bring their stratagem to naught,\n105:3 And send against them swarms of flying creatures,\n105:4 Which pelted them with stones of baked clay,\n105:5 And made them like green crops devoured (by cattle)?",
+      "explanationContent": "Surah Al-Fil means \"The Elephant\". It was revealed in Makkah. It has 5 ayahs.\n105:2 Did He not bring their stratagem to naught,\n105:3 And send against them swarms of flying creatures,\n105:4 Which pelted them with stones of baked clay,\n105:5 And made them like green crops devoured (by cattle)?",
       "learnLine": "Surah Al-Fil means \"The Elephant\".",
       "learnFacts": [
         "5 ayahs",
@@ -36023,6 +35468,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Hast thou not seen how thy Lord dealt with the owners of the Elephant?",
         "reference": "Quran 105:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_al_fil_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 105:1",
+        "url": "https://quran.com/105/1",
+        "reference": "Quran 105:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 105:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -36066,15 +35522,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Jinn"
+              "label": "The Palm Fiber"
             },
             {
               "id": "b",
-              "label": "The Light"
+              "label": "The Pen"
             },
             {
               "id": "c",
-              "label": "The Man"
+              "label": "The Pilgrimage"
             },
             {
               "id": "d",
@@ -36146,7 +35602,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Quraysh",
       "intro": "Surah Quraysh is named after the tribe of Quraysh.",
-      "explanationContent": "Surah Quraysh is named after the tribe of Quraysh. It was revealed in Makkah. It has 4 ayahs.\n106:1 For the taming of Qureysh.\n106:2 For their taming (We cause) the caravans to set forth in winter and summer.\n106:3 So let them worship the Lord of this House,\n106:4 Who hath fed them against hunger and hath made them safe from fear.",
+      "explanationContent": "Surah Quraysh is named after the tribe of Quraysh. It was revealed in Makkah. It has 4 ayahs.\n106:1 For the taming of Qureysh.\n106:2 For their taming (We cause) the caravans to set forth in winter and summer.\n106:3 So let them worship the Lord of this House,",
       "learnLine": "Surah Quraysh is named after the tribe of Quraysh.",
       "learnFacts": [
         "4 ayahs",
@@ -36155,6 +35611,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "For the taming of Qureysh.",
         "reference": "Quran 106:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_quraysh_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 106:1",
+        "url": "https://quran.com/106/1",
+        "reference": "Quran 106:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 106:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -36249,7 +35716,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-Ma'un",
       "intro": "Surah Al-Ma'un means \"The Small kindnesses\".",
-      "explanationContent": "Surah Al-Ma'un means \"The Small kindnesses\". It was revealed in Makkah. It has 7 ayahs.\n107:1 Hast thou observed him who belieth religion?\n107:2 That is he who repelleth the orphan,\n107:3 And urgeth not the feeding of the needy.\n107:4 Ah, woe unto worshippers\n107:5 Who are heedless of their prayer;\n107:6 Who would be seen (at worship)\n107:7 Yet refuse small kindnesses!",
+      "explanationContent": "Surah Al-Ma'un means \"The Small kindnesses\". It was revealed in Makkah. It has 7 ayahs.\n107:5 Who are heedless of their prayer;\n107:6 Who would be seen (at worship)\n107:7 Yet refuse small kindnesses!",
       "learnLine": "Surah Al-Ma'un means \"The Small kindnesses\".",
       "learnFacts": [
         "7 ayahs",
@@ -36258,6 +35725,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Hast thou observed him who belieth religion?",
         "reference": "Quran 107:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_al_maun_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 107:1",
+        "url": "https://quran.com/107/1",
+        "reference": "Quran 107:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 107:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -36301,15 +35779,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Palm Fiber"
+              "label": "The Morning Hours"
             },
             {
               "id": "b",
-              "label": "The Pen"
+              "label": "The Most High"
             },
             {
               "id": "c",
-              "label": "The Pilgrimage"
+              "label": "The Mount"
             },
             {
               "id": "d",
@@ -36381,7 +35859,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-Kawthar",
       "intro": "Surah Al-Kawthar means \"The Abundance\".",
-      "explanationContent": "Surah Al-Kawthar means \"The Abundance\". It was revealed in Makkah. It has 3 ayahs.\n108:1 Lo! We have given thee Abundance;\n108:2 So pray unto thy Lord, and sacrifice.\n108:3 Lo! it is thy insulter (and not thou) who is without posterity.",
+      "explanationContent": "Surah Al-Kawthar means \"The Abundance\". It was revealed in Makkah. It has 3 ayahs.",
       "learnLine": "Surah Al-Kawthar means \"The Abundance\".",
       "learnFacts": [
         "3 ayahs",
@@ -36390,6 +35868,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Lo! We have given thee Abundance;",
         "reference": "Quran 108:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_al_kawthar_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 108:1",
+        "url": "https://quran.com/108/1",
+        "reference": "Quran 108:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 108:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -36437,15 +35926,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Fig"
+              "label": "The Reality"
             },
             {
               "id": "c",
-              "label": "The Forgiver"
+              "label": "The Relief"
             },
             {
               "id": "d",
-              "label": "The Heights"
+              "label": "The Repentance"
             }
           ],
           "correctChoiceId": "a",
@@ -36513,7 +36002,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-Kafirun",
       "intro": "Surah Al-Kafirun means \"The Disbelievers\".",
-      "explanationContent": "Surah Al-Kafirun means \"The Disbelievers\". It was revealed in Makkah. It has 6 ayahs.\n109:1 Say: O disbelievers!\n109:2 I worship not that which ye worship;\n109:3 Nor worship ye that which I worship.\n109:4 And I shall not worship that which ye worship.\n109:5 Nor will ye worship that which I worship.\n109:6 Unto you your religion, and unto me my religion.",
+      "explanationContent": "Surah Al-Kafirun means \"The Disbelievers\". It was revealed in Makkah. It has 6 ayahs.\n109:1 Say: O disbelievers!",
       "learnLine": "Surah Al-Kafirun means \"The Disbelievers\".",
       "learnFacts": [
         "6 ayahs",
@@ -36522,6 +36011,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Say: O disbelievers!",
         "reference": "Quran 109:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_al_kafirun_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 109:1",
+        "url": "https://quran.com/109/1",
+        "reference": "Quran 109:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 109:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -36569,15 +36069,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Prohibition"
+              "label": "The Kingdom"
             },
             {
               "id": "c",
-              "label": "The Prophets"
+              "label": "The Light"
             },
             {
               "id": "d",
-              "label": "The Prostration"
+              "label": "The Mansions of the Stars"
             }
           ],
           "correctChoiceId": "a",
@@ -36644,9 +36144,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-quran-tafseer-surahs-101-110-surah-an-nasr",
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah An-Nasr",
-      "intro": "Surah An-Nasr means \"The Divine Support\".",
-      "explanationContent": "Surah An-Nasr means \"The Divine Support\". It was revealed in Madinah. It has 3 ayahs.\n110:1 When Allah's succour and the triumph cometh\n110:2 And thou seest mankind entering the religion of Allah in troops,\n110:3 Then hymn the praises of thy Lord, and seek forgiveness of Him. Lo! He is ever ready to show mercy.",
-      "learnLine": "Surah An-Nasr means \"The Divine Support\".",
+      "intro": "Surah An-Nasr means \"The Help\".",
+      "explanationContent": "Surah An-Nasr means \"The Help\". It was revealed in Madinah. It has 3 ayahs.",
+      "learnLine": "Surah An-Nasr means \"The Help\".",
       "learnFacts": [
         "3 ayahs",
         "Revealed in Madinah"
@@ -36654,6 +36154,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "When Allah's succour and the triumph cometh",
         "reference": "Quran 110:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_101_110_surah_an_nasr_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 110:1",
+        "url": "https://quran.com/110/1",
+        "reference": "Quran 110:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 110:1"
       },
       "lessonType": "skill",
       "difficulty": 5,
@@ -36697,23 +36208,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Divine Support"
+              "label": "The Help"
             },
             {
               "id": "b",
-              "label": "The Troops"
+              "label": "The Calamity"
             },
             {
               "id": "c",
-              "label": "The Victory"
+              "label": "The Cattle"
             },
             {
               "id": "d",
-              "label": "The Wind-Curved Sandhills"
+              "label": "The Cave"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah An-Nasr means \"The Divine Support\". It was revealed in Madinah. It has 3 ayahs.",
+          "explanation": "Surah An-Nasr means \"The Help\". It was revealed in Madinah. It has 3 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-an-nasr",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-an-nasr",
           "resourceLabel": "Open source",
@@ -36763,7 +36274,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah An-Nasr means \"The Divine Support\". It was revealed in Madinah. It has 3 ayahs.",
+          "explanation": "Surah An-Nasr means \"The Help\". It was revealed in Madinah. It has 3 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-an-nasr",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-an-nasr",
           "resourceLabel": "Open source",
@@ -36786,6 +36297,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "The power of Abu Lahab will perish, and he will perish.",
         "reference": "Quran 111:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_111_114_surah_al_masad_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 111:1",
+        "url": "https://quran.com/111/1",
+        "reference": "Quran 111:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 111:1"
       },
       "lessonType": "skill",
       "difficulty": 1,
@@ -36827,15 +36349,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Table Spread"
-            },
-            {
-              "id": "b",
               "label": "The Thunder"
             },
             {
+              "id": "b",
+              "label": "The Troops"
+            },
+            {
               "id": "c",
-              "label": "The Tidings"
+              "label": "The Victory"
             },
             {
               "id": "d",
@@ -36907,7 +36429,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-111-114",
       "title": "Surah Al-Ikhlas",
       "intro": "Surah Al-Ikhlas means \"The Sincerity\".",
-      "explanationContent": "Surah Al-Ikhlas means \"The Sincerity\". It was revealed in Makkah. It has 4 ayahs.\n112:1 Say: He is Allah, the One!\n112:2 Allah, the eternally Besought of all!\n112:3 He begetteth not nor was begotten.\n112:4 And there is none comparable unto Him.",
+      "explanationContent": "Surah Al-Ikhlas means \"The Sincerity\". It was revealed in Makkah. It has 4 ayahs.\n112:1 Say: He is Allah, the One!\n112:2 Allah, the eternally Besought of all!",
       "learnLine": "Surah Al-Ikhlas means \"The Sincerity\".",
       "learnFacts": [
         "4 ayahs",
@@ -36916,6 +36438,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Say: He is Allah, the One!",
         "reference": "Quran 112:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_111_114_surah_al_ikhlas_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 112:1",
+        "url": "https://quran.com/112/1",
+        "reference": "Quran 112:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 112:1"
       },
       "lessonType": "skill",
       "difficulty": 2,
@@ -36959,7 +36492,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "The Opener"
+              "label": "The Poets"
             },
             {
               "id": "b",
@@ -36967,11 +36500,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The Night"
+              "label": "The Pilgrimage"
             },
             {
               "id": "d",
-              "label": "The Nightcomer"
+              "label": "The Pleading Woman"
             }
           ],
           "correctChoiceId": "b",
@@ -37039,7 +36572,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-111-114",
       "title": "Surah Al-Falaq",
       "intro": "Surah Al-Falaq means \"The Daybreak\".",
-      "explanationContent": "Surah Al-Falaq means \"The Daybreak\". It was revealed in Makkah. It has 5 ayahs.\n113:1 Say: I seek refuge in the Lord of the Daybreak\n113:2 From the evil of that which He created;\n113:3 From the evil of the darkness when it is intense,\n113:4 And from the evil of malignant witchcraft,\n113:5 And from the evil of the envier when he envieth.",
+      "explanationContent": "Surah Al-Falaq means \"The Daybreak\". It was revealed in Makkah. It has 5 ayahs.\n113:1 Say: I seek refuge in the Lord of the Daybreak\n113:2 From the evil of that which He created;\n113:3 From the evil of the darkness when it is intense,\n113:4 And from the evil of malignant witchcraft,",
       "learnLine": "Surah Al-Falaq means \"The Daybreak\".",
       "learnFacts": [
         "5 ayahs",
@@ -37048,6 +36581,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Say: I seek refuge in the Lord of the Daybreak",
         "reference": "Quran 113:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_111_114_surah_al_falaq_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 113:1",
+        "url": "https://quran.com/113/1",
+        "reference": "Quran 113:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 113:1"
       },
       "lessonType": "skill",
       "difficulty": 3,
@@ -37095,15 +36639,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Sincerity"
+              "label": "The Night"
             },
             {
               "id": "c",
-              "label": "The Small kindnesses"
+              "label": "The Nightcomer"
             },
             {
               "id": "d",
-              "label": "The Smoke"
+              "label": "The Opening"
             }
           ],
           "correctChoiceId": "a",
@@ -37171,7 +36715,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-111-114",
       "title": "Surah An-Nas",
       "intro": "Surah An-Nas means \"Mankind\".",
-      "explanationContent": "Surah An-Nas means \"Mankind\". It was revealed in Makkah. It has 6 ayahs.\n114:1 Say: I seek refuge in the Lord of mankind,\n114:2 The King of mankind,\n114:3 The God of mankind,\n114:4 From the evil of the sneaking whisperer,\n114:5 Who whispereth in the hearts of mankind,\n114:6 Of the jinn and of mankind.",
+      "explanationContent": "Surah An-Nas means \"Mankind\". It was revealed in Makkah. It has 6 ayahs.\n114:1 Say: I seek refuge in the Lord of mankind,\n114:2 The King of mankind,\n114:3 The God of mankind,\n114:4 From the evil of the sneaking whisperer,\n114:6 Of the jinn and of mankind.",
       "learnLine": "Surah An-Nas means \"Mankind\".",
       "learnFacts": [
         "6 ayahs",
@@ -37180,6 +36724,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "quote": {
         "text": "Say: I seek refuge in the Lord of mankind,",
         "reference": "Quran 114:1"
+      },
+      "learnSource": {
+        "id": "lesson_notes_quran_tafseer_surahs_111_114_surah_an_nas_learn_src_1",
+        "site": "Quran.com",
+        "category": "tafsir",
+        "title": "Quran 114:1",
+        "url": "https://quran.com/114/1",
+        "reference": "Quran 114:1",
+        "from": "Imported from Obsidian notes",
+        "grade": "Quran",
+        "summary": "Quran 114:1"
       },
       "lessonType": "skill",
       "difficulty": 4,
@@ -37223,7 +36778,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Family of Imran"
+              "label": "Competing for More"
             },
             {
               "id": "b",
@@ -37235,7 +36790,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Explained in Detail"
+              "label": "Time"
             }
           ],
           "correctChoiceId": "b",

@@ -28,6 +28,8 @@ const DAILY_CHALLENGE_SIZE = 6;
 const REVIEW_SESSION_SIZE = 6;
 const SKILL_PRACTICE_SIZE = 5;
 const WORD_BANK_SIZE = 4;
+// About the last three sessions: their questions wait until the others have had a turn.
+const RECENT_ANSWERS = 30;
 
 // A wrong word in a word bank is never a name of Allah or of the Prophet, peace be upon him.
 const SACRED_WORDS = /\b(allah|god|lord|rabb|rahman|rahim|muhammad|ahmad|prophet|messenger|rasul)\b/;
@@ -295,6 +297,36 @@ export function summarizeFoundationSession(state: FoundationAssessmentState, pro
   };
 }
 
+/**
+ * A finished session as its end screen shows it: the session's answers and the profile after
+ * finalizeFoundationAssessment. Plain data, so the app can save it and show the end screen again after a reload.
+ */
+export type FoundationPracticeResult = { assessment: FoundationAssessmentState; profile: LearnerProfile };
+
+const SESSION_MODES = new Set<FoundationAssessmentState["mode"]>(["placement", "daily_challenge", "review"]);
+
+/** A saved practice result read back from storage, or undefined when it is not one (an old or broken save). */
+export function readPracticeResult(value: unknown): FoundationPracticeResult | undefined {
+  const saved = value as Partial<FoundationPracticeResult> | null | undefined;
+  const assessment = saved?.assessment;
+  const profile = saved?.profile;
+  if (
+    !assessment ||
+    !profile ||
+    !SESSION_MODES.has(assessment.mode) ||
+    !assessment.currentQuestion?.id ||
+    !Array.isArray(assessment.answerHistory) ||
+    !Array.isArray(assessment.askedQuestionIds) ||
+    !profile.category_levels ||
+    !Array.isArray(profile.weak_areas) ||
+    !profile.weak_areas.every((category) => profile.category_levels[category]) ||
+    typeof profile.readiness_label !== "string"
+  ) {
+    return undefined;
+  }
+  return { assessment, profile };
+}
+
 /** The skills, lowest mastery first (ties keep the given order). */
 function weakestFirst(profile: LearnerProfile, categories: FoundationCategoryId[]) {
   return unique(categories).sort(
@@ -466,6 +498,27 @@ function selectNextQuestion(
   );
 }
 
+/**
+ * The questions to leave out, tried in turn while the skill still has others. A daily challenge and the
+ * level check ask questions the learner has not seen first, then ones they missed, then ones not asked
+ * lately; a review asks missed ones first, then new ones. A question just answered right comes back last.
+ */
+function skipLists(profile: LearnerProfile, mode: FoundationAssessmentState["mode"], asked: Set<string>) {
+  const lastResult = new Map<string, boolean>();
+  for (const answer of profile.assessmentHistory) {
+    lastResult.set(answer.questionId, answer.isCorrect);
+  }
+  const missed = new Set(profile.needs_review_question_ids);
+  lastResult.forEach((correct, questionId) => {
+    if (!correct) missed.add(questionId);
+  });
+  const seen = [...lastResult.keys(), ...profile.dailyChallengeQuestionIds];
+  const answeredRight = seen.filter((questionId) => !missed.has(questionId));
+  const recent = [...profile.assessmentHistory.slice(-RECENT_ANSWERS).map((answer) => answer.questionId), ...profile.dailyChallengeQuestionIds];
+  const skip = (questionIds: string[]) => new Set([...asked, ...questionIds]);
+  return mode === "review" ? [skip(answeredRight), skip(recent), asked] : [skip(seen), skip(answeredRight), skip(recent), asked];
+}
+
 /** A question from the first of these skills that has one left that was not asked yet. */
 function pickFromCategories(
   profile: LearnerProfile,
@@ -475,10 +528,7 @@ function pickFromCategories(
   mode: FoundationAssessmentState["mode"],
   nextQuestionNumber: number
 ) {
-  const asked = new Set(askedQuestionIds);
-  // A replayed daily challenge skips the last round's questions while the skill still has others.
-  const lastDaily = mode === "daily_challenge" ? profile.dailyChallengeQuestionIds.filter((questionId) => !asked.has(questionId)) : [];
-  const passes = lastDaily.length ? [new Set([...asked, ...lastDaily]), asked] : [asked];
+  const passes = skipLists(profile, mode, new Set(askedQuestionIds));
 
   for (const skip of passes) {
     for (const category of categories) {

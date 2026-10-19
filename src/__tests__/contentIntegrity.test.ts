@@ -63,7 +63,8 @@ function challengeTexts(challenge: Challenge) {
 describe("lesson questions", () => {
   test("the course has lessons and questions", () => {
     expect(lessons.length).toBeGreaterThan(500);
-    expect(challenges.length).toBeGreaterThan(2000);
+    // Fewer, shorter companion units since round 3: each teaches its own facts, with no filler lessons.
+    expect(challenges.length).toBeGreaterThan(1500);
   });
 
   test("every lesson has at least one question", () => {
@@ -192,9 +193,13 @@ describe("lessons imported from notes", () => {
   test("Quran units follow the learning order: Al-Fatihah, Juz Amma from An-Nas back, then the mushaf", () => {
     const quran = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
     const rank = (surah: number) => (surah === 1 ? 0 : surah >= 78 ? 1 + (114 - surah) : 100 + surah);
-    const surahs = quran.nodes.map((node) => surahOf(LESSONS_BY_ID[node.lessonIds[0]].sources[0]?.url)).filter((surah): surah is number => surah !== undefined);
+    // A lesson's first source may be the hadith its card says (Ayat al-Kursi, Sahih Muslim 810); its surah is
+    // the first Quran source it lists.
+    const surahOfNode = (node: (typeof quran.nodes)[number]) =>
+      LESSONS_BY_ID[node.lessonIds[0]].sources.map((source) => surahOf(source.url)).find((surah) => surah !== undefined);
+    const surahs = quran.nodes.map(surahOfNode).filter((surah): surah is number => surah !== undefined);
     const firstOfUnit = quran.branches.map((branch) =>
-      Math.min(...quran.nodes.filter((node) => node.branchId === branch.id).map((node) => rank(surahOf(LESSONS_BY_ID[node.lessonIds[0]].sources[0]?.url) ?? Infinity)))
+      Math.min(...quran.nodes.filter((node) => node.branchId === branch.id).map((node) => surahOfNode(node)).filter((surah): surah is number => surah !== undefined).map(rank))
     );
     expect(firstOfUnit).toEqual([...firstOfUnit].sort((left, right) => left - right));
     expect(quran.branches[0].title).toBe("Surah Al-Fatihah");

@@ -27,6 +27,12 @@ export type LearnCardProps = {
   quote?: { text: string; reference?: string };
   mascotVariant: string;
   accent: string;
+  /**
+   * The one source that says what the card says (lesson.learnSource). Its chip shows only the short
+   * reference ("Quran 2:43", "Sahih al-Bukhari 6018") on one line, never a page title: no reference, no chip.
+   */
+  learnSource?: { reference?: string; url: string };
+  /** Older call sites: a chip with this label. Ignored when learnSource is given; pass learnSource instead. */
   source?: { label: string; url: string };
   /** Defaults to opening the url with Linking. */
   onOpenSource?: (url: string) => void;
@@ -97,7 +103,8 @@ export function LearnCard({
   quote,
   mascotVariant,
   accent,
-  source,
+  learnSource,
+  source: legacySource,
   onOpenSource,
   onPlayAudio,
   onContinue,
@@ -112,6 +119,12 @@ export function LearnCard({
   const showTitle =
     normalizeText(line) !== normalizeText(title) && (!arabic || (!looksSame(title, arabic.translit) && !looksSame(title, arabic.meaning)));
   const { ref, scrollProps, more, scrollDown } = useScrollMore();
+  const learnReference = learnSource?.reference?.trim();
+  const source = learnSource
+    ? learnReference && learnSource.url
+      ? { label: learnReference, url: learnSource.url }
+      : undefined
+    : legacySource;
   const factList = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
   const quoteText = quote?.text.trim();
   const quoteReference = quote?.reference?.trim();
@@ -268,7 +281,7 @@ export function LearnCard({
                 testID="learn-source"
               >
                 <Icon name="book" size={18} />
-                <Text style={styles.sourceText} numberOfLines={2}>
+                <Text style={styles.sourceText} numberOfLines={1}>
                   {withHonorifics(source.label)}
                 </Text>
                 <View style={styles.sourceChevron}>

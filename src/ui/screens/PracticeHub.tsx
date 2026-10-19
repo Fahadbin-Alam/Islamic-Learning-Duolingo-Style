@@ -79,12 +79,18 @@ type HeroProps = {
   testID: string;
 };
 
-/** The one big card: the thing to do next. */
+/** The one big card: the thing to do next. A tap anywhere on it starts, with the tap sound; its bar is a 3D button too. */
 function HeroCard({ tint, glyph, title, arabic, button, buttonVariant, done, onPress, testID }: HeroProps) {
   const palette = topicPalette(tint);
   return (
     <PopIn from="scale">
-      <View style={[styles.hero, { backgroundColor: palette.light, borderColor: palette.soft, borderBottomColor: lighten(tint, 0.35) }]} testID={testID}>
+      <Tappable
+        onPress={onPress}
+        pressScale={0.97}
+        accessibilityLabel={`${title}, ${button}`}
+        style={[styles.hero, { backgroundColor: palette.light, borderColor: palette.soft, borderBottomColor: lighten(tint, 0.35) }]}
+        testID={testID}
+      >
         <View style={styles.heroRow}>
           <View style={[styles.heroIcon, { backgroundColor: colors.white, borderColor: palette.soft }]}>
             <Glyph glyph={glyph} size={44} />
@@ -102,7 +108,7 @@ function HeroCard({ tint, glyph, title, arabic, button, buttonVariant, done, onP
           </View>
         </View>
         <GameButton label={button} variant={buttonVariant} fullWidth onPress={onPress} testID={`${testID}-button`} />
-      </View>
+      </Tappable>
     </PopIn>
   );
 }

@@ -5,7 +5,7 @@ import { useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, space } from "../theme";
-import { ScrollHint } from "./ScrollHint";
+import { ScrollHintGap } from "./ScrollHint";
 
 export type LessonHearts = { current: number; max: number; unlimited: boolean };
 
@@ -107,7 +107,7 @@ const DEFAULT_BOTTOM_INSET = Platform.OS === "ios" ? 26 : 14;
 export type LessonBottomBarProps = {
   children?: React.ReactNode;
   bottomInset?: number;
-  /** "More below" arrow on the bar's top edge (from useScrollMore). It covers no text and only it takes taps. */
+  /** "More below" arrow at the top of the bar (from useScrollMore). The bar grows to hold it, so it covers no text. */
   scrollHint?: { visible: boolean; onPress: () => void };
   style?: StyleProp<ViewStyle>;
 };
@@ -115,14 +115,9 @@ export type LessonBottomBarProps = {
 /** Fixed white action bar at the bottom of a lesson step (top hairline, safe-area padding). */
 export function LessonBottomBar({ children, bottomInset = DEFAULT_BOTTOM_INSET, scrollHint, style }: LessonBottomBarProps) {
   return (
-    <View style={[styles.bottomBar, { paddingBottom: space.lg + bottomInset }, style]}>
+    <View style={[styles.bottomBar, { paddingBottom: space.lg + bottomInset }, scrollHint ? styles.bottomBarHint : null, style]}>
+      {scrollHint ? <ScrollHintGap visible={scrollHint.visible} onPress={scrollHint.onPress} gap={space.lg} /> : null}
       {children}
-      {scrollHint ? (
-        // A zero-height strip on the top edge: the hint centers itself on it, half over the bar's top padding.
-        <View pointerEvents="box-none" style={styles.hintEdge}>
-          <ScrollHint visible={scrollHint.visible} onPress={scrollHint.onPress} />
-        </View>
-      ) : null}
     </View>
   );
 }
@@ -208,12 +203,9 @@ const styles = StyleSheet.create({
     paddingTop: space.lg,
     paddingHorizontal: space.lg
   },
-  hintEdge: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: 0
+  bottomBarHint: {
+    // The hint's gap takes the place of the top padding.
+    paddingTop: 0
   },
   screen: {
     flex: 1,

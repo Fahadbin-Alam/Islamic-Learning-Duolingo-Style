@@ -9,6 +9,8 @@ const LATIN_LETTER_PATTERN = /[A-Za-z]/;
 /** Honorific and word ligatures: ﷺ ﷻ ﷽ ﷲ ... Baloo and Nunito have no glyph for them. */
 export const HONORIFIC_PATTERN = /[﵀-﵏﷏ﷰ-﷿]/;
 const HONORIFIC_RUN = /([﵀-﵏﷏ﷰ-﷿]+)/;
+// The space before a sign: "Muhammad ﷺ" keeps the sign on the name's line.
+const SPACE_BEFORE_HONORIFIC = / (?=[\uFD40-\uFD4F\uFDCF\uFDF0-\uFDFF])/g;
 // Uthmani spelling and Quranic pause / annotation marks (alef wasla, small high letters, waqf signs).
 const QURANIC_MARKS = /[ٱۖ-ۭ]/;
 
@@ -35,7 +37,8 @@ export function withHonorifics(value: string): React.ReactNode {
   if (!HONORIFIC_PATTERN.test(value)) {
     return value;
   }
-  return value.split(HONORIFIC_RUN).map((part, index) =>
+  // A no-break space before the sign, so it never wraps alone onto the next line.
+  return value.replace(SPACE_BEFORE_HONORIFIC, "\u00a0").split(HONORIFIC_RUN).map((part, index) =>
     HONORIFIC_PATTERN.test(part) ? (
       <Text key={index} style={styles.honorific}>
         {part}

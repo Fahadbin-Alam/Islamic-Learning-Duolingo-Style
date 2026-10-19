@@ -201,13 +201,17 @@ export interface UserProfile {
   totalXp: number;
   // XP earned on one local calendar day (YYYY-MM-DD, same as the heart refill), for the daily goal.
   dailyXp?: { date: string; xp: number };
-  // Local day the daily goal was last met; the streak ends once a whole day passes without it.
+  // Local day a lesson was last finished; the streak ends once a whole day passes without one.
   lastStreakDate?: string;
   dailyGoalXp: number;
   gems: number;
   hearts: HeartsBalance;
   completedLessonIds: string[];
   completedNodeIds: string[];
+  /** Best stars (1 to 3) earned on each finished circle, by node id. A finished circle with none (an old save) counts 3. */
+  nodeStars?: Record<string, number>;
+  /** The topic the learner had open last, so the app opens on it again. */
+  lastTopicId?: TopicId;
   claimedRewardIds?: string[];
   activeSubscriptionId?: string;
 }
@@ -394,6 +398,8 @@ export interface LessonSession {
   isTest?: boolean;
   /** Which try at this test-out, from 0; TRY AGAIN passes the next one so the questions change. */
   attempt?: number;
+  /** A test-out started from JUMP HERE: the circle it was tapped on, so TRY AGAIN tests for the same one. */
+  jumpNodeId?: string;
 }
 
 export interface ShopItem {

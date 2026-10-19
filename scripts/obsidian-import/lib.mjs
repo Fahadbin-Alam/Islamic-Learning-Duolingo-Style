@@ -629,6 +629,10 @@ export function buildBranch(note, { idPrefix = "notes" } = {}) {
     const xpReward = 8 + difficulty * 2 + (kind === "review" ? 4 : 0);
     const lessonSources = buildSources(entry.sourceUrls, lessonId.replace(/-/g, "_"), warn);
     const sources = [...lessonSources, ...branchSources.filter((source) => !lessonSources.some((own) => own.url === source.url))];
+    // The one source that says what the learn card says ("Quran 104:1", "Sahih Muslim 1218a"), named by its
+    // short reference, never by an article or video title.
+    const [learnSource] = entry.learnSource ? buildSources([entry.learnSource], `${lessonId.replace(/-/g, "_")}_learn`, warn) : [];
+    if (learnSource) learnSource.reference = learnSource.title;
     const focus = firstSentence(entry.content) || entry.title;
     const fallbackExplanation = focus;
 
@@ -685,6 +689,7 @@ export function buildBranch(note, { idPrefix = "notes" } = {}) {
       learnLine: entry.learnLine || undefined,
       learnFacts: entry.learnFacts?.length ? entry.learnFacts : undefined,
       quote: entry.quote?.text ? entry.quote : undefined,
+      learnSource,
       lessonType: kind === "review" ? "review" : kind,
       difficulty,
       xpReward,

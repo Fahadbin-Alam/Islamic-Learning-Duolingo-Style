@@ -35,4 +35,4 @@ export { OrderGame, seededShuffle, type OrderGameProps, type OrderOption } from 
 export { LessonComplete, type LessonCompleteProps } from "./LessonComplete";
 export { QuitSheet, type QuitSheetProps } from "./QuitSheet";
 export { getLessonLine, getLessonProgress, isPlayablePractice, lessonLineWords, lessonStars, LESSON_LINE_MAX_WORDS, type LessonStepScreen } from "./lessonSteps";
-export { ScrollHint, useScrollMore, SCROLL_HINT_SLACK } from "./ScrollHint";
+export { ScrollHint, ScrollHintGap, useScrollMore, SCROLL_HINT_ROOM, SCROLL_HINT_SLACK } from "./ScrollHint";

@@ -73,7 +73,7 @@ test("a note without ## headings becomes a single lesson", () => {
 
 test("imports the sample vault into app lessons", () => {
   const result = importVault(sampleVault);
-  assert.deepEqual(result.stats, { notes: 10, branches: 5, lessons: 14, questions: 31 });
+  assert.deepEqual(result.stats, { notes: 10, branches: 5, lessons: 14, questions: 29 });
   assert.deepEqual(result.content.sections.map((section) => section.topicId), ["manners", "sahabah", "quran_tafseer", "hadith"]);
 
   const sahabah = result.content.sections[1];
@@ -202,7 +202,7 @@ test("reports text it cannot fix", () => {
   assert.deepEqual(warnings, ['Odd: zero before a word in "She said 0 dear."']);
 });
 
-test("builds surah lessons with ayah meaning questions", () => {
+test("builds surah lessons that quote the opening ayah, never asking about its old English", () => {
   const { content } = importVault(sampleVault);
   const quran = content.sections.find((section) => section.topicId === "quran_tafseer");
   assert.deepEqual(quran.branches.map((branch) => branch.title), ["Surahs 103-112"]);
@@ -211,8 +211,11 @@ test("builds surah lessons with ayah meaning questions", () => {
   assert.match(ikhlas.explanationContent, /112:1 Say: He is Allah, the One!/);
   assert.equal(ikhlas.sources.length, 1);
   assert.equal(ikhlas.sources[0].url, "https://quran.com/112");
-  const meaning = ikhlas.challenges.find((challenge) => challenge.prompt.startsWith("What does this ayah mean?"));
-  assert.match(meaning.prompt, /[؀-ۿ]/, "shows the Arabic");
+  // The app shows the quoted ayah in Arabic (src/data/quranAyahs.ts); its source is that ayah's page.
+  assert.deepEqual(ikhlas.quote, { text: "Say: He is Allah, the One!", reference: "Quran 112:1" });
+  assert.equal(ikhlas.learnSource.url, "https://quran.com/112/1");
+  assert.equal(ikhlas.learnSource.reference, "Quran 112:1");
+  assert.ok(ikhlas.challenges.every((challenge) => !/this ayah/i.test(challenge.prompt)), "no question about the ayah's English");
   const revealed = ikhlas.challenges.find((challenge) => / was revealed in /.test(challenge.prompt));
   assert.equal(revealed.type, "true_false");
   assert.equal(revealed.correctChoiceId, revealed.prompt.endsWith("Makkah.") ? "true" : "false");
@@ -433,4 +436,99 @@ test("index and FAQ notes with a type but no questions are skipped quietly", () 
   const result = importVault(vault);
   assert.equal(result.stats.lessons, 0);
   assert.ok(result.warnings.some((warning) => warning.includes("1 notes skipped because their type")));
+});
+
+const hadithNote = (reference, url, text) =>
+  ["---", "type: hadith", `collection: "${reference.replace(/\s+\d+\w*$/, "")}"`, "aliases:", `  - "${reference}"`, `source_url: "${url}"`, "tags:", "  - Hadith", "---", "", text, "", reference, url].join("\n");
+
+test("a weak, repeated or hand-dropped hadith never becomes a lesson, and a lesson links its own page", () => {
+  const vault = vaultWith({
+    "Hadith/Sahih al-Bukhari 3276.md": hadithNote(
+      "Sahih al-Bukhari 3276",
+      "https://sunnah.com/bukhari:3276",
+      "Narrated Abu Huraira: Allah's Messenger (ﷺ) said, \"Satan comes to one of you and says, 'Who created so-and-so? 'till he says, 'Who has created your Lord?' So, when he inspires such a question, one should seek refuge with Allah and give up such thoughts.\""
+    ),
+    // The same narration as Bukhari 3276, which is in the vault.
+    "Hadith/Sahih Muslim 134a.md": hadithNote(
+      "Sahih Muslim 134a",
+      "https://sunnah.com/muslim:134a",
+      "It is narrated on the authority of Abu Huraira that the Messenger of Allah (ﷺ) said: Men will continue to question one another till this is propounded: Allah created all things but who created Allah? He who found himself confronted with such a situation should say: I affirm my faith in Allah."
+    ),
+    "Hadith/Jami' at-Tirmidhi 1084.md": hadithNote(
+      "Jami' at-Tirmidhi 1084",
+      "https://sunnah.com/tirmidhi:1084",
+      'Abu Hurairah narrated that: The Messenger of Allah said: "When someone whose religion and character you are pleased with proposes to (someone under the care) of one of you, then marry to him." Grade: Da\'if (Darussalam)'
+    ),
+    "Hadith/Sahih al-Bukhari 7407.md": hadithNote(
+      "Sahih al-Bukhari 7407",
+      "https://sunnah.com/bukhari:7407",
+      'Narrated `Abdullah: Ad-Dajjal was mentioned in the presence of the Prophet. The Prophet (ﷺ) said, "Allah is not hidden from you; He is not one-eyed."'
+    )
+  });
+  const { content, warnings } = importVault(vault);
+  const hadith = content.sections.find((section) => section.topicId === "hadith");
+  assert.deepEqual(
+    hadith.nodes.map((node) => node.id.slice(node.branchId.length + 1)),
+    ["sahih-al-bukhari-3276"],
+    "Muslim 134a repeats Bukhari 3276, Tirmidhi 1084 is weak, Bukhari 7407 is left out by hand"
+  );
+  assert.ok(warnings.includes("Hadith: Jami' at-Tirmidhi 1084: graded Da'if; left out") || warnings.some((warning) => /Jami' at-Tirmidhi 1084: graded Da'if; left out/.test(warning)), warnings.join("\n"));
+  assert.ok(!warnings.some((warning) => /Sahih Muslim 134a|Sahih al-Bukhari 7407/.test(warning)), "a lesson left out on purpose needs no title");
+  const lesson = content.lessonsById[hadith.nodes[0].lessonIds[0]];
+  assert.equal(lesson.learnSource.url, "https://sunnah.com/bukhari:3276");
+  assert.equal(lesson.learnSource.reference, "Sahih al-Bukhari 3276");
+  for (const challenge of lesson.challenges) assert.doesNotMatch(challenge.prompt, /\bthis hadith\b|\bsaid this\b|\bhere\b/i, challenge.prompt);
+});
+
+test("people: facts from the Isra'iliyyat and doubtful lines are left out, and so are people left off the path", () => {
+  const person = (fields) => ["---", "type: person", ...Object.entries(fields).map(([key, value]) => (key === "tags" ? `tags:\n  - ${value}` : `${key}: "${value}"`)), "---"].join("\n");
+  const vault = vaultWith({
+    "People/prophets/ibrahim.md": person({ title: "Ibrahim", tags: "Prophet", known_for: "Khalilullah; built the Kaaba with Ismail", father: "Azar", birth_place: "Ur", death_place: "Hebron" }),
+    "People/prophets/musa.md": person({ title: "Musa", tags: "Prophet", known_for: "Spoke with Allah; received the Tawrah", father: "Imran (father of Musa)", mother: "Yukabid" }),
+    "People/women/umm-jamil.md": person({ title: "Umm Jamil", tags: "Mothers-of-the-Believers", known_for: "Carrier of firewood in Surah al-Masad", father: "Harb ibn Umayya", tribe: "Quraysh" }),
+    "People/women/umm-kulthoom-bint-ali.md": person({
+      title: "Umm Kulthoom bint 'Alī",
+      tags: "Mothers-of-the-Believers",
+      known_for: "Granddaughter of the Prophet ﷺ; married Umar ibn al-Khattab; survived Karbala",
+      father: "Ali ibn Abi Talib",
+      mother: "Fatima al-Zahra",
+      birth_place: "Madinah"
+    }),
+    "People/women/umayma-bint-abd-al-muttalib.md": person({ title: "Umayma bint Abd al-Muttalib", tags: "Mothers-of-the-Believers", known_for: "Aunt of the Prophet ﷺ", father: "Abd al-Muttalib", mother: "Fatima bint Amr" })
+  });
+  const { content } = importVault(vault);
+  const lessons = Object.values(content.lessonsById);
+  const byTitle = (title) => lessons.find((lesson) => lesson.title === title);
+  assert.equal(byTitle("Umm Jamil"), undefined, "Umm Jamil is not one of the women to look up to");
+
+  const ibrahim = byTitle("Ibrahim");
+  assert.deepEqual(ibrahim.learnFacts, ["Father: Azar"]);
+  assert.doesNotMatch(JSON.stringify(ibrahim), /\bUr\b|Hebron/);
+  assert.doesNotMatch(JSON.stringify(lessons), /Yukabid/, "parents' names only the Isra'iliyyat give");
+
+  const ummKulthum = byTitle("Umm Kulthum bint Ali");
+  assert.equal(ummKulthum.learnLine, "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah.");
+  assert.doesNotMatch(JSON.stringify(ummKulthum), /Karbala/);
+
+  // One spelling for a name on every screen: "Fatima" in a note is shown "Fatimah", as in the titles.
+  const shown = JSON.stringify([byTitle("Umm Kulthum bint Ali"), byTitle("Umaymah bint Abd al-Muttalib")].map((lesson) => [lesson.learnFacts, lesson.challenges]));
+  assert.doesNotMatch(shown, /\bFatima\b/);
+  assert.match(shown, /Fatimah bint Amr/);
+});
+
+test("a surah's meaning is the simple one children learn, and old English ayahs stay out of the lesson", () => {
+  const surah = (english, ...ayahs) => ["---", "type: surah", "---", `**English name:** ${english}`, "**Revelation:** Meccan", ...ayahs].join("\n");
+  const vault = vaultWith({
+    "Quran/104 - Surah Al-Humazah.md": surah(
+      "The Traducer",
+      "### Quran 104:1",
+      "> Woe unto every slandering traducer,",
+      "### Quran 104:2",
+      "> Who hath gathered wealth (of this world) and arranged it."
+    )
+  });
+  const [lesson] = Object.values(importVault(vault).content.lessonsById);
+  assert.equal(lesson.learnLine, 'Surah Al-Humazah means "The Backbiter".');
+  assert.doesNotMatch(lesson.explanationContent, /unto|hath/);
+  assert.equal(lesson.quote.reference, "Quran 104:1", "the app shows this ayah in Arabic");
 });

@@ -35,7 +35,7 @@ def weekly_xp(user: User, today: date) -> int:
 
 
 def live_streak(user: User, today: date) -> int:
-    # Same rule as the app: a streak survives the day after the goal was last met. One extra day of
+    # Same rule as the app: a streak survives the day after a lesson was last finished. One extra day of
     # slack covers friends whose own date is ahead of the caller's.
     if not user.last_streak_date:
         return user.streak_days

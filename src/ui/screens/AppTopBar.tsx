@@ -1,9 +1,10 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { Icon } from "../Icon";
 import { StatChip } from "../StatChip";
 import { Tappable } from "../Tappable";
-import { colors, darken, fonts, topicPalette } from "../theme";
+import { colors, topicPalette } from "../theme";
+import { StreakSheet } from "./StreakSheet";
 import { worldIcon } from "./TopicPicker";
 
 export type AppTopBarProps = {
@@ -17,13 +18,11 @@ export type AppTopBarProps = {
   onOpenTopics: () => void;
   /** Tap gems or hearts. */
   onOpenShop: () => void;
+  /** Tap the flame. Default: a small sheet that says how the streak works. */
   onStreak?: () => void;
   /** Extra top padding (status bar). Default 0. */
   topInset?: number;
 };
-
-/** Same grey as the kit's dimmed StatChip value. */
-const DIM_INK = darken(colors.lockedLip, 0.12);
 
 /** Slim game bar: topic world button, streak, gems and hearts. Icons and numbers only. */
 export function AppTopBar({
@@ -39,6 +38,7 @@ export function AppTopBar({
   topInset = 0
 }: AppTopBarProps) {
   const palette = topicPalette(accent);
+  const [streakOpen, setStreakOpen] = useState(false);
   const heartLabel = hearts.unlimited ? "Unlimited hearts" : `${hearts.current} of ${hearts.max} hearts`;
 
   return (
@@ -60,27 +60,15 @@ export function AppTopBar({
         </Tappable>
 
         <View style={styles.stats}>
-          {onStreak ? (
-            <StatChip
-              icon="flame"
-              value={streakDays}
-              color={colors.flame}
-              dim={streakDays <= 0}
-              onPress={onStreak}
-              accessibilityLabel={`${streakDays} day streak`}
-              testID="top-bar-streak"
-            />
-          ) : (
-            // No handler: show the streak without a button role or tap sound.
-            <View style={styles.staticChip} accessible accessibilityLabel={`${streakDays} day streak`} testID="top-bar-streak">
-              <View style={streakDays <= 0 ? styles.dim : null}>
-                <Icon name="flame" size={26} color={streakDays <= 0 ? colors.lockedLip : undefined} />
-              </View>
-              <Text style={[styles.staticValue, { color: streakDays <= 0 ? DIM_INK : colors.flame }]} numberOfLines={1}>
-                {streakDays}
-              </Text>
-            </View>
-          )}
+          <StatChip
+            icon="flame"
+            value={streakDays}
+            color={colors.flame}
+            dim={streakDays <= 0}
+            onPress={onStreak ?? (() => setStreakOpen(true))}
+            accessibilityLabel={`${streakDays} day streak`}
+            testID="top-bar-streak"
+          />
           <StatChip icon="gem" value={gems} color={colors.gem} onPress={onOpenShop} accessibilityLabel={`${gems} gems`} testID="top-bar-gems" />
           {hearts.unlimited ? (
             <Tappable
@@ -109,6 +97,7 @@ export function AppTopBar({
           )}
         </View>
       </View>
+      {onStreak ? null : <StreakSheet visible={streakOpen} streakDays={streakDays} onClose={() => setStreakOpen(false)} />}
     </View>
   );
 }
@@ -158,21 +147,5 @@ const styles = StyleSheet.create({
   },
   infinity: {
     marginLeft: 4
-  },
-  staticChip: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 6,
-    paddingVertical: 4
-  },
-  dim: {
-    opacity: 0.9
-  },
-  staticValue: {
-    marginLeft: 5,
-    fontFamily: fonts.displayHeavy,
-    fontSize: 18,
-    lineHeight: 24,
-    includeFontPadding: false
   }
 });

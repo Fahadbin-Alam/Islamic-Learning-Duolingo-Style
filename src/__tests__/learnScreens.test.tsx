@@ -90,11 +90,16 @@ describe("AppTopBar", () => {
     expect(screen.getByText("4")).toBeTruthy();
   });
 
-  it("shows a plain streak when there is no streak handler", async () => {
+  it("opens a small streak sheet from the flame when there is no streak handler", async () => {
     await render(<AppTopBar {...base} onOpenTopics={jest.fn()} onOpenShop={jest.fn()} />);
-    expect(screen.getByTestId("top-bar-streak").props.accessibilityRole).toBeUndefined();
-    expect(screen.queryByRole("button", { name: "3 day streak" })).toBeNull();
     expect(screen.getByText("3")).toBeTruthy();
+    expect(screen.queryByTestId("streak-title")).toBeNull();
+    jest.mocked(playGameSound).mockClear();
+    await fireEvent.press(screen.getByRole("button", { name: "3 day streak" }));
+    expect(playGameSound).toHaveBeenCalled();
+    expect(screen.getByTestId("streak-title")).toHaveTextContent("3 day streak!");
+    expect(screen.getByTestId("streak-line")).toHaveTextContent("Finish a lesson each day to keep it!");
+    await fireEvent.press(screen.getByTestId("streak-close"));
   });
 
   it("shows infinity for unlimited hearts", async () => {

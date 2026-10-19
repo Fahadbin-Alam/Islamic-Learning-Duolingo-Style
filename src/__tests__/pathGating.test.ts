@@ -64,7 +64,9 @@ describe("library topics: every unit can be started", () => {
       const section = sectionOf(topicId);
       const units = unitsOf(section).filter((nodes) => !section.branches.find((branch) => branch.id === nodes[0].branchId)?.premiumOnly);
 
-      expect(units.map((nodes) => statuses.get(nodes[0].id))).toEqual(units.map((_, index) => (index === 0 ? "current" : "available")));
+      // A gated unit (marriage, for older learners) waits until the unit before it is finished.
+      const gated = (nodes: (typeof units)[number]) => Boolean(section.branches.find((branch) => branch.id === nodes[0].branchId)?.gated);
+      expect(units.map((nodes) => statuses.get(nodes[0].id))).toEqual(units.map((nodes, index) => (index === 0 ? "current" : gated(nodes) ? "locked" : "available")));
       // Inside a unit the circles still go in order.
       expect(units.flatMap((nodes) => nodes.slice(1)).every((node) => statuses.get(node.id) === "locked")).toBe(true);
     }
@@ -134,8 +136,8 @@ describe("skill topics: taught in order", () => {
   });
 
   it("offers JUMP HERE on a locked unit: the test covers the circles before it, and passing opens it", () => {
-    const prayer = sectionOf("prayer");
-    const units = unitsOf(prayer);
+    const foundation = sectionOf("foundation");
+    const units = unitsOf(foundation);
     const target = units[2];
     const plan = getTestOutPlan(makeUser(), target[0].branchId)!;
 
@@ -262,12 +264,13 @@ describe("a test-out says it is a test, and TRY AGAIN is a new one", () => {
     expect(start(plan.lessons, 1).attempt).toBe(1);
   });
 
-  it("asks other questions on the next try of a long unit", () => {
+  it("asks other questions on the next try, wherever a lesson has another one to ask", () => {
     const first = start(plan.lessons, 0).lesson.challenges.map(baseId);
     const second = start(plan.lessons, 1).lesson.challenges.map(baseId);
 
+    // Every lesson is asked about each time, so a lesson with one good question asks it again.
     expect(second.length).toBe(first.length);
-    expect(second.filter((id) => first.includes(id))).toEqual([]);
+    expect(second.filter((id) => first.includes(id)).length).toBeLessThanOrEqual(Math.floor(first.length / 4));
   });
 
   it("changes the question and choice order even when a small unit has nothing new to ask", () => {

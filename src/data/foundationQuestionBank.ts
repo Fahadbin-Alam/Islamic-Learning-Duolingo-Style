@@ -83,7 +83,7 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     options: ["Shahadah", "Zakat", "Hajj", "Fasting"],
     correctAnswer: "Shahadah",
     explanationShort: "The Shahadah is the first pillar.",
-    explanationLong: "Islam begins with testifying that none has the right to be worshipped except Allah and that Muhammad is His Messenger.",
+    explanationLong: "Islam begins with testifying that none has the right to be worshipped except Allah and that Muhammad ﷺ is His Messenger.",
     misconceptionNotes: ["The other pillars are built on this testimony, but they are not the first pillar."],
     tags: ["foundation", "shahadah", "pillars"],
     reviewNext: "Meaning of the testimony",
@@ -95,12 +95,12 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     subtopic: "core_meaning",
     difficulty: 1,
     type: "true_false",
-    prompt: "The Shahadah is about Allah alone and Muhammad as His Messenger.",
+    prompt: "The Shahadah is about Allah alone and Muhammad ﷺ as His Messenger.",
     options: ["True", "False"],
     correctAnswer: "True",
     explanationShort: "Both parts belong to the Shahadah.",
-    explanationLong: "The testimony joins two truths: worshipping Allah alone and following the Messenger whom Allah sent.",
-    misconceptionNotes: ["Leaving out the Messenger changes the testimony into something incomplete."],
+    explanationLong: "The testimony joins two truths: worshipping Allah alone and following the Messenger ﷺ whom Allah sent.",
+    misconceptionNotes: ["Leaving out the Messenger ﷺ changes the testimony into something incomplete."],
     tags: ["foundation", "shahadah", "meaning"],
     reviewNext: "Two parts of the Shahadah",
     whyThisMatters: "This keeps belief from becoming vague. Islam is not only belief in God in general; it includes following revelation."
@@ -110,15 +110,24 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     category: "shahadah",
     subtopic: "core_meaning",
     difficulty: 1,
-    type: "fill_in_blank",
-    prompt: "No one is worthy of worship except ____.",
-    // Things people have wrongly worshipped (Quran 41:37 names the sun and the moon).
-    options: ["the sun", "idols", "Allah", "the moon"],
-    acceptedAnswers: ["allah"],
-    correctAnswer: "Allah",
-    explanationShort: "Only Allah is worthy of worship.",
-    explanationLong: "The first half of the testimony turns worship away from creation and toward the Creator alone.",
+    type: "multiple_choice",
+    prompt: "What does La ilaha illa Allah mean?",
+    // The wrong choices are the meanings of other good phrases, so no pick says something false about Allah.
+    options: [
+      "No one is worthy of worship except Allah",
+      "In the name of Allah",
+      "Allah is the Greatest",
+      "All praise is for Allah"
+    ],
+    correctAnswer: "No one is worthy of worship except Allah",
+    explanationShort: "It is the first half of the Shahadah.",
+    explanationLong: "Only Allah should be worshipped.",
     misconceptionNotes: ["The Shahadah is not about vague spirituality. It points worship to Allah alone."],
+    wrongAnswerNotes: {
+      "In the name of Allah": "Bismillah means \"In the name of Allah\".",
+      "Allah is the Greatest": "Allahu Akbar means \"Allah is the Greatest\".",
+      "All praise is for Allah": "Alhamdulillah means \"All praise is for Allah\"."
+    },
     tags: ["foundation", "shahadah", "tawhid"],
     reviewNext: "Tawhid in worship",
     whyThisMatters: "This is the heart of tawhid and the anchor of all later Islamic learning."
@@ -132,15 +141,15 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     prompt: "Match each phrase to its meaning.",
     pairs: [
       { left: "La ilaha illa Allah", right: "No one is worthy of worship except Allah" },
-      { left: "Muhammadur Rasul Allah", right: "Muhammad is the Messenger of Allah" }
+      { left: "Muhammadur Rasul Allah ﷺ", right: "Muhammad ﷺ is the Messenger of Allah" }
     ],
     options: [
       "No one is worthy of worship except Allah",
-      "Muhammad is the Messenger of Allah"
+      "Muhammad ﷺ is the Messenger of Allah"
     ],
     correctAnswer: {
       "La ilaha illa Allah": "No one is worthy of worship except Allah",
-      "Muhammadur Rasul Allah": "Muhammad is the Messenger of Allah"
+      "Muhammadur Rasul Allah ﷺ": "Muhammad ﷺ is the Messenger of Allah"
     },
     explanationShort: "Both phrases make up the Shahadah.",
     explanationLong: "The testimony contains tawhid and acceptance of prophethood. Both guide belief and practice.",
@@ -156,12 +165,12 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     type: "multiple_choice",
     prompt: "Which shows the Shahadah in daily life?",
     options: [
-      "Worship Allah, follow the Prophet",
+      "Worship Allah, follow the Prophet ﷺ",
       "Ignore what Allah revealed",
       "Only say it at events",
       "Do whatever feels easy"
     ],
-    correctAnswer: "Worship Allah, follow the Prophet",
+    correctAnswer: "Worship Allah, follow the Prophet ﷺ",
     explanationShort: "The Shahadah shows in how we worship and act.",
     explanationLong: "It is not only words. It shows in what a Muslim does.",
     misconceptionNotes: ["The Shahadah is not a cultural slogan. It changes how a Muslim lives."],
@@ -179,12 +188,12 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     options: [
       "Praying to Allah alone",
       "Praying to saints",
-      "Accepting the Prophet's teachings",
+      "Accepting the Prophet's ﷺ teachings",
       "Ignoring what Allah revealed"
     ],
-    correctAnswer: ["Praying to Allah alone", "Accepting the Prophet's teachings"],
-    explanationShort: "Worship Allah alone and follow His Messenger.",
-    explanationLong: "Tawhid means worship belongs to Allah alone, and the second half of the testimony means the Prophet's guidance is followed rather than ignored.",
+    correctAnswer: ["Praying to Allah alone", "Accepting the Prophet's ﷺ teachings"],
+    explanationShort: "Worship Allah alone and follow His Messenger ﷺ.",
+    explanationLong: "Tawhid means worship belongs to Allah alone, and the second half of the testimony means the Prophet's ﷺ guidance is followed rather than ignored.",
     misconceptionNotes: ["A learner can sound correct on one half of the Shahadah while neglecting the other."],
     tags: ["foundation", "shahadah", "application"],
     reviewNext: "Exclusive worship and following revelation",
@@ -196,17 +205,17 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     subtopic: "prophetic_guidance",
     difficulty: 3,
     type: "scenario_judgment",
-    scenario: "A friend says, \"I believe in Allah, but I don't need to follow the Prophet.\"",
+    scenario: "A friend says, \"I believe in Allah, but I don't need to follow the Prophet ﷺ.\"",
     prompt: "What is missing?",
     options: [
-      "Following the Prophet",
+      "Following the Prophet ﷺ",
       "Nothing is missing",
       "Only zakat",
       "Only hajj"
     ],
-    correctAnswer: "Following the Prophet",
+    correctAnswer: "Following the Prophet ﷺ",
     explanationShort: "It leaves out the second half of the Shahadah.",
-    explanationLong: "Belief in Allah alone is not enough if a person then rejects the Messenger sent with guidance. The testimony includes both truths together.",
+    explanationLong: "Belief in Allah alone is not enough if a person then rejects the Messenger ﷺ sent with guidance. The testimony includes both truths together.",
     misconceptionNotes: ["Some learners think loving Allah is enough without caring about prophetic guidance."],
     tags: ["foundation", "shahadah", "messengership"],
     reviewNext: "Why messengership matters",
@@ -228,7 +237,7 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     ],
     correctAnswer: "Now you live by Allah's guidance",
     explanationShort: "The Shahadah guides what you believe and do.",
-    explanationLong: "Testifying to Allah and His Messenger means a Muslim now measures life by revelation rather than desire or social pressure.",
+    explanationLong: "Testifying to Allah and His Messenger ﷺ means a Muslim now measures life by revelation rather than desire or social pressure.",
     tags: ["foundation", "shahadah", "application"],
     reviewNext: "Living by revelation",
     whyThisMatters: "A serious learning app should test whether the learner can explain belief in simple, living language."
@@ -276,16 +285,16 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     subtopic: "error_correction",
     difficulty: 4,
     type: "identify_mistake",
-    prompt: "What is wrong here? \"I said the Shahadah, so I can ignore the Prophet.\"",
+    prompt: "What is wrong here? \"I said the Shahadah, so I can ignore the Prophet ﷺ.\"",
     options: [
-      "It drops following the Prophet",
+      "It drops following the Prophet ﷺ",
       "Too serious about prayer",
       "Mixes up zakat and fasting",
       "Too much good character"
     ],
-    correctAnswer: "It drops following the Prophet",
-    explanationShort: "The Shahadah includes following the Prophet.",
-    explanationLong: "The Shahadah includes accepting Muhammad as Allah's Messenger. Rejecting his guidance empties the second half of its meaning.",
+    correctAnswer: "It drops following the Prophet ﷺ",
+    explanationShort: "The Shahadah includes following the Prophet ﷺ.",
+    explanationLong: "The Shahadah includes accepting Muhammad ﷺ as Allah's Messenger. Rejecting his guidance empties the second half of its meaning.",
     tags: ["foundation", "shahadah", "error_correction"],
     reviewNext: "Messengership and obedience",
     whyThisMatters: "Nuanced learning means catching the precise error, not just knowing the slogan."
@@ -298,14 +307,14 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     type: "multiple_choice",
     prompt: "Which fits the Shahadah best?",
     options: [
-      "Worship Allah alone, the Prophet's way",
+      "Worship Allah alone, the Prophet's ﷺ way",
       "Worship can be shared",
       "Feeling spiritual is enough",
       "Belief only, no actions"
     ],
-    correctAnswer: "Worship Allah alone, the Prophet's way",
-    explanationShort: "Worship is for Allah alone, as the Prophet showed.",
-    explanationLong: "The Shahadah teaches exclusive worship of Allah and acceptance of the Messenger who taught revelation in action.",
+    correctAnswer: "Worship Allah alone, the Prophet's ﷺ way",
+    explanationShort: "Worship is for Allah alone, as the Prophet ﷺ showed.",
+    explanationLong: "The Shahadah teaches exclusive worship of Allah and acceptance of the Messenger ﷺ who taught revelation in action.",
     tags: ["foundation", "shahadah", "comparison"],
     reviewNext: "Tawhid and Sunnah together",
     whyThisMatters: "This tests whether the learner can distinguish the strongest summary from statements that sound close but drift away from orthodoxy."
@@ -331,7 +340,7 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     subtopic: "nuance",
     difficulty: 5,
     type: "mini_case_study",
-    scenario: "Person A loves Allah but rejects the Prophet. Person B loves the Prophet but prays to others too.",
+    scenario: "Person A loves Allah but rejects the Prophet ﷺ. Person B loves the Prophet ﷺ but prays to others too.",
     prompt: "What is true?",
     options: [
       "Both miss part of the Shahadah",
@@ -341,7 +350,7 @@ const SHAHADAH_QUESTIONS: FoundationQuestion[] = [
     ],
     correctAnswer: "Both miss part of the Shahadah",
     explanationShort: "Each one breaks half of the Shahadah.",
-    explanationLong: "Person A neglects the Messenger; Person B damages tawhid in worship. The Shahadah must be carried whole.",
+    explanationLong: "Person A neglects the Messenger ﷺ; Person B damages tawhid in worship. The Shahadah must be carried whole.",
     tags: ["foundation", "shahadah", "nuance"],
     reviewNext: "Protecting both halves of the testimony",
     whyThisMatters: "This is the kind of comparison that shows whether a learner actually understands the structure of the testimony."
@@ -1189,7 +1198,7 @@ const ZAKAT_QUESTIONS: FoundationQuestion[] = [
     options: [
       "A required share of wealth",
       "A kind feeling",
-      "Instead of prayer",
+      "A fast in Ramadan",
       "A trip to Makkah"
     ],
     correctAnswer: "A required share of wealth",
@@ -2051,13 +2060,18 @@ const MANNERS_QUESTIONS: FoundationQuestion[] = [
     category: "manners",
     subtopic: "before_actions",
     difficulty: 1,
-    type: "fill_in_blank",
-    prompt: "Bismillah means 'In the name of ____.'",
-    options: ["the people", "my parents", "Allah", "the world"],
-    acceptedAnswers: ["allah"],
-    correctAnswer: "Allah",
+    type: "multiple_choice",
+    prompt: "What does Bismillah mean?",
+    // The wrong choices are the meanings of other good phrases, so no pick starts anything in another name.
+    options: ["In the name of Allah", "Allah is the Greatest", "All praise is for Allah", "If Allah wills"],
+    correctAnswer: "In the name of Allah",
     explanationShort: "We say Bismillah before we eat or start something.",
     explanationLong: "It helps us remember Allah as we begin.",
+    wrongAnswerNotes: {
+      "Allah is the Greatest": "Allahu Akbar means \"Allah is the Greatest\".",
+      "All praise is for Allah": "Alhamdulillah means \"All praise is for Allah\".",
+      "If Allah wills": "In sha Allah means \"If Allah wills\"."
+    },
     tags: ["foundation", "manners", "phrases"],
     reviewNext: "Bismillah in daily life",
     whyThisMatters: "Small phrases are part of how Islam enters ordinary routines."
@@ -2309,14 +2323,14 @@ const QURAN_QUESTIONS: FoundationQuestion[] = [
     type: "multiple_choice",
     prompt: "What is the Quran?",
     options: [
-      "Allah's last book, sent to Muhammad",
+      "Allah's last book, sent to Muhammad ﷺ",
       "Poems by the companions",
       "Just stories",
-      "A book instead of worship"
+      "A book people made up"
     ],
-    correctAnswer: "Allah's last book, sent to Muhammad",
-    explanationShort: "The Quran is Allah's final revelation to Muhammad.",
-    explanationLong: "The Quran is not merely literature or history. It is revealed guidance for belief, worship, and life.",
+    correctAnswer: "Allah's last book, sent to Muhammad ﷺ",
+    explanationShort: "The Quran is Allah's own words.",
+    explanationLong: "It guides how we believe, worship and live.",
     tags: ["foundation", "quran", "revelation"],
     reviewNext: "Revelation and guidance",
     whyThisMatters: "Quran literacy begins with recognizing what the Quran is."
@@ -2455,12 +2469,17 @@ const SEERAH_QUESTIONS: FoundationQuestion[] = [
     difficulty: 1,
     type: "multiple_choice",
     prompt: "Who is the final prophet in Islam?",
-    options: ["Muhammad", "Musa", "Ibrahim", "Nuh"],
-    correctAnswer: "Muhammad",
-    explanationShort: "Muhammad is the final prophet.",
-    explanationLong: "Core seerah knowledge begins by knowing the Prophet Muhammad, peace and blessings be upon him, as the final messenger.",
+    options: ["Muhammad ﷺ", "Musa", "Ibrahim", "Nuh"],
+    correctAnswer: "Muhammad ﷺ",
+    explanationShort: "Muhammad ﷺ is the final prophet.",
+    explanationLong: "No prophet comes after him.",
+    wrongAnswerNotes: {
+      Musa: "Musa was a prophet, but not the last one.",
+      Ibrahim: "Ibrahim was a prophet, but not the last one.",
+      Nuh: "Nuh was a prophet, but not the last one."
+    },
     tags: ["foundation", "seerah", "prophets"],
-    reviewNext: "The life of the Prophet",
+    reviewNext: "The life of the Prophet ﷺ",
     whyThisMatters: "The learner needs a clear anchor for prophetic history."
   }),
   q({
@@ -2473,10 +2492,10 @@ const SEERAH_QUESTIONS: FoundationQuestion[] = [
     options: ["Cave Hira", "Madinah market", "Mount Sinai", "Arafah"],
     correctAnswer: "Cave Hira",
     explanationShort: "The first revelation began in Cave Hira.",
-    explanationLong: "This is one of the first landmarks in the seerah of the Prophet Muhammad.",
+    explanationLong: "This is one of the first landmarks in the seerah of the Prophet Muhammad ﷺ.",
     tags: ["foundation", "seerah", "revelation"],
     reviewNext: "Early seerah milestones",
-    whyThisMatters: "This places revelation in the Prophet's life story."
+    whyThisMatters: "This places revelation in the Prophet's ﷺ life story."
   }),
   q({
     id: "seerah_03",
@@ -2484,14 +2503,14 @@ const SEERAH_QUESTIONS: FoundationQuestion[] = [
     subtopic: "hijrah",
     difficulty: 2,
     type: "multiple_choice",
-    prompt: "The Prophet migrated from Makkah to which city?",
+    prompt: "The Prophet ﷺ migrated from Makkah to which city?",
     options: ["Madinah", "Taif", "Jerusalem", "Basrah"],
     correctAnswer: "Madinah",
     explanationShort: "The hijrah was to Madinah.",
     explanationLong: "The migration marks one of the defining changes in Islamic history and community life.",
     tags: ["foundation", "seerah", "hijrah"],
     reviewNext: "Major events of the seerah",
-    whyThisMatters: "This helps the learner orient key moments in the Prophet's life."
+    whyThisMatters: "This helps the learner orient key moments in the Prophet's ﷺ life."
   }),
   q({
     id: "seerah_04",
@@ -2580,7 +2599,7 @@ const SEERAH_QUESTIONS: FoundationQuestion[] = [
       "It replaces worship"
     ],
     correctAnswer: "It shows Islam lived by real people",
-    explanationShort: "Seerah shows how the Prophet lived Islam.",
+    explanationShort: "Seerah shows how the Prophet ﷺ lived Islam.",
     explanationLong: "Seerah matters because it shows revelation embodied in patience, leadership, sacrifice, and trust in Allah.",
     tags: ["foundation", "seerah", "summary"],
     reviewNext: "Why prophetic history guides the believer",
@@ -2606,7 +2625,7 @@ export const FOUNDATION_CATEGORY_META: Record<FoundationCategoryId, CategoryMeta
   shahadah: {
     title: "Shahadah",
     shortTitle: "Shahadah",
-    description: "Tawhid, the Messenger, sincerity, and what the testimony changes in life.",
+    description: "Tawhid, the Messenger ﷺ, sincerity, and what the testimony changes in life.",
     accentColor: "#24A965"
   },
   salah: {

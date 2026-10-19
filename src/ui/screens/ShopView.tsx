@@ -192,11 +192,12 @@ function ItemRow(props: RowProps) {
   const gems = item.currencyType === "gems";
   // An unaffordable or not-needed gem item stays pressable but only shakes: its line already says why.
   const muted = gems && !canSpend(user, item);
-  const short = gems && user.gems < item.price ? item.price - user.gems : 0;
-  const full = gems && !short && !user.hearts.unlimited && user.hearts.current >= user.hearts.max;
+  // Full hearts comes first: a learner who needs nothing is never told to save gems for it.
+  const full = gems && !user.hearts.unlimited && user.hearts.current >= user.hearts.max;
+  const short = gems && !full && user.gems < item.price ? item.price - user.gems : 0;
   const label = formatShopPrice(item, storePrices);
   const name = displayName(item);
-  const line = short ? `Need ${formatNumber(short)} more` : full ? "Hearts are full" : shortLine(item, user);
+  const line = full ? "Hearts are full" : short ? `Need ${formatNumber(short)} more` : shortLine(item, user);
   const { style: shakeStyle, shake } = useShake(6);
   const [nudges, setNudges] = useState(0);
   const [flashing, setFlashing] = useState(false);
@@ -241,7 +242,7 @@ function ItemRow(props: RowProps) {
           variant={gems ? "blue" : item.type === "rewarded_ad" ? "gold" : "primary"}
           icon={gems ? (short ? "lock" : "gem") : item.type === "rewarded_ad" ? "play" : undefined}
           muted={muted}
-          accessibilityLabel={`${name}, ${gems ? `${item.price} gems${short ? ", not enough gems" : full ? ", hearts are full" : ""}` : item.type === "rewarded_ad" ? "watch a video" : label}`}
+          accessibilityLabel={`${name}, ${gems ? `${item.price} gems${full ? ", hearts are full" : short ? ", not enough gems" : ""}` : item.type === "rewarded_ad" ? "watch a video" : label}`}
         />
       </Animated.View>
     </View>

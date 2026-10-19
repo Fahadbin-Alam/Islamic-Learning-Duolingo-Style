@@ -57,6 +57,10 @@ class User(Base, TimestampMixin):
     completed_lesson_ids_json: Mapped[list] = mapped_column(JSON, default=list, nullable=False)
     completed_node_ids_json: Mapped[list] = mapped_column(JSON, default=list, nullable=False)
     claimed_reward_ids_json: Mapped[list] = mapped_column(JSON, default=list, nullable=False)
+    # Best stars (1 to 3) per finished circle, by node id; a finished circle with none counts 3 in the app.
+    node_stars_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    # The topic the learner had open last (the app's topic id), so the app opens on it again.
+    last_topic_id: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
     social_hub_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
     sessions: Mapped[List["AuthSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")

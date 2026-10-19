@@ -234,6 +234,8 @@ export function localizeLessonContent(lesson: Lesson, language: SupportedLanguag
       }))
     })),
     sources: lesson.sources.map((source) => localizeSource(source, language)),
+    // The one source that says the learn card, for its chip: localized the same way as the list it sits in.
+    learnSource: lesson.learnSource ? localizeSource(lesson.learnSource, language) : lesson.learnSource,
     challenges: lesson.challenges.map((challenge) => localizeChallenge(challenge, language))
   };
 }

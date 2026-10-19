@@ -90,7 +90,8 @@ export const LEARN_LINES = {
   bilal: "He was the first to call the adhan in Islam.",
   "fatimah-al-zahra": "She was the youngest daughter of the Prophet ﷺ.",
   "fatimah-bint-asad": "She was Ali's mother and raised the Prophet ﷺ in her home.",
-  "ghailan-b-salama-ath-thaqafi": "He became Muslim with ten wives and was told to keep four.",
+  // His other well-known story (ten wives, told to keep four) is for older learners, in the Hadith topic.
+  "ghailan-b-salama-ath-thaqafi": "He was a man of Thaqif, from Ta'if, who accepted Islam.",
   "haarith-ibn-hishaan": "He was Abu Jahl's brother and became Muslim when Makkah was opened.",
   "hakim-ibn-hizam": "He was Khadijah's nephew and a generous merchant.",
   "hamza-ibn-abdul-muttalib": "He was the Prophet's ﷺ uncle, called the Lion of Allah.",
@@ -147,12 +148,12 @@ export const LEARN_LINES = {
   "dhu-al-kifl": "The Quran praises him as one of the patient.",
   harun: "He was the brother and helper of Musa.",
   hud: "He was sent to the people of 'Ad.",
-  ibrahim: "He was the friend of Allah and built the Kaaba with Ismail.",
+  ibrahim: "He was the friend of Allah and built the Ka'bah with Ismail.",
   idris: "Allah raised him to a high place.",
   ilyas: "He called Bani Isra'il away from worshipping Ba'l.",
   isa: "He was born to Maryam without a father and received the Injil.",
   ishaq: "He was the son of Ibrahim and Sarah, and Ya'qub's father.",
-  ismail: "He helped his father Ibrahim build the Kaaba.",
+  ismail: "He helped his father Ibrahim build the Ka'bah.",
   lut: "He was Ibrahim's nephew and a prophet sent to Sodom.",
   muhammad: "He is the last messenger Allah sent.",
   musa: "He spoke with Allah and received the Tawrah.",
@@ -190,7 +191,8 @@ export const LEARN_LINES = {
   "umm-al-banin": "She was Ali's wife and the mother of al-Abbas ibn Ali.",
   "umm-habibah": "She was the Prophet's ﷺ wife and emigrated to Abyssinia.",
   "umm-jamil": "The Quran calls her the carrier of firewood.",
-  "umm-kulthoom-bint-ali": "She was the Prophet's ﷺ granddaughter and survived Karbala.",
+  // Her note also says she "survived Karbala"; most Sunni historians say she died in Madinah before it.
+  "umm-kulthoom-bint-ali": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah.",
   "umm-said-bint-urwah-al-thaqafiyyah": "She was a wife of Ali ibn Abi Talib.",
   "umm-salamah-wife-of-the-prophet": "She was the last of the Prophet's ﷺ wives to pass away.",
   "zaynab-bint-ali": "She spoke out in Yazid's court after Karbala.",
@@ -202,10 +204,63 @@ export const LEARN_LINES = {
 // Dhul-Kifl all patient, and many companions fought at Badr. These lessons ask a True/False instead.
 export const NO_WHO_QUESTION = new Set(["dhu-al-kifl", "thalabah"]);
 
-// Facts in a note that don't come from Islamic sources and are left off the learn card. Machaerus is where
-// Josephus places the death of John the Baptist; Muslim scholars give other places.
+// Facts in a note that don't come from Islamic sources, or that the sources dispute, are left off the learn
+// card and out of the questions. Where the prophets were born, died and are buried comes from the Isra'iliyyat
+// and Biblical tradition (Ur, Hebron, Machaerus ...), so those places are dropped for every prophet but the
+// Prophet Muhammad ﷺ; so are parents' names that only those books give (Yukabid, Rifqa, Lamech).
+export const UNSURE_FACTS_BY_TOPIC = {
+  prophets: { facts: ["birth_place", "death_place", "burial_place"], except: ["muhammad"] }
+};
 export const UNSURE_FACTS = {
-  yahya: ["death_place"]
+  harun: ["father", "mother"],
+  musa: ["father", "mother"],
+  noah: ["father"],
+  lut: ["father"],
+  yahya: ["mother"],
+  yaqub: ["mother"],
+  // Women: Ur and Hebron for Sarah, Jerusalem for Maryam, and places the sources disagree on.
+  sarah: ["birth_place", "death_place", "burial_place"],
+  hajar: ["birth_place"],
+  maryam: ["death_place"],
+  "halima-al-sadeya": ["death_place"],
+  "zaynab-bint-khuzayma": ["birth_place"],
+  "khawlah-bint-jafar-al-hanifiyyah": ["birth_place", "death_place"],
+  // Her note says she "survived Karbala"; Sunni historians say she died in Madinah before 61 AH. Her lesson
+  // keeps the hand-checked line instead.
+  "umm-kulthoom-bint-ali": ["known_for"]
+};
+
+// Facts left out of a child's lesson because they are for older learners. Ghaylan's ten wives are taught in
+// the hadith unit on marriage (Mishkat al-Masabih 3176), which opens only after the units before it.
+export const ADULT_FACTS = {
+  "ghailan-b-salama-ath-thaqafi": ["known_for"]
+};
+
+// People left off the path. Women of the Book is for women to look up to: Umm Jamil fought the Prophet ﷺ
+// (Surah al-Masad is about her) and Umm Anmar tortured Khabbab for his Islam; their stories are told with
+// Surah al-Masad and with Khabbab. Keyed like LEARN_LINES.
+export const LEFT_OUT_PEOPLE = new Set(["umm-jamil", "umm-ammaar"]);
+
+// The English names of a few surahs in plain words a child knows, each a standard meaning of the Arabic name
+// (Quran.com's "The Traducer" is al-Humazah, the backbiter). These win over the note's English name. Al-Fatihah
+// and Al-Mulk use the words of their own unit's banner.
+export const SURAH_MEANINGS = {
+  1: "The Opening",
+  67: "The Kingdom",
+  73: "The Wrapped One",
+  74: "The Covered One",
+  76: "The Human",
+  77: "Those Sent Forth",
+  78: "The News",
+  81: "The Folding Up",
+  82: "The Splitting Open",
+  83: "Those Who Cheat",
+  84: "The Splitting Apart",
+  100: "The Runners",
+  102: "Competing for More",
+  103: "Time",
+  104: "The Backbiter",
+  110: "The Help"
 };
 
 // Surahs whose English name is not a meaning: their opening letters (Ta-Ha, Ya Sin, 'The Letter "Saad"') or a
@@ -230,8 +285,11 @@ export const SURAH_NAMED_AFTER = {
 
 // Hadith lessons: a title about what the hadith teaches, the line the mascot says, the key sentence the learn
 // card shows (copied exactly from the note; the importer checks it is there), and questions about its meaning
-// with short choices a child can read. level 1 suits young children; level 5 is for adults (marriage), so the
-// path puts those last. A hadith whose whole wording is for adults has no quote.
+// with short choices a child can read. Every question names what it asks about ("when he told us to hold on to
+// Allah's Book", never "when he said this"), so it still reads right when it comes back as a review in
+// another lesson, and asks only what the card shows. level 1 to 3 suits young children; level 4 and 5 are for
+// older learners (marriage, and the home), and the path keeps those in a last unit that opens later. A quote
+// that spells a name another way than the card ("Ghailan b. Salama") is left out.
 export const HADITH_LESSONS = {
   "Sahih Muslim 134a": {
     title: "I believe in Allah",
@@ -245,27 +303,12 @@ export const HADITH_LESSONS = {
         wrong: ["Let's keep arguing", "I don't care"],
         explanation: "The Prophet ﷺ taught us to say: I affirm my faith in Allah."
       },
-      { statement: "This hadith tells us to keep asking who created Allah.", answer: false, explanation: "It tells us to stop and say: I affirm my faith in Allah." }
-    ]
-  },
-  "Sahih al-Bukhari 3276": {
-    title: "Seek refuge with Allah",
-    level: 1,
-    learnLine: "When Shaytan puts a bad question in your mind, seek Allah's protection.",
-    quote: "So, when he inspires such a question, one should seek refuge with Allah and give up such thoughts.",
-    questions: [
-      {
-        prompt: "What should you do when Shaytan whispers a bad question?",
-        answer: "Seek refuge with Allah and stop",
-        wrong: ["Keep thinking about it", "Ask Shaytan for the answer"],
-        explanation: "Seek refuge with Allah and give up such thoughts."
-      },
-      { statement: "In this hadith, Shaytan is the one who brings the bad question.", answer: true, explanation: "Shaytan comes and asks, until he asks: Who created your Lord?" }
+      { statement: "We should keep asking who created Allah.", answer: false, explanation: "Stop and say: I affirm my faith in Allah." }
     ]
   },
   "Sahih Muslim 1218a": {
     title: "Hold on to Allah's Book",
-    level: 2,
+    level: 1,
     learnLine: "On Hajj, the Prophet ﷺ said: hold on to Allah's Book.",
     quote: "I have left among you the Book of Allah, and if you hold fast to it, you would never go astray.",
     questions: [
@@ -276,93 +319,82 @@ export const HADITH_LESSONS = {
         explanation: "He left the Book of Allah: hold fast to it and you will not go astray."
       },
       {
-        prompt: "Where was the Prophet ﷺ when he said this?",
+        prompt: "Where was the Prophet ﷺ when he told us to hold on to Allah's Book?",
         answer: "On his Hajj",
         wrong: ["In a cave", "On a ship"],
         explanation: "Jabir told how the Prophet ﷺ said it during his Hajj."
       }
     ]
   },
-  "Sahih Muslim 2933a": {
+  "Sahih al-Bukhari 3276": {
+    title: "Seek refuge with Allah",
+    level: 2,
+    learnLine: "When Shaytan puts a bad question in your mind, seek Allah's protection.",
+    quote: "So, when he inspires such a question, one should seek refuge with Allah and give up such thoughts.",
+    questions: [
+      {
+        prompt: "What should you do when Shaytan whispers a bad question?",
+        answer: "Seek refuge with Allah and stop",
+        wrong: ["Keep thinking about it", "Ask Shaytan for the answer"],
+        explanation: "Seek refuge with Allah and give up such thoughts."
+      },
+      { statement: "Shaytan is the one who whispers bad questions.", answer: true, explanation: "Shaytan comes and asks, until he asks: Who created your Lord?" }
+    ]
+  },
+  // The one lesson on the Dajjal: the warning only, with no description of him.
+  "Sahih Muslim 2930a": {
     title: "Every prophet warned",
     level: 3,
-    learnLine: "Every prophet warned his people about the one-eyed liar.",
-    quote: "There is never a prophet who has not warned the Ummah of that one-eyed liar; behold he is one-eyed and your Lord is not one-eyed.",
-    questions: [
-      {
-        prompt: "Who warned their people about the one-eyed liar?",
-        answer: "Every prophet",
-        wrong: ["Only one prophet", "No one"],
-        explanation: "There is no prophet who did not warn his people."
-      },
-      { statement: "Only Prophet Muhammad ﷺ warned about the one-eyed liar.", answer: false, explanation: "Every prophet warned his people about him." }
-    ]
-  },
-  "Sahih al-Bukhari 7407": {
-    title: "The Dajjal's blind eye",
-    level: 3,
-    learnLine: "The Dajjal is blind in his right eye; Allah is not one-eyed.",
-    quote:
-      "The Prophet (ﷺ) said, \"Allah is not hidden from you; He is not one-eyed,\" and pointed with his hand towards his eye, adding, \"While Al-Masih Ad-Dajjal is blind in the right eye and his eye looks like a protruding grape.\"",
-    questions: [
-      {
-        prompt: "Which eye of the Dajjal is blind?",
-        answer: "The right eye",
-        wrong: ["The left eye", "Neither eye"],
-        explanation: "Ad-Dajjal is blind in the right eye."
-      },
-      {
-        prompt: "What does the Dajjal's eye look like?",
-        answer: "A grape",
-        wrong: ["A star", "A pearl"],
-        explanation: "His eye looks like a protruding grape."
-      }
-    ]
-  },
-  "Sahih Muslim 169e": {
-    title: "A warning about the Dajjal",
-    level: 3,
-    learnLine: "The Prophet ﷺ warned people about the Dajjal and his blind eye.",
-    quote: "Allah is not one-eyed and behold that Dajjal is blind of the right eye and his eye would be like a floating grape.",
-    questions: [
-      {
-        prompt: "Who did the Prophet ﷺ warn the people about?",
-        answer: "The Dajjal",
-        wrong: ["A wild lion", "A bad storm"],
-        explanation: "He spoke about the Dajjal in front of the people."
-      },
-      {
-        prompt: "The Dajjal's eye is like a floating what?",
-        answer: "Grape",
-        wrong: ["Star", "Ball"],
-        explanation: "His eye would be like a floating grape."
-      }
-    ]
-  },
-  "Sahih Muslim 2930a": {
-    title: "Ibn Sayyad and the Dajjal",
-    level: 3,
-    learnLine: "The Prophet ﷺ tested Ibn Sayyad and warned us about the Dajjal.",
+    learnLine: "Every prophet warned his people about the Dajjal, a great liar.",
     quote: "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.",
     questions: [
       {
         prompt: "Who did the Prophet ﷺ warn us about?",
         answer: "The Dajjal",
-        wrong: ["A wild lion", "A bad storm"],
+        wrong: ["A lost cat", "A rainy day"],
         explanation: "He said: I warn you of him, the Dajjal."
       },
       {
-        prompt: "Which other prophets warned about the Dajjal?",
+        prompt: "Which prophets warned their people about the Dajjal?",
         answer: "Every prophet",
         wrong: ["None of them", "Only one"],
         explanation: "There is no Prophet who has not warned his people against the Dajjal."
+      }
+    ]
+  },
+  "Sunan Ibn Majah 1855": {
+    title: "A righteous wife",
+    level: 4,
+    learnLine: "Nothing in this world is better to have than a righteous wife.",
+    quote: "This world is but provisions, and there is no provision in this world better than a righteous wife.",
+    questions: [
+      {
+        prompt: "What is the best provision in this world?",
+        answer: "A righteous wife",
+        wrong: ["Lots of money", "A big house"],
+        explanation: "There is no provision in this world better than a righteous wife."
       },
-      { statement: "Even Nuh warned his people about the Dajjal.", answer: true, explanation: "The Prophet ﷺ said: Even Noah warned against him." }
+      { statement: "The Prophet ﷺ said money is the best thing to have in this world.", answer: false, explanation: "He said a righteous wife is the best provision." }
+    ]
+  },
+  "Mishkat al-Masabih 3096": {
+    title: "Half of the religion",
+    level: 4,
+    learnLine: "Marrying completes half the religion; keep fearing Allah in the rest.",
+    quote: "When a man marries he has fulfilled half of the religion; so let him fear God regarding the remaining half.",
+    questions: [
+      {
+        prompt: "When a man marries, how much of the religion has he fulfilled?",
+        answer: "Half",
+        wrong: ["All of it", "None of it"],
+        explanation: "He has fulfilled half of the religion."
+      },
+      { statement: "After marrying, a man can stop caring about the rest of the religion.", answer: false, explanation: "He should fear Allah regarding the remaining half." }
     ]
   },
   "Sahih Muslim 2813b": {
     title: "Iblis and his troops",
-    level: 3,
+    level: 5,
     learnLine: "Iblis praises the devil who makes a husband and wife fight.",
     quote:
       "Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension.",
@@ -381,36 +413,6 @@ export const HADITH_LESSONS = {
       }
     ]
   },
-  "Sunan Ibn Majah 1855": {
-    title: "A righteous wife",
-    level: 4,
-    learnLine: "Nothing in this world is better to have than a righteous wife.",
-    quote: "This world is but provisions, and there is no provision in this world better than a righteous wife.",
-    questions: [
-      {
-        prompt: "What is the best provision in this world?",
-        answer: "A righteous wife",
-        wrong: ["Lots of money", "A big house"],
-        explanation: "There is no provision in this world better than a righteous wife."
-      },
-      { statement: "This hadith says money is the best thing in this world.", answer: false, explanation: "It says a righteous wife is the best provision." }
-    ]
-  },
-  "Mishkat al-Masabih 3096": {
-    title: "Half of the religion",
-    level: 4,
-    learnLine: "Marrying completes half the religion; keep fearing Allah in the rest.",
-    quote: "When a man marries he has fulfilled half of the religion; so let him fear God regarding the remaining half.",
-    questions: [
-      {
-        prompt: "When a man marries, how much of the religion has he fulfilled?",
-        answer: "Half",
-        wrong: ["All of it", "None of it"],
-        explanation: "He has fulfilled half of the religion."
-      },
-      { statement: "After marrying, a man can stop caring about the rest of the religion.", answer: false, explanation: "He should fear Allah regarding the remaining half." }
-    ]
-  },
   "Jami' at-Tirmidhi 1084": {
     title: "Faith and good character",
     level: 5,
@@ -423,7 +425,7 @@ export const HADITH_LESSONS = {
         wrong: ["Lots of money", "A famous name"],
         explanation: "Marry to the one whose religion and character you are pleased with."
       },
-      { statement: "This hadith says to look only at a man's wealth.", answer: false, explanation: "It points to his religion and character." }
+      { statement: "The hadith about proposals says to look only at a man's wealth.", answer: false, explanation: "It points to his religion and character." }
     ]
   },
   "Sunan an-Nasa'i 3227": {
@@ -439,10 +441,9 @@ export const HADITH_LESSONS = {
         explanation: "He said: Marry the one who is fertile and loving."
       },
       {
-        prompt: "How many times did the man come to ask?",
-        answer: "Three",
-        wrong: ["One", "Five"],
-        explanation: "He came a first, second and third time."
+        statement: "The Prophet ﷺ said he will boast of your great numbers.",
+        answer: true,
+        explanation: "He said: for I will boast of your great numbers."
       }
     ]
   },
@@ -458,29 +459,10 @@ export const HADITH_LESSONS = {
         explanation: "Whoever is not able to marry should fast."
       },
       {
-        prompt: "Who was the Prophet ﷺ speaking to here?",
+        prompt: "Who did the Prophet ﷺ tell to marry, or else to fast?",
         answer: "Young people",
         wrong: ["Old people", "Kings"],
         explanation: "He said: O young people!"
-      }
-    ]
-  },
-  "Sahih Muslim 1400a": {
-    title: "Advice to young men",
-    level: 5,
-    learnLine: "Young men who can support a wife should marry; others should fast.",
-    questions: [
-      {
-        prompt: "What should young men who cannot support a wife do?",
-        answer: "Fast",
-        wrong: ["Travel far", "Sleep more"],
-        explanation: "Those who cannot should devote themselves to fasting."
-      },
-      {
-        prompt: "Who should marry, says this hadith?",
-        answer: "Young men who can support a wife",
-        wrong: ["Only old men", "Nobody at all"],
-        explanation: "Those among you who can support a wife should marry."
       }
     ]
   },
@@ -488,8 +470,6 @@ export const HADITH_LESSONS = {
     title: "Keep four",
     level: 5,
     learnLine: "Ghaylan became Muslim with ten wives and was told to keep four.",
-    quote:
-      "Ibn ‘Umar told that Ghailan b. Salama ath-Thaqafi accepted Islam and that he had had ten wives in the pre-Islamic period who accepted Islam along with him; so the Prophet told him to keep four and separate from the rest of them.",
     questions: [
       {
         prompt: "How many wives was Ghaylan told to keep?",
@@ -497,7 +477,21 @@ export const HADITH_LESSONS = {
         wrong: ["Ten", "Two"],
         explanation: "The Prophet ﷺ told him to keep four."
       },
-      { statement: "Ghaylan's wives accepted Islam along with him.", answer: true, explanation: "His ten wives accepted Islam along with him." }
+      { statement: "Ghaylan was told to keep all ten of his wives.", answer: false, explanation: "The Prophet ﷺ told him to keep four." }
     ]
   }
 };
+
+// One lesson per teaching. A second narration of the same words, or a second lesson on the same thing, is left
+// out while the narration it repeats is in the vault: Muslim 1400a is Bukhari 5066 (Ibn Mas'ud: marry, or else
+// fast), Muslim 134a says what Bukhari 3276 says (seek refuge from the whisper "who created Allah?"), and
+// Muslim 2933a gives the warning of Muslim 2930a, that every prophet warned about the Dajjal.
+export const REPEATED_HADITH = {
+  "Sahih Muslim 1400a": "Sahih al-Bukhari 5066",
+  "Sahih Muslim 134a": "Sahih al-Bukhari 3276",
+  "Sahih Muslim 2933a": "Sahih Muslim 2930a"
+};
+
+// Hadith never put on the path: the Dajjal's eye described (Bukhari 7407, Muslim 169e) would frighten a young
+// child, and the Dajjal is taught once, by the warning in Muslim 2930a. A hadith graded Da'if is left out too.
+export const LEFT_OUT_HADITH = new Set(["Sahih al-Bukhari 7407", "Sahih Muslim 169e"]);

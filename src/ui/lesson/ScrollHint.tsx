@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Animated, Easing, StyleSheet, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollView } from "react-native";
+import { Animated, Easing, StyleSheet, View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollView } from "react-native";
 import { Icon } from "../Icon";
 import { Tappable } from "../Tappable";
 import { colors, withAlpha } from "../theme";
@@ -7,23 +7,29 @@ import { colors, withAlpha } from "../theme";
 /** Content hidden below the fold by more than this shows the hint (less is only a tile's lip or padding). */
 export const SCROLL_HINT_SLACK = 40;
 
-/** Size of the round hint button. Half of it sits on the bottom bar's top padding. */
+/** Size of the round hint button. */
 export const SCROLL_HINT_SIZE = 30;
+
+const HINT_GAP = 4;
+
+/** Height of the gap that holds the hint while it shows: a little air, the button, a little air. */
+export const SCROLL_HINT_ROOM = SCROLL_HINT_SIZE + HINT_GAP * 2;
 
 /**
  * Tracks a lesson ScrollView so the step can show a "more below" hint while part of it is hidden
- * under the bottom bar. Spread `scrollProps` on the ScrollView and give it `ref`.
+ * under the bottom bar. Spread `scrollProps` on the ScrollView and give it `ref`. `slack`: how much
+ * may stay hidden without the hint (default SCROLL_HINT_SLACK; a list with no bottom padding uses less).
  */
-export function useScrollMore() {
+export function useScrollMore(slack: number = SCROLL_HINT_SLACK) {
   const ref = useRef<ScrollView>(null);
   const size = useRef({ viewport: 0, content: 0, offset: 0 });
   const [more, setMore] = useState(false);
 
   const update = useCallback(() => {
     const { viewport, content, offset } = size.current;
-    const next = viewport > 0 && content - viewport - offset > SCROLL_HINT_SLACK;
+    const next = viewport > 0 && content - viewport - offset > slack;
     setMore((value) => (value === next ? value : next));
-  }, []);
+  }, [slack]);
 
   const scrollProps = {
     onLayout: (event: LayoutChangeEvent) => {
@@ -51,9 +57,8 @@ export function useScrollMore() {
 }
 
 /**
- * A small bouncing round arrow centered on the bottom edge of its container, shown while more is hidden
- * below. Pass it to `LessonBottomBar`'s `scrollHint` so it sits on the bar's top edge, over the bar's
- * empty top padding and never over text; only the round button takes taps (it scrolls down).
+ * A small bouncing round arrow, shown while more is hidden above it. It sits inside a `ScrollHintGap`
+ * (or `LessonBottomBar`'s `scrollHint`), under the scrolling part and never over text; it scrolls down.
  */
 export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visible: boolean; onPress: () => void; testID?: string }) {
   const shown = useRef(new Animated.Value(visible ? 1 : 0)).current;
@@ -99,11 +104,26 @@ export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visib
   );
 }
 
+/**
+ * The gap between a scrolling part and the bar under it. It is `gap` tall and grows to fit the hint
+ * while more is hidden, so the button sits in the bar and never covers a line that can still be read.
+ */
+export function ScrollHintGap({ visible, onPress, gap, testID }: { visible: boolean; onPress: () => void; gap: number; testID?: string }) {
+  return (
+    <View pointerEvents="box-none" style={[styles.gap, { height: visible ? Math.max(gap, SCROLL_HINT_ROOM) : gap }]}>
+      <ScrollHint visible={visible} onPress={onPress} testID={testID} />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  gap: {
+    position: "relative"
+  },
   root: {
     position: "absolute",
     left: "50%",
-    bottom: -SCROLL_HINT_SIZE / 2,
+    top: HINT_GAP,
     width: SCROLL_HINT_SIZE,
     height: SCROLL_HINT_SIZE,
     marginLeft: -SCROLL_HINT_SIZE / 2,

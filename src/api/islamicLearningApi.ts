@@ -12,6 +12,7 @@ import type {
   LearningNode,
   LearningNodeStatus,
   LearningNodeView,
+  LearningSection,
   Lesson,
   LessonSession,
   PremiumStatus,
@@ -48,21 +49,25 @@ export const learningApi: IslamicLearningApi = {
     const premium = isPremiumUser(user);
     // Circles open in path order, so the path shows the order things unlock. A topic taught in order
     // opens one circle: its first not-done one. A library topic opens the next circle of every unit,
-    // and only the first of those is "current" (the START bubble). Premium units stay shut to free learners.
+    // and only the first of those is "current" (the START bubble); a gated unit waits until the unit
+    // before it is finished. Premium units stay shut to free learners. getTestOutPlan follows the same rule.
     const open = new Map<string, LearningNodeStatus>();
 
     for (const section of COURSE.sections) {
       const library = LIBRARY_TOPICS.has(section.topicId);
       let hasCurrent = false;
+      let previousDone = true;
 
       for (const branch of section.branches) {
-        if (branch.premiumOnly && !premium) {
+        if ((branch.premiumOnly && !premium) || !section.nodes.some((node) => node.branchId === branch.id)) {
           continue;
         }
 
         const next = section.nodes.find((node) => node.branchId === branch.id && !completed.has(node.id));
+        const shut = library && branch.gated && !previousDone;
+        previousDone = !next;
 
-        if (!next) {
+        if (!next || shut) {
           continue;
         }
 
@@ -107,7 +112,7 @@ export const learningApi: IslamicLearningApi = {
         gainedXp: getXpToday(user),
         dailyGoalXp: user.dailyGoalXp,
         date: localDateKey(),
-        streakExtended: getXpToday(user) >= user.dailyGoalXp,
+        streakExtended: user.lastStreakDate === localDateKey(),
         totalSessionTime: Math.max(120, user.completedLessonIds.length * 90),
         numSessions: user.completedLessonIds.length
       }
@@ -143,30 +148,35 @@ export function getXpToday(user: UserProfile, now = new Date()) {
   return user.dailyXp?.date === localDateKey(now) ? user.dailyXp.xp : 0;
 }
 
-// Any XP counts toward the daily goal. Meeting it extends the streak once per day: by one after a
-// goal met yesterday, otherwise the streak starts again at one.
+// Any XP counts toward the daily goal, a goal of its own: the streak does not wait for it.
 export function addXp(user: UserProfile, amount: number, now = new Date()): UserProfile {
-  const today = localDateKey(now);
-  const withXp: UserProfile = {
+  return {
     ...user,
     totalXp: user.totalXp + amount,
-    dailyXp: { date: today, xp: getXpToday(user, now) + amount }
+    dailyXp: { date: localDateKey(now), xp: getXpToday(user, now) + amount }
   };
+}
 
-  if (amount <= 0 || user.lastStreakDate === today || getXpToday(withXp, now) < user.dailyGoalXp) {
-    return withXp;
+// The first lesson finished on a day starts or keeps the streak, as on Duolingo, replays too: one more
+// after a lesson yesterday, otherwise it starts again at one. Later lessons that day change nothing. A save
+// from before streak days were dated keeps its streak going.
+export function keepStreak(user: UserProfile, now = new Date()): UserProfile {
+  const today = localDateKey(now);
+
+  if (user.lastStreakDate === today) {
+    return user;
   }
 
-  const continues = user.lastStreakDate === previousDateKey(now);
+  const continues = user.lastStreakDate ? user.lastStreakDate === previousDateKey(now) : user.streakDays > 0;
 
   return {
-    ...withXp,
+    ...user,
     streakDays: continues ? user.streakDays + 1 : 1,
     lastStreakDate: today
   };
 }
 
-// A streak survives until the end of the day after the goal was last met; after that it is lost.
+// A streak survives until the end of the day after the last finished lesson; after that it is lost.
 export function refreshStreak(user: UserProfile, now = new Date()) {
   if (!user.lastStreakDate || user.streakDays === 0) {
     return user;
@@ -205,7 +215,70 @@ export function refillHeartsForToday(user: UserProfile, now = new Date()) {
   };
 }
 
-export function completeLesson(user: UserProfile, lesson: Lesson) {
+const lessonXpCache = new Map<string, number>();
+
+// The XP finishing a lesson really adds: its own XP plus the review bonus its session adds (the same
+// buildProgressiveLesson), and nothing for a lesson already finished. The node card, completeLesson and
+// so the LessonComplete total all count it this way. A lesson the course does not know pays its own xpReward.
+export function getLessonXp(lesson: Lesson | string, user?: Pick<UserProfile, "completedLessonIds">) {
+  const lessonId = typeof lesson === "string" ? lesson : lesson.id;
+  const base = LESSONS_BY_ID[lessonId];
+
+  if (user?.completedLessonIds.includes(lessonId)) {
+    return 0;
+  }
+
+  if (!base) {
+    return typeof lesson === "string" ? 0 : lesson.xpReward;
+  }
+
+  const cached = lessonXpCache.get(lessonId);
+  const xp = cached ?? buildProgressiveLesson(base).xpReward;
+  lessonXpCache.set(lessonId, xp);
+  return xp;
+}
+
+// What a circle's START (or PRACTICE) pays this learner: its lesson's XP, 0 once it is finished.
+export function getNodeXp(node: Pick<LearningNode, "lessonIds">, user?: Pick<UserProfile, "completedLessonIds">) {
+  return node.lessonIds[0] ? getLessonXp(node.lessonIds[0], user) : 0;
+}
+
+// A lesson pays at most 3 stars (lessonStars); a finished circle with no record yet counts that many.
+export const MAX_LESSON_STARS = 3;
+
+// The learner's best on each circle, kept when a replay goes worse.
+function withNodeStars(user: UserProfile, nodeIds: string[], stars: number | undefined) {
+  if (stars === undefined || !nodeIds.length) {
+    return user.nodeStars;
+  }
+
+  const earned = Math.max(1, Math.min(MAX_LESSON_STARS, Math.round(stars)));
+  const nodeStars = { ...user.nodeStars };
+
+  for (const nodeId of nodeIds) {
+    nodeStars[nodeId] = Math.max(nodeStars[nodeId] ?? 0, earned);
+  }
+
+  return nodeStars;
+}
+
+// Stars a circle shows: its best run once finished (3 for one finished before stars were kept), else 0.
+export function getNodeStars(user: Pick<UserProfile, "completedNodeIds" | "nodeStars">, nodeId: string) {
+  return user.completedNodeIds.includes(nodeId) ? user.nodeStars?.[nodeId] ?? MAX_LESSON_STARS : 0;
+}
+
+// Total stars over the finished circles (all of them, or only `nodeIds`, e.g. one topic's), for Me.
+export function getTotalStars(user: Pick<UserProfile, "completedNodeIds" | "nodeStars">, nodeIds?: Iterable<string>) {
+  const ids = nodeIds ? new Set(nodeIds) : undefined;
+
+  return Array.from(new Set(user.completedNodeIds))
+    .filter((nodeId) => !ids || ids.has(nodeId))
+    .reduce((total, nodeId) => total + (user.nodeStars?.[nodeId] ?? MAX_LESSON_STARS), 0);
+}
+
+// `stars` is how this run went (lessonStars); the circle keeps its best. Finishing a lesson, a replay
+// too, keeps the streak (keepStreak); only a lesson not done before pays XP (getLessonXp).
+export function completeLesson(user: UserProfile, lesson: Lesson, stars?: number, now = new Date()) {
   const node = findNodeByLessonId(lesson.id);
   const alreadyCompleted = user.completedLessonIds.includes(lesson.id);
   const completedLessonIds = alreadyCompleted
@@ -214,12 +287,14 @@ export function completeLesson(user: UserProfile, lesson: Lesson) {
   const completedNodeIds = node && !user.completedNodeIds.includes(node.id)
     ? [...user.completedNodeIds, node.id]
     : user.completedNodeIds;
-  const withXp = addXp(user, alreadyCompleted ? 0 : lesson.xpReward);
+  const withXp = keepStreak(addXp(user, getLessonXp(lesson, user), now), now);
+  const nodeStars = withNodeStars(user, node ? [node.id] : [], stars);
 
   return {
     ...withXp,
     completedLessonIds,
-    completedNodeIds
+    completedNodeIds,
+    ...(nodeStars ? { nodeStars } : {})
   };
 }
 
@@ -235,8 +310,10 @@ export function isOutOfHearts(user: UserProfile) {
   return !user.hearts.unlimited && user.hearts.current <= 0;
 }
 
-export function loseHeart(user: UserProfile) {
-  if (user.hearts.unlimited) {
+// A wrong answer costs a heart, except in a test-out (pass the session): its misses only count against
+// the pass mark, so one failed jump cannot use up a child's hearts.
+export function loseHeart(user: UserProfile, session?: LessonSession) {
+  if (user.hearts.unlimited || isTestOutSession(session)) {
     return user;
   }
 
@@ -334,10 +411,12 @@ export function applyPremiumStatus(user: UserProfile, status: PremiumStatus) {
   };
 }
 
-// `maxXp` caps the XP: a test-out pays for the lessons it asked about, not for every lesson it skips.
-export function completeLessonCluster(user: UserProfile, lessons: Lesson[], maxXp = Number.POSITIVE_INFINITY) {
+// `maxXp` caps the XP: a test-out pays what the lessons it asked about pay. Passing one finishes lessons, so it
+// keeps the streak; `stars` (how the test went) becomes each skipped circle's stars unless it has better.
+export function completeLessonCluster(user: UserProfile, lessons: Lesson[], maxXp = Number.POSITIVE_INFINITY, stars?: number, now = new Date()) {
   const completedLessonIds = new Set(user.completedLessonIds);
   const completedNodeIds = new Set(user.completedNodeIds);
+  const nodeIds: string[] = [];
   let gainedXp = 0;
 
   for (const lesson of lessons) {
@@ -349,22 +428,26 @@ export function completeLessonCluster(user: UserProfile, lessons: Lesson[], maxX
     const node = findNodeByLessonId(lesson.id);
     if (node) {
       completedNodeIds.add(node.id);
+      nodeIds.push(node.id);
     }
   }
 
-  const withXp = addXp(user, Math.min(gainedXp, maxXp));
+  const withXp = addXp(user, Math.min(gainedXp, maxXp), now);
+  const withStreak = lessons.length ? keepStreak(withXp, now) : withXp;
+  const nodeStars = withNodeStars(user, nodeIds, stars);
 
   return {
-    ...withXp,
+    ...withStreak,
     completedLessonIds: Array.from(completedLessonIds),
-    completedNodeIds: Array.from(completedNodeIds)
+    completedNodeIds: Array.from(completedNodeIds),
+    ...(nodeStars ? { nodeStars } : {})
   };
 }
 
-// A unit test-out asks 3 to 8 questions, whatever the number of lessons it skips: one per lesson, and at
-// least 5 when the lessons have them, so one slip still passes. Fewer than 3 is no test.
+// A test-out asks one question about every lesson it marks done, so it skips at most 10 circles: at least 3
+// questions, and 5 when the lessons have them, so one slip still passes. Fewer than 3 is no test.
 export const TEST_OUT_MIN_QUESTIONS = 3;
-export const TEST_OUT_MAX_QUESTIONS = 8;
+export const TEST_OUT_MAX_QUESTIONS = 10;
 const TEST_OUT_USUAL_MIN_QUESTIONS = 5;
 
 // 80% to pass, but never more right answers than there are questions, so a perfect run always passes.
@@ -372,19 +455,40 @@ export function testOutPassingScore(questionCount: number) {
   return Math.min(questionCount, Math.max(TEST_OUT_MIN_QUESTIONS, Math.ceil(questionCount * 0.8)));
 }
 
-// What a unit's test-out skips. "unit": the circles still to do in it, locked ones too; passing finishes the
-// unit. "jump": the unit is still locked in a topic taught in order, so the test covers every circle still to
-// do before it (premium units the learner cannot open left out), and passing opens it.
+function isTestOutSession(session: LessonSession | undefined) {
+  return Boolean(session && (session.isTest || session.mode === "test_out"));
+}
+
+// A test-out is lost once it has more misses than its pass mark allows; the app ends it then, at once.
+export function isTestLost(session: LessonSession | undefined, misses: number) {
+  if (!session || !isTestOutSession(session)) {
+    return false;
+  }
+
+  const total = session.lesson.challenges.length;
+
+  return misses > total - (session.passingScore ?? testOutPassingScore(total));
+}
+
+// What a test-out skips; passing it marks `nodeIds` done, and it asks about each of them.
+// "unit" (the banner key): the next circles still to do in the unit, up to 10, locked ones too.
+// "jump": the circles still to do before the one that opens. From JUMP HERE (`jumpNodeId`): in a library topic,
+// or in the unit already open, the circles before the tapped one, so it is next to play; in a later unit of a
+// topic taught in order, every circle before that unit, which opens at its first circle. Without a circle: a
+// unit still shut (a later unit taught in order, or a gated library unit), so the test opens it.
 export interface TestOutPlan {
   branchId: string;
   kind: "unit" | "jump";
   lessons: Lesson[];
   nodeIds: string[];
+  /** The circle JUMP HERE was tapped on, when the plan is for one. */
+  jumpNodeId?: string;
 }
 
-// Any unfinished unit the learner may open has a plan, not only the one with the current circle.
-// Nothing for a finished unit or a premium unit a free learner cannot open.
-export function getTestOutPlan(user: UserProfile, branchId: string): TestOutPlan | undefined {
+// Any unfinished unit the learner may open has a plan, not only the one with the current circle; so has any
+// circle not yet open, for JUMP HERE. Nothing when there is nothing to skip, when it would skip more than one
+// test can ask about (10 circles), for a finished unit, or for a premium unit a free learner cannot open.
+export function getTestOutPlan(user: UserProfile, branchId: string, jumpNodeId?: string): TestOutPlan | undefined {
   const section = COURSE.sections.find((item) => item.branches.some((branch) => branch.id === branchId));
   const unitIndex = section ? section.branches.findIndex((branch) => branch.id === branchId) : -1;
 
@@ -400,23 +504,77 @@ export function getTestOutPlan(user: UserProfile, branchId: string): TestOutPlan
     return undefined;
   }
 
-  const unit = section.nodes.filter((node) => node.branchId === branchId && !done.has(node.id));
+  const unit = section.nodes.filter((node) => node.branchId === branchId);
+  const left = unit.filter((node) => !done.has(node.id));
+  const before = circlesBeforeUnit(section, unitIndex, done, opens);
+  let skipped: LearningNode[];
 
-  if (!unit.length) {
+  if (jumpNodeId) {
+    const index = unit.findIndex((node) => node.id === jumpNodeId);
+
+    if (index < 0 || done.has(jumpNodeId)) {
+      return undefined;
+    }
+
+    const library = LIBRARY_TOPICS.has(section.topicId);
+    skipped = [...before, ...(library || !before.length ? unit.slice(0, index).filter((node) => !done.has(node.id)) : [])];
+  } else {
+    skipped = before.length ? before : left.slice(0, TEST_OUT_MAX_QUESTIONS);
+  }
+
+  if (!left.length || !skipped.length || skipped.length > TEST_OUT_MAX_QUESTIONS) {
     return undefined;
   }
 
-  // Same rule as getPathNodes: in a topic taught in order the unit opens once every unit before it is done.
-  const earlier = new Set(section.branches.slice(0, unitIndex).filter((_, index) => opens(index)).map((branch) => branch.id));
-  const before = LIBRARY_TOPICS.has(section.topicId) ? [] : section.nodes.filter((node) => earlier.has(node.branchId) && !done.has(node.id));
-  const skipped = before.length ? before : unit;
-
   return {
     branchId,
-    kind: before.length ? "jump" : "unit",
+    kind: jumpNodeId || before.length ? "jump" : "unit",
     lessons: skipped.flatMap((node) => node.lessonIds).map((lessonId) => LESSONS_BY_ID[lessonId]).filter(Boolean),
-    nodeIds: skipped.map((node) => node.id)
+    nodeIds: skipped.map((node) => node.id),
+    ...(jumpNodeId ? { jumpNodeId } : {})
   };
+}
+
+// The locked circles of a topic that JUMP HERE can open: a plan that skips at most 10 circles, with a question
+// about each. The path shows JUMP HERE on these only.
+export function getJumpNodeIds(user: UserProfile, topicId: TopicId) {
+  const ids = new Set<string>();
+  const section = COURSE.sections.find((item) => item.topicId === topicId);
+  const done = new Set(user.completedNodeIds);
+
+  for (const node of section?.nodes ?? []) {
+    const plan = done.has(node.id) ? undefined : getTestOutPlan(user, node.branchId, node.id);
+
+    if (plan && canTestOut(plan.lessons)) {
+      ids.add(node.id);
+    }
+  }
+
+  return ids;
+}
+
+// The circles still to do before a unit's first circle opens (same rule as getPathNodes). In a topic taught in
+// order: every circle of the units before it. In a library topic: none, unless the unit is gated; then the unit
+// before it, and whatever that one still waits for. Units the learner cannot open (premium) are left out.
+function circlesBeforeUnit(section: LearningSection, unitIndex: number, done: Set<string>, opens: (branchIndex: number) => boolean): LearningNode[] {
+  const leftIn = (branchIndex: number) => section.nodes.filter((node) => node.branchId === section.branches[branchIndex].id && !done.has(node.id));
+
+  if (!LIBRARY_TOPICS.has(section.topicId)) {
+    return section.branches.slice(0, unitIndex).flatMap((_, index) => (opens(index) ? leftIn(index) : []));
+  }
+
+  if (!section.branches[unitIndex].gated) {
+    return [];
+  }
+
+  for (let index = unitIndex - 1; index >= 0; index -= 1) {
+    if (opens(index) && section.nodes.some((node) => node.branchId === section.branches[index].id)) {
+      const rest = leftIn(index);
+      return rest.length ? [...circlesBeforeUnit(section, index, done, opens), ...rest] : [];
+    }
+  }
+
+  return [];
 }
 
 type TestOutPick = { lesson: Lesson; challenge: Challenge };
@@ -441,16 +599,12 @@ export function pickTestOutChallenges(lessons: Lesson[], attempt = 0): TestOutPi
   const perLesson = new Map<Lesson, number>();
   const prompts = new Set<string>();
   const kinds = new Map<string, number>();
-  // What a question puts on screen: its prompt, and its right answer on the feedback sheet.
-  const shown = (challenge: Challenge) =>
-    `${challenge.prompt} ${challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? ""}`;
-  const gives = (challenge: Challenge) =>
-    picks.some((pick) => answerShowsInText(challenge, shown(pick.challenge)) || answerShowsInText(pick.challenge, shown(challenge)));
+  const gives = (challenge: Challenge) => picks.some((pick) => givesAway(challenge, pick.challenge));
   // Tier 0: the best questions. Tier 1: may repeat the last try. Tier 2: anything that is not word matching.
   const fits = (challenge: Challenge, tier: number) =>
     !prompts.has(normalizedPrompt(challenge)) &&
     !answerShowsInText(challenge) &&
-    (tier >= 2 || (!challenge.isReview && !CONTEXT_BOUND_PROMPT.test(challenge.prompt) && !gives(challenge))) &&
+    (tier >= 2 || (!challenge.isReview && !isContextBound(challenge.prompt) && !gives(challenge))) &&
     (tier >= 1 || !lastTry.has(challenge));
   const choose = (lesson: Lesson, tier: number) => {
     const count = lesson.challenges.length;
@@ -508,13 +662,31 @@ export function pickTestOutChallenges(lessons: Lesson[], attempt = 0): TestOutPi
   return turned.length > 1 && turned[0].challenge === lastPicks[0]?.challenge ? rotate(turned, 1) : turned;
 }
 
-// Too few questions to tell whether the learner knows the unit: no test-out then.
-export function canTestOut(lessons: Lesson[]) {
-  return pickTestOutChallenges(lessons).length >= TEST_OUT_MIN_QUESTIONS;
+// The lessons a test asks about: one of their own questions, not only a review copy of another lesson's. A
+// review circle has nothing but copies of its unit's questions, so asking one of those asks about it.
+function askedLessons(picks: TestOutPick[], lessons: Lesson[]) {
+  const prompts = new Set(picks.map((pick) => normalizedPrompt(pick.challenge)));
+
+  return new Set(
+    lessons.filter((lesson) =>
+      lesson.challenges.some((challenge) => !challenge.isReview)
+        ? picks.some((pick) => pick.lesson === lesson && !pick.challenge.isReview)
+        : lesson.challenges.some((challenge) => prompts.has(normalizedPrompt(challenge)))
+    )
+  );
 }
 
-// Passing completes every lesson in `lessons` (a plan from getTestOutPlan), locked ones included.
-// `attempt` counts the tries from 0: TRY AGAIN passes the next one for other questions, in another order.
+// A test-out is offered only when it asks about every lesson it would mark done, with at least 3 questions.
+export function canTestOut(lessons: Lesson[]) {
+  const picks = pickTestOutChallenges(lessons);
+  const asked = askedLessons(picks, lessons);
+
+  return picks.length >= TEST_OUT_MIN_QUESTIONS && lessons.every((lesson) => asked.has(lesson));
+}
+
+// Passing completes the lessons in `lessons` (a plan from getTestOutPlan), locked ones included: every one the
+// test asked about, which canTestOut makes all of them. `attempt` counts the tries from 0: TRY AGAIN passes the
+// next one for other questions, in another order. `jumpNodeId` is the plan's, so TRY AGAIN can ask for it again.
 export function createTestOutSession(input: {
   branchTitle: string;
   branchId: string;
@@ -522,9 +694,13 @@ export function createTestOutSession(input: {
   nodeIds: string[];
   heartsAtStart: number;
   attempt?: number;
+  jumpNodeId?: string;
 }): LessonSession {
   const attempt = Math.max(0, Math.floor(input.attempt ?? 0));
   const picks = pickTestOutChallenges(input.lessons, attempt);
+  const asked = askedLessons(picks, input.lessons);
+  const targetLessons = input.lessons.filter((lesson) => asked.has(lesson));
+  const targetNodes = new Set(targetLessons.map((lesson) => findNodeByLessonId(lesson.id)?.id ?? lesson.nodeId));
   const prepared = new Map<string, Lesson>();
   const challenges = picks.map(({ lesson, challenge }, index) => {
     const full = prepared.get(lesson.id) ?? prepareLessonForSession(lesson);
@@ -544,8 +720,8 @@ export function createTestOutSession(input: {
     };
   });
   const uniqueSources = uniqueById(Array.from(prepared.values()).flatMap((lesson) => lesson.sources));
-  // What the lessons it asked about pay; passing still completes every lesson in `lessons`.
-  const xpReward = Array.from(new Set(picks.map((pick) => pick.lesson))).reduce((total, lesson) => total + lesson.xpReward, 0);
+  // What the lessons it asked about, and so marks done, pay.
+  const xpReward = targetLessons.reduce((total, lesson) => total + lesson.xpReward, 0);
 
   return {
     id: `session_test_out_${input.branchId}_${attempt}_${Date.now()}`,
@@ -570,9 +746,10 @@ export function createTestOutSession(input: {
     isTest: true,
     attempt,
     clusterTitle: input.branchTitle,
-    targetNodeIds: input.nodeIds,
-    targetLessonIds: input.lessons.map((lesson) => lesson.id),
-    passingScore: testOutPassingScore(challenges.length)
+    targetNodeIds: input.nodeIds.filter((nodeId) => targetNodes.has(nodeId)),
+    targetLessonIds: targetLessons.map((lesson) => lesson.id),
+    passingScore: testOutPassingScore(challenges.length),
+    ...(input.jumpNodeId ? { jumpNodeId: input.jumpNodeId } : {})
   };
 }
 
@@ -720,8 +897,90 @@ function buildProgressiveLesson(lesson: Lesson): Lesson {
   };
 }
 
-// A question that only makes sense inside its own lesson ("What does this lesson teach?") can't be reused.
-const CONTEXT_BOUND_PROMPT = /\bthis (lesson|step|story|unit|branch)\b/i;
+// A question that only makes sense inside its own lesson cannot be asked anywhere else (a review, a test-out):
+// one that names a thing only by the lesson around it ("this lesson", "that list", "these steps"), opens on
+// someone or something it never names ("It begins: ...", "Its last ayahs ..."), or says "here".
+const CONTEXT_BOUND_PROMPT = new RegExp(
+  [
+    String.raw`\b(this|these|those) (lessons?|steps?|story|stories|unit|branch|card|hadith|narrations?|ayahs?|verses?|surahs?|lists?|parts?|sayings?|quotes?|lines?|text|rules?|events?|moment|time|place|man|woman|boy|girl|person|people|companions?|prophets?)\b`,
+    String.raw`\bthat (lesson|step|story|unit|card|hadith|narration|ayah|verse|surah|list|saying|quote|line)\b`,
+    String.raw`^\W*(it|its|he|his|him|she|her|they|their|them)\b`,
+    String.raw`\bhere\b`
+  ].join("|"),
+  "i"
+);
+// "...when he said this?", "Why did she do that?": a pointer at something outside the question, unless the
+// question holds the quote it means ("“...” What is this about?").
+const POINTS_OUTSIDE = /\b(this|that|these|those)\W*$|\b(said|say|says|did|do|does|meant|mean|means|told|tell) (this|these|those)\b/i;
+const HOLDS_QUOTE = /[“"][^”"]{4,}[”"]/;
+// "he said", "she told" with no one named before it.
+const UNNAMED_SPEAKER = /\b(he|she|they) (said|says|told|asked|did|does)\b/i;
+// Capitalised words that start a sentence without naming anyone.
+const OPENING_WORDS = new Set(["a", "after", "an", "and", "as", "at", "before", "but", "how", "if", "in", "on", "once", "so", "the", "then", "what", "when", "where", "which", "while", "who", "why"]);
+
+export function isContextBound(prompt: string) {
+  if (CONTEXT_BOUND_PROMPT.test(prompt) || (!HOLDS_QUOTE.test(prompt) && POINTS_OUTSIDE.test(prompt))) {
+    return true;
+  }
+
+  const speaker = UNNAMED_SPEAKER.exec(prompt);
+  const before = speaker ? prompt.slice(0, speaker.index) : "";
+  // A name before it ("Umar ...", "When Musa ...", "the Prophet ﷺ") says who it is.
+  const named = before.includes("ﷺ") || (before.match(/[A-Za-z'’-]+/g) ?? []).some((word, index) => /^[A-Z]/.test(word) && (index > 0 || !OPENING_WORDS.has(word.toLowerCase())));
+
+  return Boolean(speaker) && !named;
+}
+
+// What a question puts on screen: its prompt, and its right answer on the feedback sheet.
+function shownText(challenge: Challenge) {
+  return `${challenge.prompt} ${rightLabel(challenge)}`;
+}
+
+function rightLabel(challenge: Challenge) {
+  return challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+}
+
+// One question hands the other its answer, or both have the same answer (not True or False): asking both in
+// one lesson or test means answering the same thing twice.
+function givesAway(left: Challenge, right: Challenge) {
+  const sameAnswer =
+    left.type !== "true_false" && right.type !== "true_false" && squash(rightLabel(left)) !== "" && squash(rightLabel(left)) === squash(rightLabel(right));
+
+  return sameAnswer || answerShowsInText(left, shownText(right)) || answerShowsInText(right, shownText(left));
+}
+
+// Lower case letters and digits only, accents dropped: "Al-'Adiyat" is "aladiyat".
+function squash(text: string) {
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+// Topics where each circle teaches its own text, so the circle before is about another surah or hadith.
+const OWN_TEXT_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "hadith"]);
+// A hadith question that asks what was said or done in it, not a fact that stands on its own.
+const ABOUT_THE_TEXT = /ﷺ|\b(prophet|messenger|hadith|narration|said|says|told|tell|advised|warned)\b/i;
+
+// A question copied from another surah or hadith must say which one it is about: a surah by its name, a
+// hadith by its lesson's title words ("...to hold on to Allah's Book?"). A hadith question that only asks a
+// fact ("Who is truly strong?") reads right anywhere. Two lessons of one surah (Al-Kahf) share a subject.
+function readsRightIn(challenge: Challenge, source: Lesson, lesson: Lesson, topicId: TopicId) {
+  if (!OWN_TEXT_TOPICS.has(topicId)) {
+    return true;
+  }
+
+  if (topicId === "quran_tafseer") {
+    const surah = (item: Lesson) => squash(item.surahName ?? item.title.replace(/^surah\s+/i, ""));
+    return surah(source) === surah(lesson) || squash(challenge.prompt).includes(surah(source));
+  }
+
+  if (!ABOUT_THE_TEXT.test(challenge.prompt)) {
+    return true;
+  }
+
+  const promptWords = new Set(matchWords(challenge.prompt));
+  const titleWords = matchWords(source.title);
+
+  return titleWords.length > 0 && titleWords.filter((word) => promptWords.has(word)).length / titleWords.length >= 0.5;
+}
 
 function buildReviewChallenge(lesson: Lesson, node: LearningNode): Challenge | undefined {
   const previousNode = allNodes.find((item) => item.branchId === node.branchId && node.requiredNodeIds.includes(item.id));
@@ -732,8 +991,13 @@ function buildReviewChallenge(lesson: Lesson, node: LearningNode): Challenge | u
   }
 
   const ownPrompts = new Set(lesson.challenges.map((challenge) => challenge.prompt.trim().toLowerCase()));
+  // It must read right in this lesson, and not repeat one of its questions or their answers.
   const usable = previousLesson.challenges.filter(
-    (challenge) => !CONTEXT_BOUND_PROMPT.test(challenge.prompt) && !ownPrompts.has(challenge.prompt.trim().toLowerCase())
+    (challenge) =>
+      !isContextBound(challenge.prompt) &&
+      !ownPrompts.has(challenge.prompt.trim().toLowerCase()) &&
+      !lesson.challenges.some((own) => givesAway(challenge, own)) &&
+      readsRightIn(challenge, previousLesson, lesson, node.topicId)
   );
   // The lesson before's own questions first; its review copies of older lessons only when it has nothing else.
   const own = usable.filter((challenge) => !challenge.isReview);

@@ -1,5 +1,7 @@
 import type { LearningBranch, LearningCourse, LearningNode, LearningSection, Lesson, TopicId } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
+import { HADITH_BASICS } from "./hadithBasics";
+import { quranAyahArabic } from "./quranAyahs";
 
 export interface ImportedNotesSection {
   topicId: TopicId;
@@ -67,6 +69,50 @@ export const PERSON_LESSONS: Record<string, string> = {
   "hafsa-bint-umar": "women-hafsah",
   "sawdah-bint-zamah": "women-mothers-depth-sawdah-and-stability"
 };
+
+// Hadith from the notes come in two units after "Hadith for kids" (src/data/hadithBasics.ts): sayings a
+// young child can act on (level 1 to 3), then marriage and family life (level 4 and up), which opens only once
+// the unit before it is finished. Each unit keeps the id of an imported unit, so saved progress still counts.
+const HADITH_UNITS: { title: string; description: string; maxLevel: number; gated?: boolean }[] = [
+  { title: "Safe with Allah", description: "Hold on to Allah's Book and ask Him to keep you safe.", maxLevel: 3 },
+  { title: "Marriage in the Sunnah", description: "What the Prophet ﷺ taught about marriage, for older learners.", maxLevel: Infinity, gated: true }
+];
+
+// The imported women, by theme: one unit each, in this order. Keys are the person part of the node id.
+const WOMEN_UNITS: { title: string; description: string; people: string[] }[] = [
+  {
+    title: "Mothers",
+    description: "Mothers of prophets and of great Muslims.",
+    people: ["grandmother-of-isa-wife-of-imran", "hajar", "sarah", "aminah-bint-wahb", "halima-al-sadeya", "umayma-bint-abd-al-muttalib", "barrah-bint-samuel"]
+  },
+  {
+    title: "Wives of the Prophet ﷺ",
+    description: "More Mothers of the Believers.",
+    people: [
+      "juwayriya-bint-al-harith",
+      "maymunah-bint-al-harith",
+      "safiyyah-bint-huyayy",
+      "umm-habibah",
+      "umm-salamah-wife-of-the-prophet",
+      "zaynab-bint-jahsh",
+      "zaynab-bint-khuzayma"
+    ]
+  },
+  {
+    title: "Ali's family",
+    description: "Ali's wives, his daughters and his family after them.",
+    people: [
+      "al-sahba-al-taghlibiyyah",
+      "khawlah-bint-jafar-al-hanifiyyah",
+      "layla-bint-masud-al-tamimiyyah",
+      "umm-al-banin",
+      "umm-said-bint-urwah-al-thaqafiyyah",
+      "umm-kulthoom-bint-ali",
+      "zaynab-bint-ali",
+      "sayyida-nafisa"
+    ]
+  }
+];
 
 // A unit of imported lessons holds at most this many, so a list of names never becomes a wall.
 const MAX_UNIT_SIZE = 10;
@@ -211,17 +257,10 @@ function regroupSurahs(section: LearningSection, given: LearningBranch[], stayin
   return chainUnits(groups, lessons);
 }
 
-// Hadith, prophets and women: the units keep their ids, but lessons are dealt out again in order, so units
-// stay even after some lessons moved elsewhere. Hadith are ordered by level, so sayings for young children
-// come first and those for adults last.
-function regroupInOrder(given: LearningBranch[], staying: LearningNode[], lessons: Record<string, Lesson>, byLevel: boolean): Regrouped {
-  const ordered = byLevel
-    ? staying
-        .map((node, index) => ({ node, index, level: lessons[node.lessonIds[0]]?.difficulty ?? node.difficulty ?? 3 }))
-        .sort((left, right) => left.level - right.level || left.index - right.index)
-        .map(({ node }) => node)
-    : staying;
-  const chunks = evenChunks(ordered);
+// Prophets: the units keep their ids, but lessons are dealt out again in order, so units stay even after
+// some lessons moved elsewhere.
+function regroupInOrder(given: LearningBranch[], staying: LearningNode[], lessons: Record<string, Lesson>): Regrouped {
+  const chunks = evenChunks(staying);
   if (chunks.length > given.length) return { branches: given, nodes: staying };
   const base = given[0].title.replace(/\s+\d+$/, "");
   const groups = chunks.map((members, index) => ({
@@ -229,6 +268,63 @@ function regroupInOrder(given: LearningBranch[], staying: LearningNode[], lesson
     nodes: members
   }));
   return chainUnits(groups, lessons);
+}
+
+// A unit like the given one, for a group the notes had no unit for.
+function extraBranch(given: LearningBranch[], index: number, suffix: string): LearningBranch {
+  return given[index] ?? { ...given[given.length - 1], id: `${given[0].id.replace(/-\d+$/, "")}-${suffix}` };
+}
+
+// Hadith: by level into HADITH_UNITS, sayings for young children first.
+function regroupHadith(given: LearningBranch[], staying: LearningNode[], lessons: Record<string, Lesson>): Regrouped {
+  const levelOf = (node: LearningNode) => lessons[node.lessonIds[0]]?.difficulty ?? node.difficulty ?? 3;
+  const ordered = staying
+    .map((node, index) => ({ node, index, level: levelOf(node) }))
+    .sort((left, right) => left.level - right.level || left.index - right.index)
+    .map(({ node }) => node);
+  let floor = 0;
+  const groups = HADITH_UNITS.map((unit, index) => {
+    const members = ordered.filter((node) => levelOf(node) > floor && levelOf(node) <= unit.maxLevel);
+    floor = unit.maxLevel;
+    const branch: LearningBranch = { ...extraBranch(given, index, `${index + 1}`), title: unit.title, description: unit.description };
+    return { branch: unit.gated ? { ...branch, gated: true } : branch, nodes: members };
+  }).filter((group) => group.nodes.length);
+  return chainUnits(groups, lessons);
+}
+
+// Women: one unit per theme in WOMEN_UNITS; anyone the themes do not name goes in a last unit.
+function regroupWomen(given: LearningBranch[], staying: LearningNode[], lessons: Record<string, Lesson>): Regrouped {
+  const themeOf = new Map(WOMEN_UNITS.flatMap((unit, index) => unit.people.map((person) => [person, index] as const)));
+  const groups = WOMEN_UNITS.map((unit, index) => ({
+    branch: { ...extraBranch(given, index, `${index + 1}`), title: unit.title, description: unit.description },
+    nodes: unit.people.map((person) => staying.find((node) => personSlug(node) === person)).filter((node): node is LearningNode => Boolean(node))
+  }));
+  const others = staying.filter((node) => !themeOf.has(personSlug(node)));
+  if (others.length) groups.push({ branch: { ...extraBranch(given, WOMEN_UNITS.length, "more"), title: "More great women" }, nodes: others });
+  return chainUnits(
+    groups.filter((group) => group.nodes.length),
+    lessons
+  );
+}
+
+// A gated unit's first circle follows the last circle of the unit before it.
+function gateUnits(branches: LearningBranch[], nodes: LearningNode[], lessons: Record<string, Lesson>): LearningNode[] {
+  const firstToPrevious = new Map<string, LearningNode>();
+  let previousLast: LearningNode | undefined;
+  for (const branch of branches) {
+    const members = nodes.filter((node) => node.branchId === branch.id);
+    if (!members.length) continue;
+    if (branch.gated && previousLast) firstToPrevious.set(members[0].id, previousLast);
+    previousLast = members[members.length - 1];
+  }
+  return nodes.map((node) => {
+    const previous = firstToPrevious.get(node.id);
+    if (!previous) return node;
+    for (const lessonId of node.lessonIds) {
+      if (lessons[lessonId]) lessons[lessonId] = { ...lessons[lessonId], unlockRules: [`Complete ${previous.title}`] };
+    }
+    return { ...node, requiredNodeIds: [previous.id] };
+  });
 }
 
 // "Tribe: Thamud" about Salih on a lesson about Hud and Salih reads "Salih's tribe: Thamud".
@@ -257,7 +353,10 @@ function foldFacts(builtIn: Lesson, people: { name: string; lesson: Lesson }[]):
 // - a surah or companion that already has its own unit is not shown twice; its imported lesson opens that unit;
 // - a prophet or woman with a built-in lesson is taught there; the imported facts go on its learn card;
 // - Quran units follow the learning order (Al-Fatihah, Juz Amma from An-Nas back, then the mushaf);
-// - hadith go from sayings for young children to those for adults;
+// - hadith start with "Hadith for kids" (hadithBasics.ts), then sayings for young children, then marriage,
+//   which opens only once the unit before it is finished (gated);
+// - imported women are grouped by theme (WOMEN_UNITS);
+// - a surah's quote is shown in Arabic (quranAyahs.ts);
 // - the built-in units of a topic come first (Abu Bakr, Umar, Uthman and Ali lead the companions), then the
 //   imported lists.
 // Chaining units one after another happens later (chainCourse), once everything is in place.
@@ -269,14 +368,24 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
   const importedLessons: Record<string, Lesson> = Object.fromEntries(
     Object.entries(imported.lessonsById).map(([lessonId, lesson]) => {
       const sources = lesson.sources.map((source) => ({ ...source, url: preciseResourceUrl(source.site, source.url, source.reference) }));
-      return [lessonId, { ...lesson, sources, sourceReferences: sources }];
+      const learnSource = lesson.learnSource && { ...lesson.learnSource, url: preciseResourceUrl(lesson.learnSource.site, lesson.learnSource.url, lesson.learnSource.reference) };
+      // The notes quote an ayah in old English ("Woe unto every slandering traducer"); the card shows the ayah itself.
+      const arabic = lesson.quote?.reference ? quranAyahArabic(lesson.quote.reference) : undefined;
+      return [
+        lessonId,
+        { ...lesson, sources, sourceReferences: sources, ...(learnSource ? { learnSource } : {}), ...(lesson.quote && arabic ? { quote: { ...lesson.quote, text: arabic } } : {}) }
+      ];
     })
   );
   const importedByTopic = new Map(imported.sections.map((section) => [section.topicId, section]));
   const missingSections = imported.sections
     .filter((extra) => !course.sections.some((section) => section.topicId === extra.topicId) && NEW_SECTIONS[extra.topicId])
-    .map((extra) => ({ ...NEW_SECTIONS[extra.topicId]!, topicId: extra.topicId, starsTarget: 0, branches: [], nodes: [] }));
-  const builtInLessons = { ...lessonsById };
+    .map((extra) =>
+      extra.topicId === "hadith"
+        ? { ...NEW_SECTIONS.hadith!, topicId: extra.topicId, starsTarget: 0, branches: [HADITH_BASICS.branch], nodes: HADITH_BASICS.nodes }
+        : { ...NEW_SECTIONS[extra.topicId]!, topicId: extra.topicId, starsTarget: 0, branches: [], nodes: [] }
+    );
+  const builtInLessons = { ...lessonsById, ...(missingSections.some((section) => section.topicId === "hadith") ? HADITH_BASICS.lessonsById : {}) };
 
   const sections = [...course.sections, ...missingSections].map((section) => {
     const given = importedByTopic.get(section.topicId);
@@ -334,13 +443,17 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
         ? regroupSurahs(section, keptBranches, staying, importedLessons)
         : section.topicId === "sahabah"
           ? { branches: keptBranches, nodes: staying }
-          : regroupInOrder(keptBranches, staying, importedLessons, section.topicId === "hadith");
+          : section.topicId === "hadith"
+            ? regroupHadith(keptBranches, staying, importedLessons)
+            : section.topicId === "women_of_the_book"
+              ? regroupWomen(keptBranches, staying, importedLessons)
+              : regroupInOrder(keptBranches, staying, importedLessons);
     const importedBranches = regrouped.branches.filter((branch) => regrouped.nodes.some((node) => node.branchId === branch.id));
     const allNodes = [...regrouped.nodes, ...builtInNodes];
     const branches = placeBranches(section, importedBranches, allNodes, importedLessons).map((branch, index) => ({ ...branch, order: index + 1 }));
     const branchOrder = new Map(branches.map((branch, index) => [branch.id, index]));
     const placeInUnit = new Map<string, number>();
-    const nodes = allNodes
+    const sorted = allNodes
       .map((node, index) => ({ node, index }))
       .sort((left, right) => (branchOrder.get(left.node.branchId) ?? 999) - (branchOrder.get(right.node.branchId) ?? 999) || left.index - right.index)
       .map(({ node }) => {
@@ -348,6 +461,7 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
         placeInUnit.set(node.branchId, order);
         return order === node.order ? node : { ...node, order };
       });
+    const nodes = gateUnits(branches, sorted, importedLessons);
 
     return {
       ...section,

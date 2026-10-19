@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import type { ArabicTerm } from "../../data/arabicTerms";
+import { monetizationMode } from "../../services/monetizationConfig";
 import type { LearningNodeView } from "../../types";
 import { ArabicText, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
@@ -73,11 +74,22 @@ export type LearnPathProps = {
   onClaimChest: (chest: PathChest) => void;
   /**
    * Test out of a unit. The current unit's banner key and JUMP HERE on a locked circle (units with
-   * canTestOut) ask "Jump ahead?" first, then call this on START TEST.
+   * canTestOut, or the circles in jumpNodeIds) ask "Jump ahead?" first, then call this on START TEST.
+   * From JUMP HERE it also gets the tapped circle; from the banner key, no circle.
    */
-  onTestOut?: (unitId: string) => void;
+  onTestOut?: (unitId: string, nodeId?: string) => void;
+  /**
+   * The locked circles a test can open (getJumpNodeIds). When given, JUMP HERE shows on these only;
+   * otherwise on every locked circle of a unit with canTestOut.
+   */
+  jumpNodeIds?: ReadonlySet<string>;
   /** Tap the Premium pill or the UNLOCK button of a premium-locked unit. */
   onPremium?: (unitId: string) => void;
+  /**
+   * Premium can be bought in this build. When false (purchases off, e.g. on web) a premium circle's
+   * card says why it is locked and shows no UNLOCK. Default: the monetization mode is not "disabled".
+   */
+  canBuyPremium?: boolean;
   /** The button under the end-of-topic trophy. Usually opens the topic picker. */
   onNextTopic?: () => void;
   /** Optional content rendered above the first unit. */
@@ -433,6 +445,7 @@ function NodeCard({
   count,
   premium,
   narrow,
+  canBuyPremium,
   onStart,
   onPremium,
   onJump,
@@ -447,6 +460,7 @@ function NodeCard({
   premium: boolean;
   /** Under 360 px wide: long Arabic drops a size so the card fits above the tabs. */
   narrow: boolean;
+  canBuyPremium: boolean;
   onStart: () => void;
   onPremium?: () => void;
   /** A locked circle whose unit can be tested out: JUMP HERE asks "Jump ahead?" for the unit. */
@@ -464,7 +478,7 @@ function NodeCard({
   const ignore = () => undefined;
 
   let action: React.ReactNode;
-  if (premium && onPremium) {
+  if (premium && onPremium && canBuyPremium) {
     action = <GameButton label="Unlock" icon="crown" variant="gold" fullWidth onPress={onPremium} style={styles.cardButton} testID="node-card-unlock" />;
   } else if (grey) {
     // Why it is locked, in a few words, and a way forward when the unit can be tested out.
@@ -472,7 +486,7 @@ function NodeCard({
       <>
         <View style={styles.lockedRow} testID="node-card-locked">
           <Icon name={premium ? "crown" : "lock"} size={22} color={premium ? undefined : colors.inkSoft} />
-          <Text style={styles.lockedText}>{premium ? "Premium" : "Finish the one before it!"}</Text>
+          <Text style={styles.lockedText}>{premium ? "Premium lesson" : "Finish the one before it!"}</Text>
         </View>
         {onJump ? (
           <GameButton label="Jump here" icon="key" variant="white" color={colors.gemLip} fullWidth onPress={onJump} style={styles.cardButton} testID="node-card-jump" />
@@ -482,7 +496,8 @@ function NodeCard({
   } else {
     action = (
       <GameButton
-        label={`${node.status === "completed" ? "Practice" : "Start"} +${xp} XP`}
+        // A finished circle pays nothing again, so its button says just PRACTICE.
+        label={xp > 0 ? `${node.status === "completed" ? "Practice" : "Start"} +${xp} XP` : node.status === "completed" ? "Practice" : "Start"}
         variant="white"
         color={color}
         fullWidth
@@ -765,7 +780,9 @@ export function LearnPath({
   onStartNode,
   onClaimChest,
   onTestOut,
+  jumpNodeIds,
   onPremium,
+  canBuyPremium = monetizationMode !== "disabled",
   onNextTopic,
   header,
   initialOpenNodeId,
@@ -777,8 +794,8 @@ export function LearnPath({
   const [openId, setOpenId] = useState<string | undefined>(initialOpenNodeId);
   const [cardH, setCardH] = useState<number | undefined>(undefined);
   const [stickyId, setStickyId] = useState<string | undefined>(undefined);
-  /** Unit whose "Jump ahead?" sheet is up; the id stays while the sheet slides away. */
-  const [testOut, setTestOut] = useState<{ unitId: string; open: boolean } | undefined>(undefined);
+  /** Unit (and the JUMP HERE circle) whose "Jump ahead?" sheet is up; the ids stay while the sheet slides away. */
+  const [testOut, setTestOut] = useState<{ unitId: string; nodeId?: string; open: boolean } | undefined>(undefined);
   const [seenTopic, setSeenTopic] = useState(topicId);
   const viewport = useRef(0);
   const scrollY = useRef(0);
@@ -794,6 +811,9 @@ export function LearnPath({
   const openedAtY = useRef(0);
   const cardScrolledFor = useRef<string | undefined>(undefined);
   const lastCurrentKey = useRef<string | undefined>(undefined);
+  /** The chest the focus scroll kept in sight; when it opens, the path moves on to START. */
+  const followChest = useRef<string | undefined>(undefined);
+  const followTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // A new topic on the same mounted path: drop the open card and re-run the focus scroll.
   if (seenTopic !== topicId) {
@@ -805,6 +825,7 @@ export function LearnPath({
     scrolledToCurrent.current = false;
     focusConsumed.current = true;
     animateFocus.current = false;
+    followChest.current = undefined;
   }
 
   const layout = useMemo(() => {
@@ -871,7 +892,15 @@ export function LearnPath({
         }
       }
     }
-    return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio };
+    // A chest sits right after the circle that opens it, so a ready chest just before the circle to play
+    // next (maybe at the end of the unit before) was just earned: the focus scroll keeps it in sight.
+    const flat = byUnit.flatMap((group) => group.rows.map((row) => ({ row, unitId: group.unit.id })));
+    const before = flat[flat.findIndex((entry) => entry.row.key === currentKey) - 1];
+    const earnedChest =
+      before && before.row.item.kind === "chest" && before.row.item.chest.unlocked && !before.row.item.chest.claimed
+        ? { key: before.row.key, unitId: before.unitId }
+        : undefined;
+    return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio, earnedChest };
     // Focus targets are read on mount only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accent, units, topicId]);
@@ -958,15 +987,39 @@ export function LearnPath({
   );
 
   const tryScrollToCurrent = useCallback(() => {
-    const { focusKey, focusUnitId, focusRatio } = layout;
+    const { focusKey, focusUnitId, focusRatio, earnedChest } = layout;
     if (scrolledToCurrent.current || !focusKey || !focusUnitId || viewport.current <= 0) return;
     const y = absoluteRowY(focusUnitId, focusKey);
     if (y === undefined) return;
+    let target = y + ROW_H / 2 - viewport.current * focusRatio;
+    // Never scroll the chest just earned out of sight (or under the sticky banner) on the way to START.
+    const chestUnit = earnedChest && focusKey === layout.currentKey ? units.find((unit) => unit.id === earnedChest.unitId) : undefined;
+    if (earnedChest && chestUnit) {
+      const chestY = absoluteRowY(earnedChest.unitId, earnedChest.key);
+      if (chestY === undefined) return;
+      target = Math.min(target, chestY - stickyHeight(chestUnit) - 16);
+      followChest.current = earnedChest.key;
+    }
     scrolledToCurrent.current = true;
     focusConsumed.current = true;
-    scrollTo(y + ROW_H / 2 - viewport.current * focusRatio, animateFocus.current);
+    scrollTo(target, animateFocus.current);
     animateFocus.current = false;
+  }, [absoluteRowY, layout, scrollTo, stickyHeight, units]);
+
+  // Once that chest is opened, bring the circle to play next into view.
+  useEffect(() => {
+    const key = followChest.current;
+    if (!key || layout.earnedChest?.key === key) return;
+    followChest.current = undefined;
+    const { currentKey, currentUnitId } = layout;
+    const y = currentKey && currentUnitId ? absoluteRowY(currentUnitId, currentKey) : undefined;
+    if (y === undefined || viewport.current <= 0) return;
+    const nodeBottom = y + CURRENT_EXTRA + NODE + NODE_LIP + 12;
+    if (nodeBottom <= scrollY.current + viewport.current) return;
+    clearTimeout(followTimer.current);
+    followTimer.current = setTimeout(() => scrollTo(y + ROW_H / 2 - viewport.current * 0.45, true), 250);
   }, [absoluteRowY, layout, scrollTo]);
+  useEffect(() => () => clearTimeout(followTimer.current), []);
 
   // Topic switch or a moved current node: jump back to the top, then let the rows' onLayout find the target.
   useEffect(() => {
@@ -1018,7 +1071,9 @@ export function LearnPath({
     open(undefined);
   };
   const unitCanTestOut = (unit: PathUnit) => !unit.premiumLocked && (unit.canTestOut ?? unit.id === layout.currentUnitId);
-  const askTestOut = (unitId: string) => setTestOut({ unitId, open: true });
+  const askTestOut = (unitId: string, nodeId?: string) => setTestOut({ unitId, nodeId, open: true });
+  const canJumpTo = (unit: PathUnit, node: LearningNodeView) =>
+    node.status === "locked" && (jumpNodeIds ? !unit.premiumLocked && jumpNodeIds.has(node.id) : unitCanTestOut(unit));
 
   const center = width / 2;
   const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
@@ -1101,7 +1156,7 @@ export function LearnPath({
                         style={[styles.row, { height }, isOpen ? styles.raised : null]}
                         onLayout={(event) => {
                           rowY.current[row.key] = event.nativeEvent.layout.y;
-                          if (row.key === layout.focusKey) tryScrollToCurrent();
+                          if (row.key === layout.focusKey || row.key === layout.earnedChest?.key) tryScrollToCurrent();
                         }}
                       >
                         {index === group.decorIndex ? (
@@ -1149,13 +1204,14 @@ export function LearnPath({
                               count={group.nodeCount}
                               premium={premium && row.item.node.status !== "completed"}
                               narrow={width < 360}
+                              canBuyPremium={canBuyPremium}
                               onStart={() => onStartNode((row.item as { node: LearningNodeView }).node)}
                               onPremium={onPremium ? () => onPremium(unit.id) : undefined}
                               onJump={
-                                onTestOut && row.item.node.status === "locked" && unitCanTestOut(unit)
+                                onTestOut && canJumpTo(unit, row.item.node)
                                   ? () => {
                                       open(undefined);
-                                      askTestOut(unit.id);
+                                      askTestOut(unit.id, (row.item as { node: LearningNodeView }).node.id);
                                     }
                                   : undefined
                               }
@@ -1197,7 +1253,9 @@ export function LearnPath({
           onClose={closeTestOut}
           onStart={() => {
             closeTestOut();
-            if (testOut) onTestOut(testOut.unitId);
+            // The banner key tests the unit; JUMP HERE also names the circle.
+            if (testOut?.nodeId) onTestOut(testOut.unitId, testOut.nodeId);
+            else if (testOut) onTestOut(testOut.unitId);
           }}
         />
       ) : null}

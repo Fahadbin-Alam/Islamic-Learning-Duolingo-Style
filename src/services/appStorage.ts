@@ -10,6 +10,7 @@ const STORAGE_KEYS = [
   "sira-path-user-profile",
   "sira-path-account-profile",
   "sira-path-active-assessment",
+  "sira-path-practice-result",
   "sira-path-local-auth",
   "sira-path-social-hub",
   "sira-path-session-token",

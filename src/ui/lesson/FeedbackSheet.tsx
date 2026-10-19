@@ -9,7 +9,7 @@ import { Tappable } from "../Tappable";
 import { feedback } from "../sound";
 import { colors, darken, fonts, radii, space, withAlpha } from "../theme";
 import { noBreakHyphens } from "./lessonText";
-import { ScrollHint, useScrollMore } from "./ScrollHint";
+import { SCROLL_HINT_ROOM, ScrollHintGap, useScrollMore } from "./ScrollHint";
 
 export const PRAISE_WORDS = ["Great job!", "Nice!", "Excellent!", "Amazing!", "You got it!", "MashaAllah!"] as const;
 
@@ -38,7 +38,11 @@ const SHEET_PAD = 20 + 16;
 const SHEET_INSET = Platform.OS === "ios" ? 30 : 16;
 /** The sheet never grows past this share of the window; a long answer scrolls inside it instead. */
 export const SHEET_MAX_SHARE = 0.6;
+/** A "correct order" list may take a little more, so an eight-step order fits on a small phone. */
+const LIST_MAX_SHARE = 0.66;
 const MIN_BODY = 64;
+/** The body has no bottom padding, so even one hidden list row (20 px) shows the arrow. */
+const BODY_SLACK = 4;
 
 export type FeedbackSheetProps = {
   visible: boolean;
@@ -90,8 +94,8 @@ export function FeedbackSheet({
   const whyAnim = useRef(new Animated.Value(0)).current;
   // The icon + title row and the button always show; the part between them scrolls when it is long.
   const [headHeight, setHeadHeight] = useState(40);
-  const [footHeight, setFootHeight] = useState(space.lg + 58);
-  const { ref: bodyRef, scrollProps: bodyScrollProps, more: bodyMore, scrollDown: bodyScrollDown } = useScrollMore();
+  const [buttonHeight, setButtonHeight] = useState(58);
+  const { ref: bodyRef, scrollProps: bodyScrollProps, more: bodyMore, scrollDown: bodyScrollDown } = useScrollMore(BODY_SLACK);
   const revealWhy = useRef(false);
 
   useEffect(() => {
@@ -125,8 +129,11 @@ export function FeedbackSheet({
   const label = buttonLabel ?? (correct ? "Continue" : "Got it");
   const whyText = why?.trim();
   const inset = bottomInset ?? SHEET_INSET;
-  const bodyMax = Math.max(MIN_BODY, Math.round(windowHeight * SHEET_MAX_SHARE) - headHeight - footHeight - SHEET_PAD - inset);
   const listShown = !correct && Boolean(correctList && correctList.length > 0);
+  // The gap above the button grows to hold the "more" arrow; the body gives up that room, so the sheet keeps its height.
+  const buttonGap = bodyMore ? SCROLL_HINT_ROOM : space.lg;
+  const share = listShown ? LIST_MAX_SHARE : SHEET_MAX_SHARE;
+  const bodyMax = Math.max(MIN_BODY, Math.round(windowHeight * share) - headHeight - buttonGap - buttonHeight - SHEET_PAD - inset);
   const answerShown = !correct && !correctList && Boolean(correctLabel);
   const whyShown = !correct && Boolean(whyText);
   const badgeScale = badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
@@ -170,7 +177,7 @@ export function FeedbackSheet({
               {listShown && correctList ? (
                 <View style={styles.list} testID="feedback-list">
                   {correctList.map((item, index) => (
-                    <View key={`${index}-${item}`} style={styles.listItem}>
+                    <View key={`${index}-${item}`} style={[styles.listItem, index > 0 ? styles.listItemNext : null]}>
                       <View style={[styles.listNumber, { backgroundColor: ink }]}>
                         <Text style={styles.listNumberText}>{index + 1}</Text>
                       </View>
@@ -245,8 +252,9 @@ export function FeedbackSheet({
           </View>
         ) : null}
 
-        <View onLayout={(event) => setFootHeight(Math.round(event.nativeEvent.layout.height))}>
-          <View style={styles.buttonGap} />
+        {/* "More below" sits in the gap above the button, under the scrolling part, never over its text. */}
+        <ScrollHintGap visible={bodyMore} onPress={bodyScrollDown} gap={space.lg} testID="feedback-more" />
+        <View onLayout={(event) => setButtonHeight(Math.round(event.nativeEvent.layout.height))}>
           <GameButton
             label={label}
             variant={correct ? "primary" : "danger"}
@@ -255,10 +263,6 @@ export function FeedbackSheet({
             onPress={onContinue}
             testID="feedback-continue"
           />
-          {/* "More below" sits on the top edge of the gap above the button, drawn over the scrolling part. */}
-          <View pointerEvents="box-none" style={styles.hintEdge}>
-            <ScrollHint visible={bodyMore} onPress={bodyScrollDown} testID="feedback-more" />
-          </View>
         </View>
       </View>
     </Sheet>
@@ -313,20 +317,15 @@ const styles = StyleSheet.create({
   bodyBox: {
     position: "relative"
   },
-  hintEdge: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: 0
-  },
   list: {
     marginTop: space.sm
   },
   listItem: {
     flexDirection: "row",
-    alignItems: "flex-start",
-    marginBottom: 4
+    alignItems: "flex-start"
+  },
+  listItemNext: {
+    marginTop: 4
   },
   listNumber: {
     width: 20,
@@ -374,8 +373,5 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     color: colors.ink,
     marginTop: space.sm
-  },
-  buttonGap: {
-    height: space.lg
   }
 });

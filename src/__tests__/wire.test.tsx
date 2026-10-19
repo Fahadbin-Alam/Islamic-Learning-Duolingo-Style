@@ -194,17 +194,21 @@ describe("TopicApp lesson flow", () => {
     expect(screen.getByTestId("test-out-label")).toBeTruthy();
     expect(screen.getByTestId("test-out-goal").props.children.join("")).toBe(`Get ${testOutPassingScore(firstTry.length)} of ${firstTry.length} right`);
 
-    // Every answer wrong: no "Try again!", each question once, in order.
-    for (const challenge of firstTry) {
+    // Every answer wrong: no "Try again!", each question once, in order, until the test can no longer
+    // be passed. It ends right then.
+    const passingScore = testOutPassingScore(firstTry.length);
+    const lostAfter = firstTry.length - passingScore + 1;
+    for (const challenge of firstTry.slice(0, lostAfter)) {
       expect(shownChallenge(firstTry)?.id).toBe(challenge.id);
       expect(screen.queryByText("Try again!")).toBeNull();
       await answer(challenge, false);
     }
 
-    // The result opens once the last question has gone, not over it.
+    // The result opens once the last question asked has gone, not over it.
     expect(screen.getByTestId("test-out-result")).toBeTruthy();
     expect(screen.queryByTestId("exercise-view")).toBeNull();
-    expect(screen.getByText(`0 of ${firstTry.length} right`)).toBeTruthy();
+    expect(screen.getByText(`0 of ${lostAfter} right`)).toBeTruthy();
+    expect(screen.getByText(`Get ${passingScore} of ${firstTry.length} to jump ahead.`)).toBeTruthy();
 
     await press("test-out-result-confirm");
     const secondTry = testSession(1).lesson.challenges;

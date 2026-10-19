@@ -3,6 +3,7 @@ import {
   completeLesson,
   completeLessonCluster,
   createTestOutSession,
+  getTestOutPlan,
   learningApi,
   LIBRARY_TOPICS,
   TEST_OUT_MAX_QUESTIONS,
@@ -74,8 +75,9 @@ describe("path node unlocking", () => {
       const ordered = section.branches.flatMap((branch) => section.nodes.filter((node) => node.branchId === branch.id));
       const open = nodes.filter((node) => node.topicId === section.topicId && node.status !== "locked" && node.status !== "completed");
       const units = section.branches.filter((branch) => ordered.some((node) => node.branchId === branch.id));
-      // A library topic (Quran, Sahabah, Prophets, Women, Hadith) also opens the first circle of each later unit.
-      const opened = LIBRARY_TOPICS.has(section.topicId) ? units.length : 1;
+      // A library topic (Quran, Sahabah, Prophets, Women, Hadith) also opens the first circle of each later unit,
+      // except a gated one, which waits for the unit before it.
+      const opened = LIBRARY_TOPICS.has(section.topicId) ? units.filter((branch, index) => index === 0 || !branch.gated).length : 1;
       expect(open.map((node) => node.status)).toEqual(["current", ...Array(opened - 1).fill("available")]);
       expect(open[0].id).toBe(ordered[0].id);
     }
@@ -202,7 +204,7 @@ describe("createTestOutSession", () => {
   const nodes = COURSE.sections[0].nodes.filter((node) => node.branchId === branch.id);
   const lessons = nodes.flatMap((node) => node.lessonIds.map((id) => LESSONS_BY_ID[id]));
 
-  it("asks 3 to 8 questions, skips every lesson it covers, and needs 80% to pass", () => {
+  it("asks 3 to 10 questions, skips every lesson it covers, and needs 80% to pass", () => {
     const session = createTestOutSession({
       branchTitle: branch.title,
       branchId: branch.id,
@@ -231,23 +233,27 @@ describe("createTestOutSession", () => {
     const user = makeUser();
     const prayerNodes = learningApi.getPathNodes(user).filter((node) => node.topicId === "prayer");
     const unit = prayerNodes.filter((node) => node.branchId === prayerNodes[0].branchId);
-    const unitLessons = unit.flatMap((node) => node.lessonIds.map((id) => LESSONS_BY_ID[id]));
+    const plan = getTestOutPlan(user, unit[0].branchId)!;
 
-    expect(unit.filter((node) => node.status === "locked").length).toBeGreaterThan(0);
-    expect(canTestOut(unitLessons)).toBe(true);
+    // A long unit is tested 10 circles at a time, one question about each.
+    expect(unit.length).toBeGreaterThan(TEST_OUT_MAX_QUESTIONS);
+    expect(plan.nodeIds).toEqual(unit.slice(0, TEST_OUT_MAX_QUESTIONS).map((node) => node.id));
+    expect(unit.filter((node) => plan.nodeIds.includes(node.id) && node.status === "locked").length).toBeGreaterThan(0);
+    expect(canTestOut(plan.lessons)).toBe(true);
+    expect(canTestOut(unit.flatMap((node) => node.lessonIds.map((id) => LESSONS_BY_ID[id])))).toBe(false);
 
-    const session = createTestOutSession({ branchTitle: "Wudu", branchId: unit[0].branchId, lessons: unitLessons, nodeIds: unit.map((node) => node.id), heartsAtStart: 5 });
+    const session = createTestOutSession({ branchTitle: "Wudu", branchId: unit[0].branchId, lessons: plan.lessons, nodeIds: plan.nodeIds, heartsAtStart: 5 });
     const prompts = session.lesson.challenges.map((challenge) => challenge.prompt.trim().toLowerCase());
     expect(new Set(prompts).size).toBe(prompts.length);
-    expect(new Set(session.lesson.challenges.map((challenge) => challenge.sourceLessonId)).size).toBeGreaterThan(1);
+    expect(new Set(session.lesson.challenges.map((challenge) => challenge.sourceLessonId))).toEqual(new Set(plan.lessons.map((lesson) => lesson.id)));
 
-    // Passing completes the whole unit and opens the next one, and pays only for the lessons it asked about.
+    // Passing completes the circles it asked about and pays for them; the next circle of the unit is next.
     const passed = completeLessonCluster(user, (session.targetLessonIds ?? []).map((id) => LESSONS_BY_ID[id]), session.lesson.xpReward);
-    expect(passed.totalXp - user.totalXp).toBe(session.lesson.xpReward);
-    expect(session.lesson.xpReward).toBeLessThan(unitLessons.reduce((total, lesson) => total + lesson.xpReward, 0));
+    expect(session.targetLessonIds).toEqual(plan.lessons.map((lesson) => lesson.id));
+    expect(passed.totalXp - user.totalXp).toBe(plan.lessons.reduce((total, lesson) => total + lesson.xpReward, 0));
     const after = learningApi.getPathNodes(passed).filter((node) => node.topicId === "prayer");
-    expect(after.filter((node) => node.branchId === unit[0].branchId).every((node) => node.status === "completed")).toBe(true);
-    expect(after.find((node) => node.status === "current")?.branchId).not.toBe(unit[0].branchId);
+    expect(after.filter((node) => plan.nodeIds.includes(node.id)).every((node) => node.status === "completed")).toBe(true);
+    expect(after.find((node) => node.status === "current")?.id).toBe(unit[TEST_OUT_MAX_QUESTIONS].id);
   });
 
   it("is not offered when the circles left give fewer than three questions", () => {
