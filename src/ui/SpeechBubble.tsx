@@ -1,20 +1,30 @@
 import React from "react";
 import { StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native";
+import { withHonorifics } from "./ArabicText";
 import { colors, fonts, radii } from "./theme";
 
 export type SpeechBubbleProps = {
   children?: React.ReactNode;
   tail?: "left" | "down";
+  /** Where a down tail sits: near the left edge (default) or in the middle, over a centered mascot. */
+  tailAlign?: "start" | "center";
   style?: StyleProp<ViewStyle>;
 };
 
 /** White bubble with a small tail. String children are styled as bubble text. */
-export function SpeechBubble({ children, tail = "left", style }: SpeechBubbleProps) {
+export function SpeechBubble({ children, tail = "left", tailAlign = "start", style }: SpeechBubbleProps) {
   const content =
-    typeof children === "string" || typeof children === "number" ? <Text style={styles.text}>{children}</Text> : children;
+    typeof children === "string" ? (
+      <Text style={styles.text}>{withHonorifics(children)}</Text>
+    ) : typeof children === "number" ? (
+      <Text style={styles.text}>{children}</Text>
+    ) : (
+      children
+    );
+  const tailStyle = tail === "left" ? styles.tailLeft : tailAlign === "center" ? styles.tailDownCenter : styles.tailDown;
   return (
     <View style={[styles.bubble, tail === "left" ? styles.withLeftTail : styles.withDownTail, style]}>
-      <View style={[styles.tail, tail === "left" ? styles.tailLeft : styles.tailDown]} />
+      <View style={[styles.tail, tailStyle]} />
       <View style={styles.content}>{content}</View>
     </View>
   );
@@ -68,6 +78,13 @@ const styles = StyleSheet.create({
   tailDown: {
     bottom: -TAIL / 2 - 1,
     left: 28,
+    borderRightWidth: 2,
+    borderBottomWidth: 2
+  },
+  tailDownCenter: {
+    bottom: -TAIL / 2 - 1,
+    left: "50%",
+    marginLeft: -TAIL / 2,
     borderRightWidth: 2,
     borderBottomWidth: 2
   }

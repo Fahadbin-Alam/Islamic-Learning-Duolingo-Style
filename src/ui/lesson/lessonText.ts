@@ -59,11 +59,42 @@ const FILLER = [
   /\blesson'?s? main point\b/i,
   /\bnot just (information|recognition)\b/i,
   /\bshould see how big decisions\b/i,
-  /^review (the|lessons?)\b/i
+  /^review (the|lessons?)\b/i,
+  // Reference lines from imported notes: "Grade: Da'if (Darussalam)", "Chapter: Section 3".
+  /^(grade|chapter|book|section|reference|source)\s*:/i,
+  /^(sahih|sunan|jami|musnad|mishkat|riyad|muwatta)\b[^.!?]*\d+[a-z]?\.?$/i
 ];
 
+/** A Why line must not open or close half a quotation. */
+function quotesClosed(value: string) {
+  const count = (pattern: RegExp) => (value.match(pattern) ?? []).length;
+  return count(/"/g) % 2 === 0 && count(/“/g) === count(/”/g) && !/^['‘’]/.test(value);
+}
+
+const STOP_WORDS = new Set(
+  "the and for with that this what which who whom whose does did do how many much was were are is be been being you your yours can could should would will from have has had its it's they them their there not but about into when why one all more most than then also such only very just a an of to in on at by as or if so we our us he his him she her it i me my lessons lesson".split(" ")
+);
+
+/** Content words of a text, roughly stemmed to five letters ("ayahs" / "ayah", "gently" / "gentle"). */
+function contentWords(value: string) {
+  const words = value
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter((word) => (word.length > 2 || /^\d+$/.test(word)) && !STOP_WORDS.has(word))
+    .map((word) => word.replace(/s$/, "").slice(0, 5));
+  return new Set(words);
+}
+
+const NUMBER_WORDS: Record<string, string> = {
+  "1": "one", "2": "two", "3": "three", "4": "four", "5": "five", "6": "six", "7": "seven", "8": "eight", "9": "nine", "10": "ten", "12": "twelve"
+};
+
 function splitSentences(value: string) {
-  return (value.match(/[^.!?]+(?:[.!?]+["”’)]*|$)/g) ?? []).map((part) => part.trim()).filter(Boolean);
+  // "Ubayy b. Ka'b" and "Q. 2:183" are not sentence ends.
+  const guarded = value.replace(/(^|[\s(])([A-Za-z])\.(?=\s)/g, "$1$2\u2024");
+  return (guarded.match(/[^.!?]+(?:[.!?]+["”’)]*|$)/g) ?? []).map((part) => part.replace(/\u2024/g, ".").trim()).filter(Boolean);
 }
 
 function cleanSentence(sentence: string) {
@@ -104,7 +135,10 @@ export type WhySource = {
 /**
  * One short, useful "Why?" line (at most WHY_MAX characters) from a challenge's explanations.
  * Drops lead-ins ("True.", "Watch out for this mistake:"), template filler, and sentences that only
- * repeat the prompt or the answer. Returns undefined when nothing useful is left (the sheet then hides Why).
+ * repeat the prompt or the answer. When a shared note gives several sentences, the one closest to the
+ * question wins (it names the answer or shares the most words with the prompt); if none of them is about
+ * the question, there is no Why line. Returns undefined when nothing useful is left (the sheet then shows
+ * only the correct answer).
  */
 export function shortWhy({ explanation, easierExplanation, prompt, correctLabel }: WhySource): string | undefined {
   const prompted = normalizeText(prompt ?? "");
@@ -122,7 +156,32 @@ export function shortWhy({ explanation, easierExplanation, prompt, correctLabel 
     }
     return false;
   };
+  // "True" / "False" / "Yes" say nothing about the topic, so only the question counts for those.
+  const plainAnswer = /^(true|false|yes|no)$/i.test((correctLabel ?? "").trim()) ? "" : (correctLabel ?? "").trim();
+  const promptWords = contentWords(prompt ?? "");
+  const answerWords = contentWords(plainAnswer);
+  const answerNumber = /^\d+$/.test(plainAnswer) ? plainAnswer : undefined;
+  const scored = Boolean(prompt?.trim() || plainAnswer);
+  const relevance = (sentence: string) => {
+    const words = contentWords(sentence);
+    let score = 0;
+    for (const word of promptWords) {
+      if (words.has(word)) {
+        score += 1;
+      }
+    }
+    for (const word of answerWords) {
+      if (words.has(word) && !promptWords.has(word)) {
+        score += 1;
+      }
+    }
+    const namesAnswer = answerNumber
+      ? words.has(answerNumber) || words.has(NUMBER_WORDS[answerNumber] ?? "-")
+      : answerWords.size > 0 && [...answerWords].every((word) => words.has(word));
+    return score + (namesAnswer ? 3 : 0);
+  };
   const seen = new Set<string>();
+  const found: { text: string; score: number }[] = [];
   for (const source of [easierExplanation, explanation]) {
     for (const raw of splitSentences(source ?? "")) {
       const sentence = cleanSentence(raw);
@@ -131,14 +190,23 @@ export function shortWhy({ explanation, easierExplanation, prompt, correctLabel 
         continue;
       }
       seen.add(key);
-      if (FILLER.some((pattern) => pattern.test(sentence)) || /\blearners?\b/i.test(sentence) || repeats(sentence)) {
+      // Check the sentence as written too: "A learner should..." became "You should..." above.
+      if (FILLER.some((pattern) => pattern.test(sentence)) || /\blearners?\b/i.test(sentence) || !quotesClosed(sentence) || repeats(sentence) || repeats(raw)) {
         continue;
       }
       const fitted = fitSentence(sentence);
-      if (fitted) {
+      if (!fitted) {
+        continue;
+      }
+      if (!scored) {
         return fitted;
       }
+      found.push({ text: fitted, score: relevance(fitted) });
     }
   }
-  return undefined;
+  if (found.length <= 1) {
+    return found[0]?.text;
+  }
+  const best = found.reduce((top, item) => (item.score > top.score ? item : top));
+  return best.score > 0 ? best.text : undefined;
 }

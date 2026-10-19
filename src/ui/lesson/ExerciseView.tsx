@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
-import { ArabicText, hasArabic, isArabicOnly } from "../ArabicText";
-import { ChoiceTile, type ChoiceTileState } from "../ChoiceTile";
+import type { GameSoundEvent } from "../../services/gameSoundLibrary";
+import { ArabicText, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
+import { ChoiceTile, LONG_LABEL, type ChoiceTileState } from "../ChoiceTile";
 import { GameButton } from "../GameButton";
 import { Mascot, type MascotMood } from "../Mascot";
 import { PopIn } from "../PopIn";
@@ -10,63 +11,109 @@ import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
+import { ScrollHint, useScrollMore } from "./ScrollHint";
 
-const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿";
+// Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
+const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
 const ARABIC_RUN = new RegExp(`([${AR}][${AR}\\s]*[${AR}]|[${AR}])`);
 const ARABIC_RUN_GLOBAL = new RegExp(ARABIC_RUN.source, "g");
+const LATIN = /[A-Za-z]/;
+/** A reference after the Arabic, e.g. "(Quran 1:3)". */
+const REFERENCE_TAIL = /^\s*\(([^()]*\d[^()]*)\)\s*[.?!]?\s*$/;
+const QUOTE_EDGE = /["“”'‘’«»]/;
 
-/** Short phones (iPhone SE, small Androids): smaller mascot, no instruction line, tighter tiles. */
+/** Short phones (iPhone SE, small Androids): smaller mascot, tighter tiles. */
 export function useLessonCompact() {
   const { width, height } = useWindowDimensions();
   return { compact: height > 0 && height < 700, narrow: width > 0 && width < 360 };
 }
 
+/** English text with unbreakable hyphens and a real glyph for ﷺ. */
+function englishText(value: string) {
+  return withHonorifics(noBreakHyphens(value));
+}
+
+/** Arabic shown as its own block under the English line: right-aligned and smaller once it is a paragraph. */
+function ArabicBlock({ text, size, quran }: { text: string; size: number; quran: boolean }) {
+  const length = text.length;
+  const paragraph = length > 30;
+  const fontSize = Math.round(size * (length <= 30 ? 1.55 : length <= 90 ? 1.35 : 1.2));
+  return (
+    <ArabicText
+      size={fontSize}
+      weight="bold"
+      quran={quran}
+      color={colors.ink}
+      align={paragraph ? "right" : "center"}
+      style={[styles.promptArabicLine, paragraph ? styles.promptArabicParagraph : null]}
+      testID="prompt-arabic"
+    >
+      {text}
+    </ArabicText>
+  );
+}
+
 /**
- * Prompt text. All-Arabic prompts use the Arabic face. A prompt with one Arabic run inside English
- * ("What does بِسْمِ اللَّهِ mean?") becomes "What does this mean?" with the Arabic big on its own line.
+ * Prompt text. All-Arabic prompts use the Arabic face. When the English sentence is complete before
+ * the Arabic ("What does this ayah mean? <ayah> (Quran 1:3)"), the Arabic gets its own block and the
+ * reference a small caption. When the Arabic sits inside the sentence ("What does بِسْمِ اللَّهِ mean?")
+ * it stays inline, so the English always reads as written. ﷺ is part of the English line.
  */
 export function PromptText({ children, size = 19 }: { children: string; size?: number }) {
+  const lineStyle = [styles.prompt, { fontSize: size, lineHeight: Math.round(size * 1.35) }];
   if (isArabicOnly(children)) {
+    const quran = isQuranText(children);
     return (
-      <ArabicText size={Math.round(size * 1.5)} weight="bold" align="right">
+      <ArabicText size={Math.round(size * (quran ? 1.3 : 1.5))} weight="bold" quran={quran} align="right" style={styles.promptArabicParagraph}>
         {children}
       </ArabicText>
     );
   }
-  const lineStyle = [styles.prompt, { fontSize: size, lineHeight: Math.round(size * 1.35) }];
   if (!hasArabic(children)) {
-    return <Text style={lineStyle}>{noBreakHyphens(children)}</Text>;
+    return <Text style={lineStyle}>{englishText(children)}</Text>;
   }
-  const runs = children.match(ARABIC_RUN_GLOBAL) ?? [];
-  if (runs.length === 1) {
-    const english = children
-      .replace(ARABIC_RUN, "\u0000")
-      .replace(/["“”'‘’«»]?\s*\u0000\s*["“”'‘’«»]?/, " this ")
-      .replace(/\s+([?.!,])/g, "$1")
-      .replace(/\s{2,}/g, " ")
-      .trim();
+
+  const runs = [...children.matchAll(ARABIC_RUN_GLOBAL)];
+  const start = runs[0]?.index ?? 0;
+  const lastRun = runs[runs.length - 1];
+  const end = (lastRun?.index ?? 0) + (lastRun?.[0].length ?? 0);
+  const middle = children.slice(start, end).trim();
+  const before = children.slice(0, start).replace(new RegExp(`${QUOTE_EDGE.source}\\s*$`), "").trim();
+  const after = children.slice(end).replace(new RegExp(`^\\s*${QUOTE_EDGE.source}`), "").trim();
+  // The English before the Arabic is a whole sentence (or there is none): the Arabic can stand alone.
+  const standsAlone = !LATIN.test(middle) && (before === "" || /[?:.!]$/.test(before));
+
+  if (standsAlone) {
+    const reference = after.match(REFERENCE_TAIL)?.[1]?.trim();
+    const quran = isQuranText(middle) || /\b(ayah|quran|surah)\b/i.test(`${before} ${after}`);
+    const tail = reference ? "" : after.replace(/^[\s—–:,-]+/, "");
     return (
       <View style={styles.promptStack}>
-        <Text style={lineStyle}>{noBreakHyphens(english)}</Text>
-        <ArabicText size={Math.round(size * 1.55)} weight="bold" color={colors.ink} style={styles.promptArabicLine}>
-          {runs[0].trim()}
-        </ArabicText>
+        {before ? <Text style={lineStyle}>{englishText(before)}</Text> : null}
+        <ArabicBlock text={middle} size={size} quran={quran} />
+        {reference ? (
+          <Text style={[styles.reference, middle.length > 30 ? styles.referenceEnd : null]} testID="prompt-reference">
+            {reference.replace(/\s+/g, " ")}
+          </Text>
+        ) : null}
+        {tail ? <Text style={lineStyle}>{englishText(tail)}</Text> : null}
       </View>
     );
   }
+
   const parts = children.split(ARABIC_RUN).filter((part) => part.length > 0);
   const arabicSize = Math.round(size * 1.3);
   return (
-    <Text style={[styles.prompt, { fontSize: size, lineHeight: Math.round(arabicSize * 1.4) }]}>
+    <Text style={[styles.prompt, { fontSize: size, lineHeight: Math.round(arabicSize * 1.45) }]}>
       {parts.map((part, index) =>
         hasArabic(part) ? (
-          <Text key={index} style={[styles.promptArabic, { fontSize: arabicSize }]}>
+          <Text key={index} style={[styles.promptArabic, { fontSize: arabicSize }, isQuranText(part) ? styles.promptQuran : null]}>
             {"⁧"}
             {part}
             {"⁩"}
           </Text>
         ) : (
-          <Text key={index}>{noBreakHyphens(part)}</Text>
+          <Text key={index}>{englishText(part)}</Text>
         )
       )}
     </Text>
@@ -92,7 +139,7 @@ export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", 
   const promptSize = long || compact ? 17 : narrow ? 18 : 19;
   if (long || hideMascot) {
     return (
-      <PopIn from="up" delay={60} style={styles.plainPrompt}>
+      <PopIn from="up" delay={60} style={[styles.plainPrompt, compact ? styles.plainPromptCompact : null]}>
         <PromptText size={promptSize}>{prompt}</PromptText>
       </PopIn>
     );
@@ -120,7 +167,7 @@ export type ExerciseViewProps = {
   selectedChoiceId?: string;
   /** When set: checked state, tiles lock, the feedback sheet is up. */
   result?: ExerciseResult;
-  /** Shows a small "Try again!" chip next to the instruction. */
+  /** A second try at a missed question: a small "Try again!" chip, and the choices change places. */
   retrying?: boolean;
   mascotVariant: string;
   accent: string;
@@ -129,10 +176,12 @@ export type ExerciseViewProps = {
   onContinue: () => void;
   /** Id of the right choice. Lets the right tile turn green after a wrong pick; otherwise found by correctLabel. */
   correctChoiceId?: string;
-  /** Seed for the praise / "Not quite!" word (e.g. the question id). Defaults to the prompt. */
+  /** Seed for the praise word (e.g. the question id). Defaults to the prompt. */
   praiseSeed?: string;
   /** Play the correct / wrong sound when the sheet opens. Default true; pass false if the caller plays it. */
   playSound?: boolean;
+  /** Sound of the sheet's CONTINUE / GOT IT. Pass false on the last question, where the finish fanfare follows. */
+  continueSound?: GameSoundEvent | false;
   /** Start with the feedback sheet's Why line open (gallery / tests). */
   defaultWhyOpen?: boolean;
   bottomInset?: number;
@@ -147,10 +196,17 @@ function isFalseChoice(choice: ExerciseChoice) {
   return choice.id.toLowerCase() === "false" || choice.label.trim().toLowerCase() === "false";
 }
 
+/** The same choices in another order (rotated by one, so no tile keeps its place). */
+export function retryOrder<T>(items: T[]): T[] {
+  return items.length > 1 ? [...items.slice(1), items[0]] : items;
+}
+
 const RETRY_INK = darken(colors.flame, 0.3);
 const RETRY_BG = lighten(colors.flame, 0.85);
 
-/** One question: instruction, mascot + prompt bubble, answer tiles, CHECK bar and the feedback sheet. */
+type Box = { y: number; height: number };
+
+/** One question: mascot + prompt bubble, answer tiles, CHECK bar and the feedback sheet. */
 export function ExerciseView({
   kind,
   prompt,
@@ -166,12 +222,14 @@ export function ExerciseView({
   correctChoiceId,
   praiseSeed,
   playSound = true,
+  continueSound,
   defaultWhyOpen,
   bottomInset,
   testID = "exercise-view"
 }: ExerciseViewProps) {
   const checked = Boolean(result);
   const { compact } = useLessonCompact();
+  const shownChoices = useMemo(() => (retrying ? retryOrder(choices) : choices), [choices, retrying]);
 
   // Keep the last result so the sheet does not flip to "wrong" while it slides away.
   const lastResult = useRef(result);
@@ -183,12 +241,13 @@ export function ExerciseView({
   const matchedId = shown ? choices.find((choice) => choice.label.trim() === shown.correctLabel.trim())?.id : undefined;
   const rightId = correctChoiceId ?? matchedId ?? (result?.correct ? selectedChoiceId : undefined);
 
-  // --- keep the checked tiles above the feedback sheet ---
-  const scrollRef = useRef<ScrollView>(null);
+  // --- keep the right tile above the feedback sheet ---
+  const { ref: scrollRef, scrollProps, more, scrollDown } = useScrollMore();
   const [rootHeight, setRootHeight] = useState(0);
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
-  const [tilesBottom, setTilesBottom] = useState(0);
+  const [tilesBox, setTilesBox] = useState<Box | null>(null);
+  const tileBoxes = useRef<Record<string, Box>>({});
   const wasChecked = useRef(checked);
 
   useEffect(() => {
@@ -200,18 +259,27 @@ export function ExerciseView({
       return;
     }
     wasChecked.current = true;
-    if (!rootHeight || !sheetHeight || !tilesBottom) {
+    if (!rootHeight || !sheetHeight || !tilesBox) {
       return;
     }
-    const y = Math.max(0, tilesBottom + space.md - (rootHeight - sheetHeight));
+    // Show the green tile (and the picked one when it sits above it) right above the sheet.
+    const focusId = rightId ?? selectedChoiceId;
+    const tile = focusId ? tileBoxes.current[focusId] : undefined;
+    const top = tilesBox.y + (tile?.y ?? 0);
+    const bottom = tile ? top + tile.height : tilesBox.y + tilesBox.height;
+    const y = Math.max(0, Math.min(bottom + space.md - (rootHeight - sheetHeight), top - space.sm));
     if (y > 0) {
       scrollRef.current?.scrollTo?.({ y, animated: true });
     }
-  }, [checked, rootHeight, sheetHeight, tilesBottom]);
+  }, [checked, rightId, rootHeight, scrollRef, selectedChoiceId, sheetHeight, tilesBox]);
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
-    setTilesBottom(Math.round(y + height));
+    setTilesBox({ y: Math.round(y), height: Math.round(height) });
+  };
+  const onTileLayout = (id: string) => (event: LayoutChangeEvent) => {
+    const { y, height } = event.nativeEvent.layout;
+    tileBoxes.current[id] = { y: Math.round(y), height: Math.round(height) };
   };
 
   const tileState = (choice: ExerciseChoice): ChoiceTileState => {
@@ -239,66 +307,78 @@ export function ExerciseView({
   const tfChoices = truePick && falsePick && truePick !== falsePick ? [truePick, falsePick] : null;
 
   const why = shown ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : undefined;
-  // The green tile already shows the answer; repeat it in the sheet only when no tile could be marked.
-  const sheetLabel = shown && !shown.correct && !rightId ? shown.correctLabel : undefined;
+  // "Correct answer: ..." always names the answer, even though the green tile shows it too.
+  const sheetLabel = shown && !shown.correct ? shown.correctLabel : undefined;
   const mood: MascotMood = result ? (result.correct ? "cheer" : "sad") : "think";
-  const showInstruction = !compact;
+  // Four answers do not fit next to a mascot on a short phone.
+  const hideMascot = compact && !tfChoices && choices.length >= 4;
+  // One long answer makes the whole set use the smaller text, so the tiles match.
+  const longChoices = choices.some((choice) => choice.label.length > LONG_LABEL);
   const extraBottom = checked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
 
   return (
     <View style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
-      <ScrollView
-        ref={scrollRef}
-        style={styles.scroll}
-        contentContainerStyle={[styles.content, { paddingBottom: extraBottom }]}
-        keyboardShouldPersistTaps="handled"
-      >
-        {showInstruction || retrying ? (
-          <View style={styles.instructionRow}>
-            {showInstruction ? (
-              <Text style={styles.instruction}>{trueFalse ? "True or false?" : "Choose the answer"}</Text>
-            ) : (
-              <View />
-            )}
-            {retrying ? (
+      <View style={styles.scrollBox}>
+        <ScrollView
+          ref={scrollRef}
+          style={styles.scroll}
+          contentContainerStyle={[styles.content, { paddingBottom: extraBottom }]}
+          keyboardShouldPersistTaps="handled"
+          {...scrollProps}
+        >
+          {retrying ? (
+            <View style={styles.retryRow}>
               <PopIn style={styles.retryChip}>
                 <Text style={styles.retryText}>Try again!</Text>
               </PopIn>
-            ) : null}
-          </View>
-        ) : null}
-        <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} />
+            </View>
+          ) : null}
+          <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={hideMascot} />
 
-        {tfChoices ? (
-          <View style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"}>
-            {tfChoices.map((choice, index) => (
-              <React.Fragment key={choice.id}>
-                {index > 0 ? <View style={styles.squareGap} /> : null}
-                <ChoiceTile
-                  label={choice === truePick ? "True" : "False"}
-                  icon={choice === truePick ? "check" : "close"}
-                  layout="square"
-                  state={tileState(choice)}
-                  onPress={() => press(choice)}
-                  testID={`choice-${choice.id}`}
-                />
-              </React.Fragment>
-            ))}
-          </View>
-        ) : (
-          <View style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"}>
-            {choices.map((choice, index) => (
-              <PopIn key={choice.id} from="up" delay={80 + index * 60} style={compact ? styles.tileGapCompact : styles.tileGap}>
-                <ChoiceTile label={choice.label} state={tileState(choice)} onPress={() => press(choice)} testID={`choice-${choice.id}`} />
-              </PopIn>
-            ))}
-          </View>
-        )}
-      </ScrollView>
+          {tfChoices ? (
+            <View style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"}>
+              {tfChoices.map((choice, index) => (
+                <React.Fragment key={choice.id}>
+                  {index > 0 ? <View style={styles.squareGap} /> : null}
+                  <ChoiceTile
+                    label={choice === truePick ? "True" : "False"}
+                    icon={choice === truePick ? "check" : "close"}
+                    iconColor={choice === truePick ? colors.green : colors.heart}
+                    layout="square"
+                    compact={compact}
+                    state={tileState(choice)}
+                    onPress={() => press(choice)}
+                    testID={`choice-${choice.id}`}
+                  />
+                </React.Fragment>
+              ))}
+            </View>
+          ) : (
+            <View style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"}>
+              {shownChoices.map((choice, index) => (
+                <View key={choice.id} onLayout={onTileLayout(choice.id)} style={compact ? styles.tileGapCompact : styles.tileGap}>
+                  <PopIn from="up" delay={80 + index * 60}>
+                    <ChoiceTile
+                      label={choice.label}
+                      compact={compact}
+                      long={longChoices}
+                      state={tileState(choice)}
+                      onPress={() => press(choice)}
+                      testID={`choice-${choice.id}`}
+                    />
+                  </PopIn>
+                </View>
+              ))}
+            </View>
+          )}
+        </ScrollView>
+        <ScrollHint visible={more && !checked} onPress={scrollDown} />
+      </View>
 
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
         <LessonBottomBar bottomInset={bottomInset}>
-          <GameButton label="Check" fullWidth disabled={!selectedChoiceId || checked} onPress={onCheck} testID="exercise-check" />
+          {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
+          <GameButton label="Check" fullWidth sound={false} disabled={!selectedChoiceId || checked} onPress={onCheck} testID="exercise-check" />
         </LessonBottomBar>
       </View>
 
@@ -310,6 +390,7 @@ export function ExerciseView({
         onContinue={onContinue}
         praiseSeed={praiseSeed ?? prompt}
         playSound={playSound}
+        buttonSound={continueSound}
         defaultWhyOpen={defaultWhyOpen}
         bottomInset={bottomInset}
         onHeight={setSheetHeight}
@@ -324,6 +405,11 @@ const styles = StyleSheet.create({
     position: "relative",
     backgroundColor: colors.snow
   },
+  scrollBox: {
+    flex: 1,
+    minHeight: 0,
+    position: "relative"
+  },
   scroll: {
     flex: 1
   },
@@ -331,15 +417,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.lg,
     paddingTop: space.sm
   },
-  instructionRow: {
+  retryRow: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    minHeight: 28,
+    justifyContent: "flex-end",
     marginBottom: space.sm
   },
   retryChip: {
-    marginLeft: space.sm,
     backgroundColor: RETRY_BG,
     borderRadius: radii.pill,
     paddingHorizontal: 12,
@@ -350,13 +433,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 20,
     color: RETRY_INK
-  },
-  instruction: {
-    flexShrink: 1,
-    fontFamily: fonts.displayHeavy,
-    fontSize: 16,
-    lineHeight: 22,
-    color: colors.inkSoft
   },
   questionRow: {
     flexDirection: "row",
@@ -376,6 +452,10 @@ const styles = StyleSheet.create({
     marginTop: space.xs,
     marginBottom: space.xl
   },
+  plainPromptCompact: {
+    marginTop: 0,
+    marginBottom: space.lg
+  },
   prompt: {
     flexShrink: 1,
     fontFamily: fonts.bodyHeavy,
@@ -387,11 +467,29 @@ const styles = StyleSheet.create({
   },
   promptArabicLine: {
     marginTop: space.xs,
-    alignSelf: "center"
+    alignSelf: "center",
+    maxWidth: "100%"
+  },
+  promptArabicParagraph: {
+    alignSelf: "stretch"
   },
   promptArabic: {
     fontFamily: fonts.arabicBold,
     writingDirection: "rtl"
+  },
+  promptQuran: {
+    fontFamily: fonts.quran
+  },
+  reference: {
+    alignSelf: "center",
+    marginTop: 2,
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft
+  },
+  referenceEnd: {
+    alignSelf: "flex-end"
   },
   stack: {
     width: "100%"

@@ -59,6 +59,11 @@ export type IconProps = {
   size?: number;
   /** When set, the icon is drawn as a single-color silhouette in this color. */
   color?: string;
+  /**
+   * With `color`: paint the details (spine, facets, inner shapes) in this color instead of a
+   * lighter tint of the silhouette. Use it for a white silhouette, where the tint would vanish.
+   */
+  detailColor?: string;
 };
 
 // ---------- palette ----------
@@ -143,7 +148,10 @@ const HEART = "M12 21.2c-.4 0-.8-.1-1.1-.4C7.6 18.3 2.8 14.4 2.8 9.6 2.8 6.6 5.1
 type Paint = { fill?: string; fillOpacity?: number; stroke?: string; strokeOpacity?: number };
 
 class Tone {
-  constructor(private readonly mono?: string) {}
+  constructor(
+    private readonly mono?: string,
+    private readonly detail?: string
+  ) {}
 
   get isMono() {
     return Boolean(this.mono);
@@ -159,9 +167,10 @@ class Tone {
     return { fill: this.mono ?? color, stroke: this.mono ?? color };
   }
 
-  /** Detail that sits on top of a main shape: drawn lighter in silhouette mode. */
+  /** Detail that sits on top of a main shape: drawn lighter (or in the detail color) in silhouette mode. */
   d(color: string): Paint {
-    return this.mono ? { fill: "#FFFFFF", fillOpacity: 0.5 } : { fill: color };
+    if (!this.mono) return { fill: color };
+    return this.detail ? { fill: this.detail } : { fill: "#FFFFFF", fillOpacity: 0.5 };
   }
 
   /** Main stroke. */
@@ -171,7 +180,8 @@ class Tone {
 
   /** Detail stroke. */
   ds(color: string): Paint {
-    return this.mono ? { stroke: "#FFFFFF", strokeOpacity: 0.5, fill: "none" } : { stroke: color, fill: "none" };
+    if (!this.mono) return { stroke: color, fill: "none" };
+    return this.detail ? { stroke: this.detail, fill: "none" } : { stroke: "#FFFFFF", strokeOpacity: 0.5, fill: "none" };
   }
 }
 
@@ -622,11 +632,11 @@ const ICONS: Record<IconName, Drawer> = {
 
 export const ICON_NAMES = Object.keys(ICONS) as IconName[];
 
-export const Icon = memo(function Icon({ name, size = 24, color }: IconProps) {
+export const Icon = memo(function Icon({ name, size = 24, color, detailColor }: IconProps) {
   const draw = ICONS[name] ?? ICONS.star;
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
-      {draw(new Tone(color))}
+      {draw(new Tone(color, detailColor))}
     </Svg>
   );
 });

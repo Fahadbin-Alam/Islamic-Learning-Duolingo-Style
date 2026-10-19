@@ -45,6 +45,21 @@ describe("FoundationDashboard", () => {
     expect(screen.getAllByText("New").length).toBeGreaterThan(0);
   });
 
+  it("shows a short level pill instead of a long label", async () => {
+    await renderDashboard();
+
+    expect(screen.getByText("Level 1")).toBeTruthy();
+    expect(screen.queryByText("New learner")).toBeNull();
+  });
+
+  it("says START, not RESUME, after a level check that was left early", async () => {
+    // The level check starts over each time, so a half-done one is not resumed.
+    await renderDashboard({ ...createEmptyLearnerProfile(), totalQuestionsAnswered: 4 });
+
+    expect(screen.getByText("START")).toBeTruthy();
+    expect(screen.queryByText("RESUME")).toBeNull();
+  });
+
   it("offers a retake once placement is finished", async () => {
     await renderDashboard({ ...createEmptyLearnerProfile(), assessmentCompleted: true, totalQuestionsAnswered: 10 });
 

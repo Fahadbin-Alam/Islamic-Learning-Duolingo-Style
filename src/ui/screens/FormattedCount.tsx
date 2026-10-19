@@ -14,7 +14,10 @@ export function compactNumber(value: number) {
   return formatNumber(rounded);
 }
 
-/** Like the kit CountUp, but the number is formatted (thousands separators, compact above 100k). */
+/**
+ * Like the kit CountUp, but the number is formatted (thousands separators, compact above 100k).
+ * Counts up from 0 on mount, then from the number on screen to the new one (gems spent count down).
+ */
 export function FormattedCount({
   value,
   duration = 900,
@@ -34,17 +37,22 @@ export function FormattedCount({
   const last = useRef(0);
 
   useEffect(() => {
+    const from = last.current;
     progress.setValue(0);
-    last.current = 0;
     const id = progress.addListener(({ value: p }) => {
-      const next = Math.round(p * target);
+      const next = Math.round(from + p * (target - from));
       if (next !== last.current) {
         last.current = next;
         setShown(next);
       }
     });
     const animation = Animated.timing(progress, { toValue: 1, duration, easing: Easing.out(Easing.cubic), useNativeDriver: false });
-    animation.start(({ finished }) => finished && setShown(target));
+    animation.start(({ finished }) => {
+      if (finished) {
+        last.current = target;
+        setShown(target);
+      }
+    });
     return () => {
       animation.stop();
       progress.removeListener(id);

@@ -15,6 +15,8 @@ export type LessonCompleteProps = {
   xp: number;
   stars: number;
   streakDays: number;
+  /** The streak grew with this lesson: the streak card plays the streak sound as it pops in. */
+  streakExtended?: boolean;
   /** Today's XP against the daily goal. Shown instead of the streak while the streak is still 0. */
   goal?: { xpToday: number; goalXp: number };
   unlockedTitle?: string;
@@ -25,7 +27,7 @@ export type LessonCompleteProps = {
   nextTitle?: string;
   onContinue: () => void;
   onBackToPath?: () => void;
-  /** Play lesson_complete on mount and xp when the counters finish. Default true. */
+  /** Play lesson_complete on mount, streak with the streak card (when it grew) and xp when the counters finish. Default true. */
   playSounds?: boolean;
   bottomInset?: number;
   testID?: string;
@@ -105,6 +107,7 @@ export function LessonComplete({
   xp,
   stars,
   streakDays,
+  streakExtended,
   goal,
   unlockedTitle,
   gemsReward,
@@ -118,8 +121,10 @@ export function LessonComplete({
   testID = "lesson-complete"
 }: LessonCompleteProps) {
   const bounce = useRef(new Animated.Value(0)).current;
-  const { height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const mascotSize = height > 0 && height < 720 ? 112 : 150;
+  // Three cards share a 320 px row: no room for the trophy next to "10/40".
+  const narrow = width > 0 && width < 360;
 
   useEffect(() => {
     const loop = Animated.loop(
@@ -138,8 +143,17 @@ export function LessonComplete({
       return undefined;
     }
     playUi("lesson_complete");
-    const timer = setTimeout(() => playUi("xp"), CARD_DELAY + 2 * CARD_STAGGER + COUNT_DURATION + 120);
-    return () => clearTimeout(timer);
+    // Spread out so no two sounds land together: the fanfare, then the streak card, then the XP count.
+    const streakTimer = streakExtended ? setTimeout(() => playUi("streak"), CARD_DELAY + 2 * CARD_STAGGER + 120) : undefined;
+    const xpTimer = setTimeout(() => playUi("xp"), CARD_DELAY + 2 * CARD_STAGGER + COUNT_DURATION + (streakExtended ? 420 : 120));
+    return () => {
+      clearTimeout(xpTimer);
+      if (streakTimer) {
+        clearTimeout(streakTimer);
+      }
+    };
+    // Sounds play once, when the screen opens.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playSounds]);
 
   const jump = bounce.interpolate({ inputRange: [0, 1], outputRange: [0, -18] });
@@ -177,10 +191,12 @@ export function LessonComplete({
               accessibilityLabel={`${Math.min(goal.xpToday, goal.goalXp)} of ${goal.goalXp} XP today`}
               testID="stat-goal"
             >
-              <Icon name="trophy" size={24} />
-              <Text style={[styles.cardValue, styles.goalValue, { color: STREAK_INK }]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
-                {Math.min(goal.xpToday, goal.goalXp)}/{goal.goalXp}
-              </Text>
+              {narrow ? null : <Icon name="trophy" size={24} />}
+              {/* "10" big and "/40" small; no numberOfLines, so the number is never cut to "10/...". */}
+              <View style={[styles.goalRow, narrow ? styles.goalRowNarrow : null]}>
+                <CountUp value={Math.min(goal.xpToday, goal.goalXp)} duration={COUNT_DURATION} style={[styles.cardValue, styles.goalValue, { color: STREAK_INK }]} />
+                <Text style={[styles.goalOf, { color: STREAK_INK }]}>/{goal.goalXp}</Text>
+              </View>
             </StatCard>
           ) : (
             <StatCard label="STREAK" icon="flame" value={streakDays} color={colors.flame} ink={STREAK_INK} index={2} testID="stat-streak" />
@@ -298,8 +314,22 @@ const styles = StyleSheet.create({
     paddingVertical: space.md,
     paddingHorizontal: 6
   },
+  goalRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    flexShrink: 1,
+    minWidth: 0
+  },
+  goalRowNarrow: {
+    marginLeft: -4
+  },
   goalValue: {
-    fontSize: 21
+    fontSize: 22
+  },
+  goalOf: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 30
   },
   cardValue: {
     marginLeft: 4,

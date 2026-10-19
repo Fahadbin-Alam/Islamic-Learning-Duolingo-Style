@@ -21,10 +21,22 @@ import type {
 } from "../types";
 import { translateStudyText } from "./contentLocalization";
 
-const PLACEMENT_QUESTIONS_PER_CATEGORY = 2;
-const PLACEMENT_EXTRA_QUESTIONS = 4;
+// One question per skill: the level check is 10 questions, short enough for a young learner.
+const PLACEMENT_QUESTIONS_PER_CATEGORY = 1;
+const PLACEMENT_EXTRA_QUESTIONS = 0;
 const DAILY_CHALLENGE_SIZE = 6;
 const REVIEW_SESSION_SIZE = 6;
+const WORD_BANK_SIZE = 4;
+
+/** The screen no longer asks "How sure?"; 0 means "not asked" and the answer itself sets the confidence. */
+export const CONFIDENCE_NOT_ASKED = 0;
+
+// Free-text reflections cannot be marked right or wrong, so they never appear in a scored session.
+const UNSCORED_TYPES = new Set<FoundationQuestion["type"]>(["reflection_prompt", "confidence_check"]);
+
+function isScored(question: FoundationQuestion) {
+  return !UNSCORED_TYPES.has(question.type);
+}
 
 export function createEmptyCategoryProfile(): LearnerCategoryProfile {
   return {
@@ -139,7 +151,7 @@ export function createFoundationAssessment(
     answerHistory: [],
     feedback: undefined,
     selectedAnswer: undefined,
-    confidence: 2,
+    confidence: CONFIDENCE_NOT_ASKED,
     startedAt: new Date().toISOString(),
     questionStartedAt: Date.now()
   };
@@ -149,12 +161,14 @@ export function submitFoundationAssessmentAnswer(input: {
   profile: LearnerProfile;
   state: FoundationAssessmentState;
   selectedAnswer: string | string[] | Record<string, string>;
-  confidence: number;
+  /** 1 to 4. Leave it out (or pass CONFIDENCE_NOT_ASKED) and it follows the answer, as in lessons. */
+  confidence?: number;
   responseTimeMs: number;
 }) {
-  const { profile, state, selectedAnswer, confidence, responseTimeMs } = input;
+  const { profile, state, selectedAnswer, responseTimeMs } = input;
   const question = state.currentQuestion;
   const isCorrect = evaluateFoundationAnswer(question, selectedAnswer);
+  const confidence = input.confidence && input.confidence > CONFIDENCE_NOT_ASKED ? input.confidence : isCorrect ? 3 : 2;
   const answerRecord: AssessmentAnswerRecord = {
     questionId: question.id,
     category: question.category,
@@ -208,9 +222,87 @@ export function advanceFoundationAssessment(
     askedQuestionIds: [...state.askedQuestionIds, nextQuestion.id],
     feedback: undefined,
     selectedAnswer: undefined,
-    confidence: 2,
+    confidence: CONFIDENCE_NOT_ASKED,
     questionStartedAt: Date.now()
   };
+}
+
+/** Level 1 to 5 from the readiness label, for the short "Level 2" pill. */
+export function getLearnerLevel(label: LearnerReadinessLabel) {
+  return Math.max(0, getProgressMapIndex(label)) + 1;
+}
+
+export type FoundationSessionSummary = {
+  mode: FoundationAssessmentState["mode"];
+  correct: number;
+  answered: number;
+  level: number;
+  /** Up to three weak skills to practice next, weakest first. */
+  practiceNext: FoundationCategoryId[];
+};
+
+/** What the end-of-practice screen shows: right answers, the level reached and the skills to practice next. */
+export function summarizeFoundationSession(state: FoundationAssessmentState, profile: LearnerProfile): FoundationSessionSummary {
+  const practiceNext = [...profile.weak_areas]
+    .sort((left, right) => getCategoryMasteryScore(profile.category_levels[left]) - getCategoryMasteryScore(profile.category_levels[right]))
+    .slice(0, 3);
+  return {
+    mode: state.mode,
+    correct: state.answerHistory.filter((answer) => answer.isCorrect).length,
+    answered: state.answerHistory.length,
+    level: getLearnerLevel(profile.readiness_label),
+    practiceNext
+  };
+}
+
+/** Stable shuffle (same order every time for the same seed). */
+export function seededShuffle<T>(items: T[], seed: string) {
+  const result = [...items];
+  let state = hashOf(seed) || 1;
+  for (let index = result.length - 1; index > 0; index -= 1) {
+    state = (state * 1103515245 + 12345) >>> 0;
+    const swap = state % (index + 1);
+    [result[index], result[swap]] = [result[swap], result[index]];
+  }
+  return result;
+}
+
+/** The steps of a put-in-order question to pick from: shuffled, and never already in the right order. */
+export function getShuffledOrderItems(question: FoundationQuestion): string[] {
+  const items = question.orderItems ?? [];
+  const answer = Array.isArray(question.correctAnswer) ? question.correctAnswer : items;
+  const shuffled = seededShuffle(items, question.id);
+  if (shuffled.length > 1 && shuffled.every((item, index) => item === answer[index])) {
+    return [...shuffled.slice(1), shuffled[0]];
+  }
+  return shuffled;
+}
+
+/** Tap-a-word choices for a fill-in-the-blank question: its answer plus the answers of other blanks. */
+export function getFoundationWordBank(question: FoundationQuestion): string[] {
+  if (question.type !== "fill_in_blank" || typeof question.correctAnswer !== "string") {
+    return question.options ?? [];
+  }
+  if (question.options && question.options.length > 1) {
+    return question.options;
+  }
+  const answer = question.correctAnswer;
+  const accepted = new Set([answer, ...(question.acceptedAnswers ?? [])].map(normalizeText));
+  const others = unique(
+    FOUNDATION_QUESTION_BANK.filter((candidate) => candidate.type === "fill_in_blank" && typeof candidate.correctAnswer === "string").map(
+      (candidate) => candidate.correctAnswer as string
+    )
+  ).filter((word) => !accepted.has(normalizeText(word)));
+  const distractors = seededShuffle(others, question.id).slice(0, WORD_BANK_SIZE - 1);
+  return seededShuffle([answer, ...distractors], `${question.id}:words`);
+}
+
+function hashOf(seed: string) {
+  let hash = 0;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash = (hash * 31 + seed.charCodeAt(index)) >>> 0;
+  }
+  return hash;
 }
 
 export function finalizeFoundationAssessment(
@@ -300,16 +392,31 @@ function selectNextQuestion(
 ) {
   const asked = new Set(askedQuestionIds);
   const targetCategories = pickTargetCategories(profile, answerHistory, mode, nextQuestionNumber);
+  // A replayed daily challenge skips the last round's questions while the skill still has others.
+  const lastDaily = mode === "daily_challenge" ? profile.dailyChallengeQuestionIds.filter((questionId) => !asked.has(questionId)) : [];
+  const passes = lastDaily.length ? [new Set([...asked, ...lastDaily]), asked] : [asked];
 
-  for (const category of targetCategories) {
-    const question = chooseQuestionFromCategory(profile, category, asked, answerHistory, nextQuestionNumber, mode);
+  for (const skip of passes) {
+    for (const category of targetCategories) {
+      const question = chooseQuestionFromCategory(profile, category, skip, answerHistory, nextQuestionNumber, mode);
 
-    if (question) {
-      return question;
+      if (question) {
+        return question;
+      }
     }
   }
 
-  return FOUNDATION_QUESTION_BANK.find((question) => !asked.has(question.id));
+  return FOUNDATION_QUESTION_BANK.find((question) => !asked.has(question.id) && isScored(question));
+}
+
+/** weak, other, weak, other... so a short session mixes the skills to fix with the rest. */
+function interleave<T>(first: T[], second: T[]) {
+  const result: T[] = [];
+  for (let index = 0; index < Math.max(first.length, second.length); index += 1) {
+    if (index < first.length) result.push(first[index]);
+    if (index < second.length) result.push(second[index]);
+  }
+  return result;
 }
 
 function pickTargetCategories(
@@ -331,8 +438,11 @@ function pickTargetCategories(
   }
 
   if (mode === "daily_challenge") {
-    const dailyOrder = [...profile.weak_areas, ...FOUNDATION_CATEGORY_ORDER.filter((category) => !profile.weak_areas.includes(category))];
-    return unique(dailyOrder);
+    // Each question starts at the next skill, so six questions cover six skills.
+    const weak = unique(profile.weak_areas);
+    const dailyOrder = interleave(weak, FOUNDATION_CATEGORY_ORDER.filter((category) => !weak.includes(category)));
+    const start = (nextQuestionNumber - 1) % dailyOrder.length;
+    return [...dailyOrder.slice(start), ...dailyOrder.slice(0, start)];
   }
 
   const askedCounts = FOUNDATION_CATEGORY_ORDER.reduce<Record<FoundationCategoryId, number>>((map, category) => {
@@ -371,7 +481,7 @@ function chooseQuestionFromCategory(
   mode: FoundationAssessmentState["mode"]
 ) {
   const categoryProfile = profile.category_levels[category];
-  const candidates = FOUNDATION_QUESTIONS_BY_CATEGORY[category].filter((question) => !asked.has(question.id));
+  const candidates = FOUNDATION_QUESTIONS_BY_CATEGORY[category].filter((question) => !asked.has(question.id) && isScored(question));
 
   if (!candidates.length) {
     return undefined;
@@ -381,7 +491,7 @@ function chooseQuestionFromCategory(
   const recentMistakes = categoryProfile.recentMistakeQuestionIds
     .map((questionId) => getFoundationQuestionById(questionId))
     .filter((question): question is FoundationQuestion => Boolean(question))
-    .filter((question) => !asked.has(question.id));
+    .filter((question) => !asked.has(question.id) && isScored(question));
 
   if (mode !== "placement" && recentMistakes.length) {
     return recentMistakes.sort((left, right) => Math.abs(left.difficulty - targetDifficulty) - Math.abs(right.difficulty - targetDifficulty))[0];
@@ -487,32 +597,13 @@ function buildAssessmentFeedback(
   };
 }
 
+// The note on the picked option first, then the question's misconception notes, each once.
 function getWrongAnswerReasons(
   question: FoundationQuestion,
   selectedAnswer: string | string[] | Record<string, string>
 ) {
-  if (Array.isArray(selectedAnswer)) {
-    return question.misconceptionNotes.length
-      ? question.misconceptionNotes
-      : ["Some of the selected choices do not match the strongest Islamic answer here."];
-  }
-
-  if (selectedAnswer && typeof selectedAnswer === "object") {
-    return question.misconceptionNotes.length
-      ? question.misconceptionNotes
-      : ["At least one pair does not match the correct relationship."];
-  }
-
-  const selectedValue = String(selectedAnswer ?? "");
-  const specific = question.wrongAnswerNotes?.[selectedValue];
-
-  if (specific) {
-    return [specific, ...question.misconceptionNotes];
-  }
-
-  return question.misconceptionNotes.length
-    ? question.misconceptionNotes
-    : ["This answer misses the core point the question is testing."];
+  const specific = typeof selectedAnswer === "string" ? question.wrongAnswerNotes?.[selectedAnswer] : undefined;
+  return unique([specific ?? "", ...question.misconceptionNotes].map((note) => note.trim()).filter(Boolean));
 }
 
 function applyAnswerToLearnerProfile(
@@ -580,8 +671,9 @@ function applyAnswerToLearnerProfile(
     needs_review_question_ids: answerRecord.isCorrect
       ? profile.needs_review_question_ids.filter((questionId) => questionId !== question.id)
       : [question.id, ...profile.needs_review_question_ids.filter((questionId) => questionId !== question.id)].slice(0, 24),
+    // Two rounds' worth, so the last round is still known (and skipped) while the next one is played.
     dailyChallengeQuestionIds: mode === "daily_challenge"
-      ? [question.id, ...profile.dailyChallengeQuestionIds.filter((questionId) => questionId !== question.id)].slice(0, DAILY_CHALLENGE_SIZE)
+      ? [question.id, ...profile.dailyChallengeQuestionIds.filter((questionId) => questionId !== question.id)].slice(0, DAILY_CHALLENGE_SIZE * 2)
       : profile.dailyChallengeQuestionIds
   });
 

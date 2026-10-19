@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Platform, ScrollView, StyleSheet, View } from "react-native";
-import { FoundationAssessmentScreen, FoundationDashboard } from "../../components/FoundationLearning";
+import { FoundationAssessmentScreen, FoundationDashboard, PracticeComplete } from "../../components/FoundationLearning";
 import { COURSE, SHOP_ITEMS } from "../../data/course";
 import { FOUNDATION_QUESTION_BANK } from "../../data/foundationQuestionBank";
 import { getUiStrings } from "../../i18n";
@@ -8,6 +8,7 @@ import type { CrewMember } from "../../services/backendSync";
 import {
   createEmptyLearnerProfile,
   createFoundationAssessment,
+  getShuffledOrderItems,
   submitFoundationAssessmentAnswer
 } from "../../services/foundationAssessment";
 import type { FoundationAssessmentState, FoundationQuestion, LearnerProfile, SocialRelation, UserProfile } from "../../types";
@@ -40,8 +41,14 @@ const STATES = [
   "assess-multi-checked",
   "assess-order",
   "assess-match",
+  "assess-match-wrong",
+  "assess-order-wrong",
+  "assess-fill",
+  "assess-fill-wrong",
   "assess-right",
-  "assess-wrong"
+  "assess-wrong",
+  "practice-complete",
+  "practice-complete-daily"
 ] as const;
 type State = (typeof STATES)[number];
 
@@ -114,6 +121,20 @@ function assessmentFor(type: FoundationQuestion["type"] | undefined, answer?: "r
   const base = createFoundationAssessment(profile, "placement");
   const question = (type && FOUNDATION_QUESTION_BANK.find((candidate) => candidate.type === type)) || base.currentQuestion;
   const state: FoundationAssessmentState = { ...base, currentQuestion: question, questionNumber: 3 };
+  const submit = (selectedAnswer: string | string[] | Record<string, string>) =>
+    submitFoundationAssessmentAnswer({ profile, state, selectedAnswer, responseTimeMs: 4000 }).stateWithFeedback;
+  if (type === "match_pairs" && question.pairs && answer) {
+    // Swap the first two meanings.
+    const rights = question.pairs.map((pair) => pair.right);
+    return submit(Object.fromEntries(question.pairs.map((pair, index) => [pair.left, rights[index === 0 ? 1 : index === 1 ? 0 : index]])));
+  }
+  if (type === "correct_order" && question.orderItems && answer) {
+    return submit(getShuffledOrderItems(question));
+  }
+  if (type === "fill_in_blank" && typeof question.correctAnswer === "string") {
+    if (answer) return submit(answer === "right" ? question.correctAnswer : "Qadar");
+    return { ...state, selectedAnswer: question.correctAnswer };
+  }
   if (type === "multi_select" && question.options) {
     if (answer) {
       return submitFoundationAssessmentAnswer({ profile, state, selectedAnswer: question.options.slice(0, 2), confidence: 3, responseTimeMs: 4000 }).stateWithFeedback;
@@ -192,22 +213,23 @@ function AssessDemo({ state }: { state: State }) {
     if (state === "assess-multi") return assessmentFor("multi_select");
     if (state === "assess-multi-checked") return assessmentFor("multi_select", "wrong");
     if (state === "assess-order") return assessmentFor("correct_order");
+    if (state === "assess-order-wrong") return assessmentFor("correct_order", "wrong");
     if (state === "assess-match") return assessmentFor("match_pairs");
+    if (state === "assess-match-wrong") return assessmentFor("match_pairs", "wrong");
+    if (state === "assess-fill") return assessmentFor("fill_in_blank");
+    if (state === "assess-fill-wrong") return assessmentFor("fill_in_blank", "wrong");
     if (state === "assess-right") return assessmentFor("multiple_choice", "right");
     if (state === "assess-wrong") return assessmentFor("multiple_choice", "wrong");
     return assessmentFor("multiple_choice");
   }, [state]);
   const [selected, setSelected] = useState(initial.selectedAnswer);
-  const [confidence, setConfidence] = useState(initial.confidence);
   return (
     <View style={styles.root}>
       <FoundationAssessmentScreen
         assessment={initial}
         language="en"
         selectedAnswer={selected}
-        confidence={confidence}
         onChangeSelectedAnswer={setSelected}
-        onChangeConfidence={setConfidence}
         onSubmit={noop}
         onContinue={noop}
         onExit={noop}
@@ -217,7 +239,37 @@ function AssessDemo({ state }: { state: State }) {
   );
 }
 
+/** A finished session: 7 of 10 right, two weak skills. */
+function CompleteDemo({ state }: { state: State }) {
+  const mode = state === "practice-complete-daily" ? "daily_challenge" : "placement";
+  const profile = placedProfile();
+  const base = createFoundationAssessment(profile, mode);
+  const answerHistory = Array.from({ length: mode === "placement" ? 10 : 6 }, (_, index) => ({
+    questionId: `q${index}`,
+    category: profile.weak_areas[index % 2],
+    difficulty: 1 as const,
+    isCorrect: index % 3 !== 2,
+    confidence: 3,
+    responseTimeMs: 4000,
+    answeredAt: today
+  }));
+  return (
+    <View style={styles.root}>
+      <PracticeComplete
+        assessment={{ ...base, answerHistory }}
+        learnerProfile={profile}
+        mascotVariant={foundation.mascot}
+        onContinue={noop}
+      />
+    </View>
+  );
+}
+
+// The practice demos pass no accent, as the app does, so hub, quiz and end screen show the same mascot.
 function Screen({ state }: { state: State }) {
+  if (state.startsWith("practice-complete")) {
+    return <CompleteDemo state={state} />;
+  }
   if (state.startsWith("practice")) {
     const user = makeUser("user");
     const profile = state === "practice-done" ? placedProfile() : createEmptyLearnerProfile();
@@ -233,7 +285,6 @@ function Screen({ state }: { state: State }) {
           onStartDailyChallenge={noop}
           onGoFoundation={noop}
           mascotVariant={foundation.mascot}
-          accent={prayer.accentColor}
         />
       </TabFrame>
     );
@@ -290,6 +341,7 @@ function Screen({ state }: { state: State }) {
           onSkipAssessment={noop}
           onExploreFreely={noop}
           mascotVariant={foundation.mascot}
+          accent={foundation.accentColor}
         />
       </ScrollView>
     );

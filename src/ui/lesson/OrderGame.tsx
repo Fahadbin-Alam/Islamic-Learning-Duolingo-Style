@@ -9,6 +9,8 @@ import { colors, fonts, lighten, radii, space, topicPalette } from "../theme";
 import { QuestionBubble, useLessonCompact } from "./ExerciseView";
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
+import { noBreakHyphens } from "./lessonText";
+import { ScrollHint, useScrollMore } from "./ScrollHint";
 
 export type OrderOption = { id: string; label: string; icon?: IconName };
 
@@ -29,6 +31,8 @@ export type OrderGameProps = {
   initialPlacedIds?: string[];
   /** Gallery / tests: start already checked (with initialPlacedIds). */
   initialChecked?: boolean;
+  /** Gallery / tests: wrong CHECKs already made (2 or more shows the right order on a wrong check). */
+  initialMisses?: number;
   /** Play the correct / wrong sound when the sheet opens. Default true; pass false if the caller plays it. */
   playSound?: boolean;
   bottomInset?: number;
@@ -80,6 +84,7 @@ function Chip({
   disabled,
   hidden,
   small,
+  fill,
   testID
 }: {
   label: string;
@@ -93,6 +98,8 @@ function Chip({
   hidden?: boolean;
   /** Short / narrow phones: a slightly smaller chip. */
   small?: boolean;
+  /** Short phones: the placed chip fills its half of a two-column grid. */
+  fill?: boolean;
   testID?: string;
 }) {
   const pop = useRef(new Animated.Value(0.6)).current;
@@ -124,13 +131,13 @@ function Chip({
   }
 
   return (
-    <Animated.View style={[styles.chipOuter, { transform: [{ scale: pop }] }]}>
+    <Animated.View style={[styles.chipOuter, fill ? styles.chipOuterFill : null, { transform: [{ scale: pop }] }]}>
       <Tappable onPress={onPress} disabled={disabled} pressScale={0.94} accessibilityLabel={label} testID={testID} style={styles.chipPress}>
         <View pointerEvents="none" style={[styles.chipLip, { backgroundColor: look.lip }]} />
-        <View style={[styles.chipFace, small ? styles.faceSmall : null, { backgroundColor: look.bg, borderColor: look.border }]}>
+        <View style={[styles.chipFace, small ? styles.faceSmall : null, fill ? styles.faceFill : null, { backgroundColor: look.bg, borderColor: look.border }]}>
           {number ? (
-            <View style={[styles.number, { backgroundColor: look.num }]}>
-              <Text style={styles.numberText}>{number}</Text>
+            <View style={[styles.number, fill ? styles.numberFill : null, { backgroundColor: look.num }]}>
+              <Text style={[styles.numberText, fill ? styles.numberTextFill : null]}>{number}</Text>
             </View>
           ) : null}
           {icon ? (
@@ -138,14 +145,16 @@ function Chip({
               <Icon name={icon} size={24} />
             </View>
           ) : null}
-          <Text style={[styles.chipText, small ? styles.chipTextSmall : null, { color: look.ink }]}>{label}</Text>
+          <Text style={[styles.chipText, small ? styles.chipTextSmall : null, fill ? styles.chipTextFill : null, { color: look.ink }]}>
+            {noBreakHyphens(label)}
+          </Text>
         </View>
       </Tappable>
     </Animated.View>
   );
 }
 
-/** Tap-to-order mini game (wudu / salah steps). */
+/** Tap-to-order mini game (wudu / salah steps). From the second wrong CHECK the sheet shows the right order. */
 export function OrderGame({
   title,
   prompt = "Put the steps in order!",
@@ -157,6 +166,7 @@ export function OrderGame({
   onChecked,
   initialPlacedIds,
   initialChecked,
+  initialMisses = 0,
   playSound = true,
   bottomInset,
   testID = "order-game"
@@ -169,6 +179,8 @@ export function OrderGame({
     }
     return initialPlacedIds.join("|") === correctOrderIds.join("|");
   });
+  // Wrong CHECKs so far (the current one included while the sheet is up).
+  const [misses, setMisses] = useState(() => (initialChecked && checked === false ? Math.max(1, initialMisses) : initialMisses));
   const { style: shakeStyle, shake } = useShake(8);
   const { compact, narrow } = useLessonCompact();
   const small = compact || narrow;
@@ -179,32 +191,39 @@ export function OrderGame({
   const wrongCount = placed.filter((id, index) => id !== correctOrderIds[index]).length;
 
   // Keep the last sheet copy while it slides away after TRY AGAIN.
-  const lastSheet = useRef({ correct: false, wrongCount: 0 });
+  const lastSheet = useRef({ correct: false, wrongCount: 0, misses: 0 });
   if (checked !== null) {
-    lastSheet.current = { correct: checked, wrongCount };
+    lastSheet.current = { correct: checked, wrongCount, misses };
   }
   const sheet = lastSheet.current;
 
   // --- keep the answer chips above the feedback sheet ---
-  const scrollRef = useRef<ScrollView>(null);
+  const { ref: scrollRef, scrollProps, more, scrollDown } = useScrollMore();
   const [rootHeight, setRootHeight] = useState(0);
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
-  const [answerBottom, setAnswerBottom] = useState(0);
+  const [answerBox, setAnswerBox] = useState<{ y: number; height: number } | null>(null);
+  const chipTops = useRef<Record<string, number>>({});
 
   useEffect(() => {
-    if (checked === null || !rootHeight || !sheetHeight || !answerBottom) {
+    if (checked === null || !rootHeight || !sheetHeight || !answerBox) {
       return;
     }
-    const y = Math.max(0, answerBottom + space.md - (rootHeight - sheetHeight));
-    if (y > 0) {
-      scrollRef.current?.scrollTo?.({ y, animated: true });
-    }
-  }, [answerBottom, checked, rootHeight, sheetHeight]);
+    // Line the answer box up above the sheet, but never past its top: the first (often red) chips
+    // must stay in view. When the box is too tall to fit, start at the first wrong chip.
+    const visible = rootHeight - sheetHeight;
+    const firstWrong = placed.find((id, index) => id !== correctOrderIds[index]);
+    const wrongTop = firstWrong !== undefined ? chipTops.current[firstWrong] : undefined;
+    const top = answerBox.y + (answerBox.height + space.md > visible && wrongTop !== undefined ? wrongTop : 0);
+    const y = Math.max(0, Math.min(answerBox.y + answerBox.height + space.md - visible, top - space.sm));
+    scrollRef.current?.scrollTo?.({ y, animated: true });
+    // Only when a CHECK opens the sheet or the layout under it changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answerBox, checked, rootHeight, sheetHeight]);
 
   const onAnswerLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
-    setAnswerBottom(Math.round(y + height));
+    setAnswerBox({ y: Math.round(y), height: Math.round(height) });
   };
 
   const add = (id: string) => {
@@ -223,6 +242,7 @@ export function OrderGame({
     const correct = placed.join("|") === correctOrderIds.join("|");
     setChecked(correct);
     if (!correct) {
+      setMisses((count) => count + 1);
       shake();
     }
     onChecked?.(correct);
@@ -238,65 +258,84 @@ export function OrderGame({
   const toneAt = (id: string, index: number): ChipTone =>
     checked === null ? "placed" : correctOrderIds[index] === id ? "correct" : "wrong";
   const mood: MascotMood = checked === null ? "think" : checked ? "cheer" : "sad";
-  const wrongTitle =
-    sheet.wrongCount === 1
+  // The first miss says how many steps are off; from the second one the sheet lists the right order.
+  const showOrder = !sheet.correct && sheet.misses >= 2;
+  const correctList = showOrder ? correctOrderIds.map((id) => byId.get(id)?.label ?? id) : undefined;
+  const wrongTitle = showOrder
+    ? "Correct order:"
+    : sheet.wrongCount === 1
       ? "Almost! 1 step is mixed up"
       : `${sheet.wrongCount * 2 > total ? "Not quite!" : "Almost!"} ${sheet.wrongCount} steps are mixed up`;
   const extraBottom = checked !== null && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
+  // Short phones: placed steps sit in two columns and used chips leave the bank, so all of it fits.
+  const grid = compact;
+  const bankOptions = grid ? bank.filter((option) => !placed.includes(option.id)) : bank;
 
   return (
     <View style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
-      <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: extraBottom }]}>
-        <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
+      <View style={styles.scrollBox}>
+        <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: extraBottom }]} {...scrollProps}>
+          <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
 
-        <Animated.View
-          style={[styles.answerBox, compact ? styles.answerBoxCompact : null, shakeStyle]}
-          onLayout={onAnswerLayout}
-          accessibilityLabel={title}
-          testID="order-answer"
-        >
-          {placed.map((id, index) => {
-            const option = byId.get(id);
-            return option ? (
-              <Chip
-                key={id}
-                label={option.label}
-                icon={option.icon}
-                number={index + 1}
-                tone={toneAt(id, index)}
-                small={small}
-                accent={accent}
-                onPress={() => remove(id)}
-                disabled={checked !== null}
-                testID={`order-placed-${id}`}
-              />
-            ) : null;
-          })}
-        </Animated.View>
+          <Animated.View
+            style={[styles.answerBox, compact ? styles.answerBoxCompact : null, shakeStyle]}
+            onLayout={onAnswerLayout}
+            accessibilityLabel={title}
+            testID="order-answer"
+          >
+            {placed.map((id, index) => {
+              const option = byId.get(id);
+              return option ? (
+                <View
+                  key={id}
+                  style={grid ? styles.gridCell : styles.flowCell}
+                  onLayout={(event) => {
+                    chipTops.current[id] = Math.round(event.nativeEvent.layout.y);
+                  }}
+                >
+                  <Chip
+                    label={option.label}
+                    icon={option.icon}
+                    number={index + 1}
+                    tone={toneAt(id, index)}
+                    small={small}
+                    fill={grid}
+                    accent={accent}
+                    onPress={() => remove(id)}
+                    disabled={checked !== null}
+                    testID={`order-placed-${id}`}
+                  />
+                </View>
+              ) : null;
+            })}
+          </Animated.View>
 
-        {placed.length < total ? (
-          <View style={[styles.bank, compact ? styles.bankCompact : null]} testID="order-bank">
-            {bank.map((option) => (
-              <Chip
-                key={`${option.id}-${placed.includes(option.id) ? "used" : "free"}`}
-                label={option.label}
-                icon={option.icon}
-                tone="idle"
-                small={small}
-                accent={accent}
-                hidden={placed.includes(option.id)}
-                onPress={() => add(option.id)}
-                disabled={checked !== null}
-                testID={`order-bank-${option.id}`}
-              />
-            ))}
-          </View>
-        ) : null}
-      </ScrollView>
+          {placed.length < total ? (
+            <View style={[styles.bank, compact ? styles.bankCompact : null]} testID="order-bank">
+              {bankOptions.map((option) => (
+                <Chip
+                  key={`${option.id}-${placed.includes(option.id) ? "used" : "free"}`}
+                  label={option.label}
+                  icon={option.icon}
+                  tone="idle"
+                  small={small}
+                  accent={accent}
+                  hidden={placed.includes(option.id)}
+                  onPress={() => add(option.id)}
+                  disabled={checked !== null}
+                  testID={`order-bank-${option.id}`}
+                />
+              ))}
+            </View>
+          ) : null}
+        </ScrollView>
+        <ScrollHint visible={more && checked === null} onPress={scrollDown} />
+      </View>
 
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
         <LessonBottomBar bottomInset={bottomInset}>
-          <GameButton label="Check" fullWidth disabled={!ready || checked !== null} onPress={check} testID="order-check" />
+          {/* The result sound plays when the sheet opens, so CHECK itself stays quiet. */}
+          <GameButton label="Check" fullWidth sound={false} disabled={!ready || checked !== null} onPress={check} testID="order-check" />
         </LessonBottomBar>
       </View>
 
@@ -304,6 +343,7 @@ export function OrderGame({
         visible={checked !== null}
         correct={sheet.correct}
         title={sheet.correct ? "Perfect order!" : wrongTitle}
+        correctList={correctList}
         buttonLabel={sheet.correct ? "Continue" : "Try again"}
         onContinue={sheet.correct ? onDone : retry}
         playSound={playSound}
@@ -321,6 +361,11 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "relative",
     backgroundColor: colors.snow
+  },
+  scrollBox: {
+    flex: 1,
+    minHeight: 0,
+    position: "relative"
   },
   scroll: {
     flex: 1
@@ -342,7 +387,14 @@ const styles = StyleSheet.create({
     alignContent: "flex-start"
   },
   answerBoxCompact: {
-    minHeight: 64
+    minHeight: 60,
+    padding: 4
+  },
+  flowCell: {
+    maxWidth: "100%"
+  },
+  gridCell: {
+    width: "50%"
   },
   bank: {
     marginTop: space.xl,
@@ -356,6 +408,9 @@ const styles = StyleSheet.create({
   chipOuter: {
     maxWidth: "100%",
     margin: 4
+  },
+  chipOuterFill: {
+    margin: 3
   },
   chipPress: {
     position: "relative",
@@ -401,6 +456,25 @@ const styles = StyleSheet.create({
   chipTextSmall: {
     fontSize: 16,
     lineHeight: 21
+  },
+  faceFill: {
+    minHeight: 38,
+    paddingHorizontal: 7,
+    paddingVertical: 4
+  },
+  chipTextFill: {
+    fontSize: 15,
+    lineHeight: 19
+  },
+  numberFill: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    marginRight: 5
+  },
+  numberTextFill: {
+    fontSize: 12,
+    lineHeight: 15
   },
   hiddenText: {
     color: "transparent"

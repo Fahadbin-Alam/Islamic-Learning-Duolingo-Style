@@ -10,6 +10,7 @@ import { PopIn } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount } from "./FormattedCount";
+import { SwitchTrack } from "./sheetParts";
 
 export type ProfileViewProps = {
   user: UserProfile;
@@ -21,7 +22,7 @@ export type ProfileViewProps = {
   onOpenShop?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
   onBack?: () => void;
-  /** Shown for guests as CREATE PROFILE. */
+  /** Shown for guests as SIGN UP. */
   onCreateAccount?: () => void;
   /** Sound row appears when onToggleSound is given. Default: user.soundEffectsEnabled !== false. */
   soundEnabled?: boolean;
@@ -96,6 +97,13 @@ function firstName(name: string) {
   return name.trim().split(/\s+/)[0] || name;
 }
 
+/** Web ignores adjustsFontSizeToFit, so long names get a smaller size up front. */
+function nameSize(name: string) {
+  if (name.length <= 12) return { fontSize: 26, lineHeight: 32 };
+  if (name.length <= 16) return { fontSize: 22, lineHeight: 28 };
+  return { fontSize: 19, lineHeight: 25 };
+}
+
 /** Me tab: avatar, four stat cards, a save-progress card for guests, and Settings / Sound. */
 export function ProfileView({
   user,
@@ -113,34 +121,42 @@ export function ProfileView({
   const sound = soundEnabled ?? user.soundEffectsEnabled !== false;
   const totalStars = stars ?? countStars(user.completedNodeIds);
   // The email stays in Settings: a kids' screen shows the username only.
-  const subLine = guest ? "Guest" : user.username ? `@${user.username}` : undefined;
+  // A guest still has the starter "New Learner" profile, which is not a name.
+  const subLine = guest ? undefined : user.username ? `@${user.username}` : undefined;
+  const shownName = guest ? "Guest" : firstName(user.displayName);
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="profile-view">
       <PopIn from="scale" style={styles.hero}>
-        <View style={[styles.avatar, { backgroundColor: accent, borderBottomColor: darken(accent) }]}>
-          <Text style={styles.initials} numberOfLines={1} adjustsFontSizeToFit>
-            {user.avatarInitials || "?"}
-          </Text>
-        </View>
-        <Text style={styles.name} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
-          {firstName(user.displayName)}
-        </Text>
-        <View style={styles.subRow}>
-          {subLine ? (
-            <Text style={styles.sub} numberOfLines={1}>
-              {subLine}
+        <View style={[styles.avatar, { backgroundColor: accent, borderBottomColor: darken(accent) }]} testID="profile-avatar">
+          {guest ? (
+            <Icon name="profile" size={64} color={colors.white} />
+          ) : (
+            <Text style={styles.initials} numberOfLines={1} adjustsFontSizeToFit>
+              {user.avatarInitials || "?"}
             </Text>
-          ) : null}
-          {learnerProfile.assessmentCompleted ? (
-            <View style={styles.levelPill}>
-              <Icon name="star8" size={14} />
-              <Text style={styles.levelText} numberOfLines={1}>
-                {learnerProfile.readiness_label}
-              </Text>
-            </View>
-          ) : null}
+          )}
         </View>
+        <Text style={[styles.name, nameSize(shownName)]} numberOfLines={2} testID="profile-name">
+          {shownName}
+        </Text>
+        {subLine || learnerProfile.assessmentCompleted ? (
+          <View style={styles.subRow}>
+            {subLine ? (
+              <Text style={styles.sub} numberOfLines={1}>
+                {subLine}
+              </Text>
+            ) : null}
+            {learnerProfile.assessmentCompleted ? (
+              <View style={styles.levelPill}>
+                <Icon name="star8" size={14} />
+                <Text style={styles.levelText} numberOfLines={1}>
+                  {learnerProfile.readiness_label}
+                </Text>
+              </View>
+            ) : null}
+          </View>
+        ) : null}
       </PopIn>
 
       <View style={styles.grid}>
@@ -159,7 +175,7 @@ export function ProfileView({
                 Save your progress
               </Text>
             </View>
-            <GameButton label="Create profile" fullWidth onPress={onCreateAccount} testID="profile-create" />
+            <GameButton label="Sign up" fullWidth onPress={onCreateAccount} testID="profile-create" />
           </View>
         </PopIn>
       ) : null}
@@ -175,11 +191,7 @@ export function ProfileView({
             accessibilityRole="switch"
             accessibilityState={{ checked: sound }}
             last
-            right={
-              <View style={[styles.toggle, sound ? styles.toggleOn : null]}>
-                <View style={[styles.knob, sound ? styles.knobOn : null]} />
-              </View>
-            }
+            right={<SwitchTrack value={sound} />}
           />
         ) : null}
       </View>
@@ -346,25 +358,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
     minWidth: 0
-  },
-  toggle: {
-    width: 52,
-    height: 30,
-    borderRadius: 15,
-    padding: 3,
-    backgroundColor: colors.locked,
-    justifyContent: "center"
-  },
-  toggleOn: {
-    backgroundColor: colors.green
-  },
-  knob: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: colors.white
-  },
-  knobOn: {
-    alignSelf: "flex-end"
   }
 });

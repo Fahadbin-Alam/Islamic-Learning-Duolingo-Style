@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Platform, ScrollView, StyleSheet, Text, View, type DimensionValue } from "react-native";
+import { ScrollView, StyleSheet, Text, View, type DimensionValue } from "react-native";
 import type { ArabicTerm } from "../../data/arabicTerms";
 import { ArabicText } from "../ArabicText";
 import { Icon, topicIcon, type IconName } from "../Icon";
@@ -59,15 +59,8 @@ function TopicTile({ topic, active, width, onPress }: { topic: TopicPickerTopic;
         {topic.title}
       </Text>
       {topic.arabic ? (
-        <ArabicText
-          size={Platform.OS === "web" && topic.arabic.ar.length > 12 ? 15 : 18}
-          weight="bold"
-          color={palette.ink}
-          numberOfLines={1}
-          adjustsFontSizeToFit
-          minimumFontScale={0.7}
-          style={styles.arabic}
-        >
+        // Never cut: a long name drops a size and may wrap (web ignores adjustsFontSizeToFit).
+        <ArabicText size={topic.arabic.ar.length > 12 ? 15 : 18} weight="bold" color={palette.ink} style={styles.arabic}>
           {topic.arabic.ar}
         </ArabicText>
       ) : null}

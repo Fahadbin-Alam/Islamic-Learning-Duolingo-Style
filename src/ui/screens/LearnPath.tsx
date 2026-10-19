@@ -21,11 +21,13 @@ import { ArabicText } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
-import { PopIn } from "../PopIn";
+import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
-import { haptic, playUi } from "../sound";
+import { Sheet } from "../Sheet";
+import { feedback } from "../sound";
+import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
-import { colors, darken, fonts, lighten, withAlpha } from "../theme";
+import { colors, darken, fonts, lighten, text, withAlpha } from "../theme";
 
 export type PathChest = { id: string; gemsReward: number; unlocked: boolean; claimed: boolean };
 
@@ -63,17 +65,19 @@ export type LearnPathProps = {
   xpForNode: (node: LearningNodeView) => number;
   onStartNode: (node: LearningNodeView) => void;
   onClaimChest: (chest: PathChest) => void;
-  /** Optional "jump ahead" key button on the current unit banner. */
+  /** Optional "jump ahead" key on the current unit banner. It asks first, then calls this on START TEST. */
   onTestOut?: (unitId: string) => void;
   /** Tap the Premium pill or the UNLOCK button of a premium-locked unit. */
   onPremium?: (unitId: string) => void;
+  /** The button under the end-of-topic trophy. Usually opens the topic picker. */
+  onNextTopic?: () => void;
   /** Optional content rendered above the first unit. */
   header?: React.ReactNode;
   /** Open this node's card on mount (gallery and tests). */
   initialOpenNodeId?: string;
   /** Scroll to this node or chest id on mount instead of the current node. */
   initialFocusId?: string;
-  /** Extra bottom padding so the last node clears the tab bar. Default 140. */
+  /** Extra bottom padding under the end-of-topic trophy. Default 32. */
   bottomPadding?: number;
 };
 
@@ -95,7 +99,14 @@ const CARD_ESTIMATE = 220;
 /** Card top inside its row, below the node. */
 const CARD_GAP = NODE + NODE_LIP + 4;
 const UNIT_PAD = 16;
-const STICKY_H = 64;
+/**
+ * Smallest sticky banner block (pill plus its white margins, one-line title). Used until a unit's
+ * sticky banner has measured itself: a low guess never lets the real banner peek out under it.
+ */
+const STICKY_MIN = 64;
+const END_NODE = 88;
+const END_LIP = 8;
+const HINT_MS = 1600;
 
 function offsetFor(index: number) {
   return OFFSETS[index % OFFSETS.length];
@@ -221,9 +232,11 @@ function Sparkle({ delay, style }: { delay: number; style: StyleProp<ViewStyle> 
 
 // ---------- node ----------
 
-type NodeLook = { face: string; lip: string; icon: IconName; iconColor: string };
+type NodeLook = { face: string; lip: string; icon: IconName; iconColor: string; iconDetail?: string };
 
 const LOCKED_ICON = darken(colors.lockedLip, 0.12);
+/** Dark brown label on gold, as in the kit's gold GameButton. */
+const GOLD_INK = darken(colors.goldLip, 0.52);
 
 function nodeLook(node: LearningNodeView, color: string, unitDone: boolean, premium: boolean): NodeLook {
   const kindIcon: IconName = node.kind === "review" ? "trophy" : node.kind === "story" ? "book" : "star";
@@ -235,14 +248,18 @@ function nodeLook(node: LearningNodeView, color: string, unitDone: boolean, prem
       return { face: colors.gold, lip: colors.goldLip, icon: unitDone ? "crown" : "check", iconColor: colors.white };
     case "locked":
       return { face: colors.locked, lip: colors.lockedLip, icon: node.kind === "skill" ? "lock" : kindIcon, iconColor: LOCKED_ICON };
-    default:
-      return { face: color, lip: darken(color, 0.22), icon: kindIcon, iconColor: colors.white };
+    default: {
+      const lip = darken(color, 0.22);
+      // A white book or trophy keeps its spine and pages in the lip color; the star stays plain white.
+      return { face: color, lip, icon: kindIcon, iconColor: colors.white, iconDetail: kindIcon === "star" ? undefined : lip };
+    }
   }
 }
 
 /**
- * Path node: a round face on a darker lip that sinks into the lip on press,
- * like the kit's GameButton. Plays `node_tap` with a medium haptic.
+ * Path node: a round face on a darker lip that sinks into the lip on press, like the kit's
+ * GameButton. Tappable only scales, so like GameButton this is built on Pressable and plays
+ * the kit feedback (`node_tap` and a medium haptic) itself.
  */
 function PathNode({
   node,
@@ -270,8 +287,7 @@ function PathNode({
       {current ? <ProgressRing color={color} track={lighten(color, 0.78)} progress={progress ?? 0} /> : null}
       <Pressable
         onPress={() => {
-          playUi("node_tap");
-          haptic("medium");
+          feedback("node_tap", "medium");
           onPress();
         }}
         onPressIn={() => Animated.timing(press, { toValue: 1, duration: 60, useNativeDriver: true }).start()}
@@ -284,9 +300,43 @@ function PathNode({
         <View style={[styles.nodeLip, { backgroundColor: look.lip }]} pointerEvents="none" />
         <Animated.View style={[styles.nodeFace, { backgroundColor: look.face, transform: [{ translateY }] }]} pointerEvents="none">
           <View style={styles.nodeShine} />
-          <Icon name={look.icon} size={34} color={look.iconColor} />
+          <Icon name={look.icon} size={34} color={look.iconColor} detailColor={look.iconDetail} />
         </Animated.View>
       </Pressable>
+    </View>
+  );
+}
+
+// ---------- hint bubble ----------
+
+type Hint = { icon: IconName; label: string };
+
+/** A two-word bubble that pops up over a path item for a moment. Each tap re-pops it. */
+function useHint() {
+  const [hint, setHint] = useState<(Hint & { seq: number }) | undefined>(undefined);
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const show = useCallback((next: Hint) => {
+    clearTimeout(timer.current);
+    setHint((previous) => ({ ...next, seq: (previous?.seq ?? 0) + 1 }));
+    timer.current = setTimeout(() => setHint(undefined), HINT_MS);
+  }, []);
+  return { hint, show };
+}
+
+function HintBubble({ hint, bottom }: { hint?: Hint & { seq: number }; bottom: number }) {
+  if (!hint) return null;
+  return (
+    <View style={[styles.hintSlot, { bottom }]} pointerEvents="none">
+      <PopIn key={hint.seq} style={styles.hintPop}>
+        <View style={styles.hint} testID="path-hint">
+          <Icon name={hint.icon} size={18} color={hint.icon === "lock" ? colors.inkSoft : undefined} />
+          <Text style={styles.hintText} numberOfLines={1}>
+            {hint.label}
+          </Text>
+        </View>
+        <View style={styles.hintTail} />
+      </PopIn>
     </View>
   );
 }
@@ -307,15 +357,24 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
     ready
   );
   const rotate = wiggle.interpolate({ inputRange: [-1, 1], outputRange: ["-9deg", "9deg"] });
+  const { style: shakeStyle, shake } = useShake(6);
+  const bounce = useRef(new Animated.Value(1)).current;
+  const { hint, show } = useHint();
 
-  const art = (
-    <View style={styles.chestArt}>
-      <View style={styles.groundShadow} />
-      <Animated.View style={[{ transform: [{ rotate }] }, ready ? null : chest.claimed ? styles.chestClaimed : styles.chestLocked]}>
-        <Icon name={chest.claimed ? "chestOpen" : "chest"} size={CHEST} />
-      </Animated.View>
-    </View>
-  );
+  // A locked chest shakes "not yet"; an opened one hops. Neither calls onClaim.
+  const nudge = () => {
+    if (chest.claimed) {
+      bounce.setValue(1);
+      Animated.sequence([
+        Animated.timing(bounce, { toValue: 1.12, duration: 110, useNativeDriver: true }),
+        Animated.spring(bounce, { toValue: 1, friction: 4, tension: 220, useNativeDriver: true })
+      ]).start();
+      show({ icon: "check", label: "Opened!" });
+    } else {
+      shake();
+      show({ icon: "lock", label: "Keep going!" });
+    }
+  };
 
   return (
     <View style={styles.chestBox}>
@@ -324,31 +383,32 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
           <Sparkle delay={0} style={styles.sparkleA} />
           <Sparkle delay={350} style={styles.sparkleB} />
           <Sparkle delay={700} style={styles.sparkleC} />
-          <Tappable
-            onPress={onClaim}
-            sound="reward_chest"
-            hapticKind="success"
-            pressScale={0.9}
-            accessibilityLabel={`Open chest, ${chest.gemsReward} gems`}
-            testID={`path-chest-${chest.id}`}
-          >
-            {art}
-            <View style={styles.rewardPill} pointerEvents="none">
-              <Icon name="gem" size={14} />
-              <Text style={styles.rewardText}>{`+${chest.gemsReward}`}</Text>
-            </View>
-          </Tappable>
         </>
-      ) : (
-        <View
-          accessible
-          accessibilityRole="image"
-          accessibilityLabel={chest.claimed ? "Opened chest" : "Locked chest"}
-          testID={`path-chest-${chest.id}`}
-        >
-          {art}
-        </View>
-      )}
+      ) : null}
+      <Tappable
+        onPress={ready ? onClaim : nudge}
+        sound={ready ? "reward_chest" : "soft_ui"}
+        hapticKind={ready ? "success" : "light"}
+        pressScale={0.9}
+        accessibilityLabel={ready ? `Open chest, ${chest.gemsReward} gems` : chest.claimed ? "Opened chest" : "Locked chest"}
+        testID={`path-chest-${chest.id}`}
+      >
+        <Animated.View style={shakeStyle}>
+          <Animated.View style={[styles.chestArt, { transform: [{ scale: bounce }] }]}>
+            <View style={styles.groundShadow} />
+            <Animated.View style={[{ transform: [{ rotate }] }, ready ? null : chest.claimed ? styles.chestClaimed : styles.chestLocked]}>
+              <Icon name={chest.claimed ? "chestOpen" : "chest"} size={CHEST} />
+            </Animated.View>
+          </Animated.View>
+        </Animated.View>
+        {ready ? (
+          <View style={styles.rewardPill} pointerEvents="none">
+            <Icon name="gem" size={14} />
+            <Text style={styles.rewardText}>{`+${chest.gemsReward}`}</Text>
+          </View>
+        ) : null}
+      </Tappable>
+      <HintBubble hint={hint} bottom={RING - 12} />
     </View>
   );
 }
@@ -363,6 +423,7 @@ function NodeCard({
   place,
   count,
   premium,
+  narrow,
   onStart,
   onPremium,
   onCardLayout
@@ -374,6 +435,8 @@ function NodeCard({
   place: number;
   count: number;
   premium: boolean;
+  /** Under 360 px wide: long Arabic drops a size so the card fits above the tabs. */
+  narrow: boolean;
   onStart: () => void;
   onPremium?: () => void;
   onCardLayout: (height: number) => void;
@@ -383,13 +446,14 @@ function NodeCard({
   const face = grey ? colors.locked : color;
   const lipColor = grey ? colors.lockedLip : darken(color, 0.22);
   const ink = grey ? colors.ink : colors.white;
+  const arabicSize = narrow && arabic && arabic.ar.length > 16 ? 24 : 28;
   // The card is its own responder, so touches on it never reach the path's tap-to-close handler.
   const swallow = () => true;
   const ignore = () => undefined;
 
   let action: React.ReactNode;
   if (premium && onPremium) {
-    action = <GameButton label="Unlock" icon="gem" variant="gold" fullWidth onPress={onPremium} style={styles.cardButton} testID="node-card-unlock" />;
+    action = <GameButton label="Unlock" icon="crown" variant="gold" fullWidth onPress={onPremium} style={styles.cardButton} testID="node-card-unlock" />;
   } else if (grey) {
     action = (
       <View style={styles.lockedPill} testID="node-card-locked">
@@ -423,7 +487,13 @@ function NodeCard({
         >
           <Text style={[styles.cardTitle, { color: ink }]}>{node.title}</Text>
           {arabic ? (
-            <ArabicText size={28} weight="bold" color={ink} align="left" style={[styles.cardArabic, grey ? styles.soft : null]}>
+            <ArabicText
+              size={arabicSize}
+              weight="bold"
+              color={ink}
+              align="left"
+              style={[styles.cardArabic, { lineHeight: arabicSize === 28 ? 40 : 34 }, grey ? styles.soft : null]}
+            >
               {arabic.ar}
             </ArabicText>
           ) : null}
@@ -444,7 +514,7 @@ function bannerFace(color: string) {
 function PremiumPill({ unitId, onPress }: { unitId: string; onPress?: () => void }) {
   const inner = (
     <>
-      <Icon name="gem" size={20} />
+      <Icon name="crown" size={20} />
       <Text style={styles.premiumText}>PREMIUM</Text>
     </>
   );
@@ -486,7 +556,7 @@ function UnitBanner({
       <View style={styles.unitRow}>
         <Text style={styles.unitLabel} numberOfLines={1}>{`UNIT ${unit.number}`}</Text>
         {unit.arabic ? (
-          <ArabicText size={unit.arabic.ar.length > 12 ? 18 : 20} weight="bold" color={colors.white} align="right" numberOfLines={1} style={styles.bannerArabic}>
+          <ArabicText size={unit.arabic.ar.length > 12 ? 18 : 20} weight="bold" color={colors.white} align="right" style={styles.bannerArabic}>
             {unit.arabic.ar}
           </ArabicText>
         ) : null}
@@ -501,7 +571,6 @@ function UnitBanner({
         {onTestOut ? (
           <Tappable
             onPress={onTestOut}
-            sound="unlock"
             pressScale={0.9}
             accessibilityLabel="Jump ahead"
             testID={`unit-test-out-${unit.id}`}
@@ -515,18 +584,132 @@ function UnitBanner({
   );
 }
 
-function StickyBanner({ unit, color }: { unit: PathUnit; color: string }) {
+function StickyBanner({ unit, color, onMeasure }: { unit: PathUnit; color: string; onMeasure: (height: number) => void }) {
   return (
-    <View style={styles.stickyWrap} testID="path-sticky">
+    <View style={styles.stickyWrap} testID="path-sticky" onLayout={(event) => onMeasure(event.nativeEvent.layout.height)}>
       <PopIn from="down">
         <View style={[styles.sticky, { backgroundColor: bannerFace(color), borderBottomColor: darken(color, 0.3) }]} testID={`path-sticky-${unit.id}`}>
-          <Text style={styles.stickyUnit} numberOfLines={1}>{`UNIT ${unit.number}`}</Text>
-          <Text style={styles.stickyTitle} numberOfLines={1}>
-            {unit.title}
-          </Text>
+          <View style={styles.stickyText}>
+            <Text style={styles.stickyUnit} numberOfLines={1}>{`UNIT ${unit.number}`}</Text>
+            <Text style={styles.stickyTitle} numberOfLines={2}>
+              {unit.title}
+            </Text>
+          </View>
           <Text style={styles.stickyCount} numberOfLines={1}>{`${unit.done}/${unit.total}`}</Text>
         </View>
       </PopIn>
+    </View>
+  );
+}
+
+// ---------- test-out sheet ----------
+
+function TestOutSheet({
+  visible,
+  color,
+  mascotVariant,
+  onStart,
+  onClose
+}: {
+  visible: boolean;
+  color: string;
+  mascotVariant: string;
+  onStart: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <Sheet visible={visible} onClose={onClose} bottomInset={0} testID="test-out-sheet">
+      <View style={styles.jumpHead}>
+        <View style={[styles.jumpKey, { backgroundColor: lighten(color, 0.86), borderBottomColor: lighten(color, 0.6) }]}>
+          <Icon name="key" size={30} />
+        </View>
+        <Text style={styles.jumpTitle} accessibilityRole="header" numberOfLines={2}>
+          Jump ahead?
+        </Text>
+      </View>
+      <View style={styles.jumpMascotRow}>
+        <Mascot variant={mascotVariant} mood="think" accent={color} size={84} />
+        <SpeechBubble style={styles.jumpBubble}>Pass a quick test to skip ahead!</SpeechBubble>
+      </View>
+      <GameButton label="Start test" color={color} sound="unlock" fullWidth onPress={onStart} testID="test-out-start" />
+      <GameButton label="Not now" variant="ghost" color={colors.inkSoft} fullWidth onPress={onClose} style={styles.jumpGhost} testID="test-out-cancel" />
+    </Sheet>
+  );
+}
+
+// ---------- end of the topic ----------
+
+function PathEnd({
+  done,
+  color,
+  mascotVariant,
+  width,
+  onNextTopic
+}: {
+  done: boolean;
+  color: string;
+  mascotVariant: string;
+  width: number;
+  onNextTopic?: () => void;
+}) {
+  const bob = useLoop((value) => pingPong(value, 700), done);
+  const translateY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, -6] });
+  const { style: shakeStyle, shake } = useShake(6);
+  const { hint, show } = useHint();
+  const center = width / 2;
+  const mascotLeft = Math.max(8, center - END_NODE / 2 - 18 - MASCOT_W);
+
+  return (
+    <View style={styles.end} testID="path-end">
+      <View style={styles.endStage}>
+        <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="none">
+          <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} />
+        </View>
+        <View style={[styles.endSlot, { left: center - END_NODE / 2 }]}>
+          <Animated.View style={{ transform: [...shakeStyle.transform, { translateY }] }}>
+            <Tappable
+              onPress={() => {
+                if (done) {
+                  show({ icon: "crown", label: "All done!" });
+                } else {
+                  shake();
+                  show({ icon: "lock", label: "Keep going!" });
+                }
+              }}
+              sound={done ? "xp" : "soft_ui"}
+              pressScale={0.92}
+              accessibilityLabel={done ? "Topic trophy, done" : "Topic trophy, locked"}
+              testID="path-end-trophy"
+              style={styles.endHit}
+            >
+              <View style={[styles.endLip, { backgroundColor: done ? colors.goldLip : colors.lockedLip }]} />
+              <View style={[styles.endFace, { backgroundColor: done ? colors.gold : colors.locked }]}>
+                <View style={styles.nodeShine} />
+                {done ? (
+                  <Icon name="trophy" size={46} color={colors.white} detailColor={colors.goldLip} />
+                ) : (
+                  // The real gold cup, faded: the prize ahead, not one more locked review node.
+                  <View style={styles.endFaded}>
+                    <Icon name="trophy" size={50} />
+                  </View>
+                )}
+              </View>
+            </Tappable>
+          </Animated.View>
+          <HintBubble hint={hint} bottom={END_NODE + END_LIP + 2} />
+        </View>
+      </View>
+      {onNextTopic ? (
+        <GameButton
+          label={done ? "Next topic" : "More topics"}
+          variant={done ? "primary" : "secondary"}
+          color={done ? color : undefined}
+          fullWidth
+          onPress={onNextTopic}
+          style={styles.endButton}
+          testID="path-next-topic"
+        />
+      ) : null}
     </View>
   );
 }
@@ -561,21 +744,25 @@ export function LearnPath({
   onClaimChest,
   onTestOut,
   onPremium,
+  onNextTopic,
   header,
   initialOpenNodeId,
   initialFocusId,
-  bottomPadding = 140
+  bottomPadding = 32
 }: LearnPathProps) {
   const scrollRef = useRef<ScrollView>(null);
   const [width, setWidth] = useState(390);
   const [openId, setOpenId] = useState<string | undefined>(initialOpenNodeId);
   const [cardH, setCardH] = useState<number | undefined>(undefined);
   const [stickyId, setStickyId] = useState<string | undefined>(undefined);
+  /** Unit whose "Jump ahead?" sheet is up; the id stays while the sheet slides away. */
+  const [testOut, setTestOut] = useState<{ unitId: string; open: boolean } | undefined>(undefined);
   const [seenTopic, setSeenTopic] = useState(topicId);
   const viewport = useRef(0);
   const scrollY = useRef(0);
   const unitY = useRef<Record<string, number>>({});
   const bannerH = useRef<Record<string, number>>({});
+  const stickyH = useRef<Record<string, number>>({});
   const itemsY = useRef<Record<string, number>>({});
   const rowY = useRef<Record<string, number>>({});
   const scrolledToCurrent = useRef(false);
@@ -592,6 +779,7 @@ export function LearnPath({
     setOpenId(undefined);
     setCardH(undefined);
     setStickyId(undefined);
+    setTestOut(undefined);
     scrolledToCurrent.current = false;
     focusConsumed.current = true;
     animateFocus.current = false;
@@ -691,22 +879,27 @@ export function LearnPath({
     return a + b + c;
   }, []);
 
+  /** Height of a unit's sticky banner block once it has been shown. */
+  const stickyHeight = useCallback((unit: PathUnit) => stickyH.current[unit.id] ?? STICKY_MIN, []);
+
   const updateSticky = useCallback(
     (y: number) => {
       let next: string | undefined;
       const groups = layout.byUnit;
       for (let i = 0; i < groups.length; i += 1) {
-        const top = unitY.current[groups[i].unit.id];
+        const { unit } = groups[i];
+        const top = unitY.current[unit.id];
         if (top === undefined || top > y) continue;
         const nextTop = i + 1 < groups.length ? unitY.current[groups[i + 1].unit.id] : undefined;
-        // Take over as soon as the real banner starts to slide under the top edge.
-        const realBannerShowing = y < top + UNIT_PAD + 20;
-        const nextBannerArriving = nextTop !== undefined && nextTop - y < STICKY_H;
-        next = realBannerShowing || nextBannerArriving ? undefined : groups[i].unit.id;
+        const stickyBottom = y + stickyHeight(unit);
+        // Take over only once the whole real banner is behind the sticky one, so its bar and count never peek out below.
+        const realBannerShowing = top + UNIT_PAD + (bannerH.current[unit.id] ?? 0) > stickyBottom;
+        const nextBannerArriving = nextTop !== undefined && nextTop + UNIT_PAD < stickyBottom;
+        next = realBannerShowing || nextBannerArriving ? undefined : unit.id;
       }
       setStickyId((previous) => (previous === next ? previous : next));
     },
-    [layout]
+    [layout, stickyHeight]
   );
 
   /** Never stop with a unit banner half under the top edge: show it whole, or scroll past so the sticky banner takes over. */
@@ -717,12 +910,12 @@ export function LearnPath({
         const height = bannerH.current[group.unit.id];
         if (top === undefined || height === undefined) continue;
         const whole = top + UNIT_PAD - 8;
-        const past = top + UNIT_PAD + height - STICKY_H + 10;
+        const past = top + UNIT_PAD + height - stickyHeight(group.unit) + 2;
         if (target > whole && target < past) return allowUp && target - whole < past - target ? whole : past;
       }
       return target;
     },
-    [layout]
+    [layout, stickyHeight]
   );
 
   const scrollTo = useCallback(
@@ -760,18 +953,22 @@ export function LearnPath({
   }, [topicId, layout.currentKey, tryScrollToCurrent]);
 
   // Keep the opened card on screen once it has measured itself.
-  const onCardLayout = (key: string, unitId: string, top: number, height: number) => {
+  const onCardLayout = (key: string, unit: PathUnit, top: number, height: number) => {
     setCardH((previous) => (previous !== undefined && Math.abs(previous - height) < 1 ? previous : height));
     if (cardScrolledFor.current === key || viewport.current <= 0) return;
-    const y = absoluteRowY(unitId, key);
+    const y = absoluteRowY(unit.id, key);
     if (y === undefined) return;
     cardScrolledFor.current = key;
     const nodeTop = y + top;
     const cardBottom = nodeTop + CARD_GAP + height + 12;
     const visibleBottom = scrollY.current + viewport.current;
     if (cardBottom > visibleBottom) {
-      // Scroll the card into view, but never push its node under the sticky banner.
-      const target = Math.min(cardBottom - viewport.current + 16, nodeTop - STICKY_H - 16);
+      // Scroll the whole card into view, keeping its node clear of the sticky banner. A card too tall
+      // for that may tuck the top half of its node under the banner, never the card's button.
+      const showCard = cardBottom - viewport.current + 4;
+      const sticky = stickyHeight(unit);
+      const nodeClear = nodeTop - sticky - 4;
+      const target = showCard <= nodeClear ? showCard : Math.min(showCard, nodeTop + NODE / 2 - sticky);
       if (target > scrollY.current) scrollTo(target, true, false);
     }
   };
@@ -791,6 +988,9 @@ export function LearnPath({
   const center = width / 2;
   const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
   const openRow = findRow(openId);
+  const testOutGroup = testOut ? layout.byUnit.find((group) => group.unit.id === testOut.unitId) : undefined;
+  const closeTestOut = () => setTestOut((previous) => (previous ? { ...previous, open: false } : previous));
+  const topicDone = units.length > 0 && units.every((unit) => unit.total > 0 && unit.done >= unit.total);
 
   return (
     <View style={styles.root}>
@@ -811,7 +1011,11 @@ export function LearnPath({
         onLayout={(event: LayoutChangeEvent) => {
           viewport.current = event.nativeEvent.layout.height;
           const nextWidth = event.nativeEvent.layout.width;
-          if (nextWidth > 0 && Math.abs(nextWidth - width) > 0.5) setWidth(nextWidth);
+          if (nextWidth > 0 && Math.abs(nextWidth - width) > 0.5) {
+            // Titles wrap differently at a new width: let the sticky banners measure again.
+            stickyH.current = {};
+            setWidth(nextWidth);
+          }
           tryScrollToCurrent();
         }}
         testID={`learn-path-${topicId}`}
@@ -834,7 +1038,7 @@ export function LearnPath({
                 <UnitBanner
                   unit={unit}
                   color={color}
-                  onTestOut={onTestOut && unit.id === layout.currentUnitId && !premium ? () => onTestOut(unit.id) : undefined}
+                  onTestOut={onTestOut && unit.id === layout.currentUnitId && !premium ? () => setTestOut({ unitId: unit.id, open: true }) : undefined}
                   onPremium={onPremium ? () => onPremium(unit.id) : undefined}
                   onBannerLayout={(height) => {
                     bannerH.current[unit.id] = height;
@@ -908,9 +1112,10 @@ export function LearnPath({
                               place={row.place}
                               count={group.nodeCount}
                               premium={premium && row.item.node.status !== "completed"}
+                              narrow={width < 360}
                               onStart={() => onStartNode((row.item as { node: LearningNodeView }).node)}
                               onPremium={onPremium ? () => onPremium(unit.id) : undefined}
-                              onCardLayout={(cardHeight) => onCardLayout(row.key, unit.id, top, cardHeight)}
+                              onCardLayout={(cardHeight) => onCardLayout(row.key, unit, top, cardHeight)}
                             />
                           </View>
                         ) : null}
@@ -921,9 +1126,36 @@ export function LearnPath({
               </View>
             );
           })}
+          {units.length > 0 ? (
+            <PathEnd done={topicDone} color={accent} mascotVariant={mascotVariant} width={width} onNextTopic={onNextTopic} />
+          ) : null}
         </View>
       </ScrollView>
-      {sticky ? <StickyBanner key={sticky.unit.id} unit={sticky.unit} color={sticky.color} /> : null}
+      {sticky ? (
+        <StickyBanner
+          key={sticky.unit.id}
+          unit={sticky.unit}
+          color={sticky.color}
+          onMeasure={(height) => {
+            const unitId = sticky.unit.id;
+            if (Math.abs((stickyH.current[unitId] ?? 0) - height) < 0.5) return;
+            stickyH.current[unitId] = height;
+            updateSticky(scrollY.current);
+          }}
+        />
+      ) : null}
+      {onTestOut ? (
+        <TestOutSheet
+          visible={Boolean(testOut?.open)}
+          color={testOutGroup?.color ?? accent}
+          mascotVariant={mascotVariant}
+          onClose={closeTestOut}
+          onStart={() => {
+            closeTestOut();
+            if (testOut) onTestOut(testOut.unitId);
+          }}
+        />
+      ) : null}
     </View>
   );
 }
@@ -1243,7 +1475,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: colors.white,
     borderBottomWidth: 3,
-    borderBottomColor: colors.gemLip
+    borderBottomColor: colors.goldLip
   },
   premiumText: {
     marginLeft: 4,
@@ -1251,7 +1483,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 17,
     letterSpacing: 0.5,
-    color: colors.gemLip
+    color: GOLD_INK
   },
   keyButton: {
     marginLeft: 10,
@@ -1276,26 +1508,29 @@ const styles = StyleSheet.create({
   sticky: {
     flexDirection: "row",
     alignItems: "center",
-    height: STICKY_H - 18,
     borderRadius: 16,
     borderBottomWidth: 4,
-    paddingHorizontal: 14
+    paddingHorizontal: 14,
+    paddingTop: 6,
+    paddingBottom: 6
+  },
+  stickyText: {
+    flex: 1,
+    minWidth: 0
   },
   stickyUnit: {
     fontFamily: fonts.displayHeavy,
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 12,
+    lineHeight: 16,
     letterSpacing: 1,
-    color: colors.white,
-    marginRight: 10
+    color: withAlpha(colors.white, 0.85)
   },
   stickyTitle: {
-    flex: 1,
-    minWidth: 0,
     fontFamily: fonts.displayHeavy,
-    fontSize: 17,
-    lineHeight: 22,
-    color: colors.white
+    fontSize: 15,
+    lineHeight: 19,
+    color: colors.white,
+    flexShrink: 1
   },
   stickyCount: {
     marginLeft: 10,
@@ -1303,5 +1538,120 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 20,
     color: colors.white
+  },
+  hintSlot: {
+    position: "absolute",
+    left: -80,
+    right: -80,
+    alignItems: "center",
+    zIndex: 30,
+    elevation: 30
+  },
+  hintPop: {
+    alignItems: "center"
+  },
+  hint: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 8,
+    paddingRight: 12,
+    paddingVertical: 4,
+    borderRadius: 14,
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.line
+  },
+  hintText: {
+    marginLeft: 5,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    color: colors.ink
+  },
+  hintTail: {
+    width: 12,
+    height: 12,
+    marginTop: -7,
+    backgroundColor: colors.white,
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: colors.line,
+    transform: [{ rotate: "45deg" }]
+  },
+  jumpHead: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  jumpKey: {
+    width: 52,
+    height: 52,
+    borderRadius: 16,
+    borderBottomWidth: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 12
+  },
+  jumpTitle: {
+    ...text.h2,
+    flex: 1,
+    minWidth: 0
+  },
+  jumpMascotRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 18
+  },
+  jumpBubble: {
+    flex: 1,
+    minWidth: 0,
+    marginLeft: 12
+  },
+  jumpGhost: {
+    marginTop: 4
+  },
+  end: {
+    paddingTop: 36,
+    paddingHorizontal: 24,
+    alignItems: "center"
+  },
+  endStage: {
+    alignSelf: "stretch",
+    marginHorizontal: -24,
+    height: END_NODE + END_LIP + 8
+  },
+  endSlot: {
+    position: "absolute",
+    top: 0,
+    width: END_NODE,
+    alignItems: "center"
+  },
+  endHit: {
+    width: END_NODE,
+    height: END_NODE + END_LIP
+  },
+  endLip: {
+    position: "absolute",
+    left: 0,
+    top: END_LIP,
+    width: END_NODE,
+    height: END_NODE,
+    borderRadius: END_NODE / 2
+  },
+  endFace: {
+    width: END_NODE,
+    height: END_NODE,
+    borderRadius: END_NODE / 2,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden"
+  },
+  endFaded: {
+    opacity: 0.5
+  },
+  endButton: {
+    marginTop: 18,
+    maxWidth: 320,
+    alignSelf: "center"
   }
 });

@@ -1,15 +1,16 @@
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { Animated, ScrollView, StyleSheet, Text, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { getTopicArabic } from "../../data/arabicTerms";
 import type { UiStrings } from "../../i18n";
 import { translateStudyText } from "../../services/contentLocalization";
+import { getLearnerLevel } from "../../services/foundationAssessment";
 import type { LearnerProfile, SupportedLanguage, UserProfile } from "../../types";
 import { ArabicText } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
-import { PopIn } from "../PopIn";
+import { PopIn, useShake } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text, topicPalette } from "../theme";
@@ -53,8 +54,8 @@ function ReviewIcon({ size = 30, color = colors.gem }: { size?: number; color?: 
 
 type Glyph = { icon: IconName } | { review: true };
 
-function Glyph({ glyph, size }: { glyph: Glyph; size: number }) {
-  return "review" in glyph ? <ReviewIcon size={size} /> : <Icon name={glyph.icon} size={size} />;
+function Glyph({ glyph, size, color }: { glyph: Glyph; size: number; color?: string }) {
+  return "review" in glyph ? <ReviewIcon size={size} color={color} /> : <Icon name={glyph.icon} size={size} color={color} />;
 }
 
 function CornerBadge({ value, done, color }: { value?: string; done?: boolean; color: string }) {
@@ -112,36 +113,38 @@ type TileProps = {
   label: string;
   badge?: string;
   done?: boolean;
+  /** Grey tile with nothing to start: a tap only wiggles it (and still plays the tap sound). */
+  resting?: boolean;
   onPress?: () => void;
   delay: number;
   testID: string;
 };
 
-/** Small square tile: icon plus one word. Without onPress it is a grey resting tile. */
-function SmallTile({ tint, glyph, label, badge, done, onPress, delay, testID }: TileProps) {
-  const resting = !onPress;
-  const inner = (
-    <>
-      <View style={[styles.tileIcon, { backgroundColor: resting ? colors.mist : lighten(tint, 0.85) }]}>
-        {resting ? <Icon name="check" size={26} color={colors.lockedLip} /> : <Glyph glyph={glyph} size={34} />}
-        <CornerBadge value={badge} done={done} color={darken(tint, 0.1)} />
-      </View>
-      <Text style={[styles.tileLabel, resting ? styles.tileLabelResting : null]} numberOfLines={2}>
-        {label}
-      </Text>
-    </>
-  );
+/** Small square tile: icon plus one word. A resting tile is grey and wiggles when tapped. */
+function SmallTile({ tint, glyph, label, badge, done, resting, onPress, delay, testID }: TileProps) {
+  const { style: shakeStyle, shake } = useShake(6);
   return (
     <PopIn delay={delay} from="up" style={styles.tileSlot}>
-      {resting ? (
-        <View style={[styles.tile, styles.tileResting]} testID={testID} accessibilityLabel={label}>
-          {inner}
-        </View>
-      ) : (
-        <Tappable onPress={onPress} style={styles.tile} testID={testID} accessibilityLabel={badge ? `${label}, ${badge}` : label} pressScale={0.95}>
-          {inner}
+      <Animated.View style={[styles.tileShake, resting ? shakeStyle : null]}>
+        <Tappable
+          onPress={() => {
+            if (resting) shake();
+            onPress?.();
+          }}
+          style={[styles.tile, resting ? styles.tileResting : null]}
+          testID={testID}
+          accessibilityLabel={badge ? `${label}, ${badge}` : label}
+          pressScale={0.95}
+        >
+          <View style={[styles.tileIcon, { backgroundColor: resting ? colors.locked : lighten(tint, 0.85) }]}>
+            <Glyph glyph={glyph} size={34} color={resting ? colors.lockedLip : undefined} />
+            <CornerBadge value={badge} done={done} color={darken(tint, 0.1)} />
+          </View>
+          <Text style={[styles.tileLabel, resting ? styles.tileLabelResting : null]} numberOfLines={2}>
+            {label}
+          </Text>
         </Tappable>
-      )}
+      </Animated.View>
     </PopIn>
   );
 }
@@ -162,9 +165,11 @@ export function PracticeHub({
   const weakCount = learnerProfile.weak_areas.length;
   const hasReview = reviewCount > 0 || weakCount > 0;
   const placed = learnerProfile.assessmentCompleted;
-  const resuming = !placed && learnerProfile.totalQuestionsAnswered > 0;
   const dailyDone = isToday(learnerProfile.lastDailyChallengeAt);
   const basics = getTopicArabic("foundation");
+  // Tapping the grey review tile makes the mascot say why it is resting.
+  const [restNote, setRestNote] = useState(false);
+  const bubble = restNote ? "No mistakes yet!" : placed ? "Let's sharpen what you know!" : "Let's find your level!";
 
   const reviewTile = hasReview ? (
     <SmallTile
@@ -177,7 +182,7 @@ export function PracticeHub({
       delay={120}
     />
   ) : (
-    <SmallTile testID="practice-review" tint={colors.gem} glyph={{ review: true }} label={t("No mistakes yet")} delay={120} />
+    <SmallTile testID="practice-review" tint={colors.gem} glyph={{ review: true }} label={t("Review")} resting onPress={() => setRestNote(true)} delay={120} />
   );
 
   return (
@@ -187,20 +192,20 @@ export function PracticeHub({
           {t("Practice")}
         </Text>
         {placed ? (
-          <View style={styles.levelPill}>
+          <View style={styles.levelPill} accessibilityLabel={`${t("Level")} ${getLearnerLevel(learnerProfile.readiness_label)}`} testID="practice-level">
             <Icon name="star8" size={18} />
             <Text style={styles.levelText} numberOfLines={1}>
-              {t(learnerProfile.readiness_label)}
+              {t("Level")} {getLearnerLevel(learnerProfile.readiness_label)}
             </Text>
           </View>
         ) : null}
       </View>
 
       <View style={styles.mascotRow}>
-        <Mascot variant={mascotVariant} mood={placed ? "cheer" : "happy"} size={68} accent={accent} />
-        <View style={styles.bubbleWrap}>
-          <SpeechBubble>{t(placed ? "Let's sharpen what you know!" : "Let's find your level!")}</SpeechBubble>
-        </View>
+        <Mascot variant={mascotVariant} mood={placed || restNote ? "cheer" : "happy"} size={68} accent={accent} />
+        <PopIn key={bubble} from="scale" style={styles.bubbleWrap}>
+          <SpeechBubble>{t(bubble)}</SpeechBubble>
+        </PopIn>
       </View>
 
       {placed ? (
@@ -220,7 +225,7 @@ export function PracticeHub({
           tint={accent}
           glyph={{ icon: "star8" }}
           title={t("Level check")}
-          button={t(resuming ? "Resume" : "Start")}
+          button={t("Start")}
           buttonVariant="primary"
           onPress={onStartPlacement}
         />
@@ -250,7 +255,7 @@ export function PracticeHub({
               {t("Basics")}
             </Text>
             {basics ? (
-              <ArabicText size={18} weight="bold" color={colors.correctInk} align="left" numberOfLines={1}>
+              <ArabicText size={20} weight="bold" color={colors.correctInk} align="left" numberOfLines={1}>
                 {basics.ar}
               </ArabicText>
             ) : null}
@@ -353,6 +358,9 @@ const styles = StyleSheet.create({
     flexBasis: 0,
     minWidth: 0
   },
+  tileShake: {
+    flex: 1
+  },
   tile: {
     flex: 1,
     alignItems: "center",
@@ -370,7 +378,7 @@ const styles = StyleSheet.create({
   },
   tileResting: {
     backgroundColor: colors.mist,
-    borderBottomWidth: 2
+    borderBottomWidth: 3
   },
   tileIcon: {
     width: 58,
@@ -388,8 +396,6 @@ const styles = StyleSheet.create({
     flexShrink: 1
   },
   tileLabelResting: {
-    fontSize: 15,
-    lineHeight: 19,
     color: colors.inkSoft
   },
   badge: {
@@ -440,9 +446,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     columnGap: 10
   },
+  // Arabic sits a size above the English next to it (20 over 17).
   basicsTitle: {
     ...text.h3,
-    fontSize: 18,
+    fontSize: 17,
+    lineHeight: 22,
     flexShrink: 1
   }
 });

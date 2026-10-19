@@ -1,8 +1,9 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react-native";
+import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { COURSE } from "../data/course";
 import type { LearningNodeView } from "../types";
 import { playGameSound } from "../services/gameAudio";
+import { Icon } from "../ui/Icon";
 import { AppTopBar, BottomTabs, LearnPath, TopicPicker, type PathUnit } from "../ui/screens";
 
 jest.mock("../services/gameAudio", () => ({
@@ -168,22 +169,94 @@ describe("LearnPath", () => {
     const { props } = await renderPath();
 
     await fireEvent.press(screen.getByTestId("path-chest-chest-1"));
+    expect(playGameSound).toHaveBeenLastCalledWith("reward_chest", expect.anything());
     await fireEvent.press(screen.getByTestId("path-chest-chest-2"));
 
     expect(props.onClaimChest).toHaveBeenCalledTimes(1);
     expect(props.onClaimChest).toHaveBeenCalledWith(expect.objectContaining({ id: "chest-1" }));
   });
 
-  it("shows the test-out key only on the current unit", async () => {
+  it("answers a tap on a locked or opened chest with a sound and a short hint", async () => {
+    jest.useFakeTimers();
+    const units = makeUnits();
+    units[0].items[1] = { kind: "chest", chest: { id: "chest-1", gemsReward: 20, unlocked: true, claimed: true } };
+    const { props } = await renderPath({ units });
+
+    await fireEvent.press(screen.getByTestId("path-chest-chest-2"));
+    expect(playGameSound).toHaveBeenLastCalledWith("soft_ui", expect.anything());
+    expect(screen.getByText("Keep going!")).toBeTruthy();
+
+    await fireEvent.press(screen.getByTestId("path-chest-chest-1"));
+    expect(screen.getByText("Opened!")).toBeTruthy();
+    expect(props.onClaimChest).not.toHaveBeenCalled();
+
+    await act(async () => {
+      jest.advanceTimersByTime(2000);
+    });
+    expect(screen.queryByText("Opened!")).toBeNull();
+    expect(screen.queryByText("Keep going!")).toBeNull();
+    jest.useRealTimers();
+  });
+
+  it("asks before the test-out key starts a test", async () => {
     const { props } = await renderPath();
 
+    expect(screen.queryByText("Jump ahead?")).toBeNull();
     await fireEvent.press(screen.getByTestId("unit-test-out-unit-a"));
+    expect(screen.getByText("Jump ahead?")).toBeTruthy();
+    expect(props.onTestOut).not.toHaveBeenCalled();
 
+    await fireEvent.press(screen.getByText("NOT NOW"));
+    expect(props.onTestOut).not.toHaveBeenCalled();
+
+    await fireEvent.press(screen.getByTestId("unit-test-out-unit-a"));
+    await fireEvent.press(screen.getByText("START TEST"));
+    expect(props.onTestOut).toHaveBeenCalledTimes(1);
     expect(props.onTestOut).toHaveBeenCalledWith("unit-a");
+  });
+
+  it("shows the test-out key only on the current unit", async () => {
+    await renderPath();
+
+    expect(screen.getByTestId("unit-test-out-unit-a")).toBeTruthy();
     expect(screen.queryByTestId("unit-test-out-unit-b")).toBeNull();
     expect(screen.getByTestId("unit-premium-unit-b")).toBeTruthy();
     expect(screen.getByText("UNIT 1")).toBeTruthy();
     expect(screen.getByText("1/3")).toBeTruthy();
+  });
+
+  it("ends the topic with a trophy and a button to the topics", async () => {
+    jest.useFakeTimers();
+    const onNextTopic = jest.fn();
+    await renderPath({ onNextTopic });
+
+    expect(screen.getByTestId("path-end")).toBeTruthy();
+    await fireEvent.press(screen.getByTestId("path-end-trophy"));
+    expect(screen.getByText("Keep going!")).toBeTruthy();
+    await fireEvent.press(screen.getByText("MORE TOPICS"));
+    expect(onNextTopic).toHaveBeenCalledTimes(1);
+    await act(async () => {
+      jest.advanceTimersByTime(2000);
+    });
+    jest.useRealTimers();
+  });
+
+  it("turns the trophy gold and offers the next topic once every unit is done", async () => {
+    const units: PathUnit[] = [
+      { id: "unit-a", number: 1, title: "Greetings and replies", done: 1, total: 1, items: [{ kind: "node", node: view(0, "completed"), lessonNumber: 1 }] }
+    ];
+    const onNextTopic = jest.fn();
+    await renderPath({ units, onNextTopic });
+
+    expect(screen.getByLabelText("Topic trophy, done")).toBeTruthy();
+    await fireEvent.press(screen.getByText("NEXT TOPIC"));
+    expect(onNextTopic).toHaveBeenCalledTimes(1);
+  });
+
+  it("leaves out the end button when there is no handler", async () => {
+    await renderPath();
+    expect(screen.getByTestId("path-end-trophy")).toBeTruthy();
+    expect(screen.queryByTestId("path-next-topic")).toBeNull();
   });
 
   it("shows one START when the data marks the first node of every unit current", async () => {
@@ -261,6 +334,30 @@ describe("LearnPath", () => {
 
     await screen.rerender(<LearnPath {...props} topicId="prayer" />);
     expect(screen.queryByTestId("node-card")).toBeNull();
+  });
+});
+
+describe("Icon", () => {
+  type SvgNode = { props?: { fill?: { payload?: number } }; children?: unknown[] };
+  // react-native-svg hands fills to native as ARGB numbers.
+  const DETAIL = 0xff123456;
+
+  async function bookFills(detailColor?: string) {
+    const fills = new Set<number>();
+    const walk = (node: unknown) => {
+      if (!node || typeof node !== "object") return;
+      const { props, children } = node as SvgNode;
+      if (typeof props?.fill?.payload === "number") fills.add(props.fill.payload);
+      children?.forEach(walk);
+    };
+    await render(<Icon name="book" color="#FFFFFF" detailColor={detailColor} />);
+    walk(screen.toJSON());
+    return fills;
+  }
+
+  it("draws a white silhouette's details in the detail color", async () => {
+    expect(await bookFills()).not.toContain(DETAIL);
+    expect(await bookFills("#123456")).toContain(DETAIL);
   });
 });
 

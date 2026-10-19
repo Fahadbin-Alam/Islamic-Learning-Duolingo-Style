@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { FoundationAssessmentScreen } from "../components/FoundationLearning";
 import { COURSE, SHOP_ITEMS } from "../data/course";
@@ -71,7 +72,10 @@ describe("PracticeHub", () => {
 
     await fireEvent.press(screen.getByText("START"));
     await fireEvent.press(screen.getByTestId("practice-daily"));
-    await fireEvent.press(screen.getByText("No mistakes yet"));
+    // The resting review tile only wiggles, and the mascot says why.
+    expect(screen.queryByText("No mistakes yet!")).toBeNull();
+    await fireEvent.press(screen.getByTestId("practice-review"));
+    expect(screen.getByText("No mistakes yet!")).toBeTruthy();
     await fireEvent.press(screen.getByTestId("practice-basics"));
 
     expect(h.onStartPlacement).toHaveBeenCalledTimes(1);
@@ -85,7 +89,10 @@ describe("PracticeHub", () => {
     const profile = { ...createEmptyLearnerProfile(), assessmentCompleted: true, readiness_label: "Growing student" as const, needs_review_question_ids: ["a", "b"] };
     await render(<PracticeHub user={makeUser()} learnerProfile={profile} language="en" strings={strings} {...h} />);
 
-    expect(screen.getByText("Growing student")).toBeTruthy();
+    // The level is a short "Level 3", not the readiness sentence.
+    expect(screen.getByTestId("practice-level")).toBeTruthy();
+    expect(screen.getByLabelText("Level 3")).toBeTruthy();
+    expect(screen.queryByText("Growing student")).toBeNull();
     expect(screen.getByText("2")).toBeTruthy();
     await fireEvent.press(screen.getByText("PLAY"));
     await fireEvent.press(screen.getByText("Review"));
@@ -100,6 +107,13 @@ describe("PracticeHub", () => {
     const profile = { ...createEmptyLearnerProfile(), assessmentCompleted: true, lastDailyChallengeAt: new Date().toISOString() };
     await render(<PracticeHub user={makeUser()} learnerProfile={profile} language="en" strings={strings} {...handlers()} />);
     expect(screen.getByText("PLAY AGAIN")).toBeTruthy();
+  });
+
+  it("says START for the level check even after some practice answers, since it starts over", async () => {
+    const profile = { ...createEmptyLearnerProfile(), totalQuestionsAnswered: 6 };
+    await render(<PracticeHub user={makeUser()} learnerProfile={profile} language="en" strings={strings} {...handlers()} />);
+    expect(screen.getByText("START")).toBeTruthy();
+    expect(screen.queryByText("RESUME")).toBeNull();
   });
 });
 
@@ -149,11 +163,47 @@ describe("ShopView", () => {
     expect(handlers.onOpenLink).toHaveBeenNthCalledWith(2, legalLinks.privacy);
   });
 
-  it("keeps an unaffordable gem item pressable so the app can explain why", async () => {
-    const handlers = await renderShop(makeUser({ gems: 10 }));
+  it("shakes an unaffordable or unneeded gem item instead of buying it; its line says why", async () => {
+    const { playGameSound } = jest.requireMock("../services/gameAudio");
+    let handlers = await renderShop(makeUser({ gems: 10 }));
     expect(screen.getByText("Need 340 more")).toBeTruthy();
+    playGameSound.mockClear();
     await fireEvent.press(screen.getByTestId("shop-buy-gem-heart-refill"));
-    expect(handlers.onUseItem).toHaveBeenCalledTimes(1);
+    expect(handlers.onUseItem).not.toHaveBeenCalled();
+    expect(playGameSound).toHaveBeenCalledWith("wrong", expect.anything());
+    expect(screen.getByText("Need 340 more")).toBeTruthy();
+
+    handlers = await renderShop(makeUser({ hearts: { current: 5, max: 5, unlimited: false, lastRefillDate: "2026-10-18" } }));
+    expect(screen.getByText("Hearts are full")).toBeTruthy();
+    await fireEvent.press(screen.getByTestId("shop-buy-gem-heart-refill"));
+    expect(handlers.onUseItem).not.toHaveBeenCalled();
+  });
+
+  it("hides what the store cannot sell (web): only gem items stay, with no plans or restore", async () => {
+    const handlers = { onUseItem: jest.fn(), onRestore: jest.fn(), onOpenLink: jest.fn() };
+    await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} {...handlers} />);
+
+    for (const item of SHOP_ITEMS) {
+      if (item.currencyType === "gems") expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
+      else expect(screen.queryByTestId(`shop-buy-${item.id}`)).toBeNull();
+    }
+    expect(screen.queryByTestId("shop-premium")).toBeNull();
+    expect(screen.queryByTestId("shop-restore")).toBeNull();
+    expect(screen.queryByText(/Renews automatically/)).toBeNull();
+    expect(screen.getByTestId("shop-app-hint")).toBeTruthy();
+    await fireEvent.press(screen.getByText("Terms"));
+    await solveGate();
+    expect(handlers.onOpenLink).toHaveBeenCalledWith(legalLinks.terms);
+  });
+
+  it("celebrates when a purchase fills the hearts", async () => {
+    const { playGameSound } = jest.requireMock("../services/gameAudio");
+    const props = { strings, items: SHOP_ITEMS, storePrices: {}, busy: false, section, onUseItem: jest.fn(), onRestore: jest.fn() };
+    const view = await render(<ShopView user={makeUser()} {...props} />);
+    playGameSound.mockClear();
+    await view.rerender(<ShopView user={makeUser({ gems: 150, hearts: { current: 5, max: 5, unlimited: false, lastRefillDate: "2026-10-18" } })} {...props} />);
+    expect(playGameSound).toHaveBeenCalledWith("unlock", expect.anything());
+    expect(screen.getByText("5/5")).toBeTruthy();
   });
 
   it("pauses buying while busy and spins the pending item", async () => {
@@ -197,7 +247,7 @@ describe("ProfileView", () => {
     expect(handlers.onOpenSettings).toHaveBeenCalledTimes(1);
     expect(handlers.onToggleSound).toHaveBeenCalledTimes(1);
     expect(screen.getByRole("switch").props.accessibilityState).toMatchObject({ checked: true });
-    expect(screen.queryByText("CREATE PROFILE")).toBeNull();
+    expect(screen.queryByText("SIGN UP")).toBeNull();
     expect(screen.getByText("Amina")).toBeTruthy();
     expect(screen.getByText("@amina")).toBeTruthy();
     expect(screen.queryByText("amina@example.com")).toBeNull();
@@ -206,12 +256,25 @@ describe("ProfileView", () => {
 
   it("asks a guest to save progress", async () => {
     const onCreateAccount = jest.fn();
-    await render(<ProfileView user={makeUser({ hasAccount: false })} strings={strings} learnerProfile={createEmptyLearnerProfile()} onOpenSettings={jest.fn()} onCreateAccount={onCreateAccount} />);
+    // A guest keeps the starter "New Learner" profile: never show that as a name.
+    const guest = makeUser({ hasAccount: false, displayName: "New Learner", avatarInitials: "NL", username: "learner" });
+    await render(<ProfileView user={guest} strings={strings} learnerProfile={createEmptyLearnerProfile()} onOpenSettings={jest.fn()} onCreateAccount={onCreateAccount} />);
 
-    expect(screen.getByText("Guest")).toBeTruthy();
+    expect(screen.getByTestId("profile-name").props.children).toBe("Guest");
+    expect(screen.queryByText("New")).toBeNull();
+    expect(screen.queryByText("NL")).toBeNull();
+    expect(screen.queryByText("@learner")).toBeNull();
     expect(screen.queryByTestId("profile-sound")).toBeNull();
-    await fireEvent.press(screen.getByText("CREATE PROFILE"));
+    await fireEvent.press(screen.getByText("SIGN UP"));
     expect(onCreateAccount).toHaveBeenCalledTimes(1);
+  });
+
+  it("gives a long first name a smaller size and room for two lines", async () => {
+    await render(<ProfileView user={makeUser({ displayName: "Muhammad-Abdurrahman Ibn Khalid" })} strings={strings} learnerProfile={createEmptyLearnerProfile()} onOpenSettings={jest.fn()} />);
+    const name = screen.getByTestId("profile-name");
+    expect(name.props.children).toBe("Muhammad-Abdurrahman");
+    expect(name.props.numberOfLines).toBe(2);
+    expect(StyleSheet.flatten(name.props.style).fontSize).toBeLessThanOrEqual(20);
   });
 
   it("counts stars and shortens big numbers", () => {
@@ -235,7 +298,7 @@ describe("CrewView", () => {
     return render(<CrewView user={user} crew={crew} inviteEmail={inviteEmail} inviteRelation="friend" {...handlers} />).then(() => handlers);
   }
 
-  it("shows the weekly race; a friend's row opens a sheet that removes them", async () => {
+  it("shows the weekly race; a friend's card asks before removing them", async () => {
     const yusuf = member(2, "Yusuf Abdur-Rahman", "friend", 500);
     const handlers = await renderCrew({ status: "ready", payload: { me: member(1, "Amina", "you", 300), friends: [yusuf] } });
 
@@ -243,7 +306,16 @@ describe("CrewView", () => {
     expect(screen.getByText("Amina (you)")).toBeTruthy();
     expect(screen.queryByTestId("crew-remove-2")).toBeNull();
     await fireEvent.press(screen.getByTestId("crew-row-2"));
-    await fireEvent.press(screen.getByText("REMOVE"));
+    // The big button is the friendly one; Remove is a small link that asks first.
+    expect(screen.getByTestId("crew-friend-ok")).toBeTruthy();
+    expect(screen.queryByTestId("crew-remove-2")).toBeNull();
+    await fireEvent.press(screen.getByTestId("crew-ask-remove-2"));
+    expect(screen.getByText("Remove Yusuf?")).toBeTruthy();
+    await fireEvent.press(screen.getByText("KEEP"));
+    expect(screen.getByTestId("crew-friend-ok")).toBeTruthy();
+    expect(handlers.onRemoveFriend).not.toHaveBeenCalled();
+    await fireEvent.press(screen.getByTestId("crew-ask-remove-2"));
+    await fireEvent.press(screen.getByTestId("crew-remove-2"));
     expect(handlers.onRemoveFriend).toHaveBeenCalledWith(yusuf);
 
     await act(async () => screen.getByTestId("crew-view").props.refreshControl.props.onRefresh());
@@ -253,7 +325,7 @@ describe("CrewView", () => {
   it("invites a friend by email only after the grown-up gate", async () => {
     const handlers = await renderCrew({ status: "ready", payload: { me: member(1, "Amina", "you", 300), friends: [] } }, makeUser(), "y@example.com");
 
-    await fireEvent.press(screen.getByText("INVITE A FRIEND"));
+    await fireEvent.press(screen.getByText("INVITE"));
     expect(screen.getByText("Ask a grown-up")).toBeTruthy();
     await solveGate();
     await fireEvent.changeText(screen.getByTestId("crew-email"), "y@example.com");
@@ -266,9 +338,17 @@ describe("CrewView", () => {
     expect(screen.getByTestId("crew-relation-friend").props.accessibilityState).toMatchObject({ checked: true });
   });
 
-  it("asks guests to create a profile", async () => {
+  it("adds a friend when Enter is pressed in the email field", async () => {
+    const handlers = await renderCrew({ status: "ready", payload: { me: member(1, "Amina", "you", 300), friends: [] } }, makeUser(), "y@example.com");
+    await fireEvent.press(screen.getByText("INVITE"));
+    await solveGate();
+    await fireEvent(screen.getByTestId("crew-email"), "submitEditing");
+    expect(handlers.onAddFriend).toHaveBeenCalledTimes(1);
+  });
+
+  it("asks guests to sign up", async () => {
     const handlers = await renderCrew({ status: "signed_out" }, makeUser({ hasAccount: false }));
-    await fireEvent.press(screen.getByText("CREATE PROFILE"));
+    await fireEvent.press(screen.getByText("SIGN UP"));
     expect(handlers.onCreateAccount).toHaveBeenCalledTimes(1);
   });
 
@@ -277,6 +357,9 @@ describe("CrewView", () => {
     expect(screen.getByText("No internet")).toBeTruthy();
     await fireEvent.press(screen.getByText("TRY AGAIN"));
     expect(handlers.onRefresh).toHaveBeenCalledTimes(1);
+    // The tap shows it is trying, even when the answer comes back at once.
+    expect(screen.getByTestId("crew-offline-busy")).toBeTruthy();
+    expect(screen.queryByText("TRY AGAIN")).toBeNull();
 
     handlers = await renderCrew({ status: "error", message: "HTTP 500: upstream exploded" });
     expect(screen.getByText("Oops!")).toBeTruthy();
@@ -289,6 +372,22 @@ describe("CrewView", () => {
 
     handlers = await renderCrew({ status: "idle" });
     expect(handlers.onRefresh).toHaveBeenCalledTimes(1);
+  });
+
+  it("says Crew is coming soon when the build has no server, with nothing to retry", async () => {
+    const handlers = {
+      onChangeInviteEmail: jest.fn(),
+      onChangeInviteRelation: jest.fn(),
+      onAddFriend: jest.fn(),
+      onRemoveFriend: jest.fn(),
+      onRefresh: jest.fn(),
+      onCreateAccount: jest.fn()
+    };
+    await render(<CrewView user={makeUser()} crew={{ status: "idle" }} inviteEmail="" inviteRelation="friend" unavailable {...handlers} />);
+    expect(screen.getByText("Crew is coming soon!")).toBeTruthy();
+    expect(screen.queryByText("TRY AGAIN")).toBeNull();
+    expect(screen.queryByText("No internet")).toBeNull();
+    expect(handlers.onRefresh).not.toHaveBeenCalled();
   });
 });
 
@@ -305,20 +404,22 @@ describe("FoundationAssessmentScreen", () => {
     confidenceLabel: "",
     reflectionPrompt: ""
   };
-  const makeHandlers = () => ({ onChangeSelectedAnswer: jest.fn(), onChangeConfidence: jest.fn(), onSubmit: jest.fn(), onContinue: jest.fn(), onExit: jest.fn() });
+  const makeHandlers = () => ({ onChangeSelectedAnswer: jest.fn(), onSubmit: jest.fn(), onContinue: jest.fn(), onExit: jest.fn() });
 
-  it("picks an answer, sets confidence, checks and closes", async () => {
+  it("picks an answer, checks, and asks before closing", async () => {
     const question = FOUNDATION_QUESTION_BANK.find((candidate) => candidate.type === "multiple_choice")!;
     const handlers = makeHandlers();
-    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question }} language="en" selectedAnswer={question.options![0]} confidence={2} {...handlers} />);
+    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question }} language="en" selectedAnswer={question.options![0]} {...handlers} />);
 
+    // No "How sure?" step.
+    expect(screen.queryByText("How sure?")).toBeNull();
     await fireEvent.press(screen.getByText(question.options![1]));
-    await fireEvent.press(screen.getByText("Sure"));
     await fireEvent.press(screen.getByText("CHECK"));
     await fireEvent.press(screen.getByLabelText("Close"));
+    expect(handlers.onExit).not.toHaveBeenCalled();
+    await fireEvent.press(screen.getByTestId("quit-end"));
 
     expect(handlers.onChangeSelectedAnswer).toHaveBeenCalledWith(question.options![1]);
-    expect(handlers.onChangeConfidence).toHaveBeenCalledWith(3);
     expect(handlers.onSubmit).toHaveBeenCalledTimes(1);
     expect(handlers.onExit).toHaveBeenCalledTimes(1);
   });
@@ -326,7 +427,7 @@ describe("FoundationAssessmentScreen", () => {
   it("freezes the answer tiles after CHECK", async () => {
     const question = FOUNDATION_QUESTION_BANK.find((candidate) => candidate.type === "multiple_choice")!;
     const handlers = makeHandlers();
-    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question, feedback }} language="en" selectedAnswer={question.options![0]} confidence={2} {...handlers} />);
+    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question, feedback }} language="en" selectedAnswer={question.options![0]} {...handlers} />);
 
     await fireEvent.press(screen.getByText(question.options![1]));
     expect(handlers.onChangeSelectedAnswer).not.toHaveBeenCalled();
@@ -335,7 +436,7 @@ describe("FoundationAssessmentScreen", () => {
   it("toggles multi-select boxes", async () => {
     const question = FOUNDATION_QUESTION_BANK.find((candidate) => candidate.type === "multi_select")!;
     const handlers = makeHandlers();
-    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question }} language="en" selectedAnswer={[question.options![0]]} confidence={2} {...handlers} />);
+    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question }} language="en" selectedAnswer={[question.options![0]]} {...handlers} />);
 
     expect(screen.getByText("Pick all that fit")).toBeTruthy();
     await fireEvent.press(screen.getByText(question.options![1]));
@@ -348,9 +449,9 @@ describe("FoundationAssessmentScreen", () => {
     const question = FOUNDATION_QUESTION_BANK.find((candidate) => candidate.type === "match_pairs")!;
     const handlers = makeHandlers();
     const pair = question.pairs![0];
-    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question }} language="en" selectedAnswer={undefined} confidence={2} {...handlers} />);
+    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question }} language="en" selectedAnswer={undefined} {...handlers} />);
 
-    expect(screen.getByText("Match the pairs")).toBeTruthy();
+    expect(screen.getByText(question.prompt)).toBeTruthy();
     await fireEvent.press(screen.getByTestId(`match-left-${pair.left}`));
     await fireEvent.press(screen.getByTestId(`match-right-${pair.right}`));
     expect(handlers.onChangeSelectedAnswer).toHaveBeenCalledWith({ [pair.left]: pair.right });
@@ -359,7 +460,7 @@ describe("FoundationAssessmentScreen", () => {
   it("fills numbered order slots", async () => {
     const question = FOUNDATION_QUESTION_BANK.find((candidate) => candidate.type === "correct_order")!;
     const handlers = makeHandlers();
-    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question }} language="en" selectedAnswer={[]} confidence={2} {...handlers} />);
+    await render(<FoundationAssessmentScreen assessment={{ ...base, currentQuestion: question }} language="en" selectedAnswer={[]} {...handlers} />);
 
     expect(screen.getByLabelText(`Slot ${question.orderItems!.length}`)).toBeTruthy();
     await fireEvent.press(screen.getByText(question.orderItems![1]));
@@ -368,12 +469,16 @@ describe("FoundationAssessmentScreen", () => {
 
   it("continues after feedback", async () => {
     const onContinue = jest.fn();
-    await render(<FoundationAssessmentScreen assessment={{ ...base, feedback }} language="en" selectedAnswer={undefined} confidence={2} onChangeSelectedAnswer={jest.fn()} onChangeConfidence={jest.fn()} onSubmit={jest.fn()} onContinue={onContinue} onExit={jest.fn()} />);
+    const question = base.currentQuestion;
+    await render(<FoundationAssessmentScreen assessment={{ ...base, feedback: { ...feedback, explanationShort: "The Shahadah is the first pillar." } }} language="en" selectedAnswer={undefined} onChangeSelectedAnswer={jest.fn()} onSubmit={jest.fn()} onContinue={onContinue} onExit={jest.fn()} />);
 
-    expect(screen.getByText("Not quite")).toBeTruthy();
-    await fireEvent.press(screen.getByText("Why?"));
-    expect(screen.getByText("It matters.")).toBeTruthy();
-    await fireEvent.press(screen.getByText("CONTINUE"));
+    // The lesson sheet: "Correct answer:" and the answer, one short Why line, no teacher notes.
+    expect(screen.getByText("Correct answer:")).toBeTruthy();
+    expect(screen.getByTestId("feedback-answer").props.children).toBe(String(question.correctAnswer));
+    await fireEvent.press(screen.getByTestId("feedback-why"));
+    expect(screen.getByTestId("feedback-why-text")).toBeTruthy();
+    expect(screen.queryByText("It matters.")).toBeNull();
+    await fireEvent.press(screen.getByText("GOT IT"));
     expect(onContinue).toHaveBeenCalledTimes(1);
   });
 });

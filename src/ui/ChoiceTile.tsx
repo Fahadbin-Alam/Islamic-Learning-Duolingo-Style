@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
-import { ArabicText, isArabicOnly } from "./ArabicText";
+import { ArabicText, isArabicOnly, isQuranText, withHonorifics } from "./ArabicText";
 import { Icon, type IconName } from "./Icon";
+import { noBreakHyphens } from "./lesson/lessonText";
 import { useShake } from "./PopIn";
 import { haptic, playUi } from "./sound";
 import { colors, fonts, lighten, radii } from "./theme";
@@ -14,7 +15,13 @@ export type ChoiceTileProps = {
   state?: ChoiceTileState;
   badge?: string;
   icon?: IconName;
+  /** Icon color in every state but disabled (e.g. a red X next to a green check). */
+  iconColor?: string;
   layout?: "row" | "square";
+  /** Short phones: smaller text and padding so more tiles fit. */
+  compact?: boolean;
+  /** Smaller text for long answers. Defaults to this label's length; pass it so a whole set matches. */
+  long?: boolean;
   testID?: string;
   accessibilityLabel?: string;
 };
@@ -39,8 +46,11 @@ const LOOKS: Record<ChoiceTileState, Look> = {
   dimmed: { bg: colors.white, border: colors.line, lip: colors.lineLip, text: colors.ink, badgeBorder: colors.line, badgeText: colors.inkSoft }
 };
 
+/** Labels longer than this use a smaller size so a long answer stays a few lines. */
+export const LONG_LABEL = 80;
+
 /** Big answer tile. Pops when selected, shakes when wrong. Text always wraps. */
-export function ChoiceTile({ label, onPress, state = "idle", badge, icon, layout = "row", testID, accessibilityLabel }: ChoiceTileProps) {
+export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconColor, layout = "row", compact, long: longProp, testID, accessibilityLabel }: ChoiceTileProps) {
   const look = LOOKS[state];
   const interactive = state !== "disabled" && state !== "dimmed";
   const press = useRef(new Animated.Value(0)).current;
@@ -66,6 +76,8 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, layout
   const translateY = press.interpolate({ inputRange: [0, 1], outputRange: [0, LIP - 1] });
   const arabic = isArabicOnly(label);
   const square = layout === "square";
+  const long = longProp ?? label.length > LONG_LABEL;
+  const labelSize = long ? styles.labelLong : compact ? styles.labelCompact : null;
 
   const content = (
     <>
@@ -76,16 +88,23 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, layout
       ) : null}
       {icon ? (
         <View style={square ? styles.squareIcon : styles.rowIcon}>
-          <Icon name={icon} size={square ? 48 : 28} color={state === "disabled" ? "#C7D0CB" : undefined} />
+          <Icon name={icon} size={square ? (compact ? 40 : 48) : 28} color={state === "disabled" ? "#C7D0CB" : iconColor} />
         </View>
       ) : null}
       {arabic ? (
-        <ArabicText size={24} weight="bold" color={look.text} align={square ? "center" : "right"} style={square ? styles.squareLabel : styles.rowLabel}>
+        <ArabicText
+          size={isQuranText(label) ? 20 : compact ? 22 : 24}
+          weight="bold"
+          quran={isQuranText(label)}
+          color={look.text}
+          align={square ? "center" : "right"}
+          style={square ? styles.squareLabel : styles.rowLabel}
+        >
           {label}
         </ArabicText>
       ) : (
-        <Text style={[styles.label, square ? styles.squareLabel : styles.rowLabel, { color: look.text, textAlign: square ? "center" : "left" }]}>
-          {label}
+        <Text style={[styles.label, labelSize, square ? styles.squareLabel : styles.rowLabel, { color: look.text, textAlign: square ? "center" : "left" }]}>
+          {withHonorifics(noBreakHyphens(label))}
         </Text>
       )}
     </>
@@ -117,6 +136,7 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, layout
             style={[
               styles.face,
               square ? styles.squareFace : styles.rowFace,
+              compact ? (square ? styles.squareFaceCompact : styles.rowFaceCompact) : null,
               { backgroundColor: look.bg, borderColor: look.border, transform: [{ translateY }] }
             ]}
           >
@@ -174,6 +194,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 16
   },
+  rowFaceCompact: {
+    minHeight: 50,
+    paddingHorizontal: 14,
+    paddingVertical: 9
+  },
+  squareFaceCompact: {
+    minHeight: 104,
+    paddingVertical: 12
+  },
   rowIcon: {
     marginRight: 12
   },
@@ -184,6 +213,14 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyHeavy,
     fontSize: 17,
     lineHeight: 23
+  },
+  labelCompact: {
+    fontSize: 16,
+    lineHeight: 21
+  },
+  labelLong: {
+    fontSize: 15,
+    lineHeight: 20
   },
   rowLabel: {
     flex: 1,

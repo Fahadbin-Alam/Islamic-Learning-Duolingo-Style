@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Platform, Pressable, StyleSheet, type StyleProp, type ViewStyle } from "react-native";
+import { Animated, Platform, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
+import { Portal } from "./Portal";
+import { Tappable } from "./Tappable";
 import { colors, radii } from "./theme";
 
 export type SheetTone = "white" | "correct" | "wrong";
@@ -12,6 +14,11 @@ export type SheetProps = {
   /** Dim the screen behind. Default: true for white, false for correct/wrong. */
   backdrop?: boolean;
   dismissOnBackdrop?: boolean;
+  /**
+   * Draw over the whole app shell (top bar and tabs too) through the PortalHost.
+   * Default: true when the sheet dims the screen. Falls back to inline without a host.
+   */
+  portal?: boolean;
   /** Extra bottom padding for the home indicator. */
   bottomInset?: number;
   style?: StyleProp<ViewStyle>;
@@ -27,9 +34,10 @@ const TONE_BG: Record<SheetTone, string> = {
 const DEFAULT_INSET = Platform.OS === "ios" ? 30 : 16;
 
 /**
- * Bottom sheet drawn as an absolute overlay inside the current screen
- * (not a Modal), so it behaves the same on web, native and in tests.
- * Place it as the last child of a screen container that fills the screen.
+ * Bottom sheet drawn as an absolute overlay (not a Modal), so it behaves the same on web,
+ * native and in tests. A dimmed sheet goes to the PortalHost layer and covers the whole
+ * shell; without a host (or with portal={false}) place it as the last child of a
+ * container that fills the screen.
  */
 export function Sheet({
   visible,
@@ -38,6 +46,7 @@ export function Sheet({
   tone = "white",
   backdrop,
   dismissOnBackdrop = true,
+  portal,
   bottomInset = DEFAULT_INSET,
   style,
   testID
@@ -68,17 +77,19 @@ export function Sheet({
   }
 
   const translateY = progress.interpolate({ inputRange: [0, 1], outputRange: [panelHeight + 40, 0] });
+  const canDismiss = dismissOnBackdrop && Boolean(onClose);
 
-  return (
+  const overlay = (
     <Animated.View style={StyleSheet.absoluteFill} pointerEvents={visible ? "box-none" : "none"} testID={testID}>
       {showBackdrop ? (
         <Animated.View style={[StyleSheet.absoluteFill, styles.backdrop, { opacity: progress }]}>
-          <Pressable
-            style={StyleSheet.absoluteFill}
-            onPress={dismissOnBackdrop ? onClose : undefined}
-            accessibilityRole="button"
-            accessibilityLabel="Close"
-          />
+          {canDismiss ? (
+            // Tapping outside closes the sheet with the same soft tap as any button.
+            <Tappable style={StyleSheet.absoluteFill} onPress={onClose} pressScale={1} accessibilityLabel="Close" />
+          ) : (
+            // Still catches taps so nothing behind the sheet can be pressed.
+            <View style={StyleSheet.absoluteFill} />
+          )}
         </Animated.View>
       ) : null}
       <Animated.View
@@ -93,6 +104,8 @@ export function Sheet({
       </Animated.View>
     </Animated.View>
   );
+
+  return (portal ?? showBackdrop) ? <Portal>{overlay}</Portal> : overlay;
 }
 
 const styles = StyleSheet.create({

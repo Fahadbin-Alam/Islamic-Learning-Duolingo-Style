@@ -9,8 +9,8 @@ import { LearnPath, type PathItem, type PathUnit } from "../screens/LearnPath";
 import { TopicPicker } from "../screens/TopicPicker";
 import { colors } from "../theme";
 
-type State = "foundation" | "prayer" | "card" | "locked" | "chest" | "premium" | "topics" | "tabs";
-const STATES: State[] = ["foundation", "prayer", "card", "locked", "chest", "premium", "topics", "tabs"];
+type State = "foundation" | "prayer" | "card" | "locked" | "chest" | "premium" | "done" | "topics" | "tabs";
+const STATES: State[] = ["foundation", "prayer", "card", "locked", "chest", "premium", "done", "topics", "tabs"];
 
 function readState(): State {
   if (Platform.OS !== "web" || typeof window === "undefined") return "foundation";
@@ -90,6 +90,15 @@ function Screen({ state }: { state: State }) {
     if (state === "chest") {
       return { units: buildUnits(sec, 5, new Set(["foundation-greetings-chest"])), focusId: "foundation-daily-words-chest" };
     }
+    if (state === "done") {
+      // Every node finished and every chest opened: the end trophy is gold. Focus the last chest.
+      const all = buildUnits(sec, sec.nodes.length, new Set(), 99, 99);
+      const chests = all.flatMap((unit) => unit.items).flatMap((item) => (item.kind === "chest" ? [item.chest] : []));
+      chests.forEach((chest) => {
+        chest.claimed = true;
+      });
+      return { units: all, focusId: chests[chests.length - 1]?.id };
+    }
     const built = buildUnits(sec, 0, new Set());
     if (state === "premium") {
       const node = built[3]?.items.find((item) => item.kind === "node");
@@ -131,6 +140,7 @@ function Screen({ state }: { state: State }) {
         onClaimChest={() => undefined}
         onTestOut={() => undefined}
         onPremium={() => setTab("shop")}
+        onNextTopic={() => setPickerOpen(true)}
         initialOpenNodeId={openId}
         initialFocusId={focusId}
       />
@@ -159,7 +169,7 @@ function TabsSheet() {
   );
 }
 
-/** Learn area gallery. States: #gallery-learn-foundation | prayer | card | locked | chest | premium | topics | tabs. */
+/** Learn area gallery. States: #gallery-learn-foundation | prayer | card | locked | chest | premium | done | topics | tabs. */
 export default function LearnGallery() {
   const [state, setState] = useState<State>(readState);
 

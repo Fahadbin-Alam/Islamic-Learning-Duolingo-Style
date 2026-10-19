@@ -13,6 +13,7 @@ export {
   PromptText,
   QuestionBubble,
   useLessonCompact,
+  retryOrder,
   type ExerciseViewProps,
   type ExerciseChoice,
   type ExerciseResult,
@@ -21,9 +22,8 @@ export {
 export {
   FeedbackSheet,
   PRAISE_WORDS,
-  OOPS_WORDS,
+  WRONG_TITLE,
   pickPraise,
-  pickOops,
   CORRECT_TEXT,
   WRONG_TEXT,
   type FeedbackSheetProps
@@ -32,4 +32,5 @@ export { shortWhy, noBreakHyphens, looksSame, normalizeText, WHY_MAX, type WhySo
 export { OrderGame, seededShuffle, type OrderGameProps, type OrderOption } from "./OrderGame";
 export { LessonComplete, type LessonCompleteProps } from "./LessonComplete";
 export { QuitSheet, type QuitSheetProps } from "./QuitSheet";
-export { getLessonLine, getLessonProgress, isPlayablePractice, type LessonStepScreen } from "./lessonSteps";
+export { getLessonLine, getLessonProgress, isPlayablePractice, LESSON_LINE_MAX_WORDS, type LessonStepScreen } from "./lessonSteps";
+export { ScrollHint, useScrollMore } from "./ScrollHint";

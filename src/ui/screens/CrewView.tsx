@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, RefreshControl, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import { COURSE } from "../../data/course";
 // Type-only: backendSync pulls in device storage, which a presentational screen must not load.
 import type { CrewMember, CrewPayload } from "../../services/backendSync";
@@ -14,6 +14,7 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
+import { TextField } from "./sheetParts";
 
 /** Same shape as the CrewState in src/TopicApp.tsx. */
 export type CrewViewState =
@@ -39,6 +40,11 @@ export type CrewViewProps = {
    * connection (the message TopicApp sets for offline errors).
    */
   offline?: boolean;
+  /**
+   * This build has no crew server (isBackendConfigured() is false): show a friendly
+   * "coming soon" state with no retry, since trying again can never work.
+   */
+  unavailable?: boolean;
   mascotVariant?: string;
   accent?: string;
 };
@@ -82,12 +88,15 @@ function Empty({ mood, title, button, onPress, busy, mascotVariant, accent, test
       <View testID={testID} style={styles.emptyInner}>
         <Mascot variant={mascotVariant} mood={mood} size={130} accent={accent} />
         <Text style={styles.emptyTitle}>{title}</Text>
-        {busy ? <ActivityIndicator color={colors.green} size="large" /> : null}
-        {button && onPress ? <GameButton label={button} icon={icon} fullWidth onPress={onPress} testID={`${testID}-button`} /> : null}
+        {busy ? <ActivityIndicator color={colors.green} size="large" testID={`${testID}-busy`} /> : null}
+        {button && onPress && !busy ? <GameButton label={button} icon={icon} fullWidth onPress={onPress} testID={`${testID}-button`} /> : null}
       </View>
     </PopIn>
   );
 }
+
+// Long enough to see: a retry that fails at once must still look like it tried.
+const RETRY_SPIN_MS = 800;
 
 function Avatar({ member, size = 40 }: { member: CrewMember; size?: number }) {
   const color = avatarColor(member);
@@ -156,12 +165,17 @@ export function CrewView({
   onRefresh,
   onCreateAccount,
   offline,
+  unavailable,
   mascotVariant = "muslim_man",
   accent = colors.gem
 }: CrewViewProps) {
   const [inviteOpen, setInviteOpen] = useState(false);
   const [friendSheet, setFriendSheet] = useState<CrewMember | undefined>(undefined);
   const [lastFriend, setLastFriend] = useState<CrewMember | undefined>(undefined);
+  // The friend card turns into "Remove?" in place, so a curious tap is never one tap from removing.
+  const [confirmRemove, setConfirmRemove] = useState(false);
+  const [retrying, setRetrying] = useState(false);
+  const retryTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const { ask, gate } = useGrownUpGate();
   const payload = crew.status === "ready" ? crew.payload : undefined;
   const race = payload ? rankCrew(payload.me, payload.friends) : [];
@@ -174,28 +188,46 @@ export function CrewView({
   const refresh = useRef(onRefresh);
   refresh.current = onRefresh;
   useEffect(() => {
-    if (crew.status === "idle" && user.hasAccount) refresh.current();
-  }, [crew.status, user.hasAccount]);
+    if (crew.status === "idle" && user.hasAccount && !unavailable) refresh.current();
+  }, [crew.status, unavailable, user.hasAccount]);
+  useEffect(() => () => clearTimeout(retryTimer.current), []);
+
+  const retry = () => {
+    setRetrying(true);
+    clearTimeout(retryTimer.current);
+    retryTimer.current = setTimeout(() => setRetrying(false), RETRY_SPIN_MS);
+    onRefresh();
+  };
 
   const openInvite = () => ask(() => setInviteOpen(true));
   const openFriend = (member: CrewMember) => {
+    setConfirmRemove(false);
     setLastFriend(member);
     setFriendSheet(member);
   };
+  const closeFriend = () => setFriendSheet(undefined);
   const shownFriend = friendSheet ?? lastFriend;
+  const canAdd = Boolean(inviteEmail.trim());
+  const add = () => {
+    if (!canAdd) return;
+    setInviteOpen(false);
+    onAddFriend();
+  };
 
   let body: React.ReactNode;
   if (signedOut) {
-    body = <Empty {...emptyProps} testID="crew-signed-out" mood="wave" title="Race your friends!" button="Create profile" onPress={onCreateAccount} />;
+    body = <Empty {...emptyProps} testID="crew-signed-out" mood="wave" title="Race your friends!" button="Sign up" onPress={onCreateAccount} />;
+  } else if (unavailable) {
+    body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title="Crew is coming soon!" />;
   } else if (isOffline) {
-    body = <Empty {...emptyProps} testID="crew-offline" mood="sad" title="No internet" button="Try again" onPress={onRefresh} />;
+    body = <Empty {...emptyProps} testID="crew-offline" mood="sad" title="No internet" button="Try again" onPress={retry} busy={retrying} />;
   } else if (crew.status === "error") {
     // The backend message can be technical; children see a short line. TopicApp logs the real one.
-    body = <Empty {...emptyProps} testID="crew-error" mood="sad" title="Oops!" button="Try again" onPress={onRefresh} />;
+    body = <Empty {...emptyProps} testID="crew-error" mood="sad" title="Oops!" button="Try again" onPress={retry} busy={retrying} />;
   } else if (!payload) {
     body = <Empty {...emptyProps} testID="crew-loading" mood="think" title="Finding your crew..." busy />;
   } else if (!payload.friends.length) {
-    body = <Empty {...emptyProps} testID="crew-empty" mood="wave" title="Add a friend to race!" button="Invite a friend" icon="plus" onPress={openInvite} />;
+    body = <Empty {...emptyProps} testID="crew-empty" mood="wave" title="Add a friend to race!" button="Invite" icon="plus" onPress={openInvite} />;
   } else {
     body = (
       <>
@@ -213,13 +245,13 @@ export function CrewView({
         </View>
 
         <View style={styles.inviteWrap}>
-          <GameButton label="Invite a friend" icon="plus" variant="blue" fullWidth onPress={openInvite} testID="crew-invite" />
+          <GameButton label="Invite" icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
         </View>
       </>
     );
   }
 
-  const canRefresh = !signedOut && (crew.status === "ready" || crew.status === "error");
+  const canRefresh = !signedOut && !unavailable && (crew.status === "ready" || crew.status === "error");
 
   return (
     <View style={styles.root}>
@@ -254,15 +286,15 @@ export function CrewView({
             <Icon name="close" size={20} color={colors.inkSoft} />
           </Tappable>
         </View>
-        <TextInput
+        <TextField
           value={inviteEmail}
           onChangeText={onChangeInviteEmail}
           placeholder="Their email"
-          placeholderTextColor={colors.inkSoft}
           autoCapitalize="none"
           autoCorrect={false}
           keyboardType="email-address"
-          style={styles.input}
+          returnKeyType="done"
+          onSubmitEditing={add}
           testID="crew-email"
           accessibilityLabel="Friend's email"
         />
@@ -287,21 +319,30 @@ export function CrewView({
             );
           })}
         </View>
-        <GameButton
-          label="Add"
-          icon="plus"
-          fullWidth
-          disabled={!inviteEmail.trim()}
-          onPress={() => {
-            setInviteOpen(false);
-            onAddFriend();
-          }}
-          testID="crew-add"
-        />
+        <GameButton label="Add" icon="plus" fullWidth disabled={!canAdd} onPress={add} testID="crew-add" />
       </Sheet>
 
-      <Sheet visible={friendSheet !== undefined} onClose={() => setFriendSheet(undefined)} testID="crew-friend-sheet">
-        {shownFriend ? (
+      <Sheet visible={friendSheet !== undefined} onClose={closeFriend} testID="crew-friend-sheet">
+        {shownFriend && confirmRemove ? (
+          <PopIn key="confirm" style={styles.friendSheet}>
+            <Mascot variant={mascotVariant} mood="sad" size={88} accent={accent} />
+            <Text style={styles.sheetTitleCenter} numberOfLines={2}>
+              {`Remove ${firstName(shownFriend.name)}?`}
+            </Text>
+            <GameButton label="Keep" fullWidth onPress={() => setConfirmRemove(false)} testID="crew-remove-keep" />
+            <GameButton
+              label="Remove"
+              variant="secondary"
+              color={colors.wrongInk}
+              fullWidth
+              onPress={() => {
+                closeFriend();
+                onRemoveFriend(shownFriend);
+              }}
+              testID={`crew-remove-${shownFriend.id}`}
+            />
+          </PopIn>
+        ) : shownFriend ? (
           <View style={styles.friendSheet}>
             <Avatar member={shownFriend} size={72} />
             <Text style={styles.sheetTitleCenter} numberOfLines={2}>
@@ -317,17 +358,10 @@ export function CrewView({
                 <Text style={styles.friendStatText}>{formatNumber(shownFriend.weeklyXp)}</Text>
               </View>
             </View>
-            <GameButton
-              label="Remove"
-              variant="secondary"
-              color={colors.heartLip}
-              fullWidth
-              onPress={() => {
-                setFriendSheet(undefined);
-                onRemoveFriend(shownFriend);
-              }}
-              testID={`crew-remove-${shownFriend.id}`}
-            />
+            <GameButton label="OK" fullWidth onPress={closeFriend} testID="crew-friend-ok" />
+            <Tappable onPress={() => setConfirmRemove(true)} style={styles.removeLink} accessibilityLabel={`Remove ${firstName(shownFriend.name)}`} testID={`crew-ask-remove-${shownFriend.id}`}>
+              <Text style={styles.removeLinkText}>Remove</Text>
+            </Tappable>
           </View>
         ) : null}
       </Sheet>
@@ -512,17 +546,16 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: colors.ink
   },
-  input: {
-    minHeight: 54,
+  removeLink: {
+    minHeight: 40,
     paddingHorizontal: 16,
-    borderRadius: radii.md,
-    borderWidth: 2,
-    borderColor: colors.line,
-    backgroundColor: colors.mist,
-    fontFamily: fonts.bodyBold,
-    fontSize: 16,
-    color: colors.ink,
-    minWidth: 0
+    justifyContent: "center"
+  },
+  removeLinkText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    color: colors.wrongInk
   },
   chips: {
     flexDirection: "row",

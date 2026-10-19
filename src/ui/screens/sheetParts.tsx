@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, BackHandler, Platform, StyleSheet, Text, View } from "react-native";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
+import { Animated, BackHandler, Platform, StyleSheet, Text, TextInput, View, type TextInputProps } from "react-native";
 import { Icon, type IconName } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
+import { useShake } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, fonts, lighten, radii, space, text } from "../theme";
-// Small pieces shared by the app sheets (account, settings, refill, language).
+// Small pieces shared by the app sheets (account, settings, refill, language, notices).
 
 /** Android back button closes the sheet instead of leaving the app. */
 export function useBackToClose(visible: boolean, onClose?: () => void) {
@@ -21,16 +22,34 @@ export function useBackToClose(visible: boolean, onClose?: () => void) {
   }, [onClose, visible]);
 }
 
-export function MascotSays({ variant, mood, line }: { variant: string; mood: MascotMood; line: string }) {
+export function MascotSays({ variant, mood, line, accent }: { variant: string; mood: MascotMood; line: string; accent?: string }) {
   return (
     <View style={styles.mascotRow}>
-      <Mascot variant={variant} mood={mood} size={84} />
+      <Mascot variant={variant} mood={mood} size={84} accent={accent} />
       <SpeechBubble style={styles.bubble}>{line}</SpeechBubble>
     </View>
   );
 }
 
-export function Toggle({ label, icon, value, onToggle, testID }: { label: string; icon: IconName; value: boolean; onToggle: () => void; testID: string }) {
+/** Sheet title with the round close button on the right (same as the grown-up gate). */
+export function SheetTitle({ title, onClose, closeTestID }: { title: string; onClose?: () => void; closeTestID?: string }) {
+  return (
+    <View style={styles.titleRow}>
+      {onClose ? <View style={styles.closeSpacer} /> : null}
+      <Text style={styles.title} accessibilityRole="header" numberOfLines={2}>
+        {title}
+      </Text>
+      {onClose ? (
+        <Tappable onPress={onClose} style={styles.close} accessibilityLabel="Close" hitSlop={8} pressScale={0.9} testID={closeTestID}>
+          <Icon name="close" size={20} color={colors.inkSoft} />
+        </Tappable>
+      ) : null}
+    </View>
+  );
+}
+
+/** On/off track whose knob springs across. */
+export function SwitchTrack({ value }: { value: boolean }) {
   const knob = useRef(new Animated.Value(value ? 1 : 0)).current;
 
   useEffect(() => {
@@ -39,6 +58,14 @@ export function Toggle({ label, icon, value, onToggle, testID }: { label: string
     return () => animation.stop();
   }, [knob, value]);
 
+  return (
+    <View style={[styles.track, value && styles.trackOn]}>
+      <Animated.View style={[styles.knob, { transform: [{ translateX: knob.interpolate({ inputRange: [0, 1], outputRange: [0, 20] }) }] }]} />
+    </View>
+  );
+}
+
+export function Toggle({ label, icon, value, onToggle, testID }: { label: string; icon: IconName; value: boolean; onToggle: () => void; testID: string }) {
   return (
     <Tappable
       onPress={onToggle}
@@ -51,14 +78,12 @@ export function Toggle({ label, icon, value, onToggle, testID }: { label: string
     >
       <Icon name={icon} size={26} />
       <Text style={styles.toggleLabel}>{label}</Text>
-      <View style={[styles.track, value && styles.trackOn]}>
-        <Animated.View style={[styles.knob, { transform: [{ translateX: knob.interpolate({ inputRange: [0, 1], outputRange: [0, 20] }) }] }]} />
-      </View>
+      <SwitchTrack value={value} />
     </Tappable>
   );
 }
 
-export function SegmentButton({ label, active, onPress, testID }: { label: string; active: boolean; onPress: () => void; testID: string }) {
+export function SegmentButton({ label, active, onPress, testID, icon }: { label: string; active: boolean; onPress: () => void; testID: string; icon?: IconName }) {
   return (
     <Tappable
       onPress={onPress}
@@ -67,12 +92,55 @@ export function SegmentButton({ label, active, onPress, testID }: { label: strin
       accessibilityState={{ selected: active }}
       testID={testID}
     >
+      {icon ? <Icon name={icon} size={24} /> : null}
       <Text style={[styles.segmentText, active && styles.segmentTextActive]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
         {label}
       </Text>
     </Tappable>
   );
 }
+
+export type TextFieldProps = TextInputProps & {
+  /** Short red hint under the field ("Add your email"). The border turns red too. */
+  error?: string;
+  /** Bump to shake the field again (each failed submit). */
+  shakeKey?: number;
+};
+
+/** Rounded mist input: blue border while focused, red border, shake and a short hint on error. */
+export const TextField = forwardRef<TextInput, TextFieldProps>(function TextField({ error, shakeKey = 0, style, onFocus, onBlur, ...rest }, ref) {
+  const [focused, setFocused] = useState(false);
+  const { style: shakeStyle, shake } = useShake(6);
+  const hasError = Boolean(error);
+
+  useEffect(() => {
+    if (shakeKey > 0 && hasError) shake();
+  }, [hasError, shake, shakeKey]);
+
+  return (
+    <Animated.View style={shakeStyle}>
+      <TextInput
+        ref={ref}
+        placeholderTextColor={colors.inkSoft}
+        {...rest}
+        onFocus={(event) => {
+          setFocused(true);
+          onFocus?.(event);
+        }}
+        onBlur={(event) => {
+          setFocused(false);
+          onBlur?.(event);
+        }}
+        style={[styles.input, focused ? styles.inputFocused : null, hasError ? styles.inputError : null, style]}
+      />
+      {error ? (
+        <Text style={styles.fieldError} accessibilityLiveRegion="polite" testID={rest.testID ? `${rest.testID}-error` : undefined}>
+          {error}
+        </Text>
+      ) : null}
+    </Animated.View>
+  );
+});
 
 const styles = StyleSheet.create({
   mascotRow: {
@@ -84,10 +152,34 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0
   },
+  titleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: space.md
+  },
+  title: {
+    ...text.h2,
+    textAlign: "center",
+    flex: 1,
+    minWidth: 0
+  },
+  closeSpacer: {
+    width: 36
+  },
+  close: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: colors.mist,
+    alignItems: "center",
+    justifyContent: "center"
+  },
   segment: {
     flex: 1,
     minWidth: 0,
     minHeight: 46,
+    flexDirection: "row",
+    gap: space.xs,
     borderRadius: radii.button,
     borderWidth: 2,
     borderColor: colors.line,
@@ -96,7 +188,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: space.sm
+    paddingHorizontal: space.xs
   },
   segmentActive: {
     borderColor: colors.gem,
@@ -106,7 +198,8 @@ const styles = StyleSheet.create({
   segmentText: {
     fontFamily: fonts.displayHeavy,
     fontSize: 16,
-    color: colors.inkSoft
+    color: colors.inkSoft,
+    flexShrink: 1
   },
   segmentTextActive: {
     color: colors.gemLip
@@ -138,5 +231,32 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 12,
     backgroundColor: colors.white
+  },
+  input: {
+    minHeight: 54,
+    paddingHorizontal: 16,
+    borderRadius: radii.md,
+    borderWidth: 2,
+    borderColor: colors.line,
+    backgroundColor: colors.mist,
+    fontFamily: fonts.bodyBold,
+    fontSize: 16,
+    color: colors.ink,
+    minWidth: 0,
+    // The kit border shows focus; no browser focus ring.
+    ...(Platform.OS === "web" ? { outlineWidth: 0 } : null)
+  },
+  inputFocused: {
+    borderColor: colors.gem,
+    backgroundColor: colors.white
+  },
+  inputError: {
+    borderColor: colors.wrongInk
+  },
+  fieldError: {
+    ...text.tiny,
+    color: colors.wrongInk,
+    marginTop: space.xs,
+    marginLeft: space.xs
   }
 });

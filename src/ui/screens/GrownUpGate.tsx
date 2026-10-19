@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, View } from "react-native";
 import type { ChoiceTileState } from "../ChoiceTile";
 import { Icon } from "../Icon";
+import { useShake } from "../PopIn";
 import { Sheet } from "../Sheet";
+import { feedback } from "../sound";
 import { Tappable } from "../Tappable";
 import { colors, fonts, lighten, radii, text } from "../theme";
 
@@ -30,14 +32,15 @@ function makePuzzle(random: () => number = Math.random): Puzzle {
 
 /**
  * Parental gate before real-money purchases, restores and links that leave the app
- * (Apple guideline 1.3, Kids category). Call `ask(action)`; render `gate` as the LAST
- * child of a container that fills the screen.
+ * (Apple guideline 1.3, Kids category). Call `ask(action)` and render `gate` anywhere:
+ * it is a kit Sheet, so it covers the whole app shell through the PortalHost.
  */
 export function useGrownUpGate() {
   const [pending, setPending] = useState<(() => void) | undefined>(undefined);
   const [puzzle, setPuzzle] = useState<Puzzle>(() => makePuzzle());
   const [wrongPick, setWrongPick] = useState<number | undefined>(undefined);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const { style: shakeStyle, shake } = useShake(8);
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
@@ -56,11 +59,15 @@ export function useGrownUpGate() {
   const answer = (value: number) => {
     if (wrongPick !== undefined) return;
     if (value === puzzle.a * puzzle.b) {
+      feedback("soft_ui", "light");
       const action = pending;
       setPending(undefined);
       action?.();
       return;
     }
+    // Same as a wrong answer in a lesson: buzz, shake, then a new sum.
+    feedback("wrong", "error");
+    shake();
     setWrongPick(value);
     timer.current = setTimeout(() => {
       setWrongPick(undefined);
@@ -86,11 +93,14 @@ export function useGrownUpGate() {
       <Text style={styles.question} testID="grownup-question" accessibilityLabel={`${puzzle.a} times ${puzzle.b}`}>
         {`${puzzle.a} × ${puzzle.b} = ?`}
       </Text>
-      <View style={styles.options}>
+      <Animated.View style={[styles.options, shakeStyle]}>
         {puzzle.options.map((value) => (
           <Tappable
             key={`${puzzle.a}x${puzzle.b}-${value}`}
             onPress={() => answer(value)}
+            // answer() plays the right or the wrong sound.
+            sound={false}
+            hapticKind={false}
             disabled={wrongPick !== undefined}
             style={[styles.option, stateFor(value) === "wrong" ? styles.optionWrong : stateFor(value) === "dimmed" ? styles.optionDim : null]}
             testID={`grownup-option-${value}`}
@@ -100,7 +110,7 @@ export function useGrownUpGate() {
             <Text style={[styles.optionText, stateFor(value) === "wrong" ? { color: colors.wrongInk } : null]}>{value}</Text>
           </Tappable>
         ))}
-      </View>
+      </Animated.View>
     </Sheet>
   );
 

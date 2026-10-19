@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Linking, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { ActivityIndicator, Animated, Linking, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { UiStrings } from "../../i18n";
-import { legalLinks } from "../../services/monetizationConfig";
+import { legalLinks, monetizationMode } from "../../services/monetizationConfig";
 import type { LearningSection, ShopItem, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
-import { PopIn } from "../PopIn";
+import { PopIn, useShake } from "../PopIn";
+import { feedback } from "../sound";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount, formatNumber } from "./FormattedCount";
@@ -31,6 +32,12 @@ export type ShopViewProps = {
   onOpenLink?: (url: string) => void;
   /** Item id (or "restore") whose button spins while busy. Default: the last one pressed here. */
   pendingItemId?: string;
+  /**
+   * The store can take real money and show reward videos. When false (a web build with
+   * purchases switched off) those rows, the plans and Restore are hidden: they could only fail.
+   * Default: the monetization mode is not "disabled".
+   */
+  canBuyWithMoney?: boolean;
 };
 
 const MANAGE_SUBSCRIPTION_URL =
@@ -44,6 +51,11 @@ function isPremium(user: UserProfile) {
 /** Same rule as canSpendGems in src/api/islamicLearningApi.ts. */
 function canSpend(user: UserProfile, item: ShopItem) {
   return item.currencyType === "gems" && !user.hearts.unlimited && user.gems >= item.price && user.hearts.current < user.hearts.max;
+}
+
+/** Bought with real money or a video: needs the store. */
+function needsStore(item: ShopItem) {
+  return item.currencyType !== "gems";
 }
 
 /** Real money leaves the app: needs the grown-up gate. */
@@ -142,6 +154,8 @@ type RowProps = {
   onBuy: (item: ShopItem) => void;
 };
 
+const NUDGE_MS = 1400;
+
 /** While busy, the pressed button spins and every other button dims. */
 function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, accessibilityLabel }: RowProps & { label: string; variant: "blue" | "gold" | "primary"; icon?: IconName; muted?: boolean; accessibilityLabel: string }) {
   if (busy && pendingId === item.id) {
@@ -158,7 +172,8 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
         size="sm"
         icon={icon}
         variant={variant}
-        sound={busy ? false : undefined}
+        // A muted item plays the wrong sound itself (see ItemRow).
+        sound={busy || muted ? false : undefined}
         onPress={() => !busy && onBuy(item)}
         testID={`shop-buy-${item.id}`}
         accessibilityLabel={accessibilityLabel}
@@ -168,15 +183,34 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
 }
 
 function ItemRow(props: RowProps) {
-  const { item, user, storePrices } = props;
+  const { item, user, storePrices, onBuy } = props;
   const gems = item.currencyType === "gems";
-  // An unaffordable gem item still opens the "why not" alert, so it is only dimmed.
+  // An unaffordable or not-needed gem item stays pressable but only shakes: its line already says why.
   const muted = gems && !canSpend(user, item);
   const short = gems && user.gems < item.price ? item.price - user.gems : 0;
   const full = gems && !short && !user.hearts.unlimited && user.hearts.current >= user.hearts.max;
   const label = formatShopPrice(item, storePrices);
   const name = displayName(item);
   const line = short ? `Need ${formatNumber(short)} more` : full ? "Hearts are full" : shortLine(item, user);
+  const { style: shakeStyle, shake } = useShake(6);
+  const [nudges, setNudges] = useState(0);
+  const [flashing, setFlashing] = useState(false);
+  const flashTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(() => () => clearTimeout(flashTimer.current), []);
+
+  const press = (picked: ShopItem) => {
+    if (!muted) {
+      onBuy(picked);
+      return;
+    }
+    shake();
+    feedback("wrong", "error");
+    setNudges((count) => count + 1);
+    setFlashing(true);
+    clearTimeout(flashTimer.current);
+    flashTimer.current = setTimeout(() => setFlashing(false), NUDGE_MS);
+  };
+
   return (
     <View style={styles.item} testID={`shop-item-${item.id}`}>
       <ItemIcon item={item} />
@@ -184,18 +218,27 @@ function ItemRow(props: RowProps) {
         <Text style={styles.itemName} numberOfLines={2}>
           {name}
         </Text>
-        <Text style={[styles.itemLine, short ? styles.itemLineShort : null]} numberOfLines={2}>
-          {line}
-        </Text>
+        <PopIn key={nudges} from="scale" style={styles.itemLineWrap}>
+          <Text
+            style={[styles.itemLine, short || (full && flashing) ? styles.itemLineShort : null, flashing ? styles.itemLineFlash : null]}
+            numberOfLines={2}
+            testID={`shop-line-${item.id}`}
+          >
+            {line}
+          </Text>
+        </PopIn>
       </View>
-      <BuyButton
-        {...props}
-        label={label}
-        variant={gems ? "blue" : item.type === "rewarded_ad" ? "gold" : "primary"}
-        icon={gems ? (short ? "lock" : "gem") : item.type === "rewarded_ad" ? "play" : undefined}
-        muted={muted}
-        accessibilityLabel={`${name}, ${gems ? `${item.price} gems${short ? ", not enough gems" : full ? ", hearts are full" : ""}` : item.type === "rewarded_ad" ? "watch a video" : label}`}
-      />
+      <Animated.View style={shakeStyle}>
+        <BuyButton
+          {...props}
+          onBuy={press}
+          label={label}
+          variant={gems ? "blue" : item.type === "rewarded_ad" ? "gold" : "primary"}
+          icon={gems ? (short ? "lock" : "gem") : item.type === "rewarded_ad" ? "play" : undefined}
+          muted={muted}
+          accessibilityLabel={`${name}, ${gems ? `${item.price} gems${short ? ", not enough gems" : full ? ", hearts are full" : ""}` : item.type === "rewarded_ad" ? "watch a video" : label}`}
+        />
+      </Animated.View>
     </View>
   );
 }
@@ -255,17 +298,50 @@ function PremiumCard({ plans, ...rest }: Omit<RowProps, "item"> & { plans: ShopI
   );
 }
 
+/** A quick spring from big back to normal size. */
+function popValue(value: Animated.Value) {
+  value.setValue(1.35);
+  Animated.spring(value, { toValue: 1, friction: 4, tension: 180, useNativeDriver: true }).start();
+}
+
 /** Shop tab: gem balance, hearts, gem packs and Premium plans. Real money sits behind a grown-up gate. */
-export function ShopView({ user, items, storePrices, busy, section, onUseItem, onRestore, onOpenLink, pendingItemId }: ShopViewProps) {
+export function ShopView({
+  user,
+  items,
+  storePrices,
+  busy,
+  section,
+  onUseItem,
+  onRestore,
+  onOpenLink,
+  pendingItemId,
+  canBuyWithMoney = monetizationMode !== "disabled"
+}: ShopViewProps) {
   const premium = isPremium(user);
   const [pendingId, setPendingId] = useState<string | undefined>(undefined);
   const { ask, gate } = useGrownUpGate();
+  const heartsPop = useRef(new Animated.Value(1)).current;
+  const gemPop = useRef(new Animated.Value(1)).current;
+  const last = useRef({ hearts: user.hearts.current, gems: user.gems });
 
   useEffect(() => {
     if (!busy) setPendingId(undefined);
   }, [busy]);
 
-  const visible = premium ? [] : items;
+  // A purchase that worked gets a little celebration: the balance pops and a reward sound plays.
+  useEffect(() => {
+    const before = last.current;
+    last.current = { hearts: user.hearts.current, gems: user.gems };
+    if (user.hearts.current > before.hearts) {
+      popValue(heartsPop);
+      feedback("unlock", "success");
+    } else if (user.gems > before.gems) {
+      popValue(gemPop);
+      feedback("xp", "success");
+    }
+  }, [gemPop, heartsPop, user.gems, user.hearts.current]);
+
+  const visible = premium ? [] : items.filter((item) => canBuyWithMoney || !needsStore(item));
   const hearts = visible.filter((item) => !item.tier && (item.refillsHearts || item.heartsGranted || item.type === "rewarded_ad"));
   const gemPacks = visible.filter((item) => !item.tier && !hearts.includes(item) && item.gemsGranted);
   const powerUps = visible.filter((item) => !item.tier && !hearts.includes(item) && !gemPacks.includes(item));
@@ -297,17 +373,23 @@ export function ShopView({ user, items, storePrices, busy, section, onUseItem, o
         <PopIn from="scale">
           <View style={styles.balance}>
             <View style={styles.balanceGem}>
-              <Icon name="gem" size={46} />
-              <FormattedCount value={user.gems} style={styles.balanceValue} />
+              <Animated.View style={{ transform: [{ scale: gemPop }] }}>
+                <Icon name="gem" size={46} />
+              </Animated.View>
+              <FormattedCount value={user.gems} style={styles.balanceValue} testID="shop-gems" />
             </View>
-            <View style={styles.balanceHearts} accessibilityLabel={user.hearts.unlimited ? "Unlimited hearts" : `${user.hearts.current} of ${user.hearts.max} hearts`}>
+            <Animated.View
+              style={[styles.balanceHearts, { transform: [{ scale: heartsPop }] }]}
+              accessibilityLabel={user.hearts.unlimited ? "Unlimited hearts" : `${user.hearts.current} of ${user.hearts.max} hearts`}
+              testID="shop-hearts"
+            >
               <Icon name="heart" size={26} />
               {user.hearts.unlimited ? (
                 <Icon name="infinity" size={26} color={colors.heart} />
               ) : (
                 <Text style={styles.heartsValue} numberOfLines={1}>{`${user.hearts.current}/${user.hearts.max}`}</Text>
               )}
-            </View>
+            </Animated.View>
           </View>
         </PopIn>
 
@@ -315,13 +397,12 @@ export function ShopView({ user, items, storePrices, busy, section, onUseItem, o
           <PopIn delay={80} from="up">
             <View style={styles.activeCard} testID="shop-premium-active">
               <View style={styles.activeHead}>
-                <Mascot variant={section.mascot} mood="cheer" size={96} accent={section.accentColor} />
+                {/* 80 px leaves room for the crown and the whole word at 320 px. */}
+                <Mascot variant={section.mascot} mood="cheer" size={80} accent={section.accentColor} />
                 <View style={styles.activeText}>
                   <View style={styles.activeTitleRow}>
                     <Icon name="crown" size={28} />
-                    <Text style={[styles.premiumTitle, styles.activeTitle]} numberOfLines={1}>
-                      Premium
-                    </Text>
+                    <Text style={[styles.premiumTitle, styles.activeTitle]}>Premium</Text>
                   </View>
                   <Text style={styles.activeLine} numberOfLines={2}>
                     Unlimited hearts!
@@ -366,24 +447,33 @@ export function ShopView({ user, items, storePrices, busy, section, onUseItem, o
           </View>
         ) : null}
 
+        {!canBuyWithMoney && !premium ? (
+          <View style={styles.appHint} testID="shop-app-hint">
+            <Icon name="crown" size={30} />
+            <Text style={styles.appHintText}>Premium is in the app</Text>
+          </View>
+        ) : null}
+
         <View style={styles.footer}>
           {premium ? (
             <Tappable onPress={() => openGated(MANAGE_SUBSCRIPTION_URL)} accessibilityRole="link" style={styles.restore} testID="shop-manage">
               <Text style={styles.restoreText}>Manage subscription</Text>
             </Tappable>
           ) : null}
-          <Tappable
-            onPress={restore}
-            disabled={busy}
-            sound={busy ? false : undefined}
-            style={[styles.restore, busy ? styles.dimBusy : null]}
-            testID="shop-restore"
-            accessibilityLabel="Restore purchases"
-          >
-            {busy && pending === "restore" ? <ActivityIndicator color={colors.gem} size="small" /> : null}
-            <Text style={styles.restoreText}>Restore purchases</Text>
-          </Tappable>
-          {premium ? null : <Text style={styles.legal}>Renews automatically. Cancel anytime in your App Store or Google Play settings.</Text>}
+          {canBuyWithMoney ? (
+            <Tappable
+              onPress={restore}
+              disabled={busy}
+              sound={busy ? false : undefined}
+              style={[styles.restore, busy ? styles.dimBusy : null]}
+              testID="shop-restore"
+              accessibilityLabel="Restore purchases"
+            >
+              {busy && pending === "restore" ? <ActivityIndicator color={colors.gem} size="small" /> : null}
+              <Text style={styles.restoreText}>Restore purchases</Text>
+            </Tappable>
+          ) : null}
+          {premium || !plans.length ? null : <Text style={styles.legal}>Renews automatically. Cancel anytime in store settings.</Text>}
           <View style={styles.links}>
             <Tappable onPress={() => openGated(legalLinks.terms)} accessibilityRole="link" style={styles.link} testID="shop-terms">
               <Text style={styles.linkText}>Terms</Text>
@@ -534,8 +624,15 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     flexShrink: 1
   },
+  itemLineWrap: {
+    alignSelf: "flex-start",
+    maxWidth: "100%"
+  },
   itemLineShort: {
     color: colors.heartLip
+  },
+  itemLineFlash: {
+    fontFamily: fonts.bodyHeavy
   },
   itemButton: {
     flexShrink: 0,
@@ -674,6 +771,25 @@ const styles = StyleSheet.create({
     ...text.bodyBold,
     color: darken(colors.gold, 0.55),
     flexShrink: 1
+  },
+  appHint: {
+    marginTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    padding: 14,
+    borderRadius: radii.tile,
+    backgroundColor: lighten(colors.gold, 0.75),
+    borderWidth: 2,
+    borderColor: lighten(colors.gold, 0.35)
+  },
+  appHintText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 17,
+    lineHeight: 22,
+    color: darken(colors.gold, 0.6),
+    flex: 1,
+    minWidth: 0
   },
   footer: {
     marginTop: 18,

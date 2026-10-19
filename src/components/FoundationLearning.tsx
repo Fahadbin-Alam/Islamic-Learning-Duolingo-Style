@@ -1,13 +1,19 @@
-import React, { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Animated, Easing, ScrollView, StyleSheet, Text, TextInput, View, type LayoutChangeEvent } from "react-native";
 import Svg, { Circle } from "react-native-svg";
-import { getTopicArabic, type ArabicTerm } from "../data/arabicTerms";
-import { FOUNDATION_PROGRESS_LABELS } from "../data/foundationQuestionBank";
+import { getAssessmentXp } from "../api/islamicLearningApi";
+import { getBranchArabic, getLessonArabic, getTopicArabic, type ArabicTerm } from "../data/arabicTerms";
+import { FOUNDATION_CATEGORY_META, FOUNDATION_PROGRESS_LABELS } from "../data/foundationQuestionBank";
 import { translateStudyText } from "../services/contentLocalization";
 import {
   getFoundationDashboard,
+  getFoundationWordBank,
+  getLearnerLevel,
   getProgressMapIndex,
-  localizeFoundationQuestion
+  getShuffledOrderItems,
+  localizeFoundationQuestion,
+  seededShuffle,
+  summarizeFoundationSession
 } from "../services/foundationAssessment";
 import type {
   FoundationAssessmentState,
@@ -18,40 +24,46 @@ import type {
 import {
   ArabicText,
   ChoiceTile,
+  Confetti,
+  CountUp,
   GameButton,
   Icon,
   Mascot,
   PopIn,
   ProgressBar,
+  SpeechBubble,
   Tappable,
   colors,
   darken,
   fonts,
   lighten,
+  playUi,
   radii,
+  space,
   text,
   type ChoiceTileState,
-  type IconName
+  type IconName,
+  type MascotMood
 } from "../ui";
+import { FeedbackSheet, LessonBottomBar, PromptText, QuitSheet, ScrollHint, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
 
 type SelectedAnswer = string | string[] | Record<string, string> | undefined;
 type Question = ReturnType<typeof localizeFoundationQuestion>;
 
-const PRAISE = ["Great job!", "Nice!", "Excellent!", "Amazing!", "You got it!", "MashaAllah!"];
-
-// Only categories that have a checked term in src/data/arabicTerms.ts.
-const CATEGORY_TOPIC: Partial<Record<FoundationCategoryId, string>> = {
-  salah: "prayer",
-  fasting: "fasting",
-  zakat: "zakat",
-  hajj: "hajj",
-  iman: "aqidah",
-  manners: "manners",
-  quran: "quran_tafseer"
+// Arabic shown next to a skill name. Each one is a checked term from src/data/arabicTerms.ts that
+// says the same thing as the English name (no Arabic for Shahadah, Quran and Prophets yet).
+const CATEGORY_ARABIC: Partial<Record<FoundationCategoryId, () => ArabicTerm | undefined>> = {
+  salah: () => getTopicArabic("prayer"),
+  taharah: () => getBranchArabic("prayer-wudu"),
+  fasting: () => getTopicArabic("fasting"),
+  zakat: () => getTopicArabic("zakat"),
+  hajj: () => getTopicArabic("hajj"),
+  iman: () => getLessonArabic("aqidah-pillars-of-iman-what-iman-covers"),
+  manners: () => getTopicArabic("manners")
 };
 
 /** One short name and an icon per skill, for the badge grid. */
-const SKILL_LOOK: Record<FoundationCategoryId, { name: string; icon: IconName }> = {
+export const SKILL_LOOK: Record<FoundationCategoryId, { name: string; icon: IconName }> = {
   shahadah: { name: "Shahadah", icon: "crescent" },
   salah: { name: "Salah", icon: "mosque" },
   taharah: { name: "Wudu", icon: "water" },
@@ -65,35 +77,7 @@ const SKILL_LOOK: Record<FoundationCategoryId, { name: string; icon: IconName }>
 };
 
 function categoryArabic(category: FoundationCategoryId): ArabicTerm | undefined {
-  const topic = CATEGORY_TOPIC[category];
-  return topic ? getTopicArabic(topic) : undefined;
-}
-
-function hashOf(seed: string) {
-  let hash = 0;
-  for (let index = 0; index < seed.length; index += 1) {
-    hash = (hash * 31 + seed.charCodeAt(index)) >>> 0;
-  }
-  return hash;
-}
-
-function praiseFor(seed: string) {
-  return PRAISE[hashOf(seed) % PRAISE.length];
-}
-
-/** Stable shuffle so the right-hand match column never lines up with the left. */
-function seededShuffle<T>(items: T[], seed: string) {
-  const result = [...items];
-  let state = hashOf(seed) || 1;
-  for (let index = result.length - 1; index > 0; index -= 1) {
-    state = (state * 1103515245 + 12345) >>> 0;
-    const swap = state % (index + 1);
-    [result[index], result[swap]] = [result[swap], result[index]];
-  }
-  if (result.length > 1 && result.every((item, index) => item === items[index])) {
-    result.push(result.shift() as T);
-  }
-  return result;
+  return CATEGORY_ARABIC[category]?.();
 }
 
 function SkillRing({ progress, color, icon }: { progress: number; color: string; icon: IconName }) {
@@ -129,7 +113,8 @@ export function FoundationDashboard({
   profile,
   onStartPlacement,
   onSkipAssessment,
-  mascotVariant = "hijabi"
+  mascotVariant = "hijabi",
+  accent
 }: {
   profile: LearnerProfile;
   onStartPlacement: () => void;
@@ -140,6 +125,8 @@ export function FoundationDashboard({
   /** The top bar's topic picker replaces this. Kept so old call sites type-check. */
   onExploreFreely?: () => void;
   mascotVariant?: string;
+  /** Mascot clothing color (the topic accent), so the mascot looks the same on every screen. */
+  accent?: string;
 }) {
   const rows = useMemo(() => getFoundationDashboard(profile), [profile]);
   const progressIndex = getProgressMapIndex(profile.readiness_label);
@@ -153,7 +140,7 @@ export function FoundationDashboard({
       <PopIn from="up">
         <View style={styles.heroCard}>
           <View style={styles.heroRow}>
-            <Mascot variant={mascotVariant} mood={placed ? "happy" : "wave"} size={78} />
+            <Mascot variant={mascotVariant} mood={placed ? "happy" : "wave"} size={78} accent={accent} />
             <View style={styles.heroText}>
               {basics ? (
                 <ArabicText size={20} weight="bold" color={colors.correctInk} align="left" numberOfLines={1}>
@@ -166,7 +153,7 @@ export function FoundationDashboard({
             </View>
           </View>
 
-          <View style={styles.mapRow} accessibilityLabel={`Level: ${profile.readiness_label}`}>
+          <View style={styles.mapRow} accessibilityLabel={`Level ${getLearnerLevel(profile.readiness_label)}`}>
             {FOUNDATION_PROGRESS_LABELS.map((label, index) => {
               const active = index <= progressIndex;
               const current = index === progressIndex;
@@ -183,16 +170,12 @@ export function FoundationDashboard({
           <View style={styles.levelPill}>
             <Icon name="star" size={16} />
             <Text style={styles.levelText} numberOfLines={1}>
-              {profile.readiness_label}
+              Level {getLearnerLevel(profile.readiness_label)}
             </Text>
           </View>
 
-          <GameButton
-            label={placed ? "Retake" : hasPlacement ? "Resume" : "Start"}
-            icon="star8"
-            fullWidth
-            onPress={onStartPlacement}
-          />
+          {/* The level check starts over each time, so it never says RESUME. */}
+          <GameButton label={placed ? "Retake" : "Start"} icon="star8" fullWidth onPress={onStartPlacement} />
           {!placed ? <GameButton label="Skip for now" variant="ghost" color={colors.inkSoft} size="sm" onPress={onSkipAssessment} /> : null}
         </View>
       </PopIn>
@@ -238,41 +221,118 @@ export function FoundationDashboard({
   );
 }
 
-const CONFIDENCE = [
-  { value: 2, label: "Not sure" },
-  { value: 3, label: "Sure" }
-] as const;
-
+/** Order and match prompts are short and say what to sort ("Put the wudu steps in order."), so they are shown as written. */
 function titleFor(question: Question) {
+  const prompt = question.prompt.trim();
+  if (prompt) return prompt;
   if (question.type === "correct_order") return "Put these in order";
   if (question.type === "match_pairs") return "Match the pairs";
-  return question.prompt;
+  return prompt;
 }
+
+/** What the answer sheet says: the praise word, or "Correct answer:" with the answer and one short Why line. */
+type SheetContent = { correct: boolean; correctLabel?: string; correctList?: string[]; why?: string; seed: string };
+
+function answerOf(question: Question) {
+  const answer = question.correctAnswer;
+  if (question.type === "match_pairs" && answer && typeof answer === "object" && !Array.isArray(answer)) {
+    return { list: (question.pairs ?? []).map((pair) => `${pair.left} = ${answer[pair.left] ?? pair.right}`) };
+  }
+  if (question.type === "correct_order" && Array.isArray(answer)) {
+    return { list: answer };
+  }
+  if (Array.isArray(answer)) {
+    return { label: answer.join(", ") };
+  }
+  return { label: typeof answer === "string" ? answer : undefined };
+}
+
+function sheetContentFor(question: Question, selectedAnswer: SelectedAnswer, feedback: NonNullable<FoundationAssessmentState["feedback"]>): SheetContent {
+  if (feedback.correct) {
+    return { correct: true, seed: question.id };
+  }
+  const { label, list } = answerOf(question);
+  const pickedNote = typeof selectedAnswer === "string" ? question.wrongAnswerNotes?.[selectedAnswer] : undefined;
+  const why = shortWhy({
+    easierExplanation: pickedNote,
+    explanation: `${feedback.explanationShort} ${feedback.explanationLong}`,
+    prompt: question.prompt,
+    correctLabel: label
+  });
+  return { correct: false, correctLabel: label, correctList: list, why, seed: question.id };
+}
+
+type Box = { y: number; height: number };
+
+/** Mascot next to a speech bubble holding the question, as in lessons. Long questions use the full width. */
+function PromptBubble({ children, long, hideMascot, mascotVariant, accent, mood }: { children: React.ReactNode; long: boolean; hideMascot: boolean; mascotVariant: string; accent?: string; mood: MascotMood }) {
+  const { compact, narrow } = useLessonCompact();
+  if (long || hideMascot) {
+    return (
+      <PopIn from="up" delay={60} style={styles.plainPrompt}>
+        {children}
+      </PopIn>
+    );
+  }
+  return (
+    <View style={styles.questionRow}>
+      <Mascot variant={mascotVariant} mood={mood} accent={accent} size={compact ? 64 : narrow ? 72 : 88} />
+      <PopIn from="up" delay={60} style={styles.bubbleWrap}>
+        <SpeechBubble>{children}</SpeechBubble>
+      </PopIn>
+    </View>
+  );
+}
+
+const BLANK = "____";
+
+/** Fill-in prompt: the blank is a slot that shows the tapped word. */
+function BlankPrompt({ prompt, word, checked, size }: { prompt: string; word?: string; checked: boolean | undefined; size: number }) {
+  const [before, ...rest] = prompt.split(BLANK);
+  const after = rest.join(BLANK);
+  const slotColor = checked === undefined ? colors.gemLip : checked ? colors.correctInk : colors.wrongInk;
+  return (
+    <Text style={[styles.prompt, { fontSize: size, lineHeight: Math.round(size * 1.4) }]} testID="blank-prompt">
+      {before}
+      <Text style={[styles.blankSlot, word ? { color: slotColor, textDecorationColor: slotColor } : styles.blankEmpty]}>
+        {word ? `\u00A0${word}\u00A0` : "        "}
+      </Text>
+      {after}
+    </Text>
+  );
+}
+
+const CLOSE_GREY = darken(colors.lockedLip, 0.12);
 
 export function FoundationAssessmentScreen({
   assessment,
   language,
   selectedAnswer,
-  confidence,
   onChangeSelectedAnswer,
-  onChangeConfidence,
   onSubmit,
   onContinue,
   onExit,
-  mascotVariant = "hijabi"
+  mascotVariant = "hijabi",
+  // Same default as the Practice hub, so the mascot keeps one look across practice screens.
+  accent = colors.gem
 }: {
   assessment: FoundationAssessmentState;
   language: SupportedLanguage;
   selectedAnswer: SelectedAnswer;
-  confidence: number;
+  /** The "How sure?" picker is gone; the answer sets the confidence. Kept so old call sites type-check. */
+  confidence?: number;
+  onChangeConfidence?: (value: number) => void;
   onChangeSelectedAnswer: (value: SelectedAnswer) => void;
-  onChangeConfidence: (value: number) => void;
   onSubmit: () => void;
   onContinue: () => void;
+  /** Called after the learner confirms on the quit sheet. */
   onExit: () => void;
   mascotVariant?: string;
+  /** Mascot clothing color. Pass the same accent as PracticeHub (default gem blue on both) so the mascot keeps one look. */
+  accent?: string;
 }) {
-  const [showWhy, setShowWhy] = useState(false);
+  const [quitOpen, setQuitOpen] = useState(false);
+  const { compact } = useLessonCompact();
   const question = useMemo(
     () => localizeFoundationQuestion(assessment.currentQuestion, language),
     [assessment.currentQuestion, language]
@@ -285,16 +345,15 @@ export function FoundationAssessmentScreen({
     return {
       ...assessment.feedback,
       explanationShort: translateStudyText(assessment.feedback.explanationShort, language),
-      explanationLong: translateStudyText(assessment.feedback.explanationLong, language),
-      whyThisMatters: translateStudyText(assessment.feedback.whyThisMatters, language),
-      misconceptionNotes: assessment.feedback.misconceptionNotes.map((note) => translateStudyText(note, language)),
-      wrongAnswerReasons: assessment.feedback.wrongAnswerReasons.map((note) => translateStudyText(note, language)),
-      reviewNext: translateStudyText(assessment.feedback.reviewNext, language),
-      confidenceLabel: translateStudyText(assessment.feedback.confidenceLabel, language),
-      reflectionPrompt: translateStudyText(assessment.feedback.reflectionPrompt, language)
+      explanationLong: translateStudyText(assessment.feedback.explanationLong, language)
     };
   }, [assessment.feedback, language]);
-  const progress = assessment.questionNumber / Math.max(assessment.totalQuestions, 1);
+  const words = useMemo(
+    () => getFoundationWordBank(assessment.currentQuestion).map((word) => (language === "en" ? word : translateStudyText(word, language))),
+    [assessment.currentQuestion, language]
+  );
+  // The bar fills as each answer is checked, so it is empty on the first question and full after the last.
+  const progress = (assessment.questionNumber - 1 + (feedback ? 1 : 0)) / Math.max(assessment.totalQuestions, 1);
   const canSubmit = canSubmitAnswer(question.type, selectedAnswer);
   const arabic = categoryArabic(question.category);
   const categoryTitle = SKILL_LOOK[question.category]?.name ?? question.category.charAt(0).toUpperCase() + question.category.slice(1);
@@ -305,11 +364,60 @@ export function FoundationAssessmentScreen({
     if (!locked) onChangeSelectedAnswer(value);
   };
 
+  // Keep the last sheet content so the sheet does not change while it slides away.
+  const sheet = feedback ? sheetContentFor(question, selectedAnswer, feedback) : undefined;
+  const lastSheet = useRef(sheet);
+  if (sheet) {
+    lastSheet.current = sheet;
+  }
+  const shownSheet = sheet ?? lastSheet.current;
+
+  // --- keep the answers above the feedback sheet ---
+  const { ref: scrollRef, scrollProps, more, scrollDown } = useScrollMore();
+  const [viewport, setViewport] = useState(0);
+  const [barHeight, setBarHeight] = useState(0);
+  const [sheetHeight, setSheetHeight] = useState(0);
+  const [answersBox, setAnswersBox] = useState<Box | null>(null);
+  const wasChecked = useRef(false);
+
+  useEffect(() => {
+    if (!locked) {
+      if (wasChecked.current) {
+        scrollRef.current?.scrollTo?.({ y: 0, animated: false });
+      }
+      wasChecked.current = false;
+      return;
+    }
+    wasChecked.current = true;
+    if (!viewport || !sheetHeight || !answersBox) {
+      return;
+    }
+    const visible = viewport - Math.max(0, sheetHeight - barHeight);
+    const y = Math.max(0, Math.min(answersBox.y + answersBox.height + space.md - visible, answersBox.y - space.sm));
+    if (y > 0) {
+      scrollRef.current?.scrollTo?.({ y, animated: true });
+    }
+  }, [answersBox, barHeight, locked, scrollRef, sheetHeight, viewport]);
+
+  const onAnswersLayout = (event: LayoutChangeEvent) => {
+    const { y, height } = event.nativeEvent.layout;
+    setAnswersBox({ y: Math.round(y), height: Math.round(height) });
+  };
+
+  const prompt = titleFor(question);
+  const scenario = question.scenario?.trim();
+  const long = prompt.length + (scenario?.length ?? 0) > 120;
+  const tileCount = question.type === "fill_in_blank" ? words.length : question.options?.length ?? question.orderItems?.length ?? 0;
+  const hideMascot = compact && (tileCount >= 4 || question.type === "match_pairs" || question.type === "correct_order");
+  const promptSize = long || compact ? 17 : 19;
+  const mood: MascotMood = checked === undefined ? "think" : checked ? "cheer" : "sad";
+  const extraBottom = locked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
+
   return (
-    <View style={styles.assessmentRoot}>
+    <View style={styles.assessmentRoot} testID="assessment-screen">
       <View style={styles.assessmentTop}>
-        <Tappable onPress={onExit} style={styles.exitButton} accessibilityLabel="Close" hitSlop={8} pressScale={0.9}>
-          <Icon name="close" size={22} color={colors.inkSoft} />
+        <Tappable onPress={() => setQuitOpen(true)} style={styles.exitButton} accessibilityLabel="Close" hitSlop={10} pressScale={0.88} testID="assessment-close">
+          <Icon name="close" size={26} color={CLOSE_GREY} />
         </Tappable>
         <ProgressBar progress={progress} style={styles.progressBar} />
         <Text style={styles.progressCount}>
@@ -317,110 +425,82 @@ export function FoundationAssessmentScreen({
         </Text>
       </View>
 
-      <ScrollView contentContainerStyle={styles.assessmentWrap} keyboardShouldPersistTaps="handled">
-        <PopIn key={question.id} from="up">
-          <View style={styles.categoryRow}>
-            <View style={styles.categoryPill}>
-              <Icon name={SKILL_LOOK[question.category]?.icon ?? "star8"} size={16} />
-              <Text style={styles.categoryText} numberOfLines={1}>
-                {categoryTitle}
-              </Text>
-            </View>
-            {arabic ? (
-              <ArabicText size={18} weight="bold" color={colors.correctInk} numberOfLines={1}>
-                {arabic.ar}
-              </ArabicText>
-            ) : null}
-          </View>
-          {question.scenario ? <Text style={styles.scenarioText}>{question.scenario}</Text> : null}
-          <Text style={styles.questionPrompt}>{titleFor(question)}</Text>
-          {question.type === "multi_select" ? <Text style={styles.hint}>Pick all that fit</Text> : null}
-
-          <View pointerEvents={locked ? "none" : "auto"} testID="assessment-answers">
-            {renderQuestionInput(question, selectedAnswer, change, checked)}
-          </View>
-
-          {!feedback && (
-            <View style={styles.confidenceCard}>
-              <Text style={styles.confidenceTitle}>How sure?</Text>
-              <View style={styles.confidenceRow}>
-                {CONFIDENCE.map((option) => {
-                  const active = option.value === 3 ? confidence >= 3 : confidence <= 2;
-                  return (
-                    <Tappable
-                      key={option.value}
-                      onPress={() => onChangeConfidence(option.value)}
-                      style={[styles.confidencePill, active && styles.confidencePillActive]}
-                      accessibilityRole="radio"
-                      accessibilityState={{ checked: active }}
-                      accessibilityLabel={option.label}
-                      pressScale={0.95}
-                    >
-                      <Text style={[styles.confidenceText, active && styles.confidenceTextActive]} numberOfLines={1}>
-                        {option.label}
-                      </Text>
-                    </Tappable>
-                  );
-                })}
-              </View>
-            </View>
-          )}
-        </PopIn>
-      </ScrollView>
-
-      {feedback ? (
-        <PopIn from="up">
-          <View style={[styles.feedbackCard, feedback.correct ? styles.feedbackGood : styles.feedbackBad]}>
-            <ScrollView style={styles.feedbackScroll} contentContainerStyle={styles.feedbackInner}>
-              <View style={styles.feedbackHead}>
-                <Mascot variant={mascotVariant} mood={feedback.correct ? "cheer" : "sad"} size={58} animated={false} />
-                <Text style={[styles.feedbackTitle, { color: feedback.correct ? colors.correctInk : colors.wrongInk }]}>
-                  {feedback.correct ? praiseFor(question.id) : "Not quite"}
-                </Text>
-              </View>
-              <Text style={[styles.feedbackLine, { color: feedback.correct ? colors.correctInk : colors.wrongInk }]}>{feedback.explanationShort}</Text>
-              {showWhy ? (
-                <View style={styles.reasonList}>
-                  <Text style={styles.feedbackReason}>{feedback.whyThisMatters}</Text>
-                  {feedback.misconceptionNotes[0] ? <Text style={styles.feedbackReason}>{feedback.misconceptionNotes[0]}</Text> : null}
-                  {feedback.wrongAnswerReasons.slice(0, 2).map((reason) => (
-                    <Text key={reason} style={styles.feedbackReason}>
-                      {reason}
-                    </Text>
-                  ))}
-                  <Text style={styles.feedbackReason}>{`Next: ${feedback.reviewNext}`}</Text>
+      <View style={styles.scrollBox} onLayout={(event) => setViewport(Math.round(event.nativeEvent.layout.height))}>
+        <ScrollView
+          ref={scrollRef}
+          style={styles.scroll}
+          contentContainerStyle={{ paddingBottom: extraBottom }}
+          keyboardShouldPersistTaps="handled"
+          {...scrollProps}
+        >
+          <View key={question.id} style={styles.assessmentWrap}>
+            <PopIn from="up">
+              <View style={styles.categoryRow}>
+                <View style={styles.categoryPill}>
+                  <Icon name={SKILL_LOOK[question.category]?.icon ?? "star8"} size={16} />
+                  <Text style={styles.categoryText} numberOfLines={1}>
+                    {categoryTitle}
+                  </Text>
                 </View>
+                {arabic ? (
+                  <ArabicText size={20} weight="bold" color={colors.correctInk} numberOfLines={1}>
+                    {arabic.ar}
+                  </ArabicText>
+                ) : null}
+              </View>
+            </PopIn>
+
+            <PromptBubble long={long} hideMascot={hideMascot} mascotVariant={mascotVariant} accent={accent} mood={mood}>
+              {scenario ? <Text style={[styles.scenarioText, { fontSize: promptSize - 2 }]}>{scenario}</Text> : null}
+              {question.type === "fill_in_blank" ? (
+                <BlankPrompt prompt={prompt} word={typeof selectedAnswer === "string" ? selectedAnswer : undefined} checked={checked} size={promptSize} />
               ) : (
-                <Tappable
-                  onPress={() => setShowWhy(true)}
-                  style={[styles.whyButton, { borderColor: feedback.correct ? lighten(colors.green, 0.4) : lighten(colors.heart, 0.4) }]}
-                  accessibilityLabel="Why?"
-                  pressScale={0.95}
-                >
-                  <Icon name="info" size={20} color={feedback.correct ? colors.correctInk : colors.wrongInk} />
-                  <Text style={[styles.whyText, { color: feedback.correct ? colors.correctInk : colors.wrongInk }]}>Why?</Text>
-                </Tappable>
+                <PromptText size={promptSize}>{prompt}</PromptText>
               )}
-            </ScrollView>
-            <GameButton
-              label="Continue"
-              variant={feedback.correct ? "primary" : "danger"}
-              fullWidth
-              onPress={() => {
-                setShowWhy(false);
-                onContinue();
-              }}
-            />
+              {question.type === "multi_select" ? <Text style={styles.hint}>Pick all that fit</Text> : null}
+            </PromptBubble>
+
+            <View pointerEvents={locked ? "none" : "auto"} testID="assessment-answers" onLayout={onAnswersLayout}>
+              {renderQuestionInput(question, selectedAnswer, change, checked, words, compact)}
+            </View>
           </View>
-        </PopIn>
-      ) : (
-        <View style={styles.footer}>
-          <GameButton label="Check" fullWidth disabled={!canSubmit} onPress={onSubmit} />
-        </View>
-      )}
+        </ScrollView>
+        <ScrollHint visible={more && !locked} onPress={scrollDown} />
+      </View>
+
+      <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
+        <LessonBottomBar>
+          {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
+          <GameButton label="Check" fullWidth sound={false} disabled={!canSubmit || locked} onPress={onSubmit} testID="assessment-check" />
+        </LessonBottomBar>
+      </View>
+
+      <FeedbackSheet
+        visible={locked}
+        correct={Boolean(shownSheet?.correct)}
+        correctLabel={shownSheet?.correctList ? undefined : shownSheet?.correctLabel}
+        correctList={shownSheet?.correctList}
+        why={shownSheet?.why}
+        praiseSeed={shownSheet?.seed}
+        onContinue={onContinue}
+        onHeight={setSheetHeight}
+      />
+
+      <QuitSheet
+        visible={quitOpen}
+        mascotVariant={mascotVariant}
+        accent={accent}
+        onKeepLearning={() => setQuitOpen(false)}
+        onQuit={() => {
+          setQuitOpen(false);
+          onExit();
+        }}
+      />
     </View>
   );
 }
+
+type CheckState = ChoiceTileState | "missed";
 
 function tileState(active: boolean, correct: boolean | undefined, isAnswer = false): ChoiceTileState {
   if (correct === undefined) return active ? "selected" : "idle";
@@ -430,6 +510,13 @@ function tileState(active: boolean, correct: boolean | undefined, isAnswer = fal
   return correct ? "correct" : "wrong";
 }
 
+/** Multi-select after CHECK: a right answer the learner did not tick is "missed", not a green tick. */
+function checkState(active: boolean, checked: boolean | undefined, isAnswer: boolean): CheckState {
+  if (checked === undefined) return active ? "selected" : "idle";
+  if (active) return isAnswer ? "correct" : "wrong";
+  return isAnswer ? "missed" : "dimmed";
+}
+
 function isAnswerOption(question: Question, option: string) {
   const answer = question.correctAnswer;
   if (typeof answer === "string") return answer === option || (question.acceptedAnswers ?? []).includes(option);
@@ -437,35 +524,38 @@ function isAnswerOption(question: Question, option: string) {
   return false;
 }
 
-const CHECK_LOOK: Record<ChoiceTileState, { bg: string; border: string; lip: string; text: string; box: string; boxBorder: string }> = {
+const CHECK_LOOK: Record<CheckState, { bg: string; border: string; lip: string; text: string; box: string; boxBorder: string }> = {
   idle: { bg: colors.white, border: colors.line, lip: colors.lineLip, text: colors.ink, box: colors.white, boxBorder: colors.lineLip },
   selected: { bg: lighten(colors.gem, 0.86), border: lighten(colors.gem, 0.25), lip: colors.gem, text: colors.gemLip, box: colors.gem, boxBorder: colors.gem },
   correct: { bg: colors.correctBg, border: lighten(colors.green, 0.2), lip: colors.green, text: colors.correctInk, box: colors.green, boxBorder: colors.green },
   wrong: { bg: colors.wrongBg, border: lighten(colors.heart, 0.2), lip: colors.heart, text: colors.wrongInk, box: colors.heart, boxBorder: colors.heart },
+  missed: { bg: colors.white, border: colors.green, lip: colors.green, text: colors.correctInk, box: colors.white, boxBorder: colors.green },
   disabled: { bg: colors.white, border: colors.line, lip: colors.line, text: colors.inkSoft, box: colors.white, boxBorder: colors.line },
   dimmed: { bg: colors.white, border: colors.line, lip: colors.lineLip, text: colors.ink, box: colors.white, boxBorder: colors.lineLip }
 };
 
 /** Multi-select tile: an empty box says "you may pick more than one"; a blue tick means picked, green only after CHECK. */
-function CheckTile({ label, state, onPress }: { label: string; state: ChoiceTileState; onPress: () => void }) {
+function CheckTile({ label, state, onPress }: { label: string; state: CheckState; onPress: () => void }) {
   const look = CHECK_LOOK[state];
   const ticked = state === "selected" || state === "correct" || state === "wrong";
+  const missed = state === "missed";
   return (
     <Tappable
       onPress={onPress}
       disabled={state === "dimmed" || state === "disabled"}
       accessibilityRole="checkbox"
-      accessibilityLabel={label}
+      accessibilityLabel={missed ? `${label}, missed` : label}
       accessibilityState={{ checked: state === "selected" || state === "correct" }}
       pressScale={0.97}
       style={[
         styles.checkTile,
         { backgroundColor: look.bg, borderColor: look.border, borderBottomColor: look.lip },
+        missed ? styles.missedTile : null,
         state === "dimmed" ? styles.dimmedTile : null
       ]}
     >
       <Text style={[styles.checkLabel, { color: look.text }]}>{label}</Text>
-      <View style={[styles.checkBox, { backgroundColor: ticked ? look.box : colors.white, borderColor: look.boxBorder }]}>
+      <View style={[styles.checkBox, { backgroundColor: ticked ? look.box : colors.white, borderColor: look.boxBorder }, missed ? styles.missedBox : null]}>
         {ticked ? <Icon name={state === "wrong" ? "close" : "check"} size={16} color={colors.white} /> : null}
       </View>
     </Tappable>
@@ -473,7 +563,7 @@ function CheckTile({ label, state, onPress }: { label: string; state: ChoiceTile
 }
 
 function OrderInput({ question, order, onChange, checked }: { question: Question; order: string[]; onChange: (value: SelectedAnswer) => void; checked: boolean | undefined }) {
-  const items = question.orderItems ?? [];
+  const items = useMemo(() => getShuffledOrderItems(question), [question]);
   const remaining = items.filter((item) => !order.includes(item));
   const slotState = (index: number) => {
     if (checked === undefined || !order[index]) return undefined;
@@ -489,17 +579,19 @@ function OrderInput({ question, order, onChange, checked }: { question: Question
           return (
             <View key={`slot-${index}`} style={styles.gridCell}>
               {item ? (
-                <Tappable
-                  onPress={() => onChange(order.filter((entry) => entry !== item))}
-                  style={[styles.slotFilled, verdict === "right" ? styles.slotRight : verdict === "wrong" ? styles.slotWrong : null]}
-                  accessibilityLabel={`${index + 1}: ${item}`}
-                  pressScale={0.95}
-                >
-                  <View style={[styles.slotNumber, verdict === "right" ? { backgroundColor: colors.green } : verdict === "wrong" ? { backgroundColor: colors.heart } : null]}>
-                    <Text style={styles.slotNumberText}>{index + 1}</Text>
-                  </View>
-                  <Text style={styles.slotText}>{item}</Text>
-                </Tappable>
+                <PopIn from="scale">
+                  <Tappable
+                    onPress={() => onChange(order.filter((entry) => entry !== item))}
+                    style={[styles.slotFilled, verdict === "right" ? styles.slotRight : verdict === "wrong" ? styles.slotWrong : null]}
+                    accessibilityLabel={`${index + 1}: ${item}`}
+                    pressScale={0.95}
+                  >
+                    <View style={[styles.slotNumber, verdict === "right" ? { backgroundColor: colors.green } : verdict === "wrong" ? { backgroundColor: colors.heart } : null]}>
+                      <Text style={styles.slotNumberText}>{index + 1}</Text>
+                    </View>
+                    <Text style={styles.slotText}>{item}</Text>
+                  </Tappable>
+                </PopIn>
               ) : (
                 <View style={styles.slotEmpty} accessibilityLabel={`Slot ${index + 1}`}>
                   <Text style={styles.slotEmptyText}>{index + 1}</Text>
@@ -512,7 +604,7 @@ function OrderInput({ question, order, onChange, checked }: { question: Question
       {checked === undefined && remaining.length ? (
         <View style={styles.choiceList}>
           {remaining.map((option) => (
-            <ChoiceTile key={option} label={option} onPress={() => onChange([...order, option])} />
+            <ChoiceTile key={option} label={option} onPress={() => onChange([...order, option])} testID={`order-${option}`} />
           ))}
         </View>
       ) : null}
@@ -520,12 +612,14 @@ function OrderInput({ question, order, onChange, checked }: { question: Question
   );
 }
 
-const PAIR_COLORS = [colors.gem, colors.flame, colors.goldLip, darken(colors.gem, 0.4), colors.green];
+// Pair colors. Blue is left out: it means "picked, not paired yet".
+const PAIR_COLORS = [colors.flame, "#8E5CF7", "#4C5BD4", colors.goldLip];
 
-/** Match tile: picked = blue outline, paired = the pair's color and number, after CHECK green or red. */
+/** Match tile: picked = blue, paired = the pair's color and number, after CHECK green or red with the right pair's number. */
 function PairTile({ label, state, pairNumber, onPress, testID }: { label: string; state: ChoiceTileState; pairNumber?: number; onPress: () => void; testID: string }) {
   const tint = pairNumber ? PAIR_COLORS[(pairNumber - 1) % PAIR_COLORS.length] : colors.gem;
   const checkedLook = state === "correct" || state === "wrong" || state === "dimmed" ? CHECK_LOOK[state] : undefined;
+  const paired = state === "selected" && pairNumber !== undefined;
   const face = checkedLook
     ? { backgroundColor: checkedLook.bg, borderColor: checkedLook.border, borderBottomColor: checkedLook.lip }
     : state === "selected"
@@ -539,7 +633,7 @@ function PairTile({ label, state, pairNumber, onPress, testID }: { label: string
       disabled={state === "dimmed"}
       style={[styles.pairTile, face, state === "dimmed" ? styles.dimmedTile : null]}
       accessibilityLabel={pairNumber ? `${label}, pair ${pairNumber}` : label}
-      accessibilityState={{ selected: state === "selected" }}
+      accessibilityState={{ selected: state === "selected" && !paired }}
       pressScale={0.96}
       testID={testID}
     >
@@ -555,15 +649,26 @@ function PairTile({ label, state, pairNumber, onPress, testID }: { label: string
 
 type Pick = { side: "left" | "right"; value: string } | undefined;
 
-/** Tap-to-pair: one tile from each column. Paired tiles share a number; tap one again to undo. */
+/**
+ * Tap-to-pair: one tile from each side. Paired tiles share a number; tap one again to undo.
+ * Each row's two tiles share a height. After CHECK every tile shows the number of its right pair.
+ */
 function MatchInput({ question, mapping, onChange, checked }: { question: Question; mapping: Record<string, string>; onChange: (value: SelectedAnswer) => void; checked: boolean | undefined }) {
   const [pick, setPick] = useState<Pick>(undefined);
   const lefts = (question.pairs ?? []).map((pair) => pair.left);
-  const rights = useMemo(() => seededShuffle(question.options ?? [], question.id), [question.id, question.options]);
   const answer = question.correctAnswer && typeof question.correctAnswer === "object" && !Array.isArray(question.correctAnswer) ? question.correctAnswer : {};
+  const rights = useMemo(() => {
+    const shuffled = seededShuffle(question.options ?? [], question.id);
+    // Never start with every meaning already next to its phrase.
+    return shuffled.length > 1 && shuffled.every((right, index) => answer[lefts[index]] === right) ? [...shuffled.slice(1), shuffled[0]] : shuffled;
+    // The shuffle depends on the question only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [question.id, question.options]);
   const pairedLefts = Object.keys(mapping);
   const numberOfLeft = (left: string) => pairedLefts.indexOf(left) + 1;
   const leftOfRight = (right: string) => pairedLefts.find((left) => mapping[left] === right);
+  const answerLeftOf = (right: string) => lefts.find((left) => answer[left] === right);
+  const isChecked = checked !== undefined;
 
   const pair = (left: string, right: string) => {
     const next: Record<string, string> = {};
@@ -601,44 +706,45 @@ function MatchInput({ question, mapping, onChange, checked }: { question: Questi
   };
 
   const stateLeft = (left: string): ChoiceTileState => {
-    if (checked !== undefined) return mapping[left] ? (answer[left] === mapping[left] ? "correct" : "wrong") : "dimmed";
+    if (isChecked) return mapping[left] && answer[left] === mapping[left] ? "correct" : "wrong";
     return mapping[left] || (pick?.side === "left" && pick.value === left) ? "selected" : "idle";
   };
   const stateRight = (right: string): ChoiceTileState => {
     const owner = leftOfRight(right);
-    if (checked !== undefined) return owner ? (answer[owner] === right ? "correct" : "wrong") : "dimmed";
+    if (isChecked) return owner && answer[owner] === right ? "correct" : "wrong";
     return owner || (pick?.side === "right" && pick.value === right) ? "selected" : "idle";
+  };
+  // Before CHECK the number is the learner's pair; after it, the right pair (left row number).
+  const numberLeft = (left: string) => (isChecked ? lefts.indexOf(left) + 1 : mapping[left] ? numberOfLeft(left) : undefined);
+  const numberRight = (right: string) => {
+    if (isChecked) {
+      const owner = answerLeftOf(right);
+      return owner ? lefts.indexOf(owner) + 1 : undefined;
+    }
+    const owner = leftOfRight(right);
+    return owner ? numberOfLeft(owner) : undefined;
   };
 
   return (
-    <View style={styles.matchColumns}>
-      <View style={styles.matchColumn}>
-        {lefts.map((left) => (
-          <PairTile
-            key={left}
-            label={left}
-            pairNumber={mapping[left] ? numberOfLeft(left) : undefined}
-            state={stateLeft(left)}
-            onPress={() => tapLeft(left)}
-            testID={`match-left-${left}`}
-          />
-        ))}
-      </View>
-      <View style={styles.matchColumn}>
-        {rights.map((right) => {
-          const owner = leftOfRight(right);
-          return (
-            <PairTile
-              key={right}
-              label={right}
-              pairNumber={owner ? numberOfLeft(owner) : undefined}
-              state={stateRight(right)}
-              onPress={() => tapRight(right)}
-              testID={`match-right-${right}`}
-            />
-          );
-        })}
-      </View>
+    <View style={styles.matchRows}>
+      {Array.from({ length: Math.max(lefts.length, rights.length) }, (_, index) => {
+        const left = lefts[index];
+        const right = rights[index];
+        return (
+          <PopIn key={`${left ?? ""}|${right ?? ""}`} from="up" delay={80 + index * 60} style={styles.matchRow}>
+            {left ? (
+              <PairTile label={left} pairNumber={numberLeft(left)} state={stateLeft(left)} onPress={() => tapLeft(left)} testID={`match-left-${left}`} />
+            ) : (
+              <View style={styles.pairSpacer} />
+            )}
+            {right ? (
+              <PairTile label={right} pairNumber={numberRight(right)} state={stateRight(right)} onPress={() => tapRight(right)} testID={`match-right-${right}`} />
+            ) : (
+              <View style={styles.pairSpacer} />
+            )}
+          </PopIn>
+        );
+      })}
     </View>
   );
 }
@@ -647,20 +753,43 @@ function renderQuestionInput(
   question: Question,
   selectedAnswer: SelectedAnswer,
   onChangeSelectedAnswer: (value: SelectedAnswer) => void,
-  checked: boolean | undefined
+  checked: boolean | undefined,
+  words: string[],
+  compact: boolean
 ) {
+  if (question.type === "fill_in_blank" && words.length > 1) {
+    // Tap the missing word: no typing.
+    return (
+      <View style={styles.wordGrid}>
+        {words.map((word, index) => (
+          <PopIn key={word} from="up" delay={80 + index * 60} style={styles.wordCell}>
+            <ChoiceTile
+              label={word}
+              compact={compact}
+              state={tileState(selectedAnswer === word, checked, isAnswerOption(question, word))}
+              onPress={() => onChangeSelectedAnswer(word)}
+              testID={`word-${word}`}
+            />
+          </PopIn>
+        ))}
+      </View>
+    );
+  }
+
   if (question.type === "fill_in_blank" || question.type === "reflection_prompt") {
+    const typed = typeof selectedAnswer === "string" ? selectedAnswer : "";
     if (checked !== undefined) {
       return (
-        <View style={[styles.answerEcho, checked ? styles.feedbackGood : styles.feedbackBad]}>
-          <Text style={styles.choiceText}>{typeof selectedAnswer === "string" ? selectedAnswer : ""}</Text>
+        <View style={styles.choiceList}>
+          <ChoiceTile label={typed} state={checked ? "correct" : "wrong"} />
+          {!checked && typeof question.correctAnswer === "string" ? <ChoiceTile label={question.correctAnswer} state="correct" /> : null}
         </View>
       );
     }
     return (
       <TextInput
         multiline={question.type === "reflection_prompt"}
-        value={typeof selectedAnswer === "string" ? selectedAnswer : ""}
+        value={typed}
         onChangeText={(value) => onChangeSelectedAnswer(value)}
         placeholder={question.type === "reflection_prompt" ? "Write a few words" : "Type your answer"}
         placeholderTextColor={colors.inkSoft}
@@ -673,16 +802,13 @@ function renderQuestionInput(
     const selectedValues = Array.isArray(selectedAnswer) ? selectedAnswer : [];
     return (
       <View style={styles.choiceList}>
-        {question.options?.map((option) => {
+        {question.options?.map((option, index) => {
           const active = selectedValues.includes(option);
           const next = active ? selectedValues.filter((item) => item !== option) : [...selectedValues, option];
           return (
-            <CheckTile
-              key={option}
-              label={option}
-              state={tileState(active, checked, isAnswerOption(question, option))}
-              onPress={() => onChangeSelectedAnswer(next)}
-            />
+            <PopIn key={option} from="up" delay={80 + index * 60}>
+              <CheckTile label={option} state={checkState(active, checked, isAnswerOption(question, option))} onPress={() => onChangeSelectedAnswer(next)} />
+            </PopIn>
           );
         })}
       </View>
@@ -698,15 +824,19 @@ function renderQuestionInput(
     return <MatchInput key={question.id} question={question} mapping={mapping} onChange={onChangeSelectedAnswer} checked={checked} />;
   }
 
+  const longChoices = (question.options ?? []).some((option) => option.length > 60);
   return (
     <View style={styles.choiceList}>
-      {question.options?.map((option) => (
-        <ChoiceTile
-          key={option}
-          label={option}
-          state={tileState(selectedAnswer === option, checked, isAnswerOption(question, option))}
-          onPress={() => onChangeSelectedAnswer(option)}
-        />
+      {question.options?.map((option, index) => (
+        <PopIn key={option} from="up" delay={80 + index * 60}>
+          <ChoiceTile
+            label={option}
+            compact={compact}
+            long={longChoices}
+            state={tileState(selectedAnswer === option, checked, isAnswerOption(question, option))}
+            onPress={() => onChangeSelectedAnswer(option)}
+          />
+        </PopIn>
       ))}
     </View>
   );
@@ -726,6 +856,148 @@ function canSubmitAnswer(type: FoundationAssessmentState["currentQuestion"]["typ
   }
 
   return typeof selectedAnswer === "string" && selectedAnswer.length > 0;
+}
+
+// ---------- end of a practice session ----------
+
+const COUNT_DURATION = 900;
+const CARD_DELAY = 350;
+const CARD_STAGGER = 140;
+const HEADLINE = darken(colors.goldLip, 0.2);
+
+const HEADLINES: Record<FoundationAssessmentState["mode"], string> = {
+  placement: "Level found!",
+  daily_challenge: "Challenge done!",
+  review: "Review done!"
+};
+
+function ResultCard({ label, icon, value, of, color, ink, index, testID }: { label: string; icon: IconName; value: number; of?: number; color: string; ink: string; index: number; testID: string }) {
+  return (
+    <PopIn delay={CARD_DELAY + index * CARD_STAGGER} style={styles.resultSlot}>
+      <View style={[styles.resultCard, { backgroundColor: color, borderColor: color }]} testID={testID} accessibilityLabel={of ? `${label} ${value} of ${of}` : `${label} ${value}`}>
+        <Text style={styles.resultLabel} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
+          {label}
+        </Text>
+        <View style={styles.resultBody}>
+          <Icon name={icon} size={24} />
+          <View style={styles.resultValueRow}>
+            <CountUp value={value} duration={COUNT_DURATION} style={[styles.resultValue, { color: ink }]} />
+            {of ? <Text style={[styles.resultOf, { color: ink }]}>/{of}</Text> : null}
+          </View>
+        </View>
+      </View>
+    </PopIn>
+  );
+}
+
+export type PracticeCompleteProps = {
+  /** The finished session (its answers). */
+  assessment: FoundationAssessmentState;
+  /** The learner profile after finalizeFoundationAssessment. */
+  learnerProfile: LearnerProfile;
+  /** XP the session paid. Default: what getAssessmentXp paid for these answers. */
+  xp?: number;
+  mascotVariant?: string;
+  accent?: string;
+  onContinue: () => void;
+  /** Play the finish fanfare, then the XP sound. Default true. */
+  playSounds?: boolean;
+  bottomInset?: number;
+  testID?: string;
+};
+
+/** End of a level check, review or daily challenge: confetti, cheering mascot, counting cards, skills to practice next. */
+export function PracticeComplete({
+  assessment,
+  learnerProfile,
+  xp,
+  mascotVariant = "hijabi",
+  accent = colors.gem,
+  onContinue,
+  playSounds = true,
+  bottomInset,
+  testID = "practice-complete"
+}: PracticeCompleteProps) {
+  const summary = useMemo(() => summarizeFoundationSession(assessment, learnerProfile), [assessment, learnerProfile]);
+  const earned = xp ?? assessment.answerHistory.reduce((total, answer) => total + getAssessmentXp(assessment.mode, answer.isCorrect), 0);
+  // The level check pays no XP, so it shows no XP card.
+  const showXp = assessment.mode !== "placement";
+  const bounce = useRef(new Animated.Value(0)).current;
+  const { compact } = useLessonCompact();
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(bounce, { toValue: 1, duration: 320, easing: Easing.out(Easing.quad), useNativeDriver: true }),
+        Animated.timing(bounce, { toValue: 0, duration: 380, easing: Easing.bounce, useNativeDriver: true }),
+        Animated.delay(500)
+      ])
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [bounce]);
+
+  useEffect(() => {
+    if (!playSounds) {
+      return undefined;
+    }
+    playUi("lesson_complete");
+    const xpTimer = showXp && earned > 0 ? setTimeout(() => playUi("xp"), CARD_DELAY + CARD_STAGGER + COUNT_DURATION + 120) : undefined;
+    return () => {
+      if (xpTimer) clearTimeout(xpTimer);
+    };
+    // Sounds play once, when the screen opens.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playSounds]);
+
+  const jump = bounce.interpolate({ inputRange: [0, 1], outputRange: [0, -18] });
+
+  return (
+    <View style={styles.completeRoot} testID={testID}>
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.completeContent}>
+        <Animated.View style={{ transform: [{ translateY: jump }] }}>
+          <Mascot variant={mascotVariant} mood="cheer" accent={accent} size={compact ? 112 : 150} />
+        </Animated.View>
+        <PopIn delay={120}>
+          <Text style={styles.completeHeadline} accessibilityRole="header">
+            {HEADLINES[assessment.mode]}
+          </Text>
+        </PopIn>
+
+        <View style={styles.resultCards}>
+          <ResultCard label="CORRECT" icon="check" value={summary.correct} of={summary.answered} color={colors.green} ink={colors.correctInk} index={0} testID="result-correct" />
+          {showXp ? <ResultCard label="TOTAL XP" icon="bolt" value={earned} color={colors.gold} ink={darken(colors.goldLip, 0.25)} index={1} testID="result-xp" /> : null}
+          <ResultCard label="LEVEL" icon="star" value={summary.level} color={colors.gem} ink={colors.gemLip} index={showXp ? 2 : 1} testID="result-level" />
+        </View>
+
+        {summary.practiceNext.length ? (
+          <PopIn delay={CARD_DELAY + 3 * CARD_STAGGER} style={styles.nextBlock}>
+            <Text style={styles.nextTitle}>Practice next</Text>
+            <View style={styles.nextChips}>
+              {summary.practiceNext.map((category) => {
+                const look = SKILL_LOOK[category];
+                const tint = FOUNDATION_CATEGORY_META[category].accentColor;
+                return (
+                  <View key={category} style={[styles.nextChip, { backgroundColor: lighten(tint, 0.86), borderColor: lighten(tint, 0.55) }]} testID={`next-${category}`}>
+                    <Icon name={look.icon} size={20} />
+                    <Text style={[styles.nextChipText, { color: darken(tint, 0.3) }]} numberOfLines={1}>
+                      {look.name}
+                    </Text>
+                  </View>
+                );
+              })}
+            </View>
+          </PopIn>
+        ) : null}
+      </ScrollView>
+
+      <LessonBottomBar bottomInset={bottomInset}>
+        <GameButton label="Continue" fullWidth onPress={onContinue} testID="practice-complete-continue" />
+      </LessonBottomBar>
+
+      <Confetti active />
+    </View>
+  );
 }
 
 const card = {
@@ -762,21 +1034,28 @@ const styles = StyleSheet.create({
   skillBadge: { alignItems: "center", gap: 2, paddingVertical: 10, paddingHorizontal: 6, borderRadius: radii.tile, backgroundColor: colors.mist },
   skillName: { fontFamily: fonts.displayHeavy, fontSize: 16, lineHeight: 21, color: colors.ink, marginTop: 4, maxWidth: "100%" },
   skillMeta: { fontFamily: fonts.bodyHeavy, fontSize: 13, lineHeight: 17 },
-  assessmentRoot: { flex: 1, backgroundColor: colors.snow },
-  assessmentWrap: { paddingHorizontal: 16, paddingBottom: 24, paddingTop: 4 },
-  assessmentTop: { flexDirection: "row", alignItems: "center", gap: 12, paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8 },
-  exitButton: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center" },
+  assessmentRoot: { flex: 1, backgroundColor: colors.snow, position: "relative", overflow: "hidden" },
+  scrollBox: { flex: 1, minHeight: 0, position: "relative" },
+  scroll: { flex: 1 },
+  assessmentWrap: { paddingHorizontal: 16, paddingTop: 4 },
+  assessmentTop: { flexDirection: "row", alignItems: "center", gap: 12, paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8, backgroundColor: colors.snow },
+  exitButton: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center", marginLeft: -6 },
   progressBar: { flex: 1 },
   progressCount: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, color: colors.inkSoft },
-  categoryRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10, marginTop: 6 },
+  categoryRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10, marginTop: 4, marginBottom: 10 },
   categoryPill: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 12, paddingVertical: 3, borderRadius: radii.pill, backgroundColor: colors.correctBg, flexShrink: 1 },
   categoryText: { fontFamily: fonts.displayHeavy, fontSize: 14, lineHeight: 20, color: colors.correctInk, flexShrink: 1 },
-  scenarioText: { ...text.small, fontFamily: fonts.bodyBold, marginTop: 8 },
-  questionPrompt: { ...text.h2, fontSize: 24, lineHeight: 31, marginTop: 6 },
-  hint: { ...text.small, fontFamily: fonts.bodyHeavy, color: colors.gemLip, marginTop: 2 },
-  choiceList: { gap: 10, marginTop: 16 },
-  choiceText: { ...text.bodyBold },
-  answerEcho: { marginTop: 16, borderRadius: radii.tile, padding: 14 },
+  questionRow: { flexDirection: "row", alignItems: "center", marginBottom: 16 },
+  bubbleWrap: { flex: 1, minWidth: 0, marginLeft: 4, alignItems: "flex-start" },
+  plainPrompt: { marginBottom: 14 },
+  prompt: { flexShrink: 1, fontFamily: fonts.bodyHeavy, color: colors.ink },
+  blankSlot: { fontFamily: fonts.displayHeavy, textDecorationLine: "underline" },
+  blankEmpty: { textDecorationLine: "underline", textDecorationColor: colors.lineLip, color: colors.lineLip },
+  scenarioText: { fontFamily: fonts.bodyBold, color: colors.inkSoft, marginBottom: 4, flexShrink: 1 },
+  hint: { ...text.small, fontFamily: fonts.bodyHeavy, color: colors.gemLip, marginTop: 4 },
+  choiceList: { gap: 10 },
+  wordGrid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", rowGap: 10 },
+  wordCell: { width: "48.5%" },
   input: {
     minHeight: 54,
     borderRadius: radii.tile,
@@ -785,38 +1064,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.mist,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    marginTop: 16,
     color: colors.ink,
     fontFamily: fonts.bodyBold,
     fontSize: 17
   },
   inputTall: { minHeight: 132, textAlignVertical: "top" },
   checkTile: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 60, paddingHorizontal: 16, paddingVertical: 12, borderRadius: radii.tile, borderWidth: 2, borderBottomWidth: 5 },
+  missedTile: { borderStyle: "dashed", borderBottomWidth: 2, marginBottom: 3 },
+  missedBox: { borderStyle: "dashed" },
   dimmedTile: { opacity: 0.45 },
   checkLabel: { flex: 1, minWidth: 0, fontFamily: fonts.bodyHeavy, fontSize: 17, lineHeight: 23 },
   checkBox: { width: 28, height: 28, borderRadius: 8, borderWidth: 2, alignItems: "center", justifyContent: "center" },
-  confidenceCard: { marginTop: 20, gap: 8 },
-  confidenceTitle: { ...text.tiny },
-  confidenceRow: { flexDirection: "row", gap: 10 },
-  confidencePill: { flex: 1, flexBasis: 0, minWidth: 0, minHeight: 46, alignItems: "center", justifyContent: "center", borderRadius: radii.tile, paddingHorizontal: 10, backgroundColor: colors.white, borderWidth: 2, borderBottomWidth: 4, borderColor: colors.line },
-  confidencePillActive: { backgroundColor: lighten(colors.gem, 0.88), borderColor: colors.gem },
-  confidenceText: { fontFamily: fonts.displayHeavy, fontSize: 16, lineHeight: 21, color: colors.inkSoft, flexShrink: 1 },
-  confidenceTextActive: { color: colors.gemLip },
-  footer: { paddingHorizontal: 16, paddingTop: 10, paddingBottom: 16, borderTopWidth: 2, borderTopColor: colors.line, backgroundColor: colors.snow },
-  feedbackCard: { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 16, borderTopLeftRadius: radii.sheet, borderTopRightRadius: radii.sheet, gap: 10 },
-  feedbackScroll: { maxHeight: 280 },
-  feedbackInner: { gap: 8 },
-  feedbackGood: { backgroundColor: colors.correctBg },
-  feedbackBad: { backgroundColor: colors.wrongBg },
-  feedbackHead: { flexDirection: "row", alignItems: "center", gap: 10 },
-  feedbackTitle: { ...text.h2, flex: 1, minWidth: 0 },
-  feedbackLine: { fontFamily: fonts.bodyBold, fontSize: 16, lineHeight: 22 },
-  whyButton: { flexDirection: "row", alignItems: "center", gap: 6, alignSelf: "flex-start", minHeight: 44, paddingHorizontal: 16, borderRadius: radii.pill, borderWidth: 2, backgroundColor: colors.white },
-  whyText: { fontFamily: fonts.displayHeavy, fontSize: 16, lineHeight: 22 },
-  reasonList: { gap: 6, marginTop: 2 },
-  feedbackReason: { ...text.small, color: colors.ink },
-  orderWrap: { marginTop: 16, gap: 4 },
-  grid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", rowGap: 8 },
+  orderWrap: { gap: 4 },
+  grid: { flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", rowGap: 8, marginBottom: 8 },
   gridCell: { width: "48.5%" },
   slotEmpty: { minHeight: 52, borderRadius: radii.tile, borderWidth: 2, borderStyle: "dashed", borderColor: colors.lineLip, backgroundColor: colors.mist, alignItems: "center", justifyContent: "center" },
   slotEmptyText: { fontFamily: fonts.displayHeavy, fontSize: 18, lineHeight: 24, color: colors.lineLip },
@@ -826,10 +1086,27 @@ const styles = StyleSheet.create({
   slotNumber: { width: 24, height: 24, borderRadius: 12, backgroundColor: colors.gem, alignItems: "center", justifyContent: "center" },
   slotNumberText: { fontFamily: fonts.displayHeavy, fontSize: 13, lineHeight: 18, color: colors.white },
   slotText: { flex: 1, minWidth: 0, fontFamily: fonts.bodyHeavy, fontSize: 14, lineHeight: 19, color: colors.ink },
-  matchColumns: { flexDirection: "row", gap: 10, marginTop: 16 },
-  matchColumn: { flex: 1, flexBasis: 0, minWidth: 0, gap: 10 },
-  pairTile: { minHeight: 64, alignItems: "center", justifyContent: "center", paddingHorizontal: 10, paddingVertical: 10, borderRadius: radii.tile, borderWidth: 2, borderBottomWidth: 5 },
+  matchRows: { gap: 10 },
+  matchRow: { flexDirection: "row", alignItems: "stretch", gap: 10 },
+  pairSpacer: { flex: 1, flexBasis: 0 },
+  pairTile: { flex: 1, flexBasis: 0, minWidth: 0, minHeight: 64, alignItems: "center", justifyContent: "center", paddingHorizontal: 10, paddingVertical: 10, borderRadius: radii.tile, borderWidth: 2, borderBottomWidth: 5 },
   pairText: { fontFamily: fonts.bodyHeavy, fontSize: 15, lineHeight: 20, textAlign: "center", maxWidth: "100%" },
   pairChip: { position: "absolute", top: -9, right: -7, width: 24, height: 24, borderRadius: 12, borderWidth: 2, borderColor: colors.white, alignItems: "center", justifyContent: "center" },
-  pairChipText: { fontFamily: fonts.displayHeavy, fontSize: 12, lineHeight: 16, color: colors.white }
+  pairChipText: { fontFamily: fonts.displayHeavy, fontSize: 12, lineHeight: 16, color: colors.white },
+  completeRoot: { flex: 1, position: "relative", backgroundColor: colors.snow },
+  completeContent: { flexGrow: 1, justifyContent: "center", alignItems: "center", paddingHorizontal: space.lg, paddingVertical: space.xxl },
+  completeHeadline: { fontFamily: fonts.displayHeavy, fontSize: 34, lineHeight: 42, color: HEADLINE, textAlign: "center", marginTop: space.md },
+  resultCards: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", alignSelf: "stretch", marginTop: space.xl, marginHorizontal: -space.xs },
+  resultSlot: { flexGrow: 1, flexBasis: 88, maxWidth: 140, minWidth: 84, padding: space.xs },
+  resultCard: { borderWidth: 2, borderRadius: radii.md, overflow: "hidden" },
+  resultLabel: { fontFamily: fonts.displayHeavy, fontSize: 13, lineHeight: 18, letterSpacing: 0.6, color: colors.white, textAlign: "center", paddingVertical: 3, paddingHorizontal: 4 },
+  resultBody: { backgroundColor: colors.white, borderRadius: radii.md - 3, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: space.md, paddingHorizontal: 6, gap: 4 },
+  resultValueRow: { flexDirection: "row", alignItems: "baseline", flexShrink: 1, minWidth: 0 },
+  resultValue: { fontFamily: fonts.displayHeavy, fontSize: 24, lineHeight: 30 },
+  resultOf: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 30 },
+  nextBlock: { alignSelf: "stretch", alignItems: "center", marginTop: space.xl },
+  nextTitle: { ...text.tiny, fontFamily: fonts.bodyHeavy, marginBottom: space.sm },
+  nextChips: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: 8 },
+  nextChip: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 12, paddingVertical: 6, borderRadius: radii.pill, borderWidth: 2, maxWidth: "100%" },
+  nextChipText: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, flexShrink: 1 }
 });

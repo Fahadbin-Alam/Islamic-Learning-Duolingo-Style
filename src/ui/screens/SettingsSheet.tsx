@@ -5,7 +5,7 @@ import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, fonts, radii, space, text } from "../theme";
 // Settings: who is learning, reminders, sound, log out.
-import { SegmentButton, Toggle, useBackToClose } from "./sheetParts";
+import { SegmentButton, SheetTitle, Toggle, useBackToClose } from "./sheetParts";
 
 export type LearnerRole = "child" | "parent";
 
@@ -27,14 +27,18 @@ export type SettingsSheetProps = {
   onToggleSoftSound: () => void;
   onSave: () => void;
   onClose: () => void;
-  onLogout: () => void;
+  /** Not shown for guests. */
+  onLogout?: () => void;
   onDeleteAccount?: () => void;
+  /** A guest has no account: no "who is learning", family alerts, Log out or Delete account. */
+  guest?: boolean;
 };
 
+// Labels that say the difference on their own; the line under them is a reminder only.
 const ROLES: Array<{ id?: LearnerRole; label: string; line: string; testID: string }> = [
-  { label: "Just me", line: "Learn on your own.", testID: "settings-role-me" },
-  { id: "child", label: "Learner", line: "A parent can follow your progress.", testID: "settings-role-child" },
-  { id: "parent", label: "Parent", line: "Cheer on a learner you connect.", testID: "settings-role-parent" }
+  { label: "Solo", line: "Learn on your own.", testID: "settings-role-me" },
+  { id: "child", label: "Kid", line: "A parent can cheer you on.", testID: "settings-role-child" },
+  { id: "parent", label: "Parent", line: "Cheer on your child.", testID: "settings-role-parent" }
 ];
 
 export function SettingsSheet({
@@ -56,7 +60,8 @@ export function SettingsSheet({
   onSave,
   onClose,
   onLogout,
-  onDeleteAccount
+  onDeleteAccount,
+  guest = false
 }: SettingsSheetProps) {
   useBackToClose(visible, onClose);
   const activeRole = ROLES.find((option) => option.id === role) ?? ROLES[0];
@@ -64,28 +69,30 @@ export function SettingsSheet({
   return (
     <Sheet visible={visible} onClose={onClose} style={styles.tallPanel} testID="settings-sheet">
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.stack}>
-        <Text style={styles.title} accessibilityRole="header">Settings</Text>
+        <SheetTitle title="Settings" onClose={onClose} closeTestID="settings-close" />
 
-        <Text style={styles.sectionLabel}>WHO IS LEARNING?</Text>
-        <View style={styles.segments}>
-          {ROLES.map((option) => (
-            <SegmentButton
-              key={option.testID}
-              label={option.label}
-              active={option === activeRole}
-              onPress={() => onSelectRole(option.id)}
-              testID={option.testID}
-            />
-          ))}
-        </View>
-        <Text style={styles.hint}>{activeRole.line}</Text>
+        {guest ? null : (
+          <View style={styles.roles}>
+            <View style={styles.segments}>
+              {ROLES.map((option) => (
+                <SegmentButton
+                  key={option.testID}
+                  label={option.label}
+                  active={option === activeRole}
+                  onPress={() => onSelectRole(option.id)}
+                  testID={option.testID}
+                />
+              ))}
+            </View>
+            <Text style={styles.hint}>{activeRole.line}</Text>
+          </View>
+        )}
 
-        <Text style={styles.sectionLabel}>REMINDERS</Text>
         <View style={styles.card}>
           <Toggle label="Streak reminder" icon="flame" value={streakReminder} onToggle={onToggleStreak} testID="settings-streak" />
           <View style={styles.divider} />
           <Toggle label="Come back nudges" icon="bell" value={islamicReminder} onToggle={onToggleIslamic} testID="settings-islamic" />
-          {role ? (
+          {role && !guest ? (
             <>
               <View style={styles.divider} />
               <Toggle label="Missed a day alert" icon="people" value={dailyCheckIn} onToggle={onToggleDaily} testID="settings-daily" />
@@ -95,7 +102,6 @@ export function SettingsSheet({
           ) : null}
         </View>
 
-        <Text style={styles.sectionLabel}>SOUND</Text>
         <View style={styles.card}>
           <Toggle label="Sound effects" icon="speaker" value={soundEnabled} onToggle={onToggleSound} testID="settings-sound" />
           <View style={styles.divider} />
@@ -103,8 +109,8 @@ export function SettingsSheet({
         </View>
 
         <GameButton label="Save" fullWidth onPress={onSave} testID="settings-save" />
-        <GameButton label="Log out" variant="white" fullWidth onPress={onLogout} testID="settings-logout" />
-        {onDeleteAccount ? (
+        {!guest && onLogout ? <GameButton label="Log out" variant="secondary" fullWidth onPress={onLogout} testID="settings-logout" /> : null}
+        {!guest && onDeleteAccount ? (
           <Tappable onPress={onDeleteAccount} style={styles.linkButton} accessibilityRole="button" testID="settings-delete">
             <Text style={styles.dangerLink}>Delete account</Text>
           </Tappable>
@@ -122,20 +128,12 @@ const styles = StyleSheet.create({
     gap: space.md,
     paddingBottom: space.xs
   },
-  title: {
-    ...text.h2,
-    textAlign: "center"
-  },
-  sectionLabel: {
-    fontFamily: fonts.displayHeavy,
-    fontSize: 13,
-    letterSpacing: 0.8,
-    color: colors.inkSoft,
-    marginTop: space.xs
+  roles: {
+    gap: space.xs
   },
   hint: {
     ...text.small,
-    marginTop: -space.xs
+    textAlign: "center"
   },
   segments: {
     flexDirection: "row",

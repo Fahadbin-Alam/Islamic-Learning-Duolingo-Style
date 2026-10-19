@@ -77,6 +77,9 @@ export function Tappable({
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled: Boolean(disabled), ...accessibilityState }}
+      // react-native-web reads the aria props, not accessibilityState, for switches and tabs.
+      aria-checked={accessibilityState?.checked}
+      aria-selected={accessibilityState?.selected}
       style={[style, { transform: [{ scale }] }]}
     >
       {children}

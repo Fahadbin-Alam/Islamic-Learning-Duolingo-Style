@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Platform, ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
-import { ArabicText, hasArabic, isArabicOnly } from "../ArabicText";
+import type { GameSoundEvent } from "../../services/gameSoundLibrary";
+import { ArabicText, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
 import { Sheet } from "../Sheet";
@@ -25,12 +26,8 @@ export function pickPraise(seed?: string) {
   return PRAISE_WORDS[hashString(seed ?? "praise") % PRAISE_WORDS.length];
 }
 
-export const OOPS_WORDS = ["Not quite!", "Almost!", "Oops!"] as const;
-
-/** Stable "wrong" heading for a seed. */
-export function pickOops(seed?: string) {
-  return OOPS_WORDS[hashString(`oops:${seed ?? ""}`) % OOPS_WORDS.length];
-}
+/** Heading of the red sheet (copy bank: "Correct answer:" followed by the answer). */
+export const WRONG_TITLE = "Correct answer:";
 
 /** Text on the pink / mint sheets, a step darker than the tokens so it passes 4.5:1. */
 export const WRONG_TEXT = darken(colors.wrongInk, 0.15);
@@ -47,10 +44,12 @@ export type FeedbackSheetProps = {
   onContinue: () => void;
   /** Picks the praise word so it stays the same across renders. */
   praiseSeed?: string;
-  /** Overrides the praise word / "Not quite!" heading. */
+  /** Overrides the praise word / "Correct answer:" heading. */
   title?: string;
   /** Overrides CONTINUE / GOT IT. */
   buttonLabel?: string;
+  /** Sound of the button. Default the soft tap; false when the next screen plays its own (lesson end). */
+  buttonSound?: GameSoundEvent | false;
   /** Shown as a short numbered list instead of correctLabel. */
   correctList?: string[];
   /** Play the correct / wrong sound + haptic when the sheet opens. Default true. */
@@ -74,6 +73,7 @@ export function FeedbackSheet({
   title,
   buttonLabel,
   correctList,
+  buttonSound,
   playSound = true,
   defaultWhyOpen = false,
   bottomInset,
@@ -112,7 +112,7 @@ export function FeedbackSheet({
   }, [whyAnim, whyOpen]);
 
   const ink = correct ? CORRECT_TEXT : WRONG_TEXT;
-  const heading = title ?? (correct ? pickPraise(praiseSeed) : pickOops(praiseSeed));
+  const heading = title ?? (correct ? pickPraise(praiseSeed) : WRONG_TITLE);
   const label = buttonLabel ?? (correct ? "Continue" : "Got it");
   const whyText = why?.trim();
   const badgeScale = badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
@@ -142,7 +142,7 @@ export function FeedbackSheet({
               <View style={[styles.listNumber, { backgroundColor: ink }]}>
                 <Text style={styles.listNumberText}>{index + 1}</Text>
               </View>
-              <Text style={[styles.listText, { color: ink }]}>{item}</Text>
+              <Text style={[styles.listText, { color: ink }]}>{withHonorifics(noBreakHyphens(item))}</Text>
             </View>
           ))}
         </View>
@@ -150,16 +150,23 @@ export function FeedbackSheet({
 
       {!correct && !correctList && correctLabel ? (
         isArabicOnly(correctLabel) ? (
-          <View style={styles.answerRow}>
-            <Text style={[styles.answerLead, { color: ink }]}>Answer:</Text>
-            <ArabicText size={26} weight="bold" color={ink} align="left" style={styles.arabicAnswer}>
-              {correctLabel}
-            </ArabicText>
-          </View>
+          <ArabicText
+            size={isQuranText(correctLabel) ? 21 : 26}
+            weight="bold"
+            quran={isQuranText(correctLabel)}
+            color={ink}
+            align="right"
+            style={styles.arabicAnswer}
+            testID="feedback-answer"
+          >
+            {correctLabel}
+          </ArabicText>
         ) : (
-          <Text style={[styles.answer, hasArabic(correctLabel) ? styles.answerArabicMix : null, { color: ink }]} testID="feedback-answer">
-            <Text style={styles.answerLead}>Answer: </Text>
-            {noBreakHyphens(correctLabel)}
+          <Text
+            style={[styles.answer, correctLabel.length > 80 ? styles.answerLong : null, hasArabic(correctLabel) ? styles.answerArabicMix : null, { color: ink }]}
+            testID="feedback-answer"
+          >
+            {withHonorifics(noBreakHyphens(correctLabel))}
           </Text>
         )
       ) : null}
@@ -189,7 +196,7 @@ export function FeedbackSheet({
                 ]}
                 testID="feedback-why-text"
               >
-                {noBreakHyphens(whyText)}
+                {withHonorifics(noBreakHyphens(whyText))}
               </Animated.Text>
             </ScrollView>
           ) : null}
@@ -200,6 +207,7 @@ export function FeedbackSheet({
       <GameButton
         label={label}
         variant={correct ? "primary" : "danger"}
+        sound={buttonSound}
         fullWidth
         onPress={onContinue}
         testID="feedback-continue"
@@ -236,28 +244,23 @@ const styles = StyleSheet.create({
     fontSize: 22,
     lineHeight: 28
   },
-  answerRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    marginTop: space.sm
-  },
-  answerLead: {
-    fontFamily: fonts.bodyBold,
-    marginRight: space.sm
-  },
   answer: {
     flexShrink: 1,
     fontFamily: fonts.bodyHeavy,
-    fontSize: 17,
-    lineHeight: 23,
+    fontSize: 18,
+    lineHeight: 24,
     marginTop: space.sm
+  },
+  answerLong: {
+    fontSize: 16,
+    lineHeight: 21
   },
   answerArabicMix: {
     lineHeight: 28
   },
   arabicAnswer: {
-    alignSelf: "flex-start"
+    alignSelf: "stretch",
+    marginTop: space.xs
   },
   list: {
     marginTop: space.sm,

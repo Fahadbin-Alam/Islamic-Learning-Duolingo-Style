@@ -3,7 +3,7 @@ import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
 import { COURSE, LESSONS_BY_ID } from "../../data/course";
 import type { Challenge, Lesson } from "../../types";
-import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, shortWhy, type LessonHearts } from "../lesson";
+import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, shortWhy, type LessonHearts } from "../lesson";
 import { colors, fonts, space } from "../theme";
 
 // Dev gallery for the lesson screens. #gallery-lesson shows every state stacked in phone frames;
@@ -26,11 +26,20 @@ const forgiveQuestion =
   allChallenges.find((challenge) => challenge.prompt.startsWith("Forgiveness can be a sign of strength")) ?? salam.challenges[1];
 const longQuestion =
   allLessons.flatMap((lesson) => lesson.challenges).sort((a, b) => b.prompt.length - a.prompt.length)[0] ?? salam.challenges[0];
-
-function firstSentence(value: string) {
-  const match = value.match(/^.*?[.!?](\s|$)/);
-  return (match ? match[0] : value).trim();
-}
+// Quran ayah prompts ("What does this ayah mean? <ayah> (Quran 1:3)"), shortest and a long one.
+const ayahQuestions = allChallenges.filter((challenge) => challenge.prompt.startsWith("What does this ayah mean?")).sort((a, b) => a.prompt.length - b.prompt.length);
+const ayahQuestion = ayahQuestions[0] ?? salam.challenges[0];
+const longAyahQuestion = ayahQuestions[Math.floor(ayahQuestions.length * 0.9)] ?? ayahQuestion;
+// "Which tribe was Muhammad ﷺ from?": the honorific stays inside the English line.
+const honorificQuestion = allChallenges.find((challenge) => /\uFDFA/.test(challenge.prompt) && challenge.choices.length >= 4) ?? salam.challenges[0];
+// Four long answers: the short-phone layout and the "more below" hint.
+const longChoicesQuestion =
+  allChallenges
+    .filter((challenge) => challenge.type === "multiple_choice" && challenge.choices.length >= 4)
+    .sort((a, b) => b.choices.reduce((sum, choice) => sum + choice.label.length, 0) - a.choices.reduce((sum, choice) => sum + choice.label.length, 0))
+    .find((challenge) => challenge.choices.every((choice) => choice.label.length < 140)) ?? salam.challenges[0];
+const muhammad = (allLessons.find((lesson) => getLessonArabic(lesson.nodeId, lesson.branchId)?.ar.includes("\uFDFA")) ?? salam) as Lesson;
+const hadithLesson = (allLessons.find((lesson) => lesson.id.startsWith("lesson-notes-hadith")) ?? salam) as Lesson;
 
 function firstSource(lesson: Lesson) {
   const source = lesson.sources[0];
@@ -179,7 +188,7 @@ const STATES: State[] = [
       <LessonScreen progress={0.08} hearts={FULL_HEARTS} onClose={noop}>
         <LearnCard
           title={salam.title}
-          line="Say this when you meet someone!"
+          line={getLessonLine(salam)}
           arabic={getLessonArabic(salam.nodeId, salam.branchId)}
           onPlayAudio={noop}
           source={firstSource(salam)}
@@ -197,10 +206,44 @@ const STATES: State[] = [
       <LessonScreen progress={0.08} hearts={{ current: 3, max: 5, unlimited: false }} onClose={noop}>
         <LearnCard
           title={plainLesson.title}
-          line={firstSentence(plainLesson.intro)}
+          line={getLessonLine(plainLesson)}
           source={firstSource(plainLesson)}
           mascotVariant="boy"
           accent={COURSE.sections.find((section) => section.id === "sahabah-expansion")?.accentColor ?? colors.green}
+          onContinue={noop}
+          onOpenSource={noop}
+        />
+      </LessonScreen>
+    )
+  },
+  {
+    id: "learn-honorific",
+    render: () => (
+      <LessonScreen progress={0.08} hearts={FULL_HEARTS} onClose={noop}>
+        <LearnCard
+          title={muhammad.title}
+          line={getLessonLine(muhammad)}
+          arabic={getLessonArabic(muhammad.nodeId, muhammad.branchId)}
+          onPlayAudio={noop}
+          source={firstSource(muhammad)}
+          mascotVariant="boy"
+          accent={COURSE.sections.find((section) => section.topicId === "prophets")?.accentColor ?? colors.gem}
+          onContinue={noop}
+          onOpenSource={noop}
+        />
+      </LessonScreen>
+    )
+  },
+  {
+    id: "learn-hadith",
+    render: () => (
+      <LessonScreen progress={0.08} hearts={FULL_HEARTS} onClose={noop}>
+        <LearnCard
+          title={hadithLesson.title}
+          line={getLessonLine(hadithLesson)}
+          source={firstSource(hadithLesson)}
+          mascotVariant="boy"
+          accent={colors.gem}
           onContinue={noop}
           onOpenSource={noop}
         />
@@ -217,6 +260,22 @@ const STATES: State[] = [
   { id: "arabic", render: () => <ExerciseDemo challenge={ARABIC_QUESTION} initialSelected="b" progress={0.7} /> },
   { id: "arabic-prompt", render: () => <ExerciseDemo challenge={ARABIC_PROMPT} progress={0.7} /> },
   { id: "long", render: () => <ExerciseDemo challenge={longQuestion} accent={colors.gem} initialSelected="true" progress={0.85} /> },
+  { id: "long-choices", render: () => <ExerciseDemo challenge={longChoicesQuestion} accent={colors.gem} progress={0.6} /> },
+  {
+    id: "long-choices-wrong",
+    render: () => (
+      <ExerciseDemo
+        challenge={longChoicesQuestion}
+        accent={colors.gem}
+        initialSelected={longChoicesQuestion.choices.find((choice) => choice.id !== longChoicesQuestion.correctChoiceId)?.id}
+        checkNow
+        progress={0.6}
+      />
+    )
+  },
+  { id: "ayah", render: () => <ExerciseDemo challenge={ayahQuestion} accent={colors.gem} progress={0.5} /> },
+  { id: "ayah-long", render: () => <ExerciseDemo challenge={longAyahQuestion} accent={colors.gem} progress={0.5} /> },
+  { id: "honorific", render: () => <ExerciseDemo challenge={honorificQuestion} accent={colors.gem} progress={0.3} /> },
   {
     id: "order",
     render: () => (
@@ -251,6 +310,24 @@ const STATES: State[] = [
     )
   },
   {
+    id: "order-shown",
+    render: () => (
+      <LessonScreen progress={0.3} hearts={FULL_HEARTS} onClose={noop}>
+        <OrderGame
+          title={wudu.title}
+          options={WUDU_STEPS}
+          correctOrderIds={WUDU_ORDER}
+          mascotVariant="boy"
+          accent={PRAYER_ACCENT}
+          initialPlacedIds={["bismillah", "mouth", "hands", "nose", "face", "head", "arms", "feet"]}
+          initialChecked
+          initialMisses={2}
+          onDone={noop}
+        />
+      </LessonScreen>
+    )
+  },
+  {
     id: "order-correct",
     render: () => (
       <LessonScreen progress={0.35} hearts={FULL_HEARTS} onClose={noop}>
@@ -277,6 +354,25 @@ const STATES: State[] = [
         streakDays={12}
         unlockedTitle={LESSONS_BY_ID["lesson-foundation-character"]?.title ?? "Wa Alaikum As-Salam"}
         gemsReward={5}
+        nextTitle="Next"
+        mascotVariant="girl"
+        accent={FOUNDATION_ACCENT}
+        playSounds={false}
+        onContinue={noop}
+        onBackToPath={noop}
+      />
+    )
+  },
+  {
+    id: "complete-goal",
+    render: () => (
+      <LessonComplete
+        title={salam.title}
+        xp={10}
+        stars={3}
+        streakDays={0}
+        goal={{ xpToday: 26, goalXp: 40 }}
+        unlockedTitle={LESSONS_BY_ID["lesson-foundation-character"]?.title ?? "Wa Alaikum As-Salam"}
         nextTitle="Next"
         mascotVariant="girl"
         accent={FOUNDATION_ACCENT}
