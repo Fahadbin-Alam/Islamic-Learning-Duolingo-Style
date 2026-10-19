@@ -234,6 +234,8 @@ export interface LearningBranch {
     end: DifficultyTier;
   };
   sourceReferences?: LessonSource[];
+  /** In a library topic, this unit's first circle opens only once the unit before it is finished (material for older learners). */
+  gated?: boolean;
 }
 
 export interface LearningSection {
@@ -346,6 +348,8 @@ export interface Lesson {
   learnFacts?: string[];
   /** A short narration or ayah the learn card shows in full, with where it is from. */
   quote?: { text: string; reference?: string };
+  /** The one source that says what the learn card says; the card's source chip shows only this, labelled with its short reference. */
+  learnSource?: LessonSource;
   lessonType?: "skill" | "story" | "surah" | "scenario" | "review" | "mastery";
   difficulty?: DifficultyTier;
   xpReward: number;
