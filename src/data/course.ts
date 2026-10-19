@@ -972,7 +972,7 @@ const BASE_COURSE: LearningCourse = {
           title: "Hafsah",
           topicId: "women_of_the_book",
           branchId: "women-mothers",
-          kind: "review",
+          kind: "story",
           lessonIds: ["lesson-women-hafsah"],
           requiredNodeIds: ["women-aishah"],
           xpReward: 14,

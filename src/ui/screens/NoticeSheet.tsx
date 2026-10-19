@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { GameButton } from "../GameButton";
 import { Mascot, type MascotMood } from "../Mascot";
 import { Sheet } from "../Sheet";
-import { feedback, type HapticKind } from "../sound";
 import { colors, space, text } from "../theme";
-import { useBackToClose } from "./sheetParts";
+import { moodSound, useBackToClose, useOpenSound } from "./sheetParts";
 // In-game replacements for Alert.alert and the browser's alert()/confirm().
 
 type MascotLook = {
@@ -20,32 +19,6 @@ type MascotLook = {
    */
   sound?: GameSoundEvent | false;
 };
-
-function moodSound(mood: MascotMood | undefined): GameSoundEvent {
-  if (mood === "sad") return "wrong";
-  if (mood === "cheer") return "unlock";
-  return "soft_ui";
-}
-
-function soundHaptic(sound: GameSoundEvent): HapticKind {
-  if (sound === "wrong") return "warning";
-  if (sound === "soft_ui" || sound === "node_tap") return "light";
-  return "success";
-}
-
-/** Plays the sheet's sound once when it opens, and again when it shows a new message while open. */
-function useOpenSound(visible: boolean, sound: GameSoundEvent | false, message: string) {
-  const played = useRef<string | undefined>(undefined);
-  useEffect(() => {
-    if (!visible) {
-      played.current = undefined;
-      return;
-    }
-    if (played.current === message) return;
-    played.current = message;
-    if (sound) feedback(sound, soundHaptic(sound));
-  }, [message, sound, visible]);
-}
 
 export type NoticeSheetProps = MascotLook & {
   visible: boolean;

@@ -1,8 +1,10 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { Animated, BackHandler, Platform, StyleSheet, Text, TextInput, View, type TextInputProps } from "react-native";
+import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { Icon, type IconName } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
 import { useShake } from "../PopIn";
+import { feedback, type HapticKind } from "../sound";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, fonts, lighten, radii, space, text } from "../theme";
@@ -20,6 +22,36 @@ export function useBackToClose(visible: boolean, onClose?: () => void) {
     });
     return () => subscription.remove();
   }, [onClose, visible]);
+}
+
+/** A sheet's opening sound by its mascot's mood: sad, the wrong sound; cheer, unlock; others, the soft tap. */
+export function moodSound(mood: MascotMood | undefined): GameSoundEvent {
+  if (mood === "sad") return "wrong";
+  if (mood === "cheer") return "unlock";
+  return "soft_ui";
+}
+
+function soundHaptic(sound: GameSoundEvent): HapticKind {
+  if (sound === "wrong") return "warning";
+  if (sound === "soft_ui" || sound === "node_tap") return "light";
+  return "success";
+}
+
+/**
+ * Plays a sheet's sound (and haptic) once when it opens, and again when it shows a new message while
+ * open. Every app sheet with a mascot opens this way: notices, confirms and the out-of-hearts sheet.
+ */
+export function useOpenSound(visible: boolean, sound: GameSoundEvent | false, message: string) {
+  const played = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (!visible) {
+      played.current = undefined;
+      return;
+    }
+    if (played.current === message) return;
+    played.current = message;
+    if (sound) feedback(sound, soundHaptic(sound));
+  }, [message, sound, visible]);
 }
 
 export function MascotSays({ variant, mood, line, accent }: { variant: string; mood: MascotMood; line: string; accent?: string }) {

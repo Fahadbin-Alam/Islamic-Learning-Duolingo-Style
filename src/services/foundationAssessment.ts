@@ -299,7 +299,9 @@ export function getLearnerLevel(label: LearnerReadinessLabel) {
 
 export type FoundationSessionSummary = {
   mode: FoundationAssessmentState["mode"];
+  /** Questions right the first time they were asked. */
   correct: number;
+  /** Questions asked, each once: the total the counter showed. A missed question asked again is not a new one. */
   answered: number;
   /** Left out until the learner has done the level check, so no screen shows a level the Practice hub does not. */
   level?: number;
@@ -309,10 +311,17 @@ export type FoundationSessionSummary = {
 
 /** What the end-of-practice screen shows: right answers, the level reached and the skills to practice next. */
 export function summarizeFoundationSession(state: FoundationAssessmentState, profile: LearnerProfile): FoundationSessionSummary {
+  // The first answer to each question: so 5/6 after one miss, out of the same 6 the counter showed.
+  const firstTries = new Map<string, boolean>();
+  for (const answer of state.answerHistory) {
+    if (!firstTries.has(answer.questionId)) {
+      firstTries.set(answer.questionId, answer.isCorrect);
+    }
+  }
   return {
     mode: state.mode,
-    correct: state.answerHistory.filter((answer) => answer.isCorrect).length,
-    answered: state.answerHistory.length,
+    correct: [...firstTries.values()].filter(Boolean).length,
+    answered: firstTries.size,
     level: profile.assessmentCompleted ? getLearnerLevel(profile.readiness_label) : undefined,
     practiceNext: weakestFirst(profile, profile.weak_areas).slice(0, 3)
   };

@@ -1,4 +1,5 @@
-import type { LearningCourse, LearningNode, LearningSection, Lesson, TopicId } from "../types";
+import type { Challenge, LearningCourse, LearningNode, LearningSection, Lesson, TopicId } from "../types";
+import { reviewQuestions, type TaughtLesson } from "./scalableCurriculum";
 
 // Each person is taught in one unit. A prophet or a woman with a lesson of their own gets the lessons that
 // teach more about them (src/data/scalableCurriculum.ts) right after it, in the same unit, and the Mothers of the
@@ -97,6 +98,45 @@ export const UNIT_PLANS: Partial<Record<TopicId, UnitPlan[]>> = {
   ]
 };
 
+// A question that names no one ("She was ...") reads right only inside its own lesson.
+const UNNAMED_START = /^\W*(he|she|it|its|his|her|they|their)\b/i;
+
+/**
+ * A review looks back over the lessons before it in its own unit. A plan moves lessons between units, so each
+ * review in a planned unit picks its questions again: from the lessons since the unit's last review first, then
+ * from the lessons before that review, and never from another unit. Its own order question stays first.
+ */
+function refreshReviews(unit: LearningNode[], lessonsById: Record<string, Lesson>) {
+  const taught: TaughtLesson[] = [];
+  let since = 0;
+  let recent = new Set<string>();
+  for (const node of unit) {
+    const lessonId = node.lessonIds[0];
+    const lesson = lessonsById[lessonId];
+    if (!lesson) continue;
+    const looksBack = lesson.challenges.filter((challenge) => challenge.isReview).length;
+    if (!looksBack) {
+      const questions = lesson.challenges.filter((challenge) => !UNNAMED_START.test(challenge.prompt));
+      if (questions.length) taught.push({ lessonId, nodeId: node.id, questions });
+      recent = new Set(lesson.challenges.map((challenge) => challenge.prompt));
+      continue;
+    }
+    const picked = reviewQuestions(lessonId, taught.slice(since), looksBack, recent);
+    if (picked.length < looksBack) {
+      const prompts = new Set(picked.map((challenge) => challenge.prompt));
+      const older = reviewQuestions(lessonId, taught.slice(0, since), looksBack, recent).filter((challenge) => !prompts.has(challenge.prompt));
+      picked.push(...older.slice(0, looksBack - picked.length));
+    }
+    const challenges: Challenge[] = [
+      ...lesson.challenges.filter((challenge) => !challenge.isReview),
+      ...picked.map((challenge, index) => ({ ...challenge, id: `${lessonId}_review_${index + 1}` }))
+    ];
+    lessonsById[lessonId] = { ...lesson, challenges };
+    since = taught.length;
+    recent = new Set(challenges.map((challenge) => challenge.prompt));
+  }
+}
+
 /** Every node id a unit plan names, for the content tests. */
 export const PLANNED_NODE_IDS: readonly string[] = Object.values(UNIT_PLANS).flatMap((plans) => (plans ?? []).flatMap((plan) => plan.nodes));
 
@@ -116,6 +156,7 @@ function arrangeSection(section: LearningSection, plans: UnitPlan[], lessonsById
     const unit = members.get(branch.id)!;
     const before = section.nodes.filter((node) => node.branchId === branch.id).map((node) => node.id);
     if (before.join() === unit.map((node) => node.id).join()) return unit;
+    refreshReviews(unit, lessonsById);
     // A unit that changed: its first lesson opens it and every other one follows the one before it.
     return unit.map((node, index) => {
       const previous = index > 0 ? unit[index - 1] : undefined;

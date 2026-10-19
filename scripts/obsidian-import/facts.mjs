@@ -86,6 +86,10 @@ export const MAX_CHOICE_LENGTH = 90;
 
 // Words that keep a text out of a children's quiz, as a question, a choice or a learn-card quote.
 export const ADULT_TEXT = /\b(fornicat|adulter|concubine|harlot|whore|lewd|incest|sodom(?!\b)|lust|sexual|intercourse|private parts|menstrua|genital|unchast|naked|nudity)\w*/i;
+// Violence a narration may tell in passing ("permit me that I should strike his neck", "no good for you to kill
+// him") or a frightening picture ("he is one-eyed"): a lesson that carries such a narration keeps only the words
+// its card shows, and the whole narration stays in the vault and on Sunnah.com.
+export const FRIGHTENING_TEXT = /\b(kill\w*|slay\w*|slain|murder\w*|behead\w*|slaughter\w*|tortur\w*|stab\w*|blood\w*|one-eyed|strike (?:off )?(?:his|her|their|your) necks?)\b/i;
 // Wrong choices also stay away from frightening or adult topics, which belong only in their own lessons.
 const UNSAFE_DISTRACTOR = /\b(wives|dajjal|iblis|tortur\w*|kill\w*|hurt\w*|slander|ifk|karbala|yazid)\b/i;
 // "Ha. Mim.", "Alif. Lam. Mim.": the opening letters say nothing a child could choose between.
@@ -348,6 +352,30 @@ function whoPrompt(line) {
   return `Who is this? ${line}`;
 }
 
+// "The wife of Imran" names a woman by who she was married to, so inside a sentence she is "the wife of Imran" and
+// at its start "The wife of Imran". Other names are written as they are.
+const DESCRIBED_BY_FAMILY = /^(?:the\s+)?(wife|mother|daughter|son|sister|brother|grandmother|grandfather) of\b/i;
+
+export function nameInSentence(name) {
+  return DESCRIBED_BY_FAMILY.test(name) ? `the ${name.replace(/^the\s+/i, "").charAt(0).toLowerCase()}${name.replace(/^the\s+/i, "").slice(1)}` : name;
+}
+
+function nameAtStart(name) {
+  const spoken = nameInSentence(name);
+  return `${spoken.charAt(0).toUpperCase()}${spoken.slice(1)}`;
+}
+
+function startCapital(text) {
+  return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
+}
+
+// True when a text names the person ("He looked after Maryam and was the father of Yahya." names Yahya), so it
+// is never a wrong choice in their own lesson.
+function namesPerson(text, name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^\\p{L}'])${escaped}(?![\\p{L}])`, "iu").test(text);
+}
+
 function personFacts(note) {
   return Object.fromEntries(PERSON_FACTS.map(({ key }) => [key, factText(note.data[key])]));
 }
@@ -360,18 +388,23 @@ function personProfile(note) {
   const facts = personFacts(note);
   const slug = slugify(rawName);
   const byTopic = UNSURE_FACTS_BY_TOPIC[note.topicId];
-  const unsure = [...(UNSURE_FACTS[slug] ?? []), ...(ADULT_FACTS[slug] ?? []), ...(byTopic && !byTopic.except.includes(slug) ? byTopic.facts : [])];
+  // A known_for that tells of violence ("tortured for Islam", "killed at Siffin") stays off a child's lesson, even
+  // in its stored summary: the hand-checked line takes its place, as for a fact for older learners.
+  const violent = facts.known_for && FRIGHTENING_TEXT.test(facts.known_for) ? ["known_for"] : [];
+  const unsure = [...(UNSURE_FACTS[slug] ?? []), ...(ADULT_FACTS[slug] ?? []), ...violent, ...(byTopic && !byTopic.except.includes(slug) ? byTopic.facts : [])];
   for (const key of unsure) delete facts[key];
   const line = personLine(note, rawName, facts.known_for);
   const chips = Object.fromEntries(CHIP_FACTS.map(({ key }) => [key, chipValue(key, facts[key])]));
   // Lessons are put in order by the name exactly as the note types it ("ʿAbd Allāh ibn ʿAbbās" sorts after
   // "Zubayr"), as the first import did, so a spelling fix here never moves a lesson to another unit.
   const sortName = String(note.data.title ?? note.fileName.replace(/^\d+\s*-\s*/, "")).trim();
-  return { note, rawName, sortName, name, facts, line, chips, gender: personGender(note, line), leftOut: LEFT_OUT_PEOPLE.has(slug), unsure };
+  // label: the name as an answer tile or at the start of a sentence ("The wife of Imran").
+  return { note, rawName, sortName, name, label: nameAtStart(name), facts, line, chips, gender: personGender(note, line), leftOut: LEFT_OUT_PEOPLE.has(slug), unsure };
 }
 
 function personLesson(profile, pools) {
-  const { note, rawName, name, facts, line } = profile;
+  const { note, rawName, name, label, facts, line } = profile;
+  const spoken = nameInSentence(name);
   const shown = (key, value) => (["father", "mother", "tribe", "clan"].includes(key) && value ? displayName(value) : value);
   const fullName = note.data.full_name && cleanText(String(note.data.full_name));
   // The lesson text is the person's facts only. A note's own study text (lists, asides, typos) stays in the vault.
@@ -404,31 +437,36 @@ function personLesson(profile, pools) {
       !UNSAFE_DISTRACTOR.test(other.line) &&
       other.line.length <= MAX_CHOICE_LENGTH &&
       !SHARED_TRAIT.test(other.line) &&
+      !namesPerson(other.line, name) &&
       !significantWords(other.line).some((word) => significantWords(line ?? "").includes(word))
   );
   const questions = [];
   const learnFacts = [];
   for (const { key, chip } of CHIP_FACTS) {
     const value = profile.chips[key];
-    if (!value || learnFacts.length >= MAX_LEARN_FACTS || wordCount(chip(value)) > MAX_CHIP_WORDS) continue;
-    learnFacts.push(chip(value));
+    // "Mother: the wife of Imran" on the chip, "The wife of Imran" on the answer tile.
+    const inSentence = nameInSentence(value);
+    if (!value || learnFacts.length >= MAX_LEARN_FACTS || wordCount(chip(inSentence)) > MAX_CHIP_WORDS) continue;
+    learnFacts.push(chip(inSentence));
     const fact = PERSON_FACTS.find((each) => each.key === key);
     const seed = `${rawName}:${key}`;
     const safe = (pool) => (pool ?? []).filter((each) => !each.includes("ﷺ") && !UNSAFE_DISTRACTOR.test(each) && !overlapping(each, value));
     let distractors = pickDistractors(value, safe(pools.chipsByTopic[note.topicId]?.[key]), seed);
     if (distractors.length < 2) distractors = pickDistractors(value, safe(pools.chips[key]), seed);
-    if (distractors.length >= 2 && questions.length < MAX_PERSON_QUESTIONS) questions.push(multipleChoice(fact.prompt(name), value, distractors, fact.explain(name, value)));
+    if (distractors.length >= 2 && questions.length < MAX_PERSON_QUESTIONS) questions.push(multipleChoice(fact.prompt(spoken), value, distractors, startCapital(fact.explain(spoken, inSentence))));
   }
 
   if (line && line.length <= MAX_CHOICE_LENGTH && questions.length < 2) {
     const lines = pickDistractors(line, others.map((other) => other.line), `${rawName}:line`);
-    if (lines.length >= 2) questions.unshift(multipleChoice(`What is ${name} known for?`, line, lines, aboutName(line, name)));
+    if (lines.length >= 2) questions.unshift(multipleChoice(`What is ${spoken} known for?`, line, lines, aboutName(line, label)));
   }
   if (line && questions.length < 2 && NO_WHO_QUESTION.has(slugify(rawName))) {
-    questions.push(trueFalse(aboutName(line, name), true, aboutName(line, name)));
+    questions.push(trueFalse(aboutName(line, label), true, aboutName(line, label)));
   } else if (line && questions.length < 2) {
-    const names = pickDistractors(name, others.map((other) => other.name), `${rawName}:who`);
-    if (names.length >= 2) questions.push(multipleChoice(whoPrompt(line), name, names, aboutName(line, name)));
+    // A name the line itself says is no wrong choice ("Who ... was the father of Yahya?" never offers Yahya).
+    const pool = others.filter((other) => !namesPerson(line, other.name)).map((other) => other.label);
+    const names = pickDistractors(label, pool, `${rawName}:who`);
+    if (names.length >= 2) questions.push(multipleChoice(whoPrompt(line), label, names, aboutName(line, label)));
   }
 
   return {
@@ -503,7 +541,7 @@ export function surahAyahs(body) {
 // cannot read it, so such an ayah stays out of the lesson text.
 const ARCHAIC = /\b(thee|thou|thy|thine|unto|hath|hast|ye|lo|doth|dost|shalt|wilt|verily|nay|\w{3,}eth)\b/i;
 // Ayahs that frighten a young child when read alone, away from what comes before and after.
-const FRIGHTENING = /\b(slain|slay|slaughter|kill\w*|curse\w*|accursed|torment\w*|hell|doom)\b/i;
+const FRIGHTENING_AYAH = /\b(slain|slay|slaughter|kill\w*|curse\w*|accursed|torment\w*|hell|doom)\b/i;
 // The quote and the ayah question come from a surah's opening, where children start learning it; an ayah
 // from the middle of a long surah means little on its own.
 const OPENING_AYAHS = 10;
@@ -511,7 +549,7 @@ const OPENING_AYAHS = 10;
 // An ayah a child can read on a tile: short, not only the opening letters, nothing for adults only and
 // nothing frightening.
 function quizAyah(ayah) {
-  return ayah.text.length <= MAX_CHOICE_LENGTH && !LETTERS_ONLY.test(ayah.text) && !ADULT_TEXT.test(ayah.text) && !FRIGHTENING.test(ayah.text);
+  return ayah.text.length <= MAX_CHOICE_LENGTH && !LETTERS_ONLY.test(ayah.text) && !ADULT_TEXT.test(ayah.text) && !FRIGHTENING_AYAH.test(ayah.text);
 }
 
 function ayahNumber(ayah) {
@@ -564,7 +602,7 @@ function surahLesson(note, pools) {
   return {
     title: name,
     idSlug: slugify(noted),
-    content: [summary, ...ayahs.filter((ayah) => !ADULT_TEXT.test(ayah.text) && !ARCHAIC.test(ayah.text)).slice(0, 7).map((ayah) => `${ayah.ref} ${ayah.text}`)].filter(Boolean).join("\n"),
+    content: [summary, ...ayahs.filter((ayah) => !ADULT_TEXT.test(ayah.text) && !FRIGHTENING_TEXT.test(ayah.text) && !ARCHAIC.test(ayah.text)).slice(0, 7).map((ayah) => `${ayah.ref} ${ayah.text}`)].filter(Boolean).join("\n"),
     extras: {},
     learnLine: namedAfter ? `${name} is named after ${namedAfter}.` : facts.englishName ? `${name} means "${facts.englishName}".` : undefined,
     learnFacts: [facts.ayahCount ? `${facts.ayahCount} ayahs` : "", facts.place ? `Revealed in ${facts.place}` : ""].filter(Boolean),
@@ -655,9 +693,9 @@ function hadithLesson(note, pools) {
     sortName: reference,
     leftOut,
     difficulty: curated?.level ?? (Number.isInteger(Number(note.data.level)) ? Number(note.data.level) : undefined),
-    // The whole narration, unless parts of it are for adults only, or the card shows no quote of it (its
-    // translation spells names its own way, "Ghailan b. Salama"); then just what the card shows.
-    content: ADULT_TEXT.test(text) || (!quote && learnLine) ? quote ?? learnLine ?? "" : text,
+    // The whole narration, unless parts of it are for adults only or frightening, or the card shows no quote of it
+    // (its translation spells names its own way, "Ghailan b. Salama"); then just what the card shows.
+    content: ADULT_TEXT.test(text) || FRIGHTENING_TEXT.test(text) || (!quote && learnLine) ? quote ?? learnLine ?? "" : text,
     extras: {},
     learnLine,
     quote: quote ? { text: quote, reference: grade ? `${reference} (${grade})` : reference } : undefined,

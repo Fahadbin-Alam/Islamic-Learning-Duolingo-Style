@@ -387,7 +387,6 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "women-virtues-and-legacy-service-to-revelation": { ar: "مَا يُخْزِيكَ اللَّهُ أَبَدًا", translit: "Ma yukhzikallahu abada", meaning: "Allah will never disgrace you" },
   // Quran 16:97: مَنْ عَمِلَ صَالِحًا مِنْ ذَكَرٍ أَوْ أُنْثَىٰ
   "women-virtues-and-legacy-lessons-for-today": { ar: "مِنْ ذَكَرٍ أَوْ أُنْثَى", translit: "Min dhakarin aw untha", meaning: "Male or female" },
-  "women-virtues-and-legacy-women-legacy-review": { ar: "التَّوَكُّلُ", translit: "At-tawakkul", meaning: "Trust in Allah" },
 
   // Hadith for kids (src/data/hadithBasics.ts): a phrase from the Arabic of each hadith, as sunnah.com gives it
   [hadithBasicsNodeId("muslim:2626")]: { ar: "بِوَجْهٍ طَلْقٍ", translit: "Bi-wajhin talq", meaning: "With a smiling face" },
@@ -495,7 +494,7 @@ const PEOPLE: Partial<Record<TopicId, Record<string, PersonTerm>>> = {
     "suraqa-ibn-malik": ["سُرَاقَةُ بْنُ مَالِكٍ", COMPANION],
     "tamim-al-dari": ["تَمِيمٌ الدَّارِيُّ", COMPANION],
     "thaabit-ibn-aqram": ["ثَابِتُ بْنُ أَقْرَمَ", COMPANION],
-    thalabah: ["ثَعْلَبَةُ", COMPANION],
+    thalabah: ["ثَعْلَبَةُ بْنُ حَاطِبٍ", COMPANION],
     "ubaydah-ibn-al-harith": ["عُبَيْدَةُ بْنُ الْحَارِثِ", COMPANION],
     "umar-ibn-al-khattab": ["عُمَرُ بْنُ الْخَطَّابِ", "Second caliph"],
     "umm-ayman": ["أُمُّ أَيْمَنَ", COMPANION],

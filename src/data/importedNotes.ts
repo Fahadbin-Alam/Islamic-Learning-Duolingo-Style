@@ -1,5 +1,6 @@
 import type { LearningBranch, LearningCourse, LearningNode, LearningSection, Lesson, TopicId } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
+import { noBreakHyphens } from "../ui/lesson/lessonText";
 import { HADITH_BASICS } from "./hadithBasics";
 import { quranAyahArabic } from "./quranAyahs";
 
@@ -62,8 +63,10 @@ const OPENERS: Record<string, { line: string; facts: string[] } | null> = {
     line: "Abu Ubaydah's parents were Abdullah and Umaymah bint Ghanm.",
     facts: ["Father: Abdullah ibn al-Jarrah", "Mother: Umaymah bint Ghanm"]
   },
+  // His Family circle says why he was the Prophet's ﷺ cousin (his mother Safiyyah was the Prophet's ﷺ aunt), so the
+  // card only names his parents.
   "zubayr-ibn-al-awwam": {
-    line: "Az-Zubayr's mother was Safiyyah, the Prophet's ﷺ aunt.",
+    line: "Az-Zubayr's parents were al-Awwam and Safiyyah.",
     facts: ["Father: Awwam ibn Khuwaylid", "Mother: Safiyyah bint Abd al-Muttalib"]
   },
   "salmaan-al-faarisiy": { line: "Salman was born in Isfahan and passed away in al-Mada'in.", facts: ["Born in Isfahan", "Passed away in Al-Mada'in"] },
@@ -228,10 +231,11 @@ function nameUnitsByLead(regrouped: Regrouped): Regrouped {
   };
 }
 
-// "Surah An-Nas to Al-Fil": a unit of imported surahs is named after its first and last surah.
+// "Surah An-Nas to Al-Fil": a unit of imported surahs is named after its first and last surah. The banner wraps
+// a long span on a small phone, so no line may end on a lone "Al-": each hyphen holds the words on either side.
 function surahSpanTitle(first: LearningNode, last: LearningNode) {
   if (first.id === last.id) return first.title;
-  return `${first.title} to ${last.title.replace(/^Surah\s+/, "")}`;
+  return noBreakHyphens(`${first.title} to ${last.title.replace(/^Surah\s+/, "")}`);
 }
 
 // A unit of imported lessons holds at most this many, so a list of names never becomes a wall.

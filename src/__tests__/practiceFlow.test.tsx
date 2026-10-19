@@ -310,7 +310,10 @@ describe("PracticeComplete", () => {
     await render(<PracticeComplete assessment={state} learnerProfile={profile} onContinue={jest.fn()} playSounds={false} />);
 
     expect(screen.getByText("Challenge done!")).toBeTruthy();
-    expect(screen.getByLabelText("CORRECT 6 of 7")).toBeTruthy();
+    // Right the first time, out of the 6 the counter showed: the retry is not a 7th question.
+    expect(screen.getByLabelText("CORRECT 5 of 6")).toBeTruthy();
+    expect(screen.queryByLabelText("CORRECT 6 of 7")).toBeNull();
+    // XP is what the session paid: the retry answered right still paid its 2 XP.
     expect(screen.getByLabelText("TOTAL XP 12")).toBeTruthy();
     // No level check yet, so no level card (the Practice hub shows none either).
     expect(screen.queryByTestId("result-level")).toBeNull();

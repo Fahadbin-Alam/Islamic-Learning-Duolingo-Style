@@ -192,6 +192,27 @@ describe("arabic terms", () => {
     expect(getTopicArabic("women_of_the_book")).toMatchObject({ ar: "نساء خالدات", meaning: "Great women" });
   });
 
+  it("writes each imported person's whole name in Arabic, as the transliteration gives it", () => {
+    const people = COURSE.sections
+      .filter((section) => section.topicId === "sahabah" || section.topicId === "prophets" || section.topicId === "women_of_the_book")
+      .flatMap((section) => section.nodes.filter((node) => node.id.startsWith("notes-")));
+    // "Tha'labah ibn Hatib" is ثَعْلَبَةُ بْنُ حَاطِبٍ, not ثَعْلَبَةُ alone: every ibn and bint of the name is in its Arabic.
+    const count = (text: string, pattern: RegExp) => (text.match(pattern) ?? []).length;
+    const mismatched = people.filter((node) => {
+      const term = getNodeArabic(node.id);
+      if (!term) return false;
+      const plain = withoutVowels(term.ar);
+      return count(node.title, /\b(ibn|bin)\b/gi) !== count(plain, /(^|\s)(بن|ابن)(\s|$)/g) || count(node.title, /\bbint\b/gi) !== count(plain, /(^|\s)بنت(\s|$)/g);
+    });
+    expect(mismatched.map((node) => `${node.title}: ${getNodeArabic(node.id)?.ar}`)).toEqual([]);
+    expect(getNodeArabic("notes-sahabah-companions-from-your-notes-7-thalabah")).toMatchObject({ ar: "ثَعْلَبَةُ بْنُ حَاطِبٍ", translit: "Tha'labah ibn Hatib" });
+    // Khawlah of Banu Hanifah: al-Hanafiyyah in both scripts, like her son Muhammad ibn al-Hanafiyyah.
+    expect(getNodeArabic("notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah")).toMatchObject({
+      ar: "خَوْلَةُ بِنْتُ جَعْفَرٍ الْحَنَفِيَّةُ",
+      translit: "Khawlah bint Ja'far al-Hanafiyyah"
+    });
+  });
+
   it("gives every unit of the course its own Arabic banner, and no unit a number for a name", () => {
     const branches = COURSE.sections.flatMap((section) => section.branches);
     const banners = branches.map((branch) => getBranchArabic(branch.id)?.ar);

@@ -112,6 +112,9 @@ async function startQuranJump(target: { id: string }) {
   await press("test-out-start");
 }
 
+// Whole test-outs played through the app: slower than one screen, more so while the full suite runs.
+jest.setTimeout(30000);
+
 afterEach(() => {
   removeStoredItem(PROFILE_KEY);
   clearActiveAssessment();

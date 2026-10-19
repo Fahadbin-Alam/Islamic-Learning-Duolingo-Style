@@ -43,9 +43,12 @@ export const DISPLAY_NAMES = {
   // Women
   "aisha-bint-abu-bakr": "Aishah bint Abi Bakr",
   "barrah-bint-samuel": "Barrah bint Samaw'al",
-  "grandmother-of-isa-wife-of-imran": "Wife of Imran",
+  // The Quran calls her امْرَأَتُ عِمْرَانَ, the wife of Imran (3:35): a title, so it keeps its "The".
+  "grandmother-of-isa-wife-of-imran": "The wife of Imran",
   "hafsa-bint-umar": "Hafsah bint Umar",
   "halima-al-sadeya": "Halimah as-Sa'diyyah",
+  // Of Banu Hanifah, so al-Hanafiyyah (الحنفية), as in her son's name, Muhammad ibn al-Hanafiyyah.
+  "khawlah-bint-jafar-al-hanifiyyah": "Khawlah bint Ja'far al-Hanafiyyah",
   "juwayriya-bint-al-harith": "Juwayriyah bint al-Harith",
   "sayyida-nafisa": "Sayyidah Nafisah",
   "umayma-bint-abd-al-muttalib": "Umaymah bint Abd al-Muttalib",
@@ -103,7 +106,7 @@ export const LEARN_LINES = {
   julaybib: "He married at the Prophet's ﷺ request and was later martyred.",
   "kaab-ibn-zuhair": "He was an Arabian poet who accepted Islam.",
   "kaab-ibn-malik": "He was one of the three forgiven for staying behind from Tabuk.",
-  "khabbaab-ibn-al-arat": "He was one of the first Muslims and was tortured for Islam.",
+  "khabbaab-ibn-al-arat": "He was one of the first Muslims and stayed firm in Islam.",
   "khalid-ibn-al-walid": "He was called the Sword of Allah.",
   "khawlah-bint-hakim": "She was an early Muslim woman, the wife of Uthman ibn Maz'un.",
   "makhrama-ibn-nawfal": "He was a noble of Banu Zuhrah and father of al-Miswar.",
@@ -233,11 +236,17 @@ export const UNSURE_FACTS = {
   // His note's known_for is the zakat story of Quran 9:75, which many hadith scholars hold weak.
   thalabah: ["known_for"],
   // The note says Hantamah bint Hisham; Ibn Abd al-Barr and others give bint Hashim and call "bint Hisham" a slip.
-  "umar-ibn-al-khattab": ["mother"]
+  "umar-ibn-al-khattab": ["mother"],
+  // Their notes give the tribe as Quraysh, but their own full names say al-Asadi: their father Jahsh ibn Ri'ab was
+  // of Banu Asad ibn Khuzaymah, allies of Quraysh in Makkah, and only their mother Umaymah was of Quraysh. A
+  // "Which tribe?" question would have no one right answer, so it is not asked.
+  "zaynab-bint-jahsh": ["tribe"],
+  "abdullah-ibn-jahsh": ["tribe"]
 };
 
 // Facts left out of a child's lesson because they are for older learners. Ghaylan's ten wives (Mishkat al-Masabih
-// 3176) are left off the path too.
+// 3176) are left off the path too. A known_for that tells of violence (Khabbab "tortured for Islam") is left out
+// by rule (FRIGHTENING_TEXT in facts.mjs), so the lesson keeps only its gentle hand-checked line.
 export const ADULT_FACTS = {
   "ghailan-b-salama-ath-thaqafi": ["known_for"]
 };

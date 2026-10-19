@@ -462,9 +462,6 @@ export default function TopicApp() {
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
-  // The circle a finished lesson or test opened (or the next open one after it): NEXT LESSON plays it and the
-  // path puts START on it, so a jump into a later unit carries on there, not back in a unit skipped past.
-  const [pathFocusId, setPathFocusId] = useState<string | undefined>(undefined);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
@@ -693,7 +690,10 @@ export default function TopicApp() {
         title: getNodeTitle(node.id, node.title, currentLanguage)
       }));
   }, [currentLanguage, pathNodes, selectedSection.topicId]);
-  // The circle to play next: the one the last lesson or test opened while it is still open, else the path's own.
+  // The circle to play next: the one the last lesson or test in this topic opened while it is still open, else
+  // the path's own. NEXT LESSON plays it and the path puts START on it, so a jump into a later unit carries on
+  // there, not back in a unit skipped past. It is kept on the learner, so a reload keeps it too.
+  const pathFocusId = state.user?.pathFocusIds?.[selectedSection.topicId];
   const sectionNextNode = useMemo(() => {
     const focused = pathFocusId ? sectionNodes.find((node) => node.id === pathFocusId) : undefined;
     return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(sectionNodes);
@@ -1219,16 +1219,17 @@ export default function TopicApp() {
       const clusterLessons = (state.activeSession.targetLessonIds ?? [])
         .map((lessonId) => LESSONS_BY_ID[lessonId])
         .filter(Boolean);
+      const testBranchId = state.activeSession.lesson.branchId;
       const beforeNodes = learningApi.getPathNodes(user);
-      const nextUser = withExperienceDefaults({
+      const finishedUser = withExperienceDefaults({
         // Practice pay, 2 XP per right answer, never more than the skipped lessons would have paid.
         ...completeLessonCluster(user, clusterLessons, getTestOutXp(state.activeSession, state.sessionCorrectCount), lessonStars(state.sessionMistakes)),
         lastLearningAt: new Date().toISOString()
       });
-      const afterNodes = learningApi.getPathNodes(nextUser);
+      const afterNodes = learningApi.getPathNodes(finishedUser);
       // The circle that is now next to play, not one the test just skipped.
-      const unlockedNode = findUnlockedNode(beforeNodes, afterNodes, state.activeSession.lesson.branchId);
-      setPathFocusId(findFocusNode(afterNodes, unlockedNode, state.activeSession.lesson.branchId)?.id);
+      const unlockedNode = findUnlockedNode(beforeNodes, afterNodes, testBranchId);
+      const nextUser = withPathFocus(finishedUser, testBranchId, findFocusNode(afterNodes, unlockedNode, testBranchId)?.id);
 
       // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
@@ -1247,15 +1248,15 @@ export default function TopicApp() {
     }
 
     const beforeNodes = learningApi.getPathNodes(user);
-    const nextUser = withExperienceDefaults({
+    const finishedUser = withExperienceDefaults({
       // The circle keeps its best stars; this run's are on the complete card.
       ...completeLesson(user, state.activeSession.lesson, lessonStars(state.sessionMistakes)),
       lastLearningAt: new Date().toISOString()
     });
     const lessonBranchId = state.activeSession.lesson.branchId ?? findNodeById(state.activeSession.lesson.nodeId)?.branchId;
-    const afterNodes = learningApi.getPathNodes(nextUser);
+    const afterNodes = learningApi.getPathNodes(finishedUser);
     const unlockedNode = findUnlockedNode(beforeNodes, afterNodes, lessonBranchId);
-    setPathFocusId(findFocusNode(afterNodes, unlockedNode, lessonBranchId)?.id);
+    const nextUser = withPathFocus(finishedUser, lessonBranchId, findFocusNode(afterNodes, unlockedNode, lessonBranchId)?.id);
 
     // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
@@ -1886,6 +1887,8 @@ export default function TopicApp() {
     Boolean(lesson) &&
     (isLastLessonStep(state.lessonQueue, state.stepIndex) || (lessonSession?.mode === "test_out" && isTestLost(lessonSession, state.sessionMistakes))) &&
     !isOutOfHearts(state.user);
+  // GOT IT with no hearts left opens the out-of-hearts sheet, which plays its own sound as it opens.
+  const continueOpensRefill = state.screen === "lesson_feedback" && isOutOfHearts(state.user);
   const quitSheet = (
     <QuitSheet
       visible={quitLessonVisible}
@@ -2015,7 +2018,7 @@ export default function TopicApp() {
               accent={lessonAccent}
               praiseSeed={challenge.id}
               playSound={false}
-              continueSound={continueEndsLesson ? false : undefined}
+              continueSound={continueEndsLesson || continueOpensRefill ? false : undefined}
               onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
               onCheck={answerChallenge}
               onContinue={continueFromFeedback}
@@ -2392,6 +2395,26 @@ function findFocusNode(afterNodes: LearningNodeView[], unlockedNode: LearningNod
   }
 
   return undefined;
+}
+
+// The learner with `nodeId` as where the path of `branchId`'s topic carries on (none: the path's own next circle).
+// It is saved with the learner, on this device and on the server, so START stays there after a reload.
+function withPathFocus(user: UserProfile, branchId: string | undefined, nodeId: string | undefined): UserProfile {
+  const topicId = branchId ? COURSE.sections.find((section) => section.branches.some((branch) => branch.id === branchId))?.topicId : undefined;
+
+  if (!topicId || user.pathFocusIds?.[topicId] === nodeId) {
+    return user;
+  }
+
+  const pathFocusIds = { ...user.pathFocusIds };
+
+  if (nodeId) {
+    pathFocusIds[topicId] = nodeId;
+  } else {
+    delete pathFocusIds[topicId];
+  }
+
+  return { ...user, pathFocusIds };
 }
 
 // The "Jump ahead?" sheet's goal before the test starts: its questions and how many right answers pass.

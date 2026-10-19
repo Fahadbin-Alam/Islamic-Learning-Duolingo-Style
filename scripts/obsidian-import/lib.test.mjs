@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { ADULT_TEXT, MAX_CHIP_WORDS, MAX_CHOICE_LENGTH, MAX_LEARN_FACTS, MAX_LINE_WORDS, MAX_PERSON_QUESTIONS, PERSON_FACTS, displayName, nameWarnings, pickDistractors, plainName, properName } from "./facts.mjs";
+import { ADULT_TEXT, FRIGHTENING_TEXT, MAX_CHIP_WORDS, MAX_CHOICE_LENGTH, MAX_LEARN_FACTS, MAX_LINE_WORDS, MAX_PERSON_QUESTIONS, PERSON_FACTS, displayName, nameInSentence, nameWarnings, pickDistractors, plainName, properName } from "./facts.mjs";
 import { cleanText, extractQuestions, firstSentence, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic, suspectTextWarnings } from "./lib.mjs";
 
 const sampleVault = join(dirname(fileURLToPath(import.meta.url)), "sample-vault");
@@ -535,4 +535,87 @@ test("a surah's meaning is the simple one children learn, and old English ayahs 
   assert.equal(lesson.learnLine, 'Surah Al-Humazah means "The Backbiter".');
   assert.doesNotMatch(lesson.explanationContent, /unto|hath/);
   assert.equal(lesson.quote.reference, "Quran 104:1", "the app shows this ayah in Arabic");
+});
+
+test("round 5: gentle words for children, names that read right, and no wrong choice that names the person", () => {
+  const person = (fields) => ["---", "type: person", ...Object.entries(fields).map(([key, value]) => (key === "tags" ? `tags:\n  - ${value}` : `${key}: "${value}"`)), "---"].join("\n");
+  const vault = vaultWith({
+    "People/sahabah/khabbaab-ibn-al-arat.md": person({ title: "Khabbaab Ibn Al-Arat", tags: "Sahabi", known_for: "One of the earliest converts; enslaved swordsmith tortured for Islam", death_place: "Kufa" }),
+    "People/sahabah/abu-hurayra.md": person({ title: "Abu Hurayra", tags: "Sahabi", known_for: "Narrated the most hadith", death_place: "Madinah" }),
+    "People/sahabah/sad-ibn-muaadh.md": person({ title: "Sa'd ibn Mu'aadh", tags: "Sahabi", known_for: "Chief of the Aws", death_place: "Madinah" }),
+    "People/sahabah/abu-umamah-al-bahili.md": person({ title: "Abu Umamah al-Bahili", tags: "Sahabi", known_for: "Last companion to die in Syria", death_place: "Homs" }),
+    "People/prophets/yahya.md": person({ title: "Yahya", tags: "Prophet", known_for: "Confirmed the coming of Isa", father: "Zakariyya" }),
+    "People/prophets/zakaria.md": person({ title: "Zakaria", tags: "Prophet", known_for: "Guardian of Maryam; father of Yahya" }),
+    "People/prophets/musa.md": person({ title: "Musa", tags: "Prophet", known_for: "Spoke with Allah; received the Tawrah" }),
+    "People/prophets/lut.md": person({ title: "Lut", tags: "Prophet", known_for: "Nephew of Ibrahim; sent to Sodom" }),
+    "People/prophets/yunus.md": person({ title: "Yunus", tags: "Prophet", known_for: "Swallowed by the whale" }),
+    "People/women/grandmother-of-isa-wife-of-imran.md": person({ title: "Grandmother of Isa / Wife of Imran", tags: "Mothers-of-the-Believers", known_for: "Dedicated Maryam to Allah before her birth" }),
+    "People/women/hajar.md": person({ title: "Hajar", tags: "Mothers-of-the-Believers", known_for: "Mother of Ismail" }),
+    "People/women/sarah.md": person({ title: "Sarah", tags: "Mothers-of-the-Believers", known_for: "Wife of Ibrahim" }),
+    "People/women/aminah.md": person({ title: "Aminah bint Wahb", tags: "Mothers-of-the-Believers", known_for: "Mother of the Prophet" }),
+    "People/women/khawlah-bint-jafar-al-hanifiyyah.md": person({ title: "Khawlah bint Ja'far al-Hanifiyyah", tags: "Mothers-of-the-Believers", known_for: "Wife of Ali", father: "Ja'far ibn Qays", tribe: "Banu Hanifa" }),
+    "People/women/zaynab-bint-jahsh.md": person({ title: "Zaynab bint Jahsh", tags: "Mothers-of-the-Believers", known_for: "Cousin and wife of the Prophet", father: "Jahsh ibn Riyab", tribe: "Quraysh", birth_place: "Makkah" }),
+    "Hadith/2930a.md": [
+      "---",
+      "type: hadith",
+      "collection: Sahih Muslim",
+      "aliases:",
+      "  - Sahih Muslim 2930a",
+      "level: 3",
+      "---",
+      "'Umar said: Allah's Messenger, permit me that I should strike his neck. He said: there is no good for you to kill him. Then he made a mention of the Dajjal and said: I warn you of him and there is no Prophet who has not warned his people against the Dajjal. He is one-eyed."
+    ].join("\n")
+  });
+  const { content } = importVault(vault);
+  const lessons = Object.values(content.lessonsById);
+  const byTitle = (title) => lessons.find((lesson) => lesson.title === title);
+
+  // Khabbab: the Sahabah path opens on day one, so nothing on his lesson says "tortured".
+  const khabbab = byTitle("Khabbab ibn al-Aratt");
+  assert.equal(khabbab.learnLine, "He was one of the first Muslims and stayed firm in Islam.");
+  assert.doesNotMatch(JSON.stringify(khabbab), /tortur/i);
+  assert.equal(khabbab.keyTakeaway, undefined);
+
+  // A narration with violence in it keeps only the words its card shows.
+  assert.match("permit me that I should strike his neck", FRIGHTENING_TEXT);
+  assert.doesNotMatch("Every prophet warned his people about the Dajjal.", FRIGHTENING_TEXT);
+  const dajjal = byTitle("Every prophet warned");
+  assert.ok(dajjal, lessons.map((lesson) => lesson.title).join(", "));
+  for (const text of [dajjal.intro, dajjal.explanationContent, ...dajjal.challenges.flatMap((challenge) => [challenge.prompt, challenge.explanation])]) {
+    assert.doesNotMatch(text ?? "", FRIGHTENING_TEXT, text);
+  }
+  assert.equal(dajjal.explanationContent, "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.");
+  const seeded = JSON.stringify(importVault(vault).backend.topics.hadith);
+  assert.doesNotMatch(seeded, /neck|kill|one-eyed/);
+
+  // "The wife of Imran" reads "the wife of Imran" inside a sentence and "The wife of Imran" as a title or answer.
+  assert.equal(nameInSentence("Wife of Imran"), "the wife of Imran");
+  assert.equal(nameInSentence("The wife of Imran"), "the wife of Imran");
+  assert.equal(nameInSentence("Hajar"), "Hajar");
+  assert.equal(nameInSentence("Umm Salamah"), "Umm Salamah");
+  const imran = byTitle("The wife of Imran");
+  const prompts = imran.challenges.map((challenge) => challenge.prompt);
+  assert.ok(!prompts.some((prompt) => /\bWife of Imran\b/.test(prompt)), prompts.join(" | "));
+  const labels = imran.challenges.flatMap((challenge) => challenge.choices.map((choice) => choice.label));
+  assert.ok(!labels.includes("Wife of Imran"), labels.join(" | "));
+
+  // Khawlah of Banu Hanifah is al-Hanafiyyah, as in the Arabic; her id keeps the note's spelling.
+  const khawlah = content.sections.flatMap((section) => section.nodes).find((node) => node.id.endsWith("khawlah-bint-jafar-al-hanifiyyah"));
+  assert.equal(khawlah.title, "Khawlah bint Ja'far al-Hanafiyyah");
+
+  // Zaynab bint Jahsh was al-Asadiyyah, of Banu Asad ibn Khuzaymah, allies of Quraysh: her note's "Quraysh" is
+  // not asked. Someone whose tribe is certain keeps it on the learn card.
+  const zaynab = byTitle("Zaynab bint Jahsh");
+  assert.ok(!zaynab.challenges.some((challenge) => /tribe/i.test(challenge.prompt)), zaynab.challenges.map((challenge) => challenge.prompt).join(" | "));
+  assert.doesNotMatch(JSON.stringify(zaynab), /Tribe: Quraysh|was from Quraysh/);
+  assert.ok(!zaynab.learnFacts.some((fact) => fact.startsWith("Tribe")), zaynab.learnFacts.join(" | "));
+  assert.ok(byTitle("Khawlah bint Ja'far al-Hanafiyyah").learnFacts.includes("Tribe: Banu Hanifa"));
+
+  // A wrong choice never names the person asked about: Zakariyya's line names Yahya.
+  for (const lesson of lessons) {
+    for (const challenge of lesson.challenges) {
+      const wrong = challenge.choices.filter((choice) => choice.id !== challenge.correctChoiceId).map((choice) => choice.label);
+      assert.ok(!wrong.some((label) => new RegExp(`\\b${lesson.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(label)), `${lesson.title}: ${challenge.prompt} ${wrong.join(" | ")}`);
+    }
+  }
 });

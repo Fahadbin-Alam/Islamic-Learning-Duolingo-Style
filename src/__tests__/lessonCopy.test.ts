@@ -440,6 +440,144 @@ describe("round 4: each person taught once, in plain lines", () => {
   });
 });
 
+describe("round 5: reviews stay in their unit, gentle words, names that read right", () => {
+  const sectionOf = (topicId: string) => COURSE.sections.find((section) => section.topicId === topicId)!;
+  const unitNodes = (topicId: string, branchId: string) => sectionOf(topicId).nodes.filter((node) => node.branchId === branchId);
+  // The mixed review unit of Prayer looks back over the units before it on purpose (each lesson names them).
+  const MIXED_REVIEW_UNITS = new Set(["prayer-review-and-mastery"]);
+
+  it("asks a review only about lessons before it in its own unit", () => {
+    const problems: string[] = [];
+    for (const section of COURSE.sections) {
+      for (const branch of section.branches.filter((each) => !MIXED_REVIEW_UNITS.has(each.id))) {
+        const before = new Set<string>();
+        for (const node of unitNodes(section.topicId, branch.id)) {
+          const lesson = LESSONS_BY_ID[node.lessonIds[0]];
+          for (const challenge of lesson.challenges.filter((each) => each.isReview)) {
+            if (!before.has(challenge.sourceLessonId ?? "")) problems.push(`${node.id} asks ${challenge.sourceLessonId}`);
+          }
+          before.add(lesson.id);
+        }
+      }
+    }
+    expect(problems).toEqual([]);
+  });
+
+  it("names on a review card only people taught before it in its unit, and quizzes the later Mothers of the Believers", () => {
+    const PEOPLE = ["Adam", "Nuh", "Ibrahim", "Ismail", "Ishaq", "Ya'qub", "Yusuf", "Isa", "Hud", "Salih", "Lut", "Musa", "Harun", "Dawud", "Sulayman", "Hawwa", "Asiyah", "Maryam", "Khadijah", "Sawdah", "Aishah", "Hafsah"];
+    const problems: string[] = [];
+    for (const topicId of ["prophets", "women_of_the_book"]) {
+      for (const branch of sectionOf(topicId).branches) {
+        const taught: string[] = [];
+        for (const node of unitNodes(topicId, branch.id)) {
+          const lesson = LESSONS_BY_ID[node.lessonIds[0]];
+          const isReview = lesson.challenges.some((challenge) => challenge.isReview);
+          if (isReview) {
+            const named = PEOPLE.filter((person) => new RegExp(`\\b${person}\\b`).test(lesson.learnLine ?? ""));
+            const missing = named.filter((person) => !taught.some((text) => new RegExp(`\\b${person}\\b`).test(text)));
+            if (missing.length) problems.push(`${node.id}: ${lesson.learnLine} (${missing.join(", ")} not in the unit before it)`);
+          } else {
+            taught.push(`${node.title} ${lesson.learnLine ?? ""}`);
+          }
+        }
+      }
+    }
+    expect(problems).toEqual([]);
+    expect(LESSONS_BY_ID["lesson-prophets-family-and-sacrifice-family-review"].learnLine).toBe("Let's remember Ismail, Ishaq and Ya'qub!");
+    expect(LESSONS_BY_ID["lesson-prophets-early-messengers-early-prophets-review"].learnLine).toBe("Let's remember Salih and Lut!");
+    // The Big quiz after the mid-unit Review asks about the wives taught since that Review.
+    const bigQuiz = LESSONS_BY_ID["lesson-women-virtues-and-legacy-women-legacy-review"];
+    const wives = bigQuiz.challenges.filter((challenge) => challenge.isReview && /mothers-of-the-believers-from-your-notes/.test(challenge.sourceLessonId ?? ""));
+    expect(wives.length).toBeGreaterThanOrEqual(2);
+    expect(bigQuiz.challenges.some((challenge) => /quran-depth|courage-under-pressure|worship-and-devotion/.test(challenge.sourceLessonId ?? ""))).toBe(false);
+    // Hafsah is a lesson, not a review circle.
+    expect(pathNodes.find((node) => node.id === "women-hafsah")?.kind).toBe("story");
+  });
+
+  it("never repeats a companion's opener card in a Why line of the same unit", () => {
+    const sahabah = sectionOf("sahabah");
+    const words = (text: string) => new Set((text.toLowerCase().replace(/ﷺ/g, "").match(/[a-z']+/g) ?? []).map((word) => word.replace(/'s$/, "")).filter((word) => word.length > 2 && !["the", "and", "was", "his", "her", "were"].includes(word)));
+    const problems: string[] = [];
+    for (const branch of sahabah.branches.filter((each) => each.id.startsWith("sahabi-"))) {
+      const [first, ...rest] = unitNodes("sahabah", branch.id);
+      if (!first.id.startsWith("notes-")) continue;
+      const opener = words(LESSONS_BY_ID[first.lessonIds[0]].learnLine ?? "");
+      for (const node of rest) {
+        for (const challenge of LESSONS_BY_ID[node.lessonIds[0]].challenges) {
+          const why = words(challenge.explanation ?? "");
+          const shared = [...why].filter((word) => opener.has(word)).length;
+          if (why.size && shared / Math.min(why.size, opener.size) >= 0.75) problems.push(`${node.id}: ${challenge.explanation}`);
+        }
+      }
+    }
+    expect(problems).toEqual([]);
+    expect(LESSONS_BY_ID[sahabah.nodes.find((node) => node.branchId === "sahabi-az-zubayr-ibn-al-awwam")!.lessonIds[0]].learnLine).toBe("Az-Zubayr's parents were al-Awwam and Safiyyah.");
+  });
+
+  it("keeps frightening words out of every lesson, and keeps the Dajjal lesson to its gentle line", () => {
+    const FRIGHTENING = /\b(tortur\w*|behead\w*|slaughter\w*|one-eyed|strike (?:off )?(?:his|her|their) necks?)\b|\bkill (him|her|them)\b/i;
+    const texts = (lesson: Lesson) => [
+      lesson.title,
+      lesson.intro,
+      lesson.explanationContent ?? "",
+      lesson.keyTakeaway ?? "",
+      lesson.learnLine ?? "",
+      ...(lesson.learnFacts ?? []),
+      lesson.quote?.text ?? "",
+      ...lesson.challenges.flatMap((challenge) => [challenge.prompt, challenge.explanation ?? "", ...challenge.choices.map((choice) => choice.label)])
+    ];
+    const scary = pathLessons.flatMap((lesson) => texts(lesson).filter((text) => FRIGHTENING.test(text)).map((text) => `${lesson.id}: ${text.slice(0, 80)}`));
+    expect(scary).toEqual([]);
+    const dajjal = LESSONS_BY_ID["lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a"];
+    expect(dajjal.learnLine).toBe("Every prophet warned his people about the Dajjal, a great liar.");
+    expect(dajjal.explanationContent).toBe(dajjal.quote?.text);
+    expect(dajjal.intro).not.toMatch(/Ibn Sayyad|neck|kill/i);
+    const khabbab = Object.values(LESSONS_BY_ID).find((lesson) => lesson.title === "Khabbab ibn al-Aratt")!;
+    expect(khabbab.learnLine).toBe("He was one of the first Muslims and stayed firm in Islam.");
+  });
+
+  it("asks clear true or false statements about saying sorry", () => {
+    const sorry = LESSONS_BY_ID["lesson-marriage-conflict-and-repair-repair-after-harm"];
+    expect(sorry.learnLine).toBe("After hurting your spouse, say sorry and fix the hurt.");
+    // "say sorry and repeat it" could mean saying sorry again, which is not wrong.
+    const statements = pathLessons.flatMap((lesson) => lesson.challenges).filter((challenge) => challenge.type === "true_false").map((challenge) => challenge.prompt);
+    expect(statements.filter((prompt) => /say sorry and repeat it\b/i.test(prompt))).toEqual([]);
+  });
+
+  it("calls the wife of Imran by that name in a sentence, and never offers a wrong choice that names the person asked about", () => {
+    const imported = pathLessons.filter((lesson) => lesson.id.startsWith("lesson-notes-"));
+    const midSentence = imported.flatMap((lesson) => lesson.challenges.map((challenge) => challenge.prompt)).filter((prompt) => /.\bWife of Imran\b/.test(prompt));
+    expect(midSentence).toEqual([]);
+    const imran = imported.find((lesson) => lesson.title === "The wife of Imran")!;
+    expect(imran.challenges.map((challenge) => challenge.prompt)).toContain("What is the wife of Imran known for?");
+    const escape = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const people = new Set(["sahabah", "prophets", "women_of_the_book"].flatMap((topicId) => sectionOf(topicId).nodes.map((node) => node.id)));
+    const naming = imported
+      .filter((lesson) => people.has(lesson.nodeId))
+      .flatMap((lesson) =>
+        lesson.challenges
+          .filter((challenge) => !challenge.isReview)
+          .flatMap((challenge) => challenge.choices.filter((choice) => choice.id !== challenge.correctChoiceId && new RegExp(`\\b${escape(lesson.title)}\\b`).test(choice.label)).map((choice) => `${lesson.title}: ${choice.label}`))
+      );
+    expect(naming).toEqual([]);
+  });
+
+  it("holds each hyphen of a Quran span title to its word, so no line ends on a lone Al-", () => {
+    const spans = sectionOf("quran_tafseer").branches.filter((branch) => / to /.test(branch.title));
+    expect(spans.length).toBeGreaterThan(5);
+    expect(spans.filter((branch) => /\p{L}-(?!\u2060)/u.test(branch.title)).map((branch) => branch.title)).toEqual([]);
+    expect(spans.find((branch) => branch.id === "notes-quran-tafseer-surahs-104-96")?.title).toBe("Surah Al-\u2060Humazah to Al-\u2060'Alaq");
+  });
+
+  it("never asks the tribe of Zaynab bint Jahsh or her brother Abdullah, who were of Asad ibn Khuzaymah, not Quraysh by birth", () => {
+    const jahsh = pathLessons.filter((lesson) => /ibn Jahsh|bint Jahsh/.test(lesson.title));
+    expect(jahsh.map((lesson) => lesson.title).sort()).toEqual(["Abdullah ibn Jahsh", "Zaynab bint Jahsh"]);
+    const asked = pathLessons.flatMap((lesson) => lesson.challenges).filter((challenge) => /tribe was (Zaynab bint|Abdullah ibn) Jahsh/.test(challenge.prompt));
+    expect(asked.map((challenge) => challenge.prompt)).toEqual([]);
+    for (const lesson of jahsh) expect((lesson.learnFacts ?? []).filter((fact) => /^Tribe/.test(fact))).toEqual([]);
+  });
+});
+
 describe("salah ordering game", () => {
   it("is a whole two-rak'ah prayer: tashahhud and taslim come only after the second rak'ah", () => {
     const node = pathNodes.find((entry) => entry.id === "prayer-tashahhud-tashahhud-review")!;

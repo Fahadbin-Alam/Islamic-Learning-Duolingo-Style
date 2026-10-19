@@ -659,7 +659,7 @@
           },
           {
             "title": "Abdullah ibn Jahsh",
-            "description": "Led the Nakhla raid; martyred at Uhud. Full name: 'Abd Allah ibn Jahsh ibn Ri'ab al-Asadi. Tribe: Quraysh. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 3 AH / 625 CE at Mount Uhud.",
+            "description": "Led the Nakhla raid; martyred at Uhud. Full name: 'Abd Allah ibn Jahsh ibn Ri'ab al-Asadi. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 3 AH / 625 CE at Mount Uhud.",
             "difficulty": 3,
             "lesson_type": "story",
             "premium": false,
@@ -733,29 +733,29 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Which tribe was Abdullah ibn Jahsh from?",
+                "prompt": "Where was Abdullah ibn Jahsh born?",
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Bahila"
+                    "text": "Zabid"
                   },
                   {
                     "id": "b",
-                    "text": "Bali"
+                    "text": "Egypt"
                   },
                   {
                     "id": "c",
-                    "text": "Quraysh"
+                    "text": "Makkah"
                   },
                   {
                     "id": "d",
-                    "text": "Aws"
+                    "text": "Tihamah"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "Abdullah ibn Jahsh was from Quraysh.",
+                "explanation_short": "Abdullah ibn Jahsh was born in Makkah.",
                 "explanation_long": "Abdullah ibn Jahsh: Led the Nakhla raid; martyred at Uhud.",
                 "tags_json": [
                   "abdullah-ibn-jahsh",
@@ -2277,7 +2277,7 @@
           },
           {
             "title": "Ammar ibn Yasir",
-            "description": "Early convert whose parents were the first martyrs of Islam; killed at Siffin. Full name: Ammar ibn Yasir ibn Amir al-Ansi. Tribe: Madhhij. Father: Yasir ibn Amir. Born in Makkah. Passed away in Safar 37 AH / July 657 CE at Siffin.",
+            "description": "His parents were the first martyrs of Islam. Full name: Ammar ibn Yasir ibn Amir al-Ansi. Tribe: Madhhij. Father: Yasir ibn Amir. Born in Makkah. Passed away in Safar 37 AH / July 657 CE at Siffin.",
             "difficulty": 2,
             "lesson_type": "story",
             "premium": false,
@@ -2310,7 +2310,7 @@
                   "choiceId": "b"
                 },
                 "explanation_short": "The father of Ammar ibn Yasir was Yasir ibn Amir.",
-                "explanation_long": "Ammar ibn Yasir: Early convert whose parents were the first martyrs of Islam; killed at Siffin.",
+                "explanation_long": "His parents were the first martyrs of Islam.",
                 "tags_json": [
                   "ammar-ibn-yasir",
                   "difficulty_2",
@@ -2342,7 +2342,7 @@
                   "choiceId": "c"
                 },
                 "explanation_short": "The mother of Ammar ibn Yasir was Sumayyah bint Khayyat.",
-                "explanation_long": "Ammar ibn Yasir: Early convert whose parents were the first martyrs of Islam; killed at Siffin.",
+                "explanation_long": "His parents were the first martyrs of Islam.",
                 "tags_json": [
                   "ammar-ibn-yasir",
                   "difficulty_2",
@@ -2374,7 +2374,7 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "Ammar ibn Yasir was from Madhhij.",
-                "explanation_long": "Ammar ibn Yasir: Early convert whose parents were the first martyrs of Islam; killed at Siffin.",
+                "explanation_long": "His parents were the first martyrs of Islam.",
                 "tags_json": [
                   "ammar-ibn-yasir",
                   "difficulty_2",
@@ -3766,7 +3766,7 @@
           },
           {
             "title": "Ikrimah ibn Abi Jahl",
-            "description": "Opponent who became a Companion; killed fighting the Byzantines. Full name: Ikrimah ibn Amr ibn Hisham. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Jahl. Born in Makkah. Passed away in 13 or 15 AH / 634–636 CE at Ajnadayn or Yarmuk.",
+            "description": "He once fought Islam, then became a companion of the Prophet ﷺ. Full name: Ikrimah ibn Amr ibn Hisham. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Jahl. Born in Makkah. Passed away in 13 or 15 AH / 634–636 CE at Ajnadayn or Yarmuk.",
             "difficulty": 3,
             "lesson_type": "story",
             "premium": false,
@@ -3799,7 +3799,7 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "The father of Ikrimah ibn Abi Jahl was Abu Jahl.",
-                "explanation_long": "Ikrimah ibn Abi Jahl: Opponent who became a Companion; killed fighting the Byzantines.",
+                "explanation_long": "He once fought Islam, then became a companion of the Prophet ﷺ.",
                 "tags_json": [
                   "ikrimah-ibn-abi-jahl",
                   "difficulty_3",
@@ -3831,7 +3831,7 @@
                   "choiceId": "a"
                 },
                 "explanation_short": "The mother of Ikrimah ibn Abi Jahl was Mujalida bint Amr.",
-                "explanation_long": "Ikrimah ibn Abi Jahl: Opponent who became a Companion; killed fighting the Byzantines.",
+                "explanation_long": "He once fought Islam, then became a companion of the Prophet ﷺ.",
                 "tags_json": [
                   "ikrimah-ibn-abi-jahl",
                   "difficulty_3",
@@ -3863,7 +3863,7 @@
                   "choiceId": "b"
                 },
                 "explanation_short": "Ikrimah ibn Abi Jahl was from Quraysh.",
-                "explanation_long": "Ikrimah ibn Abi Jahl: Opponent who became a Companion; killed fighting the Byzantines.",
+                "explanation_long": "He once fought Islam, then became a companion of the Prophet ﷺ.",
                 "tags_json": [
                   "ikrimah-ibn-abi-jahl",
                   "difficulty_3",
@@ -4207,7 +4207,7 @@
         "lessons": [
           {
             "title": "Julaybib",
-            "description": "Companion of unknown lineage, married at the Prophet's ﷺ request; martyred after killing seven.",
+            "description": "He married at the Prophet's ﷺ request and was later martyred.",
             "difficulty": 1,
             "lesson_type": "story",
             "premium": false,
@@ -4240,7 +4240,7 @@
                   "choiceId": "a"
                 },
                 "explanation_short": "Julaybib married at the Prophet's ﷺ request and was later martyred.",
-                "explanation_long": "Julaybib: Companion of unknown lineage, married at the Prophet's ﷺ request; martyred after killing seven.",
+                "explanation_long": "He married at the Prophet's ﷺ request and was later martyred.",
                 "tags_json": [
                   "julaybib",
                   "difficulty_1",
@@ -4272,7 +4272,7 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "Julaybib married at the Prophet's ﷺ request and was later martyred.",
-                "explanation_long": "Julaybib: Companion of unknown lineage, married at the Prophet's ﷺ request; martyred after killing seven.",
+                "explanation_long": "He married at the Prophet's ﷺ request and was later martyred.",
                 "tags_json": [
                   "julaybib",
                   "difficulty_1",
@@ -4435,7 +4435,7 @@
           },
           {
             "title": "Khabbab ibn al-Aratt",
-            "description": "One of the earliest converts; enslaved swordsmith tortured for Islam. Passed away at Kufa.",
+            "description": "He was one of the first Muslims and stayed firm in Islam. Passed away at Kufa.",
             "difficulty": 2,
             "lesson_type": "story",
             "premium": false,
@@ -4461,14 +4461,14 @@
                   },
                   {
                     "id": "d",
-                    "text": "He was one of the first Muslims and was tortured for Islam."
+                    "text": "He was one of the first Muslims and stayed firm in Islam."
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Khabbab ibn al-Aratt was one of the first Muslims and was tortured for Islam.",
-                "explanation_long": "Khabbab ibn al-Aratt: One of the earliest converts; enslaved swordsmith tortured for Islam.",
+                "explanation_short": "Khabbab ibn al-Aratt was one of the first Muslims and stayed firm in Islam.",
+                "explanation_long": "He was one of the first Muslims and stayed firm in Islam.",
                 "tags_json": [
                   "khabbab-ibn-al-aratt",
                   "difficulty_2",
@@ -4500,7 +4500,7 @@
                   "choiceId": "a"
                 },
                 "explanation_short": "Khabbab ibn al-Aratt passed away in Kufa.",
-                "explanation_long": "Khabbab ibn al-Aratt: One of the earliest converts; enslaved swordsmith tortured for Islam.",
+                "explanation_long": "He was one of the first Muslims and stayed firm in Islam.",
                 "tags_json": [
                   "khabbab-ibn-al-aratt",
                   "difficulty_2",
@@ -7846,7 +7846,7 @@
           },
           {
             "title": "Umayr ibn Wahb al-Jumahi",
-            "description": "Came to Madinah after Badr to kill the Prophet ﷺ and accepted Islam instead. Tribe: Quraysh, clan of Banu Jumah.",
+            "description": "He came to harm the Prophet ﷺ but accepted Islam instead. Tribe: Quraysh, clan of Banu Jumah.",
             "difficulty": 5,
             "lesson_type": "story",
             "premium": false,
@@ -7879,7 +7879,7 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "Umayr ibn Wahb al-Jumahi was from Quraysh.",
-                "explanation_long": "Umayr ibn Wahb al-Jumahi: Came to Madinah after Badr to kill the Prophet ﷺ and accepted Islam instead.",
+                "explanation_long": "He came to harm the Prophet ﷺ but accepted Islam instead.",
                 "tags_json": [
                   "umayr-ibn-wahb-al-jumahi",
                   "difficulty_5",
@@ -7911,7 +7911,7 @@
                   "choiceId": "c"
                 },
                 "explanation_short": "Umayr ibn Wahb al-Jumahi belonged to Banu Jumah.",
-                "explanation_long": "Umayr ibn Wahb al-Jumahi: Came to Madinah after Badr to kill the Prophet ﷺ and accepted Islam instead.",
+                "explanation_long": "He came to harm the Prophet ﷺ but accepted Islam instead.",
                 "tags_json": [
                   "umayr-ibn-wahb-al-jumahi",
                   "difficulty_5",
@@ -8055,7 +8055,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ishaq"
+                    "text": "Dawud"
                   },
                   {
                     "id": "b",
@@ -8063,11 +8063,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Ilyas"
+                    "text": "Yusuf"
                   },
                   {
                     "id": "d",
-                    "text": "Isa"
+                    "text": "Adam"
                   }
                 ],
                 "correct_answer_json": {
@@ -8351,11 +8351,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Lut"
+                    "text": "Ya'qub"
                   },
                   {
                     "id": "b",
-                    "text": "Muhammad ﷺ"
+                    "text": "Yahya"
                   },
                   {
                     "id": "c",
@@ -8363,7 +8363,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Ismail"
+                    "text": "Sulayman"
                   }
                 ],
                 "correct_answer_json": {
@@ -8471,7 +8471,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "He was born to Maryam without a father and received the Injil."
+                    "text": "He was the first human being and the first prophet."
                   },
                   {
                     "id": "b",
@@ -8479,11 +8479,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "He was a prophet who confirmed that Isa would come."
+                    "text": "He was the brother and helper of Musa."
                   },
                   {
                     "id": "d",
-                    "text": "He was a prophet-king who ruled the jinn and spoke with animals."
+                    "text": "He was the father of the twelve tribes of Israel."
                   }
                 ],
                 "correct_answer_json": {
@@ -8623,7 +8623,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "He was born to Maryam without a father and received the Injil."
+                    "text": "He is the last messenger Allah sent."
                   },
                   {
                     "id": "b",
@@ -8631,11 +8631,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "He was a prophet who confirmed that Isa would come."
+                    "text": "He explained dreams and became a minister of Egypt."
                   },
                   {
                     "id": "d",
-                    "text": "He was a prophet-king who ruled the jinn and spoke with animals."
+                    "text": "He helped his father Ibrahim build the Ka'bah."
                   }
                 ],
                 "correct_answer_json": {
@@ -8708,7 +8708,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "He was the first human being and the first prophet."
+                    "text": "He was the brother and helper of Musa."
                   },
                   {
                     "id": "b",
@@ -8716,11 +8716,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "He was swallowed by the whale, and his people repented."
+                    "text": "He was a prophet sent to the people of Madyan."
                   },
                   {
                     "id": "d",
-                    "text": "He was the brother and helper of Musa."
+                    "text": "He was a prophet-king who ruled the jinn and spoke with animals."
                   }
                 ],
                 "correct_answer_json": {
@@ -8972,15 +8972,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Musa"
+                    "text": "Sulayman"
                   },
                   {
                     "id": "c",
-                    "text": "Nuh"
+                    "text": "Ya'qub"
                   },
                   {
                     "id": "d",
-                    "text": "Sulayman"
+                    "text": "Yahya"
                   }
                 ],
                 "correct_answer_json": {
@@ -9120,11 +9120,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "He is the last messenger Allah sent."
+                    "text": "He was swallowed by the whale, and his people repented."
                   },
                   {
                     "id": "b",
-                    "text": "He looked after Maryam and was the father of Yahya."
+                    "text": "He was the father of the twelve tribes of Israel."
                   },
                   {
                     "id": "c",
@@ -9132,7 +9132,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "He helped Musa, then led Bani Isra'il into the Holy Land."
+                    "text": "He was sent to Thamud, with the she-camel of Allah."
                   }
                 ],
                 "correct_answer_json": {
@@ -9152,15 +9152,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Yahya"
+                    "text": "Ismail"
                   },
                   {
                     "id": "b",
-                    "text": "Yunus"
+                    "text": "Lut"
                   },
                   {
                     "id": "c",
-                    "text": "Yusha' ibn Nun"
+                    "text": "Muhammad ﷺ"
                   },
                   {
                     "id": "d",
@@ -9509,15 +9509,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "He looked after Maryam and was the father of Yahya."
+                    "text": "He explained dreams and became a minister of Egypt."
                   },
                   {
                     "id": "b",
-                    "text": "He spoke with Allah and received the Tawrah."
+                    "text": "He helped Musa, then led Bani Isra'il into the Holy Land."
                   },
                   {
                     "id": "c",
-                    "text": "He was Ibrahim's nephew and a prophet sent to Sodom."
+                    "text": "He is the last messenger Allah sent."
                   },
                   {
                     "id": "d",
@@ -9921,15 +9921,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Yusuf"
+                    "text": "Lut"
                   },
                   {
                     "id": "b",
-                    "text": "Adam"
+                    "text": "Muhammad ﷺ"
                   },
                   {
                     "id": "c",
-                    "text": "Dawud"
+                    "text": "Musa"
                   },
                   {
                     "id": "d",
@@ -10012,15 +10012,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Fatimah az-Zahra"
-                  },
-                  {
-                    "id": "c",
                     "text": "Hind bint Awf"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "Safiyyah bint Abi al-As"
+                  },
+                  {
+                    "id": "d",
+                    "text": "Thumamah bint Sahl"
                   }
                 ],
                 "correct_answer_json": {
@@ -10116,15 +10116,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ash-Shamus bint Qays"
+                    "text": "Thumamah bint Sahl"
                   },
                   {
                     "id": "b",
-                    "text": "Asma bint Amr"
+                    "text": "Umaymah bint Abd al-Muttalib"
                   },
                   {
                     "id": "c",
-                    "text": "Atikah bint Amir"
+                    "text": "Umm Ruman"
                   },
                   {
                     "id": "d",
@@ -10253,7 +10253,7 @@
             ]
           },
           {
-            "title": "Wife of Imran",
+            "title": "The wife of Imran",
             "description": "Dedicated Maryam to Allah before her birth (Q 3:35).",
             "difficulty": 2,
             "lesson_type": "story",
@@ -10264,7 +10264,7 @@
             "questions": [
               {
                 "type": "multiple_choice",
-                "prompt": "What is Wife of Imran known for?",
+                "prompt": "What is the wife of Imran known for?",
                 "options_json": [
                   {
                     "id": "a",
@@ -10286,10 +10286,10 @@
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "Wife of Imran gave Maryam to Allah's service before Maryam was born.",
-                "explanation_long": "Wife of Imran: Dedicated Maryam to Allah before her birth (Q 3:35).",
+                "explanation_short": "The wife of Imran gave Maryam to Allah's service before Maryam was born.",
+                "explanation_long": "The wife of Imran: Dedicated Maryam to Allah before her birth (Q 3:35).",
                 "tags_json": [
-                  "wife-of-imran",
+                  "the-wife-of-imran",
                   "difficulty_2",
                   "obsidian_import"
                 ]
@@ -10300,28 +10300,28 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Halimah as-Sa'diyyah"
+                    "text": "Aminah bint Wahb"
                   },
                   {
                     "id": "b",
-                    "text": "Wife of Imran"
+                    "text": "The wife of Imran"
                   },
                   {
                     "id": "c",
-                    "text": "Hafsah bint Umar"
+                    "text": "Zaynab bint Jahsh"
                   },
                   {
                     "id": "d",
-                    "text": "Hajar"
+                    "text": "Aishah bint Abi Bakr"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Wife of Imran gave Maryam to Allah's service before Maryam was born.",
-                "explanation_long": "Wife of Imran: Dedicated Maryam to Allah before her birth (Q 3:35).",
+                "explanation_short": "The wife of Imran gave Maryam to Allah's service before Maryam was born.",
+                "explanation_long": "The wife of Imran: Dedicated Maryam to Allah before her birth (Q 3:35).",
                 "tags_json": [
-                  "wife-of-imran",
+                  "the-wife-of-imran",
                   "difficulty_2",
                   "obsidian_import"
                 ]
@@ -10376,7 +10376,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ash-Shamus bint Qays"
+                    "text": "Barrah bint Abd al-Uzza"
                   },
                   {
                     "id": "b",
@@ -10384,11 +10384,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Umm Ruman"
+                    "text": "Asma bint Amr"
                   },
                   {
                     "id": "d",
-                    "text": "Wife of Imran"
+                    "text": "Atikah bint Amir"
                   }
                 ],
                 "correct_answer_json": {
@@ -10744,15 +10744,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Zaynab bint Maz'un"
+                    "text": "Umaymah bint Abd al-Muttalib"
                   },
                   {
                     "id": "b",
-                    "text": "Ash-Shamus bint Qays"
+                    "text": "Umm Ruman"
                   },
                   {
                     "id": "c",
-                    "text": "Asma bint Amr"
+                    "text": "Zaynab bint Maz'un"
                   },
                   {
                     "id": "d",
@@ -10814,7 +10814,7 @@
         "resources": [],
         "lessons": [
           {
-            "title": "Khawlah bint Ja'far al-Hanifiyyah",
+            "title": "Khawlah bint Ja'far al-Hanafiyyah",
             "description": "Wife of Ali and mother of Muhammad ibn al-Hanafiyya. Full name: Khawla bint Ja'far al-Hanafiyya. Tribe: Banu Hanifa. Father: Ja'far ibn Qays.",
             "difficulty": 1,
             "lesson_type": "story",
@@ -10825,7 +10825,7 @@
             "questions": [
               {
                 "type": "multiple_choice",
-                "prompt": "Who was the father of Khawlah bint Ja'far al-Hanifiyyah?",
+                "prompt": "Who was the father of Khawlah bint Ja'far al-Hanafiyyah?",
                 "options_json": [
                   {
                     "id": "a",
@@ -10847,29 +10847,29 @@
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "The father of Khawlah bint Ja'far al-Hanifiyyah was Ja'far ibn Qays.",
-                "explanation_long": "Khawlah bint Ja'far al-Hanifiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
+                "explanation_short": "The father of Khawlah bint Ja'far al-Hanafiyyah was Ja'far ibn Qays.",
+                "explanation_long": "Khawlah bint Ja'far al-Hanafiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
                 "tags_json": [
-                  "khawlah-bint-jafar-al-hanifiyyah",
+                  "khawlah-bint-jafar-al-hanafiyyah",
                   "difficulty_1",
                   "obsidian_import"
                 ]
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Who was the mother of Khawlah bint Ja'far al-Hanifiyyah?",
+                "prompt": "Who was the mother of Khawlah bint Ja'far al-Hanafiyyah?",
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Barrah bint Abd al-Uzza"
+                    "text": "Zaynab bint al-Hasan"
                   },
                   {
                     "id": "b",
-                    "text": "Fatimah az-Zahra"
+                    "text": "Ash-Shamus bint Qays"
                   },
                   {
                     "id": "c",
-                    "text": "Hind bint Awf"
+                    "text": "Atikah bint Amir"
                   },
                   {
                     "id": "d",
@@ -10879,17 +10879,17 @@
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "The mother of Khawlah bint Ja'far al-Hanifiyyah was Asma bint Amr.",
-                "explanation_long": "Khawlah bint Ja'far al-Hanifiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
+                "explanation_short": "The mother of Khawlah bint Ja'far al-Hanafiyyah was Asma bint Amr.",
+                "explanation_long": "Khawlah bint Ja'far al-Hanafiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
                 "tags_json": [
-                  "khawlah-bint-jafar-al-hanifiyyah",
+                  "khawlah-bint-jafar-al-hanafiyyah",
                   "difficulty_1",
                   "obsidian_import"
                 ]
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Which tribe was Khawlah bint Ja'far al-Hanifiyyah from?",
+                "prompt": "Which tribe was Khawlah bint Ja'far al-Hanafiyyah from?",
                 "options_json": [
                   {
                     "id": "a",
@@ -10911,10 +10911,10 @@
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "Khawlah bint Ja'far al-Hanifiyyah was from Banu Hanifa.",
-                "explanation_long": "Khawlah bint Ja'far al-Hanifiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
+                "explanation_short": "Khawlah bint Ja'far al-Hanafiyyah was from Banu Hanifa.",
+                "explanation_long": "Khawlah bint Ja'far al-Hanafiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
                 "tags_json": [
-                  "khawlah-bint-jafar-al-hanifiyyah",
+                  "khawlah-bint-jafar-al-hanafiyyah",
                   "difficulty_1",
                   "obsidian_import"
                 ]
@@ -10969,7 +10969,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Wife of Imran"
+                    "text": "The wife of Imran"
                   },
                   {
                     "id": "b",
@@ -10987,7 +10987,7 @@
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "The mother of Maryam was Wife of Imran.",
+                "explanation_short": "The mother of Maryam was the wife of Imran.",
                 "explanation_long": "Maryam: The greatest of women; the only woman named in the Quran.",
                 "tags_json": [
                   "maryam",
@@ -11045,11 +11045,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ash-Shamus bint Qays"
+                    "text": "Fatimah az-Zahra"
                   },
                   {
                     "id": "b",
-                    "text": "Asma bint Amr"
+                    "text": "Safiyyah bint Abi al-As"
                   },
                   {
                     "id": "c",
@@ -11057,7 +11057,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Zaynab bint Maz'un"
+                    "text": "Barrah bint Samaw'al"
                   }
                 ],
                 "correct_answer_json": {
@@ -11153,15 +11153,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Zaynab bint al-Hasan"
+                    "text": "Safiyyah bint Abi al-As"
                   },
                   {
                     "id": "b",
-                    "text": "Ash-Shamus bint Qays"
+                    "text": "Thumamah bint Sahl"
                   },
                   {
                     "id": "c",
-                    "text": "Asma bint Amr"
+                    "text": "Umaymah bint Abd al-Muttalib"
                   },
                   {
                     "id": "d",
@@ -11261,11 +11261,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Juwayriyah bint al-Harith"
+                    "text": "Halimah as-Sa'diyyah"
                   },
                   {
                     "id": "b",
-                    "text": "Maryam"
+                    "text": "Juwayriyah bint al-Harith"
                   },
                   {
                     "id": "c",
@@ -11273,7 +11273,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Halimah as-Sa'diyyah"
+                    "text": "Umm Kulthum bint Ali"
                   }
                 ],
                 "correct_answer_json": {
@@ -11337,7 +11337,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Safiyyah bint Abi al-As"
+                    "text": "Barrah bint Abd al-Uzza"
                   },
                   {
                     "id": "b",
@@ -11345,11 +11345,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Fatimah bint Amr"
+                    "text": "Asma bint Amr"
                   },
                   {
                     "id": "d",
-                    "text": "Hind bint Awf"
+                    "text": "Atikah bint Amir"
                   }
                 ],
                 "correct_answer_json": {
@@ -11457,7 +11457,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Wife of Imran"
+                    "text": "Umm Ruman"
                   }
                 ],
                 "correct_answer_json": {
@@ -11557,15 +11557,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Hind bint Awf"
+                    "text": "Barrah bint Abd al-Uzza"
                   },
                   {
                     "id": "c",
-                    "text": "Safiyyah bint Abi al-As"
+                    "text": "Hind bint Awf"
                   },
                   {
                     "id": "d",
-                    "text": "Thumamah bint Sahl"
+                    "text": "Safiyyah bint Abi al-As"
                   }
                 ],
                 "correct_answer_json": {
@@ -11670,11 +11670,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Fatimah az-Zahra"
+                    "text": "Barrah bint Abd al-Uzza"
                   },
                   {
                     "id": "b",
-                    "text": "Hind bint Awf"
+                    "text": "Fatimah az-Zahra"
                   },
                   {
                     "id": "c",
@@ -11682,7 +11682,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Barrah bint Abd al-Uzza"
+                    "text": "Atikah bint Amir"
                   }
                 ],
                 "correct_answer_json": {
@@ -11778,15 +11778,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Atikah bint Amir"
-                  },
-                  {
-                    "id": "b",
                     "text": "Barrah bint Abd al-Uzza"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "Fatimah az-Zahra"
+                  },
+                  {
+                    "id": "c",
+                    "text": "Hind bint Awf"
                   },
                   {
                     "id": "d",
@@ -11890,15 +11890,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Safiyyah bint Abi al-As"
+                    "text": "Umm Ruman"
                   },
                   {
                     "id": "c",
-                    "text": "Thumamah bint Sahl"
+                    "text": "Zaynab bint Maz'un"
                   },
                   {
                     "id": "d",
-                    "text": "Umaymah bint Abd al-Muttalib"
+                    "text": "Ash-Shamus bint Qays"
                   }
                 ],
                 "correct_answer_json": {
@@ -11994,11 +11994,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Fatimah az-Zahra"
+                    "text": "Ash-Shamus bint Qays"
                   },
                   {
                     "id": "b",
-                    "text": "Hind bint Awf"
+                    "text": "Asma bint Amr"
                   },
                   {
                     "id": "c",
@@ -12006,7 +12006,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Barrah bint Abd al-Uzza"
+                    "text": "Zaynab bint al-Hasan"
                   }
                 ],
                 "correct_answer_json": {
@@ -12102,11 +12102,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Hind bint Awf"
+                    "text": "Thumamah bint Sahl"
                   },
                   {
                     "id": "b",
-                    "text": "Safiyyah bint Abi al-As"
+                    "text": "Umaymah bint Abd al-Muttalib"
                   },
                   {
                     "id": "c",
@@ -12114,7 +12114,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Barrah bint Samaw'al"
+                    "text": "Safiyyah bint Abi al-As"
                   }
                 ],
                 "correct_answer_json": {
@@ -12164,7 +12164,7 @@
           },
           {
             "title": "Zaynab bint Jahsh",
-            "description": "Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37). Full name: Zaynab bint Jahsh ibn Ri'ab al-Asadiyya. Tribe: Quraysh. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 20 AH / c. 641 CE at Madinah.",
+            "description": "Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37). Full name: Zaynab bint Jahsh ibn Ri'ab al-Asadiyya. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 20 AH / c. 641 CE at Madinah.",
             "difficulty": 4,
             "lesson_type": "story",
             "premium": false,
@@ -12210,11 +12210,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ash-Shamus bint Qays"
+                    "text": "Thumamah bint Sahl"
                   },
                   {
                     "id": "b",
-                    "text": "Asma bint Amr"
+                    "text": "Umm Ruman"
                   },
                   {
                     "id": "c",
@@ -12222,7 +12222,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Zaynab bint al-Hasan"
+                    "text": "Safiyyah bint Abi al-As"
                   }
                 ],
                 "correct_answer_json": {
@@ -12238,29 +12238,29 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Which tribe was Zaynab bint Jahsh from?",
+                "prompt": "Where was Zaynab bint Jahsh born?",
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Qurayza"
+                    "text": "Isfahan"
                   },
                   {
                     "id": "b",
-                    "text": "Banu Sa'd ibn Bakr"
+                    "text": "Madinah"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Hanifa"
+                    "text": "Tihamah"
                   },
                   {
                     "id": "d",
-                    "text": "Quraysh"
+                    "text": "Makkah"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Zaynab bint Jahsh was from Quraysh.",
+                "explanation_short": "Zaynab bint Jahsh was born in Makkah.",
                 "explanation_long": "Zaynab bint Jahsh: Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37).",
                 "tags_json": [
                   "zaynab-bint-jahsh",
@@ -15290,7 +15290,7 @@
           },
           {
             "title": "Surah Al-Ahzab",
-            "description": "Surah Al-Ahzab means \"The Combined Forces\". It was revealed in Madinah. It has 73 ayahs.\n33:61 Accursed, they will be seized wherever found and slain with a (fierce) slaughter.",
+            "description": "Surah Al-Ahzab means \"The Combined Forces\". It was revealed in Madinah. It has 73 ayahs.",
             "difficulty": 2,
             "lesson_type": "guided",
             "premium": false,
@@ -23326,7 +23326,7 @@
           },
           {
             "title": "Every prophet warned",
-            "description": "'Abdullah b. Umar reported: 'Umar b. Khattab went along with Allah's Messenger (ﷺ) in the company of some persons to Ibn Sayyad that he found him playing with children near the battlement of Bani Maghala and Ibn Sayyad was at that time just at the threshold of adolescence and he did not perceive (the presence of Holy Prophet) until Allah's Messenger (ﷺ) struck his back with his hands. Allah's Messenger (ﷺ) said: Ibn Sayyad, don't you bear witness that I am the messenger of Allah? Ibn Sayyad looked toward him and he said: I bear witness to the fact that you the messenger of the unlettered. Ibn Sayyad said to the Allah's Messenger (ﷺ): Do you bear witness to the fact that I am the messenger of Allah? Allah's Messenger (ﷺ) rejected this and said: I affirm my faith in Allah and in His messengers. Then Allah's Messenger (ﷺ) said to him: What do you see? Ibn Sayyad said: It is a Dukh. Thereupon Allah's Messenger (ﷺ) said: May you be disgraced and dishonoured, you would not not be able to go beyond your rank. 'Umar b. Khattab said: Allah's Messenger, permit me that I should strike his neck. Thereupon Allah's Messenger (ﷺ) said: If he is the same (Dajjal) who would appear near the Last Hour, you would not be able to overpower him, and if he is not that there is no good for you to kill him. 'Abdullah b. 'Umar further narrated that after some time Allah's Messenger (ﷺ) and Ubayy b. Ka'b went towards the palm trees where Ibn Sayyad was. When Allah's Messenger (ﷺ) went near the tree he hid himself behind a tree with the intention of hearing something from Ibn sayyad before Ibn Sayyad could see him, but Allah's Messenger (ﷺ) saw him on a bed with a blanket around him from which a murmuring sound was being heard and Ibn Sayyad's mother saw Allah's Messenger (ﷺ) behind the trunk of the palm tree. She said to Ibn Sayyad: Saf (that being his name), here is Muhammad. Thereupon Ibn Sayyad jumped up murmuring and Allah's Messenger (ﷺ) said: If she had left him alone he would have made things clear. Abdullah b. Umar told that Allah's Messenger (ﷺ) stood up amongst the people and lauded Allah as He deserved, then he made a mention of the Dajjal and said: I warn you of him and there is no Prophet who has not warned his people against the Dajjal. Even Noah warned (against him) but I am going to tell you a thing which no Prophet told his people. You must know that he (the Dajjal) is one-eyed and Allah, the Exalted and Glorious, is not one-eyed. Ibn Shihab said: 'Umar b. Thabit al-Ansari informed me that some of the Companions of Allah's Messenger (ﷺ) informed him that the day when Allah's Messenger (ﷺ) warned people against the Dajjal, he also said: There would be written between his two eyes (the word) Kafir (infidel) and everyone who would resent his deeds would be able to read or every Muslim would be about to read, and he also said: Bear this thing in mind that none amongst you would be able to see Allah, the Exalted and Glorious, until he dies.",
+            "description": "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.",
             "difficulty": 3,
             "lesson_type": "guided",
             "premium": false,
@@ -23355,7 +23355,7 @@
                   "choiceId": "b"
                 },
                 "explanation_short": "He said: I warn you of him, the Dajjal.",
-                "explanation_long": "'Abdullah b. Umar reported: 'Umar b. Khattab went along with Allah's Messenger (ﷺ) in the company of some persons to Ibn Sayyad that he found him playing with children near the battlement of Bani Maghala and Ibn Sayyad was at that time just at the threshold of adolescence and he did not perceive...",
+                "explanation_long": "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.",
                 "tags_json": [
                   "every-prophet-warned",
                   "difficulty_3",
@@ -23383,7 +23383,7 @@
                   "choiceId": "c"
                 },
                 "explanation_short": "There is no Prophet who has not warned his people against the Dajjal.",
-                "explanation_long": "'Abdullah b. Umar reported: 'Umar b. Khattab went along with Allah's Messenger (ﷺ) in the company of some persons to Ibn Sayyad that he found him playing with children near the battlement of Bani Maghala and Ibn Sayyad was at that time just at the threshold of adolescence and he did not perceive...",
+                "explanation_long": "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.",
                 "tags_json": [
                   "every-prophet-warned",
                   "difficulty_3",

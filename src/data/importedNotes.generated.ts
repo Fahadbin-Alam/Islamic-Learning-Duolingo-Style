@@ -2670,7 +2670,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran",
           "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_4",
-          "title": "Wife of Imran",
+          "title": "The wife of Imran",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
           "kind": "story",
@@ -2808,7 +2808,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah",
           "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_1",
-          "title": "Khawlah bint Ja'far al-Hanifiyyah",
+          "title": "Khawlah bint Ja'far al-Hanafiyyah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
           "kind": "story",
@@ -7854,8 +7854,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2930a",
       "branchId": "notes-hadith-hadith-from-your-notes-2",
       "title": "Every prophet warned",
-      "intro": "'Abdullah b. Umar reported: 'Umar b. Khattab went along with Allah's Messenger (ﷺ) in the company of some persons to Ibn Sayyad that he found him playing with children near the battlement of Bani Maghala and Ibn Sayyad was at that time just at the threshold of adolescence and he did not perceive...",
-      "explanationContent": "'Abdullah b. Umar reported: 'Umar b. Khattab went along with Allah's Messenger (ﷺ) in the company of some persons to Ibn Sayyad that he found him playing with children near the battlement of Bani Maghala and Ibn Sayyad was at that time just at the threshold of adolescence and he did not perceive (the presence of Holy Prophet) until Allah's Messenger (ﷺ) struck his back with his hands. Allah's Messenger (ﷺ) said: Ibn Sayyad, don't you bear witness that I am the messenger of Allah? Ibn Sayyad looked toward him and he said: I bear witness to the fact that you the messenger of the unlettered. Ibn Sayyad said to the Allah's Messenger (ﷺ): Do you bear witness to the fact that I am the messenger of Allah? Allah's Messenger (ﷺ) rejected this and said: I affirm my faith in Allah and in His messengers. Then Allah's Messenger (ﷺ) said to him: What do you see? Ibn Sayyad said: It is a Dukh. Thereupon Allah's Messenger (ﷺ) said: May you be disgraced and dishonoured, you would not not be able to go beyond your rank. 'Umar b. Khattab said: Allah's Messenger, permit me that I should strike his neck. Thereupon Allah's Messenger (ﷺ) said: If he is the same (Dajjal) who would appear near the Last Hour, you would not be able to overpower him, and if he is not that there is no good for you to kill him. 'Abdullah b. 'Umar further narrated that after some time Allah's Messenger (ﷺ) and Ubayy b. Ka'b went towards the palm trees where Ibn Sayyad was. When Allah's Messenger (ﷺ) went near the tree he hid himself behind a tree with the intention of hearing something from Ibn sayyad before Ibn Sayyad could see him, but Allah's Messenger (ﷺ) saw him on a bed with a blanket around him from which a murmuring sound was being heard and Ibn Sayyad's mother saw Allah's Messenger (ﷺ) behind the trunk of the palm tree. She said to Ibn Sayyad: Saf (that being his name), here is Muhammad. Thereupon Ibn Sayyad jumped up murmuring and Allah's Messenger (ﷺ) said: If she had left him alone he would have made things clear. Abdullah b. Umar told that Allah's Messenger (ﷺ) stood up amongst the people and lauded Allah as He deserved, then he made a mention of the Dajjal and said: I warn you of him and there is no Prophet who has not warned his people against the Dajjal. Even Noah warned (against him) but I am going to tell you a thing which no Prophet told his people. You must know that he (the Dajjal) is one-eyed and Allah, the Exalted and Glorious, is not one-eyed. Ibn Shihab said: 'Umar b. Thabit al-Ansari informed me that some of the Companions of Allah's Messenger (ﷺ) informed him that the day when Allah's Messenger (ﷺ) warned people against the Dajjal, he also said: There would be written between his two eyes (the word) Kafir (infidel) and everyone who would resent his deeds would be able to read or every Muslim would be about to read, and he also said: Bear this thing in mind that none amongst you would be able to see Allah, the Exalted and Glorious, until he dies.",
+      "intro": "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.",
+      "explanationContent": "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.",
       "learnLine": "Every prophet warned his people about the Dajjal, a great liar.",
       "quote": {
         "text": "I warn you of him and there is no Prophet who has not warned his people against the Dajjal.",
@@ -8299,7 +8299,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ishaq"
+              "label": "Dawud"
             },
             {
               "id": "b",
@@ -8307,11 +8307,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Ilyas"
+              "label": "Yusuf"
             },
             {
               "id": "d",
-              "label": "Isa"
+              "label": "Adam"
             }
           ],
           "correctChoiceId": "b",
@@ -8645,11 +8645,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Lut"
+              "label": "Ya'qub"
             },
             {
               "id": "b",
-              "label": "Muhammad ﷺ"
+              "label": "Yahya"
             },
             {
               "id": "c",
@@ -8657,7 +8657,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Ismail"
+              "label": "Sulayman"
             }
           ],
           "correctChoiceId": "c",
@@ -8773,7 +8773,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "He was born to Maryam without a father and received the Injil."
+              "label": "He was the first human being and the first prophet."
             },
             {
               "id": "b",
@@ -8781,11 +8781,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "He was a prophet who confirmed that Isa would come."
+              "label": "He was the brother and helper of Musa."
             },
             {
               "id": "d",
-              "label": "He was a prophet-king who ruled the jinn and spoke with animals."
+              "label": "He was the father of the twelve tribes of Israel."
             }
           ],
           "correctChoiceId": "b",
@@ -8925,7 +8925,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "He was born to Maryam without a father and received the Injil."
+              "label": "He is the last messenger Allah sent."
             },
             {
               "id": "b",
@@ -8933,11 +8933,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "He was a prophet who confirmed that Isa would come."
+              "label": "He explained dreams and became a minister of Egypt."
             },
             {
               "id": "d",
-              "label": "He was a prophet-king who ruled the jinn and spoke with animals."
+              "label": "He helped his father Ibrahim build the Ka'bah."
             }
           ],
           "correctChoiceId": "b",
@@ -9002,7 +9002,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "He was the first human being and the first prophet."
+              "label": "He was the brother and helper of Musa."
             },
             {
               "id": "b",
@@ -9010,11 +9010,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "He was swallowed by the whale, and his people repented."
+              "label": "He was a prophet sent to the people of Madyan."
             },
             {
               "id": "d",
-              "label": "He was the brother and helper of Musa."
+              "label": "He was a prophet-king who ruled the jinn and spoke with animals."
             }
           ],
           "correctChoiceId": "b",
@@ -9297,15 +9297,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Musa"
+              "label": "Sulayman"
             },
             {
               "id": "c",
-              "label": "Nuh"
+              "label": "Ya'qub"
             },
             {
               "id": "d",
-              "label": "Sulayman"
+              "label": "Yahya"
             }
           ],
           "correctChoiceId": "a",
@@ -9450,11 +9450,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "He is the last messenger Allah sent."
+              "label": "He was swallowed by the whale, and his people repented."
             },
             {
               "id": "b",
-              "label": "He looked after Maryam and was the father of Yahya."
+              "label": "He was the father of the twelve tribes of Israel."
             },
             {
               "id": "c",
@@ -9462,7 +9462,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "He helped Musa, then led Bani Isra'il into the Holy Land."
+              "label": "He was sent to Thamud, with the she-camel of Allah."
             }
           ],
           "correctChoiceId": "c",
@@ -9477,15 +9477,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Yahya"
+              "label": "Ismail"
             },
             {
               "id": "b",
-              "label": "Yunus"
+              "label": "Lut"
             },
             {
               "id": "c",
-              "label": "Yusha' ibn Nun"
+              "label": "Muhammad ﷺ"
             },
             {
               "id": "d",
@@ -9865,15 +9865,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "He looked after Maryam and was the father of Yahya."
+              "label": "He explained dreams and became a minister of Egypt."
             },
             {
               "id": "b",
-              "label": "He spoke with Allah and received the Tawrah."
+              "label": "He helped Musa, then led Bani Isra'il into the Holy Land."
             },
             {
               "id": "c",
-              "label": "He was Ibrahim's nephew and a prophet sent to Sodom."
+              "label": "He is the last messenger Allah sent."
             },
             {
               "id": "d",
@@ -10312,15 +10312,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Yusuf"
+              "label": "Lut"
             },
             {
               "id": "b",
-              "label": "Adam"
+              "label": "Muhammad ﷺ"
             },
             {
               "id": "c",
-              "label": "Dawud"
+              "label": "Musa"
             },
             {
               "id": "d",
@@ -11016,13 +11016,13 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-sahabah-companions-from-your-notes-1",
       "title": "Abdullah ibn Jahsh",
       "intro": "Led the Nakhla raid; martyred at Uhud.",
-      "explanationContent": "Led the Nakhla raid; martyred at Uhud. Full name: 'Abd Allah ibn Jahsh ibn Ri'ab al-Asadi. Tribe: Quraysh. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 3 AH / 625 CE at Mount Uhud.",
+      "explanationContent": "Led the Nakhla raid; martyred at Uhud. Full name: 'Abd Allah ibn Jahsh ibn Ri'ab al-Asadi. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 3 AH / 625 CE at Mount Uhud.",
       "keyTakeaway": "Abdullah ibn Jahsh: Led the Nakhla raid; martyred at Uhud.",
       "learnLine": "He led the Nakhla raid and was martyred at Uhud.",
       "learnFacts": [
         "Father: Jahsh ibn Riyab",
         "Mother: Umaymah bint Abd al-Muttalib",
-        "Tribe: Quraysh"
+        "Born in Makkah"
       ],
       "lessonType": "story",
       "difficulty": 3,
@@ -11092,27 +11092,27 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-1-abdullah-ibn-jahsh_q3",
           "type": "multiple_choice",
-          "prompt": "Which tribe was Abdullah ibn Jahsh from?",
+          "prompt": "Where was Abdullah ibn Jahsh born?",
           "choices": [
             {
               "id": "a",
-              "label": "Bahila"
+              "label": "Zabid"
             },
             {
               "id": "b",
-              "label": "Bali"
+              "label": "Egypt"
             },
             {
               "id": "c",
-              "label": "Quraysh"
+              "label": "Makkah"
             },
             {
               "id": "d",
-              "label": "Aws"
+              "label": "Tihamah"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Abdullah ibn Jahsh was from Quraysh.",
+          "explanation": "Abdullah ibn Jahsh was born in Makkah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-1-abdullah-ibn-jahsh",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-1-abdullah-ibn-jahsh"
         }
@@ -12737,9 +12737,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-sahabah-companions-from-your-notes-3-ammar-ibn-yasir",
       "branchId": "notes-sahabah-companions-from-your-notes-3",
       "title": "Ammar ibn Yasir",
-      "intro": "Early convert whose parents were the first martyrs of Islam; killed at Siffin.",
-      "explanationContent": "Early convert whose parents were the first martyrs of Islam; killed at Siffin. Full name: Ammar ibn Yasir ibn Amir al-Ansi. Tribe: Madhhij. Father: Yasir ibn Amir. Born in Makkah. Passed away in Safar 37 AH / July 657 CE at Siffin.",
-      "keyTakeaway": "Ammar ibn Yasir: Early convert whose parents were the first martyrs of Islam; killed at Siffin.",
+      "intro": "His parents were the first martyrs of Islam.",
+      "explanationContent": "His parents were the first martyrs of Islam. Full name: Ammar ibn Yasir ibn Amir al-Ansi. Tribe: Madhhij. Father: Yasir ibn Amir. Born in Makkah. Passed away in Safar 37 AH / July 657 CE at Siffin.",
       "learnLine": "His parents were the first martyrs of Islam.",
       "learnFacts": [
         "Father: Yasir ibn Amir",
@@ -14247,9 +14246,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-sahabah-companions-from-your-notes-4-ikrimah-ibn-abi-jahl",
       "branchId": "notes-sahabah-companions-from-your-notes-4",
       "title": "Ikrimah ibn Abi Jahl",
-      "intro": "Opponent who became a Companion; killed fighting the Byzantines.",
-      "explanationContent": "Opponent who became a Companion; killed fighting the Byzantines. Full name: Ikrimah ibn Amr ibn Hisham. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Jahl. Born in Makkah. Passed away in 13 or 15 AH / 634–636 CE at Ajnadayn or Yarmuk.",
-      "keyTakeaway": "Ikrimah ibn Abi Jahl: Opponent who became a Companion; killed fighting the Byzantines.",
+      "intro": "He once fought Islam, then became a companion of the Prophet ﷺ.",
+      "explanationContent": "He once fought Islam, then became a companion of the Prophet ﷺ. Full name: Ikrimah ibn Amr ibn Hisham. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Jahl. Born in Makkah. Passed away in 13 or 15 AH / 634–636 CE at Ajnadayn or Yarmuk.",
       "learnLine": "He once fought Islam, then became a companion of the Prophet ﷺ.",
       "learnFacts": [
         "Father: Abu Jahl",
@@ -14709,9 +14707,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-sahabah-companions-from-your-notes-5-julaybib",
       "branchId": "notes-sahabah-companions-from-your-notes-5",
       "title": "Julaybib",
-      "intro": "Companion of unknown lineage, married at the Prophet's ﷺ request; martyred after killing seven.",
-      "explanationContent": "Companion of unknown lineage, married at the Prophet's ﷺ request; martyred after killing seven.",
-      "keyTakeaway": "Julaybib: Companion of unknown lineage, married at the Prophet's ﷺ request; martyred after killing seven.",
+      "intro": "He married at the Prophet's ﷺ request and was later martyred.",
+      "explanationContent": "He married at the Prophet's ﷺ request and was later martyred.",
       "learnLine": "He married at the Prophet's ﷺ request and was later martyred.",
       "lessonType": "story",
       "difficulty": 1,
@@ -14942,10 +14939,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-sahabah-companions-from-your-notes-5-khabbaab-ibn-al-arat",
       "branchId": "notes-sahabah-companions-from-your-notes-5",
       "title": "Khabbab ibn al-Aratt",
-      "intro": "One of the earliest converts; enslaved swordsmith tortured for Islam.",
-      "explanationContent": "One of the earliest converts; enslaved swordsmith tortured for Islam. Passed away at Kufa.",
-      "keyTakeaway": "Khabbab ibn al-Aratt: One of the earliest converts; enslaved swordsmith tortured for Islam.",
-      "learnLine": "He was one of the first Muslims and was tortured for Islam.",
+      "intro": "He was one of the first Muslims and stayed firm in Islam.",
+      "explanationContent": "He was one of the first Muslims and stayed firm in Islam. Passed away at Kufa.",
+      "learnLine": "He was one of the first Muslims and stayed firm in Islam.",
       "learnFacts": [
         "Passed away in Kufa"
       ],
@@ -14979,11 +14975,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "He was one of the first Muslims and was tortured for Islam."
+              "label": "He was one of the first Muslims and stayed firm in Islam."
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Khabbab ibn al-Aratt was one of the first Muslims and was tortured for Islam.",
+          "explanation": "Khabbab ibn al-Aratt was one of the first Muslims and stayed firm in Islam.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-5-khabbaab-ibn-al-arat",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-5-khabbaab-ibn-al-arat"
         },
@@ -18543,9 +18539,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-sahabah-companions-from-your-notes-8-umayr-ibn-wahb-al-jumahi",
       "branchId": "notes-sahabah-companions-from-your-notes-8",
       "title": "Umayr ibn Wahb al-Jumahi",
-      "intro": "Came to Madinah after Badr to kill the Prophet ﷺ and accepted Islam instead.",
-      "explanationContent": "Came to Madinah after Badr to kill the Prophet ﷺ and accepted Islam instead. Tribe: Quraysh, clan of Banu Jumah.",
-      "keyTakeaway": "Umayr ibn Wahb al-Jumahi: Came to Madinah after Badr to kill the Prophet ﷺ and accepted Islam instead.",
+      "intro": "He came to harm the Prophet ﷺ but accepted Islam instead.",
+      "explanationContent": "He came to harm the Prophet ﷺ but accepted Islam instead. Tribe: Quraysh, clan of Banu Jumah.",
       "learnLine": "He came to harm the Prophet ﷺ but accepted Islam instead.",
       "learnFacts": [
         "Tribe: Quraysh",
@@ -18679,15 +18674,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Fatimah az-Zahra"
-            },
-            {
-              "id": "c",
               "label": "Hind bint Awf"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "Safiyyah bint Abi al-As"
+            },
+            {
+              "id": "d",
+              "label": "Thumamah bint Sahl"
             }
           ],
           "correctChoiceId": "a",
@@ -18831,15 +18826,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ash-Shamus bint Qays"
+              "label": "Thumamah bint Sahl"
             },
             {
               "id": "b",
-              "label": "Asma bint Amr"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Atikah bint Amir"
+              "label": "Umm Ruman"
             },
             {
               "id": "d",
@@ -18968,10 +18963,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran",
       "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran",
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
-      "title": "Wife of Imran",
+      "title": "The wife of Imran",
       "intro": "Dedicated Maryam to Allah before her birth (Q 3:35).",
       "explanationContent": "Dedicated Maryam to Allah before her birth (Q 3:35).",
-      "keyTakeaway": "Wife of Imran: Dedicated Maryam to Allah before her birth (Q 3:35).",
+      "keyTakeaway": "The wife of Imran: Dedicated Maryam to Allah before her birth (Q 3:35).",
       "learnLine": "She gave Maryam to Allah's service before Maryam was born.",
       "lessonType": "story",
       "difficulty": 2,
@@ -18987,7 +18982,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran_q1",
           "type": "multiple_choice",
-          "prompt": "What is Wife of Imran known for?",
+          "prompt": "What is the wife of Imran known for?",
           "choices": [
             {
               "id": "a",
@@ -19007,7 +19002,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Wife of Imran gave Maryam to Allah's service before Maryam was born.",
+          "explanation": "The wife of Imran gave Maryam to Allah's service before Maryam was born.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran"
         },
@@ -19018,23 +19013,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Halimah as-Sa'diyyah"
+              "label": "Aminah bint Wahb"
             },
             {
               "id": "b",
-              "label": "Wife of Imran"
+              "label": "The wife of Imran"
             },
             {
               "id": "c",
-              "label": "Hafsah bint Umar"
+              "label": "Zaynab bint Jahsh"
             },
             {
               "id": "d",
-              "label": "Hajar"
+              "label": "Aishah bint Abi Bakr"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Wife of Imran gave Maryam to Allah's service before Maryam was born.",
+          "explanation": "The wife of Imran gave Maryam to Allah's service before Maryam was born.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran"
         }
@@ -19060,7 +19055,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
-        "Complete Wife of Imran"
+        "Complete The wife of Imran"
       ],
       "masteryState": "learning",
       "masteryTestEligible": false,
@@ -19099,7 +19094,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ash-Shamus bint Qays"
+              "label": "Barrah bint Abd al-Uzza"
             },
             {
               "id": "b",
@@ -19107,11 +19102,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Umm Ruman"
+              "label": "Asma bint Amr"
             },
             {
               "id": "d",
-              "label": "Wife of Imran"
+              "label": "Atikah bint Amir"
             }
           ],
           "correctChoiceId": "b",
@@ -19499,15 +19494,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Zaynab bint Maz'un"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "b",
-              "label": "Ash-Shamus bint Qays"
+              "label": "Umm Ruman"
             },
             {
               "id": "c",
-              "label": "Asma bint Amr"
+              "label": "Zaynab bint Maz'un"
             },
             {
               "id": "d",
@@ -19556,10 +19551,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah",
       "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah",
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
-      "title": "Khawlah bint Ja'far al-Hanifiyyah",
+      "title": "Khawlah bint Ja'far al-Hanafiyyah",
       "intro": "Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
       "explanationContent": "Wife of Ali and mother of Muhammad ibn al-Hanafiyya. Full name: Khawla bint Ja'far al-Hanafiyya. Tribe: Banu Hanifa. Father: Ja'far ibn Qays.",
-      "keyTakeaway": "Khawlah bint Ja'far al-Hanifiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
+      "keyTakeaway": "Khawlah bint Ja'far al-Hanafiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
       "learnLine": "She was Ali's wife and the mother of Muhammad ibn al-Hanafiyyah.",
       "learnFacts": [
         "Father: Ja'far ibn Qays",
@@ -19578,7 +19573,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Khawlah bint Ja'far al-Hanifiyyah?",
+          "prompt": "Who was the father of Khawlah bint Ja'far al-Hanafiyyah?",
           "choices": [
             {
               "id": "a",
@@ -19598,26 +19593,26 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "The father of Khawlah bint Ja'far al-Hanifiyyah was Ja'far ibn Qays.",
+          "explanation": "The father of Khawlah bint Ja'far al-Hanafiyyah was Ja'far ibn Qays.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah"
         },
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah_q2",
           "type": "multiple_choice",
-          "prompt": "Who was the mother of Khawlah bint Ja'far al-Hanifiyyah?",
+          "prompt": "Who was the mother of Khawlah bint Ja'far al-Hanafiyyah?",
           "choices": [
             {
               "id": "a",
-              "label": "Barrah bint Abd al-Uzza"
+              "label": "Zaynab bint al-Hasan"
             },
             {
               "id": "b",
-              "label": "Fatimah az-Zahra"
+              "label": "Ash-Shamus bint Qays"
             },
             {
               "id": "c",
-              "label": "Hind bint Awf"
+              "label": "Atikah bint Amir"
             },
             {
               "id": "d",
@@ -19625,14 +19620,14 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "The mother of Khawlah bint Ja'far al-Hanifiyyah was Asma bint Amr.",
+          "explanation": "The mother of Khawlah bint Ja'far al-Hanafiyyah was Asma bint Amr.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah"
         },
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah_q3",
           "type": "multiple_choice",
-          "prompt": "Which tribe was Khawlah bint Ja'far al-Hanifiyyah from?",
+          "prompt": "Which tribe was Khawlah bint Ja'far al-Hanafiyyah from?",
           "choices": [
             {
               "id": "a",
@@ -19652,7 +19647,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Khawlah bint Ja'far al-Hanifiyyah was from Banu Hanifa.",
+          "explanation": "Khawlah bint Ja'far al-Hanafiyyah was from Banu Hanifa.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah"
         }
@@ -19669,7 +19664,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "She is the only woman named in the Quran.",
       "learnFacts": [
         "Father: Imran",
-        "Mother: Wife of Imran"
+        "Mother: the wife of Imran"
       ],
       "lessonType": "story",
       "difficulty": 1,
@@ -19677,7 +19672,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
-        "Complete Khawlah bint Ja'far al-Hanifiyyah"
+        "Complete Khawlah bint Ja'far al-Hanafiyyah"
       ],
       "masteryState": "learning",
       "masteryTestEligible": false,
@@ -19716,7 +19711,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Wife of Imran"
+              "label": "The wife of Imran"
             },
             {
               "id": "b",
@@ -19732,7 +19727,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Maryam was Wife of Imran.",
+          "explanation": "The mother of Maryam was the wife of Imran.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam"
         }
@@ -19797,11 +19792,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ash-Shamus bint Qays"
+              "label": "Fatimah az-Zahra"
             },
             {
               "id": "b",
-              "label": "Asma bint Amr"
+              "label": "Safiyyah bint Abi al-As"
             },
             {
               "id": "c",
@@ -19809,7 +19804,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Zaynab bint Maz'un"
+              "label": "Barrah bint Samaw'al"
             }
           ],
           "correctChoiceId": "c",
@@ -19905,15 +19900,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Zaynab bint al-Hasan"
+              "label": "Safiyyah bint Abi al-As"
             },
             {
               "id": "b",
-              "label": "Ash-Shamus bint Qays"
+              "label": "Thumamah bint Sahl"
             },
             {
               "id": "c",
-              "label": "Asma bint Amr"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "d",
@@ -20008,11 +20003,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Juwayriyah bint al-Harith"
+              "label": "Halimah as-Sa'diyyah"
             },
             {
               "id": "b",
-              "label": "Maryam"
+              "label": "Juwayriyah bint al-Harith"
             },
             {
               "id": "c",
@@ -20020,7 +20015,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Halimah as-Sa'diyyah"
+              "label": "Umm Kulthum bint Ali"
             }
           ],
           "correctChoiceId": "c",
@@ -20089,7 +20084,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Safiyyah bint Abi al-As"
+              "label": "Barrah bint Abd al-Uzza"
             },
             {
               "id": "b",
@@ -20097,11 +20092,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Fatimah bint Amr"
+              "label": "Asma bint Amr"
             },
             {
               "id": "d",
-              "label": "Hind bint Awf"
+              "label": "Atikah bint Amir"
             }
           ],
           "correctChoiceId": "b",
@@ -20209,7 +20204,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Wife of Imran"
+              "label": "Umm Ruman"
             }
           ],
           "correctChoiceId": "c",
@@ -20309,15 +20304,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Hind bint Awf"
+              "label": "Barrah bint Abd al-Uzza"
             },
             {
               "id": "c",
-              "label": "Safiyyah bint Abi al-As"
+              "label": "Hind bint Awf"
             },
             {
               "id": "d",
-              "label": "Thumamah bint Sahl"
+              "label": "Safiyyah bint Abi al-As"
             }
           ],
           "correctChoiceId": "a",
@@ -20411,11 +20406,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fatimah az-Zahra"
+              "label": "Barrah bint Abd al-Uzza"
             },
             {
               "id": "b",
-              "label": "Hind bint Awf"
+              "label": "Fatimah az-Zahra"
             },
             {
               "id": "c",
@@ -20423,7 +20418,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Barrah bint Abd al-Uzza"
+              "label": "Atikah bint Amir"
             }
           ],
           "correctChoiceId": "c",
@@ -20519,15 +20514,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Atikah bint Amir"
-            },
-            {
-              "id": "b",
               "label": "Barrah bint Abd al-Uzza"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "Fatimah az-Zahra"
+            },
+            {
+              "id": "c",
+              "label": "Hind bint Awf"
             },
             {
               "id": "d",
@@ -20630,15 +20625,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Safiyyah bint Abi al-As"
+              "label": "Umm Ruman"
             },
             {
               "id": "c",
-              "label": "Thumamah bint Sahl"
+              "label": "Zaynab bint Maz'un"
             },
             {
               "id": "d",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Ash-Shamus bint Qays"
             }
           ],
           "correctChoiceId": "a",
@@ -20734,11 +20729,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fatimah az-Zahra"
+              "label": "Ash-Shamus bint Qays"
             },
             {
               "id": "b",
-              "label": "Hind bint Awf"
+              "label": "Asma bint Amr"
             },
             {
               "id": "c",
@@ -20746,7 +20741,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Barrah bint Abd al-Uzza"
+              "label": "Zaynab bint al-Hasan"
             }
           ],
           "correctChoiceId": "c",
@@ -20842,11 +20837,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hind bint Awf"
+              "label": "Thumamah bint Sahl"
             },
             {
               "id": "b",
-              "label": "Safiyyah bint Abi al-As"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "c",
@@ -20854,7 +20849,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Barrah bint Samaw'al"
+              "label": "Safiyyah bint Abi al-As"
             }
           ],
           "correctChoiceId": "c",
@@ -20897,13 +20892,13 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
       "title": "Zaynab bint Jahsh",
       "intro": "Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37).",
-      "explanationContent": "Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37). Full name: Zaynab bint Jahsh ibn Ri'ab al-Asadiyya. Tribe: Quraysh. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 20 AH / c. 641 CE at Madinah.",
+      "explanationContent": "Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37). Full name: Zaynab bint Jahsh ibn Ri'ab al-Asadiyya. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 20 AH / c. 641 CE at Madinah.",
       "keyTakeaway": "Zaynab bint Jahsh: Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37).",
       "learnLine": "She was the Prophet's ﷺ cousin and wife.",
       "learnFacts": [
         "Father: Jahsh ibn Riyab",
         "Mother: Umaymah bint Abd al-Muttalib",
-        "Tribe: Quraysh"
+        "Born in Makkah"
       ],
       "lessonType": "story",
       "difficulty": 4,
@@ -20950,11 +20945,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ash-Shamus bint Qays"
+              "label": "Thumamah bint Sahl"
             },
             {
               "id": "b",
-              "label": "Asma bint Amr"
+              "label": "Umm Ruman"
             },
             {
               "id": "c",
@@ -20962,7 +20957,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Zaynab bint al-Hasan"
+              "label": "Safiyyah bint Abi al-As"
             }
           ],
           "correctChoiceId": "c",
@@ -20973,27 +20968,27 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-jahsh_q3",
           "type": "multiple_choice",
-          "prompt": "Which tribe was Zaynab bint Jahsh from?",
+          "prompt": "Where was Zaynab bint Jahsh born?",
           "choices": [
             {
               "id": "a",
-              "label": "Banu Qurayza"
+              "label": "Isfahan"
             },
             {
               "id": "b",
-              "label": "Banu Sa'd ibn Bakr"
+              "label": "Madinah"
             },
             {
               "id": "c",
-              "label": "Banu Hanifa"
+              "label": "Tihamah"
             },
             {
               "id": "d",
-              "label": "Quraysh"
+              "label": "Makkah"
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Zaynab bint Jahsh was from Quraysh.",
+          "explanation": "Zaynab bint Jahsh was born in Makkah.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-jahsh",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-jahsh"
         }
@@ -25129,7 +25124,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-31-40",
       "title": "Surah Al-Ahzab",
       "intro": "Surah Al-Ahzab means \"The Combined Forces\".",
-      "explanationContent": "Surah Al-Ahzab means \"The Combined Forces\". It was revealed in Madinah. It has 73 ayahs.\n33:61 Accursed, they will be seized wherever found and slain with a (fierce) slaughter.",
+      "explanationContent": "Surah Al-Ahzab means \"The Combined Forces\". It was revealed in Madinah. It has 73 ayahs.",
       "learnLine": "Surah Al-Ahzab means \"The Combined Forces\".",
       "learnFacts": [
         "73 ayahs",

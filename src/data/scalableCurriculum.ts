@@ -520,12 +520,12 @@ function teachingQuestions(lessonId: string, lesson: LessonSeed): Challenge[] {
 }
 
 // A lesson the learner has finished, with its questions, for the reviews after it.
-type TaughtLesson = { lessonId: string; nodeId: string; questions: Challenge[] };
+export type TaughtLesson = { lessonId: string; nodeId: string; questions: Challenge[] };
 
 // `count` questions from the lessons in `pool`, one from each lesson before a second from any, never the same
 // question twice, and the ones the lesson just before asked (`recent`) only when nothing else is left. Each is
 // the same question as in its own lesson, marked as a review of it.
-function reviewQuestions(lessonId: string, pool: TaughtLesson[], count: number, recent: ReadonlySet<string> = new Set()): Challenge[] {
+export function reviewQuestions(lessonId: string, pool: TaughtLesson[], count: number, recent: ReadonlySet<string> = new Set()): Challenge[] {
   const lessons = pickIndexes(pool.length, pool.length, lessonId).map((index) => pool[index]);
   const lists = lessons.map((lesson) => rotate(lesson.questions, Math.abs(hashCode(`${lessonId}:${lesson.lessonId}`)) % lesson.questions.length));
   const picked: Challenge[] = [];
@@ -2014,7 +2014,7 @@ SECTION_SEEDS.push(
           line: "Lut bravely told his people to stop doing [wrong].",
           alt: ["chores", "homework"]
         }),
-        seed("early-prophets-review", "Review", "The early prophets teach tawhid, repentance, patience, and warning together.", 3, { kind: "review", lessonType: "review", line: "Let's remember Adam, Nuh, Salih and Lut!" })
+        seed("early-prophets-review", "Review", "Salih and Lut called their people to Allah.", 3, { kind: "review", lessonType: "review", line: "Let's remember Salih and Lut!" })
       ]},
       { id: "prophets-family-and-sacrifice", title: "Ibrahim's family", description: "Move through Ibrahim's family, trust, and the tests that reshape generations.", order: 5, difficultyRange: [2, 4], sourceKeys: ["quran_3_97", "quran_22_27", "quran_12"], lessons: [
         seed("ibrahim-and-tawhid", "Ibrahim and the idols", "Ibrahim broke his people's idols to show they could not help anyone.", 2, {
@@ -2040,7 +2040,7 @@ SECTION_SEEDS.push(
           alt: ["stars", "poems"],
           why: "He explained the king's dream of seven fat cows."
         }),
-        seed("family-review", "Review", "These prophets teach trust, sacrifice, purity, and patient hope.", 4, { kind: "review", lessonType: "review", line: "Let's remember Ibrahim, Ismail, Ya'qub and Yusuf!" })
+        seed("family-review", "Review", "Ibrahim's sons Ismail and Ishaq, and his grandson Ya'qub.", 4, { kind: "review", lessonType: "review", line: "Let's remember Ismail, Ishaq and Ya'qub!" })
       ]},
       { id: "prophets-power-and-deliverance", title: "Musa, Dawud and Sulayman", description: "Learn from Musa, Harun, Dawud, Sulayman, and the test of leadership under Allah.", order: 6, difficultyRange: [2, 5], sourceKeys: ["quran_28_7", "quran_57_22_23", "quran_33_21"], lessons: [
         seed("musa-and-fear", "Allah was with Musa", "Allah sent Musa and Harun to Pharaoh and told them not to fear.", 2, {
@@ -2150,7 +2150,7 @@ SECTION_SEEDS.push(
           myth: "Allah rewards the good deeds of men only.",
           source: "quran_16_97"
         }),
-        seed("women-legacy-review", "Big quiz", "The women honored in revelation teach a connected legacy of worship, courage, trust, and service.", 5, { kind: "review", lessonType: "mastery", line: "Asiyah, Maryam and Khadijah all trusted Allah." })
+        seed("women-legacy-review", "Big quiz", "Look back at the Mothers of the Believers.", 5, { kind: "review", lessonType: "mastery", line: "Show what you know about the Mothers of the Believers!" })
       ]}
     ]
   }
@@ -2290,7 +2290,8 @@ SECTION_SEEDS.push(
           alt: ["Shout", "Leave"]
         }),
         seed("repair-after-harm", "Saying sorry", "Homes survive by repair, apology, and sincere course correction.", 3, {
-          line: "After hurting your spouse, say sorry and [fix] it.",
+          // "say sorry and repeat it" could be read as saying sorry again: the false line repeats the hurt.
+          line: "After hurting your spouse, say sorry and [fix] the hurt.",
           alt: ["repeat", "hide"]
         }),
         seed("bring-in-help-wisely", "Getting help", "Some conflicts need counsel and outside help, but with wisdom and boundaries.", 4, {

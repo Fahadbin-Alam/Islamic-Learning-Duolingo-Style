@@ -212,6 +212,11 @@ export interface UserProfile {
   nodeStars?: Record<string, number>;
   /** The topic the learner had open last, so the app opens on it again. */
   lastTopicId?: TopicId;
+  /**
+   * Per topic, the circle its path puts START on: the one the last lesson or test there opened (or the next open
+   * one after it), so a jump into a later unit carries on there after a reload. Used only while it is still open.
+   */
+  pathFocusIds?: Partial<Record<TopicId, string>>;
   claimedRewardIds?: string[];
   activeSubscriptionId?: string;
 }

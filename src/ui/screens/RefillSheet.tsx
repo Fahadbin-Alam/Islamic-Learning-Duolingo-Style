@@ -6,7 +6,7 @@ import { PopIn } from "../PopIn";
 import { Sheet } from "../Sheet";
 import { feedback } from "../sound";
 import { colors, space, text } from "../theme";
-import { MascotSays, useBackToClose } from "./sheetParts";
+import { MascotSays, moodSound, useBackToClose, useOpenSound } from "./sheetParts";
 
 export type RefillSheetProps = {
   visible: boolean;
@@ -59,6 +59,9 @@ export function RefillSheet({
   const [refilled, setRefilled] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   useBackToClose(visible && !filling, free ? onShop : endLesson);
+  // Opens with its sad mascot's sound, like the app's other sad sheets (the test-out result). The lesson's
+  // GOT IT that opens it stays quiet, so this is the one sound.
+  useOpenSound(visible, moodSound("sad"), "out-of-hearts");
 
   const clearTimers = () => {
     timers.current.forEach(clearTimeout);

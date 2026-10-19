@@ -3,9 +3,9 @@
 /** Longest "Why?" line the feedback sheet shows. */
 export const WHY_MAX = 90;
 
-/** Keeps "As-salamu" from breaking at its hyphen (hyphen + word joiner). */
+/** Keeps "As-salamu" and "Al-'Alaq" from breaking at their hyphen (hyphen + word joiner). */
 export function noBreakHyphens(value: string) {
-  return value.replace(/(\p{L})-(?=\p{L})/gu, "$1-⁠");
+  return value.replace(/(\p{L})-(?=[\p{L}'’ʿ])/gu, "$1-⁠");
 }
 
 /** Lowercase letters and digits only, for loose comparisons. */
