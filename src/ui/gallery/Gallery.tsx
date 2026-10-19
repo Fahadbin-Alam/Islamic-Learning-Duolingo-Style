@@ -252,7 +252,7 @@ export function KitGallery() {
                 {sheet === "correct" ? "MashaAllah!" : "Correct answer:"}
               </Text>
             </View>
-            {sheet === "wrong" ? <Text style={[styles.body, { color: colors.wrongInk }]}>Assalamu alaikum</Text> : null}
+            {sheet === "wrong" ? <Text style={[styles.body, { color: colors.wrongInk }]}>As-salamu alaykum</Text> : null}
             <View style={styles.gap} />
             <GameButton
               label={sheet === "correct" ? "Continue" : "Got it"}

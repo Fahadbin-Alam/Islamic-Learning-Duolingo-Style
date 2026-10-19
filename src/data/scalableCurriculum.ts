@@ -37,6 +37,8 @@ type BranchSeed = {
   sourceKeys: string[];
   surahName?: string;
   ayahRange?: string;
+  /** Facts for the true/false questions when the topic's general ones don't fit this unit. */
+  facts?: FactPair[];
   lessons: LessonSeed[];
 };
 
@@ -54,12 +56,10 @@ type SectionSeed = {
   branches: BranchSeed[];
 };
 
-type ExpandedContent = {
+export type ExpandedContent = {
   course: LearningCourse;
   lessonsById: Record<string, Lesson>;
 };
-
-type TopicBank = Record<TopicId, string[]>;
 
 function quranSource(id: string, title: string, reference: string, url: string, summary: string): LessonSource {
   return {
@@ -153,7 +153,7 @@ const SOURCE_LIBRARY: Record<string, LessonSource> = {
   quran_36: quranSource("quran_36", "Surah Ya-Sin", "Quran 36", "https://quran.com/36", "Ya-Sin brings revelation, signs, resurrection, and accountability into focus."),
   quran_48_29: quranSource("quran_48_29", "Traits of the believers with the Messenger", "Quran 48:29", "https://quran.com/48", "This verse paints mercy between believers and strength upon truth."),
   quran_57_22_23: quranSource("quran_57_22_23", "Qadar and perspective", "Quran 57:22-23", "https://quran.com/57", "These verses train the heart not to break under loss or become arrogant in gain."),
-  quran_59_22_24: quranSource("quran_59_22_24", "Beautiful names of Allah", "Quran 59:22-24", "https://quran.com/59", "These verses bring the learner into awe of Allah's names and attributes."),
+  quran_59_22_24: quranSource("quran_59_22_24", "Beautiful names of Allah", "Quran 59:22-24", "https://quran.com/59", "These verses bring you into awe of Allah's names and attributes."),
   quran_66_11: quranSource("quran_66_11", "The prayer of Asiyah", "Quran 66:11", "https://quran.com/66", "Asiyah is honored for faith and longing for Allah despite oppression."),
   quran_67: quranSource("quran_67", "Surah Al-Mulk", "Quran 67", "https://quran.com/67", "Al-Mulk opens with Allah's dominion and the testing nature of life."),
   quran_112: quranSource("quran_112", "Surah Al-Ikhlas", "Quran 112", "https://quran.com/112", "Al-Ikhlas teaches pure tawhid and Allah's unmatched oneness."),
@@ -186,37 +186,159 @@ const SOURCE_LIBRARY: Record<string, LessonSource> = {
   video_salah_3: videoSource("video_salah_3", "Prayer guide 3", "https://youtu.be/di0u-K09Su4", "A detailed prayer walk-through with attention to posture and errors.")
 };
 
-const OBJECTIVE_DISTRACTORS: TopicBank = {
-  foundation: ["Treat Islamic phrases like culture only", "Rush through the day without remembrance", "Assume small sunnahs never shape character"],
-  prayer: ["Reduce salah to quick motions", "Treat purification and posture as optional", "Hope prayer grows without learning the order"],
-  aqidah: ["Treat belief as emotion without revelation", "Separate tawhid from daily obedience", "Reduce iman to vague identity"],
-  fasting: ["Treat fasting as hunger without taqwa", "Focus on the body and ignore the tongue", "Assume Ramadan only changes eating times"],
-  zakat: ["Treat zakat as random generosity", "Protect wealth while ignoring its duty", "Confuse zakat with image"],
-  hajj: ["Reduce Hajj to travel without submission", "Treat rites as scenery", "Forget that ability shapes obligation"],
-  manners: ["Treat adab as decoration", "Assume truthfulness matters only when convenient", "Ignore the rights of parents and neighbors"],
-  marriage: ["Build a home on image instead of mercy", "Use rights as weapons", "Forget that sakinah grows through worship"],
-  sahabah: ["Read the companions as distant history only", "Treat courage without knowledge as the model", "Forget the companions carried revelation with sacrifice"],
-  prophets: ["Treat prophetic stories as disconnected tales", "Ignore the repeating themes of patience and tawhid", "Read revelation history without applying its lessons"],
-  women_of_the_book: ["Reduce honored women to names without lessons", "Forget the courage and worship in their stories", "Treat these lives as distant from Muslim growth"],
-  quran_tafseer: ["Read surahs without theme or reflection", "Memorize words without asking what Allah teaches", "Treat tafsir like an optional extra"],
-  hadith: ["Quote narrations without knowing their source", "Treat the Sunnah as optional extra reading", "Remember the words but not the lesson"]
+// One plain fact and the mix-up it is most often confused with, for the true/false and "Which one is
+// true?" questions. Each is short, certain and the same for every lesson in the topic, so no lesson
+// needs made-up wrong answers. Prayer splits into wudu facts and salah facts.
+type FactPair = [myth: string, truth: string];
+
+const FACT_BANK: Record<TopicId, FactPair[]> = {
+  foundation: [
+    ["Muslims say Bismillah after they eat.", "Muslims say Bismillah before they eat."],
+    ["The Sunnah is to eat with the left hand.", "The Sunnah is to eat with the right hand."],
+    ["Alhamdulillah means \"See you later.\"", "Alhamdulillah means \"All praise is for Allah.\""],
+    ["We say InshaAllah about things that already happened.", "We say InshaAllah about plans for the future."],
+    ["Astaghfirullah means \"Thank you.\"", "Astaghfirullah means \"I ask Allah to forgive me.\""],
+    ["As-salamu alaykum means \"Good night.\"", "As-salamu alaykum means \"Peace be upon you.\""],
+    ["We answer a salam by staying quiet.", "We answer a salam with Wa alaykum as-salam."],
+    ["We can pray without getting clean first.", "We make wudu to get clean before we pray."]
+  ],
+  prayer: [
+    ["There are three daily prayers.", "There are five daily prayers."],
+    ["Fajr is the prayer at sunset.", "Fajr is the prayer at dawn."],
+    ["Each rak'ah has one sujud.", "Each rak'ah has two sujud."],
+    ["Salah begins with the taslim.", "Salah begins with Allahu akbar."],
+    ["Salah ends with Allahu akbar.", "Salah ends with the taslim."],
+    ["In salah, Muslims face toward Madinah.", "In salah, Muslims face the Ka'bah in Makkah."],
+    ["In each rak'ah, sujud comes before ruku.", "In each rak'ah, ruku comes before sujud."],
+    ["Chatting with friends is fine during salah.", "Talking during salah breaks the prayer."],
+    ["The adhan is a call to come and eat.", "The adhan is the call to prayer."],
+    ["In sujud, only the hands touch the ground.", "In sujud, the forehead touches the ground."],
+    ["Salah is best when it is rushed.", "Pray calmly, keeping still in each position."]
+  ],
+  aqidah: [
+    ["Muslims worship Allah and other gods too.", "Muslims worship Allah alone."],
+    ["There are three pillars of iman.", "There are six pillars of iman."],
+    ["Belief in angels is not part of iman.", "Belief in angels is part of iman."],
+    ["Allah has a son.", "Allah has no son and no partner."],
+    ["Allah does not know what we hide.", "Allah knows everything, even what we hide."],
+    ["Allah has no names we can know.", "Allah has beautiful names, like Ar-Rahman."],
+    ["Muslims do not believe in the Last Day.", "Muslims believe in the Last Day."],
+    ["We may make du'a to idols.", "We make du'a to Allah alone."]
+  ],
+  quran_tafseer: [
+    ["The Quran has 100 surahs.", "The Quran has 114 surahs."],
+    ["Al-Fatihah is the last surah of the Quran.", "Al-Fatihah is the first surah of the Quran."],
+    ["The Quran was revealed to Musa.", "The Quran was revealed to Muhammad ﷺ."],
+    ["Ayat al-Kursi is in Surah Ya-Sin.", "Ayat al-Kursi is in Surah Al-Baqarah."],
+    ["The Quran came down all in one day.", "The Quran came down over about 23 years."],
+    ["Tafsir means reading as fast as you can.", "Tafsir means explaining the Quran."],
+    ["Al-Baqarah is the shortest surah.", "Al-Baqarah is the longest surah."],
+    ["The Quran was first revealed in Shawwal.", "The Quran was first revealed in Ramadan."]
+  ],
+  manners: [
+    ["Say salam only to people you know.", "Say salam to people you know and people you don't."],
+    ["Neighbors have no rights over us.", "Neighbors have rights over us."],
+    ["A guest is a bother to be avoided.", "A Muslim honors the guest."],
+    ["The strong person is the one who shouts.", "The strong person controls anger."],
+    ["It is fine to be rude to parents when upset.", "Allah tells us to be kind to our parents."],
+    ["Telling the truth does not matter.", "Telling the truth leads to goodness."],
+    ["Good character weighs nothing on the scale.", "Nothing is heavier on the scale than good character."],
+    ["We may mock people we disagree with.", "We can disagree without mocking anyone."]
+  ],
+  fasting: [
+    ["The fast lasts from noon to midnight.", "The fast lasts from dawn to sunset."],
+    ["Suhur is the meal after sunset.", "Suhur is the meal before dawn."],
+    ["Iftar is the meal before dawn.", "Iftar is the meal at sunset."],
+    ["Fasting is only about feeling hungry.", "Fasting helps us gain taqwa."],
+    ["If you forget and eat, your fast is ruined.", "If you forget and eat, you keep fasting."],
+    ["Sick people must fast no matter what.", "Sick people may make up the fast later."],
+    ["Laylat al-Qadr is in the month of Hajj.", "We seek Laylat al-Qadr in the last ten nights of Ramadan."],
+    ["Fasting is a time for bad words.", "A fasting person guards the tongue."]
+  ],
+  zakat: [
+    ["Zakat is not one of the pillars of Islam.", "Zakat is one of the five pillars of Islam."],
+    ["Zakat is a gift you may skip.", "Zakat is a duty for Muslims with enough wealth."],
+    ["Zakat makes wealth less pure.", "Zakat purifies wealth."],
+    ["Anyone at all may receive zakat.", "The Quran names who may receive zakat."],
+    ["Zakat and sadaqah are exactly the same.", "Zakat is required; sadaqah is extra charity."],
+    ["Zakat is due on even a tiny amount.", "Zakat is only due when wealth reaches the nisab."],
+    ["Zakat is given to show off.", "Zakat is given for Allah, not to show off."],
+    ["The poor cannot receive zakat.", "The poor are among those who receive zakat."]
+  ],
+  hajj: [
+    ["Hajj is not one of the pillars of Islam.", "Hajj is one of the five pillars of Islam."],
+    ["Every Muslim must do Hajj every year.", "Hajj is due once in life for those who are able."],
+    ["Hajj takes place in Madinah.", "Hajj takes place in and around Makkah."],
+    ["Tawaf means walking around Mount Arafah.", "Tawaf means walking around the Ka'bah."],
+    ["Sa'i is walking between Mina and Arafah.", "Sa'i is walking between Safa and Marwah."],
+    ["In ihram, men wear their fanciest clothes.", "In ihram, men wear two simple, unstitched cloths."],
+    ["Pilgrims stand at Arafah in Ramadan.", "Pilgrims stand at Arafah on the 9th of Dhul-Hijjah."],
+    ["Hajj is only for rich or famous people.", "In Hajj, everyone stands equal before Allah."]
+  ],
+  marriage: [
+    ["Marriage in Islam is only about money.", "Allah put love and mercy between spouses."],
+    ["Kindness at home does not matter.", "The best people are the best to their families."],
+    ["Only one spouse has rights.", "Husband and wife both have rights."],
+    ["Spouses should tell others each other's secrets.", "Spouses keep each other's secrets safe."],
+    ["In an argument, being unkind is fine.", "Even in an argument, stay kind and fair."],
+    ["Prayer has no place in the home.", "The Prophet ﷺ told us to pray some prayers at home."],
+    ["Asking family for help is never allowed.", "In a quarrel, the Quran allows a helper from each family."]
+  ],
+  sahabah: [
+    ["Sahabah means the Prophet's enemies.", "Sahabah means the companions of the Prophet ﷺ."],
+    ["The Sahabah learned Islam only from later books.", "The Sahabah learned Islam from the Prophet ﷺ himself."],
+    ["Allah never praised the first believers.", "Allah praised the first believers in the Quran."],
+    ["The Sahabah were born hundreds of years after the Prophet ﷺ.", "The Sahabah lived at the time of the Prophet ﷺ."]
+  ],
+  prophets: [
+    ["Each prophet called people to a different god.", "Every prophet called people to worship Allah alone."],
+    ["The prophets were angels.", "The prophets were people chosen by Allah."],
+    ["Muhammad ﷺ was the first prophet.", "Muhammad ﷺ is the last prophet."],
+    ["Allah sent no prophets before Muhammad ﷺ.", "Allah sent many prophets before Muhammad ﷺ."],
+    ["Musa is not named in the Quran.", "Musa is named in the Quran many times."],
+    ["The prophets never faced hard tests.", "The prophets faced hard tests with patience."],
+    ["Nuh called his people for only one day.", "Nuh called his people for a very long time."],
+    ["Ibrahim worshipped idols like his people.", "Ibrahim turned away from idols to Allah alone."]
+  ],
+  women_of_the_book: [
+    ["Maryam is not mentioned in the Quran.", "A surah of the Quran is named after Maryam."],
+    ["Khadijah was the Prophet's last wife.", "Khadijah was the first wife of the Prophet ﷺ."],
+    ["The Mothers of the Believers were the Prophet's daughters.", "The Mothers of the Believers were the wives of the Prophet ﷺ."],
+    ["Asiyah was the wife of Musa.", "Asiyah was the wife of Pharaoh."],
+    ["Aishah was the daughter of Umar.", "Aishah was the daughter of Abu Bakr."],
+    ["Hafsah was the daughter of Abu Bakr.", "Hafsah was the daughter of Umar."],
+    ["Maryam was the mother of Musa.", "Maryam was the mother of Isa."],
+    ["The mother of Musa hid him on a mountain.", "The mother of Musa put him in the river, trusting Allah."]
+  ],
+  hadith: [
+    ["A hadith is a verse of the Quran.", "A hadith tells what the Prophet ﷺ said or did."],
+    ["Sahih al-Bukhari is a book of poems.", "Sahih al-Bukhari is a book of hadith."],
+    ["Where a hadith is recorded never matters.", "A hadith comes with where it is recorded."],
+    ["The Sunnah is only for special days.", "The Sunnah is the Prophet's way for every day."]
+  ]
 };
 
-const PRACTICE_DISTRACTORS: TopicBank = {
-  foundation: ["Skip the phrase and trust intention alone", "Answer people however the moment feels", "Wait for perfect knowledge before starting"],
-  prayer: ["Rush the action and fix it later", "Copy movements without understanding", "Assume sincerity replaces the taught method"],
-  aqidah: ["Accept any belief language that sounds spiritual", "Separate knowledge of Allah from worship", "Avoid revisiting weak belief questions"],
-  fasting: ["Protect the stomach and neglect the tongue", "Treat hunger as the main goal", "Make Ramadan reactive instead of intentional"],
-  zakat: ["Delay zakat until the duty becomes blurry", "Guess recipients without learning them", "Turn charity into a mood instead of obedience"],
-  hajj: ["Learn the sites but not the meaning", "Move with the crowd without understanding", "Treat the journey as tourism"],
-  manners: ["Choose sharpness when patience is possible", "Defend ego first and adab later", "Let pressure erase the sunnah response"],
-  marriage: ["Win the argument before protecting the home", "Use rights language without gentleness", "Let tiredness replace intentional mercy"],
-  sahabah: ["Admire the companions without imitating them", "Focus on names but not traits", "Keep the stories away from present obedience"],
-  prophets: ["Read the story and skip the lesson", "Notice the miracle but ignore the patience", "Treat tests as proof that guidance failed"],
-  women_of_the_book: ["Remember the name but not the virtue", "Skip the lesson because the life feels distant", "Miss how faith looked under pressure"],
-  quran_tafseer: ["Recite quickly without pausing over meaning", "Learn vocabulary without connecting it to theme", "Treat reflection as optional once the text is familiar"],
-  hadith: ["Hear the hadith and change nothing", "Share narrations without checking them", "Keep the Sunnah for special occasions only"]
+const BRANCH_FACTS: Record<string, FactPair[]> = {
+  "prayer-wudu": [
+    ["Wudu can be done in any order.", "Wudu is done in the order the Prophet ﷺ taught."],
+    ["The first thing washed in wudu is the feet.", "The first thing washed in wudu is the hands."],
+    ["Wudu ends with wiping the head.", "Wudu ends with washing the feet."],
+    ["Wudu has nothing to do with salah.", "Wudu gets you ready for salah."],
+    ["In wudu, the arms are washed only to the wrists.", "In wudu, the arms are washed up to the elbows."],
+    ["In wudu, you wash the whole body.", "Wudu washes the face, arms and feet and wipes the head."],
+    ["Using the toilet does not break wudu.", "Using the toilet breaks wudu."],
+    ["In wudu, the head is washed with lots of water.", "In wudu, the head is wiped with wet hands."]
+  ]
 };
+
+// The same plain facts named for one companion, so each companion's unit has questions about them.
+function companionFacts(name: string): FactPair[] {
+  return [
+    [`${name} never met the Prophet ﷺ.`, `${name} met the Prophet ﷺ and believed in him.`],
+    [`${name} was a prophet.`, `${name} was a companion, not a prophet.`],
+    ...FACT_BANK.sahabah
+  ];
+}
 
 const SECTION_SEEDS: SectionSeed[] = [];
 
@@ -288,132 +410,82 @@ function tf(id: string, prompt: string, isTrue: boolean, explanation: string): C
   };
 }
 
-const PROPER_NOUN_START =
-  /^(Abu|Adam|Aishah|Al-|Ali\b|Allah|An-|As-|Asiyah|Ayat|Bilal|Dawud|Hafsah|Harun|Hawwa|Hud\b|Ibrahim|Isa\b|Ismail|Khadijah|Lut\b|Maryam|Mina\b|Muhammad|Musa|Muzdalifah|Nuh\b|Quran|Ramadan|Sa'i|Sawdah|Sulayman|Sunnah|Surah|Umar|Uthman|Ya'qub|Yusuf)/;
-
-// Lowercases only a leading common word so titles read naturally mid-sentence
-// without turning names like "Surah Yusuf" or "Abu Bakr" into "surah yusuf".
-function inSentence(title: string) {
-  return PROPER_NOUN_START.test(title) ? title : title.charAt(0).toLowerCase() + title.slice(1);
+// Review and mastery lessons revisit the lessons before them instead of teaching a new line.
+function isReviewSeed(lesson: LessonSeed) {
+  return lesson.kind === "review" || lesson.lessonType === "review" || lesson.lessonType === "mastery";
 }
 
-function lessonPractice(topicId: TopicId, title: string, fallback?: string) {
-  if (fallback) return fallback;
+// `count` different indexes into a list of `length`, the same every time for the same key.
+function pickIndexes(length: number, count: number, key: string) {
+  const start = Math.abs(hashCode(key)) % Math.max(1, length);
+  const step = length > 2 ? 1 + (Math.abs(hashCode(`${key}:step`)) % (length - 1)) : 1;
+  const picked: number[] = [];
+  for (let offset = 0; offset < length; offset += 1) {
+    const index = (start + offset * step) % length;
+    if (!picked.includes(index)) picked.push(index);
+  }
+  // A step that shares a factor with the length skips some indexes; the rest follow in order.
+  for (let index = 0; index < length; index += 1) {
+    if (!picked.includes(index)) picked.push(index);
+  }
+  return picked.slice(0, count);
+}
+
+// "What is this about?": the line the learner just read, with this lesson's title among two other
+// titles from the same unit. Every choice is a lesson title, so they are short and the same kind.
+function recallChallenge(id: string, lesson: LessonSeed, unit: LessonSeed[]): Challenge | undefined {
+  const own = unit.indexOf(lesson);
+  const others = unit.filter((item) => item !== lesson);
+  // Lessons right next to this one are often about the same thing, so farther ones are tried first.
+  const far = others.filter((item) => Math.abs(unit.indexOf(item) - own) >= 2);
+  const pool = far.length >= 2 ? far : others;
+  if (pool.length < 2) return undefined;
+  const wrong = pickIndexes(pool.length, 2, id).map((index) => pool[index].title);
+  const titles = rotate([lesson.title, ...wrong], Math.abs(hashCode(`${id}:order`)) % 3);
   return {
-    prayer: `Practice ${inSentence(title)} with calmness, order, and awareness before the next prayer.`,
-    quran_tafseer: `Pause with ${inSentence(title)} long enough to connect the surah to worship and daily life.`,
-    aqidah: `Return to ${inSentence(title)} when beliefs or words start getting blurry.`,
-    fasting: `Use ${inSentence(title)} to guard both the body and the heart in Ramadan.`,
-    zakat: `Let ${inSentence(title)} guide real giving decisions instead of guesswork.`,
-    hajj: `Study ${inSentence(title)} as worship, sequence, and submission together.`,
-    manners: `Carry ${inSentence(title)} into ordinary social moments instead of waiting for ideal ones.`,
-    marriage: `Use ${inSentence(title)} to protect mercy inside the home when it is tested.`,
-    sahabah: `Read ${inSentence(title)} as a model to imitate, not a story to admire from far away.`,
-    prophets: `Translate ${inSentence(title)} into present-day obedience, patience, and trust.`,
-    women_of_the_book: `Turn ${inSentence(title)} into a present-day virtue worth practicing.`,
-    foundation: `Repeat ${inSentence(title)} in the next small moment where it belongs.`,
-    hadith: `Act on ${inSentence(title)} the next time the situation it describes comes up.`
-  }[topicId];
+    ...mc(id, `“${lesson.focus}” What is this about?`, titles, lesson.title, `${lesson.title}: ${lesson.focus}`),
+    miniLesson: lesson.focus,
+    reviewSuggestion: `Review ${lesson.title}`
+  };
 }
 
-function lessonMisconception(title: string, fallback?: string) {
-  return fallback ?? `${title} can stay fuzzy because the basics are already enough.`;
-}
+function buildChallenges(lessonId: string, lesson: LessonSeed, unit: LessonSeed[], facts: FactPair[]) {
+  const challenges: Challenge[] = [];
+  const taught = unit.filter((item) => !isReviewSeed(item));
 
-// Every true/false check used to be a misconception marked False, so learners could
-// pass by always tapping False. About half now state the lesson's focus as True instead.
-// Review and mastery focuses are instructions rather than claims, so they stay False.
-function statesFocusAsTrue(lessonId: string, lesson: LessonSeed) {
-  if (lesson.kind === "review" || lesson.lessonType === "review" || lesson.lessonType === "mastery") return false;
-  if (/^(Review|Put|Move|Use|Mastery)\b/.test(lesson.focus)) return false;
-  return Math.abs(hashCode(`${lessonId}:truth`)) % 2 === 0;
-}
+  if (isReviewSeed(lesson)) {
+    // The closest lessons before this one, one recall question each.
+    const before = taught.filter((item) => unit.indexOf(item) < unit.indexOf(lesson)).slice(-3);
+    before.forEach((item, index) => {
+      const recall = recallChallenge(`${lessonId}_recall_${index + 1}`, item, taught);
+      if (recall) challenges.push(recall);
+    });
+  } else {
+    const recall = recallChallenge(`${lessonId}_focus`, lesson, taught);
+    if (recall) challenges.push(recall);
+  }
 
-function buildChallenges(topicId: TopicId, lessonId: string, lesson: LessonSeed) {
-  const objectiveOptions = rotate(OBJECTIVE_DISTRACTORS[topicId], Math.abs(hashCode(`${lessonId}:focus`)) % 3);
-  const practiceOptions = rotate(PRACTICE_DISTRACTORS[topicId], Math.abs(hashCode(`${lessonId}:practice`)) % 3);
-  const focusChoices = rotate([lesson.focus, ...objectiveOptions], Math.abs(hashCode(`${lessonId}:focus:order`)) % 4);
-  const practice = lessonPractice(topicId, lesson.title, lesson.practice);
-  const practiceChoices = rotate([practice, ...practiceOptions], Math.abs(hashCode(`${lessonId}:practice:order`)) % 4);
-  const misconception = lessonMisconception(lesson.title, lesson.misconception);
-  const challenges: Challenge[] = [
-    {
-      ...mc(
-        `${lessonId}_focus`,
-        mainLearningPrompt(topicId, lesson),
-        focusChoices,
-        lesson.focus,
-        `${lesson.focus} This lesson is meant to deepen understanding, not just recognition.`
-      ),
-      miniLesson: lesson.focus,
-      easierExplanation: `Start here: ${lesson.focus}`,
-      reviewSuggestion: `Review ${lesson.title}`
-    },
-    {
-      ...mc(
-        `${lessonId}_practice`,
-        "Which response best fits this lesson in real life?",
-        practiceChoices,
-        practice,
-        `${practice} This lesson should become practice, not just information.`
-      ),
-      miniLesson: practice,
-      easierExplanation: `Think about the next small moment where ${inSentence(lesson.title)} would matter.`,
-      reviewSuggestion: `Practice ${inSentence(lesson.title)} again in a real-life setting`
-    },
-    statesFocusAsTrue(lessonId, lesson)
-      ? {
-          ...tf(`${lessonId}_watchout`, lesson.focus, true, `True. ${lesson.focus} Watch out for the opposite idea: ${misconception}`),
-          miniLesson: lesson.focus,
-          easierExplanation: `${lesson.focus} This is the core teaching of the lesson.`,
-          reviewSuggestion: `Review the main teaching in ${lesson.title}`
-        }
-      : {
-          ...tf(`${lessonId}_watchout`, misconception, false, `Watch out for this mistake: ${misconception} ${lesson.focus}`),
-          miniLesson: `Watch out for this confusion: ${misconception}`,
-          easierExplanation: `${lesson.focus} Keep the lesson anchored to what was actually taught.`,
-          reviewSuggestion: `Review the common misconception in ${lesson.title}`
-        }
-  ];
-  if (lesson.difficulty >= 4) {
-    const correctionChoices = rotate([misconception, practice, lesson.focus, `Review ${inSentence(lesson.title)} from its source text before reacting.`], Math.abs(hashCode(`${lessonId}:correction`)) % 4);
+  const [tfIndex, trueIndex, mythA, mythB] = pickIndexes(facts.length, 4, lessonId);
+  // A lesson's own written mix-up beats a general one.
+  const [myth, truth] = lesson.misconception ? [lesson.misconception, lesson.focus] : facts[tfIndex];
+  const statesTruth = !lesson.misconception && Math.abs(hashCode(`${lessonId}:truth`)) % 2 === 0;
+  challenges.push(
+    statesTruth
+      ? { ...tf(`${lessonId}_watchout`, truth, true, truth), reviewSuggestion: `Review ${lesson.title}` }
+      : { ...tf(`${lessonId}_watchout`, myth, false, truth), miniLesson: truth, reviewSuggestion: `Review ${lesson.title}` }
+  );
+
+  if (!isReviewSeed(lesson) && mythB !== undefined) {
+    const answer = facts[trueIndex][1];
+    const options = rotate([answer, facts[mythA][0], facts[mythB][0]], Math.abs(hashCode(`${lessonId}:true:order`)) % 3);
     challenges.push({
-      ...mc(
-        `${lessonId}_correction`,
-        "Which statement most clearly needs correction?",
-        correctionChoices,
-        misconception,
-        `${misconception} This is the kind of confusion this lesson is trying to clear.`
-      ),
-      miniLesson: `Nuanced lessons ask you to notice what needs correction, not just what sounds familiar.`,
-      easierExplanation: `Look for the statement that clashes with the lesson's main point.`,
-      reviewSuggestion: `Return to ${lesson.title} and compare the correct teaching with the mistaken statement`
+      ...mc(`${lessonId}_true`, "Which one is true?", options, answer, answer),
+      miniLesson: answer,
+      reviewSuggestion: `Review ${lesson.title}`
     });
   }
-  return challenges;
-}
 
-function mainLearningPrompt(topicId: TopicId, lesson: LessonSeed) {
-  switch (topicId) {
-    case "foundation":
-      return `Which Muslim habit is this lesson training you to use?`;
-    case "prayer":
-      return lesson.slug.includes("wudu") || /wudu|wash|rinse|wipe/i.test(lesson.title)
-        ? "What is the main wudu teaching in this step?"
-        : "What prayer teaching is this lesson trying to make clear?";
-    case "quran_tafseer":
-      return `What Quran theme is this lesson helping you notice?`;
-    case "sahabah":
-    case "prophets":
-    case "women_of_the_book":
-      return `What lesson should a learner carry from this story moment?`;
-    case "manners":
-      return `What character trait or response is this lesson training?`;
-    case "marriage":
-      return `What home-building lesson is this step trying to strengthen?`;
-    default:
-      return `What is the main learning point in "${lesson.title}"?`;
-  }
+  return challenges;
 }
 
 type CompanionBranchConfig = {
@@ -436,7 +508,7 @@ function buildCompanionLessons(config: CompanionBranchConfig): LessonSeed[] {
   return [
     seed("early-life", "Early life", `${config.title} began life in a society that revelation would soon transform completely.`, 1),
     seed("family-lineage", "Family and lineage", `Family ties, tribe, and upbringing help explain how ${lowerName} later served Islam.`, 1),
-    seed("before-islam", "Before Islam", `The life of ${lowerName} before Islam helps the learner notice what revelation changed and purified.`, 1),
+    seed("before-islam", "Before Islam", `The life of ${lowerName} before Islam shows what revelation changed and purified.`, 1),
     seed("accepting-islam", "Accepting Islam", `${config.title} embraced Islam in a way that redirected every later decision.`, 2),
     seed("makkah-years", "The Makkah years", `${config.title} was shaped by the pressure, loyalty, and sacrifice of the Makkah years.`, 2),
     seed("friendship-with-the-prophet", "Friendship with the Prophet", config.relationFocus, 2),
@@ -449,13 +521,11 @@ function buildCompanionLessons(config: CompanionBranchConfig): LessonSeed[] {
     seed("moments-of-bravery", "Moments of bravery", `${config.title} teaches that bravery in Islam is strongest when it protects truth and stays disciplined.`, 4),
     seed("moments-of-mercy", "Moments of mercy", `The life of ${lowerName} also carries mercy, not just force or public presence.`, 4),
     seed("public-service-and-counsel", "Public service and counsel", `${config.title} offered more than presence; public service and counsel helped steady the Ummah.`, 4),
-    seed("leadership-and-decisions", "Leadership and decisions", `${config.legacyFocus} The learner should see how big decisions were tied back to obedience and accountability.`, 4),
+    seed("leadership-and-decisions", "Leadership and decisions", config.legacyFocus, 4),
     seed("after-the-prophet", "After the Prophet", `${config.title} remained part of the religion's preservation, service, and transmission after the Prophet.`, 4),
-    seed("final-years-and-advice", "Final years and advice", `The later years of ${lowerName} help the learner notice what remained constant at the end of life.`, 4),
+    seed("final-years-and-advice", "Final years and advice", `The later years of ${lowerName} show what stayed constant to the end of life.`, 4),
     seed("lessons-for-today", "Lessons from the life", `${config.title} should be studied as a model for today's believer, not distant history only.`, 4),
-    seed("common-misconceptions", "Common misconceptions", config.misconception, 4, {
-      misconception: `${config.title} should be admired emotionally without studying the hard choices that made the life meaningful.`
-    }),
+    seed("common-misconceptions", "Common misconceptions", config.misconception, 4),
     seed("review-lessons", "Review lessons", `Review the major scenes, virtues, sacrifices, and lessons from the life of ${lowerName}.`, 4, {
       kind: "review",
       lessonType: "review"
@@ -488,6 +558,7 @@ function buildCompanionBranch(config: CompanionBranchConfig): BranchSeed {
     clusterSize: 5,
     difficultyRange: [1, 5],
     sourceKeys: SAHABI_SOURCE_KEYS,
+    facts: companionFacts(config.title),
     lessons: buildCompanionLessons(config)
   };
 }
@@ -664,7 +735,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       lessons: [
         seed("what-wudu-is", "What wudu is", "Wudu is the purification that prepares a Muslim for prayer with obedience and cleanliness.", 1),
         seed("why-wudu-matters", "Why wudu matters", "Purification matters because prayer is approached with readiness, not carelessness.", 1),
-        seed("conditions-before-wudu", "Conditions before wudu", "A learner should know what readiness, clean water, and calm intention look like before beginning.", 1),
+        seed("conditions-before-wudu", "Conditions before wudu", "Before you begin, you need readiness, clean water, and a calm intention.", 1),
         seed("intention-basics", "Intention basics", "Wudu begins as a conscious act of preparing for worship, not as empty routine.", 2),
         seed("wash-hands-first", "Wash hands first", "The opening of wudu trains order from the first movement, not random washing.", 2),
         seed("rinse-mouth", "Rinse the mouth", "Rinsing the mouth is part of the taught order and should be done with care.", 2),
@@ -672,21 +743,21 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
         seed("wash-face", "Wash the face", "The face must be washed properly and not reduced to a rushed splash.", 2),
         seed("wash-arms", "Wash the arms", "The arms are washed fully in the taught order, with care instead of haste.", 3),
         seed("wipe-head", "Wipe the head", "Wiping the head teaches that wudu is followed as taught, not improvised from habit.", 3),
-        seed("wipe-ears", "Wipe the ears", "This lesson helps the learner notice where detailed Sunnah actions fit into careful wudu.", 3),
+        seed("wipe-ears", "Wipe the ears", "The ears are wiped right after the head, as the Prophet ﷺ did.", 3),
         seed("wash-feet", "Wash the feet", "The feet complete the main body sequence and should not be handled carelessly.", 3),
-        seed("full-order", "Full order of wudu", "Wudu becomes strong when the learner can hold the whole order from start to finish.", 3),
-        seed("fard-acts", "Fard acts of wudu", "The learner should distinguish the core acts that cannot be neglected.", 4),
+        seed("full-order", "Full order of wudu", "Wudu becomes strong when you can hold the whole order from start to finish.", 3),
+        seed("fard-acts", "Fard acts of wudu", "Some acts of wudu are core acts that cannot be left out.", 4),
         seed("sunnah-acts", "Sunnah acts of wudu", "The Sunnah beautifies and perfects the purification beyond the bare minimum.", 4),
-        seed("what-breaks-wudu", "What breaks wudu", "A strong learner knows the nullifiers clearly and does not guess about them.", 4),
+        seed("what-breaks-wudu", "What breaks wudu", "Know clearly what breaks wudu, and do not guess about it.", 4),
         seed("what-does-not-break-wudu", "What does not break wudu", "Not everything people worry about actually breaks wudu, so clarity matters.", 4),
         seed("bathroom-etiquette", "Bathroom etiquette", "Purity training also includes adab before a person even returns to the sink.", 4),
         seed("common-mistakes", "Common mistakes", "Most wudu mistakes come from rushing, bad order, or not washing properly.", 5),
-        seed("demonstration-and-practice", "Practical how-to guide", "This lesson pulls the steps together like a guided demonstration and self-check.", 5),
+        seed("demonstration-and-practice", "Practical how-to guide", "Put all the wudu steps together, then check yourself.", 5),
         seed("reinforcement-review", "Reinforcement lessons", "Repeat the order, the core acts, the sunnah details, and the nullifiers until they become stable.", 5, {
           kind: "review",
           lessonType: "review"
         }),
-        seed("wudu-mastery-check", "Mastery checks", "Mastery means the learner can perform, explain, and correct wudu with confidence.", 5, {
+        seed("wudu-mastery-check", "Mastery checks", "Mastery means you can perform, explain, and correct wudu with confidence.", 5, {
           kind: "review",
           lessonType: "mastery"
         })
@@ -702,13 +773,13 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       sourceKeys: ["hadith_bukhari_631", "quran_33_21"],
       lessons: [
         seed("why-salah-matters", "Why salah matters", "Salah is a pillar that keeps the believer returning to Allah through the whole day.", 1),
-        seed("five-daily-prayers", "The five daily prayers", "A learner should know the named prayers and that they structure the day around worship.", 1),
+        seed("five-daily-prayers", "The five daily prayers", "The five named prayers shape the whole day around worship.", 1),
         seed("names-and-order", "Prayer names and order", "Knowing the names and order of the prayers prevents confusion and builds a stable rhythm.", 1),
-        seed("rakah-overview", "Rakah overview", "The learner should understand that prayer is built from repeating units with taught pillars.", 2),
+        seed("rakah-overview", "Rakah overview", "Prayer is built from repeating units, called rak'ahs, with taught pillars.", 2),
         seed("conditions-before-salah", "Conditions before salah", "Prayer starts with readiness before takbir, not only with what happens inside the salah itself.", 2),
         seed("pillars-and-obligations", "Pillars and obligations", "Some parts of prayer are central pillars and should be recognized early.", 2),
         seed("follow-the-prophetic-model", "Follow the Prophetic model", "The foundation of salah is to pray as the Prophet prayed, not by self-made style.", 3),
-        seed("basic-review", "Salah basics review", "These basics should become second nature before the learner moves into finer detail.", 4, {
+        seed("basic-review", "Salah basics review", "These basics should become second nature before you move into finer detail.", 4, {
           kind: "review",
           lessonType: "review"
         })
@@ -724,10 +795,10 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       sourceKeys: ["hadith_bukhari_631", "quran_33_21"],
       lessons: [
         seed("time-and-worship", "Why prayer time matters", "Prayer is tied to time so the whole day is governed by worship and not drift.", 1),
-        seed("fajr-to-isha", "From Fajr to Isha", "The learner should move through the prayer day from dawn to night with confidence.", 1),
-        seed("general-time-windows", "General time windows", "Each prayer has a time window and the learner should begin to recognize them broadly.", 2),
+        seed("fajr-to-isha", "From Fajr to Isha", "The prayer day runs from Fajr at dawn to Isha at night.", 1),
+        seed("general-time-windows", "General time windows", "Each prayer has its own time window in the day.", 2),
         seed("guarding-the-first-part", "Guarding the opening time", "Honoring prayer early trains seriousness and planning.", 2),
-        seed("late-prayer-scenarios", "Late prayer scenarios", "This lesson begins simple scenario thinking around time, delay, and responsibility.", 3),
+        seed("late-prayer-scenarios", "Late prayer scenarios", "Simple real cases help you think about time, delay, and responsibility.", 3),
         seed("times-review", "Prayer times review", "The prayer day should feel ordered, guarded, and connected to obedience.", 4, {
           kind: "review",
           lessonType: "mastery"
@@ -747,7 +818,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
         seed("responding-to-the-call", "Responding to the call", "The believer should learn to answer the call with movement, intention, and respect.", 2),
         seed("what-the-iqamah-does", "What the iqamah does", "Iqamah tightens the prayer moment and signals that the salah is about to begin.", 2),
         seed("masjid-readiness", "Masjid readiness", "The calls to prayer teach punctuality, order, and calm readiness before standing.", 3),
-        seed("adhan-review", "Adhan and iqamah review", "This branch should leave the learner feeling the dignity and order around public prayer.", 4, {
+        seed("adhan-review", "Adhan and iqamah review", "The adhan and iqamah bring dignity and order to prayer together.", 4, {
           kind: "review",
           lessonType: "review"
         })
@@ -763,13 +834,13 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       sourceKeys: ["hadith_abudawud_730", "hadith_nasai_1055", "hadith_abudawud_856", "hadith_tirmidhi_270", "hadith_tirmidhi_272", "video_salah_1", "video_salah_3"],
       lessons: [
         seed("what-ruku-teaches", "What ruku teaches", "Ruku is not a dip of the body only; it teaches submission, stillness, and praise.", 2),
-        seed("shape-of-ruku", "The shape of ruku", "The learner should know how the body settles into ruku with calmness and order.", 2),
+        seed("shape-of-ruku", "The shape of ruku", "In ruku, the body settles into a bow with calmness and order.", 2),
         seed("rising-from-ruku", "Rising from ruku", "The transition out of ruku matters and should not be blurred or rushed.", 3),
         seed("what-sujud-teaches", "What sujud teaches", "Sujud is one of the clearest places where humility and closeness meet in prayer.", 3),
-        seed("seven-points-of-sujud", "Seven points of sujud", "The learner should know the body parts involved in a correct prostration.", 3),
+        seed("seven-points-of-sujud", "Seven points of sujud", "A correct sujud rests on seven body parts.", 3),
         seed("sitting-between-sujud", "Sitting between sajdahs", "The sitting between sajdahs is part of the prayer's calm structure, not a throwaway pause.", 4),
         seed("mistakes-in-ruku-and-sujud", "Mistakes in ruku and sujud", "Rushed movement, missing stillness, and poor posture often weaken these pillars.", 4),
-        seed("ruku-sujud-review", "Ruku and sujud review", "The learner should now be able to explain and spot the core corrections in these pillars.", 5, {
+        seed("ruku-sujud-review", "Ruku and sujud review", "Now you can explain ruku and sujud and spot the common mistakes.", 5, {
           kind: "review",
           lessonType: "mastery"
         })
@@ -785,10 +856,10 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       sourceKeys: ["hadith_nasai_1278", "hadith_abudawud_974", "hadith_abudawud_933", "video_salah_1"],
       lessons: [
         seed("why-the-sitting-matters", "Why the sitting matters", "The sitting in prayer carries taught words and should be learned carefully.", 2),
-        seed("wording-of-tashahhud", "Wording of the tashahhud", "The learner should recognize the taught wording and its seriousness.", 3),
-        seed("when-tashahhud-happens", "When tashahhud happens", "This branch helps the learner place the sitting and tashahhud correctly inside the prayer flow.", 3),
+        seed("wording-of-tashahhud", "Wording of the tashahhud", "The tashahhud has taught words that should be said with care.", 3),
+        seed("when-tashahhud-happens", "When tashahhud happens", "The tashahhud is said while sitting, at its set places in the prayer.", 3),
         seed("taslim-ends-the-prayer", "Taslim ends the prayer", "Prayer closes with an orderly taslim, not with a vague stopping point.", 4),
-        seed("tashahhud-review", "Tashahhud review", "This lesson cluster joins wording, placement, posture, and ending in one closing flow.", 5, {
+        seed("tashahhud-review", "Tashahhud review", "Wording, placement, posture, and ending come together in one closing flow.", 5, {
           kind: "review",
           lessonType: "mastery"
         })
@@ -805,7 +876,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       lessons: [
         seed("what-khushu-is", "What khushu is", "Khushu is built through presence, humility, and careful prayer rather than wishful feeling alone.", 2),
         seed("prepare-for-khushu", "Prepare for khushu", "Khushu starts before the prayer through wudu, timing, and clearing distractions.", 3),
-        seed("understand-what-you-say", "Understand what you say", "Meaning and presence grow stronger when the learner understands the words and positions.", 3),
+        seed("understand-what-you-say", "Understand what you say", "Presence grows stronger when you understand the words and positions.", 3),
         seed("fight-distraction", "Fight distraction", "Khushu is protected by repeated effort against haste and wandering attention.", 4),
         seed("khushu-review", "Khushu review", "Presence in prayer is trained through preparation, meaning, and repeated careful effort.", 5, {
           kind: "review",
@@ -822,11 +893,11 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       difficultyRange: [3, 5],
       sourceKeys: ["hadith_abudawud_856", "video_salah_3"],
       lessons: [
-        seed("what-invalidates-salah", "What invalidates salah", "A serious learner should know that some actions break prayer while others only reduce quality or need correction.", 3),
-        seed("speech-and-excessive-movement", "Speech and excessive movement", "This branch starts teaching how invalidation differs from distraction or poor form.", 3),
-        seed("purity-and-prayer-validity", "Purity and prayer validity", "Loss of purity changes how the learner thinks about continuing or restarting prayer.", 4),
+        seed("what-invalidates-salah", "What invalidates salah", "Some actions break the prayer, while others only lower its quality.", 3),
+        seed("speech-and-excessive-movement", "Speech and excessive movement", "Breaking the prayer is different from being distracted or praying with poor form.", 3),
+        seed("purity-and-prayer-validity", "Purity and prayer validity", "Losing wudu during prayer changes whether you can carry on.", 4),
         seed("scenario-judgment", "Scenario judgment", "Real learning means judging realistic cases instead of repeating slogans.", 4),
-        seed("invalidator-review", "Invalidators review", "The learner should leave with clearer judgment about what breaks prayer and what needs repair.", 5, {
+        seed("invalidator-review", "Invalidators review", "Now you can judge more clearly what breaks prayer and what needs repair.", 5, {
           kind: "review",
           lessonType: "mastery"
         })
@@ -842,10 +913,10 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       sourceKeys: ["hadith_bukhari_631", "video_salah_2"],
       lessons: [
         seed("why-jamaah-matters", "Why congregational prayer matters", "Prayer with others trains discipline, unity, and following properly.", 2),
-        seed("following-the-imam", "Following the imam", "The learner should know how to follow the imam without rushing ahead or drifting behind.", 3),
+        seed("following-the-imam", "Following the imam", "Follow the imam without rushing ahead or drifting behind.", 3),
         seed("joining-late", "Joining late", "Joining a prayer already underway requires calm thinking and the right sequence.", 4),
         seed("masjid-etiquette", "Masjid etiquette in jamaah", "Shared prayer still depends on adab, calm movement, and awareness of others.", 4),
-        seed("jamaah-review", "Congregational prayer review", "This cluster gathers following, late arrival, etiquette, and prayer order together.", 5, {
+        seed("jamaah-review", "Congregational prayer review", "Following, joining late, etiquette, and prayer order all come together.", 5, {
           kind: "review",
           lessonType: "review"
         })
@@ -860,11 +931,11 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
       difficultyRange: [3, 5],
       sourceKeys: ["hadith_bukhari_631", "video_salah_2"],
       lessons: [
-        seed("seriousness-of-missing-prayer", "Seriousness of missing prayer", "The learner should feel the seriousness of missed prayer without slipping into despair.", 3),
-        seed("returning-after-a-miss", "Returning after a miss", "Islamic learning should move the learner quickly back into obedience and repair.", 3),
+        seed("seriousness-of-missing-prayer", "Seriousness of missing prayer", "Missing a prayer is serious, but it is no reason to despair.", 3),
+        seed("returning-after-a-miss", "Returning after a miss", "After a missed prayer, return quickly to obedience and repair.", 3),
         seed("joining-and-making-up", "Joining and making up", "Late prayer scenarios need sequence, not panic or random guessing.", 4),
-        seed("build-a-protection-plan", "Build a protection plan", "A serious learner starts planning life around prayer instead of repairing the same misses forever.", 4),
-        seed("missed-prayer-review", "Missed prayers review", "This branch ties seriousness, repair, and practical planning together.", 5, {
+        seed("build-a-protection-plan", "Build a protection plan", "Plan your day around prayer instead of repairing the same misses again and again.", 4),
+        seed("missed-prayer-review", "Missed prayers review", "Seriousness, repair, and practical planning all tie together.", 5, {
           kind: "review",
           lessonType: "mastery"
         })
@@ -873,7 +944,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
     {
       id: "prayer-review-and-mastery",
       title: "Review and mastery",
-      description: "A mixed review branch that checks whether the learner can connect purity, posture, order, correction, and presence together.",
+      description: "A mixed review that connects purity, posture, order, correction, and presence.",
       order: 11,
       clusterSize: 5,
       premiumOnly: true,
@@ -883,9 +954,9 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
         seed("mixed-review-1", "Mixed review 1", "Pull the prayer world together by moving across readiness, order, and common correction points.", 4, { kind: "review", lessonType: "review" }),
         seed("mixed-review-2", "Mixed review 2", "Review should now require comparison and error correction, not only memory.", 4, { kind: "review", lessonType: "review" }),
         seed("scenario-block-1", "Scenario block 1", "Judge realistic prayer and purity situations with sequence and confidence.", 4, { lessonType: "scenario" }),
-        seed("scenario-block-2", "Scenario block 2", "Harder scenarios should now test whether the learner can distinguish invalidation, weakness, and repair.", 5, { lessonType: "scenario" }),
+        seed("scenario-block-2", "Scenario block 2", "Harder cases ask you to tell apart what breaks prayer, what weakens it, and what repairs it.", 5, { lessonType: "scenario" }),
         seed("mastery-block-1", "Mastery block 1", "Mastery means connecting wudu, salah, correction, and khushu into one lived practice.", 5, { kind: "review", lessonType: "mastery" }),
-        seed("mastery-block-2", "Mastery block 2", "This final block should feel like a real checkpoint rather than a light review tap-through.", 5, { kind: "review", lessonType: "mastery" })
+        seed("mastery-block-2", "Mastery block 2", "The last checkpoint brings the whole prayer world together.", 5, { kind: "review", lessonType: "mastery" })
       ]
     }
   ];
@@ -942,7 +1013,7 @@ SECTION_SEEDS.push(
         lessons: [
           seed("clean-before-prayer", "Clean before prayer", "A Muslim learns early that prayer is approached with purity and seriousness.", 2),
           seed("hear-the-call", "Answer the prayer rhythm", "Prayer creates structure in the day by returning the heart again and again to Allah.", 2),
-          seed("prepare-the-space", "Prepare your place", "A learner should begin noticing clothing, place, and readiness before worship.", 3),
+          seed("prepare-the-space", "Prepare your place", "Before worship, notice your clothing, your place, and your readiness.", 3),
           seed("follow-the-model", "Follow the taught model", "Islamic worship becomes strong by following what was taught, not by personal improvisation.", 3, { misconception: "Worship becomes more sincere when everyone invents a personal style." }),
           seed("starter-worship-review", "Starter worship review", "Foundational worship habits are small in form but large in the direction they set.", 4, { kind: "review", lessonType: "review" })
         ]
@@ -1027,7 +1098,7 @@ SECTION_SEEDS.push(
           seed("belief-and-obedience", "Belief and obedience", "True iman should make obedience more meaningful, not more distant.", 2),
           seed("belief-under-pressure", "Belief under pressure", "Real belief shows itself when fear, loss, or temptation press on the heart.", 3),
           seed("repentance-and-hope", "Repentance and hope", "Iman keeps the sinner from despair because Allah remains the door back.", 4),
-          seed("certainty-and-humility", "Certainty with humility", "Strong belief makes a learner more grounded and humble, not proud and dismissive.", 4),
+          seed("certainty-and-humility", "Certainty with humility", "Strong belief makes a person more grounded and humble, not proud and dismissive.", 4),
           seed("lived-iman-review", "Lived iman review", "Iman becomes deep when it explains how the believer worships, repents, fears, hopes, and stays steady.", 5, { kind: "review", lessonType: "mastery" })
         ]
       }
@@ -1062,6 +1133,7 @@ function createGeneratedBranch(section: LearningSection, branch: BranchSeed) {
   const nodes: LearningNode[] = [];
   const lessonsById: Record<string, Lesson> = {};
   const clusterSize = Math.max(3, branch.clusterSize ?? 5);
+  const facts = branch.facts ?? BRANCH_FACTS[branch.id] ?? FACT_BANK[section.topicId];
 
   branch.lessons.forEach((entry, index) => {
     const nodeId = `${branch.id}-${entry.slug}`;
@@ -1101,8 +1173,8 @@ function createGeneratedBranch(section: LearningSection, branch: BranchSeed) {
       surahName: entry.surahName ?? branch.surahName,
       ayahRange: entry.ayahRange ?? branch.ayahRange,
       title: entry.title,
-      intro: `${entry.focus} ${lessonPractice(section.topicId, entry.title, entry.practice)}`,
-      explanationContent: `${entry.focus} Watch for this misconception: ${lessonMisconception(entry.title, entry.misconception).replace(/\.$/, "")}.`,
+      intro: entry.practice ? `${entry.focus} ${entry.practice}` : entry.focus,
+      explanationContent: entry.misconception ? `${entry.focus} A common mistake: ${entry.misconception}` : entry.focus,
       lessonType: entry.lessonType ?? defaultLessonType(section.topicId, kind),
       difficulty: entry.difficulty,
       xpReward,
@@ -1111,7 +1183,7 @@ function createGeneratedBranch(section: LearningSection, branch: BranchSeed) {
       unlockRules: index === 0 ? [] : [`Complete ${nodes[index - 1].title}`],
       masteryState: kind === "review" ? ("mastery" as const) : ("learning" as const),
       masteryTestEligible,
-      challenges: buildChallenges(section.topicId, lessonId, entry).map((challenge) => ({
+      challenges: buildChallenges(lessonId, entry, branch.lessons, facts).map((challenge) => ({
         ...challenge,
         sourceNodeId: nodeId,
         sourceLessonId: lessonId,
@@ -1258,6 +1330,66 @@ export function buildExpandedContent(baseCourse: LearningCourse, baseLessons: Re
   };
 }
 
+// Topics taught as one course, where each unit builds on the one before. Quran, Sahabah and Hadith
+// units are about one surah, person or narration each, so any of them can be started first.
+export const CHAINED_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["foundation", "prayer", "aqidah", "manners", "fasting", "zakat", "hajj", "marriage", "prophets", "women_of_the_book"]);
+
+// Runs last, once imported notes are merged in, so their units are chained too.
+export function chainCourse(content: ExpandedContent): ExpandedContent {
+  const lessonsById = { ...content.lessonsById };
+  return {
+    course: { ...content.course, sections: content.course.sections.map((section) => chainBranches(section, lessonsById)) },
+    lessonsById
+  };
+}
+
+// Puts the nodes in path order and, in a chained topic, opens each unit's first node only after the
+// unit before it is finished, so the order on the path is the order things unlock.
+function chainBranches(section: LearningSection, lessonsById: Record<string, Lesson>): LearningSection {
+  const branchOrder = new Map(section.branches.map((branch, index) => [branch.id, index]));
+  const nodes = [...section.nodes].sort((left, right) => (branchOrder.get(left.branchId) ?? 999) - (branchOrder.get(right.branchId) ?? 999));
+
+  if (!CHAINED_TOPICS.has(section.topicId)) {
+    return { ...section, nodes };
+  }
+
+  const previousByFirst = new Map<string, LearningNode>();
+  let previousLast: LearningNode | undefined;
+
+  for (const branch of section.branches) {
+    const branchNodes = nodes.filter((node) => node.branchId === branch.id);
+
+    if (!branchNodes.length) {
+      continue;
+    }
+
+    if (previousLast && branchNodes[0].requiredNodeIds.length === 0) {
+      previousByFirst.set(branchNodes[0].id, previousLast);
+    }
+
+    previousLast = branchNodes[branchNodes.length - 1];
+  }
+
+  return {
+    ...section,
+    nodes: nodes.map((node) => {
+      const previous = previousByFirst.get(node.id);
+
+      if (!previous) {
+        return node;
+      }
+
+      for (const lessonId of node.lessonIds) {
+        if (lessonsById[lessonId]) {
+          lessonsById[lessonId] = { ...lessonsById[lessonId], unlockRules: [`Complete ${previous.title}`] };
+        }
+      }
+
+      return { ...node, requiredNodeIds: [previous.id] };
+    })
+  };
+}
+
 SECTION_SEEDS.push(
   {
     id: "prophets-expansion",
@@ -1281,7 +1413,7 @@ SECTION_SEEDS.push(
         seed("ismail-and-submission", "Ismail and submission", "The family of Ibrahim teaches willing submission to Allah's command.", 2),
         seed("yaqub-and-sabr", "Ya'qub and beautiful patience", "Ya'qub teaches grief with trust and patience that keeps turning to Allah.", 3),
         seed("yusuf-and-purity", "Yusuf and purity", "Yusuf teaches chastity, wisdom, patience, and eventual relief after hardship.", 3),
-        seed("family-review", "Family and sacrifice review", "This prophetic stretch teaches trust, sacrifice, purity, and patient hope.", 4, { kind: "review", lessonType: "review" })
+        seed("family-review", "Family and sacrifice review", "These prophets teach trust, sacrifice, purity, and patient hope.", 4, { kind: "review", lessonType: "review" })
       ]},
       { id: "prophets-power-and-deliverance", title: "Power and deliverance", description: "Learn from Musa, Harun, Dawud, Sulayman, and the test of leadership under Allah.", order: 6, difficultyRange: [2, 5], sourceKeys: ["quran_28_7", "quran_57_22_23", "quran_33_21"], lessons: [
         seed("musa-and-fear", "Musa and fear turned into mission", "Musa teaches how Allah turns fear into mission through trust and revelation.", 2),
@@ -1302,14 +1434,14 @@ SECTION_SEEDS.push(
     mascot: "hijabi",
     accentColor: "#D96C8E",
     branches: [
-      { id: "women-quran-depth", title: "Women in the Quran", description: "Go deeper through women in the Quran and the virtues their stories teach.", order: 3, difficultyRange: [1, 4], sourceKeys: ["quran_28_7", "quran_66_11", "quran_19"], lessons: [
+      { id: "women-quran-depth", title: "Women in the Quran 2", description: "Go deeper through women in the Quran and the virtues their stories teach.", order: 3, difficultyRange: [1, 4], sourceKeys: ["quran_28_7", "quran_66_11", "quran_19"], lessons: [
         seed("hawwa-and-return", "Hawwa and returning to Allah", "The earliest woman in revelation is remembered inside the lesson of repentance and return.", 1),
         seed("mother-of-musa-and-trust", "The mother of Musa and trust", "The mother of Musa teaches trust in Allah under fear and impossible pressure.", 2),
         seed("asiyah-and-steadfastness", "Asiyah and steadfast faith", "Asiyah teaches that faith can remain luminous even under tyrannical oppression.", 3),
         seed("maryam-and-purity", "Maryam and purity", "Maryam teaches worship, purity, patience, and trust in Allah's decree.", 3),
         seed("quran-women-review", "Women in the Quran review", "These women teach repentance, trust, steadfastness, and purity under pressure.", 4, { kind: "review", lessonType: "review" })
       ]},
-      { id: "women-mothers-depth", title: "Mothers of the Believers", description: "Move in order through the Prophet's wives and the special gifts they gave the Ummah.", order: 4, difficultyRange: [2, 5], sourceKeys: ["quran_33_6", "hadith_bukhari_3820", "hadith_bukhari_3770", "hadith_bukhari_4987"], lessons: [
+      { id: "women-mothers-depth", title: "Mothers of the Believers 2", description: "Move in order through the Prophet's wives and the special gifts they gave the Ummah.", order: 4, difficultyRange: [2, 5], sourceKeys: ["quran_33_6", "hadith_bukhari_3820", "hadith_bukhari_3770", "hadith_bukhari_4987"], lessons: [
         seed("khadijah-and-support", "Khadijah and support", "Khadijah teaches support, reassurance, and sacrifice at the birth of revelation.", 2),
         seed("sawdah-and-stability", "Sawdah and stability", "Sawdah teaches steadiness, generosity, and the quiet stabilizing roles inside the Prophetic household.", 3),
         seed("aishah-and-knowledge", "Aishah and knowledge", "Aishah teaches intelligence, memory, worship, and transmission of the Sunnah.", 4),
@@ -1320,7 +1452,7 @@ SECTION_SEEDS.push(
         seed("courage-under-pressure", "Courage under pressure", "Many honored women in revelation show faith under immense social pressure.", 3),
         seed("worship-and-devotion", "Worship and devotion", "Their legacy shows deep worship, not only public significance.", 4),
         seed("service-to-revelation", "Service to revelation", "Some of these women served revelation through support, preservation, or transmission.", 4),
-        seed("lessons-for-today", "Lessons for today", "Their lives still teach modern learners how to be steady, pure, knowledgeable, and courageous.", 5),
+        seed("lessons-for-today", "Lessons for today", "Their lives still teach us how to be steady, pure, knowledgeable, and courageous.", 5),
         seed("women-legacy-review", "Women's legacy mastery review", "The women honored in revelation teach a connected legacy of worship, courage, trust, and service.", 5, { kind: "review", lessonType: "mastery" })
       ]}
     ]
@@ -1397,8 +1529,8 @@ SECTION_SEEDS.push(
   {
     id: "sahabah-expansion",
     topicId: "sahabah",
-    title: "Sahabi",
-    description: "A companion directory where each Sahabi is a deep branch with long-form lessons, review, challenge, and mastery.",
+    title: "Sahabah",
+    description: "A companion directory where each companion has a deep unit with long-form lessons, review, challenge, and mastery.",
     badge: "Companion World",
     focus: "Abu Bakr, Umar, Uthman, Ali, Bilal, Khalid, and many more companion branches built for long-term growth.",
     mascot: "muslim_man",
@@ -1450,7 +1582,7 @@ SECTION_SEEDS.push({
         seed("qualities-of-guided", "Qualities of the guided", "The surah names believing in the unseen, prayer, and spending as signs of guidance.", 2, { surahName: "Al-Baqarah", ayahRange: "2-5" }),
         seed("ayat-al-kursi", "Ayat al-Kursi inside Al-Baqarah", "Ayat al-Kursi brings Allah's life, knowledge, and authority into one towering passage.", 3, { surahName: "Al-Baqarah", ayahRange: "255" }),
         seed("ending-belief", "The ending of the surah", "The closing verses gather belief, obedience, and humble appeal for mercy.", 4, { surahName: "Al-Baqarah", ayahRange: "285" }),
-        seed("baqarah-review", "Al-Baqarah review", "Al-Baqarah begins and ends by training the learner in guidance, belief, action, and awe.", 5, { kind: "review", lessonType: "mastery", surahName: "Al-Baqarah", ayahRange: "1-5, 255, 285" })
+        seed("baqarah-review", "Al-Baqarah review", "Al-Baqarah begins and ends with guidance, belief, action, and awe.", 5, { kind: "review", lessonType: "mastery", surahName: "Al-Baqarah", ayahRange: "1-5, 255, 285" })
       ]
     },
     {
@@ -1566,7 +1698,7 @@ SECTION_SEEDS.push({
       ayahRange: "Selected themes",
       lessons: [
         seed("revelation-and-warning", "Revelation and warning", "Ya-Sin opens with revelation and the seriousness of warning a heedless people.", 2, { surahName: "Ya-Sin" }),
-        seed("signs-in-creation", "Signs in creation", "The surah moves the learner through signs in the world that point back to Allah.", 3, { surahName: "Ya-Sin" }),
+        seed("signs-in-creation", "Signs in creation", "The surah shows signs in the world that point back to Allah.", 3, { surahName: "Ya-Sin" }),
         seed("resurrection", "Resurrection and return", "Ya-Sin repeatedly calls the believer back to life after death and final return.", 4, { surahName: "Ya-Sin" }),
         seed("messengers-and-response", "Messengers and human response", "The surah shows how people often resist messengers even when truth is clear.", 4, { surahName: "Ya-Sin" }),
         seed("yasin-review", "Surah Ya-Sin review", "Ya-Sin teaches revelation, signs, resurrection, and accountability together.", 5, { kind: "review", lessonType: "review", surahName: "Ya-Sin" })
@@ -1612,16 +1744,16 @@ SECTION_SEEDS.push(
       ]},
       { id: "fasting-times-and-rules", title: "Times and rules", description: "Learn the structure of suhur, fasting hours, and breaking the fast.", order: 2, difficultyRange: [1, 4], sourceKeys: ["quran_2_183_187"], lessons: [
         seed("suhur-and-intent", "Suhur and beginning the day", "The fasting day begins with intention and preparation, not with accidental drift.", 1),
-        seed("start-and-end", "Knowing when the fast begins and ends", "The learner should connect fasting to real boundaries in the day, not vague guesses.", 2),
+        seed("start-and-end", "Knowing when the fast begins and ends", "The fast runs from dawn to sunset, so its start and end are clear.", 2),
         seed("breaking-the-fast", "Breaking the fast well", "Iftar should be timely, grateful, and connected to remembrance.", 2),
         seed("who-is-exempt", "Who is exempt", "Islam teaches mercy and realism around hardship, illness, and inability.", 3),
         seed("timing-review", "Timing and rules review", "Good fasting requires understanding time, intention, mercy, and a proper ending.", 4, { kind: "review", lessonType: "review" })
       ]},
       { id: "fasting-protection", title: "Protecting the fast", description: "Move into invalidators, tongue discipline, and the mistakes that weaken the fast.", order: 3, difficultyRange: [2, 5], sourceKeys: ["quran_2_183_187"], lessons: [
-        seed("invalidators", "What invalidates the fast", "A serious learner should know what clearly breaks the fast and what does not.", 2),
+        seed("invalidators", "What invalidates the fast", "Know what clearly breaks the fast and what does not.", 2),
         seed("tongue-and-character", "Tongue and character", "The fast should protect speech, temper, and hidden reactions as much as the stomach.", 3),
         seed("forgetfulness-and-mercy", "Forgetfulness and mercy", "Mistakes in fasting should be thought through with mercy and knowledge, not panic.", 3),
-        seed("social-pressure", "Fasting under pressure", "A learner should know how to protect the fast when school, work, or friends make it awkward.", 4),
+        seed("social-pressure", "Fasting under pressure", "Protect your fast even when school, work, or friends make it awkward.", 4),
         seed("protection-review", "Protecting the fast review", "The fast is protected by knowledge, restraint, and mercy together.", 5, { kind: "review", lessonType: "mastery" })
       ]},
       { id: "fasting-ramadan-growth", title: "Ramadan growth", description: "Turn Ramadan into a full worship season with nights, Quran, and reflection.", order: 4, difficultyRange: [2, 5], sourceKeys: ["quran_2_183_187"], lessons: [
@@ -1646,7 +1778,7 @@ SECTION_SEEDS.push(
       { id: "zakat-meaning-and-duty", title: "Meaning and duty", description: "Start with why zakat exists and how it purifies wealth and the giver.", order: 1, difficultyRange: [1, 3], sourceKeys: ["quran_9_103", "quran_9_60"], lessons: [
         seed("what-zakat-is", "What zakat is", "Zakat is a required purification of wealth, not just optional generosity.", 1),
         seed("why-it-purifies", "Why zakat purifies", "Allah ties zakat to purification of wealth and soul.", 1),
-        seed("obligation-and-seriousness", "Obligation and seriousness", "The learner should feel that zakat is a duty carried with care and planning.", 2),
+        seed("obligation-and-seriousness", "Obligation and seriousness", "Zakat is a duty carried out with care and planning.", 2),
         seed("nisab-and-threshold", "Threshold and responsibility", "Zakat enters when wealth reaches its threshold and remains there with the right conditions.", 2),
         seed("meaning-review", "Meaning review", "Zakat is a disciplined act of worship that purifies wealth and trains responsibility.", 3, { kind: "review", lessonType: "review" })
       ]},
@@ -1654,7 +1786,7 @@ SECTION_SEEDS.push(
         seed("eligible-groups", "Eligible groups", "Quran 9:60 names real recipient categories that should be learned and respected.", 2),
         seed("need-and-priority", "Need and priority", "A believer should think carefully about actual need and the revealed categories.", 2),
         seed("family-and-boundaries", "Family and boundaries", "Zakat questions often require knowing relational boundaries and financial responsibility.", 3),
-        seed("scenario-judgment", "Scenario judgment with recipients", "The learner should compare people and situations with the recipient categories.", 4),
+        seed("scenario-judgment", "Scenario judgment with recipients", "Compare people and situations with the groups who may receive zakat.", 4),
         seed("recipient-review", "Recipients review", "Zakat recipients are defined so that giving stays obedient, not arbitrary.", 4, { kind: "review", lessonType: "review" })
       ]},
       { id: "zakat-character-and-intention", title: "Character and intention", description: "Move into the giver's inner state: sincerity, humility, and avoiding harm.", order: 3, difficultyRange: [2, 5], sourceKeys: ["quran_9_103", "quran_4_36"], lessons: [
@@ -1665,8 +1797,8 @@ SECTION_SEEDS.push(
         seed("intention-review", "Intention and character review", "Zakat is outward duty and inward purification at the same time.", 5, { kind: "review", lessonType: "mastery" })
       ]},
       { id: "zakat-broader-generosity", title: "Broader generosity", description: "Connect zakat to sadaqah, generosity, and long-term financial responsibility.", order: 4, difficultyRange: [2, 5], sourceKeys: ["quran_9_103", "quran_4_36"], lessons: [
-        seed("zakat-and-sadaqah", "Zakat and sadaqah", "The learner should distinguish required zakat from voluntary charity without shrinking either.", 2),
-        seed("care-for-neighbors", "Care for people around you", "Islamic generosity should make the learner more attentive to need around them.", 3),
+        seed("zakat-and-sadaqah", "Zakat and sadaqah", "Zakat is required, while sadaqah is extra charity; both matter.", 2),
+        seed("care-for-neighbors", "Care for people around you", "Islamic generosity makes you notice the needs of people around you.", 3),
         seed("family-support-and-duty", "Family support and duty", "Financial care in Islam includes knowing ordinary family duties alongside zakat duties.", 4),
         seed("planning-a-giving-life", "Planning a giving life", "A strong Muslim financial life is planned, disciplined, and generous.", 4),
         seed("giving-review", "Giving mastery review", "Zakat should grow into a broader habit of responsible, sincere, and revealed generosity.", 5, { kind: "review", lessonType: "mastery" })
@@ -1684,7 +1816,7 @@ SECTION_SEEDS.push(
     accentColor: "#D67A2A",
     branches: [
       { id: "hajj-duty", title: "Duty and ability", description: "Learn who Hajj is for, why it matters, and how ability shapes obligation.", order: 1, difficultyRange: [1, 3], sourceKeys: ["quran_3_97", "quran_22_27"], lessons: [
-        seed("why-hajj-matters", "Why Hajj matters", "Hajj is a pillar-like act of worship connected to the Sacred House and submission.", 1),
+        seed("why-hajj-matters", "Why Hajj matters", "Hajj is one of the five pillars of Islam.", 1),
         seed("who-must-go", "Who must go", "Hajj is required for those who are able to find a way.", 1),
         seed("intending-the-journey", "Intending the journey", "A believer should desire Hajj sincerely even before the means are present.", 2),
         seed("sacred-house", "The Sacred House", "The Ka'bah and the rites teach unity, remembrance, and submission to Allah's command.", 2),
@@ -1709,7 +1841,7 @@ SECTION_SEEDS.push(
         seed("unity", "Unity of the ummah", "Pilgrimage shows the unity of believers through one worship and one direction.", 3),
         seed("patience", "Patience in sacred movement", "Crowds, heat, and delay should teach patience rather than raw frustration.", 4),
         seed("after-the-return", "After the return", "The journey should leave marks on repentance, worship, and discipline after returning home.", 4),
-        seed("hajj-review", "Hajj mastery review", "The deepest Hajj learner holds together duty, sequence, sacred stations, and lifelong transformation.", 5, { kind: "review", lessonType: "mastery" })
+        seed("hajj-review", "Hajj mastery review", "Hajj joins duty, order, sacred places, and a changed life.", 5, { kind: "review", lessonType: "mastery" })
       ]}
     ]
   }

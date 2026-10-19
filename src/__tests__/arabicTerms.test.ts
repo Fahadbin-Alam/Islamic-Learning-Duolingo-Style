@@ -1,10 +1,12 @@
 import { COURSE } from "../data/course";
 import {
   BRANCH_ARABIC,
+  IMPORTED_ARABIC,
   NODE_ARABIC,
   TOPIC_ARABIC,
   getBranchArabic,
   getLessonArabic,
+  getNodeArabic,
   getTopicArabic,
   type ArabicTerm
 } from "../data/arabicTerms";
@@ -22,8 +24,11 @@ const LATIN_LETTER = /[A-Za-z]/;
 const tables: [string, Record<string, ArabicTerm>][] = [
   ["TOPIC_ARABIC", TOPIC_ARABIC],
   ["BRANCH_ARABIC", BRANCH_ARABIC],
-  ["NODE_ARABIC", NODE_ARABIC]
+  ["NODE_ARABIC", NODE_ARABIC],
+  ["IMPORTED_ARABIC.branches", IMPORTED_ARABIC.branches],
+  ["IMPORTED_ARABIC.nodes", IMPORTED_ARABIC.nodes]
 ];
+const HARAKAT = /[\u064B-\u0652]/;
 
 describe("arabic terms", () => {
   it("only names branches that exist in the course", () => {
@@ -64,5 +69,40 @@ describe("arabic terms", () => {
     expect(getBranchArabic(branchId)).toBe(BRANCH_ARABIC[branchId]);
     expect(getTopicArabic("prayer")).toBe(TOPIC_ARABIC.prayer);
     expect(getTopicArabic("constructor")).toBeUndefined();
+  });
+
+  it("gives a node card only the node's own term, never its unit's", () => {
+    expect(getNodeArabic("prayer-wudu-what-wudu-is")).toBe(NODE_ARABIC["prayer-wudu-what-wudu-is"]);
+    expect(getNodeArabic("prayer-wudu-reinforcement-review")).toBeUndefined();
+    expect(getLessonArabic("prayer-wudu-reinforcement-review", "prayer-wudu")).toBe(BRANCH_ARABIC["prayer-wudu"]);
+  });
+
+  it("names every unit in Arabic, and writes banners without vowel marks", () => {
+    const branches = COURSE.sections.flatMap((section) => section.branches);
+    expect(branches.filter((branch) => !getBranchArabic(branch.id)).map((branch) => branch.id)).toEqual([]);
+    expect(branches.filter((branch) => HARAKAT.test(getBranchArabic(branch.id)?.ar ?? "")).map((branch) => branch.id)).toEqual([]);
+  });
+
+  it("gives every learn card an Arabic word", () => {
+    const nodes = COURSE.sections.flatMap((section) => section.nodes);
+    expect(nodes.filter((node) => !getLessonArabic(node.id, node.branchId)).map((node) => node.id)).toEqual([]);
+  });
+
+  it("names imported surahs, prophets and hadith books in Arabic", () => {
+    const imported = COURSE.sections.flatMap((section) => section.nodes.filter((node) => node.id.startsWith("notes-")).map((node) => ({ node, topicId: section.topicId })));
+    const missing = imported
+      .filter(({ topicId }) => topicId === "quran_tafseer" || topicId === "prophets" || topicId === "hadith")
+      .filter(({ node }) => !getNodeArabic(node.id))
+      .map(({ node }) => node.id);
+    expect(missing).toEqual([]);
+    expect(imported.filter(({ topicId }) => topicId === "quran_tafseer")).toHaveLength(114);
+    expect(getNodeArabic("notes-quran-tafseer-surahs-1-10-surah-al-fatihah")?.ar).toBe("سورة الفاتحة");
+    expect(getNodeArabic("notes-quran-tafseer-surahs-111-114-surah-an-nas")?.ar).toBe("سورة الناس");
+    expect(getNodeArabic("notes-prophets-prophets-from-your-notes-2-noah")).toMatchObject({ ar: "نوح", translit: "Nuh" });
+  });
+
+  it("vowels the manners words like the greetings", () => {
+    const manners = Object.entries(NODE_ARABIC).filter(([id]) => id.startsWith("manners-"));
+    expect(manners.filter(([, term]) => !HARAKAT.test(term.ar)).map(([id]) => id)).toEqual([]);
   });
 });

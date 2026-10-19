@@ -24,12 +24,14 @@ export type RefillSheetProps = {
   onShop: () => void;
   /** "shop" only. Default: onShop. */
   onEndLesson?: () => void;
+  /** "shop" only: the ghost button. Default "End lesson"; on the path, where no lesson is running, "Not now". */
+  endLabel?: string;
 };
 
 const FILL_STEP = 110;
 
 /** Out of hearts: the row of hearts is empty. A free refill pops them red one by one, then the sheet closes. */
-export function RefillSheet({ visible, maxHearts, mascotVariant, accent, variant = "free", onRefill, onShop, onEndLesson }: RefillSheetProps) {
+export function RefillSheet({ visible, maxHearts, mascotVariant, accent, variant = "free", onRefill, onShop, onEndLesson, endLabel = "End lesson" }: RefillSheetProps) {
   const free = variant === "free";
   const endLesson = onEndLesson ?? onShop;
   const [filled, setFilled] = useState(0);
@@ -102,7 +104,7 @@ export function RefillSheet({ visible, maxHearts, mascotVariant, accent, variant
         ) : (
           <>
             <GameButton label="Get hearts" icon="heart" color={colors.heart} fullWidth onPress={onShop} testID="refill-get" />
-            <GameButton label="End lesson" variant="ghost" color={colors.inkSoft} fullWidth onPress={endLesson} testID="refill-end" />
+            <GameButton label={endLabel} variant="ghost" color={colors.inkSoft} fullWidth onPress={endLesson} testID="refill-end" />
           </>
         )}
       </View>

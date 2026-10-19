@@ -81,7 +81,7 @@ export function slugify(value) {
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/['’`]/g, "")
+    .replace(/['’`ʿʾ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
@@ -168,9 +168,33 @@ export function cleanText(text) {
 // Names a learner should always see capitalized, even when a quick note typed them in lowercase.
 const ALWAYS_CAPITALIZED = ["Abu Bakr", "Umar", "Uthman", "Bilal", "Khalid", "Salman", "Anas", "Allah", "Quran", "Ramadan", "Arafah", "Makkah", "Maryam", "Khadijah", "Aishah", "Hafsah", "Yusuf", "Musa", "Ibrahim"];
 
+// Scholarly transliteration ("Abū Bakr aṣ-Ṣiddīq", "ʿAbbās") becomes the plain spelling the app uses
+// everywhere else ("Abu Bakr as-Siddiq", "'Abbas"). Only Latin letters change; Arabic text is untouched.
+export function plainLatin(text) {
+  return text.replace(/[\u00C0-\u024F\u1E00-\u1EFF]/g, (letter) => letter.normalize("NFD").replace(/[\u0300-\u036f]/g, "")).replace(/[ʿʾʼ]/g, "'");
+}
+
+// Slips copied into notes from older translations, fixed where the right wording is certain. In Pickthall
+// "There is no God save Him" (la ilaha illa huwa) had God replaced by Allah, which reads "no Allah save Him".
+const KNOWN_SLIPS = [
+  { pattern: /\bno Allah save (Him|Me)\b/g, fix: "no god save $1" },
+  { pattern: /\bno other Allah\b/g, fix: "no other god" },
+  { pattern: /\bany Allah beside Allah\b/g, fix: "any god beside Allah" },
+  // "0 young men", "Labbaik,0 Allah": a zero typed for the vocative O. A real number never stands alone before a word here.
+  { pattern: /,0 (?=[A-Za-z])/g, fix: ", O " },
+  { pattern: /(^|[\s"“:(])0 (?=[A-Za-z])/g, fix: "$1O " }
+];
+
+// Text the importer cannot fix on its own; each match is reported so the note can be corrected.
+export const SUSPECT_TEXT = [
+  { name: "zero before a word", pattern: /(^|[\s"“:(])0 [A-Za-z]/ },
+  { name: "Allah used as a common noun", pattern: /\b(an|any|no|other) Allah\b|\bAllahs\b/ }
+];
+
 // Fixes the typing slips notes are full of: "dissension) ;" and "the quran".
 export function tidyLine(line) {
-  let tidy = line.replace(/([^\s]) +([,.;:?!])(?=\s|$)/g, "$1$2");
+  let tidy = plainLatin(line).replace(/([^\s]) +([,.;:?!])(?=\s|$)/g, "$1$2");
+  for (const { pattern, fix } of KNOWN_SLIPS) tidy = tidy.replace(pattern, fix);
   for (const name of ALWAYS_CAPITALIZED) {
     tidy = tidy.replace(new RegExp(`(^|[^A-Za-z'-])${name.toLowerCase()}(?=[^A-Za-z]|$)`, "g"), `$1${name}`);
   }
@@ -517,7 +541,7 @@ export function parseNote(text, { filePath = "note.md", folderTopic, defaultTopi
   const sections = splitSections(body);
   const intro = sections.shift();
   const introParsed = extractQuestions(intro.lines);
-  const description = cleanText(String(data.description ?? "")) || firstSentence(cleanText(introParsed.prose)) || `Lessons from your notes on ${title}.`;
+  const description = cleanText(String(data.description ?? "")) || firstSentence(cleanText(introParsed.prose)) || `Lessons on ${title}.`;
   const noteSources = [...(Array.isArray(data.sources) ? data.sources : data.sources ? [data.sources] : []), ...findUrls(intro.lines.join("\n"))];
 
   const lessons = [];
@@ -561,7 +585,8 @@ export function parseNote(text, { filePath = "note.md", folderTopic, defaultTopi
 // Assigns IDs and builds the app's LearningBranch / LearningNode / Lesson objects for one note.
 export function buildBranch(note, { idPrefix = "notes" } = {}) {
   const warnings = [];
-  const branchSlug = slugify(note.title) || "untitled";
+  // Fact groups keep the id of their first name (idSlug) so renaming a unit never loses progress.
+  const branchSlug = note.idSlug ?? (slugify(note.title) || "untitled");
   const branchId = `${idPrefix}-${note.topicId.replace(/_/g, "-")}-${branchSlug}`;
   const warn = (message) => warnings.push(`${note.title}: ${message}`);
   const branchSources = buildSources(note.noteSources, branchId.replace(/-/g, "_"), warn);
@@ -780,7 +805,21 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
     });
 
   const content = { sections, lessonsById };
+  warnings.push(...suspectTextWarnings(lessonsById));
   return { content, backend: toBackendSeed(content), warnings, stats: summarize(content, noteCount) };
+}
+
+// Lists lesson text that still matches SUSPECT_TEXT after cleaning, one warning per lesson and problem.
+export function suspectTextWarnings(lessonsById) {
+  const warnings = [];
+  for (const lesson of Object.values(lessonsById)) {
+    const texts = [lesson.title, lesson.intro, lesson.explanationContent ?? "", ...lesson.challenges.flatMap((challenge) => [challenge.prompt, challenge.explanation, ...challenge.choices.map((choice) => choice.label)])];
+    for (const { name, pattern } of SUSPECT_TEXT) {
+      const hit = texts.find((text) => pattern.test(text));
+      if (hit) warnings.push(`${lesson.title}: ${name} in "${hit.slice(0, 80)}"`);
+    }
+  }
+  return warnings;
 }
 
 function summarize(content, noteCount) {

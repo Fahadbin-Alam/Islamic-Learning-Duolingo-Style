@@ -65,8 +65,8 @@ export function seededShuffle<T extends { id: string }>(items: T[], correctOrder
     const swap = Math.floor(next() * (index + 1));
     [result[index], result[swap]] = [result[swap], result[index]];
   }
-  const inOrder = result.length > 1 && result.every((item, index) => item.id === correctOrderIds[index]);
-  if (inOrder) {
+  // Never hand over the answer: not the whole order, and not the first step as the first tile.
+  if (result.length > 1 && result[0].id === correctOrderIds[0]) {
     result.push(result.shift() as T);
   }
   return result;

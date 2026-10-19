@@ -12,7 +12,9 @@ key words so learners pick it up as they go.
 1. **Few words.** No eyebrow labels, no subtitles that explain the screen. One short line at most
    under a title. Buttons are one or two words. Feedback is a praise word, not a paragraph.
 2. **Every tap makes a sound** and, on phones, a light haptic. Use `GameButton`, `ChoiceTile`,
-   `Tappable` from `src/ui`; they play the sound for you. Never use a bare `Pressable`.
+   `Tappable` from `src/ui`; they play the sound for you. Never use a bare `Pressable`. The one
+   exception is the path's `PathNode`: like `GameButton` it is a 3D button built on `Pressable`
+   (it sinks into its lip) and plays the kit feedback itself.
 3. **Everything moves a little.** Buttons press down (3D lip), tiles pop when picked, sheets
    spring up, numbers count up, the current path node bounces, the mascot bobs.
 4. **Nothing overflows.** Text wraps inside its container (`flexShrink: 1`), rows wrap, tiles are

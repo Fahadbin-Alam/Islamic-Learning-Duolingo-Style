@@ -6,18 +6,22 @@ import { cleanText, resolveTopic, slugify } from "./lib.mjs";
 export const FACT_TYPES = ["person", "surah", "hadith"];
 
 // byTopic: wrong choices come from people in the same topic (a companion's "known for" shouldn't be
-// confused with a prophet's).
-const PERSON_FACTS = [
-  { key: "tribe", prompt: (name) => `Which tribe was ${name} from?`, explain: (name, value) => `${name} was from ${value}.` },
-  { key: "clan", prompt: (name) => `Which clan did ${name} belong to?`, explain: (name, value) => `${name} belonged to ${value}.` },
+// confused with a prophet's). Listed in the order they are asked: "known for" is what the learn card
+// shows, then family, then the rest.
+export const PERSON_FACTS = [
   { key: "known_for", prompt: (name) => `What is ${name} known for?`, explain: (name, value) => `${name}: ${value}.`, byTopic: true },
-  { key: "died", prompt: (name) => `When did ${name} pass away?`, explain: (name, value) => `${name} passed away in ${value}.`, byTopic: true },
-  { key: "death_place", prompt: (name) => `Where did ${name} pass away?`, explain: (name, value) => `${name} passed away in ${value}.` },
-  { key: "birth_place", prompt: (name) => `Where was ${name} born?`, explain: (name, value) => `${name} was born in ${value}.` },
   { key: "father", prompt: (name) => `Who was the father of ${name}?`, explain: (name, value) => `The father of ${name} was ${value}.`, byTopic: true },
   { key: "mother", prompt: (name) => `Who was the mother of ${name}?`, explain: (name, value) => `The mother of ${name} was ${value}.`, byTopic: true },
+  { key: "tribe", prompt: (name) => `Which tribe was ${name} from?`, explain: (name, value) => `${name} was from ${value}.` },
+  { key: "clan", prompt: (name) => `Which clan did ${name} belong to?`, explain: (name, value) => `${name} belonged to ${value}.` },
+  { key: "died", prompt: (name) => `When did ${name} pass away?`, explain: (name, value) => `${name} passed away in ${value}.`, byTopic: true },
+  { key: "birth_place", prompt: (name) => `Where was ${name} born?`, explain: (name, value) => `${name} was born in ${value}.` },
+  { key: "death_place", prompt: (name) => `Where did ${name} pass away?`, explain: (name, value) => `${name} passed away in ${value}.` },
   { key: "burial_place", prompt: (name) => `Where is ${name} buried?`, explain: (name, value) => `${name} is buried at ${value}.` }
 ];
+
+// A lesson about one person stays short: a young learner answers a few questions, not every fact in the note.
+export const MAX_PERSON_QUESTIONS = 4;
 
 // Checked in this order, so a Mother of the Believers who is also tagged Sahabi lands in Women of the Book.
 const PERSON_TOPIC_TAGS = {
@@ -143,6 +147,13 @@ function noteName(data, fileName) {
   return cleanText(String(data.title ?? fileName.replace(/^\d+\s*-\s*/, "")));
 }
 
+// "Khadijah bint khuwaylid" and "Dhu al-kifl" are names typed quickly: each part of a name starts with a capital.
+export function properName(name) {
+  return name
+    .replace(/\b(ibn|bint|bin|b\.) ([a-z])(?![a-z]*-)/g, (_, link, letter) => `${link} ${letter.toUpperCase()}`)
+    .replace(/\b(al|as|ad|adh|an|ar|ash|at|ath|az)-([a-z])/gi, (_, article, letter) => `${article}-${letter.toUpperCase()}`);
+}
+
 export function classifyFactNote(data, folderTopic) {
   const type = String(data.type ?? "").toLowerCase();
   if (!FACT_TYPES.includes(type)) return undefined;
@@ -156,10 +167,11 @@ export function classifyFactNote(data, folderTopic) {
 
 function personLesson(note, pools) {
   const { data } = note;
-  const name = noteName(data, note.fileName);
+  const name = properName(noteName(data, note.fileName));
   const facts = Object.fromEntries(PERSON_FACTS.map(({ key }) => [key, factText(data[key])]));
+  // The first sentence is the learn card's line, so it is the "known for" fact itself, without a label.
   const summary = [
-    facts.known_for ? `Known for: ${facts.known_for}.` : "",
+    facts.known_for ? `${facts.known_for.charAt(0).toUpperCase()}${facts.known_for.slice(1).replace(/[.\s]+$/, "")}.` : "",
     data.full_name && cleanText(String(data.full_name)) !== name ? `Full name: ${cleanText(String(data.full_name))}.` : "",
     facts.tribe ? `Tribe: ${facts.tribe}${facts.clan ? `, clan of ${facts.clan}` : ""}.` : facts.clan ? `Clan: ${facts.clan}.` : "",
     facts.father ? `Father: ${facts.father}.` : "",
@@ -172,7 +184,7 @@ function personLesson(note, pools) {
   const questions = [];
   for (const fact of PERSON_FACTS) {
     const answer = facts[fact.key];
-    if (!answer) continue;
+    if (!answer || questions.length >= MAX_PERSON_QUESTIONS) continue;
     const topicPool = pools.personByTopic[note.topicId]?.[fact.key] ?? [];
     let distractors = pickDistractors(answer, fact.byTopic ? topicPool : pools.person[fact.key], `${name}:${fact.key}`);
     if (fact.byTopic && distractors.length < 2) distractors = pickDistractors(answer, pools.person[fact.key], `${name}:${fact.key}`);
@@ -353,16 +365,25 @@ function buildPools(notes) {
   };
 }
 
+// Unit names learners see on the path: short, and true for everyone inside. The women's units hold
+// women from the Quran and from early Islam, not only the Mothers of the Believers, so they are "Women".
 const GROUP_TITLES = {
+  person: { sahabah: "Companions", prophets: "Prophets", women_of_the_book: "Women" },
+  surah: "Surahs",
+  hadith: "Hadith"
+};
+
+// Branch ids still come from the first names these units had, so saved progress keeps matching.
+const LEGACY_ID_TITLES = {
   person: { sahabah: "Companions from your notes", prophets: "Prophets from your notes", women_of_the_book: "Mothers of the believers from your notes" },
   surah: "Surahs",
   hadith: "Hadith from your notes"
 };
 
 const GROUP_DESCRIPTIONS = {
-  person: "Lessons built from your notes on each person: their tribe, family, what they are known for and how their life ended.",
-  surah: "Surah-by-surah lessons from your Quran notes: names, meanings, where they were revealed and their ayahs.",
-  hadith: "Narrations from your hadith notes, with their references."
+  person: "Meet each person: what they are known for and their family.",
+  surah: "One surah at a time: its name, where it was revealed and its ayahs.",
+  hadith: "Sayings of the Prophet ﷺ and where they are recorded."
 };
 
 // Turns all structured notes into note-like branch objects that lib.buildBranch understands.
@@ -384,18 +405,20 @@ export function buildFactBranches(notes, { groupSize = 10 } = {}) {
 
     for (let start = 0; start < lessons.length; start += groupSize) {
       const chunk = lessons.slice(start, start + groupSize);
-      const base = kind === "person" ? GROUP_TITLES.person[topicId] ?? "People from your notes" : GROUP_TITLES[kind];
-      const title =
+      const named = (base) =>
         kind === "surah" && chunk[0].sortKey && chunk[chunk.length - 1].sortKey
           ? `${base} ${chunk[0].sortKey}-${chunk[chunk.length - 1].sortKey}`
           : lessons.length > groupSize
             ? `${base} ${start / groupSize + 1}`
             : base;
+      const title = named(kind === "person" ? GROUP_TITLES.person[topicId] ?? "People" : GROUP_TITLES[kind]);
+      const legacyTitle = named(kind === "person" ? LEGACY_ID_TITLES.person[topicId] ?? "People from your notes" : LEGACY_ID_TITLES[kind]);
       branches.push({
         skipped: false,
         warnings: [],
         topicId,
         title,
+        idSlug: slugify(legacyTitle),
         description: GROUP_DESCRIPTIONS[kind],
         noteSources: [],
         lessons: chunk,

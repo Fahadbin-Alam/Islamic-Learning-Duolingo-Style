@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Easing, ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { withHonorifics } from "../ArabicText";
 import { Confetti } from "../Confetti";
 import { CountUp } from "../CountUp";
 import { GameButton } from "../GameButton";
@@ -11,6 +12,8 @@ import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
 
 export type LessonCompleteProps = {
+  /** Default "Lesson complete!". A passed unit test-out says "You jumped ahead!". */
+  headline?: string;
   title: string;
   xp: number;
   stars: number;
@@ -103,6 +106,7 @@ function StarRow({ stars }: { stars: number }) {
 
 /** End-of-lesson celebration: confetti, cheering mascot, three counting stat cards, CONTINUE. */
 export function LessonComplete({
+  headline = "Lesson complete!",
   title,
   xp,
   stars,
@@ -167,10 +171,10 @@ export function LessonComplete({
         </Animated.View>
         <PopIn delay={120}>
           <Text style={styles.headline} accessibilityRole="header">
-            Lesson complete!
+            {headline}
           </Text>
         </PopIn>
-        <Text style={styles.lessonTitle}>{title}</Text>
+        <Text style={styles.lessonTitle}>{withHonorifics(title)}</Text>
 
         <View style={styles.cards}>
           <StatCard label="TOTAL XP" icon="bolt" value={xp} color={colors.gold} ink={XP_INK} labelColor={GOLD_LABEL} index={0} testID="stat-xp" />

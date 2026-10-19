@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import {
-  Alert,
   Linking,
   Platform,
   SafeAreaView,
@@ -13,6 +12,7 @@ import {
   applyPremiumStatus,
   applyShopItem,
   canSpendGems,
+  canTestOut,
   completeLesson,
   addXp,
   localDateKey,
@@ -21,7 +21,9 @@ import {
   didExtendStreak,
   getAssessmentXp,
   getXpToday,
-  isOutOfHeartsAfterAnswer,
+  findNextPlayableNode,
+  isOutOfHearts,
+  testOutPassingScore,
   grantHearts,
   isPremiumUser,
   learningApi,
@@ -46,6 +48,7 @@ import {
   createLocalAuthAccount,
   loadLocalAuthAccount,
   loginLocalAuthAccount,
+  signOutLocalAuthAccount,
   updateLocalAuthAccount
 } from "./services/localAuth";
 import {
@@ -53,6 +56,7 @@ import {
   deleteRemoteAccount,
   getSessionToken,
   hydrateRemoteSession,
+  isBackendConfigured,
   loginRemoteAccount,
   logoutRemoteAccount,
   registerRemoteAccount,
@@ -63,7 +67,14 @@ import {
   type CrewMember,
   type CrewPayload
 } from "./services/backendSync";
-import { clearSavedUserProfile, loadSavedUserProfile, saveUserProfile } from "./services/localProgress";
+import {
+  clearAccountProfile,
+  clearSavedUserProfile,
+  loadSavedUserProfile,
+  saveUserProfile,
+  stashAccountProfile,
+  takeAccountProfile
+} from "./services/localProgress";
 import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
 import { shouldShowLessonBreakAd } from "./services/monetizationConfig";
@@ -73,7 +84,8 @@ import {
   scheduleIslamicReminderChecks
 } from "./services/islamicNotifications";
 import {
-  FoundationAssessmentScreen
+  FoundationAssessmentScreen,
+  PracticeComplete
 } from "./components/FoundationLearning";
 import {
   advanceFoundationAssessment,
@@ -87,10 +99,13 @@ import {
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import * as Speech from "expo-speech";
 import { colors, configureUiSound, fonts, Mascot } from "./ui";
+import { PortalHost } from "./ui/Portal";
 import {
   AccountSheet,
   AppTopBar,
   BottomTabs,
+  checkAccountFields,
+  ConfirmSheet,
   CrewView,
   LanguageSheet,
   LearnPath,
@@ -102,18 +117,20 @@ import {
   ShopView,
   TopicPicker,
   tabForScreen,
+  useNotices,
   type PathItem,
   type PathUnit,
   type TabKey,
   type TopicPickerTopic
 } from "./ui/screens";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, getLessonProgress, isPlayablePractice, shortWhy } from "./ui/lesson";
-import { getBranchArabic, getLessonArabic, getTopicArabic } from "./data/arabicTerms";
+import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic } from "./data/arabicTerms";
 import type {
   AccountRole,
   Challenge,
   FoundationAssessmentState,
   FoundationCategoryId,
+  LearnerProfile,
   LearningBranch,
   LearningNodeView,
   LearningSection,
@@ -160,7 +177,25 @@ type CrewState =
   | { status: "ready"; payload: CrewPayload }
   | { status: "error"; message: string };
 
+// The out-of-hearts sheet: the one free refill, or the shop. `resume` is what the learner was
+// starting on the path, played once a free refill lands.
+type OutOfHeartsSheet = {
+  open: boolean;
+  variant: "free" | "shop";
+  inLesson: boolean;
+  resume?: { kind: "node"; node: LearningNodeView } | { kind: "test_out"; unitId: string };
+};
+
+type TestOutResult = {
+  open: boolean;
+  correct: number;
+  total: number;
+  passingScore: number;
+  unitId: string;
+};
+
 type LessonCelebration = {
+  headline?: string;
   title: string;
   xp: number;
   stars: number;
@@ -175,6 +210,8 @@ interface AppState {
   returnScreen?: Screen;
   selectedTopic: TopicId;
   selectedBranchId?: string;
+  /** The shop scrolls here when it opens (a premium unit's UNLOCK). */
+  shopFocus?: "premium";
   user?: UserProfile;
   xpSummary: XpSummary[];
   activeSession?: LessonSession;
@@ -201,7 +238,7 @@ type Action =
   | { type: "close_profile" }
   | { type: "open_assessment"; returnScreen?: Screen }
   | { type: "close_assessment" }
-  | { type: "open_shop" }
+  | { type: "open_shop"; focus?: "premium" }
   | { type: "open_social" }
   | { type: "close_shop" }
   | { type: "close_social" }
@@ -259,7 +296,7 @@ function reducer(state: AppState, action: Action): AppState {
     case "close_assessment":
       return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
     case "open_shop":
-      return { ...state, returnScreen: state.screen, screen: "shop" };
+      return { ...state, returnScreen: state.screen, screen: "shop", shopFocus: action.focus };
     case "open_social":
       return { ...state, returnScreen: state.screen, screen: "social" };
     case "close_shop":
@@ -379,12 +416,16 @@ function reducer(state: AppState, action: Action): AppState {
 export default function TopicApp() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountModalVisible, setAccountModalVisible] = useState(false);
-  const [reviewRestoreVisible, setReviewRestoreVisible] = useState(false);
+  const [outOfHearts, setOutOfHearts] = useState<OutOfHeartsSheet | undefined>(undefined);
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
+  const [accountPromptDue, setAccountPromptDue] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
   const [activeAssessment, setActiveAssessment] = useState<FoundationAssessmentState | undefined>(undefined);
+  const [practiceResult, setPracticeResult] = useState<{ assessment: FoundationAssessmentState; profile: LearnerProfile } | undefined>(undefined);
+  const [testOutResult, setTestOutResult] = useState<TestOutResult | undefined>(undefined);
   const [authMode, setAuthMode] = useState<AuthMode>("create");
+  const [accountError, setAccountError] = useState<string | undefined>(undefined);
   const [hasSavedAccount, setHasSavedAccount] = useState(false);
   const [accountName, setAccountName] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
@@ -401,7 +442,8 @@ export default function TopicApp() {
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
-  const [rewardCelebration, setRewardCelebration] = useState<LessonCelebration | undefined>(undefined);
+  // An opened chest: its gems land when the learner taps COLLECT.
+  const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
   const [quitLessonVisible, setQuitLessonVisible] = useState(false);
   const challengeStartedAtRef = useRef(Date.now());
@@ -451,17 +493,19 @@ export default function TopicApp() {
       const savedAccount = loadLocalAuthAccount();
       const remoteSession = await hydrateRemoteSession();
       const baseUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remoteSession?.user ?? savedUser ?? fallbackUser)));
-      const accountSeed = remoteSession?.account ?? savedAccount;
+      // A logged-out account stays on the device for the next log in, but the learner plays as a guest.
+      const accountSeed = remoteSession?.account ?? (savedAccount?.signedOut ? undefined : savedAccount);
       const user = accountSeed ? withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, accountSeed))) : baseUser;
       const xpSummary = await learningApi.getXpSummaries(user);
+      const knownAccount = remoteSession?.account ?? savedAccount;
 
       if (mounted) {
-        setHasSavedAccount(Boolean(accountSeed));
+        setHasSavedAccount(Boolean(knownAccount));
         setPendingLanguage(normalizeLanguage(user.preferredLanguage));
 
-        if (accountSeed) {
-          setAccountName(accountSeed.name);
-          setAccountEmail(accountSeed.email);
+        if (knownAccount) {
+          setAccountName(knownAccount.name);
+          setAccountEmail(knownAccount.email);
           setAuthMode("login");
         }
 
@@ -588,10 +632,16 @@ export default function TopicApp() {
         title: getNodeTitle(node.id, node.title, currentLanguage)
       }));
   }, [currentLanguage, pathNodes, selectedSection.topicId]);
-  const sectionNextNode = useMemo(
-    () => sectionNodes.find((node) => node.status === "current") ?? sectionNodes.find((node) => node.status === "available"),
-    [sectionNodes]
-  );
+  const sectionNextNode = useMemo(() => findNextPlayableNode(sectionNodes), [sectionNodes]);
+  // The jump-ahead key sits on the unit of the circle to play next, when its remaining circles
+  // give enough questions for a fair test.
+  const testOutUnitId = useMemo(() => {
+    if (!sectionNextNode) {
+      return undefined;
+    }
+
+    return canTestOut(getUnitTestOut(sectionNodes, sectionNextNode.branchId).lessons) ? sectionNextNode.branchId : undefined;
+  }, [sectionNextNode, sectionNodes]);
   const learnPath = useMemo(() => {
     const units: PathUnit[] = [];
     const chestStops = new Map<string, JourneyRewardStop>();
@@ -613,7 +663,8 @@ export default function TopicApp() {
       const items: PathItem[] = [];
 
       nodes.forEach((node, index) => {
-        items.push({ kind: "node", node, arabic: getLessonArabic(node.id, branch.id), lessonNumber: index + 1 });
+        // A node's own word only: a review circle shows no Arabic rather than its unit's.
+        items.push({ kind: "node", node, arabic: getNodeArabic(node.id), lessonNumber: index + 1 });
         // A chest sits right after the node that unlocks it (its id ends with that node's index).
         const stop = stops.find((item) => item.id.endsWith(`_reward_${index}`));
 
@@ -687,28 +738,45 @@ export default function TopicApp() {
     [currentLessonSession]
   );
 
-  const isInFoundationExperience =
-    ((state.screen === "home" || state.screen === "topic" || state.screen === "branch" || state.screen === "review") && selectedSection.topicId === "foundation") ||
-    (state.screen.startsWith("lesson_") && currentLessonSection.topicId === "foundation");
   const userStars = useMemo(() => {
     return state.user ? COURSE.sections.reduce((total, item) => total + getSectionStars(state.user!, item), 0) : 0;
   }, [state.user]);
+  const { notify, confirm, sheets: noticeSheets, open: noticeOpen } = useNotices({
+    mascotVariant: selectedSection.mascot,
+    accent: selectedSection.accentColor
+  });
 
+  // After a few minutes a guest is asked to make an account, but never in the middle of a lesson
+  // or practice: the ask waits until they are back on the Foundation path with nothing else open.
+  const guestUser = Boolean(state.user && !state.user.hasAccount);
   useEffect(() => {
-    if (!state.user || state.user.hasAccount || accountPromptShown || !isInFoundationExperience) {
+    if (!guestUser || accountPromptShown) {
       return;
     }
 
-    const timer = setTimeout(() => {
-      setAccountPromptShown(true);
-      setAuthMode(hasSavedAccount ? "login" : "create");
-      setAccountModalVisible(true);
-    }, 180000);
+    const timer = setTimeout(() => setAccountPromptDue(true), 180000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [accountPromptShown, hasSavedAccount, isInFoundationExperience, state.user]);
+  }, [accountPromptShown, guestUser]);
+
+  const onFoundationPath =
+    (state.screen === "home" || state.screen === "topic" || state.screen === "branch" || state.screen === "review") &&
+    selectedSection.topicId === "foundation";
+  const otherSheetOpen =
+    Boolean(outOfHearts?.open || rewardCelebration || testOutResult?.open) ||
+    topicPickerVisible || settingsModalVisible || languageModalVisible || noticeOpen;
+  useEffect(() => {
+    if (!accountPromptDue || accountPromptShown || !guestUser || !onFoundationPath || otherSheetOpen) {
+      return;
+    }
+
+    setAccountPromptShown(true);
+    setAccountError(undefined);
+    setAuthMode(hasSavedAccount ? "login" : "create");
+    setAccountModalVisible(true);
+  }, [accountPromptDue, accountPromptShown, guestUser, hasSavedAccount, onFoundationPath, otherSheetOpen]);
 
   function openFoundationAssessment(mode: FoundationAssessmentState["mode"]) {
     if (!state.user) {
@@ -733,10 +801,6 @@ export default function TopicApp() {
     setActiveAssessment((current) => current && !current.feedback ? { ...current, selectedAnswer: value } : current);
   }
 
-  function updateAssessmentConfidence(value: number) {
-    setActiveAssessment((current) => current ? { ...current, confidence: value } : current);
-  }
-
   function submitAssessmentAnswer() {
     if (!state.user || !activeAssessment || activeAssessment.feedback || activeAssessment.selectedAnswer == null) {
       return;
@@ -746,7 +810,6 @@ export default function TopicApp() {
       profile: learnerProfile,
       state: activeAssessment,
       selectedAnswer: activeAssessment.selectedAnswer,
-      confidence: activeAssessment.confidence,
       responseTimeMs: Date.now() - activeAssessment.questionStartedAt
     });
     const gainedXp = getAssessmentXp(activeAssessment.mode, result.feedback.correct);
@@ -789,20 +852,14 @@ export default function TopicApp() {
         lastLearningAt: new Date().toISOString()
       }))
     });
+    // The end screen stays on "assessment" until CONTINUE.
+    setPracticeResult({ assessment: activeAssessment, profile: finalizedProfile });
     setActiveAssessment(undefined);
-    dispatch({ type: "close_assessment" });
-    Alert.alert(
-      activeAssessment.mode === "placement" ? "Foundation updated" : "Session complete",
-      `${finalizedProfile.readiness_label}. ${
-        finalizedProfile.weak_areas.length
-          ? `Needs review: ${finalizedProfile.weak_areas.slice(0, 3).join(", ")}.`
-          : "No major weak area is standing out right now."
-      }`
-    );
   }
 
   function closeAssessment() {
     setActiveAssessment(undefined);
+    setPracticeResult(undefined);
     dispatch({ type: "close_assessment" });
   }
 
@@ -828,36 +885,36 @@ export default function TopicApp() {
     dispatch({ type: "select_topic", topicId });
   }
 
-  async function startLesson(node: LearningNodeView) {
-    if (!state.user) {
+  // Out of hearts: the one free refill first, then the shop. In a lesson it opens after GOT IT on
+  // the wrong answer, so the learner sees the right answer and the Why? line before the sheet.
+  function openOutOfHearts(user: UserProfile, inLesson: boolean, resume?: OutOfHeartsSheet["resume"]) {
+    setOutOfHearts({ open: true, variant: shouldOfferReviewHeartRestore(user) ? "free" : "shop", inLesson, resume });
+  }
+
+  async function startLesson(node: LearningNodeView, user = state.user) {
+    if (!user) {
       return;
     }
 
     const nodeBranch = COURSE.sections.flatMap((section) => section.branches).find((branch) => branch.id === node.branchId) ?? selectedBranch;
 
-    if (nodeBranch.premiumOnly && !state.user.activeSubscriptionId) {
-      Alert.alert("Premium branch", "Upgrade to premium to unlock this advanced branch and its deeper mastery lessons.");
-      dispatch({ type: "open_shop" });
+    if (nodeBranch.premiumOnly && !user.activeSubscriptionId) {
+      dispatch({ type: "open_shop", focus: "premium" });
       return;
     }
 
     if (node.status === "locked") {
-      Alert.alert("Locked", "Finish the earlier circles in this topic first.");
+      void notify("Not yet!", "Finish the circle before it.", { mood: "think" });
       return;
     }
 
-    if (!state.user.hearts.unlimited && state.user.hearts.current === 0) {
-      if (shouldOfferReviewHeartRestore(state.user)) {
-        setReviewRestoreVisible(true);
-        return;
-      }
-
-      dispatch({ type: "open_shop" });
+    if (isOutOfHearts(user)) {
+      openOutOfHearts(user, false, { kind: "node", node });
       return;
     }
 
     const activeUser = {
-      ...state.user,
+      ...user,
       lastLearningAt: new Date().toISOString()
     };
 
@@ -867,52 +924,42 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
-  async function startBranchTestOut(branchId = selectedBranch.id) {
-    if (!state.user) {
+  // LearnPath asks "Jump ahead?" first and calls this on START TEST.
+  async function startBranchTestOut(branchId: string, user = state.user) {
+    if (!user) {
       return;
     }
 
     const testBranch = selectedSection.branches.find((branch) => branch.id === branchId) ?? selectedBranch;
-    const currentTestOutCluster = getCurrentTestOutCluster(
-      pathNodes.filter((node) => node.topicId === selectedSection.topicId && node.branchId === testBranch.id)
-    );
 
-    if (testBranch.premiumOnly && !state.user.activeSubscriptionId) {
-      Alert.alert("Premium test out", "This mastery branch is part of premium. Upgrade to unlock its advanced lessons and tests.");
-      dispatch({ type: "open_shop" });
+    if (testBranch.premiumOnly && !user.activeSubscriptionId) {
+      dispatch({ type: "open_shop", focus: "premium" });
       return;
     }
 
-    if (!currentTestOutCluster) {
-      Alert.alert("Branch cleared", "There is no active lesson cluster to test out right now.");
+    const plan = getUnitTestOut(sectionNodes, testBranch.id);
+
+    if (!canTestOut(plan.lessons)) {
+      void notify("Nothing to skip yet.", undefined, { mood: "think" });
       return;
     }
 
-    if (!state.user.hearts.unlimited && state.user.hearts.current === 0) {
-      dispatch({ type: "open_shop" });
+    if (isOutOfHearts(user)) {
+      openOutOfHearts(user, false, { kind: "test_out", unitId: testBranch.id });
       return;
     }
 
     const activeUser = {
-      ...state.user,
+      ...user,
       lastLearningAt: new Date().toISOString()
     };
 
     dispatch({ type: "apply_user", user: activeUser });
-    const lessons = currentTestOutCluster.lessonIds
-      .map((lessonId) => LESSONS_BY_ID[lessonId])
-      .filter(Boolean);
-
-    if (!lessons.length) {
-      Alert.alert("Test unavailable", "This lesson stretch is still being prepared.");
-      return;
-    }
-
     const session = createTestOutSession({
-      branchTitle: currentTestOutCluster.title,
+      branchTitle: testBranch.title,
       branchId: testBranch.id,
-      lessons,
-      nodeIds: currentTestOutCluster.nodeIds,
+      lessons: plan.lessons,
+      nodeIds: plan.nodeIds,
       heartsAtStart: activeUser.hearts.current
     });
 
@@ -958,9 +1005,6 @@ export default function TopicApp() {
     }
 
     playUiSound(correct ? "correct" : "wrong");
-    if (!isRetry && !correct && shouldOfferReviewHeartRestore(nextUser)) {
-      setReviewRestoreVisible(true);
-    }
     dispatch({
       type: "answer",
       correct,
@@ -987,6 +1031,20 @@ export default function TopicApp() {
   }
 
   function continueFromFeedback() {
+    if (!state.user) {
+      return;
+    }
+
+    // No hearts left: no free retry and no next question until the learner refills.
+    if (isOutOfHearts(state.user)) {
+      openOutOfHearts(state.user, true);
+      return;
+    }
+
+    resumeLesson(state.user);
+  }
+
+  function resumeLesson(user: UserProfile) {
     // A missed question comes straight back once, for free, so the right answer sticks.
     if (state.answerState === "wrong" && !state.lastAnswerWasRetry) {
       challengeStartedAtRef.current = Date.now();
@@ -994,7 +1052,7 @@ export default function TopicApp() {
       return;
     }
 
-    void continueLesson();
+    void continueLesson(user);
   }
 
   function speakArabic(text: string) {
@@ -1030,22 +1088,12 @@ export default function TopicApp() {
     }
   }
 
-  async function continueLesson() {
-    if (!state.user || !state.activeSession) {
+  async function continueLesson(user = state.user) {
+    if (!user || !state.activeSession) {
       return;
     }
 
     const lastChallenge = state.challengeIndex >= state.activeSession.lesson.challenges.length - 1;
-
-    if (isOutOfHeartsAfterAnswer(state.user, state.answerState)) {
-      if (shouldOfferReviewHeartRestore(state.user)) {
-        setReviewRestoreVisible(true);
-        return;
-      }
-
-      dispatch({ type: "open_shop" });
-      return;
-    }
 
     if (!lastChallenge) {
       challengeStartedAtRef.current = Date.now();
@@ -1055,81 +1103,74 @@ export default function TopicApp() {
 
     if (state.activeSession.mode === "test_out") {
       const totalChallenges = state.activeSession.lesson.challenges.length;
-      const passingScore = state.activeSession.passingScore ?? Math.max(3, Math.ceil(totalChallenges * 0.8));
+      const passingScore = state.activeSession.passingScore ?? testOutPassingScore(totalChallenges);
       const passed = state.sessionCorrectCount >= passingScore;
 
       if (!passed) {
-        const recommendedTitles = state.sessionMissedLessonIds
-          .map((lessonId) => LESSONS_BY_ID[lessonId]?.title)
-          .filter(Boolean)
-          .slice(0, 3);
-        const recommendationCopy = recommendedTitles.length
-          ? `Review next: ${recommendedTitles.join(", ")}.`
-          : "Review the current lesson stretch and try again.";
-
-        Alert.alert(
-          "Test out missed",
-          `You got ${state.sessionCorrectCount} of ${totalChallenges}. ${recommendationCopy}`
-        );
-        dispatch({ type: "reset_lesson" });
+        // A result sheet over the last question: the score, then TRY AGAIN or BACK.
+        setTestOutResult({
+          open: true,
+          correct: state.sessionCorrectCount,
+          total: totalChallenges,
+          passingScore,
+          unitId: state.activeSession.lesson.branchId ?? selectedBranch.id
+        });
         return;
       }
 
       const clusterLessons = (state.activeSession.targetLessonIds ?? [])
         .map((lessonId) => LESSONS_BY_ID[lessonId])
         .filter(Boolean);
-      const beforeNodes = learningApi.getPathNodes(state.user);
+      const beforeNodes = learningApi.getPathNodes(user);
       const nextUser = withExperienceDefaults({
-        ...completeLessonCluster(state.user, clusterLessons),
+        ...completeLessonCluster(user, clusterLessons, state.activeSession.lesson.xpReward),
         lastLearningAt: new Date().toISOString()
       });
       const afterNodes = learningApi.getPathNodes(nextUser);
       const unlockedNode = afterNodes.find((node) => {
         const previous = beforeNodes.find((item) => item.id === node.id);
-        return previous?.status === "locked" && node.status !== "locked";
+        // The circle that is now next to play, not one the test just skipped.
+        return previous?.status === "locked" && node.status === "current";
       });
 
-      // LessonComplete plays the finish and XP sounds itself.
+      // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
+        headline: "You jumped ahead!",
         title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
-        xp: nextUser.totalXp - state.user.totalXp,
-        streakExtended: didExtendStreak(state.user, nextUser),
+        xp: nextUser.totalXp - user.totalXp,
+        streakExtended: didExtendStreak(user, nextUser),
         stars: (state.activeSession.targetNodeIds ?? [])
-          .filter((nodeId) => !state.user!.completedNodeIds.includes(nodeId))
+          .filter((nodeId) => !user.completedNodeIds.includes(nodeId))
           .map((nodeId) => getNodeStarsReward(nodeId))
           .reduce((total, value) => total + value, 0),
-        unlockedTitle: unlockedNode?.title,
+        unlockedTitle: unlockedNode ? getNodeTitle(unlockedNode.id, unlockedNode.title, currentLanguage) : undefined,
         streakDays: nextUser.streakDays
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
-    maybeShowLessonBreakAd(nextUser);
+      maybeShowLessonBreakAd(nextUser);
       return;
     }
 
-    const beforeNodes = learningApi.getPathNodes(state.user);
+    const beforeNodes = learningApi.getPathNodes(user);
     const nextUser = withExperienceDefaults({
-      ...completeLesson(state.user, state.activeSession.lesson),
+      ...completeLesson(user, state.activeSession.lesson),
       lastLearningAt: new Date().toISOString()
     });
     const afterNodes = learningApi.getPathNodes(nextUser);
     const unlockedNode = afterNodes.find((node) => {
       const previous = beforeNodes.find((item) => item.id === node.id);
-      return previous?.status === "locked" && node.status !== "locked";
+      return previous?.status === "locked" && node.status === "current";
     });
 
-    // LessonComplete plays the finish and XP sounds itself; only a grown streak adds its own.
-    if (didExtendStreak(state.user, nextUser)) {
-      playUiSound("streak");
-    }
-
+    // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
       title: state.activeSession.lesson.title,
       // A replayed lesson earns nothing, so show what was actually added.
-      xp: nextUser.totalXp - state.user.totalXp,
-      streakExtended: didExtendStreak(state.user, nextUser),
-      stars: state.user.completedNodeIds.includes(state.activeSession.lesson.nodeId) ? 0 : getNodeStarsReward(state.activeSession.lesson.nodeId),
-      unlockedTitle: unlockedNode?.title,
+      xp: nextUser.totalXp - user.totalXp,
+      streakExtended: didExtendStreak(user, nextUser),
+      stars: user.completedNodeIds.includes(state.activeSession.lesson.nodeId) ? 0 : getNodeStarsReward(state.activeSession.lesson.nodeId),
+      unlockedTitle: unlockedNode ? getNodeTitle(unlockedNode.id, unlockedNode.title, currentLanguage) : undefined,
       streakDays: nextUser.streakDays
     });
     const xpSummary = await learningApi.getXpSummaries(nextUser);
@@ -1137,37 +1178,35 @@ export default function TopicApp() {
     maybeShowLessonBreakAd(nextUser);
   }
 
+  // The chest opens at once; its gems land when the learner taps COLLECT, so the top bar ticks up
+  // as the pop closes. LearnPath plays the chest sound and answers taps on locked or opened chests.
+  // Closing the app mid-pop leaves the chest ready to open again.
   function claimJourneyReward(stop: JourneyRewardStop) {
-    if (!state.user) {
+    if (!state.user || !stop.unlocked || stop.claimed || rewardCelebration) {
       return;
     }
 
-    if (!stop.unlocked) {
-      Alert.alert("Keep going", "Finish the circles before this chest to unlock the reward.");
+    setRewardCelebration({ stop });
+  }
+
+  function collectJourneyReward() {
+    const stop = rewardCelebration?.stop;
+    setRewardCelebration(undefined);
+
+    if (!stop) {
       return;
     }
 
-    if (stop.claimed) {
-      Alert.alert("Already opened", "You already collected this branch reward.");
-      return;
-    }
-
-    const claimedRewardIds = [...(state.user.claimedRewardIds ?? []), stop.id];
-    const nextUser = withExperienceDefaults({
-      ...state.user,
-      gems: state.user.gems + stop.gemsReward,
-      claimedRewardIds
+    dispatch({
+      type: "apply_user_latest",
+      update: (user) => (user.claimedRewardIds ?? []).includes(stop.id)
+        ? user
+        : withExperienceDefaults({
+            ...user,
+            gems: user.gems + stop.gemsReward,
+            claimedRewardIds: [...(user.claimedRewardIds ?? []), stop.id]
+          })
     });
-
-    playUiSound("reward_chest");
-    setRewardCelebration({
-      title: stop.title,
-      xp: 0,
-      stars: 0,
-      streakDays: nextUser.streakDays,
-      gemsReward: stop.gemsReward
-    });
-    dispatch({ type: "apply_user", user: nextUser });
   }
 
   function maybeShowLessonBreakAd(user: UserProfile) {
@@ -1184,13 +1223,9 @@ export default function TopicApp() {
     }
 
     if (item.currencyType === "gems") {
+      // ShopView shakes a gem item the learner cannot buy yet, so only a real purchase gets here.
       if (canSpendGems(state.user, item)) {
         dispatch({ type: "apply_user", user: applyShopItem(state.user, item) });
-      } else {
-        Alert.alert(
-          "Not available right now",
-          state.user.gems < item.price ? `You need ${item.price} gems. Earn more by finishing lessons and reward chests.` : "Your hearts are already full."
-        );
       }
       return;
     }
@@ -1204,7 +1239,7 @@ export default function TopicApp() {
         if (reward.ok) {
           dispatch({ type: "apply_user_latest", update: (user) => grantHearts(user, reward.heartsGranted, true) });
         } else if (reward.message) {
-          Alert.alert("Sponsor break", reward.message);
+          void notify("No video right now", "Try again later.", { mood: "think" });
         }
 
         return;
@@ -1218,7 +1253,7 @@ export default function TopicApp() {
           dispatch({ type: "sync_premium", premium: purchase.premium });
         }
       } else if (!purchase.cancelled && purchase.message) {
-        Alert.alert("Purchase not completed", purchase.message);
+        void notify("Not bought", "Try again later.", { mood: "think" });
       }
     } finally {
       setShopBusy(false);
@@ -1239,10 +1274,9 @@ export default function TopicApp() {
         dispatch({ type: "sync_premium", premium: result.premium });
       }
 
-      Alert.alert(
-        "Restore purchases",
-        result.premium?.active ? "Your premium plan is active again." : result.message ?? "No active premium plan was found."
-      );
+      void (result.premium?.active
+        ? notify("Premium is back!", undefined, { mood: "cheer" })
+        : notify("Nothing to restore", undefined, { mood: "think" }));
     } finally {
       setShopBusy(false);
     }
@@ -1254,7 +1288,9 @@ export default function TopicApp() {
     }
 
     setPendingLanguage(language);
-    updateLocalAuthAccount({ preferredLanguage: language });
+    if (state.user.hasAccount) {
+      updateLocalAuthAccount({ preferredLanguage: language });
+    }
     dispatch({
       type: "apply_user",
       user: {
@@ -1265,8 +1301,10 @@ export default function TopicApp() {
     setLanguageModalVisible(false);
   }
 
+  // Guests get Settings too: reminders and sound. The sheet hides "who is learning", the family
+  // alerts, Log out and Delete account for them.
   function openSettingsModal() {
-    if (!state.user || !state.user.hasAccount) {
+    if (!state.user) {
       return;
     }
 
@@ -1280,33 +1318,43 @@ export default function TopicApp() {
     setSettingsModalVisible(true);
   }
 
+  function openAccountSheet(mode: AuthMode) {
+    setAccountError(undefined);
+    setAuthMode(mode);
+    setAccountModalVisible(true);
+  }
+
   function openAccountPanel() {
     if (state.user?.hasAccount) {
       dispatch({ type: "open_profile" });
       return;
     }
 
-    setAuthMode(hasSavedAccount ? "login" : "create");
-    setAccountModalVisible(true);
+    openAccountSheet(hasSavedAccount ? "login" : "create");
+  }
+
+  // Crew needs a server session. An account made offline has none, so it logs in from here.
+  function openCrewAccount() {
+    if (state.user?.hasAccount) {
+      openAccountSheet("login");
+      return;
+    }
+
+    openAccountPanel();
   }
 
   async function createAccount() {
-    if (!state.user) {
+    if (!state.user || checkAccountFields("create", accountName, accountEmail, accountPassword)) {
+      // AccountSheet shows its own hint for an empty or invalid field.
       return;
     }
 
-    if (!accountName.trim() || !accountEmail.trim() || !accountPassword.trim()) {
-      Alert.alert("Almost there", "Add your name, email, and password so we can create your account.");
-      return;
-    }
+    const email = normalizeEmail(accountEmail);
+    const savedAccount = loadLocalAuthAccount();
 
-    if (!isValidEmail(accountEmail)) {
-      Alert.alert("Check your email", "Please use a valid email address.");
-      return;
-    }
-
-    if (accountPassword.trim().length < 8) {
-      Alert.alert("Use a stronger password", "Please use at least 8 characters so your account is better protected.");
+    // This device already holds that account (logged out): log in to get its progress back.
+    if (savedAccount && normalizeEmail(savedAccount.email) === email) {
+      setAccountError("That email has an account. Log in!");
       return;
     }
 
@@ -1314,7 +1362,7 @@ export default function TopicApp() {
     const reminderPreferences = defaultReminderPreferences();
     const pendingAccount = {
       name: accountName.trim(),
-      email: normalizeEmail(accountEmail),
+      email,
       password: accountPassword,
       createdAt,
       reminderPreferences,
@@ -1335,11 +1383,13 @@ export default function TopicApp() {
       nextUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user)));
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
-        Alert.alert("Could not create account", error.message);
+        setAccountError(error instanceof BackendRequestError && error.status === 409 ? "That email has an account. Log in!" : "Could not sign up. Try again.");
         return;
       }
     }
 
+    // One account per device: a new one replaces the progress an older account left here.
+    clearAccountProfile();
     createLocalAuthAccount(pendingAccount);
 
     dispatch({
@@ -1350,16 +1400,14 @@ export default function TopicApp() {
     setAuthMode("login");
     setAccountPromptShown(true);
     setAccountPassword("");
+    setAccountError(undefined);
     setAccountModalVisible(false);
+    setCrew({ status: "idle" });
+    void notify(`Welcome, ${firstName(pendingAccount.name)}!`, "Your progress is saved.", { mood: "cheer" });
   }
 
   async function loginAccount() {
-    if (!state.user) {
-      return;
-    }
-
-    if (!accountEmail.trim() || !accountPassword.trim()) {
-      Alert.alert("Welcome back", "Enter your email and password to log in.");
+    if (!state.user || checkAccountFields("login", accountName, accountEmail, accountPassword)) {
       return;
     }
 
@@ -1378,21 +1426,18 @@ export default function TopicApp() {
         reminderPreferences: remote.account.reminderPreferences,
         preferredLanguage: remote.user.preferredLanguage
       });
+      // The server copy wins over what this device kept at log out.
+      takeAccountProfile(remote.account.email);
 
       dispatch({
         type: "apply_user",
         user: withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user)))
       });
-      setAccountName(remote.account.name);
-      setAccountEmail(remote.account.email);
-      setHasSavedAccount(true);
-      setAccountPromptShown(true);
-      setAccountPassword("");
-      setAccountModalVisible(false);
+      finishLogin(remote.account.name, remote.account.email);
       return;
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
-        Alert.alert("We couldn't sign you in", error.message);
+        setAccountError("Wrong email or password.");
         return;
       }
     }
@@ -1400,20 +1445,31 @@ export default function TopicApp() {
     const account = loginLocalAuthAccount(accountEmail, accountPassword);
 
     if (!account) {
-      Alert.alert("We couldn't sign you in", "That email or password does not match the saved account on this device.");
+      setAccountError("Wrong email or password.");
       return;
     }
 
+    // Progress this account left on the device when it logged out comes back with it.
+    const savedProgress = takeAccountProfile(account.email);
+    const baseUser = savedProgress ? prepareUserForToday(savedProgress) : state.user;
+
     dispatch({
       type: "apply_user",
-      user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, account)))
+      user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, account)))
     });
-    setAccountName(account.name);
-    setAccountEmail(account.email);
+    finishLogin(account.name, account.email);
+  }
+
+  function finishLogin(name: string, email: string) {
+    setAccountName(name);
+    setAccountEmail(email);
     setHasSavedAccount(true);
     setAccountPromptShown(true);
     setAccountPassword("");
+    setAccountError(undefined);
     setAccountModalVisible(false);
+    setCrew({ status: "idle" });
+    void notify(`Welcome back, ${firstName(name)}!`, undefined, { mood: "cheer" });
   }
 
   async function saveAccountSettings() {
@@ -1436,11 +1492,13 @@ export default function TopicApp() {
       reducedSoundEffects: settingsReducedSound
     };
 
-    updateLocalAuthAccount({
-      role: settingsRole,
-      reminderPreferences,
-      preferredLanguage: nextUser.preferredLanguage
-    });
+    if (state.user.hasAccount) {
+      updateLocalAuthAccount({
+        role: settingsRole,
+        reminderPreferences,
+        preferredLanguage: nextUser.preferredLanguage
+      });
+    }
     dispatch({ type: "apply_user", user: nextUser });
     setSettingsModalVisible(false);
 
@@ -1449,27 +1507,40 @@ export default function TopicApp() {
     }
   }
 
+  // Log out ends the session only. The account and its progress stay on this device, so logging
+  // back in brings them back even when there is no server.
   async function logoutAccount() {
     if (!state.user) {
       return;
     }
 
+    const leaving = state.user;
+
+    if (!(await confirm("Log out?", undefined, "Log out", { cancelLabel: "Stay" }))) {
+      return;
+    }
+
+    if (leaving.accountEmail) {
+      stashAccountProfile(leaving.accountEmail, leaving);
+    }
+    signOutLocalAuthAccount();
+
     const fallbackUser = await learningApi.getUser(1001);
     const guestUser = withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday({
       ...fallbackUser,
-      preferredLanguage: state.user.preferredLanguage ?? DEFAULT_LANGUAGE,
-      soundEffectsEnabled: state.user.soundEffectsEnabled !== false,
-      reducedSoundEffects: Boolean(state.user.reducedSoundEffects)
+      preferredLanguage: leaving.preferredLanguage ?? DEFAULT_LANGUAGE,
+      soundEffectsEnabled: leaving.soundEffectsEnabled !== false,
+      reducedSoundEffects: Boolean(leaving.reducedSoundEffects)
     })));
 
     try {
       await logoutRemoteAccount();
     } catch {
-      // Best effort is enough here because we still clear the local session below.
+      // Best effort is enough here because the session token is cleared either way.
     }
 
-    resetToGuest(guestUser);
-    Alert.alert("Logged out", "You are back in guest mode. Create an account or log in any time to save progress again.");
+    resetToGuest(guestUser, false);
+    void notify("Logged out", "Log in to pick up again.", { mood: "wave" });
   }
 
   async function deleteAccount() {
@@ -1477,13 +1548,9 @@ export default function TopicApp() {
       return;
     }
 
-    const confirmed = await confirmDestructive(
-      "Delete your account?",
-      "This permanently deletes your account, XP, streak and saved progress. Active subscriptions are managed by the App Store or Google Play and must be cancelled there.",
-      "Delete account"
-    );
+    const leaving = state.user;
 
-    if (!confirmed) {
+    if (!(await confirm("Delete account?", "This cannot be undone.", "Delete"))) {
       return;
     }
 
@@ -1491,12 +1558,9 @@ export default function TopicApp() {
       try {
         await deleteRemoteAccount();
       } catch (error) {
-        Alert.alert(
-          "Could not delete account",
-          error instanceof Error && isBackendOfflineError(error)
-            ? "Connect to the internet and try again so your account can be removed from our servers."
-            : error instanceof Error ? error.message : "Please try again."
-        );
+        void (error instanceof Error && isBackendOfflineError(error)
+          ? notify("No internet. Try again.", undefined, { mood: "sad" })
+          : notify("Could not delete it", "Try again later.", { mood: "sad" }));
         return;
       }
     }
@@ -1504,22 +1568,30 @@ export default function TopicApp() {
     const fallbackUser = await learningApi.getUser(1001);
     resetToGuest(withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday({
       ...fallbackUser,
-      preferredLanguage: state.user.preferredLanguage ?? DEFAULT_LANGUAGE
-    }))));
-    Alert.alert("Account deleted", "Your account and saved progress have been removed.");
+      preferredLanguage: leaving.preferredLanguage ?? DEFAULT_LANGUAGE
+    }))), true);
+    void notify("Account deleted", undefined, { mood: "sad" });
   }
 
-  function resetToGuest(guestUser: UserProfile) {
-    clearLocalAuthAccount();
+  // `forget` (Delete account) also removes the account and the progress it left on this device.
+  function resetToGuest(guestUser: UserProfile, forget: boolean) {
+    if (forget) {
+      clearLocalAuthAccount();
+      clearAccountProfile();
+    }
     clearSocialHubState();
     clearSavedUserProfile();
     setCrew({ status: "idle" });
-    setHasSavedAccount(false);
+    setHasSavedAccount(!forget);
     setAccountPromptShown(false);
-    setAccountName("");
-    setAccountEmail("");
+    setAccountPromptDue(false);
+    if (forget) {
+      setAccountName("");
+      setAccountEmail("");
+    }
     setAccountPassword("");
-    setAuthMode("create");
+    setAccountError(undefined);
+    setAuthMode(forget ? "create" : "login");
     setSettingsRole(undefined);
     setSettingsDailyReminder(true);
     setSettingsWeeklyReminder(true);
@@ -1527,31 +1599,28 @@ export default function TopicApp() {
     setSettingsIslamicReminder(true);
     setSettingsSoundEnabled(guestUser.soundEffectsEnabled !== false);
     setSettingsReducedSound(Boolean(guestUser.reducedSoundEffects));
-    setReviewRestoreVisible(false);
+    setOutOfHearts(undefined);
     setSettingsModalVisible(false);
     dispatch({ type: "apply_user", user: guestUser });
   }
 
-  function handleSocialLogin(provider: SocialProvider) {
-    const config = SOCIAL_AUTH_CONFIG[provider];
-
-    if (!config.enabled) {
-      const idLabel = provider === "google" ? "Google client ID" : "Facebook app ID";
-      Alert.alert(
-        `${provider === "google" ? "Google" : "Facebook"} sign-in is ready`,
-        `Add your ${idLabel} in src/config/auth.ts to turn this button on for the real app build.`
-      );
-      return;
-    }
-
-    Alert.alert(
-      `${provider === "google" ? "Google" : "Facebook"} sign-in`,
-      "This button is wired into the app flow, but it still needs the provider redirect setup for the final mobile release."
-    );
+  // Only switched-on providers get a button; their sign-in flow is not built yet.
+  function handleSocialLogin(_provider: SocialProvider) {
+    void notify("Coming soon!", undefined, { mood: "think" });
   }
 
   async function loadCrew() {
-    if (!state.user?.hasAccount || !getSessionToken()) {
+    if (!state.user?.hasAccount) {
+      setCrew({ status: "signed_out" });
+      return;
+    }
+
+    // No crew server in this build: CrewView says "coming soon" instead of a retry that can't work.
+    if (!isBackendConfigured()) {
+      return;
+    }
+
+    if (!getSessionToken()) {
       setCrew({ status: "signed_out" });
       return;
     }
@@ -1573,7 +1642,7 @@ export default function TopicApp() {
 
   async function addCrewFriend() {
     if (!isValidEmail(inviteEmail)) {
-      Alert.alert("Check the email", "Enter the email address they use for their Sira Path account.");
+      void notify("Check the email", undefined, { mood: "think" });
       return;
     }
 
@@ -1585,52 +1654,75 @@ export default function TopicApp() {
       setInviteEmail("");
       setInviteRelation("friend");
     } catch (error) {
-      Alert.alert(
-        "Could not add them",
-        error instanceof Error && !isBackendOfflineError(error) ? error.message : "Check your connection and try again."
-      );
+      void notify(crewErrorTitle(error, "add"), undefined, { mood: "sad" });
     }
   }
 
+  // CrewView asks "Remove X?" in the friend sheet before calling this.
   async function removeCrewFriend(member: CrewMember) {
-    const confirmed = await confirmDestructive("Remove from crew?", `${member.name} will leave your leaderboard.`, "Remove");
-
-    if (!confirmed) {
-      return;
-    }
-
     try {
       await removeCrewMember(member.id);
       setCrew((current) => current.status === "ready"
         ? { ...current, payload: { ...current.payload, friends: current.payload.friends.filter((item) => item.id !== member.id) } }
         : current);
     } catch (error) {
-      Alert.alert("Could not remove them", error instanceof Error && !isBackendOfflineError(error) ? error.message : "Check your connection and try again.");
+      void notify(crewErrorTitle(error, "remove"), undefined, { mood: "sad" });
     }
   }
 
+  // REFILL HEARTS: RefillSheet fills the hearts on screen first, then calls this.
   function claimReviewHeartRestore() {
     if (!state.user) {
       return;
     }
 
-    dispatch({
-      type: "apply_user",
-      user: grantHearts(
-        {
-          ...state.user,
-          reviewHeartRestoreUsed: true
-        },
-        state.user.hearts.max,
-        true
-      )
-    });
-    setReviewRestoreVisible(false);
+    const sheet = outOfHearts;
+    const refilled = grantHearts({ ...state.user, reviewHeartRestoreUsed: true }, state.user.hearts.max, true);
+
+    dispatch({ type: "apply_user", user: refilled });
+    setOutOfHearts((current) => current && { ...current, open: false });
+
+    if (sheet?.inLesson && state.screen === "lesson_feedback") {
+      resumeLesson(refilled);
+    } else if (sheet?.resume?.kind === "node") {
+      void startLesson(sheet.resume.node, refilled);
+    } else if (sheet?.resume?.kind === "test_out") {
+      void startBranchTestOut(sheet.resume.unitId, refilled);
+    }
   }
 
-  function skipReviewHeartRestore() {
-    setReviewRestoreVisible(false);
+  // SHOP / GET HEARTS: a running lesson ends first, so the shop is a plain tab again.
+  function openShopForHearts() {
+    const sheet = outOfHearts;
+    setOutOfHearts((current) => current && { ...current, open: false });
+
+    if (sheet?.inLesson) {
+      void Speech.stop();
+      dispatch({ type: "reset_lesson" });
+    }
+
     dispatch({ type: "open_shop" });
+  }
+
+  // END LESSON (or NOT NOW on the path).
+  function closeOutOfHearts() {
+    const sheet = outOfHearts;
+    setOutOfHearts((current) => current && { ...current, open: false });
+
+    if (sheet?.inLesson) {
+      void Speech.stop();
+      dispatch({ type: "reset_lesson" });
+    }
+  }
+
+  function closeTestOutResult(again: boolean) {
+    const result = testOutResult;
+    setTestOutResult((current) => current && { ...current, open: false });
+    dispatch({ type: "reset_lesson" });
+
+    if (again && result) {
+      void startBranchTestOut(result.unitId);
+    }
   }
 
 
@@ -1651,7 +1743,9 @@ export default function TopicApp() {
     .filter(([, config]) => config.enabled)
     .map(([id, config]) => ({ id, label: config.label }));
   const activeTab = tabForScreen(state.screen);
-  const nextLessonNode = sectionNextNode && sectionNextNode.status !== "locked" ? sectionNextNode : undefined;
+  // With no hearts left the complete screen offers CONTINUE (back to the path), never a NEXT LESSON
+  // that could not start.
+  const nextLessonNode = sectionNextNode && sectionNextNode.status !== "locked" && !isOutOfHearts(state.user) ? sectionNextNode : undefined;
   const lessonSession = currentLessonSession;
   const lesson = lessonSession?.lesson;
   const lessonAccent = currentLessonSection.accentColor;
@@ -1673,9 +1767,18 @@ export default function TopicApp() {
     max: state.user.hearts.max,
     unlimited: Boolean(state.user.hearts.unlimited)
   };
+  // GOT IT / CONTINUE on the last answer ends the lesson: LessonComplete's fanfare is its sound.
+  const continueEndsLesson =
+    state.screen === "lesson_feedback" &&
+    Boolean(lesson) &&
+    state.challengeIndex >= (lesson?.challenges.length ?? 0) - 1 &&
+    (state.answerState === "correct" || state.lastAnswerWasRetry) &&
+    !isOutOfHearts(state.user);
   const quitSheet = (
     <QuitSheet
       visible={quitLessonVisible}
+      mascotVariant={lessonMascot}
+      accent={lessonAccent}
       onKeepLearning={() => setQuitLessonVisible(false)}
       onQuit={() => {
         setQuitLessonVisible(false);
@@ -1698,7 +1801,8 @@ export default function TopicApp() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" />
-      <View style={styles.appShell}>
+      {/* Sheets and pops draw in the host's top layer, over the top bar and tabs too. */}
+      <PortalHost style={styles.appShell}>
         {!inLesson && (
           <AppTopBar
             topicId={selectedSection.topicId}
@@ -1726,8 +1830,9 @@ export default function TopicApp() {
                 claimJourneyReward(stop);
               }
             }}
-            onTestOut={(unitId) => void startBranchTestOut(unitId)}
-            onPremium={() => dispatch({ type: "open_shop" })}
+            onTestOut={testOutUnitId ? (unitId) => void startBranchTestOut(unitId) : undefined}
+            onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
+            onNextTopic={() => setTopicPickerVisible(true)}
           />
         )}
         {state.screen === "lesson_teach" && lesson && lessonShell(
@@ -1780,6 +1885,7 @@ export default function TopicApp() {
             accent={lessonAccent}
             praiseSeed={challenge.id}
             playSound={false}
+            continueSound={continueEndsLesson ? false : undefined}
             onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
             onCheck={answerChallenge}
             onContinue={continueFromFeedback}
@@ -1787,10 +1893,12 @@ export default function TopicApp() {
         )}
         {state.screen === "lesson_complete" && lessonCompleteSummary && (
           <LessonComplete
+            headline={lessonCompleteSummary.headline}
             title={lessonCompleteSummary.title}
             xp={lessonCompleteSummary.xp}
             stars={lessonCompleteSummary.stars}
             streakDays={lessonCompleteSummary.streakDays}
+            streakExtended={lessonCompleteSummary.streakExtended}
             goal={{ xpToday: getXpToday(state.user), goalXp: state.user.dailyGoalXp }}
             unlockedTitle={lessonCompleteSummary.unlockedTitle}
             gemsReward={lessonCompleteSummary.gemsReward}
@@ -1816,13 +1924,20 @@ export default function TopicApp() {
             assessment={activeAssessment}
             language={currentLanguage}
             selectedAnswer={activeAssessment.selectedAnswer}
-            confidence={activeAssessment.confidence}
             mascotVariant={selectedSection.mascot}
             onChangeSelectedAnswer={updateAssessmentSelection}
-            onChangeConfidence={updateAssessmentConfidence}
             onSubmit={submitAssessmentAnswer}
             onContinue={continueAssessment}
             onExit={closeAssessment}
+          />
+        )}
+        {/* Practice keeps its own gem-blue mascot on every screen (hub, questions, end), so no topic accent. */}
+        {state.screen === "assessment" && !activeAssessment && practiceResult && (
+          <PracticeComplete
+            assessment={practiceResult.assessment}
+            learnerProfile={practiceResult.profile}
+            mascotVariant={selectedSection.mascot}
+            onContinue={closeAssessment}
           />
         )}
         {state.screen === "review" && (
@@ -1860,6 +1975,7 @@ export default function TopicApp() {
             storePrices={storePrices}
             busy={shopBusy}
             section={selectedSection}
+            focus={state.shopFocus}
             onUseItem={useShopItem}
             onRestore={restorePurchases}
           />
@@ -1871,12 +1987,14 @@ export default function TopicApp() {
             inviteEmail={inviteEmail}
             inviteRelation={inviteRelation}
             mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
+            unavailable={!isBackendConfigured()}
             onChangeInviteEmail={setInviteEmail}
             onChangeInviteRelation={setInviteRelation}
             onAddFriend={addCrewFriend}
             onRemoveFriend={removeCrewFriend}
             onRefresh={loadCrew}
-            onCreateAccount={() => openAccountPanel()}
+            onCreateAccount={openCrewAccount}
           />
         )}
         <AdBanner hidden={isPremiumUser(state.user) || state.user.hearts.unlimited || inLesson} />
@@ -1894,11 +2012,16 @@ export default function TopicApp() {
           visible={accountModalVisible}
           mode={authMode}
           mascotVariant={selectedSection.mascot}
+          accent={selectedSection.accentColor}
           name={accountName}
           email={accountEmail}
           password={accountPassword}
           socialProviders={enabledSocialProviders}
-          onChangeMode={setAuthMode}
+          error={accountError}
+          onChangeMode={(mode) => {
+            setAccountError(undefined);
+            setAuthMode(mode);
+          }}
           onChangeName={setAccountName}
           onChangeEmail={setAccountEmail}
           onChangePassword={setAccountPassword}
@@ -1925,19 +2048,38 @@ export default function TopicApp() {
           onSave={saveAccountSettings}
           onClose={() => setSettingsModalVisible(false)}
           onLogout={logoutAccount}
-          onDeleteAccount={hasSavedAccount ? deleteAccount : undefined}
+          onDeleteAccount={state.user.hasAccount ? deleteAccount : undefined}
+          guest={!state.user.hasAccount}
         />
         <RefillSheet
-          visible={reviewRestoreVisible}
+          visible={Boolean(outOfHearts?.open)}
+          variant={outOfHearts?.variant}
           maxHearts={state.user.hearts.max}
           mascotVariant={inLesson ? lessonMascot : selectedSection.mascot}
+          accent={inLesson ? lessonAccent : selectedSection.accentColor}
+          endLabel={outOfHearts?.inLesson === false ? "Not now" : undefined}
           onRefill={claimReviewHeartRestore}
-          onShop={skipReviewHeartRestore}
+          onShop={openShopForHearts}
+          onEndLesson={closeOutOfHearts}
+        />
+        <ConfirmSheet
+          visible={Boolean(testOutResult?.open)}
+          title={`${testOutResult?.correct ?? 0} of ${testOutResult?.total ?? 0} right`}
+          line={`Get ${testOutResult?.passingScore ?? 0} to jump ahead.`}
+          confirmLabel="Try again"
+          cancelLabel="Back"
+          danger={false}
+          mood="sad"
+          mascotVariant={lessonMascot}
+          accent={lessonAccent}
+          onConfirm={() => closeTestOutResult(true)}
+          onCancel={() => closeTestOutResult(false)}
+          testID="test-out-result"
         />
         <RewardPop
           visible={Boolean(rewardCelebration)}
-          gems={rewardCelebration?.gemsReward ?? 0}
-          onClose={() => setRewardCelebration(undefined)}
+          gems={rewardCelebration?.stop.gemsReward ?? 0}
+          onClose={collectJourneyReward}
         />
         <LanguageSheet
           visible={languageModalVisible}
@@ -1948,7 +2090,8 @@ export default function TopicApp() {
           onSave={() => savePreferredLanguage(pendingLanguage)}
           onClose={() => setLanguageModalVisible(false)}
         />
-      </View>
+        {noticeSheets}
+      </PortalHost>
     </SafeAreaView>
   );
 }
@@ -2013,18 +2156,29 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizeEmail(email));
 }
 
-// React Native Web has no Alert buttons, so the browser's confirm dialog stands in there.
-function confirmDestructive(title: string, message: string, confirmLabel: string) {
-  if (Platform.OS === "web") {
-    return Promise.resolve(typeof window !== "undefined" && typeof window.confirm === "function" ? window.confirm(`${title}\n\n${message}`) : false);
+function firstName(name: string) {
+  return name.trim().split(/\s+/)[0] || name.trim();
+}
+
+// Short titles for the crew notices; the server's own sentences are written for grown-ups.
+function crewErrorTitle(error: unknown, action: "add" | "remove") {
+  if (error instanceof BackendRequestError && error.status < 500) {
+    if (action === "add" && error.status === 404) {
+      return "No account with that email";
+    }
+
+    if (action === "add" && error.status === 400) {
+      return "That's you!";
+    }
+
+    if (action === "add" && error.status === 409) {
+      return "Already in your crew";
+    }
+
+    return action === "add" ? "Could not add them" : "Could not remove them";
   }
 
-  return new Promise<boolean>((resolve) => {
-    Alert.alert(title, message, [
-      { text: "Cancel", style: "cancel", onPress: () => resolve(false) },
-      { text: confirmLabel, style: "destructive", onPress: () => resolve(true) }
-    ], { cancelable: true, onDismiss: () => resolve(false) });
-  });
+  return "No internet. Try again.";
 }
 
 function isBackendOfflineError(error: Error) {
@@ -2140,32 +2294,13 @@ function findNodeById(nodeId: string) {
   return undefined;
 }
 
-function getCurrentTestOutCluster(nodes: LearningNodeView[]) {
-  const firstActiveNode = nodes.find((node) => node.status === "current" || node.status === "available");
-
-  if (!firstActiveNode) {
-    return undefined;
-  }
-
-  const clusterId = firstActiveNode.clusterId;
-  const activeClusterNodes = nodes.filter((node) =>
-    clusterId ? node.clusterId === clusterId && node.status !== "completed" && node.status !== "locked" : node.status !== "completed" && node.status !== "locked"
-  );
-
-  const nodeIds = activeClusterNodes.map((node) => node.id);
-  const lessonIds = activeClusterNodes.flatMap((node) => node.lessonIds).slice(0, 5);
-  const clusterIndex = clusterId
-    ? Number(clusterId.split("_").pop() || "1")
-    : Math.floor(nodes.findIndex((node) => node.id === firstActiveNode.id) / 5) + 1;
-  const startTitle = activeClusterNodes[0]?.title ?? firstActiveNode.title;
-  const endTitle = activeClusterNodes[activeClusterNodes.length - 1]?.title ?? firstActiveNode.title;
+// A unit's test-out covers every circle still to do in it, locked ones too: jumping past them is the point.
+function getUnitTestOut(nodes: LearningNodeView[], branchId: string) {
+  const remaining = nodes.filter((node) => node.branchId === branchId && node.status !== "completed");
 
   return {
-    clusterId: clusterId ?? `${firstActiveNode.branchId}_cluster_${clusterIndex}`,
-    label: `cluster ${clusterIndex}`,
-    title: `Test out ${startTitle}${endTitle !== startTitle ? ` to ${endTitle}` : ""}`,
-    nodeIds,
-    lessonIds
+    nodeIds: remaining.map((node) => node.id),
+    lessons: remaining.flatMap((node) => node.lessonIds).map((lessonId) => LESSONS_BY_ID[lessonId]).filter(Boolean)
   };
 }
 
@@ -2183,10 +2318,12 @@ function getJourneyRewardStops(user: UserProfile, section: LearningSection, bran
   const completed = new Set(user.completedNodeIds);
   const claimed = new Set(user.claimedRewardIds ?? []);
   const rewardStride = nodes.length > 14 ? 5 : nodes.length > 8 ? 4 : 2;
+  const last = nodes.length - 1;
 
   return nodes
     .map((node, index) => {
-      if ((index + 1) % rewardStride !== 0 && index !== nodes.length - 1) {
+      // A chest every few circles and one at the end, with at least two circles between any two chests.
+      if (index !== last && ((index + 1) % rewardStride !== 0 || last - index < 2)) {
         return null;
       }
 

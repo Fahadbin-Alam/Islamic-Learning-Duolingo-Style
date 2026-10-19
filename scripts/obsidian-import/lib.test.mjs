@@ -4,8 +4,8 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { pickDistractors } from "./facts.mjs";
-import { cleanText, extractQuestions, firstSentence, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic } from "./lib.mjs";
+import { MAX_PERSON_QUESTIONS, PERSON_FACTS, pickDistractors, properName } from "./facts.mjs";
+import { cleanText, extractQuestions, firstSentence, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic, suspectTextWarnings } from "./lib.mjs";
 
 const sampleVault = join(dirname(fileURLToPath(import.meta.url)), "sample-vault");
 
@@ -137,8 +137,9 @@ test("builds backend seed branches in catalog_seed's shape", () => {
 
 test("builds quizzes from Sahabi person notes", () => {
   const { content } = importVault(sampleVault);
-  const companions = content.sections.find((section) => section.topicId === "sahabah").branches.find((branch) => branch.title === "Companions from your notes");
+  const companions = content.sections.find((section) => section.topicId === "sahabah").branches.find((branch) => branch.title === "Companions");
   assert.ok(companions);
+  assert.equal(companions.id, "notes-sahabah-companions-from-your-notes", "the id keeps the first name so saved progress still matches");
   const lesson = content.lessonsById[`lesson-${companions.id}-abdullah-ibn-rawahah`];
   assert.match(lesson.explanationContent, /Tribe: Khazraj/);
   assert.equal(lesson.sources[0].url, "https://sunnah.com/bukhari:4261", "Wikipedia links are left out");
@@ -149,6 +150,54 @@ test("builds quizzes from Sahabi person notes", () => {
     const wrong = challenge.choices.filter((choice) => choice.id !== challenge.correctChoiceId).map((choice) => choice.label);
     assert.ok(!wrong.some((label) => /8 AH/.test(label)), `"${challenge.prompt}" offers another 8 AH date as a wrong answer`);
   }
+});
+
+test("person lessons start with what the person is known for and stay short", () => {
+  const { content } = importVault(sampleVault);
+  const companions = content.sections.find((section) => section.topicId === "sahabah").branches.find((branch) => branch.title === "Companions");
+  const lesson = content.lessonsById[`lesson-${companions.id}-abdullah-ibn-rawahah`];
+  assert.match(lesson.intro, /^Poet; third commander at Mu'tah, martyred there\./, "no \"Known for:\" label on the learn card");
+  // Questions follow PERSON_FACTS: what they are known for and family first, burial place last.
+  const order = PERSON_FACTS.map((fact) => fact.prompt("Abdullah ibn Rawahah"));
+  const asked = lesson.challenges.map((challenge) => order.indexOf(challenge.prompt));
+  assert.ok(asked.every((index) => index >= 0));
+  assert.deepEqual(asked, [...asked].sort((left, right) => left - right));
+  for (const each of Object.values(content.lessonsById)) {
+    if (each.id.startsWith(`lesson-${companions.id}`)) assert.ok(each.challenges.length <= MAX_PERSON_QUESTIONS, each.title);
+  }
+});
+
+test("unit names are plain words, never \"from your notes\"", () => {
+  const { content } = importVault(sampleVault);
+  const titles = content.sections.flatMap((section) => section.branches.map((branch) => `${branch.title} ${branch.description}`));
+  assert.ok(titles.every((title) => !/your notes/i.test(title)), titles.join(" | "));
+});
+
+test("fixes known slips from older translations and plain-spells transliteration", () => {
+  assert.equal(cleanText("There is no Allah save Him, the Mighty."), "There is no god save Him, the Mighty.");
+  assert.equal(cleanText("There is no Allah save Me, so fear Me."), "There is no god save Me, so fear Me.");
+  assert.equal(cleanText("He is Allah, than whom there is no other Allah."), "He is Allah, than whom there is no other god.");
+  assert.equal(cleanText("Is there any Allah beside Allah?"), "Is there any god beside Allah?");
+  assert.equal(cleanText("He said: 0 young men, wait."), "He said: O young men, wait.");
+  assert.equal(cleanText("Labbaik,0 Allah, Labbaik. Say: 0 unbelievers."), "Labbaik, O Allah, Labbaik. Say: O unbelievers.");
+  assert.equal(cleanText("He had 10 young camels in 1440 AH."), "He had 10 young camels in 1440 AH.", "real numbers stay");
+  assert.equal(cleanText("Abū Bakr aṣ-Ṣiddīq, ʿAbbās and the Qurʼan"), "Abu Bakr as-Siddiq, 'Abbas and the Qur'an");
+  assert.equal(cleanText("قُلْ هُوَ ٱللَّهُ أَحَدٌ"), "قُلْ هُوَ ٱللَّهُ أَحَدٌ", "Arabic is untouched");
+});
+
+test("names of people start each part with a capital", () => {
+  assert.equal(properName("Khadijah bint khuwaylid"), "Khadijah bint Khuwaylid");
+  assert.equal(properName("Dhu al-kifl"), "Dhu al-Kifl");
+  assert.equal(properName("Juwayriya bint al-harith"), "Juwayriya bint al-Harith");
+  assert.equal(properName("Abu Bakr as-Siddiq"), "Abu Bakr as-Siddiq");
+});
+
+test("reports text it cannot fix", () => {
+  const warnings = suspectTextWarnings({
+    a: { title: "Odd", intro: "She said 0 dear.", explanationContent: "", challenges: [] },
+    b: { title: "Fine", intro: "There is no god but Allah.", explanationContent: "", challenges: [] }
+  });
+  assert.deepEqual(warnings, ['Odd: zero before a word in "She said 0 dear."']);
 });
 
 test("builds surah lessons with ayah meaning questions", () => {

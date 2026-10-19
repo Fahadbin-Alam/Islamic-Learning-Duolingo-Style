@@ -1,4 +1,4 @@
-import { LESSONS_BY_ID } from "../data/course";
+import { COURSE, LESSONS_BY_ID } from "../data/course";
 import { FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import type { Challenge, LessonSource } from "../types";
 
@@ -167,6 +167,51 @@ describe("lesson sources", () => {
       .filter(([, narrators]) => [...narrators].some((a) => [...narrators].some((b) => !agree(a, b))))
       .map(([reference, narrators]) => `${reference}: ${[...narrators].join(" / ")}`);
     expect(conflicts).toEqual([]);
+  });
+});
+
+describe("lessons imported from notes", () => {
+  const imported = lessons.filter((lesson) => lesson.id.startsWith("lesson-notes-"));
+  const surahOf = (url?: string) => Number(/^https:\/\/quran\.com\/(\d+)(?:[/?#]|$)/.exec(url ?? "")?.[1]) || undefined;
+
+  test("unit names are written for learners", () => {
+    const names = COURSE.sections.flatMap((section) => section.branches.map((branch) => `${branch.title} | ${branch.description}`));
+    expect(names.filter((name) => /your notes/i.test(name))).toEqual([]);
+  });
+
+  test("a surah with its own unit is taught there, not a second time in a list", () => {
+    const quran = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
+    const ownUnit = new Map(quran.branches.filter((branch) => branch.surahName).map((branch) => [surahOf(branch.sourceReferences?.[0]?.url), branch.id]));
+    const problems = quran.nodes
+      .map((node) => ({ node, surah: surahOf(LESSONS_BY_ID[node.lessonIds[0]].sources[0]?.url) }))
+      .filter(({ node, surah }) => node.id.startsWith("notes-") && surah && ownUnit.has(surah) && ownUnit.get(surah) !== node.branchId)
+      .map(({ node }) => node.id);
+    expect(problems).toEqual([]);
+  });
+
+  test("Quran units follow the order of the surahs", () => {
+    const quran = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
+    const firstSurah = quran.branches.map((branch) =>
+      Math.min(...quran.nodes.filter((node) => node.branchId === branch.id).map((node) => surahOf(LESSONS_BY_ID[node.lessonIds[0]].sources[0]?.url) ?? Infinity))
+    );
+    expect(firstSurah).toEqual([...firstSurah].sort((left, right) => left - right));
+    expect(quran.branches[0].title).toBe("Surah Al-Fatihah");
+  });
+
+  test("a lesson about one person stays short and opens with what they are known for", () => {
+    const people = imported.filter((lesson) => /^lesson-notes-(sahabah|prophets|women-of-the-book)-/.test(lesson.id));
+    expect(people.length).toBeGreaterThan(100);
+    expect(people.filter((lesson) => lesson.challenges.length > 4 || /^Known for:/.test(lesson.intro)).map((lesson) => lesson.id)).toEqual([]);
+  });
+
+  test("text has no typing slips from older translations and one way of spelling names", () => {
+    const slips = [/(^|[\s"“:(,])0 [A-Za-z]/, /\b(an|any|no|other) Allah\b/, /[\u00C0-\u024F\u1E00-\u1EFF]/];
+    const problems = imported.flatMap((lesson) =>
+      [lesson.title, lesson.intro, lesson.explanationContent ?? "", ...lesson.challenges.flatMap(challengeTexts)]
+        .filter((text) => slips.some((pattern) => pattern.test(text)))
+        .map((text) => `${lesson.id}: "${text.slice(0, 80)}"`)
+    );
+    expect(problems).toEqual([]);
   });
 });
 

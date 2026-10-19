@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const STORAGE_KEYS = [
   "sira-path-user-profile",
+  "sira-path-account-profile",
   "sira-path-local-auth",
   "sira-path-social-hub",
   "sira-path-session-token",

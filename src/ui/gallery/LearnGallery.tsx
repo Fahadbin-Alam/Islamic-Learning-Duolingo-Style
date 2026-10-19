@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import { COURSE } from "../../data/course";
-import { getBranchArabic, getLessonArabic, getTopicArabic } from "../../data/arabicTerms";
+import { getBranchArabic, getNodeArabic, getTopicArabic } from "../../data/arabicTerms";
 import type { LearningNodeView, LearningSection } from "../../types";
 import { AppTopBar } from "../screens/AppTopBar";
 import { BottomTabs, type TabKey } from "../screens/BottomTabs";
@@ -24,8 +24,9 @@ function section(topicId: string): LearningSection {
 
 /**
  * Builds path units from real course data with the first `doneCount` path nodes completed.
- * Statuses follow learningApi.getPathNodes: the first open node of EVERY branch is "current"
- * when its prerequisites are done, so the path must pick a single current node itself.
+ * Statuses are a rough copy of learningApi.getPathNodes (which now marks one current node per
+ * topic): here the first open node of every branch is "current", so the path still has to pick
+ * a single current node itself.
  */
 function buildUnits(sec: LearningSection, doneCount: number, claimed: Set<string>, maxUnits = 4, premiumFrom = 3): PathUnit[] {
   const branches = [...sec.branches].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).slice(0, maxUnits);
@@ -50,7 +51,7 @@ function buildUnits(sec: LearningSection, doneCount: number, claimed: Set<string
       items.push({
         kind: "node",
         node: { ...node, status, firstLessonId: node.lessonIds[0] },
-        arabic: getLessonArabic(node.id, node.branchId),
+        arabic: getNodeArabic(node.id),
         lessonNumber,
         progress: status === "current" && doneCount > 0 ? 0.34 : undefined
       });

@@ -17,7 +17,7 @@ import {
 import Svg, { Circle } from "react-native-svg";
 import type { ArabicTerm } from "../../data/arabicTerms";
 import type { LearningNodeView } from "../../types";
-import { ArabicText } from "../ArabicText";
+import { ArabicText, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
@@ -485,7 +485,7 @@ function NodeCard({
           style={[styles.card, { backgroundColor: face, borderBottomColor: lipColor }]}
           testID="node-card"
         >
-          <Text style={[styles.cardTitle, { color: ink }]}>{node.title}</Text>
+          <Text style={[styles.cardTitle, { color: ink }]}>{withHonorifics(node.title)}</Text>
           {arabic ? (
             <ArabicText
               size={arabicSize}
@@ -562,7 +562,7 @@ function UnitBanner({
         ) : null}
       </View>
       <Text style={styles.bannerTitle} numberOfLines={2}>
-        {unit.title}
+        {withHonorifics(unit.title)}
       </Text>
       <View style={styles.bannerBottom}>
         <ProgressBar progress={progress} color={colors.white} trackColor={withAlpha(colors.ink, 0.2)} height={10} style={styles.bannerBar} />
@@ -592,7 +592,7 @@ function StickyBanner({ unit, color, onMeasure }: { unit: PathUnit; color: strin
           <View style={styles.stickyText}>
             <Text style={styles.stickyUnit} numberOfLines={1}>{`UNIT ${unit.number}`}</Text>
             <Text style={styles.stickyTitle} numberOfLines={2}>
-              {unit.title}
+              {withHonorifics(unit.title)}
             </Text>
           </View>
           <Text style={styles.stickyCount} numberOfLines={1}>{`${unit.done}/${unit.total}`}</Text>

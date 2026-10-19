@@ -1,4 +1,4 @@
-import { applyShopItem, grantHearts, isOutOfHeartsAfterAnswer, localDateKey, loseHeart, refillHeartsForToday } from "../api/islamicLearningApi";
+import { applyShopItem, grantHearts, isOutOfHearts, isOutOfHeartsAfterAnswer, localDateKey, loseHeart, refillHeartsForToday } from "../api/islamicLearningApi";
 import { SHOP_ITEMS } from "../data/course";
 import { makeUser } from "./testUtils";
 
@@ -92,5 +92,19 @@ describe("isOutOfHeartsAfterAnswer", () => {
   it("lets a right answer or a member with unlimited hearts carry on", () => {
     expect(isOutOfHeartsAfterAnswer(empty, "correct")).toBe(false);
     expect(isOutOfHeartsAfterAnswer({ ...empty, hearts: { ...empty.hearts, unlimited: true } }, "wrong")).toBe(false);
+  });
+});
+
+describe("isOutOfHearts", () => {
+  const empty = makeUser({ hearts: { current: 0, max: 5, unlimited: false, lastRefillDate: today() } });
+
+  it("stops the lesson at 0 hearts whatever the last answer was, so a free retry cannot get around it", () => {
+    expect(isOutOfHearts(empty)).toBe(true);
+    expect(isOutOfHearts(loseHeart({ ...empty, hearts: { ...empty.hearts, current: 1 } }))).toBe(true);
+  });
+
+  it("lets a learner with hearts left, or unlimited hearts, carry on", () => {
+    expect(isOutOfHearts({ ...empty, hearts: { ...empty.hearts, current: 1 } })).toBe(false);
+    expect(isOutOfHearts({ ...empty, hearts: { ...empty.hearts, unlimited: true } })).toBe(false);
   });
 });

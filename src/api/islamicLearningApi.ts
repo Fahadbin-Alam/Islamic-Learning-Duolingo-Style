@@ -15,7 +15,6 @@ import type {
   LessonSession,
   PremiumStatus,
   ShopItem,
-  TopicId,
   UserProfile,
   XpSummary
 } from "../types";
@@ -40,25 +39,25 @@ export const learningApi: IslamicLearningApi = {
   },
   getPathNodes(user) {
     const completed = new Set(user.completedNodeIds);
-    const firstIncompleteByBranch = new Map(
-      COURSE.sections.flatMap((section) =>
-        section.branches.map((branch) => [
-          branch.id,
-          section.nodes.find((node) => node.branchId === branch.id && !completed.has(node.id))
-        ] as const)
-      )
+    const premium = isPremiumUser(user);
+    // One circle to play next per topic: the first open one in path order. Later open circles
+    // (a new surah or companion track) wait their turn; the unit's test-out key jumps ahead.
+    const currentIds = new Set(
+      COURSE.sections.flatMap((section) => {
+        const lockedBranchIds = new Set(section.branches.filter((branch) => branch.premiumOnly && !premium).map((branch) => branch.id));
+        const next = section.branches
+          .flatMap((branch) => section.nodes.filter((node) => node.branchId === branch.id))
+          .find((node) =>
+            !completed.has(node.id) &&
+            !lockedBranchIds.has(node.branchId) &&
+            node.requiredNodeIds.every((id) => completed.has(id))
+          );
+        return next ? [next.id] : [];
+      })
     );
 
     return allNodes.map((node) => {
-      const isCompleted = completed.has(node.id);
-      const prereqsComplete = node.requiredNodeIds.every((id) => completed.has(id));
-      const status = isCompleted
-        ? "completed"
-        : !prereqsComplete
-          ? "locked"
-          : firstIncompleteByBranch.get(node.branchId)?.id === node.id
-            ? "current"
-            : "available";
+      const status = completed.has(node.id) ? "completed" : currentIds.has(node.id) ? "current" : "locked";
 
       return {
         ...node,
@@ -212,7 +211,13 @@ export function completeLesson(user: UserProfile, lesson: Lesson) {
 // Running out of hearts stops a lesson, including on its final question; otherwise the last
 // mistake would still finish the lesson and award its XP and stars.
 export function isOutOfHeartsAfterAnswer(user: UserProfile, answerState: "correct" | "wrong" | undefined) {
-  return !user.hearts.unlimited && user.hearts.current === 0 && answerState === "wrong";
+  return isOutOfHearts(user) && answerState === "wrong";
+}
+
+// No hearts left (and no unlimited hearts): no more questions until the learner refills.
+// A free retry does not get around it.
+export function isOutOfHearts(user: UserProfile) {
+  return !user.hearts.unlimited && user.hearts.current <= 0;
 }
 
 export function loseHeart(user: UserProfile) {
@@ -314,7 +319,8 @@ export function applyPremiumStatus(user: UserProfile, status: PremiumStatus) {
   };
 }
 
-export function completeLessonCluster(user: UserProfile, lessons: Lesson[]) {
+// `maxXp` caps the XP: a test-out pays for the lessons it asked about, not for every lesson it skips.
+export function completeLessonCluster(user: UserProfile, lessons: Lesson[], maxXp = Number.POSITIVE_INFINITY) {
   const completedLessonIds = new Set(user.completedLessonIds);
   const completedNodeIds = new Set(user.completedNodeIds);
   let gainedXp = 0;
@@ -331,7 +337,7 @@ export function completeLessonCluster(user: UserProfile, lessons: Lesson[]) {
     }
   }
 
-  const withXp = addXp(user, gainedXp);
+  const withXp = addXp(user, Math.min(gainedXp, maxXp));
 
   return {
     ...withXp,
@@ -340,6 +346,56 @@ export function completeLessonCluster(user: UserProfile, lessons: Lesson[]) {
   };
 }
 
+// A unit test-out asks 3 to 8 questions, whatever the number of lessons it skips.
+export const TEST_OUT_MIN_QUESTIONS = 3;
+export const TEST_OUT_MAX_QUESTIONS = 8;
+
+// 80% to pass, but never more right answers than there are questions, so a perfect run always passes.
+export function testOutPassingScore(questionCount: number) {
+  return Math.min(questionCount, Math.max(TEST_OUT_MIN_QUESTIONS, Math.ceil(questionCount * 0.8)));
+}
+
+// Questions spread over every lesson the test skips, no prompt asked twice. A question that only makes
+// sense inside its own lesson ("What does this step teach?") is used only when the lesson has nothing else.
+export function pickTestOutChallenges(lessons: Lesson[]) {
+  const picks: { lesson: Lesson; challenge: Challenge }[] = [];
+
+  if (!lessons.length) {
+    return picks;
+  }
+
+  const target = Math.min(TEST_OUT_MAX_QUESTIONS, Math.max(TEST_OUT_MIN_QUESTIONS, lessons.length));
+  // More lessons than questions: one question from every few lessons. Fewer: each lesson gives several, in turn.
+  const slots = Array.from({ length: target }, (_, index) =>
+    lessons.length >= target ? Math.floor((index * lessons.length) / target) : index % lessons.length
+  );
+  const used = new Set<string>();
+  const prompts = new Set<string>();
+  const fits = (lesson: Lesson, challenge: Challenge, strict: boolean) =>
+    !used.has(`${lesson.id}:${challenge.id}`) &&
+    !prompts.has(challenge.prompt.trim().toLowerCase()) &&
+    (!strict || !CONTEXT_BOUND_PROMPT.test(challenge.prompt));
+
+  for (const slot of slots) {
+    const lesson = lessons[slot];
+    const challenge = lesson.challenges.find((item) => fits(lesson, item, true)) ?? lesson.challenges.find((item) => fits(lesson, item, false));
+
+    if (challenge) {
+      used.add(`${lesson.id}:${challenge.id}`);
+      prompts.add(challenge.prompt.trim().toLowerCase());
+      picks.push({ lesson, challenge });
+    }
+  }
+
+  return picks;
+}
+
+// Too few questions to tell whether the learner knows the unit: no test-out then.
+export function canTestOut(lessons: Lesson[]) {
+  return pickTestOutChallenges(lessons).length >= TEST_OUT_MIN_QUESTIONS;
+}
+
+// Passing completes every lesson in `lessons`, the circles still to do in the unit, locked ones included.
 export function createTestOutSession(input: {
   branchTitle: string;
   branchId: string;
@@ -347,39 +403,35 @@ export function createTestOutSession(input: {
   nodeIds: string[];
   heartsAtStart: number;
 }): LessonSession {
-  const selectedLessons = input.lessons.slice(0, 5).map((lesson) => prepareLessonForSession(lesson));
-  const uniqueSources = uniqueById(selectedLessons.flatMap((lesson) => lesson.sources));
-  const challenges = selectedLessons.map((lesson, lessonIndex) => {
-    const progressiveLesson = lesson;
-    const baseChallenge = progressiveLesson.challenges[0];
-
-    if (!baseChallenge) {
-      return undefined;
-    }
+  const picks = pickTestOutChallenges(input.lessons);
+  const prepared = new Map<string, Lesson>();
+  const challenges = picks.map(({ lesson, challenge }, index) => {
+    const full = prepared.get(lesson.id) ?? prepareLessonForSession(lesson);
+    prepared.set(lesson.id, full);
+    const base = full.challenges.find((item) => item.id === challenge.id) ?? challenge;
 
     return {
-      ...baseChallenge,
-      id: `test_out_${input.branchId}_${lessonIndex}_${baseChallenge.id}`,
-      sourceNodeId: baseChallenge.sourceNodeId ?? lesson.nodeId,
-      sourceLessonId: baseChallenge.sourceLessonId ?? lesson.id,
-      miniLesson: baseChallenge.miniLesson ?? lesson.explanationContent ?? lesson.intro,
-      easierExplanation: baseChallenge.easierExplanation ?? `Start with the main teaching from ${lesson.title}.`,
-      reviewSuggestion: baseChallenge.reviewSuggestion ?? `Review ${lesson.title}`,
-      resourceLabel: baseChallenge.resourceLabel ?? (lesson.sources[0] ? "Open source" : undefined),
-      resourceUrl: baseChallenge.resourceUrl ?? lesson.sources[0]?.url
+      ...base,
+      id: `test_out_${input.branchId}_${index}_${base.id}`,
+      sourceNodeId: base.sourceNodeId ?? lesson.nodeId,
+      sourceLessonId: base.sourceLessonId ?? lesson.id,
+      miniLesson: base.miniLesson ?? lesson.explanationContent ?? lesson.intro,
+      reviewSuggestion: base.reviewSuggestion ?? `Review ${lesson.title}`
     };
-  }).filter(Boolean) as Challenge[];
-  const xpReward = selectedLessons.reduce((total, lesson) => total + lesson.xpReward, 0);
+  });
+  const uniqueSources = uniqueById(Array.from(prepared.values()).flatMap((lesson) => lesson.sources));
+  // What the lessons it asked about pay; passing still completes every lesson in `lessons`.
+  const xpReward = Array.from(new Set(picks.map((pick) => pick.lesson))).reduce((total, lesson) => total + lesson.xpReward, 0);
 
   return {
     id: `session_test_out_${input.branchId}_${Date.now()}`,
     lesson: {
       id: `lesson_test_out_${input.branchId}`,
-      nodeId: input.nodeIds[0] ?? selectedLessons[0]?.nodeId ?? input.branchId,
+      nodeId: input.nodeIds[0] ?? input.lessons[0]?.nodeId ?? input.branchId,
       branchId: input.branchId,
       title: input.branchTitle,
-      intro: "Prove this lesson stretch and unlock the next group if you pass.",
-      explanationContent: "A test-out should feel like real understanding: recognition, application, and correction under a little pressure.",
+      intro: "Pass to jump ahead.",
+      explanationContent: "Questions from every lesson this test skips.",
       lessonType: "mastery",
       xpReward,
       sources: uniqueSources,
@@ -393,8 +445,8 @@ export function createTestOutSession(input: {
     mode: "test_out" as const,
     clusterTitle: input.branchTitle,
     targetNodeIds: input.nodeIds,
-    targetLessonIds: selectedLessons.map((lesson) => lesson.id),
-    passingScore: Math.max(3, Math.ceil(challenges.length * 0.8))
+    targetLessonIds: input.lessons.map((lesson) => lesson.id),
+    passingScore: testOutPassingScore(challenges.length)
   };
 }
 
@@ -409,99 +461,56 @@ function cloneUser(user: UserProfile): UserProfile {
 
 type LessonTier = "easy" | "medium" | "hard";
 
-const TOPIC_DISTRACTOR_BANK: Record<TopicId, string[]> = {
-  foundation: [
-    "Rush past remembrance and let habits form on their own",
-    "Answer people however you feel without caring about adab",
-    "Treat daily Muslim phrases like they do not shape the heart"
-  ],
-  prayer: [
-    "Prayer can begin without any care for purification or order",
-    "Wudu is mainly about speed, not about following the taught steps",
-    "Preparation for salah matters less than how confident someone feels"
-  ],
-  aqidah: [
-    "Belief stays healthy even when revelation is treated like a background detail",
-    "Tawhid can stay theoretical without shaping worship or reliance",
-    "Clear belief matters less than spiritual mood"
-  ],
-  fasting: [
-    "The point of fasting is mainly hunger and public discipline",
-    "Protecting the stomach matters more than protecting the tongue",
-    "Ramadan is mostly a schedule change and not a training season"
-  ],
-  zakat: [
-    "Zakat works best when it follows personal preference instead of revealed categories",
-    "The inner state of the giver matters less than just moving money out",
-    "Wealth grows purer when its duties stay vague"
-  ],
-  hajj: [
-    "The meaning of Hajj matters less than travel logistics and atmosphere",
-    "The rites are strongest when sequence stays loose",
-    "Pilgrimage is mainly memory-making rather than submission"
-  ],
-  manners: [
-    "Good character only matters when other people are watching",
-    "Family rights are less important than winning arguments",
-    "Mercy can be skipped if someone annoys you"
-  ],
-  marriage: [
-    "A home succeeds mainly through image and status",
-    "Kindness matters outside the home more than inside it",
-    "Marriage works best when mercy is treated as optional"
-  ],
-  sahabah: [
-    "The companions are remembered mainly for wealth and comfort",
-    "Their stories matter as history but not for character",
-    "Courage in Islam means acting without guidance"
-  ],
-  prophets: [
-    "The prophets teach disconnected stories with no shared lessons",
-    "Tests are signs that trust in Allah should be abandoned",
-    "Sacred history matters less than personal preference"
-  ],
-  women_of_the_book: [
-    "These women are remembered mostly for status without sacrifice",
-    "Their stories are admired but not meant to shape Muslim character",
-    "Revelation honors them without giving believers any lesson to follow"
-  ],
-  hadith: [
-    "A hadith only matters if it is about worship",
-    "The reference of a narration never matters",
-    "Narrations should be quoted without checking where they come from"
-  ],
-  quran_tafseer: [
-    "The Quran is best approached without reflection or explanation",
-    "Verses should be memorized but never connected to life",
-    "Tafsir matters less than quick guesses about meaning"
-  ]
-};
-
+// Later lessons mix in one question from the lesson before them in the same unit. They ask a little
+// more that way without padding the lesson with off-topic choices or questions it never taught.
 function buildProgressiveLesson(lesson: Lesson): Lesson {
   const node = findNodeByLessonId(lesson.id);
 
-  if (!node) {
+  if (!node || getLessonTier(node) === "easy") {
     return lesson;
   }
 
-  const tier = getLessonTier(node);
-  const baseChallenges = lesson.challenges.map((challenge, index) =>
-    widenChallengeChoices(challenge, node.topicId, lesson.id, index, tier)
-  );
-  const extraChallenges: Challenge[] = [];
+  const review = buildReviewChallenge(lesson, node);
 
-  if (tier !== "easy") {
-    extraChallenges.push(buildSourceReferenceChallenge(lesson, node, tier));
-  }
-
-  if (tier === "hard") {
-    extraChallenges.push(buildSynthesisChallenge(lesson, node));
+  if (!review) {
+    return lesson;
   }
 
   return {
     ...lesson,
-    xpReward: lesson.xpReward + extraChallenges.length * 2,
-    challenges: [...baseChallenges, ...extraChallenges]
+    xpReward: lesson.xpReward + 2,
+    challenges: [...lesson.challenges, review]
+  };
+}
+
+// A question that only makes sense inside its own lesson ("What does this lesson teach?") can't be reused.
+const CONTEXT_BOUND_PROMPT = /\bthis (lesson|step|story|unit|branch)\b/i;
+
+function buildReviewChallenge(lesson: Lesson, node: LearningNode): Challenge | undefined {
+  const previousNode = allNodes.find((item) => item.branchId === node.branchId && node.requiredNodeIds.includes(item.id));
+  const previousLesson = previousNode ? LESSONS_BY_ID[previousNode.lessonIds[0]] : undefined;
+
+  if (!previousLesson) {
+    return undefined;
+  }
+
+  const ownPrompts = new Set(lesson.challenges.map((challenge) => challenge.prompt.trim().toLowerCase()));
+  const pool = previousLesson.challenges.filter(
+    (challenge) => !CONTEXT_BOUND_PROMPT.test(challenge.prompt) && !ownPrompts.has(challenge.prompt.trim().toLowerCase())
+  );
+
+  if (!pool.length) {
+    return undefined;
+  }
+
+  const picked = pool[Math.abs(hashCode(lesson.id)) % pool.length];
+
+  return {
+    ...picked,
+    id: `${lesson.id}_review_${picked.id}`,
+    sourceNodeId: picked.sourceNodeId ?? previousLesson.nodeId,
+    sourceLessonId: picked.sourceLessonId ?? previousLesson.id,
+    reviewSuggestion: picked.reviewSuggestion ?? `Review ${previousLesson.title}`
   };
 }
 
@@ -555,132 +564,6 @@ function getLessonTier(node: LearningNode): LessonTier {
   }
 
   return "hard";
-}
-
-function widenChallengeChoices(
-  challenge: Challenge,
-  topicId: TopicId,
-  lessonId: string,
-  index: number,
-  tier: LessonTier
-): Challenge {
-  if (challenge.type !== "multiple_choice" || tier === "easy" || challenge.choices.length >= 4) {
-    return challenge;
-  }
-
-  const distractor = pickExtraDistractor(topicId, challenge.choices.map((choice) => choice.label), lessonId, index);
-
-  if (!distractor) {
-    return challenge;
-  }
-
-  return {
-    ...challenge,
-    choices: [...challenge.choices, { id: `extra_${challenge.id}`, label: distractor }]
-  };
-}
-
-function pickExtraDistractor(topicId: TopicId, existingLabels: string[], lessonId: string, index: number) {
-  const bank = TOPIC_DISTRACTOR_BANK[topicId];
-
-  if (!bank?.length) {
-    return undefined;
-  }
-
-  const start = Math.abs(hashCode(`${lessonId}:${index}`)) % bank.length;
-
-  for (let offset = 0; offset < bank.length; offset += 1) {
-    const candidate = bank[(start + offset) % bank.length];
-
-    if (!existingLabels.includes(candidate)) {
-      return candidate;
-    }
-  }
-
-  return undefined;
-}
-
-function buildSourceReferenceChallenge(lesson: Lesson, node: LearningNode, tier: LessonTier): Challenge {
-  const correctSource = lesson.sources[0];
-  const distractors = getReferenceDistractors(lesson.id, correctSource.reference ?? correctSource.title, 2);
-
-  return {
-    id: `${lesson.id}_sources_${tier}`,
-    type: "multiple_choice",
-    prompt: tier === "medium"
-      ? "Which reference is actually used in this lesson?"
-      : "Which reference best anchors this lesson's evidence?",
-    choices: [
-      { id: "a", label: correctSource.reference ?? correctSource.title },
-      { id: "b", label: distractors[0] ?? "A source from a different lesson" },
-      { id: "c", label: distractors[1] ?? "A source that belongs somewhere else" }
-    ],
-    correctChoiceId: "a",
-    sourceNodeId: lesson.nodeId,
-    sourceLessonId: lesson.id,
-    explanation:
-      tier === "medium"
-        ? "Later lessons start asking you to notice the evidence, not only the headline."
-        : `This lesson is now asking you to connect the idea to its proof in ${node.title}.`,
-    miniLesson: `Evidence matters. This lesson is anchored to ${correctSource.reference ?? correctSource.title}.`,
-    easierExplanation: `Look for the source that actually belongs to ${lesson.title}.`,
-    reviewSuggestion: `Review the evidence used in ${lesson.title}`,
-    resourceLabel: "Open source",
-    resourceUrl: correctSource.url
-  };
-}
-
-function buildSynthesisChallenge(lesson: Lesson, node: LearningNode): Challenge {
-  return {
-    id: `${lesson.id}_synthesis`,
-    type: "multiple_choice",
-    prompt: "Which summary best brings this whole lesson together?",
-    choices: [
-      { id: "a", label: buildLessonSummary(lesson) },
-      { id: "b", label: "Revelation matters less than opinion, so practice can be improvised freely" },
-      { id: "c", label: "The main goal is to memorize isolated facts without letting them shape character" },
-      { id: "d", label: `The lesson on ${node.title} is mostly about historical trivia instead of guidance` }
-    ],
-    correctChoiceId: "a",
-    sourceNodeId: lesson.nodeId,
-    sourceLessonId: lesson.id,
-    explanation: "The harder lessons now ask for synthesis: not just what happened, but what the believer should carry from it.",
-    miniLesson: buildLessonSummary(lesson),
-    easierExplanation: `Pick the summary that stays closest to the real teaching of ${lesson.title}.`,
-    reviewSuggestion: `Review the main point of ${lesson.title}`,
-    resourceLabel: lesson.sources[0] ? "Open source" : undefined,
-    resourceUrl: lesson.sources[0]?.url
-  };
-}
-
-function buildLessonSummary(lesson: Lesson) {
-  const intro = lesson.intro.trim();
-
-  if (intro.length <= 88) {
-    return intro;
-  }
-
-  const shortened = intro.slice(0, 85).trimEnd();
-  return shortened.endsWith(".") ? shortened : `${shortened}...`;
-}
-
-function getReferenceDistractors(lessonId: string, correctReference: string, count: number) {
-  const references = Object.values(LESSONS_BY_ID)
-    .filter((item) => item.id !== lessonId)
-    .flatMap((item) => item.sources.map((source) => source.reference ?? source.title))
-    .filter((reference) => reference !== correctReference);
-  const picked: string[] = [];
-  const start = Math.abs(hashCode(lessonId)) % Math.max(1, references.length);
-
-  for (let offset = 0; offset < references.length && picked.length < count; offset += 1) {
-    const candidate = references[(start + offset) % references.length];
-
-    if (!picked.includes(candidate)) {
-      picked.push(candidate);
-    }
-  }
-
-  return picked;
 }
 
 function uniqueById<T extends { id: string }>(items: T[]) {

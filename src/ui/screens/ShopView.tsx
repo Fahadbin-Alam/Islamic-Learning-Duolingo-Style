@@ -38,6 +38,8 @@ export type ShopViewProps = {
    * Default: the monetization mode is not "disabled".
    */
   canBuyWithMoney?: boolean;
+  /** Scroll to this part once the shop opens. "premium": the Premium card (or the "in the app" note). */
+  focus?: "premium";
 };
 
 const MANAGE_SUBSCRIPTION_URL =
@@ -315,7 +317,8 @@ export function ShopView({
   onRestore,
   onOpenLink,
   pendingItemId,
-  canBuyWithMoney = monetizationMode !== "disabled"
+  canBuyWithMoney = monetizationMode !== "disabled",
+  focus
 }: ShopViewProps) {
   const premium = isPremium(user);
   const [pendingId, setPendingId] = useState<string | undefined>(undefined);
@@ -323,6 +326,17 @@ export function ShopView({
   const heartsPop = useRef(new Animated.Value(1)).current;
   const gemPop = useRef(new Animated.Value(1)).current;
   const last = useRef({ hearts: user.hearts.current, gems: user.gems });
+  const scrollRef = useRef<ScrollView>(null);
+  const focusDone = useRef(false);
+  const focusTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(() => () => clearTimeout(focusTimer.current), []);
+
+  // Opened from a premium unit's UNLOCK: glide down to Premium instead of showing heart packs.
+  const focusPremium = (y: number) => {
+    if (focus !== "premium" || focusDone.current) return;
+    focusDone.current = true;
+    focusTimer.current = setTimeout(() => scrollRef.current?.scrollTo({ y: Math.max(0, y - 12), animated: true }), 120);
+  };
 
   useEffect(() => {
     if (!busy) setPendingId(undefined);
@@ -367,7 +381,7 @@ export function ShopView({
 
   return (
     <View style={styles.root}>
-      <ScrollView style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="shop-view">
+      <ScrollView ref={scrollRef} style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="shop-view">
         <Text style={styles.title}>Shop</Text>
 
         <PopIn from="scale">
@@ -442,13 +456,13 @@ export function ShopView({
         ) : null}
 
         {plans.length ? (
-          <View style={styles.section}>
+          <View style={styles.section} onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
             <PremiumCard plans={plans} {...rowProps} />
           </View>
         ) : null}
 
         {!canBuyWithMoney && !premium ? (
-          <View style={styles.appHint} testID="shop-app-hint">
+          <View style={styles.appHint} testID="shop-app-hint" onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
             <Icon name="crown" size={30} />
             <Text style={styles.appHintText}>Premium is in the app</Text>
           </View>

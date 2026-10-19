@@ -12,6 +12,7 @@ export { Sheet, type SheetProps, type SheetTone } from "./Sheet";
 export { PopIn, useShake, type PopInProps } from "./PopIn";
 export { Confetti, type ConfettiProps } from "./Confetti";
 export { CountUp, type CountUpProps } from "./CountUp";
-export { ArabicText, hasArabic, isArabicOnly, type ArabicTextProps } from "./ArabicText";
+export { ArabicText, HONORIFIC_PATTERN, hasArabic, isArabicOnly, isQuranText, withHonorifics, type ArabicTextProps } from "./ArabicText";
+export { Portal, PortalHost } from "./Portal";
 export { StatChip, type StatChipProps } from "./StatChip";
 export { PhoneFrame } from "./PhoneFrame";

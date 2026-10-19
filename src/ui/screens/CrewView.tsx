@@ -215,10 +215,11 @@ export function CrewView({
   };
 
   let body: React.ReactNode;
-  if (signedOut) {
-    body = <Empty {...emptyProps} testID="crew-signed-out" mood="wave" title="Race your friends!" button="Sign up" onPress={onCreateAccount} />;
-  } else if (unavailable) {
+  if (unavailable) {
     body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title="Crew is coming soon!" />;
+  } else if (signedOut) {
+    // An account without a server session (made offline) logs in; everyone else signs up.
+    body = <Empty {...emptyProps} testID="crew-signed-out" mood="wave" title="Race your friends!" button={user.hasAccount ? "Log in" : "Sign up"} onPress={onCreateAccount} />;
   } else if (isOffline) {
     body = <Empty {...emptyProps} testID="crew-offline" mood="sad" title="No internet" button="Try again" onPress={retry} busy={retrying} />;
   } else if (crew.status === "error") {

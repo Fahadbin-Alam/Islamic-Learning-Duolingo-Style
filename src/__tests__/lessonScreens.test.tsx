@@ -102,14 +102,14 @@ describe("lesson screens", () => {
     await fireEvent.press(screen.getByText("CHECK"));
     expect(onCheck).not.toHaveBeenCalled();
 
-    await fireEvent.press(screen.getByText(noBreakHyphens("As-salamu alaikum")));
+    await fireEvent.press(screen.getByText(noBreakHyphens("As-salamu alaykum")));
     expect(onSelect).toHaveBeenCalledWith("a");
 
     await rerender(<ExerciseView {...props} selectedChoiceId="a" />);
     await fireEvent.press(screen.getByText("CHECK"));
     expect(onCheck).toHaveBeenCalledTimes(1);
 
-    await rerender(<ExerciseView {...props} selectedChoiceId="a" result={{ correct: true, correctLabel: "As-salamu alaikum" }} praiseSeed={mc.id} />);
+    await rerender(<ExerciseView {...props} selectedChoiceId="a" result={{ correct: true, correctLabel: "As-salamu alaykum" }} praiseSeed={mc.id} />);
     expect(screen.getByText(pickPraise(mc.id))).toBeTruthy();
     // Tiles are locked after checking.
     await fireEvent.press(screen.getByText("See you later"));

@@ -1,4 +1,4 @@
-import { buildExpandedContent } from "./scalableCurriculum";
+import { buildExpandedContent, chainCourse } from "./scalableCurriculum";
 import { mergeImportedNotes } from "./importedNotes";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
@@ -189,7 +189,7 @@ const BASE_COURSE: LearningCourse = {
         {
           id: "foundation-niyyah",
           skillId: "skill_foundation_001",
-          title: "As-Salamu Alaikum",
+          title: "As-salamu alaykum",
           topicId: "foundation",
           branchId: "foundation-greetings",
           kind: "skill",
@@ -206,7 +206,7 @@ const BASE_COURSE: LearningCourse = {
           branchId: "foundation-daily-words",
           kind: "skill",
           lessonIds: ["lesson-foundation-guidance"],
-          requiredNodeIds: ["foundation-niyyah"],
+          requiredNodeIds: ["foundation-character"],
           xpReward: 8,
           starsReward: 3
         },
@@ -242,7 +242,7 @@ const BASE_COURSE: LearningCourse = {
           branchId: "foundation-greetings",
           kind: "review",
           lessonIds: ["lesson-foundation-character"],
-          requiredNodeIds: ["foundation-sneeze"],
+          requiredNodeIds: ["foundation-niyyah"],
           xpReward: 10,
           starsReward: 3
         }
@@ -980,8 +980,8 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
   "lesson-foundation-niyyah": lesson(
     "lesson-foundation-niyyah",
     "foundation-niyyah",
-    "As-Salamu Alaikum",
-    "One of the first Muslim habits is greeting people with peace: As-salamu alaikum.",
+    "As-salamu alaykum",
+    "One of the first Muslim habits is greeting people with peace: As-salamu alaykum.",
     8,
     [
       hadithSource(
@@ -1006,12 +1006,12 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "foundation-niyyah-1",
         "What is the basic Muslim greeting you should learn first?",
         [
-          ["a", "As-salamu alaikum"],
+          ["a", "As-salamu alaykum"],
           ["b", "Nice to meet you only"],
           ["c", "See you later"]
         ],
         "a",
-        "As-salamu alaikum is the greeting of peace Muslims begin with."
+        "As-salamu alaykum is the greeting of peace Muslims begin with."
       ),
       tf(
         "foundation-niyyah-2",
@@ -1217,7 +1217,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "foundation-character-1",
-        "If someone says 'As-salamu alaikum,' what should you answer?",
+        "If someone says 'As-salamu alaykum,' what should you answer?",
         [
           ["a", "Wa alaykum as-salam"],
           ["b", "Maybe later"],
@@ -1624,7 +1624,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "What phrase is taught when rising from ruku?",
         [
           ["a", "Sami' Allahu liman hamidah"],
-          ["b", "As-salamu alaikum"],
+          ["b", "As-salamu alaykum"],
           ["c", "Bismillah before eating"]
         ],
         "a",
@@ -1905,12 +1905,12 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "salam-1",
         "Which greeting means peace be upon you?",
         [
-          ["a", "As-salamu alaikum"],
+          ["a", "As-salamu alaykum"],
           ["b", "Welcome back"],
           ["c", "Good game"]
         ],
         "a",
-        "As-salamu alaikum is the greeting of peace."
+        "As-salamu alaykum is the greeting of peace."
       ),
       tf(
         "salam-2",
@@ -3837,7 +3837,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
 };
 
 const scaledContent = buildExpandedContent(BASE_COURSE, BASE_LESSONS_BY_ID);
-const expandedContent = mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES);
+const expandedContent = chainCourse(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES));
 
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;
