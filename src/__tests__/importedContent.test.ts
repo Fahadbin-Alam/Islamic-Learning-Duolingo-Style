@@ -148,9 +148,12 @@ describe("imported lessons", () => {
   });
 
   it("teach each hadith by what it says, with its reference on the quote", () => {
-    const hadith = imported.filter((lesson) => topicOf(lesson) === "hadith");
-    // 15 notes: a weak one (Tirmidhi 1084) and five repeats or hand-dropped narrations stay in the vault.
-    expect(hadith).toHaveLength(9);
+    // 15 notes: a weak one (Tirmidhi 1084) and six repeats or hand-dropped narrations stay in the vault. Three are
+    // for young children, in the Hadith topic; five are about marriage, in the Marriage topic.
+    const hadith = imported.filter((lesson) => lesson.id.startsWith("lesson-notes-hadith-"));
+    expect(hadith.filter((lesson) => topicOf(lesson) === "hadith")).toHaveLength(3);
+    expect(hadith.filter((lesson) => topicOf(lesson) === "marriage")).toHaveLength(5);
+    expect(hadith).toHaveLength(8);
     const problems = hadith.flatMap((lesson) => [
       ...(/\b\d+[a-z]?$/.test(lesson.title) ? [`${lesson.id}: title is a reference`] : []),
       ...(lesson.learnLine ? [] : [`${lesson.id}: no learn line`]),
@@ -184,26 +187,40 @@ describe("Hadith topic", () => {
   const hadith = () => section("hadith");
   const lessonsOf = (branchId: string) => hadith().nodes.filter((node) => node.branchId === branchId).map((node) => lessonOf(node.id)!);
 
-  it("starts with Hadith for kids and ends with marriage, shut until the unit before it is done", () => {
+  it("is a child's path: Hadith for kids, then Safe with Allah, and no unit waits behind a gate", () => {
     const branches = hadith().branches;
-    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Safe with Allah", "Marriage in the Sunnah"]);
-    expect(branches.map((branch) => Boolean(branch.gated))).toEqual([false, false, true]);
-    const [, safe, marriage] = branches;
-    const safeNodes = hadith().nodes.filter((node) => node.branchId === safe.id);
-    const marriageFirst = hadith().nodes.find((node) => node.branchId === marriage.id)!;
-    expect(marriageFirst.requiredNodeIds).toEqual([safeNodes[safeNodes.length - 1].id]);
+    expect(branches.map((branch) => branch.title)).toEqual(["Hadith for kids", "Safe with Allah"]);
+    expect(branches.some((branch) => branch.gated)).toBe(false);
     // Unit ids stay those of the imported units, so saved progress still counts.
-    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "notes-hadith-hadith-from-your-notes-1", "notes-hadith-hadith-from-your-notes-2"]);
+    expect(branches.map((branch) => branch.id)).toEqual([HADITH_BASICS_BRANCH_ID, "notes-hadith-hadith-from-your-notes-1"]);
   });
 
-  it("keeps marriage, wives and Iblis's troops out of the units for young children", () => {
-    const [kids, safe, marriage] = hadith().branches;
-    const young = [...lessonsOf(kids.id), ...lessonsOf(safe.id)];
-    const adult = /\bmarr|\bwife\b|\bwives\b|husband|fertile/i;
-    expect(young.filter((lesson) => shownText(lesson).some((text) => adult.test(text))).map((lesson) => lesson.title)).toEqual([]);
-    expect(lessonsOf(marriage.id).map((lesson) => lesson.title)).toEqual(
-      expect.arrayContaining(["Half of the religion", "Keep four", "Marriage or fasting", "Iblis and his troops", "Choosing a wife"])
+  it("teaches the hadith about marriage only as the last unit of the Marriage topic, in order", () => {
+    const marriage = section("marriage");
+    const last = marriage.branches[marriage.branches.length - 1];
+    expect(last).toMatchObject({ id: "notes-hadith-hadith-from-your-notes-2", title: "Marriage in the Sunnah" });
+    expect(last.gated).toBeFalsy();
+    const nodes = marriage.nodes.filter((node) => node.branchId === last.id);
+    expect(nodes.map((node) => node.title)).toEqual(
+      expect.arrayContaining(["Half of the religion", "Marriage or fasting", "Iblis and his troops", "Choosing a wife", "A righteous wife"])
     );
+    expect(nodes.every((node) => node.topicId === "marriage")).toBe(true);
+    // Lesson ids are those of the imported hadith, so saved progress still counts.
+    expect(nodes.every((node) => node.id.startsWith("notes-hadith-") && lessonOf(node.id)?.id === `lesson-${node.id}`)).toBe(true);
+    // Taught in order: the unit opens after the unit before it, and each lesson after the one before it.
+    const before = marriage.nodes.filter((node) => node.branchId === marriage.branches[marriage.branches.length - 2].id);
+    expect(nodes[0].requiredNodeIds).toEqual([before[before.length - 1].id]);
+    expect(nodes.slice(1).every((node, index) => node.requiredNodeIds.join() === nodes[index].id)).toBe(true);
+    // Ghaylan's ten wives ("Keep four") is on no path.
+    expect(COURSE.sections.flatMap((each) => each.nodes).filter((node) => node.id.endsWith("mishkat-al-masabih-3176"))).toEqual([]);
+  });
+
+  it("keeps marriage, wives and Iblis out of the Hadith topic", () => {
+    const [kids, safe] = hadith().branches;
+    const young = [...lessonsOf(kids.id), ...lessonsOf(safe.id)];
+    const adult = /\bmarr|\bwife\b|\bwives\b|husband|fertile|iblis/i;
+    expect(young.filter((lesson) => shownText(lesson).some((text) => adult.test(text))).map((lesson) => lesson.title)).toEqual([]);
+    expect(hadith().nodes.length).toBe(young.length);
     // Only one gentle lesson on the Dajjal, after Allah's Book and seeking refuge.
     expect(lessonsOf(safe.id).map((lesson) => lesson.title)).toEqual(["Hold on to Allah's Book", "Seek refuge with Allah", "Every prophet warned"]);
     expect(young.filter((lesson) => /grape|one-eyed|blind/i.test(shownText(lesson).join(" ")))).toEqual([]);
@@ -307,11 +324,20 @@ describe("imported lessons stand on their own", () => {
   it("group the women from the notes by theme, without Umm Jamil or Umm Anmar", () => {
     const women = section("women_of_the_book");
     const fromNotes = women.branches.filter((branch) => branch.id.startsWith("notes-"));
-    expect(fromNotes.map((branch) => branch.title)).toEqual(["Mothers", "Wives of the Prophet ﷺ", "Ali's family"]);
+    expect(fromNotes.map((branch) => branch.title)).toEqual(["Mothers", "Ali's family"]);
     const titles = women.nodes.map((node) => node.title);
     expect(titles.filter((title) => /Umm Jamil|Umm Anmar/.test(title))).toEqual([]);
-    const wives = women.nodes.filter((node) => node.branchId === fromNotes[1].id).map((node) => node.title);
-    expect(wives).toEqual(expect.arrayContaining(["Umm Salamah", "Umm Habibah", "Maymunah bint al-Harith"]));
+    // The Mothers of the Believers from the notes are taught with the others, in the order the Prophet ﷺ married them.
+    const mothers = women.nodes.filter((node) => node.branchId === "women-mothers").map((node) => node.title);
+    const wives = ["Zaynab bint Khuzaymah", "Umm Salamah", "Zaynab bint Jahsh", "Juwayriyah bint al-Harith", "Umm Habibah", "Safiyyah bint Huyayy", "Maymunah bint al-Harith"];
+    expect(mothers.filter((title) => wives.includes(title))).toEqual(wives);
+    expect(mothers.slice(0, 1)).toEqual(["Khadijah"]);
+    // Ali's wives with nothing certain to teach but that they were his wives are left out, so no two say the same.
+    const family = women.nodes.filter((node) => node.branchId === fromNotes[1].id).map((node) => lessonOf(node.id)!);
+    expect(family.map((lesson) => lesson.title)).not.toEqual(expect.arrayContaining(["As-Sahba' at-Taghlibiyyah"]));
+    const lines = family.map((lesson) => lesson.learnLine);
+    expect(lines.filter((line, index) => lines.indexOf(line) !== index)).toEqual([]);
+    expect(lines.filter((line) => line === "She was a wife of Ali ibn Abi Talib.")).toEqual([]);
   });
 });
 

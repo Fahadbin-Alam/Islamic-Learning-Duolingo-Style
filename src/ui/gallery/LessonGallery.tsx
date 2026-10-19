@@ -85,9 +85,10 @@ function LearnDemo({ lesson, accent, mascot = "boy", isNewWord }: { lesson: Less
   );
 }
 
+// The accent of the section that holds the lesson's circle. Not the id prefix: the marriage hadith keep
+// "lesson-notes-hadith-…" ids but sit in the Marriage topic.
 function accentOf(lesson: Lesson) {
-  const topic = lesson.id.startsWith("lesson-notes-") ? lesson.id.split("-")[2] : undefined;
-  return COURSE.sections.find((section) => section.topicId === topic)?.accentColor ?? colors.gem;
+  return COURSE.sections.find((section) => section.nodes.some((node) => node.id === lesson.nodeId))?.accentColor ?? colors.gem;
 }
 
 const ARABIC_QUESTION: Challenge = {

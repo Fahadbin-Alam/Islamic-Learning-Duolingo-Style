@@ -64,6 +64,27 @@ export function isRetryQuestion(state: FoundationAssessmentState) {
   return earlier.some((answer) => answer.questionId === state.currentQuestion.id);
 }
 
+/**
+ * The counter and bar a session shows. `total` is what the session promised at the start: a missed question
+ * asked again does not add to it, it shows its "Try again!" chip at the last number. `done` counts the questions
+ * finished (right, or missed on their second try; the level check asks each once), so the bar never moves back.
+ */
+export function getSessionProgress(state: FoundationAssessmentState) {
+  const plan = getSessionPlan(state);
+  const total = Math.max(1, plan ? plan.steps.length : state.totalQuestions);
+  const seen = new Set<string>();
+  let done = 0;
+
+  for (const answer of state.answerHistory) {
+    if (!plan || answer.isCorrect || seen.has(answer.questionId)) {
+      done += 1;
+    }
+    seen.add(answer.questionId);
+  }
+
+  return { number: Math.min(state.questionNumber, total), total, done: Math.min(done, total) };
+}
+
 /** The screen no longer asks "How sure?"; 0 means "not asked" and the answer itself sets the confidence. */
 export const CONFIDENCE_NOT_ASKED = 0;
 

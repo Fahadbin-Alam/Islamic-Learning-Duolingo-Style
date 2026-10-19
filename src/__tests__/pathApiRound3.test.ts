@@ -122,34 +122,42 @@ describe("JUMP HERE opens the circle it was tapped on", () => {
   });
 });
 
+// The gating rule itself (a gated unit waits for the unit before it) is tested on a course with a gated unit in
+// gatedUnits.test.ts, so it holds whichever topic has one. Here: the real course never tests a child into one.
 describe("gated library units", () => {
-  const hadith = sectionOf("hadith");
-  const gatedIndex = hadith.branches.findIndex((branch) => branch.gated);
-  const units = unitsOf(hadith);
+  it("are never tested into or through: no JUMP HERE, no banner key, no plan that marks one of their circles done", () => {
+    const problems: string[] = [];
 
-  it("shut a gated unit's first circle until the unit before it is finished", () => {
-    expect(gatedIndex).toBeGreaterThan(0);
-    const gated = units[gatedIndex];
-    const before = units[gatedIndex - 1];
+    for (const section of COURSE.sections) {
+      const gatedIds = new Set(section.branches.filter((branch) => branch.gated).map((branch) => branch.id));
 
-    expect(statusesFor(makeUser()).get(gated[0].id)).toBe("locked");
-    // Half of the unit before is not enough.
-    expect(statusesFor(makeUser({ completedNodeIds: [before[0].id] })).get(gated[0].id)).toBe("locked");
-    expect(statusesFor(makeUser({ completedNodeIds: before.map((node) => node.id) })).get(gated[0].id)).toBe("available");
-    // Units that are not gated still open from day one.
-    expect(statusesFor(makeUser()).get(before[0].id)).toBe("available");
-  });
+      if (!gatedIds.size) {
+        continue;
+      }
 
-  it("test out through the unit before a gated unit, which then opens", () => {
-    const gated = units[gatedIndex];
-    const before = units[gatedIndex - 1];
-    const plan = getTestOutPlan(makeUser(), gated[0].branchId)!;
+      // A new learner, and one who has finished every other unit, so each gated unit is open.
+      const others = section.nodes.filter((node) => !gatedIds.has(node.branchId)).map((node) => node.id);
+      for (const user of [makeUser(), makeUser({ completedNodeIds: others })]) {
+        const jumpable = getJumpNodeIds(user, section.topicId);
+        const plans = [
+          ...section.branches.map((branch) => getTestOutPlan(user, branch.id)),
+          ...section.nodes.map((node) => getTestOutPlan(user, node.branchId, node.id))
+        ];
 
-    expect(plan.kind).toBe("jump");
-    expect(plan.nodeIds).toEqual(before.map((node) => node.id));
-    if (canTestOut(plan.lessons)) {
-      expect(statusesFor(pass(makeUser(), sessionFor(makeUser(), gated[0].branchId))).get(gated[0].id)).toBe("available");
+        for (const node of section.nodes.filter((item) => gatedIds.has(item.branchId))) {
+          if (jumpable.has(node.id)) problems.push(`JUMP HERE on ${node.id}`);
+        }
+        for (const branchId of gatedIds) {
+          if (getTestOutPlan(user, branchId)) problems.push(`banner key on ${branchId}`);
+        }
+        for (const plan of plans) {
+          const gatedNode = plan?.nodeIds.find((nodeId) => gatedIds.has(section.nodes.find((node) => node.id === nodeId)!.branchId));
+          if (plan && gatedNode) problems.push(`${plan.branchId} ${plan.jumpNodeId ?? ""} marks ${gatedNode} done`);
+        }
+      }
     }
+
+    expect(problems).toEqual([]);
   });
 });
 

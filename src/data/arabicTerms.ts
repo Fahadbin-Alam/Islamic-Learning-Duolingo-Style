@@ -1,6 +1,7 @@
 import type { LearningNode, Lesson, TopicId } from "../types";
 import { COURSE } from "./course";
 import { hadithBasicsNodeId } from "./hadithBasics";
+import { UNIT_LEADS, importedPersonSlug } from "./importedNotes";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 
 // Every term here was checked by two reviewers. Only add a term you are sure of.
@@ -59,7 +60,7 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "prayer-invalidators-of-salah": { ar: "مبطلات الصلاة", translit: "Mubtilat as-salah", meaning: "Prayer breakers" },
   "prayer-congregational-prayer": { ar: "صلاة الجماعة", translit: "Salat al-jama'ah", meaning: "Group prayer" },
   "prayer-missed-prayers": { ar: "قضاء الصلاة", translit: "Qada as-salah", meaning: "Making up prayers" },
-  "prayer-review-and-mastery": { ar: "مراجعة الصلاة", translit: "Muraja'at as-salah", meaning: "Prayer review" },
+  "prayer-review-and-mastery": { ar: "مراجعة الوضوء والصلاة", translit: "Muraja'at al-wudu was-salah", meaning: "Wudu and salah review" },
 
   // Aqidah: belief in Allah and the pillars of faith
   "aqidah-tawhid": { ar: "التوحيد", translit: "At-tawhid", meaning: "Oneness of Allah" },
@@ -118,7 +119,7 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "prophets-final-example": { ar: "خاتم النبيين", translit: "Khatam an-nabiyyin", meaning: "Seal of the prophets" },
   "prophets-early-messengers": { ar: "الرسل الأوائل", translit: "Ar-rusul al-awa'il", meaning: "The first messengers" },
   "prophets-family-and-sacrifice": { ar: "آل إبراهيم", translit: "Al Ibrahim", meaning: "Family of Ibrahim" },
-  "prophets-power-and-deliverance": { ar: "القوة والنجاة", translit: "Al-quwwah wan-najah", meaning: "Power and rescue" },
+  "prophets-power-and-deliverance": { ar: "موسى وداود وسليمان", translit: "Musa wa Dawud wa Sulayman", meaning: "Musa, Dawud and Sulayman" },
 
   // Sahabah: one branch per companion
   "sahabi-abu-bakr": { ar: "أبو بكر الصديق", translit: "Abu Bakr as-Siddiq", meaning: "The truthful one" },
@@ -139,17 +140,15 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // Women of the Book: women of the Quran and the Mothers of the Believers
   "women-quran": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
   "women-mothers": { ar: "أمهات المؤمنين", translit: "Ummahat al-muminin", meaning: "Mothers of the Believers" },
-  "women-quran-depth": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
-  "women-mothers-depth": { ar: "أمهات المؤمنين", translit: "Ummahat al-muminin", meaning: "Mothers of the Believers" },
-  "women-virtues-and-legacy": { ar: "الفضائل والإرث", translit: "Al-fada'il wal-irth", meaning: "Virtues and legacy" },
-  // The imported women, one unit per theme (src/data/importedNotes.ts)
+  // The imported women, one unit per theme (src/data/importedNotes.ts); the Mothers of the Believers from the
+  // notes are taught in "women-mothers" (src/data/unitPlans.ts).
   "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1": { ar: "الأمهات", translit: "Al-ummahat", meaning: "Mothers" },
-  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2": { ar: "زوجات النبي", translit: "Zawjat an-Nabi", meaning: "Wives of the Prophet ﷺ" },
   "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3": { ar: "آل علي", translit: "Al Ali", meaning: "Ali's family" },
 
-  // Hadith: sayings for children first, then the imported hadith in two units (src/data/importedNotes.ts)
+  // Hadith: sayings for children first, then the imported hadith for young children (src/data/importedNotes.ts)
   "hadith-for-kids": { ar: "أحاديث للأطفال", translit: "Ahadith lil-atfal", meaning: "Hadith for children" },
   "notes-hadith-hadith-from-your-notes-1": { ar: "في حفظ الله", translit: "Fi hifzillah", meaning: "In Allah's care" },
+  // The hadith about marriage, the last unit of the Marriage topic (keeps the id of the imported unit)
   "notes-hadith-hadith-from-your-notes-2": { ar: "الزواج في السنة", translit: "Az-zawaj fis-sunnah", meaning: "Marriage in the Sunnah" }
 };
 
@@ -221,14 +220,14 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "aqidah-names-and-attributes-why-names-matter": { ar: "مَعْرِفَةُ اللَّهِ", translit: "Ma'rifatullah", meaning: "Knowing Allah" },
   "aqidah-names-and-attributes-mercy-and-knowledge": { ar: "الرَّحْمَنُ، الْعَلِيمُ", translit: "Ar-Rahman, Al-Alim", meaning: "Most Merciful, All-Knowing" },
   "aqidah-names-and-attributes-majesty-and-authority": { ar: "الْمَلِكُ، الْعَزِيزُ", translit: "Al-Malik, Al-Aziz", meaning: "The King, The Mighty" },
-  "aqidah-names-and-attributes-using-the-names": { ar: "أَسْمَاءُ اللَّهِ الْحُسْنَى", translit: "Asma Allah al-husna", meaning: "Allah's beautiful names" },
+  "aqidah-names-and-attributes-using-the-names": { ar: "الْغَفُورُ", translit: "Al-Ghafur", meaning: "The Forgiving" },
   "aqidah-lived-iman-belief-and-obedience": { ar: "الطَّاعَةُ", translit: "At-ta'ah", meaning: "Obedience" },
   "aqidah-lived-iman-belief-under-pressure": { ar: "الثَّبَاتُ", translit: "Ath-thabat", meaning: "Steadfastness" },
   "aqidah-lived-iman-repentance-and-hope": { ar: "التَّوْبَةُ وَالرَّجَاءُ", translit: "At-tawbah war-raja", meaning: "Repentance and hope" },
   "aqidah-lived-iman-certainty-and-humility": { ar: "الْيَقِينُ وَالتَّوَاضُعُ", translit: "Al-yaqin wat-tawadu", meaning: "Certainty and humility" },
 
   // Quran and tafsir: one branch per surah
-  "quran-surah-fatihah-opening-and-names": { ar: "فَاتِحَةُ الْكِتَابِ", translit: "Fatihat al-Kitab", meaning: "Opening of the Book" },
+  "quran-surah-fatihah-opening-and-names": { ar: "الصَّلَاةُ", translit: "As-salah", meaning: "Prayer" },
   "quran-surah-fatihah-praise-and-lordship": { ar: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", translit: "Al-hamdu lillahi rabbil-alamin", meaning: "All praise is for Allah, Lord of the worlds" },
   "quran-surah-fatihah-worship-and-help": { ar: "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", translit: "Iyyaka na'budu wa iyyaka nasta'in", meaning: "You alone we worship, You alone we ask for help" },
   "quran-surah-fatihah-straight-path": { ar: "الصِّرَاطُ الْمُسْتَقِيمُ", translit: "As-sirat al-mustaqim", meaning: "The straight path" },
@@ -276,6 +275,8 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "manners-eating": { ar: "آدَابُ الطَّعَامِ", translit: "Adab at-ta'am", meaning: "Eating manners" },
   "manners-neighbors-and-guests-neighbor-rights": { ar: "حَقُّ الْجَارِ", translit: "Haqq al-jar", meaning: "Neighbor's right" },
   "manners-neighbors-and-guests-guest-honor": { ar: "إِكْرَامُ الضَّيْفِ", translit: "Ikram ad-dayf", meaning: "Honoring the guest" },
+  // Quran 58:11: when you are told to make room in gatherings, make room.
+  "manners-neighbors-and-guests-sharing-space": { ar: "تَفَسَّحُوا فِي الْمَجَالِسِ", translit: "Tafassahu fil-majalis", meaning: "Make room in gatherings" },
   "manners-emotional-discipline-anger-and-restraint": { ar: "كَظْمُ الْغَيْظِ", translit: "Kazm al-ghayz", meaning: "Holding back anger" },
   "manners-emotional-discipline-gentleness": { ar: "الرِّفْقُ", translit: "Ar-rifq", meaning: "Gentleness" },
   "manners-emotional-discipline-self-awareness": { ar: "مُحَاسَبَةُ النَّفْسِ", translit: "Muhasabat an-nafs", meaning: "Checking yourself" },
@@ -326,7 +327,7 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "marriage-kindness": { ar: "بِالْمَعْرُوفِ", translit: "Bil-ma'ruf", meaning: "With kindness" },
   "marriage-clothing": { ar: "لِبَاسٌ", translit: "Libas", meaning: "Clothing" },
   "marriage-mercy": { ar: "الرَّحْمَةُ", translit: "Ar-rahmah", meaning: "Mercy" },
-  "marriage-rights-and-trust-rights-are-trusts": { ar: "أَمَانَةٌ", translit: "Amanah", meaning: "A trust" },
+  "marriage-rights-and-trust-rights-are-trusts": { ar: "حُقُوقٌ", translit: "Huquq", meaning: "Rights" },
   "marriage-rights-and-trust-provision-and-care": { ar: "النَّفَقَةُ", translit: "An-nafaqah", meaning: "Provision" },
   "marriage-conflict-and-repair-argue-with-adab": { ar: "الْأَدَبُ", translit: "Al-adab", meaning: "Good manners" },
   "marriage-conflict-and-repair-repair-after-harm": { ar: "الْإِصْلَاحُ", translit: "Al-islah", meaning: "Making things right" },
@@ -342,16 +343,20 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "prophets-yusuf": { ar: "يُوسُفُ", translit: "Yusuf", meaning: "Prophet Joseph" },
   "prophets-musa": { ar: "مُوسَى", translit: "Musa", meaning: "Prophet Moses" },
   "prophets-isa": { ar: "عِيسَى", translit: "Isa", meaning: "Prophet Jesus" },
-  "prophets-muhammad": { ar: "مُحَمَّدٌ ﷺ", translit: "Muhammad", meaning: "Prophet Muhammad" },
-  "prophets-early-messengers-adam-and-repentance": { ar: "التَّوْبَةُ", translit: "At-tawbah", meaning: "Repentance" },
-  "prophets-early-messengers-nuh-and-patience": { ar: "الصَّبْرُ", translit: "As-sabr", meaning: "Patience" },
-  "prophets-early-messengers-hud-and-salih": { ar: "هُودٌ وَصَالِحٌ", translit: "Hud wa Salih", meaning: "Prophets Hud and Salih" },
+  "prophets-muhammad": { ar: "مُحَمَّدٌ ﷺ", translit: "Muhammad", meaning: "Prophet Muhammad ﷺ" },
+  // Quran 2:31: وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا
+  "prophets-early-messengers-adam-and-repentance": { ar: "الْأَسْمَاءُ", translit: "Al-asma'", meaning: "The names" },
+  // Quran 11:40: مِنْ كُلٍّ زَوْجَيْنِ اثْنَيْنِ
+  "prophets-early-messengers-nuh-and-patience": { ar: "زَوْجَيْنِ", translit: "Zawjayn", meaning: "In pairs" },
+  // Quran 7:73: هَٰذِهِ نَاقَةُ اللَّهِ لَكُمْ آيَةً
+  "prophets-early-messengers-hud-and-salih": { ar: "نَاقَةُ اللَّهِ", translit: "Naqat Allah", meaning: "Allah's she-camel" },
   "prophets-early-messengers-lut-and-purity": { ar: "لُوطٌ", translit: "Lut", meaning: "Prophet Lot" },
   "prophets-family-and-sacrifice-ibrahim-and-tawhid": { ar: "التَّوْحِيدُ", translit: "At-tawhid", meaning: "Oneness of Allah" },
   "prophets-family-and-sacrifice-ismail-and-submission": { ar: "إِسْمَاعِيلُ", translit: "Ismail", meaning: "Prophet Ishmael" },
   "prophets-family-and-sacrifice-yaqub-and-sabr": { ar: "صَبْرٌ جَمِيلٌ", translit: "Sabrun jamil", meaning: "Beautiful patience" },
-  "prophets-family-and-sacrifice-yusuf-and-purity": { ar: "الْعِفَّةُ", translit: "Al-iffah", meaning: "Purity" },
-  "prophets-power-and-deliverance-musa-and-fear": { ar: "مُوسَى", translit: "Musa", meaning: "Prophet Moses" },
+  "prophets-family-and-sacrifice-yusuf-and-purity": { ar: "الرُّؤْيَا", translit: "Ar-ru'ya", meaning: "The dream" },
+  // Quran 20:46: قَالَ لَا تَخَافَا إِنَّنِي مَعَكُمَا
+  "prophets-power-and-deliverance-musa-and-fear": { ar: "لَا تَخَافَا", translit: "La takhafa", meaning: "Do not fear" },
   "prophets-power-and-deliverance-harun-and-support": { ar: "هَارُونُ", translit: "Harun", meaning: "Prophet Aaron" },
   "prophets-power-and-deliverance-dawud-and-justice": { ar: "الْعَدْلُ", translit: "Al-adl", meaning: "Justice" },
   "prophets-power-and-deliverance-sulayman-and-gratitude": { ar: "الشُّكْرُ", translit: "Ash-shukr", meaning: "Gratitude" },
@@ -365,19 +370,27 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "women-aishah": { ar: "عَائِشَةُ", translit: "Aishah", meaning: "Mother of the Believers" },
   "women-hafsah": { ar: "حَفْصَةُ", translit: "Hafsah", meaning: "Daughter of Umar" },
   "women-quran-depth-hawwa-and-return": { ar: "التَّوْبَةُ", translit: "At-tawbah", meaning: "Returning to Allah" },
-  "women-quran-depth-mother-of-musa-and-trust": { ar: "التَّوَكُّلُ", translit: "At-tawakkul", meaning: "Trust in Allah" },
-  "women-quran-depth-asiyah-and-steadfastness": { ar: "الثَّبَاتُ", translit: "Ath-thabat", meaning: "Steadfastness" },
-  "women-quran-depth-maryam-and-purity": { ar: "الطَّهَارَةُ", translit: "At-taharah", meaning: "Purity" },
-  "women-mothers-depth-khadijah-and-support": { ar: "الْمُؤَازَرَةُ", translit: "Al-mu'azarah", meaning: "Support" },
+  // Quran 28:13: فَرَدَدْنَاهُ إِلَىٰ أُمِّهِ
+  "women-quran-depth-mother-of-musa-and-trust": { ar: "إِلَى أُمِّهِ", translit: "Ila ummih", meaning: "Back to his mother" },
+  // Quran 66:11: ابْنِ لِي عِنْدَكَ بَيْتًا فِي الْجَنَّةِ
+  "women-quran-depth-asiyah-and-steadfastness": { ar: "بَيْتًا فِي الْجَنَّةِ", translit: "Baytan fil-jannah", meaning: "A house in Paradise" },
+  "women-quran-depth-maryam-and-purity": { ar: "سُورَةُ مَرْيَمَ", translit: "Surat Maryam", meaning: "The surah of Maryam" },
+  "women-mothers-depth-khadijah-and-support": { ar: "السَّلَامُ", translit: "As-salam", meaning: "The greeting of peace" },
   "women-mothers-depth-sawdah-and-stability": { ar: "سَوْدَةُ", translit: "Sawdah", meaning: "Mother of the Believers" },
-  "women-mothers-depth-aishah-and-knowledge": { ar: "الْعِلْمُ", translit: "Al-ilm", meaning: "Knowledge" },
-  "women-mothers-depth-hafsah-and-preservation": { ar: "الْحِفْظُ", translit: "Al-hifz", meaning: "Preservation" },
-  "women-virtues-and-legacy-courage-under-pressure": { ar: "الشَّجَاعَةُ", translit: "Ash-shaja'ah", meaning: "Courage" },
-  "women-virtues-and-legacy-worship-and-devotion": { ar: "الْعِبَادَةُ", translit: "Al-ibadah", meaning: "Worship" },
-  "women-virtues-and-legacy-service-to-revelation": { ar: "خِدْمَةُ الْوَحْيِ", translit: "Khidmat al-wahy", meaning: "Service to revelation" },
+  // Sahih al-Bukhari 3662: أَيُّ النَّاسِ أَحَبُّ إِلَيْكَ؟ قَالَ: عَائِشَةُ
+  "women-mothers-depth-aishah-and-knowledge": { ar: "أَحَبُّ النَّاسِ", translit: "Ahabb an-nas", meaning: "Most loved of people" },
+  // Quran 28:9: قُرَّتُ عَيْنٍ لِي وَلَكَ
+  "women-virtues-and-legacy-courage-under-pressure": { ar: "قُرَّةُ عَيْنٍ", translit: "Qurratu 'ayn", meaning: "A joy to the eyes" },
+  // Quran 3:37: وَجَدَ عِنْدَهَا رِزْقًا
+  "women-virtues-and-legacy-worship-and-devotion": { ar: "الرِّزْقُ", translit: "Ar-rizq", meaning: "Provision from Allah" },
+  // Sahih al-Bukhari 3: كَلَّا وَاللَّهِ مَا يُخْزِيكَ اللَّهُ أَبَدًا
+  "women-virtues-and-legacy-service-to-revelation": { ar: "مَا يُخْزِيكَ اللَّهُ أَبَدًا", translit: "Ma yukhzikallahu abada", meaning: "Allah will never disgrace you" },
+  // Quran 16:97: مَنْ عَمِلَ صَالِحًا مِنْ ذَكَرٍ أَوْ أُنْثَىٰ
+  "women-virtues-and-legacy-lessons-for-today": { ar: "مِنْ ذَكَرٍ أَوْ أُنْثَى", translit: "Min dhakarin aw untha", meaning: "Male or female" },
+  "women-virtues-and-legacy-women-legacy-review": { ar: "التَّوَكُّلُ", translit: "At-tawakkul", meaning: "Trust in Allah" },
 
   // Hadith for kids (src/data/hadithBasics.ts): a phrase from the Arabic of each hadith, as sunnah.com gives it
-  [hadithBasicsNodeId("muslim:2626")]: { ar: "بِوَجْهٍ طَلْقٍ", translit: "Bi-wajhin talq", meaning: "With a cheerful face" },
+  [hadithBasicsNodeId("muslim:2626")]: { ar: "بِوَجْهٍ طَلْقٍ", translit: "Bi-wajhin talq", meaning: "With a smiling face" },
   [hadithBasicsNodeId("bukhari:28")]: { ar: "السَّلَامُ", translit: "As-salam", meaning: "The greeting of peace" },
   [hadithBasicsNodeId("bukhari:6018")]: { ar: "فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ", translit: "Fal-yaqul khayran aw li-yasmut", meaning: "Say good or keep quiet" },
   [hadithBasicsNodeId("abudawud:4811")]: { ar: "لَا يَشْكُرُ اللَّهَ مَنْ لَا يَشْكُرُ النَّاسَ", translit: "La yashkurullaha man la yashkurun-nas", meaning: "Thank people to thank Allah" },
@@ -516,7 +529,7 @@ const PEOPLE: Partial<Record<TopicId, Record<string, PersonTerm>>> = {
     ishaq: ["إِسْحَاقُ", "Prophet Isaac"],
     ismail: ["إِسْمَاعِيلُ", "Prophet Ishmael"],
     lut: ["لُوطٌ", "Prophet Lot"],
-    muhammad: ["مُحَمَّدٌ ﷺ", "Prophet Muhammad"],
+    muhammad: ["مُحَمَّدٌ ﷺ", "Prophet Muhammad ﷺ"],
     musa: ["مُوسَى", "Prophet Moses"],
     noah: ["نُوحٌ", "Prophet Noah"],
     shaleh: ["صَالِحٌ", "Prophet Salih"],
@@ -601,7 +614,7 @@ const LEARN_FORMS = [
   "آدَابُ الْبَيْتِ وَالطَّعَامِ", "بِدَايَةُ الْعِبَادَةِ", "الْوُضُوءُ", "أَسَاسِيَّاتُ الصَّلَاةِ",
   "أَوْقَاتُ الصَّلَاةِ", "الْأَذَانُ وَالْإِقَامَةُ", "الرُّكُوعُ وَالسُّجُودُ", "التَّشَهُّدُ",
   "الْخُشُوعُ", "مُبْطِلَاتُ الصَّلَاةِ", "صَلَاةُ الْجَمَاعَةِ", "قَضَاءُ الصَّلَاةِ",
-  "مُرَاجَعَةُ الصَّلَاةِ", "التَّوْحِيدُ", "أَرْكَانُ الْإِيمَانِ", "الْأَسْمَاءُ وَالصِّفَاتُ",
+  "مُرَاجَعَةُ الْوُضُوءِ وَالصَّلَاةِ", "التَّوْحِيدُ", "أَرْكَانُ الْإِيمَانِ", "الْأَسْمَاءُ وَالصِّفَاتُ",
   "الْإِيمَانُ وَالْعَمَلُ", "آدَابُ الْكَلَامِ", "بِرُّ الْوَالِدَيْنِ", "الرَّحْمَةُ",
   "الْجَارُ وَالضَّيْفُ", "ضَبْطُ النَّفْسِ", "الْآدَابُ الْعَامَّةُ", "حِكْمَةُ الصِّيَامِ",
   "أَحْكَامُ الصِّيَامِ", "حِفْظُ الصِّيَامِ", "شَهْرُ رَمَضَانَ", "فَرِيضَةُ الزَّكَاةِ",
@@ -609,14 +622,14 @@ const LEARN_FORMS = [
   "مَنَاسِكُ الْحَجِّ", "الْمَشَاعِرُ الْمُقَدَّسَةُ", "دُرُوسُ الْحَجِّ", "مَقَاصِدُ الزَّوَاجِ",
   "الْمَوَدَّةُ وَالرَّحْمَةُ", "الْحُقُوقُ وَالْأَمَانَةُ", "الْإِصْلَاحُ بَيْنَ الزَّوْجَيْنِ",
   "الْبَيْتُ الْمُسْلِمُ", "بِدَايَةُ الْبَشَرِيَّةِ", "ابْتِلَاءُ الرُّسُلِ", "خَاتَمُ النَّبِيِّينَ",
-  "الرُّسُلُ الْأَوَائِلُ", "آلُ إِبْرَاهِيمَ", "الْقُوَّةُ وَالنَّجَاةُ", "أَبُو بَكْرٍ الصِّدِّيقُ",
+  "الرُّسُلُ الْأَوَائِلُ", "آلُ إِبْرَاهِيمَ", "مُوسَى وَدَاوُدُ وَسُلَيْمَانُ", "أَبُو بَكْرٍ الصِّدِّيقُ",
   "عُمَرُ بْنُ الْخَطَّابِ", "عُثْمَانُ بْنُ عَفَّانَ", "عَلِيُّ بْنُ أَبِي طَالِبٍ",
   "خَالِدُ بْنُ الْوَلِيدِ", "بِلَالُ بْنُ رَبَاحٍ", "أَبُو عُبَيْدَةَ بْنُ الْجَرَّاحِ",
   "طَلْحَةُ بْنُ عُبَيْدِ اللَّهِ", "الزُّبَيْرُ بْنُ الْعَوَّامِ", "سَعْدُ بْنُ أَبِي وَقَّاصٍ",
   "سَلْمَانُ الْفَارِسِيُّ", "أَبُو ذَرٍّ الْغِفَارِيُّ", "عَبْدُ اللَّهِ بْنُ مَسْعُودٍ",
   "أَنَسُ بْنُ مَالِكٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
-  "الْفَضَائِلُ وَالْإِرْثُ", "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
-  "الْحَدِيثُ", "الْأُمَّهَاتُ", "زَوْجَاتُ النَّبِيِّ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
+  "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
+  "الْحَدِيثُ", "الْأُمَّهَاتُ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
   "الزَّوَاجُ فِي السُّنَّةِ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
@@ -664,6 +677,64 @@ function buildImportedTerms() {
 /** Terms for imported nodes and units, by node or branch id. */
 export const IMPORTED_ARABIC = buildImportedTerms();
 
+// The banner of a unit of imported companions or prophets names its lead person (UNIT_LEADS in importedNotes.ts),
+// "and more": the vowelled form here, the banner is the same without vowel marks.
+const UNIT_LEAD_ARABIC: Record<string, { form: string; translit: string }> = {
+  "abd-allah-ibn-umar": { form: "ابْنُ عُمَرَ وَغَيْرُهُ", translit: "Ibn Umar wa ghayruh" },
+  "abu-hurayra": { form: "أَبُو هُرَيْرَةَ وَغَيْرُهُ", translit: "Abu Hurayrah wa ghayruh" },
+  "fatimah-al-zahra": { form: "فَاطِمَةُ الزَّهْرَاءُ وَغَيْرُهَا", translit: "Fatimah az-Zahra wa ghayruha" },
+  "hamza-ibn-abdul-muttalib": { form: "حَمْزَةُ وَغَيْرُهُ", translit: "Hamzah wa ghayruh" },
+  "musab-ibn-umair": { form: "مُصْعَبٌ وَغَيْرُهُ", translit: "Mus'ab wa ghayruh" },
+  "sad-ibn-muaadh": { form: "سَعْدُ بْنُ مُعَاذٍ وَغَيْرُهُ", translit: "Sa'd ibn Mu'adh wa ghayruh" },
+  "usama-ibn-zayd": { form: "أُسَامَةُ وَغَيْرُهُ", translit: "Usamah wa ghayruh" },
+  "zayd-ibn-harithah": { form: "زَيْدُ بْنُ حَارِثَةَ وَغَيْرُهُ", translit: "Zayd ibn Harithah wa ghayruh" },
+  ayyub: { form: "أَيُّوبُ وَغَيْرُهُ", translit: "Ayyub wa ghayruh" },
+  yunus: { form: "يُونُسُ وَغَيْرُهُ", translit: "Yunus wa ghayruh" }
+};
+
+// A unit of imported surahs is named after its first and last surah: "مِنْ سُورَةِ النَّاسِ إِلَى سُورَةِ الْفِيلِ".
+// The ids name the span by surah number (src/data/importedNotes.ts).
+const SURAH_SPAN_UNIT = /^notes-quran-tafseer-surahs-(\d+)(?:-(\d+))?$/;
+
+function surahSpanForm(first: number, last: number) {
+  return first === last ? `سُورَةُ ${SURAH_NAMES[first - 1]}` : `مِنْ سُورَةِ ${SURAH_NAMES[first - 1]} إِلَى سُورَةِ ${SURAH_NAMES[last - 1]}`;
+}
+
+// Banners of the imported units that are named after what they hold, by branch id, with each banner's vowelled
+// form. Built from the course, once, the first time a banner is asked for.
+let namedImportedUnits: Map<string, { term: ArabicTerm; form: string }> | undefined;
+
+function buildNamedImportedUnits() {
+  const units = new Map<string, { term: ArabicTerm; form: string }>();
+  for (const section of COURSE.sections) {
+    for (const branch of section.branches) {
+      if (!branch.id.startsWith("notes-") || Object.prototype.hasOwnProperty.call(BRANCH_ARABIC, branch.id)) continue;
+      const span = SURAH_SPAN_UNIT.exec(branch.id);
+      const first = span ? Number(span[1]) : NaN;
+      const last = span ? Number(span[2] ?? span[1]) : NaN;
+      if (SURAH_NAMES[first - 1] && SURAH_NAMES[last - 1]) {
+        const form = surahSpanForm(first, last);
+        units.set(branch.id, { form, term: { ar: withoutVowels(form), translit: branch.title, meaning: branch.title } });
+        continue;
+      }
+      const lead = section.nodes
+        .filter((node) => node.branchId === branch.id)
+        .map((node) => importedPersonSlug(node.id) ?? "")
+        .find((slug) => UNIT_LEADS[slug] && UNIT_LEAD_ARABIC[slug]);
+      if (lead) {
+        const { form, translit } = UNIT_LEAD_ARABIC[lead];
+        units.set(branch.id, { form, term: { ar: withoutVowels(form), translit, meaning: branch.title } });
+      }
+    }
+  }
+  return units;
+}
+
+function namedImportedUnit(branchId: string) {
+  namedImportedUnits ??= buildNamedImportedUnits();
+  return namedImportedUnits.get(branchId);
+}
+
 // The course regroups imported lessons into new units (src/data/importedNotes.ts), whose ids start
 // with "notes-" and the topic, so a new unit still gets its topic's banner.
 const IMPORTED_UNIT_PREFIXES = (Object.keys(IMPORTED_UNIT_ARABIC) as TopicId[]).map(
@@ -683,6 +754,7 @@ export function getTopicArabic(topicId: string): ArabicTerm | undefined {
 export function getBranchArabic(branchId: string): ArabicTerm | undefined {
   return (
     lookup(BRANCH_ARABIC, branchId) ??
+    namedImportedUnit(branchId)?.term ??
     lookup(IMPORTED_ARABIC.branches, branchId) ??
     IMPORTED_UNIT_PREFIXES.find(([prefix]) => branchId.startsWith(prefix))?.[1]
   );
@@ -706,7 +778,7 @@ export function getLessonArabic(nodeId: string, branchId?: string): ArabicTerm |
   if (!banner) return undefined;
   let word = unitWords.get(banner.ar);
   if (!word) {
-    word = { ...banner, ar: LEARN_FORM.get(banner.ar) ?? banner.ar, fromUnit: true };
+    word = { ...banner, ar: namedImportedUnit(branchId)?.form ?? LEARN_FORM.get(banner.ar) ?? banner.ar, fromUnit: true };
     unitWords.set(banner.ar, word);
   }
   return word;

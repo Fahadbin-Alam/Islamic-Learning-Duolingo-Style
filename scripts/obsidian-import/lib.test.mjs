@@ -73,7 +73,8 @@ test("a note without ## headings becomes a single lesson", () => {
 
 test("imports the sample vault into app lessons", () => {
   const result = importVault(sampleVault);
-  assert.deepEqual(result.stats, { notes: 10, branches: 5, lessons: 14, questions: 29 });
+  // Al-Kawthar and Al-Ikhlas are surahs the scholars differ on, Makkan or Madinan, so neither asks where it was revealed.
+  assert.deepEqual(result.stats, { notes: 10, branches: 5, lessons: 14, questions: 27 });
   assert.deepEqual(result.content.sections.map((section) => section.topicId), ["manners", "sahabah", "quran_tafseer", "hadith"]);
 
   const sahabah = result.content.sections[1];
@@ -216,7 +217,10 @@ test("builds surah lessons that quote the opening ayah, never asking about its o
   assert.equal(ikhlas.learnSource.url, "https://quran.com/112/1");
   assert.equal(ikhlas.learnSource.reference, "Quran 112:1");
   assert.ok(ikhlas.challenges.every((challenge) => !/this ayah/i.test(challenge.prompt)), "no question about the ayah's English");
-  const revealed = ikhlas.challenges.find((challenge) => / was revealed in /.test(challenge.prompt));
+  // Where Al-Ikhlas and Al-Kawthar were revealed is disputed (as-Suyuti, al-Itqan), so only Al-'Asr asks it.
+  const revealedIn = (node) => content.lessonsById[node.lessonIds[0]].challenges.filter((challenge) => / was revealed in /.test(challenge.prompt));
+  assert.deepEqual(quran.nodes.map((node) => revealedIn(node).length), [1, 0, 0]);
+  const revealed = revealedIn(quran.nodes[0])[0];
   assert.equal(revealed.type, "true_false");
   assert.equal(revealed.correctChoiceId, revealed.prompt.endsWith("Makkah.") ? "true" : "false");
 });

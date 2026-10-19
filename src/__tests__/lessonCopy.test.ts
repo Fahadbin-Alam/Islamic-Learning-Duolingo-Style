@@ -311,6 +311,135 @@ describe("round 3 copy rules", () => {
   });
 });
 
+describe("round 4: each person taught once, in plain lines", () => {
+  const nodesOf = (topicId: string) => COURSE.sections.find((section) => section.topicId === topicId)!.nodes;
+  const lessonOfNode = (nodeId: string) => LESSONS_BY_ID[pathNodes.find((node) => node.id === nodeId)!.lessonIds[0]];
+  const STOP = new Set("the and for with was were are his her she they them their from that this who what when after before not but also very ibn bint".split(" "));
+  const NOT_NAMES = new Set(["Allah", "Prophet", "Messenger", "Quran", "Islam", "Muslim", "Muslims", "Paradise", "Sword", "Makkah", "Madinah", "Sham", "Hijrah", "In", "On", "At", "When", "After", "Before", "Once", "The", "As", "Even", "While", "Asked", "Let's"]);
+  const contentWords = (text: string) => new Set((text.toLowerCase().replace(/ﷺ/g, "").match(/[a-z']+/g) ?? []).map((word) => word.replace(/'s$/, "")).filter((word) => word.length > 2 && !STOP.has(word)));
+  const names = (text: string) => new Set((text.replace(/ﷺ/g, "").match(/\b[A-Z][a-z']+/g) ?? []).map((word) => word.replace(/'s$/, "")).filter((word) => !NOT_NAMES.has(word)));
+  // "He served the Prophet ﷺ" on Anas's card reads "Anas ibn Malik served the Prophet ﷺ".
+  const named = (line: string, title: string) => line.replace(/^(He|She)\b/, title).replace(/^(His|Her)\b/, `${title}'s`);
+
+  // The lessons about one prophet or woman who has a lesson of their own.
+  const PERSON_LESSONS: Record<string, string[]> = {
+    Adam: ["prophets-adam", "prophets-early-messengers-adam-and-repentance"],
+    Nuh: ["prophets-nuh", "prophets-early-messengers-nuh-and-patience"],
+    Ibrahim: ["prophets-ibrahim", "prophets-family-and-sacrifice-ibrahim-and-tawhid"],
+    Yusuf: ["prophets-yusuf", "prophets-family-and-sacrifice-yusuf-and-purity"],
+    Musa: ["prophets-musa", "prophets-power-and-deliverance-musa-and-fear"],
+    Hawwa: ["women-hawwa", "women-quran-depth-hawwa-and-return"],
+    "Musa's mother": ["women-mother-musa", "women-quran-depth-mother-of-musa-and-trust"],
+    Asiyah: ["women-asiyah", "women-virtues-and-legacy-courage-under-pressure", "women-quran-depth-asiyah-and-steadfastness"],
+    Maryam: ["women-maryam", "women-virtues-and-legacy-worship-and-devotion", "women-quran-depth-maryam-and-purity"],
+    Khadijah: ["women-khadijah", "women-virtues-and-legacy-service-to-revelation", "women-mothers-depth-khadijah-and-support"],
+    Aishah: ["women-aishah", "women-mothers-depth-aishah-and-knowledge"],
+    Hafsah: ["women-hafsah"]
+  };
+  const personOf = new Map(Object.entries(PERSON_LESSONS).flatMap(([person, ids]) => ids.map((id) => [id, person] as const)));
+
+  it("puts all of a prophet's or a woman's lessons in one unit, one right after another", () => {
+    const problems: string[] = [];
+    for (const [person, ids] of Object.entries(PERSON_LESSONS)) {
+      const nodes = ids.map((id) => pathNodes.find((node) => node.id === id));
+      if (nodes.some((node) => !node)) {
+        problems.push(`${person}: not on the path`);
+        continue;
+      }
+      if (new Set(nodes.map((node) => node!.branchId)).size > 1) problems.push(`${person}: in ${[...new Set(nodes.map((node) => node!.branchId))].join(", ")}`);
+      const places = nodes.map((node) => pathOrder.get(node!.id)!);
+      if (places.some((place, index) => index > 0 && place !== places[index - 1] + 1)) problems.push(`${person}: lessons apart`);
+    }
+    expect(problems).toEqual([]);
+    // Hafsah's pages are taught once, on her own card.
+    expect(pathNodes.filter((node) => node.id === "women-mothers-depth-hafsah-and-preservation")).toEqual([]);
+    // The depth units are gone: no two units about the same women.
+    const women = COURSE.sections.find((section) => section.topicId === "women_of_the_book")!.branches.map((branch) => branch.title);
+    expect(women.filter((title) => /^More |Wives of the Prophet|Virtues and legacy/.test(title))).toEqual([]);
+  });
+
+  it("never teaches the same person the same line twice in a topic", () => {
+    const problems: string[] = [];
+    for (const topicId of ["sahabah", "prophets", "women_of_the_book"]) {
+      const cards = nodesOf(topicId)
+        .map((node) => ({ node, lesson: lessonOfNode(node.id) }))
+        .filter(({ lesson }) => lesson?.learnLine && lesson.challenges.some((challenge) => !challenge.isReview))
+        .map(({ node, lesson }) => {
+          // Who the lesson is about: the companion of the unit, the person a lesson list names, or the imported person.
+          const subject = node.branchId.startsWith("sahabi-") ? node.branchId : (personOf.get(node.id) ?? node.title);
+          const line = named(lesson.learnLine!, node.title);
+          return { id: node.id, subject, line, words: contentWords(line), names: names(line) };
+        });
+      for (let left = 0; left < cards.length; left += 1) {
+        for (let right = left + 1; right < cards.length; right += 1) {
+          const [one, other] = [cards[left], cards[right]];
+          if (one.subject !== other.subject) continue;
+          const shared = [...one.words].filter((word) => other.words.has(word)).length;
+          const [few, many] = one.names.size <= other.names.size ? [one.names, other.names] : [other.names, one.names];
+          const sameNames = [...few].every((name) => many.has(name));
+          if (one.line === other.line || (sameNames && shared / Math.min(one.words.size, other.words.size) >= 0.75)) problems.push(`${one.id} | ${other.id}: ${one.line} / ${other.line}`);
+        }
+      }
+    }
+    expect(problems).toEqual([]);
+  });
+
+  it("opens a companion's unit with a card that teaches only what the unit does not", () => {
+    const sahabah = COURSE.sections.find((section) => section.topicId === "sahabah")!;
+    const problems: string[] = [];
+    let openers = 0;
+    for (const branch of sahabah.branches.filter((each) => each.id.startsWith("sahabi-"))) {
+      const [first, ...rest] = sahabah.nodes.filter((node) => node.branchId === branch.id);
+      if (!first.id.startsWith("notes-")) continue;
+      openers += 1;
+      const card = lessonOfNode(first.id);
+      const taught = rest.map((node) => lessonOfNode(node.id)).flatMap((lesson) => [lesson.learnLine ?? "", ...(lesson.learnFacts ?? [])]).join(" | ");
+      for (const fact of card.learnFacts ?? []) {
+        const value = /^(?:Father|Mother|Tribe): (.+)$/.exec(fact)?.[1];
+        const place = /^(Born|Passed away) in (.+)$/.exec(fact);
+        if (value && taught.toLowerCase().includes(value.toLowerCase())) problems.push(`${first.id}: ${fact}`);
+        if (place && new RegExp(`\\b(${place[1] === "Born" ? "born" : "passed away|died"}) in ${place[2]}`, "i").test(taught)) problems.push(`${first.id}: ${fact}`);
+      }
+      if (card.challenges.length < 2) problems.push(`${first.id}: ${card.challenges.length} questions`);
+      const asked = card.challenges.map(answerOf);
+      if (asked.some((answer) => !(card.learnFacts ?? []).some((fact) => fact.endsWith(answer)))) problems.push(`${first.id}: asks what the card does not show`);
+    }
+    expect(openers).toBeGreaterThanOrEqual(8);
+    expect(problems).toEqual([]);
+  });
+
+  it("never starts a card line or a question with an unnamed It or Its", () => {
+    const unnamed = pathLessons.flatMap((lesson) =>
+      [lesson.learnLine ?? "", ...lesson.challenges.map((challenge) => challenge.prompt)].filter((text) => /^Its?\b/.test(text)).map((text) => `${lesson.id}: ${text}`)
+    );
+    expect(unnamed).toEqual([]);
+  });
+
+  it("never marks as false a statement that is true or half true, and fits a or an to the word", () => {
+    // Statements an earlier round marked false although they are true, or partly true.
+    const halfTrue = [
+      "Allah loves good deeds done once, even small ones.",
+      "If you eat because you wanted to, keep fasting.",
+      "Give zakat for fame, not to show off.",
+      "Surah Al-Fatihah says Allah is One, with no equal.",
+      "Asking forgiveness? Call on Allah as Al-Malik, the Forgiving.",
+      "Using the kitchen or passing wind breaks wudu.",
+      "Don't leave wet spots, like your heels.",
+      "Now do it all, from hands to face, calm and careful.",
+      "Spending on your own games is a charity too.",
+      "Spouses treat each other with teasing, never insults.",
+      "After hurting your spouse, say sorry and forget it.",
+      "Fill the home with salam, thanks, and kind shouts.",
+      "Asiyah took in baby Musa and loved him like a servant."
+    ];
+    const falses = pathLessons.flatMap((lesson) => lesson.challenges).filter((challenge) => challenge.type === "true_false" && answerOf(challenge) === "False");
+    expect(falses.length).toBeGreaterThan(100);
+    expect(falses.filter((challenge) => halfTrue.includes(challenge.prompt)).map((challenge) => challenge.prompt)).toEqual([]);
+    const statements = pathLessons.flatMap((lesson) => [lesson.learnLine ?? "", ...lesson.challenges.filter((challenge) => challenge.type === "true_false").map((challenge) => challenge.prompt)]);
+    expect(statements.filter((text) => /\ban (?!hour|honest|honou?r)[b-df-hj-np-tv-z]/i.test(text) || /\ba (?!one\b|un[iu]|use|eu)[aeiou]/i.test(text))).toEqual([]);
+  });
+});
+
 describe("salah ordering game", () => {
   it("is a whole two-rak'ah prayer: tashahhud and taslim come only after the second rak'ah", () => {
     const node = pathNodes.find((entry) => entry.id === "prayer-tashahhud-tashahhud-review")!;

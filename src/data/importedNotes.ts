@@ -44,6 +44,46 @@ const PERSON_UNITS: Record<string, string> = {
   "anas-ibn-malik": "sahabi-anas-ibn-malik"
 };
 
+// What an imported companion's card teaches when it opens their unit: only what the unit's own lessons do not
+// (their parents, tribe or home town), with a line about it, and only the questions about those facts. The
+// note's own line ("He served the Prophet ﷺ for ten years") is taught again later in the unit, so it is not used.
+// null: the unit already teaches all but one fact of the card (Umar's al-Faruq, Bilal's adhan and his mother), so
+// the card is not on the path; a card keeps at least two facts, one for each of its questions. Keys are the person
+// part of the imported node id.
+const OPENERS: Record<string, { line: string; facts: string[] } | null> = {
+  "abu-bakr-as-siddiq": { line: "Abu Bakr's parents were Abu Quhafah and Umm al-Khayr.", facts: ["Father: Abu Quhafah", "Mother: Umm al-Khayr"] },
+  "umar-ibn-al-khattab": null,
+  "uthman-ibn-affan": { line: "Uthman's parents were Affan and Arwa bint Kurayz.", facts: ["Father: Affan ibn Abi al-As", "Mother: Arwa bint Kurayz"] },
+  "ali-ibn-abi-talib": { line: "Ali's parents were Abu Talib and Fatimah bint Asad.", facts: ["Father: Abu Talib", "Mother: Fatimah bint Asad"] },
+  // His unit teaches that he was the son of al-Walid, of Quraysh, and the Sword of Allah: only his mother is left.
+  "khalid-ibn-al-walid": null,
+  bilal: null,
+  "abu-ubaydah-ibn-al-jarrah": {
+    line: "Abu Ubaydah's parents were Abdullah and Umaymah bint Ghanm.",
+    facts: ["Father: Abdullah ibn al-Jarrah", "Mother: Umaymah bint Ghanm"]
+  },
+  "zubayr-ibn-al-awwam": {
+    line: "Az-Zubayr's mother was Safiyyah, the Prophet's ﷺ aunt.",
+    facts: ["Father: Awwam ibn Khuwaylid", "Mother: Safiyyah bint Abd al-Muttalib"]
+  },
+  "salmaan-al-faarisiy": { line: "Salman was born in Isfahan and passed away in al-Mada'in.", facts: ["Born in Isfahan", "Passed away in Al-Mada'in"] },
+  "abu-dharr-al-ghifaariy": { line: "Abu Dharr's parents were Junadah and Ramlah.", facts: ["Father: Junadah", "Mother: Ramlah"] },
+  // Where he passed away is left off: most say Madinah, some say Kufa, which a question would offer as wrong.
+  "abd-allah-ibn-masuud": { line: "Ibn Mas'ud was born in Makkah, of the Hudhayl tribe.", facts: ["Tribe: Hudhayl", "Born in Makkah"] },
+  "anas-ibn-malik": { line: "Anas's father was Malik ibn an-Nadr, of the Khazraj.", facts: ["Father: Malik ibn an-Nadr", "Tribe: Khazraj"] }
+};
+
+// The opener card for a companion's unit, from their imported lesson: the facts OPENERS keeps, and the questions
+// whose answer is one of them. Undefined when the card keeps a fact the note does not have.
+function openerLesson(lesson: Lesson, opener: { line: string; facts: string[] }): Lesson | undefined {
+  if (!opener.facts.every((fact) => lesson.learnFacts?.includes(fact))) return undefined;
+  const challenges = lesson.challenges.filter((challenge) => {
+    const answer = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+    return opener.facts.some((fact) => fact.endsWith(`: ${answer}`) || fact.endsWith(` ${answer}`));
+  });
+  return { ...lesson, intro: opener.line, learnLine: opener.line, learnFacts: opener.facts, keyTakeaway: opener.line, challenges };
+}
+
 // Imported prophets and women who already have a lesson of their own. Each person is taught once: the
 // imported lesson is left out and its facts go on that lesson's learn card. Keys are the person part of the
 // imported node id; a lesson about two people (Hud and Salih) gets each one's facts with their name.
@@ -70,13 +110,56 @@ export const PERSON_LESSONS: Record<string, string> = {
   "sawdah-bint-zamah": "women-mothers-depth-sawdah-and-stability"
 };
 
-// Hadith from the notes come in two units after "Hadith for kids" (src/data/hadithBasics.ts): sayings a
-// young child can act on (level 1 to 3), then marriage and family life (level 4 and up), which opens only once
-// the unit before it is finished. Each unit keeps the id of an imported unit, so saved progress still counts.
+// Hadith from the notes that a young child can act on (level 1 to 3) come after "Hadith for kids"
+// (src/data/hadithBasics.ts). Each unit keeps the id of an imported unit, so saved progress still counts.
 const HADITH_UNITS: { title: string; description: string; maxLevel: number; gated?: boolean }[] = [
-  { title: "Safe with Allah", description: "Hold on to Allah's Book and ask Him to keep you safe.", maxLevel: 3 },
-  { title: "Marriage in the Sunnah", description: "What the Prophet ﷺ taught about marriage, for older learners.", maxLevel: Infinity, gated: true }
+  { title: "Safe with Allah", description: "Hold on to Allah's Book and ask Him to keep you safe.", maxLevel: 3 }
 ];
+
+// The hadith of level 4 and up are about marriage and husband and wife: the Hadith topic is a child's path, so
+// they are taught as the last unit of the Marriage topic, which is for older learners and taught in order. The
+// unit keeps the id of the imported unit they were in, and each lesson keeps its id.
+const OLDER_HADITH = {
+  topicId: "marriage" as TopicId,
+  minLevel: 4,
+  branchId: "notes-hadith-hadith-from-your-notes-2",
+  title: "Marriage in the Sunnah",
+  description: "What the Prophet ﷺ taught about marriage, for older learners."
+};
+
+// Moves the older learners' hadith out of the imported Hadith section into an imported Marriage section.
+function moveOlderHadith(imported: ImportedNotesContent): ImportedNotesContent {
+  const hadith = imported.sections.find((section) => section.topicId === "hadith");
+  if (!hadith || imported.sections.some((section) => section.topicId === OLDER_HADITH.topicId)) return imported;
+  const levelOf = (node: LearningNode) => imported.lessonsById[node.lessonIds[0]]?.difficulty ?? node.difficulty ?? 3;
+  const older = hadith.nodes.filter((node) => levelOf(node) >= OLDER_HADITH.minLevel);
+  if (!older.length) return imported;
+  const template = hadith.branches.find((branch) => branch.id === OLDER_HADITH.branchId) ?? hadith.branches[hadith.branches.length - 1];
+  const branch: LearningBranch = {
+    ...template,
+    id: OLDER_HADITH.branchId,
+    topicId: OLDER_HADITH.topicId,
+    title: OLDER_HADITH.title,
+    description: OLDER_HADITH.description
+  };
+  const olderIds = new Set(older.map((node) => node.id));
+  const staying = hadith.nodes.filter((node) => !olderIds.has(node.id));
+  const marriage: ImportedNotesSection = {
+    topicId: OLDER_HADITH.topicId,
+    branches: [branch],
+    nodes: older.map((node) => ({ ...node, topicId: OLDER_HADITH.topicId, branchId: branch.id, requiredNodeIds: [] }))
+  };
+  const stayingBranchIds = new Set(staying.map((node) => node.branchId));
+  return {
+    ...imported,
+    sections: [
+      ...imported.sections.map((section) =>
+        section === hadith ? { ...hadith, branches: hadith.branches.filter((each) => stayingBranchIds.has(each.id)), nodes: staying } : section
+      ),
+      marriage
+    ]
+  };
+}
 
 // The imported women, by theme: one unit each, in this order. Keys are the person part of the node id.
 const WOMEN_UNITS: { title: string; description: string; people: string[] }[] = [
@@ -113,6 +196,43 @@ const WOMEN_UNITS: { title: string; description: string; people: string[] }[] = 
     ]
   }
 ];
+
+// A unit of imported companions or prophets is named after the best-known person in it: "Hamzah and more".
+// Keys are the person part of the imported node id; the Arabic banner is in src/data/arabicTerms.ts.
+export const UNIT_LEADS: Record<string, string> = {
+  "abd-allah-ibn-umar": "Ibn Umar",
+  "abu-hurayra": "Abu Hurayrah",
+  "fatimah-al-zahra": "Fatimah az-Zahra",
+  "hamza-ibn-abdul-muttalib": "Hamzah",
+  "musab-ibn-umair": "Mus'ab",
+  "sad-ibn-muaadh": "Sa'd ibn Mu'adh",
+  "usama-ibn-zayd": "Usamah",
+  "zayd-ibn-harithah": "Zayd ibn Harithah",
+  ayyub: "Ayyub",
+  yunus: "Yunus"
+};
+
+/** The person part of an imported node id ("notes-sahabah-companions-from-your-notes-4-hamza-ibn-abdul-muttalib"). */
+export function importedPersonSlug(nodeId: string) {
+  return /-from-your-notes-\d+-(.+)$/.exec(nodeId)?.[1];
+}
+
+// Names each unit after the lead person in it, when it has one.
+function nameUnitsByLead(regrouped: Regrouped): Regrouped {
+  return {
+    ...regrouped,
+    branches: regrouped.branches.map((branch) => {
+      const lead = regrouped.nodes.filter((node) => node.branchId === branch.id).map((node) => UNIT_LEADS[importedPersonSlug(node.id) ?? ""]).find(Boolean);
+      return lead ? { ...branch, title: `${lead} and more` } : branch;
+    })
+  };
+}
+
+// "Surah An-Nas to Al-Fil": a unit of imported surahs is named after its first and last surah.
+function surahSpanTitle(first: LearningNode, last: LearningNode) {
+  if (first.id === last.id) return first.title;
+  return `${first.title} to ${last.title.replace(/^Surah\s+/, "")}`;
+}
 
 // A unit of imported lessons holds at most this many, so a list of names never becomes a wall.
 const MAX_UNIT_SIZE = 10;
@@ -249,7 +369,7 @@ function regroupSurahs(section: LearningSection, given: LearningBranch[], stayin
     const branch: LearningBranch = {
       ...template,
       id: span ? `notes-quran-tafseer-surahs-${span}` : `${template.id}-${members[0].id}`,
-      title: span ? (first === last ? `Surah ${first}` : `Surahs ${span}`) : template.title,
+      title: span ? surahSpanTitle(members[0], members[members.length - 1]) : template.title,
       sourceReferences: []
     };
     return { branch, nodes: members };
@@ -353,17 +473,18 @@ function foldFacts(builtIn: Lesson, people: { name: string; lesson: Lesson }[]):
 // - a surah or companion that already has its own unit is not shown twice; its imported lesson opens that unit;
 // - a prophet or woman with a built-in lesson is taught there; the imported facts go on its learn card;
 // - Quran units follow the learning order (Al-Fatihah, Juz Amma from An-Nas back, then the mushaf);
-// - hadith start with "Hadith for kids" (hadithBasics.ts), then sayings for young children, then marriage,
-//   which opens only once the unit before it is finished (gated);
+// - hadith start with "Hadith for kids" (hadithBasics.ts), then sayings for young children; the hadith about
+//   marriage are the last unit of the Marriage topic (OLDER_HADITH);
 // - imported women are grouped by theme (WOMEN_UNITS);
 // - a surah's quote is shown in Arabic (quranAyahs.ts);
 // - the built-in units of a topic come first (Abu Bakr, Umar, Uthman and Ali lead the companions), then the
 //   imported lists.
 // Chaining units one after another happens later (chainCourse), once everything is in place.
-export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<string, Lesson>, imported: ImportedNotesContent) {
-  if (!imported.sections.length) {
+export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<string, Lesson>, notes: ImportedNotesContent) {
+  if (!notes.sections.length) {
     return { course, lessonsById };
   }
+  const imported = moveOlderHadith(notes);
 
   const importedLessons: Record<string, Lesson> = Object.fromEntries(
     Object.entries(imported.lessonsById).map(([lessonId, lesson]) => {
@@ -397,9 +518,21 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
     const extra = { ...given, nodes: given.nodes.filter((node) => keptBranchIds.has(node.branchId)) };
     const homes = homeUnits(section, extra, imported.lessonsById);
     const folds = personLessons(section, extra);
+    // A companion's card opens their unit with what the unit does not teach; a card with nothing left is dropped.
+    const droppedById = new Map(extra.nodes.filter((node) => homes.has(node.id) && OPENERS[personSlug(node)] === null).map((node) => [node.id, node]));
+    for (const node of droppedById.values()) {
+      homes.delete(node.id);
+      for (const lessonId of node.lessonIds) delete importedLessons[lessonId];
+    }
+    for (const node of extra.nodes.filter((each) => homes.has(each.id))) {
+      const opener = OPENERS[personSlug(node)];
+      const lesson = importedLessons[node.lessonIds[0]];
+      const card = opener && lesson ? openerLesson(lesson, opener) : undefined;
+      if (card) importedLessons[lesson!.id] = card;
+    }
     const movedById = new Map(extra.nodes.filter((node) => homes.has(node.id)).map((node) => [node.id, node]));
     const foldedById = new Map(extra.nodes.filter((node) => folds.has(node.id) && !homes.has(node.id)).map((node) => [node.id, node]));
-    const leaving = new Map([...movedById, ...foldedById]);
+    const leaving = new Map([...movedById, ...foldedById, ...droppedById]);
 
     // A node that followed a node that left now follows whatever came before it.
     const relink = (ids: string[]): string[] => ids.flatMap((id) => (leaving.has(id) ? relink(leaving.get(id)!.requiredNodeIds) : [id]));
@@ -442,12 +575,14 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
       : section.topicId === "quran_tafseer"
         ? regroupSurahs(section, keptBranches, staying, importedLessons)
         : section.topicId === "sahabah"
-          ? { branches: keptBranches, nodes: staying }
+          ? nameUnitsByLead({ branches: keptBranches, nodes: staying })
           : section.topicId === "hadith"
             ? regroupHadith(keptBranches, staying, importedLessons)
             : section.topicId === "women_of_the_book"
               ? regroupWomen(keptBranches, staying, importedLessons)
-              : regroupInOrder(keptBranches, staying, importedLessons);
+              : section.topicId === "prophets"
+                ? nameUnitsByLead(regroupInOrder(keptBranches, staying, importedLessons))
+                : regroupInOrder(keptBranches, staying, importedLessons);
     const importedBranches = regrouped.branches.filter((branch) => regrouped.nodes.some((node) => node.branchId === branch.id));
     const allNodes = [...regrouped.nodes, ...builtInNodes];
     const branches = placeBranches(section, importedBranches, allNodes, importedLessons).map((branch, index) => ({ ...branch, order: index + 1 }));

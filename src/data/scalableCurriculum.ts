@@ -178,6 +178,9 @@ const LEARN_SOURCES = {
   hadith_bukhari_1149: bukhari(1149, "Abu Hurairah", "Bilal's footsteps", "The Prophet ﷺ heard Bilal's footsteps in Paradise; Bilal prayed after every wudu he made."),
   hadith_bukhari_3744: bukhari(3744, "Anas ibn Malik", "The trustworthy one", "Every nation has a trustworthy one, and the trustworthy one of this nation is Abu Ubaydah."),
   hadith_bukhari_5050: bukhari(5050, "Abdullah ibn Mas'ud", "Recite to me", "The Prophet ﷺ asked Ibn Mas'ud to recite the Quran to him, and wept as he listened."),
+  hadith_bukhari_3: bukhari(3, "Aishah", "Khadijah comforts the Prophet ﷺ", "After the first revelation, Khadijah told the Prophet ﷺ: Never! By Allah, Allah will never disgrace you."),
+  hadith_bukhari_3662: bukhari(3662, "Amr ibn al-As", "Who he loved most", "Amr ibn al-As asked the Prophet ﷺ who was most beloved to him. He said: Aishah."),
+  hadith_bukhari_756: bukhari(756, "Ubadah ibn as-Samit", "Al-Fatihah in every prayer", "Whoever does not recite Al-Fatihah in his prayer, his prayer is not valid."),
   hadith_bukhari_6038: bukhari(6038, "Anas ibn Malik", "Ten years of service", "Anas served the Prophet ﷺ for ten years, and he never once said uff to him."),
   quran_14_7: ayah("14:7", "Thankful hearts get more", "Allah says: if you are grateful, I will surely give you more."),
   quran_18_23_24: ayah("18:23-24", "Saying InshaAllah", "Never say of anything, I will do it tomorrow, without adding: if Allah wills."),
@@ -464,8 +467,17 @@ function shuffled(options: string[], key: string) {
 // and the false statements look alike and only knowing the fact tells them apart.
 function falseLine(lesson: LessonSeed) {
   const wrong = lesson.alt?.[0];
-  if (lesson.line && wrong && keyWord(lesson.line)) return plainLine(lesson.line.replace(/\[[^\]]+\]/, wrong));
+  if (lesson.line && wrong && keyWord(lesson.line)) {
+    // "a" or "an" before the key word fits the word put in its place ("an arrow", "a spear").
+    const swapped = lesson.line.replace(/(\b[Aa]n? )?\[[^\]]+\]/, (_, article?: string) => (article ? `${fitArticle(article, wrong)} ${wrong}` : wrong));
+    return plainLine(swapped);
+  }
   return lesson.myth;
+}
+
+function fitArticle(article: string, word: string) {
+  const fitted = /^[aeiou]/i.test(word) ? "an" : "a";
+  return article.startsWith("A") ? fitted.charAt(0).toUpperCase() + fitted.slice(1) : fitted;
 }
 
 // A lesson's own questions, all about the line its learn card shows: the missing key word (or a short choice),
@@ -848,7 +860,7 @@ function buildSahabiWorldBranches(): BranchSeed[] {
         "makkah-years": { line: "When Sa'd became Muslim, his [mother] refused to eat.", alt: ["sister", "teacher"], why: "He stayed kind to her but kept his faith." },
         "friendship-with-the-prophet": { title: "Promised Paradise", line: "Sa'd is one of the [ten] promised Paradise.", alt: ["two", "hundred"], why: "Abu Bakr, Umar, Uthman and Ali are among them too." },
         "signature-virtue": { title: "An answered du'a", line: "The Prophet ﷺ prayed that Sa'd's du'as would be [answered].", alt: ["short", "written"] },
-        "moments-of-bravery": { line: "Sa'd was the first to shoot an [arrow] for Allah's cause.", alt: ["spear", "stone"], why: "At Uhud, the Prophet ﷺ cheered him on as he shot." }
+        "moments-of-bravery": { line: "Sa'd was the first to shoot [arrows] for Allah's cause.", alt: ["spears", "stones"], why: "At Uhud, the Prophet ﷺ cheered him on as he shot." }
       }
     }),
     buildCompanionBranch({
@@ -979,7 +991,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
         }),
         seed("wash-arms", "Wash the arms", "The arms are washed fully in the taught order, with care instead of haste.", 3, {
           source: "quran_5_6",
-          line: "Wash each arm up to the [elbow], right arm first.",
+          line: "Wash each arm up to the [elbow].",
           alt: ["wrist", "shoulder"],
           why: "The Quran says to wash the arms up to the elbows.",
           first: ["Rinse the nose", "Wash the face", "Wash the arms"]
@@ -1022,12 +1034,13 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
         }),
         seed("what-breaks-wudu", "What breaks wudu", "Know clearly what breaks wudu, and do not guess about it.", 4, {
           source: "hadith_bukhari_135",
-          line: "Using the [toilet] or passing wind breaks wudu.",
-          alt: ["kitchen", "garden"]
+          line: "Passing wind [breaks] your wudu.",
+          alt: ["keeps", "doubles"],
+          why: "Make wudu again before you pray."
         }),
         seed("what-does-not-break-wudu", "What does not break wudu", "Not everything people worry about actually breaks wudu, so clarity matters.", 4, {
           source: "hadith_bukhari_137",
-          line: "[A doubt] does not break wudu, but the toilet does.",
+          line: "[A doubt] alone does not break your wudu.",
           alt: ["Passing wind", "Deep sleep"],
           why: "Keep your wudu unless you are sure it broke."
         }),
@@ -1038,13 +1051,13 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
           why: "The right hand is kept for eating and drinking."
         }),
         seed("common-mistakes", "No dry spots", "Most wudu mistakes come from rushing, bad order, or not washing properly.", 5, {
-          line: "Don't leave [dry] spots, like your heels.",
-          alt: ["wet", "soapy"],
+          line: "Let water reach every part, even your [heels].",
+          alt: ["pockets", "shoes"],
           why: "The Prophet ﷺ warned people who left their heels dry."
         }),
         seed("demonstration-and-practice", "Do it all", "Put all the wudu steps together, then check yourself.", 5, {
-          line: "Now do it all, from hands to [feet], calm and careful.",
-          alt: ["face", "ears"]
+          line: "Do it all, and end by washing your [feet].",
+          alt: ["face", "hands"]
         }),
         seed("reinforcement-review", "Review", "Repeat the order, the core acts, the sunnah details, and the nullifiers until they become stable.", 5, { kind: "review", lessonType: "review", line: "Wudu goes from your hands all the way to your feet." }),
         seed("wudu-mastery-check", "Big quiz", "Mastery means you can perform, explain, and correct wudu with confidence.", 5, { kind: "review", lessonType: "mastery", line: "You know the steps, the Sunnah, and what breaks wudu." })
@@ -1081,7 +1094,6 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
           alt: ["sajdah", "takbir"]
         }),
         seed("conditions-before-salah", "Getting ready", "Prayer starts with readiness before takbir, not only with what happens inside the salah itself.", 2, {
-          source: "quran_2_144",
           line: "Before salah, be clean, cover up, and face the [Qiblah].",
           alt: ["door", "window"],
           why: "The Qiblah is the Ka'bah in Makkah."
@@ -1234,8 +1246,9 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
           alt: ["adhan", "iqamah"]
         }),
         seed("wording-of-tashahhud", "The words", "The tashahhud has taught words that should be said with care.", 3, {
-          line: "It begins: [At-tahiyyatu] lillah, all greetings are for Allah.",
-          alt: ["Allahu akbar", "Subhanallah"]
+          line: "The tashahhud begins with: [At-tahiyyatu] lillah.",
+          alt: ["Allahu akbar", "Subhanallah"],
+          why: "At-tahiyyatu lillah means: all greetings are for Allah."
         }),
         seed("when-tashahhud-happens", "When we sit", "The tashahhud is said while sitting, at its set places in the prayer.", 3, {
           line: "We sit for tashahhud after two rak'ahs, and at the [end].",
@@ -1371,7 +1384,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
     },
     {
       id: "prayer-review-and-mastery",
-      title: "Review and mastery",
+      title: "Wudu and salah review",
       description: "A mixed review that connects purity, posture, order, correction, and presence.",
       order: 11,
       clusterSize: 5,
@@ -1551,7 +1564,7 @@ SECTION_SEEDS.push(
           seed("ikhlas-and-purity", "Surah Al-Ikhlas", "Surah Al-Ikhlas trains the heart to keep its belief about Allah pure and unmatched.", 2, {
             source: "quran_112",
             line: "Surah [Al-Ikhlas] says Allah is One, with no equal.",
-            alt: ["Al-Fatihah", "Al-Kahf"],
+            alt: ["Al-Fil", "Al-Kawthar"],
             why: "It says He has no children and was not born."
           }),
           seed("calling-on-allah", "Calling on Allah", "Du'a and hope should be directed to Allah with dependence and trust.", 3, {
@@ -1620,8 +1633,8 @@ SECTION_SEEDS.push(
             line: "[Al-Malik] means Allah is the King of everything.",
             alt: ["Al-Alim", "Ar-Rahman"]
           }),
-          seed("using-the-names", "Names in du'a", "The names of Allah should feed prayer, reliance, and repentance.", 4, {
-            line: "Asking forgiveness? Call on Allah as [Al-Ghafur], the Forgiving.",
+          seed("using-the-names", "Al-Ghafur", "The names of Allah should feed prayer, reliance, and repentance.", 4, {
+            line: "[Al-Ghafur] means Allah is the One who forgives.",
             alt: ["Al-Malik", "Al-Alim"],
             why: "Allah says: call on Him by His beautiful names."
           }),
@@ -1977,7 +1990,8 @@ SECTION_SEEDS.push(
     mascot: "muslim_man",
     accentColor: "#D97B2D",
     branches: [
-      // Each prophet here has a lesson of his own earlier on the path, or none: these lessons teach something new.
+      // Each prophet here has a lesson of his own, or none: these lessons teach something new, and a lesson about a
+      // prophet with a lesson of his own is taught in his unit, right after it (src/data/unitPlans.ts).
       { id: "prophets-early-messengers", title: "Early messengers", description: "Travel through the earliest lessons of humanity, repentance, warning, and trust.", order: 4, difficultyRange: [1, 3], sourceKeys: ["quran_21_25", "quran_33_21"], lessons: [
         seed("adam-and-repentance", "Adam learns the names", "Allah honored Adam with knowledge, teaching him the names of things.", 1, {
           line: "Allah taught Adam the [names] of all things.",
@@ -2066,7 +2080,8 @@ SECTION_SEEDS.push(
     mascot: "hijabi",
     accentColor: "#D96C8E",
     branches: [
-      // Each woman here has a lesson of her own earlier on the path: these lessons teach something new about her.
+      // Each woman here has a lesson of her own: these lessons teach something new about her, and are taught in her
+      // unit, right after it (src/data/unitPlans.ts), so these three units are not on the path themselves.
       { id: "women-quran-depth", title: "More women in the Quran", description: "Go deeper through women in the Quran and the virtues their stories teach.", order: 3, difficultyRange: [1, 4], sourceKeys: ["quran_28_7", "quran_66_11", "quran_19"], lessons: [
         seed("hawwa-and-return", "Asking forgiveness", "Adam and Hawwa made a mistake and asked Allah to forgive them.", 1, {
           line: "Adam and [Hawwa] asked Allah to forgive them together.",
@@ -2105,20 +2120,16 @@ SECTION_SEEDS.push(
         }),
         seed("aishah-and-knowledge", "Loved most", "The Prophet ﷺ was asked who he loved most, and he named Aishah.", 4, {
           line: "Asked who he loved most, the Prophet ﷺ said: [Aishah].",
-          alt: ["Hafsah", "Sawdah"]
-        }),
-        seed("hafsah-and-preservation", "Hafsah's pages", "Uthman made copies of the Quran from the pages kept by Hafsah.", 4, {
-          line: "Uthman copied the Quran from Hafsah's [pages].",
-          alt: ["letters", "poems"],
-          source: "hadith_bukhari_4987"
+          alt: ["Hafsah", "Sawdah"],
+          source: "hadith_bukhari_3662"
         }),
         seed("mothers-review", "Review", "The Mothers of the Believers teach support, knowledge, service, and preserving the religion.", 5, { kind: "review", lessonType: "mastery", line: "Khadijah, Sawdah, Aishah, Hafsah: Mothers of the Believers!" })
       ]},
       { id: "women-virtues-and-legacy", title: "Virtues and legacy", description: "Study the themes these women share: courage, worship, service, and carrying revelation.", order: 5, difficultyRange: [3, 5], sourceKeys: ["quran_33_6", "quran_66_11", "quran_19"], lessons: [
         seed("courage-under-pressure", "Asiyah and baby Musa", "Asiyah took baby Musa into Pharaoh's palace and cared for him.", 3, {
-          line: "Asiyah took in baby Musa and loved him like a [son].",
-          alt: ["servant", "guard"],
-          why: "She said he would be a joy to her eyes.",
+          line: "Asiyah said baby Musa would be a [joy] to her eyes.",
+          alt: ["worry", "trouble"],
+          why: "She asked Pharaoh to keep him, perhaps as a son.",
           source: "quran_28_9"
         }),
         seed("worship-and-devotion", "Food from Allah", "Maryam worshipped in her prayer room, and Allah gave her food there.", 4, {
@@ -2127,9 +2138,11 @@ SECTION_SEEDS.push(
           why: "When Zakariyya asked, she said: it is from Allah.",
           source: "quran_3_37"
         }),
-        seed("service-to-revelation", "Khadijah's help", "Khadijah used her wealth to support the Prophet ﷺ and his message.", 4, {
-          line: "Khadijah used her [wealth] to support the Prophet ﷺ.",
-          alt: ["sword", "poems"]
+        seed("service-to-revelation", "Khadijah's help", "When the first revelation came, Khadijah comforted the Prophet ﷺ and stood by him.", 4, {
+          line: "Khadijah [comforted] the Prophet ﷺ after the first revelation.",
+          alt: ["scolded", "ignored"],
+          why: "She said: By Allah, Allah will never disgrace you.",
+          source: "hadith_bukhari_3"
         }),
         seed("lessons-for-today", "Good deeds count", "Allah rewards every believer who does good, woman or man.", 5, {
           line: "Allah rewards the good deeds of women and men alike.",
@@ -2163,15 +2176,15 @@ SECTION_SEEDS.push(
         }),
         seed("guest-honor", "Guests", "Guests should feel welcomed, not managed like a burden.", 2, {
           source: "hadith_bukhari_6018",
-          line: "A Muslim [welcomes] a guest with kindness and food.",
+          line: "A Muslim [honors] a guest.",
           alt: ["ignores", "rushes"],
           why: "Honoring guests is part of believing in Allah and the Last Day."
         }),
-        seed("sharing-space", "Making room", "Adab in shared spaces means patience, cleanliness, and not crowding others with selfishness.", 2, {
+        seed("sharing-space", "Making room", "Adab in a gathering means making room for others, not crowding them.", 2, {
           source: "quran_58_11",
-          line: "In shared places, keep things [clean] and make room for others.",
-          alt: ["messy", "locked"],
-          why: "The Quran says: when asked to make room, make room."
+          line: "When asked, make [room] for others in a gathering.",
+          alt: ["trouble", "noise"],
+          why: "The Quran says Allah will then make room for you."
         }),
         seed("helping-neighbors", "Clearing the path", "Mercy becomes concrete when help reaches nearby people in ordinary needs.", 3, {
           line: "Moving something harmful off the path is a [charity].",
@@ -2241,16 +2254,16 @@ SECTION_SEEDS.push(
     accentColor: "#D45E74",
     branches: [
       { id: "marriage-rights-and-trust", title: "Rights and trust", description: "Learn how rights, responsibility, and amanah keep marriage balanced.", order: 3, difficultyRange: [2, 4], sourceKeys: ["quran_30_21"], lessons: [
-        seed("rights-are-trusts", "Rights are trusts", "Rights in marriage are given to protect the home, not to feed ego.", 2, {
+        seed("rights-are-trusts", "Rights in marriage", "Rights in marriage are given to protect the home, not to feed ego.", 2, {
           source: "quran_2_228",
-          line: "Husband and wife both have rights, kept as a trust.",
+          line: "Husband and wife both have rights.",
           ask: ["Who has rights in a marriage?", "Husband and wife", "Only the husband", "Only the wife"],
-          myth: "Only the husband has rights, kept as a trust.",
+          myth: "Only the husband has rights.",
           why: "The Quran says wives have rights like their duties."
         }),
         seed("mutual-dignity", "Respect", "A home of sakinah needs dignity for both husband and wife.", 2, {
-          line: "Spouses treat each other with [respect], never insults.",
-          alt: ["teasing", "silence"],
+          line: "Spouses treat each other with [respect].",
+          alt: ["insults", "silence"],
           why: "The best of you are the best to their families."
         }),
         seed("provision-and-care", "Caring for the family", "Marriage includes concrete care, provision, and emotional steadiness.", 3, {
@@ -2278,7 +2291,7 @@ SECTION_SEEDS.push(
         }),
         seed("repair-after-harm", "Saying sorry", "Homes survive by repair, apology, and sincere course correction.", 3, {
           line: "After hurting your spouse, say sorry and [fix] it.",
-          alt: ["forget", "hide"]
+          alt: ["repeat", "hide"]
         }),
         seed("bring-in-help-wisely", "Getting help", "Some conflicts need counsel and outside help, but with wisdom and boundaries.", 4, {
           source: "quran_4_35",
@@ -2306,8 +2319,8 @@ SECTION_SEEDS.push(
           why: "The Prophet ﷺ said: if you dislike one trait, you will like another."
         }),
         seed("raising-the-tone", "Kind words at home", "Speech, cleanliness, gratitude, and worship all set the tone of a house.", 4, {
-          line: "Fill the home with salam, thanks, and kind [words].",
-          alt: ["shouts", "fights"],
+          line: "Fill the home with salam, thanks, and [kind] words.",
+          alt: ["rude", "angry"],
           why: "Saying salam when you come home brings blessing."
         }),
         seed("home-review", "Review", "The best homes are built by mercy, worship, patience, and repeated repair.", 5, { kind: "review", lessonType: "mastery", line: "A good home has prayer, du'a, patience, and kind words." })
@@ -2349,12 +2362,13 @@ SECTION_SEEDS.push({
       surahName: "Al-Fatihah",
       ayahRange: "1-7",
       lessons: [
-        seed("opening-and-names", "The first surah", "Al-Fatihah opens the Quran and frames the believer's relationship with Allah.", 1, {
+        seed("opening-and-names", "In every salah", "Al-Fatihah is recited in every prayer, so every Muslim learns it by heart.", 1, {
+          source: "hadith_bukhari_756",
           surahName: "Al-Fatihah",
           ayahRange: "1-7",
-          line: "Al-Fatihah is the [first] surah of the Quran.",
-          alt: ["last", "longest"],
-          why: "It comes on the very first page of the Quran."
+          line: "Al-Fatihah is recited in every [salah].",
+          alt: ["meal", "game"],
+          why: "Al-Fatihah is also the first surah of the Quran."
         }),
         seed("praise-and-lordship", "Praise for Allah", "The surah begins with praise of Allah before requests are made.", 2, {
           source: "quran_1_2",
@@ -2417,7 +2431,7 @@ SECTION_SEEDS.push({
           source: "quran_2_285",
           surahName: "Al-Baqarah",
           ayahRange: "285",
-          line: "Its last ayahs say: we hear and we [obey].",
+          line: "Al-Baqarah's last ayahs say: we hear and we [obey].",
           alt: ["forget", "argue"]
         }),
         seed("baqarah-review", "Review", "Al-Baqarah begins and ends with guidance, belief, action, and awe.", 5, { kind: "review", lessonType: "mastery", surahName: "Al-Baqarah", ayahRange: "1-5, 255, 285", line: "Al-Baqarah: guidance, Ayat al-Kursi, and we hear and obey." })
@@ -2814,7 +2828,7 @@ SECTION_SEEDS.push(
         }),
         seed("forgetfulness-and-mercy", "If you forget", "Mistakes in fasting should be thought through with mercy and knowledge, not panic.", 3, {
           source: "hadith_bukhari_1933",
-          line: "If you eat because you [forgot], keep fasting.",
+          line: "If you eat because you [forgot], your fast still counts.",
           alt: ["wanted to", "felt like it"],
           why: "The Prophet ﷺ said it was Allah who fed you."
         }),
@@ -2841,7 +2855,7 @@ SECTION_SEEDS.push(
           alt: ["hundred", "few"]
         }),
         seed("after-ramadan", "After Ramadan", "The point of Ramadan is changed worship, not a temporary mood that disappears at Eid.", 4, {
-          line: "Allah loves good deeds done [regularly], even small ones.",
+          line: "The deeds Allah loves most are done [regularly], even if small.",
           alt: ["once", "loudly"]
         }),
         seed("ramadan-review", "Big quiz", "A mature Ramadan view joins taqwa, rules, mercy, Quran, night worship, and lasting change.", 5, { kind: "review", lessonType: "mastery", line: "Ramadan: Taraweeh, Quran, Laylat al-Qadr, and habits that last." })
@@ -2906,8 +2920,8 @@ SECTION_SEEDS.push(
       ]},
       { id: "zakat-character-and-intention", title: "Giving with a good heart", description: "Move into the giver's inner state: sincerity, humility, and avoiding harm.", order: 3, difficultyRange: [2, 5], sourceKeys: ["quran_9_103", "quran_4_36"], lessons: [
         seed("sincerity", "For Allah", "Zakat should be given for Allah, not for image, pressure, or praise.", 2, {
-          line: "Give zakat for [Allah], not to show off.",
-          alt: ["fame", "praise"],
+          line: "Give zakat to please [Allah] alone.",
+          alt: ["people", "friends"],
           why: "Allah knows what is in every heart."
         }),
         seed("humility", "Give kindly", "Giving should not crush the dignity of the one receiving.", 3, {
@@ -2942,7 +2956,7 @@ SECTION_SEEDS.push(
         seed("family-support-and-duty", "Family counts", "Financial care in Islam includes knowing ordinary family duties alongside zakat duties.", 4, {
           source: "hadith_bukhari_55",
           line: "Spending on your own [family] is a charity too.",
-          alt: ["games", "pride"],
+          alt: ["pride", "games"],
           why: "Spend for Allah's sake, and it counts as charity."
         }),
         seed("planning-a-giving-life", "The middle way", "A strong Muslim financial life is planned, disciplined, and generous.", 4, {

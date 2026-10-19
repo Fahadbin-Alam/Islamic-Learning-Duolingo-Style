@@ -145,9 +145,9 @@ describe("arabic terms", () => {
       ar: "عَيَّاشُ بْنُ أَبِي رَبِيعَةَ",
       translit: "'Ayyash ibn Abi Rabi'ah"
     });
-    expect(getNodeArabic("notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah")).toMatchObject({
-      ar: "أُمُّ سَعِيدٍ بِنْتُ عُرْوَةَ الثَّقَفِيَّةُ",
-      translit: "Umm Sa'id bint Urwah ath-Thaqafiyyah"
+    expect(getNodeArabic("notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-al-banin")).toMatchObject({
+      ar: "أُمُّ الْبَنِينَ",
+      translit: "Umm al-Banin"
     });
   });
 
@@ -168,7 +168,10 @@ describe("arabic terms", () => {
     expect(isFirstUseOfWord("foundation-niyyah")).toBe(true);
     expect(isFirstUseOfWord("foundation-home-adab-entering-home")).toBe(false);
     expect(isFirstUseOfWord("foundation-home-adab-table-beginning")).toBe(false);
-    expect(isFirstUseOfWord("prophets-power-and-deliverance-musa-and-fear")).toBe(false);
+    // Musa's second lesson, right after his first in the same unit, teaches a word of its own (Quran 20:46).
+    expect(isFirstUseOfWord("prophets-musa")).toBe(true);
+    expect(getNodeArabic("prophets-power-and-deliverance-musa-and-fear")).toMatchObject({ ar: "لَا تَخَافَا" });
+    expect(isFirstUseOfWord("prophets-power-and-deliverance-musa-and-fear")).toBe(true);
     // A node with no word of its own is never NEW.
     expect(isFirstUseOfWord("no-such-node")).toBe(false);
   });
@@ -187,5 +190,41 @@ describe("arabic terms", () => {
       expect(branches.filter((branch) => /\d$/.test(branch.title)).map((branch) => branch.title)).toEqual([]);
     }
     expect(getTopicArabic("women_of_the_book")).toMatchObject({ ar: "نساء خالدات", meaning: "Great women" });
+  });
+
+  it("gives every unit of the course its own Arabic banner, and no unit a number for a name", () => {
+    const branches = COURSE.sections.flatMap((section) => section.branches);
+    const banners = branches.map((branch) => getBranchArabic(branch.id)?.ar);
+    expect(branches.filter((branch, index) => banners.indexOf(banners[index]) !== index).map((branch) => `${branch.id}: ${banners[branches.indexOf(branch)]}`)).toEqual([]);
+    expect(branches.filter((branch) => /\d/.test(branch.title) || /^(Review and mastery|Companions|Prophets|Surahs)\b/.test(branch.title)).map((branch) => branch.title)).toEqual([]);
+    expect(getBranchArabic("notes-quran-tafseer-surahs-114-105")).toMatchObject({ ar: "من سورة الناس إلى سورة الفيل" });
+    expect(getLessonArabic("no-such-node", "notes-quran-tafseer-surahs-114-105")?.ar).toBe("مِنْ سُورَةِ النَّاسِ إِلَى سُورَةِ الْفِيلِ");
+  });
+
+  it("names the depth lessons by a word of their own line", () => {
+    // [node, word]: the word on the card is in the card's line or its ayah, not a theme of the old lesson.
+    const expected: [string, string][] = [
+      ["prophets-early-messengers-adam-and-repentance", "الْأَسْمَاءُ"],
+      ["prophets-early-messengers-nuh-and-patience", "زَوْجَيْنِ"],
+      ["prophets-family-and-sacrifice-yusuf-and-purity", "الرُّؤْيَا"],
+      ["women-mothers-depth-khadijah-and-support", "السَّلَامُ"],
+      ["women-quran-depth-maryam-and-purity", "سُورَةُ مَرْيَمَ"],
+      ["women-virtues-and-legacy-courage-under-pressure", "قُرَّةُ عَيْنٍ"],
+      ["quran-surah-fatihah-opening-and-names", "الصَّلَاةُ"]
+    ];
+    expect(expected.filter(([node, word]) => getNodeArabic(node)?.ar !== word)).toEqual([]);
+    const themes = ["التَّوْبَةُ", "الصَّبْرُ", "الْعِفَّةُ", "الْعِلْمُ", "الْمُؤَازَرَةُ", "الطَّهَارَةُ", "خِدْمَةُ الْوَحْيِ", "الشَّجَاعَةُ", "فَاتِحَةُ الْكِتَابِ"];
+    const depth = COURSE.sections
+      .flatMap((section) => section.nodes)
+      .filter((node) => /^(prophets-(early-messengers|family-and-sacrifice|power-and-deliverance)|women-(quran-depth|mothers-depth|virtues-and-legacy))-/.test(node.id));
+    expect(depth.filter((node) => node.id !== "women-quran-depth-hawwa-and-return" && themes.includes(getNodeArabic(node.id)?.ar ?? "")).map((node) => node.id)).toEqual([]);
+  });
+
+  it("writes ﷺ after Muhammad, the Prophet, in every meaning", () => {
+    const meanings = [...tables.flatMap(([, terms]) => Object.values(terms)), ...COURSE.sections.flatMap((section) => section.nodes).map((node) => getLessonArabic(node.id, node.branchId)!)]
+      .map((term) => term.meaning)
+      .filter((meaning) => /\bProphet Muhammad\b|\bMuhammad\b$/.test(meaning));
+    expect(meanings.filter((meaning) => !/Muhammad ﷺ/.test(meaning))).toEqual([]);
+    expect(getNodeArabic("prophets-muhammad")?.meaning).toBe("Prophet Muhammad ﷺ");
   });
 });

@@ -5,6 +5,7 @@
 import {
   ADULT_FACTS,
   DISPLAY_NAMES,
+  DISPUTED_REVELATION,
   HADITH_LESSONS,
   LEARN_LINES,
   LEFT_OUT_HADITH,
@@ -86,7 +87,7 @@ export const MAX_CHOICE_LENGTH = 90;
 // Words that keep a text out of a children's quiz, as a question, a choice or a learn-card quote.
 export const ADULT_TEXT = /\b(fornicat|adulter|concubine|harlot|whore|lewd|incest|sodom(?!\b)|lust|sexual|intercourse|private parts|menstrua|genital|unchast|naked|nudity)\w*/i;
 // Wrong choices also stay away from frightening or adult topics, which belong only in their own lessons.
-const UNSAFE_DISTRACTOR = /\b(wives|dajjal|iblis|tortur\w*|kill\w*|slander|ifk)\b/i;
+const UNSAFE_DISTRACTOR = /\b(wives|dajjal|iblis|tortur\w*|kill\w*|hurt\w*|slander|ifk|karbala|yazid)\b/i;
 // "Ha. Mim.", "Alif. Lam. Mim.": the opening letters say nothing a child could choose between.
 const LETTERS_ONLY = /^(?:(?:[A-Z][a-z']{0,4}\.\s*){1,5}|(?:(?:Alif|Lam|Mim|Ra|Sad|Kaf|Ha|Ya|'?Ain|Ta|Sin|Qaf|Nun)\b[.,]?\s*)+)$/i;
 
@@ -397,6 +398,7 @@ function personLesson(profile, pools) {
   const others = (pools.people[note.topicId] ?? []).filter(
     (other) =>
       other.rawName !== rawName &&
+      !other.leftOut &&
       other.gender === profile.gender &&
       other.line &&
       !UNSAFE_DISTRACTOR.test(other.line) &&
@@ -470,7 +472,8 @@ function surahFacts(note) {
     // 'The Letter "Saad"': quotes inside the name would break the "means" line.
     englishName: SURAH_MEANINGS[number] ?? cleanText(String(pick("english_name", "english", "translation", "meaning", "name_meaning") ?? "")).replace(/["“”]/g, ""),
     ayahCount: Number(pick("ayah_count", "ayahs", "verses", "number_of_ayahs", "number_of_verses", "total_ayahs")) || undefined,
-    place: /mak|mec/i.test(place) ? "Makkah" : /mad|med/i.test(place) ? "Madinah" : undefined
+    // A surah the scholars disagree on is never said to be Makkan or Madinan.
+    place: DISPUTED_REVELATION.has(number) ? undefined : /mak|mec/i.test(place) ? "Makkah" : /mad|med/i.test(place) ? "Madinah" : undefined
   };
 }
 
@@ -669,7 +672,9 @@ function hadithLesson(note, pools) {
 
 function buildPools(notes) {
   const profiles = notes.filter((note) => note.kind === "person").map(personProfile);
-  const chipPool = (members) => Object.fromEntries(CHIP_FACTS.map(({ key }) => [key, members.map((profile) => profile.chips[key]).filter(Boolean)]));
+  // A person left off the path is never another lesson's wrong choice either.
+  const chipPool = (members) =>
+    Object.fromEntries(CHIP_FACTS.map(({ key }) => [key, members.filter((profile) => !profile.leftOut).map((profile) => profile.chips[key]).filter(Boolean)]));
   const topics = [...new Set(profiles.map((profile) => profile.note.topicId))];
   const surahs = notes.filter((note) => note.kind === "surah").map(surahFacts);
   const hadiths = notes.filter((note) => note.kind === "hadith");

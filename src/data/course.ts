@@ -1,5 +1,6 @@
 import { buildExpandedContent, chainCourse } from "./scalableCurriculum";
 import { mergeImportedNotes } from "./importedNotes";
+import { arrangeUnits } from "./unitPlans";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
@@ -3139,7 +3140,8 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ]
     ),
     ["Made from: clay", "Wife: Hawwa"],
-    true
+    // Quran 2:37 says Allah forgave Adam, not that he was the first human, so the card shows no chip.
+    false
   ),
   "lesson-nuh": person(
     lesson(
@@ -3196,7 +3198,8 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ]
     ),
     ["Called people: 950 years"],
-    true
+    // Quran 11:37 tells Nuh to build the Ark; it does not say the rest of the line, so the card shows no chip.
+    false
   ),
   "lesson-ibrahim": person(
     lesson(
@@ -3374,7 +3377,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ]
     ),
     ["Book: Tawrah"],
-    true
+    false
   ),
   "lesson-isa": person(
     lesson(
@@ -3431,7 +3434,8 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ]
     ),
     ["Mother: Maryam", "Book: Injil"],
-    true
+    // Quran 3:47 tells of his birth without a father; it does not say the rest of the line, so the card shows no chip.
+    false
   ),
   "lesson-muhammad": person(
     lesson(
@@ -3442,18 +3446,18 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       14,
       [
         quranSource(
-          "source-muhammad-quran-21-107",
-          "We sent you only as a mercy to the worlds",
-          "https://quran.com/en/21:107/tafsirs",
-          "Quran 21:107",
-          "Allah sent the Prophet ﷺ as a mercy to all the worlds."
-        ),
-        quranSource(
           "source-muhammad-quran-33-40",
           "The seal of the prophets",
           "https://quran.com/en/33:40/tafsirs",
           "Quran 33:40",
           "Muhammad ﷺ is the Messenger of Allah and the last of the prophets."
+        ),
+        quranSource(
+          "source-muhammad-quran-21-107",
+          "We sent you only as a mercy to the worlds",
+          "https://quran.com/en/21:107/tafsirs",
+          "Quran 21:107",
+          "Allah sent the Prophet ﷺ as a mercy to all the worlds."
         ),
         quranSource(
           "source-muhammad-quran-33-21",
@@ -3466,7 +3470,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       [
         mc(
           "muhammad-1",
-          "Who is the last messenger of Allah?",
+          "Who is the last prophet?",
           [
             ["a", "Muhammad ﷺ"],
             ["b", "Isa"],
@@ -3488,9 +3492,9 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         ),
         tf(
           "muhammad-3",
-          "Muhammad ﷺ is the last messenger, sent as a mercy.",
+          "Muhammad ﷺ is Allah's Messenger and the last prophet.",
           true,
-          "Allah says He sent him as a mercy to all the worlds."
+          "The Quran calls him the Messenger of Allah and the seal of the prophets."
         )
       ]
     ),
@@ -3643,7 +3647,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         ),
         tf(
           "women-asiyah-2",
-          "Asiyah, Pharaoh's wife, believed in Allah and stayed brave.",
+          "Asiyah, Pharaoh's wife, believed in Allah.",
           true,
           "Allah praises her in the Quran as an example for believers."
         )
@@ -3702,7 +3706,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         ),
         tf(
           "women-maryam-3",
-          "Maryam was pure and devoted, and Allah chose her.",
+          "Maryam was pure, and Allah chose her.",
           true,
           "The angels told her: Allah has chosen you and made you pure."
         )
@@ -3919,11 +3923,11 @@ const BASE_LEARN_LINES: Record<string, string> = {
   "lesson-yusuf": "Yusuf's brothers threw him in a well, but he forgave them.",
   "lesson-musa": "Allah spoke to Musa, and sent him to Pharaoh.",
   "lesson-isa": "Isa is a noble prophet, born to Maryam without a father.",
-  "lesson-muhammad": "Muhammad ﷺ is the last messenger, sent as a mercy.",
+  "lesson-muhammad": "Muhammad ﷺ is Allah's Messenger and the last prophet.",
   "lesson-women-hawwa": "Hawwa, the first woman, lived in Paradise with Adam.",
   "lesson-women-mother-musa": "Allah told Musa's mother to put baby Musa in the river.",
-  "lesson-women-asiyah": "Asiyah, Pharaoh's wife, believed in Allah and stayed brave.",
-  "lesson-women-maryam": "Maryam was pure and devoted, and Allah chose her.",
+  "lesson-women-asiyah": "Asiyah, Pharaoh's wife, believed in Allah.",
+  "lesson-women-maryam": "Maryam was pure, and Allah chose her.",
   "lesson-women-khadijah": "Khadijah was the Prophet's ﷺ first wife and first believer.",
   "lesson-women-aishah": "Aishah taught the Muslims a lot about the Prophet's ﷺ life.",
   "lesson-women-hafsah": "Hafsah, daughter of Umar, kept the Quran's written pages safe."
@@ -3936,7 +3940,8 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 }
 
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
-const expandedContent = chainCourse(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES));
+// Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
+const expandedContent = chainCourse(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)));
 
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;

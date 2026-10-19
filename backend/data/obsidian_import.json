@@ -57,15 +57,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Khadijah bint Khuwaylid"
+                    "text": "Natilah bint Janab"
                   },
                   {
                     "id": "b",
-                    "text": "Khunas bint Malik"
+                    "text": "Ramlah"
                   },
                   {
                     "id": "c",
-                    "text": "Lubabah as-Sughra bint al-Harith"
+                    "text": "Safiyyah bint Abd al-Muttalib"
                   },
                   {
                     "id": "d",
@@ -201,11 +201,11 @@
                   },
                   {
                     "id": "b",
-                    "text": "Homs"
+                    "text": "Egypt"
                   },
                   {
                     "id": "c",
-                    "text": "Karbala"
+                    "text": "Homs"
                   },
                   {
                     "id": "d",
@@ -277,15 +277,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Fatimah bint Asad"
+                    "text": "Umm Ayman"
                   },
                   {
                     "id": "c",
-                    "text": "Halah bint Khuwaylid"
+                    "text": "Umm Sulaym"
                   },
                   {
                     "id": "d",
-                    "text": "Hamamah"
+                    "text": "Umm al-Khayr"
                   }
                 ],
                 "correct_answer_json": {
@@ -381,15 +381,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Amrah bint Mas'ud"
+                    "text": "Fakhitah bint Zuhayr"
                   },
                   {
                     "id": "b",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Fatimah az-Zahra"
                   },
                   {
                     "id": "c",
-                    "text": "Asma bint Abi Bakr"
+                    "text": "Halah bint Khuwaylid"
                   },
                   {
                     "id": "d",
@@ -629,11 +629,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Badr"
+                    "text": "Syria"
                   },
                   {
                     "id": "b",
-                    "text": "Basra"
+                    "text": "Ta'if"
                   },
                   {
                     "id": "c",
@@ -641,7 +641,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Amwas"
+                    "text": "Siffin"
                   }
                 ],
                 "correct_answer_json": {
@@ -705,15 +705,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Su'da bint Tha'labah"
+                    "text": "Lubabah bint al-Harith"
                   },
                   {
                     "id": "b",
-                    "text": "Sumayyah bint Khayyat"
+                    "text": "Mujalida bint Amr"
                   },
                   {
                     "id": "c",
-                    "text": "Suwad bint Rafi"
+                    "text": "Nasibah bint Uqbah"
                   },
                   {
                     "id": "d",
@@ -1029,11 +1029,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umm Ayman"
+                    "text": "Hamamah"
                   },
                   {
                     "id": "b",
-                    "text": "Umm Sulaym"
+                    "text": "Hind bint Awf"
                   },
                   {
                     "id": "c",
@@ -1041,7 +1041,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Umaymah bint Ghanm"
+                    "text": "Halah bint Wuhayb"
                   }
                 ],
                 "correct_answer_json": {
@@ -1146,11 +1146,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Safiyyah bint Abd al-Muttalib"
+                    "text": "Hamamah"
                   },
                   {
                     "id": "b",
-                    "text": "Su'da bint Tha'labah"
+                    "text": "Hind bint Awf"
                   },
                   {
                     "id": "c",
@@ -1158,7 +1158,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Ramlah"
+                    "text": "Fatimah bint Amr an-Najjariyyah"
                   }
                 ],
                 "correct_answer_json": {
@@ -1254,7 +1254,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Su'da bint Tha'labah"
+                    "text": "Umm Sulaym"
                   },
                   {
                     "id": "b",
@@ -1262,11 +1262,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Ramlah"
+                    "text": "Umaymah bint Ghanm"
                   },
                   {
                     "id": "d",
-                    "text": "Safiyyah bint Abd al-Muttalib"
+                    "text": "Umm Ayman"
                   }
                 ],
                 "correct_answer_json": {
@@ -1362,15 +1362,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Sumayyah bint Khayyat"
-                  },
-                  {
-                    "id": "b",
                     "text": "Suwad bint Rafi"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "Umaymah bint Abd al-Muttalib"
+                  },
+                  {
+                    "id": "c",
+                    "text": "Umm Ayman"
                   },
                   {
                     "id": "d",
@@ -1470,7 +1470,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Karbala"
+                    "text": "Homs"
                   },
                   {
                     "id": "b",
@@ -1810,15 +1810,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Zaynab bint Nawfal"
+                    "text": "Khadijah bint Khuwaylid"
                   },
                   {
                     "id": "c",
-                    "text": "Amrah bint Mas'ud"
+                    "text": "Khunas bint Malik"
                   },
                   {
                     "id": "d",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Lubabah as-Sughra bint al-Harith"
                   }
                 ],
                 "correct_answer_json": {
@@ -1914,11 +1914,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Egypt"
+                    "text": "Palestine"
                   },
                   {
                     "id": "b",
-                    "text": "Karbala"
+                    "text": "Siffin"
                   },
                   {
                     "id": "c",
@@ -1926,7 +1926,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Damascus"
+                    "text": "Mu'tah"
                   }
                 ],
                 "correct_answer_json": {
@@ -1990,11 +1990,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Nasibah bint Uqbah"
+                    "text": "Fakhitah bint Zuhayr"
                   },
                   {
                     "id": "b",
-                    "text": "Natilah bint Janab"
+                    "text": "Halah bint Khuwaylid"
                   },
                   {
                     "id": "c",
@@ -2002,7 +2002,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Mujalida bint Amr"
+                    "text": "Asma bint Abi Bakr"
                   }
                 ],
                 "correct_answer_json": {
@@ -2111,15 +2111,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Zaynab bint Nawfal"
+                    "text": "Asma bint Mukharribah"
                   },
                   {
                     "id": "c",
-                    "text": "Amrah bint Mas'ud"
+                    "text": "Fakhitah bint Zuhayr"
                   },
                   {
                     "id": "d",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Halah bint Khuwaylid"
                   }
                 ],
                 "correct_answer_json": {
@@ -2215,15 +2215,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Hantamah bint Hisham"
+                    "text": "Umm al-Khayr"
                   },
                   {
                     "id": "b",
-                    "text": "Hind bint Awf"
+                    "text": "Uzza bint Sufyan"
                   },
                   {
                     "id": "c",
-                    "text": "Khadijah bint Khuwaylid"
+                    "text": "Zaynab bint Maz'un"
                   },
                   {
                     "id": "d",
@@ -2323,11 +2323,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umm Sulaym"
+                    "text": "Arwa bint Kurayz"
                   },
                   {
                     "id": "b",
-                    "text": "Umm al-Khayr"
+                    "text": "Asma bint Abi Bakr"
                   },
                   {
                     "id": "c",
@@ -2335,7 +2335,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Umm Ayman"
+                    "text": "Amrah bint Mas'ud"
                   }
                 ],
                 "correct_answer_json": {
@@ -2431,11 +2431,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Asma bint Abi Bakr"
+                    "text": "Halah bint Khuwaylid"
                   },
                   {
                     "id": "b",
-                    "text": "Fakhitah bint Zuhayr"
+                    "text": "Hamamah"
                   },
                   {
                     "id": "c",
@@ -2443,7 +2443,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Fatimah az-Zahra"
                   }
                 ],
                 "correct_answer_json": {
@@ -2647,15 +2647,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Amrah bint Mas'ud"
                   },
                   {
                     "id": "b",
-                    "text": "Asma bint Abi Bakr"
+                    "text": "Arwa bint Kurayz"
                   },
                   {
                     "id": "c",
-                    "text": "Fakhitah bint Zuhayr"
+                    "text": "Asma bint Abi Bakr"
                   },
                   {
                     "id": "d",
@@ -2755,15 +2755,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umm Ayman"
+                    "text": "Nasibah bint Uqbah"
                   },
                   {
                     "id": "b",
-                    "text": "Umm Sulaym"
+                    "text": "Natilah bint Janab"
                   },
                   {
                     "id": "c",
-                    "text": "Umm al-Khayr"
+                    "text": "Ramlah"
                   },
                   {
                     "id": "d",
@@ -2863,7 +2863,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Su'da bint Tha'labah"
                   },
                   {
                     "id": "b",
@@ -2871,11 +2871,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Zaynab bint Nawfal"
+                    "text": "Ramlah"
                   },
                   {
                     "id": "d",
-                    "text": "Amrah bint Mas'ud"
+                    "text": "Safiyyah bint Abd al-Muttalib"
                   }
                 ],
                 "correct_answer_json": {
@@ -2971,15 +2971,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Khunas bint Malik"
+                    "text": "Suwad bint Rafi"
                   },
                   {
                     "id": "b",
-                    "text": "Lubabah as-Sughra bint al-Harith"
+                    "text": "Umaymah bint Abd al-Muttalib"
                   },
                   {
                     "id": "c",
-                    "text": "Mujalida bint Amr"
+                    "text": "Umm Ayman"
                   },
                   {
                     "id": "d",
@@ -3079,11 +3079,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Khunas bint Malik"
+                    "text": "Lubabah as-Sughra bint al-Harith"
                   },
                   {
                     "id": "b",
-                    "text": "Lubabah as-Sughra bint al-Harith"
+                    "text": "Mujalida bint Amr"
                   },
                   {
                     "id": "c",
@@ -3091,7 +3091,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Hind bint Utbah"
+                    "text": "Khunas bint Malik"
                   }
                 ],
                 "correct_answer_json": {
@@ -3196,11 +3196,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Asma bint Abi Bakr"
+                    "text": "Sumayyah bint Khayyat"
                   },
                   {
                     "id": "b",
-                    "text": "Fakhitah bint Zuhayr"
+                    "text": "Suwad bint Rafi"
                   },
                   {
                     "id": "c",
@@ -3208,7 +3208,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Su'da bint Tha'labah"
                   }
                 ],
                 "correct_answer_json": {
@@ -3492,15 +3492,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Lubabah bint al-Harith"
+                    "text": "Suwad bint Rafi"
                   },
                   {
                     "id": "c",
-                    "text": "Mujalida bint Amr"
+                    "text": "Umaymah bint Abd al-Muttalib"
                   },
                   {
                     "id": "d",
-                    "text": "Nasibah bint Uqbah"
+                    "text": "Umm Ayman"
                   }
                 ],
                 "correct_answer_json": {
@@ -3596,7 +3596,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ramlah"
+                    "text": "Hind bint Awf"
                   },
                   {
                     "id": "b",
@@ -3604,11 +3604,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Nasibah bint Uqbah"
+                    "text": "Fatimah bint Asad"
                   },
                   {
                     "id": "d",
-                    "text": "Natilah bint Janab"
+                    "text": "Hamamah"
                   }
                 ],
                 "correct_answer_json": {
@@ -3736,15 +3736,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Mu'tah"
+                    "text": "Egypt"
                   },
                   {
                     "id": "b",
-                    "text": "Palestine"
+                    "text": "Homs"
                   },
                   {
                     "id": "c",
-                    "text": "Siffin"
+                    "text": "Kufa"
                   },
                   {
                     "id": "d",
@@ -3816,15 +3816,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Halah bint Wuhayb"
+                    "text": "Asma bint Mukharribah"
                   },
                   {
                     "id": "c",
-                    "text": "Hamamah"
+                    "text": "Fakhitah bint Zuhayr"
                   },
                   {
                     "id": "d",
-                    "text": "Hantamah bint Hisham"
+                    "text": "Fatimah az-Zahra"
                   }
                 ],
                 "correct_answer_json": {
@@ -3920,7 +3920,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Halah bint Khuwaylid"
+                    "text": "Natilah bint Janab"
                   },
                   {
                     "id": "b",
@@ -3928,11 +3928,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Asma bint Mukharribah"
+                    "text": "Mujalida bint Amr"
                   },
                   {
                     "id": "d",
-                    "text": "Fakhitah bint Zuhayr"
+                    "text": "Nasibah bint Uqbah"
                   }
                 ],
                 "correct_answer_json": {
@@ -3996,15 +3996,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Zaynab bint Nawfal"
+                    "text": "Mujalida bint Amr"
                   },
                   {
                     "id": "b",
-                    "text": "Amrah bint Mas'ud"
+                    "text": "Natilah bint Janab"
                   },
                   {
                     "id": "c",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Ramlah"
                   },
                   {
                     "id": "d",
@@ -4485,15 +4485,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Palestine"
+                    "text": "Ta'if"
                   },
                   {
                     "id": "c",
-                    "text": "Siffin"
+                    "text": "Amwas"
                   },
                   {
                     "id": "d",
-                    "text": "Syria"
+                    "text": "Badr"
                   }
                 ],
                 "correct_answer_json": {
@@ -4561,15 +4561,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Safiyyah bint Abd al-Muttalib"
+                    "text": "Umm Ayman"
                   },
                   {
                     "id": "c",
-                    "text": "Su'da bint Tha'labah"
+                    "text": "Umm Sulaym"
                   },
                   {
                     "id": "d",
-                    "text": "Sumayyah bint Khayyat"
+                    "text": "Umm al-Khayr"
                   }
                 ],
                 "correct_answer_json": {
@@ -4849,7 +4849,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Makkah"
+                    "text": "Basra"
                   },
                   {
                     "id": "b",
@@ -4857,11 +4857,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Karbala"
+                    "text": "Amwas"
                   },
                   {
                     "id": "d",
-                    "text": "Kufa"
+                    "text": "Badr"
                   }
                 ],
                 "correct_answer_json": {
@@ -4925,11 +4925,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Fakhitah bint Zuhayr"
+                    "text": "Fatimah az-Zahra"
                   },
                   {
                     "id": "b",
-                    "text": "Fatimah az-Zahra"
+                    "text": "Halah bint Khuwaylid"
                   },
                   {
                     "id": "c",
@@ -4937,7 +4937,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Asma bint Mukharribah"
+                    "text": "Fakhitah bint Zuhayr"
                   }
                 ],
                 "correct_answer_json": {
@@ -5037,15 +5037,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Umaymah bint Ghanm"
+                    "text": "Hind bint Utbah"
                   },
                   {
                     "id": "c",
-                    "text": "Umm Ayman"
+                    "text": "Khadijah bint Khuwaylid"
                   },
                   {
                     "id": "d",
-                    "text": "Umm Sulaym"
+                    "text": "Lubabah as-Sughra bint al-Harith"
                   }
                 ],
                 "correct_answer_json": {
@@ -5154,15 +5154,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Asma bint Mukharribah"
+                    "text": "Safiyyah bint Abd al-Muttalib"
                   },
                   {
                     "id": "c",
-                    "text": "Fakhitah bint Zuhayr"
+                    "text": "Su'da bint Tha'labah"
                   },
                   {
                     "id": "d",
-                    "text": "Halah bint Khuwaylid"
+                    "text": "Sumayyah bint Khayyat"
                   }
                 ],
                 "correct_answer_json": {
@@ -5258,7 +5258,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Uzza bint Sufyan"
+                    "text": "Lubabah as-Sughra bint al-Harith"
                   },
                   {
                     "id": "b",
@@ -5266,11 +5266,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Umm Sulaym"
+                    "text": "Hind bint Utbah"
                   },
                   {
                     "id": "d",
-                    "text": "Umm al-Khayr"
+                    "text": "Khunas bint Malik"
                   }
                 ],
                 "correct_answer_json": {
@@ -5366,7 +5366,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Fakhitah bint Zuhayr"
+                    "text": "Sumayyah bint Khayyat"
                   },
                   {
                     "id": "b",
@@ -5374,11 +5374,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Arwa bint Kurayz"
+                    "text": "Safiyyah bint Abd al-Muttalib"
                   },
                   {
                     "id": "d",
-                    "text": "Asma bint Abi Bakr"
+                    "text": "Su'da bint Tha'labah"
                   }
                 ],
                 "correct_answer_json": {
@@ -5506,11 +5506,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Egypt"
+                    "text": "Basra"
                   },
                   {
                     "id": "b",
-                    "text": "Homs"
+                    "text": "Damascus"
                   },
                   {
                     "id": "c",
@@ -5518,7 +5518,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Damascus"
+                    "text": "Badr"
                   }
                 ],
                 "correct_answer_json": {
@@ -5658,11 +5658,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Mu'tah"
+                    "text": "Mount Uhud"
                   },
                   {
                     "id": "b",
-                    "text": "Palestine"
+                    "text": "Mu'tah"
                   },
                   {
                     "id": "c",
@@ -5670,7 +5670,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Mount Uhud"
+                    "text": "Makkah"
                   }
                 ],
                 "correct_answer_json": {
@@ -5738,15 +5738,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Damascus"
+                    "text": "Ta'if"
                   },
                   {
                     "id": "c",
-                    "text": "Egypt"
+                    "text": "Amwas"
                   },
                   {
                     "id": "d",
-                    "text": "Homs"
+                    "text": "Badr"
                   }
                 ],
                 "correct_answer_json": {
@@ -5810,7 +5810,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Nasibah bint Uqbah"
+                    "text": "Ramlah"
                   },
                   {
                     "id": "b",
@@ -5818,11 +5818,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Lubabah bint al-Harith"
+                    "text": "Nasibah bint Uqbah"
                   },
                   {
                     "id": "d",
-                    "text": "Mujalida bint Amr"
+                    "text": "Natilah bint Janab"
                   }
                 ],
                 "correct_answer_json": {
@@ -6030,15 +6030,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Homs"
+                    "text": "Badr"
                   },
                   {
                     "id": "c",
-                    "text": "Karbala"
+                    "text": "Basra"
                   },
                   {
                     "id": "d",
-                    "text": "Kufa"
+                    "text": "Damascus"
                   }
                 ],
                 "correct_answer_json": {
@@ -6141,7 +6141,7 @@
           },
           {
             "title": "Tha'labah ibn Hatib",
-            "description": "Badr veteran blamed in a popular story about refusing zakat (Q 9:75).",
+            "description": "He was one of the companions who fought at Badr.",
             "difficulty": 1,
             "lesson_type": "story",
             "premium": false,
@@ -6159,7 +6159,7 @@
                   },
                   {
                     "id": "b",
-                    "text": "He fought at Badr; a well-known story about zakat names him."
+                    "text": "He was one of the companions who fought at Badr."
                   },
                   {
                     "id": "c",
@@ -6173,8 +6173,8 @@
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Tha'labah ibn Hatib fought at Badr; a well-known story about zakat names him.",
-                "explanation_long": "Tha'labah ibn Hatib: Badr veteran blamed in a popular story about refusing zakat (Q 9:75).",
+                "explanation_short": "Tha'labah ibn Hatib was one of the companions who fought at Badr.",
+                "explanation_long": "He was one of the companions who fought at Badr.",
                 "tags_json": [
                   "thalabah-ibn-hatib",
                   "difficulty_1",
@@ -6183,7 +6183,7 @@
               },
               {
                 "type": "true_false",
-                "prompt": "Tha'labah ibn Hatib fought at Badr; a well-known story about zakat names him.",
+                "prompt": "Tha'labah ibn Hatib was one of the companions who fought at Badr.",
                 "options_json": [
                   {
                     "id": "true",
@@ -6197,8 +6197,8 @@
                 "correct_answer_json": {
                   "choiceId": "true"
                 },
-                "explanation_short": "Tha'labah ibn Hatib fought at Badr; a well-known story about zakat names him.",
-                "explanation_long": "Tha'labah ibn Hatib: Badr veteran blamed in a popular story about refusing zakat (Q 9:75).",
+                "explanation_short": "Tha'labah ibn Hatib was one of the companions who fought at Badr.",
+                "explanation_long": "He was one of the companions who fought at Badr.",
                 "tags_json": [
                   "thalabah-ibn-hatib",
                   "difficulty_1",
@@ -6359,29 +6359,29 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Who was the mother of Umar ibn al-Khattab?",
+                "prompt": "Which tribe was Umar ibn al-Khattab from?",
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Hantamah bint Hisham"
+                    "text": "Quraysh"
                   },
                   {
                     "id": "b",
-                    "text": "Khadijah bint Khuwaylid"
+                    "text": "Bali"
                   },
                   {
                     "id": "c",
-                    "text": "Khunas bint Malik"
+                    "text": "Ghifar"
                   },
                   {
                     "id": "d",
-                    "text": "Lubabah as-Sughra bint al-Harith"
+                    "text": "Hudhayl"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "The mother of Umar ibn al-Khattab was Hantamah bint Hisham.",
+                "explanation_short": "Umar ibn al-Khattab was from Quraysh.",
                 "explanation_long": "Umar ibn al-Khattab: Second caliph; al-Faruq.",
                 "tags_json": [
                   "umar-ibn-al-khattab",
@@ -6391,29 +6391,29 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Which tribe was Umar ibn al-Khattab from?",
+                "prompt": "Which clan did Umar ibn al-Khattab belong to?",
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Hudhayl"
+                    "text": "Banu Amr ibn Awf"
                   },
                   {
                     "id": "b",
-                    "text": "Quraysh"
+                    "text": "Banu Adi"
                   },
                   {
                     "id": "c",
-                    "text": "Bali"
+                    "text": "Banu Abd Shams"
                   },
                   {
                     "id": "d",
-                    "text": "Ghifar"
+                    "text": "Banu Abd ad-Dar"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Umar ibn al-Khattab was from Quraysh.",
+                "explanation_short": "Umar ibn al-Khattab belonged to Banu Adi.",
                 "explanation_long": "Umar ibn al-Khattab: Second caliph; al-Faruq.",
                 "tags_json": [
                   "umar-ibn-al-khattab",
@@ -6543,11 +6543,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umaymah bint Abd al-Muttalib"
+                    "text": "Fakhitah bint Zuhayr"
                   },
                   {
                     "id": "b",
-                    "text": "Umm Ayman"
+                    "text": "Fatimah az-Zahra"
                   },
                   {
                     "id": "c",
@@ -6555,7 +6555,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Suwad bint Rafi"
+                    "text": "Asma bint Mukharribah"
                   }
                 ],
                 "correct_answer_json": {
@@ -6835,7 +6835,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Natilah bint Janab"
+                    "text": "Halah bint Khuwaylid"
                   },
                   {
                     "id": "b",
@@ -6843,11 +6843,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Mujalida bint Amr"
+                    "text": "Fakhitah bint Zuhayr"
                   },
                   {
                     "id": "d",
-                    "text": "Nasibah bint Uqbah"
+                    "text": "Fatimah az-Zahra"
                   }
                 ],
                 "correct_answer_json": {
@@ -6943,7 +6943,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Amwas"
+                    "text": "Makkah"
                   },
                   {
                     "id": "b",
@@ -6951,11 +6951,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Syria"
+                    "text": "Homs"
                   },
                   {
                     "id": "d",
-                    "text": "Ta'if"
+                    "text": "Kufa"
                   }
                 ],
                 "correct_answer_json": {
@@ -7032,15 +7032,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Fakhitah bint Zuhayr"
+                    "text": "Sumayyah bint Khayyat"
                   },
                   {
                     "id": "c",
-                    "text": "Fatimah az-Zahra"
+                    "text": "Suwad bint Rafi"
                   },
                   {
                     "id": "d",
-                    "text": "Halah bint Khuwaylid"
+                    "text": "Umaymah bint Abd al-Muttalib"
                   }
                 ],
                 "correct_answer_json": {
@@ -7244,7 +7244,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Lubabah as-Sughra bint al-Harith"
+                    "text": "Umm Sulaym"
                   },
                   {
                     "id": "b",
@@ -7252,11 +7252,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Khadijah bint Khuwaylid"
+                    "text": "Umaymah bint Ghanm"
                   },
                   {
                     "id": "d",
-                    "text": "Khunas bint Malik"
+                    "text": "Umm Ayman"
                   }
                 ],
                 "correct_answer_json": {
@@ -7356,15 +7356,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Khadijah bint Khuwaylid"
+                    "text": "Asma bint Abi Bakr"
                   },
                   {
                     "id": "c",
-                    "text": "Khunas bint Malik"
+                    "text": "Fakhitah bint Zuhayr"
                   },
                   {
                     "id": "d",
-                    "text": "Lubabah as-Sughra bint al-Harith"
+                    "text": "Fatimah az-Zahra"
                   }
                 ],
                 "correct_answer_json": {
@@ -7568,11 +7568,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umm Ayman"
+                    "text": "Hamamah"
                   },
                   {
                     "id": "b",
-                    "text": "Umm Sulaym"
+                    "text": "Hind bint Awf"
                   },
                   {
                     "id": "c",
@@ -7580,7 +7580,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Umaymah bint Abd al-Muttalib"
+                    "text": "Halah bint Wuhayb"
                   }
                 ],
                 "correct_answer_json": {
@@ -7676,7 +7676,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Khunas bint Malik"
+                    "text": "Umm al-Khayr"
                   },
                   {
                     "id": "b",
@@ -7684,11 +7684,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Hind bint Awf"
+                    "text": "Umm Ayman"
                   },
                   {
                     "id": "d",
-                    "text": "Khadijah bint Khuwaylid"
+                    "text": "Umm Sulaym"
                   }
                 ],
                 "correct_answer_json": {
@@ -7784,11 +7784,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Umm Ayman"
+                    "text": "Suwad bint Rafi"
                   },
                   {
                     "id": "b",
-                    "text": "Umm Sulaym"
+                    "text": "Umaymah bint Abd al-Muttalib"
                   },
                   {
                     "id": "c",
@@ -7796,7 +7796,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Umaymah bint Abd al-Muttalib"
+                    "text": "Sumayyah bint Khayyat"
                   }
                 ],
                 "correct_answer_json": {
@@ -9076,11 +9076,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ghifar"
+                    "text": "Bali"
                   },
                   {
                     "id": "b",
-                    "text": "Hudhayl"
+                    "text": "Ghifar"
                   },
                   {
                     "id": "c",
@@ -9088,7 +9088,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Bali"
+                    "text": "Bahila"
                   }
                 ],
                 "correct_answer_json": {
@@ -9304,11 +9304,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Bahila"
+                    "text": "Bali"
                   },
                   {
                     "id": "b",
-                    "text": "Bali"
+                    "text": "Ghifar"
                   },
                   {
                     "id": "c",
@@ -9316,7 +9316,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Aws"
+                    "text": "Bahila"
                   }
                 ],
                 "correct_answer_json": {
@@ -9976,15 +9976,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Zam'ah ibn Qays"
+                    "text": "Samaw'al ibn Adiya"
                   },
                   {
                     "id": "b",
-                    "text": "Abd al-Muttalib"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "c",
-                    "text": "Abu Sufyan ibn Harb"
+                    "text": "Wahb ibn Abd Manaf"
                   },
                   {
                     "id": "d",
@@ -10040,7 +10040,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Taghlib"
+                    "text": "Banu Hilal"
                   },
                   {
                     "id": "b",
@@ -10048,11 +10048,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Banu Qurayza"
+                    "text": "Banu Sa'd ibn Bakr"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Sa'd ibn Bakr"
+                    "text": "Banu Hanifa"
                   }
                 ],
                 "correct_answer_json": {
@@ -10069,90 +10069,14 @@
             ]
           },
           {
-            "title": "As-Sahba' at-Taghlibiyyah",
-            "description": "Wife of Ali ibn Abi Talib. Tribe: Banu Taghlib.",
-            "difficulty": 1,
-            "lesson_type": "story",
-            "premium": false,
-            "estimated_minutes": 3,
-            "mastery_test_eligible": false,
-            "xp_reward": 10,
-            "questions": [
-              {
-                "type": "multiple_choice",
-                "prompt": "What is As-Sahba' at-Taghlibiyyah known for?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "She was a wife of Ali ibn Abi Talib."
-                  },
-                  {
-                    "id": "b",
-                    "text": "She married the Prophet ﷺ, and her people were set free."
-                  },
-                  {
-                    "id": "c",
-                    "text": "She nursed the Prophet ﷺ as a baby in the desert."
-                  },
-                  {
-                    "id": "d",
-                    "text": "She owned Khabbab in Makkah and hurt him for his Islam."
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "a"
-                },
-                "explanation_short": "As-Sahba' at-Taghlibiyyah was a wife of Ali ibn Abi Talib.",
-                "explanation_long": "As-Sahba' at-Taghlibiyyah: Wife of Ali ibn Abi Talib.",
-                "tags_json": [
-                  "as-sahba-at-taghlibiyyah",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Which tribe was As-Sahba' at-Taghlibiyyah from?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Banu Hilal"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Banu Kilab"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Banu Mustaliq"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Banu Taghlib"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "d"
-                },
-                "explanation_short": "As-Sahba' at-Taghlibiyyah was from Banu Taghlib.",
-                "explanation_long": "As-Sahba' at-Taghlibiyyah: Wife of Ali ibn Abi Talib.",
-                "tags_json": [
-                  "as-sahba-at-taghlibiyyah",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              }
-            ]
-          },
-          {
             "title": "Aminah bint Wahb",
             "description": "Mother of the Prophet ﷺ; died at al-Abwa' when he was six. Full name: Aminah bint Wahb ibn Abd Manaf al-Zuhriyya. Tribe: Quraysh, clan of Banu Zuhrah. Father: Wahb ibn Abd Manaf. Born in Makkah. Passed away in c. 577 CE at al-Abwa'.",
-            "difficulty": 2,
+            "difficulty": 1,
             "lesson_type": "story",
             "premium": false,
             "estimated_minutes": 4,
             "mastery_test_eligible": false,
-            "xp_reward": 12,
+            "xp_reward": 10,
             "questions": [
               {
                 "type": "multiple_choice",
@@ -10160,11 +10084,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Bakr as-Siddiq"
+                    "text": "Imran"
                   },
                   {
                     "id": "b",
-                    "text": "Abu Sufyan ibn Harb"
+                    "text": "Ja'far ibn Qays"
                   },
                   {
                     "id": "c",
@@ -10172,7 +10096,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Abd al-Muttalib"
+                    "text": "Huyayy ibn Akhtab"
                   }
                 ],
                 "correct_answer_json": {
@@ -10182,7 +10106,7 @@
                 "explanation_long": "Aminah bint Wahb: Mother of the Prophet ﷺ; died at al-Abwa' when he was six.",
                 "tags_json": [
                   "aminah-bint-wahb",
-                  "difficulty_2",
+                  "difficulty_1",
                   "obsidian_import"
                 ]
               },
@@ -10214,7 +10138,7 @@
                 "explanation_long": "Aminah bint Wahb: Mother of the Prophet ﷺ; died at al-Abwa' when he was six.",
                 "tags_json": [
                   "aminah-bint-wahb",
-                  "difficulty_2",
+                  "difficulty_1",
                   "obsidian_import"
                 ]
               },
@@ -10228,15 +10152,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Thaqif"
+                    "text": "Banu Kilab"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Hanifa"
+                    "text": "Banu Mustaliq"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Hilal"
+                    "text": "Banu Nadir"
                   }
                 ],
                 "correct_answer_json": {
@@ -10246,7 +10170,7 @@
                 "explanation_long": "Aminah bint Wahb: Mother of the Prophet ﷺ; died at al-Abwa' when he was six.",
                 "tags_json": [
                   "aminah-bint-wahb",
-                  "difficulty_2",
+                  "difficulty_1",
                   "obsidian_import"
                 ]
               }
@@ -10268,15 +10192,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ali ibn Abi Talib"
+                    "text": "Abu Bakr as-Siddiq"
                   },
                   {
                     "id": "b",
-                    "text": "Harb ibn Umayyah"
+                    "text": "Abu Sufyan ibn Harb"
                   },
                   {
                     "id": "c",
-                    "text": "Hizam ibn Khalid"
+                    "text": "Abu Umayyah ibn al-Mughirah"
                   },
                   {
                     "id": "d",
@@ -10304,15 +10228,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Banu Kilab"
+                    "text": "Banu Hanifa"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Mustaliq"
+                    "text": "Banu Hilal"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Nadir"
+                    "text": "Banu Kilab"
                   }
                 ],
                 "correct_answer_json": {
@@ -10344,11 +10268,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "She was the last woman the Prophet ﷺ married."
+                    "text": "From the Prophet's ﷺ family, she taught hadith in Egypt."
                   },
                   {
                     "id": "b",
-                    "text": "She was the mother of Safiyyah bint Huyayy."
+                    "text": "She is the only woman named in the Quran."
                   },
                   {
                     "id": "c",
@@ -10356,7 +10280,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "She was the Prophet's ﷺ wife, daughter of a Banu Nadir chief."
+                    "text": "She was the second wife of the Prophet ﷺ."
                   }
                 ],
                 "correct_answer_json": {
@@ -10488,15 +10412,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Banu Hilal"
+                    "text": "Banu Hanifa"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Kilab"
+                    "text": "Banu Hilal"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Mustaliq"
+                    "text": "Banu Kilab"
                   }
                 ],
                 "correct_answer_json": {
@@ -10528,15 +10452,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "She nursed the Prophet ﷺ as a baby in the desert."
+                    "text": "From the Prophet's ﷺ family, she taught hadith in Egypt."
                   },
                   {
                     "id": "b",
-                    "text": "She owned Khabbab in Makkah and hurt him for his Islam."
+                    "text": "She gave Maryam to Allah's service before Maryam was born."
                   },
                   {
                     "id": "c",
-                    "text": "She spoke out in Yazid's court after Karbala."
+                    "text": "She is the only woman named in the Quran."
                   },
                   {
                     "id": "d",
@@ -10604,15 +10528,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "From the Prophet's ﷺ family, she taught hadith in Egypt."
+                    "text": "She was called the Mother of the Poor."
                   },
                   {
                     "id": "b",
-                    "text": "She gave Maryam to Allah's service before Maryam was born."
+                    "text": "She was the Prophet's ﷺ cousin and wife."
                   },
                   {
                     "id": "c",
-                    "text": "She is the only woman named in the Quran."
+                    "text": "She was the last woman the Prophet ﷺ married."
                   },
                   {
                     "id": "d",
@@ -10640,15 +10564,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Banu Taghlib"
+                    "text": "Banu Hanifa"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Tamim"
+                    "text": "Banu Hilal"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Hanifa"
+                    "text": "Banu Kilab"
                   }
                 ],
                 "correct_answer_json": {
@@ -10680,15 +10604,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Wahb ibn Abd Manaf"
+                    "text": "Jahsh ibn Riyab"
                   },
                   {
                     "id": "b",
-                    "text": "Zam'ah ibn Qays"
+                    "text": "Khuwaylid ibn Asad"
                   },
                   {
                     "id": "c",
-                    "text": "Abd al-Muttalib"
+                    "text": "Samaw'al ibn Adiya"
                   },
                   {
                     "id": "d",
@@ -10716,7 +10640,7 @@
                   },
                   {
                     "id": "b",
-                    "text": "Banu Taghlib"
+                    "text": "Banu Hanifa"
                   },
                   {
                     "id": "c",
@@ -10792,15 +10716,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Harb ibn Umayyah"
+                    "text": "Zam'ah ibn Qays"
                   },
                   {
                     "id": "c",
-                    "text": "Hizam ibn Khalid"
+                    "text": "Abd al-Muttalib"
                   },
                   {
                     "id": "d",
-                    "text": "Huyayy ibn Akhtab"
+                    "text": "Abu Bakr as-Siddiq"
                   }
                 ],
                 "correct_answer_json": {
@@ -10852,11 +10776,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Sa'd ibn Bakr"
+                    "text": "Banu Kilab"
                   },
                   {
                     "id": "b",
-                    "text": "Banu Taghlib"
+                    "text": "Banu Mustaliq"
                   },
                   {
                     "id": "c",
@@ -10864,7 +10788,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Banu Qurayza"
+                    "text": "Banu Hilal"
                   }
                 ],
                 "correct_answer_json": {
@@ -10905,11 +10829,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Harb ibn Umayyah"
+                    "text": "Imran"
                   },
                   {
                     "id": "b",
-                    "text": "Hizam ibn Khalid"
+                    "text": "Jahsh ibn Riyab"
                   },
                   {
                     "id": "c",
@@ -10917,7 +10841,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Ali ibn Abi Talib"
+                    "text": "Huyayy ibn Akhtab"
                   }
                 ],
                 "correct_answer_json": {
@@ -10973,15 +10897,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Banu Taghlib"
+                    "text": "Banu Hilal"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Tamim"
+                    "text": "Banu Kilab"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Hilal"
+                    "text": "Banu Mustaliq"
                   }
                 ],
                 "correct_answer_json": {
@@ -10998,8 +10922,8 @@
             ]
           },
           {
-            "title": "Layla bint Mas'ud at-Tamimiyyah",
-            "description": "Wife of Ali ibn Abi Talib. Tribe: Banu Tamim.",
+            "title": "Maryam",
+            "description": "The greatest of women; the only woman named in the Quran. Full name: Maryam bint Imran. Father: Imran (father of Maryam).",
             "difficulty": 1,
             "lesson_type": "story",
             "premium": false,
@@ -11009,87 +10933,11 @@
             "questions": [
               {
                 "type": "multiple_choice",
-                "prompt": "What is Layla bint Mas'ud at-Tamimiyyah known for?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "She was Ismail's mother and ran between Safa and Marwah."
-                  },
-                  {
-                    "id": "b",
-                    "text": "She was a wife of Ali ibn Abi Talib."
-                  },
-                  {
-                    "id": "c",
-                    "text": "She owned Khabbab in Makkah and hurt him for his Islam."
-                  },
-                  {
-                    "id": "d",
-                    "text": "She spoke out in Yazid's court after Karbala."
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "b"
-                },
-                "explanation_short": "Layla bint Mas'ud at-Tamimiyyah was a wife of Ali ibn Abi Talib.",
-                "explanation_long": "Layla bint Mas'ud at-Tamimiyyah: Wife of Ali ibn Abi Talib.",
-                "tags_json": [
-                  "layla-bint-masud-at-tamimiyyah",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Which tribe was Layla bint Mas'ud at-Tamimiyyah from?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Banu Tamim"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Banu Qurayza"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Banu Sa'd ibn Bakr"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Banu Taghlib"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "a"
-                },
-                "explanation_short": "Layla bint Mas'ud at-Tamimiyyah was from Banu Tamim.",
-                "explanation_long": "Layla bint Mas'ud at-Tamimiyyah: Wife of Ali ibn Abi Talib.",
-                "tags_json": [
-                  "layla-bint-masud-at-tamimiyyah",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              }
-            ]
-          },
-          {
-            "title": "Maryam",
-            "description": "The greatest of women; the only woman named in the Quran. Full name: Maryam bint Imran. Father: Imran (father of Maryam).",
-            "difficulty": 2,
-            "lesson_type": "story",
-            "premium": false,
-            "estimated_minutes": 3,
-            "mastery_test_eligible": false,
-            "xp_reward": 12,
-            "questions": [
-              {
-                "type": "multiple_choice",
                 "prompt": "Who was the father of Maryam?",
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Khuwaylid ibn Asad"
                   },
                   {
                     "id": "b",
@@ -11097,11 +10945,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Huyayy ibn Akhtab"
+                    "text": "Ja'far ibn Qays"
                   },
                   {
                     "id": "d",
-                    "text": "Ja'far ibn Qays"
+                    "text": "Jahsh ibn Riyab"
                   }
                 ],
                 "correct_answer_json": {
@@ -11111,7 +10959,7 @@
                 "explanation_long": "Maryam: The greatest of women; the only woman named in the Quran.",
                 "tags_json": [
                   "maryam",
-                  "difficulty_2",
+                  "difficulty_1",
                   "obsidian_import"
                 ]
               },
@@ -11143,7 +10991,7 @@
                 "explanation_long": "Maryam: The greatest of women; the only woman named in the Quran.",
                 "tags_json": [
                   "maryam",
-                  "difficulty_2",
+                  "difficulty_1",
                   "obsidian_import"
                 ]
               }
@@ -11165,15 +11013,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Bakr as-Siddiq"
+                    "text": "Khuwaylid ibn Asad"
                   },
                   {
                     "id": "b",
-                    "text": "Abu Sufyan ibn Harb"
+                    "text": "Samaw'al ibn Adiya"
                   },
                   {
                     "id": "c",
-                    "text": "Abu Umayyah ibn al-Mughirah"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "d",
@@ -11229,7 +11077,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Kilab"
+                    "text": "Banu Nadir"
                   },
                   {
                     "id": "b",
@@ -11237,11 +11085,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Banu Tamim"
+                    "text": "Banu Kilab"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Hanifa"
+                    "text": "Banu Mustaliq"
                   }
                 ],
                 "correct_answer_json": {
@@ -11260,12 +11108,12 @@
           {
             "title": "Safiyyah bint Huyayy",
             "description": "Wife of the Prophet ﷺ; daughter of the chief of Banu Nadir. Full name: Safiyya bint Huyayy ibn Akhtab al-Nadiriyya. Tribe: Banu Nadir. Father: Huyayy ibn Akhtab. Born in Madinah. Passed away in 50 or 52 AH / c. 670 CE at Madinah.",
-            "difficulty": 3,
+            "difficulty": 2,
             "lesson_type": "story",
             "premium": false,
             "estimated_minutes": 4,
             "mastery_test_eligible": false,
-            "xp_reward": 14,
+            "xp_reward": 12,
             "questions": [
               {
                 "type": "multiple_choice",
@@ -11273,11 +11121,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Harb ibn Umayyah"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "b",
-                    "text": "Hizam ibn Khalid"
+                    "text": "Wahb ibn Abd Manaf"
                   },
                   {
                     "id": "c",
@@ -11285,7 +11133,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Ali ibn Abi Talib"
+                    "text": "Samaw'al ibn Adiya"
                   }
                 ],
                 "correct_answer_json": {
@@ -11295,7 +11143,7 @@
                 "explanation_long": "Safiyyah bint Huyayy: Wife of the Prophet ﷺ; daughter of the chief of Banu Nadir.",
                 "tags_json": [
                   "safiyyah-bint-huyayy",
-                  "difficulty_3",
+                  "difficulty_2",
                   "obsidian_import"
                 ]
               },
@@ -11327,7 +11175,7 @@
                 "explanation_long": "Safiyyah bint Huyayy: Wife of the Prophet ﷺ; daughter of the chief of Banu Nadir.",
                 "tags_json": [
                   "safiyyah-bint-huyayy",
-                  "difficulty_3",
+                  "difficulty_2",
                   "obsidian_import"
                 ]
               },
@@ -11349,7 +11197,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Banu Taghlib"
+                    "text": "Banu Hanifa"
                   }
                 ],
                 "correct_answer_json": {
@@ -11359,7 +11207,7 @@
                 "explanation_long": "Safiyyah bint Huyayy: Wife of the Prophet ﷺ; daughter of the chief of Banu Nadir.",
                 "tags_json": [
                   "safiyyah-bint-huyayy",
-                  "difficulty_3",
+                  "difficulty_2",
                   "obsidian_import"
                 ]
               }
@@ -11381,15 +11229,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "She spoke out in Yazid's court after Karbala."
+                    "text": "She gave Maryam to Allah's service before Maryam was born."
                   },
                   {
                     "id": "b",
-                    "text": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah."
+                    "text": "She is the only woman named in the Quran."
                   },
                   {
                     "id": "c",
-                    "text": "She was the last woman the Prophet ﷺ married."
+                    "text": "She married the Prophet ﷺ, and her people were set free."
                   },
                   {
                     "id": "d",
@@ -11413,11 +11261,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Maryam"
+                    "text": "Juwayriyah bint al-Harith"
                   },
                   {
                     "id": "b",
-                    "text": "Sayyidah Nafisah"
+                    "text": "Maryam"
                   },
                   {
                     "id": "c",
@@ -11425,7 +11273,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Juwayriyah bint al-Harith"
+                    "text": "Halimah as-Sa'diyyah"
                   }
                 ],
                 "correct_answer_json": {
@@ -11461,15 +11309,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Huyayy ibn Akhtab"
-                  },
-                  {
-                    "id": "c",
                     "text": "Imran"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "Jahsh ibn Riyab"
+                  },
+                  {
+                    "id": "d",
+                    "text": "Khuwaylid ibn Asad"
                   }
                 ],
                 "correct_answer_json": {
@@ -11521,11 +11369,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Sa'd ibn Bakr"
+                    "text": "Banu Hilal"
                   },
                   {
                     "id": "b",
-                    "text": "Banu Taghlib"
+                    "text": "Banu Kilab"
                   },
                   {
                     "id": "c",
@@ -11533,7 +11381,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Banu Qurayza"
+                    "text": "Banu Hanifa"
                   }
                 ],
                 "correct_answer_json": {
@@ -11565,7 +11413,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Hizam ibn Khalid"
+                    "text": "Abu Sufyan ibn Harb"
                   },
                   {
                     "id": "b",
@@ -11573,11 +11421,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Ali ibn Abi Talib"
+                    "text": "Abd al-Muttalib"
                   },
                   {
                     "id": "d",
-                    "text": "Harb ibn Umayyah"
+                    "text": "Abu Bakr as-Siddiq"
                   }
                 ],
                 "correct_answer_json": {
@@ -11629,15 +11477,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Khuza'a"
+                    "text": "Banu Kilab"
                   },
                   {
                     "id": "b",
-                    "text": "Thaqif"
+                    "text": "Banu Mustaliq"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Hanifa"
+                    "text": "Banu Nadir"
                   },
                   {
                     "id": "d",
@@ -11673,7 +11521,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Umayyah ibn al-Mughirah"
+                    "text": "Samaw'al ibn Adiya"
                   },
                   {
                     "id": "b",
@@ -11681,11 +11529,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Abu Bakr as-Siddiq"
+                    "text": "Khuwaylid ibn Asad"
                   },
                   {
                     "id": "d",
-                    "text": "Abu Sufyan ibn Harb"
+                    "text": "Khuzaymah ibn al-Harith"
                   }
                 ],
                 "correct_answer_json": {
@@ -11737,15 +11585,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Qurayza"
+                    "text": "Banu Mustaliq"
                   },
                   {
                     "id": "b",
-                    "text": "Banu Sa'd ibn Bakr"
+                    "text": "Banu Nadir"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Taghlib"
+                    "text": "Banu Qurayza"
                   },
                   {
                     "id": "d",
@@ -11790,15 +11638,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Ali ibn Abi Talib"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "b",
-                    "text": "Harb ibn Umayyah"
+                    "text": "Wahb ibn Abd Manaf"
                   },
                   {
                     "id": "c",
-                    "text": "Huyayy ibn Akhtab"
+                    "text": "Zam'ah ibn Qays"
                   },
                   {
                     "id": "d",
@@ -11854,7 +11702,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Hilal"
+                    "text": "Banu Sa'd ibn Bakr"
                   },
                   {
                     "id": "b",
@@ -11862,11 +11710,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Banu Tamim"
+                    "text": "Banu Nadir"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Hanifa"
+                    "text": "Banu Qurayza"
                   }
                 ],
                 "correct_answer_json": {
@@ -11898,11 +11746,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Khuwaylid ibn Asad"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "b",
-                    "text": "Khuzaymah ibn al-Harith"
+                    "text": "Wahb ibn Abd Manaf"
                   },
                   {
                     "id": "c",
@@ -11910,7 +11758,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Samaw'al ibn Adiya"
                   }
                 ],
                 "correct_answer_json": {
@@ -11966,15 +11814,15 @@
                   },
                   {
                     "id": "b",
-                    "text": "Banu Tamim"
+                    "text": "Banu Kilab"
                   },
                   {
                     "id": "c",
-                    "text": "Khuza'a"
+                    "text": "Banu Mustaliq"
                   },
                   {
                     "id": "d",
-                    "text": "Thaqif"
+                    "text": "Banu Nadir"
                   }
                 ],
                 "correct_answer_json": {
@@ -12006,7 +11854,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Umayyah ibn al-Mughirah"
+                    "text": "Zam'ah ibn Qays"
                   },
                   {
                     "id": "b",
@@ -12014,11 +11862,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Abu Bakr as-Siddiq"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "d",
-                    "text": "Abu Sufyan ibn Harb"
+                    "text": "Wahb ibn Abd Manaf"
                   }
                 ],
                 "correct_answer_json": {
@@ -12099,82 +11947,6 @@
             ]
           },
           {
-            "title": "Umm Sa'id bint Urwah ath-Thaqafiyyah",
-            "description": "Wife of Ali ibn Abi Talib. Tribe: Thaqif. Father: Urwah ibn Mas'ud ath-Thaqafi.",
-            "difficulty": 2,
-            "lesson_type": "story",
-            "premium": false,
-            "estimated_minutes": 3,
-            "mastery_test_eligible": false,
-            "xp_reward": 12,
-            "questions": [
-              {
-                "type": "multiple_choice",
-                "prompt": "Who was the father of Umm Sa'id bint Urwah ath-Thaqafiyyah?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Jahsh ibn Riyab"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Khuwaylid ibn Asad"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Urwah ibn Mas'ud ath-Thaqafi"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Ja'far ibn Qays"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "c"
-                },
-                "explanation_short": "The father of Umm Sa'id bint Urwah ath-Thaqafiyyah was Urwah ibn Mas'ud ath-Thaqafi.",
-                "explanation_long": "Umm Sa'id bint Urwah ath-Thaqafiyyah: Wife of Ali ibn Abi Talib.",
-                "tags_json": [
-                  "umm-said-bint-urwah-ath-thaqafiyyah",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Which tribe was Umm Sa'id bint Urwah ath-Thaqafiyyah from?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Banu Tamim"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Thaqif"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Banu Sa'd ibn Bakr"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Banu Taghlib"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "b"
-                },
-                "explanation_short": "Umm Sa'id bint Urwah ath-Thaqafiyyah was from Thaqif.",
-                "explanation_long": "Umm Sa'id bint Urwah ath-Thaqafiyyah: Wife of Ali ibn Abi Talib.",
-                "tags_json": [
-                  "umm-said-bint-urwah-ath-thaqafiyyah",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              }
-            ]
-          },
-          {
             "title": "Umm Salamah",
             "description": "Wife of the Prophet ﷺ; last of the Mothers of the Believers to die. Full name: Hind bint Abi Umayya. Tribe: Quraysh, clan of Banu Makhzum. Father: Abu Umayyah ibn al-Mughirah. Born in Makkah. Passed away in Dhu al-Qa'dah 62 AH / c. 681 CE at Madinah.",
             "difficulty": 3,
@@ -12190,15 +11962,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Jahsh ibn Riyab"
+                    "text": "Samaw'al ibn Adiya"
                   },
                   {
                     "id": "b",
-                    "text": "Khuwaylid ibn Asad"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "c",
-                    "text": "Khuzaymah ibn al-Harith"
+                    "text": "Wahb ibn Abd Manaf"
                   },
                   {
                     "id": "d",
@@ -12254,7 +12026,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Qurayza"
+                    "text": "Banu Kilab"
                   },
                   {
                     "id": "b",
@@ -12262,11 +12034,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Banu Mustaliq"
+                    "text": "Banu Hanifa"
                   },
                   {
                     "id": "d",
-                    "text": "Banu Nadir"
+                    "text": "Banu Hilal"
                   }
                 ],
                 "correct_answer_json": {
@@ -12285,12 +12057,12 @@
           {
             "title": "Zaynab bint Ali",
             "description": "Spoke out in Yazid's court after Karbala. Father: Ali ibn Abi Talib. Born in Madinah. Passed away in c. 62 AH / 682 CE at Damascus or Cairo (disputed).",
-            "difficulty": 4,
+            "difficulty": 3,
             "lesson_type": "story",
             "premium": false,
             "estimated_minutes": 4,
             "mastery_test_eligible": false,
-            "xp_reward": 16,
+            "xp_reward": 14,
             "questions": [
               {
                 "type": "multiple_choice",
@@ -12298,15 +12070,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Samaw'al ibn Adiya"
+                    "text": "Abd al-Muttalib"
                   },
                   {
                     "id": "b",
-                    "text": "Umar ibn al-Khattab"
+                    "text": "Abu Bakr as-Siddiq"
                   },
                   {
                     "id": "c",
-                    "text": "Urwah ibn Mas'ud ath-Thaqafi"
+                    "text": "Abu Sufyan ibn Harb"
                   },
                   {
                     "id": "d",
@@ -12320,7 +12092,7 @@
                 "explanation_long": "Zaynab bint Ali: Spoke out in Yazid's court after Karbala.",
                 "tags_json": [
                   "zaynab-bint-ali",
-                  "difficulty_4",
+                  "difficulty_3",
                   "obsidian_import"
                 ]
               },
@@ -12352,7 +12124,7 @@
                 "explanation_long": "Zaynab bint Ali: Spoke out in Yazid's court after Karbala.",
                 "tags_json": [
                   "zaynab-bint-ali",
-                  "difficulty_4",
+                  "difficulty_3",
                   "obsidian_import"
                 ]
               },
@@ -12384,7 +12156,7 @@
                 "explanation_long": "Zaynab bint Ali: Spoke out in Yazid's court after Karbala.",
                 "tags_json": [
                   "zaynab-bint-ali",
-                  "difficulty_4",
+                  "difficulty_3",
                   "obsidian_import"
                 ]
               }
@@ -12406,7 +12178,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Imran"
+                    "text": "Khuzaymah ibn al-Harith"
                   },
                   {
                     "id": "b",
@@ -12414,11 +12186,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Hizam ibn Khalid"
+                    "text": "Ja'far ibn Qays"
                   },
                   {
                     "id": "d",
-                    "text": "Huyayy ibn Akhtab"
+                    "text": "Khuwaylid ibn Asad"
                   }
                 ],
                 "correct_answer_json": {
@@ -12470,15 +12242,15 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Banu Kilab"
+                    "text": "Banu Qurayza"
                   },
                   {
                     "id": "b",
-                    "text": "Banu Mustaliq"
+                    "text": "Banu Sa'd ibn Bakr"
                   },
                   {
                     "id": "c",
-                    "text": "Banu Nadir"
+                    "text": "Banu Hanifa"
                   },
                   {
                     "id": "d",
@@ -12514,7 +12286,7 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Abu Bakr as-Siddiq"
+                    "text": "Umar ibn al-Khattab"
                   },
                   {
                     "id": "b",
@@ -12522,11 +12294,11 @@
                   },
                   {
                     "id": "c",
-                    "text": "Zam'ah ibn Qays"
+                    "text": "Khuwaylid ibn Asad"
                   },
                   {
                     "id": "d",
-                    "text": "Abd al-Muttalib"
+                    "text": "Samaw'al ibn Adiya"
                   }
                 ],
                 "correct_answer_json": {
@@ -12587,11 +12359,11 @@
         "lessons": [
           {
             "title": "Surah Al-Fatihah",
-            "description": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.\n1:1 In the name of Allah, the Beneficent, the Merciful.\n1:2 Praise be to Allah, Lord of the Worlds,\n1:3 The Beneficent, the Merciful.\n1:4 Master of the Day of Judgment,\n1:6 Show us the straight path,",
+            "description": "Surah Al-Fatihah means \"The Opening\". It has 7 ayahs.\n1:1 In the name of Allah, the Beneficent, the Merciful.\n1:2 Praise be to Allah, Lord of the Worlds,\n1:3 The Beneficent, the Merciful.\n1:4 Master of the Day of Judgment,\n1:6 Show us the straight path,",
             "difficulty": 1,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 10,
             "questions": [
@@ -12619,31 +12391,7 @@
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.",
-                "explanation_long": "Surah Al-Fatihah means \"The Opening\".",
-                "tags_json": [
-                  "surah-al-fatihah",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Fatihah was revealed in Madinah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Al-Fatihah was revealed in Makkah.",
+                "explanation_short": "Surah Al-Fatihah means \"The Opening\". It has 7 ayahs.",
                 "explanation_long": "Surah Al-Fatihah means \"The Opening\".",
                 "tags_json": [
                   "surah-al-fatihah",
@@ -12657,25 +12405,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "5"
+                    "text": "7"
                   },
                   {
                     "id": "b",
-                    "text": "6"
+                    "text": "5"
                   },
                   {
                     "id": "c",
-                    "text": "8"
+                    "text": "6"
                   },
                   {
                     "id": "d",
-                    "text": "7"
+                    "text": "8"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "d"
+                  "choiceId": "a"
                 },
-                "explanation_short": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.",
+                "explanation_short": "Surah Al-Fatihah means \"The Opening\". It has 7 ayahs.",
                 "explanation_long": "Surah Al-Fatihah means \"The Opening\".",
                 "tags_json": [
                   "surah-al-fatihah",
@@ -13700,11 +13448,11 @@
           },
           {
             "title": "Surah Ar-Ra'd",
-            "description": "Surah Ar-Ra'd means \"The Thunder\". It was revealed in Madinah. It has 43 ayahs.",
+            "description": "Surah Ar-Ra'd means \"The Thunder\". It has 43 ayahs.",
             "difficulty": 2,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 12,
             "questions": [
@@ -13732,31 +13480,7 @@
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Surah Ar-Ra'd means \"The Thunder\". It was revealed in Madinah. It has 43 ayahs.",
-                "explanation_long": "Surah Ar-Ra'd means \"The Thunder\".",
-                "tags_json": [
-                  "surah-ar-rad",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Ar-Ra'd was revealed in Madinah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "true"
-                },
-                "explanation_short": "Surah Ar-Ra'd was revealed in Madinah.",
+                "explanation_short": "Surah Ar-Ra'd means \"The Thunder\". It has 43 ayahs.",
                 "explanation_long": "Surah Ar-Ra'd means \"The Thunder\".",
                 "tags_json": [
                   "surah-ar-rad",
@@ -13770,25 +13494,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "42"
-                  },
-                  {
-                    "id": "b",
                     "text": "44"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "45"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "43"
+                  },
+                  {
+                    "id": "d",
+                    "text": "42"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "d"
+                  "choiceId": "c"
                 },
-                "explanation_short": "Surah Ar-Ra'd means \"The Thunder\". It was revealed in Madinah. It has 43 ayahs.",
+                "explanation_short": "Surah Ar-Ra'd means \"The Thunder\". It has 43 ayahs.",
                 "explanation_long": "Surah Ar-Ra'd means \"The Thunder\".",
                 "tags_json": [
                   "surah-ar-rad",
@@ -14513,11 +14237,11 @@
           },
           {
             "title": "Surah Al-Hajj",
-            "description": "Surah Al-Hajj means \"The Pilgrimage\". It was revealed in Madinah. It has 78 ayahs.\n22:7 And because the Hour will come, there is no doubt thereof; and because Allah will raise those who are in the graves.\n22:45 How many a township have We destroyed while it was sinful, so that it lieth (to this day) in ruins, and (how many) a deserted well and lofty tower!",
+            "description": "Surah Al-Hajj means \"The Pilgrimage\". It has 78 ayahs.\n22:7 And because the Hour will come, there is no doubt thereof; and because Allah will raise those who are in the graves.\n22:45 How many a township have We destroyed while it was sinful, so that it lieth (to this day) in ruins, and (how many) a deserted well and lofty tower!",
             "difficulty": 1,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 10,
             "questions": [
@@ -14545,31 +14269,7 @@
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Surah Al-Hajj means \"The Pilgrimage\". It was revealed in Madinah. It has 78 ayahs.",
-                "explanation_long": "Surah Al-Hajj means \"The Pilgrimage\".",
-                "tags_json": [
-                  "surah-al-hajj",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Hajj was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Al-Hajj was revealed in Madinah.",
+                "explanation_short": "Surah Al-Hajj means \"The Pilgrimage\". It has 78 ayahs.",
                 "explanation_long": "Surah Al-Hajj means \"The Pilgrimage\".",
                 "tags_json": [
                   "surah-al-hajj",
@@ -14583,25 +14283,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "73"
-                  },
-                  {
-                    "id": "b",
                     "text": "75"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "77"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "78"
+                  },
+                  {
+                    "id": "d",
+                    "text": "73"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "d"
+                  "choiceId": "c"
                 },
-                "explanation_short": "Surah Al-Hajj means \"The Pilgrimage\". It was revealed in Madinah. It has 78 ayahs.",
+                "explanation_short": "Surah Al-Hajj means \"The Pilgrimage\". It has 78 ayahs.",
                 "explanation_long": "Surah Al-Hajj means \"The Pilgrimage\".",
                 "tags_json": [
                   "surah-al-hajj",
@@ -17648,11 +17348,11 @@
           },
           {
             "title": "Surah Ar-Rahman",
-            "description": "Surah Ar-Rahman means \"The Beneficent\". It was revealed in Madinah. It has 78 ayahs.\n55:1 The Beneficent\n55:5 The sun and the moon are made punctual.\n55:6 The stars and the trees prostrate.",
+            "description": "Surah Ar-Rahman means \"The Beneficent\". It has 78 ayahs.\n55:1 The Beneficent\n55:5 The sun and the moon are made punctual.\n55:6 The stars and the trees prostrate.",
             "difficulty": 2,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 12,
             "questions": [
@@ -17680,31 +17380,7 @@
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Surah Ar-Rahman means \"The Beneficent\". It was revealed in Madinah. It has 78 ayahs.",
-                "explanation_long": "Surah Ar-Rahman means \"The Beneficent\".",
-                "tags_json": [
-                  "surah-ar-rahman",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Ar-Rahman was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Ar-Rahman was revealed in Madinah.",
+                "explanation_short": "Surah Ar-Rahman means \"The Beneficent\". It has 78 ayahs.",
                 "explanation_long": "Surah Ar-Rahman means \"The Beneficent\".",
                 "tags_json": [
                   "surah-ar-rahman",
@@ -17718,25 +17394,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "73"
-                  },
-                  {
-                    "id": "b",
                     "text": "78"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "77"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "83"
+                  },
+                  {
+                    "id": "d",
+                    "text": "73"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "b"
+                  "choiceId": "a"
                 },
-                "explanation_short": "Surah Ar-Rahman means \"The Beneficent\". It was revealed in Madinah. It has 78 ayahs.",
+                "explanation_short": "Surah Ar-Rahman means \"The Beneficent\". It has 78 ayahs.",
                 "explanation_long": "Surah Ar-Rahman means \"The Beneficent\".",
                 "tags_json": [
                   "surah-ar-rahman",
@@ -18257,11 +17933,11 @@
         "lessons": [
           {
             "title": "Surah As-Saf",
-            "description": "Surah As-Saf means \"The Ranks\". It was revealed in Madinah. It has 14 ayahs.",
+            "description": "Surah As-Saf means \"The Ranks\". It has 14 ayahs.",
             "difficulty": 1,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 10,
             "questions": [
@@ -18289,31 +17965,7 @@
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Surah As-Saf means \"The Ranks\". It was revealed in Madinah. It has 14 ayahs.",
-                "explanation_long": "Surah As-Saf means \"The Ranks\".",
-                "tags_json": [
-                  "surah-as-saf",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah As-Saf was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah As-Saf was revealed in Madinah.",
+                "explanation_short": "Surah As-Saf means \"The Ranks\". It has 14 ayahs.",
                 "explanation_long": "Surah As-Saf means \"The Ranks\".",
                 "tags_json": [
                   "surah-as-saf",
@@ -18327,25 +17979,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "13"
+                    "text": "12"
                   },
                   {
                     "id": "b",
-                    "text": "14"
+                    "text": "13"
                   },
                   {
                     "id": "c",
-                    "text": "11"
+                    "text": "14"
                   },
                   {
                     "id": "d",
-                    "text": "12"
+                    "text": "11"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "b"
+                  "choiceId": "c"
                 },
-                "explanation_short": "Surah As-Saf means \"The Ranks\". It was revealed in Madinah. It has 14 ayahs.",
+                "explanation_short": "Surah As-Saf means \"The Ranks\". It has 14 ayahs.",
                 "explanation_long": "Surah As-Saf means \"The Ranks\".",
                 "tags_json": [
                   "surah-as-saf",
@@ -18557,11 +18209,11 @@
           },
           {
             "title": "Surah At-Taghabun",
-            "description": "Surah At-Taghabun means \"The Mutual Disillusion\". It was revealed in Madinah. It has 18 ayahs.",
+            "description": "Surah At-Taghabun means \"The Mutual Disillusion\". It has 18 ayahs.",
             "difficulty": 2,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 12,
             "questions": [
@@ -18589,31 +18241,7 @@
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "Surah At-Taghabun means \"The Mutual Disillusion\". It was revealed in Madinah. It has 18 ayahs.",
-                "explanation_long": "Surah At-Taghabun means \"The Mutual Disillusion\".",
-                "tags_json": [
-                  "surah-at-taghabun",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah At-Taghabun was revealed in Madinah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "true"
-                },
-                "explanation_short": "Surah At-Taghabun was revealed in Madinah.",
+                "explanation_short": "Surah At-Taghabun means \"The Mutual Disillusion\". It has 18 ayahs.",
                 "explanation_long": "Surah At-Taghabun means \"The Mutual Disillusion\".",
                 "tags_json": [
                   "surah-at-taghabun",
@@ -18627,25 +18255,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "18"
+                    "text": "20"
                   },
                   {
                     "id": "b",
-                    "text": "17"
+                    "text": "18"
                   },
                   {
                     "id": "c",
-                    "text": "19"
+                    "text": "17"
                   },
                   {
                     "id": "d",
-                    "text": "20"
+                    "text": "19"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "a"
+                  "choiceId": "b"
                 },
-                "explanation_short": "Surah At-Taghabun means \"The Mutual Disillusion\". It was revealed in Madinah. It has 18 ayahs.",
+                "explanation_short": "Surah At-Taghabun means \"The Mutual Disillusion\". It has 18 ayahs.",
                 "explanation_long": "Surah At-Taghabun means \"The Mutual Disillusion\".",
                 "tags_json": [
                   "surah-at-taghabun",
@@ -19734,11 +19362,11 @@
           },
           {
             "title": "Surah Al-Insan",
-            "description": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.\n76:6 A spring wherefrom the slaves of Allah drink, making it gush forth abundantly,\n76:7 (Because) they perform the vow and fear a day whereof the evil is wide-spreading,",
+            "description": "Surah Al-Insan means \"The Human\". It has 31 ayahs.\n76:6 A spring wherefrom the slaves of Allah drink, making it gush forth abundantly,\n76:7 (Because) they perform the vow and fear a day whereof the evil is wide-spreading,",
             "difficulty": 3,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 14,
             "questions": [
@@ -19766,31 +19394,7 @@
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.",
-                "explanation_long": "Surah Al-Insan means \"The Human\".",
-                "tags_json": [
-                  "surah-al-insan",
-                  "difficulty_3",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Insan was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Al-Insan was revealed in Madinah.",
+                "explanation_short": "Surah Al-Insan means \"The Human\". It has 31 ayahs.",
                 "explanation_long": "Surah Al-Insan means \"The Human\".",
                 "tags_json": [
                   "surah-al-insan",
@@ -19804,25 +19408,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "28"
-                  },
-                  {
-                    "id": "b",
                     "text": "29"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "30"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "31"
+                  },
+                  {
+                    "id": "d",
+                    "text": "28"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "d"
+                  "choiceId": "c"
                 },
-                "explanation_short": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.",
+                "explanation_short": "Surah Al-Insan means \"The Human\". It has 31 ayahs.",
                 "explanation_long": "Surah Al-Insan means \"The Human\".",
                 "tags_json": [
                   "surah-al-insan",
@@ -20443,11 +20047,11 @@
           },
           {
             "title": "Surah Al-Mutaffifin",
-            "description": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.\n83:2 Those who when they take the measure from mankind demand it full,\n83:4 Do such (men) not consider that they will be raised again\n83:6 The day when (all) mankind stand before the Lord of the Worlds?\n83:9 A written record.",
+            "description": "Surah Al-Mutaffifin means \"Those Who Cheat\". It has 36 ayahs.\n83:2 Those who when they take the measure from mankind demand it full,\n83:4 Do such (men) not consider that they will be raised again\n83:6 The day when (all) mankind stand before the Lord of the Worlds?\n83:9 A written record.",
             "difficulty": 2,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 12,
             "questions": [
@@ -20475,31 +20079,7 @@
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.",
-                "explanation_long": "Surah Al-Mutaffifin means \"Those Who Cheat\".",
-                "tags_json": [
-                  "surah-al-mutaffifin",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Mutaffifin was revealed in Madinah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Al-Mutaffifin was revealed in Makkah.",
+                "explanation_short": "Surah Al-Mutaffifin means \"Those Who Cheat\". It has 36 ayahs.",
                 "explanation_long": "Surah Al-Mutaffifin means \"Those Who Cheat\".",
                 "tags_json": [
                   "surah-al-mutaffifin",
@@ -20513,25 +20093,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "34"
-                  },
-                  {
-                    "id": "b",
                     "text": "36"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "37"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "38"
+                  },
+                  {
+                    "id": "d",
+                    "text": "34"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "b"
+                  "choiceId": "a"
                 },
-                "explanation_short": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.",
+                "explanation_short": "Surah Al-Mutaffifin means \"Those Who Cheat\". It has 36 ayahs.",
                 "explanation_long": "Surah Al-Mutaffifin means \"Those Who Cheat\".",
                 "tags_json": [
                   "surah-al-mutaffifin",
@@ -21852,11 +21432,11 @@
           },
           {
             "title": "Surah Al-Qadr",
-            "description": "Surah Al-Qadr means \"The Power\". It was revealed in Makkah. It has 5 ayahs.\n97:3 The Night of Power is better than a thousand months.\n97:4 The angels and the Spirit descend therein, by the permission of their Lord, with all decrees.\n97:5 (The night is) Peace until the rising of the dawn.",
+            "description": "Surah Al-Qadr means \"The Power\". It has 5 ayahs.\n97:3 The Night of Power is better than a thousand months.\n97:4 The angels and the Spirit descend therein, by the permission of their Lord, with all decrees.\n97:5 (The night is) Peace until the rising of the dawn.",
             "difficulty": 3,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 14,
             "questions": [
@@ -21884,31 +21464,7 @@
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Surah Al-Qadr means \"The Power\". It was revealed in Makkah. It has 5 ayahs.",
-                "explanation_long": "Surah Al-Qadr means \"The Power\".",
-                "tags_json": [
-                  "surah-al-qadr",
-                  "difficulty_3",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Qadr was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "true"
-                },
-                "explanation_short": "Surah Al-Qadr was revealed in Makkah.",
+                "explanation_short": "Surah Al-Qadr means \"The Power\". It has 5 ayahs.",
                 "explanation_long": "Surah Al-Qadr means \"The Power\".",
                 "tags_json": [
                   "surah-al-qadr",
@@ -21922,25 +21478,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "4"
+                    "text": "3"
                   },
                   {
                     "id": "b",
-                    "text": "5"
+                    "text": "4"
                   },
                   {
                     "id": "c",
-                    "text": "7"
+                    "text": "5"
                   },
                   {
                     "id": "d",
-                    "text": "3"
+                    "text": "7"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "b"
+                  "choiceId": "c"
                 },
-                "explanation_short": "Surah Al-Qadr means \"The Power\". It was revealed in Makkah. It has 5 ayahs.",
+                "explanation_short": "Surah Al-Qadr means \"The Power\". It has 5 ayahs.",
                 "explanation_long": "Surah Al-Qadr means \"The Power\".",
                 "tags_json": [
                   "surah-al-qadr",
@@ -21952,11 +21508,11 @@
           },
           {
             "title": "Surah Al-Bayyinah",
-            "description": "Surah Al-Bayyinah means \"The Clear Proof\". It was revealed in Madinah. It has 8 ayahs.\n98:2 A messenger from Allah, reading purified pages\n98:3 Containing correct scriptures.\n98:5 And they are ordered naught else than to serve Allah, keeping religion pure for Him, as men by nature upright, and to establish worship and to pay the poor-due. That is true religion.",
+            "description": "Surah Al-Bayyinah means \"The Clear Proof\". It has 8 ayahs.\n98:2 A messenger from Allah, reading purified pages\n98:3 Containing correct scriptures.\n98:5 And they are ordered naught else than to serve Allah, keeping religion pure for Him, as men by nature upright, and to establish worship and to pay the poor-due. That is true religion.",
             "difficulty": 4,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 16,
             "questions": [
@@ -21984,31 +21540,7 @@
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "Surah Al-Bayyinah means \"The Clear Proof\". It was revealed in Madinah. It has 8 ayahs.",
-                "explanation_long": "Surah Al-Bayyinah means \"The Clear Proof\".",
-                "tags_json": [
-                  "surah-al-bayyinah",
-                  "difficulty_4",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Bayyinah was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Al-Bayyinah was revealed in Madinah.",
+                "explanation_short": "Surah Al-Bayyinah means \"The Clear Proof\". It has 8 ayahs.",
                 "explanation_long": "Surah Al-Bayyinah means \"The Clear Proof\".",
                 "tags_json": [
                   "surah-al-bayyinah",
@@ -22022,25 +21554,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "9"
+                    "text": "7"
                   },
                   {
                     "id": "b",
-                    "text": "5"
+                    "text": "9"
                   },
                   {
                     "id": "c",
-                    "text": "8"
+                    "text": "5"
                   },
                   {
                     "id": "d",
-                    "text": "7"
+                    "text": "8"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "c"
+                  "choiceId": "d"
                 },
-                "explanation_short": "Surah Al-Bayyinah means \"The Clear Proof\". It was revealed in Madinah. It has 8 ayahs.",
+                "explanation_short": "Surah Al-Bayyinah means \"The Clear Proof\". It has 8 ayahs.",
                 "explanation_long": "Surah Al-Bayyinah means \"The Clear Proof\".",
                 "tags_json": [
                   "surah-al-bayyinah",
@@ -22052,11 +21584,11 @@
           },
           {
             "title": "Surah Az-Zalzalah",
-            "description": "Surah Az-Zalzalah means \"The Earthquake\". It was revealed in Madinah. It has 8 ayahs.\n99:1 When Earth is shaken with her (final) earthquake\n99:4 That day she will relate her chronicles,\n99:6 That day mankind will issue forth in scattered groups to be shown their deeds.\n99:7 And whoso doeth good an atom's weight will see it then,",
+            "description": "Surah Az-Zalzalah means \"The Earthquake\". It has 8 ayahs.\n99:1 When Earth is shaken with her (final) earthquake\n99:4 That day she will relate her chronicles,\n99:6 That day mankind will issue forth in scattered groups to be shown their deeds.\n99:7 And whoso doeth good an atom's weight will see it then,",
             "difficulty": 4,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 16,
             "questions": [
@@ -22084,31 +21616,7 @@
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "Surah Az-Zalzalah means \"The Earthquake\". It was revealed in Madinah. It has 8 ayahs.",
-                "explanation_long": "Surah Az-Zalzalah means \"The Earthquake\".",
-                "tags_json": [
-                  "surah-az-zalzalah",
-                  "difficulty_4",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Az-Zalzalah was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Az-Zalzalah was revealed in Madinah.",
+                "explanation_short": "Surah Az-Zalzalah means \"The Earthquake\". It has 8 ayahs.",
                 "explanation_long": "Surah Az-Zalzalah means \"The Earthquake\".",
                 "tags_json": [
                   "surah-az-zalzalah",
@@ -22122,25 +21630,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "8"
-                  },
-                  {
-                    "id": "b",
                     "text": "5"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "6"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "7"
+                  },
+                  {
+                    "id": "d",
+                    "text": "8"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "a"
+                  "choiceId": "d"
                 },
-                "explanation_short": "Surah Az-Zalzalah means \"The Earthquake\". It was revealed in Madinah. It has 8 ayahs.",
+                "explanation_short": "Surah Az-Zalzalah means \"The Earthquake\". It has 8 ayahs.",
                 "explanation_long": "Surah Az-Zalzalah means \"The Earthquake\".",
                 "tags_json": [
                   "surah-az-zalzalah",
@@ -22152,11 +21660,11 @@
           },
           {
             "title": "Surah Al-'Adiyat",
-            "description": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.\n100:1 By the snorting courses,\n100:2 Striking sparks of fire\n100:3 And scouring to the raid at dawn,\n100:4 Then, therewith, with their trail of dust,\n100:5 Cleaving, as one, the centre (of the foe),",
+            "description": "Surah Al-'Adiyat means \"The Runners\". It has 11 ayahs.\n100:1 By the snorting courses,\n100:2 Striking sparks of fire\n100:3 And scouring to the raid at dawn,\n100:4 Then, therewith, with their trail of dust,\n100:5 Cleaving, as one, the centre (of the foe),",
             "difficulty": 5,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 18,
             "questions": [
@@ -22184,31 +21692,7 @@
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.",
-                "explanation_long": "Surah Al-'Adiyat means \"The Runners\".",
-                "tags_json": [
-                  "surah-al-adiyat",
-                  "difficulty_5",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-'Adiyat was revealed in Madinah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Al-'Adiyat was revealed in Makkah.",
+                "explanation_short": "Surah Al-'Adiyat means \"The Runners\". It has 11 ayahs.",
                 "explanation_long": "Surah Al-'Adiyat means \"The Runners\".",
                 "tags_json": [
                   "surah-al-adiyat",
@@ -22222,25 +21706,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "12"
+                    "text": "9"
                   },
                   {
                     "id": "b",
-                    "text": "11"
+                    "text": "12"
                   },
                   {
                     "id": "c",
-                    "text": "8"
+                    "text": "11"
                   },
                   {
                     "id": "d",
-                    "text": "9"
+                    "text": "8"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "b"
+                  "choiceId": "c"
                 },
-                "explanation_short": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.",
+                "explanation_short": "Surah Al-'Adiyat means \"The Runners\". It has 11 ayahs.",
                 "explanation_long": "Surah Al-'Adiyat means \"The Runners\".",
                 "tags_json": [
                   "surah-al-adiyat",
@@ -22361,11 +21845,11 @@
           },
           {
             "title": "Surah At-Takathur",
-            "description": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
+            "description": "Surah At-Takathur means \"Competing for More\". It has 8 ayahs.",
             "difficulty": 1,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 10,
             "questions": [
@@ -22393,31 +21877,7 @@
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
-                "explanation_long": "Surah At-Takathur means \"Competing for More\".",
-                "tags_json": [
-                  "surah-at-takathur",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah At-Takathur was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "true"
-                },
-                "explanation_short": "Surah At-Takathur was revealed in Makkah.",
+                "explanation_short": "Surah At-Takathur means \"Competing for More\". It has 8 ayahs.",
                 "explanation_long": "Surah At-Takathur means \"Competing for More\".",
                 "tags_json": [
                   "surah-at-takathur",
@@ -22431,25 +21891,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "5"
-                  },
-                  {
-                    "id": "b",
                     "text": "6"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "8"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "9"
+                  },
+                  {
+                    "id": "d",
+                    "text": "5"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "c"
+                  "choiceId": "b"
                 },
-                "explanation_short": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
+                "explanation_short": "Surah At-Takathur means \"Competing for More\". It has 8 ayahs.",
                 "explanation_long": "Surah At-Takathur means \"Competing for More\".",
                 "tags_json": [
                   "surah-at-takathur",
@@ -22829,11 +22289,11 @@
           },
           {
             "title": "Surah Al-Ma'un",
-            "description": "Surah Al-Ma'un means \"The Small kindnesses\". It was revealed in Makkah. It has 7 ayahs.\n107:5 Who are heedless of their prayer;\n107:6 Who would be seen (at worship)\n107:7 Yet refuse small kindnesses!",
+            "description": "Surah Al-Ma'un means \"The Small kindnesses\". It has 7 ayahs.\n107:5 Who are heedless of their prayer;\n107:6 Who would be seen (at worship)\n107:7 Yet refuse small kindnesses!",
             "difficulty": 3,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 14,
             "questions": [
@@ -22861,31 +22321,7 @@
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Surah Al-Ma'un means \"The Small kindnesses\". It was revealed in Makkah. It has 7 ayahs.",
-                "explanation_long": "Surah Al-Ma'un means \"The Small kindnesses\".",
-                "tags_json": [
-                  "surah-al-maun",
-                  "difficulty_3",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Ma'un was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "true"
-                },
-                "explanation_short": "Surah Al-Ma'un was revealed in Makkah.",
+                "explanation_short": "Surah Al-Ma'un means \"The Small kindnesses\". It has 7 ayahs.",
                 "explanation_long": "Surah Al-Ma'un means \"The Small kindnesses\".",
                 "tags_json": [
                   "surah-al-maun",
@@ -22899,25 +22335,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "6"
-                  },
-                  {
-                    "id": "b",
                     "text": "7"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "9"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "5"
+                  },
+                  {
+                    "id": "d",
+                    "text": "6"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "b"
+                  "choiceId": "a"
                 },
-                "explanation_short": "Surah Al-Ma'un means \"The Small kindnesses\". It was revealed in Makkah. It has 7 ayahs.",
+                "explanation_short": "Surah Al-Ma'un means \"The Small kindnesses\". It has 7 ayahs.",
                 "explanation_long": "Surah Al-Ma'un means \"The Small kindnesses\".",
                 "tags_json": [
                   "surah-al-maun",
@@ -22929,11 +22365,11 @@
           },
           {
             "title": "Surah Al-Kawthar",
-            "description": "Surah Al-Kawthar means \"The Abundance\". It was revealed in Makkah. It has 3 ayahs.",
+            "description": "Surah Al-Kawthar means \"The Abundance\". It has 3 ayahs.",
             "difficulty": 4,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 16,
             "questions": [
@@ -22961,31 +22397,7 @@
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "Surah Al-Kawthar means \"The Abundance\". It was revealed in Makkah. It has 3 ayahs.",
-                "explanation_long": "Surah Al-Kawthar means \"The Abundance\".",
-                "tags_json": [
-                  "surah-al-kawthar",
-                  "difficulty_4",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Kawthar was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "true"
-                },
-                "explanation_short": "Surah Al-Kawthar was revealed in Makkah.",
+                "explanation_short": "Surah Al-Kawthar means \"The Abundance\". It has 3 ayahs.",
                 "explanation_long": "Surah Al-Kawthar means \"The Abundance\".",
                 "tags_json": [
                   "surah-al-kawthar",
@@ -22999,25 +22411,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "6"
-                  },
-                  {
-                    "id": "b",
                     "text": "7"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "3"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "5"
+                  },
+                  {
+                    "id": "d",
+                    "text": "6"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "c"
+                  "choiceId": "b"
                 },
-                "explanation_short": "Surah Al-Kawthar means \"The Abundance\". It was revealed in Makkah. It has 3 ayahs.",
+                "explanation_short": "Surah Al-Kawthar means \"The Abundance\". It has 3 ayahs.",
                 "explanation_long": "Surah Al-Kawthar means \"The Abundance\".",
                 "tags_json": [
                   "surah-al-kawthar",
@@ -23338,11 +22750,11 @@
           },
           {
             "title": "Surah Al-Ikhlas",
-            "description": "Surah Al-Ikhlas means \"The Sincerity\". It was revealed in Makkah. It has 4 ayahs.\n112:1 Say: He is Allah, the One!\n112:2 Allah, the eternally Besought of all!",
+            "description": "Surah Al-Ikhlas means \"The Sincerity\". It has 4 ayahs.\n112:1 Say: He is Allah, the One!\n112:2 Allah, the eternally Besought of all!",
             "difficulty": 2,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 12,
             "questions": [
@@ -23370,31 +22782,7 @@
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Surah Al-Ikhlas means \"The Sincerity\". It was revealed in Makkah. It has 4 ayahs.",
-                "explanation_long": "Surah Al-Ikhlas means \"The Sincerity\".",
-                "tags_json": [
-                  "surah-al-ikhlas",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Ikhlas was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "true"
-                },
-                "explanation_short": "Surah Al-Ikhlas was revealed in Makkah.",
+                "explanation_short": "Surah Al-Ikhlas means \"The Sincerity\". It has 4 ayahs.",
                 "explanation_long": "Surah Al-Ikhlas means \"The Sincerity\".",
                 "tags_json": [
                   "surah-al-ikhlas",
@@ -23408,25 +22796,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "5"
-                  },
-                  {
-                    "id": "b",
                     "text": "6"
                   },
                   {
-                    "id": "c",
+                    "id": "b",
                     "text": "7"
                   },
                   {
-                    "id": "d",
+                    "id": "c",
                     "text": "4"
+                  },
+                  {
+                    "id": "d",
+                    "text": "5"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "d"
+                  "choiceId": "c"
                 },
-                "explanation_short": "Surah Al-Ikhlas means \"The Sincerity\". It was revealed in Makkah. It has 4 ayahs.",
+                "explanation_short": "Surah Al-Ikhlas means \"The Sincerity\". It has 4 ayahs.",
                 "explanation_long": "Surah Al-Ikhlas means \"The Sincerity\".",
                 "tags_json": [
                   "surah-al-ikhlas",
@@ -23438,11 +22826,11 @@
           },
           {
             "title": "Surah Al-Falaq",
-            "description": "Surah Al-Falaq means \"The Daybreak\". It was revealed in Makkah. It has 5 ayahs.\n113:1 Say: I seek refuge in the Lord of the Daybreak\n113:2 From the evil of that which He created;\n113:3 From the evil of the darkness when it is intense,\n113:4 And from the evil of malignant witchcraft,",
+            "description": "Surah Al-Falaq means \"The Daybreak\". It has 5 ayahs.\n113:1 Say: I seek refuge in the Lord of the Daybreak\n113:2 From the evil of that which He created;\n113:3 From the evil of the darkness when it is intense,\n113:4 And from the evil of malignant witchcraft,",
             "difficulty": 3,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 14,
             "questions": [
@@ -23470,31 +22858,7 @@
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "Surah Al-Falaq means \"The Daybreak\". It was revealed in Makkah. It has 5 ayahs.",
-                "explanation_long": "Surah Al-Falaq means \"The Daybreak\".",
-                "tags_json": [
-                  "surah-al-falaq",
-                  "difficulty_3",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah Al-Falaq was revealed in Madinah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "Surah Al-Falaq was revealed in Makkah.",
+                "explanation_short": "Surah Al-Falaq means \"The Daybreak\". It has 5 ayahs.",
                 "explanation_long": "Surah Al-Falaq means \"The Daybreak\".",
                 "tags_json": [
                   "surah-al-falaq",
@@ -23508,25 +22872,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "7"
+                    "text": "6"
                   },
                   {
                     "id": "b",
-                    "text": "3"
+                    "text": "7"
                   },
                   {
                     "id": "c",
-                    "text": "5"
+                    "text": "3"
                   },
                   {
                     "id": "d",
-                    "text": "6"
+                    "text": "5"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "c"
+                  "choiceId": "d"
                 },
-                "explanation_short": "Surah Al-Falaq means \"The Daybreak\". It was revealed in Makkah. It has 5 ayahs.",
+                "explanation_short": "Surah Al-Falaq means \"The Daybreak\". It has 5 ayahs.",
                 "explanation_long": "Surah Al-Falaq means \"The Daybreak\".",
                 "tags_json": [
                   "surah-al-falaq",
@@ -23538,11 +22902,11 @@
           },
           {
             "title": "Surah An-Nas",
-            "description": "Surah An-Nas means \"Mankind\". It was revealed in Makkah. It has 6 ayahs.\n114:1 Say: I seek refuge in the Lord of mankind,\n114:2 The King of mankind,\n114:3 The God of mankind,\n114:4 From the evil of the sneaking whisperer,\n114:6 Of the jinn and of mankind.",
+            "description": "Surah An-Nas means \"Mankind\". It has 6 ayahs.\n114:1 Say: I seek refuge in the Lord of mankind,\n114:2 The King of mankind,\n114:3 The God of mankind,\n114:4 From the evil of the sneaking whisperer,\n114:6 Of the jinn and of mankind.",
             "difficulty": 4,
             "lesson_type": "guided",
             "premium": false,
-            "estimated_minutes": 4,
+            "estimated_minutes": 3,
             "mastery_test_eligible": false,
             "xp_reward": 16,
             "questions": [
@@ -23570,31 +22934,7 @@
                 "correct_answer_json": {
                   "choiceId": "b"
                 },
-                "explanation_short": "Surah An-Nas means \"Mankind\". It was revealed in Makkah. It has 6 ayahs.",
-                "explanation_long": "Surah An-Nas means \"Mankind\".",
-                "tags_json": [
-                  "surah-an-nas",
-                  "difficulty_4",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Surah An-Nas was revealed in Makkah.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "true"
-                },
-                "explanation_short": "Surah An-Nas was revealed in Makkah.",
+                "explanation_short": "Surah An-Nas means \"Mankind\". It has 6 ayahs.",
                 "explanation_long": "Surah An-Nas means \"Mankind\".",
                 "tags_json": [
                   "surah-an-nas",
@@ -23608,25 +22948,25 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "8"
+                    "text": "6"
                   },
                   {
                     "id": "b",
-                    "text": "4"
+                    "text": "8"
                   },
                   {
                     "id": "c",
-                    "text": "5"
+                    "text": "4"
                   },
                   {
                     "id": "d",
-                    "text": "6"
+                    "text": "5"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "d"
+                  "choiceId": "a"
                 },
-                "explanation_short": "Surah An-Nas means \"Mankind\". It was revealed in Makkah. It has 6 ayahs.",
+                "explanation_short": "Surah An-Nas means \"Mankind\". It has 6 ayahs.",
                 "explanation_long": "Surah An-Nas means \"Mankind\".",
                 "tags_json": [
                   "surah-an-nas",
@@ -23706,70 +23046,6 @@
                 "tags_json": [
                   "half-of-the-religion",
                   "difficulty_4",
-                  "obsidian_import"
-                ]
-              }
-            ]
-          },
-          {
-            "title": "Keep four",
-            "description": "Ghaylan became Muslim with ten wives and was told to keep four.",
-            "difficulty": 5,
-            "lesson_type": "guided",
-            "premium": false,
-            "estimated_minutes": 3,
-            "mastery_test_eligible": false,
-            "xp_reward": 18,
-            "questions": [
-              {
-                "type": "multiple_choice",
-                "prompt": "How many wives was Ghaylan told to keep?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Two"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Four"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Ten"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "b"
-                },
-                "explanation_short": "The Prophet ﷺ told him to keep four.",
-                "explanation_long": "Ghaylan became Muslim with ten wives and was told to keep four.",
-                "tags_json": [
-                  "keep-four",
-                  "difficulty_5",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "true_false",
-                "prompt": "Ghaylan was told to keep all ten of his wives.",
-                "options_json": [
-                  {
-                    "id": "true",
-                    "text": "True"
-                  },
-                  {
-                    "id": "false",
-                    "text": "False"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "false"
-                },
-                "explanation_short": "The Prophet ﷺ told him to keep four.",
-                "explanation_long": "Ghaylan became Muslim with ten wives and was told to keep four.",
-                "tags_json": [
-                  "keep-four",
-                  "difficulty_5",
                   "obsidian_import"
                 ]
               }
@@ -23996,25 +23272,25 @@
             "questions": [
               {
                 "type": "multiple_choice",
-                "prompt": "Where does Iblis place his throne?",
+                "prompt": "Which devil does Iblis praise, saying: You have done well?",
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "On a mountain"
+                    "text": "The one who stayed quiet"
                   },
                   {
                     "id": "b",
-                    "text": "In a tree"
+                    "text": "The one who went to sleep"
                   },
                   {
                     "id": "c",
-                    "text": "Upon water"
+                    "text": "The one who made a husband and wife fight"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "Iblis places his throne upon water.",
+                "explanation_short": "Iblis praises the devil who makes a husband and wife fight.",
                 "explanation_long": "Jabir reported that Allah's Messenger (ﷺ) said: Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension.",
                 "tags_json": [
                   "iblis-and-his-troops",
@@ -24023,26 +23299,22 @@
                 ]
               },
               {
-                "type": "multiple_choice",
-                "prompt": "Which devils are nearest to Iblis?",
+                "type": "true_false",
+                "prompt": "Iblis is pleased when a husband and wife fight.",
                 "options_json": [
                   {
-                    "id": "a",
-                    "text": "Those who cause the most trouble"
+                    "id": "true",
+                    "text": "True"
                   },
                   {
-                    "id": "b",
-                    "text": "The quietest ones"
-                  },
-                  {
-                    "id": "c",
-                    "text": "The youngest ones"
+                    "id": "false",
+                    "text": "False"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "a"
+                  "choiceId": "true"
                 },
-                "explanation_short": "The nearest to him are the most notorious in creating dissension.",
+                "explanation_short": "Iblis says to that devil: You have done well.",
                 "explanation_long": "Jabir reported that Allah's Messenger (ﷺ) said: Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension.",
                 "tags_json": [
                   "iblis-and-his-troops",

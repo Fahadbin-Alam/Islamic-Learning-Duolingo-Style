@@ -2603,29 +2603,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_2",
-          "title": "As-Sahba' at-Taghlibiyyah",
-          "topicId": "women_of_the_book",
-          "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
-          "kind": "story",
-          "lessonIds": [
-            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah"
-          ],
-          "requiredNodeIds": [
-            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aisha-bint-abu-bakr"
-          ],
-          "xpReward": 10,
-          "starsReward": 3,
-          "order": 2,
-          "difficulty": 1,
-          "sourceReferences": [],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_3",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_2",
           "title": "Aminah bint Wahb",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
@@ -2634,12 +2613,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb"
           ],
           "requiredNodeIds": [
-            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah"
+            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aisha-bint-abu-bakr"
           ],
-          "xpReward": 12,
+          "xpReward": 10,
           "starsReward": 3,
-          "order": 3,
-          "difficulty": 2,
+          "order": 2,
+          "difficulty": 1,
           "sourceReferences": [
             {
               "id": "lesson_notes_women_of_the_book_mothers_of_the_believers_from_your_notes_1_aminah_bint_wahb_src_1",
@@ -2669,7 +2648,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-barrah-bint-samuel",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_4",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_3",
           "title": "Barrah bint Samaw'al",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
@@ -2682,7 +2661,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 12,
           "starsReward": 3,
-          "order": 4,
+          "order": 3,
           "difficulty": 2,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2690,7 +2669,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-grandmother-of-isa-wife-of-imran",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_5",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_4",
           "title": "Wife of Imran",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
@@ -2703,7 +2682,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 12,
           "starsReward": 3,
-          "order": 5,
+          "order": 4,
           "difficulty": 2,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2711,7 +2690,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-hafsa-bint-umar",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_6",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_5",
           "title": "Hafsah bint Umar",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
@@ -2724,7 +2703,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 14,
           "starsReward": 3,
-          "order": 6,
+          "order": 5,
           "difficulty": 3,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2732,7 +2711,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-hajar",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_7",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_6",
           "title": "Hajar",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
@@ -2745,7 +2724,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 14,
           "starsReward": 3,
-          "order": 7,
+          "order": 6,
           "difficulty": 3,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2753,7 +2732,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-halima-al-sadeya",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_8",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_7",
           "title": "Halimah as-Sa'diyyah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
@@ -2766,7 +2745,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 8,
+          "order": 7,
           "difficulty": 4,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2774,7 +2753,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-juwayriya-bint-al-harith",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_9",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_8",
           "title": "Juwayriyah bint al-Harith",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
@@ -2787,7 +2766,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 9,
+          "order": 8,
           "difficulty": 4,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2795,7 +2774,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-khadijah-bint-khuwaylid",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_10",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1_9",
           "title": "Khadijah bint Khuwaylid",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
@@ -2808,7 +2787,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 10,
+          "order": 9,
           "difficulty": 5,
           "sourceReferences": [
             {
@@ -2846,14 +2825,14 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah",
+          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam",
           "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_2",
-          "title": "Layla bint Mas'ud at-Tamimiyyah",
+          "title": "Maryam",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
           "kind": "story",
           "lessonIds": [
-            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah"
+            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam"
           ],
           "requiredNodeIds": [
             "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah"
@@ -2867,29 +2846,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_3",
-          "title": "Maryam",
-          "topicId": "women_of_the_book",
-          "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
-          "kind": "story",
-          "lessonIds": [
-            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maryam"
-          ],
-          "requiredNodeIds": [
-            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah"
-          ],
-          "xpReward": 12,
-          "starsReward": 3,
-          "order": 3,
-          "difficulty": 2,
-          "sourceReferences": [],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maymunah-bint-al-harith",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_4",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_3",
           "title": "Maymunah bint al-Harith",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
@@ -2902,7 +2860,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 12,
           "starsReward": 3,
-          "order": 4,
+          "order": 3,
           "difficulty": 2,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2910,7 +2868,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-safiyyah-bint-huyayy",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_5",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_4",
           "title": "Safiyyah bint Huyayy",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
@@ -2921,17 +2879,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "requiredNodeIds": [
             "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-maymunah-bint-al-harith"
           ],
-          "xpReward": 14,
+          "xpReward": 12,
           "starsReward": 3,
-          "order": 5,
-          "difficulty": 3,
+          "order": 4,
+          "difficulty": 2,
           "sourceReferences": [],
           "masteryState": "new",
           "masteryTestEligible": false
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sarah",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_6",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_5",
           "title": "Sarah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
@@ -2944,7 +2902,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 14,
           "starsReward": 3,
-          "order": 6,
+          "order": 5,
           "difficulty": 3,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2952,7 +2910,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sawdah-bint-zamah",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_7",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_6",
           "title": "Sawdah bint Zam'ah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
@@ -2965,7 +2923,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 7,
+          "order": 6,
           "difficulty": 4,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2973,7 +2931,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-sayyida-nafisa",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_8",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_7",
           "title": "Sayyidah Nafisah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
@@ -2986,7 +2944,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 8,
+          "order": 7,
           "difficulty": 4,
           "sourceReferences": [],
           "masteryState": "new",
@@ -2994,7 +2952,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-umayma-bint-abd-al-muttalib",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_9",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2_8",
           "title": "Umaymah bint Abd al-Muttalib",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
@@ -3007,7 +2965,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 9,
+          "order": 8,
           "difficulty": 5,
           "sourceReferences": [],
           "masteryState": "new",
@@ -3075,29 +3033,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_4",
-          "title": "Umm Sa'id bint Urwah ath-Thaqafiyyah",
-          "topicId": "women_of_the_book",
-          "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
-          "kind": "story",
-          "lessonIds": [
-            "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah"
-          ],
-          "requiredNodeIds": [
-            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali"
-          ],
-          "xpReward": 12,
-          "starsReward": 3,
-          "order": 4,
-          "difficulty": 2,
-          "sourceReferences": [],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_5",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_4",
           "title": "Umm Salamah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3106,11 +3043,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet"
           ],
           "requiredNodeIds": [
-            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah"
+            "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-kulthoom-bint-ali"
           ],
           "xpReward": 14,
           "starsReward": 3,
-          "order": 5,
+          "order": 4,
           "difficulty": 3,
           "sourceReferences": [],
           "masteryState": "new",
@@ -3118,7 +3055,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-ali",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_6",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_5",
           "title": "Zaynab bint Ali",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3129,17 +3066,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "requiredNodeIds": [
             "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet"
           ],
-          "xpReward": 16,
+          "xpReward": 14,
           "starsReward": 3,
-          "order": 6,
-          "difficulty": 4,
+          "order": 5,
+          "difficulty": 3,
           "sourceReferences": [],
           "masteryState": "new",
           "masteryTestEligible": false
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-jahsh",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_7",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_6",
           "title": "Zaynab bint Jahsh",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3152,7 +3089,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 16,
           "starsReward": 3,
-          "order": 7,
+          "order": 6,
           "difficulty": 4,
           "sourceReferences": [],
           "masteryState": "new",
@@ -3160,7 +3097,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-zaynab-bint-khuzayma",
-          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_8",
+          "skillId": "skill_women_of_the_book_notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3_7",
           "title": "Zaynab bint Khuzaymah",
           "topicId": "women_of_the_book",
           "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
@@ -3173,7 +3110,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 8,
+          "order": 7,
           "difficulty": 5,
           "sourceReferences": [],
           "masteryState": "new",
@@ -7117,41 +7054,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "masteryTestEligible": false
         },
         {
-          "id": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_2",
-          "title": "Keep four",
-          "topicId": "hadith",
-          "branchId": "notes-hadith-hadith-from-your-notes-1",
-          "kind": "skill",
-          "lessonIds": [
-            "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176"
-          ],
-          "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3096"
-          ],
-          "xpReward": 18,
-          "starsReward": 3,
-          "order": 2,
-          "difficulty": 5,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_hadith_hadith_from_your_notes_1_mishkat_al_masabih_3176_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Mishkat 3176",
-              "url": "https://sunnah.com/mishkat:3176",
-              "reference": "Mishkat 3176",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Reference attached in the notes (Mishkat 3176)."
-            }
-          ],
-          "masteryState": "new",
-          "masteryTestEligible": false
-        },
-        {
           "id": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-3276",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_3",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_2",
           "title": "Seek refuge with Allah",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-1",
@@ -7160,11 +7064,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-3276"
           ],
           "requiredNodeIds": [
-            "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176"
+            "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3096"
           ],
           "xpReward": 12,
           "starsReward": 3,
-          "order": 3,
+          "order": 2,
           "difficulty": 2,
           "sourceReferences": [
             {
@@ -7184,7 +7088,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-5066",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_4",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_3",
           "title": "Marriage or fasting",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-1",
@@ -7197,7 +7101,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 18,
           "starsReward": 3,
-          "order": 4,
+          "order": 3,
           "difficulty": 5,
           "sourceReferences": [
             {
@@ -7217,7 +7121,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a",
-          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_5",
+          "skillId": "skill_hadith_notes-hadith-hadith-from-your-notes-1_4",
           "title": "Hold on to Allah's Book",
           "topicId": "hadith",
           "branchId": "notes-hadith-hadith-from-your-notes-1",
@@ -7230,7 +7134,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           ],
           "xpReward": 10,
           "starsReward": 3,
-          "order": 5,
+          "order": 4,
           "difficulty": 1,
           "sourceReferences": [
             {
@@ -7497,108 +7401,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ]
     },
-    "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176": {
-      "id": "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
-      "nodeId": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
-      "branchId": "notes-hadith-hadith-from-your-notes-1",
-      "title": "Keep four",
-      "intro": "Ghaylan became Muslim with ten wives and was told to keep four.",
-      "explanationContent": "Ghaylan became Muslim with ten wives and was told to keep four.",
-      "learnLine": "Ghaylan became Muslim with ten wives and was told to keep four.",
-      "learnSource": {
-        "id": "lesson_notes_hadith_hadith_from_your_notes_1_mishkat_al_masabih_3176_learn_src_1",
-        "site": "Sunnah.com",
-        "category": "hadith",
-        "title": "Mishkat al-Masabih 3176",
-        "url": "https://sunnah.com/mishkat:3176",
-        "reference": "Mishkat al-Masabih 3176",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
-        "summary": "Mishkat al-Masabih 3176"
-      },
-      "lessonType": "skill",
-      "difficulty": 5,
-      "xpReward": 18,
-      "sources": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_mishkat_al_masabih_3176_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Mishkat 3176",
-          "url": "https://sunnah.com/mishkat:3176",
-          "reference": "Mishkat 3176",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Mishkat 3176)."
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_mishkat_al_masabih_3176_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Mishkat 3176",
-          "url": "https://sunnah.com/mishkat:3176",
-          "reference": "Mishkat 3176",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (Mishkat 3176)."
-        }
-      ],
-      "unlockRules": [
-        "Complete Half of the religion"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176_q1",
-          "type": "multiple_choice",
-          "prompt": "How many wives was Ghaylan told to keep?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Two"
-            },
-            {
-              "id": "b",
-              "label": "Four"
-            },
-            {
-              "id": "c",
-              "label": "Ten"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "The Prophet ﷺ told him to keep four.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/mishkat:3176"
-        },
-        {
-          "id": "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176_q2",
-          "type": "true_false",
-          "prompt": "Ghaylan was told to keep all ten of his wives.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "The Prophet ﷺ told him to keep four.",
-          "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
-          "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-mishkat-al-masabih-3176",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/mishkat:3176"
-        }
-      ]
-    },
     "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-3276": {
       "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-3276",
       "nodeId": "notes-hadith-hadith-from-your-notes-1-sahih-al-bukhari-3276",
@@ -7652,7 +7454,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ],
       "unlockRules": [
-        "Complete Keep four"
+        "Complete Half of the religion"
       ],
       "masteryState": "learning",
       "masteryTestEligible": false,
@@ -7952,7 +7754,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "explanationContent": "Jabir reported that Allah's Messenger (ﷺ) said: Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension. One of them comes and says: \"I did so and so.\" And he says: \"You have done nothing.\" Then one amongst them comes and says: \"I did not spare so and so until I sowed the seed of discord between a husband and a wife.\" The Satan goes near him and says: \"You have done well.\" A'mash said: He then embraces him.",
       "learnLine": "Iblis praises the devil who makes a husband and wife fight.",
       "quote": {
-        "text": "Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension.",
+        "text": "\"I did not spare so and so until I sowed the seed of discord between a husband and a wife.\" The Satan goes near him and says: \"You have done well.\"",
         "reference": "Sahih Muslim 2813b"
       },
       "learnSource": {
@@ -8002,23 +7804,23 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b_q1",
           "type": "multiple_choice",
-          "prompt": "Where does Iblis place his throne?",
+          "prompt": "Which devil does Iblis praise, saying: You have done well?",
           "choices": [
             {
               "id": "a",
-              "label": "On a mountain"
+              "label": "The one who stayed quiet"
             },
             {
               "id": "b",
-              "label": "In a tree"
+              "label": "The one who went to sleep"
             },
             {
               "id": "c",
-              "label": "Upon water"
+              "label": "The one who made a husband and wife fight"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Iblis places his throne upon water.",
+          "explanation": "Iblis praises the devil who makes a husband and wife fight.",
           "sourceNodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
           "resourceLabel": "Open source",
@@ -8026,24 +7828,20 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b_q2",
-          "type": "multiple_choice",
-          "prompt": "Which devils are nearest to Iblis?",
+          "type": "true_false",
+          "prompt": "Iblis is pleased when a husband and wife fight.",
           "choices": [
             {
-              "id": "a",
-              "label": "Those who cause the most trouble"
+              "id": "true",
+              "label": "True"
             },
             {
-              "id": "b",
-              "label": "The quietest ones"
-            },
-            {
-              "id": "c",
-              "label": "The youngest ones"
+              "id": "false",
+              "label": "False"
             }
           ],
-          "correctChoiceId": "a",
-          "explanation": "The nearest to him are the most notorious in creating dissension.",
+          "correctChoiceId": "true",
+          "explanation": "Iblis says to that devil: You have done well.",
           "sourceNodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
           "resourceLabel": "Open source",
@@ -9603,11 +9401,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ghifar"
+              "label": "Bali"
             },
             {
               "id": "b",
-              "label": "Hudhayl"
+              "label": "Ghifar"
             },
             {
               "id": "c",
@@ -9615,7 +9413,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Bali"
+              "label": "Bahila"
             }
           ],
           "correctChoiceId": "c",
@@ -9862,11 +9660,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Bahila"
+              "label": "Bali"
             },
             {
               "id": "b",
-              "label": "Bali"
+              "label": "Ghifar"
             },
             {
               "id": "c",
@@ -9874,7 +9672,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Aws"
+              "label": "Bahila"
             }
           ],
           "correctChoiceId": "c",
@@ -10593,15 +10391,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Khadijah bint Khuwaylid"
+              "label": "Natilah bint Janab"
             },
             {
               "id": "b",
-              "label": "Khunas bint Malik"
+              "label": "Ramlah"
             },
             {
               "id": "c",
-              "label": "Lubabah as-Sughra bint al-Harith"
+              "label": "Safiyyah bint Abd al-Muttalib"
             },
             {
               "id": "d",
@@ -10732,11 +10530,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Homs"
+              "label": "Egypt"
             },
             {
               "id": "c",
-              "label": "Karbala"
+              "label": "Homs"
             },
             {
               "id": "d",
@@ -10813,15 +10611,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Fatimah bint Asad"
+              "label": "Umm Ayman"
             },
             {
               "id": "c",
-              "label": "Halah bint Khuwaylid"
+              "label": "Umm Sulaym"
             },
             {
               "id": "d",
-              "label": "Hamamah"
+              "label": "Umm al-Khayr"
             }
           ],
           "correctChoiceId": "a",
@@ -10917,15 +10715,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Amrah bint Mas'ud"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "b",
-              "label": "Arwa bint Kurayz"
+              "label": "Fatimah az-Zahra"
             },
             {
               "id": "c",
-              "label": "Asma bint Abi Bakr"
+              "label": "Halah bint Khuwaylid"
             },
             {
               "id": "d",
@@ -11188,11 +10986,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Badr"
+              "label": "Syria"
             },
             {
               "id": "b",
-              "label": "Basra"
+              "label": "Ta'if"
             },
             {
               "id": "c",
@@ -11200,7 +10998,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Amwas"
+              "label": "Siffin"
             }
           ],
           "correctChoiceId": "c",
@@ -11271,15 +11069,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Su'da bint Tha'labah"
+              "label": "Lubabah bint al-Harith"
             },
             {
               "id": "b",
-              "label": "Sumayyah bint Khayyat"
+              "label": "Mujalida bint Amr"
             },
             {
               "id": "c",
-              "label": "Suwad bint Rafi"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "d",
@@ -11625,11 +11423,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umm Ayman"
+              "label": "Hamamah"
             },
             {
               "id": "b",
-              "label": "Umm Sulaym"
+              "label": "Hind bint Awf"
             },
             {
               "id": "c",
@@ -11637,7 +11435,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Umaymah bint Ghanm"
+              "label": "Halah bint Wuhayb"
             }
           ],
           "correctChoiceId": "c",
@@ -11777,11 +11575,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Safiyyah bint Abd al-Muttalib"
+              "label": "Hamamah"
             },
             {
               "id": "b",
-              "label": "Su'da bint Tha'labah"
+              "label": "Hind bint Awf"
             },
             {
               "id": "c",
@@ -11789,7 +11587,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Ramlah"
+              "label": "Fatimah bint Amr an-Najjariyyah"
             }
           ],
           "correctChoiceId": "c",
@@ -11889,7 +11687,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Su'da bint Tha'labah"
+              "label": "Umm Sulaym"
             },
             {
               "id": "b",
@@ -11897,11 +11695,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Ramlah"
+              "label": "Umaymah bint Ghanm"
             },
             {
               "id": "d",
-              "label": "Safiyyah bint Abd al-Muttalib"
+              "label": "Umm Ayman"
             }
           ],
           "correctChoiceId": "b",
@@ -11997,15 +11795,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Sumayyah bint Khayyat"
-            },
-            {
-              "id": "b",
               "label": "Suwad bint Rafi"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "Umaymah bint Abd al-Muttalib"
+            },
+            {
+              "id": "c",
+              "label": "Umm Ayman"
             },
             {
               "id": "d",
@@ -12104,7 +11902,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Karbala"
+              "label": "Homs"
             },
             {
               "id": "b",
@@ -12483,15 +12281,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Zaynab bint Nawfal"
+              "label": "Khadijah bint Khuwaylid"
             },
             {
               "id": "c",
-              "label": "Amrah bint Mas'ud"
+              "label": "Khunas bint Malik"
             },
             {
               "id": "d",
-              "label": "Arwa bint Kurayz"
+              "label": "Lubabah as-Sughra bint al-Harith"
             }
           ],
           "correctChoiceId": "a",
@@ -12590,11 +12388,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Egypt"
+              "label": "Palestine"
             },
             {
               "id": "b",
-              "label": "Karbala"
+              "label": "Siffin"
             },
             {
               "id": "c",
@@ -12602,7 +12400,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Damascus"
+              "label": "Mu'tah"
             }
           ],
           "correctChoiceId": "c",
@@ -12671,11 +12469,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Nasibah bint Uqbah"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "b",
-              "label": "Natilah bint Janab"
+              "label": "Halah bint Khuwaylid"
             },
             {
               "id": "c",
@@ -12683,7 +12481,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Mujalida bint Amr"
+              "label": "Asma bint Abi Bakr"
             }
           ],
           "correctChoiceId": "c",
@@ -12781,15 +12579,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Zaynab bint Nawfal"
+              "label": "Asma bint Mukharribah"
             },
             {
               "id": "c",
-              "label": "Amrah bint Mas'ud"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "d",
-              "label": "Arwa bint Kurayz"
+              "label": "Halah bint Khuwaylid"
             }
           ],
           "correctChoiceId": "a",
@@ -12885,15 +12683,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hantamah bint Hisham"
+              "label": "Umm al-Khayr"
             },
             {
               "id": "b",
-              "label": "Hind bint Awf"
+              "label": "Uzza bint Sufyan"
             },
             {
               "id": "c",
-              "label": "Khadijah bint Khuwaylid"
+              "label": "Zaynab bint Maz'un"
             },
             {
               "id": "d",
@@ -12993,11 +12791,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umm Sulaym"
+              "label": "Arwa bint Kurayz"
             },
             {
               "id": "b",
-              "label": "Umm al-Khayr"
+              "label": "Asma bint Abi Bakr"
             },
             {
               "id": "c",
@@ -13005,7 +12803,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Umm Ayman"
+              "label": "Amrah bint Mas'ud"
             }
           ],
           "correctChoiceId": "c",
@@ -13127,11 +12925,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Asma bint Abi Bakr"
+              "label": "Halah bint Khuwaylid"
             },
             {
               "id": "b",
-              "label": "Fakhitah bint Zuhayr"
+              "label": "Hamamah"
             },
             {
               "id": "c",
@@ -13139,7 +12937,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Arwa bint Kurayz"
+              "label": "Fatimah az-Zahra"
             }
           ],
           "correctChoiceId": "c",
@@ -13347,15 +13145,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Arwa bint Kurayz"
+              "label": "Amrah bint Mas'ud"
             },
             {
               "id": "b",
-              "label": "Asma bint Abi Bakr"
+              "label": "Arwa bint Kurayz"
             },
             {
               "id": "c",
-              "label": "Fakhitah bint Zuhayr"
+              "label": "Asma bint Abi Bakr"
             },
             {
               "id": "d",
@@ -13455,15 +13253,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umm Ayman"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "b",
-              "label": "Umm Sulaym"
+              "label": "Natilah bint Janab"
             },
             {
               "id": "c",
-              "label": "Umm al-Khayr"
+              "label": "Ramlah"
             },
             {
               "id": "d",
@@ -13563,7 +13361,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Arwa bint Kurayz"
+              "label": "Su'da bint Tha'labah"
             },
             {
               "id": "b",
@@ -13571,11 +13369,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Zaynab bint Nawfal"
+              "label": "Ramlah"
             },
             {
               "id": "d",
-              "label": "Amrah bint Mas'ud"
+              "label": "Safiyyah bint Abd al-Muttalib"
             }
           ],
           "correctChoiceId": "b",
@@ -13671,15 +13469,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Khunas bint Malik"
+              "label": "Suwad bint Rafi"
             },
             {
               "id": "b",
-              "label": "Lubabah as-Sughra bint al-Harith"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Mujalida bint Amr"
+              "label": "Umm Ayman"
             },
             {
               "id": "d",
@@ -13779,11 +13577,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Khunas bint Malik"
+              "label": "Lubabah as-Sughra bint al-Harith"
             },
             {
               "id": "b",
-              "label": "Lubabah as-Sughra bint al-Harith"
+              "label": "Mujalida bint Amr"
             },
             {
               "id": "c",
@@ -13791,7 +13589,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Hind bint Utbah"
+              "label": "Khunas bint Malik"
             }
           ],
           "correctChoiceId": "c",
@@ -13885,11 +13683,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Asma bint Abi Bakr"
+              "label": "Sumayyah bint Khayyat"
             },
             {
               "id": "b",
-              "label": "Fakhitah bint Zuhayr"
+              "label": "Suwad bint Rafi"
             },
             {
               "id": "c",
@@ -13897,7 +13695,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Arwa bint Kurayz"
+              "label": "Su'da bint Tha'labah"
             }
           ],
           "correctChoiceId": "c",
@@ -14183,15 +13981,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Lubabah bint al-Harith"
+              "label": "Suwad bint Rafi"
             },
             {
               "id": "c",
-              "label": "Mujalida bint Amr"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "d",
-              "label": "Nasibah bint Uqbah"
+              "label": "Umm Ayman"
             }
           ],
           "correctChoiceId": "a",
@@ -14287,7 +14085,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ramlah"
+              "label": "Hind bint Awf"
             },
             {
               "id": "b",
@@ -14295,11 +14093,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Nasibah bint Uqbah"
+              "label": "Fatimah bint Asad"
             },
             {
               "id": "d",
-              "label": "Natilah bint Janab"
+              "label": "Hamamah"
             }
           ],
           "correctChoiceId": "b",
@@ -14422,15 +14220,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Mu'tah"
+              "label": "Egypt"
             },
             {
               "id": "b",
-              "label": "Palestine"
+              "label": "Homs"
             },
             {
               "id": "c",
-              "label": "Siffin"
+              "label": "Kufa"
             },
             {
               "id": "d",
@@ -14507,15 +14305,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Halah bint Wuhayb"
+              "label": "Asma bint Mukharribah"
             },
             {
               "id": "c",
-              "label": "Hamamah"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "d",
-              "label": "Hantamah bint Hisham"
+              "label": "Fatimah az-Zahra"
             }
           ],
           "correctChoiceId": "a",
@@ -14611,7 +14409,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Halah bint Khuwaylid"
+              "label": "Natilah bint Janab"
             },
             {
               "id": "b",
@@ -14619,11 +14417,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Asma bint Mukharribah"
+              "label": "Mujalida bint Amr"
             },
             {
               "id": "d",
-              "label": "Fakhitah bint Zuhayr"
+              "label": "Nasibah bint Uqbah"
             }
           ],
           "correctChoiceId": "b",
@@ -14716,15 +14514,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Zaynab bint Nawfal"
+              "label": "Mujalida bint Amr"
             },
             {
               "id": "b",
-              "label": "Amrah bint Mas'ud"
+              "label": "Natilah bint Janab"
             },
             {
               "id": "c",
-              "label": "Arwa bint Kurayz"
+              "label": "Ramlah"
             },
             {
               "id": "d",
@@ -15200,15 +14998,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Palestine"
+              "label": "Ta'if"
             },
             {
               "id": "c",
-              "label": "Siffin"
+              "label": "Amwas"
             },
             {
               "id": "d",
-              "label": "Syria"
+              "label": "Badr"
             }
           ],
           "correctChoiceId": "a",
@@ -15281,15 +15079,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Safiyyah bint Abd al-Muttalib"
+              "label": "Umm Ayman"
             },
             {
               "id": "c",
-              "label": "Su'da bint Tha'labah"
+              "label": "Umm Sulaym"
             },
             {
               "id": "d",
-              "label": "Sumayyah bint Khayyat"
+              "label": "Umm al-Khayr"
             }
           ],
           "correctChoiceId": "a",
@@ -15600,7 +15398,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Makkah"
+              "label": "Basra"
             },
             {
               "id": "b",
@@ -15608,11 +15406,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Karbala"
+              "label": "Amwas"
             },
             {
               "id": "d",
-              "label": "Kufa"
+              "label": "Badr"
             }
           ],
           "correctChoiceId": "b",
@@ -15683,11 +15481,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fakhitah bint Zuhayr"
+              "label": "Fatimah az-Zahra"
             },
             {
               "id": "b",
-              "label": "Fatimah az-Zahra"
+              "label": "Halah bint Khuwaylid"
             },
             {
               "id": "c",
@@ -15695,7 +15493,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Asma bint Mukharribah"
+              "label": "Fakhitah bint Zuhayr"
             }
           ],
           "correctChoiceId": "c",
@@ -15795,15 +15593,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Umaymah bint Ghanm"
+              "label": "Hind bint Utbah"
             },
             {
               "id": "c",
-              "label": "Umm Ayman"
+              "label": "Khadijah bint Khuwaylid"
             },
             {
               "id": "d",
-              "label": "Umm Sulaym"
+              "label": "Lubabah as-Sughra bint al-Harith"
             }
           ],
           "correctChoiceId": "a",
@@ -15901,15 +15699,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Asma bint Mukharribah"
+              "label": "Safiyyah bint Abd al-Muttalib"
             },
             {
               "id": "c",
-              "label": "Fakhitah bint Zuhayr"
+              "label": "Su'da bint Tha'labah"
             },
             {
               "id": "d",
-              "label": "Halah bint Khuwaylid"
+              "label": "Sumayyah bint Khayyat"
             }
           ],
           "correctChoiceId": "a",
@@ -16005,7 +15803,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Uzza bint Sufyan"
+              "label": "Lubabah as-Sughra bint al-Harith"
             },
             {
               "id": "b",
@@ -16013,11 +15811,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Umm Sulaym"
+              "label": "Hind bint Utbah"
             },
             {
               "id": "d",
-              "label": "Umm al-Khayr"
+              "label": "Khunas bint Malik"
             }
           ],
           "correctChoiceId": "b",
@@ -16113,7 +15911,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Fakhitah bint Zuhayr"
+              "label": "Sumayyah bint Khayyat"
             },
             {
               "id": "b",
@@ -16121,11 +15919,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Arwa bint Kurayz"
+              "label": "Safiyyah bint Abd al-Muttalib"
             },
             {
               "id": "d",
-              "label": "Asma bint Abi Bakr"
+              "label": "Su'da bint Tha'labah"
             }
           ],
           "correctChoiceId": "b",
@@ -16248,11 +16046,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Egypt"
+              "label": "Basra"
             },
             {
               "id": "b",
-              "label": "Homs"
+              "label": "Damascus"
             },
             {
               "id": "c",
@@ -16260,7 +16058,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Damascus"
+              "label": "Badr"
             }
           ],
           "correctChoiceId": "c",
@@ -16407,11 +16205,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Mu'tah"
+              "label": "Mount Uhud"
             },
             {
               "id": "b",
-              "label": "Palestine"
+              "label": "Mu'tah"
             },
             {
               "id": "c",
@@ -16419,7 +16217,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Mount Uhud"
+              "label": "Makkah"
             }
           ],
           "correctChoiceId": "c",
@@ -16490,15 +16288,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Damascus"
+              "label": "Ta'if"
             },
             {
               "id": "c",
-              "label": "Egypt"
+              "label": "Amwas"
             },
             {
               "id": "d",
-              "label": "Homs"
+              "label": "Badr"
             }
           ],
           "correctChoiceId": "a",
@@ -16567,7 +16365,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Nasibah bint Uqbah"
+              "label": "Ramlah"
             },
             {
               "id": "b",
@@ -16575,11 +16373,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Lubabah bint al-Harith"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "d",
-              "label": "Mujalida bint Amr"
+              "label": "Natilah bint Janab"
             }
           ],
           "correctChoiceId": "b",
@@ -16785,15 +16583,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Homs"
+              "label": "Badr"
             },
             {
               "id": "c",
-              "label": "Karbala"
+              "label": "Basra"
             },
             {
               "id": "d",
-              "label": "Kufa"
+              "label": "Damascus"
             }
           ],
           "correctChoiceId": "a",
@@ -16885,10 +16683,9 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "nodeId": "notes-sahabah-companions-from-your-notes-7-thalabah",
       "branchId": "notes-sahabah-companions-from-your-notes-7",
       "title": "Tha'labah ibn Hatib",
-      "intro": "Badr veteran blamed in a popular story about refusing zakat (Q 9:75).",
-      "explanationContent": "Badr veteran blamed in a popular story about refusing zakat (Q 9:75).",
-      "keyTakeaway": "Tha'labah ibn Hatib: Badr veteran blamed in a popular story about refusing zakat (Q 9:75).",
-      "learnLine": "He fought at Badr; a well-known story about zakat names him.",
+      "intro": "He was one of the companions who fought at Badr.",
+      "explanationContent": "He was one of the companions who fought at Badr.",
+      "learnLine": "He was one of the companions who fought at Badr.",
       "lessonType": "story",
       "difficulty": 1,
       "xpReward": 10,
@@ -16911,7 +16708,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "He fought at Badr; a well-known story about zakat names him."
+              "label": "He was one of the companions who fought at Badr."
             },
             {
               "id": "c",
@@ -16923,14 +16720,14 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Tha'labah ibn Hatib fought at Badr; a well-known story about zakat names him.",
+          "explanation": "Tha'labah ibn Hatib was one of the companions who fought at Badr.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-7-thalabah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-7-thalabah"
         },
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-7-thalabah_q2",
           "type": "true_false",
-          "prompt": "Tha'labah ibn Hatib fought at Badr; a well-known story about zakat names him.",
+          "prompt": "Tha'labah ibn Hatib was one of the companions who fought at Badr.",
           "choices": [
             {
               "id": "true",
@@ -16942,7 +16739,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "true",
-          "explanation": "Tha'labah ibn Hatib fought at Badr; a well-known story about zakat names him.",
+          "explanation": "Tha'labah ibn Hatib was one of the companions who fought at Badr.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-7-thalabah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-7-thalabah"
         }
@@ -17141,8 +16938,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was the second caliph, called al-Faruq.",
       "learnFacts": [
         "Father: Al-Khattab ibn Nufayl",
-        "Mother: Hantamah bint Hisham",
-        "Tribe: Quraysh"
+        "Tribe: Quraysh",
+        "Clan: Banu Adi"
       ],
       "lessonType": "story",
       "difficulty": 2,
@@ -17185,54 +16982,54 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-7-umar-ibn-al-khattab_q2",
           "type": "multiple_choice",
-          "prompt": "Who was the mother of Umar ibn al-Khattab?",
+          "prompt": "Which tribe was Umar ibn al-Khattab from?",
           "choices": [
             {
               "id": "a",
-              "label": "Hantamah bint Hisham"
+              "label": "Quraysh"
             },
             {
               "id": "b",
-              "label": "Khadijah bint Khuwaylid"
+              "label": "Bali"
             },
             {
               "id": "c",
-              "label": "Khunas bint Malik"
+              "label": "Ghifar"
             },
             {
               "id": "d",
-              "label": "Lubabah as-Sughra bint al-Harith"
+              "label": "Hudhayl"
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The mother of Umar ibn al-Khattab was Hantamah bint Hisham.",
+          "explanation": "Umar ibn al-Khattab was from Quraysh.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-7-umar-ibn-al-khattab",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-7-umar-ibn-al-khattab"
         },
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-7-umar-ibn-al-khattab_q3",
           "type": "multiple_choice",
-          "prompt": "Which tribe was Umar ibn al-Khattab from?",
+          "prompt": "Which clan did Umar ibn al-Khattab belong to?",
           "choices": [
             {
               "id": "a",
-              "label": "Hudhayl"
+              "label": "Banu Amr ibn Awf"
             },
             {
               "id": "b",
-              "label": "Quraysh"
+              "label": "Banu Adi"
             },
             {
               "id": "c",
-              "label": "Bali"
+              "label": "Banu Abd Shams"
             },
             {
               "id": "d",
-              "label": "Ghifar"
+              "label": "Banu Abd ad-Dar"
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Umar ibn al-Khattab was from Quraysh.",
+          "explanation": "Umar ibn al-Khattab belonged to Banu Adi.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-7-umar-ibn-al-khattab",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-7-umar-ibn-al-khattab"
         }
@@ -17372,11 +17169,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "b",
-              "label": "Umm Ayman"
+              "label": "Fatimah az-Zahra"
             },
             {
               "id": "c",
@@ -17384,7 +17181,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Suwad bint Rafi"
+              "label": "Asma bint Mukharribah"
             }
           ],
           "correctChoiceId": "c",
@@ -17692,7 +17489,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Natilah bint Janab"
+              "label": "Halah bint Khuwaylid"
             },
             {
               "id": "b",
@@ -17700,11 +17497,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Mujalida bint Amr"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "d",
-              "label": "Nasibah bint Uqbah"
+              "label": "Fatimah az-Zahra"
             }
           ],
           "correctChoiceId": "b",
@@ -17825,7 +17622,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Amwas"
+              "label": "Makkah"
             },
             {
               "id": "b",
@@ -17833,11 +17630,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Syria"
+              "label": "Homs"
             },
             {
               "id": "d",
-              "label": "Ta'if"
+              "label": "Kufa"
             }
           ],
           "correctChoiceId": "b",
@@ -17910,15 +17707,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Fakhitah bint Zuhayr"
+              "label": "Sumayyah bint Khayyat"
             },
             {
               "id": "c",
-              "label": "Fatimah az-Zahra"
+              "label": "Suwad bint Rafi"
             },
             {
               "id": "d",
-              "label": "Halah bint Khuwaylid"
+              "label": "Umaymah bint Abd al-Muttalib"
             }
           ],
           "correctChoiceId": "a",
@@ -18152,7 +17949,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Lubabah as-Sughra bint al-Harith"
+              "label": "Umm Sulaym"
             },
             {
               "id": "b",
@@ -18160,11 +17957,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Khadijah bint Khuwaylid"
+              "label": "Umaymah bint Ghanm"
             },
             {
               "id": "d",
-              "label": "Khunas bint Malik"
+              "label": "Umm Ayman"
             }
           ],
           "correctChoiceId": "b",
@@ -18264,15 +18061,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Khadijah bint Khuwaylid"
+              "label": "Asma bint Abi Bakr"
             },
             {
               "id": "c",
-              "label": "Khunas bint Malik"
+              "label": "Fakhitah bint Zuhayr"
             },
             {
               "id": "d",
-              "label": "Lubabah as-Sughra bint al-Harith"
+              "label": "Fatimah az-Zahra"
             }
           ],
           "correctChoiceId": "a",
@@ -18476,11 +18273,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umm Ayman"
+              "label": "Hamamah"
             },
             {
               "id": "b",
-              "label": "Umm Sulaym"
+              "label": "Hind bint Awf"
             },
             {
               "id": "c",
@@ -18488,7 +18285,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Halah bint Wuhayb"
             }
           ],
           "correctChoiceId": "c",
@@ -18584,7 +18381,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Khunas bint Malik"
+              "label": "Umm al-Khayr"
             },
             {
               "id": "b",
@@ -18592,11 +18389,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Hind bint Awf"
+              "label": "Umm Ayman"
             },
             {
               "id": "d",
-              "label": "Khadijah bint Khuwaylid"
+              "label": "Umm Sulaym"
             }
           ],
           "correctChoiceId": "b",
@@ -18692,11 +18489,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Umm Ayman"
+              "label": "Suwad bint Rafi"
             },
             {
               "id": "b",
-              "label": "Umm Sulaym"
+              "label": "Umaymah bint Abd al-Muttalib"
             },
             {
               "id": "c",
@@ -18704,7 +18501,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Umaymah bint Abd al-Muttalib"
+              "label": "Sumayyah bint Khayyat"
             }
           ],
           "correctChoiceId": "c",
@@ -18851,15 +18648,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Zam'ah ibn Qays"
+              "label": "Samaw'al ibn Adiya"
             },
             {
               "id": "b",
-              "label": "Abd al-Muttalib"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "c",
-              "label": "Abu Sufyan ibn Harb"
+              "label": "Wahb ibn Abd Manaf"
             },
             {
               "id": "d",
@@ -18905,7 +18702,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Taghlib"
+              "label": "Banu Hilal"
             },
             {
               "id": "b",
@@ -18913,96 +18710,17 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Banu Qurayza"
+              "label": "Banu Sa'd ibn Bakr"
             },
             {
               "id": "d",
-              "label": "Banu Sa'd ibn Bakr"
+              "label": "Banu Hanifa"
             }
           ],
           "correctChoiceId": "b",
           "explanation": "Aishah bint Abi Bakr was from Quraysh.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aisha-bint-abu-bakr",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aisha-bint-abu-bakr"
-        }
-      ]
-    },
-    "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah": {
-      "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah",
-      "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah",
-      "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
-      "title": "As-Sahba' at-Taghlibiyyah",
-      "intro": "Wife of Ali ibn Abi Talib.",
-      "explanationContent": "Wife of Ali ibn Abi Talib. Tribe: Banu Taghlib.",
-      "keyTakeaway": "As-Sahba' at-Taghlibiyyah: Wife of Ali ibn Abi Talib.",
-      "learnLine": "She was a wife of Ali ibn Abi Talib.",
-      "learnFacts": [
-        "Tribe: Banu Taghlib"
-      ],
-      "lessonType": "story",
-      "difficulty": 1,
-      "xpReward": 10,
-      "sources": [],
-      "sourceReferences": [],
-      "unlockRules": [
-        "Complete Aishah bint Abi Bakr"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah_q1",
-          "type": "multiple_choice",
-          "prompt": "What is As-Sahba' at-Taghlibiyyah known for?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "She was a wife of Ali ibn Abi Talib."
-            },
-            {
-              "id": "b",
-              "label": "She married the Prophet ﷺ, and her people were set free."
-            },
-            {
-              "id": "c",
-              "label": "She nursed the Prophet ﷺ as a baby in the desert."
-            },
-            {
-              "id": "d",
-              "label": "She owned Khabbab in Makkah and hurt him for his Islam."
-            }
-          ],
-          "correctChoiceId": "a",
-          "explanation": "As-Sahba' at-Taghlibiyyah was a wife of Ali ibn Abi Talib.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah"
-        },
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah_q2",
-          "type": "multiple_choice",
-          "prompt": "Which tribe was As-Sahba' at-Taghlibiyyah from?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Banu Hilal"
-            },
-            {
-              "id": "b",
-              "label": "Banu Kilab"
-            },
-            {
-              "id": "c",
-              "label": "Banu Mustaliq"
-            },
-            {
-              "id": "d",
-              "label": "Banu Taghlib"
-            }
-          ],
-          "correctChoiceId": "d",
-          "explanation": "As-Sahba' at-Taghlibiyyah was from Banu Taghlib.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-al-sahba-al-taghlibiyyah"
         }
       ]
     },
@@ -19021,8 +18739,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "Tribe: Quraysh"
       ],
       "lessonType": "story",
-      "difficulty": 2,
-      "xpReward": 12,
+      "difficulty": 1,
+      "xpReward": 10,
       "sources": [
         {
           "id": "lesson_notes_women_of_the_book_mothers_of_the_believers_from_your_notes_1_aminah_bint_wahb_src_1",
@@ -19072,7 +18790,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ],
       "unlockRules": [
-        "Complete As-Sahba' at-Taghlibiyyah"
+        "Complete Aishah bint Abi Bakr"
       ],
       "masteryState": "learning",
       "masteryTestEligible": false,
@@ -19084,11 +18802,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Bakr as-Siddiq"
+              "label": "Imran"
             },
             {
               "id": "b",
-              "label": "Abu Sufyan ibn Harb"
+              "label": "Ja'far ibn Qays"
             },
             {
               "id": "c",
@@ -19096,7 +18814,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Abd al-Muttalib"
+              "label": "Huyayy ibn Akhtab"
             }
           ],
           "correctChoiceId": "c",
@@ -19146,15 +18864,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Thaqif"
+              "label": "Banu Kilab"
             },
             {
               "id": "c",
-              "label": "Banu Hanifa"
+              "label": "Banu Mustaliq"
             },
             {
               "id": "d",
-              "label": "Banu Hilal"
+              "label": "Banu Nadir"
             }
           ],
           "correctChoiceId": "a",
@@ -19197,15 +18915,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ali ibn Abi Talib"
+              "label": "Abu Bakr as-Siddiq"
             },
             {
               "id": "b",
-              "label": "Harb ibn Umayyah"
+              "label": "Abu Sufyan ibn Harb"
             },
             {
               "id": "c",
-              "label": "Hizam ibn Khalid"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "d",
@@ -19228,15 +18946,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Banu Kilab"
+              "label": "Banu Hanifa"
             },
             {
               "id": "c",
-              "label": "Banu Mustaliq"
+              "label": "Banu Hilal"
             },
             {
               "id": "d",
-              "label": "Banu Nadir"
+              "label": "Banu Kilab"
             }
           ],
           "correctChoiceId": "a",
@@ -19273,11 +18991,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "She was the last woman the Prophet ﷺ married."
+              "label": "From the Prophet's ﷺ family, she taught hadith in Egypt."
             },
             {
               "id": "b",
-              "label": "She was the mother of Safiyyah bint Huyayy."
+              "label": "She is the only woman named in the Quran."
             },
             {
               "id": "c",
@@ -19285,7 +19003,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "She was the Prophet's ﷺ wife, daughter of a Banu Nadir chief."
+              "label": "She was the second wife of the Prophet ﷺ."
             }
           ],
           "correctChoiceId": "c",
@@ -19412,15 +19130,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Banu Hilal"
+              "label": "Banu Hanifa"
             },
             {
               "id": "c",
-              "label": "Banu Kilab"
+              "label": "Banu Hilal"
             },
             {
               "id": "d",
-              "label": "Banu Mustaliq"
+              "label": "Banu Kilab"
             }
           ],
           "correctChoiceId": "a",
@@ -19460,15 +19178,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "She nursed the Prophet ﷺ as a baby in the desert."
+              "label": "From the Prophet's ﷺ family, she taught hadith in Egypt."
             },
             {
               "id": "b",
-              "label": "She owned Khabbab in Makkah and hurt him for his Islam."
+              "label": "She gave Maryam to Allah's service before Maryam was born."
             },
             {
               "id": "c",
-              "label": "She spoke out in Yazid's court after Karbala."
+              "label": "She is the only woman named in the Quran."
             },
             {
               "id": "d",
@@ -19539,15 +19257,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "From the Prophet's ﷺ family, she taught hadith in Egypt."
+              "label": "She was called the Mother of the Poor."
             },
             {
               "id": "b",
-              "label": "She gave Maryam to Allah's service before Maryam was born."
+              "label": "She was the Prophet's ﷺ cousin and wife."
             },
             {
               "id": "c",
-              "label": "She is the only woman named in the Quran."
+              "label": "She was the last woman the Prophet ﷺ married."
             },
             {
               "id": "d",
@@ -19570,15 +19288,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Banu Taghlib"
+              "label": "Banu Hanifa"
             },
             {
               "id": "c",
-              "label": "Banu Tamim"
+              "label": "Banu Hilal"
             },
             {
               "id": "d",
-              "label": "Banu Hanifa"
+              "label": "Banu Kilab"
             }
           ],
           "correctChoiceId": "a",
@@ -19620,15 +19338,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Wahb ibn Abd Manaf"
+              "label": "Jahsh ibn Riyab"
             },
             {
               "id": "b",
-              "label": "Zam'ah ibn Qays"
+              "label": "Khuwaylid ibn Asad"
             },
             {
               "id": "c",
-              "label": "Abd al-Muttalib"
+              "label": "Samaw'al ibn Adiya"
             },
             {
               "id": "d",
@@ -19651,7 +19369,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Banu Taghlib"
+              "label": "Banu Hanifa"
             },
             {
               "id": "c",
@@ -19756,15 +19474,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Harb ibn Umayyah"
+              "label": "Zam'ah ibn Qays"
             },
             {
               "id": "c",
-              "label": "Hizam ibn Khalid"
+              "label": "Abd al-Muttalib"
             },
             {
               "id": "d",
-              "label": "Huyayy ibn Akhtab"
+              "label": "Abu Bakr as-Siddiq"
             }
           ],
           "correctChoiceId": "a",
@@ -19810,11 +19528,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Sa'd ibn Bakr"
+              "label": "Banu Kilab"
             },
             {
               "id": "b",
-              "label": "Banu Taghlib"
+              "label": "Banu Mustaliq"
             },
             {
               "id": "c",
@@ -19822,7 +19540,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Banu Qurayza"
+              "label": "Banu Hilal"
             }
           ],
           "correctChoiceId": "c",
@@ -19864,11 +19582,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Harb ibn Umayyah"
+              "label": "Imran"
             },
             {
               "id": "b",
-              "label": "Hizam ibn Khalid"
+              "label": "Jahsh ibn Riyab"
             },
             {
               "id": "c",
@@ -19876,7 +19594,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Ali ibn Abi Talib"
+              "label": "Huyayy ibn Akhtab"
             }
           ],
           "correctChoiceId": "c",
@@ -19922,100 +19640,21 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Banu Taghlib"
+              "label": "Banu Hilal"
             },
             {
               "id": "c",
-              "label": "Banu Tamim"
+              "label": "Banu Kilab"
             },
             {
               "id": "d",
-              "label": "Banu Hilal"
+              "label": "Banu Mustaliq"
             }
           ],
           "correctChoiceId": "a",
           "explanation": "Khawlah bint Ja'far al-Hanifiyyah was from Banu Hanifa.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-khawlah-bint-jafar-al-hanifiyyah"
-        }
-      ]
-    },
-    "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah": {
-      "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah",
-      "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah",
-      "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2",
-      "title": "Layla bint Mas'ud at-Tamimiyyah",
-      "intro": "Wife of Ali ibn Abi Talib.",
-      "explanationContent": "Wife of Ali ibn Abi Talib. Tribe: Banu Tamim.",
-      "keyTakeaway": "Layla bint Mas'ud at-Tamimiyyah: Wife of Ali ibn Abi Talib.",
-      "learnLine": "She was a wife of Ali ibn Abi Talib.",
-      "learnFacts": [
-        "Tribe: Banu Tamim"
-      ],
-      "lessonType": "story",
-      "difficulty": 1,
-      "xpReward": 10,
-      "sources": [],
-      "sourceReferences": [],
-      "unlockRules": [
-        "Complete Khawlah bint Ja'far al-Hanifiyyah"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah_q1",
-          "type": "multiple_choice",
-          "prompt": "What is Layla bint Mas'ud at-Tamimiyyah known for?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "She was Ismail's mother and ran between Safa and Marwah."
-            },
-            {
-              "id": "b",
-              "label": "She was a wife of Ali ibn Abi Talib."
-            },
-            {
-              "id": "c",
-              "label": "She owned Khabbab in Makkah and hurt him for his Islam."
-            },
-            {
-              "id": "d",
-              "label": "She spoke out in Yazid's court after Karbala."
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Layla bint Mas'ud at-Tamimiyyah was a wife of Ali ibn Abi Talib.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah"
-        },
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah_q2",
-          "type": "multiple_choice",
-          "prompt": "Which tribe was Layla bint Mas'ud at-Tamimiyyah from?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Banu Tamim"
-            },
-            {
-              "id": "b",
-              "label": "Banu Qurayza"
-            },
-            {
-              "id": "c",
-              "label": "Banu Sa'd ibn Bakr"
-            },
-            {
-              "id": "d",
-              "label": "Banu Taghlib"
-            }
-          ],
-          "correctChoiceId": "a",
-          "explanation": "Layla bint Mas'ud at-Tamimiyyah was from Banu Tamim.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-2-layla-bint-masud-al-tamimiyyah"
         }
       ]
     },
@@ -20033,12 +19672,12 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "Mother: Wife of Imran"
       ],
       "lessonType": "story",
-      "difficulty": 2,
-      "xpReward": 12,
+      "difficulty": 1,
+      "xpReward": 10,
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
-        "Complete Layla bint Mas'ud at-Tamimiyyah"
+        "Complete Khawlah bint Ja'far al-Hanifiyyah"
       ],
       "masteryState": "learning",
       "masteryTestEligible": false,
@@ -20050,7 +19689,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Jahsh ibn Riyab"
+              "label": "Khuwaylid ibn Asad"
             },
             {
               "id": "b",
@@ -20058,11 +19697,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Huyayy ibn Akhtab"
+              "label": "Ja'far ibn Qays"
             },
             {
               "id": "d",
-              "label": "Ja'far ibn Qays"
+              "label": "Jahsh ibn Riyab"
             }
           ],
           "correctChoiceId": "b",
@@ -20131,15 +19770,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Bakr as-Siddiq"
+              "label": "Khuwaylid ibn Asad"
             },
             {
               "id": "b",
-              "label": "Abu Sufyan ibn Harb"
+              "label": "Samaw'al ibn Adiya"
             },
             {
               "id": "c",
-              "label": "Abu Umayyah ibn al-Mughirah"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "d",
@@ -20185,7 +19824,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Kilab"
+              "label": "Banu Nadir"
             },
             {
               "id": "b",
@@ -20193,11 +19832,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Banu Tamim"
+              "label": "Banu Kilab"
             },
             {
               "id": "d",
-              "label": "Banu Hanifa"
+              "label": "Banu Mustaliq"
             }
           ],
           "correctChoiceId": "b",
@@ -20222,8 +19861,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "Tribe: Banu Nadir"
       ],
       "lessonType": "story",
-      "difficulty": 3,
-      "xpReward": 14,
+      "difficulty": 2,
+      "xpReward": 12,
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
@@ -20239,11 +19878,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Harb ibn Umayyah"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "b",
-              "label": "Hizam ibn Khalid"
+              "label": "Wahb ibn Abd Manaf"
             },
             {
               "id": "c",
@@ -20251,7 +19890,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Ali ibn Abi Talib"
+              "label": "Samaw'al ibn Adiya"
             }
           ],
           "correctChoiceId": "c",
@@ -20305,7 +19944,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Banu Taghlib"
+              "label": "Banu Hanifa"
             }
           ],
           "correctChoiceId": "a",
@@ -20342,15 +19981,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "She spoke out in Yazid's court after Karbala."
+              "label": "She gave Maryam to Allah's service before Maryam was born."
             },
             {
               "id": "b",
-              "label": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah."
+              "label": "She is the only woman named in the Quran."
             },
             {
               "id": "c",
-              "label": "She was the last woman the Prophet ﷺ married."
+              "label": "She married the Prophet ﷺ, and her people were set free."
             },
             {
               "id": "d",
@@ -20369,11 +20008,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Maryam"
+              "label": "Juwayriyah bint al-Harith"
             },
             {
               "id": "b",
-              "label": "Sayyidah Nafisah"
+              "label": "Maryam"
             },
             {
               "id": "c",
@@ -20381,7 +20020,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Juwayriyah bint al-Harith"
+              "label": "Halimah as-Sa'diyyah"
             }
           ],
           "correctChoiceId": "c",
@@ -20427,15 +20066,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Huyayy ibn Akhtab"
-            },
-            {
-              "id": "c",
               "label": "Imran"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "Jahsh ibn Riyab"
+            },
+            {
+              "id": "d",
+              "label": "Khuwaylid ibn Asad"
             }
           ],
           "correctChoiceId": "a",
@@ -20477,11 +20116,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Sa'd ibn Bakr"
+              "label": "Banu Hilal"
             },
             {
               "id": "b",
-              "label": "Banu Taghlib"
+              "label": "Banu Kilab"
             },
             {
               "id": "c",
@@ -20489,7 +20128,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Banu Qurayza"
+              "label": "Banu Hanifa"
             }
           ],
           "correctChoiceId": "c",
@@ -20531,7 +20170,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Hizam ibn Khalid"
+              "label": "Abu Sufyan ibn Harb"
             },
             {
               "id": "b",
@@ -20539,11 +20178,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Ali ibn Abi Talib"
+              "label": "Abd al-Muttalib"
             },
             {
               "id": "d",
-              "label": "Harb ibn Umayyah"
+              "label": "Abu Bakr as-Siddiq"
             }
           ],
           "correctChoiceId": "b",
@@ -20585,15 +20224,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Khuza'a"
+              "label": "Banu Kilab"
             },
             {
               "id": "b",
-              "label": "Thaqif"
+              "label": "Banu Mustaliq"
             },
             {
               "id": "c",
-              "label": "Banu Hanifa"
+              "label": "Banu Nadir"
             },
             {
               "id": "d",
@@ -20639,7 +20278,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Umayyah ibn al-Mughirah"
+              "label": "Samaw'al ibn Adiya"
             },
             {
               "id": "b",
@@ -20647,11 +20286,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Abu Bakr as-Siddiq"
+              "label": "Khuwaylid ibn Asad"
             },
             {
               "id": "d",
-              "label": "Abu Sufyan ibn Harb"
+              "label": "Khuzaymah ibn al-Harith"
             }
           ],
           "correctChoiceId": "b",
@@ -20693,15 +20332,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Qurayza"
+              "label": "Banu Mustaliq"
             },
             {
               "id": "b",
-              "label": "Banu Sa'd ibn Bakr"
+              "label": "Banu Nadir"
             },
             {
               "id": "c",
-              "label": "Banu Taghlib"
+              "label": "Banu Qurayza"
             },
             {
               "id": "d",
@@ -20745,15 +20384,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Ali ibn Abi Talib"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "b",
-              "label": "Harb ibn Umayyah"
+              "label": "Wahb ibn Abd Manaf"
             },
             {
               "id": "c",
-              "label": "Huyayy ibn Akhtab"
+              "label": "Zam'ah ibn Qays"
             },
             {
               "id": "d",
@@ -20799,7 +20438,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Hilal"
+              "label": "Banu Sa'd ibn Bakr"
             },
             {
               "id": "b",
@@ -20807,11 +20446,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Banu Tamim"
+              "label": "Banu Nadir"
             },
             {
               "id": "d",
-              "label": "Banu Hanifa"
+              "label": "Banu Qurayza"
             }
           ],
           "correctChoiceId": "b",
@@ -20853,11 +20492,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Khuwaylid ibn Asad"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "b",
-              "label": "Khuzaymah ibn al-Harith"
+              "label": "Wahb ibn Abd Manaf"
             },
             {
               "id": "c",
@@ -20865,7 +20504,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Jahsh ibn Riyab"
+              "label": "Samaw'al ibn Adiya"
             }
           ],
           "correctChoiceId": "c",
@@ -20911,15 +20550,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Banu Tamim"
+              "label": "Banu Kilab"
             },
             {
               "id": "c",
-              "label": "Khuza'a"
+              "label": "Banu Mustaliq"
             },
             {
               "id": "d",
-              "label": "Thaqif"
+              "label": "Banu Nadir"
             }
           ],
           "correctChoiceId": "a",
@@ -20960,7 +20599,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Umayyah ibn al-Mughirah"
+              "label": "Zam'ah ibn Qays"
             },
             {
               "id": "b",
@@ -20968,11 +20607,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Abu Bakr as-Siddiq"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "d",
-              "label": "Abu Sufyan ibn Harb"
+              "label": "Wahb ibn Abd Manaf"
             }
           ],
           "correctChoiceId": "b",
@@ -21036,86 +20675,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         }
       ]
     },
-    "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah": {
-      "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah",
-      "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah",
-      "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3",
-      "title": "Umm Sa'id bint Urwah ath-Thaqafiyyah",
-      "intro": "Wife of Ali ibn Abi Talib.",
-      "explanationContent": "Wife of Ali ibn Abi Talib. Tribe: Thaqif. Father: Urwah ibn Mas'ud ath-Thaqafi.",
-      "keyTakeaway": "Umm Sa'id bint Urwah ath-Thaqafiyyah: Wife of Ali ibn Abi Talib.",
-      "learnLine": "She was a wife of Ali ibn Abi Talib.",
-      "learnFacts": [
-        "Father: Urwah ibn Mas'ud ath-Thaqafi",
-        "Tribe: Thaqif"
-      ],
-      "lessonType": "story",
-      "difficulty": 2,
-      "xpReward": 12,
-      "sources": [],
-      "sourceReferences": [],
-      "unlockRules": [
-        "Complete Umm Kulthum bint Ali"
-      ],
-      "masteryState": "learning",
-      "masteryTestEligible": false,
-      "challenges": [
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah_q1",
-          "type": "multiple_choice",
-          "prompt": "Who was the father of Umm Sa'id bint Urwah ath-Thaqafiyyah?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Jahsh ibn Riyab"
-            },
-            {
-              "id": "b",
-              "label": "Khuwaylid ibn Asad"
-            },
-            {
-              "id": "c",
-              "label": "Urwah ibn Mas'ud ath-Thaqafi"
-            },
-            {
-              "id": "d",
-              "label": "Ja'far ibn Qays"
-            }
-          ],
-          "correctChoiceId": "c",
-          "explanation": "The father of Umm Sa'id bint Urwah ath-Thaqafiyyah was Urwah ibn Mas'ud ath-Thaqafi.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah"
-        },
-        {
-          "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah_q2",
-          "type": "multiple_choice",
-          "prompt": "Which tribe was Umm Sa'id bint Urwah ath-Thaqafiyyah from?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Banu Tamim"
-            },
-            {
-              "id": "b",
-              "label": "Thaqif"
-            },
-            {
-              "id": "c",
-              "label": "Banu Sa'd ibn Bakr"
-            },
-            {
-              "id": "d",
-              "label": "Banu Taghlib"
-            }
-          ],
-          "correctChoiceId": "b",
-          "explanation": "Umm Sa'id bint Urwah ath-Thaqafiyyah was from Thaqif.",
-          "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-said-bint-urwah-al-thaqafiyyah"
-        }
-      ]
-    },
     "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet": {
       "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet",
       "nodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3-umm-salamah-wife-of-the-prophet",
@@ -21136,7 +20695,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
-        "Complete Umm Sa'id bint Urwah ath-Thaqafiyyah"
+        "Complete Umm Kulthum bint Ali"
       ],
       "masteryState": "learning",
       "masteryTestEligible": false,
@@ -21148,15 +20707,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Jahsh ibn Riyab"
+              "label": "Samaw'al ibn Adiya"
             },
             {
               "id": "b",
-              "label": "Khuwaylid ibn Asad"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "c",
-              "label": "Khuzaymah ibn al-Harith"
+              "label": "Wahb ibn Abd Manaf"
             },
             {
               "id": "d",
@@ -21202,7 +20761,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Qurayza"
+              "label": "Banu Kilab"
             },
             {
               "id": "b",
@@ -21210,11 +20769,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Banu Mustaliq"
+              "label": "Banu Hanifa"
             },
             {
               "id": "d",
-              "label": "Banu Nadir"
+              "label": "Banu Hilal"
             }
           ],
           "correctChoiceId": "b",
@@ -21239,8 +20798,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "Born in Madinah"
       ],
       "lessonType": "story",
-      "difficulty": 4,
-      "xpReward": 16,
+      "difficulty": 3,
+      "xpReward": 14,
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
@@ -21256,15 +20815,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abd al-Muttalib"
             },
             {
               "id": "b",
-              "label": "Umar ibn al-Khattab"
+              "label": "Abu Bakr as-Siddiq"
             },
             {
               "id": "c",
-              "label": "Urwah ibn Mas'ud ath-Thaqafi"
+              "label": "Abu Sufyan ibn Harb"
             },
             {
               "id": "d",
@@ -21364,7 +20923,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Imran"
+              "label": "Khuzaymah ibn al-Harith"
             },
             {
               "id": "b",
@@ -21372,11 +20931,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Hizam ibn Khalid"
+              "label": "Ja'far ibn Qays"
             },
             {
               "id": "d",
-              "label": "Huyayy ibn Akhtab"
+              "label": "Khuwaylid ibn Asad"
             }
           ],
           "correctChoiceId": "b",
@@ -21418,15 +20977,15 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Banu Kilab"
+              "label": "Banu Qurayza"
             },
             {
               "id": "b",
-              "label": "Banu Mustaliq"
+              "label": "Banu Sa'd ibn Bakr"
             },
             {
               "id": "c",
-              "label": "Banu Nadir"
+              "label": "Banu Hanifa"
             },
             {
               "id": "d",
@@ -21471,7 +21030,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Abu Bakr as-Siddiq"
+              "label": "Umar ibn al-Khattab"
             },
             {
               "id": "b",
@@ -21479,11 +21038,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Zam'ah ibn Qays"
+              "label": "Khuwaylid ibn Asad"
             },
             {
               "id": "d",
-              "label": "Abd al-Muttalib"
+              "label": "Samaw'al ibn Adiya"
             }
           ],
           "correctChoiceId": "b",
@@ -21526,11 +21085,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Al-Fatihah",
       "intro": "Surah Al-Fatihah means \"The Opening\".",
-      "explanationContent": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.\n1:1 In the name of Allah, the Beneficent, the Merciful.\n1:2 Praise be to Allah, Lord of the Worlds,\n1:3 The Beneficent, the Merciful.\n1:4 Master of the Day of Judgment,\n1:6 Show us the straight path,",
+      "explanationContent": "Surah Al-Fatihah means \"The Opening\". It has 7 ayahs.\n1:1 In the name of Allah, the Beneficent, the Merciful.\n1:2 Praise be to Allah, Lord of the Worlds,\n1:3 The Beneficent, the Merciful.\n1:4 Master of the Day of Judgment,\n1:6 Show us the straight path,",
       "learnLine": "Surah Al-Fatihah means \"The Opening\".",
       "learnFacts": [
-        "7 ayahs",
-        "Revealed in Makkah"
+        "7 ayahs"
       ],
       "quote": {
         "text": "In the name of Allah, the Beneficent, the Merciful.",
@@ -21603,7 +21161,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.",
+          "explanation": "Surah Al-Fatihah means \"The Opening\". It has 7 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
           "resourceLabel": "Open source",
@@ -21611,49 +21169,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-fatihah_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Fatihah was revealed in Madinah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-Fatihah was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/1"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-fatihah_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Fatihah have?",
           "choices": [
             {
               "id": "a",
-              "label": "5"
+              "label": "7"
             },
             {
               "id": "b",
-              "label": "6"
+              "label": "5"
             },
             {
               "id": "c",
-              "label": "8"
+              "label": "6"
             },
             {
               "id": "d",
-              "label": "7"
+              "label": "8"
             }
           ],
-          "correctChoiceId": "d",
-          "explanation": "Surah Al-Fatihah means \"The Opening\". It was revealed in Makkah. It has 7 ayahs.",
+          "correctChoiceId": "a",
+          "explanation": "Surah Al-Fatihah means \"The Opening\". It has 7 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-fatihah",
           "resourceLabel": "Open source",
@@ -23031,11 +22568,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-11-20",
       "title": "Surah Ar-Ra'd",
       "intro": "Surah Ar-Ra'd means \"The Thunder\".",
-      "explanationContent": "Surah Ar-Ra'd means \"The Thunder\". It was revealed in Madinah. It has 43 ayahs.",
+      "explanationContent": "Surah Ar-Ra'd means \"The Thunder\". It has 43 ayahs.",
       "learnLine": "Surah Ar-Ra'd means \"The Thunder\".",
       "learnFacts": [
-        "43 ayahs",
-        "Revealed in Madinah"
+        "43 ayahs"
       ],
       "lessonType": "skill",
       "difficulty": 2,
@@ -23095,7 +22631,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Ar-Ra'd means \"The Thunder\". It was revealed in Madinah. It has 43 ayahs.",
+          "explanation": "Surah Ar-Ra'd means \"The Thunder\". It has 43 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-11-20-surah-ar-rad",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-11-20-surah-ar-rad",
           "resourceLabel": "Open source",
@@ -23103,49 +22639,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-11-20-surah-ar-rad_q2",
-          "type": "true_false",
-          "prompt": "Surah Ar-Ra'd was revealed in Madinah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah Ar-Ra'd was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-11-20-surah-ar-rad",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-11-20-surah-ar-rad",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/13"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-11-20-surah-ar-rad_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Ar-Ra'd have?",
           "choices": [
             {
               "id": "a",
-              "label": "42"
-            },
-            {
-              "id": "b",
               "label": "44"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "45"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "43"
+            },
+            {
+              "id": "d",
+              "label": "42"
             }
           ],
-          "correctChoiceId": "d",
-          "explanation": "Surah Ar-Ra'd means \"The Thunder\". It was revealed in Madinah. It has 43 ayahs.",
+          "correctChoiceId": "c",
+          "explanation": "Surah Ar-Ra'd means \"The Thunder\". It has 43 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-11-20-surah-ar-rad",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-11-20-surah-ar-rad",
           "resourceLabel": "Open source",
@@ -24154,11 +23669,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-21-30",
       "title": "Surah Al-Hajj",
       "intro": "Surah Al-Hajj means \"The Pilgrimage\".",
-      "explanationContent": "Surah Al-Hajj means \"The Pilgrimage\". It was revealed in Madinah. It has 78 ayahs.\n22:7 And because the Hour will come, there is no doubt thereof; and because Allah will raise those who are in the graves.\n22:45 How many a township have We destroyed while it was sinful, so that it lieth (to this day) in ruins, and (how many) a deserted well and lofty tower!",
+      "explanationContent": "Surah Al-Hajj means \"The Pilgrimage\". It has 78 ayahs.\n22:7 And because the Hour will come, there is no doubt thereof; and because Allah will raise those who are in the graves.\n22:45 How many a township have We destroyed while it was sinful, so that it lieth (to this day) in ruins, and (how many) a deserted well and lofty tower!",
       "learnLine": "Surah Al-Hajj means \"The Pilgrimage\".",
       "learnFacts": [
-        "78 ayahs",
-        "Revealed in Madinah"
+        "78 ayahs"
       ],
       "lessonType": "skill",
       "difficulty": 1,
@@ -24218,7 +23732,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Hajj means \"The Pilgrimage\". It was revealed in Madinah. It has 78 ayahs.",
+          "explanation": "Surah Al-Hajj means \"The Pilgrimage\". It has 78 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-21-30-surah-al-hajj",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-21-30-surah-al-hajj",
           "resourceLabel": "Open source",
@@ -24226,49 +23740,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-21-30-surah-al-hajj_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Hajj was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-Hajj was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-21-30-surah-al-hajj",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-21-30-surah-al-hajj",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/22"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-21-30-surah-al-hajj_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Hajj have?",
           "choices": [
             {
               "id": "a",
-              "label": "73"
-            },
-            {
-              "id": "b",
               "label": "75"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "77"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "78"
+            },
+            {
+              "id": "d",
+              "label": "73"
             }
           ],
-          "correctChoiceId": "d",
-          "explanation": "Surah Al-Hajj means \"The Pilgrimage\". It was revealed in Madinah. It has 78 ayahs.",
+          "correctChoiceId": "c",
+          "explanation": "Surah Al-Hajj means \"The Pilgrimage\". It has 78 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-21-30-surah-al-hajj",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-21-30-surah-al-hajj",
           "resourceLabel": "Open source",
@@ -28543,11 +28036,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-51-60",
       "title": "Surah Ar-Rahman",
       "intro": "Surah Ar-Rahman means \"The Beneficent\".",
-      "explanationContent": "Surah Ar-Rahman means \"The Beneficent\". It was revealed in Madinah. It has 78 ayahs.\n55:1 The Beneficent\n55:5 The sun and the moon are made punctual.\n55:6 The stars and the trees prostrate.",
+      "explanationContent": "Surah Ar-Rahman means \"The Beneficent\". It has 78 ayahs.\n55:1 The Beneficent\n55:5 The sun and the moon are made punctual.\n55:6 The stars and the trees prostrate.",
       "learnLine": "Surah Ar-Rahman means \"The Beneficent\".",
       "learnFacts": [
-        "78 ayahs",
-        "Revealed in Madinah"
+        "78 ayahs"
       ],
       "quote": {
         "text": "The Beneficent",
@@ -28622,7 +28114,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Ar-Rahman means \"The Beneficent\". It was revealed in Madinah. It has 78 ayahs.",
+          "explanation": "Surah Ar-Rahman means \"The Beneficent\". It has 78 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-51-60-surah-ar-rahman",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-51-60-surah-ar-rahman",
           "resourceLabel": "Open source",
@@ -28630,49 +28122,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-51-60-surah-ar-rahman_q2",
-          "type": "true_false",
-          "prompt": "Surah Ar-Rahman was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Ar-Rahman was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-51-60-surah-ar-rahman",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-51-60-surah-ar-rahman",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/55"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-51-60-surah-ar-rahman_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Ar-Rahman have?",
           "choices": [
             {
               "id": "a",
-              "label": "73"
-            },
-            {
-              "id": "b",
               "label": "78"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "77"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "83"
+            },
+            {
+              "id": "d",
+              "label": "73"
             }
           ],
-          "correctChoiceId": "b",
-          "explanation": "Surah Ar-Rahman means \"The Beneficent\". It was revealed in Madinah. It has 78 ayahs.",
+          "correctChoiceId": "a",
+          "explanation": "Surah Ar-Rahman means \"The Beneficent\". It has 78 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-51-60-surah-ar-rahman",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-51-60-surah-ar-rahman",
           "resourceLabel": "Open source",
@@ -29356,11 +28827,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah As-Saf",
       "intro": "Surah As-Saf means \"The Ranks\".",
-      "explanationContent": "Surah As-Saf means \"The Ranks\". It was revealed in Madinah. It has 14 ayahs.",
+      "explanationContent": "Surah As-Saf means \"The Ranks\". It has 14 ayahs.",
       "learnLine": "Surah As-Saf means \"The Ranks\".",
       "learnFacts": [
-        "14 ayahs",
-        "Revealed in Madinah"
+        "14 ayahs"
       ],
       "lessonType": "skill",
       "difficulty": 1,
@@ -29418,7 +28888,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah As-Saf means \"The Ranks\". It was revealed in Madinah. It has 14 ayahs.",
+          "explanation": "Surah As-Saf means \"The Ranks\". It has 14 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-61-70-surah-as-saf",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-61-70-surah-as-saf",
           "resourceLabel": "Open source",
@@ -29426,49 +28896,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-61-70-surah-as-saf_q2",
-          "type": "true_false",
-          "prompt": "Surah As-Saf was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah As-Saf was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-61-70-surah-as-saf",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-61-70-surah-as-saf",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/61"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-61-70-surah-as-saf_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah As-Saf have?",
           "choices": [
             {
               "id": "a",
-              "label": "13"
+              "label": "12"
             },
             {
               "id": "b",
-              "label": "14"
+              "label": "13"
             },
             {
               "id": "c",
-              "label": "11"
+              "label": "14"
             },
             {
               "id": "d",
-              "label": "12"
+              "label": "11"
             }
           ],
-          "correctChoiceId": "b",
-          "explanation": "Surah As-Saf means \"The Ranks\". It was revealed in Madinah. It has 14 ayahs.",
+          "correctChoiceId": "c",
+          "explanation": "Surah As-Saf means \"The Ranks\". It has 14 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-61-70-surah-as-saf",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-61-70-surah-as-saf",
           "resourceLabel": "Open source",
@@ -29738,11 +29187,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-61-70",
       "title": "Surah At-Taghabun",
       "intro": "Surah At-Taghabun means \"The Mutual Disillusion\".",
-      "explanationContent": "Surah At-Taghabun means \"The Mutual Disillusion\". It was revealed in Madinah. It has 18 ayahs.",
+      "explanationContent": "Surah At-Taghabun means \"The Mutual Disillusion\". It has 18 ayahs.",
       "learnLine": "Surah At-Taghabun means \"The Mutual Disillusion\".",
       "learnFacts": [
-        "18 ayahs",
-        "Revealed in Madinah"
+        "18 ayahs"
       ],
       "lessonType": "skill",
       "difficulty": 2,
@@ -29802,7 +29250,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah At-Taghabun means \"The Mutual Disillusion\". It was revealed in Madinah. It has 18 ayahs.",
+          "explanation": "Surah At-Taghabun means \"The Mutual Disillusion\". It has 18 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-61-70-surah-at-taghabun",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-61-70-surah-at-taghabun",
           "resourceLabel": "Open source",
@@ -29810,49 +29258,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-61-70-surah-at-taghabun_q2",
-          "type": "true_false",
-          "prompt": "Surah At-Taghabun was revealed in Madinah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah At-Taghabun was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-61-70-surah-at-taghabun",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-61-70-surah-at-taghabun",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/64"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-61-70-surah-at-taghabun_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah At-Taghabun have?",
           "choices": [
             {
               "id": "a",
-              "label": "18"
+              "label": "20"
             },
             {
               "id": "b",
-              "label": "17"
+              "label": "18"
             },
             {
               "id": "c",
-              "label": "19"
+              "label": "17"
             },
             {
               "id": "d",
-              "label": "20"
+              "label": "19"
             }
           ],
-          "correctChoiceId": "a",
-          "explanation": "Surah At-Taghabun means \"The Mutual Disillusion\". It was revealed in Madinah. It has 18 ayahs.",
+          "correctChoiceId": "b",
+          "explanation": "Surah At-Taghabun means \"The Mutual Disillusion\". It has 18 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-61-70-surah-at-taghabun",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-61-70-surah-at-taghabun",
           "resourceLabel": "Open source",
@@ -31333,11 +30760,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-71-80",
       "title": "Surah Al-Insan",
       "intro": "Surah Al-Insan means \"The Human\".",
-      "explanationContent": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.\n76:6 A spring wherefrom the slaves of Allah drink, making it gush forth abundantly,\n76:7 (Because) they perform the vow and fear a day whereof the evil is wide-spreading,",
+      "explanationContent": "Surah Al-Insan means \"The Human\". It has 31 ayahs.\n76:6 A spring wherefrom the slaves of Allah drink, making it gush forth abundantly,\n76:7 (Because) they perform the vow and fear a day whereof the evil is wide-spreading,",
       "learnLine": "Surah Al-Insan means \"The Human\".",
       "learnFacts": [
-        "31 ayahs",
-        "Revealed in Madinah"
+        "31 ayahs"
       ],
       "quote": {
         "text": "Hath there come upon man (ever) any period of time in which he was a thing unremembered?",
@@ -31412,7 +30838,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.",
+          "explanation": "Surah Al-Insan means \"The Human\". It has 31 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-insan",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-insan",
           "resourceLabel": "Open source",
@@ -31420,49 +30846,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-insan_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Insan was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-Insan was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-insan",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-insan",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/76"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-insan_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Insan have?",
           "choices": [
             {
               "id": "a",
-              "label": "28"
-            },
-            {
-              "id": "b",
               "label": "29"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "30"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "31"
+            },
+            {
+              "id": "d",
+              "label": "28"
             }
           ],
-          "correctChoiceId": "d",
-          "explanation": "Surah Al-Insan means \"The Human\". It was revealed in Madinah. It has 31 ayahs.",
+          "correctChoiceId": "c",
+          "explanation": "Surah Al-Insan means \"The Human\". It has 31 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-71-80-surah-al-insan",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-71-80-surah-al-insan",
           "resourceLabel": "Open source",
@@ -32332,11 +31737,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-81-90",
       "title": "Surah Al-Mutaffifin",
       "intro": "Surah Al-Mutaffifin means \"Those Who Cheat\".",
-      "explanationContent": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.\n83:2 Those who when they take the measure from mankind demand it full,\n83:4 Do such (men) not consider that they will be raised again\n83:6 The day when (all) mankind stand before the Lord of the Worlds?\n83:9 A written record.",
+      "explanationContent": "Surah Al-Mutaffifin means \"Those Who Cheat\". It has 36 ayahs.\n83:2 Those who when they take the measure from mankind demand it full,\n83:4 Do such (men) not consider that they will be raised again\n83:6 The day when (all) mankind stand before the Lord of the Worlds?\n83:9 A written record.",
       "learnLine": "Surah Al-Mutaffifin means \"Those Who Cheat\".",
       "learnFacts": [
-        "36 ayahs",
-        "Revealed in Makkah"
+        "36 ayahs"
       ],
       "quote": {
         "text": "Woe unto the defrauders:",
@@ -32411,7 +31815,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.",
+          "explanation": "Surah Al-Mutaffifin means \"Those Who Cheat\". It has 36 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
           "resourceLabel": "Open source",
@@ -32419,49 +31823,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Mutaffifin was revealed in Madinah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-Mutaffifin was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/83"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Mutaffifin have?",
           "choices": [
             {
               "id": "a",
-              "label": "34"
-            },
-            {
-              "id": "b",
               "label": "36"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "37"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "38"
+            },
+            {
+              "id": "d",
+              "label": "34"
             }
           ],
-          "correctChoiceId": "b",
-          "explanation": "Surah Al-Mutaffifin means \"Those Who Cheat\". It was revealed in Makkah. It has 36 ayahs.",
+          "correctChoiceId": "a",
+          "explanation": "Surah Al-Mutaffifin means \"Those Who Cheat\". It has 36 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-81-90-surah-al-mutaffifin",
           "resourceLabel": "Open source",
@@ -34332,11 +33715,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Al-Qadr",
       "intro": "Surah Al-Qadr means \"The Power\".",
-      "explanationContent": "Surah Al-Qadr means \"The Power\". It was revealed in Makkah. It has 5 ayahs.\n97:3 The Night of Power is better than a thousand months.\n97:4 The angels and the Spirit descend therein, by the permission of their Lord, with all decrees.\n97:5 (The night is) Peace until the rising of the dawn.",
+      "explanationContent": "Surah Al-Qadr means \"The Power\". It has 5 ayahs.\n97:3 The Night of Power is better than a thousand months.\n97:4 The angels and the Spirit descend therein, by the permission of their Lord, with all decrees.\n97:5 (The night is) Peace until the rising of the dawn.",
       "learnLine": "Surah Al-Qadr means \"The Power\".",
       "learnFacts": [
-        "5 ayahs",
-        "Revealed in Makkah"
+        "5 ayahs"
       ],
       "quote": {
         "text": "Lo! We revealed it on the Night of Predestination.",
@@ -34411,7 +33793,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Qadr means \"The Power\". It was revealed in Makkah. It has 5 ayahs.",
+          "explanation": "Surah Al-Qadr means \"The Power\". It has 5 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-qadr",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-qadr",
           "resourceLabel": "Open source",
@@ -34419,49 +33801,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-qadr_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Qadr was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah Al-Qadr was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-qadr",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-qadr",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/97"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-qadr_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Qadr have?",
           "choices": [
             {
               "id": "a",
-              "label": "4"
+              "label": "3"
             },
             {
               "id": "b",
-              "label": "5"
+              "label": "4"
             },
             {
               "id": "c",
-              "label": "7"
+              "label": "5"
             },
             {
               "id": "d",
-              "label": "3"
+              "label": "7"
             }
           ],
-          "correctChoiceId": "b",
-          "explanation": "Surah Al-Qadr means \"The Power\". It was revealed in Makkah. It has 5 ayahs.",
+          "correctChoiceId": "c",
+          "explanation": "Surah Al-Qadr means \"The Power\". It has 5 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-qadr",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-qadr",
           "resourceLabel": "Open source",
@@ -34475,11 +33836,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Al-Bayyinah",
       "intro": "Surah Al-Bayyinah means \"The Clear Proof\".",
-      "explanationContent": "Surah Al-Bayyinah means \"The Clear Proof\". It was revealed in Madinah. It has 8 ayahs.\n98:2 A messenger from Allah, reading purified pages\n98:3 Containing correct scriptures.\n98:5 And they are ordered naught else than to serve Allah, keeping religion pure for Him, as men by nature upright, and to establish worship and to pay the poor-due. That is true religion.",
+      "explanationContent": "Surah Al-Bayyinah means \"The Clear Proof\". It has 8 ayahs.\n98:2 A messenger from Allah, reading purified pages\n98:3 Containing correct scriptures.\n98:5 And they are ordered naught else than to serve Allah, keeping religion pure for Him, as men by nature upright, and to establish worship and to pay the poor-due. That is true religion.",
       "learnLine": "Surah Al-Bayyinah means \"The Clear Proof\".",
       "learnFacts": [
-        "8 ayahs",
-        "Revealed in Madinah"
+        "8 ayahs"
       ],
       "lessonType": "skill",
       "difficulty": 4,
@@ -34539,7 +33899,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-Bayyinah means \"The Clear Proof\". It was revealed in Madinah. It has 8 ayahs.",
+          "explanation": "Surah Al-Bayyinah means \"The Clear Proof\". It has 8 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-bayyinah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-bayyinah",
           "resourceLabel": "Open source",
@@ -34547,49 +33907,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-bayyinah_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Bayyinah was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-Bayyinah was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-bayyinah",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-bayyinah",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/98"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-bayyinah_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Bayyinah have?",
           "choices": [
             {
               "id": "a",
-              "label": "9"
+              "label": "7"
             },
             {
               "id": "b",
-              "label": "5"
+              "label": "9"
             },
             {
               "id": "c",
-              "label": "8"
+              "label": "5"
             },
             {
               "id": "d",
-              "label": "7"
+              "label": "8"
             }
           ],
-          "correctChoiceId": "c",
-          "explanation": "Surah Al-Bayyinah means \"The Clear Proof\". It was revealed in Madinah. It has 8 ayahs.",
+          "correctChoiceId": "d",
+          "explanation": "Surah Al-Bayyinah means \"The Clear Proof\". It has 8 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-bayyinah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-bayyinah",
           "resourceLabel": "Open source",
@@ -34603,11 +33942,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Az-Zalzalah",
       "intro": "Surah Az-Zalzalah means \"The Earthquake\".",
-      "explanationContent": "Surah Az-Zalzalah means \"The Earthquake\". It was revealed in Madinah. It has 8 ayahs.\n99:1 When Earth is shaken with her (final) earthquake\n99:4 That day she will relate her chronicles,\n99:6 That day mankind will issue forth in scattered groups to be shown their deeds.\n99:7 And whoso doeth good an atom's weight will see it then,",
+      "explanationContent": "Surah Az-Zalzalah means \"The Earthquake\". It has 8 ayahs.\n99:1 When Earth is shaken with her (final) earthquake\n99:4 That day she will relate her chronicles,\n99:6 That day mankind will issue forth in scattered groups to be shown their deeds.\n99:7 And whoso doeth good an atom's weight will see it then,",
       "learnLine": "Surah Az-Zalzalah means \"The Earthquake\".",
       "learnFacts": [
-        "8 ayahs",
-        "Revealed in Madinah"
+        "8 ayahs"
       ],
       "quote": {
         "text": "When Earth is shaken with her (final) earthquake",
@@ -34682,7 +34020,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah Az-Zalzalah means \"The Earthquake\". It was revealed in Madinah. It has 8 ayahs.",
+          "explanation": "Surah Az-Zalzalah means \"The Earthquake\". It has 8 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-az-zalzalah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-az-zalzalah",
           "resourceLabel": "Open source",
@@ -34690,49 +34028,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-az-zalzalah_q2",
-          "type": "true_false",
-          "prompt": "Surah Az-Zalzalah was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Az-Zalzalah was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-az-zalzalah",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-az-zalzalah",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/99"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-az-zalzalah_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Az-Zalzalah have?",
           "choices": [
             {
               "id": "a",
-              "label": "8"
-            },
-            {
-              "id": "b",
               "label": "5"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "6"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "7"
+            },
+            {
+              "id": "d",
+              "label": "8"
             }
           ],
-          "correctChoiceId": "a",
-          "explanation": "Surah Az-Zalzalah means \"The Earthquake\". It was revealed in Madinah. It has 8 ayahs.",
+          "correctChoiceId": "d",
+          "explanation": "Surah Az-Zalzalah means \"The Earthquake\". It has 8 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-az-zalzalah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-az-zalzalah",
           "resourceLabel": "Open source",
@@ -34746,11 +34063,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-91-100",
       "title": "Surah Al-'Adiyat",
       "intro": "Surah Al-'Adiyat means \"The Runners\".",
-      "explanationContent": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.\n100:1 By the snorting courses,\n100:2 Striking sparks of fire\n100:3 And scouring to the raid at dawn,\n100:4 Then, therewith, with their trail of dust,\n100:5 Cleaving, as one, the centre (of the foe),",
+      "explanationContent": "Surah Al-'Adiyat means \"The Runners\". It has 11 ayahs.\n100:1 By the snorting courses,\n100:2 Striking sparks of fire\n100:3 And scouring to the raid at dawn,\n100:4 Then, therewith, with their trail of dust,\n100:5 Cleaving, as one, the centre (of the foe),",
       "learnLine": "Surah Al-'Adiyat means \"The Runners\".",
       "learnFacts": [
-        "11 ayahs",
-        "Revealed in Makkah"
+        "11 ayahs"
       ],
       "quote": {
         "text": "By the snorting courses,",
@@ -34825,7 +34141,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.",
+          "explanation": "Surah Al-'Adiyat means \"The Runners\". It has 11 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
           "resourceLabel": "Open source",
@@ -34833,49 +34149,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-adiyat_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-'Adiyat was revealed in Madinah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-'Adiyat was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/100"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-adiyat_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-'Adiyat have?",
           "choices": [
             {
               "id": "a",
-              "label": "12"
+              "label": "9"
             },
             {
               "id": "b",
-              "label": "11"
+              "label": "12"
             },
             {
               "id": "c",
-              "label": "8"
+              "label": "11"
             },
             {
               "id": "d",
-              "label": "9"
+              "label": "8"
             }
           ],
-          "correctChoiceId": "b",
-          "explanation": "Surah Al-'Adiyat means \"The Runners\". It was revealed in Makkah. It has 11 ayahs.",
+          "correctChoiceId": "c",
+          "explanation": "Surah Al-'Adiyat means \"The Runners\". It has 11 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-91-100-surah-al-adiyat",
           "resourceLabel": "Open source",
@@ -35030,11 +34325,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah At-Takathur",
       "intro": "Surah At-Takathur means \"Competing for More\".",
-      "explanationContent": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
+      "explanationContent": "Surah At-Takathur means \"Competing for More\". It has 8 ayahs.",
       "learnLine": "Surah At-Takathur means \"Competing for More\".",
       "learnFacts": [
-        "8 ayahs",
-        "Revealed in Makkah"
+        "8 ayahs"
       ],
       "quote": {
         "text": "Rivalry in worldly increase distracteth you",
@@ -35109,7 +34403,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
+          "explanation": "Surah At-Takathur means \"Competing for More\". It has 8 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-at-takathur",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-at-takathur",
           "resourceLabel": "Open source",
@@ -35117,49 +34411,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-at-takathur_q2",
-          "type": "true_false",
-          "prompt": "Surah At-Takathur was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah At-Takathur was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-at-takathur",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-at-takathur",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/102"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-at-takathur_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah At-Takathur have?",
           "choices": [
             {
               "id": "a",
-              "label": "5"
-            },
-            {
-              "id": "b",
               "label": "6"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "8"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "9"
+            },
+            {
+              "id": "d",
+              "label": "5"
             }
           ],
-          "correctChoiceId": "c",
-          "explanation": "Surah At-Takathur means \"Competing for More\". It was revealed in Makkah. It has 8 ayahs.",
+          "correctChoiceId": "b",
+          "explanation": "Surah At-Takathur means \"Competing for More\". It has 8 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-at-takathur",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-at-takathur",
           "resourceLabel": "Open source",
@@ -35716,11 +34989,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-Ma'un",
       "intro": "Surah Al-Ma'un means \"The Small kindnesses\".",
-      "explanationContent": "Surah Al-Ma'un means \"The Small kindnesses\". It was revealed in Makkah. It has 7 ayahs.\n107:5 Who are heedless of their prayer;\n107:6 Who would be seen (at worship)\n107:7 Yet refuse small kindnesses!",
+      "explanationContent": "Surah Al-Ma'un means \"The Small kindnesses\". It has 7 ayahs.\n107:5 Who are heedless of their prayer;\n107:6 Who would be seen (at worship)\n107:7 Yet refuse small kindnesses!",
       "learnLine": "Surah Al-Ma'un means \"The Small kindnesses\".",
       "learnFacts": [
-        "7 ayahs",
-        "Revealed in Makkah"
+        "7 ayahs"
       ],
       "quote": {
         "text": "Hast thou observed him who belieth religion?",
@@ -35795,7 +35067,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Ma'un means \"The Small kindnesses\". It was revealed in Makkah. It has 7 ayahs.",
+          "explanation": "Surah Al-Ma'un means \"The Small kindnesses\". It has 7 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-maun",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-maun",
           "resourceLabel": "Open source",
@@ -35803,49 +35075,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-maun_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Ma'un was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah Al-Ma'un was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-maun",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-maun",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/107"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-maun_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Ma'un have?",
           "choices": [
             {
               "id": "a",
-              "label": "6"
-            },
-            {
-              "id": "b",
               "label": "7"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "9"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "5"
+            },
+            {
+              "id": "d",
+              "label": "6"
             }
           ],
-          "correctChoiceId": "b",
-          "explanation": "Surah Al-Ma'un means \"The Small kindnesses\". It was revealed in Makkah. It has 7 ayahs.",
+          "correctChoiceId": "a",
+          "explanation": "Surah Al-Ma'un means \"The Small kindnesses\". It has 7 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-maun",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-maun",
           "resourceLabel": "Open source",
@@ -35859,11 +35110,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah Al-Kawthar",
       "intro": "Surah Al-Kawthar means \"The Abundance\".",
-      "explanationContent": "Surah Al-Kawthar means \"The Abundance\". It was revealed in Makkah. It has 3 ayahs.",
+      "explanationContent": "Surah Al-Kawthar means \"The Abundance\". It has 3 ayahs.",
       "learnLine": "Surah Al-Kawthar means \"The Abundance\".",
       "learnFacts": [
-        "3 ayahs",
-        "Revealed in Makkah"
+        "3 ayahs"
       ],
       "quote": {
         "text": "Lo! We have given thee Abundance;",
@@ -35938,7 +35188,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-Kawthar means \"The Abundance\". It was revealed in Makkah. It has 3 ayahs.",
+          "explanation": "Surah Al-Kawthar means \"The Abundance\". It has 3 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-kawthar",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-kawthar",
           "resourceLabel": "Open source",
@@ -35946,49 +35196,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-kawthar_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Kawthar was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah Al-Kawthar was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-kawthar",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-kawthar",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/108"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-kawthar_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Kawthar have?",
           "choices": [
             {
               "id": "a",
-              "label": "6"
-            },
-            {
-              "id": "b",
               "label": "7"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "3"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "5"
+            },
+            {
+              "id": "d",
+              "label": "6"
             }
           ],
-          "correctChoiceId": "c",
-          "explanation": "Surah Al-Kawthar means \"The Abundance\". It was revealed in Makkah. It has 3 ayahs.",
+          "correctChoiceId": "b",
+          "explanation": "Surah Al-Kawthar means \"The Abundance\". It has 3 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-al-kawthar",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-al-kawthar",
           "resourceLabel": "Open source",
@@ -36429,11 +35658,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-111-114",
       "title": "Surah Al-Ikhlas",
       "intro": "Surah Al-Ikhlas means \"The Sincerity\".",
-      "explanationContent": "Surah Al-Ikhlas means \"The Sincerity\". It was revealed in Makkah. It has 4 ayahs.\n112:1 Say: He is Allah, the One!\n112:2 Allah, the eternally Besought of all!",
+      "explanationContent": "Surah Al-Ikhlas means \"The Sincerity\". It has 4 ayahs.\n112:1 Say: He is Allah, the One!\n112:2 Allah, the eternally Besought of all!",
       "learnLine": "Surah Al-Ikhlas means \"The Sincerity\".",
       "learnFacts": [
-        "4 ayahs",
-        "Revealed in Makkah"
+        "4 ayahs"
       ],
       "quote": {
         "text": "Say: He is Allah, the One!",
@@ -36508,7 +35736,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Ikhlas means \"The Sincerity\". It was revealed in Makkah. It has 4 ayahs.",
+          "explanation": "Surah Al-Ikhlas means \"The Sincerity\". It has 4 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-al-ikhlas",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-ikhlas",
           "resourceLabel": "Open source",
@@ -36516,49 +35744,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-ikhlas_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Ikhlas was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah Al-Ikhlas was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-al-ikhlas",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-ikhlas",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/112"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-ikhlas_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Ikhlas have?",
           "choices": [
             {
               "id": "a",
-              "label": "5"
-            },
-            {
-              "id": "b",
               "label": "6"
             },
             {
-              "id": "c",
+              "id": "b",
               "label": "7"
             },
             {
-              "id": "d",
+              "id": "c",
               "label": "4"
+            },
+            {
+              "id": "d",
+              "label": "5"
             }
           ],
-          "correctChoiceId": "d",
-          "explanation": "Surah Al-Ikhlas means \"The Sincerity\". It was revealed in Makkah. It has 4 ayahs.",
+          "correctChoiceId": "c",
+          "explanation": "Surah Al-Ikhlas means \"The Sincerity\". It has 4 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-al-ikhlas",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-ikhlas",
           "resourceLabel": "Open source",
@@ -36572,11 +35779,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-111-114",
       "title": "Surah Al-Falaq",
       "intro": "Surah Al-Falaq means \"The Daybreak\".",
-      "explanationContent": "Surah Al-Falaq means \"The Daybreak\". It was revealed in Makkah. It has 5 ayahs.\n113:1 Say: I seek refuge in the Lord of the Daybreak\n113:2 From the evil of that which He created;\n113:3 From the evil of the darkness when it is intense,\n113:4 And from the evil of malignant witchcraft,",
+      "explanationContent": "Surah Al-Falaq means \"The Daybreak\". It has 5 ayahs.\n113:1 Say: I seek refuge in the Lord of the Daybreak\n113:2 From the evil of that which He created;\n113:3 From the evil of the darkness when it is intense,\n113:4 And from the evil of malignant witchcraft,",
       "learnLine": "Surah Al-Falaq means \"The Daybreak\".",
       "learnFacts": [
-        "5 ayahs",
-        "Revealed in Makkah"
+        "5 ayahs"
       ],
       "quote": {
         "text": "Say: I seek refuge in the Lord of the Daybreak",
@@ -36651,7 +35857,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-Falaq means \"The Daybreak\". It was revealed in Makkah. It has 5 ayahs.",
+          "explanation": "Surah Al-Falaq means \"The Daybreak\". It has 5 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-al-falaq",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-falaq",
           "resourceLabel": "Open source",
@@ -36659,49 +35865,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-falaq_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Falaq was revealed in Madinah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-Falaq was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-al-falaq",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-falaq",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/113"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-falaq_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Falaq have?",
           "choices": [
             {
               "id": "a",
-              "label": "7"
+              "label": "6"
             },
             {
               "id": "b",
-              "label": "3"
+              "label": "7"
             },
             {
               "id": "c",
-              "label": "5"
+              "label": "3"
             },
             {
               "id": "d",
-              "label": "6"
+              "label": "5"
             }
           ],
-          "correctChoiceId": "c",
-          "explanation": "Surah Al-Falaq means \"The Daybreak\". It was revealed in Makkah. It has 5 ayahs.",
+          "correctChoiceId": "d",
+          "explanation": "Surah Al-Falaq means \"The Daybreak\". It has 5 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-al-falaq",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-al-falaq",
           "resourceLabel": "Open source",
@@ -36715,11 +35900,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-111-114",
       "title": "Surah An-Nas",
       "intro": "Surah An-Nas means \"Mankind\".",
-      "explanationContent": "Surah An-Nas means \"Mankind\". It was revealed in Makkah. It has 6 ayahs.\n114:1 Say: I seek refuge in the Lord of mankind,\n114:2 The King of mankind,\n114:3 The God of mankind,\n114:4 From the evil of the sneaking whisperer,\n114:6 Of the jinn and of mankind.",
+      "explanationContent": "Surah An-Nas means \"Mankind\". It has 6 ayahs.\n114:1 Say: I seek refuge in the Lord of mankind,\n114:2 The King of mankind,\n114:3 The God of mankind,\n114:4 From the evil of the sneaking whisperer,\n114:6 Of the jinn and of mankind.",
       "learnLine": "Surah An-Nas means \"Mankind\".",
       "learnFacts": [
-        "6 ayahs",
-        "Revealed in Makkah"
+        "6 ayahs"
       ],
       "quote": {
         "text": "Say: I seek refuge in the Lord of mankind,",
@@ -36794,7 +35978,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah An-Nas means \"Mankind\". It was revealed in Makkah. It has 6 ayahs.",
+          "explanation": "Surah An-Nas means \"Mankind\". It has 6 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-an-nas",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-an-nas",
           "resourceLabel": "Open source",
@@ -36802,49 +35986,28 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-111-114-surah-an-nas_q2",
-          "type": "true_false",
-          "prompt": "Surah An-Nas was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah An-Nas was revealed in Makkah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-an-nas",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-an-nas",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/114"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-111-114-surah-an-nas_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah An-Nas have?",
           "choices": [
             {
               "id": "a",
-              "label": "8"
+              "label": "6"
             },
             {
               "id": "b",
-              "label": "4"
+              "label": "8"
             },
             {
               "id": "c",
-              "label": "5"
+              "label": "4"
             },
             {
               "id": "d",
-              "label": "6"
+              "label": "5"
             }
           ],
-          "correctChoiceId": "d",
-          "explanation": "Surah An-Nas means \"Mankind\". It was revealed in Makkah. It has 6 ayahs.",
+          "correctChoiceId": "a",
+          "explanation": "Surah An-Nas means \"Mankind\". It has 6 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-111-114-surah-an-nas",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-111-114-surah-an-nas",
           "resourceLabel": "Open source",

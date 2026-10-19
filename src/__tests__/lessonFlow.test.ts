@@ -4,8 +4,10 @@ import {
   completeLessonCluster,
   createTestOutSession,
   getTestOutPlan,
+  getTestOutXp,
   learningApi,
   LIBRARY_TOPICS,
+  PRACTICE_XP_PER_CORRECT_ANSWER,
   TEST_OUT_MAX_QUESTIONS,
   TEST_OUT_MIN_QUESTIONS,
   testOutPassingScore
@@ -247,10 +249,18 @@ describe("createTestOutSession", () => {
     expect(new Set(prompts).size).toBe(prompts.length);
     expect(new Set(session.lesson.challenges.map((challenge) => challenge.sourceLessonId))).toEqual(new Set(plan.lessons.map((lesson) => lesson.id)));
 
-    // Passing completes the circles it asked about and pays for them; the next circle of the unit is next.
-    const passed = completeLessonCluster(user, (session.targetLessonIds ?? []).map((id) => LESSONS_BY_ID[id]), session.lesson.xpReward);
+    // Passing completes the circles it asked about and pays like practice, 2 XP per right answer, never the XP of
+    // every circle it skips; the next circle of the unit is next.
+    const right = session.lesson.challenges.length;
+    const lessonsXp = plan.lessons.reduce((total, lesson) => total + lesson.xpReward, 0);
+    const passed = completeLessonCluster(user, (session.targetLessonIds ?? []).map((id) => LESSONS_BY_ID[id]), getTestOutXp(session, right));
     expect(session.targetLessonIds).toEqual(plan.lessons.map((lesson) => lesson.id));
-    expect(passed.totalXp - user.totalXp).toBe(plan.lessons.reduce((total, lesson) => total + lesson.xpReward, 0));
+    expect(session.lesson.xpReward).toBe(lessonsXp);
+    expect(passed.totalXp - user.totalXp).toBe(Math.min(lessonsXp, right * PRACTICE_XP_PER_CORRECT_ANSWER));
+    // Ten right answers pay 20 XP, about two lessons, not the 100 or more of the ten lessons skipped.
+    expect(passed.totalXp - user.totalXp).toBe(20);
+    expect(getTestOutXp(session, 8)).toBe(16);
+    expect(getTestOutXp({ lesson: { ...session.lesson, xpReward: 12 } }, 8)).toBe(12);
     const after = learningApi.getPathNodes(passed).filter((node) => node.topicId === "prayer");
     expect(after.filter((node) => plan.nodeIds.includes(node.id)).every((node) => node.status === "completed")).toBe(true);
     expect(after.find((node) => node.status === "current")?.id).toBe(unit[TEST_OUT_MAX_QUESTIONS].id);

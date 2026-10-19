@@ -267,12 +267,13 @@ export function getNodeStars(user: Pick<UserProfile, "completedNodeIds" | "nodeS
   return user.completedNodeIds.includes(nodeId) ? user.nodeStars?.[nodeId] ?? MAX_LESSON_STARS : 0;
 }
 
-// Total stars over the finished circles (all of them, or only `nodeIds`, e.g. one topic's), for Me.
+// Total stars over the finished circles (all of the course's, or only `nodeIds`, e.g. one topic's), for Me.
+// A saved circle the course no longer has (a removed opener) counts for nothing.
 export function getTotalStars(user: Pick<UserProfile, "completedNodeIds" | "nodeStars">, nodeIds?: Iterable<string>) {
-  const ids = nodeIds ? new Set(nodeIds) : undefined;
+  const ids = new Set(nodeIds ?? allNodes.map((node) => node.id));
 
   return Array.from(new Set(user.completedNodeIds))
-    .filter((nodeId) => !ids || ids.has(nodeId))
+    .filter((nodeId) => ids.has(nodeId))
     .reduce((total, nodeId) => total + (user.nodeStars?.[nodeId] ?? MAX_LESSON_STARS), 0);
 }
 
@@ -411,8 +412,8 @@ export function applyPremiumStatus(user: UserProfile, status: PremiumStatus) {
   };
 }
 
-// `maxXp` caps the XP: a test-out pays what the lessons it asked about pay. Passing one finishes lessons, so it
-// keeps the streak; `stars` (how the test went) becomes each skipped circle's stars unless it has better.
+// `maxXp` caps the XP: a test-out pays getTestOutXp, never the XP of every circle it skips. Passing one finishes
+// lessons, so it keeps the streak; `stars` (how the test went) becomes each skipped circle's stars unless it has better.
 export function completeLessonCluster(user: UserProfile, lessons: Lesson[], maxXp = Number.POSITIVE_INFINITY, stars?: number, now = new Date()) {
   const completedLessonIds = new Set(user.completedLessonIds);
   const completedNodeIds = new Set(user.completedNodeIds);
@@ -450,6 +451,12 @@ export const TEST_OUT_MIN_QUESTIONS = 3;
 export const TEST_OUT_MAX_QUESTIONS = 10;
 const TEST_OUT_USUAL_MIN_QUESTIONS = 5;
 
+// A passed test-out pays like practice, 2 XP per right answer, and never more than the lessons it marks done
+// would have paid (the session's xpReward), so skipping never pays more than learning.
+export function getTestOutXp(session: Pick<LessonSession, "lesson">, correct: number) {
+  return Math.max(0, Math.min(session.lesson.xpReward, Math.floor(correct) * PRACTICE_XP_PER_CORRECT_ANSWER));
+}
+
 // 80% to pass, but never more right answers than there are questions, so a perfect run always passes.
 export function testOutPassingScore(questionCount: number) {
   return Math.min(questionCount, Math.max(TEST_OUT_MIN_QUESTIONS, Math.ceil(questionCount * 0.8)));
@@ -475,7 +482,8 @@ export function isTestLost(session: LessonSession | undefined, misses: number) {
 // "jump": the circles still to do before the one that opens. From JUMP HERE (`jumpNodeId`): in a library topic,
 // or in the unit already open, the circles before the tapped one, so it is next to play; in a later unit of a
 // topic taught in order, every circle before that unit, which opens at its first circle. Without a circle: a
-// unit still shut (a later unit taught in order, or a gated library unit), so the test opens it.
+// later unit of a topic taught in order, still shut, so the test opens it. A gated unit (for older learners) is
+// never tested into or through: it opens only once the unit before it is finished, lesson by lesson.
 export interface TestOutPlan {
   branchId: string;
   kind: "unit" | "jump";
@@ -487,7 +495,8 @@ export interface TestOutPlan {
 
 // Any unfinished unit the learner may open has a plan, not only the one with the current circle; so has any
 // circle not yet open, for JUMP HERE. Nothing when there is nothing to skip, when it would skip more than one
-// test can ask about (10 circles), for a finished unit, or for a premium unit a free learner cannot open.
+// test can ask about (10 circles), for a finished unit, for a premium unit a free learner cannot open, for a
+// gated unit, or when it would mark a gated unit's circles done without teaching them.
 export function getTestOutPlan(user: UserProfile, branchId: string, jumpNodeId?: string): TestOutPlan | undefined {
   const section = COURSE.sections.find((item) => item.branches.some((branch) => branch.id === branchId));
   const unitIndex = section ? section.branches.findIndex((branch) => branch.id === branchId) : -1;
@@ -500,7 +509,7 @@ export function getTestOutPlan(user: UserProfile, branchId: string, jumpNodeId?:
   const opens = (branchIndex: number) => premium || !section.branches[branchIndex].premiumOnly;
   const done = new Set(user.completedNodeIds);
 
-  if (!opens(unitIndex)) {
+  if (!opens(unitIndex) || isGatedBranch(section, branchId)) {
     return undefined;
   }
 
@@ -522,7 +531,7 @@ export function getTestOutPlan(user: UserProfile, branchId: string, jumpNodeId?:
     skipped = before.length ? before : left.slice(0, TEST_OUT_MAX_QUESTIONS);
   }
 
-  if (!left.length || !skipped.length || skipped.length > TEST_OUT_MAX_QUESTIONS) {
+  if (!left.length || !skipped.length || skipped.length > TEST_OUT_MAX_QUESTIONS || skipped.some((node) => isGatedBranch(section, node.branchId))) {
     return undefined;
   }
 
@@ -554,27 +563,21 @@ export function getJumpNodeIds(user: UserProfile, topicId: TopicId) {
 }
 
 // The circles still to do before a unit's first circle opens (same rule as getPathNodes). In a topic taught in
-// order: every circle of the units before it. In a library topic: none, unless the unit is gated; then the unit
-// before it, and whatever that one still waits for. Units the learner cannot open (premium) are left out.
+// order: every circle of the units before it. In a library topic: none, as every unit but a gated one opens on its
+// own, and a gated unit has no test-out. Units the learner cannot open (premium) are left out.
 function circlesBeforeUnit(section: LearningSection, unitIndex: number, done: Set<string>, opens: (branchIndex: number) => boolean): LearningNode[] {
-  const leftIn = (branchIndex: number) => section.nodes.filter((node) => node.branchId === section.branches[branchIndex].id && !done.has(node.id));
-
-  if (!LIBRARY_TOPICS.has(section.topicId)) {
-    return section.branches.slice(0, unitIndex).flatMap((_, index) => (opens(index) ? leftIn(index) : []));
-  }
-
-  if (!section.branches[unitIndex].gated) {
+  if (LIBRARY_TOPICS.has(section.topicId)) {
     return [];
   }
 
-  for (let index = unitIndex - 1; index >= 0; index -= 1) {
-    if (opens(index) && section.nodes.some((node) => node.branchId === section.branches[index].id)) {
-      const rest = leftIn(index);
-      return rest.length ? [...circlesBeforeUnit(section, index, done, opens), ...rest] : [];
-    }
-  }
+  return section.branches
+    .slice(0, unitIndex)
+    .flatMap((branch, index) => (opens(index) ? section.nodes.filter((node) => node.branchId === branch.id && !done.has(node.id)) : []));
+}
 
-  return [];
+// A unit for older learners: its circles are taught one by one, never skipped by a test.
+function isGatedBranch(section: LearningSection, branchId: string) {
+  return Boolean(section.branches.find((branch) => branch.id === branchId)?.gated);
 }
 
 type TestOutPick = { lesson: Lesson; challenge: Challenge };
@@ -720,7 +723,7 @@ export function createTestOutSession(input: {
     };
   });
   const uniqueSources = uniqueById(Array.from(prepared.values()).flatMap((lesson) => lesson.sources));
-  // What the lessons it asked about, and so marks done, pay.
+  // What the lessons it asked about, and so marks done, would pay: the most a pass pays (getTestOutXp).
   const xpReward = targetLessons.reduce((total, lesson) => total + lesson.xpReward, 0);
 
   return {

@@ -282,6 +282,7 @@ export function ExerciseView({
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
   const [tilesBox, setTilesBox] = useState<Box | null>(null);
+  const [promptTop, setPromptTop] = useState(0);
   const tileBoxes = useRef<Record<string, Box>>({});
   const wasChecked = useRef(checked);
 
@@ -297,16 +298,16 @@ export function ExerciseView({
     if (!rootHeight || !sheetHeight || !tilesBox) {
       return;
     }
-    // Show the green tile (and the picked one when it sits above it) right above the sheet.
+    // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
+    // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
     const focusId = rightId ?? selectedChoiceId;
     const tile = focusId ? tileBoxes.current[focusId] : undefined;
     const top = tilesBox.y + (tile?.y ?? 0);
     const bottom = tile ? top + tile.height : tilesBox.y + tilesBox.height;
-    const y = Math.max(0, Math.min(bottom + space.md - (rootHeight - sheetHeight), top - space.sm));
-    if (y > 0) {
-      scrollRef.current?.scrollTo?.({ y, animated: true });
-    }
-  }, [checked, rightId, rootHeight, scrollRef, selectedChoiceId, sheetHeight, tilesBox]);
+    const y = Math.max(0, Math.min(bottom + space.md - (rootHeight - sheetHeight), top - space.sm, promptTop - space.sm));
+    // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
+    scrollRef.current?.scrollTo?.({ y, animated: true });
+  }, [checked, promptTop, rightId, rootHeight, scrollRef, selectedChoiceId, sheetHeight, tilesBox]);
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
@@ -378,7 +379,9 @@ export function ExerciseView({
               ) : null}
             </View>
           ) : null}
-          <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={hideMascot} />
+          <View onLayout={(event) => setPromptTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-prompt">
+            <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={hideMascot} />
+          </View>
 
           {tfChoices ? (
             <View style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"}>

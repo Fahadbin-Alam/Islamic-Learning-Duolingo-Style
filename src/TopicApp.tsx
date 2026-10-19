@@ -25,6 +25,7 @@ import {
   getJumpNodeIds,
   getNodeXp,
   getTestOutPlan,
+  getTestOutXp,
   getTotalStars,
   isOutOfHearts,
   isTestLost,
@@ -34,6 +35,7 @@ import {
   isPremiumUser,
   learningApi,
   loseHeart,
+  pickTestOutChallenges,
   prepareUserForToday,
   refillHeartsForToday
 } from "./api/islamicLearningApi";
@@ -460,6 +462,9 @@ export default function TopicApp() {
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
+  // The circle a finished lesson or test opened (or the next open one after it): NEXT LESSON plays it and the
+  // path puts START on it, so a jump into a later unit carries on there, not back in a unit skipped past.
+  const [pathFocusId, setPathFocusId] = useState<string | undefined>(undefined);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
@@ -688,7 +693,11 @@ export default function TopicApp() {
         title: getNodeTitle(node.id, node.title, currentLanguage)
       }));
   }, [currentLanguage, pathNodes, selectedSection.topicId]);
-  const sectionNextNode = useMemo(() => findNextPlayableNode(sectionNodes), [sectionNodes]);
+  // The circle to play next: the one the last lesson or test opened while it is still open, else the path's own.
+  const sectionNextNode = useMemo(() => {
+    const focused = pathFocusId ? sectionNodes.find((node) => node.id === pathFocusId) : undefined;
+    return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(sectionNodes);
+  }, [pathFocusId, sectionNodes]);
   // Every unfinished unit the learner may open can be tested out when the circles it skips give enough
   // questions for a fair test: the open unit's banner key, and JUMP HERE on locked circles of any unit.
   // Only finished circles and premium change the plans, so a heart or XP change does not redo them.
@@ -1212,11 +1221,14 @@ export default function TopicApp() {
         .filter(Boolean);
       const beforeNodes = learningApi.getPathNodes(user);
       const nextUser = withExperienceDefaults({
-        ...completeLessonCluster(user, clusterLessons, state.activeSession.lesson.xpReward, lessonStars(state.sessionMistakes)),
+        // Practice pay, 2 XP per right answer, never more than the skipped lessons would have paid.
+        ...completeLessonCluster(user, clusterLessons, getTestOutXp(state.activeSession, state.sessionCorrectCount), lessonStars(state.sessionMistakes)),
         lastLearningAt: new Date().toISOString()
       });
+      const afterNodes = learningApi.getPathNodes(nextUser);
       // The circle that is now next to play, not one the test just skipped.
-      const unlockedNode = findUnlockedNode(beforeNodes, learningApi.getPathNodes(nextUser), state.activeSession.lesson.branchId);
+      const unlockedNode = findUnlockedNode(beforeNodes, afterNodes, state.activeSession.lesson.branchId);
+      setPathFocusId(findFocusNode(afterNodes, unlockedNode, state.activeSession.lesson.branchId)?.id);
 
       // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
@@ -1240,11 +1252,10 @@ export default function TopicApp() {
       ...completeLesson(user, state.activeSession.lesson, lessonStars(state.sessionMistakes)),
       lastLearningAt: new Date().toISOString()
     });
-    const unlockedNode = findUnlockedNode(
-      beforeNodes,
-      learningApi.getPathNodes(nextUser),
-      state.activeSession.lesson.branchId ?? findNodeById(state.activeSession.lesson.nodeId)?.branchId
-    );
+    const lessonBranchId = state.activeSession.lesson.branchId ?? findNodeById(state.activeSession.lesson.nodeId)?.branchId;
+    const afterNodes = learningApi.getPathNodes(nextUser);
+    const unlockedNode = findUnlockedNode(beforeNodes, afterNodes, lessonBranchId);
+    setPathFocusId(findFocusNode(afterNodes, unlockedNode, lessonBranchId)?.id);
 
     // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
@@ -1933,6 +1944,9 @@ export default function TopicApp() {
               }
             }}
             jumpNodeIds={jumpNodeIds}
+            // START (and the scroll back to the path) on the circle NEXT LESSON would play.
+            currentNodeId={sectionNextNode?.id}
+            testOutGoal={(unitId, nodeId) => getTestOutGoal(learner, unitId, nodeId)}
             onTestOut={(unitId, nodeId) => void startBranchTestOut(unitId, undefined, 0, nodeId)}
             onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
             onNextTopic={() => setTopicPickerVisible(true)}
@@ -1944,8 +1958,9 @@ export default function TopicApp() {
             title={lesson.title}
             line={getLessonLine(lesson)}
             arabic={lessonArabic}
-            // NEW only the first time the topic shows this word, not on its unit's word or a word met before.
-            isNewWord={isFirstUseOfWord(lesson.nodeId)}
+            // NEW only the first time the topic shows this word, not on its unit's word or a word met before,
+            // and not on a replay of a finished circle: the learner has met it.
+            isNewWord={isFirstUseOfWord(lesson.nodeId) && !state.user.completedNodeIds.includes(lesson.nodeId)}
             facts={lesson.learnFacts}
             // The questions ask about the narration or ayah, so the card shows it in full. When its
             // reference names the same narration as the source chip, LearnCard shows them as one.
@@ -2347,6 +2362,44 @@ function findUnlockedNode(beforeNodes: LearningNodeView[], afterNodes: LearningN
   );
 
   return opened.find((node) => node.branchId === branchId) ?? opened.find((node) => node.status === "current") ?? opened[0];
+}
+
+// Where the path carries on after a lesson or test in `branchId`: the circle it opened, else the next open circle
+// of that unit, else of a later unit of the same topic. Undefined: the path's own next circle.
+function findFocusNode(afterNodes: LearningNodeView[], unlockedNode: LearningNodeView | undefined, branchId?: string) {
+  if (unlockedNode) {
+    return unlockedNode;
+  }
+
+  const section = branchId ? COURSE.sections.find((item) => item.branches.some((branch) => branch.id === branchId)) : undefined;
+
+  if (!section) {
+    return undefined;
+  }
+
+  const byId = new Map(afterNodes.map((node) => [node.id, node]));
+  const from = section.branches.findIndex((branch) => branch.id === branchId);
+
+  for (const branch of section.branches.slice(from)) {
+    const open = section.nodes
+      .filter((node) => node.branchId === branch.id)
+      .map((node) => byId.get(node.id))
+      .find((node) => node?.status === "current" || node?.status === "available");
+
+    if (open) {
+      return open;
+    }
+  }
+
+  return undefined;
+}
+
+// The "Jump ahead?" sheet's goal before the test starts: its questions and how many right answers pass.
+function getTestOutGoal(user: UserProfile, unitId: string, nodeId?: string) {
+  const plan = getTestOutPlan(user, unitId, nodeId);
+  const total = plan ? pickTestOutChallenges(plan.lessons).length : 0;
+
+  return total > 0 ? { total, passingScore: testOutPassingScore(total) } : undefined;
 }
 
 function buildLessonSignal(

@@ -83,6 +83,16 @@ export type LearnPathProps = {
    * otherwise on every locked circle of a unit with canTestOut.
    */
   jumpNodeIds?: ReadonlySet<string>;
+  /**
+   * The "Jump ahead?" sheet's goal for a unit (and the JUMP HERE circle): its question count and pass mark, so the
+   * sheet says "Get 8 of 10 right. 3 misses end it." before the test starts. Undefined: the sheet says just its line.
+   */
+  testOutGoal?: (unitId: string, nodeId?: string) => { total: number; passingScore: number } | undefined;
+  /**
+   * The circle to play next: START, the ring and the mascot sit on it, and the path scrolls to it. Used while it is
+   * open (current or available) outside a premium unit; otherwise, and by default, the first "current" circle.
+   */
+  currentNodeId?: string;
   /** Tap the Premium pill or the UNLOCK button of a premium-locked unit. */
   onPremium?: (unitId: string) => void;
   /**
@@ -637,15 +647,24 @@ function StickyBanner({ unit, color, onMeasure }: { unit: PathUnit; color: strin
 
 // ---------- test-out sheet ----------
 
+/** "Get 8 of 10 right. 3 misses end it.": the pass mark, and the miss that ends the test. */
+export function testOutGoalLine(goal: { total: number; passingScore: number }) {
+  const endingMiss = Math.max(1, goal.total - goal.passingScore + 1);
+  return `Get ${goal.passingScore} of ${goal.total} right. ${endingMiss} ${endingMiss === 1 ? "miss ends" : "misses end"} it.`;
+}
+
 function TestOutSheet({
   visible,
   color,
   accent,
   mascotVariant,
+  goal,
   onStart,
   onClose
 }: {
   visible: boolean;
+  /** The test's question count and pass mark, said before it starts. */
+  goal?: { total: number; passingScore: number };
   /** The unit's color, for the key and the button. */
   color: string;
   /** The topic accent, for the mascot. */
@@ -668,6 +687,12 @@ function TestOutSheet({
         <Mascot variant={mascotVariant} mood="think" accent={accent} size={84} />
         <SpeechBubble style={styles.jumpBubble}>Pass a quick test to skip ahead!</SpeechBubble>
       </View>
+      {goal ? (
+        <View style={[styles.jumpGoal, { backgroundColor: lighten(color, 0.9) }]} testID="test-out-sheet-goal">
+          <Icon name="check" size={20} color={darken(color, 0.25)} />
+          <Text style={[styles.jumpGoalText, { color: darken(color, 0.45) }]}>{testOutGoalLine(goal)}</Text>
+        </View>
+      ) : null}
       <GameButton label="Start test" color={color} sound="unlock" fullWidth onPress={onStart} testID="test-out-start" />
       <GameButton label="Not now" variant="ghost" color={colors.inkSoft} fullWidth onPress={onClose} style={styles.jumpGhost} testID="test-out-cancel" />
     </Sheet>
@@ -781,6 +806,8 @@ export function LearnPath({
   onClaimChest,
   onTestOut,
   jumpNodeIds,
+  testOutGoal,
+  currentNodeId,
   onPremium,
   canBuyPremium = monetizationMode !== "disabled",
   onNextTopic,
@@ -837,13 +864,17 @@ export function LearnPath({
     const startable = (status: LearningNodeView["status"]) =>
       units.some((unit) => !unit.premiumLocked && unit.items.some((item) => item.kind === "node" && item.node.status === status));
     const startStatus: LearningNodeView["status"] = startable("current") || !startable("available") ? "current" : "available";
+    // The caller's circle to play next (the one a jump opened) takes START while it is open outside a premium unit.
+    const isPreferred = (item: PathItem) =>
+      item.kind === "node" && item.node.id === currentNodeId && (item.node.status === "current" || item.node.status === "available");
+    const preferred = currentNodeId && units.some((unit) => !unit.premiumLocked && unit.items.some(isPreferred)) ? currentNodeId : undefined;
     const byUnit = units.map((unit, unitIndex) => {
       const premium = Boolean(unit.premiumLocked);
       let place = 0;
       const rows: RowSpec[] = unit.items.map((item, index) => {
         const key = item.kind === "node" ? item.node.id : `chest-${item.chest.id}`;
         // The data may mark the first open node of every branch as "current"; only the first one on the path is.
-        const current = item.kind === "node" && item.node.status === startStatus && !premium && !currentKey;
+        const current = item.kind === "node" && !premium && !currentKey && (preferred ? item.node.id === preferred : item.node.status === startStatus);
         if (current) {
           currentKey = key;
           currentUnitId = unit.id;
@@ -903,7 +934,7 @@ export function LearnPath({
     return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio, earnedChest };
     // Focus targets are read on mount only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accent, units, topicId]);
+  }, [accent, units, topicId, currentNodeId]);
 
   // When the current node moves (a lesson was finished), follow it.
   if (lastCurrentKey.current !== layout.currentKey) {
@@ -1250,6 +1281,7 @@ export function LearnPath({
           color={testOutGroup?.color ?? accent}
           accent={accent}
           mascotVariant={mascotVariant}
+          goal={testOut ? testOutGoal?.(testOut.unitId, testOut.nodeId) : undefined}
           onClose={closeTestOut}
           onStart={() => {
             closeTestOut();
@@ -1706,6 +1738,22 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     marginLeft: 12
+  },
+  jumpGoal: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    marginTop: -4,
+    marginBottom: 16
+  },
+  jumpGoalText: {
+    flexShrink: 1,
+    marginLeft: 8,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 16,
+    lineHeight: 22
   },
   jumpGhost: {
     marginTop: 4

@@ -11,6 +11,7 @@ import {
   getLearnerLevel,
   getProgressMapIndex,
   getSessionPlan,
+  getSessionProgress,
   getShuffledOrderItems,
   isRetryQuestion,
   localizeFoundationQuestion,
@@ -371,8 +372,10 @@ export function FoundationAssessmentScreen({
     () => getFoundationWordBank(assessment.currentQuestion, retry).map((word) => (language === "en" ? word : translateStudyText(word, language))),
     [assessment.currentQuestion, language, retry]
   );
-  // The bar fills as each answer is checked, so it is empty on the first question and full after the last.
-  const progress = (assessment.questionNumber - 1 + (feedback ? 1 : 0)) / Math.max(assessment.totalQuestions, 1);
+  // The bar fills as each question is done (right, or missed on its second try), as in lessons: empty on the first
+  // question and full after the last. The count keeps the total the session started with.
+  const counter = getSessionProgress(assessment);
+  const progress = counter.done / counter.total;
   const canSubmit = canSubmitAnswer(question.type, selectedAnswer);
   const arabic = SKILL_ARABIC[question.category];
   const categoryTitle = SKILL_LOOK[question.category]?.name ?? question.category.charAt(0).toUpperCase() + question.category.slice(1);
@@ -397,6 +400,7 @@ export function FoundationAssessmentScreen({
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
   const [answersBox, setAnswersBox] = useState<Box | null>(null);
+  const [promptTop, setPromptTop] = useState(0);
   const wasChecked = useRef(false);
 
   useEffect(() => {
@@ -411,12 +415,12 @@ export function FoundationAssessmentScreen({
     if (!viewport || !sheetHeight || !answersBox) {
       return;
     }
+    // The answers right above the sheet, but never the question scrolled away: on a short phone the prompt stays
+    // whole at the top (the sheet names the right answer), also after a scroll down to reach the last answer.
     const visible = viewport - Math.max(0, sheetHeight - barHeight);
-    const y = Math.max(0, Math.min(answersBox.y + answersBox.height + space.md - visible, answersBox.y - space.sm));
-    if (y > 0) {
-      scrollRef.current?.scrollTo?.({ y, animated: true });
-    }
-  }, [answersBox, barHeight, locked, scrollRef, sheetHeight, viewport]);
+    const y = Math.max(0, Math.min(answersBox.y + answersBox.height + space.md - visible, answersBox.y - space.sm, promptTop - space.sm));
+    scrollRef.current?.scrollTo?.({ y, animated: true });
+  }, [answersBox, barHeight, locked, promptTop, scrollRef, sheetHeight, viewport]);
 
   const onAnswersLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
@@ -440,7 +444,7 @@ export function FoundationAssessmentScreen({
         </Tappable>
         <ProgressBar progress={progress} style={styles.progressBar} />
         <Text style={styles.progressCount}>
-          {assessment.questionNumber}/{assessment.totalQuestions}
+          {counter.number}/{counter.total}
         </Text>
       </View>
 
@@ -474,15 +478,17 @@ export function FoundationAssessmentScreen({
               </View>
             </PopIn>
 
-            <PromptBubble long={long} hideMascot={hideMascot} mascotVariant={mascotVariant} accent={accent} mood={mood}>
-              {scenario ? <Text style={[styles.scenarioText, { fontSize: promptSize - 2 }]}>{withHonorifics(scenario)}</Text> : null}
-              {question.type === "fill_in_blank" ? (
-                <BlankPrompt prompt={prompt} word={typeof selectedAnswer === "string" ? selectedAnswer : undefined} checked={checked} size={promptSize} />
-              ) : (
-                <PromptText size={promptSize}>{prompt}</PromptText>
-              )}
-              {question.type === "multi_select" ? <Text style={styles.hint}>Pick all that fit</Text> : null}
-            </PromptBubble>
+            <View onLayout={(event) => setPromptTop(Math.round(event.nativeEvent.layout.y))} testID="assessment-prompt">
+              <PromptBubble long={long} hideMascot={hideMascot} mascotVariant={mascotVariant} accent={accent} mood={mood}>
+                {scenario ? <Text style={[styles.scenarioText, { fontSize: promptSize - 2 }]}>{withHonorifics(scenario)}</Text> : null}
+                {question.type === "fill_in_blank" ? (
+                  <BlankPrompt prompt={prompt} word={typeof selectedAnswer === "string" ? selectedAnswer : undefined} checked={checked} size={promptSize} />
+                ) : (
+                  <PromptText size={promptSize}>{prompt}</PromptText>
+                )}
+                {question.type === "multi_select" ? <Text style={styles.hint}>Pick all that fit</Text> : null}
+              </PromptBubble>
+            </View>
 
             <View pointerEvents={locked ? "none" : "auto"} testID="assessment-answers" onLayout={onAnswersLayout}>
               {renderQuestionInput(question, selectedAnswer, change, checked, words, compact, retry)}

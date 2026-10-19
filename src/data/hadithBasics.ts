@@ -32,11 +32,12 @@ const SAYINGS: Saying[] = [
     reference: "Sahih Muslim 2626",
     narrator: "Abu Dharr",
     title: "A smile counts",
-    line: "Meeting people with a smile is a good deed.",
+    // The quote is sunnah.com's wording ("a cheerful countenance"); the line says it in a child's words.
+    line: "Even meeting your brother with a smile is a good deed.",
     quote: "Don't consider anything insignificant out of good things even if it is that you meet your brother with a cheerful countenance.",
     questions: [
-      { prompt: "How should you meet your brother?", answer: "With a smile", wrong: ["With a frown", "With your back turned"], explanation: "Meet your brother with a cheerful face." },
-      { statement: "A small good deed, like a smile, does not count.", answer: false, explanation: "No good deed is too small, even a cheerful face." }
+      { prompt: "How should you meet your brother?", answer: "With a smile", wrong: ["With a frown", "With your back turned"], explanation: "Meet your brother with a smiling face." },
+      { statement: "A small good deed, like a smile, does not count.", answer: false, explanation: "No good deed is too small, even a smiling face." }
     ]
   },
   {

@@ -90,7 +90,7 @@ export const LEARN_LINES = {
   bilal: "He was the first to call the adhan in Islam.",
   "fatimah-al-zahra": "She was the youngest daughter of the Prophet ﷺ.",
   "fatimah-bint-asad": "She was Ali's mother and raised the Prophet ﷺ in her home.",
-  // His other well-known story (ten wives, told to keep four) is for older learners, in the Hadith topic.
+  // His other well-known story (ten wives, told to keep four) is left off the path.
   "ghailan-b-salama-ath-thaqafi": "He was a man of Thaqif, from Ta'if, who accepted Islam.",
   "haarith-ibn-hishaan": "He was Abu Jahl's brother and became Muslim when Makkah was opened.",
   "hakim-ibn-hizam": "He was Khadijah's nephew and a generous merchant.",
@@ -121,7 +121,9 @@ export const LEARN_LINES = {
   "suraqa-ibn-malik": "He chased the Prophet ﷺ during the Hijrah for a reward.",
   "tamim-al-dari": "He was a Christian before he became Muslim.",
   "thaabit-ibn-aqram": "He picked up the banner at Mu'tah and gave it to Khalid.",
-  thalabah: "He fought at Badr; a well-known story about zakat names him.",
+  // His note's known_for is a story about refusing zakat (Quran 9:75) that many hadith scholars hold weak, and it
+  // accuses a man of Badr; only that he fought at Badr is taught.
+  thalabah: "He was one of the companions who fought at Badr.",
   "ubaydah-ibn-al-harith": "He was the first Muslim martyred in battle, at Badr.",
   "umar-ibn-al-khattab": "He was the second caliph, called al-Faruq.",
   "umm-ayman": "She cared for the young Prophet ﷺ and was an early Muslim.",
@@ -227,19 +229,35 @@ export const UNSURE_FACTS = {
   "khawlah-bint-jafar-al-hanifiyyah": ["birth_place", "death_place"],
   // Her note says she "survived Karbala"; Sunni historians say she died in Madinah before 61 AH. Her lesson
   // keeps the hand-checked line instead.
-  "umm-kulthoom-bint-ali": ["known_for"]
+  "umm-kulthoom-bint-ali": ["known_for"],
+  // His note's known_for is the zakat story of Quran 9:75, which many hadith scholars hold weak.
+  thalabah: ["known_for"],
+  // The note says Hantamah bint Hisham; Ibn Abd al-Barr and others give bint Hashim and call "bint Hisham" a slip.
+  "umar-ibn-al-khattab": ["mother"]
 };
 
-// Facts left out of a child's lesson because they are for older learners. Ghaylan's ten wives are taught in
-// the hadith unit on marriage (Mishkat al-Masabih 3176), which opens only after the units before it.
+// Facts left out of a child's lesson because they are for older learners. Ghaylan's ten wives (Mishkat al-Masabih
+// 3176) are left off the path too.
 export const ADULT_FACTS = {
   "ghailan-b-salama-ath-thaqafi": ["known_for"]
 };
 
-// People left off the path. Women of the Book is for women to look up to: Umm Jamil fought the Prophet ﷺ
-// (Surah al-Masad is about her) and Umm Anmar tortured Khabbab for his Islam; their stories are told with
-// Surah al-Masad and with Khabbab. Keyed like LEARN_LINES.
-export const LEFT_OUT_PEOPLE = new Set(["umm-jamil", "umm-ammaar"]);
+// People left off the path, and never used for another lesson's wrong choices. Women of the Book is for women to
+// look up to: Umm Jamil fought the Prophet ﷺ (Surah al-Masad is about her) and Umm Anmar tortured Khabbab for his
+// Islam; their stories are told with Surah al-Masad and with Khabbab. As-Sahba' at-Taghlibiyyah, Layla bint Mas'ud
+// and Umm Sa'id bint Urwah have nothing certain to teach but that they were wives of Ali, so three lessons would
+// say the same line. Keyed like LEARN_LINES.
+export const LEFT_OUT_PEOPLE = new Set([
+  "umm-jamil",
+  "umm-ammaar",
+  "al-sahba-al-taghlibiyyah",
+  "layla-bint-masud-al-tamimiyyah",
+  "umm-said-bint-urwah-al-thaqafiyyah"
+]);
+
+// Surahs the scholars of the Quran disagree on, Makkan or Madinan (as-Suyuti lists them in al-Itqan): their lesson
+// never says where they were revealed, so no true or false question is half true.
+export const DISPUTED_REVELATION = new Set([1, 13, 22, 55, 61, 64, 76, 83, 97, 98, 99, 100, 102, 107, 108, 112, 113, 114]);
 
 // The English names of a few surahs in plain words a child knows, each a standard meaning of the Arabic name
 // (Quran.com's "The Traducer" is al-Humazah, the backbiter). These win over the note's English name. Al-Fatihah
@@ -392,24 +410,24 @@ export const HADITH_LESSONS = {
       { statement: "After marrying, a man can stop caring about the rest of the religion.", answer: false, explanation: "He should fear Allah regarding the remaining half." }
     ]
   },
+  // In the Marriage topic, for older learners: the card quotes the part about a husband and wife.
   "Sahih Muslim 2813b": {
     title: "Iblis and his troops",
     level: 5,
     learnLine: "Iblis praises the devil who makes a husband and wife fight.",
-    quote:
-      "Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension.",
+    // sunnah.com's words, from the opening quote mark to the closing one, so the card shows whole quotes.
+    quote: '"I did not spare so and so until I sowed the seed of discord between a husband and a wife." The Satan goes near him and says: "You have done well."',
     questions: [
       {
-        prompt: "Where does Iblis place his throne?",
-        answer: "Upon water",
-        wrong: ["On a mountain", "In a tree"],
-        explanation: "Iblis places his throne upon water."
+        prompt: "Which devil does Iblis praise, saying: You have done well?",
+        answer: "The one who made a husband and wife fight",
+        wrong: ["The one who stayed quiet", "The one who went to sleep"],
+        explanation: "Iblis praises the devil who makes a husband and wife fight."
       },
       {
-        prompt: "Which devils are nearest to Iblis?",
-        answer: "Those who cause the most trouble",
-        wrong: ["The quietest ones", "The youngest ones"],
-        explanation: "The nearest to him are the most notorious in creating dissension."
+        statement: "Iblis is pleased when a husband and wife fight.",
+        answer: true,
+        explanation: "Iblis says to that devil: You have done well."
       }
     ]
   },
@@ -494,4 +512,6 @@ export const REPEATED_HADITH = {
 
 // Hadith never put on the path: the Dajjal's eye described (Bukhari 7407, Muslim 169e) would frighten a young
 // child, and the Dajjal is taught once, by the warning in Muslim 2930a. A hadith graded Da'if is left out too.
-export const LEFT_OUT_HADITH = new Set(["Sahih al-Bukhari 7407", "Sahih Muslim 169e"]);
+// "Keep four" (Mishkat al-Masabih 3176: Ghaylan, who had ten wives, was told to keep four) is left off the path:
+// it does not fit the Marriage topic, which teaches a kind home, and its card has no quote.
+export const LEFT_OUT_HADITH = new Set(["Sahih al-Bukhari 7407", "Sahih Muslim 169e", "Mishkat al-Masabih 3176"]);

@@ -31,7 +31,10 @@ export type LessonCompleteProps = {
   nextTitle?: string;
   onContinue: () => void;
   onBackToPath?: () => void;
-  /** Play lesson_complete on mount, streak with the streak card (when it grew) and xp when the counters finish. Default true. */
+  /**
+   * Play lesson_complete on mount, streak with the streak card (when it grew) and xp when the counters finish (not
+   * when the XP is 0, as on a replay of a finished lesson). Default true.
+   */
   playSounds?: boolean;
   bottomInset?: number;
   testID?: string;
@@ -152,9 +155,12 @@ export function LessonComplete({
     playUi("lesson_complete");
     // Spread out so no two sounds land together: the fanfare, then the streak card, then the XP count.
     const streakTimer = streakExtended ? setTimeout(() => playUi("streak"), CARD_DELAY + 2 * CARD_STAGGER + 120) : undefined;
-    const xpTimer = setTimeout(() => playUi("xp"), CARD_DELAY + 2 * CARD_STAGGER + COUNT_DURATION + (streakExtended ? 420 : 120));
+    // Nothing to count up on a replay, so no XP sound either.
+    const xpTimer = xp > 0 ? setTimeout(() => playUi("xp"), CARD_DELAY + 2 * CARD_STAGGER + COUNT_DURATION + (streakExtended ? 420 : 120)) : undefined;
     return () => {
-      clearTimeout(xpTimer);
+      if (xpTimer) {
+        clearTimeout(xpTimer);
+      }
       if (streakTimer) {
         clearTimeout(streakTimer);
       }
