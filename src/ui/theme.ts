@@ -34,7 +34,9 @@ export const fonts = {
   bodyBold: "Nunito_700Bold",
   bodyHeavy: "Nunito_800ExtraBold",
   arabic: "BalooBhaijaan2_600SemiBold",
-  arabicBold: "BalooBhaijaan2_800ExtraBold"
+  arabicBold: "BalooBhaijaan2_800ExtraBold",
+  /** Quran ayahs, hadith text and the ﷺ sign (Baloo has no Quranic marks and no ﷺ). */
+  quran: "NotoNaskhArabic_600SemiBold"
 } as const;
 
 export const radii = {
