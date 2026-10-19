@@ -217,7 +217,7 @@ describe("lesson screens", () => {
     expect(noBreakHyphens("As-salamu")).toBe("As-\u2060salamu");
   });
 
-  it("OrderGame: TRY AGAIN keeps the right start, a second miss shows the order, right order calls onDone", async () => {
+  it("OrderGame: a miss shows the order, TRY AGAIN keeps the right start, right order calls onDone", async () => {
     const options = [
       { id: "hands", label: "Wash hands" },
       { id: "mouth", label: "Rinse mouth" },
@@ -241,7 +241,9 @@ describe("lesson screens", () => {
     await fireEvent.press(screen.getByTestId("order-bank-mouth"));
     await fireEvent.press(screen.getByTestId("order-bank-hands"));
     await fireEvent.press(screen.getByText("CHECK"));
-    expect(screen.getByText("Not quite! 2 steps are mixed up")).toBeTruthy();
+    // The first miss already shows the right order (Duolingo style), as one numbered column.
+    expect(screen.getByText("Correct order:")).toBeTruthy();
+    expect(screen.getByTestId("feedback-list")).toHaveTextContent(/1Wash hands2Rinse mouth3Wash face/);
     await fireEvent.press(screen.getByText("TRY AGAIN"));
     expect(screen.queryByTestId("order-placed-face")).toBeNull();
 
@@ -250,7 +252,6 @@ describe("lesson screens", () => {
     await fireEvent.press(screen.getByTestId("order-bank-face"));
     await fireEvent.press(screen.getByTestId("order-bank-mouth"));
     await fireEvent.press(screen.getByText("CHECK"));
-    // A second miss shows the right order instead of letting the learner guess again.
     expect(screen.getByText("Correct order:")).toBeTruthy();
     // Each step shows in the placed chips (or the bank) and once more in the sheet's list.
     expect(screen.getAllByText("Rinse mouth").length).toBe(2);

@@ -33,6 +33,8 @@ export type CrewViewProps = {
   onRemoveFriend: (member: CrewMember) => void;
   onRefresh: () => void;
   onCreateAccount: () => void;
+  /** A guest whose account on this device logged out: the button says LOG IN, as the account sheet will. */
+  hasSavedAccount?: boolean;
   /** Tabs replace the old back button; kept optional for the old call site. */
   onDone?: () => void;
   /**
@@ -166,8 +168,10 @@ export function CrewView({
   onCreateAccount,
   offline,
   unavailable,
+  hasSavedAccount = false,
   mascotVariant = "muslim_man",
-  accent = colors.gem
+  // The brand green like the Mascot's own default; the app passes the topic accent.
+  accent = colors.green
 }: CrewViewProps) {
   const [inviteOpen, setInviteOpen] = useState(false);
   const [friendSheet, setFriendSheet] = useState<CrewMember | undefined>(undefined);
@@ -218,8 +222,17 @@ export function CrewView({
   if (unavailable) {
     body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title="Crew is coming soon!" />;
   } else if (signedOut) {
-    // An account without a server session (made offline) logs in; everyone else signs up.
-    body = <Empty {...emptyProps} testID="crew-signed-out" mood="wave" title="Race your friends!" button={user.hasAccount ? "Log in" : "Sign up"} onPress={onCreateAccount} />;
+    // An account without a server session (made offline), or a saved one that logged out, logs in; everyone else signs up.
+    body = (
+      <Empty
+        {...emptyProps}
+        testID="crew-signed-out"
+        mood="wave"
+        title="Race your friends!"
+        button={user.hasAccount || hasSavedAccount ? "Log in" : "Sign up"}
+        onPress={onCreateAccount}
+      />
+    );
   } else if (isOffline) {
     body = <Empty {...emptyProps} testID="crew-offline" mood="sad" title="No internet" button="Try again" onPress={retry} busy={retrying} />;
   } else if (crew.status === "error") {

@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { MAX_PERSON_QUESTIONS, PERSON_FACTS, pickDistractors, properName } from "./facts.mjs";
+import { ADULT_TEXT, MAX_CHIP_WORDS, MAX_CHOICE_LENGTH, MAX_LEARN_FACTS, MAX_LINE_WORDS, MAX_PERSON_QUESTIONS, PERSON_FACTS, displayName, nameWarnings, pickDistractors, plainName, properName } from "./facts.mjs";
 import { cleanText, extractQuestions, firstSentence, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic, suspectTextWarnings } from "./lib.mjs";
 
 const sampleVault = join(dirname(fileURLToPath(import.meta.url)), "sample-vault");
@@ -178,6 +178,8 @@ test("fixes known slips from older translations and plain-spells transliteration
   assert.equal(cleanText("There is no Allah save Me, so fear Me."), "There is no god save Me, so fear Me.");
   assert.equal(cleanText("He is Allah, than whom there is no other Allah."), "He is Allah, than whom there is no other god.");
   assert.equal(cleanText("Is there any Allah beside Allah?"), "Is there any god beside Allah?");
+  assert.equal(cleanText("It is inspired in me that your Allah is One Allah, therefor take the straight path"), "It is inspired in me that your God is One God, therefor take the straight path");
+  assert.equal(cleanText("Maketh he the gods One Allah? Lo!"), "Maketh he the gods One God? Lo!");
   assert.equal(cleanText("He said: 0 young men, wait."), "He said: O young men, wait.");
   assert.equal(cleanText("Labbaik,0 Allah, Labbaik. Say: 0 unbelievers."), "Labbaik, O Allah, Labbaik. Say: O unbelievers.");
   assert.equal(cleanText("He had 10 young camels in 1440 AH."), "He had 10 young camels in 1440 AH.", "real numbers stay");
@@ -219,7 +221,8 @@ test("builds surah lessons with ayah meaning questions", () => {
 test("puts hadith notes in the Hadith topic and skips untagged people", () => {
   const result = importVault(sampleVault);
   const hadith = result.content.sections.find((section) => section.topicId === "hadith");
-  assert.equal(hadith.nodes[0].title, "Sahih Muslim 134a");
+  assert.equal(hadith.nodes[0].title, "I believe in Allah", "a learner-facing title, not the book number");
+  assert.equal(hadith.nodes[0].id, "notes-hadith-hadith-from-your-notes-sahih-muslim-134a", "the id still comes from the reference");
   const lesson = result.content.lessonsById[hadith.nodes[0].lessonIds[0]];
   assert.doesNotMatch(lesson.explanationContent, /[؀-ۿ]|Chapter 60/);
   assert.ok(result.warnings.some((warning) => warning.includes("Abu Jahl")));
@@ -237,7 +240,7 @@ test("wrong choices are written like the answer", () => {
   assert.equal(pickDistractors("Banu Adi", ["Banu Taym", "Banu Hashim", "Banu Makhzum", "Quraysh"], "seed").every((value) => value.startsWith("Banu")), true);
 });
 
-test("hadith choices are cut to the same length and drop reference text", () => {
+test("hadith lessons drop reference text and never offer cut choices", () => {
   const long = (n) => Array.from({ length: 30 }, (_, index) => `w${n}${index}`).join(" ");
   const hadith = (name, body, collection) => [`Hadith/${name}.md`, `---\ntype: hadith\ncollection: ${collection}\naliases:\n  - ${name}\n---\n${body}`];
   const vault = vaultWith(
@@ -247,13 +250,182 @@ test("hadith choices are cut to the same length and drop reference text", () => 
       hadith("Sahih Bukhari 3", `Narrated Umar: ${long(3)}`, "Sahih al-Bukhari")
     ])
   );
-  const { content } = importVault(vault);
+  const { content, warnings } = importVault(vault);
   for (const lesson of Object.values(content.lessonsById)) {
     assert.doesNotMatch(lesson.explanationContent, /transmitted|Mishkat al-Masabih 3096/);
-    const which = lesson.challenges.find((challenge) => challenge.prompt.startsWith("Which narration"));
-    if (!which) continue;
-    assert.ok(which.choices.every((choice) => choice.label.endsWith("...")), which.choices.map((choice) => choice.label).join(" | "));
+    for (const challenge of lesson.challenges) {
+      assert.doesNotMatch(challenge.prompt, /^Which narration/, "no \"which narration is in this book\" questions");
+      assert.ok(challenge.choices.every((choice) => !choice.label.endsWith("...")), challenge.choices.map((choice) => choice.label).join(" | "));
+    }
   }
+  assert.ok(warnings.some((warning) => warning.includes("add lesson_title:, learn_line: and Q:/A: questions")), "a hadith without its own lesson asks for one");
+});
+
+test("a hadith note's own title, line, quote and questions make its lesson", () => {
+  const vault = vaultWith({
+    "Hadith/Smile.md": [
+      "---",
+      "type: hadith",
+      "collection: Jami' at-Tirmidhi",
+      "aliases:",
+      "  - Jami' at-Tirmidhi 1956",
+      "lesson_title: Smiling is charity",
+      "learn_line: Smiling at your brother is a charity.",
+      "quote: Your smiling in the face of your brother is charity.",
+      "level: 1",
+      "---",
+      "Narrated Abu Dharr: that the Messenger of Allah (ﷺ) said: Your smiling in the face of your brother is charity. Grade: Sahih (Darussalam)",
+      "",
+      "Q: What does smiling at your brother count as?",
+      "- [x] Charity",
+      "- [ ] Wasting time",
+      "- [ ] Showing off"
+    ].join("\n"),
+    "Hadith/Wrong quote.md": "---\ntype: hadith\ncollection: Sahih Muslim\naliases:\n  - Sahih Muslim 99\nlesson_title: Test\nlearn_line: Test line.\nquote: Words that are not in the note.\n---\nThe Prophet (ﷺ) said: Be kind.\n\nQ: Be kind.\nA: True"
+  });
+  const { content, warnings } = importVault(vault);
+  const nodes = content.sections[0].nodes;
+  const smile = nodes.find((node) => node.title === "Smiling is charity");
+  assert.ok(smile, nodes.map((node) => node.title).join(", "));
+  assert.match(smile.id, /jami-at-tirmidhi-1956$/);
+  assert.equal(smile.difficulty, 1);
+  const lesson = content.lessonsById[smile.lessonIds[0]];
+  assert.equal(lesson.learnLine, "Smiling at your brother is a charity.");
+  assert.deepEqual(lesson.quote, { text: "Your smiling in the face of your brother is charity.", reference: "Jami' at-Tirmidhi 1956 (Sahih, Darussalam)" });
+  assert.equal(lesson.challenges[0].prompt, "What does smiling at your brother count as?");
+  const wrong = content.lessonsById[nodes.find((node) => node.title === "Test").lessonIds[0]];
+  assert.equal(wrong.quote, undefined, "a quote that is not in the note word for word is never shown");
+  assert.ok(warnings.some((warning) => warning.includes("Sahih Muslim 99: the quote is not in the note word for word")));
+});
+
+test("names use one simple spelling", () => {
+  assert.equal(plainName("Salmaan Al-Faarisiy"), "Salman al-Farisi");
+  assert.equal(plainName("'Abd Allah Ibn Mas'uud"), "Abdullah ibn Mas'ud");
+  assert.equal(plainName("Fatimah al-Zahra"), "Fatimah az-Zahra");
+  assert.equal(plainName("Abdul-Rahman ibn Awf"), "Abd ar-Rahman ibn Awf");
+  assert.equal(plainName("Khadijah bint khuwaylid"), "Khadijah bint Khuwaylid");
+  assert.equal(displayName("'Lyaash ibn Abi Rabiyyah"), "'Ayyash ibn Abi Rabi'ah", "a hand-checked spelling wins");
+  assert.equal(displayName("Noah"), "Nuh");
+  assert.equal(displayName("Sulaiman"), "Sulayman");
+  assert.equal(displayName("Shaleh"), "Salih");
+  for (const shown of ["Nuh", "Sulayman", "Salih", "'Ayyash ibn Abi Rabi'ah", "Salman al-Farisi"]) assert.deepEqual(nameWarnings(shown, shown), [], shown);
+  assert.equal(nameWarnings("Salmaan", "Salman").length, 1, "doubled vowels are reported");
+  assert.ok(nameWarnings("'Lyaash ibn Abi Rabiyyah", "'Ayyash ibn Abi Rabi'ah").some((warning) => warning.includes("l typed for I")));
+  assert.deepEqual(nameWarnings("Luqman", "Luqman"), [], "a real L is fine");
+});
+
+test("person lessons ask only about the facts on their learn card", () => {
+  const person = (name, fields) => [`People/${name}.md`, `---\ntype: person\ntags: [Sahabi]\n${fields}\n---\nShe was a bitch in the story notes.`];
+  const vault = vaultWith(
+    Object.fromEntries([
+      person("Salmaan Al-Faarisiy", "known_for: Suggested the trench\nfather: Unknown\nbirth_place: Isfahan\ndeath_place: Mada'in"),
+      person("Bilal", "known_for: First muezzin\nfather: Rabah\nmother: Hamamah\nbirth_place: Makkah\ndeath_place: Damascus"),
+      person("Zayd", "known_for: Named in the Quran\nfather: Harithah ibn Sharahil\nbirth_place: Najd or Makkah\ndeath_place: Mu'tah"),
+      person("Suhaib", "known_for: Left his wealth for the Hijrah\nfather: Sinan\nbirth_place: Mosul\ndeath_place: Madinah")
+    ])
+  );
+  const { content, warnings } = importVault(vault);
+  const nodes = content.sections[0].nodes;
+  assert.ok(nodes.some((node) => node.title === "Salman al-Farisi"), nodes.map((node) => node.title).join(", "));
+  assert.ok(nodes.some((node) => node.id.endsWith("-salmaan-al-faarisiy")), "the id keeps the note name");
+  assert.ok(warnings.some((warning) => warning.includes("doubled vowel")));
+  for (const node of nodes) {
+    const lesson = content.lessonsById[node.lessonIds[0]];
+    assert.ok(lesson.learnLine && lesson.learnLine.split(/\s+/).length <= MAX_LINE_WORDS, `${node.title}: ${lesson.learnLine}`);
+    assert.ok(lesson.learnFacts.length <= MAX_LEARN_FACTS && lesson.learnFacts.every((chip) => chip.split(/\s+/).length <= MAX_CHIP_WORDS), lesson.learnFacts.join(" | "));
+    assert.ok(lesson.challenges.length >= 2 && lesson.challenges.length <= MAX_PERSON_QUESTIONS, node.title);
+    assert.doesNotMatch(lesson.explanationContent, /bitch/, "a note's own study text is left out");
+    assert.ok(!lesson.learnFacts.some((chip) => /Unknown| or /.test(chip)), "nothing the note is unsure of");
+    for (const challenge of lesson.challenges) {
+      const answer = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId).label;
+      const onCard = [lesson.learnLine, ...lesson.learnFacts].some((text) => text.includes(answer) || answer.includes(text.replace(/[.]$/, "")));
+      assert.ok(onCard || challenge.prompt.includes(lesson.learnLine.replace(/^(He|She) /, "").replace(/[.]$/, "")), `${challenge.prompt} -> ${answer}`);
+    }
+  }
+});
+
+test("surah lessons keep choices short and suitable for children", () => {
+  const ayah = (ref, text) => `### Quran ${ref}\nبِسْمِ ٱللَّهِ\n> ${text}`;
+  const surah = (lines) => ["---", "type: surah", "---", ...lines].join("\n");
+  const vault = vaultWith({
+    "Quran/41 - Surah Fussilat.md": surah([
+      "**English name:** Explained in Detail",
+      "**Revelation:** Meccan",
+      "**Ayahs:** 54",
+      ayah("41:1", "Ha. Mim."),
+      ayah("41:2", "A revelation from the Beneficent, the Merciful,"),
+      ayah("41:3", "A Scripture whereof the verses are expounded, a Lecture in Arabic for people who have knowledge,"),
+      ayah("41:4", "Good tidings and a warning. But most of them turn away so that they hear not."),
+      ayah("41:5", "They do not commit fornication, and whoever does this shall meet a penalty."),
+      ayah("41:6", "Say (unto them O Muhammad): I am only a mortal like you. It is inspired in me that your God is One God, therefor take the straight path unto Him and seek forgiveness of Him.")
+    ]),
+    "Quran/1 - Surah Al-Fatihah.md": surah(["**English name:** The Opening", "**Revelation:** Meccan", "**Ayahs:** 7", ayah("1:1", "In the name of Allah, the Beneficent, the Merciful.")]),
+    "Quran/112 - Surah Al-Ikhlas.md": surah(["**English name:** The Sincerity", "**Revelation:** Meccan", "**Ayahs:** 4", ayah("112:1", "Say: He is Allah, the One!")])
+  });
+  const { content } = importVault(vault);
+  const lessons = Object.values(content.lessonsById);
+  assert.equal(lessons.length, 3);
+  const fussilat = lessons.find((lesson) => lesson.title === "Surah Fussilat");
+  assert.equal(fussilat.learnLine, 'Surah Fussilat means "Explained in Detail".');
+  assert.deepEqual(fussilat.learnFacts, ["54 ayahs", "Revealed in Makkah"]);
+  assert.ok(fussilat.quote && fussilat.quote.text.length <= MAX_CHOICE_LENGTH && fussilat.quote.reference.startsWith("Quran 41:"));
+  assert.doesNotMatch(fussilat.explanationContent, ADULT_TEXT);
+  for (const lesson of lessons) {
+    for (const challenge of lesson.challenges) {
+      for (const choice of challenge.choices) {
+        assert.ok(choice.label.length <= MAX_CHOICE_LENGTH, choice.label);
+        assert.doesNotMatch(choice.label, ADULT_TEXT);
+        assert.notEqual(choice.label, "Ha. Mim.", "the opening letters are never a choice");
+      }
+    }
+  }
+});
+
+test("a surah named after a person or its opening letters says so, and that name is never a meaning", () => {
+  const surah = (english, revealed, ayahs, ...lines) =>
+    ["---", "type: surah", "---", `**English name:** ${english}`, `**Revelation:** ${revealed}`, `**Ayahs:** ${ayahs}`, ...lines].join("\n");
+  const vault = vaultWith({
+    "Quran/36 - Surah Ya-Sin.md": surah("Ya Sin", "Meccan", 83, "### Quran 36:1", "> Ya Sin."),
+    "Quran/38 - Surah Sad.md": surah('The Letter "Saad"', "Meccan", 88),
+    "Quran/11 - Surah Hud.md": surah("Hud", "Meccan", 123),
+    "Quran/86 - Surah At-Tariq.md": surah("The Nightcommer", "Meccan", 17),
+    "Quran/112 - Surah Al-Ikhlas.md": surah("The Sincerity", "Meccan", 4),
+    "Quran/113 - Surah Al-Falaq.md": surah("The Daybreak", "Meccan", 5),
+    "Quran/114 - Surah An-Nas.md": surah("Mankind", "Meccan", 6)
+  });
+  const lessons = Object.values(importVault(vault).content.lessonsById);
+  const byTitle = (title) => lessons.find((lesson) => lesson.title === title);
+  assert.equal(byTitle("Surah Ya-Sin").learnLine, "Surah Ya-Sin is named after its opening letters, Ya Sin.");
+  assert.equal(byTitle("Surah Sad").learnLine, "Surah Sad is named after its opening letter, Sad.");
+  assert.equal(byTitle("Surah Hud").learnLine, "Surah Hud is named after Prophet Hud.");
+  assert.equal(byTitle("Surah At-Tariq").learnLine, 'Surah At-Tariq means "The Nightcomer".');
+  // An-Nas has 6 ayahs; the wrong counts are the nearest ones (4, 5, 17, 83 ...), never only big numbers.
+  const count = byTitle("Surah An-Nas").challenges.find((challenge) => challenge.prompt.startsWith("How many ayahs"));
+  const wrongCounts = count.choices.filter((choice) => choice.id !== count.correctChoiceId).map((choice) => Number(choice.label));
+  assert.equal(wrongCounts.length, 3);
+  assert.ok(wrongCounts.filter((value) => value <= 17).length >= 2, `wrong counts ${wrongCounts}`);
+  for (const lesson of lessons) {
+    assert.ok(lesson.learnLine.split(" ").length <= MAX_LINE_WORDS, lesson.learnLine);
+    for (const challenge of lesson.challenges) {
+      if (["Surah Ya-Sin", "Surah Sad", "Surah Hud"].includes(lesson.title)) assert.doesNotMatch(challenge.prompt, /What does the name/);
+      for (const choice of challenge.choices) assert.ok(!["Ya Sin", "Hud", "The Letter Saad"].includes(choice.label), `${lesson.title}: ${choice.label}`);
+    }
+  }
+});
+
+test("fixes slips copied from the English names and Pickthall", () => {
+  assert.equal(cleanText("Alif. Lam. Ra. These are verse of the Scripture that maketh plain."), "Alif. Lam. Ra. These are verses of the Scripture that maketh plain.");
+  assert.equal(cleanText("The Nightcommer"), "The Nightcomer");
+});
+
+test("fixes a space typed after the article's hyphen and reports l for I and rude words", () => {
+  assert.equal(cleanText("He said: Ad- Dajjal is blind."), "He said: Ad-Dajjal is blind.");
+  const warnings = suspectTextWarnings({
+    a: { title: "Typo", intro: "Narrated 'Lyaash ibn Abi Rabiyyah.", explanationContent: "", challenges: [] },
+    b: { title: "Rude", intro: "What the shit.", explanationContent: "", challenges: [] },
+    c: { title: "Fine", intro: "You'll see Luqman. The lying forelock (Quran 96:16).", explanationContent: "", challenges: [] }
+  });
+  assert.deepEqual(warnings, ['Typo: l typed for I in "Narrated \'Lyaash ibn Abi Rabiyyah."', 'Rude: rude word in "What the shit."']);
 });
 
 test("index and FAQ notes with a type but no questions are skipped quietly", () => {

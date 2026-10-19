@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, ScrollView, StyleSheet, Text, View, type LayoutChangeEvent } from "react-native";
+import { withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import type { MascotMood } from "../Mascot";
@@ -10,7 +11,7 @@ import { QuestionBubble, useLessonCompact } from "./ExerciseView";
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens } from "./lessonText";
-import { ScrollHint, useScrollMore } from "./ScrollHint";
+import { useScrollMore } from "./ScrollHint";
 
 export type OrderOption = { id: string; label: string; icon?: IconName };
 
@@ -31,8 +32,6 @@ export type OrderGameProps = {
   initialPlacedIds?: string[];
   /** Gallery / tests: start already checked (with initialPlacedIds). */
   initialChecked?: boolean;
-  /** Gallery / tests: wrong CHECKs already made (2 or more shows the right order on a wrong check). */
-  initialMisses?: number;
   /** Play the correct / wrong sound when the sheet opens. Default true; pass false if the caller plays it. */
   playSound?: boolean;
   bottomInset?: number;
@@ -146,7 +145,7 @@ function Chip({
             </View>
           ) : null}
           <Text style={[styles.chipText, small ? styles.chipTextSmall : null, fill ? styles.chipTextFill : null, { color: look.ink }]}>
-            {noBreakHyphens(label)}
+            {withHonorifics(noBreakHyphens(label))}
           </Text>
         </View>
       </Tappable>
@@ -154,7 +153,7 @@ function Chip({
   );
 }
 
-/** Tap-to-order mini game (wudu / salah steps). From the second wrong CHECK the sheet shows the right order. */
+/** Tap-to-order mini game (wudu / salah steps). A wrong CHECK shows the right order right away, like Duolingo. */
 export function OrderGame({
   title,
   prompt = "Put the steps in order!",
@@ -166,7 +165,6 @@ export function OrderGame({
   onChecked,
   initialPlacedIds,
   initialChecked,
-  initialMisses = 0,
   playSound = true,
   bottomInset,
   testID = "order-game"
@@ -179,8 +177,6 @@ export function OrderGame({
     }
     return initialPlacedIds.join("|") === correctOrderIds.join("|");
   });
-  // Wrong CHECKs so far (the current one included while the sheet is up).
-  const [misses, setMisses] = useState(() => (initialChecked && checked === false ? Math.max(1, initialMisses) : initialMisses));
   const { style: shakeStyle, shake } = useShake(8);
   const { compact, narrow } = useLessonCompact();
   const small = compact || narrow;
@@ -188,12 +184,11 @@ export function OrderGame({
   const byId = useMemo(() => new Map(options.map((option) => [option.id, option])), [options]);
   const total = correctOrderIds.length || options.length;
   const ready = placed.length >= total;
-  const wrongCount = placed.filter((id, index) => id !== correctOrderIds[index]).length;
 
   // Keep the last sheet copy while it slides away after TRY AGAIN.
-  const lastSheet = useRef({ correct: false, wrongCount: 0, misses: 0 });
+  const lastSheet = useRef({ correct: false });
   if (checked !== null) {
-    lastSheet.current = { correct: checked, wrongCount, misses };
+    lastSheet.current = { correct: checked };
   }
   const sheet = lastSheet.current;
 
@@ -242,7 +237,6 @@ export function OrderGame({
     const correct = placed.join("|") === correctOrderIds.join("|");
     setChecked(correct);
     if (!correct) {
-      setMisses((count) => count + 1);
       shake();
     }
     onChecked?.(correct);
@@ -258,14 +252,8 @@ export function OrderGame({
   const toneAt = (id: string, index: number): ChipTone =>
     checked === null ? "placed" : correctOrderIds[index] === id ? "correct" : "wrong";
   const mood: MascotMood = checked === null ? "think" : checked ? "cheer" : "sad";
-  // The first miss says how many steps are off; from the second one the sheet lists the right order.
-  const showOrder = !sheet.correct && sheet.misses >= 2;
-  const correctList = showOrder ? correctOrderIds.map((id) => byId.get(id)?.label ?? id) : undefined;
-  const wrongTitle = showOrder
-    ? "Correct order:"
-    : sheet.wrongCount === 1
-      ? "Almost! 1 step is mixed up"
-      : `${sheet.wrongCount * 2 > total ? "Not quite!" : "Almost!"} ${sheet.wrongCount} steps are mixed up`;
+  // A miss lists the right order at once (one numbered column), so nobody has to guess it.
+  const correctList = sheet.correct ? undefined : correctOrderIds.map((id) => byId.get(id)?.label ?? id);
   const extraBottom = checked !== null && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
   // Short phones: placed steps sit in two columns and used chips leave the bank, so all of it fits.
   const grid = compact;
@@ -329,11 +317,10 @@ export function OrderGame({
             </View>
           ) : null}
         </ScrollView>
-        <ScrollHint visible={more && checked === null} onPress={scrollDown} />
       </View>
 
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
-        <LessonBottomBar bottomInset={bottomInset}>
+        <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more && checked === null, onPress: scrollDown }}>
           {/* The result sound plays when the sheet opens, so CHECK itself stays quiet. */}
           <GameButton label="Check" fullWidth sound={false} disabled={!ready || checked !== null} onPress={check} testID="order-check" />
         </LessonBottomBar>
@@ -342,7 +329,7 @@ export function OrderGame({
       <FeedbackSheet
         visible={checked !== null}
         correct={sheet.correct}
-        title={sheet.correct ? "Perfect order!" : wrongTitle}
+        title={sheet.correct ? "Perfect order!" : "Correct order:"}
         correctList={correctList}
         buttonLabel={sheet.correct ? "Continue" : "Try again"}
         onContinue={sheet.correct ? onDone : retry}

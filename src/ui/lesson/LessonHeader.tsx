@@ -5,6 +5,7 @@ import { useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, space } from "../theme";
+import { ScrollHint } from "./ScrollHint";
 
 export type LessonHearts = { current: number; max: number; unlimited: boolean };
 
@@ -106,12 +107,24 @@ const DEFAULT_BOTTOM_INSET = Platform.OS === "ios" ? 26 : 14;
 export type LessonBottomBarProps = {
   children?: React.ReactNode;
   bottomInset?: number;
+  /** "More below" arrow on the bar's top edge (from useScrollMore). It covers no text and only it takes taps. */
+  scrollHint?: { visible: boolean; onPress: () => void };
   style?: StyleProp<ViewStyle>;
 };
 
 /** Fixed white action bar at the bottom of a lesson step (top hairline, safe-area padding). */
-export function LessonBottomBar({ children, bottomInset = DEFAULT_BOTTOM_INSET, style }: LessonBottomBarProps) {
-  return <View style={[styles.bottomBar, { paddingBottom: space.lg + bottomInset }, style]}>{children}</View>;
+export function LessonBottomBar({ children, bottomInset = DEFAULT_BOTTOM_INSET, scrollHint, style }: LessonBottomBarProps) {
+  return (
+    <View style={[styles.bottomBar, { paddingBottom: space.lg + bottomInset }, style]}>
+      {children}
+      {scrollHint ? (
+        // A zero-height strip on the top edge: the hint centers itself on it, half over the bar's top padding.
+        <View pointerEvents="box-none" style={styles.hintEdge}>
+          <ScrollHint visible={scrollHint.visible} onPress={scrollHint.onPress} />
+        </View>
+      ) : null}
+    </View>
+  );
 }
 
 export type LessonScreenProps = {
@@ -188,11 +201,19 @@ const styles = StyleSheet.create({
     color: colors.heart
   },
   bottomBar: {
+    position: "relative",
     backgroundColor: colors.white,
     borderTopWidth: StyleSheet.hairlineWidth * 2,
     borderTopColor: colors.line,
     paddingTop: space.lg,
     paddingHorizontal: space.lg
+  },
+  hintEdge: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: 0
   },
   screen: {
     flex: 1,

@@ -11,6 +11,12 @@ import {
 let audioContext: AudioContext | null = null;
 let audioUnlocked = false;
 
+/**
+ * A sound asked for while the context was still waking up plays when it is running, but only
+ * this soon after it was asked for: a resume that waits for a later tap must not play old sounds.
+ */
+const RESUME_PLAY_WINDOW_MS = 500;
+
 export function playGameSound(event: GameSoundEvent, preferences?: SoundPreferences) {
   if (preferences?.enabled === false) {
     return;
@@ -18,10 +24,37 @@ export function playGameSound(event: GameSoundEvent, preferences?: SoundPreferen
 
   const context = getAudioContext();
 
-  if (!context || context.state !== "running") {
+  if (!context) {
     return;
   }
 
+  if (context.state === "running") {
+    playTones(context, event, preferences);
+    return;
+  }
+
+  if (context.state === "closed") {
+    return;
+  }
+
+  // Browsers start the context suspended until the first tap (Safari also "interrupted" after a
+  // call). Resume it inside this tap and play once it runs, so the very first tap is not silent.
+  const askedAt = Date.now();
+
+  try {
+    void context.resume().then(() => {
+      audioUnlocked = context.state === "running";
+
+      if (audioUnlocked && Date.now() - askedAt <= RESUME_PLAY_WINDOW_MS) {
+        playTones(context, event, preferences);
+      }
+    }).catch(() => undefined);
+  } catch {
+    // Sound is optional.
+  }
+}
+
+function playTones(context: AudioContext, event: GameSoundEvent, preferences?: SoundPreferences) {
   const reduced = Boolean(preferences?.reduced);
   const tones = getSoundTones(event, reduced);
   const now = context.currentTime;
@@ -91,10 +124,6 @@ function getAudioContext() {
 
   if (!audioContext) {
     audioContext = new AudioCtor();
-  }
-
-  if (audioContext.state === "suspended") {
-    return audioContext;
   }
 
   return audioContext;

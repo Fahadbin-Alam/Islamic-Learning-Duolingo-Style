@@ -266,7 +266,10 @@ describe("FoundationAssessmentScreen plays like a lesson", () => {
     await render(<FoundationAssessmentScreen assessment={base} language="en" selectedAnswer={undefined} {...props} />);
 
     await fireEvent.press(screen.getByTestId("assessment-close"));
-    expect(screen.getByText("Wait, don't go!")).toBeTruthy();
+    // The level check keeps the answers given so far, so the sheet says so (not the lesson's "lose progress").
+    expect(screen.getByText("Stop the level check?")).toBeTruthy();
+    expect(screen.getByText("Your answers so far are saved.")).toBeTruthy();
+    expect(screen.getByText("STOP")).toBeTruthy();
     await fireEvent.press(screen.getByTestId("quit-keep"));
     expect(props.onExit).not.toHaveBeenCalled();
   });
@@ -302,12 +305,15 @@ describe("PracticeComplete", () => {
 
   it("pays 2 XP per right answer in a daily challenge", async () => {
     jest.useFakeTimers();
+    // Question 2 is missed, so it comes back as question 7 (answered right).
     const { state, profile } = playSession(createEmptyLearnerProfile(), "daily_challenge", (questionNumber) => questionNumber !== 2);
     await render(<PracticeComplete assessment={state} learnerProfile={profile} onContinue={jest.fn()} playSounds={false} />);
 
     expect(screen.getByText("Challenge done!")).toBeTruthy();
-    expect(screen.getByLabelText("CORRECT 5 of 6")).toBeTruthy();
-    expect(screen.getByLabelText("TOTAL XP 10")).toBeTruthy();
+    expect(screen.getByLabelText("CORRECT 6 of 7")).toBeTruthy();
+    expect(screen.getByLabelText("TOTAL XP 12")).toBeTruthy();
+    // No level check yet, so no level card (the Practice hub shows none either).
+    expect(screen.queryByTestId("result-level")).toBeNull();
     await act(async () => {
       jest.advanceTimersByTime(3000);
     });

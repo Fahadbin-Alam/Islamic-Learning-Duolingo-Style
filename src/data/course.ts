@@ -1076,7 +1076,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "foundation-guidance-3",
-        "Which thought matches this lesson best?",
+        "What should you think when a blessing comes?",
         [
           ["a", "Thank Allah for the blessing"],
           ["b", "Pretend the blessing came from nowhere"],
@@ -1910,7 +1910,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
           ["c", "Good game"]
         ],
         "a",
-        "As-salamu alaykum is the greeting of peace."
+        "The reply is wa alaykum as-salam: and peace be upon you."
       ),
       tf(
         "salam-2",
@@ -2085,14 +2085,14 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "mother-3",
-        "Which action fits this lesson best?",
+        "How should you treat your mother?",
         [
           ["a", "Speak kindly and stay patient with your mother"],
           ["b", "Treat her care like it means nothing"],
           ["c", "Save your best character for strangers only"]
         ],
         "a",
-        "A learner shows this lesson through gentleness and gratitude."
+        "Allah tells us to speak to our parents with gentle, kind words."
       )
     ]
   ),
@@ -2195,7 +2195,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "mercy-3",
-        "Which action fits this lesson best?",
+        "A younger child makes a mistake. What shows mercy?",
         [
           ["a", "Encouraging someone gently"],
           ["b", "Making fun of them"],
@@ -2288,7 +2288,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "marriage-purpose-1",
-        "What does the Quran connect marriage with in this lesson?",
+        "What does the Quran connect marriage with?",
         [
           ["a", "Tranquility, affection, and mercy"],
           ["b", "Only status and money"],
@@ -2305,7 +2305,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "marriage-purpose-3",
-        "Which picture fits this lesson best?",
+        "Which home matches what the Quran describes?",
         [
           ["a", "A home built on mercy and Allah-consciousness"],
           ["b", "A relationship built only on image"],
@@ -2343,7 +2343,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "marriage-choose-1",
-        "What quality does this lesson tell a Muslim to value highly in a spouse?",
+        "What should a Muslim value most in a spouse?",
         [
           ["a", "Deen and character"],
           ["b", "Attention from people"],
@@ -2356,11 +2356,11 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "marriage-choose-2",
         "A wise marriage choice looks beyond surface things.",
         true,
-        "This lesson pushes the learner to value what lasts and benefits the home."
+        "The Prophet ﷺ said to choose the one with deen, and you will do well."
       ),
       mc(
         "marriage-choose-3",
-        "Which question fits this lesson best?",
+        "Which question is wise to ask about a match?",
         [
           ["a", "Will this person help me obey Allah?"],
           ["b", "Will people be impressed by this match?"],
@@ -2398,7 +2398,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "marriage-kindness-1",
-        "How should a Muslim live with a spouse according to this lesson?",
+        "How does the Quran say to live with a spouse?",
         [
           ["a", "With kindness and patience"],
           ["b", "With cruelty when upset"],
@@ -2415,7 +2415,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "marriage-kindness-3",
-        "Which habit fits this lesson best?",
+        "Which habit shows kindness at home?",
         [
           ["a", "Speak softly and stay fair in disagreement"],
           ["b", "Save your best manners for strangers only"],
@@ -2461,7 +2461,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "marriage-clothing-3",
-        "Which action matches this lesson?",
+        "How can a spouse be like clothing?",
         [
           ["a", "Protect your spouse's honor and private matters"],
           ["b", "Expose every weakness publicly"],
@@ -2499,24 +2499,24 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "marriage-mercy-1",
-        "What keeps a Muslim home strong according to this review?",
+        "What keeps a Muslim home strong?",
         [
           ["a", "Mercy and good character"],
           ["b", "Harshness and ego"],
           ["c", "Winning every argument"]
         ],
         "a",
-        "Mercy is not extra decoration. It is one of the foundations."
+        "Allah says He put love and mercy between spouses."
       ),
       tf(
         "marriage-mercy-2",
         "Marriage in Islam should pull both people closer to Allah.",
         true,
-        "The best home is not only peaceful. It is also rooted in deen."
+        "The Prophet ﷺ praised a couple who wake each other for night prayer."
       ),
       mc(
         "marriage-mercy-3",
-        "Which daily practice fits this topic best?",
+        "Which daily habit keeps a home merciful?",
         [
           ["a", "Keep showing kindness even in small moments"],
           ["b", "Treat mercy as unnecessary once married"],
@@ -3120,7 +3120,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "adam-3",
-        "Which habit matches this lesson?",
+        "What should we do after a mistake, like Adam?",
         [
           ["a", "Say sorry to Allah and return to Him"],
           ["b", "Blame everyone else forever"],
@@ -3173,7 +3173,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "nuh-3",
-        "What should patience look like in this lesson?",
+        "What did Nuh's patience look like?",
         [
           ["a", "Keep obeying Allah through difficulty"],
           ["b", "Quit when people laugh"],
@@ -3438,7 +3438,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "muhammad-3",
-        "How should this lesson shape a Muslim learner?",
+        "How should loving the Prophet ﷺ show in your life?",
         [
           ["a", "Try to carry mercy into daily life"],
           ["b", "Keep religion only as information"],
@@ -3474,7 +3474,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "women-hawwa-1",
-        "What early lesson comes through Hawwa in this topic?",
+        "What does the story of Hawwa teach?",
         [
           ["a", "A Muslim returns to Allah after a mistake"],
           ["b", "A mistake ends all hope"],
@@ -3491,7 +3491,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "women-hawwa-3",
-        "Which habit fits this lesson best?",
+        "What should you do after a mistake?",
         [
           ["a", "Own your mistake and turn back to Allah"],
           ["b", "Blame everyone else and stay stubborn"],
@@ -3544,7 +3544,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "women-mother-musa-3",
-        "What special thing did she do in this story?",
+        "What special thing did Musa's mother do?",
         [
           ["a", "She obeyed Allah even when it was emotionally hard"],
           ["b", "She rejected every command out of fear"],
@@ -3582,7 +3582,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "women-asiyah-1",
-        "What makes Asiyah stand out in this lesson?",
+        "What makes Asiyah stand out?",
         [
           ["a", "Steadfast faith under oppression"],
           ["b", "Following Pharaoh in disbelief"],
@@ -3637,7 +3637,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "women-maryam-1",
-        "Which qualities define Maryam in this lesson?",
+        "Which qualities describe Maryam?",
         [
           ["a", "Purity, worship, and chosen honor"],
           ["b", "Pride and rebellion"],
@@ -3654,7 +3654,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "women-maryam-3",
-        "What special thing is Maryam known for here?",
+        "What special thing is Maryam known for?",
         [
           ["a", "Being chosen and purified by Allah"],
           ["b", "Leading armies into battle"],
@@ -3711,7 +3711,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "women-khadijah-3",
-        "Which trait best captures Khadijah in this lesson?",
+        "Which trait best describes Khadijah?",
         [
           ["a", "Loyal support"],
           ["b", "Emotional instability"],
@@ -3751,7 +3751,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "women-aishah-1",
-        "What special strength stands out for Aishah in this topic?",
+        "What special strength stands out for Aishah?",
         [
           ["a", "Knowledge and closeness to the Prophetic home"],
           ["b", "Living far from the Prophet's teachings"],
@@ -3768,7 +3768,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "women-aishah-3",
-        "How should a learner remember Aishah here?",
+        "How should we remember Aishah?",
         [
           ["a", "As a mother of believers known for understanding and transmission"],
           ["b", "As someone detached from learning"],
@@ -3806,7 +3806,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "women-hafsah-1",
-        "What special contribution of Hafsah is highlighted here?",
+        "What special thing did Hafsah do?",
         [
           ["a", "Safeguarding the sheets used in preserving the Quran"],
           ["b", "Leading armies in conquest"],
@@ -3817,26 +3817,67 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       tf(
         "women-hafsah-2",
-        "Hafsah's lesson shows that some huge services to Islam happen quietly.",
+        "Some big services to Islam happen quietly, like Hafsah's.",
         true,
         "Her care for the suhuf is a major service carried without spectacle."
       ),
       mc(
         "women-hafsah-3",
-        "How does this lesson complete the topic?",
+        "Why does Hafsah's care for the pages still matter?",
         [
-          ["a", "It ends with preservation of revelation and trust"],
-          ["b", "It ends by leaving the Quran unguarded"],
-          ["c", "It ends with no lasting contribution"]
+          ["a", "It helped keep the Quran safe for everyone"],
+          ["b", "It left the Quran unguarded"],
+          ["c", "It made no lasting difference"]
         ],
         "a",
-        "The topic closes with a woman tied directly to protecting the Book for the Ummah."
+        "Uthman later copied her pages for the Muslim cities."
       )
     ]
   )
 };
 
-const scaledContent = buildExpandedContent(BASE_COURSE, BASE_LESSONS_BY_ID);
+// The line each starter lesson's learn card says: short, concrete, and what its questions ask about.
+const BASE_LEARN_LINES: Record<string, string> = {
+  "lesson-foundation-niyyah": "Muslims greet each other with As-salamu alaykum: peace be upon you.",
+  "lesson-foundation-character": "When someone says salam, reply: wa alaykum as-salam.",
+  "lesson-foundation-guidance": "When something good happens, say Alhamdulillah: all praise is for Allah.",
+  "lesson-foundation-bismillah": "Say Bismillah before you eat or start something.",
+  "lesson-foundation-sneeze": "After a sneeze, say Alhamdulillah. Others reply: Yarhamuk Allah.",
+  "lesson-salam": "Say salam to people you know and people you don't.",
+  "lesson-truthful": "Always tell the truth, even after a mistake.",
+  "lesson-parents": "Speak gently to your parents, and listen when elders talk.",
+  "lesson-mother": "The Prophet ﷺ said: your mother, three times, then your father.",
+  "lesson-service": "Be humble with your parents, and make du'a for them.",
+  "lesson-mercy": "Be gentle with younger people, and respect older people.",
+  "lesson-eating": "At the table, say Bismillah and eat with your right hand.",
+  "lesson-marriage-purpose": "Allah made marriage a home of calm, love, and mercy.",
+  "lesson-marriage-choose": "Choose a spouse for their deen and good character.",
+  "lesson-marriage-kindness": "The Quran says: live with your spouse in kindness.",
+  "lesson-marriage-clothing": "The Quran calls spouses clothing for each other.",
+  "lesson-marriage-mercy": "A strong home keeps showing mercy, day after day.",
+  "lesson-adam": "Adam was the first human, and Allah forgave his mistake.",
+  "lesson-nuh": "Nuh built the Ark and called people to Allah, patiently.",
+  "lesson-ibrahim": "Ibrahim worshipped Allah alone and built the Ka'bah with Ismail.",
+  "lesson-yusuf": "Yusuf stayed patient and pure, and he forgave his brothers.",
+  "lesson-musa": "Musa stood up to Pharaoh, trusting Allah to help him.",
+  "lesson-isa": "Isa is a noble prophet, born to Maryam without a father.",
+  "lesson-muhammad": "Muhammad ﷺ is the last messenger, sent as a mercy.",
+  "lesson-women-hawwa": "Hawwa and Adam turned back to Allah after their mistake.",
+  "lesson-women-mother-musa": "Musa's mother trusted Allah, and He brought her son back.",
+  "lesson-women-asiyah": "Asiyah, Pharaoh's wife, believed in Allah and stayed brave.",
+  "lesson-women-maryam": "Maryam was pure and devoted, and Allah chose her.",
+  "lesson-women-khadijah": "Khadijah was the Prophet's ﷺ first wife and first believer.",
+  "lesson-women-aishah": "Aishah taught the Muslims a lot about the Prophet's ﷺ life.",
+  "lesson-women-hafsah": "Hafsah kept the written pages of the Quran safe."
+};
+
+function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson> {
+  return Object.fromEntries(
+    Object.entries(lessons).map(([id, item]) => [id, BASE_LEARN_LINES[id] ? { ...item, learnLine: BASE_LEARN_LINES[id] } : item])
+  );
+}
+
+const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 const expandedContent = chainCourse(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES));
 
 export const COURSE = expandedContent.course;

@@ -208,6 +208,9 @@ export function localizeLessonContent(lesson: Lesson, language: SupportedLanguag
     whyItMatters: lesson.whyItMatters ? translateStudyText(lesson.whyItMatters, language) : lesson.whyItMatters,
     keyTakeaway: lesson.keyTakeaway ? translateStudyText(lesson.keyTakeaway, language) : lesson.keyTakeaway,
     storyMoment: lesson.storyMoment ? translateStudyText(lesson.storyMoment, language) : lesson.storyMoment,
+    // The learn card's line and fact chips. A quote stays word for word as its source gives it.
+    learnLine: lesson.learnLine ? translateStudyText(lesson.learnLine, language) : lesson.learnLine,
+    learnFacts: lesson.learnFacts?.map((fact) => translateStudyText(fact, language)),
     teachingMoments: lesson.teachingMoments?.map((moment) => ({
       ...moment,
       eyebrow: translateStudyText(moment.eyebrow, language),

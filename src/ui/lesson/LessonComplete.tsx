@@ -10,6 +10,7 @@ import { PopIn } from "../PopIn";
 import { playUi } from "../sound";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
+import { useScrollMore } from "./ScrollHint";
 
 export type LessonCompleteProps = {
   /** Default "Lesson complete!". A passed unit test-out says "You jumped ahead!". */
@@ -74,9 +75,8 @@ function StatCard({
   return (
     <PopIn delay={CARD_DELAY + index * CARD_STAGGER} style={styles.cardSlot}>
       <View style={[styles.card, { backgroundColor: color, borderColor: color }]} testID={testID} accessibilityLabel={accessibilityLabel}>
-        <Text style={[styles.cardLabel, { color: labelColor }]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
-          {label}
-        </Text>
+        {/* Short labels at a size that fits three cards in 320 px (web has no adjustsFontSizeToFit). */}
+        <Text style={[styles.cardLabel, { color: labelColor }]}>{label}</Text>
         <View style={styles.cardBody}>
           {children ?? (
             <>
@@ -126,9 +126,12 @@ export function LessonComplete({
 }: LessonCompleteProps) {
   const bounce = useRef(new Animated.Value(0)).current;
   const { width, height } = useWindowDimensions();
-  const mascotSize = height > 0 && height < 720 ? 112 : 150;
-  // Three cards share a 320 px row: no room for the trophy next to "10/40".
+  // Short phones (iPhone SE): a smaller mascot and tighter gaps, so the pills stay above the buttons.
+  const short = height > 0 && height < 640;
+  const mascotSize = short ? 96 : height > 0 && height < 720 ? 112 : 150;
+  // Three cards share a 320 px row: no room for the trophy next to "10/40", and the headline drops a size.
   const narrow = width > 0 && width < 360;
+  const { ref: scrollRef, scrollProps, more, scrollDown } = useScrollMore();
 
   useEffect(() => {
     const loop = Animated.loop(
@@ -165,18 +168,18 @@ export function LessonComplete({
 
   return (
     <View style={styles.root} testID={testID}>
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
+      <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.content, short ? styles.contentShort : null]} {...scrollProps}>
         <Animated.View style={{ transform: [{ translateY: jump }, { scale: squash }] }}>
           <Mascot variant={mascotVariant} mood="cheer" accent={accent} size={mascotSize} />
         </Animated.View>
         <PopIn delay={120}>
-          <Text style={styles.headline} accessibilityRole="header">
+          <Text style={[styles.headline, narrow ? styles.headlineNarrow : null]} accessibilityRole="header">
             {headline}
           </Text>
         </PopIn>
         <Text style={styles.lessonTitle}>{withHonorifics(title)}</Text>
 
-        <View style={styles.cards}>
+        <View style={[styles.cards, short ? styles.cardsShort : null]}>
           <StatCard label="TOTAL XP" icon="bolt" value={xp} color={colors.gold} ink={XP_INK} labelColor={GOLD_LABEL} index={0} testID="stat-xp" />
           <StatCard
             label="STARS"
@@ -212,7 +215,7 @@ export function LessonComplete({
             {unlockedTitle ? (
               <PopIn delay={CARD_DELAY + 3 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.green, 0.85) }]}>
                 <Icon name="key" size={18} />
-                <Text style={[styles.pillText, { color: darken(colors.correctInk, 0.12) }]}>Unlocked: {unlockedTitle}</Text>
+                <Text style={[styles.pillText, { color: darken(colors.correctInk, 0.12) }]}>Unlocked: {withHonorifics(unlockedTitle)}</Text>
               </PopIn>
             ) : null}
             {gemsReward ? (
@@ -225,7 +228,7 @@ export function LessonComplete({
         ) : null}
       </ScrollView>
 
-      <LessonBottomBar bottomInset={bottomInset}>
+      <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more, onPress: scrollDown }}>
         <GameButton label={nextTitle ? "Next lesson" : "Continue"} fullWidth onPress={onContinue} testID="complete-continue" />
         {onBackToPath ? (
           <GameButton
@@ -262,6 +265,10 @@ const styles = StyleSheet.create({
     paddingTop: space.xxl,
     paddingBottom: space.xxl
   },
+  contentShort: {
+    paddingTop: space.lg,
+    paddingBottom: space.lg
+  },
   headline: {
     fontFamily: fonts.displayHeavy,
     fontSize: 34,
@@ -269,6 +276,10 @@ const styles = StyleSheet.create({
     color: HEADLINE,
     textAlign: "center",
     marginTop: space.md
+  },
+  headlineNarrow: {
+    fontSize: 30,
+    lineHeight: 36
   },
   lessonTitle: {
     fontFamily: fonts.bodyHeavy,
@@ -287,6 +298,9 @@ const styles = StyleSheet.create({
     marginTop: space.xxl,
     marginHorizontal: -space.xs
   },
+  cardsShort: {
+    marginTop: space.lg
+  },
   cardSlot: {
     flexGrow: 1,
     flexBasis: 88,
@@ -294,7 +308,9 @@ const styles = StyleSheet.create({
     minWidth: 84,
     padding: space.xs
   },
+  // The row stretches every slot to the tallest card and each card fills its slot, so all three match.
   card: {
+    flexGrow: 1,
     borderWidth: 2,
     borderRadius: radii.md,
     overflow: "hidden"
@@ -310,6 +326,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4
   },
   cardBody: {
+    flexGrow: 1,
     backgroundColor: colors.white,
     borderRadius: radii.md - 3,
     flexDirection: "row",
@@ -318,9 +335,11 @@ const styles = StyleSheet.create({
     paddingVertical: space.md,
     paddingHorizontal: 6
   },
+  // Same 30 px line as the other cards' numbers: the baseline shift of "/40" must not make it taller.
   goalRow: {
     flexDirection: "row",
     alignItems: "baseline",
+    height: 30,
     flexShrink: 1,
     minWidth: 0
   },

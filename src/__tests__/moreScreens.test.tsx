@@ -470,7 +470,7 @@ describe("FoundationAssessmentScreen", () => {
   it("continues after feedback", async () => {
     const onContinue = jest.fn();
     const question = base.currentQuestion;
-    await render(<FoundationAssessmentScreen assessment={{ ...base, feedback: { ...feedback, explanationShort: "The Shahadah is the first pillar." } }} language="en" selectedAnswer={undefined} onChangeSelectedAnswer={jest.fn()} onSubmit={jest.fn()} onContinue={onContinue} onExit={jest.fn()} />);
+    await render(<FoundationAssessmentScreen assessment={{ ...base, feedback: { ...feedback, explanationShort: "Islam begins with saying the testimony of faith." } }} language="en" selectedAnswer={undefined} onChangeSelectedAnswer={jest.fn()} onSubmit={jest.fn()} onContinue={onContinue} onExit={jest.fn()} />);
 
     // The lesson sheet: "Correct answer:" and the answer, one short Why line, no teacher notes.
     expect(screen.getByText("Correct answer:")).toBeTruthy();

@@ -8,23 +8,31 @@ export function isPlayablePractice(activity: LessonPracticeActivity) {
 export type LessonStepScreen = "lesson_teach" | "lesson_practice" | "lesson_question" | "lesson_feedback" | "lesson_complete";
 
 // Steps in a lesson: the learn card, the ordering game (if any), then one per question.
+// A question fills its step once it is done: answered right, or missed on its last try. A first miss
+// sends the question to the end of the lesson, so the bar stays put until it comes back.
 export function getLessonProgress({
   screen,
   hasTeach,
   hasPractice,
-  challengeIndex,
   challengeCount,
-  answeredCorrectly
+  done,
+  challengeIndex = 0,
+  answeredCorrectly = false
 }: {
   screen: string;
   hasTeach: boolean;
   hasPractice: boolean;
-  challengeIndex: number;
+  /** The lesson's own questions; a missed one asked again is not a new step. */
   challengeCount: number;
-  answeredCorrectly: boolean;
+  /** Questions done so far, the one on the feedback sheet included. Without it: challengeIndex, plus one for a right answer on the sheet. */
+  done?: number;
+  challengeIndex?: number;
+  answeredCorrectly?: boolean;
 }) {
   const before = (hasTeach ? 1 : 0) + (hasPractice ? 1 : 0);
   const total = Math.max(1, before + challengeCount);
+  const finished = (feedback: boolean) =>
+    Math.min(challengeCount, Math.max(0, done ?? challengeIndex + (feedback && answeredCorrectly ? 1 : 0)));
 
   switch (screen as LessonStepScreen) {
     case "lesson_teach":
@@ -32,14 +40,22 @@ export function getLessonProgress({
     case "lesson_practice":
       return (hasTeach ? 1 : 0) / total;
     case "lesson_question":
-      return (before + challengeIndex) / total;
+      return (before + finished(false)) / total;
     case "lesson_feedback":
-      return (before + challengeIndex + (answeredCorrectly ? 1 : 0)) / total;
+      return (before + finished(true)) / total;
     case "lesson_complete":
       return 1;
     default:
       return 0;
   }
+}
+
+/** The STARS card on the lesson complete screen: 3 with no mistakes, 2 with one or two, 1 with more. */
+export function lessonStars(mistakes: number) {
+  if (mistakes <= 0) {
+    return 3;
+  }
+  return mistakes <= 2 ? 2 : 1;
 }
 
 /** The mascot's line on the learn card aims for at most this many words. */
@@ -50,7 +66,18 @@ const LESSON_LINE_SOFT_CHARS = 100;
 
 // Template sentences in the generated course data repeat the title: "Practice what wudu is with calmness...".
 const TEMPLATE_VERBS = /^(practice|repeat|carry|use|read|pause with|translate|turn|return to|let|study)\s/i;
-const LINE_FILLER = [/\blearners?\b/i, /\bthis (lesson|topic|branch)\b/i, /^(chapter|grade|book|section)\b/i, /\bin the next small moment\b/i];
+const LINE_FILLER = [
+  /\blearners?\b/i,
+  /\bthis (lesson|topic|branch)\b/i,
+  /^(chapter|grade|book|section)\b/i,
+  /\bin the next small moment\b/i,
+  // Older shared takeaways that fit every lesson of a topic and so say nothing about this one.
+  /^notice the scene, the sacrifice/i,
+  /^start using the phrase or habit/i,
+  /^prayer is strongest when its order/i,
+  /^learn the order calmly now/i,
+  /^stay with the surah long enough/i
+];
 const SUBORDINATE_START = /^(when|if|as|after|before|while|although|because|since|once|whenever)\b/i;
 // A list inside one of these clauses ("built when mercy, deen, and kindness keep...") cannot be cut short.
 const INNER_CLAUSE = /\s(when|if|because|while|that|which|who|where|what|how|why|until|unless)\s/i;
@@ -77,6 +104,24 @@ const CLAUSE_CUTS: { pattern: RegExp; rank: number; join?: boolean; weak?: boole
 
 function wordCount(value: string) {
   return value.split(/\s+/).filter(Boolean).length;
+}
+
+/** Words in a learn line; the ﷺ sign after the Prophet's name is not a word of its own. */
+export function lessonLineWords(value: string) {
+  return value.split(/\s+/).filter((word) => word && word !== "ﷺ").length;
+}
+
+/** A written learn line is used as it is when it is one short, whole sentence that is more than the title. */
+function isUsableLearnLine(line: string, title: string) {
+  return (
+    lessonLineWords(line) >= 3 &&
+    lessonLineWords(line) <= LESSON_LINE_MAX_WORDS &&
+    // Only double quotes and brackets: "Ali 'Imran" and "'Ad" start words with an apostrophe.
+    (line.match(/"/g) ?? []).length % 2 === 0 &&
+    (line.match(/“/g) ?? []).length === (line.match(/”/g) ?? []).length &&
+    (line.match(/\(/g) ?? []).length === (line.match(/\)/g) ?? []).length &&
+    line.toLowerCase().replace(/[.!?]+$/, "") !== title.trim().toLowerCase()
+  );
 }
 
 function splitLineSentences(value: string) {
@@ -190,12 +235,17 @@ function shortQuote(sentence: string) {
 
 /**
  * The ONE short line the mascot says on the learn card (aim: LESSON_LINE_MAX_WORDS words or fewer).
- * Uses the lesson's own words: a sentence of the intro or the key takeaway, stopped at a natural clause
- * break when it runs long. Template filler and set-up half-sentences are skipped. A hadith narration only
- * gives a short, whole quote. With nothing short left it falls back to the title.
+ * A lesson's own `learnLine` comes first, word for word, so the questions that quote it match the card.
+ * Without one it uses the lesson's own words: a sentence of the intro or the key takeaway, stopped at a
+ * natural clause break when it runs long. Template filler and set-up half-sentences are skipped. A hadith
+ * narration only gives a short, whole quote. With nothing short left it falls back to the title.
  */
-export function getLessonLine(lesson: Pick<Lesson, "intro" | "title"> & Partial<Pick<Lesson, "keyTakeaway" | "whatYouWillLearn">>) {
+export function getLessonLine(lesson: Pick<Lesson, "intro" | "title"> & Partial<Pick<Lesson, "keyTakeaway" | "whatYouWillLearn" | "learnLine">>) {
   const title = lesson.title.trim();
+  const written = lesson.learnLine?.trim();
+  if (written && isUsableLearnLine(written, title)) {
+    return written;
+  }
   const intro = splitLineSentences(lesson.intro ?? "");
   if (/\b(narrated|reported|told that|on the authority of)\b/i.test((lesson.intro ?? "").slice(0, 160))) {
     for (const sentence of intro) {

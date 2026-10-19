@@ -386,6 +386,10 @@ export interface LessonSession {
   targetNodeIds?: string[];
   targetLessonIds?: string[];
   passingScore?: number;
+  /** A test-out (set with mode "test_out"): the screen says it is a test, shows `passingScore`, and gives no free retry. */
+  isTest?: boolean;
+  /** Which try at this test-out, from 0; TRY AGAIN passes the next one so the questions change. */
+  attempt?: number;
 }
 
 export interface ShopItem {

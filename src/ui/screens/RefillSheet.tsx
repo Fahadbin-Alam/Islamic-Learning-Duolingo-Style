@@ -26,12 +26,32 @@ export type RefillSheetProps = {
   onEndLesson?: () => void;
   /** "shop" only: the ghost button. Default "End lesson"; on the path, where no lesson is running, "Not now". */
   endLabel?: string;
+  /**
+   * "shop" only: the shop can give hearts now (enough gems for a heart item, or a store that sells
+   * hearts or videos). When false GET HEARTS is left out, so the sheet never opens a shop that only
+   * says "Need more gems". Default true.
+   */
+  canGetHearts?: boolean;
+  /** "shop" only: PRACTICE, shown when no hearts can be had. Practice needs no hearts. */
+  onPractice?: () => void;
 };
 
 const FILL_STEP = 110;
 
 /** Out of hearts: the row of hearts is empty. A free refill pops them red one by one, then the sheet closes. */
-export function RefillSheet({ visible, maxHearts, mascotVariant, accent, variant = "free", onRefill, onShop, onEndLesson, endLabel = "End lesson" }: RefillSheetProps) {
+export function RefillSheet({
+  visible,
+  maxHearts,
+  mascotVariant,
+  accent,
+  variant = "free",
+  onRefill,
+  onShop,
+  onEndLesson,
+  endLabel = "End lesson",
+  canGetHearts = true,
+  onPractice
+}: RefillSheetProps) {
   const free = variant === "free";
   const endLesson = onEndLesson ?? onShop;
   const [filled, setFilled] = useState(0);
@@ -77,10 +97,15 @@ export function RefillSheet({ visible, maxHearts, mascotVariant, accent, variant
     );
   };
 
+  // The bubble cheers in the same frame as the mascot, once the last heart lands.
+  const full = filled === maxHearts && maxHearts > 0;
+  // With no way to get hearts now, PRACTICE (or END LESSON) takes the big button instead of a dead-end shop.
+  const practice = !canGetHearts && onPractice;
+
   return (
     <Sheet visible={visible} onClose={free ? onShop : endLesson} dismissOnBackdrop={false} testID="refill-sheet">
       <View style={styles.stack}>
-        <MascotSays variant={mascotVariant} mood={filled === maxHearts && maxHearts > 0 ? "cheer" : "sad"} accent={accent} line="Out of hearts!" />
+        <MascotSays variant={mascotVariant} mood={full ? "cheer" : "sad"} accent={accent} line={full ? "Hearts full!" : "Out of hearts!"} />
         <View style={styles.heartRow} accessibilityLabel={`${filled} of ${maxHearts} hearts`} testID="refill-hearts">
           {Array.from({ length: maxHearts }, (_, index) =>
             index < filled ? (
@@ -103,8 +128,23 @@ export function RefillSheet({ visible, maxHearts, mascotVariant, accent, variant
           </>
         ) : (
           <>
-            <GameButton label="Get hearts" icon="heart" color={colors.heart} fullWidth onPress={onShop} testID="refill-get" />
-            <GameButton label={endLabel} variant="ghost" color={colors.inkSoft} fullWidth onPress={endLesson} testID="refill-end" />
+            {/* True to refillHeartsForToday: the hearts fill up again on the next day the app opens. */}
+            <Text style={styles.centerLine} testID="refill-tomorrow">
+              Full hearts again tomorrow!
+            </Text>
+            {canGetHearts ? (
+              <GameButton label="Get hearts" icon="heart" color={colors.heart} fullWidth onPress={onShop} testID="refill-get" />
+            ) : practice ? (
+              <GameButton label="Practice" icon="practice" color={accent} fullWidth onPress={practice} testID="refill-practice" />
+            ) : null}
+            <GameButton
+              label={endLabel}
+              variant={canGetHearts || practice ? "ghost" : "primary"}
+              color={canGetHearts || practice ? colors.inkSoft : accent}
+              fullWidth
+              onPress={endLesson}
+              testID="refill-end"
+            />
           </>
         )}
       </View>

@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { GameButton } from "../GameButton";
 import { Mascot, type MascotMood } from "../Mascot";
 import { Sheet } from "../Sheet";
+import { feedback, type HapticKind } from "../sound";
 import { colors, space, text } from "../theme";
 import { useBackToClose } from "./sheetParts";
 // In-game replacements for Alert.alert and the browser's alert()/confirm().
@@ -12,7 +14,38 @@ type MascotLook = {
   mood?: MascotMood;
   mascotVariant?: string;
   accent?: string;
+  /**
+   * Played as the sheet opens. Default: matches the mood (sad: wrong, cheer: unlock, others:
+   * the soft tap). false: silent, for a sheet that opens with its own sound.
+   */
+  sound?: GameSoundEvent | false;
 };
+
+function moodSound(mood: MascotMood | undefined): GameSoundEvent {
+  if (mood === "sad") return "wrong";
+  if (mood === "cheer") return "unlock";
+  return "soft_ui";
+}
+
+function soundHaptic(sound: GameSoundEvent): HapticKind {
+  if (sound === "wrong") return "warning";
+  if (sound === "soft_ui" || sound === "node_tap") return "light";
+  return "success";
+}
+
+/** Plays the sheet's sound once when it opens, and again when it shows a new message while open. */
+function useOpenSound(visible: boolean, sound: GameSoundEvent | false, message: string) {
+  const played = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (!visible) {
+      played.current = undefined;
+      return;
+    }
+    if (played.current === message) return;
+    played.current = message;
+    if (sound) feedback(sound, soundHaptic(sound));
+  }, [message, sound, visible]);
+}
 
 export type NoticeSheetProps = MascotLook & {
   visible: boolean;
@@ -55,8 +88,9 @@ function Head({ title, line, mood, mascotVariant = "girl", accent }: MascotLook 
 }
 
 /** Mascot, a short title, one short line and OK. */
-export function NoticeSheet({ visible, title, line, button = "OK", mood = "happy", mascotVariant, accent, onClose, testID = "notice-sheet" }: NoticeSheetProps) {
+export function NoticeSheet({ visible, title, line, button = "OK", mood = "happy", mascotVariant, accent, sound, onClose, testID = "notice-sheet" }: NoticeSheetProps) {
   useBackToClose(visible, onClose);
+  useOpenSound(visible, sound ?? moodSound(mood), `${title}\n${line ?? ""}`);
   return (
     <Sheet visible={visible} onClose={onClose} testID={testID}>
       <View style={styles.stack}>
@@ -78,11 +112,13 @@ export function ConfirmSheet({
   mood = "think",
   mascotVariant,
   accent,
+  sound,
   onConfirm,
   onCancel,
   testID = "confirm-sheet"
 }: ConfirmSheetProps) {
   useBackToClose(visible, onCancel);
+  useOpenSound(visible, sound ?? moodSound(mood), `${title}\n${line ?? ""}`);
   return (
     <Sheet visible={visible} onClose={onCancel} testID={testID}>
       <View style={styles.stack}>
@@ -123,12 +159,14 @@ export type ConfirmOptions = MascotLook & { cancelLabel?: string; danger?: boole
  */
 export function useNotices(defaults: MascotLook = {}) {
   const [queue, setQueue] = useState<Request[]>([]);
-  // The last shown request stays drawn while its sheet slides away.
-  const [shown, setShown] = useState<Request | undefined>(undefined);
+  // The last request of each kind stays drawn while its sheet slides away.
+  const [lastNotice, setLastNotice] = useState<NoticeRequest | undefined>(undefined);
+  const [lastConfirm, setLastConfirm] = useState<ConfirmRequest | undefined>(undefined);
 
   const current = queue[0];
   useEffect(() => {
-    if (current) setShown(current);
+    if (current?.kind === "notice") setLastNotice(current);
+    else if (current?.kind === "confirm") setLastConfirm(current);
   }, [current]);
 
   const notify = useCallback((title: string, line?: string, options: NoticeOptions = {}) => {
@@ -156,11 +194,13 @@ export function useNotices(defaults: MascotLook = {}) {
   const look = (options: MascotLook = {}, mood: MascotMood) => ({
     mood: options.mood ?? defaults.mood ?? mood,
     mascotVariant: options.mascotVariant ?? defaults.mascotVariant,
-    accent: options.accent ?? defaults.accent
+    accent: options.accent ?? defaults.accent,
+    sound: options.sound ?? defaults.sound
   });
 
-  const notice = shown?.kind === "notice" ? shown : undefined;
-  const ask = shown?.kind === "confirm" ? shown : undefined;
+  // The current request is drawn from its first frame, so the opening sound matches its mood.
+  const notice = current?.kind === "notice" ? current : lastNotice;
+  const ask = current?.kind === "confirm" ? current : lastConfirm;
 
   const sheets = (
     <>

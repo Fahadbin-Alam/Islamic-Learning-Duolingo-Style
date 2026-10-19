@@ -6,9 +6,12 @@ import { FOUNDATION_QUESTION_BANK } from "../../data/foundationQuestionBank";
 import { getUiStrings } from "../../i18n";
 import type { CrewMember } from "../../services/backendSync";
 import {
+  advanceFoundationAssessment,
   createEmptyLearnerProfile,
   createFoundationAssessment,
+  getFoundationWordBank,
   getShuffledOrderItems,
+  isRetryQuestion,
   submitFoundationAssessmentAnswer
 } from "../../services/foundationAssessment";
 import type { FoundationAssessmentState, FoundationQuestion, LearnerProfile, SocialRelation, UserProfile } from "../../types";
@@ -47,8 +50,10 @@ const STATES = [
   "assess-fill-wrong",
   "assess-right",
   "assess-wrong",
+  "assess-retry",
   "practice-complete",
-  "practice-complete-daily"
+  "practice-complete-daily",
+  "practice-complete-unplaced"
 ] as const;
 type State = (typeof STATES)[number];
 
@@ -132,7 +137,8 @@ function assessmentFor(type: FoundationQuestion["type"] | undefined, answer?: "r
     return submit(getShuffledOrderItems(question));
   }
   if (type === "fill_in_blank" && typeof question.correctAnswer === "string") {
-    if (answer) return submit(answer === "right" ? question.correctAnswer : "Qadar");
+    const wrongWord = getFoundationWordBank(question).find((word) => word !== question.correctAnswer) ?? "";
+    if (answer) return submit(answer === "right" ? question.correctAnswer : wrongWord);
     return { ...state, selectedAnswer: question.correctAnswer };
   }
   if (type === "multi_select" && question.options) {
@@ -153,6 +159,30 @@ function assessmentFor(type: FoundationQuestion["type"] | undefined, answer?: "r
   const correct = typeof question.correctAnswer === "string" ? question.correctAnswer : question.options?.[0] ?? "";
   const pick = answer === "right" ? correct : question.options?.find((option) => option !== correct) ?? "";
   return submitFoundationAssessmentAnswer({ profile, state, selectedAnswer: pick, confidence: 3, responseTimeMs: 4000 }).stateWithFeedback;
+}
+
+/** A daily challenge whose first question was missed, played through to that question asked again. */
+function retryAssessment(): FoundationAssessmentState {
+  let profile = createEmptyLearnerProfile();
+  let state: FoundationAssessmentState | null = createFoundationAssessment(profile, "daily_challenge");
+  let missed = false;
+  while (state) {
+    const question: FoundationQuestion = state.currentQuestion;
+    if (isRetryQuestion(state)) {
+      return state;
+    }
+    const wrong = (question.options ?? []).find((option) => option !== question.correctAnswer) ?? "not the answer";
+    const result = submitFoundationAssessmentAnswer({
+      profile,
+      state,
+      selectedAnswer: missed ? (question.correctAnswer as string | string[] | Record<string, string>) : wrong,
+      responseTimeMs: 4000
+    });
+    missed = true;
+    profile = result.nextProfile;
+    state = advanceFoundationAssessment(profile, result.stateWithFeedback);
+  }
+  return createFoundationAssessment(createEmptyLearnerProfile(), "daily_challenge");
 }
 
 const noop = () => undefined;
@@ -220,6 +250,7 @@ function AssessDemo({ state }: { state: State }) {
     if (state === "assess-fill-wrong") return assessmentFor("fill_in_blank", "wrong");
     if (state === "assess-right") return assessmentFor("multiple_choice", "right");
     if (state === "assess-wrong") return assessmentFor("multiple_choice", "wrong");
+    if (state === "assess-retry") return retryAssessment();
     return assessmentFor("multiple_choice");
   }, [state]);
   const [selected, setSelected] = useState(initial.selectedAnswer);
@@ -234,15 +265,16 @@ function AssessDemo({ state }: { state: State }) {
         onContinue={noop}
         onExit={noop}
         mascotVariant={foundation.mascot}
+        accent={foundation.accentColor}
       />
     </View>
   );
 }
 
-/** A finished session: 7 of 10 right, two weak skills. */
+/** A finished session: 7 of 10 right, two weak skills. "-unplaced": a daily challenge before any level check, so no level card. */
 function CompleteDemo({ state }: { state: State }) {
-  const mode = state === "practice-complete-daily" ? "daily_challenge" : "placement";
-  const profile = placedProfile();
+  const mode = state === "practice-complete" ? "placement" : "daily_challenge";
+  const profile = state === "practice-complete-unplaced" ? { ...placedProfile(), assessmentCompleted: false } : placedProfile();
   const base = createFoundationAssessment(profile, mode);
   const answerHistory = Array.from({ length: mode === "placement" ? 10 : 6 }, (_, index) => ({
     questionId: `q${index}`,
@@ -259,13 +291,15 @@ function CompleteDemo({ state }: { state: State }) {
         assessment={{ ...base, answerHistory }}
         learnerProfile={profile}
         mascotVariant={foundation.mascot}
+        accent={foundation.accentColor}
         onContinue={noop}
+        onPracticeSkill={noop}
       />
     </View>
   );
 }
 
-// The practice demos pass no accent, as the app does, so hub, quiz and end screen show the same mascot.
+// The practice demos pass the topic accent, as the app does, so hub, quiz and end screen show the path's mascot.
 function Screen({ state }: { state: State }) {
   if (state.startsWith("practice-complete")) {
     return <CompleteDemo state={state} />;
@@ -285,6 +319,7 @@ function Screen({ state }: { state: State }) {
           onStartDailyChallenge={noop}
           onGoFoundation={noop}
           mascotVariant={foundation.mascot}
+          accent={foundation.accentColor}
         />
       </TabFrame>
     );

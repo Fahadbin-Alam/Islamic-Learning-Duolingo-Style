@@ -4,6 +4,7 @@ import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { ChoiceTile, LONG_LABEL, type ChoiceTileState } from "../ChoiceTile";
 import { GameButton } from "../GameButton";
+import { Icon } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
 import { PopIn } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
@@ -11,7 +12,7 @@ import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
-import { ScrollHint, useScrollMore } from "./ScrollHint";
+import { useScrollMore } from "./ScrollHint";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -93,7 +94,7 @@ export function PromptText({ children, size = 19 }: { children: string; size?: n
         <ArabicBlock text={middle} size={size} quran={quran} />
         {reference ? (
           <Text style={[styles.reference, middle.length > 30 ? styles.referenceEnd : null]} testID="prompt-reference">
-            {reference.replace(/\s+/g, " ")}
+            {withHonorifics(reference.replace(/\s+/g, " "))}
           </Text>
         ) : null}
         {tail ? <Text style={lineStyle}>{englishText(tail)}</Text> : null}
@@ -167,8 +168,16 @@ export type ExerciseViewProps = {
   selectedChoiceId?: string;
   /** When set: checked state, tiles lock, the feedback sheet is up. */
   result?: ExerciseResult;
-  /** A second try at a missed question: a small "Try again!" chip, and the choices change places. */
+  /**
+   * 0 the first time a question is asked; 1 or more when the same question comes back. A new try shows a
+   * small "Try again!" chip and another tile order (two tiles such as True / False swap). The order is
+   * fixed when the question shows and stays put through CHECK and the feedback sheet.
+   */
+  attempt?: number;
+  /** Older form of `attempt={1}`; `attempt` wins when both are set. */
   retrying?: boolean;
+  /** Asked again from an earlier lesson: a small REVIEW chip above the question. */
+  review?: boolean;
   mascotVariant: string;
   accent: string;
   onSelect: (choiceId: string) => void;
@@ -196,13 +205,27 @@ function isFalseChoice(choice: ExerciseChoice) {
   return choice.id.toLowerCase() === "false" || choice.label.trim().toLowerCase() === "false";
 }
 
+/**
+ * The tiles' order for a try: as given the first time, then rotated so no tile keeps its place and each
+ * new try differs from the one before (two tiles simply swap). Deterministic, so a re-render never moves them.
+ */
+export function attemptOrder<T>(items: T[], attempt = 0): T[] {
+  if (attempt <= 0 || items.length < 2) {
+    return items;
+  }
+  const shift = ((Math.floor(attempt) - 1) % (items.length - 1)) + 1;
+  return [...items.slice(shift), ...items.slice(0, shift)];
+}
+
 /** The same choices in another order (rotated by one, so no tile keeps its place). */
 export function retryOrder<T>(items: T[]): T[] {
-  return items.length > 1 ? [...items.slice(1), items[0]] : items;
+  return attemptOrder(items, 1);
 }
 
 const RETRY_INK = darken(colors.flame, 0.3);
 const RETRY_BG = lighten(colors.flame, 0.85);
+const REVIEW_INK = darken(colors.gem, 0.45);
+const REVIEW_BG = lighten(colors.gem, 0.85);
 
 type Box = { y: number; height: number };
 
@@ -213,7 +236,9 @@ export function ExerciseView({
   choices,
   selectedChoiceId,
   result,
+  attempt,
   retrying,
+  review,
   mascotVariant,
   accent,
   onSelect,
@@ -229,7 +254,17 @@ export function ExerciseView({
 }: ExerciseViewProps) {
   const checked = Boolean(result);
   const { compact } = useLessonCompact();
-  const shownChoices = useMemo(() => (retrying ? retryOrder(choices) : choices), [choices, retrying]);
+
+  // The try (and so the tile order) is read when the question shows and kept through CHECK and the sheet,
+  // so the tile just tapped never jumps under the sheet. A new question, or a new try before CHECK, reads it again.
+  const requestedAttempt = Math.max(0, attempt ?? (retrying ? 1 : 0));
+  const questionKey = `${prompt}\u0000${choices.map((choice) => choice.id).join("|")}`;
+  const shownTry = useRef({ key: questionKey, attempt: requestedAttempt });
+  if (shownTry.current.key !== questionKey || (!checked && shownTry.current.attempt !== requestedAttempt)) {
+    shownTry.current = { key: questionKey, attempt: requestedAttempt };
+  }
+  const shownAttempt = shownTry.current.attempt;
+  const shownChoices = useMemo(() => attemptOrder(choices, shownAttempt), [choices, shownAttempt]);
 
   // Keep the last result so the sheet does not flip to "wrong" while it slides away.
   const lastResult = useRef(result);
@@ -304,7 +339,7 @@ export function ExerciseView({
   const trueFalse = kind === "true_false";
   const truePick = trueFalse ? choices.find(isTrueChoice) : undefined;
   const falsePick = trueFalse ? choices.find(isFalseChoice) : undefined;
-  const tfChoices = truePick && falsePick && truePick !== falsePick ? [truePick, falsePick] : null;
+  const tfChoices = truePick && falsePick && truePick !== falsePick ? attemptOrder([truePick, falsePick], shownAttempt) : null;
 
   const why = shown ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : undefined;
   // "Correct answer: ..." always names the answer, even though the green tile shows it too.
@@ -326,11 +361,21 @@ export function ExerciseView({
           keyboardShouldPersistTaps="handled"
           {...scrollProps}
         >
-          {retrying ? (
-            <View style={styles.retryRow}>
-              <PopIn style={styles.retryChip}>
-                <Text style={styles.retryText}>Try again!</Text>
-              </PopIn>
+          {review || shownAttempt > 0 ? (
+            <View style={styles.cueRow}>
+              {review ? (
+                <PopIn style={[styles.cueChip, styles.reviewChip]}>
+                  <Icon name="practice" size={18} />
+                  <Text style={[styles.cueText, styles.reviewText]} testID="exercise-review">
+                    REVIEW
+                  </Text>
+                </PopIn>
+              ) : null}
+              {shownAttempt > 0 ? (
+                <PopIn style={[styles.cueChip, styles.retryChip]}>
+                  <Text style={[styles.cueText, styles.retryText]}>Try again!</Text>
+                </PopIn>
+              ) : null}
             </View>
           ) : null}
           <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={hideMascot} />
@@ -372,11 +417,10 @@ export function ExerciseView({
             </View>
           )}
         </ScrollView>
-        <ScrollHint visible={more && !checked} onPress={scrollDown} />
       </View>
 
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
-        <LessonBottomBar bottomInset={bottomInset}>
+        <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more && !checked, onPress: scrollDown }}>
           {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
           <GameButton label="Check" fullWidth sound={false} disabled={!selectedChoiceId || checked} onPress={onCheck} testID="exercise-check" />
         </LessonBottomBar>
@@ -417,21 +461,40 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.lg,
     paddingTop: space.sm
   },
-  retryRow: {
+  cueRow: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
     marginBottom: space.sm
   },
-  retryChip: {
-    backgroundColor: RETRY_BG,
+  cueChip: {
+    flexDirection: "row",
+    alignItems: "center",
     borderRadius: radii.pill,
     paddingHorizontal: 12,
-    paddingVertical: 3
+    paddingVertical: 3,
+    marginRight: space.sm,
+    marginBottom: space.xs
   },
-  retryText: {
+  cueText: {
     fontFamily: fonts.displayHeavy,
     fontSize: 15,
-    lineHeight: 20,
+    lineHeight: 20
+  },
+  reviewChip: {
+    backgroundColor: REVIEW_BG,
+    paddingLeft: 8
+  },
+  reviewText: {
+    marginLeft: 5,
+    fontSize: 14,
+    letterSpacing: 1,
+    color: REVIEW_INK
+  },
+  retryChip: {
+    backgroundColor: RETRY_BG
+  },
+  retryText: {
     color: RETRY_INK
   },
   questionRow: {

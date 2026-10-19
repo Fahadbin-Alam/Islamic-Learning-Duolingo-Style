@@ -39,11 +39,60 @@ const longChoicesQuestion =
     .sort((a, b) => b.choices.reduce((sum, choice) => sum + choice.label.length, 0) - a.choices.reduce((sum, choice) => sum + choice.label.length, 0))
     .find((challenge) => challenge.choices.every((choice) => choice.label.length < 140)) ?? salam.challenges[0];
 const muhammad = (allLessons.find((lesson) => getLessonArabic(lesson.nodeId, lesson.branchId)?.ar.includes("\uFDFA")) ?? salam) as Lesson;
-const hadithLesson = (allLessons.find((lesson) => lesson.id.startsWith("lesson-notes-hadith")) ?? salam) as Lesson;
+const hadithLesson = (allLessons.find((lesson) => lesson.id.startsWith("lesson-notes-hadith") && lesson.quote) ??
+  allLessons.find((lesson) => lesson.id.startsWith("lesson-notes-hadith")) ??
+  salam) as Lesson;
+// The longest quote in the course and a lesson with fact chips (a prophet or companion).
+const longQuoteLesson = allLessons.filter((lesson) => lesson.quote).sort((a, b) => (b.quote?.text.length ?? 0) - (a.quote?.text.length ?? 0))[0] ?? hadithLesson;
+const factsLesson = allLessons.find((lesson) => (lesson.learnFacts?.length ?? 0) >= 3) ?? allLessons.find((lesson) => lesson.learnFacts?.length) ?? salam;
+// A very long right answer (a real course text of about 600 characters, like a full ayah translation):
+// the wrong sheet must stay inside the screen and scroll.
+const longText =
+  allLessons
+    .map((lesson) => lesson.explanationContent ?? "")
+    .filter((text) => text.length <= 650)
+    .sort((a, b) => b.length - a.length)[0] ?? salam.intro;
+const longAnswerQuestion: Challenge = {
+  ...salam.challenges[0],
+  id: "gallery-long-answer",
+  choices: [
+    { id: "a", label: longText },
+    { id: "b", label: salam.challenges[0].choices[1]?.label ?? "See you later" }
+  ],
+  correctChoiceId: "a"
+};
 
 function firstSource(lesson: Lesson) {
   const source = lesson.sources[0];
   return source ? { label: source.reference ?? source.title, url: source.url } : undefined;
+}
+
+/** A learn card the way TopicApp builds it from a lesson. */
+function LearnDemo({ lesson, accent, mascot = "boy", isNewWord }: { lesson: Lesson; accent: string; mascot?: string; isNewWord?: boolean }) {
+  const arabic = getLessonArabic(lesson.nodeId, lesson.branchId);
+  return (
+    <LessonScreen progress={0.08} hearts={FULL_HEARTS} onClose={noop}>
+      <LearnCard
+        title={lesson.title}
+        line={getLessonLine(lesson)}
+        arabic={arabic}
+        isNewWord={isNewWord}
+        facts={lesson.learnFacts}
+        quote={lesson.quote}
+        onPlayAudio={arabic ? noop : undefined}
+        source={firstSource(lesson)}
+        mascotVariant={mascot}
+        accent={accent}
+        onContinue={noop}
+        onOpenSource={noop}
+      />
+    </LessonScreen>
+  );
+}
+
+function accentOf(lesson: Lesson) {
+  const topic = lesson.id.startsWith("lesson-notes-") ? lesson.id.split("-")[2] : undefined;
+  return COURSE.sections.find((section) => section.topicId === topic)?.accentColor ?? colors.gem;
 }
 
 const ARABIC_QUESTION: Challenge = {
@@ -83,6 +132,19 @@ const WUDU_STEPS = [
   { id: "feet", label: "Wash feet" }
 ];
 const WUDU_ORDER = WUDU_STEPS.map((step) => step.id);
+// Gallery copy of the nine-step rak'ah game (the course builds its own from lessonSteps).
+const SALAH_STEPS = [
+  { id: "takbir", label: "Opening takbir" },
+  { id: "standing", label: "Standing and recitation" },
+  { id: "ruku", label: "Ruku" },
+  { id: "rise", label: "Rise from ruku" },
+  { id: "sujud1", label: "First sujud" },
+  { id: "sit", label: "Sit between sajdahs" },
+  { id: "sujud2", label: "Second sujud" },
+  { id: "tashahhud", label: "Tashahhud" },
+  { id: "taslim", label: "Taslim" }
+];
+const SALAH_ORDER = SALAH_STEPS.map((step) => step.id);
 
 const FULL_HEARTS: LessonHearts = { current: 5, max: 5, unlimited: false };
 const noop = () => undefined;
@@ -92,7 +154,8 @@ function ExerciseDemo({
   accent = FOUNDATION_ACCENT,
   initialSelected,
   checkNow,
-  retrying,
+  attempt,
+  review,
   whyOpen,
   progress = 0.4
 }: {
@@ -100,7 +163,9 @@ function ExerciseDemo({
   accent?: string;
   initialSelected?: string;
   checkNow?: boolean;
-  retrying?: boolean;
+  /** 1 or more: the question came back after a miss. */
+  attempt?: number;
+  review?: boolean;
   whyOpen?: boolean;
   progress?: number;
 }) {
@@ -135,7 +200,8 @@ function ExerciseDemo({
         selectedChoiceId={selected}
         correctChoiceId={challenge.correctChoiceId}
         result={checked ? { correct, correctLabel, why } : undefined}
-        retrying={retrying}
+        attempt={attempt}
+        review={review ?? challenge.isReview}
         mascotVariant="girl"
         accent={accent}
         praiseSeed={challenge.id}
@@ -234,29 +300,31 @@ const STATES: State[] = [
       </LessonScreen>
     )
   },
-  {
-    id: "learn-hadith",
-    render: () => (
-      <LessonScreen progress={0.08} hearts={FULL_HEARTS} onClose={noop}>
-        <LearnCard
-          title={hadithLesson.title}
-          line={getLessonLine(hadithLesson)}
-          source={firstSource(hadithLesson)}
-          mascotVariant="boy"
-          accent={colors.gem}
-          onContinue={noop}
-          onOpenSource={noop}
-        />
-      </LessonScreen>
-    )
-  },
+  { id: "learn-hadith", render: () => <LearnDemo lesson={hadithLesson} accent={accentOf(hadithLesson)} isNewWord={false} /> },
+  { id: "learn-quote-long", render: () => <LearnDemo lesson={longQuoteLesson} accent={accentOf(longQuoteLesson)} isNewWord={false} /> },
+  { id: "learn-facts", render: () => <LearnDemo lesson={factsLesson} accent={accentOf(factsLesson)} mascot="girl" /> },
   { id: "mc", render: () => <ExerciseDemo challenge={salam.challenges[0]} progress={0.25} /> },
   { id: "mc-selected", render: () => <ExerciseDemo challenge={salam.challenges[0]} initialSelected="a" progress={0.25} /> },
   { id: "mc-correct", render: () => <ExerciseDemo challenge={salam.challenges[0]} initialSelected="a" checkNow progress={0.25} /> },
   { id: "mc-wrong", render: () => <ExerciseDemo challenge={salam.challenges[2]} initialSelected="b" checkNow whyOpen progress={0.55} /> },
   { id: "tf-wrong", render: () => <ExerciseDemo challenge={forgiveQuestion} initialSelected="false" checkNow whyOpen progress={0.5} /> },
   { id: "tf", render: () => <ExerciseDemo challenge={salam.challenges[1]} initialSelected="false" progress={0.4} /> },
-  { id: "tf-retry", render: () => <ExerciseDemo challenge={salam.challenges[1]} retrying progress={0.4} /> },
+  { id: "tf-retry", render: () => <ExerciseDemo challenge={salam.challenges[1]} attempt={1} progress={0.4} /> },
+  { id: "mc-retry", render: () => <ExerciseDemo challenge={salam.challenges[0]} attempt={1} progress={0.9} /> },
+  { id: "mc-review", render: () => <ExerciseDemo challenge={salam.challenges[2]} review progress={0.8} /> },
+  {
+    id: "long-answer-wrong",
+    render: () => (
+      <ExerciseDemo
+        challenge={longAnswerQuestion}
+        accent={colors.gem}
+        initialSelected={longAnswerQuestion.choices.find((choice) => choice.id !== longAnswerQuestion.correctChoiceId)?.id}
+        checkNow
+        whyOpen
+        progress={0.6}
+      />
+    )
+  },
   { id: "arabic", render: () => <ExerciseDemo challenge={ARABIC_QUESTION} initialSelected="b" progress={0.7} /> },
   { id: "arabic-prompt", render: () => <ExerciseDemo challenge={ARABIC_PROMPT} progress={0.7} /> },
   { id: "long", render: () => <ExerciseDemo challenge={longQuestion} accent={colors.gem} initialSelected="true" progress={0.85} /> },
@@ -310,20 +378,27 @@ const STATES: State[] = [
     )
   },
   {
-    id: "order-shown",
+    id: "order-salah-wrong",
     render: () => (
       <LessonScreen progress={0.3} hearts={FULL_HEARTS} onClose={noop}>
         <OrderGame
-          title={wudu.title}
-          options={WUDU_STEPS}
-          correctOrderIds={WUDU_ORDER}
+          title="Salah"
+          options={SALAH_STEPS}
+          correctOrderIds={SALAH_ORDER}
           mascotVariant="boy"
           accent={PRAYER_ACCENT}
-          initialPlacedIds={["bismillah", "mouth", "hands", "nose", "face", "head", "arms", "feet"]}
+          initialPlacedIds={["standing", "takbir", "ruku", "sujud1", "rise", "sit", "sujud2", "tashahhud", "taslim"]}
           initialChecked
-          initialMisses={2}
           onDone={noop}
         />
+      </LessonScreen>
+    )
+  },
+  {
+    id: "order-salah",
+    render: () => (
+      <LessonScreen progress={0.3} hearts={FULL_HEARTS} onClose={noop}>
+        <OrderGame title="Salah" options={SALAH_STEPS} correctOrderIds={SALAH_ORDER} mascotVariant="boy" accent={PRAYER_ACCENT} onDone={noop} />
       </LessonScreen>
     )
   },
@@ -376,6 +451,25 @@ const STATES: State[] = [
         nextTitle="Next"
         mascotVariant="girl"
         accent={FOUNDATION_ACCENT}
+        playSounds={false}
+        onContinue={noop}
+        onBackToPath={noop}
+      />
+    )
+  },
+  {
+    id: "complete-jumped",
+    render: () => (
+      <LessonComplete
+        headline="You jumped ahead!"
+        title={wudu.title}
+        xp={110}
+        stars={3}
+        streakDays={1}
+        unlockedTitle={"Muhammad \uFDFA"}
+        nextTitle="Next"
+        mascotVariant="boy"
+        accent={PRAYER_ACCENT}
         playSounds={false}
         onContinue={noop}
         onBackToPath={noop}

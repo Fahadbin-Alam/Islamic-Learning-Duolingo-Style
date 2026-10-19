@@ -189,13 +189,17 @@ describe("lessons imported from notes", () => {
     expect(problems).toEqual([]);
   });
 
-  test("Quran units follow the order of the surahs", () => {
+  test("Quran units follow the learning order: Al-Fatihah, Juz Amma from An-Nas back, then the mushaf", () => {
     const quran = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
-    const firstSurah = quran.branches.map((branch) =>
-      Math.min(...quran.nodes.filter((node) => node.branchId === branch.id).map((node) => surahOf(LESSONS_BY_ID[node.lessonIds[0]].sources[0]?.url) ?? Infinity))
+    const rank = (surah: number) => (surah === 1 ? 0 : surah >= 78 ? 1 + (114 - surah) : 100 + surah);
+    const surahs = quran.nodes.map((node) => surahOf(LESSONS_BY_ID[node.lessonIds[0]].sources[0]?.url)).filter((surah): surah is number => surah !== undefined);
+    const firstOfUnit = quran.branches.map((branch) =>
+      Math.min(...quran.nodes.filter((node) => node.branchId === branch.id).map((node) => rank(surahOf(LESSONS_BY_ID[node.lessonIds[0]].sources[0]?.url) ?? Infinity)))
     );
-    expect(firstSurah).toEqual([...firstSurah].sort((left, right) => left - right));
+    expect(firstOfUnit).toEqual([...firstOfUnit].sort((left, right) => left - right));
     expect(quran.branches[0].title).toBe("Surah Al-Fatihah");
+    // Right after Al-Fatihah: An-Nas, Al-Falaq, Al-Ikhlas, Al-Masad.
+    expect([...new Set(surahs)].slice(0, 5)).toEqual([1, 114, 113, 112, 111]);
   });
 
   test("a lesson about one person stays short and opens with what they are known for", () => {

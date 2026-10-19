@@ -7,12 +7,13 @@ export {
   type LessonScreenProps,
   type LessonHearts
 } from "./LessonHeader";
-export { LearnCard, type LearnCardProps } from "./LearnCard";
+export { LearnCard, sameReference, type LearnCardProps } from "./LearnCard";
 export {
   ExerciseView,
   PromptText,
   QuestionBubble,
   useLessonCompact,
+  attemptOrder,
   retryOrder,
   type ExerciseViewProps,
   type ExerciseChoice,
@@ -23,6 +24,7 @@ export {
   FeedbackSheet,
   PRAISE_WORDS,
   WRONG_TITLE,
+  SHEET_MAX_SHARE,
   pickPraise,
   CORRECT_TEXT,
   WRONG_TEXT,
@@ -32,5 +34,5 @@ export { shortWhy, noBreakHyphens, looksSame, normalizeText, WHY_MAX, type WhySo
 export { OrderGame, seededShuffle, type OrderGameProps, type OrderOption } from "./OrderGame";
 export { LessonComplete, type LessonCompleteProps } from "./LessonComplete";
 export { QuitSheet, type QuitSheetProps } from "./QuitSheet";
-export { getLessonLine, getLessonProgress, isPlayablePractice, LESSON_LINE_MAX_WORDS, type LessonStepScreen } from "./lessonSteps";
-export { ScrollHint, useScrollMore } from "./ScrollHint";
+export { getLessonLine, getLessonProgress, isPlayablePractice, lessonLineWords, lessonStars, LESSON_LINE_MAX_WORDS, type LessonStepScreen } from "./lessonSteps";
+export { ScrollHint, useScrollMore, SCROLL_HINT_SLACK } from "./ScrollHint";

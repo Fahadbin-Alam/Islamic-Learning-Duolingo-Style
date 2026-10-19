@@ -11,7 +11,10 @@ export type MascotProps = {
   variant?: string;
   mood?: MascotMood;
   size?: number;
-  /** Clothing color. */
+  /**
+   * Clothing color. Default: the brand primary (colors.green). Screens pass the topic accent so the
+   * mascot keeps one look outside lessons.
+   */
   accent?: string;
   animated?: boolean;
   style?: StyleProp<ViewStyle>;

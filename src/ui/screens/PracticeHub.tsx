@@ -28,7 +28,7 @@ export type PracticeHubProps = {
   onBack?: () => void;
   /** Mascot variant ('hijabi' | 'muslim_man' | 'girl' | 'boy'). */
   mascotVariant?: string;
-  /** Placement color (a topic accent). Default gem blue. */
+  /** The topic accent the path uses: the mascot's clothes and the level check's color, so the mascot looks the same everywhere. */
   accent?: string;
 };
 
@@ -95,7 +95,7 @@ function HeroCard({ tint, glyph, title, arabic, button, buttonVariant, done, onP
               {title}
             </Text>
             {arabic ? (
-              <ArabicText size={20} weight="bold" color={palette.ink} align="left" numberOfLines={1}>
+              <ArabicText size={20} weight="bold" color={palette.ink} align="left">
                 {arabic}
               </ArabicText>
             ) : null}
@@ -158,7 +158,8 @@ export function PracticeHub({
   onStartDailyChallenge,
   onGoFoundation,
   mascotVariant = "hijabi",
-  accent = colors.gem
+  // The mascot's own default, so it matches the other screens when no accent is passed.
+  accent = colors.green
 }: PracticeHubProps) {
   const t = (value: string) => translateStudyText(value, language);
   const reviewCount = learnerProfile.needs_review_question_ids.length;
@@ -255,7 +256,7 @@ export function PracticeHub({
               {t("Basics")}
             </Text>
             {basics ? (
-              <ArabicText size={20} weight="bold" color={colors.correctInk} align="left" numberOfLines={1}>
+              <ArabicText size={20} weight="bold" color={colors.correctInk} align="left">
                 {basics.ar}
               </ArabicText>
             ) : null}

@@ -65,6 +65,13 @@ const FILLER = [
   /^(sahih|sunan|jami|musnad|mishkat|riyad|muwatta)\b[^.!?]*\d+[a-z]?\.?$/i
 ];
 
+// The narrator's own lead-in or a chain of names ("I said: I am Muhammad b. 'Ali b. Husain.") explains nothing.
+const NARRATION_SCRAP = /^(i|we)\s(said|asked|came|went|was|were)\b|\b(b\.|bin|ibn)\s+\S+\s+(b\.|bin|ibn)\s/i;
+
+function wordCount(value: string) {
+  return value.split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length;
+}
+
 /** A Why line must not open or close half a quotation. */
 function quotesClosed(value: string) {
   const count = (pattern: RegExp) => (value.match(pattern) ?? []).length;
@@ -75,7 +82,18 @@ const STOP_WORDS = new Set(
   "the and for with that this what which who whom whose does did do how many much was were are is be been being you your yours can could should would will from have has had its it's they them their there not but about into when why one all more most than then also such only very just a an of to in on at by as or if so we our us he his him she her it i me my lessons lesson".split(" ")
 );
 
-/** Content words of a text, roughly stemmed to five letters ("ayahs" / "ayah", "gently" / "gentle"). */
+/** A rough stem: "ayahs" / "ayah", "passed" / "pass", "washes" / "wash", "times" / "time". */
+function stem(word: string) {
+  if (word.length <= 4) {
+    return word.replace(/s$/, "");
+  }
+  if (/(ss|x|z|ch|sh)es$/.test(word)) {
+    return word.slice(0, -2);
+  }
+  return word.replace(/(ing|ed|s)$/, "");
+}
+
+/** Content words of a text, stemmed and cut to five letters. */
 function contentWords(value: string) {
   const words = value
     .toLowerCase()
@@ -83,7 +101,7 @@ function contentWords(value: string) {
     .replace(/[\u0300-\u036f]/g, "")
     .split(/[^\p{L}\p{N}]+/u)
     .filter((word) => (word.length > 2 || /^\d+$/.test(word)) && !STOP_WORDS.has(word))
-    .map((word) => word.replace(/s$/, "").slice(0, 5));
+    .map((word) => stem(word).slice(0, 5));
   return new Set(words);
 }
 
@@ -110,6 +128,21 @@ function cleanSentence(sentence: string) {
     return "";
   }
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+// "Quran 3:66: Lo! ye are..." leads with a reference, "I said: I am..." with a speaker and "Why Hajj matters: ..."
+// with a title; the point is what follows.
+const REFERENCE_LEAD = /^(?:quran|sahih|sunan|jami|musnad|riyad)\b[^:]*\d\S*:\s+(?=\S)/i;
+const LABEL_LEAD = /^([^:.!?]{1,40}):\s+(?=\S)/;
+
+/** The sentence without a short "Label: " lead ("Quran 3:66: ", "I said: ", "Why Hajj matters: "). */
+function withoutLead(sentence: string) {
+  const reference = sentence.match(REFERENCE_LEAD);
+  if (reference) {
+    return sentence.slice(reference[0].length);
+  }
+  const label = sentence.match(LABEL_LEAD);
+  return label && label[1].split(/\s+/).length <= 6 ? sentence.slice(label[0].length) : sentence;
 }
 
 /** Cuts a long sentence at a strong clause break ("; " or " - "), or gives up. */
@@ -143,7 +176,15 @@ export type WhySource = {
 export function shortWhy({ explanation, easierExplanation, prompt, correctLabel }: WhySource): string | undefined {
   const prompted = normalizeText(prompt ?? "");
   const answer = normalizeText(correctLabel ?? "");
-  const repeats = (sentence: string) => {
+  // "Wudu is the washing we do before ___." with the answer put back in says nothing new either.
+  const blank = /_{2,}/.test(prompt ?? "") ? normalizeText((prompt ?? "").replace(/_{2,}/, correctLabel ?? "")) : "";
+  // "True" / "False" / "Yes" say nothing about the topic, so only the question counts for those.
+  const plainAnswer = /^(true|false|yes|no)$/i.test((correctLabel ?? "").trim()) ? "" : (correctLabel ?? "").trim();
+  const promptWords = contentWords(prompt ?? "");
+  const answerWords = contentWords(plainAnswer);
+  // When the answer is "False", a sentence with the question's words in another order is the correction.
+  const correcting = /^false$/i.test((correctLabel ?? "").trim());
+  const repeatsText = (sentence: string) => {
     const value = normalizeText(sentence);
     if (!value) {
       return true;
@@ -151,15 +192,22 @@ export function shortWhy({ explanation, easierExplanation, prompt, correctLabel 
     if (prompted && (prompted.includes(value) || value.includes(prompted))) {
       return true;
     }
+    if (blank && (blank.includes(value) || value.includes(blank))) {
+      return true;
+    }
     if (answer.length > 3 && (answer.includes(value) || (value.includes(answer) && answer.length > value.length * 0.7))) {
       return true;
     }
-    return false;
+    // A sentence built only from the question's and the answer's words ("Surah Hud means "Hud".") restates them.
+    // A short one like "It has 7 ayahs." still confirms a number, so it may stay.
+    const words = [...contentWords(sentence)];
+    return !correcting && words.length >= 3 && words.every((word) => promptWords.has(word) || answerWords.has(word));
   };
-  // "True" / "False" / "Yes" say nothing about the topic, so only the question counts for those.
-  const plainAnswer = /^(true|false|yes|no)$/i.test((correctLabel ?? "").trim()) ? "" : (correctLabel ?? "").trim();
-  const promptWords = contentWords(prompt ?? "");
-  const answerWords = contentWords(plainAnswer);
+  // "Quran 3:66: Lo!" is a reference and a scrap of the answer; with the reference cut off it must still say something.
+  const repeats = (sentence: string) => {
+    const rest = withoutLead(sentence);
+    return repeatsText(sentence) || repeatsText(rest) || (REFERENCE_LEAD.test(sentence) && wordCount(rest) < 3);
+  };
   const answerNumber = /^\d+$/.test(plainAnswer) ? plainAnswer : undefined;
   const scored = Boolean(prompt?.trim() || plainAnswer);
   const relevance = (sentence: string) => {
@@ -191,11 +239,12 @@ export function shortWhy({ explanation, easierExplanation, prompt, correctLabel 
       }
       seen.add(key);
       // Check the sentence as written too: "A learner should..." became "You should..." above.
-      if (FILLER.some((pattern) => pattern.test(sentence)) || /\blearners?\b/i.test(sentence) || !quotesClosed(sentence) || repeats(sentence) || repeats(raw)) {
+      if (FILLER.some((pattern) => pattern.test(sentence)) || /\blearners?\b/i.test(sentence) || NARRATION_SCRAP.test(sentence) || repeats(sentence) || repeats(raw)) {
         continue;
       }
+      // Quotes are checked on what is shown: a cut at "; " can leave one open.
       const fitted = fitSentence(sentence);
-      if (!fitted) {
+      if (!fitted || !quotesClosed(fitted)) {
         continue;
       }
       if (!scored) {

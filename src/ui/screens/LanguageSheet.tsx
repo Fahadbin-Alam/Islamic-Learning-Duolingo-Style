@@ -16,6 +16,11 @@ export type LanguageSheetProps = {
   onClose: () => void;
 };
 
+/** Web ignores adjustsFontSizeToFit: a long name starts a size smaller (a tile is about 120 px wide at 320). */
+function nativeSize(label: string) {
+  return label.length > 9 ? styles.languageNativeLong : null;
+}
+
 export function LanguageSheet({ visible, options, selected, canClose, onSelect, onSave, onClose }: LanguageSheetProps) {
   useBackToClose(visible, canClose ? onClose : onSave);
 
@@ -36,7 +41,7 @@ export function LanguageSheet({ visible, options, selected, canClose, onSelect, 
                 accessibilityLabel={option.label}
                 testID={`language-${option.id}`}
               >
-                <Text style={[styles.languageNative, active && styles.languageNativeActive]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
+                <Text style={[styles.languageNative, nativeSize(option.nativeLabel), active && styles.languageNativeActive]} numberOfLines={2}>
                   {option.nativeLabel}
                 </Text>
                 <Text style={styles.languageLabel} numberOfLines={1}>{option.label}</Text>
@@ -91,7 +96,14 @@ const styles = StyleSheet.create({
   languageNative: {
     fontFamily: fonts.displayHeavy,
     fontSize: 20,
-    color: colors.ink
+    lineHeight: 28,
+    color: colors.ink,
+    textAlign: "center",
+    flexShrink: 1
+  },
+  languageNativeLong: {
+    fontSize: 16,
+    lineHeight: 22
   },
   languageNativeActive: {
     color: colors.gemLip

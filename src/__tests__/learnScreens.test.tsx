@@ -149,7 +149,7 @@ describe("LearnPath", () => {
     expect(screen.queryByTestId("node-card")).toBeNull();
   });
 
-  it("offers practice on completed nodes and no button on locked ones", async () => {
+  it("offers practice on completed nodes and no START on locked ones, which say why", async () => {
     const { props } = await renderPath();
     const done = props.units[0].items[0];
     const locked = props.units[0].items[3];
@@ -160,7 +160,7 @@ describe("LearnPath", () => {
     expect(props.onStartNode).toHaveBeenCalledWith(done.node);
 
     await fireEvent.press(screen.getByTestId(`path-node-${locked.node.id}`));
-    expect(screen.getByText("LOCKED")).toBeTruthy();
+    expect(screen.getByText("Finish the one before it!")).toBeTruthy();
     expect(screen.getByText("3 of 3")).toBeTruthy();
     expect(screen.queryByTestId("node-card-start")).toBeNull();
   });

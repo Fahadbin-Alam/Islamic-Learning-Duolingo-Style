@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View, type TextInput } from "react-native";
+import { Animated, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View, type TextInput } from "react-native";
 import { GameButton } from "../GameButton";
+import { useShake } from "../PopIn";
 import { Sheet } from "../Sheet";
 import { playUi, haptic } from "../sound";
 import { colors, space, text } from "../theme";
@@ -18,8 +19,13 @@ export type AccountSheetProps = {
   password: string;
   /** Sign-in providers that are switched on (Google, Facebook). */
   socialProviders?: Array<{ id: string; label: string }>;
-  /** Short line from the app after a failed submit ("Wrong email or password."). Shown above the button. */
+  /**
+   * Short line from the app after a failed submit ("Wrong email or password."). Shown above the
+   * button with the wrong sound, a haptic and a shake, like a field hint.
+   */
   error?: string;
+  /** Bump on each failed submit so the same error plays its feedback again. */
+  errorKey?: number;
   onChangeMode: (mode: "create" | "login") => void;
   onChangeName: (value: string) => void;
   onChangeEmail: (value: string) => void;
@@ -52,6 +58,7 @@ export function AccountSheet({
   password,
   socialProviders = [],
   error,
+  errorKey = 0,
   onChangeMode,
   onChangeName,
   onChangeEmail,
@@ -66,11 +73,25 @@ export function AccountSheet({
   const [tries, setTries] = useState(0);
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
+  const { style: errorShake, shake: shakeError } = useShake(6);
 
   // A fresh start each time the sheet opens or the mode flips.
   useEffect(() => {
     setProblem(undefined);
   }, [mode, visible]);
+
+  // A failed log in or sign up feels the same as a field hint: wrong sound, haptic and a shake.
+  // Only a new error (or a bumped errorKey) plays it, not reopening the sheet over an old one.
+  const lastError = useRef(error ? `${errorKey}:${error}` : "");
+  useEffect(() => {
+    const next = error ? `${errorKey}:${error}` : "";
+    if (next === lastError.current) return;
+    lastError.current = next;
+    if (!visible || !error) return;
+    playUi("wrong");
+    haptic("error");
+    shakeError();
+  }, [error, errorKey, shakeError, visible]);
 
   const submit = () => {
     const found = checkAccountFields(mode, name, email, password);
@@ -148,9 +169,11 @@ export function AccountSheet({
             testID="account-password"
           />
           {error && !problem ? (
-            <Text style={styles.error} accessibilityLiveRegion="polite" testID="account-error">
-              {error}
-            </Text>
+            <Animated.View style={errorShake}>
+              <Text style={styles.error} accessibilityLiveRegion="polite" testID="account-error">
+                {error}
+              </Text>
+            </Animated.View>
           ) : null}
           <GameButton label={creating ? "Sign up" : "Log in"} fullWidth onPress={submit} sound={false} testID="account-submit" />
           {socialProviders.map((provider) => (

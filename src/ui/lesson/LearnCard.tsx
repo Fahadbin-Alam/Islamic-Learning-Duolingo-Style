@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Linking, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
 import type { ArabicTerm } from "../../data/arabicTerms";
-import { ArabicText, isQuranText, withHonorifics } from "../ArabicText";
+import { ArabicText, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
 import { Mascot } from "../Mascot";
@@ -11,7 +11,7 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lip, radii, space, text, topicPalette } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
 import { looksSame, noBreakHyphens, normalizeText } from "./lessonText";
-import { ScrollHint, useScrollMore } from "./ScrollHint";
+import { useScrollMore } from "./ScrollHint";
 
 export type LearnCardProps = {
   /** Lesson title, e.g. "As-Salamu Alaikum". Hidden when it only repeats the Arabic word's transliteration. */
@@ -19,6 +19,12 @@ export type LearnCardProps = {
   /** ONE short sentence the mascot says. */
   line: string;
   arabic?: ArabicTerm;
+  /** False when the learner has met this Arabic word before (e.g. the unit's word again): no NEW pill. Default true. */
+  isNewWord?: boolean;
+  /** Up to 3 short fact chips, e.g. "Father: Umar". */
+  facts?: string[];
+  /** A short narration or ayah, shown in full with where it is from. */
+  quote?: { text: string; reference?: string };
   mascotVariant: string;
   accent: string;
   source?: { label: string; url: string };
@@ -32,6 +38,24 @@ export type LearnCardProps = {
 };
 
 const GOLD_INK = darken(colors.goldLip, 0.45);
+const MAX_FACTS = 3;
+/** "Father: Umar" splits into a soft key and a bold value. */
+const FACT_KEY = /^([^:]{1,18}):\s*(.+)$/;
+
+/** True when a quote's reference names the same book and number as the source chip ("Muslim 1400a" in "Sahih Muslim 1400a"). */
+export function sameReference(reference: string, label: string) {
+  const ref = normalizeText(reference);
+  const lab = normalizeText(label);
+  if (!ref || !lab) {
+    return false;
+  }
+  if (ref.includes(lab) || lab.includes(ref)) {
+    return true;
+  }
+  const number = (value: string) => value.match(/\d+[a-z]?/i)?.[0]?.toLowerCase();
+  const firstWord = normalizeText(label.split(/\s+/)[0] ?? "");
+  return Boolean(number(reference) && number(reference) === number(label) && firstWord.length > 2 && ref.includes(firstWord));
+}
 
 /** Slides children in from the left (speech bubble entry). */
 function SlideIn({
@@ -60,11 +84,17 @@ function SlideIn({
   );
 }
 
-/** The "new word" step: NEW pill, big Arabic card, the mascot saying one line, optional source chip, CONTINUE. */
+/**
+ * The learn step: NEW pill, big Arabic card, the mascot saying one line, then optional fact chips, a quote
+ * (a short narration or ayah in full) and the source chip, CONTINUE.
+ */
 export function LearnCard({
   title,
   line,
   arabic,
+  isNewWord = true,
+  facts,
+  quote,
   mascotVariant,
   accent,
   source,
@@ -82,6 +112,13 @@ export function LearnCard({
   const showTitle =
     normalizeText(line) !== normalizeText(title) && (!arabic || (!looksSame(title, arabic.translit) && !looksSame(title, arabic.meaning)));
   const { ref, scrollProps, more, scrollDown } = useScrollMore();
+  const factList = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
+  const quoteText = quote?.text.trim();
+  const quoteReference = quote?.reference?.trim();
+  // The quote's reference opens the source when both name the same narration, so it is not said twice.
+  const linkedReference = Boolean(quoteText && quoteReference && source && sameReference(quoteReference, source.label));
+  // With facts or a quote to show, the mascot sits small next to its line to leave them room.
+  const rich = factList.length > 0 || Boolean(quoteText);
   const quranWord = arabic ? isQuranText(arabic.ar) : false;
   const arabicSize = quranWord ? (narrow || short ? 24 : 28) : narrow || short ? (narrow ? 30 : 34) : 40;
   const openSource = (url: string) => {
@@ -96,8 +133,8 @@ export function LearnCard({
     <View style={styles.root} testID={testID}>
       <View style={styles.scrollBox}>
         <ScrollView ref={ref} style={styles.scroll} contentContainerStyle={[styles.content, short ? styles.contentShort : null]} {...scrollProps}>
-          {/* NEW marks a new word, so it only shows with one. */}
-          {arabic ? (
+          {/* NEW marks a new word, so it only shows with one the learner has not met yet. */}
+          {arabic && isNewWord ? (
             <PopIn style={styles.newPill}>
               <Icon name="sparkle" size={16} color={GOLD_INK} />
               <Text style={styles.newText}>NEW</Text>
@@ -137,16 +174,18 @@ export function LearnCard({
                       </View>
                     </Tappable>
                   ) : null}
-                  <Text style={[styles.translit, short || narrow ? styles.translitSmall : null]}>{noBreakHyphens(arabic.translit)}</Text>
+                  <Text style={[styles.translit, short || narrow ? styles.translitSmall : null]}>
+                    {withHonorifics(noBreakHyphens(arabic.translit))}
+                  </Text>
                 </View>
                 <Text style={styles.meaning}>{withHonorifics(noBreakHyphens(arabic.meaning))}</Text>
               </View>
             </PopIn>
           ) : null}
 
-          {arabic ? (
+          {arabic || rich ? (
             <View style={[styles.talkRow, short ? styles.talkRowShort : null]}>
-              <Mascot variant={mascotVariant} mood="happy" accent={accent} size={short ? 64 : 92} />
+              <Mascot variant={mascotVariant} mood={arabic ? "happy" : "wave"} accent={accent} size={short ? (rich ? 56 : 64) : rich ? 80 : 92} />
               <SlideIn delay={320} style={styles.bubbleWrap}>
                 <SpeechBubble>{noBreakHyphens(line)}</SpeechBubble>
               </SlideIn>
@@ -162,7 +201,64 @@ export function LearnCard({
             </View>
           )}
 
-          {source ? (
+          {factList.length > 0 ? (
+            <View style={[styles.facts, short ? styles.factsShort : null]} testID="learn-facts">
+              {factList.map((fact, index) => {
+                const parts = fact.match(FACT_KEY);
+                return (
+                  <PopIn
+                    key={`${index}-${fact}`}
+                    delay={420 + index * 90}
+                    style={[styles.fact, short ? styles.factShort : null, { backgroundColor: palette.light, borderColor: palette.soft }]}
+                  >
+                    <Text style={[styles.factText, { color: palette.ink }]}>
+                      {parts ? <Text style={styles.factKey}>{`${parts[1]}: `}</Text> : null}
+                      {withHonorifics(noBreakHyphens(parts ? parts[2] : fact))}
+                    </Text>
+                  </PopIn>
+                );
+              })}
+            </View>
+          ) : null}
+
+          {quoteText ? (
+            <PopIn delay={460} from="up" style={[styles.quoteWrap, short ? styles.quoteWrapShort : null]}>
+              <View style={[styles.quote, { borderColor: palette.soft }]} testID="learn-quote">
+                <View style={[styles.quoteBar, { backgroundColor: palette.main }]} />
+                <View style={styles.quoteBody}>
+                  {isArabicOnly(quoteText) ? (
+                    <ArabicText size={narrow ? 19 : 21} quran color={colors.ink} align="right" style={styles.quoteArabic} testID="learn-quote-text">
+                      {quoteText}
+                    </ArabicText>
+                  ) : (
+                    <Text style={[styles.quoteText, quoteText.length > 160 ? styles.quoteTextLong : null]} testID="learn-quote-text">
+                      {withHonorifics(noBreakHyphens(quoteText))}
+                    </Text>
+                  )}
+                  {quoteReference && linkedReference && source ? (
+                    <Tappable
+                      onPress={() => openSource(source.url)}
+                      style={styles.quoteLink}
+                      accessibilityLabel={`Open source ${quoteReference}`}
+                      accessibilityRole="link"
+                      hitSlop={6}
+                      testID="learn-source"
+                    >
+                      <Icon name="book" size={16} />
+                      <Text style={[styles.quoteReference, styles.quoteLinkText]}>{withHonorifics(quoteReference)}</Text>
+                      <Icon name="chevronRight" size={14} color={colors.inkSoft} />
+                    </Tappable>
+                  ) : quoteReference ? (
+                    <Text style={styles.quoteReference} testID="learn-quote-reference">
+                      {withHonorifics(quoteReference)}
+                    </Text>
+                  ) : null}
+                </View>
+              </View>
+            </PopIn>
+          ) : null}
+
+          {source && !linkedReference ? (
             <PopIn delay={480} style={[styles.sourceWrap, short ? styles.sourceWrapShort : null]}>
               <Tappable
                 onPress={() => openSource(source.url)}
@@ -182,10 +278,9 @@ export function LearnCard({
             </PopIn>
           ) : null}
         </ScrollView>
-        <ScrollHint visible={more} onPress={scrollDown} />
       </View>
 
-      <LessonBottomBar bottomInset={bottomInset}>
+      <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more, onPress: scrollDown }}>
         <GameButton label="Continue" fullWidth onPress={onContinue} testID="learn-continue" />
       </LessonBottomBar>
     </View>
@@ -348,7 +443,7 @@ const styles = StyleSheet.create({
     marginTop: space.xl
   },
   talkRowShort: {
-    marginTop: space.md
+    marginTop: space.sm
   },
   bubbleWrap: {
     flex: 1,
@@ -376,12 +471,105 @@ const styles = StyleSheet.create({
     textAlign: "center",
     flexShrink: 1
   },
+  facts: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignSelf: "stretch",
+    marginTop: space.lg
+  },
+  factsShort: {
+    marginTop: 6
+  },
+  fact: {
+    borderWidth: 2,
+    borderRadius: radii.pill,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    margin: 3,
+    maxWidth: "100%"
+  },
+  factShort: {
+    paddingVertical: 3,
+    margin: 2
+  },
+  factText: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    textAlign: "center"
+  },
+  factKey: {
+    fontFamily: fonts.bodyBold,
+    color: colors.inkSoft
+  },
+  quoteWrap: {
+    alignSelf: "stretch",
+    marginTop: space.lg
+  },
+  quoteWrapShort: {
+    marginTop: space.md
+  },
+  quote: {
+    flexDirection: "row",
+    borderWidth: 2,
+    borderRadius: radii.md,
+    backgroundColor: colors.white,
+    overflow: "hidden"
+  },
+  quoteBar: {
+    width: 5
+  },
+  quoteBody: {
+    flex: 1,
+    minWidth: 0,
+    paddingHorizontal: space.md,
+    paddingTop: space.sm,
+    paddingBottom: space.sm
+  },
+  quoteText: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyBold,
+    fontSize: 16,
+    lineHeight: 23,
+    color: colors.ink
+  },
+  quoteTextLong: {
+    fontSize: 15,
+    lineHeight: 21
+  },
+  quoteArabic: {
+    alignSelf: "stretch"
+  },
+  quoteReference: {
+    marginTop: space.xs,
+    flexShrink: 1,
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft,
+    textAlign: "right"
+  },
+  quoteLink: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    maxWidth: "100%",
+    marginTop: space.xs,
+    minHeight: 28
+  },
+  quoteLinkText: {
+    marginTop: 0,
+    marginLeft: 5,
+    marginRight: 2
+  },
   sourceWrap: {
     marginTop: space.xl,
     maxWidth: "100%"
   },
   sourceWrapShort: {
-    marginTop: space.md
+    marginTop: space.sm
   },
   sourceChip: {
     flexDirection: "row",

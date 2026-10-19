@@ -44,7 +44,7 @@ describe("lesson steps", () => {
     expect(games.length).toBeGreaterThan(0);
     for (const game of games) {
       expect(game.kind).toBe("sequence");
-      expect(game.id).toMatch(/_(wudu|salah)_order$/);
+      expect(game.id).toMatch(/_(wudu|rakah|salah)_order$/);
       expect(game.correctOrderIds).toHaveLength(game.options.length);
     }
   });

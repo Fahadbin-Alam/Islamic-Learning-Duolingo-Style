@@ -62,7 +62,7 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
 - **Lesson**: close button, progress bar, hearts. Steps: one learn card (Arabic word, one
   short line from the mascot, optional source chip), an optional ordering game (prayer only),
   then the questions. Answers are big tiles. CHECK slides up a feedback sheet: "Great job!" or
-  "Correct answer: …" with a hidden "Why?" line. A wrong answer is retried once.
+  "Correct answer: …" with a hidden "Why?" line. A missed question comes back once at the end of the lesson, tiles in a new order (a test-out asks each question once).
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
 ## Copy bank

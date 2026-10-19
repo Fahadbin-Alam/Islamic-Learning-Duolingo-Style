@@ -4,6 +4,7 @@ import {
   completeLessonCluster,
   createTestOutSession,
   learningApi,
+  LIBRARY_TOPICS,
   TEST_OUT_MAX_QUESTIONS,
   TEST_OUT_MIN_QUESTIONS,
   testOutPassingScore
@@ -60,7 +61,7 @@ describe("path node unlocking", () => {
 
   it("opens only the first unit of a topic that is taught in order", () => {
     const nodes = learningApi.getPathNodes(makeUser());
-    for (const topicId of ["foundation", "prayer", "aqidah", "manners", "fasting", "zakat", "hajj", "marriage", "prophets", "women_of_the_book"]) {
+    for (const topicId of ["foundation", "prayer", "aqidah", "manners", "fasting", "zakat", "hajj", "marriage"]) {
       expect(nodes.filter((node) => node.topicId === topicId && node.status !== "locked")).toHaveLength(1);
     }
   });
@@ -70,11 +71,15 @@ describe("path node unlocking", () => {
     const nodes = learningApi.getPathNodes(user);
 
     for (const section of COURSE.sections) {
+      const ordered = section.branches.flatMap((branch) => section.nodes.filter((node) => node.branchId === branch.id));
       const open = nodes.filter((node) => node.topicId === section.topicId && node.status !== "locked" && node.status !== "completed");
-      expect(open.map((node) => node.status)).toEqual(["current"]);
-      expect(open[0].id).toBe(section.branches.flatMap((branch) => section.nodes.filter((node) => node.branchId === branch.id))[0].id);
+      const units = section.branches.filter((branch) => ordered.some((node) => node.branchId === branch.id));
+      // A library topic (Quran, Sahabah, Prophets, Women, Hadith) also opens the first circle of each later unit.
+      const opened = LIBRARY_TOPICS.has(section.topicId) ? units.length : 1;
+      expect(open.map((node) => node.status)).toEqual(["current", ...Array(opened - 1).fill("available")]);
+      expect(open[0].id).toBe(ordered[0].id);
     }
-    // Sahabah and Quran units have no prerequisites, yet only their first circle is open.
+    // Only one START bubble per topic, even where every unit is open.
     expect(nodes.filter((node) => node.topicId === "sahabah" && node.status === "current")).toHaveLength(1);
     expect(nodes.filter((node) => node.topicId === "quran_tafseer" && node.status === "current")).toHaveLength(1);
   });
@@ -246,7 +251,9 @@ describe("createTestOutSession", () => {
   });
 
   it("is not offered when the circles left give fewer than three questions", () => {
-    const short = Object.values(LESSONS_BY_ID).find((lesson) => lesson.challenges.length === 1)!;
+    // Every course lesson now asks two or more questions, so one is cut down to a single question.
+    const lesson = Object.values(LESSONS_BY_ID).find((item) => item.challenges.length >= 3)!;
+    const short = { ...lesson, challenges: lesson.challenges.slice(0, 1) };
     expect(canTestOut([short])).toBe(false);
     expect(canTestOut([])).toBe(false);
   });

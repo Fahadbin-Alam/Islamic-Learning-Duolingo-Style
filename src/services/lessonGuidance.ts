@@ -32,17 +32,25 @@ const SALAH_STEPS: Array<[string, string]> = [
   ["taslim", "Taslim"]
 ];
 
+// The bowing and prostrating part of one rak'ah, all taught in the Ruku and sujud unit.
+const RAKAH_STEPS: Array<[string, string]> = [
+  ["ruku", "Ruku"],
+  ["rise", "Rise from ruku"],
+  ["sujud", "First sujud"],
+  ["sit", "Sit between sajdahs"],
+  ["sujud2", "Second sujud"]
+];
+
 // Only lessons about the order itself get the ordering game; the rest go straight to their questions.
-const ORDER_GAMES: Record<string, "wudu" | "salah"> = {
+// A game only uses steps its unit or an earlier one has taught: wudu after the eight single-step
+// lessons, the rak'ah after ruku and sujud, the whole salah once tashahhud and taslim are taught too.
+const ORDER_GAMES: Record<string, "wudu" | "rakah" | "salah"> = {
   "prayer-wudu-full-order": "wudu",
   "prayer-wudu-demonstration-and-practice": "wudu",
   "prayer-wudu-reinforcement-review": "wudu",
   "prayer-wudu-wudu-mastery-check": "wudu",
-  "prayer-salah-basics-rakah-overview": "salah",
-  "prayer-salah-basics-follow-the-prophetic-model": "salah",
-  "prayer-salah-basics-basic-review": "salah",
-  "prayer-ruku-and-sujud-ruku-sujud-review": "salah",
-  "prayer-tashahhud-when-tashahhud-happens": "salah",
+  "prayer-ruku-and-sujud-ruku-sujud-review": "rakah",
+  "prayer-tashahhud-tashahhud-review": "salah",
   "prayer-review-and-mastery-mixed-review-1": "wudu",
   "prayer-review-and-mastery-mixed-review-2": "salah"
 };
@@ -51,7 +59,7 @@ export function buildGuidedLesson(lesson: Lesson, node?: LearningNode): Lesson {
   const primarySource = getPrimaryLessonSource(lesson.sources);
   const whatYouWillLearn = lesson.whatYouWillLearn ?? firstSentence(lesson.intro) ?? lesson.title;
   const whyItMatters = lesson.whyItMatters ?? deriveWhyItMatters(lesson, node, whatYouWillLearn);
-  const keyTakeaway = lesson.keyTakeaway ?? deriveKeyTakeaway(lesson, node, whatYouWillLearn);
+  const keyTakeaway = lesson.keyTakeaway ?? deriveKeyTakeaway(lesson, whatYouWillLearn);
   const storyMoment = lesson.storyMoment ?? deriveStoryMoment(lesson, node);
   const teachingMoments = lesson.teachingMoments ?? buildTeachingMoments(lesson, node, whatYouWillLearn, whyItMatters, keyTakeaway, storyMoment, primarySource);
   const practiceActivities = lesson.practiceActivities ?? buildPracticeActivities(lesson, node, keyTakeaway);
@@ -163,6 +171,13 @@ function buildPracticeActivities(
     return [
       buildSequenceActivity(lesson, node, "wudu_order", "Try arranging the wudu flow", "Tap the steps in the order they are performed.", WUDU_STEPS,
         "Wudu goes hands, mouth, nose, face, arms, head, ears, then feet.")
+    ];
+  }
+
+  if (orderGame === "rakah") {
+    return [
+      buildSequenceActivity(lesson, node, "rakah_order", "Build the rak'ah", "Tap the steps in the order they come.", RAKAH_STEPS,
+        "Ruku, stand up, sujud, sit, then the second sujud.")
     ];
   }
 
@@ -315,33 +330,19 @@ function deriveWhyItMatters(lesson: Lesson, node: LearningNode | undefined, what
   }
 }
 
-function deriveKeyTakeaway(lesson: Lesson, node: LearningNode | undefined, whatYouWillLearn: string) {
+// The lesson's own line, never a sentence shared by a whole topic: the learn card falls back to this one.
+function deriveKeyTakeaway(lesson: Lesson, whatYouWillLearn: string) {
   const miniLesson = lesson.challenges[0]?.miniLesson;
+
+  if (lesson.learnLine) {
+    return lesson.learnLine;
+  }
 
   if (miniLesson && normalizeSentence(miniLesson) !== normalizeSentence(whatYouWillLearn)) {
     return miniLesson;
   }
 
-  if (!node) {
-    return whatYouWillLearn;
-  }
-
-  switch (node.topicId) {
-    case "foundation":
-      return "Start using the phrase or habit in the next ordinary moment where it belongs.";
-    case "prayer":
-      return node.branchId.includes("wudu")
-        ? "Learn the order calmly now so the body remembers it later."
-        : "Prayer is strongest when its order, words, and stillness are learned together.";
-    case "quran_tafseer":
-      return "Stay with the surah long enough to carry one clear theme into worship and daily life.";
-    case "sahabah":
-    case "prophets":
-    case "women_of_the_book":
-      return "Notice the scene, the sacrifice, and the lesson you can imitate today.";
-    default:
-      return whatYouWillLearn;
-  }
+  return whatYouWillLearn;
 }
 
 function biographyScene(node: LearningNode, introSentence: string) {

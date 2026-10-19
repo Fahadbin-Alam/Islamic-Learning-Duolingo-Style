@@ -22,6 +22,7 @@ import {
   getAssessmentXp,
   getXpToday,
   findNextPlayableNode,
+  getTestOutPlan,
   isOutOfHearts,
   testOutPassingScore,
   grantHearts,
@@ -69,15 +70,18 @@ import {
 } from "./services/backendSync";
 import {
   clearAccountProfile,
+  clearActiveAssessment,
   clearSavedUserProfile,
+  loadActiveAssessment,
   loadSavedUserProfile,
+  saveActiveAssessment,
   saveUserProfile,
   stashAccountProfile,
   takeAccountProfile
 } from "./services/localProgress";
 import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
-import { shouldShowLessonBreakAd } from "./services/monetizationConfig";
+import { monetizationMode, shouldShowLessonBreakAd } from "./services/monetizationConfig";
 import { clearSocialHubState } from "./services/socialHub";
 import {
   requestIslamicNotificationPermission,
@@ -97,8 +101,9 @@ import {
   submitFoundationAssessmentAnswer
 } from "./services/foundationAssessment";
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
+import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
-import { colors, configureUiSound, fonts, Mascot } from "./ui";
+import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import {
   AccountSheet,
@@ -123,7 +128,7 @@ import {
   type TabKey,
   type TopicPickerTopic
 } from "./ui/screens";
-import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, getLessonProgress, isPlayablePractice, shortWhy } from "./ui/lesson";
+import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, getLessonProgress, isPlayablePractice, lessonStars, shortWhy } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic } from "./data/arabicTerms";
 import type {
   AccountRole,
@@ -183,7 +188,7 @@ type OutOfHeartsSheet = {
   open: boolean;
   variant: "free" | "shop";
   inLesson: boolean;
-  resume?: { kind: "node"; node: LearningNodeView } | { kind: "test_out"; unitId: string };
+  resume?: { kind: "node"; node: LearningNodeView } | { kind: "test_out"; unitId: string; attempt?: number };
 };
 
 type TestOutResult = {
@@ -192,6 +197,8 @@ type TestOutResult = {
   total: number;
   passingScore: number;
   unitId: string;
+  /** The try that just ended; TRY AGAIN starts the next one, with other questions. */
+  attempt: number;
 };
 
 type LessonCelebration = {
@@ -215,12 +222,18 @@ interface AppState {
   user?: UserProfile;
   xpSummary: XpSummary[];
   activeSession?: LessonSession;
-  challengeIndex: number;
+  /** The questions to ask, in order: the lesson's own, then each first-try miss once more. */
+  lessonQueue: LessonStep[];
+  /** Position in lessonQueue. */
+  stepIndex: number;
+  /** The lesson's questions that are done (right, or missed on their last try): the progress bar. */
+  doneCount: number;
   selectedChoiceId?: string;
   answerState: AnswerState;
-  retryingCurrentChallenge: boolean;
-  lastAnswerWasRetry: boolean;
+  /** Right on the first try; a test-out passes on these. */
   sessionCorrectCount: number;
+  /** Every wrong CHECK in this lesson; the STARS card counts them. */
+  sessionMistakes: number;
   sessionMissedLessonIds: string[];
   loading: boolean;
 }
@@ -246,8 +259,7 @@ type Action =
   | { type: "show_practice_screen" }
   | { type: "begin_lesson_questions" }
   | { type: "select_choice"; choiceId: string }
-  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string; scored?: boolean; retried?: boolean }
-  | { type: "retry_challenge" }
+  | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string; scored?: boolean; isTest?: boolean }
   | { type: "next_challenge" }
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "close_lesson_complete" }
@@ -260,13 +272,27 @@ const initialState: AppState = {
   screen: "home",
   selectedTopic: "foundation",
   xpSummary: [],
-  challengeIndex: 0,
+  lessonQueue: [],
+  stepIndex: 0,
+  doneCount: 0,
   answerState: undefined,
-  retryingCurrentChallenge: false,
-  lastAnswerWasRetry: false,
   sessionCorrectCount: 0,
+  sessionMistakes: 0,
   sessionMissedLessonIds: [],
   loading: true
+};
+
+// Leaving or finishing a lesson: nothing of it is kept.
+const NO_LESSON = {
+  activeSession: undefined,
+  lessonQueue: [] as LessonStep[],
+  stepIndex: 0,
+  doneCount: 0,
+  selectedChoiceId: undefined,
+  answerState: undefined,
+  sessionCorrectCount: 0,
+  sessionMistakes: 0,
+  sessionMissedLessonIds: [] as string[]
 };
 
 function reducer(state: AppState, action: Action): AppState {
@@ -309,14 +335,9 @@ function reducer(state: AppState, action: Action): AppState {
         // The path's node card already shows what the lesson is, so go straight to learning.
         // A test-out has nothing new to teach, so it starts with the questions.
         screen: action.session.mode === "test_out" ? "lesson_question" : "lesson_teach",
+        ...NO_LESSON,
         activeSession: action.session,
-        challengeIndex: 0,
-        selectedChoiceId: undefined,
-        answerState: undefined,
-        retryingCurrentChallenge: false,
-        lastAnswerWasRetry: false,
-        sessionCorrectCount: 0,
-        sessionMissedLessonIds: []
+        lessonQueue: startLessonQueue(action.session.lesson.challenges.length)
       };
     case "show_practice_screen":
       return { ...state, screen: "lesson_practice" };
@@ -325,45 +346,36 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         screen: "lesson_question",
         selectedChoiceId: undefined,
-        answerState: undefined,
-        retryingCurrentChallenge: false
+        answerState: undefined
       };
     case "select_choice":
       return { ...state, selectedChoiceId: action.choiceId };
     case "answer":
       {
       const scored = action.scored ?? true;
+      // A first-try miss comes back once at the end of the lesson; the bar moves only when a question is done.
+      const step = answerLessonStep(state.lessonQueue, state.stepIndex, action.correct, Boolean(action.isTest));
       return {
         ...state,
         user: action.user,
         screen: "lesson_feedback",
         answerState: action.correct ? "correct" : "wrong",
-        retryingCurrentChallenge: false,
-        lastAnswerWasRetry: action.retried ?? false,
+        lessonQueue: step.queue,
+        doneCount: step.done ? state.doneCount + 1 : state.doneCount,
         sessionCorrectCount: action.correct && scored ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
+        sessionMistakes: action.correct ? state.sessionMistakes : state.sessionMistakes + 1,
         sessionMissedLessonIds: action.correct || !scored || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
           ? state.sessionMissedLessonIds
           : [...state.sessionMissedLessonIds, action.missedLessonId]
       };
       }
-    case "retry_challenge":
-      return {
-        ...state,
-        screen: "lesson_question",
-        selectedChoiceId: undefined,
-        answerState: undefined,
-        retryingCurrentChallenge: true,
-        lastAnswerWasRetry: false
-      };
     case "next_challenge":
       return {
         ...state,
         screen: "lesson_question",
-        challengeIndex: state.challengeIndex + 1,
+        stepIndex: state.stepIndex + 1,
         selectedChoiceId: undefined,
-        answerState: undefined,
-        retryingCurrentChallenge: false,
-        lastAnswerWasRetry: false
+        answerState: undefined
       };
     case "finish_lesson":
       return {
@@ -372,23 +384,10 @@ function reducer(state: AppState, action: Action): AppState {
         user: action.user,
         xpSummary: action.xpSummary,
         selectedChoiceId: undefined,
-        answerState: undefined,
-        retryingCurrentChallenge: false,
-        lastAnswerWasRetry: false
+        answerState: undefined
       };
     case "close_lesson_complete":
-      return {
-        ...state,
-        screen: "branch",
-        activeSession: undefined,
-        challengeIndex: 0,
-        selectedChoiceId: undefined,
-        answerState: undefined,
-        retryingCurrentChallenge: false,
-        lastAnswerWasRetry: false,
-        sessionCorrectCount: 0,
-        sessionMissedLessonIds: []
-      };
+      return { ...state, ...NO_LESSON, screen: "branch" };
     case "apply_user":
       return { ...state, user: action.user };
     case "apply_user_latest":
@@ -396,18 +395,7 @@ function reducer(state: AppState, action: Action): AppState {
     case "sync_premium":
       return state.user ? { ...state, user: applyPremiumStatus(state.user, action.premium) } : state;
     case "reset_lesson":
-      return {
-        ...state,
-        screen: "branch",
-        activeSession: undefined,
-        challengeIndex: 0,
-        selectedChoiceId: undefined,
-        answerState: undefined,
-        retryingCurrentChallenge: false,
-        lastAnswerWasRetry: false,
-        sessionCorrectCount: 0,
-        sessionMissedLessonIds: []
-      };
+      return { ...state, ...NO_LESSON, screen: "branch" };
     default:
       return state;
   }
@@ -426,6 +414,8 @@ export default function TopicApp() {
   const [testOutResult, setTestOutResult] = useState<TestOutResult | undefined>(undefined);
   const [authMode, setAuthMode] = useState<AuthMode>("create");
   const [accountError, setAccountError] = useState<string | undefined>(undefined);
+  // Bumped on every failed sign up or log in, so the sheet plays its error feedback even for the same message twice.
+  const [accountErrorKey, setAccountErrorKey] = useState(0);
   const [hasSavedAccount, setHasSavedAccount] = useState(false);
   const [accountName, setAccountName] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
@@ -498,6 +488,8 @@ export default function TopicApp() {
       const user = accountSeed ? withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, accountSeed))) : baseUser;
       const xpSummary = await learningApi.getXpSummaries(user);
       const knownAccount = remoteSession?.account ?? savedAccount;
+      // A practice session cut off by a reload picks up on the same question; its clock starts again.
+      const savedAssessment = loadActiveAssessment(assessmentOwner(user));
 
       if (mounted) {
         setHasSavedAccount(Boolean(knownAccount));
@@ -522,6 +514,11 @@ export default function TopicApp() {
         }
 
         dispatch({ type: "loaded", user, xpSummary });
+
+        if (savedAssessment) {
+          setActiveAssessment({ ...savedAssessment, questionStartedAt: Date.now() });
+          dispatch({ type: "open_assessment", returnScreen: "review" });
+        }
       }
     }
 
@@ -540,6 +537,20 @@ export default function TopicApp() {
     saveUserProfile(state.user);
     void syncRemoteUser(state.user).catch(() => undefined);
   }, [state.user]);
+
+  // The running practice session is kept next to the saved learner, so a reload resumes it.
+  const assessmentOwnerKey = state.user ? assessmentOwner(state.user) : undefined;
+  useEffect(() => {
+    if (state.loading || !assessmentOwnerKey) {
+      return;
+    }
+
+    if (activeAssessment) {
+      saveActiveAssessment(assessmentOwnerKey, activeAssessment);
+    } else {
+      clearActiveAssessment();
+    }
+  }, [activeAssessment, assessmentOwnerKey, state.loading]);
 
 
   const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? pendingLanguage);
@@ -601,6 +612,8 @@ export default function TopicApp() {
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
   }, [state.user]);
+  const completedNodeIds = state.user?.completedNodeIds;
+  const subscriptionId = state.user?.activeSubscriptionId;
 
   const localizedSections = useMemo(() => {
     return COURSE.sections.map((section) => {
@@ -633,15 +646,28 @@ export default function TopicApp() {
       }));
   }, [currentLanguage, pathNodes, selectedSection.topicId]);
   const sectionNextNode = useMemo(() => findNextPlayableNode(sectionNodes), [sectionNodes]);
-  // The jump-ahead key sits on the unit of the circle to play next, when its remaining circles
-  // give enough questions for a fair test.
-  const testOutUnitId = useMemo(() => {
-    if (!sectionNextNode) {
-      return undefined;
+  // Every unfinished unit the learner may open can be tested out when the circles it skips give enough
+  // questions for a fair test: the open unit's banner key, and JUMP HERE on locked circles of any unit.
+  // Only finished circles and premium change the plans, so a heart or XP change does not redo them.
+  const testOutUnitIds = useMemo(() => {
+    const ids = new Set<string>();
+
+    if (!state.user) {
+      return ids;
     }
 
-    return canTestOut(getUnitTestOut(sectionNodes, sectionNextNode.branchId).lessons) ? sectionNextNode.branchId : undefined;
-  }, [sectionNextNode, sectionNodes]);
+    const user = { ...state.user, completedNodeIds: completedNodeIds ?? [], activeSubscriptionId: subscriptionId };
+
+    for (const branch of selectedSection.branches) {
+      const plan = getTestOutPlan(user, branch.id);
+
+      if (plan && canTestOut(plan.lessons)) {
+        ids.add(branch.id);
+      }
+    }
+
+    return ids;
+  }, [completedNodeIds, subscriptionId, selectedSection]);
   const learnPath = useMemo(() => {
     const units: PathUnit[] = [];
     const chestStops = new Map<string, JourneyRewardStop>();
@@ -685,12 +711,13 @@ export default function TopicApp() {
         done: nodes.filter((node) => completed.has(node.id)).length,
         total: nodes.length,
         premiumLocked: Boolean(branch.premiumOnly && !state.user.activeSubscriptionId),
+        canTestOut: testOutUnitIds.has(branch.id),
         items
       });
     }
 
     return { units, chestStops };
-  }, [sectionNodes, selectedSection, state.user]);
+  }, [sectionNodes, selectedSection, state.user, testOutUnitIds]);
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
 
@@ -778,7 +805,8 @@ export default function TopicApp() {
     setAccountModalVisible(true);
   }, [accountPromptDue, accountPromptShown, guestUser, hasSavedAccount, onFoundationPath, otherSheetOpen]);
 
-  function openFoundationAssessment(mode: FoundationAssessmentState["mode"]) {
+  // `focus` practices one skill (a "Practice next" chip on the end screen).
+  function openFoundationAssessment(mode: FoundationAssessmentState["mode"], focus?: FoundationCategoryId) {
     if (!state.user) {
       return;
     }
@@ -792,7 +820,7 @@ export default function TopicApp() {
       dispatch({ type: "apply_user", user: hydratedUser });
     }
 
-    setActiveAssessment(createFoundationAssessment(hydratedUser.learnerProfile ?? createEmptyLearnerProfile(), mode));
+    setActiveAssessment(createFoundationAssessment(hydratedUser.learnerProfile ?? createEmptyLearnerProfile(), mode, { focus }));
     dispatch({ type: "open_assessment" });
   }
 
@@ -924,28 +952,29 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
-  // LearnPath asks "Jump ahead?" first and calls this on START TEST.
-  async function startBranchTestOut(branchId: string, user = state.user) {
+  // LearnPath asks "Jump ahead?" first and calls this on START TEST. A "unit" plan finishes the unit's
+  // circles; a "jump" plan (a locked unit of a topic taught in order) finishes every circle before it.
+  // `attempt` counts the tries from 0: TRY AGAIN passes the next one, so the questions change.
+  async function startBranchTestOut(branchId: string, user = state.user, attempt = 0) {
     if (!user) {
       return;
     }
 
     const testBranch = selectedSection.branches.find((branch) => branch.id === branchId) ?? selectedBranch;
+    const plan = getTestOutPlan(user, testBranch.id);
 
-    if (testBranch.premiumOnly && !user.activeSubscriptionId) {
+    if (!plan && testBranch.premiumOnly && !user.activeSubscriptionId) {
       dispatch({ type: "open_shop", focus: "premium" });
       return;
     }
 
-    const plan = getUnitTestOut(sectionNodes, testBranch.id);
-
-    if (!canTestOut(plan.lessons)) {
+    if (!plan || !canTestOut(plan.lessons)) {
       void notify("Nothing to skip yet.", undefined, { mood: "think" });
       return;
     }
 
     if (isOutOfHearts(user)) {
-      openOutOfHearts(user, false, { kind: "test_out", unitId: testBranch.id });
+      openOutOfHearts(user, false, { kind: "test_out", unitId: testBranch.id, attempt });
       return;
     }
 
@@ -960,7 +989,8 @@ export default function TopicApp() {
       branchId: testBranch.id,
       lessons: plan.lessons,
       nodeIds: plan.nodeIds,
-      heartsAtStart: activeUser.hearts.current
+      heartsAtStart: activeUser.hearts.current,
+      attempt
     });
 
     challengeStartedAtRef.current = Date.now();
@@ -972,10 +1002,17 @@ export default function TopicApp() {
       return;
     }
 
-    const challenge = state.activeSession.lesson.challenges[state.challengeIndex];
+    const step = state.lessonQueue[state.stepIndex];
+    const challenge = step ? state.activeSession.lesson.challenges[step.index] : undefined;
+
+    if (!step || !challenge) {
+      return;
+    }
+
     const correct = challenge.correctChoiceId === state.selectedChoiceId;
     const responseTimeMs = Math.max(900, Date.now() - challengeStartedAtRef.current);
-    const isRetry = state.retryingCurrentChallenge;
+    // A missed question asked again at the end is free: no heart, no score, no learner signal.
+    const isRetry = step.attempt > 0;
     let nextUser = withExperienceDefaults({
       ...state.user,
       lastLearningAt: new Date().toISOString()
@@ -983,7 +1020,7 @@ export default function TopicApp() {
 
     if (!isRetry) {
       const signalNodeId = challenge.sourceNodeId ?? state.activeSession.lesson.nodeId;
-      const lessonSignal = buildLessonSignal(signalNodeId, challenge, state.challengeIndex, state.activeSession.lesson.challenges.length, correct, responseTimeMs);
+      const lessonSignal = buildLessonSignal(signalNodeId, challenge, step.index, state.activeSession.lesson.challenges.length, correct, responseTimeMs);
       const nextProfile = applyLessonSignalToLearnerProfile({
         profile: learnerProfile,
         category: lessonSignal.category,
@@ -1011,7 +1048,7 @@ export default function TopicApp() {
       user: nextUser,
       missedLessonId: correct ? undefined : challenge.sourceLessonId ?? state.activeSession.lesson.id,
       scored: !isRetry,
-      retried: isRetry
+      isTest: isTestSession(state.activeSession)
     });
   }
 
@@ -1035,24 +1072,13 @@ export default function TopicApp() {
       return;
     }
 
-    // No hearts left: no free retry and no next question until the learner refills.
+    // No hearts left: no next question (and no missed one asked again) until the learner refills.
     if (isOutOfHearts(state.user)) {
       openOutOfHearts(state.user, true);
       return;
     }
 
-    resumeLesson(state.user);
-  }
-
-  function resumeLesson(user: UserProfile) {
-    // A missed question comes straight back once, for free, so the right answer sticks.
-    if (state.answerState === "wrong" && !state.lastAnswerWasRetry) {
-      challengeStartedAtRef.current = Date.now();
-      dispatch({ type: "retry_challenge" });
-      return;
-    }
-
-    void continueLesson(user);
+    void continueLesson(state.user);
   }
 
   function speakArabic(text: string) {
@@ -1093,9 +1119,8 @@ export default function TopicApp() {
       return;
     }
 
-    const lastChallenge = state.challengeIndex >= state.activeSession.lesson.challenges.length - 1;
-
-    if (!lastChallenge) {
+    // The queue already holds a first-try miss that this answer sent to the end.
+    if (!isLastLessonStep(state.lessonQueue, state.stepIndex)) {
       challengeStartedAtRef.current = Date.now();
       dispatch({ type: "next_challenge" });
       return;
@@ -1107,13 +1132,17 @@ export default function TopicApp() {
       const passed = state.sessionCorrectCount >= passingScore;
 
       if (!passed) {
-        // A result sheet over the last question: the score, then TRY AGAIN or BACK.
+        // The last question and its sheet close first, so the sad result never sits over a cheering
+        // mascot and a green answer. The sheet opens over the path: the score, then TRY AGAIN or BACK.
+        void Speech.stop();
+        dispatch({ type: "reset_lesson" });
         setTestOutResult({
           open: true,
           correct: state.sessionCorrectCount,
           total: totalChallenges,
           passingScore,
-          unitId: state.activeSession.lesson.branchId ?? selectedBranch.id
+          unitId: state.activeSession.lesson.branchId ?? selectedBranch.id,
+          attempt: state.activeSession.attempt ?? 0
         });
         return;
       }
@@ -1126,12 +1155,8 @@ export default function TopicApp() {
         ...completeLessonCluster(user, clusterLessons, state.activeSession.lesson.xpReward),
         lastLearningAt: new Date().toISOString()
       });
-      const afterNodes = learningApi.getPathNodes(nextUser);
-      const unlockedNode = afterNodes.find((node) => {
-        const previous = beforeNodes.find((item) => item.id === node.id);
-        // The circle that is now next to play, not one the test just skipped.
-        return previous?.status === "locked" && node.status === "current";
-      });
+      // The circle that is now next to play, not one the test just skipped.
+      const unlockedNode = findUnlockedNode(beforeNodes, learningApi.getPathNodes(nextUser), state.activeSession.lesson.branchId);
 
       // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
@@ -1139,10 +1164,7 @@ export default function TopicApp() {
         title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
         xp: nextUser.totalXp - user.totalXp,
         streakExtended: didExtendStreak(user, nextUser),
-        stars: (state.activeSession.targetNodeIds ?? [])
-          .filter((nodeId) => !user.completedNodeIds.includes(nodeId))
-          .map((nodeId) => getNodeStarsReward(nodeId))
-          .reduce((total, value) => total + value, 0),
+        stars: lessonStars(state.sessionMistakes),
         unlockedTitle: unlockedNode ? getNodeTitle(unlockedNode.id, unlockedNode.title, currentLanguage) : undefined,
         streakDays: nextUser.streakDays
       });
@@ -1157,11 +1179,11 @@ export default function TopicApp() {
       ...completeLesson(user, state.activeSession.lesson),
       lastLearningAt: new Date().toISOString()
     });
-    const afterNodes = learningApi.getPathNodes(nextUser);
-    const unlockedNode = afterNodes.find((node) => {
-      const previous = beforeNodes.find((item) => item.id === node.id);
-      return previous?.status === "locked" && node.status === "current";
-    });
+    const unlockedNode = findUnlockedNode(
+      beforeNodes,
+      learningApi.getPathNodes(nextUser),
+      state.activeSession.lesson.branchId ?? findNodeById(state.activeSession.lesson.nodeId)?.branchId
+    );
 
     // LessonComplete plays the finish, streak and XP sounds itself, one after another.
     setLessonCompleteSummary({
@@ -1169,7 +1191,8 @@ export default function TopicApp() {
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
       streakExtended: didExtendStreak(user, nextUser),
-      stars: user.completedNodeIds.includes(state.activeSession.lesson.nodeId) ? 0 : getNodeStarsReward(state.activeSession.lesson.nodeId),
+      // How well this run went, replays too: every wrong CHECK is a mistake.
+      stars: lessonStars(state.sessionMistakes),
       unlockedTitle: unlockedNode ? getNodeTitle(unlockedNode.id, unlockedNode.title, currentLanguage) : undefined,
       streakDays: nextUser.streakDays
     });
@@ -1343,6 +1366,11 @@ export default function TopicApp() {
     openAccountPanel();
   }
 
+  function failAccount(message: string) {
+    setAccountError(message);
+    setAccountErrorKey((key) => key + 1);
+  }
+
   async function createAccount() {
     if (!state.user || checkAccountFields("create", accountName, accountEmail, accountPassword)) {
       // AccountSheet shows its own hint for an empty or invalid field.
@@ -1354,7 +1382,7 @@ export default function TopicApp() {
 
     // This device already holds that account (logged out): log in to get its progress back.
     if (savedAccount && normalizeEmail(savedAccount.email) === email) {
-      setAccountError("That email has an account. Log in!");
+      failAccount("That email has an account. Log in!");
       return;
     }
 
@@ -1383,7 +1411,7 @@ export default function TopicApp() {
       nextUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user)));
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
-        setAccountError(error instanceof BackendRequestError && error.status === 409 ? "That email has an account. Log in!" : "Could not sign up. Try again.");
+        failAccount(error instanceof BackendRequestError && error.status === 409 ? "That email has an account. Log in!" : "Could not sign up. Try again.");
         return;
       }
     }
@@ -1437,7 +1465,7 @@ export default function TopicApp() {
       return;
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
-        setAccountError("Wrong email or password.");
+        failAccount("Wrong email or password.");
         return;
       }
     }
@@ -1445,7 +1473,7 @@ export default function TopicApp() {
     const account = loginLocalAuthAccount(accountEmail, accountPassword);
 
     if (!account) {
-      setAccountError("Wrong email or password.");
+      failAccount("Wrong email or password.");
       return;
     }
 
@@ -1601,6 +1629,9 @@ export default function TopicApp() {
     setSettingsReducedSound(Boolean(guestUser.reducedSoundEffects));
     setOutOfHearts(undefined);
     setSettingsModalVisible(false);
+    setActiveAssessment(undefined);
+    setPracticeResult(undefined);
+    clearActiveAssessment();
     dispatch({ type: "apply_user", user: guestUser });
   }
 
@@ -1683,11 +1714,11 @@ export default function TopicApp() {
     setOutOfHearts((current) => current && { ...current, open: false });
 
     if (sheet?.inLesson && state.screen === "lesson_feedback") {
-      resumeLesson(refilled);
+      void continueLesson(refilled);
     } else if (sheet?.resume?.kind === "node") {
       void startLesson(sheet.resume.node, refilled);
     } else if (sheet?.resume?.kind === "test_out") {
-      void startBranchTestOut(sheet.resume.unitId, refilled);
+      void startBranchTestOut(sheet.resume.unitId, refilled, sheet.resume.attempt);
     }
   }
 
@@ -1715,13 +1746,14 @@ export default function TopicApp() {
     }
   }
 
+  // TRY AGAIN is a new try: other questions in another order, not the run whose answers were just shown.
   function closeTestOutResult(again: boolean) {
     const result = testOutResult;
     setTestOutResult((current) => current && { ...current, open: false });
     dispatch({ type: "reset_lesson" });
 
     if (again && result) {
-      void startBranchTestOut(result.unitId);
+      void startBranchTestOut(result.unitId, state.user, result.attempt + 1);
     }
   }
 
@@ -1743,6 +1775,12 @@ export default function TopicApp() {
     .filter(([, config]) => config.enabled)
     .map(([id, config]) => ({ id, label: config.label }));
   const activeTab = tabForScreen(state.screen);
+  // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
+  // gem heart item the learner can pay for. Otherwise the out-of-hearts sheet offers PRACTICE.
+  const learner = state.user;
+  const canGetHearts =
+    monetizationMode !== "disabled" ||
+    SHOP_ITEMS.some((item) => item.currencyType === "gems" && Boolean(item.refillsHearts || item.heartsGranted) && canSpendGems(learner, item));
   // With no hearts left the complete screen offers CONTINUE (back to the path), never a NEXT LESSON
   // that could not start.
   const nextLessonNode = sectionNextNode && sectionNextNode.status !== "locked" && !isOutOfHearts(state.user) ? sectionNextNode : undefined;
@@ -1752,27 +1790,29 @@ export default function TopicApp() {
   const lessonMascot = currentLessonSection.mascot;
   const lessonArabic = lesson ? getLessonArabic(lesson.nodeId, lesson.branchId ?? findNodeById(lesson.nodeId)?.branchId) : undefined;
   const lessonSource = lesson?.sources[0];
-  const challenge = lesson?.challenges[state.challengeIndex];
+  const lessonStep = state.lessonQueue[state.stepIndex];
+  const challenge = lessonStep ? lesson?.challenges[lessonStep.index] : undefined;
   const correctLabel = challenge?.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  const inTest = isTestSession(lessonSession);
+  const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   const lessonProgress = getLessonProgress({
     screen: state.screen,
-    hasTeach: lessonSession?.mode !== "test_out",
+    hasTeach: !inTest,
     hasPractice: Boolean(currentPracticeActivity),
-    challengeIndex: state.challengeIndex,
     challengeCount: lesson?.challenges.length ?? 1,
-    answeredCorrectly: state.answerState === "correct"
+    done: state.doneCount
   });
   const lessonHearts = {
     current: state.user.hearts.current,
     max: state.user.hearts.max,
     unlimited: Boolean(state.user.hearts.unlimited)
   };
-  // GOT IT / CONTINUE on the last answer ends the lesson: LessonComplete's fanfare is its sound.
+  // GOT IT / CONTINUE on the last answer ends the lesson: LessonComplete's fanfare (or the test
+  // result sheet's sound) follows, so the button itself stays quiet.
   const continueEndsLesson =
     state.screen === "lesson_feedback" &&
     Boolean(lesson) &&
-    state.challengeIndex >= (lesson?.challenges.length ?? 0) - 1 &&
-    (state.answerState === "correct" || state.lastAnswerWasRetry) &&
+    isLastLessonStep(state.lessonQueue, state.stepIndex) &&
     !isOutOfHearts(state.user);
   const quitSheet = (
     <QuitSheet
@@ -1830,7 +1870,7 @@ export default function TopicApp() {
                 claimJourneyReward(stop);
               }
             }}
-            onTestOut={testOutUnitId ? (unitId) => void startBranchTestOut(unitId) : undefined}
+            onTestOut={(unitId) => void startBranchTestOut(unitId)}
             onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
             onNextTopic={() => setTopicPickerVisible(true)}
           />
@@ -1841,6 +1881,12 @@ export default function TopicApp() {
             title={lesson.title}
             line={getLessonLine(lesson)}
             arabic={lessonArabic}
+            // NEW only for the lesson's own word, not its unit's word met on earlier circles.
+            isNewWord={Boolean(getNodeArabic(lesson.nodeId))}
+            facts={lesson.learnFacts}
+            // The questions ask about the narration or ayah, so the card shows it in full. When its
+            // reference names the same narration as the source chip, LearnCard shows them as one.
+            quote={lesson.quote}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             source={lessonSource ? { label: lessonSource.reference ?? lessonSource.title, url: lessonSource.url } : undefined}
@@ -1860,36 +1906,41 @@ export default function TopicApp() {
             onDone={beginLessonQuestions}
           />
         )}
-        {(state.screen === "lesson_question" || state.screen === "lesson_feedback") && challenge && lessonShell(
-          <ExerciseView
-            key={`${challenge.id}-${state.retryingCurrentChallenge || state.lastAnswerWasRetry ? "retry" : "first"}`}
-            kind={challenge.type}
-            prompt={challenge.prompt}
-            choices={challenge.choices}
-            selectedChoiceId={state.selectedChoiceId}
-            correctChoiceId={challenge.correctChoiceId}
-            result={state.screen === "lesson_feedback"
-              ? {
-                  correct: state.answerState === "correct",
-                  correctLabel,
-                  why: shortWhy({
-                    explanation: challenge.explanation,
-                    easierExplanation: challenge.easierExplanation,
-                    prompt: challenge.prompt,
-                    correctLabel
-                  })
-                }
-              : undefined}
-            retrying={state.retryingCurrentChallenge}
-            mascotVariant={lessonMascot}
-            accent={lessonAccent}
-            praiseSeed={challenge.id}
-            playSound={false}
-            continueSound={continueEndsLesson ? false : undefined}
-            onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
-            onCheck={answerChallenge}
-            onContinue={continueFromFeedback}
-          />
+        {(state.screen === "lesson_question" || state.screen === "lesson_feedback") && challenge && lessonStep && lessonShell(
+          <>
+            {inTest ? <TestStrip passingScore={testPassingScore} total={lesson?.challenges.length ?? 0} accent={lessonAccent} /> : null}
+            <ExerciseView
+              // A missed question asked again at the end is a new try: a fresh view with its tiles in another order.
+              key={`${challenge.id}-${lessonStep.attempt}`}
+              kind={challenge.type}
+              prompt={challenge.prompt}
+              choices={challenge.choices}
+              selectedChoiceId={state.selectedChoiceId}
+              correctChoiceId={challenge.correctChoiceId}
+              result={state.screen === "lesson_feedback"
+                ? {
+                    correct: state.answerState === "correct",
+                    correctLabel,
+                    why: shortWhy({
+                      explanation: challenge.explanation,
+                      easierExplanation: challenge.easierExplanation,
+                      prompt: challenge.prompt,
+                      correctLabel
+                    })
+                  }
+                : undefined}
+              attempt={lessonStep.attempt}
+              review={challenge.isReview}
+              mascotVariant={lessonMascot}
+              accent={lessonAccent}
+              praiseSeed={challenge.id}
+              playSound={false}
+              continueSound={continueEndsLesson ? false : undefined}
+              onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+              onCheck={answerChallenge}
+              onContinue={continueFromFeedback}
+            />
+          </>
         )}
         {state.screen === "lesson_complete" && lessonCompleteSummary && (
           <LessonComplete
@@ -1925,19 +1976,25 @@ export default function TopicApp() {
             language={currentLanguage}
             selectedAnswer={activeAssessment.selectedAnswer}
             mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
             onChangeSelectedAnswer={updateAssessmentSelection}
             onSubmit={submitAssessmentAnswer}
             onContinue={continueAssessment}
             onExit={closeAssessment}
           />
         )}
-        {/* Practice keeps its own gem-blue mascot on every screen (hub, questions, end), so no topic accent. */}
+        {/* Practice wears the topic accent too, so the mascot looks the same as on the path and the sheets. */}
         {state.screen === "assessment" && !activeAssessment && practiceResult && (
           <PracticeComplete
             assessment={practiceResult.assessment}
             learnerProfile={practiceResult.profile}
             mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
             onContinue={closeAssessment}
+            onPracticeSkill={(category) => {
+              setPracticeResult(undefined);
+              openFoundationAssessment("review", category);
+            }}
           />
         )}
         {state.screen === "review" && (
@@ -1947,6 +2004,7 @@ export default function TopicApp() {
             language={currentLanguage}
             strings={strings}
             mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
             onStartPlacement={() => openFoundationAssessment("placement")}
             onStartReview={() => openFoundationAssessment("review")}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
@@ -1964,6 +2022,7 @@ export default function TopicApp() {
             soundEnabled={state.user.soundEffectsEnabled !== false}
             onToggleSound={toggleSoundEffects}
             onOpenSettings={openSettingsModal}
+            hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
         )}
@@ -1978,6 +2037,7 @@ export default function TopicApp() {
             focus={state.shopFocus}
             onUseItem={useShopItem}
             onRestore={restorePurchases}
+            onDone={() => changeTab("learn")}
           />
         )}
         {state.screen === "social" && (
@@ -1989,6 +2049,7 @@ export default function TopicApp() {
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
             unavailable={!isBackendConfigured()}
+            hasSavedAccount={hasSavedAccount}
             onChangeInviteEmail={setInviteEmail}
             onChangeInviteRelation={setInviteRelation}
             onAddFriend={addCrewFriend}
@@ -2018,6 +2079,7 @@ export default function TopicApp() {
           password={accountPassword}
           socialProviders={enabledSocialProviders}
           error={accountError}
+          errorKey={accountErrorKey}
           onChangeMode={(mode) => {
             setAccountError(undefined);
             setAuthMode(mode);
@@ -2058,6 +2120,11 @@ export default function TopicApp() {
           mascotVariant={inLesson ? lessonMascot : selectedSection.mascot}
           accent={inLesson ? lessonAccent : selectedSection.accentColor}
           endLabel={outOfHearts?.inLesson === false ? "Not now" : undefined}
+          canGetHearts={canGetHearts}
+          onPractice={() => {
+            closeOutOfHearts();
+            changeTab("practice");
+          }}
           onRefill={claimReviewHeartRestore}
           onShop={openShopForHearts}
           onEndLesson={closeOutOfHearts}
@@ -2094,6 +2161,11 @@ export default function TopicApp() {
       </PortalHost>
     </SafeAreaView>
   );
+}
+
+// Whose practice session is saved: the account's email, or "guest".
+function assessmentOwner(user: UserProfile) {
+  return user.hasAccount && user.accountEmail ? user.accountEmail : "guest";
 }
 
 function shouldOfferReviewHeartRestore(user: UserProfile) {
@@ -2198,16 +2270,20 @@ function getSectionStars(user: UserProfile, section: LearningSection) {
   }, 0);
 }
 
-function getNodeStarsReward(nodeId: string) {
-  for (const section of COURSE.sections) {
-    const node = section.nodes.find((item) => item.id === nodeId);
+// A test-out asks each question once: no free retry and no missed question asked again.
+function isTestSession(session: LessonSession | undefined) {
+  return Boolean(session && (session.isTest || session.mode === "test_out"));
+}
 
-    if (node) {
-      return node.starsReward;
-    }
-  }
+// The circle a finished lesson or test opened, for the "Unlocked:" line. In a library topic the next
+// circle of a later unit opens as "available", not "current", so both count; one in the same unit wins.
+function findUnlockedNode(beforeNodes: LearningNodeView[], afterNodes: LearningNodeView[], branchId?: string) {
+  const before = new Map(beforeNodes.map((node) => [node.id, node.status]));
+  const opened = afterNodes.filter(
+    (node) => before.get(node.id) === "locked" && (node.status === "current" || node.status === "available")
+  );
 
-  return 1;
+  return opened.find((node) => node.branchId === branchId) ?? opened.find((node) => node.status === "current") ?? opened[0];
 }
 
 function buildLessonSignal(
@@ -2294,16 +2370,6 @@ function findNodeById(nodeId: string) {
   return undefined;
 }
 
-// A unit's test-out covers every circle still to do in it, locked ones too: jumping past them is the point.
-function getUnitTestOut(nodes: LearningNodeView[], branchId: string) {
-  const remaining = nodes.filter((node) => node.branchId === branchId && node.status !== "completed");
-
-  return {
-    nodeIds: remaining.map((node) => node.id),
-    lessons: remaining.flatMap((node) => node.lessonIds).map((lessonId) => LESSONS_BY_ID[lessonId]).filter(Boolean)
-  };
-}
-
 function withExperienceDefaults(user: UserProfile): UserProfile {
   return {
     ...user,
@@ -2347,10 +2413,42 @@ function unique<T>(items: T[]) {
   return Array.from(new Set(items));
 }
 
+/** Above every test-out question: it is a test, and how many right answers pass it. */
+function TestStrip({ passingScore, total, accent }: { passingScore: number; total: number; accent: string }) {
+  return (
+    <PopIn from="up" style={styles.testStrip}>
+      <View style={[styles.testChip, { backgroundColor: lighten(accent, 0.85) }]} testID="test-out-label">
+        <Icon name="key" size={18} />
+        <Text style={[styles.testChipText, { color: darken(accent, 0.4) }]}>TEST</Text>
+      </View>
+      <Text style={styles.testGoal} testID="test-out-goal">
+        Get {passingScore} of {total} right
+      </Text>
+    </PopIn>
+  );
+}
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.snow },
   appShell: { flex: 1, backgroundColor: colors.snow },
   centerPane: { flex: 1, alignItems: "center", justifyContent: "center", gap: 12, padding: 24 },
-  loadingText: { fontFamily: fonts.displayHeavy, fontSize: 20, color: colors.inkSoft }
+  loadingText: { fontFamily: fonts.displayHeavy, fontSize: 20, color: colors.inkSoft },
+  testStrip: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    paddingHorizontal: space.lg,
+    paddingTop: space.xs
+  },
+  testChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderRadius: radii.pill,
+    paddingLeft: 8,
+    paddingRight: 12,
+    paddingVertical: 3,
+    marginRight: space.sm
+  },
+  testChipText: { marginLeft: 5, fontFamily: fonts.displayHeavy, fontSize: 14, lineHeight: 20, letterSpacing: 1 },
+  testGoal: { flexShrink: 1, fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, color: colors.inkSoft }
 });

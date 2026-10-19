@@ -26,7 +26,10 @@ export type ShopViewProps = {
   onUseItem: (item: ShopItem) => void;
   /** Called after the grown-up gate. */
   onRestore: () => void;
-  /** Tabs replace the old back button; kept optional for the old call site. */
+  /**
+   * KEEP LEARNING under the "Premium can't be bought here" note (purchases off, e.g. on web).
+   * Usually opens the Learn tab. Without it the note has no button.
+   */
   onDone?: () => void;
   /** Opens Terms / Privacy / Manage subscription (after the grown-up gate). Default: Linking.openURL. */
   onOpenLink?: (url: string) => void;
@@ -38,7 +41,7 @@ export type ShopViewProps = {
    * Default: the monetization mode is not "disabled".
    */
   canBuyWithMoney?: boolean;
-  /** Scroll to this part once the shop opens. "premium": the Premium card (or the "in the app" note). */
+  /** Scroll to this part once the shop opens. "premium": the Premium card (or the "can't be bought here" note). */
   focus?: "premium";
 };
 
@@ -315,6 +318,7 @@ export function ShopView({
   section,
   onUseItem,
   onRestore,
+  onDone,
   onOpenLink,
   pendingItemId,
   canBuyWithMoney = monetizationMode !== "disabled",
@@ -462,9 +466,16 @@ export function ShopView({
         ) : null}
 
         {!canBuyWithMoney && !premium ? (
+          // Only what is true here: this build cannot sell Premium, and every other lesson is free.
           <View style={styles.appHint} testID="shop-app-hint" onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
-            <Icon name="crown" size={30} />
-            <Text style={styles.appHintText}>Premium is in the app</Text>
+            <View style={styles.appHintHead}>
+              <Icon name="crown" size={30} />
+              <View style={styles.appHintTextWrap}>
+                <Text style={styles.appHintText}>Premium can't be bought here</Text>
+                <Text style={styles.appHintLine}>All the other lessons are free!</Text>
+              </View>
+            </View>
+            {onDone ? <GameButton label="Keep learning" size="md" fullWidth onPress={onDone} testID="shop-keep-learning" /> : null}
           </View>
         ) : null}
 
@@ -788,8 +799,6 @@ const styles = StyleSheet.create({
   },
   appHint: {
     marginTop: 20,
-    flexDirection: "row",
-    alignItems: "center",
     gap: 12,
     padding: 14,
     borderRadius: radii.tile,
@@ -797,13 +806,28 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: lighten(colors.gold, 0.35)
   },
+  appHintHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12
+  },
+  appHintTextWrap: {
+    flex: 1,
+    minWidth: 0
+  },
   appHintText: {
     fontFamily: fonts.displayHeavy,
     fontSize: 17,
     lineHeight: 22,
     color: darken(colors.gold, 0.6),
-    flex: 1,
-    minWidth: 0
+    flexShrink: 1
+  },
+  appHintLine: {
+    ...text.tiny,
+    fontSize: 14,
+    lineHeight: 19,
+    color: darken(colors.gold, 0.5),
+    flexShrink: 1
   },
   footer: {
     marginTop: 18,

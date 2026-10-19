@@ -9,8 +9,8 @@ import { LearnPath, type PathItem, type PathUnit } from "../screens/LearnPath";
 import { TopicPicker } from "../screens/TopicPicker";
 import { colors } from "../theme";
 
-type State = "foundation" | "prayer" | "card" | "locked" | "chest" | "premium" | "done" | "topics" | "tabs";
-const STATES: State[] = ["foundation", "prayer", "card", "locked", "chest", "premium", "done", "topics", "tabs"];
+type State = "foundation" | "prayer" | "card" | "locked" | "library" | "chest" | "premium" | "done" | "topics" | "tabs";
+const STATES: State[] = ["foundation", "prayer", "card", "locked", "library", "chest", "premium", "done", "topics", "tabs"];
 
 function readState(): State {
   if (Platform.OS !== "web" || typeof window === "undefined") return "foundation";
@@ -61,14 +61,17 @@ function buildUnits(sec: LearningSection, doneCount: number, claimed: Set<string
         items.push({ kind: "chest", chest: { id, gemsReward: 20, unlocked, claimed: claimed.has(id) } });
       }
     });
+    const done = nodes.filter((node) => completed.has(node.id)).length;
     return {
       id: branch.id,
       number: unitIndex + 1,
       title: branch.title,
       arabic: getBranchArabic(branch.id),
-      done: nodes.filter((node) => completed.has(node.id)).length,
+      done,
       total: nodes.length,
       premiumLocked: unitIndex >= premiumFrom,
+      // Roughly TopicApp's rule: a free unit with circles left can be tested out.
+      canTestOut: unitIndex < premiumFrom && done < nodes.length,
       items
     };
   });
@@ -77,7 +80,7 @@ function buildUnits(sec: LearningSection, doneCount: number, claimed: Set<string
 const TOPIC_DONE: Record<string, number> = { foundation: 4, prayer: 5, aqidah: 20, manners: 7 };
 
 function Screen({ state }: { state: State }) {
-  const topicId = state === "prayer" || state === "card" ? "prayer" : "foundation";
+  const topicId = state === "prayer" || state === "card" ? "prayer" : state === "library" ? "sahabah" : "foundation";
   const sec = section(topicId);
   const [tab, setTab] = useState<TabKey>("learn");
   const [pickerOpen, setPickerOpen] = useState(state === "topics");
@@ -87,6 +90,13 @@ function Screen({ state }: { state: State }) {
       const built = buildUnits(sec, 5, new Set(["prayer-wudu-chest"]), 4, 99);
       const current = built.flatMap((unit) => unit.items).find((item) => item.kind === "node" && item.node.status === "current");
       return { units: built, openId: state === "card" && current?.kind === "node" ? current.node.id : undefined };
+    }
+    if (state === "library") {
+      // A library topic opens the first circle of every unit: one START, several open circles.
+      // The second circle of unit 2 is open as a locked card with JUMP HERE.
+      const built = buildUnits(sec, 0, new Set(), 4, 99);
+      const locked = built[1]?.items.filter((item) => item.kind === "node" && item.node.status === "locked")[0];
+      return { units: built, openId: locked?.kind === "node" ? locked.node.id : undefined };
     }
     if (state === "chest") {
       return { units: buildUnits(sec, 5, new Set(["foundation-greetings-chest"])), focusId: "foundation-daily-words-chest" };
@@ -170,7 +180,7 @@ function TabsSheet() {
   );
 }
 
-/** Learn area gallery. States: #gallery-learn-foundation | prayer | card | locked | chest | premium | done | topics | tabs. */
+/** Learn area gallery. States: #gallery-learn-foundation | prayer | card | locked | library | chest | premium | done | topics | tabs. */
 export default function LearnGallery() {
   const [state, setState] = useState<State>(readState);
 

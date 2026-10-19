@@ -9,6 +9,7 @@ import { Tappable } from "../Tappable";
 import { feedback } from "../sound";
 import { colors, darken, fonts, radii, space, withAlpha } from "../theme";
 import { noBreakHyphens } from "./lessonText";
+import { ScrollHint, useScrollMore } from "./ScrollHint";
 
 export const PRAISE_WORDS = ["Great job!", "Nice!", "Excellent!", "Amazing!", "You got it!", "MashaAllah!"] as const;
 
@@ -35,6 +36,9 @@ export const CORRECT_TEXT = darken(colors.correctInk, 0.12);
 
 const SHEET_PAD = 20 + 16;
 const SHEET_INSET = Platform.OS === "ios" ? 30 : 16;
+/** The sheet never grows past this share of the window; a long answer scrolls inside it instead. */
+export const SHEET_MAX_SHARE = 0.6;
+const MIN_BODY = 64;
 
 export type FeedbackSheetProps = {
   visible: boolean;
@@ -50,7 +54,7 @@ export type FeedbackSheetProps = {
   buttonLabel?: string;
   /** Sound of the button. Default the soft tap; false when the next screen plays its own (lesson end). */
   buttonSound?: GameSoundEvent | false;
-  /** Shown as a short numbered list instead of correctLabel. */
+  /** Shown as a numbered column instead of correctLabel. */
   correctList?: string[];
   /** Play the correct / wrong sound + haptic when the sheet opens. Default true. */
   playSound?: boolean;
@@ -84,6 +88,11 @@ export function FeedbackSheet({
   const { height: windowHeight } = useWindowDimensions();
   const badge = useRef(new Animated.Value(0)).current;
   const whyAnim = useRef(new Animated.Value(0)).current;
+  // The icon + title row and the button always show; the part between them scrolls when it is long.
+  const [headHeight, setHeadHeight] = useState(40);
+  const [footHeight, setFootHeight] = useState(space.lg + 58);
+  const { ref: bodyRef, scrollProps: bodyScrollProps, more: bodyMore, scrollDown: bodyScrollDown } = useScrollMore();
+  const revealWhy = useRef(false);
 
   useEffect(() => {
     if (!visible) {
@@ -115,103 +124,142 @@ export function FeedbackSheet({
   const heading = title ?? (correct ? pickPraise(praiseSeed) : WRONG_TITLE);
   const label = buttonLabel ?? (correct ? "Continue" : "Got it");
   const whyText = why?.trim();
+  const inset = bottomInset ?? SHEET_INSET;
+  const bodyMax = Math.max(MIN_BODY, Math.round(windowHeight * SHEET_MAX_SHARE) - headHeight - footHeight - SHEET_PAD - inset);
+  const listShown = !correct && Boolean(correctList && correctList.length > 0);
+  const answerShown = !correct && !correctList && Boolean(correctLabel);
+  const whyShown = !correct && Boolean(whyText);
   const badgeScale = badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
   const badgeRotate = badge.interpolate({ inputRange: [0, 1], outputRange: ["-40deg", "0deg"] });
 
   return (
     <Sheet visible={visible} tone={correct ? "correct" : "wrong"} backdrop={false} dismissOnBackdrop={false} bottomInset={bottomInset} testID={testID}>
-      <View onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + SHEET_PAD + (bottomInset ?? SHEET_INSET)))}>
-      <View style={styles.headRow}>
-        <Animated.View
-          style={[
-            styles.badge,
-            { backgroundColor: correct ? colors.green : colors.heart, transform: [{ scale: badgeScale }, { rotate: badgeRotate }] }
-          ]}
-        >
-          <Icon name={correct ? "check" : "close"} size={26} color={colors.white} />
-        </Animated.View>
-        <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
-          {heading}
-        </Text>
-      </View>
-
-      {!correct && correctList && correctList.length > 0 ? (
-        <View style={styles.list}>
-          {correctList.map((item, index) => (
-            <View key={`${index}-${item}`} style={styles.listItem}>
-              <View style={[styles.listNumber, { backgroundColor: ink }]}>
-                <Text style={styles.listNumberText}>{index + 1}</Text>
-              </View>
-              <Text style={[styles.listText, { color: ink }]}>{withHonorifics(noBreakHyphens(item))}</Text>
-            </View>
-          ))}
-        </View>
-      ) : null}
-
-      {!correct && !correctList && correctLabel ? (
-        isArabicOnly(correctLabel) ? (
-          <ArabicText
-            size={isQuranText(correctLabel) ? 21 : 26}
-            weight="bold"
-            quran={isQuranText(correctLabel)}
-            color={ink}
-            align="right"
-            style={styles.arabicAnswer}
-            testID="feedback-answer"
+      <View onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + SHEET_PAD + inset))}>
+        <View style={styles.headRow} onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))}>
+          <Animated.View
+            style={[
+              styles.badge,
+              { backgroundColor: correct ? colors.green : colors.heart, transform: [{ scale: badgeScale }, { rotate: badgeRotate }] }
+            ]}
           >
-            {correctLabel}
-          </ArabicText>
-        ) : (
-          <Text
-            style={[styles.answer, correctLabel.length > 80 ? styles.answerLong : null, hasArabic(correctLabel) ? styles.answerArabicMix : null, { color: ink }]}
-            testID="feedback-answer"
-          >
-            {withHonorifics(noBreakHyphens(correctLabel))}
+            <Icon name={correct ? "check" : "close"} size={26} color={colors.white} />
+          </Animated.View>
+          <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
+            {withHonorifics(heading)}
           </Text>
-        )
-      ) : null}
-
-      {!correct && whyText ? (
-        <View style={styles.whyBlock}>
-          <Tappable
-            onPress={() => setWhyOpen((open) => !open)}
-            style={styles.whyButton}
-            accessibilityLabel={whyOpen ? "Hide why" : "Why?"}
-            accessibilityState={{ expanded: whyOpen }}
-            hitSlop={6}
-            testID="feedback-why"
-          >
-            <Text style={[styles.whyLabel, { color: ink }]}>Why?</Text>
-            <Icon name={whyOpen ? "chevronDown" : "chevronRight"} size={16} color={ink} />
-          </Tappable>
-          {whyOpen ? (
-            <ScrollView style={{ maxHeight: Math.round(windowHeight * 0.3) }} bounces={false} nestedScrollEnabled>
-              <Animated.Text
-                style={[
-                  styles.whyText,
-                  {
-                    opacity: whyAnim,
-                    transform: [{ translateY: whyAnim.interpolate({ inputRange: [0, 1], outputRange: [-6, 0] }) }]
-                  }
-                ]}
-                testID="feedback-why-text"
-              >
-                {withHonorifics(noBreakHyphens(whyText))}
-              </Animated.Text>
-            </ScrollView>
-          ) : null}
         </View>
-      ) : null}
 
-      <View style={styles.buttonGap} />
-      <GameButton
-        label={label}
-        variant={correct ? "primary" : "danger"}
-        sound={buttonSound}
-        fullWidth
-        onPress={onContinue}
-        testID="feedback-continue"
-      />
+        {listShown || answerShown || whyShown ? (
+          <View style={styles.bodyBox}>
+            <ScrollView
+              ref={bodyRef}
+              style={{ maxHeight: bodyMax }}
+              bounces={false}
+              nestedScrollEnabled
+              testID="feedback-body"
+              {...bodyScrollProps}
+              onContentSizeChange={(width, height) => {
+                bodyScrollProps.onContentSizeChange(width, height);
+                // Opening Why scrolls it into view when the answer above already fills the sheet.
+                if (revealWhy.current) {
+                  revealWhy.current = false;
+                  bodyRef.current?.scrollToEnd?.({ animated: true });
+                }
+              }}
+            >
+              {listShown && correctList ? (
+                <View style={styles.list} testID="feedback-list">
+                  {correctList.map((item, index) => (
+                    <View key={`${index}-${item}`} style={styles.listItem}>
+                      <View style={[styles.listNumber, { backgroundColor: ink }]}>
+                        <Text style={styles.listNumberText}>{index + 1}</Text>
+                      </View>
+                      <Text style={[styles.listText, { color: ink }]}>{withHonorifics(noBreakHyphens(item))}</Text>
+                    </View>
+                  ))}
+                </View>
+              ) : null}
+
+              {answerShown && correctLabel ? (
+                isArabicOnly(correctLabel) ? (
+                  <ArabicText
+                    size={isQuranText(correctLabel) ? 21 : 26}
+                    weight="bold"
+                    quran={isQuranText(correctLabel)}
+                    color={ink}
+                    align="right"
+                    style={styles.arabicAnswer}
+                    testID="feedback-answer"
+                  >
+                    {correctLabel}
+                  </ArabicText>
+                ) : (
+                  <Text
+                    style={[
+                      styles.answer,
+                      correctLabel.length > 80 ? styles.answerLong : null,
+                      hasArabic(correctLabel) ? styles.answerArabicMix : null,
+                      { color: ink }
+                    ]}
+                    testID="feedback-answer"
+                  >
+                    {withHonorifics(noBreakHyphens(correctLabel))}
+                  </Text>
+                )
+              ) : null}
+
+              {whyShown && whyText ? (
+                <View style={styles.whyBlock}>
+                  <Tappable
+                    onPress={() => {
+                      // Opening Why (not a sheet that starts open) scrolls the line into view.
+                      revealWhy.current = !whyOpen;
+                      setWhyOpen((open) => !open);
+                    }}
+                    style={styles.whyButton}
+                    accessibilityLabel={whyOpen ? "Hide why" : "Why?"}
+                    accessibilityState={{ expanded: whyOpen }}
+                    hitSlop={6}
+                    testID="feedback-why"
+                  >
+                    <Text style={[styles.whyLabel, { color: ink }]}>Why?</Text>
+                    <Icon name={whyOpen ? "chevronDown" : "chevronRight"} size={16} color={ink} />
+                  </Tappable>
+                  {whyOpen ? (
+                    <Animated.Text
+                      style={[
+                        styles.whyText,
+                        {
+                          opacity: whyAnim,
+                          transform: [{ translateY: whyAnim.interpolate({ inputRange: [0, 1], outputRange: [-6, 0] }) }]
+                        }
+                      ]}
+                      testID="feedback-why-text"
+                    >
+                      {withHonorifics(noBreakHyphens(whyText))}
+                    </Animated.Text>
+                  ) : null}
+                </View>
+              ) : null}
+            </ScrollView>
+          </View>
+        ) : null}
+
+        <View onLayout={(event) => setFootHeight(Math.round(event.nativeEvent.layout.height))}>
+          <View style={styles.buttonGap} />
+          <GameButton
+            label={label}
+            variant={correct ? "primary" : "danger"}
+            sound={buttonSound}
+            fullWidth
+            onPress={onContinue}
+            testID="feedback-continue"
+          />
+          {/* "More below" sits on the top edge of the gap above the button, drawn over the scrolling part. */}
+          <View pointerEvents="box-none" style={styles.hintEdge}>
+            <ScrollHint visible={bodyMore} onPress={bodyScrollDown} testID="feedback-more" />
+          </View>
+        </View>
       </View>
     </Sheet>
   );
@@ -262,17 +310,23 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     marginTop: space.xs
   },
+  bodyBox: {
+    position: "relative"
+  },
+  hintEdge: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: 0
+  },
   list: {
-    marginTop: space.sm,
-    flexDirection: "row",
-    flexWrap: "wrap"
+    marginTop: space.sm
   },
   listItem: {
     flexDirection: "row",
-    alignItems: "center",
-    maxWidth: "100%",
-    marginRight: space.md,
-    marginBottom: 6
+    alignItems: "flex-start",
+    marginBottom: 4
   },
   listNumber: {
     width: 20,
@@ -280,7 +334,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 5
+    marginRight: space.sm
   },
   listNumberText: {
     fontFamily: fonts.displayHeavy,

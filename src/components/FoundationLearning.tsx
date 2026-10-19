@@ -10,8 +10,11 @@ import {
   getFoundationWordBank,
   getLearnerLevel,
   getProgressMapIndex,
+  getSessionPlan,
   getShuffledOrderItems,
+  isRetryQuestion,
   localizeFoundationQuestion,
+  rotateByOne,
   seededShuffle,
   summarizeFoundationSession
 } from "../services/foundationAssessment";
@@ -43,9 +46,10 @@ import {
   text,
   type ChoiceTileState,
   type IconName,
-  type MascotMood
+  type MascotMood,
+  useShake
 } from "../ui";
-import { FeedbackSheet, LessonBottomBar, PromptText, QuitSheet, ScrollHint, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
+import { FeedbackSheet, LessonBottomBar, PromptText, QuitSheet, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
 
 type SelectedAnswer = string | string[] | Record<string, string> | undefined;
 type Question = ReturnType<typeof localizeFoundationQuestion>;
@@ -143,7 +147,7 @@ export function FoundationDashboard({
             <Mascot variant={mascotVariant} mood={placed ? "happy" : "wave"} size={78} accent={accent} />
             <View style={styles.heroText}>
               {basics ? (
-                <ArabicText size={20} weight="bold" color={colors.correctInk} align="left" numberOfLines={1}>
+                <ArabicText size={20} weight="bold" color={colors.correctInk} align="left">
                   {basics.ar}
                 </ArabicText>
               ) : null}
@@ -303,6 +307,17 @@ function BlankPrompt({ prompt, word, checked, size }: { prompt: string; word?: s
 }
 
 const CLOSE_GREY = darken(colors.lockedLip, 0.12);
+// The "Try again!" chip on a missed question asked again, as in lessons.
+const RETRY_INK = darken(colors.flame, 0.3);
+const RETRY_BG = lighten(colors.flame, 0.85);
+
+/** The quit sheet says what really happens: the answers given so far are kept. */
+const QUIT_TITLES: Record<FoundationAssessmentState["mode"], string> = {
+  placement: "Stop the level check?",
+  daily_challenge: "Stop the challenge?",
+  review: "Stop the review?"
+};
+const QUIT_LINE = "Your answers so far are saved.";
 
 export function FoundationAssessmentScreen({
   assessment,
@@ -313,8 +328,7 @@ export function FoundationAssessmentScreen({
   onContinue,
   onExit,
   mascotVariant = "hijabi",
-  // Same default as the Practice hub, so the mascot keeps one look across practice screens.
-  accent = colors.gem
+  accent
 }: {
   assessment: FoundationAssessmentState;
   language: SupportedLanguage;
@@ -328,10 +342,13 @@ export function FoundationAssessmentScreen({
   /** Called after the learner confirms on the quit sheet. */
   onExit: () => void;
   mascotVariant?: string;
-  /** Mascot clothing color. Pass the same accent as PracticeHub (default gem blue on both) so the mascot keeps one look. */
+  /** Mascot clothing color: the topic accent the path uses, so the mascot looks the same as on the path. */
   accent?: string;
 }) {
   const [quitOpen, setQuitOpen] = useState(false);
+  // A missed question asked again: a "Try again!" chip and the tiles in another order.
+  const retry = isRetryQuestion(assessment);
+  const focus = getSessionPlan(assessment)?.focus;
   const { compact } = useLessonCompact();
   const question = useMemo(
     () => localizeFoundationQuestion(assessment.currentQuestion, language),
@@ -349,8 +366,8 @@ export function FoundationAssessmentScreen({
     };
   }, [assessment.feedback, language]);
   const words = useMemo(
-    () => getFoundationWordBank(assessment.currentQuestion).map((word) => (language === "en" ? word : translateStudyText(word, language))),
-    [assessment.currentQuestion, language]
+    () => getFoundationWordBank(assessment.currentQuestion, retry).map((word) => (language === "en" ? word : translateStudyText(word, language))),
+    [assessment.currentQuestion, language, retry]
   );
   // The bar fills as each answer is checked, so it is empty on the first question and full after the last.
   const progress = (assessment.questionNumber - 1 + (feedback ? 1 : 0)) / Math.max(assessment.totalQuestions, 1);
@@ -443,9 +460,14 @@ export function FoundationAssessmentScreen({
                   </Text>
                 </View>
                 {arabic ? (
-                  <ArabicText size={20} weight="bold" color={colors.correctInk} numberOfLines={1}>
+                  <ArabicText size={20} weight="bold" color={colors.correctInk}>
                     {arabic.ar}
                   </ArabicText>
+                ) : null}
+                {retry ? (
+                  <View style={styles.retryChip} testID="assessment-retry">
+                    <Text style={styles.retryText}>Try again!</Text>
+                  </View>
                 ) : null}
               </View>
             </PopIn>
@@ -461,15 +483,15 @@ export function FoundationAssessmentScreen({
             </PromptBubble>
 
             <View pointerEvents={locked ? "none" : "auto"} testID="assessment-answers" onLayout={onAnswersLayout}>
-              {renderQuestionInput(question, selectedAnswer, change, checked, words, compact)}
+              {renderQuestionInput(question, selectedAnswer, change, checked, words, compact, retry)}
             </View>
           </View>
         </ScrollView>
-        <ScrollHint visible={more && !locked} onPress={scrollDown} />
       </View>
 
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
-        <LessonBottomBar>
+        {/* The "more below" arrow rides on the bar's top edge, where nothing covers it or its taps. */}
+        <LessonBottomBar scrollHint={{ visible: more && !locked, onPress: scrollDown }}>
           {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
           <GameButton label="Check" fullWidth sound={false} disabled={!canSubmit || locked} onPress={onSubmit} testID="assessment-check" />
         </LessonBottomBar>
@@ -490,6 +512,9 @@ export function FoundationAssessmentScreen({
         visible={quitOpen}
         mascotVariant={mascotVariant}
         accent={accent}
+        title={focus ? "Stop practice?" : QUIT_TITLES[assessment.mode]}
+        line={QUIT_LINE}
+        quitLabel="Stop"
         onKeepLearning={() => setQuitOpen(false)}
         onQuit={() => {
           setQuitOpen(false);
@@ -534,38 +559,78 @@ const CHECK_LOOK: Record<CheckState, { bg: string; border: string; lip: string; 
   dimmed: { bg: colors.white, border: colors.line, lip: colors.lineLip, text: colors.ink, box: colors.white, boxBorder: colors.lineLip }
 };
 
+/** Shakes the tile once when it turns red after CHECK, as ChoiceTile does. */
+function useWrongShake(wrong: boolean) {
+  const { style, shake } = useShake(7);
+  const wasWrong = useRef(wrong);
+  useEffect(() => {
+    if (wrong && !wasWrong.current) {
+      shake();
+    }
+    wasWrong.current = wrong;
+  }, [shake, wrong]);
+  return style;
+}
+
 /** Multi-select tile: an empty box says "you may pick more than one"; a blue tick means picked, green only after CHECK. */
 function CheckTile({ label, state, onPress }: { label: string; state: CheckState; onPress: () => void }) {
   const look = CHECK_LOOK[state];
   const ticked = state === "selected" || state === "correct" || state === "wrong";
   const missed = state === "missed";
+  const shakeStyle = useWrongShake(state === "wrong");
   return (
-    <Tappable
-      onPress={onPress}
-      disabled={state === "dimmed" || state === "disabled"}
-      accessibilityRole="checkbox"
-      accessibilityLabel={missed ? `${label}, missed` : label}
-      accessibilityState={{ checked: state === "selected" || state === "correct" }}
-      pressScale={0.97}
-      style={[
-        styles.checkTile,
-        { backgroundColor: look.bg, borderColor: look.border, borderBottomColor: look.lip },
-        missed ? styles.missedTile : null,
-        state === "dimmed" ? styles.dimmedTile : null
-      ]}
-    >
-      <Text style={[styles.checkLabel, { color: look.text }]}>{label}</Text>
-      <View style={[styles.checkBox, { backgroundColor: ticked ? look.box : colors.white, borderColor: look.boxBorder }, missed ? styles.missedBox : null]}>
-        {ticked ? <Icon name={state === "wrong" ? "close" : "check"} size={16} color={colors.white} /> : null}
-      </View>
-    </Tappable>
+    <Animated.View style={shakeStyle}>
+      <Tappable
+        onPress={onPress}
+        disabled={state === "dimmed" || state === "disabled"}
+        accessibilityRole="checkbox"
+        accessibilityLabel={missed ? `${label}, missed` : label}
+        accessibilityState={{ checked: state === "selected" || state === "correct" }}
+        pressScale={0.97}
+        style={[
+          styles.checkTile,
+          { backgroundColor: look.bg, borderColor: look.border, borderBottomColor: look.lip },
+          missed ? styles.missedTile : null,
+          state === "dimmed" ? styles.dimmedTile : null
+        ]}
+      >
+        <Text style={[styles.checkLabel, { color: look.text }]}>{label}</Text>
+        <View style={[styles.checkBox, { backgroundColor: ticked ? look.box : colors.white, borderColor: look.boxBorder }, missed ? styles.missedBox : null]}>
+          {ticked ? <Icon name={state === "wrong" ? "close" : "check"} size={16} color={colors.white} /> : null}
+        </View>
+      </Tappable>
+    </Animated.View>
   );
 }
 
-function OrderInput({ question, order, onChange, checked }: { question: Question; order: string[]; onChange: (value: SelectedAnswer) => void; checked: boolean | undefined }) {
-  const items = useMemo(() => getShuffledOrderItems(question), [question]);
+type SlotVerdict = "right" | "wrong" | undefined;
+
+/** A filled order slot: tap to take the step back out. A slot in the wrong place shakes after CHECK. */
+function OrderSlot({ item, index, verdict, onPress }: { item: string; index: number; verdict: SlotVerdict; onPress: () => void }) {
+  const shakeStyle = useWrongShake(verdict === "wrong");
+  return (
+    <PopIn from="scale">
+      <Animated.View style={shakeStyle}>
+        <Tappable
+          onPress={onPress}
+          style={[styles.slotFilled, verdict === "right" ? styles.slotRight : verdict === "wrong" ? styles.slotWrong : null]}
+          accessibilityLabel={`${index + 1}: ${item}`}
+          pressScale={0.95}
+        >
+          <View style={[styles.slotNumber, verdict === "right" ? { backgroundColor: colors.green } : verdict === "wrong" ? { backgroundColor: colors.heart } : null]}>
+            <Text style={styles.slotNumberText}>{index + 1}</Text>
+          </View>
+          <Text style={styles.slotText}>{item}</Text>
+        </Tappable>
+      </Animated.View>
+    </PopIn>
+  );
+}
+
+function OrderInput({ question, order, onChange, checked, retry }: { question: Question; order: string[]; onChange: (value: SelectedAnswer) => void; checked: boolean | undefined; retry: boolean }) {
+  const items = useMemo(() => getShuffledOrderItems(question, retry), [question, retry]);
   const remaining = items.filter((item) => !order.includes(item));
-  const slotState = (index: number) => {
+  const slotState = (index: number): SlotVerdict => {
     if (checked === undefined || !order[index]) return undefined;
     const answer = Array.isArray(question.correctAnswer) ? question.correctAnswer : [];
     return answer[index] === order[index] ? "right" : "wrong";
@@ -579,19 +644,7 @@ function OrderInput({ question, order, onChange, checked }: { question: Question
           return (
             <View key={`slot-${index}`} style={styles.gridCell}>
               {item ? (
-                <PopIn from="scale">
-                  <Tappable
-                    onPress={() => onChange(order.filter((entry) => entry !== item))}
-                    style={[styles.slotFilled, verdict === "right" ? styles.slotRight : verdict === "wrong" ? styles.slotWrong : null]}
-                    accessibilityLabel={`${index + 1}: ${item}`}
-                    pressScale={0.95}
-                  >
-                    <View style={[styles.slotNumber, verdict === "right" ? { backgroundColor: colors.green } : verdict === "wrong" ? { backgroundColor: colors.heart } : null]}>
-                      <Text style={styles.slotNumberText}>{index + 1}</Text>
-                    </View>
-                    <Text style={styles.slotText}>{item}</Text>
-                  </Tappable>
-                </PopIn>
+                <OrderSlot item={item} index={index} verdict={verdict} onPress={() => onChange(order.filter((entry) => entry !== item))} />
               ) : (
                 <View style={styles.slotEmpty} accessibilityLabel={`Slot ${index + 1}`}>
                   <Text style={styles.slotEmptyText}>{index + 1}</Text>
@@ -627,23 +680,26 @@ function PairTile({ label, state, pairNumber, onPress, testID }: { label: string
       : { backgroundColor: colors.white, borderColor: colors.line, borderBottomColor: colors.lineLip };
   const ink = checkedLook ? checkedLook.text : state === "selected" ? darken(tint, 0.3) : colors.ink;
   const chip = checkedLook && state !== "dimmed" ? checkedLook.box : tint;
+  const shakeStyle = useWrongShake(state === "wrong");
   return (
-    <Tappable
-      onPress={onPress}
-      disabled={state === "dimmed"}
-      style={[styles.pairTile, face, state === "dimmed" ? styles.dimmedTile : null]}
-      accessibilityLabel={pairNumber ? `${label}, pair ${pairNumber}` : label}
-      accessibilityState={{ selected: state === "selected" && !paired }}
-      pressScale={0.96}
-      testID={testID}
-    >
-      <Text style={[styles.pairText, { color: ink }]}>{label}</Text>
-      {pairNumber ? (
-        <View style={[styles.pairChip, { backgroundColor: chip }]} pointerEvents="none">
-          <Text style={styles.pairChipText}>{pairNumber}</Text>
-        </View>
-      ) : null}
-    </Tappable>
+    <Animated.View style={[styles.pairSlot, shakeStyle]}>
+      <Tappable
+        onPress={onPress}
+        disabled={state === "dimmed"}
+        style={[styles.pairTile, face, state === "dimmed" ? styles.dimmedTile : null]}
+        accessibilityLabel={pairNumber ? `${label}, pair ${pairNumber}` : label}
+        accessibilityState={{ selected: state === "selected" && !paired }}
+        pressScale={0.96}
+        testID={testID}
+      >
+        <Text style={[styles.pairText, { color: ink }]}>{label}</Text>
+        {pairNumber ? (
+          <View style={[styles.pairChip, { backgroundColor: chip }]} pointerEvents="none">
+            <Text style={styles.pairChipText}>{pairNumber}</Text>
+          </View>
+        ) : null}
+      </Tappable>
+    </Animated.View>
   );
 }
 
@@ -653,17 +709,20 @@ type Pick = { side: "left" | "right"; value: string } | undefined;
  * Tap-to-pair: one tile from each side. Paired tiles share a number; tap one again to undo.
  * Each row's two tiles share a height. After CHECK every tile shows the number of its right pair.
  */
-function MatchInput({ question, mapping, onChange, checked }: { question: Question; mapping: Record<string, string>; onChange: (value: SelectedAnswer) => void; checked: boolean | undefined }) {
+function MatchInput({ question, mapping, onChange, checked, retry }: { question: Question; mapping: Record<string, string>; onChange: (value: SelectedAnswer) => void; checked: boolean | undefined; retry: boolean }) {
   const [pick, setPick] = useState<Pick>(undefined);
-  const lefts = (question.pairs ?? []).map((pair) => pair.left);
+  const pairLefts = (question.pairs ?? []).map((pair) => pair.left);
   const answer = question.correctAnswer && typeof question.correctAnswer === "object" && !Array.isArray(question.correctAnswer) ? question.correctAnswer : {};
-  const rights = useMemo(() => {
+  const shuffledRights = useMemo(() => {
     const shuffled = seededShuffle(question.options ?? [], question.id);
     // Never start with every meaning already next to its phrase.
-    return shuffled.length > 1 && shuffled.every((right, index) => answer[lefts[index]] === right) ? [...shuffled.slice(1), shuffled[0]] : shuffled;
+    return shuffled.length > 1 && shuffled.every((right, index) => answer[pairLefts[index]] === right) ? [...shuffled.slice(1), shuffled[0]] : shuffled;
     // The shuffle depends on the question only.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [question.id, question.options]);
+  // A retry moves every row (both columns together), so no meaning lands next to its phrase.
+  const lefts = retry ? rotateByOne(pairLefts) : pairLefts;
+  const rights = retry ? rotateByOne(shuffledRights) : shuffledRights;
   const pairedLefts = Object.keys(mapping);
   const numberOfLeft = (left: string) => pairedLefts.indexOf(left) + 1;
   const leftOfRight = (right: string) => pairedLefts.find((left) => mapping[left] === right);
@@ -755,8 +814,11 @@ function renderQuestionInput(
   onChangeSelectedAnswer: (value: SelectedAnswer) => void,
   checked: boolean | undefined,
   words: string[],
-  compact: boolean
+  compact: boolean,
+  retry: boolean
 ) {
+  // A retry deals the same choices in another order (a word bank is already turned).
+  const options = retry ? rotateByOne(question.options ?? []) : question.options ?? [];
   if (question.type === "fill_in_blank" && words.length > 1) {
     // Tap the missing word: no typing.
     return (
@@ -802,7 +864,7 @@ function renderQuestionInput(
     const selectedValues = Array.isArray(selectedAnswer) ? selectedAnswer : [];
     return (
       <View style={styles.choiceList}>
-        {question.options?.map((option, index) => {
+        {options.map((option, index) => {
           const active = selectedValues.includes(option);
           const next = active ? selectedValues.filter((item) => item !== option) : [...selectedValues, option];
           return (
@@ -816,18 +878,18 @@ function renderQuestionInput(
   }
 
   if (question.type === "correct_order") {
-    return <OrderInput question={question} order={Array.isArray(selectedAnswer) ? selectedAnswer : []} onChange={onChangeSelectedAnswer} checked={checked} />;
+    return <OrderInput question={question} order={Array.isArray(selectedAnswer) ? selectedAnswer : []} onChange={onChangeSelectedAnswer} checked={checked} retry={retry} />;
   }
 
   if (question.type === "match_pairs") {
     const mapping = selectedAnswer && !Array.isArray(selectedAnswer) && typeof selectedAnswer === "object" ? selectedAnswer : {};
-    return <MatchInput key={question.id} question={question} mapping={mapping} onChange={onChangeSelectedAnswer} checked={checked} />;
+    return <MatchInput key={question.id} question={question} mapping={mapping} onChange={onChangeSelectedAnswer} checked={checked} retry={retry} />;
   }
 
-  const longChoices = (question.options ?? []).some((option) => option.length > 60);
+  const longChoices = options.some((option) => option.length > 60);
   return (
     <View style={styles.choiceList}>
-      {question.options?.map((option, index) => (
+      {options.map((option, index) => (
         <PopIn key={option} from="up" delay={80 + index * 60}>
           <ChoiceTile
             label={option}
@@ -870,14 +932,15 @@ const HEADLINES: Record<FoundationAssessmentState["mode"], string> = {
   daily_challenge: "Challenge done!",
   review: "Review done!"
 };
+// White on gold is too faint, so the XP card's label is dark gold (as on the lesson end screen).
+const GOLD_LABEL = darken(colors.goldLip, 0.45);
 
-function ResultCard({ label, icon, value, of, color, ink, index, testID }: { label: string; icon: IconName; value: number; of?: number; color: string; ink: string; index: number; testID: string }) {
+function ResultCard({ label, icon, value, of, color, ink, labelColor = colors.white, index, testID }: { label: string; icon: IconName; value: number; of?: number; color: string; ink: string; labelColor?: string; index: number; testID: string }) {
   return (
     <PopIn delay={CARD_DELAY + index * CARD_STAGGER} style={styles.resultSlot}>
       <View style={[styles.resultCard, { backgroundColor: color, borderColor: color }]} testID={testID} accessibilityLabel={of ? `${label} ${value} of ${of}` : `${label} ${value}`}>
-        <Text style={styles.resultLabel} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
-          {label}
-        </Text>
+        {/* Short labels; one that does not fit wraps (web ignores adjustsFontSizeToFit). */}
+        <Text style={[styles.resultLabel, { color: labelColor }]}>{label}</Text>
         <View style={styles.resultBody}>
           <Icon name={icon} size={24} />
           <View style={styles.resultValueRow}>
@@ -898,13 +961,45 @@ export type PracticeCompleteProps = {
   /** XP the session paid. Default: what getAssessmentXp paid for these answers. */
   xp?: number;
   mascotVariant?: string;
+  /** Mascot clothing color: the topic accent the path uses, so the mascot looks the same as on the path. */
   accent?: string;
   onContinue: () => void;
+  /** Starts a short practice of one skill. Without it the "Practice next" chips are plain labels. */
+  onPracticeSkill?: (category: FoundationCategoryId) => void;
   /** Play the finish fanfare, then the XP sound. Default true. */
   playSounds?: boolean;
   bottomInset?: number;
   testID?: string;
 };
+
+/** A "Practice next" skill: a small 3D button that starts that skill's practice. */
+function NextSkillChip({ category, onPress }: { category: FoundationCategoryId; onPress?: () => void }) {
+  const look = SKILL_LOOK[category];
+  const tint = FOUNDATION_CATEGORY_META[category].accentColor;
+  const ink = darken(tint, 0.3);
+  const face = { backgroundColor: lighten(tint, 0.86), borderColor: lighten(tint, 0.55), borderBottomColor: lighten(tint, 0.2) };
+  const content = (
+    <>
+      <Icon name={look.icon} size={20} />
+      <Text style={[styles.nextChipText, { color: ink }]} numberOfLines={1}>
+        {look.name}
+      </Text>
+      {onPress ? <Icon name="chevronRight" size={18} color={ink} /> : null}
+    </>
+  );
+  if (!onPress) {
+    return (
+      <View style={[styles.nextChip, face]} testID={`next-${category}`}>
+        {content}
+      </View>
+    );
+  }
+  return (
+    <Tappable onPress={onPress} style={[styles.nextChip, styles.nextChipButton, face]} accessibilityLabel={`Practice ${look.name}`} pressScale={0.93} testID={`next-${category}`}>
+      {content}
+    </Tappable>
+  );
+}
 
 /** End of a level check, review or daily challenge: confetti, cheering mascot, counting cards, skills to practice next. */
 export function PracticeComplete({
@@ -912,16 +1007,18 @@ export function PracticeComplete({
   learnerProfile,
   xp,
   mascotVariant = "hijabi",
-  accent = colors.gem,
+  accent,
   onContinue,
+  onPracticeSkill,
   playSounds = true,
   bottomInset,
   testID = "practice-complete"
 }: PracticeCompleteProps) {
   const summary = useMemo(() => summarizeFoundationSession(assessment, learnerProfile), [assessment, learnerProfile]);
   const earned = xp ?? assessment.answerHistory.reduce((total, answer) => total + getAssessmentXp(assessment.mode, answer.isCorrect), 0);
-  // The level check pays no XP, so it shows no XP card.
+  // The level check pays no XP, so it shows no XP card. No level card until the learner has done the level check.
   const showXp = assessment.mode !== "placement";
+  const focus = getSessionPlan(assessment)?.focus;
   const bounce = useRef(new Animated.Value(0)).current;
   const { compact } = useLessonCompact();
 
@@ -960,32 +1057,25 @@ export function PracticeComplete({
         </Animated.View>
         <PopIn delay={120}>
           <Text style={styles.completeHeadline} accessibilityRole="header">
-            {HEADLINES[assessment.mode]}
+            {focus ? "Practice done!" : HEADLINES[assessment.mode]}
           </Text>
         </PopIn>
 
         <View style={styles.resultCards}>
           <ResultCard label="CORRECT" icon="check" value={summary.correct} of={summary.answered} color={colors.green} ink={colors.correctInk} index={0} testID="result-correct" />
-          {showXp ? <ResultCard label="TOTAL XP" icon="bolt" value={earned} color={colors.gold} ink={darken(colors.goldLip, 0.25)} index={1} testID="result-xp" /> : null}
-          <ResultCard label="LEVEL" icon="star" value={summary.level} color={colors.gem} ink={colors.gemLip} index={showXp ? 2 : 1} testID="result-level" />
+          {showXp ? <ResultCard label="TOTAL XP" icon="bolt" value={earned} color={colors.gold} ink={darken(colors.goldLip, 0.25)} labelColor={GOLD_LABEL} index={1} testID="result-xp" /> : null}
+          {summary.level !== undefined ? (
+            <ResultCard label="LEVEL" icon="star" value={summary.level} color={colors.gem} ink={colors.gemLip} index={showXp ? 2 : 1} testID="result-level" />
+          ) : null}
         </View>
 
         {summary.practiceNext.length ? (
           <PopIn delay={CARD_DELAY + 3 * CARD_STAGGER} style={styles.nextBlock}>
             <Text style={styles.nextTitle}>Practice next</Text>
             <View style={styles.nextChips}>
-              {summary.practiceNext.map((category) => {
-                const look = SKILL_LOOK[category];
-                const tint = FOUNDATION_CATEGORY_META[category].accentColor;
-                return (
-                  <View key={category} style={[styles.nextChip, { backgroundColor: lighten(tint, 0.86), borderColor: lighten(tint, 0.55) }]} testID={`next-${category}`}>
-                    <Icon name={look.icon} size={20} />
-                    <Text style={[styles.nextChipText, { color: darken(tint, 0.3) }]} numberOfLines={1}>
-                      {look.name}
-                    </Text>
-                  </View>
-                );
-              })}
+              {summary.practiceNext.map((category) => (
+                <NextSkillChip key={category} category={category} onPress={onPracticeSkill ? () => onPracticeSkill(category) : undefined} />
+              ))}
             </View>
           </PopIn>
         ) : null}
@@ -1045,6 +1135,8 @@ const styles = StyleSheet.create({
   categoryRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10, marginTop: 4, marginBottom: 10 },
   categoryPill: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 12, paddingVertical: 3, borderRadius: radii.pill, backgroundColor: colors.correctBg, flexShrink: 1 },
   categoryText: { fontFamily: fonts.displayHeavy, fontSize: 14, lineHeight: 20, color: colors.correctInk, flexShrink: 1 },
+  retryChip: { paddingHorizontal: 12, paddingVertical: 3, borderRadius: radii.pill, backgroundColor: RETRY_BG },
+  retryText: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, color: RETRY_INK },
   questionRow: { flexDirection: "row", alignItems: "center", marginBottom: 16 },
   bubbleWrap: { flex: 1, minWidth: 0, marginLeft: 4, alignItems: "flex-start" },
   plainPrompt: { marginBottom: 14 },
@@ -1089,7 +1181,9 @@ const styles = StyleSheet.create({
   matchRows: { gap: 10 },
   matchRow: { flexDirection: "row", alignItems: "stretch", gap: 10 },
   pairSpacer: { flex: 1, flexBasis: 0 },
-  pairTile: { flex: 1, flexBasis: 0, minWidth: 0, minHeight: 64, alignItems: "center", justifyContent: "center", paddingHorizontal: 10, paddingVertical: 10, borderRadius: radii.tile, borderWidth: 2, borderBottomWidth: 5 },
+  // The slot shares the row; the tile inside grows to the row's height (the taller tile of the two sets it).
+  pairSlot: { flex: 1, flexBasis: 0, minWidth: 0 },
+  pairTile: { flexGrow: 1, minHeight: 64, alignItems: "center", justifyContent: "center", paddingHorizontal: 10, paddingVertical: 10, borderRadius: radii.tile, borderWidth: 2, borderBottomWidth: 5 },
   pairText: { fontFamily: fonts.bodyHeavy, fontSize: 15, lineHeight: 20, textAlign: "center", maxWidth: "100%" },
   pairChip: { position: "absolute", top: -9, right: -7, width: 24, height: 24, borderRadius: 12, borderWidth: 2, borderColor: colors.white, alignItems: "center", justifyContent: "center" },
   pairChipText: { fontFamily: fonts.displayHeavy, fontSize: 12, lineHeight: 16, color: colors.white },
@@ -1108,5 +1202,6 @@ const styles = StyleSheet.create({
   nextTitle: { ...text.tiny, fontFamily: fonts.bodyHeavy, marginBottom: space.sm },
   nextChips: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: 8 },
   nextChip: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 12, paddingVertical: 6, borderRadius: radii.pill, borderWidth: 2, maxWidth: "100%" },
+  nextChipButton: { borderBottomWidth: 4, paddingRight: 8, minHeight: 44 },
   nextChipText: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, flexShrink: 1 }
 });

@@ -83,6 +83,11 @@ export function Toggle({ label, icon, value, onToggle, testID }: { label: string
   );
 }
 
+/** Web ignores adjustsFontSizeToFit: a longer label starts a size smaller and may wrap to two lines. */
+function segmentSize(label: string) {
+  return label.length > 8 ? styles.segmentTextLong : null;
+}
+
 export function SegmentButton({ label, active, onPress, testID, icon }: { label: string; active: boolean; onPress: () => void; testID: string; icon?: IconName }) {
   return (
     <Tappable
@@ -93,7 +98,7 @@ export function SegmentButton({ label, active, onPress, testID, icon }: { label:
       testID={testID}
     >
       {icon ? <Icon name={icon} size={24} /> : null}
-      <Text style={[styles.segmentText, active && styles.segmentTextActive]} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
+      <Text style={[styles.segmentText, segmentSize(label), active && styles.segmentTextActive]} numberOfLines={2}>
         {label}
       </Text>
     </Tappable>
@@ -198,8 +203,14 @@ const styles = StyleSheet.create({
   segmentText: {
     fontFamily: fonts.displayHeavy,
     fontSize: 16,
+    lineHeight: 21,
     color: colors.inkSoft,
+    textAlign: "center",
     flexShrink: 1
+  },
+  segmentTextLong: {
+    fontSize: 14,
+    lineHeight: 18
   },
   segmentTextActive: {
     color: colors.gemLip

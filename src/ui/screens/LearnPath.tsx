@@ -52,6 +52,12 @@ export interface PathUnit {
   total: number;
   /** Unit needs Premium: nodes look locked and the card offers UNLOCK. */
   premiumLocked?: boolean;
+  /**
+   * Its circles still to play make a fair test-out: the banner key (current unit only) and the
+   * JUMP HERE button on its locked circles open "Jump ahead?". Default: true for the unit of the
+   * circle to play next, false for the others.
+   */
+  canTestOut?: boolean;
   items: PathItem[];
 }
 
@@ -65,7 +71,10 @@ export type LearnPathProps = {
   xpForNode: (node: LearningNodeView) => number;
   onStartNode: (node: LearningNodeView) => void;
   onClaimChest: (chest: PathChest) => void;
-  /** Optional "jump ahead" key on the current unit banner. It asks first, then calls this on START TEST. */
+  /**
+   * Test out of a unit. The current unit's banner key and JUMP HERE on a locked circle (units with
+   * canTestOut) ask "Jump ahead?" first, then call this on START TEST.
+   */
   onTestOut?: (unitId: string) => void;
   /** Tap the Premium pill or the UNLOCK button of a premium-locked unit. */
   onPremium?: (unitId: string) => void;
@@ -426,6 +435,7 @@ function NodeCard({
   narrow,
   onStart,
   onPremium,
+  onJump,
   onCardLayout
 }: {
   item: Extract<PathItem, { kind: "node" }>;
@@ -439,6 +449,8 @@ function NodeCard({
   narrow: boolean;
   onStart: () => void;
   onPremium?: () => void;
+  /** A locked circle whose unit can be tested out: JUMP HERE asks "Jump ahead?" for the unit. */
+  onJump?: () => void;
   onCardLayout: (height: number) => void;
 }) {
   const { node, arabic } = item;
@@ -455,11 +467,17 @@ function NodeCard({
   if (premium && onPremium) {
     action = <GameButton label="Unlock" icon="crown" variant="gold" fullWidth onPress={onPremium} style={styles.cardButton} testID="node-card-unlock" />;
   } else if (grey) {
+    // Why it is locked, in a few words, and a way forward when the unit can be tested out.
     action = (
-      <View style={styles.lockedPill} testID="node-card-locked">
-        <Icon name="lock" size={22} color={colors.inkSoft} />
-        <Text style={styles.lockedText}>LOCKED</Text>
-      </View>
+      <>
+        <View style={styles.lockedRow} testID="node-card-locked">
+          <Icon name={premium ? "crown" : "lock"} size={22} color={premium ? undefined : colors.inkSoft} />
+          <Text style={styles.lockedText}>{premium ? "Premium" : "Finish the one before it!"}</Text>
+        </View>
+        {onJump ? (
+          <GameButton label="Jump here" icon="key" variant="white" color={colors.gemLip} fullWidth onPress={onJump} style={styles.cardButton} testID="node-card-jump" />
+        ) : null}
+      </>
     );
   } else {
     action = (
@@ -607,12 +625,16 @@ function StickyBanner({ unit, color, onMeasure }: { unit: PathUnit; color: strin
 function TestOutSheet({
   visible,
   color,
+  accent,
   mascotVariant,
   onStart,
   onClose
 }: {
   visible: boolean;
+  /** The unit's color, for the key and the button. */
   color: string;
+  /** The topic accent, for the mascot. */
+  accent: string;
   mascotVariant: string;
   onStart: () => void;
   onClose: () => void;
@@ -628,7 +650,7 @@ function TestOutSheet({
         </Text>
       </View>
       <View style={styles.jumpMascotRow}>
-        <Mascot variant={mascotVariant} mood="think" accent={color} size={84} />
+        <Mascot variant={mascotVariant} mood="think" accent={accent} size={84} />
         <SpeechBubble style={styles.jumpBubble}>Pass a quick test to skip ahead!</SpeechBubble>
       </View>
       <GameButton label="Start test" color={color} sound="unlock" fullWidth onPress={onStart} testID="test-out-start" />
@@ -789,13 +811,18 @@ export function LearnPath({
     let currentUnitId: string | undefined;
     let currentKey: string | undefined;
     const tints = unitColors(accent);
+    // One START on the path: the first "current" circle outside a premium unit, else the first open one.
+    // Library topics open the first circle of every unit, so several circles can be open at once.
+    const startable = (status: LearningNodeView["status"]) =>
+      units.some((unit) => !unit.premiumLocked && unit.items.some((item) => item.kind === "node" && item.node.status === status));
+    const startStatus: LearningNodeView["status"] = startable("current") || !startable("available") ? "current" : "available";
     const byUnit = units.map((unit, unitIndex) => {
       const premium = Boolean(unit.premiumLocked);
       let place = 0;
       const rows: RowSpec[] = unit.items.map((item, index) => {
         const key = item.kind === "node" ? item.node.id : `chest-${item.chest.id}`;
-        // The data marks the first open node of every branch as "current"; only the first one on the path is.
-        const current = item.kind === "node" && item.node.status === "current" && !premium && !currentKey;
+        // The data may mark the first open node of every branch as "current"; only the first one on the path is.
+        const current = item.kind === "node" && item.node.status === startStatus && !premium && !currentKey;
         if (current) {
           currentKey = key;
           currentUnitId = unit.id;
@@ -984,6 +1011,14 @@ export function LearnPath({
   const close = () => {
     if (openId) open(undefined);
   };
+  // A tap on the empty path closes the card with the same soft tap as any button.
+  const tapClose = () => {
+    if (!openId) return;
+    feedback("soft_ui", "light");
+    open(undefined);
+  };
+  const unitCanTestOut = (unit: PathUnit) => !unit.premiumLocked && (unit.canTestOut ?? unit.id === layout.currentUnitId);
+  const askTestOut = (unitId: string) => setTestOut({ unitId, open: true });
 
   const center = width / 2;
   const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
@@ -1020,7 +1055,7 @@ export function LearnPath({
         }}
         testID={`learn-path-${topicId}`}
       >
-        <View onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={close} testID="learn-path-content">
+        <View onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
           {header}
           {layout.byUnit.map((group) => {
             const { unit, color, rows, premium } = group;
@@ -1038,7 +1073,7 @@ export function LearnPath({
                 <UnitBanner
                   unit={unit}
                   color={color}
-                  onTestOut={onTestOut && unit.id === layout.currentUnitId && !premium ? () => setTestOut({ unitId: unit.id, open: true }) : undefined}
+                  onTestOut={onTestOut && unit.id === layout.currentUnitId && unitCanTestOut(unit) ? () => askTestOut(unit.id) : undefined}
                   onPremium={onPremium ? () => onPremium(unit.id) : undefined}
                   onBannerLayout={(height) => {
                     bannerH.current[unit.id] = height;
@@ -1077,7 +1112,8 @@ export function LearnPath({
                         ) : null}
                         {index === group.mascotIndex ? (
                           <View style={[styles.mascot, { left: mascotLeft, top: top + (NODE + NODE_LIP - MASCOT_H) / 2 - 8 }]} pointerEvents="none">
-                            <Mascot variant={mascotVariant} mood="happy" size={MASCOT_SIZE} accent={color} />
+                            {/* The topic accent, not the unit tint: the mascot keeps one look across the app. */}
+                            <Mascot variant={mascotVariant} mood="happy" size={MASCOT_SIZE} accent={accent} />
                           </View>
                         ) : null}
                         {row.current && !isOpen ? (
@@ -1115,6 +1151,14 @@ export function LearnPath({
                               narrow={width < 360}
                               onStart={() => onStartNode((row.item as { node: LearningNodeView }).node)}
                               onPremium={onPremium ? () => onPremium(unit.id) : undefined}
+                              onJump={
+                                onTestOut && row.item.node.status === "locked" && unitCanTestOut(unit)
+                                  ? () => {
+                                      open(undefined);
+                                      askTestOut(unit.id);
+                                    }
+                                  : undefined
+                              }
                               onCardLayout={(cardHeight) => onCardLayout(row.key, unit, top, cardHeight)}
                             />
                           </View>
@@ -1148,6 +1192,7 @@ export function LearnPath({
         <TestOutSheet
           visible={Boolean(testOut?.open)}
           color={testOutGroup?.color ?? accent}
+          accent={accent}
           mascotVariant={mascotVariant}
           onClose={closeTestOut}
           onStart={() => {
@@ -1399,22 +1444,19 @@ const styles = StyleSheet.create({
   cardButton: {
     marginTop: 14
   },
-  lockedPill: {
-    marginTop: 14,
-    height: 54,
-    borderRadius: 16,
-    backgroundColor: colors.white,
+  lockedRow: {
+    marginTop: 12,
+    minHeight: 30,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: "center"
   },
   lockedText: {
     marginLeft: 8,
     fontFamily: fonts.displayHeavy,
-    fontSize: 17,
-    lineHeight: 22,
-    letterSpacing: 0.6,
-    color: colors.inkSoft
+    fontSize: 16,
+    lineHeight: 21,
+    color: colors.inkSoft,
+    flexShrink: 1
   },
   banner: {
     marginHorizontal: 16,

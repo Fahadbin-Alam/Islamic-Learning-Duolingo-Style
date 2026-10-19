@@ -22,8 +22,13 @@ export type ProfileViewProps = {
   onOpenShop?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
   onBack?: () => void;
-  /** Shown for guests as SIGN UP. */
+  /** Shown for guests as SIGN UP, or LOG IN when hasSavedAccount. */
   onCreateAccount?: () => void;
+  /**
+   * This device has an account that logged out: the guest card says "Welcome back!" and LOG IN,
+   * the same mode the account sheet opens in (openAccountPanel in src/TopicApp.tsx).
+   */
+  hasSavedAccount?: boolean;
   /** Sound row appears when onToggleSound is given. Default: user.soundEffectsEnabled !== false. */
   soundEnabled?: boolean;
   onToggleSound?: () => void;
@@ -97,6 +102,11 @@ function firstName(name: string) {
   return name.trim().split(/\s+/)[0] || name;
 }
 
+/** Web ignores adjustsFontSizeToFit: initials are two letters; anything longer starts smaller. */
+function initialsSize(initials: string) {
+  return initials.length <= 2 ? null : styles.initialsLong;
+}
+
 /** Web ignores adjustsFontSizeToFit, so long names get a smaller size up front. */
 function nameSize(name: string) {
   if (name.length <= 12) return { fontSize: 26, lineHeight: 32 };
@@ -111,6 +121,7 @@ export function ProfileView({
   learnerProfile,
   onOpenSettings,
   onCreateAccount,
+  hasSavedAccount = false,
   soundEnabled,
   onToggleSound,
   stars,
@@ -124,6 +135,7 @@ export function ProfileView({
   // A guest still has the starter "New Learner" profile, which is not a name.
   const subLine = guest ? undefined : user.username ? `@${user.username}` : undefined;
   const shownName = guest ? "Guest" : firstName(user.displayName);
+  const initials = (user.avatarInitials || "?").slice(0, 3);
 
   return (
     <ScrollView style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="profile-view">
@@ -132,8 +144,8 @@ export function ProfileView({
           {guest ? (
             <Icon name="profile" size={64} color={colors.white} />
           ) : (
-            <Text style={styles.initials} numberOfLines={1} adjustsFontSizeToFit>
-              {user.avatarInitials || "?"}
+            <Text style={[styles.initials, initialsSize(initials)]} numberOfLines={1}>
+              {initials}
             </Text>
           )}
         </View>
@@ -172,10 +184,10 @@ export function ProfileView({
             <View style={styles.saveHead}>
               <Mascot variant={mascotVariant} mood="wave" size={64} accent={accent} />
               <Text style={styles.saveTitle} numberOfLines={2}>
-                Save your progress
+                {hasSavedAccount ? "Welcome back!" : "Save your progress"}
               </Text>
             </View>
-            <GameButton label="Sign up" fullWidth onPress={onCreateAccount} testID="profile-create" />
+            <GameButton label={hasSavedAccount ? "Log in" : "Sign up"} fullWidth onPress={onCreateAccount} testID="profile-create" />
           </View>
         </PopIn>
       ) : null}
@@ -228,6 +240,10 @@ const styles = StyleSheet.create({
     lineHeight: 50,
     color: colors.white,
     maxWidth: AVATAR - 16
+  },
+  initialsLong: {
+    fontSize: 30,
+    lineHeight: 38
   },
   name: {
     ...text.h2,

@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Animated, Easing, StyleSheet, View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollView } from "react-native";
+import { Animated, Easing, StyleSheet, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollView } from "react-native";
 import { Icon } from "../Icon";
 import { Tappable } from "../Tappable";
 import { colors, withAlpha } from "../theme";
 
-/** Content hidden below the fold by more than this shows the hint. */
-const SLACK = 12;
+/** Content hidden below the fold by more than this shows the hint (less is only a tile's lip or padding). */
+export const SCROLL_HINT_SLACK = 40;
+
+/** Size of the round hint button. Half of it sits on the bottom bar's top padding. */
+export const SCROLL_HINT_SIZE = 30;
 
 /**
  * Tracks a lesson ScrollView so the step can show a "more below" hint while part of it is hidden
@@ -18,7 +21,7 @@ export function useScrollMore() {
 
   const update = useCallback(() => {
     const { viewport, content, offset } = size.current;
-    const next = viewport > 0 && content - viewport - offset > SLACK;
+    const next = viewport > 0 && content - viewport - offset > SCROLL_HINT_SLACK;
     setMore((value) => (value === next ? value : next));
   }, []);
 
@@ -48,15 +51,16 @@ export function useScrollMore() {
 }
 
 /**
- * White fade plus a bouncing round arrow at the bottom of a scroll area, shown while more is hidden
- * below. Place it last inside the (position: relative) box that holds the ScrollView.
+ * A small bouncing round arrow centered on the bottom edge of its container, shown while more is hidden
+ * below. Pass it to `LessonBottomBar`'s `scrollHint` so it sits on the bar's top edge, over the bar's
+ * empty top padding and never over text; only the round button takes taps (it scrolls down).
  */
 export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visible: boolean; onPress: () => void; testID?: string }) {
   const shown = useRef(new Animated.Value(visible ? 1 : 0)).current;
   const bob = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    const animation = Animated.timing(shown, { toValue: visible ? 1 : 0, duration: 180, useNativeDriver: true });
+    const animation = Animated.spring(shown, { toValue: visible ? 1 : 0, friction: 6, tension: 140, useNativeDriver: true });
     animation.start();
     return () => animation.stop();
   }, [shown, visible]);
@@ -76,20 +80,21 @@ export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visib
     return () => loop.stop();
   }, [bob, visible]);
 
-  const translateY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, 4] });
+  // The arrow bobs inside the button, so the button itself never moves over the content.
+  const translateY = bob.interpolate({ inputRange: [0, 1], outputRange: [-1, 3] });
+  const scale = shown.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1] });
 
   return (
-    <Animated.View pointerEvents={visible ? "box-none" : "none"} style={[styles.root, { opacity: shown }]} testID={visible ? testID : undefined}>
-      <View pointerEvents="none" style={styles.fade}>
-        <View style={[styles.band, { backgroundColor: withAlpha(colors.snow, 0.35) }]} />
-        <View style={[styles.band, { backgroundColor: withAlpha(colors.snow, 0.7) }]} />
-        <View style={[styles.band, { backgroundColor: withAlpha(colors.snow, 0.92) }]} />
-      </View>
-      <Animated.View style={[styles.buttonWrap, { transform: [{ translateY }] }]}>
-        <Tappable onPress={onPress} pressScale={0.9} hitSlop={8} accessibilityLabel="Scroll down" style={styles.button}>
-          <Icon name="chevronDown" size={22} color={colors.gemLip} />
-        </Tappable>
-      </Animated.View>
+    <Animated.View
+      pointerEvents={visible ? "box-none" : "none"}
+      style={[styles.root, { opacity: shown, transform: [{ scale }] }]}
+      testID={visible ? testID : undefined}
+    >
+      <Tappable onPress={onPress} pressScale={0.88} hitSlop={8} accessibilityLabel="Scroll down" style={styles.button}>
+        <Animated.View style={{ transform: [{ translateY }] }}>
+          <Icon name="chevronDown" size={18} color={colors.gemLip} />
+        </Animated.View>
+      </Tappable>
     </Animated.View>
   );
 }
@@ -97,30 +102,26 @@ export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visib
 const styles = StyleSheet.create({
   root: {
     position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 44,
-    alignItems: "center",
-    justifyContent: "flex-end"
-  },
-  fade: {
-    ...StyleSheet.absoluteFillObject
-  },
-  band: {
-    flex: 1
-  },
-  buttonWrap: {
-    marginBottom: 4
+    left: "50%",
+    bottom: -SCROLL_HINT_SIZE / 2,
+    width: SCROLL_HINT_SIZE,
+    height: SCROLL_HINT_SIZE,
+    marginLeft: -SCROLL_HINT_SIZE / 2,
+    zIndex: 5
   },
   button: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: SCROLL_HINT_SIZE,
+    height: SCROLL_HINT_SIZE,
+    borderRadius: SCROLL_HINT_SIZE / 2,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.white,
     borderWidth: 2,
-    borderColor: withAlpha(colors.gem, 0.45)
+    borderColor: withAlpha(colors.gem, 0.5),
+    shadowColor: colors.ink,
+    shadowOpacity: 0.16,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3
   }
 });

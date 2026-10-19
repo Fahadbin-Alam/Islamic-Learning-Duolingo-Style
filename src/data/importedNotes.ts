@@ -1,6 +1,5 @@
 import type { LearningBranch, LearningCourse, LearningNode, LearningSection, Lesson, TopicId } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
-import { CHAINED_TOPICS } from "./scalableCurriculum";
 
 export interface ImportedNotesSection {
   topicId: TopicId;
@@ -43,7 +42,46 @@ const PERSON_UNITS: Record<string, string> = {
   "anas-ibn-malik": "sahabi-anas-ibn-malik"
 };
 
-const SURAH_RANGE_TITLE = /^Surahs \d+-\d+$/;
+// Imported prophets and women who already have a lesson of their own. Each person is taught once: the
+// imported lesson is left out and its facts go on that lesson's learn card. Keys are the person part of the
+// imported node id; a lesson about two people (Hud and Salih) gets each one's facts with their name.
+export const PERSON_LESSONS: Record<string, string> = {
+  adam: "prophets-adam",
+  noah: "prophets-nuh",
+  ibrahim: "prophets-ibrahim",
+  yusuf: "prophets-yusuf",
+  musa: "prophets-musa",
+  isa: "prophets-isa",
+  muhammad: "prophets-muhammad",
+  hud: "prophets-early-messengers-hud-and-salih",
+  shaleh: "prophets-early-messengers-hud-and-salih",
+  lut: "prophets-early-messengers-lut-and-purity",
+  ismail: "prophets-family-and-sacrifice-ismail-and-submission",
+  yaqub: "prophets-family-and-sacrifice-yaqub-and-sabr",
+  harun: "prophets-power-and-deliverance-harun-and-support",
+  dawud: "prophets-power-and-deliverance-dawud-and-justice",
+  sulaiman: "prophets-power-and-deliverance-sulayman-and-gratitude",
+  maryam: "women-maryam",
+  "khadijah-bint-khuwaylid": "women-khadijah",
+  "aisha-bint-abu-bakr": "women-aishah",
+  "hafsa-bint-umar": "women-hafsah",
+  "sawdah-bint-zamah": "women-mothers-depth-sawdah-and-stability"
+};
+
+// A unit of imported lessons holds at most this many, so a list of names never becomes a wall.
+const MAX_UNIT_SIZE = 10;
+// A learn-card chip stays a few words ("Father: Azar").
+const MAX_CHIP_WORDS = 5;
+
+/**
+ * Where a surah comes in the Quran path: Al-Fatihah first, then Juz Amma from An-Nas back to An-Naba
+ * (114, 113, ... 78), the short surahs children learn first, then the rest in the order of the mushaf.
+ */
+export function surahLearningRank(surah: number) {
+  if (surah === 1) return 0;
+  if (surah >= 78) return 1 + (114 - surah);
+  return 100 + surah;
+}
 
 // "https://quran.com/18" is a whole surah; "https://quran.com/18/10" is one ayah of it.
 function wholeSurahNumber(url: string | undefined) {
@@ -55,6 +93,8 @@ function firstSurahNumber(url: string | undefined) {
   const match = /^https:\/\/quran\.com\/(\d+)(?:[/?#]|$)/.exec(url ?? "");
   return match ? Number(match[1]) : undefined;
 }
+
+const personSlug = (node: LearningNode) => node.id.slice(node.branchId.length + 1);
 
 // The built-in unit an imported node belongs in: the surah's own unit, or the person's own unit.
 function homeUnits(section: LearningSection, extra: ImportedNotesSection, lessons: Record<string, Lesson>) {
@@ -69,18 +109,157 @@ function homeUnits(section: LearningSection, extra: ImportedNotesSection, lesson
   for (const node of extra.nodes) {
     const lesson = lessons[node.lessonIds[0]];
     const number = section.topicId === "quran_tafseer" && lesson?.sources.length === 1 ? wholeSurahNumber(lesson.sources[0].url) : undefined;
-    const person = PERSON_UNITS[node.id.slice(node.branchId.length + 1)];
+    const person = PERSON_UNITS[personSlug(node)];
     const home = (number && surahUnits.get(number)) || person;
     if (home && unitIds.has(home)) homes.set(node.id, home);
   }
   return homes;
 }
 
-// Adds branches generated from Obsidian notes (scripts/obsidian-import). Branches from notes carry real
-// facts, so they come before each topic's built-in branches, except where that would break the path:
+// Imported people who already have a built-in lesson, by imported node id.
+function personLessons(section: LearningSection, extra: ImportedNotesSection) {
+  const nodeIds = new Set(section.nodes.map((node) => node.id));
+  const folds = new Map<string, string>();
+  for (const node of extra.nodes) {
+    const target = PERSON_LESSONS[personSlug(node)];
+    if (target && nodeIds.has(target)) folds.set(node.id, target);
+  }
+  return folds;
+}
+
+// Splits items into as few runs of at most `size` as possible, with runs of nearly equal length.
+function evenChunks<T>(items: T[], size = MAX_UNIT_SIZE): T[][] {
+  const count = Math.ceil(items.length / size);
+  const chunks: T[][] = [];
+  let start = 0;
+  for (let index = 0; index < count; index += 1) {
+    const length = Math.ceil((items.length - start) / (count - index));
+    chunks.push(items.slice(start, start + length));
+    start += length;
+  }
+  return chunks;
+}
+
+function difficultyRange(nodes: LearningNode[]): LearningBranch["difficultyRange"] {
+  const levels = nodes.map((node) => node.difficulty).filter((level): level is NonNullable<typeof level> => level !== undefined);
+  if (!levels.length) return undefined;
+  return { start: Math.min(...levels) as NonNullable<LearningNode["difficulty"]>, end: Math.max(...levels) as NonNullable<LearningNode["difficulty"]> };
+}
+
+interface Regrouped {
+  branches: LearningBranch[];
+  nodes: LearningNode[];
+}
+
+// Puts the given nodes into the given units, in order: the first node of a unit opens it and every other
+// node follows the one before it.
+function chainUnits(groups: { branch: LearningBranch; nodes: LearningNode[] }[], lessons: Record<string, Lesson>): Regrouped {
+  const nodes: LearningNode[] = [];
+  for (const { branch, nodes: members } of groups) {
+    members.forEach((node, index) => {
+      const previous = index > 0 ? members[index - 1] : undefined;
+      nodes.push({ ...node, branchId: branch.id, requiredNodeIds: previous ? [previous.id] : [] });
+      for (const lessonId of node.lessonIds) {
+        if (lessons[lessonId]) lessons[lessonId] = { ...lessons[lessonId], branchId: branch.id, unlockRules: previous ? [`Complete ${previous.title}`] : [] };
+      }
+    });
+  }
+  return { branches: groups.map(({ branch, nodes: members }) => ({ ...branch, difficultyRange: difficultyRange(members) ?? branch.difficultyRange })), nodes };
+}
+
+// Quran: imported surahs, in learning order, in units of up to ten between the surahs with units of their own.
+function regroupSurahs(section: LearningSection, given: LearningBranch[], staying: LearningNode[], lessons: Record<string, Lesson>): Regrouped {
+  const surahOf = (node: LearningNode) => wholeSurahNumber(lessons[node.lessonIds[0]]?.sources[0]?.url);
+  const rankOf = (node: LearningNode) => {
+    const number = surahOf(node);
+    return number ? surahLearningRank(number) : Infinity;
+  };
+  const sorted = staying.map((node, index) => ({ node, index, rank: rankOf(node) })).sort((left, right) => left.rank - right.rank || left.index - right.index);
+  const unitRanks = section.branches
+    .map((branch) => firstSurahNumber(branch.sourceReferences?.[0]?.url))
+    .filter((number): number is number => number !== undefined)
+    .map(surahLearningRank)
+    .sort((left, right) => left - right);
+
+  // Runs of imported surahs that sit between two built-in units.
+  const runs: LearningNode[][] = [];
+  let run: LearningNode[] = [];
+  let boundary = 0;
+  for (const { node, rank } of sorted) {
+    while (boundary < unitRanks.length && rank > unitRanks[boundary]) {
+      boundary += 1;
+      if (run.length) runs.push(run);
+      run = [];
+    }
+    run.push(node);
+  }
+  if (run.length) runs.push(run);
+
+  const template = given[0];
+  const groups = runs.flatMap((members) => evenChunks(members)).map((members) => {
+    const first = surahOf(members[0]);
+    const last = surahOf(members[members.length - 1]);
+    const span = first && last ? (first === last ? `${first}` : `${first}-${last}`) : undefined;
+    const branch: LearningBranch = {
+      ...template,
+      id: span ? `notes-quran-tafseer-surahs-${span}` : `${template.id}-${members[0].id}`,
+      title: span ? (first === last ? `Surah ${first}` : `Surahs ${span}`) : template.title,
+      sourceReferences: []
+    };
+    return { branch, nodes: members };
+  });
+  return chainUnits(groups, lessons);
+}
+
+// Hadith, prophets and women: the units keep their ids, but lessons are dealt out again in order, so units
+// stay even after some lessons moved elsewhere. Hadith are ordered by level, so sayings for young children
+// come first and those for adults last.
+function regroupInOrder(given: LearningBranch[], staying: LearningNode[], lessons: Record<string, Lesson>, byLevel: boolean): Regrouped {
+  const ordered = byLevel
+    ? staying
+        .map((node, index) => ({ node, index, level: lessons[node.lessonIds[0]]?.difficulty ?? node.difficulty ?? 3 }))
+        .sort((left, right) => left.level - right.level || left.index - right.index)
+        .map(({ node }) => node)
+    : staying;
+  const chunks = evenChunks(ordered);
+  if (chunks.length > given.length) return { branches: given, nodes: staying };
+  const base = given[0].title.replace(/\s+\d+$/, "");
+  const groups = chunks.map((members, index) => ({
+    branch: { ...given[index], title: chunks.length > 1 ? `${base} ${index + 1}` : base },
+    nodes: members
+  }));
+  return chainUnits(groups, lessons);
+}
+
+// "Tribe: Thamud" about Salih on a lesson about Hud and Salih reads "Salih's tribe: Thamud".
+function namedChip(name: string, chip: string) {
+  const labelled = /^([^:]+):\s*(.+)$/.exec(chip);
+  return labelled ? `${name}'s ${labelled[1].toLowerCase()}: ${labelled[2]}` : `${name}: ${chip.charAt(0).toLowerCase()}${chip.slice(1)}`;
+}
+
+// The facts of an imported person, for the learn card of their built-in lesson.
+function foldFacts(builtIn: Lesson, people: { name: string; lesson: Lesson }[]): Lesson {
+  if (builtIn.learnFacts?.length) return builtIn;
+  const shared = people.length > 1;
+  const chips = people
+    .flatMap(({ name, lesson }) => (lesson.learnFacts ?? []).map((chip) => (shared ? namedChip(name, chip) : chip)))
+    .filter((chip) => chip.split(/\s+/).length <= MAX_CHIP_WORDS)
+    .slice(0, 3);
+  const line = !shared ? people[0].lesson.learnLine : undefined;
+  return {
+    ...builtIn,
+    ...(chips.length ? { learnFacts: chips } : {}),
+    ...(!builtIn.learnLine && line ? { learnLine: line } : {})
+  };
+}
+
+// Adds branches generated from Obsidian notes (scripts/obsidian-import) to the built-in course:
 // - a surah or companion that already has its own unit is not shown twice; its imported lesson opens that unit;
-// - Quran units follow the order of the surahs;
-// - in a topic taught in order (CHAINED_TOPICS), the imported lists of people follow the built-in course.
+// - a prophet or woman with a built-in lesson is taught there; the imported facts go on its learn card;
+// - Quran units follow the learning order (Al-Fatihah, Juz Amma from An-Nas back, then the mushaf);
+// - hadith go from sayings for young children to those for adults;
+// - the built-in units of a topic come first (Abu Bakr, Umar, Uthman and Ali lead the companions), then the
+//   imported lists.
 // Chaining units one after another happens later (chainCourse), once everything is in place.
 export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<string, Lesson>, imported: ImportedNotesContent) {
   if (!imported.sections.length) {
@@ -104,14 +283,19 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
     if (!given) return section;
 
     const existingBranchIds = new Set(section.branches.map((branch) => branch.id));
-    const keptBranchIds = new Set(given.branches.filter((branch) => !existingBranchIds.has(branch.id)).map((branch) => branch.id));
+    const keptBranches = given.branches.filter((branch) => !existingBranchIds.has(branch.id));
+    const keptBranchIds = new Set(keptBranches.map((branch) => branch.id));
     const extra = { ...given, nodes: given.nodes.filter((node) => keptBranchIds.has(node.branchId)) };
     const homes = homeUnits(section, extra, imported.lessonsById);
+    const folds = personLessons(section, extra);
     const movedById = new Map(extra.nodes.filter((node) => homes.has(node.id)).map((node) => [node.id, node]));
+    const foldedById = new Map(extra.nodes.filter((node) => folds.has(node.id) && !homes.has(node.id)).map((node) => [node.id, node]));
+    const leaving = new Map([...movedById, ...foldedById]);
 
-    // A node that followed a moved node now follows whatever came before it.
-    const relink = (ids: string[]): string[] => ids.flatMap((id) => (movedById.has(id) ? relink(movedById.get(id)!.requiredNodeIds) : [id]));
-    const staying = extra.nodes.filter((node) => !movedById.has(node.id)).map((node) => ({ ...node, requiredNodeIds: relink(node.requiredNodeIds) }));
+    // A node that followed a node that left now follows whatever came before it.
+    const relink = (ids: string[]): string[] => ids.flatMap((id) => (leaving.has(id) ? relink(leaving.get(id)!.requiredNodeIds) : [id]));
+    const staying = extra.nodes.filter((node) => !leaving.has(node.id)).map((node) => ({ ...node, requiredNodeIds: relink(node.requiredNodeIds) }));
+
     const movedFirst = new Map<string, LearningNode>();
     for (const node of movedById.values()) {
       const home = homes.get(node.id)!;
@@ -119,6 +303,19 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
       for (const lessonId of node.lessonIds) {
         if (importedLessons[lessonId]) importedLessons[lessonId] = { ...importedLessons[lessonId], branchId: home, unlockRules: [] };
       }
+    }
+
+    const foldedInto = new Map<string, { name: string; lesson: Lesson }[]>();
+    for (const node of foldedById.values()) {
+      const target = folds.get(node.id)!;
+      const lesson = importedLessons[node.lessonIds[0]];
+      if (lesson) foldedInto.set(target, [...(foldedInto.get(target) ?? []), { name: node.title, lesson }]);
+      for (const lessonId of node.lessonIds) delete importedLessons[lessonId];
+    }
+    for (const [target, people] of foldedInto) {
+      const node = section.nodes.find((each) => each.id === target)!;
+      const lessonId = node.lessonIds[0];
+      if (builtInLessons[lessonId]) builtInLessons[lessonId] = foldFacts(builtInLessons[lessonId], people);
     }
 
     const builtInNodes = section.nodes.flatMap((node, index) => {
@@ -131,15 +328,22 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
       return [opener, { ...node, requiredNodeIds: node.requiredNodeIds.length ? node.requiredNodeIds : [opener.id] }];
     });
 
-    const importedBranches = given.branches
-      .filter((branch) => keptBranchIds.has(branch.id) && staying.some((node) => node.branchId === branch.id))
-      .map((branch) => retitleSurahRange(branch, staying, imported.lessonsById));
-    const branches = placeBranches(section, importedBranches, [...staying, ...builtInNodes], imported.lessonsById).map((branch, index) => ({ ...branch, order: index + 1 }));
+    const regrouped: Regrouped = !staying.length
+      ? { branches: [], nodes: [] }
+      : section.topicId === "quran_tafseer"
+        ? regroupSurahs(section, keptBranches, staying, importedLessons)
+        : section.topicId === "sahabah"
+          ? { branches: keptBranches, nodes: staying }
+          : regroupInOrder(keptBranches, staying, importedLessons, section.topicId === "hadith");
+    const importedBranches = regrouped.branches.filter((branch) => regrouped.nodes.some((node) => node.branchId === branch.id));
+    const allNodes = [...regrouped.nodes, ...builtInNodes];
+    const branches = placeBranches(section, importedBranches, allNodes, importedLessons).map((branch, index) => ({ ...branch, order: index + 1 }));
     const branchOrder = new Map(branches.map((branch, index) => [branch.id, index]));
     const placeInUnit = new Map<string, number>();
-    const nodes = [...staying, ...builtInNodes]
-      .sort((left, right) => (branchOrder.get(left.branchId) ?? 999) - (branchOrder.get(right.branchId) ?? 999))
-      .map((node) => {
+    const nodes = allNodes
+      .map((node, index) => ({ node, index }))
+      .sort((left, right) => (branchOrder.get(left.node.branchId) ?? 999) - (branchOrder.get(right.node.branchId) ?? 999) || left.index - right.index)
+      .map(({ node }) => {
         const order = (placeInUnit.get(node.branchId) ?? 0) + 1;
         placeInUnit.set(node.branchId, order);
         return order === node.order ? node : { ...node, order };
@@ -159,35 +363,26 @@ export function mergeImportedNotes(course: LearningCourse, lessonsById: Record<s
   };
 }
 
-// "Surahs 1-10" without the surahs that moved to their own units becomes "Surahs 6-10".
-function retitleSurahRange(branch: LearningBranch, nodes: LearningNode[], lessons: Record<string, Lesson>): LearningBranch {
-  if (!SURAH_RANGE_TITLE.test(branch.title)) return branch;
-  const numbers = nodes
-    .filter((node) => node.branchId === branch.id)
-    .map((node) => wholeSurahNumber(lessons[node.lessonIds[0]]?.sources[0]?.url))
-    .filter((number): number is number => number !== undefined);
-  if (!numbers.length) return branch;
-  const low = Math.min(...numbers);
-  const high = Math.max(...numbers);
-  return { ...branch, title: low === high ? `Surah ${low}` : `Surahs ${low}-${high}` };
-}
-
 function placeBranches(section: LearningSection, importedBranches: LearningBranch[], nodes: LearningNode[], lessons: Record<string, Lesson>) {
   if (section.topicId === "quran_tafseer") {
-    const firstSurah = (branch: LearningBranch) => {
-      if (branch.surahName) return firstSurahNumber(branch.sourceReferences?.[0]?.url);
-      const numbers = nodes
+    const firstRank = (branch: LearningBranch) => {
+      if (branch.surahName) {
+        const number = firstSurahNumber(branch.sourceReferences?.[0]?.url);
+        return number ? surahLearningRank(number) : undefined;
+      }
+      const ranks = nodes
         .filter((node) => node.branchId === branch.id)
         .map((node) => wholeSurahNumber(lessons[node.lessonIds[0]]?.sources[0]?.url))
-        .filter((number): number is number => number !== undefined);
-      return numbers.length ? Math.min(...numbers) : undefined;
+        .filter((number): number is number => number !== undefined)
+        .map(surahLearningRank);
+      return ranks.length ? Math.min(...ranks) : undefined;
     };
-    const all = [...importedBranches, ...section.branches];
-    const numbered = all.map((branch, index) => ({ branch, index, surah: firstSurah(branch) }));
-    if (numbered.every((entry) => entry.surah !== undefined)) {
-      return numbered.sort((left, right) => left.surah! - right.surah! || left.index - right.index).map((entry) => entry.branch);
+    const all = [...section.branches, ...importedBranches];
+    const ranked = all.map((branch, index) => ({ branch, index, rank: firstRank(branch) }));
+    if (ranked.every((entry) => entry.rank !== undefined)) {
+      return ranked.sort((left, right) => left.rank! - right.rank! || left.index - right.index).map((entry) => entry.branch);
     }
     return all;
   }
-  return CHAINED_TOPICS.has(section.topicId) ? [...section.branches, ...importedBranches] : [...importedBranches, ...section.branches];
+  return [...section.branches, ...importedBranches];
 }

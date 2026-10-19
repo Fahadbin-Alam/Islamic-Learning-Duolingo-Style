@@ -171,7 +171,7 @@ const ALWAYS_CAPITALIZED = ["Abu Bakr", "Umar", "Uthman", "Bilal", "Khalid", "Sa
 // Scholarly transliteration ("Abū Bakr aṣ-Ṣiddīq", "ʿAbbās") becomes the plain spelling the app uses
 // everywhere else ("Abu Bakr as-Siddiq", "'Abbas"). Only Latin letters change; Arabic text is untouched.
 export function plainLatin(text) {
-  return text.replace(/[\u00C0-\u024F\u1E00-\u1EFF]/g, (letter) => letter.normalize("NFD").replace(/[\u0300-\u036f]/g, "")).replace(/[ʿʾʼ]/g, "'");
+  return text.replace(/[\u00C0-\u024F\u1E00-\u1EFF]/g, (letter) => letter.normalize("NFD").replace(/[\u0300-\u036f]/g, "")).replace(/[ʿʾʼʽʻ]/g, "'");
 }
 
 // Slips copied into notes from older translations, fixed where the right wording is certain. In Pickthall
@@ -180,15 +180,29 @@ const KNOWN_SLIPS = [
   { pattern: /\bno Allah save (Him|Me)\b/g, fix: "no god save $1" },
   { pattern: /\bno other Allah\b/g, fix: "no other god" },
   { pattern: /\bany Allah beside Allah\b/g, fix: "any god beside Allah" },
+  // Pickthall 41:6 "your God is One God" and 38:5 "Maketh he the gods One God?".
+  { pattern: /\b(your|our) Allah is One Allah\b/gi, fix: "$1 God is One God" },
+  { pattern: /\bthe gods One Allah\b/g, fix: "the gods One God" },
   // "0 young men", "Labbaik,0 Allah": a zero typed for the vocative O. A real number never stands alone before a word here.
   { pattern: /,0 (?=[A-Za-z])/g, fix: ", O " },
-  { pattern: /(^|[\s"“:(])0 (?=[A-Za-z])/g, fix: "$1O " }
+  { pattern: /(^|[\s"“:(])0 (?=[A-Za-z])/g, fix: "$1O " },
+  // "Ad- Dajjal", "Al- Masih": a space typed after the article's hyphen.
+  { pattern: /\b(Al|Ad|An|Ar|As|At|Az|Ash|Adh|Ath)- (?=[A-Z])/g, fix: "$1-" },
+  // Pickthall 12:1 "These are verses of the Scripture that maketh plain", with the s lost.
+  { pattern: /\bThese are verse of\b/g, fix: "These are verses of" },
+  // Surah 86's English name as Quran.com spells it, "The Nightcommer".
+  { pattern: /\bNightcommer\b/g, fix: "Nightcomer" }
 ];
 
 // Text the importer cannot fix on its own; each match is reported so the note can be corrected.
 export const SUSPECT_TEXT = [
   { name: "zero before a word", pattern: /(^|[\s"“:(])0 [A-Za-z]/ },
-  { name: "Allah used as a common noun", pattern: /\b(an|any|no|other) Allah\b|\bAllahs\b/ }
+  { name: "Allah used as a common noun", pattern: /\b(an|any|no|other|your|their) Allah\b|\bOne Allah\b|\bAllahs\b/ },
+  // "'Lyaash": an l typed where the name starts with I or 'A. In English an apostrophe after a space is never
+  // followed by l and a consonant ("you'll" has no space before it).
+  { name: "l typed for I", pattern: /(^|[\s("“])['‘’][lL](?![aeiouAEIOU\s'’-])[a-zA-Z]/ },
+  // Rude words copied from a forum or a chat; they never belong in a children's lesson.
+  { name: "rude word", pattern: /\b(fuck\w*|shit\w*|bitch\w*)\b/i }
 ];
 
 // Fixes the typing slips notes are full of: "dissension) ;" and "the quran".
@@ -602,7 +616,8 @@ export function buildBranch(note, { idPrefix = "notes" } = {}) {
   const sectionSentences = note.lessons.map((lesson) => firstSentence(lesson.content)).filter(Boolean);
 
   note.lessons.forEach((entry, index) => {
-    let slug = slugify(entry.title) || `lesson-${index + 1}`;
+    // Fact lessons keep the slug of their note name (idSlug), so a learner-facing title never loses progress.
+    let slug = entry.idSlug ?? (slugify(entry.title) || `lesson-${index + 1}`);
     while (usedSlugs.has(slug)) slug = `${slug}-${index + 1}`;
     usedSlugs.add(slug);
 
@@ -610,7 +625,7 @@ export function buildBranch(note, { idPrefix = "notes" } = {}) {
     const lessonId = `lesson-${nodeId}`;
     const isReview = /review|mastery|quiz|recap/i.test(entry.title);
     const kind = isReview ? "review" : note.topicId === "sahabah" || note.topicId === "prophets" || note.topicId === "women_of_the_book" ? "story" : "skill";
-    const difficulty = clampDifficulty(note.difficulty, Math.min(index + 1, inferDifficulty(index, total)));
+    const difficulty = clampDifficulty(entry.difficulty, clampDifficulty(note.difficulty, Math.min(index + 1, inferDifficulty(index, total))));
     const xpReward = 8 + difficulty * 2 + (kind === "review" ? 4 : 0);
     const lessonSources = buildSources(entry.sourceUrls, lessonId.replace(/-/g, "_"), warn);
     const sources = [...lessonSources, ...branchSources.filter((source) => !lessonSources.some((own) => own.url === source.url))];
@@ -667,6 +682,9 @@ export function buildBranch(note, { idPrefix = "notes" } = {}) {
       whyItMatters: entry.extras.whyItMatters || undefined,
       keyTakeaway: entry.extras.keyTakeaway || undefined,
       storyMoment: entry.extras.storyMoment || undefined,
+      learnLine: entry.learnLine || undefined,
+      learnFacts: entry.learnFacts?.length ? entry.learnFacts : undefined,
+      quote: entry.quote?.text ? entry.quote : undefined,
       lessonType: kind === "review" ? "review" : kind,
       difficulty,
       xpReward,
@@ -754,7 +772,10 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
     if (!note.skipped) notes.push({ note, relPath });
   }
 
-  for (const branch of buildFactBranches(factNotes)) notes.push({ note: branch, relPath: branch.title });
+  for (const branch of buildFactBranches(factNotes)) {
+    warnings.push(...branch.warnings.map((message) => `${branch.title}: ${message}`));
+    notes.push({ note: branch, relPath: branch.title });
+  }
 
   for (const { note, relPath } of notes) {
     const built = buildBranch(note, { idPrefix });
