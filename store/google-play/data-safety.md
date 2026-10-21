@@ -58,7 +58,7 @@ Notes:
 | Ads | **Yes, my app contains ads** |
 | App access | **All functionality is available without special access**. Premium can be tested with a Play license tester; no login is needed for core lessons |
 | Content rating | See `store/content-ratings.md` |
-| Target audience and content | Ages **5 and under** unticked; tick **6–8, 9–12, 13–15, 16–17, 18 and over**. "Could your app unintentionally appeal to children?" is not asked once under-13 ages are ticked. This puts the app under the **Families policy**: the app has a neutral age screen, sends child-directed (COPPA) ad requests for under-13s through AdMob, a Families self-certified SDK, and puts purchases, sign-up and Crew behind a grown-up check. Answer the Families questions with: ads **Yes**; uses only Families self-certified ads SDKs **Yes**; the app's content is suitable for children **Yes** |
+| Target audience and content | Ages **5 and under** unticked; tick **6–8, 9–12, 13–15, 16–17, 18 and over**. "Could your app unintentionally appeal to children?" is not asked once under-13 ages are ticked. This puts the app under the **Families policy**: the app has a neutral age screen, sends child-directed (COPPA) ad requests for under-13s through AdMob, a Families self-certified SDK, puts purchases, sign-up and Crew behind a grown-up check, asks for a parent's name and email at sign-up when the age screen says 12 or under, and only shows Crew progress between learners who have both added each other. Answer the Families questions with: ads **Yes**; uses only Families self-certified ads SDKs **Yes**; the app's content is suitable for children **Yes** |
 | News app | No |
 | COVID-19 contact tracing or status | No |
 | Data safety | This file |

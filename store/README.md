@@ -50,10 +50,10 @@ The app is for ages 6 to 30, so both stores are answered as an all-ages app with
 - **Apple:** primary category **Education**, not the Kids category, because Kids-category apps cannot use third-party ad networks.
 - **AdMob:** mark each app as having some users under 13 if asked, block sensitive ad categories and keep the max rating at G (`docs/monetization.md`, AdMob steps).
 
-**Open risks for an all-ages listing**, to settle before submitting:
+**Child safety (COPPA, Families policy)**, both handled in the app:
 
-1. The grown-up check is a sum, which is enough for Google and Apple's parental gate rules but is not COPPA "verifiable parental consent". The privacy policy therefore says a parent creates any account for a child under 13 with the parent's own email. If a learner who answered "12 or under" on the age screen can still create an account with their own email, the app is collecting a child's data without that consent. The safest fix is to hide sign-up and Crew for those age answers, or to ask for a parent's email instead.
-2. On the Crew screen, anyone who knows an account's email can follow it and see the display name, XP, streak and last learning time, without the person agreeing. For a Kid account that is a stranger-safety concern under the Families policy. Consider needing the followed person to accept, or hiding Kid accounts from lookups.
+1. When the age screen says 12 or under, sign-up asks for a parent's name and email, so no child's personal information is collected.
+2. Crew is mutual. A learner's name, XP, streak and last learning time show only to people they have added back, and adding back needs the grown-up check.
 
 ## Steps that need you
 
