@@ -101,8 +101,10 @@ export async function loginRemoteAccount(input: { email: string; password: strin
 
 export async function socialLoginRemoteAccount(input: {
   provider: Exclude<AuthProvider, "password">;
-  accessToken?: string;
-  idToken?: string;
+  idToken: string;
+  name?: string;
+  /** False from the Log in tab: the server answers 404 instead of making a new account. */
+  allowCreate: boolean;
   role?: AccountRole;
   reminderPreferences: ReminderPreferences;
   user: UserProfile;

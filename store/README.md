@@ -40,7 +40,7 @@ The release builds PR (#6) covered most of these. The answers in this folder ass
 | `ITSAppUsesNonExemptEncryption: false` so App Store Connect stops asking about export compliance | Done in #6 |
 | `EXPO_PUBLIC_PRIVACY_URL` and `EXPO_PUBLIC_TERMS_URL` set to the Pages URLs above. Apple requires both links on the subscription screen | Set in `.env.example`. Copy them into the EAS environment, and they work once GitHub Pages is on |
 | Production API served over HTTPS | Needed before release |
-| Sign in with Apple, if Google or Facebook sign-in is ever switched on for iOS (guideline 4.8) | Not needed while they stay off |
+| Sign in with Apple next to Google sign-in (guideline 4.8) | Built in: shows on iOS automatically (`usesAppleSignIn` in app.config.js) |
 
 ## Audience: all ages (mixed audience)
 

@@ -19,7 +19,7 @@ export type AccountSheetProps = {
   name: string;
   email: string;
   password: string;
-  /** Sign-in providers that are switched on (Google, Facebook). */
+  /** Sign-in providers that are switched on (Google everywhere, Apple on iOS). */
   socialProviders?: Array<{ id: string; label: string }>;
   /**
    * The age screen said 12 or under: a parent signs up with their own name and email (COPPA), so the
@@ -197,6 +197,13 @@ export function AccountSheet({
                 </Animated.View>
               ) : null}
               <GameButton label={creating ? "Sign up" : "Log in"} fullWidth onPress={submit} sound={false} testID="account-submit" />
+              {socialProviders.length ? (
+                <View style={styles.divider} testID="account-social">
+                  <View style={styles.rule} />
+                  <Text style={styles.or}>{forChild && creating ? "or a parent's account" : "or"}</Text>
+                  <View style={styles.rule} />
+                </View>
+              ) : null}
               {socialProviders.map((provider) => (
                 <GameButton
                   key={provider.id}
@@ -231,6 +238,22 @@ const styles = StyleSheet.create({
   segments: {
     flexDirection: "row",
     gap: space.sm
+  },
+  divider: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: space.sm
+  },
+  rule: {
+    flex: 1,
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: colors.line
+  },
+  or: {
+    ...text.bodyBold,
+    fontSize: 14,
+    color: colors.inkSoft
   },
   error: {
     ...text.bodyBold,

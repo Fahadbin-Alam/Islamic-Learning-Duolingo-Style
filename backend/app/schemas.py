@@ -22,9 +22,12 @@ class AuthLoginInput(BaseModel):
 
 
 class SocialLoginInput(BaseModel):
-    provider: Literal["google", "facebook"]
-    access_token: Optional[str] = Field(default=None, alias="accessToken")
-    id_token: Optional[str] = Field(default=None, alias="idToken")
+    provider: Literal["google", "apple"]
+    id_token: str = Field(alias="idToken", min_length=1)
+    # Apple shares the name only on the first sign-in, so the app sends what it got.
+    name: Optional[str] = Field(default=None, max_length=120)
+    # Log in only: no new account when this email is unknown (sign-up asks a grown-up first).
+    allow_create: bool = Field(default=True, alias="allowCreate")
     role: Optional[Literal["child", "parent"]] = None
     reminder_preferences: Dict[str, Any] = Field(default_factory=dict, alias="reminderPreferences")
     user: Dict[str, Any]
