@@ -18,7 +18,8 @@
     "test:notes": "node --test scripts/obsidian-import/lib.test.mjs && python -m pytest backend/tests/test_imported_notes.py -q",
     "test": "jest",
     "test:backend": "python -m pytest backend/tests",
-    "sounds:generate": "node scripts/generate-game-sounds.mts"
+    "sounds:generate": "node scripts/generate-game-sounds.mts",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@expo-google-fonts/baloo-bhaijaan-2": "^0.4.2",
@@ -38,7 +39,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-native": "0.83.4",
-    "react-native-google-mobile-ads": "~17.0.0",
+    "react-native-google-mobile-ads": "17.0.0",
     "react-native-purchases": "^10.14.0",
     "react-native-svg": "15.15.3",
     "react-native-web": "~0.21.0"
@@ -49,6 +50,7 @@
     "@types/react": "^19.2.0",
     "jest": "^29.7.0",
     "jest-expo": "~55.0.22",
+    "patch-package": "^8.0.0",
     "test-renderer": "^1.3.1",
     "typescript": "^5.9.0"
   },
