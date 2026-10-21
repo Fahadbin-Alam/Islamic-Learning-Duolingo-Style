@@ -5,7 +5,7 @@ Paste each block into App Store Connect → your app → the version page and Ap
 ## Name (max 30)
 
 ```
-Sira Path: Learn Islam Daily
+Muslimo: Learn Islam Daily
 ```
 
 ## Subtitle (max 30)
@@ -33,7 +33,7 @@ muslim,hadith,salah,prayer,wudu,tafsir,prophets,sunnah,deen,iman,dua,adab,ramada
 ```
 Learn Islam a few minutes at a time, with a path that grows with you.
 
-Sira Path turns Islamic learning into short, game-like lessons. Answer questions, keep your streak, earn XP and gems, and watch your path unlock as you grow from the basics to deeper study. Every lesson links to its sources so you can read more from Quran.com, Sunnah.com and trusted teachers.
+Muslimo turns Islamic learning into short, game-like lessons. Answer questions, keep your streak, earn XP and gems, and watch your path unlock as you grow from the basics to deeper study. Every lesson links to its sources so you can read more from Quran.com, Sunnah.com and trusted teachers.
 
 WHAT YOU WILL LEARN
 • Foundation: iman, greetings, daily dhikr and the basics every Muslim needs
@@ -60,8 +60,8 @@ STAY MOTIVATED
 LEARN WITH OR WITHOUT AN ACCOUNT
 Start learning straight away. Create a free account to save your progress and keep it on a new device.
 
-SIRA PATH PREMIUM
-Sira Path is free to download and the core lessons are free. Premium is an optional auto-renewing subscription, billed monthly or yearly, that gives you unlimited hearts, no ads, premium lesson branches and mastery tests. You can also buy heart packs and gems.
+MUSLIMO PREMIUM
+Muslimo is free to download and the core lessons are free. Premium is an optional auto-renewing subscription, billed monthly or yearly, that gives you unlimited hearts, no ads, premium lesson branches and mastery tests. You can also buy heart packs and gems.
 
 • Payment is charged to your Apple ID when you confirm the purchase.
 • Your subscription renews automatically unless auto-renew is turned off at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the current period.
@@ -71,7 +71,7 @@ Sira Path is free to download and the core lessons are free. Premium is an optio
 Terms of Use: https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/terms.html
 Privacy Policy: https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html
 
-Sira Path is a learning tool, not a fatwa service. For rulings that affect you, please ask a qualified scholar. Found a mistake? Email us and we will review it, in sha Allah.
+Muslimo is a learning tool, not a fatwa service. For rulings that affect you, please ask a qualified scholar. Found a mistake? Email us and we will review it, in sha Allah.
 ```
 
 ## App information
@@ -93,12 +93,12 @@ Sira Path is a learning tool, not a fatwa service. For rulings that affect you, 
 
 | Product id | Reference name | Display name (max 35) | Description (max 55) |
 | --- | --- | --- | --- |
-| `membership_monthly` | Premium Monthly | Sira Path Premium (Monthly) | Unlimited hearts, no ads and premium lessons |
-| `membership_yearly` | Premium Yearly | Sira Path Premium (Yearly) | A full year of unlimited hearts, no ads |
+| `membership_monthly` | Premium Monthly | Muslimo Premium (Monthly) | Unlimited hearts, no ads and premium lessons |
+| `membership_yearly` | Premium Yearly | Muslimo Premium (Yearly) | A full year of unlimited hearts, no ads |
 | `heart_pack_small` | Heart Pack | Heart Pack | Refill 5 hearts and keep learning |
 | `gem_pack_medium` | Gem Chest | Gem Chest | 1,200 gems for heart refills and rewards |
 
-Subscription group name: `Sira Path Premium`. Each product also needs a 1024 × 1024 promotional image only if you want it promoted on the App Store, and a review screenshot of the shop screen showing the product.
+Subscription group name: `Muslimo Premium`. Each product also needs a 1024 × 1024 promotional image only if you want it promoted on the App Store, and a review screenshot of the shop screen showing the product.
 
 ## Screenshots
 

@@ -1,4 +1,4 @@
-# Releasing Sira Path to Google Play and the App Store
+# Releasing Muslimo to Google Play and the App Store
 
 The code is ready to build for both stores. What is left needs your own accounts, payment details or signatures, so it is listed here as steps for you.
 
@@ -6,7 +6,7 @@ The code is ready to build for both stores. What is left needs your own accounts
 
 | Store requirement | Where it lives |
 | --- | --- |
-| Bundle ids `com.islamiclearning.sirapath` (iOS and Android) | `app.json` |
+| Bundle ids `com.islamiclearning.muslimo` (iOS and Android) | `app.json` |
 | Version `1.0.0`; build numbers are managed by EAS and bumped on every production build | `app.json`, `eas.json` (`appVersionSource: remote`, `autoIncrement`) |
 | App icon, Android adaptive icon (green background), splash screen | `assets/` |
 | In-app account deletion (Profile → Settings → Delete account), removing the account and all progress from the server | `src/TopicApp.tsx`, `DELETE /api/profile/me` |
@@ -40,7 +40,7 @@ eas init        # creates the EAS project and writes its id into app.json; commi
 
 The app works without a server: progress and the account stay on the phone. A server adds cloud backup, sign-in on other devices and premium sync from RevenueCat.
 
-1. On render.com: **New → Blueprint**, pick this repository. It creates the `sira-path-api` web service and a Postgres database from `render.yaml`.
+1. On render.com: **New → Blueprint**, pick this repository. It creates the `muslimo-api` web service and a Postgres database from `render.yaml`.
 2. When asked, set `SIRA_REVENUECAT_WEBHOOK_AUTH` to a long random value (the same one you give RevenueCat).
 3. When it is live, open `https://<your-service>.onrender.com/api/health`; it should say `"ok": true`.
 4. Optional: add a custom domain such as `api.yourdomain.com` in Render.
@@ -53,7 +53,7 @@ Each value goes in once with `eas env:create --environment production --visibili
 
 | Name | Value |
 | --- | --- |
-| `EXPO_PUBLIC_API_BASE_URL` | The API address from step 3, e.g. `https://sira-path-api.onrender.com`. Leave unset for an offline-only build. |
+| `EXPO_PUBLIC_API_BASE_URL` | The API address from step 3, e.g. `https://muslimo-api.onrender.com`. Leave unset for an offline-only build. |
 | `EXPO_PUBLIC_PRIVACY_URL`, `EXPO_PUBLIC_TERMS_URL` | Only if the policy and terms live somewhere other than the GitHub Pages site (the default once Pages is turned on). |
 | `EXPO_PUBLIC_MONETIZATION_MODE` | `live` once RevenueCat and AdMob are set up (see `docs/monetization.md`), otherwise leave unset and the release ships with no ads or purchases. |
 | RevenueCat and AdMob keys | As listed in `docs/monetization.md`. |
@@ -72,14 +72,14 @@ To try the app on your own phone first: `eas build --platform android --profile 
 
 **Google Play**
 
-1. Create the app in Play Console with package `com.islamiclearning.sirapath`.
+1. Create the app in Play Console with package `com.islamiclearning.muslimo`.
 2. Upload the first `.aab` by hand (Play Console → Testing → Internal testing → Create release). Google requires the very first upload to be manual.
 3. For later builds, create a Google Cloud service account with Play Console access, download its JSON key to `secrets/google-play-service-account.json` (ignored by git), and run `eas submit --platform android --profile production`. It uploads to the internal track as a draft.
 4. Fill in App content: ads (yes), target audience 13+ (keep the app out of Designed for Families while ads are on), content rating, Data safety, privacy policy URL, and the account-deletion URL.
 
 **App Store**
 
-1. `eas submit --platform ios --profile production`. The first run creates the App Store Connect record for `com.islamiclearning.sirapath` if it does not exist.
+1. `eas submit --platform ios --profile production`. The first run creates the App Store Connect record for `com.islamiclearning.muslimo` if it does not exist.
 2. In App Store Connect: screenshots (6.9" and 6.5" iPhone, 13" iPad because the app supports iPad), App Privacy answers, age rating, the privacy policy URL, and the review notes from `store/`.
 3. Submit the in-app purchases together with the first version, or Apple will reject the paywall.
 

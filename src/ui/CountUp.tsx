@@ -10,7 +10,7 @@ export type CountUpProps = {
   onTick?: () => void;
 };
 
-/** Counts from 0 to `value` (integers). */
+/** Counts from 0 to `value` (integers), written as everywhere else: "1,234". */
 export function CountUp({ value, duration = 900, prefix = "", suffix = "", style, onTick }: CountUpProps) {
   const target = Math.round(Number.isFinite(value) ? value : 0);
   const progress = useRef(new Animated.Value(0)).current;
@@ -51,7 +51,7 @@ export function CountUp({ value, duration = 900, prefix = "", suffix = "", style
   return (
     <Text style={style}>
       {prefix}
-      {shown}
+      {shown.toLocaleString("en-US")}
       {suffix}
     </Text>
   );

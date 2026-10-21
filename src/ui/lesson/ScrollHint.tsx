@@ -44,7 +44,7 @@ export function useScrollMore(slack: number = SCROLL_HINT_SLACK) {
       size.current.offset = event.nativeEvent.contentOffset.y;
       update();
     },
-    scrollEventThrottle: 32
+    scrollEventThrottle: 16
   };
 
   /** Scrolls about two thirds of a screen further down. */

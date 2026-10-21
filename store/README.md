@@ -1,4 +1,4 @@
-# Store paperwork for Sira Path
+# Store paperwork for Muslimo
 
 Everything Google Play and the App Store ask for besides the app build itself.
 
@@ -25,7 +25,7 @@ The pages in `site/` replace the draft in `docs/privacy-policy.md`.
 | Terms of use (App Store description, and in the app) | https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/terms.html |
 | Account deletion (Google Play Data safety) | https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/delete-account.html |
 
-If you later buy a domain (for example `sirapath.app`), point it at GitHub Pages under Settings → Pages → Custom domain and update these URLs in the files above and in the app's environment.
+If you later buy a domain (for example `muslimo.app`), point it at GitHub Pages under Settings → Pages → Custom domain and update these URLs in the files above and in the app's environment.
 
 ## App changes the store answers depend on
 

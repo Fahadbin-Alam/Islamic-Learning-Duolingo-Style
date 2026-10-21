@@ -1,4 +1,4 @@
-# Sira Path design system (v2)
+# Muslimo design system (v2)
 
 Who it is for: learners aged 6 to 30 and new Muslims. A 7-year-old must be able to play a
 lesson without reading more than a few words, and an adult must not feel talked down to.
@@ -59,7 +59,8 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
 
 - **Top bar** (outside lessons): topic world button (emblem in topic color, opens the topic
   picker), streak, gems, hearts. Icons plus numbers only. Streak and gems read the same in the top bar, the Shop
-  card and Me: "1,000", "12,345", then "123k" (screen readers hear the full number).
+  card and Me: "1,000", "12,345", then "123k" (screen readers hear the full number); every count-up writes
+  its comma too.
 - **Bottom tabs**: Learn, Practice, Crew, Shop, Me.
 - **Learn** is the path itself: a unit banner per branch, then zig-zag nodes, chests and the
   mascot. Tapping a node opens a small card under it with the lesson name, its Arabic word and
@@ -83,12 +84,12 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   "Correct answer" line and the Why pill always show whole. A tile the sheet's top edge would cut fades
   away while the sheet is up (never the green tile, nor the picked tile when it sits whole above the
   sheet) and comes back with the next try; tiles wholly under the sheet stay. The small chips above the
-  prompt (REVIEW, "Try again!", practice's topic label) fade the same way when the question scrolls past
-  their top. In the ordering game the prompt stays on screen above the sheet, placed tiles the sheet would
+  prompt (REVIEW, "Try again!", practice's topic label) are gone at once while the question sits scrolled
+  past their top, and back when it is scrolled up to them. In the ordering game the prompt stays on screen above the sheet, placed tiles the sheet would
   cut fold away until TRY AGAIN, and the "Correct order" list shows whole rows only: it starts at the top,
   scrolls by whole rows, and its arrow points down while rows are hidden and up at the end. The rows the
-  learner had in another place are lit up in that list, so the mistake shows even when its red tiles fold
-  away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`).
+  learner had in another place get a white band and a red ✕ in that list, and the list opens where they
+  show, so the mistake is in sight even when its red tiles fold away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`).
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
 ## Copy bank

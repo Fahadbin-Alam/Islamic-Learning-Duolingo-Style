@@ -2,6 +2,7 @@
 // See docs/obsidian-import.md for the note format this understands.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, extname, join, relative, sep } from "node:path";
+import { HADITH_CITATIONS, LEFT_OUT_SOURCES } from "./curated.mjs";
 import { buildFactBranches, classifyFactNote, labelFields } from "./facts.mjs";
 
 export const TOPIC_IDS = [
@@ -236,10 +237,26 @@ export function firstSentence(text) {
 
 const SOURCE_SITES = [
   { pattern: /(^|\.)quran\.com$/, site: "Quran.com", category: "tafsir", grade: "Quran" },
-  { pattern: /(^|\.)sunnah\.com$/, site: "Sunnah.com", category: "hadith", grade: "See Sunnah.com grading" },
+  { pattern: /(^|\.)sunnah\.com$/, site: "Sunnah.com", category: "hadith" },
   { pattern: /(^|\.)(youtube\.com|youtu\.be)$/, site: "YouTube", category: "video", grade: "Visual walkthrough" },
   { pattern: /(^|\.)yaqeeninstitute\.org$/, site: "Yaqeen Institute", category: "article", grade: "Article" }
 ];
+
+const COLLECTORS = {
+  bukhari: "Imam al-Bukhari",
+  muslim: "Imam Muslim",
+  abudawud: "Imam Abu Dawud",
+  tirmidhi: "Imam at-Tirmidhi",
+  nasai: "Imam an-Nasa'i",
+  ibnmajah: "Imam Ibn Majah",
+  mishkat: "al-Khatib at-Tabrizi in Mishkat al-Masabih"
+};
+
+// "bukhari:3276" for a link to one hadith on sunnah.com; undefined for a narrator's page or a chapter link.
+function hadithKey(url) {
+  const match = /sunnah\.com\/([a-z]+):(\w+)\/?$/.exec(url.split(/[?#]/)[0]);
+  return match ? `${match[1]}:${match[2]}` : undefined;
+}
 
 function referenceFromUrl(url, site) {
   if (site === "Quran.com") {
@@ -274,6 +291,16 @@ export function buildSources(urls, idPrefix, warn) {
     const known = SOURCE_SITES.find((entrySite) => entrySite.pattern.test(host));
     // The app only links Quran.com, Sunnah.com, YouTube and Yaqeen Institute; other links (Wikipedia etc.) stay out.
     if (!known) continue;
+    let citation;
+    if (known.site === "Sunnah.com") {
+      const key = hadithKey(url);
+      if (!key || LEFT_OUT_SOURCES.has(key)) continue;
+      citation = HADITH_CITATIONS[key];
+      if (!citation) {
+        warn(`Leaving out ${url}: add its narrator and grade to HADITH_CITATIONS in curated.mjs to show it`);
+        continue;
+      }
+    }
     const label = raw.replace(url, "").replace(/[[\]()<>]/g, "").replace(/^[\s:-]+|[\s:-]+$/g, "");
     const reference = referenceFromUrl(url, known.site);
     sources.push({
@@ -283,8 +310,8 @@ export function buildSources(urls, idPrefix, warn) {
       title: label || reference || known.site,
       url,
       reference,
-      from: "Imported from Obsidian notes",
-      grade: known.grade,
+      from: citation ? [citation.narrator, COLLECTORS[hadithKey(url).split(":")[0]]].filter(Boolean).join("; collected by ") : "Imported from Obsidian notes",
+      grade: citation?.grade ?? known.grade,
       summary: label || `Reference attached in the notes (${reference ?? known.site}).`
     });
   }

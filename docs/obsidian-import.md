@@ -119,6 +119,12 @@ properties win over it, so a new note never needs an entry there.
   (Surah al-Masad) and Umm Anmar, who hurt Khabbab for his Islam, are not in it.
 - `SURAH_MEANINGS`: the simple meaning of a surah's name, where the note's English name is old or unclear.
 - `REPEATED_HADITH`, `LEFT_OUT_HADITH`: narrations that stay in the vault (see Hadith above).
+- `SAME_MEANING`: surahs whose names mean the same in plain words (Al-Muzzammil and Al-Muddaththir), so neither
+  is offered as the other's wrong meaning.
+- `HADITH_CITATIONS`: the narrator and grade of each sunnah.com hadith the notes link to, checked on its page. A
+  sunnah.com link missing here is left off the lesson with a warning until it is added, so a citation never shows
+  without a narrator and grade. `LEFT_OUT_SOURCES` keeps off links to Da'if hadith and ones that don't fit their
+  lesson; links that are not one hadith (a narrator's page, a chapter link) are always left off.
 - `SURAH_NAMED_AFTER`: surahs whose English name is not a meaning ("Ya Sin", "Hud", "Jonah"); the learn
   card says what each is named after, and that name is never asked or offered as a meaning.
 

@@ -12,6 +12,7 @@ import {
   LEFT_OUT_PEOPLE,
   NO_WHO_QUESTION,
   REPEATED_HADITH,
+  SAME_MEANING,
   SURAH_MEANINGS,
   SURAH_NAMED_AFTER,
   UNSURE_FACTS,
@@ -57,7 +58,7 @@ function placeWord(place) {
 const CONTAINS = {
   Kinanah: ["Quraysh", "Ghifar"],
   "Khuza'a": ["Banu Mustaliq", "Banu al-Mustaliq"],
-  "Banu Abd Shams": ["Banu Umayya"],
+  "Banu Abd Shams": ["Banu Umayya", "Banu Umayyah"],
   Madinah: ["Mount Uhud"],
   Syria: ["Homs", "Damascus", "Siffin", "Yarmuk", "Palestine", "Canaan", "Jerusalem", "Hebron", "Amwas", "Jordan", "Mu'tah", "Machaerus"],
   Palestine: ["Canaan", "Jerusalem", "Hebron", "Amwas"],
@@ -615,7 +616,9 @@ function surahLesson(note, pools) {
 
   const questions = [];
   if (facts.englishName && !namedAfter && facts.englishName.length <= MAX_CHOICE_LENGTH) {
-    const distractors = pickDistractors(facts.englishName, pools.surah.englishName.filter((value) => value.length <= MAX_CHOICE_LENGTH), `${name}:english`);
+    const sameMeaning = (SAME_MEANING[facts.number] ?? []).map((number) => SURAH_MEANINGS[number]);
+    const pool = pools.surah.englishName.filter((value) => value.length <= MAX_CHOICE_LENGTH && !sameMeaning.includes(value));
+    const distractors = pickDistractors(facts.englishName, pool, `${name}:english`);
     if (distractors.length >= 2) questions.push(multipleChoice(`What does the name ${name} mean?`, facts.englishName, distractors, summary));
   }
   if (facts.place) {

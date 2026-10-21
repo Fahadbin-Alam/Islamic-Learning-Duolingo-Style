@@ -17,8 +17,8 @@ const expect = (condition, message) => {
 };
 
 expect(/^\d+\.\d+\.\d+$/.test(config.version ?? ""), "expo.version must be a semantic version like 1.0.0");
-expect(config.ios?.bundleIdentifier === "com.islamiclearning.sirapath", "iOS bundle id changed; the App Store record is tied to it");
-expect(config.android?.package === "com.islamiclearning.sirapath", "Android package changed; the Play listing is tied to it");
+expect(config.ios?.bundleIdentifier === "com.islamiclearning.muslimo", "iOS bundle id changed; the App Store record is tied to it");
+expect(config.android?.package === "com.islamiclearning.muslimo", "Android package changed; the Play listing is tied to it");
 expect(config.ios?.infoPlist?.ITSAppUsesNonExemptEncryption === false, "iOS export-compliance flag is missing");
 expect(Array.isArray(config.ios?.privacyManifests?.NSPrivacyAccessedAPITypes), "iOS privacy manifest is missing");
 
