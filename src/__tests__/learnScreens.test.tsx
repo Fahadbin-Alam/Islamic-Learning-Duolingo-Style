@@ -133,6 +133,8 @@ describe("LearnPath", () => {
     // Sahabah's first unit: a tent; never a lantern, crescent or ring on the path.
     expect(screen.getByTestId("scenery-tent")).toBeTruthy();
     expect(screen.queryByTestId(/scenery-(lantern|crescent|ring)/)).toBeNull();
+    // Each unit has its own sky.
+    expect(screen.getAllByTestId(/^weather-/)).toHaveLength(2);
   });
 
   it("opens a node card and starts the node", async () => {

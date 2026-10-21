@@ -25,6 +25,7 @@ import { Icon, type IconName } from "../Icon";
 import { Camel } from "../Camel";
 import { Mascot } from "../Mascot";
 import { PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
+import { PathWeather, weatherFor } from "../PathWeather";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
@@ -129,6 +130,8 @@ const MASCOT_W = MASCOT_SIZE;
 const MASCOT_H = Math.round((MASCOT_SIZE * 7) / 6);
 const DECOR_SIZE = 64;
 const SCENERY_EVERY = 4;
+/** Room the unit banner takes above the rows, for sizing the sky (it only needs to be about right). */
+const SKY_BANNER = 130;
 const CAMEL_SIZE = 72;
 const CAMEL_H = Math.round((CAMEL_SIZE * 100) / 120);
 /** Farthest the camel walks back and forth, in px. */
@@ -928,6 +931,9 @@ export function LearnPath({
         rows,
         nodeCount: unit.total > 0 ? unit.total : place,
         unitIndex,
+        weather: weatherFor(topicId, unitIndex),
+        /** Rows only; the banner and paddings are added where the sky is drawn. */
+        rowsHeight: rows.reduce((sum, row) => sum + row.height, 0),
         mascotIndex,
         camelIndex,
         scenery
@@ -1184,6 +1190,7 @@ export function LearnPath({
                   tryScrollToCurrent();
                 }}
               >
+                <PathWeather weather={group.weather} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
                 <UnitBanner
                   unit={unit}
                   color={color}
