@@ -70,6 +70,8 @@ import {
   registerRemoteAccount,
   addCrewMember,
   fetchCrew,
+  acceptCrewRequest,
+  declineCrewRequest,
   removeCrewMember,
   syncRemoteUser,
   type CrewMember,
@@ -1802,8 +1804,14 @@ export default function TopicApp() {
 
     try {
       const member = await addCrewMember({ email: normalizeEmail(inviteEmail), relation: inviteRelation, today: localDateKey() });
+      // Until they add back, they wait under "pending" with no stats.
       setCrew((current) => current.status === "ready"
-        ? { ...current, payload: { ...current.payload, friends: [...current.payload.friends, member] } }
+        ? {
+            ...current,
+            payload: member.pending
+              ? { ...current.payload, pending: [...(current.payload.pending ?? []), member] }
+              : { ...current.payload, friends: [...current.payload.friends, member] }
+          }
         : current);
       setInviteEmail("");
       setInviteRelation("friend");
@@ -1817,10 +1825,37 @@ export default function TopicApp() {
     try {
       await removeCrewMember(member.id);
       setCrew((current) => current.status === "ready"
-        ? { ...current, payload: { ...current.payload, friends: current.payload.friends.filter((item) => item.id !== member.id) } }
+        ? {
+            ...current,
+            payload: {
+              ...current.payload,
+              friends: current.payload.friends.filter((item) => item.id !== member.id),
+              pending: (current.payload.pending ?? []).filter((item) => item.id !== member.id)
+            }
+          }
         : current);
     } catch (error) {
       void notify(crewErrorTitle(error, "remove"), undefined, { mood: "sad" });
+    }
+  }
+
+  // Someone added this learner: ADD BACK puts them in the race, NO removes the request. CrewView asks a grown-up first.
+  async function answerCrewRequest(member: CrewMember, accept: boolean) {
+    try {
+      const friend = accept ? await acceptCrewRequest(member.id, localDateKey()) : undefined;
+      if (!accept) await declineCrewRequest(member.id);
+      setCrew((current) => current.status === "ready"
+        ? {
+            ...current,
+            payload: {
+              ...current.payload,
+              friends: friend ? [...current.payload.friends, friend] : current.payload.friends,
+              requests: (current.payload.requests ?? []).filter((item) => item.id !== member.id)
+            }
+          }
+        : current);
+    } catch (error) {
+      void notify(crewErrorTitle(error, "answer"), undefined, { mood: "sad" });
     }
   }
 
@@ -2187,6 +2222,7 @@ export default function TopicApp() {
             onChangeInviteRelation={setInviteRelation}
             onAddFriend={addCrewFriend}
             onRemoveFriend={removeCrewFriend}
+            onAnswerRequest={answerCrewRequest}
             onRefresh={loadCrew}
             onCreateAccount={openCrewAccount}
           />
@@ -2211,6 +2247,7 @@ export default function TopicApp() {
           email={accountEmail}
           password={accountPassword}
           socialProviders={enabledSocialProviders}
+          forChild={ageGroup === "6-9" || ageGroup === "10-12"}
           error={accountError}
           errorKey={accountErrorKey}
           onChangeMode={(mode) => {
@@ -2387,8 +2424,12 @@ function firstName(name: string) {
 }
 
 // Short titles for the crew notices; the server's own sentences are written for grown-ups.
-function crewErrorTitle(error: unknown, action: "add" | "remove") {
+function crewErrorTitle(error: unknown, action: "add" | "remove" | "answer") {
   if (error instanceof BackendRequestError && error.status < 500) {
+    if (action === "answer") {
+      return "That request is gone";
+    }
+
     if (action === "add" && error.status === 404) {
       return "No account with that email";
     }

@@ -92,6 +92,14 @@ describe("app sheets", () => {
     await fireEvent.press(screen.getByTestId(`grownup-option-${a * b}`));
   }
 
+  it("asks for a parent's name and email when the learner is 12 or under", async () => {
+    await render(<AccountSheet {...accountProps({ forChild: true })} />);
+    expect(screen.getByText("A parent signs up for you!")).toBeTruthy();
+    await passGrownUp();
+    expect(screen.getByTestId("account-name").props.placeholder).toBe("Parent's name");
+    expect(screen.getByTestId("account-email").props.placeholder).toBe("Parent's email");
+  });
+
   it("signs up with short labels and switches to log in", async () => {
     const props = accountProps({ name: "Amina", email: "amina@example.com", password: "salaam123" });
     await render(<AccountSheet {...props} />);

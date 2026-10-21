@@ -22,6 +22,11 @@ export type AccountSheetProps = {
   /** Sign-in providers that are switched on (Google, Facebook). */
   socialProviders?: Array<{ id: string; label: string }>;
   /**
+   * The age screen said 12 or under: a parent signs up with their own name and email (COPPA), so the
+   * fields ask for the parent's and nothing about the child is collected.
+   */
+  forChild?: boolean;
+  /**
    * Short line from the app after a failed submit ("Wrong email or password."). Shown above the
    * button with the wrong sound, a haptic and a shake, like a field hint.
    */
@@ -59,6 +64,7 @@ export function AccountSheet({
   email,
   password,
   socialProviders = [],
+  forChild = false,
   error,
   errorKey = 0,
   onChangeMode,
@@ -127,7 +133,7 @@ export function AccountSheet({
     <Sheet visible={visible} onClose={onClose} style={styles.tallPanel} testID="account-sheet">
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
         <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} contentContainerStyle={styles.stack}>
-          <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={creating ? "Save your progress!" : "Welcome back!"} />
+          <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={creating ? (forChild ? "A parent signs up for you!" : "Save your progress!") : "Welcome back!"} />
           <View style={styles.segments}>
             <SegmentButton label="Sign up" active={creating} onPress={() => onChangeMode("create")} testID="account-mode-create" />
             <SegmentButton label="Log in" active={!creating} onPress={() => onChangeMode("login")} testID="account-mode-login" />
@@ -143,13 +149,13 @@ export function AccountSheet({
                 <TextField
                   value={name}
                   onChangeText={edit("name", onChangeName)}
-                  placeholder="Your name"
+                  placeholder={forChild ? "Parent's name" : "Your name"}
                   returnKeyType="next"
                   submitBehavior="submit"
                   onSubmitEditing={() => emailRef.current?.focus()}
                   error={hintFor("name")}
                   shakeKey={tries}
-                  accessibilityLabel="Your name"
+                  accessibilityLabel={forChild ? "Parent's name" : "Your name"}
                   testID="account-name"
                 />
               ) : null}
@@ -157,7 +163,7 @@ export function AccountSheet({
                 ref={emailRef}
                 value={email}
                 onChangeText={edit("email", onChangeEmail)}
-                placeholder="Email"
+                placeholder={forChild && creating ? "Parent's email" : "Email"}
                 autoCapitalize="none"
                 autoCorrect={false}
                 keyboardType="email-address"
@@ -166,7 +172,7 @@ export function AccountSheet({
                 onSubmitEditing={() => passwordRef.current?.focus()}
                 error={hintFor("email")}
                 shakeKey={tries}
-                accessibilityLabel="Email"
+                accessibilityLabel={forChild && creating ? "Parent's email" : "Email"}
                 testID="account-email"
               />
               <TextField
