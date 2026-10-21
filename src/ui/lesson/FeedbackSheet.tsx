@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Platform, ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { Animated, Platform, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, HONORIFIC_PATTERN, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
@@ -10,6 +10,7 @@ import { feedback } from "../sound";
 import { colors, darken, fonts, radii, space, withAlpha } from "../theme";
 import { noBreakHyphens } from "./lessonText";
 import { SCROLL_HINT_ROOM, ScrollHintGap } from "./ScrollHint";
+import { nearestRowStop, nextRowStop, wholeRows, type LayoutBox, type RowSpan } from "./sheetFit";
 
 export const PRAISE_WORDS = ["Great job!", "Nice!", "Excellent!", "Amazing!", "You got it!", "MashaAllah!"] as const;
 
@@ -52,6 +53,8 @@ const LIST_MAX_SHARE = 0.66;
 const MIN_BODY = 64;
 /** The body has no bottom padding, so even one hidden list row (20 px) shows the arrow. */
 const BODY_SLACK = 4;
+/** Above a list, outside the part that scrolls, so the part that scrolls starts on its first row. */
+const LIST_TOP = space.sm;
 /** One line of the Why text (styles.whyText); when it scrolls it shows whole lines only. */
 export const WHY_LINE = 21;
 /** Between the Why pill and its text. */
@@ -94,6 +97,8 @@ export type FeedbackSheetProps = {
   buttonSound?: GameSoundEvent | false;
   /** Shown as a numbered column instead of correctLabel. */
   correctList?: string[];
+  /** Rows of correctList the learner had in another place: lit up, so the mistake shows even when the steps behind the sheet fold away. */
+  missedRows?: number[];
   /** Play the correct / wrong sound + haptic when the sheet opens. Default true. */
   playSound?: boolean;
   /** Start with the Why line open (gallery / tests). */
@@ -124,6 +129,7 @@ export function FeedbackSheet({
   title,
   buttonLabel,
   correctList,
+  missedRows,
   buttonSound,
   playSound = true,
   defaultWhyOpen = false,
@@ -149,7 +155,12 @@ export function FeedbackSheet({
   const bodyRef = useRef<ScrollView>(null);
   const whyRef = useRef<ScrollView>(null);
   const snapTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const listSnapTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const revealWhy = useRef(false);
+  // Where each row of a list sits in it, and the list's height: a long list shows and scrolls in whole rows only.
+  const listKey = correctList ? correctList.join("\u0000") : "";
+  const [rowState, setRowState] = useState<{ key: string; boxes: (LayoutBox | undefined)[] }>({ key: "", boxes: [] });
+  const [listHeight, setListHeight] = useState(0);
 
   useEffect(() => {
     if (!visible) {
@@ -177,7 +188,13 @@ export function FeedbackSheet({
     return () => animation.stop();
   }, [whyAnim, whyOpen]);
 
-  useEffect(() => () => clearTimeout(snapTimer.current), []);
+  useEffect(
+    () => () => {
+      clearTimeout(snapTimer.current);
+      clearTimeout(listSnapTimer.current);
+    },
+    []
+  );
 
   const ink = correct ? CORRECT_TEXT : WRONG_TEXT;
   const heading = title ?? (correct ? pickPraise(praiseSeed) : WRONG_TITLE);
@@ -198,8 +215,30 @@ export function FeedbackSheet({
   // A list keeps its share of the window; an answer sheet may take the room it is given under the green tile.
   const cap = listShown ? Math.min(maxHeight ?? shareMax, shareMax) : maxHeight ?? shareMax;
 
+  // A list's rows, once each has said where it sits: the list, the Why pill and each line of the Why text show whole
+  // or not at all. Its height is read from those parts, not from the part that scrolls (which gets room under it).
+  const rowBoxes =
+    listShown && correctList && rowState.key === listKey && correctList.every((_, index) => rowState.boxes[index] !== undefined)
+      ? (rowState.boxes.slice(0, correctList.length) as LayoutBox[])
+      : undefined;
+  const listEnd = rowBoxes ? Math.max(listHeight, ...rowBoxes.map((box) => box.y + box.height)) : 0;
+  const listContent = rowBoxes ? listEnd + topBlock + (whyVisible ? WHY_GAP + whyContent : 0) : bodyContent;
+  const listRows: RowSpan[] = [];
+  if (rowBoxes) {
+    rowBoxes.forEach((box) => listRows.push({ top: box.y, bottom: box.y + box.height }));
+    if (whyShown && topBlock > space.sm) {
+      listRows.push({ top: listEnd + space.sm, bottom: listEnd + topBlock });
+    }
+    if (whyVisible) {
+      const start = listEnd + topBlock + WHY_GAP + whyPadTop;
+      for (let line = 0; line < whyLines; line += 1) {
+        listRows.push({ top: start + line * WHY_LINE, bottom: start + (line + 1) * WHY_LINE });
+      }
+    }
+  }
+
   // The sheet at full size: full padding, the lg button, the Why text whole.
-  const bodyFull = listShown ? bodyContent : topBlock + (whyVisible ? WHY_GAP + whyContent : 0);
+  const bodyFull = listShown ? LIST_TOP + listContent : topBlock + (whyVisible ? WHY_GAP + whyContent : 0);
   const fullHeight = headHeight + (hasBody ? bodyFull : 0) + space.lg + BUTTON_LG + SHEET_PAD + inset;
 
   // Too tall for its room: slim first; then, only if that is still too tall, the Why text scrolls in whole lines.
@@ -227,13 +266,35 @@ export function FeedbackSheet({
   const arrow = whyScrolls ? arrowFor(whyScroll, whyPadBottom + EDGE) : arrowFor(body, BODY_SLACK);
   // The furthest the Why text scrolls and still starts on a whole line.
   const whyEnd = Math.max(0, Math.floor((whyScroll.content - whyScroll.viewport) / WHY_LINE) * WHY_LINE);
-  const bodyOverflows = !whyScrolls && (arrow !== undefined || bodyContent > Math.max(MIN_BODY, bodyLimit - fixedParts - baseGap) + BODY_SLACK);
+  // A list with its rows placed scrolls as soon as any of it would not show: then it shows whole rows only.
+  const bodyOverflows =
+    !whyScrolls &&
+    (arrow !== undefined ||
+      (rowBoxes
+        ? listContent > Math.max(MIN_BODY, bodyLimit - fixedParts - baseGap) - LIST_TOP
+        : bodyContent + (listShown ? LIST_TOP : 0) > Math.max(MIN_BODY, bodyLimit - fixedParts - baseGap) + BODY_SLACK));
   const buttonGap = whyScrolls || bodyOverflows ? SCROLL_HINT_ROOM : baseGap;
   // While the Why text scrolls, the body around it never cuts it (or the answer and the pill above it): on a very
   // short screen the sheet then stays at its smallest whole size, its Why text one line.
   const whyBody = whyScrolls ? topBlock + WHY_GAP + (whyMax ?? 0) : 0;
   const bodyMax = Math.max(MIN_BODY, bodyLimit - fixedParts - buttonGap, whyBody);
+  // A long list shows as many whole rows as fit, starts at its top and stops only where every row shows whole.
+  const rowWindow = rowBoxes && bodyOverflows ? wholeRows(listRows, listContent, bodyMax - LIST_TOP) : undefined;
+  const scrollMax = rowWindow ? rowWindow.viewport : listShown ? bodyMax - LIST_TOP : bodyMax;
   const arrowScroll = whyScrolls ? whyScroll : body;
+  const onRowLayout = (index: number) => (event: LayoutChangeEvent) => {
+    const box = { y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) };
+    setRowState((state) => {
+      const same = state.key === listKey;
+      const old = same ? state.boxes[index] : undefined;
+      if (old && old.y === box.y && old.height === box.height) {
+        return state;
+      }
+      const boxes = same ? state.boxes.slice() : [];
+      boxes[index] = box;
+      return { key: listKey, boxes };
+    });
+  };
   const arrowRef = whyScrolls ? whyRef : bodyRef;
   const onArrow = () => {
     const { viewport, content, offset } = arrowScroll;
@@ -241,23 +302,34 @@ export function FeedbackSheet({
       arrowRef.current?.scrollTo?.({ y: 0, animated: true });
       return;
     }
-    // Down by about a screenful; the Why text by whole lines.
+    // Down by about a screenful; the Why text by whole lines, a list by whole rows.
     const next = whyScrolls
       ? Math.min(whyEnd, Math.round(offset / WHY_LINE) * WHY_LINE + Math.max(WHY_LINE, Math.floor(viewport / WHY_LINE) * WHY_LINE))
-      : Math.min(content - viewport, offset + Math.round(viewport * 0.7));
+      : rowWindow
+        ? nextRowStop(rowWindow.stops, listRows, offset, rowWindow.viewport)
+        : Math.min(content - viewport, offset + Math.round(viewport * 0.7));
     arrowRef.current?.scrollTo?.({ y: Math.max(0, next), animated: true });
   };
 
-  // Opening Why in a long list scrolls it into view, at the end of the list.
+  // Opening Why in a long list scrolls it into view, at the end of the list (its last stop).
+  const listEndStop = rowWindow?.end;
   useEffect(() => {
     if (revealWhy.current && listShown) {
-      bodyRef.current?.scrollToEnd?.({ animated: true });
+      if (listEndStop !== undefined) {
+        bodyRef.current?.scrollTo?.({ y: listEndStop, animated: true });
+      } else {
+        bodyRef.current?.scrollToEnd?.({ animated: true });
+      }
     }
-  }, [bodyMax, listShown]);
+  }, [bodyMax, listEndStop, listShown]);
+  // Every time it opens, the sheet starts at the top of its list (or answer).
   useEffect(() => {
     if (!visible) {
       revealWhy.current = false;
+      return;
     }
+    bodyRef.current?.scrollTo?.({ y: 0, animated: false });
+    setBody((state) => (state.offset === 0 ? state : { ...state, offset: 0 }));
   }, [visible]);
   // A Why text that starts to scroll, or opens again, starts at its top.
   useEffect(() => {
@@ -286,7 +358,10 @@ export function FeedbackSheet({
       style={slim ? { paddingTop: SLIM_PAD_TOP, paddingBottom: SLIM_PAD_BOTTOM + inset } : undefined}
       testID={testID}
     >
-      <View onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset))}>
+      <View
+        onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset))}
+        testID="feedback-content"
+      >
         <View style={styles.headRow} onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))}>
           <Animated.View
             style={[
@@ -302,12 +377,14 @@ export function FeedbackSheet({
         </View>
 
         {hasBody ? (
-          <View style={styles.bodyBox}>
+          <View style={[styles.bodyBox, listShown ? styles.bodyBoxList : null]}>
             <ScrollView
               ref={bodyRef}
-              style={{ maxHeight: bodyMax }}
+              style={{ maxHeight: scrollMax }}
+              contentContainerStyle={rowWindow?.pad ? { paddingBottom: rowWindow.pad } : undefined}
               bounces={false}
               nestedScrollEnabled
+              snapToOffsets={rowWindow?.stops}
               scrollEventThrottle={32}
               testID="feedback-body"
               onLayout={(event) => {
@@ -317,6 +394,17 @@ export function FeedbackSheet({
               onScroll={(event) => {
                 const offset = Math.round(event.nativeEvent.contentOffset.y);
                 setBody((state) => (state.offset === offset ? state : { ...state, offset }));
+                // A browser has no snapping here: once a drag stops between rows, settle where every row shows whole.
+                if (Platform.OS === "web" && rowWindow) {
+                  const { stops } = rowWindow;
+                  clearTimeout(listSnapTimer.current);
+                  listSnapTimer.current = setTimeout(() => {
+                    const stop = nearestRowStop(stops, offset);
+                    if (Math.abs(stop - offset) > 1) {
+                      bodyRef.current?.scrollTo?.({ y: stop, animated: true });
+                    }
+                  }, 140);
+                }
               }}
               onContentSizeChange={(_width, height) => {
                 const content = Math.round(height);
@@ -324,8 +412,10 @@ export function FeedbackSheet({
                 setBody((state) => (state.content === content ? state : { ...state, content }));
                 // Opening Why scrolls it into view when the list above already fills the sheet.
                 if (revealWhy.current) {
-                  if (height <= bodyMax) {
+                  if (height <= scrollMax) {
                     revealWhy.current = false;
+                  } else if (listEndStop !== undefined) {
+                    bodyRef.current?.scrollTo?.({ y: listEndStop, animated: true });
                   } else {
                     bodyRef.current?.scrollToEnd?.({ animated: true });
                   }
@@ -333,9 +423,16 @@ export function FeedbackSheet({
               }}
             >
               {listShown && correctList ? (
-                <View style={styles.list} testID="feedback-list">
+                <View testID="feedback-list" style={styles.list} onLayout={(event) => setListHeight(Math.round(event.nativeEvent.layout.height))}>
                   {correctList.map((item, index) => (
-                    <View key={`${index}-${item}`} style={[styles.listItem, index > 0 ? styles.listItemNext : null]}>
+                    <View
+                      key={`${index}-${item}`}
+                      style={[styles.listItem, index > 0 ? styles.listItemNext : null, missedRows?.includes(index) ? styles.listItemMissed : null]}
+                      onLayout={onRowLayout(index)}
+                      accessible
+                      accessibilityLabel={`${index + 1}. ${item}${missedRows?.includes(index) ? ", you had this one in another place" : ""}`}
+                      testID={`feedback-row-${index}`}
+                    >
                       <View style={[styles.listNumber, { backgroundColor: ink }]}>
                         <Text style={styles.listNumberText}>{index + 1}</Text>
                       </View>
@@ -525,8 +622,12 @@ const styles = StyleSheet.create({
   bodyBox: {
     position: "relative"
   },
+  bodyBoxList: {
+    marginTop: LIST_TOP
+  },
+  // One row per step, top to bottom (the whole-row scroll reads the rows' tops in this order).
   list: {
-    marginTop: space.sm
+    flexDirection: "column"
   },
   listItem: {
     flexDirection: "row",
@@ -534,6 +635,13 @@ const styles = StyleSheet.create({
   },
   listItemNext: {
     marginTop: 4
+  },
+  // Same height as any row (the whole-row scroll reads the rows' boxes): only a light band behind it.
+  listItemMissed: {
+    backgroundColor: colors.white,
+    borderRadius: radii.pill,
+    marginHorizontal: -6,
+    paddingHorizontal: 6
   },
   listNumber: {
     width: 20,

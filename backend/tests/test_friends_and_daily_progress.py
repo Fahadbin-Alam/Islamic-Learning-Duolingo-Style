@@ -11,6 +11,15 @@ def register(client, name="Learner", **user_fields):
     return email, {"Authorization": f"Bearer {response.json()['token']}"}
 
 
+def befriend(client, headers, friend_headers, friend_email, today="2026-10-18"):
+    """Both sides add each other, so the crew shows their stats."""
+    added = client.post(f"/api/friends?today={today}", headers=headers, json={"email": friend_email, "relation": "friend"})
+    assert added.status_code == 201, added.text
+    my_id = client.get("/api/friends", headers=headers).json()["me"]["id"]
+    accepted = client.post(f"/api/friends/requests/{my_id}/accept", headers=friend_headers)
+    return added, accepted
+
+
 def sync(client, headers, **user_fields):
     response = client.put("/api/me/user", headers=headers, json={"user": user_fields})
     assert response.status_code == 200, response.text
@@ -44,8 +53,10 @@ def test_friend_shows_real_xp_weekly_xp_and_streak(client):
     sync(client, friend_headers, dailyXp={"date": "2026-10-17", "xp": 40})
     sync(client, friend_headers, dailyXp={"date": "2026-10-18", "xp": 15})
     _, headers = register(client, "Omar")
+    me_id = client.get("/api/friends", headers=headers).json()["me"]["id"]
 
     added = client.post("/api/friends?today=2026-10-18", headers=headers, json={"email": friend_email.upper(), "relation": "friend"})
+    assert client.post(f"/api/friends/requests/{me_id}/accept", headers=friend_headers).status_code == 201
     crew = client.get("/api/friends?today=2026-10-18", headers=headers).json()
 
     assert added.status_code == 201, added.text
@@ -63,7 +74,7 @@ def test_lapsed_friend_streak_shows_zero(client):
     friend_email, friend_headers = register(client, "Bilal")
     sync(client, friend_headers, streakDays=9, lastStreakDate="2026-10-01")
     _, headers = register(client, "Zaid")
-    client.post("/api/friends", headers=headers, json={"email": friend_email})
+    befriend(client, headers, friend_headers, friend_email)
 
     crew = client.get("/api/friends?today=2026-10-18", headers=headers).json()
 
@@ -101,7 +112,51 @@ def test_remove_friend_and_auth_required(client):
 def test_deleting_an_account_removes_it_from_crews(client):
     friend_email, friend_headers = register(client, "Sumayyah")
     _, headers = register(client, "Asma")
-    client.post("/api/friends", headers=headers, json={"email": friend_email})
+    befriend(client, headers, friend_headers, friend_email)
+    assert len(client.get("/api/friends", headers=headers).json()["friends"]) == 1
 
     assert client.delete("/api/profile/me", headers=friend_headers).status_code == 200
     assert client.get("/api/friends", headers=headers).json()["friends"] == []
+
+
+def test_one_sided_add_shows_nothing_until_they_add_back(client):
+    friend_email, friend_headers = register(client, "Ruqayyah")
+    sync(client, friend_headers, totalXp=300, streakDays=7, lastStreakDate="2026-10-18")
+    _, headers = register(client, "Stranger")
+
+    added = client.post("/api/friends?today=2026-10-18", headers=headers, json={"email": friend_email})
+    crew = client.get("/api/friends?today=2026-10-18", headers=headers).json()
+
+    assert added.status_code == 201
+    # Only what the adder already knew: the email they typed. No name, XP, streak or last learning time.
+    assert added.json()["pending"] is True
+    assert added.json()["name"] == friend_email
+    assert crew["friends"] == []
+    assert crew["pending"][0]["name"] == friend_email
+    assert crew["pending"][0]["totalXp"] == 0
+    assert crew["pending"][0]["streakDays"] == 0
+    assert crew["pending"][0]["lastLearningAt"] is None
+
+    # The other side sees who asked and can say yes.
+    their_crew = client.get("/api/friends", headers=friend_headers).json()
+    assert [request["name"] for request in their_crew["requests"]] == ["Stranger"]
+    accepted = client.post(f"/api/friends/requests/{their_crew['requests'][0]['id']}/accept", headers=friend_headers)
+    assert accepted.status_code == 201
+
+    crew = client.get("/api/friends?today=2026-10-18", headers=headers).json()
+    assert crew["pending"] == []
+    assert crew["friends"][0]["name"] == "Ruqayyah"
+    assert crew["friends"][0]["totalXp"] == 300
+    assert client.get("/api/friends", headers=friend_headers).json()["requests"] == []
+
+
+def test_declining_a_request_removes_it(client):
+    friend_email, friend_headers = register(client, "Safiyyah")
+    _, headers = register(client, "Asker")
+    client.post("/api/friends", headers=headers, json={"email": friend_email})
+    request_id = client.get("/api/friends", headers=friend_headers).json()["requests"][0]["id"]
+
+    assert client.delete(f"/api/friends/requests/{request_id}", headers=friend_headers).status_code == 200
+    assert client.get("/api/friends", headers=friend_headers).json()["requests"] == []
+    assert client.get("/api/friends", headers=headers).json()["pending"] == []
+    assert client.post(f"/api/friends/requests/{request_id}/accept", headers=friend_headers).status_code == 404

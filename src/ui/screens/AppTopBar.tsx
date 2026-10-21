@@ -4,6 +4,7 @@ import { Icon } from "../Icon";
 import { StatChip } from "../StatChip";
 import { Tappable } from "../Tappable";
 import { colors, topicPalette } from "../theme";
+import { compactNumber, formatNumber } from "./FormattedCount";
 import { StreakSheet } from "./StreakSheet";
 import { worldIcon } from "./TopicPicker";
 
@@ -59,17 +60,25 @@ export function AppTopBar({
           <Icon name="chevronDown" size={16} color={colors.inkSoft} />
         </Tappable>
 
+        {/* Counts are formatted as on the Shop card and the Me tab: "1,000", "12,345", then "120k", so they always fit. */}
         <View style={styles.stats}>
           <StatChip
             icon="flame"
-            value={streakDays}
+            value={compactNumber(streakDays)}
             color={colors.flame}
             dim={streakDays <= 0}
             onPress={onStreak ?? (() => setStreakOpen(true))}
-            accessibilityLabel={`${streakDays} day streak`}
+            accessibilityLabel={`${formatNumber(streakDays)} day streak`}
             testID="top-bar-streak"
           />
-          <StatChip icon="gem" value={gems} color={colors.gem} onPress={onOpenShop} accessibilityLabel={`${gems} gems`} testID="top-bar-gems" />
+          <StatChip
+            icon="gem"
+            value={compactNumber(gems)}
+            color={colors.gem}
+            onPress={onOpenShop}
+            accessibilityLabel={`${formatNumber(gems)} gems`}
+            testID="top-bar-gems"
+          />
           {hearts.unlimited ? (
             <Tappable
               onPress={onOpenShop}

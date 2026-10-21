@@ -16,6 +16,9 @@ export type TappableProps = {
   children?: React.ReactNode;
   onPress?: (event: GestureResponderEvent) => void;
   onLongPress?: (event: GestureResponderEvent) => void;
+  /** Also told when a press starts and ends, e.g. to squish a card around it. */
+  onPressIn?: () => void;
+  onPressOut?: () => void;
   sound?: GameSoundEvent | false;
   hapticKind?: HapticKind | false;
   pressScale?: number;
@@ -27,6 +30,11 @@ export type TappableProps = {
   accessibilityHint?: string;
   accessibilityRole?: AccessibilityRole;
   accessibilityState?: AccessibilityState;
+  /**
+   * Catches taps only (e.g. on a card's edges, around a button that sits on it): screen readers and the keyboard skip
+   * it, so the card's real buttons are each reached on their own.
+   */
+  hiddenFromAccessibility?: boolean;
 };
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -36,6 +44,8 @@ export function Tappable({
   children,
   onPress,
   onLongPress,
+  onPressIn,
+  onPressOut,
   sound = "soft_ui",
   hapticKind = "light",
   pressScale = 0.97,
@@ -46,7 +56,8 @@ export function Tappable({
   accessibilityLabel,
   accessibilityHint,
   accessibilityRole = "button",
-  accessibilityState
+  accessibilityState,
+  hiddenFromAccessibility
 }: TappableProps) {
   const scale = useRef(new Animated.Value(1)).current;
 
@@ -68,12 +79,26 @@ export function Tappable({
         onPress?.(event);
       }}
       onLongPress={onLongPress}
-      onPressIn={() => !disabled && springTo(pressScale)}
-      onPressOut={() => springTo(1)}
+      onPressIn={() => {
+        if (!disabled) {
+          springTo(pressScale);
+          onPressIn?.();
+        }
+      }}
+      onPressOut={() => {
+        springTo(1);
+        onPressOut?.();
+      }}
       disabled={disabled}
       hitSlop={hitSlop}
       testID={testID}
-      accessibilityRole={accessibilityRole}
+      accessible={hiddenFromAccessibility ? false : undefined}
+      focusable={hiddenFromAccessibility ? false : undefined}
+      tabIndex={hiddenFromAccessibility ? -1 : undefined}
+      aria-hidden={hiddenFromAccessibility || undefined}
+      importantForAccessibility={hiddenFromAccessibility ? "no-hide-descendants" : undefined}
+      accessibilityElementsHidden={hiddenFromAccessibility || undefined}
+      accessibilityRole={hiddenFromAccessibility ? "none" : accessibilityRole}
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled: Boolean(disabled), ...accessibilityState }}

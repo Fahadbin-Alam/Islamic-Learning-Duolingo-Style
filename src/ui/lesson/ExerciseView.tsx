@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
+import { Animated, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent, type StyleProp, type ViewStyle } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { ChoiceTile, LONG_LABEL, type ChoiceTileState } from "../ChoiceTile";
@@ -13,7 +13,7 @@ import { FeedbackSheet } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
-import { sheetRoom, sheetScrollY, stackSpan, useSheetFit, type LayoutBox } from "./sheetFit";
+import { sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useSheetFit, type LayoutBox } from "./sheetFit";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -165,6 +165,46 @@ export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", 
   );
 }
 
+const FADE_MS = 160;
+
+/**
+ * An answer tile the feedback sheet's top edge would cut: it fades away while the sheet is up, out of reach of
+ * taps and screen readers, and comes back for the next try. It keeps its place, so no other tile moves.
+ */
+export function FadeUnderSheet({
+  hidden,
+  children,
+  style,
+  onLayout,
+  testID
+}: {
+  hidden: boolean;
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  onLayout?: (event: LayoutChangeEvent) => void;
+  testID?: string;
+}) {
+  const opacity = useRef(new Animated.Value(hidden ? 0 : 1)).current;
+  useEffect(() => {
+    const animation = Animated.timing(opacity, { toValue: hidden ? 0 : 1, duration: FADE_MS, useNativeDriver: true });
+    animation.start();
+    return () => animation.stop();
+  }, [hidden, opacity]);
+  return (
+    <Animated.View
+      style={[style, { opacity }]}
+      onLayout={onLayout}
+      pointerEvents={hidden ? "none" : "auto"}
+      aria-hidden={hidden}
+      accessibilityElementsHidden={hidden}
+      importantForAccessibility={hidden ? "no-hide-descendants" : "auto"}
+      testID={testID}
+    >
+      {children}
+    </Animated.View>
+  );
+}
+
 export type ExerciseChoice = { id: string; label: string };
 export type ExerciseResult = { correct: boolean; correctLabel: string; why?: string };
 
@@ -290,6 +330,7 @@ export function ExerciseView({
   const [sheetFull, setSheetFull] = useState(0);
   const [tilesBox, setTilesBox] = useState<LayoutBox | null>(null);
   const [promptBox, setPromptBox] = useState<LayoutBox | null>(null);
+  const [cueTop, setCueTop] = useState<number | null>(null);
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const wasChecked = useRef(checked);
   const [tileMoves, setTileMoves] = useState(0);
@@ -341,6 +382,20 @@ export function ExerciseView({
   const room = layout ? sheetRoom(layout) : undefined;
   // Only then is the sheet held to the room under the green tile.
   const sheetMaxHeight = checked && fit.fitted && room ? room.room : undefined;
+  // Any tile the sheet's top edge would cut (or cover) fades away while it is up, so no tile's text is ever cut by
+  // it: the tiles under the green one that do not sit wholly above it. The prompt and the green tile always stay,
+  // and the picked tile stays whenever it sits wholly above the sheet. A new try shows them all again.
+  const shownSheet = sheetMaxHeight !== undefined ? Math.min(sheetHeight, sheetMaxHeight) : sheetHeight;
+  const sheetTop = checked && fit.fitted && shownSheet > 0 && layout && room ? sheetScrollY(layout, shownSheet, room.furthest) + layout.visibleBottom - shownSheet : undefined;
+  const fadedIds =
+    !tfChoices && sheetTop !== undefined && tilesTop !== undefined
+      ? tilesUnderSheet({ ids: stackChoices.map((choice) => choice.id), boxes: tileBoxes.current, focusId: rightId ?? selectedChoiceId, gap: tileGap, tilesTop, sheetTop })
+      : [];
+
+  // Scrolled down to show the green tile, the question can stop part-way through the REVIEW / "Try again!" chips
+  // above the prompt; they fade away then, so the scroll view's top edge never cuts them.
+  const scrollTarget = checked && sheetHeight && layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  const cueFaded = cueTop !== null && scrollTarget > cueTop;
 
   useEffect(() => {
     if (!checked) {
@@ -357,7 +412,7 @@ export function ExerciseView({
     // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
     // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
     // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
-    scrollRef.current?.scrollTo?.({ y: sheetScrollY(layout, sheetHeight, room.furthest), animated: true });
+    scrollRef.current?.scrollTo?.({ y: scrollTarget, animated: true });
     // The layout is read from the boxes these values follow.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checked, folded, layout?.focusBottom, layout?.promptTop, layout?.visibleBottom, room?.furthest, scrollRef, sheetHeight, tileMoves]);
@@ -417,7 +472,7 @@ export function ExerciseView({
           {...scrollProps}
         >
           {review || shownAttempt > 0 ? (
-            <View style={styles.cueRow}>
+            <FadeUnderSheet hidden={cueFaded} style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
               {review ? (
                 <PopIn style={[styles.cueChip, styles.reviewChip]}>
                   <Icon name="practice" size={18} />
@@ -431,7 +486,7 @@ export function ExerciseView({
                   <Text style={[styles.cueText, styles.retryText]}>Try again!</Text>
                 </PopIn>
               ) : null}
-            </View>
+            </FadeUnderSheet>
           ) : null}
           <View
             onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}
@@ -461,7 +516,12 @@ export function ExerciseView({
           ) : (
             <View style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
               {stackChoices.map((choice, index) => (
-                <View key={choice.id} onLayout={onTileLayout(choice.id)} style={compact ? styles.tileGapCompact : styles.tileGap}>
+                <FadeUnderSheet
+                  key={choice.id}
+                  hidden={fadedIds.includes(choice.id)}
+                  onLayout={onTileLayout(choice.id)}
+                  style={compact ? styles.tileGapCompact : styles.tileGap}
+                >
                   <PopIn from="up" delay={80 + index * 60}>
                     <ChoiceTile
                       label={choice.label}
@@ -472,7 +532,7 @@ export function ExerciseView({
                       testID={`choice-${choice.id}`}
                     />
                   </PopIn>
-                </View>
+                </FadeUnderSheet>
               ))}
             </View>
           )}

@@ -10,6 +10,7 @@ export {
 export { LearnCard, sameReference, type LearnCardProps } from "./LearnCard";
 export {
   ExerciseView,
+  FadeUnderSheet,
   PromptText,
   QuestionBubble,
   useLessonCompact,

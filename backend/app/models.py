@@ -76,7 +76,7 @@ class User(Base, TimestampMixin):
 
 
 class Friendship(Base):
-    """One learner following another on the Crew screen. Following is one-way, like Duolingo."""
+    """One learner adding another on the Crew screen. Stats are shown only once both have added each other."""
 
     __tablename__ = "friendships"
     __table_args__ = (UniqueConstraint("user_id", "friend_id", name="uq_friendship_pair"),)
@@ -88,6 +88,7 @@ class Friendship(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     friend: Mapped["User"] = relationship(foreign_keys=[friend_id])
+    user: Mapped["User"] = relationship(foreign_keys=[user_id], overlaps="following")
 
 
 class AuthSession(Base):

@@ -58,6 +58,91 @@ export function stackSpan(ids: string[], boxes: Record<string, LayoutBox | undef
   return { top, bottom: top + (columns > 1 ? (rowHeights[row] ?? tile.height) : tile.height) };
 }
 
+/** A tile may reach this far under the sheet's top edge (its lip's last pixel) and still count as above it. */
+const TILE_EDGE = 1;
+
+/**
+ * The tiles the feedback sheet's top edge would cut, or cover, once it is up: every tile after the green one (the
+ * focus) that does not sit wholly above the sheet, at `sheetTop` in the scroll content. They fade away while the
+ * sheet is up, so no tile's text is ever cut by its edge. Never the green tile, nor a tile before it (those sit
+ * above it). In a grid the green tile's row sits whole above the sheet, so the tile next to it stays too.
+ */
+export function tilesUnderSheet({
+  ids,
+  boxes,
+  focusId,
+  gap,
+  columns = 1,
+  tilesTop,
+  sheetTop
+}: {
+  ids: string[];
+  boxes: Record<string, LayoutBox | undefined>;
+  focusId?: string;
+  gap: number;
+  columns?: number;
+  tilesTop: number;
+  sheetTop: number;
+}): string[] {
+  const focusIndex = focusId ? ids.indexOf(focusId) : -1;
+  return ids.filter((id, index) => {
+    if (index <= focusIndex) {
+      return false;
+    }
+    const span = stackSpan(ids, boxes, id, gap, columns);
+    return span !== undefined && tilesTop + span.bottom > sheetTop + TILE_EDGE;
+  });
+}
+
+/** A part of a scrolling list that shows whole or not at all: a row, the Why pill, one line of the Why text. */
+export type RowSpan = { top: number; bottom: number };
+
+/** Within this of a row's edge counts as on it. */
+const ROW_EDGE = 0.5;
+
+/**
+ * How a list that is too long for `limit` shows: as many whole rows from its top as fit (`viewport`), and the places
+ * it may stop when scrolled (`stops`, from 0 to `end`), each with whole rows only, at its top and at its bottom. `pad`
+ * is the room to add under the last row so that the end of the scroll is the last stop. Undefined when it all fits.
+ */
+export function wholeRows(rows: RowSpan[], contentEnd: number, limit: number) {
+  if (!rows.length || contentEnd <= limit) {
+    return undefined;
+  }
+  const spans = rows.map((row) => ({ ...row })).sort((a, b) => a.top - b.top);
+  // Any room under the last row (a sign's padding) scrolls with it.
+  const last = spans[spans.length - 1];
+  last.bottom = Math.max(last.bottom, contentEnd);
+  const fitting = spans.filter((span) => span.bottom <= limit + ROW_EDGE);
+  const viewport = fitting.length ? Math.max(...fitting.map((span) => span.bottom)) : spans[0].bottom;
+  const cuts = (y: number) => spans.some((span) => span.top + ROW_EDGE < y && y < span.bottom - ROW_EDGE);
+  // The last stop: the first row from which the rest shows whole.
+  const ends = spans.filter((span) => span.top + viewport >= last.bottom - ROW_EDGE);
+  const end = ends.length ? Math.min(...ends.map((span) => span.top)) : Math.max(0, last.bottom - viewport);
+  const middle = spans.map((span) => span.top).filter((top) => top > ROW_EDGE && top < end - ROW_EDGE && !cuts(top + viewport));
+  const stops = [...new Set([0, ...middle, end])].sort((a, b) => a - b);
+  return { viewport, stops, end, pad: Math.max(0, Math.round(end + viewport - contentEnd)) };
+}
+
+/**
+ * Where the arrow scrolls a whole-row list next: a page down, so the first row that does not show whole comes to the
+ * top (or as near as a stop allows), never past the end.
+ */
+export function nextRowStop(stops: number[], rows: RowSpan[], offset: number, viewport: number) {
+  const after = stops.filter((stop) => stop > offset + ROW_EDGE);
+  if (!after.length) {
+    return stops[stops.length - 1] ?? 0;
+  }
+  const hidden = rows.filter((row) => row.bottom > offset + viewport + ROW_EDGE).sort((a, b) => a.top - b.top)[0];
+  const upTo = hidden ? after.filter((stop) => stop <= hidden.top + ROW_EDGE) : [];
+  return upTo.length ? upTo[upTo.length - 1] : after[0];
+}
+
+/** The stop nearest to where a drag left the list. */
+export function nearestRowStop(stops: number[], offset: number) {
+  return stops.reduce((best, stop) => (Math.abs(stop - offset) < Math.abs(best - offset) ? stop : best), stops[0] ?? 0);
+}
+
 /** How long a squeezed question may take to report its new layout before the sheet is fitted anyway. */
 const SETTLE_MS = 400;
 

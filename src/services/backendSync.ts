@@ -256,11 +256,18 @@ export type CrewMember = {
   weeklyXp: number;
   streakDays: number;
   lastLearningAt: string | null;
+  /** Not agreed yet: the server sends no learning stats, and for someone you added, only the email you typed. */
+  pending?: boolean;
 };
 
 export type CrewPayload = {
   me: CrewMember;
+  /** Both sides added each other: the weekly race. */
   friends: CrewMember[];
+  /** People this learner added who have not added them back. */
+  pending?: CrewMember[];
+  /** People who added this learner and wait for a yes. */
+  requests?: CrewMember[];
 };
 
 export function rankWeeklyRace(me: CrewMember, friends: CrewMember[]) {
@@ -293,6 +300,17 @@ export async function addCrewMember(input: { email: string; relation: SocialRela
     headers: authHeaders(),
     body: JSON.stringify({ email: input.email, relation: input.relation })
   });
+}
+
+export async function acceptCrewRequest(requesterId: number, today: string) {
+  return backendRequest<CrewMember>(`/api/friends/requests/${requesterId}/accept?today=${encodeURIComponent(today)}`, {
+    method: "POST",
+    headers: authHeaders()
+  });
+}
+
+export async function declineCrewRequest(requesterId: number) {
+  await backendRequest(`/api/friends/requests/${requesterId}`, { method: "DELETE", headers: authHeaders() });
 }
 
 export async function removeCrewMember(friendId: number) {

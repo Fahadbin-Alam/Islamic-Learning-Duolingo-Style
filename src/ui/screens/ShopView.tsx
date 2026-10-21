@@ -200,6 +200,7 @@ function ItemRow(props: RowProps) {
   const line = full ? "Hearts are full" : short ? `Need ${formatNumber(short)} more` : shortLine(item, user);
   const { style: shakeStyle, shake } = useShake(6);
   const buttonPop = useRef(new Animated.Value(1)).current;
+  const rowScale = useRef(new Animated.Value(1)).current;
   const [nudges, setNudges] = useState(0);
   const [flashing, setFlashing] = useState(false);
   const flashTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -252,31 +253,33 @@ function ItemRow(props: RowProps) {
     Animated.spring(buttonPop, { toValue: 1, friction: 4, tension: 180, useNativeDriver: true }).start();
   };
 
+  // The whole card squishes a little under a finger, wherever on it the tap lands (but the BUY button presses itself).
+  const squish = (toValue: number) => Animated.spring(rowScale, { toValue, friction: 5, tension: 300, useNativeDriver: true }).start();
+  const rowTap = { onPress: pressRow, sound: false, hapticKind: false, pressScale: 1, onPressIn: () => squish(0.98), onPressOut: () => squish(1) } as const;
+
+  // The row's own button (its icon, name and line) and the BUY button sit side by side, never one inside the other,
+  // so a screen reader reaches each of them, and on the web neither is a button inside a button.
   return (
-    <Tappable
-      onPress={pressRow}
-      sound={false}
-      hapticKind={false}
-      pressScale={0.98}
-      style={styles.item}
-      accessibilityLabel={`${name}, ${line}`}
-      testID={`shop-item-${item.id}`}
-    >
-      <ItemIcon item={item} />
-      <View style={styles.itemText}>
-        <Text style={styles.itemName} numberOfLines={2}>
-          {name}
-        </Text>
-        <PopIn key={nudges} from="scale" style={styles.itemLineWrap}>
-          <Text
-            style={[styles.itemLine, short ? styles.itemLineShort : full && flashing ? styles.itemLineFull : null, flashing ? styles.itemLineFlash : null]}
-            numberOfLines={2}
-            testID={`shop-line-${item.id}`}
-          >
-            {line}
+    <Animated.View style={[styles.item, { transform: [{ scale: rowScale }] }]} testID={`shop-row-${item.id}`}>
+      {/* Taps on the card's edges and around its BUY button answer like the row; screen readers skip it. */}
+      <Tappable {...rowTap} hiddenFromAccessibility style={styles.itemEdge} testID={`shop-row-edge-${item.id}`} />
+      <Tappable {...rowTap} style={styles.itemMain} accessibilityLabel={`${name}, ${line}`} testID={`shop-item-${item.id}`}>
+        <ItemIcon item={item} />
+        <View style={styles.itemText}>
+          <Text style={styles.itemName} numberOfLines={2}>
+            {name}
           </Text>
-        </PopIn>
-      </View>
+          <PopIn key={nudges} from="scale" style={styles.itemLineWrap}>
+            <Text
+              style={[styles.itemLine, short ? styles.itemLineShort : full && flashing ? styles.itemLineFull : null, flashing ? styles.itemLineFlash : null]}
+              numberOfLines={2}
+              testID={`shop-line-${item.id}`}
+            >
+              {line}
+            </Text>
+          </PopIn>
+        </View>
+      </Tappable>
       <Animated.View style={[shakeStyle, { transform: [...shakeStyle.transform, { scale: buttonPop }] }]}>
         <BuyButton
           {...props}
@@ -285,10 +288,10 @@ function ItemRow(props: RowProps) {
           variant={gems ? "blue" : item.type === "rewarded_ad" ? "gold" : "primary"}
           icon={gems ? (short ? "lock" : "gem") : item.type === "rewarded_ad" ? "play" : undefined}
           muted={muted}
-          accessibilityLabel={`${name}, ${gems ? `${item.price} gems${full ? ", hearts are full" : short ? ", not enough gems" : ""}` : item.type === "rewarded_ad" ? "watch a video" : label}`}
+          accessibilityLabel={`${name}, ${gems ? `${formatNumber(item.price)} gems${full ? ", hearts are full" : short ? ", not enough gems" : ""}` : item.type === "rewarded_ad" ? "watch a video" : label}`}
         />
       </Animated.View>
-    </Tappable>
+    </Animated.View>
   );
 }
 
@@ -438,7 +441,8 @@ export function ShopView({
               <Animated.View style={{ transform: [{ scale: gemPop }] }}>
                 <Icon name="gem" size={46} />
               </Animated.View>
-              <FormattedCount value={user.gems} style={styles.balanceValue} testID="shop-gems" />
+              {/* Formatted as in the top bar above it (and on the Me tab): "1,000", "12,345", then "120k". */}
+              <FormattedCount value={user.gems} compact style={styles.balanceValue} testID="shop-gems" />
             </View>
             <Animated.View
               style={[styles.balanceHearts, { transform: [{ scale: heartsPop }] }]}
@@ -677,6 +681,22 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 15,
     color: colors.white
+  },
+  itemEdge: {
+    position: "absolute",
+    top: -2,
+    left: -2,
+    right: -2,
+    bottom: -4,
+    borderRadius: radii.tile
+  },
+  itemMain: {
+    flex: 1,
+    minWidth: 0,
+    alignSelf: "stretch",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12
   },
   itemText: {
     flex: 1,
