@@ -39,7 +39,6 @@ import {
   prepareUserForToday,
   refillHeartsForToday
 } from "./api/islamicLearningApi";
-import { SOCIAL_AUTH_CONFIG } from "./config/auth";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import {
   DEFAULT_LANGUAGE,
@@ -68,6 +67,7 @@ import {
   loginRemoteAccount,
   logoutRemoteAccount,
   registerRemoteAccount,
+  socialLoginRemoteAccount,
   addCrewMember,
   fetchCrew,
   acceptCrewRequest,
@@ -103,6 +103,7 @@ import {
 } from "./services/monetizationConfig";
 import { getStoredItem, setStoredItem } from "./services/appStorage";
 import { clearSocialHubState } from "./services/socialHub";
+import { isAppleSignInAvailable, isGoogleSignInAvailable, signInWithApple, signInWithGoogle, signOutOfProviders, type SocialIdentity } from "./services/socialAuth";
 import {
   requestIslamicNotificationPermission,
   scheduleIslamicReminderChecks
@@ -187,7 +188,12 @@ type Screen =
   | "social";
 type AnswerState = "correct" | "wrong" | undefined;
 type AuthMode = "create" | "login";
-type SocialProvider = keyof typeof SOCIAL_AUTH_CONFIG;
+type SocialProvider = SocialIdentity["provider"];
+
+const SOCIAL_PROVIDER_LABELS: Record<SocialProvider, string> = {
+  google: "Continue with Google",
+  apple: "Continue with Apple"
+};
 
 type JourneyRewardStop = {
   id: string;
@@ -469,6 +475,18 @@ export default function TopicApp() {
   const [accountError, setAccountError] = useState<string | undefined>(undefined);
   // Bumped on every failed sign up or log in, so the sheet plays its error feedback even for the same message twice.
   const [accountErrorKey, setAccountErrorKey] = useState(0);
+  // Google shows wherever its ids are set; Apple only on iPhones and iPads that support it.
+  const [socialProviders, setSocialProviders] = useState<SocialProvider[]>(() => (isGoogleSignInAvailable() ? ["google"] : []));
+  const socialBusyRef = useRef(false);
+  useEffect(() => {
+    let live = true;
+    void isAppleSignInAvailable().then((available) => {
+      if (live && available) setSocialProviders((current) => (current.includes("apple") ? current : [...current, "apple"]));
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
   const [hasSavedAccount, setHasSavedAccount] = useState(false);
   const [accountName, setAccountName] = useState("");
   const [accountEmail, setAccountEmail] = useState("");
@@ -1555,6 +1573,10 @@ export default function TopicApp() {
       }
     }
 
+    finishSignUp(pendingAccount, nextUser);
+  }
+
+  function finishSignUp(pendingAccount: Parameters<typeof createLocalAuthAccount>[0], nextUser: UserProfile, returning = false) {
     // One account per device: a new one replaces the progress an older account left here.
     clearAccountProfile();
     createLocalAuthAccount(pendingAccount);
@@ -1570,7 +1592,9 @@ export default function TopicApp() {
     setAccountError(undefined);
     setAccountModalVisible(false);
     setCrew({ status: "idle" });
-    void notify(`Welcome, ${firstName(pendingAccount.name)}!`, "Your progress is saved.", { mood: "cheer" });
+    void (returning
+      ? notify(`Welcome back, ${firstName(pendingAccount.name)}!`, undefined, { mood: "cheer" })
+      : notify(`Welcome, ${firstName(pendingAccount.name)}!`, "Your progress is saved.", { mood: "cheer" }));
   }
 
   async function loginAccount() {
@@ -1610,6 +1634,13 @@ export default function TopicApp() {
     }
 
     const account = loginLocalAuthAccount(accountEmail, accountPassword);
+    const saved = account ? undefined : loadLocalAuthAccount();
+
+    // An account made with Google or Apple has no password here.
+    if (saved && !saved.password && saved.provider && saved.provider !== "password" && normalizeEmail(saved.email) === normalizeEmail(accountEmail)) {
+      failAccount(saved.provider === "apple" ? "Use Continue with Apple." : "Use Continue with Google.");
+      return;
+    }
 
     if (!account) {
       failAccount("Wrong email or password.");
@@ -1691,6 +1722,7 @@ export default function TopicApp() {
       stashAccountProfile(leaving.accountEmail, leaving);
     }
     signOutLocalAuthAccount();
+    void signOutOfProviders();
 
     const fallbackUser = await learningApi.getUser(1001);
     const guestUser = withExperienceDefaults(ensureLearnerProfile(refillHeartsForToday({
@@ -1776,8 +1808,116 @@ export default function TopicApp() {
   }
 
   // Only switched-on providers get a button; their sign-in flow is not built yet.
-  function handleSocialLogin(_provider: SocialProvider) {
-    void notify("Coming soon!", undefined, { mood: "think" });
+  // Google or Apple instead of typing. Sign up (after the grown-up check) may make a new account;
+  // Log in only opens one that exists, so a child can't skip the parent step from the Log in tab.
+  async function handleSocialLogin(provider: SocialProvider) {
+    if (!state.user || socialBusyRef.current) {
+      return;
+    }
+
+    socialBusyRef.current = true;
+
+    try {
+      const result = provider === "google" ? await signInWithGoogle() : await signInWithApple();
+
+      if (result.status === "cancelled") {
+        return;
+      }
+
+      if (result.status !== "ok") {
+        failAccount(provider === "google" ? "Google sign-in didn't work. Try again." : "Apple sign-in didn't work. Try again.");
+        return;
+      }
+
+      await finishSocialLogin(result.identity, authMode === "create");
+    } finally {
+      socialBusyRef.current = false;
+    }
+  }
+
+  async function finishSocialLogin(identity: SocialIdentity, creating: boolean) {
+    if (!state.user) {
+      return;
+    }
+
+    const email = normalizeEmail(identity.email);
+    // Apple can hide the name (and the email behind a relay address), so fall back to a plain one.
+    const name = identity.name?.trim() || (identity.provider === "apple" ? "Learner" : email.split("@")[0]);
+    const reminderPreferences = defaultReminderPreferences();
+
+    try {
+      const remote = await socialLoginRemoteAccount({
+        provider: identity.provider,
+        idToken: identity.idToken,
+        name,
+        allowCreate: creating,
+        reminderPreferences,
+        user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, { name, email, createdAt: new Date().toISOString(), provider: identity.provider }))),
+        socialHub: { connections: [], battleHistory: [] }
+      });
+      const account = {
+        name: remote.account.name,
+        email: remote.account.email,
+        provider: identity.provider,
+        createdAt: remote.account.createdAt,
+        role: remote.account.role,
+        reminderPreferences: remote.account.reminderPreferences,
+        preferredLanguage: remote.user.preferredLanguage
+      };
+      const remoteUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user)));
+
+      if (normalizeEmail(loadLocalAuthAccount()?.email ?? "") === normalizeEmail(account.email)) {
+        // The server copy wins over what this device kept at log out.
+        createLocalAuthAccount(account);
+        takeAccountProfile(account.email);
+        dispatch({ type: "apply_user", user: remoteUser });
+        finishLogin(account.name, account.email);
+      } else {
+        // An account the server already had (a new phone, say) is a welcome back, not a welcome.
+        const isNew = Date.now() - Date.parse(String(remote.account.createdAt)) < 2 * 60 * 1000;
+        finishSignUp(account, remoteUser, !isNew);
+      }
+      return;
+    } catch (error) {
+      if (error instanceof BackendRequestError && error.status === 404) {
+        failAccount("No account yet. Sign up first!");
+        return;
+      }
+      if (error instanceof Error && !isBackendOfflineError(error)) {
+        failAccount("Could not sign in. Try again.");
+        return;
+      }
+    }
+
+    // No server in this build (or offline): the account lives on this device, like email sign-up.
+    const saved = loadLocalAuthAccount();
+
+    if (saved && normalizeEmail(saved.email) === email) {
+      const account = updateLocalAuthAccount({ signedOut: undefined, provider: saved.provider ?? identity.provider }) ?? saved;
+      const savedProgress = takeAccountProfile(account.email);
+      const baseUser = savedProgress ? prepareUserForToday(savedProgress) : state.user;
+      dispatch({
+        type: "apply_user",
+        user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, account)))
+      });
+      finishLogin(account.name, account.email);
+      return;
+    }
+
+    if (!creating) {
+      failAccount("No account yet. Sign up first!");
+      return;
+    }
+
+    const pendingAccount = {
+      name,
+      email,
+      provider: identity.provider,
+      createdAt: new Date().toISOString(),
+      reminderPreferences,
+      preferredLanguage: state.user.preferredLanguage
+    };
+    finishSignUp(pendingAccount, withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, pendingAccount))));
   }
 
   async function loadCrew() {
@@ -1944,9 +2084,7 @@ export default function TopicApp() {
   }
 
   const inLesson = state.screen.startsWith("lesson_") || state.screen === "assessment";
-  const enabledSocialProviders = (Object.entries(SOCIAL_AUTH_CONFIG) as [SocialProvider, typeof SOCIAL_AUTH_CONFIG[SocialProvider]][])
-    .filter(([, config]) => config.enabled)
-    .map(([id, config]) => ({ id, label: config.label }));
+  const enabledSocialProviders = socialProviders.map((id) => ({ id, label: SOCIAL_PROVIDER_LABELS[id] }));
   const activeTab = tabForScreen(state.screen);
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
   // gem heart item the learner can pay for. Otherwise the out-of-hearts sheet offers PRACTICE.

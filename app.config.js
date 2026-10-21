@@ -15,10 +15,25 @@ const SK_AD_NETWORK_ITEMS = [
   "3rd42ekr43", "3qcr597p9d"
 ].map((id) => `${id}.skadnetwork`);
 
+// Google sign-in on iOS opens a URL scheme made from the iOS client id, reversed. Android needs no
+// plugin, and builds without an iOS client id simply leave Google off on iOS.
+const googleIosUrlScheme = (clientId) => {
+  const match = /^(.+)\.apps\.googleusercontent\.com$/.exec((clientId ?? "").trim());
+  return match ? `com.googleusercontent.apps.${match[1]}` : undefined;
+};
+const iosUrlScheme = googleIosUrlScheme(process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID);
+
 module.exports = ({ config }) => ({
   ...config,
+  ios: {
+    ...config.ios,
+    // Apple asks apps that offer Google sign-in to offer Sign in with Apple too.
+    usesAppleSignIn: true
+  },
   plugins: [
     ...(config.plugins ?? []),
+    "expo-apple-authentication",
+    ...(iosUrlScheme ? [["@react-native-google-signin/google-signin", { iosUrlScheme }]] : []),
     [
       "react-native-google-mobile-ads",
       {

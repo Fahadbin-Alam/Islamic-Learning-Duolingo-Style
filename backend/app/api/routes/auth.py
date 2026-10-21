@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, status
 from sqlalchemy import select
 
 from backend.app.api.deps import DbSession, current_user
-from backend.app.core.config import settings
+from backend.app.core.social_tokens import SocialTokenError, verify_id_token
 from backend.app.core.security import create_session_token, hash_password, hash_token, session_expiry, verify_password
 from backend.app.models import AuthSession, User
 from backend.app.schemas import AuthLoginInput, AuthRegisterInput, SessionPayload, SocialLoginInput
@@ -70,13 +70,61 @@ def login(payload: AuthLoginInput, db: DbSession):
 
 @router.post("/auth/social", response_model=SessionPayload)
 def social_login(payload: SocialLoginInput, db: DbSession):
-    if not settings.trusted_social_login:
-        raise HTTPException(
-            status_code=status.HTTP_501_NOT_IMPLEMENTED,
-            detail="Social login requires provider credentials and backend verification setup before it can be enabled safely."
-        )
+    try:
+        identity = verify_id_token(payload.provider, payload.id_token)
+    except SocialTokenError as error:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(error)) from error
 
-    raise HTTPException(status_code=status.HTTP_501_NOT_IMPLEMENTED, detail="Social login verification is not configured yet.")
+    # The same Google or Apple account first; then the same verified email, so someone who signed up
+    # with a password can also tap Google.
+    user = db.scalar(select(User).where(User.auth_provider == identity.provider, User.provider_subject == identity.subject))
+    if not user:
+        user = db.scalar(select(User).where(User.email == identity.email))
+
+    if user:
+        user.last_login_at = datetime.now(timezone.utc)
+        if user.auth_provider == identity.provider and not user.provider_subject:
+            user.provider_subject = identity.subject
+        db.commit()
+        return issue_session(db, user)
+
+    if not payload.allow_create:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No account yet. Sign up first.")
+
+    name = (payload.name or "").strip() or identity.email.split("@")[0]
+    user = User(
+        email=identity.email,
+        username=unique_username(db, identity.email),
+        display_name=name[:120],
+        password_hash=None,
+        auth_provider=identity.provider,
+        provider_subject=identity.subject,
+        account_role=payload.role,
+        preferred_language=payload.user.get("preferredLanguage") or "en",
+        sound_enabled=payload.user.get("soundEffectsEnabled", True),
+        reduced_sound=payload.user.get("reducedSoundEffects", False),
+        skipped_foundation=payload.user.get("foundationAssessmentSkipped", False),
+        premium_status="free",
+        review_heart_restore_used=payload.user.get("reviewHeartRestoreUsed", False),
+        reminder_preferences_json=payload.reminder_preferences,
+        social_hub_json=payload.social_hub,
+        last_heart_refill_at=datetime.now(timezone.utc),
+        last_login_at=datetime.now(timezone.utc),
+        last_learning_at=datetime.now(timezone.utc),
+    )
+    apply_frontend_state(user, payload.user, social_hub=payload.social_hub)
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return issue_session(db, user)
+
+
+def unique_username(db: DbSession, email: str) -> str:
+    base = make_username(email)
+    candidate, suffix = base, 2
+    while db.scalar(select(User.id).where(User.username == candidate)):
+        candidate, suffix = f"{base}{suffix}", suffix + 1
+    return candidate
 
 
 @router.post("/auth/logout")

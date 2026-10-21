@@ -100,6 +100,27 @@ describe("app sheets", () => {
     expect(screen.getByTestId("account-email").props.placeholder).toBe("Parent's email");
   });
 
+  it("puts Google and Apple behind the grown-up check, and asks a child for a parent's account", async () => {
+    const onSocial = jest.fn();
+    const socialProviders = [
+      { id: "google", label: "Continue with Google" },
+      { id: "apple", label: "Continue with Apple" }
+    ];
+    const view = await render(<AccountSheet {...accountProps({ socialProviders, onSocial, forChild: true })} />);
+    expect(screen.queryByTestId("account-social-google")).toBeNull();
+    await passGrownUp();
+    expect(screen.getByText("or a parent's account")).toBeTruthy();
+    await fireEvent.press(screen.getByTestId("account-social-google"));
+    expect(onSocial).toHaveBeenCalledWith("google");
+    await fireEvent.press(screen.getByTestId("account-social-apple"));
+    expect(onSocial).toHaveBeenCalledWith("apple");
+
+    // Log in has no gate (it can't make a new account) and a plain "or".
+    await view.rerender(<AccountSheet {...accountProps({ socialProviders, onSocial, forChild: true, mode: "login" })} />);
+    expect(screen.getByText("or")).toBeTruthy();
+    expect(screen.getByTestId("account-social-google")).toBeTruthy();
+  });
+
   it("signs up with short labels and switches to log in", async () => {
     const props = accountProps({ name: "Amina", email: "amina@example.com", password: "salaam123" });
     await render(<AccountSheet {...props} />);

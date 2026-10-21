@@ -18,7 +18,11 @@ class Settings(BaseSettings):
     database_url: str = Field(default=f"sqlite:///{DEFAULT_SQLITE_PATH.as_posix()}")
     session_ttl_hours: int = 24 * 30
     cors_origins_raw: str = "http://localhost:8082,http://localhost:19006,http://localhost:3000"
-    trusted_social_login: bool = False
+    # Sign in with Google: the OAuth client ids an id token may be issued for (comma separated). The
+    # app asks for tokens with its web client id, so that one is enough. Empty turns Google off.
+    google_client_ids_raw: str = ""
+    # Sign in with Apple: tokens from the iOS app are issued for its bundle id.
+    apple_client_ids_raw: str = "com.islamiclearning.muslimo"
     # Shared secret RevenueCat sends in the Authorization header of every webhook call.
     revenuecat_webhook_auth: str = ""
 
@@ -41,6 +45,14 @@ class Settings(BaseSettings):
     @property
     def cors_origins(self) -> List[str]:
         return [origin.strip() for origin in self.cors_origins_raw.split(",") if origin.strip()]
+
+    @property
+    def google_client_ids(self) -> List[str]:
+        return [value.strip() for value in self.google_client_ids_raw.split(",") if value.strip()]
+
+    @property
+    def apple_client_ids(self) -> List[str]:
+        return [value.strip() for value in self.apple_client_ids_raw.split(",") if value.strip()]
 
     @property
     def is_sqlite(self) -> bool:
