@@ -9,7 +9,7 @@ import { Mascot } from "../Mascot";
 import { PopIn } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
-import { FormattedCount } from "./FormattedCount";
+import { FormattedCount, compactNumber } from "./FormattedCount";
 import { SwitchTrack } from "./sheetParts";
 
 export type ProfileViewProps = {
@@ -80,7 +80,7 @@ function StatCard({
     <View style={styles.stat} testID={testID}>
       <Icon name={icon} size={32} color={dim ? DIM_ICON : undefined} />
       <View style={styles.statText}>
-        <FormattedCount value={value} compact style={[styles.statValue, { color: dim ? DIM_INK : color }]} />
+        <FormattedCount value={value} compact style={[styles.statValue, statValueSize(value), { color: dim ? DIM_INK : color }]} />
         <Text style={styles.statLabel} numberOfLines={1}>
           {label}
         </Text>
@@ -129,6 +129,11 @@ function firstName(name: string) {
 /** Web ignores adjustsFontSizeToFit: initials are two letters; anything longer starts smaller. */
 function initialsSize(initials: string) {
   return initials.length <= 2 ? null : styles.initialsLong;
+}
+
+/** Half-width stat cards hold five characters at full size on a 320 px phone; "12,345" to "99,999" step down so they stay whole. */
+export function statValueSize(value: number) {
+  return compactNumber(value).length <= 5 ? null : styles.statValueLong;
 }
 
 /** Web ignores adjustsFontSizeToFit, so long names get a smaller size up front. */
@@ -352,6 +357,9 @@ const styles = StyleSheet.create({
     fontFamily: fonts.displayHeavy,
     fontSize: 24,
     lineHeight: 30
+  },
+  statValueLong: {
+    fontSize: 20
   },
   statLabel: {
     ...text.tiny,

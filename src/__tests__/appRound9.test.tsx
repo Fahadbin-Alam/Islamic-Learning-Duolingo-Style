@@ -37,6 +37,7 @@ import { ExerciseView, FeedbackSheet, OrderGame } from "../ui/lesson";
 import { WHY_LINE } from "../ui/lesson/FeedbackSheet";
 import { nearestRowStop, nextRowStop, tilesUnderSheet, wholeRows, type RowSpan } from "../ui/lesson/sheetFit";
 import { AppTopBar, ShopView } from "../ui/screens";
+import { statValueSize } from "../ui/screens/ProfileView";
 import { makeUser } from "./testUtils";
 
 const layout = (height: number, y = 0, width = 288) => ({ nativeEvent: { layout: { x: 0, y, width, height } } });
@@ -424,5 +425,19 @@ describe("the gem count reads the same in the top bar and on the Shop card", () 
     expect(screen.getByTestId("shop-gems")).toHaveTextContent(shown);
     // A screen reader hears the whole number.
     expect(screen.getByRole("button", { name: `${gems.toLocaleString("en-US")} gems` })).toBeTruthy();
+  });
+});
+
+describe("the Me stat cards keep big numbers whole on a 320 px phone", () => {
+  it.each([
+    [999, null],
+    [9999, null],
+    [12345, 20],
+    [99999, 20],
+    [123456, null]
+  ])("sizes %d to fit its half-width card", (value, smaller) => {
+    // "9,999" and "123k" fit at full size; "12,345" to "99,999" step down.
+    const style = statValueSize(value);
+    expect(style ? StyleSheet.flatten(style).fontSize : null).toBe(smaller);
   });
 });
