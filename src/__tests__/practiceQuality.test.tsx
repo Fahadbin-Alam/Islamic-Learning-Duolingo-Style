@@ -141,7 +141,7 @@ describe("skill Arabic", () => {
   });
 
   it("shows the Shahadah's Arabic next to its skill name", async () => {
-    const question = FOUNDATION_QUESTION_BANK.find((candidate) => candidate.id === "shahadah_01")!;
+    const question = FOUNDATION_QUESTION_BANK.find((candidate) => candidate.id === "shahadah_02")!;
     const state = { ...createFoundationAssessment(createEmptyLearnerProfile(), "placement"), currentQuestion: question };
     await render(<FoundationAssessmentScreen assessment={state} language="en" selectedAnswer={undefined} onChangeSelectedAnswer={jest.fn()} onSubmit={jest.fn()} onContinue={jest.fn()} onExit={jest.fn()} />);
     expect(screen.getByText(SKILL_ARABIC.shahadah)).toBeTruthy();

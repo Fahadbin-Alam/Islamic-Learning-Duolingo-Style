@@ -30,6 +30,7 @@ import {
   seededShuffle,
   summarizeFoundationSession
 } from "../services/foundationAssessment";
+import { useKeyboardHeight } from "../ui/useKeyboardHeight";
 import type {
   FoundationAssessmentState,
   FoundationCategoryId,
@@ -411,8 +412,11 @@ export function FoundationAssessmentScreen({
   const counter = getSessionProgress(assessment);
   const progress = counter.done / counter.total;
   const canSubmit = canSubmitAnswer(question.type, selectedAnswer);
-  const arabic = SKILL_ARABIC[question.category];
   const categoryTitle = SKILL_LOOK[question.category]?.name ?? question.category.charAt(0).toUpperCase() + question.category.slice(1);
+  // "Which pillar comes first?" under a "Shahadah" label gives the answer away, so a question whose answer is
+  // its own skill's name shows no label.
+  const labelGivesAway = answerIsSkillName(question, categoryTitle);
+  const arabic = labelGivesAway ? undefined : SKILL_ARABIC[question.category];
   const checked = feedback ? feedback.correct : undefined;
   const locked = checked !== undefined;
   // After CHECK the answer is frozen: taps on tiles change nothing.
@@ -548,12 +552,14 @@ export function FoundationAssessmentScreen({
     }
   };
 
+  // A typed answer opens the keyboard: CHECK and the field move up above it instead of hiding under it.
+  const keyboardHeight = useKeyboardHeight();
   const promptSize = long || compact ? 17 : 19;
   const mood: MascotMood = checked === undefined ? "think" : checked ? "cheer" : "sad";
   const extraBottom = locked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
 
   return (
-    <View style={styles.assessmentRoot} testID="assessment-screen">
+    <View style={[styles.assessmentRoot, keyboardHeight > 0 ? { paddingBottom: keyboardHeight } : null]} testID="assessment-screen">
       <View style={styles.assessmentTop}>
         <Tappable onPress={() => setQuitOpen(true)} style={styles.exitButton} accessibilityLabel="Close" hitSlop={10} pressScale={0.88} testID="assessment-close">
           <Icon name="close" size={26} color={CLOSE_GREY} />
@@ -577,12 +583,14 @@ export function FoundationAssessmentScreen({
             <FadeUnderSheet hidden={labelFaded} instantOut onLayout={(event) => setLabelTop(Math.round(event.nativeEvent.layout.y))} testID="assessment-label">
               <PopIn from="up">
                 <View style={styles.categoryRow}>
-                  <View style={styles.categoryPill}>
-                    <Icon name={SKILL_LOOK[question.category]?.icon ?? "star8"} size={16} />
-                    <Text style={styles.categoryText} numberOfLines={1}>
-                      {categoryTitle}
-                    </Text>
-                  </View>
+                  {labelGivesAway ? null : (
+                    <View style={styles.categoryPill} testID="assessment-skill">
+                      <Icon name={SKILL_LOOK[question.category]?.icon ?? "star8"} size={16} />
+                      <Text style={styles.categoryText} numberOfLines={1}>
+                        {categoryTitle}
+                      </Text>
+                    </View>
+                  )}
                   {arabic ? (
                     <ArabicText size={20} weight="bold" color={colors.correctInk}>
                       {arabic}
@@ -672,6 +680,12 @@ function checkState(active: boolean, checked: boolean | undefined, isAnswer: boo
   if (checked === undefined) return active ? "selected" : "idle";
   if (active) return isAnswer ? "correct" : "wrong";
   return isAnswer ? "missed" : "dimmed";
+}
+
+function answerIsSkillName(question: Question, skillName: string) {
+  const name = skillName.trim().toLowerCase();
+  const answers = [question.correctAnswer, ...(question.acceptedAnswers ?? [])].flat();
+  return answers.some((answer) => typeof answer === "string" && answer.trim().toLowerCase() === name);
 }
 
 function isAnswerOption(question: Question, option: string) {

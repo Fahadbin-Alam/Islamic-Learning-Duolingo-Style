@@ -489,6 +489,9 @@ export default function TopicApp() {
     const saved = getStoredItem("sira-path-age-group");
     return isAgeGroup(saved) ? saved : undefined;
   });
+  // Sign-up asks the age first even with ads off: under 13, the account takes a parent's name and email.
+  const signUpNeedsAge = Platform.OS !== "web" && !ageGroup;
+  const [ageBeforeSignUp, setAgeBeforeSignUp] = useState(false);
   const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child");
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
@@ -888,9 +891,8 @@ export default function TopicApp() {
     }
 
     setAccountPromptShown(true);
-    setAccountError(undefined);
-    setAuthMode(hasSavedAccount ? "login" : "create");
-    setAccountModalVisible(true);
+    openAccountSheet(hasSavedAccount ? "login" : "create");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountPromptDue, accountPromptShown, guestUser, hasSavedAccount, onFoundationPath, otherSheetOpen]);
 
   // `focus` practices one skill (a "Practice next" chip on the end screen).
@@ -1468,6 +1470,12 @@ export default function TopicApp() {
   function openAccountSheet(mode: AuthMode) {
     setAccountError(undefined);
     setAuthMode(mode);
+    if (mode === "create" && signUpNeedsAge) {
+      // The age sheet opens the account sheet once it is answered.
+      setAccountModalVisible(false);
+      setAgeBeforeSignUp(true);
+      return;
+    }
     setAccountModalVisible(true);
   }
 
@@ -2250,10 +2258,7 @@ export default function TopicApp() {
           forChild={ageGroup === "6-9" || ageGroup === "10-12"}
           error={accountError}
           errorKey={accountErrorKey}
-          onChangeMode={(mode) => {
-            setAccountError(undefined);
-            setAuthMode(mode);
-          }}
+          onChangeMode={openAccountSheet}
           onChangeName={setAccountName}
           onChangeEmail={setAccountEmail}
           onChangePassword={setAccountPassword}
@@ -2319,10 +2324,14 @@ export default function TopicApp() {
           onClose={collectJourneyReward}
         />
         <AgeSheet
-          visible={hasUser && needsAgeCheck && !ageGroup}
+          visible={hasUser && (needsAgeCheck || ageBeforeSignUp) && !ageGroup}
           onSave={(group) => {
             setStoredItem("sira-path-age-group", group);
             setAgeGroup(group);
+            if (ageBeforeSignUp) {
+              setAgeBeforeSignUp(false);
+              setAccountModalVisible(true);
+            }
           }}
         />
         <LanguageSheet

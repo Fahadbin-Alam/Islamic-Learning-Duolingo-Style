@@ -174,7 +174,7 @@ describe("ShopView", () => {
     expect(screen.getByText("Need 340 more")).toBeTruthy();
 
     handlers = await renderShop(makeUser({ hearts: { current: 5, max: 5, unlimited: false, lastRefillDate: "2026-10-18" } }));
-    expect(screen.getByText("Hearts are full")).toBeTruthy();
+    expect(screen.getByTestId("shop-line-gem-heart-refill")).toHaveTextContent("Hearts are full");
     await fireEvent.press(screen.getByTestId("shop-buy-gem-heart-refill"));
     expect(handlers.onUseItem).not.toHaveBeenCalled();
   });
