@@ -1358,6 +1358,12 @@ export default function TopicApp() {
       return;
     }
 
+    // ShopView mutes the heart video at full hearts too: the heart it gives stops at the most hearts, so a video
+    // then would give nothing.
+    if (item.type === "rewarded_ad" && !item.gemsGranted && !state.user.hearts.unlimited && state.user.hearts.current >= state.user.hearts.max) {
+      return;
+    }
+
     setShopBusy(true);
 
     try {

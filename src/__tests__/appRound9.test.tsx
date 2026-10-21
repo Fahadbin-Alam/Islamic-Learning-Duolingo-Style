@@ -364,8 +364,8 @@ describe("the shop's BUY button is a button of its own", () => {
       node = node.parent;
     }
     // Both are buttons a screen reader can reach, each with its own name; only BUY buys.
-    expect(screen.getByRole("button", { name: "Full hearts, Fill to 5" })).toBeTruthy();
-    await fireEvent.press(screen.getByRole("button", { name: "Full hearts, 350 gems" }));
+    expect(screen.getByRole("button", { name: "Refill hearts, Fill to 5" })).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Refill hearts, 350 gems" }));
     expect(onUseItem).toHaveBeenCalledTimes(1);
   });
 

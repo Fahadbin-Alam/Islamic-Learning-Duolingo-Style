@@ -159,7 +159,7 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   "foundation-guidance": { ar: "الْحَمْدُ لِلَّهِ", translit: "Al-hamdu lillah", meaning: "All praise to Allah" },
   "foundation-bismillah": { ar: "بِسْمِ اللَّهِ", translit: "Bismillah", meaning: "In Allah's name" },
   "foundation-sneeze": { ar: "يَرْحَمُكَ اللَّهُ", translit: "Yarhamuk-Allah", meaning: "Allah have mercy" },
-  "foundation-phrases-rhythm-morning-remembrance": { ar: "أَذْكَارُ الصَّبَاحِ", translit: "Adhkar as-sabah", meaning: "Morning remembrance" },
+  "foundation-phrases-rhythm-morning-remembrance": { ar: "دُعَاءُ الِاسْتِيقَاظِ", translit: "Du'a al-istiqadh", meaning: "Waking-up du'a" },
   "foundation-phrases-rhythm-thanks-language": { ar: "الشُّكْرُ", translit: "Ash-shukr", meaning: "Gratitude" },
   "foundation-phrases-rhythm-future-speech": { ar: "إِنْ شَاءَ اللَّهُ", translit: "In sha Allah", meaning: "If Allah wills" },
   "foundation-phrases-rhythm-seeking-forgiveness": { ar: "أَسْتَغْفِرُ اللَّهَ", translit: "Astaghfirullah", meaning: "I seek Allah's forgiveness" },
