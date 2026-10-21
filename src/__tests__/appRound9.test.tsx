@@ -474,13 +474,14 @@ describe("the chips above the question fade when the scroll would cut them", () 
   async function check(rootHeight: number) {
     await render(<ExerciseView {...two} review attempt={1} selectedChoiceId="a" correctChoiceId="b" result={result} />);
     await fireEvent(screen.getByTestId("exercise-view"), "layout", layout(rootHeight));
-    // The REVIEW and "Try again!" chips (8-34), then the prompt (42-81) and three tiles.
-    await fireEvent(screen.getByTestId("exercise-cues", { includeHiddenElements: true }), "layout", layout(26, 8));
-    await fireEvent(screen.getByTestId("exercise-prompt"), "layout", layout(39, 42));
+    // The REVIEW and "Try again!" chips (8-34), then the prompt (42-81) and three tiles. Their boxes are read inside
+    // the question block, which starts 8 down the scroll.
+    await fireEvent(screen.getByTestId("exercise-cues", { includeHiddenElements: true }), "layout", layout(26, 0));
+    await fireEvent(screen.getByTestId("exercise-prompt"), "layout", layout(39, 34));
     for (const [index, id] of ["a", "b", "c"].entries()) {
       await fireEvent(wrapper(id), "layout", layout(68, index * 80));
     }
-    await fireEvent(screen.getByTestId("exercise-tiles"), "layout", layout(3 * 68 + 2 * 12, 81));
+    await fireEvent(screen.getByTestId("exercise-tiles"), "layout", layout(3 * 68 + 2 * 12, 73));
     await fireEvent(screen.getByTestId("feedback-top"), "layout", layout(76));
     await sheetHeight(40 + 76 + 16 + 58 + SHEET_PAD + inset);
   }
