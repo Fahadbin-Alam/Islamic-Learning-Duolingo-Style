@@ -1742,7 +1742,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Banu Umayyah"
+                    "text": "Banu Salamah"
                   }
                 ],
                 "correct_answer_json": {
@@ -19080,7 +19080,7 @@
                   },
                   {
                     "id": "b",
-                    "text": "The Covered One"
+                    "text": "The Ant"
                   },
                   {
                     "id": "c",
@@ -23284,13 +23284,13 @@
                   },
                   {
                     "id": "c",
-                    "text": "The one who made a husband and wife fight"
+                    "text": "The one who came between a husband and wife"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "Iblis praises the devil who makes a husband and wife fight.",
+                "explanation_short": "Iblis praises the devil who comes between a husband and wife.",
                 "explanation_long": "Jabir reported that Allah's Messenger (ﷺ) said: Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension.",
                 "tags_json": [
                   "iblis-and-his-troops",
@@ -23300,7 +23300,7 @@
               },
               {
                 "type": "true_false",
-                "prompt": "Iblis is pleased when a husband and wife fight.",
+                "prompt": "Iblis is pleased when a devil comes between a husband and wife.",
                 "options_json": [
                   {
                     "id": "true",

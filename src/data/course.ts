@@ -2501,6 +2501,15 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Aishah; collected by Imam at-Tirmidhi",
         "Hasan Gharib Sahih",
         "The Prophet ﷺ turned daily family treatment into a real measure of spiritual character."
+      ),
+      hadithSource(
+        "source-marriage-mercy-abudawud-1308",
+        "Waking each other for night prayer",
+        "https://sunnah.com/abudawud:1308",
+        "Sunan Abi Dawud 1308",
+        "Abu Hurairah; collected by Imam Abu Dawud",
+        "Hasan Sahih (Al-Albani)",
+        "The Prophet ﷺ asked Allah's mercy for a husband and a wife who wake each other to pray at night."
       )
     ],
     [

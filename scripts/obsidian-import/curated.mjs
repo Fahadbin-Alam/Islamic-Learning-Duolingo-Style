@@ -272,6 +272,10 @@ export const LEFT_OUT_PEOPLE = new Set([
   "umm-said-bint-urwah-al-thaqafiyyah"
 ]);
 
+// Surahs whose names mean the same thing in plain words: Al-Muzzammil ("The Wrapped One") and Al-Muddaththir
+// ("The Covered One") both call the Prophet ﷺ wrapped in his garment, so neither is the other's wrong choice.
+export const SAME_MEANING = { 73: [74], 74: [73] };
+
 // Surahs the scholars of the Quran disagree on, Makkan or Madinan (as-Suyuti lists them in al-Itqan): their lesson
 // never says where they were revealed, so no true or false question is half true.
 export const DISPUTED_REVELATION = new Set([1, 13, 22, 55, 61, 64, 76, 83, 97, 98, 99, 100, 102, 107, 108, 112, 113, 114]);
@@ -431,18 +435,18 @@ export const HADITH_LESSONS = {
   "Sahih Muslim 2813b": {
     title: "Iblis and his troops",
     level: 5,
-    learnLine: "Iblis praises the devil who makes a husband and wife fight.",
+    learnLine: "Iblis praises the devil who comes between a husband and wife.",
     // sunnah.com's words, from the opening quote mark to the closing one, so the card shows whole quotes.
     quote: '"I did not spare so and so until I sowed the seed of discord between a husband and a wife." The Satan goes near him and says: "You have done well."',
     questions: [
       {
         prompt: "Which devil does Iblis praise, saying: You have done well?",
-        answer: "The one who made a husband and wife fight",
+        answer: "The one who came between a husband and wife",
         wrong: ["The one who stayed quiet", "The one who went to sleep"],
-        explanation: "Iblis praises the devil who makes a husband and wife fight."
+        explanation: "Iblis praises the devil who comes between a husband and wife."
       },
       {
-        statement: "Iblis is pleased when a husband and wife fight.",
+        statement: "Iblis is pleased when a devil comes between a husband and wife.",
         answer: true,
         explanation: "Iblis says to that devil: You have done well."
       }
@@ -532,3 +536,33 @@ export const REPEATED_HADITH = {
 // "Keep four" (Mishkat al-Masabih 3176: Ghaylan, who had ten wives, was told to keep four) is left off the path:
 // it does not fit the Marriage topic, which teaches a kind home, and its card has no quote.
 export const LEFT_OUT_HADITH = new Set(["Sahih al-Bukhari 7407", "Sahih Muslim 169e", "Mishkat al-Masabih 3176"]);
+
+// Who narrated each hadith the notes link to, and its grade, checked on its sunnah.com page (2026-10-21). Bukhari
+// and Muslim carry no grade there because both are accepted as authentic. A sunnah.com link missing from this list
+// is left off the lesson, with a warning, until it is checked and added: a citation never shows without a narrator.
+export const HADITH_CITATIONS = {
+  "abudawud:2665": { narrator: "Ali ibn Abi Talib", grade: "Sahih (Al-Albani)" },
+  "bukhari:3276": { narrator: "Abu Hurayrah", grade: "Sahih" },
+  "bukhari:3642": { narrator: "Urwah al-Bariqi", grade: "Sahih" },
+  "bukhari:3744": { narrator: "Anas ibn Malik", grade: "Sahih" },
+  "bukhari:3966": { narrator: "Abu Dharr", grade: "Sahih" },
+  "bukhari:3969": { narrator: "Abu Dharr", grade: "Sahih" },
+  "bukhari:4261": { narrator: "Abdullah ibn Umar", grade: "Sahih" },
+  "bukhari:4560": { narrator: "Abu Hurayrah", grade: "Sahih" },
+  "bukhari:5018": { narrator: "Usayd ibn Hudayr", grade: "Sahih" },
+  "bukhari:5066": { narrator: "Abdullah ibn Mas'ud", grade: "Sahih" },
+  "ibnmajah:1855": { narrator: "Abdullah ibn Amr", grade: "Sahih (Darussalam)" },
+  "mishkat:3096": { narrator: "Anas ibn Malik", grade: "Hasan (Al-Albani)" },
+  "muslim:121": { narrator: "Amr ibn al-As", grade: "Sahih" },
+  "muslim:1218a": { narrator: "Jabir ibn Abdullah", grade: "Sahih" },
+  "muslim:2471b": { narrator: "Jabir ibn Abdullah", grade: "Sahih" },
+  "muslim:2813b": { narrator: "Jabir ibn Abdullah", grade: "Sahih" },
+  "muslim:2930a": { narrator: "Abdullah ibn Umar", grade: "Sahih" },
+  "nasai:3227": { narrator: "Ma'qil ibn Yasar", grade: "Hasan (Darussalam)" }
+};
+
+// Hadith links kept off lessons although the notes have them: Tirmidhi 1143 (Zaynab returned to Abu al-As) is
+// graded Da'if, and Muslim 976a and 976b (the Prophet ﷺ visits his mother's grave) say nothing a question on
+// Aminah asks and are too heavy for a young learner. Links that are not one hadith (a narrator's page, or a
+// book-and-chapter link such as muslim/15/159) are left off as well.
+export const LEFT_OUT_SOURCES = new Set(["tirmidhi:1143", "muslim:976a", "muslim:976b"]);

@@ -140,6 +140,14 @@ describe("lesson sources", () => {
     expect(problems).toEqual([]);
   });
 
+  test("a hadith citation is one checked hadith, not a placeholder or a narrator's page", () => {
+    const shown = [...hadith, ...lessons.map((lesson) => lesson.learnSource).filter((source): source is LessonSource => source?.category === "hadith")];
+    const problems = shown
+      .filter((source) => /imported from obsidian|see sunnah\.com grading/i.test(`${source.from} ${source.grade}`) || /sunnah\.com\/narrator\//.test(source.url))
+      .map((source) => `${source.id}: ${source.url} (${source.from}; ${source.grade})`);
+    expect(problems).toEqual([]);
+  });
+
   test("hadith links point at the hadith number they cite", () => {
     const problems: string[] = [];
     for (const source of hadith) {

@@ -225,8 +225,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Muslim 2471b",
               "url": "https://sunnah.com/muslim:2471b",
               "reference": "Muslim 2471b",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+              "grade": "Sahih",
               "summary": "Reference attached in the notes (Muslim 2471b)."
             }
           ],
@@ -300,8 +300,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Sahih al-Bukhari 4261",
               "url": "https://sunnah.com/bukhari:4261",
               "reference": "Bukhari 4261",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Abdullah ibn Umar; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Sahih al-Bukhari 4261"
             }
           ],
@@ -354,17 +354,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "from": "Imported from Obsidian notes",
               "grade": "Article",
               "summary": "Zaynab bint Muhammad: The First Daughter — Yaqeen Institute"
-            },
-            {
-              "id": "lesson_notes_sahabah_companions_from_your_notes_2_abu_al_as_ibn_al_rabi_src_2",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Jami' at-Tirmidhi 1143",
-              "url": "https://sunnah.com/tirmidhi:1143",
-              "reference": "Tirmidhi 1143",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Jami' at-Tirmidhi 1143"
             }
           ],
           "masteryState": "new",
@@ -521,8 +510,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Sahih al-Bukhari 3744",
               "url": "https://sunnah.com/bukhari:3744",
               "reference": "Bukhari 3744",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Anas ibn Malik; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Sahih al-Bukhari 3744"
             }
           ],
@@ -657,8 +646,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Sahih Muslim 121",
               "url": "https://sunnah.com/muslim:121",
               "reference": "Muslim 121",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Amr ibn al-As; collected by Imam Muslim",
+              "grade": "Sahih",
               "summary": "Sahih Muslim 121"
             }
           ],
@@ -974,19 +963,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "starsReward": 3,
           "order": 9,
           "difficulty": 4,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_sahabah_companions_from_your_notes_4_jabir_ibn_abdullah_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Sunnah.com Narrators — Jabir ibn 'Abd Allah al-Ansari",
-              "url": "https://sunnah.com/narrator/2069",
-              "reference": "narrator",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Sunnah.com Narrators — Jabir ibn 'Abd Allah al-Ansari"
-            }
-          ],
+          "sourceReferences": [],
           "masteryState": "new",
           "masteryTestEligible": false
         },
@@ -1504,8 +1481,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Sahih al-Bukhari 3966",
               "url": "https://sunnah.com/bukhari:3966",
               "reference": "Bukhari 3966",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Abu Dharr; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Sahih al-Bukhari 3966"
             },
             {
@@ -1515,8 +1492,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Sahih al-Bukhari 3969",
               "url": "https://sunnah.com/bukhari:3969",
               "reference": "Bukhari 3969",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Abu Dharr; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Sahih al-Bukhari 3969"
             },
             {
@@ -1526,8 +1503,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Sunan Abi Dawud 2665",
               "url": "https://sunnah.com/abudawud:2665",
               "reference": "Abudawud 2665",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Ali ibn Abi Talib; collected by Imam Abu Dawud",
+              "grade": "Sahih (Al-Albani)",
               "summary": "Sunan Abi Dawud 2665"
             }
           ],
@@ -1643,8 +1620,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Bukhari 3642",
               "url": "https://sunnah.com/bukhari:3642",
               "reference": "Bukhari 3642",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Urwah al-Bariqi; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Reference attached in the notes (Bukhari 3642)."
             }
           ],
@@ -1697,8 +1674,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Sahih al-Bukhari 5018",
               "url": "https://sunnah.com/bukhari:5018",
               "reference": "Bukhari 5018",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Usayd ibn Hudayr; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Sahih al-Bukhari 5018"
             }
           ],
@@ -1749,8 +1726,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Sahih al-Bukhari 4560",
               "url": "https://sunnah.com/bukhari:4560",
               "reference": "Bukhari 4560",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Abu Hurayrah; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Sahih al-Bukhari 4560"
             }
           ],
@@ -2619,30 +2596,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "starsReward": 3,
           "order": 2,
           "difficulty": 1,
-          "sourceReferences": [
-            {
-              "id": "lesson_notes_women_of_the_book_mothers_of_the_believers_from_your_notes_1_aminah_bint_wahb_src_1",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "Sahih Muslim 976b",
-              "url": "https://sunnah.com/muslim:976b",
-              "reference": "Muslim 976b",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Sahih Muslim 976b"
-            },
-            {
-              "id": "lesson_notes_women_of_the_book_mothers_of_the_believers_from_your_notes_1_aminah_bint_wahb_src_2",
-              "site": "Sunnah.com",
-              "category": "hadith",
-              "title": "976a",
-              "url": "https://sunnah.com/muslim:976a",
-              "reference": "Muslim 976a",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "976a"
-            }
-          ],
+          "sourceReferences": [],
           "masteryState": "new",
           "masteryTestEligible": false
         },
@@ -7045,8 +6999,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Mishkat 3096",
               "url": "https://sunnah.com/mishkat:3096",
               "reference": "Mishkat 3096",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Anas ibn Malik; collected by al-Khatib at-Tabrizi in Mishkat al-Masabih",
+              "grade": "Hasan (Al-Albani)",
               "summary": "Reference attached in the notes (Mishkat 3096)."
             }
           ],
@@ -7078,8 +7032,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Bukhari 3276",
               "url": "https://sunnah.com/bukhari:3276",
               "reference": "Bukhari 3276",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Abu Hurayrah; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Reference attached in the notes (Bukhari 3276)."
             }
           ],
@@ -7111,8 +7065,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Bukhari 5066",
               "url": "https://sunnah.com/bukhari:5066",
               "reference": "Bukhari 5066",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Abdullah ibn Mas'ud; collected by Imam al-Bukhari",
+              "grade": "Sahih",
               "summary": "Reference attached in the notes (Bukhari 5066)."
             }
           ],
@@ -7141,22 +7095,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_src_1",
               "site": "Sunnah.com",
               "category": "hadith",
-              "title": "muslim",
-              "url": "https://sunnah.com/muslim/15/159?utm_source",
-              "reference": "muslim",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
-              "summary": "Reference attached in the notes (muslim)."
-            },
-            {
-              "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_src_2",
-              "site": "Sunnah.com",
-              "category": "hadith",
               "title": "Muslim 1218a",
               "url": "https://sunnah.com/muslim:1218a",
               "reference": "Muslim 1218a",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+              "grade": "Sahih",
               "summary": "Reference attached in the notes (Muslim 1218a)."
             }
           ],
@@ -7186,8 +7129,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Muslim 2813b",
               "url": "https://sunnah.com/muslim:2813b",
               "reference": "Muslim 2813b",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+              "grade": "Sahih",
               "summary": "Reference attached in the notes (Muslim 2813b)."
             }
           ],
@@ -7219,8 +7162,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Muslim 2930a",
               "url": "https://sunnah.com/muslim:2930a",
               "reference": "Muslim 2930a",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Abdullah ibn Umar; collected by Imam Muslim",
+              "grade": "Sahih",
               "summary": "Reference attached in the notes (Muslim 2930a)."
             }
           ],
@@ -7252,8 +7195,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Nasai 3227",
               "url": "https://sunnah.com/nasai:3227",
               "reference": "Nasai 3227",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Ma'qil ibn Yasar; collected by Imam an-Nasa'i",
+              "grade": "Hasan (Darussalam)",
               "summary": "Reference attached in the notes (Nasai 3227)."
             }
           ],
@@ -7285,8 +7228,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
               "title": "Ibnmajah 1855",
               "url": "https://sunnah.com/ibnmajah:1855",
               "reference": "Ibnmajah 1855",
-              "from": "Imported from Obsidian notes",
-              "grade": "See Sunnah.com grading",
+              "from": "Abdullah ibn Amr; collected by Imam Ibn Majah",
+              "grade": "Sahih (Darussalam)",
               "summary": "Reference attached in the notes (Ibnmajah 1855)."
             }
           ],
@@ -7316,8 +7259,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "title": "Mishkat al-Masabih 3096",
         "url": "https://sunnah.com/mishkat:3096",
         "reference": "Mishkat al-Masabih 3096",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
+        "from": "Anas ibn Malik; collected by al-Khatib at-Tabrizi in Mishkat al-Masabih",
+        "grade": "Hasan (Al-Albani)",
         "summary": "Mishkat al-Masabih 3096"
       },
       "lessonType": "skill",
@@ -7331,8 +7274,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Mishkat 3096",
           "url": "https://sunnah.com/mishkat:3096",
           "reference": "Mishkat 3096",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Anas ibn Malik; collected by al-Khatib at-Tabrizi in Mishkat al-Masabih",
+          "grade": "Hasan (Al-Albani)",
           "summary": "Reference attached in the notes (Mishkat 3096)."
         }
       ],
@@ -7344,8 +7287,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Mishkat 3096",
           "url": "https://sunnah.com/mishkat:3096",
           "reference": "Mishkat 3096",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Anas ibn Malik; collected by al-Khatib at-Tabrizi in Mishkat al-Masabih",
+          "grade": "Hasan (Al-Albani)",
           "summary": "Reference attached in the notes (Mishkat 3096)."
         }
       ],
@@ -7420,8 +7363,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "title": "Sahih al-Bukhari 3276",
         "url": "https://sunnah.com/bukhari:3276",
         "reference": "Sahih al-Bukhari 3276",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
+        "from": "Abu Hurayrah; collected by Imam al-Bukhari",
+        "grade": "Sahih",
         "summary": "Sahih al-Bukhari 3276"
       },
       "lessonType": "skill",
@@ -7435,8 +7378,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Bukhari 3276",
           "url": "https://sunnah.com/bukhari:3276",
           "reference": "Bukhari 3276",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abu Hurayrah; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Bukhari 3276)."
         }
       ],
@@ -7448,8 +7391,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Bukhari 3276",
           "url": "https://sunnah.com/bukhari:3276",
           "reference": "Bukhari 3276",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abu Hurayrah; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Bukhari 3276)."
         }
       ],
@@ -7522,8 +7465,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "title": "Sahih al-Bukhari 5066",
         "url": "https://sunnah.com/bukhari:5066",
         "reference": "Sahih al-Bukhari 5066",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
+        "from": "Abdullah ibn Mas'ud; collected by Imam al-Bukhari",
+        "grade": "Sahih",
         "summary": "Sahih al-Bukhari 5066"
       },
       "lessonType": "skill",
@@ -7537,8 +7480,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Bukhari 5066",
           "url": "https://sunnah.com/bukhari:5066",
           "reference": "Bukhari 5066",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abdullah ibn Mas'ud; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Bukhari 5066)."
         }
       ],
@@ -7550,8 +7493,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Bukhari 5066",
           "url": "https://sunnah.com/bukhari:5066",
           "reference": "Bukhari 5066",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abdullah ibn Mas'ud; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Bukhari 5066)."
         }
       ],
@@ -7632,8 +7575,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "title": "Sahih Muslim 1218a",
         "url": "https://sunnah.com/muslim:1218a",
         "reference": "Sahih Muslim 1218a",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
+        "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+        "grade": "Sahih",
         "summary": "Sahih Muslim 1218a"
       },
       "lessonType": "skill",
@@ -7644,22 +7587,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_src_1",
           "site": "Sunnah.com",
           "category": "hadith",
-          "title": "muslim",
-          "url": "https://sunnah.com/muslim/15/159?utm_source",
-          "reference": "muslim",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (muslim)."
-        },
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_src_2",
-          "site": "Sunnah.com",
-          "category": "hadith",
           "title": "Muslim 1218a",
           "url": "https://sunnah.com/muslim:1218a",
           "reference": "Muslim 1218a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Muslim 1218a)."
         }
       ],
@@ -7668,22 +7600,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_src_1",
           "site": "Sunnah.com",
           "category": "hadith",
-          "title": "muslim",
-          "url": "https://sunnah.com/muslim/15/159?utm_source",
-          "reference": "muslim",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Reference attached in the notes (muslim)."
-        },
-        {
-          "id": "lesson_notes_hadith_hadith_from_your_notes_1_sahih_muslim_1218a_src_2",
-          "site": "Sunnah.com",
-          "category": "hadith",
           "title": "Muslim 1218a",
           "url": "https://sunnah.com/muslim:1218a",
           "reference": "Muslim 1218a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Muslim 1218a)."
         }
       ],
@@ -7716,7 +7637,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a",
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a",
           "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim/15/159?utm_source"
+          "resourceUrl": "https://sunnah.com/muslim:1218a"
         },
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a_q2",
@@ -7741,7 +7662,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "sourceNodeId": "notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a",
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-1-sahih-muslim-1218a",
           "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim/15/159?utm_source"
+          "resourceUrl": "https://sunnah.com/muslim:1218a"
         }
       ]
     },
@@ -7752,7 +7673,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "title": "Iblis and his troops",
       "intro": "Jabir reported that Allah's Messenger (ﷺ) said: Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension.",
       "explanationContent": "Jabir reported that Allah's Messenger (ﷺ) said: Iblis places his throne upon water; he then sends detachments (for creating dissension); the nearer to him in rank are those who are most notorious in creating dissension. One of them comes and says: \"I did so and so.\" And he says: \"You have done nothing.\" Then one amongst them comes and says: \"I did not spare so and so until I sowed the seed of discord between a husband and a wife.\" The Satan goes near him and says: \"You have done well.\" A'mash said: He then embraces him.",
-      "learnLine": "Iblis praises the devil who makes a husband and wife fight.",
+      "learnLine": "Iblis praises the devil who comes between a husband and wife.",
       "quote": {
         "text": "\"I did not spare so and so until I sowed the seed of discord between a husband and a wife.\" The Satan goes near him and says: \"You have done well.\"",
         "reference": "Sahih Muslim 2813b"
@@ -7764,8 +7685,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "title": "Sahih Muslim 2813b",
         "url": "https://sunnah.com/muslim:2813b",
         "reference": "Sahih Muslim 2813b",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
+        "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+        "grade": "Sahih",
         "summary": "Sahih Muslim 2813b"
       },
       "lessonType": "skill",
@@ -7779,8 +7700,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Muslim 2813b",
           "url": "https://sunnah.com/muslim:2813b",
           "reference": "Muslim 2813b",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Muslim 2813b)."
         }
       ],
@@ -7792,8 +7713,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Muslim 2813b",
           "url": "https://sunnah.com/muslim:2813b",
           "reference": "Muslim 2813b",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Muslim 2813b)."
         }
       ],
@@ -7816,11 +7737,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "The one who made a husband and wife fight"
+              "label": "The one who came between a husband and wife"
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Iblis praises the devil who makes a husband and wife fight.",
+          "explanation": "Iblis praises the devil who comes between a husband and wife.",
           "sourceNodeId": "notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
           "sourceLessonId": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b",
           "resourceLabel": "Open source",
@@ -7829,7 +7750,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-hadith-hadith-from-your-notes-2-sahih-muslim-2813b_q2",
           "type": "true_false",
-          "prompt": "Iblis is pleased when a husband and wife fight.",
+          "prompt": "Iblis is pleased when a devil comes between a husband and wife.",
           "choices": [
             {
               "id": "true",
@@ -7868,8 +7789,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "title": "Sahih Muslim 2930a",
         "url": "https://sunnah.com/muslim:2930a",
         "reference": "Sahih Muslim 2930a",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
+        "from": "Abdullah ibn Umar; collected by Imam Muslim",
+        "grade": "Sahih",
         "summary": "Sahih Muslim 2930a"
       },
       "lessonType": "skill",
@@ -7883,8 +7804,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Muslim 2930a",
           "url": "https://sunnah.com/muslim:2930a",
           "reference": "Muslim 2930a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abdullah ibn Umar; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Muslim 2930a)."
         }
       ],
@@ -7896,8 +7817,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Muslim 2930a",
           "url": "https://sunnah.com/muslim:2930a",
           "reference": "Muslim 2930a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abdullah ibn Umar; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Muslim 2930a)."
         }
       ],
@@ -7978,8 +7899,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "title": "Sunan an-Nasa'i 3227",
         "url": "https://sunnah.com/nasai:3227",
         "reference": "Sunan an-Nasa'i 3227",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
+        "from": "Ma'qil ibn Yasar; collected by Imam an-Nasa'i",
+        "grade": "Hasan (Darussalam)",
         "summary": "Sunan an-Nasa'i 3227"
       },
       "lessonType": "skill",
@@ -7993,8 +7914,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Nasai 3227",
           "url": "https://sunnah.com/nasai:3227",
           "reference": "Nasai 3227",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Ma'qil ibn Yasar; collected by Imam an-Nasa'i",
+          "grade": "Hasan (Darussalam)",
           "summary": "Reference attached in the notes (Nasai 3227)."
         }
       ],
@@ -8006,8 +7927,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Nasai 3227",
           "url": "https://sunnah.com/nasai:3227",
           "reference": "Nasai 3227",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Ma'qil ibn Yasar; collected by Imam an-Nasa'i",
+          "grade": "Hasan (Darussalam)",
           "summary": "Reference attached in the notes (Nasai 3227)."
         }
       ],
@@ -8084,8 +8005,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         "title": "Sunan Ibn Majah 1855",
         "url": "https://sunnah.com/ibnmajah:1855",
         "reference": "Sunan Ibn Majah 1855",
-        "from": "Imported from Obsidian notes",
-        "grade": "See Sunnah.com grading",
+        "from": "Abdullah ibn Amr; collected by Imam Ibn Majah",
+        "grade": "Sahih (Darussalam)",
         "summary": "Sunan Ibn Majah 1855"
       },
       "lessonType": "skill",
@@ -8099,8 +8020,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Ibnmajah 1855",
           "url": "https://sunnah.com/ibnmajah:1855",
           "reference": "Ibnmajah 1855",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abdullah ibn Amr; collected by Imam Ibn Majah",
+          "grade": "Sahih (Darussalam)",
           "summary": "Reference attached in the notes (Ibnmajah 1855)."
         }
       ],
@@ -8112,8 +8033,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Ibnmajah 1855",
           "url": "https://sunnah.com/ibnmajah:1855",
           "reference": "Ibnmajah 1855",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abdullah ibn Amr; collected by Imam Ibn Majah",
+          "grade": "Sahih (Darussalam)",
           "summary": "Reference attached in the notes (Ibnmajah 1855)."
         }
       ],
@@ -10897,8 +10818,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Muslim 2471b",
           "url": "https://sunnah.com/muslim:2471b",
           "reference": "Muslim 2471b",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Muslim 2471b)."
         }
       ],
@@ -10910,8 +10831,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Muslim 2471b",
           "url": "https://sunnah.com/muslim:2471b",
           "reference": "Muslim 2471b",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Jabir ibn Abdullah; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Muslim 2471b)."
         }
       ],
@@ -11251,8 +11172,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 4261",
           "url": "https://sunnah.com/bukhari:4261",
           "reference": "Bukhari 4261",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abdullah ibn Umar; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 4261"
         }
       ],
@@ -11264,8 +11185,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 4261",
           "url": "https://sunnah.com/bukhari:4261",
           "reference": "Bukhari 4261",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abdullah ibn Umar; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 4261"
         }
       ],
@@ -11499,17 +11420,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "from": "Imported from Obsidian notes",
           "grade": "Article",
           "summary": "Zaynab bint Muhammad: The First Daughter — Yaqeen Institute"
-        },
-        {
-          "id": "lesson_notes_sahabah_companions_from_your_notes_2_abu_al_as_ibn_al_rabi_src_2",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Jami' at-Tirmidhi 1143",
-          "url": "https://sunnah.com/tirmidhi:1143",
-          "reference": "Tirmidhi 1143",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Jami' at-Tirmidhi 1143"
         }
       ],
       "sourceReferences": [
@@ -11522,17 +11432,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "from": "Imported from Obsidian notes",
           "grade": "Article",
           "summary": "Zaynab bint Muhammad: The First Daughter — Yaqeen Institute"
-        },
-        {
-          "id": "lesson_notes_sahabah_companions_from_your_notes_2_abu_al_as_ibn_al_rabi_src_2",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Jami' at-Tirmidhi 1143",
-          "url": "https://sunnah.com/tirmidhi:1143",
-          "reference": "Tirmidhi 1143",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Jami' at-Tirmidhi 1143"
         }
       ],
       "unlockRules": [],
@@ -12182,7 +12081,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Banu Umayyah"
+              "label": "Banu Salamah"
             }
           ],
           "correctChoiceId": "c",
@@ -12217,8 +12116,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 3744",
           "url": "https://sunnah.com/bukhari:3744",
           "reference": "Bukhari 3744",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Anas ibn Malik; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 3744"
         }
       ],
@@ -12230,8 +12129,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 3744",
           "url": "https://sunnah.com/bukhari:3744",
           "reference": "Bukhari 3744",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Anas ibn Malik; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 3744"
         }
       ],
@@ -12864,8 +12763,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih Muslim 121",
           "url": "https://sunnah.com/muslim:121",
           "reference": "Muslim 121",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Amr ibn al-As; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Sahih Muslim 121"
         }
       ],
@@ -12877,8 +12776,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih Muslim 121",
           "url": "https://sunnah.com/muslim:121",
           "reference": "Muslim 121",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Amr ibn al-As; collected by Imam Muslim",
+          "grade": "Sahih",
           "summary": "Sahih Muslim 121"
         }
       ],
@@ -14473,32 +14372,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "lessonType": "story",
       "difficulty": 4,
       "xpReward": 16,
-      "sources": [
-        {
-          "id": "lesson_notes_sahabah_companions_from_your_notes_4_jabir_ibn_abdullah_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Sunnah.com Narrators — Jabir ibn 'Abd Allah al-Ansari",
-          "url": "https://sunnah.com/narrator/2069",
-          "reference": "narrator",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Sunnah.com Narrators — Jabir ibn 'Abd Allah al-Ansari"
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_sahabah_companions_from_your_notes_4_jabir_ibn_abdullah_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Sunnah.com Narrators — Jabir ibn 'Abd Allah al-Ansari",
-          "url": "https://sunnah.com/narrator/2069",
-          "reference": "narrator",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Sunnah.com Narrators — Jabir ibn 'Abd Allah al-Ansari"
-        }
-      ],
+      "sources": [],
+      "sourceReferences": [],
       "unlockRules": [
         "Complete Ja'far ibn Abi Talib"
       ],
@@ -14530,9 +14405,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "correctChoiceId": "d",
           "explanation": "The mother of Jabir ibn Abdullah was Nasibah bint Uqbah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah",
-          "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/narrator/2069"
+          "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah"
         },
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah_q2",
@@ -14559,9 +14432,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "correctChoiceId": "a",
           "explanation": "Jabir ibn Abdullah was from Khazraj.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah",
-          "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/narrator/2069"
+          "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah"
         },
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah_q3",
@@ -14588,9 +14459,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "correctChoiceId": "b",
           "explanation": "Jabir ibn Abdullah belonged to Banu Salamah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah",
-          "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/narrator/2069"
+          "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-4-jabir-ibn-abdullah"
         }
       ]
     },
@@ -16766,8 +16635,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 3966",
           "url": "https://sunnah.com/bukhari:3966",
           "reference": "Bukhari 3966",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abu Dharr; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 3966"
         },
         {
@@ -16777,8 +16646,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 3969",
           "url": "https://sunnah.com/bukhari:3969",
           "reference": "Bukhari 3969",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abu Dharr; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 3969"
         },
         {
@@ -16788,8 +16657,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sunan Abi Dawud 2665",
           "url": "https://sunnah.com/abudawud:2665",
           "reference": "Abudawud 2665",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Ali ibn Abi Talib; collected by Imam Abu Dawud",
+          "grade": "Sahih (Al-Albani)",
           "summary": "Sunan Abi Dawud 2665"
         }
       ],
@@ -16801,8 +16670,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 3966",
           "url": "https://sunnah.com/bukhari:3966",
           "reference": "Bukhari 3966",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abu Dharr; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 3966"
         },
         {
@@ -16812,8 +16681,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 3969",
           "url": "https://sunnah.com/bukhari:3969",
           "reference": "Bukhari 3969",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abu Dharr; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 3969"
         },
         {
@@ -16823,8 +16692,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sunan Abi Dawud 2665",
           "url": "https://sunnah.com/abudawud:2665",
           "reference": "Abudawud 2665",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Ali ibn Abi Talib; collected by Imam Abu Dawud",
+          "grade": "Sahih (Al-Albani)",
           "summary": "Sunan Abi Dawud 2665"
         }
       ],
@@ -17342,8 +17211,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Bukhari 3642",
           "url": "https://sunnah.com/bukhari:3642",
           "reference": "Bukhari 3642",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Urwah al-Bariqi; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Bukhari 3642)."
         }
       ],
@@ -17355,8 +17224,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Bukhari 3642",
           "url": "https://sunnah.com/bukhari:3642",
           "reference": "Bukhari 3642",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Urwah al-Bariqi; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Reference attached in the notes (Bukhari 3642)."
         }
       ],
@@ -17558,8 +17427,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 5018",
           "url": "https://sunnah.com/bukhari:5018",
           "reference": "Bukhari 5018",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Usayd ibn Hudayr; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 5018"
         }
       ],
@@ -17571,8 +17440,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 5018",
           "url": "https://sunnah.com/bukhari:5018",
           "reference": "Bukhari 5018",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Usayd ibn Hudayr; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 5018"
         }
       ],
@@ -17773,8 +17642,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 4560",
           "url": "https://sunnah.com/bukhari:4560",
           "reference": "Bukhari 4560",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abu Hurayrah; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 4560"
         }
       ],
@@ -17786,8 +17655,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "title": "Sahih al-Bukhari 4560",
           "url": "https://sunnah.com/bukhari:4560",
           "reference": "Bukhari 4560",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
+          "from": "Abu Hurayrah; collected by Imam al-Bukhari",
+          "grade": "Sahih",
           "summary": "Sahih al-Bukhari 4560"
         }
       ],
@@ -18736,54 +18605,8 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "lessonType": "story",
       "difficulty": 1,
       "xpReward": 10,
-      "sources": [
-        {
-          "id": "lesson_notes_women_of_the_book_mothers_of_the_believers_from_your_notes_1_aminah_bint_wahb_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Sahih Muslim 976b",
-          "url": "https://sunnah.com/muslim:976b",
-          "reference": "Muslim 976b",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Sahih Muslim 976b"
-        },
-        {
-          "id": "lesson_notes_women_of_the_book_mothers_of_the_believers_from_your_notes_1_aminah_bint_wahb_src_2",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "976a",
-          "url": "https://sunnah.com/muslim:976a",
-          "reference": "Muslim 976a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "976a"
-        }
-      ],
-      "sourceReferences": [
-        {
-          "id": "lesson_notes_women_of_the_book_mothers_of_the_believers_from_your_notes_1_aminah_bint_wahb_src_1",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "Sahih Muslim 976b",
-          "url": "https://sunnah.com/muslim:976b",
-          "reference": "Muslim 976b",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "Sahih Muslim 976b"
-        },
-        {
-          "id": "lesson_notes_women_of_the_book_mothers_of_the_believers_from_your_notes_1_aminah_bint_wahb_src_2",
-          "site": "Sunnah.com",
-          "category": "hadith",
-          "title": "976a",
-          "url": "https://sunnah.com/muslim:976a",
-          "reference": "Muslim 976a",
-          "from": "Imported from Obsidian notes",
-          "grade": "See Sunnah.com grading",
-          "summary": "976a"
-        }
-      ],
+      "sources": [],
+      "sourceReferences": [],
       "unlockRules": [
         "Complete Aishah bint Abi Bakr"
       ],
@@ -18815,9 +18638,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "correctChoiceId": "c",
           "explanation": "The father of Aminah bint Wahb was Wahb ibn Abd Manaf.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:976b"
+          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb"
         },
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb_q2",
@@ -18844,9 +18665,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "correctChoiceId": "d",
           "explanation": "The mother of Aminah bint Wahb was Barrah bint Abd al-Uzza.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:976b"
+          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb"
         },
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb_q3",
@@ -18873,9 +18692,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "correctChoiceId": "a",
           "explanation": "Aminah bint Wahb was from Quraysh.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb",
-          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://sunnah.com/muslim:976b"
+          "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-aminah-bint-wahb"
         }
       ]
     },
@@ -30393,7 +30210,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Covered One"
+              "label": "The Ant"
             },
             {
               "id": "c",
