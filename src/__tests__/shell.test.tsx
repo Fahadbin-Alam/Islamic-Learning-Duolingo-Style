@@ -467,8 +467,11 @@ describe("ShopView with purchases off", () => {
       <ShopView user={makeUser()} strings={getUiStrings("en")} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} onDone={onDone} />
     );
     expect(screen.queryByText(/in the app/i)).toBeNull();
-    expect(screen.getByText("Premium can't be bought here")).toBeTruthy();
-    expect(screen.getByText("All the other lessons are free!")).toBeTruthy();
+    // One short, true line a 6-year-old can read: no "Premium", at most 6 words.
+    const line = screen.getByTestId("shop-app-hint-line");
+    expect(line).toHaveTextContent("Almost every lesson is free!");
+    expect(screen.queryByText(/premium/i)).toBeNull();
+    expect(String(line.props.children).split(/\s+/).length).toBeLessThanOrEqual(6);
     await fireEvent.press(screen.getByText("KEEP LEARNING"));
     expect(onDone).toHaveBeenCalledTimes(1);
   });

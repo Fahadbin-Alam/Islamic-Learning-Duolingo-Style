@@ -245,6 +245,21 @@ describe("arabic terms", () => {
     expect(depth.filter((node) => node.id !== "women-quran-depth-hawwa-and-return" && themes.includes(getNodeArabic(node.id)?.ar ?? "")).map((node) => node.id)).toEqual([]);
   });
 
+  it("writes the meaning of every surah's name in title case, as in The Small Kindnesses", () => {
+    const SMALL_WORDS = new Set(["a", "an", "the", "and", "but", "or", "nor", "of", "in", "on", "at", "to", "by", "for", "from", "with", "as"]);
+    const surahNodes = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!.nodes.filter((node) => /^notes-quran-tafseer-surahs-\d+-\d+-surah-/.test(node.id));
+    expect(surahNodes).toHaveLength(114);
+    const meanings = [
+      ...surahNodes.map((node) => getNodeArabic(node.id)!.meaning),
+      // The course's own surah units: "Surat Al-Kahf", "The Cave".
+      ...Object.entries(NODE_ARABIC).filter(([id, term]) => id.startsWith("quran-surah-") && /^Surat /.test(term.translit)).map(([, term]) => term.meaning)
+    ].filter((meaning) => !/^Named after |^Surah \d+$/.test(meaning));
+    expect(meanings.length).toBeGreaterThanOrEqual(100);
+    const lower = meanings.filter((meaning) => meaning.split(/\s+/).some((word, index) => /^\p{Ll}/u.test(word) && (index === 0 || !SMALL_WORDS.has(word))));
+    expect(lower).toEqual([]);
+    expect(getNodeArabic("notes-quran-tafseer-surahs-101-110-surah-al-maun")?.meaning).toBe("The Small Kindnesses");
+  });
+
   it("writes ﷺ after Muhammad, the Prophet, in every meaning", () => {
     const meanings = [...tables.flatMap(([, terms]) => Object.values(terms)), ...COURSE.sections.flatMap((section) => section.nodes).map((node) => getLessonArabic(node.id, node.branchId)!)]
       .map((term) => term.meaning)

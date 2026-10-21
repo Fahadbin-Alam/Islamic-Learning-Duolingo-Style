@@ -8,9 +8,10 @@ export type ProgressBarProps = {
   height?: number;
   trackColor?: string;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 };
 
-export function ProgressBar({ progress, color = colors.green, height = 16, trackColor = colors.line, style }: ProgressBarProps) {
+export function ProgressBar({ progress, color = colors.green, height = 16, trackColor = colors.line, style, testID }: ProgressBarProps) {
   const clamped = Number.isFinite(progress) ? Math.min(1, Math.max(0, progress)) : 0;
   const value = useRef(new Animated.Value(clamped)).current;
 
@@ -28,6 +29,7 @@ export function ProgressBar({ progress, color = colors.green, height = 16, track
       style={[styles.track, { height, borderRadius: radius, backgroundColor: trackColor }, style]}
       accessibilityRole="progressbar"
       accessibilityValue={{ min: 0, max: 100, now: Math.round(clamped * 100) }}
+      testID={testID}
     >
       {clamped > 0 ? (
         <Animated.View style={[styles.fill, { width, minWidth: height * 1.2, borderRadius: radius, backgroundColor: color }]}>

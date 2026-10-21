@@ -35,12 +35,23 @@ export const WRONG_TEXT = darken(colors.wrongInk, 0.15);
 export const CORRECT_TEXT = darken(colors.correctInk, 0.12);
 
 const SHEET_PAD = 20 + 16;
+/** A slim sheet (a short phone, under the green tile): less padding and the md button. */
+const SLIM_PAD_TOP = 12;
+const SLIM_PAD_BOTTOM = 8;
+const SHEET_PAD_SLIM = SLIM_PAD_TOP + SLIM_PAD_BOTTOM;
+/** The lg and md buttons with their 4 px lip. */
+const BUTTON_LG = 58;
+const BUTTON_MD = 50;
+/** Enough body to read: two lines of the Why text, or the whole body when it is shorter. */
+const READABLE_BODY = 50;
 const SHEET_INSET = Platform.OS === "ios" ? 30 : 16;
 /** The sheet never grows past this share of the window; a long answer scrolls inside it instead. */
 export const SHEET_MAX_SHARE = 0.6;
 /** A "correct order" list may take a little more, so an eight-step order fits on a small phone. */
 const LIST_MAX_SHARE = 0.66;
 const MIN_BODY = 64;
+/** Under `maxHeight` the body may shrink to about one line: the rest scrolls behind the "more" arrow. */
+const MIN_BODY_TIGHT = 36;
 /** The body has no bottom padding, so even one hidden list row (20 px) shows the arrow. */
 const BODY_SLACK = 4;
 
@@ -65,6 +76,14 @@ export type FeedbackSheetProps = {
   /** Start with the Why line open (gallery / tests). */
   defaultWhyOpen?: boolean;
   bottomInset?: number;
+  /**
+   * The tallest the whole sheet may be (panel padding included), e.g. the room under the green tile on a short
+   * phone. The part between the title and the button scrolls instead, and when that would leave too little of
+   * it to read the sheet slims down (less padding, a smaller button). Default: SHEET_MAX_SHARE of the window.
+   */
+  maxHeight?: number;
+  /** Told whether even a slim sheet under `maxHeight` leaves too little of the answer and Why line to read. */
+  onCramped?: (cramped: boolean) => void;
   /** Reports the sheet's full height (panel padding included) whenever it changes. */
   onHeight?: (height: number) => void;
   testID?: string;
@@ -85,6 +104,8 @@ export function FeedbackSheet({
   playSound = true,
   defaultWhyOpen = false,
   bottomInset,
+  maxHeight,
+  onCramped,
   onHeight,
   testID = "feedback-sheet"
 }: FeedbackSheetProps) {
@@ -95,6 +116,7 @@ export function FeedbackSheet({
   // The icon + title row and the button always show; the part between them scrolls when it is long.
   const [headHeight, setHeadHeight] = useState(40);
   const [buttonHeight, setButtonHeight] = useState(58);
+  const [bodyContent, setBodyContent] = useState(0);
   const { ref: bodyRef, scrollProps: bodyScrollProps, more: bodyMore, scrollDown: bodyScrollDown } = useScrollMore(BODY_SLACK);
   const revealWhy = useRef(false);
 
@@ -130,18 +152,65 @@ export function FeedbackSheet({
   const whyText = why?.trim();
   const inset = bottomInset ?? SHEET_INSET;
   const listShown = !correct && Boolean(correctList && correctList.length > 0);
-  // The gap above the button grows to hold the "more" arrow; the body gives up that room, so the sheet keeps its height.
-  const buttonGap = bodyMore ? SCROLL_HINT_ROOM : space.lg;
   const share = listShown ? LIST_MAX_SHARE : SHEET_MAX_SHARE;
-  const bodyMax = Math.max(MIN_BODY, Math.round(windowHeight * share) - headHeight - buttonGap - buttonHeight - SHEET_PAD - inset);
+  const shareMax = Math.round(windowHeight * share);
+  const tight = maxHeight !== undefined && maxHeight < shareMax;
+  const sheetMax = tight ? maxHeight : shareMax;
+  const minBody = tight ? MIN_BODY_TIGHT : MIN_BODY;
+  const readable = Math.min(bodyContent || READABLE_BODY, READABLE_BODY);
+  // Under the green tile on a short phone, a sheet that would leave too little to read goes slim; when even a slim
+  // one would, the caller is told (ExerciseView folds the grey tiles away to make room).
+  const slim = tight && sheetMax - (headHeight + BUTTON_LG + SHEET_PAD + inset + space.lg) < readable;
+  const cramped = tight && sheetMax - (headHeight + BUTTON_MD + SHEET_PAD_SLIM + inset + space.sm) < readable;
+  const baseGap = slim ? space.sm : space.lg;
+  const fixedParts = headHeight + buttonHeight + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset;
+  // The gap above the button grows to hold the "more" arrow; the body gives up that room, so the sheet keeps its height.
+  // It keeps that room for as long as the body is too long to show whole, wherever it is scrolled, so the body does
+  // not change size (and lose its place) each time the arrow comes and goes.
+  const overflows = bodyContent > Math.max(minBody, sheetMax - fixedParts - baseGap) + BODY_SLACK;
+  const buttonGap = overflows || bodyMore ? SCROLL_HINT_ROOM : baseGap;
+  const bodyMax = Math.max(minBody, sheetMax - fixedParts - buttonGap);
   const answerShown = !correct && !correctList && Boolean(correctLabel);
   const whyShown = !correct && Boolean(whyText);
+  // The "more" arrow takes its room from the body once it shows, so a Why line being revealed is scrolled to the
+  // end again at the body's new size; the reveal is done once the end is in view.
+  useEffect(() => {
+    if (revealWhy.current) {
+      bodyRef.current?.scrollToEnd?.({ animated: true });
+    }
+  }, [bodyMax, bodyRef]);
+  useEffect(() => {
+    if (!bodyMore) {
+      revealWhy.current = false;
+    }
+  }, [bodyMore]);
+  useEffect(() => {
+    if (!visible) {
+      revealWhy.current = false;
+    }
+  }, [visible]);
+  useEffect(() => {
+    if (visible) {
+      onCramped?.(cramped);
+    }
+    // Only when the answer changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cramped, visible]);
+
   const badgeScale = badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
   const badgeRotate = badge.interpolate({ inputRange: [0, 1], outputRange: ["-40deg", "0deg"] });
 
   return (
-    <Sheet visible={visible} tone={correct ? "correct" : "wrong"} backdrop={false} dismissOnBackdrop={false} bottomInset={bottomInset} testID={testID}>
-      <View onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + SHEET_PAD + inset))}>
+    <Sheet
+      visible={visible}
+      tone={correct ? "correct" : "wrong"}
+      backdrop={false}
+      dismissOnBackdrop={false}
+      bottomInset={bottomInset}
+      style={slim ? { paddingTop: SLIM_PAD_TOP, paddingBottom: SLIM_PAD_BOTTOM + inset } : undefined}
+      testID={testID}
+    >
+      <View onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset))}>
         <View style={styles.headRow} onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))}>
           <Animated.View
             style={[
@@ -167,10 +236,14 @@ export function FeedbackSheet({
               {...bodyScrollProps}
               onContentSizeChange={(width, height) => {
                 bodyScrollProps.onContentSizeChange(width, height);
+                setBodyContent(Math.round(height));
                 // Opening Why scrolls it into view when the answer above already fills the sheet.
                 if (revealWhy.current) {
-                  revealWhy.current = false;
-                  bodyRef.current?.scrollToEnd?.({ animated: true });
+                  if (height <= bodyMax) {
+                    revealWhy.current = false;
+                  } else {
+                    bodyRef.current?.scrollToEnd?.({ animated: true });
+                  }
                 }
               }}
             >
@@ -253,11 +326,12 @@ export function FeedbackSheet({
         ) : null}
 
         {/* "More below" sits in the gap above the button, under the scrolling part, never over its text. */}
-        <ScrollHintGap visible={bodyMore} onPress={bodyScrollDown} gap={space.lg} testID="feedback-more" />
+        <ScrollHintGap visible={bodyMore} onPress={bodyScrollDown} gap={buttonGap} testID="feedback-more" />
         <View onLayout={(event) => setButtonHeight(Math.round(event.nativeEvent.layout.height))}>
           <GameButton
             label={label}
             variant={correct ? "primary" : "danger"}
+            size={slim ? "md" : "lg"}
             sound={buttonSound}
             fullWidth
             onPress={onContinue}

@@ -27,7 +27,7 @@ export type ShopViewProps = {
   /** Called after the grown-up gate. */
   onRestore: () => void;
   /**
-   * KEEP LEARNING under the "Premium can't be bought here" note (purchases off, e.g. on web).
+   * KEEP LEARNING under the "Almost every lesson is free!" note (purchases off, e.g. on web).
    * Usually opens the Learn tab. Without it the note has no button.
    */
   onDone?: () => void;
@@ -467,13 +467,15 @@ export function ShopView({
         ) : null}
 
         {!canBuyWithMoney && !premium ? (
-          // Only what is true here: this build cannot sell Premium, and every other lesson is free.
+          // Only what is true here, in a child's words: this build cannot sell the crown units (premiumOnly,
+          // a handful of circles), so they stay locked, and every other lesson is free to play.
           <View style={styles.appHint} testID="shop-app-hint" onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
             <View style={styles.appHintHead}>
               <Icon name="crown" size={30} />
               <View style={styles.appHintTextWrap}>
-                <Text style={styles.appHintText}>Premium can't be bought here</Text>
-                <Text style={styles.appHintLine}>All the other lessons are free!</Text>
+                <Text style={styles.appHintText} testID="shop-app-hint-line">
+                  Almost every lesson is free!
+                </Text>
               </View>
             </View>
             {onDone ? <GameButton label="Keep learning" size="md" fullWidth onPress={onDone} testID="shop-keep-learning" /> : null}
@@ -821,13 +823,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 22,
     color: darken(colors.gold, 0.6),
-    flexShrink: 1
-  },
-  appHintLine: {
-    ...text.tiny,
-    fontSize: 14,
-    lineHeight: 19,
-    color: darken(colors.gold, 0.5),
     flexShrink: 1
   },
   footer: {

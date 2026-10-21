@@ -62,7 +62,18 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
 - **Lesson**: close button, progress bar, hearts. Steps: one learn card (Arabic word, one
   short line from the mascot, optional source chip), an optional ordering game (prayer only),
   then the questions. Answers are big tiles. CHECK slides up a feedback sheet: "Great job!" or
-  "Correct answer: …" with a hidden "Why?" line. A missed question comes back once at the end of the lesson, tiles in a new order (a test-out asks each question once).
+  "Correct answer: …" with a hidden "Why?" line. Every wrong answer costs a heart, a missed question
+  asked again too. A missed question comes back at the end of the lesson with a "Try again!" label and its
+  tiles in a new order, again each time it is missed, until it is answered right; the lesson is done only
+  when every question has been right once, and the progress bar fills one step per question answered
+  right. At 0 hearts the out-of-hearts sheet opens (one free refill, then "Full hearts again tomorrow!"),
+  so a learner who keeps tapping wrong stops there. Stars count the questions missed on their first try.
+  A test-out (JUMP HERE) asks each question once, costs no hearts and ends as soon as it cannot be
+  passed. Practice sessions keep their own rules.
+  The sheet never covers the prompt or the green tile, its Why line open: on a short phone it is only
+  as tall as the room under that tile (what does not fit scrolls inside it), goes slim (less padding,
+  a smaller button) when that room is small, and with four tiles the grey ones fold away until the
+  next question.
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
 ## Copy bank

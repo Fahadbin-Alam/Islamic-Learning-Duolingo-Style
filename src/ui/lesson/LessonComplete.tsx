@@ -186,7 +186,7 @@ export function LessonComplete({
         <Text style={styles.lessonTitle}>{withHonorifics(title)}</Text>
 
         <View style={[styles.cards, short ? styles.cardsShort : null]}>
-          <StatCard label="TOTAL XP" icon="bolt" value={xp} color={colors.gold} ink={XP_INK} labelColor={GOLD_LABEL} index={0} testID="stat-xp" />
+          <StatCard label="XP EARNED" icon="bolt" value={xp} color={colors.gold} ink={XP_INK} labelColor={GOLD_LABEL} index={0} testID="stat-xp" />
           <StatCard
             label="STARS"
             color={colors.gem}

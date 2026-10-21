@@ -39,7 +39,7 @@ import type { Challenge, LessonSession, UserProfile } from "../types";
 import { makeUser } from "./testUtils";
 
 describe("lesson queue", () => {
-  it("asks each question once, then a first-try miss once more at the end", () => {
+  it("asks each question once, then a miss again at the end, on every try until it is right", () => {
     let queue = startLessonQueue(3);
     expect(queue).toEqual([
       { index: 0, attempt: 0 },
@@ -54,12 +54,19 @@ describe("lesson queue", () => {
     expect(queue[3]).toEqual({ index: 0, attempt: 1 });
     expect(isLastLessonStep(queue, 2)).toBe(false);
 
-    // Missed again when it comes back: it is done, and it does not come back a third time.
+    // Missed again when it comes back: it comes back once more, as its next try (the heart rule).
     const again = answerLessonStep(queue, 3, false, false);
-    expect(again.requeued).toBe(false);
-    expect(again.done).toBe(true);
-    expect(again.queue).toHaveLength(4);
-    expect(isLastLessonStep(again.queue, 3)).toBe(true);
+    expect(again.requeued).toBe(true);
+    expect(again.done).toBe(false);
+    expect(again.queue).toHaveLength(5);
+    expect(again.queue[4]).toEqual({ index: 0, attempt: 2 });
+    expect(isLastLessonStep(again.queue, 3)).toBe(false);
+
+    // Right at last: done, and nothing more comes back.
+    const right = answerLessonStep(again.queue, 4, true, false);
+    expect(right.requeued).toBe(false);
+    expect(right.done).toBe(true);
+    expect(isLastLessonStep(right.queue, 4)).toBe(true);
   });
 
   it("never asks a test question again", () => {

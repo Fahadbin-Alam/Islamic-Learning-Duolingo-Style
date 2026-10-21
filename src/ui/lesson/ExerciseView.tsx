@@ -206,14 +206,15 @@ function isFalseChoice(choice: ExerciseChoice) {
 }
 
 /**
- * The tiles' order for a try: as given the first time, then rotated so no tile keeps its place and each
- * new try differs from the one before (two tiles simply swap). Deterministic, so a re-render never moves them.
+ * The tiles' order for a try: as given the first time, then rotated so each new try differs from the one
+ * before. Three or more tiles never go back to the first order, so no tile keeps its first place; two tiles
+ * (True / False) swap on every try. Deterministic, so a re-render never moves them.
  */
 export function attemptOrder<T>(items: T[], attempt = 0): T[] {
   if (attempt <= 0 || items.length < 2) {
     return items;
   }
-  const shift = ((Math.floor(attempt) - 1) % (items.length - 1)) + 1;
+  const shift = items.length === 2 ? Math.floor(attempt) % 2 : ((Math.floor(attempt) - 1) % (items.length - 1)) + 1;
   return [...items.slice(shift), ...items.slice(0, shift)];
 }
 
@@ -253,7 +254,7 @@ export function ExerciseView({
   testID = "exercise-view"
 }: ExerciseViewProps) {
   const checked = Boolean(result);
-  const { compact } = useLessonCompact();
+  const { compact, narrow } = useLessonCompact();
 
   // The try (and so the tile order) is read when the question shows and kept through CHECK and the sheet,
   // so the tile just tapped never jumps under the sheet. A new question, or a new try before CHECK, reads it again.
@@ -285,6 +286,45 @@ export function ExerciseView({
   const [promptTop, setPromptTop] = useState(0);
   const tileBoxes = useRef<Record<string, Box>>({});
   const wasChecked = useRef(checked);
+  // Even a slim sheet would leave too little of the answer and Why line under the green tile (four tiles, the
+  // right one last, on a 320 x 568 phone): the grey tiles fold away until the next question, so it fits.
+  const [folded, setFolded] = useState(false);
+  const [tileMoves, setTileMoves] = useState(0);
+  useEffect(() => {
+    if (!checked) {
+      setFolded(false);
+    }
+  }, [checked]);
+
+  // The tiles in the stack: once folded, only the picked one and the green one.
+  const stackChoices = shownChoices.filter((choice) => !(folded && checked && choice.id !== rightId && choice.id !== selectedChoiceId));
+  const tileGap = compact ? space.sm : space.md;
+
+  // The green tile (or the picked one, before the answer is known): where it sits in the scrolling content.
+  // True / False tiles share a row, so the row is the tile.
+  const focusId = rightId ?? selectedChoiceId;
+  const focusTile = (() => {
+    if (!tilesBox) {
+      return undefined;
+    }
+    const tile = focusId ? tileBoxes.current[focusId] : undefined;
+    if (!tile) {
+      return { top: tilesBox.y, bottom: tilesBox.y + tilesBox.height };
+    }
+    // Its place comes from the heights of the tiles above it: a browser tells a tile's layout again only when its
+    // size changes, so a tile moved up by the fold would keep its old place.
+    const above = stackChoices.slice(0, Math.max(0, stackChoices.findIndex((choice) => choice.id === focusId)));
+    const heights = above.map((choice) => tileBoxes.current[choice.id]?.height);
+    const y = heights.some((height) => height === undefined) ? tile.y : heights.reduce<number>((sum, height) => sum + (height ?? 0) + tileGap, 0);
+    const top = tilesBox.y + y;
+    return { top, bottom: top + tile.height };
+  })();
+  // How far the question may scroll once checked: never past the prompt (it stays whole at the top) or the green
+  // tile's own top.
+  const furthestScroll = focusTile ? Math.max(0, Math.min(focusTile.top - space.sm, promptTop - space.sm)) : 0;
+  // On a short phone the sheet (its Why line open) would still rise over the green tile from there, so it may be
+  // no taller than the room under that tile: what does not fit scrolls inside the sheet, behind its "more" arrow.
+  const sheetMaxHeight = checked && rootHeight && focusTile ? Math.round(rootHeight - (focusTile.bottom - furthestScroll) - space.sm) : undefined;
 
   useEffect(() => {
     if (!checked) {
@@ -295,19 +335,17 @@ export function ExerciseView({
       return;
     }
     wasChecked.current = true;
-    if (!rootHeight || !sheetHeight || !tilesBox) {
+    if (!rootHeight || !sheetHeight || !focusTile) {
       return;
     }
     // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
     // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
-    const focusId = rightId ?? selectedChoiceId;
-    const tile = focusId ? tileBoxes.current[focusId] : undefined;
-    const top = tilesBox.y + (tile?.y ?? 0);
-    const bottom = tile ? top + tile.height : tilesBox.y + tilesBox.height;
-    const y = Math.max(0, Math.min(bottom + space.md - (rootHeight - sheetHeight), top - space.sm, promptTop - space.sm));
+    const y = Math.max(0, Math.min(focusTile.bottom + space.md - (rootHeight - sheetHeight), furthestScroll));
     // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
     scrollRef.current?.scrollTo?.({ y, animated: true });
-  }, [checked, promptTop, rightId, rootHeight, scrollRef, selectedChoiceId, sheetHeight, tilesBox]);
+    // focusTile is read from the layout boxes these values follow.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checked, folded, furthestScroll, focusId, rootHeight, scrollRef, sheetHeight, tilesBox, tileMoves]);
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
@@ -315,7 +353,13 @@ export function ExerciseView({
   };
   const onTileLayout = (id: string) => (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
-    tileBoxes.current[id] = { y: Math.round(y), height: Math.round(height) };
+    const box = { y: Math.round(y), height: Math.round(height) };
+    const before = tileBoxes.current[id];
+    tileBoxes.current[id] = box;
+    // A tile that moved (the grey ones folded away) moves the sheet's room with it.
+    if (before && (before.y !== box.y || before.height !== box.height)) {
+      setTileMoves((count) => count + 1);
+    }
   };
 
   const tileState = (choice: ExerciseChoice): ChoiceTileState => {
@@ -346,8 +390,10 @@ export function ExerciseView({
   // "Correct answer: ..." always names the answer, even though the green tile shows it too.
   const sheetLabel = shown && !shown.correct ? shown.correctLabel : undefined;
   const mood: MascotMood = result ? (result.correct ? "cheer" : "sad") : "think";
-  // Four answers do not fit next to a mascot on a short phone.
-  const hideMascot = compact && !tfChoices && choices.length >= 4;
+  // Four answers do not fit next to a mascot on a short phone, nor three on a short, narrow one (320 x 568): the
+  // prompt takes the full width, a line or two shorter, so the green tile and the open Why line both fit above
+  // and in the feedback sheet.
+  const hideMascot = compact && !tfChoices && (choices.length >= 4 || (narrow && choices.length >= 3));
   // One long answer makes the whole set use the smaller text, so the tiles match.
   const longChoices = choices.some((choice) => choice.label.length > LONG_LABEL);
   const extraBottom = checked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
@@ -384,7 +430,7 @@ export function ExerciseView({
           </View>
 
           {tfChoices ? (
-            <View style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"}>
+            <View style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
               {tfChoices.map((choice, index) => (
                 <React.Fragment key={choice.id}>
                   {index > 0 ? <View style={styles.squareGap} /> : null}
@@ -402,8 +448,8 @@ export function ExerciseView({
               ))}
             </View>
           ) : (
-            <View style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"}>
-              {shownChoices.map((choice, index) => (
+            <View style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
+              {stackChoices.map((choice, index) => (
                 <View key={choice.id} onLayout={onTileLayout(choice.id)} style={compact ? styles.tileGapCompact : styles.tileGap}>
                   <PopIn from="up" delay={80 + index * 60}>
                     <ChoiceTile
@@ -440,6 +486,12 @@ export function ExerciseView({
         buttonSound={continueSound}
         defaultWhyOpen={defaultWhyOpen}
         bottomInset={bottomInset}
+        maxHeight={sheetMaxHeight}
+        onCramped={(cramped) => {
+          if (cramped && checked && !tfChoices) {
+            setFolded(true);
+          }
+        }}
         onHeight={setSheetHeight}
       />
     </View>

@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { ADULT_TEXT, FRIGHTENING_TEXT, MAX_CHIP_WORDS, MAX_CHOICE_LENGTH, MAX_LEARN_FACTS, MAX_LINE_WORDS, MAX_PERSON_QUESTIONS, PERSON_FACTS, displayName, nameInSentence, nameWarnings, pickDistractors, plainName, properName } from "./facts.mjs";
+import { ADULT_TEXT, FRIGHTENING_TEXT, MAX_CHIP_WORDS, MAX_CHOICE_LENGTH, MAX_LEARN_FACTS, MAX_LINE_WORDS, MAX_PERSON_QUESTIONS, PERSON_FACTS, displayName, fatherSpellingMismatch, nameInSentence, nameWarnings, pickDistractors, plainName, properName, titleCase } from "./facts.mjs";
 import { cleanText, extractQuestions, firstSentence, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic, suspectTextWarnings } from "./lib.mjs";
 
 const sampleVault = join(dirname(fileURLToPath(import.meta.url)), "sample-vault");
@@ -618,4 +618,75 @@ test("round 5: gentle words for children, names that read right, and no wrong ch
       assert.ok(!wrong.some((label) => new RegExp(`\\b${lesson.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`).test(label)), `${lesson.title}: ${challenge.prompt} ${wrong.join(" | ")}`);
     }
   }
+});
+
+test("round 7: every surah meaning is in title case, and a father is spelled as in his child's name", () => {
+  // Quran.com's "The Small kindnesses" (107) and "Those who drag forth" (79) are written like the others.
+  assert.equal(titleCase("The Small kindnesses"), "The Small Kindnesses");
+  assert.equal(titleCase("Those who drag forth"), "Those Who Drag Forth");
+  assert.equal(titleCase("Those who set the Ranks"), "Those Who Set the Ranks");
+  assert.equal(titleCase("She that is to be examined"), "She That Is to Be Examined");
+  for (const meaning of ["The Mansions of the Stars", "The Congregation, Friday", "Explained in Detail", "The Wind-Curved Sandhills", "He Frowned"]) {
+    assert.equal(titleCase(meaning), meaning, "a meaning already in title case is kept");
+  }
+  const surah = (english) => ["---", "type: surah", "---", `**English name:** ${english}`, "**Revelation:** Meccan", "**Ayahs:** 7"].join("\n");
+  const surahs = importVault(
+    vaultWith({
+      "Quran/107 - Surah Al-Ma'un.md": surah("The Small kindnesses"),
+      "Quran/79 - Surah An-Nazi'at.md": surah("Those who drag forth"),
+      "Quran/44 - Surah Ad-Dukhan.md": surah("The Smoke"),
+      "Quran/95 - Surah At-Tin.md": surah("The Fig")
+    })
+  );
+  const maun = Object.values(surahs.content.lessonsById).find((lesson) => lesson.title === "Surah Al-Ma'un");
+  assert.equal(maun.learnLine, 'Surah Al-Ma\'un means "The Small Kindnesses".');
+  const meaningQuestion = maun.challenges.find((challenge) => challenge.prompt === "What does the name Surah Al-Ma'un mean?");
+  assert.equal(meaningQuestion.choices.find((choice) => choice.id === meaningQuestion.correctChoiceId).label, "The Small Kindnesses");
+  const shown = Object.values(surahs.content.lessonsById).flatMap((lesson) => lesson.challenges.flatMap((challenge) => challenge.choices.map((choice) => choice.label)));
+  assert.ok(shown.includes("Those Who Drag Forth") && !shown.some((label) => /kindnesses|who drag/.test(label)), shown.join(" | "));
+
+  // The name after ibn or bint is the father's (or a forefather's), spelled the same way; Abi is Abu after ibn.
+  assert.equal(fatherSpellingMismatch("Abu al-As ibn ar-Rabi'", "Ar-Rabi ibn Abd al-Uzza"), "Ar-Rabi'");
+  assert.equal(fatherSpellingMismatch("Walid ibn al-Walid ibn al-Mughirah", "Walid ibn al-Mughirah"), "Al-Walid");
+  assert.equal(fatherSpellingMismatch("Khalid ibn al-Walid", "Walid ibn al-Mughirah"), "Al-Walid");
+  assert.equal(fatherSpellingMismatch("Abu al-As ibn ar-Rabi'", "Ar-Rabi'ah ibn Abd al-Uzza"), "Ar-Rabi'", "another name that starts the same way is not the same name");
+  for (const [name, father] of [
+    ["Abu al-As ibn ar-Rabi'", "Ar-Rabi' ibn Abd al-Uzza"],
+    ["Walid ibn al-Walid ibn al-Mughirah", "Al-Walid ibn al-Mughirah"],
+    ["Az-Zubayr ibn al-Awwam", "Al-Awwam ibn Khuwaylid"],
+    ["Ali ibn Abi Talib", "Abu Talib"],
+    ["Aishah bint Abi Bakr", "Abu Bakr as-Siddiq"],
+    ["Hamzah ibn Abd al-Muttalib", "Abd al-Muttalib"],
+    ["Abdullah ibn Amr ibn al-As", "Amr ibn al-As"],
+    ["Abu Ubaydah ibn al-Jarrah", "Abdullah ibn al-Jarrah"],
+    ["Ruqayyah bint Muhammad", "Muhammad ﷺ"],
+    ["Khawlah bint Ja'far al-Hanafiyyah", "Ja'far ibn Qays"],
+    ["Abu Bakr as-Siddiq", "Abu Quhafah"]
+  ]) {
+    assert.equal(fatherSpellingMismatch(name, father), undefined, `${name}: ${father}`);
+  }
+  assert.equal(displayName("Walid ibn al-Mughira"), "Al-Walid ibn al-Mughirah");
+  assert.equal(displayName("Al-Rabi ibn Abd al-Uzza"), "Ar-Rabi' ibn Abd al-Uzza");
+
+  const person = (fields) => ["---", "type: person", "tags:", "  - Sahabi", ...Object.entries(fields).map(([key, value]) => `${key}: "${value}"`), "---"].join("\n");
+  const { content, warnings } = importVault(
+    vaultWith({
+      "People/sahabah/abu-al-as-ibn-al-rabi.md": person({ title: "Abu al-As ibn al-Rabi", known_for: "Son-in-law of the Prophet", father: "Al-Rabi ibn Abd al-Uzza", tribe: "Quraysh" }),
+      "People/sahabah/walid-ibn-al-walid-ibn-al-mughirah.md": person({ title: "Walid ibn al-Walid ibn al-Mughirah", known_for: "Brother of Khalid", father: "Walid ibn al-Mughira", tribe: "Quraysh" }),
+      "People/sahabah/zubayr-ibn-al-awwam.md": person({ title: "Zubayr ibn al-Awwam", known_for: "One of the ten promised Paradise", father: "Awwam ibn Khuwaylid", tribe: "Quraysh" }),
+      "People/sahabah/said-ibn-al-musayyab.md": person({ title: "Sa'id ibn al-Musayyab", known_for: "A great scholar of Madinah", father: "Musayyab ibn Hazn", tribe: "Quraysh" })
+    })
+  );
+  const lessons = Object.values(content.lessonsById);
+  const byTitle = (title) => lessons.find((lesson) => lesson.title === title);
+  assert.ok(byTitle("Abu al-As ibn ar-Rabi'").learnFacts.includes("Father: Ar-Rabi' ibn Abd al-Uzza"));
+  const walid = byTitle("Walid ibn al-Walid ibn al-Mughirah");
+  assert.ok(walid.learnFacts.includes("Father: Al-Walid ibn al-Mughirah"));
+  const fatherQuestion = walid.challenges.find((challenge) => challenge.prompt.startsWith("Who was the father of"));
+  assert.equal(fatherQuestion.choices.find((choice) => choice.id === fatherQuestion.correctChoiceId).label, "Al-Walid ibn al-Mughirah");
+  assert.equal(fatherQuestion.explanation, "The father of Walid ibn al-Walid ibn al-Mughirah was Al-Walid ibn al-Mughirah.");
+  // A father spelled another way than in the child's name is reported, so a new note gets a DISPLAY_NAMES entry.
+  const spelling = warnings.filter((warning) => warning.includes("the father is shown as"));
+  assert.equal(spelling.length, 1, spelling.join("\n"));
+  assert.match(spelling[0], /"Musayyab ibn Hazn" but "Sa'id ibn al-Musayyab" spells him "Al-Musayyab"/);
 });

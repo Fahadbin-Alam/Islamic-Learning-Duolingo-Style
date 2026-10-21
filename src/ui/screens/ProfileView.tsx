@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ScrollView, StyleSheet, Text, View, type AccessibilityRole, type AccessibilityState } from "react-native";
 import { COURSE } from "../../data/course";
 import type { UiStrings } from "../../i18n";
@@ -138,6 +138,11 @@ function nameSize(name: string) {
   return { fontSize: 19, lineHeight: 25 };
 }
 
+/** Whose Me screen it is: an account by its email (or name), or a guest, with or without a logged-out account. */
+export function profileAccountKey(user: Pick<UserProfile, "hasAccount" | "accountEmail" | "displayName">, hasSavedAccount = false) {
+  return user.hasAccount ? `account:${user.accountEmail ?? user.displayName}` : hasSavedAccount ? "guest:saved" : "guest";
+}
+
 /** Me tab: avatar, four stat cards, a save-progress card for guests, and Settings / Sound. */
 export function ProfileView({
   user,
@@ -161,9 +166,22 @@ export function ProfileView({
   const shownName = guest ? "Guest" : firstName(user.displayName);
   const initials = (user.avatarInitials || "?").slice(0, 3);
 
+  // Sign up, log in or log out changes the avatar and the name at the top: scroll back up so they show
+  // whole, not cut off under the top bar, and pop the avatar in again.
+  const accountKey = profileAccountKey(user, hasSavedAccount);
+  const scrollRef = useRef<ScrollView>(null);
+  const shownAccount = useRef(accountKey);
+  useEffect(() => {
+    if (shownAccount.current === accountKey) {
+      return;
+    }
+    shownAccount.current = accountKey;
+    scrollRef.current?.scrollTo?.({ y: 0, animated: true });
+  }, [accountKey]);
+
   return (
-    <ScrollView style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="profile-view">
-      <PopIn from="scale" style={styles.hero}>
+    <ScrollView ref={scrollRef} style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="profile-view">
+      <PopIn key={accountKey} from="scale" style={styles.hero}>
         <View style={[styles.avatar, { backgroundColor: accent, borderBottomColor: darken(accent) }]} testID="profile-avatar">
           {guest ? (
             <Icon name="profile" size={64} color={colors.white} />

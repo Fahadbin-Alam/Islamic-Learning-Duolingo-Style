@@ -314,7 +314,7 @@ describe("PracticeComplete", () => {
     expect(screen.getByLabelText("CORRECT 5 of 6")).toBeTruthy();
     expect(screen.queryByLabelText("CORRECT 6 of 7")).toBeNull();
     // XP is what the session paid: the retry answered right still paid its 2 XP.
-    expect(screen.getByLabelText("TOTAL XP 12")).toBeTruthy();
+    expect(screen.getByLabelText("XP EARNED 12")).toBeTruthy();
     // No level check yet, so no level card (the Practice hub shows none either).
     expect(screen.queryByTestId("result-level")).toBeNull();
     await act(async () => {

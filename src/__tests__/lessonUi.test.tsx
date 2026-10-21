@@ -51,9 +51,20 @@ describe("lesson ui (round 2)", () => {
     expect(attemptOrder(["a", "b", "c"], 1)).toEqual(["b", "c", "a"]);
     expect(attemptOrder(["a", "b", "c"], 2)).toEqual(["c", "a", "b"]);
     expect(attemptOrder(["a", "b", "c"], 3)).toEqual(["b", "c", "a"]);
+    // A missed question can come back again and again: two tiles swap on every try.
     expect(attemptOrder(["true", "false"], 1)).toEqual(["false", "true"]);
-    expect(attemptOrder(["true", "false"], 2)).toEqual(["false", "true"]);
+    expect(attemptOrder(["true", "false"], 2)).toEqual(["true", "false"]);
+    expect(attemptOrder(["true", "false"], 3)).toEqual(["false", "true"]);
     expect(attemptOrder(["a", "b", "c", "d"], 1)).toEqual(attemptOrder(["a", "b", "c", "d"], 1));
+  });
+
+  it("attemptOrder gives every comeback another order than the try before", () => {
+    for (const items of [["a", "b"], ["a", "b", "c"], ["a", "b", "c", "d"]]) {
+      for (let attempt = 1; attempt <= 8; attempt += 1) {
+        expect(attemptOrder(items, attempt)).not.toEqual(attemptOrder(items, attempt - 1));
+        expect([...attemptOrder(items, attempt)].sort()).toEqual([...items].sort());
+      }
+    }
   });
 
   it("ExerciseView keeps the retry order and the Try again chip through CHECK and the sheet", async () => {
@@ -219,7 +230,7 @@ describe("lesson ui (round 2)", () => {
     expect(screen.getByText("You jumped ahead!")).toBeTruthy();
     expect(screen.getByText("ﷺ")).toHaveStyle({ fontFamily: NASKH });
     expect(screen.getByText(/Unlocked:/)).toBeTruthy();
-    for (const label of ["TOTAL XP", "STARS", "STREAK"]) {
+    for (const label of ["XP EARNED", "STARS", "STREAK"]) {
       expect(screen.getByText(label).props.adjustsFontSizeToFit).toBeUndefined();
     }
     await act(async () => {

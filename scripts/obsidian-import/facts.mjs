@@ -286,6 +286,25 @@ export function displayName(name) {
 export const DOUBLED_VOWEL = /aa|ii|uu|oo/i;
 export const L_FOR_I = /(^|[\s'‘’(-])[lL](?![aeiouAEIOU\s'’-])[a-zA-Z]/;
 
+// The name after a person's first ibn or bint is their father's, so both are spelled the same way: "Abu al-As ibn
+// ar-Rabi'" is the son of "Ar-Rabi' ibn Abd al-Uzza", and "Khalid ibn al-Walid" of "Al-Walid ibn al-Mughirah".
+// Only the capital of the first letter may differ. After ibn, Abu is Abi ("Ali ibn Abi Talib", son of "Abu Talib"),
+// and the name can be a forefather's ("Abu Ubaydah ibn al-Jarrah", son of "Abdullah ibn al-Jarrah"). Returns the
+// spelling the father's name should have, when it is spelled another way.
+const NAME_WITH_NEXT_WORD = /^(Abi|Abu|Abd|Umm|Dhi)$/;
+
+export function fatherSpellingMismatch(name, father) {
+  if (!father) return undefined;
+  const words = name.replace(/\s*ﷺ/g, "").trim().split(/\s+/);
+  const link = words.findIndex((word) => word === "ibn" || word === "bint");
+  if (link < 0 || !words[link + 1]) return undefined;
+  const named = (NAME_WITH_NEXT_WORD.test(words[link + 1]) && words[link + 2] ? words.slice(link + 1, link + 3) : [words[link + 1]]).join(" ").replace(/^Abi\b/, "Abu");
+  const lowerFirst = (text) => `${text.charAt(0).toLowerCase()}${text.slice(1)}`;
+  const escaped = lowerFirst(named).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const spelledSame = new RegExp(`^${escaped}(?=\\s|$)|(?:^|\\s)ibn ${escaped}(?=\\s|$)`).test(lowerFirst(father.replace(/\s*ﷺ/g, "").trim()));
+  return spelledSame ? undefined : `${named.charAt(0).toUpperCase()}${named.slice(1)}`;
+}
+
 export function nameWarnings(raw, shown) {
   const warnings = [];
   if (DOUBLED_VOWEL.test(raw)) warnings.push(`"${raw}" has a doubled vowel; shown as "${shown}". Use the simple spelling in the note`);
@@ -407,6 +426,7 @@ function personLesson(profile, pools) {
   const spoken = nameInSentence(name);
   const shown = (key, value) => (["father", "mother", "tribe", "clan"].includes(key) && value ? displayName(value) : value);
   const fullName = note.data.full_name && cleanText(String(note.data.full_name));
+  const fatherSpelling = profile.leftOut ? undefined : fatherSpellingMismatch(name, profile.chips.father);
   // The lesson text is the person's facts only. A note's own study text (lists, asides, typos) stays in the vault.
   // When the note's known_for was left out as unsure, the hand-checked line stands in for it.
   const knownFor = facts.known_for ?? (profile.unsure.includes("known_for") ? line : undefined);
@@ -482,6 +502,9 @@ function personLesson(profile, pools) {
     sourceUrls: note.urls,
     warnings: [
       ...nameWarnings(rawName, name),
+      ...(fatherSpelling
+        ? [`${rawName}: the father is shown as "${profile.chips.father}" but "${name}" spells him "${fatherSpelling}"; give one spelling in DISPLAY_NAMES in curated.mjs`]
+        : []),
       ...(line ? [] : [`${rawName}: no learn line; add learn_line: (12 words or fewer) to the note`])
     ]
   };
@@ -500,6 +523,17 @@ function data(note) {
   return { ...note.labels, ...note.data };
 }
 
+// A surah's meaning is written in title case, as every other one is ("The Smoke", "The Mansions of the Stars"): a
+// note's "The Small kindnesses" or "Those who drag forth" is a slip. Each word starts with a capital, except the
+// small words below after the first; a capital the note already has is kept.
+export const TITLE_SMALL_WORDS = new Set(["a", "an", "the", "and", "but", "or", "nor", "of", "in", "on", "at", "to", "by", "for", "from", "with", "as"]);
+
+export function titleCase(text) {
+  return text.replace(/(^|\s)(\p{Ll})([\p{L}'’-]*)/gu, (match, space, letter, rest, offset) =>
+    offset > 0 && TITLE_SMALL_WORDS.has(`${letter}${rest}`) ? match : `${space}${letter.toUpperCase()}${rest}`
+  );
+}
+
 function surahFacts(note) {
   const fields = data(note);
   const pick = (...keys) => keys.map((key) => fields[key]).find((value) => value !== undefined && value !== "");
@@ -508,7 +542,7 @@ function surahFacts(note) {
   return {
     number,
     // 'The Letter "Saad"': quotes inside the name would break the "means" line.
-    englishName: SURAH_MEANINGS[number] ?? cleanText(String(pick("english_name", "english", "translation", "meaning", "name_meaning") ?? "")).replace(/["“”]/g, ""),
+    englishName: SURAH_MEANINGS[number] ?? titleCase(cleanText(String(pick("english_name", "english", "translation", "meaning", "name_meaning") ?? "")).replace(/["“”]/g, "")),
     ayahCount: Number(pick("ayah_count", "ayahs", "verses", "number_of_ayahs", "number_of_verses", "total_ayahs")) || undefined,
     // A surah the scholars disagree on is never said to be Makkan or Madinan.
     place: DISPUTED_REVELATION.has(number) ? undefined : /mak|mec/i.test(place) ? "Makkah" : /mad|med/i.test(place) ? "Madinah" : undefined

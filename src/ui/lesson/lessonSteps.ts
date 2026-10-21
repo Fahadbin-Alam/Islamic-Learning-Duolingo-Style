@@ -8,8 +8,9 @@ export function isPlayablePractice(activity: LessonPracticeActivity) {
 export type LessonStepScreen = "lesson_teach" | "lesson_practice" | "lesson_question" | "lesson_feedback" | "lesson_complete";
 
 // Steps in a lesson: the learn card, the ordering game (if any), then one per question.
-// A question fills its step once it is done: answered right, or missed on its last try. A first miss
-// sends the question to the end of the lesson, so the bar stays put until it comes back.
+// A question fills its step once it is done: answered right (in a test, answered). A miss sends the
+// question to the end of the lesson, so the bar stays put until it comes back and is right, however
+// many tries that takes.
 export function getLessonProgress({
   screen,
   hasTeach,

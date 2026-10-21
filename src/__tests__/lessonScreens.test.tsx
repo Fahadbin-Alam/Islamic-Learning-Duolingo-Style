@@ -291,7 +291,7 @@ describe("lesson screens", () => {
     );
     expect(screen.getByText("Lesson complete!")).toBeTruthy();
     expect(screen.getByLabelText("3 of 3 stars")).toBeTruthy();
-    expect(screen.getByText("TOTAL XP")).toBeTruthy();
+    expect(screen.getByText("XP EARNED")).toBeTruthy();
     expect(screen.getByText("STARS")).toBeTruthy();
     expect(screen.getByText("STREAK")).toBeTruthy();
     expect(screen.getByText("+5 gems")).toBeTruthy();

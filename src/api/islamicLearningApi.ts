@@ -6,6 +6,7 @@ import {
   allNodes,
   findNodeByLessonId
 } from "../data/course";
+import { asksSameLine } from "../data/scalableCurriculum";
 import type {
   Challenge,
   LearningCourse,
@@ -306,7 +307,7 @@ export function isOutOfHeartsAfterAnswer(user: UserProfile, answerState: "correc
 }
 
 // No hearts left (and no unlimited hearts): no more questions until the learner refills.
-// A free retry does not get around it.
+// A missed question asked again costs a heart too, so tapping on through it cannot get around it.
 export function isOutOfHearts(user: UserProfile) {
   return !user.hearts.unlimited && user.hearts.current <= 0;
 }
@@ -994,12 +995,14 @@ function buildReviewChallenge(lesson: Lesson, node: LearningNode): Challenge | u
   }
 
   const ownPrompts = new Set(lesson.challenges.map((challenge) => challenge.prompt.trim().toLowerCase()));
-  // It must read right in this lesson, and not repeat one of its questions or their answers.
+  // It must read right in this lesson, and not repeat one of its questions or their answers. Nor may it ask
+  // the same line as one of them, either way round: a fill-in of a sentence the lesson already showed ("...
+  // his Islam at the ____." after "... his Islam at the market."), or that sentence after its fill-in.
   const usable = previousLesson.challenges.filter(
     (challenge) =>
       !isContextBound(challenge.prompt) &&
       !ownPrompts.has(challenge.prompt.trim().toLowerCase()) &&
-      !lesson.challenges.some((own) => givesAway(challenge, own)) &&
+      !lesson.challenges.some((own) => givesAway(challenge, own) || asksSameLine(challenge, own)) &&
       readsRightIn(challenge, previousLesson, lesson, node.topicId)
   );
   // The lesson before's own questions first; its review copies of older lessons only when it has nothing else.

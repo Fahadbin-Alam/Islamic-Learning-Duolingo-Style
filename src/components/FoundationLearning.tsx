@@ -1071,7 +1071,7 @@ export function PracticeComplete({
 
         <View style={styles.resultCards}>
           <ResultCard label="CORRECT" icon="check" value={summary.correct} of={summary.answered} color={colors.green} ink={colors.correctInk} index={0} testID="result-correct" />
-          {showXp ? <ResultCard label="TOTAL XP" icon="bolt" value={earned} color={colors.gold} ink={darken(colors.goldLip, 0.25)} labelColor={GOLD_LABEL} index={1} testID="result-xp" /> : null}
+          {showXp ? <ResultCard label="XP EARNED" icon="bolt" value={earned} color={colors.gold} ink={darken(colors.goldLip, 0.25)} labelColor={GOLD_LABEL} index={1} testID="result-xp" /> : null}
           {summary.level !== undefined ? (
             <ResultCard label="LEVEL" icon="star" value={summary.level} color={colors.gem} ink={colors.gemLip} index={showXp ? 2 : 1} testID="result-level" />
           ) : null}

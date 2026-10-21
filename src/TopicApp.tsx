@@ -236,17 +236,20 @@ interface AppState {
   user?: UserProfile;
   xpSummary: XpSummary[];
   activeSession?: LessonSession;
-  /** The questions to ask, in order: the lesson's own, then each first-try miss once more. */
+  /** The questions to ask, in order: the lesson's own, then each miss again, until it is answered right. */
   lessonQueue: LessonStep[];
   /** Position in lessonQueue. */
   stepIndex: number;
-  /** The lesson's questions that are done (right, or missed on their last try): the progress bar. */
+  /** The lesson's questions that are done (answered right; in a test, answered): the progress bar. */
   doneCount: number;
   selectedChoiceId?: string;
   answerState: AnswerState;
   /** Right on the first try; a test-out passes on these. */
   sessionCorrectCount: number;
-  /** Every wrong CHECK in this lesson; the STARS card counts them. */
+  /**
+   * Questions missed on their first try. The STARS card counts them, as a test-out's pass mark does; a
+   * missed question asked again costs a heart but is not counted twice.
+   */
   sessionMistakes: number;
   sessionMissedLessonIds: string[];
   loading: boolean;
@@ -382,7 +385,7 @@ function reducer(state: AppState, action: Action): AppState {
     case "answer":
       {
       const scored = action.scored ?? true;
-      // A first-try miss comes back once at the end of the lesson; the bar moves only when a question is done.
+      // A miss comes back at the end of the lesson until it is right; the bar moves only when a question is done.
       const step = answerLessonStep(state.lessonQueue, state.stepIndex, action.correct, Boolean(action.isTest));
       return {
         ...state,
@@ -392,7 +395,7 @@ function reducer(state: AppState, action: Action): AppState {
         lessonQueue: step.queue,
         doneCount: step.done ? state.doneCount + 1 : state.doneCount,
         sessionCorrectCount: action.correct && scored ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
-        sessionMistakes: action.correct ? state.sessionMistakes : state.sessionMistakes + 1,
+        sessionMistakes: action.correct || !scored ? state.sessionMistakes : state.sessionMistakes + 1,
         sessionMissedLessonIds: action.correct || !scored || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
           ? state.sessionMissedLessonIds
           : [...state.sessionMissedLessonIds, action.missedLessonId]
@@ -1074,10 +1077,13 @@ export default function TopicApp() {
 
     const correct = challenge.correctChoiceId === state.selectedChoiceId;
     const responseTimeMs = Math.max(900, Date.now() - challengeStartedAtRef.current);
-    // A missed question asked again at the end is free: no heart, no score, no learner signal.
+    // Every wrong answer costs a heart, a missed question asked again too, so tapping through cannot finish a
+    // lesson (a test-out's misses only count against its pass mark: no heart). Only the first try is scored
+    // and teaches the learner profile.
     const isRetry = step.attempt > 0;
+    const heartAdjustedUser = correct ? state.user : loseHeart(state.user, state.activeSession);
     let nextUser = withExperienceDefaults({
-      ...state.user,
+      ...heartAdjustedUser,
       lastLearningAt: new Date().toISOString()
     });
 
@@ -1096,8 +1102,6 @@ export default function TopicApp() {
         prompt: challenge.prompt,
         reviewNext: lessonSignal.reviewNext
       });
-      // A test-out miss only counts against its pass mark: no heart.
-      const heartAdjustedUser = correct ? state.user : loseHeart(state.user, state.activeSession);
       nextUser = withExperienceDefaults({
         ...heartAdjustedUser,
         learnerProfile: nextProfile,
@@ -1186,7 +1190,7 @@ export default function TopicApp() {
     // A test-out that can no longer be passed ends now, not after the questions it has left.
     const testLost = state.activeSession.mode === "test_out" && isTestLost(state.activeSession, state.sessionMistakes);
 
-    // The queue already holds a first-try miss that this answer sent to the end.
+    // The queue already holds a miss that this answer sent to the end: the lesson ends only once all are right.
     if (!testLost && !isLastLessonStep(state.lessonQueue, state.stepIndex)) {
       challengeStartedAtRef.current = Date.now();
       dispatch({ type: "next_challenge" });
@@ -1264,7 +1268,7 @@ export default function TopicApp() {
       // A replayed lesson earns nothing, so show what was actually added.
       xp: nextUser.totalXp - user.totalXp,
       streakExtended: didExtendStreak(user, nextUser),
-      // How well this run went, replays too: every wrong CHECK is a mistake.
+      // How well this run went, replays too: each question missed on its first try is a mistake.
       stars: lessonStars(state.sessionMistakes),
       unlockedTitle: unlockedNode ? getNodeTitle(unlockedNode.id, unlockedNode.title, currentLanguage) : undefined,
       streakDays: nextUser.streakDays

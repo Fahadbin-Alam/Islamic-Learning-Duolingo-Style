@@ -64,7 +64,7 @@ export function LessonHeader({ progress, hearts, onClose, topInset = 0, style }:
         <Icon name="close" size={26} color={CLOSE_GREY} />
       </Tappable>
       <View style={styles.bar} onLayout={(event) => setBarWidth(event.nativeEvent.layout.width)}>
-        <ProgressBar progress={shownProgress} color={colors.green} height={16} />
+        <ProgressBar progress={shownProgress} color={colors.green} height={16} testID="lesson-progress" />
       </View>
       <Animated.View
         style={[styles.hearts, shakeStyle]}

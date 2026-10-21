@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -93,6 +94,54 @@ class ImportedNotesSeedTest(unittest.TestCase):
         # The moved lessons keep the app's gentle text: the Dajjal lesson stores only the line its card quotes.
         warned = next(lesson for lesson in hadith[0]["lessons"] if lesson["title"] == "Every prophet warned")
         self.assertNotRegex(warned["description"], r"(?i)\b(kill|neck|one-eyed)\b")
+
+    def test_seeds_surah_meanings_in_title_case_and_fathers_spelled_as_in_the_childs_name(self) -> None:
+        # The same rules as scripts/obsidian-import (titleCase, fatherSpellingMismatch) and src/__tests__/lessonCopy.
+        topics = topic_seed()
+        questions = [
+            (lesson, question)
+            for topic in topics
+            for branch in topic["branches"]
+            for lesson in branch["lessons"]
+            for question in lesson["questions"]
+        ]
+        small = {"a", "an", "the", "and", "but", "or", "nor", "of", "in", "on", "at", "to", "by", "for", "from", "with", "as"}
+        meanings = {
+            option["text"]
+            for _, question in questions
+            if re.match(r"^What does the name .+ mean\?$", question["prompt"])
+            for option in question["options_json"]
+        }
+        self.assertGreater(len(meanings), 90)
+        self.assertIn("The Small Kindnesses", meanings)
+        lower = [m for m in meanings if any(w[:1].islower() and (i == 0 or w not in small) for i, w in enumerate(m.split()))]
+        self.assertEqual(lower, [])
+
+        def answer(question: dict) -> str:
+            choice = question["correct_answer_json"]["choiceId"]
+            return next(option["text"] for option in question["options_json"] if option["id"] == choice)
+
+        def lower_first(text: str) -> str:
+            return text[:1].lower() + text[1:]
+
+        problems, checked = [], 0
+        for lesson, question in questions:
+            match = re.match(r"^Who was the father of (.+)\?$", question["prompt"])
+            if not match:
+                continue
+            words = match.group(1).replace("ﷺ", "").split()
+            link = next((i for i, w in enumerate(words) if w in ("ibn", "bint")), None)
+            if link is None or link + 1 >= len(words):
+                continue
+            two = re.match(r"^(Abi|Abu|Abd|Umm|Dhi)$", words[link + 1]) and link + 2 < len(words)
+            named = re.sub(r"^Abi\b", "Abu", " ".join(words[link + 1 : link + (3 if two else 2)]))
+            father = lower_first(answer(question).replace("ﷺ", "").strip())
+            pattern = re.escape(lower_first(named))
+            checked += 1
+            if not re.search(rf"^{pattern}(?=\s|$)|(?:^|\s)ibn {pattern}(?=\s|$)", father):
+                problems.append(f"{match.group(1)}: {answer(question)}")
+        self.assertGreater(checked, 40)
+        self.assertEqual(problems, [])
 
 
 if __name__ == "__main__":

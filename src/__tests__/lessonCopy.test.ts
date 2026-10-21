@@ -1,4 +1,5 @@
 import { COURSE, LESSONS_BY_ID } from "../data/course";
+import { IMPORTED_NOTES } from "../data/importedNotes.generated";
 import { asksSameLine } from "../data/scalableCurriculum";
 import { localizeLessonContent } from "../services/contentLocalization";
 import { buildGuidedLesson } from "../services/lessonGuidance";
@@ -594,6 +595,90 @@ describe("round 5: reviews stay in their unit, gentle words, names that read rig
     const asked = pathLessons.flatMap((lesson) => lesson.challenges).filter((challenge) => /tribe was (Zaynab bint|Abdullah ibn) Jahsh/.test(challenge.prompt));
     expect(asked.map((challenge) => challenge.prompt)).toEqual([]);
     for (const lesson of jahsh) expect((lesson.learnFacts ?? []).filter((fact) => /^Tribe/.test(fact))).toEqual([]);
+  });
+});
+
+describe("round 7: surah meanings and family names written one way", () => {
+  // Every imported lesson, also the ones the path leaves out: their facts are other lessons' wrong choices.
+  const imported = [...Object.values(IMPORTED_NOTES.lessonsById), ...pathLessons.filter((lesson) => lesson.id.startsWith("lesson-notes-"))];
+  const SMALL_WORDS = new Set(["a", "an", "the", "and", "but", "or", "nor", "of", "in", "on", "at", "to", "by", "for", "from", "with", "as"]);
+  const lowerWords = (meaning: string) => meaning.split(/\s+/).filter((word, index) => /^\p{Ll}/u.test(word) && (index === 0 || !SMALL_WORDS.has(word)));
+
+  it("writes every surah meaning in title case, on the card, in the Why line and on every answer tile", () => {
+    const meanings = new Set<string>();
+    for (const lesson of imported.filter((each) => each.id.startsWith("lesson-notes-quran-tafseer-"))) {
+      for (const text of [lesson.intro, lesson.learnLine ?? "", lesson.explanationContent ?? "", ...lesson.challenges.map((challenge) => challenge.explanation ?? "")]) {
+        for (const match of text.matchAll(/\bmeans "([^"]+)"/g)) meanings.add(match[1]);
+      }
+      for (const challenge of lesson.challenges.filter((each) => /^What does the name .+ mean\?$/.test(each.prompt))) {
+        for (const choice of challenge.choices) meanings.add(choice.label);
+      }
+    }
+    expect(meanings.size).toBeGreaterThan(90);
+    expect([...meanings].filter((meaning) => lowerWords(meaning).length)).toEqual([]);
+    const maun = imported.find((lesson) => lesson.title === "Surah Al-Ma'un")!;
+    expect(maun.learnLine).toBe('Surah Al-Ma\'un means "The Small Kindnesses".');
+    expect([...meanings]).toEqual(expect.arrayContaining(["The Small Kindnesses", "Those Who Drag Forth", "Those Who Set the Ranks", "She That Is to Be Examined"]));
+  });
+
+  it("spells a father's name the way the child's own name does", () => {
+    // "Abu al-As ibn ar-Rabi'" is the son of "Ar-Rabi' ibn Abd al-Uzza": the name after the first ibn or bint is the
+    // father's (or a forefather's, as in Abu Ubaydah ibn al-Jarrah, son of Abdullah ibn al-Jarrah), with only the
+    // capital of its first letter changed. After ibn, Abu is Abi.
+    const lowerFirst = (text: string) => `${text.charAt(0).toLowerCase()}${text.slice(1)}`;
+    const escape = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const fatherNamed = (name: string) => {
+      const words = name.replace(/\s*ﷺ/g, "").split(/\s+/);
+      const link = words.findIndex((word) => word === "ibn" || word === "bint");
+      if (link < 0 || !words[link + 1]) return undefined;
+      const two = /^(Abi|Abu|Abd|Umm|Dhi)$/.test(words[link + 1]) && words[link + 2];
+      return words.slice(link + 1, link + (two ? 3 : 2)).join(" ").replace(/^Abi\b/, "Abu");
+    };
+    const fathers = (lesson: Lesson) => [
+      ...(lesson.learnFacts ?? []).filter((fact) => fact.startsWith("Father: ")).map((fact) => fact.slice("Father: ".length)),
+      ...[...(lesson.explanationContent ?? "").matchAll(/(?:^|\. )Father: (.+?)\.(?= |$)/g)].map((match) => match[1]),
+      ...lesson.challenges.filter((challenge) => !challenge.isReview && /^Who was the father of /.test(challenge.prompt)).map(answerOf)
+    ];
+    const checked: string[] = [];
+    const problems: string[] = [];
+    for (const lesson of imported) {
+      const named = fatherNamed(lesson.title);
+      for (const father of fathers(lesson)) {
+        if (!named) continue;
+        const pattern = escape(lowerFirst(named));
+        const shown = lowerFirst(father.replace(/\s*ﷺ/g, "").trim());
+        checked.push(lesson.title);
+        if (!new RegExp(`^${pattern}(?=\\s|$)|(?:^|\\s)ibn ${pattern}(?=\\s|$)`).test(shown)) problems.push(`${lesson.title}: father "${father}"`);
+      }
+    }
+    expect(new Set(checked).size).toBeGreaterThan(50);
+    expect(problems).toEqual([]);
+    const walid = imported.find((lesson) => lesson.title === "Walid ibn al-Walid ibn al-Mughirah")!;
+    expect(walid.learnFacts).toContain("Father: Al-Walid ibn al-Mughirah");
+    expect(imported.find((lesson) => lesson.title === "Abu al-As ibn ar-Rabi'")!.learnFacts).toContain("Father: Ar-Rabi' ibn Abd al-Uzza");
+    // The old spellings are gone from every lesson, also where they were a wrong choice.
+    const labels = imported.flatMap((lesson) => lesson.challenges.flatMap((challenge) => challenge.choices.map((choice) => choice.label)));
+    expect(labels.filter((label) => /^(Walid ibn al-Mughirah|Ar-Rabi ibn Abd al-Uzza)$/.test(label))).toEqual([]);
+  });
+
+  it("calls a parent who has a lesson of their own by that lesson's title", () => {
+    const loose = (name: string) =>
+      name.toLowerCase().replace(/ﷺ/g, "").replace(/['’]/g, "").replace(/\b(al|an|ar|as|at|az|ad|ash|adh|ath)-/g, "").replace(/-/g, " ").replace(/\s+/g, " ").trim();
+    const people = imported.filter((lesson) => /^lesson-notes-(sahabah|prophets|women-of-the-book)-/.test(lesson.id));
+    const titles = new Map(people.map((lesson) => [loose(lesson.title), lesson.title]));
+    const problems: string[] = [];
+    let matched = 0;
+    for (const lesson of people) {
+      for (const fact of lesson.learnFacts ?? []) {
+        const parent = /^(?:Father|Mother): (.+)$/.exec(fact)?.[1];
+        const own = parent && titles.get(loose(parent));
+        if (!parent || !own) continue;
+        matched += 1;
+        if (own !== parent && `The ${parent.replace(/^the /, "")}` !== own) problems.push(`${lesson.title}: "${parent}" but the lesson is "${own}"`);
+      }
+    }
+    expect(matched).toBeGreaterThan(20);
+    expect(problems).toEqual([]);
   });
 });
 

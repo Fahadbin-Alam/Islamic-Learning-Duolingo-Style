@@ -9,6 +9,10 @@ export const DISPLAY_NAMES = {
   "lyaash-ibn-abi-rabiyyah": "'Ayyash ibn Abi Rabi'ah",
   "abdullah-ibn-zubair": "Abdullah ibn az-Zubayr",
   "abu-al-as-ibn-al-rabi": "Abu al-As ibn ar-Rabi'",
+  // His father: ar-Rabi' (الربيع), spelled as in his son's name, Abu al-As ibn ar-Rabi'.
+  "al-rabi-ibn-abd-al-uzza": "Ar-Rabi' ibn Abd al-Uzza",
+  // Khalid's and al-Walid's father: al-Walid ibn al-Mughirah (الوليد بن المغيرة), as in Khalid ibn al-Walid.
+  "walid-ibn-al-mughira": "Al-Walid ibn al-Mughirah",
   "abu-hurayra": "Abu Hurayrah",
   "abu-lubaba-ibn-abd-al-mundhir": "Abu Lubabah ibn Abd al-Mundhir",
   // Az-Zubayr's father: al-Awwam (العوام), as in his son's name, Az-Zubayr ibn al-Awwam.
