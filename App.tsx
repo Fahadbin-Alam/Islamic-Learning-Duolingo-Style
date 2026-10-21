@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Platform } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import TopicApp from "./src/TopicApp";
 import { hydrateAppStorage } from "./src/services/appStorage";
 import { installWebAlert } from "./src/services/webAlert";
@@ -34,8 +35,10 @@ export default function App() {
 
   // Saved progress is read synchronously on first render, so wait for it to load from the device.
   return storageReady ? (
-    <PhoneFrame>
-      <TopicApp />
-    </PhoneFrame>
+    <SafeAreaProvider>
+      <PhoneFrame>
+        <TopicApp />
+      </PhoneFrame>
+    </SafeAreaProvider>
   ) : null;
 }

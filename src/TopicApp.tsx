@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import {
   Linking,
   Platform,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   View
 } from "react-native";
+import { SafeAreaInsetsContext, type EdgeInsets } from "react-native-safe-area-context";
 import {
   applyPremiumStatus,
   applyShopItem,
@@ -444,7 +444,16 @@ function reducer(state: AppState, action: Action): AppState {
   }
 }
 
+const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
+
 export default function TopicApp() {
+  // RN's own SafeAreaView only pads on iOS, so Android drew the top bar under the status bar.
+  // These insets clear the status bar, notch and navigation bar on both.
+  const insets = useContext(SafeAreaInsetsContext) ?? NO_INSETS;
+  const safeArea = [
+    styles.safeArea,
+    { paddingTop: insets.top, paddingRight: insets.right, paddingBottom: insets.bottom, paddingLeft: insets.left }
+  ];
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountModalVisible, setAccountModalVisible] = useState(false);
   const [outOfHearts, setOutOfHearts] = useState<OutOfHeartsSheet | undefined>(undefined);
@@ -1918,13 +1927,13 @@ export default function TopicApp() {
 
   if (state.loading || !state.user) {
     return (
-      <SafeAreaView style={styles.safeArea}>
+      <View style={safeArea} testID="safe-area">
         <StatusBar barStyle="dark-content" />
         <View style={styles.centerPane}>
           <Mascot variant="hijabi" mood="wave" size={110} />
           <Text style={styles.loadingText}>{strings.loadingPath}</Text>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -1998,7 +2007,7 @@ export default function TopicApp() {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={safeArea} testID="safe-area">
       <StatusBar barStyle="dark-content" />
       {/* Sheets and pops draw in the host's top layer, over the top bar and tabs too. */}
       <PortalHost style={styles.appShell}>
@@ -2336,7 +2345,7 @@ export default function TopicApp() {
         />
         {noticeSheets}
       </PortalHost>
-    </SafeAreaView>
+    </View>
   );
 }
 
