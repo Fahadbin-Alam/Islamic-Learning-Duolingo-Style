@@ -11,7 +11,7 @@ For Play Console → Policy and programs → App content → Data safety. These 
 | RevenueCat SDK | App user id, purchase history |
 | On device only | Learning progress for guests, local reminders (`expo-notifications`, scheduled on the device), sound settings |
 
-No precise location, contacts, photos, files, microphone, camera, health, messages, calendar or web browsing data is collected. Push tokens are not collected: reminders are local notifications.
+No precise location, contacts, photos, files, microphone, camera, health, messages, calendar or web browsing data is collected. The age group from the age screen stays on the device and is not collected. Push tokens are not collected: reminders are local notifications.
 
 ## Section 1: Data collection and security
 
@@ -58,7 +58,7 @@ Notes:
 | Ads | **Yes, my app contains ads** |
 | App access | **All functionality is available without special access**. Premium can be tested with a Play license tester; no login is needed for core lessons |
 | Content rating | See `store/content-ratings.md` |
-| Target audience and content | Ages **13–15, 16–17, 18 and over**. Do not tick any age under 13 while AdMob ads are on (see `store/README.md`). "Could your app unintentionally appeal to children?" → **No**: the content is religious study for teens and adults, without child-directed characters or themes |
+| Target audience and content | Ages **5 and under** unticked; tick **6–8, 9–12, 13–15, 16–17, 18 and over**. "Could your app unintentionally appeal to children?" is not asked once under-13 ages are ticked. This puts the app under the **Families policy**: the app has a neutral age screen, sends child-directed (COPPA) ad requests for under-13s through AdMob, a Families self-certified SDK, and puts purchases, sign-up and Crew behind a grown-up check. Answer the Families questions with: ads **Yes**; uses only Families self-certified ads SDKs **Yes**; the app's content is suitable for children **Yes** |
 | News app | No |
 | COVID-19 contact tracing or status | No |
 | Data safety | This file |

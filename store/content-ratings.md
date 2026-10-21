@@ -70,4 +70,4 @@ App Store Connect → your app → App Information → Age Rating. These follow 
 
 Expected result: **4+**. If App Review asks about the historical battle lessons, changing Realistic violence to "Infrequent / Mild" gives 9+, which does not affect who can download the app in practice.
 
-Do **not** choose "Made for Kids". The Kids category bans third-party ads and analytics, and Sira Path shows AdMob ads to free users.
+Do **not** choose "Made for Kids" or the Kids category, even though children use the app. The Kids category bans third-party ads and analytics, and Sira Path shows AdMob ads to free users. Education is the right category for an all-ages learning app.

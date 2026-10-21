@@ -35,11 +35,25 @@ The release builds PR (#6) covered most of these. The answers in this folder ass
 | --- | --- |
 | In-app account deletion (Apple 5.1.1(v), Google account deletion policy): Profile → Settings → Delete account, backed by `DELETE /api/profile/me` | Done in #6 |
 | iOS ads non-personalised, since the app has no tracking prompt | Done in #6 |
-| "Child mode" renamed "Learner mode", so accounts are not child-directed (COPPA, Google Families policy) | Done in #6 |
+| Neutral age screen before any ad; under-13s, Kid accounts and unanswered get child-directed, non-personalised ads; 13–17 under the age of consent | Done in #13 |
+| Grown-up check before creating an account, buying anything and adding people to a Crew | Done in #13 |
 | `ITSAppUsesNonExemptEncryption: false` so App Store Connect stops asking about export compliance | Done in #6 |
 | `EXPO_PUBLIC_PRIVACY_URL` and `EXPO_PUBLIC_TERMS_URL` set to the Pages URLs above. Apple requires both links on the subscription screen | Set in `.env.example`. Copy them into the EAS environment, and they work once GitHub Pages is on |
 | Production API served over HTTPS | Needed before release |
 | Sign in with Apple, if Google or Facebook sign-in is ever switched on for iOS (guideline 4.8) | Not needed while they stay off |
+
+## Audience: all ages (mixed audience)
+
+The app is for ages 6 to 30, so both stores are answered as an all-ages app with ads:
+
+- **Google Play:** Target audience includes the under-13 groups, so the app falls under the **Families policy**. AdMob is a Families self-certified ads SDK and the app tags under-13 requests as child-directed. See `google-play/data-safety.md`. Do not apply for Teacher Approved.
+- **Apple:** primary category **Education**, not the Kids category, because Kids-category apps cannot use third-party ad networks.
+- **AdMob:** mark each app as having some users under 13 if asked, block sensitive ad categories and keep the max rating at G (`docs/monetization.md`, AdMob steps).
+
+**Open risks for an all-ages listing**, to settle before submitting:
+
+1. The grown-up check is a sum, which is enough for Google and Apple's parental gate rules but is not COPPA "verifiable parental consent". The privacy policy therefore says a parent creates any account for a child under 13 with the parent's own email. If a learner who answered "12 or under" on the age screen can still create an account with their own email, the app is collecting a child's data without that consent. The safest fix is to hide sign-up and Crew for those age answers, or to ask for a parent's email instead.
+2. On the Crew screen, anyone who knows an account's email can follow it and see the display name, XP, streak and last learning time, without the person agreeing. For a Kid account that is a stranger-safety concern under the Families policy. Consider needing the followed person to accept, or hiding Kid accounts from lookups.
 
 ## Steps that need you
 
