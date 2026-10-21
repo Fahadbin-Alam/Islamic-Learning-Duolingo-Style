@@ -11694,7 +11694,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Suwad bint Rafi"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "b",
@@ -13103,7 +13103,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "learnLine": "He was the first chief in Madinah to accept Islam.",
       "learnFacts": [
         "Father: Zurarah ibn Udas",
-        "Mother: Suwad bint Rafi",
         "Tribe: Khazraj"
       ],
       "lessonType": "story",
@@ -13146,33 +13145,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-3-asad-ibn-zoraarah_q2",
-          "type": "multiple_choice",
-          "prompt": "Who was the mother of As'ad ibn Zurarah?",
-          "choices": [
-            {
-              "id": "a",
-              "label": "Nasibah bint Uqbah"
-            },
-            {
-              "id": "b",
-              "label": "Natilah bint Janab"
-            },
-            {
-              "id": "c",
-              "label": "Ramlah"
-            },
-            {
-              "id": "d",
-              "label": "Suwad bint Rafi"
-            }
-          ],
-          "correctChoiceId": "d",
-          "explanation": "The mother of As'ad ibn Zurarah was Suwad bint Rafi.",
-          "sourceNodeId": "notes-sahabah-companions-from-your-notes-3-asad-ibn-zoraarah",
-          "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-3-asad-ibn-zoraarah"
-        },
-        {
-          "id": "lesson-notes-sahabah-companions-from-your-notes-3-asad-ibn-zoraarah_q3",
           "type": "multiple_choice",
           "prompt": "Which tribe was As'ad ibn Zurarah from?",
           "choices": [
@@ -13367,7 +13339,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Suwad bint Rafi"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "b",
@@ -13585,7 +13557,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Suwad bint Rafi"
+              "label": "Umm Ayman"
             },
             {
               "id": "c",
@@ -13879,7 +13851,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Suwad bint Rafi"
+              "label": "Nasibah bint Uqbah"
             },
             {
               "id": "c",
@@ -17199,7 +17171,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "intro": "Companion whose trade the Prophet ﷺ blessed: one dinar became two sheep.",
       "explanationContent": "Companion whose trade the Prophet ﷺ blessed: one dinar became two sheep. Full name: Urwa ibn Abi al-Ja'd al-Bariqi.",
       "keyTakeaway": "Urwah ibn Abi al-Ja'd al-Bariqi: Companion whose trade the Prophet ﷺ blessed: one dinar became two sheep.",
-      "learnLine": "The Prophet ﷺ blessed his trade: one dinar became two sheep.",
+      "learnLine": "The Prophet ﷺ blessed his trade: even dust would earn him profit.",
       "lessonType": "story",
       "difficulty": 4,
       "xpReward": 16,
@@ -17246,7 +17218,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "The Prophet ﷺ blessed his trade: one dinar became two sheep."
+              "label": "The Prophet ﷺ blessed his trade: even dust would earn him profit."
             },
             {
               "id": "c",
@@ -17258,7 +17230,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Urwah ibn Abi al-Ja'd al-Bariqi: The Prophet ﷺ blessed his trade: one dinar became two sheep.",
+          "explanation": "Urwah ibn Abi al-Ja'd al-Bariqi: The Prophet ﷺ blessed his trade: even dust would earn him profit.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-7-urwah-ibn-abi-al-jad-al-bariqi",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-7-urwah-ibn-abi-al-jad-al-bariqi",
           "resourceLabel": "Open source",
@@ -17267,7 +17239,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-7-urwah-ibn-abi-al-jad-al-bariqi_q2",
           "type": "multiple_choice",
-          "prompt": "Who is this? The Prophet ﷺ blessed his trade: one dinar became two sheep.",
+          "prompt": "Who is this? The Prophet ﷺ blessed his trade: even dust would earn him profit.",
           "choices": [
             {
               "id": "a",
@@ -17287,7 +17259,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Urwah ibn Abi al-Ja'd al-Bariqi: The Prophet ﷺ blessed his trade: one dinar became two sheep.",
+          "explanation": "Urwah ibn Abi al-Ja'd al-Bariqi: The Prophet ﷺ blessed his trade: even dust would earn him profit.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-7-urwah-ibn-abi-al-jad-al-bariqi",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-7-urwah-ibn-abi-al-jad-al-bariqi",
           "resourceLabel": "Open source",
@@ -17576,7 +17548,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Suwad bint Rafi"
+              "label": "Umm Ayman"
             },
             {
               "id": "d",
@@ -18354,7 +18326,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Suwad bint Rafi"
+              "label": "Umm Ayman"
             },
             {
               "id": "b",
@@ -18512,7 +18484,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -18702,11 +18674,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1",
       "title": "Barrah bint Samaw'al",
       "intro": "Mother of Safiyyah bint Huyayy.",
-      "explanationContent": "Mother of Safiyyah bint Huyayy. Full name: Barra bint Samaw'al. Tribe: Banu Qurayza. Father: Samaw'al ibn Adiya.",
+      "explanationContent": "Mother of Safiyyah bint Huyayy. Full name: Barra bint Samaw'al. Tribe: Banu Qurayza.",
       "keyTakeaway": "Barrah bint Samaw'al: Mother of Safiyyah bint Huyayy.",
       "learnLine": "She was the mother of Safiyyah bint Huyayy.",
       "learnFacts": [
-        "Father: Samaw'al ibn Adiya",
         "Tribe: Banu Qurayza"
       ],
       "lessonType": "story",
@@ -18723,27 +18694,27 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-barrah-bint-samuel_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Barrah bint Samaw'al?",
+          "prompt": "What is Barrah bint Samaw'al known for?",
           "choices": [
             {
               "id": "a",
-              "label": "Abu Bakr as-Siddiq"
+              "label": "She nursed the Prophet ﷺ as a baby in the desert."
             },
             {
               "id": "b",
-              "label": "Abu Sufyan ibn Harb"
+              "label": "She is the only woman named in the Quran."
             },
             {
               "id": "c",
-              "label": "Abu Umayyah ibn al-Mughirah"
+              "label": "She was the mother of Safiyyah bint Huyayy."
             },
             {
               "id": "d",
-              "label": "Samaw'al ibn Adiya"
+              "label": "She gave Maryam to Allah's service before Maryam was born."
             }
           ],
-          "correctChoiceId": "d",
-          "explanation": "The father of Barrah bint Samaw'al was Samaw'al ibn Adiya.",
+          "correctChoiceId": "c",
+          "explanation": "Barrah bint Samaw'al was the mother of Safiyyah bint Huyayy.",
           "sourceNodeId": "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-barrah-bint-samuel",
           "sourceLessonId": "lesson-notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1-barrah-bint-samuel"
         },
@@ -19158,7 +19129,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "c",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "d",
@@ -19586,7 +19557,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "b",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "c",
@@ -19702,7 +19673,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abu Umayyah ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "c",
@@ -20090,7 +20061,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abu Umayyah ibn al-Mughirah"
             },
             {
               "id": "b",
@@ -20316,7 +20287,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abu Umayyah ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "c",
@@ -20519,7 +20490,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abu Sufyan ibn Harb"
             },
             {
               "id": "b",
@@ -20854,7 +20825,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Samaw'al ibn Adiya"
+              "label": "Abu Umayyah ibn al-Mughirah"
             }
           ],
           "correctChoiceId": "b",
@@ -21415,11 +21386,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-1-10",
       "title": "Surah Al-Ma'idah",
       "intro": "Surah Al-Ma'idah means \"The Table Spread\".",
-      "explanationContent": "Surah Al-Ma'idah means \"The Table Spread\". It was revealed in Madinah. It has 120 ayahs.",
+      "explanationContent": "Surah Al-Ma'idah means \"The Table Spread\". It has 120 ayahs.",
       "learnLine": "Surah Al-Ma'idah means \"The Table Spread\".",
       "learnFacts": [
-        "120 ayahs",
-        "Revealed in Madinah"
+        "120 ayahs"
       ],
       "lessonType": "skill",
       "difficulty": 2,
@@ -21479,7 +21449,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah Al-Ma'idah means \"The Table Spread\". It was revealed in Madinah. It has 120 ayahs.",
+          "explanation": "Surah Al-Ma'idah means \"The Table Spread\". It has 120 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-1-10-surah-al-maidah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-maidah",
           "resourceLabel": "Open source",
@@ -21487,27 +21457,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-maidah_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Ma'idah was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-Ma'idah was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-1-10-surah-al-maidah",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-maidah",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/5"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-maidah_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Ma'idah have?",
           "choices": [
@@ -21529,7 +21478,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah Al-Ma'idah means \"The Table Spread\". It was revealed in Madinah. It has 120 ayahs.",
+          "explanation": "Surah Al-Ma'idah means \"The Table Spread\". It has 120 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-1-10-surah-al-maidah",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-1-10-surah-al-maidah",
           "resourceLabel": "Open source",
@@ -26893,11 +26842,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-41-50",
       "title": "Surah Al-Fath",
       "intro": "Surah Al-Fath means \"The Victory\".",
-      "explanationContent": "Surah Al-Fath means \"The Victory\". It was revealed in Madinah. It has 29 ayahs.\n48:5 That He may bring the believing men and the believing women into Gardens underneath which rivers flow, wherein they will abide, and may remit from them their evil deeds - That, in the sight of Allah, is the supreme triumph -\n48:7 Allah's are the hosts of the heavens and the earth, and Allah is ever Mighty, Wise.",
+      "explanationContent": "Surah Al-Fath means \"The Victory\". It has 29 ayahs.\n48:5 That He may bring the believing men and the believing women into Gardens underneath which rivers flow, wherein they will abide, and may remit from them their evil deeds - That, in the sight of Allah, is the supreme triumph -\n48:7 Allah's are the hosts of the heavens and the earth, and Allah is ever Mighty, Wise.",
       "learnLine": "Surah Al-Fath means \"The Victory\".",
       "learnFacts": [
-        "29 ayahs",
-        "Revealed in Madinah"
+        "29 ayahs"
       ],
       "quote": {
         "text": "Lo! We have given thee (O Muhammad) a signal victory,",
@@ -26972,7 +26920,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Surah Al-Fath means \"The Victory\". It was revealed in Madinah. It has 29 ayahs.",
+          "explanation": "Surah Al-Fath means \"The Victory\". It has 29 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-41-50-surah-al-fath",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-41-50-surah-al-fath",
           "resourceLabel": "Open source",
@@ -26980,27 +26928,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-41-50-surah-al-fath_q2",
-          "type": "true_false",
-          "prompt": "Surah Al-Fath was revealed in Makkah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "false",
-          "explanation": "Surah Al-Fath was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-41-50-surah-al-fath",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-41-50-surah-al-fath",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/48"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-41-50-surah-al-fath_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah Al-Fath have?",
           "choices": [
@@ -27022,7 +26949,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "b",
-          "explanation": "Surah Al-Fath means \"The Victory\". It was revealed in Madinah. It has 29 ayahs.",
+          "explanation": "Surah Al-Fath means \"The Victory\". It has 29 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-41-50-surah-al-fath",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-41-50-surah-al-fath",
           "resourceLabel": "Open source",
@@ -35186,11 +35113,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "branchId": "notes-quran-tafseer-surahs-101-110",
       "title": "Surah An-Nasr",
       "intro": "Surah An-Nasr means \"The Help\".",
-      "explanationContent": "Surah An-Nasr means \"The Help\". It was revealed in Madinah. It has 3 ayahs.",
+      "explanationContent": "Surah An-Nasr means \"The Help\". It has 3 ayahs.",
       "learnLine": "Surah An-Nasr means \"The Help\".",
       "learnFacts": [
-        "3 ayahs",
-        "Revealed in Madinah"
+        "3 ayahs"
       ],
       "quote": {
         "text": "When Allah's succour and the triumph cometh",
@@ -35265,7 +35191,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "Surah An-Nasr means \"The Help\". It was revealed in Madinah. It has 3 ayahs.",
+          "explanation": "Surah An-Nasr means \"The Help\". It has 3 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-an-nasr",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-an-nasr",
           "resourceLabel": "Open source",
@@ -35273,27 +35199,6 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         },
         {
           "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-an-nasr_q2",
-          "type": "true_false",
-          "prompt": "Surah An-Nasr was revealed in Madinah.",
-          "choices": [
-            {
-              "id": "true",
-              "label": "True"
-            },
-            {
-              "id": "false",
-              "label": "False"
-            }
-          ],
-          "correctChoiceId": "true",
-          "explanation": "Surah An-Nasr was revealed in Madinah.",
-          "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-an-nasr",
-          "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-an-nasr",
-          "resourceLabel": "Open source",
-          "resourceUrl": "https://quran.com/110"
-        },
-        {
-          "id": "lesson-notes-quran-tafseer-surahs-101-110-surah-an-nasr_q3",
           "type": "multiple_choice",
           "prompt": "How many ayahs does Surah An-Nasr have?",
           "choices": [
@@ -35315,7 +35220,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Surah An-Nasr means \"The Help\". It was revealed in Madinah. It has 3 ayahs.",
+          "explanation": "Surah An-Nasr means \"The Help\". It has 3 ayahs.",
           "sourceNodeId": "notes-quran-tafseer-surahs-101-110-surah-an-nasr",
           "sourceLessonId": "lesson-notes-quran-tafseer-surahs-101-110-surah-an-nasr",
           "resourceLabel": "Open source",

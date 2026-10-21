@@ -140,7 +140,7 @@ export const LEARN_LINES = {
   "umm-ayman": "She cared for the young Prophet ﷺ and was an early Muslim.",
   "umm-kulthum-bint-muhammad": "She was the Prophet's ﷺ daughter and married Uthman.",
   "umm-ruman": "She was Abu Bakr's wife and Aishah's mother.",
-  "urwah-ibn-abi-al-jad-al-bariqi": "The Prophet ﷺ blessed his trade: one dinar became two sheep.",
+  "urwah-ibn-abi-al-jad-al-bariqi": "The Prophet ﷺ blessed his trade: even dust would earn him profit.",
   "usama-ibn-zayd": "Loved by the Prophet ﷺ, he led an army to Syria.",
   "usayd-ibn-hudayr": "He was a leader of the Aws before Islam.",
   "uthman-ibn-affan": "The third caliph, he made one standard copy of the Quran.",
@@ -249,7 +249,11 @@ export const UNSURE_FACTS = {
   // of Banu Asad ibn Khuzaymah, allies of Quraysh in Makkah, and only their mother Umaymah was of Quraysh. A
   // "Which tribe?" question would have no one right answer, so it is not asked.
   "zaynab-bint-jahsh": ["tribe"],
-  "abdullah-ibn-jahsh": ["tribe"]
+  "abdullah-ibn-jahsh": ["tribe"],
+  // The note says Suwad bint Rafi'; Ibn Sa'd gives Su'ad bint Rafi'.
+  "asad-ibn-zoraarah": ["mother"],
+  // The note makes her father the poet as-Samaw'al ibn Adiya, who most likely died before she was born.
+  "barrah-bint-samuel": ["father"]
 };
 
 // Facts left out of a child's lesson because they are for older learners. Ghaylan's ten wives (Mishkat al-Masabih
@@ -278,7 +282,10 @@ export const SAME_MEANING = { 73: [74], 74: [73] };
 
 // Surahs the scholars of the Quran disagree on, Makkan or Madinan (as-Suyuti lists them in al-Itqan): their lesson
 // never says where they were revealed, so no true or false question is half true.
-export const DISPUTED_REVELATION = new Set([1, 13, 22, 55, 61, 64, 76, 83, 97, 98, 99, 100, 102, 107, 108, 112, 113, 114]);
+// Al-Ma'idah, Al-Fath and An-Nasr are Madinan (after the Hijrah) but were not revealed in Madinah itself: 5:3 at
+// Arafah, Al-Fath on the road home from Hudaybiyyah, An-Nasr at Mina in the Farewell Hajj. Their lessons don't say
+// either.
+export const DISPUTED_REVELATION = new Set([1, 5, 13, 22, 48, 55, 61, 64, 76, 83, 97, 98, 99, 100, 102, 107, 108, 110, 112, 113, 114]);
 
 // The English names of a few surahs in plain words a child knows, each a standard meaning of the Arabic name
 // (Quran.com's "The Traducer" is al-Humazah, the backbiter). These win over the note's English name. Al-Fatihah
