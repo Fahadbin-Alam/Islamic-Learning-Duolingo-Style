@@ -190,6 +190,12 @@ const LEARN_SOURCES = {
   hadith_bukhari_8: bukhari(8, "Ibn Umar", "Islam is built on five", "Islam is built on five: the shahadah, salah, zakat, Hajj and fasting in Ramadan."),
   quran_2_144: ayah("2:144", "Turning to the Qiblah", "Turn your face toward al-Masjid al-Haram; wherever you are, turn your faces toward it."),
   quran_4_103: ayah("4:103", "Prayer at set times", "Prayer is a duty on the believers at set times."),
+  hadith_bukhari_597: bukhari(597, "Anas ibn Malik", "A forgotten prayer", "Whoever forgets a prayer should pray it when he remembers it; there is no other expiation."),
+  hadith_bukhari_596: bukhari(596, "Jabir bin Abdullah", "Asr, then Maghrib", "On the day of the Trench, the Prophet ﷺ prayed Asr after sunset, then prayed Maghrib."),
+  hadith_muslim_1009: muslim(1009, "Abu Hurairah", "Charity every day", "Every joint owes a charity each day; removing something harmful from the path is a charity."),
+  hadith_bukhari_6307: bukhari(6307, "Abu Hurairah", "Seventy times a day", "The Prophet ﷺ said: by Allah, I ask Allah's forgiveness and turn to Him more than seventy times a day."),
+  hadith_bukhari_628: bukhari(628, "Malik bin Huwairith", "Calling the adhan", "When the time of prayer comes, one of you should call the adhan, and the eldest should lead the prayer."),
+  quran_7_31: ayah("7:31", "Dress well for prayer", "Children of Adam, dress well whenever you come to pray."),
   hadith_bukhari_527: bukhari(527, "Abdullah ibn Mas'ud", "The deed Allah loves most", "Ibn Mas'ud asked which deed Allah loves most. The Prophet ﷺ said: prayer on time."),
   hadith_bukhari_611: bukhari(611, "Abu Sa'id al-Khudri", "Answering the adhan", "When you hear the call, say what the mu'adhdhin says."),
   hadith_bukhari_636: bukhari(636, "Abu Hurairah", "Walk calmly to prayer", "When you hear the iqamah, walk to prayer calmly, do not hurry; pray what you catch and complete what you missed."),
@@ -940,7 +946,7 @@ function buildSahabiWorldBranches(): BranchSeed[] {
         "makkah-years": { line: "When Sa'd became Muslim, his [mother] refused to eat.", alt: ["sister", "teacher"], why: "He stayed kind to her but kept his faith." },
         "friendship-with-the-prophet": { title: "Promised Paradise", line: "Sa'd is one of the [ten] promised Paradise.", alt: ["two", "hundred"], why: "Abu Bakr, Umar, Uthman and Ali are among them too." },
         "signature-virtue": { title: "An answered du'a", line: "The Prophet ﷺ prayed that Sa'd's du'as would be [answered].", alt: ["short", "written"] },
-        "moments-of-bravery": { line: "Sa'd was the first to shoot [arrows] for Allah's cause.", alt: ["spears", "stones"], why: "At Uhud, the Prophet ﷺ cheered him on as he shot." }
+        "moments-of-bravery": { line: "Sa'd was the first to shoot [arrows] for Allah's cause.", alt: ["spears", "stones"], why: "He was the first Arab to do it, before Badr. Later, at Uhud, the Prophet ﷺ cheered him on." }
       }
     }),
     buildCompanionBranch({
@@ -1223,6 +1229,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
           why: "The Prophet ﷺ said this when Ibn Mas'ud asked him."
         }),
         seed("late-prayer-scenarios", "Slept through it?", "Simple real cases help you think about time, delay, and responsibility.", 3, {
+          source: "hadith_bukhari_597",
           line: "If you sleep through a prayer, pray it when you [wake].",
           alt: ["grow up", "feel like it"],
           why: "The Prophet ﷺ taught: pray it as soon as you remember."
@@ -1326,6 +1333,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
           alt: ["adhan", "iqamah"]
         }),
         seed("wording-of-tashahhud", "The words", "The tashahhud has taught words that should be said with care.", 3, {
+          source: "hadith_abudawud_974",
           line: "The tashahhud begins with: [At-tahiyyatu] lillah.",
           alt: ["Allahu akbar", "Subhanallah"],
           why: "At-tahiyyatu lillah means: all greetings are for Allah."
@@ -1451,6 +1459,7 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
           alt: ["late", "rarely"]
         }),
         seed("joining-and-making-up", "In order", "Late prayer scenarios need sequence, not panic or random guessing.", 4, {
+          source: "hadith_bukhari_596",
           line: "Make up missed prayers in [order], like the Prophet ﷺ did.",
           alt: ["a rush", "secret"],
           why: "At the Battle of the Trench, he prayed Asr, then Maghrib."
@@ -1530,6 +1539,7 @@ SECTION_SEEDS.push(
             why: "InshaAllah means if Allah wills."
           }),
           seed("seeking-forgiveness", "Saying Astaghfirullah", "Seeking forgiveness keeps the heart soft after mistakes and slips.", 2, {
+            source: "hadith_bukhari_6307",
             line: "After a mistake, say [Astaghfirullah] and try again.",
             alt: ["InshaAllah", "Alhamdulillah"],
             why: "Astaghfirullah means I ask Allah to forgive me."
@@ -1587,10 +1597,12 @@ SECTION_SEEDS.push(
             why: "Allah does not accept salah without being clean."
           }),
           seed("hear-the-call", "The call to prayer", "Prayer creates structure in the day by returning the heart again and again to Allah.", 2, {
+            source: "hadith_bukhari_628",
             line: "The [adhan] calls Muslims to pray five times a day.",
             alt: ["bell", "alarm"]
           }),
           seed("prepare-the-space", "A clean place", "Before worship, notice your clothing, your place, and your readiness.", 3, {
+            source: "quran_7_31",
             line: "Pray in a [clean] spot, in tidy clothes.",
             alt: ["messy", "muddy"]
           }),
@@ -1795,8 +1807,13 @@ function createGeneratedBranch(section: LearningSection, branch: BranchSeed, ear
     const lessonId = `lesson-${nodeId}`;
     const kind = entry.kind ?? defaultNodeKind(section.topicId, index, branch.lessons.length);
     // The source that says the line comes first, so the lesson's link opens it; the unit's own sources follow.
+    // A unit's hadith are about one of its lessons, so a lesson with its own source does not borrow them:
+    // showing them there would cite a hadith that does not say what the lesson teaches.
     const learnSource = entry.source ? SOURCES[entry.source] : undefined;
-    const sources = uniqueById([learnSource, ...(entry.sourceKeys ?? branch.sourceKeys).map((key) => SOURCES[key])].filter((source): source is LessonSource => Boolean(source)));
+    const unitSources = (entry.sourceKeys ?? branch.sourceKeys)
+      .map((key) => SOURCES[key])
+      .filter((source) => source && !(learnSource && !entry.sourceKeys && source.category === "hadith"));
+    const sources = uniqueById([learnSource, ...unitSources].filter((source): source is LessonSource => Boolean(source)));
     const xpReward = 8 + entry.difficulty * 2 + (kind === "review" ? 4 : 0);
     const clusterIndex = Math.floor(index / clusterSize) + 1;
     const clusterId = `${branch.id}_cluster_${clusterIndex}`;
@@ -2188,7 +2205,7 @@ SECTION_SEEDS.push(
         }),
         seed("quran-women-review", "Review", "These women teach repentance, trust, steadfastness, and purity under pressure.", 4, { kind: "review", lessonType: "review", line: "Let's remember Hawwa, Musa's mother, Asiyah and Maryam!" })
       ]},
-      { id: "women-mothers-depth", title: "More Mothers of the Believers", description: "Move in order through the Prophet's ﷺ wives and the special gifts they gave the Ummah.", order: 4, difficultyRange: [2, 5], sourceKeys: ["quran_33_6", "hadith_bukhari_3820", "hadith_bukhari_3770", "hadith_bukhari_4987"], lessons: [
+      { id: "women-mothers-depth", title: "More Mothers of the Believers", description: "Move in order through the Prophet's ﷺ wives and the special gifts they gave the Ummah.", order: 4, difficultyRange: [2, 5], sourceKeys: ["quran_33_6"], lessons: [
         seed("khadijah-and-support", "Salam from Allah", "Jibril brought Khadijah salam from her Lord.", 2, {
           line: "Jibril brought Khadijah [salam] from Allah.",
           alt: ["gold", "letters"],
@@ -2267,6 +2284,7 @@ SECTION_SEEDS.push(
           why: "The Quran says Allah will then make room for you."
         }),
         seed("helping-neighbors", "Clearing the path", "Mercy becomes concrete when help reaches nearby people in ordinary needs.", 3, {
+          source: "hadith_muslim_1009",
           line: "Moving something harmful off the path is a [charity].",
           alt: ["crime", "waste"]
         }),

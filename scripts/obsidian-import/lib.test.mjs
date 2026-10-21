@@ -5,7 +5,7 @@ import { dirname, join } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { ADULT_TEXT, FRIGHTENING_TEXT, MAX_CHIP_WORDS, MAX_CHOICE_LENGTH, MAX_LEARN_FACTS, MAX_LINE_WORDS, MAX_PERSON_QUESTIONS, PERSON_FACTS, displayName, fatherSpellingMismatch, nameInSentence, nameWarnings, pickDistractors, plainName, properName, titleCase } from "./facts.mjs";
-import { cleanText, extractQuestions, firstSentence, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic, suspectTextWarnings } from "./lib.mjs";
+import { buildSources, cleanText, extractQuestions, firstSentence, importVault, parseFrontmatter, parseNote, renderTypeScript, resolveTopic, suspectTextWarnings } from "./lib.mjs";
 
 const sampleVault = join(dirname(fileURLToPath(import.meta.url)), "sample-vault");
 
@@ -690,4 +690,25 @@ test("round 7: every surah meaning is in title case, and a father is spelled as 
   const spelling = warnings.filter((warning) => warning.includes("the father is shown as"));
   assert.equal(spelling.length, 1, spelling.join("\n"));
   assert.match(spelling[0], /"Musayyab ibn Hazn" but "Sa'id ibn al-Musayyab" spells him "Al-Musayyab"/);
+});
+
+test("hadith links show their checked narrator and grade, and links that are not one checked hadith stay off", () => {
+  const warnings = [];
+  const sources = buildSources(
+    [
+      "[Sahih al-Bukhari 3276](https://sunnah.com/bukhari:3276)",
+      "https://sunnah.com/narrator/2069",
+      "https://sunnah.com/muslim/15/159?utm_source",
+      "https://sunnah.com/tirmidhi:1143",
+      "https://sunnah.com/bukhari:1",
+      "https://quran.com/1"
+    ],
+    "lesson_x",
+    (message) => warnings.push(message)
+  );
+  assert.deepEqual(sources.map((source) => source.url), ["https://sunnah.com/bukhari:3276", "https://quran.com/1"]);
+  assert.equal(sources[0].from, "Abu Hurayrah; collected by Imam al-Bukhari");
+  assert.equal(sources[0].grade, "Sahih");
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0], /bukhari:1: add its narrator/);
 });

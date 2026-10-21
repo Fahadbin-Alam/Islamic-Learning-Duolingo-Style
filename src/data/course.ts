@@ -2116,15 +2116,6 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "https://quran.com/en/17:24/tafsirs",
         "Quran 17:24",
         "Allah teaches believers to lower the wing of humility to their parents and pray for mercy on them."
-      ),
-      hadithSource(
-        "source-service-adab-31",
-        "Making parents cry is part of disobedience",
-        "https://sunnah.com/adab:31",
-        "Al-Adab Al-Mufrad 31",
-        "Ibn Umar; collected by Imam al-Bukhari in Al-Adab Al-Mufrad",
-        "See source",
-        "The report warns that hurting parents emotionally is a form of disobedience, so service to them must carry gentleness."
       )
     ],
     [
@@ -2501,6 +2492,15 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Aishah; collected by Imam at-Tirmidhi",
         "Hasan Gharib Sahih",
         "The Prophet ﷺ turned daily family treatment into a real measure of spiritual character."
+      ),
+      hadithSource(
+        "source-marriage-mercy-abudawud-1308",
+        "Waking each other for night prayer",
+        "https://sunnah.com/abudawud:1308",
+        "Sunan Abi Dawud 1308",
+        "Abu Hurairah; collected by Imam Abu Dawud",
+        "Hasan Sahih (Al-Albani)",
+        "The Prophet ﷺ asked Allah's mercy for a husband and a wife who wake each other to pray at night."
       )
     ],
     [
