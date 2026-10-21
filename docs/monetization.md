@@ -1,6 +1,6 @@
 # Monetization
 
-Sira Path earns mainly from ads. Free learners get the whole core course and see ads; a subscription removes them.
+Muslimo earns mainly from ads. Free learners get the whole core course and see ads; a subscription removes them.
 
 | Who | What they get | How it earns |
 | --- | --- | --- |

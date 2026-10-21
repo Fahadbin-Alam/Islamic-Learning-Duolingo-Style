@@ -1,2 +1,2 @@
-"""Backend package for Sira Path."""
+"""Backend package for Muslimo."""
 

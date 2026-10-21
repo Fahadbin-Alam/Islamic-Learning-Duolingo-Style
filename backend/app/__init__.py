@@ -1,2 +1,2 @@
-"""FastAPI application package for Sira Path."""
+"""FastAPI application package for Muslimo."""
 

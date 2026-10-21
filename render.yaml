@@ -1,8 +1,8 @@
-# Render Blueprint for the Sira Path API and its Postgres database.
+# Render Blueprint for the Muslimo API and its Postgres database.
 # In Render: New > Blueprint, pick this repository, then fill in the secrets it asks for.
 services:
   - type: web
-    name: sira-path-api
+    name: muslimo-api
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: .
@@ -14,12 +14,12 @@ services:
         value: production
       - key: SIRA_DATABASE_URL
         fromDatabase:
-          name: sira-path-db
+          name: muslimo-db
           property: connectionString
       - key: SIRA_REVENUECAT_WEBHOOK_AUTH
         sync: false
 
 databases:
-  - name: sira-path-db
-    databaseName: sira_path
+  - name: muslimo-db
+    databaseName: muslimo
     plan: basic-256mb

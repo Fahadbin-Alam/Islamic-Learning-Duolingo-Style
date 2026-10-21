@@ -1,4 +1,4 @@
-# Sira Path design system (v2)
+# Muslimo design system (v2)
 
 Who it is for: learners aged 6 to 30 and new Muslims. A 7-year-old must be able to play a
 lesson without reading more than a few words, and an adult must not feel talked down to.

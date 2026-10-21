@@ -107,7 +107,7 @@ def add_friend(payload: AddFriendInput, db: DbSession, today: Optional[str] = Qu
     friend = db.scalar(select(User).where(User.email == email))
 
     if not friend:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No Sira Path account uses that email yet. Ask them to sign up first.")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No Muslimo account uses that email yet. Ask them to sign up first.")
     if friend.id == user.id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="That's your own account.")
     if db.scalar(select(Friendship).where(Friendship.user_id == user.id, Friendship.friend_id == friend.id)):

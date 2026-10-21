@@ -167,7 +167,7 @@ export const STARTER_USER: UserProfile = {
 
 const BASE_COURSE: LearningCourse = {
   id: "islam-foundations",
-  title: "Sira Path",
+  title: "Muslimo",
   subtitle: "Start with foundations, get ready for prayer, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, travel from Adam to Muhammad ﷺ, and learn from the women honored in revelation.",
   sections: [
     {

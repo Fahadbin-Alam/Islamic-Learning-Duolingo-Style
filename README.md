@@ -1,6 +1,6 @@
-# Sira Path
+# Muslimo
 
-Sira Path is an Islamic learning platform with a Duolingo-style path UI and a production-minded backend foundation for web today and Expo/iOS/Android next.
+Muslimo is an Islamic learning platform with a Duolingo-style path UI and a production-minded backend foundation for web today and Expo/iOS/Android next.
 
 ## What Changed
 

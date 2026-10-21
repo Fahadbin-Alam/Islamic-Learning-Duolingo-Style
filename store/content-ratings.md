@@ -1,6 +1,6 @@
 # Content rating answers
 
-Both stores ask about the content of the app, not about who it is for. Sira Path teaches religious knowledge in text quizzes. Historical lessons mention events such as the battle of Uhud and companions who were martyred, in short text without description of injury. The marriage topic covers choosing a spouse well and mercy in the home, with no sexual content. Reward chests are earned by learning, cannot be bought, and are not gambling.
+Both stores ask about the content of the app, not about who it is for. Muslimo teaches religious knowledge in text quizzes. Historical lessons mention events such as the battle of Uhud and companions who were martyred, in short text without description of injury. The marriage topic covers choosing a spouse well and mercy in the home, with no sexual content. Reward chests are earned by learning, cannot be bought, and are not gambling.
 
 Form wording changes from time to time. If a question is not listed here, answer it from the description above, and when unsure pick the stricter answer.
 
@@ -70,4 +70,4 @@ App Store Connect → your app → App Information → Age Rating. These follow 
 
 Expected result: **4+**. If App Review asks about the historical battle lessons, changing Realistic violence to "Infrequent / Mild" gives 9+, which does not affect who can download the app in practice.
 
-Do **not** choose "Made for Kids". The Kids category bans third-party ads and analytics, and Sira Path shows AdMob ads to free users.
+Do **not** choose "Made for Kids". The Kids category bans third-party ads and analytics, and Muslimo shows AdMob ads to free users.

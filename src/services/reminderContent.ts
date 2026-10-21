@@ -19,7 +19,7 @@ const REMINDER_COPY: Record<SupportedLanguage, Record<ReminderKind, Array<{ titl
     streak: [
       {
         title: "As-salamu alaykum - keep your streak alive",
-        body: "A small lesson today can bring barakah. Open Sira Path and keep your streak moving."
+        body: "A small lesson today can bring barakah. Open Muslimo and keep your streak moving."
       },
       {
         title: "Your streak is waiting",
@@ -41,7 +41,7 @@ const REMINDER_COPY: Record<SupportedLanguage, Record<ReminderKind, Array<{ titl
     streak: [
       {
         title: "As-salamu alaykum - gardez votre serie",
-        body: "Une petite lecon aujourd'hui peut apporter de la baraka. Ouvrez Sira Path et continuez votre serie."
+        body: "Une petite lecon aujourd'hui peut apporter de la baraka. Ouvrez Muslimo et continuez votre serie."
       },
       {
         title: "Votre serie vous attend",
@@ -85,7 +85,7 @@ const REMINDER_COPY: Record<SupportedLanguage, Record<ReminderKind, Array<{ titl
     streak: [
       {
         title: "আসসালামু আলাইকুম - স্ট্রিক ধরে রাখুন",
-        body: "আজ একটি ছোট পাঠেও বরকত থাকতে পারে। Sira Path খুলে স্ট্রিক চালিয়ে যান।"
+        body: "আজ একটি ছোট পাঠেও বরকত থাকতে পারে। Muslimo খুলে স্ট্রিক চালিয়ে যান।"
       },
       {
         title: "আপনার স্ট্রিক অপেক্ষা করছে",
@@ -107,7 +107,7 @@ const REMINDER_COPY: Record<SupportedLanguage, Record<ReminderKind, Array<{ titl
     streak: [
       {
         title: "السلام علیکم - اپنی اسٹریک قائم رکھیں",
-        body: "آج کا ایک چھوٹا سبق بھی برکت لا سکتا ہے۔ Sira Path کھولیں اور اپنی اسٹریک جاری رکھیں۔"
+        body: "آج کا ایک چھوٹا سبق بھی برکت لا سکتا ہے۔ Muslimo کھولیں اور اپنی اسٹریک جاری رکھیں۔"
       },
       {
         title: "آپ کی اسٹریک آپ کا انتظار کر رہی ہے",
@@ -129,7 +129,7 @@ const REMINDER_COPY: Record<SupportedLanguage, Record<ReminderKind, Array<{ titl
     streak: [
       {
         title: "अस्सलामु अलैकुम - अपनी स्ट्रीक बनाए रखें",
-        body: "आज का एक छोटा पाठ भी बरकत ला सकता है। Sira Path खोलिए और अपनी स्ट्रीक जारी रखिए।"
+        body: "आज का एक छोटा पाठ भी बरकत ला सकता है। Muslimo खोलिए और अपनी स्ट्रीक जारी रखिए।"
       },
       {
         title: "आपकी स्ट्रीक आपका इंतजार कर रही है",
