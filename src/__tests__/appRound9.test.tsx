@@ -441,3 +441,110 @@ describe("the Me stat cards keep big numbers whole on a 320 px phone", () => {
     expect(style ? StyleSheet.flatten(style).fontSize : null).toBe(smaller);
   });
 });
+
+describe("the chips above the question fade when the scroll would cut them", () => {
+  const two = {
+    kind: "multiple_choice" as const,
+    prompt: "Who was the first caliph?",
+    choices: [
+      { id: "a", label: "Umar ibn al-Khattab" },
+      { id: "b", label: "Abu Bakr as-Siddiq" },
+      { id: "c", label: "Uthman ibn Affan" }
+    ],
+    mascotVariant: "boy",
+    accent: "#21B573",
+    onSelect: jest.fn(),
+    onCheck: jest.fn(),
+    onContinue: jest.fn()
+  };
+  const result = { correct: false, correctLabel: two.choices[1].label, why: "He led the Muslims after the Prophet." };
+  const wrapper = (id: string) => {
+    let node = screen.getByTestId(`choice-${id}`, { includeHiddenElements: true }).parent!;
+    while (!node.props.onLayout) node = node.parent!;
+    return node;
+  };
+
+  async function check(rootHeight: number) {
+    await render(<ExerciseView {...two} review attempt={1} selectedChoiceId="a" correctChoiceId="b" result={result} />);
+    await fireEvent(screen.getByTestId("exercise-view"), "layout", layout(rootHeight));
+    // The REVIEW and "Try again!" chips (8-34), then the prompt (42-81) and three tiles.
+    await fireEvent(screen.getByTestId("exercise-cues", { includeHiddenElements: true }), "layout", layout(26, 8));
+    await fireEvent(screen.getByTestId("exercise-prompt"), "layout", layout(39, 42));
+    for (const [index, id] of ["a", "b", "c"].entries()) {
+      await fireEvent(wrapper(id), "layout", layout(68, index * 80));
+    }
+    await fireEvent(screen.getByTestId("exercise-tiles"), "layout", layout(3 * 68 + 2 * 12, 81));
+    await fireEvent(screen.getByTestId("feedback-top"), "layout", layout(76));
+    await sheetHeight(40 + 76 + 16 + 58 + SHEET_PAD + inset);
+  }
+
+  it("fades REVIEW and Try again! in a lesson once the question scrolls past their top", async () => {
+    await onSmallPhone(async () => {
+      const scrollTo = scrollSpy();
+      // Short: the question scrolls up 17, part-way through the chips (8-34) and short of the prompt.
+      await check(400);
+      expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ y: 17 }));
+      expect(screen.queryByTestId("exercise-cues")).toBeNull();
+      expect(screen.getByTestId("exercise-cues", { includeHiddenElements: true })).toBeTruthy();
+      expect(screen.getByText("Who was the first caliph?")).toBeTruthy();
+      scrollTo.mockRestore();
+    });
+  });
+
+  it("keeps them on a tall phone, where nothing scrolls", async () => {
+    await check(900);
+    expect(screen.getByTestId("exercise-cues")).toBeTruthy();
+    expect(screen.getByTestId("exercise-review")).toBeTruthy();
+  });
+
+  it("fades the topic label in practice once the question scrolls past it", async () => {
+    const daily = createFoundationAssessment(createEmptyLearnerProfile(), "daily_challenge");
+    const base = FOUNDATION_QUESTION_BANK.find((entry) => entry.type === "multiple_choice" && (entry.options?.length ?? 0) === 4 && typeof entry.correctAnswer === "string")!;
+    const answer = base.correctAnswer as string;
+    const others = (base.options ?? []).filter((option) => option !== answer);
+    const question = { ...base, options: [others[0], answer, ...others.slice(1)] };
+    const state: FoundationAssessmentState = { ...daily, currentQuestion: question };
+    const checked = submitFoundationAssessmentAnswer({ profile: createEmptyLearnerProfile(), state, selectedAnswer: others[0], responseTimeMs: 3000 }).stateWithFeedback;
+    const handlers = { onChangeSelectedAnswer: jest.fn(), onSubmit: jest.fn(), onContinue: jest.fn(), onExit: jest.fn() };
+    const { rerender } = await render(<FoundationAssessmentScreen assessment={checked} language="en" selectedAnswer={others[0]} {...handlers} />);
+    await fireEvent(screen.getByTestId("assessment-scroll-box"), "layout", layout(420));
+    await fireEvent(screen.getByTestId("assessment-label", { includeHiddenElements: true }), "layout", layout(30, 0));
+    await fireEvent(screen.getByTestId("assessment-prompt"), "layout", layout(46, 38));
+    for (const [index, option] of question.options.entries()) {
+      await fireEvent(screen.getByTestId(`assessment-tile-${option}`, { includeHiddenElements: true }), "layout", layout(54, index * 64));
+    }
+    await fireEvent(screen.getByTestId("assessment-answers"), "layout", layout(4 * 54 + 3 * 10, 84));
+    await fireEvent(screen.getByTestId("feedback-top"), "layout", layout(76));
+    await sheetHeight(40 + 76 + 16 + 58 + SHEET_PAD + inset);
+    expect(screen.queryByTestId("assessment-label")).toBeNull();
+    expect(screen.getByTestId("assessment-prompt")).toBeTruthy();
+    // The question again, unanswered: the label is back.
+    await rerender(<FoundationAssessmentScreen assessment={state} language="en" selectedAnswer={undefined} {...handlers} />);
+    expect(screen.getByTestId("assessment-label")).toBeTruthy();
+  });
+});
+
+describe("the correct-order list lights up the steps the learner had in another place", () => {
+  const options = STEPS.map((label, index) => ({ id: `s${index + 1}`, label }));
+  const ids = options.map((option) => option.id);
+  const game = { title: "Salah", prompt: "Put Fajr's two rak'ahs in order!", options, correctOrderIds: ids, mascotVariant: "boy", accent: "#21B573", onDone: jest.fn() };
+
+  it("marks only the rows the learner swapped, so the mistake shows even when the red steps fold away", async () => {
+    // The last two steps swapped.
+    await render(<OrderGame {...game} initialPlacedIds={[...ids.slice(0, 7), ids[8], ids[7]]} initialChecked />);
+    const lit = STEPS.map((_, index) => flat(screen.getByTestId(`feedback-row-${index}`).props.style).backgroundColor !== undefined);
+    expect(lit).toEqual([false, false, false, false, false, false, false, true, true]);
+    expect(screen.getByLabelText("8. Tashahhud, you had this one in another place")).toBeTruthy();
+    expect(screen.getByLabelText("1. Opening takbir")).toBeTruthy();
+  });
+});
+
+describe("the streak count is written like the gem count", () => {
+  it("shows a 1,234-day streak with its comma, and says it whole", async () => {
+    await render(
+      <AppTopBar topicId="prayer" topicTitle="Prayer" accent="#3A9FE8" streakDays={1234} gems={99999} hearts={{ current: 4, max: 5, unlimited: false }} onOpenTopics={jest.fn()} onOpenShop={jest.fn()} />
+    );
+    expect(screen.getByTestId("top-bar-streak")).toHaveTextContent("1,234");
+    expect(screen.getByRole("button", { name: "1,234 day streak" })).toBeTruthy();
+  });
+});

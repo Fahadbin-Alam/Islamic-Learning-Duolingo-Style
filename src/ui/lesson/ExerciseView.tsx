@@ -330,6 +330,7 @@ export function ExerciseView({
   const [sheetFull, setSheetFull] = useState(0);
   const [tilesBox, setTilesBox] = useState<LayoutBox | null>(null);
   const [promptBox, setPromptBox] = useState<LayoutBox | null>(null);
+  const [cueTop, setCueTop] = useState<number | null>(null);
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const wasChecked = useRef(checked);
   const [tileMoves, setTileMoves] = useState(0);
@@ -391,6 +392,11 @@ export function ExerciseView({
       ? tilesUnderSheet({ ids: stackChoices.map((choice) => choice.id), boxes: tileBoxes.current, focusId: rightId ?? selectedChoiceId, gap: tileGap, tilesTop, sheetTop })
       : [];
 
+  // Scrolled down to show the green tile, the question can stop part-way through the REVIEW / "Try again!" chips
+  // above the prompt; they fade away then, so the scroll view's top edge never cuts them.
+  const scrollTarget = checked && sheetHeight && layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  const cueFaded = cueTop !== null && scrollTarget > cueTop;
+
   useEffect(() => {
     if (!checked) {
       if (wasChecked.current) {
@@ -406,7 +412,7 @@ export function ExerciseView({
     // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
     // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
     // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
-    scrollRef.current?.scrollTo?.({ y: sheetScrollY(layout, sheetHeight, room.furthest), animated: true });
+    scrollRef.current?.scrollTo?.({ y: scrollTarget, animated: true });
     // The layout is read from the boxes these values follow.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checked, folded, layout?.focusBottom, layout?.promptTop, layout?.visibleBottom, room?.furthest, scrollRef, sheetHeight, tileMoves]);
@@ -466,7 +472,7 @@ export function ExerciseView({
           {...scrollProps}
         >
           {review || shownAttempt > 0 ? (
-            <View style={styles.cueRow}>
+            <FadeUnderSheet hidden={cueFaded} style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
               {review ? (
                 <PopIn style={[styles.cueChip, styles.reviewChip]}>
                   <Icon name="practice" size={18} />
@@ -480,7 +486,7 @@ export function ExerciseView({
                   <Text style={[styles.cueText, styles.retryText]}>Try again!</Text>
                 </PopIn>
               ) : null}
-            </View>
+            </FadeUnderSheet>
           ) : null}
           <View
             onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}

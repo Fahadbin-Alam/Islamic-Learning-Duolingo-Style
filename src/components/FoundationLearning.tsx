@@ -425,6 +425,7 @@ export function FoundationAssessmentScreen({
   const [sheetFull, setSheetFull] = useState(0);
   const [answersHeight, setAnswersHeight] = useState(0);
   const [promptBox, setPromptBox] = useState<LayoutBox | null>(null);
+  const [labelTop, setLabelTop] = useState<number | null>(null);
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const [tileMoves, setTileMoves] = useState(0);
   const wasChecked = useRef(false);
@@ -492,6 +493,11 @@ export function FoundationAssessmentScreen({
         })
       : [];
 
+  // Scrolled down to show the right answer, the question can stop part-way through the topic label (and its Arabic)
+  // above the prompt; it fades away then, so the scroll view's top edge never cuts it.
+  const scrollTarget = locked && sheetHeight && layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  const labelFaded = labelTop !== null && scrollTarget > labelTop;
+
   useEffect(() => {
     if (!locked) {
       if (wasChecked.current) {
@@ -506,7 +512,7 @@ export function FoundationAssessmentScreen({
     }
     // The right answer right above the sheet, but never the question scrolled away: on a short phone the prompt stays
     // whole at the top (the sheet names the right answer), also after a scroll down to reach the last answer.
-    scrollRef.current?.scrollTo?.({ y: sheetScrollY(layout, sheetHeight, room.furthest), animated: true });
+    scrollRef.current?.scrollTo?.({ y: scrollTarget, animated: true });
     // The layout is read from the boxes these values follow.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [folded, layout?.focusBottom, layout?.promptTop, layout?.visibleBottom, locked, room?.furthest, scrollRef, sheetHeight]);
@@ -549,26 +555,28 @@ export function FoundationAssessmentScreen({
           {...scrollProps}
         >
           <View key={question.id} style={styles.assessmentWrap}>
-            <PopIn from="up">
-              <View style={styles.categoryRow}>
-                <View style={styles.categoryPill}>
-                  <Icon name={SKILL_LOOK[question.category]?.icon ?? "star8"} size={16} />
-                  <Text style={styles.categoryText} numberOfLines={1}>
-                    {categoryTitle}
-                  </Text>
-                </View>
-                {arabic ? (
-                  <ArabicText size={20} weight="bold" color={colors.correctInk}>
-                    {arabic}
-                  </ArabicText>
-                ) : null}
-                {retry ? (
-                  <View style={styles.retryChip} testID="assessment-retry">
-                    <Text style={styles.retryText}>Try again!</Text>
+            <FadeUnderSheet hidden={labelFaded} onLayout={(event) => setLabelTop(Math.round(event.nativeEvent.layout.y))} testID="assessment-label">
+              <PopIn from="up">
+                <View style={styles.categoryRow}>
+                  <View style={styles.categoryPill}>
+                    <Icon name={SKILL_LOOK[question.category]?.icon ?? "star8"} size={16} />
+                    <Text style={styles.categoryText} numberOfLines={1}>
+                      {categoryTitle}
+                    </Text>
                   </View>
-                ) : null}
-              </View>
-            </PopIn>
+                  {arabic ? (
+                    <ArabicText size={20} weight="bold" color={colors.correctInk}>
+                      {arabic}
+                    </ArabicText>
+                  ) : null}
+                  {retry ? (
+                    <View style={styles.retryChip} testID="assessment-retry">
+                      <Text style={styles.retryText}>Try again!</Text>
+                    </View>
+                  ) : null}
+                </View>
+              </PopIn>
+            </FadeUnderSheet>
 
             <View
               onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}

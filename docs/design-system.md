@@ -58,7 +58,7 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
 ## App structure
 
 - **Top bar** (outside lessons): topic world button (emblem in topic color, opens the topic
-  picker), streak, gems, hearts. Icons plus numbers only. Gems read the same in the top bar, the Shop
+  picker), streak, gems, hearts. Icons plus numbers only. Streak and gems read the same in the top bar, the Shop
   card and Me: "1,000", "12,345", then "123k" (screen readers hear the full number).
 - **Bottom tabs**: Learn, Practice, Crew, Shop, Me.
 - **Learn** is the path itself: a unit banner per branch, then zig-zag nodes, chests and the
@@ -82,11 +82,13 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   gap above the button (it turns to point up at the end, so the gap is never empty). The heading, the
   "Correct answer" line and the Why pill always show whole. A tile the sheet's top edge would cut fades
   away while the sheet is up (never the green tile, nor the picked tile when it sits whole above the
-  sheet) and comes back with the next try; tiles wholly under the sheet stay. In the ordering game the
-  prompt stays on screen above the sheet, placed tiles the sheet would cut fold away until TRY AGAIN, and
-  the "Correct order" list shows whole rows only: it starts at the top, scrolls by whole rows, and its
-  arrow points down while rows are hidden and up at the end. Practice (Level check, Daily, Review) uses the
-  same rule and code (`src/ui/lesson/sheetFit.ts`).
+  sheet) and comes back with the next try; tiles wholly under the sheet stay. The small chips above the
+  prompt (REVIEW, "Try again!", practice's topic label) fade the same way when the question scrolls past
+  their top. In the ordering game the prompt stays on screen above the sheet, placed tiles the sheet would
+  cut fold away until TRY AGAIN, and the "Correct order" list shows whole rows only: it starts at the top,
+  scrolls by whole rows, and its arrow points down while rows are hidden and up at the end. The rows the
+  learner had in another place are lit up in that list, so the mistake shows even when its red tiles fold
+  away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`).
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
 ## Copy bank

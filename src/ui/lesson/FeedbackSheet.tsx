@@ -97,6 +97,8 @@ export type FeedbackSheetProps = {
   buttonSound?: GameSoundEvent | false;
   /** Shown as a numbered column instead of correctLabel. */
   correctList?: string[];
+  /** Rows of correctList the learner had in another place: lit up, so the mistake shows even when the steps behind the sheet fold away. */
+  missedRows?: number[];
   /** Play the correct / wrong sound + haptic when the sheet opens. Default true. */
   playSound?: boolean;
   /** Start with the Why line open (gallery / tests). */
@@ -127,6 +129,7 @@ export function FeedbackSheet({
   title,
   buttonLabel,
   correctList,
+  missedRows,
   buttonSound,
   playSound = true,
   defaultWhyOpen = false,
@@ -424,8 +427,10 @@ export function FeedbackSheet({
                   {correctList.map((item, index) => (
                     <View
                       key={`${index}-${item}`}
-                      style={[styles.listItem, index > 0 ? styles.listItemNext : null]}
+                      style={[styles.listItem, index > 0 ? styles.listItemNext : null, missedRows?.includes(index) ? styles.listItemMissed : null]}
                       onLayout={onRowLayout(index)}
+                      accessible
+                      accessibilityLabel={`${index + 1}. ${item}${missedRows?.includes(index) ? ", you had this one in another place" : ""}`}
                       testID={`feedback-row-${index}`}
                     >
                       <View style={[styles.listNumber, { backgroundColor: ink }]}>
@@ -630,6 +635,13 @@ const styles = StyleSheet.create({
   },
   listItemNext: {
     marginTop: 4
+  },
+  // Same height as any row (the whole-row scroll reads the rows' boxes): only a light band behind it.
+  listItemMissed: {
+    backgroundColor: colors.white,
+    borderRadius: radii.pill,
+    marginHorizontal: -6,
+    paddingHorizontal: 6
   },
   listNumber: {
     width: 20,

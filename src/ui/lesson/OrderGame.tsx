@@ -192,9 +192,10 @@ export function OrderGame({
   const ready = placed.length >= total;
 
   // Keep the last sheet copy while it slides away after TRY AGAIN.
-  const lastSheet = useRef({ correct: false });
+  // The steps the learner had in another place are lit up in the sheet's list, as the red chips may fold away under it.
+  const lastSheet = useRef<{ correct: boolean; missed: number[] }>({ correct: false, missed: [] });
   if (checked !== null) {
-    lastSheet.current = { correct: checked };
+    lastSheet.current = { correct: checked, missed: correctOrderIds.flatMap((id, index) => (placed[index] === id ? [] : [index])) };
   }
   const sheet = lastSheet.current;
 
@@ -293,6 +294,7 @@ export function OrderGame({
   const mood: MascotMood = checked === null ? "think" : checked ? "cheer" : "sad";
   // A miss lists the right order at once (one numbered column), so nobody has to guess it.
   const correctList = sheet.correct ? undefined : correctOrderIds.map((id) => byId.get(id)?.label ?? id);
+  const missedRows = sheet.correct ? undefined : sheet.missed;
   const extraBottom = checked !== null && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
   // Short phones: placed steps sit in two columns and used chips leave the bank, so all of it fits.
   const grid = compact;
@@ -369,6 +371,7 @@ export function OrderGame({
         correct={sheet.correct}
         title={sheet.correct ? "Perfect order!" : "Correct order:"}
         correctList={correctList}
+        missedRows={missedRows}
         buttonLabel={sheet.correct ? "Continue" : "Try again"}
         onContinue={sheet.correct ? onDone : retry}
         playSound={playSound}
