@@ -6759,11 +6759,11 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Usamah ibn Zayd"
+                    "text": "Abu Musa al-Ash'ari"
                   },
                   {
                     "id": "b",
-                    "text": "Usayd ibn Hudayr"
+                    "text": "Abu Ubaydah ibn al-Jarrah"
                   },
                   {
                     "id": "c",
@@ -6771,7 +6771,7 @@
                   },
                   {
                     "id": "d",
-                    "text": "Umar ibn al-Khattab"
+                    "text": "Abu Lubabah ibn Abd al-Mundhir"
                   }
                 ],
                 "correct_answer_json": {
@@ -7089,7 +7089,7 @@
             ]
           },
           {
-            "title": "Walid ibn al-Walid ibn al-Mughirah",
+            "title": "Al-Walid ibn al-Walid ibn al-Mughirah",
             "description": "Brother of Khalid; captured at Badr, later emigrated to Madinah. Full name: al-Walid ibn al-Walid ibn al-Mughira ibn Abd Allah ibn Umar ibn Makhzum. Tribe: Quraysh, clan of Banu Makhzum. Father: Al-Walid ibn al-Mughirah.",
             "difficulty": 1,
             "lesson_type": "story",
@@ -7100,7 +7100,7 @@
             "questions": [
               {
                 "type": "multiple_choice",
-                "prompt": "Who was the father of Walid ibn al-Walid ibn al-Mughirah?",
+                "prompt": "Who was the father of Al-Walid ibn al-Walid ibn al-Mughirah?",
                 "options_json": [
                   {
                     "id": "a",
@@ -7122,17 +7122,17 @@
                 "correct_answer_json": {
                   "choiceId": "a"
                 },
-                "explanation_short": "The father of Walid ibn al-Walid ibn al-Mughirah was Al-Walid ibn al-Mughirah.",
-                "explanation_long": "Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
+                "explanation_short": "The father of Al-Walid ibn al-Walid ibn al-Mughirah was Al-Walid ibn al-Mughirah.",
+                "explanation_long": "Al-Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
                 "tags_json": [
-                  "walid-ibn-al-walid-ibn-al-mughirah",
+                  "al-walid-ibn-al-walid-ibn-al-mughirah",
                   "difficulty_1",
                   "obsidian_import"
                 ]
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Which tribe was Walid ibn al-Walid ibn al-Mughirah from?",
+                "prompt": "Which tribe was Al-Walid ibn al-Walid ibn al-Mughirah from?",
                 "options_json": [
                   {
                     "id": "a",
@@ -7154,17 +7154,17 @@
                 "correct_answer_json": {
                   "choiceId": "d"
                 },
-                "explanation_short": "Walid ibn al-Walid ibn al-Mughirah was from Quraysh.",
-                "explanation_long": "Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
+                "explanation_short": "Al-Walid ibn al-Walid ibn al-Mughirah was from Quraysh.",
+                "explanation_long": "Al-Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
                 "tags_json": [
-                  "walid-ibn-al-walid-ibn-al-mughirah",
+                  "al-walid-ibn-al-walid-ibn-al-mughirah",
                   "difficulty_1",
                   "obsidian_import"
                 ]
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Which clan did Walid ibn al-Walid ibn al-Mughirah belong to?",
+                "prompt": "Which clan did Al-Walid ibn al-Walid ibn al-Mughirah belong to?",
                 "options_json": [
                   {
                     "id": "a",
@@ -7186,10 +7186,10 @@
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "Walid ibn al-Walid ibn al-Mughirah belonged to Banu Makhzum.",
-                "explanation_long": "Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
+                "explanation_short": "Al-Walid ibn al-Walid ibn al-Mughirah belonged to Banu Makhzum.",
+                "explanation_long": "Al-Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
                 "tags_json": [
-                  "walid-ibn-al-walid-ibn-al-mughirah",
+                  "al-walid-ibn-al-walid-ibn-al-mughirah",
                   "difficulty_1",
                   "obsidian_import"
                 ]

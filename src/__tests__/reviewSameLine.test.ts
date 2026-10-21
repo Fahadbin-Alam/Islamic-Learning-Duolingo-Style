@@ -1,6 +1,6 @@
 import { learningApi } from "../api/islamicLearningApi";
 import { LESSONS_BY_ID, allNodes } from "../data/course";
-import { asksSameLine } from "../data/scalableCurriculum";
+import { asksSameLine, givesAway } from "../data/scalableCurriculum";
 import type { Challenge } from "../types";
 import { makeUser } from "./testUtils";
 
@@ -59,5 +59,35 @@ describe("session review questions never ask a line the lesson already asks", ()
 
     expect(before).toEqual([]);
     expect(added).toEqual([]);
+  });
+});
+
+describe("no question hands the learner the answer to a fill-in after it", () => {
+  it("keeps the Abu Dharr Big quiz at four questions, with a review from further back in the unit", async () => {
+    const { lesson } = await learningApi.getLessonSession("lesson-sahabi-abu-dharr-al-ghifari-mastery-lessons", makeUser());
+    expect(lesson.challenges).toHaveLength(4);
+    expect(lesson.challenges.some((challenge) => challenge.type !== "true_false")).toBe(true);
+    expect(lesson.challenges.filter((challenge) => challenge.isReview && /_review_/.test(challenge.id)).length).toBeGreaterThan(0);
+  });
+
+  it("asks a fill-in before any question whose prompt, right answer or Why line names its answer, in every session", async () => {
+    const problems: string[] = [];
+    for (const lessonId of pathLessonIds) {
+      const { lesson } = await learningApi.getLessonSession(lessonId, makeUser());
+      lesson.challenges.forEach((question, index) => {
+        lesson.challenges.slice(0, index).forEach((earlier) => {
+          // Two questions that name each other's answer cannot both go first; the lesson keeps its own order.
+          if (givesAway(earlier, question) && !givesAway(question, earlier)) problems.push(`${lessonId}: "${earlier.prompt}" before "${question.prompt}"`);
+        });
+      });
+    }
+    expect(problems).toEqual([]);
+  });
+
+  it("finds the Talhah, Musa and Harun, and prayer times giveaways the old order had", () => {
+    const at = (lessonId: string, pattern: RegExp) => LESSONS_BY_ID[lessonId].challenges.findIndex((challenge) => pattern.test(challenge.prompt));
+    expect(at("lesson-sahabi-talhah-ibn-ubaydillah-mastery-lessons", /invited by ____/)).toBeLessThan(at("lesson-sahabi-talhah-ibn-ubaydillah-mastery-lessons", /same clan as Abu Bakr/));
+    expect(at("lesson-prophets-power-and-deliverance-power-review", /his brother ____/)).toBeLessThan(at("lesson-prophets-power-and-deliverance-power-review", /Musa and Harun/));
+    expect(at("lesson-prayer-times-times-review", /begins with ____/)).toBeLessThan(at("lesson-prayer-times-times-review", /Fajr is just after midday/));
   });
 });

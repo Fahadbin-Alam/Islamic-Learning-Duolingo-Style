@@ -535,23 +535,63 @@ export function asksSameLine(a: Challenge, b: Challenge) {
   return other.length > before.length + after.length && other.startsWith(before) && other.endsWith(after);
 }
 
-/** A review's questions with each fill-in before any sentence that would give it away, numbered in that order. */
-export function fillInsFirst(lessonId: string, questions: Challenge[]): Challenge[] {
-  const ordered = [...questions];
-  for (let index = 0; index < ordered.length; index += 1) {
-    const later = ordered.findIndex((other, at) => at > index && other.prompt.includes("____") && asksSameLine(ordered[index], other));
-    if (later < 0 || ordered[index].prompt.includes("____")) continue;
-    const [line] = ordered.splice(index, 1);
-    ordered.splice(later, 0, line);
-    index -= 1;
+// The words of a text, for finding an answer in it: lower case, no accent marks, straight apostrophes.
+const answerWords = (text: string) =>
+  text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[‘’`]/g, "'").match(/[a-z0-9]+(?:'[a-z]+)?/g) ?? [];
+
+const rightLabelOf = (challenge: Challenge) => challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+
+// A fill-in's answer shows in a text when most of its words are in it, and more of them than of any wrong choice.
+function answerShows(fillIn: Challenge, text: string) {
+  const words = new Set(answerWords(text));
+  const share = (label: string) => {
+    const own = answerWords(label);
+    return own.length ? own.filter((word) => words.has(word)).length / own.length : 0;
+  };
+  const right = share(rightLabelOf(fillIn));
+  return right >= 0.5 && fillIn.choices.every((choice) => choice.id === fillIn.correctChoiceId || share(choice.label) < right);
+}
+
+/**
+ * True when asking `earlier` first hands the learner the answer to the fill-in `later`: it is the same line with
+ * the word in, or its prompt, its right answer or its Why line names that answer ("Talhah was from the same clan
+ * as Abu Bakr." before "Talhah became Muslim early, invited by ____.").
+ */
+export function givesAway(earlier: Challenge, later: Challenge) {
+  if (earlier === later || !later.prompt.includes("____")) return false;
+  if (asksSameLine(earlier, later)) return true;
+  if (answerShows(later, later.prompt)) return false;
+  const shown = [earlier.prompt, earlier.type === "true_false" ? "" : rightLabelOf(earlier), earlier.explanation, earlier.easierExplanation];
+  return answerShows(later, shown.filter(Boolean).join(" "));
+}
+
+/**
+ * Questions in an order where none hands the learner the answer to a fill-in after it, as close to the given
+ * order as that allows. A lesson's own order question ("Which came first?") stays first: its review picks no
+ * question it gives away while there is another (reviewQuestions). When two questions give each other away,
+ * the one given first stays first.
+ */
+export function withoutGiveaways(questions: Challenge[]): Challenge[] {
+  const pinned = questions[0]?.id.endsWith("_first") ? [questions[0]] : [];
+  const remaining = questions.slice(pinned.length);
+  const ordered = [...pinned];
+  while (remaining.length) {
+    const next = remaining.find((question) => !remaining.some((other) => givesAway(question, other))) ?? remaining[0];
+    ordered.push(next);
+    remaining.splice(remaining.indexOf(next), 1);
   }
-  return ordered.map((question, index) => (question.isReview ? { ...question, id: `${lessonId}_review_${index + 1}` } : question));
+  return ordered;
+}
+
+/** A review's questions with each fill-in before any question that would give it away, numbered in that order. */
+export function fillInsFirst(lessonId: string, questions: Challenge[]): Challenge[] {
+  return withoutGiveaways(questions).map((question, index) => (question.isReview ? { ...question, id: `${lessonId}_review_${index + 1}` } : question));
 }
 
 // `count` questions from the lessons in `pool`, one from each lesson before a second from any, never the same
 // question twice, and the ones the lesson just before asked (`recent`) only when nothing else is left. Two
-// questions on the same line come only when nothing else is left, the fill-in first. `taken` are questions the
-// review already asks. Each is the same question as in its own lesson, marked as a review of it.
+// questions on the same line, or one that a question in `taken` (asked before them) gives away, come only when
+// nothing else is left, the fill-in first. Each is the same question as in its own lesson, marked as a review.
 export function reviewQuestions(
   lessonId: string,
   pool: TaughtLesson[],
@@ -564,13 +604,17 @@ export function reviewQuestions(
   const picked: Challenge[] = [];
   const prompts = new Set<string>(taken.map((question) => question.prompt));
   const rounds = Math.max(0, ...lists.map((list) => list.length));
-  for (const allowSameLine of [false, true]) {
+  for (const allowGiveaway of [false, true]) {
     for (const allowRecent of [false, true]) {
       for (let round = 0; round < rounds && picked.length < count; round += 1) {
         lists.forEach((list, index) => {
           const question = list[round];
           if (!question || picked.length >= count || prompts.has(question.prompt) || (!allowRecent && recent.has(question.prompt))) return;
-          if (!allowSameLine && [...taken, ...picked].some((other) => asksSameLine(other, question))) return;
+          // Two picks that name each other's answers are put in a safe order afterwards (withoutGiveaways); a question
+          // already asked first, like the order question, cannot move, so nothing it gives away is picked.
+          const clashes =
+            [...taken, ...picked].some((other) => asksSameLine(other, question)) || taken.some((other) => givesAway(other, question) || givesAway(question, other));
+          if (!allowGiveaway && clashes) return;
           prompts.add(question.prompt);
           picked.push({
             ...question,
@@ -598,7 +642,7 @@ function lookBackQuestions(lessonId: string, lesson: LessonSeed, pool: TaughtLes
         }
       ]
     : [];
-  const questions = [...order, ...reviewQuestions(lessonId, pool, (lesson.reviews ?? 3) - order.length, recent)];
+  const questions = [...order, ...reviewQuestions(lessonId, pool, (lesson.reviews ?? 3) - order.length, recent, order)];
   if (questions.length || !companion) return questions;
   const fact = `${companion} met the Prophet ﷺ and believed in him.`;
   return [{ ...tf(`${lessonId}_tf`, fact, true, "A Muslim who met the Prophet ﷺ is called a Sahabi."), miniLesson: fact, reviewSuggestion: `Review ${lesson.title}` }];

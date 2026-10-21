@@ -1727,7 +1727,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "skillId": "skill_sahabah_notes-sahabah-companions-from-your-notes-8_2",
-          "title": "Walid ibn al-Walid ibn al-Mughirah",
+          "title": "Al-Walid ibn al-Walid ibn al-Mughirah",
           "topicId": "sahabah",
           "branchId": "notes-sahabah-companions-from-your-notes-8",
           "kind": "story",
@@ -17402,11 +17402,11 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
           "choices": [
             {
               "id": "a",
-              "label": "Usamah ibn Zayd"
+              "label": "Abu Musa al-Ash'ari"
             },
             {
               "id": "b",
-              "label": "Usayd ibn Hudayr"
+              "label": "Abu Ubaydah ibn al-Jarrah"
             },
             {
               "id": "c",
@@ -17414,7 +17414,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             },
             {
               "id": "d",
-              "label": "Umar ibn al-Khattab"
+              "label": "Abu Lubabah ibn Abd al-Mundhir"
             }
           ],
           "correctChoiceId": "c",
@@ -17752,10 +17752,10 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "id": "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
       "nodeId": "notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
       "branchId": "notes-sahabah-companions-from-your-notes-8",
-      "title": "Walid ibn al-Walid ibn al-Mughirah",
+      "title": "Al-Walid ibn al-Walid ibn al-Mughirah",
       "intro": "Brother of Khalid; captured at Badr, later emigrated to Madinah.",
       "explanationContent": "Brother of Khalid; captured at Badr, later emigrated to Madinah. Full name: al-Walid ibn al-Walid ibn al-Mughira ibn Abd Allah ibn Umar ibn Makhzum. Tribe: Quraysh, clan of Banu Makhzum. Father: Al-Walid ibn al-Mughirah.",
-      "keyTakeaway": "Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
+      "keyTakeaway": "Al-Walid ibn al-Walid ibn al-Mughirah: Brother of Khalid; captured at Badr, later emigrated to Madinah.",
       "learnLine": "He was Khalid's brother and later emigrated to Madinah.",
       "learnFacts": [
         "Father: Al-Walid ibn al-Mughirah",
@@ -17800,7 +17800,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah_q1",
           "type": "multiple_choice",
-          "prompt": "Who was the father of Walid ibn al-Walid ibn al-Mughirah?",
+          "prompt": "Who was the father of Al-Walid ibn al-Walid ibn al-Mughirah?",
           "choices": [
             {
               "id": "a",
@@ -17820,7 +17820,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "a",
-          "explanation": "The father of Walid ibn al-Walid ibn al-Mughirah was Al-Walid ibn al-Mughirah.",
+          "explanation": "The father of Al-Walid ibn al-Walid ibn al-Mughirah was Al-Walid ibn al-Mughirah.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "resourceLabel": "Open source",
@@ -17829,7 +17829,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah_q2",
           "type": "multiple_choice",
-          "prompt": "Which tribe was Walid ibn al-Walid ibn al-Mughirah from?",
+          "prompt": "Which tribe was Al-Walid ibn al-Walid ibn al-Mughirah from?",
           "choices": [
             {
               "id": "a",
@@ -17849,7 +17849,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "d",
-          "explanation": "Walid ibn al-Walid ibn al-Mughirah was from Quraysh.",
+          "explanation": "Al-Walid ibn al-Walid ibn al-Mughirah was from Quraysh.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "resourceLabel": "Open source",
@@ -17858,7 +17858,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
         {
           "id": "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah_q3",
           "type": "multiple_choice",
-          "prompt": "Which clan did Walid ibn al-Walid ibn al-Mughirah belong to?",
+          "prompt": "Which clan did Al-Walid ibn al-Walid ibn al-Mughirah belong to?",
           "choices": [
             {
               "id": "a",
@@ -17878,7 +17878,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
             }
           ],
           "correctChoiceId": "c",
-          "explanation": "Walid ibn al-Walid ibn al-Mughirah belonged to Banu Makhzum.",
+          "explanation": "Al-Walid ibn al-Walid ibn al-Mughirah belonged to Banu Makhzum.",
           "sourceNodeId": "notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "sourceLessonId": "lesson-notes-sahabah-companions-from-your-notes-8-walid-ibn-al-walid-ibn-al-mughirah",
           "resourceLabel": "Open source",
@@ -17906,7 +17906,7 @@ export const IMPORTED_NOTES: ImportedNotesContent = {
       "sources": [],
       "sourceReferences": [],
       "unlockRules": [
-        "Complete Walid ibn al-Walid ibn al-Mughirah"
+        "Complete Al-Walid ibn al-Walid ibn al-Mughirah"
       ],
       "masteryState": "learning",
       "masteryTestEligible": false,

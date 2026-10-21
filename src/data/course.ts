@@ -1,4 +1,4 @@
-import { buildExpandedContent, chainCourse } from "./scalableCurriculum";
+import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
 import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits } from "./unitPlans";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
@@ -3941,7 +3941,14 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 // Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
-const expandedContent = chainCourse(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)));
+const chainedContent = chainCourse(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)));
+// No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons).
+const expandedContent = {
+  ...chainedContent,
+  lessonsById: Object.fromEntries(
+    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => [id, { ...lesson, challenges: withoutGiveaways(lesson.challenges) }])
+  )
+};
 
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;

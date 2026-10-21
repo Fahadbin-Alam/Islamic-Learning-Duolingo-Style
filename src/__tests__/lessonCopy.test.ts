@@ -653,7 +653,7 @@ describe("round 7: surah meanings and family names written one way", () => {
     }
     expect(new Set(checked).size).toBeGreaterThan(50);
     expect(problems).toEqual([]);
-    const walid = imported.find((lesson) => lesson.title === "Walid ibn al-Walid ibn al-Mughirah")!;
+    const walid = imported.find((lesson) => lesson.title === "Al-Walid ibn al-Walid ibn al-Mughirah")!;
     expect(walid.learnFacts).toContain("Father: Al-Walid ibn al-Mughirah");
     expect(imported.find((lesson) => lesson.title === "Abu al-As ibn ar-Rabi'")!.learnFacts).toContain("Father: Ar-Rabi' ibn Abd al-Uzza");
     // The old spellings are gone from every lesson, also where they were a wrong choice.

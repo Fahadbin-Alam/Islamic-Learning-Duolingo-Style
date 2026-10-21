@@ -6,7 +6,7 @@ import {
   allNodes,
   findNodeByLessonId
 } from "../data/course";
-import { asksSameLine } from "../data/scalableCurriculum";
+import { asksSameLine, givesAway as namesAnswerOf } from "../data/scalableCurriculum";
 import type {
   Challenge,
   LearningCourse,
@@ -987,31 +987,54 @@ function readsRightIn(challenge: Challenge, source: Lesson, lesson: Lesson, topi
 }
 
 function buildReviewChallenge(lesson: Lesson, node: LearningNode): Challenge | undefined {
-  const previousNode = allNodes.find((item) => item.branchId === node.branchId && node.requiredNodeIds.includes(item.id));
-  const previousLesson = previousNode ? LESSONS_BY_ID[previousNode.lessonIds[0]] : undefined;
+  const ownPrompts = new Set(lesson.challenges.map((challenge) => challenge.prompt.trim().toLowerCase()));
+  // It must read right in this lesson, and not repeat one of its questions or their answers. Nor may it ask
+  // the same line as one of them, or be handed its answer by one of them (a prompt or Why line that names it):
+  // "... his Islam at the ____." after "... his Islam at the market.", whose Why line names the Ka'bah.
+  const usableIn = (source: Lesson) =>
+    source.challenges.filter(
+      (challenge) =>
+        !isContextBound(challenge.prompt) &&
+        !ownPrompts.has(challenge.prompt.trim().toLowerCase()) &&
+        !lesson.challenges.some(
+          (own) => givesAway(challenge, own) || asksSameLine(challenge, own) || namesAnswerOf(own, challenge) || namesAnswerOf(challenge, own)
+        ) &&
+        readsRightIn(challenge, source, lesson, node.topicId)
+    );
+  // A lesson of only True/False questions gets a question of another kind, so tapping one button never passes it.
+  const onlyTrueFalse = lesson.challenges.every((challenge) => challenge.type === "true_false");
+  const varied = (list: Challenge[]) => (onlyTrueFalse ? list.filter((challenge) => challenge.type !== "true_false") : list);
+  // The lesson just before first; when none of its questions fits, the one before that, and so on up the unit.
+  let previousNode = allNodes.find((item) => item.branchId === node.branchId && node.requiredNodeIds.includes(item.id));
+  let previousLesson: Lesson | undefined;
+  let usable: Challenge[] = [];
+  let fallback: { lesson: Lesson; usable: Challenge[] } | undefined;
+  const seen = new Set<string>([node.id]);
+  while (previousNode && !seen.has(previousNode.id)) {
+    seen.add(previousNode.id);
+    const candidate = LESSONS_BY_ID[previousNode.lessonIds[0]];
+    const fits = candidate ? usableIn(candidate) : [];
+    if (candidate && fits.length && !fallback) fallback = { lesson: candidate, usable: fits };
+    if (candidate && varied(fits).length) {
+      previousLesson = candidate;
+      usable = varied(fits);
+      break;
+    }
+    const current: LearningNode = previousNode;
+    previousNode = allNodes.find((item) => item.branchId === node.branchId && current.requiredNodeIds.includes(item.id));
+  }
+  if (!previousLesson && fallback) {
+    previousLesson = fallback.lesson;
+    usable = fallback.usable;
+  }
 
-  if (!previousLesson) {
+  if (!previousLesson || !usable.length) {
     return undefined;
   }
 
-  const ownPrompts = new Set(lesson.challenges.map((challenge) => challenge.prompt.trim().toLowerCase()));
-  // It must read right in this lesson, and not repeat one of its questions or their answers. Nor may it ask
-  // the same line as one of them, either way round: a fill-in of a sentence the lesson already showed ("...
-  // his Islam at the ____." after "... his Islam at the market."), or that sentence after its fill-in.
-  const usable = previousLesson.challenges.filter(
-    (challenge) =>
-      !isContextBound(challenge.prompt) &&
-      !ownPrompts.has(challenge.prompt.trim().toLowerCase()) &&
-      !lesson.challenges.some((own) => givesAway(challenge, own) || asksSameLine(challenge, own)) &&
-      readsRightIn(challenge, previousLesson, lesson, node.topicId)
-  );
   // The lesson before's own questions first; its review copies of older lessons only when it has nothing else.
   const own = usable.filter((challenge) => !challenge.isReview);
   const pool = own.length ? own : usable;
-
-  if (!pool.length) {
-    return undefined;
-  }
 
   const picked = pool[Math.abs(hashCode(lesson.id)) % pool.length];
 

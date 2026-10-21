@@ -680,11 +680,12 @@ test("round 7: every surah meaning is in title case, and a father is spelled as 
   const lessons = Object.values(content.lessonsById);
   const byTitle = (title) => lessons.find((lesson) => lesson.title === title);
   assert.ok(byTitle("Abu al-As ibn ar-Rabi'").learnFacts.includes("Father: Ar-Rabi' ibn Abd al-Uzza"));
-  const walid = byTitle("Walid ibn al-Walid ibn al-Mughirah");
+  // Shown with the article, like his father (DISPLAY_NAMES).
+  const walid = byTitle("Al-Walid ibn al-Walid ibn al-Mughirah");
   assert.ok(walid.learnFacts.includes("Father: Al-Walid ibn al-Mughirah"));
   const fatherQuestion = walid.challenges.find((challenge) => challenge.prompt.startsWith("Who was the father of"));
   assert.equal(fatherQuestion.choices.find((choice) => choice.id === fatherQuestion.correctChoiceId).label, "Al-Walid ibn al-Mughirah");
-  assert.equal(fatherQuestion.explanation, "The father of Walid ibn al-Walid ibn al-Mughirah was Al-Walid ibn al-Mughirah.");
+  assert.equal(fatherQuestion.explanation, "The father of Al-Walid ibn al-Walid ibn al-Mughirah was Al-Walid ibn al-Mughirah.");
   // A father spelled another way than in the child's name is reported, so a new note gets a DISPLAY_NAMES entry.
   const spelling = warnings.filter((warning) => warning.includes("the father is shown as"));
   assert.equal(spelling.length, 1, spelling.join("\n"));
