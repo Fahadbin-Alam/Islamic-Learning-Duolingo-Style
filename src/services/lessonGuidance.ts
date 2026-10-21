@@ -7,11 +7,60 @@ import type {
 } from "../types";
 import { getPrimaryLessonSource } from "./resourceSupport";
 
+// Wudu in its taught order (Quran 5:6 and the Prophet's wudu shown by Uthman, Sahih al-Bukhari 164).
+const WUDU_STEPS: Array<[string, string]> = [
+  ["hands", "Wash the hands"],
+  ["mouth", "Rinse the mouth"],
+  ["nose", "Rinse the nose"],
+  ["face", "Wash the face"],
+  ["arms", "Wash the arms"],
+  ["head", "Wipe the head"],
+  ["ears", "Wipe the ears"],
+  ["feet", "Wash the feet"]
+];
+
+// A whole two-rak'ah prayer, like Fajr: tashahhud and taslim come only after the second rak'ah.
+// The rak'ah game has the rising and the sitting between the sujud; here each rak'ah is shown in its big parts.
+const SALAH_STEPS: Array<[string, string]> = [
+  ["takbir", "Opening takbir"],
+  ["qiyam", "Stand and recite"],
+  ["ruku", "Ruku, then stand"],
+  ["sujud", "Two sujud"],
+  ["qiyam2", "Stand for rak'ah 2"],
+  ["ruku2", "Ruku again"],
+  ["sujud2", "Two sujud again"],
+  ["tashahhud", "Tashahhud"],
+  ["taslim", "Taslim"]
+];
+
+// The bowing and prostrating part of one rak'ah, all taught in the Ruku and sujud unit.
+const RAKAH_STEPS: Array<[string, string]> = [
+  ["ruku", "Ruku"],
+  ["rise", "Rise from ruku"],
+  ["sujud", "First sujud"],
+  ["sit", "Sit between sajdahs"],
+  ["sujud2", "Second sujud"]
+];
+
+// Only lessons about the order itself get the ordering game; the rest go straight to their questions.
+// A game only uses steps its unit or an earlier one has taught: wudu after the eight single-step
+// lessons, the rak'ah after ruku and sujud, the whole salah once tashahhud and taslim are taught too.
+const ORDER_GAMES: Record<string, "wudu" | "rakah" | "salah"> = {
+  "prayer-wudu-full-order": "wudu",
+  "prayer-wudu-demonstration-and-practice": "wudu",
+  "prayer-wudu-reinforcement-review": "wudu",
+  "prayer-wudu-wudu-mastery-check": "wudu",
+  "prayer-ruku-and-sujud-ruku-sujud-review": "rakah",
+  "prayer-tashahhud-tashahhud-review": "salah",
+  "prayer-review-and-mastery-mixed-review-1": "wudu",
+  "prayer-review-and-mastery-mixed-review-2": "salah"
+};
+
 export function buildGuidedLesson(lesson: Lesson, node?: LearningNode): Lesson {
   const primarySource = getPrimaryLessonSource(lesson.sources);
   const whatYouWillLearn = lesson.whatYouWillLearn ?? firstSentence(lesson.intro) ?? lesson.title;
   const whyItMatters = lesson.whyItMatters ?? deriveWhyItMatters(lesson, node, whatYouWillLearn);
-  const keyTakeaway = lesson.keyTakeaway ?? deriveKeyTakeaway(lesson, node, whatYouWillLearn);
+  const keyTakeaway = lesson.keyTakeaway ?? deriveKeyTakeaway(lesson, whatYouWillLearn);
   const storyMoment = lesson.storyMoment ?? deriveStoryMoment(lesson, node);
   const teachingMoments = lesson.teachingMoments ?? buildTeachingMoments(lesson, node, whatYouWillLearn, whyItMatters, keyTakeaway, storyMoment, primarySource);
   const practiceActivities = lesson.practiceActivities ?? buildPracticeActivities(lesson, node, keyTakeaway);
@@ -85,7 +134,7 @@ function buildTeachingMoments(
     });
   }
 
-  if (node?.topicId === "prayer") {
+  if (node && ORDER_GAMES[node.id]) {
     moments.push({
       id: `${lesson.id}_training`,
       kind: "takeaway",
@@ -117,32 +166,26 @@ function buildPracticeActivities(
     )];
   }
 
-  if (node.topicId === "prayer" && node.branchId.includes("wudu")) {
+  const orderGame = ORDER_GAMES[node.id];
+
+  if (orderGame === "wudu") {
     return [
-      buildSequenceActivity(lesson, "wudu_order", "Try arranging the wudu flow", "Tap the steps in the order they are performed.", [
-        ["hands", "Wash the hands"],
-        ["mouth", "Rinse the mouth"],
-        ["nose", "Rinse the nose"],
-        ["face", "Wash the face"],
-        ["arms", "Wash the arms"],
-        ["head", "Wipe the head"],
-        ["feet", "Wash the feet"]
-      ], "Wudu becomes easier when the order lives in the body before the question begins.")
+      buildSequenceActivity(lesson, node, "wudu_order", "Wudu", "Put the wudu steps in order!", "Tap the steps in the order they are performed.", WUDU_STEPS,
+        "Wudu goes hands, mouth, nose, face, arms, head, ears, then feet.")
     ];
   }
 
-  if (node.topicId === "prayer") {
+  if (orderGame === "rakah") {
     return [
-      buildSequenceActivity(lesson, "salah_order", "Build the salah flow", "Tap the prayer parts in the order they come.", [
-        ["takbir", "Opening takbir"],
-        ["qiyam", "Standing and recitation"],
-        ["ruku", "Ruku"],
-        ["rise", "Rise from ruku"],
-        ["sujud", "Sujud"],
-        ["sit", "Sit between sajdahs"],
-        ["tashahhud", "Tashahhud"],
-        ["taslim", "Taslim"]
-      ], "Prayer learning should feel like guided training. The order matters before the recall question arrives.")
+      buildSequenceActivity(lesson, node, "rakah_order", "One rak'ah", "Put the rak'ah steps in order!", "Tap the steps in the order they come.", RAKAH_STEPS,
+        "Ruku, stand up, sujud, sit, then the second sujud.")
+    ];
+  }
+
+  if (orderGame === "salah") {
+    return [
+      buildSequenceActivity(lesson, node, "salah_order", "Fajr", "Put Fajr's two rak'ahs in order!", "Tap the prayer parts in the order they come.", SALAH_STEPS,
+        "Fajr has two rak'ahs; after the second, sit for tashahhud, then taslim.")
     ];
   }
 
@@ -158,7 +201,7 @@ function buildPracticeActivities(
 
   if (node.topicId === "sahabah" || node.topicId === "prophets" || node.topicId === "women_of_the_book") {
     return [
-      buildSequenceActivity(lesson, "story_arc", "Build the story arc", "Tap the story beats in the order a learner should notice them.", [
+      buildSequenceActivity(lesson, node, "story_arc", "Build the story arc", "Put the story in order!", "Tap the story beats in the order a learner should notice them.", [
         ["scene", "See the setting"],
         ["trial", "Notice the trial or sacrifice"],
         ["lesson", "Carry the lesson into your own life"]
@@ -175,21 +218,32 @@ function buildPracticeActivities(
   ];
 }
 
+// Each ordering game of a kind starts its steps at its own place (never the taught order), and the game
+// shuffles them seeded by that order, so no two games show the same scramble.
+function orderGameStart(node: LearningNode, itemCount: number) {
+  const sameKind = Object.keys(ORDER_GAMES).filter((id) => ORDER_GAMES[id] === ORDER_GAMES[node.id]);
+  return (sameKind.indexOf(node.id) % (itemCount - 1)) + 1;
+}
+
 function buildSequenceActivity(
   lesson: Lesson,
+  node: LearningNode | undefined,
   suffix: string,
   title: string,
+  prompt: string,
   instructions: string,
   items: Array<[string, string]>,
   explanation: string
 ): LessonPracticeActivity {
+  const start = node && ORDER_GAMES[node.id] ? orderGameStart(node, items.length) : Math.abs(hashCode(lesson.id)) % items.length;
   return {
     id: `${lesson.id}_${suffix}`,
     kind: "sequence",
     title,
-    prompt: lesson.title,
+    // What the mascot says over the game.
+    prompt,
     instructions,
-    options: items.map(([id, label]) => ({ id, label })),
+    options: rotate(items, start).map(([id, label]) => ({ id, label })),
     correctOrderIds: items.map(([id]) => id),
     explanation,
     successLabel: "Nice. Now the order is in your head before the question.",
@@ -279,33 +333,19 @@ function deriveWhyItMatters(lesson: Lesson, node: LearningNode | undefined, what
   }
 }
 
-function deriveKeyTakeaway(lesson: Lesson, node: LearningNode | undefined, whatYouWillLearn: string) {
+// The lesson's own line, never a sentence shared by a whole topic: the learn card falls back to this one.
+function deriveKeyTakeaway(lesson: Lesson, whatYouWillLearn: string) {
   const miniLesson = lesson.challenges[0]?.miniLesson;
+
+  if (lesson.learnLine) {
+    return lesson.learnLine;
+  }
 
   if (miniLesson && normalizeSentence(miniLesson) !== normalizeSentence(whatYouWillLearn)) {
     return miniLesson;
   }
 
-  if (!node) {
-    return whatYouWillLearn;
-  }
-
-  switch (node.topicId) {
-    case "foundation":
-      return "Start using the phrase or habit in the next ordinary moment where it belongs.";
-    case "prayer":
-      return node.branchId.includes("wudu")
-        ? "Learn the order calmly now so the body remembers it later."
-        : "Prayer is strongest when its order, words, and stillness are learned together.";
-    case "quran_tafseer":
-      return "Stay with the surah long enough to carry one clear theme into worship and daily life.";
-    case "sahabah":
-    case "prophets":
-    case "women_of_the_book":
-      return "Notice the scene, the sacrifice, and the lesson you can imitate today.";
-    default:
-      return whatYouWillLearn;
-  }
+  return whatYouWillLearn;
 }
 
 function biographyScene(node: LearningNode, introSentence: string) {
@@ -322,4 +362,19 @@ function biographyScene(node: LearningNode, introSentence: string) {
 
 function normalizeSentence(value?: string) {
   return (value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function rotate<T>(items: T[], start: number) {
+  return items.map((_, index) => items[(start + index) % items.length]);
+}
+
+function hashCode(value: string) {
+  let hash = 0;
+
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(index);
+    hash |= 0;
+  }
+
+  return hash;
 }

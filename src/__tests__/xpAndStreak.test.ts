@@ -34,22 +34,28 @@ describe("completeLesson", () => {
 });
 
 describe("streak", () => {
-  it("starts a streak once the daily XP goal is reached", () => {
-    const user = makeUser({ streakDays: 0, totalXp: 0, dailyGoalXp: lesson.xpReward });
+  it("starts a streak with the first lesson finished, whatever the daily XP goal", () => {
+    const user = makeUser({ streakDays: 0, totalXp: 0, dailyGoalXp: lesson.xpReward + 30 });
 
     expect(completeLesson(user, lesson).streakDays).toBe(1);
   });
 
-  it("leaves the streak alone while under the daily goal", () => {
-    const user = makeUser({ streakDays: 0, totalXp: 0, dailyGoalXp: lesson.xpReward + 1 });
+  it("keeps the daily XP goal as a goal of its own", () => {
+    const user = completeLesson(makeUser({ streakDays: 0, totalXp: 0, dailyGoalXp: 40 }), lesson);
 
-    expect(completeLesson(user, lesson).streakDays).toBe(0);
+    expect(getXpToday(user)).toBeLessThan(user.dailyGoalXp);
+    expect(user.streakDays).toBe(1);
   });
 
   it("never shrinks an existing streak", () => {
-    const user = makeUser({ streakDays: 12, totalXp: 500, dailyGoalXp: 40 });
+    const now = new Date();
+    const today = localDateKey(now);
+    const yesterday = localDateKey(new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1));
 
-    expect(completeLesson(user, lesson).streakDays).toBe(12);
+    expect(completeLesson(makeUser({ streakDays: 12, lastStreakDate: today, totalXp: 500 }), lesson).streakDays).toBe(12);
+    expect(completeLesson(makeUser({ streakDays: 12, lastStreakDate: yesterday, totalXp: 500 }), lesson).streakDays).toBe(13);
+    // A save from before streak days were dated keeps going.
+    expect(completeLesson(makeUser({ streakDays: 12, totalXp: 500 }), lesson).streakDays).toBe(13);
   });
 });
 
@@ -65,8 +71,8 @@ describe("completeLessonCluster", () => {
     );
   });
 
-  it("starts a streak when the cluster crosses the daily goal", () => {
-    const user = makeUser({ streakDays: 0, dailyGoalXp: lesson.xpReward + secondLesson.xpReward });
+  it("starts a streak when a passed test-out finishes lessons, whatever the daily goal", () => {
+    const user = makeUser({ streakDays: 0, dailyGoalXp: 400 });
 
     expect(completeLessonCluster(user, [lesson, secondLesson]).streakDays).toBe(1);
   });
@@ -95,23 +101,24 @@ describe("XP earned today", () => {
     expect(getXpToday(completeLesson(user, lesson))).toBe(10 + lesson.xpReward);
   });
 
-  it("does not let lifetime XP start a streak on its own", () => {
-    const user = makeUser({ streakDays: 0, totalXp: 900, dailyGoalXp: lesson.xpReward + 1 });
+  it("does not let XP alone start a streak", () => {
+    const user = makeUser({ streakDays: 0, totalXp: 900, dailyGoalXp: 10 });
 
-    expect(completeLesson(user, lesson).streakDays).toBe(0);
+    expect(addXp(user, 40).streakDays).toBe(0);
+    expect(addXp(user, 40).lastStreakDate).toBeUndefined();
   });
 });
 
 describe("getXpSummaries", () => {
   const today = localDateKey();
 
-  it("reports today's XP and whether it met the daily goal", async () => {
-    const [under] = await learningApi.getXpSummaries(makeUser({ totalXp: 500, dailyXp: { date: today, xp: 10 }, dailyGoalXp: 40 }));
-    const [met] = await learningApi.getXpSummaries(makeUser({ totalXp: 500, dailyXp: { date: today, xp: 40 }, dailyGoalXp: 40 }));
+  it("reports today's XP and whether a lesson kept the streak today", async () => {
+    const [none] = await learningApi.getXpSummaries(makeUser({ totalXp: 500, dailyXp: { date: today, xp: 40 }, dailyGoalXp: 40 }));
+    const [kept] = await learningApi.getXpSummaries(makeUser({ totalXp: 500, dailyXp: { date: today, xp: 10 }, dailyGoalXp: 40, streakDays: 1, lastStreakDate: today }));
 
-    expect(under.streakExtended).toBe(false);
-    expect(under.gainedXp).toBe(10);
-    expect(met.streakExtended).toBe(true);
-    expect(met.gainedXp).toBe(40);
+    expect(none.streakExtended).toBe(false);
+    expect(none.gainedXp).toBe(40);
+    expect(kept.streakExtended).toBe(true);
+    expect(kept.gainedXp).toBe(10);
   });
 });

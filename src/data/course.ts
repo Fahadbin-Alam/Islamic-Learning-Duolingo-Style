@@ -1,5 +1,6 @@
-import { buildExpandedContent } from "./scalableCurriculum";
+import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
 import { mergeImportedNotes } from "./importedNotes";
+import { arrangeUnits } from "./unitPlans";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
@@ -114,6 +115,12 @@ function tf(id: string, prompt: string, isTrue: boolean, explanation: string): C
   };
 }
 
+// A lesson about one person: the learn card shows its line and these facts as chips, and its questions ask only
+// what the card shows. With `saysLine`, the lesson's first source says the line, so the card's source chip shows it.
+function person(base: Lesson, learnFacts: string[], saysLine: boolean): Lesson {
+  return { ...base, learnFacts, ...(saysLine && base.sources[0] ? { learnSource: base.sources[0] } : {}) };
+}
+
 function lesson(
   id: string,
   nodeId: string,
@@ -160,8 +167,8 @@ export const STARTER_USER: UserProfile = {
 
 const BASE_COURSE: LearningCourse = {
   id: "islam-foundations",
-  title: "Sira Path",
-  subtitle: "Start with foundations, get ready for prayer, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, travel from Adam to Muhammad, and learn from the women honored in revelation.",
+  title: "Muslimo",
+  subtitle: "Start with foundations, get ready for prayer, build manners and marriage wisdom, meet the Sahabah, reflect on Quran and tafsir, travel from Adam to Muhammad ﷺ, and learn from the women honored in revelation.",
   sections: [
     {
       id: "foundation",
@@ -189,7 +196,7 @@ const BASE_COURSE: LearningCourse = {
         {
           id: "foundation-niyyah",
           skillId: "skill_foundation_001",
-          title: "As-Salamu Alaikum",
+          title: "As-salamu alaykum",
           topicId: "foundation",
           branchId: "foundation-greetings",
           kind: "skill",
@@ -206,7 +213,7 @@ const BASE_COURSE: LearningCourse = {
           branchId: "foundation-daily-words",
           kind: "skill",
           lessonIds: ["lesson-foundation-guidance"],
-          requiredNodeIds: ["foundation-niyyah"],
+          requiredNodeIds: ["foundation-character"],
           xpReward: 8,
           starsReward: 3
         },
@@ -242,7 +249,7 @@ const BASE_COURSE: LearningCourse = {
           branchId: "foundation-greetings",
           kind: "review",
           lessonIds: ["lesson-foundation-character"],
-          requiredNodeIds: ["foundation-sneeze"],
+          requiredNodeIds: ["foundation-niyyah"],
           xpReward: 10,
           starsReward: 3
         }
@@ -754,7 +761,7 @@ const BASE_COURSE: LearningCourse = {
       id: "prophets",
       topicId: "prophets",
       title: "Lives of the Prophets",
-      description: "Travel from Adam to Muhammad and learn the big lessons each prophet left for the Ummah.",
+      description: "Travel from Adam to Muhammad ﷺ and learn the big lessons each prophet left for the Ummah.",
       badge: "Topic 6",
       focus: "Creation, patience, trust, forgiveness, courage, mercy, and the final example.",
       mascot: "muslim_man",
@@ -763,7 +770,7 @@ const BASE_COURSE: LearningCourse = {
       branches: [
         {
           id: "prophets-beginnings",
-          title: "Beginnings of mankind",
+          title: "The first prophets",
           description: "Start with the earliest prophets and the first lessons of repentance and patience."
         },
         {
@@ -773,8 +780,8 @@ const BASE_COURSE: LearningCourse = {
         },
         {
           id: "prophets-final-example",
-          title: "Final example",
-          description: "End with the mercy and model of Prophet Muhammad."
+          title: "The last prophet ﷺ",
+          description: "End with the mercy and model of Prophet Muhammad ﷺ."
         }
       ],
       nodes: [
@@ -853,7 +860,7 @@ const BASE_COURSE: LearningCourse = {
         {
           id: "prophets-muhammad",
           skillId: "skill_prophets_007",
-          title: "Muhammad",
+          title: "Muhammad ﷺ",
           topicId: "prophets",
           branchId: "prophets-final-example",
           kind: "review",
@@ -867,7 +874,7 @@ const BASE_COURSE: LearningCourse = {
     {
       id: "women-of-the-book",
       topicId: "women_of_the_book",
-      title: "Women of the Book",
+      title: "Great Women",
       description: "Go in order through women honored in the Quran, then learn from the Mothers of the Believers and the strengths they brought to the Ummah.",
       badge: "Topic 7",
       focus: "Repentance, trust, courage, purity, loyalty, knowledge, and preserving revelation.",
@@ -883,7 +890,7 @@ const BASE_COURSE: LearningCourse = {
         {
           id: "women-mothers",
           title: "Mothers of the Believers",
-          description: "Continue in order through key wives of the Prophet and the gifts they gave the Ummah."
+          description: "Continue in order through key wives of the Prophet ﷺ and the gifts they gave the Ummah."
         }
       ],
       nodes: [
@@ -965,7 +972,7 @@ const BASE_COURSE: LearningCourse = {
           title: "Hafsah",
           topicId: "women_of_the_book",
           branchId: "women-mothers",
-          kind: "review",
+          kind: "story",
           lessonIds: ["lesson-women-hafsah"],
           requiredNodeIds: ["women-aishah"],
           xpReward: 14,
@@ -980,8 +987,8 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
   "lesson-foundation-niyyah": lesson(
     "lesson-foundation-niyyah",
     "foundation-niyyah",
-    "As-Salamu Alaikum",
-    "One of the first Muslim habits is greeting people with peace: As-salamu alaikum.",
+    "As-salamu alaykum",
+    "One of the first Muslim habits is greeting people with peace: As-salamu alaykum.",
     8,
     [
       hadithSource(
@@ -991,7 +998,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Riyad as-Salihin 844",
         "Abdullah bin Amr bin Al-As; gathered by Imam an-Nawawi from Al-Bukhari and Muslim",
         "Muttafaqun alayh",
-        "The Prophet taught that a beautiful act of Islam is to greet people with salam whether you know them or not."
+        "The Prophet ﷺ taught that a beautiful act of Islam is to greet people with salam whether you know them or not."
       ),
       quranSource(
         "source-foundation-salam-quran-4-86",
@@ -1006,18 +1013,18 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "foundation-niyyah-1",
         "What is the basic Muslim greeting you should learn first?",
         [
-          ["a", "As-salamu alaikum"],
+          ["a", "As-salamu alaykum"],
           ["b", "Nice to meet you only"],
           ["c", "See you later"]
         ],
         "a",
-        "As-salamu alaikum is the greeting of peace Muslims begin with."
+        "As-salamu alaykum is the greeting of peace Muslims begin with."
       ),
       tf(
         "foundation-niyyah-2",
         "A Muslim should keep salam for friends only and skip strangers.",
         false,
-        "The Prophet encouraged greeting people whether you know them or not."
+        "The Prophet ﷺ encouraged greeting people whether you know them or not."
       ),
       mc(
         "foundation-niyyah-3",
@@ -1046,7 +1053,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Hisn al-Muslim 218",
         "A Prophetic dhikr cited in Ibn As-Sunni's Amal al-Yawm wa al-Laylah and authenticated by Al-Hakim; also noted by Al-Albani",
         "Authentic",
-        "When something pleased him, the Prophet said a form of Alhamdulillah that ties all complete blessings back to Allah."
+        "When something pleased him, the Prophet ﷺ said a form of Alhamdulillah that ties all complete blessings back to Allah."
       ),
       quranSource(
         "source-foundation-alhamdulillah-quran-93-11",
@@ -1066,7 +1073,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
           ["c", "That was all me"]
         ],
         "a",
-        "Praising Allah is a beginner Muslim habit when something good happens."
+        "Alhamdulillah thanks Allah, who sent the good news."
       ),
       tf(
         "foundation-guidance-2",
@@ -1076,7 +1083,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "foundation-guidance-3",
-        "Which thought matches this lesson best?",
+        "What should you think when a blessing comes?",
         [
           ["a", "Thank Allah for the blessing"],
           ["b", "Pretend the blessing came from nowhere"],
@@ -1101,7 +1108,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 5376",
         "Umar bin Abi Salamah; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet taught a child to say Allah's name, eat with the right hand, and eat from what is near."
+        "The Prophet ﷺ taught a child to say Allah's name, eat with the right hand, and eat from what is near."
       ),
       quranSource(
         "source-foundation-bismillah-quran-6-121",
@@ -1138,7 +1145,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
           ["c", "Push people aside to grab food"]
         ],
         "a",
-        "The Prophet taught both remembrance and manners together."
+        "The Prophet ﷺ taught both remembrance and manners together."
       )
     ]
   ),
@@ -1211,13 +1218,13 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Jami at-Tirmidhi 2689",
         "Imran bin Husain; collected by Imam at-Tirmidhi",
         "Hasan",
-        "The Prophet counted more reward for fuller forms of salam, teaching Muslims to answer generously."
+        "The Prophet ﷺ counted more reward for fuller forms of salam, teaching Muslims to answer generously."
       )
     ],
     [
       mc(
         "foundation-character-1",
-        "If someone says 'As-salamu alaikum,' what should you answer?",
+        "If someone says 'As-salamu alaykum,' what should you answer?",
         [
           ["a", "Wa alaykum as-salam"],
           ["b", "Maybe later"],
@@ -1266,7 +1273,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih Muslim 224",
         "Ibn Umar; collected by Imam Muslim",
         "Sahih",
-        "The Prophet taught that prayer is not accepted without purification, showing why wudu matters so much."
+        "The Prophet ﷺ taught that prayer is not accepted without purification, showing why wudu matters so much."
       )
     ],
     [
@@ -1316,12 +1323,12 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       hadithSource(
         "source-prayer-wudu-steps-bukhari-164",
-        "Uthman showed the Prophet's wudu",
+        "Uthman showed the Prophet's ﷺ wudu",
         "https://sunnah.com/bukhari:164",
         "Sahih al-Bukhari 164",
         "Humran, the freed slave of Uthman; collected by Imam al-Bukhari",
         "Sahih",
-        "Uthman demonstrated the wudu of the Prophet so Muslims could learn the order carefully."
+        "Uthman demonstrated the wudu of the Prophet ﷺ so Muslims could learn the order carefully."
       ),
       videoSource(
         "source-prayer-wudu-video-1",
@@ -1435,7 +1442,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     "lesson-prayer-salah-open",
     "prayer-salah-open",
     "Open the Prayer",
-    "After wudu, face the qiblah, settle yourself, and begin salah with takbir just as the Prophet taught.",
+    "After wudu, face the qiblah, settle yourself, and begin salah with takbir just as the Prophet ﷺ taught.",
     12,
     [
       hadithSource(
@@ -1445,7 +1452,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 631",
         "Malik bin Al-Huwairith; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet instructed the believers to model their prayer on his own prayer."
+        "The Prophet ﷺ instructed the believers to model their prayer on his own prayer."
       ),
       hadithSource(
         "source-prayer-salah-open-abudawud-856",
@@ -1454,7 +1461,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan Abi Dawud 856",
         "Abu Hurairah; collected by Imam Abu Dawud",
         "Sahih",
-        "The Prophet corrected a man's prayer by teaching him to face the qiblah, say takbir, and move with calm stillness."
+        "The Prophet ﷺ corrected a man's prayer by teaching him to face the qiblah, say takbir, and move with calm stillness."
       ),
       videoSource(
         "source-prayer-salah-open-video-1",
@@ -1480,18 +1487,18 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "prayer-salah-open-2",
         "A calm, settled beginning is part of the Sunnah way to start salah.",
         true,
-        "The Prophet taught prayer with calmness, not rushed movement."
+        "The Prophet ﷺ taught prayer with calmness, not rushed movement."
       ),
       mc(
         "prayer-salah-open-3",
-        "Which source in this lesson directly tells believers to follow the Prophet's way of praying?",
+        "Which source in this lesson directly tells believers to follow the Prophet's ﷺ way of praying?",
         [
           ["a", "Sahih al-Bukhari 631"],
           ["b", "Sahih Muslim 224"],
           ["c", "Quran 5:6"]
         ],
         "a",
-        "This hadith gives the famous command to pray as the Prophet prayed."
+        "This hadith gives the famous command to pray as the Prophet ﷺ prayed."
       ),
       mc(
         "prayer-salah-open-4",
@@ -1520,7 +1527,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan an-Nasa'i 910",
         "Ubadah bin As-Samit; collected by Imam an-Nasa'i",
         "Sahih",
-        "The Prophet taught that reciting Fatihat al-Kitab is essential in prayer."
+        "The Prophet ﷺ taught that reciting Fatihat al-Kitab is essential in prayer."
       ),
       hadithSource(
         "source-prayer-salah-recite-abudawud-856",
@@ -1529,11 +1536,11 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan Abi Dawud 856",
         "Abu Hurairah; collected by Imam Abu Dawud",
         "Sahih",
-        "The corrected prayer taught by the Prophet includes recitation before going into ruku."
+        "The corrected prayer taught by the Prophet ﷺ includes recitation before going into ruku."
       ),
       videoSource(
         "source-prayer-salah-recite-video-2",
-        "The Prophet prayed",
+        "The Prophet ﷺ prayed",
         "https://youtu.be/2ZEmsdEOpbk",
         "A guided look at standing, recitation, and the early flow of the prayer.",
         "Provided YouTube guide"
@@ -1590,12 +1597,12 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       hadithSource(
         "source-prayer-salah-ruku-abudawud-730",
-        "Abu Humayd described the Prophet's bowing and rising",
+        "Abu Humayd described the Prophet's ﷺ bowing and rising",
         "https://sunnah.com/abudawud:730",
         "Sunan Abi Dawud 730",
         "Abu Humayd al-Sa'idi; collected by Imam Abu Dawud",
         "Sahih",
-        "This narration describes the Prophet raising his hands, bowing with hands on the knees, and standing erect again before going to sujud."
+        "This narration describes the Prophet ﷺ raising his hands, bowing with hands on the knees, and standing erect again before going to sujud."
       ),
       hadithSource(
         "source-prayer-salah-ruku-nasai-1055",
@@ -1604,7 +1611,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan an-Nasa'i 1055",
         "Wa'il bin Hujr; collected by Imam an-Nasa'i",
         "Sahih",
-        "Wa'il described the Prophet raising his hands and saying 'Sami' Allahu liman hamidah' when rising from ruku."
+        "Wa'il described the Prophet ﷺ raising his hands and saying 'Sami' Allahu liman hamidah' when rising from ruku."
       )
     ],
     [
@@ -1624,7 +1631,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "What phrase is taught when rising from ruku?",
         [
           ["a", "Sami' Allahu liman hamidah"],
-          ["b", "As-salamu alaikum"],
+          ["b", "As-salamu alaykum"],
           ["c", "Bismillah before eating"]
         ],
         "a",
@@ -1632,7 +1639,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       tf(
         "prayer-salah-ruku-3",
-        "The Prophet stood upright again before going down to sujud.",
+        "The Prophet ﷺ stood upright again before going down to sujud.",
         true,
         "The narrations emphasize straightness and calm after rising from ruku."
       ),
@@ -1663,7 +1670,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Jami` at-Tirmidhi 270",
         "Abu Humayd al-Sa'idi; collected by Imam at-Tirmidhi",
         "Hasan Sahih",
-        "The Prophet placed his nose and forehead on the ground, kept his forearms away from his sides, and set his hands parallel to his shoulders."
+        "The Prophet ﷺ placed his nose and forehead on the ground, kept his forearms away from his sides, and set his hands parallel to his shoulders."
       ),
       hadithSource(
         "source-prayer-salah-sujud-abudawud-856",
@@ -1672,7 +1679,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan Abi Dawud 856",
         "Abu Hurairah; collected by Imam Abu Dawud",
         "Sahih",
-        "The Prophet taught that each prostration and the sitting between them should be calm and complete."
+        "The Prophet ﷺ taught that each prostration and the sitting between them should be calm and complete."
       ),
       videoSource(
         "source-prayer-salah-sujud-video-3",
@@ -1709,7 +1716,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "prayer-salah-sujud-3",
         "Rushing from one sajdah to the next without settling does not match the lesson's Sunnah sources.",
         true,
-        "The Prophet taught calmness in sujud and in the sitting between the two sajdahs."
+        "The Prophet ﷺ taught calmness in sujud and in the sitting between the two sajdahs."
       ),
       mc(
         "prayer-salah-sujud-4",
@@ -1733,12 +1740,12 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       hadithSource(
         "source-prayer-salah-tashahhud-nasai-1278",
-        "The Prophet taught tashahhud like a surah",
+        "The Prophet ﷺ taught tashahhud like a surah",
         "https://sunnah.com/nasai:1278",
         "Sunan an-Nasa'i 1278",
         "Ibn Abbas; collected by Imam an-Nasa'i",
         "Sahih",
-        "The Prophet taught tashahhud with care and precision, the way a surah of the Quran is taught."
+        "The Prophet ﷺ taught tashahhud with care and precision, the way a surah of the Quran is taught."
       ),
       hadithSource(
         "source-prayer-salah-tashahhud-abudawud-974",
@@ -1747,7 +1754,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan Abi Dawud 974",
         "Ibn Abbas; collected by Imam Abu Dawud",
         "Sahih",
-        "This narration records the words of tashahhud that the Prophet taught in prayer."
+        "This narration records the words of tashahhud that the Prophet ﷺ taught in prayer."
       ),
       hadithSource(
         "source-prayer-salah-tashahhud-abudawud-933",
@@ -1756,7 +1763,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan Abi Dawud 933",
         "Wa'il bin Hujr; collected by Imam Abu Dawud",
         "Sahih",
-        "The Prophet ended the prayer with taslim to the right and left."
+        "The Prophet ﷺ ended the prayer with taslim to the right and left."
       )
     ],
     [
@@ -1773,7 +1780,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       tf(
         "prayer-salah-tashahhud-2",
-        "The Prophet taught tashahhud carefully, like teaching a surah from the Quran.",
+        "The Prophet ﷺ taught tashahhud carefully, like teaching a surah from the Quran.",
         true,
         "That is exactly how the narration in Sunan an-Nasa'i describes it."
       ),
@@ -1815,7 +1822,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 631",
         "Malik bin Al-Huwairith; collected by Imam al-Bukhari",
         "Sahih",
-        "The whole lesson returns to the Prophet's command to follow his prayer closely."
+        "The whole lesson returns to the Prophet's ﷺ command to follow his prayer closely."
       ),
       hadithSource(
         "source-prayer-salah-flow-abudawud-856",
@@ -1824,7 +1831,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan Abi Dawud 856",
         "Abu Hurairah; collected by Imam Abu Dawud",
         "Sahih",
-        "The Prophet's correction of prayer teaches calm completeness in every posture."
+        "The Prophet's ﷺ correction of prayer teaches calm completeness in every posture."
       ),
       videoSource(
         "source-prayer-salah-flow-video-2",
@@ -1905,12 +1912,12 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "salam-1",
         "Which greeting means peace be upon you?",
         [
-          ["a", "As-salamu alaikum"],
+          ["a", "As-salamu alaykum"],
           ["b", "Welcome back"],
           ["c", "Good game"]
         ],
         "a",
-        "As-salamu alaikum is the greeting of peace."
+        "The reply is wa alaykum as-salam: and peace be upon you."
       ),
       tf(
         "salam-2",
@@ -2055,7 +2062,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 5971",
         "Abu Hurairah; collected by Imam al-Bukhari",
         "Sahih",
-        "When asked who deserves the best companionship, the Prophet named the mother three times before the father."
+        "When asked who deserves the best companionship, the Prophet ﷺ named the mother three times before the father."
       ),
       quranSource(
         "source-mother-quran-31-14",
@@ -2068,14 +2075,14 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "mother-1",
-        "Who did the Prophet mention first when asked about the best companionship?",
+        "Who did the Prophet ﷺ mention first when asked about the best companionship?",
         [
           ["a", "Your mother"],
           ["b", "Only your friends"],
           ["c", "People with money"]
         ],
         "a",
-        "The Prophet repeated the mother's right three times before mentioning the father."
+        "The Prophet ﷺ repeated the mother's right three times before mentioning the father."
       ),
       tf(
         "mother-2",
@@ -2085,14 +2092,14 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "mother-3",
-        "Which action fits this lesson best?",
+        "How should you treat your mother?",
         [
           ["a", "Speak kindly and stay patient with your mother"],
           ["b", "Treat her care like it means nothing"],
           ["c", "Save your best character for strangers only"]
         ],
         "a",
-        "A learner shows this lesson through gentleness and gratitude."
+        "Allah tells us to speak to our parents with gentle, kind words."
       )
     ]
   ),
@@ -2109,15 +2116,6 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "https://quran.com/en/17:24/tafsirs",
         "Quran 17:24",
         "Allah teaches believers to lower the wing of humility to their parents and pray for mercy on them."
-      ),
-      hadithSource(
-        "source-service-adab-31",
-        "Making parents cry is part of disobedience",
-        "https://sunnah.com/adab:31",
-        "Al-Adab Al-Mufrad 31",
-        "Ibn Umar; collected by Imam al-Bukhari in Al-Adab Al-Mufrad",
-        "See source",
-        "The report warns that hurting parents emotionally is a form of disobedience, so service to them must carry gentleness."
       )
     ],
     [
@@ -2172,7 +2170,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sunan Abi Dawud 4943",
         "Abdullah ibn Amr ibn al-As; collected by Imam Abi Dawud",
         "Sahih",
-        "The Prophet tied mercy for younger people and honor for elders together as part of Muslim character."
+        "The Prophet ﷺ tied mercy for younger people and honor for elders together as part of Muslim character."
       )
     ],
     [
@@ -2195,7 +2193,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "mercy-3",
-        "Which action fits this lesson best?",
+        "A younger child makes a mistake. What shows mercy?",
         [
           ["a", "Encouraging someone gently"],
           ["b", "Making fun of them"],
@@ -2220,7 +2218,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 5376",
         "Umar bin Abi Salamah; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet joined remembrance, neatness, and self-control in one short teaching at the table."
+        "The Prophet ﷺ joined remembrance, neatness, and self-control in one short teaching at the table."
       ),
       quranSource(
         "source-eating-quran-6-121",
@@ -2246,7 +2244,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "eating-2",
         "Using the right hand for eating is part of the Prophetic teaching.",
         true,
-        "This adab was taught directly by the Prophet."
+        "This adab was taught directly by the Prophet ﷺ."
       ),
       mc(
         "eating-3",
@@ -2282,13 +2280,13 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih Muslim 1400c",
         "Abdullah ibn Masud; collected by Imam Muslim",
         "Sahih",
-        "The Prophet encouraged marriage for those able to do it because it protects the eyes and guards chastity."
+        "The Prophet ﷺ encouraged marriage for those able to do it because it protects the eyes and guards chastity."
       )
     ],
     [
       mc(
         "marriage-purpose-1",
-        "What does the Quran connect marriage with in this lesson?",
+        "What does the Quran connect marriage with?",
         [
           ["a", "Tranquility, affection, and mercy"],
           ["b", "Only status and money"],
@@ -2301,11 +2299,11 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "marriage-purpose-2",
         "In Islam, marriage is supposed to help protect a person's character.",
         true,
-        "The Prophet directly tied marriage to guarding the gaze and chastity."
+        "The Prophet ﷺ directly tied marriage to guarding the gaze and chastity."
       ),
       mc(
         "marriage-purpose-3",
-        "Which picture fits this lesson best?",
+        "Which home matches what the Quran describes?",
         [
           ["a", "A home built on mercy and Allah-consciousness"],
           ["b", "A relationship built only on image"],
@@ -2330,7 +2328,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 5090",
         "Abu Hurairah; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet pointed the believer toward religion as the quality that brings real success in marriage."
+        "The Prophet ﷺ pointed the believer toward religion as the quality that brings real success in marriage."
       ),
       quranSource(
         "source-marriage-choose-quran-24-32",
@@ -2343,7 +2341,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     [
       mc(
         "marriage-choose-1",
-        "What quality does this lesson tell a Muslim to value highly in a spouse?",
+        "What should a Muslim value most in a spouse?",
         [
           ["a", "Deen and character"],
           ["b", "Attention from people"],
@@ -2356,11 +2354,11 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "marriage-choose-2",
         "A wise marriage choice looks beyond surface things.",
         true,
-        "This lesson pushes the learner to value what lasts and benefits the home."
+        "The Prophet ﷺ said to choose the one with deen, and you will do well."
       ),
       mc(
         "marriage-choose-3",
-        "Which question fits this lesson best?",
+        "Which question is wise to ask about a match?",
         [
           ["a", "Will this person help me obey Allah?"],
           ["b", "Will people be impressed by this match?"],
@@ -2392,13 +2390,13 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Jami at-Tirmidhi 3895",
         "Aishah; collected by Imam at-Tirmidhi",
         "Hasan Gharib Sahih",
-        "The Prophet made excellence to one's family a measure of real goodness."
+        "The Prophet ﷺ made excellence to one's family a measure of real goodness."
       )
     ],
     [
       mc(
         "marriage-kindness-1",
-        "How should a Muslim live with a spouse according to this lesson?",
+        "How does the Quran say to live with a spouse?",
         [
           ["a", "With kindness and patience"],
           ["b", "With cruelty when upset"],
@@ -2411,11 +2409,11 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "marriage-kindness-2",
         "Good character at home matters just as much as good character outside.",
         true,
-        "The Prophet tied true goodness directly to how someone treats family."
+        "The Prophet ﷺ tied true goodness directly to how someone treats family."
       ),
       mc(
         "marriage-kindness-3",
-        "Which habit fits this lesson best?",
+        "Which habit shows kindness at home?",
         [
           ["a", "Speak softly and stay fair in disagreement"],
           ["b", "Save your best manners for strangers only"],
@@ -2461,7 +2459,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       ),
       mc(
         "marriage-clothing-3",
-        "Which action matches this lesson?",
+        "How can a spouse be like clothing?",
         [
           ["a", "Protect your spouse's honor and private matters"],
           ["b", "Expose every weakness publicly"],
@@ -2493,30 +2491,39 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Jami at-Tirmidhi 3895",
         "Aishah; collected by Imam at-Tirmidhi",
         "Hasan Gharib Sahih",
-        "The Prophet turned daily family treatment into a real measure of spiritual character."
+        "The Prophet ﷺ turned daily family treatment into a real measure of spiritual character."
+      ),
+      hadithSource(
+        "source-marriage-mercy-abudawud-1308",
+        "Waking each other for night prayer",
+        "https://sunnah.com/abudawud:1308",
+        "Sunan Abi Dawud 1308",
+        "Abu Hurairah; collected by Imam Abu Dawud",
+        "Hasan Sahih (Al-Albani)",
+        "The Prophet ﷺ asked Allah's mercy for a husband and a wife who wake each other to pray at night."
       )
     ],
     [
       mc(
         "marriage-mercy-1",
-        "What keeps a Muslim home strong according to this review?",
+        "What keeps a Muslim home strong?",
         [
           ["a", "Mercy and good character"],
           ["b", "Harshness and ego"],
           ["c", "Winning every argument"]
         ],
         "a",
-        "Mercy is not extra decoration. It is one of the foundations."
+        "Allah says He put love and mercy between spouses."
       ),
       tf(
         "marriage-mercy-2",
         "Marriage in Islam should pull both people closer to Allah.",
         true,
-        "The best home is not only peaceful. It is also rooted in deen."
+        "The Prophet ﷺ praised a couple who wake each other for night prayer."
       ),
       mc(
         "marriage-mercy-3",
-        "Which daily practice fits this topic best?",
+        "Which daily habit keeps a home merciful?",
         [
           ["a", "Keep showing kindness even in small moments"],
           ["b", "Treat mercy as unnecessary once married"],
@@ -2541,7 +2548,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 3653",
         "Abu Bakr; collected by Imam al-Bukhari",
         "Sahih",
-        "In the cave, the Prophet calmed Abu Bakr with trust in Allah, showing his closeness and loyalty."
+        "In the cave, the Prophet ﷺ calmed Abu Bakr with trust in Allah, showing his closeness and loyalty."
       ),
       hadithSource(
         "source-abubakr-tirmidhi-3696",
@@ -2550,7 +2557,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Jami at-Tirmidhi 3696",
         "Abu Hurairah; collected by Imam at-Tirmidhi",
         "Sahih",
-        "The Prophet described Abu Bakr as a Siddiq, the truthful and unwavering companion."
+        "The Prophet ﷺ described Abu Bakr as a Siddiq, the truthful and unwavering companion."
       )
     ],
     [
@@ -2598,16 +2605,16 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 3683",
         "Sad ibn Abi Waqqas; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet described Umar as someone whose strength and firmness made Shaytan avoid his path."
+        "The Prophet ﷺ described Umar as someone whose strength and firmness made Shaytan avoid his path."
       ),
       hadithSource(
         "source-umar-bukhari-3686",
-        "A martyr beside the Prophet and Abu Bakr",
+        "A martyr beside the Prophet ﷺ and Abu Bakr",
         "https://sunnah.com/bukhari:3686",
         "Sahih al-Bukhari 3686",
         "Anas ibn Malik; collected by Imam al-Bukhari",
         "Sahih",
-        "On Mount Uhud the Prophet mentioned Umar with those promised martyrdom, highlighting his status and resolve."
+        "On Mount Uhud the Prophet ﷺ mentioned Umar with those promised martyrdom, highlighting his status and resolve."
       )
     ],
     [
@@ -2655,7 +2662,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih Muslim 2401",
         "Aishah; collected by Imam Muslim",
         "Sahih",
-        "The Prophet spoke of Uthman with a rare kind of modesty, saying even the angels are shy of him."
+        "The Prophet ﷺ spoke of Uthman with a rare kind of modesty, saying even the angels are shy of him."
       ),
       hadithSource(
         "source-uthman-bukhari-3686",
@@ -2664,7 +2671,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 3686",
         "Anas ibn Malik; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet named Uthman among the great companions standing beside him and described him among the martyrs."
+        "The Prophet ﷺ named Uthman among the great companions standing beside him and described him among the martyrs."
       )
     ],
     [
@@ -2702,7 +2709,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
     "lesson-ali",
     "sahabah-ali",
     "Ali ibn Abi Talib",
-    "Ali combines courage, knowledge, and loyalty to the Prophet in a way that shaped the early Ummah.",
+    "Ali combines courage, knowledge, and loyalty to the Prophet ﷺ in a way that shaped the early Ummah.",
     12,
     [
       hadithSource(
@@ -2712,7 +2719,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 4210",
         "Sahl bin Sa'd; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet gave Ali the flag at Khaybar, linking him to love of Allah, love of the Messenger, and brave leadership."
+        "The Prophet ﷺ gave Ali the flag at Khaybar, linking him to love of Allah, love of the Messenger ﷺ, and brave leadership."
       ),
       hadithSource(
         "source-ali-tirmidhi-3713",
@@ -2734,7 +2741,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
           ["c", "Love of fame"]
         ],
         "a",
-        "Ali is remembered for brave service close to the Prophet."
+        "Ali is remembered for brave service close to the Prophet ﷺ."
       ),
       tf(
         "ali-2",
@@ -2769,7 +2776,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 1149",
         "Abu Hurairah; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet heard Bilal's footsteps in Paradise, showing how sincerity in steady worship raises a believer."
+        "The Prophet ﷺ heard Bilal's footsteps in Paradise, showing how sincerity in steady worship raises a believer."
       )
     ],
     [
@@ -2824,7 +2831,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Riyad as-Salihin 993",
         "Uthman ibn Affan; gathered by Imam an-Nawawi from al-Bukhari",
         "Sahih",
-        "The Prophet praised learning and teaching the Quran, giving weight to starting with Al-Fatihah well."
+        "The Prophet ﷺ praised learning and teaching the Quran, giving weight to starting with Al-Fatihah well."
       )
     ],
     [
@@ -2879,7 +2886,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 7375",
         "Aishah; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet explained that love of this surah is tied to what it carries about Allah's attributes."
+        "The Prophet ﷺ explained that love of this surah is tied to what it carries about Allah's attributes."
       )
     ],
     [
@@ -2934,7 +2941,7 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
         "Sahih al-Bukhari 2311",
         "Abu Hurairah; collected by Imam al-Bukhari",
         "Sahih",
-        "The Prophet confirmed the special protection tied to reciting Ayat al-Kursi at night."
+        "The Prophet ﷺ confirmed the special protection tied to reciting Ayat al-Kursi at night."
       )
     ],
     [
@@ -3078,766 +3085,870 @@ const BASE_LESSONS_BY_ID: Record<string, Lesson> = {
       )
     ]
   ),
-  "lesson-adam": lesson(
-    "lesson-adam",
-    "prophets-adam",
-    "Adam",
-    "The story of Adam begins the human story with knowledge, honor, repentance, and returning to Allah after a mistake.",
-    12,
-    [
-      quranSource(
-        "source-adam-quran-2-31",
-        "Allah taught Adam the names",
-        "https://quran.com/en/2:31/tafsirs",
-        "Quran 2:31",
-        "The story of Adam begins with knowledge and honor, showing the dignity Allah gave human beings."
-      ),
-      quranSource(
-        "source-adam-quran-7-23",
-        "Adam and Hawwa turned back in repentance",
-        "https://quran.com/en/7:23/tafsirs",
-        "Quran 7:23",
-        "When Adam slipped, he returned to Allah in repentance, teaching believers how to come back after mistakes."
-      )
-    ],
-    [
-      mc(
-        "adam-1",
-        "What stands out in the story of Adam?",
-        [
-          ["a", "Knowledge and repentance"],
-          ["b", "Winning a battle"],
-          ["c", "Collecting wealth"]
-        ],
-        "a",
-        "Adam's story teaches both honor and returning to Allah."
-      ),
-      tf(
-        "adam-2",
-        "A believer can learn from Adam that mistakes should lead to repentance, not despair.",
-        true,
-        "Adam's story opens the door of tawbah for humanity."
-      ),
-      mc(
-        "adam-3",
-        "Which habit matches this lesson?",
-        [
-          ["a", "Say sorry to Allah and return to Him"],
-          ["b", "Blame everyone else forever"],
-          ["c", "Give up after one mistake"]
-        ],
-        "a",
-        "The path back to Allah matters deeply in Adam's story."
-      )
-    ]
+  "lesson-adam": person(
+    lesson(
+      "lesson-adam",
+      "prophets-adam",
+      "Adam",
+      "Adam was the first human. Allah made him from clay, and forgave him when he said sorry.",
+      12,
+      [
+        quranSource(
+          "source-adam-quran-2-37",
+          "Allah accepted Adam's repentance",
+          "https://quran.com/en/2:37/tafsirs",
+          "Quran 2:37",
+          "Adam received words from his Lord, and Allah accepted his repentance. He is the Accepting of repentance, the Most Merciful."
+        ),
+        quranSource(
+          "source-adam-quran-2-31",
+          "Allah taught Adam the names",
+          "https://quran.com/en/2:31/tafsirs",
+          "Quran 2:31",
+          "The story of Adam begins with knowledge and honor, showing the dignity Allah gave human beings."
+        )
+      ],
+      [
+        mc(
+          "adam-1",
+          "Who was the first human?",
+          [
+            ["a", "Adam"],
+            ["b", "Nuh"],
+            ["c", "Musa"]
+          ],
+          "a",
+          "Allah made Adam first, and all people come from him."
+        ),
+        mc(
+          "adam-2",
+          "What did Allah make Adam from?",
+          [
+            ["a", "Clay"],
+            ["b", "Fire"],
+            ["c", "Light"]
+          ],
+          "a",
+          "The Quran says Allah made Adam from clay."
+        ),
+        tf(
+          "adam-3",
+          "Adam was the first angel, and Allah forgave his mistake.",
+          false,
+          "Adam was the first human, not an angel."
+        )
+      ]
+    ),
+    ["Made from: clay", "Wife: Hawwa"],
+    // Quran 2:37 says Allah forgave Adam, not that he was the first human, so the card shows no chip.
+    false
   ),
-  "lesson-nuh": lesson(
-    "lesson-nuh",
-    "prophets-nuh",
-    "Nuh",
-    "Nuh teaches patience in dawah, long perseverance, and trusting Allah even when very few people listen.",
-    12,
-    [
-      quranSource(
-        "source-nuh-quran-11-37",
-        "Build the Ark under Our watch",
-        "https://quran.com/en/11:37/tafsirs",
-        "Quran 11:37",
-        "Allah guided Nuh through a difficult mission, showing that obedience sometimes means staying steady while others mock."
-      ),
-      quranSource(
-        "source-nuh-quran-71-5",
-        "Nuh called his people night and day",
-        "https://quran.com/en/71:5/tafsirs",
-        "Quran 71:5-6",
-        "These verses show Nuh's extraordinary patience and persistence in calling people to Allah."
-      )
-    ],
-    [
-      mc(
-        "nuh-1",
-        "What major lesson comes from Nuh's life?",
-        [
-          ["a", "Patience in calling people to Allah"],
-          ["b", "Giving up quickly"],
-          ["c", "Following the crowd"]
-        ],
-        "a",
-        "Nuh's story is one of long, patient perseverance."
-      ),
-      tf(
-        "nuh-2",
-        "A prophet can do the right thing even when many people reject the message.",
-        true,
-        "Nuh stayed firm because truth is not measured by numbers."
-      ),
-      mc(
-        "nuh-3",
-        "What should patience look like in this lesson?",
-        [
-          ["a", "Keep obeying Allah through difficulty"],
-          ["b", "Quit when people laugh"],
-          ["c", "Change the truth to fit in"]
-        ],
-        "a",
-        "Nuh teaches endurance with faith."
-      )
-    ]
+  "lesson-nuh": person(
+    lesson(
+      "lesson-nuh",
+      "prophets-nuh",
+      "Nuh",
+      "Nuh called his people to Allah for 950 years, and built the Ark when Allah told him to.",
+      12,
+      [
+        quranSource(
+          "source-nuh-quran-11-37",
+          "Build the Ark under Our watch",
+          "https://quran.com/en/11:37/tafsirs",
+          "Quran 11:37",
+          "Allah told Nuh to build the Ark under His eyes and His guidance."
+        ),
+        quranSource(
+          "source-nuh-quran-29-14",
+          "Nuh stayed with his people 950 years",
+          "https://quran.com/en/29:14/tafsirs",
+          "Quran 29:14",
+          "Nuh stayed among his people a thousand years less fifty, calling them to Allah."
+        )
+      ],
+      [
+        mc(
+          "nuh-1",
+          "What did Nuh build?",
+          [
+            ["a", "The Ark"],
+            ["b", "A tower"],
+            ["c", "A palace"]
+          ],
+          "a",
+          "Allah told Nuh to build the Ark, and he obeyed."
+        ),
+        mc(
+          "nuh-2",
+          "How long did Nuh call his people to Allah?",
+          [
+            ["a", "950 years"],
+            ["b", "9 years"],
+            ["c", "50 years"]
+          ],
+          "a",
+          "The Quran says he stayed with them a thousand years less fifty."
+        ),
+        tf(
+          "nuh-3",
+          "Nuh built the Ark and called people to idols, patiently.",
+          false,
+          "Nuh called people to Allah alone."
+        )
+      ]
+    ),
+    ["Called people: 950 years"],
+    // Quran 11:37 tells Nuh to build the Ark; it does not say the rest of the line, so the card shows no chip.
+    false
   ),
-  "lesson-ibrahim": lesson(
-    "lesson-ibrahim",
-    "prophets-ibrahim",
-    "Ibrahim",
-    "Ibrahim is a model of tawhid, trust, sacrifice, and building a life around obedience to Allah.",
-    12,
-    [
-      quranSource(
-        "source-ibrahim-quran-2-124",
-        "Ibrahim was tested and fulfilled the command",
-        "https://quran.com/en/2:124/tafsirs",
-        "Quran 2:124",
-        "Ibrahim's leadership came through tests, showing that nearness to Allah is shaped by obedience."
-      ),
-      quranSource(
-        "source-ibrahim-quran-14-37",
-        "Ibrahim's dua for his family",
-        "https://quran.com/en/14:37/tafsirs",
-        "Quran 14:37",
-        "Ibrahim built family, worship, and trust in Allah together, not as separate parts of life."
-      )
-    ],
-    [
-      mc(
-        "ibrahim-1",
-        "Which theme best matches Ibrahim?",
-        [
-          ["a", "Tawhid and trust in Allah"],
-          ["b", "Living without purpose"],
-          ["c", "Chasing praise"]
-        ],
-        "a",
-        "Ibrahim's life circles around devotion to Allah alone."
-      ),
-      tf(
-        "ibrahim-2",
-        "Tests can raise a believer when they respond with obedience.",
-        true,
-        "Ibrahim's life is full of tests met with trust."
-      ),
-      mc(
-        "ibrahim-3",
-        "What does Ibrahim's dua teach us?",
-        [
-          ["a", "Build your home around worship"],
-          ["b", "Treat worship like an extra"],
-          ["c", "Keep family life separate from faith"]
-        ],
-        "a",
-        "Ibrahim wanted his family life rooted in prayer and remembrance."
-      )
-    ]
+  "lesson-ibrahim": person(
+    lesson(
+      "lesson-ibrahim",
+      "prophets-ibrahim",
+      "Ibrahim",
+      "Ibrahim worshipped Allah alone, and Allah took him as His close friend.",
+      12,
+      [
+        quranSource(
+          "source-ibrahim-quran-4-125",
+          "Allah took Ibrahim as a close friend",
+          "https://quran.com/en/4:125/tafsirs",
+          "Quran 4:125",
+          "Allah took Ibrahim as His close friend, Khalil."
+        ),
+        quranSource(
+          "source-ibrahim-quran-14-39",
+          "Ismail and Ishaq",
+          "https://quran.com/en/14:39/tafsirs",
+          "Quran 14:39",
+          "Ibrahim praised Allah, who gave him Ismail and Ishaq in his old age."
+        ),
+        quranSource(
+          "source-ibrahim-quran-6-74",
+          "Ibrahim and his father Azar",
+          "https://quran.com/en/6:74/tafsirs",
+          "Quran 6:74",
+          "Ibrahim told his father Azar that idols are not gods."
+        )
+      ],
+      [
+        mc(
+          "ibrahim-1",
+          "What did Allah make Ibrahim?",
+          [
+            ["a", "His close friend"],
+            ["b", "A king"],
+            ["c", "An angel"]
+          ],
+          "a",
+          "That is why Ibrahim is called Khalilullah, the friend of Allah."
+        ),
+        mc(
+          "ibrahim-2",
+          "Who was Ibrahim's father?",
+          [
+            ["a", "Azar"],
+            ["b", "Imran"],
+            ["c", "Ya'qub"]
+          ],
+          "a",
+          "The Quran names Ibrahim's father Azar."
+        ),
+        tf(
+          "ibrahim-3",
+          "Ismail and Ishaq were Ibrahim's sons.",
+          true,
+          "Ibrahim thanked Allah for both of his sons."
+        )
+      ]
+    ),
+    ["Father: Azar", "Sons: Ismail, Ishaq"],
+    true
   ),
-  "lesson-yusuf": lesson(
-    "lesson-yusuf",
-    "prophets-yusuf",
-    "Yusuf",
-    "Yusuf teaches beauty of character: patience, self-control, forgiveness, and trusting Allah through long hardship.",
-    12,
-    [
-      quranSource(
-        "source-yusuf-quran-12-23",
-        "Yusuf chose Allah over temptation",
-        "https://quran.com/en/12:23/tafsirs",
-        "Quran 12:23-24",
-        "Yusuf's story shows moral strength and choosing Allah over immediate desire."
-      ),
-      quranSource(
-        "source-yusuf-quran-12-92",
-        "No blame upon you today",
-        "https://quran.com/en/12:92/tafsirs",
-        "Quran 12:92",
-        "When Yusuf forgave his brothers, he showed how power can be carried with mercy."
-      )
-    ],
-    [
-      mc(
-        "yusuf-1",
-        "What quality shines strongly in Yusuf's story?",
-        [
-          ["a", "Patience with purity"],
-          ["b", "Revenge"],
-          ["c", "Careless desire"]
-        ],
-        "a",
-        "Yusuf teaches patience without losing character."
-      ),
-      tf(
-        "yusuf-2",
-        "Forgiveness can be a sign of strength, not weakness.",
-        true,
-        "Yusuf forgave when he had power, and that made the moment even greater."
-      ),
-      mc(
-        "yusuf-3",
-        "What should a believer learn from Yusuf in difficulty?",
-        [
-          ["a", "Trust Allah and protect your character"],
-          ["b", "Do wrong because life is hard"],
-          ["c", "Let pain make you cruel"]
-        ],
-        "a",
-        "The beauty of Yusuf's story is that hardship did not corrupt him."
-      )
-    ]
+  "lesson-yusuf": person(
+    lesson(
+      "lesson-yusuf",
+      "prophets-yusuf",
+      "Yusuf",
+      "Yusuf's brothers threw him in a well, but years later he forgave them.",
+      12,
+      [
+        quranSource(
+          "source-yusuf-quran-12-92",
+          "No blame upon you today",
+          "https://quran.com/en/12:92/tafsirs",
+          "Quran 12:92",
+          "Yusuf told his brothers: no blame upon you today; Allah will forgive you."
+        ),
+        quranSource(
+          "source-yusuf-quran-12-15",
+          "Yusuf in the well",
+          "https://quran.com/en/12:15/tafsirs",
+          "Quran 12:15",
+          "Yusuf's brothers agreed to put him at the bottom of a well."
+        )
+      ],
+      [
+        mc(
+          "yusuf-1",
+          "Where did Yusuf's brothers throw him?",
+          [
+            ["a", "Into a well"],
+            ["b", "Into the sea"],
+            ["c", "Into a fire"]
+          ],
+          "a",
+          "The Quran says they put him at the bottom of a well."
+        ),
+        mc(
+          "yusuf-2",
+          "Who was Yusuf's father?",
+          [
+            ["a", "Ya'qub"],
+            ["b", "Ibrahim"],
+            ["c", "Musa"]
+          ],
+          "a",
+          "Ya'qub was a prophet, and the son of Ishaq."
+        ),
+        tf(
+          "yusuf-3",
+          "Yusuf's brothers threw him in a well, and he never forgave them.",
+          false,
+          "He told them: no blame on you today."
+        )
+      ]
+    ),
+    ["Father: Ya'qub", "Brothers: eleven"],
+    false
   ),
-  "lesson-musa": lesson(
-    "lesson-musa",
-    "prophets-musa",
-    "Musa",
-    "Musa's life teaches courage before tyrants, direct reliance on Allah, and steady leadership through trials.",
-    12,
-    [
-      quranSource(
-        "source-musa-quran-20-14",
-        "Indeed, I am Allah, so worship Me",
-        "https://quran.com/en/20:14/tafsirs",
-        "Quran 20:14",
-        "Musa's call began with pure worship and direct closeness to Allah."
-      ),
-      quranSource(
-        "source-musa-quran-26-62",
-        "My Lord is with me; He will guide me",
-        "https://quran.com/en/26:62/tafsirs",
-        "Quran 26:62",
-        "At a moment of fear, Musa answered with certainty that Allah would guide and save."
-      )
-    ],
-    [
-      mc(
-        "musa-1",
-        "What lesson stands out in Musa's life?",
-        [
-          ["a", "Courage with trust in Allah"],
-          ["b", "Serving falsehood"],
-          ["c", "Avoiding responsibility"]
-        ],
-        "a",
-        "Musa faced huge challenges with Allah at the center."
-      ),
-      tf(
-        "musa-2",
-        "A believer can face intimidating situations while depending on Allah.",
-        true,
-        "Musa models courage rooted in faith."
-      ),
-      mc(
-        "musa-3",
-        "Which phrase matches Musa at the sea?",
-        [
-          ["a", "My Lord is with me; He will guide me"],
-          ["b", "We are finished and alone"],
-          ["c", "Truth cannot help us now"]
-        ],
-        "a",
-        "Musa's certainty came from knowing Allah was with him."
-      )
-    ]
+  "lesson-musa": person(
+    lesson(
+      "lesson-musa",
+      "prophets-musa",
+      "Musa",
+      "Allah spoke to Musa, gave him the Tawrah, and sent him to Pharaoh.",
+      12,
+      [
+        quranSource(
+          "source-musa-quran-4-164",
+          "Allah spoke to Musa",
+          "https://quran.com/en/4:164/tafsirs",
+          "Quran 4:164",
+          "Allah spoke to Musa directly."
+        ),
+        quranSource(
+          "source-musa-quran-20-14",
+          "Indeed, I am Allah, so worship Me",
+          "https://quran.com/en/20:14/tafsirs",
+          "Quran 20:14",
+          "Musa's call began with pure worship and direct closeness to Allah."
+        )
+      ],
+      [
+        mc(
+          "musa-1",
+          "Who did Allah send Musa to?",
+          [
+            ["a", "Pharaoh"],
+            ["b", "Abu Lahab"],
+            ["c", "The people of 'Ad"]
+          ],
+          "a",
+          "Pharaoh was a cruel king of Egypt."
+        ),
+        mc(
+          "musa-2",
+          "Which book did Allah give Musa?",
+          [
+            ["a", "The Tawrah"],
+            ["b", "The Injil"],
+            ["c", "The Zabur"]
+          ],
+          "a",
+          "The Injil came to Isa, and the Zabur to Dawud."
+        ),
+        tf(
+          "musa-3",
+          "Allah spoke to Musa, and sent him to Pharaoh.",
+          true,
+          "That is why Musa is called Kalimullah: the one Allah spoke to."
+        )
+      ]
+    ),
+    ["Book: Tawrah"],
+    false
   ),
-  "lesson-isa": lesson(
-    "lesson-isa",
-    "prophets-isa",
-    "Isa",
-    "Isa is honored as a noble prophet who called people to worship Allah and came with clear signs.",
-    12,
-    [
-      quranSource(
-        "source-isa-quran-3-45",
-        "Good news of Isa, a word from Allah",
-        "https://quran.com/en/3:45/tafsirs",
-        "Quran 3:45",
-        "These verses honor Isa and his miraculous birth while keeping his place as a servant and prophet of Allah."
-      ),
-      quranSource(
-        "source-isa-quran-5-110",
-        "Clear signs given to Isa",
-        "https://quran.com/en/5:110/tafsirs",
-        "Quran 5:110",
-        "Allah reminds Isa of the signs and support given to him, showing both honor and mission."
-      )
-    ],
-    [
-      mc(
-        "isa-1",
-        "How does the Quran teach Muslims to view Isa?",
-        [
-          ["a", "As a noble prophet of Allah"],
-          ["b", "As an ordinary king"],
-          ["c", "As a myth with no message"]
-        ],
-        "a",
-        "Isa is deeply honored in Islam as one of the prophets."
-      ),
-      tf(
-        "isa-2",
-        "Allah supported Isa with clear signs.",
-        true,
-        "The Quran reminds believers of the signs given to him."
-      ),
-      mc(
-        "isa-3",
-        "What does Isa's story strengthen in a believer?",
-        [
-          ["a", "Respect for all prophets"],
-          ["b", "Confusion about revelation"],
-          ["c", "Mockery of sacred history"]
-        ],
-        "a",
-        "Learning the prophets builds reverence for Allah's guidance across time."
-      )
-    ]
+  "lesson-isa": person(
+    lesson(
+      "lesson-isa",
+      "prophets-isa",
+      "Isa",
+      "Isa is a noble prophet of Allah, born to Maryam without a father.",
+      12,
+      [
+        quranSource(
+          "source-isa-quran-3-47",
+          "Allah creates what He wills",
+          "https://quran.com/en/3:47/tafsirs",
+          "Quran 3:47",
+          "Maryam asked how she could have a child with no husband. Allah creates what He wills; He only says: Be, and it is."
+        ),
+        quranSource(
+          "source-isa-quran-3-45",
+          "Good news of Isa, a word from Allah",
+          "https://quran.com/en/3:45/tafsirs",
+          "Quran 3:45",
+          "The angels gave Maryam good news of a son, the Messiah, Isa son of Maryam."
+        )
+      ],
+      [
+        mc(
+          "isa-1",
+          "Who was Isa's mother?",
+          [
+            ["a", "Maryam"],
+            ["b", "Khadijah"],
+            ["c", "Asiyah"]
+          ],
+          "a",
+          "The Quran calls him Isa, son of Maryam."
+        ),
+        mc(
+          "isa-2",
+          "Which book did Allah give Isa?",
+          [
+            ["a", "The Injil"],
+            ["b", "The Tawrah"],
+            ["c", "The Quran"]
+          ],
+          "a",
+          "The Tawrah came to Musa, and the Quran to Muhammad ﷺ."
+        ),
+        tf(
+          "isa-3",
+          "Isa is a noble angel, born to Maryam without a father.",
+          false,
+          "Isa is a prophet of Allah, not an angel."
+        )
+      ]
+    ),
+    ["Mother: Maryam", "Book: Injil"],
+    // Quran 3:47 tells of his birth without a father; it does not say the rest of the line, so the card shows no chip.
+    false
   ),
-  "lesson-muhammad": lesson(
-    "lesson-muhammad",
-    "prophets-muhammad",
-    "Muhammad",
-    "The final messenger is the clearest living example of mercy, worship, courage, and beautiful character for the Ummah.",
-    14,
-    [
-      quranSource(
-        "source-muhammad-quran-33-21",
-        "In the Messenger of Allah is an excellent example",
-        "https://quran.com/en/33:21/tafsirs",
-        "Quran 33:21",
-        "Allah presents the Prophet Muhammad as the model believers return to in hope, patience, and obedience."
-      ),
-      quranSource(
-        "source-muhammad-quran-21-107",
-        "We sent you only as a mercy to the worlds",
-        "https://quran.com/en/21:107/tafsirs",
-        "Quran 21:107",
-        "The Prophet's life is wrapped in mercy, making compassion central to following him."
-      )
-    ],
-    [
-      mc(
-        "muhammad-1",
-        "What is one of the biggest lessons from the life of Prophet Muhammad?",
-        [
-          ["a", "Mercy and beautiful character"],
-          ["b", "Ignoring people"],
-          ["c", "Seeking fame"]
-        ],
-        "a",
-        "The Quran presents him as both a mercy and an example."
-      ),
-      tf(
-        "muhammad-2",
-        "Following the Prophet means learning from his character, not only his words.",
-        true,
-        "His life itself is a model for believers."
-      ),
-      mc(
-        "muhammad-3",
-        "How should this lesson shape a Muslim learner?",
-        [
-          ["a", "Try to carry mercy into daily life"],
-          ["b", "Keep religion only as information"],
-          ["c", "Separate manners from faith"]
-        ],
-        "a",
-        "Love of the Prophet should show up in character."
-      )
-    ]
+  "lesson-muhammad": person(
+    lesson(
+      "lesson-muhammad",
+      "prophets-muhammad",
+      "Muhammad ﷺ",
+      "Muhammad ﷺ is the last messenger of Allah, sent as a mercy to all the worlds.",
+      14,
+      [
+        quranSource(
+          "source-muhammad-quran-33-40",
+          "The seal of the prophets",
+          "https://quran.com/en/33:40/tafsirs",
+          "Quran 33:40",
+          "Muhammad ﷺ is the Messenger of Allah and the last of the prophets."
+        ),
+        quranSource(
+          "source-muhammad-quran-21-107",
+          "We sent you only as a mercy to the worlds",
+          "https://quran.com/en/21:107/tafsirs",
+          "Quran 21:107",
+          "Allah sent the Prophet ﷺ as a mercy to all the worlds."
+        ),
+        quranSource(
+          "source-muhammad-quran-33-21",
+          "In the Messenger of Allah ﷺ is an excellent example",
+          "https://quran.com/en/33:21/tafsirs",
+          "Quran 33:21",
+          "Allah presents the Prophet Muhammad ﷺ as the model believers return to in hope, patience, and obedience."
+        )
+      ],
+      [
+        mc(
+          "muhammad-1",
+          "Who is the last prophet?",
+          [
+            ["a", "Muhammad ﷺ"],
+            ["b", "Isa"],
+            ["c", "Musa"]
+          ],
+          "a",
+          "The Quran calls him the seal of the prophets."
+        ),
+        mc(
+          "muhammad-2",
+          "What was the name of the Prophet's ﷺ mother?",
+          [
+            ["a", "Aminah"],
+            ["b", "Maryam"],
+            ["c", "Hawwa"]
+          ],
+          "a",
+          "Aminah lived in Makkah, where he ﷺ was born."
+        ),
+        tf(
+          "muhammad-3",
+          "Muhammad ﷺ is Allah's Messenger and the last prophet.",
+          true,
+          "The Quran calls him the Messenger of Allah and the seal of the prophets."
+        )
+      ]
+    ),
+    ["Father: Abdullah", "Mother: Aminah", "Tribe: Quraysh"],
+    true
   ),
-  "lesson-women-hawwa": lesson(
-    "lesson-women-hawwa",
-    "women-hawwa",
-    "Hawwa",
-    "The first woman in the human story teaches closeness to Allah, shared responsibility, and turning back to Him after a mistake.",
-    12,
-    [
-      quranSource(
-        "source-women-hawwa-quran-2-35",
-        "Adam and his wife in the garden",
-        "https://quran.com/2:35/tafsirs/tazkirul-quran-en",
-        "Quran 2:35-36",
-        "The first household begins with Allah's command, showing that human life starts with worship and obedience."
-      ),
-      quranSource(
-        "source-women-hawwa-quran-7-23",
-        "The dua of repentance",
-        "https://quran.com/en/7:23/tafsirs",
-        "Quran 7:23",
-        "After slipping, Adam and Hawwa turned back to Allah with repentance, teaching the first family how to return."
-      )
-    ],
-    [
-      mc(
-        "women-hawwa-1",
-        "What early lesson comes through Hawwa in this topic?",
-        [
-          ["a", "A Muslim returns to Allah after a mistake"],
-          ["b", "A mistake ends all hope"],
-          ["c", "The first family lived without guidance"]
-        ],
-        "a",
-        "Their story teaches repentance, not despair."
-      ),
-      tf(
-        "women-hawwa-2",
-        "The first family shows that life begins with Allah's guidance, not random living.",
-        true,
-        "The first commands given to Adam and Hawwa frame life around obedience."
-      ),
-      mc(
-        "women-hawwa-3",
-        "Which habit fits this lesson best?",
-        [
-          ["a", "Own your mistake and turn back to Allah"],
-          ["b", "Blame everyone else and stay stubborn"],
-          ["c", "Treat tawbah like it does not matter"]
-        ],
-        "a",
-        "Hawwa's place in the story helps teach the heart to return."
-      )
-    ]
+  "lesson-women-hawwa": person(
+    lesson(
+      "lesson-women-hawwa",
+      "women-hawwa",
+      "Hawwa",
+      "Hawwa was the first woman. She lived in Paradise with Adam, her husband.",
+      12,
+      [
+        quranSource(
+          "source-women-hawwa-quran-2-35",
+          "Adam and his wife in the garden",
+          "https://quran.com/2:35/tafsirs/tazkirul-quran-en",
+          "Quran 2:35-36",
+          "Allah told Adam: live, you and your wife, in Paradise."
+        ),
+        quranSource(
+          "source-women-hawwa-quran-7-23",
+          "The dua of repentance",
+          "https://quran.com/en/7:23/tafsirs",
+          "Quran 7:23",
+          "Adam and Hawwa said: our Lord, we have wronged ourselves, so forgive us and have mercy on us."
+        )
+      ],
+      [
+        mc(
+          "women-hawwa-1",
+          "Who was the first woman?",
+          [
+            ["a", "Hawwa"],
+            ["b", "Maryam"],
+            ["c", "Asiyah"]
+          ],
+          "a",
+          "Allah made Hawwa as a wife for Adam."
+        ),
+        mc(
+          "women-hawwa-2",
+          "Where did Adam and Hawwa live first?",
+          [
+            ["a", "In Paradise"],
+            ["b", "In Makkah"],
+            ["c", "In Egypt"]
+          ],
+          "a",
+          "Allah told them: live in Paradise, you and your wife."
+        ),
+        tf(
+          "women-hawwa-3",
+          "Hawwa, the first woman, lived in Egypt with Adam.",
+          false,
+          "Adam and Hawwa lived first in Paradise."
+        )
+      ]
+    ),
+    ["Husband: Adam"],
+    true
   ),
-  "lesson-women-mother-musa": lesson(
-    "lesson-women-mother-musa",
-    "women-mother-musa",
-    "Mother of Musa",
-    "The mother of Musa teaches extraordinary trust: she obeyed Allah in fear, and Allah returned her son to her.",
-    12,
-    [
-      quranSource(
-        "source-women-mother-musa-quran-28-7",
-        "Put him in the river and do not fear",
-        "https://quran.com/en/28:7/tafsirs/ar-tafsir-al-tabari",
-        "Quran 28:7",
-        "Allah inspired the mother of Musa with a command that looked terrifying on the outside but carried perfect protection."
-      ),
-      quranSource(
-        "source-women-mother-musa-quran-28-13",
-        "Allah returned Musa to his mother",
-        "https://quran.com/en/28:13/tafsirs",
-        "Quran 28:13",
-        "Allah fulfilled His promise by bringing Musa back to his mother so her heart could be at peace."
-      )
-    ],
-    [
-      mc(
-        "women-mother-musa-1",
-        "What shines most in the story of Musa's mother?",
-        [
-          ["a", "Trust in Allah during fear"],
-          ["b", "Panic without guidance"],
-          ["c", "Depending only on worldly power"]
-        ],
-        "a",
-        "Her courage was rooted in confidence that Allah's promise was true."
-      ),
-      tf(
-        "women-mother-musa-2",
-        "Allah left the mother of Musa without comfort or promise.",
-        false,
-        "Allah told her not to fear or grieve and promised He would return Musa."
-      ),
-      mc(
-        "women-mother-musa-3",
-        "What special thing did she do in this story?",
-        [
-          ["a", "She obeyed Allah even when it was emotionally hard"],
-          ["b", "She rejected every command out of fear"],
-          ["c", "She chose comfort over trust"]
-        ],
-        "a",
-        "Her story makes tawakkul feel real and costly in the best way."
-      )
-    ]
+  "lesson-women-mother-musa": person(
+    lesson(
+      "lesson-women-mother-musa",
+      "women-mother-musa",
+      "Mother of Musa",
+      "Allah told the mother of Musa to put her baby in the river, and she trusted Him.",
+      12,
+      [
+        quranSource(
+          "source-women-mother-musa-quran-28-7",
+          "Put him in the river and do not fear",
+          "https://quran.com/en/28:7/tafsirs/ar-tafsir-al-tabari",
+          "Quran 28:7",
+          "Allah inspired the mother of Musa: put him in the river, and do not fear or grieve. We will return him to you."
+        )
+      ],
+      [
+        mc(
+          "women-mother-musa-1",
+          "Where did Musa's mother put baby Musa?",
+          [
+            ["a", "In the river"],
+            ["b", "In a cave"],
+            ["c", "In a well"]
+          ],
+          "a",
+          "Allah told her: do not fear, We will bring him back to you."
+        ),
+        mc(
+          "women-mother-musa-2",
+          "Who told Musa's mother what to do?",
+          [
+            ["a", "Allah"],
+            ["b", "Pharaoh"],
+            ["c", "Her neighbor"]
+          ],
+          "a",
+          "Allah put the idea in her heart, and she trusted Him."
+        ),
+        tf(
+          "women-mother-musa-3",
+          "Allah told Musa's mother to put baby Musa in a cave.",
+          false,
+          "Allah told her to put him in the river."
+        )
+      ]
+    ),
+    ["Son: Musa"],
+    true
   ),
-  "lesson-women-asiyah": lesson(
-    "lesson-women-asiyah",
-    "women-asiyah",
-    "Asiyah",
-    "Asiyah, the wife of Pharaoh, stands as a model of faith and courage even inside a house ruled by tyranny.",
-    12,
-    [
-      quranSource(
-        "source-women-asiyah-quran-66-11",
-        "A house near Allah in Paradise",
-        "https://quran.com/en/66:11/tafsirs/tazkirul-quran-en",
-        "Quran 66:11",
-        "Allah presents Asiyah as an example for believers, showing that faith can stay firm even in a brutal environment."
-      ),
-      hadithSource(
-        "source-women-asiyah-bukhari-3433",
-        "Asiyah among the greatest women",
-        "https://sunnah.com/bukhari:3433",
-        "Sahih al-Bukhari 3433",
-        "Abu Musa al-Ashari; collected by Imam al-Bukhari",
-        "Sahih",
-        "The Prophet named Asiyah among the women of highest perfection, highlighting the greatness of her iman."
-      )
-    ],
-    [
-      mc(
-        "women-asiyah-1",
-        "What makes Asiyah stand out in this lesson?",
-        [
-          ["a", "Steadfast faith under oppression"],
-          ["b", "Following Pharaoh in disbelief"],
-          ["c", "Choosing comfort over Allah"]
-        ],
-        "a",
-        "Asiyah's greatness appears in staying loyal to Allah when the cost was severe."
-      ),
-      tf(
-        "women-asiyah-2",
-        "A difficult household can never contain a righteous believer.",
-        false,
-        "Allah gave Asiyah as proof that a believer can remain true even in a corrupt home."
-      ),
-      mc(
-        "women-asiyah-3",
-        "What special dua is tied to Asiyah in the Quran?",
-        [
-          ["a", "Asking Allah for a house near Him in Paradise"],
-          ["b", "Asking for worldly status only"],
-          ["c", "Asking to stay close to Pharaoh"]
-        ],
-        "a",
-        "Her dua shows where her heart truly lived."
-      )
-    ]
+  "lesson-women-asiyah": person(
+    lesson(
+      "lesson-women-asiyah",
+      "women-asiyah",
+      "Asiyah",
+      "Asiyah was the wife of Pharaoh, and she believed in Allah.",
+      12,
+      [
+        quranSource(
+          "source-women-asiyah-quran-66-11",
+          "A house near Allah in Paradise",
+          "https://quran.com/en/66:11/tafsirs/tazkirul-quran-en",
+          "Quran 66:11",
+          "Allah gives the wife of Pharaoh as an example for the believers."
+        ),
+        hadithSource(
+          "source-women-asiyah-bukhari-3433",
+          "Asiyah among the greatest women",
+          "https://sunnah.com/bukhari:3433",
+          "Sahih al-Bukhari 3433",
+          "Abu Musa al-Ashari; collected by Imam al-Bukhari",
+          "Sahih",
+          "The Prophet ﷺ named Asiyah among the most perfect women."
+        )
+      ],
+      [
+        mc(
+          "women-asiyah-1",
+          "Who was Asiyah's husband?",
+          [
+            ["a", "Pharaoh"],
+            ["b", "Musa"],
+            ["c", "Nuh"]
+          ],
+          "a",
+          "Pharaoh was a cruel king, but Asiyah believed in Allah."
+        ),
+        tf(
+          "women-asiyah-2",
+          "Asiyah, Pharaoh's wife, believed in Allah.",
+          true,
+          "Allah praises her in the Quran as an example for believers."
+        )
+      ]
+    ),
+    ["Husband: Pharaoh"],
+    true
   ),
-  "lesson-women-maryam": lesson(
-    "lesson-women-maryam",
-    "women-maryam",
-    "Maryam",
-    "Maryam is honored for purity, worship, and the miracle Allah placed through her life.",
-    12,
-    [
-      quranSource(
-        "source-women-maryam-quran-3-42",
-        "Allah chose and purified Maryam",
-        "https://quran.com/al-i-imran/42/tafsirs",
-        "Quran 3:42",
-        "The Quran names Maryam as chosen and purified, marking her as one of the most honored women in revelation."
-      ),
-      hadithSource(
-        "source-women-maryam-bukhari-3433",
-        "Maryam among the women of perfection",
-        "https://sunnah.com/bukhari:3433",
-        "Sahih al-Bukhari 3433",
-        "Abu Musa al-Ashari; collected by Imam al-Bukhari",
-        "Sahih",
-        "The Prophet named Maryam among the women of greatest perfection, showing her special station."
-      )
-    ],
-    [
-      mc(
-        "women-maryam-1",
-        "Which qualities define Maryam in this lesson?",
-        [
-          ["a", "Purity, worship, and chosen honor"],
-          ["b", "Pride and rebellion"],
-          ["c", "Carelessness toward faith"]
-        ],
-        "a",
-        "Maryam's story is marked by devotion and purity."
-      ),
-      tf(
-        "women-maryam-2",
-        "Maryam is honored in both Quran and hadith.",
-        true,
-        "Her station is made clear in revelation and the Prophet's words."
-      ),
-      mc(
-        "women-maryam-3",
-        "What special thing is Maryam known for here?",
-        [
-          ["a", "Being chosen and purified by Allah"],
-          ["b", "Leading armies into battle"],
-          ["c", "Protecting Pharaoh's palace"]
-        ],
-        "a",
-        "Her greatness is spiritual purity and the miracle connected to her."
-      )
-    ]
+  "lesson-women-maryam": person(
+    lesson(
+      "lesson-women-maryam",
+      "women-maryam",
+      "Maryam",
+      "Maryam, the daughter of Imran and mother of Isa, was pure, and Allah chose her.",
+      12,
+      [
+        quranSource(
+          "source-women-maryam-quran-3-42",
+          "Allah chose and purified Maryam",
+          "https://quran.com/al-i-imran/42/tafsirs",
+          "Quran 3:42",
+          "The angels said: Maryam, Allah has chosen you, made you pure, and chosen you above the women of the worlds."
+        ),
+        hadithSource(
+          "source-women-maryam-bukhari-3433",
+          "Maryam among the women of perfection",
+          "https://sunnah.com/bukhari:3433",
+          "Sahih al-Bukhari 3433",
+          "Abu Musa al-Ashari; collected by Imam al-Bukhari",
+          "Sahih",
+          "The Prophet ﷺ named Maryam among the most perfect women."
+        )
+      ],
+      [
+        mc(
+          "women-maryam-1",
+          "Who was Maryam's son?",
+          [
+            ["a", "Isa"],
+            ["b", "Musa"],
+            ["c", "Yahya"]
+          ],
+          "a",
+          "The Quran calls him Isa, son of Maryam."
+        ),
+        mc(
+          "women-maryam-2",
+          "Who was Maryam's father?",
+          [
+            ["a", "Imran"],
+            ["b", "Zakariyya"],
+            ["c", "Ibrahim"]
+          ],
+          "a",
+          "The Quran calls her Maryam, daughter of Imran."
+        ),
+        tf(
+          "women-maryam-3",
+          "Maryam was pure, and Allah chose her.",
+          true,
+          "The angels told her: Allah has chosen you and made you pure."
+        )
+      ]
+    ),
+    ["Father: Imran", "Son: Isa"],
+    true
   ),
-  "lesson-women-khadijah": lesson(
-    "lesson-women-khadijah",
-    "women-khadijah",
-    "Khadijah",
-    "Khadijah was the first wife of the Prophet, the first believer from his household, and a source of strength, loyalty, and calm support.",
-    12,
-    [
-      hadithSource(
-        "source-women-khadijah-muslim-2432",
-        "Glad tidings of a house in Paradise",
-        "https://sunnah.com/muslim/44/103-104",
-        "Sahih Muslim 2432",
-        "Abu Hurairah; collected by Imam Muslim",
-        "Sahih",
-        "Jibril brought Khadijah greetings from Allah and glad tidings of a house in Paradise, showing her immense rank."
-      ),
-      hadithSource(
-        "source-women-khadijah-bukhari-3815",
-        "Khadijah among the best women",
-        "https://sunnah.com/bukhari:3815",
-        "Sahih al-Bukhari 3815",
-        "Ali ibn Abi Talib; collected by Imam al-Bukhari",
-        "Sahih",
-        "The Prophet described Khadijah as among the best women, highlighting her special excellence."
-      )
-    ],
-    [
-      mc(
-        "women-khadijah-1",
-        "What special role did Khadijah play at the beginning of Islam?",
-        [
-          ["a", "She supported the Prophet with loyalty and calm belief"],
-          ["b", "She turned away from the message"],
-          ["c", "She mocked revelation"]
-        ],
-        "a",
-        "Khadijah's strength shows up in how she stood with the Prophet at the beginning."
-      ),
-      tf(
-        "women-khadijah-2",
-        "Khadijah was honored with glad tidings from Allah and Jibril.",
-        true,
-        "That glad tiding marks one of the clearest signs of her rank."
-      ),
-      mc(
-        "women-khadijah-3",
-        "Which trait best captures Khadijah in this lesson?",
-        [
-          ["a", "Loyal support"],
-          ["b", "Emotional instability"],
-          ["c", "Seeking attention from people"]
-        ],
-        "a",
-        "Her support for the Prophet is one of the most beautiful parts of her story."
-      )
-    ]
+  "lesson-women-khadijah": person(
+    lesson(
+      "lesson-women-khadijah",
+      "women-khadijah",
+      "Khadijah",
+      "Khadijah was the first wife of the Prophet ﷺ, and the first to believe in him.",
+      12,
+      [
+        hadithSource(
+          "source-women-khadijah-bukhari-3815",
+          "Khadijah among the best women",
+          "https://sunnah.com/bukhari:3815",
+          "Sahih al-Bukhari 3815",
+          "Ali ibn Abi Talib; collected by Imam al-Bukhari",
+          "Sahih",
+          "The Prophet ﷺ described Khadijah as among the best women."
+        ),
+        hadithSource(
+          "source-women-khadijah-muslim-2432",
+          "Glad tidings of a house in Paradise",
+          "https://sunnah.com/muslim/44/103-104",
+          "Sahih Muslim 2432",
+          "Abu Hurairah; collected by Imam Muslim",
+          "Sahih",
+          "Jibril brought Khadijah greetings from Allah and glad tidings of a house in Paradise."
+        )
+      ],
+      [
+        mc(
+          "women-khadijah-1",
+          "Who was the Prophet's ﷺ first wife?",
+          [
+            ["a", "Khadijah"],
+            ["b", "Aishah"],
+            ["c", "Hafsah"]
+          ],
+          "a",
+          "They married in Makkah, years before the first revelation."
+        ),
+        mc(
+          "women-khadijah-2",
+          "Which tribe was Khadijah from?",
+          [
+            ["a", "Quraysh"],
+            ["b", "Ghifar"],
+            ["c", "Thaqif"]
+          ],
+          "a",
+          "Quraysh was the leading tribe of Makkah."
+        ),
+        tf(
+          "women-khadijah-3",
+          "Khadijah was the Prophet's ﷺ last wife and first believer.",
+          false,
+          "Khadijah was his first wife."
+        )
+      ]
+    ),
+    ["Father: Khuwaylid", "Tribe: Quraysh"],
+    false
   ),
-  "lesson-women-aishah": lesson(
-    "lesson-women-aishah",
-    "women-aishah",
-    "Aishah",
-    "Aishah is remembered for sharp understanding, close knowledge of the Prophet's life, and a special place among the Mothers of the Believers.",
-    12,
-    [
-      hadithSource(
-        "source-women-aishah-bukhari-3770",
-        "The virtue of Aishah",
-        "https://sunnah.com/bukhari:3770",
-        "Sahih al-Bukhari 3770",
-        "Anas ibn Malik; collected by Imam al-Bukhari",
-        "Sahih",
-        "The Prophet described Aishah's virtue over other women with a well-known comparison, marking her high station."
-      ),
-      hadithSource(
-        "source-women-aishah-bukhari-6201",
-        "Jibril sent salam to Aishah",
-        "https://sunnah.com/bukhari:6201",
-        "Sahih al-Bukhari 6201",
-        "Aishah; collected by Imam al-Bukhari",
-        "Sahih",
-        "This narration shows the special closeness and honor Aishah experienced in the Prophet's household."
-      )
-    ],
-    [
-      mc(
-        "women-aishah-1",
-        "What special strength stands out for Aishah in this topic?",
-        [
-          ["a", "Knowledge and closeness to the Prophetic home"],
-          ["b", "Living far from the Prophet's teachings"],
-          ["c", "Keeping faith hidden from the Ummah"]
-        ],
-        "a",
-        "Aishah's life became one of the great windows into the sunnah."
-      ),
-      tf(
-        "women-aishah-2",
-        "Aishah is honored in hadith with a special virtue and greeting.",
-        true,
-        "The hadith record her special station in more than one way."
-      ),
-      mc(
-        "women-aishah-3",
-        "How should a learner remember Aishah here?",
-        [
-          ["a", "As a mother of believers known for understanding and transmission"],
-          ["b", "As someone detached from learning"],
-          ["c", "As someone with no role in teaching the Ummah"]
-        ],
-        "a",
-        "Her life became part of how the Ummah learned the Prophet's way."
-      )
-    ]
+  "lesson-women-aishah": person(
+    lesson(
+      "lesson-women-aishah",
+      "women-aishah",
+      "Aishah",
+      "Aishah, the daughter of Abu Bakr, taught the Muslims a lot about the Prophet's ﷺ life.",
+      12,
+      [
+        hadithSource(
+          "source-women-aishah-bukhari-3770",
+          "The virtue of Aishah",
+          "https://sunnah.com/bukhari:3770",
+          "Sahih al-Bukhari 3770",
+          "Anas ibn Malik; collected by Imam al-Bukhari",
+          "Sahih",
+          "The Prophet ﷺ described the virtue of Aishah over other women with a well-known comparison."
+        ),
+        hadithSource(
+          "source-women-aishah-bukhari-6201",
+          "Jibril sent salam to Aishah",
+          "https://sunnah.com/bukhari:6201",
+          "Sahih al-Bukhari 6201",
+          "Aishah; collected by Imam al-Bukhari",
+          "Sahih",
+          "The Prophet ﷺ told Aishah that Jibril sent her salam."
+        )
+      ],
+      [
+        mc(
+          "women-aishah-1",
+          "Who was Aishah's father?",
+          [
+            ["a", "Abu Bakr"],
+            ["b", "Umar"],
+            ["c", "Uthman"]
+          ],
+          "a",
+          "Abu Bakr was the Prophet's ﷺ closest friend."
+        ),
+        mc(
+          "women-aishah-2",
+          "What did Aishah teach the Muslims about?",
+          [
+            ["a", "The Prophet's ﷺ life"],
+            ["b", "Poems"],
+            ["c", "Trade"]
+          ],
+          "a",
+          "Many hadith we know today come from Aishah."
+        ),
+        tf(
+          "women-aishah-3",
+          "Aishah taught the Muslims a lot about the Prophet's ﷺ life.",
+          true,
+          "She is one of the companions who told the most hadith."
+        )
+      ]
+    ),
+    ["Father: Abu Bakr", "Tribe: Quraysh"],
+    false
   ),
-  "lesson-women-hafsah": lesson(
-    "lesson-women-hafsah",
-    "women-hafsah",
-    "Hafsah",
-    "Hafsah helps this topic end with preservation: the suhuf kept in her care became part of protecting the Quran for the Ummah.",
-    14,
-    [
-      quranSource(
-        "source-women-hafsah-quran-33-6",
-        "The wives of the Prophet are mothers of the believers",
-        "https://quran.com/en/33:6/tafsirs",
-        "Quran 33:6",
-        "The Quran gives the wives of the Prophet a special status as mothers of the believers, including Hafsah."
-      ),
-      hadithSource(
-        "source-women-hafsah-bukhari-4987",
-        "Hafsah preserved the manuscripts",
-        "https://sunnah.com/bukhari:4987",
-        "Sahih al-Bukhari 4987",
-        "Anas ibn Malik; collected by Imam al-Bukhari",
-        "Sahih",
-        "The early written sheets of the Quran were kept with Hafsah and used in the later standard copying, showing her quiet but vital role in preservation."
-      )
-    ],
-    [
-      mc(
-        "women-hafsah-1",
-        "What special contribution of Hafsah is highlighted here?",
-        [
-          ["a", "Safeguarding the sheets used in preserving the Quran"],
-          ["b", "Leading armies in conquest"],
-          ["c", "Writing a new revelation"]
-        ],
-        "a",
-        "Her role was one of trust and preservation."
-      ),
-      tf(
-        "women-hafsah-2",
-        "Hafsah's lesson shows that some huge services to Islam happen quietly.",
-        true,
-        "Her care for the suhuf is a major service carried without spectacle."
-      ),
-      mc(
-        "women-hafsah-3",
-        "How does this lesson complete the topic?",
-        [
-          ["a", "It ends with preservation of revelation and trust"],
-          ["b", "It ends by leaving the Quran unguarded"],
-          ["c", "It ends with no lasting contribution"]
-        ],
-        "a",
-        "The topic closes with a woman tied directly to protecting the Book for the Ummah."
-      )
-    ]
+  "lesson-women-hafsah": person(
+    lesson(
+      "lesson-women-hafsah",
+      "women-hafsah",
+      "Hafsah",
+      "Hafsah, the daughter of Umar, kept the written pages of the Quran safe.",
+      14,
+      [
+        hadithSource(
+          "source-women-hafsah-bukhari-4987",
+          "Hafsah preserved the manuscripts",
+          "https://sunnah.com/bukhari:4987",
+          "Sahih al-Bukhari 4987",
+          "Anas ibn Malik; collected by Imam al-Bukhari",
+          "Sahih",
+          "The written pages of the Quran were kept with Hafsah, and Uthman had them copied for the Muslim lands."
+        ),
+        quranSource(
+          "source-women-hafsah-quran-33-6",
+          "The wives of the Prophet ﷺ are mothers of the believers",
+          "https://quran.com/en/33:6/tafsirs",
+          "Quran 33:6",
+          "The Quran calls the wives of the Prophet ﷺ the mothers of the believers."
+        )
+      ],
+      [
+        mc(
+          "women-hafsah-1",
+          "Who was Hafsah's father?",
+          [
+            ["a", "Umar"],
+            ["b", "Abu Bakr"],
+            ["c", "Ali"]
+          ],
+          "a",
+          "Umar was the second caliph."
+        ),
+        mc(
+          "women-hafsah-2",
+          "What did Hafsah keep safe?",
+          [
+            ["a", "The Quran's written pages"],
+            ["b", "Gold coins"],
+            ["c", "A sword"]
+          ],
+          "a",
+          "The pages went from Abu Bakr to Umar, and then to her."
+        ),
+        tf(
+          "women-hafsah-3",
+          "Hafsah, daughter of Umar, kept the Quran's written pages safe.",
+          true,
+          "Hafsah, daughter of Umar, kept the Quran's written pages safe."
+        )
+      ]
+    ),
+    ["Father: Umar", "Tribe: Quraysh"],
+    true
   )
 };
 
-const scaledContent = buildExpandedContent(BASE_COURSE, BASE_LESSONS_BY_ID);
-const expandedContent = mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES);
+// The line each starter lesson's learn card says: short, concrete, and what its questions ask about.
+const BASE_LEARN_LINES: Record<string, string> = {
+  "lesson-foundation-niyyah": "Muslims greet with As-salamu alaykum: peace be upon you.",
+  "lesson-foundation-character": "When someone says salam, reply: wa alaykum as-salam.",
+  "lesson-foundation-guidance": "For good news, say Alhamdulillah: all praise is for Allah.",
+  "lesson-foundation-bismillah": "Say Bismillah before you eat or start something.",
+  "lesson-foundation-sneeze": "After a sneeze, say Alhamdulillah. Others reply: Yarhamuk Allah.",
+  "lesson-salam": "Say salam to people you know and people you don't.",
+  "lesson-truthful": "Always tell the truth, even after a mistake.",
+  "lesson-parents": "Speak gently to your parents, and listen when elders talk.",
+  "lesson-mother": "The Prophet ﷺ said: your mother, three times, then your father.",
+  "lesson-service": "Be humble with your parents, and make du'a for them.",
+  "lesson-mercy": "Be gentle with younger people, and respect older people.",
+  "lesson-eating": "At the table, say Bismillah and eat with your right hand.",
+  "lesson-marriage-purpose": "Allah made marriage a home of calm, love, and mercy.",
+  "lesson-marriage-choose": "Choose a spouse for their deen and good character.",
+  "lesson-marriage-kindness": "The Quran says: live with your spouse in kindness.",
+  "lesson-marriage-clothing": "The Quran calls spouses clothing for each other.",
+  "lesson-marriage-mercy": "A strong home keeps showing mercy, day after day.",
+  "lesson-adam": "Adam was the first human, and Allah forgave his mistake.",
+  "lesson-nuh": "Nuh built the Ark and called people to Allah, patiently.",
+  "lesson-ibrahim": "Allah took Ibrahim as His close friend.",
+  "lesson-yusuf": "Yusuf's brothers threw him in a well, but he forgave them.",
+  "lesson-musa": "Allah spoke to Musa, and sent him to Pharaoh.",
+  "lesson-isa": "Isa is a noble prophet, born to Maryam without a father.",
+  "lesson-muhammad": "Muhammad ﷺ is Allah's Messenger and the last prophet.",
+  "lesson-women-hawwa": "Hawwa, the first woman, lived in Paradise with Adam.",
+  "lesson-women-mother-musa": "Allah told Musa's mother to put baby Musa in the river.",
+  "lesson-women-asiyah": "Asiyah, Pharaoh's wife, believed in Allah.",
+  "lesson-women-maryam": "Maryam was pure, and Allah chose her.",
+  "lesson-women-khadijah": "Khadijah was the Prophet's ﷺ first wife and first believer.",
+  "lesson-women-aishah": "Aishah taught the Muslims a lot about the Prophet's ﷺ life.",
+  "lesson-women-hafsah": "Hafsah, daughter of Umar, kept the Quran's written pages safe."
+};
+
+function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson> {
+  return Object.fromEntries(
+    Object.entries(lessons).map(([id, item]) => [id, BASE_LEARN_LINES[id] ? { ...item, learnLine: BASE_LEARN_LINES[id] } : item])
+  );
+}
+
+const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
+// Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
+const chainedContent = chainCourse(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)));
+// No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons).
+const expandedContent = {
+  ...chainedContent,
+  lessonsById: Object.fromEntries(
+    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => [id, { ...lesson, challenges: withoutGiveaways(lesson.challenges) }])
+  )
+};
 
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;
@@ -3848,7 +3959,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     type: "monthly_membership",
     tier: "premium_monthly",
     name: "Monthly premium",
-    localizedDescription: "Unlock premium lessons, deeper review, bonus resources, and unlimited hearts.",
+    localizedDescription: "No ads, unlimited hearts, and every premium lesson.",
     price: 9.99,
     currencyType: "USD",
     productId: "membership_monthly",
@@ -3859,7 +3970,7 @@ export const SHOP_ITEMS: ShopItem[] = [
       "Full access to premium branches",
       "Advanced lessons and deeper review",
       "Bonus resources and premium quizzes",
-      "Unlimited hearts and sponsor-free study"
+      "No ads and unlimited hearts"
     ]
   },
   {
@@ -3919,6 +4030,15 @@ export const SHOP_ITEMS: ShopItem[] = [
     price: 0,
     currencyType: "rewarded_ad",
     heartsGranted: 1
+  },
+  {
+    id: "watch-ad-gems",
+    type: "rewarded_ad",
+    name: "Watch for gems",
+    localizedDescription: "Earn 20 gems after a short sponsor break, up to five times a day.",
+    price: 0,
+    currencyType: "rewarded_ad",
+    gemsGranted: 20
   }
 ];
 

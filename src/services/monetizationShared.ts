@@ -1,6 +1,6 @@
 import type { PremiumStatus, PurchaseResult, RewardedAdResult, ShopItem } from "../types";
 import { getStoredItem, setStoredItem } from "./appStorage";
-import { monetizationMode, type MonetizationMode } from "./monetizationConfig";
+import { monetizationMode, type AdAudience, type MonetizationMode } from "./monetizationConfig";
 
 const SANDBOX_PREMIUM_KEY = "sira-path-sandbox-premium";
 
@@ -20,7 +20,10 @@ export interface MonetizationClient {
   getStorePrices(items: ShopItem[]): Promise<Record<string, string>>;
   purchaseShopItem(item: ShopItem): Promise<PurchaseResult>;
   restorePurchases(): Promise<RestoreResult>;
-  showRewardedHeartAd(item: ShopItem): Promise<RewardedAdResult>;
+  // Who is watching decides which ads may be asked for. Call before initialize, and again if it changes.
+  setAdAudience(audience: AdAudience): void;
+  // A video the learner chose to watch, paying out the item's hearts or gems once it has been watched to the end.
+  showRewardedAd(item: ShopItem): Promise<RewardedAdResult>;
   showLessonBreakAd(): Promise<boolean>;
 }
 
@@ -29,7 +32,13 @@ export function disabledPurchase(item: ShopItem, message: string): PurchaseResul
 }
 
 export function disabledAd(item: ShopItem, message: string): RewardedAdResult {
-  return { ok: false, heartsGranted: item.heartsGranted ?? 0, transactionId: `disabled_${item.id}`, message };
+  return { ok: false, heartsGranted: 0, gemsGranted: 0, transactionId: `disabled_${item.id}`, message };
+}
+
+export function rewardFor(item: ShopItem, transactionId: string): RewardedAdResult {
+  // A video with no reward written on it pays one heart, like the original "watch and recover".
+  const gemsGranted = item.gemsGranted ?? 0;
+  return { ok: true, heartsGranted: item.heartsGranted ?? (gemsGranted ? 0 : 1), gemsGranted, transactionId };
 }
 
 export function isSubscriptionItem(item: ShopItem) {
@@ -86,12 +95,13 @@ export function createSandboxClient(mode: MonetizationMode): MonetizationClient 
 
       return { ok: true, premium: loadPremium() };
     },
-    async showRewardedHeartAd(item) {
+    setAdAudience() {},
+    async showRewardedAd(item) {
       if (mode !== "sandbox") {
         return disabledAd(item, "Sponsor breaks are available in the iPhone and Android apps.");
       }
 
-      return { ok: true, heartsGranted: item.heartsGranted ?? 1, transactionId: `sandbox_ad_${Date.now()}` };
+      return rewardFor(item, `sandbox_ad_${Date.now()}`);
     },
     async showLessonBreakAd() {
       return false;

@@ -11,6 +11,8 @@ export interface LocalAuthAccount {
   role?: AccountRole;
   reminderPreferences?: ReminderPreferences;
   preferredLanguage?: SupportedLanguage;
+  /** Logged out on this device. The account stays saved so the learner can log back in. */
+  signedOut?: boolean;
 }
 
 const STORAGE_KEY = "sira-path-local-auth";
@@ -66,7 +68,8 @@ export function loadLocalAuthAccount(): LocalAuthAccount | null {
       createdAt: parsed.createdAt,
       role: parsed.role,
       reminderPreferences: parsed.reminderPreferences,
-      preferredLanguage: parsed.preferredLanguage
+      preferredLanguage: parsed.preferredLanguage,
+      signedOut: parsed.signedOut === true ? true : undefined
     };
   } catch {
     return null;
@@ -84,7 +87,7 @@ export function createLocalAuthAccount(account: LocalAuthAccount) {
   return normalizedAccount;
 }
 
-export function updateLocalAuthAccount(updates: Partial<Pick<LocalAuthAccount, "name" | "role" | "reminderPreferences" | "preferredLanguage" | "provider">>) {
+export function updateLocalAuthAccount(updates: Partial<Pick<LocalAuthAccount, "name" | "role" | "reminderPreferences" | "preferredLanguage" | "provider" | "signedOut">>) {
   const current = loadLocalAuthAccount();
 
   if (!current) {
@@ -108,11 +111,18 @@ export function loginLocalAuthAccount(email: string, password: string) {
     return null;
   }
 
-  if (account.password && !account.password.startsWith(HASH_PREFIX)) {
-    return createLocalAuthAccount({ ...account, password });
+  // Logging in again clears the logged-out mark (and upgrades a plain password from older versions).
+  if (account.signedOut || (account.password && !account.password.startsWith(HASH_PREFIX))) {
+    const signedIn = { ...account, signedOut: undefined };
+    return createLocalAuthAccount(account.password && !account.password.startsWith(HASH_PREFIX) ? { ...signedIn, password } : signedIn);
   }
 
   return account;
+}
+
+// Log out on this device only: the account and its saved progress stay for the next log in.
+export function signOutLocalAuthAccount() {
+  return updateLocalAuthAccount({ signedOut: true });
 }
 
 export function clearLocalAuthAccount() {

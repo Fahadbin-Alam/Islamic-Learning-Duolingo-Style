@@ -2,7 +2,7 @@
 
 ## Product Direction
 
-Sira Path is now structured as:
+Muslimo is now structured as:
 - Expo/React Native frontend
 - FastAPI backend
 - SQL database with migrations

@@ -1,4 +1,4 @@
-import { LESSONS_BY_ID } from "../data/course";
+import { COURSE, LESSONS_BY_ID } from "../data/course";
 import { FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import type { Challenge, LessonSource } from "../types";
 
@@ -63,7 +63,8 @@ function challengeTexts(challenge: Challenge) {
 describe("lesson questions", () => {
   test("the course has lessons and questions", () => {
     expect(lessons.length).toBeGreaterThan(500);
-    expect(challenges.length).toBeGreaterThan(2000);
+    // Fewer, shorter companion units since round 3: each teaches its own facts, with no filler lessons.
+    expect(challenges.length).toBeGreaterThan(1500);
   });
 
   test("every lesson has at least one question", () => {
@@ -139,6 +140,14 @@ describe("lesson sources", () => {
     expect(problems).toEqual([]);
   });
 
+  test("a hadith citation is one checked hadith, not a placeholder or a narrator's page", () => {
+    const shown = [...hadith, ...lessons.map((lesson) => lesson.learnSource).filter((source): source is LessonSource => source?.category === "hadith")];
+    const problems = shown
+      .filter((source) => /imported from obsidian|see sunnah\.com grading/i.test(`${source.from} ${source.grade}`) || /sunnah\.com\/narrator\//.test(source.url))
+      .map((source) => `${source.id}: ${source.url} (${source.from}; ${source.grade})`);
+    expect(problems).toEqual([]);
+  });
+
   test("hadith links point at the hadith number they cite", () => {
     const problems: string[] = [];
     for (const source of hadith) {
@@ -167,6 +176,59 @@ describe("lesson sources", () => {
       .filter(([, narrators]) => [...narrators].some((a) => [...narrators].some((b) => !agree(a, b))))
       .map(([reference, narrators]) => `${reference}: ${[...narrators].join(" / ")}`);
     expect(conflicts).toEqual([]);
+  });
+});
+
+describe("lessons imported from notes", () => {
+  const imported = lessons.filter((lesson) => lesson.id.startsWith("lesson-notes-"));
+  const surahOf = (url?: string) => Number(/^https:\/\/quran\.com\/(\d+)(?:[/?#]|$)/.exec(url ?? "")?.[1]) || undefined;
+
+  test("unit names are written for learners", () => {
+    const names = COURSE.sections.flatMap((section) => section.branches.map((branch) => `${branch.title} | ${branch.description}`));
+    expect(names.filter((name) => /your notes/i.test(name))).toEqual([]);
+  });
+
+  test("a surah with its own unit is taught there, not a second time in a list", () => {
+    const quran = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
+    const ownUnit = new Map(quran.branches.filter((branch) => branch.surahName).map((branch) => [surahOf(branch.sourceReferences?.[0]?.url), branch.id]));
+    const problems = quran.nodes
+      .map((node) => ({ node, surah: surahOf(LESSONS_BY_ID[node.lessonIds[0]].sources[0]?.url) }))
+      .filter(({ node, surah }) => node.id.startsWith("notes-") && surah && ownUnit.has(surah) && ownUnit.get(surah) !== node.branchId)
+      .map(({ node }) => node.id);
+    expect(problems).toEqual([]);
+  });
+
+  test("Quran units follow the learning order: Al-Fatihah, Juz Amma from An-Nas back, then the mushaf", () => {
+    const quran = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
+    const rank = (surah: number) => (surah === 1 ? 0 : surah >= 78 ? 1 + (114 - surah) : 100 + surah);
+    // A lesson's first source may be the hadith its card says (Ayat al-Kursi, Sahih Muslim 810); its surah is
+    // the first Quran source it lists.
+    const surahOfNode = (node: (typeof quran.nodes)[number]) =>
+      LESSONS_BY_ID[node.lessonIds[0]].sources.map((source) => surahOf(source.url)).find((surah) => surah !== undefined);
+    const surahs = quran.nodes.map(surahOfNode).filter((surah): surah is number => surah !== undefined);
+    const firstOfUnit = quran.branches.map((branch) =>
+      Math.min(...quran.nodes.filter((node) => node.branchId === branch.id).map((node) => surahOfNode(node)).filter((surah): surah is number => surah !== undefined).map(rank))
+    );
+    expect(firstOfUnit).toEqual([...firstOfUnit].sort((left, right) => left - right));
+    expect(quran.branches[0].title).toBe("Surah Al-Fatihah");
+    // Right after Al-Fatihah: An-Nas, Al-Falaq, Al-Ikhlas, Al-Masad.
+    expect([...new Set(surahs)].slice(0, 5)).toEqual([1, 114, 113, 112, 111]);
+  });
+
+  test("a lesson about one person stays short and opens with what they are known for", () => {
+    const people = imported.filter((lesson) => /^lesson-notes-(sahabah|prophets|women-of-the-book)-/.test(lesson.id));
+    expect(people.length).toBeGreaterThan(100);
+    expect(people.filter((lesson) => lesson.challenges.length > 4 || /^Known for:/.test(lesson.intro)).map((lesson) => lesson.id)).toEqual([]);
+  });
+
+  test("text has no typing slips from older translations and one way of spelling names", () => {
+    const slips = [/(^|[\s"“:(,])0 [A-Za-z]/, /\b(an|any|no|other) Allah\b/, /[\u00C0-\u024F\u1E00-\u1EFF]/];
+    const problems = imported.flatMap((lesson) =>
+      [lesson.title, lesson.intro, lesson.explanationContent ?? "", ...lesson.challenges.flatMap(challengeTexts)]
+        .filter((text) => slips.some((pattern) => pattern.test(text)))
+        .map((text) => `${lesson.id}: "${text.slice(0, 80)}"`)
+    );
+    expect(problems).toEqual([]);
   });
 });
 

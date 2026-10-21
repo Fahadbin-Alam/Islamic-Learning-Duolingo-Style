@@ -201,13 +201,22 @@ export interface UserProfile {
   totalXp: number;
   // XP earned on one local calendar day (YYYY-MM-DD, same as the heart refill), for the daily goal.
   dailyXp?: { date: string; xp: number };
-  // Local day the daily goal was last met; the streak ends once a whole day passes without it.
+  // Local day a lesson was last finished; the streak ends once a whole day passes without one.
   lastStreakDate?: string;
   dailyGoalXp: number;
   gems: number;
   hearts: HeartsBalance;
   completedLessonIds: string[];
   completedNodeIds: string[];
+  /** Best stars (1 to 3) earned on each finished circle, by node id. A finished circle with none (an old save) counts 3. */
+  nodeStars?: Record<string, number>;
+  /** The topic the learner had open last, so the app opens on it again. */
+  lastTopicId?: TopicId;
+  /**
+   * Per topic, the circle its path puts START on: the one the last lesson or test there opened (or the next open
+   * one after it), so a jump into a later unit carries on there after a reload. Used only while it is still open.
+   */
+  pathFocusIds?: Partial<Record<TopicId, string>>;
   claimedRewardIds?: string[];
   activeSubscriptionId?: string;
 }
@@ -234,6 +243,8 @@ export interface LearningBranch {
     end: DifficultyTier;
   };
   sourceReferences?: LessonSource[];
+  /** In a library topic, this unit's first circle opens only once the unit before it is finished (material for older learners). */
+  gated?: boolean;
 }
 
 export interface LearningSection {
@@ -296,6 +307,8 @@ export interface Challenge {
   reviewSuggestion?: string;
   resourceLabel?: string;
   resourceUrl?: string;
+  /** Asked again from an earlier lesson; the question shows a small review cue. */
+  isReview?: boolean;
 }
 
 export interface LessonTeachingMoment {
@@ -338,6 +351,14 @@ export interface Lesson {
   whyItMatters?: string;
   keyTakeaway?: string;
   storyMoment?: string;
+  /** The one short sentence the mascot says on the learn card (12 words or fewer, plain words for a 6-year-old). */
+  learnLine?: string;
+  /** Up to 3 short facts the learn card shows as chips, e.g. "Father: Umar". Questions only ask what the card shows. */
+  learnFacts?: string[];
+  /** A short narration or ayah the learn card shows in full, with where it is from. */
+  quote?: { text: string; reference?: string };
+  /** The one source that says what the learn card says; the card's source chip shows only this, labelled with its short reference. */
+  learnSource?: LessonSource;
   lessonType?: "skill" | "story" | "surah" | "scenario" | "review" | "mastery";
   difficulty?: DifficultyTier;
   xpReward: number;
@@ -378,6 +399,12 @@ export interface LessonSession {
   targetNodeIds?: string[];
   targetLessonIds?: string[];
   passingScore?: number;
+  /** A test-out (set with mode "test_out"): the screen says it is a test, shows `passingScore`, and gives no free retry. */
+  isTest?: boolean;
+  /** Which try at this test-out, from 0; TRY AGAIN passes the next one so the questions change. */
+  attempt?: number;
+  /** A test-out started from JUMP HERE: the circle it was tapped on, so TRY AGAIN tests for the same one. */
+  jumpNodeId?: string;
 }
 
 export interface ShopItem {
@@ -429,6 +456,7 @@ export interface RewardedAdResult {
   ok: boolean;
   transactionId: string;
   heartsGranted: number;
+  gemsGranted?: number;
   message?: string;
 }
 

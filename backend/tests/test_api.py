@@ -84,6 +84,20 @@ def test_progress_sync_round_trips_xp_streak_and_hearts(client, auth_headers):
     assert user["completedNodeIds"] == ["foundation-niyyah"]
 
 
+def test_progress_sync_keeps_best_stars_and_last_topic(client, auth_headers):
+    snapshot = {
+        "completedNodeIds": ["foundation-niyyah"],
+        "nodeStars": {"foundation-niyyah": 2, "bad-stars": 9, "not-a-number": "3"},
+        "lastTopicId": "sahabah",
+    }
+
+    client.put("/api/profile/me", json={"user": snapshot}, headers=auth_headers)
+    user = client.get("/api/profile/me", headers=auth_headers).json()["user"]
+
+    assert user["nodeStars"] == {"foundation-niyyah": 2}
+    assert user["lastTopicId"] == "sahabah"
+
+
 def test_legacy_sync_route_matches_profile_route(client, auth_headers):
     response = client.put("/api/me/user", json={"user": {"totalXp": 77}}, headers=auth_headers)
 

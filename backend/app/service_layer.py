@@ -143,7 +143,32 @@ def frontend_user_payload(user: User) -> Dict[str, Any]:
         "completedLessonIds": user.completed_lesson_ids_json or [],
         "completedNodeIds": user.completed_node_ids_json or [],
         "claimedRewardIds": user.claimed_reward_ids_json or [],
+        "nodeStars": user.node_stars_json or {},
+        "lastTopicId": user.last_topic_id,
+        "pathFocusIds": user.path_focus_json or {},
         "activeSubscriptionId": entitlement.plan_type if entitlement else None,
+    }
+
+
+def clean_node_stars(value: Any, fallback: Dict[str, int]) -> Dict[str, int]:
+    """Stars per circle from the app: whole numbers from 1 to 3 under short node ids, anything else dropped."""
+    if not isinstance(value, dict):
+        return fallback
+    return {
+        str(node_id): stars
+        for node_id, stars in value.items()
+        if isinstance(node_id, str) and len(node_id) <= 200 and isinstance(stars, int) and not isinstance(stars, bool) and 1 <= stars <= 3
+    }
+
+
+def clean_path_focus(value: Any, fallback: Dict[str, str]) -> Dict[str, str]:
+    """Where each topic's path carries on, from the app: short topic ids to short node ids, anything else dropped."""
+    if not isinstance(value, dict):
+        return fallback
+    return {
+        topic_id: node_id
+        for topic_id, node_id in value.items()
+        if isinstance(topic_id, str) and 0 < len(topic_id) <= 40 and isinstance(node_id, str) and 0 < len(node_id) <= 200
     }
 
 
@@ -174,6 +199,11 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     user.completed_lesson_ids_json = snapshot.get("completedLessonIds") or user.completed_lesson_ids_json or []
     user.completed_node_ids_json = snapshot.get("completedNodeIds") or user.completed_node_ids_json or []
     user.claimed_reward_ids_json = snapshot.get("claimedRewardIds") or user.claimed_reward_ids_json or []
+    user.node_stars_json = clean_node_stars(snapshot.get("nodeStars"), user.node_stars_json or {})
+    user.path_focus_json = clean_path_focus(snapshot.get("pathFocusIds"), user.path_focus_json or {})
+    last_topic = snapshot.get("lastTopicId")
+    if isinstance(last_topic, str) and 0 < len(last_topic) <= 40:
+        user.last_topic_id = last_topic
     if snapshot.get("lastLearningAt"):
         user.last_learning_at = datetime.fromisoformat(snapshot["lastLearningAt"].replace("Z", "+00:00"))
     if social_hub is not None:

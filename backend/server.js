@@ -95,7 +95,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Sira Path API running on http://localhost:${PORT}`);
+  console.log(`Muslimo API running on http://localhost:${PORT}`);
 });
 
 function handleRegister(body, res) {

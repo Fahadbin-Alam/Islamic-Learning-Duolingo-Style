@@ -2,6 +2,7 @@ import {
   addXp,
   completeLesson,
   didExtendStreak,
+  keepStreak,
   localDateKey,
   prepareUserForToday,
   refreshStreak
@@ -16,39 +17,52 @@ describe("streak days", () => {
     expect(STARTER_USER.streakDays).toBe(0);
   });
 
-  it("grows by one on each consecutive day the daily goal is met", () => {
-    let user = makeUser({ streakDays: 0, dailyGoalXp: 10 });
+  it("grows by one on each consecutive day a lesson is finished", () => {
+    let user = makeUser({ streakDays: 0 });
 
-    user = addXp(user, 10, day("2026-10-16"));
-    user = addXp(user, 10, day("2026-10-17"));
-    user = addXp(user, 10, day("2026-10-18"));
+    user = keepStreak(user, day("2026-10-16"));
+    user = keepStreak(user, day("2026-10-17"));
+    user = keepStreak(user, day("2026-10-18"));
 
     expect(user.streakDays).toBe(3);
     expect(user.lastStreakDate).toBe("2026-10-18");
   });
 
-  it("counts a day once however much XP is earned", () => {
-    let user = makeUser({ streakDays: 0, dailyGoalXp: 10 });
+  it("counts a day once however many lessons are finished", () => {
+    const lesson = LESSONS_BY_ID["lesson-foundation-niyyah"];
+    let user = makeUser({ streakDays: 0 });
 
-    user = addXp(user, 10, day("2026-10-18"));
-    user = addXp(user, 30, day("2026-10-18"));
+    user = completeLesson(user, lesson, 3, day("2026-10-18"));
+    user = completeLesson(user, LESSONS_BY_ID["lesson-foundation-character"], 3, day("2026-10-18"));
 
     expect(user.streakDays).toBe(1);
   });
 
-  it("only counts once the goal is crossed, even across several small rewards", () => {
-    let user = makeUser({ streakDays: 4, lastStreakDate: "2026-10-17", dailyGoalXp: 10 });
+  it("starts with the first lesson of the day, long before the daily XP goal", () => {
+    const lesson = LESSONS_BY_ID["lesson-foundation-niyyah"];
+    const user = completeLesson(makeUser({ streakDays: 4, lastStreakDate: "2026-10-17", dailyGoalXp: 40 }), lesson, 2, day("2026-10-18"));
 
-    user = addXp(user, 6, day("2026-10-18"));
-    expect(user.streakDays).toBe(4);
-    user = addXp(user, 6, day("2026-10-18"));
+    expect(lesson.xpReward).toBeLessThan(40);
     expect(user.streakDays).toBe(5);
+    expect(user.lastStreakDate).toBe("2026-10-18");
+  });
+
+  it("is kept by a replayed lesson that pays no XP, but not by XP alone", () => {
+    const lesson = LESSONS_BY_ID["lesson-foundation-niyyah"];
+    const done = makeUser({ streakDays: 2, lastStreakDate: "2026-10-17", completedLessonIds: [lesson.id], completedNodeIds: ["foundation-niyyah"] });
+    const replay = completeLesson(done, lesson, 3, day("2026-10-18"));
+
+    expect(replay.totalXp).toBe(done.totalXp);
+    expect(replay.streakDays).toBe(3);
+    // Practice XP fills the daily goal; only a finished lesson moves the streak.
+    expect(addXp(done, 40, day("2026-10-18")).streakDays).toBe(2);
+    expect(addXp(done, 40, day("2026-10-18")).lastStreakDate).toBe("2026-10-17");
   });
 
   it("starts over at one after a missed day", () => {
-    const user = makeUser({ streakDays: 9, lastStreakDate: "2026-10-15", dailyGoalXp: 10 });
+    const user = makeUser({ streakDays: 9, lastStreakDate: "2026-10-15" });
 
-    expect(addXp(user, 10, day("2026-10-18")).streakDays).toBe(1);
+    expect(keepStreak(user, day("2026-10-18")).streakDays).toBe(1);
   });
 
   it("shows a lapsed streak as zero when the app opens", () => {
@@ -62,14 +76,14 @@ describe("streak days", () => {
   });
 
   it("rolls over across month ends", () => {
-    const user = makeUser({ streakDays: 2, lastStreakDate: "2026-10-31", dailyGoalXp: 10 });
+    const user = makeUser({ streakDays: 2, lastStreakDate: "2026-10-31" });
 
-    expect(addXp(user, 10, day("2026-11-01")).streakDays).toBe(3);
+    expect(keepStreak(user, day("2026-11-01")).streakDays).toBe(3);
   });
 
   it("reports when a lesson extended the streak so the celebration only says so then", () => {
     const lesson = LESSONS_BY_ID["lesson-foundation-niyyah"];
-    const before = makeUser({ streakDays: 0, dailyGoalXp: lesson.xpReward });
+    const before = makeUser({ streakDays: 0 });
     const after = completeLesson(before, lesson);
     const replay = completeLesson(after, lesson);
 

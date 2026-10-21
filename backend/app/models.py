@@ -57,6 +57,12 @@ class User(Base, TimestampMixin):
     completed_lesson_ids_json: Mapped[list] = mapped_column(JSON, default=list, nullable=False)
     completed_node_ids_json: Mapped[list] = mapped_column(JSON, default=list, nullable=False)
     claimed_reward_ids_json: Mapped[list] = mapped_column(JSON, default=list, nullable=False)
+    # Best stars (1 to 3) per finished circle, by node id; a finished circle with none counts 3 in the app.
+    node_stars_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    # The topic the learner had open last (the app's topic id), so the app opens on it again.
+    last_topic_id: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
+    # Per topic id, the circle the app's path puts START on (the one the last lesson or test there opened).
+    path_focus_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     social_hub_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
     sessions: Mapped[List["AuthSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")
@@ -70,7 +76,7 @@ class User(Base, TimestampMixin):
 
 
 class Friendship(Base):
-    """One learner following another on the Crew screen. Following is one-way, like Duolingo."""
+    """One learner adding another on the Crew screen. Stats are shown only once both have added each other."""
 
     __tablename__ = "friendships"
     __table_args__ = (UniqueConstraint("user_id", "friend_id", name="uq_friendship_pair"),)
@@ -82,6 +88,7 @@ class Friendship(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     friend: Mapped["User"] = relationship(foreign_keys=[friend_id])
+    user: Mapped["User"] = relationship(foreign_keys=[user_id], overlaps="following")
 
 
 class AuthSession(Base):

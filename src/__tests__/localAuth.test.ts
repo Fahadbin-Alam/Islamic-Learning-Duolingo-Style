@@ -8,8 +8,11 @@ import {
   createLocalAuthAccount,
   hashLocalPassword,
   loadLocalAuthAccount,
-  loginLocalAuthAccount
+  loginLocalAuthAccount,
+  signOutLocalAuthAccount
 } from "../services/localAuth";
+import { clearAccountProfile, stashAccountProfile, takeAccountProfile } from "../services/localProgress";
+import { makeUser } from "./testUtils";
 import { sha256Hex } from "../utils/sha256";
 
 const createdAt = "2026-10-18T00:00:00.000Z";
@@ -61,5 +64,30 @@ describe("local account", () => {
 
   it("salts each hash", () => {
     expect(hashLocalPassword("same-password")).not.toBe(hashLocalPassword("same-password"));
+  });
+});
+
+describe("logging out on this device", () => {
+  afterEach(() => {
+    clearLocalAuthAccount();
+    clearAccountProfile();
+  });
+
+  it("keeps the account, so the same email and password log back in", () => {
+    createLocalAuthAccount({ name: "Amina", email: "amina@example.com", password: "bismillah-123", createdAt });
+    signOutLocalAuthAccount();
+
+    expect(loadLocalAuthAccount()?.signedOut).toBe(true);
+    expect(loginLocalAuthAccount("amina@example.com", "bismillah-123")?.name).toBe("Amina");
+    expect(loadLocalAuthAccount()?.signedOut).toBeUndefined();
+  });
+
+  it("gives the account's progress back once, and only to that email", () => {
+    const progress = makeUser({ totalXp: 340, completedNodeIds: ["foundation-niyyah"] });
+    stashAccountProfile(" Amina@Example.com ", progress);
+
+    expect(takeAccountProfile("someone@example.com")).toBeNull();
+    expect(takeAccountProfile("amina@example.com")?.totalXp).toBe(340);
+    expect(takeAccountProfile("amina@example.com")).toBeNull();
   });
 });

@@ -10,9 +10,15 @@ import type { FoundationQuestion } from "../types";
 import { makeUser } from "./testUtils";
 
 describe("next lesson on the home screen", () => {
-  it("moves on to the next open circle once the first branch waits on another branch", () => {
-    // Finishing As-Salamu Alaikum leaves the greetings branch waiting on the daily-words branch.
-    const user = makeUser({ completedLessonIds: ["lesson-foundation-niyyah"], completedNodeIds: ["foundation-niyyah"] });
+  it("stays in the first unit until it is finished, then moves to the next one", () => {
+    const afterFirst = makeUser({ completedLessonIds: ["lesson-foundation-niyyah"], completedNodeIds: ["foundation-niyyah"] });
+    expect(findNextPlayableNode(learningApi.getPathNodes(afterFirst).filter((node) => node.topicId === "foundation"))?.id).toBe("foundation-character");
+
+    // Both greetings done: nothing is left in that unit, so the next circle is the first of Daily words.
+    const user = makeUser({
+      completedLessonIds: ["lesson-foundation-niyyah", "lesson-foundation-character"],
+      completedNodeIds: ["foundation-niyyah", "foundation-character"]
+    });
     const foundation = learningApi.getPathNodes(user).filter((node) => node.topicId === "foundation");
     const greetings = foundation.filter((node) => node.branchId === "foundation-greetings");
 

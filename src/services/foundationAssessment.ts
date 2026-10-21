@@ -21,10 +21,79 @@ import type {
 } from "../types";
 import { translateStudyText } from "./contentLocalization";
 
-const PLACEMENT_QUESTIONS_PER_CATEGORY = 2;
-const PLACEMENT_EXTRA_QUESTIONS = 4;
+// One question per skill: the level check is 10 questions, short enough for a young learner.
+const PLACEMENT_QUESTIONS_PER_CATEGORY = 1;
+const PLACEMENT_EXTRA_QUESTIONS = 0;
 const DAILY_CHALLENGE_SIZE = 6;
 const REVIEW_SESSION_SIZE = 6;
+const SKILL_PRACTICE_SIZE = 5;
+const WORD_BANK_SIZE = 4;
+// About the last three sessions: their questions wait until the others have had a turn.
+const RECENT_ANSWERS = 30;
+
+// A wrong word in a word bank is never a name of Allah or of the Prophet, peace be upon him.
+const SACRED_WORDS = /\b(allah|god|lord|rabb|rahman|rahim|muhammad|ahmad|prophet|messenger|rasul)\b/;
+
+/** One planned question: a set question (Review asks the missed ones) or a skill to pick one from. */
+export type FoundationPlanStep = { questionId: string } | { category: FoundationCategoryId };
+
+/**
+ * What a review, daily challenge or skill practice asks, worked out once at the start so it does not
+ * drift as the profile changes after each answer. A missed question is added to `retryIds` and asked
+ * once more after the planned ones.
+ */
+export type FoundationSessionPlan = {
+  steps: FoundationPlanStep[];
+  retryIds: string[];
+  /** Set when the session practices one skill (a "Practice next" chip). */
+  focus?: FoundationCategoryId;
+};
+
+/** A session's state with its plan. The app keeps it as a FoundationAssessmentState; the plan rides along. */
+export type FoundationSessionState = FoundationAssessmentState & { plan?: FoundationSessionPlan };
+
+/** The plan of a review, daily challenge or skill practice. The level check has none. */
+export function getSessionPlan(state: FoundationAssessmentState): FoundationSessionPlan | undefined {
+  return (state as FoundationSessionState).plan;
+}
+
+/** True when the current question was already answered earlier in this session: a missed one asked again. */
+export function isRetryQuestion(state: FoundationAssessmentState) {
+  // After CHECK the last answer is the current one, so it does not count.
+  const earlier = state.feedback ? state.answerHistory.slice(0, -1) : state.answerHistory;
+  return earlier.some((answer) => answer.questionId === state.currentQuestion.id);
+}
+
+/**
+ * The counter and bar a session shows. `total` is what the session promised at the start: a missed question
+ * asked again does not add to it, it shows its "Try again!" chip at the last number. `done` counts the questions
+ * finished (right, or missed on their second try; the level check asks each once), so the bar never moves back.
+ */
+export function getSessionProgress(state: FoundationAssessmentState) {
+  const plan = getSessionPlan(state);
+  const total = Math.max(1, plan ? plan.steps.length : state.totalQuestions);
+  const seen = new Set<string>();
+  let done = 0;
+
+  for (const answer of state.answerHistory) {
+    if (!plan || answer.isCorrect || seen.has(answer.questionId)) {
+      done += 1;
+    }
+    seen.add(answer.questionId);
+  }
+
+  return { number: Math.min(state.questionNumber, total), total, done: Math.min(done, total) };
+}
+
+/** The screen no longer asks "How sure?"; 0 means "not asked" and the answer itself sets the confidence. */
+export const CONFIDENCE_NOT_ASKED = 0;
+
+// Free-text reflections cannot be marked right or wrong, so they never appear in a scored session.
+const UNSCORED_TYPES = new Set<FoundationQuestion["type"]>(["reflection_prompt", "confidence_check"]);
+
+function isScored(question: FoundationQuestion) {
+  return !UNSCORED_TYPES.has(question.type);
+}
 
 export function createEmptyCategoryProfile(): LearnerCategoryProfile {
   return {
@@ -121,10 +190,13 @@ export function getFoundationDashboard(profile: LearnerProfile) {
 
 export function createFoundationAssessment(
   profile: LearnerProfile,
-  mode: FoundationAssessmentState["mode"]
-): FoundationAssessmentState {
-  const totalQuestions = getTargetQuestionCount(profile, mode);
-  const currentQuestion = selectNextQuestion(profile, [], [], mode, 1);
+  mode: FoundationAssessmentState["mode"],
+  /** `focus`: practice one skill (a review of that skill's missed questions, then more of it). */
+  options: { focus?: FoundationCategoryId } = {}
+): FoundationSessionState {
+  const plan = buildSessionPlan(profile, mode, options.focus);
+  const totalQuestions = plan ? plan.steps.length : getPlacementQuestionCount();
+  const currentQuestion = plan ? selectPlannedQuestion(profile, plan, 0, [], [], mode) : selectNextQuestion(profile, [], [], mode, 1);
 
   if (!currentQuestion) {
     throw new Error("No foundation questions are available for this mode.");
@@ -139,9 +211,10 @@ export function createFoundationAssessment(
     answerHistory: [],
     feedback: undefined,
     selectedAnswer: undefined,
-    confidence: 2,
+    confidence: CONFIDENCE_NOT_ASKED,
     startedAt: new Date().toISOString(),
-    questionStartedAt: Date.now()
+    questionStartedAt: Date.now(),
+    ...(plan ? { plan } : {})
   };
 }
 
@@ -149,12 +222,14 @@ export function submitFoundationAssessmentAnswer(input: {
   profile: LearnerProfile;
   state: FoundationAssessmentState;
   selectedAnswer: string | string[] | Record<string, string>;
-  confidence: number;
+  /** 1 to 4. Leave it out (or pass CONFIDENCE_NOT_ASKED) and it follows the answer, as in lessons. */
+  confidence?: number;
   responseTimeMs: number;
 }) {
-  const { profile, state, selectedAnswer, confidence, responseTimeMs } = input;
+  const { profile, state, selectedAnswer, responseTimeMs } = input;
   const question = state.currentQuestion;
   const isCorrect = evaluateFoundationAnswer(question, selectedAnswer);
+  const confidence = input.confidence && input.confidence > CONFIDENCE_NOT_ASKED ? input.confidence : isCorrect ? 3 : 2;
   const answerRecord: AssessmentAnswerRecord = {
     questionId: question.id,
     category: question.category,
@@ -167,16 +242,22 @@ export function submitFoundationAssessmentAnswer(input: {
   };
   const nextProfile = applyAnswerToLearnerProfile(profile, question, answerRecord, state.mode);
   const feedback = buildAssessmentFeedback(question, selectedAnswer, isCorrect, confidence);
+  // A practice question missed the first time comes back once, after the planned ones. The level check has no plan.
+  const plan = getSessionPlan(state);
+  const retry = Boolean(plan) && !isCorrect && !isRetryQuestion(state);
+  const stateWithFeedback: FoundationSessionState = {
+    ...state,
+    ...(plan ? { plan: retry ? { ...plan, retryIds: [...plan.retryIds, question.id] } : plan } : {}),
+    totalQuestions: state.totalQuestions + (retry ? 1 : 0),
+    answerHistory: [...state.answerHistory, answerRecord],
+    feedback,
+    selectedAnswer,
+    confidence
+  };
 
   return {
     nextProfile,
-    stateWithFeedback: {
-      ...state,
-      answerHistory: [...state.answerHistory, answerRecord],
-      feedback,
-      selectedAnswer,
-      confidence
-    },
+    stateWithFeedback,
     feedback
   };
 }
@@ -189,13 +270,10 @@ export function advanceFoundationAssessment(
     return null;
   }
 
-  const nextQuestion = selectNextQuestion(
-    profile,
-    state.askedQuestionIds,
-    state.answerHistory,
-    state.mode,
-    state.questionNumber + 1
-  );
+  const plan = getSessionPlan(state);
+  const nextQuestion = plan
+    ? selectPlannedQuestion(profile, plan, state.questionNumber, state.askedQuestionIds, state.answerHistory, state.mode)
+    : selectNextQuestion(profile, state.askedQuestionIds, state.answerHistory, state.mode, state.questionNumber + 1);
 
   if (!nextQuestion) {
     return null;
@@ -205,12 +283,163 @@ export function advanceFoundationAssessment(
     ...state,
     currentQuestion: nextQuestion,
     questionNumber: state.questionNumber + 1,
-    askedQuestionIds: [...state.askedQuestionIds, nextQuestion.id],
+    // A retry is already in the list.
+    askedQuestionIds: state.askedQuestionIds.includes(nextQuestion.id) ? state.askedQuestionIds : [...state.askedQuestionIds, nextQuestion.id],
     feedback: undefined,
     selectedAnswer: undefined,
-    confidence: 2,
+    confidence: CONFIDENCE_NOT_ASKED,
     questionStartedAt: Date.now()
   };
+}
+
+/** Level 1 to 5 from the readiness label, for the short "Level 2" pill. */
+export function getLearnerLevel(label: LearnerReadinessLabel) {
+  return Math.max(0, getProgressMapIndex(label)) + 1;
+}
+
+export type FoundationSessionSummary = {
+  mode: FoundationAssessmentState["mode"];
+  /** Questions right the first time they were asked. */
+  correct: number;
+  /** Questions asked, each once: the total the counter showed. A missed question asked again is not a new one. */
+  answered: number;
+  /** Left out until the learner has done the level check, so no screen shows a level the Practice hub does not. */
+  level?: number;
+  /** Up to three weak skills to practice next, weakest first. */
+  practiceNext: FoundationCategoryId[];
+};
+
+/** What the end-of-practice screen shows: right answers, the level reached and the skills to practice next. */
+export function summarizeFoundationSession(state: FoundationAssessmentState, profile: LearnerProfile): FoundationSessionSummary {
+  // The first answer to each question: so 5/6 after one miss, out of the same 6 the counter showed.
+  const firstTries = new Map<string, boolean>();
+  for (const answer of state.answerHistory) {
+    if (!firstTries.has(answer.questionId)) {
+      firstTries.set(answer.questionId, answer.isCorrect);
+    }
+  }
+  return {
+    mode: state.mode,
+    correct: [...firstTries.values()].filter(Boolean).length,
+    answered: firstTries.size,
+    level: profile.assessmentCompleted ? getLearnerLevel(profile.readiness_label) : undefined,
+    practiceNext: weakestFirst(profile, profile.weak_areas).slice(0, 3)
+  };
+}
+
+/**
+ * A finished session as its end screen shows it: the session's answers and the profile after
+ * finalizeFoundationAssessment. Plain data, so the app can save it and show the end screen again after a reload.
+ */
+export type FoundationPracticeResult = { assessment: FoundationAssessmentState; profile: LearnerProfile };
+
+const SESSION_MODES = new Set<FoundationAssessmentState["mode"]>(["placement", "daily_challenge", "review"]);
+
+/** A saved practice result read back from storage, or undefined when it is not one (an old or broken save). */
+export function readPracticeResult(value: unknown): FoundationPracticeResult | undefined {
+  const saved = value as Partial<FoundationPracticeResult> | null | undefined;
+  const assessment = saved?.assessment;
+  const profile = saved?.profile;
+  if (
+    !assessment ||
+    !profile ||
+    !SESSION_MODES.has(assessment.mode) ||
+    !assessment.currentQuestion?.id ||
+    !Array.isArray(assessment.answerHistory) ||
+    !Array.isArray(assessment.askedQuestionIds) ||
+    !profile.category_levels ||
+    !Array.isArray(profile.weak_areas) ||
+    !profile.weak_areas.every((category) => profile.category_levels[category]) ||
+    typeof profile.readiness_label !== "string"
+  ) {
+    return undefined;
+  }
+  return { assessment, profile };
+}
+
+/** The skills, lowest mastery first (ties keep the given order). */
+function weakestFirst(profile: LearnerProfile, categories: FoundationCategoryId[]) {
+  return unique(categories).sort(
+    (left, right) => getCategoryMasteryScore(profile.category_levels[left]) - getCategoryMasteryScore(profile.category_levels[right])
+  );
+}
+
+/** Stable shuffle (same order every time for the same seed). */
+export function seededShuffle<T>(items: T[], seed: string) {
+  const result = [...items];
+  let state = hashOf(seed) || 1;
+  for (let index = result.length - 1; index > 0; index -= 1) {
+    state = (state * 1103515245 + 12345) >>> 0;
+    const swap = state % (index + 1);
+    [result[index], result[swap]] = [result[swap], result[index]];
+  }
+  return result;
+}
+
+/** The same items rotated by one, so none keeps its place (two items swap). */
+export function rotateByOne<T>(items: T[]): T[] {
+  return items.length > 1 ? [...items.slice(1), items[0]] : items;
+}
+
+function sameOrder(left: string[], right: string[]) {
+  return left.length === right.length && left.every((item, index) => item === right[index]);
+}
+
+/**
+ * The steps of a put-in-order question to pick from: shuffled, and never already in the right order.
+ * A retry (`retry` true) deals them in another order than the first try.
+ */
+export function getShuffledOrderItems(question: FoundationQuestion, retry = false): string[] {
+  const items = question.orderItems ?? [];
+  const answer = Array.isArray(question.correctAnswer) ? question.correctAnswer : items;
+  const deal = (seed: string, avoid: string[][]) => {
+    let shuffled = seededShuffle(items, seed);
+    for (let turn = 0; turn < items.length && avoid.some((order) => sameOrder(shuffled, order)); turn += 1) {
+      shuffled = rotateByOne(shuffled);
+    }
+    return shuffled;
+  };
+  const first = deal(question.id, [answer]);
+  return retry && items.length > 2 ? deal(`${question.id}:retry`, [answer, first]) : first;
+}
+
+function isSacredWord(word: string) {
+  return SACRED_WORDS.test(normalizeText(word));
+}
+
+/**
+ * Tap-a-word choices for a fill-in-the-blank question. Each question lists its own: words of the same
+ * kind as the answer that fit the blank. Without them, other blanks' answers stand in (same skill first),
+ * never a name of Allah or of the Prophet. A retry (`retry` true) moves every word to another place.
+ */
+export function getFoundationWordBank(question: FoundationQuestion, retry = false): string[] {
+  if (question.type !== "fill_in_blank" || typeof question.correctAnswer !== "string") {
+    return question.options ?? [];
+  }
+  const answer = question.correctAnswer;
+  const accepted = new Set([answer, ...(question.acceptedAnswers ?? [])].map(normalizeText));
+  let words: string[];
+  if (question.options && question.options.length > 1) {
+    words = seededShuffle(question.options, `${question.id}:words`);
+  } else {
+    const blanks = FOUNDATION_QUESTION_BANK.filter(
+      (candidate) => candidate.id !== question.id && candidate.type === "fill_in_blank" && typeof candidate.correctAnswer === "string"
+    );
+    const pool = [...blanks.filter((candidate) => candidate.category === question.category), ...blanks.filter((candidate) => candidate.category !== question.category)];
+    const others = unique(pool.map((candidate) => candidate.correctAnswer as string)).filter(
+      (word) => !accepted.has(normalizeText(word)) && !isSacredWord(word)
+    );
+    words = seededShuffle([answer, ...others.slice(0, WORD_BANK_SIZE - 1)], `${question.id}:words`);
+  }
+  return retry ? rotateByOne(words) : words;
+}
+
+function hashOf(seed: string) {
+  let hash = 0;
+  for (let index = 0; index < seed.length; index += 1) {
+    hash = (hash * 31 + seed.charCodeAt(index)) >>> 0;
+  }
+  return hash;
 }
 
 export function finalizeFoundationAssessment(
@@ -276,21 +505,15 @@ export function getProgressMapIndex(label: LearnerReadinessLabel) {
   return FOUNDATION_PROGRESS_LABELS.findIndex((value) => value === label);
 }
 
-function getTargetQuestionCount(profile: LearnerProfile, mode: FoundationAssessmentState["mode"]) {
-  if (mode === "review") {
-    return Math.max(3, Math.min(REVIEW_SESSION_SIZE, profile.needs_review_question_ids.length || REVIEW_SESSION_SIZE));
-  }
-
-  if (mode === "daily_challenge") {
-    return DAILY_CHALLENGE_SIZE;
-  }
-
+/** The level check's length. Review and the daily challenge take theirs from their plan. */
+function getPlacementQuestionCount() {
   return Math.min(
     FOUNDATION_QUESTION_BANK.length,
     FOUNDATION_CATEGORY_ORDER.length * PLACEMENT_QUESTIONS_PER_CATEGORY + PLACEMENT_EXTRA_QUESTIONS
   );
 }
 
+/** The level check's next question (and any session without a plan): the least covered, weakest skill first. */
 function selectNextQuestion(
   profile: LearnerProfile,
   askedQuestionIds: string[],
@@ -298,43 +521,152 @@ function selectNextQuestion(
   mode: FoundationAssessmentState["mode"],
   nextQuestionNumber: number
 ) {
-  const asked = new Set(askedQuestionIds);
-  const targetCategories = pickTargetCategories(profile, answerHistory, mode, nextQuestionNumber);
+  const targetCategories = pickTargetCategories(profile, answerHistory, nextQuestionNumber);
+  return (
+    pickFromCategories(profile, targetCategories, askedQuestionIds, answerHistory, mode, nextQuestionNumber) ??
+    FOUNDATION_QUESTION_BANK.find((question) => !askedQuestionIds.includes(question.id) && isScored(question))
+  );
+}
 
-  for (const category of targetCategories) {
-    const question = chooseQuestionFromCategory(profile, category, asked, answerHistory, nextQuestionNumber, mode);
+/**
+ * The questions to leave out, tried in turn while the skill still has others. A daily challenge and the
+ * level check ask questions the learner has not seen first, then ones they missed, then ones not asked
+ * lately; a review asks missed ones first, then new ones. A question just answered right comes back last.
+ */
+function skipLists(profile: LearnerProfile, mode: FoundationAssessmentState["mode"], asked: Set<string>) {
+  const lastResult = new Map<string, boolean>();
+  for (const answer of profile.assessmentHistory) {
+    lastResult.set(answer.questionId, answer.isCorrect);
+  }
+  const missed = new Set(profile.needs_review_question_ids);
+  lastResult.forEach((correct, questionId) => {
+    if (!correct) missed.add(questionId);
+  });
+  const seen = [...lastResult.keys(), ...profile.dailyChallengeQuestionIds];
+  const answeredRight = seen.filter((questionId) => !missed.has(questionId));
+  const recent = [...profile.assessmentHistory.slice(-RECENT_ANSWERS).map((answer) => answer.questionId), ...profile.dailyChallengeQuestionIds];
+  const skip = (questionIds: string[]) => new Set([...asked, ...questionIds]);
+  return mode === "review" ? [skip(answeredRight), skip(recent), asked] : [skip(seen), skip(answeredRight), skip(recent), asked];
+}
 
-    if (question) {
-      return question;
+/** A question from the first of these skills that has one left that was not asked yet. */
+function pickFromCategories(
+  profile: LearnerProfile,
+  categories: FoundationCategoryId[],
+  askedQuestionIds: string[],
+  answerHistory: AssessmentAnswerRecord[],
+  mode: FoundationAssessmentState["mode"],
+  nextQuestionNumber: number
+) {
+  const passes = skipLists(profile, mode, new Set(askedQuestionIds));
+
+  for (const skip of passes) {
+    for (const category of categories) {
+      const question = chooseQuestionFromCategory(profile, category, skip, answerHistory, nextQuestionNumber, mode);
+
+      if (question) {
+        return question;
+      }
     }
   }
 
-  return FOUNDATION_QUESTION_BANK.find((question) => !asked.has(question.id));
+  return undefined;
+}
+
+/**
+ * The question at `index` (0 for the first) of a planned session: the planned question or a question
+ * of the planned skill, then the missed ones again, in the order they were missed.
+ */
+function selectPlannedQuestion(
+  profile: LearnerProfile,
+  plan: FoundationSessionPlan,
+  index: number,
+  askedQuestionIds: string[],
+  answerHistory: AssessmentAnswerRecord[],
+  mode: FoundationAssessmentState["mode"]
+) {
+  if (index >= plan.steps.length) {
+    return getFoundationQuestionById(plan.retryIds[index - plan.steps.length] ?? "");
+  }
+
+  const step = plan.steps[index];
+  if ("questionId" in step) {
+    const planned = getFoundationQuestionById(step.questionId);
+    if (planned && !askedQuestionIds.includes(planned.id)) {
+      return planned;
+    }
+  }
+
+  // Stay on the planned skill while it has questions left; only then borrow from the other skills.
+  const category = "category" in step ? step.category : getFoundationQuestionById(step.questionId)?.category;
+  const others = FOUNDATION_CATEGORY_ORDER.filter((candidate) => candidate !== category);
+  return (
+    (category ? pickFromCategories(profile, [category], askedQuestionIds, answerHistory, mode, index + 1) : undefined) ??
+    pickFromCategories(profile, others, askedQuestionIds, answerHistory, mode, index + 1) ??
+    FOUNDATION_QUESTION_BANK.find((question) => !askedQuestionIds.includes(question.id) && isScored(question))
+  );
+}
+
+/** Missed questions that can still be asked, latest miss first. */
+function missedQuestionIds(profile: LearnerProfile) {
+  return unique(profile.needs_review_question_ids).filter((questionId) => {
+    const question = getFoundationQuestionById(questionId);
+    return Boolean(question && isScored(question));
+  });
+}
+
+/** Weak skills first (weakest first), then the others, least practiced first, so a replay moves on to new skills. */
+function rankSkillsForPractice(profile: LearnerProfile) {
+  const weak = weakestFirst(profile, profile.weak_areas);
+  const attempted = (category: FoundationCategoryId) => profile.category_levels[category].questionsAttempted;
+  const others = FOUNDATION_CATEGORY_ORDER.filter((category) => !weak.includes(category)).sort(
+    (left, right) =>
+      attempted(left) - attempted(right) ||
+      getCategoryMasteryScore(profile.category_levels[left]) - getCategoryMasteryScore(profile.category_levels[right])
+  );
+  return [...weak, ...others];
+}
+
+/** The plan of a review, daily challenge or skill practice, made once when it starts. The level check adapts as it goes. */
+function buildSessionPlan(
+  profile: LearnerProfile,
+  mode: FoundationAssessmentState["mode"],
+  focus?: FoundationCategoryId
+): FoundationSessionPlan | undefined {
+  if (focus) {
+    // That skill's missed questions first, then more of the skill.
+    const missed = missedQuestionIds(profile)
+      .filter((questionId) => getFoundationQuestionById(questionId)?.category === focus)
+      .slice(0, SKILL_PRACTICE_SIZE);
+    const more = Array.from({ length: SKILL_PRACTICE_SIZE - missed.length }, () => ({ category: focus }));
+    return { steps: [...missed.map((questionId) => ({ questionId })), ...more], retryIds: [], focus };
+  }
+
+  if (mode === "review") {
+    // Exactly the missed questions, latest miss first; a short list is topped up from the weakest skills.
+    const missed = missedQuestionIds(profile).slice(0, REVIEW_SESSION_SIZE);
+    const size = Math.max(3, missed.length || REVIEW_SESSION_SIZE);
+    const more = rankSkillsForPractice(profile)
+      .slice(0, size - missed.length)
+      .map((category) => ({ category }));
+    return { steps: [...missed.map((questionId) => ({ questionId })), ...more], retryIds: [] };
+  }
+
+  if (mode === "daily_challenge") {
+    // One skill per question, weak skills first; a skill comes twice only if there are more questions than skills.
+    const skills = rankSkillsForPractice(profile);
+    const steps = Array.from({ length: DAILY_CHALLENGE_SIZE }, (_, index) => ({ category: skills[index % skills.length] }));
+    return { steps, retryIds: [] };
+  }
+
+  return undefined;
 }
 
 function pickTargetCategories(
   profile: LearnerProfile,
   answerHistory: AssessmentAnswerRecord[],
-  mode: FoundationAssessmentState["mode"],
   nextQuestionNumber: number
 ) {
-  if (mode === "review") {
-    const reviewCategories = unique(
-      profile.needs_review_question_ids
-        .map((questionId) => getFoundationQuestionById(questionId)?.category)
-        .filter(Boolean) as FoundationCategoryId[]
-    );
-
-    if (reviewCategories.length) {
-      return reviewCategories;
-    }
-  }
-
-  if (mode === "daily_challenge") {
-    const dailyOrder = [...profile.weak_areas, ...FOUNDATION_CATEGORY_ORDER.filter((category) => !profile.weak_areas.includes(category))];
-    return unique(dailyOrder);
-  }
-
   const askedCounts = FOUNDATION_CATEGORY_ORDER.reduce<Record<FoundationCategoryId, number>>((map, category) => {
     map[category] = answerHistory.filter((item) => item.category === category).length;
     return map;
@@ -371,7 +703,7 @@ function chooseQuestionFromCategory(
   mode: FoundationAssessmentState["mode"]
 ) {
   const categoryProfile = profile.category_levels[category];
-  const candidates = FOUNDATION_QUESTIONS_BY_CATEGORY[category].filter((question) => !asked.has(question.id));
+  const candidates = FOUNDATION_QUESTIONS_BY_CATEGORY[category].filter((question) => !asked.has(question.id) && isScored(question));
 
   if (!candidates.length) {
     return undefined;
@@ -381,7 +713,7 @@ function chooseQuestionFromCategory(
   const recentMistakes = categoryProfile.recentMistakeQuestionIds
     .map((questionId) => getFoundationQuestionById(questionId))
     .filter((question): question is FoundationQuestion => Boolean(question))
-    .filter((question) => !asked.has(question.id));
+    .filter((question) => !asked.has(question.id) && isScored(question));
 
   if (mode !== "placement" && recentMistakes.length) {
     return recentMistakes.sort((left, right) => Math.abs(left.difficulty - targetDifficulty) - Math.abs(right.difficulty - targetDifficulty))[0];
@@ -487,32 +819,13 @@ function buildAssessmentFeedback(
   };
 }
 
+// The note on the picked option first, then the question's misconception notes, each once.
 function getWrongAnswerReasons(
   question: FoundationQuestion,
   selectedAnswer: string | string[] | Record<string, string>
 ) {
-  if (Array.isArray(selectedAnswer)) {
-    return question.misconceptionNotes.length
-      ? question.misconceptionNotes
-      : ["Some of the selected choices do not match the strongest Islamic answer here."];
-  }
-
-  if (selectedAnswer && typeof selectedAnswer === "object") {
-    return question.misconceptionNotes.length
-      ? question.misconceptionNotes
-      : ["At least one pair does not match the correct relationship."];
-  }
-
-  const selectedValue = String(selectedAnswer ?? "");
-  const specific = question.wrongAnswerNotes?.[selectedValue];
-
-  if (specific) {
-    return [specific, ...question.misconceptionNotes];
-  }
-
-  return question.misconceptionNotes.length
-    ? question.misconceptionNotes
-    : ["This answer misses the core point the question is testing."];
+  const specific = typeof selectedAnswer === "string" ? question.wrongAnswerNotes?.[selectedAnswer] : undefined;
+  return unique([specific ?? "", ...question.misconceptionNotes].map((note) => note.trim()).filter(Boolean));
 }
 
 function applyAnswerToLearnerProfile(
@@ -580,8 +893,9 @@ function applyAnswerToLearnerProfile(
     needs_review_question_ids: answerRecord.isCorrect
       ? profile.needs_review_question_ids.filter((questionId) => questionId !== question.id)
       : [question.id, ...profile.needs_review_question_ids.filter((questionId) => questionId !== question.id)].slice(0, 24),
+    // Two rounds' worth, so the last round is still known (and skipped) while the next one is played.
     dailyChallengeQuestionIds: mode === "daily_challenge"
-      ? [question.id, ...profile.dailyChallengeQuestionIds.filter((questionId) => questionId !== question.id)].slice(0, DAILY_CHALLENGE_SIZE)
+      ? [question.id, ...profile.dailyChallengeQuestionIds.filter((questionId) => questionId !== question.id)].slice(0, DAILY_CHALLENGE_SIZE * 2)
       : profile.dailyChallengeQuestionIds
   });
 

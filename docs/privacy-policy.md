@@ -1,6 +1,6 @@
 # Privacy Policy Draft
 
-Sira Path respects your privacy and only collects the information needed to run the learning experience, save progress, and support accounts.
+Muslimo respects your privacy and only collects the information needed to run the learning experience, save progress, and support accounts.
 
 ## Information We Collect
 

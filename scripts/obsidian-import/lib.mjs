@@ -2,6 +2,7 @@
 // See docs/obsidian-import.md for the note format this understands.
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, extname, join, relative, sep } from "node:path";
+import { HADITH_CITATIONS, LEFT_OUT_SOURCES } from "./curated.mjs";
 import { buildFactBranches, classifyFactNote, labelFields } from "./facts.mjs";
 
 export const TOPIC_IDS = [
@@ -81,7 +82,7 @@ export function slugify(value) {
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
-    .replace(/['’`]/g, "")
+    .replace(/['’`ʿʾ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
@@ -168,9 +169,47 @@ export function cleanText(text) {
 // Names a learner should always see capitalized, even when a quick note typed them in lowercase.
 const ALWAYS_CAPITALIZED = ["Abu Bakr", "Umar", "Uthman", "Bilal", "Khalid", "Salman", "Anas", "Allah", "Quran", "Ramadan", "Arafah", "Makkah", "Maryam", "Khadijah", "Aishah", "Hafsah", "Yusuf", "Musa", "Ibrahim"];
 
+// Scholarly transliteration ("Abū Bakr aṣ-Ṣiddīq", "ʿAbbās") becomes the plain spelling the app uses
+// everywhere else ("Abu Bakr as-Siddiq", "'Abbas"). Only Latin letters change; Arabic text is untouched.
+export function plainLatin(text) {
+  return text.replace(/[\u00C0-\u024F\u1E00-\u1EFF]/g, (letter) => letter.normalize("NFD").replace(/[\u0300-\u036f]/g, "")).replace(/[ʿʾʼʽʻ]/g, "'");
+}
+
+// Slips copied into notes from older translations, fixed where the right wording is certain. In Pickthall
+// "There is no God save Him" (la ilaha illa huwa) had God replaced by Allah, which reads "no Allah save Him".
+const KNOWN_SLIPS = [
+  { pattern: /\bno Allah save (Him|Me)\b/g, fix: "no god save $1" },
+  { pattern: /\bno other Allah\b/g, fix: "no other god" },
+  { pattern: /\bany Allah beside Allah\b/g, fix: "any god beside Allah" },
+  // Pickthall 41:6 "your God is One God" and 38:5 "Maketh he the gods One God?".
+  { pattern: /\b(your|our) Allah is One Allah\b/gi, fix: "$1 God is One God" },
+  { pattern: /\bthe gods One Allah\b/g, fix: "the gods One God" },
+  // "0 young men", "Labbaik,0 Allah": a zero typed for the vocative O. A real number never stands alone before a word here.
+  { pattern: /,0 (?=[A-Za-z])/g, fix: ", O " },
+  { pattern: /(^|[\s"“:(])0 (?=[A-Za-z])/g, fix: "$1O " },
+  // "Ad- Dajjal", "Al- Masih": a space typed after the article's hyphen.
+  { pattern: /\b(Al|Ad|An|Ar|As|At|Az|Ash|Adh|Ath)- (?=[A-Z])/g, fix: "$1-" },
+  // Pickthall 12:1 "These are verses of the Scripture that maketh plain", with the s lost.
+  { pattern: /\bThese are verse of\b/g, fix: "These are verses of" },
+  // Surah 86's English name as Quran.com spells it, "The Nightcommer".
+  { pattern: /\bNightcommer\b/g, fix: "Nightcomer" }
+];
+
+// Text the importer cannot fix on its own; each match is reported so the note can be corrected.
+export const SUSPECT_TEXT = [
+  { name: "zero before a word", pattern: /(^|[\s"“:(])0 [A-Za-z]/ },
+  { name: "Allah used as a common noun", pattern: /\b(an|any|no|other|your|their) Allah\b|\bOne Allah\b|\bAllahs\b/ },
+  // "'Lyaash": an l typed where the name starts with I or 'A. In English an apostrophe after a space is never
+  // followed by l and a consonant ("you'll" has no space before it).
+  { name: "l typed for I", pattern: /(^|[\s("“])['‘’][lL](?![aeiouAEIOU\s'’-])[a-zA-Z]/ },
+  // Rude words copied from a forum or a chat; they never belong in a children's lesson.
+  { name: "rude word", pattern: /\b(fuck\w*|shit\w*|bitch\w*)\b/i }
+];
+
 // Fixes the typing slips notes are full of: "dissension) ;" and "the quran".
 export function tidyLine(line) {
-  let tidy = line.replace(/([^\s]) +([,.;:?!])(?=\s|$)/g, "$1$2");
+  let tidy = plainLatin(line).replace(/([^\s]) +([,.;:?!])(?=\s|$)/g, "$1$2");
+  for (const { pattern, fix } of KNOWN_SLIPS) tidy = tidy.replace(pattern, fix);
   for (const name of ALWAYS_CAPITALIZED) {
     tidy = tidy.replace(new RegExp(`(^|[^A-Za-z'-])${name.toLowerCase()}(?=[^A-Za-z]|$)`, "g"), `$1${name}`);
   }
@@ -198,10 +237,26 @@ export function firstSentence(text) {
 
 const SOURCE_SITES = [
   { pattern: /(^|\.)quran\.com$/, site: "Quran.com", category: "tafsir", grade: "Quran" },
-  { pattern: /(^|\.)sunnah\.com$/, site: "Sunnah.com", category: "hadith", grade: "See Sunnah.com grading" },
+  { pattern: /(^|\.)sunnah\.com$/, site: "Sunnah.com", category: "hadith" },
   { pattern: /(^|\.)(youtube\.com|youtu\.be)$/, site: "YouTube", category: "video", grade: "Visual walkthrough" },
   { pattern: /(^|\.)yaqeeninstitute\.org$/, site: "Yaqeen Institute", category: "article", grade: "Article" }
 ];
+
+const COLLECTORS = {
+  bukhari: "Imam al-Bukhari",
+  muslim: "Imam Muslim",
+  abudawud: "Imam Abu Dawud",
+  tirmidhi: "Imam at-Tirmidhi",
+  nasai: "Imam an-Nasa'i",
+  ibnmajah: "Imam Ibn Majah",
+  mishkat: "al-Khatib at-Tabrizi in Mishkat al-Masabih"
+};
+
+// "bukhari:3276" for a link to one hadith on sunnah.com; undefined for a narrator's page or a chapter link.
+function hadithKey(url) {
+  const match = /sunnah\.com\/([a-z]+):(\w+)\/?$/.exec(url.split(/[?#]/)[0]);
+  return match ? `${match[1]}:${match[2]}` : undefined;
+}
 
 function referenceFromUrl(url, site) {
   if (site === "Quran.com") {
@@ -236,6 +291,16 @@ export function buildSources(urls, idPrefix, warn) {
     const known = SOURCE_SITES.find((entrySite) => entrySite.pattern.test(host));
     // The app only links Quran.com, Sunnah.com, YouTube and Yaqeen Institute; other links (Wikipedia etc.) stay out.
     if (!known) continue;
+    let citation;
+    if (known.site === "Sunnah.com") {
+      const key = hadithKey(url);
+      if (!key || LEFT_OUT_SOURCES.has(key)) continue;
+      citation = HADITH_CITATIONS[key];
+      if (!citation) {
+        warn(`Leaving out ${url}: add its narrator and grade to HADITH_CITATIONS in curated.mjs to show it`);
+        continue;
+      }
+    }
     const label = raw.replace(url, "").replace(/[[\]()<>]/g, "").replace(/^[\s:-]+|[\s:-]+$/g, "");
     const reference = referenceFromUrl(url, known.site);
     sources.push({
@@ -245,8 +310,8 @@ export function buildSources(urls, idPrefix, warn) {
       title: label || reference || known.site,
       url,
       reference,
-      from: "Imported from Obsidian notes",
-      grade: known.grade,
+      from: citation ? [citation.narrator, COLLECTORS[hadithKey(url).split(":")[0]]].filter(Boolean).join("; collected by ") : "Imported from Obsidian notes",
+      grade: citation?.grade ?? known.grade,
       summary: label || `Reference attached in the notes (${reference ?? known.site}).`
     });
   }
@@ -517,7 +582,7 @@ export function parseNote(text, { filePath = "note.md", folderTopic, defaultTopi
   const sections = splitSections(body);
   const intro = sections.shift();
   const introParsed = extractQuestions(intro.lines);
-  const description = cleanText(String(data.description ?? "")) || firstSentence(cleanText(introParsed.prose)) || `Lessons from your notes on ${title}.`;
+  const description = cleanText(String(data.description ?? "")) || firstSentence(cleanText(introParsed.prose)) || `Lessons on ${title}.`;
   const noteSources = [...(Array.isArray(data.sources) ? data.sources : data.sources ? [data.sources] : []), ...findUrls(intro.lines.join("\n"))];
 
   const lessons = [];
@@ -561,7 +626,8 @@ export function parseNote(text, { filePath = "note.md", folderTopic, defaultTopi
 // Assigns IDs and builds the app's LearningBranch / LearningNode / Lesson objects for one note.
 export function buildBranch(note, { idPrefix = "notes" } = {}) {
   const warnings = [];
-  const branchSlug = slugify(note.title) || "untitled";
+  // Fact groups keep the id of their first name (idSlug) so renaming a unit never loses progress.
+  const branchSlug = note.idSlug ?? (slugify(note.title) || "untitled");
   const branchId = `${idPrefix}-${note.topicId.replace(/_/g, "-")}-${branchSlug}`;
   const warn = (message) => warnings.push(`${note.title}: ${message}`);
   const branchSources = buildSources(note.noteSources, branchId.replace(/-/g, "_"), warn);
@@ -577,7 +643,8 @@ export function buildBranch(note, { idPrefix = "notes" } = {}) {
   const sectionSentences = note.lessons.map((lesson) => firstSentence(lesson.content)).filter(Boolean);
 
   note.lessons.forEach((entry, index) => {
-    let slug = slugify(entry.title) || `lesson-${index + 1}`;
+    // Fact lessons keep the slug of their note name (idSlug), so a learner-facing title never loses progress.
+    let slug = entry.idSlug ?? (slugify(entry.title) || `lesson-${index + 1}`);
     while (usedSlugs.has(slug)) slug = `${slug}-${index + 1}`;
     usedSlugs.add(slug);
 
@@ -585,10 +652,14 @@ export function buildBranch(note, { idPrefix = "notes" } = {}) {
     const lessonId = `lesson-${nodeId}`;
     const isReview = /review|mastery|quiz|recap/i.test(entry.title);
     const kind = isReview ? "review" : note.topicId === "sahabah" || note.topicId === "prophets" || note.topicId === "women_of_the_book" ? "story" : "skill";
-    const difficulty = clampDifficulty(note.difficulty, Math.min(index + 1, inferDifficulty(index, total)));
+    const difficulty = clampDifficulty(entry.difficulty, clampDifficulty(note.difficulty, Math.min(index + 1, inferDifficulty(index, total))));
     const xpReward = 8 + difficulty * 2 + (kind === "review" ? 4 : 0);
     const lessonSources = buildSources(entry.sourceUrls, lessonId.replace(/-/g, "_"), warn);
     const sources = [...lessonSources, ...branchSources.filter((source) => !lessonSources.some((own) => own.url === source.url))];
+    // The one source that says what the learn card says ("Quran 104:1", "Sahih Muslim 1218a"), named by its
+    // short reference, never by an article or video title.
+    const [learnSource] = entry.learnSource ? buildSources([entry.learnSource], `${lessonId.replace(/-/g, "_")}_learn`, warn) : [];
+    if (learnSource) learnSource.reference = learnSource.title;
     const focus = firstSentence(entry.content) || entry.title;
     const fallbackExplanation = focus;
 
@@ -642,6 +713,10 @@ export function buildBranch(note, { idPrefix = "notes" } = {}) {
       whyItMatters: entry.extras.whyItMatters || undefined,
       keyTakeaway: entry.extras.keyTakeaway || undefined,
       storyMoment: entry.extras.storyMoment || undefined,
+      learnLine: entry.learnLine || undefined,
+      learnFacts: entry.learnFacts?.length ? entry.learnFacts : undefined,
+      quote: entry.quote?.text ? entry.quote : undefined,
+      learnSource,
       lessonType: kind === "review" ? "review" : kind,
       difficulty,
       xpReward,
@@ -729,7 +804,10 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
     if (!note.skipped) notes.push({ note, relPath });
   }
 
-  for (const branch of buildFactBranches(factNotes)) notes.push({ note: branch, relPath: branch.title });
+  for (const branch of buildFactBranches(factNotes)) {
+    warnings.push(...branch.warnings.map((message) => `${branch.title}: ${message}`));
+    notes.push({ note: branch, relPath: branch.title });
+  }
 
   for (const { note, relPath } of notes) {
     const built = buildBranch(note, { idPrefix });
@@ -780,7 +858,21 @@ export function importVault(vaultDir, { defaultTopic, idPrefix = "notes" } = {})
     });
 
   const content = { sections, lessonsById };
+  warnings.push(...suspectTextWarnings(lessonsById));
   return { content, backend: toBackendSeed(content), warnings, stats: summarize(content, noteCount) };
+}
+
+// Lists lesson text that still matches SUSPECT_TEXT after cleaning, one warning per lesson and problem.
+export function suspectTextWarnings(lessonsById) {
+  const warnings = [];
+  for (const lesson of Object.values(lessonsById)) {
+    const texts = [lesson.title, lesson.intro, lesson.explanationContent ?? "", ...lesson.challenges.flatMap((challenge) => [challenge.prompt, challenge.explanation, ...challenge.choices.map((choice) => choice.label)])];
+    for (const { name, pattern } of SUSPECT_TEXT) {
+      const hit = texts.find((text) => pattern.test(text));
+      if (hit) warnings.push(`${lesson.title}: ${name} in "${hit.slice(0, 80)}"`);
+    }
+  }
+  return warnings;
 }
 
 function summarize(content, noteCount) {

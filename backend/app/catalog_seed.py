@@ -493,21 +493,68 @@ IMPORTED_ONLY_TOPICS = {
 }
 
 
+# The app regroups the imported hadith (src/data/importedNotes.ts): the hadith of level 4 and up are about marriage
+# and husband and wife, so they are the last unit of the Marriage topic, "Marriage in the Sunnah" (moveOlderHadith),
+# and the sayings a young child can act on stay in the Hadith topic, easiest first, as "Safe with Allah"
+# (HADITH_UNITS). The seed groups them the same way, so the backend and the app agree.
+OLDER_HADITH = {
+    "topic": "marriage",
+    "min_difficulty": 4,
+    "title": "Marriage in the Sunnah",
+    "description": "What the Prophet ﷺ taught about marriage, for older learners.",
+}
+YOUNG_HADITH = {"title": "Safe with Allah", "description": "Hold on to Allah's Book and ask Him to keep you safe."}
+
+
+def _lesson_level(lesson: Dict[str, Any]) -> int:
+    return int(lesson.get("difficulty") or 3)
+
+
+def _branch_of(template: Dict[str, Any], title: str, description: str, lessons: List[Dict[str, Any]]) -> Dict[str, Any]:
+    levels = [_lesson_level(lesson) for lesson in lessons]
+    return {**template, "title": title, "description": description, "difficulty_start": min(levels), "difficulty_end": max(levels), "lessons": lessons}
+
+
+def arrange_imported_hadith(imported: Dict[str, List[Dict[str, Any]]]) -> tuple[Dict[str, List[Dict[str, Any]]], Dict[str, List[Dict[str, Any]]]]:
+    """The imported branches with the hadith grouped as the app groups them, and the branches that go after a
+    topic's built-in branches (the marriage hadith), keyed by topic slug."""
+    hadith = imported.get("hadith") or []
+    lessons = [lesson for branch in hadith for lesson in branch.get("lessons", [])]
+    if not lessons or OLDER_HADITH["topic"] in imported:
+        return imported, {}
+    older = [lesson for lesson in lessons if _lesson_level(lesson) >= OLDER_HADITH["min_difficulty"]]
+    # Easiest first; a stable sort keeps the notes' order between hadith of one level.
+    young = sorted((lesson for lesson in lessons if _lesson_level(lesson) < OLDER_HADITH["min_difficulty"]), key=_lesson_level)
+    arranged = {slug: branches for slug, branches in imported.items() if slug != "hadith"}
+    if young:
+        arranged["hadith"] = [_branch_of(hadith[0], YOUNG_HADITH["title"], YOUNG_HADITH["description"], young)]
+    trailing = {OLDER_HADITH["topic"]: [_branch_of(hadith[-1], OLDER_HADITH["title"], OLDER_HADITH["description"], older)]} if older else {}
+    return arranged, trailing
+
+
 def with_imported_branches(topics: List[Dict[str, Any]], imported: Dict[str, List[Dict[str, Any]]]) -> List[Dict[str, Any]]:
+    imported, trailing = arrange_imported_hadith(imported)
     known_slugs = {topic["slug"] for topic in topics}
     for slug, meta in IMPORTED_ONLY_TOPICS.items():
         if slug in imported and slug not in known_slugs:
             topics.append({**meta, "slug": slug, "branches": []})
     for topic in topics:
         existing_slugs = {slugify(branch["title"]) for branch in topic["branches"]}
-        notes_branches = []
-        for branch in imported.get(topic["slug"], []):
+
+        def kept_apart(branches: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             # Keep imported notes in their own branch even when a built-in branch shares the title.
-            title = branch["title"] if slugify(branch["title"]) not in existing_slugs else f"{branch['title']} (notes)"
-            existing_slugs.add(slugify(title))
-            notes_branches.append({**branch, "title": title})
-        # Branches from notes carry real facts, so they come before the built-in ones.
-        topic["branches"] = notes_branches + topic["branches"]
+            kept = []
+            for branch in branches:
+                title = branch["title"] if slugify(branch["title"]) not in existing_slugs else f"{branch['title']} (notes)"
+                existing_slugs.add(slugify(title))
+                kept.append({**branch, "title": title})
+            return kept
+
+        # Branches from notes carry real facts, so they come before the built-in ones; the marriage hadith are for
+        # older learners and come last, after the built-in Marriage branches.
+        notes_branches = kept_apart(imported.get(topic["slug"], []))
+        last_branches = kept_apart(trailing.get(topic["slug"], []))
+        topic["branches"] = notes_branches + topic["branches"] + last_branches
     return topics
 
 
@@ -524,7 +571,7 @@ def built_in_topic_seed() -> List[Dict[str, Any]]:
         {"title": "Sahabi", "slug": "sahabi", "description": "Companion branches with deep lesson ladders, review, challenge, and mastery.", "icon": "shield_sword", "color_theme": "blue", "branches": sahabi_branches()},
         {"title": "Manners", "slug": "manners", "description": "Daily Islamic adab for speech, family, mercy, and social situations.", "icon": "brain", "color_theme": "rose", "branches": generic["manners"]},
         {"title": "Prophets", "slug": "prophets", "description": "A long-term path through the lives of the prophets from Adam to Muhammad.", "icon": "sparkle_badge", "color_theme": "violet", "branches": generic["prophets"]},
-        {"title": "Women of the Book", "slug": "women-of-the-book", "description": "Women in the Quran and the mothers of the believers in ordered study lanes.", "icon": "book_marked", "color_theme": "pink", "branches": generic["women-of-the-book"]},
+        {"title": "Great Women", "slug": "women-of-the-book", "description": "Women in the Quran and the mothers of the believers in ordered study lanes.", "icon": "book_marked", "color_theme": "pink", "branches": generic["women-of-the-book"]},
         {"title": "Marriage", "slug": "marriage", "description": "Purpose, mercy, rights, and practical wisdom for a calm Muslim home.", "icon": "home_heart", "color_theme": "coral", "branches": generic["marriage"]},
         {"title": "Fasting", "slug": "fasting", "description": "Fasting foundations, Ramadan growth, and practical protection of the fast.", "icon": "sparkle_badge", "color_theme": "orange", "branches": generic["fasting"]},
         {"title": "Zakat", "slug": "zakat", "description": "Giving, eligibility, wisdom, and distribution of zakat.", "icon": "book_seal", "color_theme": "green", "branches": generic["zakat"]},
