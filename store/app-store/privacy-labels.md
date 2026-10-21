@@ -39,7 +39,7 @@ For each type, pick the purposes shown, then answer "Linked to the user's identi
 | Diagnostics → Other Diagnostic Data | Analytics, Third-Party Advertising | No | No |
 | Other Data → Other Data Types | App Functionality (parent or learner mode, reminder and sound settings) | Yes | No |
 
-Not collected: Health and Fitness, Financial Info (card numbers stay with Apple), Precise Location, Sensitive Info, Contacts (the address book), User Content, Browsing History, Search History.
+The age group from the age screen stays on the device, so it is not declared. Not collected: Health and Fitness, Financial Info (card numbers stay with Apple), Precise Location, Sensitive Info, Contacts (the address book), User Content, Browsing History, Search History.
 
 Notes:
 

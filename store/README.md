@@ -35,11 +35,25 @@ The release builds PR (#6) covered most of these. The answers in this folder ass
 | --- | --- |
 | In-app account deletion (Apple 5.1.1(v), Google account deletion policy): Profile → Settings → Delete account, backed by `DELETE /api/profile/me` | Done in #6 |
 | iOS ads non-personalised, since the app has no tracking prompt | Done in #6 |
-| "Child mode" renamed "Learner mode", so accounts are not child-directed (COPPA, Google Families policy) | Done in #6 |
+| Neutral age screen before any ad; under-13s, Kid accounts and unanswered get child-directed, non-personalised ads; 13–17 under the age of consent | Done in #13 |
+| Grown-up check before creating an account, buying anything and adding people to a Crew | Done in #13 |
 | `ITSAppUsesNonExemptEncryption: false` so App Store Connect stops asking about export compliance | Done in #6 |
 | `EXPO_PUBLIC_PRIVACY_URL` and `EXPO_PUBLIC_TERMS_URL` set to the Pages URLs above. Apple requires both links on the subscription screen | Set in `.env.example`. Copy them into the EAS environment, and they work once GitHub Pages is on |
 | Production API served over HTTPS | Needed before release |
 | Sign in with Apple, if Google or Facebook sign-in is ever switched on for iOS (guideline 4.8) | Not needed while they stay off |
+
+## Audience: all ages (mixed audience)
+
+The app is for ages 6 to 30, so both stores are answered as an all-ages app with ads:
+
+- **Google Play:** Target audience includes the under-13 groups, so the app falls under the **Families policy**. AdMob is a Families self-certified ads SDK and the app tags under-13 requests as child-directed. See `google-play/data-safety.md`. Do not apply for Teacher Approved.
+- **Apple:** primary category **Education**, not the Kids category, because Kids-category apps cannot use third-party ad networks.
+- **AdMob:** mark each app as having some users under 13 if asked, block sensitive ad categories and keep the max rating at G (`docs/monetization.md`, AdMob steps).
+
+**Child safety (COPPA, Families policy)**, both handled in the app:
+
+1. When the age screen says 12 or under, sign-up asks for a parent's name and email, so no child's personal information is collected.
+2. Crew is mutual. A learner's name, XP, streak and last learning time show only to people they have added back, and adding back needs the grown-up check.
 
 ## Steps that need you
 

@@ -18,7 +18,7 @@ Play Console → Policy and programs → App content → Content rating.
 | Language: profanity or crude humour? | No |
 | Controlled substances: drugs, alcohol or tobacco? | No (rulings may mention that alcohol is forbidden, which is not depiction or promotion) |
 | Gambling: real or simulated gambling? | No |
-| Does the app let users interact or exchange content with each other? | **No**. Learners can follow each other by account email and see each other's display name, XP and streak on a weekly leaderboard; there is no chat, messaging or user-posted content |
+| Does the app let users interact or exchange content with each other? | **No**. Learners who have both added each other on the Crew screen see each other's display name, XP and streak on a weekly leaderboard; there is no chat, messaging or user-posted content |
 | Does the app share the user's current physical location with other users? | No |
 | Does the app allow users to purchase digital goods? | **Yes** (subscription, heart packs, gems) |
 | Does the app contain randomised items offered for purchase (loot boxes)? | No |
@@ -70,4 +70,4 @@ App Store Connect → your app → App Information → Age Rating. These follow 
 
 Expected result: **4+**. If App Review asks about the historical battle lessons, changing Realistic violence to "Infrequent / Mild" gives 9+, which does not affect who can download the app in practice.
 
-Do **not** choose "Made for Kids". The Kids category bans third-party ads and analytics, and Muslimo shows AdMob ads to free users.
+Do **not** choose "Made for Kids" or the Kids category, even though children use the app. The Kids category bans third-party ads and analytics, and Muslimo shows AdMob ads to free users. Education is the right category for an all-ages learning app.
