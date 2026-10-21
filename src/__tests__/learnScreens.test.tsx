@@ -126,6 +126,15 @@ describe("BottomTabs", () => {
 });
 
 describe("LearnPath", () => {
+  it("has a walking camel next to the circle after the one to play next, and topic pictures", async () => {
+    await renderPath({ topicId: "sahabah" });
+    expect(screen.getByTestId("path-camel")).toBeTruthy();
+    expect(screen.getByTestId("path-end-camel")).toBeTruthy();
+    // Sahabah's first unit: a tent; never a lantern, crescent or ring on the path.
+    expect(screen.getByTestId("scenery-tent")).toBeTruthy();
+    expect(screen.queryByTestId(/scenery-(lantern|crescent|ring)/)).toBeNull();
+  });
+
   it("opens a node card and starts the node", async () => {
     const { props } = await renderPath();
     const current = props.units[0].items[2];

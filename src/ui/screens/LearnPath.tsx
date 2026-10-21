@@ -22,7 +22,9 @@ import { ArabicText, withHonorifics } from "../ArabicText";
 import { noBreakHyphens } from "../lesson/lessonText";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
+import { Camel } from "../Camel";
 import { Mascot } from "../Mascot";
+import { PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
@@ -125,8 +127,12 @@ const CHEST = 68;
 const MASCOT_SIZE = 84;
 const MASCOT_W = MASCOT_SIZE;
 const MASCOT_H = Math.round((MASCOT_SIZE * 7) / 6);
-const DECOR: IconName[] = ["lantern", "palm", "mosque", "lantern"];
 const DECOR_SIZE = 64;
+const SCENERY_EVERY = 4;
+const CAMEL_SIZE = 72;
+const CAMEL_H = Math.round((CAMEL_SIZE * 100) / 120);
+/** Farthest the camel walks back and forth, in px. */
+const CAMEL_WALK = 56;
 const CARD_ESTIMATE = 220;
 /** Card top inside its row, below the node. */
 const CARD_GAP = NODE + NODE_LIP + 4;
@@ -722,6 +728,8 @@ function PathEnd({
   const { hint, show } = useHint();
   const center = width / 2;
   const mascotLeft = Math.max(8, center - END_NODE / 2 - 18 - MASCOT_W);
+  const camelStart = center + END_NODE / 2 + 14;
+  const camelRange = Math.max(0, Math.min(CAMEL_WALK / 2, width - 8 - camelStart - CAMEL_SIZE));
 
   return (
     <View style={styles.end} testID="path-end">
@@ -729,6 +737,12 @@ function PathEnd({
         <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="none">
           <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} />
         </View>
+        {width - 8 - camelStart >= CAMEL_SIZE ? (
+          <View style={[styles.mascot, { left: camelStart, top: END_NODE + END_LIP - CAMEL_H }]} pointerEvents="none">
+            {/* Faces the trophy; it walks a little victory lap once the topic is done. */}
+            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking={done} faceLeft testID="path-end-camel" />
+          </View>
+        ) : null}
         <View style={[styles.endSlot, { left: center - END_NODE / 2 }]}>
           <Animated.View style={{ transform: [...shakeStyle.transform, { translateY }] }}>
             <Tappable
@@ -892,12 +906,20 @@ export function LearnPath({
         };
       });
       const mascotIndex = rows.findIndex((row) => row.current);
-      let decorIndex = -1;
-      for (const candidate of [2, 6, 1, 3]) {
-        if (candidate < rows.length && candidate !== mascotIndex) {
-          decorIndex = candidate;
-          break;
-        }
+      // The camel walks beside the circle after the one to play next, heading on down the path.
+      const camelIndex = mascotIndex < 0 ? -1 : mascotIndex + 1 < rows.length ? mascotIndex + 1 : mascotIndex - 1;
+      // Topic pictures beside the path, about one every SCENERY_EVERY rows (at least one a unit), never on the
+      // mascot's or the camel's row.
+      const scenery: { index: number; kind: SceneryKind }[] = [];
+      const free = (candidate: number) =>
+        candidate < rows.length && candidate !== mascotIndex && candidate !== camelIndex && !scenery.some((spot) => spot.index === candidate);
+      for (let wanted = 2; wanted < rows.length; wanted += SCENERY_EVERY) {
+        const candidate = [wanted, wanted + 1, wanted - 1].find(free);
+        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, scenery.length) });
+      }
+      if (scenery.length === 0) {
+        const candidate = [1, 0].find(free);
+        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, 0) });
       }
       return {
         unit,
@@ -905,9 +927,10 @@ export function LearnPath({
         color: tints[unitIndex % tints.length],
         rows,
         nodeCount: unit.total > 0 ? unit.total : place,
+        unitIndex,
         mascotIndex,
-        decorIndex,
-        decor: DECOR[unitIndex % DECOR.length]
+        camelIndex,
+        scenery
       };
     });
     const wanted = focusConsumed.current ? undefined : initialFocusId ?? initialOpenNodeId;
@@ -1109,6 +1132,7 @@ export function LearnPath({
     node.status === "locked" && (jumpNodeIds ? !unit.premiumLocked && jumpNodeIds.has(node.id) : unitCanTestOut(unit));
 
   const center = width / 2;
+  const currentUnitIndex = layout.byUnit.findIndex((group) => group.unit.id === layout.currentUnitId);
   const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
   const openRow = findRow(openId);
   const testOutGroup = testOut ? layout.byUnit.find((group) => group.unit.id === testOut.unitId) : undefined;
@@ -1147,6 +1171,8 @@ export function LearnPath({
           {header}
           {layout.byUnit.map((group) => {
             const { unit, color, rows, premium } = group;
+            // Only units near the circle to play next move their pictures: the rest stay still to spare cheap phones.
+            const nearCurrent = currentUnitIndex < 0 ? group.unitIndex < 2 : Math.abs(group.unitIndex - currentUnitIndex) <= 1;
             const unitDone = unit.total > 0 && unit.done >= unit.total;
             const holdsOpen = openRow?.group.unit.id === unit.id;
             return (
@@ -1182,6 +1208,12 @@ export function LearnPath({
                     const mascotCenter = nodeCenter + side * (NODE / 2 + 22 + MASCOT_W / 2);
                     const mascotLeft = Math.min(width - 8 - MASCOT_W, Math.max(8, mascotCenter - MASCOT_W / 2));
                     const decorCenter = center + side * Math.min(124, width * 0.3);
+                    // The empty side of the row, between the screen edge and the circle, for the camel to walk in.
+                    const laneStart = side < 0 ? 8 : nodeCenter + NODE / 2 + 10;
+                    const laneEnd = side < 0 ? nodeCenter - NODE / 2 - 10 : width - 8;
+                    const camelRange = Math.max(0, Math.min(CAMEL_WALK, laneEnd - laneStart - CAMEL_SIZE));
+                    const camelLeft = laneStart + Math.max(0, (laneEnd - laneStart - CAMEL_SIZE - camelRange) / 2);
+                    const pictures = group.scenery.find((spot) => spot.index === index);
                     const height = isOpen ? Math.max(row.height, top + CARD_GAP + (cardH ?? CARD_ESTIMATE) + 18) : row.height;
                     return (
                       <View
@@ -1192,10 +1224,15 @@ export function LearnPath({
                           if (row.key === layout.focusKey || row.key === layout.earnedChest?.key) tryScrollToCurrent();
                         }}
                       >
-                        {index === group.decorIndex ? (
+                        {pictures ? (
                           <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="none">
                             <View style={styles.decorShadow} />
-                            <Icon name={group.decor} size={DECOR_SIZE} />
+                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} />
+                          </View>
+                        ) : null}
+                        {index === group.camelIndex ? (
+                          <View style={[styles.mascot, { left: camelLeft, top: top + (NODE + NODE_LIP - CAMEL_H) / 2 }]} pointerEvents="none">
+                            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking testID="path-camel" />
                           </View>
                         ) : null}
                         {index === group.mascotIndex ? (
