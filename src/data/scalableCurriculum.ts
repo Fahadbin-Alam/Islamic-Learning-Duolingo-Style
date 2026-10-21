@@ -1046,9 +1046,10 @@ function buildPrayerCurriculumBranches(): BranchSeed[] {
           alt: ["juice", "milk"]
         }),
         seed("intention-basics", "Intention", "Wudu begins as a conscious act of preparing for worship, not as empty routine.", 2, {
-          line: "Before wudu, intend in your [heart] to get ready to pray.",
+          // The no-break space keeps "heart" (or the blank) on the line with "your" in a narrow bubble.
+          line: "Your niyyah for wudu is in your\u00a0[heart].",
           alt: ["mouth", "pocket"],
-          why: "Niyyah, the intention, is in the heart; you need not say it."
+          why: "Allah knows what is in your heart, so you don't have to say it out loud."
         }),
         seed("wash-hands-first", "Wash hands first", "The opening of wudu trains order from the first movement, not random washing.", 2, {
           source: "hadith_bukhari_164",
@@ -1514,7 +1515,7 @@ SECTION_SEEDS.push(
     branches: [
       {
         id: "foundation-phrases-rhythm",
-        title: "Daily phrase rhythm",
+        title: "Words through the day",
         description: "Move beyond single phrases and learn when Muslims naturally remember Allah through the day.",
         order: 3,
         difficultyRange: [1, 3],

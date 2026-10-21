@@ -90,10 +90,10 @@ export const SKILL_ARABIC: Record<FoundationCategoryId, string> = {
 
 /** One short name and an icon per skill, for the badge grid. */
 export const SKILL_LOOK: Record<FoundationCategoryId, { name: string; icon: IconName }> = {
-  shahadah: { name: "Shahadah", icon: "crescent" },
+  shahadah: { name: "Shahadah", icon: "speech" },
   salah: { name: "Salah", icon: "mosque" },
   taharah: { name: "Wudu", icon: "water" },
-  fasting: { name: "Fasting", icon: "moon" },
+  fasting: { name: "Fasting", icon: "dates" },
   zakat: { name: "Zakat", icon: "coins" },
   hajj: { name: "Hajj", icon: "kaaba" },
   iman: { name: "Iman", icon: "star8" },

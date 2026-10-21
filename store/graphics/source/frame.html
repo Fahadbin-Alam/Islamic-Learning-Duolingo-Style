@@ -4,7 +4,7 @@ html,body{width:var(--w);height:var(--h);overflow:hidden}
 body{background:linear-gradient(165deg,#1CC277 0%,#15B76B 45%,#0F8F57 100%);position:relative;font-family:"Inter Display","Inter",sans-serif}
 .blob{position:absolute;border-radius:22%;background:rgba(255,255,255,.08);transform:rotate(22deg)}
 .dot{position:absolute;border-radius:50%;background:#F4C542}
-.cap{position:absolute;left:7%;right:7%;text-align:center;color:#fff;font-weight:900;letter-spacing:0;line-height:1.08}
+.cap{position:absolute;left:7%;right:7%;text-align:center;color:#fff;font-weight:900;letter-spacing:0;line-height:1.08;text-wrap:balance}
 .shot{position:absolute;left:50%;transform:translateX(-50%);overflow:hidden;background:#fff;
   box-shadow:0 calc(var(--w)*0.02) calc(var(--w)*0.06) rgba(6,60,36,.35);border:calc(var(--w)*0.012) solid rgba(255,255,255,.9)}
 .shot img{display:block;width:100%}
@@ -18,7 +18,11 @@ document.documentElement.style.setProperty('--w',W+'px');document.documentElemen
 const cap=document.getElementById('cap');cap.textContent=q.get('cap');
 const fs=tablet?W*0.05:W*0.082;cap.style.fontSize=fs+'px';cap.style.top=(H*0.045)+'px';
 const sw=tablet?0.80:0.84, topR=tablet?0.15:0.185;
-const s=document.getElementById('shot');s.style.width=(W*sw)+'px';s.style.top=(H*topR)+'px';s.style.height=(H*(1-topR)+W*0.1)+'px';
+// The whole screen shows, tab bar included: the frame is only as wide as lets it end above the bottom edge.
+// The screenshot has the canvas's aspect ratio, so its height is its width times H/W.
+const bw=W*0.012, gap=H*0.03;
+const shotW=Math.min(W*sw,(H*(1-topR)-gap-2*bw)*W/H+2*bw);
+const s=document.getElementById('shot');s.style.width=shotW+'px';s.style.top=(H*topR)+'px';
 s.style.borderRadius=(W*(tablet?0.035:0.075))+'px';
 document.getElementById('img').src=q.get('img');
 const b1=document.getElementById('b1');Object.assign(b1.style,{width:W*0.7+'px',height:W*0.7+'px',right:-W*0.28+'px',top:-W*0.3+'px'});
