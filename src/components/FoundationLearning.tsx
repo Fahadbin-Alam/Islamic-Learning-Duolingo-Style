@@ -51,8 +51,8 @@ import {
   useShake,
   withHonorifics
 } from "../ui";
-import { FeedbackSheet, LessonBottomBar, PromptText, QuitSheet, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
-import { sheetRoom, sheetScrollY, stackSpan, useSheetFit, type LayoutBox } from "../ui/lesson/sheetFit";
+import { FadeUnderSheet, FeedbackSheet, LessonBottomBar, PromptText, QuitSheet, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
+import { sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useSheetFit, type LayoutBox } from "../ui/lesson/sheetFit";
 
 /** The gap between answer tiles (styles.choiceList gap, styles.wordGrid rowGap). */
 const ANSWER_GAP = 10;
@@ -470,8 +470,27 @@ export function FoundationAssessmentScreen({
   // The question gives its room first: the grey answers fold away and the mascot hides, until the next question.
   const folded = fit.squeeze && foldable;
   const hideMascot = mascotOff || fit.squeeze;
-  const layout = folded ? fitLayout(answerTiles(question, selectedAnswer, words, retry, true)) : layoutNow;
+  const tilesShown = answerTiles(question, selectedAnswer, words, retry, folded);
+  const layout = folded ? fitLayout(tilesShown) : layoutNow;
   const room = layout ? sheetRoom(layout) : undefined;
+  const sheetMaxHeight = locked && fit.fitted && room ? room.room : undefined;
+  // Any answer the sheet's top edge would cut (or cover) fades away while it is up, as in lessons: the ones under
+  // the top-most right answer that do not sit wholly above it. The next question shows them all again.
+  const shownSheetHeight = sheetMaxHeight !== undefined ? Math.min(sheetHeight, sheetMaxHeight) : sheetHeight;
+  const sheetTop =
+    locked && fit.fitted && shownSheetHeight > 0 && layout && room ? sheetScrollY(layout, shownSheetHeight, room.furthest) + layout.visibleBottom - shownSheetHeight : undefined;
+  const fadedTiles =
+    tilesShown && sheetTop !== undefined && answersTop !== undefined
+      ? tilesUnderSheet({
+          ids: tilesShown.items,
+          boxes: tileBoxes.current,
+          focusId: tilesShown.items.find((option) => isAnswerOption(question, option)),
+          gap: ANSWER_GAP,
+          columns: tilesShown.columns,
+          tilesTop: answersTop,
+          sheetTop
+        })
+      : [];
 
   useEffect(() => {
     if (!locked) {
@@ -567,7 +586,7 @@ export function FoundationAssessmentScreen({
             </View>
 
             <View pointerEvents={locked ? "none" : "auto"} testID="assessment-answers" onLayout={onAnswersLayout}>
-              {renderQuestionInput(question, selectedAnswer, change, checked, words, compact, retry, folded, onTileLayout)}
+              {renderQuestionInput(question, selectedAnswer, change, checked, words, compact, retry, folded, onTileLayout, fadedTiles)}
             </View>
           </View>
         </ScrollView>
@@ -589,7 +608,7 @@ export function FoundationAssessmentScreen({
         why={shownSheet?.why}
         praiseSeed={shownSheet?.seed}
         onContinue={onContinue}
-        maxHeight={fit.fitted && room ? room.room : undefined}
+        maxHeight={sheetMaxHeight}
         onHeight={setSheetHeight}
         onFullHeight={setSheetFull}
       />
@@ -935,7 +954,9 @@ function renderQuestionInput(
   /** After CHECK on a short phone: the grey answers (not picked, not right) fold away to make room for the sheet. */
   fold = false,
   /** Each answer tile reports where it is, so the screen knows where the right one sits. */
-  onTileLayout?: (item: string) => (event: LayoutChangeEvent) => void
+  onTileLayout?: (item: string) => (event: LayoutChangeEvent) => void,
+  /** The answers the feedback sheet's top edge would cut: they fade away while it is up. */
+  faded: string[] = []
 ) {
   const options = answerTiles(question, selectedAnswer, words, retry, fold)?.items ?? [];
   if (question.type === "fill_in_blank" && words.length > 1) {
@@ -943,7 +964,7 @@ function renderQuestionInput(
     return (
       <View style={styles.wordGrid}>
         {options.map((word, index) => (
-          <View key={word} style={styles.wordCell} onLayout={onTileLayout?.(word)} testID={`assessment-tile-${word}`}>
+          <FadeUnderSheet key={word} hidden={faded.includes(word)} style={styles.wordCell} onLayout={onTileLayout?.(word)} testID={`assessment-tile-${word}`}>
             <PopIn from="up" delay={80 + index * 60}>
               <ChoiceTile
                 label={word}
@@ -953,7 +974,7 @@ function renderQuestionInput(
                 testID={`word-${word}`}
               />
             </PopIn>
-          </View>
+          </FadeUnderSheet>
         ))}
       </View>
     );
@@ -989,11 +1010,11 @@ function renderQuestionInput(
           const active = selectedValues.includes(option);
           const next = active ? selectedValues.filter((item) => item !== option) : [...selectedValues, option];
           return (
-            <View key={option} onLayout={onTileLayout?.(option)} testID={`assessment-tile-${option}`}>
+            <FadeUnderSheet key={option} hidden={faded.includes(option)} onLayout={onTileLayout?.(option)} testID={`assessment-tile-${option}`}>
               <PopIn from="up" delay={80 + index * 60}>
                 <CheckTile label={option} state={checkState(active, checked, isAnswerOption(question, option))} onPress={() => onChangeSelectedAnswer(next)} />
               </PopIn>
-            </View>
+            </FadeUnderSheet>
           );
         })}
       </View>
@@ -1014,7 +1035,7 @@ function renderQuestionInput(
   return (
     <View style={styles.choiceList}>
       {options.map((option, index) => (
-        <View key={option} onLayout={onTileLayout?.(option)} testID={`assessment-tile-${option}`}>
+        <FadeUnderSheet key={option} hidden={faded.includes(option)} onLayout={onTileLayout?.(option)} testID={`assessment-tile-${option}`}>
           <PopIn from="up" delay={80 + index * 60}>
             <ChoiceTile
               label={option}
@@ -1024,7 +1045,7 @@ function renderQuestionInput(
               onPress={() => onChangeSelectedAnswer(option)}
             />
           </PopIn>
-        </View>
+        </FadeUnderSheet>
       ))}
     </View>
   );

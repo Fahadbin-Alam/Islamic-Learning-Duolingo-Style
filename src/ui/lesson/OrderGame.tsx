@@ -12,6 +12,7 @@ import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
+import { sheetRoom, type LayoutBox } from "./sheetFit";
 
 export type OrderOption = { id: string; label: string; icon?: IconName };
 
@@ -153,6 +154,11 @@ function Chip({
   );
 }
 
+/** A placed step may reach this close to the sheet's top edge and still stay. */
+const CHIP_AIR = 2;
+/** The sheet settles (its list measures its rows) before the steps it would cut fold away. */
+const FOLD_SETTLE_MS = 120;
+
 /** Tap-to-order mini game (wudu / salah steps). A wrong CHECK shows the right order right away, like Duolingo. */
 export function OrderGame({
   title,
@@ -192,33 +198,66 @@ export function OrderGame({
   }
   const sheet = lastSheet.current;
 
-  // --- keep the answer chips above the feedback sheet ---
+  // --- keep the prompt on screen above the feedback sheet ---
   const { ref: scrollRef, scrollProps, more, scrollDown } = useScrollMore();
   const [rootHeight, setRootHeight] = useState(0);
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
-  const [answerBox, setAnswerBox] = useState<{ y: number; height: number } | null>(null);
-  const chipTops = useRef<Record<string, number>>({});
+  const [promptBox, setPromptBox] = useState<LayoutBox | null>(null);
+  const [answerBox, setAnswerBox] = useState<LayoutBox | null>(null);
+  const chipBoxes = useRef<Record<string, LayoutBox>>({});
+  const [chipMoves, setChipMoves] = useState(0);
+  // How many placed steps stay while the sheet is up (the rest fold away); undefined: all of them.
+  const [kept, setKept] = useState<number | undefined>(undefined);
+
+  // The sheet never covers the prompt: the question never scrolls past the prompt's top, and the sheet is never
+  // taller than the room under it. It lists the whole right order, so the placed steps may go under it.
+  const promptRoom = promptBox && rootHeight ? sheetRoom({ visibleBottom: rootHeight, promptTop: promptBox.y, focusTop: promptBox.y, focusBottom: promptBox.y + promptBox.height }) : undefined;
+  const scrollY =
+    answerBox && promptRoom && sheetHeight ? Math.max(0, Math.min(answerBox.y + answerBox.height + space.md - (rootHeight - sheetHeight), promptRoom.furthest)) : 0;
 
   useEffect(() => {
     if (checked === null || !rootHeight || !sheetHeight || !answerBox) {
       return;
     }
-    // Line the answer box up above the sheet, but never past its top: the first (often red) chips
-    // must stay in view. When the box is too tall to fit, start at the first wrong chip.
-    const visible = rootHeight - sheetHeight;
-    const firstWrong = placed.find((id, index) => id !== correctOrderIds[index]);
-    const wrongTop = firstWrong !== undefined ? chipTops.current[firstWrong] : undefined;
-    const top = answerBox.y + (answerBox.height + space.md > visible && wrongTop !== undefined ? wrongTop : 0);
-    const y = Math.max(0, Math.min(answerBox.y + answerBox.height + space.md - visible, top - space.sm));
-    scrollRef.current?.scrollTo?.({ y, animated: true });
+    scrollRef.current?.scrollTo?.({ y: scrollY, animated: true });
     // Only when a CHECK opens the sheet or the layout under it changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answerBox, checked, rootHeight, sheetHeight]);
+  }, [checked, rootHeight, scrollY, sheetHeight]);
+
+  // The placed steps the sheet's top edge would cut, and every step after them, fold away while it is up, so no
+  // step is ever cut by its edge. They are counted from the first one that does not sit wholly above it.
+  let keep: number | undefined;
+  if (checked !== null && answerBox && rootHeight && sheetHeight && placed.every((id) => chipBoxes.current[id])) {
+    const sheetTop = scrollY + rootHeight - sheetHeight;
+    const first = placed.findIndex((id) => answerBox.y + chipBoxes.current[id].y + chipBoxes.current[id].height > sheetTop - CHIP_AIR);
+    keep = first < 0 ? placed.length : first;
+  }
+  useEffect(() => {
+    if (checked === null) {
+      setKept(undefined);
+      return undefined;
+    }
+    if (keep === undefined) {
+      return undefined;
+    }
+    // Once the sheet has its height: a sheet still measuring its rows may be a row taller for a moment.
+    const timer = setTimeout(() => setKept(keep), FOLD_SETTLE_MS);
+    return () => clearTimeout(timer);
+  }, [checked, chipMoves, keep]);
+  const shownPlaced = checked !== null && kept !== undefined ? placed.slice(0, kept) : placed;
 
   const onAnswerLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
     setAnswerBox({ y: Math.round(y), height: Math.round(height) });
+  };
+  const onChipLayout = (id: string) => (event: LayoutChangeEvent) => {
+    const box = { y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) };
+    const before = chipBoxes.current[id];
+    chipBoxes.current[id] = box;
+    if (!before || before.y !== box.y || before.height !== box.height) {
+      setChipMoves((count) => count + 1);
+    }
   };
 
   const add = (id: string) => {
@@ -263,7 +302,12 @@ export function OrderGame({
     <View style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
       <View style={styles.scrollBox}>
         <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.content, { paddingBottom: extraBottom }]} {...scrollProps}>
-          <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
+          <View
+            onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}
+            testID="order-prompt"
+          >
+            <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={compact} />
+          </View>
 
           <Animated.View
             style={[styles.answerBox, compact ? styles.answerBoxCompact : null, shakeStyle]}
@@ -271,16 +315,10 @@ export function OrderGame({
             accessibilityLabel={title}
             testID="order-answer"
           >
-            {placed.map((id, index) => {
+            {shownPlaced.map((id, index) => {
               const option = byId.get(id);
               return option ? (
-                <View
-                  key={id}
-                  style={grid ? styles.gridCell : styles.flowCell}
-                  onLayout={(event) => {
-                    chipTops.current[id] = Math.round(event.nativeEvent.layout.y);
-                  }}
-                >
+                <View key={id} style={grid ? styles.gridCell : styles.flowCell} onLayout={onChipLayout(id)} testID={`order-cell-${id}`}>
                   <Chip
                     label={option.label}
                     icon={option.icon}
@@ -335,6 +373,7 @@ export function OrderGame({
         onContinue={sheet.correct ? onDone : retry}
         playSound={playSound}
         bottomInset={bottomInset}
+        maxHeight={promptRoom?.room}
         onHeight={setSheetHeight}
       />
     </View>

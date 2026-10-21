@@ -4,6 +4,7 @@ import { Icon } from "../Icon";
 import { StatChip } from "../StatChip";
 import { Tappable } from "../Tappable";
 import { colors, topicPalette } from "../theme";
+import { compactNumber, formatNumber } from "./FormattedCount";
 import { StreakSheet } from "./StreakSheet";
 import { worldIcon } from "./TopicPicker";
 
@@ -69,7 +70,15 @@ export function AppTopBar({
             accessibilityLabel={`${streakDays} day streak`}
             testID="top-bar-streak"
           />
-          <StatChip icon="gem" value={gems} color={colors.gem} onPress={onOpenShop} accessibilityLabel={`${gems} gems`} testID="top-bar-gems" />
+          {/* Formatted as on the Shop card and the Me tab: "1,000", "12,345", then "120k", so it always fits. */}
+          <StatChip
+            icon="gem"
+            value={compactNumber(gems)}
+            color={colors.gem}
+            onPress={onOpenShop}
+            accessibilityLabel={`${formatNumber(gems)} gems`}
+            testID="top-bar-gems"
+          />
           {hearts.unlimited ? (
             <Tappable
               onPress={onOpenShop}

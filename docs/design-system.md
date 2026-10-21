@@ -16,7 +16,9 @@ key words so learners pick it up as they go.
    exception is the path's `PathNode`: like `GameButton` it is a 3D button built on `Pressable`
    (it sinks into its lip) and plays the kit feedback itself. A tap that cannot do anything still
    sounds: a shop row that cannot be bought buzzes like its locked button, and a hearts row with full
-   hearts plays a soft tap and says hearts are full.
+   hearts plays a soft tap and says hearts are full. A shop row and its BUY button are two separate
+   buttons side by side (never one inside the other): BUY buys, and a tap anywhere else on the card,
+   its edge too, answers as the row.
 3. **Everything moves a little.** Buttons press down (3D lip), tiles pop when picked, sheets
    spring up, numbers count up, the current path node bounces, the mascot bobs.
 4. **Nothing overflows.** Text wraps inside its container (`flexShrink: 1`), rows wrap, tiles are
@@ -56,7 +58,8 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
 ## App structure
 
 - **Top bar** (outside lessons): topic world button (emblem in topic color, opens the topic
-  picker), streak, gems, hearts. Icons plus numbers only.
+  picker), streak, gems, hearts. Icons plus numbers only. Gems read the same in the top bar, the Shop
+  card and Me: "1,000", "12,345", then "123k" (screen readers hear the full number).
 - **Bottom tabs**: Learn, Practice, Crew, Shop, Me.
 - **Learn** is the path itself: a unit banner per branch, then zig-zag nodes, chests and the
   mascot. Tapping a node opens a small card under it with the lesson name, its Arabic word and
@@ -77,7 +80,12 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   sheet can stay full size. Only when that is not enough does the sheet go slim (less padding, a smaller
   button), and only then does the Why text alone scroll, from its top, in whole lines, with the arrow in the
   gap above the button (it turns to point up at the end, so the gap is never empty). The heading, the
-  "Correct answer" line and the Why pill always show whole. Practice (Level check, Daily, Review) uses the
+  "Correct answer" line and the Why pill always show whole. A tile the sheet's top edge would cut fades
+  away while the sheet is up (never the green tile, nor the picked tile when it sits whole above the
+  sheet) and comes back with the next try; tiles wholly under the sheet stay. In the ordering game the
+  prompt stays on screen above the sheet, placed tiles the sheet would cut fold away until TRY AGAIN, and
+  the "Correct order" list shows whole rows only: it starts at the top, scrolls by whole rows, and its
+  arrow points down while rows are hidden and up at the end. Practice (Level check, Daily, Review) uses the
   same rule and code (`src/ui/lesson/sheetFit.ts`).
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
