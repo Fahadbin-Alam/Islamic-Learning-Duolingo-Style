@@ -1,4 +1,4 @@
-# Production image for the Sira Path API. Build from the repository root:
+# Production image for the Muslimo API. Build from the repository root:
 #   docker build -f backend/Dockerfile -t sira-path-api .
 FROM python:3.12-slim
 

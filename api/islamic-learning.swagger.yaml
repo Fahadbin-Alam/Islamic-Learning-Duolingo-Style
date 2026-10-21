@@ -1,9 +1,9 @@
 swagger: "2.0"
 info:
-  title: Sira Path API
+  title: Muslimo API
   description: Duolingo-style learning API shape for Islamic lessons, hearts, XP, shop items, subscriptions, and rewarded ads.
   version: 1.0.0
-host: api.sirapath.local
+host: api.muslimo.local
 basePath: /
 schemes:
   - https

@@ -44,7 +44,7 @@ export function KitGallery() {
   return (
     <View style={styles.root}>
       <ScrollView contentContainerStyle={styles.scroll} testID="kit-gallery">
-        <Text style={styles.title}>Sira Path kit</Text>
+        <Text style={styles.title}>Muslimo kit</Text>
 
         <Section title="Stat chips">
           <View style={styles.statRow}>

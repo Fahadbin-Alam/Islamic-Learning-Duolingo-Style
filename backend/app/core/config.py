@@ -12,7 +12,7 @@ DEFAULT_SQLITE_PATH = ROOT_DIR / "backend" / "data" / "sira_path.db"
 
 
 class Settings(BaseSettings):
-    app_name: str = "Sira Path API"
+    app_name: str = "Muslimo API"
     api_prefix: str = "/api"
     environment: str = "development"
     database_url: str = Field(default=f"sqlite:///{DEFAULT_SQLITE_PATH.as_posix()}")
