@@ -89,6 +89,7 @@ On Apple, put both subscriptions in one subscription group. A 7-day free trial o
 ### Audience note
 - **Apple:** do not pick the **Kids** category. Kids-category apps cannot use third-party ad networks like AdMob. A normal category (Education) with ads is fine for all ages.
 - **Google Play:** under Target audience, tick the age groups the app is really for (including under 13). That puts the app under the Families policy, which the app already meets: neutral age screen, child-directed ads for under-13s from a Families self-certified SDK, grown-up check before purchases, account creation and Crew. Do not apply for **Teacher Approved**.
+- **Children's data:** when the age screen says 12 or under, sign-up asks for a **parent's** name and email, so nothing about the child is collected. On Crew, nobody sees a learner's name, XP or streak until that learner adds them back (after the grown-up check); someone who was only added sees just the email they typed.
 
 ### 6. Turn it on
 Put the values from `.env.example` into the EAS environment (`eas env:create`), set `EXPO_PUBLIC_MONETIZATION_MODE=live`, build, and test with an Apple sandbox tester and a Google Play license tester before release.

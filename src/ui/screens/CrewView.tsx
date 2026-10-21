@@ -31,6 +31,8 @@ export type CrewViewProps = {
   onChangeInviteRelation: (value: SocialRelation) => void;
   onAddFriend: () => void;
   onRemoveFriend: (member: CrewMember) => void;
+  /** Someone added this learner: true adds them back (both see each other's stats), false says no. */
+  onAnswerRequest?: (member: CrewMember, accept: boolean) => void;
   onRefresh: () => void;
   onCreateAccount: () => void;
   /** A guest whose account on this device logged out: the button says LOG IN, as the account sheet will. */
@@ -154,6 +156,39 @@ function RaceRow({ entry, index, onOpen }: { entry: CrewMember; index: number; o
   );
 }
 
+/** Someone who added this learner. Only their name shows until ADD BACK. */
+function RequestRow({ member, onAnswer }: { member: CrewMember; onAnswer: (accept: boolean) => void }) {
+  return (
+    <View style={styles.raceRow} testID={`crew-request-${member.id}`}>
+      <Avatar member={member} />
+      <View style={styles.raceMain}>
+        <Text style={styles.raceName} numberOfLines={1}>{firstName(member.name)}</Text>
+        <Text style={styles.raceMetaText} numberOfLines={1}>Wants to race you</Text>
+      </View>
+      <GameButton label="Add back" size="sm" onPress={() => onAnswer(true)} testID={`crew-accept-${member.id}`} />
+      <Tappable onPress={() => onAnswer(false)} style={styles.noLink} accessibilityLabel={`Say no to ${firstName(member.name)}`} hitSlop={6} testID={`crew-decline-${member.id}`}>
+        <Icon name="close" size={18} color={colors.inkSoft} />
+      </Tappable>
+    </View>
+  );
+}
+
+/** Someone this learner added who has not added them back: just the email they typed, no stats. */
+function PendingRow({ member, onCancel }: { member: CrewMember; onCancel: () => void }) {
+  return (
+    <View style={[styles.raceRow, styles.pendingRow]} testID={`crew-pending-${member.id}`}>
+      <Avatar member={member} />
+      <View style={styles.raceMain}>
+        <Text style={styles.raceName} numberOfLines={1}>{member.name}</Text>
+        <Text style={styles.raceMetaText} numberOfLines={1}>Waiting for them to add you</Text>
+      </View>
+      <Tappable onPress={onCancel} style={styles.noLink} accessibilityLabel={`Cancel invite to ${member.name}`} hitSlop={6} testID={`crew-cancel-${member.id}`}>
+        <Icon name="close" size={18} color={colors.inkSoft} />
+      </Tappable>
+    </View>
+  );
+}
+
 /** Crew tab: weekly XP race, a grown-up-gated invite sheet, and friendly empty states. */
 export function CrewView({
   user,
@@ -164,6 +199,7 @@ export function CrewView({
   onChangeInviteRelation,
   onAddFriend,
   onRemoveFriend,
+  onAnswerRequest,
   onRefresh,
   onCreateAccount,
   offline,
@@ -212,6 +248,21 @@ export function CrewView({
   const closeFriend = () => setFriendSheet(undefined);
   const shownFriend = friendSheet ?? lastFriend;
   const canAdd = Boolean(inviteEmail.trim());
+  const requests = payload?.requests ?? [];
+  const pending = payload?.pending ?? [];
+  // Saying yes lets a stranger see this learner's progress, so a grown-up answers it, like inviting.
+  const answer = (member: CrewMember, accept: boolean) => (accept ? ask(() => onAnswerRequest?.(member, true)) : onAnswerRequest?.(member, false));
+  const waiting =
+    requests.length || pending.length ? (
+      <View style={[styles.race, styles.waiting]} testID="crew-waiting">
+        {requests.map((member) => (
+          <RequestRow key={`request_${member.id}`} member={member} onAnswer={(accept) => answer(member, accept)} />
+        ))}
+        {pending.map((member) => (
+          <PendingRow key={`pending_${member.id}`} member={member} onCancel={() => onRemoveFriend(member)} />
+        ))}
+      </View>
+    ) : null;
   const add = () => {
     if (!canAdd) return;
     setInviteOpen(false);
@@ -240,11 +291,21 @@ export function CrewView({
     body = <Empty {...emptyProps} testID="crew-error" mood="sad" title="Oops!" button="Try again" onPress={retry} busy={retrying} />;
   } else if (!payload) {
     body = <Empty {...emptyProps} testID="crew-loading" mood="think" title="Finding your crew..." busy />;
-  } else if (!payload.friends.length) {
+  } else if (!payload.friends.length && !waiting) {
     body = <Empty {...emptyProps} testID="crew-empty" mood="wave" title="Add a friend to race!" button="Invite" icon="plus" onPress={openInvite} />;
+  } else if (!payload.friends.length) {
+    body = (
+      <>
+        {waiting}
+        <View style={styles.inviteWrap}>
+          <GameButton label="Invite" icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
+        </View>
+      </>
+    );
   } else {
     body = (
       <>
+        {waiting}
         <View style={styles.mascotRow}>
           <Mascot variant={mascotVariant} mood={myRank === 1 ? "cheer" : "happy"} size={78} accent={accent} />
           <View style={styles.bubbleWrap}>
@@ -559,6 +620,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 24,
     color: colors.ink
+  },
+  waiting: {
+    marginBottom: 16
+  },
+  pendingRow: {
+    backgroundColor: colors.snow
+  },
+  noLink: {
+    minWidth: 36,
+    minHeight: 36,
+    alignItems: "center",
+    justifyContent: "center"
   },
   removeLink: {
     minHeight: 40,

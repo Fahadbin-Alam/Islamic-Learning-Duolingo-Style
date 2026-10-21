@@ -292,6 +292,7 @@ describe("CrewView", () => {
       onChangeInviteRelation: jest.fn(),
       onAddFriend: jest.fn(),
       onRemoveFriend: jest.fn(),
+      onAnswerRequest: jest.fn(),
       onRefresh: jest.fn(),
       onCreateAccount: jest.fn()
     };
@@ -320,6 +321,27 @@ describe("CrewView", () => {
 
     await act(async () => screen.getByTestId("crew-view").props.refreshControl.props.onRefresh());
     expect(handlers.onRefresh).toHaveBeenCalledTimes(1);
+  });
+
+  it("lists who asked and who has not added back yet, with no stats, and adds back only after the grown-up gate", async () => {
+    const asker = { ...member(7, "Bilal", "friend", 0), pending: true };
+    const waiting = { ...member(8, "zaid@example.com", "friend", 0), pending: true };
+    const handlers = await renderCrew({ status: "ready", payload: { me: member(1, "Amina", "you", 300), friends: [], requests: [asker], pending: [waiting] } });
+
+    expect(screen.queryByTestId("crew-empty")).toBeNull();
+    expect(screen.getByText("Wants to race you")).toBeTruthy();
+    expect(screen.getByText("zaid@example.com")).toBeTruthy();
+    expect(screen.getByText("Waiting for them to add you")).toBeTruthy();
+
+    await fireEvent.press(screen.getByTestId("crew-accept-7"));
+    expect(handlers.onAnswerRequest).not.toHaveBeenCalled();
+    await solveGate();
+    expect(handlers.onAnswerRequest).toHaveBeenCalledWith(asker, true);
+
+    await fireEvent.press(screen.getByTestId("crew-decline-7"));
+    expect(handlers.onAnswerRequest).toHaveBeenCalledWith(asker, false);
+    await fireEvent.press(screen.getByTestId("crew-cancel-8"));
+    expect(handlers.onRemoveFriend).toHaveBeenCalledWith(waiting);
   });
 
   it("invites a friend by email only after the grown-up gate", async () => {

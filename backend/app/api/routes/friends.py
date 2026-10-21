@@ -55,13 +55,49 @@ def member_payload(user: User, today: date, relation: str) -> Dict[str, Any]:
     }
 
 
+def pending_payload(user: User, relation: str, name: str) -> Dict[str, Any]:
+    """Someone who has not agreed yet: nothing about their learning is shown."""
+    return {
+        "id": user.id,
+        "name": name,
+        "avatarInitials": initials(name),
+        "relation": relation,
+        "totalXp": 0,
+        "weeklyXp": 0,
+        "streakDays": 0,
+        "lastLearningAt": None,
+        "pending": True,
+    }
+
+
+def follower_ids(db, user: User) -> set:
+    return set(db.scalars(select(Friendship.user_id).where(Friendship.friend_id == user.id)).all())
+
+
+# A crew is mutual: a learner's name, XP and streak are shown only to people they added back. Anyone could type
+# an email, and the app is used by children (COPPA, Google Play Families), so one side alone never reveals anything.
 @router.get("/friends")
 def list_friends(db: DbSession, today: Optional[str] = Query(default=None), user: User = Depends(current_user)):
     day = learner_today(today)
     friendships = db.scalars(select(Friendship).where(Friendship.user_id == user.id).order_by(Friendship.created_at)).all()
+    followers = follower_ids(db, user)
+    following = {friendship.friend_id for friendship in friendships}
+    # People who added this learner and are waiting for an answer. Their own name is shown: they chose to ask.
+    requests = db.scalars(select(Friendship).where(Friendship.friend_id == user.id).order_by(Friendship.created_at)).all()
     return {
         "me": member_payload(user, day, "you"),
-        "friends": [member_payload(friendship.friend, day, friendship.relation) for friendship in friendships],
+        "friends": [member_payload(friendship.friend, day, friendship.relation) for friendship in friendships if friendship.friend_id in followers],
+        "pending": [
+            # The email the learner typed is all they get back until the other side agrees.
+            pending_payload(friendship.friend, friendship.relation, friendship.friend.email)
+            for friendship in friendships
+            if friendship.friend_id not in followers
+        ],
+        "requests": [
+            pending_payload(request.user, "friend", request.user.display_name)
+            for request in requests
+            if request.user_id not in following
+        ],
     }
 
 
@@ -79,7 +115,32 @@ def add_friend(payload: AddFriendInput, db: DbSession, today: Optional[str] = Qu
 
     db.add(Friendship(user_id=user.id, friend_id=friend.id, relation=payload.relation))
     db.commit()
-    return member_payload(friend, learner_today(today), payload.relation)
+    if friend.id in follower_ids(db, user):
+        return member_payload(friend, learner_today(today), payload.relation)
+    return pending_payload(friend, payload.relation, friend.email)
+
+
+def find_request(db, user: User, requester_id: int) -> Friendship:
+    request = db.scalar(select(Friendship).where(Friendship.user_id == requester_id, Friendship.friend_id == user.id))
+    if not request:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="That request is gone.")
+    return request
+
+
+@router.post("/friends/requests/{requester_id}/accept", status_code=status.HTTP_201_CREATED)
+def accept_request(requester_id: int, db: DbSession, today: Optional[str] = Query(default=None), user: User = Depends(current_user)):
+    request = find_request(db, user, requester_id)
+    if not db.scalar(select(Friendship).where(Friendship.user_id == user.id, Friendship.friend_id == requester_id)):
+        db.add(Friendship(user_id=user.id, friend_id=requester_id, relation="friend"))
+        db.commit()
+    return member_payload(request.user, learner_today(today), "friend")
+
+
+@router.delete("/friends/requests/{requester_id}")
+def decline_request(requester_id: int, db: DbSession, user: User = Depends(current_user)):
+    db.delete(find_request(db, user, requester_id))
+    db.commit()
+    return {"ok": True}
 
 
 @router.delete("/friends/{friend_id}")
