@@ -76,6 +76,9 @@ describe("the scroll hint never covers text", () => {
     expect(flat(screen.getByTestId("feedback-body").props.style).maxHeight).toBe(listMax - (SCROLL_HINT_ROOM - 16));
     await fireEvent.scroll(body, { nativeEvent: { contentOffset: { x: 0, y: 20 }, contentSize: { width: 288, height: 195 }, layoutMeasurement: { width: 288, height: 175 } } });
     expect(screen.queryByTestId("feedback-more")).toBeNull();
+    // At the end the arrow turns to point up, so the gap it keeps above the button is never empty.
+    expect(screen.getByTestId("feedback-more-up")).toBeTruthy();
+    expect(flat(screen.getByTestId("feedback-body").props.style).maxHeight).toBe(listMax - (SCROLL_HINT_ROOM - 16));
   });
 
   it("gives a correct-order list a little more room than a long answer", async () => {

@@ -13,6 +13,7 @@ import { FeedbackSheet } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
+import { sheetRoom, sheetScrollY, stackSpan, useSheetFit, type LayoutBox } from "./sheetFit";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -131,17 +132,23 @@ export type QuestionBubbleProps = {
   mood?: MascotMood;
   /** Hide the mascot (short screens); the prompt then shows full width. */
   hideMascot?: boolean;
+  /** The mascot hides after the prompt showed (to make room for the feedback sheet): the prompt does not pop in again. */
+  still?: boolean;
 };
 
 /** Mascot next to a speech bubble holding the question. Very long prompts drop the mascot and use the full width. */
-export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot }: QuestionBubbleProps) {
+export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still }: QuestionBubbleProps) {
   const { compact, narrow } = useLessonCompact();
   const long = prompt.length > LONG_PROMPT;
   const promptSize = long || compact ? 17 : narrow ? 18 : 19;
   if (long || hideMascot) {
-    return (
-      <PopIn from="up" delay={60} style={[styles.plainPrompt, compact ? styles.plainPromptCompact : null]}>
-        <PromptText size={promptSize}>{prompt}</PromptText>
+    const plainStyle = [styles.plainPrompt, compact ? styles.plainPromptCompact : null];
+    const text = <PromptText size={promptSize}>{prompt}</PromptText>;
+    return still && !long ? (
+      <View style={plainStyle}>{text}</View>
+    ) : (
+      <PopIn from="up" delay={60} style={plainStyle}>
+        {text}
       </PopIn>
     );
   }
@@ -228,8 +235,6 @@ const RETRY_BG = lighten(colors.flame, 0.85);
 const REVIEW_INK = darken(colors.gem, 0.45);
 const REVIEW_BG = lighten(colors.gem, 0.85);
 
-type Box = { y: number; height: number };
-
 /** One question: mascot + prompt bubble, answer tiles, CHECK bar and the feedback sheet. */
 export function ExerciseView({
   kind,
@@ -277,54 +282,65 @@ export function ExerciseView({
   const matchedId = shown ? choices.find((choice) => choice.label.trim() === shown.correctLabel.trim())?.id : undefined;
   const rightId = correctChoiceId ?? matchedId ?? (result?.correct ? selectedChoiceId : undefined);
 
-  // --- keep the right tile above the feedback sheet ---
+  // --- keep the prompt and the green tile above the feedback sheet ---
   const { ref: scrollRef, scrollProps, more, scrollDown } = useScrollMore();
   const [rootHeight, setRootHeight] = useState(0);
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
-  const [tilesBox, setTilesBox] = useState<Box | null>(null);
-  const [promptTop, setPromptTop] = useState(0);
-  const tileBoxes = useRef<Record<string, Box>>({});
+  const [sheetFull, setSheetFull] = useState(0);
+  const [tilesBox, setTilesBox] = useState<LayoutBox | null>(null);
+  const [promptBox, setPromptBox] = useState<LayoutBox | null>(null);
+  const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const wasChecked = useRef(checked);
-  // Even a slim sheet would leave too little of the answer and Why line under the green tile (four tiles, the
-  // right one last, on a 320 x 568 phone): the grey tiles fold away until the next question, so it fits.
-  const [folded, setFolded] = useState(false);
   const [tileMoves, setTileMoves] = useState(0);
-  useEffect(() => {
-    if (!checked) {
-      setFolded(false);
-    }
-  }, [checked]);
 
-  // The tiles in the stack: once folded, only the picked one and the green one.
-  const stackChoices = shownChoices.filter((choice) => !(folded && checked && choice.id !== rightId && choice.id !== selectedChoiceId));
+  const trueFalse = kind === "true_false";
+  const truePick = trueFalse ? choices.find(isTrueChoice) : undefined;
+  const falsePick = trueFalse ? choices.find(isFalseChoice) : undefined;
+  const tfChoices = truePick && falsePick && truePick !== falsePick ? attemptOrder([truePick, falsePick], shownAttempt) : null;
   const tileGap = compact ? space.sm : space.md;
 
-  // The green tile (or the picked one, before the answer is known): where it sits in the scrolling content.
-  // True / False tiles share a row, so the row is the tile.
-  const focusId = rightId ?? selectedChoiceId;
-  const focusTile = (() => {
-    if (!tilesBox) {
+  // The tiles start right under the prompt. Read from the prompt, whose size changes when the mascot hides: the
+  // tiles only move then, and a browser reports a move only with a change of size.
+  const tilesTop = promptBox ? promptBox.y + promptBox.height : tilesBox?.y;
+
+  /** The green tile (or the picked one, before the answer is known) in the scrolling content, among `shown` tiles. */
+  const focusIn = (shown: ExerciseChoice[]) => {
+    if (!tilesBox || tilesTop === undefined) {
       return undefined;
     }
-    const tile = focusId ? tileBoxes.current[focusId] : undefined;
-    if (!tile) {
-      return { top: tilesBox.y, bottom: tilesBox.y + tilesBox.height };
-    }
-    // Its place comes from the heights of the tiles above it: a browser tells a tile's layout again only when its
-    // size changes, so a tile moved up by the fold would keep its old place.
-    const above = stackChoices.slice(0, Math.max(0, stackChoices.findIndex((choice) => choice.id === focusId)));
-    const heights = above.map((choice) => tileBoxes.current[choice.id]?.height);
-    const y = heights.some((height) => height === undefined) ? tile.y : heights.reduce<number>((sum, height) => sum + (height ?? 0) + tileGap, 0);
-    const top = tilesBox.y + y;
-    return { top, bottom: top + tile.height };
-  })();
-  // How far the question may scroll once checked: never past the prompt (it stays whole at the top) or the green
-  // tile's own top.
-  const furthestScroll = focusTile ? Math.max(0, Math.min(focusTile.top - space.sm, promptTop - space.sm)) : 0;
-  // On a short phone the sheet (its Why line open) would still rise over the green tile from there, so it may be
-  // no taller than the room under that tile: what does not fit scrolls inside the sheet, behind its "more" arrow.
-  const sheetMaxHeight = checked && rootHeight && focusTile ? Math.round(rootHeight - (focusTile.bottom - furthestScroll) - space.sm) : undefined;
+    const focusId = rightId ?? selectedChoiceId;
+    // True / False tiles share a row, so the row is the tile.
+    const span = !tfChoices && focusId ? stackSpan(shown.map((choice) => choice.id), tileBoxes.current, focusId, tileGap) : undefined;
+    return span ? { top: tilesTop + span.top, bottom: tilesTop + span.bottom } : { top: tilesTop, bottom: tilesTop + tilesBox.height };
+  };
+  const fitLayout = (shown: ExerciseChoice[]) => {
+    const focus = focusIn(shown);
+    return focus && rootHeight && promptBox ? { visibleBottom: rootHeight, promptTop: promptBox.y, focusTop: focus.top, focusBottom: focus.bottom } : undefined;
+  };
+  // Folded: only the picked tile and the green one stay.
+  const foldedChoices = shownChoices.filter((choice) => choice.id === rightId || choice.id === selectedChoiceId);
+  const canFold = !tfChoices && foldedChoices.length < shownChoices.length;
+  // Four answers do not fit next to a mascot on a short phone, nor three on a short, narrow one (320 x 568): the
+  // prompt takes the full width from the start, a line or two shorter.
+  const mascotOff = compact && !tfChoices && (choices.length >= 4 || (narrow && choices.length >= 3));
+  const mascotShown = !mascotOff && prompt.length <= LONG_PROMPT;
+  // The room the sheet has with the question as it is; while it is too small, the question is squeezed.
+  const layoutNow = fitLayout(shownChoices);
+  const fit = useSheetFit({
+    open: checked,
+    fullHeight: sheetFull,
+    room: layoutNow ? sheetRoom(layoutNow).room : undefined,
+    layoutKey: `${promptBox?.height}|${tilesBox?.y}|${tilesBox?.height}|${tileMoves}`,
+    squeezeMoves: canFold || mascotShown
+  });
+  // The question gives its room first: the grey tiles fold away and the mascot hides, until the next question.
+  const folded = checked && fit.squeeze && canFold;
+  const stackChoices = folded ? foldedChoices : shownChoices;
+  const layout = folded ? fitLayout(stackChoices) : layoutNow;
+  const room = layout ? sheetRoom(layout) : undefined;
+  // Only then is the sheet held to the room under the green tile.
+  const sheetMaxHeight = checked && fit.fitted && room ? room.room : undefined;
 
   useEffect(() => {
     if (!checked) {
@@ -335,17 +351,16 @@ export function ExerciseView({
       return;
     }
     wasChecked.current = true;
-    if (!rootHeight || !sheetHeight || !focusTile) {
+    if (!sheetHeight || !layout || !room) {
       return;
     }
     // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
     // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
-    const y = Math.max(0, Math.min(focusTile.bottom + space.md - (rootHeight - sheetHeight), furthestScroll));
     // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
-    scrollRef.current?.scrollTo?.({ y, animated: true });
-    // focusTile is read from the layout boxes these values follow.
+    scrollRef.current?.scrollTo?.({ y: sheetScrollY(layout, sheetHeight, room.furthest), animated: true });
+    // The layout is read from the boxes these values follow.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checked, folded, furthestScroll, focusId, rootHeight, scrollRef, sheetHeight, tilesBox, tileMoves]);
+  }, [checked, folded, layout?.focusBottom, layout?.promptTop, layout?.visibleBottom, room?.furthest, scrollRef, sheetHeight, tileMoves]);
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
@@ -381,19 +396,12 @@ export function ExerciseView({
     }
   };
 
-  const trueFalse = kind === "true_false";
-  const truePick = trueFalse ? choices.find(isTrueChoice) : undefined;
-  const falsePick = trueFalse ? choices.find(isFalseChoice) : undefined;
-  const tfChoices = truePick && falsePick && truePick !== falsePick ? attemptOrder([truePick, falsePick], shownAttempt) : null;
-
   const why = shown ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : undefined;
   // "Correct answer: ..." always names the answer, even though the green tile shows it too.
   const sheetLabel = shown && !shown.correct ? shown.correctLabel : undefined;
   const mood: MascotMood = result ? (result.correct ? "cheer" : "sad") : "think";
-  // Four answers do not fit next to a mascot on a short phone, nor three on a short, narrow one (320 x 568): the
-  // prompt takes the full width, a line or two shorter, so the green tile and the open Why line both fit above
-  // and in the feedback sheet.
-  const hideMascot = compact && !tfChoices && (choices.length >= 4 || (narrow && choices.length >= 3));
+  // The mascot also hides while a squeezed question gives the feedback sheet its room.
+  const hideMascot = mascotOff || fit.squeeze;
   // One long answer makes the whole set use the smaller text, so the tiles match.
   const longChoices = choices.some((choice) => choice.label.length > LONG_LABEL);
   const extraBottom = checked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
@@ -425,8 +433,11 @@ export function ExerciseView({
               ) : null}
             </View>
           ) : null}
-          <View onLayout={(event) => setPromptTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-prompt">
-            <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={hideMascot} />
+          <View
+            onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}
+            testID="exercise-prompt"
+          >
+            <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={hideMascot} still={fit.squeeze && !mascotOff} />
           </View>
 
           {tfChoices ? (
@@ -487,12 +498,8 @@ export function ExerciseView({
         defaultWhyOpen={defaultWhyOpen}
         bottomInset={bottomInset}
         maxHeight={sheetMaxHeight}
-        onCramped={(cramped) => {
-          if (cramped && checked && !tfChoices) {
-            setFolded(true);
-          }
-        }}
         onHeight={setSheetHeight}
+        onFullHeight={setSheetFull}
       />
     </View>
   );

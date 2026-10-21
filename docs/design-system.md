@@ -14,7 +14,9 @@ key words so learners pick it up as they go.
 2. **Every tap makes a sound** and, on phones, a light haptic. Use `GameButton`, `ChoiceTile`,
    `Tappable` from `src/ui`; they play the sound for you. Never use a bare `Pressable`. The one
    exception is the path's `PathNode`: like `GameButton` it is a 3D button built on `Pressable`
-   (it sinks into its lip) and plays the kit feedback itself.
+   (it sinks into its lip) and plays the kit feedback itself. A tap that cannot do anything still
+   sounds: a shop row that cannot be bought buzzes like its locked button, and a hearts row with full
+   hearts plays a soft tap and says hearts are full.
 3. **Everything moves a little.** Buttons press down (3D lip), tiles pop when picked, sheets
    spring up, numbers count up, the current path node bounces, the mascot bobs.
 4. **Nothing overflows.** Text wraps inside its container (`flexShrink: 1`), rows wrap, tiles are
@@ -70,10 +72,13 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   so a learner who keeps tapping wrong stops there. Stars count the questions missed on their first try.
   A test-out (JUMP HERE) asks each question once, costs no hearts and ends as soon as it cannot be
   passed. Practice sessions keep their own rules.
-  The sheet never covers the prompt or the green tile, its Why line open: on a short phone it is only
-  as tall as the room under that tile (what does not fit scrolls inside it), goes slim (less padding,
-  a smaller button) when that room is small, and with four tiles the grey ones fold away until the
-  next question.
+  The sheet never covers the prompt or the green tile, its Why line open. The question gives its room
+  first: on a short phone the grey tiles fold away and the mascot hides (until the next question), so the
+  sheet can stay full size. Only when that is not enough does the sheet go slim (less padding, a smaller
+  button), and only then does the Why text alone scroll, from its top, in whole lines, with the arrow in the
+  gap above the button (it turns to point up at the end, so the gap is never empty). The heading, the
+  "Correct answer" line and the Why pill always show whole. Practice (Level check, Daily, Review) uses the
+  same rule and code (`src/ui/lesson/sheetFit.ts`).
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
 ## Copy bank

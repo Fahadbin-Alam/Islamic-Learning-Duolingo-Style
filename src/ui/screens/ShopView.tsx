@@ -177,7 +177,7 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
         size="sm"
         icon={icon}
         variant={variant}
-        // A muted item plays the wrong sound itself (see ItemRow).
+        // A muted item plays its own sound (see ItemRow): the buzz when locked, a soft tap when hearts are full.
         sound={busy || muted ? false : undefined}
         onPress={() => !busy && onBuy(item)}
         testID={`shop-buy-${item.id}`}
@@ -188,9 +188,9 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
 }
 
 function ItemRow(props: RowProps) {
-  const { item, user, storePrices, onBuy } = props;
+  const { item, user, storePrices, onBuy, busy } = props;
   const gems = item.currencyType === "gems";
-  // An unaffordable or not-needed gem item stays pressable but only shakes: its line already says why.
+  // An unaffordable or not-needed gem item stays pressable but never buys: its line already says why.
   const muted = gems && !canSpend(user, item);
   // Full hearts comes first: a learner who needs nothing is never told to save gems for it.
   const full = gems && !user.hearts.unlimited && user.hearts.current >= user.hearts.max;
@@ -199,26 +199,69 @@ function ItemRow(props: RowProps) {
   const name = displayName(item);
   const line = full ? "Hearts are full" : short ? `Need ${formatNumber(short)} more` : shortLine(item, user);
   const { style: shakeStyle, shake } = useShake(6);
+  const buttonPop = useRef(new Animated.Value(1)).current;
   const [nudges, setNudges] = useState(0);
   const [flashing, setFlashing] = useState(false);
   const flashTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => () => clearTimeout(flashTimer.current), []);
+
+  /** The line pops and turns bold for a moment, so it says again why nothing was bought. */
+  const sayLine = () => {
+    setNudges((count) => count + 1);
+    setFlashing(true);
+    clearTimeout(flashTimer.current);
+    flashTimer.current = setTimeout(() => setFlashing(false), NUDGE_MS);
+  };
+  /** Hearts already full: nothing is wrong, so a soft tap, and the line pops "Hearts are full". */
+  const sayFull = () => {
+    feedback("soft_ui", "light");
+    sayLine();
+  };
+  /** Not enough gems: the locked button's buzz and shake, and the line pops "Need N more". */
+  const buzz = () => {
+    shake();
+    feedback("wrong", "error");
+    sayLine();
+  };
 
   const press = (picked: ShopItem) => {
     if (!muted) {
       onBuy(picked);
       return;
     }
-    shake();
-    feedback("wrong", "error");
-    setNudges((count) => count + 1);
-    setFlashing(true);
-    clearTimeout(flashTimer.current);
-    flashTimer.current = setTimeout(() => setFlashing(false), NUDGE_MS);
+    if (full) {
+      sayFull();
+    } else {
+      buzz();
+    }
+  };
+
+  // A tap on the row (not its button) never buys, but it always answers: like the button when the item cannot be
+  // bought, otherwise a soft tap and a little pop of the button that buys it.
+  const pressRow = () => {
+    if (busy) {
+      feedback("soft_ui", "light");
+      return;
+    }
+    if (muted) {
+      press(item);
+      return;
+    }
+    feedback("soft_ui", "light");
+    buttonPop.setValue(1.1);
+    Animated.spring(buttonPop, { toValue: 1, friction: 4, tension: 180, useNativeDriver: true }).start();
   };
 
   return (
-    <View style={styles.item} testID={`shop-item-${item.id}`}>
+    <Tappable
+      onPress={pressRow}
+      sound={false}
+      hapticKind={false}
+      pressScale={0.98}
+      style={styles.item}
+      accessibilityLabel={`${name}, ${line}`}
+      testID={`shop-item-${item.id}`}
+    >
       <ItemIcon item={item} />
       <View style={styles.itemText}>
         <Text style={styles.itemName} numberOfLines={2}>
@@ -226,7 +269,7 @@ function ItemRow(props: RowProps) {
         </Text>
         <PopIn key={nudges} from="scale" style={styles.itemLineWrap}>
           <Text
-            style={[styles.itemLine, short || (full && flashing) ? styles.itemLineShort : null, flashing ? styles.itemLineFlash : null]}
+            style={[styles.itemLine, short ? styles.itemLineShort : full && flashing ? styles.itemLineFull : null, flashing ? styles.itemLineFlash : null]}
             numberOfLines={2}
             testID={`shop-line-${item.id}`}
           >
@@ -234,7 +277,7 @@ function ItemRow(props: RowProps) {
           </Text>
         </PopIn>
       </View>
-      <Animated.View style={shakeStyle}>
+      <Animated.View style={[shakeStyle, { transform: [...shakeStyle.transform, { scale: buttonPop }] }]}>
         <BuyButton
           {...props}
           onBuy={press}
@@ -245,7 +288,7 @@ function ItemRow(props: RowProps) {
           accessibilityLabel={`${name}, ${gems ? `${item.price} gems${full ? ", hearts are full" : short ? ", not enough gems" : ""}` : item.type === "rewarded_ad" ? "watch a video" : label}`}
         />
       </Animated.View>
-    </View>
+    </Tappable>
   );
 }
 
@@ -658,6 +701,9 @@ const styles = StyleSheet.create({
   },
   itemLineShort: {
     color: colors.heartLip
+  },
+  itemLineFull: {
+    color: colors.correctInk
   },
   itemLineFlash: {
     fontFamily: fonts.bodyHeavy

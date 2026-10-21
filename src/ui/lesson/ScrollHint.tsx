@@ -56,11 +56,25 @@ export function useScrollMore(slack: number = SCROLL_HINT_SLACK) {
   return { ref, scrollProps, more, scrollDown };
 }
 
+/** Which way a hint points: down while more is hidden below, up once the end is in view and the start is not. */
+export type ScrollHintDirection = "down" | "up";
+
 /**
  * A small bouncing round arrow, shown while more is hidden above it. It sits inside a `ScrollHintGap`
- * (or `LessonBottomBar`'s `scrollHint`), under the scrolling part and never over text; it scrolls down.
+ * (or `LessonBottomBar`'s `scrollHint`), under the scrolling part and never over text; it scrolls down
+ * (or, pointing up, back to the start).
  */
-export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visible: boolean; onPress: () => void; testID?: string }) {
+export function ScrollHint({
+  visible,
+  onPress,
+  direction = "down",
+  testID = "scroll-more"
+}: {
+  visible: boolean;
+  onPress: () => void;
+  direction?: ScrollHintDirection;
+  testID?: string;
+}) {
   const shown = useRef(new Animated.Value(visible ? 1 : 0)).current;
   const bob = useRef(new Animated.Value(0)).current;
 
@@ -86,7 +100,8 @@ export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visib
   }, [bob, visible]);
 
   // The arrow bobs inside the button, so the button itself never moves over the content.
-  const translateY = bob.interpolate({ inputRange: [0, 1], outputRange: [-1, 3] });
+  const up = direction === "up";
+  const translateY = bob.interpolate({ inputRange: [0, 1], outputRange: up ? [1, -3] : [-1, 3] });
   const scale = shown.interpolate({ inputRange: [0, 1], outputRange: [0.4, 1] });
 
   return (
@@ -95,8 +110,8 @@ export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visib
       style={[styles.root, { opacity: shown, transform: [{ scale }] }]}
       testID={visible ? testID : undefined}
     >
-      <Tappable onPress={onPress} pressScale={0.88} hitSlop={8} accessibilityLabel="Scroll down" style={styles.button}>
-        <Animated.View style={{ transform: [{ translateY }] }}>
+      <Tappable onPress={onPress} pressScale={0.88} hitSlop={8} accessibilityLabel={up ? "Scroll up" : "Scroll down"} style={styles.button}>
+        <Animated.View style={{ transform: up ? [{ translateY }, { rotate: "180deg" }] : [{ translateY }] }}>
           <Icon name="chevronDown" size={18} color={colors.gemLip} />
         </Animated.View>
       </Tappable>
@@ -108,10 +123,26 @@ export function ScrollHint({ visible, onPress, testID = "scroll-more" }: { visib
  * The gap between a scrolling part and the bar under it. It is `gap` tall and grows to fit the hint
  * while more is hidden, so the button sits in the bar and never covers a line that can still be read.
  */
-export function ScrollHintGap({ visible, onPress, gap, testID }: { visible: boolean; onPress: () => void; gap: number; testID?: string }) {
+export function ScrollHintGap({
+  visible,
+  onPress,
+  gap,
+  direction,
+  testID,
+  gapTestID
+}: {
+  visible: boolean;
+  onPress: () => void;
+  gap: number;
+  direction?: ScrollHintDirection;
+  /** The hint's own testID (while it shows). */
+  testID?: string;
+  /** The gap's testID. */
+  gapTestID?: string;
+}) {
   return (
-    <View pointerEvents="box-none" style={[styles.gap, { height: visible ? Math.max(gap, SCROLL_HINT_ROOM) : gap }]}>
-      <ScrollHint visible={visible} onPress={onPress} testID={testID} />
+    <View pointerEvents="box-none" style={[styles.gap, { height: visible ? Math.max(gap, SCROLL_HINT_ROOM) : gap }]} testID={gapTestID}>
+      <ScrollHint visible={visible} onPress={onPress} direction={direction} testID={testID} />
     </View>
   );
 }

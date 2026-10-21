@@ -31,16 +31,17 @@ export function isQuranText(text: string | null | undefined): boolean {
 
 /**
  * Wraps each honorific sign (ﷺ) in a span with the Naskh face so it has a real glyph, at the size and
- * color of the text around it. Other text is returned unchanged. Use it inside any <Text>.
+ * color of the text around it. Other text is returned unchanged. Use it inside any <Text>. `signStyle` is added
+ * to the sign's span (e.g. to keep its line as tall as the others).
  */
-export function withHonorifics(value: string): React.ReactNode {
+export function withHonorifics(value: string, signStyle?: StyleProp<TextStyle>): React.ReactNode {
   if (!HONORIFIC_PATTERN.test(value)) {
     return value;
   }
   // A no-break space before the sign, so it never wraps alone onto the next line.
   return value.replace(SPACE_BEFORE_HONORIFIC, "\u00a0").split(HONORIFIC_RUN).map((part, index) =>
     HONORIFIC_PATTERN.test(part) ? (
-      <Text key={index} style={styles.honorific}>
+      <Text key={index} style={signStyle ? [styles.honorific, signStyle] : styles.honorific}>
         {part}
       </Text>
     ) : (
