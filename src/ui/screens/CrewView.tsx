@@ -15,6 +15,7 @@ import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
 import { TextField } from "./sheetParts";
+import { t } from "../../i18n";
 
 /** Same shape as the CrewState in src/TopicApp.tsx. */
 export type CrewViewState =
@@ -124,9 +125,9 @@ function RaceRow({ entry, index, onOpen }: { entry: CrewMember; index: number; o
       <Avatar member={entry} />
       <View style={styles.raceMain}>
         <Text style={styles.raceName} numberOfLines={1}>
-          {me ? `${firstName(entry.name)} (you)` : firstName(entry.name)}
+          {me ? t("{name} (you)", { name: firstName(entry.name) }) : firstName(entry.name)}
         </Text>
-        <View style={styles.raceMeta} accessibilityLabel={`${entry.streakDays} day streak`}>
+        <View style={styles.raceMeta} accessibilityLabel={t("{count} day streak", { count: entry.streakDays })}>
           <Icon name="flame" size={14} color={entry.streakDays > 0 ? undefined : colors.lockedLip} />
           <Text style={styles.raceMetaText} numberOfLines={1}>
             {entry.streakDays}
@@ -163,10 +164,10 @@ function RequestRow({ member, onAnswer }: { member: CrewMember; onAnswer: (accep
       <Avatar member={member} />
       <View style={styles.raceMain}>
         <Text style={styles.raceName} numberOfLines={1}>{firstName(member.name)}</Text>
-        <Text style={styles.raceMetaText} numberOfLines={1}>Wants to race you</Text>
+        <Text style={styles.raceMetaText} numberOfLines={1}>{t("Wants to race you")}</Text>
       </View>
-      <GameButton label="Add back" size="sm" onPress={() => onAnswer(true)} testID={`crew-accept-${member.id}`} />
-      <Tappable onPress={() => onAnswer(false)} style={styles.noLink} accessibilityLabel={`Say no to ${firstName(member.name)}`} hitSlop={6} testID={`crew-decline-${member.id}`}>
+      <GameButton label={t("Add back")} size="sm" onPress={() => onAnswer(true)} testID={`crew-accept-${member.id}`} />
+      <Tappable onPress={() => onAnswer(false)} style={styles.noLink} accessibilityLabel={t("Say no to {name}", { name: firstName(member.name) })} hitSlop={6} testID={`crew-decline-${member.id}`}>
         <Icon name="close" size={18} color={colors.inkSoft} />
       </Tappable>
     </View>
@@ -180,9 +181,9 @@ function PendingRow({ member, onCancel }: { member: CrewMember; onCancel: () => 
       <Avatar member={member} />
       <View style={styles.raceMain}>
         <Text style={styles.raceName} numberOfLines={1}>{member.name}</Text>
-        <Text style={styles.raceMetaText} numberOfLines={1}>Waiting for them to add you</Text>
+        <Text style={styles.raceMetaText} numberOfLines={1}>{t("Waiting for them to add you")}</Text>
       </View>
-      <Tappable onPress={onCancel} style={styles.noLink} accessibilityLabel={`Cancel invite to ${member.name}`} hitSlop={6} testID={`crew-cancel-${member.id}`}>
+      <Tappable onPress={onCancel} style={styles.noLink} accessibilityLabel={t("Cancel invite to {name}", { name: member.name })} hitSlop={6} testID={`crew-cancel-${member.id}`}>
         <Icon name="close" size={18} color={colors.inkSoft} />
       </Tappable>
     </View>
@@ -271,7 +272,7 @@ export function CrewView({
 
   let body: React.ReactNode;
   if (unavailable) {
-    body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title="Crew is coming soon!" />;
+    body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title={t("Crew is coming soon!")} />;
   } else if (signedOut) {
     // An account without a server session (made offline), or a saved one that logged out, logs in; everyone else signs up.
     body = (
@@ -279,26 +280,26 @@ export function CrewView({
         {...emptyProps}
         testID="crew-signed-out"
         mood="wave"
-        title="Race your friends!"
-        button={user.hasAccount || hasSavedAccount ? "Log in" : "Sign up"}
+        title={t("Race your friends!")}
+        button={user.hasAccount || hasSavedAccount ? t("Log in") : t("Sign up")}
         onPress={onCreateAccount}
       />
     );
   } else if (isOffline) {
-    body = <Empty {...emptyProps} testID="crew-offline" mood="sad" title="No internet" button="Try again" onPress={retry} busy={retrying} />;
+    body = <Empty {...emptyProps} testID="crew-offline" mood="sad" title={t("No internet")} button={t("Try again")} onPress={retry} busy={retrying} />;
   } else if (crew.status === "error") {
     // The backend message can be technical; children see a short line. TopicApp logs the real one.
-    body = <Empty {...emptyProps} testID="crew-error" mood="sad" title="Oops!" button="Try again" onPress={retry} busy={retrying} />;
+    body = <Empty {...emptyProps} testID="crew-error" mood="sad" title={t("Oops!")} button={t("Try again")} onPress={retry} busy={retrying} />;
   } else if (!payload) {
-    body = <Empty {...emptyProps} testID="crew-loading" mood="think" title="Finding your crew..." busy />;
+    body = <Empty {...emptyProps} testID="crew-loading" mood="think" title={t("Finding your crew...")} busy />;
   } else if (!payload.friends.length && !waiting) {
-    body = <Empty {...emptyProps} testID="crew-empty" mood="wave" title="Add a friend to race!" button="Invite" icon="plus" onPress={openInvite} />;
+    body = <Empty {...emptyProps} testID="crew-empty" mood="wave" title={t("Add a friend to race!")} button={t("Invite")} icon="plus" onPress={openInvite} />;
   } else if (!payload.friends.length) {
     body = (
       <>
         {waiting}
         <View style={styles.inviteWrap}>
-          <GameButton label="Invite" icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
+          <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
         </View>
       </>
     );
@@ -309,7 +310,7 @@ export function CrewView({
         <View style={styles.mascotRow}>
           <Mascot variant={mascotVariant} mood={myRank === 1 ? "cheer" : "happy"} size={78} accent={accent} />
           <View style={styles.bubbleWrap}>
-            <SpeechBubble>{`You're #${myRank} this week!`}</SpeechBubble>
+            <SpeechBubble>{t("You're #{rank} this week!", { rank: myRank })}</SpeechBubble>
           </View>
         </View>
 
@@ -320,7 +321,7 @@ export function CrewView({
         </View>
 
         <View style={styles.inviteWrap}>
-          <GameButton label="Invite" icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
+          <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
         </View>
       </>
     );
@@ -340,12 +341,12 @@ export function CrewView({
       >
         <View style={styles.titleRow}>
           <Text style={styles.title} numberOfLines={1}>
-            Crew
+            {t("Crew")}
           </Text>
           {payload ? (
-            <View style={styles.weekPill} accessibilityLabel={`${payload.me.weeklyXp} XP this week`}>
+            <View style={styles.weekPill} accessibilityLabel={t("{count} XP this week", { count: payload.me.weeklyXp })}>
               <Icon name="bolt" size={20} />
-              <Text style={styles.weekText} numberOfLines={1}>{`${formatNumber(payload.me.weeklyXp)} XP`}</Text>
+              <Text style={styles.weekText} numberOfLines={1}>{t("{count} XP", { count: formatNumber(payload.me.weeklyXp) })}</Text>
             </View>
           ) : null}
         </View>
@@ -355,23 +356,23 @@ export function CrewView({
       <Sheet visible={inviteOpen} onClose={() => setInviteOpen(false)} testID="crew-invite-sheet">
         <View style={styles.sheetHead}>
           <Text style={styles.sheetTitle} numberOfLines={2}>
-            Invite a friend
+            {t("Invite a friend")}
           </Text>
-          <Tappable onPress={() => setInviteOpen(false)} style={styles.sheetClose} accessibilityLabel="Close" hitSlop={8} pressScale={0.9}>
+          <Tappable onPress={() => setInviteOpen(false)} style={styles.sheetClose} accessibilityLabel={t("Close")} hitSlop={8} pressScale={0.9}>
             <Icon name="close" size={20} color={colors.inkSoft} />
           </Tappable>
         </View>
         <TextField
           value={inviteEmail}
           onChangeText={onChangeInviteEmail}
-          placeholder="Their email"
+          placeholder={t("Their email")}
           autoCapitalize="none"
           autoCorrect={false}
           keyboardType="email-address"
           returnKeyType="done"
           onSubmitEditing={add}
           testID="crew-email"
-          accessibilityLabel="Friend's email"
+          accessibilityLabel={t("Friend's email")}
         />
         <View style={styles.chips}>
           {(["friend", "parent"] as const).map((relation) => {
@@ -388,13 +389,13 @@ export function CrewView({
               >
                 <Icon name={relation === "parent" ? "family" : "people"} size={22} />
                 <Text style={[styles.chipText, active ? styles.chipTextActive : null]} numberOfLines={1}>
-                  {relation === "parent" ? "Parent" : "Friend"}
+                  {relation === "parent" ? t("Parent") : t("Friend")}
                 </Text>
               </Tappable>
             );
           })}
         </View>
-        <GameButton label="Add" icon="plus" fullWidth disabled={!canAdd} onPress={add} testID="crew-add" />
+        <GameButton label={t("Add")} icon="plus" fullWidth disabled={!canAdd} onPress={add} testID="crew-add" />
       </Sheet>
 
       <Sheet visible={friendSheet !== undefined} onClose={closeFriend} testID="crew-friend-sheet">
@@ -402,11 +403,11 @@ export function CrewView({
           <PopIn key="confirm" style={styles.friendSheet}>
             <Mascot variant={mascotVariant} mood="sad" size={88} accent={accent} />
             <Text style={styles.sheetTitleCenter} numberOfLines={2}>
-              {`Remove ${firstName(shownFriend.name)}?`}
+              {t("Remove {name}?", { name: firstName(shownFriend.name) })}
             </Text>
-            <GameButton label="Keep" fullWidth onPress={() => setConfirmRemove(false)} testID="crew-remove-keep" />
+            <GameButton label={t("Keep")} fullWidth onPress={() => setConfirmRemove(false)} testID="crew-remove-keep" />
             <GameButton
-              label="Remove"
+              label={t("Remove")}
               variant="secondary"
               color={colors.wrongInk}
               fullWidth
@@ -433,9 +434,9 @@ export function CrewView({
                 <Text style={styles.friendStatText}>{formatNumber(shownFriend.weeklyXp)}</Text>
               </View>
             </View>
-            <GameButton label="OK" fullWidth onPress={closeFriend} testID="crew-friend-ok" />
+            <GameButton label={t("OK")} fullWidth onPress={closeFriend} testID="crew-friend-ok" />
             <Tappable onPress={() => setConfirmRemove(true)} style={styles.removeLink} accessibilityLabel={`Remove ${firstName(shownFriend.name)}`} testID={`crew-ask-remove-${shownFriend.id}`}>
-              <Text style={styles.removeLinkText}>Remove</Text>
+              <Text style={styles.removeLinkText}>{t("Remove")}</Text>
             </Tappable>
           </View>
         ) : null}
@@ -465,7 +466,7 @@ const styles = StyleSheet.create({
   title: {
     ...text.h1,
     flexShrink: 1,
-    marginRight: "auto"
+    marginEnd: "auto"
   },
   weekPill: {
     flexDirection: "row",
@@ -491,7 +492,7 @@ const styles = StyleSheet.create({
   bubbleWrap: {
     flex: 1,
     minWidth: 0,
-    marginLeft: 6
+    marginStart: 6
   },
   race: {
     gap: 8

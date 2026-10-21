@@ -6,6 +6,7 @@ import { ProgressBar } from "../ProgressBar";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, space } from "../theme";
 import { ScrollHintGap } from "./ScrollHint";
+import { t } from "../../i18n";
 
 export type LessonHearts = { current: number; max: number; unlimited: boolean };
 
@@ -60,7 +61,7 @@ export function LessonHeader({ progress, hearts, onClose, topInset = 0, style }:
 
   return (
     <View style={[styles.root, { paddingTop: space.md + topInset }, style]}>
-      <Tappable onPress={onClose} accessibilityLabel="Close lesson" hitSlop={10} pressScale={0.88} style={styles.close} testID="lesson-close">
+      <Tappable onPress={onClose} accessibilityLabel={t("Close lesson")} hitSlop={10} pressScale={0.88} style={styles.close} testID="lesson-close">
         <Icon name="close" size={26} color={CLOSE_GREY} />
       </Tappable>
       <View style={styles.bar} onLayout={(event) => setBarWidth(event.nativeEvent.layout.width)}>
@@ -70,7 +71,7 @@ export function LessonHeader({ progress, hearts, onClose, topInset = 0, style }:
         style={[styles.hearts, shakeStyle]}
         accessible
         accessibilityRole="image"
-        accessibilityLabel={hearts.unlimited ? "Unlimited hearts" : `${hearts.current} of ${hearts.max} hearts`}
+        accessibilityLabel={hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max })}
         testID="lesson-hearts"
       >
         <Animated.View style={{ transform: [{ scale: pop }] }}>
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
     height: 36,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: -6,
+    marginStart: -6,
     borderRadius: 18
   },
   bar: {
@@ -173,10 +174,10 @@ const styles = StyleSheet.create({
     position: "relative"
   },
   infinity: {
-    marginLeft: 4
+    marginStart: 4
   },
   count: {
-    marginLeft: 5,
+    marginStart: 5,
     fontFamily: fonts.displayHeavy,
     fontSize: 19,
     lineHeight: 24,

@@ -7,6 +7,7 @@ import { Sheet } from "../Sheet";
 import { feedback } from "../sound";
 import { Tappable } from "../Tappable";
 import { colors, fonts, lighten, radii, text } from "../theme";
+import { t } from "../../i18n";
 
 type Puzzle = { a: number; b: number; options: number[] };
 
@@ -94,10 +95,10 @@ export function GrownUpCheck({ onPass, onClose }: { onPass: () => void; onClose?
           <Icon name="lock" size={26} />
         </View>
         <Text style={styles.title} numberOfLines={2}>
-          Ask a grown-up
+          {t("Ask a grown-up")}
         </Text>
         {onClose ? (
-          <Tappable onPress={onClose} style={styles.close} accessibilityLabel="Close" hitSlop={8} pressScale={0.9} testID="grownup-close">
+          <Tappable onPress={onClose} style={styles.close} accessibilityLabel={t("Close")} hitSlop={8} pressScale={0.9} testID="grownup-close">
             <Icon name="close" size={20} color={colors.inkSoft} />
           </Tappable>
         ) : null}

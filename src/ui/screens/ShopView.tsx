@@ -12,6 +12,7 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount, formatNumber } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
+import { t } from "../../i18n";
 
 export type ShopViewProps = {
   user: UserProfile;
@@ -69,10 +70,10 @@ function needsGrownUp(item: ShopItem) {
 }
 
 export function formatShopPrice(item: ShopItem, storePrices: Record<string, string> = {}) {
-  if (item.currencyType === "rewarded_ad") return "Watch";
+  if (item.currencyType === "rewarded_ad") return t("Watch");
   if (item.currencyType === "gems") return formatNumber(item.price);
   const price = storePrices[item.id] ?? `$${item.price.toFixed(2)}`;
-  if (item.durationDays) return `${price}${item.durationDays >= 365 ? "/yr" : "/mo"}`;
+  if (item.durationDays) return `${price}${item.durationDays >= 365 ? t("/yr") : t("/mo")}`;
   return price;
 }
 
@@ -80,30 +81,30 @@ export function formatShopPrice(item: ShopItem, storePrices: Record<string, stri
 function displayName(item: ShopItem) {
   switch (item.type) {
     case "monthly_membership":
-      return "Monthly";
+      return t("Monthly");
     case "yearly_membership":
-      return "Yearly";
+      return t("Yearly");
     case "gem_heart_refill":
-      return "Full hearts";
+      return t("Full hearts");
     case "rewarded_ad":
-      return item.gemsGranted ? "Free gems" : "Free heart";
+      return item.gemsGranted ? t("Free gems") : t("Free heart");
     default:
       return item.name;
   }
 }
 
 function shortLine(item: ShopItem, user: UserProfile) {
-  if (item.refillsHearts) return `Fill to ${user.hearts.max}`;
-  if (item.type === "rewarded_ad") return item.gemsGranted ? `Watch: +${item.gemsGranted} gems` : "Watch a video";
-  if (item.heartsGranted) return `+${item.heartsGranted} hearts`;
-  if (item.gemsGranted) return `+${formatNumber(item.gemsGranted)} gems`;
+  if (item.refillsHearts) return t("Fill to {count}", { count: user.hearts.max });
+  if (item.type === "rewarded_ad") return item.gemsGranted ? t("Watch: +{count} gems", { count: item.gemsGranted }) : t("Watch a video");
+  if (item.heartsGranted) return t("+{count} hearts", { count: item.heartsGranted });
+  if (item.gemsGranted) return t("+{count} gems", { count: formatNumber(item.gemsGranted) });
   return item.localizedDescription;
 }
 
 function badgeText(item: ShopItem) {
   if (!item.highlightBadge) return undefined;
   const percent = item.highlightBadge.match(/\d+\s*%/);
-  return percent ? `Save ${percent[0].replace(/\s/g, "")}` : item.highlightBadge;
+  return percent ? t("Save {percent}", { percent: percent[0].replace(/\s/g, "") }) : item.highlightBadge;
 }
 
 const BENEFITS: { icon: IconName; label: string }[] = [
@@ -165,7 +166,7 @@ const NUDGE_MS = 1400;
 function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, accessibilityLabel }: RowProps & { label: string; variant: "blue" | "gold" | "primary"; icon?: IconName; muted?: boolean; accessibilityLabel: string }) {
   if (busy && pendingId === item.id) {
     return (
-      <View style={[styles.spinner, styles.itemButton]} testID={`shop-pending-${item.id}`} accessibilityLabel="Working">
+      <View style={[styles.spinner, styles.itemButton]} testID={`shop-pending-${item.id}`} accessibilityLabel={t("Working")}>
         <ActivityIndicator color={colors.green} />
       </View>
     );
@@ -197,7 +198,7 @@ function ItemRow(props: RowProps) {
   const short = gems && !full && user.gems < item.price ? item.price - user.gems : 0;
   const label = formatShopPrice(item, storePrices);
   const name = displayName(item);
-  const line = full ? "Hearts are full" : short ? `Need ${formatNumber(short)} more` : shortLine(item, user);
+  const line = full ? t("Hearts are full") : short ? t("Need {count} more", { count: formatNumber(short) }) : shortLine(item, user);
   const { style: shakeStyle, shake } = useShake(6);
   const buttonPop = useRef(new Animated.Value(1)).current;
   const rowScale = useRef(new Animated.Value(1)).current;
@@ -288,7 +289,7 @@ function ItemRow(props: RowProps) {
           variant={gems ? "blue" : item.type === "rewarded_ad" ? "gold" : "primary"}
           icon={gems ? (short ? "lock" : "gem") : item.type === "rewarded_ad" ? "play" : undefined}
           muted={muted}
-          accessibilityLabel={`${name}, ${gems ? `${formatNumber(item.price)} gems${full ? ", hearts are full" : short ? ", not enough gems" : ""}` : item.type === "rewarded_ad" ? "watch a video" : label}`}
+          accessibilityLabel={`${name}, ${gems ? `${t("{count} gems", { count: formatNumber(item.price) })}${full ? t(", hearts are full") : short ? t(", not enough gems") : ""}` : item.type === "rewarded_ad" ? t("watch a video") : label}`}
         />
       </Animated.View>
     </Animated.View>
@@ -304,7 +305,7 @@ function BenefitList({ ink, skipHearts }: { ink: string; skipHearts?: boolean })
             <Icon name={benefit.icon} size={18} color={benefit.icon === "infinity" ? colors.heart : undefined} />
           </View>
           <Text style={[styles.benefitText, { color: ink }]} numberOfLines={1}>
-            {benefit.label}
+            {t(benefit.label)}
           </Text>
         </View>
       ))}
@@ -321,7 +322,7 @@ function PremiumCard({ plans, ...rest }: Omit<RowProps, "item"> & { plans: ShopI
           <Icon name="crown" size={40} />
         </View>
         <Text style={[styles.premiumTitle, { color: ink }]} numberOfLines={1}>
-          Premium
+          {t("Premium")}
         </Text>
       </View>
       <BenefitList ink={ink} />
@@ -342,7 +343,7 @@ function PremiumCard({ plans, ...rest }: Omit<RowProps, "item"> & { plans: ShopI
                 </View>
               ) : null}
             </View>
-            <BuyButton {...rest} item={plan} label={price} variant="primary" accessibilityLabel={`Premium ${displayName(plan)}, ${price}`} />
+            <BuyButton {...rest} item={plan} label={price} variant="primary" accessibilityLabel={`${t("Premium")} ${displayName(plan)}, ${price}`} />
           </View>
         );
       })}
@@ -433,7 +434,7 @@ export function ShopView({
   return (
     <View style={styles.root}>
       <ScrollView ref={scrollRef} style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="shop-view">
-        <Text style={styles.title}>Shop</Text>
+        <Text style={styles.title}>{t("Shop")}</Text>
 
         <PopIn from="scale">
           <View style={styles.balance}>
@@ -446,7 +447,7 @@ export function ShopView({
             </View>
             <Animated.View
               style={[styles.balanceHearts, { transform: [{ scale: heartsPop }] }]}
-              accessibilityLabel={user.hearts.unlimited ? "Unlimited hearts" : `${user.hearts.current} of ${user.hearts.max} hearts`}
+              accessibilityLabel={user.hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: user.hearts.current, max: user.hearts.max })}
               testID="shop-hearts"
             >
               <Icon name="heart" size={26} />
@@ -468,10 +469,10 @@ export function ShopView({
                 <View style={styles.activeText}>
                   <View style={styles.activeTitleRow}>
                     <Icon name="crown" size={28} />
-                    <Text style={[styles.premiumTitle, styles.activeTitle]}>Premium</Text>
+                    <Text style={[styles.premiumTitle, styles.activeTitle]}>{t("Premium")}</Text>
                   </View>
                   <Text style={styles.activeLine} numberOfLines={2}>
-                    Unlimited hearts!
+                    {t("Unlimited hearts!")}
                   </Text>
                 </View>
               </View>
@@ -482,7 +483,7 @@ export function ShopView({
 
         {hearts.length ? (
           <View style={styles.section}>
-            <Text style={styles.sectionHeader}>Hearts</Text>
+            <Text style={styles.sectionHeader}>{t("Hearts")}</Text>
             {hearts.map((item) => (
               <ItemRow key={item.id} item={item} {...rowProps} />
             ))}
@@ -491,7 +492,7 @@ export function ShopView({
 
         {gemPacks.length ? (
           <View style={styles.section}>
-            <Text style={styles.sectionHeader}>Gems</Text>
+            <Text style={styles.sectionHeader}>{t("Gems")}</Text>
             {gemPacks.map((item) => (
               <ItemRow key={item.id} item={item} {...rowProps} />
             ))}
@@ -500,7 +501,7 @@ export function ShopView({
 
         {powerUps.length ? (
           <View style={styles.section}>
-            <Text style={styles.sectionHeader}>Power-ups</Text>
+            <Text style={styles.sectionHeader}>{t("Power-ups")}</Text>
             {powerUps.map((item) => (
               <ItemRow key={item.id} item={item} {...rowProps} />
             ))}
@@ -521,18 +522,18 @@ export function ShopView({
               <Icon name="crown" size={30} />
               <View style={styles.appHintTextWrap}>
                 <Text style={styles.appHintText} testID="shop-app-hint-line">
-                  Almost every lesson is free!
+                  {t("Almost every lesson is free!")}
                 </Text>
               </View>
             </View>
-            {onDone ? <GameButton label="Keep learning" size="md" fullWidth onPress={onDone} testID="shop-keep-learning" /> : null}
+            {onDone ? <GameButton label={t("Keep learning")} size="md" fullWidth onPress={onDone} testID="shop-keep-learning" /> : null}
           </View>
         ) : null}
 
         <View style={styles.footer}>
           {premium ? (
             <Tappable onPress={() => openGated(MANAGE_SUBSCRIPTION_URL)} accessibilityRole="link" style={styles.restore} testID="shop-manage">
-              <Text style={styles.restoreText}>Manage subscription</Text>
+              <Text style={styles.restoreText}>{t("Manage subscription")}</Text>
             </Tappable>
           ) : null}
           {canBuyWithMoney ? (
@@ -542,19 +543,19 @@ export function ShopView({
               sound={busy ? false : undefined}
               style={[styles.restore, busy ? styles.dimBusy : null]}
               testID="shop-restore"
-              accessibilityLabel="Restore purchases"
+              accessibilityLabel={t("Restore purchases")}
             >
               {busy && pending === "restore" ? <ActivityIndicator color={colors.gem} size="small" /> : null}
-              <Text style={styles.restoreText}>Restore purchases</Text>
+              <Text style={styles.restoreText}>{t("Restore purchases")}</Text>
             </Tappable>
           ) : null}
-          {premium || !plans.length ? null : <Text style={styles.legal}>Renews automatically. Cancel anytime in store settings.</Text>}
+          {premium || !plans.length ? null : <Text style={styles.legal}>{t("Renews automatically. Cancel anytime in store settings.")}</Text>}
           <View style={styles.links}>
             <Tappable onPress={() => openGated(legalLinks.terms)} accessibilityRole="link" style={styles.link} testID="shop-terms">
-              <Text style={styles.linkText}>Terms</Text>
+              <Text style={styles.linkText}>{t("Terms")}</Text>
             </Tappable>
             <Tappable onPress={() => openGated(legalLinks.privacy)} accessibilityRole="link" style={styles.link} testID="shop-privacy">
-              <Text style={styles.linkText}>Privacy</Text>
+              <Text style={styles.linkText}>{t("Privacy")}</Text>
             </Tappable>
           </View>
         </View>

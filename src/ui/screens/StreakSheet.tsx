@@ -7,6 +7,7 @@ import { Sheet } from "../Sheet";
 import { colors, darken, fonts, lighten, space, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
 import { useBackToClose } from "./sheetParts";
+import { t } from "../../i18n";
 
 export type StreakSheetProps = {
   visible: boolean;
@@ -29,12 +30,12 @@ export function StreakSheet({ visible, streakDays, onClose }: StreakSheetProps) 
           <Icon name="flame" size={64} color={lit ? undefined : colors.lockedLip} />
         </PopIn>
         <Text style={[styles.title, { color: lit ? FLAME_INK : colors.inkSoft }]} accessibilityRole="header" testID="streak-title">
-          {lit ? `${formatNumber(streakDays)} day streak!` : "No streak yet"}
+          {lit ? t("{count} day streak!", { count: formatNumber(streakDays) }) : t("No streak yet")}
         </Text>
         <Text style={styles.line} testID="streak-line">
-          {lit ? "Finish a lesson each day to keep it!" : "Finish a lesson today to start one!"}
+          {lit ? t("Finish a lesson each day to keep it!") : t("Finish a lesson today to start one!")}
         </Text>
-        <GameButton label="Got it" fullWidth onPress={onClose} testID="streak-close" />
+        <GameButton label={t("Got it")} fullWidth onPress={onClose} testID="streak-close" />
       </View>
     </Sheet>
   );

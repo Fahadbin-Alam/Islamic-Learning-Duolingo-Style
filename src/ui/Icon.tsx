@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import Svg, { Circle, Ellipse, G, Path, Polygon, Rect } from "react-native-svg";
+import { isRtlLanguage } from "../i18n";
 
 export type IconName =
   | "flame"
@@ -43,6 +44,7 @@ export type IconName =
   | "family"
   | "people"
   | "moon"
+  | "globe"
   | "water"
   | "sun"
   | "star8"
@@ -551,6 +553,17 @@ const ICONS: Record<IconName, Drawer> = {
       <Person t={t} x={8.6} y={8} s={1.02} color={C.greenLight} deep={C.green} />
     </G>
   ),
+  globe: (t) => (
+    <G>
+      <Circle cx={12} cy={12} r={10.4} {...t.f(C.gem)} />
+      <Path
+        d="M1.8 12h20.4M12 1.8c-3.4 3-4.6 6.4-4.6 10.2s1.2 7.2 4.6 10.2M12 1.8c3.4 3 4.6 6.4 4.6 10.2s-1.2 7.2-4.6 10.2M4 6.6h16M4 17.4h16"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        {...t.ds("#FFFFFF")}
+      />
+    </G>
+  ),
   moon: (t) => (
     <G>
       <Circle cx={12} cy={12} r={10.4} {...t.f(C.indigo)} />
@@ -632,14 +645,27 @@ const ICONS: Record<IconName, Drawer> = {
 
 export const ICON_NAMES = Object.keys(ICONS) as IconName[];
 
+// Arrows point the way the text reads, so Urdu and Arabic flip them.
+const DIRECTIONAL: ReadonlySet<IconName> = new Set<IconName>(["chevronRight", "arrowLeft"]);
+
 export const Icon = memo(function Icon({ name, size = 24, color, detailColor }: IconProps) {
   const draw = ICONS[name] ?? ICONS.star;
+  const flip = DIRECTIONAL.has(name) && isRtlLanguage();
   return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+    <Svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      style={flip ? FLIPPED : undefined}
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+    >
       {draw(new Tone(color, detailColor))}
     </Svg>
   );
 });
+
+const FLIPPED = { transform: [{ scaleX: -1 }] };
 
 const TOPIC_ICONS: Record<string, IconName> = {
   foundation: "crescent",

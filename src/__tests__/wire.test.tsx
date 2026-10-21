@@ -200,7 +200,7 @@ describe("TopicApp lesson flow", () => {
     await press("test-out-start");
 
     expect(screen.getByTestId("test-out-label")).toBeTruthy();
-    expect(screen.getByTestId("test-out-goal").props.children.join("")).toBe(`Get ${testOutPassingScore(firstTry.length)} of ${firstTry.length} right`);
+    expect([screen.getByTestId("test-out-goal").props.children].flat().join("")).toBe(`Get ${testOutPassingScore(firstTry.length)} of ${firstTry.length} right`);
 
     // Every answer wrong: no "Try again!", each question once, in order, until the test can no longer
     // be passed. It ends right then.

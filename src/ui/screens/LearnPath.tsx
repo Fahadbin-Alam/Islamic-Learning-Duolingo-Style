@@ -30,6 +30,7 @@ import { feedback } from "../sound";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, text, withAlpha } from "../theme";
+import { isRtlLanguage, t } from "../../i18n";
 
 export type PathChest = { id: string; gemsReward: number; unlocked: boolean; claimed: boolean };
 
@@ -244,7 +245,7 @@ function StartTag({ color }: { color: string }) {
   return (
     <Animated.View style={[styles.tagWrap, { transform: [{ translateY }] }]} pointerEvents="none">
       <View style={styles.tag}>
-        <Text style={[styles.tagText, { color }]}>START</Text>
+        <Text style={[styles.tagText, { color }]}>{t("START")}</Text>
       </View>
       <View style={styles.tagTail} />
     </Animated.View>
@@ -325,7 +326,7 @@ function PathNode({
         onPressIn={() => Animated.timing(press, { toValue: 1, duration: 60, useNativeDriver: true }).start()}
         onPressOut={() => Animated.spring(press, { toValue: 0, friction: 5, tension: 260, useNativeDriver: true }).start()}
         accessibilityRole="button"
-        accessibilityLabel={`${node.title}, ${premium ? "premium" : current ? "start" : node.status}`}
+        accessibilityLabel={`${node.title}, ${premium ? t("premium") : current ? t("start") : t(node.status)}`}
         testID={`path-node-${node.id}`}
         style={styles.nodeHit}
       >
@@ -401,10 +402,10 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
         Animated.timing(bounce, { toValue: 1.12, duration: 110, useNativeDriver: true }),
         Animated.spring(bounce, { toValue: 1, friction: 4, tension: 220, useNativeDriver: true })
       ]).start();
-      show({ icon: "check", label: "Opened!" });
+      show({ icon: "check", label: t("Opened!") });
     } else {
       shake();
-      show({ icon: "lock", label: "Keep going!" });
+      show({ icon: "lock", label: t("Keep going!") });
     }
   };
 
@@ -422,7 +423,7 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
         sound={ready ? "reward_chest" : "soft_ui"}
         hapticKind={ready ? "success" : "light"}
         pressScale={0.9}
-        accessibilityLabel={ready ? `Open chest, ${chest.gemsReward} gems` : chest.claimed ? "Opened chest" : "Locked chest"}
+        accessibilityLabel={ready ? t("Open chest, {count} gems", { count: chest.gemsReward }) : chest.claimed ? t("Opened chest") : t("Locked chest")}
         testID={`path-chest-${chest.id}`}
       >
         <Animated.View style={shakeStyle}>
@@ -490,17 +491,17 @@ function NodeCard({
 
   let action: React.ReactNode;
   if (premium && onPremium && canBuyPremium) {
-    action = <GameButton label="Unlock" icon="crown" variant="gold" fullWidth onPress={onPremium} style={styles.cardButton} testID="node-card-unlock" />;
+    action = <GameButton label={t("Unlock")} icon="crown" variant="gold" fullWidth onPress={onPremium} style={styles.cardButton} testID="node-card-unlock" />;
   } else if (grey) {
     // Why it is locked, in a few words, and a way forward when the unit can be tested out.
     action = (
       <>
         <View style={styles.lockedRow} testID="node-card-locked">
           <Icon name={premium ? "crown" : "lock"} size={22} color={premium ? undefined : colors.inkSoft} />
-          <Text style={styles.lockedText}>{premium ? "Premium lesson" : "Finish the one before it!"}</Text>
+          <Text style={styles.lockedText}>{premium ? t("Premium lesson") : t("Finish the one before it!")}</Text>
         </View>
         {onJump ? (
-          <GameButton label="Jump here" icon="key" variant="white" color={colors.gemLip} fullWidth onPress={onJump} style={styles.cardButton} testID="node-card-jump" />
+          <GameButton label={t("Jump here")} icon="key" variant="white" color={colors.gemLip} fullWidth onPress={onJump} style={styles.cardButton} testID="node-card-jump" />
         ) : null}
       </>
     );
@@ -508,7 +509,7 @@ function NodeCard({
     action = (
       <GameButton
         // A finished circle pays nothing again, so its button says just PRACTICE.
-        label={xp > 0 ? `${node.status === "completed" ? "Practice" : "Start"} +${xp} XP` : node.status === "completed" ? "Practice" : "Start"}
+        label={xp > 0 ? t(node.status === "completed" ? "Practice +{count} XP" : "Start +{count} XP", { count: xp }) : node.status === "completed" ? t("Practice") : t("Start")}
         variant="white"
         color={color}
         fullWidth
@@ -535,13 +536,13 @@ function NodeCard({
               size={arabicSize}
               weight="bold"
               color={ink}
-              align="left"
+              align={isRtlLanguage() ? "right" : "left"}
               style={[styles.cardArabic, { lineHeight: arabicSize === 28 ? 40 : 34 }, grey ? styles.soft : null]}
             >
               {arabic.ar}
             </ArabicText>
           ) : null}
-          <Text style={[styles.cardSmall, { color: ink }, grey ? styles.soft : styles.light]}>{`${place} of ${count}`}</Text>
+          <Text style={[styles.cardSmall, { color: ink }, grey ? styles.soft : styles.light]}>{t("{place} of {count}", { place, count })}</Text>
           {action}
         </View>
       </View>
@@ -559,7 +560,7 @@ function PremiumPill({ unitId, onPress }: { unitId: string; onPress?: () => void
   const inner = (
     <>
       <Icon name="crown" size={20} />
-      <Text style={styles.premiumText}>PREMIUM</Text>
+      <Text style={styles.premiumText}>{t("PREMIUM")}</Text>
     </>
   );
   if (!onPress) {
@@ -570,7 +571,7 @@ function PremiumPill({ unitId, onPress }: { unitId: string; onPress?: () => void
     );
   }
   return (
-    <Tappable onPress={onPress} pressScale={0.92} accessibilityLabel="Premium" testID={`unit-premium-${unitId}`} style={styles.premiumPill}>
+    <Tappable onPress={onPress} pressScale={0.92} accessibilityLabel={t("Premium")} testID={`unit-premium-${unitId}`} style={styles.premiumPill}>
       {inner}
     </Tappable>
   );
@@ -598,9 +599,9 @@ function UnitBanner({
       testID={`unit-banner-${unit.id}`}
     >
       <View style={styles.unitRow}>
-        <Text style={styles.unitLabel} numberOfLines={1}>{`UNIT ${unit.number}`}</Text>
+        <Text style={styles.unitLabel} numberOfLines={1}>{t("UNIT {count}", { count: unit.number })}</Text>
         {unit.arabic ? (
-          <ArabicText size={unit.arabic.ar.length > 12 ? 18 : 20} weight="bold" color={colors.white} align="right" style={styles.bannerArabic}>
+          <ArabicText size={unit.arabic.ar.length > 12 ? 18 : 20} weight="bold" color={colors.white} align={isRtlLanguage() ? "left" : "right"} style={styles.bannerArabic}>
             {unit.arabic.ar}
           </ArabicText>
         ) : null}
@@ -617,7 +618,7 @@ function UnitBanner({
           <Tappable
             onPress={onTestOut}
             pressScale={0.9}
-            accessibilityLabel="Jump ahead"
+            accessibilityLabel={t("Jump ahead")}
             testID={`unit-test-out-${unit.id}`}
             style={[styles.keyButton, { borderBottomColor: darken(color, 0.3) }]}
           >
@@ -635,7 +636,7 @@ function StickyBanner({ unit, color, onMeasure }: { unit: PathUnit; color: strin
       <PopIn from="down">
         <View style={[styles.sticky, { backgroundColor: bannerFace(color), borderBottomColor: darken(color, 0.3) }]} testID={`path-sticky-${unit.id}`}>
           <View style={styles.stickyText}>
-            <Text style={styles.stickyUnit} numberOfLines={1}>{`UNIT ${unit.number}`}</Text>
+            <Text style={styles.stickyUnit} numberOfLines={1}>{t("UNIT {count}", { count: unit.number })}</Text>
             <Text style={styles.stickyTitle} numberOfLines={2}>
               {withHonorifics(noBreakHyphens(unit.title))}
             </Text>
@@ -652,7 +653,9 @@ function StickyBanner({ unit, color, onMeasure }: { unit: PathUnit; color: strin
 /** "Get 8 of 10 right. 3 misses end it.": the pass mark, and the miss that ends the test. */
 export function testOutGoalLine(goal: { total: number; passingScore: number }) {
   const endingMiss = Math.max(1, goal.total - goal.passingScore + 1);
-  return `Get ${goal.passingScore} of ${goal.total} right. ${endingMiss} ${endingMiss === 1 ? "miss ends" : "misses end"} it.`;
+  return endingMiss === 1
+    ? t("Get {count} of {total} right. 1 miss ends it.", { count: goal.passingScore, total: goal.total })
+    : t("Get {count} of {total} right. {misses} misses end it.", { count: goal.passingScore, total: goal.total, misses: endingMiss });
 }
 
 function TestOutSheet({
@@ -682,12 +685,12 @@ function TestOutSheet({
           <Icon name="key" size={30} />
         </View>
         <Text style={styles.jumpTitle} accessibilityRole="header" numberOfLines={2}>
-          Jump ahead?
+          {t("Jump ahead?")}
         </Text>
       </View>
       <View style={styles.jumpMascotRow}>
         <Mascot variant={mascotVariant} mood="think" accent={accent} size={84} />
-        <SpeechBubble style={styles.jumpBubble}>Pass a quick test to skip ahead!</SpeechBubble>
+        <SpeechBubble style={styles.jumpBubble}>{t("Pass a quick test to skip ahead!")}</SpeechBubble>
       </View>
       {goal ? (
         <View style={[styles.jumpGoal, { backgroundColor: lighten(color, 0.9) }]} testID="test-out-sheet-goal">
@@ -695,8 +698,8 @@ function TestOutSheet({
           <Text style={[styles.jumpGoalText, { color: darken(color, 0.45) }]}>{testOutGoalLine(goal)}</Text>
         </View>
       ) : null}
-      <GameButton label="Start test" color={color} sound="unlock" fullWidth onPress={onStart} testID="test-out-start" />
-      <GameButton label="Not now" variant="ghost" color={colors.inkSoft} fullWidth onPress={onClose} style={styles.jumpGhost} testID="test-out-cancel" />
+      <GameButton label={t("Start test")} color={color} sound="unlock" fullWidth onPress={onStart} testID="test-out-start" />
+      <GameButton label={t("Not now")} variant="ghost" color={colors.inkSoft} fullWidth onPress={onClose} style={styles.jumpGhost} testID="test-out-cancel" />
     </Sheet>
   );
 }
@@ -734,15 +737,15 @@ function PathEnd({
             <Tappable
               onPress={() => {
                 if (done) {
-                  show({ icon: "crown", label: "All done!" });
+                  show({ icon: "crown", label: t("All done!") });
                 } else {
                   shake();
-                  show({ icon: "lock", label: "Keep going!" });
+                  show({ icon: "lock", label: t("Keep going!") });
                 }
               }}
               sound={done ? "xp" : "soft_ui"}
               pressScale={0.92}
-              accessibilityLabel={done ? "Topic trophy, done" : "Topic trophy, locked"}
+              accessibilityLabel={done ? t("Topic trophy, done") : t("Topic trophy, locked")}
               testID="path-end-trophy"
               style={styles.endHit}
             >
@@ -765,7 +768,7 @@ function PathEnd({
       </View>
       {onNextTopic ? (
         <GameButton
-          label={done ? "Next topic" : "More topics"}
+          label={done ? t("Next topic") : t("More topics")}
           variant={done ? "primary" : "secondary"}
           color={done ? color : undefined}
           fullWidth
@@ -1449,8 +1452,8 @@ const styles = StyleSheet.create({
     right: -14,
     flexDirection: "row",
     alignItems: "center",
-    paddingLeft: 5,
-    paddingRight: 8,
+    paddingStart: 5,
+    paddingEnd: 8,
     paddingVertical: 1,
     borderRadius: 999,
     backgroundColor: colors.white,
@@ -1458,7 +1461,7 @@ const styles = StyleSheet.create({
     borderColor: lighten(colors.gem, 0.55)
   },
   rewardText: {
-    marginLeft: 3,
+    marginStart: 3,
     fontFamily: fonts.displayHeavy,
     fontSize: 14,
     lineHeight: 19,
@@ -1543,7 +1546,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   lockedText: {
-    marginLeft: 8,
+    marginStart: 8,
     fontFamily: fonts.displayHeavy,
     fontSize: 16,
     lineHeight: 21,
@@ -1573,7 +1576,7 @@ const styles = StyleSheet.create({
   bannerArabic: {
     flex: 1,
     minWidth: 0,
-    marginLeft: 12
+    marginStart: 12
   },
   bannerTitle: {
     fontFamily: fonts.displayHeavy,
@@ -1593,26 +1596,26 @@ const styles = StyleSheet.create({
     minWidth: 0
   },
   bannerCount: {
-    marginLeft: 10,
+    marginStart: 10,
     fontFamily: fonts.displayHeavy,
     fontSize: 15,
     lineHeight: 20,
     color: colors.white
   },
   premiumPill: {
-    marginLeft: 10,
+    marginStart: 10,
     flexDirection: "row",
     alignItems: "center",
     height: 34,
-    paddingLeft: 7,
-    paddingRight: 10,
+    paddingStart: 7,
+    paddingEnd: 10,
     borderRadius: 12,
     backgroundColor: colors.white,
     borderBottomWidth: 3,
     borderBottomColor: colors.goldLip
   },
   premiumText: {
-    marginLeft: 4,
+    marginStart: 4,
     fontFamily: fonts.displayHeavy,
     fontSize: 13,
     lineHeight: 17,
@@ -1620,7 +1623,7 @@ const styles = StyleSheet.create({
     color: GOLD_INK
   },
   keyButton: {
-    marginLeft: 10,
+    marginStart: 10,
     width: 40,
     height: 38,
     borderRadius: 12,
@@ -1667,7 +1670,7 @@ const styles = StyleSheet.create({
     flexShrink: 1
   },
   stickyCount: {
-    marginLeft: 10,
+    marginStart: 10,
     fontFamily: fonts.displayHeavy,
     fontSize: 15,
     lineHeight: 20,
@@ -1687,8 +1690,8 @@ const styles = StyleSheet.create({
   hint: {
     flexDirection: "row",
     alignItems: "center",
-    paddingLeft: 8,
-    paddingRight: 12,
+    paddingStart: 8,
+    paddingEnd: 12,
     paddingVertical: 4,
     borderRadius: 14,
     backgroundColor: colors.white,
@@ -1696,7 +1699,7 @@ const styles = StyleSheet.create({
     borderColor: colors.line
   },
   hintText: {
-    marginLeft: 5,
+    marginStart: 5,
     fontFamily: fonts.displayHeavy,
     fontSize: 15,
     lineHeight: 20,
@@ -1723,7 +1726,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 12
+    marginEnd: 12
   },
   jumpTitle: {
     ...text.h2,
@@ -1739,7 +1742,7 @@ const styles = StyleSheet.create({
   jumpBubble: {
     flex: 1,
     minWidth: 0,
-    marginLeft: 12
+    marginStart: 12
   },
   jumpGoal: {
     flexDirection: "row",
@@ -1752,7 +1755,7 @@ const styles = StyleSheet.create({
   },
   jumpGoalText: {
     flexShrink: 1,
-    marginLeft: 8,
+    marginStart: 8,
     fontFamily: fonts.displayHeavy,
     fontSize: 16,
     lineHeight: 22

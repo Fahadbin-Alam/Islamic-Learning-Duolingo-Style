@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Animated, Platform, StyleSheet, Text, View } from "react-native";
 import { Icon, type IconName } from "../Icon";
 import { Tappable } from "../Tappable";
+import { t } from "../../i18n";
 import { colors, fonts, lighten } from "../theme";
 
 export type TabKey = "learn" | "practice" | "crew" | "shop" | "me";
@@ -63,7 +64,7 @@ function Tab({ tab, active, dot, onPress }: { tab: (typeof TABS)[number]; active
       pressScale={0.9}
       style={styles.tab}
       accessibilityRole="tab"
-      accessibilityLabel={tab.label}
+      accessibilityLabel={t(tab.label)}
       accessibilityState={{ selected: active }}
       testID={`tab-${tab.key}`}
     >
@@ -74,7 +75,7 @@ function Tab({ tab, active, dot, onPress }: { tab: (typeof TABS)[number]; active
         {dot ? <View style={styles.dot} testID={`tab-${tab.key}-dot`} /> : null}
       </Animated.View>
       <Text style={[styles.label, active ? styles.labelActive : null]} numberOfLines={1}>
-        {tab.label}
+        {t(tab.label)}
       </Text>
     </Tappable>
   );

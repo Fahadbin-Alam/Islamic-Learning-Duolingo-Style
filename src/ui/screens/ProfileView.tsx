@@ -11,6 +11,7 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount } from "./FormattedCount";
 import { SwitchTrack } from "./sheetParts";
+import { t } from "../../i18n";
 
 export type ProfileViewProps = {
   user: UserProfile;
@@ -171,7 +172,7 @@ export function ProfileView({
   // The email stays in Settings: a kids' screen shows the username only.
   // A guest still has the starter "New Learner" profile, which is not a name.
   const subLine = guest ? undefined : user.username ? `@${user.username}` : undefined;
-  const shownName = guest ? "Guest" : firstName(user.displayName);
+  const shownName = guest ? t("Guest") : firstName(user.displayName);
   const initials = (user.avatarInitials || "?").slice(0, 3);
 
   // Sign up, log in or log out changes the avatar and the name at the top: scroll back up so they show
@@ -222,10 +223,10 @@ export function ProfileView({
       </PopIn>
 
       <View style={styles.grid}>
-        <StatCard testID="profile-streak" icon="flame" value={user.streakDays} label="Day streak" color={colors.flame} dim={user.streakDays <= 0} />
-        <StatCard testID="profile-xp" icon="bolt" value={user.totalXp} label="Total XP" color={GOLD_INK} />
-        <StatCard testID="profile-stars" icon="star" value={totalStars} label="Stars" color={GOLD_INK} />
-        <StatCard testID="profile-gems" icon="gem" value={user.gems} label="Gems" color={colors.gemLip} />
+        <StatCard testID="profile-streak" icon="flame" value={user.streakDays} label={t("Day streak")} color={colors.flame} dim={user.streakDays <= 0} />
+        <StatCard testID="profile-xp" icon="bolt" value={user.totalXp} label={t("Total XP")} color={GOLD_INK} />
+        <StatCard testID="profile-stars" icon="star" value={totalStars} label={t("Stars")} color={GOLD_INK} />
+        <StatCard testID="profile-gems" icon="gem" value={user.gems} label={t("Gems")} color={colors.gemLip} />
       </View>
 
       {guest && onCreateAccount ? (
@@ -234,10 +235,10 @@ export function ProfileView({
             <View style={styles.saveHead}>
               <Mascot variant={mascotVariant} mood="wave" size={64} accent={accent} />
               <Text style={styles.saveTitle} numberOfLines={2}>
-                {hasSavedAccount ? "Welcome back!" : "Save your progress"}
+                {hasSavedAccount ? t("Welcome back!") : t("Save your progress")}
               </Text>
             </View>
-            <GameButton label={hasSavedAccount ? "Log in" : "Sign up"} fullWidth onPress={onCreateAccount} testID="profile-create" />
+            <GameButton label={hasSavedAccount ? t("Log in") : t("Sign up")} fullWidth onPress={onCreateAccount} testID="profile-create" />
           </View>
         </PopIn>
       ) : null}
@@ -247,7 +248,7 @@ export function ProfileView({
         {onToggleSound ? (
           <MenuRow
             icon="speaker"
-            label="Sound"
+            label={t("Sound")}
             onPress={onToggleSound}
             testID="profile-sound"
             accessibilityRole="switch"

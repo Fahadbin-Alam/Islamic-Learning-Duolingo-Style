@@ -4,6 +4,7 @@ import { GameButton } from "../GameButton";
 import { Mascot } from "../Mascot";
 import { Sheet } from "../Sheet";
 import { colors, space, text } from "../theme";
+import { t } from "../../i18n";
 
 export type QuitSheetProps = {
   visible: boolean;
@@ -30,10 +31,10 @@ export function QuitSheet({
   mascotVariant = "girl",
   accent,
   bottomInset,
-  title = "Wait, don't go!",
-  line = "You'll lose this lesson's progress.",
-  keepLabel = "Keep learning",
-  quitLabel = "End lesson"
+  title = t("Wait, don't go!"),
+  line = t("You'll lose this lesson's progress."),
+  keepLabel = t("Keep learning"),
+  quitLabel = t("End lesson")
 }: QuitSheetProps) {
   return (
     <Sheet visible={visible} onClose={onKeepLearning} bottomInset={bottomInset} testID="quit-sheet">
