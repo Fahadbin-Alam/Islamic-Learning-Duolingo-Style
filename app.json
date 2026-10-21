@@ -91,6 +91,12 @@
     ],
     "runtimeVersion": {
       "policy": "appVersion"
+    },
+    "owner": "fahadbin.alam",
+    "extra": {
+      "eas": {
+        "projectId": "ae9b976c-830b-4014-986a-98c70c70c202"
+      }
     }
   }
 }
