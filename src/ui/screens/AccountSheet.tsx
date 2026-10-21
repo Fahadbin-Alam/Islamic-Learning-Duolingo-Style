@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, View, type TextInput } from "react-native";
+import { Animated, ScrollView, StyleSheet, Text, View, type TextInput } from "react-native";
 import { GameButton } from "../GameButton";
 import { PopIn, useShake } from "../PopIn";
-import { Sheet } from "../Sheet";
+import { Sheet, useKeyboardHeight } from "../Sheet";
 import { playUi, haptic } from "../sound";
 import { colors, space, text } from "../theme";
 import { GrownUpCheck } from "./GrownUpGate";
@@ -77,6 +77,7 @@ export function AccountSheet({
 }: AccountSheetProps) {
   useBackToClose(visible, onClose);
   const creating = mode === "create";
+  const typing = useKeyboardHeight() > 0;
   const [problem, setProblem] = useState<{ field: Field; hint: string } | undefined>(undefined);
   const [tries, setTries] = useState(0);
   const emailRef = useRef<TextInput>(null);
@@ -131,95 +132,95 @@ export function AccountSheet({
 
   return (
     <Sheet visible={visible} onClose={onClose} style={styles.tallPanel} testID="account-sheet">
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : undefined}>
-        <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} contentContainerStyle={styles.stack}>
-          <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={creating ? (forChild ? "A parent signs up for you!" : "Save your progress!") : "Welcome back!"} />
-          <View style={styles.segments}>
-            <SegmentButton label="Sign up" active={creating} onPress={() => onChangeMode("create")} testID="account-mode-create" />
-            <SegmentButton label="Log in" active={!creating} onPress={() => onChangeMode("login")} testID="account-mode-login" />
+      {/* The Sheet itself moves above the keyboard. */}
+      <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} contentContainerStyle={styles.stack}>
+        {/* While typing, the mascot steps aside so the fields fit above the keyboard on small phones. */}
+        {typing ? null : <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={creating ? (forChild ? "A parent signs up for you!" : "Save your progress!") : "Welcome back!"} />}
+        <View style={styles.segments}>
+          <SegmentButton label="Sign up" active={creating} onPress={() => onChangeMode("create")} testID="account-mode-create" />
+          <SegmentButton label="Log in" active={!creating} onPress={() => onChangeMode("login")} testID="account-mode-login" />
+        </View>
+        {gated ? (
+          <View testID="account-grownup">
+            <GrownUpCheck onPass={() => setGrownUp(true)} />
           </View>
-          {gated ? (
-            <View testID="account-grownup">
-              <GrownUpCheck onPass={() => setGrownUp(true)} />
-            </View>
-          ) : (
-            // The form pops in once the grown-up has answered (or straight away for Log in).
-            <PopIn key={creating ? "create" : "login"} from="up" style={styles.form}>
-              {creating ? (
-                <TextField
-                  value={name}
-                  onChangeText={edit("name", onChangeName)}
-                  placeholder={forChild ? "Parent's name" : "Your name"}
-                  returnKeyType="next"
-                  submitBehavior="submit"
-                  onSubmitEditing={() => emailRef.current?.focus()}
-                  error={hintFor("name")}
-                  shakeKey={tries}
-                  accessibilityLabel={forChild ? "Parent's name" : "Your name"}
-                  testID="account-name"
-                />
-              ) : null}
+        ) : (
+          // The form pops in once the grown-up has answered (or straight away for Log in).
+          <PopIn key={creating ? "create" : "login"} from="up" style={styles.form}>
+            {creating ? (
               <TextField
-                ref={emailRef}
-                value={email}
-                onChangeText={edit("email", onChangeEmail)}
-                placeholder={forChild && creating ? "Parent's email" : "Email"}
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
+                value={name}
+                onChangeText={edit("name", onChangeName)}
+                placeholder={forChild ? "Parent's name" : "Your name"}
                 returnKeyType="next"
                 submitBehavior="submit"
-                onSubmitEditing={() => passwordRef.current?.focus()}
-                error={hintFor("email")}
+                onSubmitEditing={() => emailRef.current?.focus()}
+                error={hintFor("name")}
                 shakeKey={tries}
-                accessibilityLabel={forChild && creating ? "Parent's email" : "Email"}
-                testID="account-email"
+                accessibilityLabel={forChild ? "Parent's name" : "Your name"}
+                testID="account-name"
               />
-              <TextField
-                ref={passwordRef}
-                value={password}
-                onChangeText={edit("password", onChangePassword)}
-                placeholder="Password"
-                autoCapitalize="none"
-                secureTextEntry
-                returnKeyType="go"
-                onSubmitEditing={submit}
-                error={hintFor("password")}
-                shakeKey={tries}
-                accessibilityLabel="Password"
-                testID="account-password"
+            ) : null}
+            <TextField
+              ref={emailRef}
+              value={email}
+              onChangeText={edit("email", onChangeEmail)}
+              placeholder={forChild && creating ? "Parent's email" : "Email"}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="email-address"
+              returnKeyType="next"
+              submitBehavior="submit"
+              onSubmitEditing={() => passwordRef.current?.focus()}
+              error={hintFor("email")}
+              shakeKey={tries}
+              accessibilityLabel={forChild && creating ? "Parent's email" : "Email"}
+              testID="account-email"
+            />
+            <TextField
+              ref={passwordRef}
+              value={password}
+              onChangeText={edit("password", onChangePassword)}
+              placeholder="Password"
+              autoCapitalize="none"
+              secureTextEntry
+              returnKeyType="go"
+              onSubmitEditing={submit}
+              error={hintFor("password")}
+              shakeKey={tries}
+              accessibilityLabel="Password"
+              testID="account-password"
+            />
+            {error && !problem ? (
+              <Animated.View style={errorShake}>
+                <Text style={styles.error} accessibilityLiveRegion="polite" testID="account-error">
+                  {error}
+                </Text>
+              </Animated.View>
+            ) : null}
+            <GameButton label={creating ? "Sign up" : "Log in"} fullWidth onPress={submit} sound={false} testID="account-submit" />
+            {socialProviders.length ? (
+              <View style={styles.divider} testID="account-social">
+                <View style={styles.rule} />
+                <Text style={styles.or}>{forChild && creating ? "or a parent's account" : "or"}</Text>
+                <View style={styles.rule} />
+              </View>
+            ) : null}
+            {socialProviders.map((provider) => (
+              <GameButton
+                key={provider.id}
+                label={provider.label}
+                variant="secondary"
+                color={colors.ink}
+                fullWidth
+                onPress={() => onSocial?.(provider.id)}
+                testID={`account-social-${provider.id}`}
               />
-              {error && !problem ? (
-                <Animated.View style={errorShake}>
-                  <Text style={styles.error} accessibilityLiveRegion="polite" testID="account-error">
-                    {error}
-                  </Text>
-                </Animated.View>
-              ) : null}
-              <GameButton label={creating ? "Sign up" : "Log in"} fullWidth onPress={submit} sound={false} testID="account-submit" />
-              {socialProviders.length ? (
-                <View style={styles.divider} testID="account-social">
-                  <View style={styles.rule} />
-                  <Text style={styles.or}>{forChild && creating ? "or a parent's account" : "or"}</Text>
-                  <View style={styles.rule} />
-                </View>
-              ) : null}
-              {socialProviders.map((provider) => (
-                <GameButton
-                  key={provider.id}
-                  label={provider.label}
-                  variant="secondary"
-                  color={colors.ink}
-                  fullWidth
-                  onPress={() => onSocial?.(provider.id)}
-                  testID={`account-social-${provider.id}`}
-                />
-              ))}
-            </PopIn>
-          )}
-          <GameButton label="Later" variant="ghost" fullWidth onPress={onClose} testID="account-later" />
-        </ScrollView>
-      </KeyboardAvoidingView>
+            ))}
+          </PopIn>
+        )}
+        <GameButton label="Later" variant="ghost" fullWidth onPress={onClose} testID="account-later" />
+      </ScrollView>
     </Sheet>
   );
 }
