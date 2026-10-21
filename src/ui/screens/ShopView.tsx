@@ -86,7 +86,7 @@ function displayName(item: ShopItem) {
     case "gem_heart_refill":
       return "Full hearts";
     case "rewarded_ad":
-      return "Free heart";
+      return item.gemsGranted ? "Free gems" : "Free heart";
     default:
       return item.name;
   }
@@ -94,7 +94,7 @@ function displayName(item: ShopItem) {
 
 function shortLine(item: ShopItem, user: UserProfile) {
   if (item.refillsHearts) return `Fill to ${user.hearts.max}`;
-  if (item.type === "rewarded_ad") return "Watch a video";
+  if (item.type === "rewarded_ad") return item.gemsGranted ? `Watch: +${item.gemsGranted} gems` : "Watch a video";
   if (item.heartsGranted) return `+${item.heartsGranted} hearts`;
   if (item.gemsGranted) return `+${formatNumber(item.gemsGranted)} gems`;
   return item.localizedDescription;
@@ -107,8 +107,8 @@ function badgeText(item: ShopItem) {
 }
 
 const BENEFITS: { icon: IconName; label: string }[] = [
-  { icon: "infinity", label: "Unlimited hearts" },
   { icon: "sparkle", label: "No ads" },
+  { icon: "infinity", label: "Unlimited hearts" },
   { icon: "bookOpen", label: "Every lesson" }
 ];
 
@@ -404,7 +404,7 @@ export function ShopView({
   }, [gemPop, heartsPop, user.gems, user.hearts.current]);
 
   const visible = premium ? [] : items.filter((item) => canBuyWithMoney || !needsStore(item));
-  const hearts = visible.filter((item) => !item.tier && (item.refillsHearts || item.heartsGranted || item.type === "rewarded_ad"));
+  const hearts = visible.filter((item) => !item.tier && (item.refillsHearts || item.heartsGranted || (item.type === "rewarded_ad" && !item.gemsGranted)));
   const gemPacks = visible.filter((item) => !item.tier && !hearts.includes(item) && item.gemsGranted);
   const powerUps = visible.filter((item) => !item.tier && !hearts.includes(item) && !gemPacks.includes(item));
   const plans = visible.filter((item) => item.tier && item.tier !== "free");

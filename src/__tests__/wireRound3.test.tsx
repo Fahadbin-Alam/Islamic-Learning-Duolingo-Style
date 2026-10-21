@@ -12,7 +12,8 @@ jest.mock("../services/monetization", () => ({
     getPremiumStatus: jest.fn(async () => null),
     getStorePrices: jest.fn(async () => ({})),
     showLessonBreakAd: jest.fn(async () => undefined),
-    showRewardedHeartAd: jest.fn(async () => ({ ok: false })),
+    setAdAudience: jest.fn(),
+    showRewardedAd: jest.fn(async () => ({ ok: false })),
     purchaseShopItem: jest.fn(async () => ({ ok: false, cancelled: true })),
     restorePurchases: jest.fn(async () => ({}))
   }

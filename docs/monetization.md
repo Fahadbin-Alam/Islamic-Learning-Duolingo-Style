@@ -1,14 +1,33 @@
 # Monetization
 
-Sira Path uses a Duolingo-style freemium model:
+Sira Path earns mainly from ads. Free learners get the whole core course and see ads; a subscription removes them.
 
 | Who | What they get | How it earns |
 | --- | --- | --- |
-| Free learners | All core lessons, 5 hearts a day, gems from lessons and reward chests | A banner ad on the path, a short break ad after every 3rd finished lesson, optional "watch to earn a heart" ads |
-| Premium (monthly or yearly subscription) | Unlimited hearts, no ads, premium branches and mastery tests | Recurring subscription revenue |
+| Free learners | All core lessons, 5 hearts a day, gems from lessons and reward chests | A banner on the path, a short break ad after every 2nd finished lesson (at most one full-screen ad every 90 seconds), and optional videos: "Free heart" and "Free gems" (20 gems, up to 5 a day) |
+| Premium (monthly or yearly) | No ads, unlimited hearts, premium branches and mastery tests | Recurring subscription revenue |
 | Anyone | Heart pack ($0.99) and gem chest of 1,200 gems ($4.99); gems refill hearts for 350 | One-off in-app purchases |
 
-Ads never appear inside a lesson, and they are requested with the G (general audiences) content rating.
+Ads never appear inside a lesson or at app launch, and they are requested with the G (general audiences) content rating.
+
+### Why this mix
+
+- **Rewarded videos** pay the most per view because the learner chose to watch, and they never annoy. They are offered where a learner wants something: a heart when they run out, gems for a refill.
+- **Break ads** after every other lesson are where most of the volume comes from. Duolingo shows one after every lesson; every other lesson with a 90-second gap keeps kids and new learners from feeling punished. Tune `LESSONS_BETWEEN_BREAK_ADS` and `MIN_MS_BETWEEN_FULL_SCREEN_ADS` in `src/services/monetizationConfig.ts` once real numbers come in.
+- **Ads are preloaded.** One break ad and one video are always loading in the background, so a break never makes anyone wait and a "watch" tap plays at once. Without this, many ad opportunities are simply lost.
+- **The subscription is the "no ads" option.** Its first benefit on the shop is now "No ads". Price it low enough that a parent buys it to remove ads (for example $4.99 a month or $29.99 a year) rather than as a content unlock.
+
+### Ages and ads
+
+The app is for ages 6 to 30, so a one-time, neutral age screen ("How old are you?": 9 or under, 10 to 12, 13 to 17, 18 or older) is shown on phones before any ad is requested. Nothing is pre-selected and the answer stays on the device.
+
+| Answer | Ads |
+| --- | --- |
+| Not answered yet, 12 or under, or a Kid account | Child-directed (COPPA), under the age of consent, non-personalised, rated G |
+| 13 to 17 | Under the age of consent (no consent form, no personalisation), rated G |
+| 18 or older | Google's consent form where required (EEA, UK, Switzerland, some US states); personalised only on Android and only with consent; iOS stays non-personalised because there is no tracking prompt |
+
+This is what Google Play calls a **mixed audience** app and what COPPA allows for general-audience apps with an age screen. AdMob is a Google Play Families self-certified ads SDK, so it may serve the under-13 group as long as the child-directed tag is on, which the code does.
 
 ## How it is built
 
@@ -57,16 +76,19 @@ On Apple, put both subscriptions in one subscription group. A 7-day free trial o
 1. Create an AdMob account and add the Android and iOS apps.
 2. Create three ad units per app: Banner, Rewarded, Interstitial.
 3. Set the app ids in `ADMOB_ANDROID_APP_ID` / `ADMOB_IOS_APP_ID` and the unit ids in the six `EXPO_PUBLIC_ADMOB_*_UNIT_ID` values.
-4. In **Blocking controls**, block sensitive categories that do not fit an Islamic learning app (gambling, alcohol, dating, astrology and similar), and set the max ad content rating to G.
-5. In **Privacy & messaging**, create a GDPR consent message (the app already shows it) and, for iOS, an IDFA explainer if you later add App Tracking Transparency.
-6. Add an `app-ads.txt` file to the website listed in the store listings.
+4. In **Blocking controls**, block sensitive categories that do not fit an Islamic learning app (gambling, alcohol, dating, astrology, "get rich quick", references to sex and sexuality, and similar), turn off **personalised ads for sensitive categories**, and set the max ad content rating to **G**.
+5. In **App settings → each app**, mark the app as **mixed audience / some users under 13** if AdMob asks, so its own reviews match the Play listing.
+6. In **Privacy & messaging**, create a **GDPR** message and a **US states** message (both are shown by the app automatically). Skip the IDFA explainer: the app does not ask for tracking.
+7. Add an `app-ads.txt` file at the root of the developer website listed in both stores (see `store/README.md`, step 8). AdMob gives you its one line under **Apps → View all apps → app-ads.txt**.
+8. Payments: add your tax and bank details in AdMob. Google pays monthly once you pass $100.
 
 ### 5. Store paperwork
 - Fill in Google Play **Data safety** and Apple **App Privacy** to say the app uses advertising ids and purchase history (AdMob and RevenueCat).
 - The paywall links to the privacy policy and terms. They default to the GitHub Pages copies (`https://fahadbin-alam.github.io/Islamic-Learning-Duolingo-Style/privacy.html` and `terms.html`); override with `EXPO_PUBLIC_PRIVACY_URL` / `EXPO_PUBLIC_TERMS_URL` if you host them elsewhere.
 
 ### Audience note
-Do not list the app in Apple's **Kids** category or Google Play's **Designed for Families / Teacher Approved** programs while ads are on: those programs ban or heavily restrict third-party ads. Target ages 13+ in the store questionnaires, or ask for the ads to be switched to child-directed mode first.
+- **Apple:** do not pick the **Kids** category. Kids-category apps cannot use third-party ad networks like AdMob. A normal category (Education) with ads is fine for all ages.
+- **Google Play:** under Target audience, tick the age groups the app is really for (including under 13). That puts the app under the Families policy, which the app already meets: neutral age screen, child-directed ads for under-13s from a Families self-certified SDK, grown-up check before purchases, account creation and Crew. Do not apply for **Teacher Approved**.
 
 ### 6. Turn it on
 Put the values from `.env.example` into the EAS environment (`eas env:create`), set `EXPO_PUBLIC_MONETIZATION_MODE=live`, build, and test with an Apple sandbox tester and a Google Play license tester before release.

@@ -13,15 +13,18 @@ import {
   disabledAd,
   disabledPurchase,
   isSubscriptionItem,
+  rewardFor,
   type MonetizationClient
 } from "./monetizationShared";
 import {
+  adSettingsFor,
   isRealAdUnitId,
   liveAdUnitIds,
   monetizationMode,
   monetizationProductIds,
   premiumEntitlementId,
   revenueCatApiKey,
+  type AdAudience,
   type AdUnitIds,
   type StorePlatform
 } from "./monetizationConfig";
@@ -34,6 +37,7 @@ type FullScreenAd = {
   show(): Promise<void>;
   addAdEventListener(type: string, listener: () => void): () => void;
 };
+type FullScreenKind = "rewarded" | "interstitial";
 
 const platform: StorePlatform = Platform.OS === "ios" ? "ios" : "android";
 
@@ -52,9 +56,19 @@ export function loadAdsModule(): AdsModule | null {
   return adsModule;
 }
 
+// Until the age screen is answered every ad is requested as if a child were watching.
+let adAudience: AdAudience = "child";
+
+export function currentAdAudience() {
+  return adAudience;
+}
+
 // The app does not ask for App Tracking Transparency, so iOS only ever requests non-personalised ads.
-// Android personalisation follows Google's consent form (EEA/UK) and the user's device ad settings.
-export const adRequestOptions = { requestNonPersonalizedAdsOnly: Platform.OS === "ios" } as const;
+// On Android an adult's ads follow Google's consent form (EEA/UK) and the device's ad settings; children and teens
+// only ever get non-personalised ones.
+export function adRequestOptions() {
+  return { requestNonPersonalizedAdsOnly: adSettingsFor(adAudience, platform).requestNonPersonalizedAdsOnly };
+}
 
 // Google's test units are always used in development builds so real ad accounts are never put at risk.
 export function activeAdUnitIds(): AdUnitIds | null {
@@ -143,6 +157,28 @@ function createLiveClient(): MonetizationClient {
   const apiKey = revenueCatApiKey(platform);
   let storeReady = false;
   let adsReady: Promise<boolean> | null = null;
+  // One interstitial and one rewarded video are kept loaded, so a break never makes the learner wait
+  // and a "watch" tap plays at once. Most of an ads-first app's money is lost to ads that were not ready.
+  const slots: Record<FullScreenKind, { ad: FullScreenAd; loaded: boolean; showing: boolean; stop: Array<() => void> } | null> = {
+    rewarded: null,
+    interstitial: null
+  };
+  const retryTimers: Partial<Record<FullScreenKind, ReturnType<typeof setTimeout>>> = {};
+
+  async function applyAudience() {
+    const ads = loadAdsModule();
+
+    if (!ads) {
+      return;
+    }
+
+    const settings = adSettingsFor(adAudience, platform);
+    await ads.default().setRequestConfiguration({
+      maxAdContentRating: ads.MaxAdContentRating.G,
+      tagForChildDirectedTreatment: settings.tagForChildDirectedTreatment,
+      tagForUnderAgeOfConsent: settings.tagForUnderAgeOfConsent
+    });
+  }
 
   function startAds() {
     if (!adsReady) {
@@ -154,10 +190,13 @@ function createLiveClient(): MonetizationClient {
         }
 
         try {
-          // Ask for consent where the law requires it (EEA, UK) before any ad request is made.
-          await ads.AdsConsent.gatherConsent().catch(() => undefined);
-          await ads.default().setRequestConfiguration({ maxAdContentRating: ads.MaxAdContentRating.G });
+          // Ask for consent where the law requires it (EEA, UK, some US states) before any ad request is made.
+          // Under the age of consent the form is skipped and only limited, non-personalised ads are served.
+          await ads.AdsConsent.gatherConsent({ tagForUnderAgeOfConsent: adSettingsFor(adAudience, platform).tagForUnderAgeOfConsent }).catch(() => undefined);
+          await applyAudience();
           await ads.default().initialize();
+          preload("interstitial");
+          preload("rewarded");
           return true;
         } catch {
           return false;
@@ -168,51 +207,97 @@ function createLiveClient(): MonetizationClient {
     return adsReady;
   }
 
-  function showFullScreenAd(kind: "rewarded" | "interstitial"): Promise<{ shown: boolean; rewarded: boolean }> {
+  function drop(kind: FullScreenKind) {
+    slots[kind]?.stop.forEach((unsubscribe) => unsubscribe());
+    slots[kind] = null;
+  }
+
+  function preload(kind: FullScreenKind) {
+    const ads = loadAdsModule();
+    const unitId = activeAdUnitIds()?.[kind];
+
+    if (slots[kind] || !ads || !unitId) {
+      return;
+    }
+
+    clearTimeout(retryTimers[kind]);
+    const ad = (
+      kind === "rewarded" ? ads.RewardedAd.createForAdRequest(unitId, adRequestOptions()) : ads.InterstitialAd.createForAdRequest(unitId, adRequestOptions())
+    ) as unknown as FullScreenAd;
+    const slot = { ad, loaded: false, showing: false, stop: [] as Array<() => void> };
+    slots[kind] = slot;
+    slot.stop.push(
+      ad.addAdEventListener(kind === "rewarded" ? ads.RewardedAdEventType.LOADED : ads.AdEventType.LOADED, () => {
+        slot.loaded = true;
+      }),
+      ad.addAdEventListener(ads.AdEventType.ERROR, () => {
+        if (slots[kind] === slot && !slot.showing) {
+          // No fill or no network: try again in a minute instead of hammering the ad server.
+          drop(kind);
+          retryTimers[kind] = setTimeout(() => preload(kind), 60_000);
+        }
+      })
+    );
+    ad.load();
+  }
+
+  function waitForLoad(kind: FullScreenKind, ms: number) {
+    return new Promise<boolean>((resolve) => {
+      const started = Date.now();
+      const check = () => {
+        const slot = slots[kind];
+        if (slot?.loaded) resolve(true);
+        else if (!slot || Date.now() - started >= ms) resolve(false);
+        else setTimeout(check, 250);
+      };
+      check();
+    });
+  }
+
+  // Shows the ready ad of this kind and loads the next one as soon as it closes.
+  // waitMs: how long a learner who asked for the video waits for one still loading. A break ad never waits.
+  async function showFullScreenAd(kind: FullScreenKind, waitMs: number): Promise<{ shown: boolean; rewarded: boolean }> {
+    const ads = loadAdsModule();
+    preload(kind);
+
+    if (!ads || !(await waitForLoad(kind, waitMs))) {
+      return { shown: false, rewarded: false };
+    }
+
+    const slot = slots[kind];
+
+    if (!slot) {
+      return { shown: false, rewarded: false };
+    }
+
+    slot.showing = true;
+
     return new Promise((resolve) => {
-      const ads = loadAdsModule();
-      const unitId = activeAdUnitIds()?.[kind];
-
-      if (!ads || !unitId) {
-        resolve({ shown: false, rewarded: false });
-        return;
-      }
-
-      const ad = (
-        kind === "rewarded" ? ads.RewardedAd.createForAdRequest(unitId, adRequestOptions) : ads.InterstitialAd.createForAdRequest(unitId, adRequestOptions)
-      ) as unknown as FullScreenAd;
       let rewarded = false;
       let settled = false;
-      const unsubscribers: Array<() => void> = [];
       const finish = (shown: boolean) => {
         if (!settled) {
           settled = true;
-          clearTimeout(timeout);
-          unsubscribers.forEach((unsubscribe) => unsubscribe());
+          if (slots[kind] === slot) drop(kind);
+          preload(kind);
           resolve({ shown, rewarded });
         }
       };
-      const timeout = setTimeout(() => finish(false), 12000);
-      const loadedEvent = kind === "rewarded" ? ads.RewardedAdEventType.LOADED : ads.AdEventType.LOADED;
 
-      unsubscribers.push(
-        ad.addAdEventListener(loadedEvent, () => {
-          clearTimeout(timeout);
-          ad.show().catch(() => finish(false));
-        }),
-        ad.addAdEventListener(ads.AdEventType.CLOSED, () => finish(true)),
-        ad.addAdEventListener(ads.AdEventType.ERROR, () => finish(false))
+      slot.stop.push(
+        slot.ad.addAdEventListener(ads.AdEventType.CLOSED, () => finish(true)),
+        slot.ad.addAdEventListener(ads.AdEventType.ERROR, () => finish(false))
       );
 
       if (kind === "rewarded") {
-        unsubscribers.push(
-          ad.addAdEventListener(ads.RewardedAdEventType.EARNED_REWARD, () => {
+        slot.stop.push(
+          slot.ad.addAdEventListener(ads.RewardedAdEventType.EARNED_REWARD, () => {
             rewarded = true;
           })
         );
       }
 
-      ad.load();
+      slot.ad.show().catch(() => finish(false));
     });
   }
 
@@ -328,22 +413,44 @@ function createLiveClient(): MonetizationClient {
       }
     },
 
-    async showRewardedHeartAd(item) {
-      if (!(await startAds())) {
-        return disabledAd(item, "Sponsor breaks are not available right now. Try again later or pick up a heart pack.");
+    setAdAudience(audience) {
+      if (audience === adAudience) {
+        return;
       }
 
-      const result = await showFullScreenAd("rewarded");
+      adAudience = audience;
+
+      // Ads already loaded were asked for with the old settings, so they are thrown away and loaded again.
+      if (adsReady) {
+        void adsReady.then(async (ready) => {
+          if (!ready) return;
+          await applyAudience().catch(() => undefined);
+          (["interstitial", "rewarded"] as const).forEach((kind) => {
+            if (!slots[kind]?.showing) {
+              drop(kind);
+              preload(kind);
+            }
+          });
+        });
+      }
+    },
+
+    async showRewardedAd(item) {
+      if (!(await startAds())) {
+        return disabledAd(item, "Sponsor breaks are not available right now. Try again later.");
+      }
+
+      const result = await showFullScreenAd("rewarded", 8000);
 
       if (!result.shown) {
         return disabledAd(item, "No sponsor break is ready right now. Please try again in a moment.");
       }
 
       if (!result.rewarded) {
-        return disabledAd(item, "Watch the whole sponsor break to earn a heart.");
+        return disabledAd(item, "Watch the whole sponsor break to earn the reward.");
       }
 
-      return { ok: true, heartsGranted: item.heartsGranted ?? 1, transactionId: `ad_${Date.now()}` };
+      return rewardFor(item, `ad_${Date.now()}`);
     },
 
     async showLessonBreakAd() {
@@ -351,7 +458,7 @@ function createLiveClient(): MonetizationClient {
         return false;
       }
 
-      return (await showFullScreenAd("interstitial")).shown;
+      return (await showFullScreenAd("interstitial", 0)).shown;
     }
   };
 }
@@ -368,9 +475,10 @@ function createNativeClient(): MonetizationClient {
     return {
       ...sandbox,
       initialize: live.initialize,
+      setAdAudience: live.setAdAudience,
       showLessonBreakAd: live.showLessonBreakAd,
-      async showRewardedHeartAd(item) {
-        return loadAdsModule() ? live.showRewardedHeartAd(item) : sandbox.showRewardedHeartAd(item);
+      async showRewardedAd(item) {
+        return loadAdsModule() ? live.showRewardedAd(item) : sandbox.showRewardedAd(item);
       }
     };
   }

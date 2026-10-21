@@ -6,7 +6,15 @@ import { applyPremiumStatus, applyShopItem, canSpendGems, isPremiumUser, localDa
 import { SHOP_ITEMS } from "../data/course";
 import { removeStoredItem } from "../services/appStorage";
 import { createSandboxClient } from "../services/monetizationShared";
-import { isRealAdUnitId, resolveMode, shouldShowLessonBreakAd } from "../services/monetizationConfig";
+import {
+  adAudienceFor,
+  adSettingsFor,
+  isRealAdUnitId,
+  MIN_MS_BETWEEN_FULL_SCREEN_ADS,
+  resolveMode,
+  rewardedGemVideosLeft,
+  shouldShowLessonBreakAd
+} from "../services/monetizationConfig";
 import { makeUser } from "./testUtils";
 
 const today = () => localDateKey();
@@ -96,9 +104,54 @@ describe("monetization config", () => {
     expect(isRealAdUnitId("rewarded_heart_test")).toBe(false);
   });
 
-  it("shows a break ad every third finished lesson for free learners only", () => {
-    expect([1, 2, 3, 4, 5, 6].map((count) => shouldShowLessonBreakAd(count, false))).toEqual([false, false, true, false, false, true]);
-    expect(shouldShowLessonBreakAd(3, true)).toBe(false);
+  it("shows a break ad every other finished lesson for free learners only", () => {
+    expect([1, 2, 3, 4, 5, 6].map((count) => shouldShowLessonBreakAd(count, false))).toEqual([false, true, false, true, false, true]);
+    expect(shouldShowLessonBreakAd(2, true)).toBe(false);
+  });
+
+  it("never shows two full-screen ads close together", () => {
+    expect(shouldShowLessonBreakAd(2, false, 10_000)).toBe(false);
+    expect(shouldShowLessonBreakAd(2, false, MIN_MS_BETWEEN_FULL_SCREEN_ADS)).toBe(true);
+  });
+
+  it("caps gem videos at five a day and starts again the next day", () => {
+    expect(rewardedGemVideosLeft(null, "2026-10-21")).toBe(5);
+    expect(rewardedGemVideosLeft({ date: "2026-10-21", count: 3 }, "2026-10-21")).toBe(2);
+    expect(rewardedGemVideosLeft({ date: "2026-10-21", count: 9 }, "2026-10-21")).toBe(0);
+    expect(rewardedGemVideosLeft({ date: "2026-10-20", count: 5 }, "2026-10-21")).toBe(5);
+  });
+});
+
+describe("ads by age", () => {
+  it("treats an unanswered age screen and Kid accounts as a child", () => {
+    expect(adAudienceFor(undefined)).toBe("child");
+    expect(adAudienceFor("6-9")).toBe("child");
+    expect(adAudienceFor("10-12")).toBe("child");
+    expect(adAudienceFor("18+", true)).toBe("child");
+    expect(adAudienceFor("13-17")).toBe("teen");
+    expect(adAudienceFor("18+")).toBe("adult");
+  });
+
+  it("asks for child-directed, non-personalised ads for children", () => {
+    expect(adSettingsFor("child", "android")).toEqual({
+      tagForChildDirectedTreatment: true,
+      tagForUnderAgeOfConsent: true,
+      requestNonPersonalizedAdsOnly: true
+    });
+  });
+
+  it("keeps teens under the age of consent and non-personalised", () => {
+    expect(adSettingsFor("teen", "android")).toEqual({
+      tagForChildDirectedTreatment: false,
+      tagForUnderAgeOfConsent: true,
+      requestNonPersonalizedAdsOnly: true
+    });
+  });
+
+  it("lets adults on Android follow their consent, but keeps iOS non-personalised without ATT", () => {
+    expect(adSettingsFor("adult", "android").requestNonPersonalizedAdsOnly).toBe(false);
+    expect(adSettingsFor("adult", "ios").requestNonPersonalizedAdsOnly).toBe(true);
+    expect(adSettingsFor("adult", "ios").tagForChildDirectedTreatment).toBe(false);
   });
 });
 
@@ -124,11 +177,18 @@ describe("sandbox store", () => {
     expect(await createSandboxClient("sandbox").getPremiumStatus()).toMatchObject({ active: true });
   });
 
+  it("pays gems for a gem video and a heart for a heart video", async () => {
+    const client = createSandboxClient("sandbox");
+
+    expect(await client.showRewardedAd(shopItem("watch-ad-gems"))).toMatchObject({ ok: true, gemsGranted: 20, heartsGranted: 0 });
+    expect(await client.showRewardedAd(shopItem("watch-ad-heart"))).toMatchObject({ ok: true, gemsGranted: 0, heartsGranted: 1 });
+  });
+
   it("refuses purchases and reports no store state when monetization is off", async () => {
     const client = createSandboxClient("disabled");
 
     expect((await client.purchaseShopItem(shopItem("heart-pack-small"))).ok).toBe(false);
-    expect((await client.showRewardedHeartAd(shopItem("watch-ad-heart"))).ok).toBe(false);
+    expect((await client.showRewardedAd(shopItem("watch-ad-heart"))).ok).toBe(false);
     expect(await client.getPremiumStatus()).toBeNull();
   });
 });

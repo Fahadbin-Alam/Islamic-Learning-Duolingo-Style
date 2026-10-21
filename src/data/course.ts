@@ -3959,7 +3959,7 @@ export const SHOP_ITEMS: ShopItem[] = [
     type: "monthly_membership",
     tier: "premium_monthly",
     name: "Monthly premium",
-    localizedDescription: "Unlock premium lessons, deeper review, bonus resources, and unlimited hearts.",
+    localizedDescription: "No ads, unlimited hearts, and every premium lesson.",
     price: 9.99,
     currencyType: "USD",
     productId: "membership_monthly",
@@ -3970,7 +3970,7 @@ export const SHOP_ITEMS: ShopItem[] = [
       "Full access to premium branches",
       "Advanced lessons and deeper review",
       "Bonus resources and premium quizzes",
-      "Unlimited hearts and sponsor-free study"
+      "No ads and unlimited hearts"
     ]
   },
   {
@@ -4030,6 +4030,15 @@ export const SHOP_ITEMS: ShopItem[] = [
     price: 0,
     currencyType: "rewarded_ad",
     heartsGranted: 1
+  },
+  {
+    id: "watch-ad-gems",
+    type: "rewarded_ad",
+    name: "Watch for gems",
+    localizedDescription: "Earn 20 gems after a short sponsor break, up to five times a day.",
+    price: 0,
+    currencyType: "rewarded_ad",
+    gemsGranted: 20
   }
 ];
 
