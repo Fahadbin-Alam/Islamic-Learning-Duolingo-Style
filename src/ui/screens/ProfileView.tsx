@@ -9,7 +9,7 @@ import { Mascot } from "../Mascot";
 import { PopIn } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
-import { FormattedCount, compactNumber } from "./FormattedCount";
+import { FormattedCount } from "./FormattedCount";
 import { SwitchTrack } from "./sheetParts";
 
 export type ProfileViewProps = {
@@ -131,9 +131,12 @@ function initialsSize(initials: string) {
   return initials.length <= 2 ? null : styles.initialsLong;
 }
 
-/** Half-width stat cards hold five characters at full size on a 320 px phone; "12,345" to "99,999" step down so they stay whole. */
+/**
+ * Half-width stat cards hold five characters at full size on a 320 px phone. From 10,000 the number steps down, so
+ * "12,345" stays whole, and so do the five-digit numbers a count up to "123k" passes on its way.
+ */
 export function statValueSize(value: number) {
-  return compactNumber(value).length <= 5 ? null : styles.statValueLong;
+  return Math.round(value) < 10_000 ? null : styles.statValueLong;
 }
 
 /** Web ignores adjustsFontSizeToFit, so long names get a smaller size up front. */

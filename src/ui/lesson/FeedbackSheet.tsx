@@ -331,6 +331,29 @@ export function FeedbackSheet({
     bodyRef.current?.scrollTo?.({ y: 0, animated: false });
     setBody((state) => (state.offset === 0 ? state : { ...state, offset: 0 }));
   }, [visible]);
+  // A miss lower in the list than it shows: the list opens at the first stop that shows it whole (and the misses
+  // after it, while the first stays in sight), so the learner sees where they went wrong. The arrow then points on
+  // down, or up when that stop is the end.
+  const firstMiss = rowWindow && missedRows?.length ? listRows[Math.min(...missedRows)] : undefined;
+  const lastMiss = rowWindow && missedRows?.length ? listRows[Math.max(...missedRows)] : undefined;
+  const stopShowing = (row: RowSpan) => rowWindow?.stops.find((stop) => row.bottom <= stop + rowWindow.viewport + 0.5);
+  const firstStop = firstMiss ? stopShowing(firstMiss) : undefined;
+  const lastStop = lastMiss ? stopShowing(lastMiss) : undefined;
+  const missStop = firstMiss && lastStop !== undefined && lastStop <= firstMiss.top + 0.5 ? lastStop : firstStop;
+  const missShown = useRef(false);
+  useEffect(() => {
+    if (!visible) {
+      missShown.current = false;
+      return;
+    }
+    if (missShown.current || missStop === undefined) {
+      return;
+    }
+    missShown.current = true;
+    if (missStop > 0) {
+      bodyRef.current?.scrollTo?.({ y: missStop, animated: false });
+    }
+  }, [missStop, visible]);
   // A Why text that starts to scroll, or opens again, starts at its top.
   useEffect(() => {
     if (whyScrolls) {
@@ -437,6 +460,11 @@ export function FeedbackSheet({
                         <Text style={styles.listNumberText}>{index + 1}</Text>
                       </View>
                       <Text style={[styles.listText, { color: ink }]}>{withHonorifics(noBreakHyphens(item))}</Text>
+                      {missedRows?.includes(index) ? (
+                        <View style={styles.listMiss} testID={`feedback-miss-${index}`}>
+                          <Icon name="close" size={14} color={colors.heart} />
+                        </View>
+                      ) : null}
                     </View>
                   ))}
                 </View>
@@ -629,19 +657,25 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: "column"
   },
+  // Every row is padded alike, so a lit row's band stays inside the list and its number lines up with the rest.
   listItem: {
     flexDirection: "row",
-    alignItems: "flex-start"
+    alignItems: "flex-start",
+    paddingHorizontal: 6,
+    borderRadius: radii.pill
   },
   listItemNext: {
     marginTop: 4
   },
-  // Same height as any row (the whole-row scroll reads the rows' boxes): only a light band behind it.
+  // Same height as any row (the whole-row scroll reads the rows' boxes): a white band and a red mark at its end.
   listItemMissed: {
-    backgroundColor: colors.white,
-    borderRadius: radii.pill,
-    marginHorizontal: -6,
-    paddingHorizontal: 6
+    backgroundColor: colors.white
+  },
+  listMiss: {
+    height: 20,
+    marginLeft: "auto",
+    paddingLeft: space.sm,
+    justifyContent: "center"
   },
   listNumber: {
     width: 20,

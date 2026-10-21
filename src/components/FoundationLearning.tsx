@@ -1,5 +1,16 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Animated, Easing, ScrollView, StyleSheet, Text, TextInput, View, type LayoutChangeEvent } from "react-native";
+import {
+  Animated,
+  Easing,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  type LayoutChangeEvent,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent
+} from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import { getAssessmentXp } from "../api/islamicLearningApi";
 import { getTopicArabic } from "../data/arabicTerms";
@@ -494,9 +505,16 @@ export function FoundationAssessmentScreen({
       : [];
 
   // Scrolled down to show the right answer, the question can stop part-way through the topic label (and its Arabic)
-  // above the prompt; it fades away then, so the scroll view's top edge never cuts it.
+  // above the prompt: it is gone while the question sits scrolled past its top, so the scroll view's top edge never
+  // cuts it, and back once it is scrolled up to it again.
   const scrollTarget = locked && sheetHeight && layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
-  const labelFaded = labelTop !== null && scrollTarget > labelTop;
+  const [labelPast, setLabelPast] = useState(false);
+  const labelFaded = locked && labelPast;
+  const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrollProps.onScroll(event);
+    const past = labelTop !== null && event.nativeEvent.contentOffset.y > labelTop + 0.5;
+    setLabelPast((value) => (value === past ? value : past));
+  };
 
   useEffect(() => {
     if (!locked) {
@@ -553,9 +571,10 @@ export function FoundationAssessmentScreen({
           contentContainerStyle={{ paddingBottom: extraBottom }}
           keyboardShouldPersistTaps="handled"
           {...scrollProps}
+          onScroll={onQuestionScroll}
         >
           <View key={question.id} style={styles.assessmentWrap}>
-            <FadeUnderSheet hidden={labelFaded} onLayout={(event) => setLabelTop(Math.round(event.nativeEvent.layout.y))} testID="assessment-label">
+            <FadeUnderSheet hidden={labelFaded} instantOut onLayout={(event) => setLabelTop(Math.round(event.nativeEvent.layout.y))} testID="assessment-label">
               <PopIn from="up">
                 <View style={styles.categoryRow}>
                   <View style={styles.categoryPill}>

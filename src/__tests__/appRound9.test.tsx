@@ -33,10 +33,10 @@ import { getUiStrings } from "../i18n";
 import { playGameSound } from "../services/gameAudio";
 import { createEmptyLearnerProfile, createFoundationAssessment, submitFoundationAssessmentAnswer } from "../services/foundationAssessment";
 import type { FoundationAssessmentState, LearningSection } from "../types";
-import { ExerciseView, FeedbackSheet, OrderGame } from "../ui/lesson";
+import { ExerciseView, FeedbackSheet, LessonComplete, OrderGame } from "../ui/lesson";
 import { WHY_LINE } from "../ui/lesson/FeedbackSheet";
 import { nearestRowStop, nextRowStop, tilesUnderSheet, wholeRows, type RowSpan } from "../ui/lesson/sheetFit";
-import { AppTopBar, ShopView } from "../ui/screens";
+import { AppTopBar, ShopView, StreakSheet } from "../ui/screens";
 import { statValueSize } from "../ui/screens/ProfileView";
 import { makeUser } from "./testUtils";
 
@@ -434,13 +434,20 @@ describe("the Me stat cards keep big numbers whole on a 320 px phone", () => {
     [9999, null],
     [12345, 20],
     [99999, 20],
-    [123456, null]
+    [123456, 20]
   ])("sizes %d to fit its half-width card", (value, smaller) => {
-    // "9,999" and "123k" fit at full size; "12,345" to "99,999" step down.
+    // "9,999" fits at full size; from "12,345" it steps down, also for "123k", whose count passes "42,100" on its way.
     const style = statValueSize(value);
     expect(style ? StyleSheet.flatten(style).fontSize : null).toBe(smaller);
   });
 });
+
+/** The question's scroll view, scrolled to `y` (found from a box inside it). */
+async function scrolledTo(insideId: string, y: number) {
+  let node = screen.getByTestId(insideId, { includeHiddenElements: true }).parent!;
+  while (!node.props.onScroll) node = node.parent!;
+  await fireEvent.scroll(node, { nativeEvent: { contentOffset: { x: 0, y }, contentSize: { width: 320, height: 900 }, layoutMeasurement: { width: 320, height: 400 } } });
+}
 
 describe("the chips above the question fade when the scroll would cut them", () => {
   const two = {
@@ -478,15 +485,22 @@ describe("the chips above the question fade when the scroll would cut them", () 
     await sheetHeight(40 + 76 + 16 + 58 + SHEET_PAD + inset);
   }
 
-  it("fades REVIEW and Try again! in a lesson once the question scrolls past their top", async () => {
+  it("hides REVIEW and Try again! in a lesson while the question sits scrolled past their top, and shows them again above it", async () => {
     await onSmallPhone(async () => {
       const scrollTo = scrollSpy();
       // Short: the question scrolls up 17, part-way through the chips (8-34) and short of the prompt.
       await check(400);
       expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ y: 17 }));
+      // Still at the top: nothing cuts the chips yet.
+      expect(screen.getByTestId("exercise-cues")).toBeTruthy();
+      // The scroll passes their top: they are gone at once, before the edge can cut them.
+      await scrolledTo("exercise-cues", 9);
       expect(screen.queryByTestId("exercise-cues")).toBeNull();
       expect(screen.getByTestId("exercise-cues", { includeHiddenElements: true })).toBeTruthy();
       expect(screen.getByText("Who was the first caliph?")).toBeTruthy();
+      // Scrolled back up by hand: they show again, so no gap is left above the prompt.
+      await scrolledTo("exercise-cues", 0);
+      expect(screen.getByTestId("exercise-cues")).toBeTruthy();
       scrollTo.mockRestore();
     });
   });
@@ -497,7 +511,7 @@ describe("the chips above the question fade when the scroll would cut them", () 
     expect(screen.getByTestId("exercise-review")).toBeTruthy();
   });
 
-  it("fades the topic label in practice once the question scrolls past it", async () => {
+  it("hides the topic label in practice while the question sits scrolled past it", async () => {
     const daily = createFoundationAssessment(createEmptyLearnerProfile(), "daily_challenge");
     const base = FOUNDATION_QUESTION_BANK.find((entry) => entry.type === "multiple_choice" && (entry.options?.length ?? 0) === 4 && typeof entry.correctAnswer === "string")!;
     const answer = base.correctAnswer as string;
@@ -516,6 +530,7 @@ describe("the chips above the question fade when the scroll would cut them", () 
     await fireEvent(screen.getByTestId("assessment-answers"), "layout", layout(4 * 54 + 3 * 10, 84));
     await fireEvent(screen.getByTestId("feedback-top"), "layout", layout(76));
     await sheetHeight(40 + 76 + 16 + 58 + SHEET_PAD + inset);
+    await scrolledTo("assessment-label", 30);
     expect(screen.queryByTestId("assessment-label")).toBeNull();
     expect(screen.getByTestId("assessment-prompt")).toBeTruthy();
     // The question again, unanswered: the label is back.
@@ -546,5 +561,53 @@ describe("the streak count is written like the gem count", () => {
     );
     expect(screen.getByTestId("top-bar-streak")).toHaveTextContent("1,234");
     expect(screen.getByRole("button", { name: "1,234 day streak" })).toBeTruthy();
+  });
+});
+
+describe("a miss lower in the correct-order list than it shows opens the list at that miss", () => {
+  const sheet = { visible: true, correct: false, title: "Correct order:", correctList: STEPS, buttonLabel: "Try again", onContinue: jest.fn() };
+  async function placeRows() {
+    for (const index of STEPS.keys()) {
+      await fireEvent(screen.getByTestId(`feedback-row-${index}`), "layout", layout(ROW, index * (ROW + ROW_GAP)));
+    }
+    await fireEvent(screen.getByTestId("feedback-list"), "layout", layout(STEPS.length * (ROW + ROW_GAP) - ROW_GAP));
+  }
+
+  it("scrolls to the first stop that shows rows 8 and 9 whole, each with its red mark", async () => {
+    await onSmallPhone(async () => {
+      const scrollTo = scrollSpy();
+      await render(<FeedbackSheet {...sheet} missedRows={[7, 8]} />);
+      await placeRows();
+      // Seven whole rows show (164 tall): the stop at 48 shows rows 3 to 9, so the swapped last two are in sight.
+      expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ y: 2 * (ROW + ROW_GAP), animated: false }));
+      expect(screen.getByTestId("feedback-miss-7")).toBeTruthy();
+      expect(screen.getByTestId("feedback-miss-8")).toBeTruthy();
+      expect(screen.queryByTestId("feedback-miss-6")).toBeNull();
+      scrollTo.mockRestore();
+    });
+  });
+
+  it("stays at the top when the first miss already shows there", async () => {
+    await onSmallPhone(async () => {
+      const scrollTo = scrollSpy();
+      await render(<FeedbackSheet {...sheet} missedRows={[0, 1]} />);
+      await placeRows();
+      expect(scrollTo).not.toHaveBeenCalledWith(expect.objectContaining({ y: 2 * (ROW + ROW_GAP) }));
+      expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ y: 0 }));
+      scrollTo.mockRestore();
+    });
+  });
+});
+
+describe("a long streak is written with its comma on Lesson complete and in the streak sheet", () => {
+  it("reads 1,234", async () => {
+    await render(<StreakSheet visible streakDays={1234} onClose={jest.fn()} />);
+    expect(screen.getByText("1,234 day streak!")).toBeTruthy();
+    screen.unmount();
+    await render(<LessonComplete title="Wudu" xp={12} stars={3} streakDays={1234} mascotVariant="boy" accent="#21B573" onContinue={jest.fn()} />);
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2500));
+    });
+    expect(screen.getByTestId("stat-streak")).toHaveTextContent(/1,234/);
   });
 });

@@ -1,5 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Animated, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent, type StyleProp, type ViewStyle } from "react-native";
+import {
+  Animated,
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+  type LayoutChangeEvent,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  type StyleProp,
+  type ViewStyle
+} from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { ChoiceTile, LONG_LABEL, type ChoiceTileState } from "../ChoiceTile";
@@ -170,15 +182,18 @@ const FADE_MS = 160;
 /**
  * An answer tile the feedback sheet's top edge would cut: it fades away while the sheet is up, out of reach of
  * taps and screen readers, and comes back for the next try. It keeps its place, so no other tile moves.
+ * `instantOut`: gone at once (it fades back in), for a chip the scroll edge is already cutting as it hides.
  */
 export function FadeUnderSheet({
   hidden,
+  instantOut,
   children,
   style,
   onLayout,
   testID
 }: {
   hidden: boolean;
+  instantOut?: boolean;
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   onLayout?: (event: LayoutChangeEvent) => void;
@@ -186,10 +201,14 @@ export function FadeUnderSheet({
 }) {
   const opacity = useRef(new Animated.Value(hidden ? 0 : 1)).current;
   useEffect(() => {
+    if (hidden && instantOut) {
+      opacity.setValue(0);
+      return undefined;
+    }
     const animation = Animated.timing(opacity, { toValue: hidden ? 0 : 1, duration: FADE_MS, useNativeDriver: true });
     animation.start();
     return () => animation.stop();
-  }, [hidden, opacity]);
+  }, [hidden, instantOut, opacity]);
   return (
     <Animated.View
       style={[style, { opacity }]}
@@ -393,9 +412,16 @@ export function ExerciseView({
       : [];
 
   // Scrolled down to show the green tile, the question can stop part-way through the REVIEW / "Try again!" chips
-  // above the prompt; they fade away then, so the scroll view's top edge never cuts them.
+  // above the prompt: they are gone while the question sits scrolled past their top, so the scroll view's top edge
+  // never cuts them, and back once it is scrolled up to them again.
   const scrollTarget = checked && sheetHeight && layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
-  const cueFaded = cueTop !== null && scrollTarget > cueTop;
+  const [cuePast, setCuePast] = useState(false);
+  const cueFaded = checked && cuePast;
+  const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrollProps.onScroll(event);
+    const past = cueTop !== null && event.nativeEvent.contentOffset.y > cueTop + 0.5;
+    setCuePast((value) => (value === past ? value : past));
+  };
 
   useEffect(() => {
     if (!checked) {
@@ -470,9 +496,10 @@ export function ExerciseView({
           contentContainerStyle={[styles.content, { paddingBottom: extraBottom }]}
           keyboardShouldPersistTaps="handled"
           {...scrollProps}
+          onScroll={onQuestionScroll}
         >
           {review || shownAttempt > 0 ? (
-            <FadeUnderSheet hidden={cueFaded} style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
+            <FadeUnderSheet hidden={cueFaded} instantOut style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
               {review ? (
                 <PopIn style={[styles.cueChip, styles.reviewChip]}>
                   <Icon name="practice" size={18} />

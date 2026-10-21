@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import {
   Animated,
+  Platform,
   Pressable,
   type GestureResponderEvent,
   type Insets,
@@ -32,12 +33,14 @@ export type TappableProps = {
   accessibilityState?: AccessibilityState;
   /**
    * Catches taps only (e.g. on a card's edges, around a button that sits on it): screen readers and the keyboard skip
-   * it, so the card's real buttons are each reached on their own.
+   * it, so the card's real buttons are each reached on their own. Give it no children: on the web it is an empty
+   * presentation box (aria-hidden there would clash with the focus a click gives it).
    */
   hiddenFromAccessibility?: boolean;
 };
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+const WEB = Platform.OS === "web";
 
 /** Pressable that plays a sound, a light haptic and springs a little when tapped. */
 export function Tappable({
@@ -95,9 +98,9 @@ export function Tappable({
       accessible={hiddenFromAccessibility ? false : undefined}
       focusable={hiddenFromAccessibility ? false : undefined}
       tabIndex={hiddenFromAccessibility ? -1 : undefined}
-      aria-hidden={hiddenFromAccessibility || undefined}
-      importantForAccessibility={hiddenFromAccessibility ? "no-hide-descendants" : undefined}
-      accessibilityElementsHidden={hiddenFromAccessibility || undefined}
+      aria-hidden={(hiddenFromAccessibility && !WEB) || undefined}
+      importantForAccessibility={hiddenFromAccessibility && !WEB ? "no-hide-descendants" : undefined}
+      accessibilityElementsHidden={(hiddenFromAccessibility && !WEB) || undefined}
       accessibilityRole={hiddenFromAccessibility ? "none" : accessibilityRole}
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}

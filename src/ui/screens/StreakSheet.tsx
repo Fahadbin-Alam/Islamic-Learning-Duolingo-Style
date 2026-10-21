@@ -5,6 +5,7 @@ import { Icon } from "../Icon";
 import { PopIn } from "../PopIn";
 import { Sheet } from "../Sheet";
 import { colors, darken, fonts, lighten, space, text } from "../theme";
+import { formatNumber } from "./FormattedCount";
 import { useBackToClose } from "./sheetParts";
 
 export type StreakSheetProps = {
@@ -28,7 +29,7 @@ export function StreakSheet({ visible, streakDays, onClose }: StreakSheetProps) 
           <Icon name="flame" size={64} color={lit ? undefined : colors.lockedLip} />
         </PopIn>
         <Text style={[styles.title, { color: lit ? FLAME_INK : colors.inkSoft }]} accessibilityRole="header" testID="streak-title">
-          {lit ? `${streakDays} day streak!` : "No streak yet"}
+          {lit ? `${formatNumber(streakDays)} day streak!` : "No streak yet"}
         </Text>
         <Text style={styles.line} testID="streak-line">
           {lit ? "Finish a lesson each day to keep it!" : "Finish a lesson today to start one!"}
