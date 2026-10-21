@@ -101,9 +101,58 @@ export const legalLinks = {
   privacy: clean(env.privacyUrl) || `${LEGAL_SITE}/privacy.html`
 };
 
-// Free learners see a short break ad after every few finished lessons, never mid-lesson.
-export const LESSONS_BETWEEN_BREAK_ADS = 3;
+// Ads are the main way the app earns, so free learners see a short break ad after every other finished
+// lesson, never mid-lesson, and never sooner than a minute and a half after the last full-screen ad.
+export const LESSONS_BETWEEN_BREAK_ADS = 2;
+export const MIN_MS_BETWEEN_FULL_SCREEN_ADS = 90_000;
 
-export function shouldShowLessonBreakAd(lessonsFinishedThisSession: number, isPremium: boolean) {
-  return !isPremium && lessonsFinishedThisSession > 0 && lessonsFinishedThisSession % LESSONS_BETWEEN_BREAK_ADS === 0;
+export function shouldShowLessonBreakAd(lessonsFinishedThisSession: number, isPremium: boolean, msSinceLastFullScreenAd = Infinity) {
+  return (
+    !isPremium &&
+    lessonsFinishedThisSession > 0 &&
+    lessonsFinishedThisSession % LESSONS_BETWEEN_BREAK_ADS === 0 &&
+    msSinceLastFullScreenAd >= MIN_MS_BETWEEN_FULL_SCREEN_ADS
+  );
+}
+
+// Optional "watch for gems" videos: the best-paying ad, because the learner chose it. Capped so gems keep their value.
+export const DAILY_REWARDED_GEM_VIDEOS = 5;
+
+export function rewardedGemVideosLeft(record: { date: string; count: number } | null | undefined, today: string) {
+  return Math.max(0, DAILY_REWARDED_GEM_VIDEOS - (record?.date === today ? record.count : 0));
+}
+
+// The neutral age screen's answers. Under-13s get child-directed ads (COPPA, Google Play Families), under-16s are
+// treated as under the age of consent (GDPR), and nothing personalised is ever asked for until an adult says so.
+export type AgeGroup = "6-9" | "10-12" | "13-17" | "18+";
+export type AdAudience = "child" | "teen" | "adult";
+
+export const AGE_GROUPS: AgeGroup[] = ["6-9", "10-12", "13-17", "18+"];
+
+export function isAgeGroup(value: unknown): value is AgeGroup {
+  return typeof value === "string" && (AGE_GROUPS as string[]).includes(value);
+}
+
+/** Not answered yet, or a Kid account, counts as a child: the safest ads until we know better. */
+export function adAudienceFor(ageGroup: AgeGroup | null | undefined, isKidAccount = false): AdAudience {
+  if (isKidAccount || !ageGroup || ageGroup === "6-9" || ageGroup === "10-12") {
+    return "child";
+  }
+
+  return ageGroup === "13-17" ? "teen" : "adult";
+}
+
+export interface AdAudienceSettings {
+  tagForChildDirectedTreatment: boolean;
+  tagForUnderAgeOfConsent: boolean;
+  requestNonPersonalizedAdsOnly: boolean;
+}
+
+// iOS never asks for App Tracking Transparency, so its ads are always non-personalised.
+export function adSettingsFor(audience: AdAudience, platform: StorePlatform): AdAudienceSettings {
+  return {
+    tagForChildDirectedTreatment: audience === "child",
+    tagForUnderAgeOfConsent: audience !== "adult",
+    requestNonPersonalizedAdsOnly: audience !== "adult" || platform === "ios"
+  };
 }

@@ -11,6 +11,7 @@ export { SettingsSheet, type LearnerRole, type SettingsSheetProps } from "./Sett
 export { RefillSheet, type RefillSheetProps } from "./RefillSheet";
 export { StreakSheet, type StreakSheetProps } from "./StreakSheet";
 export { RewardPop, type RewardPopProps } from "./RewardPop";
+export { AgeSheet, type AgeSheetProps } from "./AgeSheet";
 export { LanguageSheet, type LanguageSheetProps } from "./LanguageSheet";
 export {
   ConfirmSheet,

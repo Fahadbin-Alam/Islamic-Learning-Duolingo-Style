@@ -91,7 +91,15 @@ import {
 } from "./services/localProgress";
 import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
-import { monetizationMode, shouldShowLessonBreakAd } from "./services/monetizationConfig";
+import {
+  adAudienceFor,
+  isAgeGroup,
+  monetizationMode,
+  rewardedGemVideosLeft,
+  shouldShowLessonBreakAd,
+  type AgeGroup
+} from "./services/monetizationConfig";
+import { getStoredItem, setStoredItem } from "./services/appStorage";
 import { clearSocialHubState } from "./services/socialHub";
 import {
   requestIslamicNotificationPermission,
@@ -123,6 +131,7 @@ import {
   checkAccountFields,
   ConfirmSheet,
   CrewView,
+  AgeSheet,
   LanguageSheet,
   LearnPath,
   PracticeHub,
@@ -471,14 +480,29 @@ export default function TopicApp() {
   const [quitLessonVisible, setQuitLessonVisible] = useState(false);
   const challengeStartedAtRef = useRef(Date.now());
   const lessonsFinishedRef = useRef(0);
+  const lastFullScreenAdAtRef = useRef(0);
+  // Ads are native only, so the age screen is too. Its answer stays on this device and only picks which ads may show.
+  const needsAgeCheck = Platform.OS !== "web" && monetizationMode !== "disabled";
+  const [ageGroup, setAgeGroup] = useState<AgeGroup | undefined>(() => {
+    const saved = getStoredItem("sira-path-age-group");
+    return isAgeGroup(saved) ? saved : undefined;
+  });
+  const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child");
+  const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
   const [shopBusy, setShopBusy] = useState(false);
   const monetizationUserId = state.user?.hasAccount ? String(state.user.id) : undefined;
   const hasUser = Boolean(state.user);
 
-  // Connect the store once a learner is loaded, then let the store's record of premium override local state.
+  // Set before the SDK starts (and again on a change) so not one ad is asked for with the wrong age settings.
   useEffect(() => {
-    if (!hasUser) {
+    monetizationClient.setAdAudience(adAudience);
+  }, [adAudience]);
+
+  // Connect the store once a learner is loaded and the age screen is answered, then let the store's record of
+  // premium override local state.
+  useEffect(() => {
+    if (!hasUser || !adsAllowedToStart) {
       return;
     }
 
@@ -505,7 +529,7 @@ export default function TopicApp() {
     return () => {
       cancelled = true;
     };
-  }, [hasUser, monetizationUserId]);
+  }, [hasUser, monetizationUserId, adsAllowedToStart]);
 
   useEffect(() => {
     let mounted = true;
@@ -1312,8 +1336,10 @@ export default function TopicApp() {
   function maybeShowLessonBreakAd(user: UserProfile) {
     lessonsFinishedRef.current += 1;
 
-    if (shouldShowLessonBreakAd(lessonsFinishedRef.current, isPremiumUser(user))) {
-      void monetizationClient.showLessonBreakAd();
+    if (shouldShowLessonBreakAd(lessonsFinishedRef.current, isPremiumUser(user), Date.now() - lastFullScreenAdAtRef.current)) {
+      void monetizationClient.showLessonBreakAd().then((shown) => {
+        if (shown) lastFullScreenAdAtRef.current = Date.now();
+      });
     }
   }
 
@@ -1334,10 +1360,29 @@ export default function TopicApp() {
 
     try {
       if (item.type === "rewarded_ad") {
-        const reward = await monetizationClient.showRewardedHeartAd(item);
+        const gemVideo = Boolean(item.gemsGranted);
+        const today = localDateKey();
+        const watched = readRewardedGemVideos();
+
+        if (gemVideo && rewardedGemVideosLeft(watched, today) === 0) {
+          void notify("That's all for today", "Come back tomorrow for more gems.", { mood: "think" });
+          return;
+        }
+
+        const reward = await monetizationClient.showRewardedAd(item);
 
         if (reward.ok) {
-          dispatch({ type: "apply_user_latest", update: (user) => grantHearts(user, reward.heartsGranted, true) });
+          lastFullScreenAdAtRef.current = Date.now();
+          if (gemVideo) {
+            setStoredItem("sira-path-rewarded-gem-videos", JSON.stringify({ date: today, count: (watched?.date === today ? watched.count : 0) + 1 }));
+          }
+          dispatch({
+            type: "apply_user_latest",
+            update: (user) => {
+              const withHearts = reward.heartsGranted ? grantHearts(user, reward.heartsGranted, true) : user;
+              return reward.gemsGranted ? { ...withHearts, gems: withHearts.gems + reward.gemsGranted } : withHearts;
+            }
+          });
         } else if (reward.message) {
           void notify("No video right now", "Try again later.", { mood: "think" });
         }
@@ -2236,6 +2281,13 @@ export default function TopicApp() {
           gems={rewardCelebration?.stop.gemsReward ?? 0}
           onClose={collectJourneyReward}
         />
+        <AgeSheet
+          visible={hasUser && needsAgeCheck && !ageGroup}
+          onSave={(group) => {
+            setStoredItem("sira-path-age-group", group);
+            setAgeGroup(group);
+          }}
+        />
         <LanguageSheet
           visible={languageModalVisible}
           options={LANGUAGE_OPTIONS}
@@ -2249,6 +2301,15 @@ export default function TopicApp() {
       </PortalHost>
     </SafeAreaView>
   );
+}
+
+function readRewardedGemVideos(): { date: string; count: number } | null {
+  try {
+    const parsed = JSON.parse(getStoredItem("sira-path-rewarded-gem-videos") ?? "null");
+    return parsed && typeof parsed.date === "string" && typeof parsed.count === "number" ? parsed : null;
+  } catch {
+    return null;
+  }
 }
 
 // A saved topic id the course still has, or undefined.

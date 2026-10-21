@@ -456,6 +456,7 @@ export interface RewardedAdResult {
   ok: boolean;
   transactionId: string;
   heartsGranted: number;
+  gemsGranted?: number;
   message?: string;
 }
 
