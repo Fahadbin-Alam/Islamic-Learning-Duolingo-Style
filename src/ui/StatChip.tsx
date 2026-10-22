@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     opacity: 0.9
   },
   value: {
-    marginLeft: 5,
+    marginStart: 5,
     fontFamily: fonts.displayHeavy,
     fontSize: 18,
     lineHeight: 24,

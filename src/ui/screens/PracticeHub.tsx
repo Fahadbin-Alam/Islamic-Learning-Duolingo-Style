@@ -14,6 +14,7 @@ import { PopIn, useShake } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text, topicPalette } from "../theme";
+import { isRtlLanguage } from "../../i18n";
 
 export type PracticeHubProps = {
   user: UserProfile;
@@ -101,7 +102,7 @@ function HeroCard({ tint, glyph, title, arabic, button, buttonVariant, done, onP
               {title}
             </Text>
             {arabic ? (
-              <ArabicText size={20} weight="bold" color={palette.ink} align="left">
+              <ArabicText size={20} weight="bold" color={palette.ink} align={isRtlLanguage() ? "right" : "left"}>
                 {arabic}
               </ArabicText>
             ) : null}
@@ -176,7 +177,7 @@ export function PracticeHub({
   const basics = getTopicArabic("foundation");
   // Tapping the grey review tile makes the mascot say why it is resting.
   const [restNote, setRestNote] = useState(false);
-  const bubble = restNote ? "No mistakes yet!" : placed ? "Let's sharpen what you know!" : "Let's find your level!";
+  const bubble = restNote ? t("No mistakes yet!") : placed ? t("Let's sharpen what you know!") : t("Let's find your level!");
 
   const reviewTile = hasReview ? (
     <SmallTile
@@ -262,7 +263,7 @@ export function PracticeHub({
               {t("Basics")}
             </Text>
             {basics ? (
-              <ArabicText size={20} weight="bold" color={colors.correctInk} align="left">
+              <ArabicText size={20} weight="bold" color={colors.correctInk} align={isRtlLanguage() ? "right" : "left"}>
                 {basics.ar}
               </ArabicText>
             ) : null}
@@ -293,7 +294,7 @@ const styles = StyleSheet.create({
   title: {
     ...text.h1,
     flexShrink: 1,
-    marginRight: "auto"
+    marginEnd: "auto"
   },
   levelPill: {
     flexDirection: "row",
@@ -324,7 +325,7 @@ const styles = StyleSheet.create({
   bubbleWrap: {
     flex: 1,
     minWidth: 0,
-    marginLeft: 6
+    marginStart: 6
   },
   hero: {
     borderRadius: radii.xl,

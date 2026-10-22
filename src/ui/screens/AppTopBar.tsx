@@ -7,6 +7,7 @@ import { colors, topicPalette } from "../theme";
 import { compactNumber, formatNumber } from "./FormattedCount";
 import { StreakSheet } from "./StreakSheet";
 import { worldIcon } from "./TopicPicker";
+import { t } from "../../i18n";
 
 export type AppTopBarProps = {
   topicId: string;
@@ -40,7 +41,7 @@ export function AppTopBar({
 }: AppTopBarProps) {
   const palette = topicPalette(accent);
   const [streakOpen, setStreakOpen] = useState(false);
-  const heartLabel = hearts.unlimited ? "Unlimited hearts" : `${hearts.current} of ${hearts.max} hearts`;
+  const heartLabel = hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max });
 
   return (
     <View style={[styles.bar, { paddingTop: topInset }]} testID="app-top-bar">
@@ -50,7 +51,7 @@ export function AppTopBar({
           sound="node_tap"
           pressScale={0.92}
           hitSlop={6}
-          accessibilityLabel={`${topicTitle}. Change topic`}
+          accessibilityLabel={t("{topic}. Change topic", { topic: topicTitle })}
           testID="top-bar-topic"
           style={styles.topicButton}
         >
@@ -68,7 +69,7 @@ export function AppTopBar({
             color={colors.flame}
             dim={streakDays <= 0}
             onPress={onStreak ?? (() => setStreakOpen(true))}
-            accessibilityLabel={`${formatNumber(streakDays)} day streak`}
+            accessibilityLabel={t("{count} day streak", { count: formatNumber(streakDays) })}
             testID="top-bar-streak"
           />
           <StatChip
@@ -76,7 +77,7 @@ export function AppTopBar({
             value={compactNumber(gems)}
             color={colors.gem}
             onPress={onOpenShop}
-            accessibilityLabel={`${formatNumber(gems)} gems`}
+            accessibilityLabel={t("{count} gems", { count: formatNumber(gems) })}
             testID="top-bar-gems"
           />
           {hearts.unlimited ? (
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 4,
-    paddingRight: 2,
+    paddingEnd: 2,
     borderRadius: 14
   },
   emblem: {
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 4,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 2
+    marginEnd: 2
   },
   stats: {
     flex: 1,
@@ -155,6 +156,6 @@ const styles = StyleSheet.create({
     borderRadius: 12
   },
   infinity: {
-    marginLeft: 4
+    marginStart: 4
   }
 });

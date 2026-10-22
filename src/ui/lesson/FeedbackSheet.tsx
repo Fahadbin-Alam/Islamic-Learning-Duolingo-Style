@@ -11,6 +11,7 @@ import { colors, darken, fonts, radii, space, withAlpha } from "../theme";
 import { noBreakHyphens } from "./lessonText";
 import { SCROLL_HINT_ROOM, ScrollHintGap } from "./ScrollHint";
 import { nearestRowStop, nextRowStop, wholeRows, type LayoutBox, type RowSpan } from "./sheetFit";
+import { t } from "../../i18n";
 
 export const PRAISE_WORDS = ["Great job!", "Nice!", "Excellent!", "Amazing!", "You got it!", "MashaAllah!"] as const;
 
@@ -197,8 +198,8 @@ export function FeedbackSheet({
   );
 
   const ink = correct ? CORRECT_TEXT : WRONG_TEXT;
-  const heading = title ?? (correct ? pickPraise(praiseSeed) : WRONG_TITLE);
-  const label = buttonLabel ?? (correct ? "Continue" : "Got it");
+  const heading = title ?? t(correct ? pickPraise(praiseSeed) : WRONG_TITLE);
+  const label = buttonLabel ?? (correct ? t("Continue") : t("Got it"));
   const whyText = why?.trim();
   const inset = bottomInset ?? SHEET_INSET;
   const listShown = !correct && Boolean(correctList && correctList.length > 0);
@@ -453,7 +454,7 @@ export function FeedbackSheet({
                       style={[styles.listItem, index > 0 ? styles.listItemNext : null, missedRows?.includes(index) ? styles.listItemMissed : null]}
                       onLayout={onRowLayout(index)}
                       accessible
-                      accessibilityLabel={`${index + 1}. ${item}${missedRows?.includes(index) ? ", you had this one in another place" : ""}`}
+                      accessibilityLabel={`${index + 1}. ${item}${missedRows?.includes(index) ? t(", you had this one in another place") : ""}`}
                       testID={`feedback-row-${index}`}
                     >
                       <View style={[styles.listNumber, { backgroundColor: ink }]}>
@@ -509,12 +510,12 @@ export function FeedbackSheet({
                         setWhyOpen((open) => !open);
                       }}
                       style={styles.whyButton}
-                      accessibilityLabel={whyOpen ? "Hide why" : "Why?"}
+                      accessibilityLabel={whyOpen ? t("Hide why") : t("Why?")}
                       accessibilityState={{ expanded: whyOpen }}
                       hitSlop={6}
                       testID="feedback-why"
                     >
-                      <Text style={[styles.whyLabel, { color: ink }]}>Why?</Text>
+                      <Text style={[styles.whyLabel, { color: ink }]}>{t("Why?")}</Text>
                       <Icon name={whyOpen ? "chevronDown" : "chevronRight"} size={16} color={ink} />
                     </Tappable>
                   </View>
@@ -613,7 +614,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: space.md
+    marginEnd: space.md
   },
   praise: {
     flex: 1,
@@ -673,8 +674,8 @@ const styles = StyleSheet.create({
   },
   listMiss: {
     height: 20,
-    marginLeft: "auto",
-    paddingLeft: space.sm,
+    marginStart: "auto",
+    paddingStart: space.sm,
     justifyContent: "center"
   },
   listNumber: {
@@ -683,7 +684,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: space.sm
+    marginEnd: space.sm
   },
   listNumberText: {
     fontFamily: fonts.displayHeavy,
@@ -711,7 +712,7 @@ const styles = StyleSheet.create({
     backgroundColor: withAlpha(colors.white, 0.6)
   },
   whyLabel: {
-    marginRight: 4,
+    marginEnd: 4,
     fontFamily: fonts.bodyHeavy,
     fontSize: 16,
     lineHeight: 22

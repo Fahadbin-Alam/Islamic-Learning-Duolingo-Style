@@ -9,6 +9,7 @@ import { Portal } from "../Portal";
 import { Tappable } from "../Tappable";
 import { colors, fonts, radii, space, text } from "../theme";
 import { useBackToClose } from "./sheetParts";
+import { t } from "../../i18n";
 
 export type RewardPopProps = {
   visible: boolean;
@@ -44,7 +45,7 @@ export function RewardPop({ visible, gems, onClose }: RewardPopProps) {
   return (
     <Portal>
       <View style={styles.popLayer} testID="reward-pop">
-        <Tappable onPress={onClose} pressScale={1} style={StyleSheet.absoluteFill} accessibilityLabel="Close">
+        <Tappable onPress={onClose} pressScale={1} style={StyleSheet.absoluteFill} accessibilityLabel={t("Close")}>
           <View style={[StyleSheet.absoluteFill, styles.popBackdrop]} />
         </Tappable>
         {/* Behind the card, across the whole screen: the burst frames the card instead of covering the text. */}
@@ -55,12 +56,12 @@ export function RewardPop({ visible, gems, onClose }: RewardPopProps) {
               <Icon name={open ? "chestOpen" : "chest"} size={96} />
             </Animated.View>
           </PopIn>
-          <Text style={styles.popTitle} accessibilityRole="header">Chest opened!</Text>
+          <Text style={styles.popTitle} accessibilityRole="header">{t("Chest opened!")}</Text>
           <View style={styles.gemRow}>
             <Icon name="gem" size={34} />
             <CountUp value={gems} prefix="+" duration={800} style={styles.gemValue} />
           </View>
-          <GameButton label="Collect" color={colors.gem} fullWidth onPress={onClose} sound="xp" testID="reward-collect" />
+          <GameButton label={t("Collect")} color={colors.gem} fullWidth onPress={onClose} sound="xp" testID="reward-collect" />
         </PopIn>
       </View>
     </Portal>
