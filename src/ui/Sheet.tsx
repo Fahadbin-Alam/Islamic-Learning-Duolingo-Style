@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Platform, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
+import { Animated, Dimensions, Keyboard, Platform, StyleSheet, View, type KeyboardEvent, type StyleProp, type ViewStyle } from "react-native";
 import { Portal } from "./Portal";
 import { Tappable } from "./Tappable";
 import { colors, radii } from "./theme";
@@ -32,6 +32,34 @@ const TONE_BG: Record<SheetTone, string> = {
 };
 
 const DEFAULT_INSET = Platform.OS === "ios" ? 30 : 16;
+// Room left above a lifted sheet for the status bar.
+const KEYBOARD_TOP_GAP = 48;
+
+/**
+ * How far the on-screen keyboard reaches up over the window, in points (0 when it is closed).
+ * Android apps are edge to edge, so the window no longer shrinks for the keyboard and a sheet
+ * pinned to the bottom ends up under it. Measuring from the window bottom also stays right on a
+ * phone that does shrink the window (the overlap is then about 0).
+ */
+export function useKeyboardHeight() {
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    const show = (event: KeyboardEvent) => {
+      const { height: keyboardHeight, screenY } = event.endCoordinates;
+      const overlap = screenY > 0 ? Dimensions.get("window").height - screenY : keyboardHeight;
+      setHeight(Math.max(0, Math.round(overlap)));
+    };
+    const hide = () => setHeight(0);
+    // iOS animates with the keyboard ("will"); Android only sends "did".
+    const subscriptions = Platform.OS === "ios"
+      ? [Keyboard.addListener("keyboardWillChangeFrame", show), Keyboard.addListener("keyboardWillHide", hide)]
+      : [Keyboard.addListener("keyboardDidShow", show), Keyboard.addListener("keyboardDidHide", hide)];
+    return () => subscriptions.forEach((subscription) => subscription.remove());
+  }, []);
+
+  return height;
+}
 
 /**
  * Bottom sheet drawn as an absolute overlay (not a Modal), so it behaves the same on web,
@@ -55,6 +83,12 @@ export function Sheet({
   const [panelHeight, setPanelHeight] = useState(480);
   const progress = useRef(new Animated.Value(0)).current;
   const showBackdrop = backdrop ?? tone === "white";
+  const keyboardHeight = useKeyboardHeight();
+  // With the keyboard up the sheet sits on top of it and shrinks to the space left, so the field
+  // being typed in stays in view (its content scrolls when it is taller than that).
+  const keyboardStyle: ViewStyle | undefined = keyboardHeight > 0
+    ? { bottom: keyboardHeight, paddingBottom: 16, maxHeight: Dimensions.get("window").height - keyboardHeight - KEYBOARD_TOP_GAP }
+    : undefined;
 
   useEffect(() => {
     if (visible) {
@@ -97,7 +131,8 @@ export function Sheet({
         style={[
           styles.panel,
           { backgroundColor: TONE_BG[tone], paddingBottom: 16 + bottomInset, transform: [{ translateY }] },
-          style
+          style,
+          keyboardStyle
         ]}
       >
         {children}

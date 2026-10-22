@@ -25,7 +25,7 @@ import { FeedbackSheet } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
-import { sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useSheetFit, type LayoutBox } from "./sheetFit";
+import { centerSpace, sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useSheetFit, type LayoutBox } from "./sheetFit";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -347,12 +347,23 @@ export function ExerciseView({
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
   const [sheetFull, setSheetFull] = useState(0);
-  const [tilesBox, setTilesBox] = useState<LayoutBox | null>(null);
-  const [promptBox, setPromptBox] = useState<LayoutBox | null>(null);
-  const [cueTop, setCueTop] = useState<number | null>(null);
+  // The cues, prompt and tiles sit in one block at the top of the scrolling content, under the space that centers it.
+  // Their boxes are read inside the block and placed by its top, worked out rather than read: a browser reports a
+  // move only with a change of size.
+  const [questionHeight, setQuestionHeight] = useState(0);
+  const [topSpace, setTopSpace] = useState(0);
+  const [tilesIn, setTilesBox] = useState<LayoutBox | null>(null);
+  const [promptIn, setPromptBox] = useState<LayoutBox | null>(null);
+  const [cueIn, setCueTop] = useState<number | null>(null);
+  const questionTop = space.sm + topSpace;
+  const tilesBox = tilesIn && { y: tilesIn.y + questionTop, height: tilesIn.height };
+  const promptBox = promptIn && { y: promptIn.y + questionTop, height: promptIn.height };
+  const cueTop = cueIn === null ? null : cueIn + questionTop;
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const wasChecked = useRef(checked);
   const [tileMoves, setTileMoves] = useState(0);
+  const [scrollBoxHeight, setScrollBoxHeight] = useState(0);
+  const [contentHeight, setContentHeight] = useState(0);
 
   const trueFalse = kind === "true_false";
   const truePick = trueFalse ? choices.find(isTrueChoice) : undefined;
@@ -439,9 +450,10 @@ export function ExerciseView({
     // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
     // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
     scrollRef.current?.scrollTo?.({ y: scrollTarget, animated: true });
-    // The layout is read from the boxes these values follow.
+    // The layout is read from the boxes these values follow; scrolled again once the room under the question has
+    // grown, or a question moved down to the middle would stay put.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checked, folded, layout?.focusBottom, layout?.promptTop, layout?.visibleBottom, room?.furthest, scrollRef, sheetHeight, tileMoves]);
+  }, [checked, contentHeight, folded, layout?.focusBottom, layout?.promptTop, layout?.visibleBottom, room?.furthest, scrollRef, sheetHeight, tileMoves]);
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
@@ -486,83 +498,97 @@ export function ExerciseView({
   // One long answer makes the whole set use the smaller text, so the tiles match.
   const longChoices = choices.some((choice) => choice.label.length > LONG_LABEL);
   const extraBottom = checked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
+  // A short question sits in the middle of the screen, not at the top. Read while unchecked and kept through the
+  // sheet, so the question never moves when CHECK is tapped or tiles fold away.
+  if (!checked && scrollBoxHeight && questionHeight) {
+    const next = centerSpace(scrollBoxHeight, space.sm + questionHeight, space.xxl);
+    if (Math.abs(next - topSpace) > 1) {
+      setTopSpace(next);
+    }
+  }
 
   return (
     <View style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
-      <View style={styles.scrollBox}>
+      <View style={styles.scrollBox} onLayout={(event) => setScrollBoxHeight(Math.round(event.nativeEvent.layout.height))}>
         <ScrollView
           ref={scrollRef}
           style={styles.scroll}
-          contentContainerStyle={[styles.content, { paddingBottom: extraBottom }]}
+          contentContainerStyle={[styles.content, { paddingTop: space.sm + topSpace, paddingBottom: extraBottom }]}
           keyboardShouldPersistTaps="handled"
           {...scrollProps}
+          onContentSizeChange={(width, height) => {
+            scrollProps.onContentSizeChange(width, height);
+            setContentHeight(Math.round(height));
+          }}
           onScroll={onQuestionScroll}
         >
-          {review || shownAttempt > 0 ? (
-            <FadeUnderSheet hidden={cueFaded} instantOut style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
-              {review ? (
-                <PopIn style={[styles.cueChip, styles.reviewChip]}>
-                  <Icon name="practice" size={18} />
-                  <Text style={[styles.cueText, styles.reviewText]} testID="exercise-review">
-                    REVIEW
-                  </Text>
-                </PopIn>
-              ) : null}
-              {shownAttempt > 0 ? (
-                <PopIn style={[styles.cueChip, styles.retryChip]}>
-                  <Text style={[styles.cueText, styles.retryText]}>Try again!</Text>
-                </PopIn>
-              ) : null}
-            </FadeUnderSheet>
-          ) : null}
-          <View
-            onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}
-            testID="exercise-prompt"
-          >
-            <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={hideMascot} still={fit.squeeze && !mascotOff} />
-          </View>
-
-          {tfChoices ? (
-            <View style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
-              {tfChoices.map((choice, index) => (
-                <React.Fragment key={choice.id}>
-                  {index > 0 ? <View style={styles.squareGap} /> : null}
-                  <ChoiceTile
-                    label={choice === truePick ? "True" : "False"}
-                    icon={choice === truePick ? "check" : "close"}
-                    iconColor={choice === truePick ? colors.green : colors.heart}
-                    layout="square"
-                    compact={compact}
-                    state={tileState(choice)}
-                    onPress={() => press(choice)}
-                    testID={`choice-${choice.id}`}
-                  />
-                </React.Fragment>
-              ))}
+          <View onLayout={(event) => setQuestionHeight(Math.round(event.nativeEvent.layout.height))}>
+            {review || shownAttempt > 0 ? (
+              <FadeUnderSheet hidden={cueFaded} instantOut style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
+                {review ? (
+                  <PopIn style={[styles.cueChip, styles.reviewChip]}>
+                    <Icon name="practice" size={18} />
+                    <Text style={[styles.cueText, styles.reviewText]} testID="exercise-review">
+                      REVIEW
+                    </Text>
+                  </PopIn>
+                ) : null}
+                {shownAttempt > 0 ? (
+                  <PopIn style={[styles.cueChip, styles.retryChip]}>
+                    <Text style={[styles.cueText, styles.retryText]}>Try again!</Text>
+                  </PopIn>
+                ) : null}
+              </FadeUnderSheet>
+            ) : null}
+            <View
+              onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}
+              testID="exercise-prompt"
+            >
+              <QuestionBubble prompt={prompt} mascotVariant={mascotVariant} accent={accent} mood={mood} hideMascot={hideMascot} still={fit.squeeze && !mascotOff} />
             </View>
-          ) : (
-            <View style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
-              {stackChoices.map((choice, index) => (
-                <FadeUnderSheet
-                  key={choice.id}
-                  hidden={fadedIds.includes(choice.id)}
-                  onLayout={onTileLayout(choice.id)}
-                  style={compact ? styles.tileGapCompact : styles.tileGap}
-                >
-                  <PopIn from="up" delay={80 + index * 60}>
+
+            {tfChoices ? (
+              <View style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
+                {tfChoices.map((choice, index) => (
+                  <React.Fragment key={choice.id}>
+                    {index > 0 ? <View style={styles.squareGap} /> : null}
                     <ChoiceTile
-                      label={choice.label}
+                      label={choice === truePick ? "True" : "False"}
+                      icon={choice === truePick ? "check" : "close"}
+                      iconColor={choice === truePick ? colors.green : colors.heart}
+                      layout="square"
                       compact={compact}
-                      long={longChoices}
                       state={tileState(choice)}
                       onPress={() => press(choice)}
                       testID={`choice-${choice.id}`}
                     />
-                  </PopIn>
-                </FadeUnderSheet>
-              ))}
-            </View>
-          )}
+                  </React.Fragment>
+                ))}
+              </View>
+            ) : (
+              <View style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
+                {stackChoices.map((choice, index) => (
+                  <FadeUnderSheet
+                    key={choice.id}
+                    hidden={fadedIds.includes(choice.id)}
+                    onLayout={onTileLayout(choice.id)}
+                    style={compact ? styles.tileGapCompact : styles.tileGap}
+                  >
+                    <PopIn from="up" delay={80 + index * 60}>
+                      <ChoiceTile
+                        label={choice.label}
+                        compact={compact}
+                        long={longChoices}
+                        state={tileState(choice)}
+                        onPress={() => press(choice)}
+                        testID={`choice-${choice.id}`}
+                      />
+                    </PopIn>
+                  </FadeUnderSheet>
+                ))}
+              </View>
+            )}
+          </View>
         </ScrollView>
       </View>
 

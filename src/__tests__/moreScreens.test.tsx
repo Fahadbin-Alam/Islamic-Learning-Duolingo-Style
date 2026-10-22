@@ -179,6 +179,27 @@ describe("ShopView", () => {
     expect(handlers.onUseItem).not.toHaveBeenCalled();
   });
 
+  it("mutes the heart video at full hearts, since the heart would go past the most, and never plays it", async () => {
+    const { playGameSound } = jest.requireMock("../services/gameAudio");
+    const handlers = await renderShop(makeUser({ hearts: { current: 5, max: 5, unlimited: false, lastRefillDate: "2026-10-18" } }));
+    expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("Hearts are full");
+    expect(screen.getByRole("button", { name: "Free heart, watch a video, hearts are full" })).toBeTruthy();
+    playGameSound.mockClear();
+    await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-heart"));
+    expect(playGameSound.mock.calls.map((call: unknown[]) => call[0])).toEqual(["soft_ui"]);
+    expect(handlers.onUseItem).not.toHaveBeenCalled();
+    // The gem video still plays: gems have no most.
+    await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-gems"));
+    expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(["watch-ad-gems"]);
+  });
+
+  it("plays the heart video while a heart is missing", async () => {
+    const handlers = await renderShop(makeUser({ hearts: { current: 4, max: 5, unlimited: false, lastRefillDate: "2026-10-18" } }));
+    expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("Watch a video");
+    await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-heart"));
+    expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(["watch-ad-heart"]);
+  });
+
   it("hides what the store cannot sell (web): only gem items stay, with no plans or restore", async () => {
     const handlers = { onUseItem: jest.fn(), onRestore: jest.fn(), onOpenLink: jest.fn() };
     await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} {...handlers} />);

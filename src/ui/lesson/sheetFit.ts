@@ -29,6 +29,15 @@ export function sheetRoom(layout: SheetFitLayout) {
   return { furthest, room };
 }
 
+/**
+ * The space above a question that fits its screen, so it sits in the middle of the room above CHECK instead of at
+ * the top. A question taller than the room gets none and scrolls as before. Scrolling once checked is unchanged:
+ * it may scroll past this space, since it never scrolls past the prompt's top.
+ */
+export function centerSpace(roomHeight: number, questionHeight: number, bottomPad: number) {
+  return Math.max(0, Math.floor((roomHeight - questionHeight - bottomPad) / 2));
+}
+
 /** Where to scroll so the green tile sits right above a sheet `sheetHeight` tall, never further than `furthest`. */
 export function sheetScrollY(layout: SheetFitLayout, sheetHeight: number, furthest: number) {
   return Math.max(0, Math.min(layout.focusBottom + space.md - (layout.visibleBottom - sheetHeight), furthest));

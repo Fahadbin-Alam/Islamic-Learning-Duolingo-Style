@@ -21,7 +21,8 @@ export type IconName =
   | "crew"
   | "shop"
   | "profile"
-  | "crescent"
+  | "door"
+  | "speech"
   | "mosque"
   | "kaaba"
   | "lantern"
@@ -39,10 +40,11 @@ export type IconName =
   | "info"
   | "key"
   | "infinity"
-  | "ring"
+  | "homeHeart"
   | "family"
   | "people"
   | "moon"
+  | "dates"
   | "water"
   | "sun"
   | "star8"
@@ -91,6 +93,9 @@ const C = {
   wood: "#C47A3A",
   woodDeep: "#9A5724",
   woodDark: "#7A421A",
+  date: "#8E3A1B",
+  dateLight: "#A3471F",
+  dateDeep: "#5A1F0B",
   cream: "#FFF3D6",
   parchment: "#F8E2AE",
   parchmentDeep: "#E2BD72",
@@ -136,12 +141,13 @@ const STAR5 = starPoints(12, 12.8, 10, 4.6, 5);
 const STAR5_INNER = starPoints(12, 12.8, 5.2, 2.4, 5);
 const STAR8 = starPoints(12, 12, 10.5, 7.6, 8, -90);
 const STAR8_SMALL = starPoints(12, 12, 4.4, 3.2, 8, -90);
-const CRESCENT_STAR = starPoints(18.2, 12.4, 3.6, 1.5, 5);
 const GEAR = gearPath(12, 12, 10.5, 8, 8);
 const QURAN_STAR = starPoints(12, 12, 4.2, 3, 8, -90);
 
-// A crescent opening to the right.
+// A crescent opening to the right, for the moon in the night sky.
 const CRESCENT = "M15.25 4.14A8.5 8.5 0 1 0 15.25 20.86A11 11 0 0 1 15.25 4.14Z";
+// A date on its side, centred on 0,0, with the stem end to the right: round at the other end, a little narrower at the stem.
+const DATE = "M-6.2 0C-6.2-1.8-4.2-2.7-1.2-2.7 2.2-2.7 4.9-2 5.9-.7Q6.2 0 5.9.7C4.9 2 2.2 2.7-1.2 2.7-4.2 2.7-6.2 1.8-6.2 0Z";
 const HEART = "M12 21.2c-.4 0-.8-.1-1.1-.4C7.6 18.3 2.8 14.4 2.8 9.6 2.8 6.6 5.1 4.3 7.9 4.3c1.7 0 3.2.8 4.1 2.1.9-1.3 2.4-2.1 4.1-2.1 2.8 0 5.1 2.3 5.1 5.3 0 4.8-4.8 8.7-8.1 11.2-.3.3-.7.4-1.1.4z";
 
 // ---------- paint helpers ----------
@@ -190,6 +196,19 @@ function Shine({ t, d }: { t: Tone; d: string }) {
     return null;
   }
   return <Path d={d} fill="#FFFFFF" fillOpacity={0.55} />;
+}
+
+function DateFruit({ t, x, y, angle, flip, color }: { t: Tone; x: number; y: number; angle: number; flip?: boolean; color: string }) {
+  // One date (DATE) centred on (x, y) and turned by angle; flip puts its stem on the left.
+  return (
+    <G transform={`translate(${x} ${y}) rotate(${angle})${flip ? " scale(-1 1)" : ""}`}>
+      <Path d={DATE} {...t.f(color)} />
+      {/* Two wrinkles in the skin and a small stem cap, so it reads as a date and not a bean. */}
+      <Path d="M-3.2-.6C-1.6-1.1.4-1.1 2.2-.5M-1.4.9C0 1.3 1.8 1.2 3.2.7" strokeWidth={0.6} strokeLinecap="round" {...t.ds(C.dateDeep)} />
+      <Ellipse cx={6.1} cy={0} rx={0.5} ry={0.8} {...t.d(C.parchmentDeep)} />
+      <Shine t={t} d="M-4.8-1.2C-4-1.9-2.8-2.1-1.6-2.1c.5 0 .5.7 0 .7-1 0-1.9.2-2.6.7-.4.3-.9-.2-.6-.5z" />
+    </G>
+  );
 }
 
 function Person({ t, x, y, s, color, deep }: { t: Tone; x: number; y: number; s: number; color: string; deep: string }) {
@@ -378,11 +397,25 @@ const ICONS: Record<IconName, Drawer> = {
       {!t.isMono ? <Circle cx={14.1} cy={9.2} r={0.7} fill={C.ink} /> : null}
     </G>
   ),
-  crescent: (t) => (
+  door: (t) => (
     <G>
-      <Path d={CRESCENT} {...t.f(C.gold)} />
-      <Polygon points={CRESCENT_STAR} strokeWidth={1} strokeLinejoin="round" {...t.r(C.gold)} />
-      <Shine t={t} d="M5.8 8.2c.8-1.4 2-2.5 3.4-3.2.5-.2.8.4.4.7-1.2.7-2.2 1.7-2.9 2.9-.3.5-1.1.1-.9-.4z" />
+      <Rect x={3.6} y={1.8} width={16.8} height={20} rx={2.4} {...t.f(C.woodDeep)} />
+      <Rect x={5.8} y={4} width={12.4} height={17.8} rx={1} {...t.d(C.yellowSoft)} />
+      <Path d="M5.8 4 12.2 5.8v14.4l-6.4 1.6z" {...t.f(C.wood)} />
+      <Path d="M7.2 7.2 10.8 8v4.2l-3.6-.2zM7.2 14l3.6-.1v4.2l-3.6.6z" {...t.d(C.woodDeep)} />
+      <Circle cx={11} cy={13.4} r={0.95} {...t.d(C.gold)} />
+      <Rect x={2.2} y={20.6} width={19.6} height={2.6} rx={1.3} {...t.f(C.goldLip)} />
+      <Shine t={t} d="M18.8 5.2c.5 0 .8.3.8.8v3.6c0 .5-.8.5-.8 0V6c0-.4-.3-.8-.7-.8-.5 0-.5-.8 0-.8z" />
+    </G>
+  ),
+  speech: (t) => (
+    <G>
+      <Path
+        d="M7.4 3.4h9.2a5 5 0 0 1 5 5v3.4a5 5 0 0 1-5 5h-5l-4.4 3.6c-.6.5-1.4.1-1.4-.7v-3.2a5 5 0 0 1-3.4-4.7V8.4a5 5 0 0 1 5-5z"
+        {...t.f(C.green)}
+      />
+      <Path d="M7.4 8.8h9.2M7.4 12.4h5.6" strokeWidth={2} strokeLinecap="round" {...t.ds("#FFFFFF")} />
+      <Shine t={t} d="M4.8 7.6c.4-1.3 1.4-2.3 2.7-2.7.5-.1.8.6.3.8-1 .4-1.7 1.1-2 2.1-.2.5-1.1.3-1-.2z" />
     </G>
   ),
   mosque: (t) => (
@@ -530,12 +563,15 @@ const ICONS: Record<IconName, Drawer> = {
       {...t.s(C.purple)}
     />
   ),
-  ring: (t) => (
+  // A home with a heart in it, for marriage: "He placed between you affection and mercy" (Ar-Rum 30:21).
+  homeHeart: (t) => (
     <G>
-      <Circle cx={12} cy={14.6} r={6.6} strokeWidth={2.8} {...t.s(C.gold)} />
-      <Path d="M12 8.4 9 5.6l1.4-2.4h3.2L15 5.6z" {...t.f(C.gem)} />
-      <Path d="M9 5.6h6L12 8.4z" {...t.d(C.gemDeep)} />
-      <Path d="M8 10.4a5.2 5.2 0 0 0-1.4 2.6" strokeWidth={1.2} strokeLinecap="round" {...t.ds("#FFF1B8")} />
+      <Rect x={15.6} y={3.6} width={2.8} height={5.2} rx={0.6} {...t.f(C.goldLip)} />
+      <Rect x={4.4} y={10.6} width={15.2} height={11.6} rx={2} {...t.f(C.cream)} />
+      <Path d="M12 2.2 22 10.4c.9.7.4 2.1-.7 2.1H2.7c-1.1 0-1.6-1.4-.7-2.1z" {...t.f(C.gold)} />
+      <Path d="M3.4 12.5h17.2" strokeWidth={1.2} strokeLinecap="round" {...t.ds(C.goldLip)} />
+      <Path d={HEART} transform="translate(7.2 11.6) scale(0.4)" {...t.d(C.heart)} />
+      <Shine t={t} d="M8.4 7.6 11.4 5.2c.4-.3.9.3.5.6L8.9 8.2c-.4.3-.9-.3-.5-.6z" />
     </G>
   ),
   family: (t) => (
@@ -557,8 +593,19 @@ const ICONS: Record<IconName, Drawer> = {
       <G transform="translate(2.6 2.4) scale(0.72)">
         <Path d={CRESCENT} {...t.d(C.yellowSoft)} />
       </G>
-      <Polygon points={starPoints(16.8, 9.4, 1.8, 0.8, 4)} {...t.d("#FFFFFF")} />
-      <Circle cx={18.2} cy={14.4} r={0.8} {...t.d("#FFFFFF")} />
+      {/* Two dots of night sky off the crescent's tips, so nothing sits in its opening like a star. */}
+      <Circle cx={16.6} cy={5.4} r={0.9} {...t.d("#FFFFFF")} />
+      <Circle cx={18.6} cy={17.2} r={0.8} {...t.d("#FFFFFF")} />
+    </G>
+  ),
+  // Three dates on a plate: the Prophet ﷺ broke his fast with dates (Abu Dawud 2356).
+  dates: (t) => (
+    <G>
+      <Ellipse cx={12} cy={18.6} rx={11} ry={4} {...t.d(C.parchmentDeep)} />
+      <Ellipse cx={12} cy={17.8} rx={11} ry={3.6} {...t.d(C.cream)} />
+      <DateFruit t={t} x={7.2} y={13.6} angle={-26} flip color={C.date} />
+      <DateFruit t={t} x={16.8} y={13.6} angle={26} color={C.date} />
+      <DateFruit t={t} x={12} y={7.8} angle={-6} color={C.dateLight} />
     </G>
   ),
   water: (t) => (
@@ -642,15 +689,15 @@ export const Icon = memo(function Icon({ name, size = 24, color, detailColor }: 
 });
 
 const TOPIC_ICONS: Record<string, IconName> = {
-  foundation: "crescent",
+  foundation: "door",
   prayer: "mosque",
   aqidah: "star8",
   quran_tafseer: "quran",
   manners: "handHeart",
-  fasting: "moon",
+  fasting: "dates",
   zakat: "coins",
   hajj: "kaaba",
-  marriage: "ring",
+  marriage: "homeHeart",
   sahabah: "people",
   prophets: "scroll",
   women_of_the_book: "bookOpen",

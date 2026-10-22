@@ -1,60 +1,18 @@
-type SocialAuthProviderConfig = {
-  enabled: boolean;
-  label: string;
-  clientId?: string;
-  webClientId?: string;
-  iosClientId?: string;
-  androidClientId?: string;
-  appId?: string;
-};
-
 const env = typeof process !== "undefined" ? ((process as { env?: Record<string, string | undefined> }).env ?? {}) : {};
 
 function readEnv(name: string) {
-  return env[name]?.trim() ?? "";
+  const value = env[name]?.trim() ?? "";
+  // Placeholders from .env.example ("ADD_...") count as not set.
+  return value.startsWith("ADD_") ? "" : value;
 }
 
-function isConfigured(value?: string) {
-  return Boolean(value && !value.startsWith("ADD_"));
-}
-
-// The Google/Facebook redirect flow and backend token check are not built yet (the API answers 501),
-// so the buttons stay hidden even when ids are set. Turning them on for iOS also requires Sign in with Apple.
-const SOCIAL_SIGN_IN_READY = false;
-
-const googleClientId = readEnv("EXPO_PUBLIC_GOOGLE_CLIENT_ID");
-const googleWebClientId = readEnv("EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID");
-const googleIosClientId = readEnv("EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID");
-const googleAndroidClientId = readEnv("EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID");
-const facebookAppId = readEnv("EXPO_PUBLIC_FACEBOOK_APP_ID");
-
-export const SOCIAL_AUTH_CONFIG: Record<"google" | "facebook", SocialAuthProviderConfig> = {
-  google: {
-    enabled: SOCIAL_SIGN_IN_READY && [googleClientId, googleWebClientId, googleIosClientId, googleAndroidClientId].some((value) => isConfigured(value)),
-    label: "Continue with Google",
-    clientId: googleClientId || undefined,
-    webClientId: googleWebClientId || googleClientId || undefined,
-    iosClientId: googleIosClientId || googleClientId || undefined,
-    androidClientId: googleAndroidClientId || googleClientId || undefined
-  },
-  facebook: {
-    enabled: SOCIAL_SIGN_IN_READY && isConfigured(facebookAppId),
-    label: "Continue with Facebook",
-    appId: facebookAppId || undefined,
-    clientId: facebookAppId || undefined,
-    webClientId: facebookAppId || undefined,
-    iosClientId: facebookAppId || undefined,
-    androidClientId: facebookAppId || undefined
-  }
-} as const;
-
-export const SOCIAL_AUTH_SETUP = {
-  google: [
-    "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID",
-    "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID",
-    "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID"
-  ],
-  facebook: [
-    "EXPO_PUBLIC_FACEBOOK_APP_ID"
-  ]
+/**
+ * Google sign-in ids from the Google Cloud console (APIs & Services > Credentials). The web client id
+ * is the one the id token is issued for, so the app and the backend both use it. Android needs an
+ * Android client registered with the package name and the Play signing SHA-1, but no id in the app.
+ * iOS needs its own client id. Sign in with Apple needs no ids: it shows on iOS next to Google.
+ */
+export const GOOGLE_SIGN_IN_CONFIG = {
+  webClientId: readEnv("EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID"),
+  iosClientId: readEnv("EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID")
 } as const;

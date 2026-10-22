@@ -63,7 +63,16 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   its comma too.
 - **Bottom tabs**: Learn, Practice, Crew, Shop, Me.
 - **Learn** is the path itself: a unit banner per branch, then zig-zag nodes, chests and the
-  mascot. Tapping a node opens a small card under it with the lesson name, its Arabic word and
+  mascot. A small camel (`src/ui/Camel.tsx`, saddle cloth in the unit color) walks back and forth
+  beside the circle after the one to play next, and stands by the trophy (a victory lap once the topic
+  is done). Topic pictures (`src/ui/PathScenery.tsx`) stand beside the path about every fourth row:
+  a book stand for Quran, a tent and well for Sahabah, ink and paper for Hadith, a date palm for
+  Women, and so on. Only plain, undisputed things: no crescents, stars, lanterns or rings. Plants
+  sway only in the units next to the current one, everything runs on the native driver, and all of
+  it stands still when the phone asks for reduced motion. Each unit has its own sky
+  (`src/ui/PathWeather.tsx`): sunny, breezy, cloudy, a little rain or a sunset, taking turns down
+  the path, with clouds drifting, the sun's rays turning, gusts and raindrops. Only the current
+  unit's sky moves. No moon or stars. Tapping a node opens a small card under it with the lesson name, its Arabic word and
   a START button.
 - **Lesson**: close button, progress bar, hearts. Steps: one learn card (Arabic word, one
   short line from the mascot, optional source chip), an optional ordering game (prayer only),

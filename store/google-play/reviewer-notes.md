@@ -2,7 +2,7 @@
 
 - Core learning works without creating an account.
 - Account creation is optional and is used for saved progress, social features, and synced profile state.
-- If social login is not configured for the release build, the Google and Facebook buttons are hidden.
+- "Continue with Google" shows only in builds made with a Google web client id; "Continue with Apple" shows only on iOS. Both are optional: email sign-up and learning as a guest always work. Sign-up (email, Google or Apple) is behind a grown-up check, and for ages 12 and under it asks for a parent's account.
 - Premium is an optional auto-renewing subscription sold through Google Play Billing. Free learners see AdMob ads rated G; premium removes them. Purchases can be restored from the shop.
 
 ## Reviewer Walkthrough

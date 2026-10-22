@@ -107,7 +107,6 @@ That lets the current UI keep moving while we migrate more of the live lesson de
 ## What Still Needs To Be Done For Full Launch
 
 - move the frontend lesson player from local lesson definitions to backend-delivered lesson IDs
-- implement secure Google/Facebook verification when provider credentials are available
 - connect mobile subscriptions through RevenueCat or store-native server verification
 - add admin/content import tooling
 - add real background jobs for spaced review scheduling and notifications
