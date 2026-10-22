@@ -156,7 +156,10 @@ function Chip({
 
 /** A placed step may reach this close to the sheet's top edge and still stay. */
 const CHIP_AIR = 2;
-/** The sheet settles (its list measures its rows) before the steps it would cut fold away. */
+/**
+ * How long the steps wait for the sheet to say its height is the one it keeps (its list has measured its rows) before
+ * they fold away by the height it has.
+ */
 const FOLD_SETTLE_MS = 120;
 
 /** Tap-to-order mini game (wudu / salah steps). A wrong CHECK shows the right order right away, like Duolingo. */
@@ -204,12 +207,19 @@ export function OrderGame({
   const [rootHeight, setRootHeight] = useState(0);
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
+  // The sheet has said its height is the one it keeps (a list that has not yet measured its rows shows a row more).
+  const [sheetSettled, setSheetSettled] = useState(false);
+  const [settleTimedOut, setSettleTimedOut] = useState(false);
   const [promptBox, setPromptBox] = useState<LayoutBox | null>(null);
   const [answerBox, setAnswerBox] = useState<LayoutBox | null>(null);
   const chipBoxes = useRef<Record<string, LayoutBox>>({});
   const [chipMoves, setChipMoves] = useState(0);
   // How many placed steps stay while the sheet is up (the rest fold away); undefined: all of them.
-  const [kept, setKept] = useState<number | undefined>(undefined);
+  const kept = useRef<number | undefined>(undefined);
+  const onSheetHeight = (height: number, settled = true) => {
+    setSheetHeight(height);
+    setSheetSettled(settled);
+  };
 
   // The sheet never covers the prompt: the question never scrolls past the prompt's top, and the sheet is never
   // taller than the room under it. It lists the whole right order, so the placed steps may go under it.
@@ -234,19 +244,29 @@ export function OrderGame({
     const first = placed.findIndex((id) => answerBox.y + chipBoxes.current[id].y + chipBoxes.current[id].height > sheetTop - CHIP_AIR);
     keep = first < 0 ? placed.length : first;
   }
+  // They fold in the render that knows the height the sheet keeps, while the sheet is still coming up from below the
+  // screen, so its edge never reaches a step that is about to go (a wait would let it cut them as it rises). A sheet
+  // that has not said so in a moment is taken at the height it has. While it is up they only ever fold, never come
+  // back, so a step never blinks.
+  const measured = keep !== undefined;
   useEffect(() => {
     if (checked === null) {
-      setKept(undefined);
+      setSheetSettled(false);
+      setSettleTimedOut(false);
       return undefined;
     }
-    if (keep === undefined) {
+    if (!measured || sheetSettled) {
       return undefined;
     }
-    // Once the sheet has its height: a sheet still measuring its rows may be a row taller for a moment.
-    const timer = setTimeout(() => setKept(keep), FOLD_SETTLE_MS);
+    const timer = setTimeout(() => setSettleTimedOut(true), FOLD_SETTLE_MS);
     return () => clearTimeout(timer);
-  }, [checked, chipMoves, keep]);
-  const shownPlaced = checked !== null && kept !== undefined ? placed.slice(0, kept) : placed;
+  }, [checked, measured, sheetSettled]);
+  if (checked === null) {
+    kept.current = undefined;
+  } else if (keep !== undefined && (sheetSettled || settleTimedOut)) {
+    kept.current = Math.min(kept.current ?? keep, keep);
+  }
+  const shownPlaced = checked !== null && kept.current !== undefined ? placed.slice(0, kept.current) : placed;
 
   const onAnswerLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
@@ -377,7 +397,7 @@ export function OrderGame({
         playSound={playSound}
         bottomInset={bottomInset}
         maxHeight={promptRoom?.room}
-        onHeight={setSheetHeight}
+        onHeight={onSheetHeight}
       />
     </View>
   );

@@ -63,7 +63,8 @@ import {
   withHonorifics
 } from "../ui";
 import { FadeUnderSheet, FeedbackSheet, LessonBottomBar, PromptText, QuitSheet, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
-import { sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useSheetFit, type LayoutBox } from "../ui/lesson/sheetFit";
+import { EVERY_FRAME } from "../ui/lesson/ScrollHint";
+import { sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useQuestionScroll, useSheetFit, useSheetHeightNow, type LayoutBox } from "../ui/lesson/sheetFit";
 
 /** The gap between answer tiles (styles.choiceList gap, styles.wordGrid rowGap). */
 const ANSWER_GAP = 10;
@@ -439,7 +440,10 @@ export function FoundationAssessmentScreen({
   const [labelTop, setLabelTop] = useState<number | null>(null);
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const [tileMoves, setTileMoves] = useState(0);
-  const wasChecked = useRef(false);
+  const rootRef = useRef<View>(null);
+  // On the web the sheet's new height (its Why line opening) is known before the browser paints it.
+  useSheetHeightNow({ root: rootRef, open: locked, reported: sheetHeight > 0, onHeight: setSheetHeight });
+  const [whyOpened, setWhyOpened] = useState(false);
   // A new question starts with no tile places.
   const boxesFor = useRef(question.id);
   if (boxesFor.current !== question.id) {
@@ -474,10 +478,11 @@ export function FoundationAssessmentScreen({
   const layoutNow = fitLayout(answerTiles(question, selectedAnswer, words, retry));
   const fit = useSheetFit({
     open: locked && !sortOrMatch && !shownSheet?.correctList,
-    fullHeight: sheetFull,
+    // The height it shows already counts when the sheet has not yet said its full height (its Why line just opened).
+    fullHeight: Math.max(sheetFull, sheetHeight),
     room: layoutNow ? sheetRoom(layoutNow).room : undefined,
     layoutKey: `${promptBox?.y}|${promptBox?.height}|${answersHeight}|${tileMoves}`,
-    squeezeMoves: foldable || (!mascotOff && !long)
+    squeezeMoves: !mascotOff && !long
   });
   // The question gives its room first: the grey answers fold away and the mascot hides, until the next question.
   const folded = fit.squeeze && foldable;
@@ -504,36 +509,26 @@ export function FoundationAssessmentScreen({
         })
       : [];
 
+  // The right answer right above the sheet, but never the question scrolled away: on a short phone the prompt stays
+  // whole at the top (the sheet names the right answer), also after a scroll down to reach the last answer.
   // Scrolled down to show the right answer, the question can stop part-way through the topic label (and its Arabic)
-  // above the prompt: it is gone while the question sits scrolled past its top, so the scroll view's top edge never
-  // cuts it, and back once it is scrolled up to it again.
-  const scrollTarget = locked && sheetHeight && layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
-  const [labelPast, setLabelPast] = useState(false);
-  const labelFaded = locked && labelPast;
+  // above the prompt: it is gone while the question sits scrolled past its top (and from the render that starts its
+  // own scroll past it), so the scroll view's top edge never cuts it, and back once it is scrolled up to it again.
+  const scrollTarget = layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  const ownScroll = useQuestionScroll({
+    open: locked,
+    scrollRef,
+    target: scrollTarget,
+    ready: sheetHeight > 0 && Boolean(layout && room),
+    settling: fit.squeeze && !fit.fitted,
+    whyOpened,
+    viewport,
+    partTop: labelTop
+  });
   const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrollProps.onScroll(event);
-    const past = labelTop !== null && event.nativeEvent.contentOffset.y > labelTop + 0.5;
-    setLabelPast((value) => (value === past ? value : past));
+    ownScroll.onScroll(event.nativeEvent.contentOffset.y);
   };
-
-  useEffect(() => {
-    if (!locked) {
-      if (wasChecked.current) {
-        scrollRef.current?.scrollTo?.({ y: 0, animated: false });
-      }
-      wasChecked.current = false;
-      return;
-    }
-    wasChecked.current = true;
-    if (!sheetHeight || !layout || !room) {
-      return;
-    }
-    // The right answer right above the sheet, but never the question scrolled away: on a short phone the prompt stays
-    // whole at the top (the sheet names the right answer), also after a scroll down to reach the last answer.
-    scrollRef.current?.scrollTo?.({ y: scrollTarget, animated: true });
-    // The layout is read from the boxes these values follow.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [folded, layout?.focusBottom, layout?.promptTop, layout?.visibleBottom, locked, room?.furthest, scrollRef, sheetHeight]);
 
   const onAnswersLayout = (event: LayoutChangeEvent) => {
     setAnswersHeight(Math.round(event.nativeEvent.layout.height));
@@ -553,7 +548,7 @@ export function FoundationAssessmentScreen({
   const extraBottom = locked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
 
   return (
-    <View style={styles.assessmentRoot} testID="assessment-screen">
+    <View ref={rootRef} style={styles.assessmentRoot} testID="assessment-screen">
       <View style={styles.assessmentTop}>
         <Tappable onPress={() => setQuitOpen(true)} style={styles.exitButton} accessibilityLabel="Close" hitSlop={10} pressScale={0.88} testID="assessment-close">
           <Icon name="close" size={26} color={CLOSE_GREY} />
@@ -568,13 +563,14 @@ export function FoundationAssessmentScreen({
         <ScrollView
           ref={scrollRef}
           style={styles.scroll}
-          contentContainerStyle={{ paddingBottom: extraBottom }}
+          contentContainerStyle={{ paddingBottom: extraBottom, minHeight: ownScroll.minHeight }}
           keyboardShouldPersistTaps="handled"
           {...scrollProps}
+          scrollEventThrottle={EVERY_FRAME}
           onScroll={onQuestionScroll}
         >
           <View key={question.id} style={styles.assessmentWrap}>
-            <FadeUnderSheet hidden={labelFaded} instantOut onLayout={(event) => setLabelTop(Math.round(event.nativeEvent.layout.y))} testID="assessment-label">
+            <FadeUnderSheet hidden={ownScroll.gone} onLayout={(event) => setLabelTop(Math.round(event.nativeEvent.layout.y))} testID="assessment-label">
               <PopIn from="up">
                 <View style={styles.categoryRow}>
                   <View style={styles.categoryPill}>
@@ -638,6 +634,7 @@ export function FoundationAssessmentScreen({
         maxHeight={sheetMaxHeight}
         onHeight={setSheetHeight}
         onFullHeight={setSheetFull}
+        onWhyToggle={setWhyOpened}
       />
 
       <QuitSheet

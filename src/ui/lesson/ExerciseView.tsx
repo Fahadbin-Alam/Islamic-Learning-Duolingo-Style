@@ -24,8 +24,8 @@ import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
-import { useScrollMore } from "./ScrollHint";
-import { centerSpace, sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useSheetFit, type LayoutBox } from "./sheetFit";
+import { EVERY_FRAME, useScrollMore } from "./ScrollHint";
+import { centerSpace, sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useQuestionScroll, useSheetFit, useSheetHeightNow, type LayoutBox } from "./sheetFit";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -180,20 +180,19 @@ export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", 
 const FADE_MS = 160;
 
 /**
- * An answer tile the feedback sheet's top edge would cut: it fades away while the sheet is up, out of reach of
- * taps and screen readers, and comes back for the next try. It keeps its place, so no other tile moves.
- * `instantOut`: gone at once (it fades back in), for a chip the scroll edge is already cutting as it hides.
+ * An answer tile the feedback sheet's top edge would cut (or a chip the scroll edge would cut): it is gone while the
+ * sheet is up, out of reach of taps and screen readers, and fades back for the next try. It keeps its place, so no
+ * other tile moves. It goes at once, in the render that hides it: a fade would still show it, cut, as the sheet's
+ * edge comes up over it.
  */
 export function FadeUnderSheet({
   hidden,
-  instantOut,
   children,
   style,
   onLayout,
   testID
 }: {
   hidden: boolean;
-  instantOut?: boolean;
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   onLayout?: (event: LayoutChangeEvent) => void;
@@ -201,17 +200,19 @@ export function FadeUnderSheet({
 }) {
   const opacity = useRef(new Animated.Value(hidden ? 0 : 1)).current;
   useEffect(() => {
-    if (hidden && instantOut) {
+    if (hidden) {
       opacity.setValue(0);
       return undefined;
     }
-    const animation = Animated.timing(opacity, { toValue: hidden ? 0 : 1, duration: FADE_MS, useNativeDriver: true });
+    const animation = Animated.timing(opacity, { toValue: 1, duration: FADE_MS, useNativeDriver: true });
     animation.start();
     return () => animation.stop();
-  }, [hidden, instantOut, opacity]);
+  }, [hidden, opacity]);
   return (
     <Animated.View
-      style={[style, { opacity }]}
+      // The value set above shows only after another render (on the web an animated value draws through React), so
+      // a hidden part is drawn at 0 by this very render.
+      style={[style, { opacity: hidden ? 0 : opacity }]}
       onLayout={onLayout}
       pointerEvents={hidden ? "none" : "auto"}
       aria-hidden={hidden}
@@ -360,10 +361,13 @@ export function ExerciseView({
   const promptBox = promptIn && { y: promptIn.y + questionTop, height: promptIn.height };
   const cueTop = cueIn === null ? null : cueIn + questionTop;
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
-  const wasChecked = useRef(checked);
   const [tileMoves, setTileMoves] = useState(0);
   const [scrollBoxHeight, setScrollBoxHeight] = useState(0);
   const [contentHeight, setContentHeight] = useState(0);
+  const rootRef = useRef<View>(null);
+  // On the web the sheet's new height (its Why line opening) is known before the browser paints it.
+  useSheetHeightNow({ root: rootRef, open: checked, reported: sheetHeight > 0, onHeight: setSheetHeight });
+  const [whyOpened, setWhyOpened] = useState(false);
 
   const trueFalse = kind === "true_false";
   const truePick = trueFalse ? choices.find(isTrueChoice) : undefined;
@@ -400,10 +404,11 @@ export function ExerciseView({
   const layoutNow = fitLayout(shownChoices);
   const fit = useSheetFit({
     open: checked,
-    fullHeight: sheetFull,
+    // The height it shows already counts when the sheet has not yet said its full height (its Why line just opened).
+    fullHeight: Math.max(sheetFull, sheetHeight),
     room: layoutNow ? sheetRoom(layoutNow).room : undefined,
     layoutKey: `${promptBox?.height}|${tilesBox?.y}|${tilesBox?.height}|${tileMoves}`,
-    squeezeMoves: canFold || mascotShown
+    squeezeMoves: mascotShown
   });
   // The question gives its room first: the grey tiles fold away and the mascot hides, until the next question.
   const folded = checked && fit.squeeze && canFold;
@@ -422,38 +427,30 @@ export function ExerciseView({
       ? tilesUnderSheet({ ids: stackChoices.map((choice) => choice.id), boxes: tileBoxes.current, focusId: rightId ?? selectedChoiceId, gap: tileGap, tilesTop, sheetTop })
       : [];
 
+  // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
+  // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
+  // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
   // Scrolled down to show the green tile, the question can stop part-way through the REVIEW / "Try again!" chips
-  // above the prompt: they are gone while the question sits scrolled past their top, so the scroll view's top edge
-  // never cuts them, and back once it is scrolled up to them again.
-  const scrollTarget = checked && sheetHeight && layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
-  const [cuePast, setCuePast] = useState(false);
-  const cueFaded = checked && cuePast;
+  // above the prompt: they are gone while it sits scrolled past their top (and from the render that starts its own
+  // scroll past them), so the scroll view's top edge never cuts them, and back once it is scrolled up to them.
+  const scrollTarget = layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  const ownScroll = useQuestionScroll({
+    open: checked,
+    scrollRef,
+    target: scrollTarget,
+    ready: sheetHeight > 0 && Boolean(layout && room),
+    settling: fit.squeeze && !fit.fitted,
+    whyOpened,
+    viewport: rootHeight - barHeight,
+    // Scrolled on once the room under the question has grown, or a question moved down to the middle could stay put.
+    contentHeight,
+    // Where the chips sit in the scroll content, the space that centers the question included.
+    partTop: cueTop
+  });
   const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrollProps.onScroll(event);
-    const past = cueTop !== null && event.nativeEvent.contentOffset.y > cueTop + 0.5;
-    setCuePast((value) => (value === past ? value : past));
+    ownScroll.onScroll(event.nativeEvent.contentOffset.y);
   };
-
-  useEffect(() => {
-    if (!checked) {
-      if (wasChecked.current) {
-        scrollRef.current?.scrollTo?.({ y: 0, animated: false });
-      }
-      wasChecked.current = false;
-      return;
-    }
-    wasChecked.current = true;
-    if (!sheetHeight || !layout || !room) {
-      return;
-    }
-    // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
-    // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
-    // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
-    scrollRef.current?.scrollTo?.({ y: scrollTarget, animated: true });
-    // The layout is read from the boxes these values follow; scrolled again once the room under the question has
-    // grown, or a question moved down to the middle would stay put.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checked, contentHeight, folded, layout?.focusBottom, layout?.promptTop, layout?.visibleBottom, room?.furthest, scrollRef, sheetHeight, tileMoves]);
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
@@ -508,23 +505,24 @@ export function ExerciseView({
   }
 
   return (
-    <View style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
+    <View ref={rootRef} style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
       <View style={styles.scrollBox} onLayout={(event) => setScrollBoxHeight(Math.round(event.nativeEvent.layout.height))}>
         <ScrollView
           ref={scrollRef}
           style={styles.scroll}
-          contentContainerStyle={[styles.content, { paddingTop: space.sm + topSpace, paddingBottom: extraBottom }]}
+          contentContainerStyle={[styles.content, { paddingTop: space.sm + topSpace, paddingBottom: extraBottom, minHeight: ownScroll.minHeight }]}
           keyboardShouldPersistTaps="handled"
           {...scrollProps}
           onContentSizeChange={(width, height) => {
             scrollProps.onContentSizeChange(width, height);
             setContentHeight(Math.round(height));
           }}
+          scrollEventThrottle={EVERY_FRAME}
           onScroll={onQuestionScroll}
         >
           <View onLayout={(event) => setQuestionHeight(Math.round(event.nativeEvent.layout.height))}>
             {review || shownAttempt > 0 ? (
-              <FadeUnderSheet hidden={cueFaded} instantOut style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
+              <FadeUnderSheet hidden={ownScroll.gone} style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
                 {review ? (
                   <PopIn style={[styles.cueChip, styles.reviewChip]}>
                     <Icon name="practice" size={18} />
@@ -613,6 +611,7 @@ export function ExerciseView({
         maxHeight={sheetMaxHeight}
         onHeight={setSheetHeight}
         onFullHeight={setSheetFull}
+        onWhyToggle={setWhyOpened}
       />
     </View>
   );

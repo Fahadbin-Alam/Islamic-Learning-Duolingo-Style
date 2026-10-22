@@ -492,9 +492,9 @@ describe("the chips above the question fade when the scroll would cut them", () 
       // Short: the question scrolls up 17, part-way through the chips (8-34) and short of the prompt.
       await check(400);
       expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ y: 17 }));
-      // Still at the top: nothing cuts the chips yet.
-      expect(screen.getByTestId("exercise-cues")).toBeTruthy();
-      // The scroll passes their top: they are gone at once, before the edge can cut them.
+      // The scroll is the question's own and goes past their top: they are gone already, before its first frame.
+      expect(screen.queryByTestId("exercise-cues")).toBeNull();
+      // On its way past their top they stay gone, so the edge never cuts them.
       await scrolledTo("exercise-cues", 9);
       expect(screen.queryByTestId("exercise-cues")).toBeNull();
       expect(screen.getByTestId("exercise-cues", { includeHiddenElements: true })).toBeTruthy();

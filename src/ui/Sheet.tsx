@@ -106,7 +106,9 @@ export function Sheet({
     return () => animation.stop();
   }, [progress, visible]);
 
-  if (!mounted) {
+  // The content mounts on the very render that opens the sheet, not one render later, so a child that acts when it
+  // opens (a list that scrolls to a row) finds its views already there. It unmounts once it has slid away.
+  if (!mounted && !visible) {
     return null;
   }
 
