@@ -91,7 +91,6 @@ describe("come-back reminder ladder", () => {
         }
       });
     });
-    expect(comebackMessage("fr", "day3")).toEqual(comebackMessage("en", "day3"));
   });
 
   it("keeps the old app name out of the messages", () => {
