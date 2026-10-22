@@ -85,7 +85,7 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   short line from the mascot, optional source chip), an optional ordering game (prayer only),
   then the questions. Answers are big tiles. CHECK slides up a feedback sheet: "Great job!" or
   "Correct answer: …" with a hidden "Why?" line. Every wrong answer costs a heart, a missed question
-  asked again too. A missed question comes back at the end of the lesson with a "Try again!" label and its
+  asked again too (except in a new learner's first 3 lessons, `WARM_UP_LESSONS`, which cost none). A missed question comes back at the end of the lesson with a "Try again!" label and its
   tiles in a new order, again each time it is missed, until it is answered right; the lesson is done only
   when every question has been right once, and the progress bar fills one step per question answered
   right. At 0 hearts the out-of-hearts sheet opens (one free refill, then "Full hearts again tomorrow!"

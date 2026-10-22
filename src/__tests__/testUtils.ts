@@ -5,7 +5,8 @@ export function makeUser(overrides: Partial<UserProfile> = {}): UserProfile {
   return {
     ...STARTER_USER,
     hearts: { ...STARTER_USER.hearts },
-    completedLessonIds: [],
+    // Past the warm-up lessons (they cost no hearts); a test for a brand-new learner passes [] itself.
+    completedLessonIds: ["warm-up-1", "warm-up-2", "warm-up-3"],
     completedNodeIds: [],
     ...overrides
   };

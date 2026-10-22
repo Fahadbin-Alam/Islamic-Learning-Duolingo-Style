@@ -394,7 +394,8 @@ export interface LessonSession {
   lesson: Lesson;
   startedAt: string;
   heartsAtStart: number;
-  mode?: "standard" | "test_out";
+  /** "lesson_practice": questions from lessons already done (Practice tab); costs no hearts, pays practice XP. */
+  mode?: "standard" | "test_out" | "lesson_practice";
   clusterTitle?: string;
   targetNodeIds?: string[];
   targetLessonIds?: string[];

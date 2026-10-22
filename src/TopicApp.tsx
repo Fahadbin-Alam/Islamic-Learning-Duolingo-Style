@@ -17,7 +17,11 @@ import {
   addXp,
   localDateKey,
   completeLessonCluster,
+  canPracticeLessons,
+  createLessonPracticeSession,
   createTestOutSession,
+  isLessonPractice,
+  PRACTICE_XP_PER_CORRECT_ANSWER,
   didExtendStreak,
   getAssessmentXp,
   getXpToday,
@@ -384,7 +388,8 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         // The path's node card already shows what the lesson is, so go straight to learning.
         // A test-out has nothing new to teach, so it starts with the questions.
-        screen: action.session.mode === "test_out" ? "lesson_question" : "lesson_teach",
+        // So does practice of lessons already done.
+        screen: action.session.mode === "test_out" || action.session.mode === "lesson_practice" ? "lesson_question" : "lesson_teach",
         ...NO_LESSON,
         activeSession: action.session,
         lessonQueue: startLessonQueue(action.session.lesson.challenges.length)
@@ -514,6 +519,8 @@ export default function TopicApp() {
   const [quitLessonVisible, setQuitLessonVisible] = useState(false);
   const challengeStartedAtRef = useRef(Date.now());
   const lessonsFinishedRef = useRef(0);
+  // Each MY LESSONS run starts from other questions.
+  const lessonPracticeTriesRef = useRef(0);
   const lastFullScreenAdAtRef = useRef(0);
   // Ads are native only, so the age screen is too. Its answer stays on this device and only picks which ads may show.
   const needsAgeCheck = Platform.OS !== "web" && monetizationMode !== "disabled";
@@ -1135,6 +1142,23 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
+  // MY LESSONS in Practice: questions from the lessons finished most recently, in every topic.
+  function startLessonPractice() {
+    if (!state.user) {
+      return;
+    }
+
+    const session = createLessonPracticeSession(state.user, lessonPracticeTriesRef.current);
+
+    if (!session) {
+      return;
+    }
+
+    lessonPracticeTriesRef.current += 1;
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "start_lesson", session });
+  }
+
   function answerChallenge() {
     if (!state.user || !state.activeSession || !state.selectedChoiceId || state.answerState) {
       return;
@@ -1212,8 +1236,9 @@ export default function TopicApp() {
       return;
     }
 
-    // No hearts left: no next question (and no missed one asked again) until the learner refills.
-    if (isOutOfHearts(state.user)) {
+    // No hearts left: no next question (and no missed one asked again) until the learner refills. Practice of
+    // lessons already done needs no hearts.
+    if (isOutOfHearts(state.user) && !isLessonPractice(state.activeSession)) {
       openOutOfHearts(state.user, true);
       return;
     }
@@ -1266,6 +1291,29 @@ export default function TopicApp() {
     if (!testLost && !isLastLessonStep(state.lessonQueue, state.stepIndex)) {
       challengeStartedAtRef.current = Date.now();
       dispatch({ type: "next_challenge" });
+      return;
+    }
+
+    if (state.activeSession.mode === "lesson_practice") {
+      const total = state.activeSession.lesson.challenges.length;
+      // Practice pay: 2 XP per question right on its first try. Practice keeps the streak, as on Duolingo.
+      const xp = Math.max(0, total - state.sessionMistakes) * PRACTICE_XP_PER_CORRECT_ANSWER;
+      const nextUser = withExperienceDefaults({
+        ...keepStreak(addXp(user, xp)),
+        lastLearningAt: new Date().toISOString()
+      });
+
+      setLessonCompleteSummary({
+        headline: t("Practice done!"),
+        title: t("My lessons"),
+        xp,
+        streakExtended: didExtendStreak(user, nextUser),
+        stars: lessonStars(state.sessionMistakes),
+        streakDays: nextUser.streakDays
+      });
+      const xpSummary = await learningApi.getXpSummaries(nextUser);
+      dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
+      maybeShowLessonBreakAd(nextUser);
       return;
     }
 
@@ -2181,9 +2229,9 @@ export default function TopicApp() {
     state.screen === "lesson_feedback" &&
     Boolean(lesson) &&
     (isLastLessonStep(state.lessonQueue, state.stepIndex) || (lessonSession?.mode === "test_out" && isTestLost(lessonSession, state.sessionMistakes))) &&
-    !isOutOfHearts(state.user);
+    (!isOutOfHearts(state.user) || isLessonPractice(lessonSession));
   // GOT IT with no hearts left opens the out-of-hearts sheet, which plays its own sound as it opens.
-  const continueOpensRefill = state.screen === "lesson_feedback" && isOutOfHearts(state.user);
+  const continueOpensRefill = state.screen === "lesson_feedback" && isOutOfHearts(state.user) && !isLessonPractice(lessonSession);
   const quitSheet = (
     <QuitSheet
       visible={quitLessonVisible}
@@ -2383,6 +2431,7 @@ export default function TopicApp() {
             onStartPlacement={() => openFoundationAssessment("placement")}
             onStartReview={() => openFoundationAssessment("review")}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
+            onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
         )}
