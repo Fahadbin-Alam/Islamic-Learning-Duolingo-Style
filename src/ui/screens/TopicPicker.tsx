@@ -30,9 +30,9 @@ export type TopicPickerProps = {
   bottomInset?: number;
 };
 
-/** Topic emblem. Fasting gets the Ramadan lantern so it does not look like Foundation's crescent. */
+/** Topic emblem: the topic's own icon (Fasting has the dates the Prophet ﷺ broke his fast with). */
 export function worldIcon(topicId: string): IconName {
-  return topicId === "fasting" ? "lantern" : topicIcon(topicId);
+  return topicIcon(topicId);
 }
 
 const GAP = 12;

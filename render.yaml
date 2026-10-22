@@ -18,6 +18,9 @@ services:
           property: connectionString
       - key: SIRA_REVENUECAT_WEBHOOK_AUTH
         sync: false
+      # Google sign-in: the same web client id the app is built with (EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID).
+      - key: SIRA_GOOGLE_CLIENT_IDS_RAW
+        sync: false
 
 databases:
   - name: muslimo-db

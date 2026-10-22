@@ -59,6 +59,16 @@ function canSpend(user: UserProfile, item: ShopItem) {
   return item.currencyType === "gems" && !user.hearts.unlimited && user.gems >= item.price && user.hearts.current < user.hearts.max;
 }
 
+/** Same rule as TopicApp's shop handler: one more heart would go past the most hearts, so it would give nothing. */
+function heartsFull(user: UserProfile) {
+  return !user.hearts.unlimited && user.hearts.current >= user.hearts.max;
+}
+
+/** The video that gives a heart, not gems. */
+function isHeartVideo(item: ShopItem) {
+  return item.type === "rewarded_ad" && !item.gemsGranted;
+}
+
 /** Bought with real money or a video: needs the store. */
 function needsStore(item: ShopItem) {
   return item.currencyType !== "gems";
@@ -85,7 +95,7 @@ function displayName(item: ShopItem) {
     case "yearly_membership":
       return t("Yearly");
     case "gem_heart_refill":
-      return t("Full hearts");
+      return t("Refill hearts");
     case "rewarded_ad":
       return item.gemsGranted ? t("Free gems") : t("Free heart");
     default:
@@ -191,10 +201,11 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
 function ItemRow(props: RowProps) {
   const { item, user, storePrices, onBuy, busy } = props;
   const gems = item.currencyType === "gems";
-  // An unaffordable or not-needed gem item stays pressable but never buys: its line already says why.
-  const muted = gems && !canSpend(user, item);
-  // Full hearts comes first: a learner who needs nothing is never told to save gems for it.
-  const full = gems && !user.hearts.unlimited && user.hearts.current >= user.hearts.max;
+  // Full hearts comes first: a learner who needs nothing is never told to save gems for it. The heart video
+  // follows the same rule, so no one sits through a video that gives nothing.
+  const full = (gems || isHeartVideo(item)) && heartsFull(user);
+  // An unaffordable or not-needed item stays pressable but never buys: its line already says why.
+  const muted = (gems && !canSpend(user, item)) || full;
   const short = gems && !full && user.gems < item.price ? item.price - user.gems : 0;
   const label = formatShopPrice(item, storePrices);
   const name = displayName(item);
@@ -289,7 +300,7 @@ function ItemRow(props: RowProps) {
           variant={gems ? "blue" : item.type === "rewarded_ad" ? "gold" : "primary"}
           icon={gems ? (short ? "lock" : "gem") : item.type === "rewarded_ad" ? "play" : undefined}
           muted={muted}
-          accessibilityLabel={`${name}, ${gems ? `${t("{count} gems", { count: formatNumber(item.price) })}${full ? t(", hearts are full") : short ? t(", not enough gems") : ""}` : item.type === "rewarded_ad" ? t("watch a video") : label}`}
+          accessibilityLabel={`${name}, ${gems ? `${t("{count} gems", { count: formatNumber(item.price) })}${full ? t(", hearts are full") : short ? t(", not enough gems") : ""}` : item.type === "rewarded_ad" ? `${t("watch a video")}${full ? t(", hearts are full") : ""}` : label}`}
         />
       </Animated.View>
     </Animated.View>
@@ -437,7 +448,7 @@ export function ShopView({
         <Text style={styles.title}>{t("Shop")}</Text>
 
         <PopIn from="scale">
-          <View style={styles.balance}>
+          <View style={styles.balance} testID="shop-balance">
             <View style={styles.balanceGem}>
               <Animated.View style={{ transform: [{ scale: gemPop }] }}>
                 <Icon name="gem" size={46} />

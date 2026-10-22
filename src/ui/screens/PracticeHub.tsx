@@ -256,7 +256,7 @@ export function PracticeHub({
       <PopIn delay={260} from="up">
         <Tappable onPress={onGoFoundation} style={styles.basicsRow} testID="practice-basics" accessibilityLabel={t("Basics")}>
           <View style={[styles.basicsIcon, { backgroundColor: lighten(colors.green, 0.85) }]}>
-            <Icon name="crescent" size={28} />
+            <Icon name="door" size={28} />
           </View>
           <View style={styles.basicsText}>
             <Text style={styles.basicsTitle} numberOfLines={1}>

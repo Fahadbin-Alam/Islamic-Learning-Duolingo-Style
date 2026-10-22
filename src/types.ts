@@ -33,7 +33,7 @@ export type ShopItemType =
 
 export type SocialRelation = "parent" | "friend";
 export type AccountRole = "parent" | "child";
-export type AuthProvider = "password" | "google" | "facebook";
+export type AuthProvider = "password" | "google" | "apple";
 export type SupportedLanguage = "en" | "ar" | "bn" | "ur";
 
 export interface ReminderPreferences {
