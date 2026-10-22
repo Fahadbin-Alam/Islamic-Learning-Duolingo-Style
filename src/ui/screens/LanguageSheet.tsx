@@ -5,6 +5,7 @@ import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, fonts, lighten, radii, space, text } from "../theme";
 import { useBackToClose } from "./sheetParts";
+import { t } from "../../i18n";
 
 export type LanguageSheetProps = {
   visible: boolean;
@@ -27,7 +28,7 @@ export function LanguageSheet({ visible, options, selected, canClose, onSelect, 
   return (
     <Sheet visible={visible} onClose={canClose ? onClose : undefined} dismissOnBackdrop={canClose} style={styles.tallPanel} testID="language-sheet">
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.stack}>
-        <Text style={styles.title} accessibilityRole="header">Language</Text>
+        <Text style={styles.title} accessibilityRole="header">{t("Language")}</Text>
         <View style={styles.languageGrid}>
           {options.map((option) => {
             const active = option.id === selected;
@@ -49,8 +50,8 @@ export function LanguageSheet({ visible, options, selected, canClose, onSelect, 
             );
           })}
         </View>
-        <GameButton label="Save" fullWidth onPress={onSave} testID="language-save" />
-        {canClose ? <GameButton label="Later" variant="ghost" fullWidth onPress={onClose} testID="language-later" /> : null}
+        <GameButton label={t("Save")} fullWidth onPress={onSave} testID="language-save" />
+        {canClose ? <GameButton label={t("Later")} variant="ghost" fullWidth onPress={onClose} testID="language-later" /> : null}
       </ScrollView>
     </Sheet>
   );

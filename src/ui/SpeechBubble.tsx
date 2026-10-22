@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     maxWidth: "100%"
   },
   withLeftTail: {
-    marginLeft: TAIL / 2
+    marginStart: TAIL / 2
   },
   withDownTail: {
     marginBottom: TAIL / 2
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   tailDownCenter: {
     bottom: -TAIL / 2 - 1,
     left: "50%",
-    marginLeft: -TAIL / 2,
+    marginStart: -TAIL / 2,
     borderRightWidth: 2,
     borderBottomWidth: 2
   }

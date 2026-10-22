@@ -8,6 +8,7 @@ import { colors, space, text } from "../theme";
 import { GrownUpCheck } from "./GrownUpGate";
 // Sign up / log in, as a sheet inside the phone column.
 import { MascotSays, SegmentButton, TextField, useBackToClose } from "./sheetParts";
+import { t } from "../../i18n";
 
 export type AccountSheetProps = {
   visible: boolean;
@@ -47,11 +48,11 @@ type Field = "name" | "email" | "password";
 
 /** Same rules as createAccount in src/TopicApp.tsx. */
 export function checkAccountFields(mode: "create" | "login", name: string, email: string, password: string): { field: Field; hint: string } | undefined {
-  if (mode === "create" && !name.trim()) return { field: "name", hint: "Add your name" };
-  if (!email.trim()) return { field: "email", hint: "Add your email" };
-  if (mode === "create" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim().toLowerCase())) return { field: "email", hint: "Check your email" };
-  if (!password.trim()) return { field: "password", hint: "Add a password" };
-  if (mode === "create" && password.trim().length < 8) return { field: "password", hint: "Use 8 or more letters" };
+  if (mode === "create" && !name.trim()) return { field: "name", hint: t("Add your name") };
+  if (!email.trim()) return { field: "email", hint: t("Add your email") };
+  if (mode === "create" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim().toLowerCase())) return { field: "email", hint: t("Check your email") };
+  if (!password.trim()) return { field: "password", hint: t("Add a password") };
+  if (mode === "create" && password.trim().length < 8) return { field: "password", hint: t("Use 8 or more letters") };
   return undefined;
 }
 
@@ -135,10 +136,10 @@ export function AccountSheet({
       {/* The Sheet itself moves above the keyboard. */}
       <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} contentContainerStyle={styles.stack}>
         {/* While typing, the mascot steps aside so the fields fit above the keyboard on small phones. */}
-        {typing ? null : <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={creating ? (forChild ? "A parent signs up for you!" : "Save your progress!") : "Welcome back!"} />}
+        {typing ? null : <MascotSays variant={mascotVariant} mood="wave" accent={accent} line={creating ? (forChild ? t("A parent signs up for you!") : t("Save your progress!")) : t("Welcome back!")} />}
         <View style={styles.segments}>
-          <SegmentButton label="Sign up" active={creating} onPress={() => onChangeMode("create")} testID="account-mode-create" />
-          <SegmentButton label="Log in" active={!creating} onPress={() => onChangeMode("login")} testID="account-mode-login" />
+          <SegmentButton label={t("Sign up")} active={creating} onPress={() => onChangeMode("create")} testID="account-mode-create" />
+          <SegmentButton label={t("Log in")} active={!creating} onPress={() => onChangeMode("login")} testID="account-mode-login" />
         </View>
         {gated ? (
           <View testID="account-grownup">
@@ -151,13 +152,13 @@ export function AccountSheet({
               <TextField
                 value={name}
                 onChangeText={edit("name", onChangeName)}
-                placeholder={forChild ? "Parent's name" : "Your name"}
+                placeholder={forChild ? t("Parent's name") : t("Your name")}
                 returnKeyType="next"
                 submitBehavior="submit"
                 onSubmitEditing={() => emailRef.current?.focus()}
                 error={hintFor("name")}
                 shakeKey={tries}
-                accessibilityLabel={forChild ? "Parent's name" : "Your name"}
+                accessibilityLabel={forChild ? t("Parent's name") : t("Your name")}
                 testID="account-name"
               />
             ) : null}
@@ -165,7 +166,7 @@ export function AccountSheet({
               ref={emailRef}
               value={email}
               onChangeText={edit("email", onChangeEmail)}
-              placeholder={forChild && creating ? "Parent's email" : "Email"}
+              placeholder={forChild && creating ? t("Parent's email") : t("Email")}
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="email-address"
@@ -174,21 +175,21 @@ export function AccountSheet({
               onSubmitEditing={() => passwordRef.current?.focus()}
               error={hintFor("email")}
               shakeKey={tries}
-              accessibilityLabel={forChild && creating ? "Parent's email" : "Email"}
+              accessibilityLabel={forChild && creating ? t("Parent's email") : t("Email")}
               testID="account-email"
             />
             <TextField
               ref={passwordRef}
               value={password}
               onChangeText={edit("password", onChangePassword)}
-              placeholder="Password"
+              placeholder={t("Password")}
               autoCapitalize="none"
               secureTextEntry
               returnKeyType="go"
               onSubmitEditing={submit}
               error={hintFor("password")}
               shakeKey={tries}
-              accessibilityLabel="Password"
+              accessibilityLabel={t("Password")}
               testID="account-password"
             />
             {error && !problem ? (
@@ -198,11 +199,11 @@ export function AccountSheet({
                 </Text>
               </Animated.View>
             ) : null}
-            <GameButton label={creating ? "Sign up" : "Log in"} fullWidth onPress={submit} sound={false} testID="account-submit" />
+            <GameButton label={creating ? t("Sign up") : t("Log in")} fullWidth onPress={submit} sound={false} testID="account-submit" />
             {socialProviders.length ? (
               <View style={styles.divider} testID="account-social">
                 <View style={styles.rule} />
-                <Text style={styles.or}>{forChild && creating ? "or a parent's account" : "or"}</Text>
+                <Text style={styles.or}>{forChild && creating ? t("or a parent's account") : t("or")}</Text>
                 <View style={styles.rule} />
               </View>
             ) : null}
@@ -219,7 +220,7 @@ export function AccountSheet({
             ))}
           </PopIn>
         )}
-        <GameButton label="Later" variant="ghost" fullWidth onPress={onClose} testID="account-later" />
+        <GameButton label={t("Later")} variant="ghost" fullWidth onPress={onClose} testID="account-later" />
       </ScrollView>
     </Sheet>
   );

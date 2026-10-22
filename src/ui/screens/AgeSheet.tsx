@@ -6,6 +6,7 @@ import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, fonts, lighten, radii, space, text } from "../theme";
 import { useBackToClose } from "./sheetParts";
+import { t } from "../../i18n";
 
 export type AgeSheetProps = {
   visible: boolean;
@@ -33,7 +34,7 @@ export function AgeSheet({ visible, onSave }: AgeSheetProps) {
   return (
     <Sheet visible={visible} dismissOnBackdrop={false} testID="age-sheet">
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.stack}>
-        <Text style={styles.title} accessibilityRole="header">How old are you?</Text>
+        <Text style={styles.title} accessibilityRole="header">{t("How old are you?")}</Text>
         <View style={styles.grid}>
           {OPTIONS.map((option) => {
             const active = option.id === selected;
@@ -54,7 +55,7 @@ export function AgeSheet({ visible, onSave }: AgeSheetProps) {
             );
           })}
         </View>
-        <GameButton label="Continue" fullWidth disabled={!selected} onPress={save} testID="age-save" />
+        <GameButton label={t("Continue")} fullWidth disabled={!selected} onPress={save} testID="age-save" />
       </ScrollView>
     </Sheet>
   );

@@ -25,6 +25,7 @@ import { FeedbackSheet } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
+import { getActiveLanguage, t } from "../../i18n";
 import { centerSpace, sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useSheetFit, type LayoutBox } from "./sheetFit";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
@@ -489,7 +490,8 @@ export function ExerciseView({
     }
   };
 
-  const why = shown ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : undefined;
+  // A translated Why line was already cut from the English one (localizedWhy); the English rules cannot read it.
+  const why = shown ? (getActiveLanguage() === "en" ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : shown.why) : undefined;
   // "Correct answer: ..." always names the answer, even though the green tile shows it too.
   const sheetLabel = shown && !shown.correct ? shown.correctLabel : undefined;
   const mood: MascotMood = result ? (result.correct ? "cheer" : "sad") : "think";
@@ -529,13 +531,13 @@ export function ExerciseView({
                   <PopIn style={[styles.cueChip, styles.reviewChip]}>
                     <Icon name="practice" size={18} />
                     <Text style={[styles.cueText, styles.reviewText]} testID="exercise-review">
-                      REVIEW
+                      {t("REVIEW")}
                     </Text>
                   </PopIn>
                 ) : null}
                 {shownAttempt > 0 ? (
                   <PopIn style={[styles.cueChip, styles.retryChip]}>
-                    <Text style={[styles.cueText, styles.retryText]}>Try again!</Text>
+                    <Text style={[styles.cueText, styles.retryText]}>{t("Try again!")}</Text>
                   </PopIn>
                 ) : null}
               </FadeUnderSheet>
@@ -553,7 +555,7 @@ export function ExerciseView({
                   <React.Fragment key={choice.id}>
                     {index > 0 ? <View style={styles.squareGap} /> : null}
                     <ChoiceTile
-                      label={choice === truePick ? "True" : "False"}
+                      label={choice === truePick ? t("True") : t("False")}
                       icon={choice === truePick ? "check" : "close"}
                       iconColor={choice === truePick ? colors.green : colors.heart}
                       layout="square"
@@ -595,7 +597,7 @@ export function ExerciseView({
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
         <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more && !checked, onPress: scrollDown }}>
           {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
-          <GameButton label="Check" fullWidth sound={false} disabled={!selectedChoiceId || checked} onPress={onCheck} testID="exercise-check" />
+          <GameButton label={t("Check")} fullWidth sound={false} disabled={!selectedChoiceId || checked} onPress={onCheck} testID="exercise-check" />
         </LessonBottomBar>
       </View>
 
@@ -648,7 +650,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
     paddingHorizontal: 12,
     paddingVertical: 3,
-    marginRight: space.sm,
+    marginEnd: space.sm,
     marginBottom: space.xs
   },
   cueText: {
@@ -658,10 +660,10 @@ const styles = StyleSheet.create({
   },
   reviewChip: {
     backgroundColor: REVIEW_BG,
-    paddingLeft: 8
+    paddingStart: 8
   },
   reviewText: {
-    marginLeft: 5,
+    marginStart: 5,
     fontSize: 14,
     letterSpacing: 1,
     color: REVIEW_INK
@@ -683,7 +685,7 @@ const styles = StyleSheet.create({
   bubbleWrap: {
     flex: 1,
     minWidth: 0,
-    marginLeft: space.xs,
+    marginStart: space.xs,
     alignItems: "flex-start"
   },
   plainPrompt: {

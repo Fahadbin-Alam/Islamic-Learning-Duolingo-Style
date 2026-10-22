@@ -13,7 +13,10 @@ const SOUND_FILES: Record<GameSoundEvent, { full: number; reduced: number }> = {
   lesson_complete: { full: require("../../assets/sounds/lesson_complete.wav"), reduced: require("../../assets/sounds/lesson_complete_reduced.wav") },
   streak: { full: require("../../assets/sounds/streak.wav"), reduced: require("../../assets/sounds/streak_reduced.wav") },
   reward_chest: { full: require("../../assets/sounds/reward_chest.wav"), reduced: require("../../assets/sounds/reward_chest_reduced.wav") },
-  soft_ui: { full: require("../../assets/sounds/soft_ui.wav"), reduced: require("../../assets/sounds/soft_ui_reduced.wav") }
+  soft_ui: { full: require("../../assets/sounds/soft_ui.wav"), reduced: require("../../assets/sounds/soft_ui_reduced.wav") },
+  camel: { full: require("../../assets/sounds/camel.wav"), reduced: require("../../assets/sounds/camel_reduced.wav") },
+  splash: { full: require("../../assets/sounds/splash.wav"), reduced: require("../../assets/sounds/splash_reduced.wav") },
+  boing: { full: require("../../assets/sounds/boing.wav"), reduced: require("../../assets/sounds/boing_reduced.wav") }
 };
 
 const players = new Map<string, AudioPlayer>();

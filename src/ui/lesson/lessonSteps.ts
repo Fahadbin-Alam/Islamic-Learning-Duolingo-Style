@@ -1,4 +1,5 @@
 import type { Lesson, LessonPracticeActivity } from "../../types";
+import { t } from "../../i18n";
 
 // Only real ordering games are worth a step; the generic "pick the takeaway" drills just repeat the question.
 export function isPlayablePractice(activity: LessonPracticeActivity) {
@@ -255,7 +256,7 @@ export function getLessonLine(lesson: Pick<Lesson, "intro" | "title"> & Partial<
         return quote;
       }
     }
-    return "Let's read a hadith!";
+    return t("Let's read a hadith!");
   }
   const candidates: string[] = [];
   const joined = joinNotJust(intro[0] ?? "", intro[1]);

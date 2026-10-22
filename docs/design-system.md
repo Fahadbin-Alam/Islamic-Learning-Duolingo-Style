@@ -65,14 +65,21 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
 - **Learn** is the path itself: a unit banner per branch, then zig-zag nodes, chests and the
   mascot. A small camel (`src/ui/Camel.tsx`, saddle cloth in the unit color) walks back and forth
   beside the circle after the one to play next, and stands by the trophy (a victory lap once the topic
-  is done). Topic pictures (`src/ui/PathScenery.tsx`) stand beside the path about every fourth row:
+  is done). Topic pictures (`src/ui/PathScenery.tsx`) stand beside the path about every third row:
   a book stand for Quran, a tent and well for Sahabah, ink and paper for Hadith, a date palm for
-  Women, and so on. Only plain, undisputed things: no crescents, stars, lanterns or rings. Plants
+  Women, plus sheep, an oasis, a basket of dates, rocks and bushes, with grass tufts and pebbles on the
+  empty rows. Only plain, undisputed things: no crescents, stars, lanterns or rings. Everything beside
+  the path can be tapped: the camel leaps with a silly grunt and a puff of dust, the well drops its
+  bucket with a splash, the rest hop with a boing. Plants
   sway only in the units next to the current one, everything runs on the native driver, and all of
   it stands still when the phone asks for reduced motion. Each unit has its own sky
   (`src/ui/PathWeather.tsx`): sunny, breezy, cloudy, a little rain or a sunset, taking turns down
   the path, with clouds drifting, the sun's rays turning, gusts and raindrops. Only the current
-  unit's sky moves. No moon or stars. Tapping a node opens a small card under it with the lesson name, its Arabic word and
+  unit's sky moves, and birds fly across the clear skies. No moon or stars. Only units within a screen's
+  height of the screen draw their sky, pictures and circle icons; the rest keep plain circles of the
+  same size, so long topics (Quran, Sahabah: 22 units each) scroll smoothly on cheap phones. Circles have
+  a darker lower half, a light rim, a shine and a soft ground shadow; the circle to play next glows
+  with a slow pulse. Tapping a node opens a small card under it with the lesson name, its Arabic word and
   a START button.
 - **Lesson**: close button, progress bar, hearts. Steps: one learn card (Arabic word, one
   short line from the mascot, optional source chip), an optional ordering game (prayer only),

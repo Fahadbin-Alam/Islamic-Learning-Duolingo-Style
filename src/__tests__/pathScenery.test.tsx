@@ -1,9 +1,20 @@
 import React from "react";
-import { render, screen } from "@testing-library/react-native";
+import { fireEvent, render, screen } from "@testing-library/react-native";
 import { COURSE } from "../data/course";
+import { playGameSound } from "../services/gameAudio";
 import { Camel } from "../ui/Camel";
-import { PathScenery, sceneryFor } from "../ui/PathScenery";
+import { GroundTuft, PathScenery, sceneryFor } from "../ui/PathScenery";
 import { PathWeather, weatherFor, type Weather } from "../ui/PathWeather";
+
+jest.mock("../services/gameAudio", () => ({
+  playGameSound: jest.fn(),
+  primeGameAudio: jest.fn(() => true)
+}));
+
+const ALL_KINDS = [
+  "palm", "dunes", "tent", "well", "bookStand", "inkpot", "flowers", "mountain", "mosque", "kaaba", "coins",
+  "sheep", "oasis", "rocks", "dates", "bush"
+] as const;
 
 describe("path scenery", () => {
   it("gives every unit pictures that change from one spot to the next, none of them disputed symbols", () => {
@@ -20,10 +31,37 @@ describe("path scenery", () => {
   });
 
   it("draws each picture", async () => {
-    for (const kind of ["palm", "dunes", "tent", "well", "bookStand", "inkpot", "flowers", "mountain", "mosque", "kaaba", "coins"] as const) {
+    for (const kind of ALL_KINDS) {
       await render(<PathScenery kind={kind} animated />);
       expect(screen.getByTestId(`scenery-${kind}`)).toBeTruthy();
+      await render(<PathScenery kind={kind} animated tappable />);
+      expect(screen.getByTestId(`scenery-${kind}`)).toBeTruthy();
     }
+    for (const variant of [0, 1, 2]) await render(<GroundTuft variant={variant} />);
+  });
+
+  it("uses every picture somewhere and gives long topics different pictures from unit to unit", () => {
+    const used = new Set<string>();
+    for (const section of COURSE.sections) {
+      for (let unit = 0; unit < 8; unit += 1) for (let slot = 0; slot < 3; slot += 1) used.add(sceneryFor(section.topicId, unit, slot));
+      expect(sceneryFor(section.topicId, 0, 0)).not.toEqual(sceneryFor(section.topicId, 1, 0));
+    }
+    expect([...used].sort()).toEqual([...ALL_KINDS].sort());
+  });
+
+  it("splashes the well, boings the other pictures and makes the camel grunt when tapped", async () => {
+    jest.mocked(playGameSound).mockClear();
+    await render(<PathScenery kind="well" tappable />);
+    await fireEvent.press(screen.getByTestId("scenery-well"));
+    expect(playGameSound).toHaveBeenLastCalledWith("splash", expect.anything());
+
+    await render(<PathScenery kind="sheep" tappable />);
+    await fireEvent.press(screen.getByTestId("scenery-sheep"));
+    expect(playGameSound).toHaveBeenLastCalledWith("boing", expect.anything());
+
+    await render(<Camel size={64} range={40} walking tappable testID="camel" />);
+    await fireEvent.press(screen.getByTestId("camel"));
+    expect(playGameSound).toHaveBeenLastCalledWith("camel", expect.anything());
   });
 
   it("draws the camel standing and walking within its box", async () => {

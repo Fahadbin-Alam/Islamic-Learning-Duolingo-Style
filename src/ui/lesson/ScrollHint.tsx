@@ -3,6 +3,7 @@ import { Animated, Easing, StyleSheet, View, type LayoutChangeEvent, type Native
 import { Icon } from "../Icon";
 import { Tappable } from "../Tappable";
 import { colors, withAlpha } from "../theme";
+import { t } from "../../i18n";
 
 /** Content hidden below the fold by more than this shows the hint (less is only a tile's lip or padding). */
 export const SCROLL_HINT_SLACK = 40;
@@ -110,7 +111,7 @@ export function ScrollHint({
       style={[styles.root, { opacity: shown, transform: [{ scale }] }]}
       testID={visible ? testID : undefined}
     >
-      <Tappable onPress={onPress} pressScale={0.88} hitSlop={8} accessibilityLabel={up ? "Scroll up" : "Scroll down"} style={styles.button}>
+      <Tappable onPress={onPress} pressScale={0.88} hitSlop={8} accessibilityLabel={up ? t("Scroll up") : t("Scroll down")} style={styles.button}>
         <Animated.View style={{ transform: up ? [{ translateY }, { rotate: "180deg" }] : [{ translateY }] }}>
           <Icon name="chevronDown" size={18} color={colors.gemLip} />
         </Animated.View>
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     top: HINT_GAP,
     width: SCROLL_HINT_SIZE,
     height: SCROLL_HINT_SIZE,
-    marginLeft: -SCROLL_HINT_SIZE / 2,
+    marginStart: -SCROLL_HINT_SIZE / 2,
     zIndex: 5
   },
   button: {

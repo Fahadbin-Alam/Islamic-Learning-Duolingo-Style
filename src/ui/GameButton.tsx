@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6
   },
   icon: {
-    marginRight: 8
+    marginEnd: 8
   },
   label: {
     fontFamily: fonts.displayHeavy,

@@ -7,6 +7,7 @@ import { Sheet } from "../Sheet";
 import { feedback } from "../sound";
 import { colors, space, text } from "../theme";
 import { MascotSays, moodSound, useBackToClose, useOpenSound } from "./sheetParts";
+import { t } from "../../i18n";
 
 export type RefillSheetProps = {
   visible: boolean;
@@ -55,7 +56,7 @@ export function RefillSheet({
   onRefill,
   onShop,
   onEndLesson,
-  endLabel = "End lesson",
+  endLabel = t("End lesson"),
   canGetHearts = true,
   onPractice,
   onWatchVideo,
@@ -121,8 +122,8 @@ export function RefillSheet({
   return (
     <Sheet visible={visible} onClose={free ? onShop : endLesson} dismissOnBackdrop={false} testID="refill-sheet">
       <View style={styles.stack}>
-        <MascotSays variant={mascotVariant} mood={full ? "cheer" : "sad"} accent={accent} line={full ? "Hearts full!" : "Out of hearts!"} />
-        <View style={styles.heartRow} accessibilityLabel={`${filled} of ${maxHearts} hearts`} testID="refill-hearts">
+        <MascotSays variant={mascotVariant} mood={full ? "cheer" : "sad"} accent={accent} line={full ? t("Hearts full!") : t("Out of hearts!")} />
+        <View style={styles.heartRow} accessibilityLabel={t("{count} of {max} hearts", { count: filled, max: maxHearts })} testID="refill-hearts">
           {Array.from({ length: maxHearts }, (_, index) =>
             index < filled ? (
               <PopIn key={`full-${index}`}>
@@ -137,29 +138,29 @@ export function RefillSheet({
         </View>
         {free ? (
           <>
-            <Text style={styles.centerLine}>Here is one free refill.</Text>
+            <Text style={styles.centerLine}>{t("Here is one free refill.")}</Text>
             {/* Not disabled while filling: a grey button would look broken mid-celebration. */}
-            <GameButton label="Refill hearts" color={colors.heart} fullWidth onPress={refill} testID="refill-claim" />
-            <GameButton label="Shop" variant="ghost" fullWidth onPress={() => !filling && onShop()} testID="refill-shop" />
+            <GameButton label={t("Refill hearts")} color={colors.heart} fullWidth onPress={refill} testID="refill-claim" />
+            <GameButton label={t("Shop")} variant="ghost" fullWidth onPress={() => !filling && onShop()} testID="refill-shop" />
           </>
         ) : (
           <>
             {/* True to refillHeartsForToday: the hearts fill up again on the next day the app opens. */}
             <Text style={styles.centerLine} testID="refill-tomorrow">
-              Full hearts again tomorrow!
+              {t("Full hearts again tomorrow!")}
             </Text>
             {onWatchVideo ? (
               videoBusy ? (
-                <View style={styles.videoBusy} accessibilityLabel="Loading video" testID="refill-video-busy">
+                <View style={styles.videoBusy} accessibilityLabel={t("Loading video")} testID="refill-video-busy">
                   <ActivityIndicator color={colors.goldLip} />
                 </View>
               ) : (
-                <GameButton label="Free heart" icon="play" variant="gold" fullWidth onPress={onWatchVideo} accessibilityLabel="Free heart, watch a video" testID="refill-video" />
+                <GameButton label={t("Free heart")} icon="play" variant="gold" fullWidth onPress={onWatchVideo} accessibilityLabel={t("Free heart, watch a video")} testID="refill-video" />
               )
             ) : null}
             {canGetHearts ? (
               <GameButton
-                label="Get hearts"
+                label={t("Get hearts")}
                 icon={onWatchVideo ? undefined : "heart"}
                 variant={onWatchVideo ? "ghost" : undefined}
                 color={onWatchVideo ? undefined : colors.heart}
@@ -168,7 +169,7 @@ export function RefillSheet({
                 testID="refill-get"
               />
             ) : practice ? (
-              <GameButton label="Practice" icon="practice" color={accent} fullWidth onPress={practice} testID="refill-practice" />
+              <GameButton label={t("Practice")} icon="practice" color={accent} fullWidth onPress={practice} testID="refill-practice" />
             ) : null}
             <GameButton
               label={endLabel}

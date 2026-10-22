@@ -26,6 +26,7 @@ import {
   getShuffledOrderItems,
   isRetryQuestion,
   localizeFoundationQuestion,
+  toEnglishAnswer,
   rotateByOne,
   seededShuffle,
   summarizeFoundationSession
@@ -65,6 +66,7 @@ import {
 } from "../ui";
 import { FadeUnderSheet, FeedbackSheet, LessonBottomBar, PromptText, QuitSheet, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
 import { sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useSheetFit, type LayoutBox } from "../ui/lesson/sheetFit";
+import { isRtlLanguage, t } from "../i18n";
 
 /** The gap between answer tiles (styles.choiceList gap, styles.wordGrid rowGap). */
 const ANSWER_GAP = 10;
@@ -166,17 +168,17 @@ export function FoundationDashboard({
             <Mascot variant={mascotVariant} mood={placed ? "happy" : "wave"} size={78} accent={accent} />
             <View style={styles.heroText}>
               {basics ? (
-                <ArabicText size={20} weight="bold" color={colors.correctInk} align="left">
+                <ArabicText size={20} weight="bold" color={colors.correctInk} align={isRtlLanguage() ? "right" : "left"}>
                   {basics.ar}
                 </ArabicText>
               ) : null}
               <Text style={styles.heroTitle} numberOfLines={2}>
-                {placed ? "Your map" : "Find your level"}
+                {placed ? t("Your map") : t("Find your level")}
               </Text>
             </View>
           </View>
 
-          <View style={styles.mapRow} accessibilityLabel={`Level ${getLearnerLevel(profile.readiness_label)}`}>
+          <View style={styles.mapRow} accessibilityLabel={t("Level {level}", { level: getLearnerLevel(profile.readiness_label) })}>
             {FOUNDATION_PROGRESS_LABELS.map((label, index) => {
               const active = index <= progressIndex;
               const current = index === progressIndex;
@@ -193,13 +195,13 @@ export function FoundationDashboard({
           <View style={styles.levelPill}>
             <Icon name="star" size={16} />
             <Text style={styles.levelText} numberOfLines={1}>
-              Level {getLearnerLevel(profile.readiness_label)}
+              {t("Level {level}", { level: getLearnerLevel(profile.readiness_label) })}
             </Text>
           </View>
 
           {/* The level check starts over each time, so it never says RESUME. */}
-          <GameButton label={placed ? "Retake" : "Start"} icon="star8" fullWidth onPress={onStartPlacement} />
-          {!placed ? <GameButton label="Skip for now" variant="ghost" color={colors.inkSoft} size="sm" onPress={onSkipAssessment} /> : null}
+          <GameButton label={placed ? t("Retake") : t("Start")} icon="star8" fullWidth onPress={onStartPlacement} />
+          {!placed ? <GameButton label={t("Skip for now")} variant="ghost" color={colors.inkSoft} size="sm" onPress={onSkipAssessment} /> : null}
         </View>
       </PopIn>
 
@@ -207,13 +209,13 @@ export function FoundationDashboard({
         <Tappable
           onPress={() => setSkillsOpen((open) => !open)}
           style={styles.skillsHead}
-          accessibilityLabel={skillsOpen ? "Hide skills" : "See skills"}
+          accessibilityLabel={skillsOpen ? t("Hide skills") : t("See skills")}
           accessibilityState={{ expanded: skillsOpen }}
           pressScale={0.98}
           testID="foundation-skills-toggle"
         >
           <Text style={styles.cardTitle} numberOfLines={1}>
-            Skills
+            {t("Skills")}
           </Text>
           <View style={[styles.chevron, skillsOpen ? styles.chevronOpen : null]}>
             <Icon name="chevronDown" size={22} color={colors.inkSoft} />
@@ -225,13 +227,13 @@ export function FoundationDashboard({
               const look = SKILL_LOOK[row.category];
               return (
                 <PopIn key={row.category} delay={Math.min(index, 6) * 40} style={styles.skillCell}>
-                  <View style={styles.skillBadge} accessibilityLabel={`${look.name} ${row.mastery}%`}>
+                  <View style={styles.skillBadge} accessibilityLabel={`${t(look.name)} ${row.mastery}%`}>
                     <SkillRing progress={row.mastery / 100} color={row.accentColor} icon={look.icon} />
                     <Text style={styles.skillName} numberOfLines={1}>
-                      {look.name}
+                      {t(look.name)}
                     </Text>
                     <Text style={[styles.skillMeta, { color: row.mastery > 0 ? darken(row.accentColor, 0.25) : colors.inkSoft }]} numberOfLines={1}>
-                      {row.mastery > 0 ? `${row.mastery}%` : "New"}
+                      {row.mastery > 0 ? `${row.mastery}%` : t("New")}
                     </Text>
                   </View>
                 </PopIn>
@@ -248,8 +250,8 @@ export function FoundationDashboard({
 function titleFor(question: Question) {
   const prompt = question.prompt.trim();
   if (prompt) return prompt;
-  if (question.type === "correct_order") return "Put these in order";
-  if (question.type === "match_pairs") return "Match the pairs";
+  if (question.type === "correct_order") return t("Put these in order");
+  if (question.type === "match_pairs") return t("Match the pairs");
   return prompt;
 }
 
@@ -270,19 +272,29 @@ function answerOf(question: Question) {
   return { label: typeof answer === "string" ? answer : undefined };
 }
 
-function sheetContentFor(question: Question, selectedAnswer: SelectedAnswer, feedback: NonNullable<FoundationAssessmentState["feedback"]>): SheetContent {
+/**
+ * `english` is the question and feedback as the question bank writes them: the Why line is cut from the English
+ * text and then translated, so every language gets the same sentence.
+ */
+function sheetContentFor(
+  question: Question,
+  selectedAnswer: SelectedAnswer,
+  feedback: NonNullable<FoundationAssessmentState["feedback"]>,
+  english: { question: Question; feedback: NonNullable<FoundationAssessmentState["feedback"]>; language: SupportedLanguage }
+): SheetContent {
   if (feedback.correct) {
     return { correct: true, seed: question.id };
   }
   const { label, list } = answerOf(question);
-  const pickedNote = typeof selectedAnswer === "string" ? question.wrongAnswerNotes?.[selectedAnswer] : undefined;
+  const picked = typeof selectedAnswer === "string" ? toEnglishAnswer(english.question, selectedAnswer, english.language) : undefined;
+  const pickedNote = typeof picked === "string" ? english.question.wrongAnswerNotes?.[picked] : undefined;
   const why = shortWhy({
     easierExplanation: pickedNote,
-    explanation: `${feedback.explanationShort} ${feedback.explanationLong}`,
-    prompt: question.prompt,
-    correctLabel: label
+    explanation: `${english.feedback.explanationShort} ${english.feedback.explanationLong}`,
+    prompt: english.question.prompt,
+    correctLabel: answerOf(english.question).label
   });
-  return { correct: false, correctLabel: label, correctList: list, why, seed: question.id };
+  return { correct: false, correctLabel: label, correctList: list, why: why && translateStudyText(why, english.language), seed: question.id };
 }
 
 /**
@@ -412,10 +424,11 @@ export function FoundationAssessmentScreen({
   const counter = getSessionProgress(assessment);
   const progress = counter.done / counter.total;
   const canSubmit = canSubmitAnswer(question.type, selectedAnswer);
-  const categoryTitle = SKILL_LOOK[question.category]?.name ?? question.category.charAt(0).toUpperCase() + question.category.slice(1);
+  const skillName = SKILL_LOOK[question.category]?.name ?? question.category.charAt(0).toUpperCase() + question.category.slice(1);
+  const categoryTitle = t(skillName);
   // "Which pillar comes first?" under a "Shahadah" label gives the answer away, so a question whose answer is
   // its own skill's name shows no label.
-  const labelGivesAway = answerIsSkillName(question, categoryTitle);
+  const labelGivesAway = answerIsSkillName(question, skillName);
   const arabic = labelGivesAway ? undefined : SKILL_ARABIC[question.category];
   const checked = feedback ? feedback.correct : undefined;
   const locked = checked !== undefined;
@@ -425,7 +438,10 @@ export function FoundationAssessmentScreen({
   };
 
   // Keep the last sheet content so the sheet does not change while it slides away.
-  const sheet = feedback ? sheetContentFor(question, selectedAnswer, feedback) : undefined;
+  const sheet =
+    feedback && assessment.feedback
+      ? sheetContentFor(question, selectedAnswer, feedback, { question: assessment.currentQuestion, feedback: assessment.feedback, language })
+      : undefined;
   const lastSheet = useRef(sheet);
   if (sheet) {
     lastSheet.current = sheet;
@@ -561,7 +577,7 @@ export function FoundationAssessmentScreen({
   return (
     <View style={[styles.assessmentRoot, keyboardHeight > 0 ? { paddingBottom: keyboardHeight } : null]} testID="assessment-screen">
       <View style={styles.assessmentTop}>
-        <Tappable onPress={() => setQuitOpen(true)} style={styles.exitButton} accessibilityLabel="Close" hitSlop={10} pressScale={0.88} testID="assessment-close">
+        <Tappable onPress={() => setQuitOpen(true)} style={styles.exitButton} accessibilityLabel={t("Close")} hitSlop={10} pressScale={0.88} testID="assessment-close">
           <Icon name="close" size={26} color={CLOSE_GREY} />
         </Tappable>
         <ProgressBar progress={progress} style={styles.progressBar} />
@@ -598,7 +614,7 @@ export function FoundationAssessmentScreen({
                   ) : null}
                   {retry ? (
                     <View style={styles.retryChip} testID="assessment-retry">
-                      <Text style={styles.retryText}>Try again!</Text>
+                      <Text style={styles.retryText}>{t("Try again!")}</Text>
                     </View>
                   ) : null}
                 </View>
@@ -616,7 +632,7 @@ export function FoundationAssessmentScreen({
                 ) : (
                   <PromptText size={promptSize}>{prompt}</PromptText>
                 )}
-                {question.type === "multi_select" ? <Text style={styles.hint}>Pick all that fit</Text> : null}
+                {question.type === "multi_select" ? <Text style={styles.hint}>{t("Pick all that fit")}</Text> : null}
               </PromptBubble>
             </View>
 
@@ -631,7 +647,7 @@ export function FoundationAssessmentScreen({
         {/* The "more below" arrow rides on the bar's top edge, where nothing covers it or its taps. */}
         <LessonBottomBar scrollHint={{ visible: more && !locked, onPress: scrollDown }}>
           {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
-          <GameButton label="Check" fullWidth sound={false} disabled={!canSubmit || locked} onPress={onSubmit} testID="assessment-check" />
+          <GameButton label={t("Check")} fullWidth sound={false} disabled={!canSubmit || locked} onPress={onSubmit} testID="assessment-check" />
         </LessonBottomBar>
       </View>
 
@@ -652,9 +668,9 @@ export function FoundationAssessmentScreen({
         visible={quitOpen}
         mascotVariant={mascotVariant}
         accent={accent}
-        title={focus ? "Stop practice?" : QUIT_TITLES[assessment.mode]}
-        line={QUIT_LINE}
-        quitLabel="Stop"
+        title={focus ? t("Stop practice?") : t(QUIT_TITLES[assessment.mode])}
+        line={t(QUIT_LINE)}
+        quitLabel={t("Stop")}
         onKeepLearning={() => setQuitOpen(false)}
         onQuit={() => {
           setQuitOpen(false);
@@ -730,7 +746,7 @@ function CheckTile({ label, state, onPress }: { label: string; state: CheckState
         onPress={onPress}
         disabled={state === "dimmed" || state === "disabled"}
         accessibilityRole="checkbox"
-        accessibilityLabel={missed ? `${label}, missed` : label}
+        accessibilityLabel={missed ? t("{label}, missed", { label }) : label}
         accessibilityState={{ checked: state === "selected" || state === "correct" }}
         pressScale={0.97}
         style={[
@@ -792,7 +808,7 @@ function OrderInput({ question, order, onChange, checked, retry }: { question: Q
               {item ? (
                 <OrderSlot item={item} index={index} verdict={verdict} onPress={() => onChange(order.filter((entry) => entry !== item))} />
               ) : (
-                <View style={styles.slotEmpty} accessibilityLabel={`Slot ${index + 1}`}>
+                <View style={styles.slotEmpty} accessibilityLabel={t("Slot {count}", { count: index + 1 })}>
                   <Text style={styles.slotEmptyText}>{index + 1}</Text>
                 </View>
               )}
@@ -833,7 +849,7 @@ function PairTile({ label, state, pairNumber, onPress, testID }: { label: string
         onPress={onPress}
         disabled={state === "dimmed"}
         style={[styles.pairTile, face, state === "dimmed" ? styles.dimmedTile : null]}
-        accessibilityLabel={pairNumber ? `${label}, pair ${pairNumber}` : label}
+        accessibilityLabel={pairNumber ? t("{label}, pair {count}", { label, count: pairNumber }) : label}
         accessibilityState={{ selected: state === "selected" && !paired }}
         pressScale={0.96}
         testID={testID}
@@ -1036,7 +1052,7 @@ function renderQuestionInput(
         multiline={question.type === "reflection_prompt"}
         value={typed}
         onChangeText={(value) => onChangeSelectedAnswer(value)}
-        placeholder={question.type === "reflection_prompt" ? "Write a few words" : "Type your answer"}
+        placeholder={question.type === "reflection_prompt" ? t("Write a few words") : t("Type your answer")}
         placeholderTextColor={colors.inkSoft}
         style={[styles.input, question.type === "reflection_prompt" && styles.inputTall]}
       />
@@ -1170,7 +1186,7 @@ function NextSkillChip({ category, onPress }: { category: FoundationCategoryId; 
     <>
       <Icon name={look.icon} size={20} />
       <Text style={[styles.nextChipText, { color: ink }]} numberOfLines={1}>
-        {look.name}
+        {t(look.name)}
       </Text>
       {onPress ? <Icon name="chevronRight" size={18} color={ink} /> : null}
     </>
@@ -1183,7 +1199,7 @@ function NextSkillChip({ category, onPress }: { category: FoundationCategoryId; 
     );
   }
   return (
-    <Tappable onPress={onPress} style={[styles.nextChip, styles.nextChipButton, face]} accessibilityLabel={`Practice ${look.name}`} pressScale={0.93} testID={`next-${category}`}>
+    <Tappable onPress={onPress} style={[styles.nextChip, styles.nextChipButton, face]} accessibilityLabel={t("Practice {name}", { name: t(look.name) })} pressScale={0.93} testID={`next-${category}`}>
       {content}
     </Tappable>
   );
@@ -1245,21 +1261,21 @@ export function PracticeComplete({
         </Animated.View>
         <PopIn delay={120}>
           <Text style={styles.completeHeadline} accessibilityRole="header">
-            {focus ? "Practice done!" : HEADLINES[assessment.mode]}
+            {focus ? t("Practice done!") : t(HEADLINES[assessment.mode])}
           </Text>
         </PopIn>
 
         <View style={styles.resultCards}>
-          <ResultCard label="CORRECT" icon="check" value={summary.correct} of={summary.answered} color={colors.green} ink={colors.correctInk} index={0} testID="result-correct" />
-          {showXp ? <ResultCard label="XP EARNED" icon="bolt" value={earned} color={colors.gold} ink={darken(colors.goldLip, 0.25)} labelColor={GOLD_LABEL} index={1} testID="result-xp" /> : null}
+          <ResultCard label={t("CORRECT")} icon="check" value={summary.correct} of={summary.answered} color={colors.green} ink={colors.correctInk} index={0} testID="result-correct" />
+          {showXp ? <ResultCard label={t("XP EARNED")} icon="bolt" value={earned} color={colors.gold} ink={darken(colors.goldLip, 0.25)} labelColor={GOLD_LABEL} index={1} testID="result-xp" /> : null}
           {summary.level !== undefined ? (
-            <ResultCard label="LEVEL" icon="star" value={summary.level} color={colors.gem} ink={colors.gemLip} index={showXp ? 2 : 1} testID="result-level" />
+            <ResultCard label={t("LEVEL")} icon="star" value={summary.level} color={colors.gem} ink={colors.gemLip} index={showXp ? 2 : 1} testID="result-level" />
           ) : null}
         </View>
 
         {summary.practiceNext.length ? (
           <PopIn delay={CARD_DELAY + 3 * CARD_STAGGER} style={styles.nextBlock}>
-            <Text style={styles.nextTitle}>Practice next</Text>
+            <Text style={styles.nextTitle}>{t("Practice next")}</Text>
             <View style={styles.nextChips}>
               {summary.practiceNext.map((category) => (
                 <NextSkillChip key={category} category={category} onPress={onPracticeSkill ? () => onPracticeSkill(category) : undefined} />
@@ -1270,7 +1286,7 @@ export function PracticeComplete({
       </ScrollView>
 
       <LessonBottomBar bottomInset={bottomInset}>
-        <GameButton label="Continue" fullWidth onPress={onContinue} testID="practice-complete-continue" />
+        <GameButton label={t("Continue")} fullWidth onPress={onContinue} testID="practice-complete-continue" />
       </LessonBottomBar>
 
       <Confetti active />
@@ -1317,7 +1333,7 @@ const styles = StyleSheet.create({
   scroll: { flex: 1 },
   assessmentWrap: { paddingHorizontal: 16, paddingTop: 4 },
   assessmentTop: { flexDirection: "row", alignItems: "center", gap: 12, paddingHorizontal: 16, paddingTop: 12, paddingBottom: 8, backgroundColor: colors.snow },
-  exitButton: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center", marginLeft: -6 },
+  exitButton: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center", marginStart: -6 },
   progressBar: { flex: 1 },
   progressCount: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, color: colors.inkSoft },
   categoryRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10, marginTop: 4, marginBottom: 10 },
@@ -1326,7 +1342,7 @@ const styles = StyleSheet.create({
   retryChip: { paddingHorizontal: 12, paddingVertical: 3, borderRadius: radii.pill, backgroundColor: RETRY_BG },
   retryText: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, color: RETRY_INK },
   questionRow: { flexDirection: "row", alignItems: "center", marginBottom: 16 },
-  bubbleWrap: { flex: 1, minWidth: 0, marginLeft: 4, alignItems: "flex-start" },
+  bubbleWrap: { flex: 1, minWidth: 0, marginStart: 4, alignItems: "flex-start" },
   plainPrompt: { marginBottom: 14 },
   prompt: { flexShrink: 1, fontFamily: fonts.bodyHeavy, color: colors.ink },
   blankSlot: { fontFamily: fonts.displayHeavy, textDecorationLine: "underline" },
@@ -1390,6 +1406,6 @@ const styles = StyleSheet.create({
   nextTitle: { ...text.tiny, fontFamily: fonts.bodyHeavy, marginBottom: space.sm },
   nextChips: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: 8 },
   nextChip: { flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 12, paddingVertical: 6, borderRadius: radii.pill, borderWidth: 2, maxWidth: "100%" },
-  nextChipButton: { borderBottomWidth: 4, paddingRight: 8, minHeight: 44 },
+  nextChipButton: { borderBottomWidth: 4, paddingEnd: 8, minHeight: 44 },
   nextChipText: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, flexShrink: 1 }
 });

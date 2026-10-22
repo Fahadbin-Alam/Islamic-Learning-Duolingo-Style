@@ -7,6 +7,7 @@ import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, text, topicPalette } from "../theme";
+import { t } from "../../i18n";
 
 export type TopicPickerTopic = {
   topicId: string;
@@ -47,7 +48,7 @@ function TopicTile({ topic, active, width, onPress }: { topic: TopicPickerTopic;
       onPress={onPress}
       sound="node_tap"
       pressScale={0.95}
-      accessibilityLabel={`${topic.title}, ${topic.done} of ${topic.total}`}
+      accessibilityLabel={t("{topic}, {done} of {total}", { topic: topic.title, done: topic.done, total: topic.total })}
       accessibilityState={{ selected: active }}
       testID={`topic-tile-${topic.topicId}`}
       style={[styles.tile, { width }, active ? styles.tileActive : null]}
@@ -67,7 +68,7 @@ function TopicTile({ topic, active, width, onPress }: { topic: TopicPickerTopic;
       {finished ? (
         <View style={styles.donePill} testID={`topic-done-${topic.topicId}`}>
           <Icon name="crown" size={18} color={colors.white} />
-          <Text style={styles.doneText}>DONE</Text>
+          <Text style={styles.doneText}>{t("DONE")}</Text>
         </View>
       ) : (
         <View style={styles.progressRow}>
@@ -94,9 +95,9 @@ export function TopicPicker({ visible, onClose, topics, activeTopicId, onSelect,
     <Sheet visible={visible} onClose={onClose} bottomInset={0} style={[styles.sheet, { top: topGap, paddingBottom: 0 }]} testID="topic-picker">
       <View style={styles.header}>
         <Text style={styles.heading} numberOfLines={2}>
-          Choose a topic
+          {t("Choose a topic")}
         </Text>
-        <Tappable onPress={onClose} accessibilityLabel="Close" testID="topic-picker-close" style={styles.close} hitSlop={8} pressScale={0.88}>
+        <Tappable onPress={onClose} accessibilityLabel={t("Close")} testID="topic-picker-close" style={styles.close} hitSlop={8} pressScale={0.88}>
           <Icon name="close" size={22} color={colors.inkSoft} />
         </Tappable>
       </View>
@@ -206,8 +207,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: "auto",
-    paddingLeft: 8,
-    paddingRight: 12,
+    paddingStart: 8,
+    paddingEnd: 12,
     paddingVertical: 2,
     borderRadius: 999,
     backgroundColor: colors.gold,
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.goldLip
   },
   doneText: {
-    marginLeft: 4,
+    marginStart: 4,
     fontFamily: fonts.displayHeavy,
     fontSize: 13,
     lineHeight: 18,
@@ -223,7 +224,7 @@ const styles = StyleSheet.create({
     color: GOLD_INK
   },
   count: {
-    marginLeft: 6,
+    marginStart: 6,
     fontFamily: fonts.displayHeavy,
     fontSize: 13,
     lineHeight: 17,
