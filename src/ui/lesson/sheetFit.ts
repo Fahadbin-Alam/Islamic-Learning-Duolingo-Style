@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
+import { Platform, type ScrollView, type View } from "react-native";
 import { space } from "../theme";
+import { beforePaint } from "./ScrollHint";
 
 /** A laid-out box in its scroll content: where it starts and how tall it is. */
 export type LayoutBox = { y: number; height: number };
@@ -41,6 +43,129 @@ export function centerSpace(roomHeight: number, questionHeight: number, bottomPa
 /** Where to scroll so the green tile sits right above a sheet `sheetHeight` tall, never further than `furthest`. */
 export function sheetScrollY(layout: SheetFitLayout, sheetHeight: number, furthest: number) {
   return Math.max(0, Math.min(layout.focusBottom + space.md - (layout.visibleBottom - sheetHeight), furthest));
+}
+
+/** Within this of a scroll's target counts as there. */
+const AT_TARGET = 0.5;
+
+export type QuestionScrollInput = {
+  /** The sheet is up. */
+  open: boolean;
+  /** The question's scroll view. */
+  scrollRef: RefObject<ScrollView | null>;
+  /** Where the question sits while the sheet is up (see sheetScrollY); only read while `ready`. */
+  target: number;
+  /** The sheet and the question have said their sizes, so `target` can be worked out. */
+  ready: boolean;
+  /** A squeezed question has not yet said where it now sits (see useSheetFit), so `target` is stale. */
+  settling: boolean;
+  /** The learner opened the sheet's Why line (and has not shut it). */
+  whyOpened: boolean;
+  /** The scroll view's own height. */
+  viewport: number;
+  /** The scroll content's height as it last reported it, when the screen passes it on (see useQuestionScroll). */
+  contentHeight?: number;
+  /** Where a part above the prompt starts (the REVIEW / "Try again!" chips, practice's topic label), if there is one. */
+  partTop: number | null;
+};
+
+/**
+ * The question's own scroll while the feedback sheet is up (lesson and practice screens alike), to the place that
+ * keeps the green tile whole above the sheet, and back to the top once the sheet goes.
+ * - It moves only once that place is known: while a squeezed question has not yet said where it now sits, it stays
+ *   where it is, as a scroll to the stale place would have to turn back once the real one is known.
+ * - It glides as the sheet comes up or shrinks. A sheet that grows once the learner opened its Why line has already
+ *   grown when the question hears of it, so the question moves in that same frame and the green tile never shows
+ *   under its edge.
+ * - Until it is where it goes, its content is never shorter than the place it sits at needs (`minHeight`): tiles that
+ *   fold away or a sheet that shrinks would otherwise let the browser pull it up at once to the new end, a jump.
+ * - A phone can start the scroll before it has laid out the content's new length (the room under a question moved
+ *   down to the middle grows as the sheet comes up) and stop it at the old end. With `contentHeight`, content that
+ *   says it has grown since sends the question on to the same place, the same way, unless it is there already or a
+ *   hand has turned it back since.
+ * - The part above the prompt is `gone` while the question sits scrolled past its top, and also from the render that
+ *   starts a scroll of its own to a place past it, so it is gone before that scroll's first frame and the scroll
+ *   view's top edge never cuts it. A scroll by hand hides it from the scroll event itself, before that frame is
+ *   painted. Scrolled back up to it, it shows again; a new question shows it again.
+ * Pass every scroll offset to `onScroll`.
+ */
+export function useQuestionScroll({ open, scrollRef, target, ready, settling, whyOpened, viewport, contentHeight = 0, partTop }: QuestionScrollInput) {
+  const aim = open && ready && !settling ? target : undefined;
+  // Where the question last sent itself while this sheet is up (none yet: the sheet is still coming up), whether it
+  // glided there, and how long its content said it was then.
+  const sent = useRef<number | undefined>(undefined);
+  const sentGlides = useRef(true);
+  const sentLength = useRef(0);
+  // A hand has scrolled the question back from where it was last sent.
+  const turnedBack = useRef(false);
+  const wasOpen = useRef(false);
+  const offset = useRef(0);
+  const [past, setPast] = useState(false);
+  // The place of the last scroll of the question's own that is over: it got there, passed the part (the scroll
+  // offset decides from then on), stopped short or turned back (a hand took over). A new place is a new scroll.
+  const [settled, setSettled] = useState<number | undefined>(undefined);
+  // Counts the times it got where it was sent, so the content gives back any length it was held at.
+  const [, setArrivals] = useState(0);
+
+  useEffect(() => {
+    if (!open) {
+      if (wasOpen.current) {
+        scrollRef.current?.scrollTo?.({ y: 0, animated: false });
+      }
+      wasOpen.current = false;
+      sent.current = undefined;
+      setSettled(undefined);
+      return;
+    }
+    wasOpen.current = true;
+    if (aim === undefined) {
+      return;
+    }
+    if (aim === sent.current) {
+      // The same place again: only content grown since sends it on, to where a scroll that stopped short still goes.
+      if (contentHeight > sentLength.current && offset.current < aim - AT_TARGET && !turnedBack.current) {
+        scrollRef.current?.scrollTo?.({ y: aim, animated: sentGlides.current });
+      }
+      sentLength.current = contentHeight;
+      return;
+    }
+    const atOnce = whyOpened && sent.current !== undefined && aim > sent.current;
+    scrollRef.current?.scrollTo?.({ y: aim, animated: !atOnce });
+    sent.current = aim;
+    sentGlides.current = !atOnce;
+    sentLength.current = contentHeight;
+    turnedBack.current = false;
+    // Only a new place (or the sheet opening or going, or content that grew under a scroll that stopped short) moves
+    // the question: it never fights a hand for nothing.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [aim, contentHeight, open]);
+
+  const edge = partTop === null ? undefined : partTop + 0.5;
+  const heading = aim !== undefined && edge !== undefined && aim > edge && settled !== aim;
+  const onScroll = (y: number) => {
+    const goal = sent.current ?? aim ?? 0;
+    const isPast = edge !== undefined && y > edge;
+    const toGo = Math.abs(goal - y);
+    const onItsWay = !isPast && toGo > AT_TARGET && toGo < Math.abs(goal - offset.current) - AT_TARGET / 2;
+    const arrived = toGo <= AT_TARGET && Math.abs(goal - offset.current) > AT_TARGET;
+    if (toGo > Math.abs(goal - offset.current) + AT_TARGET / 2) {
+      turnedBack.current = true;
+    }
+    offset.current = y;
+    beforePaint(() => {
+      setPast((value) => (value === isPast ? value : isPast));
+      if (!onItsWay) {
+        setSettled(goal);
+      }
+      if (arrived) {
+        setArrivals((count) => count + 1);
+      }
+    });
+  };
+  // Held at the place it sits (or goes to, when that is further down): the content's own length covers that place
+  // again once it is there.
+  const minHeight = open && viewport > 0 ? viewport + Math.max(offset.current, aim ?? 0) : undefined;
+  return { gone: open && (past || heading), onScroll, minHeight };
 }
 
 /**
@@ -103,6 +228,14 @@ export function tilesUnderSheet({
   });
 }
 
+/**
+ * Whether a question sitting at its top reaches past the bottom of its room, `bottom` being where its last tile ends in
+ * the scroll content (its lip included): the room's edge would then cut that tile. A lip's last pixel may reach past.
+ */
+export function overRoom(roomHeight: number, bottom: number) {
+  return bottom > roomHeight + TILE_EDGE;
+}
+
 /** A part of a scrolling list that shows whole or not at all: a row, the Why pill, one line of the Why text. */
 export type RowSpan = { top: number; bottom: number };
 
@@ -152,6 +285,61 @@ export function nearestRowStop(stops: number[], offset: number) {
   return stops.reduce((best, stop) => (Math.abs(stop - offset) < Math.abs(best - offset) ? stop : best), stops[0] ?? 0);
 }
 
+/**
+ * A view's height as it is laid out right now, where the platform can say it at once: on the web a view is its element,
+ * and in the New Architecture a view reads its layout from the tree React has just put in place. Read in a layout
+ * effect, it places things before the frame is drawn; onLayout only tells after that frame is painted. Undefined where
+ * it cannot be read (a test renderer, a view with no size yet).
+ */
+export function laidOutHeight(view: unknown) {
+  const height = (view as { offsetHeight?: unknown } | null)?.offsetHeight;
+  return typeof height === "number" && height > 0 ? Math.round(height) : undefined;
+}
+
+/**
+ * On the web, the feedback sheet's height the moment it changes, before the browser draws the frame. The sheet's own
+ * report (its layout) comes in a timer after that frame, so when its Why line opens, the frame would show the taller
+ * sheet over tiles the question has not yet moved or faded. Any change to the sheet is a change to its views, so it is
+ * read right after each one. `root`: the question's root view, which holds the sheet. On a phone this does nothing;
+ * the sheet's report is all there is.
+ */
+export function useSheetHeightNow({
+  root,
+  open,
+  reported,
+  onHeight
+}: {
+  root: RefObject<View | null>;
+  open: boolean;
+  /** The sheet has reported a height (so its panel is there). */
+  reported: boolean;
+  onHeight: (height: number) => void;
+}) {
+  useEffect(() => {
+    if (Platform.OS !== "web" || !open || typeof MutationObserver === "undefined") {
+      return undefined;
+    }
+    // On the web a view is its element. The sheet's panel holds its content (and its padding, as the sheet counts it).
+    const holder = root.current as unknown as { querySelector?: (selector: string) => HTMLElement | null } | null;
+    const panel = holder?.querySelector?.('[data-testid="feedback-content"]')?.parentElement;
+    if (!panel) {
+      return undefined;
+    }
+    // The height it has now reaches the question through the sheet's own report.
+    let last = panel.offsetHeight;
+    // Called once React has put a change in place, before the frame is drawn.
+    const observer = new MutationObserver(() => {
+      const height = panel.offsetHeight;
+      if (height !== last) {
+        last = height;
+        beforePaint(() => onHeight(height));
+      }
+    });
+    observer.observe(panel, { attributes: true, characterData: true, childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, [onHeight, open, reported, root]);
+}
+
 /** How long a squeezed question may take to report its new layout before the sheet is fitted anyway. */
 const SETTLE_MS = 400;
 
@@ -164,16 +352,20 @@ export type SheetFitInput = {
   room: number | undefined;
   /** Changes whenever the question's measured layout changes (prompt, tiles). */
   layoutKey: string;
-  /** Squeezing changes the layout (there are grey tiles to fold, or a mascot to hide). */
+  /**
+   * Squeezing moves the question in a way only its next layout tells (a mascot to hide: the prompt then takes the
+   * full width and wraps anew). Grey tiles that fold away do not count: where the green tile then sits is known from
+   * the heights of the tiles that stay (see stackSpan), so the sheet is told its room at once.
+   */
   squeezeMoves: boolean;
 };
 
 /**
  * Makes room for the feedback sheet by taking it from the question first. While the sheet's full height (Why line
  * open, nothing scrolling) is more than the room under the green tile, the question is squeezed: the grey tiles fold
- * away and the mascot hides, until the next question. Only once the squeezed question has reported its new layout
- * is the sheet told the room (`fitted`), so it never shrinks for a stale one; only if even that room is too small
- * does the sheet go slim and, after that, let its Why text scroll.
+ * away and the mascot hides, until the next question. When the mascot hides, the sheet is told the room (`fitted`)
+ * only once the squeezed question has reported its new layout, so it never shrinks for a stale one; only if even
+ * that room is too small does the sheet go slim and, after that, let its Why text scroll.
  */
 export function useSheetFit({ open, fullHeight, room, layoutKey, squeezeMoves }: SheetFitInput) {
   // The layout the question had when it was squeezed; undefined while not squeezed.

@@ -93,17 +93,33 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   so a learner who keeps tapping wrong stops there. Stars count the questions missed on their first try.
   A test-out (JUMP HERE) asks each question once, costs no hearts and ends as soon as it cannot be
   passed. Practice sessions keep their own rules.
+  A lesson question that fits its screen sits in the middle of the room above CHECK, from the first frame it
+  shows (never at the top first), and keeps that place
+  when CHECK is tapped, its Why line opens or tiles fold; it scrolls only when the sheet would cover the
+  green tile, and only as far as that needs. A question taller than its room (a long "Try again!" question
+  on a small phone) draws its tiles tight, with less padding in each, when that makes it fit, from the first
+  frame it shows, so every answer is in sight and whole, never one cut by the room's bottom edge; it keeps
+  them so through the sheet, and the next try is measured again. A question too tall even then keeps its
+  usual tiles and scrolls as before, under the arrow (tight tiles would not bring its last tile into sight,
+  only move where the room's edge cuts it), so its last tile can show cut at the room's edge. No English
+  question is that tall at 320 px; some long Urdu and Arabic ones are.
   The sheet never covers the prompt or the green tile, its Why line open. The question gives its room
   first: on a short phone the grey tiles fold away and the mascot hides (until the next question), so the
   sheet can stay full size. Only when that is not enough does the sheet go slim (less padding, a smaller
   button), and only then does the Why text alone scroll, from its top, in whole lines, with the arrow in the
   gap above the button (it turns to point up at the end, so the gap is never empty). The heading, the
-  "Correct answer" line and the Why pill always show whole. A tile the sheet's top edge would cut fades
-  away while the sheet is up (never the green tile, nor the picked tile when it sits whole above the
-  sheet) and comes back with the next try; tiles wholly under the sheet stay. The small chips above the
-  prompt (REVIEW, "Try again!", practice's topic label) are gone at once while the question sits scrolled
-  past their top, and back when it is scrolled up to them. In the ordering game the prompt stays on screen above the sheet, placed tiles the sheet would
-  cut fold away until TRY AGAIN, and the "Correct order" list shows whole rows only: it starts at the top,
+  "Correct answer" line and the Why pill always show whole. A tile the sheet's top edge would cut is gone
+  at once while the sheet is up, in the very frame the sheet starts to cover it (never the green tile, nor
+  the picked tile when it sits whole above the sheet), and fades back with the next try; tiles wholly under
+  the sheet stay. When the learner opens the Why line and the sheet grows, the question moves in that same
+  frame, not after it; it glides as the sheet comes up or shrinks. It only ever goes where it ends: it waits
+  while a hiding mascot lets the prompt wrap anew, and its content never gets shorter under it on the way, so
+  it never jumps or turns back. The sheet is never taller than its room, not even in the frame its Why line
+  opens. The small chips above the prompt
+  (REVIEW, "Try again!", practice's topic label) are gone while the question sits scrolled past their top,
+  and already from the frame its own scroll (CHECK, Why) starts towards a place past them, so no frame
+  shows them cut; they are back, whole and in place, when it is scrolled up to them. In the ordering game the prompt stays on screen above the sheet, placed tiles the sheet would
+  cut fold away before its edge reaches them as it rises (and only ever more while it is up) until TRY AGAIN, and the "Correct order" list shows whole rows only: it starts at the top,
   scrolls by whole rows, and its arrow points down while rows are hidden and up at the end. The rows the
   learner had in another place get a white band and a red ✕ in that list, and the list opens where they
   show, so the mistake is in sight even when its red tiles fold away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`).

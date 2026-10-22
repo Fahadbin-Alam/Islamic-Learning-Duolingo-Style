@@ -1,9 +1,31 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Animated, Easing, StyleSheet, View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollView } from "react-native";
+import { Animated, Easing, Platform, StyleSheet, View, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent, type ScrollView } from "react-native";
 import { Icon } from "../Icon";
 import { Tappable } from "../Tappable";
 import { colors, withAlpha } from "../theme";
 import { t } from "../../i18n";
+
+const WEB = Platform.OS === "web";
+
+/**
+ * The `scrollEventThrottle` of a scroll view that must hear of every frame it moves: a browser sends one scroll event
+ * a frame, and react-native-web drops one that comes sooner than the throttle after the last (a frame that comes a
+ * little early), so a chip that hides as the question passes it would wait for the next one.
+ */
+export const EVERY_FRAME = WEB ? 1 : 16;
+
+/**
+ * Runs a state update at once, so what it changes shows in the frame the browser is about to paint. A scroll event's
+ * update (or a layout's) would otherwise wait for the next task, after that frame is painted. On a phone it runs as
+ * any update does.
+ */
+export function beforePaint(update: () => void) {
+  if (WEB) {
+    (require("react-dom") as { flushSync: (run: () => void) => void }).flushSync(update);
+  } else {
+    update();
+  }
+}
 
 /** Content hidden below the fold by more than this shows the hint (less is only a tile's lip or padding). */
 export const SCROLL_HINT_SLACK = 40;
