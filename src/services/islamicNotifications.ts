@@ -1,13 +1,11 @@
 import type { SupportedLanguage, UserProfile } from "../types";
+import { calendarDaysBetween, comebackMessage, latestStepForDays, type ComebackStep } from "./comebackReminders";
 import {
   RESUME_REMINDER_AFTER_MS,
   formatLocalDateKey,
   getLastLearningTime,
-  isSameCalendarDay,
   loadReminderHistory,
-  pickReminder,
-  saveReminderHistory,
-  type ReminderKind
+  saveReminderHistory
 } from "./reminderContent";
 
 // Web reminders use the browser Notification API while the tab is open.
@@ -47,15 +45,26 @@ export async function maybeSendIslamicReminder(user: UserProfile, language: Supp
   const history = loadReminderHistory();
   const today = formatLocalDateKey(Date.now());
   const reminders = user.reminderPreferences;
-  let kind: ReminderKind | undefined;
+  const daysAway = calendarDaysBetween(lastLearningAt, Date.now());
+  let step: ComebackStep | undefined;
 
-  if (reminders?.streakReminders !== false && !isSameCalendarDay(lastLearningAt, Date.now()) && history.lastStreakReminderDate !== today) {
-    kind = "streak";
-  } else if (reminders?.islamicReminders !== false && Date.now() - lastLearningAt >= RESUME_REMINDER_AFTER_MS && history.lastResumeReminderDate !== today) {
-    kind = "resume";
+  // Same ladder as the phones, caught up once a day while the tab is open.
+  if (daysAway === 0) {
+    if (reminders?.islamicReminders !== false && Date.now() - lastLearningAt >= RESUME_REMINDER_AFTER_MS && history.lastResumeReminderDate !== today) {
+      step = "resume";
+    }
+  } else {
+    const latest = latestStepForDays(daysAway);
+    const wanted = latest === "streak" ? reminders?.streakReminders !== false : reminders?.islamicReminders !== false;
+    const sentToday = latest === "streak" ? history.lastStreakReminderDate === today : history.lastResumeReminderDate === today;
+    const alreadyShown = history.lastComebackStep === latest && history.lastComebackFor === lastLearningAt;
+
+    if (latest && wanted && !sentToday && !alreadyShown) {
+      step = latest;
+    }
   }
 
-  if (!kind) {
+  if (!step) {
     return false;
   }
 
@@ -69,13 +78,18 @@ export async function maybeSendIslamicReminder(user: UserProfile, language: Supp
     return false;
   }
 
-  const message = pickReminder(language, kind);
+  const message = comebackMessage(language, step);
   new Notification(message.title, { body: message.body });
 
-  if (kind === "streak") {
+  if (step === "streak") {
     history.lastStreakReminderDate = today;
   } else {
     history.lastResumeReminderDate = today;
+  }
+
+  if (step !== "resume") {
+    history.lastComebackStep = step;
+    history.lastComebackFor = lastLearningAt;
   }
 
   saveReminderHistory(history);
