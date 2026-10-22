@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
 import { PopIn } from "../PopIn";
@@ -34,6 +34,13 @@ export type RefillSheetProps = {
   canGetHearts?: boolean;
   /** "shop" only: PRACTICE, shown when no hearts can be had. Practice needs no hearts. */
   onPractice?: () => void;
+  /**
+   * "shop" only: FREE HEART plays a short video for one heart, right here instead of in the shop. Left out
+   * when videos can't play (no ads in this build, or premium).
+   */
+  onWatchVideo?: () => void;
+  /** The video is loading or playing: its button spins and the other buttons wait. */
+  videoBusy?: boolean;
 };
 
 const FILL_STEP = 110;
@@ -50,7 +57,9 @@ export function RefillSheet({
   onEndLesson,
   endLabel = "End lesson",
   canGetHearts = true,
-  onPractice
+  onPractice,
+  onWatchVideo,
+  videoBusy = false
 }: RefillSheetProps) {
   const free = variant === "free";
   const endLesson = onEndLesson ?? onShop;
@@ -58,7 +67,7 @@ export function RefillSheet({
   const [filling, setFilling] = useState(false);
   const [refilled, setRefilled] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
-  useBackToClose(visible && !filling, free ? onShop : endLesson);
+  useBackToClose(visible && !filling && !videoBusy, free ? onShop : endLesson);
   // Opens with its sad mascot's sound, like the app's other sad sheets (the test-out result). The lesson's
   // GOT IT that opens it stays quiet, so this is the one sound.
   useOpenSound(visible, moodSound("sad"), "out-of-hearts");
@@ -103,7 +112,11 @@ export function RefillSheet({
   // The bubble cheers in the same frame as the mascot, once the last heart lands.
   const full = filled === maxHearts && maxHearts > 0;
   // With no way to get hearts now, PRACTICE (or END LESSON) takes the big button instead of a dead-end shop.
-  const practice = !canGetHearts && onPractice;
+  const practice = !canGetHearts && !onWatchVideo && onPractice;
+  // While a video loads or plays, no other button may close the sheet under it.
+  const unlessBusy = (action: () => void) => () => {
+    if (!videoBusy) action();
+  };
 
   return (
     <Sheet visible={visible} onClose={free ? onShop : endLesson} dismissOnBackdrop={false} testID="refill-sheet">
@@ -135,17 +148,34 @@ export function RefillSheet({
             <Text style={styles.centerLine} testID="refill-tomorrow">
               Full hearts again tomorrow!
             </Text>
+            {onWatchVideo ? (
+              videoBusy ? (
+                <View style={styles.videoBusy} accessibilityLabel="Loading video" testID="refill-video-busy">
+                  <ActivityIndicator color={colors.goldLip} />
+                </View>
+              ) : (
+                <GameButton label="Free heart" icon="play" variant="gold" fullWidth onPress={onWatchVideo} accessibilityLabel="Free heart, watch a video" testID="refill-video" />
+              )
+            ) : null}
             {canGetHearts ? (
-              <GameButton label="Get hearts" icon="heart" color={colors.heart} fullWidth onPress={onShop} testID="refill-get" />
+              <GameButton
+                label="Get hearts"
+                icon={onWatchVideo ? undefined : "heart"}
+                variant={onWatchVideo ? "ghost" : undefined}
+                color={onWatchVideo ? undefined : colors.heart}
+                fullWidth
+                onPress={unlessBusy(onShop)}
+                testID="refill-get"
+              />
             ) : practice ? (
               <GameButton label="Practice" icon="practice" color={accent} fullWidth onPress={practice} testID="refill-practice" />
             ) : null}
             <GameButton
               label={endLabel}
-              variant={canGetHearts || practice ? "ghost" : "primary"}
-              color={canGetHearts || practice ? colors.inkSoft : accent}
+              variant={canGetHearts || practice || onWatchVideo ? "ghost" : "primary"}
+              color={canGetHearts || practice || onWatchVideo ? colors.inkSoft : accent}
               fullWidth
-              onPress={endLesson}
+              onPress={unlessBusy(endLesson)}
               testID="refill-end"
             />
           </>
@@ -163,6 +193,11 @@ const styles = StyleSheet.create({
   centerLine: {
     ...text.bodyBold,
     textAlign: "center"
+  },
+  videoBusy: {
+    height: 58,
+    alignItems: "center",
+    justifyContent: "center"
   },
   heartRow: {
     flexDirection: "row",

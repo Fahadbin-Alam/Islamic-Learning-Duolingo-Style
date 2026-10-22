@@ -451,6 +451,8 @@ function reducer(state: AppState, action: Action): AppState {
 }
 
 const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
+// The shop's "Free heart" video, offered again on the out-of-hearts sheet.
+const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
 
 export default function TopicApp() {
   // RN's own SafeAreaView only pads on iOS, so Android drew the top bar under the status bar.
@@ -2028,8 +2030,36 @@ export default function TopicApp() {
       return;
     }
 
+    resumeWithHearts(grantHearts({ ...state.user, reviewHeartRestoreUsed: true }, state.user.hearts.max, true));
+  }
+
+  // FREE HEART: a short video for one heart, then the lesson goes on where it stopped.
+  async function watchVideoForHeart() {
+    if (!state.user || !HEART_VIDEO || shopBusy) {
+      return;
+    }
+
+    const user = state.user;
+    setShopBusy(true);
+
+    try {
+      const reward = await monetizationClient.showRewardedAd(HEART_VIDEO);
+
+      if (!reward.ok) {
+        void notify("No video right now", "Try again later.", { mood: "think" });
+        return;
+      }
+
+      lastFullScreenAdAtRef.current = Date.now();
+      // The sheet is open the whole time, so nothing else changed the learner while the video played.
+      resumeWithHearts(grantHearts(user, reward.heartsGranted || 1, true));
+    } finally {
+      setShopBusy(false);
+    }
+  }
+
+  function resumeWithHearts(refilled: UserProfile) {
     const sheet = outOfHearts;
-    const refilled = grantHearts({ ...state.user, reviewHeartRestoreUsed: true }, state.user.hearts.max, true);
 
     dispatch({ type: "apply_user", user: refilled });
     setOutOfHearts((current) => current && { ...current, open: false });
@@ -2097,6 +2127,8 @@ export default function TopicApp() {
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
   // gem heart item the learner can pay for. Otherwise the out-of-hearts sheet offers PRACTICE.
   const learner = state.user;
+  // Videos need ads in this build; premium has unlimited hearts and no ads.
+  const canWatchHeartVideo = monetizationMode !== "disabled" && Boolean(HEART_VIDEO) && !isPremiumUser(state.user) && !state.user.hearts.unlimited;
   const canGetHearts =
     monetizationMode !== "disabled" ||
     SHOP_ITEMS.some((item) => item.currencyType === "gems" && Boolean(item.refillsHearts || item.heartsGranted) && canSpendGems(learner, item));
@@ -2454,6 +2486,8 @@ export default function TopicApp() {
             changeTab("practice");
           }}
           onRefill={claimReviewHeartRestore}
+          onWatchVideo={canWatchHeartVideo ? () => void watchVideoForHeart() : undefined}
+          videoBusy={shopBusy}
           onShop={openShopForHearts}
           onEndLesson={closeOutOfHearts}
         />
