@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useMemo, useRef, useState } from "react";
-import { AccessibilityInfo, Animated, Easing, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
+import { AccessibilityInfo, Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import Svg, { Circle, Ellipse, G, Path, Rect } from "react-native-svg";
+import { feedback } from "./sound";
 import { colors, darken, lighten } from "./theme";
 
 export type CamelProps = {
@@ -14,6 +15,8 @@ export type CamelProps = {
   range?: number;
   /** Start facing left (walking toward the left end). */
   faceLeft?: boolean;
+  /** A tap makes the camel jump with a silly grunt and a puff of dust. */
+  tappable?: boolean;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -34,20 +37,33 @@ const STEP_MS = 440;
 const STEPS = 6;
 const REST_MS = 900;
 
+// One listener for the whole app: the path draws many moving pictures and each asks for this.
+let reduceMotionNow = false;
+let reduceMotionRead = false;
+const reduceMotionSubscribers = new Set<(value: boolean) => void>();
+
+function watchReduceMotion() {
+  if (reduceMotionRead) return;
+  reduceMotionRead = true;
+  const publish = (value: boolean) => {
+    reduceMotionNow = Boolean(value);
+    reduceMotionSubscribers.forEach((notify) => notify(reduceMotionNow));
+  };
+  AccessibilityInfo.isReduceMotionEnabled?.()
+    .then(publish)
+    .catch(() => undefined);
+  AccessibilityInfo.addEventListener?.("reduceMotionChanged", publish);
+}
+
 /** True while the phone asks apps to cut motion. Starts false and updates once the setting is read. */
 export function useReduceMotion() {
-  const [reduce, setReduce] = useState(false);
+  const [reduce, setReduce] = useState(reduceMotionNow);
   useEffect(() => {
-    let alive = true;
-    AccessibilityInfo.isReduceMotionEnabled?.()
-      .then((value) => {
-        if (alive) setReduce(Boolean(value));
-      })
-      .catch(() => undefined);
-    const sub = AccessibilityInfo.addEventListener?.("reduceMotionChanged", (value: boolean) => setReduce(Boolean(value)));
+    watchReduceMotion();
+    reduceMotionSubscribers.add(setReduce);
+    setReduce(reduceMotionNow);
     return () => {
-      alive = false;
-      sub?.remove?.();
+      reduceMotionSubscribers.delete(setReduce);
     };
   }, []);
   return reduce;
@@ -143,6 +159,7 @@ export const Camel = memo(function Camel({
   walking = false,
   range = 0,
   faceLeft = false,
+  tappable = false,
   style,
   testID
 }: CamelProps) {
@@ -191,11 +208,64 @@ export const Camel = memo(function Camel({
     };
   }, [step, pos, travel]);
 
+  const jump = useRef(new Animated.Value(0)).current;
+  const jumping = useRef(false);
+  const onTap = () => {
+    feedback("camel", "medium");
+    if (reduceMotion || jumping.current) return;
+    jumping.current = true;
+    jump.setValue(0);
+    Animated.timing(jump, { toValue: 1, duration: 760, easing: Easing.linear, useNativeDriver: true }).start(() => {
+      jumping.current = false;
+      jump.setValue(0);
+    });
+  };
+  const hop = useMemo(
+    () => ({
+      // Crouch, leap, land with a squash, settle.
+      y: jump.interpolate({ inputRange: [0, 0.12, 0.4, 0.66, 0.76, 0.88, 1], outputRange: [0, 2, -size * 0.36, 0, 1.5, -3, 0] }),
+      squash: jump.interpolate({ inputRange: [0, 0.12, 0.3, 0.66, 0.74, 0.86, 1], outputRange: [1, 0.88, 1.08, 1, 0.86, 1.03, 1] }),
+      spin: jump.interpolate({ inputRange: [0, 0.2, 0.45, 0.66, 1], outputRange: ["0deg", "-6deg", "-12deg", "4deg", "0deg"] }),
+      shadow: jump.interpolate({ inputRange: [0, 0.4, 0.66, 1], outputRange: [1, 0.55, 1, 1] }),
+      puff: jump.interpolate({ inputRange: [0, 0.64, 0.66, 0.95, 1], outputRange: [0, 0, 1, 0, 0] }),
+      puffSpread: jump.interpolate({ inputRange: [0, 0.66, 1], outputRange: [0, 0, 1] })
+    }),
+    [jump, size]
+  );
+
   const still = !moving;
-  return (
-    <View style={[{ width: size + travel, height }, style]} pointerEvents="none" testID={testID}>
-      <Animated.View style={[styles.shadow, { width: size * 0.62, left: size * 0.16, transform: [{ translateX: anim.x }] }]} />
-      <Animated.View style={{ width: size, height, transform: [{ translateX: anim.x }, { scaleX: still ? (faceLeft ? -1 : 1) : dir }] }}>
+  const camel = (
+    <>
+      <Animated.View style={[styles.shadow, { width: size * 0.62, left: size * 0.16, transform: [{ translateX: anim.x }, { scaleX: hop.shadow }] }]} />
+      {tappable
+        ? // Two dust puffs kicked up where the camel lands.
+          ([-1, 1] as const).map((side) => (
+            <Animated.View
+              key={side}
+              pointerEvents="none"
+              style={[
+                styles.puff,
+                {
+                  left: size * 0.5 - 7,
+                  opacity: hop.puff,
+                  transform: [
+                    { translateX: anim.x },
+                    { translateX: hop.puffSpread.interpolate({ inputRange: [0, 1], outputRange: [side * size * 0.2, side * size * 0.48] }) },
+                    { scale: hop.puffSpread.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1.3] }) }
+                  ]
+                }
+              ]}
+            />
+          ))
+        : null}
+      <Animated.View
+        style={{
+          width: size,
+          height,
+          transformOrigin: "bottom",
+          transform: [{ translateX: anim.x }, { translateY: hop.y }, { scaleX: still ? (faceLeft ? -1 : 1) : dir }, { rotate: hop.spin }, { scaleY: hop.squash }]
+        }}
+      >
         {still ? (
           <View style={StyleSheet.absoluteFill}>
             <Legs pose={STAND} />
@@ -214,11 +284,31 @@ export const Camel = memo(function Camel({
           <Body accent={accent} />
         </Animated.View>
       </Animated.View>
-    </View>
+    </>
+  );
+  if (!tappable) {
+    return (
+      <View style={[{ width: size + travel, height }, style]} pointerEvents="none" testID={testID}>
+        {camel}
+      </View>
+    );
+  }
+  return (
+    <Pressable onPress={onTap} hitSlop={8} accessibilityRole="button" accessibilityLabel="camel" style={[{ width: size + travel, height }, style]} testID={testID}>
+      {camel}
+    </Pressable>
   );
 });
 
 const styles = StyleSheet.create({
+  puff: {
+    position: "absolute",
+    bottom: -2,
+    width: 14,
+    height: 10,
+    borderRadius: 6,
+    backgroundColor: "#F3D598"
+  },
   shadow: {
     position: "absolute",
     bottom: 0,

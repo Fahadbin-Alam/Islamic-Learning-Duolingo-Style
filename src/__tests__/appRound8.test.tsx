@@ -299,6 +299,27 @@ describe("practice questions give their room to the feedback sheet first, as les
   });
 });
 
+describe("a practice question's skill label never gives its answer away", () => {
+  const daily = createFoundationAssessment(createEmptyLearnerProfile(), "daily_challenge");
+  const handlers = () => ({ onChangeSelectedAnswer: jest.fn(), onSubmit: jest.fn(), onContinue: jest.fn(), onExit: jest.fn() });
+  const show = (id: string) => {
+    const question = FOUNDATION_QUESTION_BANK.find((item) => item.id === id)!;
+    return render(<FoundationAssessmentScreen assessment={{ ...daily, currentQuestion: question }} language="en" selectedAnswer={undefined} {...handlers()} />);
+  };
+
+  it("leaves the label off 'Which pillar comes first?', whose answer is Shahadah", async () => {
+    await show("shahadah_01");
+    expect(screen.queryByTestId("assessment-skill")).toBeNull();
+    expect(screen.queryByText("الشَّهَادَةُ")).toBeNull();
+  });
+
+  it("keeps the label on other questions", async () => {
+    await show("shahadah_02");
+    expect(screen.getByTestId("assessment-skill")).toHaveTextContent("Shahadah");
+    expect(screen.getByText("الشَّهَادَةُ")).toBeTruthy();
+  });
+});
+
 describe("every tap on a shop item makes a sound", () => {
   const strings = getUiStrings("en");
   const section = COURSE.sections[0] as LearningSection;
@@ -330,6 +351,25 @@ describe("every tap on a shop item makes a sound", () => {
     await fireEvent.press(screen.getByTestId("shop-buy-gem-heart-refill"));
     expect(sounds()).toEqual(["soft_ui"]);
     expect(onUseItem).not.toHaveBeenCalled();
+  });
+
+  it("the free heart video never plays with full hearts: it would show an ad for nothing", async () => {
+    const onUseItem = jest.fn();
+    const full = makeUser({ hearts: { current: 5, max: 5, unlimited: false, lastRefillDate: "2026-10-20" } });
+    const view = await render(<ShopView user={full} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney />);
+    expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("Hearts are full");
+    (playGameSound as jest.Mock).mockClear();
+    await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-heart"));
+    expect(sounds()).toEqual(["soft_ui"]);
+    expect(onUseItem).not.toHaveBeenCalled();
+    // The gems video still plays, and with a heart missing the heart video does too.
+    await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-gems"));
+    expect(onUseItem).toHaveBeenCalledWith(expect.objectContaining({ id: "watch-ad-gems" }));
+    const missing = makeUser({ hearts: { current: 4, max: 5, unlimited: false, lastRefillDate: "2026-10-20" } });
+    await view.rerender(<ShopView user={missing} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney />);
+    expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("Watch a video");
+    await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-heart"));
+    expect(onUseItem).toHaveBeenCalledWith(expect.objectContaining({ id: "watch-ad-heart" }));
   });
 
   it("a row that can be bought plays a soft tap and never buys; its button buys", async () => {

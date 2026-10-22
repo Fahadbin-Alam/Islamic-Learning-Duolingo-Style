@@ -137,6 +137,33 @@ describe("LearnPath", () => {
     expect(screen.getAllByTestId(/^weather-/)).toHaveLength(2);
   });
 
+  it("draws skies and pictures only near the screen, so long topics like the Quran stay smooth", async () => {
+    const many: PathUnit[] = Array.from({ length: 8 }, (_, index) => ({
+      id: `u${index}`,
+      number: index + 1,
+      title: `Unit ${index + 1}`,
+      done: 0,
+      total: 1,
+      items: [{ kind: "node", node: view(index % foundation.nodes.length, index === 0 ? "current" : "locked"), lessonNumber: index + 1 }]
+    }));
+    await renderPath({ units: many });
+    // Before anything has measured: the unit with START and the one after it.
+    expect(screen.getAllByTestId(/^weather-/)).toHaveLength(2);
+    // Every circle is still there, so the path's length never changes.
+    for (let index = 0; index < 8; index += 1) expect(screen.getByTestId(`path-unit-u${index}`)).toBeTruthy();
+
+    const scroll = screen.getByTestId("learn-path-foundation");
+    await fireEvent(scroll, "layout", { nativeEvent: { layout: { x: 0, y: 0, width: 390, height: 700 } } });
+    for (let index = 0; index < 8; index += 1) {
+      await fireEvent(screen.getByTestId(`path-unit-u${index}`), "layout", { nativeEvent: { layout: { x: 0, y: index * 500, width: 390, height: 500 } } });
+    }
+    await fireEvent.scroll(scroll, { nativeEvent: { contentOffset: { x: 0, y: 3000 }, contentSize: { width: 390, height: 4000 }, layoutMeasurement: { width: 390, height: 700 } } });
+    // Screen shows 3000-3700: units 6 and 7, plus a screen's margin above (units 4 and 5).
+    const skies = screen.getAllByTestId(/^weather-/);
+    expect(skies).toHaveLength(4);
+    expect(screen.getByTestId("path-unit-u7")).toContainElement(skies[skies.length - 1]);
+  });
+
   it("opens a node card and starts the node", async () => {
     const { props } = await renderPath();
     const current = props.units[0].items[2];
