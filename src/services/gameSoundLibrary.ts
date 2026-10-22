@@ -10,7 +10,10 @@ export type GameSoundEvent =
   | "lesson_complete"
   | "streak"
   | "reward_chest"
-  | "soft_ui";
+  | "soft_ui"
+  | "camel"
+  | "splash"
+  | "boing";
 
 export type SoundTone = {
   frequency: number;
@@ -69,6 +72,33 @@ export const SOUND_LIBRARY: Record<GameSoundEvent, SoundTone[]> = {
   ],
   soft_ui: [
     { frequency: 540, durationMs: 44, gain: 0.018, type: "sine" }
+  ],
+  // A tapped camel: a silly low gurgle, then a hum.
+  camel: [
+    { frequency: 150, durationMs: 46, gain: 0.05, type: "sawtooth" },
+    { frequency: 118, durationMs: 46, delayMs: 34, gain: 0.05, type: "sawtooth" },
+    { frequency: 156, durationMs: 46, delayMs: 68, gain: 0.05, type: "sawtooth" },
+    { frequency: 112, durationMs: 46, delayMs: 102, gain: 0.05, type: "sawtooth" },
+    { frequency: 150, durationMs: 46, delayMs: 136, gain: 0.05, type: "sawtooth" },
+    { frequency: 104, durationMs: 46, delayMs: 170, gain: 0.05, type: "sawtooth" },
+    { frequency: 140, durationMs: 46, delayMs: 204, gain: 0.05, type: "sawtooth" },
+    { frequency: 96, durationMs: 46, delayMs: 238, gain: 0.05, type: "sawtooth" },
+    { frequency: 210, durationMs: 120, delayMs: 292, gain: 0.04, type: "triangle" }
+  ],
+  // The bucket hits the water: a bloop, then drops falling back in.
+  splash: [
+    { frequency: 360, durationMs: 70, gain: 0.05, type: "sine" },
+    { frequency: 620, durationMs: 70, delayMs: 50, gain: 0.05, type: "sine" },
+    { frequency: 980, durationMs: 60, delayMs: 100, gain: 0.04, type: "sine" },
+    { frequency: 1400, durationMs: 40, delayMs: 220, gain: 0.025, type: "sine" },
+    { frequency: 1250, durationMs: 40, delayMs: 300, gain: 0.022, type: "sine" },
+    { frequency: 1550, durationMs: 40, delayMs: 370, gain: 0.02, type: "sine" }
+  ],
+  // Any other picture beside the path: a springy pop.
+  boing: [
+    { frequency: 280, durationMs: 60, gain: 0.035, type: "triangle" },
+    { frequency: 420, durationMs: 60, delayMs: 40, gain: 0.035, type: "triangle" },
+    { frequency: 640, durationMs: 80, delayMs: 80, gain: 0.03, type: "triangle" }
   ]
 };
 

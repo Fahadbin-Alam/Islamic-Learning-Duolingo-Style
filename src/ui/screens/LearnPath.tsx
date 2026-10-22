@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Easing,
@@ -22,9 +22,9 @@ import { ArabicText, withHonorifics } from "../ArabicText";
 import { noBreakHyphens } from "../lesson/lessonText";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
-import { Camel } from "../Camel";
+import { Camel, useReduceMotion } from "../Camel";
 import { Mascot } from "../Mascot";
-import { PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
+import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
 import { PathWeather, weatherFor } from "../PathWeather";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
@@ -125,12 +125,21 @@ const NODE_LIP = 7;
 const RING = 96;
 const ROW_H = 98;
 const CURRENT_EXTRA = 46;
+/** Where a circle's face starts inside its RING box (the hit box is centred with a half-lip top margin). */
+const FACE_TOP = (RING - NODE) / 2 - NODE_LIP / 4;
 const CHEST = 68;
 const MASCOT_SIZE = 84;
 const MASCOT_W = MASCOT_SIZE;
 const MASCOT_H = Math.round((MASCOT_SIZE * 7) / 6);
 const DECOR_SIZE = 64;
-const SCENERY_EVERY = 4;
+const SCENERY_EVERY = 3;
+/** Small grass tufts and pebbles on rows with nothing else beside the circle. */
+const TUFT_SIZE = 26;
+/**
+ * Units within this many screen heights of the screen draw their sky, pictures and icons; the rest keep
+ * only their plain circles (same size, so nothing moves). Long topics like the Quran stay smooth this way.
+ */
+const LIVE_MARGIN = 1;
 /** Room the unit banner takes above the rows, for sizing the sky (it only needs to be about right). */
 const SKY_BANNER = 130;
 const CAMEL_SIZE = 72;
@@ -303,34 +312,60 @@ function nodeLook(node: LearningNodeView, color: string, unitDone: boolean, prem
  * GameButton. Tappable only scales, so like GameButton this is built on Pressable and plays
  * the kit feedback (`node_tap` and a medium haptic) itself.
  */
-function PathNode({
+/** A soft ring that keeps swelling out of the circle to play next, so the eye finds it. */
+function CurrentHalo({ color }: { color: string }) {
+  const reduceMotion = useReduceMotion();
+  const pulse = useLoop(
+    (value) =>
+      Animated.sequence([
+        Animated.timing(value, { toValue: 1, duration: 1500, easing: Easing.out(Easing.quad), useNativeDriver: true }),
+        Animated.timing(value, { toValue: 0, duration: 0, useNativeDriver: true }),
+        Animated.delay(500)
+      ]),
+    !reduceMotion
+  );
+  if (reduceMotion) return null;
+  const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.95, 1.5] });
+  const opacity = pulse.interpolate({ inputRange: [0, 0.15, 1], outputRange: [0, 0.45, 0] });
+  return <Animated.View style={[styles.halo, { backgroundColor: color, opacity, transform: [{ scale }] }]} pointerEvents="none" />;
+}
+
+const PathNode = memo(function PathNode({
+  rowKey,
   node,
   color,
   unitDone,
   premium,
   current,
   progress,
+  showIcon = true,
   onPress
 }: {
+  rowKey: string;
   node: LearningNodeView;
   color: string;
   unitDone: boolean;
   premium: boolean;
   current: boolean;
   progress?: number;
-  onPress: () => void;
+  /** Far from the screen the circle skips its icon drawing; it comes back before it scrolls into view. */
+  showIcon?: boolean;
+  onPress: (rowKey: string) => void;
 }) {
   const look = nodeLook(node, color, unitDone, premium);
   const press = useRef(new Animated.Value(0)).current;
   const translateY = press.interpolate({ inputRange: [0, 1], outputRange: [0, NODE_LIP] });
+  const locked = look.face === colors.locked;
 
   return (
     <View style={styles.nodeBox}>
+      <View style={styles.nodeGround} pointerEvents="none" />
+      {current ? <CurrentHalo color={color} /> : null}
       {current ? <ProgressRing color={color} track={lighten(color, 0.78)} progress={progress ?? 0} /> : null}
       <Pressable
         onPress={() => {
           feedback("node_tap", "medium");
-          onPress();
+          onPress(rowKey);
         }}
         onPressIn={() => Animated.timing(press, { toValue: 1, duration: 60, useNativeDriver: true }).start()}
         onPressOut={() => Animated.spring(press, { toValue: 0, friction: 5, tension: 260, useNativeDriver: true }).start()}
@@ -341,13 +376,17 @@ function PathNode({
       >
         <View style={[styles.nodeLip, { backgroundColor: look.lip }]} pointerEvents="none" />
         <Animated.View style={[styles.nodeFace, { backgroundColor: look.face, transform: [{ translateY }] }]} pointerEvents="none">
+          {/* A darker lower half and a light rim make the flat circle read as a round, pressable button. */}
+          <View style={[styles.nodeShade, { backgroundColor: withAlpha(look.lip, locked ? 0.18 : 0.22) }]} />
+          <View style={[styles.nodeRim, { borderColor: withAlpha(colors.white, locked ? 0.45 : 0.28) }]} />
           <View style={styles.nodeShine} />
-          <Icon name={look.icon} size={34} color={look.iconColor} detailColor={look.iconDetail} />
+          <View style={styles.nodeShineDot} />
+          {showIcon ? <Icon name={look.icon} size={34} color={look.iconColor} detailColor={look.iconDetail} /> : null}
         </Animated.View>
       </Pressable>
     </View>
   );
-}
+});
 
 // ---------- hint bubble ----------
 
@@ -744,9 +783,9 @@ function PathEnd({
           <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} />
         </View>
         {width - 8 - camelStart >= CAMEL_SIZE ? (
-          <View style={[styles.mascot, { left: camelStart, top: END_NODE + END_LIP - CAMEL_H }]} pointerEvents="none">
+          <View style={[styles.mascot, { left: camelStart, top: END_NODE + END_LIP - CAMEL_H }]} pointerEvents="box-none">
             {/* Faces the trophy; it walks a little victory lap once the topic is done. */}
-            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking={done} faceLeft testID="path-end-camel" />
+            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking={done} faceLeft tappable testID="path-end-camel" />
           </View>
         ) : null}
         <View style={[styles.endSlot, { left: center - END_NODE / 2 }]}>
@@ -846,6 +885,8 @@ export function LearnPath({
   /** Unit (and the JUMP HERE circle) whose "Jump ahead?" sheet is up; the ids stay while the sheet slides away. */
   const [testOut, setTestOut] = useState<{ unitId: string; nodeId?: string; open: boolean } | undefined>(undefined);
   const [seenTopic, setSeenTopic] = useState(topicId);
+  /** Units drawn in full (see LIVE_MARGIN), by index. Unset until the units have measured themselves. */
+  const [live, setLive] = useState<{ lo: number; hi: number } | undefined>(undefined);
   const viewport = useRef(0);
   const scrollY = useRef(0);
   const unitY = useRef<Record<string, number>>({});
@@ -871,6 +912,7 @@ export function LearnPath({
     setCardH(undefined);
     setStickyId(undefined);
     setTestOut(undefined);
+    setLive(undefined);
     scrolledToCurrent.current = false;
     focusConsumed.current = true;
     animateFocus.current = false;
@@ -1023,6 +1065,28 @@ export function LearnPath({
     [layout, stickyHeight]
   );
 
+  const updateLive = useCallback(
+    (y: number) => {
+      const screen = viewport.current;
+      if (screen <= 0) return;
+      const groups = layout.byUnit;
+      let lo = -1;
+      let hi = -1;
+      for (let i = 0; i < groups.length; i += 1) {
+        const top = unitY.current[groups[i].unit.id];
+        if (top === undefined) continue;
+        const bottom = i + 1 < groups.length ? unitY.current[groups[i + 1].unit.id] ?? Infinity : Infinity;
+        if (bottom >= y - screen * LIVE_MARGIN && top <= y + screen * (1 + LIVE_MARGIN)) {
+          if (lo < 0) lo = i;
+          hi = i;
+        }
+      }
+      if (lo < 0) return;
+      setLive((previous) => (previous && previous.lo === lo && previous.hi === hi ? previous : { lo, hi }));
+    },
+    [layout]
+  );
+
   /** Never stop with a unit banner half under the top edge: show it whole, or scroll past so the sticky banner takes over. */
   const snapPastBanners = useCallback(
     (target: number, allowUp: boolean) => {
@@ -1047,8 +1111,9 @@ export function LearnPath({
       scrollRef.current?.scrollTo({ y, animated });
       scrollY.current = y;
       updateSticky(y);
+      updateLive(y);
     },
-    [snapPastBanners, updateSticky]
+    [snapPastBanners, updateSticky, updateLive]
   );
 
   const tryScrollToCurrent = useCallback(() => {
@@ -1126,6 +1191,10 @@ export function LearnPath({
     setOpenId(key);
   };
   const toggle = (key: string) => open(openId === key ? undefined : key);
+  // Circles are memoized: they get one press handler for the life of the path that calls the latest toggle.
+  const toggleRef = useRef(toggle);
+  toggleRef.current = toggle;
+  const onNodePress = useCallback((key: string) => toggleRef.current(key), []);
   const close = () => {
     if (openId) open(undefined);
   };
@@ -1142,6 +1211,9 @@ export function LearnPath({
 
   const center = width / 2;
   const currentUnitIndex = layout.byUnit.findIndex((group) => group.unit.id === layout.currentUnitId);
+  // Until the units have measured themselves, draw the ones around where the path opens.
+  const focusUnitIndex = Math.max(0, layout.byUnit.findIndex((group) => group.unit.id === layout.focusUnitId));
+  const isLive = (unitIndex: number) => (live ? unitIndex >= live.lo && unitIndex <= live.hi : Math.abs(unitIndex - focusUnitIndex) <= 1 || unitIndex === 0);
   const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
   const openRow = findRow(openId);
   const testOutGroup = testOut ? layout.byUnit.find((group) => group.unit.id === testOut.unitId) : undefined;
@@ -1160,6 +1232,7 @@ export function LearnPath({
           const y = event.nativeEvent.contentOffset.y;
           scrollY.current = y;
           updateSticky(y);
+          updateLive(y);
           // react-native-web never fires onScrollBeginDrag, so a user scroll closes the card here.
           if (openId && Date.now() > programmaticUntil.current && Math.abs(y - openedAtY.current) > 30) close();
         }}
@@ -1184,16 +1257,20 @@ export function LearnPath({
             const nearCurrent = currentUnitIndex < 0 ? group.unitIndex < 2 : Math.abs(group.unitIndex - currentUnitIndex) <= 1;
             const unitDone = unit.total > 0 && unit.done >= unit.total;
             const holdsOpen = openRow?.group.unit.id === unit.id;
+            const unitLive = holdsOpen || isLive(group.unitIndex);
             return (
               <View
                 key={unit.id}
                 style={[styles.unit, holdsOpen ? styles.raised : null]}
+                testID={`path-unit-${unit.id}`}
                 onLayout={(event) => {
                   unitY.current[unit.id] = event.nativeEvent.layout.y;
                   tryScrollToCurrent();
                 }}
               >
-                <PathWeather weather={group.weather} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
+                {unitLive ? (
+                  <PathWeather weather={group.weather} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
+                ) : null}
                 <UnitBanner
                   unit={unit}
                   color={color}
@@ -1234,15 +1311,23 @@ export function LearnPath({
                           if (row.key === layout.focusKey || row.key === layout.earnedChest?.key) tryScrollToCurrent();
                         }}
                       >
-                        {pictures ? (
-                          <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="none">
-                            <View style={styles.decorShadow} />
-                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} />
+                        {pictures && unitLive ? (
+                          <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none">
+                            <View style={styles.decorShadow} pointerEvents="none" />
+                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} tappable />
                           </View>
                         ) : null}
-                        {index === group.camelIndex ? (
-                          <View style={[styles.mascot, { left: camelLeft, top: top + (NODE + NODE_LIP - CAMEL_H) / 2 }]} pointerEvents="none">
-                            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking testID="path-camel" />
+                        {unitLive && !pictures && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
+                          <View
+                            style={[styles.tuft, { left: side < 0 ? 10 + (index % 3) * 8 : width - 10 - TUFT_SIZE - (index % 3) * 8, top: top + NODE - 8 }]}
+                            pointerEvents="none"
+                          >
+                            <GroundTuft variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                          </View>
+                        ) : null}
+                        {index === group.camelIndex && unitLive ? (
+                          <View style={[styles.mascot, { left: camelLeft, top: top + (NODE + NODE_LIP - CAMEL_H) / 2 }]} pointerEvents="box-none">
+                            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking tappable testID="path-camel" />
                           </View>
                         ) : null}
                         {index === group.mascotIndex ? (
@@ -1259,13 +1344,15 @@ export function LearnPath({
                         {row.item.kind === "node" ? (
                           <View style={[styles.slot, { left: nodeCenter - RING / 2, top: top - (RING - NODE - NODE_LIP) / 2 }]}>
                             <PathNode
+                              rowKey={row.key}
                               node={row.item.node}
                               color={color}
                               unitDone={unitDone}
                               premium={premium}
                               current={row.current}
                               progress={row.item.progress}
-                              onPress={() => toggle(row.key)}
+                              showIcon={unitLive}
+                              onPress={onNodePress}
                             />
                           </View>
                         ) : (
@@ -1407,13 +1494,58 @@ const styles = StyleSheet.create({
   },
   nodeShine: {
     position: "absolute",
-    top: 8,
-    left: 14,
-    width: 22,
-    height: 10,
+    top: 9,
+    left: 13,
+    width: 24,
+    height: 11,
     borderRadius: 6,
-    backgroundColor: withAlpha(colors.white, 0.32),
-    transform: [{ rotate: "-24deg" }]
+    backgroundColor: withAlpha(colors.white, 0.4),
+    transform: [{ rotate: "-28deg" }]
+  },
+  nodeShineDot: {
+    position: "absolute",
+    top: 22,
+    left: 10,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: withAlpha(colors.white, 0.35)
+  },
+  nodeShade: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: NODE * 0.42
+  },
+  nodeRim: {
+    position: "absolute",
+    left: 4,
+    top: 4,
+    right: 4,
+    bottom: 4,
+    borderRadius: NODE / 2,
+    borderWidth: 2.5
+  },
+  nodeGround: {
+    position: "absolute",
+    top: FACE_TOP + NODE + NODE_LIP - 8,
+    width: NODE * 0.8,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: withAlpha(colors.ink, 0.06)
+  },
+  halo: {
+    position: "absolute",
+    top: FACE_TOP,
+    width: NODE,
+    height: NODE,
+    borderRadius: NODE / 2
+  },
+  tuft: {
+    position: "absolute",
+    width: TUFT_SIZE,
+    height: TUFT_SIZE
   },
   tagSlot: {
     position: "absolute",
