@@ -20,6 +20,8 @@ export type ChoiceTileProps = {
   layout?: "row" | "square";
   /** Short phones: smaller text and padding so more tiles fit. */
   compact?: boolean;
+  /** Less padding still, for a set of tiles too tall for its screen otherwise (see ExerciseView). */
+  tight?: boolean;
   /** Smaller text for long answers. Defaults to this label's length; pass it so a whole set matches. */
   long?: boolean;
   testID?: string;
@@ -50,7 +52,7 @@ const LOOKS: Record<ChoiceTileState, Look> = {
 export const LONG_LABEL = 80;
 
 /** Big answer tile. Pops when selected, shakes when wrong. Text always wraps. */
-export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconColor, layout = "row", compact, long: longProp, testID, accessibilityLabel }: ChoiceTileProps) {
+export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconColor, layout = "row", compact, tight, long: longProp, testID, accessibilityLabel }: ChoiceTileProps) {
   const look = LOOKS[state];
   const interactive = state !== "disabled" && state !== "dimmed";
   const press = useRef(new Animated.Value(0)).current;
@@ -137,6 +139,7 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
               styles.face,
               square ? styles.squareFace : styles.rowFace,
               compact ? (square ? styles.squareFaceCompact : styles.rowFaceCompact) : null,
+              tight && !square ? styles.rowFaceTight : null,
               { backgroundColor: look.bg, borderColor: look.border, transform: [{ translateY }] }
             ]}
           >
@@ -198,6 +201,10 @@ const styles = StyleSheet.create({
     minHeight: 50,
     paddingHorizontal: 14,
     paddingVertical: 9
+  },
+  rowFaceTight: {
+    minHeight: 44,
+    paddingVertical: 6
   },
   squareFaceCompact: {
     minHeight: 104,

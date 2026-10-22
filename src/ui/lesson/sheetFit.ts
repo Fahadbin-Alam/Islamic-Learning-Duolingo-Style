@@ -229,31 +229,11 @@ export function tilesUnderSheet({
 }
 
 /**
- * The tiles a question's scroll view cuts at its bottom edge, at `edge` in the scroll content, or would cut once that
- * edge drops by `drop` (the arrow's room under it, when the arrow goes): each starts above it and ends more than a
- * lip's last pixel under it. Tiles wholly under the edge are not cut, only out of sight.
+ * Whether a question sitting at its top reaches past the bottom of its room, `bottom` being where its last tile ends in
+ * the scroll content (its lip included): the room's edge would then cut that tile. A lip's last pixel may reach past.
  */
-export function tilesAcrossEdge({
-  ids,
-  boxes,
-  gap,
-  columns = 1,
-  tilesTop,
-  edge,
-  drop = 0
-}: {
-  ids: string[];
-  boxes: Record<string, LayoutBox | undefined>;
-  gap: number;
-  columns?: number;
-  tilesTop: number;
-  edge: number;
-  drop?: number;
-}): string[] {
-  return ids.filter((id) => {
-    const span = stackSpan(ids, boxes, id, gap, columns);
-    return span !== undefined && tilesTop + span.top < edge + drop && tilesTop + span.bottom > edge + TILE_EDGE;
-  });
+export function overRoom(roomHeight: number, bottom: number) {
+  return bottom > roomHeight + TILE_EDGE;
 }
 
 /** A part of a scrolling list that shows whole or not at all: a row, the Why pill, one line of the Why text. */

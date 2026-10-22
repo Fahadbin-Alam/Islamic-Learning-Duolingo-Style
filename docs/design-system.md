@@ -88,12 +88,11 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   A lesson question that fits its screen sits in the middle of the room above CHECK, from the first frame it
   shows (never at the top first), and keeps that place
   when CHECK is tapped, its Why line opens or tiles fold; it scrolls only when the sheet would cover the
-  green tile, and only as far as that needs. A question taller than its room shows whole tiles only while
-  it sits at its top: a tile its bottom edge would cut is gone, with the arrow under it. It comes in with the
-  learner's scroll, whole a line's height down, and goes with it on the way back, gone again at the top.
-  The scroll view keeps its full height, so the last tile needs no more scrolling than before. Once CHECK
-  is tapped such a tile stays away until the sheet knows where its top edge ends, as the arrow goes at
-  once and that edge drops into the arrow's room.
+  green tile, and only as far as that needs. A question taller than its room (a long "Try again!" question
+  on a small phone) draws its tiles tight, with less padding in each, from the first frame it shows, so
+  every answer is in sight and whole, never one cut by the room's bottom edge; it keeps them so through
+  the sheet, and the next try is measured again. Only a question too tall even then scrolls as before, and its
+  last tile can then show cut at the room's edge; no question in the course is that tall at 320 px.
   The sheet never covers the prompt or the green tile, its Why line open. The question gives its room
   first: on a short phone the grey tiles fold away and the mascot hides (until the next question), so the
   sheet can stay full size. Only when that is not enough does the sheet go slim (less padding, a smaller

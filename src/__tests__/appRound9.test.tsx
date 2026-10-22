@@ -24,7 +24,7 @@ jest.mock("../ui/screens/FormattedCount", () => {
 });
 
 import React from "react";
-import { Dimensions, Platform, ScrollView, StyleSheet } from "react-native";
+import { Dimensions, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react-native";
 import { FoundationAssessmentScreen } from "../components/FoundationLearning";
 import { COURSE, SHOP_ITEMS } from "../data/course";
@@ -35,7 +35,7 @@ import { createEmptyLearnerProfile, createFoundationAssessment, submitFoundation
 import type { FoundationAssessmentState, LearningSection } from "../types";
 import { ExerciseView, FeedbackSheet, LessonComplete, OrderGame } from "../ui/lesson";
 import { WHY_LINE } from "../ui/lesson/FeedbackSheet";
-import { nearestRowStop, nextRowStop, tilesAcrossEdge, tilesUnderSheet, wholeRows, type RowSpan } from "../ui/lesson/sheetFit";
+import { nearestRowStop, nextRowStop, overRoom, tilesUnderSheet, wholeRows, type RowSpan } from "../ui/lesson/sheetFit";
 import { AppTopBar, ShopView, StreakSheet } from "../ui/screens";
 import { statValueSize } from "../ui/screens/ProfileView";
 import { makeUser } from "./testUtils";
@@ -300,7 +300,7 @@ describe("a tile the sheet's top edge would cut fades away, in lessons", () => {
   });
 });
 
-describe("a lesson question taller than its room shows whole tiles while it sits at its top", () => {
+describe("a lesson question taller than its room draws its tiles tight, so every answer shows whole", () => {
   const long = {
     kind: "multiple_choice" as const,
     prompt: "What is Urwah ibn Abi al-Ja'd al-Bariqi known for?",
@@ -310,99 +310,102 @@ describe("a lesson question taller than its room shows whole tiles while it sits
       { id: "c", label: "He was the last companion to pass away in Syria." },
       { id: "d", label: "He was the second caliph, called al-Faruq." }
     ],
+    attempt: 1,
     mascotVariant: "boy",
     accent: "#21B573",
     onSelect: jest.fn(),
     onCheck: jest.fn(),
     onContinue: jest.fn()
   };
-  const TILE = 70;
-  const LAST = 92;
+  const checkedResult = { correct: false, correctLabel: long.choices[1].label, why: "Sahih al-Bukhari 3642." };
+  /** The space under each tile here (not a short phone). */
   const GAP = 12;
-  const scroller = () => {
-    let node = screen.getByTestId("exercise-prompt").parent!;
-    while (!node.props.contentContainerStyle) node = node.parent!;
-    return node;
+  /** The padding above and under a tile's text. */
+  const padding = (id: string) => {
+    const tile = screen.getByTestId(`choice-${id}`);
+    const face = tile.children.map((child) => (typeof child === "string" ? {} : flat(child.props.style))).find((style) => style.borderWidth === 2);
+    return face?.paddingVertical;
   };
   const wrapper = (id: string) => {
     let node = screen.getByTestId(`choice-${id}`, { includeHiddenElements: true }).parent!;
     while (!node.props.onLayout) node = node.parent!;
     return node;
   };
-  /** Out of reach of taps (drawn at 0, or not yet whole). */
-  const veiled = (id: string) => wrapper(id).props.pointerEvents === "none";
-  const scrollTo = (y: number) =>
-    fireEvent.scroll(scroller(), { nativeEvent: { contentOffset: { x: 0, y }, contentSize: { width: 288, height: 470 }, layoutMeasurement: { width: 288, height: 384 } } });
+  /** In sight and in reach of taps. */
+  const shown = (id: string) => wrapper(id).props.pointerEvents === "auto" && flat(wrapper(id).props.style).opacity !== 0;
 
-  /** The prompt at 8 + 38 in the content and the tiles right under it, from 106: tile d spans 352 to 444. */
-  async function laidOut(room: number) {
-    // The room above the bar holds the scroll view.
-    await fireEvent(scroller().parent!, "layout", layout(room));
-    await fireEvent(scroller(), "layout", layout(room));
-    await fireEvent(scroller(), "contentSizeChange", 288, 470);
-    for (const [index, id] of ["a", "b", "c", "d"].entries()) {
-      await fireEvent(wrapper(id), "layout", layout(index === 3 ? LAST : TILE, index * (TILE + GAP)));
-    }
-    await fireEvent(screen.getByTestId("exercise-prompt"), "layout", layout(60, 38));
-    await fireEvent(screen.getByTestId("exercise-tiles"), "layout", layout(3 * (TILE + GAP) + LAST, 98));
+  /** The room above the bar, and the question (chip, prompt and tiles, the space under its last tile included). */
+  async function laidOut(room: number, question: number) {
+    await fireEvent(screen.getByTestId("exercise-room"), "layout", layout(room));
+    await fireEvent(screen.getByTestId("exercise-question"), "layout", layout(question, 8));
   }
 
-  it("keeps the tile its bottom edge would cut out of sight, at the scroll view's full height, and brings it in as the learner scrolls", async () => {
+  it("draws the tiles tight when the room's bottom edge would cut the last one, every tile in sight and in reach", async () => {
     await render(<ExerciseView {...long} />);
-    await laidOut(384);
-    // The edge at 384 would cut tile d (352 to 444): it is drawn at 0 and takes no taps, under three whole tiles.
-    expect(veiled("d")).toBe(true);
-    expect(flat(wrapper("d").props.style).opacity).toBe(0);
-    ["a", "b", "c"].forEach((id) => expect(veiled(id)).toBe(false));
-    // A screen reader still finds it, and so scrolls it into view.
-    expect(screen.getByTestId("choice-d")).toBeTruthy();
-    // The scroll view is not cut short, so the last tile is no further away than before.
-    expect(flat(scroller().props.style).marginBottom).toBeUndefined();
-    // It comes in with a hand's scroll, whole a line's height down, and goes with it on the way back up.
-    await scrollTo(12);
-    expect(flat(wrapper("d").props.style).opacity).toBe(0.5);
-    expect(veiled("d")).toBe(true);
-    await scrollTo(60);
-    expect(flat(wrapper("d").props.style).opacity).toBe(1);
-    expect(veiled("d")).toBe(false);
-    await scrollTo(6);
-    expect(flat(wrapper("d").props.style).opacity).toBe(0.25);
-    // Back at the top it is gone in that very render, so no frame there shows it cut.
-    await scrollTo(0);
-    expect(flat(wrapper("d").props.style).opacity).toBe(0);
-    expect(veiled("d")).toBe(true);
+    // Loose, the last tile would end at 8 + 434 - 12 = 430, past the room's edge at 406.
+    await laidOut(406, 434);
+    ["a", "b", "c", "d"].forEach((id) => {
+      expect(padding(id)).toBe(6);
+      expect(shown(id)).toBe(true);
+    });
   });
 
-  it("leaves every tile alone when nothing more is hidden below", async () => {
+  it("leaves the tiles of a question that fits as they are", async () => {
     await render(<ExerciseView {...long} />);
-    // At 450 tile d shows whole and the 20 px still below are no more than the arrow's slack.
-    await laidOut(450);
-    ["a", "b", "c", "d"].forEach((id) => expect(veiled(id)).toBe(false));
+    // The last tile ends at 430, a pixel past a room of 429: only its lip's last pixel, which may reach past.
+    await laidOut(429, 434);
+    ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
   });
 
-  it("keeps it out of sight once CHECK is tapped, until the render that knows where the sheet's top ends", async () => {
+  it("keeps them tight through CHECK and the sheet, so no tile moves, and reads a new try again", async () => {
     const { rerender } = await render(<ExerciseView {...long} />);
-    await laidOut(384);
-    await fireEvent(screen.getByTestId("exercise-view"), "layout", layout(500));
-    await rerender(<ExerciseView {...long} selectedChoiceId="c" correctChoiceId="b" result={{ correct: false, correctLabel: long.choices[1].label, why: "Sahih al-Bukhari 3642." }} />);
-    // The arrow goes at once and the edge drops into its room: tile d is still out of sight.
-    expect(veiled("d")).toBe(true);
+    await laidOut(406, 434);
+    await rerender(<ExerciseView {...long} selectedChoiceId="c" correctChoiceId="b" result={checkedResult} />);
+    // The question now fits (tight, tiles folded): it stays as it was when CHECK was tapped.
+    await laidOut(406, 300);
+    expect(padding("b")).toBe(6);
     await sheetHeight(150);
-    // The sheet's top at 500 - 150 = 350 in the content: tile d, which it would cut, goes in this render.
-    expect(screen.queryByTestId("choice-d")).toBeNull();
-    expect(screen.getByTestId("choice-c")).toBeTruthy();
-    expect(veiled("c")).toBe(false);
+    expect(padding("b")).toBe(6);
+    // The next try is read afresh: one that fits gets the usual padding.
+    await rerender(<ExerciseView {...long} attempt={2} />);
+    await laidOut(406, 360);
+    ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
+  });
+
+  it("is tight from the frame it first shows where a view can say its size before the frame is drawn", async () => {
+    const heights: Record<string, number> = { "exercise-room": 406, "exercise-question": 434 };
+    Object.defineProperty(View.prototype, "offsetHeight", {
+      configurable: true,
+      get(this: { props: { testID?: string } }) {
+        return heights[this.props.testID ?? ""] ?? 0;
+      }
+    });
+    try {
+      await render(<ExerciseView {...long} />);
+      // No layout event yet.
+      ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(6));
+    } finally {
+      delete (View.prototype as { offsetHeight?: number }).offsetHeight;
+    }
   });
 
   it("glides back up on CHECK after the learner scrolled past the prompt to reach the last tile", async () => {
     const scrollTo$ = scrollSpy();
+    const TILE = 70;
     try {
       const { rerender } = await render(<ExerciseView {...long} />);
-      await laidOut(384);
       await fireEvent(screen.getByTestId("exercise-view"), "layout", layout(500));
+      await laidOut(384, 3 * (TILE + GAP) + 92 + GAP + 98);
+      for (const [index, id] of ["a", "b", "c", "d"].entries()) {
+        await fireEvent(wrapper(id), "layout", layout(index === 3 ? 92 : TILE, index * (TILE + GAP)));
+      }
+      await fireEvent(screen.getByTestId("exercise-prompt"), "layout", layout(60, 38));
+      await fireEvent(screen.getByTestId("exercise-tiles"), "layout", layout(3 * (TILE + GAP) + 92, 98));
       // Scrolled to the end, 52 down, past the prompt's top at 46.
-      await scrollTo(52);
-      await rerender(<ExerciseView {...long} selectedChoiceId="d" correctChoiceId="b" result={{ correct: false, correctLabel: long.choices[1].label, why: "Sahih al-Bukhari 3642." }} />);
+      let scroller = screen.getByTestId("exercise-prompt").parent!;
+      while (!scroller.props.contentContainerStyle) scroller = scroller.parent!;
+      await fireEvent.scroll(scroller, { nativeEvent: { contentOffset: { x: 0, y: 52 }, contentSize: { width: 288, height: 470 }, layoutMeasurement: { width: 288, height: 384 } } });
+      await rerender(<ExerciseView {...long} selectedChoiceId="d" correctChoiceId="b" result={checkedResult} />);
       scrollTo$.mockClear();
       await sheetHeight(150);
       // Back to the top in a glide, as any scroll the question makes on CHECK, never a jump.
@@ -413,18 +416,11 @@ describe("a lesson question taller than its room shows whole tiles while it sits
     }
   });
 
-  it("finds the tiles the bottom edge cuts, or would cut once it drops into the arrow's room", () => {
-    const boxes = Object.fromEntries(["a", "b", "c", "d"].map((id) => [id, { y: 999, height: 54 }]));
-    const ids = ["a", "b", "c", "d"];
-    // A column from 100: tiles at 100, 164, 228, 292. An edge at 250 cuts c only; d is wholly under it.
-    expect(tilesAcrossEdge({ ids, boxes, gap: 10, tilesTop: 100, edge: 250 })).toEqual(["c"]);
-    // An edge in the gap under b cuts none, unless it drops past c's top.
-    expect(tilesAcrossEdge({ ids, boxes, gap: 10, tilesTop: 100, edge: 222 })).toEqual([]);
-    expect(tilesAcrossEdge({ ids, boxes, gap: 10, tilesTop: 100, edge: 222, drop: 22 })).toEqual(["c"]);
-    // Past the last tile, none.
-    expect(tilesAcrossEdge({ ids, boxes, gap: 10, tilesTop: 100, edge: 400, drop: 22 })).toEqual([]);
-    // A grid of two rows (100 to 154, 164 to 218): an edge at 200 cuts both tiles of the second row.
-    expect(tilesAcrossEdge({ ids, boxes, gap: 10, columns: 2, tilesTop: 100, edge: 200 })).toEqual(["c", "d"]);
+  it("finds a question whose last tile the room's bottom edge would cut", () => {
+    expect(overRoom(406, 430)).toBe(true);
+    // A lip's last pixel may reach past the edge.
+    expect(overRoom(406, 407)).toBe(false);
+    expect(overRoom(406, 380)).toBe(false);
   });
 });
 
