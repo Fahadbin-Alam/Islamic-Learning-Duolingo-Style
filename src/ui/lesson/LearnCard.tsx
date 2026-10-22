@@ -12,6 +12,7 @@ import { colors, darken, fonts, lip, radii, space, text, topicPalette } from "..
 import { LessonBottomBar } from "./LessonHeader";
 import { looksSame, noBreakHyphens, normalizeText } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
+import { getActiveLanguage, t } from "../../i18n";
 
 export type LearnCardProps = {
   /** Lesson title, e.g. "As-Salamu Alaikum". Hidden when it only repeats the Arabic word's transliteration. */
@@ -117,7 +118,7 @@ export function LearnCard({
   const narrow = width > 0 && width < 360;
   // The title is hidden when the word card or the mascot already says the same thing.
   const showTitle =
-    normalizeText(line) !== normalizeText(title) && (!arabic || (!looksSame(title, arabic.translit) && !looksSame(title, arabic.meaning)));
+    normalizeText(line) !== normalizeText(title) && (!arabic || (!looksSame(title, arabic.translit) && !looksSame(title, t(arabic.meaning))));
   const { ref, scrollProps, more, scrollDown } = useScrollMore();
   const learnReference = learnSource?.reference?.trim();
   const source = learnSource
@@ -150,7 +151,7 @@ export function LearnCard({
           {arabic && isNewWord ? (
             <PopIn style={styles.newPill}>
               <Icon name="sparkle" size={16} color={GOLD_INK} />
-              <Text style={styles.newText}>NEW</Text>
+              <Text style={styles.newText}>{t("NEW")}</Text>
             </PopIn>
           ) : null}
           {showTitle ? (
@@ -166,7 +167,7 @@ export function LearnCard({
                 style={[styles.card, short ? styles.cardShort : null, { borderColor: palette.soft, backgroundColor: palette.light }]}
                 accessible={!onPlayAudio}
                 accessibilityRole={showTitle ? undefined : "header"}
-                accessibilityLabel={`${arabic.translit}: ${arabic.meaning}`}
+                accessibilityLabel={`${arabic.translit}: ${t(arabic.meaning)}`}
               >
                 <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
                   {arabic.ar}
@@ -178,7 +179,7 @@ export function LearnCard({
                       onPress={onPlayAudio}
                       style={[styles.speaker, short || narrow ? styles.speakerSmall : null]}
                       pressScale={0.9}
-                      accessibilityLabel={`Play ${arabic.translit}`}
+                      accessibilityLabel={t("Play {word}", { word: arabic.translit })}
                       testID="learn-audio"
                     >
                       <View style={[styles.speakerLip, short || narrow ? styles.speakerLipSmall : null]} />
@@ -187,11 +188,14 @@ export function LearnCard({
                       </View>
                     </Tappable>
                   ) : null}
-                  <Text style={[styles.translit, short || narrow ? styles.translitSmall : null]}>
-                    {withHonorifics(noBreakHyphens(arabic.translit))}
-                  </Text>
+                  {/* Arabic readers read the word itself, so the Latin spelling is left out. */}
+                  {getActiveLanguage() === "ar" ? null : (
+                    <Text style={[styles.translit, short || narrow ? styles.translitSmall : null]}>
+                      {withHonorifics(noBreakHyphens(arabic.translit))}
+                    </Text>
+                  )}
                 </View>
-                <Text style={styles.meaning}>{withHonorifics(noBreakHyphens(arabic.meaning))}</Text>
+                <Text style={styles.meaning}>{withHonorifics(noBreakHyphens(t(arabic.meaning)))}</Text>
               </View>
             </PopIn>
           ) : null}
@@ -252,7 +256,7 @@ export function LearnCard({
                     <Tappable
                       onPress={() => openSource(source.url)}
                       style={styles.quoteLink}
-                      accessibilityLabel={`Open source ${quoteReference}`}
+                      accessibilityLabel={t("Open source {name}", { name: quoteReference })}
                       accessibilityRole="link"
                       hitSlop={6}
                       testID="learn-source"
@@ -276,7 +280,7 @@ export function LearnCard({
               <Tappable
                 onPress={() => openSource(source.url)}
                 style={styles.sourceChip}
-                accessibilityLabel={`Open source ${source.label}`}
+                accessibilityLabel={t("Open source {name}", { name: source.label })}
                 accessibilityRole="link"
                 testID="learn-source"
               >
@@ -294,7 +298,7 @@ export function LearnCard({
       </View>
 
       <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more, onPress: scrollDown }}>
-        <GameButton label="Continue" fullWidth onPress={onContinue} testID="learn-continue" />
+        <GameButton label={t("Continue")} fullWidth onPress={onContinue} testID="learn-continue" />
       </LessonBottomBar>
     </View>
   );
@@ -337,7 +341,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3
   },
   newText: {
-    marginLeft: 4,
+    marginStart: 4,
     fontFamily: fonts.displayHeavy,
     fontSize: 14,
     lineHeight: 20,
@@ -398,7 +402,7 @@ const styles = StyleSheet.create({
   speaker: {
     width: SPEAKER,
     height: SPEAKER + lip.button,
-    marginRight: space.sm
+    marginEnd: space.sm
   },
   speakerSmall: {
     width: SPEAKER_SMALL,
@@ -461,7 +465,7 @@ const styles = StyleSheet.create({
   bubbleWrap: {
     flex: 1,
     minWidth: 0,
-    marginLeft: space.xs,
+    marginStart: space.xs,
     alignItems: "flex-start"
   },
   talkColumn: {
@@ -574,8 +578,8 @@ const styles = StyleSheet.create({
   },
   quoteLinkText: {
     marginTop: 0,
-    marginLeft: 5,
-    marginRight: 2
+    marginStart: 5,
+    marginEnd: 2
   },
   sourceWrap: {
     marginTop: space.xl,
@@ -593,15 +597,15 @@ const styles = StyleSheet.create({
     borderRadius: radii.pill,
     backgroundColor: colors.white,
     minHeight: 40,
-    paddingLeft: 14,
-    paddingRight: 10,
+    paddingStart: 14,
+    paddingEnd: 10,
     paddingVertical: 6
   },
   sourceChevron: {
-    marginLeft: 4
+    marginStart: 4
   },
   sourceText: {
-    marginLeft: 6,
+    marginStart: 6,
     flexShrink: 1,
     fontFamily: fonts.bodyHeavy,
     fontSize: 14,

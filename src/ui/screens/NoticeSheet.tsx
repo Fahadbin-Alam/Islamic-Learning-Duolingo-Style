@@ -6,6 +6,7 @@ import { Mascot, type MascotMood } from "../Mascot";
 import { Sheet } from "../Sheet";
 import { colors, space, text } from "../theme";
 import { moodSound, useBackToClose, useOpenSound } from "./sheetParts";
+import { t } from "../../i18n";
 // In-game replacements for Alert.alert and the browser's alert()/confirm().
 
 type MascotLook = {
@@ -61,7 +62,7 @@ function Head({ title, line, mood, mascotVariant = "girl", accent }: MascotLook 
 }
 
 /** Mascot, a short title, one short line and OK. */
-export function NoticeSheet({ visible, title, line, button = "OK", mood = "happy", mascotVariant, accent, sound, onClose, testID = "notice-sheet" }: NoticeSheetProps) {
+export function NoticeSheet({ visible, title, line, button = t("OK"), mood = "happy", mascotVariant, accent, sound, onClose, testID = "notice-sheet" }: NoticeSheetProps) {
   useBackToClose(visible, onClose);
   useOpenSound(visible, sound ?? moodSound(mood), `${title}\n${line ?? ""}`);
   return (
@@ -80,7 +81,7 @@ export function ConfirmSheet({
   title,
   line,
   confirmLabel,
-  cancelLabel = "Keep",
+  cancelLabel = t("Keep"),
   danger = true,
   mood = "think",
   mascotVariant,
@@ -189,7 +190,7 @@ export function useNotices(defaults: MascotLook = {}) {
         visible={current?.kind === "confirm"}
         title={ask?.title ?? ""}
         line={ask?.line}
-        confirmLabel={ask?.confirmLabel ?? "OK"}
+        confirmLabel={ask?.confirmLabel ?? t("OK")}
         cancelLabel={ask?.options.cancelLabel}
         danger={ask?.options.danger}
         {...look(ask?.options, "think")}

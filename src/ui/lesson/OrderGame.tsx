@@ -13,6 +13,7 @@ import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
 import { sheetRoom, type LayoutBox } from "./sheetFit";
+import { t } from "../../i18n";
 
 export type OrderOption = { id: string; label: string; icon?: IconName };
 
@@ -165,7 +166,7 @@ const FOLD_SETTLE_MS = 120;
 /** Tap-to-order mini game (wudu / salah steps). A wrong CHECK shows the right order right away, like Duolingo. */
 export function OrderGame({
   title,
-  prompt = "Put the steps in order!",
+  prompt = t("Put the steps in order!"),
   options,
   correctOrderIds,
   mascotVariant,
@@ -382,17 +383,17 @@ export function OrderGame({
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
         <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more && checked === null, onPress: scrollDown }}>
           {/* The result sound plays when the sheet opens, so CHECK itself stays quiet. */}
-          <GameButton label="Check" fullWidth sound={false} disabled={!ready || checked !== null} onPress={check} testID="order-check" />
+          <GameButton label={t("Check")} fullWidth sound={false} disabled={!ready || checked !== null} onPress={check} testID="order-check" />
         </LessonBottomBar>
       </View>
 
       <FeedbackSheet
         visible={checked !== null}
         correct={sheet.correct}
-        title={sheet.correct ? "Perfect order!" : "Correct order:"}
+        title={sheet.correct ? t("Perfect order!") : t("Correct order:")}
         correctList={correctList}
         missedRows={missedRows}
-        buttonLabel={sheet.correct ? "Continue" : "Try again"}
+        buttonLabel={sheet.correct ? t("Continue") : t("Try again")}
         onContinue={sheet.correct ? onDone : retry}
         playSound={playSound}
         bottomInset={bottomInset}
@@ -487,7 +488,7 @@ const styles = StyleSheet.create({
   chipIcon: {
     width: 24,
     height: 24,
-    marginRight: 6
+    marginEnd: 6
   },
   hiddenIcon: {
     opacity: 0
@@ -519,7 +520,7 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     borderRadius: 9,
-    marginRight: 5
+    marginEnd: 5
   },
   numberTextFill: {
     fontSize: 12,
@@ -548,7 +549,7 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 8
+    marginEnd: 8
   },
   numberText: {
     fontFamily: fonts.displayHeavy,

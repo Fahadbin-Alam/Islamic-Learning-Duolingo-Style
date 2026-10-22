@@ -141,6 +141,26 @@ export function getFoundationQuestionById(questionId: string) {
   return FOUNDATION_QUESTION_BANK.find((question) => question.id === questionId);
 }
 
+/** A pick shown in another language, mapped back to the question bank's English option (a typed answer stays as typed). */
+export function toEnglishAnswer(
+  question: FoundationQuestion,
+  answer: string | string[] | Record<string, string>,
+  language: SupportedLanguage
+): string | string[] | Record<string, string> {
+  if (language === "en") {
+    return answer;
+  }
+  const pool = [...(question.options ?? []), ...(question.orderItems ?? []), ...(question.pairs ?? []).flatMap((pair) => [pair.left, pair.right])];
+  const back = (value: string) => pool.find((option) => translateStudyText(option, language) === value) ?? value;
+  if (typeof answer === "string") {
+    return back(answer);
+  }
+  if (Array.isArray(answer)) {
+    return answer.map(back);
+  }
+  return Object.fromEntries(Object.entries(answer).map(([key, value]) => [back(key), back(value)]));
+}
+
 export function localizeFoundationQuestion(question: FoundationQuestion, language: SupportedLanguage): FoundationQuestion {
   if (language === "en") {
     return question;
@@ -225,10 +245,17 @@ export function submitFoundationAssessmentAnswer(input: {
   /** 1 to 4. Leave it out (or pass CONFIDENCE_NOT_ASKED) and it follows the answer, as in lessons. */
   confidence?: number;
   responseTimeMs: number;
+  /** The language the question was shown in. The answer is matched back to the question bank's English. */
+  language?: SupportedLanguage;
 }) {
-  const { profile, state, selectedAnswer, responseTimeMs } = input;
+  const { profile, state, responseTimeMs } = input;
+  const language = input.language ?? "en";
   const question = state.currentQuestion;
-  const isCorrect = evaluateFoundationAnswer(question, selectedAnswer);
+  const selectedAnswer = toEnglishAnswer(question, input.selectedAnswer, language);
+  // A typed answer may be in the learner's language or in English.
+  const isCorrect =
+    evaluateFoundationAnswer(question, selectedAnswer) ||
+    (language !== "en" && evaluateFoundationAnswer(localizeFoundationQuestion(question, language), input.selectedAnswer));
   const confidence = input.confidence && input.confidence > CONFIDENCE_NOT_ASKED ? input.confidence : isCorrect ? 3 : 2;
   const answerRecord: AssessmentAnswerRecord = {
     questionId: question.id,
@@ -251,7 +278,8 @@ export function submitFoundationAssessmentAnswer(input: {
     totalQuestions: state.totalQuestions + (retry ? 1 : 0),
     answerHistory: [...state.answerHistory, answerRecord],
     feedback,
-    selectedAnswer,
+    // The pick as shown, so the tiles stay marked.
+    selectedAnswer: input.selectedAnswer,
     confidence
   };
 

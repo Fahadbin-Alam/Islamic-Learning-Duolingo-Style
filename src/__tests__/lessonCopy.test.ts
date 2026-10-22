@@ -6,6 +6,7 @@ import { buildGuidedLesson } from "../services/lessonGuidance";
 import type { Challenge, Lesson } from "../types";
 import { getLessonLine, isPlayablePractice, LESSON_LINE_MAX_WORDS, lessonLineWords } from "../ui/lesson/lessonSteps";
 import { shortWhy } from "../ui/lesson/lessonText";
+import { t } from "../i18n";
 
 // Each lesson the app writes itself teaches one line on its learn card and asks about that line.
 // Imported notes ("lesson-notes-...") have their own rules and checks.
@@ -214,7 +215,7 @@ describe("round 3 copy rules", () => {
     const sahabah = ownLessons.filter((lesson) => lesson.nodeId.startsWith("sahabi-"));
     expect(sahabah.filter((lesson) => /\(ra\)|The Firsts/.test(lesson.learnSource?.reference ?? "")).map((lesson) => lesson.id)).toEqual([]);
     // A localized lesson keeps its chip, pointing at the same ayah.
-    const localized = localizeLessonContent(thanks!, "fr");
+    const localized = localizeLessonContent(thanks!, "bn");
     expect(decodeURIComponent(localized.learnSource?.url ?? "")).toContain("quran.com/14/7");
   });
 

@@ -8,6 +8,7 @@ import { feedback, type HapticKind } from "../sound";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, fonts, lighten, radii, space, text } from "../theme";
+import { t } from "../../i18n";
 // Small pieces shared by the app sheets (account, settings, refill, language, notices).
 
 /** Android back button closes the sheet instead of leaving the app. */
@@ -72,7 +73,7 @@ export function SheetTitle({ title, onClose, closeTestID }: { title: string; onC
         {title}
       </Text>
       {onClose ? (
-        <Tappable onPress={onClose} style={styles.close} accessibilityLabel="Close" hitSlop={8} pressScale={0.9} testID={closeTestID}>
+        <Tappable onPress={onClose} style={styles.close} accessibilityLabel={t("Close")} hitSlop={8} pressScale={0.9} testID={closeTestID}>
           <Icon name="close" size={20} color={colors.inkSoft} />
         </Tappable>
       ) : null}
@@ -111,6 +112,18 @@ export function Toggle({ label, icon, value, onToggle, testID }: { label: string
       <Icon name={icon} size={26} />
       <Text style={styles.toggleLabel}>{label}</Text>
       <SwitchTrack value={value} />
+    </Tappable>
+  );
+}
+
+/** A settings row that opens another sheet, showing its current value ("Language  বাংলা >"). */
+export function LinkRow({ label, value, icon, onPress, testID }: { label: string; value: string; icon: IconName; onPress: () => void; testID: string }) {
+  return (
+    <Tappable onPress={onPress} pressScale={0.98} style={styles.toggleRow} accessibilityRole="button" accessibilityLabel={`${label}, ${value}`} testID={testID}>
+      <Icon name={icon} size={26} />
+      <Text style={styles.toggleLabel}>{label}</Text>
+      <Text style={styles.linkValue} numberOfLines={1}>{value}</Text>
+      <Icon name="chevronRight" size={18} color={colors.inkSoft} />
     </Tappable>
   );
 }
@@ -259,6 +272,11 @@ const styles = StyleSheet.create({
     minWidth: 0,
     flexShrink: 1
   },
+  linkValue: {
+    ...text.bodyBold,
+    color: colors.inkSoft,
+    flexShrink: 1
+  },
   track: {
     width: 50,
     height: 30,
@@ -300,6 +318,6 @@ const styles = StyleSheet.create({
     ...text.tiny,
     color: colors.wrongInk,
     marginTop: space.xs,
-    marginLeft: space.xs
+    marginStart: space.xs
   }
 });

@@ -3,6 +3,7 @@ import { Animated, Dimensions, Keyboard, Platform, StyleSheet, View, type Keyboa
 import { Portal } from "./Portal";
 import { Tappable } from "./Tappable";
 import { colors, radii } from "./theme";
+import { t } from "../i18n";
 
 export type SheetTone = "white" | "correct" | "wrong";
 
@@ -121,7 +122,7 @@ export function Sheet({
         <Animated.View style={[StyleSheet.absoluteFill, styles.backdrop, { opacity: progress }]}>
           {canDismiss ? (
             // Tapping outside closes the sheet with the same soft tap as any button.
-            <Tappable style={StyleSheet.absoluteFill} onPress={onClose} pressScale={1} accessibilityLabel="Close" />
+            <Tappable style={StyleSheet.absoluteFill} onPress={onClose} pressScale={1} accessibilityLabel={t("Close")} />
           ) : (
             // Still catches taps so nothing behind the sheet can be pressed.
             <View style={StyleSheet.absoluteFill} />

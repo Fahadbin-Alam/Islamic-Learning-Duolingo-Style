@@ -42,14 +42,20 @@ import {
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import {
   DEFAULT_LANGUAGE,
+  deviceLanguage,
+  getLanguageOption,
   getNodeTitle,
   getTopicCopy,
   getUiStrings,
   LANGUAGE_OPTIONS,
+  isRtlLanguage,
   LANGUAGE_PICKER_ENABLED,
-  normalizeLanguage
+  normalizeLanguage,
+  setActiveLanguage,
+  t
 } from "./i18n";
 import { localizeLessonContent } from "./services/contentLocalization";
+import { localizedLessonLine, localizedWhy } from "./ui/lesson/localizedLines";
 import {
   clearLocalAuthAccount,
   createLocalAuthAccount,
@@ -151,7 +157,7 @@ import {
   type TabKey,
   type TopicPickerTopic
 } from "./ui/screens";
-import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, getLessonProgress, isPlayablePractice, lessonStars, shortWhy } from "./ui/lesson";
+import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import type {
   AccountRole,
@@ -189,11 +195,6 @@ type Screen =
 type AnswerState = "correct" | "wrong" | undefined;
 type AuthMode = "create" | "login";
 type SocialProvider = SocialIdentity["provider"];
-
-const SOCIAL_PROVIDER_LABELS: Record<SocialProvider, string> = {
-  google: "Continue with Google",
-  apple: "Continue with Apple"
-};
 
 type JourneyRewardStop = {
   id: string;
@@ -501,7 +502,9 @@ export default function TopicApp() {
   const [crew, setCrew] = useState<CrewState>({ status: "idle" });
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
+  // The tile picked in the language sheet, and the language shown before the learner has saved one.
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
+  const [startLanguage, setStartLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
@@ -579,7 +582,10 @@ export default function TopicApp() {
 
       if (mounted) {
         setHasSavedAccount(Boolean(knownAccount));
-        setPendingLanguage(normalizeLanguage(user.preferredLanguage));
+        // A first launch on a Bangla, Urdu or Arabic phone starts in that language and asks once.
+        const phoneLanguage = user.preferredLanguage ? undefined : deviceLanguage();
+        setPendingLanguage(normalizeLanguage(user.preferredLanguage ?? phoneLanguage));
+        setStartLanguage(normalizeLanguage(phoneLanguage));
 
         if (knownAccount) {
           setAccountName(knownAccount.name);
@@ -595,7 +601,7 @@ export default function TopicApp() {
         setSettingsSoundEnabled(user.soundEffectsEnabled !== false);
         setSettingsReducedSound(Boolean(user.reducedSoundEffects));
 
-        if (LANGUAGE_PICKER_ENABLED && !user.preferredLanguage) {
+        if (LANGUAGE_PICKER_ENABLED && phoneLanguage) {
           setLanguageModalVisible(true);
         }
 
@@ -654,7 +660,9 @@ export default function TopicApp() {
   }, [activeAssessment, assessmentOwnerKey, practiceResult, state.loading]);
 
 
-  const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? pendingLanguage);
+  const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? startLanguage);
+  // t() reads the active language, so set it before any child renders.
+  setActiveLanguage(currentLanguage);
   const strings = useMemo(() => getUiStrings(currentLanguage), [currentLanguage]);
   const learnerProfile = state.user?.learnerProfile ?? createEmptyLearnerProfile();
   const soundPreferences = useMemo(
@@ -725,7 +733,13 @@ export default function TopicApp() {
         title: topicCopy.title,
         description: topicCopy.description,
         focus: topicCopy.focus,
-        badge: topicCopy.badge
+        badge: topicCopy.badge,
+        branches: section.branches.map((branch) => ({
+          ...branch,
+          title: t(branch.title, undefined, currentLanguage),
+          description: t(branch.description, undefined, currentLanguage)
+        })),
+        nodes: section.nodes.map((node) => ({ ...node, title: getNodeTitle(node.id, node.title, currentLanguage) }))
       };
     });
   }, [currentLanguage]);
@@ -953,7 +967,8 @@ export default function TopicApp() {
       profile: learnerProfile,
       state: activeAssessment,
       selectedAnswer: activeAssessment.selectedAnswer,
-      responseTimeMs: Date.now() - activeAssessment.questionStartedAt
+      responseTimeMs: Date.now() - activeAssessment.questionStartedAt,
+      language: currentLanguage
     });
     const gainedXp = getAssessmentXp(activeAssessment.mode, result.feedback.correct);
 
@@ -1049,7 +1064,7 @@ export default function TopicApp() {
     }
 
     if (node.status === "locked") {
-      void notify("Not yet!", "Finish the circle before it.", { mood: "think" });
+      void notify(t("Not yet!"), t("Finish the circle before it."), { mood: "think" });
       return;
     }
 
@@ -1087,7 +1102,7 @@ export default function TopicApp() {
     }
 
     if (!plan || !canTestOut(plan.lessons)) {
-      void notify("Nothing to skip yet.", undefined, { mood: "think" });
+      void notify(t("Nothing to skip yet."), undefined, { mood: "think" });
       return;
     }
 
@@ -1290,7 +1305,7 @@ export default function TopicApp() {
 
       // LessonComplete plays the finish, streak and XP sounds itself.
       setLessonCompleteSummary({
-        headline: "You jumped ahead!",
+        headline: t("You jumped ahead!"),
         title: state.activeSession.clusterTitle ?? state.activeSession.lesson.title,
         xp: nextUser.totalXp - user.totalXp,
         streakExtended: didExtendStreak(user, nextUser),
@@ -1400,7 +1415,7 @@ export default function TopicApp() {
         const watched = readRewardedGemVideos();
 
         if (gemVideo && rewardedGemVideosLeft(watched, today) === 0) {
-          void notify("That's all for today", "Come back tomorrow for more gems.", { mood: "think" });
+          void notify(t("That's all for today"), t("Come back tomorrow for more gems."), { mood: "think" });
           return;
         }
 
@@ -1419,7 +1434,7 @@ export default function TopicApp() {
             }
           });
         } else if (reward.message) {
-          void notify("No video right now", "Try again later.", { mood: "think" });
+          void notify(t("No video right now"), t("Try again later."), { mood: "think" });
         }
 
         return;
@@ -1433,7 +1448,7 @@ export default function TopicApp() {
           dispatch({ type: "sync_premium", premium: purchase.premium });
         }
       } else if (!purchase.cancelled && purchase.message) {
-        void notify("Not bought", "Try again later.", { mood: "think" });
+        void notify(t("Not bought"), t("Try again later."), { mood: "think" });
       }
     } finally {
       setShopBusy(false);
@@ -1455,8 +1470,8 @@ export default function TopicApp() {
       }
 
       void (result.premium?.active
-        ? notify("Premium is back!", undefined, { mood: "cheer" })
-        : notify("Nothing to restore", undefined, { mood: "think" }));
+        ? notify(t("Premium is back!"), undefined, { mood: "cheer" })
+        : notify(t("Nothing to restore"), undefined, { mood: "think" }));
     } finally {
       setShopBusy(false);
     }
@@ -1539,7 +1554,7 @@ export default function TopicApp() {
 
     // This device already holds that account (logged out): log in to get its progress back.
     if (savedAccount && normalizeEmail(savedAccount.email) === email) {
-      failAccount("That email has an account. Log in!");
+      failAccount(t("That email has an account. Log in!"));
       return;
     }
 
@@ -1568,7 +1583,7 @@ export default function TopicApp() {
       nextUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user)));
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
-        failAccount(error instanceof BackendRequestError && error.status === 409 ? "That email has an account. Log in!" : "Could not sign up. Try again.");
+        failAccount(error instanceof BackendRequestError && error.status === 409 ? t("That email has an account. Log in!") : t("Could not sign up. Try again."));
         return;
       }
     }
@@ -1593,8 +1608,8 @@ export default function TopicApp() {
     setAccountModalVisible(false);
     setCrew({ status: "idle" });
     void (returning
-      ? notify(`Welcome back, ${firstName(pendingAccount.name)}!`, undefined, { mood: "cheer" })
-      : notify(`Welcome, ${firstName(pendingAccount.name)}!`, "Your progress is saved.", { mood: "cheer" }));
+      ? notify(t("Welcome back, {name}!", { name: firstName(pendingAccount.name) }), undefined, { mood: "cheer" })
+      : notify(t("Welcome, {name}!", { name: firstName(pendingAccount.name) }), t("Your progress is saved."), { mood: "cheer" }));
   }
 
   async function loginAccount() {
@@ -1628,7 +1643,7 @@ export default function TopicApp() {
       return;
     } catch (error) {
       if (error instanceof Error && !isBackendOfflineError(error)) {
-        failAccount("Wrong email or password.");
+        failAccount(t("Wrong email or password."));
         return;
       }
     }
@@ -1638,12 +1653,12 @@ export default function TopicApp() {
 
     // An account made with Google or Apple has no password here.
     if (saved && !saved.password && saved.provider && saved.provider !== "password" && normalizeEmail(saved.email) === normalizeEmail(accountEmail)) {
-      failAccount(saved.provider === "apple" ? "Use Continue with Apple." : "Use Continue with Google.");
+      failAccount(saved.provider === "apple" ? t("Use Continue with Apple.") : t("Use Continue with Google."));
       return;
     }
 
     if (!account) {
-      failAccount("Wrong email or password.");
+      failAccount(t("Wrong email or password."));
       return;
     }
 
@@ -1667,7 +1682,7 @@ export default function TopicApp() {
     setAccountError(undefined);
     setAccountModalVisible(false);
     setCrew({ status: "idle" });
-    void notify(`Welcome back, ${firstName(name)}!`, undefined, { mood: "cheer" });
+    void notify(t("Welcome back, {name}!", { name: firstName(name) }), undefined, { mood: "cheer" });
   }
 
   async function saveAccountSettings() {
@@ -1714,7 +1729,7 @@ export default function TopicApp() {
 
     const leaving = state.user;
 
-    if (!(await confirm("Log out?", undefined, "Log out", { cancelLabel: "Stay" }))) {
+    if (!(await confirm(t("Log out?"), undefined, t("Log out"), { cancelLabel: t("Stay") }))) {
       return;
     }
 
@@ -1739,7 +1754,7 @@ export default function TopicApp() {
     }
 
     resetToGuest(guestUser, false);
-    void notify("Logged out", "Log in to pick up again.", { mood: "wave" });
+    void notify(t("Logged out"), t("Log in to pick up again."), { mood: "wave" });
   }
 
   async function deleteAccount() {
@@ -1749,7 +1764,7 @@ export default function TopicApp() {
 
     const leaving = state.user;
 
-    if (!(await confirm("Delete account?", "This cannot be undone.", "Delete"))) {
+    if (!(await confirm(t("Delete account?"), t("This cannot be undone."), t("Delete")))) {
       return;
     }
 
@@ -1758,8 +1773,8 @@ export default function TopicApp() {
         await deleteRemoteAccount();
       } catch (error) {
         void (error instanceof Error && isBackendOfflineError(error)
-          ? notify("No internet. Try again.", undefined, { mood: "sad" })
-          : notify("Could not delete it", "Try again later.", { mood: "sad" }));
+          ? notify(t("No internet. Try again."), undefined, { mood: "sad" })
+          : notify(t("Could not delete it"), t("Try again later."), { mood: "sad" }));
         return;
       }
     }
@@ -1769,7 +1784,7 @@ export default function TopicApp() {
       ...fallbackUser,
       preferredLanguage: leaving.preferredLanguage ?? DEFAULT_LANGUAGE
     }))), true);
-    void notify("Account deleted", undefined, { mood: "sad" });
+    void notify(t("Account deleted"), undefined, { mood: "sad" });
   }
 
   // `forget` (Delete account) also removes the account and the progress it left on this device.
@@ -1825,7 +1840,7 @@ export default function TopicApp() {
       }
 
       if (result.status !== "ok") {
-        failAccount(provider === "google" ? "Google sign-in didn't work. Try again." : "Apple sign-in didn't work. Try again.");
+        failAccount(provider === "google" ? t("Google sign-in didn't work. Try again.") : t("Apple sign-in didn't work. Try again."));
         return;
       }
 
@@ -1880,11 +1895,11 @@ export default function TopicApp() {
       return;
     } catch (error) {
       if (error instanceof BackendRequestError && error.status === 404) {
-        failAccount("No account yet. Sign up first!");
+        failAccount(t("No account yet. Sign up first!"));
         return;
       }
       if (error instanceof Error && !isBackendOfflineError(error)) {
-        failAccount("Could not sign in. Try again.");
+        failAccount(t("Could not sign in. Try again."));
         return;
       }
     }
@@ -1905,7 +1920,7 @@ export default function TopicApp() {
     }
 
     if (!creating) {
-      failAccount("No account yet. Sign up first!");
+      failAccount(t("No account yet. Sign up first!"));
       return;
     }
 
@@ -1946,14 +1961,14 @@ export default function TopicApp() {
         status: "error",
         message: error instanceof Error && !isBackendOfflineError(error)
           ? error.message
-          : "Your crew needs an internet connection. Check your connection and try again."
+          : t("Your crew needs an internet connection. Check your connection and try again.")
       });
     }
   }
 
   async function addCrewFriend() {
     if (!isValidEmail(inviteEmail)) {
-      void notify("Check the email", undefined, { mood: "think" });
+      void notify(t("Check the email"), undefined, { mood: "think" });
       return;
     }
 
@@ -2073,7 +2088,7 @@ export default function TopicApp() {
 
   if (state.loading || !state.user) {
     return (
-      <View style={safeArea} testID="safe-area">
+      <View style={[safeArea, isRtlLanguage(currentLanguage) && styles.rightToLeft]} {...webDirection(isRtlLanguage(currentLanguage))} testID="safe-area">
         <StatusBar barStyle="dark-content" />
         <View style={styles.centerPane}>
           <Mascot variant="hijabi" mood="wave" size={110} />
@@ -2084,7 +2099,7 @@ export default function TopicApp() {
   }
 
   const inLesson = state.screen.startsWith("lesson_") || state.screen === "assessment";
-  const enabledSocialProviders = socialProviders.map((id) => ({ id, label: SOCIAL_PROVIDER_LABELS[id] }));
+  const enabledSocialProviders = socialProviders.map((id) => ({ id, label: id === "google" ? t("Continue with Google") : t("Continue with Apple") }));
   const activeTab = tabForScreen(state.screen);
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
   // gem heart item the learner can pay for. Otherwise the out-of-hearts sheet offers PRACTICE.
@@ -2103,6 +2118,9 @@ export default function TopicApp() {
   const lessonStep = state.lessonQueue[state.stepIndex];
   const challenge = lessonStep ? lesson?.challenges[lessonStep.index] : undefined;
   const correctLabel = challenge?.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
+  // The learn line and the Why line are cut from the English lesson, then translated, so each language says the same.
+  const englishLesson = state.activeSession?.lesson;
+  const englishChallenge = lessonStep ? englishLesson?.challenges[lessonStep.index] : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   const lessonProgress = getLessonProgress({
@@ -2151,10 +2169,11 @@ export default function TopicApp() {
   );
 
   return (
-    <View style={safeArea} testID="safe-area">
+    <View style={[safeArea, isRtlLanguage(currentLanguage) && styles.rightToLeft]} {...webDirection(isRtlLanguage(currentLanguage))} testID="safe-area">
       <StatusBar barStyle="dark-content" />
       {/* Sheets and pops draw in the host's top layer, over the top bar and tabs too. */}
-      <PortalHost style={styles.appShell}>
+      {/* Keyed by language so every screen, memoized ones too, redraws in the new language and direction. */}
+      <PortalHost key={currentLanguage} style={styles.appShell}>
         {!inLesson && (
           <AppTopBar
             topicId={selectedSection.topicId}
@@ -2196,7 +2215,7 @@ export default function TopicApp() {
           <LearnCard
             key={lesson.id}
             title={lesson.title}
-            line={getLessonLine(lesson)}
+            line={localizedLessonLine(englishLesson ?? lesson, currentLanguage)}
             arabic={lessonArabic}
             // NEW only the first time the topic shows this word, not on its unit's word or a word met before,
             // and not on a replay of a finished circle: the learner has met it.
@@ -2241,12 +2260,7 @@ export default function TopicApp() {
                 ? {
                     correct: state.answerState === "correct",
                     correctLabel,
-                    why: shortWhy({
-                      explanation: challenge.explanation,
-                      easierExplanation: challenge.easierExplanation,
-                      prompt: challenge.prompt,
-                      correctLabel
-                    })
+                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage)
                   }
                 : undefined}
               attempt={lessonStep.attempt}
@@ -2435,6 +2449,12 @@ export default function TopicApp() {
           onLogout={logoutAccount}
           onDeleteAccount={state.user.hasAccount ? deleteAccount : undefined}
           guest={!state.user.hasAccount}
+          languageLabel={getLanguageOption(currentLanguage).nativeLabel}
+          onOpenLanguage={() => {
+            setPendingLanguage(currentLanguage);
+            setSettingsModalVisible(false);
+            setLanguageModalVisible(true);
+          }}
         />
         <RefillSheet
           visible={Boolean(outOfHearts?.open)}
@@ -2442,7 +2462,7 @@ export default function TopicApp() {
           maxHearts={state.user.hearts.max}
           mascotVariant={inLesson ? lessonMascot : selectedSection.mascot}
           accent={inLesson ? lessonAccent : selectedSection.accentColor}
-          endLabel={outOfHearts?.inLesson === false ? "Not now" : undefined}
+          endLabel={outOfHearts?.inLesson === false ? t("Not now") : undefined}
           canGetHearts={canGetHearts}
           onPractice={() => {
             closeOutOfHearts();
@@ -2454,10 +2474,10 @@ export default function TopicApp() {
         />
         <ConfirmSheet
           visible={Boolean(testOutResult?.open)}
-          title={`${testOutResult?.correct ?? 0} of ${testOutResult?.asked ?? 0} right`}
-          line={`Get ${testOutResult?.passingScore ?? 0} of ${testOutResult?.total ?? 0} to jump ahead.`}
-          confirmLabel="Try again"
-          cancelLabel="Back"
+          title={t("{correct} of {total} right", { correct: testOutResult?.correct ?? 0, total: testOutResult?.asked ?? 0 })}
+          line={t("Get {count} of {total} to jump ahead.", { count: testOutResult?.passingScore ?? 0, total: testOutResult?.total ?? 0 })}
+          confirmLabel={t("Try again")}
+          cancelLabel={t("Back")}
           danger={false}
           mood="sad"
           mascotVariant={lessonMascot}
@@ -2580,25 +2600,25 @@ function firstName(name: string) {
 function crewErrorTitle(error: unknown, action: "add" | "remove" | "answer") {
   if (error instanceof BackendRequestError && error.status < 500) {
     if (action === "answer") {
-      return "That request is gone";
+      return t("That request is gone");
     }
 
     if (action === "add" && error.status === 404) {
-      return "No account with that email";
+      return t("No account with that email");
     }
 
     if (action === "add" && error.status === 400) {
-      return "That's you!";
+      return t("That's you!");
     }
 
     if (action === "add" && error.status === 409) {
-      return "Already in your crew";
+      return t("Already in your crew");
     }
 
-    return action === "add" ? "Could not add them" : "Could not remove them";
+    return action === "add" ? t("Could not add them") : t("Could not remove them");
   }
 
-  return "No internet. Try again.";
+  return t("No internet. Try again.");
 }
 
 function isBackendOfflineError(error: Error) {
@@ -2714,7 +2734,7 @@ function buildLessonSignal(
     difficulty,
     signalId: `${nodeId}_${challenge.id}`,
     tags,
-    reviewNext: node?.title ?? "Review this lesson",
+    reviewNext: node?.title ?? t("Review this lesson"),
     responseTimeMs,
     correct
   };
@@ -2797,8 +2817,8 @@ function getJourneyRewardStops(user: UserProfile, section: LearningSection, bran
 
       return {
         id: rewardId,
-        title: index === nodes.length - 1 ? "Branch treasure" : "Reward chest",
-        copy: index === nodes.length - 1 ? "A tidy little gem drop for finishing this stretch of the path." : "Open this after clearing the path up to here.",
+        title: index === nodes.length - 1 ? t("Branch treasure") : t("Reward chest"),
+        copy: index === nodes.length - 1 ? t("A tidy little gem drop for finishing this stretch of the path.") : t("Open this after clearing the path up to here."),
         gemsReward: index === nodes.length - 1 ? 25 : 12,
         unlocked,
         claimed: claimed.has(rewardId)
@@ -2817,18 +2837,25 @@ function TestStrip({ passingScore, total, accent }: { passingScore: number; tota
     <PopIn from="up" style={styles.testStrip}>
       <View style={[styles.testChip, { backgroundColor: lighten(accent, 0.85) }]} testID="test-out-label">
         <Icon name="key" size={18} />
-        <Text style={[styles.testChipText, { color: darken(accent, 0.4) }]}>TEST</Text>
+        <Text style={[styles.testChipText, { color: darken(accent, 0.4) }]}>{t("TEST")}</Text>
       </View>
       <Text style={styles.testGoal} testID="test-out-goal">
-        Get {passingScore} of {total} right
+        {t("Get {count} of {total} right", { count: passingScore, total })}
       </Text>
     </PopIn>
   );
 }
 
+// The direction style flips start/end on phones; react-native-web only flips them under a dir attribute.
+function webDirection(rtl: boolean): object {
+  return Platform.OS === "web" ? { dir: rtl ? "rtl" : "ltr" } : {};
+}
+
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.snow },
   appShell: { flex: 1, backgroundColor: colors.snow },
+  // Urdu and Arabic: rows, padding and text run from the right.
+  rightToLeft: { direction: "rtl" },
   centerPane: { flex: 1, alignItems: "center", justifyContent: "center", gap: 12, padding: 24 },
   loadingText: { fontFamily: fonts.displayHeavy, fontSize: 20, color: colors.inkSoft },
   testStrip: {
@@ -2842,11 +2869,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderRadius: radii.pill,
-    paddingLeft: 8,
-    paddingRight: 12,
+    paddingStart: 8,
+    paddingEnd: 12,
     paddingVertical: 3,
-    marginRight: space.sm
+    marginEnd: space.sm
   },
-  testChipText: { marginLeft: 5, fontFamily: fonts.displayHeavy, fontSize: 14, lineHeight: 20, letterSpacing: 1 },
+  testChipText: { marginStart: 5, fontFamily: fonts.displayHeavy, fontSize: 14, lineHeight: 20, letterSpacing: 1 },
   testGoal: { flexShrink: 1, fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, color: colors.inkSoft }
 });

@@ -81,15 +81,17 @@ describe("multi-select answers", () => {
   });
 });
 
-describe("launch language", () => {
-  it("shows English even for learners who picked another language before", () => {
-    expect(normalizeLanguage("ar")).toBe("en");
-    expect(normalizeLanguage(undefined)).toBe("en");
+describe("app language", () => {
+  it("offers English, Bangla, Urdu and Arabic and keeps a learner's pick", () => {
+    expect(LANGUAGE_OPTIONS.map((option) => option.id)).toEqual(["en", "ar", "bn", "ur"]);
+    expect(normalizeLanguage("bn")).toBe("bn");
+    expect(normalizeLanguage("ur")).toBe("ur");
   });
 
-  it("keeps the other languages ready for when the picker comes back", () => {
-    expect(LANGUAGE_OPTIONS.length).toBeGreaterThan(1);
-    expect(normalizeLanguage("ar", true)).toBe("ar");
+  it("falls back to English for no pick or a language the app dropped", () => {
+    expect(normalizeLanguage(undefined)).toBe("en");
+    expect(normalizeLanguage("fr")).toBe("en");
+    expect(normalizeLanguage("ar", false)).toBe("en");
   });
 });
 

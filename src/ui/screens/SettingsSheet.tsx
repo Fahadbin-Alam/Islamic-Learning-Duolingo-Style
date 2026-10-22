@@ -6,7 +6,8 @@ import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, fonts, radii, space, text } from "../theme";
 // Settings: who is learning, reminders, sound, log out.
-import { SegmentButton, SheetTitle, Toggle, useBackToClose } from "./sheetParts";
+import { LinkRow, SegmentButton, SheetTitle, Toggle, useBackToClose } from "./sheetParts";
+import { t } from "../../i18n";
 
 export type LearnerRole = "child" | "parent";
 
@@ -33,6 +34,9 @@ export type SettingsSheetProps = {
   onDeleteAccount?: () => void;
   /** A guest has no account: no "who is learning", family alerts, Log out or Delete account. */
   guest?: boolean;
+  /** The app language's own name ("বাংলা"), and opening the language sheet. */
+  languageLabel?: string;
+  onOpenLanguage?: () => void;
 };
 
 // Labels that say the difference on their own; the line under them is a reminder only.
@@ -62,7 +66,9 @@ export function SettingsSheet({
   onClose,
   onLogout,
   onDeleteAccount,
-  guest = false
+  guest = false,
+  languageLabel,
+  onOpenLanguage
 }: SettingsSheetProps) {
   useBackToClose(visible, onClose);
   const activeRole = ROLES.find((option) => option.id === role) ?? ROLES[0];
@@ -71,7 +77,7 @@ export function SettingsSheet({
   // The title and SAVE stay put; the rows scroll between them, with a bouncing arrow while some are hidden.
   return (
     <Sheet visible={visible} onClose={onClose} style={styles.tallPanel} testID="settings-sheet">
-      <SheetTitle title="Settings" onClose={onClose} closeTestID="settings-close" />
+      <SheetTitle title={t("Settings")} onClose={onClose} closeTestID="settings-close" />
       <View style={styles.scrollArea}>
         <ScrollView ref={ref} {...scrollProps} contentContainerStyle={styles.stack} testID="settings-scroll">
           {guest ? null : (
@@ -80,48 +86,54 @@ export function SettingsSheet({
                 {ROLES.map((option) => (
                   <SegmentButton
                     key={option.testID}
-                    label={option.label}
+                    label={t(option.label)}
                     active={option === activeRole}
                     onPress={() => onSelectRole(option.id)}
                     testID={option.testID}
                   />
                 ))}
               </View>
-              <Text style={styles.hint}>{activeRole.line}</Text>
+              <Text style={styles.hint}>{t(activeRole.line)}</Text>
             </View>
           )}
 
+          {onOpenLanguage ? (
+            <View style={styles.card}>
+              <LinkRow label={t("Language")} value={languageLabel ?? ""} icon="globe" onPress={onOpenLanguage} testID="settings-language" />
+            </View>
+          ) : null}
+
           <View style={styles.card}>
-            <Toggle label="Streak reminder" icon="flame" value={streakReminder} onToggle={onToggleStreak} testID="settings-streak" />
+            <Toggle label={t("Streak reminder")} icon="flame" value={streakReminder} onToggle={onToggleStreak} testID="settings-streak" />
             <View style={styles.divider} />
-            <Toggle label="Come back nudges" icon="bell" value={islamicReminder} onToggle={onToggleIslamic} testID="settings-islamic" />
+            <Toggle label={t("Come back nudges")} icon="bell" value={islamicReminder} onToggle={onToggleIslamic} testID="settings-islamic" />
             {role && !guest ? (
               <>
                 <View style={styles.divider} />
-                <Toggle label="Missed a day alert" icon="people" value={dailyCheckIn} onToggle={onToggleDaily} testID="settings-daily" />
+                <Toggle label={t("Missed a day alert")} icon="people" value={dailyCheckIn} onToggle={onToggleDaily} testID="settings-daily" />
                 <View style={styles.divider} />
-                <Toggle label="Away a week alert" icon="family" value={weeklyCheckIn} onToggle={onToggleWeekly} testID="settings-weekly" />
+                <Toggle label={t("Away a week alert")} icon="family" value={weeklyCheckIn} onToggle={onToggleWeekly} testID="settings-weekly" />
               </>
             ) : null}
           </View>
 
           <View style={styles.card}>
-            <Toggle label="Sound effects" icon="speaker" value={soundEnabled} onToggle={onToggleSound} testID="settings-sound" />
+            <Toggle label={t("Sound effects")} icon="speaker" value={soundEnabled} onToggle={onToggleSound} testID="settings-sound" />
             <View style={styles.divider} />
-            <Toggle label="Softer sounds" icon="moon" value={softSound} onToggle={onToggleSoftSound} testID="settings-soft" />
+            <Toggle label={t("Softer sounds")} icon="moon" value={softSound} onToggle={onToggleSoftSound} testID="settings-soft" />
           </View>
 
-          {!guest && onLogout ? <GameButton label="Log out" variant="secondary" fullWidth onPress={onLogout} testID="settings-logout" /> : null}
+          {!guest && onLogout ? <GameButton label={t("Log out")} variant="secondary" fullWidth onPress={onLogout} testID="settings-logout" /> : null}
           {!guest && onDeleteAccount ? (
             <Tappable onPress={onDeleteAccount} style={styles.linkButton} accessibilityRole="button" testID="settings-delete">
-              <Text style={styles.dangerLink}>Delete account</Text>
+              <Text style={styles.dangerLink}>{t("Delete account")}</Text>
             </Tappable>
           ) : null}
         </ScrollView>
       </View>
       <View style={styles.footer}>
         <ScrollHintGap visible={more} onPress={scrollDown} gap={space.lg} testID="settings-more" />
-        <GameButton label="Save" fullWidth onPress={onSave} testID="settings-save" />
+        <GameButton label={t("Save")} fullWidth onPress={onSave} testID="settings-save" />
       </View>
     </Sheet>
   );

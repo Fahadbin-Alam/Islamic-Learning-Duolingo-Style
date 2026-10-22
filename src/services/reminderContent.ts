@@ -37,33 +37,11 @@ const REMINDER_COPY: Record<SupportedLanguage, Record<ReminderKind, Array<{ titl
       }
     ]
   },
-  fr: {
-    streak: [
-      {
-        title: "As-salamu alaykum - gardez votre serie",
-        body: "Une petite lecon aujourd'hui peut apporter de la baraka. Ouvrez Muslimo et continuez votre serie."
-      },
-      {
-        title: "Votre serie vous attend",
-        body: "Bismillah. Revenez sur votre parcours, gagnez des etoiles et continuez pour Allah."
-      }
-    ],
-    resume: [
-      {
-        title: "Reprenez votre parcours",
-        body: "Votre prochain cercle vous attend. Ouvrez l'application et reprenez ou vous vous etiez arrete."
-      },
-      {
-        title: "Revenez pour un petit bien",
-        body: "Meme une courte lecon peut remplir la journee de bienfaits. Revenez apprendre."
-      }
-    ]
-  },
   ar: {
     streak: [
       {
         title: "السلام عليكم - حافظ على سلسلتك",
-        body: "درس صغير اليوم قد يكون فيه بركة. افتح سيرة باث وواصل سلسلتك."
+        body: "درس صغير اليوم قد يكون فيه بركة. افتح Muslimo وواصل سلسلتك."
       },
       {
         title: "سلسلتك تنتظرك",
@@ -122,28 +100,6 @@ const REMINDER_COPY: Record<SupportedLanguage, Record<ReminderKind, Array<{ titl
       {
         title: "تھوڑے سے خیر کے لیے واپس آئیں",
         body: "چھوٹا سا سبق بھی دن میں فائدہ بھر سکتا ہے۔ واپس آئیں اور سیکھتے رہیں۔"
-      }
-    ]
-  },
-  hi: {
-    streak: [
-      {
-        title: "अस्सलामु अलैकुम - अपनी स्ट्रीक बनाए रखें",
-        body: "आज का एक छोटा पाठ भी बरकत ला सकता है। Muslimo खोलिए और अपनी स्ट्रीक जारी रखिए।"
-      },
-      {
-        title: "आपकी स्ट्रीक आपका इंतजार कर रही है",
-        body: "बिस्मिल्लाह। वापस आइए, सितारे पाइए और अल्लाह के लिए सीखते रहिए।"
-      }
-    ],
-    resume: [
-      {
-        title: "अपने पाठ वाले रास्ते पर लौटिए",
-        body: "अगला सर्कल आपका इंतजार कर रहा है। ऐप खोलिए और वहीं से जारी रखिए जहां आप रुके थे।"
-      },
-      {
-        title: "थोड़े से खैर के लिए लौटिए",
-        body: "एक छोटा पाठ भी दिन में फायदा ला सकता है। लौटिए और सीखते रहिए।"
       }
     ]
   }

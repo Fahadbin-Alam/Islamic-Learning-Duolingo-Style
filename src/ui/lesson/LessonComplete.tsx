@@ -11,6 +11,7 @@ import { playUi } from "../sound";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { LessonBottomBar } from "./LessonHeader";
 import { useScrollMore } from "./ScrollHint";
+import { t } from "../../i18n";
 
 export type LessonCompleteProps = {
   /** Default "Lesson complete!". A passed unit test-out says "You jumped ahead!". */
@@ -109,7 +110,7 @@ function StarRow({ stars }: { stars: number }) {
 
 /** End-of-lesson celebration: confetti, cheering mascot, three counting stat cards, CONTINUE. */
 export function LessonComplete({
-  headline = "Lesson complete!",
+  headline = t("Lesson complete!"),
   title,
   xp,
   stars,
@@ -186,22 +187,22 @@ export function LessonComplete({
         <Text style={styles.lessonTitle}>{withHonorifics(title)}</Text>
 
         <View style={[styles.cards, short ? styles.cardsShort : null]}>
-          <StatCard label="XP EARNED" icon="bolt" value={xp} color={colors.gold} ink={XP_INK} labelColor={GOLD_LABEL} index={0} testID="stat-xp" />
+          <StatCard label={t("XP EARNED")} icon="bolt" value={xp} color={colors.gold} ink={XP_INK} labelColor={GOLD_LABEL} index={0} testID="stat-xp" />
           <StatCard
-            label="STARS"
+            label={t("STARS")}
             color={colors.gem}
             index={1}
-            accessibilityLabel={`${Math.min(MAX_STARS, stars)} of ${MAX_STARS} stars`}
+            accessibilityLabel={t("{count} of {max} stars", { count: Math.min(MAX_STARS, stars), max: MAX_STARS })}
             testID="stat-stars"
           >
             <StarRow stars={stars} />
           </StatCard>
           {streakDays === 0 && goal ? (
             <StatCard
-              label="GOAL"
+              label={t("GOAL")}
               color={colors.flame}
               index={2}
-              accessibilityLabel={`${Math.min(goal.xpToday, goal.goalXp)} of ${goal.goalXp} XP today`}
+              accessibilityLabel={t("{count} of {max} XP today", { count: Math.min(goal.xpToday, goal.goalXp), max: goal.goalXp })}
               testID="stat-goal"
             >
               {narrow ? null : <Icon name="trophy" size={24} />}
@@ -212,7 +213,7 @@ export function LessonComplete({
               </View>
             </StatCard>
           ) : (
-            <StatCard label="STREAK" icon="flame" value={streakDays} color={colors.flame} ink={STREAK_INK} index={2} testID="stat-streak" />
+            <StatCard label={t("STREAK")} icon="flame" value={streakDays} color={colors.flame} ink={STREAK_INK} index={2} testID="stat-streak" />
           )}
         </View>
 
@@ -221,13 +222,13 @@ export function LessonComplete({
             {unlockedTitle ? (
               <PopIn delay={CARD_DELAY + 3 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.green, 0.85) }]}>
                 <Icon name="key" size={18} />
-                <Text style={[styles.pillText, { color: darken(colors.correctInk, 0.12) }]}>Unlocked: {withHonorifics(unlockedTitle)}</Text>
+                <Text style={[styles.pillText, { color: darken(colors.correctInk, 0.12) }]}>{withHonorifics(t("Unlocked: {title}", { title: unlockedTitle }))}</Text>
               </PopIn>
             ) : null}
             {gemsReward ? (
               <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.gem, 0.85) }]}>
                 <Icon name="gem" size={18} />
-                <Text style={[styles.pillText, { color: colors.gemLip }]}>+{gemsReward} gems</Text>
+                <Text style={[styles.pillText, { color: colors.gemLip }]}>{t("+{count} gems", { count: gemsReward })}</Text>
               </PopIn>
             ) : null}
           </View>
@@ -235,10 +236,10 @@ export function LessonComplete({
       </ScrollView>
 
       <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more, onPress: scrollDown }}>
-        <GameButton label={nextTitle ? "Next lesson" : "Continue"} fullWidth onPress={onContinue} testID="complete-continue" />
+        <GameButton label={nextTitle ? t("Next lesson") : t("Continue")} fullWidth onPress={onContinue} testID="complete-continue" />
         {onBackToPath ? (
           <GameButton
-            label="Back to path"
+            label={t("Back to path")}
             variant="ghost"
             color={colors.inkSoft}
             fullWidth
@@ -350,7 +351,7 @@ const styles = StyleSheet.create({
     minWidth: 0
   },
   goalRowNarrow: {
-    marginLeft: -4
+    marginStart: -4
   },
   goalValue: {
     fontSize: 22
@@ -361,7 +362,7 @@ const styles = StyleSheet.create({
     lineHeight: 30
   },
   cardValue: {
-    marginLeft: 4,
+    marginStart: 4,
     fontFamily: fonts.displayHeavy,
     fontSize: 24,
     lineHeight: 30,
@@ -396,7 +397,7 @@ const styles = StyleSheet.create({
     maxWidth: "100%"
   },
   pillText: {
-    marginLeft: 6,
+    marginStart: 6,
     flexShrink: 1,
     fontFamily: fonts.bodyHeavy,
     fontSize: 15,

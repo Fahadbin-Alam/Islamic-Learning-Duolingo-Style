@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12
   },
   rowIcon: {
-    marginRight: 12
+    marginEnd: 12
   },
   squareIcon: {
     marginBottom: 8
@@ -245,14 +245,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 12,
+    marginEnd: 12,
     paddingHorizontal: 4
   },
   squareBadge: {
     position: "absolute",
     top: 10,
     left: 10,
-    marginRight: 0
+    marginEnd: 0
   },
   badgeText: {
     fontFamily: fonts.bodyHeavy,
