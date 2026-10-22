@@ -88,7 +88,8 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   asked again too. A missed question comes back at the end of the lesson with a "Try again!" label and its
   tiles in a new order, again each time it is missed, until it is answered right; the lesson is done only
   when every question has been right once, and the progress bar fills one step per question answered
-  right. At 0 hearts the out-of-hearts sheet opens (one free refill, then "Full hearts again tomorrow!"),
+  right. At 0 hearts the out-of-hearts sheet opens (one free refill, then "Full hearts again tomorrow!"
+  with a gold FREE HEART video button first when the build has ads, and the lesson goes on with that heart),
   so a learner who keeps tapping wrong stops there. Stars count the questions missed on their first try.
   A test-out (JUMP HERE) asks each question once, costs no hearts and ends as soon as it cannot be
   passed. Practice sessions keep their own rules.

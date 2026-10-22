@@ -56,6 +56,8 @@ async function press(testID: string) {
 
 async function openAccountSheet() {
   setStoredItem(PROFILE_KEY, JSON.stringify(makeUser()));
+  // An adult on this phone: sign-up asks the age first when it isn't known yet.
+  setStoredItem("sira-path-age-group", "18+");
   await render(<TopicApp />);
   await screen.findByTestId("learn-path-foundation");
   await press("tab-me");
@@ -70,6 +72,7 @@ async function passGrownUp() {
 describe("Continue with Google (no server in this build)", () => {
   afterEach(() => {
     removeStoredItem(PROFILE_KEY);
+    removeStoredItem("sira-path-age-group");
     clearLocalAuthAccount();
     (signInWithGoogle as jest.Mock).mockReset();
   });
