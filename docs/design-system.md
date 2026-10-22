@@ -89,10 +89,12 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   shows (never at the top first), and keeps that place
   when CHECK is tapped, its Why line opens or tiles fold; it scrolls only when the sheet would cover the
   green tile, and only as far as that needs. A question taller than its room (a long "Try again!" question
-  on a small phone) draws its tiles tight, with less padding in each, from the first frame it shows, so
-  every answer is in sight and whole, never one cut by the room's bottom edge; it keeps them so through
-  the sheet, and the next try is measured again. Only a question too tall even then scrolls as before, and its
-  last tile can then show cut at the room's edge; no question in the course is that tall at 320 px.
+  on a small phone) draws its tiles tight, with less padding in each, when that makes it fit, from the first
+  frame it shows, so every answer is in sight and whole, never one cut by the room's bottom edge; it keeps
+  them so through the sheet, and the next try is measured again. A question too tall even then keeps its
+  usual tiles and scrolls as before, under the arrow (tight tiles would not bring its last tile into sight,
+  only move where the room's edge cuts it), so its last tile can show cut at the room's edge. No English
+  question is that tall at 320 px; some long Urdu and Arabic ones are.
   The sheet never covers the prompt or the green tile, its Why line open. The question gives its room
   first: on a short phone the grey tiles fold away and the mascot hides (until the next question), so the
   sheet can stay full size. Only when that is not enough does the sheet go slim (less padding, a smaller

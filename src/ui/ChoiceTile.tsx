@@ -30,6 +30,19 @@ export type ChoiceTileProps = {
 
 const LIP = 4;
 
+/** A row tile's padding above and under its text: as usual, on a short phone, and tight. */
+const ROW_PAD = 12;
+const ROW_PAD_COMPACT = 9;
+const ROW_PAD_TIGHT = 6;
+
+/**
+ * How much shorter a row tile is at least when it is tight: the padding it gives up above and under its text. Its
+ * minimum height is lower by at least as much, so whether a set of tight tiles fits is known before it is drawn.
+ */
+export function tightSaving(compact?: boolean) {
+  return 2 * ((compact ? ROW_PAD_COMPACT : ROW_PAD) - ROW_PAD_TIGHT);
+}
+
 type Look = { bg: string; border: string; lip: string; text: string; badgeBorder: string; badgeText: string };
 
 const LOOKS: Record<ChoiceTileState, Look> = {
@@ -188,7 +201,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingVertical: 12
+    paddingVertical: ROW_PAD
   },
   squareFace: {
     minHeight: 132,
@@ -200,11 +213,11 @@ const styles = StyleSheet.create({
   rowFaceCompact: {
     minHeight: 50,
     paddingHorizontal: 14,
-    paddingVertical: 9
+    paddingVertical: ROW_PAD_COMPACT
   },
   rowFaceTight: {
     minHeight: 44,
-    paddingVertical: 6
+    paddingVertical: ROW_PAD_TIGHT
   },
   squareFaceCompact: {
     minHeight: 104,

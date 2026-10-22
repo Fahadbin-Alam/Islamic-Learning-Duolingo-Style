@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
-import { ChoiceTile, LONG_LABEL, type ChoiceTileState } from "../ChoiceTile";
+import { ChoiceTile, LONG_LABEL, tightSaving, type ChoiceTileState } from "../ChoiceTile";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
@@ -363,7 +363,7 @@ export function ExerciseView({
   const cueTop = cueIn === null ? null : cueIn + questionTop;
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const [tileMoves, setTileMoves] = useState(0);
-  // The try whose question was too tall for its room, so its tiles are tight (see below).
+  // The try whose question was too tall for its room and fits with tight tiles, so they are tight (see below).
   const shownKey = `${questionKey}\u0000${shownAttempt}`;
   const [tightFor, setTightFor] = useState<string | undefined>(undefined);
   const tight = tightFor === shownKey;
@@ -375,8 +375,8 @@ export function ExerciseView({
   // A new question is first drawn already in its place. onLayout says the room and the question's height only after
   // the first frame is painted, so the question would show at the top for a frame or two and then drop to the middle.
   // Where a view can say its size at once (the web, the New Architecture), it is read here, and the space that
-  // centers the question is in the very frame it first shows, its tiles tight already when it is too tall for its room
-  // (and read again once they are). Its parts pop in from there as before.
+  // centers the question is in the very frame it first shows, its tiles tight already when that makes a question too
+  // tall for its room fit (and read again once they are). Its parts pop in from there as before.
   useLayoutEffect(() => {
     if (checked) {
       return;
@@ -522,10 +522,20 @@ export function ExerciseView({
   const longChoices = choices.some((choice) => choice.label.length > LONG_LABEL);
   const extraBottom = checked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
   // A question taller than its room would show its last tile cut by the scroll view's bottom edge, the arrow under it,
-  // and that answer out of sight. Its tiles are tight instead (less padding in each), from the frame it first shows,
-  // so they all fit whole. Read while unchecked and kept through the sheet, so no tile moves on CHECK; a new try reads
-  // it again. A question too tall even then scrolls as before.
-  if (!checked && !tight && !tfChoices && scrollBoxHeight && questionHeight && overRoom(scrollBoxHeight, space.sm + questionHeight - tileGap)) {
+  // and that answer out of sight. When tight tiles (less padding in each) make it fit, they are tight instead, from the
+  // frame it first shows, so they all show whole. Read while unchecked and kept through the sheet, so no tile moves on
+  // CHECK; a new try reads it again. A question too tall even then keeps its usual tiles and scrolls as before: tight
+  // ones would not bring its last tile into sight, only move where the room's edge cuts through it.
+  const questionBottom = space.sm + questionHeight - tileGap;
+  if (
+    !checked &&
+    !tight &&
+    !tfChoices &&
+    scrollBoxHeight &&
+    questionHeight &&
+    overRoom(scrollBoxHeight, questionBottom) &&
+    !overRoom(scrollBoxHeight, questionBottom - shownChoices.length * tightSaving(compact))
+  ) {
     setTightFor(shownKey);
   }
   // A short question sits in the middle of the screen, not at the top. Read while unchecked and kept through the

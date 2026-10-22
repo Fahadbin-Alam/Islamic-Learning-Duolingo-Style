@@ -33,6 +33,7 @@ import { getUiStrings } from "../i18n";
 import { playGameSound } from "../services/gameAudio";
 import { createEmptyLearnerProfile, createFoundationAssessment, submitFoundationAssessmentAnswer } from "../services/foundationAssessment";
 import type { FoundationAssessmentState, LearningSection } from "../types";
+import { ChoiceTile, tightSaving } from "../ui/ChoiceTile";
 import { ExerciseView, FeedbackSheet, LessonComplete, OrderGame } from "../ui/lesson";
 import { WHY_LINE } from "../ui/lesson/FeedbackSheet";
 import { nearestRowStop, nextRowStop, overRoom, tilesUnderSheet, wholeRows, type RowSpan } from "../ui/lesson/sheetFit";
@@ -357,6 +358,43 @@ describe("a lesson question taller than its room draws its tiles tight, so every
     ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
   });
 
+  it("keeps the usual tiles on a question too tall even tight, so its last tile does not move under the room's edge", async () => {
+    await render(<ExerciseView {...long} />);
+    // Loose, the last tile ends at 8 + 500 - 12 = 496. Tight, each of the four is at least 12 shorter: 448, still past
+    // the room's edge at 406. The question scrolls as it would anyway, and its tiles keep their place.
+    await laidOut(406, 500);
+    ["a", "b", "c", "d"].forEach((id) => {
+      expect(padding(id)).toBe(12);
+      expect(shown(id)).toBe(true);
+    });
+  });
+
+  it("draws them tight only when tight tiles bring the last one whole into the room", async () => {
+    const { rerender } = await render(<ExerciseView key="fits" {...long} />);
+    // 8 + 459 - 12 = 455 loose, 455 - 4 * 12 = 407 tight: only the lip's last pixel past the edge at 406.
+    await laidOut(406, 459);
+    ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(6));
+    // One pixel taller (a new question): 408 tight, so the tiles stay as they are.
+    await rerender(<ExerciseView key="too-tall" {...long} />);
+    await laidOut(406, 460);
+    ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
+  });
+
+  it("on a small phone counts the 6 px a short phone's tile gives up, and keeps it loose when that is not enough", async () => {
+    await onSmallPhone(async () => {
+      // 320 x 568: tiles have 9 px above and under their text and 8 px under each; tight, 6. Loose the last tile ends
+      // at 8 + 409 - 8 = 409, tight at 409 - 4 * 6 = 385, a pixel past a room of 384.
+      const { rerender } = await render(<ExerciseView key="fits" {...long} />);
+      await laidOut(384, 409);
+      ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(6));
+      // As tall as the Arabic Urwah question: too tall for its room either way (tight, it would still end 31 px past
+      // the edge), so its tiles stay as they are.
+      await rerender(<ExerciseView key="too-tall" {...long} />);
+      await laidOut(384, 439);
+      ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(9));
+    });
+  });
+
   it("keeps them tight through CHECK and the sheet, so no tile moves, and reads a new try again", async () => {
     const { rerender } = await render(<ExerciseView {...long} />);
     await laidOut(406, 434);
@@ -389,6 +427,22 @@ describe("a lesson question taller than its room draws its tiles tight, so every
     }
   });
 
+  it("keeps the usual tiles from the first frame on a question too tall even tight, never tight first and loose after", async () => {
+    const heights: Record<string, number> = { "exercise-room": 406, "exercise-question": 520 };
+    Object.defineProperty(View.prototype, "offsetHeight", {
+      configurable: true,
+      get(this: { props: { testID?: string } }) {
+        return heights[this.props.testID ?? ""] ?? 0;
+      }
+    });
+    try {
+      await render(<ExerciseView {...long} />);
+      ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
+    } finally {
+      delete (View.prototype as { offsetHeight?: number }).offsetHeight;
+    }
+  });
+
   it("glides back up on CHECK after the learner scrolled past the prompt to reach the last tile", async () => {
     const scrollTo$ = scrollSpy();
     const TILE = 70;
@@ -414,6 +468,28 @@ describe("a lesson question taller than its room draws its tiles tight, so every
     } finally {
       scrollTo$.mockRestore();
     }
+  });
+
+  it("knows how much shorter a tight tile is at least, before it is drawn", async () => {
+    /** A row tile's face: its padding above its text and its least height. */
+    const { rerender } = await render(<ChoiceTile label="He wrote down the revelation." testID="tile" />);
+    const face = async (props: { compact?: boolean; tight?: boolean }) => {
+      await rerender(<ChoiceTile label="He wrote down the revelation." {...props} testID="tile" />);
+      const style = screen
+        .getByTestId("tile")
+        .children.map((child) => (typeof child === "string" ? {} : flat(child.props.style)))
+        .find((entry) => entry.borderWidth === 2)!;
+      return { padding: style.paddingVertical as number, minHeight: style.minHeight as number };
+    };
+    for (const compact of [false, true]) {
+      const loose = await face({ compact });
+      const tight = await face({ compact, tight: true });
+      // The padding it gives up above and under its text, and a least height lower by at least as much.
+      expect(tightSaving(compact)).toBe(2 * (loose.padding - tight.padding));
+      expect(loose.minHeight - tight.minHeight).toBeGreaterThanOrEqual(tightSaving(compact));
+    }
+    expect(tightSaving(false)).toBe(12);
+    expect(tightSaving(true)).toBe(6);
   });
 
   it("finds a question whose last tile the room's bottom edge would cut", () => {
