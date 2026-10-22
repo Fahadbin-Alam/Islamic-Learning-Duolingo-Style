@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   ScrollView,
@@ -24,8 +24,8 @@ import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
-import { EVERY_FRAME, useScrollMore } from "./ScrollHint";
-import { centerSpace, sheetRoom, sheetScrollY, stackSpan, tilesUnderSheet, useQuestionScroll, useSheetFit, useSheetHeightNow, type LayoutBox } from "./sheetFit";
+import { beforePaint, EVERY_FRAME, SCROLL_HINT_ROOM, useScrollMore } from "./ScrollHint";
+import { centerSpace, laidOutHeight, sheetRoom, sheetScrollY, stackSpan, tilesAcrossEdge, tilesUnderSheet, useQuestionScroll, useSheetFit, useSheetHeightNow, type LayoutBox } from "./sheetFit";
 
 // Arabic letters only: honorific signs like ﷺ (U+FDF0-U+FDFF) stay part of the English line.
 const AR = "؀-ۿݐ-ݿࢠ-ࣿﭐ-﴿ﵐ-﷎ﹰ-﻿";
@@ -183,38 +183,42 @@ const FADE_MS = 160;
  * An answer tile the feedback sheet's top edge would cut (or a chip the scroll edge would cut): it is gone while the
  * sheet is up, out of reach of taps and screen readers, and fades back for the next try. It keeps its place, so no
  * other tile moves. It goes at once, in the render that hides it: a fade would still show it, cut, as the sheet's
- * edge comes up over it.
+ * edge comes up over it. A tile a scroll view's bottom edge cuts at rest is only `shade`d instead: drawn at that
+ * opacity (0 to 1) by this very render and out of reach of taps until it shows whole, while a screen reader still
+ * reaches it (and so scrolls it into view). Once it is no longer shaded, it fades on from there.
  */
 export function FadeUnderSheet({
   hidden,
+  shade,
   children,
   style,
   onLayout,
   testID
 }: {
   hidden: boolean;
+  shade?: number;
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   onLayout?: (event: LayoutChangeEvent) => void;
   testID?: string;
 }) {
-  const opacity = useRef(new Animated.Value(hidden ? 0 : 1)).current;
+  const opacity = useRef(new Animated.Value(hidden ? 0 : (shade ?? 1))).current;
   useEffect(() => {
-    if (hidden) {
-      opacity.setValue(0);
+    if (hidden || shade !== undefined) {
+      opacity.setValue(hidden ? 0 : (shade ?? 0));
       return undefined;
     }
     const animation = Animated.timing(opacity, { toValue: 1, duration: FADE_MS, useNativeDriver: true });
     animation.start();
     return () => animation.stop();
-  }, [hidden, opacity]);
+  }, [hidden, opacity, shade]);
   return (
     <Animated.View
       // The value set above shows only after another render (on the web an animated value draws through React), so
       // a hidden part is drawn at 0 by this very render.
-      style={[style, { opacity: hidden ? 0 : opacity }]}
+      style={[style, { opacity: hidden ? 0 : (shade ?? opacity) }]}
       onLayout={onLayout}
-      pointerEvents={hidden ? "none" : "auto"}
+      pointerEvents={hidden || (shade !== undefined && shade < 1) ? "none" : "auto"}
       aria-hidden={hidden}
       accessibilityElementsHidden={hidden}
       importantForAccessibility={hidden ? "no-hide-descendants" : "auto"}
@@ -294,6 +298,10 @@ const RETRY_INK = darken(colors.flame, 0.3);
 const RETRY_BG = lighten(colors.flame, 0.85);
 const REVIEW_INK = darken(colors.gem, 0.45);
 const REVIEW_BG = lighten(colors.gem, 0.85);
+/** The True / False tiles share a row, so the row counts as one tile where tiles are stacked (see stackSpan). */
+const TRUE_FALSE_ROW = "row";
+/** How far a question scrolls down from its top before a tile its bottom edge cut there shows whole: about a line. */
+const EDGE_FADE = 24;
 
 /** One question: mascot + prompt bubble, answer tiles, CHECK bar and the feedback sheet. */
 export function ExerciseView({
@@ -362,9 +370,33 @@ export function ExerciseView({
   const cueTop = cueIn === null ? null : cueIn + questionTop;
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const [tileMoves, setTileMoves] = useState(0);
+  // The tiles the question's scroll view's bottom edge would cut while it sits at its top, how much of them shows (see
+  // below: none at its top, all once it is scrolled EDGE_FADE down), and its scroll offset as it last said it.
+  const [edgeIds, setEdgeIds] = useState<string[]>([]);
+  const [edgeShade, setEdgeShade] = useState(0);
+  const scrollY = useRef(0);
   const [scrollBoxHeight, setScrollBoxHeight] = useState(0);
   const [contentHeight, setContentHeight] = useState(0);
   const rootRef = useRef<View>(null);
+  const scrollBoxRef = useRef<View>(null);
+  const questionRef = useRef<View>(null);
+  // A new question is first drawn already in its place. onLayout says the room and the question's height only after
+  // the first frame is painted, so the question would show at the top for a frame or two and then drop to the middle.
+  // Where a view can say its size at once (the web, the New Architecture), it is read here, and the space that
+  // centers the question is in the very frame it first shows. Its parts pop in from there as before.
+  useLayoutEffect(() => {
+    if (checked) {
+      return;
+    }
+    const room = laidOutHeight(scrollBoxRef.current);
+    const block = laidOutHeight(questionRef.current);
+    if (room !== undefined) {
+      setScrollBoxHeight(room);
+    }
+    if (block !== undefined) {
+      setQuestionHeight(block);
+    }
+  }, [checked, questionKey, shownAttempt]);
   // On the web the sheet's new height (its Why line opening) is known before the browser paints it.
   useSheetHeightNow({ root: rootRef, open: checked, reported: sheetHeight > 0, onHeight: setSheetHeight });
   const [whyOpened, setWhyOpened] = useState(false);
@@ -448,8 +480,16 @@ export function ExerciseView({
     partTop: cueTop
   });
   const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const y = event.nativeEvent.contentOffset.y;
     scrollProps.onScroll(event);
-    ownScroll.onScroll(event.nativeEvent.contentOffset.y);
+    ownScroll.onScroll(y);
+    scrollY.current = y;
+    // Only a question with a tile at its bottom edge follows the scroll, and only before CHECK: a render each frame
+    // would slow the question's own glide.
+    const shade = Math.min(1, Math.round((Math.max(0, y) / EDGE_FADE) * 20) / 20);
+    if (!checked && edgeIds.length > 0 && shade !== edgeShade) {
+      beforePaint(() => setEdgeShade(shade));
+    }
   };
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
@@ -495,6 +535,25 @@ export function ExerciseView({
   // One long answer makes the whole set use the smaller text, so the tiles match.
   const longChoices = choices.some((choice) => choice.label.length > LONG_LABEL);
   const extraBottom = checked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
+  // A question taller than its room shows whole tiles only while it sits at its top: a tile its scroll view's bottom
+  // edge would cut is out of sight, the arrow under it saying there is more, as a tile the sheet's edge would cut is.
+  // The scroll view keeps its full height, so the last tile is no further away. The tile comes in with the learner's
+  // scroll, whole by EDGE_FADE down, and goes with it as the question comes back up, gone once it is at its top: no
+  // frame at rest shows it cut, and it never blinks. Read while unchecked, with the room the arrow leaves when it goes:
+  // once checked the arrow goes at once and the edge drops into that room, so the shade holds until the render that
+  // knows where the sheet's top edge ends, where the tiles under it go instead and the others fade in.
+  if (!checked && scrollY.current <= 0.5) {
+    const ids = tfChoices ? [TRUE_FALSE_ROW] : shownChoices.map((choice) => choice.id);
+    const boxes: Record<string, LayoutBox | undefined> = tfChoices ? { [TRUE_FALSE_ROW]: tilesBox ? { y: 0, height: tilesBox.height } : undefined } : tileBoxes.current;
+    const next =
+      more && scrollBoxHeight && tilesTop !== undefined && ids.every((id) => boxes[id])
+        ? tilesAcrossEdge({ ids, boxes, gap: tileGap, tilesTop, edge: scrollBoxHeight, drop: Math.max(space.lg, SCROLL_HINT_ROOM) - space.lg })
+        : [];
+    if (next.join("|") !== edgeIds.join("|")) {
+      setEdgeIds(next);
+    }
+  }
+  const shadeOf = (id: string) => (edgeIds.includes(id) && (!checked || sheetTop === undefined) ? edgeShade : undefined);
   // A short question sits in the middle of the screen, not at the top. Read while unchecked and kept through the
   // sheet, so the question never moves when CHECK is tapped or tiles fold away.
   if (!checked && scrollBoxHeight && questionHeight) {
@@ -506,7 +565,7 @@ export function ExerciseView({
 
   return (
     <View ref={rootRef} style={styles.root} testID={testID} onLayout={(event) => setRootHeight(Math.round(event.nativeEvent.layout.height))}>
-      <View style={styles.scrollBox} onLayout={(event) => setScrollBoxHeight(Math.round(event.nativeEvent.layout.height))}>
+      <View ref={scrollBoxRef} style={styles.scrollBox} onLayout={(event) => setScrollBoxHeight(Math.round(event.nativeEvent.layout.height))} testID="exercise-room">
         <ScrollView
           ref={scrollRef}
           style={styles.scroll}
@@ -520,7 +579,7 @@ export function ExerciseView({
           scrollEventThrottle={EVERY_FRAME}
           onScroll={onQuestionScroll}
         >
-          <View onLayout={(event) => setQuestionHeight(Math.round(event.nativeEvent.layout.height))}>
+          <View ref={questionRef} onLayout={(event) => setQuestionHeight(Math.round(event.nativeEvent.layout.height))} testID="exercise-question">
             {review || shownAttempt > 0 ? (
               <FadeUnderSheet hidden={ownScroll.gone} style={styles.cueRow} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
                 {review ? (
@@ -546,22 +605,24 @@ export function ExerciseView({
             </View>
 
             {tfChoices ? (
-              <View style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
-                {tfChoices.map((choice, index) => (
-                  <React.Fragment key={choice.id}>
-                    {index > 0 ? <View style={styles.squareGap} /> : null}
-                    <ChoiceTile
-                      label={choice === truePick ? "True" : "False"}
-                      icon={choice === truePick ? "check" : "close"}
-                      iconColor={choice === truePick ? colors.green : colors.heart}
-                      layout="square"
-                      compact={compact}
-                      state={tileState(choice)}
-                      onPress={() => press(choice)}
-                      testID={`choice-${choice.id}`}
-                    />
-                  </React.Fragment>
-                ))}
+              <View onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
+                <FadeUnderSheet hidden={false} shade={shadeOf(TRUE_FALSE_ROW)} style={styles.squareRow}>
+                  {tfChoices.map((choice, index) => (
+                    <React.Fragment key={choice.id}>
+                      {index > 0 ? <View style={styles.squareGap} /> : null}
+                      <ChoiceTile
+                        label={choice === truePick ? "True" : "False"}
+                        icon={choice === truePick ? "check" : "close"}
+                        iconColor={choice === truePick ? colors.green : colors.heart}
+                        layout="square"
+                        compact={compact}
+                        state={tileState(choice)}
+                        onPress={() => press(choice)}
+                        testID={`choice-${choice.id}`}
+                      />
+                    </React.Fragment>
+                  ))}
+                </FadeUnderSheet>
               </View>
             ) : (
               <View style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
@@ -569,6 +630,7 @@ export function ExerciseView({
                   <FadeUnderSheet
                     key={choice.id}
                     hidden={fadedIds.includes(choice.id)}
+                    shade={shadeOf(choice.id)}
                     onLayout={onTileLayout(choice.id)}
                     style={compact ? styles.tileGapCompact : styles.tileGap}
                   >

@@ -85,9 +85,15 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   so a learner who keeps tapping wrong stops there. Stars count the questions missed on their first try.
   A test-out (JUMP HERE) asks each question once, costs no hearts and ends as soon as it cannot be
   passed. Practice sessions keep their own rules.
-  A lesson question that fits its screen sits in the middle of the room above CHECK, and keeps that place
+  A lesson question that fits its screen sits in the middle of the room above CHECK, from the first frame it
+  shows (never at the top first), and keeps that place
   when CHECK is tapped, its Why line opens or tiles fold; it scrolls only when the sheet would cover the
-  green tile, and only as far as that needs.
+  green tile, and only as far as that needs. A question taller than its room shows whole tiles only while
+  it sits at its top: a tile its bottom edge would cut is gone, with the arrow under it. It comes in with the
+  learner's scroll, whole a line's height down, and goes with it on the way back, gone again at the top.
+  The scroll view keeps its full height, so the last tile needs no more scrolling than before. Once CHECK
+  is tapped such a tile stays away until the sheet knows where its top edge ends, as the arrow goes at
+  once and that edge drops into the arrow's room.
   The sheet never covers the prompt or the green tile, its Why line open. The question gives its room
   first: on a short phone the grey tiles fold away and the mascot hides (until the next question), so the
   sheet can stay full size. Only when that is not enough does the sheet go slim (less padding, a smaller
