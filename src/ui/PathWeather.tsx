@@ -5,7 +5,7 @@ import { useReduceMotion } from "./Camel";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
- * like days going by: a sunny sky, a breezy one, clouds, a little rain, a sunset. Only plain weather:
+ * like days going by: a sunny sky, a breezy one, clouds, a little rain, a sunset, birds flying by. Only plain weather:
  * no moon or stars (see the content rule in docs/design-system.md).
  */
 export type Weather = "sunny" | "breeze" | "cloudy" | "rain" | "sunset";
@@ -145,6 +145,30 @@ function Rain({ top, left, moving }: { top: number; left: number; moving: boolea
   );
 }
 
+/** Three little birds flapping across the sky together. */
+function Birds({ top, width, moving }: { top: number; width: number; moving: boolean }) {
+  const t = useLoopValue(moving, 15000, 2500);
+  const flap = useLoopValue(moving, 520);
+  const translateX = t.interpolate({ inputRange: [0, 1], outputRange: [-70, width + 10] });
+  const wings = flap.interpolate({ inputRange: [0, 0.5, 1], outputRange: [1, 0.35, 1] });
+  const flock = [
+    { x: 0, y: 8, s: 1 },
+    { x: 22, y: 0, s: 0.8 },
+    { x: 30, y: 16, s: 0.7 }
+  ];
+  return (
+    <Animated.View style={[styles.abs, { top, width: 60, height: 30, transform: [{ translateX: moving ? translateX : width * 0.18 }] }]}>
+      {flock.map((bird) => (
+        <Animated.View key={bird.x} style={[styles.abs, { left: bird.x, top: bird.y, transform: [{ scale: bird.s }, { scaleY: moving ? wings : 1 }] }]}>
+          <Svg width={22} height={12} viewBox="0 0 22 12">
+            <Path d="M1 4C5 1 9 2 11 7C13 2 17 1 21 4" stroke="#5D6B74" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          </Svg>
+        </Animated.View>
+      ))}
+    </Animated.View>
+  );
+}
+
 export type PathWeatherProps = {
   weather: Weather;
   width: number;
@@ -196,6 +220,9 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
                 <Gust top={y + 210} width={width} delay={0} moving={moving} />
                 <Gust top={y + 360} width={width} delay={1300} moving={moving} />
               </>
+            ) : null}
+            {(weather === "sunny" || weather === "breeze" || weather === "sunset") && band % 2 === 0 ? (
+              <Birds top={y + (first ? 250 : 200)} width={width} moving={moving} />
             ) : null}
             {weather === "rain" ? <RainUnderCloud top={y + 150} width={width} band={band} moving={moving} /> : null}
           </React.Fragment>
