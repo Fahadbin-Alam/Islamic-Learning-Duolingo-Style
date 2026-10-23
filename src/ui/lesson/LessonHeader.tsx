@@ -105,11 +105,17 @@ export function LessonHeader({ progress, hearts, onClose, topInset = 0, style }:
 
 const DEFAULT_BOTTOM_INSET = Platform.OS === "ios" ? 26 : 14;
 
+/** The gap at the top of the bar that holds the "more below" arrow: it grows by scrollHintGrowth(BAR_GAP) while it does. */
+export const BAR_GAP = space.lg;
+
 export type LessonBottomBarProps = {
   children?: React.ReactNode;
   bottomInset?: number;
-  /** "More below" arrow at the top of the bar (from useScrollMore). The bar grows to hold it, so it covers no text. */
-  scrollHint?: { visible: boolean; onPress: () => void };
+  /**
+   * "More below" arrow at the top of the bar (from useScrollMore). The bar grows to hold it, so it covers no text.
+   * `hold`: the bar keeps that room with the arrow gone, while a sheet covers it (see ScrollHintGap).
+   */
+  scrollHint?: { visible: boolean; hold?: boolean; onPress: () => void };
   style?: StyleProp<ViewStyle>;
 };
 
@@ -117,7 +123,7 @@ export type LessonBottomBarProps = {
 export function LessonBottomBar({ children, bottomInset = DEFAULT_BOTTOM_INSET, scrollHint, style }: LessonBottomBarProps) {
   return (
     <View style={[styles.bottomBar, { paddingBottom: space.lg + bottomInset }, scrollHint ? styles.bottomBarHint : null, style]}>
-      {scrollHint ? <ScrollHintGap visible={scrollHint.visible} onPress={scrollHint.onPress} gap={space.lg} /> : null}
+      {scrollHint ? <ScrollHintGap visible={scrollHint.visible} hold={scrollHint.hold} onPress={scrollHint.onPress} gap={BAR_GAP} gapTestID="bar-hint-gap" /> : null}
       {children}
     </View>
   );

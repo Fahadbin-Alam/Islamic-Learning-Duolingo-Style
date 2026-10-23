@@ -38,6 +38,11 @@ const HINT_GAP = 4;
 /** Height of the gap that holds the hint while it shows: a little air, the button, a little air. */
 export const SCROLL_HINT_ROOM = SCROLL_HINT_SIZE + HINT_GAP * 2;
 
+/** How much a gap `gap` tall grows while it holds the hint. */
+export function scrollHintGrowth(gap: number) {
+  return Math.max(0, SCROLL_HINT_ROOM - gap);
+}
+
 /**
  * Tracks a lesson ScrollView so the step can show a "more below" hint while part of it is hidden
  * under the bottom bar. Spread `scrollProps` on the ScrollView and give it `ref`. `slack`: how much
@@ -76,7 +81,20 @@ export function useScrollMore(slack: number = SCROLL_HINT_SLACK) {
     ref.current?.scrollTo?.({ y: Math.max(0, Math.min(content - viewport, offset + Math.round(viewport * 0.7))), animated: true });
   }, []);
 
-  return { ref, scrollProps, more, scrollDown };
+  /**
+   * The sizes as laid out right now, read before the frame is drawn (see laidOutHeight): the hint shows, or not, in
+   * that very frame, not a frame after it once the scroll view reports them. `offset` when it is known (a new question
+   * starts at the top).
+   */
+  const know = useCallback(
+    (viewport: number, content: number, offset?: number) => {
+      size.current = { viewport, content, offset: offset ?? size.current.offset };
+      update();
+    },
+    [update]
+  );
+
+  return { ref, scrollProps, more, scrollDown, know };
 }
 
 /** Which way a hint points: down while more is hidden below, up once the end is in view and the start is not. */
@@ -145,9 +163,12 @@ export function ScrollHint({
 /**
  * The gap between a scrolling part and the bar under it. It is `gap` tall and grows to fit the hint
  * while more is hidden, so the button sits in the bar and never covers a line that can still be read.
+ * `hold`: it keeps the hint's room with the hint gone (under a sheet that covers the bar), so the part above it keeps
+ * its height and shows no more of what was hidden.
  */
 export function ScrollHintGap({
   visible,
+  hold,
   onPress,
   gap,
   direction,
@@ -155,6 +176,7 @@ export function ScrollHintGap({
   gapTestID
 }: {
   visible: boolean;
+  hold?: boolean;
   onPress: () => void;
   gap: number;
   direction?: ScrollHintDirection;
@@ -164,7 +186,7 @@ export function ScrollHintGap({
   gapTestID?: string;
 }) {
   return (
-    <View pointerEvents="box-none" style={[styles.gap, { height: visible ? Math.max(gap, SCROLL_HINT_ROOM) : gap }]} testID={gapTestID}>
+    <View pointerEvents="box-none" style={[styles.gap, { height: visible || hold ? gap + scrollHintGrowth(gap) : gap }]} testID={gapTestID}>
       <ScrollHint visible={visible} onPress={onPress} direction={direction} testID={testID} />
     </View>
   );
@@ -174,13 +196,14 @@ const styles = StyleSheet.create({
   gap: {
     position: "relative"
   },
+  // Across the whole gap with the button in its middle: centered alike left to right and right to left.
   root: {
     position: "absolute",
-    left: "50%",
+    left: 0,
+    right: 0,
     top: HINT_GAP,
-    width: SCROLL_HINT_SIZE,
     height: SCROLL_HINT_SIZE,
-    marginStart: -SCROLL_HINT_SIZE / 2,
+    alignItems: "center",
     zIndex: 5
   },
   button: {
