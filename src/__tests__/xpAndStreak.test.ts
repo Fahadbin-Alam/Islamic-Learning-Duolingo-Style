@@ -7,7 +7,7 @@ const secondLesson = LESSONS_BY_ID["lesson-foundation-guidance"];
 
 describe("completeLesson", () => {
   it("awards the lesson's XP and marks the lesson and its node complete", () => {
-    const user = makeUser({ totalXp: 0 });
+    const user = makeUser({ totalXp: 0, completedLessonIds: [] });
     const next = completeLesson(user, lesson);
 
     expect(next.totalXp).toBe(lesson.xpReward);
@@ -16,7 +16,7 @@ describe("completeLesson", () => {
   });
 
   it("does not award XP twice for replaying a finished lesson", () => {
-    const once = completeLesson(makeUser(), lesson);
+    const once = completeLesson(makeUser({ completedLessonIds: [] }), lesson);
     const twice = completeLesson(once, lesson);
 
     expect(twice.totalXp).toBe(once.totalXp);
@@ -25,7 +25,7 @@ describe("completeLesson", () => {
   });
 
   it("does not mutate the user it was given", () => {
-    const user = makeUser();
+    const user = makeUser({ completedLessonIds: [] });
     completeLesson(user, lesson);
 
     expect(user.totalXp).toBe(0);
@@ -61,7 +61,7 @@ describe("streak", () => {
 
 describe("completeLessonCluster", () => {
   it("sums XP only for lessons that were not already complete", () => {
-    const user = completeLesson(makeUser(), lesson);
+    const user = completeLesson(makeUser({ completedLessonIds: [] }), lesson);
     const next = completeLessonCluster(user, [lesson, secondLesson]);
 
     expect(next.totalXp).toBe(lesson.xpReward + secondLesson.xpReward);

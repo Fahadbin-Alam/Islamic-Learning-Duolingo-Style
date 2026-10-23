@@ -18,6 +18,13 @@ describe("loseHeart", () => {
     expect(loseHeart(user).hearts.current).toBe(2);
   });
 
+  it("takes none in a brand-new learner's first 3 lessons, then the heart rule starts", () => {
+    const hearts = { current: 3, max: 5, unlimited: false, lastRefillDate: today() };
+    expect(loseHeart(makeUser({ hearts, completedLessonIds: [] })).hearts.current).toBe(3);
+    expect(loseHeart(makeUser({ hearts, completedLessonIds: ["a", "b"] })).hearts.current).toBe(3);
+    expect(loseHeart(makeUser({ hearts, completedLessonIds: ["a", "b", "c"] })).hearts.current).toBe(2);
+  });
+
   it("never goes below zero", () => {
     const user = makeUser({ hearts: { current: 0, max: 5, unlimited: false, lastRefillDate: today() } });
 

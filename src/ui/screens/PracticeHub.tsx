@@ -25,6 +25,8 @@ export type PracticeHubProps = {
   onStartReview: () => void;
   onStartDailyChallenge: () => void;
   onGoFoundation: () => void;
+  /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
+  onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
   onBack?: () => void;
   /** Mascot variant ('hijabi' | 'muslim_man' | 'girl' | 'boy'). */
@@ -164,6 +166,7 @@ export function PracticeHub({
   onStartReview,
   onStartDailyChallenge,
   onGoFoundation,
+  onStartLessonPractice,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
   accent = colors.green
@@ -252,6 +255,22 @@ export function PracticeHub({
           </>
         )}
       </View>
+
+      {onStartLessonPractice ? (
+        <PopIn delay={230} from="up">
+          <Tappable onPress={onStartLessonPractice} style={styles.basicsRow} testID="practice-lessons" accessibilityLabel={t("My lessons")}>
+            <View style={[styles.basicsIcon, { backgroundColor: lighten(colors.gem, 0.85) }]}>
+              <Icon name="bookOpen" size={28} />
+            </View>
+            <View style={styles.basicsText}>
+              <Text style={styles.basicsTitle} numberOfLines={1}>
+                {t("My lessons")}
+              </Text>
+            </View>
+            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+          </Tappable>
+        </PopIn>
+      ) : null}
 
       <PopIn delay={260} from="up">
         <Tappable onPress={onGoFoundation} style={styles.basicsRow} testID="practice-basics" accessibilityLabel={t("Basics")}>
