@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { Platform, type ScrollView, type View } from "react-native";
 import { space } from "../theme";
 import { beforePaint } from "./ScrollHint";
@@ -43,6 +43,33 @@ export function centerSpace(roomHeight: number, questionHeight: number, bottomPa
 /** Where to scroll so the green tile sits right above a sheet `sheetHeight` tall, never further than `furthest`. */
 export function sheetScrollY(layout: SheetFitLayout, sheetHeight: number, furthest: number) {
   return Math.max(0, Math.min(layout.focusBottom + space.md - (layout.visibleBottom - sheetHeight), furthest));
+}
+
+/**
+ * The tallest the sheet may be with its top edge still under the green tile's text, the question scrolled as far as
+ * it may go: the edge then reaches no further into the tile than `textBottom`, its lip, border and padding (see
+ * tileTextBottom), and cuts none of its lines.
+ */
+export function textRoom(layout: SheetFitLayout, textBottom: number) {
+  return sheetRoom(layout).room + SHEET_TILE_AIR + textBottom;
+}
+
+/**
+ * Whether the picked tile, above the green one, is folded away while the sheet is up: from the render `now` first
+ * says so, and then for as long as the sheet stays up on that try (`tryKey`), also once the sheet grows (its Why line
+ * opening) and `now` would no longer say so. A tile folded under the sheet never comes back while it is up, so the
+ * green tile never moves down under it.
+ */
+export function usePickFold({ open, now, tryKey }: { open: boolean; now: boolean; tryKey: string }) {
+  const [held, setHeld] = useState<string | null>(null);
+  useLayoutEffect(() => {
+    if (!open) {
+      setHeld(null);
+    } else if (now) {
+      setHeld(tryKey);
+    }
+  }, [now, open, tryKey]);
+  return open && (now || held === tryKey);
 }
 
 /** Within this of a scroll's target counts as there. */
@@ -107,18 +134,23 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
   // Counts the times it got where it was sent, so the content gives back any length it was held at.
   const [, setArrivals] = useState(0);
 
-  useEffect(() => {
-    if (!open) {
-      if (wasOpen.current) {
-        scrollRef.current?.scrollTo?.({ y: 0, animated: false });
-      }
-      wasOpen.current = false;
-      sent.current = undefined;
-      setSettled(undefined);
+  // Back to the top once the sheet goes, before the next frame is drawn: the practice screen keeps its scroll view from
+  // question to question, so the next question would show for a frame where this one was scrolled to.
+  useLayoutEffect(() => {
+    if (open) {
+      wasOpen.current = true;
       return;
     }
-    wasOpen.current = true;
-    if (aim === undefined) {
+    if (wasOpen.current) {
+      scrollRef.current?.scrollTo?.({ y: 0, animated: false });
+    }
+    wasOpen.current = false;
+    sent.current = undefined;
+    setSettled(undefined);
+  }, [open, scrollRef]);
+
+  useEffect(() => {
+    if (!open || aim === undefined) {
       return;
     }
     if (aim === sent.current) {
@@ -135,8 +167,8 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
     sentGlides.current = !atOnce;
     sentLength.current = contentHeight;
     turnedBack.current = false;
-    // Only a new place (or the sheet opening or going, or content that grew under a scroll that stopped short) moves
-    // the question: it never fights a hand for nothing.
+    // Only a new place (or the sheet opening, or content that grew under a scroll that stopped short) moves the
+    // question: it never fights a hand for nothing.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aim, contentHeight, open]);
 
@@ -199,7 +231,9 @@ const TILE_EDGE = 1;
  * The tiles the feedback sheet's top edge would cut, or cover, once it is up: every tile after the green one (the
  * focus) that does not sit wholly above the sheet, at `sheetTop` in the scroll content. They fade away while the
  * sheet is up, so no tile's text is ever cut by its edge. Never the green tile, nor a tile before it (those sit
- * above it). In a grid the green tile's row sits whole above the sheet, so the tile next to it stays too.
+ * above it). In a grid the green tile's row sits whole above the sheet, so the tile next to it stays too. With no
+ * focus (the sheet's edge reaches into the green tile's text: nothing gave it its room) every tile it would cut, the
+ * green one too, `edge` then being how far a tile's bottom holds no text.
  */
 export function tilesUnderSheet({
   ids,
@@ -208,7 +242,8 @@ export function tilesUnderSheet({
   gap,
   columns = 1,
   tilesTop,
-  sheetTop
+  sheetTop,
+  edge = TILE_EDGE
 }: {
   ids: string[];
   boxes: Record<string, LayoutBox | undefined>;
@@ -217,6 +252,8 @@ export function tilesUnderSheet({
   columns?: number;
   tilesTop: number;
   sheetTop: number;
+  /** How far a tile may reach under the sheet's top edge and stay (see tileTextBottom). Default: its lip's last pixel. */
+  edge?: number;
 }): string[] {
   const focusIndex = focusId ? ids.indexOf(focusId) : -1;
   return ids.filter((id, index) => {
@@ -224,7 +261,7 @@ export function tilesUnderSheet({
       return false;
     }
     const span = stackSpan(ids, boxes, id, gap, columns);
-    return span !== undefined && tilesTop + span.bottom > sheetTop + TILE_EDGE;
+    return span !== undefined && tilesTop + span.bottom > sheetTop + edge;
   });
 }
 
@@ -234,6 +271,125 @@ export function tilesUnderSheet({
  */
 export function overRoom(roomHeight: number, bottom: number) {
   return bottom > roomHeight + TILE_EDGE;
+}
+
+/** A tile's lip: the room's edge may cut it (only the 3D edge under the tile's face goes) and the tile still counts as whole. */
+const TILE_LIP = 4;
+
+/**
+ * How far to move a question that is too tall for its room down, so that the room's bottom edge falls between two
+ * tiles: the first tile the edge would cut goes wholly below it, and every tile in sight shows whole. `tiles`: where
+ * each tile (or row of tiles) starts and ends in the scroll content, in order, with no space above the question.
+ */
+export function wholeTilesDrop(tiles: RowSpan[], roomHeight: number) {
+  const cut = tiles.find((tile) => tile.top < roomHeight && tile.bottom > roomHeight + TILE_LIP);
+  return cut ? Math.ceil(roomHeight - cut.top) : 0;
+}
+
+/**
+ * The steps a question too tall for its room takes, one at a time and only as far as it needs, so that every answer
+ * shows whole and in sight: 1 tight tiles (less padding in each), 2 also the smaller text the tiles use for long
+ * answers, 3 also a smaller prompt across the full width, 4 also smaller gaps. Each step keeps the ones before it.
+ */
+export const FIT_STEPS = 4;
+
+/** What a question draws at a step of its fit (see FIT_STEPS). */
+export function fitLook(step: number) {
+  return { tight: step >= 1, smallText: step >= 2, smallPrompt: step >= 3, smallGaps: step >= 4 };
+}
+
+/** A question as it was just drawn, for its fit (see useQuestionFit). */
+export type FitMeasure = {
+  /** The try it was drawn for, and the step it was drawn with. */
+  key: string;
+  step: number;
+  /**
+   * Read before the frame was drawn (a layout effect), not reported after it (onLayout). Only then is a step tried by
+   * drawing it: a step's text wraps anew, so only drawing it says how tall it is.
+   */
+  now: boolean;
+  /** The room's height with the more-below arrow hidden, and with it shown (the bar under the room grows to hold it). */
+  room: number;
+  arrowRoom: number;
+  /** Where the question's last tile ends in the scroll content (its lip included), with no space above the question. */
+  bottom: number;
+  /** How much shorter the question is at least with tight tiles: known before they are drawn (see tightSaving). */
+  tightSaving: number;
+  /** Where each tile (or row of tiles) starts and ends in the scroll content, in order, with no space above the question. */
+  tiles?: RowSpan[];
+};
+
+export type QuestionFit = {
+  key: string;
+  /** The step the question is drawn with (see FIT_STEPS). */
+  step: number;
+  /** Decided for this try: the question is drawn so until its next try, through CHECK and the sheet. */
+  settled: boolean;
+  /**
+   * Too tall even at the last step: the question keeps its usual look and scrolls, under the arrow, and sits `drop`
+   * lower than its top, so the room's edge falls between two tiles (see wholeTilesDrop).
+   */
+  overflow: boolean;
+  drop: number;
+  /** How the question measured with its usual look, for its place once no step makes it fit. */
+  usual?: FitMeasure;
+};
+
+function freshFit(key: string): QuestionFit {
+  return { key, step: 0, settled: false, overflow: false, drop: 0 };
+}
+
+/**
+ * The next step of a question's fit, from how it measured at the step it was drawn with: it fits (done), or the next
+ * step is drawn, or none is left and it keeps its usual look, placed so every tile in sight is whole. Tight tiles fit
+ * or not before they are drawn (they are lower by a known amount at least), so where a size can only be read after
+ * the frame is drawn, they are the only step there is.
+ */
+export function nextFit(fit: QuestionFit, measure: FitMeasure): QuestionFit {
+  if (fit.settled || measure.key !== fit.key || measure.step !== fit.step) {
+    return fit;
+  }
+  const usual = fit.step === 0 ? measure : fit.usual;
+  if (!overRoom(measure.room, measure.bottom)) {
+    return { ...fit, settled: true };
+  }
+  if (fit.step === 0 && measure.tightSaving > 0 && !overRoom(measure.room, measure.bottom - measure.tightSaving)) {
+    return { ...fit, step: 1, settled: true, usual };
+  }
+  if (measure.now && fit.step < FIT_STEPS) {
+    return { ...fit, step: fit.step + 1, usual };
+  }
+  return { ...fit, step: 0, settled: true, overflow: true, drop: usual?.tiles ? wholeTilesDrop(usual.tiles, usual.arrowRoom) : 0, usual };
+}
+
+/** A room's height as read, and whether the bar under it held the more-below arrow then (it grows to hold it). */
+export type RoomRead = { height: number; hint: boolean };
+/** A question's height as read, and the try (`key`) and step of its fit it was drawn with. */
+export type BlockRead = { height: number; key: string; step: number };
+
+/** A state update that keeps the room read before when nothing changed, so a report of the same size draws nothing. */
+export function sameRoom(next: RoomRead) {
+  return (before: RoomRead | null) => (before && before.height === next.height && before.hint === next.hint ? before : next);
+}
+
+/** The same for a question's height. */
+export function sameBlock(next: BlockRead) {
+  return (before: BlockRead | null) => (before && before.height === next.height && before.key === next.key && before.step === next.step ? before : next);
+}
+
+/**
+ * How a question meets its room, worked out before its first frame where a view can say its size at once (see
+ * laidOutHeight): a question that fits as it is stays as it is; one too tall takes the steps of FIT_STEPS one at a
+ * time, each drawn and measured before the frame is painted, and keeps the first that makes it fit; one too tall even
+ * then keeps its usual look and is placed so every tile in sight is whole. Decided once a try, while unchecked, and
+ * kept through CHECK and the sheet, so nothing moves when the sheet comes up; a new try (`key`) is measured again.
+ * Pass each measure of the question as drawn to `measure`.
+ */
+export function useQuestionFit(key: string) {
+  const [fit, setFit] = useState<QuestionFit>(() => freshFit(key));
+  const shown = fit.key === key ? fit : freshFit(key);
+  const measure = useCallback((next: FitMeasure) => setFit((state) => nextFit(state.key === next.key ? state : freshFit(next.key), next)), []);
+  return { ...shown, measure };
 }
 
 /** A part of a scrolling list that shows whole or not at all: a row, the Why pill, one line of the Why text. */
@@ -294,6 +450,13 @@ export function nearestRowStop(stops: number[], offset: number) {
 export function laidOutHeight(view: unknown) {
   const height = (view as { offsetHeight?: unknown } | null)?.offsetHeight;
   return typeof height === "number" && height > 0 ? Math.round(height) : undefined;
+}
+
+/** A view's place in its parent and its height as laid out right now, where the platform can say them at once (see laidOutHeight). */
+export function laidOutBox(view: unknown): LayoutBox | undefined {
+  const top = (view as { offsetTop?: unknown } | null)?.offsetTop;
+  const height = laidOutHeight(view);
+  return typeof top === "number" && height !== undefined ? { y: Math.round(top), height } : undefined;
 }
 
 /**

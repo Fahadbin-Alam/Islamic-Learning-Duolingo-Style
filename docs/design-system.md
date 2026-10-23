@@ -97,22 +97,39 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   shows (never at the top first), and keeps that place
   when CHECK is tapped, its Why line opens or tiles fold; it scrolls only when the sheet would cover the
   green tile, and only as far as that needs. A question taller than its room (a long "Try again!" question
-  on a small phone) draws its tiles tight, with less padding in each, when that makes it fit, from the first
-  frame it shows, so every answer is in sight and whole, never one cut by the room's bottom edge; it keeps
-  them so through the sheet, and the next try is measured again. A question too tall even then keeps its
-  usual tiles and scrolls as before, under the arrow (tight tiles would not bring its last tile into sight,
-  only move where the room's edge cuts it), so its last tile can show cut at the room's edge. No English
-  question is that tall at 320 px; some long Urdu and Arabic ones are.
-  The sheet never covers the prompt or the green tile, its Why line open. The question gives its room
-  first: on a short phone the grey tiles fold away and the mascot hides (until the next question), so the
-  sheet can stay full size. Only when that is not enough does the sheet go slim (less padding, a smaller
-  button), and only then does the Why text alone scroll, from its top, in whole lines, with the arrow in the
-  gap above the button (it turns to point up at the end, so the gap is never empty). The heading, the
-  "Correct answer" line and the Why pill always show whole. A tile the sheet's top edge would cut is gone
-  at once while the sheet is up, in the very frame the sheet starts to cover it (never the green tile, nor
-  the picked tile when it sits whole above the sheet), and fades back with the next try; tiles wholly under
-  the sheet stay. When the learner opens the Why line and the sheet grows, the question moves in that same
-  frame, not after it; it glides as the sheet comes up or shrinks. It only ever goes where it ends: it waits
+  on a small phone, a long Urdu or Arabic one) takes the steps of its fit (`FIT_STEPS` in
+  `src/ui/lesson/sheetFit.ts`), one at a time and only as far as it needs to show every answer whole: tight
+  tiles (less padding, never under 44 px), then the smaller text of long answers (15 px, Arabic script at the
+  20 px of a long Arabic answer), then a 2 px smaller prompt across the full width (no mascot), then smaller
+  gaps. Each step is drawn and measured before the frame is painted, so the question shows from its first
+  frame with the look it keeps; it keeps it through CHECK and the sheet, and the next try is measured
+  again. A question too tall even at the last step keeps its usual look and shows the arrow from its first
+  frame; it sits moved down just so far that the room's edge (the arrow's room taken) falls between two
+  tiles, so every tile in sight is whole and the next one starts below the edge; it scrolls as before.
+  The arrow's room stays in the bar through the sheet (the sheet covers the bar), so the room above it keeps
+  its height. Practice uses the same steps and measures each question before its first frame; the screen
+  stays up from question to question, so the last question's arrow, scroll and look are reset before the
+  next one is drawn.
+  The sheet never covers the prompt or the green tile, its Why line open, while anything can make room. The
+  question gives its room first: on a short phone the grey tiles fold away and the mascot hides (until the
+  next question), so the sheet can stay full size. Only when that is not enough does the sheet go slim (less
+  padding, a smaller button), and only then does the Why text alone scroll, from its top, in whole lines,
+  with the arrow in the gap above the button (it turns to point up at the end, so the gap is never empty),
+  and only where that makes the sheet shorter than slim with the whole text (two lines whole take less room
+  than one line over the arrow's room) or the whole text would not fit the sheet's share of the screen.
+  The heading, the "Correct answer" line and the Why pill always show whole. When even the sheet at its
+  least (slim, its Why text one line) is taller than the room under the green tile (a long translated
+  prompt, which never scrolls away, over a long answer the sheet says again) the picked tile folds away too,
+  when it sits above the green one and that keeps the sheet's edge under the green tile's text: the sheet
+  still says it was wrong. Once folded it stays so while the sheet is up, also when the Why line opens and the
+  sheet grows, so the green tile never moves back down under the sheet. A
+  tile the sheet's top edge would cut is gone at once while the sheet is up, in the very frame the sheet
+  starts to cover it, and fades back with the next try; tiles wholly under the sheet stay. The green tile
+  and the picked one above it stay while the sheet's edge reaches no further into them than under their text
+  (their lip, border and padding); only when nothing gives the sheet its room and its edge would cross the
+  green tile's text (or the row of True and False) is that tile gone too, so the edge never cuts a line of it,
+  and the sheet's "Correct answer" line names it. When the learner opens the Why line and the sheet grows,
+  the question moves in that same frame, not after it; it glides as the sheet comes up or shrinks. It only ever goes where it ends: it waits
   while a hiding mascot lets the prompt wrap anew, and its content never gets shorter under it on the way, so
   it never jumps or turns back. The sheet is never taller than its room, not even in the frame its Why line
   opens. The small chips above the prompt
@@ -123,6 +140,9 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   scrolls by whole rows, and its arrow points down while rows are hidden and up at the end. The rows the
   learner had in another place get a white band and a red ✕ in that list, and the list opens where they
   show, so the mistake is in sight even when its red tiles fold away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`).
+  Right to left (Urdu, Arabic) the screens mirror: the "more below" arrow sits in the middle of its gap the
+  same in both directions, and a row tile's text starts where its line starts (on the right), Latin words and
+  numbers in it too; True and False keep their centred text.
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
 ## Copy bank

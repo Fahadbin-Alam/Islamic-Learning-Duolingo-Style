@@ -119,6 +119,12 @@ export type FeedbackSheetProps = {
   onHeight?: (height: number, settled: boolean) => void;
   /** Reports the height the sheet needs to show everything at full size (Why text whole, nothing scrolling). */
   onFullHeight?: (height: number) => void;
+  /**
+   * Reports the least the sheet can be: slim, and its Why text (when open, and longer than a line) down to one line. A
+   * room smaller than this the sheet cannot keep to, so the question gives more of its room first (see ExerciseView).
+   * Told while the sheet is up (as it opens, before the frame is drawn); 0 until it has measured its parts.
+   */
+  onLeastHeight?: (height: number) => void;
   /** Called when the learner opens or shuts the Why line, and with false when the sheet goes. */
   onWhyToggle?: (open: boolean) => void;
   testID?: string;
@@ -143,6 +149,7 @@ export function FeedbackSheet({
   maxHeight,
   onHeight,
   onFullHeight,
+  onLeastHeight,
   onWhyToggle,
   testID = "feedback-sheet"
 }: FeedbackSheetProps) {
@@ -249,20 +256,35 @@ export function FeedbackSheet({
   const bodyFull = listShown ? LIST_TOP + listContent : topBlock + (whyVisible ? WHY_GAP + whyContent : 0);
   const fullHeight = headHeight + (hasBody ? bodyFull : 0) + space.lg + BUTTON_LG + SHEET_PAD + inset;
 
+  // The sheet slim (less padding, the md button), and everything but the Why text's lines while that scrolls, with the
+  // arrow's room above the button: at full size and slim.
+  const slimHeight = fullHeight - SLIM_SAVES;
+  const scrollFixed = fullHeight - whyContent + whyPadTop - space.lg + SCROLL_HINT_ROOM;
+  const scrollFixedSlim = scrollFixed - SHEET_PAD + SHEET_PAD_SLIM - BUTTON_LG + BUTTON_MD;
+  // Slim with its Why text whole, the sheet fits its share of the window (else its body would scroll as a whole, and
+  // could cut the text).
+  const slimWhole = slimHeight <= shareMax;
+  // The least it can be: slim, with its Why text whole or, where that is shorter (or the whole text does not fit), one
+  // line of it that scrolls (it shows whole lines only).
+  const oneWhyLine = scrollFixedSlim + WHY_LINE;
+  const leastHeight = listShown ? fullHeight : whyVisible && whyLines > 1 ? (slimWhole ? Math.min(slimHeight, oneWhyLine) : oneWhyLine) : slimHeight;
+
   // Too tall for its room: slim first; then, only if that is still too tall, the Why text scrolls in whole lines.
   let slim = false;
   let whyMax: number | undefined;
   if (!listShown && fullHeight > cap) {
     slim = true;
-    if (fullHeight - SLIM_SAVES > cap && whyVisible && whyLines > 1) {
-      // Everything but the Why text's lines, with the arrow's room above the button.
-      const fixed = fullHeight - whyContent + whyPadTop - space.lg + SCROLL_HINT_ROOM;
-      const fullLines = Math.floor((cap - fixed) / WHY_LINE);
+    if (slimHeight > cap && whyVisible && whyLines > 1) {
+      const fullLines = Math.floor((cap - scrollFixed) / WHY_LINE);
       // Full size while that still shows two lines; slim when it would show fewer.
       slim = fullLines < 2;
-      const lines = Math.max(1, slim ? Math.floor((cap - (fixed - SHEET_PAD + SHEET_PAD_SLIM - BUTTON_LG + BUTTON_MD)) / WHY_LINE) : fullLines);
-      // The part that scrolls shows whole lines: never one cut through.
-      whyMax = lines < whyLines ? lines * WHY_LINE + whyPadTop : undefined;
+      const lines = Math.max(1, slim ? Math.floor((cap - scrollFixedSlim) / WHY_LINE) : fullLines);
+      // The part that scrolls shows whole lines: never one cut through. It scrolls only where that makes the sheet
+      // shorter than slim with the whole text (two lines take less room whole than one line over the arrow's room), or
+      // where the whole text does not fit the sheet's share of the window.
+      const scrolled = (slim ? scrollFixedSlim : scrollFixed) + lines * WHY_LINE;
+      whyMax = lines < whyLines && (scrolled < slimHeight || !slimWhole) ? lines * WHY_LINE + whyPadTop : undefined;
+      slim = slim || whyMax === undefined;
     }
   }
   const whyScrolls = whyMax !== undefined;
@@ -404,15 +426,35 @@ export function FeedbackSheet({
       setWhyContent(Math.round(text.offsetHeight));
     }
   }, [whyText, whyVisible]);
+  // The same for the title row and the answer with the Why pill as the sheet opens (or its answer changes): the
+  // question then knows the least the sheet can be before the frame is drawn, not a frame after it (or, the sheet
+  // staying up from question to question, with the last answer's height).
+  useLayoutEffect(() => {
+    if (Platform.OS !== "web" || !visible) {
+      return;
+    }
+    const holder = contentRef.current as unknown as { querySelector?: (selector: string) => HTMLElement | null } | null;
+    const head = holder?.querySelector?.('[data-testid="feedback-head"]');
+    const top = holder?.querySelector?.('[data-testid="feedback-top"]');
+    if (head?.offsetHeight) {
+      setHeadHeight(Math.round(head.offsetHeight));
+    }
+    if (top?.offsetHeight) {
+      setTopBlock(Math.round(top.offsetHeight));
+    }
+  }, [visible, correct, correctLabel, whyText, heading]);
+  // The least is known once the parts it is made of have said their sizes (0 until then).
+  const leastKnown = (!hasBody || listShown || topBlock > 0) && (!whyVisible || whyContent > 0);
   // Told before the frame is drawn, so the question hears of a taller full height (its Why line opening) together
   // with the height the sheet shows, never the one without the other.
   useLayoutEffect(() => {
     if (visible) {
       onFullHeight?.(fullHeight);
+      onLeastHeight?.(leastKnown ? leastHeight : 0);
     }
     // Only when the height changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fullHeight, visible]);
+  }, [fullHeight, leastHeight, leastKnown, visible]);
 
   const badgeScale = badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
   const badgeRotate = badge.interpolate({ inputRange: [0, 1], outputRange: ["-40deg", "0deg"] });
@@ -432,7 +474,7 @@ export function FeedbackSheet({
         onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset), rowsPlaced)}
         testID="feedback-content"
       >
-        <View style={styles.headRow} onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))}>
+        <View style={styles.headRow} onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))} testID="feedback-head">
           <Animated.View
             style={[
               styles.badge,
