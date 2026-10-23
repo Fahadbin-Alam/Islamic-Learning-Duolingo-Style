@@ -9,7 +9,7 @@ from sqlalchemy import select
 
 from backend.app.api.deps import DbSession, current_user
 from backend.app.core.config import settings
-from backend.app.core.subscriptions import SUBSCRIPTION_PLANS, plan_for_store_product, premium_plan_ids
+from backend.app.core.subscriptions import SUBSCRIPTION_PLANS, entitlement_for_plan, plan_for_store_product, plan_grants_unlimited_hearts, premium_plan_ids
 from backend.app.models import EventLog, SubscriptionEntitlement, User
 from backend.app.service_layer import entitlement_grants_access
 from backend.app.schemas import EntitlementRead, SubscriptionPlanRead, SubscriptionSyncInput
@@ -134,7 +134,8 @@ def revenuecat_webhook(
         next_status = "trialing"
 
     plan_type = plan_for_store_product(event.get("new_product_id") or event.get("product_id"))
-    entitlement_name = (event.get("entitlement_ids") or ["premium"])[0]
+    # Premium products also carry the no_ads entitlement, so the plan, not the event's first entitlement, decides.
+    entitlement_name = entitlement_for_plan(plan_type)
     entitlement = db.scalar(
         select(SubscriptionEntitlement).where(
             SubscriptionEntitlement.user_id == user.id,
@@ -154,7 +155,7 @@ def revenuecat_webhook(
 
     has_access = entitlement_grants_access(next_status, entitlement.expires_at, datetime.now(timezone.utc))
     user.premium_status = plan_type if has_access else "free"
-    if not has_access:
+    if not has_access or not plan_grants_unlimited_hearts(plan_type):
         user.hearts_unlimited = False
 
     db.add(EventLog(user_id=user.id, event_type=f"revenuecat.{event_type.lower()}", payload_json={"productId": event.get("product_id"), "store": event.get("store"), "environment": event.get("environment")}))

@@ -8,6 +8,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.app.core.security import hash_token
+from backend.app.core.subscriptions import plan_grants_unlimited_hearts
 from backend.app.models import AuthSession, SubscriptionEntitlement, User
 
 
@@ -55,7 +56,8 @@ def get_active_entitlement(user: User) -> Optional[SubscriptionEntitlement]:
         for entitlement in user.entitlements
         if entitlement_grants_access(entitlement.status, entitlement.expires_at, now)
     ]
-    active.sort(key=lambda item: as_utc(item.expires_at) or now, reverse=True)
+    # Premium outranks No Ads when both are active, then the plan that lasts longest.
+    active.sort(key=lambda item: (plan_grants_unlimited_hearts(item.plan_type), as_utc(item.expires_at) or now), reverse=True)
     return active[0] if active else None
 
 
@@ -137,7 +139,7 @@ def frontend_user_payload(user: User) -> Dict[str, Any]:
         "hearts": {
             "current": user.hearts_current,
             "max": user.hearts_max,
-            "unlimited": user.hearts_unlimited or bool(entitlement),
+            "unlimited": user.hearts_unlimited or bool(entitlement and plan_grants_unlimited_hearts(entitlement.plan_type)),
             "lastRefillDate": as_utc(last_refill).astimezone(timezone.utc).date().isoformat() if last_refill else datetime.now(timezone.utc).date().isoformat(),
         },
         "completedLessonIds": user.completed_lesson_ids_json or [],

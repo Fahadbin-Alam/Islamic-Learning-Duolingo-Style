@@ -2,7 +2,7 @@ jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock")
 );
 
-import { applyPremiumStatus, applyShopItem, canSpendGems, isPremiumUser, localDateKey } from "../api/islamicLearningApi";
+import { applyPremiumStatus, applyShopItem, canSpendGems, hasPremiumLessons, isPremiumUser, localDateKey } from "../api/islamicLearningApi";
 import { SHOP_ITEMS } from "../data/course";
 import { removeStoredItem } from "../services/appStorage";
 import { createSandboxClient } from "../services/monetizationShared";
@@ -11,6 +11,7 @@ import {
   adSettingsFor,
   isRealAdUnitId,
   MIN_MS_BETWEEN_FULL_SCREEN_ADS,
+  planForProduct,
   resolveMode,
   rewardedGemVideosLeft,
   shouldShowLessonBreakAd
@@ -88,6 +89,43 @@ describe("applyPremiumStatus", () => {
     const user = makeUser({ hearts: hearts(3) });
 
     expect(applyPremiumStatus(user, { active: false })).toBe(user);
+  });
+
+  it("takes the ads away for No ads, but not the heart limit or the premium units", () => {
+    const user = makeUser({ hearts: hearts(3) });
+
+    const next = applyPremiumStatus(user, { active: true, plan: "no_ads", productId: "no_ads_yearly" });
+
+    expect(isPremiumUser(next)).toBe(true);
+    expect(hasPremiumLessons(next)).toBe(false);
+    expect(next.hearts).toMatchObject({ current: 3, unlimited: false });
+    expect(applyPremiumStatus(next, { active: true, plan: "no_ads", productId: "no_ads_yearly" })).toBe(next);
+  });
+
+  it("reads the plan from a Google product id when the store does not name it", () => {
+    const next = applyPremiumStatus(makeUser({ hearts: hearts(3) }), { active: true, productId: "no_ads_monthly:monthly" });
+
+    expect(next.hearts.unlimited).toBe(false);
+    expect(hasPremiumLessons(next)).toBe(false);
+  });
+
+  it("moves a No ads learner up to Premium, and a lapsed Premium learner down to No ads", () => {
+    const noAds = makeUser({ activeSubscriptionId: "no_ads_monthly", hearts: hearts(2) });
+
+    const premium = applyPremiumStatus(noAds, { active: true, plan: "premium", productId: "membership_monthly" });
+    expect(hasPremiumLessons(premium)).toBe(true);
+    expect(premium.hearts).toMatchObject({ current: 5, unlimited: true });
+
+    const back = applyPremiumStatus(premium, { active: true, plan: "no_ads", productId: "no_ads_monthly" });
+    expect(back.activeSubscriptionId).toBe("no_ads_monthly");
+    expect(back.hearts.unlimited).toBe(false);
+  });
+
+  it("counts an older plan id as Premium, as every plan was before No ads", () => {
+    expect(hasPremiumLessons(makeUser({ activeSubscriptionId: "premium_monthly" }))).toBe(true);
+    expect(planForProduct("membership_yearly:yearly")).toBe("premium");
+    expect(planForProduct("no_ads_yearly")).toBe("no_ads");
+    expect(planForProduct(undefined)).toBeUndefined();
   });
 });
 
@@ -168,6 +206,12 @@ describe("sandbox store", () => {
     expect(purchase.premium?.active).toBe(true);
     expect(restored.premium?.active).toBe(true);
     expect(await client.getPremiumStatus()).toMatchObject({ active: true });
+  });
+
+  it("simulates the No ads plan as its own plan", async () => {
+    const purchase = await createSandboxClient("sandbox").purchaseShopItem(shopItem("no-ads-yearly"));
+
+    expect(purchase.premium).toMatchObject({ active: true, plan: "no_ads", productId: "no_ads_yearly" });
   });
 
   it("keeps a simulated membership after the app reloads", async () => {
