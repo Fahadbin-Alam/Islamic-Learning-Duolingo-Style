@@ -93,6 +93,8 @@ Muslimo is a learning tool, not a fatwa service. For rulings that affect you, pl
 
 | Product id | Reference name | Display name (max 35) | Description (max 55) |
 | --- | --- | --- | --- |
+| `no_ads_monthly` | No Ads Monthly | Muslimo No Ads (Monthly) | Learn with no ads |
+| `no_ads_yearly` | No Ads Yearly | Muslimo No Ads (Yearly) | A full year of learning with no ads |
 | `membership_monthly` | Premium Monthly | Muslimo Premium (Monthly) | Unlimited hearts, no ads and premium lessons |
 | `membership_yearly` | Premium Yearly | Muslimo Premium (Yearly) | A full year of unlimited hearts, no ads |
 | `heart_pack_small` | Heart Pack | Heart Pack | Refill 5 hearts and keep learning |

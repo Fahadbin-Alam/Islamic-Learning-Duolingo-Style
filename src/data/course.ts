@@ -3955,43 +3955,60 @@ export const LESSONS_BY_ID = expandedContent.lessonsById;
 
 export const SHOP_ITEMS: ShopItem[] = [
   {
+    id: "no-ads-monthly",
+    type: "monthly_membership",
+    tier: "no_ads_monthly",
+    name: "Monthly no ads",
+    localizedDescription: "Learn with no ads.",
+    price: 2.99,
+    currencyType: "USD",
+    productId: "no_ads_monthly",
+    removesAds: true,
+    durationDays: 30,
+    benefits: ["No ads"]
+  },
+  {
+    id: "no-ads-yearly",
+    type: "yearly_membership",
+    tier: "no_ads_yearly",
+    name: "Yearly no ads",
+    localizedDescription: "A full year with no ads, for less than 6 months of the monthly plan.",
+    price: 19.99,
+    currencyType: "USD",
+    productId: "no_ads_yearly",
+    removesAds: true,
+    durationDays: 365,
+    highlightBadge: "44% off yearly",
+    benefits: ["No ads", "Lower yearly price"]
+  },
+  {
     id: "membership-monthly",
     type: "monthly_membership",
     tier: "premium_monthly",
     name: "Monthly premium",
     localizedDescription: "No ads, unlimited hearts, and every premium lesson.",
-    price: 9.99,
+    price: 6.99,
     currencyType: "USD",
     productId: "membership_monthly",
     unlimitedHearts: true,
     removesAds: true,
     durationDays: 30,
-    benefits: [
-      "Full access to premium branches",
-      "Advanced lessons and deeper review",
-      "Bonus resources and premium quizzes",
-      "No ads and unlimited hearts"
-    ]
+    benefits: ["No ads and unlimited hearts", "Every premium unit"]
   },
   {
     id: "membership-yearly",
     type: "yearly_membership",
     tier: "premium_yearly",
     name: "Yearly premium",
-    localizedDescription: "Save 20% with a full year of premium access, unlimited hearts, and advanced study tools.",
-    price: 95.9,
+    localizedDescription: "A full year of no ads, unlimited hearts, and every premium lesson.",
+    price: 49.99,
     currencyType: "USD",
     productId: "membership_yearly",
     unlimitedHearts: true,
     removesAds: true,
     durationDays: 365,
-    highlightBadge: "20% off yearly",
-    benefits: [
-      "Everything in monthly premium",
-      "Lower yearly price for long-term learning",
-      "Premium tests, review mode, and branch unlocks",
-      "Ready for account sync across devices"
-    ]
+    highlightBadge: "40% off yearly",
+    benefits: ["Everything in monthly premium", "Lower yearly price"]
   },
   {
     id: "heart-pack-small",

@@ -1,3 +1,5 @@
+import type { PremiumPlan } from "../types";
+
 declare const __DEV__: boolean | undefined;
 
 export type MonetizationMode = "disabled" | "sandbox" | "live";
@@ -10,10 +12,13 @@ const env = {
   revenueCatIosKey: process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY,
   revenueCatAndroidKey: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY,
   entitlementId: process.env.EXPO_PUBLIC_REVENUECAT_ENTITLEMENT_ID,
+  noAdsEntitlementId: process.env.EXPO_PUBLIC_REVENUECAT_NO_ADS_ENTITLEMENT_ID,
   heartPackProductId: process.env.EXPO_PUBLIC_HEART_PACK_PRODUCT_ID,
   gemPackProductId: process.env.EXPO_PUBLIC_GEM_PACK_PRODUCT_ID,
   monthlyProductId: process.env.EXPO_PUBLIC_MONTHLY_PRODUCT_ID,
   yearlyProductId: process.env.EXPO_PUBLIC_YEARLY_PRODUCT_ID,
+  noAdsMonthlyProductId: process.env.EXPO_PUBLIC_NO_ADS_MONTHLY_PRODUCT_ID,
+  noAdsYearlyProductId: process.env.EXPO_PUBLIC_NO_ADS_YEARLY_PRODUCT_ID,
   androidBannerUnitId: process.env.EXPO_PUBLIC_ADMOB_ANDROID_BANNER_UNIT_ID,
   androidRewardedUnitId: process.env.EXPO_PUBLIC_ADMOB_ANDROID_REWARDED_UNIT_ID,
   androidInterstitialUnitId: process.env.EXPO_PUBLIC_ADMOB_ANDROID_INTERSTITIAL_UNIT_ID,
@@ -43,13 +48,26 @@ const isDev = typeof __DEV__ !== "undefined" && Boolean(__DEV__);
 export const monetizationMode = resolveMode(env.mode, isDev);
 
 export const premiumEntitlementId = clean(env.entitlementId) || "premium";
+export const noAdsEntitlementId = clean(env.noAdsEntitlementId) || "no_ads";
 
 export const monetizationProductIds = {
   heartPackSmall: clean(env.heartPackProductId) || "heart_pack_small",
   gemPackMedium: clean(env.gemPackProductId) || "gem_pack_medium",
   membershipMonthly: clean(env.monthlyProductId) || "membership_monthly",
-  membershipYearly: clean(env.yearlyProductId) || "membership_yearly"
+  membershipYearly: clean(env.yearlyProductId) || "membership_yearly",
+  noAdsMonthly: clean(env.noAdsMonthlyProductId) || "no_ads_monthly",
+  noAdsYearly: clean(env.noAdsYearlyProductId) || "no_ads_yearly"
 };
+
+// Two plans: "No ads" only takes the ads away; Premium also gives unlimited hearts and the premium units.
+// The plan is read from the product (or backend plan) id, so a Google "productId:basePlanId" works too, and
+// any older or unknown id counts as Premium, which is what every plan gave before "No ads" existed.
+export function planForProduct(productId: string | undefined): PremiumPlan | undefined {
+  const base = clean(productId).split(":")[0];
+  if (!base) return undefined;
+  const noAds = [monetizationProductIds.noAdsMonthly, monetizationProductIds.noAdsYearly];
+  return noAds.includes(base) || base.startsWith("no_ads") ? "no_ads" : "premium";
+}
 
 export function revenueCatApiKey(platform: StorePlatform) {
   if (platform === "ios") {
