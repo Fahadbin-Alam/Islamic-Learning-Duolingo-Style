@@ -63,7 +63,7 @@ def test_friend_shows_real_xp_weekly_xp_and_streak(client):
     assert [friend["name"] for friend in crew["friends"]] == ["Aisha"]
     aisha = crew["friends"][0]
     assert aisha["totalXp"] == 120
-    # Only the last seven days count toward the weekly race; the 10th is outside it.
+    # Only this week, Monday the 12th to Sunday the 18th, counts toward the weekly race; the 10th is outside it.
     assert aisha["weeklyXp"] == 55
     assert aisha["streakDays"] == 4
     assert crew["me"]["name"] == "Omar"

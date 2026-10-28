@@ -28,6 +28,7 @@ import { buildGuidedLesson } from "../services/lessonGuidance";
 import { planForProduct } from "../services/monetizationConfig";
 import { enrichLessonSources, getPrimaryLessonSource } from "../services/resourceSupport";
 import { logDailyXp } from "../services/familyCode";
+import { addLeagueXp, settleLeague } from "../services/leagues";
 
 export interface IslamicLearningApi {
   getUser(userId: number): Promise<UserProfile>;
@@ -156,7 +157,7 @@ export function getXpToday(user: UserProfile, now = new Date()) {
 // Any XP counts toward the daily goal, a goal of its own: the streak does not wait for it.
 export function addXp(user: UserProfile, amount: number, now = new Date()): UserProfile {
   return {
-    ...user,
+    ...addLeagueXp(user, amount, now),
     totalXp: user.totalXp + amount,
     dailyXp: { date: localDateKey(now), xp: getXpToday(user, now) + amount },
     xpByDay: amount > 0 ? logDailyXp(user.xpByDay, localDateKey(now), amount) : user.xpByDay
@@ -197,7 +198,7 @@ export function refreshStreak(user: UserProfile, now = new Date()) {
 
 // Run whenever a saved profile is opened: refill today's hearts and drop a streak that has lapsed.
 export function prepareUserForToday(user: UserProfile, now = new Date()) {
-  return refreshStreak(refillHeartsForToday(user, now), now);
+  return settleLeague(refreshStreak(refillHeartsForToday(user, now), now), now);
 }
 
 export function didExtendStreak(before: UserProfile, after: UserProfile) {

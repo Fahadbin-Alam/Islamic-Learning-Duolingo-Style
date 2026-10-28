@@ -258,6 +258,8 @@ export type CrewMember = {
   weeklyXp: number;
   streakDays: number;
   lastLearningAt: string | null;
+  /** Their league (index into LEAGUES in src/services/leagues.ts), for friends who added each other back. */
+  league?: number;
   /** Not agreed yet: the server sends no learning stats, and for someone you added, only the email you typed. */
   pending?: boolean;
 };
