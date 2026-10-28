@@ -163,6 +163,7 @@ import {
 } from "./ui/screens";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
+import { questionSource, shortReference } from "./services/questionSource";
 import type {
   AccountRole,
   Challenge,
@@ -171,6 +172,7 @@ import type {
   LearningBranch,
   LearningNodeView,
   LearningSection,
+  Lesson,
   LessonSession,
   PremiumStatus,
   ReminderPreferences,
@@ -2348,7 +2350,8 @@ export default function TopicApp() {
                 ? {
                     correct: state.answerState === "correct",
                     correctLabel,
-                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage)
+                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
+                    source: feedbackSource(challenge, lesson)
                   }
                 : undefined}
               attempt={lessonStep.attempt}
@@ -2603,6 +2606,14 @@ export default function TopicApp() {
       </PortalHost>
     </View>
   );
+}
+
+// The answer sheet's source chip: the short reference of the source that says the answer, opening it.
+function feedbackSource(challenge: Challenge, lesson: Lesson | undefined) {
+  const source = questionSource(challenge, lesson);
+  const reference = source?.reference?.trim();
+  if (!source || !reference) return undefined;
+  return { label: shortReference(reference), onOpen: source.url ? () => void Linking.openURL(source.url).catch(() => undefined) : undefined };
 }
 
 function readRewardedGemVideos(): { date: string; count: number } | null {

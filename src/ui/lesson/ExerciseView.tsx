@@ -21,7 +21,7 @@ import { Mascot, type MascotMood } from "../Mascot";
 import { PopIn } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
-import { FeedbackSheet } from "./FeedbackSheet";
+import { FeedbackSheet, type FeedbackSource } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { EVERY_FRAME, useScrollMore } from "./ScrollHint";
@@ -227,7 +227,13 @@ export function FadeUnderSheet({
 }
 
 export type ExerciseChoice = { id: string; label: string };
-export type ExerciseResult = { correct: boolean; correctLabel: string; why?: string };
+export type ExerciseResult = {
+  correct: boolean;
+  correctLabel: string;
+  why?: string;
+  /** Where the answer comes from: a chip on the answer sheet, right or wrong, that opens the source. */
+  source?: FeedbackSource;
+};
 
 export type ExerciseViewProps = {
   kind: "multiple_choice" | "true_false";
@@ -646,6 +652,7 @@ export function ExerciseView({
         correct={Boolean(shown?.correct)}
         correctLabel={sheetLabel}
         why={why}
+        source={shown?.source}
         onContinue={onContinue}
         praiseSeed={praiseSeed ?? prompt}
         playSound={playSound}
