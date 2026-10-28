@@ -312,10 +312,17 @@ export function isOutOfHearts(user: UserProfile) {
   return !user.hearts.unlimited && user.hearts.current <= 0;
 }
 
+// A brand-new learner's first lessons cost no hearts, so nobody runs out before they know the game.
+export const WARM_UP_LESSONS = 3;
+
+export function isWarmUpLearner(user: UserProfile) {
+  return (user.completedLessonIds?.length ?? 0) < WARM_UP_LESSONS;
+}
+
 // A wrong answer costs a heart, except in a test-out (pass the session): its misses only count against
-// the pass mark, so one failed jump cannot use up a child's hearts.
+// the pass mark, so one failed jump cannot use up a child's hearts. The warm-up lessons cost none either.
 export function loseHeart(user: UserProfile, session?: LessonSession) {
-  if (user.hearts.unlimited || isTestOutSession(session)) {
+  if (user.hearts.unlimited || isTestOutSession(session) || isLessonPractice(session) || isWarmUpLearner(user)) {
     return user;
   }
 
@@ -461,6 +468,77 @@ export function getTestOutXp(session: Pick<LessonSession, "lesson">, correct: nu
 // 80% to pass, but never more right answers than there are questions, so a perfect run always passes.
 export function testOutPassingScore(questionCount: number) {
   return Math.min(questionCount, Math.max(TEST_OUT_MIN_QUESTIONS, Math.ceil(questionCount * 0.8)));
+}
+
+export function isLessonPractice(session: LessonSession | undefined) {
+  return session?.mode === "lesson_practice";
+}
+
+// The lessons "My lessons" practice asks about: the most recent ones the learner finished, newest last.
+const LESSON_PRACTICE_POOL = 12;
+
+export function practiceLessonsFor(user: Pick<UserProfile, "completedLessonIds">) {
+  return (user.completedLessonIds ?? [])
+    .map((lessonId) => LESSONS_BY_ID[lessonId])
+    .filter((lesson): lesson is Lesson => Boolean(lesson))
+    .slice(-LESSON_PRACTICE_POOL);
+}
+
+export function canPracticeLessons(user: Pick<UserProfile, "completedLessonIds">) {
+  return pickTestOutChallenges(practiceLessonsFor(user)).length >= TEST_OUT_MIN_QUESTIONS;
+}
+
+// "My lessons" in Practice: up to 10 questions from the lessons the learner finished most recently, across every
+// topic, picked like a test-out's (one per lesson first, no giveaways). A miss comes back at the end as in a
+// lesson, but it costs no hearts and pays practice XP, 2 per question right on its first try.
+export function createLessonPracticeSession(user: UserProfile, attempt = 0): LessonSession | undefined {
+  const lessons = practiceLessonsFor(user);
+  const picks = pickTestOutChallenges(lessons, attempt);
+
+  if (picks.length < TEST_OUT_MIN_QUESTIONS) {
+    return undefined;
+  }
+
+  const prepared = new Map<string, Lesson>();
+  const challenges = picks.map(({ lesson, challenge }, index) => {
+    const full = prepared.get(lesson.id) ?? prepareLessonForSession(lesson);
+    prepared.set(lesson.id, full);
+    const base = full.challenges.find((item) => item.id === challenge.id) ?? challenge;
+
+    return {
+      ...base,
+      id: `lesson_practice_${index}_${base.id}`,
+      choices: shuffleChoicesForAttempt(base, attempt),
+      isReview: true,
+      sourceNodeId: base.sourceNodeId ?? lesson.nodeId,
+      sourceLessonId: base.sourceLessonId ?? lesson.id,
+      miniLesson: base.miniLesson ?? lesson.explanationContent ?? lesson.intro,
+      reviewSuggestion: base.reviewSuggestion ?? `Review ${lesson.title}`
+    };
+  });
+  const sources = uniqueById(Array.from(prepared.values()).flatMap((lesson) => lesson.sources));
+
+  return {
+    id: `session_lesson_practice_${attempt}_${Date.now()}`,
+    lesson: {
+      id: "lesson_practice",
+      nodeId: lessons[lessons.length - 1].nodeId,
+      title: "My lessons",
+      intro: "Questions from lessons you finished.",
+      explanationContent: "Questions from lessons you finished.",
+      lessonType: "review",
+      xpReward: challenges.length * PRACTICE_XP_PER_CORRECT_ANSWER,
+      sources,
+      sourceReferences: sources,
+      masteryState: "learning",
+      masteryTestEligible: false,
+      challenges
+    },
+    startedAt: new Date().toISOString(),
+    heartsAtStart: user.hearts.current,
+    mode: "lesson_practice",
+    attempt
+  };
 }
 
 function isTestOutSession(session: LessonSession | undefined) {

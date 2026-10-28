@@ -17,7 +17,11 @@ import {
   addXp,
   localDateKey,
   completeLessonCluster,
+  canPracticeLessons,
+  createLessonPracticeSession,
   createTestOutSession,
+  isLessonPractice,
+  PRACTICE_XP_PER_CORRECT_ANSWER,
   didExtendStreak,
   getAssessmentXp,
   getXpToday,
@@ -384,7 +388,8 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         // The path's node card already shows what the lesson is, so go straight to learning.
         // A test-out has nothing new to teach, so it starts with the questions.
-        screen: action.session.mode === "test_out" ? "lesson_question" : "lesson_teach",
+        // So does practice of lessons already done.
+        screen: action.session.mode === "test_out" || action.session.mode === "lesson_practice" ? "lesson_question" : "lesson_teach",
         ...NO_LESSON,
         activeSession: action.session,
         lessonQueue: startLessonQueue(action.session.lesson.challenges.length)
@@ -452,6 +457,8 @@ function reducer(state: AppState, action: Action): AppState {
 }
 
 const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
+// The shop's "Free heart" video, offered again on the out-of-hearts sheet.
+const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
 
 export default function TopicApp() {
   // RN's own SafeAreaView only pads on iOS, so Android drew the top bar under the status bar.
@@ -512,6 +519,8 @@ export default function TopicApp() {
   const [quitLessonVisible, setQuitLessonVisible] = useState(false);
   const challengeStartedAtRef = useRef(Date.now());
   const lessonsFinishedRef = useRef(0);
+  // Each MY LESSONS run starts from other questions.
+  const lessonPracticeTriesRef = useRef(0);
   const lastFullScreenAdAtRef = useRef(0);
   // Ads are native only, so the age screen is too. Its answer stays on this device and only picks which ads may show.
   const needsAgeCheck = Platform.OS !== "web" && monetizationMode !== "disabled";
@@ -519,6 +528,9 @@ export default function TopicApp() {
     const saved = getStoredItem("sira-path-age-group");
     return isAgeGroup(saved) ? saved : undefined;
   });
+  // Sign-up asks the age first even with ads off: under 13, the account takes a parent's name and email.
+  const signUpNeedsAge = Platform.OS !== "web" && !ageGroup;
+  const [ageBeforeSignUp, setAgeBeforeSignUp] = useState(false);
   const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child");
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
@@ -929,9 +941,8 @@ export default function TopicApp() {
     }
 
     setAccountPromptShown(true);
-    setAccountError(undefined);
-    setAuthMode(hasSavedAccount ? "login" : "create");
-    setAccountModalVisible(true);
+    openAccountSheet(hasSavedAccount ? "login" : "create");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountPromptDue, accountPromptShown, guestUser, hasSavedAccount, onFoundationPath, otherSheetOpen]);
 
   // `focus` practices one skill (a "Practice next" chip on the end screen).
@@ -1131,6 +1142,23 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
+  // MY LESSONS in Practice: questions from the lessons finished most recently, in every topic.
+  function startLessonPractice() {
+    if (!state.user) {
+      return;
+    }
+
+    const session = createLessonPracticeSession(state.user, lessonPracticeTriesRef.current);
+
+    if (!session) {
+      return;
+    }
+
+    lessonPracticeTriesRef.current += 1;
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "start_lesson", session });
+  }
+
   function answerChallenge() {
     if (!state.user || !state.activeSession || !state.selectedChoiceId || state.answerState) {
       return;
@@ -1208,8 +1236,9 @@ export default function TopicApp() {
       return;
     }
 
-    // No hearts left: no next question (and no missed one asked again) until the learner refills.
-    if (isOutOfHearts(state.user)) {
+    // No hearts left: no next question (and no missed one asked again) until the learner refills. Practice of
+    // lessons already done needs no hearts.
+    if (isOutOfHearts(state.user) && !isLessonPractice(state.activeSession)) {
       openOutOfHearts(state.user, true);
       return;
     }
@@ -1262,6 +1291,29 @@ export default function TopicApp() {
     if (!testLost && !isLastLessonStep(state.lessonQueue, state.stepIndex)) {
       challengeStartedAtRef.current = Date.now();
       dispatch({ type: "next_challenge" });
+      return;
+    }
+
+    if (state.activeSession.mode === "lesson_practice") {
+      const total = state.activeSession.lesson.challenges.length;
+      // Practice pay: 2 XP per question right on its first try. Practice keeps the streak, as on Duolingo.
+      const xp = Math.max(0, total - state.sessionMistakes) * PRACTICE_XP_PER_CORRECT_ANSWER;
+      const nextUser = withExperienceDefaults({
+        ...keepStreak(addXp(user, xp)),
+        lastLearningAt: new Date().toISOString()
+      });
+
+      setLessonCompleteSummary({
+        headline: t("Practice done!"),
+        title: t("My lessons"),
+        xp,
+        streakExtended: didExtendStreak(user, nextUser),
+        stars: lessonStars(state.sessionMistakes),
+        streakDays: nextUser.streakDays
+      });
+      const xpSummary = await learningApi.getXpSummaries(nextUser);
+      dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
+      maybeShowLessonBreakAd(nextUser);
       return;
     }
 
@@ -1516,6 +1568,12 @@ export default function TopicApp() {
   function openAccountSheet(mode: AuthMode) {
     setAccountError(undefined);
     setAuthMode(mode);
+    if (mode === "create" && signUpNeedsAge) {
+      // The age sheet opens the account sheet once it is answered.
+      setAccountModalVisible(false);
+      setAgeBeforeSignUp(true);
+      return;
+    }
     setAccountModalVisible(true);
   }
 
@@ -2035,8 +2093,36 @@ export default function TopicApp() {
       return;
     }
 
+    resumeWithHearts(grantHearts({ ...state.user, reviewHeartRestoreUsed: true }, state.user.hearts.max, true));
+  }
+
+  // FREE HEART: a short video for one heart, then the lesson goes on where it stopped.
+  async function watchVideoForHeart() {
+    if (!state.user || !HEART_VIDEO || shopBusy) {
+      return;
+    }
+
+    const user = state.user;
+    setShopBusy(true);
+
+    try {
+      const reward = await monetizationClient.showRewardedAd(HEART_VIDEO);
+
+      if (!reward.ok) {
+        void notify(t("No video right now"), t("Try again later."), { mood: "think" });
+        return;
+      }
+
+      lastFullScreenAdAtRef.current = Date.now();
+      // The sheet is open the whole time, so nothing else changed the learner while the video played.
+      resumeWithHearts(grantHearts(user, reward.heartsGranted || 1, true));
+    } finally {
+      setShopBusy(false);
+    }
+  }
+
+  function resumeWithHearts(refilled: UserProfile) {
     const sheet = outOfHearts;
-    const refilled = grantHearts({ ...state.user, reviewHeartRestoreUsed: true }, state.user.hearts.max, true);
 
     dispatch({ type: "apply_user", user: refilled });
     setOutOfHearts((current) => current && { ...current, open: false });
@@ -2104,6 +2190,8 @@ export default function TopicApp() {
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
   // gem heart item the learner can pay for. Otherwise the out-of-hearts sheet offers PRACTICE.
   const learner = state.user;
+  // Videos need ads in this build; premium has unlimited hearts and no ads.
+  const canWatchHeartVideo = monetizationMode !== "disabled" && Boolean(HEART_VIDEO) && !isPremiumUser(state.user) && !state.user.hearts.unlimited;
   const canGetHearts =
     monetizationMode !== "disabled" ||
     SHOP_ITEMS.some((item) => item.currencyType === "gems" && Boolean(item.refillsHearts || item.heartsGranted) && canSpendGems(learner, item));
@@ -2141,9 +2229,9 @@ export default function TopicApp() {
     state.screen === "lesson_feedback" &&
     Boolean(lesson) &&
     (isLastLessonStep(state.lessonQueue, state.stepIndex) || (lessonSession?.mode === "test_out" && isTestLost(lessonSession, state.sessionMistakes))) &&
-    !isOutOfHearts(state.user);
+    (!isOutOfHearts(state.user) || isLessonPractice(lessonSession));
   // GOT IT with no hearts left opens the out-of-hearts sheet, which plays its own sound as it opens.
-  const continueOpensRefill = state.screen === "lesson_feedback" && isOutOfHearts(state.user);
+  const continueOpensRefill = state.screen === "lesson_feedback" && isOutOfHearts(state.user) && !isLessonPractice(lessonSession);
   const quitSheet = (
     <QuitSheet
       visible={quitLessonVisible}
@@ -2343,6 +2431,7 @@ export default function TopicApp() {
             onStartPlacement={() => openFoundationAssessment("placement")}
             onStartReview={() => openFoundationAssessment("review")}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
+            onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
         )}
@@ -2417,10 +2506,7 @@ export default function TopicApp() {
           forChild={ageGroup === "6-9" || ageGroup === "10-12"}
           error={accountError}
           errorKey={accountErrorKey}
-          onChangeMode={(mode) => {
-            setAccountError(undefined);
-            setAuthMode(mode);
-          }}
+          onChangeMode={openAccountSheet}
           onChangeName={setAccountName}
           onChangeEmail={setAccountEmail}
           onChangePassword={setAccountPassword}
@@ -2469,6 +2555,8 @@ export default function TopicApp() {
             changeTab("practice");
           }}
           onRefill={claimReviewHeartRestore}
+          onWatchVideo={canWatchHeartVideo ? () => void watchVideoForHeart() : undefined}
+          videoBusy={shopBusy}
           onShop={openShopForHearts}
           onEndLesson={closeOutOfHearts}
         />
@@ -2492,10 +2580,14 @@ export default function TopicApp() {
           onClose={collectJourneyReward}
         />
         <AgeSheet
-          visible={hasUser && needsAgeCheck && !ageGroup}
+          visible={hasUser && (needsAgeCheck || ageBeforeSignUp) && !ageGroup}
           onSave={(group) => {
             setStoredItem("sira-path-age-group", group);
             setAgeGroup(group);
+            if (ageBeforeSignUp) {
+              setAgeBeforeSignUp(false);
+              setAccountModalVisible(true);
+            }
           }}
         />
         <LanguageSheet

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Animated, Platform, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, HONORIFIC_PATTERN, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
@@ -112,10 +112,15 @@ export type FeedbackSheetProps = {
    * from its top, with the arrow under it. The heading, the answer and the Why pill always show whole.
    */
   maxHeight?: number;
-  /** Reports the sheet's height as shown (panel padding included) whenever it changes. */
-  onHeight?: (height: number) => void;
+  /**
+   * Reports the sheet's height as shown (panel padding included) whenever it changes. `settled` is false while a list
+   * has not yet measured its rows: it shows a row more for that moment.
+   */
+  onHeight?: (height: number, settled: boolean) => void;
   /** Reports the height the sheet needs to show everything at full size (Why text whole, nothing scrolling). */
   onFullHeight?: (height: number) => void;
+  /** Called when the learner opens or shuts the Why line, and with false when the sheet goes. */
+  onWhyToggle?: (open: boolean) => void;
   testID?: string;
 };
 
@@ -138,6 +143,7 @@ export function FeedbackSheet({
   maxHeight,
   onHeight,
   onFullHeight,
+  onWhyToggle,
   testID = "feedback-sheet"
 }: FeedbackSheetProps) {
   const [whyOpen, setWhyOpen] = useState(defaultWhyOpen);
@@ -166,6 +172,7 @@ export function FeedbackSheet({
   useEffect(() => {
     if (!visible) {
       setWhyOpen(false);
+      onWhyToggle?.(false);
       return undefined;
     }
     if (playSound) {
@@ -323,8 +330,9 @@ export function FeedbackSheet({
       }
     }
   }, [bodyMax, listEndStop, listShown]);
-  // Every time it opens, the sheet starts at the top of its list (or answer).
-  useEffect(() => {
+  // Every time it opens, the sheet starts at the top of its list (or answer), before it is drawn: the sheet mounts its
+  // content on the render that opens it, so the list is already there.
+  useLayoutEffect(() => {
     if (!visible) {
       revealWhy.current = false;
       return;
@@ -341,18 +349,24 @@ export function FeedbackSheet({
   const firstStop = firstMiss ? stopShowing(firstMiss) : undefined;
   const lastStop = lastMiss ? stopShowing(lastMiss) : undefined;
   const missStop = firstMiss && lastStop !== undefined && lastStop <= firstMiss.top + 0.5 ? lastStop : firstStop;
+  // The list is put at that stop before the sheet is drawn, on every open: on the first once its rows have said where
+  // they sit, and on the next (after TRY AGAIN) at once, as the rows are already placed. Only a list that is there
+  // counts as shown.
   const missShown = useRef(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!visible) {
       missShown.current = false;
       return;
     }
-    if (missShown.current || missStop === undefined) {
+    const list = bodyRef.current;
+    if (missShown.current || missStop === undefined || !list) {
       return;
     }
     missShown.current = true;
     if (missStop > 0) {
-      bodyRef.current?.scrollTo?.({ y: missStop, animated: false });
+      list.scrollTo?.({ y: missStop, animated: false });
+      // The arrow turns with it, not a scroll event later.
+      setBody((state) => (state.offset === missStop ? state : { ...state, offset: missStop }));
     }
   }, [missStop, visible]);
   // A Why text that starts to scroll, or opens again, starts at its top.
@@ -361,7 +375,38 @@ export function FeedbackSheet({
       whyRef.current?.scrollTo?.({ y: 0, animated: false });
     }
   }, [whyOpen, whyScrolls]);
-  useEffect(() => {
+  // A list's height is the one it keeps once its rows have said where they sit. On the web that height is read the
+  // moment they have, before the frame is drawn (the layout report comes after it, and not at all when the height did
+  // not change); a phone reports it with the next layout.
+  const rowsPlaced = !listShown || rowBoxes !== undefined;
+  const contentRef = useRef<View>(null);
+  useLayoutEffect(() => {
+    if (Platform.OS !== "web" || !visible || !listShown || !rowsPlaced) {
+      return;
+    }
+    const content = contentRef.current as unknown as { offsetHeight?: number } | null;
+    if (content?.offsetHeight) {
+      onHeight?.(Math.round(content.offsetHeight + SHEET_PAD + inset), true);
+    }
+    // Only when the rows are placed (or the sheet opens with them placed).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listShown, rowsPlaced, visible]);
+  // The same for the Why text: on the web its height is read as it opens, before the frame is drawn. Its own report
+  // comes after that frame, which would show the sheet with the text whole for a moment, taller than its room, before
+  // it goes slim and drops back down.
+  useLayoutEffect(() => {
+    if (Platform.OS !== "web" || !whyVisible) {
+      return;
+    }
+    const holder = contentRef.current as unknown as { querySelector?: (selector: string) => HTMLElement | null } | null;
+    const text = holder?.querySelector?.('[data-testid="feedback-why-text"]');
+    if (text?.offsetHeight) {
+      setWhyContent(Math.round(text.offsetHeight));
+    }
+  }, [whyText, whyVisible]);
+  // Told before the frame is drawn, so the question hears of a taller full height (its Why line opening) together
+  // with the height the sheet shows, never the one without the other.
+  useLayoutEffect(() => {
     if (visible) {
       onFullHeight?.(fullHeight);
     }
@@ -383,7 +428,8 @@ export function FeedbackSheet({
       testID={testID}
     >
       <View
-        onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset))}
+        ref={contentRef}
+        onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset), rowsPlaced)}
         testID="feedback-content"
       >
         <View style={styles.headRow} onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))}>
@@ -508,6 +554,7 @@ export function FeedbackSheet({
                         // Opening Why under a long list scrolls the line into view.
                         revealWhy.current = !whyOpen;
                         setWhyOpen((open) => !open);
+                        onWhyToggle?.(!whyOpen);
                       }}
                       style={styles.whyButton}
                       accessibilityLabel={whyOpen ? t("Hide why") : t("Why?")}

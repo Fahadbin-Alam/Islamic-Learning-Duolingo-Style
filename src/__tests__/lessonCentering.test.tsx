@@ -4,7 +4,7 @@ jest.mock("../services/gameAudio", () => ({
 }));
 
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { fireEvent, render, screen } from "@testing-library/react-native";
 import { ExerciseView } from "../ui/lesson";
 import { centerSpace } from "../ui/lesson/sheetFit";
@@ -63,5 +63,24 @@ describe("lesson question placement", () => {
     await render(<ExerciseView {...question} />);
     await laidOut(400, 420);
     expect(topSpace()).toBe(0);
+  });
+
+  it("is first drawn in the middle where a view can say its size before the frame is drawn", async () => {
+    // On the web and in the New Architecture a view reads its laid-out size at once; onLayout only tells after the
+    // first frame is painted, so a question placed by it shows at the top for a frame or two and then drops.
+    const heights: Record<string, number> = { "exercise-room": 700, "exercise-question": 320 };
+    Object.defineProperty(View.prototype, "offsetHeight", {
+      configurable: true,
+      get(this: { props: { testID?: string } }) {
+        return heights[this.props.testID ?? ""] ?? 0;
+      }
+    });
+    try {
+      await render(<ExerciseView {...question} />);
+      // No layout event yet: the space was there in the frame the question first showed.
+      expect(topSpace()).toBe(174);
+    } finally {
+      delete (View.prototype as { offsetHeight?: number }).offsetHeight;
+    }
   });
 });

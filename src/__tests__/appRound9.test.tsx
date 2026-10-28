@@ -24,7 +24,7 @@ jest.mock("../ui/screens/FormattedCount", () => {
 });
 
 import React from "react";
-import { Dimensions, Platform, ScrollView, StyleSheet } from "react-native";
+import { Dimensions, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react-native";
 import { FoundationAssessmentScreen } from "../components/FoundationLearning";
 import { COURSE, SHOP_ITEMS } from "../data/course";
@@ -33,9 +33,10 @@ import { getUiStrings } from "../i18n";
 import { playGameSound } from "../services/gameAudio";
 import { createEmptyLearnerProfile, createFoundationAssessment, submitFoundationAssessmentAnswer } from "../services/foundationAssessment";
 import type { FoundationAssessmentState, LearningSection } from "../types";
+import { ChoiceTile, tightSaving } from "../ui/ChoiceTile";
 import { ExerciseView, FeedbackSheet, LessonComplete, OrderGame } from "../ui/lesson";
 import { WHY_LINE } from "../ui/lesson/FeedbackSheet";
-import { nearestRowStop, nextRowStop, tilesUnderSheet, wholeRows, type RowSpan } from "../ui/lesson/sheetFit";
+import { nearestRowStop, nextRowStop, overRoom, tilesUnderSheet, wholeRows, type RowSpan } from "../ui/lesson/sheetFit";
 import { AppTopBar, ShopView, StreakSheet } from "../ui/screens";
 import { statValueSize } from "../ui/screens/ProfileView";
 import { makeUser } from "./testUtils";
@@ -300,6 +301,205 @@ describe("a tile the sheet's top edge would cut fades away, in lessons", () => {
   });
 });
 
+describe("a lesson question taller than its room draws its tiles tight, so every answer shows whole", () => {
+  const long = {
+    kind: "multiple_choice" as const,
+    prompt: "What is Urwah ibn Abi al-Ja'd al-Bariqi known for?",
+    choices: [
+      { id: "a", label: "He wrote down the revelation and collected the Quran." },
+      { id: "b", label: "The Prophet ﷺ blessed his trade: even dust would earn him profit." },
+      { id: "c", label: "He was the last companion to pass away in Syria." },
+      { id: "d", label: "He was the second caliph, called al-Faruq." }
+    ],
+    attempt: 1,
+    mascotVariant: "boy",
+    accent: "#21B573",
+    onSelect: jest.fn(),
+    onCheck: jest.fn(),
+    onContinue: jest.fn()
+  };
+  const checkedResult = { correct: false, correctLabel: long.choices[1].label, why: "Sahih al-Bukhari 3642." };
+  /** The space under each tile here (not a short phone). */
+  const GAP = 12;
+  /** The padding above and under a tile's text. */
+  const padding = (id: string) => {
+    const tile = screen.getByTestId(`choice-${id}`);
+    const face = tile.children.map((child) => (typeof child === "string" ? {} : flat(child.props.style))).find((style) => style.borderWidth === 2);
+    return face?.paddingVertical;
+  };
+  const wrapper = (id: string) => {
+    let node = screen.getByTestId(`choice-${id}`, { includeHiddenElements: true }).parent!;
+    while (!node.props.onLayout) node = node.parent!;
+    return node;
+  };
+  /** In sight and in reach of taps. */
+  const shown = (id: string) => wrapper(id).props.pointerEvents === "auto" && flat(wrapper(id).props.style).opacity !== 0;
+
+  /** The room above the bar, and the question (chip, prompt and tiles, the space under its last tile included). */
+  async function laidOut(room: number, question: number) {
+    await fireEvent(screen.getByTestId("exercise-room"), "layout", layout(room));
+    await fireEvent(screen.getByTestId("exercise-question"), "layout", layout(question, 8));
+  }
+
+  it("draws the tiles tight when the room's bottom edge would cut the last one, every tile in sight and in reach", async () => {
+    await render(<ExerciseView {...long} />);
+    // Loose, the last tile would end at 8 + 434 - 12 = 430, past the room's edge at 406.
+    await laidOut(406, 434);
+    ["a", "b", "c", "d"].forEach((id) => {
+      expect(padding(id)).toBe(6);
+      expect(shown(id)).toBe(true);
+    });
+  });
+
+  it("leaves the tiles of a question that fits as they are", async () => {
+    await render(<ExerciseView {...long} />);
+    // The last tile ends at 430, a pixel past a room of 429: only its lip's last pixel, which may reach past.
+    await laidOut(429, 434);
+    ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
+  });
+
+  it("keeps the usual tiles on a question too tall even tight, so its last tile does not move under the room's edge", async () => {
+    await render(<ExerciseView {...long} />);
+    // Loose, the last tile ends at 8 + 500 - 12 = 496. Tight, each of the four is at least 12 shorter: 448, still past
+    // the room's edge at 406. The question scrolls as it would anyway, and its tiles keep their place.
+    await laidOut(406, 500);
+    ["a", "b", "c", "d"].forEach((id) => {
+      expect(padding(id)).toBe(12);
+      expect(shown(id)).toBe(true);
+    });
+  });
+
+  it("draws them tight only when tight tiles bring the last one whole into the room", async () => {
+    const { rerender } = await render(<ExerciseView key="fits" {...long} />);
+    // 8 + 459 - 12 = 455 loose, 455 - 4 * 12 = 407 tight: only the lip's last pixel past the edge at 406.
+    await laidOut(406, 459);
+    ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(6));
+    // One pixel taller (a new question): 408 tight, so the tiles stay as they are.
+    await rerender(<ExerciseView key="too-tall" {...long} />);
+    await laidOut(406, 460);
+    ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
+  });
+
+  it("on a small phone counts the 6 px a short phone's tile gives up, and keeps it loose when that is not enough", async () => {
+    await onSmallPhone(async () => {
+      // 320 x 568: tiles have 9 px above and under their text and 8 px under each; tight, 6. Loose the last tile ends
+      // at 8 + 409 - 8 = 409, tight at 409 - 4 * 6 = 385, a pixel past a room of 384.
+      const { rerender } = await render(<ExerciseView key="fits" {...long} />);
+      await laidOut(384, 409);
+      ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(6));
+      // As tall as the Arabic Urwah question: too tall for its room either way (tight, it would still end 31 px past
+      // the edge), so its tiles stay as they are.
+      await rerender(<ExerciseView key="too-tall" {...long} />);
+      await laidOut(384, 439);
+      ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(9));
+    });
+  });
+
+  it("keeps them tight through CHECK and the sheet, so no tile moves, and reads a new try again", async () => {
+    const { rerender } = await render(<ExerciseView {...long} />);
+    await laidOut(406, 434);
+    await rerender(<ExerciseView {...long} selectedChoiceId="c" correctChoiceId="b" result={checkedResult} />);
+    // The question now fits (tight, tiles folded): it stays as it was when CHECK was tapped.
+    await laidOut(406, 300);
+    expect(padding("b")).toBe(6);
+    await sheetHeight(150);
+    expect(padding("b")).toBe(6);
+    // The next try is read afresh: one that fits gets the usual padding.
+    await rerender(<ExerciseView {...long} attempt={2} />);
+    await laidOut(406, 360);
+    ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
+  });
+
+  it("is tight from the frame it first shows where a view can say its size before the frame is drawn", async () => {
+    const heights: Record<string, number> = { "exercise-room": 406, "exercise-question": 434 };
+    Object.defineProperty(View.prototype, "offsetHeight", {
+      configurable: true,
+      get(this: { props: { testID?: string } }) {
+        return heights[this.props.testID ?? ""] ?? 0;
+      }
+    });
+    try {
+      await render(<ExerciseView {...long} />);
+      // No layout event yet.
+      ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(6));
+    } finally {
+      delete (View.prototype as { offsetHeight?: number }).offsetHeight;
+    }
+  });
+
+  it("keeps the usual tiles from the first frame on a question too tall even tight, never tight first and loose after", async () => {
+    const heights: Record<string, number> = { "exercise-room": 406, "exercise-question": 520 };
+    Object.defineProperty(View.prototype, "offsetHeight", {
+      configurable: true,
+      get(this: { props: { testID?: string } }) {
+        return heights[this.props.testID ?? ""] ?? 0;
+      }
+    });
+    try {
+      await render(<ExerciseView {...long} />);
+      ["a", "b", "c", "d"].forEach((id) => expect(padding(id)).toBe(12));
+    } finally {
+      delete (View.prototype as { offsetHeight?: number }).offsetHeight;
+    }
+  });
+
+  it("glides back up on CHECK after the learner scrolled past the prompt to reach the last tile", async () => {
+    const scrollTo$ = scrollSpy();
+    const TILE = 70;
+    try {
+      const { rerender } = await render(<ExerciseView {...long} />);
+      await fireEvent(screen.getByTestId("exercise-view"), "layout", layout(500));
+      await laidOut(384, 3 * (TILE + GAP) + 92 + GAP + 98);
+      for (const [index, id] of ["a", "b", "c", "d"].entries()) {
+        await fireEvent(wrapper(id), "layout", layout(index === 3 ? 92 : TILE, index * (TILE + GAP)));
+      }
+      await fireEvent(screen.getByTestId("exercise-prompt"), "layout", layout(60, 38));
+      await fireEvent(screen.getByTestId("exercise-tiles"), "layout", layout(3 * (TILE + GAP) + 92, 98));
+      // Scrolled to the end, 52 down, past the prompt's top at 46.
+      let scroller = screen.getByTestId("exercise-prompt").parent!;
+      while (!scroller.props.contentContainerStyle) scroller = scroller.parent!;
+      await fireEvent.scroll(scroller, { nativeEvent: { contentOffset: { x: 0, y: 52 }, contentSize: { width: 288, height: 470 }, layoutMeasurement: { width: 288, height: 384 } } });
+      await rerender(<ExerciseView {...long} selectedChoiceId="d" correctChoiceId="b" result={checkedResult} />);
+      scrollTo$.mockClear();
+      await sheetHeight(150);
+      // Back to the top in a glide, as any scroll the question makes on CHECK, never a jump.
+      expect(scrollTo$).toHaveBeenCalledWith({ y: 0, animated: true });
+      expect(scrollTo$).not.toHaveBeenCalledWith(expect.objectContaining({ animated: false }));
+    } finally {
+      scrollTo$.mockRestore();
+    }
+  });
+
+  it("knows how much shorter a tight tile is at least, before it is drawn", async () => {
+    /** A row tile's face: its padding above its text and its least height. */
+    const { rerender } = await render(<ChoiceTile label="He wrote down the revelation." testID="tile" />);
+    const face = async (props: { compact?: boolean; tight?: boolean }) => {
+      await rerender(<ChoiceTile label="He wrote down the revelation." {...props} testID="tile" />);
+      const style = screen
+        .getByTestId("tile")
+        .children.map((child) => (typeof child === "string" ? {} : flat(child.props.style)))
+        .find((entry) => entry.borderWidth === 2)!;
+      return { padding: style.paddingVertical as number, minHeight: style.minHeight as number };
+    };
+    for (const compact of [false, true]) {
+      const loose = await face({ compact });
+      const tight = await face({ compact, tight: true });
+      // The padding it gives up above and under its text, and a least height lower by at least as much.
+      expect(tightSaving(compact)).toBe(2 * (loose.padding - tight.padding));
+      expect(loose.minHeight - tight.minHeight).toBeGreaterThanOrEqual(tightSaving(compact));
+    }
+    expect(tightSaving(false)).toBe(12);
+    expect(tightSaving(true)).toBe(6);
+  });
+
+  it("finds a question whose last tile the room's bottom edge would cut", () => {
+    expect(overRoom(406, 430)).toBe(true);
+    // A lip's last pixel may reach past the edge.
+    expect(overRoom(406, 407)).toBe(false);
+    expect(overRoom(406, 380)).toBe(false);
+  });
+});
+
 describe("a tile the sheet's top edge would cut fades away, in practice", () => {
   const daily = createFoundationAssessment(createEmptyLearnerProfile(), "daily_challenge");
   const handlers = () => ({ onChangeSelectedAnswer: jest.fn(), onSubmit: jest.fn(), onContinue: jest.fn(), onExit: jest.fn() });
@@ -492,9 +692,9 @@ describe("the chips above the question fade when the scroll would cut them", () 
       // Short: the question scrolls up 17, part-way through the chips (8-34) and short of the prompt.
       await check(400);
       expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ y: 17 }));
-      // Still at the top: nothing cuts the chips yet.
-      expect(screen.getByTestId("exercise-cues")).toBeTruthy();
-      // The scroll passes their top: they are gone at once, before the edge can cut them.
+      // The scroll is the question's own and goes past their top: they are gone already, before its first frame.
+      expect(screen.queryByTestId("exercise-cues")).toBeNull();
+      // On its way past their top they stay gone, so the edge never cuts them.
       await scrolledTo("exercise-cues", 9);
       expect(screen.queryByTestId("exercise-cues")).toBeNull();
       expect(screen.getByTestId("exercise-cues", { includeHiddenElements: true })).toBeTruthy();

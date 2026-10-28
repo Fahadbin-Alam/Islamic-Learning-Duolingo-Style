@@ -343,12 +343,33 @@ describe("top bar and account", () => {
   });
 
   it("asks a grown-up before the sign up form", async () => {
+    removeStoredItem("sira-path-age-group");
     seedUser(makeUser());
     await render(<TopicApp />);
     await screen.findByTestId("learn-path-foundation");
     await press("tab-me");
     await press("profile-create");
+    // The age comes first (on a phone), so an under-13 sign-up asks for a parent's name and email.
+    expect(screen.queryByTestId("account-grownup")).toBeNull();
+    await press("age-18+");
+    await press("age-save");
     expect(screen.getByTestId("account-grownup")).toBeTruthy();
     expect(screen.queryByTestId("account-name")).toBeNull();
+  });
+
+  it("asks the age before sign up even with ads off, and under 13 the form asks for a parent", async () => {
+    removeStoredItem("sira-path-age-group");
+    seedUser(makeUser());
+    await render(<TopicApp />);
+    await screen.findByTestId("learn-path-foundation");
+    await press("tab-me");
+    await press("profile-create");
+    expect(screen.getByTestId("age-sheet")).toBeTruthy();
+    await press("age-10-12");
+    await press("age-save");
+    const [a, b] = (String(screen.getByTestId("grownup-question").props.children).match(/\d+/g) ?? []).map(Number);
+    await press(`grownup-option-${a * b}`);
+    expect(screen.getByTestId("account-name").props.placeholder).toBe("Parent's name");
+    expect(screen.getByTestId("account-email").props.placeholder).toBe("Parent's email");
   });
 });
