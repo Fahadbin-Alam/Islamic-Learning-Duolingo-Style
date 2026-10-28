@@ -1,7 +1,7 @@
 import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
 import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits } from "./unitPlans";
-import { LESSON_SOURCES } from "./questionSources";
+import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
 import { addDeepUnits } from "./deepUnits";
 import { RAMADAN } from "./ramadanDays";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
@@ -3952,14 +3952,17 @@ const chainedContent = {
   lessonsById: { ...chainedNotes.lessonsById, ...RAMADAN.lessonsById }
 };
 // No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons). A
-// lesson whose seed or note named no source for its fact gets the one checked for it (questionSources.ts).
+// lesson whose seed or note named no source for its fact gets the one checked for it, and a question whose fact is on
+// another page gets that page (questionSources.ts).
+const withQuestionSource = (challenge: Challenge): Challenge =>
+  challenge.source || !QUESTION_SOURCES[challenge.id] ? challenge : { ...challenge, source: QUESTION_SOURCES[challenge.id] };
 const expandedContent = {
   ...chainedContent,
   lessonsById: Object.fromEntries(
     Object.entries(chainedContent.lessonsById).map(([id, lesson]) => {
       const learnSource = lesson.learnSource ?? LESSON_SOURCES[id];
       const sources = learnSource ? [learnSource, ...lesson.sources.filter((source) => source.id !== learnSource.id && source.url !== learnSource.url)] : lesson.sources;
-      return [id, { ...lesson, sources, ...(learnSource ? { learnSource } : {}), challenges: withoutGiveaways(lesson.challenges) }];
+      return [id, { ...lesson, sources, ...(learnSource ? { learnSource } : {}), challenges: withoutGiveaways(lesson.challenges).map(withQuestionSource) }];
     })
   )
 };

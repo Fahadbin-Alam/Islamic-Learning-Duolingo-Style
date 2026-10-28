@@ -20,7 +20,7 @@ export type CharacterVariant = "hijabi" | "muslim_man";
 export type ChallengeType = "multiple_choice" | "true_false";
 export type ResourceValidationStatus = "exact_match" | "strong_support" | "weak_support" | "needs_review";
 export type ResourceSupportType = "primary" | "support";
-export type LessonSourceSite = "Quran.com" | "Sunnah.com" | "YouTube" | "Yaqeen Institute" | "IslamQA" | "King Faisal Prize" | "Tarajm";
+export type LessonSourceSite = "Quran.com" | "Sunnah.com" | "YouTube" | "Yaqeen Institute" | "IslamQA" | "King Faisal Prize" | "Tarajm" | "Shamela";
 export type LessonSourceCategory = "tafsir" | "hadith" | "video" | "biography" | "article" | "beginner_explainer";
 
 export type LearningNodeStatus = "locked" | "available" | "current" | "completed";

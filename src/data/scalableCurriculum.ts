@@ -2455,7 +2455,7 @@ SECTION_SEEDS.push(
           why: "The Prophet ﷺ never hit a woman or a servant."
         }),
         seed("listen-before-answering", "Listen first", "Homes calm down when each person actually hears the other before reacting.", 3, {
-          line: "[Listen] fully before you answer.",
+          line: "[Listen] well, then follow the best of what is said.",
           alt: ["Shout", "Leave"]
         }),
         seed("repair-after-harm", "Saying sorry", "Homes survive by repair, apology, and sincere course correction.", 3, {
