@@ -17,7 +17,9 @@ const imported = Object.values(LESSONS_BY_ID).filter((lesson) => lesson.id.start
 const topicOf = (lesson: Lesson) => COURSE.sections.find((each) => each.nodes.some((node) => node.id === lesson.nodeId))?.topicId;
 const asked = (lesson: Lesson) => lesson.challenges.filter((challenge) => !challenge.isReview);
 const words = (text: string) => text.trim().split(/\s+/).filter(Boolean).length;
-const surahNumber = (lesson: Lesson | undefined) => Number(/quran\.com\/(\d+)$/.exec(lesson?.sources[0]?.url ?? "")?.[1]);
+// The surah its Quran source is from: the learn card's ayah comes first in its sources, and can be a hadith about the surah.
+const surahNumber = (lesson: Lesson | undefined) =>
+  Number(lesson?.sources.map((source) => /quran\.com\/(\d+)/.exec(source.url)?.[1]).find(Boolean));
 
 // The same words as scripts/obsidian-import/facts.mjs uses to keep adult text out of children's choices.
 const ADULT_TEXT = /\b(fornicat|adulter|concubine|harlot|whore|lewd|incest|lust|sexual|intercourse|private parts|menstrua|genital|unchast|naked|nudity)\w*/i;

@@ -1,6 +1,7 @@
 import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
 import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits } from "./unitPlans";
+import { LESSON_SOURCES } from "./questionSources";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
@@ -3942,11 +3943,16 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 // Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
 const chainedContent = chainCourse(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)));
-// No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons).
+// No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons). A
+// lesson whose seed or note named no source for its fact gets the one checked for it (questionSources.ts).
 const expandedContent = {
   ...chainedContent,
   lessonsById: Object.fromEntries(
-    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => [id, { ...lesson, challenges: withoutGiveaways(lesson.challenges) }])
+    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => {
+      const learnSource = lesson.learnSource ?? LESSON_SOURCES[id];
+      const sources = learnSource ? [learnSource, ...lesson.sources.filter((source) => source.id !== learnSource.id && source.url !== learnSource.url)] : lesson.sources;
+      return [id, { ...lesson, sources, ...(learnSource ? { learnSource } : {}), challenges: withoutGiveaways(lesson.challenges) }];
+    })
   )
 };
 
