@@ -146,7 +146,6 @@ import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./servic
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
-import { playAyah } from "./services/ayahPlayer";
 import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import {
@@ -1435,17 +1434,21 @@ export default function TopicApp() {
     void continueLesson(state.user);
   }
 
+  // Asked again on each learn card until a voice turns up (the speech engine can still be starting).
   useEffect(() => {
+    if (arabicVoiceId) {
+      return;
+    }
     let live = true;
     void findArabicVoice().then((id) => {
-      if (live) {
+      if (live && id) {
         setArabicVoiceId(id);
       }
     });
     return () => {
       live = false;
     };
-  }, []);
+  }, [arabicVoiceId, state.screen]);
 
   function speakArabic(text: string) {
     if (state.user?.soundEffectsEnabled === false || !arabicVoiceId) {
@@ -2560,13 +2563,9 @@ export default function TopicApp() {
             // The chip is the one source that says what the card says, by its short reference; none, no chip.
             learnSource={lesson.learnSource}
             onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
-            onPlayAudio={
-              lessonRecitation
-                ? () => playAyah(lessonRecitation)
-                : lessonArabic && arabicVoiceId
-                  ? () => speakArabic(lessonArabic.ar)
-                  : undefined
-            }
+            arabicRecitation={lessonRecitation ?? undefined}
+            // No speaker that stays silent: hidden with sound effects off or without an Arabic voice.
+            onPlayAudio={lessonArabic && arabicVoiceId && state.user?.soundEffectsEnabled !== false ? () => speakArabic(lessonArabic.ar) : undefined}
             onContinue={continueFromTeach}
           />
         )}

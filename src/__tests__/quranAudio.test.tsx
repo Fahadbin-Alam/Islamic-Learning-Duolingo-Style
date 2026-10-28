@@ -2,15 +2,16 @@ import React from "react";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { QURAN_AYAHS } from "../data/quranAyahs";
 import { DEEP_UNITS } from "../data/deepUnits";
-import { AYAH_LOAD_TIMEOUT_MS, getAyahPlayback, resetAyahPlayerForTests } from "../services/ayahPlayer";
+import { AYAH_LOAD_TIMEOUT_MS, getAyahPlayback, resetAyahPlayerForTests, setAyahRepeat } from "../services/ayahPlayer";
 import { SURAH_AYAH_COUNTS, globalAyahNumber, parseQuranReference, quranAudioUrl } from "../services/quranAudio";
 import { LearnCard } from "../ui/lesson";
 
 type Listener = (status: { playing: boolean; didJustFinish: boolean }) => void;
 const mockPlayers: Array<{ source: string; loop: boolean; play: jest.Mock; pause: jest.Mock; replace: jest.Mock; seekTo: jest.Mock; emit: Listener }> = [];
 
+const mockAudioMode = jest.fn((_mode: { playsInSilentMode: boolean }) => Promise.resolve());
 jest.mock("expo-audio", () => ({
-  setAudioModeAsync: jest.fn(() => Promise.resolve()),
+  setAudioModeAsync: (mode: { playsInSilentMode: boolean }) => mockAudioMode(mode),
   createAudioPlayer: jest.fn((source: string) => {
     let listener: Listener = () => undefined;
     const player = {
@@ -46,6 +47,7 @@ const card = (reference: string, text = QURAN_AYAHS["1:2"]) => (
 beforeEach(() => {
   resetAyahPlayerForTests();
   mockPlayers.length = 0;
+  mockAudioMode.mockClear();
 });
 
 describe("ayah numbers", () => {
@@ -135,5 +137,57 @@ describe("Listen on an ayah card", () => {
     } finally {
       jest.useRealTimers();
     }
+  });
+});
+
+describe("the word card's speaker on a word that is a whole ayah", () => {
+  const ALHAMD = "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2.mp3";
+  const wordCard = (
+    <LearnCard
+      title="Praise for Allah"
+      line="Al-Fatihah says: Alhamdulillah."
+      arabic={{ ar: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", translit: "Al-hamdu lillahi rabbil-alamin", meaning: "All praise is for Allah, Lord of the worlds" }}
+      arabicRecitation={ALHAMD}
+      mascotVariant="girl"
+      accent="#1CB66D"
+      onContinue={jest.fn()}
+    />
+  );
+
+  test("plays the reciter once, even with Repeat left on, and stops when the card leaves", async () => {
+    setAyahRepeat(true);
+    const { unmount } = await render(wordCard);
+    await fireEvent.press(screen.getByTestId("learn-audio"));
+    expect(mockPlayers[0].source).toBe(ALHAMD);
+    expect(mockPlayers[0].loop).toBe(false);
+    await act(async () => mockPlayers[0].emit({ playing: true, didJustFinish: false }));
+    await act(async () => mockPlayers[0].emit({ playing: false, didJustFinish: true }));
+    expect(getAyahPlayback().status).toBe("idle");
+    await fireEvent.press(screen.getByTestId("learn-audio"));
+    await unmount();
+    expect(mockPlayers[0].pause).toHaveBeenCalled();
+    expect(getAyahPlayback().status).toBe("idle");
+  });
+
+  test("says so on the word card when the recitation cannot load", async () => {
+    jest.useFakeTimers();
+    try {
+      await render(wordCard);
+      await fireEvent.press(screen.getByTestId("learn-audio"));
+      await act(async () => {
+        jest.advanceTimersByTime(AYAH_LOAD_TIMEOUT_MS + 10);
+      });
+      expect(screen.getByTestId("learn-audio-error")).toBeTruthy();
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+
+  test("the iPhone silent switch is respected again once the recitation stops", async () => {
+    await render(card("Quran 1:2"));
+    await fireEvent.press(screen.getByTestId("ayah-listen-play"));
+    expect(mockAudioMode).toHaveBeenLastCalledWith(expect.objectContaining({ playsInSilentMode: true }));
+    await fireEvent.press(screen.getByTestId("ayah-listen-play"));
+    expect(mockAudioMode).toHaveBeenLastCalledWith(expect.objectContaining({ playsInSilentMode: false }));
   });
 });

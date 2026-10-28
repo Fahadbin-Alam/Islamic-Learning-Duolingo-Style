@@ -20,11 +20,17 @@ const expoAudio = () => require("expo-audio") as typeof import("expo-audio");
 let player: AudioPlayer | null = null;
 let statusSubscription: { remove: () => void } | null = null;
 let loadTimer: ReturnType<typeof setTimeout> | null = null;
+let playingOnce = false;
 let state: AyahPlayback = { url: null, status: "idle", repeat: false };
 const listeners = new Set<(playback: AyahPlayback) => void>();
 
 function setState(next: Partial<AyahPlayback>) {
+  const wasActive = state.status === "loading" || state.status === "playing";
   state = { ...state, ...next };
+  if (wasActive && (state.status === "idle" || state.status === "error")) {
+    // Back to the game sounds' mode, which keeps the iPhone's silent switch.
+    void expoAudio().setAudioModeAsync({ playsInSilentMode: false, interruptionMode: "mixWithOthers" }).catch(() => undefined);
+  }
   listeners.forEach((listener) => listener(state));
 }
 
@@ -44,7 +50,7 @@ function onStatus(status: AudioStatus) {
     if (state.status !== "playing") {
       setState({ status: "playing" });
     }
-  } else if (status.didJustFinish && !state.repeat) {
+  } else if (status.didJustFinish && (!state.repeat || playingOnce)) {
     setState({ status: "idle" });
   }
 }
@@ -60,8 +66,11 @@ export function subscribeAyahPlayback(listener: (playback: AyahPlayback) => void
   };
 }
 
-/** Plays the ayah from its start. With the same ayah already loaded, it starts over without fetching again. */
-export function playAyah(url: string) {
+/**
+ * Plays the ayah from its start. With the same ayah already loaded, it starts over without fetching again.
+ * `once` plays it a single time even when Repeat is on (the word card's speaker, which has no Stop).
+ */
+export function playAyah(url: string, { once = false }: { once?: boolean } = {}) {
   try {
     const { createAudioPlayer, setAudioModeAsync } = expoAudio();
     // A recitation the learner asked for plays even with the iPhone's silent switch on.
@@ -75,7 +84,8 @@ export function playAyah(url: string) {
     } else {
       void player.seekTo(0).catch(() => undefined);
     }
-    player.loop = state.repeat;
+    player.loop = state.repeat && !once;
+    playingOnce = once;
     setState({ url, status: state.url === url && state.status === "playing" ? "playing" : "loading" });
     clearLoadTimer();
     loadTimer = setTimeout(() => {
@@ -108,7 +118,7 @@ export function stopAyah(url?: string) {
 }
 
 export function setAyahRepeat(repeat: boolean) {
-  if (player) {
+  if (player && !playingOnce) {
     player.loop = repeat;
   }
   setState({ repeat });
@@ -120,6 +130,7 @@ export function resetAyahPlayerForTests() {
   statusSubscription?.remove();
   statusSubscription = null;
   player = null;
+  playingOnce = false;
   state = { url: null, status: "idle", repeat: false };
   listeners.clear();
 }

@@ -49,4 +49,13 @@ describe("the device's Arabic voice", () => {
     });
     await expect(findArabicVoice()).resolves.toBeNull();
   });
+
+  test("asks again after finding no voice, but keeps a voice once found", async () => {
+    mockVoices.mockResolvedValue([{ identifier: "en-1", language: "en-US" }]);
+    await expect(findArabicVoice()).resolves.toBeNull();
+    mockVoices.mockResolvedValue([{ identifier: "ar-3", language: "ar_EG" }]);
+    await expect(findArabicVoice()).resolves.toBe("ar-3");
+    mockVoices.mockResolvedValue([]);
+    await expect(findArabicVoice()).resolves.toBe("ar-3");
+  });
 });

@@ -51,10 +51,13 @@ async function listVoices(): Promise<Speech.Voice[]> {
   }
 }
 
-/** The id of an Arabic voice on this device, or null when it has none. Looked up once. */
+/**
+ * The id of an Arabic voice on this device, or null when it has none. A voice found is kept; "none" is asked
+ * again next time, since the speech engine can still be starting, or the learner may install a voice.
+ */
 export function findArabicVoice(): Promise<string | null> {
   if (!arabicVoice) {
-    arabicVoice = (async () => {
+    const lookup = (async () => {
       let voices = await listVoices();
       if (voices.length === 0) {
         // Android and browsers fill the list a moment after start-up.
@@ -63,6 +66,12 @@ export function findArabicVoice(): Promise<string | null> {
       }
       return voices.find((voice) => voice.language?.toLowerCase().startsWith("ar"))?.identifier ?? null;
     })();
+    arabicVoice = lookup;
+    void lookup.then((id) => {
+      if (!id && arabicVoice === lookup) {
+        arabicVoice = null;
+      }
+    });
   }
   return arabicVoice;
 }
