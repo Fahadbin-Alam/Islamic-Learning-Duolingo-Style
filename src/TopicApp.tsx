@@ -145,6 +145,8 @@ import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
+import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
+import { playAyah } from "./services/ayahPlayer";
 import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import {
@@ -521,6 +523,8 @@ export default function TopicApp() {
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
   const [familyVisible, setFamilyVisible] = useState(false);
   const [familyKids, setFamilyKids] = useState<FamilyKid[]>([]);
+  // The device's Arabic voice for the learn card's speaker; null (no speaker) on a device without one.
+  const [arabicVoiceId, setArabicVoiceId] = useState<string | null>(null);
   const [activeAssessment, setActiveAssessment] = useState<FoundationAssessmentState | undefined>(undefined);
   // The practice end screen. `restored` is one shown again after a reload: its fanfare already played.
   const [practiceResult, setPracticeResult] = useState<(FoundationPracticeResult & { restored?: boolean }) | undefined>(undefined);
@@ -1431,14 +1435,26 @@ export default function TopicApp() {
     void continueLesson(state.user);
   }
 
+  useEffect(() => {
+    let live = true;
+    void findArabicVoice().then((id) => {
+      if (live) {
+        setArabicVoiceId(id);
+      }
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+
   function speakArabic(text: string) {
-    if (state.user?.soundEffectsEnabled === false) {
+    if (state.user?.soundEffectsEnabled === false || !arabicVoiceId) {
       return;
     }
 
     try {
       void Speech.stop();
-      Speech.speak(text, { language: "ar", rate: 0.8 });
+      Speech.speak(text, { language: "ar", voice: arabicVoiceId, rate: 0.8 });
     } catch {
       // Pronunciation is a bonus; never block the lesson on it.
     }
@@ -2402,6 +2418,8 @@ export default function TopicApp() {
   const lessonAccent = currentLessonSection.accentColor;
   const lessonMascot = currentLessonSection.mascot;
   const lessonArabic = lesson ? getLessonArabic(lesson.nodeId, lesson.branchId ?? findNodeById(lesson.nodeId)?.branchId) : undefined;
+  // A word that is a whole ayah is heard from the reciter; other words from the device's Arabic voice, if it has one.
+  const lessonRecitation = lessonArabic ? recitationForArabic(lessonArabic.ar) : null;
   const lessonStep = state.lessonQueue[state.stepIndex];
   const challenge = lessonStep ? lesson?.challenges[lessonStep.index] : undefined;
   const correctLabel = challenge?.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
@@ -2542,7 +2560,13 @@ export default function TopicApp() {
             // The chip is the one source that says what the card says, by its short reference; none, no chip.
             learnSource={lesson.learnSource}
             onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
-            onPlayAudio={lessonArabic ? () => speakArabic(lessonArabic.ar) : undefined}
+            onPlayAudio={
+              lessonRecitation
+                ? () => playAyah(lessonRecitation)
+                : lessonArabic && arabicVoiceId
+                  ? () => speakArabic(lessonArabic.ar)
+                  : undefined
+            }
             onContinue={continueFromTeach}
           />
         )}
