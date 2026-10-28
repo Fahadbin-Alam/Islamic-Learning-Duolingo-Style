@@ -742,7 +742,8 @@ const TOPIC_ICONS: Record<string, IconName> = {
   prophets: "scroll",
   women_of_the_book: "bookOpen",
   hadith: "book",
-  scholars: "family"
+  scholars: "family",
+  ramadan: "dua"
 };
 
 /** Emblem icon for a topic world id. */

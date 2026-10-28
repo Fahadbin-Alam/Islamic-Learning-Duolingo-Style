@@ -12,7 +12,8 @@ export type TopicId =
   | "women_of_the_book"
   | "quran_tafseer"
   | "hadith"
-  | "scholars";
+  | "scholars"
+  | "ramadan";
 
 export type CharacterVariant = "hijabi" | "muslim_man";
 
@@ -224,6 +225,8 @@ export interface UserProfile {
   activeSubscriptionId?: string;
   /** This week's league (see src/services/leagues.ts). */
   league?: LeagueState;
+  /** Local days (YYYY-MM-DD) of this Ramadan with a Ramadan lesson done, for the Ramadan streak (ramadanCalendar.ts). */
+  ramadanDays?: string[];
 }
 
 /** How a finished league week ended: the league before (`from`) and after (`to`), as indexes into LEAGUES. */

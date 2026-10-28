@@ -2009,7 +2009,7 @@ const SPOUSES: DeepUnit = {
       title: "He helped at home",
       line: "The Prophet ﷺ helped his family at home, then went to pray.",
       facts: ["Aishah was asked", "Then he left for salah"],
-      source: hadith("bukhari", "676", "Al-Aswad", "Sahih", "Aishah was asked what the Prophet ﷺ did at home; she said he busied himself serving his family, and when prayer time came he went out to pray."),
+      source: hadith("bukhari", "676", "Al-Aswad from Aishah", "Sahih", "Aishah was asked what the Prophet ﷺ did at home; she said he busied himself serving his family, and when prayer time came he went out to pray."),
       difficulty: 2,
       questions: [
         { q: "What did the Prophet ﷺ do at home?", a: "Helped his family", wrong: ["Only rested", "Only gave orders", "Only slept"], why: "He served his family." },

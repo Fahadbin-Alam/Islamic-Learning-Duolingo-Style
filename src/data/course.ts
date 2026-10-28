@@ -3,6 +3,7 @@ import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits } from "./unitPlans";
 import { LESSON_SOURCES } from "./questionSources";
 import { addDeepUnits } from "./deepUnits";
+import { RAMADAN } from "./ramadanDays";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
@@ -3944,7 +3945,12 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 // Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
 // Deep units (deepUnits.ts) follow their unit's own circles.
-const chainedContent = chainCourse(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES))));
+const chainedNotes = chainCourse(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES))));
+// The 30-day Ramadan path (ramadanDays.ts) comes last in the topic list; its days are already chained in order.
+const chainedContent = {
+  course: { ...chainedNotes.course, sections: [...chainedNotes.course.sections, RAMADAN.section] },
+  lessonsById: { ...chainedNotes.lessonsById, ...RAMADAN.lessonsById }
+};
 // No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons). A
 // lesson whose seed or note named no source for its fact gets the one checked for it (questionSources.ts).
 const expandedContent = {
