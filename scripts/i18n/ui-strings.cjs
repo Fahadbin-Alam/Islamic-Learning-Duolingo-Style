@@ -10,6 +10,7 @@ const TABLE_FILES = {
   "src/ui/screens/BottomTabs.tsx": ["TABS"],
   "src/ui/screens/SettingsSheet.tsx": ["ROLES"],
   "src/ui/screens/ShopView.tsx": ["BENEFITS"],
+  "src/ui/screens/FamilySheet.tsx": ["ADD_ERRORS"],
   "src/ui/lesson/FeedbackSheet.tsx": ["PRAISE_WORDS", "WRONG_TITLE"],
   "src/components/FoundationLearning.tsx": ["QUIT_TITLES", "QUIT_LINE", "HEADLINES", "SKILL_LOOK"],
   "src/i18n.ts": ["UI_STRINGS", "TOPIC_COPY"]

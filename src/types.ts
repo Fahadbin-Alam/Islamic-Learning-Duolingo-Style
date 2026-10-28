@@ -201,6 +201,8 @@ export interface UserProfile {
   totalXp: number;
   // XP earned on one local calendar day (YYYY-MM-DD, same as the heart refill), for the daily goal.
   dailyXp?: { date: string; xp: number };
+  /** XP per local day for the last two weeks, for the family report's week chart. */
+  xpByDay?: Record<string, number>;
   // Local day a lesson was last finished; the streak ends once a whole day passes without one.
   lastStreakDate?: string;
   dailyGoalXp: number;
