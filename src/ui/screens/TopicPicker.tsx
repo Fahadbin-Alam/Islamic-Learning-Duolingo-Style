@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, type DimensionValue } from "react-native";
 import type { ArabicTerm } from "../../data/arabicTerms";
 import { ArabicText } from "../ArabicText";
@@ -9,6 +9,14 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, text, topicPalette } from "../theme";
 import { t } from "../../i18n";
 
+export type TopicPickerUnit = {
+  id: string;
+  title: string;
+  arabic?: ArabicTerm;
+  done: number;
+  total: number;
+};
+
 export type TopicPickerTopic = {
   topicId: string;
   title: string;
@@ -16,6 +24,11 @@ export type TopicPickerTopic = {
   arabic?: ArabicTerm;
   done: number;
   total: number;
+  /**
+   * The topic's sub-topics (a companion, a surah). With two or more, tapping the tile opens their list, and the
+   * learner picks one to learn on its own, or the whole topic.
+   */
+  units?: TopicPickerUnit[];
 };
 
 export type TopicPickerProps = {
@@ -23,7 +36,10 @@ export type TopicPickerProps = {
   onClose: () => void;
   topics: TopicPickerTopic[];
   activeTopicId: string;
-  onSelect: (topicId: string) => void;
+  /** The sub-topic the path shows on its own, if any. */
+  activeUnitId?: string;
+  /** A topic, or one of its sub-topics (unitId) to learn on its own. */
+  onSelect: (topicId: string, unitId?: string) => void;
   /** Gap above the sheet. Default 40. */
   topGap?: number;
   /** Bottom safe-area inset; tiles scroll to the screen edge and clear it. Default 0. */
@@ -85,23 +101,105 @@ function TopicTile({ topic, active, width, onPress }: { topic: TopicPickerTopic;
   );
 }
 
+function UnitRow({ unit, accent, active, onPress }: { unit: TopicPickerUnit; accent: string; active: boolean; onPress: () => void }) {
+  const palette = topicPalette(accent);
+  const finished = unit.total > 0 && unit.done >= unit.total;
+  return (
+    <Tappable
+      onPress={onPress}
+      sound="node_tap"
+      pressScale={0.97}
+      accessibilityLabel={t("{topic}, {done} of {total}", { topic: unit.title, done: unit.done, total: unit.total })}
+      accessibilityState={{ selected: active }}
+      testID={`topic-unit-${unit.id}`}
+      style={[styles.unitRow, active ? styles.tileActive : null]}
+    >
+      <View style={styles.unitText}>
+        <Text style={styles.unitTitle} numberOfLines={2}>
+          {unit.title}
+        </Text>
+        {unit.arabic ? (
+          <ArabicText size={15} weight="bold" color={palette.ink} style={styles.unitArabic}>
+            {unit.arabic.ar}
+          </ArabicText>
+        ) : null}
+      </View>
+      {finished ? (
+        <Icon name="crown" size={22} color={colors.goldLip} />
+      ) : (
+        <View style={styles.unitProgress}>
+          <ProgressBar progress={unit.total > 0 ? unit.done / unit.total : 0} color={palette.main} height={8} style={styles.bar} />
+          <Text style={styles.count} numberOfLines={1}>{`${unit.done}/${unit.total}`}</Text>
+        </View>
+      )}
+    </Tappable>
+  );
+}
+
+/** A topic's sub-topics: the whole topic first, then each unit (a companion, a surah) to learn on its own. */
+function UnitList({ topic, activeUnitId, onPick }: { topic: TopicPickerTopic; activeUnitId?: string; onPick: (unitId?: string) => void }) {
+  const palette = topicPalette(topic.accent);
+  return (
+    <View testID={`topic-units-${topic.topicId}`}>
+      <Tappable
+        onPress={() => onPick(undefined)}
+        sound="node_tap"
+        pressScale={0.97}
+        accessibilityLabel={t("All of {topic}", { topic: topic.title })}
+        accessibilityState={{ selected: !activeUnitId }}
+        testID="topic-unit-all"
+        style={[styles.unitRow, styles.allRow, { backgroundColor: palette.main, borderColor: palette.lip, borderBottomColor: palette.lip }]}
+      >
+        <Icon name={worldIcon(topic.topicId)} size={30} />
+        <Text style={[styles.unitTitle, styles.allTitle]} numberOfLines={2}>
+          {t("All of {topic}", { topic: topic.title })}
+        </Text>
+      </Tappable>
+      {(topic.units ?? []).map((unit) => (
+        <UnitRow key={unit.id} unit={unit} accent={topic.accent} active={unit.id === activeUnitId} onPress={() => onPick(unit.id)} />
+      ))}
+    </View>
+  );
+}
+
 /** Full-height sheet with a grid of topic worlds. */
-export function TopicPicker({ visible, onClose, topics, activeTopicId, onSelect, topGap = 40, bottomInset = 0 }: TopicPickerProps) {
+export function TopicPicker({ visible, onClose, topics, activeTopicId, activeUnitId, onSelect, topGap = 40, bottomInset = 0 }: TopicPickerProps) {
   const [gridWidth, setGridWidth] = useState(0);
+  // The topic whose sub-topics are listed; the grid shows again each time the sheet opens.
+  const [openTopicId, setOpenTopicId] = useState<string | undefined>(undefined);
+  useEffect(() => {
+    if (!visible) setOpenTopicId(undefined);
+  }, [visible]);
+  const openTopic = topics.find((topic) => topic.topicId === openTopicId);
   const columns = gridWidth > 0 && gridWidth < 260 ? 1 : 2;
   const tileWidth: DimensionValue = gridWidth > 0 ? Math.floor((gridWidth - GAP * (columns - 1)) / columns) : "47%";
 
   return (
     <Sheet visible={visible} onClose={onClose} bottomInset={0} style={[styles.sheet, { top: topGap, paddingBottom: 0 }]} testID="topic-picker">
       <View style={styles.header}>
+        {openTopic ? (
+          <Tappable onPress={() => setOpenTopicId(undefined)} accessibilityLabel={t("Back")} testID="topic-picker-back" style={[styles.close, styles.back]} hitSlop={8} pressScale={0.88}>
+            <Icon name="arrowLeft" size={22} color={colors.inkSoft} />
+          </Tappable>
+        ) : null}
         <Text style={styles.heading} numberOfLines={2}>
-          {t("Choose a topic")}
+          {openTopic ? openTopic.title : t("Choose a topic")}
         </Text>
         <Tappable onPress={onClose} accessibilityLabel={t("Close")} testID="topic-picker-close" style={styles.close} hitSlop={8} pressScale={0.88}>
           <Icon name="close" size={22} color={colors.inkSoft} />
         </Tappable>
       </View>
       <ScrollView style={styles.scroll} contentContainerStyle={{ paddingBottom: 32 + bottomInset }} showsVerticalScrollIndicator={false}>
+        {openTopic ? (
+          <UnitList
+            topic={openTopic}
+            activeUnitId={openTopic.topicId === activeTopicId ? activeUnitId : undefined}
+            onPick={(unitId) => {
+              onSelect(openTopic.topicId, unitId);
+              onClose();
+            }}
+          />
+        ) : (
         <View style={styles.grid} onLayout={(event) => setGridWidth(event.nativeEvent.layout.width)}>
           {topics.map((topic) => (
                 <TopicTile
@@ -110,12 +208,17 @@ export function TopicPicker({ visible, onClose, topics, activeTopicId, onSelect,
                   width={tileWidth}
                   active={topic.topicId === activeTopicId}
                   onPress={() => {
+                    if ((topic.units?.length ?? 0) > 1) {
+                      setOpenTopicId(topic.topicId);
+                      return;
+                    }
                     onSelect(topic.topicId);
                     onClose();
                   }}
                 />
               ))}
         </View>
+        )}
       </ScrollView>
     </Sheet>
   );
@@ -134,6 +237,51 @@ const styles = StyleSheet.create({
     ...text.h2,
     flex: 1,
     minWidth: 0
+  },
+  back: {
+    marginEnd: 10
+  },
+  unitRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    minHeight: 64,
+    marginBottom: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderWidth: 2,
+    borderColor: colors.line,
+    borderBottomWidth: 5,
+    borderBottomColor: colors.lineLip,
+    borderRadius: 18,
+    backgroundColor: colors.white
+  },
+  allRow: {
+    justifyContent: "flex-start"
+  },
+  unitText: {
+    flex: 1,
+    minWidth: 0
+  },
+  unitTitle: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 16,
+    lineHeight: 20,
+    color: colors.ink,
+    flexShrink: 1
+  },
+  allTitle: {
+    flex: 1,
+    color: colors.white
+  },
+  unitArabic: {
+    alignSelf: "flex-start",
+    maxWidth: "100%"
+  },
+  unitProgress: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 96
   },
   close: {
     width: 40,

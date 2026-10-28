@@ -41,7 +41,8 @@ import {
   loseHeart,
   pickTestOutChallenges,
   prepareUserForToday,
-  refillHeartsForToday
+  refillHeartsForToday,
+  LIBRARY_TOPICS
 } from "./api/islamicLearningApi";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import {
@@ -135,7 +136,7 @@ import {
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
-import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space } from "./ui";
+import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import {
   AccountSheet,
@@ -253,6 +254,8 @@ interface AppState {
   returnScreen?: Screen;
   selectedTopic: TopicId;
   selectedBranchId?: string;
+  /** A sub-topic (a companion, a surah) the Learn path shows on its own; unset shows the whole topic. */
+  pathUnitId?: string;
   /** The shop scrolls here when it opens (a premium unit's UNLOCK). */
   shopFocus?: "premium";
   user?: UserProfile;
@@ -282,7 +285,7 @@ type Action =
   | { type: "go_home" }
   | { type: "show_topic" }
   | { type: "show_branch" }
-  | { type: "select_topic"; topicId: TopicId }
+  | { type: "select_topic"; topicId: TopicId; unitId?: string }
   | { type: "select_branch"; branchId: string }
   | { type: "open_review" }
   | { type: "close_review" }
@@ -358,6 +361,7 @@ function reducer(state: AppState, action: Action): AppState {
         user: state.user && state.user.lastTopicId !== action.topicId ? { ...state.user, lastTopicId: action.topicId } : state.user,
         selectedTopic: action.topicId,
         selectedBranchId: undefined,
+        pathUnitId: action.unitId,
         screen: "topic",
         returnScreen: undefined
       };
@@ -776,10 +780,13 @@ export default function TopicApp() {
   // the path's own. NEXT LESSON plays it and the path puts START on it, so a jump into a later unit carries on
   // there, not back in a unit skipped past. It is kept on the learner, so a reload keeps it too.
   const pathFocusId = state.user?.pathFocusIds?.[selectedSection.topicId];
+  // The sub-topic picked in the topic picker, while this topic still has it.
+  const pathUnitId = selectedSection.branches.some((branch) => branch.id === state.pathUnitId) ? state.pathUnitId : undefined;
   const sectionNextNode = useMemo(() => {
-    const focused = pathFocusId ? sectionNodes.find((node) => node.id === pathFocusId) : undefined;
-    return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(sectionNodes);
-  }, [pathFocusId, sectionNodes]);
+    const shown = pathUnitId ? sectionNodes.filter((node) => node.branchId === pathUnitId) : sectionNodes;
+    const focused = pathFocusId ? shown.find((node) => node.id === pathFocusId) : undefined;
+    return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(shown);
+  }, [pathFocusId, pathUnitId, sectionNodes]);
   // Every unfinished unit the learner may open can be tested out when the circles it skips give enough
   // questions for a fair test: the open unit's banner key, and JUMP HERE on locked circles of any unit.
   // Only finished circles and premium change the plans, so a heart or XP change does not redo them.
@@ -823,7 +830,7 @@ export default function TopicApp() {
     for (const branch of selectedSection.branches) {
       const nodes = sectionNodes.filter((node) => node.branchId === branch.id);
 
-      if (!nodes.length) {
+      if (!nodes.length || (pathUnitId && branch.id !== pathUnitId)) {
         continue;
       }
 
@@ -859,7 +866,7 @@ export default function TopicApp() {
     }
 
     return { units, chestStops };
-  }, [sectionNodes, selectedSection, state.user, testOutUnitIds]);
+  }, [pathUnitId, sectionNodes, selectedSection, state.user, testOutUnitIds]);
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
 
@@ -869,7 +876,18 @@ export default function TopicApp() {
       accent: section.accentColor,
       arabic: getTopicArabic(section.topicId),
       done: section.nodes.filter((node) => completed.has(node.id)).length,
-      total: section.nodes.length
+      total: section.nodes.length,
+      // A library topic's units each stand alone (a companion, a surah), so each can be learned on its own.
+      ...(LIBRARY_TOPICS.has(section.topicId)
+        ? {
+            units: section.branches
+              .map((branch) => {
+                const nodes = section.nodes.filter((node) => node.branchId === branch.id);
+                return { id: branch.id, title: branch.title, arabic: getBranchArabic(branch.id), done: nodes.filter((node) => completed.has(node.id)).length, total: nodes.length };
+              })
+              .filter((unit) => unit.total > 0)
+          }
+        : {})
     }));
   }, [localizedSections, state.user?.completedNodeIds]);
 
@@ -2297,6 +2315,22 @@ export default function TopicApp() {
             onTestOut={(unitId, nodeId) => void startBranchTestOut(unitId, undefined, 0, nodeId)}
             onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
             onNextTopic={() => setTopicPickerVisible(true)}
+            header={
+              pathUnitId ? (
+                <Tappable
+                  onPress={() => dispatch({ type: "select_topic", topicId: selectedSection.topicId })}
+                  sound="node_tap"
+                  accessibilityLabel={t("All of {topic}", { topic: selectedSection.title })}
+                  testID="path-show-all"
+                  style={styles.pathAll}
+                >
+                  <Icon name="arrowLeft" size={18} color={colors.inkSoft} />
+                  <Text style={styles.pathAllText} numberOfLines={1}>
+                    {t("All of {topic}", { topic: selectedSection.title })}
+                  </Text>
+                </Tappable>
+              ) : undefined
+            }
           />
         )}
         {state.screen === "lesson_teach" && lesson && lessonShell(
@@ -2491,7 +2525,8 @@ export default function TopicApp() {
             onClose={() => setTopicPickerVisible(false)}
             topics={pickerTopics}
             activeTopicId={selectedSection.topicId}
-            onSelect={(topicId) => dispatch({ type: "select_topic", topicId: topicId as TopicId })}
+            activeUnitId={pathUnitId}
+            onSelect={(topicId, unitId) => dispatch({ type: "select_topic", topicId: topicId as TopicId, unitId })}
           />
         )}
         <AccountSheet
@@ -2944,6 +2979,25 @@ function webDirection(rtl: boolean): object {
 }
 
 const styles = StyleSheet.create({
+  // Above a one-unit path: back to the whole topic.
+  pathAll: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    gap: 6,
+    marginHorizontal: 16,
+    marginTop: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 999,
+    borderWidth: 2,
+    borderColor: colors.line,
+    borderBottomWidth: 4,
+    borderBottomColor: colors.lineLip,
+    backgroundColor: colors.white,
+    maxWidth: "90%"
+  },
+  pathAllText: { fontFamily: fonts.displayHeavy, fontSize: 15, color: colors.inkSoft, flexShrink: 1 },
   safeArea: { flex: 1, backgroundColor: colors.snow },
   appShell: { flex: 1, backgroundColor: colors.snow },
   // Urdu and Arabic: rows, padding and text run from the right.

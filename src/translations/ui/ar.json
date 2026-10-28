@@ -418,5 +418,6 @@
   "{name} (you)": "{name} (أنت)",
   "{place} of {count}": "{place} من {count}",
   "{topic}, {done} of {total}": "{topic}، {done} من {total}",
-  "{topic}. Change topic": "{topic}. غيّر الموضوع"
+  "{topic}. Change topic": "{topic}. غيّر الموضوع",
+  "All of {topic}": "كل {topic}"
 }

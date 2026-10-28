@@ -45,7 +45,7 @@
   },
   {
     "kind": "course",
-    "text": "Daily phrase rhythm"
+    "text": "Words through the day"
   },
   {
     "kind": "course",
@@ -125,7 +125,7 @@
   },
   {
     "kind": "arabic",
-    "text": "Morning remembrance"
+    "text": "Waking-up du'a"
   },
   {
     "kind": "course",
@@ -1126,6 +1126,66 @@
   {
     "kind": "course",
     "text": "The straight path"
+  },
+  {
+    "kind": "course",
+    "text": "Its many names"
+  },
+  {
+    "kind": "course",
+    "text": "Why the Mother of the Book"
+  },
+  {
+    "kind": "course",
+    "text": "The greatest surah"
+  },
+  {
+    "kind": "course",
+    "text": "Two lights"
+  },
+  {
+    "kind": "course",
+    "text": "A healing"
+  },
+  {
+    "kind": "course",
+    "text": "All praise"
+  },
+  {
+    "kind": "course",
+    "text": "Deep review"
+  },
+  {
+    "kind": "course",
+    "text": "Lord of all the worlds"
+  },
+  {
+    "kind": "course",
+    "text": "The Merciful"
+  },
+  {
+    "kind": "course",
+    "text": "The Day of Recompense"
+  },
+  {
+    "kind": "course",
+    "text": "A talk with Allah"
+  },
+  {
+    "kind": "course",
+    "text": "Keep us on the path"
+  },
+  {
+    "kind": "course",
+    "text": "Those Allah favored"
+  },
+  {
+    "kind": "course",
+    "text": "Saying Amin"
+  },
+  {
+    "kind": "course",
+    "text": "Final quiz"
   },
   {
     "kind": "course",
@@ -3430,6 +3490,146 @@
   {
     "kind": "course",
     "text": "Life in order"
+  },
+  {
+    "kind": "course",
+    "text": "Expert in family lines"
+  },
+  {
+    "kind": "course",
+    "text": "Known for good"
+  },
+  {
+    "kind": "course",
+    "text": "He speaks the truth"
+  },
+  {
+    "kind": "course",
+    "text": "The first believers"
+  },
+  {
+    "kind": "course",
+    "text": "Our master Bilal"
+  },
+  {
+    "kind": "course",
+    "text": "Standing up for him"
+  },
+  {
+    "kind": "course",
+    "text": "A masjid by his house"
+  },
+  {
+    "kind": "course",
+    "text": "Allah's protection"
+  },
+  {
+    "kind": "course",
+    "text": "Waiting for the Hijrah"
+  },
+  {
+    "kind": "course",
+    "text": "Two belts and a cave"
+  },
+  {
+    "kind": "course",
+    "text": "His family helps"
+  },
+  {
+    "kind": "course",
+    "text": "Do not grieve"
+  },
+  {
+    "kind": "course",
+    "text": "The rider who chased them"
+  },
+  {
+    "kind": "course",
+    "text": "Everything for Allah"
+  },
+  {
+    "kind": "course",
+    "text": "The day of Badr"
+  },
+  {
+    "kind": "course",
+    "text": "Firm at Hudaybiyah"
+  },
+  {
+    "kind": "course",
+    "text": "He forgave"
+  },
+  {
+    "kind": "course",
+    "text": "Four good deeds"
+  },
+  {
+    "kind": "course",
+    "text": "Every gate of Jannah"
+  },
+  {
+    "kind": "course",
+    "text": "Not out of pride"
+  },
+  {
+    "kind": "course",
+    "text": "The closest friend"
+  },
+  {
+    "kind": "course",
+    "text": "Most beloved"
+  },
+  {
+    "kind": "course",
+    "text": "The mountain shook"
+  },
+  {
+    "kind": "course",
+    "text": "Leader of the Hajj"
+  },
+  {
+    "kind": "course",
+    "text": "In the Prophet's ﷺ place"
+  },
+  {
+    "kind": "course",
+    "text": "Then go to Abu Bakr"
+  },
+  {
+    "kind": "course",
+    "text": "Allah never dies"
+  },
+  {
+    "kind": "course",
+    "text": "The first pledge"
+  },
+  {
+    "kind": "course",
+    "text": "Salah and zakat together"
+  },
+  {
+    "kind": "course",
+    "text": "Gathering the Quran"
+  },
+  {
+    "kind": "course",
+    "text": "His last days"
+  },
+  {
+    "kind": "course",
+    "text": "The dream of the well"
+  },
+  {
+    "kind": "course",
+    "text": "Choosing Umar"
+  },
+  {
+    "kind": "course",
+    "text": "Ali's answer"
+  },
+  {
+    "kind": "course",
+    "text": "Promised Jannah"
   },
   {
     "kind": "course",
@@ -7629,11 +7829,11 @@
   },
   {
     "kind": "lesson",
-    "text": "Before wudu, intend in your heart to get ready to pray."
+    "text": "Your niyyah for wudu is in your heart."
   },
   {
     "kind": "question",
-    "text": "Before wudu, intend in your ____ to get ready to pray."
+    "text": "Your niyyah for wudu is in your ____."
   },
   {
     "kind": "question",
@@ -7649,7 +7849,7 @@
   },
   {
     "kind": "question",
-    "text": "Niyyah, the intention, is in the heart; you need not say it."
+    "text": "Allah knows what is in your heart, so you don't have to say it out loud."
   },
   {
     "kind": "lesson",
@@ -21364,6 +21564,4122 @@
     "text": "What does the name Surah An-Nas mean?"
   },
   {
+    "kind": "lesson",
+    "text": "Al-Fatihah is also called Umm al-Kitab, the Mother of the Book."
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Sab' al-Mathani: seven repeated"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shifa: the Cure"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ar-Ruqyah: the healing"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 1:1"
+  },
+  {
+    "kind": "question",
+    "text": "What does Umm al-Kitab mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Mother of the Book"
+  },
+  {
+    "kind": "question",
+    "text": "Key of the Book"
+  },
+  {
+    "kind": "question",
+    "text": "Heart of the Book"
+  },
+  {
+    "kind": "question",
+    "text": "Light of the Book"
+  },
+  {
+    "kind": "question",
+    "text": "Most scholars call Al-Fatihah by this name."
+  },
+  {
+    "kind": "question",
+    "text": "Which name means 'the seven repeated'?"
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Ruqyah"
+  },
+  {
+    "kind": "question",
+    "text": "As-Sab' al-Mathani"
+  },
+  {
+    "kind": "question",
+    "text": "Umm al-Kitab"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shifa"
+  },
+  {
+    "kind": "question",
+    "text": "Its seven ayahs are repeated in every salah."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shifa, one name of Al-Fatihah, means what?"
+  },
+  {
+    "kind": "question",
+    "text": "The Key"
+  },
+  {
+    "kind": "question",
+    "text": "The Praise"
+  },
+  {
+    "kind": "question",
+    "text": "The Cure"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's words bring healing."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fatihah has only one name."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir lists many names for it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran begins with it, and every salah begins with it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seven ayahs: all agree"
+  },
+  {
+    "kind": "lesson",
+    "text": "Holds the meanings of the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "Why is Al-Fatihah called the Mother of the Book?"
+  },
+  {
+    "kind": "question",
+    "text": "It is about mothers"
+  },
+  {
+    "kind": "question",
+    "text": "The Quran and salah begin with it"
+  },
+  {
+    "kind": "question",
+    "text": "It came down last"
+  },
+  {
+    "kind": "question",
+    "text": "It is the longest surah"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir quotes Imam al-Bukhari saying this."
+  },
+  {
+    "kind": "question",
+    "text": "Scholars all agree Al-Fatihah has how many ayahs?"
+  },
+  {
+    "kind": "question",
+    "text": "Eight"
+  },
+  {
+    "kind": "question",
+    "text": "Five"
+  },
+  {
+    "kind": "question",
+    "text": "Seven"
+  },
+  {
+    "kind": "question",
+    "text": "Six"
+  },
+  {
+    "kind": "question",
+    "text": "There is no disagreement about seven."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir says Al-Fatihah holds what?"
+  },
+  {
+    "kind": "question",
+    "text": "Only stories"
+  },
+  {
+    "kind": "question",
+    "text": "Only rules of fasting"
+  },
+  {
+    "kind": "question",
+    "text": "The names of the prophets"
+  },
+  {
+    "kind": "question",
+    "text": "The meanings of the whole Quran"
+  },
+  {
+    "kind": "question",
+    "text": "Praise, worship, the Last Day and guidance are all in it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ called Al-Fatihah the greatest surah in the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told to Abu Sa'id ibn al-Mu'alla"
+  },
+  {
+    "kind": "lesson",
+    "text": "He was praying when called"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4474"
+  },
+  {
+    "kind": "question",
+    "text": "Which surah did the Prophet ﷺ call the greatest in the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "Ya-Sin"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Baqarah"
+  },
+  {
+    "kind": "question",
+    "text": "He called it the seven repeated ayahs and the great Quran."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did the Prophet ﷺ tell this to?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Sa'id ibn al-Mu'alla"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Sa'id al-Khudri"
+  },
+  {
+    "kind": "question",
+    "text": "Mu'adh ibn Jabal"
+  },
+  {
+    "kind": "question",
+    "text": "Two companions are called Abu Sa'id; this was Ibn al-Mu'alla."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Abu Sa'id not answer the Prophet's ﷺ call at once?"
+  },
+  {
+    "kind": "question",
+    "text": "He was asleep"
+  },
+  {
+    "kind": "question",
+    "text": "He did not hear"
+  },
+  {
+    "kind": "question",
+    "text": "He was travelling"
+  },
+  {
+    "kind": "question",
+    "text": "He was praying"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ reminded him: answer Allah and His Messenger ﷺ when called (Quran 8:24)."
+  },
+  {
+    "kind": "lesson",
+    "text": "An angel said: rejoice in two lights no prophet had before."
+  },
+  {
+    "kind": "lesson",
+    "text": "The end of Al-Baqarah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Reward for every letter"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 806"
+  },
+  {
+    "kind": "question",
+    "text": "What were the two lights?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fatihah and the end of Al-Baqarah"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ikhlas and Al-Falaq"
+  },
+  {
+    "kind": "question",
+    "text": "Ya-Sin and Al-Mulk"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Kahf and Maryam"
+  },
+  {
+    "kind": "question",
+    "text": "The angel named these two."
+  },
+  {
+    "kind": "question",
+    "text": "Prophets before Muhammad ﷺ were also given these two lights."
+  },
+  {
+    "kind": "question",
+    "text": "They had not been given to any prophet before him."
+  },
+  {
+    "kind": "question",
+    "text": "What did the angel promise for reciting them?"
+  },
+  {
+    "kind": "question",
+    "text": "A long life"
+  },
+  {
+    "kind": "question",
+    "text": "No more tests"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth in this life"
+  },
+  {
+    "kind": "question",
+    "text": "Every letter recited from them is given."
+  },
+  {
+    "kind": "lesson",
+    "text": "A companion read Al-Fatihah over a stung chief; he was cured."
+  },
+  {
+    "kind": "lesson",
+    "text": "Stung by a scorpion"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ: how did you know?"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5007"
+  },
+  {
+    "kind": "question",
+    "text": "What had happened to the tribe's chief?"
+  },
+  {
+    "kind": "question",
+    "text": "A scorpion stung him"
+  },
+  {
+    "kind": "question",
+    "text": "A snake bit him"
+  },
+  {
+    "kind": "question",
+    "text": "He fell from a camel"
+  },
+  {
+    "kind": "question",
+    "text": "He had a fever"
+  },
+  {
+    "kind": "question",
+    "text": "His people asked the travelling companions for help."
+  },
+  {
+    "kind": "question",
+    "text": "What did the companion recite over him?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Asr"
+  },
+  {
+    "kind": "question",
+    "text": "He called it Umm al-Kitab."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ ask the companion?"
+  },
+  {
+    "kind": "question",
+    "text": "Who taught you to read?"
+  },
+  {
+    "kind": "question",
+    "text": "Did you pray first?"
+  },
+  {
+    "kind": "question",
+    "text": "How did you know it is a ruqyah?"
+  },
+  {
+    "kind": "question",
+    "text": "Why did you go?"
+  },
+  {
+    "kind": "question",
+    "text": "A ruqyah is a recitation for healing."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Hamdu lillah: every kind of praise belongs to Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Praise: for who He is"
+  },
+  {
+    "kind": "lesson",
+    "text": "Thanks: for what He gives"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 1:2"
+  },
+  {
+    "kind": "question",
+    "text": "In Al-Hamdu lillah, what does 'Al' add?"
+  },
+  {
+    "kind": "question",
+    "text": "Praise on Fridays"
+  },
+  {
+    "kind": "question",
+    "text": "Praise of people"
+  },
+  {
+    "kind": "question",
+    "text": "Every kind of praise"
+  },
+  {
+    "kind": "question",
+    "text": "A little praise"
+  },
+  {
+    "kind": "question",
+    "text": "All praise and thanks belong to Allah alone."
+  },
+  {
+    "kind": "question",
+    "text": "Which is wider in meaning?"
+  },
+  {
+    "kind": "question",
+    "text": "Neither"
+  },
+  {
+    "kind": "question",
+    "text": "Praise (hamd)"
+  },
+  {
+    "kind": "question",
+    "text": "Thanks (shukr)"
+  },
+  {
+    "kind": "question",
+    "text": "They are the same"
+  },
+  {
+    "kind": "question",
+    "text": "Hamd praises who He is and what He does."
+  },
+  {
+    "kind": "question",
+    "text": "Thanks (shukr) is given for what?"
+  },
+  {
+    "kind": "question",
+    "text": "What He gives and does"
+  },
+  {
+    "kind": "question",
+    "text": "His names only"
+  },
+  {
+    "kind": "question",
+    "text": "Only the past"
+  },
+  {
+    "kind": "question",
+    "text": "Praise is for who He is too."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Fatihah?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Rabb means Owner and Master; al-'alamin is all except Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rabb alone: said only of Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "'Alam: from 'alamah, a sign"
+  },
+  {
+    "kind": "question",
+    "text": "What does Rabb mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Only Judge"
+  },
+  {
+    "kind": "question",
+    "text": "Only Teacher"
+  },
+  {
+    "kind": "question",
+    "text": "Owner and Master"
+  },
+  {
+    "kind": "question",
+    "text": "Only Creator"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir: the owner with full authority over what he owns."
+  },
+  {
+    "kind": "question",
+    "text": "What does al-'alamin include?"
+  },
+  {
+    "kind": "question",
+    "text": "Only people"
+  },
+  {
+    "kind": "question",
+    "text": "Only angels"
+  },
+  {
+    "kind": "question",
+    "text": "Only the earth"
+  },
+  {
+    "kind": "question",
+    "text": "Everything except Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Every kind of creation is an 'alam."
+  },
+  {
+    "kind": "question",
+    "text": "'Alam comes from 'alamah. What is an 'alamah?"
+  },
+  {
+    "kind": "question",
+    "text": "A sign"
+  },
+  {
+    "kind": "question",
+    "text": "A world"
+  },
+  {
+    "kind": "question",
+    "text": "A book"
+  },
+  {
+    "kind": "question",
+    "text": "A light"
+  },
+  {
+    "kind": "question",
+    "text": "All creation is a sign pointing to its Creator."
+  },
+  {
+    "kind": "question",
+    "text": "Said alone, the word Rabb is used only for Allah."
+  },
+  {
+    "kind": "question",
+    "text": "For others it is joined to a thing, like rabb ad-dar, owner of the house."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ar-Rahman's mercy covers all; Ar-Rahim's is for believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Both from rahmah, mercy"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ar-Rahman: only for Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 1:3"
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Rahman and Ar-Rahim come from which word?"
+  },
+  {
+    "kind": "question",
+    "text": "Rabb, Lord"
+  },
+  {
+    "kind": "question",
+    "text": "Hamd, praise"
+  },
+  {
+    "kind": "question",
+    "text": "Din, recompense"
+  },
+  {
+    "kind": "question",
+    "text": "Rahmah, mercy"
+  },
+  {
+    "kind": "question",
+    "text": "Both are names of mercy."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is a name for Allah alone?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Karim"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Halim"
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Rahim"
+  },
+  {
+    "kind": "question",
+    "text": "Others can be called merciful, but no one else is Ar-Rahman."
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Rahim's special mercy is for the believers."
+  },
+  {
+    "kind": "question",
+    "text": "Allah says: He is ever merciful to the believers (33:43)."
+  },
+  {
+    "kind": "question",
+    "text": "Whose mercy is the wider of the two names?"
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Rahman's"
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Rahim's"
+  },
+  {
+    "kind": "question",
+    "text": "They are exactly the same"
+  },
+  {
+    "kind": "question",
+    "text": "Neither is about mercy"
+  },
+  {
+    "kind": "question",
+    "text": "It covers all creation in both lives."
+  },
+  {
+    "kind": "lesson",
+    "text": "On the Day of Recompense, Allah alone owns anything."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ad-Din: the reckoning"
+  },
+  {
+    "kind": "lesson",
+    "text": "Good for good, evil for evil"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar: judge yourself first"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 1:4"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 1:4"
+  },
+  {
+    "kind": "question",
+    "text": "What does Yawm ad-Din mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Friday"
+  },
+  {
+    "kind": "question",
+    "text": "The day of Arafah"
+  },
+  {
+    "kind": "question",
+    "text": "The day of Eid"
+  },
+  {
+    "kind": "question",
+    "text": "It is the Day of Judgment, when deeds are repaid."
+  },
+  {
+    "kind": "question",
+    "text": "Why is Allah called Owner of that Day in particular?"
+  },
+  {
+    "kind": "question",
+    "text": "He owns nothing else"
+  },
+  {
+    "kind": "question",
+    "text": "It is the only day"
+  },
+  {
+    "kind": "question",
+    "text": "People rule other days"
+  },
+  {
+    "kind": "question",
+    "text": "On it no one else owns anything"
+  },
+  {
+    "kind": "question",
+    "text": "He owns everything always; on that Day no one can even claim to."
+  },
+  {
+    "kind": "question",
+    "text": "Umar said: hold yourself to account before..."
+  },
+  {
+    "kind": "question",
+    "text": "You are held to account"
+  },
+  {
+    "kind": "question",
+    "text": "You grow old"
+  },
+  {
+    "kind": "question",
+    "text": "You eat"
+  },
+  {
+    "kind": "question",
+    "text": "You sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir quotes Umar's advice here."
+  },
+  {
+    "kind": "lesson",
+    "text": "Iyyaka comes first: You alone we worship, and no one else."
+  },
+  {
+    "kind": "lesson",
+    "text": "First half: free from shirk"
+  },
+  {
+    "kind": "lesson",
+    "text": "Second half: rely only on Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "'Ibadah: love, humility, fear"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 1:5"
+  },
+  {
+    "kind": "question",
+    "text": "Why does 'Iyyaka' (You) come first in the ayah?"
+  },
+  {
+    "kind": "question",
+    "text": "It is a name of the surah"
+  },
+  {
+    "kind": "question",
+    "text": "It means You alone, none else"
+  },
+  {
+    "kind": "question",
+    "text": "It sounds nicer"
+  },
+  {
+    "kind": "question",
+    "text": "It is a question"
+  },
+  {
+    "kind": "question",
+    "text": "Putting the object first makes it only His."
+  },
+  {
+    "kind": "question",
+    "text": "The first half, You we worship, frees us from what?"
+  },
+  {
+    "kind": "question",
+    "text": "Shirk"
+  },
+  {
+    "kind": "question",
+    "text": "Hunger"
+  },
+  {
+    "kind": "question",
+    "text": "Debt"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Worshipping Allah alone is the opposite of shirk."
+  },
+  {
+    "kind": "question",
+    "text": "Ibadah joins love, humility and what?"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Anger"
+  },
+  {
+    "kind": "question",
+    "text": "Fear"
+  },
+  {
+    "kind": "question",
+    "text": "That is its meaning in the religion."
+  },
+  {
+    "kind": "question",
+    "text": "And You we ask for help means we rely on our own strength."
+  },
+  {
+    "kind": "question",
+    "text": "It means all help and strength come from Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah divided Al-Fatihah in salah between Him and His servant."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ayah 2: My servant praised Me"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ayah 4: My servant glorified Me"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ayah 5: between Me and him"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 395a"
+  },
+  {
+    "kind": "question",
+    "text": "When we say Al-hamdu lillah, what does Allah say?"
+  },
+  {
+    "kind": "question",
+    "text": "My servant asked Me"
+  },
+  {
+    "kind": "question",
+    "text": "My servant obeyed Me"
+  },
+  {
+    "kind": "question",
+    "text": "My servant praised Me"
+  },
+  {
+    "kind": "question",
+    "text": "Allah answers every ayah."
+  },
+  {
+    "kind": "question",
+    "text": "After Maliki yawm ad-din, Allah says..."
+  },
+  {
+    "kind": "question",
+    "text": "This is for My servant"
+  },
+  {
+    "kind": "question",
+    "text": "My servant is afraid"
+  },
+  {
+    "kind": "question",
+    "text": "My servant glorified Me"
+  },
+  {
+    "kind": "question",
+    "text": "Owner of the Day is a word of glory."
+  },
+  {
+    "kind": "question",
+    "text": "After Iyyaka na'budu, Allah says it is..."
+  },
+  {
+    "kind": "question",
+    "text": "Only for the imam"
+  },
+  {
+    "kind": "question",
+    "text": "Between Me and My servant"
+  },
+  {
+    "kind": "question",
+    "text": "For Me only"
+  },
+  {
+    "kind": "question",
+    "text": "For the angels"
+  },
+  {
+    "kind": "question",
+    "text": "Worship is for Allah; help is for the servant."
+  },
+  {
+    "kind": "lesson",
+    "text": "We ask Allah to keep us firm on the straight path: Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sirat: a clear road, no turns"
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked in every salah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 1:6"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir says the straight path is what?"
+  },
+  {
+    "kind": "question",
+    "text": "Islam"
+  },
+  {
+    "kind": "question",
+    "text": "The road to Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "A bridge only"
+  },
+  {
+    "kind": "question",
+    "text": "Good manners only"
+  },
+  {
+    "kind": "question",
+    "text": "At-Tabari and Ibn Kathir explain it as Islam."
+  },
+  {
+    "kind": "question",
+    "text": "Why does a Muslim ask for guidance in every salah?"
+  },
+  {
+    "kind": "question",
+    "text": "He is not a Muslim yet"
+  },
+  {
+    "kind": "question",
+    "text": "To get rich"
+  },
+  {
+    "kind": "question",
+    "text": "It is said only once"
+  },
+  {
+    "kind": "question",
+    "text": "To stay firm on it"
+  },
+  {
+    "kind": "question",
+    "text": "We need Allah's help every hour to stay on the path."
+  },
+  {
+    "kind": "question",
+    "text": "In Arabic, what kind of road is a sirat?"
+  },
+  {
+    "kind": "question",
+    "text": "Long and winding"
+  },
+  {
+    "kind": "question",
+    "text": "A small side path"
+  },
+  {
+    "kind": "question",
+    "text": "Clear, with no turns"
+  },
+  {
+    "kind": "question",
+    "text": "Narrow and dark"
+  },
+  {
+    "kind": "question",
+    "text": "That is how the Arabs used the word."
+  },
+  {
+    "kind": "lesson",
+    "text": "The favored: prophets, the truthful, martyrs and the righteous."
+  },
+  {
+    "kind": "lesson",
+    "text": "Explained by Quran 4:69"
+  },
+  {
+    "kind": "lesson",
+    "text": "Avoid: knowing truth, leaving it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Avoid: losing true knowledge"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 1:7"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 1:7"
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah explains 'those You have favored'?"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 4:69"
+  },
+  {
+    "kind": "question",
+    "text": "It names the prophets, the truthful, the martyrs and the righteous."
+  },
+  {
+    "kind": "question",
+    "text": "Which is NOT among the favored in Quran 4:69?"
+  },
+  {
+    "kind": "question",
+    "text": "The martyrs"
+  },
+  {
+    "kind": "question",
+    "text": "The righteous"
+  },
+  {
+    "kind": "question",
+    "text": "The rich"
+  },
+  {
+    "kind": "question",
+    "text": "Being favored is about faith and deeds, not wealth."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir: those who earned anger are those who..."
+  },
+  {
+    "kind": "question",
+    "text": "Were poor"
+  },
+  {
+    "kind": "question",
+    "text": "Knew the truth and left it"
+  },
+  {
+    "kind": "question",
+    "text": "Never heard of it"
+  },
+  {
+    "kind": "question",
+    "text": "Asked too many questions"
+  },
+  {
+    "kind": "question",
+    "text": "Knowing without acting is what earns anger."
+  },
+  {
+    "kind": "question",
+    "text": "And those who went astray are those who..."
+  },
+  {
+    "kind": "question",
+    "text": "Lost true knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Knew it and acted"
+  },
+  {
+    "kind": "question",
+    "text": "Travelled far"
+  },
+  {
+    "kind": "question",
+    "text": "Prayed too much"
+  },
+  {
+    "kind": "question",
+    "text": "They acted without knowing the right way."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Al-Fatihah we say Amin: O Allah, answer our dua."
+  },
+  {
+    "kind": "lesson",
+    "text": "Say it with the imam"
+  },
+  {
+    "kind": "lesson",
+    "text": "Matching the angels' Amin"
+  },
+  {
+    "kind": "lesson",
+    "text": "Past sins forgiven"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 780"
+  },
+  {
+    "kind": "question",
+    "text": "What does Amin mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The prayer is over"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is great"
+  },
+  {
+    "kind": "question",
+    "text": "Peace be on you"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, answer our dua"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir explains it this way."
+  },
+  {
+    "kind": "question",
+    "text": "Whose Amin can ours match?"
+  },
+  {
+    "kind": "question",
+    "text": "Our parents'"
+  },
+  {
+    "kind": "question",
+    "text": "The prophets'"
+  },
+  {
+    "kind": "question",
+    "text": "The angels'"
+  },
+  {
+    "kind": "question",
+    "text": "The imam's only"
+  },
+  {
+    "kind": "question",
+    "text": "The angels say Amin too."
+  },
+  {
+    "kind": "question",
+    "text": "What is promised to one whose Amin matches the angels'?"
+  },
+  {
+    "kind": "question",
+    "text": "A new house"
+  },
+  {
+    "kind": "question",
+    "text": "Riches"
+  },
+  {
+    "kind": "question",
+    "text": "So say it with the imam."
+  },
+  {
+    "kind": "question",
+    "text": "Only the imam should say Amin."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said: say Amin when the imam says it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Fatihah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr knew the family lines of Quraysh best of all."
+  },
+  {
+    "kind": "lesson",
+    "text": "The poet Hassan learned from him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Same tribe as the Prophet ﷺ"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2490"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr know better than anyone in Quraysh?"
+  },
+  {
+    "kind": "question",
+    "text": "The stars for travel"
+  },
+  {
+    "kind": "question",
+    "text": "Medicine and herbs"
+  },
+  {
+    "kind": "question",
+    "text": "The roads to Sham"
+  },
+  {
+    "kind": "question",
+    "text": "Their family lines"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said Abu Bakr knew the lineage of Quraysh best."
+  },
+  {
+    "kind": "question",
+    "text": "Which poet did the Prophet ﷺ send to learn from Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "Hassan ibn Thabit"
+  },
+  {
+    "kind": "question",
+    "text": "Labid ibn Rabi'ah"
+  },
+  {
+    "kind": "question",
+    "text": "Imru al-Qays"
+  },
+  {
+    "kind": "question",
+    "text": "Hassan answered Quraysh in poems, so he had to know their family lines well."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr and the Prophet ﷺ were from the same tribe."
+  },
+  {
+    "kind": "question",
+    "text": "Both were from Quraysh."
+  },
+  {
+    "kind": "question",
+    "text": "Which tribe's family lines did Abu Bakr know best?"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Tamim"
+  },
+  {
+    "kind": "question",
+    "text": "The Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "Quraysh was the tribe of Makkah, his own and the Prophet's ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "A chief said Abu Bakr helped the poor and welcomed guests."
+  },
+  {
+    "kind": "lesson",
+    "text": "Chief: Ibn ad-Dughunnah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Kept ties with family"
+  },
+  {
+    "kind": "lesson",
+    "text": "Helped people in hardship"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3905"
+  },
+  {
+    "kind": "question",
+    "text": "Which chief praised Abu Bakr's good deeds?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Sufyan"
+  },
+  {
+    "kind": "question",
+    "text": "Utbah ibn Rabi'ah"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn ad-Dughunnah"
+  },
+  {
+    "kind": "question",
+    "text": "He was the chief of the tribe of Qarah."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these did the chief NOT say about Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "He welcomed guests"
+  },
+  {
+    "kind": "question",
+    "text": "He kept ties with family"
+  },
+  {
+    "kind": "question",
+    "text": "He was the richest man in Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "He helped the poor"
+  },
+  {
+    "kind": "question",
+    "text": "He praised his kindness, not his wealth."
+  },
+  {
+    "kind": "question",
+    "text": "The chief said Abu Bakr helped people in ____."
+  },
+  {
+    "kind": "question",
+    "text": "hardship"
+  },
+  {
+    "kind": "question",
+    "text": "trade"
+  },
+  {
+    "kind": "question",
+    "text": "He helped those hit by hard times."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn ad-Dughunnah said a man like Abu Bakr should be driven out."
+  },
+  {
+    "kind": "question",
+    "text": "He said a man like Abu Bakr should never be driven out."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr believed the Prophet ﷺ when others called him a liar."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr said: he speaks the truth"
+  },
+  {
+    "kind": "lesson",
+    "text": "Gave himself and his wealth"
+  },
+  {
+    "kind": "lesson",
+    "text": "Leave my companion alone!"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3661"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr say when others called the Prophet ﷺ a liar?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask the priests first"
+  },
+  {
+    "kind": "question",
+    "text": "Show me a sign"
+  },
+  {
+    "kind": "question",
+    "text": "Let us wait and see"
+  },
+  {
+    "kind": "question",
+    "text": "That is why he is called As-Siddiq, the one who always believed."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said Abu Bakr helped him with himself and his ____."
+  },
+  {
+    "kind": "question",
+    "text": "tribe"
+  },
+  {
+    "kind": "question",
+    "text": "He gave his money for Islam from the start."
+  },
+  {
+    "kind": "question",
+    "text": "After a quarrel with Umar, what did the Prophet ﷺ say about Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "Leave my companion alone"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr was wrong"
+  },
+  {
+    "kind": "question",
+    "text": "Umar must say sorry first"
+  },
+  {
+    "kind": "question",
+    "text": "Do not talk to each other"
+  },
+  {
+    "kind": "question",
+    "text": "After that nobody hurt Abu Bakr."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr kept his wealth for himself and gave only words."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said Abu Bakr helped him with himself and his wealth."
+  },
+  {
+    "kind": "lesson",
+    "text": "At first, only five slaves, two women and Abu Bakr believed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ammar ibn Yasir"
+  },
+  {
+    "kind": "lesson",
+    "text": "Very few Muslims at the start"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3660"
+  },
+  {
+    "kind": "question",
+    "text": "Ammar named who was with the Prophet ﷺ at first. Which man did he name?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr was with the Prophet ﷺ from the very start."
+  },
+  {
+    "kind": "question",
+    "text": "How many slaves did Ammar count among the first Muslims?"
+  },
+  {
+    "kind": "question",
+    "text": "Ten"
+  },
+  {
+    "kind": "question",
+    "text": "Forty"
+  },
+  {
+    "kind": "question",
+    "text": "Two"
+  },
+  {
+    "kind": "question",
+    "text": "Five slaves, two women and Abu Bakr."
+  },
+  {
+    "kind": "question",
+    "text": "How many women did Ammar count?"
+  },
+  {
+    "kind": "question",
+    "text": "One"
+  },
+  {
+    "kind": "question",
+    "text": "Which companion reported how few Muslims there were at first?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas"
+  },
+  {
+    "kind": "question",
+    "text": "Ammar was one of the very first Muslims himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar said Abu Bakr was our master and freed our master Bilal."
+  },
+  {
+    "kind": "lesson",
+    "text": "Said by Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr: our master"
+  },
+  {
+    "kind": "lesson",
+    "text": "Bilal: our master too"
+  },
+  {
+    "kind": "question",
+    "text": "Umar said Abu Bakr freed 'our master'. Who did he mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Suhayb"
+  },
+  {
+    "kind": "question",
+    "text": "Ammar"
+  },
+  {
+    "kind": "question",
+    "text": "Bilal had been a slave, and Umar honored him as a master."
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar call Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "Our guest"
+  },
+  {
+    "kind": "question",
+    "text": "Our master"
+  },
+  {
+    "kind": "question",
+    "text": "Our judge"
+  },
+  {
+    "kind": "question",
+    "text": "Our poet"
+  },
+  {
+    "kind": "question",
+    "text": "Who praised Abu Bakr for freeing Bilal?"
+  },
+  {
+    "kind": "question",
+    "text": "Talhah"
+  },
+  {
+    "kind": "question",
+    "text": "Jabir heard Umar say it."
+  },
+  {
+    "kind": "question",
+    "text": "Umar looked down on Bilal because he had been a slave."
+  },
+  {
+    "kind": "question",
+    "text": "Umar called Bilal 'our master'."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr pulled Uqbah away as he choked the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "It happened while he prayed"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr quoted Quran 40:28"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Amr"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3678"
+  },
+  {
+    "kind": "question",
+    "text": "Who choked the Prophet ﷺ with a cloth?"
+  },
+  {
+    "kind": "question",
+    "text": "Uqbah ibn Abi Mu'ayt"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Amr called it the worst thing he saw the pagans do."
+  },
+  {
+    "kind": "question",
+    "text": "What was the Prophet ﷺ doing when Uqbah attacked?"
+  },
+  {
+    "kind": "question",
+    "text": "Trading"
+  },
+  {
+    "kind": "question",
+    "text": "Eating"
+  },
+  {
+    "kind": "question",
+    "text": "Praying"
+  },
+  {
+    "kind": "question",
+    "text": "Uqbah came at him while he was praying."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr said: will you kill a man because he says..."
+  },
+  {
+    "kind": "question",
+    "text": "I am a king"
+  },
+  {
+    "kind": "question",
+    "text": "I am rich"
+  },
+  {
+    "kind": "question",
+    "text": "Leave Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "My Lord is Allah"
+  },
+  {
+    "kind": "question",
+    "text": "These are the words of a believer in Quran 40:28."
+  },
+  {
+    "kind": "question",
+    "text": "Who saw this and told the story?"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Amr"
+  },
+  {
+    "kind": "question",
+    "text": "Urwah asked him what the worst thing was that he saw."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Abu Bakr?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr built a little masjid by his house and wept reciting."
+  },
+  {
+    "kind": "lesson",
+    "text": "Set out for Abyssinia first"
+  },
+  {
+    "kind": "lesson",
+    "text": "Chief brought him back"
+  },
+  {
+    "kind": "lesson",
+    "text": "Crowds watched him weep"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Abu Bakr going when he first set out to leave Makkah?"
+  },
+  {
+    "kind": "question",
+    "text": "Many Muslims went to Abyssinia when Quraysh hurt them."
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr build in front of his house?"
+  },
+  {
+    "kind": "question",
+    "text": "A little masjid"
+  },
+  {
+    "kind": "question",
+    "text": "A market stall"
+  },
+  {
+    "kind": "question",
+    "text": "A well"
+  },
+  {
+    "kind": "question",
+    "text": "A guest tent"
+  },
+  {
+    "kind": "question",
+    "text": "He prayed and recited the Quran there."
+  },
+  {
+    "kind": "question",
+    "text": "What happened when Abu Bakr recited the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "He laughed"
+  },
+  {
+    "kind": "question",
+    "text": "He wept"
+  },
+  {
+    "kind": "question",
+    "text": "He sang loudly"
+  },
+  {
+    "kind": "question",
+    "text": "He fell asleep"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah said he could not stop weeping when he recited."
+  },
+  {
+    "kind": "question",
+    "text": "Why were the leaders of Quraysh worried?"
+  },
+  {
+    "kind": "question",
+    "text": "He was too loud at night"
+  },
+  {
+    "kind": "question",
+    "text": "He left the city"
+  },
+  {
+    "kind": "question",
+    "text": "Crowds gathered to watch him"
+  },
+  {
+    "kind": "question",
+    "text": "He stopped trading"
+  },
+  {
+    "kind": "question",
+    "text": "They feared their women and children would be moved by it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr gave back the chief's protection: Allah's was enough."
+  },
+  {
+    "kind": "lesson",
+    "text": "Quraysh said: pray only indoors"
+  },
+  {
+    "kind": "lesson",
+    "text": "He refused to hide"
+  },
+  {
+    "kind": "question",
+    "text": "What did Quraysh want from Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "Stop trading"
+  },
+  {
+    "kind": "question",
+    "text": "Pay a big fine"
+  },
+  {
+    "kind": "question",
+    "text": "Pray only inside his house"
+  },
+  {
+    "kind": "question",
+    "text": "Leave Makkah at once"
+  },
+  {
+    "kind": "question",
+    "text": "They did not want people to hear him recite."
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr do with Ibn ad-Dughunnah's protection?"
+  },
+  {
+    "kind": "question",
+    "text": "He kept it secretly"
+  },
+  {
+    "kind": "question",
+    "text": "He gave it back"
+  },
+  {
+    "kind": "question",
+    "text": "He paid for more"
+  },
+  {
+    "kind": "question",
+    "text": "He shared it with Bilal"
+  },
+  {
+    "kind": "question",
+    "text": "He would not hide his worship to keep it."
+  },
+  {
+    "kind": "question",
+    "text": "Whose protection was Abu Bakr pleased with instead?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's"
+  },
+  {
+    "kind": "question",
+    "text": "His tribe's"
+  },
+  {
+    "kind": "question",
+    "text": "The king of Abyssinia's"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Talib's"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr stopped reciting aloud so he could keep the chief's protection."
+  },
+  {
+    "kind": "question",
+    "text": "He gave the protection back so he could keep reciting."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr fed two camels four months, waiting for the Hijrah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said: wait"
+  },
+  {
+    "kind": "lesson",
+    "text": "He came at noon with the news"
+  },
+  {
+    "kind": "lesson",
+    "text": "He paid for his camel"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Abu Bakr not go to Madinah with the others?"
+  },
+  {
+    "kind": "question",
+    "text": "He was ill"
+  },
+  {
+    "kind": "question",
+    "text": "Quraysh locked him up"
+  },
+  {
+    "kind": "question",
+    "text": "He had no camel"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ asked him to wait"
+  },
+  {
+    "kind": "question",
+    "text": "He hoped to make Hijrah with the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "How long did Abu Bakr feed the two camels?"
+  },
+  {
+    "kind": "question",
+    "text": "One year"
+  },
+  {
+    "kind": "question",
+    "text": "Ten months"
+  },
+  {
+    "kind": "question",
+    "text": "Four months"
+  },
+  {
+    "kind": "question",
+    "text": "Four days"
+  },
+  {
+    "kind": "question",
+    "text": "He kept them ready for the journey."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr offered a camel. What did the Prophet ﷺ say?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, as a gift"
+  },
+  {
+    "kind": "question",
+    "text": "Only if I pay for it"
+  },
+  {
+    "kind": "question",
+    "text": "No, I will walk"
+  },
+  {
+    "kind": "question",
+    "text": "Give it to Ali"
+  },
+  {
+    "kind": "question",
+    "text": "He said: I will take it with its price."
+  },
+  {
+    "kind": "question",
+    "text": "When did the Prophet ﷺ come to say it was time?"
+  },
+  {
+    "kind": "question",
+    "text": "At noon"
+  },
+  {
+    "kind": "question",
+    "text": "At dawn"
+  },
+  {
+    "kind": "question",
+    "text": "At night"
+  },
+  {
+    "kind": "question",
+    "text": "After Asr"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr knew it was big news, as he never came at that hour."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asma tied their food bag with her belt; they hid in Thawr."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asma: Dhat an-Nitaqayn"
+  },
+  {
+    "kind": "lesson",
+    "text": "Cave of Thawr: three nights"
+  },
+  {
+    "kind": "question",
+    "text": "What did Asma use to tie the food bag?"
+  },
+  {
+    "kind": "question",
+    "text": "A camel rein"
+  },
+  {
+    "kind": "question",
+    "text": "Part of her waist belt"
+  },
+  {
+    "kind": "question",
+    "text": "Her headscarf"
+  },
+  {
+    "kind": "question",
+    "text": "A palm rope"
+  },
+  {
+    "kind": "question",
+    "text": "She cut a piece off her belt in the rush."
+  },
+  {
+    "kind": "question",
+    "text": "What name did Asma earn for this?"
+  },
+  {
+    "kind": "question",
+    "text": "Dhat an-Nitaqayn"
+  },
+  {
+    "kind": "question",
+    "text": "Umm al-Mu'minin"
+  },
+  {
+    "kind": "question",
+    "text": "As-Siddiqah"
+  },
+  {
+    "kind": "question",
+    "text": "It means: the one with two belts."
+  },
+  {
+    "kind": "question",
+    "text": "In which cave did they hide?"
+  },
+  {
+    "kind": "question",
+    "text": "Hira"
+  },
+  {
+    "kind": "question",
+    "text": "Uhud"
+  },
+  {
+    "kind": "question",
+    "text": "Arafat"
+  },
+  {
+    "kind": "question",
+    "text": "Thawr"
+  },
+  {
+    "kind": "question",
+    "text": "Hira is where the first revelation came; Thawr is the Hijrah cave."
+  },
+  {
+    "kind": "question",
+    "text": "How many nights did they stay in the cave?"
+  },
+  {
+    "kind": "question",
+    "text": "Three"
+  },
+  {
+    "kind": "question",
+    "text": "Then their guide brought the camels."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr's son brought news; his freed slave brought milk."
+  },
+  {
+    "kind": "lesson",
+    "text": "Son: Abdullah ibn Abi Bakr"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shepherd: Amir ibn Fuhayrah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Guide: not Muslim, but trusted"
+  },
+  {
+    "kind": "question",
+    "text": "Who brought them news from Quraysh each night?"
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah ibn Abi Bakr"
+  },
+  {
+    "kind": "question",
+    "text": "Abd ar-Rahman ibn Abi Bakr"
+  },
+  {
+    "kind": "question",
+    "text": "He slept by the cave and was back in Makkah by morning."
+  },
+  {
+    "kind": "question",
+    "text": "Who brought sheep to the cave for milk?"
+  },
+  {
+    "kind": "question",
+    "text": "Amir ibn Fuhayrah"
+  },
+  {
+    "kind": "question",
+    "text": "He grazed Abu Bakr's sheep there after dark."
+  },
+  {
+    "kind": "question",
+    "text": "What was Amir ibn Fuhayrah to Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "His brother"
+  },
+  {
+    "kind": "question",
+    "text": "His uncle"
+  },
+  {
+    "kind": "question",
+    "text": "His son-in-law"
+  },
+  {
+    "kind": "question",
+    "text": "His freed slave"
+  },
+  {
+    "kind": "question",
+    "text": "The guide they hired was a Muslim."
+  },
+  {
+    "kind": "question",
+    "text": "He was still on the religion of Quraysh, but they trusted him."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the cave, Abu Bakr feared the enemy would see them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Quran 9:40: do not grieve"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is with us"
+  },
+  {
+    "kind": "quote",
+    "text": "What do you think of two, the third of whom is Allah?"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3653"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr fear in the cave?"
+  },
+  {
+    "kind": "question",
+    "text": "Snakes in the cave"
+  },
+  {
+    "kind": "question",
+    "text": "Running out of water"
+  },
+  {
+    "kind": "question",
+    "text": "Getting lost"
+  },
+  {
+    "kind": "question",
+    "text": "The enemy would see them"
+  },
+  {
+    "kind": "question",
+    "text": "The men chasing them stood right above the cave."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say to calm him?"
+  },
+  {
+    "kind": "question",
+    "text": "Two, and Allah is the third"
+  },
+  {
+    "kind": "question",
+    "text": "I brought a sword"
+  },
+  {
+    "kind": "question",
+    "text": "Let us run"
+  },
+  {
+    "kind": "question",
+    "text": "No one knows we are here"
+  },
+  {
+    "kind": "question",
+    "text": "He trusted that Allah was with them."
+  },
+  {
+    "kind": "question",
+    "text": "Which surah tells of the two in the cave?"
+  },
+  {
+    "kind": "question",
+    "text": "At-Tawbah"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Kahf"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Anfal"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 9:40 is in Surah At-Tawbah."
+  },
+  {
+    "kind": "question",
+    "text": "In Quran 9:40 the Prophet ﷺ tells his companion: do not ____."
+  },
+  {
+    "kind": "question",
+    "text": "move"
+  },
+  {
+    "kind": "question",
+    "text": "grieve"
+  },
+  {
+    "kind": "question",
+    "text": "Do not grieve, Allah is with us."
+  },
+  {
+    "kind": "lesson",
+    "text": "Suraqah chased them for a reward, but his horse sank."
+  },
+  {
+    "kind": "lesson",
+    "text": "Reward: blood money for each"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr: he shows me the way"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3911"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Suraqah chase them?"
+  },
+  {
+    "kind": "question",
+    "text": "To bring them food"
+  },
+  {
+    "kind": "question",
+    "text": "He was lost"
+  },
+  {
+    "kind": "question",
+    "text": "For the reward Quraysh offered"
+  },
+  {
+    "kind": "question",
+    "text": "To join them"
+  },
+  {
+    "kind": "question",
+    "text": "Quraysh offered the blood money of a man for each of them."
+  },
+  {
+    "kind": "question",
+    "text": "What happened to Suraqah's horse?"
+  },
+  {
+    "kind": "question",
+    "text": "It ran away"
+  },
+  {
+    "kind": "question",
+    "text": "It overtook their camels"
+  },
+  {
+    "kind": "question",
+    "text": "It was stolen"
+  },
+  {
+    "kind": "question",
+    "text": "It sank and threw him"
+  },
+  {
+    "kind": "question",
+    "text": "In the morning he was an enemy, by evening he guarded them."
+  },
+  {
+    "kind": "question",
+    "text": "People asked Abu Bakr who the Prophet ﷺ was. What did he say?"
+  },
+  {
+    "kind": "question",
+    "text": "This man shows me the way"
+  },
+  {
+    "kind": "question",
+    "text": "He is my servant"
+  },
+  {
+    "kind": "question",
+    "text": "He is a trader"
+  },
+  {
+    "kind": "question",
+    "text": "I do not know him"
+  },
+  {
+    "kind": "question",
+    "text": "He told the truth without giving the Prophet ﷺ away."
+  },
+  {
+    "kind": "question",
+    "text": "What way did Abu Bakr really mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The way back home"
+  },
+  {
+    "kind": "question",
+    "text": "The way of goodness"
+  },
+  {
+    "kind": "question",
+    "text": "The road only"
+  },
+  {
+    "kind": "question",
+    "text": "The way to the market"
+  },
+  {
+    "kind": "question",
+    "text": "People thought he meant the road, but he meant the path of good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar brought half his wealth; Abu Bakr brought everything."
+  },
+  {
+    "kind": "lesson",
+    "text": "Left for family: Allah and His Messenger ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar: I will never beat him"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3675"
+  },
+  {
+    "kind": "question",
+    "text": "How much of his wealth did Umar bring that day?"
+  },
+  {
+    "kind": "question",
+    "text": "A tenth"
+  },
+  {
+    "kind": "question",
+    "text": "A third"
+  },
+  {
+    "kind": "question",
+    "text": "Umar hoped to beat Abu Bakr that day."
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr say he left for his family?"
+  },
+  {
+    "kind": "question",
+    "text": "Half his wealth"
+  },
+  {
+    "kind": "question",
+    "text": "A year of food"
+  },
+  {
+    "kind": "question",
+    "text": "Allah and His Messenger ﷺ"
+  },
+  {
+    "kind": "question",
+    "text": "A house and a farm"
+  },
+  {
+    "kind": "question",
+    "text": "He trusted Allah to look after them."
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar say after seeing this?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr was unwise"
+  },
+  {
+    "kind": "question",
+    "text": "Next time I will win"
+  },
+  {
+    "kind": "question",
+    "text": "I gave more than him"
+  },
+  {
+    "kind": "question",
+    "text": "I will never beat him"
+  },
+  {
+    "kind": "question",
+    "text": "Umar said he would never beat Abu Bakr at anything good."
+  },
+  {
+    "kind": "question",
+    "text": "Who told this story?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar told it himself, praising Abu Bakr."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Badr, Abu Bakr held the Prophet's ﷺ hand: that is enough."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ begged Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Ibn Abbas"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3953"
+  },
+  {
+    "kind": "question",
+    "text": "What was the Prophet ﷺ doing before the battle of Badr?"
+  },
+  {
+    "kind": "question",
+    "text": "Begging Allah for His promise"
+  },
+  {
+    "kind": "question",
+    "text": "Sleeping in his tent"
+  },
+  {
+    "kind": "question",
+    "text": "Counting the army"
+  },
+  {
+    "kind": "question",
+    "text": "Writing letters"
+  },
+  {
+    "kind": "question",
+    "text": "He asked Allah again and again for victory."
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr say as he held his hand?"
+  },
+  {
+    "kind": "question",
+    "text": "Let us go home"
+  },
+  {
+    "kind": "question",
+    "text": "Pray once more"
+  },
+  {
+    "kind": "question",
+    "text": "We will lose"
+  },
+  {
+    "kind": "question",
+    "text": "That is enough"
+  },
+  {
+    "kind": "question",
+    "text": "He was sure Allah would keep His promise."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr was with the Prophet ﷺ at Badr."
+  },
+  {
+    "kind": "question",
+    "text": "He stayed by his side that day."
+  },
+  {
+    "kind": "question",
+    "text": "Who reported this moment at Badr?"
+  },
+  {
+    "kind": "question",
+    "text": "Jabir"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas narrated it."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Hudaybiyah, Abu Bakr told Umar: hold on to the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "He is Allah's Messenger ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah will help him win"
+  },
+  {
+    "kind": "lesson",
+    "text": "Same answer as the Prophet ﷺ"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2731, 2732"
+  },
+  {
+    "kind": "question",
+    "text": "At Hudaybiyah, Umar was upset by the peace terms. What did Abu Bakr say?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask the Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "Hold on to the Prophet ﷺ"
+  },
+  {
+    "kind": "question",
+    "text": "Go back to Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "Fight them now"
+  },
+  {
+    "kind": "question",
+    "text": "He said: he is on the truth, so hold on to him."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr said Allah would do what for the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Help him win"
+  },
+  {
+    "kind": "question",
+    "text": "Send rain"
+  },
+  {
+    "kind": "question",
+    "text": "Make him rich"
+  },
+  {
+    "kind": "question",
+    "text": "Bring him home"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr was certain Allah would give him victory."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr's answer to Umar was the same as the Prophet's ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Umar asked them both and got the same answer."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Abu Bakr trust the peace deal?"
+  },
+  {
+    "kind": "question",
+    "text": "Quraysh were kind"
+  },
+  {
+    "kind": "question",
+    "text": "He liked Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "It made them rich"
+  },
+  {
+    "kind": "question",
+    "text": "He knew the Prophet ﷺ never disobeys his Lord."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah told Abu Bakr to forgive a relative, so he kept helping."
+  },
+  {
+    "kind": "lesson",
+    "text": "Relative: Mistah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ayah: Quran 24:22"
+  },
+  {
+    "kind": "lesson",
+    "text": "I want Allah to forgive me"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4750"
+  },
+  {
+    "kind": "question",
+    "text": "Which relative did Abu Bakr swear to stop helping?"
+  },
+  {
+    "kind": "question",
+    "text": "Mistah"
+  },
+  {
+    "kind": "question",
+    "text": "Hassan"
+  },
+  {
+    "kind": "question",
+    "text": "Mistah had spread hurtful words about Abu Bakr's family."
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah told him to pardon and forgive?"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 24:22"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:255"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr say when the ayah came?"
+  },
+  {
+    "kind": "question",
+    "text": "I will think about it"
+  },
+  {
+    "kind": "question",
+    "text": "Only if he says sorry"
+  },
+  {
+    "kind": "question",
+    "text": "Never again"
+  },
+  {
+    "kind": "question",
+    "text": "So he forgave and kept helping Mistah."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr stopped helping Mistah forever."
+  },
+  {
+    "kind": "question",
+    "text": "He went back to helping him and said he would never stop."
+  },
+  {
+    "kind": "lesson",
+    "text": "In one day, Abu Bakr fasted, fed the poor, visited the sick."
+  },
+  {
+    "kind": "lesson",
+    "text": "He also joined a funeral"
+  },
+  {
+    "kind": "lesson",
+    "text": "All four: a promise of Jannah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 1028a"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these was NOT one of Abu Bakr's deeds that day?"
+  },
+  {
+    "kind": "question",
+    "text": "Visiting the sick"
+  },
+  {
+    "kind": "question",
+    "text": "Building a masjid"
+  },
+  {
+    "kind": "question",
+    "text": "Feeding the poor"
+  },
+  {
+    "kind": "question",
+    "text": "The four were fasting, a funeral, feeding the poor and visiting the sick."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say about whoever does all four?"
+  },
+  {
+    "kind": "question",
+    "text": "He will enter Jannah"
+  },
+  {
+    "kind": "question",
+    "text": "He will be rich"
+  },
+  {
+    "kind": "question",
+    "text": "He will lead the prayer"
+  },
+  {
+    "kind": "question",
+    "text": "He will never be ill"
+  },
+  {
+    "kind": "question",
+    "text": "Doing them all in one day is a sign of a person of Jannah."
+  },
+  {
+    "kind": "question",
+    "text": "How many good deeds had Abu Bakr done that day?"
+  },
+  {
+    "kind": "question",
+    "text": "Four"
+  },
+  {
+    "kind": "question",
+    "text": "He said 'I did' to each one."
+  },
+  {
+    "kind": "question",
+    "text": "Besides fasting and helping others, what did Abu Bakr join that day?"
+  },
+  {
+    "kind": "question",
+    "text": "A battle"
+  },
+  {
+    "kind": "question",
+    "text": "A market"
+  },
+  {
+    "kind": "question",
+    "text": "A funeral"
+  },
+  {
+    "kind": "question",
+    "text": "A wedding"
+  },
+  {
+    "kind": "question",
+    "text": "Following a funeral is a big reward."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ hoped Abu Bakr is called from every gate."
+  },
+  {
+    "kind": "lesson",
+    "text": "Gate of fasting: Ar-Rayyan"
+  },
+  {
+    "kind": "lesson",
+    "text": "Gates of prayer and charity too"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3666"
+  },
+  {
+    "kind": "question",
+    "text": "What is the gate of Jannah for people who fast called?"
+  },
+  {
+    "kind": "question",
+    "text": "Ar-Rayyan"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Firdaws"
+  },
+  {
+    "kind": "question",
+    "text": "As-Salam"
+  },
+  {
+    "kind": "question",
+    "text": "Those who fast enter by Ar-Rayyan."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr asked if anyone is called from every gate. What was the answer?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the prophets"
+  },
+  {
+    "kind": "question",
+    "text": "Only the martyrs"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, and I hope you are"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said he hoped Abu Bakr would be one of them."
+  },
+  {
+    "kind": "question",
+    "text": "Who is called from the gate of prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who give"
+  },
+  {
+    "kind": "question",
+    "text": "Everyone"
+  },
+  {
+    "kind": "question",
+    "text": "Those known for prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Those who fast"
+  },
+  {
+    "kind": "question",
+    "text": "Each gate is for people known for one good deed."
+  },
+  {
+    "kind": "question",
+    "text": "Which companion reported the hadith of the gates?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hurayrah narrated it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr's robe slipped down, but the Prophet ﷺ said: not pride."
+  },
+  {
+    "kind": "lesson",
+    "text": "Warning: dragging clothes in pride"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr worried about himself"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3665"
+  },
+  {
+    "kind": "question",
+    "text": "What warning made Abu Bakr worry about himself?"
+  },
+  {
+    "kind": "question",
+    "text": "Walking fast"
+  },
+  {
+    "kind": "question",
+    "text": "Eating standing up"
+  },
+  {
+    "kind": "question",
+    "text": "Dragging clothes out of pride"
+  },
+  {
+    "kind": "question",
+    "text": "Wearing white"
+  },
+  {
+    "kind": "question",
+    "text": "Allah will not look at one who drags his robe out of pride."
+  },
+  {
+    "kind": "question",
+    "text": "What happened to Abu Bakr's robe?"
+  },
+  {
+    "kind": "question",
+    "text": "It was too short"
+  },
+  {
+    "kind": "question",
+    "text": "One side slipped down"
+  },
+  {
+    "kind": "question",
+    "text": "It was torn"
+  },
+  {
+    "kind": "question",
+    "text": "It slipped unless he took care."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ tell him?"
+  },
+  {
+    "kind": "question",
+    "text": "You do not do it out of pride"
+  },
+  {
+    "kind": "question",
+    "text": "Buy a new robe"
+  },
+  {
+    "kind": "question",
+    "text": "Stop wearing it"
+  },
+  {
+    "kind": "question",
+    "text": "Ask Umar"
+  },
+  {
+    "kind": "question",
+    "text": "The sin is the pride, and Abu Bakr had none."
+  },
+  {
+    "kind": "question",
+    "text": "This shows Abu Bakr was careful about his own faults."
+  },
+  {
+    "kind": "question",
+    "text": "He worried even about a slipping robe."
+  },
+  {
+    "kind": "lesson",
+    "text": "If the Prophet ﷺ took a khalil, it would be Abu Bakr."
+  },
+  {
+    "kind": "lesson",
+    "text": "Khalil: the closest friend"
+  },
+  {
+    "kind": "lesson",
+    "text": "Only Abu Bakr's door left open"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr wept at the speech"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3654"
+  },
+  {
+    "kind": "question",
+    "text": "What does khalil mean?"
+  },
+  {
+    "kind": "question",
+    "text": "A teacher"
+  },
+  {
+    "kind": "question",
+    "text": "A guard"
+  },
+  {
+    "kind": "question",
+    "text": "A neighbor"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet's ﷺ khalil was Allah alone."
+  },
+  {
+    "kind": "question",
+    "text": "Which door to the masjid did the Prophet ﷺ leave open?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar's"
+  },
+  {
+    "kind": "question",
+    "text": "Ali's"
+  },
+  {
+    "kind": "question",
+    "text": "Uthman's"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr's"
+  },
+  {
+    "kind": "question",
+    "text": "Every other door to the masjid was to be closed."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Abu Bakr weep at the speech?"
+  },
+  {
+    "kind": "question",
+    "text": "He knew the Prophet ﷺ was near death"
+  },
+  {
+    "kind": "question",
+    "text": "He lost his wealth"
+  },
+  {
+    "kind": "question",
+    "text": "He was scolded"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ spoke of a servant who chose what is with Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Who did the Prophet ﷺ say had been most generous to him with company and wealth?"
+  },
+  {
+    "kind": "question",
+    "text": "Abd ar-Rahman ibn Awf"
+  },
+  {
+    "kind": "question",
+    "text": "He said it in the same speech."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked who he loved most among men, the Prophet ﷺ said Abu Bakr."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked by Amr ibn al-As"
+  },
+  {
+    "kind": "lesson",
+    "text": "First: Aishah, then her father"
+  },
+  {
+    "kind": "lesson",
+    "text": "Next: Umar"
+  },
+  {
+    "kind": "question",
+    "text": "Who asked the Prophet ﷺ whom he loved most?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dharr"
+  },
+  {
+    "kind": "question",
+    "text": "He asked after leading the army of Dhat as-Salasil."
+  },
+  {
+    "kind": "question",
+    "text": "Among men, whom did the Prophet ﷺ love most?"
+  },
+  {
+    "kind": "question",
+    "text": "He said: her father, meaning Aishah's father."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he name after Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "He said: then Umar ibn al-Khattab."
+  },
+  {
+    "kind": "question",
+    "text": "How did the Prophet ﷺ name Abu Bakr in his answer?"
+  },
+  {
+    "kind": "question",
+    "text": "My uncle"
+  },
+  {
+    "kind": "question",
+    "text": "The old man"
+  },
+  {
+    "kind": "question",
+    "text": "The trader"
+  },
+  {
+    "kind": "question",
+    "text": "Her father"
+  },
+  {
+    "kind": "question",
+    "text": "He had just named Aishah, so he said: her father."
+  },
+  {
+    "kind": "lesson",
+    "text": "On Uhud, the Prophet ﷺ called Abu Bakr a siddiq."
+  },
+  {
+    "kind": "lesson",
+    "text": "With Umar and Uthman"
+  },
+  {
+    "kind": "lesson",
+    "text": "A prophet, a siddiq, two martyrs"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3675"
+  },
+  {
+    "kind": "question",
+    "text": "Which mountain shook under them?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ told it: be firm, Uhud."
+  },
+  {
+    "kind": "question",
+    "text": "Who were the two martyrs on the mountain?"
+  },
+  {
+    "kind": "question",
+    "text": "Bilal and Ammar"
+  },
+  {
+    "kind": "question",
+    "text": "Umar and Uthman"
+  },
+  {
+    "kind": "question",
+    "text": "Hamzah and Mus'ab"
+  },
+  {
+    "kind": "question",
+    "text": "Ali and Talhah"
+  },
+  {
+    "kind": "question",
+    "text": "Both were later killed as martyrs."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ call Abu Bakr that day?"
+  },
+  {
+    "kind": "question",
+    "text": "A siddiq"
+  },
+  {
+    "kind": "question",
+    "text": "A martyr"
+  },
+  {
+    "kind": "question",
+    "text": "A prophet"
+  },
+  {
+    "kind": "question",
+    "text": "Siddiq: the one who always believes the truth."
+  },
+  {
+    "kind": "question",
+    "text": "How many people were on the mountain with the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr, Umar and Uthman."
+  },
+  {
+    "kind": "lesson",
+    "text": "A year before the Farewell Hajj, Abu Bakr led the Hajj."
+  },
+  {
+    "kind": "lesson",
+    "text": "No idol worshippers after this year"
+  },
+  {
+    "kind": "lesson",
+    "text": "No tawaf without clothes"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hurayrah announced it"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1622"
+  },
+  {
+    "kind": "question",
+    "text": "When did Abu Bakr lead the Hajj?"
+  },
+  {
+    "kind": "question",
+    "text": "Before the Hijrah"
+  },
+  {
+    "kind": "question",
+    "text": "The year before the Farewell Hajj"
+  },
+  {
+    "kind": "question",
+    "text": "After the Prophet ﷺ died"
+  },
+  {
+    "kind": "question",
+    "text": "The year of Badr"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ made him leader of the pilgrims."
+  },
+  {
+    "kind": "question",
+    "text": "What was announced at that Hajj?"
+  },
+  {
+    "kind": "question",
+    "text": "Only men may come"
+  },
+  {
+    "kind": "question",
+    "text": "Hajj is every two years"
+  },
+  {
+    "kind": "question",
+    "text": "No idol worshipper may come again"
+  },
+  {
+    "kind": "question",
+    "text": "Hajj is moved to Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "From the next year, only Muslims made Hajj."
+  },
+  {
+    "kind": "question",
+    "text": "Who did Abu Bakr send to make the announcement?"
+  },
+  {
+    "kind": "question",
+    "text": "Anas"
+  },
+  {
+    "kind": "question",
+    "text": "Mu'adh"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hurayrah went with others to call it out at Mina."
+  },
+  {
+    "kind": "question",
+    "text": "After that year, tawaf without clothes was still allowed."
+  },
+  {
+    "kind": "question",
+    "text": "It was announced that no one may make tawaf without clothes."
+  },
+  {
+    "kind": "lesson",
+    "text": "Aishah said her father weeps, yet the Prophet ﷺ chose him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Aishah: he weeps too much"
+  },
+  {
+    "kind": "lesson",
+    "text": "Aishah suggested Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "He said again: Abu Bakr"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 679"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Aishah think her father should not lead?"
+  },
+  {
+    "kind": "question",
+    "text": "He was too old"
+  },
+  {
+    "kind": "question",
+    "text": "He weeps when he recites"
+  },
+  {
+    "kind": "question",
+    "text": "She said people would not hear him for his weeping."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Aishah suggest instead?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ still said: tell Abu Bakr to lead."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ do when she objected?"
+  },
+  {
+    "kind": "question",
+    "text": "Cancelled the prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Repeated: let Abu Bakr lead"
+  },
+  {
+    "kind": "question",
+    "text": "Chose Umar"
+  },
+  {
+    "kind": "question",
+    "text": "Led it himself standing"
+  },
+  {
+    "kind": "question",
+    "text": "He would not change his choice."
+  },
+  {
+    "kind": "question",
+    "text": "When did this happen?"
+  },
+  {
+    "kind": "question",
+    "text": "On the Hijrah"
+  },
+  {
+    "kind": "question",
+    "text": "At Badr"
+  },
+  {
+    "kind": "question",
+    "text": "In the Prophet's ﷺ last illness"
+  },
+  {
+    "kind": "question",
+    "text": "At the conquest of Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "It was in his final days."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked who to turn to after him, he ﷺ said: Abu Bakr."
+  },
+  {
+    "kind": "lesson",
+    "text": "She meant: after your death"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Jubayr ibn Mut'im"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3659"
+  },
+  {
+    "kind": "question",
+    "text": "The woman asked: what if I come back and do not find you? What did she mean?"
+  },
+  {
+    "kind": "question",
+    "text": "If he went to Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "If the Prophet ﷺ had died"
+  },
+  {
+    "kind": "question",
+    "text": "If he moved house"
+  },
+  {
+    "kind": "question",
+    "text": "If he was asleep"
+  },
+  {
+    "kind": "question",
+    "text": "She was asking who to turn to after him."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did the Prophet ﷺ tell her to go to?"
+  },
+  {
+    "kind": "question",
+    "text": "Many scholars saw this as a sign Abu Bakr would lead after him."
+  },
+  {
+    "kind": "question",
+    "text": "Who reported this?"
+  },
+  {
+    "kind": "question",
+    "text": "Jubayr ibn Mut'im narrated it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr said: whoever worshipped Muhammad, Muhammad has died."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is alive and never dies"
+  },
+  {
+    "kind": "lesson",
+    "text": "He recited Quran 3:144"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar sat down"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3667, 3668"
+  },
+  {
+    "kind": "question",
+    "text": "Who said 'whoever worships Allah, Allah is alive and never dies'?"
+  },
+  {
+    "kind": "question",
+    "text": "Abbas"
+  },
+  {
+    "kind": "question",
+    "text": "He said it on the day the Prophet ﷺ died."
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah did Abu Bakr recite that day?"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 3:144"
+  },
+  {
+    "kind": "question",
+    "text": "Muhammad is only a messenger; messengers passed away before him."
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar do when Abu Bakr spoke?"
+  },
+  {
+    "kind": "question",
+    "text": "He left Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "He argued"
+  },
+  {
+    "kind": "question",
+    "text": "He drew his sword"
+  },
+  {
+    "kind": "question",
+    "text": "He sat down"
+  },
+  {
+    "kind": "question",
+    "text": "Umar had said the Prophet ﷺ had not died, until Abu Bakr spoke."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr told the people to keep worshipping Allah, who never dies."
+  },
+  {
+    "kind": "question",
+    "text": "Allah is alive and never dies."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Saqifah, Umar pledged to Abu Bakr: the best of us."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr suggested Umar or Abu Ubaydah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then all the people pledged"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Abu Bakr suggest as leader at Saqifah?"
+  },
+  {
+    "kind": "question",
+    "text": "Ali or Uthman"
+  },
+  {
+    "kind": "question",
+    "text": "Umar or Abu Ubaydah"
+  },
+  {
+    "kind": "question",
+    "text": "Himself only"
+  },
+  {
+    "kind": "question",
+    "text": "He did not ask for it himself."
+  },
+  {
+    "kind": "question",
+    "text": "Who was first to pledge to Abu Bakr?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Ubaydah"
+  },
+  {
+    "kind": "question",
+    "text": "Umar took his hand and pledged, then the people did."
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar say Abu Bakr was?"
+  },
+  {
+    "kind": "question",
+    "text": "The best of us"
+  },
+  {
+    "kind": "question",
+    "text": "The richest of us"
+  },
+  {
+    "kind": "question",
+    "text": "The oldest of us"
+  },
+  {
+    "kind": "question",
+    "text": "The strongest of us"
+  },
+  {
+    "kind": "question",
+    "text": "He also said Abu Bakr was the most beloved to the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "After Umar, the people pledged to Abu Bakr too."
+  },
+  {
+    "kind": "question",
+    "text": "So Abu Bakr became the first caliph."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr would fight anyone who split salah from zakat."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even over one young goat"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar later saw he was right"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1399, 1400"
+  },
+  {
+    "kind": "question",
+    "text": "What would Abu Bakr not let anyone split?"
+  },
+  {
+    "kind": "question",
+    "text": "Fasting and Hajj"
+  },
+  {
+    "kind": "question",
+    "text": "Makkah and Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "Quran and Sunnah"
+  },
+  {
+    "kind": "question",
+    "text": "Salah and zakat"
+  },
+  {
+    "kind": "question",
+    "text": "Zakat is a right on wealth, just as salah is a duty."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr said he would fight even over a young ____."
+  },
+  {
+    "kind": "question",
+    "text": "date palm"
+  },
+  {
+    "kind": "question",
+    "text": "goat"
+  },
+  {
+    "kind": "question",
+    "text": "Even one young goat they used to give in the Prophet's ﷺ time."
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar come to see about Abu Bakr's choice?"
+  },
+  {
+    "kind": "question",
+    "text": "He was afraid"
+  },
+  {
+    "kind": "question",
+    "text": "He was right"
+  },
+  {
+    "kind": "question",
+    "text": "He was too harsh"
+  },
+  {
+    "kind": "question",
+    "text": "He was wrong"
+  },
+  {
+    "kind": "question",
+    "text": "Umar said Allah had opened Abu Bakr's heart to it, and he knew it was the truth."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Yamamah, Abu Bakr had Zayd ibn Thabit gather the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Many reciters died at Yamamah"
+  },
+  {
+    "kind": "lesson",
+    "text": "The idea came from Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Zayd: harder than moving a mountain"
+  },
+  {
+    "kind": "question",
+    "text": "After which battle did Abu Bakr have the Quran gathered?"
+  },
+  {
+    "kind": "question",
+    "text": "Khaybar"
+  },
+  {
+    "kind": "question",
+    "text": "Yamamah"
+  },
+  {
+    "kind": "question",
+    "text": "Many who knew the Quran by heart died there."
+  },
+  {
+    "kind": "question",
+    "text": "Who first urged Abu Bakr to gather the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar feared parts would be lost as reciters died."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Abu Bakr give the task to?"
+  },
+  {
+    "kind": "question",
+    "text": "Ubayy ibn Ka'b"
+  },
+  {
+    "kind": "question",
+    "text": "Zayd was young, wise and had written the revelation for the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Zayd said the task was harder than moving what?"
+  },
+  {
+    "kind": "question",
+    "text": "An army"
+  },
+  {
+    "kind": "question",
+    "text": "A river"
+  },
+  {
+    "kind": "question",
+    "text": "A mountain"
+  },
+  {
+    "kind": "question",
+    "text": "A city"
+  },
+  {
+    "kind": "question",
+    "text": "He said moving a mountain would have been easier."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr asked to be wrapped in his old clothes, washed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Died at 63, like the Prophet ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Living need new clothes more"
+  },
+  {
+    "kind": "lesson",
+    "text": "Died the night before Tuesday"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1387"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr want to be shrouded in?"
+  },
+  {
+    "kind": "question",
+    "text": "A gift from Umar"
+  },
+  {
+    "kind": "question",
+    "text": "His own old clothes, washed"
+  },
+  {
+    "kind": "question",
+    "text": "New white silk"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet's ﷺ cloak"
+  },
+  {
+    "kind": "question",
+    "text": "He said the living have more right to new clothes."
+  },
+  {
+    "kind": "question",
+    "text": "How old was Abu Bakr when he died?"
+  },
+  {
+    "kind": "question",
+    "text": "The same age as the Prophet ﷺ and, later, Umar (Sahih Muslim 2348)."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr hoped to die on the same day of the week as the Prophet ﷺ. Which?"
+  },
+  {
+    "kind": "question",
+    "text": "Thursday"
+  },
+  {
+    "kind": "question",
+    "text": "Sunday"
+  },
+  {
+    "kind": "question",
+    "text": "Monday"
+  },
+  {
+    "kind": "question",
+    "text": "He died that night, before Tuesday morning came."
+  },
+  {
+    "kind": "lesson",
+    "text": "In a dream, Ibn Abi Quhafah drew water after the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abi Quhafah: Abu Bakr"
+  },
+  {
+    "kind": "lesson",
+    "text": "One or two buckets"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then Umar drew the most"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3664"
+  },
+  {
+    "kind": "question",
+    "text": "In the dream, who is Ibn Abi Quhafah?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abi Quhafah means son of Abu Quhafah, Abu Bakr's father."
+  },
+  {
+    "kind": "question",
+    "text": "How many buckets did Ibn Abi Quhafah draw?"
+  },
+  {
+    "kind": "question",
+    "text": "One or two"
+  },
+  {
+    "kind": "question",
+    "text": "None"
+  },
+  {
+    "kind": "question",
+    "text": "Scholars saw this as Abu Bakr's short time as caliph, about two years."
+  },
+  {
+    "kind": "question",
+    "text": "Who took the bucket after him and drew the most?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said he never saw anyone work as mightily as Ibn al-Khattab."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ was first to draw water in the dream."
+  },
+  {
+    "kind": "question",
+    "text": "He drew as much as Allah willed, then handed over the bucket."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr chose Umar to lead the Muslims after him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar: one better than me chose"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar: the second caliph"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7218"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Abu Bakr choose to lead after him?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar became the second caliph."
+  },
+  {
+    "kind": "question",
+    "text": "Later, Umar said someone 'better than me' had named a successor. Who?"
+  },
+  {
+    "kind": "question",
+    "text": "Sa'd"
+  },
+  {
+    "kind": "question",
+    "text": "Umar always saw Abu Bakr as better than himself."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr left the Muslims with no one chosen to lead."
+  },
+  {
+    "kind": "question",
+    "text": "He named Umar."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ali said the best person after the Prophet ﷺ is Abu Bakr."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked by his son Muhammad"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ali: I am just a Muslim"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3671"
+  },
+  {
+    "kind": "question",
+    "text": "Who asked Ali who was best after the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "His son Hasan"
+  },
+  {
+    "kind": "question",
+    "text": "His son Muhammad"
+  },
+  {
+    "kind": "question",
+    "text": "He was known as Muhammad ibn al-Hanafiyyah."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Ali name first?"
+  },
+  {
+    "kind": "question",
+    "text": "Himself"
+  },
+  {
+    "kind": "question",
+    "text": "Then he named Umar."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Ali name second?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr, then Umar."
+  },
+  {
+    "kind": "question",
+    "text": "When asked 'Then you?', what did Ali say?"
+  },
+  {
+    "kind": "question",
+    "text": "I will not answer"
+  },
+  {
+    "kind": "question",
+    "text": "I am just one of the Muslims"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, I am third"
+  },
+  {
+    "kind": "question",
+    "text": "Ask Uthman"
+  },
+  {
+    "kind": "question",
+    "text": "This was Ali's humility."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr is first of ten the Prophet ﷺ named for Jannah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Then Umar, Uthman, Ali"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abd ar-Rahman ibn Awf"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 3747"
+  },
+  {
+    "kind": "question",
+    "text": "How many companions did the Prophet ﷺ name together for Jannah?"
+  },
+  {
+    "kind": "question",
+    "text": "They are known as the ten promised Jannah."
+  },
+  {
+    "kind": "question",
+    "text": "Whose name comes first in the list?"
+  },
+  {
+    "kind": "question",
+    "text": "Abd ar-Rahman"
+  },
+  {
+    "kind": "question",
+    "text": "Then Umar, Uthman and Ali."
+  },
+  {
+    "kind": "question",
+    "text": "Which companion, himself one of the ten, reported this?"
+  },
+  {
+    "kind": "question",
+    "text": "His own name is in the list."
+  },
+  {
+    "kind": "question",
+    "text": "Umar, Uthman and Ali are also in the list."
+  },
+  {
+    "kind": "question",
+    "text": "All four caliphs are among the ten."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Abu Bakr!"
+  },
+  {
     "kind": "course",
     "text": "Shahadah"
   },
@@ -21781,22 +26097,6 @@
   },
   {
     "kind": "question",
-    "text": "Two"
-  },
-  {
-    "kind": "question",
-    "text": "Five"
-  },
-  {
-    "kind": "question",
-    "text": "Three"
-  },
-  {
-    "kind": "question",
-    "text": "Six"
-  },
-  {
-    "kind": "question",
     "text": "The five are Fajr, Dhuhr, Asr, Maghrib and Isha."
   },
   {
@@ -21950,10 +26250,6 @@
   {
     "kind": "question",
     "text": "Both"
-  },
-  {
-    "kind": "question",
-    "text": "Neither"
   },
   {
     "kind": "question",
@@ -23177,14 +27473,6 @@
   },
   {
     "kind": "question",
-    "text": "Seven"
-  },
-  {
-    "kind": "question",
-    "text": "Four"
-  },
-  {
-    "kind": "question",
     "text": "Which are pillars of iman?"
   },
   {
@@ -23790,10 +28078,6 @@
   {
     "kind": "question",
     "text": "Which surah opens the Quran?"
-  },
-  {
-    "kind": "question",
-    "text": "Al-Asr"
   },
   {
     "kind": "question",

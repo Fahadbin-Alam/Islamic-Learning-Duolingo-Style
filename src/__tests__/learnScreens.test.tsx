@@ -405,6 +405,39 @@ describe("Icon", () => {
 });
 
 describe("TopicPicker", () => {
+  it("opens a topic's sub-topics, then picks one or the whole topic", async () => {
+    const onSelect = jest.fn();
+    const onClose = jest.fn();
+    const sahabah = {
+      topicId: "sahabah",
+      title: "Sahabah",
+      accent: "#0C9F8C",
+      done: 3,
+      total: 60,
+      units: [
+        { id: "sahabi-abu-bakr", title: "Abu Bakr", done: 3, total: 40 },
+        { id: "sahabi-umar", title: "Umar ibn al-Khattab", done: 0, total: 20 }
+      ]
+    };
+    await render(<TopicPicker visible onClose={onClose} onSelect={onSelect} activeTopicId="foundation" topics={[sahabah]} />);
+
+    await fireEvent.press(screen.getByTestId("topic-tile-sahabah"));
+    expect(onSelect).not.toHaveBeenCalled();
+    expect(screen.getByTestId("topic-units-sahabah")).toBeTruthy();
+    expect(screen.getByText("Abu Bakr")).toBeTruthy();
+    expect(screen.getByText("3/40")).toBeTruthy();
+
+    await fireEvent.press(screen.getByTestId("topic-unit-sahabi-abu-bakr"));
+    expect(onSelect).toHaveBeenCalledWith("sahabah", "sahabi-abu-bakr");
+    expect(onClose).toHaveBeenCalledTimes(1);
+
+    await fireEvent.press(screen.getByTestId("topic-unit-all"));
+    expect(onSelect).toHaveBeenLastCalledWith("sahabah", undefined);
+
+    await fireEvent.press(screen.getByTestId("topic-picker-back"));
+    expect(screen.getByText("Choose a topic")).toBeTruthy();
+  });
+
   it("selects a topic and closes", async () => {
     const onSelect = jest.fn();
     const onClose = jest.fn();
