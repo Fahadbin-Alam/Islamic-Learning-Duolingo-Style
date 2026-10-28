@@ -6,8 +6,9 @@ import { AYAH_LOAD_TIMEOUT_MS, getAyahPlayback, resetAyahPlayerForTests, setAyah
 import { SURAH_AYAH_COUNTS, globalAyahNumber, parseQuranReference, quranAudioUrl } from "../services/quranAudio";
 import { LearnCard } from "../ui/lesson";
 
-type Listener = (status: { playing: boolean; didJustFinish: boolean }) => void;
-const mockPlayers: Array<{ source: string; loop: boolean; play: jest.Mock; pause: jest.Mock; replace: jest.Mock; seekTo: jest.Mock; emit: Listener }> = [];
+type Status = { playing: boolean; didJustFinish: boolean; isLoaded?: boolean; duration?: number };
+type Listener = (status: Status) => void;
+const mockPlayers: Array<{ source: string; loop: boolean; play: jest.Mock; pause: jest.Mock; replace: jest.Mock; seekTo: jest.Mock; emit: (status: Status) => void }> = [];
 
 const mockAudioMode = jest.fn((_mode: { playsInSilentMode: boolean }) => Promise.resolve());
 jest.mock("expo-audio", () => ({
@@ -27,7 +28,7 @@ jest.mock("expo-audio", () => ({
         listener = next;
         return { remove: jest.fn() };
       }),
-      emit: (status: { playing: boolean; didJustFinish: boolean }) => listener(status)
+      emit: (status: Status) => listener({ isLoaded: true, duration: 6, ...status })
     };
     mockPlayers.push(player);
     return player;
@@ -123,6 +124,23 @@ describe("Listen on an ayah card", () => {
     expect(mockPlayers[0].loop).toBe(false);
     await act(async () => mockPlayers[0].emit({ playing: false, didJustFinish: true }));
     expect(screen.getByText("Listen")).toBeTruthy();
+  });
+
+  test("a web player that says playing before anything loaded still times out offline", async () => {
+    jest.useFakeTimers();
+    try {
+      await render(card("Quran 1:2"));
+      await fireEvent.press(screen.getByTestId("ayah-listen-play"));
+      await act(async () => mockPlayers[0].emit({ playing: true, didJustFinish: false, isLoaded: false, duration: 0 }));
+      expect(getAyahPlayback().status).toBe("loading");
+      await act(async () => {
+        jest.advanceTimersByTime(AYAH_LOAD_TIMEOUT_MS + 10);
+      });
+      expect(screen.getByTestId("ayah-listen-error")).toBeTruthy();
+      expect(screen.getByText("Listen")).toBeTruthy();
+    } finally {
+      jest.useRealTimers();
+    }
   });
 
   test("says so when the recitation cannot load (no internet)", async () => {

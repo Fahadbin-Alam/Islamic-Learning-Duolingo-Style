@@ -45,7 +45,9 @@ function onStatus(status: AudioStatus) {
   if (state.status === "idle" || state.status === "error") {
     return;
   }
-  if (status.playing) {
+  // The web player says "playing" as soon as play is asked for, even when the file never arrives (offline).
+  // Only sound that has loaded counts, so the load timeout can still report a failed download.
+  if (status.playing && status.isLoaded && status.duration > 0) {
     clearLoadTimer();
     if (state.status !== "playing") {
       setState({ status: "playing" });
