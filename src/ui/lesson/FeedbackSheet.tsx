@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Animated, Platform, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
+import { Animated, Linking, Platform, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, HONORIFIC_PATTERN, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
@@ -87,6 +87,9 @@ export type FeedbackSheetProps = {
   correct: boolean;
   correctLabel?: string;
   why?: string;
+  /** Where the answer comes from: a chip under the heading, on the green and the red sheet alike. */
+  source?: { label: string; url: string };
+  onOpenSource?: (url: string) => void;
   onContinue: () => void;
   /** Picks the praise word so it stays the same across renders. */
   praiseSeed?: string;
@@ -130,6 +133,8 @@ export function FeedbackSheet({
   correct,
   correctLabel,
   why,
+  source,
+  onOpenSource,
   onContinue,
   praiseSeed,
   title,
@@ -432,18 +437,37 @@ export function FeedbackSheet({
         onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset), rowsPlaced)}
         testID="feedback-content"
       >
-        <View style={styles.headRow} onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))}>
-          <Animated.View
-            style={[
-              styles.badge,
-              { backgroundColor: correct ? colors.green : colors.heart, transform: [{ scale: badgeScale }, { rotate: badgeRotate }] }
-            ]}
-          >
-            <Icon name={correct ? "check" : "close"} size={26} color={colors.white} />
-          </Animated.View>
-          <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
-            {withHonorifics(heading)}
-          </Text>
+        {/* The heading and the answer's source always show; their height is measured together. */}
+        <View onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))}>
+          <View style={styles.headRow}>
+            <Animated.View
+              style={[
+                styles.badge,
+                { backgroundColor: correct ? colors.green : colors.heart, transform: [{ scale: badgeScale }, { rotate: badgeRotate }] }
+              ]}
+            >
+              <Icon name={correct ? "check" : "close"} size={26} color={colors.white} />
+            </Animated.View>
+            <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
+              {withHonorifics(heading)}
+            </Text>
+          </View>
+          {source ? (
+            <Tappable
+              onPress={() => (onOpenSource ? onOpenSource(source.url) : void Linking.openURL(source.url).catch(() => undefined))}
+              style={styles.sourceChip}
+              accessibilityLabel={t("Open source {name}", { name: source.label })}
+              accessibilityRole="link"
+              hitSlop={6}
+              testID="feedback-source"
+            >
+              <Icon name="book" size={16} />
+              <Text style={[styles.sourceText, { color: ink }]} numberOfLines={1}>
+                {withHonorifics(source.label)}
+              </Text>
+              <Icon name="chevronRight" size={14} color={ink} />
+            </Tappable>
+          ) : null}
         </View>
 
         {hasBody ? (
@@ -654,6 +678,24 @@ const styles = StyleSheet.create({
   headRow: {
     flexDirection: "row",
     alignItems: "center"
+  },
+  sourceChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    maxWidth: "100%",
+    height: 30,
+    marginTop: space.sm,
+    paddingHorizontal: space.md,
+    borderRadius: radii.pill,
+    backgroundColor: withAlpha(colors.white, 0.6)
+  },
+  sourceText: {
+    flexShrink: 1,
+    marginHorizontal: 6,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 14,
+    lineHeight: 18
   },
   badge: {
     width: 40,

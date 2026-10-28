@@ -1,4 +1,5 @@
 import { t } from "../i18n";
+import type { AnswerSource } from "../data/answerSource";
 import type { Challenge, Lesson, LessonSource, SupportedLanguage } from "../types";
 
 export function localizeLessonContent(lesson: Lesson, language: SupportedLanguage): Lesson {
@@ -92,6 +93,11 @@ export function translateStudyText(text: string, language: SupportedLanguage) {
   const translated = t(trimmed, undefined, language);
 
   return translated === trimmed ? text : translated;
+}
+
+/** The answer sheet's source chip: its label from the catalog, its link opened in the learner's language. */
+export function localizeAnswerSource(source: AnswerSource | undefined, language: SupportedLanguage): AnswerSource | undefined {
+  return source ? { ...source, label: translateStudyText(source.label, language), url: localizeSourceUrl(source.url, source.site, language) } : undefined;
 }
 
 function localizeSourceUrl(url: string, site: LessonSource["site"], language: SupportedLanguage) {

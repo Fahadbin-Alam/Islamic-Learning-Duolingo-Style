@@ -59,7 +59,8 @@ import {
   setActiveLanguage,
   t
 } from "./i18n";
-import { localizeLessonContent } from "./services/contentLocalization";
+import { localizeAnswerSource, localizeLessonContent } from "./services/contentLocalization";
+import { findAnswerSource } from "./data/answerSource";
 import { localizedLessonLine, localizedWhy } from "./ui/lesson/localizedLines";
 import {
   clearLocalAuthAccount,
@@ -2249,6 +2250,9 @@ export default function TopicApp() {
   // The learn line and the Why line are cut from the English lesson, then translated, so each language says the same.
   const englishLesson = state.activeSession?.lesson;
   const englishChallenge = lessonStep ? englishLesson?.challenges[lessonStep.index] : undefined;
+  // The answer sheet names where the answer comes from, with a link to it.
+  const answerSource =
+    englishLesson && englishChallenge ? localizeAnswerSource(findAnswerSource(englishChallenge, englishLesson, LESSONS_BY_ID), currentLanguage) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   const lessonProgress = getLessonProgress({
@@ -2404,9 +2408,11 @@ export default function TopicApp() {
                 ? {
                     correct: state.answerState === "correct",
                     correctLabel,
-                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage)
+                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
+                    source: answerSource
                   }
                 : undefined}
+              onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
               attempt={lessonStep.attempt}
               review={challenge.isReview}
               mascotVariant={lessonMascot}

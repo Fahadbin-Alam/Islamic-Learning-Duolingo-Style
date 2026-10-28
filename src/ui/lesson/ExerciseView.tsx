@@ -227,7 +227,7 @@ export function FadeUnderSheet({
 }
 
 export type ExerciseChoice = { id: string; label: string };
-export type ExerciseResult = { correct: boolean; correctLabel: string; why?: string };
+export type ExerciseResult = { correct: boolean; correctLabel: string; why?: string; source?: { label: string; url: string } };
 
 export type ExerciseViewProps = {
   kind: "multiple_choice" | "true_false";
@@ -261,6 +261,8 @@ export type ExerciseViewProps = {
   continueSound?: GameSoundEvent | false;
   /** Start with the feedback sheet's Why line open (gallery / tests). */
   defaultWhyOpen?: boolean;
+  /** Opens the answer's source (result.source) when its chip on the feedback sheet is tapped. */
+  onOpenSource?: (url: string) => void;
   bottomInset?: number;
   testID?: string;
 };
@@ -316,6 +318,7 @@ export function ExerciseView({
   playSound = true,
   continueSound,
   defaultWhyOpen,
+  onOpenSource,
   bottomInset,
   testID = "exercise-view"
 }: ExerciseViewProps) {
@@ -646,6 +649,8 @@ export function ExerciseView({
         correct={Boolean(shown?.correct)}
         correctLabel={sheetLabel}
         why={why}
+        source={shown?.source}
+        onOpenSource={onOpenSource}
         onContinue={onContinue}
         praiseSeed={praiseSeed ?? prompt}
         playSound={playSound}
