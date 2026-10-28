@@ -1,12 +1,12 @@
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 import type { SupportedLanguage, UserProfile } from "../types";
+import { COMEBACK_DAYS, comebackMessage, messageVariant, stepForDay, type ComebackStep } from "./comebackReminders";
 import {
   RESUME_REMINDER_AFTER_MS,
   getLastLearningTime,
   isSameCalendarDay,
   loadReminderHistory,
-  pickReminder,
   saveReminderHistory
 } from "./reminderContent";
 
@@ -17,11 +17,12 @@ import {
 type NotificationPermissionState = "granted" | "denied" | "default" | "unsupported";
 
 const CHANNEL_ID = "reminders";
-const STREAK_REMINDER_HOUR = 19;
-const STREAK_REMINDER_DAYS = 3;
+const EVENING_REMINDER_HOUR = 19;
 const QUIET_HOURS_START = 22;
 const QUIET_HOURS_END = 8;
-const STREAK_IDS = Array.from({ length: STREAK_REMINDER_DAYS }, (_, index) => `sira-streak-${index}`);
+const COMEBACK_IDS = COMEBACK_DAYS.map((day) => `sira-comeback-${day}`);
+// Ids used by builds before the come-back ladder, cancelled so updated phones don't get both.
+const OLD_IDS = ["sira-streak-0", "sira-streak-1", "sira-streak-2"];
 const RESUME_ID = "sira-resume";
 
 Notifications.setNotificationHandler({
@@ -87,7 +88,7 @@ export async function sendAccountabilityNotification(title: string, body: string
 }
 
 async function rescheduleReminders(user: UserProfile, language: SupportedLanguage) {
-  await Promise.all([...STREAK_IDS, RESUME_ID].map((id) => Notifications.cancelScheduledNotificationAsync(id).catch(() => undefined)));
+  await Promise.all([...OLD_IDS, ...COMEBACK_IDS, RESUME_ID].map((id) => Notifications.cancelScheduledNotificationAsync(id).catch(() => undefined)));
 
   const lastLearningAt = getLastLearningTime(user);
 
@@ -95,11 +96,10 @@ async function rescheduleReminders(user: UserProfile, language: SupportedLanguag
     return;
   }
 
-  const reminders = user.reminderPreferences;
-  const wantsStreak = reminders?.streakReminders !== false;
-  const wantsResume = reminders?.islamicReminders !== false;
+  const now = Date.now();
+  const slots = getComebackSlots(lastLearningAt, now, user.reminderPreferences);
 
-  if (!wantsStreak && !wantsResume) {
+  if (slots.length === 0) {
     return;
   }
 
@@ -114,48 +114,52 @@ async function rescheduleReminders(user: UserProfile, language: SupportedLanguag
   }
 
   await ensureChannel();
-  const now = Date.now();
-
-  if (wantsStreak) {
-    const dates = getStreakReminderDates(lastLearningAt, now);
-
-    await Promise.all(dates.map((date, index) => {
-      const message = pickReminder(language, "streak", date);
-      return Notifications.scheduleNotificationAsync({
-        identifier: STREAK_IDS[index],
-        content: { title: message.title, body: message.body, data: { kind: "streak" } },
-        trigger: dateTrigger(date)
-      });
-    }));
-  }
-
-  const resumeAt = new Date(lastLearningAt + RESUME_REMINDER_AFTER_MS);
-
-  if (wantsResume && resumeAt.getTime() > now && !isQuietHour(resumeAt)) {
-    const message = pickReminder(language, "resume", resumeAt);
-    await Notifications.scheduleNotificationAsync({
-      identifier: RESUME_ID,
-      content: { title: message.title, body: message.body, data: { kind: "resume" } },
-      trigger: dateTrigger(resumeAt)
+  await Promise.all(slots.map((slot) => {
+    const message = comebackMessage(language, slot.step, messageVariant(lastLearningAt));
+    return Notifications.scheduleNotificationAsync({
+      identifier: slot.id,
+      content: { title: message.title, body: message.body, data: { kind: slot.step === "streak" ? "streak" : "resume", step: slot.step } },
+      trigger: dateTrigger(slot.at)
     });
-  }
+  }));
 }
 
-// The next few evenings without a lesson: today if nothing is done yet and the
-// evening is still ahead, otherwise starting tomorrow.
-export function getStreakReminderDates(lastLearningAt: number, now: number) {
-  const first = new Date(now);
-  first.setHours(STREAK_REMINDER_HOUR, 0, 0, 0);
+export interface ComebackSlot {
+  id: string;
+  step: ComebackStep;
+  at: Date;
+}
 
-  if (isSameCalendarDay(lastLearningAt, now) || first.getTime() <= now) {
-    first.setDate(first.getDate() + 1);
+// Everything still ahead for a learner who stops now: a nudge a few hours after an unfinished
+// day, then one evening reminder on days 1, 2, 3, 5, 7, 14 and 30 after the last lesson's day,
+// each sillier than the last. Day 1 is the streak reminder; the rest are come-back nudges.
+export function getComebackSlots(lastLearningAt: number, now: number, preferences?: UserProfile["reminderPreferences"]) {
+  const wantsStreak = preferences?.streakReminders !== false;
+  const wantsComeback = preferences?.islamicReminders !== false;
+  const slots: ComebackSlot[] = [];
+  const resumeAt = new Date(lastLearningAt + RESUME_REMINDER_AFTER_MS);
+
+  if (wantsComeback && resumeAt.getTime() > now && !isQuietHour(resumeAt) && isSameCalendarDay(resumeAt.getTime(), lastLearningAt)) {
+    slots.push({ id: RESUME_ID, step: "resume", at: resumeAt });
   }
 
-  return Array.from({ length: STREAK_REMINDER_DAYS }, (_, index) => {
-    const date = new Date(first);
-    date.setDate(first.getDate() + index);
-    return date;
+  COMEBACK_DAYS.forEach((day, index) => {
+    const step = stepForDay(day)!;
+
+    if (step === "streak" ? !wantsStreak : !wantsComeback) {
+      return;
+    }
+
+    const at = new Date(lastLearningAt);
+    at.setHours(EVENING_REMINDER_HOUR, 0, 0, 0);
+    at.setDate(at.getDate() + day);
+
+    if (at.getTime() > now) {
+      slots.push({ id: COMEBACK_IDS[index], step, at });
+    }
   });
+
+  return slots;
 }
 
 function isQuietHour(date: Date) {

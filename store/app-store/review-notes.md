@@ -14,7 +14,7 @@ Creating an account is optional and only saves progress across devices. You can 
 
 Free users see AdMob banner ads, an occasional ad between lessons (never inside a lesson) and optional rewarded ads for an extra heart. Ads are limited to the G content rating. Premium removes ads.
 
-Reminders are local notifications scheduled on the device; the app does not use push notifications.
+Reminders are local notifications scheduled on the device (a playful "come back" message on days 1, 2, 3, 5, 7, 14 and 30 after the last lesson, then they stop; both kinds can be turned off in Settings). The app does not use push notifications.
 ```
 
 Sign-in information: leave "Sign-in required" unticked, since the app works without an account. If App Review asks for an account anyway, create one on the production backend and add it here.
