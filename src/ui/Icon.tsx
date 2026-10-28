@@ -56,7 +56,8 @@ export type IconName =
   | "play"
   | "handHeart"
   | "shield"
-  | "coins";
+  | "coins"
+  | "search";
 
 export type IconProps = {
   name: IconName;
@@ -686,6 +687,12 @@ const ICONS: Record<IconName, Drawer> = {
       <Circle cx={9.2} cy={14.4} r={4.6} strokeWidth={1.4} {...t.ds(C.goldLip)} />
       <Path d="M9.2 11.6v5.6" strokeWidth={1.8} strokeLinecap="round" {...t.ds(C.goldLip)} />
       <Shine t={t} d="M4.6 12.4c.5-1.4 1.6-2.5 3-3 .5-.2.8.5.3.8-1 .4-1.8 1.3-2.2 2.4-.2.5-1.2.3-1.1-.2z" />
+    </G>
+  ),
+  search: (t) => (
+    <G>
+      <Circle cx={10.4} cy={10.4} r={6.6} strokeWidth={3} {...t.s(C.grayDeep)} />
+      <Path d="M15.4 15.4 20.6 20.6" strokeWidth={3.4} strokeLinecap="round" {...t.s(C.grayDeep)} />
     </G>
   )
 };

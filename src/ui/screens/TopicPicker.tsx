@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, View, type DimensionValue } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import { Platform, ScrollView, StyleSheet, Text, TextInput, View, type DimensionValue } from "react-native";
 import type { ArabicTerm } from "../../data/arabicTerms";
 import { ArabicText } from "../ArabicText";
 import { Icon, topicIcon, type IconName } from "../Icon";
@@ -7,7 +7,8 @@ import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, text, topicPalette } from "../theme";
-import { t } from "../../i18n";
+import { isRtlLanguage, t } from "../../i18n";
+import type { TopicSearchHit } from "../../utils/topicSearch";
 
 export type TopicPickerTopic = {
   topicId: string;
@@ -23,7 +24,10 @@ export type TopicPickerProps = {
   onClose: () => void;
   topics: TopicPickerTopic[];
   activeTopicId: string;
-  onSelect: (topicId: string) => void;
+  /** A tile, or a search hit: a unit hit names its unit and first circle, a lesson hit its unit and circle. */
+  onSelect: (topicId: string, unitId?: string, nodeId?: string) => void;
+  /** Finds topics, units and lessons for the search field (searchTopics). Without it there is no search field. */
+  search?: (query: string) => TopicSearchHit[];
   /** Gap above the sheet. Default 40. */
   topGap?: number;
   /** Bottom safe-area inset; tiles scroll to the screen edge and clear it. Default 0. */
@@ -85,9 +89,49 @@ function TopicTile({ topic, active, width, onPress }: { topic: TopicPickerTopic;
   );
 }
 
-/** Full-height sheet with a grid of topic worlds. */
-export function TopicPicker({ visible, onClose, topics, activeTopicId, onSelect, topGap = 40, bottomInset = 0 }: TopicPickerProps) {
+/** One search hit: its topic's emblem, its name, and where it sits (topic, or unit and topic). */
+function SearchRow({ hit, topic, onPress }: { hit: TopicSearchHit; topic?: TopicPickerTopic; onPress: () => void }) {
+  const palette = topicPalette(topic?.accent ?? colors.gem);
+  const title = hit.kind === "topic" ? topic?.title ?? t(hit.title) : t(hit.title);
+  const where = hit.kind === "topic" ? t("Topic") : hit.unitTitle ? `${t(hit.unitTitle)} · ${topic?.title ?? ""}` : topic?.title ?? "";
+  return (
+    <Tappable
+      onPress={onPress}
+      sound="node_tap"
+      pressScale={0.97}
+      accessibilityLabel={`${title}, ${where}`}
+      testID={`topic-search-hit-${hit.nodeId ?? hit.unitId ?? hit.topicId}`}
+      style={styles.hit}
+    >
+      <View style={[styles.hitEmblem, { backgroundColor: palette.main, borderBottomColor: palette.lip }]}>
+        <Icon name={worldIcon(hit.topicId)} size={24} />
+      </View>
+      <View style={styles.hitText}>
+        <Text style={styles.hitTitle} numberOfLines={2}>
+          {title}
+        </Text>
+        <Text style={styles.hitWhere} numberOfLines={1}>
+          {where}
+        </Text>
+      </View>
+      <Icon name="chevronRight" size={20} color={colors.inkSoft} />
+    </Tappable>
+  );
+}
+
+/** Full-height sheet with a search field and a grid of topic worlds; while the field has text, its hits replace the grid. */
+export function TopicPicker({ visible, onClose, topics, activeTopicId, onSelect, search, topGap = 40, bottomInset = 0 }: TopicPickerProps) {
   const [gridWidth, setGridWidth] = useState(0);
+  const [query, setQuery] = useState("");
+  const [focused, setFocused] = useState(false);
+  const hits = useMemo(() => (search && query.trim() ? search(query) : undefined), [query, search]);
+  const topicById = useMemo(() => new Map(topics.map((topic) => [topic.topicId, topic])), [topics]);
+  const rtl = isRtlLanguage();
+
+  // Each opening starts on the grid.
+  useEffect(() => {
+    if (!visible) setQuery("");
+  }, [visible]);
   const columns = gridWidth > 0 && gridWidth < 260 ? 1 : 2;
   const tileWidth: DimensionValue = gridWidth > 0 ? Math.floor((gridWidth - GAP * (columns - 1)) / columns) : "47%";
 
@@ -101,21 +145,73 @@ export function TopicPicker({ visible, onClose, topics, activeTopicId, onSelect,
           <Icon name="close" size={22} color={colors.inkSoft} />
         </Tappable>
       </View>
-      <ScrollView style={styles.scroll} contentContainerStyle={{ paddingBottom: 32 + bottomInset }} showsVerticalScrollIndicator={false}>
-        <View style={styles.grid} onLayout={(event) => setGridWidth(event.nativeEvent.layout.width)}>
-          {topics.map((topic) => (
-                <TopicTile
-                  key={topic.topicId}
-                  topic={topic}
-                  width={tileWidth}
-                  active={topic.topicId === activeTopicId}
+      {search ? (
+        <View style={[styles.searchBox, focused ? styles.searchBoxFocused : null]}>
+          <Icon name="search" size={20} />
+          <TextInput
+            value={query}
+            onChangeText={setQuery}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            placeholder={t("Search topics and people")}
+            placeholderTextColor={colors.inkSoft}
+            returnKeyType="search"
+            autoCorrect={false}
+            autoCapitalize="none"
+            accessibilityLabel={t("Search topics and people")}
+            testID="topic-search"
+            style={[styles.searchInput, { textAlign: rtl ? "right" : "left", writingDirection: rtl ? "rtl" : "ltr" }]}
+          />
+          {query ? (
+            <Tappable onPress={() => setQuery("")} accessibilityLabel={t("Clear search")} testID="topic-search-clear" hitSlop={8} pressScale={0.88} style={styles.searchClear}>
+              <Icon name="close" size={14} color={colors.white} />
+            </Tappable>
+          ) : null}
+        </View>
+      ) : null}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={{ paddingBottom: 32 + bottomInset }}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+      >
+        {hits ? (
+          <View style={styles.hits} testID="topic-search-results">
+            {hits.length ? (
+              hits.map((hit) => (
+                <SearchRow
+                  key={`${hit.kind}-${hit.nodeId ?? hit.unitId ?? hit.topicId}`}
+                  hit={hit}
+                  topic={topicById.get(hit.topicId)}
                   onPress={() => {
-                    onSelect(topic.topicId);
+                    onSelect(hit.topicId, hit.unitId, hit.nodeId);
                     onClose();
                   }}
                 />
-              ))}
-        </View>
+              ))
+            ) : (
+              <Text style={styles.noHits} testID="topic-search-empty">
+                {t("Nothing found. Try another name.")}
+              </Text>
+            )}
+          </View>
+        ) : (
+          <View style={styles.grid} onLayout={(event) => setGridWidth(event.nativeEvent.layout.width)}>
+            {topics.map((topic) => (
+              <TopicTile
+                key={topic.topicId}
+                topic={topic}
+                width={tileWidth}
+                active={topic.topicId === activeTopicId}
+                onPress={() => {
+                  onSelect(topic.topicId);
+                  onClose();
+                }}
+              />
+            ))}
+          </View>
+        )}
       </ScrollView>
     </Sheet>
   );
@@ -145,6 +241,87 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 1
+  },
+  searchBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    minHeight: 50,
+    paddingHorizontal: 14,
+    marginBottom: 12,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: colors.line,
+    backgroundColor: colors.mist
+  },
+  searchBoxFocused: {
+    borderColor: colors.gem,
+    backgroundColor: colors.white
+  },
+  searchInput: {
+    flex: 1,
+    minWidth: 0,
+    alignSelf: "stretch",
+    marginHorizontal: 10,
+    fontFamily: fonts.bodyBold,
+    fontSize: 16,
+    color: colors.ink,
+    // The box border shows focus; no browser focus ring.
+    ...(Platform.OS === "web" ? ({ outlineWidth: 0, outlineStyle: "none" } as object) : null)
+  },
+  searchClear: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.inkSoft
+  },
+  hits: {
+    gap: 10
+  },
+  hit: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: colors.line,
+    borderBottomWidth: 4,
+    borderBottomColor: colors.lineLip,
+    backgroundColor: colors.white
+  },
+  hitEmblem: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderBottomWidth: 3,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  hitText: {
+    flex: 1,
+    minWidth: 0
+  },
+  hitTitle: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 16,
+    lineHeight: 20,
+    color: colors.ink
+  },
+  hitWhere: {
+    marginTop: 2,
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 17,
+    color: colors.inkSoft
+  },
+  noHits: {
+    ...text.body,
+    marginTop: 24,
+    textAlign: "center",
+    color: colors.inkSoft
   },
   grid: {
     flexDirection: "row",

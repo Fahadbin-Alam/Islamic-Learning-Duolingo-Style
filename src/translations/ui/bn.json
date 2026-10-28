@@ -418,5 +418,9 @@
   "{name} (you)": "{name} (তুমি)",
   "{place} of {count}": "{count}টির মধ্যে {place}",
   "{topic}, {done} of {total}": "{topic}, {total}টির মধ্যে {done}টি",
-  "{topic}. Change topic": "{topic}। বিষয় বদলাও"
+  "{topic}. Change topic": "{topic}। বিষয় বদলাও",
+  "Search topics and people": "বিষয় বা নাম খোঁজো",
+  "Clear search": "খোঁজা মুছে দাও",
+  "Nothing found. Try another name.": "কিছু পাওয়া যায়নি। অন্য নাম লিখে দেখো।",
+  "Topic": "বিষয়"
 }

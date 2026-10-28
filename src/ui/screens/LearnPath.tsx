@@ -114,6 +114,12 @@ export type LearnPathProps = {
   initialOpenNodeId?: string;
   /** Scroll to this node or chest id on mount instead of the current node. */
   initialFocusId?: string;
+  /**
+   * A circle to show now (a topic search hit): the path scrolls to it and opens its card, then calls onRevealed.
+   * The caller clears it there, so the same circle can be asked for again.
+   */
+  reveal?: string;
+  onRevealed?: () => void;
   /** Extra bottom padding under the end-of-topic trophy. Default 32. */
   bottomPadding?: number;
 };
@@ -876,6 +882,8 @@ export function LearnPath({
   header,
   initialOpenNodeId,
   initialFocusId,
+  reveal,
+  onRevealed,
   bottomPadding = 32
 }: LearnPathProps) {
   const scrollRef = useRef<ScrollView>(null);
@@ -886,6 +894,9 @@ export function LearnPath({
   /** Unit (and the JUMP HERE circle) whose "Jump ahead?" sheet is up; the ids stay while the sheet slides away. */
   const [testOut, setTestOut] = useState<{ unitId: string; nodeId?: string; open: boolean } | undefined>(undefined);
   const [seenTopic, setSeenTopic] = useState(topicId);
+  const [seenReveal, setSeenReveal] = useState<string | undefined>(undefined);
+  /** The circle `reveal` asked for, until the path has scrolled to it. */
+  const [revealId, setRevealId] = useState<string | undefined>(undefined);
   /** Units drawn in full (see LIVE_MARGIN), by index. Unset until the units have measured themselves. */
   const [live, setLive] = useState<{ lo: number; hi: number } | undefined>(undefined);
   const viewport = useRef(0);
@@ -918,6 +929,22 @@ export function LearnPath({
     focusConsumed.current = true;
     animateFocus.current = false;
     followChest.current = undefined;
+  }
+
+  // A circle asked for: open its card and scroll to it, gliding there on the same topic.
+  if (reveal !== seenReveal) {
+    setSeenReveal(reveal);
+    if (reveal) {
+      setRevealId(reveal);
+      setOpenId(reveal);
+      setCardH(undefined);
+      cardScrolledFor.current = reveal;
+      // The old card closing moves the path a little before the scroll to the new one; that is not the learner.
+      programmaticUntil.current = Date.now() + 700;
+      scrolledToCurrent.current = false;
+      // Same topic, path already on screen: glide there. A new topic starts at the top and jumps.
+      animateFocus.current = seenTopic === topicId && viewport.current > 0;
+    }
   }
 
   const layout = useMemo(() => {
@@ -985,7 +1012,7 @@ export function LearnPath({
         scenery
       };
     });
-    const wanted = focusConsumed.current ? undefined : initialFocusId ?? initialOpenNodeId;
+    const wanted = revealId ?? (focusConsumed.current ? undefined : initialFocusId ?? initialOpenNodeId);
     let focusKey = currentKey;
     let focusUnitId = currentUnitId;
     let focusRatio = 0.45;
@@ -995,7 +1022,7 @@ export function LearnPath({
         if (row) {
           focusKey = row.key;
           focusUnitId = group.unit.id;
-          focusRatio = initialOpenNodeId && !initialFocusId ? 0.24 : 0.45;
+          focusRatio = revealId || (initialOpenNodeId && !initialFocusId) ? 0.24 : 0.45;
           break;
         }
       }
@@ -1009,9 +1036,9 @@ export function LearnPath({
         ? { key: before.row.key, unitId: before.unitId }
         : undefined;
     return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio, earnedChest };
-    // Focus targets are read on mount only.
+    // Focus targets are read on mount only (and while a reveal is under way).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accent, units, topicId, currentNodeId]);
+  }, [accent, units, topicId, currentNodeId, revealId]);
 
   // When the current node moves (a lesson was finished), follow it.
   if (lastCurrentKey.current !== layout.currentKey) {
@@ -1133,9 +1160,14 @@ export function LearnPath({
     }
     scrolledToCurrent.current = true;
     focusConsumed.current = true;
-    scrollTo(target, animateFocus.current);
+    // A long glide outlasts the guard that keeps the open card up while the path moves, so far away is a jump.
+    scrollTo(target, animateFocus.current && Math.abs(target - scrollY.current) < viewport.current * 2);
     animateFocus.current = false;
-  }, [absoluteRowY, layout, scrollTo, stickyHeight, units]);
+    if (revealId) {
+      setRevealId(undefined);
+      onRevealed?.();
+    }
+  }, [absoluteRowY, layout, onRevealed, revealId, scrollTo, stickyHeight, units]);
 
   // Once that chest is opened, bring the circle to play next into view.
   useEffect(() => {
