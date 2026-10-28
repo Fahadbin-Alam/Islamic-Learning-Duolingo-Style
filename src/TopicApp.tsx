@@ -48,6 +48,7 @@ import {
 } from "./api/islamicLearningApi";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
+import { localDayNumber } from "./data/dailyCard";
 import {
   DEFAULT_LANGUAGE,
   deviceLanguage,
@@ -500,6 +501,8 @@ export default function TopicApp() {
   const [accountModalVisible, setAccountModalVisible] = useState(false);
   const [outOfHearts, setOutOfHearts] = useState<OutOfHeartsSheet | undefined>(undefined);
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
+  // The local day the top bar's daily ayah and hadith were last opened.
+  const [dailySeenDay, setDailySeenDay] = useState(() => Number(getStoredItem("sira-path-daily-seen")));
   const [accountPromptShown, setAccountPromptShown] = useState(false);
   const [accountPromptDue, setAccountPromptDue] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
@@ -2376,6 +2379,12 @@ export default function TopicApp() {
             hearts={lessonHearts}
             onOpenTopics={() => setTopicPickerVisible(true)}
             onOpenShop={() => dispatch({ type: "open_shop" })}
+            dailySeen={dailySeenDay === localDayNumber()}
+            onDailyOpened={() => {
+              const today = localDayNumber();
+              setDailySeenDay(today);
+              setStoredItem("sira-path-daily-seen", String(today));
+            }}
           />
         )}
         {activeTab === "learn" && !inLesson && (
