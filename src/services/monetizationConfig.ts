@@ -81,6 +81,15 @@ export function revenueCatApiKey(platform: StorePlatform) {
   return "";
 }
 
+/** Ads run in any mode but "disabled"; selling needs the RevenueCat key for this platform (sandbox simulates it). */
+export function canSellInStore(mode: MonetizationMode, platform: StorePlatform) {
+  return mode === "sandbox" || (mode === "live" && Boolean(revenueCatApiKey(platform)));
+}
+
+export function storePlatform(os: string): StorePlatform {
+  return os === "ios" || os === "android" ? os : "web";
+}
+
 export interface AdUnitIds {
   banner: string;
   rewarded: string;

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Animated, Linking, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { UiStrings } from "../../i18n";
-import { legalLinks, monetizationMode, planForProduct } from "../../services/monetizationConfig";
+import { canSellInStore, legalLinks, monetizationMode, planForProduct, storePlatform } from "../../services/monetizationConfig";
 import type { LearningSection, ShopItem, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
@@ -42,6 +42,7 @@ export type ShopViewProps = {
    * Default: the monetization mode is not "disabled".
    */
   canBuyWithMoney?: boolean;
+  canWatchAds?: boolean;
   /** Scroll to this part once the shop opens. "premium": the Premium card (or the "can't be bought here" note). */
   focus?: "premium";
 };
@@ -392,7 +393,8 @@ export function ShopView({
   onDone,
   onOpenLink,
   pendingItemId,
-  canBuyWithMoney = monetizationMode !== "disabled",
+  canBuyWithMoney = canSellInStore(monetizationMode, storePlatform(Platform.OS)),
+  canWatchAds = monetizationMode !== "disabled",
   focus
 }: ShopViewProps) {
   const premium = isPremium(user);
@@ -435,7 +437,7 @@ export function ShopView({
   // not offered videos (they are ads) or its own plan again.
   const visible = fullPremium
     ? []
-    : items.filter((item) => (canBuyWithMoney || !needsStore(item)) && !(premium && (item.type === "rewarded_ad" || isNoAdsPlan(item))));
+    : items.filter((item) => (item.currencyType === "rewarded_ad" ? canWatchAds : canBuyWithMoney || !needsStore(item)) && !(premium && (item.type === "rewarded_ad" || isNoAdsPlan(item))));
   const hearts = visible.filter((item) => !item.tier && (item.refillsHearts || item.heartsGranted || (item.type === "rewarded_ad" && !item.gemsGranted)));
   const gemPacks = visible.filter((item) => !item.tier && !hearts.includes(item) && item.gemsGranted);
   const powerUps = visible.filter((item) => !item.tier && !hearts.includes(item) && !gemPacks.includes(item));

@@ -8,11 +8,13 @@ import { removeStoredItem } from "../services/appStorage";
 import { createSandboxClient } from "../services/monetizationShared";
 import {
   adAudienceFor,
+  canSellInStore,
   adSettingsFor,
   isRealAdUnitId,
   MIN_MS_BETWEEN_FULL_SCREEN_ADS,
   planForProduct,
   resolveMode,
+  storePlatform,
   rewardedGemVideosLeft,
   shouldShowLessonBreakAd
 } from "../services/monetizationConfig";
@@ -134,6 +136,15 @@ describe("monetization config", () => {
     expect(resolveMode(undefined, true)).toBe("sandbox");
     expect(resolveMode(undefined, false)).toBe("disabled");
     expect(resolveMode(" LIVE ", false)).toBe("live");
+  });
+
+  it("sells only when the store can take the payment, while ads can run on their own", () => {
+    expect(canSellInStore("sandbox", "android")).toBe(true);
+    // No RevenueCat key in this test run: a live build with ads alone hides every paid item.
+    expect(canSellInStore("live", "android")).toBe(false);
+    expect(canSellInStore("disabled", "ios")).toBe(false);
+    expect(storePlatform("ios")).toBe("ios");
+    expect(storePlatform("windows")).toBe("web");
   });
 
   it("only accepts real AdMob unit ids, never Google's sample ones", () => {

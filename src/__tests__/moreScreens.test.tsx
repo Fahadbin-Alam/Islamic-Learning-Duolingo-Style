@@ -208,7 +208,7 @@ describe("ShopView", () => {
 
   it("hides what the store cannot sell (web): only gem items stay, with no plans or restore", async () => {
     const handlers = { onUseItem: jest.fn(), onRestore: jest.fn(), onOpenLink: jest.fn() };
-    await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} {...handlers} />);
+    await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} canWatchAds={false} {...handlers} />);
 
     for (const item of SHOP_ITEMS) {
       if (item.currencyType === "gems") expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
@@ -221,6 +221,17 @@ describe("ShopView", () => {
     await fireEvent.press(screen.getByText("Terms"));
     await solveGate();
     expect(handlers.onOpenLink).toHaveBeenCalledWith(legalLinks.terms);
+  });
+
+  it("keeps the videos but hides every paid item when the build has ads but no store", async () => {
+    await render(<ShopView user={makeUser({ hearts: { current: 3, max: 5, unlimited: false, lastRefillDate: "2026-01-01" } })} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} />);
+
+    for (const item of SHOP_ITEMS) {
+      if (item.currencyType === "USD") expect(screen.queryByTestId(`shop-buy-${item.id}`)).toBeNull();
+      else expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
+    }
+    expect(screen.queryByTestId("shop-no-ads")).toBeNull();
+    expect(screen.queryByTestId("shop-restore")).toBeNull();
   });
 
   it("celebrates when a purchase fills the hearts", async () => {
