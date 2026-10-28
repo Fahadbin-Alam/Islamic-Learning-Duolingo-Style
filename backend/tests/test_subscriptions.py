@@ -68,6 +68,29 @@ def test_purchase_grants_premium_and_expiration_removes_it(client, auth_headers,
     assert user["hearts"]["unlimited"] is False
 
 
+def test_no_ads_plan_takes_ads_away_but_keeps_the_heart_limit(client, auth_headers, webhook_secret):
+    user_id = me(client, auth_headers)["id"]
+
+    # RevenueCat lists every entitlement a product carries; the plan decides which one is recorded.
+    bought = send(client, user_id, "INITIAL_PURCHASE", product_id="no_ads_monthly:monthly", entitlement_ids=["no_ads"])
+    assert bought.json()["premium"] is True
+    user = me(client, auth_headers)
+    assert user["activeSubscriptionId"] == "no_ads_monthly"
+    assert user["hearts"]["unlimited"] is False
+
+    send(client, user_id, "PRODUCT_CHANGE", product_id="no_ads_monthly:monthly", new_product_id="membership_monthly:monthly", entitlement_ids=["no_ads", "premium"])
+    user = me(client, auth_headers)
+    assert user["activeSubscriptionId"] == "premium_monthly"
+    assert user["hearts"]["unlimited"] is True
+
+
+def test_plans_list_both_tiers(client):
+    plans = {plan["id"]: plan for plan in client.get("/api/subscriptions/plans").json()}
+
+    assert plans["no_ads_yearly"]["entitlementName"] == "no_ads"
+    assert plans["premium_monthly"]["price"] == 6.99
+
+
 def test_cancelled_plan_keeps_access_until_the_paid_period_ends(client, auth_headers, webhook_secret):
     user_id = me(client, auth_headers)["id"]
     send(client, user_id, "INITIAL_PURCHASE")

@@ -36,6 +36,7 @@ import {
   keepStreak,
   testOutPassingScore,
   grantHearts,
+  hasPremiumLessons,
   isPremiumUser,
   learningApi,
   loseHeart,
@@ -852,7 +853,7 @@ export default function TopicApp() {
         arabic: getBranchArabic(branch.id),
         done: nodes.filter((node) => completed.has(node.id)).length,
         total: nodes.length,
-        premiumLocked: Boolean(branch.premiumOnly && !state.user.activeSubscriptionId),
+        premiumLocked: Boolean(branch.premiumOnly && !hasPremiumLessons(state.user)),
         canTestOut: testOutUnitIds.has(branch.id),
         items
       });
@@ -1069,7 +1070,7 @@ export default function TopicApp() {
 
     const nodeBranch = COURSE.sections.flatMap((section) => section.branches).find((branch) => branch.id === node.branchId) ?? selectedBranch;
 
-    if (nodeBranch.premiumOnly && !user.activeSubscriptionId) {
+    if (nodeBranch.premiumOnly && !hasPremiumLessons(user)) {
       dispatch({ type: "open_shop", focus: "premium" });
       return;
     }
@@ -1107,7 +1108,7 @@ export default function TopicApp() {
     const testBranch = selectedSection.branches.find((branch) => branch.id === branchId) ?? selectedBranch;
     const plan = getTestOutPlan(user, testBranch.id, jumpNodeId);
 
-    if (!plan && testBranch.premiumOnly && !user.activeSubscriptionId) {
+    if (!plan && testBranch.premiumOnly && !hasPremiumLessons(user)) {
       dispatch({ type: "open_shop", focus: "premium" });
       return;
     }

@@ -23,6 +23,7 @@ import type {
   XpSummary
 } from "../types";
 import { buildGuidedLesson } from "../services/lessonGuidance";
+import { planForProduct } from "../services/monetizationConfig";
 import { enrichLessonSources, getPrimaryLessonSource } from "../services/resourceSupport";
 
 export interface IslamicLearningApi {
@@ -47,7 +48,7 @@ export const learningApi: IslamicLearningApi = {
   },
   getPathNodes(user) {
     const completed = new Set(user.completedNodeIds);
-    const premium = isPremiumUser(user);
+    const premium = hasPremiumLessons(user);
     // Circles open in path order, so the path shows the order things unlock. A topic taught in order
     // opens one circle: its first not-done one. A library topic opens the next circle of every unit,
     // and only the first of those is "current" (the START bubble); a gated unit waits until the unit
@@ -353,9 +354,15 @@ export function grantHearts(user: UserProfile, hearts: number, capAtMax = false)
 
 export function applyShopItem(user: UserProfile, item: ShopItem) {
   if (item.type === "monthly_membership" || item.type === "yearly_membership") {
+    const activeSubscriptionId = item.productId ?? item.id;
+    // "No ads" only takes the ads away: hearts work as before.
+    if (planForProduct(activeSubscriptionId) === "no_ads") {
+      return { ...user, activeSubscriptionId, hearts: { ...user.hearts, unlimited: false } };
+    }
+
     return {
       ...user,
-      activeSubscriptionId: item.productId ?? item.id,
+      activeSubscriptionId,
       hearts: {
         ...user.hearts,
         current: user.hearts.max,
@@ -391,20 +398,42 @@ export function canSpendGems(user: UserProfile, item: ShopItem) {
   return item.currencyType === "gems" && !user.hearts.unlimited && user.gems >= item.price && user.hearts.current < user.hearts.max;
 }
 
+/** Any paid plan: no ads. */
 export function isPremiumUser(user: UserProfile) {
   return Boolean(user.activeSubscriptionId);
 }
 
-// Store state wins over local state, so a lapsed subscription stops granting unlimited hearts and ad-free study.
+/** Premium, not "No ads": unlimited hearts and the premium units. */
+export function hasPremiumLessons(user: UserProfile) {
+  return planForProduct(user.activeSubscriptionId) === "premium";
+}
+
+// Store state wins over local state, so a lapsed subscription stops granting unlimited hearts and ad-free study,
+// and a "No ads" plan never grants unlimited hearts.
 export function applyPremiumStatus(user: UserProfile, status: PremiumStatus) {
   if (status.active) {
-    if (user.activeSubscriptionId && user.hearts.unlimited) {
+    const plan = status.plan ?? planForProduct(status.productId) ?? "premium";
+
+    if (plan === "no_ads") {
+      const activeSubscriptionId = status.productId ?? (planForProduct(user.activeSubscriptionId) === "no_ads" ? user.activeSubscriptionId : undefined) ?? "no_ads";
+      if (user.activeSubscriptionId === activeSubscriptionId && !user.hearts.unlimited) {
+        return user;
+      }
+
+      return {
+        ...user,
+        activeSubscriptionId,
+        hearts: { ...user.hearts, current: Math.min(user.hearts.current, user.hearts.max), unlimited: false }
+      };
+    }
+
+    if (hasPremiumLessons(user) && user.hearts.unlimited) {
       return user;
     }
 
     return {
       ...user,
-      activeSubscriptionId: status.productId ?? user.activeSubscriptionId ?? "premium",
+      activeSubscriptionId: status.productId ?? (hasPremiumLessons(user) ? user.activeSubscriptionId : undefined) ?? "premium",
       hearts: { ...user.hearts, current: user.hearts.max, unlimited: true }
     };
   }
@@ -584,7 +613,7 @@ export function getTestOutPlan(user: UserProfile, branchId: string, jumpNodeId?:
     return undefined;
   }
 
-  const premium = isPremiumUser(user);
+  const premium = hasPremiumLessons(user);
   const opens = (branchIndex: number) => premium || !section.branches[branchIndex].premiumOnly;
   const done = new Set(user.completedNodeIds);
 

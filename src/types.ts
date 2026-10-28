@@ -422,7 +422,7 @@ export interface ShopItem {
   unlimitedHearts?: boolean;
   removesAds?: boolean;
   durationDays?: number;
-  tier?: "free" | "premium_monthly" | "premium_yearly";
+  tier?: "free" | "premium_monthly" | "premium_yearly" | "no_ads_monthly" | "no_ads_yearly";
   highlightBadge?: string;
   benefits?: string[];
 }
@@ -446,8 +446,13 @@ export interface PurchaseResult {
   premium?: PremiumStatus;
 }
 
+/** "no_ads" takes the ads away; "premium" also gives unlimited hearts and the premium units. */
+export type PremiumPlan = "no_ads" | "premium";
+
 export interface PremiumStatus {
   active: boolean;
+  /** Which plan is active. Left out, it is read from productId (see planForProduct). */
+  plan?: PremiumPlan;
   productId?: string;
   expiresAt?: string | null;
   willRenew?: boolean;

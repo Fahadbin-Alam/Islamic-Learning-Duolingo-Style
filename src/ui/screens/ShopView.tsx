@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Animated, Linking, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { UiStrings } from "../../i18n";
-import { legalLinks, monetizationMode } from "../../services/monetizationConfig";
+import { canSellInStore, legalLinks, monetizationMode, planForProduct, storePlatform } from "../../services/monetizationConfig";
 import type { LearningSection, ShopItem, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
@@ -42,6 +42,7 @@ export type ShopViewProps = {
    * Default: the monetization mode is not "disabled".
    */
   canBuyWithMoney?: boolean;
+  canWatchAds?: boolean;
   /** Scroll to this part once the shop opens. "premium": the Premium card (or the "can't be bought here" note). */
   focus?: "premium";
 };
@@ -49,9 +50,18 @@ export type ShopViewProps = {
 const MANAGE_SUBSCRIPTION_URL =
   Platform.OS === "android" ? "https://play.google.com/store/account/subscriptions" : "https://apps.apple.com/account/subscriptions";
 
-/** Same rule as TopicApp: premium learners are not sold anything again. */
+/** Same rule as TopicApp's isPremiumUser: any plan, so no ads. */
 function isPremium(user: UserProfile) {
   return Boolean(user.activeSubscriptionId);
+}
+
+/** Same rule as hasPremiumLessons: Premium learners are not sold anything again. "No ads" learners still buy hearts. */
+function isFullPremium(user: UserProfile) {
+  return planForProduct(user.activeSubscriptionId) === "premium";
+}
+
+function isNoAdsPlan(item: ShopItem) {
+  return Boolean(item.tier) && planForProduct(item.productId ?? item.id) === "no_ads";
 }
 
 /** Same rule as canSpendGems in src/api/islamicLearningApi.ts. */
@@ -324,19 +334,22 @@ function BenefitList({ ink, skipHearts }: { ink: string; skipHearts?: boolean })
   );
 }
 
-function PremiumCard({ plans, ...rest }: Omit<RowProps, "item"> & { plans: ShopItem[] }) {
+/** A plan card: "No ads" (ads only) or Premium (no ads, unlimited hearts, every lesson). */
+function PremiumCard({ plans, kind = "premium", ...rest }: Omit<RowProps, "item"> & { plans: ShopItem[]; kind?: "premium" | "no_ads" }) {
   const ink = darken(colors.gold, 0.62);
+  const title = kind === "no_ads" ? t("No ads") : t("Premium");
   return (
-    <View style={styles.premium} testID="shop-premium">
+    <View style={styles.premium} testID={kind === "no_ads" ? "shop-no-ads" : "shop-premium"}>
       <View style={styles.premiumHead}>
         <View style={styles.crownCircle}>
-          <Icon name="crown" size={40} />
+          <Icon name={kind === "no_ads" ? "sparkle" : "crown"} size={40} />
         </View>
         <Text style={[styles.premiumTitle, { color: ink }]} numberOfLines={1}>
-          {t("Premium")}
+          {title}
         </Text>
       </View>
-      <BenefitList ink={ink} />
+      {/* "No ads" is its whole benefit, and its title says so. */}
+      {kind === "no_ads" ? null : <BenefitList ink={ink} />}
       {plans.map((plan) => {
         const badge = badgeText(plan);
         const price = formatShopPrice(plan, rest.storePrices);
@@ -354,7 +367,7 @@ function PremiumCard({ plans, ...rest }: Omit<RowProps, "item"> & { plans: ShopI
                 </View>
               ) : null}
             </View>
-            <BuyButton {...rest} item={plan} label={price} variant="primary" accessibilityLabel={`${t("Premium")} ${displayName(plan)}, ${price}`} />
+            <BuyButton {...rest} item={plan} label={price} variant="primary" accessibilityLabel={`${title} ${displayName(plan)}, ${price}`} />
           </View>
         );
       })}
@@ -380,10 +393,12 @@ export function ShopView({
   onDone,
   onOpenLink,
   pendingItemId,
-  canBuyWithMoney = monetizationMode !== "disabled",
+  canBuyWithMoney = canSellInStore(monetizationMode, storePlatform(Platform.OS)),
+  canWatchAds = monetizationMode !== "disabled",
   focus
 }: ShopViewProps) {
   const premium = isPremium(user);
+  const fullPremium = isFullPremium(user);
   const [pendingId, setPendingId] = useState<string | undefined>(undefined);
   const { ask, gate } = useGrownUpGate();
   const heartsPop = useRef(new Animated.Value(1)).current;
@@ -418,11 +433,17 @@ export function ShopView({
     }
   }, [gemPop, heartsPop, user.gems, user.hearts.current]);
 
-  const visible = premium ? [] : items.filter((item) => canBuyWithMoney || !needsStore(item));
+  // Premium needs nothing more. "No ads" still buys hearts and gems, and can move up to Premium, but is
+  // not offered videos (they are ads) or its own plan again.
+  const visible = fullPremium
+    ? []
+    : items.filter((item) => (item.currencyType === "rewarded_ad" ? canWatchAds : canBuyWithMoney || !needsStore(item)) && !(premium && (item.type === "rewarded_ad" || isNoAdsPlan(item))));
   const hearts = visible.filter((item) => !item.tier && (item.refillsHearts || item.heartsGranted || (item.type === "rewarded_ad" && !item.gemsGranted)));
   const gemPacks = visible.filter((item) => !item.tier && !hearts.includes(item) && item.gemsGranted);
   const powerUps = visible.filter((item) => !item.tier && !hearts.includes(item) && !gemPacks.includes(item));
   const plans = visible.filter((item) => item.tier && item.tier !== "free");
+  const noAdsPlans = plans.filter(isNoAdsPlan);
+  const premiumPlans = plans.filter((item) => !isNoAdsPlan(item));
 
   const open = (url: string) => (onOpenLink ? onOpenLink(url) : void Linking.openURL(url).catch(() => undefined));
   const openGated = (url: string) => ask(() => open(url));
@@ -479,15 +500,17 @@ export function ShopView({
                 <Mascot variant={section.mascot} mood="cheer" size={80} accent={section.accentColor} />
                 <View style={styles.activeText}>
                   <View style={styles.activeTitleRow}>
-                    <Icon name="crown" size={28} />
-                    <Text style={[styles.premiumTitle, styles.activeTitle]}>{t("Premium")}</Text>
+                    <Icon name={fullPremium ? "crown" : "sparkle"} size={28} />
+                    <Text style={[styles.premiumTitle, styles.activeTitle]}>{fullPremium ? t("Premium") : t("No ads")}</Text>
                   </View>
-                  <Text style={styles.activeLine} numberOfLines={2}>
-                    {t("Unlimited hearts!")}
-                  </Text>
+                  {fullPremium ? (
+                    <Text style={styles.activeLine} numberOfLines={2}>
+                      {t("Unlimited hearts!")}
+                    </Text>
+                  ) : null}
                 </View>
               </View>
-              <BenefitList ink={darken(colors.gold, 0.62)} skipHearts />
+              {fullPremium ? <BenefitList ink={darken(colors.gold, 0.62)} skipHearts /> : null}
             </View>
           </PopIn>
         ) : null}
@@ -519,9 +542,15 @@ export function ShopView({
           </View>
         ) : null}
 
-        {plans.length ? (
+        {noAdsPlans.length ? (
+          <View style={styles.section}>
+            <PremiumCard plans={noAdsPlans} kind="no_ads" {...rowProps} />
+          </View>
+        ) : null}
+
+        {premiumPlans.length ? (
           <View style={styles.section} onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
-            <PremiumCard plans={plans} {...rowProps} />
+            <PremiumCard plans={premiumPlans} {...rowProps} />
           </View>
         ) : null}
 
@@ -560,7 +589,7 @@ export function ShopView({
               <Text style={styles.restoreText}>{t("Restore purchases")}</Text>
             </Tappable>
           ) : null}
-          {premium || !plans.length ? null : <Text style={styles.legal}>{t("Renews automatically. Cancel anytime in store settings.")}</Text>}
+          {!plans.length ? null : <Text style={styles.legal}>{t("Renews automatically. Cancel anytime in store settings.")}</Text>}
           <View style={styles.links}>
             <Tappable onPress={() => openGated(legalLinks.terms)} accessibilityRole="link" style={styles.link} testID="shop-terms">
               <Text style={styles.linkText}>{t("Terms")}</Text>

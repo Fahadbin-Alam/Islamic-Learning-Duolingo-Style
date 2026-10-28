@@ -3,6 +3,7 @@ import {
   Animated,
   Easing,
   LayoutAnimation,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -16,7 +17,7 @@ import {
 } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import type { ArabicTerm } from "../../data/arabicTerms";
-import { monetizationMode } from "../../services/monetizationConfig";
+import { canSellInStore, monetizationMode, storePlatform } from "../../services/monetizationConfig";
 import type { LearningNodeView } from "../../types";
 import { ArabicText, withHonorifics } from "../ArabicText";
 import { noBreakHyphens } from "../lesson/lessonText";
@@ -870,7 +871,7 @@ export function LearnPath({
   testOutGoal,
   currentNodeId,
   onPremium,
-  canBuyPremium = monetizationMode !== "disabled",
+  canBuyPremium = canSellInStore(monetizationMode, storePlatform(Platform.OS)),
   onNextTopic,
   header,
   initialOpenNodeId,
