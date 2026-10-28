@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { Platform, type ScrollView, type View } from "react-native";
 import { space } from "../theme";
-import { beforePaint } from "./ScrollHint";
+import { beforePaint, type ScrollHintDirection } from "./ScrollHint";
 
 /** A laid-out box in its scroll content: where it starts and how tall it is. */
 export type LayoutBox = { y: number; height: number };
@@ -130,6 +130,29 @@ export function foldScrollY(from: number, rise: number, aim: number | undefined)
 }
 
 /**
+ * The room each tile that folds away leaves while the sheet comes up (see FoldGap), in the order the tiles sit. A
+ * question the learner left scrolled down (by hand or with the arrow) scrolls up with the tiles above the green one
+ * instead, in the frame they fold, as far as its scroll goes (`scrolled`, what is left of it): the green tile stays
+ * where it showed (see foldScrollY), and only the rest of their room is left, to close with the sheet's spring.
+ * Tiles under the green one leave all of theirs. Returns each tile's room and what is left of the scroll.
+ */
+export function foldRooms(tiles: { id: string; room: number; above: boolean }[], scrolled: number) {
+  let left = Math.max(0, scrolled);
+  const rooms: Record<string, number> = {};
+  for (const tile of tiles) {
+    const taken = tile.above ? Math.min(left, tile.room) : 0;
+    left -= taken;
+    rooms[tile.id] = tile.room - taken;
+  }
+  return { rooms, left };
+}
+
+/** `value`, or `floor` where that is further. */
+function atLeast(value: number, floor: number | undefined) {
+  return floor === undefined ? value : Math.max(value, floor);
+}
+
+/**
  * The question's own scroll while the feedback sheet is up (lesson and practice screens alike), to the place that
  * keeps the green tile whole above the sheet, and back to the top once the sheet goes.
  * - It moves only once that place is known: while a squeezed question has not yet said where it now sits, it stays
@@ -150,10 +173,16 @@ export function foldScrollY(from: number, rise: number, aim: number | undefined)
  * Pass every scroll offset to `onScroll`.
  */
 export function useQuestionScroll({ open, scrollRef, target, ready, settling, whyOpened, viewport, contentHeight = 0, partTop, placesNow }: QuestionScrollInput) {
-  const aim = open && ready && !settling ? target : undefined;
   // Where the question last sent itself while this sheet is up (none yet: the sheet is still coming up), whether it
   // glided there, and how long its content said it was then.
   const sent = useRef<number | undefined>(undefined);
+  // Once the Why line is open the sheet has grown, and the question only goes on down from where it was sent: tiles
+  // that fold above the green tile (or a prompt that wraps anew) by more than the sheet grew would otherwise send it
+  // back up to a place less far, and the prompt, moved up at CHECK, would move back down. It stays where it was sent
+  // instead (the green tile, risen with the fold, sits a little higher above the sheet), until the Why line is shut.
+  const whyFloor = useRef<number | undefined>(undefined);
+  whyFloor.current = open && whyOpened ? Math.max(whyFloor.current ?? 0, sent.current ?? 0) : undefined;
+  const aim = open && ready && !settling ? atLeast(target, whyFloor.current) : undefined;
   const sentGlides = useRef(true);
   const sentLength = useRef(0);
   // A hand has scrolled the question back from where it was last sent.
@@ -180,6 +209,7 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
     wasOpen.current = false;
     sent.current = undefined;
     setSettled(undefined);
+    setPast(false);
   }, [open, scrollRef]);
 
   // Where the tiles were laid out in the last frame drawn, to see a fold (or a prompt wrapping anew) move the green
@@ -197,7 +227,8 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
     }
     const rise = were[focus] - places.tops[focus];
     const from = offset.current;
-    const y = foldScrollY(from, rise, places.aim);
+    // Once the Why line is open it never goes back to a place less far than it was sent, the fold's scroll neither.
+    const y = atLeast(foldScrollY(from, rise, places.aim === undefined ? undefined : atLeast(places.aim, whyFloor.current)), whyFloor.current);
     if (rise <= AT_TARGET || from - y <= AT_TARGET) {
       return;
     }
@@ -278,7 +309,8 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
   // Held at the place it sits (or goes to, when that is further down): the content's own length covers that place
   // again once it is there.
   const minHeight = open && viewport > 0 ? viewport + Math.max(offset.current, aim ?? 0) : undefined;
-  return { gone: open && (past || heading), onScroll, minHeight };
+  // Scrolled past their top by a hand (or the arrow) before CHECK too: the scroll edge never cuts them at rest.
+  return { gone: past || (open && heading), onScroll, minHeight };
 }
 
 /**
@@ -365,6 +397,76 @@ const TILE_LIP = 4;
 export function wholeTilesDrop(tiles: RowSpan[], roomHeight: number) {
   const cut = tiles.find((tile) => tile.top < roomHeight && tile.bottom > roomHeight + TILE_LIP);
   return cut ? Math.ceil(roomHeight - cut.top) : 0;
+}
+
+/** Air kept above a part of a question at the room's top edge when it rests scrolled (see questionStops). */
+const STOP_AIR = space.sm;
+
+/**
+ * Where a question too tall for its room even at the last step of its fit rests when the arrow scrolls it, so that
+ * every part of it in sight there is whole: its top (placed so the room's bottom edge falls between two tiles, see
+ * wholeTilesDrop), its end, and between them the places where both edges of the room fall between two parts. Each
+ * place but the top has the room's top edge just above a part (the chips, the prompt, a tile or a row of tiles), with
+ * a little air when the gap above it allows. The end is the first such place from which the rest shows whole: the
+ * question's content reaches just so far under it (`end` + `viewport`), so a hand can scroll it no further either.
+ * `rows`: where each part starts and ends in the scroll content, in order (a tile's lip included); `viewport`: the
+ * room's height with the arrow's room taken, which it keeps all through the try; `contentEnd`: where the question ends
+ * in the scroll content (the space under its last tile included), which shows at the end too, so the scroll can stop
+ * there and nowhere further. Undefined when it all shows at its top.
+ */
+export function questionStops(rows: RowSpan[], viewport: number, contentEnd = 0) {
+  // Parts side by side (a grid of tiles) make one row.
+  const spans: RowSpan[] = [];
+  for (const row of rows.filter((entry) => entry.bottom > entry.top).sort((a, b) => a.top - b.top)) {
+    const before = spans[spans.length - 1];
+    if (before && row.top < before.bottom - ROW_EDGE) {
+      before.bottom = Math.max(before.bottom, row.bottom);
+    } else {
+      spans.push({ ...row });
+    }
+  }
+  if (!spans.length || viewport <= 0) {
+    return undefined;
+  }
+  const last = spans[spans.length - 1];
+  const shows = (stop: number) => last.bottom <= stop + viewport + TILE_LIP && contentEnd <= stop + viewport + ROW_EDGE;
+  if (shows(0)) {
+    return undefined;
+  }
+  const places = spans.slice(1).map((row, index) => Math.round(Math.max(spans[index].bottom, row.top - STOP_AIR)));
+  const cutsBottom = (y: number) => spans.some((row) => row.top < y - ROW_EDGE && row.bottom > y + TILE_LIP);
+  const end = places.find(shows) ?? Math.max(0, Math.round(Math.max(last.bottom, contentEnd) - viewport));
+  const middle = places.filter((stop) => stop > ROW_EDGE && stop < end - ROW_EDGE && !cutsBottom(stop + viewport));
+  return { stops: [...new Set([0, ...middle, end])].sort((a, b) => a - b), end, rows: spans, viewport };
+}
+
+export type QuestionStops = NonNullable<ReturnType<typeof questionStops>>;
+
+/**
+ * The more-below arrow of a question too tall for its room even at the last step of its fit (see questionStops): its
+ * room stays in the bar all through the try, so the room above never changes its height (and a scroll at its end is
+ * never pulled back as the arrow goes). A tap scrolls a page down to the next place where every part in sight is
+ * whole; at the end it turns to point up, and a tap goes back to the top. `key`: the question and its try; a new one
+ * starts at the top. Pass every scroll offset to `onScroll`.
+ */
+export function useStopsArrow({ key, stops, scrollRef }: { key: string; stops: QuestionStops | undefined; scrollRef: RefObject<ScrollView | null> }) {
+  // Where it is scrolled to, and whether that is its end (only that draws anew).
+  const offset = useRef({ key, y: 0 });
+  const [endOf, setEndOf] = useState<string | undefined>(undefined);
+  const atEnd = stops !== undefined && endOf === key;
+  const onScroll = (y: number) => {
+    offset.current = { key, y };
+    const end = stops !== undefined && y >= stops.end - ROW_EDGE;
+    setEndOf((before) => (end ? key : before === key ? undefined : before));
+  };
+  const onPress = () => {
+    if (!stops) {
+      return;
+    }
+    const y = offset.current.key === key ? offset.current.y : 0;
+    scrollRef.current?.scrollTo?.({ y: atEnd ? 0 : nextRowStop(stops.stops, stops.rows, y, stops.viewport), animated: true });
+  };
+  return { direction: (atEnd ? "up" : "down") as ScrollHintDirection, onScroll, onPress };
 }
 
 /**

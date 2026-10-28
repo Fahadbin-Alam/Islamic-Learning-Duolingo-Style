@@ -18,7 +18,8 @@ import { ChoiceTile, LONG_LABEL, tightSaving, tileTextBottom, type ChoiceTileSta
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
-import { PopIn } from "../PopIn";
+import { POP_IN_DISTANCE, PopIn } from "../PopIn";
+import { SHEET_SPRING } from "../Sheet";
 import { SpeechBubble } from "../SpeechBubble";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet } from "./FeedbackSheet";
@@ -29,10 +30,12 @@ import { getActiveLanguage, t } from "../../i18n";
 import {
   centerSpace,
   fitLook,
+  foldRooms,
   laidOutBox,
   laidOutHeight,
   laidOutTop,
   overRoom,
+  questionStops,
   sameBlock,
   sameRoom,
   sheetRoom,
@@ -45,6 +48,7 @@ import {
   useQuestionScroll,
   useSheetFit,
   useSheetHeightNow,
+  useStopsArrow,
   type BlockRead,
   type LayoutBox,
   type QuestionPlaces,
@@ -212,6 +216,38 @@ export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", 
 const FADE_MS = 160;
 
 /**
+ * The room a part folded away left while the feedback sheet comes up (a grey tile, or the lines a prompt gave up as
+ * the mascot hid): it closes with the sheet's own spring, so what sits under it glides up as the sheet rises, never in
+ * one frame, and what sits above it stays put. `shut`: gone at once (the Why line opened, and the sheet grew at once).
+ */
+export function FoldGap({
+  height,
+  shut,
+  viewRef,
+  style
+}: {
+  height: number;
+  shut?: boolean;
+  viewRef?: (view: View | null) => void;
+  /** In a list spaced by its own gap, a margin of minus that gap: closed, it then takes no more room than nothing. */
+  style?: StyleProp<ViewStyle>;
+}) {
+  const size = useRef(new Animated.Value(height)).current;
+  useEffect(() => {
+    if (shut) {
+      size.stopAnimation();
+      size.setValue(0);
+      return undefined;
+    }
+    const animation = Animated.spring(size, { toValue: 0, ...SHEET_SPRING, overshootClamping: true, useNativeDriver: false });
+    animation.start();
+    return () => animation.stop();
+  }, [shut, size]);
+  // Shut in the very render that says so: on the web an animated value draws through React, one render later.
+  return <Animated.View ref={viewRef} style={[style, { height: shut ? 0 : size }]} pointerEvents="none" testID="fold-gap" />;
+}
+
+/**
  * An answer tile the feedback sheet's top edge would cut (or a chip the scroll edge would cut): it is gone while the
  * sheet is up, out of reach of taps and screen readers, and fades back for the next try. It keeps its place, so no
  * other tile moves. It goes at once, in the render that hides it: a fade would still show it, cut, as the sheet's
@@ -313,6 +349,11 @@ function sameBox(was: LayoutBox | null, now: LayoutBox) {
   return was && Math.abs(was.y - now.y) <= 1 && Math.abs(was.height - now.height) <= 1 ? was : now;
 }
 
+/** Whether two lists of parts sit in the same places, to the pixel. */
+function sameRows(was: RowSpan[], now: RowSpan[]) {
+  return was.length === now.length && was.every((row, index) => Math.abs(row.top - now[index].top) <= 1 && Math.abs(row.bottom - now[index].bottom) <= 1);
+}
+
 /**
  * The tiles' order for a try: as given the first time, then rotated so each new try differs from the one
  * before. Three or more tiles never go back to the first order, so no tile keeps its first place; two tiles
@@ -403,11 +444,11 @@ export function ExerciseView({
   const [topSpace, setTopSpace] = useState(0);
   const [tilesIn, setTilesBox] = useState<LayoutBox | null>(null);
   const [promptIn, setPromptBox] = useState<LayoutBox | null>(null);
-  const [cueIn, setCueTop] = useState<number | null>(null);
+  const [cueIn, setCueBox] = useState<LayoutBox | null>(null);
   const questionTop = space.sm + topSpace;
   const tilesBox = tilesIn && { y: tilesIn.y + questionTop, height: tilesIn.height };
   const promptBox = promptIn && { y: promptIn.y + questionTop, height: promptIn.height };
-  const cueTop = cueIn === null ? null : cueIn + questionTop;
+  const cueTop = cueIn === null ? null : cueIn.y + questionTop;
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const [tileMoves, setTileMoves] = useState(0);
   // The room above the bar (and whether the bar held the arrow then), and the question block's height (and the try and
@@ -422,7 +463,20 @@ export function ExerciseView({
   const questionRef = useRef<View>(null);
   const tilesRef = useRef<View>(null);
   const promptRef = useRef<View>(null);
+  const cueRef = useRef<View | null>(null);
   const tileRefs = useRef<Record<string, View | null>>({});
+  // A question too tall for its room even at the last step of its fit: where its parts (the chips, the prompt, each
+  // tile) sit in the scroll content with no space above it, for the places it rests when the arrow scrolls it.
+  const [partsIn, setPartsIn] = useState<{ key: string; rows: RowSpan[] } | null>(null);
+  // The room folds left while the sheet comes up (see FoldGap): each grey tile's, and the prompt's when it wraps anew
+  // as the mascot hides; and the gaps' views, to tell a tile moved by a fold from one carried up as its gap closes.
+  // `scrollLeft`: what the question's scroll can still take up of the room tiles above the green one leave (see
+  // foldRooms), from where the learner left it at CHECK; `scrolled`: it sat scrolled down then.
+  const foldGaps = useRef<{ key: string; heights: Record<string, number>; scrollLeft?: number; scrolled?: boolean }>({ key: "", heights: {} });
+  // Where the learner left the question's scroll (by hand or with the arrow), for the room folds leave at CHECK.
+  const scrolledTo = useRef({ key: "", y: 0 });
+  const [promptGap, setPromptGap] = useState<{ key: string; height: number; n: number } | null>(null);
+  const gapViews = useRef<Record<string, { view: View | null; from: number }>>({});
   // On the web the sheet's new height (its Why line opening) is known before the browser paints it.
   useSheetHeightNow({ root: rootRef, open: checked, reported: sheetHeight > 0, onHeight: setSheetHeight });
   const [whyOpened, setWhyOpened] = useState(false);
@@ -447,6 +501,19 @@ export function ExerciseView({
     // True / False tiles share a row, so the row is the tile.
     const span = !tfChoices && focusId ? stackSpan(shown.map((choice) => choice.id), tileBoxes.current, focusId, tileGap) : undefined;
     return span ? { top: tilesTop + span.top, bottom: tilesTop + span.bottom } : { top: tilesTop, bottom: tilesTop + tilesBox.height };
+  };
+  /**
+   * How far a tile slides up into its place as it first shows: never from under the room's bottom edge, so no frame
+   * shows its face cut there. A tile resting near the edge starts closer to its place; one out of sight under the edge
+   * only fades in, so it never springs up into sight either.
+   */
+  const entryRise = (id: string) => {
+    const box = tileBoxes.current[id];
+    if (!box || tilesTop === undefined || !scrollBoxHeight) {
+      return POP_IN_DISTANCE;
+    }
+    const top = tilesTop + box.y;
+    return top >= scrollBoxHeight - 1 ? 0 : Math.max(0, Math.min(POP_IN_DISTANCE, scrollBoxHeight - (top + box.height)));
   };
   const fitLayout = (shown: ExerciseChoice[]) => {
     const focus = focusIn(shown);
@@ -502,6 +569,46 @@ export function ExerciseView({
     tryKey: shownKey
   });
   const stackChoices = pickFolds ? greenOnly : softChoices;
+  // Until the sheet has said its least height the picked tile may still fold: the place worked out without that fold
+  // is not where the question goes, so it waits (a frame-less render later at most) instead of starting there, or
+  // hiding the chips for a scroll it then never makes.
+  const pickPending = checked && fit.squeeze && fit.fitted && Boolean(greenLayout) && sheetLeast === 0 && !pickFolds;
+  // A tile that folds away while the sheet comes up leaves its room, which closes with the sheet's spring: the green
+  // tile then never moves in one frame (nor the prompt), it glides up as the sheet rises. One that folds once the Why
+  // line is open goes at once, as the sheet has grown at once and the green tile must clear it in that frame.
+  // A question the learner left scrolled down scrolls up with the tiles above the green one instead, as far as it
+  // can, so the green tile stays where it showed (see foldRooms).
+  if (!checked || foldGaps.current.key !== shownKey) {
+    foldGaps.current = { key: shownKey, heights: {} };
+  }
+  if (checked && !tfChoices) {
+    const gaps = foldGaps.current;
+    if (gaps.scrollLeft === undefined) {
+      const y = scrolledTo.current.key === shownKey ? scrolledTo.current.y : 0;
+      gaps.scrollLeft = y;
+      gaps.scrolled = y > 0.5;
+    }
+    const focusIndex = shownChoices.findIndex((choice) => choice.id === (rightId ?? selectedChoiceId));
+    const newly = shownChoices
+      .map((choice, index) => ({ choice, index }))
+      .filter(({ choice }) => !stackChoices.includes(choice) && gaps.heights[choice.id] === undefined)
+      .map(({ choice, index }) => {
+        const box = tileBoxes.current[choice.id];
+        return { id: choice.id, room: !whyOpened && box ? box.height + tileGap : 0, above: index < focusIndex };
+      });
+    if (newly.length > 0) {
+      const { rooms, left } = foldRooms(newly, gaps.scrollLeft);
+      Object.assign(gaps.heights, rooms);
+      gaps.scrollLeft = left;
+    }
+  }
+  const gapRef = (id: string, from: number) => (view: View | null) => {
+    if (view) {
+      gapViews.current[id] = { view, from };
+    } else {
+      delete gapViews.current[id];
+    }
+  };
   const layout = pickFolds ? greenLayout : softLayout;
   const room = layout ? sheetRoom(layout) : undefined;
   // Only then is the sheet held to the room under the green tile.
@@ -548,11 +655,19 @@ export function ExerciseView({
     if (blockTop === undefined || tilesTop === undefined || promptAt === undefined) {
       return undefined;
     }
+    // Where a part sits with the room the folds left still open: what a gap has closed of it so far carried the
+    // part up on its glide with the sheet, which no scroll is to make up for.
+    const closedAbove = (top: number) =>
+      Object.values(gapViews.current).reduce((sum, gap) => {
+        const at = laidOutTop(gap.view, block);
+        const now = (gap.view as { offsetHeight?: unknown } | null)?.offsetHeight;
+        return at !== undefined && at <= top && typeof now === "number" ? sum + Math.max(0, gap.from - now) : sum;
+      }, 0);
     const boxes: Record<string, LayoutBox> = {};
     if (tfChoices) {
       const row = laidOutHeight(tilesRef.current);
       if (row !== undefined) {
-        boxes.row = { y: blockTop + tilesTop, height: row };
+        boxes.row = { y: blockTop + tilesTop + closedAbove(tilesTop), height: row };
       }
     } else {
       for (const choice of stackChoices) {
@@ -560,7 +675,7 @@ export function ExerciseView({
         const top = laidOutTop(view, block);
         const height = laidOutHeight(view);
         if (top !== undefined && height !== undefined) {
-          boxes[choice.id] = { y: blockTop + top, height };
+          boxes[choice.id] = { y: blockTop + top + closedAbove(top), height };
         }
       }
     }
@@ -578,7 +693,7 @@ export function ExerciseView({
     scrollRef,
     target: scrollTarget,
     ready: sheetHeight > 0 && Boolean(layout && room),
-    settling: fit.squeeze && !fit.fitted,
+    settling: (fit.squeeze && !fit.fitted) || pickPending,
     whyOpened,
     viewport: rootHeight - barHeight,
     // Scrolled on once the room under the question has grown, or a question moved down to the middle could stay put.
@@ -588,8 +703,10 @@ export function ExerciseView({
     placesNow
   });
   const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrolledTo.current = { key: shownKey, y: event.nativeEvent.contentOffset.y };
     scrollProps.onScroll(event);
     ownScroll.onScroll(event.nativeEvent.contentOffset.y);
+    stopsArrow.onScroll(event.nativeEvent.contentOffset.y);
   };
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
@@ -612,6 +729,14 @@ export function ExerciseView({
     const promptNow = read(promptRef.current);
     const tilesNow = read(tilesRef.current);
     if (promptNow) {
+      // The prompt wrapped anew, shorter, as the mascot hid while the sheet comes up: the lines it gave up leave their
+      // room under it, which closes with the sheet's spring, so the tiles glide up rather than jump.
+      // A question the learner left scrolled down scrolls up with those lines instead, so the tiles stay where they
+      // showed (see foldScrollY).
+      const lost = promptIn ? promptIn.height - promptNow.height : 0;
+      if (lost > 1 && !whyOpened && !foldGaps.current.scrolled) {
+        setPromptGap((was) => ({ key: shownKey, height: lost, n: (was?.n ?? 0) + 1 }));
+      }
       setPromptBox((was) => sameBox(was, promptNow));
     }
     if (tilesNow) {
@@ -657,22 +782,39 @@ export function ExerciseView({
   const hideMascot = mascotAway || fit.squeeze;
   // One long answer makes the whole set use the smaller text, so the tiles match.
   const longChoices = choices.some((choice) => choice.label.length > LONG_LABEL);
-  const extraBottom = checked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : space.xxl;
   // A question taller than its room would show a tile cut by the scroll view's bottom edge, the arrow under it, and
   // the answers under that out of sight. It takes the steps of its fit instead (see useQuestionFit): tight tiles, then
   // the smaller text, a smaller prompt, smaller gaps, only as far as it needs to show every answer whole, from the frame
   // it first shows. Read while unchecked and kept through the sheet, so no tile moves on CHECK; a new try reads it
-  // again. A question too tall even then keeps its usual look and scrolls as before, placed so that the room's edge
-  // falls between two tiles: every tile in sight shows whole.
+  // again. A question too tall even then keeps its usual look and scrolls, placed so that the room's edge falls between
+  // two tiles: every tile in sight shows whole. The arrow scrolls it a page at a time to the next place where every
+  // part in sight is whole, the last of them its end (see questionStops).
   const arrowGrowth = scrollHintGrowth(BAR_GAP);
+  const tall = sizing.settled && sizing.overflow;
+  const arrowRoom = roomIn ? roomIn.height + (roomIn.hint ? arrowGrowth : 0) - arrowGrowth : 0;
+  const stops =
+    tall && partsIn?.key === shownKey && arrowRoom > 0
+      ? questionStops(
+          partsIn.rows.map((row) => ({ top: row.top + topSpace, bottom: row.bottom + topSpace })),
+          arrowRoom,
+          space.sm + topSpace + questionHeight
+        )
+      : undefined;
+  const stopsArrow = useStopsArrow({ key: shownKey, stops, scrollRef });
+  // Its content reaches just so far under its end, so a hand scrolls it no further either.
+  const restBottom = stops ? Math.max(0, stops.end + arrowRoom - (space.sm + topSpace + questionHeight)) : space.xxl;
+  const extraBottom = checked && sheetHeight ? Math.max(space.xxl, sheetHeight - barHeight + space.lg) : restBottom;
   // The arrow's room stays in the bar while the sheet is up (the sheet covers the bar), so the room above it keeps its
-  // height on CHECK and shows nothing more of a tile that was out of sight.
+  // height on CHECK and shows nothing more of a tile that was out of sight. A question too tall even at the last step
+  // keeps it all through its try: the arrow shows from its first frame and turns to point up at the end, and the room
+  // never changes its height under it, so the end of a scroll is never pulled back as the arrow goes.
   const restMore = useRef(false);
   if (!checked) {
     restMore.current = more;
   }
-  const holdHint = checked && restMore.current;
-  const hintShown = (more && !checked) || holdHint;
+  const holdHint = tall || (checked && restMore.current);
+  const hintVisible = !checked && (tall || more);
+  const hintShown = hintVisible || holdHint;
   // What was drawn in the last frame: a reported size belongs to it.
   const drawn = useRef({ key: shownKey, step: sizing.step, hint: hintShown });
   const known = useRef<{ key: string; content: number } | undefined>(undefined);
@@ -686,6 +828,32 @@ export function ExerciseView({
     }
     const boxes = shownChoices.map((choice) => box(choice.id));
     return boxes.every(Boolean) ? boxes.map((tile) => ({ top: top + tile!.y, bottom: top + tile!.y + tile!.height })) : undefined;
+  };
+  /**
+   * Where the chips, the prompt and each tile (or the row of True / False) start and end in the scroll content, with no
+   * space above the question: read before the frame is drawn where a view can say its place at once, else as reported.
+   */
+  const partRows = (now: boolean): RowSpan[] | undefined => {
+    const block = questionRef.current;
+    // `reported`: the view's own layout report, inside the view that holds it, which starts `within` down the question.
+    const at = (view: View | null, reported: LayoutBox | null | undefined, within = 0): RowSpan | undefined => {
+      const y = now ? laidOutTop(view, block) : undefined;
+      const height = now ? laidOutHeight(view) : undefined;
+      const box = y !== undefined && height !== undefined ? { y, height } : reported ? { y: within + reported.y, height: reported.height } : undefined;
+      return box ? { top: space.sm + box.y, bottom: space.sm + box.y + box.height } : undefined;
+    };
+    const cues = review || shownAttempt > 0;
+    const cue = cues ? at(cueRef.current, cueIn) : undefined;
+    const promptRow = at(promptRef.current, promptIn);
+    const tilesRow = at(tilesRef.current, tilesIn);
+    if (!promptRow || !tilesRow || (cues && !cue)) {
+      return undefined;
+    }
+    const tiles = tfChoices ? [tilesRow] : shownChoices.map((choice) => at(tileRefs.current[choice.id], tileBoxes.current[choice.id], tilesRow.top - space.sm));
+    if (tiles.some((tile) => !tile)) {
+      return undefined;
+    }
+    return [...(cue ? [cue] : []), promptRow, ...(tiles as RowSpan[])];
   };
   useLayoutEffect(() => {
     drawn.current = { key: shownKey, step: sizing.step, hint: hintShown };
@@ -730,9 +898,16 @@ export function ExerciseView({
       know(room, content);
     }
     known.current = now ? { key: shownKey, content } : known.current;
+    // Too tall even at the last step: where its parts sit, for the places the arrow scrolls it to.
+    if (sizing.settled && sizing.overflow) {
+      const rows = partRows(now);
+      if (rows) {
+        setPartsIn((before) => (before && before.key === shownKey && sameRows(before.rows, rows) ? before : { key: shownKey, rows }));
+      }
+    }
     // Not read again only because the arrow came or went: the bar's new height is read with the next step, or reported.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checked, shownKey, sizing.step, sizing.settled, roomIn, blockIn, topSpace]);
+  }, [checked, shownKey, sizing.step, sizing.settled, roomIn, blockIn, topSpace, tilesIn, promptIn, cueIn, tileMoves]);
   // A short question sits in the middle of the screen, not at the top; one too tall even at the last step of its fit
   // sits as low as puts the room's edge between two tiles. Read while unchecked and kept through the sheet, so the
   // question never moves when CHECK is tapped or tiles fold away.
@@ -770,7 +945,18 @@ export function ExerciseView({
             testID="exercise-question"
           >
             {review || shownAttempt > 0 ? (
-              <FadeUnderSheet hidden={ownScroll.gone} style={[styles.cueRow, look.smallGaps ? styles.cueRowSmallGaps : null]} onLayout={(event) => setCueTop(Math.round(event.nativeEvent.layout.y))} testID="exercise-cues">
+              <FadeUnderSheet
+                hidden={ownScroll.gone}
+                style={[styles.cueRow, look.smallGaps ? styles.cueRowSmallGaps : null]}
+                onLayout={(event) => {
+                  const { y, height } = event.nativeEvent.layout;
+                  setCueBox((was) => sameBox(was, { y: Math.round(y), height: Math.round(height) }));
+                }}
+                viewRef={(view) => {
+                  cueRef.current = view;
+                }}
+                testID="exercise-cues"
+              >
                 {review ? (
                   <PopIn style={[styles.cueChip, styles.reviewChip]}>
                     <Icon name="practice" size={18} />
@@ -805,6 +991,9 @@ export function ExerciseView({
                 smallGaps={look.smallGaps}
               />
             </View>
+            {checked && promptGap?.key === shownKey ? (
+              <FoldGap key={`prompt-gap-${promptGap.n}`} height={promptGap.height} shut={whyOpened} viewRef={gapRef(`prompt-${promptGap.n}`, promptGap.height)} />
+            ) : null}
 
             {tfChoices ? (
               <View ref={tilesRef} style={styles.squareRow} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
@@ -829,30 +1018,41 @@ export function ExerciseView({
               </View>
             ) : (
               <View ref={tilesRef} style={styles.stack} onLayout={onTilesLayout} pointerEvents={checked ? "none" : "auto"} testID="exercise-tiles">
-                {stackChoices.map((choice, index) => (
-                  <FadeUnderSheet
-                    key={choice.id}
-                    hidden={fadedIds.includes(choice.id)}
-                    onLayout={onTileLayout(choice.id)}
-                    viewRef={(view) => {
-                      tileRefs.current[choice.id] = view;
-                    }}
-                    style={compact ? (look.smallGaps ? styles.tileGapSmallCompact : styles.tileGapCompact) : look.smallGaps ? styles.tileGapSmall : styles.tileGap}
-                  >
-                    <PopIn from="up" delay={80 + index * 60}>
-                      <ChoiceTile
-                        label={choice.label}
-                        compact={compact}
-                        tight={look.tight}
-                        long={longChoices}
-                        smallText={look.smallText}
-                        state={tileState(choice)}
-                        onPress={() => press(choice)}
-                        testID={`choice-${choice.id}`}
+                {shownChoices.map((choice, index) =>
+                  !stackChoices.includes(choice) ? (
+                    foldGaps.current.heights[choice.id] ? (
+                      <FoldGap
+                        key={`gap-${choice.id}`}
+                        height={foldGaps.current.heights[choice.id]}
+                        shut={whyOpened}
+                        viewRef={gapRef(choice.id, foldGaps.current.heights[choice.id])}
                       />
-                    </PopIn>
-                  </FadeUnderSheet>
-                ))}
+                    ) : null
+                  ) : (
+                    <FadeUnderSheet
+                      key={choice.id}
+                      hidden={fadedIds.includes(choice.id)}
+                      onLayout={onTileLayout(choice.id)}
+                      viewRef={(view) => {
+                        tileRefs.current[choice.id] = view;
+                      }}
+                      style={compact ? (look.smallGaps ? styles.tileGapSmallCompact : styles.tileGapCompact) : look.smallGaps ? styles.tileGapSmall : styles.tileGap}
+                    >
+                      <PopIn from="up" delay={80 + index * 60} distance={entryRise(choice.id)}>
+                        <ChoiceTile
+                          label={choice.label}
+                          compact={compact}
+                          tight={look.tight}
+                          long={longChoices}
+                          smallText={look.smallText}
+                          state={tileState(choice)}
+                          onPress={() => press(choice)}
+                          testID={`choice-${choice.id}`}
+                        />
+                      </PopIn>
+                    </FadeUnderSheet>
+                  )
+                )}
               </View>
             )}
           </View>
@@ -860,7 +1060,10 @@ export function ExerciseView({
       </View>
 
       <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
-        <LessonBottomBar bottomInset={bottomInset} scrollHint={{ visible: more && !checked, hold: holdHint, onPress: scrollDown }}>
+        <LessonBottomBar
+          bottomInset={bottomInset}
+          scrollHint={{ visible: hintVisible, hold: holdHint, onPress: tall ? stopsArrow.onPress : scrollDown, direction: tall ? stopsArrow.direction : undefined, still: tall }}
+        >
           {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
           <GameButton label={t("Check")} fullWidth sound={false} disabled={!selectedChoiceId || checked} onPress={onCheck} testID="exercise-check" />
         </LessonBottomBar>

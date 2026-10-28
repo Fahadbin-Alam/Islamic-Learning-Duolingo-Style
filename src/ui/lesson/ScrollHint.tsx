@@ -109,21 +109,31 @@ export function ScrollHint({
   visible,
   onPress,
   direction = "down",
+  still,
   testID = "scroll-more"
 }: {
   visible: boolean;
   onPress: () => void;
   direction?: ScrollHintDirection;
+  /**
+   * Shows and goes at once, without its spring: an arrow that comes with a question's first frame (it is drawn whole in
+   * that frame, not grown in after it) and goes as a sheet covers it.
+   */
+  still?: boolean;
   testID?: string;
 }) {
   const shown = useRef(new Animated.Value(visible ? 1 : 0)).current;
   const bob = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    if (still) {
+      shown.setValue(visible ? 1 : 0);
+      return undefined;
+    }
     const animation = Animated.spring(shown, { toValue: visible ? 1 : 0, friction: 6, tension: 140, useNativeDriver: true });
     animation.start();
     return () => animation.stop();
-  }, [shown, visible]);
+  }, [shown, still, visible]);
 
   useEffect(() => {
     if (!visible) {
@@ -148,7 +158,9 @@ export function ScrollHint({
   return (
     <Animated.View
       pointerEvents={visible ? "box-none" : "none"}
-      style={[styles.root, { opacity: shown, transform: [{ scale }] }]}
+      // A value set above shows only after another render (on the web an animated value draws through React), so a
+      // still arrow is drawn as it is by this very render.
+      style={[styles.root, still ? { opacity: visible ? 1 : 0 } : { opacity: shown, transform: [{ scale }] }]}
       testID={visible ? testID : undefined}
     >
       <Tappable onPress={onPress} pressScale={0.88} hitSlop={8} accessibilityLabel={up ? t("Scroll up") : t("Scroll down")} style={styles.button}>
@@ -172,6 +184,7 @@ export function ScrollHintGap({
   onPress,
   gap,
   direction,
+  still,
   testID,
   gapTestID
 }: {
@@ -180,6 +193,8 @@ export function ScrollHintGap({
   onPress: () => void;
   gap: number;
   direction?: ScrollHintDirection;
+  /** The hint shows and goes at once (see ScrollHint). */
+  still?: boolean;
   /** The hint's own testID (while it shows). */
   testID?: string;
   /** The gap's testID. */
@@ -187,7 +202,7 @@ export function ScrollHintGap({
 }) {
   return (
     <View pointerEvents="box-none" style={[styles.gap, { height: visible || hold ? gap + scrollHintGrowth(gap) : gap }]} testID={gapTestID}>
-      <ScrollHint visible={visible} onPress={onPress} direction={direction} testID={testID} />
+      <ScrollHint visible={visible} onPress={onPress} direction={direction} still={still} testID={testID} />
     </View>
   );
 }

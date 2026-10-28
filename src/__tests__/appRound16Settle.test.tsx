@@ -108,20 +108,23 @@ describe("the question's own scroll after CHECK", () => {
     expect(sent).toEqual([{ y: 56, animated: false }]);
   });
 
-  it("once the Why line is open, goes on at once from where the fold left it, as the sheet has grown at once", async () => {
+  it("once the Why line is open, never goes back to a place less far, so the prompt moved up at CHECK never moves back down", async () => {
     const sent: Sent[] = [];
     let onScroll: (y: number) => void = () => undefined;
     const { rerender } = await render(<Scroller open tops={{ green: 300 }} aim={52} placesAim={52} sent={sent} onScrollRef={(scroll) => (onScroll = scroll)} />);
     await act(async () => onScroll(52));
     sent.length = 0;
-    // The Why line opens and the mascot hides: the prompt wraps 70 px shorter. The scroll can take 52 of that (to the
-    // top: where the question goes is not yet known from the places as laid out); the question then goes to 32 in
-    // the same frame, so nothing moves down and back up.
-    await rerender(<Scroller open whyOpened tops={{ green: 230 }} aim={32} sent={sent} />);
-    expect(sent).toEqual([
-      { y: 0, animated: false },
-      { y: 32, animated: false }
-    ]);
+    // The Why line opens and the mascot hides: the prompt wraps 70 px shorter, and the sheet's room alone would put
+    // the question at 32. It stays at 52: the green tile, risen with the fold, sits 20 px higher above the sheet.
+    await rerender(<Scroller open whyOpened tops={{ green: 230 }} aim={32} placesAim={32} sent={sent} />);
+    expect(sent).toEqual([]);
+    // A place further down than where it is still sends it on, at once, as the sheet has grown at once.
+    await rerender(<Scroller open whyOpened tops={{ green: 230 }} aim={90} placesAim={90} sent={sent} />);
+    expect(sent).toEqual([{ y: 90, animated: false }]);
+    // With the Why line shut again the sheet shrinks, and the question goes with it.
+    sent.length = 0;
+    await rerender(<Scroller open tops={{ green: 230 }} aim={32} placesAim={32} sent={sent} />);
+    expect(sent).toEqual([{ y: 32, animated: true }]);
   });
 
   describe("when the fold comes before its new place is known", () => {
@@ -137,34 +140,32 @@ describe("the question's own scroll after CHECK", () => {
       global.requestAnimationFrame = realFrame;
     });
 
-    async function foldThenPlace(frameBetween: boolean) {
+    async function foldThenPlace(frameBetween: boolean, why: boolean) {
       const sent: Sent[] = [];
       let onScroll: (y: number) => void = () => undefined;
-      const { rerender } = await render(<Scroller open whyOpened tops={{ green: 300 }} aim={52} placesAim={52} sent={sent} onScrollRef={(scroll) => (onScroll = scroll)} />);
+      const { rerender } = await render(<Scroller open whyOpened={why} tops={{ green: 300 }} aim={52} placesAim={52} sent={sent} onScrollRef={(scroll) => (onScroll = scroll)} />);
       await act(async () => onScroll(52));
       sent.length = 0;
-      // The Why line opens and the mascot hides: the prompt wraps 70 px shorter while the question still settles.
-      await rerender(<Scroller open whyOpened tops={{ green: 230 }} sent={sent} />);
+      // The prompt wraps 70 px shorter (the mascot hides) while the question still settles.
+      await rerender(<Scroller open whyOpened={why} tops={{ green: 230 }} sent={sent} />);
       if (frameBetween) {
         frames.splice(0).forEach((run) => run());
       }
       // Its new place (32) is known.
-      await rerender(<Scroller open whyOpened tops={{ green: 230 }} aim={32} sent={sent} />);
+      await rerender(<Scroller open whyOpened={why} tops={{ green: 230 }} aim={32} sent={sent} />);
       return sent;
     }
 
-    it("goes on at once when the place is found before the frame is drawn, so nothing moves down and back up", async () => {
-      expect(await foldThenPlace(false)).toEqual([
-        { y: 0, animated: false },
-        { y: 32, animated: false }
-      ]);
-    });
-
-    it("glides there when it is found only after a frame was drawn", async () => {
-      expect(await foldThenPlace(true)).toEqual([
+    it("keeps the green tile where it showed, then glides on, while the Why line is shut", async () => {
+      expect(await foldThenPlace(true, false)).toEqual([
         { y: 0, animated: false },
         { y: 32, animated: true }
       ]);
+    });
+
+    it("never takes the question back once the Why line is open, whether the place is found before the frame is drawn or after", async () => {
+      expect(await foldThenPlace(false, true)).toEqual([]);
+      expect(await foldThenPlace(true, true)).toEqual([]);
     });
   });
 

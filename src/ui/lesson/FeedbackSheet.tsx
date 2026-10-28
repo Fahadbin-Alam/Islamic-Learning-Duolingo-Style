@@ -483,6 +483,7 @@ export function FeedbackSheet({
       backdrop={false}
       dismissOnBackdrop={false}
       bottomInset={bottomInset}
+      noOvershoot
       style={slim ? { paddingTop: SLIM_PAD_TOP, paddingBottom: SLIM_PAD_BOTTOM + inset } : undefined}
       testID={testID}
     >

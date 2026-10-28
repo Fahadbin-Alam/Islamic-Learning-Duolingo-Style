@@ -22,6 +22,11 @@ export type SheetProps = {
   portal?: boolean;
   /** Extra bottom padding for the home indicator. */
   bottomInset?: number;
+  /**
+   * Comes up with its spring but never past its place: what is kept clear of its top edge where it rests (the green
+   * tile above the feedback sheet) is never crossed by it on the way up either.
+   */
+  noOvershoot?: boolean;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -35,6 +40,9 @@ const TONE_BG: Record<SheetTone, string> = {
 const DEFAULT_INSET = Platform.OS === "ios" ? 30 : 16;
 // Room left above a lifted sheet for the status bar.
 const KEYBOARD_TOP_GAP = 48;
+
+/** The spring a sheet comes up with. What makes room for it on its way up (see FoldGap) closes with the same spring. */
+export const SHEET_SPRING = { friction: 9, tension: 80 };
 
 /**
  * How far the on-screen keyboard reaches up over the window, in points (0 when it is closed).
@@ -77,6 +85,7 @@ export function Sheet({
   dismissOnBackdrop = true,
   portal,
   bottomInset = DEFAULT_INSET,
+  noOvershoot,
   style,
   testID
 }: SheetProps) {
@@ -94,7 +103,7 @@ export function Sheet({
   useEffect(() => {
     if (visible) {
       setMounted(true);
-      const animation = Animated.spring(progress, { toValue: 1, friction: 9, tension: 80, useNativeDriver: true });
+      const animation = Animated.spring(progress, { toValue: 1, ...SHEET_SPRING, overshootClamping: noOvershoot, useNativeDriver: true });
       animation.start();
       return () => animation.stop();
     }
@@ -105,7 +114,7 @@ export function Sheet({
       }
     });
     return () => animation.stop();
-  }, [progress, visible]);
+  }, [noOvershoot, progress, visible]);
 
   // The content mounts on the very render that opens the sheet, not one render later, so a child that acts when it
   // opens (a list that scrolls to a row) finds its views already there. It unmounts once it has slid away.
