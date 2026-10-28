@@ -7,6 +7,7 @@ import {
   findNodeByLessonId
 } from "../data/course";
 import { asksSameLine, givesAway as namesAnswerOf } from "../data/scalableCurriculum";
+import { withRamadanDay } from "../data/ramadanCalendar";
 import type {
   Challenge,
   LearningCourse,
@@ -290,10 +291,12 @@ export function completeLesson(user: UserProfile, lesson: Lesson, stars?: number
     ? [...user.completedNodeIds, node.id]
     : user.completedNodeIds;
   const withXp = keepStreak(addXp(user, getLessonXp(lesson, user), now), now);
+  // A Ramadan lesson done during Ramadan counts the day for the Ramadan streak.
+  const withRamadan = node?.topicId === "ramadan" ? withRamadanDay(withXp, now) : withXp;
   const nodeStars = withNodeStars(user, node ? [node.id] : [], stars);
 
   return {
-    ...withXp,
+    ...withRamadan,
     completedLessonIds,
     completedNodeIds,
     ...(nodeStars ? { nodeStars } : {})

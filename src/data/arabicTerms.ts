@@ -3,6 +3,7 @@ import { COURSE } from "./course";
 import { hadithBasicsNodeId } from "./hadithBasics";
 import { UNIT_LEADS, importedPersonSlug } from "./importedNotes";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
+import { RAMADAN } from "./ramadanDays";
 
 // Every term here was checked by two reviewers. Only add a term you are sure of.
 // Style: topic and unit banners are written without vowel marks. Every word on a node card or a learn card
@@ -38,7 +39,8 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   prophets: { ar: "قصص الأنبياء", translit: "Qasas al-anbiya", meaning: "Stories of the prophets" },
   // The topic holds women of the Quran, the Mothers of the Believers and women of the Prophet's ﷺ family.
   women_of_the_book: { ar: "نساء خالدات", translit: "Nisa' khalidat", meaning: "Great women" },
-  hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's ﷺ sayings" }
+  hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's ﷺ sayings" },
+  ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" }
 };
 
 export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
@@ -149,7 +151,9 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "hadith-for-kids": { ar: "أحاديث للأطفال", translit: "Ahadith lil-atfal", meaning: "Hadith for children" },
   "notes-hadith-hadith-from-your-notes-1": { ar: "في حفظ الله", translit: "Fi hifzillah", meaning: "In Allah's care" },
   // The hadith about marriage, the last unit of the Marriage topic (keeps the id of the imported unit)
-  "notes-hadith-hadith-from-your-notes-2": { ar: "الزواج في السنة", translit: "Az-zawaj fis-sunnah", meaning: "Marriage in the Sunnah" }
+  "notes-hadith-hadith-from-your-notes-2": { ar: "الزواج في السنة", translit: "Az-zawaj fis-sunnah", meaning: "Marriage in the Sunnah" },
+  // Ramadan (src/data/ramadanDays.ts): the three units of the 30-day path
+  ...RAMADAN.branchArabic
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -399,6 +403,9 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   [hadithBasicsNodeId("bukhari:69")]: { ar: "يَسِّرُوا وَلَا تُعَسِّرُوا", translit: "Yassiru wa la tu'assiru", meaning: "Make it easy, not hard" },
   [hadithBasicsNodeId("bukhari:5027")]: { ar: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ", translit: "Khayrukum man ta'allamal-Qur'ana wa 'allamah", meaning: "Best: who learns and teaches the Quran" },
   [hadithBasicsNodeId("muslim:2564c")]: { ar: "قُلُوبِكُمْ وَأَعْمَالِكُمْ", translit: "Qulubikum wa a'malikum", meaning: "Your hearts and your deeds" },
+
+  // Ramadan (src/data/ramadanDays.ts): a phrase from each day's ayah or hadith
+  ...RAMADAN.nodeArabic
 };
 
 // Lessons imported from notes (scripts/obsidian-import) get their term from what they are about:
@@ -629,7 +636,7 @@ const LEARN_FORMS = [
   "أَنَسُ بْنُ مَالِكٍ", "النِّسَاءُ فِي الْقُرْآنِ", "أُمَّهَاتُ الْمُؤْمِنِينَ",
   "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
   "الْحَدِيثُ", "الْأُمَّهَاتُ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
-  "الزَّوَاجُ فِي السُّنَّةِ",
+  "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));

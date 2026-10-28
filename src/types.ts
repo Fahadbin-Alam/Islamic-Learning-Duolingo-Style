@@ -11,7 +11,8 @@ export type TopicId =
   | "prophets"
   | "women_of_the_book"
   | "quran_tafseer"
-  | "hadith";
+  | "hadith"
+  | "ramadan";
 
 export type CharacterVariant = "hijabi" | "muslim_man";
 
@@ -219,6 +220,8 @@ export interface UserProfile {
   pathFocusIds?: Partial<Record<TopicId, string>>;
   claimedRewardIds?: string[];
   activeSubscriptionId?: string;
+  /** Local days (YYYY-MM-DD) of this Ramadan with a Ramadan lesson done, for the Ramadan streak (ramadanCalendar.ts). */
+  ramadanDays?: string[];
 }
 
 export interface LearningCourse {

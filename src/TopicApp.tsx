@@ -149,6 +149,7 @@ import {
   LearnPath,
   PracticeHub,
   ProfileView,
+  RamadanBanner,
   RefillSheet,
   RewardPop,
   SettingsSheet,
@@ -163,6 +164,8 @@ import {
 } from "./ui/screens";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
+import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
+import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import type {
   AccountRole,
   Challenge,
@@ -860,10 +863,42 @@ export default function TopicApp() {
 
     return { units, chestStops };
   }, [sectionNodes, selectedSection, state.user, testOutUnitIds]);
+  // Ramadan mode: from two weeks before Ramadan until Eid, the Learn path opens with the Ramadan banner and the
+  // topic picker puts Ramadan first. Worked out again whenever the learner changes, so a new day shows on the next lesson.
+  const season = useMemo(() => ramadanSeason(), [state.user]);
+  const ramadanBanner = useMemo(() => {
+    const user = state.user;
+    const ramadan = localizedSections.find((section) => section.topicId === RAMADAN_TOPIC);
+
+    if (!season || !user || !ramadan) {
+      return undefined;
+    }
+
+    const completed = new Set(user.completedNodeIds);
+    const next = pathNodes.find((node) => node.topicId === RAMADAN_TOPIC && node.status === "current");
+
+    return (
+      <RamadanBanner
+        season={season}
+        accent={ramadan.accentColor}
+        streak={ramadanStreak(user)}
+        doneToday={didRamadanToday(user)}
+        done={ramadan.nodes.filter((node) => completed.has(node.id)).length}
+        total={ramadan.nodes.length}
+        onPlay={
+          next
+            ? () => {
+                dispatch({ type: "select_topic", topicId: RAMADAN_TOPIC });
+                void startLesson(next);
+              }
+            : undefined
+        }
+      />
+    );
+  }, [localizedSections, pathNodes, season, state.user]);
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
-
-    return localizedSections.map((section) => ({
+    const topics = localizedSections.map((section) => ({
       topicId: section.topicId,
       title: section.title,
       accent: section.accentColor,
@@ -871,7 +906,9 @@ export default function TopicApp() {
       done: section.nodes.filter((node) => completed.has(node.id)).length,
       total: section.nodes.length
     }));
-  }, [localizedSections, state.user?.completedNodeIds]);
+
+    return season ? [...topics.filter((topic) => topic.topicId === RAMADAN_TOPIC), ...topics.filter((topic) => topic.topicId !== RAMADAN_TOPIC)] : topics;
+  }, [localizedSections, season, state.user?.completedNodeIds]);
 
   const currentLessonSection = useMemo(() => {
     if (!state.activeSession) {
@@ -2297,6 +2334,7 @@ export default function TopicApp() {
             onTestOut={(unitId, nodeId) => void startBranchTestOut(unitId, undefined, 0, nodeId)}
             onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
             onNextTopic={() => setTopicPickerVisible(true)}
+            header={ramadanBanner}
           />
         )}
         {state.screen === "lesson_teach" && lesson && lessonShell(
@@ -2841,7 +2879,7 @@ function mapTopicToFoundationCategory(topicId?: TopicId, branchId?: string): Fou
     return "iman";
   }
 
-  if (topicId === "fasting") {
+  if (topicId === "fasting" || topicId === "ramadan") {
     return "fasting";
   }
 
