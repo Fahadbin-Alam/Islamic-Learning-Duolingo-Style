@@ -129,20 +129,29 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   (their lip, border and padding); only when nothing gives the sheet its room and its edge would cross the
   green tile's text (or the row of True and False) is that tile gone too, so the edge never cuts a line of it,
   and the sheet's "Correct answer" line names it. When the learner opens the Why line and the sheet grows,
-  the question moves in that same frame, not after it; it glides as the sheet comes up or shrinks. It only ever goes where it ends: it waits
-  while a hiding mascot lets the prompt wrap anew, and its content never gets shorter under it on the way, so
+  the question moves in that same frame, not after it; it glides as the sheet comes up or shrinks. The sheet's
+  height is read before its first frame is drawn, so the question starts to move in the frame the sheet opens.
+  When tiles fold above the green tile (or the prompt wraps anew), the question scrolls up with them in that
+  same frame, so the green tile stays where it showed, then glides on to its place; once the Why line is open
+  it goes on at once, in that frame, so the prompt never moves down and back up. The Why text fades in where
+  it stays, with no slide, so its box never cuts a line of it. It only ever goes where it ends: it waits
+  while a hiding mascot lets the prompt wrap anew (on the web the new prompt is read before that frame is
+  drawn, so the wait ends in it), and its content never gets shorter under it on the way, so
   it never jumps or turns back. The sheet is never taller than its room, not even in the frame its Why line
   opens. The small chips above the prompt
   (REVIEW, "Try again!", practice's topic label) are gone while the question sits scrolled past their top,
   and already from the frame its own scroll (CHECK, Why) starts towards a place past them, so no frame
   shows them cut; they are back, whole and in place, when it is scrolled up to them. In the ordering game the prompt stays on screen above the sheet, placed tiles the sheet would
-  cut fold away before its edge reaches them as it rises (and only ever more while it is up) until TRY AGAIN, and the "Correct order" list shows whole rows only: it starts at the top,
+  cut fold away before its edge reaches them as it rises (and only ever more while it is up) until TRY AGAIN;
+  the steps that come back under it then, and the tiles to place again, show once it has gone and fade in. The "Correct order" list shows whole rows only: it starts at the top,
   scrolls by whole rows, and its arrow points down while rows are hidden and up at the end. The rows the
   learner had in another place get a white band and a red ✕ in that list, and the list opens where they
-  show, so the mistake is in sight even when its red tiles fold away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`).
+  show, so the mistake is in sight even when its red tiles fold away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`);
+  in its sorting and matching games a row the list sheet's top edge would cut is gone while the sheet is up.
   Right to left (Urdu, Arabic) the screens mirror: the "more below" arrow sits in the middle of its gap the
   same in both directions, and a row tile's text starts where its line starts (on the right), Latin words and
-  numbers in it too; True and False keep their centred text.
+  numbers in it too; True and False keep their centred text. Scores ("2/6", "10/40") read left to right in
+  every language.
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
 ## Copy bank

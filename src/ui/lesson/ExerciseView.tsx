@@ -31,6 +31,7 @@ import {
   fitLook,
   laidOutBox,
   laidOutHeight,
+  laidOutTop,
   overRoom,
   sameBlock,
   sameRoom,
@@ -46,6 +47,7 @@ import {
   useSheetHeightNow,
   type BlockRead,
   type LayoutBox,
+  type QuestionPlaces,
   type RoomRead,
   type RowSpan
 } from "./sheetFit";
@@ -306,6 +308,11 @@ function isFalseChoice(choice: ExerciseChoice) {
   return choice.id.toLowerCase() === "false" || choice.label.trim().toLowerCase() === "false";
 }
 
+/** The box it was, unless the new one moved or grew by more than a pixel (a box read at once and one reported round differently). */
+function sameBox(was: LayoutBox | null, now: LayoutBox) {
+  return was && Math.abs(was.y - now.y) <= 1 && Math.abs(was.height - now.height) <= 1 ? was : now;
+}
+
 /**
  * The tiles' order for a try: as given the first time, then rotated so each new try differs from the one
  * before. Three or more tiles never go back to the first order, so no tile keeps its first place; two tiles
@@ -414,6 +421,7 @@ export function ExerciseView({
   const scrollBoxRef = useRef<View>(null);
   const questionRef = useRef<View>(null);
   const tilesRef = useRef<View>(null);
+  const promptRef = useRef<View>(null);
   const tileRefs = useRef<Record<string, View | null>>({});
   // On the web the sheet's new height (its Why line opening) is known before the browser paints it.
   useSheetHeightNow({ root: rootRef, open: checked, reported: sheetHeight > 0, onHeight: setSheetHeight });
@@ -529,6 +537,42 @@ export function ExerciseView({
   // above the prompt: they are gone while it sits scrolled past their top (and from the render that starts its own
   // scroll past them), so the scroll view's top edge never cuts them, and back once it is scrolled up to them.
   const scrollTarget = layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  // The tiles as laid out right now, read before the frame is drawn where a view can say its place at once: a fold
+  // above the green tile (or the prompt wrapping anew as the mascot hides) is seen in the frame it happens, and the
+  // question keeps the green tile where it showed (see foldScrollY).
+  const placesNow = (): QuestionPlaces | undefined => {
+    const block = questionRef.current;
+    const blockTop = laidOutBox(block)?.y;
+    const tilesTop = laidOutTop(tilesRef.current, block);
+    const promptAt = laidOutTop(promptRef.current, block);
+    if (blockTop === undefined || tilesTop === undefined || promptAt === undefined) {
+      return undefined;
+    }
+    const boxes: Record<string, LayoutBox> = {};
+    if (tfChoices) {
+      const row = laidOutHeight(tilesRef.current);
+      if (row !== undefined) {
+        boxes.row = { y: blockTop + tilesTop, height: row };
+      }
+    } else {
+      for (const choice of stackChoices) {
+        const view = tileRefs.current[choice.id];
+        const top = laidOutTop(view, block);
+        const height = laidOutHeight(view);
+        if (top !== undefined && height !== undefined) {
+          boxes[choice.id] = { y: blockTop + top, height };
+        }
+      }
+    }
+    const focus = tfChoices ? "row" : rightId ?? selectedChoiceId;
+    const box = focus ? boxes[focus] : undefined;
+    const now = box && rootHeight ? { visibleBottom: rootHeight, promptTop: blockTop + promptAt, focusTop: box.y, focusBottom: box.y + box.height } : undefined;
+    const tops: Record<string, number> = {};
+    Object.entries(boxes).forEach(([id, entry]) => {
+      tops[id] = entry.y;
+    });
+    return { tops, focus, aim: now && sheetHeight > 0 ? sheetScrollY(now, sheetHeight, sheetRoom(now).furthest) : undefined };
+  };
   const ownScroll = useQuestionScroll({
     open: checked,
     scrollRef,
@@ -540,7 +584,8 @@ export function ExerciseView({
     // Scrolled on once the room under the question has grown, or a question moved down to the middle could stay put.
     contentHeight,
     // Where the chips sit in the scroll content, the space that centers the question included.
-    partTop: cueTop
+    partTop: cueTop,
+    placesNow
   });
   const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrollProps.onScroll(event);
@@ -549,8 +594,30 @@ export function ExerciseView({
 
   const onTilesLayout = (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
-    setTilesBox({ y: Math.round(y), height: Math.round(height) });
+    setTilesBox((was) => sameBox(was, { y: Math.round(y), height: Math.round(height) }));
   };
+  // While the sheet is up, the prompt and the tiles are also read before the frame is drawn where a view can say its
+  // place at once: a prompt wrapped anew as the mascot hides is known in the commit it happens, so the squeezed
+  // question has settled (and goes to its new place) before that frame shows, not a frame after.
+  useLayoutEffect(() => {
+    if (!checked) {
+      return;
+    }
+    const block = questionRef.current;
+    const read = (view: View | null): LayoutBox | undefined => {
+      const y = laidOutTop(view, block);
+      const height = laidOutHeight(view);
+      return y === undefined || height === undefined ? undefined : { y, height };
+    };
+    const promptNow = read(promptRef.current);
+    const tilesNow = read(tilesRef.current);
+    if (promptNow) {
+      setPromptBox((was) => sameBox(was, promptNow));
+    }
+    if (tilesNow) {
+      setTilesBox((was) => sameBox(was, tilesNow));
+    }
+  });
   const onTileLayout = (id: string) => (event: LayoutChangeEvent) => {
     const { y, height } = event.nativeEvent.layout;
     const box = { y: Math.round(y), height: Math.round(height) };
@@ -720,7 +787,11 @@ export function ExerciseView({
               </FadeUnderSheet>
             ) : null}
             <View
-              onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}
+              ref={promptRef}
+              onLayout={(event) => {
+                const { y, height } = event.nativeEvent.layout;
+                setPromptBox((was) => sameBox(was, { y: Math.round(y), height: Math.round(height) }));
+              }}
               testID="exercise-prompt"
             >
               <QuestionBubble

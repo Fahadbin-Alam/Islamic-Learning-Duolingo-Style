@@ -94,7 +94,40 @@ export type QuestionScrollInput = {
   contentHeight?: number;
   /** Where a part above the prompt starts (the REVIEW / "Try again!" chips, practice's topic label), if there is one. */
   partTop: number | null;
+  /**
+   * The tiles as they are laid out right now, read before the frame is drawn (see placesNow); undefined where a view
+   * cannot say its place at once. Read on every render, the sheet up or not.
+   */
+  placesNow?: () => QuestionPlaces | undefined;
 };
+
+/**
+ * Where each tile (or the row of True / False, or the answers as a whole) starts in the scroll content as laid out
+ * right now, which of them the question keeps above the sheet (`focus`: the green tile), and where the question then
+ * goes (see sheetScrollY) when that is known.
+ */
+export type QuestionPlaces = { tops: Record<string, number>; focus?: string; aim?: number };
+
+/** Runs `run` as the next frame is drawn, once all the work that comes before that frame is done. */
+function nextFrame(run: () => void) {
+  if (typeof requestAnimationFrame === "function") {
+    requestAnimationFrame(() => run());
+  } else {
+    setTimeout(run, 0);
+  }
+}
+
+/**
+ * Where the question sits in the frame tiles fold away above the green tile, or its prompt wraps anew (the mascot
+ * hiding): they move the green tile up in its content by `rise`, which with the scroll left where it is (`from`) would
+ * throw it up the screen, past where it goes (`aim`) and back, or over the room's top edge. The question scrolls up
+ * with it instead, as far as keeps the green tile where it showed, but never past where it goes: from there it only
+ * goes on the same way. Without a known place to go to, it keeps the green tile where it showed.
+ */
+export function foldScrollY(from: number, rise: number, aim: number | undefined) {
+  const kept = from - rise;
+  return Math.max(0, Math.min(from, aim === undefined ? kept : Math.max(kept, aim)));
+}
 
 /**
  * The question's own scroll while the feedback sheet is up (lesson and practice screens alike), to the place that
@@ -116,7 +149,7 @@ export type QuestionScrollInput = {
  *   painted. Scrolled back up to it, it shows again; a new question shows it again.
  * Pass every scroll offset to `onScroll`.
  */
-export function useQuestionScroll({ open, scrollRef, target, ready, settling, whyOpened, viewport, contentHeight = 0, partTop }: QuestionScrollInput) {
+export function useQuestionScroll({ open, scrollRef, target, ready, settling, whyOpened, viewport, contentHeight = 0, partTop, placesNow }: QuestionScrollInput) {
   const aim = open && ready && !settling ? target : undefined;
   // Where the question last sent itself while this sheet is up (none yet: the sheet is still coming up), whether it
   // glided there, and how long its content said it was then.
@@ -149,7 +182,53 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
     setSettled(undefined);
   }, [open, scrollRef]);
 
-  useEffect(() => {
+  // Where the tiles were laid out in the last frame drawn, to see a fold (or a prompt wrapping anew) move the green
+  // tile up in its content. Read before the scroll of its own below, which goes on from where this leaves it.
+  const placesWere = useRef<Record<string, number> | undefined>(undefined);
+  // Where such a frame left the question while its new place was not known yet, until that frame is drawn.
+  const foldedTo = useRef<number | undefined>(undefined);
+  useLayoutEffect(() => {
+    const places = placesNow?.();
+    const were = placesWere.current;
+    placesWere.current = places?.tops;
+    const focus = places?.focus;
+    if (!open || !places || !were || focus === undefined || were[focus] === undefined || places.tops[focus] === undefined) {
+      return;
+    }
+    const rise = were[focus] - places.tops[focus];
+    const from = offset.current;
+    const y = foldScrollY(from, rise, places.aim);
+    if (rise <= AT_TARGET || from - y <= AT_TARGET) {
+      return;
+    }
+    scrollRef.current?.scrollTo?.({ y, animated: false });
+    offset.current = y;
+    // A scroll of its own under way stopped there: it goes on from here, to where the question now goes, once that
+    // is known. As below, once the Why line is open the sheet has grown at once, and so does the question go on at
+    // once, in this same frame (the prompt, wrapped anew, would otherwise move down here and back up on the way).
+    if (aim !== undefined && Math.abs(aim - y) > AT_TARGET) {
+      const atOnce = whyOpened && aim > y;
+      scrollRef.current?.scrollTo?.({ y: aim, animated: !atOnce });
+      offset.current = atOnce ? aim : y;
+      sent.current = aim;
+      sentGlides.current = !atOnce;
+      sentLength.current = contentHeight;
+      turnedBack.current = false;
+    } else {
+      sent.current = aim;
+    }
+    // Its new place found before this frame is drawn (the squeezed question read at once), the question goes on from
+    // here the same way, at once, as from where it was last sent.
+    if (aim === undefined && whyOpened) {
+      foldedTo.current = y;
+      nextFrame(() => {
+        foldedTo.current = undefined;
+      });
+    }
+  });
+
+  // Sent before the frame is drawn, so the question starts on its way in the very frame the sheet starts to rise.
+  useLayoutEffect(() => {
     if (!open || aim === undefined) {
       return;
     }
@@ -161,7 +240,9 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
       sentLength.current = contentHeight;
       return;
     }
-    const atOnce = whyOpened && sent.current !== undefined && aim > sent.current;
+    const from = sent.current ?? foldedTo.current;
+    const atOnce = whyOpened && from !== undefined && aim > from;
+    foldedTo.current = undefined;
     scrollRef.current?.scrollTo?.({ y: aim, animated: !atOnce });
     sent.current = aim;
     sentGlides.current = !atOnce;
@@ -460,6 +541,28 @@ export function laidOutBox(view: unknown): LayoutBox | undefined {
 }
 
 /**
+ * Where a view starts inside `within`, one of the views holding it, as laid out right now (transforms aside), where the
+ * platform can say it at once (see laidOutHeight): the places of the views between them, added up. Undefined where it
+ * cannot be read.
+ */
+export function laidOutTop(view: unknown, within: unknown): number | undefined {
+  type Placed = { offsetTop?: unknown; offsetParent?: unknown } | null | undefined;
+  let node = view as Placed;
+  let top = 0;
+  for (let depth = 0; node && depth < 40; depth += 1) {
+    if (node === within) {
+      return Math.round(top);
+    }
+    if (typeof node.offsetTop !== "number") {
+      return undefined;
+    }
+    top += node.offsetTop;
+    node = node.offsetParent as Placed;
+  }
+  return undefined;
+}
+
+/**
  * On the web, the feedback sheet's height the moment it changes, before the browser draws the frame. The sheet's own
  * report (its layout) comes in a timer after that frame, so when its Why line opens, the frame would show the taller
  * sheet over tiles the question has not yet moved or faded. Any change to the sheet is a change to its views, so it is
@@ -535,7 +638,9 @@ export function useSheetFit({ open, fullHeight, room, layoutKey, squeezeMoves }:
   const [squeezedAt, setSqueezedAt] = useState<string | undefined>(undefined);
   const [timedOut, setTimedOut] = useState(false);
   const tooTall = open && room !== undefined && fullHeight > 0 && fullHeight > room;
-  useEffect(() => {
+  // Before the frame is drawn, with the layout it was squeezed at: a view read at once in that same commit (the prompt
+  // wrapped anew) then shows the question has settled before any frame does.
+  useLayoutEffect(() => {
     if (!open) {
       setSqueezedAt(undefined);
       setTimedOut(false);

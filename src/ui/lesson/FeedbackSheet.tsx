@@ -397,22 +397,39 @@ export function FeedbackSheet({
       whyRef.current?.scrollTo?.({ y: 0, animated: false });
     }
   }, [whyOpen, whyScrolls]);
-  // A list's height is the one it keeps once its rows have said where they sit. On the web that height is read the
-  // moment they have, before the frame is drawn (the layout report comes after it, and not at all when the height did
-  // not change); a phone reports it with the next layout.
+  // On the web the sheet's height is read before the frame is drawn, on the render that opens it and on every one that
+  // changes it: the question works out where it goes as the sheet starts to rise, and starts on its way in that very
+  // frame, not a frame or more later once the layout report comes (after the frame, and not at all when the height
+  // did not change). A list's height is the one it keeps once its rows have said where they sit. A phone reports it
+  // with the next layout.
   const rowsPlaced = !listShown || rowBoxes !== undefined;
   const contentRef = useRef<View>(null);
+  const toldHeight = useRef<number | undefined>(undefined);
   useLayoutEffect(() => {
-    if (Platform.OS !== "web" || !visible || !listShown || !rowsPlaced) {
+    if (Platform.OS !== "web" || !visible) {
+      toldHeight.current = undefined;
       return;
     }
-    const content = contentRef.current as unknown as { offsetHeight?: number } | null;
-    if (content?.offsetHeight) {
-      onHeight?.(Math.round(content.offsetHeight + SHEET_PAD + inset), true);
+    const content = contentRef.current as unknown as { offsetHeight?: number; querySelector?: (selector: string) => HTMLElement | null } | null;
+    if (!rowsPlaced) {
+      return;
     }
-    // Only when the rows are placed (or the sheet opens with them placed).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listShown, rowsPlaced, visible]);
+    // The Why text has just opened (or changed): its height is read below and the sheet laid out again with it before
+    // the frame is drawn. The height to tell is that one: told the height before it, the question would jump to a
+    // place it then glides back from.
+    const why = whyVisible ? content?.querySelector?.('[data-testid="feedback-why-text"]') : null;
+    if (why?.offsetHeight && Math.abs(why.offsetHeight - whyContent) > 1) {
+      return;
+    }
+    if (!content?.offsetHeight) {
+      return;
+    }
+    const height = Math.round(content.offsetHeight + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset);
+    if (height !== toldHeight.current) {
+      toldHeight.current = height;
+      onHeight?.(height, true);
+    }
+  });
   // The same for the Why text: on the web its height is read as it opens, before the frame is drawn. Its own report
   // comes after that frame, which would show the sheet with the text whole for a moment, taller than its room, before
   // it goes slim and drops back down.
@@ -651,10 +668,9 @@ export function FeedbackSheet({
                       style={[
                         styles.whyText,
                         signs ? { paddingTop: whyPadTop, paddingBottom: whyPadBottom } : null,
-                        {
-                          opacity: whyAnim,
-                          transform: [{ translateY: whyAnim.interpolate({ inputRange: [0, 1], outputRange: [-6, 0] }) }]
-                        }
+                        // It fades in where it rests: sliding in, its first line (or, as the spring overshoots, its last)
+                        // would be cut by its own scrolling box for those frames.
+                        { opacity: whyAnim }
                       ]}
                       testID="feedback-why-text"
                     >

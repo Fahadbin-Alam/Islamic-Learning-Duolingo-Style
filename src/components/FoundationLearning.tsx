@@ -72,6 +72,7 @@ import {
   fitLook,
   laidOutBox,
   laidOutHeight,
+  laidOutTop,
   overRoom,
   sameBlock,
   sameRoom,
@@ -87,6 +88,7 @@ import {
   useSheetHeightNow,
   type BlockRead,
   type LayoutBox,
+  type QuestionPlaces,
   type RoomRead,
   type RowSpan
 } from "../ui/lesson/sheetFit";
@@ -101,6 +103,8 @@ const CHECK_PAD = 12;
 const CHECK_LIP = 5;
 /** How far up from its bottom edge a check tile holds no text: its lip and the padding over it. */
 const CHECK_TEXT_BOTTOM = CHECK_LIP + CHECK_PAD;
+/** The answers as a whole, where they are not tiles (a typed answer): what the sheet keeps clear of then. */
+const ANSWERS_FOCUS = "\u0000answers";
 /** How much smaller a prompt (and its scenario line) is for a question too tall for its room otherwise. */
 const SMALL_PROMPT_STEP = 2;
 
@@ -502,14 +506,21 @@ export function FoundationAssessmentScreen({
   const scrollBoxRef = useRef<View>(null);
   const wrapRef = useRef<View>(null);
   const answersRef = useRef<View>(null);
+  const promptRef = useRef<View>(null);
   const tileRefs = useRef<Record<string, View | null>>({});
   const [barHeight, setBarHeight] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
   const [sheetFull, setSheetFull] = useState(0);
   const [sheetLeast, setSheetLeast] = useState(0);
   const [answersHeight, setAnswersHeight] = useState(0);
-  const [promptBox, setPromptBox] = useState<LayoutBox | null>(null);
-  const [labelTop, setLabelTop] = useState<number | null>(null);
+  // The prompt and the topic label are read inside the question, which sits under the space that moves a question too
+  // tall for its room down (see useQuestionFit): placed by that space, worked out rather than read (a browser reports a
+  // move only with a change of size).
+  const topSpace = sizing.overflow ? sizing.drop : 0;
+  const [promptIn, setPromptBox] = useState<LayoutBox | null>(null);
+  const [labelIn, setLabelTop] = useState<number | null>(null);
+  const promptBox = promptIn && { y: promptIn.y + topSpace, height: promptIn.height };
+  const labelTop = labelIn === null ? null : labelIn + topSpace;
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   const [tileMoves, setTileMoves] = useState(0);
   const rootRef = useRef<View>(null);
@@ -625,6 +636,45 @@ export function FoundationAssessmentScreen({
   // above the prompt: it is gone while the question sits scrolled past its top (and from the render that starts its
   // own scroll past it), so the scroll view's top edge never cuts it, and back once it is scrolled up to it again.
   const scrollTarget = layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  // The answers as laid out right now, read before the frame is drawn where a view can say its place at once: a fold
+  // above the right answer (or the prompt wrapping anew as the mascot hides) is seen in the frame it happens, and the
+  // question keeps the right answer where it showed (see foldScrollY), as in lessons.
+  const placesNow = (): QuestionPlaces | undefined => {
+    const wrap = wrapRef.current;
+    const wrapTop = laidOutBox(wrap)?.y;
+    const answersAt = laidOutTop(answersRef.current, wrap);
+    const promptAt = laidOutTop(promptRef.current, wrap);
+    if (wrapTop === undefined || answersAt === undefined || promptAt === undefined) {
+      return undefined;
+    }
+    const boxes: Record<string, LayoutBox> = {};
+    const answersBox = laidOutHeight(answersRef.current);
+    if (answersBox !== undefined) {
+      boxes[ANSWERS_FOCUS] = { y: wrapTop + answersAt, height: answersBox };
+    }
+    for (const item of tilesShown?.items ?? []) {
+      const view = tileRefs.current[item];
+      const top = laidOutTop(view, wrap);
+      const height = laidOutHeight(view);
+      if (top !== undefined && height !== undefined) {
+        boxes[item] = { y: wrapTop + top, height };
+      }
+    }
+    const right = tilesShown?.items.find((option) => isAnswerOption(question, option));
+    const focus = right !== undefined && boxes[right] ? right : ANSWERS_FOCUS;
+    const box = boxes[focus];
+    const now = box && viewport ? { visibleBottom: viewport + barHeight, promptTop: wrapTop + promptAt, focusTop: box.y, focusBottom: box.y + box.height } : undefined;
+    const tops: Record<string, number> = {};
+    Object.entries(boxes).forEach(([id, entry]) => {
+      tops[id] = entry.y;
+    });
+    return { tops, focus, aim: now && sheetHeight > 0 ? sheetScrollY(now, sheetHeight, sheetRoom(now).furthest) : undefined };
+  };
+  // A sorting or matching game keeps its tiles under its own sheet (the right order, or the right pairs, as a list): a
+  // row of them the sheet's top edge would cut is gone at once while it is up, as answer tiles are, so the edge never
+  // cuts a line of it. Where that edge sits, from the top of the answers.
+  const listEdge =
+    locked && sortOrMatch && sheetHeight > 0 && layout && room && answersTop !== undefined ? scrollTarget + layout.visibleBottom - sheetHeight - answersTop : undefined;
   const ownScroll = useQuestionScroll({
     open: locked,
     scrollRef,
@@ -633,7 +683,8 @@ export function FoundationAssessmentScreen({
     settling: fit.squeeze && !fit.fitted,
     whyOpened,
     viewport,
-    partTop: labelTop
+    partTop: labelTop,
+    placesNow
   });
   const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrollProps.onScroll(event);
@@ -676,7 +727,6 @@ export function FoundationAssessmentScreen({
   // The arrow's room stays in the bar while the sheet is up (the sheet covers the bar), so the room keeps its height.
   const holdHint = locked && restMore.current;
   const hintShown = (more && !locked) || holdHint;
-  const topSpace = sizing.overflow ? sizing.drop : 0;
   const drawn = useRef({ key: fitKey, step: sizing.step, hint: hintShown });
   const known = useRef<{ key: string; content: number } | undefined>(undefined);
   const spans = (box: LayoutBox | null | undefined, tile: (item: string) => LayoutBox | null | undefined): RowSpan[] | undefined => {
@@ -794,6 +844,7 @@ export function FoundationAssessmentScreen({
             </FadeUnderSheet>
 
             <View
+              ref={promptRef}
               onLayout={(event) => setPromptBox({ y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) })}
               testID="assessment-prompt"
             >
@@ -818,6 +869,7 @@ export function FoundationAssessmentScreen({
 
             <View ref={answersRef} pointerEvents={locked ? "none" : "auto"} testID="assessment-answers" onLayout={onAnswersLayout}>
               {renderQuestionInput(question, selectedAnswer, change, checked, words, compact, retry, pickFolds ? "pick" : folded, onTileLayout, fadedTiles, {
+                listEdge,
                 tight: look.tight,
                 smallText: look.smallText,
                 gap: answerGap,
@@ -978,8 +1030,43 @@ function OrderSlot({ item, index, verdict, onPress }: { item: string; index: num
   );
 }
 
-function OrderInput({ question, order, onChange, checked, retry }: { question: Question; order: string[]; onChange: (value: SelectedAnswer) => void; checked: boolean | undefined; retry: boolean }) {
+/**
+ * Where each row of a sorting or matching game sits in its answers (its slot, or its pair of tiles), as reported, and
+ * which of them the sheet's top edge would cut, at `edge` from the top of the answers (see listEdge): those are gone
+ * while the sheet is up.
+ */
+function useRowsUnderSheet(edge: number | undefined) {
+  const [boxes, setBoxes] = useState<Record<number, LayoutBox>>({});
+  const onRowLayout = (index: number) => (event: LayoutChangeEvent) => {
+    const box = { y: Math.round(event.nativeEvent.layout.y), height: Math.round(event.nativeEvent.layout.height) };
+    setBoxes((before) => (before[index]?.y === box.y && before[index]?.height === box.height ? before : { ...before, [index]: box }));
+  };
+  const under = (index: number) => {
+    const box = boxes[index];
+    return edge !== undefined && box !== undefined && overRoom(edge, box.y + box.height);
+  };
+  return { onRowLayout, under };
+}
+
+function OrderInput({
+  question,
+  order,
+  onChange,
+  checked,
+  retry,
+  listEdge
+}: {
+  question: Question;
+  order: string[];
+  onChange: (value: SelectedAnswer) => void;
+  checked: boolean | undefined;
+  retry: boolean;
+  /** Where the sheet's top edge sits from the top of the answers, while it is up (see listEdge). */
+  listEdge?: number;
+}) {
   const items = useMemo(() => getShuffledOrderItems(question, retry), [question, retry]);
+  // The slots sit at the top of the answers, so their places in the grid are their places in the answers.
+  const rows = useRowsUnderSheet(listEdge);
   const remaining = items.filter((item) => !order.includes(item));
   const slotState = (index: number): SlotVerdict => {
     if (checked === undefined || !order[index]) return undefined;
@@ -993,7 +1080,7 @@ function OrderInput({ question, order, onChange, checked, retry }: { question: Q
           const item = order[index];
           const verdict = slotState(index);
           return (
-            <View key={`slot-${index}`} style={styles.gridCell}>
+            <FadeUnderSheet key={`slot-${index}`} hidden={rows.under(index)} style={styles.gridCell} onLayout={rows.onRowLayout(index)}>
               {item ? (
                 <OrderSlot item={item} index={index} verdict={verdict} onPress={() => onChange(order.filter((entry) => entry !== item))} />
               ) : (
@@ -1001,7 +1088,7 @@ function OrderInput({ question, order, onChange, checked, retry }: { question: Q
                   <Text style={styles.slotEmptyText}>{index + 1}</Text>
                 </View>
               )}
-            </View>
+            </FadeUnderSheet>
           );
         })}
       </View>
@@ -1060,8 +1147,25 @@ type Pick = { side: "left" | "right"; value: string } | undefined;
  * Tap-to-pair: one tile from each side. Paired tiles share a number; tap one again to undo.
  * Each row's two tiles share a height. After CHECK every tile shows the number of its right pair.
  */
-function MatchInput({ question, mapping, onChange, checked, retry }: { question: Question; mapping: Record<string, string>; onChange: (value: SelectedAnswer) => void; checked: boolean | undefined; retry: boolean }) {
+function MatchInput({
+  question,
+  mapping,
+  onChange,
+  checked,
+  retry,
+  listEdge
+}: {
+  question: Question;
+  mapping: Record<string, string>;
+  onChange: (value: SelectedAnswer) => void;
+  checked: boolean | undefined;
+  retry: boolean;
+  /** Where the sheet's top edge sits from the top of the answers, while it is up (see listEdge). */
+  listEdge?: number;
+}) {
   const [pick, setPick] = useState<Pick>(undefined);
+  // The rows sit at the top of the answers, so their places in the list are their places in the answers.
+  const rows = useRowsUnderSheet(listEdge);
   const pairLefts = (question.pairs ?? []).map((pair) => pair.left);
   const answer = question.correctAnswer && typeof question.correctAnswer === "object" && !Array.isArray(question.correctAnswer) ? question.correctAnswer : {};
   const shuffledRights = useMemo(() => {
@@ -1141,18 +1245,20 @@ function MatchInput({ question, mapping, onChange, checked, retry }: { question:
         const left = lefts[index];
         const right = rights[index];
         return (
-          <PopIn key={`${left ?? ""}|${right ?? ""}`} from="up" delay={80 + index * 60} style={styles.matchRow}>
-            {left ? (
-              <PairTile label={left} pairNumber={numberLeft(left)} state={stateLeft(left)} onPress={() => tapLeft(left)} testID={`match-left-${left}`} />
-            ) : (
-              <View style={styles.pairSpacer} />
-            )}
-            {right ? (
-              <PairTile label={right} pairNumber={numberRight(right)} state={stateRight(right)} onPress={() => tapRight(right)} testID={`match-right-${right}`} />
-            ) : (
-              <View style={styles.pairSpacer} />
-            )}
-          </PopIn>
+          <FadeUnderSheet key={`${left ?? ""}|${right ?? ""}`} hidden={rows.under(index)} onLayout={rows.onRowLayout(index)}>
+            <PopIn from="up" delay={80 + index * 60} style={styles.matchRow}>
+              {left ? (
+                <PairTile label={left} pairNumber={numberLeft(left)} state={stateLeft(left)} onPress={() => tapLeft(left)} testID={`match-left-${left}`} />
+              ) : (
+                <View style={styles.pairSpacer} />
+              )}
+              {right ? (
+                <PairTile label={right} pairNumber={numberRight(right)} state={stateRight(right)} onPress={() => tapRight(right)} testID={`match-right-${right}`} />
+              ) : (
+                <View style={styles.pairSpacer} />
+              )}
+            </PopIn>
+          </FadeUnderSheet>
         );
       })}
     </View>
@@ -1213,7 +1319,7 @@ function renderQuestionInput(
    * How a question too tall for its room draws its answers (see sheetFit's FIT_STEPS): tight tiles, the smaller text,
    * the space between them; `tileRef` gets each answer's view, to read its place before a frame is drawn.
    */
-  sized: { tight?: boolean; smallText?: boolean; gap?: number; tileRef?: (item: string) => (view: View | null) => void } = {}
+  sized: { tight?: boolean; smallText?: boolean; gap?: number; tileRef?: (item: string) => (view: View | null) => void; listEdge?: number } = {}
 ) {
   const options = answerTiles(question, selectedAnswer, words, retry, fold)?.items ?? [];
   const gapStyle = sized.gap === undefined || sized.gap === ANSWER_GAP ? null : { gap: sized.gap };
@@ -1289,12 +1395,12 @@ function renderQuestionInput(
   }
 
   if (question.type === "correct_order") {
-    return <OrderInput question={question} order={Array.isArray(selectedAnswer) ? selectedAnswer : []} onChange={onChangeSelectedAnswer} checked={checked} retry={retry} />;
+    return <OrderInput question={question} order={Array.isArray(selectedAnswer) ? selectedAnswer : []} onChange={onChangeSelectedAnswer} checked={checked} retry={retry} listEdge={sized.listEdge} />;
   }
 
   if (question.type === "match_pairs") {
     const mapping = selectedAnswer && !Array.isArray(selectedAnswer) && typeof selectedAnswer === "object" ? selectedAnswer : {};
-    return <MatchInput key={question.id} question={question} mapping={mapping} onChange={onChangeSelectedAnswer} checked={checked} retry={retry} />;
+    return <MatchInput key={question.id} question={question} mapping={mapping} onChange={onChangeSelectedAnswer} checked={checked} retry={retry} listEdge={sized.listEdge} />;
   }
 
   // One long answer makes the whole set use the smaller text (folded or not), so the tiles match and keep their size.
@@ -1580,7 +1686,10 @@ const styles = StyleSheet.create({
   },
   inputTall: { minHeight: 132, textAlignVertical: "top" },
   checkTile: { flexDirection: "row", alignItems: "center", gap: 12, minHeight: 60, paddingHorizontal: 16, paddingVertical: CHECK_PAD, borderRadius: radii.tile, borderWidth: 2, borderBottomWidth: CHECK_LIP },
-  missedTile: { borderStyle: "dashed", borderBottomWidth: 2, marginBottom: 3 },
+  // A missed tile's dashed outline is even all round: what its lip gives up goes to the padding under its text, so the
+  // tile keeps its size and its text its place at CHECK (a margin would make a one-line tile, held at its least
+  // height, 3 px taller and push the tiles under it down).
+  missedTile: { borderStyle: "dashed", borderBottomWidth: 2, paddingBottom: CHECK_PAD + CHECK_LIP - 2 },
   missedBox: { borderStyle: "dashed" },
   dimmedTile: { opacity: 0.45 },
   checkLabel: { flex: 1, minWidth: 0, fontFamily: fonts.bodyHeavy, fontSize: 17, lineHeight: 23 },
@@ -1613,7 +1722,8 @@ const styles = StyleSheet.create({
   resultCard: { borderWidth: 2, borderRadius: radii.md, overflow: "hidden" },
   resultLabel: { fontFamily: fonts.displayHeavy, fontSize: 13, lineHeight: 18, letterSpacing: 0.6, color: colors.white, textAlign: "center", paddingVertical: 3, paddingHorizontal: 4 },
   resultBody: { backgroundColor: colors.white, borderRadius: radii.md - 3, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingVertical: space.md, paddingHorizontal: 6, gap: 4 },
-  resultValueRow: { flexDirection: "row", alignItems: "baseline", flexShrink: 1, minWidth: 0 },
+  // A score ("2/6") reads left to right in every language, so right to left it is not drawn "/6 2".
+  resultValueRow: { flexDirection: "row", alignItems: "baseline", flexShrink: 1, minWidth: 0, direction: "ltr" },
   resultValue: { fontFamily: fonts.displayHeavy, fontSize: 24, lineHeight: 30 },
   resultOf: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 30 },
   nextBlock: { alignSelf: "stretch", alignItems: "center", marginTop: space.xl },

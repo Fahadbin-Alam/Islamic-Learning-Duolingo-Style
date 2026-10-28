@@ -1,5 +1,5 @@
 import React from "react";
-import { act, fireEvent, render, screen } from "@testing-library/react-native";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react-native";
 import { NODE_ARABIC } from "../data/arabicTerms";
 import { LESSONS_BY_ID } from "../data/course";
 import {
@@ -246,6 +246,8 @@ describe("lesson screens", () => {
     expect(screen.getByTestId("feedback-list")).toHaveTextContent(/1Wash hands2Rinse mouth3Wash face/);
     await fireEvent.press(screen.getByText("TRY AGAIN"));
     expect(screen.queryByTestId("order-placed-face")).toBeNull();
+    // The steps to place again show once the sheet has slid away.
+    await waitFor(() => expect(screen.getByTestId("order-bank-hands")).toBeTruthy());
 
     // Second try: hands, face, mouth. "hands" is right and stays placed after TRY AGAIN.
     await fireEvent.press(screen.getByTestId("order-bank-hands"));
@@ -259,6 +261,7 @@ describe("lesson screens", () => {
     await fireEvent.press(screen.getByText("TRY AGAIN"));
     expect(screen.getByTestId("order-placed-hands")).toBeTruthy();
     expect(screen.queryByTestId("order-placed-face")).toBeNull();
+    await waitFor(() => expect(screen.getByTestId("order-bank-mouth")).toBeTruthy());
 
     await fireEvent.press(screen.getByTestId("order-bank-mouth"));
     await fireEvent.press(screen.getByTestId("order-bank-face"));
