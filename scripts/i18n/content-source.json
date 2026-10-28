@@ -5908,6 +5908,10 @@
     "text": "Say Bismillah before you eat or start something."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5376"
+  },
+  {
     "kind": "question",
     "text": "What should a Muslim say before eating?"
   },
@@ -6970,10 +6974,6 @@
   {
     "kind": "lesson",
     "text": "At the table, say Bismillah and eat with your right hand."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 5376"
   },
   {
     "kind": "question",
@@ -10204,6 +10204,10 @@
     "text": "Eating or drinking during salah breaks it."
   },
   {
+    "kind": "source",
+    "text": "Al-Ijma' 39"
+  },
+  {
     "kind": "question",
     "text": "Eating or drinking during salah ____ it."
   },
@@ -10973,11 +10977,15 @@
   },
   {
     "kind": "lesson",
-    "text": "Listen fully before you answer."
+    "text": "Listen well, then follow the best of what is said."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 39:18"
   },
   {
     "kind": "question",
-    "text": "____ fully before you answer."
+    "text": "____ well, then follow the best of what is said."
   },
   {
     "kind": "question",
@@ -11620,6 +11628,10 @@
     "text": "Can you put Abu Bakr's life in order?"
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/128"
+  },
+  {
     "kind": "question",
     "text": "Which came first in Abu Bakr's life?"
   },
@@ -11752,6 +11764,10 @@
     "text": "Umar was called Al-Faruq because he told right from wrong."
   },
   {
+    "kind": "source",
+    "text": "Al-Isabah 4/486"
+  },
+  {
     "kind": "question",
     "text": "Umar was called ____ because he told right from wrong."
   },
@@ -11856,6 +11872,10 @@
     "text": "Can you put Umar's life in order?"
   },
   {
+    "kind": "source",
+    "text": "Al-Isabah 4/484"
+  },
+  {
     "kind": "question",
     "text": "Which came first in Umar's life?"
   },
@@ -11866,6 +11886,10 @@
   {
     "kind": "lesson",
     "text": "Uthman was from Quraysh, the Prophet's ﷺ own tribe."
+  },
+  {
+    "kind": "source",
+    "text": "Al-Isabah 4/377"
   },
   {
     "kind": "question",
@@ -11900,6 +11924,10 @@
     "text": "Before Islam, Uthman was a rich trader."
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/44"
+  },
+  {
     "kind": "question",
     "text": "Before Islam, Uthman was a rich ____."
   },
@@ -11926,6 +11954,10 @@
   {
     "kind": "lesson",
     "text": "Uthman and his wife Ruqayyah moved to Abyssinia for safety."
+  },
+  {
+    "kind": "source",
+    "text": "Al-Isabah 4/378"
   },
   {
     "kind": "question",
@@ -12056,6 +12088,10 @@
     "text": "Uthman was martyred at home while reading the Quran."
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/54"
+  },
+  {
     "kind": "question",
     "text": "Uthman was martyred at home while reading the ____."
   },
@@ -12090,6 +12126,10 @@
   {
     "kind": "lesson",
     "text": "Ali grew up in the Prophet's ﷺ own home."
+  },
+  {
+    "kind": "source",
+    "text": "Al-Isabah 4/464"
   },
   {
     "kind": "question",
@@ -12158,6 +12198,10 @@
   {
     "kind": "lesson",
     "text": "On the Hijrah night, Ali slept in the Prophet's ﷺ bed."
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 1/176"
   },
   {
     "kind": "question",
@@ -12248,6 +12292,10 @@
     "text": "Ali became the fourth caliph, after Uthman."
   },
   {
+    "kind": "source",
+    "text": "Al-Isabah 4/468"
+  },
+  {
     "kind": "question",
     "text": "Ali became the ____ caliph, after Uthman."
   },
@@ -12262,6 +12310,10 @@
   {
     "kind": "lesson",
     "text": "Ali was martyred in Kufa, in Iraq."
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/27"
   },
   {
     "kind": "question",
@@ -12300,6 +12352,10 @@
     "text": "Khalid grew up in Makkah, in the tribe of Quraysh."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/366"
+  },
+  {
     "kind": "question",
     "text": "Khalid grew up in ____, in the tribe of Quraysh."
   },
@@ -12330,6 +12386,10 @@
   {
     "kind": "lesson",
     "text": "Before Islam, Khalid fought against the Muslims at Uhud."
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 2/32"
   },
   {
     "kind": "question",
@@ -12412,6 +12472,10 @@
     "text": "When Umar replaced him as leader, Khalid obeyed."
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 7/279"
+  },
+  {
     "kind": "question",
     "text": "When Umar replaced him as leader, Khalid ____."
   },
@@ -12438,6 +12502,10 @@
   {
     "kind": "lesson",
     "text": "Khalid fought in many battles but died in his bed."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/382"
   },
   {
     "kind": "question",
@@ -12496,6 +12564,10 @@
     "text": "Bilal's mother was named Hamamah."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/347"
+  },
+  {
     "kind": "question",
     "text": "Bilal's mother was named ____."
   },
@@ -12518,6 +12590,10 @@
   {
     "kind": "lesson",
     "text": "Before Islam, Bilal was the slave of Umayyah ibn Khalaf."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/352"
   },
   {
     "kind": "question",
@@ -12668,6 +12744,10 @@
     "text": "When Makkah was opened, Bilal called the adhan on the Ka'bah."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/356"
+  },
+  {
     "kind": "question",
     "text": "When Makkah was opened, Bilal called the adhan on the ____."
   },
@@ -12686,6 +12766,10 @@
   {
     "kind": "lesson",
     "text": "After the Prophet ﷺ died, Bilal moved to Sham."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/357"
   },
   {
     "kind": "question",
@@ -12726,6 +12810,10 @@
   {
     "kind": "lesson",
     "text": "Abu Ubaydah was from Quraysh, the tribe of Makkah."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/5"
   },
   {
     "kind": "question",
@@ -12836,6 +12924,10 @@
     "text": "Abu Ubaydah died of a plague in Sham."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/19"
+  },
+  {
     "kind": "question",
     "text": "Abu Ubaydah died of a ____ in Sham."
   },
@@ -12880,6 +12972,10 @@
     "text": "Talhah grew up in Makkah, in the tribe of Quraysh."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/23"
+  },
+  {
     "kind": "question",
     "text": "Talhah grew up in ____, in the tribe of Quraysh."
   },
@@ -12918,6 +13014,10 @@
   {
     "kind": "lesson",
     "text": "Talhah was known as a very generous man."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/30"
   },
   {
     "kind": "question",
@@ -12974,6 +13074,10 @@
   {
     "kind": "lesson",
     "text": "Az-Zubayr grew up in Makkah, in the tribe of Quraysh."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/41"
   },
   {
     "kind": "question",
@@ -13102,6 +13206,10 @@
   {
     "kind": "lesson",
     "text": "Sa'd grew up in Makkah, in the tribe of Quraysh."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/93"
   },
   {
     "kind": "question",
@@ -13264,6 +13372,10 @@
     "text": "Salman's family in Persia worshipped fire."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/506"
+  },
+  {
     "kind": "question",
     "text": "Salman's family in Persia worshipped ____."
   },
@@ -13320,12 +13432,20 @@
     "text": "Salman met the Prophet ﷺ in Madinah and became Muslim."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/510"
+  },
+  {
     "kind": "question",
     "text": "Salman met the Prophet ﷺ in ____ and became Muslim."
   },
   {
     "kind": "lesson",
     "text": "The Prophet ﷺ helped plant date palms to set Salman free."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/511"
   },
   {
     "kind": "question",
@@ -13352,6 +13472,10 @@
     "text": "Salman traveled very far from home to find the truth."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/509"
+  },
+  {
     "kind": "question",
     "text": "Salman traveled very far from home to ____ the truth."
   },
@@ -13374,6 +13498,10 @@
   {
     "kind": "lesson",
     "text": "Salman gave the idea to dig a trench around Madinah."
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 2/51"
   },
   {
     "kind": "question",
@@ -13444,6 +13572,10 @@
     "text": "Abu Dharr's real name was Jundub."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/46"
+  },
+  {
     "kind": "question",
     "text": "Abu Dharr's real name was ____."
   },
@@ -13512,6 +13644,10 @@
     "text": "Abu Dharr lived a very simple life."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/47"
+  },
+  {
     "kind": "question",
     "text": "Abu Dharr lived a very ____ life."
   },
@@ -13560,6 +13696,10 @@
     "text": "As a boy, Ibn Mas'ud looked after sheep in Makkah."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/465"
+  },
+  {
     "kind": "question",
     "text": "As a boy, Ibn Mas'ud looked after ____ in Makkah."
   },
@@ -13580,6 +13720,10 @@
     "text": "Ibn Mas'ud's first name was Abdullah."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/461"
+  },
+  {
     "kind": "question",
     "text": "Ibn Mas'ud's first name was ____."
   },
@@ -13596,6 +13740,10 @@
     "text": "Ibn Mas'ud became Muslim early, in Makkah."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/464"
+  },
+  {
     "kind": "question",
     "text": "Ibn Mas'ud became Muslim early, in ____."
   },
@@ -13606,6 +13754,10 @@
   {
     "kind": "lesson",
     "text": "Ibn Mas'ud recited the Quran out loud near the Ka'bah."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/466"
   },
   {
     "kind": "question",
@@ -13672,6 +13824,10 @@
     "text": "Umar sent Ibn Mas'ud to Kufa to teach the people."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/486"
+  },
+  {
     "kind": "question",
     "text": "Umar sent Ibn Mas'ud to ____ to teach the people."
   },
@@ -13694,6 +13850,10 @@
   {
     "kind": "lesson",
     "text": "Anas grew up in Madinah, among the Ansar."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/396"
   },
   {
     "kind": "question",
@@ -13796,6 +13956,10 @@
     "text": "Anas lived a long life and died in Basra."
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 7/19"
+  },
+  {
     "kind": "question",
     "text": "Anas lived a long life and died in ____."
   },
@@ -13810,6 +13974,10 @@
   {
     "kind": "lesson",
     "text": "Can you put Anas's life in order?"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/398"
   },
   {
     "kind": "question",
@@ -15393,15 +15561,15 @@
   },
   {
     "kind": "question",
-    "text": "Where was Zaynab bint Jahsh born?"
+    "text": "Who was the father of Zaynab bint Jahsh?"
   },
   {
     "kind": "question",
-    "text": "Isfahan"
+    "text": "Jahsh ibn Riyab"
   },
   {
     "kind": "question",
-    "text": "Tihamah"
+    "text": "Ja'far ibn Qays"
   },
   {
     "kind": "question",
@@ -16274,6 +16442,10 @@
   {
     "kind": "lesson",
     "text": "You don't give zakat to your parents or children."
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 395666"
   },
   {
     "kind": "question",
@@ -17608,6 +17780,10 @@
     "text": "He was the prophet who came after Ilyas."
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 1/46"
+  },
+  {
     "kind": "question",
     "text": "What is Al-Yasa' known for?"
   },
@@ -17808,6 +17984,10 @@
     "text": "Father: Nun"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3401"
+  },
+  {
     "kind": "question",
     "text": "What is Yusha' ibn Nun known for?"
   },
@@ -17850,6 +18030,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Zaynab bint Maz'un"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/203"
   },
   {
     "kind": "question",
@@ -17924,6 +18108,14 @@
     "text": "Where was Abdullah ibn Mas'ud born?"
   },
   {
+    "kind": "question",
+    "text": "Tihamah"
+  },
+  {
+    "kind": "question",
+    "text": "Isfahan"
+  },
+  {
     "kind": "lesson",
     "text": "He was an early Muslim tricked back to Makkah by Abu Jahl."
   },
@@ -17934,6 +18126,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Asma bint Mukharribah"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 4/96"
   },
   {
     "kind": "question",
@@ -18152,12 +18348,12 @@
     "text": "Mother: Umaymah bint Abd al-Muttalib"
   },
   {
-    "kind": "question",
-    "text": "Who was the father of Abdullah ibn Jahsh?"
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/65"
   },
   {
     "kind": "question",
-    "text": "Jahsh ibn Riyab"
+    "text": "Who was the father of Abdullah ibn Jahsh?"
   },
   {
     "kind": "question",
@@ -18178,14 +18374,6 @@
   {
     "kind": "question",
     "text": "Mujalida bint Amr"
-  },
-  {
-    "kind": "question",
-    "text": "Where was Abdullah ibn Jahsh born?"
-  },
-  {
-    "kind": "question",
-    "text": "Zabid"
   },
   {
     "kind": "lesson",
@@ -18288,6 +18476,10 @@
     "text": "Mother: Asma bint Abi Bakr"
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/363"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Abdullah ibn az-Zubayr?"
   },
@@ -18336,6 +18528,10 @@
     "text": "Mother: Halah bint Khuwaylid"
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/330"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Abu al-As ibn ar-Rabi'?"
   },
@@ -18376,6 +18572,10 @@
     "text": "Mother: Umm al-Khayr"
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/125"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Abu Bakr as-Siddiq?"
   },
@@ -18406,6 +18606,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Ramlah"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 4/165"
   },
   {
     "kind": "question",
@@ -18464,6 +18668,10 @@
     "text": "He tied himself to a pillar of the mosque to repent."
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/348"
+  },
+  {
     "kind": "question",
     "text": "Which tribe was Abu Lubabah ibn Abd al-Mundhir from?"
   },
@@ -18492,12 +18700,20 @@
     "text": "Born in Zabid"
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/380"
+  },
+  {
     "kind": "question",
     "text": "Which tribe was Abu Musa al-Ash'ari from?"
   },
   {
     "kind": "question",
     "text": "Where was Abu Musa al-Ash'ari born?"
+  },
+  {
+    "kind": "question",
+    "text": "Zabid"
   },
   {
     "kind": "lesson",
@@ -18510,6 +18726,10 @@
   {
     "kind": "lesson",
     "text": "Clan: Banu Abd Shams"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/105"
   },
   {
     "kind": "question",
@@ -18548,6 +18768,10 @@
     "text": "Mother: Umaymah bint Ghanm"
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/312"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Abu Ubaydah ibn al-Jarrah?"
   },
@@ -18573,7 +18797,7 @@
   },
   {
     "kind": "lesson",
-    "text": "He was the last companion to pass away in Syria."
+    "text": "He was a companion who settled in Homs, in Sham."
   },
   {
     "kind": "lesson",
@@ -18581,7 +18805,11 @@
   },
   {
     "kind": "lesson",
-    "text": "Passed away in Homs"
+    "text": "Passed away in Sham"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 7/288"
   },
   {
     "kind": "question",
@@ -18593,15 +18821,11 @@
   },
   {
     "kind": "question",
-    "text": "Palestine"
+    "text": "Iraq"
   },
   {
     "kind": "question",
-    "text": "Mu'tah"
-  },
-  {
-    "kind": "question",
-    "text": "Abu Umamah al-Bahili passed away in Homs."
+    "text": "Abu Umamah al-Bahili passed away in Sham."
   },
   {
     "kind": "lesson",
@@ -18636,6 +18860,10 @@
     "text": "He was the Prophet's ﷺ grandson, martyred at Karbala."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/280"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Al-Husayn ibn Ali?"
   },
@@ -18658,6 +18886,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Fatimah bint Asad"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/14"
   },
   {
     "kind": "question",
@@ -18686,6 +18918,10 @@
   {
     "kind": "lesson",
     "text": "Tribe: Madhhij"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/406"
   },
   {
     "kind": "question",
@@ -18732,20 +18968,12 @@
     "text": "Father: Al-As ibn Wa'il"
   },
   {
-    "kind": "lesson",
-    "text": "Mother: An-Nabighah bint Harmalah"
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/54"
   },
   {
     "kind": "question",
     "text": "Who was the father of Amr ibn al-As?"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Amr ibn al-As?"
-  },
-  {
-    "kind": "question",
-    "text": "An-Nabighah bint Harmalah"
   },
   {
     "kind": "question",
@@ -18758,6 +18986,10 @@
   {
     "kind": "lesson",
     "text": "Father: Al-Jamuh"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/252"
   },
   {
     "kind": "question",
@@ -18782,6 +19014,10 @@
   {
     "kind": "lesson",
     "text": "Father: Malik ibn an-Nadr"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/395"
   },
   {
     "kind": "question",
@@ -18810,6 +19046,10 @@
   {
     "kind": "lesson",
     "text": "Father: Zurarah ibn Udas"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/299"
   },
   {
     "kind": "question",
@@ -18872,6 +19112,10 @@
     "text": "Mother: Khadijah bint Khuwaylid"
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/122"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Fatimah az-Zahra?"
   },
@@ -18892,20 +19136,12 @@
     "text": "Father: Asad ibn Hashim"
   },
   {
-    "kind": "lesson",
-    "text": "Mother: Fatimah bint Qays"
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/40"
   },
   {
     "kind": "question",
     "text": "Who was the father of Fatimah bint Asad?"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Fatimah bint Asad?"
-  },
-  {
-    "kind": "question",
-    "text": "Fatimah bint Qays"
   },
   {
     "kind": "question",
@@ -18926,6 +19162,10 @@
   {
     "kind": "question",
     "text": "What is Ghaylan ibn Salamah ath-Thaqafi known for?"
+  },
+  {
+    "kind": "question",
+    "text": "He was the last companion to pass away in Syria."
   },
   {
     "kind": "question",
@@ -18950,6 +19190,10 @@
   {
     "kind": "lesson",
     "text": "Clan: Banu Makhzum"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 7/283"
   },
   {
     "kind": "question",
@@ -18980,16 +19224,12 @@
     "text": "Father: Hizam ibn Khuwaylid"
   },
   {
-    "kind": "lesson",
-    "text": "Mother: Fakhitah bint Zuhayr"
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/44"
   },
   {
     "kind": "question",
     "text": "Who was the father of Hakim ibn Hizam?"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Hakim ibn Hizam?"
   },
   {
     "kind": "question",
@@ -19002,6 +19242,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Halah bint Wuhayb"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/5"
   },
   {
     "kind": "question",
@@ -19022,6 +19266,10 @@
   {
     "kind": "lesson",
     "text": "Father: Abu Amir ar-Rahib"
+  },
+  {
+    "kind": "source",
+    "text": "Al-Isabah 2/119"
   },
   {
     "kind": "question",
@@ -19052,6 +19300,10 @@
     "text": "Mother: Mujalida bint Amr"
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/323"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Ikrimah ibn Abi Jahl?"
   },
@@ -19072,6 +19324,10 @@
     "text": "He led the Muslims who emigrated to Abyssinia."
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/206"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Ja'far ibn Abi Talib?"
   },
@@ -19090,6 +19346,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Nasibah bint Uqbah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/189"
   },
   {
     "kind": "question",
@@ -19168,6 +19428,10 @@
     "text": "Father: Zuhayr ibn Abi Sulma"
   },
   {
+    "kind": "source",
+    "text": "Al-Isabah 5/443"
+  },
+  {
     "kind": "question",
     "text": "What is Ka'b ibn Zuhayr known for?"
   },
@@ -19236,12 +19500,24 @@
     "text": "Father: Hakim ibn Umayyah"
   },
   {
+    "kind": "lesson",
+    "text": "Tribe: Banu Sulaym"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/124"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Khawlah bint Hakim?"
   },
   {
     "kind": "question",
-    "text": "Where was Khawlah bint Hakim born?"
+    "text": "Which tribe was Khawlah bint Hakim from?"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Sulaym"
   },
   {
     "kind": "lesson",
@@ -19250,6 +19526,10 @@
   {
     "kind": "lesson",
     "text": "Clan: Banu Zuhrah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/542"
   },
   {
     "kind": "question",
@@ -19265,15 +19545,11 @@
   },
   {
     "kind": "lesson",
-    "text": "Father: Sham'un"
-  },
-  {
-    "kind": "lesson",
     "text": "Born in Egypt"
   },
   {
-    "kind": "question",
-    "text": "Who was the father of Mariyah al-Qibtiyyah?"
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/172"
   },
   {
     "kind": "question",
@@ -19298,6 +19574,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Hind bint Utbah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/119"
   },
   {
     "kind": "question",
@@ -19356,6 +19636,10 @@
     "text": "Mother: Fatimah bint Amr an-Najjariyyah"
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/375"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Nu'ayman ibn Amr?"
   },
@@ -19370,6 +19654,10 @@
   {
     "kind": "lesson",
     "text": "She was the Prophet's ﷺ daughter and Uthman's first wife."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/250"
   },
   {
     "kind": "question",
@@ -19412,6 +19700,10 @@
     "text": "Which tribe was Sa'd ibn Ubadah from?"
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/279"
+  },
+  {
     "kind": "question",
     "text": "Which tribe was Sa'd ibn Mu'adh from?"
   },
@@ -19428,10 +19720,6 @@
     "text": "Sa'd ibn Mu'adh passed away in Madinah."
   },
   {
-    "kind": "lesson",
-    "text": "Tribe: Banu Sulaym"
-  },
-  {
     "kind": "question",
     "text": "What is Safwan ibn al-Mu'attal known for?"
   },
@@ -19442,10 +19730,6 @@
   {
     "kind": "question",
     "text": "Which tribe was Safwan ibn al-Mu'attal from?"
-  },
-  {
-    "kind": "question",
-    "text": "Banu Sulaym"
   },
   {
     "kind": "lesson",
@@ -19469,6 +19753,10 @@
   },
   {
     "kind": "question",
+    "text": "Mu'tah"
+  },
+  {
+    "kind": "question",
     "text": "Al-Mada'in"
   },
   {
@@ -19478,6 +19766,10 @@
   {
     "kind": "lesson",
     "text": "He was an early Muslim who grew up among the Romans."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/17"
   },
   {
     "kind": "question",
@@ -19506,6 +19798,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Uzza bint Sufyan"
+  },
+  {
+    "kind": "source",
+    "text": "Al-Isabah 3/177"
   },
   {
     "kind": "question",
@@ -19577,6 +19873,10 @@
   },
   {
     "kind": "question",
+    "text": "Palestine"
+  },
+  {
+    "kind": "question",
     "text": "Tamim ad-Dari passed away in Palestine."
   },
   {
@@ -19586,6 +19886,10 @@
   {
     "kind": "lesson",
     "text": "Tribe: Bali"
+  },
+  {
+    "kind": "source",
+    "text": "Al-Isabah 1/500"
   },
   {
     "kind": "question",
@@ -19602,6 +19906,10 @@
   {
     "kind": "lesson",
     "text": "He was one of the companions who fought at Badr."
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 3/351"
   },
   {
     "kind": "question",
@@ -19624,6 +19932,10 @@
     "text": "Clan: Banu Muttalib"
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/256"
+  },
+  {
     "kind": "question",
     "text": "Which tribe was Ubaydah ibn al-Harith from?"
   },
@@ -19644,6 +19956,10 @@
     "text": "Father: Tha'labah ibn Amr"
   },
   {
+    "kind": "source",
+    "text": "Al-Isabah 8/358"
+  },
+  {
     "kind": "question",
     "text": "What is Umm Ayman known for?"
   },
@@ -19658,6 +19974,10 @@
   {
     "kind": "lesson",
     "text": "She was the Prophet's ﷺ daughter and married Uthman."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/252"
   },
   {
     "kind": "question",
@@ -19744,6 +20064,10 @@
     "text": "Where was Usamah ibn Zayd born?"
   },
   {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/341"
+  },
+  {
     "kind": "question",
     "text": "Which tribe was Usayd ibn Hudayr from?"
   },
@@ -19780,6 +20104,10 @@
     "text": "Father: Al-Walid ibn al-Mughirah"
   },
   {
+    "kind": "source",
+    "text": "Al-Isabah 6/484"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Al-Walid ibn al-Walid ibn al-Mughirah?"
   },
@@ -19798,6 +20126,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Zaynab bint Nawfal"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/328"
   },
   {
     "kind": "question",
@@ -19880,6 +20212,10 @@
     "text": "She was the eldest daughter of the Prophet ﷺ."
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/25"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Zaynab bint Muhammad?"
   },
@@ -19944,6 +20280,10 @@
     "text": "Clan: Banu Jumah"
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 4/150"
+  },
+  {
     "kind": "question",
     "text": "Which tribe was Umayr ibn Wahb al-Jumahi from?"
   },
@@ -19964,12 +20304,12 @@
     "text": "Mother: Barrah bint Abd al-Uzza"
   },
   {
-    "kind": "question",
-    "text": "Who was the father of Aminah bint Wahb?"
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 1/49"
   },
   {
     "kind": "question",
-    "text": "Ja'far ibn Qays"
+    "text": "Who was the father of Aminah bint Wahb?"
   },
   {
     "kind": "question",
@@ -20002,6 +20342,10 @@
   {
     "kind": "lesson",
     "text": "Tribe: Banu Qurayza"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/95"
   },
   {
     "kind": "question",
@@ -20076,6 +20420,10 @@
     "text": "Tribe: Banu Sa'd ibn Bakr"
   },
   {
+    "kind": "source",
+    "text": "Al-Isabah 8/87"
+  },
+  {
     "kind": "question",
     "text": "What is Halimah as-Sa'diyyah known for?"
   },
@@ -20141,35 +20489,11 @@
   },
   {
     "kind": "lesson",
-    "text": "Mother: Asma bint Amr"
-  },
-  {
-    "kind": "lesson",
     "text": "Tribe: Banu Hanifa"
   },
   {
     "kind": "question",
     "text": "Who was the father of Khawlah bint Ja'far al-Hanafiyyah?"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Khawlah bint Ja'far al-Hanafiyyah?"
-  },
-  {
-    "kind": "question",
-    "text": "Zaynab bint al-Hasan"
-  },
-  {
-    "kind": "question",
-    "text": "Ash-Shamus bint Qays"
-  },
-  {
-    "kind": "question",
-    "text": "Atikah bint Amir"
-  },
-  {
-    "kind": "question",
-    "text": "Asma bint Amr"
   },
   {
     "kind": "question",
@@ -20182,6 +20506,10 @@
   {
     "kind": "lesson",
     "text": "Tribe: Banu Hilal"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/104"
   },
   {
     "kind": "question",
@@ -20244,8 +20572,8 @@
     "text": "Father: Al-Hasan al-Anwar ibn Zayd"
   },
   {
-    "kind": "lesson",
-    "text": "Mother: Zaynab bint al-Hasan"
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 10/106"
   },
   {
     "kind": "question",
@@ -20257,15 +20585,11 @@
   },
   {
     "kind": "question",
-    "text": "Who was the mother of Sayyidah Nafisah?"
-  },
-  {
-    "kind": "question",
     "text": "Which tribe was Sayyidah Nafisah from?"
   },
   {
     "kind": "question",
-    "text": "Where was Umm Kulthum bint Ali born?"
+    "text": "Who was the father of Zaynab bint Ali?"
   },
   {
     "kind": "lesson",
@@ -20274,6 +20598,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Fatimah bint Amr"
+  },
+  {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/37"
   },
   {
     "kind": "question",
@@ -20301,10 +20629,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Mother: Thumamah bint Sahl"
-  },
-  {
-    "kind": "lesson",
     "text": "Tribe: Banu Kilab"
   },
   {
@@ -20318,10 +20642,6 @@
   {
     "kind": "question",
     "text": "Hizam ibn Khalid"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Umm al-Banin?"
   },
   {
     "kind": "question",
@@ -20352,12 +20672,20 @@
     "text": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah."
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/338"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Umm Kulthum bint Ali?"
   },
   {
     "kind": "question",
     "text": "Who was the mother of Umm Kulthum bint Ali?"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shamus bint Qays"
   },
   {
     "kind": "lesson",
@@ -20372,6 +20700,10 @@
     "text": "Mother: Atikah bint Amir"
   },
   {
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/69"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Umm Salamah?"
   },
@@ -20381,27 +20713,35 @@
   },
   {
     "kind": "question",
+    "text": "Asma bint Amr"
+  },
+  {
+    "kind": "question",
+    "text": "Atikah bint Amir"
+  },
+  {
+    "kind": "question",
+    "text": "Zaynab bint al-Hasan"
+  },
+  {
+    "kind": "question",
     "text": "Which tribe was Umm Salamah from?"
   },
   {
     "kind": "lesson",
-    "text": "She spoke out in Yazid's court after Karbala."
+    "text": "She was Ali and Fatimah's daughter, the Prophet's ﷺ granddaughter."
   },
   {
-    "kind": "question",
-    "text": "Who was the father of Zaynab bint Ali?"
+    "kind": "source",
+    "text": "Tabaqat Ibn Sa'd 8/340"
   },
   {
     "kind": "question",
     "text": "Who was the mother of Zaynab bint Ali?"
   },
   {
-    "kind": "question",
-    "text": "Where was Zaynab bint Ali born?"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the father of Zaynab bint Jahsh?"
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/211"
   },
   {
     "kind": "question",
@@ -20410,6 +20750,10 @@
   {
     "kind": "lesson",
     "text": "Father: Khuzaymah ibn al-Harith"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/218"
   },
   {
     "kind": "question",
@@ -32358,10 +32702,6 @@
   {
     "kind": "question",
     "text": "Where did Uways come from?"
-  },
-  {
-    "kind": "question",
-    "text": "Iraq"
   },
   {
     "kind": "question",
