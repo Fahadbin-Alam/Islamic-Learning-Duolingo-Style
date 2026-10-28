@@ -425,6 +425,7 @@
   "{place} of {count}": "{count}টির মধ্যে {place}",
   "{topic}, {done} of {total}": "{topic}, {total}টির মধ্যে {done}টি",
   "{topic}. Change topic": "{topic}। বিষয় বদলাও",
+<<<<<<< HEAD
   "Search topics and people": "বিষয় বা নাম খোঁজো",
   "Clear search": "খোঁজা মুছে দাও",
   "Nothing found. Try another name.": "কিছু পাওয়া যায়নি। অন্য নাম লিখে দেখো।",
@@ -495,4 +496,27 @@
   "{count} XP to move up": "উপরে উঠতে আর {count} XP",
   "{count} XP to stay": "টিকে থাকতে আর {count} XP",
   "{count} days left": "আর {count} দিন বাকি"
+=======
+  "A tiny lesson right after each salah.": "প্রতি নামাজের পরেই একটা ছোট্ট পাঠ।",
+  "AM": "পূর্বাহ্ণ",
+  "PM": "অপরাহ্ণ",
+  "Fajr": "ফজর",
+  "Dhuhr": "যোহর",
+  "Asr": "আসর",
+  "Maghrib": "মাগরিব",
+  "Isha": "এশা",
+  "Asr time": "আসরের সময়",
+  "City": "শহর",
+  "Hanafi": "হানাফি",
+  "Standard": "সাধারণ",
+  "No city found.": "শহর পাওয়া যায়নি।",
+  "Not on the list? Pick the closest big city.": "তালিকায় নেই? সবচেয়ে কাছের বড় শহরটা বেছে নাও।",
+  "Notifications are off": "নোটিফিকেশন বন্ধ আছে",
+  "Off": "বন্ধ",
+  "Pick one": "বেছে নাও",
+  "Prayer time lessons": "নামাজের পরের পাঠ",
+  "Search your city": "তোমার শহর খোঁজো",
+  "Times are close guesses. Follow your local masjid.": "সময়গুলো আনুমানিক। তোমার এলাকার মসজিদের সময় মেনে চলো।",
+  "Turn them on for Muslimo in your phone settings.": "ফোনের সেটিংসে Muslimo-র জন্য এগুলো চালু করো।"
+>>>>>>> origin/claude/project-thread-9vvrdk
 }

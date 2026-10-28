@@ -41,6 +41,7 @@ STAY MOTIVATED
 • Daily streaks, XP, gems and reward chests
 • A daily goal you choose
 • Funny reminders from your camel when you have been away (turn them off any time)
+• Prayer-time lessons: pick your city and get a tiny lesson right after each salah
 • A weekly XP race with family and friends
 
 LEARN WITH OR WITHOUT AN ACCOUNT

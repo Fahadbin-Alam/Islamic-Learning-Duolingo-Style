@@ -37,6 +37,9 @@ export type SettingsSheetProps = {
   /** The app language's own name ("বাংলা"), and opening the language sheet. */
   languageLabel?: string;
   onOpenLanguage?: () => void;
+  /** "Off" or the chosen city, and opening the prayer-time lessons sheet. */
+  prayerLabel?: string;
+  onOpenPrayer?: () => void;
 };
 
 // Labels that say the difference on their own; the line under them is a reminder only.
@@ -68,7 +71,9 @@ export function SettingsSheet({
   onDeleteAccount,
   guest = false,
   languageLabel,
-  onOpenLanguage
+  onOpenLanguage,
+  prayerLabel,
+  onOpenPrayer
 }: SettingsSheetProps) {
   useBackToClose(visible, onClose);
   const activeRole = ROLES.find((option) => option.id === role) ?? ROLES[0];
@@ -107,6 +112,12 @@ export function SettingsSheet({
             <Toggle label={t("Streak reminder")} icon="flame" value={streakReminder} onToggle={onToggleStreak} testID="settings-streak" />
             <View style={styles.divider} />
             <Toggle label={t("Come back nudges")} icon="bell" value={islamicReminder} onToggle={onToggleIslamic} testID="settings-islamic" />
+            {onOpenPrayer ? (
+              <>
+                <View style={styles.divider} />
+                <LinkRow label={t("Prayer time lessons")} value={prayerLabel ?? ""} icon="mosque" onPress={onOpenPrayer} testID="settings-prayer" />
+              </>
+            ) : null}
             {role && !guest ? (
               <>
                 <View style={styles.divider} />

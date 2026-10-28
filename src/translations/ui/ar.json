@@ -425,6 +425,7 @@
   "{place} of {count}": "{place} من {count}",
   "{topic}, {done} of {total}": "{topic}، {done} من {total}",
   "{topic}. Change topic": "{topic}. غيّر الموضوع",
+<<<<<<< HEAD
   "Search topics and people": "ابحث عن المواضيع والأشخاص",
   "Clear search": "مسح البحث",
   "Nothing found. Try another name.": "لم نجد شيئًا. جرّب اسمًا آخر.",
@@ -495,4 +496,27 @@
   "{count} XP to move up": "{count} XP أخرى للصعود",
   "{count} XP to stay": "{count} XP أخرى للبقاء",
   "{count} days left": "الأيام المتبقية: {count}"
+=======
+  "A tiny lesson right after each salah.": "درس صغير بعد كل صلاة.",
+  "AM": "ص",
+  "PM": "م",
+  "Fajr": "الفجر",
+  "Dhuhr": "الظهر",
+  "Asr": "العصر",
+  "Maghrib": "المغرب",
+  "Isha": "العشاء",
+  "Asr time": "وقت العصر",
+  "City": "المدينة",
+  "Hanafi": "حنفي",
+  "Standard": "الجمهور",
+  "No city found.": "لم نجد المدينة.",
+  "Not on the list? Pick the closest big city.": "ليست في القائمة؟ اختر أقرب مدينة كبيرة.",
+  "Notifications are off": "الإشعارات متوقفة",
+  "Off": "متوقف",
+  "Pick one": "اختر",
+  "Prayer time lessons": "دروس بعد الصلاة",
+  "Search your city": "ابحث عن مدينتك",
+  "Times are close guesses. Follow your local masjid.": "الأوقات تقريبية. اتبع مسجدك المحلي.",
+  "Turn them on for Muslimo in your phone settings.": "شغّلها لتطبيق Muslimo من إعدادات هاتفك."
+>>>>>>> origin/claude/project-thread-9vvrdk
 }
