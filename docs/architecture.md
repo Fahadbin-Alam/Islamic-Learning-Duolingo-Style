@@ -78,8 +78,8 @@ This is built so branches can hold dozens or hundreds of lessons over time.
 
 Plan structure:
 - `free`
-- `premium_monthly` = `$9.99`
-- `premium_yearly` = `$95.90`
+- `no_ads_monthly` = `$2.99`, `no_ads_yearly` = `$19.99` (entitlement `no_ads`: no ads only)
+- `premium_monthly` = `$6.99`, `premium_yearly` = `$49.99` (entitlement `premium`: no ads, unlimited hearts, premium units)
 
 The backend stores entitlements separately from the UI so:
 - premium gating is not just cosmetic

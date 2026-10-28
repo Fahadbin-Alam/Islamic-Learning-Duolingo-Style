@@ -12,14 +12,12 @@ const fillIn = (challenge: Challenge) => challenge.prompt.includes("____");
 const pathLessonIds = [...new Set(allNodes.flatMap((node) => node.lessonIds))].filter((lessonId) => LESSONS_BY_ID[lessonId]);
 
 describe("session review questions never ask a line the lesson already asks", () => {
-  it("drops the Abu Dharr market fill-in from the Big quiz, whose True/False already says the line", async () => {
+  it("asks the Abu Dharr market line once in the Big quiz, never as a sentence and a fill-in both", async () => {
     const lessonId = "lesson-sahabi-abu-dharr-al-ghifari-mastery-lessons";
     expect(LESSONS_BY_ID[lessonId]).toBeDefined();
     const { lesson } = await learningApi.getLessonSession(lessonId, makeUser());
     const prompts = lesson.challenges.map((challenge) => challenge.prompt);
-    expect(prompts.filter((prompt) => /called out his Islam at the/.test(prompt))).toHaveLength(
-      prompts.filter((prompt) => /called out his Islam at the/.test(prompt) && !prompt.includes("____")).length
-    );
+    expect(prompts.filter((prompt) => /called out his Islam at the/.test(prompt)).length).toBeLessThanOrEqual(1);
   });
 
   it("finds no sentence before a fill-in of the same line, and no added review sharing a line, in any path lesson", async () => {
@@ -63,10 +61,10 @@ describe("session review questions never ask a line the lesson already asks", ()
 });
 
 describe("no question hands the learner the answer to a fill-in after it", () => {
-  it("keeps the Abu Dharr Big quiz at four questions, with a review from further back in the unit", async () => {
+  it("makes the Abu Dharr Big quiz a long multiple-choice quiz, with a review from further back in the unit", async () => {
     const { lesson } = await learningApi.getLessonSession("lesson-sahabi-abu-dharr-al-ghifari-mastery-lessons", makeUser());
-    expect(lesson.challenges).toHaveLength(4);
-    expect(lesson.challenges.some((challenge) => challenge.type !== "true_false")).toBe(true);
+    expect(lesson.challenges.length).toBeGreaterThanOrEqual(6);
+    expect(lesson.challenges.every((challenge) => challenge.type === "multiple_choice")).toBe(true);
     expect(lesson.challenges.filter((challenge) => challenge.isReview && /_review_/.test(challenge.id)).length).toBeGreaterThan(0);
   });
 
@@ -85,9 +83,14 @@ describe("no question hands the learner the answer to a fill-in after it", () =>
   });
 
   it("finds the Talhah, Musa and Harun, and prayer times giveaways the old order had", () => {
-    const at = (lessonId: string, pattern: RegExp) => LESSONS_BY_ID[lessonId].challenges.findIndex((challenge) => pattern.test(challenge.prompt));
-    expect(at("lesson-sahabi-talhah-ibn-ubaydillah-mastery-lessons", /invited by ____/)).toBeLessThan(at("lesson-sahabi-talhah-ibn-ubaydillah-mastery-lessons", /same clan as Abu Bakr/));
-    expect(at("lesson-prophets-power-and-deliverance-power-review", /his brother ____/)).toBeLessThan(at("lesson-prophets-power-and-deliverance-power-review", /Musa and Harun/));
-    expect(at("lesson-prayer-times-times-review", /begins with ____/)).toBeLessThan(at("lesson-prayer-times-times-review", /Fajr is just after midday/));
+    const index = (lessonId: string, pattern: RegExp) => LESSONS_BY_ID[lessonId].challenges.findIndex((challenge) => pattern.test(challenge.prompt));
+    // When a harder review no longer asks one of the two (it asks multiple-choice questions), nothing is given away.
+    const fillInFirst = (lessonId: string, fill: RegExp, sentence: RegExp) => {
+      const [at, later] = [index(lessonId, fill), index(lessonId, sentence)];
+      return at < 0 || later < 0 || at < later;
+    };
+    expect(fillInFirst("lesson-sahabi-talhah-ibn-ubaydillah-mastery-lessons", /invited by ____/, /same clan as Abu Bakr/)).toBe(true);
+    expect(fillInFirst("lesson-prophets-power-and-deliverance-power-review", /his brother ____/, /Musa and Harun/)).toBe(true);
+    expect(fillInFirst("lesson-prayer-times-times-review", /begins with ____/, /Fajr is just after midday/)).toBe(true);
   });
 });

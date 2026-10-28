@@ -5,6 +5,7 @@ import type { LearningNodeView } from "../types";
 import { playGameSound } from "../services/gameAudio";
 import { Icon } from "../ui/Icon";
 import { AppTopBar, BottomTabs, LearnPath, TopicPicker, type PathUnit } from "../ui/screens";
+import { buildTopicSearchIndex, searchTopics } from "../utils/topicSearch";
 
 jest.mock("../services/gameAudio", () => ({
   playGameSound: jest.fn(),
@@ -175,6 +176,33 @@ describe("LearnPath", () => {
     await fireEvent.press(screen.getByText(`START +${current.node.xpReward} XP`));
 
     expect(props.onStartNode).toHaveBeenCalledWith(current.node);
+  });
+
+  it("opens the card of a circle a search asked for, and can do it again", async () => {
+    const units = makeUnits();
+    const locked = units[0].items[3];
+    if (locked.kind !== "node") throw new Error("bad fixture");
+    const base = {
+      accent: foundation.accentColor,
+      topicId: "foundation",
+      mascotVariant: "hijabi",
+      units,
+      xpForNode: (node: LearningNodeView) => node.xpReward,
+      onStartNode: jest.fn(),
+      onClaimChest: jest.fn()
+    };
+    const { rerender } = await render(<LearnPath {...base} />);
+    expect(screen.queryByTestId("node-card")).toBeNull();
+
+    await rerender(<LearnPath {...base} reveal={locked.node.id} />);
+    expect(screen.getByTestId("node-card")).toBeTruthy();
+    expect(screen.getByText(locked.node.title)).toBeTruthy();
+
+    await fireEvent.press(screen.getByTestId(`path-node-${locked.node.id}`));
+    expect(screen.queryByTestId("node-card")).toBeNull();
+    await rerender(<LearnPath {...base} reveal={undefined} />);
+    await rerender(<LearnPath {...base} reveal={locked.node.id} />);
+    expect(screen.getByTestId("node-card")).toBeTruthy();
   });
 
   it("closes the card on a second tap or a tap elsewhere", async () => {
@@ -405,6 +433,39 @@ describe("Icon", () => {
 });
 
 describe("TopicPicker", () => {
+  it("opens a topic's sub-topics, then picks one or the whole topic", async () => {
+    const onSelect = jest.fn();
+    const onClose = jest.fn();
+    const sahabah = {
+      topicId: "sahabah",
+      title: "Sahabah",
+      accent: "#0C9F8C",
+      done: 3,
+      total: 60,
+      units: [
+        { id: "sahabi-abu-bakr", title: "Abu Bakr", done: 3, total: 40 },
+        { id: "sahabi-umar", title: "Umar ibn al-Khattab", done: 0, total: 20 }
+      ]
+    };
+    await render(<TopicPicker visible onClose={onClose} onSelect={onSelect} activeTopicId="foundation" topics={[sahabah]} />);
+
+    await fireEvent.press(screen.getByTestId("topic-tile-sahabah"));
+    expect(onSelect).not.toHaveBeenCalled();
+    expect(screen.getByTestId("topic-units-sahabah")).toBeTruthy();
+    expect(screen.getByText("Abu Bakr")).toBeTruthy();
+    expect(screen.getByText("3/40")).toBeTruthy();
+
+    await fireEvent.press(screen.getByTestId("topic-unit-sahabi-abu-bakr"));
+    expect(onSelect).toHaveBeenCalledWith("sahabah", "sahabi-abu-bakr");
+    expect(onClose).toHaveBeenCalledTimes(1);
+
+    await fireEvent.press(screen.getByTestId("topic-unit-all"));
+    expect(onSelect).toHaveBeenLastCalledWith("sahabah", undefined);
+
+    await fireEvent.press(screen.getByTestId("topic-picker-back"));
+    expect(screen.getByText("Choose a topic")).toBeTruthy();
+  });
+
   it("selects a topic and closes", async () => {
     const onSelect = jest.fn();
     const onClose = jest.fn();
@@ -449,6 +510,44 @@ describe("TopicPicker", () => {
     const onClose = jest.fn();
     await render(<TopicPicker visible onClose={onClose} onSelect={jest.fn()} activeTopicId="x" topics={[]} />);
     await fireEvent.press(screen.getByTestId("topic-picker-close"));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("has no search field without a search", async () => {
+    await render(<TopicPicker visible onClose={jest.fn()} onSelect={jest.fn()} activeTopicId="x" topics={[]} />);
+    expect(screen.queryByTestId("topic-search")).toBeNull();
+  });
+
+  it("searches people and lessons, opens a hit and clears back to the grid", async () => {
+    const onSelect = jest.fn();
+    const onClose = jest.fn();
+    const index = buildTopicSearchIndex(COURSE.sections);
+    await render(
+      <TopicPicker
+        visible
+        onClose={onClose}
+        onSelect={onSelect}
+        activeTopicId="foundation"
+        search={(query) => searchTopics(index, query)}
+        topics={[{ topicId: "sahabah", title: "Sahabah", accent: "#E8A23A", done: 0, total: 300 }]}
+      />
+    );
+    expect(screen.getByTestId("topic-tile-sahabah")).toBeTruthy();
+
+    await fireEvent.changeText(screen.getByTestId("topic-search"), "hussain");
+    expect(screen.queryByTestId("topic-tile-sahabah")).toBeNull();
+    const hit = searchTopics(index, "hussain")[0];
+    expect(screen.getByText("Al-Husayn ibn Ali")).toBeTruthy();
+    expect(screen.getByText(`${hit.unitTitle} · Sahabah`)).toBeTruthy();
+
+    await fireEvent.changeText(screen.getByTestId("topic-search"), "zzqxv");
+    expect(screen.getByTestId("topic-search-empty")).toBeTruthy();
+    await fireEvent.press(screen.getByTestId("topic-search-clear"));
+    expect(screen.getByTestId("topic-tile-sahabah")).toBeTruthy();
+
+    await fireEvent.changeText(screen.getByTestId("topic-search"), "hussain");
+    await fireEvent.press(screen.getByTestId(`topic-search-hit-${hit.nodeId}`));
+    expect(onSelect).toHaveBeenCalledWith("sahabah", hit.unitId, hit.nodeId);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

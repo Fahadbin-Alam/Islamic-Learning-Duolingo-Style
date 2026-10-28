@@ -6,7 +6,10 @@ import {
   allNodes,
   findNodeByLessonId
 } from "../data/course";
+import { lessonForAge } from "../data/ageLevels";
 import { asksSameLine, givesAway as namesAnswerOf } from "../data/scalableCurriculum";
+import type { AgeGroup } from "../services/monetizationConfig";
+import { withRamadanDay } from "../data/ramadanCalendar";
 import type {
   Challenge,
   LearningCourse,
@@ -23,20 +26,23 @@ import type {
   XpSummary
 } from "../types";
 import { buildGuidedLesson } from "../services/lessonGuidance";
+import { planForProduct } from "../services/monetizationConfig";
 import { enrichLessonSources, getPrimaryLessonSource } from "../services/resourceSupport";
+import { logDailyXp } from "../services/familyCode";
+import { addLeagueXp, settleLeague } from "../services/leagues";
 
 export interface IslamicLearningApi {
   getUser(userId: number): Promise<UserProfile>;
   getCoursePath(courseId: string, userId: number): Promise<LearningCourse>;
   getPathNodes(user: UserProfile): LearningNodeView[];
-  getLessonSession(lessonId: string, user: UserProfile): Promise<LessonSession>;
+  getLessonSession(lessonId: string, user: UserProfile, ageGroup?: AgeGroup): Promise<LessonSession>;
   getShopItems(): Promise<ShopItem[]>;
   getXpSummaries(user: UserProfile): Promise<XpSummary[]>;
 }
 
-// Topics whose units each stand alone (a surah, a companion, a prophet, a woman of the Book, a narration),
+// Topics whose units each stand alone (a surah, a companion, a prophet, a woman of the Book, a narration, a scholar),
 // so a learner can start with Al-Ikhlas or Abu Bakr. Every other topic is a skill taught in order.
-export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith"]);
+export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars"]);
 
 export const learningApi: IslamicLearningApi = {
   async getUser() {
@@ -47,7 +53,7 @@ export const learningApi: IslamicLearningApi = {
   },
   getPathNodes(user) {
     const completed = new Set(user.completedNodeIds);
-    const premium = isPremiumUser(user);
+    const premium = hasPremiumLessons(user);
     // Circles open in path order, so the path shows the order things unlock. A topic taught in order
     // opens one circle: its first not-done one. A library topic opens the next circle of every unit,
     // and only the first of those is "current" (the START bubble); a gated unit waits until the unit
@@ -87,14 +93,14 @@ export const learningApi: IslamicLearningApi = {
       firstLessonId: node.lessonIds[0]
     }));
   },
-  async getLessonSession(lessonId, user) {
+  async getLessonSession(lessonId, user, ageGroup) {
     const lesson = LESSONS_BY_ID[lessonId];
 
     if (!lesson) {
       throw new Error(`Unknown lesson: ${lessonId}`);
     }
 
-    const progressiveLesson = prepareLessonForSession(lesson);
+    const progressiveLesson = prepareLessonForSession(lessonForAge(lesson, ageGroup));
 
     return {
       id: `session_${lessonId}_${Date.now()}`,
@@ -152,9 +158,10 @@ export function getXpToday(user: UserProfile, now = new Date()) {
 // Any XP counts toward the daily goal, a goal of its own: the streak does not wait for it.
 export function addXp(user: UserProfile, amount: number, now = new Date()): UserProfile {
   return {
-    ...user,
+    ...addLeagueXp(user, amount, now),
     totalXp: user.totalXp + amount,
-    dailyXp: { date: localDateKey(now), xp: getXpToday(user, now) + amount }
+    dailyXp: { date: localDateKey(now), xp: getXpToday(user, now) + amount },
+    xpByDay: amount > 0 ? logDailyXp(user.xpByDay, localDateKey(now), amount) : user.xpByDay
   };
 }
 
@@ -192,7 +199,7 @@ export function refreshStreak(user: UserProfile, now = new Date()) {
 
 // Run whenever a saved profile is opened: refill today's hearts and drop a streak that has lapsed.
 export function prepareUserForToday(user: UserProfile, now = new Date()) {
-  return refreshStreak(refillHeartsForToday(user, now), now);
+  return settleLeague(refreshStreak(refillHeartsForToday(user, now), now), now);
 }
 
 export function didExtendStreak(before: UserProfile, after: UserProfile) {
@@ -290,10 +297,12 @@ export function completeLesson(user: UserProfile, lesson: Lesson, stars?: number
     ? [...user.completedNodeIds, node.id]
     : user.completedNodeIds;
   const withXp = keepStreak(addXp(user, getLessonXp(lesson, user), now), now);
+  // A Ramadan lesson done during Ramadan counts the day for the Ramadan streak.
+  const withRamadan = node?.topicId === "ramadan" ? withRamadanDay(withXp, now) : withXp;
   const nodeStars = withNodeStars(user, node ? [node.id] : [], stars);
 
   return {
-    ...withXp,
+    ...withRamadan,
     completedLessonIds,
     completedNodeIds,
     ...(nodeStars ? { nodeStars } : {})
@@ -353,9 +362,15 @@ export function grantHearts(user: UserProfile, hearts: number, capAtMax = false)
 
 export function applyShopItem(user: UserProfile, item: ShopItem) {
   if (item.type === "monthly_membership" || item.type === "yearly_membership") {
+    const activeSubscriptionId = item.productId ?? item.id;
+    // "No ads" only takes the ads away: hearts work as before.
+    if (planForProduct(activeSubscriptionId) === "no_ads") {
+      return { ...user, activeSubscriptionId, hearts: { ...user.hearts, unlimited: false } };
+    }
+
     return {
       ...user,
-      activeSubscriptionId: item.productId ?? item.id,
+      activeSubscriptionId,
       hearts: {
         ...user.hearts,
         current: user.hearts.max,
@@ -391,20 +406,42 @@ export function canSpendGems(user: UserProfile, item: ShopItem) {
   return item.currencyType === "gems" && !user.hearts.unlimited && user.gems >= item.price && user.hearts.current < user.hearts.max;
 }
 
+/** Any paid plan: no ads. */
 export function isPremiumUser(user: UserProfile) {
   return Boolean(user.activeSubscriptionId);
 }
 
-// Store state wins over local state, so a lapsed subscription stops granting unlimited hearts and ad-free study.
+/** Premium, not "No ads": unlimited hearts and the premium units. */
+export function hasPremiumLessons(user: UserProfile) {
+  return planForProduct(user.activeSubscriptionId) === "premium";
+}
+
+// Store state wins over local state, so a lapsed subscription stops granting unlimited hearts and ad-free study,
+// and a "No ads" plan never grants unlimited hearts.
 export function applyPremiumStatus(user: UserProfile, status: PremiumStatus) {
   if (status.active) {
-    if (user.activeSubscriptionId && user.hearts.unlimited) {
+    const plan = status.plan ?? planForProduct(status.productId) ?? "premium";
+
+    if (plan === "no_ads") {
+      const activeSubscriptionId = status.productId ?? (planForProduct(user.activeSubscriptionId) === "no_ads" ? user.activeSubscriptionId : undefined) ?? "no_ads";
+      if (user.activeSubscriptionId === activeSubscriptionId && !user.hearts.unlimited) {
+        return user;
+      }
+
+      return {
+        ...user,
+        activeSubscriptionId,
+        hearts: { ...user.hearts, current: Math.min(user.hearts.current, user.hearts.max), unlimited: false }
+      };
+    }
+
+    if (hasPremiumLessons(user) && user.hearts.unlimited) {
       return user;
     }
 
     return {
       ...user,
-      activeSubscriptionId: status.productId ?? user.activeSubscriptionId ?? "premium",
+      activeSubscriptionId: status.productId ?? (hasPremiumLessons(user) ? user.activeSubscriptionId : undefined) ?? "premium",
       hearts: { ...user.hearts, current: user.hearts.max, unlimited: true }
     };
   }
@@ -584,7 +621,7 @@ export function getTestOutPlan(user: UserProfile, branchId: string, jumpNodeId?:
     return undefined;
   }
 
-  const premium = isPremiumUser(user);
+  const premium = hasPremiumLessons(user);
   const opens = (branchIndex: number) => premium || !section.branches[branchIndex].premiumOnly;
   const done = new Set(user.completedNodeIds);
 

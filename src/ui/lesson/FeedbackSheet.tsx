@@ -82,11 +82,16 @@ function arrowFor({ viewport, content, offset }: ScrollState, slack = EDGE): "do
   return offset > EDGE ? "up" : undefined;
 }
 
+/** Where an answer comes from: its short reference ("Bukhari 3754", "Quran 9:40") and what opens it. */
+export type FeedbackSource = { label: string; onOpen?: () => void };
+
 export type FeedbackSheetProps = {
   visible: boolean;
   correct: boolean;
   correctLabel?: string;
   why?: string;
+  /** A chip at the end of the heading row, after a right or a wrong answer, that opens the answer's source. */
+  source?: FeedbackSource;
   onContinue: () => void;
   /** Picks the praise word so it stays the same across renders. */
   praiseSeed?: string;
@@ -136,6 +141,7 @@ export function FeedbackSheet({
   correct,
   correctLabel,
   why,
+  source,
   onContinue,
   praiseSeed,
   title,
@@ -504,6 +510,22 @@ export function FeedbackSheet({
           <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
             {withHonorifics(heading)}
           </Text>
+          {source?.label ? (
+            <Tappable
+              onPress={source.onOpen}
+              disabled={!source.onOpen}
+              style={[styles.sourceChip, { borderColor: withAlpha(ink, 0.35) }]}
+              accessibilityRole={source.onOpen ? "link" : "text"}
+              accessibilityLabel={t("Open source {name}", { name: source.label })}
+              hitSlop={6}
+              testID="feedback-source"
+            >
+              <Icon name="book" size={16} color={ink} />
+              <Text style={[styles.sourceText, { color: ink }]} numberOfLines={1}>
+                {source.label}
+              </Text>
+            </Tappable>
+          ) : null}
         </View>
 
         {hasBody ? (
@@ -713,6 +735,26 @@ const styles = StyleSheet.create({
   headRow: {
     flexDirection: "row",
     alignItems: "center"
+  },
+  // As tall as the badge beside it, so the heading row keeps its height.
+  sourceChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexShrink: 1,
+    maxWidth: "48%",
+    height: 32,
+    marginStart: space.sm,
+    paddingHorizontal: 10,
+    borderWidth: 2,
+    borderRadius: radii.pill,
+    backgroundColor: withAlpha(colors.white, 0.6)
+  },
+  sourceText: {
+    marginStart: 5,
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 17
   },
   badge: {
     width: 40,

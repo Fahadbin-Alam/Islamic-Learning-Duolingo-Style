@@ -636,9 +636,69 @@ export function reviewQuestions(
   return fillInsFirst(lessonId, picked);
 }
 
+/**
+ * How hard a lesson in a unit is, from 0 to 2, by how far along the unit it sits: the first lessons ask only what
+ * their card has just shown; further on, questions from earlier lessons come in, asked from memory. A unit after the
+ * first in a topic taught as one course starts a step further on.
+ */
+export function lessonStep(index: number, total: number, laterUnit = false): 0 | 1 | 2 {
+  const progress = (total > 1 ? index / (total - 1) : 0) + (laterUnit ? 0.25 : 0);
+  return progress < 0.25 ? 0 : progress < 0.6 ? 1 : 2;
+}
+
+// Only multiple-choice questions: testers find true/false too easy, so the harder steps ask with choices.
+export function choiceQuestionsOf(pool: TaughtLesson[]): TaughtLesson[] {
+  return pool
+    .map((lesson) => ({ ...lesson, questions: lesson.questions.filter((question) => question.type === "multiple_choice") }))
+    .filter((lesson) => lesson.questions.length > 0);
+}
+
+/**
+ * A teaching lesson's questions at its step. Step 0: its own questions, as they are. Step 1: its true/false
+ * question gives way to one multiple-choice question from an earlier lesson; step 2: to two. With nothing earlier
+ * to ask from, it keeps its own questions. Its own fill-in stays first, so it still checks the new line.
+ */
+export function harderQuestions(lessonId: string, own: Challenge[], earlier: TaughtLesson[], step: 0 | 1 | 2, recent: ReadonlySet<string> = new Set()): Challenge[] {
+  if (step === 0) return own;
+  const kept = own.filter((question) => question.type !== "true_false");
+  const recalled = recallQuestions(lessonId, kept, choiceQuestionsOf(earlier), step, recent);
+  if (!recalled.length) return own;
+  SET_ASIDE.set(lessonId, own.filter((question) => question.type === "true_false"));
+  return withoutGiveaways([...kept, ...recalled]);
+}
+
+/**
+ * Up to `count` questions from `pool` for a lesson that already asks `kept`, none of them asking the same line as
+ * another or naming another's answer, either way round: a lesson's own questions can be put in no safe order with
+ * one that would, so it is left out.
+ */
+export function recallQuestions(lessonId: string, kept: readonly Challenge[], pool: TaughtLesson[], count: number, recent: ReadonlySet<string> = new Set()) {
+  const picked: Challenge[] = [];
+  for (const question of reviewQuestions(lessonId, pool, count + 4, recent, kept)) {
+    const others = [...kept, ...picked];
+    if (picked.length >= count || others.some((other) => asksSameLine(other, question) || givesAway(other, question) || givesAway(question, other))) continue;
+    picked.push({ ...question, id: `${lessonId}_review_${picked.length + 1}` });
+  }
+  return picked;
+}
+
+/**
+ * The true/false questions harderQuestions left out, by lesson id: a lesson that a unit plan moves to where it has
+ * nothing earlier to ask from gets them back (unitPlans.ts).
+ */
+export const SET_ASIDE = new Map<string, Challenge[]>();
+
 // A review, a mixed review or a lesson with nothing new to teach: questions from the lessons before it, with its
-// own order question first when it has one.
-function lookBackQuestions(lessonId: string, lesson: LessonSeed, pool: TaughtLesson[], recent: ReadonlySet<string>, companion?: string): Challenge[] {
+// own order question first when it has one. Past the first steps of a unit it asks only multiple-choice questions
+// while there are enough of them.
+function lookBackQuestions(
+  lessonId: string,
+  lesson: LessonSeed,
+  pool: TaughtLesson[],
+  recent: ReadonlySet<string>,
+  companion?: string,
+  step: 0 | 1 | 2 = 0
+): Challenge[] {
   const order: Challenge[] = lesson.first
     ? [
         {
@@ -648,7 +708,10 @@ function lookBackQuestions(lessonId: string, lesson: LessonSeed, pool: TaughtLes
         }
       ]
     : [];
-  const questions = [...order, ...reviewQuestions(lessonId, pool, (lesson.reviews ?? 3) - order.length, recent, order)];
+  const count = (lesson.reviews ?? 3) - order.length;
+  const choices = choiceQuestionsOf(pool);
+  const asked = step > 0 && choices.reduce((total, item) => total + item.questions.length, 0) >= count ? choices : pool;
+  const questions = [...order, ...reviewQuestions(lessonId, asked, count, recent, order)];
   if (questions.length || !companion) return questions;
   const fact = `${companion} met the Prophet ﷺ and believed in him.`;
   return [{ ...tf(`${lessonId}_tf`, fact, true, "A Muslim who met the Prophet ﷺ is called a Sahabi."), miniLesson: fact, reviewSuggestion: `Review ${lesson.title}` }];
@@ -701,10 +764,10 @@ type CompanionReview = "review-lessons" | "challenge-lessons" | "scenario-lesson
 // big quiz to end the unit. They ask the questions of the lessons before them.
 const COMPANION_REVIEWS: Record<CompanionReview, { title: string; line: (name: string) => string; difficulty: DifficultyTier; lessonType: "review" | "mastery"; reviews: number }> = {
   "review-lessons": { title: "Review", line: (name) => `Let's remember ${name}'s story!`, difficulty: 3, lessonType: "review", reviews: 3 },
-  "challenge-lessons": { title: "Challenge", line: (name) => `Challenge time! How much do you know about ${name}?`, difficulty: 4, lessonType: "mastery", reviews: 3 },
-  "scenario-lessons": { title: "Quick quiz", line: (name) => `One more round of ${name} questions!`, difficulty: 4, lessonType: "mastery", reviews: 3 },
+  "challenge-lessons": { title: "Challenge", line: (name) => `Challenge time! How much do you know about ${name}?`, difficulty: 4, lessonType: "mastery", reviews: 4 },
+  "scenario-lessons": { title: "Quick quiz", line: (name) => `One more round of ${name} questions!`, difficulty: 4, lessonType: "mastery", reviews: 4 },
   "sequence-review": { title: "Life in order", line: (name) => `Can you put ${name}'s life in order?`, difficulty: 5, lessonType: "review", reviews: 3 },
-  "mastery-lessons": { title: "Big quiz", line: (name) => `Show what you know about ${name}!`, difficulty: 5, lessonType: "mastery", reviews: 3 }
+  "mastery-lessons": { title: "Big quiz", line: (name) => `Show what you know about ${name}!`, difficulty: 5, lessonType: "mastery", reviews: 6 }
 };
 
 const MID_UNIT_REVIEWS: CompanionReview[] = ["review-lessons", "challenge-lessons", "scenario-lessons"];
@@ -1800,6 +1863,8 @@ function createGeneratedBranch(section: LearningSection, branch: BranchSeed, ear
   const lessonsById: Record<string, Lesson> = {};
   const clusterSize = Math.max(3, branch.clusterSize ?? 5);
   const taught: TaughtLesson[] = [];
+  // In a topic taught as one course, a unit after the first starts a step harder.
+  const laterUnit = CHAINED_TOPICS.has(section.topicId) && earlier.size > 0;
   // What the lesson just before asked, so a review right after it asks something else when it can.
   let recent = new Set<string>();
 
@@ -1820,16 +1885,21 @@ function createGeneratedBranch(section: LearningSection, branch: BranchSeed, ear
     const clusterId = `${branch.id}_cluster_${clusterIndex}`;
     const masteryTestEligible = kind === "review" || (index + 1) % clusterSize === 0 || index === branch.lessons.length - 1;
     const pool = entry.reviewFrom ? entry.reviewFrom.flatMap((id) => (id === branch.id ? taught : earlier.get(id) ?? [])) : taught;
-    const own = teachingQuestions(lessonId, entry);
-    const challenges = (own.length ? own : lookBackQuestions(lessonId, entry, pool, recent, branch.companion)).map((challenge) => ({
+    const withSource = (challenge: Challenge): Challenge => ({
       ...challenge,
       sourceNodeId: challenge.sourceNodeId ?? nodeId,
       sourceLessonId: challenge.sourceLessonId ?? lessonId,
       resourceLabel: challenge.resourceLabel ?? (sources[0] ? "Open source" : undefined),
       resourceUrl: challenge.resourceUrl ?? sources[0]?.url
-    }));
+    });
+    const own = teachingQuestions(lessonId, entry).map(withSource);
+    const step = lessonStep(index, branch.lessons.length, laterUnit);
+    const challenges = own.length
+      ? harderQuestions(lessonId, own, taught, step, recent)
+      : lookBackQuestions(lessonId, entry, pool, recent, branch.companion, step).map(withSource);
     if (own.length) {
-      taught.push({ lessonId, nodeId, questions: challenges });
+      // Later reviews ask the lesson's own questions, the true/false one too, never the ones it asked from earlier.
+      taught.push({ lessonId, nodeId, questions: own });
     }
     recent = new Set(challenges.map((challenge) => challenge.prompt));
 
@@ -2385,7 +2455,7 @@ SECTION_SEEDS.push(
           why: "The Prophet ﷺ never hit a woman or a servant."
         }),
         seed("listen-before-answering", "Listen first", "Homes calm down when each person actually hears the other before reacting.", 3, {
-          line: "[Listen] fully before you answer.",
+          line: "[Listen] well, then follow the best of what is said.",
           alt: ["Shout", "Leave"]
         }),
         seed("repair-after-harm", "Saying sorry", "Homes survive by repair, apology, and sincere course correction.", 3, {

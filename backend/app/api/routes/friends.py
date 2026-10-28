@@ -9,7 +9,7 @@ from sqlalchemy import select
 
 from backend.app.api.deps import DbSession, current_user
 from backend.app.models import Friendship, User
-from backend.app.service_layer import initials, normalize_email
+from backend.app.service_layer import LEAGUE_TOP_TIER, initials, normalize_email
 
 
 router = APIRouter(tags=["friends"])
@@ -29,7 +29,8 @@ def learner_today(today: Optional[str]) -> date:
 
 
 def weekly_xp(user: User, today: date) -> int:
-    first_day = (today - timedelta(days=6)).isoformat()
+    # The same week as the app's league: Monday to today, on the caller's clock.
+    first_day = (today - timedelta(days=today.weekday())).isoformat()
     last_day = today.isoformat()
     return sum(int(xp) for day, xp in (user.xp_history_json or {}).items() if first_day <= day <= last_day)
 
@@ -42,6 +43,11 @@ def live_streak(user: User, today: date) -> int:
     return user.streak_days if user.last_streak_date >= (today - timedelta(days=2)).isoformat() else 0
 
 
+def league_tier(user: User) -> int:
+    tier = (user.league_json or {}).get("tier")
+    return tier if isinstance(tier, int) and not isinstance(tier, bool) and 0 <= tier <= LEAGUE_TOP_TIER else 0
+
+
 def member_payload(user: User, today: date, relation: str) -> Dict[str, Any]:
     return {
         "id": user.id,
@@ -52,6 +58,7 @@ def member_payload(user: User, today: date, relation: str) -> Dict[str, Any]:
         "weeklyXp": weekly_xp(user, today),
         "streakDays": live_streak(user, today),
         "lastLearningAt": user.last_learning_at.isoformat() if user.last_learning_at else None,
+        "league": league_tier(user),
     }
 
 

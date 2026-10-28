@@ -12,6 +12,9 @@ import { colors, darken, fonts, lip, radii, space, text, topicPalette } from "..
 import { LessonBottomBar } from "./LessonHeader";
 import { looksSame, noBreakHyphens, normalizeText } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
+import { AyahListen } from "./AyahListen";
+import { playAyah } from "../../services/ayahPlayer";
+import { quranAudioUrl } from "../../services/quranAudio";
 import { getActiveLanguage, t } from "../../i18n";
 
 export type LearnCardProps = {
@@ -131,6 +134,8 @@ export function LearnCard({
   const quoteReference = quote?.reference?.trim();
   // The quote's reference opens the source when both name the same narration, so it is not said twice.
   const linkedReference = Boolean(quoteText && quoteReference && source && sameReference(quoteReference, source.label));
+  // A single ayah in Arabic gets a recitation to listen to and repeat.
+  const ayahAudio = quoteText && isArabicOnly(quoteText) ? quranAudioUrl(quoteReference) : null;
   // With facts or a quote to show, the mascot sits small next to its line to leave them room.
   const rich = factList.length > 0 || Boolean(quoteText);
   const quranWord = arabic ? isQuranText(arabic.ar) : false;
@@ -244,9 +249,24 @@ export function LearnCard({
                 <View style={[styles.quoteBar, { backgroundColor: palette.main }]} />
                 <View style={styles.quoteBody}>
                   {isArabicOnly(quoteText) ? (
-                    <ArabicText size={narrow ? 19 : 21} quran color={colors.ink} align="right" style={styles.quoteArabic} testID="learn-quote-text">
-                      {quoteText}
-                    </ArabicText>
+                    ayahAudio ? (
+                      // Tapping the ayah recites it again from the start.
+                      <Tappable
+                        onPress={() => playAyah(ayahAudio)}
+                        pressScale={0.98}
+                        accessibilityRole="button"
+                        accessibilityLabel={t("Listen")}
+                        testID="learn-quote-ayah"
+                      >
+                        <ArabicText size={narrow ? 19 : 21} quran color={colors.ink} align="right" style={styles.quoteArabic} testID="learn-quote-text">
+                          {quoteText}
+                        </ArabicText>
+                      </Tappable>
+                    ) : (
+                      <ArabicText size={narrow ? 19 : 21} quran color={colors.ink} align="right" style={styles.quoteArabic} testID="learn-quote-text">
+                        {quoteText}
+                      </ArabicText>
+                    )
                   ) : (
                     <Text style={[styles.quoteText, quoteText.length > 160 ? styles.quoteTextLong : null]} testID="learn-quote-text">
                       {withHonorifics(noBreakHyphens(quoteText))}
@@ -270,6 +290,7 @@ export function LearnCard({
                       {withHonorifics(quoteReference)}
                     </Text>
                   ) : null}
+                  {ayahAudio ? <AyahListen url={ayahAudio} accent={palette.main} /> : null}
                 </View>
               </View>
             </PopIn>

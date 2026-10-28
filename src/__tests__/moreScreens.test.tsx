@@ -139,8 +139,14 @@ describe("ShopView", () => {
     expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(SHOP_ITEMS.map((item) => item.id));
     expect(screen.getByText("€1,09")).toBeTruthy();
     expect(screen.getByText(/Renews automatically/)).toBeTruthy();
-    expect(screen.getByText("Monthly")).toBeTruthy();
-    expect(screen.getByText("Save 20%")).toBeTruthy();
+    // Two plans, each with a monthly and a yearly price.
+    expect(screen.getAllByText("Monthly")).toHaveLength(2);
+    expect(screen.getByText("Save 44%")).toBeTruthy();
+    expect(screen.getByText("Save 40%")).toBeTruthy();
+    expect(screen.getByTestId("shop-no-ads")).toBeTruthy();
+    expect(screen.getByTestId("shop-premium")).toBeTruthy();
+    expect(screen.getByRole("button", { name: "No ads Monthly, $2.99/mo" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Premium Yearly, $49.99/yr" })).toBeTruthy();
   });
 
   it("does not buy, restore or open links when the gate answer is wrong", async () => {
@@ -202,7 +208,7 @@ describe("ShopView", () => {
 
   it("hides what the store cannot sell (web): only gem items stay, with no plans or restore", async () => {
     const handlers = { onUseItem: jest.fn(), onRestore: jest.fn(), onOpenLink: jest.fn() };
-    await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} {...handlers} />);
+    await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} canWatchAds={false} {...handlers} />);
 
     for (const item of SHOP_ITEMS) {
       if (item.currencyType === "gems") expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
@@ -215,6 +221,17 @@ describe("ShopView", () => {
     await fireEvent.press(screen.getByText("Terms"));
     await solveGate();
     expect(handlers.onOpenLink).toHaveBeenCalledWith(legalLinks.terms);
+  });
+
+  it("keeps the videos but hides every paid item when the build has ads but no store", async () => {
+    await render(<ShopView user={makeUser({ hearts: { current: 3, max: 5, unlimited: false, lastRefillDate: "2026-01-01" } })} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} />);
+
+    for (const item of SHOP_ITEMS) {
+      if (item.currencyType === "USD") expect(screen.queryByTestId(`shop-buy-${item.id}`)).toBeNull();
+      else expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
+    }
+    expect(screen.queryByTestId("shop-no-ads")).toBeNull();
+    expect(screen.queryByTestId("shop-restore")).toBeNull();
   });
 
   it("celebrates when a purchase fills the hearts", async () => {
@@ -238,6 +255,22 @@ describe("ShopView", () => {
     expect(handlers.onRestore).not.toHaveBeenCalled();
   });
 
+  it("lets a No ads learner buy hearts and move up to Premium, with no videos and no second No ads plan", async () => {
+    const handlers = await renderShop(makeUser({ activeSubscriptionId: "no_ads_monthly", hearts: { current: 3, max: 5, unlimited: false, lastRefillDate: "" } }));
+    expect(screen.getByTestId("shop-premium-active")).toHaveTextContent("No ads");
+    expect(screen.queryByText("Unlimited hearts!")).toBeNull();
+    expect(screen.queryByTestId("shop-no-ads")).toBeNull();
+    expect(screen.queryByTestId("shop-buy-watch-ad-heart")).toBeNull();
+    expect(screen.queryByTestId("shop-buy-watch-ad-gems")).toBeNull();
+    expect(screen.getByTestId("shop-buy-heart-pack-small")).toBeTruthy();
+    expect(screen.getByTestId("shop-premium")).toBeTruthy();
+    expect(screen.getByText(/Renews automatically/)).toBeTruthy();
+    await fireEvent.press(screen.getByTestId("shop-buy-membership-monthly"));
+    await solveGate();
+    expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(["membership-monthly"]);
+    expect(screen.getByTestId("shop-manage")).toBeTruthy();
+  });
+
   it("sells nothing to premium learners but keeps restore and manage", async () => {
     const handlers = await renderShop(makeUser({ activeSubscriptionId: "membership-yearly", hearts: { current: 5, max: 5, unlimited: true, lastRefillDate: "" } }));
     expect(screen.queryByTestId("shop-buy-gem-heart-refill")).toBeNull();
@@ -252,7 +285,8 @@ describe("ShopView", () => {
 
   it("formats prices", () => {
     const yearly = SHOP_ITEMS.find((item) => item.id === "membership-yearly")!;
-    expect(formatShopPrice(yearly)).toBe("$95.90/yr");
+    expect(formatShopPrice(yearly)).toBe("$49.99/yr");
+    expect(formatShopPrice(SHOP_ITEMS.find((item) => item.id === "no-ads-monthly")!)).toBe("$2.99/mo");
     expect(formatShopPrice(SHOP_ITEMS.find((item) => item.currencyType === "gems")!)).toBe("350");
   });
 });

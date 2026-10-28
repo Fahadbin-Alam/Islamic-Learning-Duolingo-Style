@@ -200,7 +200,9 @@ const TOPIC_COPY: Record<TopicId, { title: string; description: string; focus: s
   prophets: { title: "Lives of the Prophets", description: "Travel from Adam to Muhammad and learn the big lessons each prophet left for the Ummah.", focus: "Creation, patience, trust, forgiveness, courage, mercy, and the final example.", badge: "Topic 6" },
   women_of_the_book: { title: "Great Women", description: "Women of the Quran, the Mothers of the Believers and the Prophet's ﷺ family.", focus: "Repentance, trust, courage, purity, knowledge, and preserving revelation.", badge: "Topic 7" },
   quran_tafseer: { title: "Quran and Tafseer", description: "Short lessons on verses, tafsir, and the big meanings Allah wants believers to hold onto.", focus: "Guidance, oneness, protection, patience, and learning to reflect on the Quran.", badge: "Topic 5" },
-  hadith: { title: "Hadith", description: "Narrations of the Prophet ﷺ with their references, one hadith at a time.", focus: "The words of the Prophet ﷺ, where they are recorded, and what they teach.", badge: "Topic 8" }
+  hadith: { title: "Hadith", description: "Narrations of the Prophet ﷺ with their references, one hadith at a time.", focus: "The words of the Prophet ﷺ, where they are recorded, and what they teach.", badge: "Topic 8" },
+  scholars: { title: "Scholars", description: "The four imams and later scholars, shown as a family tree of who learned from whom.", focus: "Abu Hanifah, Malik, ash-Shafi'i, Ahmad, Ibn Taymiyyah, Ibn Baz and al-Albani.", badge: "Topic 9" },
+  ramadan: { title: "Ramadan", description: "A 30-day Ramadan path: one short lesson for each day of the month.", focus: "Fasting with faith, suhur and iftar, good deeds, the last ten nights and Eid.", badge: "Ramadan mode" }
 };
 
 let activeLanguage: SupportedLanguage = DEFAULT_LANGUAGE;

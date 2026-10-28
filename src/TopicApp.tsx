@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import {
   Linking,
   Platform,
+  Share,
   StatusBar,
   StyleSheet,
   Text,
@@ -36,14 +37,18 @@ import {
   keepStreak,
   testOutPassingScore,
   grantHearts,
+  hasPremiumLessons,
   isPremiumUser,
   learningApi,
   loseHeart,
   pickTestOutChallenges,
   prepareUserForToday,
-  refillHeartsForToday
+  refillHeartsForToday,
+  LIBRARY_TOPICS
 } from "./api/islamicLearningApi";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
+import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
+import { localDayNumber } from "./data/dailyCard";
 import {
   DEFAULT_LANGUAGE,
   deviceLanguage,
@@ -118,6 +123,10 @@ import {
   requestIslamicNotificationPermission,
   scheduleIslamicReminderChecks
 } from "./services/islamicNotifications";
+import { onPrayerNudgeOpened, requestPrayerNudgePermission, schedulePrayerNudges } from "./services/prayerNudges";
+import { loadPrayerNudgePrefs, savePrayerNudgePrefs } from "./services/prayerNudgePlan";
+import type { PrayerNudgePrefs } from "./services/prayerTimes";
+import { findPrayerCity } from "./data/prayerCities";
 import {
   FoundationAssessmentScreen,
   PracticeComplete
@@ -133,9 +142,10 @@ import {
   type FoundationPracticeResult
 } from "./services/foundationAssessment";
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
+import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
-import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space } from "./ui";
+import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import {
   AccountSheet,
@@ -144,11 +154,16 @@ import {
   checkAccountFields,
   ConfirmSheet,
   CrewView,
+  LeagueResultSheet,
   AgeSheet,
   LanguageSheet,
   LearnPath,
+  PrayerSheet,
+  cityName,
   PracticeHub,
   ProfileView,
+  FamilySheet,
+  RamadanBanner,
   RefillSheet,
   RewardPop,
   SettingsSheet,
@@ -161,8 +176,14 @@ import {
   type TabKey,
   type TopicPickerTopic
 } from "./ui/screens";
+import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
+import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
+import { questionSource, shortReference } from "./services/questionSource";
+import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
+import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
+import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import type {
   AccountRole,
   Challenge,
@@ -171,6 +192,7 @@ import type {
   LearningBranch,
   LearningNodeView,
   LearningSection,
+  Lesson,
   LessonSession,
   PremiumStatus,
   ReminderPreferences,
@@ -253,6 +275,8 @@ interface AppState {
   returnScreen?: Screen;
   selectedTopic: TopicId;
   selectedBranchId?: string;
+  /** A sub-topic (a companion, a surah) the Learn path shows on its own; unset shows the whole topic. */
+  pathUnitId?: string;
   /** The shop scrolls here when it opens (a premium unit's UNLOCK). */
   shopFocus?: "premium";
   user?: UserProfile;
@@ -282,7 +306,7 @@ type Action =
   | { type: "go_home" }
   | { type: "show_topic" }
   | { type: "show_branch" }
-  | { type: "select_topic"; topicId: TopicId }
+  | { type: "select_topic"; topicId: TopicId; unitId?: string }
   | { type: "select_branch"; branchId: string }
   | { type: "open_review" }
   | { type: "close_review" }
@@ -358,6 +382,7 @@ function reducer(state: AppState, action: Action): AppState {
         user: state.user && state.user.lastTopicId !== action.topicId ? { ...state.user, lastTopicId: action.topicId } : state.user,
         selectedTopic: action.topicId,
         selectedBranchId: undefined,
+        pathUnitId: action.unitId,
         screen: "topic",
         returnScreen: undefined
       };
@@ -460,6 +485,19 @@ const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 // The shop's "Free heart" video, offered again on the out-of-hearts sheet.
 const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
 
+
+// A scholar's years for the family tree, in the learner's language.
+function scholarYears(years: ScholarYears): string {
+  const { born, died } = years;
+  if (years.era === "AH") {
+    if (born !== undefined && died !== undefined) return t("{born}–{died} AH", { born, died });
+    if (died !== undefined) return t("Died {died} AH", { died });
+    return t("Born {born} AH", { born: born ?? "" });
+  }
+  if (born !== undefined && died !== undefined) return t("{born}–{died} CE", { born, died });
+  return t("Born {born} CE", { born: born ?? "" });
+}
+
 export default function TopicApp() {
   // RN's own SafeAreaView only pads on iOS, so Android drew the top bar under the status bar.
   // These insets clear the status bar, notch and navigation bar on both.
@@ -472,9 +510,17 @@ export default function TopicApp() {
   const [accountModalVisible, setAccountModalVisible] = useState(false);
   const [outOfHearts, setOutOfHearts] = useState<OutOfHeartsSheet | undefined>(undefined);
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
+  // The local day the top bar's daily ayah and hadith were last opened.
+  const [dailySeenDay, setDailySeenDay] = useState(() => Number(getStoredItem("sira-path-daily-seen")));
+  // Prayer-time lessons belong to this phone (its city and notifications), not to the account.
+  const [prayerPrefs, setPrayerPrefs] = useState<PrayerNudgePrefs>(loadPrayerNudgePrefs);
+  const [prayerModalVisible, setPrayerModalVisible] = useState(false);
+  const [prayerLessonDue, setPrayerLessonDue] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
   const [accountPromptDue, setAccountPromptDue] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+  const [familyVisible, setFamilyVisible] = useState(false);
+  const [familyKids, setFamilyKids] = useState<FamilyKid[]>([]);
   const [activeAssessment, setActiveAssessment] = useState<FoundationAssessmentState | undefined>(undefined);
   // The practice end screen. `restored` is one shown again after a reload: its fanfare already played.
   const [practiceResult, setPracticeResult] = useState<(FoundationPracticeResult & { restored?: boolean }) | undefined>(undefined);
@@ -516,13 +562,16 @@ export default function TopicApp() {
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
+  // The circle a topic search hit asked the path to show; cleared once the path has scrolled to it.
+  const [pathReveal, setPathReveal] = useState<string | undefined>(undefined);
   const [quitLessonVisible, setQuitLessonVisible] = useState(false);
   const challengeStartedAtRef = useRef(Date.now());
   const lessonsFinishedRef = useRef(0);
   // Each MY LESSONS run starts from other questions.
   const lessonPracticeTriesRef = useRef(0);
   const lastFullScreenAdAtRef = useRef(0);
-  // Ads are native only, so the age screen is too. Its answer stays on this device and only picks which ads may show.
+  // Everyone picks an age once, at the start. The answer stays on this device: it sets how hard lessons are for young
+  // learners (lessonForAge) and, on phones, which ads may show.
   const needsAgeCheck = Platform.OS !== "web" && monetizationMode !== "disabled";
   const [ageGroup, setAgeGroup] = useState<AgeGroup | undefined>(() => {
     const saved = getStoredItem("sira-path-age-group");
@@ -594,7 +643,7 @@ export default function TopicApp() {
 
       if (mounted) {
         setHasSavedAccount(Boolean(knownAccount));
-        // A first launch on a Bangla, Urdu or Arabic phone starts in that language and asks once.
+        // A first launch asks once which language to learn in, with the phone's language picked if offered.
         const phoneLanguage = user.preferredLanguage ? undefined : deviceLanguage();
         setPendingLanguage(normalizeLanguage(user.preferredLanguage ?? phoneLanguage));
         setStartLanguage(normalizeLanguage(phoneLanguage));
@@ -613,7 +662,7 @@ export default function TopicApp() {
         setSettingsSoundEnabled(user.soundEffectsEnabled !== false);
         setSettingsReducedSound(Boolean(user.reducedSoundEffects));
 
-        if (LANGUAGE_PICKER_ENABLED && phoneLanguage) {
+        if (LANGUAGE_PICKER_ENABLED && !user.preferredLanguage) {
           setLanguageModalVisible(true);
         }
 
@@ -730,6 +779,22 @@ export default function TopicApp() {
     state.user?.reminderPreferences?.islamicReminders
   ]);
 
+  // Prayer nudges skip the hour around a come-back reminder, so they are planned again whenever those are.
+  useEffect(() => {
+    void schedulePrayerNudges(prayerPrefs, state.user, currentLanguage);
+  }, [
+    prayerPrefs,
+    currentLanguage,
+    state.user?.id,
+    state.user?.lastLearningAt,
+    state.user?.lastLoginAt,
+    state.user?.reminderPreferences?.streakReminders,
+    state.user?.reminderPreferences?.islamicReminders
+  ]);
+
+  // Tapping a prayer nudge opens the tiny lesson it promised.
+  useEffect(() => onPrayerNudgeOpened(() => setPrayerLessonDue(true)), []);
+
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
   }, [state.user]);
@@ -776,10 +841,15 @@ export default function TopicApp() {
   // the path's own. NEXT LESSON plays it and the path puts START on it, so a jump into a later unit carries on
   // there, not back in a unit skipped past. It is kept on the learner, so a reload keeps it too.
   const pathFocusId = state.user?.pathFocusIds?.[selectedSection.topicId];
+  // The sub-topic picked in the topic picker, while this topic still has it.
+  const pathUnitId = selectedSection.branches.some((branch) => branch.id === state.pathUnitId) ? state.pathUnitId : undefined;
+  // Crew shows the league as of today, even when a week ended while the app stayed open.
+  const crewLeagueUser = state.screen === "social" && state.user ? settleLeague(state.user) : undefined;
   const sectionNextNode = useMemo(() => {
-    const focused = pathFocusId ? sectionNodes.find((node) => node.id === pathFocusId) : undefined;
-    return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(sectionNodes);
-  }, [pathFocusId, sectionNodes]);
+    const shown = pathUnitId ? sectionNodes.filter((node) => node.branchId === pathUnitId) : sectionNodes;
+    const focused = pathFocusId ? shown.find((node) => node.id === pathFocusId) : undefined;
+    return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(shown);
+  }, [pathFocusId, pathUnitId, sectionNodes]);
   // Every unfinished unit the learner may open can be tested out when the circles it skips give enough
   // questions for a fair test: the open unit's banner key, and JUMP HERE on locked circles of any unit.
   // Only finished circles and premium change the plans, so a heart or XP change does not redo them.
@@ -823,7 +893,7 @@ export default function TopicApp() {
     for (const branch of selectedSection.branches) {
       const nodes = sectionNodes.filter((node) => node.branchId === branch.id);
 
-      if (!nodes.length) {
+      if (!nodes.length || (pathUnitId && branch.id !== pathUnitId)) {
         continue;
       }
 
@@ -852,26 +922,83 @@ export default function TopicApp() {
         arabic: getBranchArabic(branch.id),
         done: nodes.filter((node) => completed.has(node.id)).length,
         total: nodes.length,
-        premiumLocked: Boolean(branch.premiumOnly && !state.user.activeSubscriptionId),
+        premiumLocked: Boolean(branch.premiumOnly && !hasPremiumLessons(state.user)),
         canTestOut: testOutUnitIds.has(branch.id),
         items
       });
     }
 
     return { units, chestStops };
-  }, [sectionNodes, selectedSection, state.user, testOutUnitIds]);
+  }, [pathUnitId, sectionNodes, selectedSection, state.user, testOutUnitIds]);
+  // Ramadan mode: from two weeks before Ramadan until Eid, the Learn path opens with the Ramadan banner and the
+  // topic picker puts Ramadan first. Worked out again whenever the learner changes, so a new day shows on the next lesson.
+  const season = useMemo(() => ramadanSeason(), [state.user]);
+  const ramadanBanner = useMemo(() => {
+    const user = state.user;
+    const ramadan = localizedSections.find((section) => section.topicId === RAMADAN_TOPIC);
+
+    if (!season || !user || !ramadan) {
+      return undefined;
+    }
+
+    const completed = new Set(user.completedNodeIds);
+    const next = pathNodes.find((node) => node.topicId === RAMADAN_TOPIC && node.status === "current");
+
+    return (
+      <RamadanBanner
+        season={season}
+        accent={ramadan.accentColor}
+        streak={ramadanStreak(user)}
+        doneToday={didRamadanToday(user)}
+        done={ramadan.nodes.filter((node) => completed.has(node.id)).length}
+        total={ramadan.nodes.length}
+        onPlay={
+          next
+            ? () => {
+                dispatch({ type: "select_topic", topicId: RAMADAN_TOPIC });
+                void startLesson(next);
+              }
+            : undefined
+        }
+      />
+    );
+  }, [localizedSections, pathNodes, season, state.user]);
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
-
-    return localizedSections.map((section) => ({
+    const topics = localizedSections.map((section) => ({
       topicId: section.topicId,
       title: section.title,
       accent: section.accentColor,
       arabic: getTopicArabic(section.topicId),
       done: section.nodes.filter((node) => completed.has(node.id)).length,
-      total: section.nodes.length
+      total: section.nodes.length,
+      // A library topic's units each stand alone (a companion, a surah), so each can be learned on its own.
+      ...(LIBRARY_TOPICS.has(section.topicId)
+        ? {
+            units: section.branches
+              .map((branch) => {
+                const nodes = section.nodes.filter((node) => node.branchId === branch.id);
+                const tree = SCHOLAR_TREE[branch.id];
+                return {
+                  id: branch.id,
+                  title: branch.title,
+                  arabic: getBranchArabic(branch.id),
+                  done: nodes.filter((node) => completed.has(node.id)).length,
+                  total: nodes.length,
+                  ...(tree ? { tree: { row: tree.row, years: scholarYears(tree.years), note: branch.description } } : {})
+                };
+              })
+              .filter((unit) => unit.total > 0)
+          }
+        : {})
     }));
-  }, [localizedSections, state.user?.completedNodeIds]);
+
+    return season ? [...topics.filter((topic) => topic.topicId === RAMADAN_TOPIC), ...topics.filter((topic) => topic.topicId !== RAMADAN_TOPIC)] : topics;
+  }, [localizedSections, season, state.user?.completedNodeIds]);
+
+  // Names in every language are in the index, so it is built once.
+  const searchIndex = useMemo(() => buildTopicSearchIndex(COURSE.sections), []);
+  const searchCourse = useCallback((query: string) => searchTopics(searchIndex, query), [searchIndex]);
 
   const currentLessonSection = useMemo(() => {
     if (!state.activeSession) {
@@ -909,6 +1036,49 @@ export default function TopicApp() {
 
   // Each finished circle's best run, as its Lesson complete card showed it.
   const userStars = useMemo(() => (state.user ? getTotalStars(state.user) : 0), [state.user]);
+  // Read again each time the sheet opens, so a sheet left open past midnight is the only stale case.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const familyToday = useMemo(() => localDateKey(), [familyVisible]);
+  const familyTopics = useMemo(
+    () => pickerTopics.map((topic) => ({ topicId: topic.topicId as TopicId, title: topic.title, accent: topic.accent, total: topic.total })),
+    [pickerTopics]
+  );
+  // This phone's progress for the Family sheet. The id is only made when the report is first sent.
+  const familyReport = useMemo(() => {
+    if (!state.user) return undefined;
+    return buildFamilySnapshot({
+      id: peekFamilyId() ?? "",
+      today: familyToday,
+      user: state.user,
+      stars: userStars,
+      topicsDone: Object.fromEntries(pickerTopics.map((topic) => [topic.topicId, topic.done]))
+    });
+  }, [familyToday, pickerTopics, state.user, userStars]);
+  const openFamily = () => {
+    setFamilyKids(loadFamilyKids());
+    setFamilyVisible(true);
+  };
+  // The parent asked for it behind the grown-up gate: the code goes to the share sheet they pick from.
+  const shareFamilyReport = () => {
+    if (!familyReport) return undefined;
+    const code = encodeFamilyCode({ ...familyReport, id: getFamilyId() });
+    const message = t("My Muslimo progress. To follow along, open Muslimo, then Me, Family, My kids, and paste this: {code}", { code });
+    void Share.share({ message }).catch(() => undefined);
+    return code;
+  };
+  const addKid = (text: string, nickname: string) => {
+    const result = addFamilyKid(familyKids, text, nickname, peekFamilyId(), new Date().toISOString());
+    if (result.status === "added" || result.status === "updated") {
+      setFamilyKids(result.kids);
+      saveFamilyKids(result.kids);
+    }
+    return result.status;
+  };
+  const removeKid = (id: string) => {
+    const kids = removeFamilyKid(familyKids, id);
+    setFamilyKids(kids);
+    saveFamilyKids(kids);
+  };
   const { notify, confirm, sheets: noticeSheets, open: noticeOpen } = useNotices({
     mascotVariant: selectedSection.mascot,
     accent: selectedSection.accentColor
@@ -934,7 +1104,22 @@ export default function TopicApp() {
     selectedSection.topicId === "foundation";
   const otherSheetOpen =
     Boolean(outOfHearts?.open || rewardCelebration || testOutResult?.open) ||
-    topicPickerVisible || settingsModalVisible || languageModalVisible || noticeOpen;
+    topicPickerVisible || settingsModalVisible || languageModalVisible || prayerModalVisible || noticeOpen || familyVisible;
+
+  useEffect(() => {
+    const busy = state.screen.startsWith("lesson_") || state.screen === "assessment";
+    if (!prayerLessonDue || !state.user || busy || otherSheetOpen) {
+      return;
+    }
+
+    setPrayerLessonDue(false);
+    if (sectionNextNode) {
+      void startLesson(sectionNextNode);
+    } else {
+      changeTab("learn");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prayerLessonDue, state.user, state.screen, otherSheetOpen, sectionNextNode]);
   useEffect(() => {
     if (!accountPromptDue || accountPromptShown || !guestUser || !onFoundationPath || otherSheetOpen) {
       return;
@@ -1069,7 +1254,7 @@ export default function TopicApp() {
 
     const nodeBranch = COURSE.sections.flatMap((section) => section.branches).find((branch) => branch.id === node.branchId) ?? selectedBranch;
 
-    if (nodeBranch.premiumOnly && !user.activeSubscriptionId) {
+    if (nodeBranch.premiumOnly && !hasPremiumLessons(user)) {
       dispatch({ type: "open_shop", focus: "premium" });
       return;
     }
@@ -1090,7 +1275,7 @@ export default function TopicApp() {
     };
 
     dispatch({ type: "apply_user", user: activeUser });
-    const session = await learningApi.getLessonSession(node.firstLessonId, activeUser);
+    const session = await learningApi.getLessonSession(node.firstLessonId, activeUser, ageGroup);
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
   }
@@ -1107,7 +1292,7 @@ export default function TopicApp() {
     const testBranch = selectedSection.branches.find((branch) => branch.id === branchId) ?? selectedBranch;
     const plan = getTestOutPlan(user, testBranch.id, jumpNodeId);
 
-    if (!plan && testBranch.premiumOnly && !user.activeSubscriptionId) {
+    if (!plan && testBranch.premiumOnly && !hasPremiumLessons(user)) {
       dispatch({ type: "open_shop", focus: "premium" });
       return;
     }
@@ -1546,6 +1731,18 @@ export default function TopicApp() {
       }
     });
     setLanguageModalVisible(false);
+  }
+
+  // Permission comes first so the nudges are scheduled with it once the new settings land.
+  async function savePrayerSettings(prefs: PrayerNudgePrefs) {
+    setPrayerModalVisible(false);
+    const allowed = !prefs.enabled || (await requestPrayerNudgePermission());
+    savePrayerNudgePrefs(prefs);
+    setPrayerPrefs(prefs);
+
+    if (!allowed) {
+      void notify(t("Notifications are off"), t("Turn them on for Muslimo in your phone settings."), { mood: "think" });
+    }
   }
 
   // Guests get Settings too: reminders and sound. The sheet hides "who is learning", the family
@@ -2185,6 +2382,8 @@ export default function TopicApp() {
   }
 
   const inLesson = state.screen.startsWith("lesson_") || state.screen === "assessment";
+  const prayerCity = findPrayerCity(prayerPrefs.cityId);
+  const prayerSettingLabel = prayerPrefs.enabled && prayerCity ? cityName(prayerCity, currentLanguage) : t("Off");
   const enabledSocialProviders = socialProviders.map((id) => ({ id, label: id === "google" ? t("Continue with Google") : t("Continue with Apple") }));
   const activeTab = tabForScreen(state.screen);
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
@@ -2272,6 +2471,12 @@ export default function TopicApp() {
             hearts={lessonHearts}
             onOpenTopics={() => setTopicPickerVisible(true)}
             onOpenShop={() => dispatch({ type: "open_shop" })}
+            dailySeen={dailySeenDay === localDayNumber()}
+            onDailyOpened={() => {
+              const today = localDayNumber();
+              setDailySeenDay(today);
+              setStoredItem("sira-path-daily-seen", String(today));
+            }}
           />
         )}
         {activeTab === "learn" && !inLesson && (
@@ -2297,6 +2502,26 @@ export default function TopicApp() {
             onTestOut={(unitId, nodeId) => void startBranchTestOut(unitId, undefined, 0, nodeId)}
             onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
             onNextTopic={() => setTopicPickerVisible(true)}
+            reveal={pathReveal}
+            onRevealed={() => setPathReveal(undefined)}
+            header={
+              pathUnitId ? (
+                <Tappable
+                  onPress={() => dispatch({ type: "select_topic", topicId: selectedSection.topicId })}
+                  sound="node_tap"
+                  accessibilityLabel={t("All of {topic}", { topic: selectedSection.title })}
+                  testID="path-show-all"
+                  style={styles.pathAll}
+                >
+                  <Icon name="arrowLeft" size={18} color={colors.inkSoft} />
+                  <Text style={styles.pathAllText} numberOfLines={1}>
+                    {t("All of {topic}", { topic: selectedSection.title })}
+                  </Text>
+                </Tappable>
+              ) : (
+                ramadanBanner
+              )
+            }
           />
         )}
         {state.screen === "lesson_teach" && lesson && lessonShell(
@@ -2348,7 +2573,8 @@ export default function TopicApp() {
                 ? {
                     correct: state.answerState === "correct",
                     correctLabel,
-                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage)
+                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
+                    source: feedbackSource(challenge, lesson)
                   }
                 : undefined}
               attempt={lessonStep.attempt}
@@ -2446,6 +2672,7 @@ export default function TopicApp() {
             soundEnabled={state.user.soundEffectsEnabled !== false}
             onToggleSound={toggleSoundEffects}
             onOpenSettings={openSettingsModal}
+            onOpenFamily={openFamily}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
@@ -2481,8 +2708,14 @@ export default function TopicApp() {
             onAnswerRequest={answerCrewRequest}
             onRefresh={loadCrew}
             onCreateAccount={openCrewAccount}
+            league={crewLeagueUser?.league}
           />
         )}
+        {/* A finished league week is told once, the first time Crew opens after it. */}
+        <LeagueResultSheet
+          result={crewLeagueUser ? unseenLeagueResult(crewLeagueUser) : undefined}
+          onClose={() => dispatch({ type: "apply_user_latest", update: (user) => markLeagueResultSeen(settleLeague(user)) })}
+        />
         <AdBanner hidden={isPremiumUser(state.user) || state.user.hearts.unlimited || inLesson} />
         {!inLesson && <BottomTabs active={activeTab} onChange={changeTab} />}
         {!inLesson && (
@@ -2491,7 +2724,13 @@ export default function TopicApp() {
             onClose={() => setTopicPickerVisible(false)}
             topics={pickerTopics}
             activeTopicId={selectedSection.topicId}
-            onSelect={(topicId) => dispatch({ type: "select_topic", topicId: topicId as TopicId })}
+            search={searchCourse}
+            activeUnitId={pathUnitId}
+            onSelect={(topicId, unitId, nodeId) => {
+              // A search hit opens the whole topic at its circle; a sub-topic row opens that sub-topic on its own.
+              dispatch({ type: "select_topic", topicId: topicId as TopicId, unitId: nodeId ? undefined : unitId });
+              setPathReveal(nodeId);
+            }}
           />
         )}
         <AccountSheet
@@ -2514,6 +2753,22 @@ export default function TopicApp() {
           onSocial={(provider: string) => handleSocialLogin(provider as SocialProvider)}
           onClose={() => setAccountModalVisible(false)}
         />
+        {familyReport ? (
+          <FamilySheet
+            visible={familyVisible}
+            onClose={() => setFamilyVisible(false)}
+            report={familyReport}
+            onShareReport={shareFamilyReport}
+            topics={familyTopics}
+            kids={familyKids}
+            onAddKid={addKid}
+            onRemoveKid={removeKid}
+            today={familyToday}
+            initialTab={state.user?.accountRole === "parent" ? "kids" : "report"}
+            mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
+          />
+        ) : null}
         <SettingsSheet
           visible={settingsModalVisible}
           role={settingsRole}
@@ -2541,6 +2796,18 @@ export default function TopicApp() {
             setSettingsModalVisible(false);
             setLanguageModalVisible(true);
           }}
+          prayerLabel={prayerSettingLabel}
+          onOpenPrayer={() => {
+            setSettingsModalVisible(false);
+            setPrayerModalVisible(true);
+          }}
+        />
+        <PrayerSheet
+          visible={prayerModalVisible}
+          prefs={prayerPrefs}
+          language={currentLanguage}
+          onSave={(prefs: PrayerNudgePrefs) => void savePrayerSettings(prefs)}
+          onClose={() => setPrayerModalVisible(false)}
         />
         <RefillSheet
           visible={Boolean(outOfHearts?.open)}
@@ -2580,7 +2847,7 @@ export default function TopicApp() {
           onClose={collectJourneyReward}
         />
         <AgeSheet
-          visible={hasUser && (needsAgeCheck || ageBeforeSignUp) && !ageGroup}
+          visible={hasUser && !ageGroup}
           onSave={(group) => {
             setStoredItem("sira-path-age-group", group);
             setAgeGroup(group);
@@ -2603,6 +2870,14 @@ export default function TopicApp() {
       </PortalHost>
     </View>
   );
+}
+
+// The answer sheet's source chip: the short reference of the source that says the answer, opening it.
+function feedbackSource(challenge: Challenge, lesson: Lesson | undefined) {
+  const source = questionSource(challenge, lesson);
+  const reference = source?.reference?.trim();
+  if (!source || !reference) return undefined;
+  return { label: shortReference(reference), onOpen: source.url ? () => void Linking.openURL(source.url).catch(() => undefined) : undefined };
 }
 
 function readRewardedGemVideos(): { date: string; count: number } | null {
@@ -2841,7 +3116,7 @@ function mapTopicToFoundationCategory(topicId?: TopicId, branchId?: string): Fou
     return "iman";
   }
 
-  if (topicId === "fasting") {
+  if (topicId === "fasting" || topicId === "ramadan") {
     return "fasting";
   }
 
@@ -2944,6 +3219,25 @@ function webDirection(rtl: boolean): object {
 }
 
 const styles = StyleSheet.create({
+  // Above a one-unit path: back to the whole topic.
+  pathAll: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    gap: 6,
+    marginHorizontal: 16,
+    marginTop: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 999,
+    borderWidth: 2,
+    borderColor: colors.line,
+    borderBottomWidth: 4,
+    borderBottomColor: colors.lineLip,
+    backgroundColor: colors.white,
+    maxWidth: "90%"
+  },
+  pathAllText: { fontFamily: fonts.displayHeavy, fontSize: 15, color: colors.inkSoft, flexShrink: 1 },
   safeArea: { flex: 1, backgroundColor: colors.snow },
   appShell: { flex: 1, backgroundColor: colors.snow },
   // Urdu and Arabic: rows, padding and text run from the right.

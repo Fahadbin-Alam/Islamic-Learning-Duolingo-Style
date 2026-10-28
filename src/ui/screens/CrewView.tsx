@@ -3,7 +3,7 @@ import { ActivityIndicator, RefreshControl, ScrollView, StyleSheet, Text, View }
 import { COURSE } from "../../data/course";
 // Type-only: backendSync pulls in device storage, which a presentational screen must not load.
 import type { CrewMember, CrewPayload } from "../../services/backendSync";
-import type { SocialRelation, UserProfile } from "../../types";
+import type { LeagueState, SocialRelation, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
@@ -14,6 +14,7 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
+import { LeagueBadge, LeagueCard } from "./LeagueView";
 import { TextField } from "./sheetParts";
 import { t } from "../../i18n";
 
@@ -52,6 +53,8 @@ export type CrewViewProps = {
   unavailable?: boolean;
   mascotVariant?: string;
   accent?: string;
+  /** This week's league, ended up to today (settleLeague). Shown on top, with or without a crew server. */
+  league?: LeagueState;
 };
 
 // Friend avatars take a topic world color, picked from their id.
@@ -132,6 +135,7 @@ function RaceRow({ entry, index, onOpen }: { entry: CrewMember; index: number; o
           <Text style={styles.raceMetaText} numberOfLines={1}>
             {entry.streakDays}
           </Text>
+          {entry.league !== undefined ? <LeagueBadge tier={entry.league} size={14} testID={`crew-league-${entry.id}`} /> : null}
         </View>
       </View>
       <View style={styles.score}>
@@ -206,6 +210,7 @@ export function CrewView({
   offline,
   unavailable,
   hasSavedAccount = false,
+  league,
   mascotVariant = "muslim_man",
   // The brand green like the Mascot's own default; the app passes the topic accent.
   accent = colors.green
@@ -343,13 +348,15 @@ export function CrewView({
           <Text style={styles.title} numberOfLines={1}>
             {t("Crew")}
           </Text>
-          {payload ? (
+          {/* The league card shows this week's XP itself. */}
+          {payload && !league ? (
             <View style={styles.weekPill} accessibilityLabel={t("{count} XP this week", { count: payload.me.weeklyXp })}>
               <Icon name="bolt" size={20} />
               <Text style={styles.weekText} numberOfLines={1}>{t("{count} XP", { count: formatNumber(payload.me.weeklyXp) })}</Text>
             </View>
           ) : null}
         </View>
+        {league ? <LeagueCard league={league} /> : null}
         {body}
       </ScrollView>
 
