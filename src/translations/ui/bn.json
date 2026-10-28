@@ -433,5 +433,9 @@
   "Died {died} AH": "মৃত্যু {died} হিজরি",
   "Born {born} AH": "জন্ম {born} হিজরি",
   "{born}–{died} CE": "{born}–{died} খ্রি.",
-  "Born {born} CE": "জন্ম {born} খ্রি."
+  "Born {born} CE": "জন্ম {born} খ্রি.",
+  "Listen": "শোনো",
+  "Repeat": "বারবার",
+  "Recited by {name}": "তিলাওয়াত: {name}",
+  "Could not load. Check your internet.": "লোড হয়নি। ইন্টারনেট দেখো।"
 }

@@ -28,6 +28,8 @@ We do not sell personal information. We may share limited data with service prov
 
 Free learners see ads served by Google AdMob, which may use your device's advertising identifier and approximate location to show and measure ads. Where the law requires it, you are asked for consent first, and you can change that choice later. Premium members do not see ads.
 
+When you tap Listen on an ayah, the app downloads that ayah's recitation from the Islamic Network audio server (alquran.cloud), which sees your IP address like any website. Nothing about you or your progress is sent.
+
 In-app purchases are processed by Apple or Google. RevenueCat receives an anonymous purchase id (or your account id if you are signed in) and your purchase history so premium can be restored on your other devices. We never see your card details.
 
 ## Your Choices

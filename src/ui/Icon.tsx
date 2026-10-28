@@ -54,6 +54,7 @@ export type IconName =
   | "logout"
   | "plus"
   | "play"
+  | "repeat"
   | "handHeart"
   | "shield"
   | "coins"
@@ -660,6 +661,12 @@ const ICONS: Record<IconName, Drawer> = {
   plus: (t) => <Path d="M12 4.6v14.8M4.6 12h14.8" strokeWidth={3.4} strokeLinecap="round" {...t.s(C.green)} />,
   play: (t) => (
     <Path d="M7.4 4.8c0-1 1.1-1.6 1.9-1.1l10.4 7.2c.7.5.7 1.6 0 2.1L9.3 20.3c-.8.5-1.9-.1-1.9-1.1z" {...t.f(C.green)} />
+  ),
+  repeat: (t) => (
+    <G>
+      <Path d="M4.6 11.2V9.8a3.2 3.2 0 0 1 3.2-3.2h11M19.4 12.8v1.4a3.2 3.2 0 0 1-3.2 3.2h-11" strokeWidth={2.6} strokeLinecap="round" {...t.s(C.purple)} />
+      <Path d="M15.6 3.4 19 6.6l-3.4 3.2M8.4 14.2 5 17.4l3.4 3.2" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" {...t.s(C.purple)} />
+    </G>
   ),
   handHeart: (t) => (
     <G>

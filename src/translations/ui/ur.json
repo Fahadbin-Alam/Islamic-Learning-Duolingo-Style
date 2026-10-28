@@ -433,5 +433,9 @@
   "Died {died} AH": "وفات {died} ہجری",
   "Born {born} AH": "پیدائش {born} ہجری",
   "{born}–{died} CE": "{born}–{died} عیسوی",
-  "Born {born} CE": "پیدائش {born} عیسوی"
+  "Born {born} CE": "پیدائش {born} عیسوی",
+  "Listen": "سنیں",
+  "Repeat": "دہرائیں",
+  "Recited by {name}": "تلاوت: {name}",
+  "Could not load. Check your internet.": "لوڈ نہیں ہوا۔ انٹرنیٹ چیک کریں۔"
 }

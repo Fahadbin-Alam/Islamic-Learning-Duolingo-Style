@@ -433,5 +433,9 @@
   "Died {died} AH": "توفي {died} هـ",
   "Born {born} AH": "ولد {born} هـ",
   "{born}–{died} CE": "{born}–{died} م",
-  "Born {born} CE": "ولد {born} م"
+  "Born {born} CE": "ولد {born} م",
+  "Listen": "استمع",
+  "Repeat": "تكرار",
+  "Recited by {name}": "بصوت {name}",
+  "Could not load. Check your internet.": "تعذّر التحميل. تحقّق من الإنترنت."
 }
