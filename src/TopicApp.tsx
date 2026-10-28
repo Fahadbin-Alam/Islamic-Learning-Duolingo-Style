@@ -164,6 +164,7 @@ import {
 } from "./ui/screens";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
+import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import type {
   AccountRole,
   Challenge,
@@ -463,6 +464,19 @@ function reducer(state: AppState, action: Action): AppState {
 const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 // The shop's "Free heart" video, offered again on the out-of-hearts sheet.
 const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
+
+
+// A scholar's years for the family tree, in the learner's language.
+function scholarYears(years: ScholarYears): string {
+  const { born, died } = years;
+  if (years.era === "AH") {
+    if (born !== undefined && died !== undefined) return t("{born}–{died} AH", { born, died });
+    if (died !== undefined) return t("Died {died} AH", { died });
+    return t("Born {born} AH", { born: born ?? "" });
+  }
+  if (born !== undefined && died !== undefined) return t("{born}–{died} CE", { born, died });
+  return t("Born {born} CE", { born: born ?? "" });
+}
 
 export default function TopicApp() {
   // RN's own SafeAreaView only pads on iOS, so Android drew the top bar under the status bar.
@@ -883,7 +897,15 @@ export default function TopicApp() {
             units: section.branches
               .map((branch) => {
                 const nodes = section.nodes.filter((node) => node.branchId === branch.id);
-                return { id: branch.id, title: branch.title, arabic: getBranchArabic(branch.id), done: nodes.filter((node) => completed.has(node.id)).length, total: nodes.length };
+                const tree = SCHOLAR_TREE[branch.id];
+                return {
+                  id: branch.id,
+                  title: branch.title,
+                  arabic: getBranchArabic(branch.id),
+                  done: nodes.filter((node) => completed.has(node.id)).length,
+                  total: nodes.length,
+                  ...(tree ? { tree: { row: tree.row, years: scholarYears(tree.years), note: branch.description } } : {})
+                };
               })
               .filter((unit) => unit.total > 0)
           }

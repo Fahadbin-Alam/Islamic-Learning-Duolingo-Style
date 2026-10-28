@@ -15,6 +15,8 @@ export type TopicPickerUnit = {
   arabic?: ArabicTerm;
   done: number;
   total: number;
+  /** On a family tree (Scholars): the unit's row, oldest first, with its years and who it learned from. */
+  tree?: { row: number; years: string; note: string };
 };
 
 export type TopicPickerTopic = {
@@ -136,6 +138,69 @@ function UnitRow({ unit, accent, active, onPress }: { unit: TopicPickerUnit; acc
   );
 }
 
+/** One scholar on the family tree: his name, years, who he learned from, and his progress. */
+function TreeCard({ unit, accent, active, onPress }: { unit: TopicPickerUnit; accent: string; active: boolean; onPress: () => void }) {
+  const palette = topicPalette(accent);
+  const finished = unit.total > 0 && unit.done >= unit.total;
+  return (
+    <Tappable
+      onPress={onPress}
+      sound="node_tap"
+      pressScale={0.96}
+      accessibilityLabel={t("{topic}, {done} of {total}", { topic: unit.title, done: unit.done, total: unit.total })}
+      accessibilityState={{ selected: active }}
+      testID={`topic-unit-${unit.id}`}
+      style={[styles.treeCard, { borderTopColor: palette.main }, active ? styles.tileActive : null]}
+    >
+      <Text style={styles.treeName} numberOfLines={2}>
+        {unit.title}
+      </Text>
+      {unit.arabic ? (
+        <ArabicText size={15} weight="bold" color={palette.ink} style={styles.treeArabic}>
+          {unit.arabic.ar}
+        </ArabicText>
+      ) : null}
+      {unit.tree ? <Text style={styles.treeYears}>{unit.tree.years}</Text> : null}
+      {unit.tree ? (
+        <Text style={styles.treeNote} numberOfLines={4}>
+          {unit.tree.note}
+        </Text>
+      ) : null}
+      {finished ? (
+        <Icon name="crown" size={20} color={colors.goldLip} />
+      ) : (
+        <View style={styles.treeProgress}>
+          <ProgressBar progress={unit.total > 0 ? unit.done / unit.total : 0} color={palette.main} height={6} style={styles.bar} />
+          <Text style={styles.count} numberOfLines={1}>{`${unit.done}/${unit.total}`}</Text>
+        </View>
+      )}
+    </Tappable>
+  );
+}
+
+/** The units as a family tree: one row per generation, oldest at the top, a line down to the next. */
+function FamilyTree({ units, accent, activeUnitId, onPick }: { units: TopicPickerUnit[]; accent: string; activeUnitId?: string; onPick: (unitId: string) => void }) {
+  const palette = topicPalette(accent);
+  const rows = [...new Set(units.map((unit) => unit.tree?.row ?? 0))].sort((a, b) => a - b);
+  return (
+    <View testID="topic-family-tree">
+      <Text style={styles.treeHeading}>{t("Family tree")}</Text>
+      {rows.map((row, index) => (
+        <View key={row}>
+          {index > 0 ? <View style={[styles.treeLink, { backgroundColor: palette.main }]} /> : null}
+          <View style={styles.treeRow}>
+            {units
+              .filter((unit) => (unit.tree?.row ?? 0) === row)
+              .map((unit) => (
+                <TreeCard key={unit.id} unit={unit} accent={accent} active={unit.id === activeUnitId} onPress={() => onPick(unit.id)} />
+              ))}
+          </View>
+        </View>
+      ))}
+    </View>
+  );
+}
+
 /** A topic's sub-topics: the whole topic first, then each unit (a companion, a surah) to learn on its own. */
 function UnitList({ topic, activeUnitId, onPick }: { topic: TopicPickerTopic; activeUnitId?: string; onPick: (unitId?: string) => void }) {
   const palette = topicPalette(topic.accent);
@@ -155,9 +220,13 @@ function UnitList({ topic, activeUnitId, onPick }: { topic: TopicPickerTopic; ac
           {t("All of {topic}", { topic: topic.title })}
         </Text>
       </Tappable>
-      {(topic.units ?? []).map((unit) => (
-        <UnitRow key={unit.id} unit={unit} accent={topic.accent} active={unit.id === activeUnitId} onPress={() => onPick(unit.id)} />
-      ))}
+      {(topic.units ?? []).every((unit) => unit.tree) ? (
+        <FamilyTree units={topic.units ?? []} accent={topic.accent} activeUnitId={activeUnitId} onPick={onPick} />
+      ) : (
+        (topic.units ?? []).map((unit) => (
+          <UnitRow key={unit.id} unit={unit} accent={topic.accent} active={unit.id === activeUnitId} onPress={() => onPick(unit.id)} />
+        ))
+      )}
     </View>
   );
 }
@@ -282,6 +351,71 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     width: 96
+  },
+  treeHeading: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 14,
+    lineHeight: 18,
+    letterSpacing: 0.6,
+    color: colors.inkSoft,
+    textAlign: "center",
+    marginBottom: 8
+  },
+  treeRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 10
+  },
+  treeLink: {
+    alignSelf: "center",
+    width: 4,
+    height: 18,
+    borderRadius: 2
+  },
+  treeCard: {
+    flex: 1,
+    maxWidth: 220,
+    minWidth: 0,
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderWidth: 2,
+    borderTopWidth: 6,
+    borderColor: colors.line,
+    borderBottomWidth: 5,
+    borderBottomColor: colors.lineLip,
+    borderRadius: 18,
+    backgroundColor: colors.white
+  },
+  treeName: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 19,
+    color: colors.ink,
+    textAlign: "center"
+  },
+  treeArabic: {
+    maxWidth: "100%"
+  },
+  treeYears: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 17,
+    color: colors.inkSoft
+  },
+  treeNote: {
+    marginTop: 4,
+    fontFamily: fonts.body,
+    fontSize: 12,
+    lineHeight: 16,
+    color: colors.inkSoft,
+    textAlign: "center"
+  },
+  treeProgress: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "stretch",
+    marginTop: 6
   },
   close: {
     width: 40,

@@ -419,5 +419,15 @@
   "{place} of {count}": "{count}টির মধ্যে {place}",
   "{topic}, {done} of {total}": "{topic}, {total}টির মধ্যে {done}টি",
   "{topic}. Change topic": "{topic}। বিষয় বদলাও",
-  "All of {topic}": "সব {topic}"
+  "All of {topic}": "সব {topic}",
+  "Scholars": "আলেমগণ",
+  "Topic 9": "বিষয় ৯",
+  "The four imams and later scholars, shown as a family tree of who learned from whom.": "চার ইমাম ও পরবর্তী আলেমগণ, কে কার কাছে শিখেছেন তার বংশবৃক্ষে।",
+  "Abu Hanifah, Malik, ash-Shafi'i, Ahmad, Ibn Taymiyyah, Ibn Baz and al-Albani.": "আবু হানিফা, মালিক, আশ-শাফেয়ী, আহমদ, ইবনে তাইমিয়া, ইবনে বায ও আলবানী।",
+  "Family tree": "বংশবৃক্ষ",
+  "{born}–{died} AH": "{born}–{died} হিজরি",
+  "Died {died} AH": "মৃত্যু {died} হিজরি",
+  "Born {born} AH": "জন্ম {born} হিজরি",
+  "{born}–{died} CE": "{born}–{died} খ্রি.",
+  "Born {born} CE": "জন্ম {born} খ্রি."
 }

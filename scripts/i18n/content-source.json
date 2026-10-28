@@ -5204,6 +5204,326 @@
     "text": "The great liar"
   },
   {
+    "kind": "course",
+    "text": "Scholars"
+  },
+  {
+    "kind": "course",
+    "text": "The four imams and later scholars, shown as a family tree of who learned from whom."
+  },
+  {
+    "kind": "course",
+    "text": "Abu Hanifah, Malik, ash-Shafi'i, Ahmad, Ibn Taymiyyah, Ibn Baz and al-Albani."
+  },
+  {
+    "kind": "course",
+    "text": "Topic 9"
+  },
+  {
+    "kind": "arabic",
+    "text": "The scholars"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Hanifah"
+  },
+  {
+    "kind": "course",
+    "text": "From Kufa. The first of the four imams."
+  },
+  {
+    "kind": "arabic",
+    "text": "Imam Abu Hanifah"
+  },
+  {
+    "kind": "course",
+    "text": "Imam Malik"
+  },
+  {
+    "kind": "course",
+    "text": "From Madinah. Teacher of ash-Shafi'i."
+  },
+  {
+    "kind": "course",
+    "text": "Imam ash-Shafi'i"
+  },
+  {
+    "kind": "course",
+    "text": "Learned from Malik, and from Muhammad ibn al-Hasan, Abu Hanifah's student."
+  },
+  {
+    "kind": "course",
+    "text": "Imam Ahmad"
+  },
+  {
+    "kind": "course",
+    "text": "Learned from ash-Shafi'i, and first from Abu Yusuf, Abu Hanifah's student."
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Taymiyyah"
+  },
+  {
+    "kind": "course",
+    "text": "Centuries later, in Damascus. Teacher of Ibn al-Qayyim."
+  },
+  {
+    "kind": "arabic",
+    "text": "Shaykh al-Islam Ibn Taymiyyah"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Baz"
+  },
+  {
+    "kind": "course",
+    "text": "From Riyadh. Grand Mufti of Saudi Arabia."
+  },
+  {
+    "kind": "arabic",
+    "text": "Shaykh Ibn Baz"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Albani"
+  },
+  {
+    "kind": "course",
+    "text": "From Albania, then Damascus. A scholar of hadith."
+  },
+  {
+    "kind": "arabic",
+    "text": "Shaykh al-Albani"
+  },
+  {
+    "kind": "course",
+    "text": "An-Nu'man of Kufa"
+  },
+  {
+    "kind": "course",
+    "text": "Born in 80 AH"
+  },
+  {
+    "kind": "course",
+    "text": "His greatest shaykh"
+  },
+  {
+    "kind": "course",
+    "text": "The first madhhab"
+  },
+  {
+    "kind": "course",
+    "text": "The hadith comes first"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Yusuf and Muhammad"
+  },
+  {
+    "kind": "course",
+    "text": "He would not be a judge"
+  },
+  {
+    "kind": "course",
+    "text": "Died in 150 AH"
+  },
+  {
+    "kind": "course",
+    "text": "Malik ibn Anas"
+  },
+  {
+    "kind": "course",
+    "text": "A family of knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "His teachers"
+  },
+  {
+    "kind": "course",
+    "text": "A vessel of knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Seventy said yes"
+  },
+  {
+    "kind": "course",
+    "text": "Ten years on one question"
+  },
+  {
+    "kind": "course",
+    "text": "A quiet circle"
+  },
+  {
+    "kind": "course",
+    "text": "He sold his roof"
+  },
+  {
+    "kind": "course",
+    "text": "Malik is the star"
+  },
+  {
+    "kind": "course",
+    "text": "Muhammad ibn Idris"
+  },
+  {
+    "kind": "course",
+    "text": "A poor orphan"
+  },
+  {
+    "kind": "course",
+    "text": "Among the Bedouin"
+  },
+  {
+    "kind": "course",
+    "text": "To Imam Malik"
+  },
+  {
+    "kind": "course",
+    "text": "Learning from both sides"
+  },
+  {
+    "kind": "course",
+    "text": "Ar-Risalah"
+  },
+  {
+    "kind": "course",
+    "text": "Governor of Najran"
+  },
+  {
+    "kind": "course",
+    "text": "He taught Ahmad"
+  },
+  {
+    "kind": "course",
+    "text": "Died in Egypt, 204 AH"
+  },
+  {
+    "kind": "course",
+    "text": "Born in Baghdad"
+  },
+  {
+    "kind": "course",
+    "text": "An orphan from Shayban"
+  },
+  {
+    "kind": "course",
+    "text": "His first teachers"
+  },
+  {
+    "kind": "course",
+    "text": "Travels for hadith"
+  },
+  {
+    "kind": "course",
+    "text": "All the way to San'a"
+  },
+  {
+    "kind": "course",
+    "text": "Until the grave"
+  },
+  {
+    "kind": "course",
+    "text": "He lived on little"
+  },
+  {
+    "kind": "course",
+    "text": "The great trial"
+  },
+  {
+    "kind": "course",
+    "text": "Died in 241 AH"
+  },
+  {
+    "kind": "course",
+    "text": "Ahmad ibn Abd al-Halim"
+  },
+  {
+    "kind": "course",
+    "text": "From Harran to Damascus"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn al-Qayyim and adh-Dhahabi"
+  },
+  {
+    "kind": "course",
+    "text": "Three hundred books"
+  },
+  {
+    "kind": "course",
+    "text": "The stronger evidence"
+  },
+  {
+    "kind": "course",
+    "text": "Prison and a huge funeral"
+  },
+  {
+    "kind": "course",
+    "text": "Born in Riyadh"
+  },
+  {
+    "kind": "course",
+    "text": "Working young"
+  },
+  {
+    "kind": "course",
+    "text": "The Quran as a boy"
+  },
+  {
+    "kind": "course",
+    "text": "Blind by twenty"
+  },
+  {
+    "kind": "course",
+    "text": "The Islamic University"
+  },
+  {
+    "kind": "course",
+    "text": "Service to Islam"
+  },
+  {
+    "kind": "course",
+    "text": "The Grand Mufti"
+  },
+  {
+    "kind": "course",
+    "text": "Buried in Makkah"
+  },
+  {
+    "kind": "course",
+    "text": "Praise for al-Albani"
+  },
+  {
+    "kind": "course",
+    "text": "Born in Albania"
+  },
+  {
+    "kind": "course",
+    "text": "To Damascus"
+  },
+  {
+    "kind": "course",
+    "text": "The watch repairer"
+  },
+  {
+    "kind": "course",
+    "text": "Sound and weak hadith"
+  },
+  {
+    "kind": "course",
+    "text": "Still a beginner"
+  },
+  {
+    "kind": "course",
+    "text": "Prize in 1999"
+  },
+  {
+    "kind": "course",
+    "text": "Not blind following"
+  },
+  {
     "kind": "lesson",
     "text": "Muslims greet with As-salamu alaykum: peace be upon you."
   },
@@ -32706,6 +33026,3286 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about Ali!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah's name was an-Nu'man ibn Thabit, of Kufa."
+  },
+  {
+    "kind": "lesson",
+    "text": "Name: an-Nu'man ibn Thabit"
+  },
+  {
+    "kind": "lesson",
+    "text": "City: Kufa, in Iraq"
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 46992"
+  },
+  {
+    "kind": "question",
+    "text": "What was Abu Hanifah's own name?"
+  },
+  {
+    "kind": "question",
+    "text": "An-Nu'man ibn Thabit"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad ibn Hanbal"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah is his kunya; an-Nu'man is his name."
+  },
+  {
+    "kind": "question",
+    "text": "Which city was Abu Hanifah from?"
+  },
+  {
+    "kind": "question",
+    "text": "Baghdad"
+  },
+  {
+    "kind": "question",
+    "text": "Gaza"
+  },
+  {
+    "kind": "question",
+    "text": "He is called al-Kufi, the man of Kufa."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah and an-Nu'man ibn Thabit are two different men."
+  },
+  {
+    "kind": "question",
+    "text": "They are the same imam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah was born in 80 AH, when some Sahabah still lived."
+  },
+  {
+    "kind": "lesson",
+    "text": "Born 80 AH"
+  },
+  {
+    "kind": "lesson",
+    "text": "He saw Anas ibn Malik in Kufa"
+  },
+  {
+    "kind": "question",
+    "text": "In which year was Abu Hanifah born?"
+  },
+  {
+    "kind": "question",
+    "text": "80 AH"
+  },
+  {
+    "kind": "question",
+    "text": "150 AH"
+  },
+  {
+    "kind": "question",
+    "text": "204 AH"
+  },
+  {
+    "kind": "question",
+    "text": "661 AH"
+  },
+  {
+    "kind": "question",
+    "text": "Some younger Sahabah were still alive then."
+  },
+  {
+    "kind": "question",
+    "text": "Which companion did Abu Hanifah see in Kufa?"
+  },
+  {
+    "kind": "question",
+    "text": "Anas came to Kufa and he saw him."
+  },
+  {
+    "kind": "question",
+    "text": "Of the four imams, which was born first?"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad"
+  },
+  {
+    "kind": "question",
+    "text": "Malik"
+  },
+  {
+    "kind": "question",
+    "text": "He was born in 80 AH, before the other three."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah's greatest teacher was Ata ibn Abi Rabah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Greatest shaykh: Ata"
+  },
+  {
+    "kind": "lesson",
+    "text": "Also learned from ash-Sha'bi"
+  },
+  {
+    "kind": "lesson",
+    "text": "He travelled for knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Abu Hanifah's greatest shaykh?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Shihab"
+  },
+  {
+    "kind": "question",
+    "text": "Hushaym"
+  },
+  {
+    "kind": "question",
+    "text": "Ata ibn Abi Rabah"
+  },
+  {
+    "kind": "question",
+    "text": "He learned from him above all others."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Abu Hanifah travel?"
+  },
+  {
+    "kind": "question",
+    "text": "To fight"
+  },
+  {
+    "kind": "question",
+    "text": "To seek reports"
+  },
+  {
+    "kind": "question",
+    "text": "To trade"
+  },
+  {
+    "kind": "question",
+    "text": "He travelled to find hadith and reports."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah learned from only one teacher."
+  },
+  {
+    "kind": "question",
+    "text": "He learned from Ata, ash-Sha'bi and many others."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Hanafi madhhab was the first of the madhhabs of fiqh."
+  },
+  {
+    "kind": "lesson",
+    "text": "First of the madhhabs"
+  },
+  {
+    "kind": "lesson",
+    "text": "People need him in fiqh"
+  },
+  {
+    "kind": "question",
+    "text": "Which madhhab was the first?"
+  },
+  {
+    "kind": "question",
+    "text": "The Hanafi madhhab"
+  },
+  {
+    "kind": "question",
+    "text": "The Maliki madhhab"
+  },
+  {
+    "kind": "question",
+    "text": "The Shafi'i madhhab"
+  },
+  {
+    "kind": "question",
+    "text": "The Hanbali madhhab"
+  },
+  {
+    "kind": "question",
+    "text": "It began with Abu Hanifah."
+  },
+  {
+    "kind": "question",
+    "text": "In which field do people depend on Abu Hanifah?"
+  },
+  {
+    "kind": "question",
+    "text": "Poetry"
+  },
+  {
+    "kind": "question",
+    "text": "Medicine"
+  },
+  {
+    "kind": "question",
+    "text": "Fiqh"
+  },
+  {
+    "kind": "question",
+    "text": "Fiqh is understanding the rulings of the religion."
+  },
+  {
+    "kind": "question",
+    "text": "Who is the Hanafi madhhab named after?"
+  },
+  {
+    "kind": "question",
+    "text": "Each of the four madhhabs carries its imam's name."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah said: if the hadith is sahih, that is my madhhab."
+  },
+  {
+    "kind": "lesson",
+    "text": "The other three imams said the same"
+  },
+  {
+    "kind": "lesson",
+    "text": "He was strict with hadith"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Hanifah say about a sahih hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Only for scholars"
+  },
+  {
+    "kind": "question",
+    "text": "That is my madhhab"
+  },
+  {
+    "kind": "question",
+    "text": "Leave it"
+  },
+  {
+    "kind": "question",
+    "text": "Ask a judge"
+  },
+  {
+    "kind": "question",
+    "text": "An authentic hadith comes before any opinion."
+  },
+  {
+    "kind": "question",
+    "text": "Why was he strict about accepting hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "He disliked hadith"
+  },
+  {
+    "kind": "question",
+    "text": "He could not read"
+  },
+  {
+    "kind": "question",
+    "text": "False reports spread in Iraq"
+  },
+  {
+    "kind": "question",
+    "text": "He had no teachers"
+  },
+  {
+    "kind": "question",
+    "text": "So he checked reports carefully."
+  },
+  {
+    "kind": "question",
+    "text": "Malik, ash-Shafi'i and Ahmad followed the same rule."
+  },
+  {
+    "kind": "question",
+    "text": "All four imams put the hadith first."
+  },
+  {
+    "kind": "lesson",
+    "text": "His students Abu Yusuf and Muhammad carried his madhhab on."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some Hanafi views are from his students"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Yusuf: he spoke most clearly"
+  },
+  {
+    "kind": "question",
+    "text": "Which two students carried on his madhhab?"
+  },
+  {
+    "kind": "question",
+    "text": "Nafi and Hushaym"
+  },
+  {
+    "kind": "question",
+    "text": "Malik and Ahmad"
+  },
+  {
+    "kind": "question",
+    "text": "Some Hanafi views are theirs."
+  },
+  {
+    "kind": "question",
+    "text": "How did Abu Yusuf describe his teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "The clearest speaker"
+  },
+  {
+    "kind": "question",
+    "text": "Very quiet"
+  },
+  {
+    "kind": "question",
+    "text": "A great poet"
+  },
+  {
+    "kind": "question",
+    "text": "He was the most well-spoken of the people."
+  },
+  {
+    "kind": "question",
+    "text": "Every Hanafi view is Abu Hanifah's own words."
+  },
+  {
+    "kind": "question",
+    "text": "Some views come from his students."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Abu Hanifah?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah turned down wealth and refused to become a judge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Offered great wealth: refused"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hurt to force him: still refused"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Hanifah do when offered great wealth?"
+  },
+  {
+    "kind": "question",
+    "text": "He hid it"
+  },
+  {
+    "kind": "question",
+    "text": "He traded it"
+  },
+  {
+    "kind": "question",
+    "text": "He turned it down"
+  },
+  {
+    "kind": "question",
+    "text": "He took it all"
+  },
+  {
+    "kind": "question",
+    "text": "He did not want the dunya."
+  },
+  {
+    "kind": "question",
+    "text": "Which job did he refuse, even when hurt for it?"
+  },
+  {
+    "kind": "question",
+    "text": "Teacher"
+  },
+  {
+    "kind": "question",
+    "text": "Imam of prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Trader"
+  },
+  {
+    "kind": "question",
+    "text": "Judge"
+  },
+  {
+    "kind": "question",
+    "text": "He was pressured hard, yet refused."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah gave in once he was pressured."
+  },
+  {
+    "kind": "question",
+    "text": "He refused to the end."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah died in 150 AH, at about seventy years old."
+  },
+  {
+    "kind": "lesson",
+    "text": "Died 150 AH"
+  },
+  {
+    "kind": "lesson",
+    "text": "Age: seventy"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adh-Dhahabi: his life needs two volumes"
+  },
+  {
+    "kind": "question",
+    "text": "In which year did Abu Hanifah die?"
+  },
+  {
+    "kind": "question",
+    "text": "241 AH"
+  },
+  {
+    "kind": "question",
+    "text": "179 AH"
+  },
+  {
+    "kind": "question",
+    "text": "He was about seventy."
+  },
+  {
+    "kind": "question",
+    "text": "How much did adh-Dhahabi say his life story would fill?"
+  },
+  {
+    "kind": "question",
+    "text": "Two volumes"
+  },
+  {
+    "kind": "question",
+    "text": "One page"
+  },
+  {
+    "kind": "question",
+    "text": "Ten lines"
+  },
+  {
+    "kind": "question",
+    "text": "A short poem"
+  },
+  {
+    "kind": "question",
+    "text": "His life was full of knowledge and worship."
+  },
+  {
+    "kind": "question",
+    "text": "How old was Abu Hanifah when he died?"
+  },
+  {
+    "kind": "question",
+    "text": "About forty"
+  },
+  {
+    "kind": "question",
+    "text": "About fifty"
+  },
+  {
+    "kind": "question",
+    "text": "About ninety"
+  },
+  {
+    "kind": "question",
+    "text": "About seventy"
+  },
+  {
+    "kind": "question",
+    "text": "Born 80 AH, he died in 150 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Abu Hanifah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Malik ibn Anas was born in Madinah in 93 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "Born 93 AH, Madinah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mother: al-Aliyah"
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 119256"
+  },
+  {
+    "kind": "question",
+    "text": "In which city was Imam Malik born?"
+  },
+  {
+    "kind": "question",
+    "text": "He lived and taught in the Prophet's ﷺ city."
+  },
+  {
+    "kind": "question",
+    "text": "What was his father's name?"
+  },
+  {
+    "kind": "question",
+    "text": "Hanbal"
+  },
+  {
+    "kind": "question",
+    "text": "Thabit"
+  },
+  {
+    "kind": "question",
+    "text": "He is Malik ibn Anas."
+  },
+  {
+    "kind": "question",
+    "text": "In which year was he born, as most scholars say?"
+  },
+  {
+    "kind": "question",
+    "text": "93 AH"
+  },
+  {
+    "kind": "question",
+    "text": "164 AH"
+  },
+  {
+    "kind": "question",
+    "text": "That is the view of the majority."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik's grandfather was a Tabi'i; Malik learned the Quran young."
+  },
+  {
+    "kind": "lesson",
+    "text": "Grandfather: a senior Tabi'i"
+  },
+  {
+    "kind": "lesson",
+    "text": "Quran memorized early"
+  },
+  {
+    "kind": "question",
+    "text": "Who in Malik's family was a senior Tabi'i?"
+  },
+  {
+    "kind": "question",
+    "text": "His grandfather"
+  },
+  {
+    "kind": "question",
+    "text": "His son"
+  },
+  {
+    "kind": "question",
+    "text": "Malik ibn Abi Amir was among the senior Tabi'in."
+  },
+  {
+    "kind": "question",
+    "text": "What did Malik memorize early in life?"
+  },
+  {
+    "kind": "question",
+    "text": "Maps"
+  },
+  {
+    "kind": "question",
+    "text": "Trade law"
+  },
+  {
+    "kind": "question",
+    "text": "He began with the Book of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "A Tabi'i is someone who met the Sahabah."
+  },
+  {
+    "kind": "question",
+    "text": "The Tabi'in learned from the companions."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik learned from Ibn Hurmuz for seven years, then others."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Hurmuz: seven years"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nafi: freed servant of Ibn Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Shihab az-Zuhri"
+  },
+  {
+    "kind": "question",
+    "text": "How long did Malik study with Ibn Hurmuz?"
+  },
+  {
+    "kind": "question",
+    "text": "Forty years"
+  },
+  {
+    "kind": "question",
+    "text": "Seven years"
+  },
+  {
+    "kind": "question",
+    "text": "He started very young."
+  },
+  {
+    "kind": "question",
+    "text": "Nafi was the freed servant of which companion?"
+  },
+  {
+    "kind": "question",
+    "text": "Nafi carried Ibn Umar's knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these was one of Malik's teachers?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Yusuf"
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri was a great scholar of hadith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Az-Zuhri told him forty hadith: you are a vessel of knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Forty hadith in one sitting"
+  },
+  {
+    "kind": "lesson",
+    "text": "Vessel of knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "How many hadith did az-Zuhri tell him?"
+  },
+  {
+    "kind": "question",
+    "text": "One thousand"
+  },
+  {
+    "kind": "question",
+    "text": "Malik remembered them all."
+  },
+  {
+    "kind": "question",
+    "text": "What did az-Zuhri call Malik?"
+  },
+  {
+    "kind": "question",
+    "text": "A fast runner"
+  },
+  {
+    "kind": "question",
+    "text": "A brave fighter"
+  },
+  {
+    "kind": "question",
+    "text": "He saw how well Malik kept what he heard."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri thought Malik was too young to learn."
+  },
+  {
+    "kind": "question",
+    "text": "He praised him as a vessel of knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik only taught once seventy scholars said he was qualified."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seventy elders testified"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then he sat to teach"
+  },
+  {
+    "kind": "question",
+    "text": "How many scholars testified before Malik began teaching?"
+  },
+  {
+    "kind": "question",
+    "text": "Three hundred"
+  },
+  {
+    "kind": "question",
+    "text": "Seventy"
+  },
+  {
+    "kind": "question",
+    "text": "He waited until they agreed."
+  },
+  {
+    "kind": "question",
+    "text": "What does this teach us?"
+  },
+  {
+    "kind": "question",
+    "text": "Do not rush to teach"
+  },
+  {
+    "kind": "question",
+    "text": "Teach before learning"
+  },
+  {
+    "kind": "question",
+    "text": "Ignore elders"
+  },
+  {
+    "kind": "question",
+    "text": "Never teach"
+  },
+  {
+    "kind": "question",
+    "text": "He was careful and humble."
+  },
+  {
+    "kind": "question",
+    "text": "Where did Malik sit to teach?"
+  },
+  {
+    "kind": "question",
+    "text": "In the market"
+  },
+  {
+    "kind": "question",
+    "text": "In a palace"
+  },
+  {
+    "kind": "question",
+    "text": "He taught in the Prophet's ﷺ masjid in Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik said: I have thought about one issue for over ten years."
+  },
+  {
+    "kind": "lesson",
+    "text": "Very careful with fatwa"
+  },
+  {
+    "kind": "lesson",
+    "text": "Said to Ibn al-Qasim"
+  },
+  {
+    "kind": "question",
+    "text": "How long had Malik thought about one issue?"
+  },
+  {
+    "kind": "question",
+    "text": "More than ten years"
+  },
+  {
+    "kind": "question",
+    "text": "One day"
+  },
+  {
+    "kind": "question",
+    "text": "He did not rush to give a ruling."
+  },
+  {
+    "kind": "question",
+    "text": "What does this show about Imam Malik?"
+  },
+  {
+    "kind": "question",
+    "text": "He was careful with fatwa"
+  },
+  {
+    "kind": "question",
+    "text": "He was lazy"
+  },
+  {
+    "kind": "question",
+    "text": "He disliked questions"
+  },
+  {
+    "kind": "question",
+    "text": "He forgot things"
+  },
+  {
+    "kind": "question",
+    "text": "Speaking about Allah's religion needs care."
+  },
+  {
+    "kind": "question",
+    "text": "Malik answered every question at once, without thinking."
+  },
+  {
+    "kind": "question",
+    "text": "He took great care before answering."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Imam Malik?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik's circle had no arguing and no raised voices."
+  },
+  {
+    "kind": "lesson",
+    "text": "No chatter or shouting"
+  },
+  {
+    "kind": "lesson",
+    "text": "He honored the Prophet's ﷺ hadith"
+  },
+  {
+    "kind": "question",
+    "text": "What was Malik's teaching circle like?"
+  },
+  {
+    "kind": "question",
+    "text": "Full of jokes"
+  },
+  {
+    "kind": "question",
+    "text": "Always arguing"
+  },
+  {
+    "kind": "question",
+    "text": "Calm, with no arguing"
+  },
+  {
+    "kind": "question",
+    "text": "Loud and busy"
+  },
+  {
+    "kind": "question",
+    "text": "He honored the hadith of the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "What did Malik greatly honor?"
+  },
+  {
+    "kind": "question",
+    "text": "His own wealth"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet's ﷺ hadith"
+  },
+  {
+    "kind": "question",
+    "text": "So his circle was quiet and respectful."
+  },
+  {
+    "kind": "question",
+    "text": "Students shouted questions in Malik's circle."
+  },
+  {
+    "kind": "question",
+    "text": "No voices were raised there."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seeking knowledge, Malik spent so much he sold his roof's wood."
+  },
+  {
+    "kind": "lesson",
+    "text": "Knocked down his roof"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sold the wood for knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "What did Malik sell to keep seeking knowledge?"
+  },
+  {
+    "kind": "question",
+    "text": "The wood of his roof"
+  },
+  {
+    "kind": "question",
+    "text": "His books"
+  },
+  {
+    "kind": "question",
+    "text": "His horse"
+  },
+  {
+    "kind": "question",
+    "text": "His sword"
+  },
+  {
+    "kind": "question",
+    "text": "He gave everything for knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "What does this teach?"
+  },
+  {
+    "kind": "question",
+    "text": "Never spend"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge is worth sacrifice"
+  },
+  {
+    "kind": "question",
+    "text": "Houses need no roof"
+  },
+  {
+    "kind": "question",
+    "text": "Wood is cheap"
+  },
+  {
+    "kind": "question",
+    "text": "He put learning before comfort."
+  },
+  {
+    "kind": "question",
+    "text": "Malik grew rich from seeking knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "He spent until he sold his roof's wood."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i said: in hadith, Malik is the star."
+  },
+  {
+    "kind": "lesson",
+    "text": "Praise from ash-Shafi'i"
+  },
+  {
+    "kind": "lesson",
+    "text": "Arrested and hurt by al-Mansur's men"
+  },
+  {
+    "kind": "lesson",
+    "text": "Died 179 AH, aged about ninety"
+  },
+  {
+    "kind": "question",
+    "text": "Who said Malik is the star of hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i was his student."
+  },
+  {
+    "kind": "question",
+    "text": "For how long did people learn from Malik?"
+  },
+  {
+    "kind": "question",
+    "text": "About seventy years"
+  },
+  {
+    "kind": "question",
+    "text": "About ten years"
+  },
+  {
+    "kind": "question",
+    "text": "About two years"
+  },
+  {
+    "kind": "question",
+    "text": "One summer"
+  },
+  {
+    "kind": "question",
+    "text": "He taught for most of his long life."
+  },
+  {
+    "kind": "question",
+    "text": "In which year did Malik die, as most historians say?"
+  },
+  {
+    "kind": "question",
+    "text": "He lived about ninety years."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Imam Malik!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i was Muhammad ibn Idris, of the Prophet's ﷺ tribe."
+  },
+  {
+    "kind": "lesson",
+    "text": "Kunya: Abu Abdillah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Lineage meets the Prophet's ﷺ at Abd Manaf"
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 153652"
+  },
+  {
+    "kind": "question",
+    "text": "What was ash-Shafi'i's own name?"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i is named after his ancestor Shafi'."
+  },
+  {
+    "kind": "question",
+    "text": "Where does his family line meet the Prophet's ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "It never meets"
+  },
+  {
+    "kind": "question",
+    "text": "At Ibn Umar"
+  },
+  {
+    "kind": "question",
+    "text": "At Abd Manaf"
+  },
+  {
+    "kind": "question",
+    "text": "At Adam only"
+  },
+  {
+    "kind": "question",
+    "text": "Abd Manaf is an ancestor of both."
+  },
+  {
+    "kind": "question",
+    "text": "What was ash-Shafi'i's kunya?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Abdillah"
+  },
+  {
+    "kind": "question",
+    "text": "His teacher Muslim ibn Khalid called him by it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i was born in Gaza and grew up a poor orphan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Born in Gaza, most say"
+  },
+  {
+    "kind": "lesson",
+    "text": "Grew up poor, with no father"
+  },
+  {
+    "kind": "question",
+    "text": "Where was ash-Shafi'i born, as most historians say?"
+  },
+  {
+    "kind": "question",
+    "text": "Gaza is in Palestine."
+  },
+  {
+    "kind": "question",
+    "text": "How did ash-Shafi'i grow up?"
+  },
+  {
+    "kind": "question",
+    "text": "With a big army"
+  },
+  {
+    "kind": "question",
+    "text": "As a trader's son"
+  },
+  {
+    "kind": "question",
+    "text": "A rich prince"
+  },
+  {
+    "kind": "question",
+    "text": "Every report agrees on this."
+  },
+  {
+    "kind": "question",
+    "text": "Being poor stopped ash-Shafi'i from learning."
+  },
+  {
+    "kind": "question",
+    "text": "He became one of the greatest imams."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i lived with Hudhayl, a tribe, to learn pure Arabic."
+  },
+  {
+    "kind": "lesson",
+    "text": "Quran, then hadith"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hudhayl: a Bedouin tribe"
+  },
+  {
+    "kind": "question",
+    "text": "Why did ash-Shafi'i stay with the tribe of Hudhayl?"
+  },
+  {
+    "kind": "question",
+    "text": "To trade camels"
+  },
+  {
+    "kind": "question",
+    "text": "To hide"
+  },
+  {
+    "kind": "question",
+    "text": "To learn their Arabic"
+  },
+  {
+    "kind": "question",
+    "text": "He learned their speech and manners."
+  },
+  {
+    "kind": "question",
+    "text": "Where did he stay with them?"
+  },
+  {
+    "kind": "question",
+    "text": "In Baghdad"
+  },
+  {
+    "kind": "question",
+    "text": "He left Makkah for the wilderness."
+  },
+  {
+    "kind": "question",
+    "text": "What did he memorize first?"
+  },
+  {
+    "kind": "question",
+    "text": "Then he memorized hadith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i went to Madinah to study with Imam Malik."
+  },
+  {
+    "kind": "lesson",
+    "text": "Carried a letter from Makkah's governor"
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik: fear Allah and avoid sins"
+  },
+  {
+    "kind": "question",
+    "text": "Which imam did ash-Shafi'i study with in Madinah?"
+  },
+  {
+    "kind": "question",
+    "text": "Malik was the great scholar of Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "What did Malik advise him?"
+  },
+  {
+    "kind": "question",
+    "text": "Fear Allah and avoid sins"
+  },
+  {
+    "kind": "question",
+    "text": "Go home"
+  },
+  {
+    "kind": "question",
+    "text": "Become a trader"
+  },
+  {
+    "kind": "question",
+    "text": "Stop asking"
+  },
+  {
+    "kind": "question",
+    "text": "Malik saw he would become prominent."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i came to Malik with a letter."
+  },
+  {
+    "kind": "question",
+    "text": "The governor of Makkah wrote it."
+  },
+  {
+    "kind": "lesson",
+    "text": "He also learned from Muhammad ibn al-Hasan, a Hanafi."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muhammad ibn al-Hasan: Hanafi"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i learned from both schools"
+  },
+  {
+    "kind": "question",
+    "text": "Whose student was Muhammad ibn al-Hasan?"
+  },
+  {
+    "kind": "question",
+    "text": "He was one of the two great Hanafi students."
+  },
+  {
+    "kind": "question",
+    "text": "So ash-Shafi'i learned from students of which two imams?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Taymiyyah and al-Albani"
+  },
+  {
+    "kind": "question",
+    "text": "Only Malik"
+  },
+  {
+    "kind": "question",
+    "text": "Malik and Abu Hanifah"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad and Ibn Baz"
+  },
+  {
+    "kind": "question",
+    "text": "He joined the knowledge of Madinah and Iraq."
+  },
+  {
+    "kind": "question",
+    "text": "Muhammad ibn al-Hasan spoke up for ash-Shafi'i when he was accused."
+  },
+  {
+    "kind": "question",
+    "text": "His testimony helped clear him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i's Ar-Risalah laid the foundations of usul al-fiqh."
+  },
+  {
+    "kind": "lesson",
+    "text": "Usul al-fiqh: principles of fiqh"
+  },
+  {
+    "kind": "lesson",
+    "text": "Rewritten in Egypt"
+  },
+  {
+    "kind": "question",
+    "text": "What is ash-Shafi'i's famous book called?"
+  },
+  {
+    "kind": "question",
+    "text": "Sahih al-Bukhari"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Muwatta"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Musnad"
+  },
+  {
+    "kind": "question",
+    "text": "It set out the principles of fiqh."
+  },
+  {
+    "kind": "question",
+    "text": "Which field did Ar-Risalah lay the foundations for?"
+  },
+  {
+    "kind": "question",
+    "text": "Astronomy"
+  },
+  {
+    "kind": "question",
+    "text": "Usul al-fiqh"
+  },
+  {
+    "kind": "question",
+    "text": "The principles used to reach rulings."
+  },
+  {
+    "kind": "question",
+    "text": "Where did ash-Shafi'i rewrite Ar-Risalah?"
+  },
+  {
+    "kind": "question",
+    "text": "In Kufa"
+  },
+  {
+    "kind": "question",
+    "text": "In Gaza"
+  },
+  {
+    "kind": "question",
+    "text": "He revised it after he moved there."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Imam ash-Shafi'i?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i became governor of Najran and ruled with justice."
+  },
+  {
+    "kind": "lesson",
+    "text": "Najran: in Yemen's region"
+  },
+  {
+    "kind": "lesson",
+    "text": "He established justice"
+  },
+  {
+    "kind": "question",
+    "text": "Which place did ash-Shafi'i govern?"
+  },
+  {
+    "kind": "question",
+    "text": "Najran"
+  },
+  {
+    "kind": "question",
+    "text": "He ruled it with justice."
+  },
+  {
+    "kind": "question",
+    "text": "What did he establish there?"
+  },
+  {
+    "kind": "question",
+    "text": "A scholar in power must be just."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i ruled Najran unjustly."
+  },
+  {
+    "kind": "question",
+    "text": "He established justice there."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ahmad ibn Hanbal met ash-Shafi'i and learned fiqh from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ahmad: like sunshine for the world"
+  },
+  {
+    "kind": "lesson",
+    "text": "Teacher and student, both imams"
+  },
+  {
+    "kind": "question",
+    "text": "Which imam was ash-Shafi'i's student?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Hurmuz"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad became the imam of the Hanbali madhhab."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ahmad compare ash-Shafi'i to?"
+  },
+  {
+    "kind": "question",
+    "text": "Sunshine for the world"
+  },
+  {
+    "kind": "question",
+    "text": "A dark night"
+  },
+  {
+    "kind": "question",
+    "text": "A cold wind"
+  },
+  {
+    "kind": "question",
+    "text": "A small lamp"
+  },
+  {
+    "kind": "question",
+    "text": "And good health for the body."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i was both a student of one imam and teacher of another."
+  },
+  {
+    "kind": "question",
+    "text": "He learned from Malik and taught Ahmad."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i died in Egypt in 204 AH, aged fifty-four."
+  },
+  {
+    "kind": "lesson",
+    "text": "Last night of Rajab, 204 AH"
+  },
+  {
+    "kind": "lesson",
+    "text": "His grave is in Egypt"
+  },
+  {
+    "kind": "question",
+    "text": "Where did ash-Shafi'i die?"
+  },
+  {
+    "kind": "question",
+    "text": "His grave is there."
+  },
+  {
+    "kind": "question",
+    "text": "How old was he when he died?"
+  },
+  {
+    "kind": "question",
+    "text": "Fifty-four"
+  },
+  {
+    "kind": "question",
+    "text": "Ninety"
+  },
+  {
+    "kind": "question",
+    "text": "He died young, yet left a whole madhhab."
+  },
+  {
+    "kind": "question",
+    "text": "In which year did ash-Shafi'i die?"
+  },
+  {
+    "kind": "question",
+    "text": "On the last night of Rajab."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Imam ash-Shafi'i!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad ibn Hanbal was born in Baghdad in 164 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rabi al-Awwal, 164 AH"
+  },
+  {
+    "kind": "lesson",
+    "text": "His mother came from Marw"
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 153333"
+  },
+  {
+    "kind": "question",
+    "text": "In which city was Imam Ahmad born?"
+  },
+  {
+    "kind": "question",
+    "text": "His mother came there from Marw."
+  },
+  {
+    "kind": "question",
+    "text": "In which year was he born?"
+  },
+  {
+    "kind": "question",
+    "text": "In the month of Rabi al-Awwal."
+  },
+  {
+    "kind": "question",
+    "text": "Of the four imams, who was born last?"
+  },
+  {
+    "kind": "question",
+    "text": "He was born in 164 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ahmad's father, an army commander, died when Ahmad was small."
+  },
+  {
+    "kind": "lesson",
+    "text": "Tribe of Shayban: Arab"
+  },
+  {
+    "kind": "lesson",
+    "text": "Raised an orphan"
+  },
+  {
+    "kind": "question",
+    "text": "What was Ahmad's father?"
+  },
+  {
+    "kind": "question",
+    "text": "A farmer"
+  },
+  {
+    "kind": "question",
+    "text": "An army commander"
+  },
+  {
+    "kind": "question",
+    "text": "A judge"
+  },
+  {
+    "kind": "question",
+    "text": "He died when Ahmad was small."
+  },
+  {
+    "kind": "question",
+    "text": "How did Ahmad grow up?"
+  },
+  {
+    "kind": "question",
+    "text": "With great wealth"
+  },
+  {
+    "kind": "question",
+    "text": "As an orphan"
+  },
+  {
+    "kind": "question",
+    "text": "As a prince"
+  },
+  {
+    "kind": "question",
+    "text": "It taught him to rely on himself."
+  },
+  {
+    "kind": "question",
+    "text": "Which other imam also grew up an orphan?"
+  },
+  {
+    "kind": "question",
+    "text": "Both lost their fathers young."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ahmad learned from Abu Yusuf, then Hushaym for four years."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Yusuf: Abu Hanifah's companion"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hushaym al-Wasiti: four years"
+  },
+  {
+    "kind": "question",
+    "text": "Who taught Ahmad hadith first?"
+  },
+  {
+    "kind": "question",
+    "text": "Nafi"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Yusuf was Abu Hanifah's companion."
+  },
+  {
+    "kind": "question",
+    "text": "How long did Ahmad study with Hushaym?"
+  },
+  {
+    "kind": "question",
+    "text": "Four years"
+  },
+  {
+    "kind": "question",
+    "text": "Hushaym was a great scholar of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "So Ahmad's first teacher was a student of which imam?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Yusuf studied with Abu Hanifah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ahmad travelled for hadith and made Hajj five times."
+  },
+  {
+    "kind": "lesson",
+    "text": "Three Hajjs on foot"
+  },
+  {
+    "kind": "lesson",
+    "text": "Met ash-Shafi'i on the journey"
+  },
+  {
+    "kind": "question",
+    "text": "How many times did Ahmad go for Hajj?"
+  },
+  {
+    "kind": "question",
+    "text": "Three of them on foot."
+  },
+  {
+    "kind": "question",
+    "text": "How did he travel for three of his Hajjs?"
+  },
+  {
+    "kind": "question",
+    "text": "On a horse"
+  },
+  {
+    "kind": "question",
+    "text": "In a carriage"
+  },
+  {
+    "kind": "question",
+    "text": "On foot"
+  },
+  {
+    "kind": "question",
+    "text": "Walking all the way to Makkah."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Ahmad meet on his travels and learn fiqh from?"
+  },
+  {
+    "kind": "question",
+    "text": "He learned fiqh and its principles from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ahmad went to San'a, in Yemen, to learn from Abd ar-Razzaq."
+  },
+  {
+    "kind": "lesson",
+    "text": "San'a: in Yemen"
+  },
+  {
+    "kind": "lesson",
+    "text": "Friend: Yahya ibn Ma'in"
+  },
+  {
+    "kind": "question",
+    "text": "Which city did Ahmad travel to, to learn from Abd ar-Razzaq?"
+  },
+  {
+    "kind": "question",
+    "text": "San'a"
+  },
+  {
+    "kind": "question",
+    "text": "San'a is in Yemen."
+  },
+  {
+    "kind": "question",
+    "text": "Who travelled with Ahmad?"
+  },
+  {
+    "kind": "question",
+    "text": "Yahya ibn Ma'in"
+  },
+  {
+    "kind": "question",
+    "text": "He was a great scholar of hadith too."
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad only learned from scholars in his own city."
+  },
+  {
+    "kind": "question",
+    "text": "He travelled as far as Yemen."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ahmad said: I will seek knowledge until I enter the grave."
+  },
+  {
+    "kind": "lesson",
+    "text": "Taught only from age forty"
+  },
+  {
+    "kind": "lesson",
+    "text": "Read hadith from his books"
+  },
+  {
+    "kind": "question",
+    "text": "Until when did Ahmad say he would seek knowledge?"
+  },
+  {
+    "kind": "question",
+    "text": "Until age twenty"
+  },
+  {
+    "kind": "question",
+    "text": "Until he got rich"
+  },
+  {
+    "kind": "question",
+    "text": "Until he married"
+  },
+  {
+    "kind": "question",
+    "text": "Learning never ends."
+  },
+  {
+    "kind": "question",
+    "text": "At what age did he start teaching hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Fifteen"
+  },
+  {
+    "kind": "question",
+    "text": "He waited until he was ready."
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad read hadith from his books to be more certain."
+  },
+  {
+    "kind": "question",
+    "text": "He wanted every word exact."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Imam Ahmad?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ahmad refused gifts from rulers and lived on his father's land."
+  },
+  {
+    "kind": "lesson",
+    "text": "Refused caliphs' gifts"
+  },
+  {
+    "kind": "lesson",
+    "text": "Lived on inherited property"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ahmad live on?"
+  },
+  {
+    "kind": "question",
+    "text": "Rulers' gifts"
+  },
+  {
+    "kind": "question",
+    "text": "Begging"
+  },
+  {
+    "kind": "question",
+    "text": "Selling books"
+  },
+  {
+    "kind": "question",
+    "text": "His father's property"
+  },
+  {
+    "kind": "question",
+    "text": "He kept himself free of rulers' money."
+  },
+  {
+    "kind": "question",
+    "text": "Whose gifts did Ahmad refuse?"
+  },
+  {
+    "kind": "question",
+    "text": "His students'"
+  },
+  {
+    "kind": "question",
+    "text": "His friends'"
+  },
+  {
+    "kind": "question",
+    "text": "The caliphs'"
+  },
+  {
+    "kind": "question",
+    "text": "His mother's"
+  },
+  {
+    "kind": "question",
+    "text": "He stayed independent."
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad grew rich from the caliphs' gifts."
+  },
+  {
+    "kind": "question",
+    "text": "He refused them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Three caliphs jailed and hurt Ahmad, yet he stood firm."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Ma'mun, al-Mu'tasim, al-Wathiq"
+  },
+  {
+    "kind": "lesson",
+    "text": "The trial was about the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "How many caliphs tested Ahmad, one after another?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ma'mun, al-Mu'tasim and al-Wathiq."
+  },
+  {
+    "kind": "question",
+    "text": "What was the trial about?"
+  },
+  {
+    "kind": "question",
+    "text": "A war"
+  },
+  {
+    "kind": "question",
+    "text": "Land"
+  },
+  {
+    "kind": "question",
+    "text": "He held to the belief of the Sunnah about the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ahmad do under pressure?"
+  },
+  {
+    "kind": "question",
+    "text": "Ran away"
+  },
+  {
+    "kind": "question",
+    "text": "Changed his belief"
+  },
+  {
+    "kind": "question",
+    "text": "Stood firm"
+  },
+  {
+    "kind": "question",
+    "text": "Gave up"
+  },
+  {
+    "kind": "question",
+    "text": "His patience is remembered to this day."
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad died in Baghdad on a Friday in 241 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "12 Rabi al-Awwal, 241 AH"
+  },
+  {
+    "kind": "lesson",
+    "text": "Harmalah: none more pious"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Imam Ahmad die?"
+  },
+  {
+    "kind": "question",
+    "text": "The city where he was born."
+  },
+  {
+    "kind": "question",
+    "text": "In which year did he die?"
+  },
+  {
+    "kind": "question",
+    "text": "On a Friday morning."
+  },
+  {
+    "kind": "question",
+    "text": "Harmalah said he never saw anyone more pious than Ahmad."
+  },
+  {
+    "kind": "question",
+    "text": "Harmalah was a student of ash-Shafi'i."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Imam Ahmad!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Taymiyyah's name was Ahmad ibn Abd al-Halim, born in 661 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "Born Rabi al-Awwal, 661 AH"
+  },
+  {
+    "kind": "lesson",
+    "text": "Called Shaykh al-Islam"
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 96323"
+  },
+  {
+    "kind": "question",
+    "text": "What was Ibn Taymiyyah's own name?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Taymiyyah is his family name."
+  },
+  {
+    "kind": "question",
+    "text": "1330 AH"
+  },
+  {
+    "kind": "question",
+    "text": "Over four centuries after Imam Ahmad."
+  },
+  {
+    "kind": "question",
+    "text": "What title is he known by?"
+  },
+  {
+    "kind": "question",
+    "text": "Caliph"
+  },
+  {
+    "kind": "question",
+    "text": "Sultan"
+  },
+  {
+    "kind": "question",
+    "text": "Qadi of Kufa"
+  },
+  {
+    "kind": "question",
+    "text": "Shaykh al-Islam"
+  },
+  {
+    "kind": "question",
+    "text": "Scholars gave him this title."
+  },
+  {
+    "kind": "lesson",
+    "text": "In 667 AH, his father took him from Harran to Damascus."
+  },
+  {
+    "kind": "lesson",
+    "text": "Harran: his family's town"
+  },
+  {
+    "kind": "lesson",
+    "text": "Grandfather: a great imam too"
+  },
+  {
+    "kind": "question",
+    "text": "Which town did his family come from?"
+  },
+  {
+    "kind": "question",
+    "text": "Harran"
+  },
+  {
+    "kind": "question",
+    "text": "His father brought him from there in 667 AH."
+  },
+  {
+    "kind": "question",
+    "text": "Who in his family was also a great imam?"
+  },
+  {
+    "kind": "question",
+    "text": "His neighbor"
+  },
+  {
+    "kind": "question",
+    "text": "His student"
+  },
+  {
+    "kind": "question",
+    "text": "Majd ad-Din Abd as-Salam."
+  },
+  {
+    "kind": "question",
+    "text": "How old was he when the family moved, born 661 AH?"
+  },
+  {
+    "kind": "question",
+    "text": "About six"
+  },
+  {
+    "kind": "question",
+    "text": "About twenty"
+  },
+  {
+    "kind": "question",
+    "text": "About one"
+  },
+  {
+    "kind": "question",
+    "text": "667 minus 661 is six."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Taymiyyah had many teachers, and copied Sunan Abi Dawud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Teacher: Ibn Abd ad-Da'im"
+  },
+  {
+    "kind": "lesson",
+    "text": "Copied Sunan Abi Dawud himself"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these was one of his teachers?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abd ad-Da'im"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Hajar names him first."
+  },
+  {
+    "kind": "question",
+    "text": "Which hadith book did he copy out himself?"
+  },
+  {
+    "kind": "question",
+    "text": "Silsilah as-Sahihah"
+  },
+  {
+    "kind": "question",
+    "text": "Sunan Abi Dawud"
+  },
+  {
+    "kind": "question",
+    "text": "He also read much on his own."
+  },
+  {
+    "kind": "question",
+    "text": "He only learned from books, never from teachers."
+  },
+  {
+    "kind": "question",
+    "text": "He had many teachers and also read alone."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn al-Qayyim was his student; adh-Dhahabi called him shaykh."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn al-Qayyim: many useful books"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adh-Dhahabi: unrivalled in knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Which famous scholar was his student?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim"
+  },
+  {
+    "kind": "question",
+    "text": "He wrote many useful books."
+  },
+  {
+    "kind": "question",
+    "text": "What did adh-Dhahabi call him?"
+  },
+  {
+    "kind": "question",
+    "text": "Our shaykh"
+  },
+  {
+    "kind": "question",
+    "text": "Our caliph"
+  },
+  {
+    "kind": "question",
+    "text": "Our student"
+  },
+  {
+    "kind": "question",
+    "text": "Unrivalled in knowledge in his time."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim lived before Ibn Taymiyyah."
+  },
+  {
+    "kind": "question",
+    "text": "He was his student."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Suyuti said Ibn Taymiyyah wrote three hundred books."
+  },
+  {
+    "kind": "lesson",
+    "text": "Tafsir, hadith and fiqh"
+  },
+  {
+    "kind": "lesson",
+    "text": "Quick memory, great courage"
+  },
+  {
+    "kind": "question",
+    "text": "How many books did al-Suyuti say he wrote?"
+  },
+  {
+    "kind": "question",
+    "text": "He wrote, taught and gave fatwas."
+  },
+  {
+    "kind": "question",
+    "text": "How did Ibn Hajar describe him?"
+  },
+  {
+    "kind": "question",
+    "text": "Courageous, with a quick memory"
+  },
+  {
+    "kind": "question",
+    "text": "Shy and forgetful"
+  },
+  {
+    "kind": "question",
+    "text": "Rich and lazy"
+  },
+  {
+    "kind": "question",
+    "text": "Quiet and slow"
+  },
+  {
+    "kind": "question",
+    "text": "Both his mind and heart were strong."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi said he excelled in tafsir."
+  },
+  {
+    "kind": "question",
+    "text": "He went deep into the Quran's meanings."
+  },
+  {
+    "kind": "lesson",
+    "text": "His fatwas followed the stronger evidence, not one madhhab."
+  },
+  {
+    "kind": "lesson",
+    "text": "Followed the dalil"
+  },
+  {
+    "kind": "lesson",
+    "text": "Like the four imams taught"
+  },
+  {
+    "kind": "question",
+    "text": "What did his fatwas follow?"
+  },
+  {
+    "kind": "question",
+    "text": "Whatever rulers wanted"
+  },
+  {
+    "kind": "question",
+    "text": "Only his teachers"
+  },
+  {
+    "kind": "question",
+    "text": "His feelings"
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi says so."
+  },
+  {
+    "kind": "question",
+    "text": "Which imam's saying matches this?"
+  },
+  {
+    "kind": "question",
+    "text": "Follow the ruler"
+  },
+  {
+    "kind": "question",
+    "text": "Ignore evidence"
+  },
+  {
+    "kind": "question",
+    "text": "If the hadith is sahih, that is my madhhab"
+  },
+  {
+    "kind": "question",
+    "text": "Never read hadith"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah and the other imams said it."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Taymiyyah always kept to one madhhab's view, whatever the evidence."
+  },
+  {
+    "kind": "question",
+    "text": "He took the view with stronger evidence."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ibn Taymiyyah?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Jailed in Cairo and Alexandria, he died in prison in 728 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "Patient under harm"
+  },
+  {
+    "kind": "lesson",
+    "text": "No funeral gathered more people"
+  },
+  {
+    "kind": "question",
+    "text": "In which two cities was he jailed?"
+  },
+  {
+    "kind": "question",
+    "text": "Cairo and Alexandria"
+  },
+  {
+    "kind": "question",
+    "text": "Kufa and Baghdad"
+  },
+  {
+    "kind": "question",
+    "text": "Gaza and San'a"
+  },
+  {
+    "kind": "question",
+    "text": "He was harmed for holding to the Sunnah."
+  },
+  {
+    "kind": "question",
+    "text": "1420 AH"
+  },
+  {
+    "kind": "question",
+    "text": "728 AH"
+  },
+  {
+    "kind": "question",
+    "text": "He died while still jailed."
+  },
+  {
+    "kind": "question",
+    "text": "Very few people came to his funeral."
+  },
+  {
+    "kind": "question",
+    "text": "Few funerals in history gathered so many."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ibn Taymiyyah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaykh Abd al-Aziz ibn Baz was born in Riyadh in 1912."
+  },
+  {
+    "kind": "lesson",
+    "text": "Born 22 November 1912"
+  },
+  {
+    "kind": "lesson",
+    "text": "Riyadh, Saudi Arabia"
+  },
+  {
+    "kind": "source",
+    "text": "King Faisal Prize"
+  },
+  {
+    "kind": "question",
+    "text": "In which city was Ibn Baz born?"
+  },
+  {
+    "kind": "question",
+    "text": "Riyadh"
+  },
+  {
+    "kind": "question",
+    "text": "In what is now Saudi Arabia."
+  },
+  {
+    "kind": "question",
+    "text": "In which year was Ibn Baz born?"
+  },
+  {
+    "kind": "question",
+    "text": "On 22 November 1912."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Baz lived in the same century as al-Albani."
+  },
+  {
+    "kind": "question",
+    "text": "Both lived through the 1900s."
+  },
+  {
+    "kind": "lesson",
+    "text": "His father died when he was three; by thirteen he worked."
+  },
+  {
+    "kind": "lesson",
+    "text": "Father died: age three"
+  },
+  {
+    "kind": "lesson",
+    "text": "Working by age thirteen"
+  },
+  {
+    "kind": "question",
+    "text": "How old was Ibn Baz when his father died?"
+  },
+  {
+    "kind": "question",
+    "text": "He grew up without his father."
+  },
+  {
+    "kind": "question",
+    "text": "Why did he work by age thirteen?"
+  },
+  {
+    "kind": "question",
+    "text": "For fun"
+  },
+  {
+    "kind": "question",
+    "text": "To support his family"
+  },
+  {
+    "kind": "question",
+    "text": "To buy toys"
+  },
+  {
+    "kind": "question",
+    "text": "To travel"
+  },
+  {
+    "kind": "question",
+    "text": "He helped carry his family."
+  },
+  {
+    "kind": "question",
+    "text": "Which of the four imams also lost his father young?"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad and ash-Shafi'i grew up orphans."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Baz memorized the Quran before he reached puberty."
+  },
+  {
+    "kind": "lesson",
+    "text": "Taught by Abdullah ibn Mufayrij"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ten years with Muhammad ibn Abd al-Latif"
+  },
+  {
+    "kind": "source",
+    "text": "Tarajm: Ibn Baz"
+  },
+  {
+    "kind": "question",
+    "text": "When did Ibn Baz memorize the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "Before puberty"
+  },
+  {
+    "kind": "question",
+    "text": "At sixty"
+  },
+  {
+    "kind": "question",
+    "text": "After he went blind"
+  },
+  {
+    "kind": "question",
+    "text": "He began young."
+  },
+  {
+    "kind": "question",
+    "text": "How long did he study with Muhammad ibn Abd al-Latif?"
+  },
+  {
+    "kind": "question",
+    "text": "From 1347 to 1357 AH."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Baz had only one teacher."
+  },
+  {
+    "kind": "question",
+    "text": "He studied with many scholars of Riyadh."
+  },
+  {
+    "kind": "lesson",
+    "text": "By twenty Ibn Baz had lost his sight, yet kept studying."
+  },
+  {
+    "kind": "lesson",
+    "text": "Quran, hadith, fiqh, tafsir"
+  },
+  {
+    "kind": "lesson",
+    "text": "Blindness did not stop him"
+  },
+  {
+    "kind": "question",
+    "text": "By what age had Ibn Baz lost his sight?"
+  },
+  {
+    "kind": "question",
+    "text": "Eighty"
+  },
+  {
+    "kind": "question",
+    "text": "He lost it completely."
+  },
+  {
+    "kind": "question",
+    "text": "What did he do after losing his sight?"
+  },
+  {
+    "kind": "question",
+    "text": "Became a trader"
+  },
+  {
+    "kind": "question",
+    "text": "Kept studying"
+  },
+  {
+    "kind": "question",
+    "text": "Gave up learning"
+  },
+  {
+    "kind": "question",
+    "text": "Moved away"
+  },
+  {
+    "kind": "question",
+    "text": "He studied the Quran, hadith, fiqh and tafsir."
+  },
+  {
+    "kind": "question",
+    "text": "Losing his sight stopped him from becoming a scholar."
+  },
+  {
+    "kind": "question",
+    "text": "He became one of the great scholars of his time."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Baz moved to Madinah and later led its Islamic University."
+  },
+  {
+    "kind": "lesson",
+    "text": "Deputy head: 1381 AH"
+  },
+  {
+    "kind": "lesson",
+    "text": "Head: from 1390 AH"
+  },
+  {
+    "kind": "question",
+    "text": "Which university did Ibn Baz lead?"
+  },
+  {
+    "kind": "question",
+    "text": "The Islamic University of Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "A university in Cairo"
+  },
+  {
+    "kind": "question",
+    "text": "A university in Damascus"
+  },
+  {
+    "kind": "question",
+    "text": "A university in Baghdad"
+  },
+  {
+    "kind": "question",
+    "text": "First as deputy, then as head."
+  },
+  {
+    "kind": "question",
+    "text": "In which year did he become its head?"
+  },
+  {
+    "kind": "question",
+    "text": "1350 AH"
+  },
+  {
+    "kind": "question",
+    "text": "1390 AH"
+  },
+  {
+    "kind": "question",
+    "text": "By a royal decree."
+  },
+  {
+    "kind": "question",
+    "text": "Before he led it, he was its deputy head."
+  },
+  {
+    "kind": "question",
+    "text": "From 1381 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "In 1982, Ibn Baz won a King Faisal Prize for serving Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Preaching, research, teaching"
+  },
+  {
+    "kind": "lesson",
+    "text": "Care for the youth"
+  },
+  {
+    "kind": "question",
+    "text": "Which prize did Ibn Baz win in 1982?"
+  },
+  {
+    "kind": "question",
+    "text": "King Faisal Prize for Service to Islam"
+  },
+  {
+    "kind": "question",
+    "text": "A sports medal"
+  },
+  {
+    "kind": "question",
+    "text": "A poetry prize"
+  },
+  {
+    "kind": "question",
+    "text": "A science prize"
+  },
+  {
+    "kind": "question",
+    "text": "For his scholarship and good deeds."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he give special care to?"
+  },
+  {
+    "kind": "question",
+    "text": "The youth"
+  },
+  {
+    "kind": "question",
+    "text": "Only rulers"
+  },
+  {
+    "kind": "question",
+    "text": "Only traders"
+  },
+  {
+    "kind": "question",
+    "text": "He worked to help young Muslims."
+  },
+  {
+    "kind": "question",
+    "text": "What did he tell Muslims to seek?"
+  },
+  {
+    "kind": "question",
+    "text": "Islamic knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "So they worship Allah with full awareness."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ibn Baz?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Baz was Grand Mufti of Saudi Arabia until he died."
+  },
+  {
+    "kind": "lesson",
+    "text": "Head of the senior scholars"
+  },
+  {
+    "kind": "lesson",
+    "text": "Radio fatwas: Nur ala ad-Darb"
+  },
+  {
+    "kind": "question",
+    "text": "Which post did Ibn Baz hold until his death?"
+  },
+  {
+    "kind": "question",
+    "text": "King"
+  },
+  {
+    "kind": "question",
+    "text": "Army general"
+  },
+  {
+    "kind": "question",
+    "text": "Grand Mufti"
+  },
+  {
+    "kind": "question",
+    "text": "The country's highest post for fatwas."
+  },
+  {
+    "kind": "question",
+    "text": "What was his radio fatwa programme called?"
+  },
+  {
+    "kind": "question",
+    "text": "Nur ala ad-Darb"
+  },
+  {
+    "kind": "question",
+    "text": "Light on the Path, for over thirty years."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Baz answered people's questions on the radio."
+  },
+  {
+    "kind": "question",
+    "text": "For more than thirty years."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Baz died in 1420 AH, 1999, and was buried in Makkah."
+  },
+  {
+    "kind": "lesson",
+    "text": "27 Muharram 1420 AH, aged about 89"
+  },
+  {
+    "kind": "lesson",
+    "text": "Janazah in al-Masjid al-Haram"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Ibn Baz buried?"
+  },
+  {
+    "kind": "question",
+    "text": "In al-Adl cemetery."
+  },
+  {
+    "kind": "question",
+    "text": "Where was his funeral prayer held?"
+  },
+  {
+    "kind": "question",
+    "text": "His home"
+  },
+  {
+    "kind": "question",
+    "text": "A school"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Masjid al-Haram"
+  },
+  {
+    "kind": "question",
+    "text": "A small village"
+  },
+  {
+    "kind": "question",
+    "text": "After the Friday prayer."
+  },
+  {
+    "kind": "question",
+    "text": "About how old was he when he died?"
+  },
+  {
+    "kind": "question",
+    "text": "About 120"
+  },
+  {
+    "kind": "question",
+    "text": "About 89"
+  },
+  {
+    "kind": "question",
+    "text": "About 40"
+  },
+  {
+    "kind": "question",
+    "text": "About 54"
+  },
+  {
+    "kind": "question",
+    "text": "Born 1912, died 1999."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Baz signed a fatwa praising al-Albani's work for the Sunnah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Standing Committee"
+  },
+  {
+    "kind": "lesson",
+    "text": "Known for knowledge and virtue"
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 113687"
+  },
+  {
+    "kind": "question",
+    "text": "Which scholar did Ibn Baz and the committee praise?"
+  },
+  {
+    "kind": "question",
+    "text": "For his service to the Sunnah."
+  },
+  {
+    "kind": "question",
+    "text": "What did they say his books were?"
+  },
+  {
+    "kind": "question",
+    "text": "Secret"
+  },
+  {
+    "kind": "question",
+    "text": "Lost"
+  },
+  {
+    "kind": "question",
+    "text": "Very useful"
+  },
+  {
+    "kind": "question",
+    "text": "Useless"
+  },
+  {
+    "kind": "question",
+    "text": "Though, like any scholar, he could make mistakes."
+  },
+  {
+    "kind": "question",
+    "text": "Scholars of the same time can praise each other's work."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Baz and al-Albani are an example."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ibn Baz!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaykh al-Albani was born in Shkoder, Albania, in 1914."
+  },
+  {
+    "kind": "lesson",
+    "text": "Born 16 August 1914"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Albani: the man from Albania"
+  },
+  {
+    "kind": "question",
+    "text": "Which country was al-Albani born in?"
+  },
+  {
+    "kind": "question",
+    "text": "Albania"
+  },
+  {
+    "kind": "question",
+    "text": "His name means the one from Albania."
+  },
+  {
+    "kind": "question",
+    "text": "On 16 August 1914."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Albani was born two years after Ibn Baz."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Baz was born in 1912."
+  },
+  {
+    "kind": "lesson",
+    "text": "As a child, his family moved to Damascus, where he studied."
+  },
+  {
+    "kind": "lesson",
+    "text": "Early schooling in Damascus"
+  },
+  {
+    "kind": "lesson",
+    "text": "Arabic and Islamic studies"
+  },
+  {
+    "kind": "question",
+    "text": "Which city did his family move to?"
+  },
+  {
+    "kind": "question",
+    "text": "He grew up and studied there."
+  },
+  {
+    "kind": "question",
+    "text": "What did he study there?"
+  },
+  {
+    "kind": "question",
+    "text": "Only maths"
+  },
+  {
+    "kind": "question",
+    "text": "Only music"
+  },
+  {
+    "kind": "question",
+    "text": "Only sport"
+  },
+  {
+    "kind": "question",
+    "text": "The base of his later work."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Albani grew up in Albania his whole life."
+  },
+  {
+    "kind": "question",
+    "text": "He moved to Damascus as a child."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Albani repaired clocks and watches to support his family."
+  },
+  {
+    "kind": "lesson",
+    "text": "A trade with his hands"
+  },
+  {
+    "kind": "lesson",
+    "text": "Supporting his family"
+  },
+  {
+    "kind": "question",
+    "text": "What was al-Albani's trade?"
+  },
+  {
+    "kind": "question",
+    "text": "Farming"
+  },
+  {
+    "kind": "question",
+    "text": "Building ships"
+  },
+  {
+    "kind": "question",
+    "text": "Repairing clocks and watches"
+  },
+  {
+    "kind": "question",
+    "text": "Selling cloth"
+  },
+  {
+    "kind": "question",
+    "text": "He worked to support his family."
+  },
+  {
+    "kind": "question",
+    "text": "Why did he work?"
+  },
+  {
+    "kind": "question",
+    "text": "To become famous"
+  },
+  {
+    "kind": "question",
+    "text": "To stop studying"
+  },
+  {
+    "kind": "question",
+    "text": "Like Ibn Baz, he worked young."
+  },
+  {
+    "kind": "question",
+    "text": "A scholar can also work a trade with his hands."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Albani fixed watches and studied hadith."
+  },
+  {
+    "kind": "lesson",
+    "text": "His best-loved works: a series of sound hadith, and one of weak."
+  },
+  {
+    "kind": "lesson",
+    "text": "Silsilah ad-Da'ifah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Irwa al-Ghalil"
+  },
+  {
+    "kind": "question",
+    "text": "Which two works were closest to his heart?"
+  },
+  {
+    "kind": "question",
+    "text": "Two history books"
+  },
+  {
+    "kind": "question",
+    "text": "Two maps"
+  },
+  {
+    "kind": "question",
+    "text": "The sound and the weak hadith series"
+  },
+  {
+    "kind": "question",
+    "text": "Two poetry books"
+  },
+  {
+    "kind": "question",
+    "text": "As-Silsilah as-Sahihah and ad-Da'ifah."
+  },
+  {
+    "kind": "question",
+    "text": "What did al-Albani's work focus on?"
+  },
+  {
+    "kind": "question",
+    "text": "Checking hadith"
+  },
+  {
+    "kind": "question",
+    "text": "Which reports are sound and which are weak."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is one of his books?"
+  },
+  {
+    "kind": "question",
+    "text": "The others are by the imams of the past."
+  },
+  {
+    "kind": "lesson",
+    "text": "After fifty years with the Sunnah, he called himself a beginner."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fifty years of study"
+  },
+  {
+    "kind": "lesson",
+    "text": "He revised his own books"
+  },
+  {
+    "kind": "question",
+    "text": "How long had he studied the Sunnah by 1999?"
+  },
+  {
+    "kind": "question",
+    "text": "Fifty years"
+  },
+  {
+    "kind": "question",
+    "text": "Five years"
+  },
+  {
+    "kind": "question",
+    "text": "Ten years"
+  },
+  {
+    "kind": "question",
+    "text": "He said so in his speech."
+  },
+  {
+    "kind": "question",
+    "text": "What did he still call himself?"
+  },
+  {
+    "kind": "question",
+    "text": "The greatest"
+  },
+  {
+    "kind": "question",
+    "text": "The last scholar"
+  },
+  {
+    "kind": "question",
+    "text": "A sultan"
+  },
+  {
+    "kind": "question",
+    "text": "A beginner"
+  },
+  {
+    "kind": "question",
+    "text": "Real knowledge brings humility."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Albani never changed a ruling he had made."
+  },
+  {
+    "kind": "question",
+    "text": "He revised his books and changed rulings when needed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Albani won the King Faisal Prize in Islamic Studies in 1999."
+  },
+  {
+    "kind": "lesson",
+    "text": "For his hadith work"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Baz won his in 1982"
+  },
+  {
+    "kind": "question",
+    "text": "In which year did al-Albani win the King Faisal Prize?"
+  },
+  {
+    "kind": "question",
+    "text": "In Islamic Studies."
+  },
+  {
+    "kind": "question",
+    "text": "What was the prize for?"
+  },
+  {
+    "kind": "question",
+    "text": "Building"
+  },
+  {
+    "kind": "question",
+    "text": "Sport"
+  },
+  {
+    "kind": "question",
+    "text": "His work on hadith"
+  },
+  {
+    "kind": "question",
+    "text": "Studying and checking hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Who won the same prize earlier, in 1982?"
+  },
+  {
+    "kind": "question",
+    "text": "His was for Service to Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about al-Albani?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Albani told students not to follow him, or anyone, blindly."
+  },
+  {
+    "kind": "lesson",
+    "text": "A muhaddith and a faqih"
+  },
+  {
+    "kind": "lesson",
+    "text": "Human: right and wrong at times"
+  },
+  {
+    "kind": "question",
+    "text": "What did al-Albani tell his students?"
+  },
+  {
+    "kind": "question",
+    "text": "Never ask questions"
+  },
+  {
+    "kind": "question",
+    "text": "Only read my books"
+  },
+  {
+    "kind": "question",
+    "text": "Stop learning"
+  },
+  {
+    "kind": "question",
+    "text": "Do not follow me blindly"
+  },
+  {
+    "kind": "question",
+    "text": "Follow the evidence."
+  },
+  {
+    "kind": "question",
+    "text": "IslamQA calls him a muhaddith and what else?"
+  },
+  {
+    "kind": "question",
+    "text": "A faqih"
+  },
+  {
+    "kind": "question",
+    "text": "He knew both hadith and fiqh."
+  },
+  {
+    "kind": "question",
+    "text": "Every scholar, however great, can make mistakes."
+  },
+  {
+    "kind": "question",
+    "text": "Only the Prophet ﷺ was protected from error in the religion."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about al-Albani!"
   },
   {
     "kind": "course",

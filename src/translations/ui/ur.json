@@ -419,5 +419,15 @@
   "{place} of {count}": "{count} میں سے {place}",
   "{topic}, {done} of {total}": "{topic}، {total} میں سے {done}",
   "{topic}. Change topic": "{topic}۔ موضوع بدلیں",
-  "All of {topic}": "پورا {topic}"
+  "All of {topic}": "پورا {topic}",
+  "Scholars": "علماء",
+  "Topic 9": "موضوع 9",
+  "The four imams and later scholars, shown as a family tree of who learned from whom.": "چار امام اور بعد کے علماء، شجرے کی صورت میں کہ کس نے کس سے سیکھا۔",
+  "Abu Hanifah, Malik, ash-Shafi'i, Ahmad, Ibn Taymiyyah, Ibn Baz and al-Albani.": "ابو حنیفہ، مالک، شافعی، احمد، ابن تیمیہ، ابن باز اور البانی۔",
+  "Family tree": "شجرہ",
+  "{born}–{died} AH": "{born}–{died} ہجری",
+  "Died {died} AH": "وفات {died} ہجری",
+  "Born {born} AH": "پیدائش {born} ہجری",
+  "{born}–{died} CE": "{born}–{died} عیسوی",
+  "Born {born} CE": "پیدائش {born} عیسوی"
 }

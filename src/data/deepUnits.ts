@@ -1,5 +1,6 @@
 import type { Challenge, DifficultyTier, LearningCourse, LearningNode, Lesson, LessonSource, TopicId } from "../types";
 import { QURAN_AYAHS } from "./quranAyahs";
+import { SCHOLAR_UNITS, SCHOLARS_SECTION } from "./scholarUnits";
 
 // Deep units: a person's life or a surah's tafsir taught in many small steps, each harder than the one before.
 // They come after the short starter circles of their unit, so a beginner still starts simple. Every lesson
@@ -22,7 +23,7 @@ interface DeepLesson {
   questions: Question[];
 }
 
-interface DeepUnit {
+export interface DeepUnit {
   /** Short key for ids: deep-<key>-<slug>. */
   key: string;
   topicId: TopicId;
@@ -2199,7 +2200,7 @@ const CHILDREN: DeepUnit = {
   ]
 };
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, FATIHAH, MULK, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, FATIHAH, MULK, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...SCHOLAR_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -2321,7 +2322,9 @@ function buildUnit(unit: DeepUnit) {
  */
 export function addDeepUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }) {
   const lessonsById = { ...content.lessonsById };
-  const sections = content.course.sections.map((section) => {
+  // A topic made only of deep units (Scholars) starts as an empty section.
+  const all = content.course.sections.some((section) => section.topicId === SCHOLARS_SECTION.topicId) ? content.course.sections : [...content.course.sections, SCHOLARS_SECTION];
+  const sections = all.map((section) => {
     const units = DEEP_UNITS.filter((unit) => unit.topicId === section.topicId && section.branches.some((branch) => branch.id === unit.branchId));
     if (!units.length) return section;
     let nodes = [...section.nodes];
@@ -2337,10 +2340,10 @@ export function addDeepUnits(content: { course: LearningCourse; lessonsById: Rec
         return linked;
       });
       const end = own[own.length - 1];
-      const at = nodes.lastIndexOf(end) + 1;
+      const at = end ? nodes.lastIndexOf(end) + 1 : nodes.length;
       // A topic taught in order may open its next unit after this unit's old last circle: now it waits for the final quiz.
       const moved = (node: LearningNode) =>
-        node.branchId !== unit.branchId && node.requiredNodeIds.includes(end.id)
+        end && node.branchId !== unit.branchId && node.requiredNodeIds.includes(end.id)
           ? { ...node, requiredNodeIds: node.requiredNodeIds.map((id) => (id === end.id ? previous.id : id)) }
           : node;
       nodes = [...nodes.slice(0, at).map(moved), ...added, ...nodes.slice(at).map(moved)];

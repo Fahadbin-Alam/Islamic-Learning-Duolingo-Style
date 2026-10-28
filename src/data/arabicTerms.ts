@@ -38,10 +38,19 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   prophets: { ar: "قصص الأنبياء", translit: "Qasas al-anbiya", meaning: "Stories of the prophets" },
   // The topic holds women of the Quran, the Mothers of the Believers and women of the Prophet's ﷺ family.
   women_of_the_book: { ar: "نساء خالدات", translit: "Nisa' khalidat", meaning: "Great women" },
-  hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's ﷺ sayings" }
+  hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's ﷺ sayings" },
+  scholars: { ar: "العلماء", translit: "Al-'ulama'", meaning: "The scholars" }
 };
 
 export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
+  // Scholars: the four imams and later scholars (src/data/scholarUnits.ts)
+  "scholar-abu-hanifah": { ar: "أبو حنيفة", translit: "Abu Hanifah", meaning: "Imam Abu Hanifah" },
+  "scholar-malik": { ar: "مالك بن أنس", translit: "Malik ibn Anas", meaning: "Imam Malik" },
+  "scholar-shafii": { ar: "الشافعي", translit: "Ash-Shafi'i", meaning: "Imam ash-Shafi'i" },
+  "scholar-ahmad": { ar: "أحمد بن حنبل", translit: "Ahmad ibn Hanbal", meaning: "Imam Ahmad" },
+  "scholar-ibn-taymiyyah": { ar: "ابن تيمية", translit: "Ibn Taymiyyah", meaning: "Shaykh al-Islam Ibn Taymiyyah" },
+  "scholar-ibn-baz": { ar: "ابن باز", translit: "Ibn Baz", meaning: "Shaykh Ibn Baz" },
+  "scholar-albani": { ar: "الألباني", translit: "Al-Albani", meaning: "Shaykh al-Albani" },
   // Foundation: greetings, daily words and first worship
   "foundation-greetings": { ar: "التحية", translit: "At-tahiyyah", meaning: "The greeting" },
   "foundation-daily-words": { ar: "الأذكار اليومية", translit: "Al-adhkar al-yawmiyyah", meaning: "Daily remembrances" },
@@ -609,6 +618,7 @@ const IMPORTED_UNIT_ARABIC: Partial<Record<TopicId, ArabicTerm>> = {
 // The vowelled form of every unit banner word, for a learn card that borrows it. Each one, without its
 // vowel marks, is exactly the banner's spelling (the tests check this).
 const LEARN_FORMS = [
+  "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
   "التَّحِيَّةُ", "الْأَذْكَارُ الْيَوْمِيَّةُ", "الْعِبَارَاتُ الْيَوْمِيَّةُ",
   "آدَابُ الْبَيْتِ وَالطَّعَامِ", "بِدَايَةُ الْعِبَادَةِ", "الْوُضُوءُ", "أَسَاسِيَّاتُ الصَّلَاةِ",
   "أَوْقَاتُ الصَّلَاةِ", "الْأَذَانُ وَالْإِقَامَةُ", "الرُّكُوعُ وَالسُّجُودُ", "التَّشَهُّدُ",
