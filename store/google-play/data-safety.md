@@ -9,9 +9,9 @@ For Play Console → Policy and programs → App content → Data safety. These 
 | Muslimo backend (`backend/app/models.py`) | Account (name, email, password hash, parent/learner role, language), progress, XP, gems, hearts, answers with response time and confidence, review queue, reminder settings, the accounts a user follows on the Crew screen, subscription status, sign-in tokens |
 | Google Mobile Ads SDK (AdMob) | Advertising ID / app set ID, IP address (approximate location), device info, ad interactions, diagnostics |
 | RevenueCat SDK | App user id, purchase history |
-| On device only | Learning progress for guests, local reminders (`expo-notifications`, scheduled on the device), sound settings |
+| On device only | Learning progress for guests, local reminders (`expo-notifications`, scheduled on the device), sound settings, Family codes (`src/services/familyCode.ts`) |
 
-No precise location, contacts, photos, files, microphone, camera, health, messages, calendar or web browsing data is collected. The age group from the age screen stays on the device and is not collected. Push tokens are not collected: reminders are local notifications.
+No precise location, contacts, photos, files, microphone, camera, health, messages, calendar or web browsing data is collected. The age group from the age screen stays on the device and is not collected. Push tokens are not collected: reminders are local notifications. Family codes are not collected either: the Family page (behind the grown-up check) puts a numbers-only progress code into the phone's own share menu when a grown-up taps SEND TO A PARENT, and the parent pastes it into the app on their phone, where it is stored. Nothing goes to our servers or to an SDK, so it is not "collected", and a transfer the user starts to an app they pick is exempt from "shared". No Data safety answer changes.
 
 ## Section 1: Data collection and security
 

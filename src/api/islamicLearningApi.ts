@@ -27,6 +27,7 @@ import type {
 import { buildGuidedLesson } from "../services/lessonGuidance";
 import { planForProduct } from "../services/monetizationConfig";
 import { enrichLessonSources, getPrimaryLessonSource } from "../services/resourceSupport";
+import { logDailyXp } from "../services/familyCode";
 
 export interface IslamicLearningApi {
   getUser(userId: number): Promise<UserProfile>;
@@ -157,7 +158,8 @@ export function addXp(user: UserProfile, amount: number, now = new Date()): User
   return {
     ...user,
     totalXp: user.totalXp + amount,
-    dailyXp: { date: localDateKey(now), xp: getXpToday(user, now) + amount }
+    dailyXp: { date: localDateKey(now), xp: getXpToday(user, now) + amount },
+    xpByDay: amount > 0 ? logDailyXp(user.xpByDay, localDateKey(now), amount) : user.xpByDay
   };
 }
 

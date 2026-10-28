@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useReducer, useRef,
 import {
   Linking,
   Platform,
+  Share,
   StatusBar,
   StyleSheet,
   Text,
@@ -152,6 +153,7 @@ import {
   LearnPath,
   PracticeHub,
   ProfileView,
+  FamilySheet,
   RefillSheet,
   RewardPop,
   SettingsSheet,
@@ -164,6 +166,8 @@ import {
   type TabKey,
   type TopicPickerTopic
 } from "./ui/screens";
+import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
+import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
@@ -497,6 +501,8 @@ export default function TopicApp() {
   const [accountPromptShown, setAccountPromptShown] = useState(false);
   const [accountPromptDue, setAccountPromptDue] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+  const [familyVisible, setFamilyVisible] = useState(false);
+  const [familyKids, setFamilyKids] = useState<FamilyKid[]>([]);
   const [activeAssessment, setActiveAssessment] = useState<FoundationAssessmentState | undefined>(undefined);
   // The practice end screen. `restored` is one shown again after a reload: its fanfare already played.
   const [practiceResult, setPracticeResult] = useState<(FoundationPracticeResult & { restored?: boolean }) | undefined>(undefined);
@@ -960,6 +966,49 @@ export default function TopicApp() {
 
   // Each finished circle's best run, as its Lesson complete card showed it.
   const userStars = useMemo(() => (state.user ? getTotalStars(state.user) : 0), [state.user]);
+  // Read again each time the sheet opens, so a sheet left open past midnight is the only stale case.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const familyToday = useMemo(() => localDateKey(), [familyVisible]);
+  const familyTopics = useMemo(
+    () => pickerTopics.map((topic) => ({ topicId: topic.topicId as TopicId, title: topic.title, accent: topic.accent, total: topic.total })),
+    [pickerTopics]
+  );
+  // This phone's progress for the Family sheet. The id is only made when the report is first sent.
+  const familyReport = useMemo(() => {
+    if (!state.user) return undefined;
+    return buildFamilySnapshot({
+      id: peekFamilyId() ?? "",
+      today: familyToday,
+      user: state.user,
+      stars: userStars,
+      topicsDone: Object.fromEntries(pickerTopics.map((topic) => [topic.topicId, topic.done]))
+    });
+  }, [familyToday, pickerTopics, state.user, userStars]);
+  const openFamily = () => {
+    setFamilyKids(loadFamilyKids());
+    setFamilyVisible(true);
+  };
+  // The parent asked for it behind the grown-up gate: the code goes to the share sheet they pick from.
+  const shareFamilyReport = () => {
+    if (!familyReport) return undefined;
+    const code = encodeFamilyCode({ ...familyReport, id: getFamilyId() });
+    const message = t("My Muslimo progress. To follow along, open Muslimo, then Me, Family, My kids, and paste this: {code}", { code });
+    void Share.share({ message }).catch(() => undefined);
+    return code;
+  };
+  const addKid = (text: string, nickname: string) => {
+    const result = addFamilyKid(familyKids, text, nickname, peekFamilyId(), new Date().toISOString());
+    if (result.status === "added" || result.status === "updated") {
+      setFamilyKids(result.kids);
+      saveFamilyKids(result.kids);
+    }
+    return result.status;
+  };
+  const removeKid = (id: string) => {
+    const kids = removeFamilyKid(familyKids, id);
+    setFamilyKids(kids);
+    saveFamilyKids(kids);
+  };
   const { notify, confirm, sheets: noticeSheets, open: noticeOpen } = useNotices({
     mascotVariant: selectedSection.mascot,
     accent: selectedSection.accentColor
@@ -985,7 +1034,7 @@ export default function TopicApp() {
     selectedSection.topicId === "foundation";
   const otherSheetOpen =
     Boolean(outOfHearts?.open || rewardCelebration || testOutResult?.open) ||
-    topicPickerVisible || settingsModalVisible || languageModalVisible || noticeOpen;
+    topicPickerVisible || settingsModalVisible || languageModalVisible || noticeOpen || familyVisible;
   useEffect(() => {
     if (!accountPromptDue || accountPromptShown || !guestUser || !onFoundationPath || otherSheetOpen) {
       return;
@@ -2516,6 +2565,7 @@ export default function TopicApp() {
             soundEnabled={state.user.soundEffectsEnabled !== false}
             onToggleSound={toggleSoundEffects}
             onOpenSettings={openSettingsModal}
+            onOpenFamily={openFamily}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
@@ -2590,6 +2640,22 @@ export default function TopicApp() {
           onSocial={(provider: string) => handleSocialLogin(provider as SocialProvider)}
           onClose={() => setAccountModalVisible(false)}
         />
+        {familyReport ? (
+          <FamilySheet
+            visible={familyVisible}
+            onClose={() => setFamilyVisible(false)}
+            report={familyReport}
+            onShareReport={shareFamilyReport}
+            topics={familyTopics}
+            kids={familyKids}
+            onAddKid={addKid}
+            onRemoveKid={removeKid}
+            today={familyToday}
+            initialTab={state.user?.accountRole === "parent" ? "kids" : "report"}
+            mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
+          />
+        ) : null}
         <SettingsSheet
           visible={settingsModalVisible}
           role={settingsRole}
