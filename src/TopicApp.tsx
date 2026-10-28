@@ -594,7 +594,7 @@ export default function TopicApp() {
 
       if (mounted) {
         setHasSavedAccount(Boolean(knownAccount));
-        // A first launch on a Bangla, Urdu or Arabic phone starts in that language and asks once.
+        // A first launch asks once which language to learn in, with the phone's language picked if offered.
         const phoneLanguage = user.preferredLanguage ? undefined : deviceLanguage();
         setPendingLanguage(normalizeLanguage(user.preferredLanguage ?? phoneLanguage));
         setStartLanguage(normalizeLanguage(phoneLanguage));
@@ -613,7 +613,7 @@ export default function TopicApp() {
         setSettingsSoundEnabled(user.soundEffectsEnabled !== false);
         setSettingsReducedSound(Boolean(user.reducedSoundEffects));
 
-        if (LANGUAGE_PICKER_ENABLED && phoneLanguage) {
+        if (LANGUAGE_PICKER_ENABLED && !user.preferredLanguage) {
           setLanguageModalVisible(true);
         }
 
