@@ -118,6 +118,10 @@ import {
   requestIslamicNotificationPermission,
   scheduleIslamicReminderChecks
 } from "./services/islamicNotifications";
+import { onPrayerNudgeOpened, requestPrayerNudgePermission, schedulePrayerNudges } from "./services/prayerNudges";
+import { loadPrayerNudgePrefs, savePrayerNudgePrefs } from "./services/prayerNudgePlan";
+import type { PrayerNudgePrefs } from "./services/prayerTimes";
+import { findPrayerCity } from "./data/prayerCities";
 import {
   FoundationAssessmentScreen,
   PracticeComplete
@@ -147,6 +151,8 @@ import {
   AgeSheet,
   LanguageSheet,
   LearnPath,
+  PrayerSheet,
+  cityName,
   PracticeHub,
   ProfileView,
   RefillSheet,
@@ -472,6 +478,10 @@ export default function TopicApp() {
   const [accountModalVisible, setAccountModalVisible] = useState(false);
   const [outOfHearts, setOutOfHearts] = useState<OutOfHeartsSheet | undefined>(undefined);
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
+  // Prayer-time lessons belong to this phone (its city and notifications), not to the account.
+  const [prayerPrefs, setPrayerPrefs] = useState<PrayerNudgePrefs>(loadPrayerNudgePrefs);
+  const [prayerModalVisible, setPrayerModalVisible] = useState(false);
+  const [prayerLessonDue, setPrayerLessonDue] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
   const [accountPromptDue, setAccountPromptDue] = useState(false);
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
@@ -730,6 +740,22 @@ export default function TopicApp() {
     state.user?.reminderPreferences?.islamicReminders
   ]);
 
+  // Prayer nudges skip the hour around a come-back reminder, so they are planned again whenever those are.
+  useEffect(() => {
+    void schedulePrayerNudges(prayerPrefs, state.user, currentLanguage);
+  }, [
+    prayerPrefs,
+    currentLanguage,
+    state.user?.id,
+    state.user?.lastLearningAt,
+    state.user?.lastLoginAt,
+    state.user?.reminderPreferences?.streakReminders,
+    state.user?.reminderPreferences?.islamicReminders
+  ]);
+
+  // Tapping a prayer nudge opens the tiny lesson it promised.
+  useEffect(() => onPrayerNudgeOpened(() => setPrayerLessonDue(true)), []);
+
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
   }, [state.user]);
@@ -934,7 +960,22 @@ export default function TopicApp() {
     selectedSection.topicId === "foundation";
   const otherSheetOpen =
     Boolean(outOfHearts?.open || rewardCelebration || testOutResult?.open) ||
-    topicPickerVisible || settingsModalVisible || languageModalVisible || noticeOpen;
+    topicPickerVisible || settingsModalVisible || languageModalVisible || prayerModalVisible || noticeOpen;
+
+  useEffect(() => {
+    const busy = state.screen.startsWith("lesson_") || state.screen === "assessment";
+    if (!prayerLessonDue || !state.user || busy || otherSheetOpen) {
+      return;
+    }
+
+    setPrayerLessonDue(false);
+    if (sectionNextNode) {
+      void startLesson(sectionNextNode);
+    } else {
+      changeTab("learn");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prayerLessonDue, state.user, state.screen, otherSheetOpen, sectionNextNode]);
   useEffect(() => {
     if (!accountPromptDue || accountPromptShown || !guestUser || !onFoundationPath || otherSheetOpen) {
       return;
@@ -1546,6 +1587,18 @@ export default function TopicApp() {
       }
     });
     setLanguageModalVisible(false);
+  }
+
+  // Permission comes first so the nudges are scheduled with it once the new settings land.
+  async function savePrayerSettings(prefs: PrayerNudgePrefs) {
+    setPrayerModalVisible(false);
+    const allowed = !prefs.enabled || (await requestPrayerNudgePermission());
+    savePrayerNudgePrefs(prefs);
+    setPrayerPrefs(prefs);
+
+    if (!allowed) {
+      void notify(t("Notifications are off"), t("Turn them on for Muslimo in your phone settings."), { mood: "think" });
+    }
   }
 
   // Guests get Settings too: reminders and sound. The sheet hides "who is learning", the family
@@ -2185,6 +2238,8 @@ export default function TopicApp() {
   }
 
   const inLesson = state.screen.startsWith("lesson_") || state.screen === "assessment";
+  const prayerCity = findPrayerCity(prayerPrefs.cityId);
+  const prayerSettingLabel = prayerPrefs.enabled && prayerCity ? cityName(prayerCity, currentLanguage) : t("Off");
   const enabledSocialProviders = socialProviders.map((id) => ({ id, label: id === "google" ? t("Continue with Google") : t("Continue with Apple") }));
   const activeTab = tabForScreen(state.screen);
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
@@ -2541,6 +2596,18 @@ export default function TopicApp() {
             setSettingsModalVisible(false);
             setLanguageModalVisible(true);
           }}
+          prayerLabel={prayerSettingLabel}
+          onOpenPrayer={() => {
+            setSettingsModalVisible(false);
+            setPrayerModalVisible(true);
+          }}
+        />
+        <PrayerSheet
+          visible={prayerModalVisible}
+          prefs={prayerPrefs}
+          language={currentLanguage}
+          onSave={(prefs: PrayerNudgePrefs) => void savePrayerSettings(prefs)}
+          onClose={() => setPrayerModalVisible(false)}
         />
         <RefillSheet
           visible={Boolean(outOfHearts?.open)}

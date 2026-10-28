@@ -9,7 +9,7 @@ For Play Console → Policy and programs → App content → Data safety. These 
 | Muslimo backend (`backend/app/models.py`) | Account (name, email, password hash, parent/learner role, language), progress, XP, gems, hearts, answers with response time and confidence, review queue, reminder settings, the accounts a user follows on the Crew screen, subscription status, sign-in tokens |
 | Google Mobile Ads SDK (AdMob) | Advertising ID / app set ID, IP address (approximate location), device info, ad interactions, diagnostics |
 | RevenueCat SDK | App user id, purchase history |
-| On device only | Learning progress for guests, local reminders (`expo-notifications`, scheduled on the device), sound settings |
+| On device only | Learning progress for guests, local reminders (`expo-notifications`, scheduled on the device), sound settings, the city picked for prayer-time lessons (prayer times are worked out on the phone; no location permission) |
 
 No precise location, contacts, photos, files, microphone, camera, health, messages, calendar or web browsing data is collected. The age group from the age screen stays on the device and is not collected. Push tokens are not collected: reminders are local notifications.
 

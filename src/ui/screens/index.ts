@@ -13,6 +13,7 @@ export { StreakSheet, type StreakSheetProps } from "./StreakSheet";
 export { RewardPop, type RewardPopProps } from "./RewardPop";
 export { AgeSheet, type AgeSheetProps } from "./AgeSheet";
 export { LanguageSheet, type LanguageSheetProps } from "./LanguageSheet";
+export { PrayerSheet, cityName, type PrayerSheetProps } from "./PrayerSheet";
 export {
   ConfirmSheet,
   NoticeSheet,
