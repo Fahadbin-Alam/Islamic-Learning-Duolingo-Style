@@ -1,6 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react-native";
-import { LESSONS_BY_ID } from "../data/course";
+import { COURSE, LESSONS_BY_ID } from "../data/course";
 import { questionSource, shortReference } from "../services/questionSource";
 import { ExerciseView, FeedbackSheet } from "../ui/lesson";
 
@@ -65,6 +65,15 @@ describe("questionSource", () => {
     expect(questionSource({}, { learnSource: own })).toBe(own);
   });
 
+  it("finds a cited source for every question on the path", () => {
+    const missing = COURSE.sections
+      .flatMap((section) => section.nodes.flatMap((node) => node.lessonIds))
+      .map((id) => LESSONS_BY_ID[id])
+      .filter(Boolean)
+      .flatMap((lesson) => lesson.challenges.filter((challenge) => !questionSource(challenge, lesson)?.reference?.trim()).map((challenge) => challenge.id));
+    expect(missing).toEqual([]);
+  });
+
   it("shortens collection names for the chip", () => {
     expect(shortReference("Sahih al-Bukhari 3754")).toBe("Bukhari 3754");
     expect(shortReference("Sahih Muslim 2401")).toBe("Muslim 2401");
@@ -72,5 +81,6 @@ describe("questionSource", () => {
     expect(shortReference("Jami` at-Tirmidhi 2689")).toBe("Tirmidhi 2689");
     expect(shortReference("Surah 2")).toBe("Quran 2");
     expect(shortReference("Quran 9:40")).toBe("Quran 9:40");
+    expect(shortReference("Siyar A'lam an-Nubala 1/347")).toBe("Siyar 1/347");
   });
 });

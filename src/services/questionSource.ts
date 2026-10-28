@@ -22,6 +22,7 @@ const SHORT_NAMES: [RegExp, string][] = [
   [/^Sunan Ibn Majah\b|^Ibnmajah\b/i, "Ibn Majah"],
   [/^Al-Adab Al-Mufrad\b/i, "Adab al-Mufrad"],
   [/^Mishkat al-Masabih\b/i, "Mishkat"],
+  [/^Siyar A'lam an-Nubala\b/i, "Siyar"],
   [/^Surah (?=\d)/i, "Quran "]
 ];
 
