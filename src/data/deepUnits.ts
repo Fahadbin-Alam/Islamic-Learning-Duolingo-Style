@@ -846,7 +846,7 @@ const UMAR: DeepUnit = {
       title: "Truth on his tongue",
       line: "Allah put the truth on Umar's tongue and in his heart.",
       facts: ["Told by Ibn Umar", "The Quran often agreed with him"],
-      source: hadith("tirmidhi", "3682", "Ibn Umar", "Hasan (Darussalam)", "The Prophet ﷺ said: Allah has put the truth upon the tongue and in the heart of Umar."),
+      source: hadith("tirmidhi", "3682", "Ibn Umar", "Sahih (Darussalam)", "The Prophet ﷺ said: Allah has put the truth upon the tongue and in the heart of Umar."),
       difficulty: 3,
       questions: [
         { q: "Where did Allah put the truth for Umar?", a: "On his tongue and in his heart", wrong: ["In his sword", "In his wealth", "In his poems"], why: "So he often spoke what was right." },
@@ -1263,7 +1263,291 @@ const MULK: DeepUnit = {
   ]
 };
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, FATIHAH, MULK];
+const UTHMAN: DeepUnit = {
+  key: "uthman",
+  topicId: "sahabah",
+  branchId: "sahabi-uthman-ibn-affan",
+  name: "Uthman",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "third",
+      title: "Third in rank",
+      line: "The companions ranked Abu Bakr first, then Umar, then Uthman.",
+      facts: ["In the Prophet's ﷺ lifetime", "Told by Ibn Umar"],
+      source: hadith("bukhari", "3697", "Ibn Umar", "Sahih", "In the Prophet's ﷺ lifetime we considered no one equal to Abu Bakr, then Umar, then Uthman."),
+      difficulty: 2,
+      questions: [
+        { q: "In the Prophet's ﷺ lifetime, who did the companions rank third?", a: "Uthman", wrong: ["Ali", "Bilal", "Khalid"], why: "Abu Bakr, then Umar, then Uthman." },
+        { q: "Who did they rank first?", a: "Abu Bakr", wrong: ["Umar", "Uthman", "Ali"], why: "No one was seen as equal to Abu Bakr." },
+        { q: "Which companion told how they ranked them?", a: "Ibn Umar", wrong: ["Anas", "Aishah", "Abu Hurayrah"], why: "Abdullah ibn Umar narrated it." }
+      ]
+    },
+    {
+      slug: "modesty",
+      title: "Even angels are shy",
+      line: "The Prophet ﷺ said: even the angels are shy before Uthman.",
+      facts: ["He fixed his clothes for Uthman", "Told by Aishah"],
+      source: hadith("muslim", "2401", "Aishah", "Sahih", "When Uthman asked to come in, the Prophet ﷺ sat up and set his clothes right, and said: should I not be shy before one whom even the angels are shy before?"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ do when Uthman asked to come in?", a: "He sat up and fixed his clothes", wrong: ["He stood at the door", "He sent him away", "He kept lying down"], why: "He had not done so for Abu Bakr or Umar." },
+        { q: "Why did he do that for Uthman?", a: "Even the angels are shy before him", wrong: ["Uthman was a guest", "Uthman was the oldest", "It was cold"], why: "Uthman was known for his great modesty." },
+        { q: "Who noticed this and asked about it?", a: "Aishah", wrong: ["Fatimah", "Hafsah", "Umm Salamah"], why: "It was in her room." }
+      ]
+    },
+    {
+      slug: "badr",
+      title: "Why he missed Badr",
+      line: "Uthman missed Badr to nurse his wife, the Prophet's ﷺ daughter.",
+      facts: ["Same reward as those at Badr", "Ibn Umar answered a critic"],
+      source: hadith("bukhari", "3698", "Uthman ibn Mawhab", "Sahih", "Ibn Umar explained that Uthman missed Badr because his wife, the Prophet's ﷺ daughter, was ill; the Prophet ﷺ told him he would have the reward and share of those at Badr."),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Uthman not fight at Badr?", a: "His wife was ill", wrong: ["He was afraid", "He was travelling", "He was too old"], why: "She was the daughter of the Prophet ﷺ." },
+        { q: "What did the Prophet ﷺ promise Uthman for staying?", a: "The reward of those at Badr", wrong: ["Nothing at all", "A new house", "To lead the next army"], why: "He got the same reward and share." },
+        { q: "Uthman's wife was the Prophet's ﷺ daughter.", tf: true, why: "Ibn Umar said so in his answer." }
+      ]
+    },
+    {
+      slug: "his-hand",
+      title: "This is Uthman's hand",
+      line: "At the pledge, the Prophet ﷺ said: this hand is Uthman's.",
+      facts: ["Uthman was sent to Makkah", "No one there more respected"],
+      source: hadith("bukhari", "3698", "Uthman ibn Mawhab", "Sahih", "Uthman was the Prophet's ﷺ envoy in Makkah during the pledge of Ridwan; the Prophet ﷺ held up his right hand and said: this is Uthman's hand, and pledged for him."),
+      difficulty: 4,
+      questions: [
+        { q: "Where was Uthman during the pledge of Ridwan?", a: "In Makkah, sent by the Prophet ﷺ", wrong: ["Sick at home", "In Abyssinia", "In Madinah"], why: "No one in Makkah was more respected than him." },
+        { q: "What did the Prophet ﷺ say about his own right hand?", a: "This is Uthman's hand", wrong: ["This is my best hand", "This is for Abu Bakr", "This is for the Ansar"], why: "He made the pledge for Uthman himself." },
+        { q: "Uthman missed the pledge because he did not care.", tf: false, why: "He was away on the Prophet's ﷺ own mission." }
+      ]
+    },
+    {
+      slug: "rumah",
+      title: "The well of Rumah",
+      line: "Uthman bought the well of Rumah and equipped a whole army.",
+      facts: ["Both were promised Jannah", "The army of hardship: Tabuk"],
+      source: hadith("bukhari", "2778", "Abu Abd ar-Rahman", "Sahih", "Uthman reminded the companions that the Prophet ﷺ promised Paradise to whoever dug the well of Rumah and to whoever equipped the army of hardship, and he had done both; they confirmed it."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Uthman buy for the Muslims?", a: "The well of Rumah", wrong: ["A market", "A ship", "A fort"], why: "So people could drink freely." },
+        { q: "Which army did Uthman equip?", a: "The army of hardship", wrong: ["The army of Badr", "The army of Uhud", "The army of Yamamah"], why: "It went to Tabuk in a time of hardship." },
+        { q: "What did the Prophet ﷺ promise for these deeds?", a: "Jannah", wrong: ["Riches", "Leadership", "A long life"], why: "The companions confirmed Uthman did both." }
+      ]
+    },
+    {
+      slug: "thousand",
+      title: "A thousand dinars",
+      line: "Uthman poured a thousand dinars into the Prophet's ﷺ lap.",
+      facts: ["For the army of hardship", "Said twice by the Prophet ﷺ"],
+      source: hadith("tirmidhi", "3701", "Abd ar-Rahman ibn Samurah", "Hasan (Darussalam)", "Uthman brought a thousand dinars for the army of hardship and poured them into the Prophet's ﷺ lap; he turned them over and said twice: whatever Uthman does after today will not harm him."),
+      difficulty: 4,
+      questions: [
+        { q: "How many dinars did Uthman bring?", a: "A thousand", wrong: ["A hundred", "Ten", "Fifty"], why: "He poured them into the Prophet's ﷺ lap." },
+        { q: "What did the Prophet ﷺ say about Uthman that day?", a: "Nothing he does after today will harm him", wrong: ["Give no more", "You are the richest", "Keep half for yourself"], why: "He said it twice." },
+        { q: "The money was for which army?", a: "The army of hardship", wrong: ["The army of Badr", "The army to Sham", "The army of Khaybar"], why: "The Tabuk expedition, in a hard year." }
+      ]
+    },
+    {
+      slug: "gate",
+      title: "Jannah, with a trial",
+      line: "Uthman was told: Jannah is yours, after a trial will strike you.",
+      facts: ["Third at the garden gate", "He said: Allah's help is sought"],
+      source: hadith("bukhari", "3693", "Abu Musa", "Sahih", "At the garden gate, the Prophet ﷺ told Abu Musa to give Uthman good news of Paradise with a calamity that would strike him; Uthman praised Allah and said: Allah's help is sought."),
+      difficulty: 4,
+      questions: [
+        { q: "What came with Uthman's good news of Jannah?", a: "A trial that would strike him", wrong: ["Great wealth", "A long journey", "A new name"], why: "The Prophet ﷺ told of a calamity to come." },
+        { q: "What did Uthman say when he heard?", a: "Allah's help is sought", wrong: ["Why me?", "I am afraid", "Tell no one"], why: "He praised Allah and asked for His help." },
+        { q: "Who came to the gate before Uthman?", a: "Abu Bakr and Umar", wrong: ["Ali and Talhah", "No one", "Bilal"], why: "Abu Bakr, then Umar, then Uthman." }
+      ]
+    },
+    {
+      slug: "uhud",
+      title: "A martyr on Uhud",
+      line: "On Uhud, the Prophet ﷺ named Uthman one of two martyrs.",
+      facts: ["With the Prophet ﷺ, Abu Bakr, Umar", "Be firm, O Uhud"],
+      source: hadith("bukhari", "3686", "Anas ibn Malik", "Sahih", "Uhud shook under the Prophet ﷺ, Abu Bakr, Umar and Uthman; he said: be firm, Uhud, for on you are a Prophet, a Siddiq and two martyrs."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ call Uthman on Uhud?", a: "A martyr", wrong: ["A siddiq", "A prophet", "A king"], why: "The two martyrs were Umar and Uthman." },
+        { q: "Who reported this from the Prophet ﷺ?", a: "Anas ibn Malik", wrong: ["Uthman himself", "Ibn Abbas", "Abu Dharr"], why: "Anas was the Prophet's ﷺ servant." },
+        { q: "Uthman later died as a martyr.", tf: true, why: "As the Prophet ﷺ foretold." }
+      ]
+    },
+    {
+      slug: "one-mushaf",
+      title: "One Quran for all",
+      line: "Uthman had the Quran copied and sent a copy to each land.",
+      facts: ["Hudhayfah feared differences", "From Hafsah's pages"],
+      source: hadith("bukhari", "4987", "Anas ibn Malik", "Sahih", "Hudhayfah feared people would differ over the Quran, so Uthman took Hafsah's pages, had Zayd ibn Thabit and others write copies, and sent one to every province."),
+      difficulty: 4,
+      questions: [
+        { q: "Who warned Uthman that people were differing over the Quran?", a: "Hudhayfah ibn al-Yaman", wrong: ["Ali", "Abu Hurayrah", "Ibn Mas'ud"], why: "He saw it among the armies of Sham and Iraq." },
+        { q: "Whose pages of the Quran did Uthman copy from?", a: "Hafsah's", wrong: ["Aishah's", "His own", "Ali's"], why: "They were the pages gathered under Abu Bakr." },
+        { q: "Who led the writing of the copies?", a: "Zayd ibn Thabit", wrong: ["Ubayy ibn Ka'b", "Mu'awiyah", "Bilal"], why: "With three men of Quraysh." },
+        { q: "Where did the copies go?", a: "One to each land", wrong: ["Only to Makkah", "Only to Madinah", "They were hidden"], why: "So every land had the same Quran." }
+      ]
+    },
+    {
+      slug: "quraysh-tongue",
+      title: "In the tongue of Quraysh",
+      line: "If the writers differed, Uthman said: write it as Quraysh speak.",
+      facts: ["The Quran came in their tongue"],
+      source: hadith("bukhari", "4987", "Anas ibn Malik", "Sahih", "Uthman told the three Qurayshi writers: if you differ with Zayd on anything of the Quran, write it in the tongue of Quraysh, for it was revealed in their tongue."),
+      difficulty: 5,
+      questions: [
+        { q: "In whose way of speaking did Uthman say to write?", a: "Quraysh", wrong: ["The Ansar", "Yemen", "Banu Tamim"], why: "The Quran came down in their tongue." },
+        { q: "When should they use it?", a: "If they differed with Zayd", wrong: ["Always for names", "Never", "Only for stories"], why: "It settled any difference in writing." },
+        { q: "The Quran was revealed in the tongue of Quraysh.", tf: true, why: "Uthman said so to the writers." }
+      ]
+    },
+    {
+      slug: "wudu",
+      title: "Uthman's wudu",
+      line: "Uthman showed people the Prophet's ﷺ wudu, step by step.",
+      facts: ["Each part washed three times", "Then two rak'ahs, fully focused"],
+      source: hadith("bukhari", "159", "Humran", "Sahih", "Uthman made wudu, washing each part three times, and said the Prophet ﷺ said: whoever makes wudu like this and prays two rak'ahs without his mind wandering, his past sins are forgiven."),
+      difficulty: 3,
+      questions: [
+        { q: "How many times did Uthman wash his face?", a: "Three", wrong: ["One", "Two", "Five"], why: "He washed hands, face, arms and feet three times." },
+        { q: "What is the reward for this wudu and two focused rak'ahs?", a: "Past sins forgiven", wrong: ["A palace", "Wealth", "Rain"], why: "If the mind does not wander in them." },
+        { q: "Who watched Uthman and told it?", a: "Humran", wrong: ["Anas", "Ibn Umar", "Salman"], why: "Humran was Uthman's freed servant." }
+      ]
+    },
+    {
+      slug: "best-of-you",
+      title: "Learn it, teach it",
+      line: "The best of you learn the Quran and teach it.",
+      facts: ["Said by the Prophet ﷺ", "Told by Uthman"],
+      source: hadith("bukhari", "5027", "Uthman ibn Affan", "Sahih", "The Prophet ﷺ said: the best among you are those who learn the Quran and teach it."),
+      difficulty: 2,
+      questions: [
+        { q: "Who are the best, in the hadith Uthman told?", a: "Those who learn and teach the Quran", wrong: ["The richest", "The strongest", "The oldest"], why: "Learning it and passing it on." },
+        { q: "Which companion narrated it?", a: "Uthman", wrong: ["Umar", "Ali", "Abu Bakr"], why: "Uthman, who gave the ummah one written Quran." },
+        { q: "Only learning the Quran is enough; teaching it does not matter.", tf: false, why: "The best do both." }
+      ]
+    }
+  ]
+};
+
+const ALI: DeepUnit = {
+  key: "ali",
+  topicId: "sahabah",
+  branchId: "sahabi-ali-ibn-abi-talib",
+  name: "Ali",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "abu-turab",
+      title: "Abu Turab",
+      line: "The Prophet ﷺ found Ali dusty in the masjid: get up, Abu Turab!",
+      facts: ["Abu Turab: man of dust", "His favorite name"],
+      source: hadith("bukhari", "3703", "Sahl ibn Sa'd", "Sahih", "The Prophet ﷺ found Ali asleep in the masjid with dust on his back, wiped it off and said: get up, O Abu Turab. No name was dearer to Ali."),
+      difficulty: 2,
+      questions: [
+        { q: "What does Abu Turab mean?", a: "Man of dust", wrong: ["Man of the sword", "Father of lions", "Man of light"], why: "Dust had covered Ali's back as he slept." },
+        { q: "Where was Ali sleeping?", a: "In the masjid", wrong: ["In the desert", "In a tent", "Under a tree"], why: "Fatimah told the Prophet ﷺ he was there." },
+        { q: "Ali disliked the name Abu Turab.", tf: false, why: "No name was dearer to him." }
+      ]
+    },
+    {
+      slug: "the-flag",
+      title: "The flag at Khaybar",
+      line: "At Khaybar, Ali was handed the flag and his eyes were healed.",
+      facts: ["Ali had sore eyes", "Healed by the Prophet's ﷺ dua", "Victory came through him"],
+      source: hadith("bukhari", "3701", "Sahl bin Sa'd", "Sahih", "The Prophet ﷺ said: tomorrow I will give the flag to a man through whom Allah will give victory. He called Ali, who had sore eyes, put his saliva on them and prayed, and Ali was healed."),
+      difficulty: 3,
+      questions: [
+        { q: "At which battle did Ali get the flag?", a: "Khaybar", wrong: ["Badr", "Uhud", "Hunayn"], why: "Allah gave victory under his lead." },
+        { q: "What was wrong with Ali that morning?", a: "His eyes were sore", wrong: ["He was hungry", "His leg was hurt", "He was late"], why: "The Prophet ﷺ healed them with his saliva and dua." },
+        { q: "What did everyone hope the night before?", a: "To be given the flag", wrong: ["To go home", "To rest", "To win booty"], why: "Each one hoped it would be him." }
+      ]
+    },
+    {
+      slug: "red-camels",
+      title: "Better than red camels",
+      line: "Invite first: one person guided beats a herd of red camels.",
+      facts: ["Advice to Ali at Khaybar", "Red camels: the finest wealth"],
+      source: hadith("bukhari", "3701", "Sahl bin Sa'd", "Sahih", "The Prophet ﷺ told Ali: go steadily, invite them to Islam, for if Allah guides one man through you, it is better for you than red camels."),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ tell Ali to do first?", a: "Invite them to Islam", wrong: ["Attack at night", "Take their wealth", "Wait a month"], why: "Guiding people comes first." },
+        { q: "One person guided through you is better than what?", a: "Red camels", wrong: ["A palace", "A river", "A city"], why: "Red camels were the best wealth of the Arabs." },
+        { q: "The Prophet ﷺ told Ali to rush in fast.", tf: false, why: "He said: go steadily until you reach them." }
+      ]
+    },
+    {
+      slug: "harun",
+      title: "Like Harun to Musa",
+      line: "To the Prophet ﷺ, Ali was like Harun to Musa.",
+      facts: ["Ali stayed in Madinah", "The journey to Tabuk"],
+      source: hadith("bukhari", "4416", "Sad ibn Abi Waqqas", "Sahih", "The Prophet ﷺ left Ali in charge in Madinah when he went to Tabuk and said: will you not be pleased to be to me like Harun to Musa? But there is no prophet after me."),
+      difficulty: 4,
+      questions: [
+        { q: "Where did the Prophet ﷺ leave Ali in charge?", a: "Madinah", wrong: ["Makkah", "Khaybar", "Ta'if"], why: "While the army went to Tabuk." },
+        { q: "Ali was to the Prophet ﷺ like who to Musa?", a: "Harun", wrong: ["Yusha", "Khidr", "Shu'ayb"], why: "Musa left his brother Harun in charge of his people." },
+        { q: "What did the Prophet ﷺ add?", a: "There is no prophet after me", wrong: ["You will be a prophet", "Follow Harun", "Go to Musa"], why: "Ali was not a prophet." }
+      ]
+    },
+    {
+      slug: "better-than-servant",
+      title: "Better than a servant",
+      line: "Instead of a servant, Ali and Fatimah were taught a dhikr.",
+      facts: ["Allahu Akbar 34", "SubhanAllah 33", "Alhamdulillah 33"],
+      source: hadith("bukhari", "3705", "Ali ibn Abi Talib", "Sahih", "Fatimah asked for a servant; the Prophet ﷺ came to Ali and Fatimah and taught them to say at bedtime Allahu Akbar 34 times, SubhanAllah 33 and Alhamdulillah 33, better for them than a servant."),
+      difficulty: 3,
+      questions: [
+        { q: "What had Fatimah asked for?", a: "A servant", wrong: ["A house", "Money", "A garden"], why: "Her hands hurt from the grinding stone." },
+        { q: "How many times is Allahu Akbar said?", a: "34", wrong: ["33", "10", "100"], why: "34 Allahu Akbar, 33 SubhanAllah, 33 Alhamdulillah." },
+        { q: "When is this dhikr said?", a: "When going to bed", wrong: ["After Fajr only", "Before eating", "On Fridays"], why: "The Prophet ﷺ taught it for bedtime." },
+        { q: "The Prophet ﷺ said the dhikr was better than a servant.", tf: true, why: "Better for them than what they asked for." }
+      ]
+    },
+    {
+      slug: "love-of-ali",
+      title: "A sign of faith",
+      line: "Only a believer loves Ali; only a hypocrite hates him.",
+      facts: ["A promise to Ali", "Told by Ali himself"],
+      source: hadith("muslim", "78", "Ali ibn Abi Talib", "Sahih", "Ali said: the Prophet ﷺ promised me that none but a believer would love me and none but a hypocrite would hate me."),
+      difficulty: 3,
+      questions: [
+        { q: "Who loves Ali, by the Prophet's ﷺ promise?", a: "A believer", wrong: ["Everyone", "Only his family", "Only the Ansar"], why: "Loving him is a sign of faith." },
+        { q: "Who hates Ali, by the same promise?", a: "A hypocrite", wrong: ["A stranger", "A child", "A traveller"], why: "Hating him is a sign of hypocrisy." },
+        { q: "Who told the hadith of loving Ali?", a: "Ali himself", wrong: ["Fatimah", "Hasan", "Umar"], why: "Ali said the Prophet ﷺ promised it to him." }
+      ]
+    },
+    {
+      slug: "treaty",
+      title: "I will not erase it",
+      line: "Writing the treaty, Ali would not erase 'Messenger of Allah'.",
+      facts: ["Quraysh objected to it", "The Prophet ﷺ then wrote it himself"],
+      source: hadith("bukhari", "2699", "Al-Bara ibn Azib", "Sahih", "Quraysh refused the words 'Messenger of Allah' in the treaty; the Prophet ﷺ told Ali to rub them out, but Ali said he would never erase it, so the Prophet ﷺ took the paper and wrote."),
+      difficulty: 4,
+      questions: [
+        { q: "Who wrote the treaty with Quraysh?", a: "Ali", wrong: ["Abu Bakr", "Uthman", "Zayd"], why: "He was the writer that day." },
+        { q: "Which words did Quraysh refuse?", a: "Messenger of Allah", wrong: ["In the name of Allah", "Muhammad", "Peace"], why: "They said: if we believed that, we would not stop you." },
+        { q: "What did Ali say?", a: "I will never erase it", wrong: ["Yes, at once", "Let Umar do it", "I cannot write"], why: "Out of love and respect for the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "humble",
+      title: "Just one of the Muslims",
+      line: "Ali said the best after the Prophet ﷺ were Abu Bakr, then Umar.",
+      facts: ["Asked by his son", "Then you? I am one of the Muslims"],
+      source: hadith("bukhari", "3671", "Muhammad ibn al-Hanafiyyah", "Sahih", "Muhammad ibn al-Hanafiyyah asked his father who was best after the Prophet ﷺ. Ali said Abu Bakr, then Umar. Asked 'then you?', he said: I am only one of the Muslims."),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did Ali name as best after the Prophet ﷺ?", a: "Abu Bakr", wrong: ["Himself", "Uthman", "Hasan"], why: "Then Umar." },
+        { q: "What did Ali say when asked 'then you?'", a: "I am one of the Muslims", wrong: ["Yes, me", "Ask Umar", "I am the best"], why: "This was his humility." },
+        { q: "Who asked Ali this?", a: "His son Muhammad", wrong: ["His son Husayn", "Fatimah", "Ibn Abbas"], why: "Known as Muhammad ibn al-Hanafiyyah." }
+      ]
+    }
+  ]
+};
+
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, FATIHAH, MULK];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
