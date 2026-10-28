@@ -1,7 +1,7 @@
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 import type { SupportedLanguage, UserProfile } from "../types";
-import { COMEBACK_DAYS, comebackMessage, stepForDay, type ComebackStep } from "./comebackReminders";
+import { COMEBACK_DAYS, comebackMessage, messageVariant, stepForDay, type ComebackStep } from "./comebackReminders";
 import {
   RESUME_REMINDER_AFTER_MS,
   getLastLearningTime,
@@ -115,7 +115,7 @@ async function rescheduleReminders(user: UserProfile, language: SupportedLanguag
 
   await ensureChannel();
   await Promise.all(slots.map((slot) => {
-    const message = comebackMessage(language, slot.step);
+    const message = comebackMessage(language, slot.step, messageVariant(lastLearningAt));
     return Notifications.scheduleNotificationAsync({
       identifier: slot.id,
       content: { title: message.title, body: message.body, data: { kind: slot.step === "streak" ? "streak" : "resume", step: slot.step } },

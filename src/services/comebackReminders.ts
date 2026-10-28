@@ -1,7 +1,8 @@
 import type { SupportedLanguage } from "../types";
 
 // Playful come-back reminders in the path camel's voice. The longer a learner is away the
-// sillier the camel gets, and after a month it says it will stop. Kept kind and kid-safe:
+// sillier the camel gets, and after a month it says it will stop. Every step has a plain
+// funny message and one with a gentle Islamic touch. Kept kind and kid-safe:
 // no guilt, no fear, nothing about sin or reward, just a camel who misses you.
 
 export type ComebackStep = "resume" | "streak" | "day2" | "day3" | "day5" | "day7" | "day14" | "day30";
@@ -163,8 +164,63 @@ const COPY: Partial<Record<SupportedLanguage, Record<ComebackStep, ComebackMessa
   }
 };
 
-export function comebackMessage(language: SupportedLanguage, step: ComebackStep): ComebackMessage {
-  return (COPY[language] ?? COPY.en!)[step];
+// A second message for each step with a gentle Islamic touch. Each line is either plain
+// everyday Islamic words (Bismillah, Alhamdulillah, salaam) or a well-known sahih hadith:
+// "the most beloved deeds to Allah are the most regular, even if small" (Bukhari 6464),
+// "whoever takes a path seeking knowledge, Allah makes easy a path to Jannah" (Muslim 2699),
+// "your smile for your brother is charity" (Tirmidhi 1956), "the best of you learn the Quran
+// and teach it" (Bukhari 5027). Arabic keeps the hadith's own words where it quotes one.
+const ISLAMIC_COPY: Partial<Record<SupportedLanguage, Record<ComebackStep, ComebackMessage>>> = {
+  en: {
+    resume: { title: "🐪 Bismillah, let's finish the path!", body: "Your next circle is one tap away. Say Bismillah and go!" },
+    streak: { title: "🔥 A little good every day counts", body: "Allah loves good deeds done regularly, even small ones. One lesson tonight?" },
+    day2: { title: "🐪 Your camel said Alhamdulillah... then looked for you", body: "Today is a great day to learn something new. Come back for one lesson!" },
+    day3: { title: "🐪 Seeking knowledge is a path to Jannah", body: "And your camel is standing right on it. Come walk with us!" },
+    day5: { title: "🐪 Smile, it's sadaqah! 😊", body: "Now come back and learn something to smile about." },
+    day7: { title: "🐪 7 days! Your camel misses your salaam", body: "Come back and say As-salamu alaykum. Your path missed you." },
+    day14: { title: "🐪 Two weeks! Time to be the best of you", body: "The Prophet ﷺ said the best of you learn the Quran and teach it." },
+    day30: { title: "🐪 Your camel will stop the reminders now", body: "Your path is waiting. In sha Allah you'll be back soon. We'll be here!" }
+  },
+  ar: {
+    resume: { title: "🐪 بسم الله، لنكمل الطريق!", body: "دائرتك التالية على بُعد لمسة. قل بسم الله وانطلق!" },
+    streak: { title: "🔥 القليل من الخير كل يوم له قيمة", body: "«أحبّ الأعمال إلى الله أدومها وإن قلّ». درس واحد الليلة؟" },
+    day2: { title: "🐪 جملك قال الحمد لله... ثم بحث عنك", body: "اليوم يوم رائع لتتعلم شيئًا جديدًا. عد لدرس واحد!" },
+    day3: { title: "🐪 طلب العلم طريق إلى الجنة", body: "وجملك واقف عليه الآن. تعال وامشِ معنا!" },
+    day5: { title: "🐪 ابتسم، فالابتسامة صدقة 😊", body: "والآن عد وتعلّم شيئًا يجعلك تبتسم." },
+    day7: { title: "🐪 ٧ أيام! جملك يشتاق إلى سلامك", body: "عد وقل السلام عليكم. طريقك اشتاق إليك." },
+    day14: { title: "🐪 أسبوعان! حان وقت أن تكون من خيركم", body: "قال النبي ﷺ: «خيركم من تعلّم القرآن وعلّمه»." },
+    day30: { title: "🐪 سيتوقف جملك عن التذكير الآن", body: "طريقك ينتظرك، وإن شاء الله تعود قريبًا. نحن هنا!" }
+  },
+  bn: {
+    resume: { title: "🐪 বিসমিল্লাহ, চলো পথটা শেষ করি!", body: "পরের সার্কেল মাত্র এক ট্যাপ দূরে। বিসমিল্লাহ বলে শুরু করো!" },
+    streak: { title: "🔥 প্রতিদিন একটু ভালো কাজও অনেক", body: "আল্লাহ নিয়মিত ভালো কাজ ভালোবাসেন, ছোট হলেও। আজ রাতে একটা পাঠ?" },
+    day2: { title: "🐪 উট আলহামদুলিল্লাহ বলল... তারপর তোমাকে খুঁজল", body: "নতুন কিছু শেখার জন্য আজ দারুণ দিন। একটা পাঠের জন্য ফিরে এসো!" },
+    day3: { title: "🐪 জ্ঞান খোঁজা জান্নাতের পথ", body: "আর তোমার উট সেই পথেই দাঁড়িয়ে আছে। এসো, একসাথে হাঁটি!" },
+    day5: { title: "🐪 হাসো, হাসিও সদকা 😊", body: "এখন ফিরে এসে হাসার মতো কিছু শিখে নাও।" },
+    day7: { title: "🐪 ৭ দিন! উট তোমার সালাম মিস করছে", body: "ফিরে এসে সালাম দাও। তোমার পথ তোমাকে মিস করেছে।" },
+    day14: { title: "🐪 দুই সপ্তাহ! এবার সেরাদের একজন হও", body: "নবী ﷺ বলেছেন, তোমাদের মধ্যে সেরা সে, যে কুরআন শেখে ও শেখায়।" },
+    day30: { title: "🐪 তোমার উট এখন রিমাইন্ডার বন্ধ করছে", body: "তোমার পথ অপেক্ষা করছে। ইনশাআল্লাহ শিগগিরই ফিরবে। আমরা এখানেই আছি!" }
+  },
+  ur: {
+    resume: { title: "🐪 بسم اللہ، آئیں راستہ مکمل کریں!", body: "اگلا دائرہ بس ایک ٹیپ دور ہے۔ بسم اللہ پڑھیں اور چل پڑیں!" },
+    streak: { title: "🔥 روز تھوڑی سی نیکی بھی بہت ہے", body: "اللہ کو وہ نیک عمل پسند ہے جو ہمیشہ کیا جائے، چاہے تھوڑا ہو۔ آج رات ایک سبق؟" },
+    day2: { title: "🐪 آپ کے اونٹ نے الحمدللہ کہا... پھر آپ کو ڈھونڈا", body: "کچھ نیا سیکھنے کے لیے آج بہترین دن ہے۔ ایک سبق کے لیے واپس آئیں!" },
+    day3: { title: "🐪 علم کی تلاش جنت کا راستہ ہے", body: "اور آپ کا اونٹ اسی راستے پر کھڑا ہے۔ آئیں، ساتھ چلیں!" },
+    day5: { title: "🐪 مسکرائیں، مسکراہٹ بھی صدقہ ہے 😊", body: "اب واپس آئیں اور کچھ ایسا سیکھیں جس پر مسکرا سکیں۔" },
+    day7: { title: "🐪 ۷ دن! اونٹ کو آپ کا سلام یاد آ رہا ہے", body: "واپس آئیں اور السلام علیکم کہیں۔ آپ کا راستہ آپ کو یاد کر رہا ہے۔" },
+    day14: { title: "🐪 دو ہفتے! اب بہترین لوگوں میں شامل ہوں", body: "نبی ﷺ نے فرمایا: تم میں سے بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔" },
+    day30: { title: "🐪 آپ کا اونٹ اب یاد دہانیاں بند کر رہا ہے", body: "آپ کا راستہ منتظر ہے۔ ان شاء اللہ آپ جلد لوٹیں گے۔ ہم یہیں ہیں!" }
+  }
+};
+
+/** Which of a step's two messages a learner gets; changes with the day of their last lesson so repeat absences differ. */
+export function messageVariant(lastLearningAt: number) {
+  return Math.floor(lastLearningAt / 86_400_000) % 2;
+}
+
+export function comebackMessage(language: SupportedLanguage, step: ComebackStep, variant = 0): ComebackMessage {
+  const table = variant % 2 === 1 ? ISLAMIC_COPY : COPY;
+  return (table[language] ?? table.en!)[step];
 }
 
 /** The step for an evening reminder `daysAway` calendar days after the last lesson, if one goes out that day. */

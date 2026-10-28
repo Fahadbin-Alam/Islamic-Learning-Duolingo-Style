@@ -2,7 +2,7 @@ jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock")
 );
 
-import { COMEBACK_DAYS, calendarDaysBetween, comebackMessage, latestStepForDays, type ComebackStep } from "../services/comebackReminders";
+import { COMEBACK_DAYS, calendarDaysBetween, comebackMessage, latestStepForDays, messageVariant, type ComebackStep } from "../services/comebackReminders";
 import { makeUser } from "./testUtils";
 
 const scheduled: Array<{ identifier: string; content: { title: string; body: string }; trigger: { date: Date } }> = [];
@@ -76,27 +76,36 @@ describe("come-back reminder ladder", () => {
     const Notifications = require("expo-notifications");
     expect(Notifications.cancelScheduledNotificationAsync).toHaveBeenCalledWith("sira-streak-0");
     expect(new Set(scheduled.map((request) => request.identifier)).size).toBe(STEPS.length);
-    expect(scheduled.find((request) => request.identifier === "sira-comeback-7")?.content.title).toBe(comebackMessage("bn", "day7").title);
+    expect(scheduled.find((request) => request.identifier === "sira-comeback-7")?.content.title).toBe(
+      comebackMessage("bn", "day7", messageVariant(at("2026-10-22T09:00:00"))).title
+    );
   });
 
   it("has every step written in every app language, short enough for a lock screen", () => {
     (["en", "ar", "bn", "ur"] as const).forEach((language) => {
-      STEPS.forEach((step) => {
-        const message = comebackMessage(language, step);
+      STEPS.forEach((step) => [0, 1].forEach((variant) => {
+        const message = comebackMessage(language, step, variant);
         expect(message.title.length).toBeGreaterThan(5);
         expect(message.title.length).toBeLessThanOrEqual(60);
         expect(message.body.length).toBeLessThanOrEqual(110);
         if (language !== "en") {
-          expect(message.title).not.toBe(comebackMessage("en", step).title);
+          expect(message.title).not.toBe(comebackMessage("en", step, variant).title);
         }
-      });
+      }));
     });
   });
 
   it("keeps the old app name out of the messages", () => {
     (["en", "ar", "bn", "ur"] as const).forEach((language) =>
-      STEPS.forEach((step) => expect(JSON.stringify(comebackMessage(language, step))).not.toMatch(/sira|سيرة/i))
+      STEPS.forEach((step) => [0, 1].forEach((variant) =>
+        expect(JSON.stringify(comebackMessage(language, step, variant))).not.toMatch(/sira|سيرة/i)
+      ))
     );
+  });
+
+  it("gives every step a second message with an Islamic touch, alternating between absences", () => {
+    STEPS.forEach((step) => expect(comebackMessage("en", step, 1).title).not.toBe(comebackMessage("en", step, 0).title));
+    expect(messageVariant(at("2026-10-22T09:00:00"))).not.toBe(messageVariant(at("2026-10-23T09:00:00")));
   });
 
   it("catches up to the latest step for web", () => {
@@ -139,6 +148,7 @@ describe("come-back reminders in the browser", () => {
     expect(await openOn("2026-10-09T12:00:00")).toBe(false);
     expect(await openOn("2026-11-02T12:00:00")).toBe(true);
     expect(await openOn("2026-11-03T12:00:00")).toBe(false);
-    expect(shown).toEqual([comebackMessage("en", "day7").title, comebackMessage("en", "day30").title]);
+    const variant = messageVariant(at("2026-10-01T09:00:00"));
+    expect(shown).toEqual([comebackMessage("en", "day7", variant).title, comebackMessage("en", "day30", variant).title]);
   });
 });

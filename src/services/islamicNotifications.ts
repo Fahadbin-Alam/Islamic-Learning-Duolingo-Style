@@ -1,5 +1,5 @@
 import type { SupportedLanguage, UserProfile } from "../types";
-import { calendarDaysBetween, comebackMessage, latestStepForDays, type ComebackStep } from "./comebackReminders";
+import { calendarDaysBetween, comebackMessage, latestStepForDays, messageVariant, type ComebackStep } from "./comebackReminders";
 import {
   RESUME_REMINDER_AFTER_MS,
   formatLocalDateKey,
@@ -78,7 +78,7 @@ export async function maybeSendIslamicReminder(user: UserProfile, language: Supp
     return false;
   }
 
-  const message = comebackMessage(language, step);
+  const message = comebackMessage(language, step, messageVariant(lastLearningAt));
   new Notification(message.title, { body: message.body });
 
   if (step === "streak") {
