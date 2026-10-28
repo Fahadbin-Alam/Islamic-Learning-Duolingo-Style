@@ -42,7 +42,8 @@ import {
   loseHeart,
   pickTestOutChallenges,
   prepareUserForToday,
-  refillHeartsForToday
+  refillHeartsForToday,
+  LIBRARY_TOPICS
 } from "./api/islamicLearningApi";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
@@ -137,7 +138,7 @@ import {
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
-import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space } from "./ui";
+import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import {
   AccountSheet,
@@ -166,6 +167,7 @@ import {
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
+import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import type {
   AccountRole,
   Challenge,
@@ -257,6 +259,8 @@ interface AppState {
   returnScreen?: Screen;
   selectedTopic: TopicId;
   selectedBranchId?: string;
+  /** A sub-topic (a companion, a surah) the Learn path shows on its own; unset shows the whole topic. */
+  pathUnitId?: string;
   /** The shop scrolls here when it opens (a premium unit's UNLOCK). */
   shopFocus?: "premium";
   user?: UserProfile;
@@ -286,7 +290,7 @@ type Action =
   | { type: "go_home" }
   | { type: "show_topic" }
   | { type: "show_branch" }
-  | { type: "select_topic"; topicId: TopicId }
+  | { type: "select_topic"; topicId: TopicId; unitId?: string }
   | { type: "select_branch"; branchId: string }
   | { type: "open_review" }
   | { type: "close_review" }
@@ -362,6 +366,7 @@ function reducer(state: AppState, action: Action): AppState {
         user: state.user && state.user.lastTopicId !== action.topicId ? { ...state.user, lastTopicId: action.topicId } : state.user,
         selectedTopic: action.topicId,
         selectedBranchId: undefined,
+        pathUnitId: action.unitId,
         screen: "topic",
         returnScreen: undefined
       };
@@ -463,6 +468,19 @@ function reducer(state: AppState, action: Action): AppState {
 const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 // The shop's "Free heart" video, offered again on the out-of-hearts sheet.
 const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
+
+
+// A scholar's years for the family tree, in the learner's language.
+function scholarYears(years: ScholarYears): string {
+  const { born, died } = years;
+  if (years.era === "AH") {
+    if (born !== undefined && died !== undefined) return t("{born}–{died} AH", { born, died });
+    if (died !== undefined) return t("Died {died} AH", { died });
+    return t("Born {born} AH", { born: born ?? "" });
+  }
+  if (born !== undefined && died !== undefined) return t("{born}–{died} CE", { born, died });
+  return t("Born {born} CE", { born: born ?? "" });
+}
 
 export default function TopicApp() {
   // RN's own SafeAreaView only pads on iOS, so Android drew the top bar under the status bar.
@@ -783,10 +801,13 @@ export default function TopicApp() {
   // the path's own. NEXT LESSON plays it and the path puts START on it, so a jump into a later unit carries on
   // there, not back in a unit skipped past. It is kept on the learner, so a reload keeps it too.
   const pathFocusId = state.user?.pathFocusIds?.[selectedSection.topicId];
+  // The sub-topic picked in the topic picker, while this topic still has it.
+  const pathUnitId = selectedSection.branches.some((branch) => branch.id === state.pathUnitId) ? state.pathUnitId : undefined;
   const sectionNextNode = useMemo(() => {
-    const focused = pathFocusId ? sectionNodes.find((node) => node.id === pathFocusId) : undefined;
-    return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(sectionNodes);
-  }, [pathFocusId, sectionNodes]);
+    const shown = pathUnitId ? sectionNodes.filter((node) => node.branchId === pathUnitId) : sectionNodes;
+    const focused = pathFocusId ? shown.find((node) => node.id === pathFocusId) : undefined;
+    return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(shown);
+  }, [pathFocusId, pathUnitId, sectionNodes]);
   // Every unfinished unit the learner may open can be tested out when the circles it skips give enough
   // questions for a fair test: the open unit's banner key, and JUMP HERE on locked circles of any unit.
   // Only finished circles and premium change the plans, so a heart or XP change does not redo them.
@@ -830,7 +851,7 @@ export default function TopicApp() {
     for (const branch of selectedSection.branches) {
       const nodes = sectionNodes.filter((node) => node.branchId === branch.id);
 
-      if (!nodes.length) {
+      if (!nodes.length || (pathUnitId && branch.id !== pathUnitId)) {
         continue;
       }
 
@@ -866,7 +887,7 @@ export default function TopicApp() {
     }
 
     return { units, chestStops };
-  }, [sectionNodes, selectedSection, state.user, testOutUnitIds]);
+  }, [pathUnitId, sectionNodes, selectedSection, state.user, testOutUnitIds]);
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
 
@@ -876,7 +897,26 @@ export default function TopicApp() {
       accent: section.accentColor,
       arabic: getTopicArabic(section.topicId),
       done: section.nodes.filter((node) => completed.has(node.id)).length,
-      total: section.nodes.length
+      total: section.nodes.length,
+      // A library topic's units each stand alone (a companion, a surah), so each can be learned on its own.
+      ...(LIBRARY_TOPICS.has(section.topicId)
+        ? {
+            units: section.branches
+              .map((branch) => {
+                const nodes = section.nodes.filter((node) => node.branchId === branch.id);
+                const tree = SCHOLAR_TREE[branch.id];
+                return {
+                  id: branch.id,
+                  title: branch.title,
+                  arabic: getBranchArabic(branch.id),
+                  done: nodes.filter((node) => completed.has(node.id)).length,
+                  total: nodes.length,
+                  ...(tree ? { tree: { row: tree.row, years: scholarYears(tree.years), note: branch.description } } : {})
+                };
+              })
+              .filter((unit) => unit.total > 0)
+          }
+        : {})
     }));
   }, [localizedSections, state.user?.completedNodeIds]);
 
@@ -2310,6 +2350,22 @@ export default function TopicApp() {
             onNextTopic={() => setTopicPickerVisible(true)}
             reveal={pathReveal}
             onRevealed={() => setPathReveal(undefined)}
+            header={
+              pathUnitId ? (
+                <Tappable
+                  onPress={() => dispatch({ type: "select_topic", topicId: selectedSection.topicId })}
+                  sound="node_tap"
+                  accessibilityLabel={t("All of {topic}", { topic: selectedSection.title })}
+                  testID="path-show-all"
+                  style={styles.pathAll}
+                >
+                  <Icon name="arrowLeft" size={18} color={colors.inkSoft} />
+                  <Text style={styles.pathAllText} numberOfLines={1}>
+                    {t("All of {topic}", { topic: selectedSection.title })}
+                  </Text>
+                </Tappable>
+              ) : undefined
+            }
           />
         )}
         {state.screen === "lesson_teach" && lesson && lessonShell(
@@ -2506,8 +2562,10 @@ export default function TopicApp() {
             topics={pickerTopics}
             activeTopicId={selectedSection.topicId}
             search={searchCourse}
-            onSelect={(topicId, _unitId, nodeId) => {
-              dispatch({ type: "select_topic", topicId: topicId as TopicId });
+            activeUnitId={pathUnitId}
+            onSelect={(topicId, unitId, nodeId) => {
+              // A search hit opens the whole topic at its circle; a sub-topic row opens that sub-topic on its own.
+              dispatch({ type: "select_topic", topicId: topicId as TopicId, unitId: nodeId ? undefined : unitId });
               setPathReveal(nodeId);
             }}
           />
@@ -2970,6 +3028,25 @@ function webDirection(rtl: boolean): object {
 }
 
 const styles = StyleSheet.create({
+  // Above a one-unit path: back to the whole topic.
+  pathAll: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    gap: 6,
+    marginHorizontal: 16,
+    marginTop: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 999,
+    borderWidth: 2,
+    borderColor: colors.line,
+    borderBottomWidth: 4,
+    borderBottomColor: colors.lineLip,
+    backgroundColor: colors.white,
+    maxWidth: "90%"
+  },
+  pathAllText: { fontFamily: fonts.displayHeavy, fontSize: 15, color: colors.inkSoft, flexShrink: 1 },
   safeArea: { flex: 1, backgroundColor: colors.snow },
   appShell: { flex: 1, backgroundColor: colors.snow },
   // Urdu and Arabic: rows, padding and text run from the right.

@@ -41,6 +41,7 @@ const THEMES: Record<string, SceneryKind[]> = {
   // Maryam and the date palm (Maryam 19:25), Hajar and the water.
   women_of_the_book: ["palm", "flowers", "well", "dates", "tent", "oasis", "bush", "sheep"],
   hadith: ["inkpot", "bookStand", "palm", "flowers", "well", "bush", "dates", "rocks"],
+  scholars: ["inkpot", "bookStand", "palm", "well", "flowers", "bush", "rocks", "dates"],
   prayer: ["mosque", "palm", "flowers", "oasis", "dunes", "bush", "well", "rocks"],
   manners: ["flowers", "well", "sheep", "palm", "tent", "bush", "dates", "oasis"],
   fasting: ["dates", "palm", "well", "dunes", "tent", "oasis", "rocks", "bush"],

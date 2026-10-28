@@ -37,9 +37,9 @@ export interface IslamicLearningApi {
   getXpSummaries(user: UserProfile): Promise<XpSummary[]>;
 }
 
-// Topics whose units each stand alone (a surah, a companion, a prophet, a woman of the Book, a narration),
+// Topics whose units each stand alone (a surah, a companion, a prophet, a woman of the Book, a narration, a scholar),
 // so a learner can start with Al-Ikhlas or Abu Bakr. Every other topic is a skill taught in order.
-export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith"]);
+export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars"]);
 
 export const learningApi: IslamicLearningApi = {
   async getUser() {

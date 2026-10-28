@@ -190,6 +190,8 @@ describe("remembered between visits", () => {
     await screen.findByTestId("learn-path-foundation");
     await press("top-bar-topic");
     await press("topic-tile-sahabah");
+    // Sahabah has sub-topics, so the tile opens its list first.
+    await press("topic-unit-all");
     expect(await screen.findByTestId("learn-path-sahabah")).toBeTruthy();
     expect(savedUser().lastTopicId).toBe("sahabah");
   });

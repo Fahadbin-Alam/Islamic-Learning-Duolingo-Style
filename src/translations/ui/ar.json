@@ -422,5 +422,16 @@
   "Search topics and people": "ابحث عن المواضيع والأشخاص",
   "Clear search": "مسح البحث",
   "Nothing found. Try another name.": "لم نجد شيئًا. جرّب اسمًا آخر.",
-  "Topic": "موضوع"
+  "Topic": "موضوع",
+  "All of {topic}": "كل {topic}",
+  "Scholars": "العلماء",
+  "Topic 9": "الموضوع 9",
+  "The four imams and later scholars, shown as a family tree of who learned from whom.": "الأئمة الأربعة ومن بعدهم من العلماء، في شجرة تبيّن من تعلّم ممن.",
+  "Abu Hanifah, Malik, ash-Shafi'i, Ahmad, Ibn Taymiyyah, Ibn Baz and al-Albani.": "أبو حنيفة ومالك والشافعي وأحمد وابن تيمية وابن باز والألباني.",
+  "Family tree": "شجرة العلماء",
+  "{born}–{died} AH": "{born}–{died} هـ",
+  "Died {died} AH": "توفي {died} هـ",
+  "Born {born} AH": "ولد {born} هـ",
+  "{born}–{died} CE": "{born}–{died} م",
+  "Born {born} CE": "ولد {born} م"
 }

@@ -75,7 +75,10 @@ describe("the course", () => {
       section.nodes.filter((node) => node.branchId === branch.id).map((node) => LESSONS_BY_ID[node.lessonIds[0]]).filter(Boolean)
     )
   );
-  const generated = units.filter((unit) => unit.length >= 6 && unit.every((lesson) => !lesson.id.startsWith("lesson-notes-")));
+  // Notes lessons and the hand-written deep units (deepUnits.ts) set their own questions, so the ramp is not theirs.
+  const generated = units.filter(
+    (unit) => unit.length >= 6 && unit.every((lesson) => !lesson.id.startsWith("lesson-notes-") && !lesson.id.startsWith("lesson-deep-"))
+  );
   const share = (lessons: typeof generated[number], test: (question: Challenge) => boolean) => {
     const questions = lessons.flatMap((lesson) => lesson.challenges);
     return questions.filter(test).length / Math.max(1, questions.length);
