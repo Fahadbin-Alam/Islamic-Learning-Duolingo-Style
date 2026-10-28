@@ -925,5 +925,5 @@ export const SCHOLAR_TREE: Record<string, { row: number; years: ScholarYears; le
   "scholar-ahmad": { row: 2, years: { era: "AH", born: 164, died: 241 }, learnedFrom: [{ id: "scholar-shafii" }, { id: "scholar-abu-hanifah", via: "Abu Yusuf" }] },
   "scholar-ibn-taymiyyah": { row: 3, years: { era: "AH", born: 661, died: 728 } },
   "scholar-ibn-baz": { row: 4, years: { era: "CE", born: 1912, died: 1999 } },
-  "scholar-albani": { row: 4, years: { era: "CE", born: 1914 } }
+  "scholar-albani": { row: 4, years: { era: "CE", born: 1914, died: 1999 } }
 };
