@@ -63,6 +63,8 @@ class User(Base, TimestampMixin):
     last_topic_id: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
     # Per topic id, the circle the app's path puts START on (the one the last lesson or test there opened).
     path_focus_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    # The app's weekly league: {tier, weekStart, xp, last}; see src/services/leagues.ts.
+    league_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     social_hub_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
     sessions: Mapped[List["AuthSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")

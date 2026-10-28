@@ -10,6 +10,7 @@ export { AccountSheet, checkAccountFields, type AccountSheetProps } from "./Acco
 export { SettingsSheet, type LearnerRole, type SettingsSheetProps } from "./SettingsSheet";
 export { RefillSheet, type RefillSheetProps } from "./RefillSheet";
 export { StreakSheet, type StreakSheetProps } from "./StreakSheet";
+export { LeagueBadge, LeagueCard, LeagueResultSheet, leagueName, type LeagueCardProps, type LeagueResultSheetProps } from "./LeagueView";
 export { RewardPop, type RewardPopProps } from "./RewardPop";
 export { AgeSheet, type AgeSheetProps } from "./AgeSheet";
 export { LanguageSheet, type LanguageSheetProps } from "./LanguageSheet";

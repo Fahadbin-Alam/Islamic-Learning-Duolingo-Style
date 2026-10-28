@@ -133,6 +133,7 @@ import {
   type FoundationPracticeResult
 } from "./services/foundationAssessment";
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
+import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
 import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space } from "./ui";
@@ -144,6 +145,7 @@ import {
   checkAccountFields,
   ConfirmSheet,
   CrewView,
+  LeagueResultSheet,
   AgeSheet,
   LanguageSheet,
   LearnPath,
@@ -776,6 +778,8 @@ export default function TopicApp() {
   // the path's own. NEXT LESSON plays it and the path puts START on it, so a jump into a later unit carries on
   // there, not back in a unit skipped past. It is kept on the learner, so a reload keeps it too.
   const pathFocusId = state.user?.pathFocusIds?.[selectedSection.topicId];
+  // Crew shows the league as of today, even when a week ended while the app stayed open.
+  const crewLeagueUser = state.screen === "social" && state.user ? settleLeague(state.user) : undefined;
   const sectionNextNode = useMemo(() => {
     const focused = pathFocusId ? sectionNodes.find((node) => node.id === pathFocusId) : undefined;
     return focused && (focused.status === "current" || focused.status === "available") ? focused : findNextPlayableNode(sectionNodes);
@@ -2481,8 +2485,14 @@ export default function TopicApp() {
             onAnswerRequest={answerCrewRequest}
             onRefresh={loadCrew}
             onCreateAccount={openCrewAccount}
+            league={crewLeagueUser?.league}
           />
         )}
+        {/* A finished league week is told once, the first time Crew opens after it. */}
+        <LeagueResultSheet
+          result={crewLeagueUser ? unseenLeagueResult(crewLeagueUser) : undefined}
+          onClose={() => dispatch({ type: "apply_user_latest", update: (user) => markLeagueResultSeen(settleLeague(user)) })}
+        />
         <AdBanner hidden={isPremiumUser(state.user) || state.user.hearts.unlimited || inLesson} />
         {!inLesson && <BottomTabs active={activeTab} onChange={changeTab} />}
         {!inLesson && (

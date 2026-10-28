@@ -146,6 +146,7 @@ def frontend_user_payload(user: User) -> Dict[str, Any]:
         "nodeStars": user.node_stars_json or {},
         "lastTopicId": user.last_topic_id,
         "pathFocusIds": user.path_focus_json or {},
+        "league": user.league_json or None,
         "activeSubscriptionId": entitlement.plan_type if entitlement else None,
     }
 
@@ -170,6 +171,36 @@ def clean_path_focus(value: Any, fallback: Dict[str, str]) -> Dict[str, str]:
         for topic_id, node_id in value.items()
         if isinstance(topic_id, str) and 0 < len(topic_id) <= 40 and isinstance(node_id, str) and 0 < len(node_id) <= 200
     }
+
+
+LEAGUE_TOP_TIER = 6
+
+
+def clean_tier(value: Any) -> Optional[int]:
+    return value if isinstance(value, int) and not isinstance(value, bool) and 0 <= value <= LEAGUE_TOP_TIER else None
+
+
+def clean_league(value: Any, fallback: Dict[str, Any]) -> Dict[str, Any]:
+    """The app's weekly league: a tier from 0 to 6, a week start date, this week's XP and the last result."""
+    if not isinstance(value, dict) or clean_tier(value.get("tier")) is None or not parse_local_date(value.get("weekStart")):
+        return fallback
+    xp = value.get("xp")
+    league: Dict[str, Any] = {
+        "tier": value["tier"],
+        "weekStart": str(value["weekStart"])[:10],
+        "xp": xp if isinstance(xp, int) and not isinstance(xp, bool) and xp >= 0 else 0,
+    }
+    last = value.get("last")
+    if isinstance(last, dict) and clean_tier(last.get("from")) is not None and clean_tier(last.get("to")) is not None and parse_local_date(last.get("weekStart")):
+        last_xp = last.get("xp")
+        league["last"] = {
+            "weekStart": str(last["weekStart"])[:10],
+            "from": last["from"],
+            "to": last["to"],
+            "xp": last_xp if isinstance(last_xp, int) and not isinstance(last_xp, bool) and last_xp >= 0 else 0,
+            "seen": last.get("seen") is True,
+        }
+    return league
 
 
 def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Optional[Dict[str, Any]] = None) -> User:
@@ -201,6 +232,7 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     user.claimed_reward_ids_json = snapshot.get("claimedRewardIds") or user.claimed_reward_ids_json or []
     user.node_stars_json = clean_node_stars(snapshot.get("nodeStars"), user.node_stars_json or {})
     user.path_focus_json = clean_path_focus(snapshot.get("pathFocusIds"), user.path_focus_json or {})
+    user.league_json = clean_league(snapshot.get("league"), user.league_json or {})
     last_topic = snapshot.get("lastTopicId")
     if isinstance(last_topic, str) and 0 < len(last_topic) <= 40:
         user.last_topic_id = last_topic

@@ -219,6 +219,27 @@ export interface UserProfile {
   pathFocusIds?: Partial<Record<TopicId, string>>;
   claimedRewardIds?: string[];
   activeSubscriptionId?: string;
+  /** This week's league (see src/services/leagues.ts). */
+  league?: LeagueState;
+}
+
+/** How a finished league week ended: the league before (`from`) and after (`to`), as indexes into LEAGUES. */
+export interface LeagueResult {
+  weekStart: string;
+  from: number;
+  to: number;
+  xp: number;
+  /** The learner has seen the result card. */
+  seen?: boolean;
+}
+
+export interface LeagueState {
+  /** Index into LEAGUES, 0 (Bronze) to 6 (Diamond). */
+  tier: number;
+  /** Local date of the Monday that starts the week `xp` was earned in. */
+  weekStart: string;
+  xp: number;
+  last?: LeagueResult;
 }
 
 export interface LearningCourse {
