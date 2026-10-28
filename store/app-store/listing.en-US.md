@@ -54,7 +54,8 @@ LEARN THE WAY THAT STICKS
 STAY MOTIVATED
 • Daily streaks, XP, gems and reward chests
 • A daily goal you choose
-• Gentle reminders to learn, and Islamic reminders through the day
+• Funny reminders from your camel when you have been away (turn them off any time)
+• Prayer-time lessons: pick your city and get a tiny lesson right after each salah
 • A weekly XP race with family and friends
 
 LEARN WITH OR WITHOUT AN ACCOUNT
@@ -93,6 +94,8 @@ Muslimo is a learning tool, not a fatwa service. For rulings that affect you, pl
 
 | Product id | Reference name | Display name (max 35) | Description (max 55) |
 | --- | --- | --- | --- |
+| `no_ads_monthly` | No Ads Monthly | Muslimo No Ads (Monthly) | Learn with no ads |
+| `no_ads_yearly` | No Ads Yearly | Muslimo No Ads (Yearly) | A full year of learning with no ads |
 | `membership_monthly` | Premium Monthly | Muslimo Premium (Monthly) | Unlimited hearts, no ads and premium lessons |
 | `membership_yearly` | Premium Yearly | Muslimo Premium (Yearly) | A full year of unlimited hearts, no ads |
 | `heart_pack_small` | Heart Pack | Heart Pack | Refill 5 hearts and keep learning |

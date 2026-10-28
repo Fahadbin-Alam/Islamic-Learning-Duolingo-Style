@@ -1,6 +1,6 @@
 import type { PremiumStatus, PurchaseResult, RewardedAdResult, ShopItem } from "../types";
 import { getStoredItem, setStoredItem } from "./appStorage";
-import { monetizationMode, type AdAudience, type MonetizationMode } from "./monetizationConfig";
+import { monetizationMode, planForProduct, type AdAudience, type MonetizationMode } from "./monetizationConfig";
 
 const SANDBOX_PREMIUM_KEY = "sira-path-sandbox-premium";
 
@@ -77,7 +77,8 @@ export function createSandboxClient(mode: MonetizationMode): MonetizationClient 
       }
 
       if (isSubscriptionItem(item)) {
-        premium = { active: true, productId: item.productId ?? item.id, willRenew: true };
+        const productId = item.productId ?? item.id;
+        premium = { active: true, plan: planForProduct(productId), productId, willRenew: true };
         setStoredItem(SANDBOX_PREMIUM_KEY, JSON.stringify(premium));
       }
 

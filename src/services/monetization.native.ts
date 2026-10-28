@@ -22,6 +22,8 @@ import {
   liveAdUnitIds,
   monetizationMode,
   monetizationProductIds,
+  noAdsEntitlementId,
+  planForProduct,
   premiumEntitlementId,
   revenueCatApiKey,
   type AdAudience,
@@ -91,8 +93,11 @@ export function activeAdUnitIds(): AdUnitIds | null {
   };
 }
 
+// Premium wins over "No ads": Premium products give both entitlements in RevenueCat, and a learner moving
+// up from "No ads" can hold both for a moment.
 function premiumFrom(info: CustomerInfo): PremiumStatus {
-  const entitlement = info.entitlements.active[premiumEntitlementId];
+  const premium = info.entitlements.active[premiumEntitlementId];
+  const entitlement = premium ?? info.entitlements.active[noAdsEntitlementId];
 
   if (!entitlement) {
     return { active: false };
@@ -100,6 +105,7 @@ function premiumFrom(info: CustomerInfo): PremiumStatus {
 
   return {
     active: true,
+    plan: premium ? "premium" : "no_ads",
     productId: entitlement.productIdentifier,
     expiresAt: entitlement.expirationDate,
     willRenew: entitlement.willRenew
@@ -119,7 +125,11 @@ function consumableProductId(item: ShopItem) {
 }
 
 function subscriptionProductId(item: ShopItem) {
-  return item.type === "yearly_membership" ? monetizationProductIds.membershipYearly : monetizationProductIds.membershipMonthly;
+  const yearly = item.type === "yearly_membership";
+  if (planForProduct(item.productId) === "no_ads") {
+    return yearly ? monetizationProductIds.noAdsYearly : monetizationProductIds.noAdsMonthly;
+  }
+  return yearly ? monetizationProductIds.membershipYearly : monetizationProductIds.membershipMonthly;
 }
 
 // Google Play subscription ids come back as "productId:basePlanId", so match on the prefix as well.
@@ -127,16 +137,22 @@ function matchesProduct(identifier: string, productId: string) {
   return identifier === productId || identifier.startsWith(`${productId}:`);
 }
 
+// Both plans may sit in one offering or in two, so every offering is searched by product id. Only Premium
+// falls back to "the current offering's Monthly or Annual package", as before "No ads" existed: with two
+// plans that fallback could sell the wrong one.
 async function findSubscriptionPackage(item: ShopItem): Promise<PurchasesPackage | undefined> {
   const offerings = await Purchases.getOfferings();
-  const packages = offerings.current?.availablePackages ?? [];
+  const current = offerings.current?.availablePackages ?? [];
+  const everyPackage = [...current, ...Object.values(offerings.all ?? {}).flatMap((offering) => offering.availablePackages)];
   const productId = subscriptionProductId(item);
   const packageType = item.type === "yearly_membership" ? PACKAGE_TYPE.ANNUAL : PACKAGE_TYPE.MONTHLY;
+  const byProduct = everyPackage.find((candidate) => matchesProduct(candidate.product.identifier, productId));
 
-  return (
-    packages.find((candidate) => matchesProduct(candidate.product.identifier, productId)) ??
-    packages.find((candidate) => candidate.packageType === packageType)
-  );
+  if (byProduct || planForProduct(productId) === "no_ads") {
+    return byProduct;
+  }
+
+  return current.find((candidate) => candidate.packageType === packageType && planForProduct(candidate.product.identifier) !== "no_ads");
 }
 
 async function findConsumable(item: ShopItem): Promise<PurchasesStoreProduct | undefined> {
@@ -374,7 +390,14 @@ function createLiveClient(): MonetizationClient {
             return disabledPurchase(item, "This plan is not available in the store yet.");
           }
 
-          const result = await Purchases.purchasePackage(found);
+          // Google Play keeps two subscriptions side by side unless it is told to swap one for the other, so a
+          // learner moving between plans on Android replaces the old one. App Store does this by itself when
+          // both plans are in one subscription group.
+          const current = platform === "android" ? premiumFrom(await Purchases.getCustomerInfo()) : undefined;
+          const oldProductIdentifier = current?.active ? current.productId?.split(":")[0] : undefined;
+          const changeInfo =
+            oldProductIdentifier && !matchesProduct(found.product.identifier, oldProductIdentifier) ? { oldProductIdentifier } : null;
+          const result = await Purchases.purchasePackage(found, null, changeInfo);
           const premium = premiumFrom(result.customerInfo);
           return { ok: premium.active, itemId: item.id, transactionId: result.transaction?.transactionIdentifier ?? `sub_${Date.now()}`, premium };
         }

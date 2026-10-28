@@ -10,6 +10,7 @@ import { PopIn } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount } from "./FormattedCount";
+import { useGrownUpGate } from "./GrownUpGate";
 import { SwitchTrack } from "./sheetParts";
 import { t } from "../../i18n";
 
@@ -18,6 +19,8 @@ export type ProfileViewProps = {
   strings: UiStrings;
   learnerProfile: LearnerProfile;
   onOpenSettings: () => void;
+  /** Family row: a parent's view of this phone's progress and of kids they follow. Opens after the grown-up gate. */
+  onOpenFamily?: () => void;
   /** Crew and Shop are bottom tabs now; kept optional so the old call site still type-checks. */
   onOpenCrew?: () => void;
   onOpenShop?: () => void;
@@ -158,6 +161,7 @@ export function ProfileView({
   strings,
   learnerProfile,
   onOpenSettings,
+  onOpenFamily,
   onCreateAccount,
   hasSavedAccount = false,
   soundEnabled,
@@ -178,6 +182,8 @@ export function ProfileView({
   // Sign up, log in or log out changes the avatar and the name at the top: scroll back up so they show
   // whole, not cut off under the top bar, and pop the avatar in again.
   const accountKey = profileAccountKey(user, hasSavedAccount);
+  // Family can send progress out of the app, so a grown-up opens it.
+  const { ask, gate } = useGrownUpGate();
   const scrollRef = useRef<ScrollView>(null);
   const shownAccount = useRef(accountKey);
   useEffect(() => {
@@ -244,6 +250,7 @@ export function ProfileView({
       ) : null}
 
       <View style={styles.menu}>
+        {onOpenFamily ? <MenuRow icon="family" label={t("Family")} onPress={() => ask(onOpenFamily)} testID="profile-family" /> : null}
         <MenuRow icon="settings" label={strings.settings} onPress={onOpenSettings} testID="profile-settings" last={!onToggleSound} />
         {onToggleSound ? (
           <MenuRow
@@ -258,6 +265,7 @@ export function ProfileView({
           />
         ) : null}
       </View>
+      {gate}
     </ScrollView>
   );
 }
