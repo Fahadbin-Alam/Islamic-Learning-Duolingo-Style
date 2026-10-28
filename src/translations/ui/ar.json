@@ -418,5 +418,9 @@
   "{name} (you)": "{name} (أنت)",
   "{place} of {count}": "{place} من {count}",
   "{topic}, {done} of {total}": "{topic}، {done} من {total}",
-  "{topic}. Change topic": "{topic}. غيّر الموضوع"
+  "{topic}. Change topic": "{topic}. غيّر الموضوع",
+  "Search topics and people": "ابحث عن المواضيع والأشخاص",
+  "Clear search": "مسح البحث",
+  "Nothing found. Try another name.": "لم نجد شيئًا. جرّب اسمًا آخر.",
+  "Topic": "موضوع"
 }

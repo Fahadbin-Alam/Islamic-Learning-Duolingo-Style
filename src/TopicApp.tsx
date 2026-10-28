@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import {
   Linking,
   Platform,
@@ -44,6 +44,7 @@ import {
   refillHeartsForToday
 } from "./api/islamicLearningApi";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
+import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
 import {
   DEFAULT_LANGUAGE,
   deviceLanguage,
@@ -516,6 +517,8 @@ export default function TopicApp() {
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
+  // The circle a topic search hit asked the path to show; cleared once the path has scrolled to it.
+  const [pathReveal, setPathReveal] = useState<string | undefined>(undefined);
   const [quitLessonVisible, setQuitLessonVisible] = useState(false);
   const challengeStartedAtRef = useRef(Date.now());
   const lessonsFinishedRef = useRef(0);
@@ -872,6 +875,10 @@ export default function TopicApp() {
       total: section.nodes.length
     }));
   }, [localizedSections, state.user?.completedNodeIds]);
+
+  // Names in every language are in the index, so it is built once.
+  const searchIndex = useMemo(() => buildTopicSearchIndex(COURSE.sections), []);
+  const searchCourse = useCallback((query: string) => searchTopics(searchIndex, query), [searchIndex]);
 
   const currentLessonSection = useMemo(() => {
     if (!state.activeSession) {
@@ -2297,6 +2304,8 @@ export default function TopicApp() {
             onTestOut={(unitId, nodeId) => void startBranchTestOut(unitId, undefined, 0, nodeId)}
             onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
             onNextTopic={() => setTopicPickerVisible(true)}
+            reveal={pathReveal}
+            onRevealed={() => setPathReveal(undefined)}
           />
         )}
         {state.screen === "lesson_teach" && lesson && lessonShell(
@@ -2491,7 +2500,11 @@ export default function TopicApp() {
             onClose={() => setTopicPickerVisible(false)}
             topics={pickerTopics}
             activeTopicId={selectedSection.topicId}
-            onSelect={(topicId) => dispatch({ type: "select_topic", topicId: topicId as TopicId })}
+            search={searchCourse}
+            onSelect={(topicId, _unitId, nodeId) => {
+              dispatch({ type: "select_topic", topicId: topicId as TopicId });
+              setPathReveal(nodeId);
+            }}
           />
         )}
         <AccountSheet

@@ -418,5 +418,9 @@
   "{name} (you)": "{name} (آپ)",
   "{place} of {count}": "{count} میں سے {place}",
   "{topic}, {done} of {total}": "{topic}، {total} میں سے {done}",
-  "{topic}. Change topic": "{topic}۔ موضوع بدلیں"
+  "{topic}. Change topic": "{topic}۔ موضوع بدلیں",
+  "Search topics and people": "موضوعات اور شخصیات تلاش کریں",
+  "Clear search": "تلاش صاف کریں",
+  "Nothing found. Try another name.": "کچھ نہیں ملا۔ کوئی اور نام آزمائیں۔",
+  "Topic": "موضوع"
 }
