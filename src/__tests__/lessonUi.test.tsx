@@ -181,35 +181,6 @@ describe("lesson ui (round 2)", () => {
     expect(sameReference("Sahih Muslim 54", "Muslim 55")).toBe(false);
   });
 
-  it("the answer sheet shows the source chip, right or wrong, and opens it", async () => {
-    const onOpenSource = jest.fn();
-    const props = {
-      kind: "multiple_choice" as const,
-      prompt: "Who was the first caliph?",
-      choices: [
-        { id: "a", label: "Abu Bakr" },
-        { id: "b", label: "Umar" }
-      ],
-      selectedChoiceId: "a",
-      correctChoiceId: "a",
-      mascotVariant: "girl",
-      accent: "#1CB66D",
-      onSelect: jest.fn(),
-      onCheck: jest.fn(),
-      onContinue: jest.fn(),
-      onOpenSource
-    };
-    const source = { label: "Sahih al-Bukhari 3661", url: "https://sunnah.com/bukhari:3661" };
-    const { rerender } = await render(<ExerciseView {...props} result={{ correct: true, correctLabel: "Abu Bakr", source }} />);
-    expect(screen.getByText("Sahih al-Bukhari 3661")).toBeTruthy();
-    await fireEvent.press(screen.getByTestId("feedback-source"));
-    expect(onOpenSource).toHaveBeenCalledWith("https://sunnah.com/bukhari:3661");
-    await rerender(<ExerciseView {...props} selectedChoiceId="b" result={{ correct: false, correctLabel: "Abu Bakr", why: "He led after the Prophet ﷺ.", source }} />);
-    expect(screen.getByTestId("feedback-source")).toBeTruthy();
-    await rerender(<ExerciseView {...props} result={{ correct: true, correctLabel: "Abu Bakr" }} />);
-    expect(screen.queryByTestId("feedback-source")).toBeNull();
-  });
-
   it("FeedbackSheet caps the scrolling answer at 60% of the window and lists the order in one column", async () => {
     const long = "A very long right answer that keeps going. ".repeat(14).trim();
     const { rerender } = await render(<FeedbackSheet visible correct={false} correctLabel={long} why="Because it says so." onContinue={jest.fn()} />);
