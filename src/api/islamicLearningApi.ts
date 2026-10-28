@@ -6,7 +6,9 @@ import {
   allNodes,
   findNodeByLessonId
 } from "../data/course";
+import { lessonForAge } from "../data/ageLevels";
 import { asksSameLine, givesAway as namesAnswerOf } from "../data/scalableCurriculum";
+import type { AgeGroup } from "../services/monetizationConfig";
 import type {
   Challenge,
   LearningCourse,
@@ -29,7 +31,7 @@ export interface IslamicLearningApi {
   getUser(userId: number): Promise<UserProfile>;
   getCoursePath(courseId: string, userId: number): Promise<LearningCourse>;
   getPathNodes(user: UserProfile): LearningNodeView[];
-  getLessonSession(lessonId: string, user: UserProfile): Promise<LessonSession>;
+  getLessonSession(lessonId: string, user: UserProfile, ageGroup?: AgeGroup): Promise<LessonSession>;
   getShopItems(): Promise<ShopItem[]>;
   getXpSummaries(user: UserProfile): Promise<XpSummary[]>;
 }
@@ -87,14 +89,14 @@ export const learningApi: IslamicLearningApi = {
       firstLessonId: node.lessonIds[0]
     }));
   },
-  async getLessonSession(lessonId, user) {
+  async getLessonSession(lessonId, user, ageGroup) {
     const lesson = LESSONS_BY_ID[lessonId];
 
     if (!lesson) {
       throw new Error(`Unknown lesson: ${lessonId}`);
     }
 
-    const progressiveLesson = prepareLessonForSession(lesson);
+    const progressiveLesson = prepareLessonForSession(lessonForAge(lesson, ageGroup));
 
     return {
       id: `session_${lessonId}_${Date.now()}`,

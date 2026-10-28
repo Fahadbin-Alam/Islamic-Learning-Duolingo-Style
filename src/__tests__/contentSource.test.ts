@@ -7,6 +7,7 @@
 import fs from "fs";
 import path from "path";
 import { learningApi } from "../api/islamicLearningApi";
+import { lessonForAge } from "../data/ageLevels";
 import { COURSE, LESSONS_BY_ID, STARTER_USER } from "../data/course";
 import { FOUNDATION_CATEGORY_META, FOUNDATION_PROGRESS_LABELS, FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic } from "../data/arabicTerms";
@@ -93,6 +94,8 @@ async function buildSource() {
   }
   for (const lesson of Object.values(LESSONS_BY_ID)) {
     addLesson(lesson);
+    // A young child's lesson asks true/false questions that the full lesson leaves out.
+    addLesson(lessonForAge(lesson, "6-9"));
     addLesson((await learningApi.getLessonSession(lesson.id, STARTER_USER)).lesson);
   }
   Object.values(FOUNDATION_CATEGORY_META).forEach((meta) => Object.values(meta).forEach((value) => typeof value === "string" && add("course", value)));
