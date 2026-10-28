@@ -307,6 +307,11 @@ export interface Challenge {
   reviewSuggestion?: string;
   resourceLabel?: string;
   resourceUrl?: string;
+  /**
+   * The source that says this question's answer, when it is not its lesson's learnSource. The answer sheet shows
+   * it as a chip after a right or a wrong answer (src/services/questionSource.ts).
+   */
+  source?: LessonSource;
   /** Asked again from an earlier lesson; the question shows a small review cue. */
   isReview?: boolean;
 }

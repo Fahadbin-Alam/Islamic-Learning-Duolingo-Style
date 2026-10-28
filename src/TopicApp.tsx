@@ -165,6 +165,7 @@ import {
 } from "./ui/screens";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
+import { questionSource, shortReference } from "./services/questionSource";
 import type {
   AccountRole,
   Challenge,
@@ -173,6 +174,7 @@ import type {
   LearningBranch,
   LearningNodeView,
   LearningSection,
+  Lesson,
   LessonSession,
   PremiumStatus,
   ReminderPreferences,
@@ -526,7 +528,8 @@ export default function TopicApp() {
   // Each MY LESSONS run starts from other questions.
   const lessonPracticeTriesRef = useRef(0);
   const lastFullScreenAdAtRef = useRef(0);
-  // Ads are native only, so the age screen is too. Its answer stays on this device and only picks which ads may show.
+  // Everyone picks an age once, at the start. The answer stays on this device: it sets how hard lessons are for young
+  // learners (lessonForAge) and, on phones, which ads may show.
   const needsAgeCheck = Platform.OS !== "web" && monetizationMode !== "disabled";
   const [ageGroup, setAgeGroup] = useState<AgeGroup | undefined>(() => {
     const saved = getStoredItem("sira-path-age-group");
@@ -1098,7 +1101,7 @@ export default function TopicApp() {
     };
 
     dispatch({ type: "apply_user", user: activeUser });
-    const session = await learningApi.getLessonSession(node.firstLessonId, activeUser);
+    const session = await learningApi.getLessonSession(node.firstLessonId, activeUser, ageGroup);
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
   }
@@ -2358,7 +2361,8 @@ export default function TopicApp() {
                 ? {
                     correct: state.answerState === "correct",
                     correctLabel,
-                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage)
+                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
+                    source: feedbackSource(challenge, lesson)
                   }
                 : undefined}
               attempt={lessonStep.attempt}
@@ -2594,7 +2598,7 @@ export default function TopicApp() {
           onClose={collectJourneyReward}
         />
         <AgeSheet
-          visible={hasUser && (needsAgeCheck || ageBeforeSignUp) && !ageGroup}
+          visible={hasUser && !ageGroup}
           onSave={(group) => {
             setStoredItem("sira-path-age-group", group);
             setAgeGroup(group);
@@ -2617,6 +2621,14 @@ export default function TopicApp() {
       </PortalHost>
     </View>
   );
+}
+
+// The answer sheet's source chip: the short reference of the source that says the answer, opening it.
+function feedbackSource(challenge: Challenge, lesson: Lesson | undefined) {
+  const source = questionSource(challenge, lesson);
+  const reference = source?.reference?.trim();
+  if (!source || !reference) return undefined;
+  return { label: shortReference(reference), onOpen: source.url ? () => void Linking.openURL(source.url).catch(() => undefined) : undefined };
 }
 
 function readRewardedGemVideos(): { date: string; count: number } | null {

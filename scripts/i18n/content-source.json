@@ -45,7 +45,7 @@
   },
   {
     "kind": "course",
-    "text": "Daily phrase rhythm"
+    "text": "Words through the day"
   },
   {
     "kind": "course",
@@ -125,7 +125,7 @@
   },
   {
     "kind": "arabic",
-    "text": "Morning remembrance"
+    "text": "Waking-up du'a"
   },
   {
     "kind": "course",
@@ -4616,6 +4616,10 @@
     "text": "Muslims greet with As-salamu alaykum: peace be upon you."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6227"
+  },
+  {
     "kind": "question",
     "text": "What is the basic Muslim greeting you should learn first?"
   },
@@ -4670,6 +4674,10 @@
   {
     "kind": "lesson",
     "text": "For good news, say Alhamdulillah: all praise is for Allah."
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 3803"
   },
   {
     "kind": "question",
@@ -4776,6 +4784,10 @@
     "text": "After a sneeze, say Alhamdulillah. Others reply: Yarhamuk Allah."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6224"
+  },
+  {
     "kind": "question",
     "text": "After sneezing, what should a Muslim say first?"
   },
@@ -4822,6 +4834,10 @@
   {
     "kind": "lesson",
     "text": "When someone says salam, reply: wa alaykum as-salam."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 4:86"
   },
   {
     "kind": "question",
@@ -5448,6 +5464,10 @@
     "text": "Say salam to people you know and people you don't."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 12"
+  },
+  {
     "kind": "question",
     "text": "Which greeting means peace be upon you?"
   },
@@ -5494,6 +5514,10 @@
   {
     "kind": "lesson",
     "text": "Always tell the truth, even after a mistake."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6094"
   },
   {
     "kind": "question",
@@ -5548,6 +5572,10 @@
     "text": "Speak gently to your parents, and listen when elders talk."
   },
   {
+    "kind": "source",
+    "text": "Quran 17:23"
+  },
+  {
     "kind": "question",
     "text": "Which action shows respect to parents?"
   },
@@ -5598,6 +5626,10 @@
   {
     "kind": "lesson",
     "text": "The Prophet ﷺ said: your mother, three times, then your father."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5971"
   },
   {
     "kind": "question",
@@ -5652,6 +5684,10 @@
     "text": "Be humble with your parents, and make du'a for them."
   },
   {
+    "kind": "source",
+    "text": "Quran 17:24"
+  },
+  {
     "kind": "question",
     "text": "What does Quran 17:24 teach toward parents?"
   },
@@ -5702,6 +5738,10 @@
   {
     "kind": "lesson",
     "text": "Be gentle with younger people, and respect older people."
+  },
+  {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 1919"
   },
   {
     "kind": "question",
@@ -5756,6 +5796,10 @@
     "text": "At the table, say Bismillah and eat with your right hand."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5376"
+  },
+  {
     "kind": "question",
     "text": "Which is the best way to begin eating?"
   },
@@ -5802,6 +5846,10 @@
   {
     "kind": "lesson",
     "text": "Allah made marriage a home of calm, love, and mercy."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 30:21"
   },
   {
     "kind": "question",
@@ -5856,6 +5904,10 @@
     "text": "Choose a spouse for their deen and good character."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5090"
+  },
+  {
     "kind": "question",
     "text": "What should a Muslim value most in a spouse?"
   },
@@ -5908,6 +5960,10 @@
     "text": "The Quran says: live with your spouse in kindness."
   },
   {
+    "kind": "source",
+    "text": "Quran 4:19"
+  },
+  {
     "kind": "question",
     "text": "How does the Quran say to live with a spouse?"
   },
@@ -5958,6 +6014,10 @@
   {
     "kind": "lesson",
     "text": "The Quran calls spouses clothing for each other."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:187"
   },
   {
     "kind": "question",
@@ -6572,6 +6632,10 @@
     "text": "Wife: Hawwa"
   },
   {
+    "kind": "source",
+    "text": "Quran 2:37"
+  },
+  {
     "kind": "question",
     "text": "Who was the first human?"
   },
@@ -6614,6 +6678,10 @@
   {
     "kind": "lesson",
     "text": "Called people: 950 years"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 11:37"
   },
   {
     "kind": "question",
@@ -6760,6 +6828,10 @@
     "text": "Brothers: eleven"
   },
   {
+    "kind": "source",
+    "text": "Quran 12:92"
+  },
+  {
     "kind": "question",
     "text": "Where did Yusuf's brothers throw him?"
   },
@@ -6802,6 +6874,10 @@
   {
     "kind": "lesson",
     "text": "Book: Tawrah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 4:164"
   },
   {
     "kind": "question",
@@ -6858,6 +6934,10 @@
   {
     "kind": "lesson",
     "text": "Book: Injil"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 3:47"
   },
   {
     "kind": "question",
@@ -7081,7 +7161,19 @@
   },
   {
     "kind": "question",
-    "text": "Allah brought baby Musa back to his mother."
+    "text": "Allah brought baby Musa back to his ____."
+  },
+  {
+    "kind": "question",
+    "text": "teacher"
+  },
+  {
+    "kind": "question",
+    "text": "uncle"
+  },
+  {
+    "kind": "question",
+    "text": "mother"
   },
   {
     "kind": "question",
@@ -7121,11 +7213,19 @@
   },
   {
     "kind": "question",
-    "text": "Asiyah asked Allah for a crown near Him in Paradise."
+    "text": "Asiyah asked Allah for a ____ near Him in Paradise."
   },
   {
     "kind": "question",
-    "text": "Asiyah asked Allah for a house near Him in Paradise."
+    "text": "house"
+  },
+  {
+    "kind": "question",
+    "text": "crown"
+  },
+  {
+    "kind": "question",
+    "text": "horse"
   },
   {
     "kind": "lesson",
@@ -7134,6 +7234,10 @@
   {
     "kind": "lesson",
     "text": "Father: Khuwaylid"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2436a"
   },
   {
     "kind": "question",
@@ -7178,6 +7282,10 @@
   {
     "kind": "lesson",
     "text": "Father: Abu Bakr"
+  },
+  {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 3883"
   },
   {
     "kind": "question",
@@ -7281,11 +7389,7 @@
   },
   {
     "kind": "question",
-    "text": "Asked who he loved most, the Prophet ﷺ said: Hafsah."
-  },
-  {
-    "kind": "question",
-    "text": "Asked who he loved most, the Prophet ﷺ said: Aishah."
+    "text": "Asked who he loved most, the Prophet ﷺ said: ____."
   },
   {
     "kind": "lesson",
@@ -7404,20 +7508,12 @@
     "text": "Before you eat, say Bismillah."
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 5376"
-  },
-  {
     "kind": "question",
     "text": "Before you eat, say ____."
   },
   {
     "kind": "question",
     "text": "Bismillah means in the name of Allah."
-  },
-  {
-    "kind": "question",
-    "text": "Before you eat, say Alhamdulillah."
   },
   {
     "kind": "lesson",
@@ -7434,10 +7530,6 @@
   {
     "kind": "question",
     "text": "Any hand"
-  },
-  {
-    "kind": "question",
-    "text": "Eat with your left hand, as the Prophet ﷺ taught."
   },
   {
     "kind": "lesson",
@@ -7530,10 +7622,6 @@
   {
     "kind": "question",
     "text": "muddy"
-  },
-  {
-    "kind": "question",
-    "text": "Pray in a messy spot, in tidy clothes."
   },
   {
     "kind": "lesson",
@@ -7629,11 +7717,15 @@
   },
   {
     "kind": "lesson",
-    "text": "Before wudu, intend in your heart to get ready to pray."
+    "text": "Your niyyah for wudu is in your heart."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1"
   },
   {
     "kind": "question",
-    "text": "Before wudu, intend in your ____ to get ready to pray."
+    "text": "Your niyyah for wudu is in your ____."
   },
   {
     "kind": "question",
@@ -7649,7 +7741,7 @@
   },
   {
     "kind": "question",
-    "text": "Niyyah, the intention, is in the heart; you need not say it."
+    "text": "Allah knows what is in your heart, so you don't have to say it out loud."
   },
   {
     "kind": "lesson",
@@ -7721,10 +7813,6 @@
   },
   {
     "kind": "question",
-    "text": "Then sniff water into your eyes and blow it out."
-  },
-  {
-    "kind": "question",
     "text": "Which comes first?"
   },
   {
@@ -7757,10 +7845,6 @@
   },
   {
     "kind": "question",
-    "text": "Wash your whole neck, from your hairline to your chin."
-  },
-  {
-    "kind": "question",
     "text": "Rinse the mouth, then rinse the nose, then wash the face."
   },
   {
@@ -7786,10 +7870,6 @@
   {
     "kind": "question",
     "text": "The Quran says to wash the arms up to the elbows."
-  },
-  {
-    "kind": "question",
-    "text": "Wash each arm up to the wrist."
   },
   {
     "kind": "question",
@@ -7824,6 +7904,10 @@
     "text": "Wipe your ears right after your head."
   },
   {
+    "kind": "source",
+    "text": "Sunan an-Nasa'i 102"
+  },
+  {
     "kind": "question",
     "text": "Wipe your ____ right after your head."
   },
@@ -7834,10 +7918,6 @@
   {
     "kind": "question",
     "text": "Fingers go inside the ears and thumbs behind them."
-  },
-  {
-    "kind": "question",
-    "text": "Wipe your knees right after your head."
   },
   {
     "kind": "question",
@@ -7892,10 +7972,6 @@
     "text": "The Quran names four parts: face, arms, ____, and feet."
   },
   {
-    "kind": "question",
-    "text": "The Quran names four parts: face, arms, neck, and feet."
-  },
-  {
     "kind": "lesson",
     "text": "Washing each part three times is Sunnah."
   },
@@ -7918,10 +7994,6 @@
   {
     "kind": "question",
     "text": "Once is enough; the Prophet ﷺ sometimes washed each part once."
-  },
-  {
-    "kind": "question",
-    "text": "Washing each part ten times is Sunnah."
   },
   {
     "kind": "lesson",
@@ -7950,10 +8022,6 @@
   {
     "kind": "question",
     "text": "Make wudu again before you pray."
-  },
-  {
-    "kind": "question",
-    "text": "Passing wind keeps your wudu."
   },
   {
     "kind": "lesson",
@@ -7988,6 +8056,10 @@
     "text": "In the toilet, clean yourself using your left hand."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 153"
+  },
+  {
     "kind": "question",
     "text": "Which hand cleans you in the toilet?"
   },
@@ -8000,12 +8072,12 @@
     "text": "The right hand is kept for eating and drinking."
   },
   {
-    "kind": "question",
-    "text": "In the toilet, clean yourself using your right hand."
-  },
-  {
     "kind": "lesson",
     "text": "Let water reach every part, even your heels."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 60"
   },
   {
     "kind": "question",
@@ -8028,20 +8100,12 @@
     "text": "The Prophet ﷺ warned people who left their heels dry."
   },
   {
-    "kind": "question",
-    "text": "Let water reach every part, even your pockets."
-  },
-  {
     "kind": "lesson",
     "text": "Do it all, and end by washing your feet."
   },
   {
     "kind": "question",
     "text": "Do it all, and end by washing your ____."
-  },
-  {
-    "kind": "question",
-    "text": "Do it all, and end by washing your face."
   },
   {
     "kind": "lesson",
@@ -8084,6 +8148,10 @@
     "text": "Muslims pray five times every day."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 349"
+  },
+  {
     "kind": "question",
     "text": "Muslims pray ____ times every day."
   },
@@ -8098,6 +8166,10 @@
   {
     "kind": "lesson",
     "text": "Fajr, Dhuhr, Asr, Maghrib, and then Isha."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 612d"
   },
   {
     "kind": "question",
@@ -8121,10 +8193,6 @@
   },
   {
     "kind": "question",
-    "text": "Fajr, Dhuhr, Asr, Maghrib, and then Eid."
-  },
-  {
-    "kind": "question",
     "text": "Fajr"
   },
   {
@@ -8138,6 +8206,10 @@
   {
     "kind": "lesson",
     "text": "A rak'ah is one round of standing, bowing and two sujud."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 757"
   },
   {
     "kind": "question",
@@ -8156,12 +8228,12 @@
     "text": "takbir"
   },
   {
-    "kind": "question",
-    "text": "A sajdah is one round of standing, bowing and two sujud."
-  },
-  {
     "kind": "lesson",
     "text": "Before salah, be clean, cover up, and face the Qiblah."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6251"
   },
   {
     "kind": "question",
@@ -8188,6 +8260,10 @@
     "text": "Salah starts with Allahu akbar and ends with salam."
   },
   {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 61"
+  },
+  {
     "kind": "question",
     "text": "Salah starts with ____ and ends with salam."
   },
@@ -8202,10 +8278,6 @@
   {
     "kind": "question",
     "text": "Saying Allahu akbar to start is called the takbir."
-  },
-  {
-    "kind": "question",
-    "text": "Salah starts with Bismillah and ends with salam."
   },
   {
     "kind": "lesson",
@@ -8292,10 +8364,6 @@
     "text": "Dhuhr"
   },
   {
-    "kind": "question",
-    "text": "Fajr is just after midday, and Maghrib is at sunset."
-  },
-  {
     "kind": "lesson",
     "text": "Salah on time is a deed Allah loves most."
   },
@@ -8322,10 +8390,6 @@
   {
     "kind": "question",
     "text": "The Prophet ﷺ said this when Ibn Mas'ud asked him."
-  },
-  {
-    "kind": "question",
-    "text": "Sleeping on time is a deed Allah loves most."
   },
   {
     "kind": "lesson",
@@ -8356,16 +8420,16 @@
     "text": "The Prophet ﷺ taught: pray it as soon as you remember."
   },
   {
-    "kind": "question",
-    "text": "If you sleep through a prayer, pray it when you grow up."
-  },
-  {
     "kind": "lesson",
     "text": "Fajr at dawn, Maghrib at sunset, Isha at night."
   },
   {
     "kind": "lesson",
     "text": "The adhan is the call to prayer."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 604"
   },
   {
     "kind": "question",
@@ -8416,16 +8480,16 @@
     "text": "The iqamah is the second call, just before salah starts."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 605"
+  },
+  {
     "kind": "question",
     "text": "The ____ is the second call, just before salah starts."
   },
   {
     "kind": "question",
     "text": "iqamah"
-  },
-  {
-    "kind": "question",
-    "text": "The adhan is the second call, just before salah starts."
   },
   {
     "kind": "lesson",
@@ -8462,6 +8526,10 @@
   {
     "kind": "lesson",
     "text": "In ruku, we bow and say Subhana Rabbiyal Azim."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 772"
   },
   {
     "kind": "question",
@@ -8532,10 +8600,6 @@
     "text": "straight"
   },
   {
-    "kind": "question",
-    "text": "After ruku, stand up halfway before going down to sujud."
-  },
-  {
     "kind": "lesson",
     "text": "In sujud, our forehead touches the ground for Allah."
   },
@@ -8572,10 +8636,6 @@
     "text": "Forehead and nose, both hands, both knees and both feet."
   },
   {
-    "kind": "question",
-    "text": "Sujud rests on three parts of the body."
-  },
-  {
     "kind": "lesson",
     "text": "Between the two sujud, we sit for a calm moment."
   },
@@ -8594,10 +8654,6 @@
   {
     "kind": "question",
     "text": "sit"
-  },
-  {
-    "kind": "question",
-    "text": "Between the two sujud, we stand for a calm moment."
   },
   {
     "kind": "question",
@@ -8638,10 +8694,6 @@
   {
     "kind": "question",
     "text": "The Prophet ﷺ told a man who rushed to pray again."
-  },
-  {
-    "kind": "question",
-    "text": "Don't rush: stay loud in each ruku and sujud."
   },
   {
     "kind": "lesson",
@@ -8702,6 +8754,10 @@
   {
     "kind": "lesson",
     "text": "We sit for tashahhud after two rak'ahs, and at the end."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 828"
   },
   {
     "kind": "question",
@@ -8776,6 +8832,10 @@
     "text": "Khushu means a calm heart that is focused on Allah."
   },
   {
+    "kind": "source",
+    "text": "Quran 23:1-2"
+  },
+  {
     "kind": "question",
     "text": "____ means a calm heart that is focused on Allah."
   },
@@ -8812,12 +8872,12 @@
     "text": "nap"
   },
   {
-    "kind": "question",
-    "text": "If food is ready, eat first so you can rush in salah."
-  },
-  {
     "kind": "lesson",
     "text": "Knowing what the words mean helps your heart focus."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 4:43"
   },
   {
     "kind": "question",
@@ -8832,6 +8892,10 @@
     "text": "If your mind wanders, gently bring it back to salah."
   },
   {
+    "kind": "source",
+    "text": "Sahih Muslim 2203a"
+  },
+  {
     "kind": "question",
     "text": "If your mind wanders, gently bring it back to ____."
   },
@@ -8842,6 +8906,10 @@
   {
     "kind": "lesson",
     "text": "Talking on purpose breaks your salah."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 537a"
   },
   {
     "kind": "question",
@@ -8924,6 +8992,10 @@
     "text": "In jamaah, wait and move after the imam."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 722"
+  },
+  {
     "kind": "question",
     "text": "In jamaah, wait and move ____ the imam."
   },
@@ -8960,10 +9032,6 @@
     "text": "forget"
   },
   {
-    "kind": "question",
-    "text": "Late? Join the imam, then skip what you missed."
-  },
-  {
     "kind": "lesson",
     "text": "In jamaah, stand in straight rows, shoulder to shoulder."
   },
@@ -8984,16 +9052,16 @@
     "text": "The Prophet ﷺ said straight rows are part of good salah."
   },
   {
-    "kind": "question",
-    "text": "In jamaah, stand in curvy rows, shoulder to shoulder."
-  },
-  {
     "kind": "lesson",
     "text": "Follow the imam, stand in straight rows, finish what you missed."
   },
   {
     "kind": "lesson",
     "text": "Missing salah is serious, but Allah's door stays open."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 19:59-60"
   },
   {
     "kind": "question",
@@ -9036,10 +9104,6 @@
     "text": "rarely"
   },
   {
-    "kind": "question",
-    "text": "If you miss a prayer, pray it as late as you can."
-  },
-  {
     "kind": "lesson",
     "text": "Make up missed prayers in order, like the Prophet ﷺ did."
   },
@@ -9068,12 +9132,12 @@
     "text": "At the Battle of the Trench, he prayed Asr, then Maghrib."
   },
   {
-    "kind": "question",
-    "text": "Make up missed prayers in a rush, like the Prophet ﷺ did."
-  },
-  {
     "kind": "lesson",
     "text": "Set your alarm so you wake up for Fajr."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 595"
   },
   {
     "kind": "question",
@@ -9086,10 +9150,6 @@
   {
     "kind": "question",
     "text": "toy"
-  },
-  {
-    "kind": "question",
-    "text": "Set your oven so you wake up for Fajr."
   },
   {
     "kind": "lesson",
@@ -9106,6 +9166,10 @@
   {
     "kind": "lesson",
     "text": "Late, and the imam is bowing? Say Allahu akbar and join."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 783"
   },
   {
     "kind": "question",
@@ -9324,12 +9388,12 @@
     "text": "Gentleness makes everything more beautiful."
   },
   {
-    "kind": "question",
-    "text": "Allah loves shouting in every matter."
-  },
-  {
     "kind": "lesson",
     "text": "If you hurt someone, say sorry and make it right."
+  },
+  {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 1987"
   },
   {
     "kind": "question",
@@ -9346,6 +9410,10 @@
   {
     "kind": "lesson",
     "text": "Check yourself often, and fix what went wrong."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:18"
   },
   {
     "kind": "question",
@@ -9368,16 +9436,16 @@
     "text": "Umar said: take account of yourselves before you are taken to account."
   },
   {
-    "kind": "question",
-    "text": "Check yourself often, and hide what went wrong."
-  },
-  {
     "kind": "lesson",
     "text": "Control anger, be gentle, say sorry, and check yourself."
   },
   {
     "kind": "lesson",
     "text": "Inside the masjid, speak softly and stay calm."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 470"
   },
   {
     "kind": "question",
@@ -9504,6 +9572,10 @@
     "text": "Spouses treat each other with respect."
   },
   {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 3895"
+  },
+  {
     "kind": "question",
     "text": "Spouses treat each other with ____."
   },
@@ -9524,12 +9596,12 @@
     "text": "The best of you are the best to their families."
   },
   {
-    "kind": "question",
-    "text": "Spouses treat each other with insults."
-  },
-  {
     "kind": "lesson",
     "text": "A husband must provide food, a home, and care."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:233"
   },
   {
     "kind": "question",
@@ -9542,10 +9614,6 @@
   {
     "kind": "question",
     "text": "Spending on family is a charity too."
-  },
-  {
-    "kind": "question",
-    "text": "A husband must hide food, a home, and care."
   },
   {
     "kind": "lesson",
@@ -9574,6 +9642,10 @@
   {
     "kind": "lesson",
     "text": "Even in an argument, stay kind and fair."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2328a"
   },
   {
     "kind": "question",
@@ -9614,10 +9686,6 @@
   {
     "kind": "question",
     "text": "After hurting your spouse, say sorry and ____ the hurt."
-  },
-  {
-    "kind": "question",
-    "text": "After hurting your spouse, say sorry and repeat the hurt."
   },
   {
     "kind": "lesson",
@@ -9692,10 +9760,6 @@
     "text": "comfort"
   },
   {
-    "kind": "question",
-    "text": "Ask Allah for a family that brings worry to your eyes."
-  },
-  {
     "kind": "lesson",
     "text": "If one habit bothers you, remember the good ones."
   },
@@ -9740,16 +9804,16 @@
     "text": "Saying salam when you come home brings blessing."
   },
   {
-    "kind": "question",
-    "text": "Fill the home with salam, thanks, and rude words."
-  },
-  {
     "kind": "lesson",
     "text": "A good home has prayer, du'a, patience, and kind words."
   },
   {
     "kind": "lesson",
     "text": "Abu Bakr was born and grew up in Makkah."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3905"
   },
   {
     "kind": "question",
@@ -9780,6 +9844,10 @@
     "text": "Abu Bakr was the father of Aishah."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3662"
+  },
+  {
     "kind": "question",
     "text": "Abu Bakr was the father of ____."
   },
@@ -9798,6 +9866,10 @@
   {
     "kind": "lesson",
     "text": "Before Islam, Abu Bakr was a well-liked trader."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2070"
   },
   {
     "kind": "question",
@@ -9822,6 +9894,10 @@
   {
     "kind": "lesson",
     "text": "Abu Bakr was the first grown man to accept Islam."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3660"
   },
   {
     "kind": "question",
@@ -9872,20 +9948,16 @@
     "text": "In Makkah, Abu Bakr set Umar free."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3656"
+  },
+  {
     "kind": "question",
     "text": "Abu Bakr was the Prophet's ﷺ closest ____."
   },
   {
     "kind": "question",
     "text": "friend"
-  },
-  {
-    "kind": "question",
-    "text": "teacher"
-  },
-  {
-    "kind": "question",
-    "text": "uncle"
   },
   {
     "kind": "question",
@@ -9898,6 +9970,10 @@
   {
     "kind": "lesson",
     "text": "Once, Abu Bakr gave all his money for Allah's cause."
+  },
+  {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 3675"
   },
   {
     "kind": "question",
@@ -9918,10 +9994,6 @@
   {
     "kind": "question",
     "text": "He said he left Allah and His Messenger ﷺ for his family."
-  },
-  {
-    "kind": "question",
-    "text": "Once, Abu Bakr gave half his money for Allah's cause."
   },
   {
     "kind": "lesson",
@@ -9952,12 +10024,12 @@
     "text": "The Quran tells of the two of them in the cave."
   },
   {
-    "kind": "question",
-    "text": "On the Hijrah, Abu Bakr hid with the Prophet ﷺ in a tent."
-  },
-  {
     "kind": "lesson",
     "text": "Abu Bakr protected the Prophet ﷺ when people attacked him."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3678"
   },
   {
     "kind": "question",
@@ -9980,6 +10052,10 @@
     "text": "Abu Bakr often cried when he recited the Quran."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 476"
+  },
+  {
     "kind": "question",
     "text": "Abu Bakr often ____ when he recited the Quran."
   },
@@ -9996,12 +10072,12 @@
     "text": "cried"
   },
   {
-    "kind": "question",
-    "text": "Abu Bakr often laughed when he recited the Quran."
-  },
-  {
     "kind": "lesson",
     "text": "Abu Bakr was called As-Siddiq, the truthful one."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3675"
   },
   {
     "kind": "question",
@@ -10014,10 +10090,6 @@
   {
     "kind": "question",
     "text": "He believed the Prophet ﷺ about the Night Journey at once."
-  },
-  {
-    "kind": "question",
-    "text": "Abu Bakr was called Al-Faruq, the truthful one."
   },
   {
     "kind": "lesson",
@@ -10052,6 +10124,10 @@
     "text": "When the Prophet ﷺ died, Abu Bakr calmed the people."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1241"
+  },
+  {
     "kind": "question",
     "text": "When the Prophet ﷺ died, Abu Bakr ____ the people."
   },
@@ -10070,6 +10146,10 @@
   {
     "kind": "lesson",
     "text": "Aishah said her father was a soft-hearted man."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3384"
   },
   {
     "kind": "question",
@@ -10092,12 +10172,12 @@
     "text": "Soft-hearted means kind and quick to cry."
   },
   {
-    "kind": "question",
-    "text": "Aishah said her father was a hard-hearted man."
-  },
-  {
     "kind": "lesson",
     "text": "When the Prophet ﷺ was ill, Abu Bakr led the prayer."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 682"
   },
   {
     "kind": "question",
@@ -10124,6 +10204,10 @@
     "text": "After the Prophet ﷺ, Abu Bakr became the first caliph."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3667"
+  },
+  {
     "kind": "question",
     "text": "After the Prophet ﷺ, Abu Bakr became the first ____."
   },
@@ -10142,6 +10226,10 @@
   {
     "kind": "lesson",
     "text": "As caliph, Abu Bakr made sure zakat was still paid."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1399"
   },
   {
     "kind": "question",
@@ -10168,16 +10256,16 @@
     "text": "Abu Bakr was buried beside the Prophet ﷺ in Madinah."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3700"
+  },
+  {
     "kind": "question",
     "text": "Abu Bakr was buried beside the Prophet ﷺ in ____."
   },
   {
     "kind": "question",
     "text": "They lie in Aishah's room, next to the Prophet's ﷺ masjid."
-  },
-  {
-    "kind": "question",
-    "text": "Abu Bakr was buried beside the Prophet ﷺ in Makkah."
   },
   {
     "kind": "lesson",
@@ -10208,6 +10296,10 @@
     "text": "Umar grew up in Makkah, in the tribe of Quraysh."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3864"
+  },
+  {
     "kind": "question",
     "text": "Umar grew up in ____, in the tribe of Quraysh."
   },
@@ -10222,6 +10314,10 @@
   {
     "kind": "lesson",
     "text": "Umar was the father of Hafsah, a wife of the Prophet ﷺ."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4005"
   },
   {
     "kind": "question",
@@ -10240,6 +10336,10 @@
     "text": "Before Islam, Umar was a strong enemy of the Muslims."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3862"
+  },
+  {
     "kind": "question",
     "text": "Before Islam, Umar was a strong ____ of the Muslims."
   },
@@ -10254,6 +10354,10 @@
   {
     "kind": "lesson",
     "text": "When Umar became Muslim, the Muslims grew stronger."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3684"
   },
   {
     "kind": "question",
@@ -10292,10 +10396,6 @@
     "text": "That same day, Abu Bakr gave all of his."
   },
   {
-    "kind": "question",
-    "text": "Once, Umar gave all his money for Allah's cause."
-  },
-  {
     "kind": "lesson",
     "text": "Umar was called Al-Faruq because he told right from wrong."
   },
@@ -10306,10 +10406,6 @@
   {
     "kind": "question",
     "text": "He was famous for being fair."
-  },
-  {
-    "kind": "question",
-    "text": "Umar was called As-Siddiq because he told right from wrong."
   },
   {
     "kind": "lesson",
@@ -10340,6 +10436,10 @@
     "text": "After Abu Bakr, Umar became the second caliph."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7218"
+  },
+  {
     "kind": "question",
     "text": "After Abu Bakr, Umar became the ____ caliph."
   },
@@ -10358,6 +10458,10 @@
   {
     "kind": "lesson",
     "text": "Umar began counting the Islamic years from the Hijrah."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3934"
   },
   {
     "kind": "question",
@@ -10388,10 +10492,6 @@
     "text": "Umar was hurt while leading ____ and died a few days later."
   },
   {
-    "kind": "question",
-    "text": "Umar was hurt while leading Isha and died a few days later."
-  },
-  {
     "kind": "lesson",
     "text": "Can you put Umar's life in order?"
   },
@@ -10418,6 +10518,10 @@
   {
     "kind": "lesson",
     "text": "Uthman married two daughters of the Prophet ﷺ."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3130"
   },
   {
     "kind": "question",
@@ -10484,12 +10588,12 @@
     "text": "Uthman bought a well and gave its water to everyone."
   },
   {
-    "kind": "question",
-    "text": "Uthman bought a ____ and gave its water to everyone."
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2778"
   },
   {
     "kind": "question",
-    "text": "horse"
+    "text": "Uthman bought a ____ and gave its water to everyone."
   },
   {
     "kind": "question",
@@ -10536,10 +10640,6 @@
     "text": "So everyone read from the same written Quran."
   },
   {
-    "kind": "question",
-    "text": "Uthman sent copies of the letters to Muslim cities."
-  },
-  {
     "kind": "lesson",
     "text": "Uthman paid for much of the army going to Tabuk."
   },
@@ -10556,12 +10656,12 @@
     "text": "Tabuk"
   },
   {
-    "kind": "question",
-    "text": "Uthman paid for much of the army going to Yemen."
-  },
-  {
     "kind": "lesson",
     "text": "After Umar, Uthman became the third caliph."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7207"
   },
   {
     "kind": "question",
@@ -10578,10 +10678,6 @@
   {
     "kind": "question",
     "text": "Abu Bakr and Umar led the Muslims before him."
-  },
-  {
-    "kind": "question",
-    "text": "After Umar, Uthman became the first caliph."
   },
   {
     "kind": "lesson",
@@ -10644,6 +10740,10 @@
     "text": "Ali was the Prophet's ﷺ cousin."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4513"
+  },
+  {
     "kind": "question",
     "text": "Ali was the Prophet's ﷺ ____."
   },
@@ -10704,6 +10804,10 @@
     "text": "In Madinah, Ali married Fatimah, the Prophet's ﷺ daughter."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3091"
+  },
+  {
     "kind": "question",
     "text": "In Madinah, Ali married ____, the Prophet's ﷺ daughter."
   },
@@ -10714,6 +10818,10 @@
   {
     "kind": "lesson",
     "text": "Ali was famous for his knowledge and wise judging."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4481"
   },
   {
     "kind": "question",
@@ -10760,10 +10868,6 @@
     "text": "He said its bearer loves Allah and His Messenger ﷺ."
   },
   {
-    "kind": "question",
-    "text": "At Khaybar, the Prophet ﷺ gave the horse to Ali."
-  },
-  {
     "kind": "lesson",
     "text": "Ali became the fourth caliph, after Uthman."
   },
@@ -10774,10 +10878,6 @@
   {
     "kind": "question",
     "text": "Abu Bakr, Umar and Uthman led the Muslims before him."
-  },
-  {
-    "kind": "question",
-    "text": "Ali became the first caliph, after Uthman."
   },
   {
     "kind": "lesson",
@@ -10924,10 +11024,6 @@
     "text": "He said it at the time of the Battle of Mu'tah."
   },
   {
-    "kind": "question",
-    "text": "The Prophet ﷺ called Khalid a shield of Allah."
-  },
-  {
     "kind": "lesson",
     "text": "When Umar replaced him as leader, Khalid obeyed."
   },
@@ -10962,10 +11058,6 @@
   {
     "kind": "question",
     "text": "Khalid fought in many battles but died in his ____."
-  },
-  {
-    "kind": "question",
-    "text": "Khalid fought in many battles but died in his tent."
   },
   {
     "kind": "lesson",
@@ -11068,6 +11160,10 @@
     "text": "Bilal was one of the first people to accept Islam."
   },
   {
+    "kind": "source",
+    "text": "Sunan Ibn Majah 150"
+  },
+  {
     "kind": "question",
     "text": "Bilal was one of the ____ people to accept Islam."
   },
@@ -11100,10 +11196,6 @@
     "text": "Umar said: Abu Bakr is our master, and he freed our master."
   },
   {
-    "kind": "question",
-    "text": "Abu Bakr bought Bilal and set him to work."
-  },
-  {
     "kind": "lesson",
     "text": "The Prophet ﷺ heard Bilal's footsteps in Paradise."
   },
@@ -11122,10 +11214,6 @@
   {
     "kind": "question",
     "text": "Bilal prayed after every wudu he made."
-  },
-  {
-    "kind": "question",
-    "text": "The Prophet ﷺ heard Bilal's horse in Paradise."
   },
   {
     "kind": "lesson",
@@ -11154,10 +11242,6 @@
   {
     "kind": "question",
     "text": "Ahad means One: Allah is One."
-  },
-  {
-    "kind": "question",
-    "text": "When they hurt him, Bilal stopped saying: Ahad, Ahad!"
   },
   {
     "kind": "lesson",
@@ -11284,6 +11368,10 @@
     "text": "Abu Ubaydah is one of the ten promised Paradise."
   },
   {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 3747"
+  },
+  {
     "kind": "question",
     "text": "Abu Ubaydah is one of the ____ promised Paradise."
   },
@@ -11328,12 +11416,12 @@
     "text": "Umar made Abu Ubaydah leader of the army in Sham."
   },
   {
-    "kind": "question",
-    "text": "Umar made Abu Ubaydah leader of the army in ____."
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5729"
   },
   {
     "kind": "question",
-    "text": "Umar made Abu Ubaydah leader of the army in Yemen."
+    "text": "Umar made Abu Ubaydah leader of the army in ____."
   },
   {
     "kind": "lesson",
@@ -11412,10 +11500,6 @@
     "text": "Talhah became Muslim early, invited by ____."
   },
   {
-    "kind": "question",
-    "text": "Talhah became Muslim early, invited by Khalid."
-  },
-  {
     "kind": "lesson",
     "text": "Talhah is one of the ten promised Paradise."
   },
@@ -11444,6 +11528,10 @@
     "text": "At Uhud, Talhah shielded the Prophet ﷺ with his own hand."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3724"
+  },
+  {
     "kind": "question",
     "text": "At Uhud, Talhah shielded the Prophet ﷺ with his own ____."
   },
@@ -11458,10 +11546,6 @@
   {
     "kind": "question",
     "text": "His hand was left unable to move."
-  },
-  {
-    "kind": "question",
-    "text": "At Uhud, Talhah shielded the Prophet ﷺ with his own horse."
   },
   {
     "kind": "lesson",
@@ -11532,6 +11616,10 @@
     "text": "Az-Zubayr married Asma, the daughter of Abu Bakr."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5224"
+  },
+  {
     "kind": "question",
     "text": "Az-Zubayr married ____, the daughter of Abu Bakr."
   },
@@ -11544,10 +11632,6 @@
     "text": "Asma was Aishah's older sister."
   },
   {
-    "kind": "question",
-    "text": "Az-Zubayr married Aishah, the daughter of Abu Bakr."
-  },
-  {
     "kind": "lesson",
     "text": "Az-Zubayr is one of the ten promised Paradise."
   },
@@ -11556,12 +11640,12 @@
     "text": "Az-Zubayr is one of the ____ promised Paradise."
   },
   {
-    "kind": "question",
-    "text": "Az-Zubayr is one of the two promised Paradise."
-  },
-  {
     "kind": "lesson",
     "text": "The Prophet ﷺ called Az-Zubayr his hawari, his special helper."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3719"
   },
   {
     "kind": "question",
@@ -11578,10 +11662,6 @@
   {
     "kind": "question",
     "text": "The helpers of Isa were called hawariyyun too."
-  },
-  {
-    "kind": "question",
-    "text": "The Prophet ﷺ called Az-Zubayr his hawari, his special cook."
   },
   {
     "kind": "lesson",
@@ -11608,12 +11688,12 @@
     "text": "Sa'd was from the family of the Prophet's ﷺ mother."
   },
   {
-    "kind": "question",
-    "text": "Sa'd was from the family of the Prophet's ﷺ ____."
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 3752"
   },
   {
     "kind": "question",
-    "text": "mother"
+    "text": "Sa'd was from the family of the Prophet's ﷺ ____."
   },
   {
     "kind": "question",
@@ -11622,6 +11702,10 @@
   {
     "kind": "lesson",
     "text": "Sa'd was one of the first few people to accept Islam."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3727"
   },
   {
     "kind": "question",
@@ -11634,6 +11718,10 @@
   {
     "kind": "lesson",
     "text": "When Sa'd became Muslim, his mother refused to eat."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 1748c"
   },
   {
     "kind": "question",
@@ -11660,6 +11748,10 @@
     "text": "The Prophet ﷺ prayed that Sa'd's du'as would be answered."
   },
   {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 3751"
+  },
+  {
     "kind": "question",
     "text": "The Prophet ﷺ prayed that Sa'd's du'as would be ____."
   },
@@ -11684,6 +11776,10 @@
     "text": "Sa'd was the first to shoot arrows for Allah's cause."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3728"
+  },
+  {
     "kind": "question",
     "text": "Sa'd was the first to shoot ____ for Allah's cause."
   },
@@ -11704,10 +11800,6 @@
     "text": "He was the first Arab to do it, before Badr."
   },
   {
-    "kind": "question",
-    "text": "Sa'd was the first to shoot spears for Allah's cause."
-  },
-  {
     "kind": "lesson",
     "text": "Can you put Sa'd's life in order?"
   },
@@ -11722,6 +11814,10 @@
   {
     "kind": "lesson",
     "text": "Salman grew up in Persia, far from Arabia."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3947"
   },
   {
     "kind": "question",
@@ -11762,6 +11858,10 @@
   {
     "kind": "lesson",
     "text": "While searching for the truth, Salman was sold as a slave."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3946"
   },
   {
     "kind": "question",
@@ -11816,10 +11916,6 @@
     "text": "date palms"
   },
   {
-    "kind": "question",
-    "text": "The Prophet ﷺ helped plant roses to set Salman free."
-  },
-  {
     "kind": "lesson",
     "text": "Salman traveled very far from home to find the truth."
   },
@@ -11834,10 +11930,6 @@
   {
     "kind": "question",
     "text": "find"
-  },
-  {
-    "kind": "question",
-    "text": "Salman traveled very far from home to hide the truth."
   },
   {
     "kind": "lesson",
@@ -11896,6 +11988,10 @@
     "text": "Abu Dharr grew up with the Ghifar tribe, outside Makkah."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3522"
+  },
+  {
     "kind": "question",
     "text": "Abu Dharr grew up with the ____ tribe, outside Makkah."
   },
@@ -11940,6 +12036,10 @@
     "text": "Abu Dharr bravely called out his Islam at the Ka'bah."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3861"
+  },
+  {
     "kind": "question",
     "text": "Abu Dharr bravely called out his Islam at the ____."
   },
@@ -11948,12 +12048,12 @@
     "text": "market"
   },
   {
-    "kind": "question",
-    "text": "Abu Dharr bravely called out his Islam at the market."
-  },
-  {
     "kind": "lesson",
     "text": "The Prophet ﷺ praised Abu Dharr for his truthful speech."
+  },
+  {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 3801"
   },
   {
     "kind": "question",
@@ -11962,10 +12062,6 @@
   {
     "kind": "question",
     "text": "truthful"
-  },
-  {
-    "kind": "question",
-    "text": "The Prophet ﷺ praised Abu Dharr for his loud speech."
   },
   {
     "kind": "lesson",
@@ -11988,10 +12084,6 @@
     "text": "fancy"
   },
   {
-    "kind": "question",
-    "text": "Abu Dharr lived a very fancy life."
-  },
-  {
     "kind": "lesson",
     "text": "Can you put Abu Dharr's life in order?"
   },
@@ -12002,6 +12094,18 @@
   {
     "kind": "lesson",
     "text": "Show what you know about Abu Dharr!"
+  },
+  {
+    "kind": "question",
+    "text": "Who was the mother of Abu Dharr al-Ghifari?"
+  },
+  {
+    "kind": "question",
+    "text": "Nasibah bint Uqbah"
+  },
+  {
+    "kind": "question",
+    "text": "Ramlah"
   },
   {
     "kind": "lesson",
@@ -12092,6 +12196,10 @@
     "text": "The Prophet ﷺ told Muslims to learn the Quran from Ibn Mas'ud."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3808"
+  },
+  {
     "kind": "question",
     "text": "The Prophet ﷺ told Muslims to learn the ____ from Ibn Mas'ud."
   },
@@ -12118,10 +12226,6 @@
   {
     "kind": "question",
     "text": "Umar sent Ibn Mas'ud to ____ to teach the people."
-  },
-  {
-    "kind": "question",
-    "text": "Umar sent Ibn Mas'ud to Rome to teach the people."
   },
   {
     "kind": "lesson",
@@ -12152,6 +12256,10 @@
     "text": "Anas's mother, Umm Sulaym, brought him to serve the Prophet ﷺ."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6334"
+  },
+  {
     "kind": "question",
     "text": "Anas's mother, ____, brought him to serve the Prophet ﷺ."
   },
@@ -12162,6 +12270,10 @@
   {
     "kind": "lesson",
     "text": "When the Prophet ﷺ came to Madinah, Anas was about ten."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5166"
   },
   {
     "kind": "question",
@@ -12396,10 +12508,6 @@
     "text": "pray"
   },
   {
-    "kind": "question",
-    "text": "The guided believe in the unseen, sleep, and give."
-  },
-  {
     "kind": "lesson",
     "text": "Ayat al-Kursi is the greatest ayah in the Quran."
   },
@@ -12428,10 +12536,6 @@
     "text": "It is ayah 255 of Al-Baqarah."
   },
   {
-    "kind": "question",
-    "text": "Ayat al-Kursi is the greatest surah in the Quran."
-  },
-  {
     "kind": "lesson",
     "text": "Al-Baqarah's last ayahs say: we hear and we obey."
   },
@@ -12450,6 +12554,10 @@
   {
     "kind": "question",
     "text": "obey"
+  },
+  {
+    "kind": "question",
+    "text": "What does the name Surah Al-Baqarah mean?"
   },
   {
     "kind": "lesson",
@@ -12502,10 +12610,6 @@
   {
     "kind": "question",
     "text": "Many scholars explain Allah's rope as the Quran."
-  },
-  {
-    "kind": "question",
-    "text": "Hold on to Allah's kite together, and don't split up."
   },
   {
     "kind": "lesson",
@@ -12616,10 +12720,6 @@
     "text": "thieves"
   },
   {
-    "kind": "question",
-    "text": "An-Nisa protects kings and their money."
-  },
-  {
     "kind": "lesson",
     "text": "An-Nisa says: be good to your parents and relatives."
   },
@@ -12642,10 +12742,6 @@
   {
     "kind": "question",
     "text": "phones"
-  },
-  {
-    "kind": "question",
-    "text": "An-Nisa says: be good to your phones and relatives."
   },
   {
     "kind": "lesson",
@@ -12760,10 +12856,6 @@
     "text": "What people like"
   },
   {
-    "kind": "question",
-    "text": "Al-Ma'idah says to judge by what people like."
-  },
-  {
     "kind": "lesson",
     "text": "Al-Ma'idah: keep promises, make wudu, and eat halal."
   },
@@ -12844,12 +12936,16 @@
     "text": "prison"
   },
   {
-    "kind": "lesson",
-    "text": "Yusuf forgave his brothers when they met again."
+    "kind": "question",
+    "text": "How many ayahs does Surah Yusuf have?"
   },
   {
-    "kind": "source",
-    "text": "Quran 12:92"
+    "kind": "question",
+    "text": "It has 111 ayahs."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yusuf forgave his brothers when they met again."
   },
   {
     "kind": "question",
@@ -12865,7 +12961,7 @@
   },
   {
     "kind": "question",
-    "text": "Yusuf punished his brothers when they met again."
+    "text": "Surah Yusuf was revealed in Makkah."
   },
   {
     "kind": "lesson",
@@ -12912,12 +13008,12 @@
     "text": "No one had that name before him."
   },
   {
-    "kind": "question",
-    "text": "Allah answered Zakariyya with a son named Musa."
-  },
-  {
     "kind": "lesson",
     "text": "Maryam trusted Allah when baby Isa was born."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 19:23-26"
   },
   {
     "kind": "question",
@@ -12989,11 +13085,15 @@
   },
   {
     "kind": "question",
-    "text": "A man was proud of his two houses, then they were ruined."
+    "text": "Surah Al-Kahf was revealed in Makkah."
   },
   {
     "kind": "lesson",
     "text": "Musa traveled to learn from a wise servant of Allah, Khidr."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 122"
   },
   {
     "kind": "question",
@@ -13014,6 +13114,10 @@
   {
     "kind": "lesson",
     "text": "Dhul-Qarnayn was a strong ruler who built a great wall."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 18:94-98"
   },
   {
     "kind": "question",
@@ -13081,7 +13185,11 @@
   },
   {
     "kind": "question",
-    "text": "Ya-Sin says the sun and moon each sleep in an orbit."
+    "text": "Surah Ya-Sin was revealed in Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Surah Ya-Sin was revealed in Makkah."
   },
   {
     "kind": "lesson",
@@ -13122,10 +13230,6 @@
   {
     "kind": "question",
     "text": "messengers"
-  },
-  {
-    "kind": "question",
-    "text": "In Ya-Sin, a man ran to tell his town: follow the kings."
   },
   {
     "kind": "lesson",
@@ -13172,6 +13276,14 @@
     "text": "It says best in deeds, not most in deeds."
   },
   {
+    "kind": "question",
+    "text": "Surah Al-Mulk was revealed in Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Surah Al-Mulk was revealed in Makkah."
+  },
+  {
     "kind": "lesson",
     "text": "Look at the sky again and again; you will see no cracks."
   },
@@ -13196,10 +13308,6 @@
     "text": "Allah decorated the nearest sky with stars like lamps."
   },
   {
-    "kind": "question",
-    "text": "Look at the sky again and again; you will see no stars."
-  },
-  {
     "kind": "lesson",
     "text": "Al-Mulk asks who could bring back your water if it sank away."
   },
@@ -13218,10 +13326,6 @@
   {
     "kind": "question",
     "text": "Only Allah gives us water and every blessing."
-  },
-  {
-    "kind": "question",
-    "text": "Al-Mulk asks who could bring back your gold if it sank away."
   },
   {
     "kind": "lesson",
@@ -13290,6 +13394,10 @@
   {
     "kind": "lesson",
     "text": "Lut bravely told his people to stop doing wrong."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 7:80-81"
   },
   {
     "kind": "question",
@@ -13405,22 +13513,6 @@
   },
   {
     "kind": "question",
-    "text": "Who was the mother of Ishaq?"
-  },
-  {
-    "kind": "lesson",
-    "text": "Allah taught Yusuf to explain dreams."
-  },
-  {
-    "kind": "question",
-    "text": "Allah taught Yusuf to explain stars."
-  },
-  {
-    "kind": "lesson",
-    "text": "Let's remember Ismail, Ishaq and Ya'qub!"
-  },
-  {
-    "kind": "question",
     "text": "Who was the father of Ishaq?"
   },
   {
@@ -13430,6 +13522,22 @@
   {
     "kind": "question",
     "text": "Dawud"
+  },
+  {
+    "kind": "question",
+    "text": "Who was the mother of Ishaq?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah taught Yusuf to explain dreams."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:101"
+  },
+  {
+    "kind": "lesson",
+    "text": "Let's remember Ismail, Ishaq and Ya'qub!"
   },
   {
     "kind": "lesson",
@@ -13516,10 +13624,6 @@
     "text": "He smiled at an ant and thanked Allah."
   },
   {
-    "kind": "question",
-    "text": "Sulayman understood the stars and the ants, and thanked Allah."
-  },
-  {
     "kind": "lesson",
     "text": "Let's remember Musa, Harun, Dawud and Sulayman!"
   },
@@ -13540,24 +13644,16 @@
     "text": "They said: Our Lord, we have wronged ourselves."
   },
   {
+    "kind": "lesson",
+    "text": "Allah brought baby Musa back to his mother."
+  },
+  {
     "kind": "source",
     "text": "Quran 28:13"
   },
   {
-    "kind": "question",
-    "text": "Allah brought baby Musa back to his ____."
-  },
-  {
-    "kind": "question",
-    "text": "Asiyah asked Allah for a ____ near Him in Paradise."
-  },
-  {
-    "kind": "question",
-    "text": "house"
-  },
-  {
-    "kind": "question",
-    "text": "crown"
+    "kind": "lesson",
+    "text": "Asiyah asked Allah for a house near Him in Paradise."
   },
   {
     "kind": "question",
@@ -13620,16 +13716,16 @@
     "text": "Mother: Ash-Shamus bint Qays"
   },
   {
+    "kind": "source",
+    "text": "Sahih Muslim 1463b"
+  },
+  {
     "kind": "question",
     "text": "Sawdah married the Prophet ﷺ after ____ passed away."
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 3662"
-  },
-  {
-    "kind": "question",
-    "text": "Asked who he loved most, the Prophet ﷺ said: ____."
+    "kind": "lesson",
+    "text": "Asked who he loved most, the Prophet ﷺ said: Aishah."
   },
   {
     "kind": "lesson",
@@ -13676,20 +13772,12 @@
     "text": "When Zakariyya asked, she said: it is from Allah."
   },
   {
-    "kind": "question",
-    "text": "Maryam prayed in her room, and Allah sent her letters."
-  },
-  {
     "kind": "lesson",
     "text": "Khadijah comforted the Prophet ﷺ after the first revelation."
   },
   {
     "kind": "source",
     "text": "Sahih al-Bukhari 3"
-  },
-  {
-    "kind": "question",
-    "text": "Khadijah scolded the Prophet ﷺ after the first revelation."
   },
   {
     "kind": "lesson",
@@ -13717,34 +13805,6 @@
   },
   {
     "kind": "question",
-    "text": "Allah rewards the good deeds of men only."
-  },
-  {
-    "kind": "question",
-    "text": "Which tribe was Maymunah bint al-Harith from?"
-  },
-  {
-    "kind": "question",
-    "text": "Banu Nadir"
-  },
-  {
-    "kind": "question",
-    "text": "Banu Hilal"
-  },
-  {
-    "kind": "question",
-    "text": "Banu Kilab"
-  },
-  {
-    "kind": "question",
-    "text": "Banu Mustaliq"
-  },
-  {
-    "kind": "lesson",
-    "text": "Show what you know about the Mothers of the Believers!"
-  },
-  {
-    "kind": "question",
     "text": "Who was the father of Zaynab bint Khuzaymah?"
   },
   {
@@ -13761,6 +13821,46 @@
   },
   {
     "kind": "question",
+    "text": "Which tribe was Safiyyah bint Huyayy from?"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Nadir"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Qurayza"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Sa'd ibn Bakr"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Hanifa"
+  },
+  {
+    "kind": "lesson",
+    "text": "Show what you know about the Mothers of the Believers!"
+  },
+  {
+    "kind": "question",
+    "text": "Which tribe was Maymunah bint al-Harith from?"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Hilal"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Kilab"
+  },
+  {
+    "kind": "question",
+    "text": "Banu Mustaliq"
+  },
+  {
+    "kind": "question",
     "text": "Where was Zaynab bint Jahsh born?"
   },
   {
@@ -13770,6 +13870,10 @@
   {
     "kind": "question",
     "text": "Tihamah"
+  },
+  {
+    "kind": "question",
+    "text": "Which tribe was Umm Habibah from?"
   },
   {
     "kind": "lesson",
@@ -13856,6 +13960,10 @@
     "text": "Tawhid in daily life means we trust Allah in everything."
   },
   {
+    "kind": "source",
+    "text": "Quran 65:3"
+  },
+  {
     "kind": "question",
     "text": "Tawhid in daily life means we ____ Allah in everything."
   },
@@ -13870,10 +13978,6 @@
   {
     "kind": "question",
     "text": "Trusting Allah is called tawakkul."
-  },
-  {
-    "kind": "question",
-    "text": "Tawhid in daily life means we forget Allah in everything."
   },
   {
     "kind": "lesson",
@@ -13924,6 +14028,10 @@
     "text": "On the Last Day, everyone will stand before Allah."
   },
   {
+    "kind": "source",
+    "text": "Quran 83:6"
+  },
+  {
     "kind": "question",
     "text": "On the ____, everyone will stand before Allah."
   },
@@ -13942,6 +14050,10 @@
   {
     "kind": "lesson",
     "text": "Qadar means nothing happens unless Allah wills it."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 81:29"
   },
   {
     "kind": "question",
@@ -13980,6 +14092,10 @@
     "text": "Al-Alim means Allah knows everything, even our secrets."
   },
   {
+    "kind": "source",
+    "text": "Quran 20:7"
+  },
+  {
     "kind": "question",
     "text": "____ means Allah knows everything, even our secrets."
   },
@@ -13988,24 +14104,24 @@
     "text": "Ar-Rahman"
   },
   {
-    "kind": "question",
-    "text": "Al-Malik means Allah knows everything, even our secrets."
-  },
-  {
     "kind": "lesson",
     "text": "Al-Malik means Allah is the King of everything."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:23"
   },
   {
     "kind": "question",
     "text": "____ means Allah is the King of everything."
   },
   {
-    "kind": "question",
-    "text": "Al-Alim means Allah is the King of everything."
-  },
-  {
     "kind": "lesson",
     "text": "Al-Ghafur means Allah is the One who forgives."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 39:53"
   },
   {
     "kind": "question",
@@ -14016,16 +14132,16 @@
     "text": "Allah says: call on Him by His beautiful names."
   },
   {
-    "kind": "question",
-    "text": "Al-Malik means Allah is the One who forgives."
-  },
-  {
     "kind": "lesson",
     "text": "Ar-Rahman, Al-Alim, Al-Malik, Al-Ghafur: names of Allah."
   },
   {
     "kind": "lesson",
     "text": "Belief in Allah shows in how we act."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 103:2-3"
   },
   {
     "kind": "question",
@@ -14068,10 +14184,6 @@
     "text": "Never give up on Allah's mercy; He forgives."
   },
   {
-    "kind": "source",
-    "text": "Quran 39:53"
-  },
-  {
     "kind": "question",
     "text": "Never give up on Allah's ____; He forgives."
   },
@@ -14088,6 +14200,10 @@
     "text": "Strong iman makes a person humble, not proud."
   },
   {
+    "kind": "source",
+    "text": "Sahih Muslim 2588"
+  },
+  {
     "kind": "question",
     "text": "Strong iman makes a person ____, not proud."
   },
@@ -14102,10 +14218,6 @@
   {
     "kind": "question",
     "text": "Whoever is humble for Allah, Allah raises him up."
-  },
-  {
-    "kind": "question",
-    "text": "Strong iman makes a person rude, not proud."
   },
   {
     "kind": "lesson",
@@ -14200,10 +14312,6 @@
     "text": "shopping"
   },
   {
-    "kind": "question",
-    "text": "Allah says shopping is for Him, and He rewards it."
-  },
-  {
     "kind": "lesson",
     "text": "We fast for taqwa, in the month the Quran came down."
   },
@@ -14226,10 +14334,6 @@
   {
     "kind": "lesson",
     "text": "The fast lasts from dawn to sunset."
-  },
-  {
-    "kind": "source",
-    "text": "Quran 2:187"
   },
   {
     "kind": "question",
@@ -14256,6 +14360,10 @@
     "text": "Iftar is the meal at sunset that ends the fast."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1954"
+  },
+  {
     "kind": "question",
     "text": "____ is the meal at sunset that ends the fast."
   },
@@ -14278,10 +14386,6 @@
   {
     "kind": "question",
     "text": "Allah wants ease for us, not hardship."
-  },
-  {
-    "kind": "question",
-    "text": "People who are busy may make up the fast later."
   },
   {
     "kind": "lesson",
@@ -14312,10 +14416,6 @@
     "text": "If someone starts a fight, say: I am fasting."
   },
   {
-    "kind": "question",
-    "text": "A fasting person stays away from kind words and fights."
-  },
-  {
     "kind": "lesson",
     "text": "If you eat because you forgot, your fast still counts."
   },
@@ -14344,12 +14444,12 @@
     "text": "The Prophet ﷺ said it was Allah who fed you."
   },
   {
-    "kind": "question",
-    "text": "If you eat because you wanted to, your fast still counts."
-  },
-  {
     "kind": "lesson",
     "text": "Friends eating near you is no reason to break your fast."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1894"
   },
   {
     "kind": "question",
@@ -14374,6 +14474,10 @@
   {
     "kind": "lesson",
     "text": "At night in Ramadan, Muslims pray Taraweeh."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 37"
   },
   {
     "kind": "question",
@@ -14436,6 +14540,10 @@
     "text": "The deeds Allah loves most are done regularly, even if small."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6464"
+  },
+  {
     "kind": "question",
     "text": "The deeds Allah loves most are done ____, even if small."
   },
@@ -14448,16 +14556,16 @@
     "text": "once"
   },
   {
-    "kind": "question",
-    "text": "The deeds Allah loves most are done once, even if small."
-  },
-  {
     "kind": "lesson",
     "text": "Ramadan: Taraweeh, Quran, Laylat al-Qadr, and habits that last."
   },
   {
     "kind": "lesson",
     "text": "Zakat means giving part of your wealth to people in need."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 9:60"
   },
   {
     "kind": "question",
@@ -14480,6 +14588,10 @@
     "text": "Zakat makes your wealth pure and your heart clean."
   },
   {
+    "kind": "source",
+    "text": "Quran 9:103"
+  },
+  {
     "kind": "question",
     "text": "Zakat makes your wealth ____ and your heart clean."
   },
@@ -14500,12 +14612,12 @@
     "text": "The word zakat means to purify and to grow."
   },
   {
-    "kind": "question",
-    "text": "Zakat makes your wealth dirty and your heart clean."
-  },
-  {
     "kind": "lesson",
     "text": "Zakat on savings is 2.5 percent each year."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1454"
   },
   {
     "kind": "question",
@@ -14516,12 +14628,12 @@
     "text": "That is one part out of every forty."
   },
   {
-    "kind": "question",
-    "text": "Zakat on savings is 10 percent each year."
-  },
-  {
     "kind": "lesson",
     "text": "Zakat is due when savings reach the nisab for a year."
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 1573"
   },
   {
     "kind": "question",
@@ -14550,10 +14662,6 @@
   {
     "kind": "lesson",
     "text": "The Quran names eight groups who may receive zakat."
-  },
-  {
-    "kind": "source",
-    "text": "Quran 9:60"
   },
   {
     "kind": "question",
@@ -14664,6 +14772,10 @@
     "text": "Give kindly, and never make the person feel small."
   },
   {
+    "kind": "source",
+    "text": "Quran 2:264"
+  },
+  {
     "kind": "question",
     "text": "Give kindly, and never make the person feel ____."
   },
@@ -14688,6 +14800,10 @@
     "text": "Once zakat is due, pay it soon."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1430"
+  },
+  {
     "kind": "question",
     "text": "Once zakat is due, pay it ____."
   },
@@ -14704,6 +14820,10 @@
     "text": "Our wealth is a trust from Allah."
   },
   {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 2417"
+  },
+  {
     "kind": "question",
     "text": "Our wealth is a ____ from Allah."
   },
@@ -14712,16 +14832,16 @@
     "text": "We will be asked how we earned it and spent it."
   },
   {
-    "kind": "question",
-    "text": "Our wealth is a toy from Allah."
-  },
-  {
     "kind": "lesson",
     "text": "Give for Allah, kindly and on time, as a trust."
   },
   {
     "kind": "lesson",
     "text": "Zakat is required; sadaqah is extra charity."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 46"
   },
   {
     "kind": "question",
@@ -14768,10 +14888,6 @@
     "text": "The Prophet ﷺ told Abu Dharr to do this."
   },
   {
-    "kind": "question",
-    "text": "When you cook soup, add water and keep it all yourself."
-  },
-  {
     "kind": "lesson",
     "text": "Spending on your own family is a charity too."
   },
@@ -14796,10 +14912,6 @@
     "text": "Spend for Allah's sake, and it counts as charity."
   },
   {
-    "kind": "question",
-    "text": "Spending on your own pride is a charity too."
-  },
-  {
     "kind": "lesson",
     "text": "When spending, don't waste and don't be stingy."
   },
@@ -14810,10 +14922,6 @@
   {
     "kind": "question",
     "text": "When spending, don't waste and don't be ____."
-  },
-  {
-    "kind": "question",
-    "text": "When spending, don't waste and don't be kind."
   },
   {
     "kind": "lesson",
@@ -14844,6 +14952,10 @@
     "text": "Hajj is due once in life for those who are able."
   },
   {
+    "kind": "source",
+    "text": "Quran 3:97"
+  },
+  {
     "kind": "question",
     "text": "Hajj is due once in life for those who are ____."
   },
@@ -14860,6 +14972,10 @@
     "text": "Go to Hajj only for Allah, not to show off."
   },
   {
+    "kind": "source",
+    "text": "Quran 2:196"
+  },
+  {
     "kind": "question",
     "text": "Go to Hajj only for ____, not to show off."
   },
@@ -14870,6 +14986,10 @@
   {
     "kind": "lesson",
     "text": "The Ka'bah in Makkah is the House of Allah."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:125"
   },
   {
     "kind": "question",
@@ -14892,6 +15012,10 @@
     "text": "In ihram, men wear two simple cloths."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1545"
+  },
+  {
     "kind": "question",
     "text": "In ihram, men wear ____ simple cloths."
   },
@@ -14908,16 +15032,20 @@
     "text": "Tawaf means walking around the Ka'bah seven times."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1645"
+  },
+  {
     "kind": "question",
     "text": "____ means walking around the Ka'bah seven times."
   },
   {
-    "kind": "question",
-    "text": "Sa'i means walking around the Ka'bah seven times."
-  },
-  {
     "kind": "lesson",
     "text": "Sa'i is walking between Safa and Marwah seven times."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3364"
   },
   {
     "kind": "question",
@@ -14928,12 +15056,12 @@
     "text": "It remembers Hajar, who ran there looking for water."
   },
   {
-    "kind": "question",
-    "text": "Tawaf is walking between Safa and Marwah seven times."
-  },
-  {
     "kind": "lesson",
     "text": "Hajj days: Mina, then Arafah, Muzdalifah, and back to Mina."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 1218a"
   },
   {
     "kind": "question",
@@ -14984,16 +15112,20 @@
     "text": "At Mina, pilgrims throw small pebbles at the pillars."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1751"
+  },
+  {
     "kind": "question",
     "text": "At ____, pilgrims throw small pebbles at the pillars."
   },
   {
-    "kind": "question",
-    "text": "At Arafah, pilgrims throw small pebbles at the pillars."
-  },
-  {
     "kind": "lesson",
     "text": "After the sacrifice, men shave or cut their hair."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 1305a"
   },
   {
     "kind": "question",
@@ -15006,10 +15138,6 @@
   {
     "kind": "question",
     "text": "clothes"
-  },
-  {
-    "kind": "question",
-    "text": "After the sacrifice, men shave or cut their clothes."
   },
   {
     "kind": "question",
@@ -15036,6 +15164,10 @@
     "text": "In Hajj, rich and poor wear the same simple clothes."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1542"
+  },
+  {
     "kind": "question",
     "text": "In Hajj, rich and poor wear the same simple ____."
   },
@@ -15060,16 +15192,20 @@
     "text": "Muslims from every country face one Ka'bah together."
   },
   {
+    "kind": "source",
+    "text": "Quran 2:144"
+  },
+  {
     "kind": "question",
     "text": "Muslims from every country face one ____ together."
   },
   {
-    "kind": "question",
-    "text": "Muslims from every country face one mountain together."
-  },
-  {
     "kind": "lesson",
     "text": "Hajj teaches patience in big crowds and hot sun."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:197"
   },
   {
     "kind": "question",
@@ -15082,10 +15218,6 @@
   {
     "kind": "question",
     "text": "Allah says there is no arguing in Hajj."
-  },
-  {
-    "kind": "question",
-    "text": "Hajj teaches anger in big crowds and hot sun."
   },
   {
     "kind": "lesson",
@@ -15106,10 +15238,6 @@
   {
     "kind": "question",
     "text": "That is for a Hajj without bad words or bad deeds."
-  },
-  {
-    "kind": "question",
-    "text": "A good Hajj leaves you free of friends, like a newborn."
   },
   {
     "kind": "lesson",
@@ -15660,10 +15788,6 @@
     "text": "I have left among you the Book of Allah, and if you hold fast to it, you would never go astray."
   },
   {
-    "kind": "source",
-    "text": "Sahih Muslim 1218a"
-  },
-  {
     "kind": "question",
     "text": "What did the Prophet ﷺ leave us, so we never go astray?"
   },
@@ -15888,6 +16012,10 @@
     "text": "He stayed patient through illness and loss, and Allah healed him."
   },
   {
+    "kind": "source",
+    "text": "Quran 21:83-84"
+  },
+  {
     "kind": "question",
     "text": "What is Ayyub known for?"
   },
@@ -15916,6 +16044,10 @@
     "text": "The Quran praises him as one of the patient."
   },
   {
+    "kind": "source",
+    "text": "Quran 21:85"
+  },
+  {
     "kind": "question",
     "text": "What is Dhul-Kifl known for?"
   },
@@ -15930,6 +16062,10 @@
   {
     "kind": "lesson",
     "text": "Allah raised him to a high place."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 19:57"
   },
   {
     "kind": "question",
@@ -15952,6 +16088,10 @@
     "text": "Who is this? Allah raised him to a high place."
   },
   {
+    "kind": "source",
+    "text": "Quran 37:123-125"
+  },
+  {
     "kind": "question",
     "text": "What is Ilyas known for?"
   },
@@ -15972,8 +16112,16 @@
     "text": "Mother: Sarah"
   },
   {
+    "kind": "source",
+    "text": "Quran 11:71"
+  },
+  {
     "kind": "lesson",
     "text": "He was a prophet sent to the people of Madyan."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 7:85"
   },
   {
     "kind": "question",
@@ -15990,6 +16138,10 @@
   {
     "kind": "lesson",
     "text": "Father: Zakariyya"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 3:39"
   },
   {
     "kind": "question",
@@ -16010,6 +16162,10 @@
   {
     "kind": "lesson",
     "text": "Father: Matta"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 37:139-148"
   },
   {
     "kind": "question",
@@ -16098,10 +16254,6 @@
   {
     "kind": "question",
     "text": "Natilah bint Janab"
-  },
-  {
-    "kind": "question",
-    "text": "Ramlah"
   },
   {
     "kind": "question",
@@ -16208,6 +16360,10 @@
     "text": "Mother: Natilah bint Janab"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1634"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Abbas ibn Abd al-Muttalib?"
   },
@@ -16264,6 +16420,10 @@
     "text": "Clan: Banu Sahm"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 113"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Abdullah ibn Amr ibn al-As?"
   },
@@ -16310,6 +16470,10 @@
   {
     "kind": "lesson",
     "text": "Passed away at Mount Uhud"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1351"
   },
   {
     "kind": "question",
@@ -16397,10 +16561,6 @@
   },
   {
     "kind": "question",
-    "text": "Nasibah bint Uqbah"
-  },
-  {
-    "kind": "question",
     "text": "Where was Abdullah ibn Jahsh born?"
   },
   {
@@ -16422,6 +16582,10 @@
   {
     "kind": "lesson",
     "text": "Clan: Banu Amr ibn Awf"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3039"
   },
   {
     "kind": "question",
@@ -16470,6 +16634,10 @@
   {
     "kind": "lesson",
     "text": "Born in Madinah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4261"
   },
   {
     "kind": "question",
@@ -16634,10 +16802,6 @@
   {
     "kind": "question",
     "text": "Hakim ibn Umayyah"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Abu Dharr al-Ghifari?"
   },
   {
     "kind": "lesson",
@@ -16830,6 +16994,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Fatimah az-Zahra"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2704"
   },
   {
     "kind": "question",
@@ -17052,6 +17220,10 @@
     "text": "Tribe: Khath'am"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4230"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Asma bint Umays?"
   },
@@ -17126,6 +17298,10 @@
   {
     "kind": "lesson",
     "text": "Tribe: Thaqif"
+  },
+  {
+    "kind": "source",
+    "text": "Jami` at-Tirmidhi 1128"
   },
   {
     "kind": "question",
@@ -17320,6 +17496,10 @@
     "text": "Clan: Banu Nawfal"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4854"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Jubayr ibn Mut'im?"
   },
@@ -17334,6 +17514,10 @@
   {
     "kind": "lesson",
     "text": "He married at the Prophet's ﷺ request and was later martyred."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2472"
   },
   {
     "kind": "question",
@@ -17380,6 +17564,10 @@
     "text": "He was one of the three forgiven for staying behind from Tabuk."
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4418"
+  },
+  {
     "kind": "question",
     "text": "Which tribe was Ka'b ibn Malik from?"
   },
@@ -17394,6 +17582,10 @@
   {
     "kind": "lesson",
     "text": "Passed away in Kufa"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3612"
   },
   {
     "kind": "question",
@@ -17516,6 +17708,10 @@
     "text": "Mother: Khunas bint Malik"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3925"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Mus'ab ibn Umayr?"
   },
@@ -17578,6 +17774,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Amrah bint Mas'ud"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4141"
   },
   {
     "kind": "question",
@@ -17704,6 +17904,10 @@
     "text": "Tribe: Kinanah"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3906"
+  },
+  {
     "kind": "question",
     "text": "What is Suraqah ibn Malik known for?"
   },
@@ -17730,6 +17934,10 @@
   {
     "kind": "lesson",
     "text": "Passed away in Palestine"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2942a"
   },
   {
     "kind": "question",
@@ -17852,6 +18060,10 @@
     "text": "Born in Tihamah"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3388"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Umm Ruman?"
   },
@@ -17866,6 +18078,10 @@
   {
     "kind": "lesson",
     "text": "The Prophet ﷺ blessed his trade: even dust would earn him profit."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3642"
   },
   {
     "kind": "question",
@@ -17890,6 +18106,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Umm Ayman"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4469"
   },
   {
     "kind": "question",
@@ -17992,6 +18212,10 @@
     "text": "Tribe: Banu Kalb"
   },
   {
+    "kind": "source",
+    "text": "Quran 33:37"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Zayd ibn Harithah?"
   },
@@ -18074,6 +18298,10 @@
   {
     "kind": "lesson",
     "text": "Mother: Lubabah bint al-Harith"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 75"
   },
   {
     "kind": "question",
@@ -18172,12 +18400,8 @@
     "text": "Which tribe was Barrah bint Samaw'al from?"
   },
   {
-    "kind": "question",
-    "text": "Banu Qurayza"
-  },
-  {
-    "kind": "question",
-    "text": "Banu Hanifa"
+    "kind": "source",
+    "text": "Quran 3:35"
   },
   {
     "kind": "question",
@@ -18252,10 +18476,6 @@
     "text": "Which tribe was Halimah as-Sa'diyyah from?"
   },
   {
-    "kind": "question",
-    "text": "Banu Sa'd ibn Bakr"
-  },
-  {
     "kind": "lesson",
     "text": "She married the Prophet ﷺ, and her people were set free."
   },
@@ -18266,6 +18486,10 @@
   {
     "kind": "lesson",
     "text": "Tribe: Banu Mustaliq"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 3931"
   },
   {
     "kind": "question",
@@ -18372,16 +18596,16 @@
     "text": "Tribe: Banu Nadir"
   },
   {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4211"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Safiyyah bint Huyayy?"
   },
   {
     "kind": "question",
     "text": "Who was the mother of Safiyyah bint Huyayy?"
-  },
-  {
-    "kind": "question",
-    "text": "Which tribe was Safiyyah bint Huyayy from?"
   },
   {
     "kind": "lesson",
@@ -18492,16 +18716,16 @@
     "text": "Mother: Safiyyah bint Abi al-As"
   },
   {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 2086"
+  },
+  {
     "kind": "question",
     "text": "Who was the father of Umm Habibah?"
   },
   {
     "kind": "question",
     "text": "Who was the mother of Umm Habibah?"
-  },
-  {
-    "kind": "question",
-    "text": "Which tribe was Umm Habibah from?"
   },
   {
     "kind": "lesson",
@@ -18612,8 +18836,8 @@
     "text": "Revealed in Madinah"
   },
   {
-    "kind": "question",
-    "text": "What does the name Surah Al-Baqarah mean?"
+    "kind": "source",
+    "text": "Quran 2"
   },
   {
     "kind": "question",
@@ -18664,6 +18888,10 @@
     "text": "176 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 4"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah An-Nisa mean?"
   },
@@ -18692,6 +18920,10 @@
     "text": "120 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 5"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-Ma'idah mean?"
   },
@@ -18716,6 +18948,10 @@
     "text": "Revealed in Makkah"
   },
   {
+    "kind": "source",
+    "text": "Quran 6"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-An'am mean?"
   },
@@ -18738,6 +18974,10 @@
   {
     "kind": "lesson",
     "text": "206 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 7"
   },
   {
     "kind": "question",
@@ -18768,6 +19008,10 @@
     "text": "75 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 8"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-Anfal mean?"
   },
@@ -18790,6 +19034,10 @@
   {
     "kind": "lesson",
     "text": "129 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 9"
   },
   {
     "kind": "question",
@@ -18844,6 +19092,10 @@
     "text": "123 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 11"
+  },
+  {
     "kind": "question",
     "text": "Surah Hud was revealed in Madinah."
   },
@@ -18872,24 +19124,16 @@
     "text": "Quran 12:1"
   },
   {
-    "kind": "question",
-    "text": "Surah Yusuf was revealed in Makkah."
-  },
-  {
-    "kind": "question",
-    "text": "How many ayahs does Surah Yusuf have?"
-  },
-  {
-    "kind": "question",
-    "text": "It has 111 ayahs."
-  },
-  {
     "kind": "lesson",
     "text": "Surah Ar-Ra'd means \"The Thunder\"."
   },
   {
     "kind": "lesson",
     "text": "43 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 13"
   },
   {
     "kind": "question",
@@ -18910,6 +19154,10 @@
   {
     "kind": "lesson",
     "text": "52 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 14"
   },
   {
     "kind": "question",
@@ -18964,6 +19212,10 @@
     "text": "128 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 16"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah An-Nahl mean?"
   },
@@ -18986,6 +19238,10 @@
   {
     "kind": "lesson",
     "text": "Surah Al-Isra means \"The Night Journey\"."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 17"
   },
   {
     "kind": "question",
@@ -19012,12 +19268,12 @@
     "text": "110 ayahs"
   },
   {
-    "kind": "question",
-    "text": "What does the name Surah Al-Kahf mean?"
+    "kind": "source",
+    "text": "Quran 18"
   },
   {
     "kind": "question",
-    "text": "Surah Al-Kahf was revealed in Makkah."
+    "text": "What does the name Surah Al-Kahf mean?"
   },
   {
     "kind": "question",
@@ -19120,6 +19376,10 @@
     "text": "78 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 22"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-Hajj mean?"
   },
@@ -19168,6 +19428,10 @@
     "text": "64 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 24"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah An-Nur mean?"
   },
@@ -19194,6 +19458,10 @@
   {
     "kind": "lesson",
     "text": "77 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 25"
   },
   {
     "kind": "question",
@@ -19312,6 +19580,10 @@
     "text": "69 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 29"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-'Ankabut mean?"
   },
@@ -19420,6 +19692,10 @@
     "text": "73 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 33"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-Ahzab mean?"
   },
@@ -19442,6 +19718,10 @@
   {
     "kind": "lesson",
     "text": "54 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 34"
   },
   {
     "kind": "question",
@@ -19468,6 +19748,10 @@
     "text": "45 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 35"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Fatir mean?"
   },
@@ -19490,14 +19774,6 @@
   {
     "kind": "lesson",
     "text": "83 ayahs"
-  },
-  {
-    "kind": "question",
-    "text": "Surah Ya-Sin was revealed in Madinah."
-  },
-  {
-    "kind": "question",
-    "text": "Surah Ya-Sin was revealed in Makkah."
   },
   {
     "kind": "question",
@@ -19638,6 +19914,10 @@
   {
     "kind": "lesson",
     "text": "53 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 42"
   },
   {
     "kind": "question",
@@ -19788,6 +20068,10 @@
     "text": "38 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 47"
+  },
+  {
     "kind": "question",
     "text": "Surah Muhammad was revealed in Madinah."
   },
@@ -19830,6 +20114,10 @@
   {
     "kind": "lesson",
     "text": "18 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49"
   },
   {
     "kind": "question",
@@ -20048,6 +20336,10 @@
     "text": "22 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 58"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-Mujadila mean?"
   },
@@ -20076,6 +20368,10 @@
     "text": "24 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 59"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-Hashr mean?"
   },
@@ -20098,6 +20394,10 @@
   {
     "kind": "lesson",
     "text": "13 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 60"
   },
   {
     "kind": "question",
@@ -20124,6 +20424,10 @@
     "text": "14 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 61"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah As-Saf mean?"
   },
@@ -20142,6 +20446,10 @@
   {
     "kind": "lesson",
     "text": "11 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62"
   },
   {
     "kind": "question",
@@ -20168,6 +20476,10 @@
     "text": "Surah Al-Munafiqun means \"The Hypocrites\"."
   },
   {
+    "kind": "source",
+    "text": "Quran 63"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-Munafiqun mean?"
   },
@@ -20184,6 +20496,10 @@
     "text": "Surah At-Taghabun means \"The Mutual Disillusion\"."
   },
   {
+    "kind": "source",
+    "text": "Quran 64"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah At-Taghabun mean?"
   },
@@ -20198,6 +20514,10 @@
   {
     "kind": "lesson",
     "text": "12 ayahs"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 65"
   },
   {
     "kind": "question",
@@ -20224,6 +20544,10 @@
     "text": "Surah At-Tahrim means \"The Prohibition\"."
   },
   {
+    "kind": "source",
+    "text": "Quran 66"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah At-Tahrim mean?"
   },
@@ -20246,14 +20570,6 @@
   {
     "kind": "question",
     "text": "What does the name Surah Al-Mulk mean?"
-  },
-  {
-    "kind": "question",
-    "text": "Surah Al-Mulk was revealed in Madinah."
-  },
-  {
-    "kind": "question",
-    "text": "Surah Al-Mulk was revealed in Makkah."
   },
   {
     "kind": "question",
@@ -20308,6 +20624,10 @@
     "text": "44 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 70"
+  },
+  {
     "kind": "question",
     "text": "What does the name Surah Al-Ma'arij mean?"
   },
@@ -20336,6 +20656,10 @@
     "text": "28 ayahs"
   },
   {
+    "kind": "source",
+    "text": "Quran 71"
+  },
+  {
     "kind": "question",
     "text": "Surah Nuh was revealed in Madinah."
   },
@@ -20354,6 +20678,10 @@
   {
     "kind": "lesson",
     "text": "Surah Al-Jinn means \"The Jinn\"."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 72"
   },
   {
     "kind": "question",
@@ -21030,6 +21358,10 @@
   {
     "kind": "lesson",
     "text": "Surah Al-Bayyinah means \"The Clear Proof\"."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 98"
   },
   {
     "kind": "question",

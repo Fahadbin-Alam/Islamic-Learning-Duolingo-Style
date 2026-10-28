@@ -14,8 +14,8 @@ export type AgeSheetProps = {
 };
 
 // A neutral age screen (Google Play Families, COPPA): every band looks the same, none is picked for you,
-// and nothing hints that one answer unlocks more. The answer decides which ads are allowed, and an
-// under-13 sign-up takes a parent's name and email.
+// and nothing hints that one answer unlocks more. The answer decides which ads are allowed and how many
+// harder questions a lesson asks, and an under-13 sign-up takes a parent's name and email.
 const OPTIONS: Array<{ id: AgeGroup; label: string; spoken: string }> = [
   { id: "6-9", label: "9 or under", spoken: "9 or under" },
   { id: "10-12", label: "10 to 12", spoken: "10 to 12" },
