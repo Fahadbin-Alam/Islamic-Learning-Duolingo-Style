@@ -37,8 +37,8 @@ interface DeepUnit {
   lessons: DeepLesson[];
 }
 
-function hadith(book: "bukhari" | "muslim" | "tirmidhi", number: string, narrator: string, grade: string, summary: string): LessonSource {
-  const names = { bukhari: ["Sahih al-Bukhari", "Imam al-Bukhari"], muslim: ["Sahih Muslim", "Imam Muslim"], tirmidhi: ["Jami at-Tirmidhi", "Imam at-Tirmidhi"] };
+function hadith(book: "bukhari" | "muslim" | "tirmidhi" | "abudawud", number: string, narrator: string, grade: string, summary: string): LessonSource {
+  const names = { bukhari: ["Sahih al-Bukhari", "Imam al-Bukhari"], muslim: ["Sahih Muslim", "Imam Muslim"], tirmidhi: ["Jami at-Tirmidhi", "Imam at-Tirmidhi"], abudawud: ["Sunan Abi Dawud", "Imam Abu Dawud"] };
   const [collection, collector] = names[book];
   // "3667, 3668": one hadith sunnah.com shows under two numbers; the link goes to the last one, as the reference ends with it.
   const linked = number.split(", ").pop();
@@ -1547,7 +1547,659 @@ const ALI: DeepUnit = {
   ]
 };
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, FATIHAH, MULK];
+const SPEECH: DeepUnit = {
+  key: "speech",
+  topicId: "manners",
+  branchId: "manners-speech",
+  name: "good speech",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "good-or-quiet",
+      title: "Say good or stay quiet",
+      line: "Believe in Allah and the Last Day? Say good, or stay quiet.",
+      facts: ["Also: honor your guest", "Also: do not harm your neighbor"],
+      source: hadith("bukhari", "6018", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: whoever believes in Allah and the Last Day should not harm his neighbor, should honor his guest, and should say what is good or keep quiet."),
+      difficulty: 2,
+      questions: [
+        { q: "If you have nothing good to say, what should you do?", a: "Stay quiet", wrong: ["Say it anyway", "Whisper it", "Write it down"], why: "Say good, or keep quiet." },
+        { q: "This advice is for whoever believes in Allah and what?", a: "The Last Day", wrong: ["The angels only", "The prophets only", "The Quran only"], why: "Good speech is a sign of real faith." },
+        { q: "The same hadith also says to honor whom?", a: "Your guest", wrong: ["Your boss", "Rich people", "Strangers only"], why: "And do not harm your neighbor." }
+      ]
+    },
+    {
+      slug: "safe-tongue",
+      title: "Safe from your tongue",
+      line: "A Muslim keeps others safe from his tongue and hand.",
+      facts: ["Tongue: no hurtful words", "Hand: no harm"],
+      source: hadith("bukhari", "10", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said: a Muslim is the one from whose tongue and hand the Muslims are safe."),
+      difficulty: 2,
+      questions: [
+        { q: "A true Muslim keeps people safe from his tongue and his what?", a: "Hand", wrong: ["Money", "House", "Eyes"], why: "No harm by word or by deed." },
+        { q: "Hurting people with words is fine if you never hit them.", tf: false, why: "The tongue is named first." },
+        { q: "Which companion reported this?", a: "Abdullah ibn Amr", wrong: ["Abu Bakr", "Bilal", "Anas"], why: "Abdullah ibn Amr ibn al-As narrated it." }
+      ]
+    },
+    {
+      slug: "good-word",
+      title: "A good word is charity",
+      line: "A good word is charity, like helping someone onto their ride.",
+      facts: ["Every joint owes charity daily", "Judging fairly is charity"],
+      source: hadith("bukhari", "2989", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said charity is due for every joint each day: judging fairly, helping a man onto his ride or lifting his luggage, and a good word are all charity."),
+      difficulty: 2,
+      questions: [
+        { q: "What does the Prophet ﷺ call a good word?", a: "Charity", wrong: ["Weakness", "Wasted time", "Showing off"], why: "Sadaqah is not only money." },
+        { q: "Which of these is also charity in the hadith?", a: "Judging fairly between two people", wrong: ["Winning an argument", "Buying new clothes", "Sleeping early"], why: "Helping with a ride or luggage too." },
+        { q: "Charity is owed each day for every what?", a: "Joint of the body", wrong: ["Coin you own", "Friend you have", "Meal you eat"], why: "As thanks to Allah for a healthy body." }
+      ]
+    },
+    {
+      slug: "smile",
+      title: "A cheerful face",
+      line: "Never look down on a good deed, even meeting with a smile.",
+      facts: ["Told to Abu Dharr"],
+      source: hadith("muslim", "2626", "Abu Dharr", "Sahih", "The Prophet ﷺ said: do not think little of any good deed, even meeting your brother with a cheerful face."),
+      difficulty: 2,
+      questions: [
+        { q: "Which small deed did the Prophet ﷺ say not to look down on?", a: "Meeting your brother cheerfully", wrong: ["Giving a car", "Building a masjid", "A long journey"], why: "Even a smile counts." },
+        { q: "A smile is too small to count as a good deed.", tf: false, why: "No good deed is too small." },
+        { q: "Who was given this advice?", a: "Abu Dharr", wrong: ["Abu Hurayrah", "Mu'adh", "Salman"], why: "The Prophet ﷺ said it to him." }
+      ]
+    },
+    {
+      slug: "truth",
+      title: "Truth leads to Jannah",
+      line: "Truth leads to goodness, and goodness leads to Jannah.",
+      facts: ["Keep telling the truth", "Lying leads to wrongdoing"],
+      source: hadith("bukhari", "6094", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said: truthfulness leads to righteousness and righteousness leads to Paradise; a man keeps telling the truth until he is a truthful person. Lying leads to wickedness."),
+      difficulty: 3,
+      questions: [
+        { q: "Where does truthfulness lead?", a: "To goodness, then Jannah", wrong: ["To trouble", "To being alone", "Nowhere"], why: "Each truth builds the habit of goodness." },
+        { q: "What happens to someone who keeps telling the truth?", a: "He becomes a truthful person", wrong: ["He loses friends", "He gets bored", "He becomes rich"], why: "Truth becomes part of who he is." },
+        { q: "Lying leads to wrongdoing.", tf: true, why: "Just as truth leads to good, lies lead to more wrong." },
+        { q: "Which companion narrated this?", a: "Abdullah ibn Mas'ud", wrong: ["Abu Musa", "Aishah", "Jabir bin Abdullah"], why: "Ibn Mas'ud heard it from the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "backbiting",
+      title: "What backbiting is",
+      line: "Backbiting is saying about your brother what he would dislike.",
+      facts: ["Even if it is true", "If untrue, it is worse: slander"],
+      source: hadith("muslim", "2589", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said backbiting is talking about your brother in a way he dislikes; if it is true it is backbiting, and if it is not true it is slander."),
+      difficulty: 3,
+      questions: [
+        { q: "What is backbiting?", a: "Saying what he would dislike", wrong: ["Only telling lies", "Talking loudly", "Speaking to his face"], why: "Talking about him behind his back in a way he dislikes." },
+        { q: "If what you said about him is true, is it still backbiting?", a: "Yes, it is backbiting", wrong: ["No, it is fine", "Only if you shout", "Only on Fridays"], why: "Even when true, it hurts him." },
+        { q: "If what you said is not true, it is what?", a: "Slander", wrong: ["A joke", "Advice", "Allowed"], why: "That is worse: a lie on top of backbiting." }
+      ]
+    },
+    {
+      slug: "suspicion",
+      title: "No suspicion, no spying",
+      line: "Beware of suspicion: it is the most false of talk.",
+      facts: ["Do not spy", "Do not envy or hate", "Be brothers"],
+      source: hadith("bukhari", "6064", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: beware of suspicion, for it is the most false of talk; do not look for faults, do not spy, do not envy, do not cut off or hate one another, and be brothers."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ call suspicion?", a: "The most false of talk", wrong: ["Clever thinking", "A small mistake", "Being careful"], why: "Guessing bad about people is often wrong." },
+        { q: "Which of these does the hadith forbid?", a: "Spying on others", wrong: ["Greeting others", "Helping others", "Praying for others"], why: "Do not look for faults or spy." },
+        { q: "What does the hadith tell us to be instead?", a: "Brothers", wrong: ["Rivals", "Strangers", "Judges"], why: "O servants of Allah, be brothers." }
+      ]
+    },
+    {
+      slug: "talebearer",
+      title: "Carrying tales",
+      line: "One who carries tales to cause trouble will not enter Jannah.",
+      facts: ["Qattat: a talebearer", "Told by Hudhayfah"],
+      source: hadith("bukhari", "6056", "Hudhayfah", "Sahih", "The Prophet ﷺ said: a qattat, one who carries tales between people, will not enter Paradise."),
+      difficulty: 4,
+      questions: [
+        { q: "What is a qattat?", a: "One who carries tales to cause trouble", wrong: ["A storyteller at night", "A poet", "A trader"], why: "Passing on talk to turn people against each other." },
+        { q: "Carrying tales between people is a small thing.", tf: false, why: "The Prophet ﷺ warned it keeps one out of Jannah." },
+        { q: "Who reported this?", a: "Hudhayfah", wrong: ["Ali", "Umar", "Anas"], why: "Hudhayfah ibn al-Yaman narrated it." }
+      ]
+    },
+    {
+      slug: "guard-tongue",
+      title: "A promise of Jannah",
+      line: "Guard your tongue and your chastity, and Jannah is promised.",
+      facts: ["Between the jaws: the tongue", "Told by Sahl ibn Sa'd"],
+      source: hadith("bukhari", "6474", "Sahl ibn Sa'd", "Sahih", "The Prophet ﷺ said: whoever guarantees me what is between his jaws and what is between his legs, I guarantee Paradise for him."),
+      difficulty: 4,
+      questions: [
+        { q: "'What is between his jaws' means what?", a: "The tongue", wrong: ["The teeth", "Food", "The breath"], why: "Guarding what we say." },
+        { q: "What does the Prophet ﷺ promise for guarding both?", a: "Jannah", wrong: ["Wealth", "Fame", "Long life"], why: "He guaranteed Paradise for it." },
+        { q: "Which companion narrated it?", a: "Sahl ibn Sa'd", wrong: ["Sa'd ibn Abi Waqqas", "Sa'id ibn Zayd", "Sa'd ibn Mu'adh"], why: "Sahl ibn Sa'd as-Sa'idi." }
+      ]
+    },
+    {
+      slug: "leave-arguing",
+      title: "Leave the argument",
+      line: "A house in Jannah for leaving an argument, even when right.",
+      facts: ["Leave lies, even joking", "Best house: good character"],
+      source: hadith("abudawud", "4800", "Abu Umamah", "Hasan (Al-Albani)", "The Prophet ﷺ said: I guarantee a house on the edge of Paradise for one who leaves arguing even if he is right, one in the middle for one who leaves lying even in jest, and one at the top for one with good character."),
+      difficulty: 5,
+      questions: [
+        { q: "Who gets a house on the edge of Jannah?", a: "One who leaves arguing, even if right", wrong: ["One who always wins", "One who argues well", "One who stays silent all day"], why: "Letting go keeps hearts clean." },
+        { q: "Who gets a house in the middle of Jannah?", a: "One who leaves lies, even joking", wrong: ["One who jokes a lot", "One who travels", "One who sleeps early"], why: "No lying, not even to make people laugh." },
+        { q: "Who gets the highest house?", a: "One with good character", wrong: ["The richest", "The loudest", "The strongest"], why: "Good character is the top." }
+      ]
+    }
+  ]
+};
+
+const PARENTS: DeepUnit = {
+  key: "parents",
+  topicId: "manners",
+  branchId: "manners-parents-family",
+  name: "parents",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "your-mother",
+      title: "Your mother, three times",
+      line: "Who deserves your kindness most? Mother thrice, then father.",
+      facts: ["Mother: said three times", "Then your father"],
+      source: hadith("bukhari", "5971", "Abu Hurairah", "Sahih", "A man asked who most deserves his good company; the Prophet ﷺ said: your mother, then your mother, then your mother, then your father."),
+      difficulty: 2,
+      questions: [
+        { q: "How many times did the Prophet ﷺ say 'your mother'?", a: "Three", wrong: ["One", "Two", "Four"], why: "Then he said: your father." },
+        { q: "Who came after the mother?", a: "The father", wrong: ["The brother", "The teacher", "The friend"], why: "Your mother three times, then your father." },
+        { q: "Mothers are given extra care in Islam.", tf: true, why: "Because of all they go through for us." }
+      ]
+    },
+    {
+      slug: "dearest-deeds",
+      title: "Among the dearest deeds",
+      line: "After prayer on time, kindness to parents is dearest to Allah.",
+      facts: ["First: prayer on time", "Second: kindness to parents"],
+      source: hadith("bukhari", "527", "Abdullah ibn Mas'ud", "Sahih", "Ibn Mas'ud asked which deed is dearest to Allah; the Prophet ﷺ said: prayer at its time, then kindness to parents, then striving in Allah's cause."),
+      difficulty: 3,
+      questions: [
+        { q: "Which deed did the Prophet ﷺ name first as dearest to Allah?", a: "Prayer on time", wrong: ["Fasting", "Charity", "Hajj"], why: "Then kindness to parents." },
+        { q: "What came second?", a: "Kindness to parents", wrong: ["Reading Quran", "Visiting friends", "Travelling"], why: "It comes right after prayer." },
+        { q: "Who asked the Prophet ﷺ this question?", a: "Abdullah ibn Mas'ud", wrong: ["Abu Hurayrah", "Ali", "Anas"], why: "He asked which deed is dearest to Allah." }
+      ]
+    },
+    {
+      slug: "serve-them",
+      title: "Strive in their service",
+      line: "A man wanted jihad. The Prophet ﷺ sent him to his parents.",
+      facts: ["Are your parents alive?", "Strive in serving them"],
+      source: hadith("bukhari", "3004", "Abdullah ibn Amr", "Sahih", "A man asked permission to join the fighting; the Prophet ﷺ asked if his parents were alive, then said: strive in their service."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ ask the man first?", a: "Are your parents alive?", wrong: ["Are you strong?", "Do you have a horse?", "Can you fight?"], why: "His parents came first." },
+        { q: "What did he tell him to do?", a: "Strive in serving his parents", wrong: ["Go and fight", "Go to Makkah", "Find a teacher"], why: "Serving them was his striving." },
+        { q: "Serving your parents can be a great act of worship.", tf: true, why: "The Prophet ﷺ called it striving." }
+      ]
+    },
+    {
+      slug: "old-age",
+      title: "Parents in old age",
+      line: "Parents growing old are a door to Jannah. Do not miss it.",
+      facts: ["Said three times", "Old parents: a door to Jannah"],
+      source: hadith("muslim", "2551a", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said three times: let him be humbled, the one who finds one or both of his parents in old age and does not enter Paradise."),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did the Prophet ﷺ warn about?", a: "One with old parents who misses Jannah", wrong: ["One who travels a lot", "One with no children", "One who is poor"], why: "Caring for them is a way to Jannah." },
+        { q: "Old parents are a chance to earn what?", a: "Jannah", wrong: ["Money", "Fame", "Rest"], why: "Serving them opens its door." },
+        { q: "How many times did he say it?", a: "Three", wrong: ["Once", "Twice", "Seven"], why: "To show how serious it is." }
+      ]
+    },
+    {
+      slug: "a-big-sin",
+      title: "A great sin",
+      line: "Disobeying parents is among the greatest sins.",
+      facts: ["With shirk and false witness"],
+      source: hadith("bukhari", "5976", "Abu Bakrah", "Sahih", "The Prophet ﷺ named among the greatest sins: associating partners with Allah, disobeying parents, and false speech and false witness."),
+      difficulty: 4,
+      questions: [
+        { q: "Which of these did the Prophet ﷺ name among the greatest sins?", a: "Disobeying parents", wrong: ["Eating too much", "Sleeping late", "Being shy"], why: "Alongside shirk and false witness." },
+        { q: "What other great sin is named with it?", a: "False witness", wrong: ["Travelling", "Laughing", "Buying things"], why: "He kept repeating that one." },
+        { q: "Who narrated this hadith of the greatest sins?", a: "Abu Bakrah", wrong: ["Abu Bakr", "Abu Hurayrah", "Abu Dharr"], why: "Abu Bakrah, not Abu Bakr as-Siddiq." }
+      ]
+    },
+    {
+      slug: "her-mother",
+      title: "Kind to a non-Muslim mother",
+      line: "Asma could be kind to her mother, who was not Muslim.",
+      facts: ["Asma bint Abi Bakr", "Quran 60:8 came about it"],
+      source: hadith("bukhari", "5978", "Asma bint Abi Bakr", "Sahih", "Asma's mother came hoping for her kindness; Asma asked the Prophet ﷺ whether to treat her kindly and he said yes."),
+      difficulty: 4,
+      questions: [
+        { q: "What did Asma ask the Prophet ﷺ?", a: "May I be kind to my mother?", wrong: ["May I leave Madinah?", "May I fast?", "May I sell my house?"], why: "Her mother was not Muslim." },
+        { q: "What did he answer?", a: "Yes", wrong: ["No", "Only once", "Ask Abu Bakr"], why: "Kindness to parents stays, even if they are not Muslim." },
+        { q: "Asma was the daughter of whom?", a: "Abu Bakr", wrong: ["Umar", "Uthman", "Ali"], why: "Asma bint Abi Bakr." }
+      ]
+    },
+    {
+      slug: "family-ties",
+      title: "Keep family ties",
+      line: "Want more provision and a longer life? Keep ties with family.",
+      facts: ["Told by Anas"],
+      source: hadith("bukhari", "5986", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: whoever would like his provision to be increased and his life extended should keep good ties with his relatives."),
+      difficulty: 3,
+      questions: [
+        { q: "What does keeping family ties bring, in the hadith?", a: "More provision and longer life", wrong: ["Fame", "Good looks", "Nothing"], why: "Blessing in wealth and life." },
+        { q: "Ties with whom?", a: "Relatives", wrong: ["Only friends", "Only neighbors", "Only teachers"], why: "Your kin, near and far." },
+        { q: "Who narrated it?", a: "Anas ibn Malik", wrong: ["Ibn Umar", "Abu Sa'id", "Jabir bin Abdullah"], why: "Anas, the Prophet's ﷺ servant." }
+      ]
+    }
+  ]
+};
+
+const NEIGHBORS: DeepUnit = {
+  key: "neighbors",
+  topicId: "manners",
+  branchId: "manners-neighbors-and-guests",
+  name: "neighbors and guests",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "jibril",
+      title: "Jibril kept advising",
+      line: "Jibril spoke of neighbors so much, they seemed set to inherit.",
+      facts: ["Told by Aishah"],
+      source: hadith("bukhari", "6014", "Aishah", "Sahih", "The Prophet ﷺ said: Jibril kept advising me about the neighbor until I thought he would make him an heir."),
+      difficulty: 2,
+      questions: [
+        { q: "Who kept advising the Prophet ﷺ about neighbors?", a: "Jibril", wrong: ["Abu Bakr", "Mika'il", "Umar"], why: "The angel Jibril." },
+        { q: "The Prophet ﷺ thought neighbors might even do what?", a: "Inherit", wrong: ["Move in", "Lead prayer", "Pay zakat"], why: "That is how much their rights matter." },
+        { q: "Who narrated this?", a: "Aishah", wrong: ["Fatimah", "Hafsah", "Umm Salamah"], why: "Aishah heard it from the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "safe-neighbor",
+      title: "He does not believe",
+      line: "He does not truly believe, whose neighbor is not safe from him.",
+      facts: ["Said three times", "Told by Abu Shurayh"],
+      source: hadith("bukhari", "6016", "Abu Shurayh", "Sahih", "The Prophet ﷺ said three times: by Allah, he does not believe. Asked who, he said: the one whose neighbor is not safe from his harm."),
+      difficulty: 3,
+      questions: [
+        { q: "Whose faith did the Prophet ﷺ warn about?", a: "One whose neighbor is not safe from him", wrong: ["One with no neighbors", "One who moves often", "One who is quiet"], why: "Harming neighbors spoils faith." },
+        { q: "How many times did he say 'he does not believe'?", a: "Three", wrong: ["Once", "Twice", "Ten"], why: "To make the warning strong." },
+        { q: "Praying a lot makes it fine to annoy neighbors.", tf: false, why: "Faith shows in how we treat them." }
+      ]
+    },
+    {
+      slug: "small-gift",
+      title: "No gift is too small",
+      line: "Never scorn a gift to a neighbor, even a sheep's hoof.",
+      facts: ["Said to the Muslim women", "Small gifts build love"],
+      source: hadith("bukhari", "6017", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: O Muslim women, no neighbor should look down on a gift to her neighbor, even a sheep's hoof."),
+      difficulty: 2,
+      questions: [
+        { q: "What small gift did the Prophet ﷺ name?", a: "A sheep's hoof", wrong: ["A gold ring", "A camel", "A house"], why: "Even something tiny is worth giving." },
+        { q: "Only big gifts count between neighbors.", tf: false, why: "Small gifts matter too." },
+        { q: "Whom was this said to?", a: "The Muslim women", wrong: ["The soldiers", "The traders", "The children"], why: "O Muslim women, he said." }
+      ]
+    },
+    {
+      slug: "more-water",
+      title: "Add water to the soup",
+      line: "Cooking soup? Add water and share some with your neighbors.",
+      facts: ["Told to Abu Dharr"],
+      source: hadith("muslim", "2625b", "Abu Dharr", "Sahih", "The Prophet ﷺ said: Abu Dharr, when you make broth, add more water and give some to your neighbor."),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ tell Abu Dharr to add to his soup?", a: "More water", wrong: ["More salt", "More meat", "Honey"], why: "So there is enough to share." },
+        { q: "Why add it?", a: "To share with neighbors", wrong: ["To make it hot", "To save it", "To sell it"], why: "Make a little go further for others." },
+        { q: "Sharing food with neighbors is part of good manners.", tf: true, why: "Even a little soup." }
+      ]
+    },
+    {
+      slug: "nearest-door",
+      title: "The nearest door",
+      line: "Two neighbors? Give your gift first to the nearest door.",
+      facts: ["Aishah asked about it"],
+      source: hadith("bukhari", "2259", "Aishah", "Sahih", "Aishah asked which of two neighbors to give a gift; the Prophet ﷺ said: the one whose door is nearer to you."),
+      difficulty: 3,
+      questions: [
+        { q: "Which neighbor comes first for a gift?", a: "The one with the nearest door", wrong: ["The richest one", "The oldest one", "The newest one"], why: "The closest has the greater right." },
+        { q: "Who asked this question?", a: "Aishah", wrong: ["Fatimah", "Asma", "Umm Ayman"], why: "She had two neighbors." },
+        { q: "Neighbors far away have no rights.", tf: false, why: "All neighbors have rights; the nearest come first." }
+      ]
+    },
+    {
+      slug: "guest",
+      title: "Honoring a guest",
+      line: "Honor your guest: one day of your best, three days of welcome.",
+      facts: ["After three days: charity", "A guest should not overstay"],
+      source: hadith("bukhari", "6135", "Abu Shurayh al-Ka'bi", "Sahih", "The Prophet ﷺ said: whoever believes in Allah and the Last Day should honor his guest: his due is a day and a night, hospitality is three days, and after that it is charity. A guest should not stay until he burdens his host."),
+      difficulty: 4,
+      questions: [
+        { q: "How long is a guest's full hospitality?", a: "Three days", wrong: ["One week", "One hour", "A month"], why: "The best is given for a day and a night." },
+        { q: "What is hosting after three days?", a: "Charity", wrong: ["Forbidden", "A duty", "Rude"], why: "Anything more is a kind gift." },
+        { q: "A guest may stay as long as he likes, even if it burdens his host.", tf: false, why: "He should not stay until he burdens his host." }
+      ]
+    }
+  ]
+};
+
+const ANGER: DeepUnit = {
+  key: "anger",
+  topicId: "manners",
+  branchId: "manners-emotional-discipline",
+  name: "anger",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "real-strength",
+      title: "Real strength",
+      line: "The strong one is not the wrestler, but who controls his anger.",
+      facts: ["Told by Abu Hurayrah"],
+      source: hadith("bukhari", "6114", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: the strong one is not the one who overcomes people by strength, but the one who controls himself when angry."),
+      difficulty: 2,
+      questions: [
+        { q: "Who is truly strong?", a: "One who controls himself when angry", wrong: ["The best wrestler", "The tallest", "The loudest"], why: "Self-control is real strength." },
+        { q: "Winning a fight shows true strength.", tf: false, why: "Holding back your anger does." },
+        { q: "Who narrated this?", a: "Abu Hurayrah", wrong: ["Abu Bakr", "Abu Dharr", "Abu Musa"], why: "Abu Hurayrah heard the Prophet ﷺ say it." }
+      ]
+    },
+    {
+      slug: "dont-be-angry",
+      title: "Do not get angry",
+      line: "A man asked for advice. Again and again: don't get angry.",
+      facts: ["He asked many times", "Same answer each time"],
+      source: hadith("bukhari", "6116", "Abu Hurayrah", "Sahih", "A man asked the Prophet ﷺ for advice; he said: do not get angry. The man asked again several times and each time he said: do not get angry."),
+      difficulty: 2,
+      questions: [
+        { q: "What advice did the man get?", a: "Do not get angry", wrong: ["Pray more", "Give charity", "Travel"], why: "Anger is the root of many wrongs." },
+        { q: "How did the Prophet ﷺ answer when the man asked again?", a: "The same each time", wrong: ["Something new", "He stayed silent", "He sent him away"], why: "He repeated it to stress it." },
+        { q: "The man asked only once.", tf: false, why: "He asked again and again." }
+      ]
+    },
+    {
+      slug: "seek-refuge",
+      title: "Seek refuge from Shaytan",
+      line: "When angry, say: I seek refuge with Allah from Shaytan.",
+      facts: ["A'udhu billahi minash-shaytan", "Two men were arguing"],
+      source: hadith("bukhari", "3282", "Sulayman ibn Surad", "Sahih", "Two men argued and one's face went red; the Prophet ﷺ said: I know a word that would take his anger away: I seek refuge with Allah from Shaytan."),
+      difficulty: 3,
+      questions: [
+        { q: "What words take anger away, in the hadith?", a: "I seek refuge with Allah from Shaytan", wrong: ["I am right", "Leave me alone", "Count to ten"], why: "A'udhu billahi minash-shaytanir-rajim." },
+        { q: "What was happening when the Prophet ﷺ said this?", a: "Two men were arguing", wrong: ["A market opened", "It was Eid", "Rain was falling"], why: "One's face had gone red with anger." },
+        { q: "Who reported this?", a: "Sulayman ibn Surad", wrong: ["Salman al-Farisi", "Sulaym", "Sa'd"], why: "He was sitting with the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "sit-down",
+      title: "Sit down, then lie down",
+      line: "If you are angry standing, sit; if it stays, lie down.",
+      facts: ["Change your position", "Told by Abu Dharr"],
+      source: hadith("abudawud", "4782", "Abu Dharr", "Sahih (Al-Albani)", "The Prophet ﷺ said: when one of you is angry while standing, let him sit; if the anger goes, good; otherwise let him lie down."),
+      difficulty: 3,
+      questions: [
+        { q: "If you get angry while standing, what should you do?", a: "Sit down", wrong: ["Run", "Shout", "Stand taller"], why: "Changing position calms you." },
+        { q: "If the anger stays after sitting?", a: "Lie down", wrong: ["Stand up again", "Leave the house", "Argue"], why: "Lower still, calmer still." },
+        { q: "Who narrated it?", a: "Abu Dharr", wrong: ["Abu Hurayrah", "Abu Bakrah", "Anas"], why: "Abu Dharr al-Ghifari." }
+      ]
+    },
+    {
+      slug: "gentleness",
+      title: "Gentleness beautifies",
+      line: "Gentleness makes everything beautiful; without it, things spoil.",
+      facts: ["Told by Aishah"],
+      source: hadith("muslim", "2594a", "Aishah", "Sahih", "The Prophet ﷺ said: gentleness is not found in anything except that it beautifies it, and it is not taken from anything except that it spoils it."),
+      difficulty: 3,
+      questions: [
+        { q: "What does gentleness do to anything it is in?", a: "Makes it beautiful", wrong: ["Makes it weak", "Makes it slow", "Nothing"], why: "Kindness adds beauty." },
+        { q: "What happens when gentleness is taken away?", a: "Things spoil", wrong: ["Things get faster", "Things get better", "Nothing changes"], why: "Harshness ruins things." },
+        { q: "Who narrated this?", a: "Aishah", wrong: ["Hafsah", "Zaynab", "Maymunah"], why: "Aishah, Mother of the Believers." }
+      ]
+    },
+    {
+      slug: "three-days",
+      title: "Not more than three days",
+      line: "Do not cut off a Muslim brother for more than three days.",
+      facts: ["Do not hate or envy", "Be brothers"],
+      source: hadith("bukhari", "6065", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: do not hate, envy or turn away from one another; be brothers. A Muslim may not cut off his brother for more than three days."),
+      difficulty: 4,
+      questions: [
+        { q: "How long at most may you stop talking to a Muslim brother?", a: "Three days", wrong: ["One week", "One month", "Forever"], why: "After that, make up." },
+        { q: "Which of these does the hadith forbid?", a: "Envying one another", wrong: ["Greeting one another", "Visiting one another", "Helping one another"], why: "No hate, no envy, no turning away." },
+        { q: "What should Muslims be to each other?", a: "Brothers", wrong: ["Strangers", "Rivals", "Judges"], why: "O servants of Allah, be brothers." }
+      ]
+    }
+  ]
+};
+
+const SPOUSES: DeepUnit = {
+  key: "spouses",
+  topicId: "marriage",
+  branchId: "marriage-home",
+  name: "husband and wife",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "shepherds",
+      title: "Everyone is a shepherd",
+      line: "Each of you is a shepherd, responsible for those in his care.",
+      facts: ["A man: for his family", "A woman: for her husband's home and children"],
+      source: hadith("bukhari", "893", "Ibn Umar", "Sahih", "The Prophet ﷺ said: all of you are guardians and responsible; a man is guardian of his family, and a woman is guardian of her husband's house and responsible for it."),
+      difficulty: 2,
+      questions: [
+        { q: "In the hadith, a man is the guardian of what?", a: "His family", wrong: ["Only his money", "His friends", "His city"], why: "He is responsible for them." },
+        { q: "A woman is the guardian of what?", a: "Her husband's home", wrong: ["The market", "The masjid", "Nothing"], why: "And responsible for it." },
+        { q: "Only leaders have someone in their care.", tf: false, why: "All of you are guardians." }
+      ]
+    },
+    {
+      slug: "best-to-family",
+      title: "Best to his family",
+      line: "The best of you is the best to his family.",
+      facts: ["I am the best to mine", "Said by the Prophet ﷺ"],
+      source: hadith("tirmidhi", "3895", "Aishah", "Sahih (Al-Albani)", "The Prophet ﷺ said: the best of you is the best to his family, and I am the best of you to my family."),
+      difficulty: 2,
+      questions: [
+        { q: "Who is the best of you, in this saying?", a: "The best to his family", wrong: ["The richest", "The most famous", "The strongest"], why: "Goodness starts at home." },
+        { q: "Who did the Prophet ﷺ say was best to his family?", a: "He himself", wrong: ["Abu Bakr", "Umar", "Ali"], why: "I am the best of you to my family." },
+        { q: "Who narrated it?", a: "Aishah", wrong: ["Khadijah", "Hafsah", "Fatimah"], why: "Aishah, his wife, told it." }
+      ]
+    },
+    {
+      slug: "helped-at-home",
+      title: "He helped at home",
+      line: "The Prophet ﷺ helped his family at home, then went to pray.",
+      facts: ["Aishah was asked", "Then he left for salah"],
+      source: hadith("bukhari", "676", "Al-Aswad", "Sahih", "Aishah was asked what the Prophet ﷺ did at home; she said he busied himself serving his family, and when prayer time came he went out to pray."),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ do at home?", a: "Helped his family", wrong: ["Only rested", "Only gave orders", "Only slept"], why: "He served his family." },
+        { q: "What did he do when prayer time came?", a: "Went to pray", wrong: ["Kept working", "Prayed later", "Slept"], why: "Prayer came first." },
+        { q: "Who was asked about this?", a: "Aishah", wrong: ["Fatimah", "Anas", "Bilal"], why: "Al-Aswad asked her." }
+      ]
+    },
+    {
+      slug: "morsel",
+      title: "Even a bite of food",
+      line: "Even the bite you put in your wife's mouth is rewarded.",
+      facts: ["When done for Allah", "Told by Sa'd ibn Abi Waqqas"],
+      source: hadith("bukhari", "56", "Sad ibn Abi Waqqas", "Sahih", "The Prophet ﷺ said: you will be rewarded for whatever you spend for Allah's sake, even a morsel you put in your wife's mouth."),
+      difficulty: 3,
+      questions: [
+        { q: "What small act is rewarded in the hadith?", a: "A bite put in your wife's mouth", wrong: ["Buying a car", "Winning a race", "Going shopping"], why: "Kindness at home is worship." },
+        { q: "When is it rewarded?", a: "When done for Allah", wrong: ["Only in Ramadan", "Only if others see", "Never"], why: "The intention makes it worship." },
+        { q: "Who narrated this?", a: "Sad ibn Abi Waqqas", wrong: ["Sa'id ibn Zayd", "Sahl ibn Sa'd", "Sa'd ibn Ubadah"], why: "Sa'd, one of the ten promised Jannah." }
+      ]
+    },
+    {
+      slug: "spending",
+      title: "Spending is charity",
+      line: "A man's spending on his family, hoping for reward, is charity.",
+      facts: ["Told by Abu Mas'ud"],
+      source: hadith("bukhari", "55", "Abu Mas'ud", "Sahih", "The Prophet ﷺ said: when a man spends on his family hoping for reward, it is charity for him."),
+      difficulty: 3,
+      questions: [
+        { q: "Spending on your family, hoping for reward, counts as what?", a: "Charity", wrong: ["Waste", "Nothing", "A debt"], why: "Providing for family is sadaqah." },
+        { q: "What makes it count?", a: "Hoping for Allah's reward", wrong: ["Spending a lot", "Telling people", "Buying gifts"], why: "The intention." },
+        { q: "Who narrated it?", a: "Abu Mas'ud", wrong: ["Ibn Mas'ud", "Abu Musa", "Abu Sa'id"], why: "Abu Mas'ud al-Ansari." }
+      ]
+    },
+    {
+      slug: "dislike-one-trait",
+      title: "Look for the good",
+      line: "Dislike one trait in your wife? Another will please you.",
+      facts: ["A believer should not hate a believing wife"],
+      source: hadith("muslim", "1469a", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: a believing man should not hate a believing woman; if he dislikes one of her traits, he will be pleased with another."),
+      difficulty: 3,
+      questions: [
+        { q: "If a husband dislikes one trait in his wife, what should he remember?", a: "He will like another", wrong: ["Leave at once", "Tell everyone", "Stop talking"], why: "Look for the good in her." },
+        { q: "A believing man should not ____ a believing woman.", a: "hate", wrong: ["help", "greet", "thank"], why: "Fairness and kindness at home." },
+        { q: "Who narrated this?", a: "Abu Hurayrah", wrong: ["Ibn Umar", "Anas", "Jabir bin Abdullah"], why: "Abu Hurayrah heard it from the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "choose-religion",
+      title: "Choose by faith",
+      line: "People marry for wealth, family, beauty or faith: choose faith.",
+      facts: ["Four reasons", "Faith is the winner"],
+      source: hadith("bukhari", "5090", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: a woman is married for four things: her wealth, her family, her beauty and her religion; so choose the religious one."),
+      difficulty: 3,
+      questions: [
+        { q: "Which of the four did the Prophet ﷺ say to choose?", a: "Religion", wrong: ["Wealth", "Beauty", "Family name"], why: "Faith lasts when the rest fades." },
+        { q: "How many reasons for marriage are named?", a: "Four", wrong: ["Two", "Three", "Five"], why: "Wealth, family, beauty and religion." },
+        { q: "Beauty is the most important reason to marry.", tf: false, why: "Religion comes first." }
+      ]
+    },
+    {
+      slug: "khadijah",
+      title: "Khadijah's comfort",
+      line: "At the first revelation, Khadijah comforted the Prophet ﷺ.",
+      facts: ["Allah will never disgrace you", "You keep family ties", "You help the weak"],
+      source: hadith("bukhari", "3", "Aishah", "Sahih", "After the first revelation the Prophet ﷺ came home afraid; Khadijah said: by Allah, Allah will never disgrace you; you keep family ties, help the weak, honor guests and help in hardship."),
+      difficulty: 4,
+      questions: [
+        { q: "What did Khadijah say to comfort him?", a: "Allah will never disgrace you", wrong: ["Go back to the cave", "Tell no one", "You are dreaming"], why: "She reminded him of his goodness." },
+        { q: "Which good deed of his did she name?", a: "Keeping family ties", wrong: ["Winning battles", "Being rich", "Writing poems"], why: "And helping the weak and guests." },
+        { q: "Khadijah supported her husband at a hard time.", tf: true, why: "She stood by him from the first day." }
+      ]
+    }
+  ]
+};
+
+const CHILDREN: DeepUnit = {
+  key: "children",
+  topicId: "marriage",
+  branchId: "marriage-spiritual-home",
+  name: "children",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "fitrah",
+      title: "Born on the fitrah",
+      line: "Every child is born on the fitrah, the natural faith.",
+      facts: ["Parents shape the child", "Told by Abu Hurayrah"],
+      source: hadith("bukhari", "1385", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: every child is born on the fitrah, and his parents shape him into another religion."),
+      difficulty: 2,
+      questions: [
+        { q: "What is every child born upon?", a: "The fitrah", wrong: ["Nothing at all", "Its parents' sins", "Bad habits"], why: "The natural faith in Allah." },
+        { q: "Who shapes a child after that?", a: "The parents", wrong: ["Only the teacher", "Only the friends", "No one"], why: "So parents have a big duty." },
+        { q: "Children are born already sinful.", tf: false, why: "They are born pure, on the fitrah." }
+      ]
+    },
+    {
+      slug: "kissing",
+      title: "Mercy to children",
+      line: "The Prophet ﷺ kissed Al-Hasan: who shows no mercy gets none.",
+      facts: ["A man had ten children, never kissed", "Mercy is returned"],
+      source: hadith("bukhari", "5997", "Abu Hurayrah", "Sahih", "The Prophet ﷺ kissed Al-Hasan; Al-Aqra said he had ten children and had kissed none. The Prophet ﷺ said: whoever is not merciful will not be shown mercy."),
+      difficulty: 2,
+      questions: [
+        { q: "Whom did the Prophet ﷺ kiss?", a: "His grandson Al-Hasan", wrong: ["A friend", "A traveller", "A soldier"], why: "He showed love openly." },
+        { q: "What did he say to the man who never kissed his children?", a: "No mercy shown, no mercy given", wrong: ["Good for you", "Kiss them once", "That is your choice"], why: "Whoever is not merciful is not shown mercy." },
+        { q: "How many children did that man have?", a: "Ten", wrong: ["Two", "Five", "Twenty"], why: "Al-Aqra ibn Habis said ten." }
+      ]
+    },
+    {
+      slug: "carrying-umamah",
+      title: "Praying with Umamah",
+      line: "The Prophet ﷺ prayed carrying his little granddaughter Umamah.",
+      facts: ["Put her down to bow down", "Picked her up to stand"],
+      source: hadith("bukhari", "516", "Abu Qatadah", "Sahih", "The Prophet ﷺ prayed while carrying Umamah, daughter of Zaynab; when he prostrated he put her down, and when he stood he picked her up."),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did the Prophet ﷺ carry while praying?", a: "His granddaughter Umamah", wrong: ["A lamb", "Al-Husayn", "A book"], why: "Umamah, daughter of Zaynab." },
+        { q: "What did he do when he went into sujud?", a: "Put her down", wrong: ["Kept holding her", "Stopped the prayer", "Called someone"], why: "And picked her up when he stood." },
+        { q: "Who narrated this?", a: "Abu Qatadah", wrong: ["Abu Talhah", "Abu Ayyub", "Abu Bakr"], why: "Abu Qatadah al-Ansari." }
+      ]
+    },
+    {
+      slug: "daughters",
+      title: "A shield of daughters",
+      line: "Be good to your daughters, and they'll be a shield for you.",
+      facts: ["A mother split one date", "Told by Aishah"],
+      source: hadith("bukhari", "1418", "Aishah", "Sahih", "A mother split a single date between her two daughters; the Prophet ﷺ said: whoever is tested with daughters and is good to them, they will be a shield for him from the Fire."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the poor mother do with one date?", a: "Split it between her daughters", wrong: ["Ate it herself", "Sold it", "Kept it"], why: "She ate nothing herself." },
+        { q: "What will daughters raised with kindness be for their parent?", a: "A shield from the Fire", wrong: ["A burden", "A cost", "Nothing special"], why: "Daughters are a blessing." },
+        { q: "Who saw the mother and told the Prophet ﷺ?", a: "Aishah", wrong: ["Fatimah", "Hafsah", "Umm Salamah"], why: "The mother came to her door." }
+      ]
+    },
+    {
+      slug: "two-girls",
+      title: "Close as two fingers",
+      line: "Raise two girls well, and you'll be close to the Prophet ﷺ.",
+      facts: ["Until they grow up", "Like two fingers together"],
+      source: hadith("muslim", "2631", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: whoever raises two girls until they grow up, he and I will come on the Day of Resurrection like this, and he joined his fingers."),
+      difficulty: 4,
+      questions: [
+        { q: "How close will the one who raises two girls be to the Prophet ﷺ?", a: "Like two fingers together", wrong: ["Far away", "In the same city", "No promise"], why: "He joined his fingers to show it." },
+        { q: "Until when must they be raised well?", a: "Until they grow up", wrong: ["Only one year", "Until age five", "Only in Ramadan"], why: "The whole of childhood." },
+        { q: "Who narrated this?", a: "Anas ibn Malik", wrong: ["Ibn Abbas", "Abu Dharr", "Jabir bin Abdullah"], why: "Anas heard it from the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "fair",
+      title: "Be fair to your children",
+      line: "Fear Allah and be fair between your children.",
+      facts: ["A gift to one son only", "The father took it back"],
+      source: hadith("bukhari", "2587", "An-Nu'man ibn Bashir", "Sahih", "An-Nu'man's father gave him a gift and asked the Prophet ﷺ to witness it; he asked if he gave all his sons the same, and said: fear Allah and be fair between your children. The father took the gift back."),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ ask An-Nu'man's father?", a: "Did you give all your sons the same?", wrong: ["Is it expensive?", "Where did you buy it?", "Is he the oldest?"], why: "He had given only one son." },
+        { q: "What did he tell him?", a: "Fear Allah and be fair to your children", wrong: ["Give him more", "That is fine", "Ask his mother"], why: "Fairness between children." },
+        { q: "What did the father do then?", a: "Took the gift back", wrong: ["Gave it anyway", "Sold it", "Hid it"], why: "He chose fairness." }
+      ]
+    },
+    {
+      slug: "teach-eating",
+      title: "O boy, say Bismillah",
+      line: "The Prophet ﷺ taught a boy: Bismillah, right hand, nearest food.",
+      facts: ["Umar ibn Abi Salamah", "He followed it all his life"],
+      source: hadith("bukhari", "5376", "Umar bin Abi Salamah", "Sahih", "As a boy in the Prophet's ﷺ care, Umar ibn Abi Salamah's hand wandered around the dish; he said: O boy, say Bismillah, eat with your right hand, and eat from what is near you."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ tell the boy to say first?", a: "Bismillah", wrong: ["Alhamdulillah", "Allahu Akbar", "Subhanallah"], why: "Mention Allah's name before eating." },
+        { q: "With which hand should we eat?", a: "The right hand", wrong: ["The left hand", "Both hands", "Any hand"], why: "And eat from what is near you." },
+        { q: "How did the Prophet ﷺ correct the boy?", a: "Gently, teaching him", wrong: ["By shouting", "By sending him away", "By taking his food"], why: "O boy, he said kindly." }
+      ]
+    },
+    {
+      slug: "righteous-child",
+      title: "A child who prays for you",
+      line: "When a person dies, a good child's dua still helps him.",
+      facts: ["Ongoing charity", "Useful knowledge", "A good child's dua"],
+      source: hadith("muslim", "1631", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: when a person dies his deeds end except three: ongoing charity, knowledge that benefits, or a righteous child who prays for him."),
+      difficulty: 4,
+      questions: [
+        { q: "Which of these keeps helping a person after death?", a: "A righteous child's dua", wrong: ["His house", "His car", "His clothes"], why: "One of three things that continue." },
+        { q: "How many deeds continue after death in this hadith?", a: "Three", wrong: ["One", "Five", "Ten"], why: "Charity, knowledge and a good child." },
+        { q: "Useful knowledge someone left keeps rewarding him.", tf: true, why: "It is one of the three." }
+      ]
+    }
+  ]
+};
+
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, FATIHAH, MULK, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -1684,8 +2336,14 @@ export function addDeepUnits(content: { course: LearningCourse; lessonsById: Rec
         previous = linked;
         return linked;
       });
-      const at = nodes.lastIndexOf(own[own.length - 1]) + 1;
-      nodes = [...nodes.slice(0, at), ...added, ...nodes.slice(at)];
+      const end = own[own.length - 1];
+      const at = nodes.lastIndexOf(end) + 1;
+      // A topic taught in order may open its next unit after this unit's old last circle: now it waits for the final quiz.
+      const moved = (node: LearningNode) =>
+        node.branchId !== unit.branchId && node.requiredNodeIds.includes(end.id)
+          ? { ...node, requiredNodeIds: node.requiredNodeIds.map((id) => (id === end.id ? previous.id : id)) }
+          : node;
+      nodes = [...nodes.slice(0, at).map(moved), ...added, ...nodes.slice(at).map(moved)];
     }
     return { ...section, nodes, starsTarget: nodes.reduce((total, node) => total + node.starsReward, 0) };
   });
