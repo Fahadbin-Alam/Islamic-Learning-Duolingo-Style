@@ -712,6 +712,8 @@ const UNIT_LEAD_ARABIC: Record<string, { form: string; translit: string }> = {
 // The ids name the span by surah number (src/data/importedNotes.ts). A no-break space holds "سورة" to its name,
 // so a small phone never ends a line on "سورة" with the name alone below it.
 const SURAH_SPAN_UNIT = /^notes-quran-tafseer-surahs-(\d+)(?:-(\d+))?$/;
+// A surah with a unit of its own for its whole meaning (src/data/surahMeanings) is named like a span of one surah.
+const SURAH_MEANING_UNIT = /^quran-surah-meaning-(\d+)$/;
 
 function surahSpanForm(first: number, last: number) {
   const name = (surah: number) => `\u00a0${SURAH_NAMES[surah - 1].replace(/ /g, "\u00a0")}`;
@@ -726,8 +728,8 @@ function buildNamedImportedUnits() {
   const units = new Map<string, { term: ArabicTerm; form: string }>();
   for (const section of COURSE.sections) {
     for (const branch of section.branches) {
-      if (!branch.id.startsWith("notes-") || Object.prototype.hasOwnProperty.call(BRANCH_ARABIC, branch.id)) continue;
-      const span = SURAH_SPAN_UNIT.exec(branch.id);
+      if (!(branch.id.startsWith("notes-") || SURAH_MEANING_UNIT.test(branch.id)) || Object.prototype.hasOwnProperty.call(BRANCH_ARABIC, branch.id)) continue;
+      const span = SURAH_SPAN_UNIT.exec(branch.id) ?? SURAH_MEANING_UNIT.exec(branch.id);
       const first = span ? Number(span[1]) : NaN;
       const last = span ? Number(span[2] ?? span[1]) : NaN;
       if (SURAH_NAMES[first - 1] && SURAH_NAMES[last - 1]) {
