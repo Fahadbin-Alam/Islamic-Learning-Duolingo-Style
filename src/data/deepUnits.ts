@@ -29,6 +29,8 @@ export interface DeepUnit {
   topicId: TopicId;
   /** The existing unit the deep lessons join, after its own circles. */
   branchId: string;
+  /** A unit of its own, added to its topic as a new unit at the end (the Muhajirun). */
+  branch?: { title: string; description: string };
   /** Who or what the unit is about, for the review lines. */
   name: string;
   kind: LearningNode["kind"];
@@ -2200,7 +2202,260 @@ const CHILDREN: DeepUnit = {
   ]
 };
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, FATIHAH, MULK, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...SCHOLAR_UNITS];
+// The Muhajirun: the companions who left Makkah for Allah's sake. A unit of its own in the Sahabah topic, with
+// no starter circles before it.
+function quran(surah: number, ayahNumber: number, summary: string): LessonSource {
+  return {
+    id: `deep_quran_${surah}_${ayahNumber}`,
+    site: "Quran.com",
+    category: "tafsir",
+    title: `Quran ${surah}:${ayahNumber}`,
+    url: `https://quran.com/${surah}/${ayahNumber}`,
+    reference: `Quran ${surah}:${ayahNumber}`,
+    from: "The Quran, on Quran.com",
+    grade: "Quran",
+    summary
+  };
+}
+
+const MUHAJIRUN: DeepUnit = {
+  key: "muhajirun",
+  topicId: "sahabah",
+  branchId: "sahabi-muhajirun",
+  branch: { title: "The Muhajirun", description: "The companions who left Makkah for Madinah, for Allah's sake." },
+  name: "the Muhajirun",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "who",
+      title: "Who were the Muhajirun?",
+      line: "The Muhajirun left their homes and wealth in Makkah for Allah.",
+      facts: ["Muhajir: one who emigrates", "The Quran calls them truthful"],
+      quote: ayah(8, 59),
+      source: quran(59, 8, "The poor emigrants, driven from their homes and wealth, seek Allah's bounty and pleasure and help Allah and His Messenger; they are the truthful."),
+      difficulty: 1,
+      questions: [
+        { q: "What did the Muhajirun leave behind in Makkah?", a: "Their homes and wealth", wrong: ["Only their camels", "Nothing at all", "Their prayers"], why: "They left everything for Allah's sake." },
+        { q: "What does the Quran call the Muhajirun?", a: "The truthful", wrong: ["The rich", "The late ones", "The weak"], why: "Quran 59:8 says: they are the truthful." },
+        { q: "A muhajir is someone who emigrates.", tf: true, why: "Hijrah means emigrating, leaving one place for another." }
+      ]
+    },
+    {
+      slug: "pleased",
+      title: "Allah is pleased with them",
+      line: "Allah is pleased with the first Muhajirun and Ansar.",
+      facts: ["And with those who follow them well", "Gardens with rivers await them"],
+      quote: ayah(100, 9),
+      source: quran(9, 100, "Allah is pleased with the first forerunners of the Muhajirun and the Ansar and those who follow them well, and has prepared gardens with rivers for them."),
+      difficulty: 1,
+      questions: [
+        { q: "Who is Allah pleased with in Quran 9:100?", a: "The first Muhajirun and Ansar", wrong: ["Only the rich", "Only the kings", "No one at all"], why: "And with those who follow them well." },
+        { q: "What has Allah prepared for them?", a: "Gardens with rivers", wrong: ["Gold coins", "A big palace on earth", "Nothing yet"], why: "Gardens with rivers flowing beneath, forever." },
+        { q: "Quran 9:100 praises the Muhajirun but not the Ansar.", tf: false, why: "It names both the Muhajirun and the Ansar." }
+      ]
+    },
+    {
+      slug: "intention",
+      title: "Hijrah is by intention",
+      line: "A hijrah is rewarded by the intention behind it.",
+      facts: ["Deeds are by intentions", "Told by Umar"],
+      source: hadith("bukhari", "1", "Umar ibn al-Khattab", "Sahih", "Deeds are by intentions; whoever emigrated for something of this world, or to marry a woman, his hijrah is for what he emigrated for."),
+      difficulty: 2,
+      questions: [
+        { q: "What decides the reward of a hijrah?", a: "The intention behind it", wrong: ["How far you walk", "How rich you are", "How many go with you"], why: "Deeds are by intentions." },
+        { q: "Someone who emigrated only to marry gets what?", a: "Only what he went for", wrong: ["The reward of the Muhajirun", "Double reward", "Nothing to worry about"], why: "His hijrah is for what he emigrated for." },
+        { q: "Which companion told the hadith that a hijrah is by intention?", a: "Umar", wrong: ["Bilal", "Anas", "Khalid"], why: "Umar ibn al-Khattab heard it from the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "true-muhajir",
+      title: "The true muhajir",
+      line: "The true muhajir leaves everything Allah has forbidden.",
+      facts: ["A Muslim harms no one", "Told by Abdullah ibn Amr"],
+      source: hadith("bukhari", "10", "Abdullah ibn Amr", "Sahih", "A Muslim is one from whose tongue and hands the Muslims are safe, and a muhajir is one who leaves what Allah has forbidden."),
+      difficulty: 2,
+      questions: [
+        { q: "Who is the true muhajir, says the Prophet ﷺ?", a: "One who leaves what Allah forbade", wrong: ["One who travels the most", "One who owns the most", "One who sleeps the most"], why: "Anyone can make this hijrah today." },
+        { q: "Who is a true Muslim in the same hadith?", a: "One whose tongue and hands harm no one", wrong: ["One who wins every argument", "One who never smiles", "One who lives far away"], why: "The Muslims are safe from his tongue and hands." },
+        { q: "You can still be a muhajir today by leaving sins.", tf: true, why: "Leaving what Allah forbade is a hijrah too." }
+      ]
+    },
+    {
+      slug: "first-teachers",
+      title: "The first to arrive",
+      line: "Mus'ab ibn Umayr came to Madinah first, to teach the Quran.",
+      facts: ["With Ibn Umm Maktum", "Then Bilal, Sa'd and Ammar"],
+      source: hadith("bukhari", "3925", "Al-Bara ibn Azib", "Sahih", "The first to come to us were Mus'ab ibn Umayr and Ibn Umm Maktum, teaching people the Quran; then Bilal, Sa'd and Ammar; then Umar with twenty companions; then the Prophet ﷺ."),
+      difficulty: 2,
+      questions: [
+        { q: "Who came to Madinah first, with Ibn Umm Maktum?", a: "Mus'ab ibn Umayr", wrong: ["Abu Sufyan", "Khalid ibn al-Walid", "Abu Jahl"], why: "Al-Bara said they were the first to come." },
+        { q: "What did the first two teach the people of Madinah?", a: "The Quran", wrong: ["Poetry", "Trade", "Horse riding"], why: "They were teaching the people the Quran." },
+        { q: "Who came after them?", a: "Bilal, Sa'd and Ammar", wrong: ["Abu Lahab and his wife", "The Romans", "No one at all"], why: "Then Umar came with twenty companions." }
+      ]
+    },
+    {
+      slug: "joy",
+      title: "Madinah's great joy",
+      line: "Madinah was never so happy as when the Prophet ﷺ arrived.",
+      facts: ["Even the girls called out", "Told by al-Bara"],
+      source: hadith("bukhari", "3925", "Al-Bara ibn Azib", "Sahih", "Al-Bara never saw the people of Madinah so joyful as at the Prophet's ﷺ arrival; even the girls were saying: the Messenger of Allah has come."),
+      difficulty: 2,
+      questions: [
+        { q: "How did Madinah feel when the Prophet ﷺ arrived?", a: "Happier than ever", wrong: ["Afraid", "Bored", "Angry"], why: "Al-Bara had never seen them so joyful." },
+        { q: "Who called out that the Prophet ﷺ had come?", a: "Even the girls", wrong: ["No one at all", "Only the kings", "Only the soldiers"], why: "The whole town was full of joy." },
+        { q: "The Prophet ﷺ reached Madinah before Mus'ab.", tf: false, why: "Mus'ab came first; the Prophet ﷺ came later." }
+      ]
+    },
+    {
+      slug: "fever",
+      title: "Fever in Madinah",
+      line: "In Madinah, Abu Bakr and Bilal fell ill with fever.",
+      facts: ["Bilal missed Makkah", "Told by Aishah"],
+      source: hadith("bukhari", "3926", "Aishah", "Sahih", "When the Prophet ﷺ came to Madinah, Abu Bakr and Bilal fell ill with fever, and Bilal longed for the valleys of Makkah."),
+      difficulty: 3,
+      questions: [
+        { q: "Who fell ill with fever after the hijrah?", a: "Abu Bakr and Bilal", wrong: ["Umar and Ali", "Khalid and Amr", "No one at all"], why: "Aishah went to see them both." },
+        { q: "What did Bilal miss while he was ill?", a: "Makkah", wrong: ["Rome", "Yemen", "Persia"], why: "He longed for its valleys and grasses." },
+        { q: "Who visited them and told the Prophet ﷺ?", a: "Aishah", wrong: ["Fatimah", "Hafsah", "Khadijah"], why: "She asked her father and Bilal how they felt." }
+      ]
+    },
+    {
+      slug: "love-madinah",
+      title: "Make us love Madinah",
+      line: "The Prophet ﷺ prayed: make us love Madinah like Makkah, or more.",
+      facts: ["Bless its food", "Take its fever away"],
+      source: hadith("bukhari", "3926", "Aishah", "Sahih", "The Prophet ﷺ prayed: O Allah, make us love Madinah as we love Makkah or more, make it healthy, bless its measures, and take its fever away."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ ask Allah for Madinah?", a: "To make them love it like Makkah, or more", wrong: ["To make them leave it", "To make it rich in gold", "To make it bigger than Rome"], why: "He wanted the Muhajirun to feel at home." },
+        { q: "What did he ask Allah to take from Madinah?", a: "Its fever", wrong: ["Its rain", "Its dates", "Its people"], why: "He asked for it to be made healthy." },
+        { q: "He also asked Allah to bless Madinah's food.", tf: true, why: "He asked Allah to bless its measures of food." }
+      ]
+    },
+    {
+      slug: "brothers",
+      title: "Brothers in Islam",
+      line: "The Prophet ﷺ made each Muhajir a brother to one of the Ansar.",
+      facts: ["Abd ar-Rahman and Sa'd ibn ar-Rabi'", "Sa'd offered half his wealth"],
+      source: hadith("bukhari", "3780", "Ibrahim ibn Sa'd, from his father", "Sahih", "When the Muhajirun reached Madinah, the Prophet ﷺ made Abd ar-Rahman ibn Awf and Sa'd ibn ar-Rabi' brothers; Sa'd offered to share all he had."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ do for each Muhajir in Madinah?", a: "Made him a brother to one of the Ansar", wrong: ["Sent him back to Makkah", "Gave him a horse", "Made him a king"], why: "So no one was alone in the new town." },
+        { q: "Who became Abd ar-Rahman ibn Awf's brother?", a: "Sa'd ibn ar-Rabi'", wrong: ["Abu Jahl", "Abu Sufyan", "Khalid ibn al-Walid"], why: "Sa'd was one of the richest of the Ansar." },
+        { q: "What did Sa'd offer his new brother?", a: "Half his wealth", wrong: ["Nothing at all", "One date", "A job as his servant"], why: "The Ansar were very generous." }
+      ]
+    },
+    {
+      slug: "market",
+      title: "Show me the market",
+      line: "Abd ar-Rahman ibn Awf thanked Sa'd and asked for the market.",
+      facts: ["The market of Qaynuqa'", "He came back with a profit"],
+      source: hadith("bukhari", "2048", "Abd ar-Rahman ibn Awf", "Sahih", "Abd ar-Rahman said he did not need Sa'd's wealth and asked for a market; they showed him the market of Qaynuqa', and he came back with a profit."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Abd ar-Rahman ask for instead of Sa'd's wealth?", a: "The way to the market", wrong: ["A bigger house", "More camels", "A ride to Makkah"], why: "He wanted to earn his own living." },
+        { q: "Which market did they show him?", a: "The market of Qaynuqa'", wrong: ["The market of Rome", "The market of Basra", "The market of Damascus"], why: "It was a market in Madinah." },
+        { q: "Abd ar-Rahman came back from the market with nothing.", tf: false, why: "He came back with a profit." }
+      ]
+    },
+    {
+      slug: "ansar-love",
+      title: "The Ansar loved them",
+      line: "The Ansar loved the Muhajirun and put them before themselves.",
+      facts: ["Even when they were in need", "Quran 59:9"],
+      quote: ayah(9, 59),
+      source: quran(59, 9, "Those who had settled in Madinah love those who emigrated to them, and put them before themselves even when they are in need."),
+      difficulty: 3,
+      questions: [
+        { q: "How did the Ansar feel about the Muhajirun?", a: "They loved them", wrong: ["They were jealous", "They ignored them", "They feared them"], why: "Quran 59:9 says they love those who came to them." },
+        { q: "Whom did the Ansar put first?", a: "The Muhajirun", wrong: ["Their own wishes", "The rich only", "Their enemies"], why: "They put them before themselves." },
+        { q: "The Ansar gave only when they had plenty.", tf: false, why: "They gave even when they were in need." }
+      ]
+    },
+    {
+      slug: "but-for-hijrah",
+      title: "But for the hijrah",
+      line: "The Prophet ﷺ said: but for the hijrah, I'd be an Ansari.",
+      facts: ["He would take the Ansar's valley", "Told by Abu Hurayrah"],
+      source: hadith("bukhari", "3779", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: if the Ansar went through a valley, I would take the Ansar's valley; and but for the hijrah, I would have been one of the Ansar."),
+      difficulty: 4,
+      questions: [
+        { q: "Why was the Prophet ﷺ not counted among the Ansar?", a: "Because he made the hijrah", wrong: ["Because he disliked them", "Because he was too young", "Because he lived in Yemen"], why: "But for the hijrah, he would be one of them." },
+        { q: "Whose valley would the Prophet ﷺ take?", a: "The Ansar's valley", wrong: ["The Romans' valley", "The Persians' valley", "No valley at all"], why: "He showed how much he loved the Ansar." },
+        { q: "Abu Hurayrah said the Ansar sheltered and helped him.", tf: true, why: "That is why the Prophet ﷺ loved them so." }
+      ]
+    },
+    {
+      slug: "two-hijrahs",
+      title: "Two hijrahs",
+      line: "Those who went to Abyssinia first earned two hijrahs.",
+      facts: ["Ja'far stayed there with the Negus", "Asma bint Umays asked"],
+      source: hadith("bukhari", "4230, 4231", "Abu Musa", "Sahih", "Asma bint Umays told the Prophet ﷺ what Umar said; he replied that Umar and his companions have one hijrah, and the people of the ship have two."),
+      difficulty: 4,
+      questions: [
+        { q: "Where did Ja'far ibn Abi Talib first emigrate to?", a: "Abyssinia", wrong: ["Rome", "Persia", "Iraq"], why: "He stayed there with the Negus, its king." },
+        { q: "How many hijrahs did the people of the ship earn?", a: "Two", wrong: ["One", "Three", "None"], why: "First to Abyssinia, then to Madinah." },
+        { q: "Who asked the Prophet ﷺ about it?", a: "Asma bint Umays", wrong: ["Aishah", "Fatimah", "Khadijah"], why: "She came back from Abyssinia on the ship." }
+      ]
+    },
+    {
+      slug: "negus",
+      title: "A prayer for the Negus",
+      line: "When the Negus died, the Prophet ﷺ led a funeral prayer for him.",
+      facts: ["Ask forgiveness for your brother", "Four takbirs"],
+      source: hadith("bukhari", "1327", "Abu Hurayrah", "Sahih", "The Prophet ﷺ told of the Negus's death on the day he died, said: ask forgiveness for your brother, and led the funeral prayer with four takbirs."),
+      difficulty: 4,
+      questions: [
+        { q: "Who was the Negus?", a: "The king of Abyssinia", wrong: ["A king of Rome", "A trader in Makkah", "A chief of the Ansar"], why: "He sheltered the Muhajirun who went there." },
+        { q: "What did the Prophet ﷺ tell the Muslims to do for him?", a: "Ask forgiveness for him", wrong: ["Forget him", "Write him a poem", "Send him gifts"], why: "He called him: your brother." },
+        { q: "How many takbirs did the Prophet ﷺ say in that prayer?", a: "Four", wrong: ["One", "Two", "Seven"], why: "He lined them up in rows and said four takbirs." }
+      ]
+    },
+    {
+      slug: "musab",
+      title: "Mus'ab's last cloth",
+      line: "Mus'ab died at Uhud with one cloth too short to cover him.",
+      facts: ["Grass covered his feet", "Told by Khabbab"],
+      source: hadith("bukhari", "1276", "Khabbab", "Sahih", "Mus'ab ibn Umayr was martyred at Uhud; his only cloth could not cover both his head and feet, so the Prophet ﷺ told them to cover his head and put idhkhir grass on his feet."),
+      difficulty: 5,
+      questions: [
+        { q: "Where was Mus'ab ibn Umayr martyred?", a: "At Uhud", wrong: ["At Badr", "In Makkah", "In Abyssinia"], why: "He died in the Battle of Uhud." },
+        { q: "What covered Mus'ab's feet?", a: "Grass", wrong: ["A silk cloth", "A cloak of gold", "Nothing at all"], why: "His one cloth could only cover his head." },
+        { q: "Mus'ab enjoyed his reward in this world before he died.", tf: false, why: "Khabbab said he died before taking any of it." }
+      ]
+    },
+    {
+      slug: "zayd",
+      title: "Zayd ibn Harithah",
+      line: "People called Zayd 'son of Muhammad' until Quran 33:5 came.",
+      facts: ["Call them by their fathers", "Told by Ibn Umar"],
+      quote: ayah(5, 33),
+      source: hadith("bukhari", "4782", "Abdullah ibn Umar", "Sahih", "They called Zayd ibn Harithah 'Zayd ibn Muhammad' until Allah revealed: call them by their fathers."),
+      difficulty: 5,
+      questions: [
+        { q: "What did people call Zayd before Quran 33:5?", a: "Zayd ibn Muhammad", wrong: ["Zayd ibn Umar", "Zayd ibn Ali", "Zayd ibn Uthman"], why: "The Prophet ﷺ had raised him." },
+        { q: "What does Quran 33:5 say to do?", a: "Call people by their fathers' names", wrong: ["Give everyone new names", "Never use names", "Call people by their towns"], why: "So he was Zayd ibn Harithah again." },
+        { q: "Who told this story?", a: "Ibn Umar", wrong: ["Anas", "Aishah", "Abu Hurayrah"], why: "Abdullah ibn Umar narrated it." }
+      ]
+    },
+    {
+      slug: "after-conquest",
+      title: "No hijrah after the conquest",
+      line: "Hijrah from Makkah ended at its conquest; good intention stays.",
+      facts: ["Jihad remains too", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "2783", "Ibn Abbas", "Sahih", "The Prophet ﷺ said: there is no hijrah after the conquest, but jihad and good intention remain."),
+      difficulty: 5,
+      questions: [
+        { q: "When did the hijrah from Makkah end?", a: "After Makkah was opened", wrong: ["Before Badr", "On the first day of Islam", "It never ended"], why: "Makkah had become a Muslim town." },
+        { q: "What stays after the hijrah ended?", a: "Jihad and good intention", wrong: ["Nothing at all", "Only trade", "Only poetry"], why: "A Muslim can still earn reward by intention." },
+        { q: "Who told the hadith that there is no hijrah after the conquest?", a: "Ibn Abbas", wrong: ["Bilal", "Khalid", "Salman"], why: "Abdullah ibn Abbas narrated it." }
+      ]
+    }
+  ]
+};
+
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, MUHAJIRUN, FATIHAH, MULK, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...SCHOLAR_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -2324,7 +2579,21 @@ export function addDeepUnits(content: { course: LearningCourse; lessonsById: Rec
   const lessonsById = { ...content.lessonsById };
   // A topic made only of deep units (Scholars) starts as an empty section.
   const all = content.course.sections.some((section) => section.topicId === SCHOLARS_SECTION.topicId) ? content.course.sections : [...content.course.sections, SCHOLARS_SECTION];
-  const sections = all.map((section) => {
+  const sections = all.map((topic) => {
+    const added = DEEP_UNITS.filter((unit) => unit.branch && unit.topicId === topic.topicId && !topic.branches.some((branch) => branch.id === unit.branchId));
+    // A new unit goes after the topic's own units, before the ones from the notes.
+    const before = topic.branches.findIndex((branch) => branch.id.startsWith("notes-"));
+    const split = before === -1 ? topic.branches.length : before;
+    const section = added.length
+      ? {
+          ...topic,
+          branches: [
+            ...topic.branches.slice(0, split),
+            ...added.map((unit) => ({ id: unit.branchId, topicId: unit.topicId, ...unit.branch! })),
+            ...topic.branches.slice(split)
+          ].map((branch, index) => ({ ...branch, order: index + 1 }))
+        }
+      : topic;
     const units = DEEP_UNITS.filter((unit) => unit.topicId === section.topicId && section.branches.some((branch) => branch.id === unit.branchId));
     if (!units.length) return section;
     let nodes = [...section.nodes];
@@ -2340,7 +2609,9 @@ export function addDeepUnits(content: { course: LearningCourse; lessonsById: Rec
         return linked;
       });
       const end = own[own.length - 1];
-      const at = end ? nodes.lastIndexOf(end) + 1 : nodes.length;
+      const later = new Set(section.branches.slice(section.branches.findIndex((branch) => branch.id === unit.branchId) + 1).map((branch) => branch.id));
+      const next = nodes.findIndex((node) => later.has(node.branchId));
+      const at = end ? nodes.lastIndexOf(end) + 1 : next === -1 ? nodes.length : next;
       // A topic taught in order may open its next unit after this unit's old last circle: now it waits for the final quiz.
       const moved = (node: LearningNode) =>
         end && node.branchId !== unit.branchId && node.requiredNodeIds.includes(end.id)

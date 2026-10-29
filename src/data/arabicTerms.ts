@@ -147,6 +147,7 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-abu-dharr-al-ghifari": { ar: "أبو ذر الغفاري", translit: "Abu Dharr al-Ghifari", meaning: "From Ghifar tribe" },
   "sahabi-abdullah-ibn-masud": { ar: "عبد الله بن مسعود", translit: "Abdullah ibn Mas'ud", meaning: "Quran reciter" },
   "sahabi-anas-ibn-malik": { ar: "أنس بن مالك", translit: "Anas ibn Malik", meaning: "The Prophet's ﷺ servant" },
+  "sahabi-muhajirun": { ar: "المهاجرون", translit: "Al-Muhajirun", meaning: "The emigrants" },
 
   // Women of the Book: women of the Quran and the Mothers of the Believers
   "women-quran": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
@@ -625,7 +626,7 @@ const IMPORTED_UNIT_ARABIC: Partial<Record<TopicId, ArabicTerm>> = {
 // The vowelled form of every unit banner word, for a learn card that borrows it. Each one, without its
 // vowel marks, is exactly the banner's spelling (the tests check this).
 const LEARN_FORMS = [
-  "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
+  "الْمُهَاجِرُونَ", "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
   "التَّحِيَّةُ", "الْأَذْكَارُ الْيَوْمِيَّةُ", "الْعِبَارَاتُ الْيَوْمِيَّةُ",
   "آدَابُ الْبَيْتِ وَالطَّعَامِ", "بِدَايَةُ الْعِبَادَةِ", "الْوُضُوءُ", "أَسَاسِيَّاتُ الصَّلَاةِ",
   "أَوْقَاتُ الصَّلَاةِ", "الْأَذَانُ وَالْإِقَامَةُ", "الرُّكُوعُ وَالسُّجُودُ", "التَّشَهُّدُ",
