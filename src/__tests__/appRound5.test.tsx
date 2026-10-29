@@ -94,6 +94,9 @@ function jumpTest(user: UserProfile, target: LearningNode) {
 // A whole test-out played through the app, twice rendered: slower than one screen.
 jest.setTimeout(30000);
 
+// The plans were just offered, so running out of hearts opens the hearts sheet straight away (planOffer.test.tsx).
+beforeEach(() => setStoredItem("sira-path-plan-offer-at", String(Date.now())));
+
 afterEach(() => {
   removeStoredItem(PROFILE_KEY);
   clearActiveAssessment();

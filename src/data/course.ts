@@ -3971,6 +3971,8 @@ const expandedContent = {
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;
 
+// Hearts come from the daily refill, three videos, a heart pack or Premium, never from gems: gems are a score the
+// path's chests and videos pay out, so there is no gem chest to buy either.
 export const SHOP_ITEMS: ShopItem[] = [
   {
     id: "no-ads-monthly",
@@ -4039,29 +4041,10 @@ export const SHOP_ITEMS: ShopItem[] = [
     heartsGranted: 5
   },
   {
-    id: "gem-heart-refill",
-    type: "gem_heart_refill",
-    name: "Refill hearts with gems",
-    localizedDescription: "Spend the gems you earned on the path to refill every heart.",
-    price: 350,
-    currencyType: "gems",
-    refillsHearts: true
-  },
-  {
-    id: "gem-pack-medium",
-    type: "gem_pack",
-    name: "Gem chest",
-    localizedDescription: "Add 1,200 gems for heart refills and future rewards.",
-    price: 4.99,
-    currencyType: "USD",
-    productId: "gem_pack_medium",
-    gemsGranted: 1200
-  },
-  {
     id: "watch-ad-heart",
     type: "rewarded_ad",
     name: "Watch and recover",
-    localizedDescription: "Earn one heart after a short sponsor break.",
+    localizedDescription: "Earn one heart after three short sponsor breaks.",
     price: 0,
     currencyType: "rewarded_ad",
     heartsGranted: 1

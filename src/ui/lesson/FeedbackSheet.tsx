@@ -155,6 +155,7 @@ export function FeedbackSheet({
   const [whyOpen, setWhyOpen] = useState(defaultWhyOpen);
   const { height: windowHeight } = useWindowDimensions();
   const badge = useRef(new Animated.Value(0)).current;
+  const sourcePulse = useRef(new Animated.Value(0)).current;
   const whyAnim = useRef(new Animated.Value(0)).current;
   // The icon + title row and the button always show; the part between them scrolls when it is long.
   const [headHeight, setHeadHeight] = useState(40);
@@ -186,8 +187,14 @@ export function FeedbackSheet({
     }
     badge.setValue(0);
     const animation = Animated.spring(badge, { toValue: 1, delay: 120, friction: 4, tension: 140, useNativeDriver: true });
+    sourcePulse.setValue(0);
+    const pulse = correct || !source?.onOpen ? undefined : Animated.timing(sourcePulse, { toValue: 1, delay: 520, duration: 420, useNativeDriver: true });
     animation.start();
-    return () => animation.stop();
+    pulse?.start();
+    return () => {
+      animation.stop();
+      pulse?.stop();
+    };
     // Only replay when the sheet opens or flips result.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, correct]);
@@ -421,6 +428,8 @@ export function FeedbackSheet({
   }, [fullHeight, visible]);
 
   const badgeScale = badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
+  // After a miss, the source button gives one small bounce once the badge has landed: "tap me to learn more".
+  const sourceScale = sourcePulse.interpolate({ inputRange: [0, 0.5, 1], outputRange: [1, 1.12, 1] });
   const badgeRotate = badge.interpolate({ inputRange: [0, 1], outputRange: ["-40deg", "0deg"] });
 
   return (
@@ -451,20 +460,22 @@ export function FeedbackSheet({
             {withHonorifics(heading)}
           </Text>
           {source?.label ? (
-            <Tappable
-              onPress={source.onOpen}
-              disabled={!source.onOpen}
-              style={[styles.sourceChip, { borderColor: withAlpha(ink, 0.35) }]}
-              accessibilityRole={source.onOpen ? "link" : "text"}
-              accessibilityLabel={t("Open source {name}", { name: source.label })}
-              hitSlop={6}
-              testID="feedback-source"
-            >
-              <Icon name="book" size={16} color={ink} />
-              <Text style={[styles.sourceText, { color: ink }]} numberOfLines={1}>
-                {source.label}
-              </Text>
-            </Tappable>
+            <Animated.View style={[styles.sourceSlot, { transform: [{ scale: sourceScale }] }]}>
+              <Tappable
+                onPress={source.onOpen}
+                disabled={!source.onOpen}
+                style={[styles.sourceChip, { backgroundColor: source.onOpen ? ink : withAlpha(colors.white, 0.6), borderColor: ink }]}
+                accessibilityRole={source.onOpen ? "link" : "text"}
+                accessibilityLabel={t("Open source {name}", { name: source.label })}
+                hitSlop={10}
+                testID="feedback-source"
+              >
+                <Text style={[styles.sourceText, { color: source.onOpen ? colors.white : ink }]} numberOfLines={1}>
+                  {source.label}
+                </Text>
+                {source.onOpen ? <Icon name="chevronRight" size={16} color={colors.white} /> : null}
+              </Tappable>
+            </Animated.View>
           ) : null}
         </View>
 
@@ -677,25 +688,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center"
   },
-  // As tall as the badge beside it, so the heading row keeps its height.
+  sourceSlot: {
+    flexShrink: 1,
+    maxWidth: "50%",
+    marginStart: space.sm
+  },
+  // A filled button with an arrow (no book icon: the label needs the room), so it reads as something to tap. No taller than the badge beside it, so the
+  // heading row keeps its height.
   sourceChip: {
     flexDirection: "row",
     alignItems: "center",
-    flexShrink: 1,
-    maxWidth: "48%",
-    height: 32,
-    marginStart: space.sm,
-    paddingHorizontal: 10,
+    height: 34,
+    paddingStart: 12,
+    paddingEnd: 6,
     borderWidth: 2,
-    borderRadius: radii.pill,
-    backgroundColor: withAlpha(colors.white, 0.6)
+    borderRadius: radii.pill
   },
   sourceText: {
-    marginStart: 5,
+    marginEnd: 2,
     flexShrink: 1,
     fontFamily: fonts.bodyHeavy,
-    fontSize: 13,
-    lineHeight: 17
+    fontSize: 14,
+    lineHeight: 18
   },
   badge: {
     width: 40,
