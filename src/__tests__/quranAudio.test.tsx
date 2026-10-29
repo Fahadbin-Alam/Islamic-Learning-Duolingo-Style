@@ -187,6 +187,13 @@ describe("the word card's speaker on a word that is a whole ayah", () => {
     expect(getAyahPlayback().status).toBe("idle");
   });
 
+  test("tapping the Arabic word plays it too", async () => {
+    await render(wordCard);
+    await fireEvent.press(screen.getByTestId("learn-arabic-play"));
+    expect(mockPlayers[0].source).toBe(ALHAMD);
+    expect(mockPlayers[0].play).toHaveBeenCalledTimes(1);
+  });
+
   test("says so on the word card when the recitation cannot load", async () => {
     jest.useFakeTimers();
     try {
