@@ -21,6 +21,8 @@ export type ProfileViewProps = {
   onOpenSettings: () => void;
   /** Family row: a parent's view of this phone's progress and of kids they follow. Opens after the grown-up gate. */
   onOpenFamily?: () => void;
+  /** Share row: the phone's share menu with an invite and the store link. Opens after the grown-up gate. */
+  onShareApp?: () => void;
   /** Crew and Shop are bottom tabs now; kept optional so the old call site still type-checks. */
   onOpenCrew?: () => void;
   onOpenShop?: () => void;
@@ -162,6 +164,7 @@ export function ProfileView({
   learnerProfile,
   onOpenSettings,
   onOpenFamily,
+  onShareApp,
   onCreateAccount,
   hasSavedAccount = false,
   soundEnabled,
@@ -182,7 +185,7 @@ export function ProfileView({
   // Sign up, log in or log out changes the avatar and the name at the top: scroll back up so they show
   // whole, not cut off under the top bar, and pop the avatar in again.
   const accountKey = profileAccountKey(user, hasSavedAccount);
-  // Family can send progress out of the app, so a grown-up opens it.
+  // Family and Share send things out of the app, so a grown-up opens them.
   const { ask, gate } = useGrownUpGate();
   const scrollRef = useRef<ScrollView>(null);
   const shownAccount = useRef(accountKey);
@@ -251,6 +254,7 @@ export function ProfileView({
 
       <View style={styles.menu}>
         {onOpenFamily ? <MenuRow icon="family" label={t("Family")} onPress={() => ask(onOpenFamily)} testID="profile-family" /> : null}
+        {onShareApp ? <MenuRow icon="share" label={t("Invite friends")} onPress={() => ask(onShareApp)} testID="profile-share" /> : null}
         <MenuRow icon="settings" label={strings.settings} onPress={onOpenSettings} testID="profile-settings" last={!onToggleSound} />
         {onToggleSound ? (
           <MenuRow

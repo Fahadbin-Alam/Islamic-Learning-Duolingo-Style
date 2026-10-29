@@ -179,6 +179,7 @@ import {
 } from "./ui/screens";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
+import { shareApp } from "./services/shareApp";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
@@ -2696,6 +2697,7 @@ export default function TopicApp() {
             onToggleSound={toggleSoundEffects}
             onOpenSettings={openSettingsModal}
             onOpenFamily={openFamily}
+            onShareApp={() => void shareApp()}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
