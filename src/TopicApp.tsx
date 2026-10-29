@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import {
+  AppState as PhoneAppState,
   Linking,
   Platform,
   Share,
@@ -187,6 +188,7 @@ import {
   SettingsSheet,
   ShopView,
   TopicPicker,
+  UpdateBanner,
   tabForScreen,
   useNotices,
   type PathItem,
@@ -197,6 +199,7 @@ import {
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
+import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
@@ -545,6 +548,19 @@ export default function TopicApp() {
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   // The local day the top bar's daily ayah and hadith were last opened.
   const [dailySeenDay, setDailySeenDay] = useState(() => Number(getStoredItem("sira-path-daily-seen")));
+  // A newer Muslimo in the store shows a banner under the top bar; checked on every open and every return to the app.
+  const [updateReady, setUpdateReady] = useState(false);
+  const [updateClosed, setUpdateClosed] = useState(false);
+  useEffect(() => {
+    let live = true;
+    const check = () => void isUpdateAvailable().then((ready) => live && ready && setUpdateReady(true));
+    check();
+    const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && check());
+    return () => {
+      live = false;
+      listener.remove();
+    };
+  }, []);
   // Prayer-time lessons belong to this phone (its city and notifications), not to the account.
   const [prayerPrefs, setPrayerPrefs] = useState<PrayerNudgePrefs>(loadPrayerNudgePrefs);
   const [prayerModalVisible, setPrayerModalVisible] = useState(false);
@@ -2701,6 +2717,9 @@ export default function TopicApp() {
               setStoredItem("sira-path-daily-seen", String(today));
             }}
           />
+        )}
+        {!inLesson && updateReady && !updateClosed && (
+          <UpdateBanner onUpdate={() => void openStore()} onClose={() => setUpdateClosed(true)} />
         )}
         {activeTab === "learn" && !inLesson && (
           <LearnPath
