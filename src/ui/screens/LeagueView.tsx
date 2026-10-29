@@ -12,6 +12,7 @@ import { playUi } from "../sound";
 import { colors, darken, fonts, lighten, radii, space, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
 import { useBackToClose } from "./sheetParts";
+import { SecretTap } from "./SecretTap";
 import { t } from "../../i18n";
 
 export function leagueName(id: LeagueId) {
@@ -69,7 +70,9 @@ export function LeagueCard({ league: state, now = new Date() }: LeagueCardProps)
   return (
     <View style={[styles.card, { borderColor: lighten(league.color, 0.5), borderBottomColor: league.color }]} testID="league-card">
       <View style={styles.head}>
-        <LeagueBadge tier={state.tier} size={52} />
+        <SecretTap spot="league">
+          <LeagueBadge tier={state.tier} size={52} />
+        </SecretTap>
         <View style={styles.headMain}>
           <Text style={[styles.title, { color: ink }]} numberOfLines={1} testID="league-title">
             {leagueName(league.id)}

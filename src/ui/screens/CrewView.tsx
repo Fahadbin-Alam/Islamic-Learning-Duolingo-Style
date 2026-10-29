@@ -16,6 +16,7 @@ import { formatNumber } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
 import { LeagueBadge, LeagueCard } from "./LeagueView";
 import { TextField } from "./sheetParts";
+import { UmmahRanks, type UmmahRanksProps } from "./UmmahRanks";
 import { t } from "../../i18n";
 
 /** Same shape as the CrewState in src/TopicApp.tsx. */
@@ -55,6 +56,8 @@ export type CrewViewProps = {
   accent?: string;
   /** This week's league, ended up to today (settleLeague). Shown on top, with or without a crew server. */
   league?: LeagueState;
+  /** The Ummah ranks page (arenas, battles, the ranking of everyone). With it the tab has Ranks and Friends pages. */
+  ranks?: Omit<UmmahRanksProps, "user" | "mascotVariant" | "accent">;
 };
 
 // Friend avatars take a topic world color, picked from their id.
@@ -194,7 +197,9 @@ function PendingRow({ member, onCancel }: { member: CrewMember; onCancel: () => 
   );
 }
 
-/** Crew tab: weekly XP race, a grown-up-gated invite sheet, and friendly empty states. */
+type UmmahPage = "ranks" | "friends";
+
+/** Ummah tab: Ranks (arenas, battles, everyone's ranking) and Friends (weekly XP race, a grown-up-gated invite sheet). */
 export function CrewView({
   user,
   crew,
@@ -211,10 +216,13 @@ export function CrewView({
   unavailable,
   hasSavedAccount = false,
   league,
+  ranks,
   mascotVariant = "muslim_man",
   // The brand green like the Mascot's own default; the app passes the topic accent.
   accent = colors.green
 }: CrewViewProps) {
+  const [page, setPage] = useState<UmmahPage>("ranks");
+  const showRanks = Boolean(ranks) && page === "ranks";
   const [inviteOpen, setInviteOpen] = useState(false);
   const [friendSheet, setFriendSheet] = useState<CrewMember | undefined>(undefined);
   const [lastFriend, setLastFriend] = useState<CrewMember | undefined>(undefined);
@@ -234,8 +242,8 @@ export function CrewView({
   const refresh = useRef(onRefresh);
   refresh.current = onRefresh;
   useEffect(() => {
-    if (crew.status === "idle" && user.hasAccount && !unavailable) refresh.current();
-  }, [crew.status, unavailable, user.hasAccount]);
+    if (crew.status === "idle" && user.hasAccount && !unavailable && !showRanks) refresh.current();
+  }, [crew.status, showRanks, unavailable, user.hasAccount]);
   useEffect(() => () => clearTimeout(retryTimer.current), []);
 
   const retry = () => {
@@ -277,7 +285,7 @@ export function CrewView({
 
   let body: React.ReactNode;
   if (unavailable) {
-    body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title={t("Crew is coming soon!")} />;
+    body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title={t("Friends are coming soon!")} />;
   } else if (signedOut) {
     // An account without a server session (made offline), or a saved one that logged out, logs in; everyone else signs up.
     body = (
@@ -332,7 +340,7 @@ export function CrewView({
     );
   }
 
-  const canRefresh = !signedOut && !unavailable && (crew.status === "ready" || crew.status === "error");
+  const canRefresh = !showRanks && !signedOut && !unavailable && (crew.status === "ready" || crew.status === "error");
 
   return (
     <View style={styles.root}>
@@ -346,18 +354,44 @@ export function CrewView({
       >
         <View style={styles.titleRow}>
           <Text style={styles.title} numberOfLines={1}>
-            {t("Crew")}
+            {t("Ummah")}
           </Text>
           {/* The league card shows this week's XP itself. */}
-          {payload && !league ? (
+          {payload && !league && !showRanks ? (
             <View style={styles.weekPill} accessibilityLabel={t("{count} XP this week", { count: payload.me.weeklyXp })}>
               <Icon name="bolt" size={20} />
               <Text style={styles.weekText} numberOfLines={1}>{t("{count} XP", { count: formatNumber(payload.me.weeklyXp) })}</Text>
             </View>
           ) : null}
         </View>
-        {league ? <LeagueCard league={league} /> : null}
-        {body}
+        {ranks ? (
+          <View style={styles.pages} accessibilityRole="tablist">
+            {(["ranks", "friends"] as const).map((key) => (
+              <Tappable
+                key={key}
+                onPress={() => setPage(key)}
+                style={[styles.pageTab, page === key ? styles.pageTabActive : null]}
+                accessibilityRole="tab"
+                accessibilityState={{ selected: page === key }}
+                testID={`ummah-page-${key}`}
+                pressScale={0.96}
+              >
+                <Icon name={key === "ranks" ? "trophy" : "people"} size={22} />
+                <Text style={[styles.pageText, page === key ? styles.pageTextActive : null]} numberOfLines={1}>
+                  {key === "ranks" ? t("Ranks") : t("Friends")}
+                </Text>
+              </Tappable>
+            ))}
+          </View>
+        ) : null}
+        {showRanks && ranks ? (
+          <UmmahRanks {...ranks} user={user} mascotVariant={mascotVariant} accent={accent} />
+        ) : (
+          <>
+            {league ? <LeagueCard league={league} /> : null}
+            {body}
+          </>
+        )}
       </ScrollView>
 
       <Sheet visible={inviteOpen} onClose={() => setInviteOpen(false)} testID="crew-invite-sheet">
@@ -474,6 +508,41 @@ const styles = StyleSheet.create({
     ...text.h1,
     flexShrink: 1,
     marginEnd: "auto"
+  },
+  pages: {
+    flexDirection: "row",
+    gap: 8,
+    marginTop: 6,
+    marginBottom: 14
+  },
+  pageTab: {
+    flex: 1,
+    flexBasis: 0,
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    paddingVertical: 8,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: colors.line,
+    backgroundColor: colors.white
+  },
+  pageTabActive: {
+    borderColor: colors.gem,
+    backgroundColor: lighten(colors.gem, 0.88)
+  },
+  pageText: {
+    fontFamily: fonts.display,
+    fontSize: 17,
+    lineHeight: 22,
+    color: colors.inkSoft,
+    flexShrink: 1
+  },
+  pageTextActive: {
+    color: colors.gemLip
   },
   weekPill: {
     flexDirection: "row",

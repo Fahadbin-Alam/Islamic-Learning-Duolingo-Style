@@ -227,6 +227,27 @@ export interface UserProfile {
   league?: LeagueState;
   /** Local days (YYYY-MM-DD) of this Ramadan with a Ramadan lesson done, for the Ramadan streak (ramadanCalendar.ts). */
   ramadanDays?: string[];
+  /** Ummah tab: trophies, arena, ranking nickname, icons and secret lessons (see src/services/ummah.ts). */
+  ummah?: UmmahState;
+}
+
+export interface UmmahState {
+  /** Trophies from quiz battles; they set the arena. */
+  trophies: number;
+  /** Most trophies ever, so an arena reached stays unlocked on the ladder. */
+  best: number;
+  battles: number;
+  wins: number;
+  /** The only name the Ummah ranking shows: words from fixed lists, never typed (see makeNickname). */
+  nickname?: string;
+  /** Shows on the Ummah ranking. A child's account joins only after the grown-up gate. */
+  joined?: boolean;
+  /** Profile icons bought with gems, and the one in use (none: initials). */
+  icons?: string[];
+  icon?: string;
+  /** Secret lessons found, and the ones whose clue was bought. */
+  secrets?: string[];
+  hints?: string[];
 }
 
 /** How a finished league week ended: the league before (`from`) and after (`to`), as indexes into LEAGUES. */

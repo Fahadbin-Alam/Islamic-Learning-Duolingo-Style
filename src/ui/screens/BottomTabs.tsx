@@ -34,7 +34,7 @@ export type BottomTabsProps = {
 const TABS: Array<{ key: TabKey; icon: IconName; label: string }> = [
   { key: "learn", icon: "learn", label: "Learn" },
   { key: "practice", icon: "practice", label: "Practice" },
-  { key: "crew", icon: "crew", label: "Crew" },
+  { key: "crew", icon: "crew", label: "Ummah" },
   { key: "shop", icon: "shop", label: "Shop" },
   { key: "me", icon: "profile", label: "Me" }
 ];
