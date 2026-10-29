@@ -592,7 +592,7 @@ describe("round 5: reviews stay in their unit, gentle words, names that read rig
   it("holds each hyphen of a Quran span title to its word, so no line ends on a lone Al-", () => {
     const spans = sectionOf("quran_tafseer").branches.filter((branch) => / to /.test(branch.title));
     // A span whose surahs all have their own unit now (surahMeanings) is gone, so fewer are left each batch.
-    expect(spans.length).toBeGreaterThan(5);
+    expect(spans.length).toBeGreaterThan(0);
     expect(spans.filter((branch) => /\p{L}-(?!\u2060)/u.test(branch.title)).map((branch) => branch.title)).toEqual([]);
     expect(spans.find((branch) => branch.id === "notes-quran-tafseer-surahs-6-11")?.title).toBe("Surah Al-\u2060An'am to Hud");
   });
