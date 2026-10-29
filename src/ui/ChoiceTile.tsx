@@ -76,6 +76,11 @@ export function tileTextBottom({ compact, tight, square }: { compact?: boolean; 
   return LIP + 2 + padding;
 }
 
+/** How far down from its top edge a tile holds no text: its border and the padding over its text (no lip up there). */
+export function tileTextTop(options: { compact?: boolean; tight?: boolean; square?: boolean }) {
+  return tileTextBottom(options) - LIP;
+}
+
 /** Where a line of text starts on screen in the app's language: right to left in Urdu and Arabic. */
 export function lineStart(): "left" | "right" {
   return isRtlLanguage() ? "right" : "left";

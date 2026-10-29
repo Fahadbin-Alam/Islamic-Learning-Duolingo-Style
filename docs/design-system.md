@@ -123,12 +123,14 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   and only where that makes the sheet shorter than slim with the whole text (two lines whole take less room
   than one line over the arrow's room) or the whole text would not fit the sheet's share of the screen.
   The heading, the "Correct answer" line and the Why pill always show whole. When even the sheet at its
-  least (slim, its Why text one line) is taller than the room under the green tile (a long translated
-  prompt, which never scrolls away, over a long answer the sheet says again) the picked tile folds away too,
+  least (slim, its Why text one line) would reach into the green tile's text (a long translated prompt,
+  which never scrolls away, over a long answer the sheet says again) the picked tile folds away too,
   when it sits above the green one (in a pick-all-that-fit question, the wrong picks above the first right
   answer) and that keeps the sheet's edge under the green tile's text: the sheet
-  still says it was wrong. Once folded it stays so while the sheet is up, also when the Why line opens and the
-  sheet grows, so the green tile never moves back down under the sheet. A
+  still says it was wrong. While the sheet at its least reaches no further into the green tile than under
+  its text, the picked tile stays, and the Why text scrolls instead. Once folded it stays so while the sheet
+  is up, also when the Why line opens and the sheet grows, so the green tile never moves back down under the
+  sheet. A
   tile the sheet's top edge would cut is gone at once while the sheet is up, in the very frame the sheet
   starts to cover it, and fades back with the next try; tiles wholly under the sheet stay. The green tile
   and the picked one above it stay while the sheet's edge reaches no further into them than under their text
@@ -141,14 +143,22 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   so it never starts towards a place it then leaves, nor hides the chips for a scroll it never makes.
   It springs up but never past its place, so on its way up its edge never crosses what it keeps clear.
   While the sheet comes up, a tile that folds away (in practice too, and the lines a prompt gives up as the
-  mascot hides) leaves its room, which closes with the sheet's own spring: the green tile never moves in one
-  frame, it glides up as the sheet rises, and the prompt above it stays put. A question the learner left
-  scrolled down (by hand or with the arrow) scrolls up with what folds above the green tile instead, in that
-  frame and as far as its scroll goes, so the green tile stays where it showed; only the rest of that room is
-  left to close. Once the Why line is open the sheet has grown at once, so what folds then goes at once and the
-  question goes on at once, in that frame; it never goes back to a place less far than it was sent, so the
-  prompt, moved up at CHECK, never moves back down (the green tile, risen with a fold, then sits a little higher
-  above the sheet). The Why text fades in where it stays, with no slide, so its box never cuts a line of it.
+  mascot hides) leaves its room, which closes with the sheet's own spring and in step with it (room that opens
+  a frame or two after the sheet set off closes as the rest of the sheet's way goes, and is shut in the very
+  frame the sheet reaches its place): the green tile never moves in one frame, it glides up as the sheet
+  rises, never behind its edge, and the prompt above it stays put. A question the learner left scrolled
+  down (by hand or with the arrow) scrolls up with what folds above the green tile instead, in that
+  frame and as far as its scroll goes back towards where the question then sits (never past it, so it never
+  turns round on its way), so the green tile stays where it showed; only the rest of that room is left to
+  close. A tile whose text did not show whole in the room as CHECK was tapped (the green tile of a question
+  too tall for its room, resting out of sight under the room's edge or over its top) is gone while it
+  glides into sight with the question and fades in once it shows whole (or, where the question comes to rest
+  with it still cut, once it has), so the room's edge never cuts its lines on the way; the sheet's "Correct
+  answer" line names it meanwhile. Once the Why line is open the sheet has grown at once, so what folds then
+  goes at once and the question goes on at once, in that frame; it never goes back to a place less far than it
+  was sent, so the prompt, moved up at CHECK, never moves back down (the green tile, risen with a fold, then
+  sits a little higher above the sheet). The Why text fades in where it stays, with no slide, so its box never
+  cuts a line of it.
   It only ever goes where it ends: it waits while a hiding mascot lets the prompt wrap anew (on the web the new
   prompt is read before that frame is drawn, so the wait ends in it), and its content never gets shorter under
   it on the way, so it never jumps or turns back. The sheet is never taller than its room, not even in the

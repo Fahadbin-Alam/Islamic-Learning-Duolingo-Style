@@ -44,6 +44,35 @@ const KEYBOARD_TOP_GAP = 48;
 /** The spring a sheet comes up with. What makes room for it on its way up (see FoldGap) closes with the same spring. */
 export const SHEET_SPRING = { friction: 9, tension: 80 };
 
+// The spring's stiffness and damping, as Animated works them out from its tension and friction (its mass is 1).
+const SPRING_STIFFNESS = (SHEET_SPRING.tension - 30) * 3.62 + 194;
+const SPRING_DAMPING = (SHEET_SPRING.friction - 8) * 3 + 25;
+const SPRING_DECAY = SPRING_DAMPING / 2;
+const SPRING_SWING = Math.sqrt(Math.max(0, SPRING_STIFFNESS - SPRING_DECAY * SPRING_DECAY));
+
+/**
+ * How long a sheet held at its place (`noOvershoot`) takes to come up: its spring swings past nothing, it stops in the
+ * frame it reaches its place. Undefined for a spring that would creep up to its place instead of reaching it.
+ */
+export const SHEET_RISE_MS = SPRING_SWING > 0 ? (1000 * (Math.PI - Math.atan2(SPRING_SWING, SPRING_DECAY))) / SPRING_SWING : undefined;
+
+/** How far such a sheet has come up, from 0 to 1, `ms` after it set off. */
+export function sheetRise(ms: number) {
+  if (SHEET_RISE_MS === undefined || ms >= SHEET_RISE_MS) {
+    return 1;
+  }
+  const t = Math.max(0, ms) / 1000;
+  return 1 - Math.exp(-SPRING_DECAY * t) * (Math.cos(SPRING_SWING * t) + (SPRING_DECAY / SPRING_SWING) * Math.sin(SPRING_SWING * t));
+}
+
+// When a sheet last set off on its way up (Date.now()), for what makes room for it to close in step (see FoldGap).
+let lastSetOff = Number.NEGATIVE_INFINITY;
+
+/** When a sheet last set off on its way up (Date.now()). */
+export function sheetSetOffAt() {
+  return lastSetOff;
+}
+
 /**
  * How far the on-screen keyboard reaches up over the window, in points (0 when it is closed).
  * Android apps are edge to edge, so the window no longer shrinks for the keyboard and a sheet
@@ -104,6 +133,7 @@ export function Sheet({
     if (visible) {
       setMounted(true);
       const animation = Animated.spring(progress, { toValue: 1, ...SHEET_SPRING, overshootClamping: noOvershoot, useNativeDriver: true });
+      lastSetOff = Date.now();
       animation.start();
       return () => animation.stop();
     }

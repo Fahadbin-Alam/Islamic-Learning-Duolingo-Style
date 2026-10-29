@@ -46,12 +46,14 @@ export function sheetScrollY(layout: SheetFitLayout, sheetHeight: number, furthe
 }
 
 /**
- * The tallest the sheet may be with its top edge still under the green tile's text, the question scrolled as far as
- * it may go: the edge then reaches no further into the tile than `textBottom`, its lip, border and padding (see
- * tileTextBottom), and cuts none of its lines.
+ * Whether a sheet `sheetHeight` tall reaches into the green tile's text, the question scrolled as far as it may go:
+ * further into the tile than `textBottom`, its lip, border and padding (see tileTextBottom), by the very edge the green
+ * tile is gone at once the sheet is up (not a pixel past it, nor rounded). So where this says no, the green tile stays
+ * and the sheet's edge cuts none of its lines; where it says yes, the picked tile above it folds away first, where that
+ * keeps the green tile's text clear.
  */
-export function textRoom(layout: SheetFitLayout, textBottom: number) {
-  return sheetRoom(layout).room + SHEET_TILE_AIR + textBottom;
+export function reachesText(layout: SheetFitLayout, sheetHeight: number, textBottom: number) {
+  return sheetHeight > layout.visibleBottom - (layout.focusBottom - sheetRoom(layout).furthest) + textBottom;
 }
 
 /**
@@ -104,7 +106,7 @@ export type QuestionScrollInput = {
 /**
  * Where each tile (or the row of True / False, or the answers as a whole) starts in the scroll content as laid out
  * right now, which of them the question keeps above the sheet (`focus`: the green tile), and where the question then
- * goes (see sheetScrollY) when that is known.
+ * goes (see sheetScrollY) when that is known: with the room folds left closed, as it is once they have closed.
  */
 export type QuestionPlaces = { tops: Record<string, number>; focus?: string; aim?: number };
 
@@ -120,9 +122,10 @@ function nextFrame(run: () => void) {
 /**
  * Where the question sits in the frame tiles fold away above the green tile, or its prompt wraps anew (the mascot
  * hiding): they move the green tile up in its content by `rise`, which with the scroll left where it is (`from`) would
- * throw it up the screen, past where it goes (`aim`) and back, or over the room's top edge. The question scrolls up
- * with it instead, as far as keeps the green tile where it showed, but never past where it goes: from there it only
- * goes on the same way. Without a known place to go to, it keeps the green tile where it showed.
+ * throw it up the screen, past where it goes (`aim`, the room folds left closed) and back, or over the room's top edge.
+ * The question scrolls up with it instead, as far as keeps the green tile where it showed, but never past where it
+ * goes: from there it only goes on the same way. Without a known place to go to, it keeps the green tile where it
+ * showed.
  */
 export function foldScrollY(from: number, rise: number, aim: number | undefined) {
   const kept = from - rise;
@@ -130,11 +133,22 @@ export function foldScrollY(from: number, rise: number, aim: number | undefined)
 }
 
 /**
+ * How much of the room tiles fold out of above the green tile a question left scrolled down can take up with its own
+ * scroll, in the frame they fold: from where it sits (`at`) back as far as where it then goes (`aim`), the folds done
+ * and their room closed, and never past that, so it never has to turn round on its way there. A question that goes on
+ * down from where it sits takes up none: the room closes with the sheet, the same way the question goes.
+ */
+export function foldSoak(at: number, aim: number) {
+  return Math.max(0, Math.round(at - aim));
+}
+
+/**
  * The room each tile that folds away leaves while the sheet comes up (see FoldGap), in the order the tiles sit. A
  * question the learner left scrolled down (by hand or with the arrow) scrolls up with the tiles above the green one
- * instead, in the frame they fold, as far as its scroll goes (`scrolled`, what is left of it): the green tile stays
- * where it showed (see foldScrollY), and only the rest of their room is left, to close with the sheet's spring.
- * Tiles under the green one leave all of theirs. Returns each tile's room and what is left of the scroll.
+ * instead, in the frame they fold, as far as its scroll goes towards where it then sits (`scrolled`, what is left of
+ * that: see foldSoak): the green tile stays where it showed (see foldScrollY), and only the rest of their room is
+ * left, to close with the sheet's spring. Tiles under the green one leave all of theirs. Returns each tile's room and
+ * what is left of the scroll.
  */
 export function foldRooms(tiles: { id: string; room: number; above: boolean }[], scrolled: number) {
   let left = Math.max(0, scrolled);
@@ -145,6 +159,26 @@ export function foldRooms(tiles: { id: string; room: number; above: boolean }[],
     rooms[tile.id] = tile.room - taken;
   }
   return { rooms, left };
+}
+
+/**
+ * What the room folds leave (see FoldGap) does above `top` in `within` right now, where a view can say its place at
+ * once: `closed`, how much of it has closed so far (that carried the parts under it up on their glide with the sheet,
+ * which no scroll is to make up for), and `held`, all of it as it opened (closed and still open), which is gone once it
+ * has closed, where the question goes. `gaps`: each gap's view and its height as it opened.
+ */
+export function gapsAbove(gaps: { view: unknown; from: number }[], within: unknown, top: number) {
+  let closed = 0;
+  let held = 0;
+  for (const gap of gaps) {
+    const at = laidOutTop(gap.view, within);
+    const now = (gap.view as { offsetHeight?: unknown } | null)?.offsetHeight;
+    if (at !== undefined && at <= top && typeof now === "number") {
+      closed += Math.max(0, gap.from - now);
+      held += Math.max(gap.from, now);
+    }
+  }
+  return { closed, held };
 }
 
 /** `value`, or `floor` where that is further. */
@@ -311,6 +345,179 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
   const minHeight = open && viewport > 0 ? viewport + Math.max(offset.current, aim ?? 0) : undefined;
   // Scrolled past their top by a hand (or the arrow) before CHECK too: the scroll edge never cuts them at rest.
   return { gone: past || (open && heading), onScroll, minHeight };
+}
+
+/** Where a part sits on screen, or its lines of text do: from its top edge (its first line's) to its bottom (its last's). */
+export type ScreenSpan = { top: number; bottom: number };
+
+/** Whether text at `text` shows whole between `top` and `bottom` (the room's edges, the sheet's top edge). */
+export function showsWhole(text: ScreenSpan, top: number, bottom: number) {
+  return text.top >= top - AT_TARGET && text.bottom <= bottom + AT_TARGET;
+}
+
+/**
+ * Whether a tile's text shows whole in its room as the views report their places (where none can say its place on
+ * screen at once): `span`, where the tile starts and ends in the scroll content; `insets`, how far in from its top and
+ * bottom edges its text sits (its border, padding and lip); `scrollY`, where the room's top edge sits in the content;
+ * `room`, the room's height.
+ */
+export function textInRoom(span: ScreenSpan, insets: ScreenSpan, scrollY: number, room: number) {
+  return showsWhole({ top: span.top + insets.top, bottom: span.bottom - insets.bottom }, scrollY, scrollY + room);
+}
+
+/**
+ * Where a view's lines of text sit on screen right now (not its box: a tile's border, padding and lip hold none), where
+ * a view can say it at once: on the web a view is its element, and its text is in its text nodes. Undefined elsewhere,
+ * or when it holds no text.
+ */
+export function textOnScreen(view: unknown): ScreenSpan | undefined {
+  const node = view as Node | null;
+  if (Platform.OS !== "web" || !node || typeof document === "undefined" || typeof document.createTreeWalker !== "function") {
+    return undefined;
+  }
+  const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+  const range = document.createRange();
+  let top = Infinity;
+  let bottom = -Infinity;
+  for (let text = walker.nextNode(); text; text = walker.nextNode()) {
+    if (!text.textContent?.trim()) {
+      continue;
+    }
+    range.selectNodeContents(text);
+    for (const rect of Array.from(range.getClientRects())) {
+      if (rect.width > 0.5 && rect.height > 0.5) {
+        top = Math.min(top, rect.top);
+        bottom = Math.max(bottom, rect.bottom);
+      }
+    }
+  }
+  return top <= bottom ? { top, bottom } : undefined;
+}
+
+/** A view's top and bottom edges on screen right now, where a view can say them at once (see textOnScreen). */
+export function edgesOnScreen(view: unknown): ScreenSpan | undefined {
+  if (Platform.OS !== "web") {
+    return undefined;
+  }
+  const rect = (view as { getBoundingClientRect?: () => { top: number; bottom: number; height: number } } | null)?.getBoundingClientRect?.();
+  return rect && rect.height > 0 ? { top: rect.top, bottom: rect.bottom } : undefined;
+}
+
+/** Where the feedback sheet's top edge sits on screen right now (see edgesOnScreen); `root` holds the sheet. */
+export function sheetTopOnScreen(root: unknown) {
+  const holder = root as { querySelector?: (selector: string) => HTMLElement | null } | null;
+  return edgesOnScreen(holder?.querySelector?.('[data-testid="feedback-content"]')?.parentElement)?.top;
+}
+
+/** Where a part's text, the room's edges and the sheet's top edge (when it is up) sit on screen. */
+export type GlideRead = { text: ScreenSpan; top: number; bottom: number; sheetTop?: number };
+
+/** Whether a part's text shows whole in its room, and above the sheet's top edge too where `sheet` says so. */
+function readWhole(at: GlideRead, sheet: boolean) {
+  return showsWhole(at.text, at.top, sheet && at.sheetTop !== undefined ? Math.min(at.bottom, at.sheetTop) : at.bottom);
+}
+
+/** How long the sheet takes to come up and the question to glide to its place with it, where no frame can be read. */
+export const GLIDE_MS = 600;
+/**
+ * How long the frames are read for, at most, after the question last set off somewhere: by then it has come to rest,
+ * and a tile still kept out of sight (one whose text the room's edge cuts where the question rests) is let in, as an
+ * edge at rest cuts no text on its way.
+ */
+export const GLIDE_WATCH_MS = 2000;
+const NONE: string[] = [];
+
+/**
+ * The tiles kept out of sight while the feedback sheet comes up. A tile whose text did not show whole in the room as
+ * CHECK was tapped (out of sight under the room's bottom edge or over its top, as a question too tall for its room
+ * rests, or cut by one of them after a hand scroll) glides into sight with the question, and on its way the room's edge
+ * would cut its lines. It is gone instead, from the very frame the sheet opens, and fades in once it shows whole: each
+ * frame is read before it is drawn, where a view can say its place at once (elsewhere it fades in once the sheet has
+ * come up), so no frame shows its text cut; one the room's edge still cuts where the question comes to rest fades in
+ * then (see GLIDE_WATCH_MS). The sheet's "Correct answer" line names the right one meanwhile.
+ * `ids`: the tiles that stay while the sheet is up, as CHECK is tapped; `read`: where a tile's text and the edges it
+ * must show whole between sit on screen right now, undefined where that cannot be read (or the tile has gone);
+ * `laidOut`: where it cannot, whether a tile's text shows whole in its room as the views report their places (see
+ * textInRoom); `moves`: changes whenever the question sets off somewhere new (the sheet grows as its Why line opens),
+ * so its frames are read again. `tryKey`: the question and its try; a new try shows every tile again.
+ */
+export function useGlideIn({
+  open,
+  tryKey,
+  ids,
+  read,
+  laidOut,
+  moves
+}: {
+  open: boolean;
+  tryKey: string;
+  ids: string[];
+  read: (id: string) => GlideRead | undefined;
+  laidOut?: (id: string) => boolean | undefined;
+  moves?: string;
+}) {
+  const [held, setHeld] = useState<{ key: string; ids: string[] } | null>(null);
+  const readRef = useRef(read);
+  readRef.current = read;
+  // The try it was read for while the sheet is up.
+  const decided = useRef<string | null>(null);
+  // Read once, as the sheet opens, before that frame is drawn: where the learner left the question in its room (the
+  // sheet is still under the screen's edge). Nothing is drawn again for it when every tile shows whole.
+  useLayoutEffect(() => {
+    if (!open) {
+      decided.current = null;
+      return;
+    }
+    if (decided.current === tryKey) {
+      return;
+    }
+    decided.current = tryKey;
+    const away = ids.filter((id) => {
+      const at = readRef.current(id);
+      return at !== undefined ? !readWhole(at, false) : laidOut?.(id) === false;
+    });
+    if (away.length > 0 || held?.key === tryKey) {
+      setHeld({ key: tryKey, ids: away });
+    }
+    // Only as the sheet opens on a try: what is kept out of sight then is let in by the frames below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, tryKey]);
+  const hidden = open && held?.key === tryKey ? held.ids : NONE;
+  const hiddenKey = hidden.join("\u0000");
+  useEffect(() => {
+    if (!hidden.length) {
+      return undefined;
+    }
+    const letIn = (shown: string[]) =>
+      beforePaint(() => setHeld((was) => (was && was.key === tryKey ? { key: tryKey, ids: was.ids.filter((id) => !shown.includes(id)) } : was)));
+    // Where no frame can say where a tile sits, it fades in once the sheet has come up and the question with it.
+    if (typeof requestAnimationFrame !== "function" || hidden.every((id) => readRef.current(id) === undefined)) {
+      const timer = setTimeout(() => letIn(hidden), GLIDE_MS);
+      return () => clearTimeout(timer);
+    }
+    const started = Date.now();
+    let frame = 0;
+    const tick = () => {
+      const rested = Date.now() - started >= GLIDE_WATCH_MS;
+      const shown = rested
+        ? hidden
+        : hidden.filter((id) => {
+            const at = readRef.current(id);
+            // A tile that has gone (folded away) is let go of too.
+            return at === undefined || readWhole(at, true);
+          });
+      if (shown.length) {
+        letIn(shown);
+      }
+      if (shown.length < hidden.length) {
+        frame = requestAnimationFrame(tick);
+      }
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hiddenKey, tryKey, moves]);
+  return hidden;
 }
 
 /**

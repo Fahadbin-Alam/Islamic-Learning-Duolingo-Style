@@ -65,25 +65,32 @@ import {
   withHonorifics
 } from "../ui";
 import { FadeUnderSheet, FeedbackSheet, FoldGap, LessonBottomBar, PromptText, QuitSheet, shortWhy, useLessonCompact, useScrollMore } from "../ui/lesson";
-import { lineStart, tightSaving, tileTextBottom } from "../ui/ChoiceTile";
+import { lineStart, tightSaving, tileTextBottom, tileTextTop } from "../ui/ChoiceTile";
 import { POP_IN_DISTANCE } from "../ui/PopIn";
 import { BAR_GAP } from "../ui/lesson/LessonHeader";
 import { EVERY_FRAME, SCROLL_HINT_SLACK, scrollHintGrowth } from "../ui/lesson/ScrollHint";
 import {
+  edgesOnScreen,
   fitLook,
   foldRooms,
+  foldSoak,
+  gapsAbove,
   laidOutBox,
   laidOutHeight,
   laidOutTop,
   overRoom,
   questionStops,
+  reachesText,
   sameBlock,
   sameRoom,
   sheetRoom,
   sheetScrollY,
+  sheetTopOnScreen,
   stackSpan,
-  textRoom,
+  textInRoom,
+  textOnScreen,
   tilesUnderSheet,
+  useGlideIn,
   usePickFold,
   useQuestionFit,
   useQuestionScroll,
@@ -91,6 +98,7 @@ import {
   useSheetHeightNow,
   useStopsArrow,
   type BlockRead,
+  type GlideRead,
   type LayoutBox,
   type QuestionPlaces,
   type RoomRead,
@@ -537,9 +545,9 @@ export function FoundationAssessmentScreen({
   const labelTop = labelIn === null ? null : labelIn + topSpace;
   const tileBoxes = useRef<Record<string, LayoutBox>>({});
   // The room answers folded while the sheet comes up left (see FoldGap), and the gaps' views.
-  // `scrollLeft`: what the question's scroll can still take up of the room answers above the right one leave (see
-  // foldRooms), from where the learner left it at CHECK.
-  const foldGaps = useRef<{ key: string; heights: Record<string, number>; scrollLeft?: number }>({ key: "", heights: {} });
+  // `scrollAt`: where the question's scroll sits once it has taken up its share of the room answers above the right
+  // one leave (see foldSoak), from where the learner left it at CHECK.
+  const foldGaps = useRef<{ key: string; heights: Record<string, number>; scrollAt?: number }>({ key: "", heights: {} });
   // Where the learner left the question's scroll (by hand or with the arrow), for the room folds leave at CHECK.
   const scrolledTo = useRef({ key: "", y: 0 });
   const gapViews = useRef<Record<string, { view: View | null; from: number }>>({});
@@ -621,11 +629,12 @@ export function FoundationAssessmentScreen({
   // How far up from its bottom the right answer holds no text: the sheet's top edge may reach that far into it and cut
   // none of its lines.
   const textEdge = question.type === "multi_select" ? CHECK_TEXT_BOTTOM : tileTextBottom({ compact, tight: look.tight });
-  // Even then the sheet at its least (slim, its Why text one line) can be taller than the room under the right
-  // answer, as in lessons: the wrong picks then fold away too, when one sits above the top-most right answer in a
-  // column of answers (to pick one, or all that fit) and that keeps the sheet's edge under the right answer's text.
-  // The sheet still says it was wrong, and the right tiles and the sheet's "Correct answer" line what was right. Once
-  // folded they stay so while the sheet is up, also when its Why line opens.
+  // Even then the sheet at its least (slim, its Why text one line) can reach into the right answer's text, as in
+  // lessons: the wrong picks then fold away too, when one sits above the top-most right answer in a column of answers
+  // (to pick one, or all that fit) and that keeps the sheet's edge under the right answer's text. The sheet still says
+  // it was wrong, and the right tiles and the sheet's "Correct answer" line what was right. While the edge reaches no
+  // further into the right answer than under its text, the picks stay. Once folded they stay so while the sheet is up,
+  // also when its Why line opens.
   const pickedIndex = softTiles ? softTiles.items.findIndex((option) => isPicked(selectedAnswer, option) && !isAnswerOption(question, option)) : -1;
   const rightIndex = softTiles ? softTiles.items.findIndex((option) => isAnswerOption(question, option)) : -1;
   const pickAbove = softTiles?.columns === 1 && pickedIndex >= 0 && rightIndex > pickedIndex;
@@ -640,8 +649,8 @@ export function FoundationAssessmentScreen({
         sheetLeast > 0 &&
         softLayout &&
         rightLayout &&
-        overRoom(sheetRoom(softLayout).room, sheetLeast) &&
-        !overRoom(textRoom(rightLayout, textEdge), sheetLeast)
+        reachesText(softLayout, sheetLeast, textEdge) &&
+        !reachesText(rightLayout, sheetLeast, textEdge)
     ),
     tryKey: fitKey
   });
@@ -649,33 +658,6 @@ export function FoundationAssessmentScreen({
   // Until the sheet has said its least height a wrong pick may still fold, as in lessons: the place worked out without
   // that fold is not where the question goes, so it waits instead of starting there (or hiding the topic label).
   const pickPending = locked && fit.squeeze && fit.fitted && Boolean(rightLayout) && sheetLeast === 0 && !pickFolds;
-  // An answer in a column that folds away while the sheet comes up leaves its room, which closes with the sheet's
-  // spring (see FoldGap), as in lessons: the right answer glides up as the sheet rises and the prompt stays put. One
-  // that folds once the Why line is open goes at once, as the sheet has grown at once. A question the learner left
-  // scrolled down scrolls up with the answers above the right one instead, as far as it can (see foldRooms).
-  if (!locked || foldGaps.current.key !== fitKey) {
-    foldGaps.current = { key: fitKey, heights: {} };
-  }
-  const unfolded = answerTiles(question, selectedAnswer, words, retry);
-  if (locked && unfolded?.columns === 1 && tilesShown) {
-    const gaps = foldGaps.current;
-    if (gaps.scrollLeft === undefined) {
-      gaps.scrollLeft = scrolledTo.current.key === fitKey ? scrolledTo.current.y : 0;
-    }
-    const rightAt = unfolded.items.findIndex((option) => isAnswerOption(question, option));
-    const newly = unfolded.items
-      .map((option, index) => ({ option, index }))
-      .filter(({ option }) => !tilesShown.items.includes(option) && gaps.heights[option] === undefined)
-      .map(({ option, index }) => {
-        const box = tileBoxes.current[option];
-        return { id: option, room: !whyOpened && box ? box.height + answerGap : 0, above: index < rightAt };
-      });
-    if (newly.length > 0) {
-      const { rooms, left } = foldRooms(newly, gaps.scrollLeft);
-      Object.assign(gaps.heights, rooms);
-      gaps.scrollLeft = left;
-    }
-  }
   const gapRef = (option: string, from: number) => (view: View | null) => {
     if (view) {
       gapViews.current[option] = { view, from };
@@ -727,6 +709,35 @@ export function FoundationAssessmentScreen({
   // above the prompt: it is gone while the question sits scrolled past its top (and from the render that starts its
   // own scroll past it), so the scroll view's top edge never cuts it, and back once it is scrolled up to it again.
   const scrollTarget = layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  // An answer in a column that folds away while the sheet comes up leaves its room, which closes with the sheet's
+  // spring (see FoldGap), as in lessons: the right answer glides up as the sheet rises and the prompt stays put. One
+  // that folds once the Why line is open goes at once, as the sheet has grown at once. A question the learner left
+  // scrolled down scrolls up with the answers above the right one instead, as far as its scroll goes back towards
+  // where the question then sits (see foldSoak).
+  if (!locked || foldGaps.current.key !== fitKey) {
+    foldGaps.current = { key: fitKey, heights: {} };
+  }
+  const unfolded = answerTiles(question, selectedAnswer, words, retry);
+  if (locked && unfolded?.columns === 1 && tilesShown) {
+    const gaps = foldGaps.current;
+    if (gaps.scrollAt === undefined) {
+      gaps.scrollAt = scrolledTo.current.key === fitKey ? scrolledTo.current.y : 0;
+    }
+    const rightAt = unfolded.items.findIndex((option) => isAnswerOption(question, option));
+    const newly = unfolded.items
+      .map((option, index) => ({ option, index }))
+      .filter(({ option }) => !tilesShown.items.includes(option) && gaps.heights[option] === undefined)
+      .map(({ option, index }) => {
+        const box = tileBoxes.current[option];
+        return { id: option, room: !whyOpened && box ? box.height + answerGap : 0, above: index < rightAt };
+      });
+    if (newly.length > 0) {
+      const soak = foldSoak(gaps.scrollAt, scrollTarget);
+      const { rooms, left } = foldRooms(newly, soak);
+      Object.assign(gaps.heights, rooms);
+      gaps.scrollAt -= soak - left;
+    }
+  }
   // The answers as laid out right now, read before the frame is drawn where a view can say its place at once: a fold
   // above the right answer (or the prompt wrapping anew as the mascot hides) is seen in the frame it happens, and the
   // question keeps the right answer where it showed (see foldScrollY), as in lessons.
@@ -744,31 +755,57 @@ export function FoundationAssessmentScreen({
       boxes[ANSWERS_FOCUS] = { y: wrapTop + answersAt, height: answersBox };
     }
     // What a gap has closed of the room above a tile so far carried it up on its glide with the sheet, which no
-    // scroll is to make up for (as in lessons).
-    const closedAbove = (top: number) =>
-      Object.values(gapViews.current).reduce((sum, gap) => {
-        const at = laidOutTop(gap.view, wrap);
-        const now = (gap.view as { offsetHeight?: unknown } | null)?.offsetHeight;
-        return at !== undefined && at <= top && typeof now === "number" ? sum + Math.max(0, gap.from - now) : sum;
-      }, 0);
+    // scroll is to make up for (as in lessons); where the question goes is worked out with all of that room closed.
+    const gaps = Object.values(gapViews.current);
+    // The answers as a whole hold their gaps inside, none above.
+    const held: Record<string, number> = { [ANSWERS_FOCUS]: 0 };
     for (const item of tilesShown?.items ?? []) {
       const view = tileRefs.current[item];
       const top = laidOutTop(view, wrap);
       const height = laidOutHeight(view);
       if (top !== undefined && height !== undefined) {
-        boxes[item] = { y: wrapTop + top + closedAbove(top), height };
+        const above = gapsAbove(gaps, wrap, top);
+        boxes[item] = { y: wrapTop + top + above.closed, height };
+        held[item] = above.held;
       }
     }
     const right = tilesShown?.items.find((option) => isAnswerOption(question, option));
     const focus = right !== undefined && boxes[right] ? right : ANSWERS_FOCUS;
     const box = boxes[focus];
-    const now = box && viewport ? { visibleBottom: viewport + barHeight, promptTop: wrapTop + promptAt, focusTop: box.y, focusBottom: box.y + box.height } : undefined;
+    const closedTop = box ? box.y - (held[focus] ?? 0) : 0;
+    const now = box && viewport ? { visibleBottom: viewport + barHeight, promptTop: wrapTop + promptAt, focusTop: closedTop, focusBottom: closedTop + box.height } : undefined;
     const tops: Record<string, number> = {};
     Object.entries(boxes).forEach(([id, entry]) => {
       tops[id] = entry.y;
     });
     return { tops, focus, aim: now && sheetHeight > 0 ? sheetScrollY(now, sheetHeight, sheetRoom(now).furthest) : undefined };
   };
+  // An answer whose text did not show whole in the room as CHECK was tapped is gone while it glides into sight with the
+  // question, and fades in once it shows whole, as in lessons (see useGlideIn). A sorting or matching game keeps its
+  // own tiles under its list.
+  const readGlide = (item: string): GlideRead | undefined => {
+    const text = textOnScreen(tileRefs.current[item]);
+    const edges = edgesOnScreen(scrollBoxRef.current);
+    return text && edges ? { text, top: edges.top, bottom: edges.bottom, sheetTop: sheetTopOnScreen(rootRef.current) } : undefined;
+  };
+  // Where no view can say its place on screen at once: from the places the tiles reported and the learner's scroll.
+  const textTop = question.type === "multi_select" ? CHECK_PAD : tileTextTop({ compact, tight: look.tight });
+  const laidOutWhole = (item: string) => {
+    const span = tilesShown ? stackSpan(tilesShown.items, tileBoxes.current, item, answerGap, tilesShown.columns) : undefined;
+    if (!span || answersTop === undefined || !viewport) {
+      return undefined;
+    }
+    const y = scrolledTo.current.key === fitKey ? scrolledTo.current.y : 0;
+    return textInRoom({ top: answersTop + span.top, bottom: answersTop + span.bottom }, { top: textTop, bottom: textEdge }, y, viewport);
+  };
+  const gliding = useGlideIn({
+    open: locked,
+    tryKey: fitKey,
+    ids: sortOrMatch ? [] : tilesShown?.items ?? [],
+    read: readGlide,
+    laidOut: laidOutWhole,
+    moves: `${sheetHeight}|${whyOpened}`
+  });
   // A sorting or matching game keeps its tiles under its own sheet (the right order, or the right pairs, as a list): a
   // row of them the sheet's top edge would cut is gone at once while it is up, as answer tiles are, so the edge never
   // cuts a line of it. Where that edge sits, from the top of the answers.
@@ -1037,7 +1074,7 @@ export function FoundationAssessmentScreen({
             </View>
 
             <View ref={answersRef} pointerEvents={locked ? "none" : "auto"} testID="assessment-answers" onLayout={onAnswersLayout}>
-              {renderQuestionInput(question, selectedAnswer, change, checked, words, compact, retry, pickFolds ? "pick" : folded, onTileLayout, fadedTiles, {
+              {renderQuestionInput(question, selectedAnswer, change, checked, words, compact, retry, pickFolds ? "pick" : folded, onTileLayout, gliding.length ? [...fadedTiles, ...gliding] : fadedTiles, {
                 listEdge,
                 tight: look.tight,
                 smallText: look.smallText,
