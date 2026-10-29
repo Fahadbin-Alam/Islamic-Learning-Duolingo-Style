@@ -1980,6 +1980,18 @@
     "text": "From jinn and people"
   },
   {
+    "kind": "course",
+    "text": "The whisperer who hides"
+  },
+  {
+    "kind": "course",
+    "text": "Before sleeping"
+  },
+  {
+    "kind": "course",
+    "text": "Morning and evening"
+  },
+  {
     "kind": "arabic",
     "text": "The Daybreak"
   },
@@ -1992,6 +2004,18 @@
     "text": "From the envier"
   },
   {
+    "kind": "course",
+    "text": "Ayahs like no others"
+  },
+  {
+    "kind": "course",
+    "text": "The Lord of the dawn"
+  },
+  {
+    "kind": "course",
+    "text": "When he was ill"
+  },
+  {
     "kind": "arabic",
     "text": "The Sincerity"
   },
@@ -2002,6 +2026,22 @@
   {
     "kind": "course",
     "text": "None like Him"
+  },
+  {
+    "kind": "course",
+    "text": "A third of the Quran"
+  },
+  {
+    "kind": "course",
+    "text": "A third in one night"
+  },
+  {
+    "kind": "course",
+    "text": "None is like Him"
+  },
+  {
+    "kind": "course",
+    "text": "Allah loves him"
   },
   {
     "kind": "arabic",
@@ -2114,6 +2154,14 @@
   {
     "kind": "course",
     "text": "The four that save"
+  },
+  {
+    "kind": "course",
+    "text": "Four things save us"
+  },
+  {
+    "kind": "course",
+    "text": "Enough for people"
   },
   {
     "kind": "arabic",
@@ -2445,6 +2493,10 @@
   },
   {
     "kind": "course",
+    "text": "Guidance for the mindful"
+  },
+  {
+    "kind": "course",
     "text": "No doubt"
   },
   {
@@ -2458,26 +2510,6 @@
   {
     "kind": "arabic",
     "text": "They believe in the unseen"
-  },
-  {
-    "kind": "course",
-    "text": "Ayat al-Kursi"
-  },
-  {
-    "kind": "arabic",
-    "text": "The Throne Verse"
-  },
-  {
-    "kind": "course",
-    "text": "The last ayahs"
-  },
-  {
-    "kind": "arabic",
-    "text": "Last verses of Baqarah"
-  },
-  {
-    "kind": "course",
-    "text": "Guidance for the mindful"
   },
   {
     "kind": "course",
@@ -2609,6 +2641,14 @@
   },
   {
     "kind": "course",
+    "text": "Ayat al-Kursi"
+  },
+  {
+    "kind": "arabic",
+    "text": "The Throne Verse"
+  },
+  {
+    "kind": "course",
     "text": "Giving life"
   },
   {
@@ -2633,31 +2673,11 @@
   },
   {
     "kind": "course",
-    "text": "Stay firm"
+    "text": "The last ayahs"
   },
   {
     "kind": "arabic",
-    "text": "Standing firm"
-  },
-  {
-    "kind": "course",
-    "text": "Allah's rope"
-  },
-  {
-    "kind": "arabic",
-    "text": "Hold Allah's rope together"
-  },
-  {
-    "kind": "course",
-    "text": "Tests"
-  },
-  {
-    "kind": "arabic",
-    "text": "Being tested"
-  },
-  {
-    "kind": "course",
-    "text": "People of the Book"
+    "text": "Last verses of Baqarah"
   },
   {
     "kind": "course",
@@ -2689,7 +2709,19 @@
   },
   {
     "kind": "course",
+    "text": "People of the Book"
+  },
+  {
+    "kind": "course",
     "text": "Give what you love"
+  },
+  {
+    "kind": "course",
+    "text": "Allah's rope"
+  },
+  {
+    "kind": "arabic",
+    "text": "Hold Allah's rope together"
   },
   {
     "kind": "course",
@@ -2713,7 +2745,23 @@
   },
   {
     "kind": "course",
-    "text": "Justice"
+    "text": "Tests"
+  },
+  {
+    "kind": "arabic",
+    "text": "Being tested"
+  },
+  {
+    "kind": "course",
+    "text": "Stay firm"
+  },
+  {
+    "kind": "arabic",
+    "text": "Standing firm"
+  },
+  {
+    "kind": "course",
+    "text": "From one soul"
   },
   {
     "kind": "course",
@@ -2722,26 +2770,6 @@
   {
     "kind": "arabic",
     "text": "Rights of people"
-  },
-  {
-    "kind": "course",
-    "text": "Parents and relatives"
-  },
-  {
-    "kind": "arabic",
-    "text": "Keeping family ties"
-  },
-  {
-    "kind": "course",
-    "text": "Obey Allah"
-  },
-  {
-    "kind": "arabic",
-    "text": "Obey Allah and obey the Messenger ﷺ"
-  },
-  {
-    "kind": "course",
-    "text": "From one soul"
   },
   {
     "kind": "course",
@@ -2757,7 +2785,23 @@
   },
   {
     "kind": "course",
+    "text": "Parents and relatives"
+  },
+  {
+    "kind": "arabic",
+    "text": "Keeping family ties"
+  },
+  {
+    "kind": "course",
     "text": "Return trusts"
+  },
+  {
+    "kind": "course",
+    "text": "Obey Allah"
+  },
+  {
+    "kind": "arabic",
+    "text": "Obey Allah and obey the Messenger ﷺ"
   },
   {
     "kind": "course",
@@ -2781,6 +2825,10 @@
   },
   {
     "kind": "course",
+    "text": "Justice"
+  },
+  {
+    "kind": "course",
     "text": "Isa raised up"
   },
   {
@@ -2789,35 +2837,19 @@
   },
   {
     "kind": "course",
-    "text": "Keep your promises"
-  },
-  {
-    "kind": "course",
-    "text": "Wudu in the Quran"
-  },
-  {
-    "kind": "course",
-    "text": "Halal food"
-  },
-  {
-    "kind": "arabic",
-    "text": "Allowed and forbidden"
-  },
-  {
-    "kind": "course",
-    "text": "Judging by revelation"
-  },
-  {
-    "kind": "arabic",
-    "text": "What Allah revealed"
-  },
-  {
-    "kind": "course",
     "text": "Religion perfected"
   },
   {
     "kind": "course",
+    "text": "Keep your promises"
+  },
+  {
+    "kind": "course",
     "text": "Wudu and justice"
+  },
+  {
+    "kind": "course",
+    "text": "Wudu in the Quran"
   },
   {
     "kind": "course",
@@ -2834,6 +2866,14 @@
   {
     "kind": "course",
     "text": "The Quran guards"
+  },
+  {
+    "kind": "course",
+    "text": "Judging by revelation"
+  },
+  {
+    "kind": "arabic",
+    "text": "What Allah revealed"
   },
   {
     "kind": "course",
@@ -2854,6 +2894,14 @@
   {
     "kind": "course",
     "text": "Shaytan's work"
+  },
+  {
+    "kind": "course",
+    "text": "Halal food"
+  },
+  {
+    "kind": "arabic",
+    "text": "Allowed and forbidden"
   },
   {
     "kind": "course",
@@ -3097,39 +3145,15 @@
   },
   {
     "kind": "course",
+    "text": "Yusuf's dream"
+  },
+  {
+    "kind": "course",
     "text": "The best story"
   },
   {
     "kind": "arabic",
     "text": "The best of stories"
-  },
-  {
-    "kind": "course",
-    "text": "Saying no"
-  },
-  {
-    "kind": "arabic",
-    "text": "Purity and self-control"
-  },
-  {
-    "kind": "course",
-    "text": "Yusuf in prison"
-  },
-  {
-    "kind": "arabic",
-    "text": "Patience"
-  },
-  {
-    "kind": "course",
-    "text": "Forgiving his brothers"
-  },
-  {
-    "kind": "arabic",
-    "text": "Forgiveness"
-  },
-  {
-    "kind": "course",
-    "text": "Yusuf's dream"
   },
   {
     "kind": "course",
@@ -3141,11 +3165,27 @@
   },
   {
     "kind": "course",
+    "text": "Saying no"
+  },
+  {
+    "kind": "arabic",
+    "text": "Purity and self-control"
+  },
+  {
+    "kind": "course",
     "text": "Prison over sin"
   },
   {
     "kind": "course",
     "text": "Teaching in prison"
+  },
+  {
+    "kind": "course",
+    "text": "Yusuf in prison"
+  },
+  {
+    "kind": "arabic",
+    "text": "Patience"
   },
   {
     "kind": "course",
@@ -3166,6 +3206,14 @@
   {
     "kind": "course",
     "text": "Never despair"
+  },
+  {
+    "kind": "course",
+    "text": "Forgiving his brothers"
+  },
+  {
+    "kind": "arabic",
+    "text": "Forgiveness"
   },
   {
     "kind": "course",
@@ -3357,6 +3405,10 @@
   },
   {
     "kind": "course",
+    "text": "Youths in the cave"
+  },
+  {
+    "kind": "course",
     "text": "The people of the cave"
   },
   {
@@ -3365,35 +3417,19 @@
   },
   {
     "kind": "course",
-    "text": "Two gardens"
-  },
-  {
-    "kind": "arabic",
-    "text": "Owner of two gardens"
-  },
-  {
-    "kind": "course",
-    "text": "Musa and Khidr"
-  },
-  {
-    "kind": "course",
-    "text": "Dhul-Qarnayn's wall"
-  },
-  {
-    "kind": "arabic",
-    "text": "He of Two Horns"
-  },
-  {
-    "kind": "course",
-    "text": "Youths in the cave"
-  },
-  {
-    "kind": "course",
     "text": "Hearts made firm"
   },
   {
     "kind": "course",
     "text": "Their dog"
+  },
+  {
+    "kind": "course",
+    "text": "Two gardens"
+  },
+  {
+    "kind": "arabic",
+    "text": "Owner of two gardens"
   },
   {
     "kind": "course",
@@ -3413,6 +3449,10 @@
   },
   {
     "kind": "course",
+    "text": "Musa and Khidr"
+  },
+  {
+    "kind": "course",
     "text": "Hidden wisdom"
   },
   {
@@ -3421,11 +3461,23 @@
   },
   {
     "kind": "course",
+    "text": "Dhul-Qarnayn's wall"
+  },
+  {
+    "kind": "arabic",
+    "text": "He of Two Horns"
+  },
+  {
+    "kind": "course",
     "text": "Seas of ink"
   },
   {
     "kind": "arabic",
     "text": "Named after Maryam"
+  },
+  {
+    "kind": "course",
+    "text": "Zakariya's quiet prayer"
   },
   {
     "kind": "course",
@@ -3445,6 +3497,10 @@
   },
   {
     "kind": "course",
+    "text": "The palm tree"
+  },
+  {
+    "kind": "course",
     "text": "Maryam's trust"
   },
   {
@@ -3453,23 +3509,15 @@
   },
   {
     "kind": "course",
+    "text": "Isa speaks"
+  },
+  {
+    "kind": "course",
     "text": "Ibrahim and his father"
   },
   {
     "kind": "arabic",
     "text": "The prophets"
-  },
-  {
-    "kind": "course",
-    "text": "Zakariya's quiet prayer"
-  },
-  {
-    "kind": "course",
-    "text": "The palm tree"
-  },
-  {
-    "kind": "course",
-    "text": "Isa speaks"
   },
   {
     "kind": "course",
@@ -3989,6 +4037,10 @@
   },
   {
     "kind": "course",
+    "text": "Every trace recorded"
+  },
+  {
+    "kind": "course",
     "text": "The wise Quran"
   },
   {
@@ -3996,16 +4048,8 @@
     "text": "Revelation and warning"
   },
   {
-    "kind": "arabic",
-    "text": "Allah's signs"
-  },
-  {
     "kind": "course",
-    "text": "Back to life"
-  },
-  {
-    "kind": "arabic",
-    "text": "Rising after death"
+    "text": "The running man"
   },
   {
     "kind": "course",
@@ -4017,15 +4061,11 @@
   },
   {
     "kind": "course",
-    "text": "Every trace recorded"
-  },
-  {
-    "kind": "course",
-    "text": "The running man"
-  },
-  {
-    "kind": "course",
     "text": "Sun and moon in orbit"
+  },
+  {
+    "kind": "arabic",
+    "text": "Allah's signs"
   },
   {
     "kind": "course",
@@ -4034,6 +4074,14 @@
   {
     "kind": "course",
     "text": "Be, and it is"
+  },
+  {
+    "kind": "course",
+    "text": "Back to life"
+  },
+  {
+    "kind": "arabic",
+    "text": "Rising after death"
   },
   {
     "kind": "arabic",
@@ -4605,43 +4653,15 @@
   },
   {
     "kind": "course",
-    "text": "The kingdom"
-  },
-  {
-    "kind": "arabic",
-    "text": "All power is His"
-  },
-  {
-    "kind": "course",
-    "text": "Life is a test"
-  },
-  {
-    "kind": "arabic",
-    "text": "Whose deeds are best"
-  },
-  {
-    "kind": "course",
-    "text": "A perfect sky"
-  },
-  {
-    "kind": "arabic",
-    "text": "Look again"
-  },
-  {
-    "kind": "course",
-    "text": "Who gives water?"
-  },
-  {
-    "kind": "arabic",
-    "text": "Heedlessness"
-  },
-  {
-    "kind": "course",
     "text": "The surah that pleads"
   },
   {
     "kind": "course",
     "text": "All rule is His"
+  },
+  {
+    "kind": "course",
+    "text": "Life is a test"
   },
   {
     "kind": "course",
@@ -4681,6 +4701,26 @@
   },
   {
     "kind": "course",
+    "text": "The kingdom"
+  },
+  {
+    "kind": "arabic",
+    "text": "All power is His"
+  },
+  {
+    "kind": "arabic",
+    "text": "Whose deeds are best"
+  },
+  {
+    "kind": "course",
+    "text": "A perfect sky"
+  },
+  {
+    "kind": "arabic",
+    "text": "Look again"
+  },
+  {
+    "kind": "course",
     "text": "If only we listened"
   },
   {
@@ -4690,6 +4730,14 @@
   {
     "kind": "course",
     "text": "Who brings water?"
+  },
+  {
+    "kind": "course",
+    "text": "Who gives water?"
+  },
+  {
+    "kind": "arabic",
+    "text": "Heedlessness"
   },
   {
     "kind": "arabic",
@@ -16816,6 +16864,22 @@
     "text": "Ayat al-Kursi is the greatest surah in the Quran."
   },
   {
+    "kind": "question",
+    "text": "What never overtakes Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep or tiredness"
+  },
+  {
+    "kind": "question",
+    "text": "Allah, the Ever-Living, never sleeps; His Kursi holds all."
+  },
+  {
     "kind": "lesson",
     "text": "Al-Baqarah's last ayahs say: we hear and we obey."
   },
@@ -16837,7 +16901,27 @@
   },
   {
     "kind": "question",
-    "text": "What does the name Surah Al-Baqarah mean?"
+    "text": "What should you do with a debt for a set time?"
+  },
+  {
+    "kind": "question",
+    "text": "Hide it"
+  },
+  {
+    "kind": "question",
+    "text": "Shout it"
+  },
+  {
+    "kind": "question",
+    "text": "Write it down"
+  },
+  {
+    "kind": "question",
+    "text": "Forget it"
+  },
+  {
+    "kind": "question",
+    "text": "When you lend for a set time, write it down."
   },
   {
     "kind": "lesson",
@@ -16893,6 +16977,22 @@
   },
   {
     "kind": "question",
+    "text": "What should we hold to together, in Ali 'Imran?"
+  },
+  {
+    "kind": "question",
+    "text": "Our money"
+  },
+  {
+    "kind": "question",
+    "text": "Old ways"
+  },
+  {
+    "kind": "question",
+    "text": "Hold firmly to Allah's rope together, and don't split apart."
+  },
+  {
+    "kind": "question",
     "text": "Hold on to Allah's kite together, and don't split up."
   },
   {
@@ -16924,6 +17024,14 @@
     "text": "Patience and taqwa carry us through."
   },
   {
+    "kind": "question",
+    "text": "Ayahs 172-189 say: Come to a common word: we worship only Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Warned of danger, believers said: Allah is enough for us."
+  },
+  {
     "kind": "lesson",
     "text": "Ali 'Imran calls the People of the Book to worship Allah alone."
   },
@@ -16952,8 +17060,76 @@
     "text": "People of the Book means Jews and Christians."
   },
   {
+    "kind": "question",
+    "text": "What is the common word, in Ali 'Imran?"
+  },
+  {
+    "kind": "question",
+    "text": "Build towers"
+  },
+  {
+    "kind": "question",
+    "text": "Live forever"
+  },
+  {
+    "kind": "question",
+    "text": "Worship only Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Trade freely"
+  },
+  {
+    "kind": "question",
+    "text": "Who is Isa compared to, in Ali 'Imran?"
+  },
+  {
+    "kind": "question",
+    "text": "Isa is like Adam: Allah said 'Be', and he was."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Allah choose above the women of the worlds, in Ali 'Imran?"
+  },
+  {
+    "kind": "question",
+    "text": "Pharaoh's wife"
+  },
+  {
+    "kind": "question",
+    "text": "Saba's queen"
+  },
+  {
+    "kind": "question",
+    "text": "Angels told Maryam: Allah chose you, and gave news of Isa."
+  },
+  {
     "kind": "lesson",
     "text": "Ali 'Imran: stay firm, hold together, and be patient in tests."
+  },
+  {
+    "kind": "question",
+    "text": "When do people of understanding remember Allah, in Ali 'Imran?"
+  },
+  {
+    "kind": "question",
+    "text": "Standing, sitting and lying down"
+  },
+  {
+    "kind": "question",
+    "text": "Only on Fridays"
+  },
+  {
+    "kind": "question",
+    "text": "Only at night"
+  },
+  {
+    "kind": "question",
+    "text": "Never"
+  },
+  {
+    "kind": "question",
+    "text": "Thinkers remember Allah standing, sitting and lying down."
   },
   {
     "kind": "lesson",
@@ -17005,6 +17181,22 @@
   },
   {
     "kind": "question",
+    "text": "From what did Allah create all people, in An-Nisa?"
+  },
+  {
+    "kind": "question",
+    "text": "Stars"
+  },
+  {
+    "kind": "question",
+    "text": "One soul"
+  },
+  {
+    "kind": "question",
+    "text": "Allah made you all from one soul; respect family ties."
+  },
+  {
+    "kind": "question",
     "text": "An-Nisa protects kings and their money."
   },
   {
@@ -17033,7 +17225,39 @@
   },
   {
     "kind": "question",
+    "text": "Who should we be kind to, in An-Nisa?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the rich"
+  },
+  {
+    "kind": "question",
+    "text": "No one"
+  },
+  {
+    "kind": "question",
+    "text": "Parents, kin, orphans and neighbors"
+  },
+  {
+    "kind": "question",
+    "text": "Only friends"
+  },
+  {
+    "kind": "question",
+    "text": "Worship Allah and be kind to parents, kin, orphans, neighbors."
+  },
+  {
+    "kind": "question",
     "text": "An-Nisa says: be good to your phones and relatives."
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 23-33: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah wants to make things easy for you; man was made weak."
   },
   {
     "kind": "lesson",
@@ -17057,11 +17281,19 @@
   },
   {
     "kind": "question",
-    "text": "No one"
+    "text": "Ayahs 43-59 say: Return trusts to their owners, and judge with justice."
   },
   {
     "kind": "lesson",
     "text": "An-Nisa: justice, orphans, parents, and obeying Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 105-126: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah forgives who asks, and took Ibrahim as a close friend."
   },
   {
     "kind": "lesson",
@@ -17128,6 +17360,10 @@
     "text": "Halal means allowed, and haram means not allowed."
   },
   {
+    "kind": "question",
+    "text": "Ayahs 87-93 say: Don't forbid good things; wine and gambling are Shaytan's work."
+  },
+  {
     "kind": "lesson",
     "text": "Al-Ma'idah says to judge by what Allah revealed."
   },
@@ -17150,6 +17386,30 @@
   {
     "kind": "question",
     "text": "Al-Ma'idah says to judge by what people like."
+  },
+  {
+    "kind": "question",
+    "text": "What does the Quran do to earlier books, in Al-Ma'idah?"
+  },
+  {
+    "kind": "question",
+    "text": "Ignores them"
+  },
+  {
+    "kind": "question",
+    "text": "Copies them"
+  },
+  {
+    "kind": "question",
+    "text": "Hides them"
+  },
+  {
+    "kind": "question",
+    "text": "Confirms and guards them"
+  },
+  {
+    "kind": "question",
+    "text": "The Quran confirms earlier books and guards them; race in good."
   },
   {
     "kind": "lesson",
@@ -17233,11 +17493,7 @@
   },
   {
     "kind": "question",
-    "text": "How many ayahs does Surah Yusuf have?"
-  },
-  {
-    "kind": "question",
-    "text": "It has 111 ayahs."
+    "text": "Ayahs 21-29 say: In Egypt, Yusuf refused wrong and said: I seek Allah's refuge."
   },
   {
     "kind": "lesson",
@@ -17261,11 +17517,19 @@
   },
   {
     "kind": "question",
-    "text": "Surah Yusuf was revealed in Makkah."
+    "text": "Ayahs 80-93: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ya'qub said: never despair of Allah's mercy."
   },
   {
     "kind": "lesson",
     "text": "Surah Yusuf: the best story, staying pure, and forgiving."
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 80-93 say: Yusuf said: prison is dearer to me than doing wrong."
   },
   {
     "kind": "lesson",
@@ -17328,6 +17592,14 @@
     "text": "Baby Isa spoke from the cradle to defend her."
   },
   {
+    "kind": "question",
+    "text": "Ayahs 16-26: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Maryam was told: shake the palm, and fresh dates will fall."
+  },
+  {
     "kind": "lesson",
     "text": "Surah Maryam tells of Ibrahim speaking gently to his father."
   },
@@ -17342,6 +17614,14 @@
   {
     "kind": "question",
     "text": "Sulayman"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 27-40: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Baby Isa spoke: I am Allah's servant; He gave me the Book."
   },
   {
     "kind": "lesson",
@@ -17393,7 +17673,19 @@
   },
   {
     "kind": "question",
-    "text": "Surah Al-Kahf was revealed in Makkah."
+    "text": "What should we add when we promise something, in Al-Kahf?"
+  },
+  {
+    "kind": "question",
+    "text": "Maybe"
+  },
+  {
+    "kind": "question",
+    "text": "I swear"
+  },
+  {
+    "kind": "question",
+    "text": "Never say 'I'll do it tomorrow' without 'if Allah wills'."
   },
   {
     "kind": "lesson",
@@ -17420,6 +17712,30 @@
     "text": "Khidr did things that only made sense later."
   },
   {
+    "kind": "question",
+    "text": "What did Musa promise the wise servant, in Al-Kahf?"
+  },
+  {
+    "kind": "question",
+    "text": "To pay him"
+  },
+  {
+    "kind": "question",
+    "text": "To lead"
+  },
+  {
+    "kind": "question",
+    "text": "To stay silent forever"
+  },
+  {
+    "kind": "question",
+    "text": "To be patient"
+  },
+  {
+    "kind": "question",
+    "text": "Musa traveled far to learn from a servant Allah taught."
+  },
+  {
     "kind": "lesson",
     "text": "Dhul-Qarnayn was a strong ruler who built a great wall."
   },
@@ -17442,6 +17758,10 @@
   {
     "kind": "question",
     "text": "He said: this is a mercy from my Lord."
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 83-101 say: Dhul-Qarnayn built a barrier of iron and molten copper."
   },
   {
     "kind": "lesson",
@@ -17497,11 +17817,11 @@
   },
   {
     "kind": "question",
-    "text": "Surah Ya-Sin was revealed in Madinah."
+    "text": "In Ya-Sin, a man ran to tell his town: follow the ____."
   },
   {
     "kind": "question",
-    "text": "Surah Ya-Sin was revealed in Makkah."
+    "text": "messengers"
   },
   {
     "kind": "lesson",
@@ -17528,6 +17848,22 @@
     "text": "When Allah wants something, He says Be, and it is."
   },
   {
+    "kind": "question",
+    "text": "What does Allah say when He wills a thing, in Ya-Sin?"
+  },
+  {
+    "kind": "question",
+    "text": "Later"
+  },
+  {
+    "kind": "question",
+    "text": "Be"
+  },
+  {
+    "kind": "question",
+    "text": "Wait"
+  },
+  {
     "kind": "lesson",
     "text": "In Ya-Sin, a man ran to tell his town: follow the messengers."
   },
@@ -17537,15 +17873,31 @@
   },
   {
     "kind": "question",
-    "text": "In Ya-Sin, a man ran to tell his town: follow the ____."
+    "text": "What did the running man say, in Ya-Sin?"
   },
   {
     "kind": "question",
-    "text": "messengers"
+    "text": "Fight them"
+  },
+  {
+    "kind": "question",
+    "text": "Follow the messengers"
+  },
+  {
+    "kind": "question",
+    "text": "Run away"
+  },
+  {
+    "kind": "question",
+    "text": "Stay quiet"
   },
   {
     "kind": "question",
     "text": "In Ya-Sin, a man ran to tell his town: follow the kings."
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-12 say: Allah records what people send ahead and the traces they leave."
   },
   {
     "kind": "lesson",
@@ -17593,11 +17945,27 @@
   },
   {
     "kind": "question",
-    "text": "Surah Al-Mulk was revealed in Madinah."
+    "text": "What do Hell's keepers ask each group?"
   },
   {
     "kind": "question",
-    "text": "Surah Al-Mulk was revealed in Makkah."
+    "text": "Where is your money?"
+  },
+  {
+    "kind": "question",
+    "text": "Did no warner come to you?"
+  },
+  {
+    "kind": "question",
+    "text": "Who are you?"
+  },
+  {
+    "kind": "question",
+    "text": "Are you sorry?"
+  },
+  {
+    "kind": "question",
+    "text": "And they answer: yes, a warner came, but we denied him."
   },
   {
     "kind": "lesson",
@@ -17650,6 +18018,18 @@
   {
     "kind": "question",
     "text": "Al-Mulk asks who could bring back your gold if it sank away."
+  },
+  {
+    "kind": "question",
+    "text": "Who holds the birds up in the sky, in Al-Mulk?"
+  },
+  {
+    "kind": "question",
+    "text": "The clouds"
+  },
+  {
+    "kind": "question",
+    "text": "The wind alone"
   },
   {
     "kind": "lesson",
@@ -19277,10 +19657,6 @@
   },
   {
     "kind": "question",
-    "text": "Only the rich"
-  },
-  {
-    "kind": "question",
     "text": "Your neighbors"
   },
   {
@@ -19782,10 +20158,6 @@
   {
     "kind": "question",
     "text": "If you can't say something good, what should you do?"
-  },
-  {
-    "kind": "question",
-    "text": "Stay quiet"
   },
   {
     "kind": "question",
@@ -23453,6 +23825,10 @@
   },
   {
     "kind": "question",
+    "text": "What does the name Surah Al-Baqarah mean?"
+  },
+  {
+    "kind": "question",
     "text": "Surah Al-Baqarah was revealed in Madinah."
   },
   {
@@ -23736,6 +24112,18 @@
     "text": "Quran 12:1"
   },
   {
+    "kind": "question",
+    "text": "Surah Yusuf was revealed in Makkah."
+  },
+  {
+    "kind": "question",
+    "text": "How many ayahs does Surah Yusuf have?"
+  },
+  {
+    "kind": "question",
+    "text": "It has 111 ayahs."
+  },
+  {
     "kind": "lesson",
     "text": "Surah Ar-Ra'd means \"The Thunder\"."
   },
@@ -23886,6 +24274,10 @@
   {
     "kind": "question",
     "text": "What does the name Surah Al-Kahf mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Surah Al-Kahf was revealed in Makkah."
   },
   {
     "kind": "question",
@@ -24386,6 +24778,14 @@
   {
     "kind": "lesson",
     "text": "83 ayahs"
+  },
+  {
+    "kind": "question",
+    "text": "Surah Ya-Sin was revealed in Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Surah Ya-Sin was revealed in Makkah."
   },
   {
     "kind": "question",
@@ -25182,6 +25582,14 @@
   {
     "kind": "question",
     "text": "What does the name Surah Al-Mulk mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Surah Al-Mulk was revealed in Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Surah Al-Mulk was revealed in Makkah."
   },
   {
     "kind": "question",
@@ -27905,30 +28313,6 @@
   },
   {
     "kind": "question",
-    "text": "What do Hell's keepers ask each group?"
-  },
-  {
-    "kind": "question",
-    "text": "Where is your money?"
-  },
-  {
-    "kind": "question",
-    "text": "Did no warner come to you?"
-  },
-  {
-    "kind": "question",
-    "text": "Who are you?"
-  },
-  {
-    "kind": "question",
-    "text": "Are you sorry?"
-  },
-  {
-    "kind": "question",
-    "text": "And they answer: yes, a warner came, but we denied him."
-  },
-  {
-    "kind": "question",
     "text": "Ibn Kathir says Allah does not punish until what?"
   },
   {
@@ -28273,10 +28657,6 @@
   },
   {
     "kind": "question",
-    "text": "The wind alone"
-  },
-  {
-    "kind": "question",
     "text": "None upholds them except the Most Merciful."
   },
   {
@@ -28470,10 +28850,6 @@
   {
     "kind": "question",
     "text": "If you have nothing good to say, what should you do?"
-  },
-  {
-    "kind": "question",
-    "text": "Write it down"
   },
   {
     "kind": "question",
@@ -28866,10 +29242,6 @@
   {
     "kind": "question",
     "text": "Only if you shout"
-  },
-  {
-    "kind": "question",
-    "text": "Only on Fridays"
   },
   {
     "kind": "question",
@@ -29638,10 +30010,6 @@
   {
     "kind": "question",
     "text": "Relatives"
-  },
-  {
-    "kind": "question",
-    "text": "Only friends"
   },
   {
     "kind": "question",
@@ -30638,10 +31006,6 @@
   {
     "kind": "question",
     "text": "Only if others see"
-  },
-  {
-    "kind": "question",
-    "text": "Never"
   },
   {
     "kind": "question",
@@ -34898,10 +35262,6 @@
   {
     "kind": "question",
     "text": "What did the Prophet ﷺ say the milk meant?"
-  },
-  {
-    "kind": "question",
-    "text": "Knowledge"
   },
   {
     "kind": "question",
@@ -42521,10 +42881,6 @@
   },
   {
     "kind": "question",
-    "text": "Our money"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 1-2: what are they about?"
   },
   {
@@ -43974,10 +44330,6 @@
   {
     "kind": "question",
     "text": "Prostrate and come near"
-  },
-  {
-    "kind": "question",
-    "text": "Run away"
   },
   {
     "kind": "question",
@@ -46329,14 +46681,6 @@
   },
   {
     "kind": "question",
-    "text": "Wait"
-  },
-  {
-    "kind": "question",
-    "text": "Maybe"
-  },
-  {
-    "kind": "question",
     "text": "Ask again"
   },
   {
@@ -47133,10 +47477,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Allah, the Ever-Living, never sleeps; His Kursi holds all."
-  },
-  {
-    "kind": "lesson",
     "text": "No force in religion"
   },
   {
@@ -47146,14 +47486,6 @@
   {
     "kind": "source",
     "text": "Quran 2:254-257"
-  },
-  {
-    "kind": "question",
-    "text": "What never overtakes Allah?"
-  },
-  {
-    "kind": "question",
-    "text": "Sleep or tiredness"
   },
   {
     "kind": "question",
@@ -47313,10 +47645,6 @@
   },
   {
     "kind": "lesson",
-    "text": "When you lend for a set time, write it down."
-  },
-  {
-    "kind": "lesson",
     "text": "Bring witnesses"
   },
   {
@@ -47330,22 +47658,6 @@
   {
     "kind": "source",
     "text": "Quran 2:282-283"
-  },
-  {
-    "kind": "question",
-    "text": "What should you do with a debt for a set time?"
-  },
-  {
-    "kind": "question",
-    "text": "Hide it"
-  },
-  {
-    "kind": "question",
-    "text": "Shout it"
-  },
-  {
-    "kind": "question",
-    "text": "Forget it"
   },
   {
     "kind": "question",
@@ -47573,10 +47885,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Angels told Maryam: Allah chose you, and gave news of Isa."
-  },
-  {
-    "kind": "lesson",
     "text": "Isa spoke in the cradle"
   },
   {
@@ -47589,27 +47897,11 @@
   },
   {
     "kind": "question",
-    "text": "Whom did Allah choose above the women of the worlds, in Ali 'Imran?"
-  },
-  {
-    "kind": "question",
-    "text": "Pharaoh's wife"
-  },
-  {
-    "kind": "question",
-    "text": "Saba's queen"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 42-54: what are they about?"
   },
   {
     "kind": "question",
     "text": "Ayahs 42-54 say: Angels told Maryam: Allah chose you, and gave news of Isa."
-  },
-  {
-    "kind": "lesson",
-    "text": "Isa is like Adam: Allah said 'Be', and he was."
   },
   {
     "kind": "lesson",
@@ -47626,10 +47918,6 @@
   {
     "kind": "source",
     "text": "Quran 3:55-63"
-  },
-  {
-    "kind": "question",
-    "text": "Who is Isa compared to, in Ali 'Imran?"
   },
   {
     "kind": "question",
@@ -47658,26 +47946,6 @@
   {
     "kind": "source",
     "text": "Quran 3:64-80"
-  },
-  {
-    "kind": "question",
-    "text": "What is the common word, in Ali 'Imran?"
-  },
-  {
-    "kind": "question",
-    "text": "Build towers"
-  },
-  {
-    "kind": "question",
-    "text": "Live forever"
-  },
-  {
-    "kind": "question",
-    "text": "Worship only Allah"
-  },
-  {
-    "kind": "question",
-    "text": "Trade freely"
   },
   {
     "kind": "question",
@@ -47737,10 +48005,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Hold firmly to Allah's rope together, and don't split apart."
-  },
-  {
-    "kind": "lesson",
     "text": "Allah joined your hearts"
   },
   {
@@ -47750,14 +48014,6 @@
   {
     "kind": "source",
     "text": "Quran 3:102-109"
-  },
-  {
-    "kind": "question",
-    "text": "What should we hold to together, in Ali 'Imran?"
-  },
-  {
-    "kind": "question",
-    "text": "Old ways"
   },
   {
     "kind": "question",
@@ -47937,10 +48193,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Warned of danger, believers said: Allah is enough for us."
-  },
-  {
-    "kind": "lesson",
     "text": "Every soul will taste death"
   },
   {
@@ -47976,14 +48228,6 @@
     "text": "Ayahs 172-189: what are they about?"
   },
   {
-    "kind": "question",
-    "text": "Ayahs 172-189 say: Come to a common word: we worship only Allah."
-  },
-  {
-    "kind": "lesson",
-    "text": "Thinkers remember Allah standing, sitting and lying down."
-  },
-  {
     "kind": "lesson",
     "text": "Lord, You made this not in vain"
   },
@@ -48001,18 +48245,6 @@
   },
   {
     "kind": "question",
-    "text": "When do people of understanding remember Allah, in Ali 'Imran?"
-  },
-  {
-    "kind": "question",
-    "text": "Standing, sitting and lying down"
-  },
-  {
-    "kind": "question",
-    "text": "Only at night"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 190-200: what are they about?"
   },
   {
@@ -48022,10 +48254,6 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about Ali 'Imran!"
-  },
-  {
-    "kind": "lesson",
-    "text": "Allah made you all from one soul; respect family ties."
   },
   {
     "kind": "lesson",
@@ -48042,18 +48270,6 @@
   {
     "kind": "source",
     "text": "Quran 4:1-10"
-  },
-  {
-    "kind": "question",
-    "text": "From what did Allah create all people, in An-Nisa?"
-  },
-  {
-    "kind": "question",
-    "text": "Stars"
-  },
-  {
-    "kind": "question",
-    "text": "One soul"
   },
   {
     "kind": "question",
@@ -48093,10 +48309,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Allah wants to make things easy for you; man was made weak."
-  },
-  {
-    "kind": "lesson",
     "text": "Don't take wealth unjustly"
   },
   {
@@ -48121,15 +48333,7 @@
   },
   {
     "kind": "question",
-    "text": "Ayahs 23-33: what are they about?"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 23-33 say: Allah wants to make things easy for you; man was made weak."
-  },
-  {
-    "kind": "lesson",
-    "text": "Worship Allah and be kind to parents, kin, orphans, neighbors."
   },
   {
     "kind": "lesson",
@@ -48142,14 +48346,6 @@
   {
     "kind": "source",
     "text": "Quran 4:34-42"
-  },
-  {
-    "kind": "question",
-    "text": "Who should we be kind to, in An-Nisa?"
-  },
-  {
-    "kind": "question",
-    "text": "Parents, kin, orphans and neighbors"
   },
   {
     "kind": "question",
@@ -48198,10 +48394,6 @@
   {
     "kind": "question",
     "text": "Ayahs 43-59: what are they about?"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 43-59 say: Return trusts to their owners, and judge with justice."
   },
   {
     "kind": "lesson",
@@ -48321,10 +48513,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Allah forgives who asks, and took Ibrahim as a close friend."
-  },
-  {
-    "kind": "lesson",
     "text": "Don't defend the dishonest"
   },
   {
@@ -48346,10 +48534,6 @@
   {
     "kind": "question",
     "text": "Haman"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 105-126: what are they about?"
   },
   {
     "kind": "question",
@@ -48669,10 +48853,6 @@
   },
   {
     "kind": "lesson",
-    "text": "The Quran confirms earlier books and guards them; race in good."
-  },
-  {
-    "kind": "lesson",
     "text": "The Torah had guidance and light"
   },
   {
@@ -48686,26 +48866,6 @@
   {
     "kind": "source",
     "text": "Quran 5:44-50"
-  },
-  {
-    "kind": "question",
-    "text": "What does the Quran do to earlier books, in Al-Ma'idah?"
-  },
-  {
-    "kind": "question",
-    "text": "Ignores them"
-  },
-  {
-    "kind": "question",
-    "text": "Copies them"
-  },
-  {
-    "kind": "question",
-    "text": "Hides them"
-  },
-  {
-    "kind": "question",
-    "text": "Confirms and guards them"
   },
   {
     "kind": "question",
@@ -48922,10 +49082,6 @@
   {
     "kind": "question",
     "text": "Ayahs 87-93: what are they about?"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 87-93 say: Don't forbid good things; wine and gambling are Shaytan's work."
   },
   {
     "kind": "lesson",
@@ -51224,10 +51380,6 @@
     "text": "I seek refuge in Allah"
   },
   {
-    "kind": "question",
-    "text": "Ayahs 21-29 say: In Egypt, Yusuf refused wrong and said: I seek Allah's refuge."
-  },
-  {
     "kind": "lesson",
     "text": "Yusuf said: prison is dearer to me than doing wrong."
   },
@@ -51477,10 +51629,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Ya'qub said: never despair of Allah's mercy."
-  },
-  {
-    "kind": "lesson",
     "text": "I complain only to Allah"
   },
   {
@@ -51510,14 +51658,6 @@
   {
     "kind": "question",
     "text": "Our games"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 80-93: what are they about?"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 80-93 say: Yusuf said: prison is dearer to me than doing wrong."
   },
   {
     "kind": "lesson",
@@ -52434,10 +52574,6 @@
   {
     "kind": "question",
     "text": "The stars"
-  },
-  {
-    "kind": "question",
-    "text": "The clouds"
   },
   {
     "kind": "question",
@@ -53361,10 +53497,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Never say 'I'll do it tomorrow' without 'if Allah wills'."
-  },
-  {
-    "kind": "lesson",
     "text": "They stayed three hundred nine years"
   },
   {
@@ -53378,14 +53510,6 @@
   {
     "kind": "source",
     "text": "Quran 18:23-31"
-  },
-  {
-    "kind": "question",
-    "text": "What should we add when we promise something, in Al-Kahf?"
-  },
-  {
-    "kind": "question",
-    "text": "I swear"
   },
   {
     "kind": "question",
@@ -53565,10 +53689,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Musa traveled far to learn from a servant Allah taught."
-  },
-  {
-    "kind": "lesson",
     "text": "The fish slipped into the sea"
   },
   {
@@ -53582,26 +53702,6 @@
   {
     "kind": "source",
     "text": "Quran 18:60-70"
-  },
-  {
-    "kind": "question",
-    "text": "What did Musa promise the wise servant, in Al-Kahf?"
-  },
-  {
-    "kind": "question",
-    "text": "To pay him"
-  },
-  {
-    "kind": "question",
-    "text": "To lead"
-  },
-  {
-    "kind": "question",
-    "text": "To stay silent forever"
-  },
-  {
-    "kind": "question",
-    "text": "To be patient"
   },
   {
     "kind": "question",
@@ -53692,10 +53792,6 @@
     "text": "Ayahs 83-101: what are they about?"
   },
   {
-    "kind": "question",
-    "text": "Ayahs 83-101 say: Dhul-Qarnayn built a barrier of iron and molten copper."
-  },
-  {
     "kind": "lesson",
     "text": "If the sea were ink, it would run out before Allah's words."
   },
@@ -53777,10 +53873,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Maryam was told: shake the palm, and fresh dates will fall."
-  },
-  {
-    "kind": "lesson",
     "text": "A stream flowed below her"
   },
   {
@@ -53809,15 +53901,7 @@
   },
   {
     "kind": "question",
-    "text": "Ayahs 16-26: what are they about?"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 16-26 say: Man doubts rising again, yet Allah made him from nothing."
-  },
-  {
-    "kind": "lesson",
-    "text": "Baby Isa spoke: I am Allah's servant; He gave me the Book."
   },
   {
     "kind": "lesson",
@@ -53846,10 +53930,6 @@
   {
     "kind": "question",
     "text": "I am hungry"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 27-40: what are they about?"
   },
   {
     "kind": "question",
@@ -55454,10 +55534,6 @@
   {
     "kind": "question",
     "text": "What do believers say when called to Allah, in An-Nur?"
-  },
-  {
-    "kind": "question",
-    "text": "Later"
   },
   {
     "kind": "question",
@@ -58344,10 +58420,6 @@
     "text": "Only words"
   },
   {
-    "kind": "question",
-    "text": "Ayahs 1-12 say: Allah records what people send ahead and the traces they leave."
-  },
-  {
     "kind": "lesson",
     "text": "A man came running: my people, follow the messengers!"
   },
@@ -58362,18 +58434,6 @@
   {
     "kind": "source",
     "text": "Quran 36:13-32"
-  },
-  {
-    "kind": "question",
-    "text": "What did the running man say, in Ya-Sin?"
-  },
-  {
-    "kind": "question",
-    "text": "Fight them"
-  },
-  {
-    "kind": "question",
-    "text": "Follow the messengers"
   },
   {
     "kind": "question",
@@ -58486,14 +58546,6 @@
   {
     "kind": "source",
     "text": "Quran 36:68-83"
-  },
-  {
-    "kind": "question",
-    "text": "What does Allah say when He wills a thing, in Ya-Sin?"
-  },
-  {
-    "kind": "question",
-    "text": "Be"
   },
   {
     "kind": "question",
@@ -63189,10 +63241,6 @@
   },
   {
     "kind": "question",
-    "text": "Who holds the birds up in the sky, in Al-Mulk?"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 15-22: what are they about?"
   },
   {
@@ -64405,10 +64453,6 @@
   },
   {
     "kind": "question",
-    "text": "Morning and evening"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 23-31 say: The righteous feed the poor, orphan and captive for Allah."
   },
   {
@@ -64570,6 +64614,778 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about Al-Mursalat!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaytan whispers when we forget and hides when we remember."
+  },
+  {
+    "kind": "lesson",
+    "text": "Said by Ibn Abbas"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 114:4"
+  },
+  {
+    "kind": "question",
+    "text": "When does Shaytan whisper, says Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "When we forget Allah"
+  },
+  {
+    "kind": "question",
+    "text": "He whispers when a person is heedless."
+  },
+  {
+    "kind": "question",
+    "text": "What makes the whisperer hide away?"
+  },
+  {
+    "kind": "question",
+    "text": "Shouting loudly"
+  },
+  {
+    "kind": "question",
+    "text": "Running fast"
+  },
+  {
+    "kind": "question",
+    "text": "Closing the door"
+  },
+  {
+    "kind": "question",
+    "text": "When he remembers Allah, the whisperer withdraws."
+  },
+  {
+    "kind": "question",
+    "text": "Which surah tells of the whisperer who withdraws?"
+  },
+  {
+    "kind": "question",
+    "text": "An-Nas"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 114:4."
+  },
+  {
+    "kind": "lesson",
+    "text": "Each night the Prophet ﷺ read the last three and wiped himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "He blew into his cupped hands"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5017"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ recite each night before sleeping?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ikhlas, Al-Falaq and An-Nas"
+  },
+  {
+    "kind": "question",
+    "text": "Only Al-Baqarah"
+  },
+  {
+    "kind": "question",
+    "text": "Then he wiped his body with his hands."
+  },
+  {
+    "kind": "question",
+    "text": "How many times did he do this?"
+  },
+  {
+    "kind": "question",
+    "text": "Seven times"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah said he did it three times."
+  },
+  {
+    "kind": "question",
+    "text": "Where did he start wiping?"
+  },
+  {
+    "kind": "question",
+    "text": "His head and face"
+  },
+  {
+    "kind": "question",
+    "text": "His feet"
+  },
+  {
+    "kind": "question",
+    "text": "His back"
+  },
+  {
+    "kind": "question",
+    "text": "His knees"
+  },
+  {
+    "kind": "question",
+    "text": "Then the front of his body."
+  },
+  {
+    "kind": "lesson",
+    "text": "Recite the three surahs three times each morning and evening."
+  },
+  {
+    "kind": "lesson",
+    "text": "They are enough for you"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abdullah ibn Khubayb"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 5082"
+  },
+  {
+    "kind": "question",
+    "text": "How many times should you recite them morning and evening?"
+  },
+  {
+    "kind": "question",
+    "text": "Forty times"
+  },
+  {
+    "kind": "question",
+    "text": "Only once ever"
+  },
+  {
+    "kind": "question",
+    "text": "Three times each morning and evening."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say they would do for you?"
+  },
+  {
+    "kind": "question",
+    "text": "Suffice you for everything"
+  },
+  {
+    "kind": "question",
+    "text": "Make you rich"
+  },
+  {
+    "kind": "question",
+    "text": "Make you famous"
+  },
+  {
+    "kind": "question",
+    "text": "They are enough as protection."
+  },
+  {
+    "kind": "question",
+    "text": "Which three surahs are they?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Asr, Al-Kawthar and Al-Kafirun"
+  },
+  {
+    "kind": "question",
+    "text": "Yasin, Al-Mulk and Al-Kahf"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fil, Quraysh and Al-Ma'un"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ikhlas and the two surahs of refuge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Nothing like Al-Falaq and An-Nas was ever revealed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Revealed in one night"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 814a"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say about Al-Falaq and An-Nas?"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing like them was ever seen"
+  },
+  {
+    "kind": "question",
+    "text": "They are very long"
+  },
+  {
+    "kind": "question",
+    "text": "They are only for adults"
+  },
+  {
+    "kind": "question",
+    "text": "They came last of all"
+  },
+  {
+    "kind": "question",
+    "text": "He called them wonderful ayahs."
+  },
+  {
+    "kind": "question",
+    "text": "Which two surahs are these?"
+  },
+  {
+    "kind": "question",
+    "text": "Yasin and Al-Mulk"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Falaq and An-Nas"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fatihah and Al-Baqarah"
+  },
+  {
+    "kind": "question",
+    "text": "Both begin: Say, I seek refuge."
+  },
+  {
+    "kind": "question",
+    "text": "Who heard the Prophet ﷺ say this?"
+  },
+  {
+    "kind": "question",
+    "text": "Uqbah ibn Amir narrated it."
+  },
+  {
+    "kind": "lesson",
+    "text": "In Al-Falaq we seek refuge with the Lord of the dawn."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Falaq means the morning"
+  },
+  {
+    "kind": "lesson",
+    "text": "Said by Jabir and Ibn Abbas"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 113:1"
+  },
+  {
+    "kind": "question",
+    "text": "What does al-falaq mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The dawn, the morning"
+  },
+  {
+    "kind": "question",
+    "text": "The ocean"
+  },
+  {
+    "kind": "question",
+    "text": "The mountain"
+  },
+  {
+    "kind": "question",
+    "text": "Jabir and Ibn Abbas said: it is the morning."
+  },
+  {
+    "kind": "question",
+    "text": "In Al-Falaq, with whom do we seek refuge?"
+  },
+  {
+    "kind": "question",
+    "text": "The king of Persia"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Falaq asks Allah to protect us from evil."
+  },
+  {
+    "kind": "question",
+    "text": "From the evil of what He has created."
+  },
+  {
+    "kind": "lesson",
+    "text": "When ill, the Prophet ﷺ read Al-Falaq and An-Nas on himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "Aishah did it for him later"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hoping for their blessing"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5016"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ recite when he was ill?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Masad"
+  },
+  {
+    "kind": "question",
+    "text": "The two surahs of refuge."
+  },
+  {
+    "kind": "question",
+    "text": "Who recited them for him when he was very ill?"
+  },
+  {
+    "kind": "question",
+    "text": "She wiped his own hand over him."
+  },
+  {
+    "kind": "question",
+    "text": "We can recite these surahs when we are sick."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ did, hoping for their blessing."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Ikhlas is equal to a third of the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man recited it again and again"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Sa'id"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5013"
+  },
+  {
+    "kind": "question",
+    "text": "What is Al-Ikhlas equal to, says the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "One ayah"
+  },
+  {
+    "kind": "question",
+    "text": "Half of the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "He swore by the One who holds his soul."
+  },
+  {
+    "kind": "question",
+    "text": "What did the man in the hadith do with Al-Ikhlas?"
+  },
+  {
+    "kind": "question",
+    "text": "He never recited it"
+  },
+  {
+    "kind": "question",
+    "text": "He wrote it on a wall"
+  },
+  {
+    "kind": "question",
+    "text": "He sold it"
+  },
+  {
+    "kind": "question",
+    "text": "He recited it again and again"
+  },
+  {
+    "kind": "question",
+    "text": "Another man thought that was too little."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ikhlas is a short surah with a great reward."
+  },
+  {
+    "kind": "question",
+    "text": "Short, yet equal to a third of the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "You can recite a third of the Quran tonight: recite Al-Ikhlas."
+  },
+  {
+    "kind": "lesson",
+    "text": "The companions found it hard"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5015"
+  },
+  {
+    "kind": "question",
+    "text": "How can you recite a third of the Quran in one night?"
+  },
+  {
+    "kind": "question",
+    "text": "Recite Al-Ikhlas"
+  },
+  {
+    "kind": "question",
+    "text": "Stay up all night"
+  },
+  {
+    "kind": "question",
+    "text": "Read only the first page"
+  },
+  {
+    "kind": "question",
+    "text": "It is impossible"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said it is a third of the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "How did the companions feel about reciting a third in one night?"
+  },
+  {
+    "kind": "question",
+    "text": "They laughed"
+  },
+  {
+    "kind": "question",
+    "text": "They found it hard"
+  },
+  {
+    "kind": "question",
+    "text": "They found it easy"
+  },
+  {
+    "kind": "question",
+    "text": "They did not care"
+  },
+  {
+    "kind": "question",
+    "text": "Then the Prophet ﷺ gave them the easy way."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ikhlas tells us Allah is One."
+  },
+  {
+    "kind": "question",
+    "text": "Allah, the One, the Self-Sufficient."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Ikhlas ends: there is none equal or comparable to Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Nothing at all is like Him"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 112:4"
+  },
+  {
+    "kind": "question",
+    "text": "What does the last ayah of Al-Ikhlas say about Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "He has a son"
+  },
+  {
+    "kind": "question",
+    "text": "He was born"
+  },
+  {
+    "kind": "question",
+    "text": "None is equal to Him"
+  },
+  {
+    "kind": "question",
+    "text": "He has many partners"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir: nothing at all is like Him."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ikhlas says Allah neither has children nor was born."
+  },
+  {
+    "kind": "question",
+    "text": "He begets not, nor was He begotten."
+  },
+  {
+    "kind": "question",
+    "text": "Which surah ends: there is none comparable to Him?"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 112:4."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man loved Al-Ikhlas, so the Prophet ﷺ said: Allah loves him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ended each prayer's recitation with it"
+  },
+  {
+    "kind": "lesson",
+    "text": "It describes ar-Rahman"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7375"
+  },
+  {
+    "kind": "question",
+    "text": "Why did the man always recite Al-Ikhlas?"
+  },
+  {
+    "kind": "question",
+    "text": "To finish quickly"
+  },
+  {
+    "kind": "question",
+    "text": "Someone paid him"
+  },
+  {
+    "kind": "question",
+    "text": "It describes Allah, and he loved it"
+  },
+  {
+    "kind": "question",
+    "text": "It was the only surah he knew"
+  },
+  {
+    "kind": "question",
+    "text": "It describes ar-Rahman, the Most Merciful."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say about him?"
+  },
+  {
+    "kind": "question",
+    "text": "Tell him that Allah loves him"
+  },
+  {
+    "kind": "question",
+    "text": "Tell him to stop"
+  },
+  {
+    "kind": "question",
+    "text": "Tell him to recite less"
+  },
+  {
+    "kind": "question",
+    "text": "Love of Al-Ikhlas earned Allah's love."
+  },
+  {
+    "kind": "question",
+    "text": "Aishah narrated it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah swears by time, when people do good or evil."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-'Asr: time"
+  },
+  {
+    "kind": "lesson",
+    "text": "People are in loss"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 103:1"
+  },
+  {
+    "kind": "question",
+    "text": "What does al-'asr mean, says Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "The time in which people act"
+  },
+  {
+    "kind": "question",
+    "text": "The time of people's good and evil deeds."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah say people are in?"
+  },
+  {
+    "kind": "question",
+    "text": "Glory"
+  },
+  {
+    "kind": "question",
+    "text": "Safety"
+  },
+  {
+    "kind": "question",
+    "text": "Loss"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, man is in loss."
+  },
+  {
+    "kind": "question",
+    "text": "Al-'Asr is a very short surah."
+  },
+  {
+    "kind": "question",
+    "text": "It has only three ayahs."
+  },
+  {
+    "kind": "lesson",
+    "text": "Faith, good deeds, truth and patience save us from loss."
+  },
+  {
+    "kind": "lesson",
+    "text": "Urge one another"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 103:3"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is one of the four things in Al-'Asr?"
+  },
+  {
+    "kind": "question",
+    "text": "Winning races"
+  },
+  {
+    "kind": "question",
+    "text": "Urging one another to patience"
+  },
+  {
+    "kind": "question",
+    "text": "Collecting money"
+  },
+  {
+    "kind": "question",
+    "text": "Sleeping a lot"
+  },
+  {
+    "kind": "question",
+    "text": "Faith, good deeds, truth and patience."
+  },
+  {
+    "kind": "question",
+    "text": "What does urging the truth mean, says Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Obeying Allah and leaving the forbidden"
+  },
+  {
+    "kind": "question",
+    "text": "Telling jokes"
+  },
+  {
+    "kind": "question",
+    "text": "Staying quiet"
+  },
+  {
+    "kind": "question",
+    "text": "Acts of obedience, and avoiding what is forbidden."
+  },
+  {
+    "kind": "question",
+    "text": "Al-'Asr says faith alone, with no good deeds, is enough."
+  },
+  {
+    "kind": "question",
+    "text": "It names faith and good deeds together."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i: if people pondered Al-'Asr, it would suffice."
+  },
+  {
+    "kind": "lesson",
+    "text": "In Tafsir Ibn Kathir"
+  },
+  {
+    "kind": "question",
+    "text": "What did ash-Shafi'i say about Al-'Asr?"
+  },
+  {
+    "kind": "question",
+    "text": "It is too short to matter"
+  },
+  {
+    "kind": "question",
+    "text": "It is only for scholars"
+  },
+  {
+    "kind": "question",
+    "text": "It should be skipped"
+  },
+  {
+    "kind": "question",
+    "text": "It would be enough if people pondered it"
+  },
+  {
+    "kind": "question",
+    "text": "Its three ayahs hold the whole path."
+  },
+  {
+    "kind": "question",
+    "text": "Which great imam said Al-'Asr alone would be enough?"
+  },
+  {
+    "kind": "question",
+    "text": "Fir'awn"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir quotes him at the start of the surah."
+  },
+  {
+    "kind": "question",
+    "text": "Pondering means thinking deeply about the meaning."
+  },
+  {
+    "kind": "question",
+    "text": "Not just reciting, but reflecting."
   },
   {
     "kind": "lesson",
