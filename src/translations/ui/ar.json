@@ -525,5 +525,7 @@
   "{count} XP last week": "{count} XP الأسبوع الماضي",
   "{count} XP to move up": "{count} XP أخرى للصعود",
   "{count} XP to stay": "{count} XP أخرى للبقاء",
-  "{count} days left": "الأيام المتبقية: {count}"
+  "{count} days left": "الأيام المتبقية: {count}",
+  "Learn Islam with me on Muslimo! Quick, fun lessons on the Quran, Prophets and Sahabah. {link}": "تعلّم الإسلام معي على Muslimo! دروس قصيرة وممتعة عن القرآن والأنبياء والصحابة. {link}",
+  "Invite friends": "ادعُ أصدقاءك"
 }

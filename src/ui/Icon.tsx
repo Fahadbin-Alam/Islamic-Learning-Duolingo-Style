@@ -58,7 +58,8 @@ export type IconName =
   | "handHeart"
   | "shield"
   | "coins"
-  | "search";
+  | "search"
+  | "share";
 
 export type IconProps = {
   name: IconName;
@@ -700,6 +701,15 @@ const ICONS: Record<IconName, Drawer> = {
     <G>
       <Circle cx={10.4} cy={10.4} r={6.6} strokeWidth={3} {...t.s(C.grayDeep)} />
       <Path d="M15.4 15.4 20.6 20.6" strokeWidth={3.4} strokeLinecap="round" {...t.s(C.grayDeep)} />
+    </G>
+  ),
+  // Three friends joined up: the share row on the Me tab.
+  share: (t) => (
+    <G>
+      <Path d="M7 12 17 6M7 12l10 6" strokeWidth={2.4} strokeLinecap="round" {...t.s(C.greenLight)} />
+      <Circle cx={17.6} cy={5.6} r={3.6} {...t.f(C.green)} />
+      <Circle cx={6.4} cy={12} r={3.6} {...t.f(C.gem)} />
+      <Circle cx={17.6} cy={18.4} r={3.6} {...t.f(C.pink)} />
     </G>
   )
 };
