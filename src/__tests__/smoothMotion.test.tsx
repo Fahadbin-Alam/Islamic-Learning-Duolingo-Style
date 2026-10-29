@@ -3,6 +3,11 @@ import { render, screen } from "@testing-library/react-native";
 import { Mascot } from "../ui/Mascot";
 import { sampleCurve, smoothKeys } from "../ui/motion";
 
+jest.mock("../services/gameAudio", () => ({
+  playGameSound: jest.fn(),
+  primeGameAudio: jest.fn(() => true)
+}));
+
 describe("smooth motion", () => {
   it("eases between keyframes and keeps every key", () => {
     const config = smoothKeys([0, 0.5, 1], [0, 10, 0], 4);

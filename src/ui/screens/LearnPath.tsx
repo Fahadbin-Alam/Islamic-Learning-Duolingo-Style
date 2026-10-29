@@ -786,8 +786,8 @@ function PathEnd({
   return (
     <View style={styles.end} testID="path-end">
       <View style={styles.endStage}>
-        <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="none">
-          <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} />
+        <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="box-none">
+          <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} tappable testID="path-end-mascot" />
         </View>
         {width - 8 - camelStart >= CAMEL_SIZE ? (
           <View style={[styles.mascot, { left: camelStart, top: END_NODE + END_LIP - CAMEL_H }]} pointerEvents="box-none">
@@ -1315,6 +1315,8 @@ export function LearnPath({
                 />
                 <View
                   style={styles.items}
+                  // Lets taps through to the sky's clouds and sun behind the path.
+                  pointerEvents="box-none"
                   onLayout={(event) => {
                     itemsY.current[unit.id] = event.nativeEvent.layout.y;
                     tryScrollToCurrent();
@@ -1339,6 +1341,7 @@ export function LearnPath({
                       <View
                         key={row.key}
                         style={[styles.row, { height }, isOpen ? styles.raised : null]}
+                        pointerEvents="box-none"
                         onLayout={(event) => {
                           rowY.current[row.key] = event.nativeEvent.layout.y;
                           if (row.key === layout.focusKey || row.key === layout.earnedChest?.key) tryScrollToCurrent();
@@ -1347,7 +1350,7 @@ export function LearnPath({
                         {pictures && unitLive ? (
                           <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none">
                             <View style={styles.decorShadow} pointerEvents="none" />
-                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} tappable />
+                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} tappable seed={group.unitIndex * 7 + index} />
                           </View>
                         ) : null}
                         {unitLive && !pictures && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
@@ -1364,9 +1367,9 @@ export function LearnPath({
                           </View>
                         ) : null}
                         {index === group.mascotIndex ? (
-                          <View style={[styles.mascot, { left: mascotLeft, top: top + (NODE + NODE_LIP - MASCOT_H) / 2 - 8 }]} pointerEvents="none">
+                          <View style={[styles.mascot, { left: mascotLeft, top: top + (NODE + NODE_LIP - MASCOT_H) / 2 - 8 }]} pointerEvents="box-none">
                             {/* The topic accent, not the unit tint: the mascot keeps one look across the app. */}
-                            <Mascot variant={mascotVariant} mood="happy" size={MASCOT_SIZE} accent={accent} />
+                            <Mascot variant={mascotVariant} mood="happy" size={MASCOT_SIZE} accent={accent} tappable testID="path-mascot" />
                           </View>
                         ) : null}
                         {row.current && !isOpen ? (

@@ -49,7 +49,7 @@ describe("path scenery", () => {
     expect([...used].sort()).toEqual([...ALL_KINDS].sort());
   });
 
-  it("splashes the well, boings the other pictures and makes the camel grunt when tapped", async () => {
+  it("splashes the well, boings the other pictures and makes the camel react when tapped", async () => {
     jest.mocked(playGameSound).mockClear();
     await render(<PathScenery kind="well" tappable />);
     await fireEvent.press(screen.getByTestId("scenery-well"));
@@ -61,7 +61,8 @@ describe("path scenery", () => {
 
     await render(<Camel size={64} range={40} walking tappable testID="camel" />);
     await fireEvent.press(screen.getByTestId("camel"));
-    expect(playGameSound).toHaveBeenLastCalledWith("camel", expect.anything());
+    // The first tap is the happy camel; the rest come in turn (see pathTaps.test.tsx).
+    expect(playGameSound).toHaveBeenLastCalledWith("sparkle", expect.anything());
   });
 
   it("draws the camel standing and walking within its box", async () => {

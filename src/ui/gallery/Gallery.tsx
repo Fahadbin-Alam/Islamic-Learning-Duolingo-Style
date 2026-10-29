@@ -8,6 +8,8 @@ import { CountUp } from "../CountUp";
 import { GameButton, type GameButtonSize, type GameButtonVariant } from "../GameButton";
 import { ICON_NAMES, Icon } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
+import { PathScenery } from "../PathScenery";
+import { PathWeather } from "../PathWeather";
 import { PopIn } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
@@ -80,6 +82,25 @@ export function KitGallery() {
             </View>
           </View>
           <Camel size={96} range={140} walking tappable testID="gallery-camel" />
+        </Section>
+
+        <Section title="Tap me (path)">
+          <View style={styles.tapSky}>
+            {/* Only the part of the sky with the sun and a cloud. */}
+            <View style={styles.tapSkyInner}>
+              <PathWeather weather="sunny" width={340} height={330} animated />
+            </View>
+          </View>
+          <View style={styles.wrapRow}>
+            <Mascot variant="girl" mood="happy" size={92} tappable testID="gallery-tap-girl" />
+            <Mascot variant="boy" mood="happy" size={92} accent={colors.gem} tappable testID="gallery-tap-boy" />
+            <PathScenery kind="mountain" size={80} tappable />
+          </View>
+          <View style={styles.wrapRow}>
+            {[0, 1, 2, 3].map((seed) => (
+              <PathScenery key={seed} kind="flowers" size={72} animated tappable seed={seed * 5} />
+            ))}
+          </View>
           <SpeechBubble tail="down" style={styles.downBubble}>
             <ArabicText size={26} weight="bold">
               السَّلَامُ عَلَيْكُمْ
@@ -345,6 +366,15 @@ const styles = StyleSheet.create({
   },
   captionOnColor: {
     color: colors.white
+  },
+  tapSky: {
+    height: 120,
+    overflow: "hidden"
+  },
+  tapSkyInner: {
+    width: 340,
+    height: 330,
+    marginTop: -140
   },
   bubbleRow: {
     flexDirection: "row",
