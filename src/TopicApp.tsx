@@ -2422,8 +2422,10 @@ export default function TopicApp() {
   const lessonAccent = currentLessonSection.accentColor;
   const lessonMascot = currentLessonSection.mascot;
   const lessonArabic = lesson ? getLessonArabic(lesson.nodeId, lesson.branchId ?? findNodeById(lesson.nodeId)?.branchId) : undefined;
-  // A word that is a whole ayah is heard from the reciter; other words from the device's Arabic voice, if it has one.
-  const lessonRecitation = lessonArabic ? recitationForArabic(lessonArabic.ar) : null;
+  // A word that is (part of) the card's ayah is heard from the reciter; other words from the device's Arabic voice, if it has one.
+  const lessonRecitation = lessonArabic
+    ? recitationForArabic(lessonArabic.ar, [lesson?.quote?.reference, lesson?.learnSource?.reference])
+    : null;
   const lessonStep = state.lessonQueue[state.stepIndex];
   const challenge = lessonStep ? lesson?.challenges[lessonStep.index] : undefined;
   const correctLabel = challenge?.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";

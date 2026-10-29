@@ -184,9 +184,24 @@ export function LearnCard({
                 accessibilityRole={showTitle ? undefined : "header"}
                 accessibilityLabel={`${arabic.translit}: ${t(arabic.meaning)}`}
               >
-                <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
-                  {arabic.ar}
-                </ArabicText>
+                {onPlayAudio ? (
+                  // Tapping the word says it too, like the speaker next to it.
+                  <Tappable
+                    onPress={onPlayAudio}
+                    pressScale={0.97}
+                    accessibilityLabel={t("Play {word}", { word: arabic.translit })}
+                    style={styles.arabicTap}
+                    testID="learn-arabic-play"
+                  >
+                    <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
+                      {arabic.ar}
+                    </ArabicText>
+                  </Tappable>
+                ) : (
+                  <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
+                    {arabic.ar}
+                  </ArabicText>
+                )}
                 {/* The speaker sits next to the transliteration, so the Arabic line keeps the full width. */}
                 <View style={styles.translitRow}>
                   {onPlayAudio ? (
@@ -428,6 +443,10 @@ const styles = StyleSheet.create({
   },
   arabic: {
     maxWidth: "100%"
+  },
+  arabicTap: {
+    maxWidth: "100%",
+    alignItems: "center"
   },
   translitRow: {
     flexDirection: "row",
