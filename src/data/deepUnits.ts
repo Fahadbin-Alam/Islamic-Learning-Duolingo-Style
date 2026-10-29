@@ -978,6 +978,45 @@ const UMAR: DeepUnit = {
       ]
     },
     {
+      slug: "learning-turns",
+      title: "Learning in turns",
+      line: "Umar and his Ansari neighbor took turns visiting the Prophet ﷺ.",
+      facts: ["Each told the other the news", "Told by Umar"],
+      source: hadith("bukhari", "89", "Umar ibn al-Khattab", "Sahih", "Umar and his Ansari neighbor took turns going to the Prophet ﷺ, one day each, and each brought the other the news of revelation and more."),
+      difficulty: 3,
+      questions: [
+        { q: "How did Umar and his neighbor make sure they learned everything?", a: "They took turns going to the Prophet ﷺ", wrong: ["They went once a year", "They read old books", "They never went"], why: "One went one day, the other the next." },
+        { q: "What did each bring back for the other?", a: "The news of that day", wrong: ["Gold coins", "Dates only", "Nothing at all"], why: "Including what was revealed that day." },
+        { q: "Umar's neighbor was one of the Ansar.", tf: true, why: "Umar called him my Ansari neighbor." }
+      ]
+    },
+    {
+      slug: "three-knocks",
+      title: "Ask three times",
+      line: "Abu Musa asked three times, then left; Umar wanted a witness.",
+      facts: ["Ask three times, then return", "Abu Sa'id was the witness"],
+      source: hadith("bukhari", "6245", "Abu Sa'id al-Khudri", "Sahih", "Abu Musa asked three times to enter on Umar, got no answer and left; Umar asked for a witness to the hadith, and Abu Sa'id testified the Prophet ﷺ said it."),
+      difficulty: 3,
+      questions: [
+        { q: "What should you do if you ask to come in three times with no answer?", a: "Go back home", wrong: ["Knock until they answer", "Walk in anyway", "Shout louder"], why: "The Prophet ﷺ taught to ask three times, then return." },
+        { q: "What did Umar ask Abu Musa to bring?", a: "A witness to the hadith", wrong: ["A gift", "A letter from Makkah", "A camel"], why: "Umar was careful about every hadith." },
+        { q: "Who stood as the witness?", a: "Abu Sa'id al-Khudri", wrong: ["Abu Jahl", "Khalid ibn al-Walid", "Abu Sufyan"], why: "He was the youngest in the gathering." }
+      ]
+    },
+    {
+      slug: "stopped-at-quran",
+      title: "He stopped at the Quran",
+      line: "Angry at a rude man, Umar stopped when he heard Quran 7:199.",
+      facts: ["Forgive and leave the foolish", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "4642", "Ibn Abbas", "Sahih", "Uyaynah spoke rudely to Umar, who grew angry; al-Hurr recited Quran 7:199 on forgiving and leaving the foolish, and Umar stopped at it, holding firmly to Allah's Book."),
+      difficulty: 4,
+      questions: [
+        { q: "What calmed Umar when a rude man insulted him?", a: "Hearing Quran 7:199", wrong: ["A cup of milk", "A long walk", "A gift of gold"], why: "Umar always stopped at Allah's Book." },
+        { q: "What does Quran 7:199 tell us to do?", a: "Forgive and leave the foolish", wrong: ["Shout back", "Take revenge", "Stop praying"], why: "Hold to forgiveness and command what is right." },
+        { q: "Umar went past what the Quran said when he was angry.", tf: false, why: "Ibn Abbas said he did not overlook the ayah." }
+      ]
+    },
+    {
       slug: "ibn-abbas",
       title: "The young scholar",
       line: "Umar sat young Ibn Abbas with the elders who fought at Badr.",
@@ -1083,6 +1122,58 @@ const UMAR: DeepUnit = {
         { q: "Why did Umar tell his son not to say 'Chief of the Believers'?", a: "He was no longer their chief", wrong: ["He did not like the title", "Aishah did not know him", "It was too long"], why: "He asked as plain Umar ibn al-Khattab." },
         { q: "What did Umar ask his son to do about his debts?", a: "Pay them from the family's wealth", wrong: ["Forget them", "Take it from the treasury", "Ask the Romans"], why: "His debt was about eighty-six thousand." },
         { q: "Aishah refused his request.", tf: false, why: "She agreed, putting him before herself." }
+      ]
+    },
+    {
+      slug: "his-debts",
+      title: "Pay my debts",
+      line: "Dying, Umar told his son to pay all his debts.",
+      facts: ["About 86,000 owed", "Ask no one but his people"],
+      source: hadith("bukhari", "3700", "Amr ibn Maimun", "Sahih", "Umar had his debts counted, about eighty-six thousand, and told Abdullah to pay them from his family's property, then from Banu Adi, then Quraysh, and no one else."),
+      difficulty: 4,
+      questions: [
+        { q: "What did Umar ask his son to do before he died?", a: "Pay all his debts", wrong: ["Build him a palace", "Forget his debts", "Become caliph"], why: "He did not want to meet Allah owing anyone." },
+        { q: "Whose money should pay the debts first?", a: "Umar's own family's", wrong: ["The treasury's", "The Romans'", "Any stranger's"], why: "Then his clan, then Quraysh, and no one else." },
+        { q: "Umar's debts were about eighty-six thousand.", tf: true, why: "His son had them counted." }
+      ]
+    },
+    {
+      slug: "lift-your-clothes",
+      title: "Advice to a young man",
+      line: "Even while dying, Umar gently advised a young man.",
+      facts: ["Keeps clothes clean", "And is better before Allah"],
+      source: hadith("bukhari", "3700", "Amr ibn Maimun", "Sahih", "As a young man turned away, his clothes touching the ground, the dying Umar called him back: lift your clothes, for that keeps them clean and protects you before your Lord."),
+      difficulty: 4,
+      questions: [
+        { q: "What did Umar notice about the young man?", a: "His clothes touched the ground", wrong: ["He had no shoes", "He was crying", "He was laughing"], why: "He called him back to advise him." },
+        { q: "What two good things did Umar say lifting them brings?", a: "Clean clothes and safety before Allah", wrong: ["Money and fame", "Speed and strength", "Nothing at all"], why: "He gave advice even on his deathbed." },
+        { q: "Umar stopped giving good advice once he was hurt.", tf: false, why: "He advised the young man while dying." }
+      ]
+    },
+    {
+      slug: "with-those-you-love",
+      title: "With those you love",
+      line: "Anas loved Abu Bakr and Umar, hoping to be with them.",
+      facts: ["You will be with those you love", "Told by Anas"],
+      source: hadith("bukhari", "3688", "Anas ibn Malik", "Sahih", "The Prophet ﷺ told a man: you will be with those you love; Anas said: I love the Prophet ﷺ, Abu Bakr and Umar, and hope to be with them."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ promise a man who loved Allah and His Messenger?", a: "You will be with those you love", wrong: ["You will be rich", "You will never be sick", "You will be a king"], why: "Love brings people together in the Hereafter." },
+        { q: "Whom did Anas say he loved, hoping to be with them?", a: "The Prophet ﷺ, Abu Bakr and Umar", wrong: ["Abu Lahab", "Only himself", "No one"], why: "Even though his deeds were not like theirs." },
+        { q: "The companions were very happy to hear they will be with those they love.", tf: true, why: "Anas said nothing made them gladder." }
+      ]
+    },
+    {
+      slug: "most-generous",
+      title: "No one like Umar",
+      line: "Ibn Umar saw no one more generous than his father, Umar.",
+      facts: ["After the Prophet ﷺ died", "Told by Aslam"],
+      source: hadith("bukhari", "3687", "Aslam", "Sahih", "Ibn Umar said: since the Prophet ﷺ died, I never saw anyone more serious, hard working and generous than Umar."),
+      difficulty: 3,
+      questions: [
+        { q: "How did Ibn Umar describe his father?", a: "Serious, hard working and generous", wrong: ["Lazy and slow", "Rich and proud", "Quiet and shy"], why: "No one after the Prophet ﷺ was more so." },
+        { q: "Who said no one after the Prophet ﷺ was as generous as Umar?", a: "His son Abdullah", wrong: ["Abu Jahl", "Khalid", "Bilal"], why: "Ibn Umar told it to Aslam." },
+        { q: "Ibn Umar compared Umar with people after the Prophet ﷺ died.", tf: true, why: "Since the Prophet ﷺ died, he saw no one like him." }
       ]
     }
   ]
@@ -1379,6 +1470,58 @@ const UTHMAN: DeepUnit = {
       ]
     },
     {
+      slug: "forgiven",
+      title: "Allah forgave him",
+      line: "Ibn Umar said Allah forgave Uthman for what he did at Uhud.",
+      facts: ["Quran 3:155", "Ibn Umar defended him"],
+      source: hadith("bukhari", "3698", "Uthman ibn Mawhab", "Sahih", "Asked about Uthman at Uhud, Ibn Umar testified that Allah had excused and forgiven him."),
+      difficulty: 4,
+      questions: [
+        { q: "What did Ibn Umar say about Uthman at Uhud?", a: "Allah forgave him", wrong: ["He was never forgiven", "He won the battle alone", "He was not a Muslim"], why: "Allah excused and forgave him, as Quran 3:155 says." },
+        { q: "Who defended Uthman when a man spoke against him?", a: "Ibn Umar", wrong: ["Abu Sufyan", "Abu Lahab", "No one"], why: "He answered each of the man's three points." },
+        { q: "When Allah forgives someone, we should not blame them for it.", tf: true, why: "Ibn Umar made the man see Uthman's honor." }
+      ]
+    },
+    {
+      slug: "the-six",
+      title: "One of the six",
+      line: "Dying, Umar named six men, Uthman among them, to pick a caliph.",
+      facts: ["The Prophet ﷺ was pleased with them", "Ali was one of them too"],
+      source: hadith("bukhari", "3700", "Amr ibn Maimun", "Sahih", "Umar named Ali, Uthman, az-Zubayr, Talhah, Sa'd and Abd ar-Rahman, with whom the Prophet ﷺ was pleased when he died, to choose the next caliph."),
+      difficulty: 3,
+      questions: [
+        { q: "How many men did Umar name to choose the next caliph?", a: "Six", wrong: ["Two", "Ten", "One"], why: "Ali, Uthman, az-Zubayr, Talhah, Sa'd and Abd ar-Rahman." },
+        { q: "Why did Umar choose these men?", a: "The Prophet ﷺ was pleased with them", wrong: ["They were the oldest", "They were the richest", "They lived nearest"], why: "He was pleased with them when he died." },
+        { q: "Ali and Uthman were both among the six.", tf: true, why: "Umar named them both." }
+      ]
+    },
+    {
+      slug: "the-pledge",
+      title: "Everyone pledged to him",
+      line: "Abd ar-Rahman ibn Awf asked the people, then pledged to Uthman.",
+      facts: ["Three nights of asking", "Then all the Muslims pledged"],
+      source: hadith("bukhari", "7207", "Al-Miswar ibn Makhramah", "Sahih", "Abd ar-Rahman ibn Awf consulted the people for three nights, found they held no one equal to Uthman, and pledged to him; then all the Muslims pledged."),
+      difficulty: 4,
+      questions: [
+        { q: "Who asked the people whom they wanted as caliph?", a: "Abd ar-Rahman ibn Awf", wrong: ["Abu Sufyan", "Mu'awiyah", "Khalid"], why: "The six let him decide for them." },
+        { q: "How long did he spend asking people?", a: "Three nights", wrong: ["One hour", "A whole year", "No time at all"], why: "He barely slept those three nights." },
+        { q: "Whom did the people see as best for the job?", a: "Uthman", wrong: ["Abu Hurayrah", "Anas", "Bilal"], why: "They held no one equal to Uthman." }
+      ]
+    },
+    {
+      slug: "third-adhan",
+      title: "A new call for Jumu'ah",
+      line: "As Madinah grew, Uthman added a call before Jumu'ah.",
+      facts: ["Called out at az-Zawra", "Told by as-Sa'ib ibn Yazid"],
+      source: hadith("bukhari", "916", "As-Sa'ib ibn Yazid", "Sahih", "When the people grew in number in Uthman's time, he added a third call for the Friday prayer, given at az-Zawra."),
+      difficulty: 4,
+      questions: [
+        { q: "Why did Uthman add another call before Jumu'ah?", a: "The people had grown in number", wrong: ["The masjid burned", "It rained a lot", "He lost his voice"], why: "More people needed to hear it in time." },
+        { q: "Where was the new call given?", a: "At az-Zawra", wrong: ["In Makkah", "In Kufa", "In Damascus"], why: "Az-Zawra was a place by the market of Madinah." },
+        { q: "Which prayer was the new call for?", a: "The Friday prayer", wrong: ["Fajr", "Eid", "The funeral prayer"], why: "It was for Jumu'ah." }
+      ]
+    },
+    {
       slug: "one-mushaf",
       title: "One Quran for all",
       line: "Uthman had the Quran copied and sent a copy to each land.",
@@ -1403,6 +1546,19 @@ const UTHMAN: DeepUnit = {
         { q: "In whose way of speaking did Uthman say to write?", a: "Quraysh", wrong: ["The Ansar", "Yemen", "Banu Tamim"], why: "The Quran came down in their tongue." },
         { q: "When should they use it?", a: "If they differed with Zayd", wrong: ["Always for names", "Never", "Only for stories"], why: "It settled any difference in writing." },
         { q: "The Quran was revealed in the tongue of Quraysh.", tf: true, why: "Uthman said so to the writers." }
+      ]
+    },
+    {
+      slug: "lost-verse",
+      title: "The ayah they searched for",
+      line: "Zayd sought one ayah of Al-Ahzab and found it with Khuzaymah.",
+      facts: ["Quran 33:23", "Zayd ibn Thabit wrote the copies"],
+      source: hadith("bukhari", "4988", "Zayd ibn Thabit", "Sahih", "Zayd missed an ayah of Al-Ahzab that he had heard the Prophet ﷺ recite, searched for it, and found it with Khuzaymah ibn Thabit: among the believers are men true to their covenant with Allah."),
+      difficulty: 5,
+      questions: [
+        { q: "Who found the ayah of Al-Ahzab that Zayd searched for?", a: "Khuzaymah ibn Thabit", wrong: ["Abu Jahl", "Abu Sufyan", "Umayyah ibn Khalaf"], why: "Zayd had heard the Prophet ﷺ recite it." },
+        { q: "Who wrote out Uthman's copies of the Quran?", a: "Zayd ibn Thabit", wrong: ["Khalid ibn al-Walid", "Bilal", "Salman"], why: "He led the writers." },
+        { q: "That ayah praises men true to their promise to Allah.", tf: true, why: "Quran 33:23." }
       ]
     },
     {
@@ -1453,6 +1609,19 @@ const ALI: DeepUnit = {
         { q: "What does Abu Turab mean?", a: "Man of dust", wrong: ["Man of the sword", "Father of lions", "Man of light"], why: "Dust had covered Ali's back as he slept." },
         { q: "Where was Ali sleeping?", a: "In the masjid", wrong: ["In the desert", "In a tent", "Under a tree"], why: "Fatimah told the Prophet ﷺ he was there." },
         { q: "Ali disliked the name Abu Turab.", tf: false, why: "No name was dearer to him." }
+      ]
+    },
+    {
+      slug: "the-cloak",
+      title: "Under the cloak",
+      line: "The Prophet ﷺ took Ali, Fatimah, Hasan and Husayn in his cloak.",
+      facts: ["Then recited Quran 33:33", "Told by Aishah"],
+      source: hadith("muslim", "2424", "Aishah", "Sahih", "The Prophet ﷺ went out in a striped cloak; he took Hasan, Husayn, Fatimah and Ali under it, then recited: Allah wishes only to remove impurity from you, people of the household."),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did the Prophet ﷺ wrap in his cloak?", a: "Ali, Fatimah, Hasan and Husayn", wrong: ["Abu Lahab's family", "Only strangers", "No one"], why: "One by one, as each came to him." },
+        { q: "Which ayah did he recite then?", a: "Quran 33:33", wrong: ["Quran 2:255", "Quran 112:1", "Quran 1:1"], why: "About Allah purifying the people of the household." },
+        { q: "Who told this story?", a: "Aishah", wrong: ["Hafsah", "Khadijah", "Zaynab"], why: "Aishah saw it that morning." }
       ]
     },
     {
@@ -1532,6 +1701,71 @@ const ALI: DeepUnit = {
         { q: "Who wrote the treaty with Quraysh?", a: "Ali", wrong: ["Abu Bakr", "Uthman", "Zayd"], why: "He was the writer that day." },
         { q: "Which words did Quraysh refuse?", a: "Messenger of Allah", wrong: ["In the name of Allah", "Muhammad", "Peace"], why: "They said: if we believed that, we would not stop you." },
         { q: "What did Ali say?", a: "I will never erase it", wrong: ["Yes, at once", "Let Umar do it", "I cannot write"], why: "Out of love and respect for the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "hajj-camels",
+      title: "In charge of the camels",
+      line: "At Hajj, Ali gave all the sacrifice meat away in charity.",
+      facts: ["Not even to pay the butcher", "Told by Ali"],
+      source: hadith("bukhari", "1717", "Ali ibn Abi Talib", "Sahih", "The Prophet ﷺ put Ali in charge of the sacrificial camels, to give their meat, skins and coverings in charity, and to give the butcher nothing of them as wages."),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ put Ali in charge of at Hajj?", a: "The sacrifice camels", wrong: ["The army", "The water wells", "The market"], why: "Ali looked after their sacrifice." },
+        { q: "What happened to the meat and skins?", a: "All were given in charity", wrong: ["They were sold", "They were thrown away", "Ali kept them"], why: "Even the coverings were given away." },
+        { q: "The butcher could be paid with some of the meat.", tf: false, why: "Nothing of them was given as his wages." }
+      ]
+    },
+    {
+      slug: "praised-umar",
+      title: "Ali's words for Umar",
+      line: "At Umar's funeral, Ali wished he had deeds like Umar's.",
+      facts: ["You will be with your two companions", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "3685", "Ibn Abbas", "Sahih", "At Umar's funeral, Ali said: I would love to meet Allah with deeds like yours; I always thought Allah would keep you with your two companions."),
+      difficulty: 4,
+      questions: [
+        { q: "Whose deeds did Ali wish to meet Allah with?", a: "Umar's", wrong: ["Abu Jahl's", "His enemies'", "No one's"], why: "He said so at Umar's funeral." },
+        { q: "Who did Ali say Umar would be with?", a: "His two companions", wrong: ["The kings of Persia", "No one at all", "The Romans"], why: "The Prophet ﷺ and Abu Bakr." },
+        { q: "Ali and Umar loved and honored each other.", tf: true, why: "Ali prayed for Umar's mercy at his funeral." }
+      ]
+    },
+    {
+      slug: "the-sheet",
+      title: "Only the Quran",
+      line: "Ali had no other book, only the Quran and one sheet.",
+      facts: ["And understanding from Allah", "Told by Abu Juhayfah"],
+      source: hadith("bukhari", "111", "Abu Juhayfah", "Sahih", "Asked whether he had any book besides the Quran, Ali said: no, only Allah's Book, understanding given to a Muslim, and this sheet about blood money and freeing captives."),
+      difficulty: 4,
+      questions: [
+        { q: "What did Ali say he had besides the Quran?", a: "Only understanding and one sheet", wrong: ["A secret second Quran", "A box of gold", "Many hidden books"], why: "He had no other book." },
+        { q: "What was written on Ali's sheet?", a: "Rules on blood money and captives", wrong: ["Poems", "A map", "Shopping lists"], why: "It was about blood money and freeing captives." },
+        { q: "Ali had a secret book that others did not know.", tf: false, why: "He said: no, only Allah's Book." }
+      ]
+    },
+    {
+      slug: "drink-standing",
+      title: "A drink at Kufa",
+      line: "In Kufa, Ali drank standing, as he saw the Prophet ﷺ do.",
+      facts: ["After the Dhuhr prayer", "Told by an-Nazzal ibn Sabrah"],
+      source: hadith("bukhari", "5616", "An-Nazzal ibn Sabrah", "Sahih", "At the masjid of Kufa, Ali washed with water and drank the rest standing, saying people dislike it, but the Prophet ﷺ did as I just did."),
+      difficulty: 4,
+      questions: [
+        { q: "In which city did Ali sit to help the people with their affairs?", a: "Kufa", wrong: ["Makkah", "Damascus", "Cairo"], why: "He sat in the courtyard of the masjid of Kufa." },
+        { q: "How did Ali drink the rest of the water?", a: "Standing up", wrong: ["Lying down", "Running", "He did not drink it"], why: "He said the Prophet ﷺ did the same." },
+        { q: "Ali showed people what he saw the Prophet ﷺ do.", tf: true, why: "He followed the sunnah even in small things." }
+      ]
+    },
+    {
+      slug: "no-division",
+      title: "Stay as one",
+      line: "Ali told the people of Iraq to judge as before, hating division.",
+      facts: ["Until the people are united", "Told by Ubaydah"],
+      source: hadith("bukhari", "3707", "Ubaydah as-Salmani", "Sahih", "Ali said: judge as you used to judge, for I hate differing, until the people are one group, or I die as my companions died."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Ali hate among the Muslims?", a: "Division", wrong: ["Prayer", "Charity", "Learning"], why: "He wanted the people to be one group." },
+        { q: "How did Ali tell the people of Iraq to judge?", a: "As they used to judge", wrong: ["By guessing", "By the Romans' laws", "Not at all"], why: "He did not want new arguments." },
+        { q: "Ali wanted the Muslims to stay united.", tf: true, why: "Until the people are one group, he said." }
       ]
     },
     {
