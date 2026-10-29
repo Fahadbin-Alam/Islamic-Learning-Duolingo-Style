@@ -40,6 +40,8 @@ const PATTERNS = [
 
 function translate(text, index) {
   if (known[text]) return known[text][index];
+  const language = LANGUAGES[index];
+  if (catalogs[language][text] || screens[language][text]) return catalogs[language][text] || screens[language][text];
   for (const [pattern, forms] of PATTERNS) {
     const match = pattern.exec(text);
     if (!match) continue;

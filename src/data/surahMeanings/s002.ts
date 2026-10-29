@@ -225,7 +225,7 @@ export const S002: SurahMeaning = {
       title: "Fair to wives",
       line: "Allah loves those who repent and keep themselves clean.",
       facts: ["Rules keep marriage fair", "Wives have rights too"],
-      q: ["Who does Allah love in these ayahs?", "Those who repent and stay clean", "Those who boast", "Those who are lazy", "Those who argue"],
+      q: ["Who does Allah love, in ayah 222?", "Those who repent and stay clean", "Those who boast", "Those who are lazy", "Those who argue"],
       ayah: 222
     },
     {
