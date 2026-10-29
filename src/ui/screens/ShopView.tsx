@@ -12,6 +12,9 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount, formatNumber } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
+import { SecretTap } from "./SecretTap";
+import { PROFILE_ICONS, activeIcon, ownsIcon, type ProfileIconId } from "../../services/ummah";
+import { SECRET_HINT_PRICE, nextHintSecret } from "../../data/secretLessons";
 import { t } from "../../i18n";
 
 export type ShopViewProps = {
@@ -47,6 +50,11 @@ export type ShopViewProps = {
   heartVideosWatched?: number;
   /** Scroll to this part once the shop opens. "premium": the Premium card (or the "can't be bought here" note). */
   focus?: "premium";
+  /** Profile icons for gems: buy one (it goes on at once), or switch to an owned one; undefined goes back to initials. */
+  onBuyIcon?: (id: ProfileIconId) => void;
+  onWearIcon?: (id: ProfileIconId | undefined) => void;
+  /** Buys the clue to the next secret lesson. */
+  onBuySecretHint?: () => void;
 };
 
 const MANAGE_SUBSCRIPTION_URL =
@@ -384,6 +392,100 @@ function PremiumCard({ plans, kind = "premium", ...rest }: Omit<RowProps, "item"
   );
 }
 
+/** Profile icons: owned ones put on with a tap, others bought with gems. */
+function IconShop({ user, onBuy, onWear }: { user: UserProfile; onBuy: (id: ProfileIconId) => void; onWear?: (id: ProfileIconId | undefined) => void }) {
+  const wearing = activeIcon(user);
+  const { style: shakeStyle, shake } = useShake(6);
+  const [shaking, setShaking] = useState<string | undefined>(undefined);
+  const press = (id: ProfileIconId, price: number) => {
+    if (ownsIcon(user, id)) {
+      feedback("soft_ui", "light");
+      onWear?.(wearing === id ? undefined : id);
+      return;
+    }
+    if (user.gems < price) {
+      setShaking(id);
+      shake();
+      feedback("wrong", "error");
+      return;
+    }
+    feedback("unlock", "success");
+    onBuy(id);
+  };
+  return (
+    <View style={styles.section} testID="shop-icons">
+      <Text style={styles.sectionHeader}>{t("Icons")}</Text>
+      <View style={styles.iconGrid}>
+        {PROFILE_ICONS.map(({ id, price }) => {
+          const owned = ownsIcon(user, id);
+          const on = wearing === id;
+          return (
+            <Animated.View key={id} style={[styles.iconCell, shaking === id ? shakeStyle : null]}>
+              <Tappable
+                onPress={() => press(id, price)}
+                sound={false}
+                style={[styles.iconTile, on ? styles.iconTileOn : owned ? styles.iconTileOwned : null]}
+                accessibilityLabel={on ? t("Wearing") : owned ? t("Wear") : t("{count} gems", { count: formatNumber(price) })}
+                accessibilityState={{ selected: on }}
+                testID={`shop-icon-${id}`}
+              >
+                <Icon name={id} size={38} />
+                {on ? (
+                  <View style={styles.iconTag}>
+                    <Icon name="check" size={14} color={colors.white} />
+                  </View>
+                ) : owned ? (
+                  <Text style={styles.iconOwned} numberOfLines={1}>{t("Wear")}</Text>
+                ) : (
+                  <View style={styles.iconPrice}>
+                    <Icon name="gem" size={14} />
+                    <Text style={styles.iconPriceText} numberOfLines={1}>{formatNumber(price)}</Text>
+                  </View>
+                )}
+              </Tappable>
+            </Animated.View>
+          );
+        })}
+      </View>
+    </View>
+  );
+}
+
+/** The clue to the next secret lesson. Gone once every secret is found or hinted. */
+function SecretHintRow({ user, onBuy }: { user: UserProfile; onBuy: () => void }) {
+  const next = nextHintSecret(user);
+  const { style: shakeStyle, shake } = useShake(6);
+  if (!next) return null;
+  const short = Math.max(0, SECRET_HINT_PRICE - user.gems);
+  const press = () => {
+    if (short) {
+      shake();
+      feedback("wrong", "error");
+      return;
+    }
+    onBuy();
+  };
+  return (
+    <View style={styles.section}>
+      <Text style={styles.sectionHeader}>{t("Secrets")}</Text>
+      <View style={[styles.item, styles.hintRow]} testID="shop-secret-hint">
+        <View style={[styles.itemIcon, { backgroundColor: lighten(colors.gold, 0.8) }]}>
+          <Icon name="lantern" size={34} />
+        </View>
+        <View style={styles.itemText}>
+          <Text style={styles.itemName} numberOfLines={2}>{t("Secret clue")}</Text>
+          <Text style={[styles.itemLine, short ? styles.itemLineShort : null]} numberOfLines={2}>
+            {short ? t("Need {count} more", { count: formatNumber(short) }) : t("Where to find a secret lesson")}
+          </Text>
+        </View>
+        <Animated.View style={shakeStyle}>
+          <GameButton label={formatNumber(SECRET_HINT_PRICE)} size="sm" icon={short ? "lock" : "gem"} variant="blue" sound={short ? false : undefined} onPress={press} testID="shop-buy-secret-hint" />
+        </Animated.View>
+      </View>
+    </View>
+  );
+}
+
 /** A quick spring from big back to normal size. */
 function popValue(value: Animated.Value) {
   value.setValue(1.35);
@@ -405,7 +507,10 @@ export function ShopView({
   canBuyWithMoney = canSellInStore(monetizationMode, storePlatform(Platform.OS)),
   canWatchAds = monetizationMode !== "disabled",
   heartVideosWatched = 0,
-  focus
+  focus,
+  onBuyIcon,
+  onWearIcon,
+  onBuySecretHint
 }: ShopViewProps) {
   const premium = isPremium(user);
   const fullPremium = isFullPremium(user);
@@ -481,9 +586,11 @@ export function ShopView({
         <PopIn from="scale">
           <View style={styles.balance} testID="shop-balance">
             <View style={styles.balanceGem}>
-              <Animated.View style={{ transform: [{ scale: gemPop }] }}>
-                <Icon name="gem" size={46} />
-              </Animated.View>
+              <SecretTap spot="shop_gem">
+                <Animated.View style={{ transform: [{ scale: gemPop }] }}>
+                  <Icon name="gem" size={46} />
+                </Animated.View>
+              </SecretTap>
               {/* Formatted as in the top bar above it (and on the Me tab): "1,000", "12,345", then "120k". */}
               <FormattedCount value={user.gems} compact style={styles.balanceValue} testID="shop-gems" />
             </View>
@@ -552,6 +659,10 @@ export function ShopView({
           </View>
         ) : null}
 
+        {onBuyIcon ? <IconShop user={user} onBuy={onBuyIcon} onWear={onWearIcon} /> : null}
+
+        {onBuySecretHint ? <SecretHintRow user={user} onBuy={onBuySecretHint} /> : null}
+
         {noAdsPlans.length ? (
           <View style={styles.section}>
             <PremiumCard plans={noAdsPlans} kind="no_ads" {...rowProps} />
@@ -616,6 +727,60 @@ export function ShopView({
 }
 
 const styles = StyleSheet.create({
+  iconGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10
+  },
+  iconCell: {
+    width: "30%",
+    flexGrow: 1
+  },
+  iconTile: {
+    alignItems: "center",
+    gap: 4,
+    paddingVertical: 10,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: colors.line,
+    backgroundColor: colors.white
+  },
+  iconTileOwned: {
+    borderColor: lighten(colors.gem, 0.45)
+  },
+  iconTileOn: {
+    borderColor: colors.gem,
+    backgroundColor: lighten(colors.gem, 0.88)
+  },
+  iconTag: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.gem
+  },
+  iconOwned: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.gemLip
+  },
+  iconPrice: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 2
+  },
+  iconPriceText: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.gemLip
+  },
+  hintRow: {
+    gap: 10
+  },
   root: {
     flex: 1,
     backgroundColor: colors.snow

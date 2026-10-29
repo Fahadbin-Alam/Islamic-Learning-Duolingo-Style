@@ -12,6 +12,8 @@ import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
 import { SwitchTrack } from "./sheetParts";
+import { SecretTap } from "./SecretTap";
+import { activeIcon } from "../../services/ummah";
 import { t } from "../../i18n";
 
 export type ProfileViewProps = {
@@ -181,6 +183,8 @@ export function ProfileView({
   const subLine = guest ? undefined : user.username ? `@${user.username}` : undefined;
   const shownName = guest ? t("Guest") : firstName(user.displayName);
   const initials = (user.avatarInitials || "?").slice(0, 3);
+  // A profile icon bought in the Shop takes the place of the initials.
+  const icon = activeIcon(user);
 
   // Sign up, log in or log out changes the avatar and the name at the top: scroll back up so they show
   // whole, not cut off under the top bar, and pop the avatar in again.
@@ -200,15 +204,19 @@ export function ProfileView({
   return (
     <ScrollView ref={scrollRef} style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="profile-view">
       <PopIn key={accountKey} from="scale" style={styles.hero}>
-        <View style={[styles.avatar, { backgroundColor: accent, borderBottomColor: darken(accent) }]} testID="profile-avatar">
-          {guest ? (
-            <Icon name="profile" size={64} color={colors.white} />
-          ) : (
-            <Text style={[styles.initials, initialsSize(initials)]} numberOfLines={1}>
-              {initials}
-            </Text>
-          )}
-        </View>
+        <SecretTap spot="avatar">
+          <View style={[styles.avatar, { backgroundColor: icon ? lighten(accent, 0.82) : accent, borderBottomColor: darken(accent) }]} testID="profile-avatar">
+            {icon ? (
+              <Icon name={icon} size={72} />
+            ) : guest ? (
+              <Icon name="profile" size={64} color={colors.white} />
+            ) : (
+              <Text style={[styles.initials, initialsSize(initials)]} numberOfLines={1}>
+                {initials}
+              </Text>
+            )}
+          </View>
+        </SecretTap>
         <Text style={[styles.name, nameSize(shownName)]} numberOfLines={2} testID="profile-name">
           {shownName}
         </Text>

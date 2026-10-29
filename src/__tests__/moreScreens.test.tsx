@@ -452,7 +452,7 @@ describe("CrewView", () => {
     expect(handlers.onRefresh).toHaveBeenCalledTimes(1);
   });
 
-  it("says Crew is coming soon when the build has no server, with nothing to retry", async () => {
+  it("says Friends are coming soon when the build has no server, with nothing to retry", async () => {
     const handlers = {
       onChangeInviteEmail: jest.fn(),
       onChangeInviteRelation: jest.fn(),
@@ -462,7 +462,7 @@ describe("CrewView", () => {
       onCreateAccount: jest.fn()
     };
     await render(<CrewView user={makeUser()} crew={{ status: "idle" }} inviteEmail="" inviteRelation="friend" unavailable {...handlers} />);
-    expect(screen.getByText("Crew is coming soon!")).toBeTruthy();
+    expect(screen.getByText("Friends are coming soon!")).toBeTruthy();
     expect(screen.queryByText("TRY AGAIN")).toBeNull();
     expect(screen.queryByText("No internet")).toBeNull();
     expect(handlers.onRefresh).not.toHaveBeenCalled();

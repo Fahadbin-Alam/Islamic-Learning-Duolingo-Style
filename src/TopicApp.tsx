@@ -88,6 +88,7 @@ import {
   acceptCrewRequest,
   declineCrewRequest,
   removeCrewMember,
+  fetchUmmahRankings,
   syncRemoteUser,
   type CrewMember,
   type CrewPayload
@@ -155,6 +156,9 @@ import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
+import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
+import { pickBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
+import { buySecretHint, findSecret, hasFound, secretAt, type SecretLesson, type SecretSpot } from "./data/secretLessons";
 import {
   AccountSheet,
   AppTopBar,
@@ -162,7 +166,12 @@ import {
   checkAccountFields,
   ConfirmSheet,
   CrewView,
+  BattleView,
   LeagueResultSheet,
+  SecretContext,
+  SecretListSheet,
+  SecretSheet,
+  type RankingsState,
   AgeSheet,
   LanguageSheet,
   LearnPath,
@@ -580,6 +589,10 @@ export default function TopicApp() {
   const [settingsReducedSound, setSettingsReducedSound] = useState(false);
   const [crew, setCrew] = useState<CrewState>({ status: "idle" });
   const [inviteEmail, setInviteEmail] = useState("");
+  const [rankings, setRankings] = useState<RankingsState>({ status: "idle" });
+  const [battle, setBattle] = useState<BattleQuestion[] | undefined>(undefined);
+  const [openSecret, setOpenSecret] = useState<{ secret: SecretLesson; isNew: boolean } | undefined>(undefined);
+  const [secretListOpen, setSecretListOpen] = useState(false);
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   // The tile picked in the language sheet, and the language shown before the learner has saved one.
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
@@ -2324,6 +2337,62 @@ export default function TopicApp() {
     finishSignUp(pendingAccount, withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, pendingAccount))));
   }
 
+  // The Ummah ranking needs the server and a signed-in account that joined it; anything else shows its own card.
+  const ummahSignedIn = Boolean(state.user?.hasAccount && getSessionToken());
+  const ummahJoined = Boolean(state.user?.ummah?.joined);
+
+  async function loadRankings() {
+    if (!state.user?.ummah || !ummahJoined || !ummahSignedIn || !isBackendConfigured()) {
+      return;
+    }
+
+    setRankings({ status: "loading" });
+
+    try {
+      setRankings({ status: "ready", rankings: await fetchUmmahRankings(state.user.ummah) });
+    } catch (error) {
+      console.warn("Ummah ranking failed", error);
+      setRankings({ status: "error" });
+    }
+  }
+
+  // Load the ranking when the Ummah tab opens, and again after anything that moves the learner on it.
+  const ummahKey = `${state.screen}|${ummahJoined}|${state.user?.ummah?.nickname ?? ""}|${state.user?.ummah?.trophies ?? 0}|${state.user?.ummah?.icon ?? ""}|${ummahSignedIn}`;
+  useEffect(() => {
+    if (state.screen === "social" && !battle) {
+      void loadRankings();
+    }
+    // loadRankings reads the latest state itself; the key says when it is worth a new request.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ummahKey, battle]);
+
+  function startBattle() {
+    const questions = pickBattleQuestions({ language: currentLanguage, young: ageGroup === "6-9" });
+    setBattle(questions);
+  }
+
+  function finishBattle(correct: number) {
+    const outcome = applyBattle(state.user as UserProfile, correct);
+    dispatch({ type: "apply_user_latest", update: (user) => applyBattle(user, correct).user });
+    return outcome.result;
+  }
+
+  function findSecretAt(spot: SecretSpot) {
+    const secret = secretAt(spot);
+
+    if (!secret || !state.user) {
+      return;
+    }
+
+    const isNew = !hasFound(state.user, secret.id);
+
+    if (isNew) {
+      dispatch({ type: "apply_user_latest", update: (user) => findSecret(user, secret.id) });
+    }
+
+    setOpenSecret({ secret, isNew });
+  }
+
   async function loadCrew() {
     if (!state.user?.hasAccount) {
       setCrew({ status: "signed_out" });
@@ -2608,7 +2677,8 @@ export default function TopicApp() {
     </LessonScreen>
   );
 
-  return (
+  // Secret lessons hide in pictures all over the app; three quick taps on one opens its lesson.
+  const shell = (
     <View style={[safeArea, isRtlLanguage(currentLanguage) && styles.rightToLeft]} {...webDirection(isRtlLanguage(currentLanguage))} testID="safe-area">
       <StatusBar barStyle="dark-content" />
       {/* Sheets and pops draw in the host's top layer, over the top bar and tabs too. */}
@@ -2836,6 +2906,12 @@ export default function TopicApp() {
             onUseItem={(item) => void useShopItem(item)}
             onRestore={restorePurchases}
             onDone={() => changeTab("learn")}
+            onBuyIcon={(id: ProfileIconId) => dispatch({ type: "apply_user_latest", update: (user) => buyIcon(user, id) })}
+            onWearIcon={(id) => dispatch({ type: "apply_user_latest", update: (user) => wearIcon(user, id) })}
+            onBuySecretHint={() => {
+              dispatch({ type: "apply_user_latest", update: buySecretHint });
+              setSecretListOpen(true);
+            }}
           />
         )}
         {state.screen === "social" && (
@@ -2856,8 +2932,31 @@ export default function TopicApp() {
             onRefresh={loadCrew}
             onCreateAccount={openCrewAccount}
             league={crewLeagueUser?.league}
+            ranks={{
+              rankings,
+              unavailable: !isBackendConfigured(),
+              signedOut: !ummahSignedIn,
+              forChild: ageGroup === "6-9" || ageGroup === "10-12" || state.user.accountRole === "child",
+              onBattle: startBattle,
+              onJoin: (joined) => dispatch({ type: "apply_user_latest", update: (user) => setUmmahJoined(user, joined) }),
+              onNewNickname: () => dispatch({ type: "apply_user_latest", update: (user) => rerollNickname(user) }),
+              onRefresh: () => void loadRankings(),
+              onSignIn: openCrewAccount,
+              onOpenSecrets: () => setSecretListOpen(true)
+            }}
           />
         )}
+        {battle ? (
+          <BattleView
+            questions={battle}
+            onFinish={finishBattle}
+            onClose={() => setBattle(undefined)}
+            mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
+          />
+        ) : null}
+        <SecretListSheet visible={secretListOpen} user={state.user} onClose={() => setSecretListOpen(false)} />
+        <SecretSheet secret={openSecret?.secret} isNew={openSecret?.isNew} onClose={() => setOpenSecret(undefined)} />
         {/* A finished league week is told once, the first time Crew opens after it. */}
         <LeagueResultSheet
           result={crewLeagueUser ? unseenLeagueResult(crewLeagueUser) : undefined}
@@ -3038,6 +3137,8 @@ export default function TopicApp() {
       </PortalHost>
     </View>
   );
+
+  return <SecretContext.Provider value={findSecretAt}>{shell}</SecretContext.Provider>;
 }
 
 // The answer sheet's source chip: the short reference of the source that says the answer, opening it.

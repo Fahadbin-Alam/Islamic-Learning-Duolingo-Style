@@ -5,9 +5,11 @@ import type {
   ReminderPreferences,
   SocialHubState,
   SocialRelation,
+  UmmahState,
   UserProfile
 } from "../types";
 import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
+import type { UmmahRankings } from "./ummah";
 
 const SESSION_KEY = "sira-path-session-token";
 
@@ -319,6 +321,15 @@ export async function declineCrewRequest(requesterId: number) {
 
 export async function removeCrewMember(friendId: number) {
   await backendRequest(`/api/friends/${friendId}`, { method: "DELETE", headers: authHeaders() });
+}
+
+/** Saves the learner's Ummah state (trophies, nickname, joined) and returns the ranking of everyone who joined. */
+export async function fetchUmmahRankings(ummah: UmmahState) {
+  return backendRequest<UmmahRankings>("/api/ummah/rankings", {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ ummah })
+  });
 }
 
 export function getSessionToken() {

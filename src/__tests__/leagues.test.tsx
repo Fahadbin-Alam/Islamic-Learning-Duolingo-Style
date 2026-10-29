@@ -177,7 +177,7 @@ describe("LeagueCard", () => {
     };
     await render(<CrewView user={makeUser()} crew={{ status: "idle" }} inviteEmail="" inviteRelation="friend" unavailable league={league({ xp: 20 })} {...handlers} />);
     expect(screen.getByTestId("league-card")).toBeTruthy();
-    expect(screen.getByText("Crew is coming soon!")).toBeTruthy();
+    expect(screen.getByText("Friends are coming soon!")).toBeTruthy();
   });
 });
 
