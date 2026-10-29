@@ -1,6 +1,14 @@
 // Every surah whose whole meaning is taught, by surah number. Written by the surah list in each sNNN.ts file.
 import type { SurahMeaning } from "./types";
 import { S002 } from "./s002";
+import { S028 } from "./s028";
+import { S029 } from "./s029";
+import { S030 } from "./s030";
+import { S031 } from "./s031";
+import { S032 } from "./s032";
+import { S033 } from "./s033";
+import { S034 } from "./s034";
+import { S035 } from "./s035";
 import { S037 } from "./s037";
 import { S038 } from "./s038";
 import { S039 } from "./s039";
@@ -79,4 +87,4 @@ import { S112 } from "./s112";
 import { S113 } from "./s113";
 import { S114 } from "./s114";
 
-export const ALL_SURAH_MEANINGS: readonly SurahMeaning[] = [S002, S037, S038, S039, S040, S041, S042, S043, S044, S045, S046, S047, S048, S049, S050, S051, S052, S053, S054, S055, S056, S057, S058, S059, S060, S061, S062, S063, S064, S065, S066, S068, S069, S070, S071, S072, S073, S074, S075, S076, S077, S078, S079, S080, S081, S082, S083, S084, S085, S086, S087, S088, S089, S090, S091, S092, S093, S094, S095, S096, S097, S098, S099, S100, S101, S102, S103, S104, S105, S106, S107, S108, S109, S110, S111, S112, S113, S114];
+export const ALL_SURAH_MEANINGS: readonly SurahMeaning[] = [S002, S028, S029, S030, S031, S032, S033, S034, S035, S037, S038, S039, S040, S041, S042, S043, S044, S045, S046, S047, S048, S049, S050, S051, S052, S053, S054, S055, S056, S057, S058, S059, S060, S061, S062, S063, S064, S065, S066, S068, S069, S070, S071, S072, S073, S074, S075, S076, S077, S078, S079, S080, S081, S082, S083, S084, S085, S086, S087, S088, S089, S090, S091, S092, S093, S094, S095, S096, S097, S098, S099, S100, S101, S102, S103, S104, S105, S106, S107, S108, S109, S110, S111, S112, S113, S114];
