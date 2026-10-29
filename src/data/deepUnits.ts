@@ -58,7 +58,7 @@ function hadith(book: "bukhari" | "muslim" | "tirmidhi" | "abudawud", number: st
   };
 }
 
-const SURAH_NAMES: Record<number, string> = { 1: "Al-Fatihah", 67: "Al-Mulk" };
+const SURAH_NAMES: Record<number, string> = { 1: "Al-Fatihah", 67: "Al-Mulk", 103: "Al-'Asr", 112: "Al-Ikhlas", 113: "Al-Falaq", 114: "An-Nas" };
 
 function ibnKathir(ayah: number, summary: string, surah = 1): LessonSource {
   return {
@@ -2689,7 +2689,235 @@ const MUHAJIRUN: DeepUnit = {
   ]
 };
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, MUHAJIRUN, FATIHAH, MULK, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...SCHOLAR_UNITS];
+// An-Nas, Al-Falaq, Al-Ikhlas and Al-'Asr, deeper: their virtues from the hadith and their meaning from Tafsir Ibn
+// Kathir, beyond what their passages teach. Each goes at the end of that surah's own unit (addSurahDeepUnits).
+// An-Nas: the whisperer and the three surahs of refuge.
+const NAS: DeepUnit = {
+  key: "nas",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-114",
+  name: "An-Nas",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Nas",
+  lessons: [
+    {
+      slug: "the-whisperer",
+      title: "The whisperer who hides",
+      line: "Shaytan whispers when we forget and hides when we remember.",
+      facts: ["Quran 114:4", "Said by Ibn Abbas"],
+      quote: ayah(1, 114),
+      source: ibnKathir(4, "Ibn Abbas said: the whisperer sits on the heart; when a person is heedless he whispers, and when he remembers Allah he withdraws.", 114),
+      difficulty: 4,
+      questions: [
+        { q: "When does Shaytan whisper, says Ibn Abbas?", a: "When we forget Allah", wrong: ["Only on Fridays", "Only at noon", "Never"], why: "He whispers when a person is heedless." },
+        { q: "What makes the whisperer hide away?", a: "Remembering Allah", wrong: ["Shouting loudly", "Running fast", "Closing the door"], why: "When he remembers Allah, the whisperer withdraws." },
+        { q: "Which surah tells of the whisperer who withdraws?", a: "An-Nas", wrong: ["Al-Fil", "Al-Kawthar", "Quraysh"], why: "Quran 114:4." }
+      ]
+    },
+    {
+      slug: "before-sleep",
+      title: "Before sleeping",
+      line: "Each night the Prophet ﷺ read the last three and wiped himself.",
+      facts: ["He blew into his cupped hands", "Three times"],
+      source: hadith("bukhari", "5017", "Aishah", "Sahih", "Every night in bed the Prophet ﷺ cupped his hands, recited Al-Ikhlas, Al-Falaq and An-Nas, blew into them, and wiped as much of his body as he could, three times."),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ recite each night before sleeping?", a: "Al-Ikhlas, Al-Falaq and An-Nas", wrong: ["Only Al-Baqarah", "Nothing at all", "A poem"], why: "Then he wiped his body with his hands." },
+        { q: "How many times did he do this?", a: "Three times", wrong: ["Once", "Ten times", "Seven times"], why: "Aishah said he did it three times." },
+        { q: "Where did he start wiping?", a: "His head and face", wrong: ["His feet", "His back", "His knees"], why: "Then the front of his body." }
+      ]
+    },
+    {
+      slug: "morning-evening",
+      title: "Morning and evening",
+      line: "Recite the three surahs three times each morning and evening.",
+      facts: ["They are enough for you", "Told by Abdullah ibn Khubayb"],
+      source: hadith("abudawud", "5082", "Abdullah ibn Khubayb", "Hasan (Al-Albani)", "On a dark rainy night the Prophet ﷺ told Abdullah ibn Khubayb: say Al-Ikhlas and the two surahs of refuge three times morning and evening; they will suffice you for everything."),
+      difficulty: 5,
+      questions: [
+        { q: "How many times should you recite them morning and evening?", a: "Three times", wrong: ["Once a year", "Forty times", "Only once ever"], why: "Three times each morning and evening." },
+        { q: "What did the Prophet ﷺ say they would do for you?", a: "Suffice you for everything", wrong: ["Make you rich", "Make you famous", "Nothing"], why: "They are enough as protection." },
+        { q: "Which three surahs are they?", a: "Al-Ikhlas, Al-Falaq and An-Nas", wrong: ["Al-Fil, Quraysh and Al-Ma'un", "Al-Asr, Al-Kawthar and Al-Kafirun", "Yasin, Al-Mulk and Al-Kahf"], why: "Al-Ikhlas and the two surahs of refuge." }
+      ]
+    }
+  ]
+};
+
+// Al-Falaq, after its passages.
+const FALAQ: DeepUnit = {
+  key: "falaq",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-113",
+  name: "Al-Falaq",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Falaq",
+  lessons: [
+    {
+      slug: "never-seen",
+      title: "Ayahs like no others",
+      line: "Nothing like Al-Falaq and An-Nas was ever revealed.",
+      facts: ["Revealed in one night", "Told by Uqbah ibn Amir"],
+      quote: ayah(1, 113),
+      source: hadith("muslim", "814a", "Uqbah ibn Amir", "Sahih", "The Prophet ﷺ said: what wonderful ayahs were sent down tonight, the like of which were never seen: Say, I seek refuge with the Lord of the dawn, and Say, I seek refuge with the Lord of mankind."),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ say about Al-Falaq and An-Nas?", a: "Nothing like them was ever seen", wrong: ["They are very long", "They are only for adults", "They came last of all"], why: "He called them wonderful ayahs." },
+        { q: "Which two surahs are these?", a: "Al-Falaq and An-Nas", wrong: ["Al-Fatihah and Al-Baqarah", "Al-Kahf and Maryam", "Yasin and Al-Mulk"], why: "Both begin: Say, I seek refuge." },
+        { q: "Who heard the Prophet ﷺ say this?", a: "Uqbah ibn Amir", wrong: ["Abu Jahl", "Abu Sufyan", "Khalid"], why: "Uqbah ibn Amir narrated it." }
+      ]
+    },
+    {
+      slug: "the-dawn",
+      title: "The Lord of the dawn",
+      line: "In Al-Falaq we seek refuge with the Lord of the dawn.",
+      facts: ["Al-Falaq means the morning", "Said by Jabir and Ibn Abbas"],
+      source: ibnKathir(1, "Jabir and Ibn Abbas said: Al-Falaq is the morning, like Allah's words: He is the Cleaver of the daybreak.", 113),
+      difficulty: 3,
+      questions: [
+        { q: "What does al-falaq mean?", a: "The dawn, the morning", wrong: ["The night", "The ocean", "The mountain"], why: "Jabir and Ibn Abbas said: it is the morning." },
+        { q: "In Al-Falaq, with whom do we seek refuge?", a: "The Lord of the dawn", wrong: ["The king of Persia", "Our friends", "The stars"], why: "Say: I seek refuge with the Lord of al-Falaq." },
+        { q: "Al-Falaq asks Allah to protect us from evil.", tf: true, why: "From the evil of what He has created." }
+      ]
+    },
+    {
+      slug: "when-ill",
+      title: "When he was ill",
+      line: "When ill, the Prophet ﷺ read Al-Falaq and An-Nas on himself.",
+      facts: ["Aishah did it for him later", "Hoping for their blessing"],
+      source: hadith("bukhari", "5016", "Aishah", "Sahih", "When the Prophet ﷺ was ill he recited the two surahs of refuge and blew over himself; when his illness grew, Aishah recited them and wiped his hand over him, hoping for their blessing."),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ recite when he was ill?", a: "Al-Falaq and An-Nas", wrong: ["Only poetry", "Nothing", "Al-Masad"], why: "The two surahs of refuge." },
+        { q: "Who recited them for him when he was very ill?", a: "Aishah", wrong: ["Umar", "Bilal", "Khalid"], why: "She wiped his own hand over him." },
+        { q: "We can recite these surahs when we are sick.", tf: true, why: "The Prophet ﷺ did, hoping for their blessing." }
+      ]
+    }
+  ]
+};
+
+// Al-Ikhlas, after its passages.
+const IKHLAS: DeepUnit = {
+  key: "ikhlas",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-112",
+  name: "Al-Ikhlas",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Ikhlas",
+  lessons: [
+    {
+      slug: "a-third",
+      title: "A third of the Quran",
+      line: "Al-Ikhlas is equal to a third of the Quran.",
+      facts: ["A man recited it again and again", "Told by Abu Sa'id"],
+      quote: ayah(1, 112),
+      source: hadith("bukhari", "5013", "Abu Sa'id al-Khudri", "Sahih", "A man kept repeating Al-Ikhlas, and another thought it was too little; the Prophet ﷺ swore that it is equal to a third of the Quran."),
+      difficulty: 1,
+      questions: [
+        { q: "What is Al-Ikhlas equal to, says the Prophet ﷺ?", a: "A third of the Quran", wrong: ["Half of the Quran", "One ayah", "Nothing special"], why: "He swore by the One who holds his soul." },
+        { q: "What did the man in the hadith do with Al-Ikhlas?", a: "He recited it again and again", wrong: ["He never recited it", "He wrote it on a wall", "He sold it"], why: "Another man thought that was too little." },
+        { q: "Al-Ikhlas is a short surah with a great reward.", tf: true, why: "Short, yet equal to a third of the Quran." }
+      ]
+    },
+    {
+      slug: "one-night",
+      title: "A third in one night",
+      line: "You can recite a third of the Quran tonight: recite Al-Ikhlas.",
+      facts: ["The companions found it hard", "Told by Abu Sa'id"],
+      source: hadith("bukhari", "5015", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ asked: can any of you recite a third of the Quran in one night? When they found it hard, he said: Allah, the One, the Self-Sufficient, is a third of the Quran."),
+      difficulty: 2,
+      questions: [
+        { q: "How can you recite a third of the Quran in one night?", a: "Recite Al-Ikhlas", wrong: ["Stay up all night", "Read only the first page", "It is impossible"], why: "The Prophet ﷺ said it is a third of the Quran." },
+        { q: "How did the companions feel about reciting a third in one night?", a: "They found it hard", wrong: ["They found it easy", "They did not care", "They laughed"], why: "Then the Prophet ﷺ gave them the easy way." },
+        { q: "Al-Ikhlas tells us Allah is One.", tf: true, why: "Allah, the One, the Self-Sufficient." }
+      ]
+    },
+    {
+      slug: "none-like-him",
+      title: "None is like Him",
+      line: "Al-Ikhlas ends: there is none equal or comparable to Allah.",
+      facts: ["Quran 112:4", "Nothing at all is like Him"],
+      source: ibnKathir(4, "There is none similar to Allah, none equal to Him, and nothing at all is like Him.", 112),
+      difficulty: 2,
+      questions: [
+        { q: "What does the last ayah of Al-Ikhlas say about Allah?", a: "None is equal to Him", wrong: ["He has many partners", "He has a son", "He was born"], why: "Ibn Kathir: nothing at all is like Him." },
+        { q: "Al-Ikhlas says Allah neither has children nor was born.", tf: true, why: "He begets not, nor was He begotten." },
+        { q: "Which surah ends: there is none comparable to Him?", a: "Al-Ikhlas", wrong: ["Al-Fatihah", "Al-Kawthar", "Al-Asr"], why: "Quran 112:4." }
+      ]
+    },
+    {
+      slug: "allah-loves-him",
+      title: "Allah loves him",
+      line: "A man loved Al-Ikhlas, so the Prophet ﷺ said: Allah loves him.",
+      facts: ["He ended each prayer's recitation with it", "It describes ar-Rahman"],
+      source: hadith("bukhari", "7375", "Aishah", "Sahih", "A leader always ended his recitation in prayer with Al-Ikhlas because it describes ar-Rahman and he loved it; the Prophet ﷺ said: tell him that Allah loves him."),
+      difficulty: 3,
+      questions: [
+        { q: "Why did the man always recite Al-Ikhlas?", a: "It describes Allah, and he loved it", wrong: ["It was the only surah he knew", "To finish quickly", "Someone paid him"], why: "It describes ar-Rahman, the Most Merciful." },
+        { q: "What did the Prophet ﷺ say about him?", a: "Tell him that Allah loves him", wrong: ["Tell him to stop", "Tell him to recite less", "Nothing at all"], why: "Love of Al-Ikhlas earned Allah's love." },
+        { q: "Who told this story?", a: "Aishah", wrong: ["Hafsah", "Fatimah", "Khadijah"], why: "Aishah narrated it." }
+      ]
+    }
+  ]
+};
+
+const ASR: DeepUnit = {
+  key: "asr",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-103",
+  name: "Al-'Asr",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-'Asr",
+  lessons: [
+    {
+      slug: "time",
+      title: "By time",
+      line: "Allah swears by time, when people do good or evil.",
+      facts: ["Al-'Asr: time", "People are in loss"],
+      quote: ayah(1, 103),
+      source: ibnKathir(1, "Al-'Asr is the time in which the deeds of the Children of Adam happen, good or evil; Allah swears by it that people are in loss.", 103),
+      difficulty: 2,
+      questions: [
+        { q: "What does al-'asr mean, says Ibn Kathir?", a: "The time in which people act", wrong: ["The sea", "The sun", "A city"], why: "The time of people's good and evil deeds." },
+        { q: "What does Allah say people are in?", a: "Loss", wrong: ["Glory", "Sleep", "Safety"], why: "Verily, man is in loss." },
+        { q: "Al-'Asr is a very short surah.", tf: true, why: "It has only three ayahs." }
+      ]
+    },
+    {
+      slug: "four-things",
+      title: "Four things save us",
+      line: "Faith, good deeds, truth and patience save us from loss.",
+      facts: ["Urge one another", "Quran 103:3"],
+      source: ibnKathir(3, "Except those who believe in their hearts, do good deeds with their limbs, urge one another to truth, which is obedience, and to patience against harm.", 103),
+      difficulty: 3,
+      questions: [
+        { q: "Which of these is one of the four things in Al-'Asr?", a: "Urging one another to patience", wrong: ["Collecting money", "Sleeping a lot", "Winning races"], why: "Faith, good deeds, truth and patience." },
+        { q: "What does urging the truth mean, says Ibn Kathir?", a: "Obeying Allah and leaving the forbidden", wrong: ["Telling jokes", "Buying gifts", "Staying quiet"], why: "Acts of obedience, and avoiding what is forbidden." },
+        { q: "Al-'Asr says faith alone, with no good deeds, is enough.", tf: false, why: "It names faith and good deeds together." }
+      ]
+    },
+    {
+      slug: "enough",
+      title: "Enough for people",
+      line: "Ash-Shafi'i: if people pondered Al-'Asr, it would suffice.",
+      facts: ["Imam ash-Shafi'i", "In Tafsir Ibn Kathir"],
+      source: ibnKathir(1, "Ash-Shafi'i said: if the people were to ponder this surah, it would be sufficient for them.", 103),
+      difficulty: 4,
+      questions: [
+        { q: "What did ash-Shafi'i say about Al-'Asr?", a: "It would be enough if people pondered it", wrong: ["It is too short to matter", "It is only for scholars", "It should be skipped"], why: "Its three ayahs hold the whole path." },
+        { q: "Which great imam said Al-'Asr alone would be enough?", a: "Ash-Shafi'i", wrong: ["Abu Jahl", "Abu Lahab", "Fir'awn"], why: "Ibn Kathir quotes him at the start of the surah." },
+        { q: "Pondering means thinking deeply about the meaning.", tf: true, why: "Not just reciting, but reflecting." }
+      ]
+    }
+  ]
+};
+
+const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR];
+
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...SCHOLAR_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -2810,11 +3038,20 @@ function buildUnit(unit: DeepUnit) {
  * the units are arranged (arrangeUnits), before chainCourse. Lesson and node ids are fixed, so progress stays.
  */
 export function addDeepUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }) {
+  return addUnits(content, DEEP_UNITS.filter((unit) => !SURAH_DEEP_UNITS.includes(unit)));
+}
+
+/** Adds the deep units of the surahs whose units addSurahMeanings makes, once it has made them. */
+export function addSurahDeepUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }) {
+  return addUnits(content, SURAH_DEEP_UNITS);
+}
+
+function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]) {
   const lessonsById = { ...content.lessonsById };
   // A topic made only of deep units (Scholars) starts as an empty section.
   const all = content.course.sections.some((section) => section.topicId === SCHOLARS_SECTION.topicId) ? content.course.sections : [...content.course.sections, SCHOLARS_SECTION];
   const sections = all.map((topic) => {
-    const added = DEEP_UNITS.filter((unit) => unit.branch && unit.topicId === topic.topicId && !topic.branches.some((branch) => branch.id === unit.branchId));
+    const added = deepUnits.filter((unit) => unit.branch && unit.topicId === topic.topicId && !topic.branches.some((branch) => branch.id === unit.branchId));
     // A new unit goes after the topic's own units, before the ones from the notes.
     const before = topic.branches.findIndex((branch) => branch.id.startsWith("notes-"));
     const split = before === -1 ? topic.branches.length : before;
@@ -2828,7 +3065,7 @@ export function addDeepUnits(content: { course: LearningCourse; lessonsById: Rec
           ].map((branch, index) => ({ ...branch, order: index + 1 }))
         }
       : topic;
-    const units = DEEP_UNITS.filter((unit) => unit.topicId === section.topicId && section.branches.some((branch) => branch.id === unit.branchId));
+    const units = deepUnits.filter((unit) => unit.topicId === section.topicId && section.branches.some((branch) => branch.id === unit.branchId));
     if (!units.length) return section;
     let nodes = [...section.nodes];
     for (const unit of units) {
