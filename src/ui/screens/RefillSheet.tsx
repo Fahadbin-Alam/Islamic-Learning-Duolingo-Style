@@ -8,6 +8,7 @@ import { feedback } from "../sound";
 import { colors, space, text } from "../theme";
 import { MascotSays, moodSound, useBackToClose, useOpenSound } from "./sheetParts";
 import { t } from "../../i18n";
+import { VIDEOS_PER_HEART } from "../../services/monetizationConfig";
 
 export type RefillSheetProps = {
   visible: boolean;
@@ -36,10 +37,18 @@ export type RefillSheetProps = {
   /** "shop" only: PRACTICE, shown when no hearts can be had. Practice needs no hearts. */
   onPractice?: () => void;
   /**
-   * "shop" only: FREE HEART plays a short video for one heart, right here instead of in the shop. Left out
-   * when videos can't play (no ads in this build, or premium).
+   * "shop" only: FREE HEART plays one short video toward a heart (three videos make one), right here instead of in
+   * the shop. Left out when videos can't play (no ads in this build, or premium).
    */
   onWatchVideo?: () => void;
+  /** Videos already watched toward the next heart (0 to videosPerHeart - 1). */
+  videosWatched?: number;
+  videosPerHeart?: number;
+  /**
+   * "shop" only: UNLIMITED HEARTS opens the plans. Left out when this build cannot sell plans, the learner already
+   * has Premium, or the learner is a child.
+   */
+  onPlans?: () => void;
   /** The video is loading or playing: its button spins and the other buttons wait. */
   videoBusy?: boolean;
 };
@@ -60,6 +69,9 @@ export function RefillSheet({
   canGetHearts = true,
   onPractice,
   onWatchVideo,
+  videosWatched = 0,
+  videosPerHeart = VIDEOS_PER_HEART,
+  onPlans,
   videoBusy = false
 }: RefillSheetProps) {
   const free = variant === "free";
@@ -149,13 +161,48 @@ export function RefillSheet({
             <Text style={styles.centerLine} testID="refill-tomorrow">
               {t("Full hearts again tomorrow!")}
             </Text>
+            {onPlans ? (
+              <GameButton
+                label={t("Unlimited hearts")}
+                icon="crown"
+                variant="gold"
+                fullWidth
+                onPress={unlessBusy(onPlans)}
+                accessibilityLabel={t("Unlimited hearts, see Premium")}
+                testID="refill-plans"
+              />
+            ) : null}
+            {onWatchVideo ? (
+              <View
+                style={styles.videoDots}
+                accessibilityLabel={t("{count} of {total} videos watched", { count: videosWatched, total: videosPerHeart })}
+                testID="refill-video-progress"
+              >
+                {Array.from({ length: videosPerHeart }, (_, index) => (
+                  <View key={index} style={[styles.videoDot, index < videosWatched ? styles.videoDotDone : null]} testID={index < videosWatched ? "refill-video-dot-done" : "refill-video-dot"}>
+                    <Icon name={index < videosWatched ? "check" : "play"} size={14} color={index < videosWatched ? colors.white : colors.goldLip} />
+                  </View>
+                ))}
+                <Text style={styles.videoLine} numberOfLines={2}>
+                  {t("{total} videos = 1 heart", { total: videosPerHeart })}
+                </Text>
+              </View>
+            ) : null}
             {onWatchVideo ? (
               videoBusy ? (
                 <View style={styles.videoBusy} accessibilityLabel={t("Loading video")} testID="refill-video-busy">
                   <ActivityIndicator color={colors.goldLip} />
                 </View>
               ) : (
-                <GameButton label={t("Free heart")} icon="play" variant="gold" fullWidth onPress={onWatchVideo} accessibilityLabel={t("Free heart, watch a video")} testID="refill-video" />
+                <GameButton
+                  label={t("Watch video {count} of {total}", { count: videosWatched + 1, total: videosPerHeart })}
+                  icon="play"
+                  variant={onPlans ? "blue" : "gold"}
+                  fullWidth
+                  onPress={onWatchVideo}
+                  accessibilityLabel={t("Free heart, watch video {count} of {total}", { count: videosWatched + 1, total: videosPerHeart })}
+                  testID="refill-video"
+                />
               )
             ) : null}
             {canGetHearts ? (
@@ -173,8 +220,8 @@ export function RefillSheet({
             ) : null}
             <GameButton
               label={endLabel}
-              variant={canGetHearts || practice || onWatchVideo ? "ghost" : "primary"}
-              color={canGetHearts || practice || onWatchVideo ? colors.inkSoft : accent}
+              variant={canGetHearts || practice || onWatchVideo || onPlans ? "ghost" : "primary"}
+              color={canGetHearts || practice || onWatchVideo || onPlans ? colors.inkSoft : accent}
               fullWidth
               onPress={unlessBusy(endLesson)}
               testID="refill-end"
@@ -199,6 +246,34 @@ const styles = StyleSheet.create({
     height: 58,
     alignItems: "center",
     justifyContent: "center"
+  },
+  videoDots: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    gap: space.xs
+  },
+  videoDot: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: colors.gold,
+    backgroundColor: colors.white
+  },
+  videoDotDone: {
+    backgroundColor: colors.green,
+    borderColor: colors.green
+  },
+  videoLine: {
+    ...text.tiny,
+    fontSize: 14,
+    lineHeight: 19,
+    marginLeft: space.xs,
+    flexShrink: 1
   },
   heartRow: {
     flexDirection: "row",

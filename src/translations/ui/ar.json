@@ -104,7 +104,6 @@
   "Foundation": "الأساس",
   "Free gems": "جواهر مجانية",
   "Free heart": "قلب مجاني",
-  "Free heart, watch a video": "قلب مجاني، شاهد فيديو",
   "Friend": "صديق",
   "Friend's email": "بريد الصديق",
   "From": "من",
@@ -375,7 +374,6 @@
   "Waiting for them to add you": "بانتظار أن يضيفك",
   "Wants to race you": "يريد أن يتسابق معك",
   "Watch": "شاهد",
-  "Watch a video": "شاهد فيديو",
   "Watch: +{count} gems": "شاهد: +{count} جوهرة",
   "Wealth World": "عالم المال",
   "Welcome back": "مرحبا بعودتك",
@@ -527,5 +525,14 @@
   "{count} XP to stay": "{count} XP أخرى للبقاء",
   "{count} days left": "الأيام المتبقية: {count}",
   "Learn Islam with me on Muslimo! Quick, fun lessons on the Quran, Prophets and Sahabah. {link}": "تعلّم الإسلام معي على Muslimo! دروس قصيرة وممتعة عن القرآن والأنبياء والصحابة. {link}",
-  "Invite friends": "ادعُ أصدقاءك"
+  "Invite friends": "ادعُ أصدقاءك",
+  "Free heart, watch video {count} of {total}": "قلب مجاني، شاهد الفيديو {count} من {total}",
+  "Just no ads": "بدون إعلانات فقط",
+  "Learn with no limits!": "تعلّم بلا حدود!",
+  "Never run out of hearts!": "لن تنفد قلوبك أبدًا!",
+  "No thanks": "لا، شكرًا",
+  "Unlimited hearts, see Premium": "قلوب بلا حدود، شاهد بريميوم",
+  "Watch video {count} of {total}": "شاهد الفيديو {count}/{total}",
+  "{count} of {total} videos watched": "شاهدت {count} من {total} فيديو",
+  "{total} videos = 1 heart": "{total} فيديو = قلب واحد"
 }
