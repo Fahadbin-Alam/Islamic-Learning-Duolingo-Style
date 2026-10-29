@@ -110,11 +110,18 @@ import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
 import {
   adAudienceFor,
+  addHeartVideo,
+  canSellInStore,
   isAgeGroup,
+  mayOfferPlans,
   monetizationMode,
   rewardedGemVideosLeft,
+  shouldOfferPlansAfterLesson,
+  planForProduct,
   shouldShowLessonBreakAd,
-  type AgeGroup
+  storePlatform,
+  type AgeGroup,
+  type PlanOfferCheck
 } from "./services/monetizationConfig";
 import { getStoredItem, setStoredItem } from "./services/appStorage";
 import { clearSocialHubState } from "./services/socialHub";
@@ -165,6 +172,7 @@ import {
   ProfileView,
   FamilySheet,
   RamadanBanner,
+  PlanOfferSheet,
   RefillSheet,
   RewardPop,
   SettingsSheet,
@@ -486,6 +494,15 @@ function reducer(state: AppState, action: Action): AppState {
 const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 // The shop's "Free heart" video, offered again on the out-of-hearts sheet.
 const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
+const HEART_VIDEOS_KEY = "sira-path-heart-videos";
+const PLAN_OFFER_AT_KEY = "sira-path-plan-offer-at";
+
+// The plans sheet: why it opened, and the lesson to start once it closes (it can open as NEXT LESSON is tapped).
+type PlanOffer = {
+  open: boolean;
+  reason: "hearts" | "lessons";
+  resume?: LearningNodeView;
+};
 
 
 // A scholar's years for the family tree, in the learner's language.
@@ -511,6 +528,11 @@ export default function TopicApp() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountModalVisible, setAccountModalVisible] = useState(false);
   const [outOfHearts, setOutOfHearts] = useState<OutOfHeartsSheet | undefined>(undefined);
+  const [planOffer, setPlanOffer] = useState<PlanOffer | undefined>(undefined);
+  // A finished lesson made the plans due: they open as the learner leaves its complete screen.
+  const planOfferDueRef = useRef(false);
+  // Videos watched toward the next free heart (three make one).
+  const [heartVideosWatched, setHeartVideosWatched] = useState(readHeartVideosWatched);
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   // The local day the top bar's daily ayah and hadith were last opened.
   const [dailySeenDay, setDailySeenDay] = useState(() => Number(getStoredItem("sira-path-daily-seen")));
@@ -1247,8 +1269,13 @@ export default function TopicApp() {
 
   // Out of hearts: the one free refill first, then the shop. In a lesson it opens after GOT IT on
   // the wrong answer, so the learner sees the right answer and the Why? line before the sheet.
+  // Once the free refill is used, the plans come first (at most every few hours, see mayOfferPlans); NO THANKS
+  // there brings this sheet up.
   function openOutOfHearts(user: UserProfile, inLesson: boolean, resume?: OutOfHeartsSheet["resume"]) {
-    setOutOfHearts({ open: true, variant: shouldOfferReviewHeartRestore(user) ? "free" : "shop", inLesson, resume });
+    const variant = shouldOfferReviewHeartRestore(user) ? "free" : "shop";
+    const plansFirst = variant === "shop" && mayOfferPlans(planOfferCheck(user));
+    setOutOfHearts({ open: !plansFirst, variant, inLesson, resume });
+    if (plansFirst) openPlanOffer("hearts");
   }
 
   async function startLesson(node: LearningNodeView, user = state.user) {
@@ -1634,8 +1661,84 @@ export default function TopicApp() {
     });
   }
 
+  // Under 13 or a Kid account: the plans never open by themselves (store Families rules), only in the shop.
+  function planOfferCheck(user: UserProfile): PlanOfferCheck {
+    return {
+      canSell: canSellInStore(monetizationMode, storePlatform(Platform.OS)),
+      hasPremium: hasPremiumLessons(user),
+      child: ageGroup === "6-9" || ageGroup === "10-12" || user.accountRole === "child",
+      msSinceLastOffer: Date.now() - readPlanOfferAt()
+    };
+  }
+
+  function openPlanOffer(reason: PlanOffer["reason"], resume?: LearningNodeView) {
+    setStoredItem(PLAN_OFFER_AT_KEY, String(Date.now()));
+    setPlanOffer({ open: true, reason, resume });
+  }
+
+  // NO THANKS: out of hearts, the out-of-hearts sheet comes up (videos, heart pack, end lesson); after a lesson, the
+  // next lesson the learner had tapped starts.
+  function closePlanOffer() {
+    const offer = planOffer;
+    setPlanOffer((current) => current && { ...current, open: false });
+
+    if (offer?.reason === "hearts") {
+      setOutOfHearts((current) => current && { ...current, open: true });
+    } else if (offer?.resume) {
+      void startLesson(offer.resume);
+    }
+  }
+
+  async function buyFromPlanOffer(item: ShopItem) {
+    const user = state.user;
+    const offer = planOffer;
+
+    if (!user || !(await useShopItem(item))) {
+      return;
+    }
+
+    setPlanOffer((current) => current && { ...current, open: false });
+    const upgraded = applyShopItem(user, item);
+
+    if (offer?.reason === "hearts") {
+      // Premium's unlimited hearts carry the lesson on; "No ads" keeps the heart limit, so the hearts sheet comes back.
+      if (isOutOfHearts(upgraded)) {
+        setOutOfHearts((current) => current && { ...current, open: true });
+      } else {
+        resumeWithHearts(upgraded);
+      }
+    } else if (offer?.resume) {
+      void startLesson(offer.resume, upgraded);
+    }
+  }
+
+  // The complete screen's CONTINUE (next lesson) or back to the path. When the plans are due they open over the path
+  // first, and NO THANKS starts the next lesson.
+  function leaveLessonComplete(next?: LearningNodeView) {
+    setLessonCompleteSummary(undefined);
+
+    if (planOfferDueRef.current) {
+      planOfferDueRef.current = false;
+      dispatch({ type: "close_lesson_complete" });
+      openPlanOffer("lessons", next);
+      return;
+    }
+
+    if (next) {
+      void startLesson(next);
+      return;
+    }
+    dispatch({ type: "close_lesson_complete" });
+  }
+
   function maybeShowLessonBreakAd(user: UserProfile) {
     lessonsFinishedRef.current += 1;
+
+    // One break at a time: when the plans are due they take this lesson's break instead of the ad.
+    if (shouldOfferPlansAfterLesson(lessonsFinishedRef.current, planOfferCheck(user))) {
+      planOfferDueRef.current = true;
+      return;
+    }
 
     if (shouldShowLessonBreakAd(lessonsFinishedRef.current, isPremiumUser(user), Date.now() - lastFullScreenAdAtRef.current)) {
       void monetizationClient.showLessonBreakAd().then((shown) => {
@@ -1644,23 +1747,25 @@ export default function TopicApp() {
     }
   }
 
-  async function useShopItem(item: ShopItem) {
+  /** True once the item was bought (or its video watched). */
+  async function useShopItem(item: ShopItem): Promise<boolean> {
     if (!state.user || shopBusy) {
-      return;
+      return false;
     }
 
     if (item.currencyType === "gems") {
       // ShopView shakes a gem item the learner cannot buy yet, so only a real purchase gets here.
       if (canSpendGems(state.user, item)) {
         dispatch({ type: "apply_user", user: applyShopItem(state.user, item) });
+        return true;
       }
-      return;
+      return false;
     }
 
     // ShopView mutes the heart video at full hearts too: the heart it gives stops at the most hearts, so a video
     // then would give nothing.
     if (item.type === "rewarded_ad" && !item.gemsGranted && !state.user.hearts.unlimited && state.user.hearts.current >= state.user.hearts.max) {
-      return;
+      return false;
     }
 
     setShopBusy(true);
@@ -1673,7 +1778,7 @@ export default function TopicApp() {
 
         if (gemVideo && rewardedGemVideosLeft(watched, today) === 0) {
           void notify(t("That's all for today"), t("Come back tomorrow for more gems."), { mood: "think" });
-          return;
+          return false;
         }
 
         const reward = await monetizationClient.showRewardedAd(item);
@@ -1683,18 +1788,23 @@ export default function TopicApp() {
           if (gemVideo) {
             setStoredItem("sira-path-rewarded-gem-videos", JSON.stringify({ date: today, count: (watched?.date === today ? watched.count : 0) + 1 }));
           }
+          // A heart video counts toward the next heart: only every third one pays it.
+          const heartsGranted = gemVideo ? reward.heartsGranted : countHeartVideo() ? 1 : 0;
           dispatch({
             type: "apply_user_latest",
             update: (user) => {
-              const withHearts = reward.heartsGranted ? grantHearts(user, reward.heartsGranted, true) : user;
+              const withHearts = heartsGranted ? grantHearts(user, heartsGranted, true) : user;
               return reward.gemsGranted ? { ...withHearts, gems: withHearts.gems + reward.gemsGranted } : withHearts;
             }
           });
-        } else if (reward.message) {
+          return true;
+        }
+
+        if (reward.message) {
           void notify(t("No video right now"), t("Try again later."), { mood: "think" });
         }
 
-        return;
+        return false;
       }
 
       const purchase = await monetizationClient.purchaseShopItem(item);
@@ -1704,9 +1814,13 @@ export default function TopicApp() {
         if (purchase.premium) {
           dispatch({ type: "sync_premium", premium: purchase.premium });
         }
-      } else if (!purchase.cancelled && purchase.message) {
+        return true;
+      }
+
+      if (!purchase.cancelled && purchase.message) {
         void notify(t("Not bought"), t("Try again later."), { mood: "think" });
       }
+      return false;
     } finally {
       setShopBusy(false);
     }
@@ -2313,7 +2427,16 @@ export default function TopicApp() {
     resumeWithHearts(grantHearts({ ...state.user, reviewHeartRestoreUsed: true }, state.user.hearts.max, true));
   }
 
-  // FREE HEART: a short video for one heart, then the lesson goes on where it stopped.
+  // One more video toward the next heart; true when this one finished it.
+  function countHeartVideo() {
+    const { watched, heartEarned } = addHeartVideo(readHeartVideosWatched());
+    setStoredItem(HEART_VIDEOS_KEY, String(watched));
+    setHeartVideosWatched(watched);
+    return heartEarned;
+  }
+
+  // FREE HEART: three short videos make one heart, then the lesson goes on where it stopped. Until then the sheet
+  // stays up and ticks off each video watched.
   async function watchVideoForHeart() {
     if (!state.user || !HEART_VIDEO || shopBusy) {
       return;
@@ -2331,8 +2454,11 @@ export default function TopicApp() {
       }
 
       lastFullScreenAdAtRef.current = Date.now();
+      if (!countHeartVideo()) {
+        return;
+      }
       // The sheet is open the whole time, so nothing else changed the learner while the video played.
-      resumeWithHearts(grantHearts(user, reward.heartsGranted || 1, true));
+      resumeWithHearts(grantHearts(user, 1, true));
     } finally {
       setShopBusy(false);
     }
@@ -2411,9 +2537,12 @@ export default function TopicApp() {
   const learner = state.user;
   // Videos need ads in this build; premium has unlimited hearts and no ads.
   const canWatchHeartVideo = monetizationMode !== "disabled" && Boolean(HEART_VIDEO) && !isPremiumUser(state.user) && !state.user.hearts.unlimited;
-  const canGetHearts =
-    monetizationMode !== "disabled" ||
-    SHOP_ITEMS.some((item) => item.currencyType === "gems" && Boolean(item.refillsHearts || item.heartsGranted) && canSpendGems(learner, item));
+  const canGetHearts = monetizationMode !== "disabled";
+  // UNLIMITED HEARTS on the out-of-hearts sheet: this build can sell plans, and the learner is not a child.
+  const planCheck = planOfferCheck(learner);
+  const canOfferPlans = planCheck.canSell && !planCheck.hasPremium && !planCheck.child;
+  // A "No ads" learner is only offered the move up to Premium.
+  const offerItems = isPremiumUser(learner) ? SHOP_ITEMS.filter((item) => !isNoAdsPlanItem(item)) : SHOP_ITEMS;
   // With no hearts left the complete screen offers CONTINUE (back to the path), never a NEXT LESSON
   // that could not start.
   const nextLessonNode = sectionNextNode && sectionNextNode.status !== "locked" && !isOutOfHearts(state.user) ? sectionNextNode : undefined;
@@ -2630,18 +2759,8 @@ export default function TopicApp() {
             mascotVariant={lessonMascot}
             accent={lessonAccent}
             nextTitle={nextLessonNode?.title}
-            onContinue={() => {
-              setLessonCompleteSummary(undefined);
-              if (nextLessonNode) {
-                void startLesson(nextLessonNode);
-                return;
-              }
-              dispatch({ type: "close_lesson_complete" });
-            }}
-            onBackToPath={() => {
-              setLessonCompleteSummary(undefined);
-              dispatch({ type: "close_lesson_complete" });
-            }}
+            onContinue={() => leaveLessonComplete(nextLessonNode)}
+            onBackToPath={() => leaveLessonComplete()}
           />
         )}
         {state.screen === "assessment" && activeAssessment && (
@@ -2713,7 +2832,8 @@ export default function TopicApp() {
             busy={shopBusy}
             section={selectedSection}
             focus={state.shopFocus}
-            onUseItem={useShopItem}
+            heartVideosWatched={heartVideosWatched}
+            onUseItem={(item) => void useShopItem(item)}
             onRestore={restorePurchases}
             onDone={() => changeTab("learn")}
           />
@@ -2850,9 +2970,30 @@ export default function TopicApp() {
           }}
           onRefill={claimReviewHeartRestore}
           onWatchVideo={canWatchHeartVideo ? () => void watchVideoForHeart() : undefined}
+          videosWatched={heartVideosWatched}
+          onPlans={
+            canOfferPlans
+              ? () => {
+                  setOutOfHearts((current) => current && { ...current, open: false });
+                  openPlanOffer("hearts");
+                }
+              : undefined
+          }
           videoBusy={shopBusy}
           onShop={openShopForHearts}
           onEndLesson={closeOutOfHearts}
+        />
+        <PlanOfferSheet
+          visible={Boolean(planOffer?.open)}
+          reason={planOffer?.reason ?? "lessons"}
+          items={offerItems}
+          storePrices={storePrices}
+          busy={shopBusy}
+          mascotVariant={inLesson ? lessonMascot : selectedSection.mascot}
+          accent={inLesson ? lessonAccent : selectedSection.accentColor}
+          onBuy={(item) => void buyFromPlanOffer(item)}
+          onRestore={() => void restorePurchases()}
+          onClose={closePlanOffer}
         />
         <ConfirmSheet
           visible={Boolean(testOutResult?.open)}
@@ -2905,6 +3046,21 @@ function feedbackSource(challenge: Challenge, lesson: Lesson | undefined) {
   const reference = source?.reference?.trim();
   if (!source || !reference) return undefined;
   return { label: shortReference(reference), onOpen: source.url ? () => void Linking.openURL(source.url).catch(() => undefined) : undefined };
+}
+
+function readHeartVideosWatched() {
+  const count = Number(getStoredItem(HEART_VIDEOS_KEY) ?? 0);
+  return Number.isFinite(count) && count > 0 ? Math.floor(count) : 0;
+}
+
+function readPlanOfferAt() {
+  const at = Number(getStoredItem(PLAN_OFFER_AT_KEY) ?? 0);
+  return Number.isFinite(at) ? at : 0;
+}
+
+/** Same rule as ShopView's isNoAdsPlan. */
+function isNoAdsPlanItem(item: ShopItem) {
+  return Boolean(item.tier) && planForProduct(item.productId ?? item.id) === "no_ads";
 }
 
 function readRewardedGemVideos(): { date: string; count: number } | null {

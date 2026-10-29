@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Animated, Linking, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { UiStrings } from "../../i18n";
-import { canSellInStore, legalLinks, monetizationMode, planForProduct, storePlatform } from "../../services/monetizationConfig";
+import { VIDEOS_PER_HEART, canSellInStore, legalLinks, monetizationMode, planForProduct, storePlatform } from "../../services/monetizationConfig";
 import type { LearningSection, ShopItem, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
@@ -43,6 +43,8 @@ export type ShopViewProps = {
    */
   canBuyWithMoney?: boolean;
   canWatchAds?: boolean;
+  /** Videos already watched toward the next free heart (three make one). */
+  heartVideosWatched?: number;
   /** Scroll to this part once the shop opens. "premium": the Premium card (or the "can't be bought here" note). */
   focus?: "premium";
 };
@@ -60,7 +62,7 @@ function isFullPremium(user: UserProfile) {
   return planForProduct(user.activeSubscriptionId) === "premium";
 }
 
-function isNoAdsPlan(item: ShopItem) {
+export function isNoAdsPlan(item: ShopItem) {
   return Boolean(item.tier) && planForProduct(item.productId ?? item.id) === "no_ads";
 }
 
@@ -98,7 +100,7 @@ export function formatShopPrice(item: ShopItem, storePrices: Record<string, stri
 }
 
 /** Short kid-friendly names; the catalog names are written for store listings. */
-function displayName(item: ShopItem) {
+export function displayName(item: ShopItem) {
   switch (item.type) {
     case "monthly_membership":
       return t("Monthly");
@@ -113,15 +115,20 @@ function displayName(item: ShopItem) {
   }
 }
 
-function shortLine(item: ShopItem, user: UserProfile) {
+function shortLine(item: ShopItem, user: UserProfile, heartVideosWatched: number) {
   if (item.refillsHearts) return t("Fill to {count}", { count: user.hearts.max });
-  if (item.type === "rewarded_ad") return item.gemsGranted ? t("Watch: +{count} gems", { count: item.gemsGranted }) : t("Watch a video");
+  if (item.type === "rewarded_ad" && item.gemsGranted) return t("Watch: +{count} gems", { count: item.gemsGranted });
+  if (item.type === "rewarded_ad") {
+    return heartVideosWatched
+      ? t("{count} of {total} videos watched", { count: heartVideosWatched, total: VIDEOS_PER_HEART })
+      : t("{total} videos = 1 heart", { total: VIDEOS_PER_HEART });
+  }
   if (item.heartsGranted) return t("+{count} hearts", { count: item.heartsGranted });
   if (item.gemsGranted) return t("+{count} gems", { count: formatNumber(item.gemsGranted) });
   return item.localizedDescription;
 }
 
-function badgeText(item: ShopItem) {
+export function badgeText(item: ShopItem) {
   if (!item.highlightBadge) return undefined;
   const percent = item.highlightBadge.match(/\d+\s*%/);
   return percent ? t("Save {percent}", { percent: percent[0].replace(/\s/g, "") }) : item.highlightBadge;
@@ -178,6 +185,8 @@ type RowProps = {
   busy: boolean;
   pendingId?: string;
   onBuy: (item: ShopItem) => void;
+  /** Videos watched toward the next free heart. */
+  heartVideosWatched?: number;
 };
 
 const NUDGE_MS = 1400;
@@ -209,7 +218,7 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
 }
 
 function ItemRow(props: RowProps) {
-  const { item, user, storePrices, onBuy, busy } = props;
+  const { item, user, storePrices, onBuy, busy, heartVideosWatched = 0 } = props;
   const gems = item.currencyType === "gems";
   // Full hearts comes first: a learner who needs nothing is never told to save gems for it. The heart video
   // follows the same rule, so no one sits through a video that gives nothing.
@@ -219,7 +228,7 @@ function ItemRow(props: RowProps) {
   const short = gems && !full && user.gems < item.price ? item.price - user.gems : 0;
   const label = formatShopPrice(item, storePrices);
   const name = displayName(item);
-  const line = full ? t("Hearts are full") : short ? t("Need {count} more", { count: formatNumber(short) }) : shortLine(item, user);
+  const line = full ? t("Hearts are full") : short ? t("Need {count} more", { count: formatNumber(short) }) : shortLine(item, user, heartVideosWatched);
   const { style: shakeStyle, shake } = useShake(6);
   const buttonPop = useRef(new Animated.Value(1)).current;
   const rowScale = useRef(new Animated.Value(1)).current;
@@ -317,7 +326,7 @@ function ItemRow(props: RowProps) {
   );
 }
 
-function BenefitList({ ink, skipHearts }: { ink: string; skipHearts?: boolean }) {
+export function BenefitList({ ink, skipHearts }: { ink: string; skipHearts?: boolean }) {
   return (
     <View style={styles.benefits}>
       {BENEFITS.filter((benefit) => !skipHearts || benefit.icon !== "infinity").map((benefit) => (
@@ -395,6 +404,7 @@ export function ShopView({
   pendingItemId,
   canBuyWithMoney = canSellInStore(monetizationMode, storePlatform(Platform.OS)),
   canWatchAds = monetizationMode !== "disabled",
+  heartVideosWatched = 0,
   focus
 }: ShopViewProps) {
   const premium = isPremium(user);
@@ -461,7 +471,7 @@ export function ShopView({
       onRestore();
     });
   const pending = pendingItemId ?? pendingId;
-  const rowProps = { user, storePrices, busy, pendingId: pending, onBuy: buy };
+  const rowProps = { user, storePrices, busy, pendingId: pending, onBuy: buy, heartVideosWatched };
 
   return (
     <View style={styles.root}>

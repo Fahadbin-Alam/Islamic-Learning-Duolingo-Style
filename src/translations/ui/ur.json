@@ -104,7 +104,6 @@
   "Foundation": "بنیاد",
   "Free gems": "مفت جواہر",
   "Free heart": "مفت دل",
-  "Free heart, watch a video": "مفت دل، ایک ویڈیو دیکھیں",
   "Friend": "دوست",
   "Friend's email": "دوست کا ای میل",
   "From": "سے",
@@ -375,7 +374,6 @@
   "Waiting for them to add you": "ان کے شامل کرنے کا انتظار",
   "Wants to race you": "آپ سے مقابلہ کرنا چاہتا ہے",
   "Watch": "دیکھیں",
-  "Watch a video": "ایک ویڈیو دیکھیں",
   "Watch: +{count} gems": "دیکھیں: +{count} جواہر",
   "Wealth World": "مال کی دنیا",
   "Welcome back": "واپسی پر خوش آمدید",
@@ -527,5 +525,14 @@
   "{count} XP to stay": "لیگ میں رہنے کے لیے مزید {count} XP",
   "{count} days left": "{count} دن باقی",
   "Learn Islam with me on Muslimo! Quick, fun lessons on the Quran, Prophets and Sahabah. {link}": "میرے ساتھ Muslimo پر اسلام سیکھیں! قرآن، انبیاء اور صحابہ پر چھوٹے، مزے دار سبق۔ {link}",
-  "Invite friends": "دوستوں کو بلائیں"
+  "Invite friends": "دوستوں کو بلائیں",
+  "Free heart, watch video {count} of {total}": "مفت دل، {total} میں سے ویڈیو {count} دیکھو",
+  "Just no ads": "صرف اشتہار کے بغیر",
+  "Learn with no limits!": "بغیر حد کے سیکھو!",
+  "Never run out of hearts!": "دل کبھی ختم نہیں ہوں گے!",
+  "No thanks": "نہیں، شکریہ",
+  "Unlimited hearts, see Premium": "لامحدود دل، پریمیم دیکھو",
+  "Watch video {count} of {total}": "ویڈیو {count}/{total} دیکھو",
+  "{count} of {total} videos watched": "{total} میں سے {count} ویڈیو دیکھ لیے",
+  "{total} videos = 1 heart": "{total} ویڈیو = 1 دل"
 }
