@@ -1361,7 +1361,83 @@
   },
   {
     "kind": "course",
-    "text": "Surah Al-⁠Hadid to At-⁠Tahrim"
+    "text": "Surah Al-Hadid"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Hadid, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Mujadila"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Mujadila, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Hashr"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Hashr, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Mumtahanah"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Mumtahanah, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah As-Saf"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of As-Saf, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Jumu'ah"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Jumu'ah, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Munafiqun"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Munafiqun, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah At-Taghabun"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of At-Taghabun, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah At-Talaq"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of At-Talaq, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah At-Tahrim"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of At-Tahrim, in simple words."
   },
   {
     "kind": "course",
@@ -2800,16 +2876,28 @@
     "text": "The Inevitable"
   },
   {
-    "kind": "course",
-    "text": "Surah Al-Hadid"
-  },
-  {
     "kind": "arabic",
     "text": "The Iron"
   },
   {
     "kind": "course",
-    "text": "Surah Al-Mujadila"
+    "text": "The First and the Last"
+  },
+  {
+    "kind": "course",
+    "text": "Spend in Allah's way"
+  },
+  {
+    "kind": "course",
+    "text": "A goodly loan"
+  },
+  {
+    "kind": "course",
+    "text": "Race to forgiveness"
+  },
+  {
+    "kind": "course",
+    "text": "Nuh, Ibrahim and Isa"
   },
   {
     "kind": "arabic",
@@ -2817,7 +2905,15 @@
   },
   {
     "kind": "course",
-    "text": "Surah Al-Hashr"
+    "text": "The woman who complained"
+  },
+  {
+    "kind": "course",
+    "text": "Make room"
+  },
+  {
+    "kind": "course",
+    "text": "The party of Allah"
   },
   {
     "kind": "arabic",
@@ -2825,7 +2921,15 @@
   },
   {
     "kind": "course",
-    "text": "Surah Al-Mumtahanah"
+    "text": "The generous Ansar"
+  },
+  {
+    "kind": "course",
+    "text": "False promises"
+  },
+  {
+    "kind": "course",
+    "text": "The beautiful names"
   },
   {
     "kind": "arabic",
@@ -2833,7 +2937,11 @@
   },
   {
     "kind": "course",
-    "text": "Surah As-Saf"
+    "text": "Ibrahim, an example"
+  },
+  {
+    "kind": "course",
+    "text": "Kind and fair"
   },
   {
     "kind": "arabic",
@@ -2841,7 +2949,11 @@
   },
   {
     "kind": "course",
-    "text": "Surah Al-Jumu'ah"
+    "text": "Do what you say"
+  },
+  {
+    "kind": "course",
+    "text": "The best trade"
   },
   {
     "kind": "arabic",
@@ -2849,7 +2961,11 @@
   },
   {
     "kind": "course",
-    "text": "Surah Al-Munafiqun"
+    "text": "A messenger who teaches"
+  },
+  {
+    "kind": "course",
+    "text": "Friday prayer"
   },
   {
     "kind": "arabic",
@@ -2857,7 +2973,7 @@
   },
   {
     "kind": "course",
-    "text": "Surah At-Taghabun"
+    "text": "Not distracted"
   },
   {
     "kind": "arabic",
@@ -2865,7 +2981,11 @@
   },
   {
     "kind": "course",
-    "text": "Surah At-Talaq"
+    "text": "The Day of Gathering"
+  },
+  {
+    "kind": "course",
+    "text": "Fear Allah as you can"
   },
   {
     "kind": "arabic",
@@ -2873,11 +2993,23 @@
   },
   {
     "kind": "course",
-    "text": "Surah At-Tahrim"
+    "text": "A way out"
+  },
+  {
+    "kind": "course",
+    "text": "Seven heavens"
   },
   {
     "kind": "arabic",
     "text": "The Prohibition"
+  },
+  {
+    "kind": "course",
+    "text": "Protect your family"
+  },
+  {
+    "kind": "course",
+    "text": "Sincere repentance"
   },
   {
     "kind": "course",
@@ -43489,6 +43621,1018 @@
   },
   {
     "kind": "lesson",
+    "text": "Everything glorifies Allah; He is the First and the Last."
+  },
+  {
+    "kind": "lesson",
+    "text": "He created all in six days"
+  },
+  {
+    "kind": "lesson",
+    "text": "He is with you wherever you are"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:3"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:1-6"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah call Himself in Al-Hadid?"
+  },
+  {
+    "kind": "question",
+    "text": "The Second"
+  },
+  {
+    "kind": "question",
+    "text": "The Middle"
+  },
+  {
+    "kind": "question",
+    "text": "The Newest"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-6: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-6 say: Everything glorifies Allah; He is the First and the Last."
+  },
+  {
+    "kind": "lesson",
+    "text": "Believe, and spend from what Allah has entrusted to you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah will inherit everything"
+  },
+  {
+    "kind": "lesson",
+    "text": "Early givers rank higher"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:7"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:7-10"
+  },
+  {
+    "kind": "question",
+    "text": "What are believers told to do with wealth, in Al-Hadid?"
+  },
+  {
+    "kind": "question",
+    "text": "Bury it"
+  },
+  {
+    "kind": "question",
+    "text": "Hide it all"
+  },
+  {
+    "kind": "question",
+    "text": "Waste it"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 7-10: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 7-10 say: Allah sent Nuh, Ibrahim and Isa; some followed, many strayed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Who will lend Allah a goodly loan? He multiplies it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Believers' light runs before them"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hearts should soften for Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:11"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:11-19"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah do with a goodly loan?"
+  },
+  {
+    "kind": "question",
+    "text": "Refuses it"
+  },
+  {
+    "kind": "question",
+    "text": "Multiplies it"
+  },
+  {
+    "kind": "question",
+    "text": "Forgets it"
+  },
+  {
+    "kind": "question",
+    "text": "Returns half"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 11-19: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 11-19 say: Who will lend Allah a goodly loan? He multiplies it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Worldly life is play and show; race to forgiveness and Paradise."
+  },
+  {
+    "kind": "lesson",
+    "text": "Every hardship is written before"
+  },
+  {
+    "kind": "lesson",
+    "text": "Iron sent down: great strength"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:21"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:20-25"
+  },
+  {
+    "kind": "question",
+    "text": "What should we race toward, in Al-Hadid?"
+  },
+  {
+    "kind": "question",
+    "text": "Forgiveness and Paradise"
+  },
+  {
+    "kind": "question",
+    "text": "Games"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 20-25: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 20-25 say: Believe, and spend from what Allah has entrusted to you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah sent Nuh, Ibrahim and Isa; some followed, many strayed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Isa's followers had mercy"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fear Allah: He gives a double share"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:26"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 57:26-29"
+  },
+  {
+    "kind": "question",
+    "text": "Which prophets are named at the end of Al-Hadid?"
+  },
+  {
+    "kind": "question",
+    "text": "Hud and Salih"
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf and Yaqub"
+  },
+  {
+    "kind": "question",
+    "text": "Adam and Shith"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 26-29: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 26-29 say: Allah sent Nuh, Ibrahim and Isa; some followed, many strayed."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Hadid!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah heard the woman who complained about her husband."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah hears every complaint"
+  },
+  {
+    "kind": "lesson",
+    "text": "A wrong old custom was ended"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 58:1"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 58:1-6"
+  },
+  {
+    "kind": "question",
+    "text": "Who heard the woman's complaint, in Al-Mujadilah?"
+  },
+  {
+    "kind": "question",
+    "text": "Only her husband"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-6 say: Allah heard the woman who complained about her husband."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows every secret talk; make room in gatherings."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is with us by His knowledge"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah raises those with knowledge"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 58:7-13"
+  },
+  {
+    "kind": "question",
+    "text": "Who does Allah raise in rank, in Al-Mujadilah?"
+  },
+  {
+    "kind": "question",
+    "text": "Believers with knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 7-13: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 7-13 say: Allah heard the woman who complained about her husband."
+  },
+  {
+    "kind": "lesson",
+    "text": "The party of Allah won't befriend Allah's enemies, even kin."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah wrote faith in their hearts"
+  },
+  {
+    "kind": "lesson",
+    "text": "The party of Allah will succeed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 58:22"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 58:14-22"
+  },
+  {
+    "kind": "question",
+    "text": "Who will succeed, in Al-Mujadilah?"
+  },
+  {
+    "kind": "question",
+    "text": "The party of Shaytan"
+  },
+  {
+    "kind": "question",
+    "text": "The liars"
+  },
+  {
+    "kind": "question",
+    "text": "The proud"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 14-22: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 14-22 say: The party of Allah won't befriend Allah's enemies, even kin."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Mujadila!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Ansar loved the Muhajirun and put them before themselves."
+  },
+  {
+    "kind": "lesson",
+    "text": "Banu Nadir left Madinah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Saved from greed: the successful"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:9"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:1-10"
+  },
+  {
+    "kind": "question",
+    "text": "Who preferred the Muhajirun over themselves?"
+  },
+  {
+    "kind": "question",
+    "text": "The Persians"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-10 say: The Ansar loved the Muhajirun and put them before themselves."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hypocrites promised to help, but they lied, like Shaytan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Their hearts are divided"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaytan abandons those he fools"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:16"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:11-17"
+  },
+  {
+    "kind": "question",
+    "text": "Who are the hypocrites compared to, in Al-Hashr?"
+  },
+  {
+    "kind": "question",
+    "text": "Shaytan"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 11-17 say: The Ansar loved the Muhajirun and put them before themselves."
+  },
+  {
+    "kind": "lesson",
+    "text": "Prepare for tomorrow; Allah has the most beautiful names."
+  },
+  {
+    "kind": "lesson",
+    "text": "A mountain would humble at the Quran"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Khaliq, Al-Bari, Al-Musawwir"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:22"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 59:18-24"
+  },
+  {
+    "kind": "question",
+    "text": "What would a mountain do if the Quran came down on it?"
+  },
+  {
+    "kind": "question",
+    "text": "Humble and split apart"
+  },
+  {
+    "kind": "question",
+    "text": "Laugh"
+  },
+  {
+    "kind": "question",
+    "text": "Grow taller"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 18-24: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 18-24 say: Prepare for tomorrow; Allah has the most beautiful names."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Hashr!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim and his followers are a good example for believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not take Allah's enemies as allies"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim left his people's idols"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 60:4"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 60:1-6"
+  },
+  {
+    "kind": "question",
+    "text": "Who is a good example, in Al-Mumtahanah?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim and his followers"
+  },
+  {
+    "kind": "question",
+    "text": "Qarun"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-6 say: Ibrahim and his followers are a good example for believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah allows kindness and fairness to those who don't fight you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah loves those who are fair"
+  },
+  {
+    "kind": "lesson",
+    "text": "Women who migrate are tested"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 60:8"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 60:7-13"
+  },
+  {
+    "kind": "question",
+    "text": "Who does Allah allow us to be kind to?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who don't fight us"
+  },
+  {
+    "kind": "question",
+    "text": "Only Muslims"
+  },
+  {
+    "kind": "question",
+    "text": "Only family"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 7-13 say: Ibrahim and his followers are a good example for believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Mumtahanah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Why say what you do not do? Allah loves firm ranks."
+  },
+  {
+    "kind": "lesson",
+    "text": "Isa gave news of Ahmad"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah will complete His light"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 61:6"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 61:1-9"
+  },
+  {
+    "kind": "question",
+    "text": "Who did Isa give good news of?"
+  },
+  {
+    "kind": "question",
+    "text": "A messenger named Ahmad"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-9: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-9 say: Why say what you do not do? Allah loves firm ranks."
+  },
+  {
+    "kind": "lesson",
+    "text": "The best trade: believe and strive; the reward is Paradise."
+  },
+  {
+    "kind": "lesson",
+    "text": "Help from Allah, victory near"
+  },
+  {
+    "kind": "lesson",
+    "text": "Be helpers of Allah like the disciples"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 61:10"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 61:10-14"
+  },
+  {
+    "kind": "question",
+    "text": "What is the best trade, in As-Saff?"
+  },
+  {
+    "kind": "question",
+    "text": "Faith and striving for Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Silk"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 10-14: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 10-14 say: Why say what you do not do? Allah loves firm ranks."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about As-Saf!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah sent a messenger who recites, purifies and teaches."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sent among the unlettered"
+  },
+  {
+    "kind": "lesson",
+    "text": "Death will reach everyone"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:2"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:1-8"
+  },
+  {
+    "kind": "question",
+    "text": "What does the Messenger ﷺ do, in Al-Jumu'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Recites, purifies and teaches"
+  },
+  {
+    "kind": "question",
+    "text": "Rules a kingdom"
+  },
+  {
+    "kind": "question",
+    "text": "Trades"
+  },
+  {
+    "kind": "question",
+    "text": "Writes poetry"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-8 say: Allah sent a messenger who recites, purifies and teaches."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Friday's call, hurry to remember Allah and leave trade."
+  },
+  {
+    "kind": "lesson",
+    "text": "After prayer, seek Allah's bounty"
+  },
+  {
+    "kind": "lesson",
+    "text": "What Allah has is better"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:9"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:9-11"
+  },
+  {
+    "kind": "question",
+    "text": "What should we leave at Friday's call?"
+  },
+  {
+    "kind": "question",
+    "text": "Remembrance"
+  },
+  {
+    "kind": "question",
+    "text": "The mosque"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 9-11: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 9-11 say: Allah sent a messenger who recites, purifies and teaches."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Jumu'ah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hypocrites swear they believe, but their hearts deny it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Their looks impress you"
+  },
+  {
+    "kind": "lesson",
+    "text": "They are like propped-up wood"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 63:4"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 63:1-8"
+  },
+  {
+    "kind": "question",
+    "text": "What are the hypocrites like, in Al-Munafiqun?"
+  },
+  {
+    "kind": "question",
+    "text": "Shining stars"
+  },
+  {
+    "kind": "question",
+    "text": "Propped-up wood"
+  },
+  {
+    "kind": "question",
+    "text": "Strong trees"
+  },
+  {
+    "kind": "question",
+    "text": "Flowing rivers"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-8 say: Hypocrites swear they believe, but their hearts deny it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Let not wealth or children distract you from remembering Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Spend before death comes"
+  },
+  {
+    "kind": "lesson",
+    "text": "Death is not delayed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 63:9"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 63:9-11"
+  },
+  {
+    "kind": "question",
+    "text": "What must not distract us from Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "Good friends"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth and children"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 9-11 say: Hypocrites swear they believe, but their hearts deny it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Munafiqun!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows all; the Day of Gathering shows who truly lost."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some believe, some deny"
+  },
+  {
+    "kind": "lesson",
+    "text": "Believe in Allah and the light"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 64:4"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 64:1-10"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah know, in At-Taghabun?"
+  },
+  {
+    "kind": "question",
+    "text": "Only what we say"
+  },
+  {
+    "kind": "question",
+    "text": "What we hide and show"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-10 say: Allah knows all; the Day of Gathering shows who truly lost."
+  },
+  {
+    "kind": "lesson",
+    "text": "No hardship comes but by Allah's leave; fear Him as you can."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some spouses and children test you"
+  },
+  {
+    "kind": "lesson",
+    "text": "Forgive and pardon them"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 64:16"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 64:11-18"
+  },
+  {
+    "kind": "question",
+    "text": "How much should we fear Allah, in At-Taghabun?"
+  },
+  {
+    "kind": "question",
+    "text": "Only on Friday"
+  },
+  {
+    "kind": "question",
+    "text": "Only when rich"
+  },
+  {
+    "kind": "question",
+    "text": "As much as we can"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 11-18: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 11-18 say: Allah knows all; the Day of Gathering shows who truly lost."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about At-Taghabun!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever fears Allah, He makes a way out and provides."
+  },
+  {
+    "kind": "lesson",
+    "text": "Divorce has set rules"
+  },
+  {
+    "kind": "lesson",
+    "text": "Trust Allah: He is enough"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 65:2"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 65:1-7"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah give one who fears Him?"
+  },
+  {
+    "kind": "question",
+    "text": "More worries"
+  },
+  {
+    "kind": "question",
+    "text": "Hard times"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-7 say: Whoever fears Allah, He makes a way out and provides."
+  },
+  {
+    "kind": "lesson",
+    "text": "Towns that defied Allah were lost; He made seven heavens."
+  },
+  {
+    "kind": "lesson",
+    "text": "A messenger reciting clear ayahs"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows everything"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 65:12"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 65:8-12"
+  },
+  {
+    "kind": "question",
+    "text": "How many heavens did Allah create, in At-Talaq?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 8-12: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 8-12 say: Whoever fears Allah, He makes a way out and provides."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about At-Talaq!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Protect yourselves and your families from the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Angels always obey Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Excuses won't help that Day"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 66:6"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 66:1-7"
+  },
+  {
+    "kind": "question",
+    "text": "Who must we protect from the Fire, in At-Tahrim?"
+  },
+  {
+    "kind": "question",
+    "text": "Ourselves and our families"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-7 say: Protect yourselves and your families from the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Repent sincerely; Pharaoh's wife and Maryam are examples."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pharaoh's wife: a house in Paradise"
+  },
+  {
+    "kind": "lesson",
+    "text": "Maryam believed Allah's words"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 66:8-12"
+  },
+  {
+    "kind": "question",
+    "text": "Who are examples for believers, in At-Tahrim?"
+  },
+  {
+    "kind": "question",
+    "text": "Pharaoh's wife and Maryam"
+  },
+  {
+    "kind": "question",
+    "text": "Nuh's wife and Lut's wife"
+  },
+  {
+    "kind": "question",
+    "text": "Qarun and Haman"
+  },
+  {
+    "kind": "question",
+    "text": "Pharaoh and Haman"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 8-12 say: Protect yourselves and your families from the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about At-Tahrim!"
+  },
+  {
+    "kind": "lesson",
     "text": "By the pen: you are not mad; your character is great."
   },
   {
@@ -43605,15 +44749,7 @@
   },
   {
     "kind": "question",
-    "text": "The proud"
-  },
-  {
-    "kind": "question",
     "text": "The lazy"
-  },
-  {
-    "kind": "question",
-    "text": "The liars"
   },
   {
     "kind": "question",
@@ -44002,10 +45138,6 @@
   {
     "kind": "question",
     "text": "Night and day"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 1-9: what are they about?"
   },
   {
     "kind": "question",
@@ -44650,10 +45782,6 @@
   {
     "kind": "question",
     "text": "A treasure"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 1-6: what are they about?"
   },
   {
     "kind": "question",
@@ -45398,10 +46526,6 @@
   {
     "kind": "question",
     "text": "Besides fasting by day, what is special at night in Ramadan?"
-  },
-  {
-    "kind": "question",
-    "text": "Games"
   },
   {
     "kind": "question",
