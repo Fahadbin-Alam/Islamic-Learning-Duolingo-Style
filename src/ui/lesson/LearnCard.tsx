@@ -12,8 +12,8 @@ import { colors, darken, fonts, lip, radii, space, text, topicPalette } from "..
 import { LessonBottomBar } from "./LessonHeader";
 import { looksSame, noBreakHyphens, normalizeText } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
-import { AyahListen } from "./AyahListen";
-import { playAyah } from "../../services/ayahPlayer";
+import { AyahListen, useAyahPlayback } from "./AyahListen";
+import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
 import { getActiveLanguage, t } from "../../i18n";
 
@@ -42,6 +42,11 @@ export type LearnCardProps = {
   onOpenSource?: (url: string) => void;
   /** Shows a round speaker button on the Arabic card (wire expo-speech with language "ar", or a clip). */
   onPlayAudio?: () => void;
+  /**
+   * The reciter's audio when the Arabic word is a whole ayah: the speaker plays it once (instead of onPlayAudio),
+   * and it stops when the card leaves the screen.
+   */
+  arabicRecitation?: string;
   onContinue: () => void;
   bottomInset?: number;
   testID?: string;
@@ -110,12 +115,17 @@ export function LearnCard({
   learnSource,
   source: legacySource,
   onOpenSource,
-  onPlayAudio,
+  onPlayAudio: speak,
+  arabicRecitation,
   onContinue,
   bottomInset,
   testID = "learn-card"
 }: LearnCardProps) {
   const palette = topicPalette(accent);
+  const onPlayAudio = arabicRecitation ? () => playAyah(arabicRecitation, { once: true }) : speak;
+  const playback = useAyahPlayback();
+  const recitationFailed = Boolean(arabicRecitation) && playback.url === arabicRecitation && playback.status === "error";
+  useEffect(() => (arabicRecitation ? () => stopAyah(arabicRecitation) : undefined), [arabicRecitation]);
   const { width, height } = useWindowDimensions();
   const short = height > 0 && height < 720;
   const narrow = width > 0 && width < 360;
@@ -201,6 +211,11 @@ export function LearnCard({
                   )}
                 </View>
                 <Text style={styles.meaning}>{withHonorifics(noBreakHyphens(t(arabic.meaning)))}</Text>
+                {recitationFailed ? (
+                  <Text style={styles.audioError} testID="learn-audio-error">
+                    {t("Could not load. Check your internet.")}
+                  </Text>
+                ) : null}
               </View>
             </PopIn>
           ) : null}
@@ -473,6 +488,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 2,
     flexShrink: 1
+  },
+  audioError: {
+    ...text.small,
+    fontSize: 12,
+    lineHeight: 16,
+    textAlign: "center",
+    marginTop: 4
   },
   talkRow: {
     flexDirection: "row",
