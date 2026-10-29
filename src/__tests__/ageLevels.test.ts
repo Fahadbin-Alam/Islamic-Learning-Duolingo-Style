@@ -8,8 +8,9 @@ import type { Challenge } from "../types";
 // Fahad: young children need true/false and a few 4-choice questions; older learners get easy ones and harder ones.
 // The age picked at the start sets that: 13 and over get the full climb, younger learners an easier mix.
 
-// The hand-written deep units (deepUnits.ts) have no questions set aside, so they are the same at every age.
-const lessons = Object.values(LESSONS_BY_ID).filter((lesson) => !lesson.id.startsWith("lesson-deep-"));
+// The hand-written deep units (deepUnits.ts) and surah meanings (surahMeanings/) have no questions set aside, so they
+// are the same at every age.
+const lessons = Object.values(LESSONS_BY_ID).filter((lesson) => !lesson.id.startsWith("lesson-deep-") && !lesson.id.startsWith("lesson-surah-meaning-"));
 const asked = (ageGroup?: AgeGroup) => lessons.flatMap((lesson) => lessonForAge(lesson, ageGroup).challenges);
 const share = (questions: Challenge[], keep: (question: Challenge) => boolean) => questions.filter(keep).length / questions.length;
 const isTrueFalse = (question: Challenge) => question.type === "true_false";

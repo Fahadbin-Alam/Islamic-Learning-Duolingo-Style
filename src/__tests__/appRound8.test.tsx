@@ -23,7 +23,7 @@ import React from "react";
 import { Dimensions, Platform, ScrollView, StyleSheet } from "react-native";
 import { fireEvent, render, screen, within } from "@testing-library/react-native";
 import { FoundationAssessmentScreen } from "../components/FoundationLearning";
-import { COURSE, SHOP_ITEMS } from "../data/course";
+import { COURSE } from "../data/course";
 import { FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import { getUiStrings } from "../i18n";
 import { playGameSound } from "../services/gameAudio";
@@ -34,7 +34,7 @@ import { WHY_LINE } from "../ui/lesson/FeedbackSheet";
 import { SCROLL_HINT_ROOM } from "../ui/lesson/ScrollHint";
 import { sheetRoom, stackSpan } from "../ui/lesson/sheetFit";
 import { ShopView } from "../ui/screens";
-import { makeUser } from "./testUtils";
+import { SHOP_ITEMS_WITH_GEMS, makeUser } from "./testUtils";
 
 const layout = (height: number, y = 0, width = 288) => ({ nativeEvent: { layout: { x: 0, y, width, height } } });
 const flat = (style: unknown) => (StyleSheet.flatten(style as never) ?? {}) as Record<string, unknown>;
@@ -325,7 +325,7 @@ describe("every tap on a shop item makes a sound", () => {
   const section = COURSE.sections[0] as LearningSection;
   const shop = async (user = makeUser()) => {
     const onUseItem = jest.fn();
-    await render(<ShopView user={user} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney={false} />);
+    await render(<ShopView user={user} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney={false} />);
     (playGameSound as jest.Mock).mockClear();
     return onUseItem;
   };
@@ -356,7 +356,7 @@ describe("every tap on a shop item makes a sound", () => {
   it("the free heart video never plays with full hearts: it would show an ad for nothing", async () => {
     const onUseItem = jest.fn();
     const full = makeUser({ hearts: { current: 5, max: 5, unlimited: false, lastRefillDate: "2026-10-20" } });
-    const view = await render(<ShopView user={full} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney />);
+    const view = await render(<ShopView user={full} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney />);
     expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("Hearts are full");
     (playGameSound as jest.Mock).mockClear();
     await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-heart"));
@@ -366,8 +366,8 @@ describe("every tap on a shop item makes a sound", () => {
     await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-gems"));
     expect(onUseItem).toHaveBeenCalledWith(expect.objectContaining({ id: "watch-ad-gems" }));
     const missing = makeUser({ hearts: { current: 4, max: 5, unlimited: false, lastRefillDate: "2026-10-20" } });
-    await view.rerender(<ShopView user={missing} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney />);
-    expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("Watch a video");
+    await view.rerender(<ShopView user={missing} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney />);
+    expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("3 videos = 1 heart");
     await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-heart"));
     expect(onUseItem).toHaveBeenCalledWith(expect.objectContaining({ id: "watch-ad-heart" }));
   });

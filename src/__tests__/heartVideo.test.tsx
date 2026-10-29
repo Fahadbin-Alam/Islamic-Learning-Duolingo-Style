@@ -64,23 +64,49 @@ async function runOutOfHearts(user: UserProfile = makeUser({ hearts: hearts(1), 
   await press("feedback-continue");
 }
 
-describe("a video for a heart on the out-of-hearts sheet", () => {
+describe("videos for a heart on the out-of-hearts sheet", () => {
+  // The plans were just offered, so running out of hearts opens the hearts sheet straight away (planOffer.test.tsx).
+  beforeEach(() => setStoredItem("sira-path-plan-offer-at", String(Date.now())));
   afterEach(() => {
     removeStoredItem(PROFILE_KEY);
+    removeStoredItem("sira-path-heart-videos");
     clearActiveAssessment();
     showRewardedAd.mockReset();
     showRewardedAd.mockResolvedValue({ ok: false });
   });
 
-  it("plays the shop's heart video right there, then the lesson goes on with one heart", async () => {
+  it("plays the shop's heart video right there; the third video gives one heart and the lesson goes on", async () => {
     showRewardedAd.mockResolvedValue({ ok: true, heartsGranted: 1, gemsGranted: 0, transactionId: "ad" });
     await runOutOfHearts();
     expect(screen.getByTestId("refill-tomorrow")).toBeTruthy();
-    await press("refill-video");
+    expect(screen.getByTestId("refill-video")).toHaveTextContent("WATCH VIDEO 1 OF 3");
 
+    // Two videos only tick off their dots: the sheet stays, still with no heart.
+    await press("refill-video");
+    expect(screen.getByTestId("refill-video-progress").props.accessibilityLabel).toBe("1 of 3 videos watched");
+    await press("refill-video");
+    expect(screen.getAllByTestId("refill-video-dot-done")).toHaveLength(2);
+    expect(screen.getByTestId("refill-video")).toHaveTextContent("WATCH VIDEO 3 OF 3");
+    expect(screen.getByTestId("refill-sheet")).toBeTruthy();
+    expect(savedUser().hearts.current).toBe(0);
+    expect(getStoredItem("sira-path-heart-videos")).toBe("2");
+
+    await press("refill-video");
+    expect(showRewardedAd).toHaveBeenCalledTimes(3);
     expect(showRewardedAd).toHaveBeenCalledWith(expect.objectContaining({ id: "watch-ad-heart" }));
+    expect(getStoredItem("sira-path-heart-videos")).toBe("0");
     expect(screen.getByTestId("exercise-view")).toBeTruthy();
     expect(screen.getByTestId("lesson-hearts").props.accessibilityLabel).toBe("1 of 5 hearts");
+    expect(savedUser().hearts.current).toBe(1);
+  });
+
+  it("keeps the videos already watched when the learner leaves and comes back", async () => {
+    showRewardedAd.mockResolvedValue({ ok: true, heartsGranted: 1, gemsGranted: 0, transactionId: "ad" });
+    setStoredItem("sira-path-heart-videos", "2");
+    await runOutOfHearts();
+    expect(screen.getByTestId("refill-video")).toHaveTextContent("WATCH VIDEO 3 OF 3");
+    await press("refill-video");
+    expect(screen.getByTestId("exercise-view")).toBeTruthy();
     expect(savedUser().hearts.current).toBe(1);
   });
 
@@ -122,6 +148,21 @@ describe("the out-of-hearts sheet's video button", () => {
     await press("refill-end");
     expect(onShop).not.toHaveBeenCalled();
     expect(onEndLesson).not.toHaveBeenCalled();
+  });
+
+  it("ticks off the videos watched toward the heart", async () => {
+    await render(<RefillSheet {...props} onWatchVideo={jest.fn()} videosWatched={1} />);
+    expect(screen.getAllByTestId("refill-video-dot-done")).toHaveLength(1);
+    expect(screen.getAllByTestId("refill-video-dot")).toHaveLength(2);
+    expect(screen.getByText("3 videos = 1 heart")).toBeTruthy();
+    expect(screen.getByTestId("refill-video")).toHaveTextContent("WATCH VIDEO 2 OF 3");
+  });
+
+  it("leads with UNLIMITED HEARTS when the plans can be offered", async () => {
+    const onPlans = jest.fn();
+    await render(<RefillSheet {...props} onWatchVideo={jest.fn()} onPlans={onPlans} />);
+    await press("refill-plans");
+    expect(onPlans).toHaveBeenCalledTimes(1);
   });
 
   it("is left out when videos can't play", async () => {

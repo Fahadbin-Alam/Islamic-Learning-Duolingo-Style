@@ -183,3 +183,37 @@ export function adSettingsFor(audience: AdAudience, platform: StorePlatform): Ad
     requestNonPersonalizedAdsOnly: audience !== "adult" || platform === "ios"
   };
 }
+
+// Hearts are never sold for gems. A free heart takes three short videos instead, watched one at a time; the count of
+// videos watched toward the next heart stays on the device, so leaving halfway keeps it.
+export const VIDEOS_PER_HEART = 3;
+
+/** One more video watched toward a heart: the new count, and whether this video finished a heart (the count resets). */
+export function addHeartVideo(watched: number) {
+  const next = Math.max(0, Math.floor(watched)) + 1;
+  return next >= VIDEOS_PER_HEART ? { watched: 0, heartEarned: true } : { watched: next, heartEarned: false };
+}
+
+// The plans screen opens by itself after every third finished lesson and when hearts run out, but never more than once
+// every few hours, never instead of a lesson's own result, and never to a child (store Families rules): under-13s and
+// Kid accounts only find the plans in the shop, behind the grown-up check. Nothing opens when this build cannot sell.
+export const LESSONS_BETWEEN_PLAN_OFFERS = 3;
+export const MIN_MS_BETWEEN_PLAN_OFFERS = 4 * 60 * 60 * 1000;
+
+export interface PlanOfferCheck {
+  /** The store can sell plans in this build (canSellInStore). */
+  canSell: boolean;
+  /** The learner has Premium already: nothing to offer. */
+  hasPremium: boolean;
+  /** Under 13 or a Kid account. */
+  child: boolean;
+  msSinceLastOffer: number;
+}
+
+export function mayOfferPlans({ canSell, hasPremium, child, msSinceLastOffer }: PlanOfferCheck) {
+  return canSell && !hasPremium && !child && msSinceLastOffer >= MIN_MS_BETWEEN_PLAN_OFFERS;
+}
+
+export function shouldOfferPlansAfterLesson(lessonsFinishedThisSession: number, check: PlanOfferCheck) {
+  return lessonsFinishedThisSession > 0 && lessonsFinishedThisSession % LESSONS_BETWEEN_PLAN_OFFERS === 0 && mayOfferPlans(check);
+}

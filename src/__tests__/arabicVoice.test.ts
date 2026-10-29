@@ -16,7 +16,14 @@ describe("words that are a whole ayah play the reciter", () => {
     expect(recitationForArabic("إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ")).toBe(`${AUDIO}5.mp3`);
   });
 
-  test("other words and parts of an ayah get no recitation", () => {
+  test("a word from the ayah its card cites plays that ayah, and only when the word is really in it", () => {
+    expect(recitationForArabic("الصِّرَاطَ الْمُسْتَقِيمَ", ["Quran 1:6"])).toBe(`${AUDIO}6.mp3`);
+    expect(recitationForArabic("بِيَدِهِ الْمُلْكُ", [undefined, "Quran 67:1"])).toBe(`${AUDIO}5242.mp3`);
+    expect(recitationForArabic("الصِّرَاطَ الْمُسْتَقِيمَ", ["Quran 1:7", "Sahih al-Bukhari 1"])).toBeNull();
+    expect(recitationForArabic("نُوحٌ", ["Quran 11:37"])).toBeNull();
+  });
+
+  test("other words and parts of an ayah with no cited ayah get no recitation", () => {
     expect(recitationForArabic("السَّلَامُ عَلَيْكُمْ")).toBeNull();
     expect(recitationForArabic("الْحَمْدُ لِلَّهِ")).toBeNull();
   });

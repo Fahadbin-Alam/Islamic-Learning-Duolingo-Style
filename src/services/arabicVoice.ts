@@ -1,10 +1,11 @@
 import * as Speech from "expo-speech";
 import { QURAN_AYAHS } from "../data/quranAyahs";
-import { QURAN_AUDIO_SOURCE, globalAyahNumber } from "./quranAudio";
+import { QURAN_AUDIO_SOURCE, globalAyahNumber, parseQuranReference } from "./quranAudio";
 
 /**
  * How a learn card's Arabic word is said aloud:
- * - a word that is a whole ayah plays the reciter (see quranAudio.ts), never a robot voice;
+ * - a word that is a whole ayah, or part of the ayah its card cites, plays the reciter (see quranAudio.ts),
+ *   never a robot voice;
  * - any other word uses the phone's own Arabic voice, but only when the phone has one. Without one
  *   the browser or phone reads the Arabic letters with an English voice and says the wrong thing, so the
  *   speaker button is hidden instead.
@@ -28,10 +29,28 @@ const AYAH_BY_LETTERS = new Map(
   })
 );
 
-/** The recitation of an Arabic word that is exactly one whole ayah (e.g. Al-hamdu lillahi rabbil-alamin), else null. */
-export function recitationForArabic(text: string) {
-  const key = AYAH_BY_LETTERS.get(arabicLetters(text));
-  return key ? QURAN_AUDIO_SOURCE.urlTemplate.replace("{n}", String(globalAyahNumber(key))) : null;
+const recitationUrl = (key: { surah: number; ayah: number }) => QURAN_AUDIO_SOURCE.urlTemplate.replace("{n}", String(globalAyahNumber(key)));
+
+/**
+ * The recitation for a learn card's Arabic word, or null:
+ * - a word that is exactly one whole ayah (Al-hamdu lillahi rabbil-alamin) plays that ayah;
+ * - a word taken from the one ayah the card cites (As-sirat al-mustaqim from "Quran 1:6") plays that ayah,
+ *   but only when the word really is in it, so a word that merely cites an ayah never plays the wrong verse.
+ */
+export function recitationForArabic(text: string, references: Array<string | undefined> = []) {
+  const letters = arabicLetters(text);
+  const whole = AYAH_BY_LETTERS.get(letters);
+  if (whole) {
+    return recitationUrl(whole);
+  }
+  for (const reference of references) {
+    const key = parseQuranReference(reference);
+    const ayah = key ? QURAN_AYAHS[`${key.surah}:${key.ayah}`] : undefined;
+    if (key && ayah && letters.length > 0 && arabicLetters(ayah).includes(letters)) {
+      return recitationUrl(key);
+    }
+  }
+  return null;
 }
 
 let arabicVoice: Promise<string | null> | null = null;

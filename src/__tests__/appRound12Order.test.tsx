@@ -26,14 +26,14 @@ jest.mock("../ui/screens/FormattedCount", () => {
 import React from "react";
 import { Dimensions, Platform, ScrollView } from "react-native";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
-import { COURSE, SHOP_ITEMS } from "../data/course";
+import { COURSE } from "../data/course";
 import { getUiStrings } from "../i18n";
 import { playGameSound } from "../services/gameAudio";
 import type { LearningSection } from "../types";
 import { Tappable } from "../ui/Tappable";
 import { FeedbackSheet, OrderGame } from "../ui/lesson";
 import { ShopView } from "../ui/screens";
-import { makeUser } from "./testUtils";
+import { SHOP_ITEMS_WITH_GEMS, makeUser } from "./testUtils";
 
 const layout = (height: number, y = 0, width = 288) => ({ nativeEvent: { layout: { x: 0, y, width, height } } });
 /** The scroll view mock's scrollTo is already a jest.fn shared by every test, so each test starts it afresh. */
@@ -266,7 +266,7 @@ describe("on the web, a tap-only edge is hidden from screen readers and never ta
     const strings = getUiStrings("en");
     const section = COURSE.sections[0] as LearningSection;
     const user = makeUser({ gems: 120, hearts: { current: 3, max: 5, unlimited: false, lastRefillDate: "2026-10-20" } });
-    await render(<ShopView user={user} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney={false} />);
+    await render(<ShopView user={user} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney={false} />);
     (playGameSound as jest.Mock).mockClear();
     const edge = screen.getByTestId("shop-row-edge-gem-heart-refill", { includeHiddenElements: true });
     expect(edge.props["aria-hidden"]).toBe(true);

@@ -334,7 +334,7 @@ function Screen({ state }: { state: State }) {
           items={SHOP_ITEMS}
           storePrices={{}}
           busy={state === "shop-busy"}
-          pendingItemId={state === "shop-busy" ? "gem-pack-medium" : undefined}
+          pendingItemId={state === "shop-busy" ? "heart-pack-small" : undefined}
           section={foundation}
           onUseItem={noop}
           onRestore={noop}
