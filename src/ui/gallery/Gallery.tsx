@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ArabicText } from "../ArabicText";
+import { Camel } from "../Camel";
 import { ChoiceTile, type ChoiceTileState } from "../ChoiceTile";
 import { Confetti } from "../Confetti";
 import { CountUp } from "../CountUp";
@@ -78,6 +79,7 @@ export function KitGallery() {
               <SpeechBubble>Say salam to everyone you meet!</SpeechBubble>
             </View>
           </View>
+          <Camel size={96} range={140} walking tappable testID="gallery-camel" />
           <SpeechBubble tail="down" style={styles.downBubble}>
             <ArabicText size={26} weight="bold">
               السَّلَامُ عَلَيْكُمْ

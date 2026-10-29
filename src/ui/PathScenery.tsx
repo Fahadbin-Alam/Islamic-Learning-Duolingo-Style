@@ -4,6 +4,7 @@ import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import Svg, { Circle, Ellipse, G, Path, Rect } from "react-native-svg";
 import { useReduceMotion } from "./Camel";
 import { Icon, type IconName } from "./Icon";
+import { smoothKeys } from "./motion";
 import { feedback } from "./sound";
 
 /**
@@ -331,12 +332,12 @@ export const PathScenery = memo(function PathScenery({ kind, size = 64, animated
   const hop = isWell
     ? []
     : [
-        { translateY: tap.interpolate({ inputRange: [0, 0.3, 0.55, 0.7, 1], outputRange: [0, -14, 0, -4, 0] }) },
-        { rotate: tap.interpolate({ inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1], outputRange: ["0deg", "-8deg", "7deg", "-4deg", "2deg", "0deg"] }) },
-        { scaleY: tap.interpolate({ inputRange: [0, 0.5, 0.58, 0.7, 1], outputRange: [1, 1, 0.86, 1.04, 1] }) }
+        { translateY: tap.interpolate(smoothKeys([0, 0.3, 0.55, 0.7, 1], [0, -14, 0, -4, 0])) },
+        { rotate: tap.interpolate(smoothKeys([0, 0.2, 0.4, 0.6, 0.8, 1], ["0deg", "-8deg", "7deg", "-4deg", "2deg", "0deg"])) },
+        { scaleY: tap.interpolate(smoothKeys([0, 0.5, 0.58, 0.7, 1], [1, 1, 0.86, 1.04, 1])) }
       ];
   // The bucket goes down into the water, waits a moment, then comes back up.
-  const bucketY = tap.interpolate({ inputRange: [0, 0.25, 0.55, 1], outputRange: [0, (size * 14) / 64, (size * 14) / 64, 0] });
+  const bucketY = tap.interpolate(smoothKeys([0, 0.25, 0.55, 1], [0, (size * 14) / 64, (size * 14) / 64, 0]));
   // Drops jump out of the water once the bucket lands (well) or at once (oasis).
   const splashFrom = isWell ? 0.24 : 0.02;
   const splashTo = isWell ? 0.7 : 0.8;

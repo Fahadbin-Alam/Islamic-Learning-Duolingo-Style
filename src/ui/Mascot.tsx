@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { Animated, Easing, StyleSheet, type StyleProp, type ViewStyle } from "react-native";
 import Svg, { Circle, Ellipse, G, Path } from "react-native-svg";
+import { useReduceMotion } from "./motion";
 import { colors, darken, lighten } from "./theme";
 
 export type MascotMood = "happy" | "cheer" | "think" | "sad" | "wave";
@@ -44,7 +45,7 @@ type Pose = { left: Point; right: Point; leftCtrl: Point; rightCtrl: Point };
 const SHOULDER_L: Point = { x: 41, y: 94 };
 const SHOULDER_R: Point = { x: 79, y: 94 };
 
-function poseFor(mood: MascotMood, waveUp: boolean): Pose {
+function poseFor(mood: MascotMood): Pose {
   switch (mood) {
     case "cheer":
       return {
@@ -56,7 +57,8 @@ function poseFor(mood: MascotMood, waveUp: boolean): Pose {
     case "wave":
       return {
         left: { x: 31, y: 117 },
-        right: waveUp ? { x: 103, y: 66 } : { x: 107, y: 74 },
+        // The raised arm: drawn in its own layer and swung about the shoulder (see WAVE_*).
+        right: { x: 105, y: 70 },
         leftCtrl: { x: 32, y: 102 },
         rightCtrl: { x: 96, y: 92 }
       };
@@ -271,72 +273,109 @@ function BoyHead({ mood, blink }: { mood: MascotMood; blink: boolean }) {
   );
 }
 
-function MascotArt({ variant, mood, accent, blink, waveUp }: { variant: MascotVariant; mood: MascotMood; accent: string; blink: boolean; waveUp: boolean }) {
+type ArtProps = { variant: MascotVariant; mood: MascotMood; accent: string; blink: boolean };
+
+/**
+ * The mascot is drawn in layers so the waving arm can swing smoothly on the native driver:
+ * "body" (shadow, feet, robe, still arms), "head", and "front" (hands and little extras). While
+ * waving, the raised arm goes between body and head and its hand between head and front.
+ */
+type Layer = "all" | "body" | "head" | "front";
+
+function MascotArt({ variant, mood, accent, blink, layer }: ArtProps & { layer: Layer }) {
   const robeLip = darken(accent, 0.2);
   const sleeve = darken(accent, 0.07);
   const trim = lighten(accent, 0.55);
-  const pose = poseFor(mood, waveUp);
+  const pose = poseFor(mood);
+  const swingsRight = mood === "wave";
+  const show = (part: Exclude<Layer, "all">) => layer === "all" || layer === part;
 
   return (
     <G>
-      {/* shadow */}
-      <Ellipse cx={60} cy={135} rx={30} ry={4} fill="#000000" fillOpacity={0.08} />
-      {/* feet */}
-      <Ellipse cx={50} cy={131} rx={8} ry={4.6} fill="#4A4F5C" />
-      <Ellipse cx={70} cy={131} rx={8} ry={4.6} fill="#4A4F5C" />
-      {/* robe */}
-      <Path d="M36 92 C36 83 46 80 60 80 C74 80 84 83 84 92 L90 124 C90.8 129 87 131 82 131 L38 131 C33 131 29.2 129 30 124 Z" fill={robeLip} />
-      <Path d="M36 92 C36 83 46 80 60 80 C74 80 84 83 84 92 L89.4 120.6 C90.2 125 87 127 82.4 127 L37.6 127 C33 127 29.8 125 30.6 120.6 Z" fill={accent} />
-      {variant === "boy" ? (
-        <Path d="M60 84 L60 112" stroke={trim} strokeWidth={2.4} strokeLinecap="round" />
-      ) : (
-        <Path d="M38 116 C46 119 74 119 82 116" stroke={trim} strokeWidth={2.6} strokeLinecap="round" fill="none" />
-      )}
-      {/* arms */}
-      <G stroke={sleeve} strokeWidth={11} strokeLinecap="round" fill="none">
-        <Path d={armPath(SHOULDER_L, pose.leftCtrl, pose.left)} />
-        <Path d={armPath(SHOULDER_R, pose.rightCtrl, pose.right)} />
-      </G>
-      {/* head */}
-      {variant === "boy" ? (
-        <BoyHead mood={mood} blink={blink} />
-      ) : (
-        <GirlHead accent={accent} mood={mood} blink={blink} />
-      )}
-      {/* hands */}
-      <Circle cx={pose.left.x} cy={pose.left.y} r={7} fill={SKIN} />
-      <Circle cx={pose.right.x} cy={pose.right.y} r={7} fill={SKIN} />
-      <Circle cx={pose.left.x - 2} cy={pose.left.y - 2.2} r={2} fill="#FFFFFF" fillOpacity={0.4} />
-      <Circle cx={pose.right.x - 2} cy={pose.right.y - 2.2} r={2} fill="#FFFFFF" fillOpacity={0.4} />
-      {mood === "think" ? (
-        <G fill={colors.gem}>
-          <Circle cx={100} cy={30} r={3} />
-          <Circle cx={106} cy={20} r={4.4} />
-          <Circle cx={95} cy={39} r={2} />
+      {show("body") ? (
+        <G>
+          {/* shadow */}
+          <Ellipse cx={60} cy={135} rx={30} ry={4} fill="#000000" fillOpacity={0.08} />
+          {/* feet */}
+          <Ellipse cx={50} cy={131} rx={8} ry={4.6} fill="#4A4F5C" />
+          <Ellipse cx={70} cy={131} rx={8} ry={4.6} fill="#4A4F5C" />
+          {/* robe */}
+          <Path d="M36 92 C36 83 46 80 60 80 C74 80 84 83 84 92 L90 124 C90.8 129 87 131 82 131 L38 131 C33 131 29.2 129 30 124 Z" fill={robeLip} />
+          <Path d="M36 92 C36 83 46 80 60 80 C74 80 84 83 84 92 L89.4 120.6 C90.2 125 87 127 82.4 127 L37.6 127 C33 127 29.8 125 30.6 120.6 Z" fill={accent} />
+          {variant === "boy" ? (
+            <Path d="M60 84 L60 112" stroke={trim} strokeWidth={2.4} strokeLinecap="round" />
+          ) : (
+            <Path d="M38 116 C46 119 74 119 82 116" stroke={trim} strokeWidth={2.6} strokeLinecap="round" fill="none" />
+          )}
+          {/* arms */}
+          <G stroke={sleeve} strokeWidth={11} strokeLinecap="round" fill="none">
+            <Path d={armPath(SHOULDER_L, pose.leftCtrl, pose.left)} />
+            {layer === "all" || !swingsRight ? <Path d={armPath(SHOULDER_R, pose.rightCtrl, pose.right)} /> : null}
+          </G>
         </G>
       ) : null}
-      {mood === "cheer" ? (
+      {/* head */}
+      {show("head") ? variant === "boy" ? <BoyHead mood={mood} blink={blink} /> : <GirlHead accent={accent} mood={mood} blink={blink} /> : null}
+      {show("front") ? (
         <G>
-          <Path d="M14 40 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill={colors.gold} />
-          <Path d="M104 34 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6z" fill={colors.gold} />
+          {/* hands */}
+          <Circle cx={pose.left.x} cy={pose.left.y} r={7} fill={SKIN} />
+          <Circle cx={pose.left.x - 2} cy={pose.left.y - 2.2} r={2} fill="#FFFFFF" fillOpacity={0.4} />
+          {layer === "all" || !swingsRight ? <Hand at={pose.right} /> : null}
+          {mood === "think" ? (
+            <G fill={colors.gem}>
+              <Circle cx={100} cy={30} r={3} />
+              <Circle cx={106} cy={20} r={4.4} />
+              <Circle cx={95} cy={39} r={2} />
+            </G>
+          ) : null}
+          {mood === "cheer" ? (
+            <G>
+              <Path d="M14 40 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill={colors.gold} />
+              <Path d="M104 34 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6z" fill={colors.gold} />
+            </G>
+          ) : null}
         </G>
       ) : null}
     </G>
   );
 }
 
+function Hand({ at }: { at: Point }) {
+  return (
+    <G>
+      <Circle cx={at.x} cy={at.y} r={7} fill={SKIN} />
+      <Circle cx={at.x - 2} cy={at.y - 2.2} r={2} fill="#FFFFFF" fillOpacity={0.4} />
+    </G>
+  );
+}
+
+/** The waving arm (sleeve only) or its hand, for the swinging layers. */
+function WaveArmArt({ accent, part }: { accent: string; part: "arm" | "hand" }) {
+  const pose = poseFor("wave");
+  if (part === "hand") return <Hand at={pose.right} />;
+  return <Path d={armPath(SHOULDER_R, pose.rightCtrl, pose.right)} stroke={darken(accent, 0.07)} strokeWidth={11} strokeLinecap="round" fill="none" />;
+}
+
 const MemoArt = memo(MascotArt);
+const MemoWaveArm = memo(WaveArmArt);
+
+/** The wave swings the raised arm this far either side, about the shoulder. */
+const WAVE_DEG = 11;
+const WAVE_MS = 300;
 
 /** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
 export function Mascot({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style }: MascotProps) {
   const resolved = resolveMascotVariant(variant);
+  const reduceMotion = useReduceMotion();
+  const moving = animated && !reduceMotion;
   const bob = useRef(new Animated.Value(0)).current;
+  const wave = useRef(new Animated.Value(0)).current;
   const [blink, setBlink] = useState(false);
-  const [waveUp, setWaveUp] = useState(true);
 
   // Bob (or bounce when cheering).
   useEffect(() => {
-    if (!animated) {
+    if (!moving) {
       bob.setValue(0);
       return undefined;
     }
@@ -345,13 +384,13 @@ export function Mascot({ variant, mood = "happy", size = 120, accent = colors.gr
       Animated.sequence([
         Animated.timing(bob, {
           toValue: 1,
-          duration: cheer ? 320 : 1300,
-          easing: cheer ? Easing.out(Easing.quad) : Easing.inOut(Easing.sin),
+          duration: cheer ? 340 : 1300,
+          easing: cheer ? Easing.out(Easing.cubic) : Easing.inOut(Easing.sin),
           useNativeDriver: true
         }),
         Animated.timing(bob, {
           toValue: 0,
-          duration: cheer ? 320 : 1300,
+          duration: cheer ? 340 : 1300,
           easing: cheer ? Easing.in(Easing.quad) : Easing.inOut(Easing.sin),
           useNativeDriver: true
         })
@@ -359,11 +398,11 @@ export function Mascot({ variant, mood = "happy", size = 120, accent = colors.gr
     );
     loop.start();
     return () => loop.stop();
-  }, [animated, bob, mood]);
+  }, [moving, bob, mood]);
 
   // Blink every few seconds.
   useEffect(() => {
-    if (!animated || mood === "cheer") {
+    if (!moving || mood === "cheer") {
       return undefined;
     }
     let open: ReturnType<typeof setTimeout> | undefined;
@@ -382,30 +421,73 @@ export function Mascot({ variant, mood = "happy", size = 120, accent = colors.gr
       if (open) clearTimeout(open);
       if (next) clearTimeout(next);
     };
-  }, [animated, mood]);
+  }, [moving, mood]);
 
-  // Wave the raised hand.
+  // Wave the raised hand: a smooth swing on the native driver, not a redraw.
+  const waving = mood === "wave";
   useEffect(() => {
-    if (!animated || mood !== "wave") {
+    wave.setValue(0);
+    if (!moving || !waving) {
       return undefined;
     }
-    const timer = setInterval(() => setWaveUp((value) => !value), 320);
-    return () => clearInterval(timer);
-  }, [animated, mood]);
+    const swing = (toValue: number) =>
+      Animated.timing(wave, { toValue, duration: WAVE_MS, easing: Easing.inOut(Easing.sin), useNativeDriver: true });
+    const loop = Animated.loop(Animated.sequence([swing(1), swing(-1)]));
+    // Start from the middle so the first swing is the same length as the rest.
+    const start = Animated.timing(wave, { toValue: -1, duration: WAVE_MS / 2, easing: Easing.out(Easing.sin), useNativeDriver: true });
+    const all = Animated.sequence([start, loop]);
+    all.start();
+    return () => all.stop();
+  }, [moving, waving, wave]);
 
-  const lift = mood === "cheer" ? -size * 0.07 : -size * 0.025;
+  const cheer = mood === "cheer";
+  const lift = cheer ? -size * 0.07 : -size * 0.025;
   const translateY = bob.interpolate({ inputRange: [0, 1], outputRange: [0, lift] });
+  // A cheer squashes a touch at the bottom of each bounce and stretches at the top; idle breathes.
+  const scaleY = bob.interpolate({ inputRange: [0, 0.25, 1], outputRange: cheer ? [0.95, 1, 1.03] : [1, 1, 1.012] });
+  const scaleX = bob.interpolate({ inputRange: [0, 0.25, 1], outputRange: cheer ? [1.04, 1, 0.98] : [1, 1, 0.995] });
+  const rotate = wave.interpolate({ inputRange: [-1, 1], outputRange: [`${-WAVE_DEG}deg`, `${WAVE_DEG}deg`] });
   const height = (size * VIEW_H) / VIEW_W;
+  const box = { width: size, height };
+  const viewBox = `0 0 ${VIEW_W} ${VIEW_H}`;
+  const swingStyle = [
+    StyleSheet.absoluteFill,
+    { transformOrigin: `${(SHOULDER_R.x / VIEW_W) * 100}% ${(SHOULDER_R.y / VIEW_H) * 100}%`, transform: [{ rotate }] }
+  ];
 
   return (
     <Animated.View
-      style={[styles.root, { width: size, height, transform: [{ translateY }] }, style]}
+      style={[styles.root, box, { transformOrigin: "bottom", transform: [{ translateY }, { scaleX }, { scaleY }] }, style]}
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
     >
-      <Svg width={size} height={height} viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}>
-        <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} waveUp={waveUp} />
-      </Svg>
+      {waving ? (
+        <>
+          <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
+            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} layer="body" />
+          </Svg>
+          <Animated.View style={swingStyle} pointerEvents="none">
+            <Svg width={size} height={height} viewBox={viewBox}>
+              <MemoWaveArm accent={accent} part="arm" />
+            </Svg>
+          </Animated.View>
+          <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
+            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} layer="head" />
+          </Svg>
+          <Animated.View style={swingStyle} pointerEvents="none">
+            <Svg width={size} height={height} viewBox={viewBox}>
+              <MemoWaveArm accent={accent} part="hand" />
+            </Svg>
+          </Animated.View>
+          <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
+            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} layer="front" />
+          </Svg>
+        </>
+      ) : (
+        <Svg width={size} height={height} viewBox={viewBox}>
+          <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} layer="all" />
+        </Svg>
+      )}
     </Animated.View>
   );
 }
