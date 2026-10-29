@@ -527,5 +527,11 @@
   "{count} XP to stay": "টিকে থাকতে আর {count} XP",
   "{count} days left": "আর {count} দিন বাকি",
   "Learn Islam with me on Muslimo! Quick, fun lessons on the Quran, Prophets and Sahabah. {link}": "Muslimo-তে আমার সাথে ইসলাম শিখুন! কুরআন, নবী ও সাহাবীদের নিয়ে ছোট, মজার পাঠ। {link}",
-  "Invite friends": "বন্ধুদের ডাকুন"
+  "Invite friends": "বন্ধুদের ডাকুন",
+  "Give charity": "দান করুন",
+  "Scan to give": "দান করতে স্ক্যান করুন",
+  "Donate {amount}": "{amount} দান করুন",
+  "You pay on {name}'s website, not in the app.": "টাকা দেবেন {name}-এর ওয়েবসাইটে, অ্যাপে নয়।",
+  "Choose {amount} on the page.": "পেজে {amount} বেছে নিন।",
+  "QR code for {name}": "{name}-এর কিউআর কোড"
 }
