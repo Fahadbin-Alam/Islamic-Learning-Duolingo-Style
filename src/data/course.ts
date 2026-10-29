@@ -3,6 +3,7 @@ import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits } from "./unitPlans";
 import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
 import { addDeepUnits } from "./deepUnits";
+import { addSurahMeanings } from "./surahMeanings";
 import { RAMADAN } from "./ramadanDays";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
@@ -3944,8 +3945,8 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 // Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
-// Deep units (deepUnits.ts) follow their unit's own circles.
-const chainedNotes = chainCourse(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES))));
+// Deep units (deepUnits.ts) follow their unit's own circles, and then each surah's passages (surahMeanings).
+const chainedNotes = chainCourse(addSurahMeanings(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)))));
 // The 30-day Ramadan path (ramadanDays.ts) comes last in the topic list; its days are already chained in order.
 const chainedContent = {
   course: { ...chainedNotes.course, sections: [...chainedNotes.course.sections, RAMADAN.section] },
