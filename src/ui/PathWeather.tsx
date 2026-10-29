@@ -2,6 +2,7 @@ import React, { memo, useEffect, useRef } from "react";
 import { Animated, Easing, StyleSheet, View } from "react-native";
 import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 import { useReduceMotion } from "./Camel";
+import { smoothKeys } from "./motion";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
@@ -150,7 +151,7 @@ function Birds({ top, width, moving }: { top: number; width: number; moving: boo
   const t = useLoopValue(moving, 15000, 2500);
   const flap = useLoopValue(moving, 520);
   const translateX = t.interpolate({ inputRange: [0, 1], outputRange: [-70, width + 10] });
-  const wings = flap.interpolate({ inputRange: [0, 0.5, 1], outputRange: [1, 0.35, 1] });
+  const wings = flap.interpolate(smoothKeys([0, 0.5, 1], [1, 0.35, 1]));
   const flock = [
     { x: 0, y: 8, s: 1 },
     { x: 22, y: 0, s: 0.8 },

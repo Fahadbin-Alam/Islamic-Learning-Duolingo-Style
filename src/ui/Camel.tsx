@@ -1,6 +1,9 @@
-import React, { memo, useEffect, useMemo, useRef, useState } from "react";
-import { AccessibilityInfo, Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
+import React, { memo, useEffect, useMemo, useRef } from "react";
+import { Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import Svg, { Circle, Ellipse, G, Path, Rect } from "react-native-svg";
+import { sampleCurve, smoothKeys, useReduceMotion } from "./motion";
+
+export { useReduceMotion };
 import { feedback } from "./sound";
 import { colors, darken, lighten } from "./theme";
 
@@ -36,64 +39,39 @@ const STEP_MS = 440;
 /** Steps per walk from one end to the other. */
 const STEPS = 6;
 const REST_MS = 900;
+/** Turning round at either end, taken out of the rest. */
+const TURN_MS = 260;
 
-// One listener for the whole app: the path draws many moving pictures and each asks for this.
-let reduceMotionNow = false;
-let reduceMotionRead = false;
-const reduceMotionSubscribers = new Set<(value: boolean) => void>();
+// Each leg swings on its own about its hip, on a smooth sine: diagonal pairs swing together, like a
+// real walk. The swing grows from a stand over the first half step and settles back over the last.
+const SWING = 14;
+const STAND_ANGLE = 4;
+const LEGS = [
+  // Drawn back to front: far legs first, in the darker fur.
+  { x: 38, sign: 1, color: FUR_FAR },
+  { x: 72, sign: -1, color: FUR_FAR },
+  { x: 30, sign: -1, color: FUR_DEEP },
+  { x: 64, sign: 1, color: FUR_DEEP }
+] as const;
+const HIP_Y = 62;
 
-function watchReduceMotion() {
-  if (reduceMotionRead) return;
-  reduceMotionRead = true;
-  const publish = (value: boolean) => {
-    reduceMotionNow = Boolean(value);
-    reduceMotionSubscribers.forEach((notify) => notify(reduceMotionNow));
-  };
-  AccessibilityInfo.isReduceMotionEnabled?.()
-    .then(publish)
-    .catch(() => undefined);
-  AccessibilityInfo.addEventListener?.("reduceMotionChanged", publish);
+/** How far into a full swing the legs are at `s` steps: 0 at the ends of a walk, 1 in between. */
+function swingAmount(s: number) {
+  return Math.min(1, s / 0.5, (STEPS - s) / 0.5);
 }
 
-/** True while the phone asks apps to cut motion. Starts false and updates once the setting is read. */
-export function useReduceMotion() {
-  const [reduce, setReduce] = useState(reduceMotionNow);
-  useEffect(() => {
-    watchReduceMotion();
-    reduceMotionSubscribers.add(setReduce);
-    setReduce(reduceMotionNow);
-    return () => {
-      reduceMotionSubscribers.delete(setReduce);
-    };
-  }, []);
-  return reduce;
+function legAngle(s: number, sign: number) {
+  const amount = swingAmount(s);
+  return sign * (STAND_ANGLE * (1 - amount) + amount * SWING * Math.cos(2 * Math.PI * s));
 }
 
-type LegPose = { backFar: number; backNear: number; frontFar: number; frontNear: number };
-
-// Two frames, swapped every half step: diagonal pairs swing together, like a real walk.
-const POSE_A: LegPose = { backFar: 14, backNear: -14, frontFar: -14, frontNear: 14 };
-const POSE_B: LegPose = { backFar: -14, backNear: 14, frontFar: 14, frontNear: -14 };
-const STAND: LegPose = { backFar: 4, backNear: -4, frontFar: -4, frontNear: 4 };
-
-function Leg({ x, angle, color }: { x: number; angle: number; color: string }) {
-  // A leg hangs from (x, 62) and turns about that hip; the knee is a little knob halfway down.
+function Leg({ x, color }: { x: number; color: string }) {
+  // A leg hangs from (x, HIP_Y); the knee is a little knob halfway down.
   return (
-    <G transform={`rotate(${angle} ${x} 62)`}>
+    <Svg width="100%" height="100%" viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}>
       <Rect x={x - 3.6} y={60} width={7.2} height={34} rx={3.6} fill={color} />
       <Ellipse cx={x} cy={79} rx={4.6} ry={3.4} fill={color} />
       <Ellipse cx={x + 1.2} cy={94} rx={5.6} ry={2.8} fill={darken(color, 0.12)} />
-    </G>
-  );
-}
-
-function Legs({ pose }: { pose: LegPose }) {
-  return (
-    <Svg width="100%" height="100%" viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}>
-      <Leg x={38} angle={pose.backFar} color={FUR_FAR} />
-      <Leg x={72} angle={pose.frontFar} color={FUR_FAR} />
-      <Leg x={30} angle={pose.backNear} color={FUR_DEEP} />
-      <Leg x={64} angle={pose.frontNear} color={FUR_DEEP} />
     </Svg>
   );
 }
@@ -135,23 +113,10 @@ function Body({ accent }: { accent: string }) {
   );
 }
 
-function legsOpacity(step: Animated.Value, frame: 0 | 1) {
-  // step runs 0..STEPS over a walk; frame A shows in the first half of each step, B in the second.
-  const input: number[] = [];
-  const output: number[] = [];
-  for (let index = 0; index < STEPS; index += 1) {
-    input.push(index, index + 0.4999, index + 0.5, index + 0.9999);
-    output.push(frame === 0 ? 1 : 0, frame === 0 ? 1 : 0, frame === 0 ? 0 : 1, frame === 0 ? 0 : 1);
-  }
-  input.push(STEPS);
-  output.push(frame === 0 ? 1 : 0);
-  return step.interpolate({ inputRange: input, outputRange: output, extrapolate: "clamp" });
-}
-
 /**
  * The path's camel: a small cartoon dromedary with a saddle cloth in the topic color. While `walking`
- * it paces back and forth over `range` px (turning at each end, a short rest), legs stepping and body
- * bobbing. All of it runs on the native driver, so it costs the JS thread nothing.
+ * it paces back and forth over `range` px (turning round at each end, a short rest), each leg swinging
+ * smoothly and the body bobbing with every footfall. All of it runs on the native driver, so it costs the JS thread nothing.
  */
 export const Camel = memo(function Camel({
   size = 64,
@@ -178,14 +143,15 @@ export const Camel = memo(function Camel({
     if (!moving) return undefined;
     const walkTo = (target: 0 | 1, facing: 1 | -1) =>
       Animated.sequence([
-        Animated.timing(dir, { toValue: facing, duration: 0, useNativeDriver: true }),
+        // Turn round by squeezing through side-on, instead of flipping in one frame.
+        Animated.timing(dir, { toValue: facing, duration: TURN_MS, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
         Animated.timing(step, { toValue: 0, duration: 0, useNativeDriver: true }),
         Animated.parallel([
           Animated.timing(step, { toValue: STEPS, duration: STEPS * STEP_MS, easing: Easing.linear, useNativeDriver: true }),
           Animated.timing(pos, { toValue: target, duration: STEPS * STEP_MS, easing: Easing.linear, useNativeDriver: true })
         ]),
         Animated.timing(step, { toValue: 0, duration: 0, useNativeDriver: true }),
-        Animated.delay(REST_MS)
+        Animated.delay(REST_MS - TURN_MS)
       ]);
     const trip = faceLeft ? [walkTo(0, -1), walkTo(1, 1)] : [walkTo(1, 1), walkTo(0, -1)];
     const loop = Animated.loop(Animated.sequence(trip));
@@ -194,16 +160,16 @@ export const Camel = memo(function Camel({
   }, [moving, faceLeft, step, pos, dir]);
 
   const anim = useMemo(() => {
-    const bobInput: number[] = [];
-    const bobOutput: number[] = [];
-    for (let index = 0; index <= STEPS * 2; index += 1) {
-      bobInput.push(index / 2);
-      bobOutput.push(index % 2 === 0 ? 0 : -2.5);
-    }
+    // Samples per step: enough that the straight pieces between them can't be seen.
+    const samples = STEPS * 16;
     return {
-      a: legsOpacity(step, 0),
-      b: legsOpacity(step, 1),
-      bob: step.interpolate({ inputRange: bobInput, outputRange: bobOutput, extrapolate: "clamp" }),
+      legs: LEGS.map((leg) =>
+        step
+          .interpolate(sampleCurve(0, STEPS, samples, (s) => legAngle(s, leg.sign)))
+          .interpolate({ inputRange: [-90, 90], outputRange: ["-90deg", "90deg"] })
+      ),
+      // Two soft dips per step, one for each footfall, on a cosine so it never jerks.
+      bob: step.interpolate(sampleCurve(0, STEPS, samples, (s) => -1.25 * swingAmount(s) * (1 - Math.cos(4 * Math.PI * s)))),
       x: pos.interpolate({ inputRange: [0, 1], outputRange: [0, travel] })
     };
   }, [step, pos, travel]);
@@ -222,11 +188,11 @@ export const Camel = memo(function Camel({
   };
   const hop = useMemo(
     () => ({
-      // Crouch, leap, land with a squash, settle.
-      y: jump.interpolate({ inputRange: [0, 0.12, 0.4, 0.66, 0.76, 0.88, 1], outputRange: [0, 2, -size * 0.36, 0, 1.5, -3, 0] }),
-      squash: jump.interpolate({ inputRange: [0, 0.12, 0.3, 0.66, 0.74, 0.86, 1], outputRange: [1, 0.88, 1.08, 1, 0.86, 1.03, 1] }),
-      spin: jump.interpolate({ inputRange: [0, 0.2, 0.45, 0.66, 1], outputRange: ["0deg", "-6deg", "-12deg", "4deg", "0deg"] }),
-      shadow: jump.interpolate({ inputRange: [0, 0.4, 0.66, 1], outputRange: [1, 0.55, 1, 1] }),
+      // Crouch, leap, land with a squash, settle: eased between every key so nothing snaps.
+      y: jump.interpolate(smoothKeys([0, 0.12, 0.4, 0.66, 0.76, 0.88, 1], [0, 2, -size * 0.36, 0, 1.5, -3, 0])),
+      squash: jump.interpolate(smoothKeys([0, 0.12, 0.3, 0.66, 0.74, 0.86, 1], [1, 0.88, 1.08, 1, 0.86, 1.03, 1])),
+      spin: jump.interpolate(smoothKeys([0, 0.2, 0.45, 0.66, 1], ["0deg", "-6deg", "-12deg", "4deg", "0deg"])),
+      shadow: jump.interpolate(smoothKeys([0, 0.4, 0.66, 1], [1, 0.55, 1, 1])),
       puff: jump.interpolate({ inputRange: [0, 0.64, 0.66, 0.95, 1], outputRange: [0, 0, 1, 0, 0] }),
       puffSpread: jump.interpolate({ inputRange: [0, 0.66, 1], outputRange: [0, 0, 1] })
     }),
@@ -266,20 +232,20 @@ export const Camel = memo(function Camel({
           transform: [{ translateX: anim.x }, { translateY: hop.y }, { scaleX: still ? (faceLeft ? -1 : 1) : dir }, { rotate: hop.spin }, { scaleY: hop.squash }]
         }}
       >
-        {still ? (
-          <View style={StyleSheet.absoluteFill}>
-            <Legs pose={STAND} />
-          </View>
-        ) : (
-          <>
-            <Animated.View style={[StyleSheet.absoluteFill, { opacity: anim.a }]}>
-              <Legs pose={POSE_A} />
-            </Animated.View>
-            <Animated.View style={[StyleSheet.absoluteFill, { opacity: anim.b }]}>
-              <Legs pose={POSE_B} />
-            </Animated.View>
-          </>
-        )}
+        {LEGS.map((leg, index) => (
+          <Animated.View
+            key={leg.x}
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                transformOrigin: `${(leg.x / VIEW_W) * 100}% ${(HIP_Y / VIEW_H) * 100}%`,
+                transform: [{ rotate: still ? `${leg.sign * STAND_ANGLE}deg` : anim.legs[index] }]
+              }
+            ]}
+          >
+            <Leg x={leg.x} color={leg.color} />
+          </Animated.View>
+        ))}
         <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ translateY: still ? 0 : anim.bob }] }]}>
           <Body accent={accent} />
         </Animated.View>
