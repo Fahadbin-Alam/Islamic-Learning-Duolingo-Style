@@ -61,6 +61,7 @@
   "jest": {
     "preset": "jest-expo",
     "testTimeout": 20000,
+    "globalSetup": "<rootDir>/scripts/jest/globalSetup.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.test.ts?(x)"
     ]

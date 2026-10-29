@@ -47,6 +47,7 @@ const longQuoteLesson = allLessons.filter((lesson) => lesson.quote).sort((a, b) 
 // An Arabic ayah with Listen and Repeat under it (a surah lesson).
 const ayahLesson =
   allLessons.find((lesson) => /^Quran \d+:\d+$/.test(lesson.quote?.reference ?? "") && /^[\u0600-\u06FF\s]+$/.test(lesson.quote?.text ?? "")) ?? hadithLesson;
+const surahMeaningLesson = (LESSONS_BY_ID["lesson-surah-meaning-2-254-257"] ?? ayahLesson) as Lesson;
 const factsLesson = allLessons.find((lesson) => (lesson.learnFacts?.length ?? 0) >= 3) ?? allLessons.find((lesson) => lesson.learnFacts?.length) ?? salam;
 // A very long right answer (a real course text of about 600 characters, like a full ayah translation):
 // the wrong sheet must stay inside the screen and scroll.
@@ -302,6 +303,8 @@ const STATES: State[] = [
   { id: "learn-hadith", render: () => <LearnDemo lesson={hadithLesson} accent={accentOf(hadithLesson)} isNewWord={false} /> },
   { id: "learn-quote-long", render: () => <LearnDemo lesson={longQuoteLesson} accent={accentOf(longQuoteLesson)} isNewWord={false} /> },
   { id: "learn-ayah", render: () => <LearnDemo lesson={ayahLesson} accent={accentOf(ayahLesson)} isNewWord={false} /> },
+  // A passage of a whole surah's meaning (surahMeanings): its line, facts and a long ayah to listen to.
+  { id: "learn-surah-meaning", render: () => <LearnDemo lesson={surahMeaningLesson} accent={accentOf(surahMeaningLesson)} isNewWord={false} /> },
   { id: "learn-facts", render: () => <LearnDemo lesson={factsLesson} accent={accentOf(factsLesson)} mascot="girl" /> },
   { id: "mc", render: () => <ExerciseDemo challenge={salam.challenges[0]} progress={0.25} /> },
   { id: "mc-selected", render: () => <ExerciseDemo challenge={salam.challenges[0]} initialSelected="a" progress={0.25} /> },
