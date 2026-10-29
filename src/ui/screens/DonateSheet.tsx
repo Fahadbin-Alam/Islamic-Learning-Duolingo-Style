@@ -29,7 +29,7 @@ const QR_SIZE = 168;
 export function DonateSheet({ visible, onClose, charity = CHARITY, onOpenLink }: DonateSheetProps) {
   useBackToClose(visible, onClose);
   const [amount, setAmount] = useState(charity.amounts[1] ?? charity.amounts[0]);
-  // Opens on the middle amount each time.
+  // Opens on the second amount each time.
   useEffect(() => {
     if (visible) setAmount(charity.amounts[1] ?? charity.amounts[0]);
   }, [charity.amounts, visible]);

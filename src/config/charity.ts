@@ -15,10 +15,12 @@ export type CharityConfig = {
   amountUrls: Partial<Record<number, string>>;
 };
 
+// Fahad's charity: a US 501(c)(3) (EIN 41-5079927) working in Bangladesh, paid through Stripe on its own site.
+// The page has no amount in its link yet, so the sheet says to pick the amount there. Amounts match its home page.
 export const CHARITY: CharityConfig = {
-  name: "",
-  donateUrl: "",
-  amounts: [5, 10, 25, 50],
+  name: "One World Relief",
+  donateUrl: "https://one-world-relief.org/donate",
+  amounts: [25, 50, 100, 250],
   currency: "USD",
   amountParam: "",
   amountUrls: {}

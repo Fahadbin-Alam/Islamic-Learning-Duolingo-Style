@@ -58,8 +58,9 @@ describe("charity config", () => {
     expect(charityEnabled({ ...charity, donateUrl: "" })).toBe(false);
     expect(charityEnabled({ ...charity, donateUrl: "http://example.org" })).toBe(false);
     expect(charityEnabled(charity)).toBe(true);
-    // The shipped config only turns on with a real link.
-    expect(charityEnabled(CHARITY)).toBe(CHARITY.donateUrl.startsWith("https://"));
+    // The shipped config: One World Relief's own donate page.
+    expect(charityEnabled(CHARITY)).toBe(true);
+    expect(donationUrl(50)).toBe("https://one-world-relief.org/donate");
   });
 
   it("puts the amount on the link when the page can take it", () => {
