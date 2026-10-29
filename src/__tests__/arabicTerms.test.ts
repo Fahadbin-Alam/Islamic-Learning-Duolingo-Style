@@ -218,13 +218,10 @@ describe("arabic terms", () => {
     const banners = branches.map((branch) => getBranchArabic(branch.id)?.ar);
     expect(branches.filter((branch, index) => banners.indexOf(banners[index]) !== index).map((branch) => `${branch.id}: ${banners[branches.indexOf(branch)]}`)).toEqual([]);
     expect(branches.filter((branch) => /\d/.test(branch.title) || /^(Review and mastery|Companions|Prophets|Surahs)\b/.test(branch.title)).map((branch) => branch.title)).toEqual([]);
-    // A no-break space holds "سورة" to its name.
-    expect(getBranchArabic("notes-quran-tafseer-surahs-6-11")).toMatchObject({ ar: "من سورة\u00a0الأنعام إلى سورة\u00a0هود" });
     // A surah with its own unit (surahMeanings) is named alone.
     expect(getLessonArabic("no-such-node", "quran-surah-meaning-114")?.ar).toBe("سُورَةُ\u00a0النَّاسِ");
-    const spans = branches.filter((branch) => /^notes-quran-tafseer-surahs-/.test(branch.id)).map((branch) => getBranchArabic(branch.id)?.ar ?? "");
-    expect(spans.length).toBeGreaterThan(0);
-    expect(spans.filter((banner) => /سورة /.test(banner) || /آل عمران/.test(banner))).toEqual([]);
+    // Every surah has its own unit now, so no span unit is left to name.
+    expect(branches.filter((branch) => /^notes-quran-tafseer-surahs-/.test(branch.id)).map((branch) => branch.id)).toEqual([]);
   });
 
   it("names the depth lessons by a word of their own line", () => {
