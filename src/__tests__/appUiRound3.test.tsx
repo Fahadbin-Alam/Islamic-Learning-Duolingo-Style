@@ -1,7 +1,8 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { fireEvent, render, screen, within } from "@testing-library/react-native";
-import { COURSE, SHOP_ITEMS } from "../data/course";
+import { COURSE } from "../data/course";
+import { SHOP_ITEMS_WITH_GEMS } from "./testUtils";
 import { getUiStrings } from "../i18n";
 import { createEmptyLearnerProfile } from "../services/foundationAssessment";
 import type { LearningNodeView, LearningSection, UserProfile } from "../types";
@@ -117,7 +118,7 @@ describe("premium circles where Premium cannot be bought", () => {
 describe("shop hearts", () => {
   it("says hearts are full before asking for more gems", async () => {
     await render(
-      <ShopView user={makeUser({ gems: 120 })} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={foundation} onUseItem={jest.fn()} onRestore={jest.fn()} />
+      <ShopView user={makeUser({ gems: 120 })} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={foundation} onUseItem={jest.fn()} onRestore={jest.fn()} />
     );
     expect(screen.getByTestId("shop-line-gem-heart-refill")).toHaveTextContent("Hearts are full");
     expect(screen.queryByText(/^Need \d+ more$/)).toBeNull();

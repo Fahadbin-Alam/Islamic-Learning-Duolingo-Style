@@ -102,7 +102,6 @@
   "Foundation": "ভিত্তি",
   "Free gems": "ফ্রি জেম",
   "Free heart": "ফ্রি হার্ট",
-  "Free heart, watch a video": "ফ্রি হার্ট, একটি ভিডিও দেখো",
   "Friend": "বন্ধু",
   "Friend's email": "বন্ধুর ইমেইল",
   "From": "থেকে",
@@ -373,7 +372,6 @@
   "Waiting for them to add you": "তারা তোমাকে যোগ করার অপেক্ষায়",
   "Wants to race you": "তোমার সাথে প্রতিযোগিতা করতে চায়",
   "Watch": "দেখো",
-  "Watch a video": "একটি ভিডিও দেখো",
   "Watch: +{count} gems": "দেখো: +{count} জেম",
   "Wealth World": "সম্পদের জগৎ",
   "Welcome back": "আবার স্বাগতম",
@@ -573,5 +571,14 @@
   "{count} of {total} right": "{total}টির মধ্যে {count}টি ঠিক",
   "{count} right": "{count}টি ঠিক",
   "{count} trophies": "{count} ট্রফি",
-  "{count} trophies to {name}": "{name} পর্যন্ত আরও {count} ট্রফি"
+  "{count} trophies to {name}": "{name} পর্যন্ত আরও {count} ট্রফি",
+  "Free heart, watch video {count} of {total}": "ফ্রি হার্ট, {total}টির মধ্যে {count} নম্বর ভিডিও দেখো",
+  "Just no ads": "শুধু বিজ্ঞাপন ছাড়া",
+  "Learn with no limits!": "সীমা ছাড়াই শেখো!",
+  "Never run out of hearts!": "হার্ট কখনো শেষ হবে না!",
+  "No thanks": "না, ধন্যবাদ",
+  "Unlimited hearts, see Premium": "আনলিমিটেড হার্ট, প্রিমিয়াম দেখো",
+  "Watch video {count} of {total}": "ভিডিও {count}/{total} দেখো",
+  "{count} of {total} videos watched": "{total}টির মধ্যে {count}টি ভিডিও দেখা হয়েছে",
+  "{total} videos = 1 heart": "{total}টি ভিডিও = ১টি হার্ট"
 }

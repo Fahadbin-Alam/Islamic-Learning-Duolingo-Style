@@ -9,6 +9,7 @@ export { CrewView, rankCrew, type CrewViewProps, type CrewViewState } from "./Cr
 export { AccountSheet, checkAccountFields, type AccountSheetProps } from "./AccountSheet";
 export { SettingsSheet, type LearnerRole, type SettingsSheetProps } from "./SettingsSheet";
 export { RefillSheet, type RefillSheetProps } from "./RefillSheet";
+export { PlanOfferSheet, type PlanOfferSheetProps } from "./PlanOfferSheet";
 export { StreakSheet, type StreakSheetProps } from "./StreakSheet";
 export { FamilySheet, ProgressReport, type FamilySheetProps, type FamilyTab, type FamilyTopic } from "./FamilySheet";
 export { LeagueBadge, LeagueCard, LeagueResultSheet, leagueName, type LeagueCardProps, type LeagueResultSheetProps } from "./LeagueView";

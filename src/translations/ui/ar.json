@@ -102,7 +102,6 @@
   "Foundation": "الأساس",
   "Free gems": "جواهر مجانية",
   "Free heart": "قلب مجاني",
-  "Free heart, watch a video": "قلب مجاني، شاهد فيديو",
   "Friend": "صديق",
   "Friend's email": "بريد الصديق",
   "From": "من",
@@ -373,7 +372,6 @@
   "Waiting for them to add you": "بانتظار أن يضيفك",
   "Wants to race you": "يريد أن يتسابق معك",
   "Watch": "شاهد",
-  "Watch a video": "شاهد فيديو",
   "Watch: +{count} gems": "شاهد: +{count} جوهرة",
   "Wealth World": "عالم المال",
   "Welcome back": "مرحبا بعودتك",
@@ -573,5 +571,14 @@
   "{count} of {total} right": "{count} من {total} صحيحة",
   "{count} right": "{count} صحيحة",
   "{count} trophies": "{count} كأس",
-  "{count} trophies to {name}": "{count} كأس حتى {name}"
+  "{count} trophies to {name}": "{count} كأس حتى {name}",
+  "Free heart, watch video {count} of {total}": "قلب مجاني، شاهد الفيديو {count} من {total}",
+  "Just no ads": "بدون إعلانات فقط",
+  "Learn with no limits!": "تعلّم بلا حدود!",
+  "Never run out of hearts!": "لن تنفد قلوبك أبدًا!",
+  "No thanks": "لا، شكرًا",
+  "Unlimited hearts, see Premium": "قلوب بلا حدود، شاهد بريميوم",
+  "Watch video {count} of {total}": "شاهد الفيديو {count}/{total}",
+  "{count} of {total} videos watched": "شاهدت {count} من {total} فيديو",
+  "{total} videos = 1 heart": "{total} فيديو = قلب واحد"
 }

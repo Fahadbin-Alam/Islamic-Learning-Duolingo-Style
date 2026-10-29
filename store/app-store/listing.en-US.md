@@ -99,7 +99,6 @@ Muslimo is a learning tool, not a fatwa service. For rulings that affect you, pl
 | `membership_monthly` | Premium Monthly | Muslimo Premium (Monthly) | Unlimited hearts, no ads and premium lessons |
 | `membership_yearly` | Premium Yearly | Muslimo Premium (Yearly) | A full year of unlimited hearts, no ads |
 | `heart_pack_small` | Heart Pack | Heart Pack | Refill 5 hearts and keep learning |
-| `gem_pack_medium` | Gem Chest | Gem Chest | 1,200 gems for heart refills and rewards |
 
 Subscription group name: `Muslimo Premium`. Each product also needs a 1024 × 1024 promotional image only if you want it promoted on the App Store, and a review screenshot of the shop screen showing the product.
 

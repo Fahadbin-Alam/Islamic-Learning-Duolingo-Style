@@ -18,6 +18,8 @@ const STORAGE_KEYS = [
   "sira-path-sandbox-premium",
   "sira-path-age-group",
   "sira-path-rewarded-gem-videos",
+  "sira-path-heart-videos",
+  "sira-path-plan-offer-at",
   "sira-path-family-id",
   "sira-path-family-kids",
   "sira-path-daily-seen",
