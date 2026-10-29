@@ -580,5 +580,7 @@
   "Unlimited hearts, see Premium": "আনলিমিটেড হার্ট, প্রিমিয়াম দেখো",
   "Watch video {count} of {total}": "ভিডিও {count}/{total} দেখো",
   "{count} of {total} videos watched": "{total}টির মধ্যে {count}টি ভিডিও দেখা হয়েছে",
-  "{total} videos = 1 heart": "{total}টি ভিডিও = ১টি হার্ট"
+  "{total} videos = 1 heart": "{total}টি ভিডিও = ১টি হার্ট",
+  "A new update is ready!": "নতুন আপডেট এসেছে!",
+  "Update": "আপডেট"
 }

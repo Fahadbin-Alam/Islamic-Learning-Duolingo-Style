@@ -14,6 +14,7 @@ export { StreakSheet, type StreakSheetProps } from "./StreakSheet";
 export { FamilySheet, ProgressReport, type FamilySheetProps, type FamilyTab, type FamilyTopic } from "./FamilySheet";
 export { LeagueBadge, LeagueCard, LeagueResultSheet, leagueName, type LeagueCardProps, type LeagueResultSheetProps } from "./LeagueView";
 export { RamadanBanner, type RamadanBannerProps } from "./RamadanBanner";
+export { UpdateBanner, type UpdateBannerProps } from "./UpdateBanner";
 export { RewardPop, type RewardPopProps } from "./RewardPop";
 export { AgeSheet, type AgeSheetProps } from "./AgeSheet";
 export { LanguageSheet, type LanguageSheetProps } from "./LanguageSheet";
