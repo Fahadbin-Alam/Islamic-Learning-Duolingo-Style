@@ -7,7 +7,7 @@ import type { MascotMood } from "../Mascot";
 import { useShake } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, fonts, lighten, radii, space, topicPalette } from "../theme";
-import { QuestionBubble, useLessonCompact } from "./ExerciseView";
+import { FadeUnderSheet, QuestionBubble, useLessonCompact } from "./ExerciseView";
 import { CORRECT_TEXT, FeedbackSheet, WRONG_TEXT } from "./FeedbackSheet";
 import { LessonBottomBar } from "./LessonHeader";
 import { noBreakHyphens } from "./lessonText";
@@ -162,6 +162,8 @@ const CHIP_AIR = 2;
  * they fold away by the height it has.
  */
 const FOLD_SETTLE_MS = 120;
+/** How long the sheet takes to slide away (see Sheet). */
+const SHEET_LEAVE_MS = 200;
 
 /** Tap-to-order mini game (wudu / salah steps). A wrong CHECK shows the right order right away, like Duolingo. */
 export function OrderGame({
@@ -217,6 +219,16 @@ export function OrderGame({
   const [chipMoves, setChipMoves] = useState(0);
   // How many placed steps stay while the sheet is up (the rest fold away); undefined: all of them.
   const kept = useRef<number | undefined>(undefined);
+  // After TRY AGAIN the sheet slides away over the steps that come back (those it had folded, and the bank under them):
+  // they show only once it has gone, and fade in, so its edge never cuts one as it goes down. How many showed above it.
+  const [leaving, setLeaving] = useState<number | undefined>(undefined);
+  useEffect(() => {
+    if (leaving === undefined) {
+      return undefined;
+    }
+    const timer = setTimeout(() => setLeaving(undefined), SHEET_LEAVE_MS);
+    return () => clearTimeout(timer);
+  }, [leaving]);
   const onSheetHeight = (height: number, settled = true) => {
     setSheetHeight(height);
     setSheetSettled(settled);
@@ -306,6 +318,7 @@ export function OrderGame({
   const retry = () => {
     const firstWrong = placed.findIndex((id, index) => id !== correctOrderIds[index]);
     setPlaced(firstWrong < 0 ? [] : placed.slice(0, firstWrong));
+    setLeaving(kept.current ?? placed.length);
     setChecked(null);
     scrollRef.current?.scrollTo?.({ y: 0, animated: true });
   };
@@ -341,7 +354,13 @@ export function OrderGame({
             {shownPlaced.map((id, index) => {
               const option = byId.get(id);
               return option ? (
-                <View key={id} style={grid ? styles.gridCell : styles.flowCell} onLayout={onChipLayout(id)} testID={`order-cell-${id}`}>
+                <FadeUnderSheet
+                  key={id}
+                  hidden={leaving !== undefined && index >= leaving}
+                  style={grid ? styles.gridCell : styles.flowCell}
+                  onLayout={onChipLayout(id)}
+                  testID={`order-cell-${id}`}
+                >
                   <Chip
                     label={option.label}
                     icon={option.icon}
@@ -354,13 +373,13 @@ export function OrderGame({
                     disabled={checked !== null}
                     testID={`order-placed-${id}`}
                   />
-                </View>
+                </FadeUnderSheet>
               ) : null;
             })}
           </Animated.View>
 
           {placed.length < total ? (
-            <View style={[styles.bank, compact ? styles.bankCompact : null]} testID="order-bank">
+            <FadeUnderSheet hidden={leaving !== undefined} style={[styles.bank, compact ? styles.bankCompact : null]} testID="order-bank">
               {bankOptions.map((option) => (
                 <Chip
                   key={`${option.id}-${placed.includes(option.id) ? "used" : "free"}`}
@@ -375,7 +394,7 @@ export function OrderGame({
                   testID={`order-bank-${option.id}`}
                 />
               ))}
-            </View>
+            </FadeUnderSheet>
           ) : null}
         </ScrollView>
       </View>

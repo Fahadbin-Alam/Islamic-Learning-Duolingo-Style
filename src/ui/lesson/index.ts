@@ -11,6 +11,7 @@ export { LearnCard, sameReference, type LearnCardProps } from "./LearnCard";
 export {
   ExerciseView,
   FadeUnderSheet,
+  FoldGap,
   PromptText,
   QuestionBubble,
   useLessonCompact,

@@ -195,9 +195,9 @@ describe("the ordering game keeps its prompt on screen and folds away the steps 
       placed.slice(0, 4).forEach((id) => expect(screen.getByTestId(`order-placed-${id}`)).toBeTruthy());
       placed.slice(4).forEach((id) => expect(screen.queryByTestId(`order-placed-${id}`)).toBeNull());
       expect(screen.getByText("Put Fajr's two rak'ahs in order!")).toBeTruthy();
-      // TRY AGAIN keeps the six steps that were right, every one of them back on screen.
+      // TRY AGAIN keeps the six steps that were right, every one of them back on screen once the sheet has gone.
       await fireEvent.press(screen.getByTestId("feedback-continue"));
-      ids.slice(0, 6).forEach((id) => expect(screen.getByTestId(`order-placed-${id}`)).toBeTruthy());
+      await waitFor(() => ids.slice(0, 6).forEach((id) => expect(screen.getByTestId(`order-placed-${id}`)).toBeTruthy()));
       scrollTo.mockRestore();
     });
   });

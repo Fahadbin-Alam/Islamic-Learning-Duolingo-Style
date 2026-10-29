@@ -342,13 +342,15 @@ const styles = StyleSheet.create({
     paddingVertical: space.md,
     paddingHorizontal: 6
   },
-  // Same 30 px line as the other cards' numbers: the baseline shift of "/40" must not make it taller.
+  // Same 30 px line as the other cards' numbers: the baseline shift of "/40" must not make it taller. "10/40" reads left
+  // to right in every language, so right to left it is not drawn "/40 10".
   goalRow: {
     flexDirection: "row",
     alignItems: "baseline",
     height: 30,
     flexShrink: 1,
-    minWidth: 0
+    minWidth: 0,
+    direction: "ltr"
   },
   goalRowNarrow: {
     marginStart: -4
