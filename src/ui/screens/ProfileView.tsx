@@ -86,13 +86,13 @@ function StatCard({
 }) {
   return (
     <View style={styles.stat} testID={testID}>
-      <Icon name={icon} size={32} color={dim ? DIM_ICON : undefined} />
-      <View style={styles.statText}>
+      <View style={styles.statHead}>
+        <Icon name={icon} size={28} color={dim ? DIM_ICON : undefined} />
         <FormattedCount value={value} compact style={[styles.statValue, statValueSize(value), { color: dim ? DIM_INK : color }]} />
-        <Text style={styles.statLabel} numberOfLines={1}>
-          {label}
-        </Text>
       </View>
+      <Text style={styles.statLabel} numberOfLines={1}>
+        {label}
+      </Text>
     </View>
   );
 }
@@ -119,13 +119,15 @@ function MenuRow({ icon, label, onPress, right, testID, last, accessibilityRole,
       accessibilityState={accessibilityState}
       pressScale={0.98}
     >
-      <View style={styles.rowIcon}>
-        <Icon name={icon} size={26} />
+      <View style={styles.rowSide}>
+        <View style={styles.rowIcon}>
+          <Icon name={icon} size={26} />
+        </View>
       </View>
       <Text style={styles.rowLabel} numberOfLines={1}>
         {label}
       </Text>
-      {right ?? <Icon name="chevronRight" size={22} color={colors.lineLip} />}
+      <View style={[styles.rowSide, styles.rowSideEnd]}>{right ?? <Icon name="chevronRight" size={22} color={colors.lineLip} />}</View>
     </Tappable>
   );
 }
@@ -361,10 +363,9 @@ const styles = StyleSheet.create({
   },
   stat: {
     width: "48%",
-    flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    paddingHorizontal: 12,
+    gap: 2,
+    paddingHorizontal: 8,
     paddingVertical: 10,
     borderRadius: radii.tile,
     borderWidth: 2,
@@ -373,9 +374,12 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.lineLip,
     backgroundColor: colors.white
   },
-  statText: {
-    flex: 1,
-    minWidth: 0
+  statHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    maxWidth: "100%"
   },
   statValue: {
     fontFamily: fonts.displayHeavy,
@@ -388,7 +392,9 @@ const styles = StyleSheet.create({
   statLabel: {
     ...text.tiny,
     fontSize: 12,
-    lineHeight: 16
+    lineHeight: 16,
+    textAlign: "center",
+    maxWidth: "100%"
   },
   saveCard: {
     marginTop: 16,
@@ -402,17 +408,16 @@ const styles = StyleSheet.create({
     borderBottomColor: lighten(colors.gem, 0.35)
   },
   saveHead: {
-    flexDirection: "row",
     alignItems: "center",
-    gap: 12
+    gap: 6
   },
   saveTitle: {
     fontFamily: fonts.displayHeavy,
     fontSize: 22,
     lineHeight: 27,
     color: colors.gemLip,
-    flex: 1,
-    minWidth: 0
+    textAlign: "center",
+    maxWidth: "100%"
   },
   menu: {
     marginTop: 16,
@@ -435,6 +440,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: colors.line
   },
+  /** Same width on both sides, so the label sits in the middle of the row. */
+  rowSide: {
+    width: 50,
+    alignItems: "flex-start"
+  },
+  rowSideEnd: {
+    alignItems: "flex-end"
+  },
   rowIcon: {
     width: 40,
     height: 40,
@@ -446,6 +459,7 @@ const styles = StyleSheet.create({
   rowLabel: {
     ...text.h3,
     fontSize: 18,
+    textAlign: "center",
     flex: 1,
     minWidth: 0
   }
