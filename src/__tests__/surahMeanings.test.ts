@@ -73,16 +73,42 @@ describe("the meaning of whole surahs", () => {
     expect(second.challenges[2].explanation).toBe(second.learnLine);
   });
 
-  it("puts all 286 ayahs of Al-Baqarah at the end of its unit, with reviews and a final quiz", () => {
+  it("puts all 286 ayahs of Al-Baqarah in its unit, its topics among them, with reviews and a final quiz", () => {
     const nodes = quran.nodes.filter((node) => node.branchId === "quran-surah-baqarah");
     const meaning = nodes.filter((node) => node.id.startsWith("surah-meaning-2-"));
-    expect(nodes.slice(-meaning.length)).toEqual(meaning);
     expect(meaning.filter((node) => node.kind !== "review")).toHaveLength(40);
-    expect(meaning[meaning.length - 1].id).toBe("surah-meaning-2-final-quiz");
+    expect(nodes[nodes.length - 1].id).toBe("surah-meaning-2-final-quiz");
     expect(meaning.filter((node) => /-review-\d+$/.test(node.id))).toHaveLength(6);
+    // Each topic comes right after the passage that holds its ayah.
+    const ids = nodes.map((node) => node.id);
+    expect(ids.slice(ids.indexOf("surah-meaning-2-254-257"), ids.indexOf("surah-meaning-2-254-257") + 2)).toEqual(["surah-meaning-2-254-257", "quran-surah-baqarah-ayat-al-kursi"]);
     // Each circle opens after the one before it.
-    meaning.forEach((node, index) => expect(node.requiredNodeIds).toEqual([nodes[nodes.length - meaning.length + index - 1].id]));
+    nodes.forEach((node, index) => index && expect(node.requiredNodeIds).toEqual([nodes[index - 1].id]));
     const ayatAlKursi = LESSONS_BY_ID["lesson-surah-meaning-2-254-257"];
     expect(ayatAlKursi.quote?.reference).toBe("Quran 2:255");
+  });
+  it("goes through each surah unit's topics and passages in ayah order, each opening after the one before", () => {
+    const problems: string[] = [];
+    for (const unit of surahMeaningUnits()) {
+      const nodes = quran.nodes.filter((node) => node.branchId === unit.branchId);
+      // The order a learner meets the ayahs in, from each skill's own Quran.com source.
+      const ayahs = nodes
+        .filter((node) => node.kind === "skill" && !node.id.startsWith("notes-") && !node.id.startsWith("deep-"))
+        .map((node) => {
+          const lesson = LESSONS_BY_ID[node.lessonIds[0]];
+          const cited = new RegExp(`quran\\.com/${unit.surah}[/:](\\d+)`).exec(lesson.learnSource?.url ?? "")?.[1];
+          return { id: node.id, ayah: Number(cited ?? /^(\d+)/.exec(lesson.ayahRange ?? "")?.[1]) };
+        })
+        .filter(({ ayah }) => ayah > 0);
+      ayahs.forEach(({ id, ayah }, index) => {
+        if (index && ayah < ayahs[index - 1].ayah) problems.push(`${id} (ayah ${ayah}) comes after ayah ${ayahs[index - 1].ayah}`);
+      });
+      nodes.forEach((node, index) => {
+        if (index && !node.requiredNodeIds.includes(nodes[index - 1].id)) problems.push(`${node.id} does not open after ${nodes[index - 1].id}`);
+      });
+    }
+    expect(problems).toEqual([]);
+    const imran = quran.nodes.filter((node) => node.branchId === "quran-surah-ali-imran").map((node) => node.id);
+    expect(imran.indexOf("quran-surah-ali-imran-dialogue-and-clarity")).toBeLessThan(imran.indexOf("quran-surah-ali-imran-steadfastness"));
   });
 });
