@@ -1357,7 +1357,83 @@
   },
   {
     "kind": "course",
-    "text": "Surah Muhammad to Al-⁠Waqi'ah"
+    "text": "Surah Muhammad"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Muhammad, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Fath"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Fath, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Hujurat"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Hujurat, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Qaf"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Qaf, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Adh-Dhariyat"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Adh-Dhariyat, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah At-Tur"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of At-Tur, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah An-Najm"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of An-Najm, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Qamar"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Qamar, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Ar-Rahman"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Ar-Rahman, in simple words."
+  },
+  {
+    "kind": "course",
+    "text": "Surah Al-Waqi'ah"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah of Al-Waqi'ah, in simple words."
   },
   {
     "kind": "course",
@@ -2796,16 +2872,24 @@
     "text": "The Wind-Curved Sandhills"
   },
   {
-    "kind": "course",
-    "text": "Surah Muhammad"
-  },
-  {
     "kind": "arabic",
     "text": "Named after Prophet Muhammad ﷺ"
   },
   {
     "kind": "course",
-    "text": "Surah Al-Fath"
+    "text": "Help Allah's religion"
+  },
+  {
+    "kind": "course",
+    "text": "Rivers of Paradise"
+  },
+  {
+    "kind": "course",
+    "text": "Reflect on the Quran"
+  },
+  {
+    "kind": "course",
+    "text": "Do not be stingy"
   },
   {
     "kind": "arabic",
@@ -2813,7 +2897,19 @@
   },
   {
     "kind": "course",
-    "text": "Surah Al-Hujurat"
+    "text": "A clear victory"
+  },
+  {
+    "kind": "course",
+    "text": "Those who stayed behind"
+  },
+  {
+    "kind": "course",
+    "text": "The pledge under the tree"
+  },
+  {
+    "kind": "course",
+    "text": "Firm and merciful"
   },
   {
     "kind": "arabic",
@@ -2821,7 +2917,19 @@
   },
   {
     "kind": "course",
-    "text": "Surah Qaf"
+    "text": "Manners with the Prophet ﷺ"
+  },
+  {
+    "kind": "course",
+    "text": "Check the news"
+  },
+  {
+    "kind": "course",
+    "text": "No mocking, no backbiting"
+  },
+  {
+    "kind": "course",
+    "text": "True faith"
   },
   {
     "kind": "arabic",
@@ -2829,7 +2937,15 @@
   },
   {
     "kind": "course",
-    "text": "Surah Adh-Dhariyat"
+    "text": "Raised again"
+  },
+  {
+    "kind": "course",
+    "text": "Nearer than the jugular vein"
+  },
+  {
+    "kind": "course",
+    "text": "Remind with the Quran"
   },
   {
     "kind": "arabic",
@@ -2837,7 +2953,15 @@
   },
   {
     "kind": "course",
-    "text": "Surah At-Tur"
+    "text": "Provision in the heavens"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim's guests"
+  },
+  {
+    "kind": "course",
+    "text": "Created to worship"
   },
   {
     "kind": "arabic",
@@ -2845,7 +2969,15 @@
   },
   {
     "kind": "course",
-    "text": "Surah An-Najm"
+    "text": "By the Mount"
+  },
+  {
+    "kind": "course",
+    "text": "Families together"
+  },
+  {
+    "kind": "course",
+    "text": "Glorify at night"
   },
   {
     "kind": "arabic",
@@ -2853,7 +2985,15 @@
   },
   {
     "kind": "course",
-    "text": "Surah Al-Qamar"
+    "text": "Not from desire"
+  },
+  {
+    "kind": "course",
+    "text": "Names with no power"
+  },
+  {
+    "kind": "course",
+    "text": "What he strives for"
   },
   {
     "kind": "arabic",
@@ -2861,7 +3001,19 @@
   },
   {
     "kind": "course",
-    "text": "Surah Ar-Rahman"
+    "text": "The moon split"
+  },
+  {
+    "kind": "course",
+    "text": "Easy to remember"
+  },
+  {
+    "kind": "course",
+    "text": "Thamud and Lut's people"
+  },
+  {
+    "kind": "course",
+    "text": "Everything by measure"
   },
   {
     "kind": "arabic",
@@ -2869,11 +3021,39 @@
   },
   {
     "kind": "course",
-    "text": "Surah Al-Waqi'ah"
+    "text": "Taught the Quran"
+  },
+  {
+    "kind": "course",
+    "text": "Two seas"
+  },
+  {
+    "kind": "course",
+    "text": "Only Allah remains"
+  },
+  {
+    "kind": "course",
+    "text": "Two more gardens"
   },
   {
     "kind": "arabic",
     "text": "The Inevitable"
+  },
+  {
+    "kind": "course",
+    "text": "Three groups"
+  },
+  {
+    "kind": "course",
+    "text": "Right and left"
+  },
+  {
+    "kind": "course",
+    "text": "Who grows the seed?"
+  },
+  {
+    "kind": "course",
+    "text": "A noble Quran"
   },
   {
     "kind": "arabic",
@@ -43621,6 +43801,1542 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah wipes out deniers' deeds and sets believers right."
+  },
+  {
+    "kind": "lesson",
+    "text": "Believe in what came to Muhammad ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Help Allah, He helps you"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 47:7"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 47:1-11"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah do for those who help His religion?"
+  },
+  {
+    "kind": "question",
+    "text": "Ignores them"
+  },
+  {
+    "kind": "question",
+    "text": "Makes them weak"
+  },
+  {
+    "kind": "question",
+    "text": "Forgets them"
+  },
+  {
+    "kind": "question",
+    "text": "Helps them and makes them firm"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-11 say: Allah wipes out deniers' deeds and sets believers right."
+  },
+  {
+    "kind": "lesson",
+    "text": "Paradise has rivers of water, milk, honey and pure drink."
+  },
+  {
+    "kind": "lesson",
+    "text": "Water that never goes bad"
+  },
+  {
+    "kind": "lesson",
+    "text": "Know there is no god but Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 47:15"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 47:12-19"
+  },
+  {
+    "kind": "question",
+    "text": "Which is a river of Paradise, in Surah Muhammad?"
+  },
+  {
+    "kind": "question",
+    "text": "Ink"
+  },
+  {
+    "kind": "question",
+    "text": "Oil"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 12-19: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 12-19 say: Whoever is stingy is stingy only to himself; Allah is rich."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do they not reflect on the Quran, or are hearts locked?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hypocrites feared the call to strive"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah exposes what is hidden"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 47:24"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 47:20-28"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah ask people to reflect on, in Surah Muhammad?"
+  },
+  {
+    "kind": "question",
+    "text": "The stars"
+  },
+  {
+    "kind": "question",
+    "text": "Their wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 20-28: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 20-28 say: Do they not reflect on the Quran, or are hearts locked?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever is stingy is stingy only to himself; Allah is rich."
+  },
+  {
+    "kind": "lesson",
+    "text": "Worldly life is play and fun"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah can replace you with others"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 47:38"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 47:29-38"
+  },
+  {
+    "kind": "question",
+    "text": "Who is the stingy person really stingy to?"
+  },
+  {
+    "kind": "question",
+    "text": "The poor"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 29-38: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 29-38 say: Paradise has rivers of water, milk, honey and pure drink."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Muhammad!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah gave a clear victory and sent calm into believers' hearts."
+  },
+  {
+    "kind": "lesson",
+    "text": "Revealed after Hudaybiyah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sakinah: calm from Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 48:4"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 48:1-10"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah send into believers' hearts, in Al-Fath?"
+  },
+  {
+    "kind": "question",
+    "text": "Doubt"
+  },
+  {
+    "kind": "question",
+    "text": "Calm"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-10 say: Allah gave a clear victory and sent calm into believers' hearts."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those who stayed behind made excuses; Allah knew their hearts."
+  },
+  {
+    "kind": "lesson",
+    "text": "The blind, lame and sick are excused"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 48:17"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 48:11-17"
+  },
+  {
+    "kind": "question",
+    "text": "Who is excused from going out, in Al-Fath?"
+  },
+  {
+    "kind": "question",
+    "text": "The busy"
+  },
+  {
+    "kind": "question",
+    "text": "The young and strong"
+  },
+  {
+    "kind": "question",
+    "text": "The blind, lame and sick"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 11-17 say: Muhammad ﷺ and his companions: firm, merciful, often bowing."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah was pleased with believers who pledged under the tree."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bay'at ar-Ridwan"
+  },
+  {
+    "kind": "lesson",
+    "text": "More victories were promised"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 48:18"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 48:18-26"
+  },
+  {
+    "kind": "question",
+    "text": "Where did believers pledge, in Al-Fath?"
+  },
+  {
+    "kind": "question",
+    "text": "Under the tree"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 18-26: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 18-26 say: Allah was pleased with believers who pledged under the tree."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muhammad ﷺ and his companions: firm, merciful, often bowing."
+  },
+  {
+    "kind": "lesson",
+    "text": "The dream of entering Makkah came true"
+  },
+  {
+    "kind": "lesson",
+    "text": "Like a plant growing strong"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 48:29"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 48:27-29"
+  },
+  {
+    "kind": "question",
+    "text": "What are the companions like with each other, in Al-Fath?"
+  },
+  {
+    "kind": "question",
+    "text": "Distant"
+  },
+  {
+    "kind": "question",
+    "text": "Merciful"
+  },
+  {
+    "kind": "question",
+    "text": "Harsh"
+  },
+  {
+    "kind": "question",
+    "text": "Jealous"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 27-29: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 27-29 say: Those who stayed behind made excuses; Allah knew their hearts."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Fath!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not raise your voices above the Prophet's ﷺ voice."
+  },
+  {
+    "kind": "lesson",
+    "text": "Don't rush ahead of Allah's Messenger ﷺ"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49:2"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49:1-5"
+  },
+  {
+    "kind": "question",
+    "text": "What should we not raise above the Prophet's ﷺ voice?"
+  },
+  {
+    "kind": "question",
+    "text": "Our flags"
+  },
+  {
+    "kind": "question",
+    "text": "Our books"
+  },
+  {
+    "kind": "question",
+    "text": "Our voices"
+  },
+  {
+    "kind": "question",
+    "text": "Our hands"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-5 say: Do not raise your voices above the Prophet's ﷺ voice."
+  },
+  {
+    "kind": "lesson",
+    "text": "Check news from a wrongdoer; make peace between believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Believers are brothers"
+  },
+  {
+    "kind": "lesson",
+    "text": "Be just: Allah loves the just"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49:6"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49:6-10"
+  },
+  {
+    "kind": "question",
+    "text": "What should we do with news from a wrongdoer?"
+  },
+  {
+    "kind": "question",
+    "text": "Spread it fast"
+  },
+  {
+    "kind": "question",
+    "text": "Believe it"
+  },
+  {
+    "kind": "question",
+    "text": "Laugh at it"
+  },
+  {
+    "kind": "question",
+    "text": "Check it first"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 6-10: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 6-10 say: Real believers have no doubt and strive for Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Don't mock, spy or backbite; the noblest is the most mindful."
+  },
+  {
+    "kind": "lesson",
+    "text": "Avoid much suspicion"
+  },
+  {
+    "kind": "lesson",
+    "text": "Made nations to know each other"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49:13"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49:11-13"
+  },
+  {
+    "kind": "question",
+    "text": "Who is the noblest with Allah, in Al-Hujurat?"
+  },
+  {
+    "kind": "question",
+    "text": "The most mindful"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 11-13: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 11-13 say: Don't mock, spy or backbite; the noblest is the most mindful."
+  },
+  {
+    "kind": "lesson",
+    "text": "Real believers have no doubt and strive for Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bedouins said: we believe"
+  },
+  {
+    "kind": "lesson",
+    "text": "Faith is Allah's favor to you"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49:15"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 49:14-18"
+  },
+  {
+    "kind": "question",
+    "text": "What do real believers have none of, in Al-Hujurat?"
+  },
+  {
+    "kind": "question",
+    "text": "Hope"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 14-18: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 14-18 say: Check news from a wrongdoer; make peace between believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Hujurat!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Deniers doubt rising again, but Allah created everything."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rain brings dead land to life"
+  },
+  {
+    "kind": "lesson",
+    "text": "So the dead will come out"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 50:11"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 50:1-15"
+  },
+  {
+    "kind": "question",
+    "text": "How does Qaf show that the dead will rise?"
+  },
+  {
+    "kind": "question",
+    "text": "The sun sets"
+  },
+  {
+    "kind": "question",
+    "text": "Birds fly"
+  },
+  {
+    "kind": "question",
+    "text": "Seas are salty"
+  },
+  {
+    "kind": "question",
+    "text": "Dead land comes alive with rain"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-15 say: Deniers doubt rising again, but Allah created everything."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is nearer to man than his jugular vein."
+  },
+  {
+    "kind": "lesson",
+    "text": "Two angels record every word"
+  },
+  {
+    "kind": "lesson",
+    "text": "Death's stupor will come"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 50:16"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 50:16-29"
+  },
+  {
+    "kind": "question",
+    "text": "What is Allah nearer to man than, in Qaf?"
+  },
+  {
+    "kind": "question",
+    "text": "His jugular vein"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 16-29: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 16-29 say: Deniers doubt rising again, but Allah created everything."
+  },
+  {
+    "kind": "lesson",
+    "text": "Paradise is brought near the mindful; remind with the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hell will say: are there more?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah never tired creating all"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 50:45"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 50:30-45"
+  },
+  {
+    "kind": "question",
+    "text": "Who should be reminded with the Quran, in Qaf?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who fear Allah's warning"
+  },
+  {
+    "kind": "question",
+    "text": "Only poets"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 30-45: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 30-45 say: Paradise is brought near the mindful; remind with the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Qaf!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The mindful prayed at night; your provision is in the heavens."
+  },
+  {
+    "kind": "lesson",
+    "text": "They asked forgiveness before dawn"
+  },
+  {
+    "kind": "lesson",
+    "text": "Signs in the earth and yourselves"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 51:22"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 51:1-23"
+  },
+  {
+    "kind": "question",
+    "text": "Where is our provision, in Adh-Dhariyat?"
+  },
+  {
+    "kind": "question",
+    "text": "Under a rock"
+  },
+  {
+    "kind": "question",
+    "text": "In the heavens"
+  },
+  {
+    "kind": "question",
+    "text": "In the sea"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-23: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-23 say: The mindful prayed at night; your provision is in the heavens."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim's angel guests brought news of a wise son."
+  },
+  {
+    "kind": "lesson",
+    "text": "He served them a roasted calf"
+  },
+  {
+    "kind": "lesson",
+    "text": "Lut's people were destroyed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 51:26"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 51:24-46"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibrahim serve his guests?"
+  },
+  {
+    "kind": "question",
+    "text": "A roasted calf"
+  },
+  {
+    "kind": "question",
+    "text": "Bread only"
+  },
+  {
+    "kind": "question",
+    "text": "Fish"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 24-46: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 24-46 say: The mindful prayed at night; your provision is in the heavens."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah created jinn and humans only to worship Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He built the sky with might"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the Provider"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 51:56"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 51:47-60"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Allah create jinn and humans?"
+  },
+  {
+    "kind": "question",
+    "text": "To worship Him"
+  },
+  {
+    "kind": "question",
+    "text": "To play"
+  },
+  {
+    "kind": "question",
+    "text": "To sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 47-60: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 47-60 say: Allah created jinn and humans only to worship Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Adh-Dhariyat!"
+  },
+  {
+    "kind": "lesson",
+    "text": "By the Mount: your Lord's punishment will surely come."
+  },
+  {
+    "kind": "lesson",
+    "text": "By the much-visited House"
+  },
+  {
+    "kind": "lesson",
+    "text": "The sky will sway that Day"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 52:1-16"
+  },
+  {
+    "kind": "question",
+    "text": "What does At-Tur open by swearing by?"
+  },
+  {
+    "kind": "question",
+    "text": "The dawn"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-16 say: By the Mount: your Lord's punishment will surely come."
+  },
+  {
+    "kind": "lesson",
+    "text": "The mindful are in gardens, joined by their believing children."
+  },
+  {
+    "kind": "lesson",
+    "text": "They were careful with family"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the Kind, the Merciful"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 52:21"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 52:17-28"
+  },
+  {
+    "kind": "question",
+    "text": "Who joins the mindful in Paradise, in At-Tur?"
+  },
+  {
+    "kind": "question",
+    "text": "Their believing children"
+  },
+  {
+    "kind": "question",
+    "text": "Their enemies"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 17-28: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 17-28 say: By the Mount: your Lord's punishment will surely come."
+  },
+  {
+    "kind": "lesson",
+    "text": "Keep reminding; glorify your Lord at night and as stars fade."
+  },
+  {
+    "kind": "lesson",
+    "text": "You are not a fortune teller"
+  },
+  {
+    "kind": "lesson",
+    "text": "You are under Allah's eyes"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 52:49"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 52:29-49"
+  },
+  {
+    "kind": "question",
+    "text": "When should we glorify Allah, in At-Tur?"
+  },
+  {
+    "kind": "question",
+    "text": "At night and as stars fade"
+  },
+  {
+    "kind": "question",
+    "text": "Only at noon"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 29-49: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 29-49 say: Keep reminding; glorify your Lord at night and as stars fade."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about At-Tur!"
+  },
+  {
+    "kind": "lesson",
+    "text": "By the star: your companion does not speak from desire."
+  },
+  {
+    "kind": "lesson",
+    "text": "What he says is revelation"
+  },
+  {
+    "kind": "lesson",
+    "text": "He saw Jibril at the Lote Tree"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 53:4"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 53:1-18"
+  },
+  {
+    "kind": "question",
+    "text": "Where does the Prophet's ﷺ message come from, in An-Najm?"
+  },
+  {
+    "kind": "question",
+    "text": "Dreams only"
+  },
+  {
+    "kind": "question",
+    "text": "Revelation from Allah"
+  },
+  {
+    "kind": "question",
+    "text": "His desire"
+  },
+  {
+    "kind": "question",
+    "text": "Poets"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-18: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-18 say: By the star: your companion does not speak from desire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Lat and Al-Uzza are just names; idols have no power."
+  },
+  {
+    "kind": "lesson",
+    "text": "They follow guesses"
+  },
+  {
+    "kind": "lesson",
+    "text": "Avoid major sins"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 53:19"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 53:19-32"
+  },
+  {
+    "kind": "question",
+    "text": "What are Al-Lat and Al-Uzza, in An-Najm?"
+  },
+  {
+    "kind": "question",
+    "text": "Cities"
+  },
+  {
+    "kind": "question",
+    "text": "Names of idols with no power"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 19-32: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 19-32 say: By the star: your companion does not speak from desire."
+  },
+  {
+    "kind": "lesson",
+    "text": "No soul carries another's burden; man gets what he strives for."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the scrolls of Musa and Ibrahim"
+  },
+  {
+    "kind": "lesson",
+    "text": "To your Lord is the final end"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 53:39"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 53:33-62"
+  },
+  {
+    "kind": "question",
+    "text": "What does man get, in An-Najm?"
+  },
+  {
+    "kind": "question",
+    "text": "Others' deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Whatever he wishes"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 33-62: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 33-62 say: No soul carries another's burden; man gets what he strives for."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about An-Najm!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Hour drew near and the moon split; they still denied."
+  },
+  {
+    "kind": "lesson",
+    "text": "They called it magic"
+  },
+  {
+    "kind": "lesson",
+    "text": "They follow their desires"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 54:1-8"
+  },
+  {
+    "kind": "question",
+    "text": "What split, in Al-Qamar?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-8 say: The Hour drew near and the moon split; they still denied."
+  },
+  {
+    "kind": "lesson",
+    "text": "Nuh's people and Ad denied; the Quran is easy to remember."
+  },
+  {
+    "kind": "lesson",
+    "text": "Nuh's ship of planks and nails"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ad: a howling wind"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 54:17"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 54:9-22"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah make easy, in Al-Qamar?"
+  },
+  {
+    "kind": "question",
+    "text": "Getting rich"
+  },
+  {
+    "kind": "question",
+    "text": "Being lazy"
+  },
+  {
+    "kind": "question",
+    "text": "Lying"
+  },
+  {
+    "kind": "question",
+    "text": "Remembering the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 9-22: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 9-22 say: Allah made all by measure; the mindful sit near the King."
+  },
+  {
+    "kind": "lesson",
+    "text": "Thamud harmed the she-camel; Lut's people met a storm of stones."
+  },
+  {
+    "kind": "lesson",
+    "text": "The she-camel was a test"
+  },
+  {
+    "kind": "lesson",
+    "text": "Lut's family was saved at dawn"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 54:34"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 54:23-40"
+  },
+  {
+    "kind": "question",
+    "text": "Whose family was saved at dawn, in Al-Qamar?"
+  },
+  {
+    "kind": "question",
+    "text": "Qarun's"
+  },
+  {
+    "kind": "question",
+    "text": "Lut's"
+  },
+  {
+    "kind": "question",
+    "text": "Pharaoh's"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 23-40: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 23-40 say: Thamud harmed the she-camel; Lut's people met a storm of stones."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah made all by measure; the mindful sit near the King."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pharaoh's people were seized"
+  },
+  {
+    "kind": "lesson",
+    "text": "Every deed is written"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 54:49"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 54:41-55"
+  },
+  {
+    "kind": "question",
+    "text": "How did Allah create everything, in Al-Qamar?"
+  },
+  {
+    "kind": "question",
+    "text": "By chance"
+  },
+  {
+    "kind": "question",
+    "text": "Without a plan"
+  },
+  {
+    "kind": "question",
+    "text": "In a hurry"
+  },
+  {
+    "kind": "question",
+    "text": "By measure"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 41-55: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 41-55 say: Nuh's people and Ad denied; the Quran is easy to remember."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Qamar!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Most Merciful taught the Quran and created man."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sun and moon run by a plan"
+  },
+  {
+    "kind": "lesson",
+    "text": "Keep the balance fair"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:2"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:1-13"
+  },
+  {
+    "kind": "question",
+    "text": "What does Ar-Rahman say Allah taught?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-13: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-13 say: The Most Merciful taught the Quran and created man."
+  },
+  {
+    "kind": "lesson",
+    "text": "He made man from clay; two seas meet but do not mix."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jinn made from smokeless fire"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pearls and coral come from them"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:22"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:14-25"
+  },
+  {
+    "kind": "question",
+    "text": "What comes out of the two seas, in Ar-Rahman?"
+  },
+  {
+    "kind": "question",
+    "text": "Gold bars"
+  },
+  {
+    "kind": "question",
+    "text": "Diamonds"
+  },
+  {
+    "kind": "question",
+    "text": "Iron"
+  },
+  {
+    "kind": "question",
+    "text": "Pearls and coral"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 14-25: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 14-25 say: Two more dark-green gardens, with dates and pomegranates."
+  },
+  {
+    "kind": "lesson",
+    "text": "Everyone on earth will perish; only your Lord's Face remains."
+  },
+  {
+    "kind": "lesson",
+    "text": "Everyone asks Allah for needs"
+  },
+  {
+    "kind": "lesson",
+    "text": "Which favors will you deny?"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:27"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:26-45"
+  },
+  {
+    "kind": "question",
+    "text": "What remains forever, in Ar-Rahman?"
+  },
+  {
+    "kind": "question",
+    "text": "The seas"
+  },
+  {
+    "kind": "question",
+    "text": "Your Lord's Face"
+  },
+  {
+    "kind": "question",
+    "text": "The mountains"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 26-45: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 26-45 say: Everyone on earth will perish; only your Lord's Face remains."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever fears standing before his Lord gets two gardens."
+  },
+  {
+    "kind": "lesson",
+    "text": "Two flowing springs"
+  },
+  {
+    "kind": "lesson",
+    "text": "Good is repaid only with good"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:60"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:46-61"
+  },
+  {
+    "kind": "question",
+    "text": "What is the reward of good, in Ar-Rahman?"
+  },
+  {
+    "kind": "question",
+    "text": "Hardship"
+  },
+  {
+    "kind": "question",
+    "text": "Good"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 46-61: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 46-61 say: He made man from clay; two seas meet but do not mix."
+  },
+  {
+    "kind": "lesson",
+    "text": "Two more dark-green gardens, with dates and pomegranates."
+  },
+  {
+    "kind": "lesson",
+    "text": "Blessed is your Lord's name"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:68"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 55:62-78"
+  },
+  {
+    "kind": "question",
+    "text": "Which fruits are named, in Ar-Rahman's last gardens?"
+  },
+  {
+    "kind": "question",
+    "text": "Bananas"
+  },
+  {
+    "kind": "question",
+    "text": "Grapes only"
+  },
+  {
+    "kind": "question",
+    "text": "Dates and pomegranates"
+  },
+  {
+    "kind": "question",
+    "text": "Apples and pears"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 62-78: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 62-78 say: Two more dark-green gardens, with dates and pomegranates."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ar-Rahman!"
+  },
+  {
+    "kind": "lesson",
+    "text": "When the Event happens, people will be three groups."
+  },
+  {
+    "kind": "lesson",
+    "text": "The foremost are brought nearest"
+  },
+  {
+    "kind": "lesson",
+    "text": "No idle talk, only peace"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 56:7"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 56:1-26"
+  },
+  {
+    "kind": "question",
+    "text": "Into how many groups are people split, in Al-Waqi'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-26: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 1-26 say: When the Event happens, people will be three groups."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those on the right enjoy shade and fruit; the left suffer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Thornless lote trees"
+  },
+  {
+    "kind": "lesson",
+    "text": "Scalding water for deniers"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 56:28"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 56:27-56"
+  },
+  {
+    "kind": "question",
+    "text": "What do those on the right enjoy, in Al-Waqi'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Thirst"
+  },
+  {
+    "kind": "question",
+    "text": "Darkness"
+  },
+  {
+    "kind": "question",
+    "text": "Shade and fruit"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 27-56: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 27-56 say: A noble Quran in a guarded Book; only the pure touch it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do you grow the seed, or does Allah? Glorify His name."
+  },
+  {
+    "kind": "lesson",
+    "text": "He sends rain from clouds"
+  },
+  {
+    "kind": "lesson",
+    "text": "He gave us fire to use"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 56:64"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 56:57-74"
+  },
+  {
+    "kind": "question",
+    "text": "Who makes the crops grow, in Al-Waqi'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Farmers alone"
+  },
+  {
+    "kind": "question",
+    "text": "The sun alone"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 57-74: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 57-74 say: Do you grow the seed, or does Allah? Glorify His name."
+  },
+  {
+    "kind": "lesson",
+    "text": "A noble Quran in a guarded Book; only the pure touch it."
+  },
+  {
+    "kind": "lesson",
+    "text": "None can turn back death"
+  },
+  {
+    "kind": "lesson",
+    "text": "Glorify the name of your Lord"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 56:77"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 56:75-96"
+  },
+  {
+    "kind": "question",
+    "text": "How is the Quran described, in Al-Waqi'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Noble"
+  },
+  {
+    "kind": "question",
+    "text": "Old"
+  },
+  {
+    "kind": "question",
+    "text": "Difficult"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 75-96: what are they about?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayahs 75-96 say: Those on the right enjoy shade and fruit; the left suffer."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Waqi'ah!"
+  },
+  {
+    "kind": "lesson",
     "text": "Everything glorifies Allah; He is the First and the Last."
   },
   {
@@ -45009,10 +46725,6 @@
   },
   {
     "kind": "question",
-    "text": "Ayahs 1-18: what are they about?"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 1-18 say: A Day of 50,000 years; so be patient with beautiful patience."
   },
   {
@@ -45346,14 +47058,6 @@
   {
     "kind": "question",
     "text": "Who knows the unseen, in Al-Jinn?"
-  },
-  {
-    "kind": "question",
-    "text": "The stars"
-  },
-  {
-    "kind": "question",
-    "text": "Ayahs 20-28: what are they about?"
   },
   {
     "kind": "question",
@@ -46061,10 +47765,6 @@
   },
   {
     "kind": "question",
-    "text": "Darkness"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 41-50: what are they about?"
   },
   {
@@ -46622,10 +48322,6 @@
   {
     "kind": "question",
     "text": "What does Allah want for us?"
-  },
-  {
-    "kind": "question",
-    "text": "Hardship"
   },
   {
     "kind": "question",
