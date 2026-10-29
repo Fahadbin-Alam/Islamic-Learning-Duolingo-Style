@@ -63,6 +63,7 @@ import {
   setActiveLanguage,
   t
 } from "./i18n";
+import { CHARITY, charityEnabled } from "./config/charity";
 import { localizeLessonContent } from "./services/contentLocalization";
 import { localizedLessonLine, localizedWhy } from "./ui/lesson/localizedLines";
 import {
@@ -2700,6 +2701,7 @@ export default function TopicApp() {
             onOpenSettings={openSettingsModal}
             onOpenFamily={openFamily}
             onShareApp={() => void shareApp()}
+            charity={charityEnabled() ? CHARITY : undefined}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />

@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, type AccessibilityRole, type AccessibilityState } from "react-native";
+import type { CharityConfig } from "../../config/charity";
 import { COURSE } from "../../data/course";
 import type { UiStrings } from "../../i18n";
 import type { LearnerProfile, UserProfile } from "../../types";
@@ -10,6 +11,7 @@ import { PopIn } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount } from "./FormattedCount";
+import { DonateSheet } from "./DonateSheet";
 import { useGrownUpGate } from "./GrownUpGate";
 import { SwitchTrack } from "./sheetParts";
 import { t } from "../../i18n";
@@ -23,6 +25,8 @@ export type ProfileViewProps = {
   onOpenFamily?: () => void;
   /** Share row: the phone's share menu with an invite and the store link. Opens after the grown-up gate. */
   onShareApp?: () => void;
+  /** Give charity row: amounts, a QR code and a link to the charity's donation page. Opens after the grown-up gate. */
+  charity?: CharityConfig;
   /** Crew and Shop are bottom tabs now; kept optional so the old call site still type-checks. */
   onOpenCrew?: () => void;
   onOpenShop?: () => void;
@@ -165,6 +169,7 @@ export function ProfileView({
   onOpenSettings,
   onOpenFamily,
   onShareApp,
+  charity,
   onCreateAccount,
   hasSavedAccount = false,
   soundEnabled,
@@ -185,8 +190,9 @@ export function ProfileView({
   // Sign up, log in or log out changes the avatar and the name at the top: scroll back up so they show
   // whole, not cut off under the top bar, and pop the avatar in again.
   const accountKey = profileAccountKey(user, hasSavedAccount);
-  // Family and Share send things out of the app, so a grown-up opens them.
+  // Family, Share and Give charity send things out of the app, so a grown-up opens them.
   const { ask, gate } = useGrownUpGate();
+  const [donateOpen, setDonateOpen] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
   const shownAccount = useRef(accountKey);
   useEffect(() => {
@@ -255,6 +261,7 @@ export function ProfileView({
       <View style={styles.menu}>
         {onOpenFamily ? <MenuRow icon="family" label={t("Family")} onPress={() => ask(onOpenFamily)} testID="profile-family" /> : null}
         {onShareApp ? <MenuRow icon="share" label={t("Invite friends")} onPress={() => ask(onShareApp)} testID="profile-share" /> : null}
+        {charity ? <MenuRow icon="handHeart" label={t("Give charity")} onPress={() => ask(() => setDonateOpen(true))} testID="profile-charity" /> : null}
         <MenuRow icon="settings" label={strings.settings} onPress={onOpenSettings} testID="profile-settings" last={!onToggleSound} />
         {onToggleSound ? (
           <MenuRow
@@ -269,6 +276,7 @@ export function ProfileView({
           />
         ) : null}
       </View>
+      {charity ? <DonateSheet visible={donateOpen} onClose={() => setDonateOpen(false)} charity={charity} /> : null}
       {gate}
     </ScrollView>
   );

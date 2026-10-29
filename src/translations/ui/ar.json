@@ -527,5 +527,11 @@
   "{count} XP to stay": "{count} XP أخرى للبقاء",
   "{count} days left": "الأيام المتبقية: {count}",
   "Learn Islam with me on Muslimo! Quick, fun lessons on the Quran, Prophets and Sahabah. {link}": "تعلّم الإسلام معي على Muslimo! دروس قصيرة وممتعة عن القرآن والأنبياء والصحابة. {link}",
-  "Invite friends": "ادعُ أصدقاءك"
+  "Invite friends": "ادعُ أصدقاءك",
+  "Give charity": "تصدّق",
+  "Scan to give": "امسح الرمز للتبرّع",
+  "Donate {amount}": "تبرّع بـ{amount}",
+  "You pay on {name}'s website, not in the app.": "الدفع على موقع {name}، لا داخل التطبيق.",
+  "Choose {amount} on the page.": "اختر {amount} في الصفحة.",
+  "QR code for {name}": "رمز الاستجابة السريعة لـ{name}"
 }
