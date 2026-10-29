@@ -1,11 +1,13 @@
-import React, { memo, useEffect, useMemo, useRef } from "react";
-import { Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Animated, Dimensions, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import Svg, { Circle, Ellipse, G, Path, Rect } from "react-native-svg";
+import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import { sampleCurve, smoothKeys, useReduceMotion } from "./motion";
-
-export { useReduceMotion };
+import { Drop, Floater, Heart, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
 import { feedback } from "./sound";
 import { colors, darken, lighten } from "./theme";
+
+export { useReduceMotion };
 
 export type CamelProps = {
   /** Width of the camel in px. Default 64. */
@@ -18,7 +20,7 @@ export type CamelProps = {
   range?: number;
   /** Start facing left (walking toward the left end). */
   faceLeft?: boolean;
-  /** A tap makes the camel jump with a silly grunt and a puff of dust. */
+  /** Each tap plays the next reaction: happy, sad, a zoom across the screen, a spit, a laugh, a baby camel, a jump. */
   tappable?: boolean;
   style?: StyleProp<ViewStyle>;
   testID?: string;
@@ -39,11 +41,14 @@ const STEP_MS = 440;
 /** Steps per walk from one end to the other. */
 const STEPS = 6;
 const REST_MS = 900;
+/** Easing into and out of a walk, so the legs start and stop softly. */
+const STRIDE_MS = 220;
 /** Turning round at either end, taken out of the rest. */
 const TURN_MS = 260;
 
-// Each leg swings on its own about its hip, on a smooth sine: diagonal pairs swing together, like a
-// real walk. The swing grows from a stand over the first half step and settles back over the last.
+// Each leg swings on its own about its hip on a smooth cosine; diagonal pairs swing together, like a
+// real walk. `stride` (0..1) blends from a stand into the full swing, so a walk can start or stop at
+// any moment without the legs snapping.
 const SWING = 14;
 const STAND_ANGLE = 4;
 const LEGS = [
@@ -54,16 +59,6 @@ const LEGS = [
   { x: 64, sign: 1, color: FUR_DEEP }
 ] as const;
 const HIP_Y = 62;
-
-/** How far into a full swing the legs are at `s` steps: 0 at the ends of a walk, 1 in between. */
-function swingAmount(s: number) {
-  return Math.min(1, s / 0.5, (STEPS - s) / 0.5);
-}
-
-function legAngle(s: number, sign: number) {
-  const amount = swingAmount(s);
-  return sign * (STAND_ANGLE * (1 - amount) + amount * SWING * Math.cos(2 * Math.PI * s));
-}
 
 function Leg({ x, color }: { x: number; color: string }) {
   // A leg hangs from (x, HIP_Y); the knee is a little knob halfway down.
@@ -76,7 +71,69 @@ function Leg({ x, color }: { x: number; color: string }) {
   );
 }
 
-function Body({ accent }: { accent: string }) {
+type CamelFaceKind = "calm" | "happy" | "laugh" | "sad" | "puff" | "spit" | "baby";
+
+/** The camel's eye, cheek and mouth for each feeling. */
+function CamelFace({ face }: { face: CamelFaceKind }) {
+  const mouthColor = "#8A4B1E";
+  const eye =
+    face === "happy" || face === "laugh" ? (
+      <Path d={face === "laugh" ? "M93.5 14.5L98.5 17L93.5 19.5" : "M93.5 18Q96.5 13.5 99.5 18"} stroke={EYE} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    ) : face === "sad" ? (
+      <G>
+        <Circle cx={96.5} cy={17.5} r={2.8} fill={EYE} />
+        <Circle cx={97.4} cy={16.5} r={0.9} fill="#FFFFFF" />
+        <Path d="M93 11.8Q96.5 11.6 99.8 14" stroke={EYE} strokeWidth={1.3} strokeLinecap="round" fill="none" />
+      </G>
+    ) : face === "baby" ? (
+      <G>
+        <Circle cx={96.5} cy={17} r={4.4} fill={EYE} />
+        <Circle cx={98} cy={15.4} r={1.6} fill="#FFFFFF" />
+        <Circle cx={95.3} cy={18.8} r={0.8} fill="#FFFFFF" />
+      </G>
+    ) : (
+      <G>
+        <Circle cx={96.5} cy={17} r={3.2} fill={EYE} />
+        <Circle cx={97.6} cy={15.8} r={1.1} fill="#FFFFFF" />
+        <Path d="M92.8 12.6Q96 10.6 99.6 12.2" stroke={EYE} strokeWidth={1.3} strokeLinecap="round" fill="none" />
+      </G>
+    );
+  const mouth =
+    face === "happy" ? (
+      <Path d="M100.5 27.5Q105 33.5 110 28" stroke={mouthColor} strokeWidth={1.8} strokeLinecap="round" fill="none" />
+    ) : face === "laugh" ? (
+      <G>
+        <Path d="M100 27Q105 26 111 27Q110 34 105 34Q101 34 100 27Z" fill={mouthColor} />
+        <Path d="M102 31.5Q105 29.5 108.5 31.5Q107 34 105 34Q103 34 102 31.5Z" fill="#FF7E8E" />
+      </G>
+    ) : face === "sad" ? (
+      <Path d="M101.5 30.5Q105.5 27 109.5 30.2" stroke={mouthColor} strokeWidth={1.6} strokeLinecap="round" fill="none" />
+    ) : face === "puff" ? (
+      <Path d="M103 29.5L108 29.5" stroke={mouthColor} strokeWidth={1.8} strokeLinecap="round" />
+    ) : face === "spit" ? (
+      <Ellipse cx={107.5} cy={29.5} rx={2} ry={2.4} fill={mouthColor} />
+    ) : (
+      <Path d="M101 28.5Q105 31.5 109.5 28.8" stroke={mouthColor} strokeWidth={1.6} strokeLinecap="round" fill="none" />
+    );
+  const cheek =
+    face === "puff" ? <Ellipse cx={103} cy={26} rx={6.5} ry={5} fill={FUR_LIGHT} stroke={FUR_DEEP} strokeWidth={0.8} /> : <Ellipse cx={99} cy={25.5} rx={3} ry={2} fill={CHEEK} opacity={face === "baby" || face === "happy" ? 0.9 : 0.65} />;
+  return (
+    <G>
+      {cheek}
+      {mouth}
+      {eye}
+      {face === "baby" ? (
+        // A little bow on the baby camel's head.
+        <G>
+          <Path d="M90 9L84 5L84 13Z M90 9L96 5L96 13Z" fill="#FF82AB" />
+          <Circle cx={90} cy={9} r={2} fill="#FF5C8A" />
+        </G>
+      ) : null}
+    </G>
+  );
+}
+
+function Body({ accent, face }: { accent: string; face: CamelFaceKind }) {
   const cloth = accent;
   const clothLip = darken(accent, 0.18);
   return (
@@ -104,19 +161,39 @@ function Body({ accent }: { accent: string }) {
       <Ellipse cx={96} cy={20} rx={13} ry={10.5} fill={FUR} />
       <Ellipse cx={106} cy={25} rx={9} ry={7.4} fill={FUR_LIGHT} />
       <Path d="M110.5 21.5Q112.5 22.5 111.8 24.5" stroke={FUR_DEEP} strokeWidth={1.4} strokeLinecap="round" fill="none" />
-      <Path d="M101 28.5Q105 31.5 109.5 28.8" stroke="#8A4B1E" strokeWidth={1.6} strokeLinecap="round" fill="none" />
-      <Ellipse cx={99} cy={25.5} rx={3} ry={2} fill={CHEEK} opacity={0.65} />
-      <Circle cx={96.5} cy={17} r={3.2} fill={EYE} />
-      <Circle cx={97.6} cy={15.8} r={1.1} fill="#FFFFFF" />
-      <Path d="M92.8 12.6Q96 10.6 99.6 12.2" stroke={EYE} strokeWidth={1.3} strokeLinecap="round" fill="none" />
+      <CamelFace face={face} />
     </Svg>
   );
 }
 
+type CamelReaction = "happy" | "sad" | "zoom" | "spit" | "laugh" | "baby" | "jump";
+
+/** Each tap plays the next one, in this order. */
+export const CAMEL_REACTIONS: { kind: CamelReaction; sound: GameSoundEvent; ms: number }[] = [
+  { kind: "happy", sound: "sparkle", ms: 1600 },
+  { kind: "sad", sound: "sad", ms: 2200 },
+  { kind: "zoom", sound: "zoom", ms: 1700 },
+  { kind: "spit", sound: "spit", ms: 1600 },
+  { kind: "laugh", sound: "giggle", ms: 1800 },
+  { kind: "baby", sound: "sparkle", ms: 2800 },
+  { kind: "jump", sound: "camel", ms: 760 }
+];
+
+const FACE_FOR: Record<CamelReaction, CamelFaceKind> = {
+  happy: "happy",
+  sad: "sad",
+  zoom: "happy",
+  spit: "puff",
+  laugh: "laugh",
+  baby: "baby",
+  jump: "calm"
+};
+
 /**
  * The path's camel: a small cartoon dromedary with a saddle cloth in the topic color. While `walking`
  * it paces back and forth over `range` px (turning round at each end, a short rest), each leg swinging
- * smoothly and the body bobbing with every footfall. All of it runs on the native driver, so it costs the JS thread nothing.
+ * smoothly and the body bobbing with every footfall. A tap stops it for a little show (see
+ * CAMEL_REACTIONS); then it walks on from where it stood. All motion runs on the native driver.
  */
 export const Camel = memo(function Camel({
   size = 64,
@@ -129,95 +206,197 @@ export const Camel = memo(function Camel({
   testID
 }: CamelProps) {
   const reduceMotion = useReduceMotion();
-  const moving = walking && !reduceMotion;
   const height = Math.round((size * VIEW_H) / VIEW_W);
   const travel = Math.max(0, range);
+  const u = size / VIEW_W;
+
+  // Walk state. `step` only ever grows (the legs read it modulo 1); `stride` blends stand <-> walk.
   const step = useRef(new Animated.Value(0)).current;
+  const stride = useRef(new Animated.Value(0)).current;
   const pos = useRef(new Animated.Value(faceLeft ? 1 : 0)).current;
   const dir = useRef(new Animated.Value(faceLeft ? -1 : 1)).current;
+  const dash = useRef(new Animated.Value(0)).current;
+  const facing = useRef<1 | -1>(faceLeft ? -1 : 1);
+  const posNow = useRef(faceLeft ? 1 : 0);
+  const stepNow = useRef(0);
+  const walk = useRef<{ running: boolean; current?: Animated.CompositeAnimation }>({ running: false });
+
+  const [reaction, setReaction] = useState<CamelReaction | null>(null);
+  const { value: t, play } = useOneShot();
+  const next = useCycle(CAMEL_REACTIONS.length);
+  const moving = walking && !reduceMotion && reaction === null;
+
+  const stopWalk = useCallback(() => {
+    walk.current.running = false;
+    walk.current.current?.stop();
+    walk.current.current = undefined;
+    pos.stopAnimation((value) => {
+      posNow.current = value;
+    });
+    step.stopAnimation((value) => {
+      stepNow.current = value;
+    });
+    Animated.timing(stride, { toValue: 0, duration: STRIDE_MS, easing: Easing.out(Easing.sin), useNativeDriver: true }).start();
+  }, [pos, step, stride]);
 
   useEffect(() => {
-    step.setValue(0);
-    pos.setValue(faceLeft ? 1 : 0);
-    dir.setValue(faceLeft ? -1 : 1);
     if (!moving) return undefined;
-    const walkTo = (target: 0 | 1, facing: 1 | -1) =>
-      Animated.sequence([
-        // Turn round by squeezing through side-on, instead of flipping in one frame.
-        Animated.timing(dir, { toValue: facing, duration: TURN_MS, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-        Animated.timing(step, { toValue: 0, duration: 0, useNativeDriver: true }),
-        Animated.parallel([
-          Animated.timing(step, { toValue: STEPS, duration: STEPS * STEP_MS, easing: Easing.linear, useNativeDriver: true }),
-          Animated.timing(pos, { toValue: target, duration: STEPS * STEP_MS, easing: Easing.linear, useNativeDriver: true })
-        ]),
-        Animated.timing(step, { toValue: 0, duration: 0, useNativeDriver: true }),
-        Animated.delay(REST_MS - TURN_MS)
+    walk.current.running = true;
+    const leg = () => {
+      if (!walk.current.running) return;
+      const target = facing.current > 0 ? 1 : 0;
+      const distance = Math.abs(target - posNow.current);
+      if (distance < 0.01) {
+        // At the end: rest, then turn round by squeezing through side-on.
+        facing.current = facing.current > 0 ? -1 : 1;
+        const turn = Animated.sequence([
+          Animated.delay(REST_MS - TURN_MS),
+          Animated.timing(dir, { toValue: facing.current, duration: TURN_MS, easing: Easing.inOut(Easing.sin), useNativeDriver: true })
+        ]);
+        walk.current.current = turn;
+        turn.start(({ finished }) => finished && leg());
+        return;
+      }
+      const steps = Math.max(1, distance * STEPS);
+      const duration = steps * STEP_MS;
+      const stepTo = stepNow.current + steps;
+      const going = Animated.parallel([
+        Animated.timing(pos, { toValue: target, duration, easing: Easing.linear, useNativeDriver: true }),
+        Animated.timing(step, { toValue: stepTo, duration, easing: Easing.linear, useNativeDriver: true }),
+        Animated.sequence([
+          Animated.timing(stride, { toValue: 1, duration: STRIDE_MS, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+          Animated.delay(Math.max(0, duration - STRIDE_MS * 2)),
+          Animated.timing(stride, { toValue: 0, duration: STRIDE_MS, easing: Easing.inOut(Easing.sin), useNativeDriver: true })
+        ])
       ]);
-    const trip = faceLeft ? [walkTo(0, -1), walkTo(1, 1)] : [walkTo(1, 1), walkTo(0, -1)];
-    const loop = Animated.loop(Animated.sequence(trip));
-    loop.start();
-    return () => loop.stop();
-  }, [moving, faceLeft, step, pos, dir]);
+      walk.current.current = going;
+      going.start(({ finished }) => {
+        if (!finished) return;
+        posNow.current = target;
+        stepNow.current = stepTo;
+        leg();
+      });
+    };
+    // Make sure the camel faces the way it will walk before it sets off.
+    dir.setValue(facing.current);
+    leg();
+    return stopWalk;
+  }, [moving, pos, step, stride, dir, stopWalk]);
 
   const anim = useMemo(() => {
-    // Samples per step: enough that the straight pieces between them can't be seen.
-    const samples = STEPS * 16;
+    const phase = Animated.modulo(step, 1);
+    const swing = phase.interpolate(sampleCurve(0, 1, 32, (s) => SWING * Math.cos(2 * Math.PI * s) - STAND_ANGLE));
+    // angle = stand + stride * (swing - stand), mirrored for the legs that swing the other way.
+    const angle = Animated.add(Animated.multiply(stride, swing), new Animated.Value(STAND_ANGLE));
     return {
-      legs: LEGS.map((leg) =>
-        step
-          .interpolate(sampleCurve(0, STEPS, samples, (s) => legAngle(s, leg.sign)))
-          .interpolate({ inputRange: [-90, 90], outputRange: ["-90deg", "90deg"] })
-      ),
-      // Two soft dips per step, one for each footfall, on a cosine so it never jerks.
-      bob: step.interpolate(sampleCurve(0, STEPS, samples, (s) => -1.25 * swingAmount(s) * (1 - Math.cos(4 * Math.PI * s)))),
-      x: pos.interpolate({ inputRange: [0, 1], outputRange: [0, travel] })
+      legs: LEGS.map((leg) => angle.interpolate({ inputRange: [-90, 90], outputRange: leg.sign > 0 ? ["-90deg", "90deg"] : ["90deg", "-90deg"] })),
+      // Two soft dips per step, one for each footfall, only while walking.
+      bob: Animated.multiply(stride, phase.interpolate(sampleCurve(0, 1, 32, (s) => -1.25 * (1 - Math.cos(4 * Math.PI * s))))),
+      x: Animated.add(pos.interpolate({ inputRange: [0, 1], outputRange: [0, travel] }), dash)
     };
-  }, [step, pos, travel]);
+  }, [step, stride, pos, dash, travel]);
 
-  const jump = useRef(new Animated.Value(0)).current;
-  const jumping = useRef(false);
   const onTap = () => {
-    feedback("camel", "medium");
-    if (reduceMotion || jumping.current) return;
-    jumping.current = true;
-    jump.setValue(0);
-    Animated.timing(jump, { toValue: 1, duration: 760, easing: Easing.linear, useNativeDriver: true }).start(() => {
-      jumping.current = false;
-      jump.setValue(0);
+    // One show at a time; a tap during it just gets the grunt.
+    if (reaction) {
+      feedback("camel", "light");
+      return;
+    }
+    const pick = CAMEL_REACTIONS[next()];
+    feedback(pick.sound, "medium");
+    stopWalk();
+    setReaction(pick.kind);
+    if (pick.kind === "zoom" && !reduceMotion) {
+      // Run off the screen the way it faces and come back in from the other side.
+      const far = (Dimensions.get("window").width + size) * facing.current;
+      const half = (pick.ms * 0.46) | 0;
+      const from = stepNow.current;
+      Animated.parallel([
+        Animated.sequence([
+          Animated.timing(dash, { toValue: far, duration: half, easing: Easing.in(Easing.quad), useNativeDriver: true }),
+          Animated.timing(dash, { toValue: -far, duration: 0, useNativeDriver: true }),
+          Animated.timing(dash, { toValue: 0, duration: half, easing: Easing.out(Easing.quad), useNativeDriver: true })
+        ]),
+        Animated.timing(stride, { toValue: 1, duration: 120, useNativeDriver: true }),
+        Animated.timing(step, { toValue: from + 9, duration: half * 2, easing: Easing.linear, useNativeDriver: true })
+      ]).start(() => {
+        stepNow.current = from + 9;
+      });
+    }
+    play(reduceMotion ? 900 : pick.ms, () => {
+      dash.setValue(0);
+      setReaction(null);
     });
   };
-  const hop = useMemo(
-    () => ({
-      // Crouch, leap, land with a squash, settle: eased between every key so nothing snaps.
-      y: jump.interpolate(smoothKeys([0, 0.12, 0.4, 0.66, 0.76, 0.88, 1], [0, 2, -size * 0.36, 0, 1.5, -3, 0])),
-      squash: jump.interpolate(smoothKeys([0, 0.12, 0.3, 0.66, 0.74, 0.86, 1], [1, 0.88, 1.08, 1, 0.86, 1.03, 1])),
-      spin: jump.interpolate(smoothKeys([0, 0.2, 0.45, 0.66, 1], ["0deg", "-6deg", "-12deg", "4deg", "0deg"])),
-      shadow: jump.interpolate(smoothKeys([0, 0.4, 0.66, 1], [1, 0.55, 1, 1])),
-      puff: jump.interpolate({ inputRange: [0, 0.64, 0.66, 0.95, 1], outputRange: [0, 0, 1, 0, 0] }),
-      puffSpread: jump.interpolate({ inputRange: [0, 0.66, 1], outputRange: [0, 0, 1] })
-    }),
-    [jump, size]
-  );
 
-  const still = !moving;
+  // Body motion for each reaction, on top of the walk.
+  const fx = useMemo(() => {
+    const none = { y: 0 as number | Animated.AnimatedInterpolation<number>, rotate: "0deg" as string | Animated.AnimatedInterpolation<string>, scaleY: 1 as number | Animated.AnimatedInterpolation<number>, scale: 1 as number | Animated.AnimatedInterpolation<number> };
+    if (reduceMotion || !reaction) return none;
+    switch (reaction) {
+      case "happy":
+        return { ...none, y: t.interpolate(smoothKeys([0, 0.15, 0.3, 0.45, 0.6, 1], [0, -size * 0.14, 0, -size * 0.1, 0, 0])) };
+      case "sad":
+        return { ...none, y: t.interpolate(smoothKeys([0, 0.15, 0.85, 1], [0, 2, 2, 0])), scaleY: t.interpolate(smoothKeys([0, 0.15, 0.85, 1], [1, 0.93, 0.93, 1])) };
+      case "laugh":
+        return { ...none, rotate: shake(t, 0.05, 0.9, 5, 8) };
+      case "spit":
+        // Leans back to puff up, then throws the head forward.
+        return { ...none, rotate: t.interpolate(smoothKeys([0, 0.3, 0.38, 0.5, 1], ["0deg", "-6deg", "5deg", "0deg", "0deg"])) };
+      case "baby":
+        return { ...none, scale: t.interpolate(smoothKeys([0, 0.08, 0.16, 0.86, 0.94, 1], [1, 1, 0.55, 0.55, 1.05, 1])) };
+      case "jump":
+        // Crouch, leap, land with a squash, settle.
+        return {
+          ...none,
+          y: t.interpolate(smoothKeys([0, 0.12, 0.4, 0.66, 0.76, 0.88, 1], [0, 2, -size * 0.36, 0, 1.5, -3, 0])),
+          scaleY: t.interpolate(smoothKeys([0, 0.12, 0.3, 0.66, 0.74, 0.86, 1], [1, 0.88, 1.08, 1, 0.86, 1.03, 1])),
+          rotate: t.interpolate(smoothKeys([0, 0.2, 0.45, 0.66, 1], ["0deg", "-6deg", "-12deg", "4deg", "0deg"]))
+        };
+      default:
+        return none;
+    }
+  }, [reaction, reduceMotion, t, size]);
+
+  const face: CamelFaceKind = reaction ? (reaction === "spit" ? "spit" : FACE_FOR[reaction]) : "calm";
+  const [faceNow, setFaceNow] = useState<CamelFaceKind>("calm");
+  useEffect(() => {
+    // The spit puffs the cheeks first, then opens the mouth.
+    if (reaction !== "spit") {
+      setFaceNow(face);
+      return undefined;
+    }
+    setFaceNow("puff");
+    const timer = setTimeout(() => setFaceNow("spit"), 560);
+    return () => clearTimeout(timer);
+  }, [reaction, face]);
+
+  // Where the head is, in the camel's box, whichever way it faces (for the bits that pop off it).
+  const headX = facing.current > 0 ? 96 * u : size - 96 * u;
+  const shows = !reduceMotion && reaction !== null;
+  const landing = reaction === "jump";
+
   const camel = (
-    <>
-      <Animated.View style={[styles.shadow, { width: size * 0.62, left: size * 0.16, transform: [{ translateX: anim.x }, { scaleX: hop.shadow }] }]} />
-      {tappable
+    <Animated.View style={[styles.lane, { width: size, height, transform: [{ translateX: anim.x }] }]} pointerEvents="none">
+      <Animated.View
+        style={[
+          styles.shadow,
+          { width: size * 0.62, left: size * 0.16, transform: [{ scaleX: landing ? t.interpolate(smoothKeys([0, 0.4, 0.66, 1], [1, 0.55, 1, 1])) : fx.scale }] }
+        ]}
+      />
+      {landing && !reduceMotion
         ? // Two dust puffs kicked up where the camel lands.
           ([-1, 1] as const).map((side) => (
             <Animated.View
               key={side}
-              pointerEvents="none"
               style={[
                 styles.puff,
                 {
                   left: size * 0.5 - 7,
-                  opacity: hop.puff,
+                  opacity: t.interpolate({ inputRange: [0, 0.64, 0.66, 0.95, 1], outputRange: [0, 0, 1, 0, 0] }),
                   transform: [
-                    { translateX: anim.x },
-                    { translateX: hop.puffSpread.interpolate({ inputRange: [0, 1], outputRange: [side * size * 0.2, side * size * 0.48] }) },
-                    { scale: hop.puffSpread.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1.3] }) }
+                    { translateX: t.interpolate({ inputRange: [0, 0.66, 1], outputRange: [side * size * 0.2, side * size * 0.2, side * size * 0.48] }) },
+                    { scale: t.interpolate({ inputRange: [0, 0.66, 1], outputRange: [0.6, 0.6, 1.3] }) }
                   ]
                 }
               ]}
@@ -229,7 +408,7 @@ export const Camel = memo(function Camel({
           width: size,
           height,
           transformOrigin: "bottom",
-          transform: [{ translateX: anim.x }, { translateY: hop.y }, { scaleX: still ? (faceLeft ? -1 : 1) : dir }, { rotate: hop.spin }, { scaleY: hop.squash }]
+          transform: [{ translateY: fx.y }, { scaleX: dir }, { rotate: fx.rotate }, { scaleY: fx.scaleY }, { scale: fx.scale }]
         }}
       >
         {LEGS.map((leg, index) => (
@@ -237,20 +416,73 @@ export const Camel = memo(function Camel({
             key={leg.x}
             style={[
               StyleSheet.absoluteFill,
-              {
-                transformOrigin: `${(leg.x / VIEW_W) * 100}% ${(HIP_Y / VIEW_H) * 100}%`,
-                transform: [{ rotate: still ? `${leg.sign * STAND_ANGLE}deg` : anim.legs[index] }]
-              }
+              { transformOrigin: `${(leg.x / VIEW_W) * 100}% ${(HIP_Y / VIEW_H) * 100}%`, transform: [{ rotate: anim.legs[index] }] }
             ]}
           >
             <Leg x={leg.x} color={leg.color} />
           </Animated.View>
         ))}
-        <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ translateY: still ? 0 : anim.bob }] }]}>
-          <Body accent={accent} />
+        <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ translateY: anim.bob }] }]}>
+          <Body accent={accent} face={faceNow} />
         </Animated.View>
+        {shows && reaction === "zoom"
+          ? // Speed lines behind the tail.
+            [0, 1, 2].map((line) => (
+              <View key={line} style={[styles.speed, { left: -size * (0.3 + line * 0.08), top: height * (0.3 + line * 0.14), width: size * 0.34 }]} />
+            ))
+          : null}
+        {shows && reaction === "spit" ? (
+          // The spit: a little drop flies out of the mouth in an arc, then a splash where it lands.
+          <>
+            <Floater t={t} from={0.36} to={0.72} x={110 * u} y={26 * u} rise={-height * 0.45} drift={size * 0.45} pop={false}>
+              <Drop size={Math.max(5, 8 * u)} color="#8FD3FF" />
+            </Floater>
+            <Floater t={t} from={0.7} to={1} x={110 * u + size * 0.42} y={height * 0.8} rise={2} pop>
+              <View style={[styles.splat, { width: 16 * u + 6, height: 6 * u + 3 }]} />
+            </Floater>
+          </>
+        ) : null}
       </Animated.View>
-    </>
+      {shows && reaction === "happy"
+        ? [0, 0.2, 0.4].map((from, index) => (
+            <Floater key={from} t={t} from={from} to={from + 0.55} x={headX - 6 + (index - 1) * 10 * u} y={-4} rise={22 * u} drift={(index - 1) * 6 * u}>
+              <Heart size={Math.max(9, 13 * u)} />
+            </Floater>
+          ))
+        : null}
+      {shows && reaction === "sad" ? (
+        <>
+          <Floater t={t} from={0} to={0.95} x={headX - 14} y={-height * 0.32} rise={0} pop>
+            <View style={[styles.cloud, { width: 28, height: 12 }]} />
+          </Floater>
+          {[0.1, 0.3, 0.5, 0.7].map((from, index) => (
+            <Floater key={from} t={t} from={from} to={from + 0.25} x={headX - 10 + (index % 2) * 10} y={-height * 0.12} rise={-14} pop={false}>
+              <Drop size={4} color="#7CC2F2" />
+            </Floater>
+          ))}
+        </>
+      ) : null}
+      {shows && reaction === "laugh"
+        ? [0.05, 0.45].map((from, index) => (
+            <Floater key={from} t={t} from={from} to={from + 0.5} x={headX - 8 + (index ? 12 : -12)} y={-6} rise={18} drift={index ? 8 : -8}>
+              <Word size={Math.max(10, 13 * u)} color="#FF8A1F">HA</Word>
+            </Floater>
+          ))
+        : null}
+      {shows && reaction === "baby"
+        ? [
+            { x: 0.1, y: 0.2, from: 0.02 },
+            { x: 0.7, y: 0.05, from: 0.06 },
+            { x: 0.45, y: 0.55, from: 0.1 },
+            { x: 0.2, y: 0.4, from: 0.84 },
+            { x: 0.75, y: 0.35, from: 0.88 }
+          ].map((spark) => (
+            <Floater key={`${spark.x}-${spark.from}`} t={t} from={spark.from} to={spark.from + 0.14} x={size * spark.x} y={height * spark.y} rise={8}>
+              <Sparkle size={Math.max(9, 12 * u)} />
+            </Floater>
+          ))
+        : null}
+    </Animated.View>
   );
   if (!tappable) {
     return (
@@ -267,6 +499,26 @@ export const Camel = memo(function Camel({
 });
 
 const styles = StyleSheet.create({
+  lane: {
+    position: "absolute",
+    left: 0,
+    top: 0
+  },
+  speed: {
+    position: "absolute",
+    height: 2.5,
+    borderRadius: 2,
+    backgroundColor: "rgba(31,45,39,0.25)"
+  },
+  splat: {
+    borderRadius: 8,
+    backgroundColor: "#8FD3FF",
+    opacity: 0.8
+  },
+  cloud: {
+    borderRadius: 7,
+    backgroundColor: "#AEBDCB"
+  },
   puff: {
     position: "absolute",
     bottom: -2,

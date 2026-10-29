@@ -1,10 +1,25 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Animated, Easing, StyleSheet, type StyleProp, type ViewStyle } from "react-native";
+import { Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import Svg, { Circle, Ellipse, G, Path } from "react-native-svg";
-import { useReduceMotion } from "./motion";
+import { smoothKeys, useReduceMotion } from "./motion";
+import { Drop, Floater, Heart, Puff, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
+import { feedback } from "./sound";
+import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import { colors, darken, lighten } from "./theme";
 
-export type MascotMood = "happy" | "cheer" | "think" | "sad" | "wave";
+export type MascotMood =
+  | "happy"
+  | "cheer"
+  | "think"
+  | "sad"
+  | "wave"
+  // Tap reactions on the path (see TAP_REACTIONS).
+  | "laugh"
+  | "mad"
+  | "surprised"
+  | "cry"
+  | "love"
+  | "sleepy";
 export type MascotVariant = "girl" | "boy";
 
 export type MascotProps = {
@@ -18,6 +33,9 @@ export type MascotProps = {
    */
   accent?: string;
   animated?: boolean;
+  /** A tap makes the mascot react: laugh, get mad, wave, cry, fall in love... one after another. */
+  tappable?: boolean;
+  testID?: string;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -76,7 +94,47 @@ function poseFor(mood: MascotMood): Pose {
         leftCtrl: { x: 35, y: 106 },
         rightCtrl: { x: 85, y: 106 }
       };
+    case "mad":
+      // Hands on hips.
+      return {
+        left: { x: 36, y: 110 },
+        right: { x: 84, y: 110 },
+        leftCtrl: { x: 22, y: 100 },
+        rightCtrl: { x: 98, y: 100 }
+      };
+    case "surprised":
+      // Hands up by the cheeks.
+      return {
+        left: { x: 30, y: 74 },
+        right: { x: 90, y: 74 },
+        leftCtrl: { x: 26, y: 96 },
+        rightCtrl: { x: 94, y: 96 }
+      };
+    case "love":
+      // Hands together at the chest.
+      return {
+        left: { x: 54, y: 100 },
+        right: { x: 66, y: 100 },
+        leftCtrl: { x: 38, y: 108 },
+        rightCtrl: { x: 82, y: 108 }
+      };
+    case "laugh":
+      // Holding the tummy.
+      return {
+        left: { x: 46, y: 112 },
+        right: { x: 74, y: 112 },
+        leftCtrl: { x: 30, y: 108 },
+        rightCtrl: { x: 90, y: 108 }
+      };
+    case "cry":
+      return {
+        left: { x: 37, y: 120 },
+        right: { x: 83, y: 120 },
+        leftCtrl: { x: 35, y: 106 },
+        rightCtrl: { x: 85, y: 106 }
+      };
     case "happy":
+    case "sleepy":
     default:
       return {
         left: { x: 30, y: 116 },
@@ -95,6 +153,72 @@ function Eyes({ mood, blink }: { mood: MascotMood; blink: boolean }) {
   const leftX = 48.5;
   const rightX = 71.5;
   const y = 56;
+
+  if (mood === "laugh") {
+    // Squeezed shut: > <
+    return (
+      <G stroke={EYE} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" fill="none">
+        <Path d={`M${leftX - 4.5} ${y - 4} L${leftX + 3.5} ${y} L${leftX - 4.5} ${y + 4}`} />
+        <Path d={`M${rightX + 4.5} ${y - 4} L${rightX - 3.5} ${y} L${rightX + 4.5} ${y + 4}`} />
+      </G>
+    );
+  }
+
+  if (mood === "cry") {
+    return (
+      <G>
+        <G stroke={EYE} strokeWidth={3} strokeLinecap="round" fill="none">
+          <Path d={`M${leftX - 5} ${y + 1} Q${leftX} ${y - 3} ${leftX + 5} ${y + 1}`} />
+          <Path d={`M${rightX - 5} ${y + 1} Q${rightX} ${y - 3} ${rightX + 5} ${y + 1}`} />
+          <Path d={`M${leftX - 5.5} ${y - 7} Q${leftX - 1} ${y - 9.6} ${leftX + 4} ${y - 11}`} strokeWidth={2.2} />
+          <Path d={`M${rightX + 5.5} ${y - 7} Q${rightX + 1} ${y - 9.6} ${rightX - 4} ${y - 11}`} strokeWidth={2.2} />
+        </G>
+        {/* tear streams */}
+        <Path d={`M${leftX - 3} ${y + 3} Q${leftX - 5} ${y + 10} ${leftX - 4} ${y + 16}`} stroke="#7CC2F2" strokeWidth={3} strokeLinecap="round" fill="none" />
+        <Path d={`M${rightX + 3} ${y + 3} Q${rightX + 5} ${y + 10} ${rightX + 4} ${y + 16}`} stroke="#7CC2F2" strokeWidth={3} strokeLinecap="round" fill="none" />
+      </G>
+    );
+  }
+
+  if (mood === "love") {
+    return (
+      <G fill="#FF5C8A">
+        {[leftX, rightX].map((cx) => (
+          <Path
+            key={cx}
+            d={`M${cx} ${y + 6} C${cx} ${y + 6} ${cx - 7} ${y + 1.5} ${cx - 7} ${y - 2.5} C${cx - 7} ${y - 5} ${cx - 5} ${y - 6.5} ${cx - 3} ${y - 6.5} C${cx - 1.6} ${y - 6.5} ${cx - 0.6} ${y - 5.6} ${cx} ${y - 4.5} C${cx + 0.6} ${y - 5.6} ${cx + 1.6} ${y - 6.5} ${cx + 3} ${y - 6.5} C${cx + 5} ${y - 6.5} ${cx + 7} ${y - 5} ${cx + 7} ${y - 2.5} C${cx + 7} ${y + 1.5} ${cx} ${y + 6} ${cx} ${y + 6} Z`}
+          />
+        ))}
+      </G>
+    );
+  }
+
+  if (mood === "sleepy") {
+    return (
+      <G stroke={EYE} strokeWidth={2.8} strokeLinecap="round" fill="none">
+        <Path d={`M${leftX - 5} ${y + 1} Q${leftX} ${y + 3.5} ${leftX + 5} ${y + 1}`} />
+        <Path d={`M${rightX - 5} ${y + 1} Q${rightX} ${y + 3.5} ${rightX + 5} ${y + 1}`} />
+      </G>
+    );
+  }
+
+  if (mood === "surprised" && !blink) {
+    return (
+      <G>
+        {[leftX, rightX].map((cx) => (
+          <G key={cx}>
+            <Circle cx={cx} cy={y} r={6.6} fill="#FFFFFF" stroke={EYE} strokeWidth={1.6} />
+            <Circle cx={cx} cy={y} r={3.4} fill={EYE} />
+            <Circle cx={cx + 1.2} cy={y - 1.3} r={1.1} fill="#FFFFFF" />
+          </G>
+        ))}
+        <G stroke={EYE} strokeWidth={2.2} strokeLinecap="round" fill="none">
+          <Path d={`M${leftX - 4.5} ${y - 12} Q${leftX} ${y - 15} ${leftX + 4.5} ${y - 12.5}`} />
+          <Path d={`M${rightX - 4.5} ${y - 12.5} Q${rightX} ${y - 15} ${rightX + 4.5} ${y - 12}`} />
+        </G>
+      </G>
+    );
+  }
 
   if (mood === "cheer") {
     return (
@@ -133,6 +257,13 @@ function Eyes({ mood, blink }: { mood: MascotMood; blink: boolean }) {
           <Path d={`M${rightX + 5.5} ${y - 6} Q${rightX + 1} ${y - 8.6} ${rightX - 4} ${y - 10}`} />
         </G>
       ) : null}
+      {mood === "mad" ? (
+        // Cross brows, pointing down to the middle.
+        <G stroke={EYE} strokeWidth={2.6} strokeLinecap="round" fill="none">
+          <Path d={`M${leftX - 5} ${y - 10.5} L${leftX + 4.5} ${y - 6.5}`} />
+          <Path d={`M${rightX + 5} ${y - 10.5} L${rightX - 4.5} ${y - 6.5}`} />
+        </G>
+      ) : null}
       {mood === "think" ? (
         <G stroke={EYE} strokeWidth={2.2} strokeLinecap="round" fill="none">
           <Path d={`M${leftX - 4} ${y - 9.5} Q${leftX} ${y - 11.5} ${leftX + 4} ${y - 10}`} />
@@ -152,6 +283,28 @@ function Mouth({ mood }: { mood: MascotMood }) {
           <Path d="M54 74.2 Q60 70.4 66 74.2 Q63.6 78 60 78 Q56.4 78 54 74.2 Z" fill={TONGUE} />
         </G>
       );
+    case "laugh":
+      return (
+        <G>
+          <Path d="M48.5 65.5 Q60 64 71.5 65.5 Q70 80 60 80 Q50 80 48.5 65.5 Z" fill={MOUTH} />
+          <Path d="M50.5 66.2 Q60 65.2 69.5 66.2 L69 68.2 Q60 67.4 51 68.2 Z" fill="#FFFFFF" />
+          <Path d="M53.5 76 Q60 71.5 66.5 76 Q63.8 80 60 80 Q56.2 80 53.5 76 Z" fill={TONGUE} />
+        </G>
+      );
+    case "mad":
+      return <Path d="M53.5 72.5 Q57 69.5 60 71 Q63 69.5 66.5 72.5" stroke={MOUTH} strokeWidth={2.8} strokeLinecap="round" fill="none" />;
+    case "surprised":
+      return <Ellipse cx={60} cy={71.5} rx={4.2} ry={5.2} fill={MOUTH} />;
+    case "cry":
+      return (
+        <G>
+          <Path d="M52 74 Q60 64.5 68 74 Q60 71.5 52 74 Z" fill={MOUTH} stroke={MOUTH} strokeWidth={2} strokeLinejoin="round" />
+        </G>
+      );
+    case "sleepy":
+      return <Ellipse cx={60} cy={70.5} rx={2.6} ry={3} fill={MOUTH} />;
+    case "love":
+      return <Path d="M53 67 Q60 74.5 67 67" stroke={MOUTH} strokeWidth={2.8} strokeLinecap="round" fill="none" />;
     case "think":
       return <Path d="M57 70 Q61.5 68 65.5 69.5" stroke={MOUTH} strokeWidth={2.6} strokeLinecap="round" fill="none" />;
     case "sad":
@@ -170,8 +323,8 @@ function Mouth({ mood }: { mood: MascotMood }) {
 function Face({ mood, blink }: { mood: MascotMood; blink: boolean }) {
   return (
     <G>
-      <Ellipse cx={39} cy={65} rx={5.4} ry={3.4} fill={CHEEK} fillOpacity={0.55} />
-      <Ellipse cx={81} cy={65} rx={5.4} ry={3.4} fill={CHEEK} fillOpacity={0.55} />
+      <Ellipse cx={39} cy={65} rx={5.4} ry={3.4} fill={mood === "mad" ? "#FF5A5A" : CHEEK} fillOpacity={mood === "mad" || mood === "love" ? 0.8 : 0.55} />
+      <Ellipse cx={81} cy={65} rx={5.4} ry={3.4} fill={mood === "mad" ? "#FF5A5A" : CHEEK} fillOpacity={mood === "mad" || mood === "love" ? 0.8 : 0.55} />
       <Eyes mood={mood} blink={blink} />
       <Path d="M58.2 62.4 Q60 63.8 61.8 62.4" stroke={SKIN_DEEP} strokeWidth={1.8} strokeLinecap="round" fill="none" />
       <Mouth mood={mood} />
@@ -365,7 +518,7 @@ const WAVE_DEG = 11;
 const WAVE_MS = 300;
 
 /** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
-export function Mascot({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style }: MascotProps) {
+function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style }: MascotProps) {
   const resolved = resolveMascotVariant(variant);
   const reduceMotion = useReduceMotion();
   const moving = animated && !reduceMotion;
@@ -489,6 +642,173 @@ export function Mascot({ variant, mood = "happy", size = 120, accent = colors.gr
         </Svg>
       )}
     </Animated.View>
+  );
+}
+
+type TapReaction = { mood: MascotMood; sound: GameSoundEvent; ms: number };
+
+/** What the mascot does on each tap, in turn. Kept gentle: every feeling, nothing mean. */
+export const TAP_REACTIONS: TapReaction[] = [
+  { mood: "wave", sound: "boing", ms: 1800 },
+  { mood: "laugh", sound: "giggle", ms: 1900 },
+  { mood: "mad", sound: "grumble", ms: 1800 },
+  { mood: "surprised", sound: "boing", ms: 1500 },
+  { mood: "love", sound: "sparkle", ms: 2000 },
+  { mood: "cry", sound: "sad", ms: 2100 },
+  { mood: "cheer", sound: "xp", ms: 1700 },
+  { mood: "sleepy", sound: "whoosh", ms: 2200 },
+  { mood: "think", sound: "soft_ui", ms: 1700 }
+];
+
+/** The little things that pop off the mascot for a reaction, laid out on its box. */
+function ReactionBits({ mood, t, size }: { mood: MascotMood; t: Animated.Value; size: number }) {
+  const u = size / VIEW_W;
+  switch (mood) {
+    case "laugh":
+      return (
+        <>
+          <Floater t={t} from={0.05} to={0.6} x={-6 * u} y={20 * u} rise={22 * u} drift={-8 * u}>
+            <Word size={Math.max(11, 16 * u)} color="#FF8A1F">HA</Word>
+          </Floater>
+          <Floater t={t} from={0.3} to={0.9} x={94 * u} y={14 * u} rise={22 * u} drift={8 * u}>
+            <Word size={Math.max(11, 16 * u)} color="#FF8A1F">HA</Word>
+          </Floater>
+        </>
+      );
+    case "mad":
+      return (
+        <>
+          {[0, 0.25, 0.5].map((from, index) => (
+            <React.Fragment key={from}>
+              <Floater t={t} from={from} to={from + 0.4} x={14 * u} y={22 * u} rise={18 * u} drift={-10 * u}>
+                <Puff size={Math.max(8, (12 - index) * u)} />
+              </Floater>
+              <Floater t={t} from={from + 0.1} to={from + 0.5} x={96 * u} y={22 * u} rise={18 * u} drift={10 * u}>
+                <Puff size={Math.max(8, (12 - index) * u)} />
+              </Floater>
+            </React.Fragment>
+          ))}
+        </>
+      );
+    case "surprised":
+      return (
+        <Floater t={t} from={0} to={0.7} x={56 * u} y={-6 * u} rise={10 * u}>
+          <Word size={Math.max(14, 22 * u)} color="#FF5A5A">!</Word>
+        </Floater>
+      );
+    case "love":
+      return (
+        <>
+          {[
+            { x: 10, y: 30, from: 0, drift: -6 },
+            { x: 92, y: 24, from: 0.2, drift: 8 },
+            { x: 52, y: 4, from: 0.4, drift: 0 }
+          ].map((heart) => (
+            <Floater key={heart.x} t={t} from={heart.from} to={heart.from + 0.55} x={heart.x * u} y={heart.y * u} rise={30 * u} drift={heart.drift * u}>
+              <Heart size={Math.max(10, 16 * u)} />
+            </Floater>
+          ))}
+        </>
+      );
+    case "cry":
+      return (
+        <>
+          {[0, 0.2, 0.4, 0.6].map((from, index) => (
+            <Floater key={from} t={t} from={from} to={from + 0.35} x={(index % 2 === 0 ? 40 : 76) * u} y={66 * u} rise={-26 * u} drift={(index % 2 === 0 ? -8 : 8) * u} pop={false}>
+              <Drop size={Math.max(5, 7 * u)} color="#7CC2F2" />
+            </Floater>
+          ))}
+        </>
+      );
+    case "cheer":
+      return (
+        <>
+          {[
+            { x: 4, y: 40, from: 0 },
+            { x: 100, y: 30, from: 0.15 },
+            { x: 20, y: 6, from: 0.3 },
+            { x: 86, y: 0, from: 0.45 }
+          ].map((star) => (
+            <Floater key={star.x} t={t} from={star.from} to={star.from + 0.45} x={star.x * u} y={star.y * u} rise={16 * u}>
+              <Sparkle size={Math.max(10, 14 * u)} />
+            </Floater>
+          ))}
+        </>
+      );
+    case "sleepy":
+      return (
+        <>
+          {["Z", "z", "z"].map((letter, index) => (
+            <Floater key={index} t={t} from={index * 0.22} to={index * 0.22 + 0.5} x={(88 + index * 6) * u} y={(20 - index * 6) * u} rise={20 * u} drift={10 * u}>
+              <Word size={Math.max(10, (17 - index * 3) * u)} color="#8C7BF4">{letter}</Word>
+            </Floater>
+          ))}
+        </>
+      );
+    default:
+      return null;
+  }
+}
+
+/** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
+export function Mascot(props: MascotProps) {
+  const { tappable, mood = "happy", size = 120, style, testID, animated = true } = props;
+  const reduceMotion = useReduceMotion();
+  const [reaction, setReaction] = useState<MascotMood | null>(null);
+  const { value: t, play } = useOneShot();
+  const next = useCycle(TAP_REACTIONS.length);
+  const height = (size * VIEW_H) / VIEW_W;
+
+  if (!tappable) {
+    return <MascotFigure {...props} />;
+  }
+
+  const onTap = () => {
+    const pick = TAP_REACTIONS[next()];
+    feedback(pick.sound, "light");
+    setReaction(pick.mood);
+    // With reduced motion the face still changes for a moment; only the moving bits are left out.
+    play(pick.ms, () => setReaction(null));
+  };
+
+  const shown = reaction ?? mood;
+  const moves = !reduceMotion && animated;
+  // Body moves for each feeling: a happy hop, an angry stomp-shake, a jump of surprise, a sad droop.
+  const transform =
+    !moves || !reaction
+      ? []
+      : reaction === "laugh"
+        ? [{ rotate: shake(t, 0.05, 0.85, 5, 7) }]
+        : reaction === "mad"
+          ? [{ translateX: shake(t, 0, 0.6, 2.5, 6, "") }]
+          : reaction === "surprised"
+            ? [{ translateY: t.interpolate(smoothKeys([0, 0.15, 0.32, 0.42, 1], [0, -size * 0.16, 0, -size * 0.03, 0])) }]
+            : reaction === "love"
+              ? [{ scale: t.interpolate(smoothKeys([0, 0.15, 0.3, 0.45, 0.6, 1], [1, 1.06, 1, 1.06, 1, 1])) }]
+              : reaction === "cry"
+                ? [{ scaleY: t.interpolate(smoothKeys([0, 0.15, 0.85, 1], [1, 0.95, 0.95, 1])) }]
+                : reaction === "sleepy"
+                  ? [{ rotate: t.interpolate(smoothKeys([0, 0.2, 0.8, 1], ["0deg", "-7deg", "-7deg", "0deg"])) }]
+                  : [];
+
+  return (
+    <Pressable
+      onPress={onTap}
+      hitSlop={6}
+      accessibilityRole="button"
+      accessibilityLabel="mascot"
+      testID={testID}
+      style={[{ width: size, height }, style]}
+    >
+      <Animated.View style={{ width: size, height, transformOrigin: "bottom", transform }}>
+        <MascotFigure {...props} mood={shown} style={undefined} />
+      </Animated.View>
+      {moves && reaction ? (
+        <View style={StyleSheet.absoluteFill} pointerEvents="none">
+          <ReactionBits mood={reaction} t={t} size={size} />
+        </View>
+      ) : null}
+    </Pressable>
   );
 }
 
