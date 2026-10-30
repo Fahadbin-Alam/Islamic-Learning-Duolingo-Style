@@ -4,6 +4,7 @@ import { hadithBasicsNodeId } from "./hadithBasics";
 import { UNIT_LEADS, importedPersonSlug } from "./importedNotes";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import { RAMADAN } from "./ramadanDays";
+import { INTRO } from "./introToIslam";
 
 // Every term here was checked by two reviewers. Only add a term you are sure of.
 // Style: topic and unit banners are written without vowel marks. Every word on a node card or a learn card
@@ -41,7 +42,8 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   women_of_the_book: { ar: "نساء خالدات", translit: "Nisa' khalidat", meaning: "Great women" },
   hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's ﷺ sayings" },
   scholars: { ar: "العلماء", translit: "Al-'ulama'", meaning: "The scholars" },
-  ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" }
+  ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" },
+  intro: { ar: "مدخل إلى الإسلام", translit: "Madkhal ila al-Islam", meaning: "A first look at Islam" }
 };
 
 export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
@@ -163,7 +165,9 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // The hadith about marriage, the last unit of the Marriage topic (keeps the id of the imported unit)
   "notes-hadith-hadith-from-your-notes-2": { ar: "الزواج في السنة", translit: "Az-zawaj fis-sunnah", meaning: "Marriage in the Sunnah" },
   // Ramadan (src/data/ramadanDays.ts): the three units of the 30-day path
-  ...RAMADAN.branchArabic
+  ...RAMADAN.branchArabic,
+  // New to Islam (src/data/introToIslam.ts): its four units
+  ...INTRO.branchArabic
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -415,7 +419,9 @@ export const NODE_ARABIC: Record<string, ArabicTerm> = {
   [hadithBasicsNodeId("muslim:2564c")]: { ar: "قُلُوبِكُمْ وَأَعْمَالِكُمْ", translit: "Qulubikum wa a'malikum", meaning: "Your hearts and your deeds" },
 
   // Ramadan (src/data/ramadanDays.ts): a phrase from each day's ayah or hadith
-  ...RAMADAN.nodeArabic
+  ...RAMADAN.nodeArabic,
+  // New to Islam (src/data/introToIslam.ts): a phrase from each lesson's ayah or hadith
+  ...INTRO.nodeArabic
 };
 
 // Lessons imported from notes (scripts/obsidian-import) get their term from what they are about:
@@ -648,6 +654,7 @@ const LEARN_FORMS = [
   "سُوَرُ الْقُرْآنِ", "الْأَنْبِيَاءُ", "النِّسَاءُ", "الصَّحَابَةُ",
   "الْحَدِيثُ", "الْأُمَّهَاتُ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
   "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",
+  "مَا الْإِسْلَامُ", "أَنْبِيَاءُ تَعْرِفُهُمْ", "أَهْلُ الْكِتَابِ", "الْخُطُوَاتُ الْأُولَى",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));

@@ -8492,6 +8492,250 @@
     "text": "The day of Eid al-Fitr"
   },
   {
+    "kind": "course",
+    "text": "New to Islam"
+  },
+  {
+    "kind": "course",
+    "text": "A gentle start for anyone new to Islam: what Muslims believe, the prophets you may know, and first steps."
+  },
+  {
+    "kind": "course",
+    "text": "One God, the Quran, Jesus and the prophets, living side by side, and first steps as a Muslim."
+  },
+  {
+    "kind": "course",
+    "text": "Beginners"
+  },
+  {
+    "kind": "arabic",
+    "text": "A first look at Islam"
+  },
+  {
+    "kind": "course",
+    "text": "What is Islam?"
+  },
+  {
+    "kind": "course",
+    "text": "One God, the Quran, the last prophet and the five pillars."
+  },
+  {
+    "kind": "course",
+    "text": "Moses, Jesus and more"
+  },
+  {
+    "kind": "course",
+    "text": "Adam, Noah, Abraham, Moses, Mary and Jesus in the Quran."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophets you know"
+  },
+  {
+    "kind": "course",
+    "text": "Living side by side"
+  },
+  {
+    "kind": "course",
+    "text": "What the Quran says about Jews, Christians and all people."
+  },
+  {
+    "kind": "course",
+    "text": "First steps as a Muslim"
+  },
+  {
+    "kind": "course",
+    "text": "The shahadah, a fresh start, wudu and your first prayer."
+  },
+  {
+    "kind": "arabic",
+    "text": "The first steps"
+  },
+  {
+    "kind": "course",
+    "text": "One God"
+  },
+  {
+    "kind": "arabic",
+    "text": "Say: He is Allah, the One"
+  },
+  {
+    "kind": "course",
+    "text": "Give yourself to Allah"
+  },
+  {
+    "kind": "arabic",
+    "text": "Submits himself to Allah"
+  },
+  {
+    "kind": "course",
+    "text": "The Quran"
+  },
+  {
+    "kind": "course",
+    "text": "The last prophet"
+  },
+  {
+    "kind": "arabic",
+    "text": "The last of the prophets"
+  },
+  {
+    "kind": "course",
+    "text": "Five pillars"
+  },
+  {
+    "kind": "arabic",
+    "text": "Islam is built on five"
+  },
+  {
+    "kind": "course",
+    "text": "Five prayers a day"
+  },
+  {
+    "kind": "course",
+    "text": "All the prophets"
+  },
+  {
+    "kind": "arabic",
+    "text": "We make no distinction between them"
+  },
+  {
+    "kind": "arabic",
+    "text": "He accepted his repentance"
+  },
+  {
+    "kind": "course",
+    "text": "Nuh (Noah)"
+  },
+  {
+    "kind": "arabic",
+    "text": "And build the ship"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim (Abraham)"
+  },
+  {
+    "kind": "arabic",
+    "text": "A close friend"
+  },
+  {
+    "kind": "course",
+    "text": "Musa (Moses)"
+  },
+  {
+    "kind": "arabic",
+    "text": "And Allah spoke to Musa"
+  },
+  {
+    "kind": "course",
+    "text": "Maryam (Mary)"
+  },
+  {
+    "kind": "arabic",
+    "text": "Allah has chosen you"
+  },
+  {
+    "kind": "course",
+    "text": "Isa (Jesus)"
+  },
+  {
+    "kind": "arabic",
+    "text": "The Messiah, Jesus, son of Mary"
+  },
+  {
+    "kind": "course",
+    "text": "Born with no father"
+  },
+  {
+    "kind": "course",
+    "text": "Allah's servant"
+  },
+  {
+    "kind": "arabic",
+    "text": "I am the servant of Allah"
+  },
+  {
+    "kind": "course",
+    "text": "The Gospel"
+  },
+  {
+    "kind": "course",
+    "text": "Our God is one"
+  },
+  {
+    "kind": "arabic",
+    "text": "Our God and your God is one"
+  },
+  {
+    "kind": "course",
+    "text": "No force in faith"
+  },
+  {
+    "kind": "arabic",
+    "text": "No compulsion in religion"
+  },
+  {
+    "kind": "course",
+    "text": "To know one another"
+  },
+  {
+    "kind": "arabic",
+    "text": "So you may know one another"
+  },
+  {
+    "kind": "course",
+    "text": "Good neighbors"
+  },
+  {
+    "kind": "arabic",
+    "text": "Jibril kept telling me about the neighbor"
+  },
+  {
+    "kind": "course",
+    "text": "The shahadah"
+  },
+  {
+    "kind": "arabic",
+    "text": "There is no god but Allah"
+  },
+  {
+    "kind": "arabic",
+    "text": "Do not lose hope in Allah's mercy"
+  },
+  {
+    "kind": "course",
+    "text": "Islam is easy"
+  },
+  {
+    "kind": "arabic",
+    "text": "The religion is easy"
+  },
+  {
+    "kind": "course",
+    "text": "Only what you can bear"
+  },
+  {
+    "kind": "arabic",
+    "text": "Allah burdens no soul beyond what it can bear"
+  },
+  {
+    "kind": "course",
+    "text": "Wash for prayer"
+  },
+  {
+    "kind": "arabic",
+    "text": "Wash your faces"
+  },
+  {
+    "kind": "course",
+    "text": "Pray like him"
+  },
+  {
+    "kind": "arabic",
+    "text": "Pray as you have seen me pray"
+  },
+  {
     "kind": "lesson",
     "text": "Muslims greet with As-salamu alaykum: peace be upon you."
   },
@@ -10826,10 +11070,6 @@
   {
     "kind": "question",
     "text": "Which book did Allah give Isa?"
-  },
-  {
-    "kind": "question",
-    "text": "The Quran"
   },
   {
     "kind": "question",
@@ -66270,6 +66510,682 @@
   {
     "kind": "question",
     "text": "He never went out on Eid al-Fitr before eating some dates."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslims worship one God, Allah. Nothing is equal to Him."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 112:1-4"
+  },
+  {
+    "kind": "question",
+    "text": "How many gods do Muslims worship?"
+  },
+  {
+    "kind": "question",
+    "text": "Many"
+  },
+  {
+    "kind": "question",
+    "text": "Muslims worship one God, Allah."
+  },
+  {
+    "kind": "question",
+    "text": "In Islam, nothing is equal to Allah."
+  },
+  {
+    "kind": "question",
+    "text": "The Quran says nothing is equal to Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Islam means giving yourself to Allah, and doing good."
+  },
+  {
+    "kind": "question",
+    "text": "Who does a Muslim submit to?"
+  },
+  {
+    "kind": "question",
+    "text": "A Muslim gives himself to Allah alone."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever submits to Allah and does good has a reward."
+  },
+  {
+    "kind": "question",
+    "text": "His reward is with his Lord, the Quran says."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslims believe the Quran is Allah's word, sent down in Arabic."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:2"
+  },
+  {
+    "kind": "question",
+    "text": "In which language was the Quran sent down?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah sent it down as an Arabic Quran."
+  },
+  {
+    "kind": "question",
+    "text": "Muslims believe the Quran is Allah's word."
+  },
+  {
+    "kind": "question",
+    "text": "Allah says: We sent it down."
+  },
+  {
+    "kind": "question",
+    "text": "Who is the last prophet in Islam?"
+  },
+  {
+    "kind": "question",
+    "text": "Muslims believe no new prophet comes after Muhammad ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "The Quran calls him the last of the prophets."
+  },
+  {
+    "kind": "lesson",
+    "text": "Islam stands on five: shahadah, prayer, zakat, Hajj, fasting."
+  },
+  {
+    "kind": "question",
+    "text": "How many pillars is Islam built on?"
+  },
+  {
+    "kind": "question",
+    "text": "Which is one of the five pillars?"
+  },
+  {
+    "kind": "question",
+    "text": "Fasting in Ramadan"
+  },
+  {
+    "kind": "question",
+    "text": "Building a house"
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslims pray five times a day. It wipes away sins."
+  },
+  {
+    "kind": "quote",
+    "text": "That is the example of the five prayers with which Allah blots out (annuls) evil deeds."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 528"
+  },
+  {
+    "kind": "question",
+    "text": "How many times a day do Muslims pray?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ compared the five prayers to bathing in a river."
+  },
+  {
+    "kind": "question",
+    "text": "Like a river at your door, five times a day."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslims believe in all of Allah's prophets, Abraham to Jesus."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:136"
+  },
+  {
+    "kind": "question",
+    "text": "Which of Allah's prophets do Muslims believe in?"
+  },
+  {
+    "kind": "question",
+    "text": "All of them"
+  },
+  {
+    "kind": "question",
+    "text": "Muslims believe in what was given to Moses and Jesus."
+  },
+  {
+    "kind": "question",
+    "text": "The Quran names Moses and Jesus among them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran tells of Adam. Allah forgave him when he repented."
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah do when Adam repented?"
+  },
+  {
+    "kind": "question",
+    "text": "Ignored him"
+  },
+  {
+    "kind": "question",
+    "text": "Forgave him"
+  },
+  {
+    "kind": "question",
+    "text": "Forgot him"
+  },
+  {
+    "kind": "question",
+    "text": "Allah accepted Adam's repentance."
+  },
+  {
+    "kind": "question",
+    "text": "Allah accepts repentance, the Quran says."
+  },
+  {
+    "kind": "question",
+    "text": "He is the Accepting of repentance, the Merciful."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah told Nuh, known as Noah, to build the ship."
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah tell Nuh to build?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah told Nuh to build the ship."
+  },
+  {
+    "kind": "question",
+    "text": "Nuh is the Quran's name for Noah."
+  },
+  {
+    "kind": "question",
+    "text": "Noah is called Nuh in the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah took Ibrahim, known as Abraham, as a close friend."
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah take Ibrahim as?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah took Ibrahim as a close friend."
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim is the Quran's name for Abraham."
+  },
+  {
+    "kind": "question",
+    "text": "Abraham is called Ibrahim in the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah spoke to Musa, known as Moses, directly."
+  },
+  {
+    "kind": "question",
+    "text": "How did Allah speak to Musa?"
+  },
+  {
+    "kind": "question",
+    "text": "Only in a letter"
+  },
+  {
+    "kind": "question",
+    "text": "Directly"
+  },
+  {
+    "kind": "question",
+    "text": "Allah spoke to Musa directly."
+  },
+  {
+    "kind": "question",
+    "text": "Musa is the Quran's name for Moses."
+  },
+  {
+    "kind": "question",
+    "text": "Moses is called Musa in the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah chose Maryam, Mary, above the women of the worlds."
+  },
+  {
+    "kind": "question",
+    "text": "What does the Quran say about Maryam?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah chose her"
+  },
+  {
+    "kind": "question",
+    "text": "She was a queen"
+  },
+  {
+    "kind": "question",
+    "text": "She was forgotten"
+  },
+  {
+    "kind": "question",
+    "text": "Allah chose her and purified her."
+  },
+  {
+    "kind": "question",
+    "text": "Maryam is the Quran's name for Mary."
+  },
+  {
+    "kind": "question",
+    "text": "Mary is called Maryam in the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran calls Isa, Jesus, the Messiah, son of Maryam."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 3:45"
+  },
+  {
+    "kind": "question",
+    "text": "What does the Quran call Isa?"
+  },
+  {
+    "kind": "question",
+    "text": "The Messiah"
+  },
+  {
+    "kind": "question",
+    "text": "His name is the Messiah, Jesus, son of Mary."
+  },
+  {
+    "kind": "question",
+    "text": "The Quran says Isa is honored in this world and the next."
+  },
+  {
+    "kind": "question",
+    "text": "He is honored in this world and the Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Maryam had Isa with no father. Allah says Be, and it is."
+  },
+  {
+    "kind": "question",
+    "text": "How was Isa born, the Quran says?"
+  },
+  {
+    "kind": "question",
+    "text": "To a king"
+  },
+  {
+    "kind": "question",
+    "text": "With no father"
+  },
+  {
+    "kind": "question",
+    "text": "Maryam had Isa with no father."
+  },
+  {
+    "kind": "question",
+    "text": "When Allah decides something, He says Be, and it is."
+  },
+  {
+    "kind": "question",
+    "text": "Allah creates what He wills."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the Quran, Isa says: I am Allah's servant, and His prophet."
+  },
+  {
+    "kind": "question",
+    "text": "In the Quran, what does Isa call himself?"
+  },
+  {
+    "kind": "question",
+    "text": "He said: I am the servant of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Muslims believe Isa is a prophet of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "He said: Allah made me a prophet."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah gave Isa the Gospel, with guidance and light in it."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 5:46"
+  },
+  {
+    "kind": "question",
+    "text": "Which book did Allah give Isa, the Quran says?"
+  },
+  {
+    "kind": "question",
+    "text": "No book"
+  },
+  {
+    "kind": "question",
+    "text": "Allah gave him the Gospel."
+  },
+  {
+    "kind": "question",
+    "text": "The Quran says the Gospel had guidance and light."
+  },
+  {
+    "kind": "question",
+    "text": "In it was guidance and light."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslims say to Jews and Christians: our God and yours is one."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 29:46"
+  },
+  {
+    "kind": "question",
+    "text": "How should Muslims talk with Jews and Christians?"
+  },
+  {
+    "kind": "question",
+    "text": "In the best way"
+  },
+  {
+    "kind": "question",
+    "text": "The Quran calls Jews and Christians the People of the Book."
+  },
+  {
+    "kind": "question",
+    "text": "The ayah calls them the People of the Book."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran invites to one shared word: worship only Allah."
+  },
+  {
+    "kind": "question",
+    "text": "What is the common word the Quran invites to?"
+  },
+  {
+    "kind": "question",
+    "text": "Eat the same food"
+  },
+  {
+    "kind": "question",
+    "text": "Speak one language"
+  },
+  {
+    "kind": "question",
+    "text": "That we worship none but Allah."
+  },
+  {
+    "kind": "question",
+    "text": "The Quran invites the People of the Book to a common word."
+  },
+  {
+    "kind": "question",
+    "text": "Come to a word common between us and you."
+  },
+  {
+    "kind": "lesson",
+    "text": "There is no compulsion in religion: no one is forced into Islam."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:256"
+  },
+  {
+    "kind": "question",
+    "text": "Can anyone be forced into Islam?"
+  },
+  {
+    "kind": "question",
+    "text": "There is no compulsion in religion."
+  },
+  {
+    "kind": "question",
+    "text": "Faith has to come from the heart, not from force."
+  },
+  {
+    "kind": "question",
+    "text": "No one may be forced into Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah made peoples and tribes so we would know one another."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Allah make peoples and tribes?"
+  },
+  {
+    "kind": "question",
+    "text": "To boast"
+  },
+  {
+    "kind": "question",
+    "text": "So that we may know one another."
+  },
+  {
+    "kind": "question",
+    "text": "Who is the best with Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "The most righteous"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ taught Muslims to be kind to their neighbors."
+  },
+  {
+    "kind": "quote",
+    "text": "Gabriel continued to recommend me about treating the neighbors Kindly and politely so much so that I thought he would order me to make them as my heirs."
+  },
+  {
+    "kind": "question",
+    "text": "What did Jibril keep telling the Prophet ﷺ about?"
+  },
+  {
+    "kind": "question",
+    "text": "He kept telling him to be kind to neighbors."
+  },
+  {
+    "kind": "question",
+    "text": "In Islam, you should be kind to your neighbors."
+  },
+  {
+    "kind": "question",
+    "text": "Treat neighbors kindly and politely."
+  },
+  {
+    "kind": "lesson",
+    "text": "The shahadah: no god but Allah, Muhammad ﷺ is His Messenger."
+  },
+  {
+    "kind": "question",
+    "text": "What is the first pillar of Islam?"
+  },
+  {
+    "kind": "question",
+    "text": "The shahadah says Muhammad ﷺ is Allah's Messenger."
+  },
+  {
+    "kind": "question",
+    "text": "No god but Allah, and Muhammad ﷺ is His Messenger."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah forgives all sins. Never lose hope in His mercy."
+  },
+  {
+    "kind": "question",
+    "text": "Which sins can Allah forgive?"
+  },
+  {
+    "kind": "question",
+    "text": "Only small ones"
+  },
+  {
+    "kind": "question",
+    "text": "All sins"
+  },
+  {
+    "kind": "question",
+    "text": "A new Muslim should lose hope over old mistakes."
+  },
+  {
+    "kind": "question",
+    "text": "Never lose hope in Allah's mercy."
+  },
+  {
+    "kind": "lesson",
+    "text": "The religion is easy. Take it step by step."
+  },
+  {
+    "kind": "quote",
+    "text": "Religion is very easy and whoever overburdens himself in his religion will not be able to continue in that way."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 39"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say about the religion?"
+  },
+  {
+    "kind": "question",
+    "text": "It is easy"
+  },
+  {
+    "kind": "question",
+    "text": "It is too hard"
+  },
+  {
+    "kind": "question",
+    "text": "Religion is very easy."
+  },
+  {
+    "kind": "question",
+    "text": "Doing too much too fast is the best way to start."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever overburdens himself will not keep going."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah asks no one to carry more than they can."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:286"
+  },
+  {
+    "kind": "question",
+    "text": "How much does Allah ask of a person?"
+  },
+  {
+    "kind": "question",
+    "text": "More than they can bear"
+  },
+  {
+    "kind": "question",
+    "text": "What they can bear"
+  },
+  {
+    "kind": "question",
+    "text": "Allah burdens no soul beyond what it can bear."
+  },
+  {
+    "kind": "question",
+    "text": "No soul is burdened beyond what it can bear."
+  },
+  {
+    "kind": "lesson",
+    "text": "For wudu: wash face, arms to elbows, wipe head, wash feet."
+  },
+  {
+    "kind": "question",
+    "text": "What do Muslims do before prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Wash with wudu"
+  },
+  {
+    "kind": "question",
+    "text": "Eat a meal"
+  },
+  {
+    "kind": "question",
+    "text": "Up to where are the arms washed?"
+  },
+  {
+    "kind": "question",
+    "text": "The elbows"
+  },
+  {
+    "kind": "question",
+    "text": "The wrists"
+  },
+  {
+    "kind": "question",
+    "text": "The shoulders"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray the way the Prophet ﷺ prayed, step by step."
+  },
+  {
+    "kind": "question",
+    "text": "How should a Muslim pray?"
+  },
+  {
+    "kind": "question",
+    "text": "As the Prophet ﷺ prayed"
+  },
+  {
+    "kind": "question",
+    "text": "Any way at all"
+  },
+  {
+    "kind": "question",
+    "text": "Pray as you have seen me praying, he said."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said: pray as you have seen me praying."
+  },
+  {
+    "kind": "question",
+    "text": "He taught prayer by showing it."
   },
   {
     "kind": "course",
