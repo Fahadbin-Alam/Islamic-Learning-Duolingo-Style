@@ -205,6 +205,7 @@ import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
+import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
@@ -3188,7 +3189,7 @@ function feedbackSource(challenge: Challenge, lesson: Lesson | undefined) {
   const source = questionSource(challenge, lesson);
   const reference = source?.reference?.trim();
   if (!source || !reference) return undefined;
-  return { label: shortReference(reference), onOpen: source.url ? () => void Linking.openURL(source.url).catch(() => undefined) : undefined };
+  return { label: shortReference(reference), onOpen: source.url ? () => openSource(source) : undefined };
 }
 
 function readHeartVideosWatched() {

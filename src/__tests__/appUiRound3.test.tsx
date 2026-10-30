@@ -189,4 +189,17 @@ describe("learn card source chip", () => {
     await render(<LearnCard {...base} learnSource={{ url: "https://example.org/article" }} source={{ label: "A long article title", url: "https://example.org/article" }} />);
     expect(screen.queryByTestId("learn-source")).toBeNull();
   });
+
+  it("opens a long page at the highlighted words that say the fact", async () => {
+    const onOpenSource = jest.fn();
+    await render(
+      <LearnCard
+        {...base}
+        learnSource={{ reference: "IslamQA 119256", url: "https://islamqa.info/en/answers/119256", highlight: "He studied with Ibn Hormuz … under Imam Ibn Shihab az-Zuhri" }}
+        onOpenSource={onOpenSource}
+      />
+    );
+    fireEvent.press(screen.getByTestId("learn-source"));
+    expect(onOpenSource).toHaveBeenCalledWith("https://islamqa.info/en/answers/119256#:~:text=He%20studied%20with%20Ibn,Imam%20Ibn%20Shihab%20az%2DZuhri");
+  });
 });
