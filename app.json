@@ -19,6 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.islamiclearning.muslimo",
+      "appleTeamId": "Y7872Y57FA",
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -87,7 +88,9 @@
           "enableBackgroundPlayback": false
         }
       ],
-      "expo-system-ui"
+      "expo-system-ui",
+      "@bacons/apple-targets",
+      "./plugins/withDailyAyahWidget"
     ],
     "runtimeVersion": {
       "policy": "appVersion"

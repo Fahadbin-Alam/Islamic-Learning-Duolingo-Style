@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Icon } from "../Icon";
 import { StatChip } from "../StatChip";
@@ -31,6 +31,8 @@ export type AppTopBarProps = {
   dailySeen?: boolean;
   /** The book opened today's ayah and hadith (to remember it for the day). */
   onDailyOpened?: () => void;
+  /** Opens today's ayah and hadith each time it goes up (a tap on the home-screen widget). */
+  dailyOpenSignal?: number;
   /** Extra top padding (status bar). Default 0. */
   topInset?: number;
 };
@@ -50,6 +52,7 @@ export function AppTopBar({
   onStreak,
   dailySeen = false,
   onDailyOpened,
+  dailyOpenSignal = 0,
   topInset = 0
 }: AppTopBarProps) {
   const palette = topicPalette(accent);
@@ -61,6 +64,10 @@ export function AppTopBar({
     setDailyOpen(true);
     onDailyOpened?.();
   };
+  useEffect(() => {
+    if (dailyOpenSignal > 0) openDaily();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dailyOpenSignal]);
   const heartLabel = hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max });
 
   return (

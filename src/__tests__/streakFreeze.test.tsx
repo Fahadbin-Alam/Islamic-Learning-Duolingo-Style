@@ -38,9 +38,10 @@ import {
   unseenFreezeSave
 } from "../services/streakFreeze";
 import { ShopView, StreakSheet } from "../ui/screens";
-import { SHOP_ITEMS } from "../data/course";
 import type { UserProfile } from "../types";
 import { makeUser } from "./testUtils";
+import { isDailyLink } from "../data/dailyCard";
+import { Linking } from "react-native";
 
 const PROFILE_KEY = "sira-path-user-profile";
 const day = (date: string) => new Date(`${date}T12:00:00`);
@@ -146,11 +147,33 @@ describe("streak freeze screens", () => {
   it("sells freezes in the shop", async () => {
     const onBuy = jest.fn();
     await render(
-      <ShopView user={makeUser({ gems: 100 })} items={SHOP_ITEMS} busy={false} onUseItem={jest.fn()} onRestore={jest.fn()} onDone={jest.fn()} onBuyStreakFreeze={onBuy} />
+      <ShopView
+        user={makeUser({ gems: 100 })}
+        strings={{} as never}
+        items={[]}
+        storePrices={{}}
+        busy={false}
+        section={{ mascot: "muslim_man", accentColor: "#21B573" } as never}
+        onUseItem={jest.fn()}
+        onRestore={jest.fn()}
+        canBuyWithMoney={false}
+        canWatchAds={false}
+        onBuyStreakFreeze={onBuy}
+      />
     );
     expect(screen.getByTestId("shop-streak-freeze-line")).toHaveTextContent("0 of 2 streak freezes");
     await press("shop-buy-streak-freeze");
     expect(onBuy).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("the home-screen widget's link", () => {
+  it("is known as the daily card link, and nothing else is", () => {
+    expect(isDailyLink("muslimo://daily")).toBe(true);
+    expect(isDailyLink("muslimo:///daily?from=widget")).toBe(true);
+    expect(isDailyLink("muslimo://dailyx")).toBe(false);
+    expect(isDailyLink("https://example.com/daily")).toBe(false);
+    expect(isDailyLink(null)).toBe(false);
   });
 });
 
@@ -182,5 +205,15 @@ describe("streak freezes in the app", () => {
     expect(await screen.findByText("Streak saved!")).toBeTruthy();
     expect(screen.getByText("A streak freeze kept your 6 day streak.")).toBeTruthy();
     expect(screen.getByTestId("top-bar-streak")).toHaveTextContent("6");
+  });
+
+  it("opens today's ayah and hadith when the widget opens the app", async () => {
+    const initial = jest.spyOn(Linking, "getInitialURL").mockResolvedValue("muslimo://daily");
+    seed(makeUser({ preferredLanguage: "en" }));
+    await render(<TopicApp />);
+    await screen.findByTestId("learn-path-foundation");
+    expect(await screen.findByTestId("daily-ayah")).toBeTruthy();
+    expect(screen.queryByTestId("top-bar-daily-new")).toBeNull();
+    initial.mockRestore();
   });
 });

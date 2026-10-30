@@ -1,0 +1,307 @@
+{
+  "labels": {
+    "en": {
+      "ayah": "Ayah of the day",
+      "hadith": "Hadith of the day",
+      "quran": "Quran {ref}"
+    },
+    "bn": {
+      "ayah": "আজকের আয়াত",
+      "hadith": "আজকের হাদিস",
+      "quran": "কুরআন {ref}"
+    },
+    "ur": {
+      "ayah": "آج کی آیت",
+      "hadith": "آج کی حدیث",
+      "quran": "قرآن {ref}"
+    },
+    "ar": {
+      "ayah": "آية اليوم",
+      "hadith": "حديث اليوم",
+      "quran": "القرآن {ref}"
+    }
+  },
+  "ayahs": [
+    {
+      "ref": "1:2",
+      "ar": "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ",
+      "meaning": {
+        "en": "[All] praise is [due] to Allah, Lord of the worlds.",
+        "bn": "যাবতীয় প্রশংসা আল্লাহ তাআলার যিনি সকল সৃষ্টি জগতের পালনকর্তা।",
+        "ur": "تعریف اللہ ہی کے لیے ہے جو تمام کائنات کا رب ہے۔"
+      }
+    },
+    {
+      "ref": "2:152",
+      "ar": "فَٱذۡكُرُونِيٓ أَذۡكُرۡكُمۡ وَٱشۡكُرُواْ لِي وَلَا تَكۡفُرُونِ",
+      "meaning": {
+        "en": "So remember Me; I will remember you. And be grateful to Me and do not deny Me.",
+        "bn": "সুতরাং তোমরা আমাকে স্মরণ কর, আমিও তোমাদের স্মরণ রাখবো এবং আমার কৃতজ্ঞতা প্রকাশ কর; অকৃতজ্ঞ হয়ো না।",
+        "ur": "لہٰذا تم مجھے یاد رکھو، میں تمہیں یاد رکھوں گا اور میرا شکر ادا کرو، کفران نعمت نہ کرو۔"
+      }
+    },
+    {
+      "ref": "2:153",
+      "ar": "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱسۡتَعِينُواْ بِٱلصَّبۡرِ وَٱلصَّلَوٰةِۚ إِنَّ ٱللَّهَ مَعَ ٱلصَّـٰبِرِينَ",
+      "meaning": {
+        "en": "O you who have believed, seek help through patience and prayer. Indeed, Allah is with the patient.",
+        "bn": "হে মুমিন গন! তোমরা ধৈর্য্য ও নামাযের মাধ্যমে সাহায্য প্রার্থনা কর। নিশ্চিতই আল্লাহ ধৈর্য্যশীলদের সাথে রয়েছেন।",
+        "ur": "اے لوگو جو ایمان لائے ہو، صبر اور نماز سے مدد لو اللہ صبر کرنے والوں کے ساتھ ہے۔"
+      }
+    },
+    {
+      "ref": "3:134",
+      "ar": "ٱلَّذِينَ يُنفِقُونَ فِي ٱلسَّرَّآءِ وَٱلضَّرَّآءِ وَٱلۡكَٰظِمِينَ ٱلۡغَيۡظَ وَٱلۡعَافِينَ عَنِ ٱلنَّاسِۗ وَٱللَّهُ يُحِبُّ ٱلۡمُحۡسِنِينَ",
+      "meaning": {
+        "en": "Who spend [in the cause of Allah] during ease and hardship and who restrain anger and who pardon the people - and Allah loves the doers of good.",
+        "bn": "যারা স্বচ্ছলতায় ও অভাবের সময় ব্যয় করে, যারা নিজেদের রাগকে সংবরণ করে আর মানুষের প্রতি ক্ষমা প্রদর্শন করে, বস্তুতঃ আল্লাহ সৎকর্মশীলদিগকেই ভালবাসেন।",
+        "ur": "جو ہر حال میں اپنے مال خرچ کرتے ہیں خواہ بد حال ہوں یا خوش حال، جو غصے کو پی جاتے ہیں اور دوسروں کے قصور معاف کر دیتے ہیں ایسے نیک لوگ اللہ کو بہت پسند ہیں۔"
+      }
+    },
+    {
+      "ref": "4:86",
+      "ar": "وَإِذَا حُيِّيتُم بِتَحِيَّةٖ فَحَيُّواْ بِأَحۡسَنَ مِنۡهَآ أَوۡ رُدُّوهَآۗ إِنَّ ٱللَّهَ كَانَ عَلَىٰ كُلِّ شَيۡءٍ حَسِيبًا",
+      "meaning": {
+        "en": "And when you are greeted with a greeting, greet [in return] with one better than it or [at least] return it [in a like manner]. Indeed, Allah is ever, over all things, an Accountant.",
+        "bn": "আর তোমাদেরকে যদি কেউ দোয়া করে, তাহলে তোমরাও তার জন্য দোয়া কর; তারচেয়ে উত্তম দোয়া অথবা তারই মত ফিরিয়ে বল। নিশ্চয়ই আল্লাহ সর্ব বিষয়ে হিসাব-নিকাশ গ্রহণকারী।",
+        "ur": "اور جب کوئی احترام کے ساتھ تمہیں سلام کرے تو اس کو اس سے بہتر طریقہ کے ساتھ جواب دو یا کم از کم اُسی طرح، اللہ ہر چیز کا حساب لینے والا ہے۔"
+      }
+    },
+    {
+      "ref": "13:28",
+      "ar": "ٱلَّذِينَ ءَامَنُواْ وَتَطۡمَئِنُّ قُلُوبُهُم بِذِكۡرِ ٱللَّهِۗ أَلَا بِذِكۡرِ ٱللَّهِ تَطۡمَئِنُّ ٱلۡقُلُوبُ",
+      "meaning": {
+        "en": "Those who have believed and whose hearts are assured by the remembrance of Allah. Unquestionably, by the remembrance of Allah hearts are assured.",
+        "bn": "যারা বিশ্বাস স্থাপন করে এবং তাদের অন্তর আল্লাহর যিকির দ্বারা শান্তি লাভ করে; জেনে রাখ, আল্লাহর যিকির দ্বারাই অন্তর সমূহ শান্তি পায়।",
+        "ur": "ایسے ہی لوگ ہیں وہ جنہوں نے (اِس نبی کی دعوت کو) مان لیا اور اُن کے دلوں کو اللہ کی یاد سے اطمینان نصیب ہوتا ہے خبردار رہو! اللہ کی یاد ہی وہ چیز ہے جس سے دلوں کو اطمینان نصیب ہوا کرتا ہے۔"
+      }
+    },
+    {
+      "ref": "16:128",
+      "ar": "إِنَّ ٱللَّهَ مَعَ ٱلَّذِينَ ٱتَّقَواْ وَّٱلَّذِينَ هُم مُّحۡسِنُونَ",
+      "meaning": {
+        "en": "Indeed, Allah is with those who fear Him and those who are doers of good.",
+        "bn": "নিশ্চয় আল্লাহ তাদের সঙ্গে আছেন, যারা পরহেযগার এবং যারা সৎকর্ম করে।",
+        "ur": "اللہ اُن لوگوں کے ساتھ ہے جو تقویٰ سے کام لیتے ہیں اور احسان پر عمل کرتے ہیں۔"
+      }
+    },
+    {
+      "ref": "25:63",
+      "ar": "وَعِبَادُ ٱلرَّحۡمَٰنِ ٱلَّذِينَ يَمۡشُونَ عَلَى ٱلۡأَرۡضِ هَوۡنٗا وَإِذَا خَاطَبَهُمُ ٱلۡجَٰهِلُونَ قَالُواْ سَلَٰمٗا",
+      "meaning": {
+        "en": "And the servants of the Most Merciful are those who walk upon the earth easily, and when the ignorant address them [harshly], they say [words of] peace.",
+        "bn": "রহমান-এর বান্দা তারাই, যারা পৃথিবীতে নম্রভাবে চলাফেরা করে এবং তাদের সাথে যখন মুর্খরা কথা বলতে থাকে, তখন তারা বলে, সালাম।",
+        "ur": "رحمان کے (اصلی) بندے وہ ہیں جو زمین پر نرم چال چلتے ہیں اور جاہل ان کے منہ کو آئیں تو کہہ دیتے ہیں کہ تم کو سلام۔"
+      }
+    },
+    {
+      "ref": "33:41",
+      "ar": "يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُواْ ٱذۡكُرُواْ ٱللَّهَ ذِكۡرٗا كَثِيرٗا",
+      "meaning": {
+        "en": "O you who have believed, remember Allah with much remembrance.",
+        "bn": "মুমিনগণ তোমরা আল্লাহকে অধিক পরিমাণে স্মরণ কর।",
+        "ur": "اے لوگو! جو ایمان لائے ہو، اللہ کو کثرت سے یاد کرو۔"
+      }
+    },
+    {
+      "ref": "55:13",
+      "ar": "فَبِأَيِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "meaning": {
+        "en": "So which of the favors of your Lord would you deny?",
+        "bn": "অতএব, তোমরা উভয়ে তোমাদের পালনকর্তার কোন কোন অনুগ্রহকে অস্বীকার করবে?",
+        "ur": "پس اے جن و انس، تم اپنے رب کی کن کن نعمتوں کو جھٹلاؤ گے؟۔"
+      }
+    },
+    {
+      "ref": "94:5",
+      "ar": "فَإِنَّ مَعَ ٱلۡعُسۡرِ يُسۡرًا",
+      "meaning": {
+        "en": "For indeed, with hardship [will be] ease.",
+        "bn": "নিশ্চয় কষ্টের সাথে স্বস্তি রয়েছে।",
+        "ur": "پس حقیقت یہ ہے کہ تنگی کے ساتھ فراخی بھی ہے۔"
+      }
+    }
+  ],
+  "hadith": [
+    {
+      "en": {
+        "quote": "Don't consider anything insignificant out of good things even if it is that you meet your brother with a cheerful countenance.",
+        "reference": "Sahih Muslim 2626"
+      },
+      "bn": {
+        "quote": "কোনো ভালো কাজকে তুচ্ছ মনে কোরো না, যদিও তা তোমার ভাইয়ের সাথে হাসিমুখে দেখা করা হয়।",
+        "reference": "সহিহ মুসলিম 2626"
+      },
+      "ur": {
+        "quote": "کسی نیکی کو حقیر نہ سمجھو، چاہے وہ اپنے بھائی سے خندہ پیشانی سے ملنا ہی ہو۔",
+        "reference": "صحیح مسلم 2626"
+      },
+      "ar": {
+        "quote": "لا تحقرنّ من المعروف شيئًا، ولو أن تلقى أخاك بوجهٍ طلق.",
+        "reference": "صحيح مسلم 2626"
+      }
+    },
+    {
+      "en": {
+        "quote": "To feed (the poor) and greet those whom you know and those whom you don't know.",
+        "reference": "Sahih al-Bukhari 28"
+      },
+      "bn": {
+        "quote": "খাবার খাওয়াবে এবং পরিচিত-অপরিচিত সবাইকে সালাম দেবে।",
+        "reference": "সহিহ বুখারি 28"
+      },
+      "ur": {
+        "quote": "کھانا کھلاؤ اور ہر ایک کو سلام کرو، چاہے تم اسے جانتے ہو یا نہیں جانتے۔",
+        "reference": "صحیح بخاری 28"
+      },
+      "ar": {
+        "quote": "تُطعم الطعام، وتقرأ السلام على من عرفت ومن لم تعرف.",
+        "reference": "صحيح البخاري 28"
+      }
+    },
+    {
+      "en": {
+        "quote": "Anybody who believes in Allah and the Last Day should not harm his neighbor, and anybody who believes in Allah and the Last Day should entertain his guest generously and anybody who believes in Allah and the Last Day should talk what is good or keep quiet.",
+        "reference": "Sahih al-Bukhari 6018"
+      },
+      "bn": {
+        "quote": "যে আল্লাহ ও শেষ দিনে বিশ্বাস রাখে, সে যেন প্রতিবেশীকে কষ্ট না দেয়; যে আল্লাহ ও শেষ দিনে বিশ্বাস রাখে, সে যেন মেহমানকে সম্মান করে; আর যে আল্লাহ ও শেষ দিনে বিশ্বাস রাখে, সে যেন ভালো কথা বলে অথবা চুপ থাকে।",
+        "reference": "সহিহ বুখারি 6018"
+      },
+      "ur": {
+        "quote": "جو اللہ اور آخرت کے دن پر ایمان رکھتا ہے وہ اپنے پڑوسی کو تکلیف نہ دے، اور جو اللہ اور آخرت کے دن پر ایمان رکھتا ہے وہ اپنے مہمان کی عزت کرے، اور جو اللہ اور آخرت کے دن پر ایمان رکھتا ہے وہ اچھی بات کہے یا خاموش رہے۔",
+        "reference": "صحیح بخاری 6018"
+      },
+      "ar": {
+        "quote": "من كان يؤمن بالله واليوم الآخر فلا يؤذِ جاره، ومن كان يؤمن بالله واليوم الآخر فليُكرم ضيفه، ومن كان يؤمن بالله واليوم الآخر فليقل خيرًا أو ليصمت.",
+        "reference": "صحيح البخاري 6018"
+      }
+    },
+    {
+      "en": {
+        "quote": "He who does not thank the people is not thankful to Allah.",
+        "reference": "Sunan Abi Dawud 4811 (Sahih, Al-Albani)"
+      },
+      "bn": {
+        "quote": "যে মানুষের শুকরিয়া আদায় করে না, সে আল্লাহরও শুকরিয়া আদায় করে না।",
+        "reference": "সুনানে আবু দাউদ 4811 (সহিহ, আলবানি)"
+      },
+      "ur": {
+        "quote": "جو لوگوں کا شکریہ ادا نہیں کرتا وہ اللہ کا بھی شکر ادا نہیں کرتا۔",
+        "reference": "سنن ابی داؤد 4811 (صحیح، البانی)"
+      },
+      "ar": {
+        "quote": "لا يشكر الله من لا يشكر الناس.",
+        "reference": "سنن أبي داود 4811 (صحيح، الألباني)"
+      }
+    },
+    {
+      "en": {
+        "quote": "O boy! Mention the Name of Allah and eat with your right hand, and eat of the dish what is nearer to you.",
+        "reference": "Sahih al-Bukhari 5376"
+      },
+      "bn": {
+        "quote": "হে বালক! আল্লাহর নাম নাও, ডান হাতে খাও এবং তোমার সামনের দিক থেকে খাও।",
+        "reference": "সহিহ বুখারি 5376"
+      },
+      "ur": {
+        "quote": "اے لڑکے! اللہ کا نام لو، دائیں ہاتھ سے کھاؤ اور اپنے سامنے سے کھاؤ۔",
+        "reference": "صحیح بخاری 5376"
+      },
+      "ar": {
+        "quote": "يا غلام، سمِّ الله، وكُل بيمينك، وكُل مما يليك.",
+        "reference": "صحيح البخاري 5376"
+      }
+    },
+    {
+      "en": {
+        "quote": "None of you will have faith till he wishes for his (Muslim) brother what he likes for himself.",
+        "reference": "Sahih al-Bukhari 13"
+      },
+      "bn": {
+        "quote": "তোমাদের কেউ মুমিন হতে পারবে না, যতক্ষণ না সে নিজের জন্য যা পছন্দ করে, তার (মুসলিম) ভাইয়ের জন্যও তা পছন্দ করে।",
+        "reference": "সহিহ বুখারি 13"
+      },
+      "ur": {
+        "quote": "تم میں سے کوئی مومن نہیں ہو سکتا جب تک اپنے (مسلمان) بھائی کے لیے وہی پسند نہ کرے جو اپنے لیے پسند کرتا ہے۔",
+        "reference": "صحیح بخاری 13"
+      },
+      "ar": {
+        "quote": "لا يؤمن أحدكم حتى يحبّ لأخيه ما يحبّ لنفسه.",
+        "reference": "صحيح البخاري 13"
+      }
+    },
+    {
+      "en": {
+        "quote": "The strong is not the one who overcomes the people by his strength, but the strong is the one who controls himself while in anger.",
+        "reference": "Sahih al-Bukhari 6114"
+      },
+      "bn": {
+        "quote": "যে কুস্তিতে মানুষকে হারায় সে শক্তিশালী নয়; বরং শক্তিশালী সে, যে রাগের সময় নিজেকে নিয়ন্ত্রণ করে।",
+        "reference": "সহিহ বুখারি 6114"
+      },
+      "ur": {
+        "quote": "طاقتور وہ نہیں جو لوگوں کو پچھاڑ دے، بلکہ طاقتور وہ ہے جو غصے کے وقت اپنے آپ پر قابو رکھے۔",
+        "reference": "صحیح بخاری 6114"
+      },
+      "ar": {
+        "quote": "ليس الشديد بالصُّرَعة، إنما الشديد الذي يملك نفسه عند الغضب.",
+        "reference": "صحيح البخاري 6114"
+      }
+    },
+    {
+      "en": {
+        "quote": "Facilitate things to people (concerning religious matters), and do not make it hard for them and give them good tidings and do not make them run away (from Islam).",
+        "reference": "Sahih al-Bukhari 69"
+      },
+      "bn": {
+        "quote": "(দ্বীনের ব্যাপারে) মানুষের জন্য সহজ করো, কঠিন কোরো না; সুসংবাদ দাও, (ইসলাম থেকে) দূরে সরিয়ে দিও না।",
+        "reference": "সহিহ বুখারি 69"
+      },
+      "ur": {
+        "quote": "(دین کے معاملے میں) لوگوں کے لیے آسانی پیدا کرو، سختی نہ کرو؛ خوشخبری دو اور (اسلام سے) متنفر نہ کرو۔",
+        "reference": "صحیح بخاری 69"
+      },
+      "ar": {
+        "quote": "يسّروا ولا تعسّروا، وبشّروا ولا تنفّروا.",
+        "reference": "صحيح البخاري 69"
+      }
+    },
+    {
+      "en": {
+        "quote": "The best among you (Muslims) are those who learn the Qur'an and teach it.",
+        "reference": "Sahih al-Bukhari 5027"
+      },
+      "bn": {
+        "quote": "তোমাদের মধ্যে সেরা সে, যে কুরআন শেখে এবং অন্যকে শেখায়।",
+        "reference": "সহিহ বুখারি 5027"
+      },
+      "ur": {
+        "quote": "تم میں سب سے بہتر وہ ہے جو قرآن سیکھے اور سکھائے۔",
+        "reference": "صحیح بخاری 5027"
+      },
+      "ar": {
+        "quote": "خيركم من تعلّم القرآن وعلّمه.",
+        "reference": "صحيح البخاري 5027"
+      }
+    },
+    {
+      "en": {
+        "quote": "Verily Allah does not look to your faces and your wealth but He looks to your heart and to your deeds.",
+        "reference": "Sahih Muslim 2564c"
+      },
+      "bn": {
+        "quote": "নিশ্চয়ই আল্লাহ তোমাদের চেহারা ও সম্পদের দিকে তাকান না, বরং তিনি তোমাদের হৃদয় ও কাজের দিকে তাকান।",
+        "reference": "সহিহ মুসলিম 2564c"
+      },
+      "ur": {
+        "quote": "بے شک اللہ تمہاری صورتوں اور مالوں کو نہیں دیکھتا، بلکہ تمہارے دلوں اور اعمال کو دیکھتا ہے۔",
+        "reference": "صحیح مسلم 2564c"
+      },
+      "ar": {
+        "quote": "إن الله لا ينظر إلى صوركم وأموالكم، ولكن ينظر إلى قلوبكم وأعمالكم.",
+        "reference": "صحيح مسلم 2564c"
+      }
+    }
+  ]
+}

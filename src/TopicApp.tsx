@@ -160,6 +160,7 @@ import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
 import { pickBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
 import { formatNumber } from "./ui/screens/FormattedCount";
+import { isDailyLink } from "./data/dailyCard";
 import { buyStreakFreeze, markFreezeSaveSeen, streakFreezeCount, unseenFreezeSave } from "./services/streakFreeze";
 import { buySecretHint, findSecret, hasFound, secretAt, type SecretLesson, type SecretSpot } from "./data/secretLessons";
 import {
@@ -562,6 +563,14 @@ export default function TopicApp() {
       live = false;
       listener.remove();
     };
+  }, []);
+  // A tap on the home-screen widget opens the app at muslimo://daily: show today's ayah and hadith.
+  const [dailyOpenSignal, setDailyOpenSignal] = useState(0);
+  useEffect(() => {
+    const open = (url: string | null) => isDailyLink(url) && setDailyOpenSignal((count) => count + 1);
+    void Linking.getInitialURL().then(open).catch(() => undefined);
+    const listener = Linking.addEventListener("url", ({ url }) => open(url));
+    return () => listener.remove();
   }, []);
   // Prayer-time lessons belong to this phone (its city and notifications), not to the account.
   const [prayerPrefs, setPrayerPrefs] = useState<PrayerNudgePrefs>(loadPrayerNudgePrefs);
@@ -2733,6 +2742,7 @@ export default function TopicApp() {
             onOpenTopics={() => setTopicPickerVisible(true)}
             onOpenShop={() => dispatch({ type: "open_shop" })}
             dailySeen={dailySeenDay === localDayNumber()}
+            dailyOpenSignal={dailyOpenSignal}
             onDailyOpened={() => {
               const today = localDayNumber();
               setDailySeenDay(today);
