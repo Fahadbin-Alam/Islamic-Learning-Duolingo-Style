@@ -582,5 +582,10 @@
   "{count} of {total} videos watched": "{total}টির মধ্যে {count}টি ভিডিও দেখা হয়েছে",
   "{total} videos = 1 heart": "{total}টি ভিডিও = ১টি হার্ট",
   "A new update is ready!": "নতুন আপডেট এসেছে!",
-  "Update": "আপডেট"
+  "Update": "আপডেট",
+  "Listen with no internet": "ইন্টারনেট ছাড়াই শোনো",
+  "Quran audio offline": "অফলাইনে কুরআনের অডিও",
+  "Saved, {size} MB": "সেভ হয়েছে, {size} MB",
+  "Saving {done} of {total}": "সেভ হচ্ছে {total}টির মধ্যে {done}টি",
+  "Some did not save. Check your internet.": "কিছু সেভ হয়নি। ইন্টারনেট দেখো।"
 }

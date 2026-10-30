@@ -582,5 +582,10 @@
   "{count} of {total} videos watched": "{total} میں سے {count} ویڈیو دیکھ لیے",
   "{total} videos = 1 heart": "{total} ویڈیو = 1 دل",
   "A new update is ready!": "نئی اپڈیٹ آ گئی ہے!",
-  "Update": "اپڈیٹ"
+  "Update": "اپڈیٹ",
+  "Listen with no internet": "انٹرنیٹ کے بغیر سنیں",
+  "Quran audio offline": "قرآن کی آڈیو آف لائن",
+  "Saved, {size} MB": "محفوظ ہو گئی، {size} MB",
+  "Saving {done} of {total}": "محفوظ ہو رہی ہے: {total} میں سے {done}",
+  "Some did not save. Check your internet.": "کچھ محفوظ نہیں ہوئیں۔ انٹرنیٹ دیکھیں۔"
 }
