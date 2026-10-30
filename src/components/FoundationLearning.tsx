@@ -694,37 +694,6 @@ export function FoundationAssessmentScreen({
   const layout = pickFolds ? rightLayout : softLayout;
   const room = layout ? sheetRoom(layout) : undefined;
   const sheetMaxHeight = locked && fit.fitted && placeKnown && room ? room.room : undefined;
-  // Any answer the sheet's top edge would cut (or cover) fades away while it is up, as in lessons: the ones under
-  // the top-most right answer that do not sit wholly above it. The next question shows them all again. The sheet is
-  // never shorter than its least, also when its room is.
-  const shownSheetHeight = sheetMaxHeight !== undefined ? Math.min(sheetHeight, Math.max(sheetMaxHeight, sheetLeast)) : sheetHeight;
-  const sheetTop =
-    locked && fit.fitted && placeKnown && shownSheetHeight > 0 && layout && room
-      ? sheetScrollY(layout, shownSheetHeight, room.furthest) + layout.visibleBottom - shownSheetHeight
-      : undefined;
-  // Only when nothing gives the sheet its room does its top edge reach the right answer: where it would reach into
-  // its text, that answer is gone too, with any other the edge would cut, so the edge never cuts a line of it. One
-  // the edge reaches only below its text (its lip, border, padding) stays.
-  const rightCut = sheetTop !== undefined && layout !== undefined && layout.focusBottom > sheetTop + textEdge;
-  const fadedTiles =
-    tilesShown && sheetTop !== undefined && answersTop !== undefined
-      ? tilesUnderSheet({
-          ids: tilesShown.items,
-          boxes: tileBoxes.current,
-          focusId: rightCut ? undefined : tilesShown.items.find((option) => isAnswerOption(question, option)),
-          gap: answerGap,
-          columns: tilesShown.columns,
-          tilesTop: answersTop,
-          sheetTop,
-          edge: rightCut ? textEdge : undefined
-        })
-      : [];
-
-  // The right answer right above the sheet, but never the question scrolled away: on a short phone the prompt stays
-  // whole at the top (the sheet names the right answer).
-  // Scrolled down to show the right answer, the question can stop part-way through the topic label (and its Arabic)
-  // above the prompt: it is gone while the question sits scrolled past its top (and from the render that starts its
-  // own scroll past it), so the scroll view's top edge never cuts it, and back once it is scrolled up to it again.
   // A question the learner left scrolled down (by hand or with the arrow) keeps its right answer where it showed, as in
   // lessons: it goes back up only by the room that folds above it, and further down only where the sheet needs it to
   // (see keptScrollY). Where the learner left it and where the right answer then sat are read as CHECK is tapped.
@@ -757,10 +726,19 @@ export function FoundationAssessmentScreen({
           const span = stackSpan(tilesShown.items, tileBoxes.current, option, answerGap, 1);
           return span ? [{ top: answersTop + span.top, bottom: answersTop + span.bottom, blank: TILE_LIP }] : [];
         });
-  const scrollTarget =
+  /** Where the question's scroll sits while the sheet is up with it `height` tall: kept, where the learner left it. */
+  const placeWith = (height: number) =>
     layout && room
-      ? keptPlace(sheetScrollY(layout, sheetHeight, room.furthest), layout.focusTop, promptBox ? { top: promptBox.y, bottom: promptBox.y + promptBox.height } : undefined, tilesAboveIn())
+      ? keptPlace(sheetScrollY(layout, height, room.furthest), layout.focusTop, promptBox ? { top: promptBox.y, bottom: promptBox.y + promptBox.height } : undefined, tilesAboveIn())
       : 0;
+
+  // The right answer right above the sheet, but never the question scrolled away: on a short phone the prompt stays
+  // whole at the top (the sheet names the right answer).
+  // Scrolled down to show the right answer, the question can stop part-way through the topic label (and its Arabic)
+  // above the prompt: it is gone while the question sits scrolled past its top (and from the render that starts its
+  // own scroll past it), so the scroll view's top edge never cuts it, and back once it is scrolled up to it again.
+  // A question the learner left scrolled down keeps its right answer where it showed (see placeWith above).
+  const scrollTarget = placeWith(sheetHeight);
   // An answer in a column that folds away while the sheet comes up leaves its room, which closes with the sheet's
   // spring (see FoldGap), as in lessons: the right answer glides up as the sheet rises and the prompt stays put. One
   // that folds once the Why line is open goes at once, as the sheet has grown at once. A question the learner left
@@ -880,6 +858,34 @@ export function FoundationAssessmentScreen({
     partTop: labelTop,
     placesNow
   });
+  // Any answer the sheet's top edge would cut (or cover) fades away while it is up, as in lessons: the ones under
+  // the top-most right answer that do not sit wholly above it. The next question shows them all again. The sheet is
+  // never shorter than its least, also when its room is.
+  const shownSheetHeight = sheetMaxHeight !== undefined ? Math.min(sheetHeight, Math.max(sheetMaxHeight, sheetLeast)) : sheetHeight;
+  // Its top edge is where it falls with the question where it goes (kept, where the learner left it scrolled down, and
+  // once the Why line is open never less far than it was sent), not where the sheet alone would put it, as in lessons:
+  // a question kept further down leaves room above the sheet for an answer that stays there.
+  const sheetTop =
+    locked && fit.fitted && placeKnown && shownSheetHeight > 0 && layout && room
+      ? ownScroll.goesTo(placeWith(shownSheetHeight)) + layout.visibleBottom - shownSheetHeight
+      : undefined;
+  // Only when nothing gives the sheet its room does its top edge reach the right answer: where it would reach into
+  // its text, that answer is gone too, with any other the edge would cut, so the edge never cuts a line of it. One
+  // the edge reaches only below its text (its lip, border, padding) stays.
+  const rightCut = sheetTop !== undefined && layout !== undefined && layout.focusBottom > sheetTop + textEdge;
+  const fadedTiles =
+    tilesShown && sheetTop !== undefined && answersTop !== undefined
+      ? tilesUnderSheet({
+          ids: tilesShown.items,
+          boxes: tileBoxes.current,
+          focusId: rightCut ? undefined : tilesShown.items.find((option) => isAnswerOption(question, option)),
+          gap: answerGap,
+          columns: tilesShown.columns,
+          tilesTop: answersTop,
+          sheetTop,
+          edge: rightCut ? textEdge : undefined
+        })
+      : [];
   const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrolledTo.current = { key: fitKey, y: event.nativeEvent.contentOffset.y };
     scrollProps.onScroll(event);

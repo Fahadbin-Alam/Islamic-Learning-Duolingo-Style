@@ -626,62 +626,7 @@ export function ExerciseView({
   const room = layout ? sheetRoom(layout) : undefined;
   // Only then is the sheet held to the room under the green tile.
   const sheetMaxHeight = checked && fit.fitted && room ? room.room : undefined;
-  // Any tile the sheet's top edge would cut (or cover) fades away while it is up, so no tile's text is ever cut by
-  // it: the tiles under the green one that do not sit wholly above it. The prompt and the green tile stay, and the
-  // picked tile stays whenever it sits wholly above the sheet. A new try shows them all again. The sheet is never
-  // shorter than its least, also when its room is.
-  const shownSheet = sheetMaxHeight !== undefined ? Math.min(sheetHeight, Math.max(sheetMaxHeight, sheetLeast)) : sheetHeight;
-  const sheetTop = checked && fit.fitted && shownSheet > 0 && layout && room ? sheetScrollY(layout, shownSheet, room.furthest) + layout.visibleBottom - shownSheet : undefined;
-  // Only when nothing gives the sheet its room does its top edge reach the green tile (or the row of True / False):
-  // where it would reach into its text, that tile is gone too, with any other the edge would cut, so the edge never
-  // cuts a line of it. One the edge reaches only below its text (its lip, border, padding) stays.
-  const greenCut = sheetTop !== undefined && layout !== undefined && layout.focusBottom > sheetTop + textEdge;
-  const fadedIds =
-    !tfChoices && sheetTop !== undefined && tilesTop !== undefined
-      ? tilesUnderSheet({
-          ids: stackChoices.map((choice) => choice.id),
-          boxes: tileBoxes.current,
-          focusId: greenCut ? undefined : rightId ?? selectedChoiceId,
-          gap: tileGap,
-          tilesTop,
-          sheetTop,
-          edge: greenCut ? textEdge : undefined
-        })
-      : [];
-  // A tile whose text did not show whole in the room as CHECK was tapped (out of sight under its edge, as a question
-  // too tall for its room rests) is gone while it glides into sight with the question, and fades in once it shows
-  // whole, so the room's edge never cuts its lines (see useGlideIn).
-  const readGlide = (id: string): GlideRead | undefined => {
-    const text = textOnScreen(id === "row" ? tilesRef.current : tileRefs.current[id]);
-    const edges = edgesOnScreen(scrollBoxRef.current);
-    return text && edges ? { text, top: edges.top, bottom: edges.bottom, sheetTop: sheetTopOnScreen(rootRef.current) } : undefined;
-  };
-  // Where no view can say its place on screen at once: from the places the tiles reported and where the learner left
-  // the question's scroll.
-  const textTop = tileTextTop({ compact, tight: look.tight, square: Boolean(tfChoices) });
-  const laidOutWhole = (id: string) => {
-    const span = id === "row" ? (tilesBox ? { top: 0, bottom: tilesBox.height } : undefined) : stackSpan(shownChoices.map((choice) => choice.id), tileBoxes.current, id, tileGap);
-    if (!span || tilesTop === undefined || !scrollBoxHeight) {
-      return undefined;
-    }
-    const y = scrolledTo.current.key === shownKey ? scrolledTo.current.y : 0;
-    return textInRoom({ top: tilesTop + span.top, bottom: tilesTop + span.bottom }, { top: textTop, bottom: textEdge }, y, scrollBoxHeight);
-  };
-  const gliding = useGlideIn({
-    open: checked,
-    tryKey: shownKey,
-    ids: tfChoices ? ["row"] : stackChoices.map((choice) => choice.id),
-    read: readGlide,
-    laidOut: laidOutWhole,
-    moves: `${sheetHeight}|${whyOpened}`
-  });
-  const rowFaded = Boolean(tfChoices) && (greenCut || gliding.includes("row"));
 
-  // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
-  // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
-  // Scrolled down to show the green tile, the question can stop part-way through the REVIEW / "Try again!" chips
-  // above the prompt: they are gone while it sits scrolled past their top (and from the render that starts its own
-  // scroll past them), so the scroll view's top edge never cuts them, and back once it is scrolled up to them.
   // A question the learner left scrolled down (by hand or with the arrow) keeps its green tile where it showed: it
   // goes back up only by the room that folds above the green tile, and further down only where the sheet needs it
   // to; it does not slide the green tile down to show the prompt the learner scrolled away (see keptScrollY). Where
@@ -717,10 +662,47 @@ export function ExerciseView({
           const span = stackSpan(stackChoices.map((each) => each.id), tileBoxes.current, choice.id, tileGap);
           return span ? [{ top: tilesTop + span.top, bottom: tilesTop + span.bottom, blank: TILE_LIP }] : [];
         });
-  const scrollTarget =
+  /** Where the question's scroll sits while the sheet is up with it `height` tall: kept, where the learner left it. */
+  const placeWith = (height: number) =>
     layout && room
-      ? keptPlace(sheetScrollY(layout, sheetHeight, room.furthest), layout.focusTop, promptBox ? { top: promptBox.y, bottom: promptBox.y + promptBox.height } : undefined, tilesAboveIn())
+      ? keptPlace(sheetScrollY(layout, height, room.furthest), layout.focusTop, promptBox ? { top: promptBox.y, bottom: promptBox.y + promptBox.height } : undefined, tilesAboveIn())
       : 0;
+
+  // A tile whose text did not show whole in the room as CHECK was tapped (out of sight under its edge, as a question
+  // too tall for its room rests) is gone while it glides into sight with the question, and fades in once it shows
+  // whole, so the room's edge never cuts its lines (see useGlideIn).
+  const readGlide = (id: string): GlideRead | undefined => {
+    const text = textOnScreen(id === "row" ? tilesRef.current : tileRefs.current[id]);
+    const edges = edgesOnScreen(scrollBoxRef.current);
+    return text && edges ? { text, top: edges.top, bottom: edges.bottom, sheetTop: sheetTopOnScreen(rootRef.current) } : undefined;
+  };
+  // Where no view can say its place on screen at once: from the places the tiles reported and where the learner left
+  // the question's scroll.
+  const textTop = tileTextTop({ compact, tight: look.tight, square: Boolean(tfChoices) });
+  const laidOutWhole = (id: string) => {
+    const span = id === "row" ? (tilesBox ? { top: 0, bottom: tilesBox.height } : undefined) : stackSpan(shownChoices.map((choice) => choice.id), tileBoxes.current, id, tileGap);
+    if (!span || tilesTop === undefined || !scrollBoxHeight) {
+      return undefined;
+    }
+    const y = scrolledTo.current.key === shownKey ? scrolledTo.current.y : 0;
+    return textInRoom({ top: tilesTop + span.top, bottom: tilesTop + span.bottom }, { top: textTop, bottom: textEdge }, y, scrollBoxHeight);
+  };
+  const gliding = useGlideIn({
+    open: checked,
+    tryKey: shownKey,
+    ids: tfChoices ? ["row"] : stackChoices.map((choice) => choice.id),
+    read: readGlide,
+    laidOut: laidOutWhole,
+    moves: `${sheetHeight}|${whyOpened}`
+  });
+
+  // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
+  // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
+  // Scrolled down to show the green tile, the question can stop part-way through the REVIEW / "Try again!" chips
+  // above the prompt: they are gone while it sits scrolled past their top (and from the render that starts its own
+  // scroll past them), so the scroll view's top edge never cuts them, and back once it is scrolled up to them.
+  // A question the learner left scrolled down keeps its green tile where it showed (see placeWith above).
+  const scrollTarget = placeWith(sheetHeight);
   // A tile that folds away while the sheet comes up leaves its room, which closes with the sheet's spring: the green
   // tile then never moves in one frame (nor the prompt), it glides up as the sheet rises. One that folds once the Why
   // line is open goes at once, as the sheet has grown at once and the green tile must clear it in that frame.
@@ -816,6 +798,32 @@ export function ExerciseView({
     partTop: cueTop,
     placesNow
   });
+  // Any tile the sheet's top edge would cut (or cover) fades away while it is up, so no tile's text is ever cut by
+  // it: the tiles under the green one that do not sit wholly above it. The prompt and the green tile stay, and the
+  // picked tile stays whenever it sits wholly above the sheet. A new try shows them all again. The sheet is never
+  // shorter than its least, also when its room is. Its top edge is where it falls with the question where it goes
+  // (kept, where the learner left it scrolled down, and once the Why line is open never less far than it was sent),
+  // not where the sheet alone would put it: a question kept further down leaves room above the sheet for a tile that
+  // stays there.
+  const shownSheet = sheetMaxHeight !== undefined ? Math.min(sheetHeight, Math.max(sheetMaxHeight, sheetLeast)) : sheetHeight;
+  const sheetTop = checked && fit.fitted && shownSheet > 0 && layout && room ? ownScroll.goesTo(placeWith(shownSheet)) + layout.visibleBottom - shownSheet : undefined;
+  // Only when nothing gives the sheet its room does its top edge reach the green tile (or the row of True / False):
+  // where it would reach into its text, that tile is gone too, with any other the edge would cut, so the edge never
+  // cuts a line of it. One the edge reaches only below its text (its lip, border, padding) stays.
+  const greenCut = sheetTop !== undefined && layout !== undefined && layout.focusBottom > sheetTop + textEdge;
+  const fadedIds =
+    !tfChoices && sheetTop !== undefined && tilesTop !== undefined
+      ? tilesUnderSheet({
+          ids: stackChoices.map((choice) => choice.id),
+          boxes: tileBoxes.current,
+          focusId: greenCut ? undefined : rightId ?? selectedChoiceId,
+          gap: tileGap,
+          tilesTop,
+          sheetTop,
+          edge: greenCut ? textEdge : undefined
+        })
+      : [];
+  const rowFaded = Boolean(tfChoices) && (greenCut || gliding.includes("row"));
   const onQuestionScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     scrolledTo.current = { key: shownKey, y: event.nativeEvent.contentOffset.y };
     scrollProps.onScroll(event);

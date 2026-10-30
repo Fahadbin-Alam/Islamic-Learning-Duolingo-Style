@@ -158,6 +158,9 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   green tile then goes up, as far as that needs), or where the room's top edge would then cross a line
   of the prompt or of a tile above the green one: to the nearer place either way where that edge falls
   between two parts (`keptScrollY` in `sheetFit.ts`). Practice keeps its right answer the same way.
+  The tiles the sheet's edge would cut are found where the question sits (kept, and once the Why line is open
+  no less far than it was sent), not where the sheet alone would put it: the picked tile, a grey one under
+  the green tile or a right answer the learner missed stays whenever it sits wholly above the sheet there.
   A tile whose text did not show whole in the room as CHECK was tapped (the green tile of a question
   too tall for its room, resting out of sight under the room's edge or over its top) is gone while it
   glides into sight with the question and fades in once it shows whole (or, where the question comes to rest

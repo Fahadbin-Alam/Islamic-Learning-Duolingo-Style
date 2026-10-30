@@ -392,8 +392,11 @@ export function useQuestionScroll({ open, scrollRef, target, ready, settling, wh
   // Held at the place it sits (or goes to, when that is further down): the content's own length covers that place
   // again once it is there.
   const minHeight = open && viewport > 0 ? viewport + Math.max(offset.current, aim ?? 0) : undefined;
+  // Where the question goes for a place worked out as `target` is: once the Why line is open, never less far than it
+  // was sent (see whyFloor). What the sheet's top edge would cut is found there.
+  const goesTo = (place: number) => atLeast(place, whyFloor.current);
   // Scrolled past their top by a hand (or the arrow) before CHECK too: the scroll edge never cuts them at rest.
-  return { gone: past || (open && heading), onScroll, minHeight };
+  return { gone: past || (open && heading), onScroll, minHeight, goesTo };
 }
 
 /** Where a part sits on screen, or its lines of text do: from its top edge (its first line's) to its bottom (its last's). */
