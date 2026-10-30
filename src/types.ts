@@ -434,6 +434,11 @@ export interface LessonSource {
   title: string;
   url: string;
   summary: string;
+  /**
+   * The page's own words that say this source's fact, copied exactly as the page shows them: the source opens
+   * scrolled to them, highlighted (src/services/sourceLink.ts). Only on long pages, and only text checked on the page.
+   */
+  highlight?: string;
   reference?: string;
   from?: string;
   grade?: string;

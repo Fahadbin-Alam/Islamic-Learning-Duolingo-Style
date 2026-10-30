@@ -77,7 +77,7 @@ function book(key: keyof typeof BOOKS, volume: number, page: number, title: stri
   };
 }
 
-function islamqa(answer: number, title: string, summary: string): LessonSource {
+function islamqa(answer: number, title: string, summary: string, highlight?: string): LessonSource {
   return {
     id: `islamqa_${answer}`,
     site: "IslamQA",
@@ -87,7 +87,8 @@ function islamqa(answer: number, title: string, summary: string): LessonSource {
     reference: `IslamQA ${answer}`,
     from: "Islam Question & Answer",
     grade: "Fatwa",
-    summary
+    summary,
+    highlight
   };
 }
 
@@ -336,7 +337,7 @@ export const LESSON_SOURCES: Readonly<Record<string, LessonSource>> = {
   "lesson-prayer-invalidators-of-salah-speech-and-excessive-movement": book("ijma", 1, 39, "Eating in salah", "The scholars agree that whoever eats or drinks on purpose in a fard prayer must pray it again."),
   "lesson-prayer-invalidators-of-salah-scenario-judgment": book("ijma", 1, 39, "Laughing in salah", "The scholars agree that laughing spoils the prayer."),
   "lesson-marriage-conflict-and-repair-listen-before-answering": ayah("39:18", "Listen, then follow the best", "Allah praises those who listen to what is said, then follow the best of it."),
-  "lesson-zakat-recipients-family-and-boundaries": islamqa(395666, "Zakat to parents or children", "Ibn Qudamah: nothing of zakat is given to parents or children, because you must already provide for them."),
+  "lesson-zakat-recipients-family-and-boundaries": islamqa(395666, "Zakat to parents or children", "Ibn Qudamah: nothing of zakat is given to parents or children, because you must already provide for them.", "Nothing of zakah should be given to parents or children"),
   "lesson-notes-prophets-prophets-from-your-notes-3-yusha-ibn-nun": hadith("bukhari", "3401", "Sahih al-Bukhari 3401", "Ubayy ibn Ka'b", "Imam al-Bukhari", "Sahih", "Musa and his young helper", "Musa set out with his young helper, Yusha' ibn Nun, to meet al-Khidr."),
   "lesson-notes-prophets-prophets-from-your-notes-1-alyasa": book("tabaqat", 1, 46, "The prophets after Musa", "Ibn Sa'd lists al-Yasa' as the prophet who came after Ilyas."),
   "lesson-notes-sahabah-companions-from-your-notes-1-abd-allah-ibn-masuud": book("siyar", 1, 461, "Abdullah ibn Mas'ud", "Abdullah ibn Mas'ud al-Hudhali, one of the first Muslims."),

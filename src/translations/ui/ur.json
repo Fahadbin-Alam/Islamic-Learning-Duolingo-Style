@@ -588,5 +588,10 @@
   "New hadith!": "نئی حدیث!",
   "Open a new hadith": "ایک نئی حدیث کھولیں",
   "{count} more in the chest": "صندوق میں {count} اور",
-  "{count} of {total} collected": "{total} میں سے {count} جمع"
+  "{count} of {total} collected": "{total} میں سے {count} جمع",
+  "Listen with no internet": "انٹرنیٹ کے بغیر سنیں",
+  "Quran audio offline": "قرآن کی آڈیو آف لائن",
+  "Saved, {size} MB": "محفوظ ہو گئی، {size} MB",
+  "Saving {done} of {total}": "محفوظ ہو رہی ہے: {total} میں سے {done}",
+  "Some did not save. Check your internet.": "کچھ محفوظ نہیں ہوئیں۔ انٹرنیٹ دیکھیں۔"
 }

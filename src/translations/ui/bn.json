@@ -588,5 +588,10 @@
   "New hadith!": "নতুন হাদিস!",
   "Open a new hadith": "নতুন একটি হাদিস খোলো",
   "{count} more in the chest": "সিন্দুকে আরও {count}টি",
-  "{count} of {total} collected": "{total}টির মধ্যে {count}টি সংগ্রহ হয়েছে"
+  "{count} of {total} collected": "{total}টির মধ্যে {count}টি সংগ্রহ হয়েছে",
+  "Listen with no internet": "ইন্টারনেট ছাড়াই শোনো",
+  "Quran audio offline": "অফলাইনে কুরআনের অডিও",
+  "Saved, {size} MB": "সেভ হয়েছে, {size} MB",
+  "Saving {done} of {total}": "সেভ হচ্ছে {total}টির মধ্যে {done}টি",
+  "Some did not save. Check your internet.": "কিছু সেভ হয়নি। ইন্টারনেট দেখো।"
 }

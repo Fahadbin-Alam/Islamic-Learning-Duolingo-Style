@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Linking, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { HADITH_TREASURES, ownedHadith, type HadithCard } from "../../data/hadithTreasures";
 import { SECRET_FOUND_GEMS, SECRET_LESSONS, hasFound, type SecretLesson } from "../../data/secretLessons";
 import type { UserProfile } from "../../types";
@@ -13,6 +13,7 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { useBackToClose } from "./sheetParts";
 import { t } from "../../i18n";
+import { openSource } from "../../services/sourceLink";
 
 const SECRET_INK = darken(colors.gold, 0.6);
 
@@ -28,7 +29,7 @@ function SecretBody({ secret }: { secret: Pick<SecretLesson, "title" | "line" | 
       <View style={styles.quote}>
         <Text style={styles.quoteText} testID="secret-quote">{`“${secret.quote}”`}</Text>
       </View>
-      <Tappable onPress={() => void Linking.openURL(secret.source.url).catch(() => undefined)} style={styles.source} accessibilityRole="link" accessibilityLabel={t("Source: {reference}", { reference: secret.reference })} testID="secret-source">
+      <Tappable onPress={() => openSource(secret.source)} style={styles.source} accessibilityRole="link" accessibilityLabel={t("Source: {reference}", { reference: secret.reference })} testID="secret-source">
         <Icon name="book" size={16} />
         <Text style={styles.sourceText} numberOfLines={1}>
           {secret.reference}
