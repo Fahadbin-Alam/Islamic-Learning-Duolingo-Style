@@ -582,5 +582,10 @@
   "{count} of {total} videos watched": "شاهدت {count} من {total} فيديو",
   "{total} videos = 1 heart": "{total} فيديو = قلب واحد",
   "A new update is ready!": "تحديث جديد جاهز!",
-  "Update": "تحديث"
+  "Update": "تحديث",
+  "Listen with no internet": "استمع بدون إنترنت",
+  "Quran audio offline": "صوت القرآن بدون إنترنت",
+  "Saved, {size} MB": "تم الحفظ، {size} ميغابايت",
+  "Saving {done} of {total}": "جارٍ الحفظ: {done} من {total}",
+  "Some did not save. Check your internet.": "لم يُحفظ بعضها. تحقق من الإنترنت."
 }
