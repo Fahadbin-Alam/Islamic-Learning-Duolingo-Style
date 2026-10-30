@@ -59,7 +59,8 @@ export type IconName =
   | "shield"
   | "coins"
   | "search"
-  | "share";
+  | "share"
+  | "freeze";
 
 export type IconProps = {
   name: IconName;
@@ -710,6 +711,20 @@ const ICONS: Record<IconName, Drawer> = {
       <Circle cx={17.6} cy={5.6} r={3.6} {...t.f(C.green)} />
       <Circle cx={6.4} cy={12} r={3.6} {...t.f(C.gem)} />
       <Circle cx={17.6} cy={18.4} r={3.6} {...t.f(C.pink)} />
+    </G>
+  ),
+  // An ice cube with a snowflake: the streak freeze.
+  freeze: (t) => (
+    <G>
+      <Rect x={2.6} y={2.6} width={18.8} height={18.8} rx={4.6} {...t.f(C.gemLight)} />
+      <Path d="M21.4 9.4v7.4a4.6 4.6 0 0 1-4.6 4.6H9.4c5.4-1.4 10.4-6 12-12z" {...t.d(C.gem)} />
+      <Path
+        d="M12 6.4v11.2M7.2 9.2l9.6 5.6M7.2 14.8l9.6-5.6M10.4 6.8 12 8.4l1.6-1.6M10.4 17.2 12 15.6l1.6 1.6"
+        strokeWidth={1.6}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...t.ds("#FFFFFF")}
+      />
     </G>
   )
 };

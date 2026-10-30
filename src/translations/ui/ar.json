@@ -582,5 +582,13 @@
   "{count} of {total} videos watched": "شاهدت {count} من {total} فيديو",
   "{total} videos = 1 heart": "{total} فيديو = قلب واحد",
   "A new update is ready!": "تحديث جديد جاهز!",
-  "Update": "تحديث"
+  "Update": "تحديث",
+  "A streak freeze kept your {streak} day streak.": "حافظ تجميد السلسلة على سلسلتك من {streak} أيام.",
+  "Buy a streak freeze for {count} gems": "اشترِ تجميد سلسلة مقابل {count} جوهرة",
+  "Covers {count} missed days.": "يغطي {count} أيام فائتة.",
+  "Saves your streak if you miss a day.": "يحفظ سلسلتك إذا فاتك يوم.",
+  "Streak freeze": "تجميد السلسلة",
+  "Streak saved!": "نجت سلسلتك!",
+  "{count} of {max} streak freezes": "{count} من {max} تجميد للسلسلة",
+  "{count} streak freezes kept your {streak} day streak.": "حافظت {count} تجميدات على سلسلتك من {streak} أيام."
 }

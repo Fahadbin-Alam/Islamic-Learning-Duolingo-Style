@@ -15,6 +15,10 @@ export type AppTopBarProps = {
   topicTitle: string;
   accent: string;
   streakDays: number;
+  /** Streak freezes owned, shown on the streak sheet. Leave out to hide them. */
+  streakFreezes?: number;
+  /** Buy a streak freeze from the streak sheet. */
+  onBuyStreakFreeze?: () => void;
   gems: number;
   hearts: { current: number; max: number; unlimited: boolean };
   /** Tap the topic button. */
@@ -37,6 +41,8 @@ export function AppTopBar({
   topicTitle,
   accent,
   streakDays,
+  streakFreezes,
+  onBuyStreakFreeze,
   gems,
   hearts,
   onOpenTopics,
@@ -134,7 +140,16 @@ export function AppTopBar({
         </View>
       </View>
       <DailySheet visible={dailyOpen} onClose={() => setDailyOpen(false)} />
-      {onStreak ? null : <StreakSheet visible={streakOpen} streakDays={streakDays} onClose={() => setStreakOpen(false)} />}
+      {onStreak ? null : (
+        <StreakSheet
+          visible={streakOpen}
+          streakDays={streakDays}
+          freezes={streakFreezes}
+          gems={gems}
+          onBuyFreeze={onBuyStreakFreeze}
+          onClose={() => setStreakOpen(false)}
+        />
+      )}
     </View>
   );
 }

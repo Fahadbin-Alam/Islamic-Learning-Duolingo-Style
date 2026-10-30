@@ -159,6 +159,8 @@ import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, 
 import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
 import { pickBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
+import { formatNumber } from "./ui/screens/FormattedCount";
+import { buyStreakFreeze, markFreezeSaveSeen, streakFreezeCount, unseenFreezeSave } from "./services/streakFreeze";
 import { buySecretHint, findSecret, hasFound, secretAt, type SecretLesson, type SecretSpot } from "./data/secretLessons";
 import {
   AccountSheet,
@@ -1175,6 +1177,24 @@ export default function TopicApp() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prayerLessonDue, state.user, state.screen, otherSheetOpen, sectionNextNode]);
+  // Freezes spent while the learner was away: say so once, when nothing else is open.
+  const freezeSave = state.user ? unseenFreezeSave(state.user) : undefined;
+  useEffect(() => {
+    const busy = state.screen.startsWith("lesson_") || state.screen === "assessment";
+    if (!freezeSave || busy || otherSheetOpen) {
+      return;
+    }
+
+    dispatch({ type: "apply_user_latest", update: markFreezeSaveSeen });
+    void notify(
+      t("Streak saved!"),
+      freezeSave.days > 1
+        ? t("{count} streak freezes kept your {streak} day streak.", { count: freezeSave.days, streak: formatNumber(freezeSave.streak) })
+        : t("A streak freeze kept your {streak} day streak.", { streak: formatNumber(freezeSave.streak) }),
+      { mood: "cheer" }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [freezeSave, state.screen, otherSheetOpen]);
   useEffect(() => {
     if (!accountPromptDue || accountPromptShown || !guestUser || !onFoundationPath || otherSheetOpen) {
       return;
@@ -2706,6 +2726,8 @@ export default function TopicApp() {
             topicTitle={selectedSection.title}
             accent={selectedSection.accentColor}
             streakDays={state.user.streakDays}
+            streakFreezes={streakFreezeCount(state.user)}
+            onBuyStreakFreeze={() => dispatch({ type: "apply_user_latest", update: buyStreakFreeze })}
             gems={state.user.gems}
             hearts={lessonHearts}
             onOpenTopics={() => setTopicPickerVisible(true)}
@@ -2931,6 +2953,7 @@ export default function TopicApp() {
               dispatch({ type: "apply_user_latest", update: buySecretHint });
               setSecretListOpen(true);
             }}
+            onBuyStreakFreeze={() => dispatch({ type: "apply_user_latest", update: buyStreakFreeze })}
           />
         )}
         {state.screen === "social" && (

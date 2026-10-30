@@ -582,5 +582,13 @@
   "{count} of {total} videos watched": "{total} میں سے {count} ویڈیو دیکھ لیے",
   "{total} videos = 1 heart": "{total} ویڈیو = 1 دل",
   "A new update is ready!": "نئی اپڈیٹ آ گئی ہے!",
-  "Update": "اپڈیٹ"
+  "Update": "اپڈیٹ",
+  "A streak freeze kept your {streak} day streak.": "ایک اسٹریک فریز نے آپ کی {streak} دن کی اسٹریک بچا لی۔",
+  "Buy a streak freeze for {count} gems": "{count} جواہر میں ایک اسٹریک فریز خریدیں",
+  "Covers {count} missed days.": "{count} چھوٹے ہوئے دن سنبھال لیتا ہے۔",
+  "Saves your streak if you miss a day.": "ایک دن چھوٹ جائے تو آپ کی اسٹریک بچاتا ہے۔",
+  "Streak freeze": "اسٹریک فریز",
+  "Streak saved!": "اسٹریک بچ گئی!",
+  "{count} of {max} streak freezes": "{max} میں سے {count} اسٹریک فریز",
+  "{count} streak freezes kept your {streak} day streak.": "{count} اسٹریک فریز نے آپ کی {streak} دن کی اسٹریک بچا لی۔"
 }

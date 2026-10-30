@@ -10,6 +10,7 @@ import { lessonForAge } from "../data/ageLevels";
 import { asksSameLine, givesAway as namesAnswerOf } from "../data/scalableCurriculum";
 import type { AgeGroup } from "../services/monetizationConfig";
 import { withRamadanDay } from "../data/ramadanCalendar";
+import { applyStreakFreezes } from "../services/streakFreeze";
 import type {
   Challenge,
   LearningCourse,
@@ -168,8 +169,10 @@ export function addXp(user: UserProfile, amount: number, now = new Date()): User
 // The first lesson finished on a day starts or keeps the streak, as on Duolingo, replays too: one more
 // after a lesson yesterday, otherwise it starts again at one. Later lessons that day change nothing. A save
 // from before streak days were dated keeps its streak going.
-export function keepStreak(user: UserProfile, now = new Date()): UserProfile {
+export function keepStreak(current: UserProfile, now = new Date()): UserProfile {
   const today = localDateKey(now);
+  // Freezes cover missed days first, so a lesson after a frozen day adds to the streak.
+  const user = applyStreakFreezes(current, today);
 
   if (user.lastStreakDate === today) {
     return user;
@@ -184,8 +187,11 @@ export function keepStreak(user: UserProfile, now = new Date()): UserProfile {
   };
 }
 
-// A streak survives until the end of the day after the last finished lesson; after that it is lost.
-export function refreshStreak(user: UserProfile, now = new Date()) {
+// A streak survives until the end of the day after the last finished lesson; after that it is lost,
+// unless enough streak freezes cover the missed days.
+export function refreshStreak(current: UserProfile, now = new Date()) {
+  const user = applyStreakFreezes(current, localDateKey(now));
+
   if (!user.lastStreakDate || user.streakDays === 0) {
     return user;
   }

@@ -15,6 +15,7 @@ import { useGrownUpGate } from "./GrownUpGate";
 import { SecretTap } from "./SecretTap";
 import { PROFILE_ICONS, activeIcon, ownsIcon, type ProfileIconId } from "../../services/ummah";
 import { SECRET_HINT_PRICE, nextHintSecret } from "../../data/secretLessons";
+import { MAX_STREAK_FREEZES, STREAK_FREEZE_PRICE, streakFreezeCount } from "../../services/streakFreeze";
 import { t } from "../../i18n";
 
 export type ShopViewProps = {
@@ -55,6 +56,8 @@ export type ShopViewProps = {
   onWearIcon?: (id: ProfileIconId | undefined) => void;
   /** Buys the clue to the next secret lesson. */
   onBuySecretHint?: () => void;
+  /** Buys one streak freeze with gems. */
+  onBuyStreakFreeze?: () => void;
 };
 
 const MANAGE_SUBSCRIPTION_URL =
@@ -486,6 +489,56 @@ function SecretHintRow({ user, onBuy }: { user: UserProfile; onBuy: () => void }
   );
 }
 
+/** A streak freeze for gems, up to two held at once. */
+function StreakFreezeRow({ user, onBuy }: { user: UserProfile; onBuy: () => void }) {
+  const { style: shakeStyle, shake } = useShake(6);
+  const owned = streakFreezeCount(user);
+  const full = owned >= MAX_STREAK_FREEZES;
+  const short = full ? 0 : Math.max(0, STREAK_FREEZE_PRICE - user.gems);
+  const press = () => {
+    if (short) {
+      shake();
+      feedback("wrong", "error");
+      return;
+    }
+    onBuy();
+  };
+  return (
+    <View style={styles.section}>
+      <Text style={styles.sectionHeader}>{t("Streak")}</Text>
+      <View style={[styles.item, styles.hintRow]} testID="shop-streak-freeze">
+        <View style={[styles.itemIcon, { backgroundColor: lighten(colors.gem, 0.85) }]}>
+          <Icon name="freeze" size={34} />
+        </View>
+        <View style={styles.itemText}>
+          <Text style={styles.itemName} numberOfLines={2}>{t("Streak freeze")}</Text>
+          <Text style={[styles.itemLine, short ? styles.itemLineShort : null]} numberOfLines={2} testID="shop-streak-freeze-line">
+            {short ? t("Need {count} more", { count: formatNumber(short) }) : t("{count} of {max} streak freezes", { count: owned, max: MAX_STREAK_FREEZES })}
+          </Text>
+        </View>
+        {full ? (
+          <View style={styles.freezeFull} testID="shop-streak-freeze-full">
+            <Icon name="check" size={24} />
+          </View>
+        ) : (
+          <Animated.View style={shakeStyle}>
+            <GameButton
+              label={formatNumber(STREAK_FREEZE_PRICE)}
+              size="sm"
+              icon={short ? "lock" : "gem"}
+              variant="blue"
+              sound={short ? false : undefined}
+              onPress={press}
+              accessibilityLabel={t("Buy a streak freeze for {count} gems", { count: formatNumber(STREAK_FREEZE_PRICE) })}
+              testID="shop-buy-streak-freeze"
+            />
+          </Animated.View>
+        )}
+      </View>
+    </View>
+  );
+}
+
 /** A quick spring from big back to normal size. */
 function popValue(value: Animated.Value) {
   value.setValue(1.35);
@@ -510,7 +563,8 @@ export function ShopView({
   focus,
   onBuyIcon,
   onWearIcon,
-  onBuySecretHint
+  onBuySecretHint,
+  onBuyStreakFreeze
 }: ShopViewProps) {
   const premium = isPremium(user);
   const fullPremium = isFullPremium(user);
@@ -659,6 +713,8 @@ export function ShopView({
           </View>
         ) : null}
 
+        {onBuyStreakFreeze ? <StreakFreezeRow user={user} onBuy={onBuyStreakFreeze} /> : null}
+
         {onBuyIcon ? <IconShop user={user} onBuy={onBuyIcon} onWear={onWearIcon} /> : null}
 
         {onBuySecretHint ? <SecretHintRow user={user} onBuy={onBuySecretHint} /> : null}
@@ -780,6 +836,10 @@ const styles = StyleSheet.create({
   },
   hintRow: {
     gap: 10
+  },
+  freezeFull: {
+    width: 44,
+    alignItems: "center"
   },
   root: {
     flex: 1,

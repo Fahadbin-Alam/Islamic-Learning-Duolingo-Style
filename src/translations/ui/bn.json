@@ -582,5 +582,13 @@
   "{count} of {total} videos watched": "{total}টির মধ্যে {count}টি ভিডিও দেখা হয়েছে",
   "{total} videos = 1 heart": "{total}টি ভিডিও = ১টি হার্ট",
   "A new update is ready!": "নতুন আপডেট এসেছে!",
-  "Update": "আপডেট"
+  "Update": "আপডেট",
+  "A streak freeze kept your {streak} day streak.": "একটি স্ট্রিক ফ্রিজ তোমার {streak} দিনের স্ট্রিক বাঁচিয়েছে।",
+  "Buy a streak freeze for {count} gems": "{count} জেম দিয়ে একটি স্ট্রিক ফ্রিজ কেনো",
+  "Covers {count} missed days.": "{count}টি বাদ পড়া দিন ঢেকে রাখে।",
+  "Saves your streak if you miss a day.": "একদিন বাদ পড়লে তোমার স্ট্রিক বাঁচায়।",
+  "Streak freeze": "স্ট্রিক ফ্রিজ",
+  "Streak saved!": "স্ট্রিক বেঁচে গেছে!",
+  "{count} of {max} streak freezes": "{max}টির মধ্যে {count}টি স্ট্রিক ফ্রিজ",
+  "{count} streak freezes kept your {streak} day streak.": "{count}টি স্ট্রিক ফ্রিজ তোমার {streak} দিনের স্ট্রিক বাঁচিয়েছে।"
 }
