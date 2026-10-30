@@ -45,6 +45,7 @@ Notes:
 
 - "Product Interaction" is linked because lesson progress and answers are stored on the user's account. The AdMob part of it is not linked to identity.
 - Product Personalization covers choosing question difficulty and review from past answers. It is not used for ads.
+- The anonymous usage stats and crash reports (`src/services/analytics.ts`, sent to PostHog) fall under Product Interaction (Analytics), Crash Data and Other Diagnostic Data, already declared. They carry no account id, so they add nothing linked to the user. Nothing changes.
 - Apple's guide: https://developer.apple.com/app-store/app-privacy-details/. Google's guide for the ads SDK on iOS: https://developers.google.com/admob/ios/privacy/data-disclosure. RevenueCat's: https://www.revenuecat.com/docs/platform-resources/apple-platform-resources/apple-app-privacy.
 
 ## Privacy manifest

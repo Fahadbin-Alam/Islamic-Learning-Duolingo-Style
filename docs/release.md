@@ -57,6 +57,7 @@ Each value goes in once with `eas env:create --environment production --visibili
 | `EXPO_PUBLIC_PRIVACY_URL`, `EXPO_PUBLIC_TERMS_URL` | Only if the policy and terms live somewhere other than the GitHub Pages site (the default once Pages is turned on). |
 | `EXPO_PUBLIC_MONETIZATION_MODE` | `live` once RevenueCat and AdMob are set up (see `docs/monetization.md`), otherwise leave unset and the release ships with no ads or purchases. |
 | RevenueCat and AdMob keys | As listed in `docs/monetization.md`. |
+| `EXPO_PUBLIC_POSTHOG_KEY` | The PostHog project API key for usage stats and crash reports (see `docs/analytics.md`). Leave unset and nothing is sent. |
 
 ### 5. Build
 
