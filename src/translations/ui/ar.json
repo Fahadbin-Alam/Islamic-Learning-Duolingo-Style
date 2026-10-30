@@ -582,5 +582,11 @@
   "{count} of {total} videos watched": "شاهدت {count} من {total} فيديو",
   "{total} videos = 1 heart": "{total} فيديو = قلب واحد",
   "A new update is ready!": "تحديث جديد جاهز!",
-  "Update": "تحديث"
+  "Update": "تحديث",
+  "Hadith chest": "صندوق الأحاديث",
+  "My hadith": "أحاديثي",
+  "New hadith!": "حديث جديد!",
+  "Open a new hadith": "افتح حديثًا جديدًا",
+  "{count} more in the chest": "{count} أخرى في الصندوق",
+  "{count} of {total} collected": "جمعت {count} من {total}"
 }

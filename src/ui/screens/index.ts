@@ -31,4 +31,4 @@ export {
 export { UmmahRanks, ProfileBadge, arenaName, type RankingsState, type UmmahRanksProps } from "./UmmahRanks";
 export { BattleView, type BattleViewProps } from "./BattleView";
 export { SecretContext, SecretTap } from "./SecretTap";
-export { SecretListSheet, SecretSheet } from "./SecretSheet";
+export { HadithCardSheet, HadithListSheet, SecretListSheet, SecretSheet } from "./SecretSheet";

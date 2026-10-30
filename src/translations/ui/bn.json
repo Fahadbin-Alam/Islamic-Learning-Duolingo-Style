@@ -582,5 +582,11 @@
   "{count} of {total} videos watched": "{total}টির মধ্যে {count}টি ভিডিও দেখা হয়েছে",
   "{total} videos = 1 heart": "{total}টি ভিডিও = ১টি হার্ট",
   "A new update is ready!": "নতুন আপডেট এসেছে!",
-  "Update": "আপডেট"
+  "Update": "আপডেট",
+  "Hadith chest": "হাদিসের সিন্দুক",
+  "My hadith": "আমার হাদিস",
+  "New hadith!": "নতুন হাদিস!",
+  "Open a new hadith": "নতুন একটি হাদিস খোলো",
+  "{count} more in the chest": "সিন্দুকে আরও {count}টি",
+  "{count} of {total} collected": "{total}টির মধ্যে {count}টি সংগ্রহ হয়েছে"
 }

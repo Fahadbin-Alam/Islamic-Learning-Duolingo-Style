@@ -582,5 +582,11 @@
   "{count} of {total} videos watched": "{total} میں سے {count} ویڈیو دیکھ لیے",
   "{total} videos = 1 heart": "{total} ویڈیو = 1 دل",
   "A new update is ready!": "نئی اپڈیٹ آ گئی ہے!",
-  "Update": "اپڈیٹ"
+  "Update": "اپڈیٹ",
+  "Hadith chest": "حدیث کا صندوق",
+  "My hadith": "میری احادیث",
+  "New hadith!": "نئی حدیث!",
+  "Open a new hadith": "ایک نئی حدیث کھولیں",
+  "{count} more in the chest": "صندوق میں {count} اور",
+  "{count} of {total} collected": "{total} میں سے {count} جمع"
 }

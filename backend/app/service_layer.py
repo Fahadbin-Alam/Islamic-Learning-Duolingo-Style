@@ -243,6 +243,7 @@ def clean_ummah(value: Any, fallback: Dict[str, Any]) -> Dict[str, Any]:
         "icons": clean_ids(value.get("icons"), PROFILE_ICONS),
         "secrets": clean_ids(value.get("secrets")),
         "hints": clean_ids(value.get("hints")),
+        "hadith": clean_ids(value.get("hadith")),
     }
     nickname = value.get("nickname")
     if is_valid_nickname(nickname):

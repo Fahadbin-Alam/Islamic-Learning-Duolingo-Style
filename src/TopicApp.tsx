@@ -160,6 +160,7 @@ import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
 import { pickBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
 import { buySecretHint, findSecret, hasFound, secretAt, type SecretLesson, type SecretSpot } from "./data/secretLessons";
+import { buyHadith, type HadithCard } from "./data/hadithTreasures";
 import {
   AccountSheet,
   AppTopBar,
@@ -169,6 +170,8 @@ import {
   CrewView,
   BattleView,
   LeagueResultSheet,
+  HadithCardSheet,
+  HadithListSheet,
   SecretContext,
   SecretListSheet,
   SecretSheet,
@@ -609,6 +612,8 @@ export default function TopicApp() {
   const [battle, setBattle] = useState<BattleQuestion[] | undefined>(undefined);
   const [openSecret, setOpenSecret] = useState<{ secret: SecretLesson; isNew: boolean } | undefined>(undefined);
   const [secretListOpen, setSecretListOpen] = useState(false);
+  const [openHadith, setOpenHadith] = useState<{ card: HadithCard; isNew: boolean } | undefined>(undefined);
+  const [hadithListOpen, setHadithListOpen] = useState(false);
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   // The tile picked in the language sheet, and the language shown before the learner has saved one.
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
@@ -2931,6 +2936,13 @@ export default function TopicApp() {
               dispatch({ type: "apply_user_latest", update: buySecretHint });
               setSecretListOpen(true);
             }}
+            onBuyHadith={() => {
+              const { card } = buyHadith(state.user!);
+              if (!card) return;
+              dispatch({ type: "apply_user_latest", update: (user) => buyHadith(user).user });
+              setOpenHadith({ card, isNew: true });
+            }}
+            onOpenHadith={() => setHadithListOpen(true)}
           />
         )}
         {state.screen === "social" && (
@@ -2976,6 +2988,8 @@ export default function TopicApp() {
         ) : null}
         <SecretListSheet visible={secretListOpen} user={state.user} onClose={() => setSecretListOpen(false)} />
         <SecretSheet secret={openSecret?.secret} isNew={openSecret?.isNew} onClose={() => setOpenSecret(undefined)} />
+        <HadithListSheet visible={hadithListOpen} user={state.user} onClose={() => setHadithListOpen(false)} />
+        <HadithCardSheet card={openHadith?.card} isNew={openHadith?.isNew} onClose={() => setOpenHadith(undefined)} />
         {/* A finished league week is told once, the first time Crew opens after it. */}
         <LeagueResultSheet
           result={crewLeagueUser ? unseenLeagueResult(crewLeagueUser) : undefined}

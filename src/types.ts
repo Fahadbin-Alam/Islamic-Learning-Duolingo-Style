@@ -248,6 +248,8 @@ export interface UmmahState {
   /** Secret lessons found, and the ones whose clue was bought. */
   secrets?: string[];
   hints?: string[];
+  /** Hadith treasure cards bought with gems (src/data/hadithTreasures.ts). */
+  hadith?: string[];
 }
 
 /** How a finished league week ended: the league before (`from`) and after (`to`), as indexes into LEAGUES. */
