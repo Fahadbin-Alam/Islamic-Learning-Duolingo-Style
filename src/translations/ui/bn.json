@@ -590,5 +590,10 @@
   "Streak freeze": "স্ট্রিক ফ্রিজ",
   "Streak saved!": "স্ট্রিক বেঁচে গেছে!",
   "{count} of {max} streak freezes": "{max}টির মধ্যে {count}টি স্ট্রিক ফ্রিজ",
-  "{count} streak freezes kept your {streak} day streak.": "{count}টি স্ট্রিক ফ্রিজ তোমার {streak} দিনের স্ট্রিক বাঁচিয়েছে।"
+  "{count} streak freezes kept your {streak} day streak.": "{count}টি স্ট্রিক ফ্রিজ তোমার {streak} দিনের স্ট্রিক বাঁচিয়েছে।",
+  "Listen with no internet": "ইন্টারনেট ছাড়াই শোনো",
+  "Quran audio offline": "অফলাইনে কুরআনের অডিও",
+  "Saved, {size} MB": "সেভ হয়েছে, {size} MB",
+  "Saving {done} of {total}": "সেভ হচ্ছে {total}টির মধ্যে {done}টি",
+  "Some did not save. Check your internet.": "কিছু সেভ হয়নি। ইন্টারনেট দেখো।"
 }

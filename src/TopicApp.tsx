@@ -91,6 +91,8 @@ import {
   removeCrewMember,
   fetchUmmahRankings,
   syncRemoteUser,
+  hasPendingSync,
+  pickStartingUser,
   type CrewMember,
   type CrewPayload
 } from "./services/backendSync";
@@ -698,7 +700,9 @@ export default function TopicApp() {
       const savedUser = loadSavedUserProfile();
       const savedAccount = loadLocalAuthAccount();
       const remoteSession = await hydrateRemoteSession();
-      const baseUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remoteSession?.user ?? savedUser ?? fallbackUser)));
+      // Lessons done offline stay: the saved copy wins over an older server copy until it is sent.
+      const startingUser = pickStartingUser(remoteSession?.user, savedUser) ?? fallbackUser;
+      const baseUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(startingUser)));
       // A logged-out account stays on the device for the next log in, but the learner plays as a guest.
       const accountSeed = remoteSession?.account ?? (savedAccount?.signedOut ? undefined : savedAccount);
       const user = accountSeed ? withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, accountSeed))) : baseUser;
@@ -764,6 +768,25 @@ export default function TopicApp() {
     saveUserProfile(state.user);
     void syncRemoteUser(state.user).catch(() => undefined);
   }, [state.user]);
+
+  // Progress made offline is sent once the phone is back online: on each return to the app, and every
+  // minute while some is still waiting.
+  const latestUserRef = useRef(state.user);
+  latestUserRef.current = state.user;
+  useEffect(() => {
+    const retry = () => {
+      const user = latestUserRef.current;
+      if (user && hasPendingSync()) {
+        void syncRemoteUser(user).catch(() => undefined);
+      }
+    };
+    const timer = setInterval(retry, 60000);
+    const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && retry());
+    return () => {
+      clearInterval(timer);
+      listener.remove();
+    };
+  }, []);
 
   // The running practice session, and its end screen once it is done, are kept next to the saved
   // learner, so a reload resumes the one or shows the other again.

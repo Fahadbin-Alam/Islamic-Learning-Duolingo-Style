@@ -590,5 +590,10 @@
   "Streak freeze": "تجميد السلسلة",
   "Streak saved!": "نجت سلسلتك!",
   "{count} of {max} streak freezes": "{count} من {max} تجميد للسلسلة",
-  "{count} streak freezes kept your {streak} day streak.": "حافظت {count} تجميدات على سلسلتك من {streak} أيام."
+  "{count} streak freezes kept your {streak} day streak.": "حافظت {count} تجميدات على سلسلتك من {streak} أيام.",
+  "Listen with no internet": "استمع بدون إنترنت",
+  "Quran audio offline": "صوت القرآن بدون إنترنت",
+  "Saved, {size} MB": "تم الحفظ، {size} ميغابايت",
+  "Saving {done} of {total}": "جارٍ الحفظ: {done} من {total}",
+  "Some did not save. Check your internet.": "لم يُحفظ بعضها. تحقق من الإنترنت."
 }

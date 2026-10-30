@@ -590,5 +590,10 @@
   "Streak freeze": "اسٹریک فریز",
   "Streak saved!": "اسٹریک بچ گئی!",
   "{count} of {max} streak freezes": "{max} میں سے {count} اسٹریک فریز",
-  "{count} streak freezes kept your {streak} day streak.": "{count} اسٹریک فریز نے آپ کی {streak} دن کی اسٹریک بچا لی۔"
+  "{count} streak freezes kept your {streak} day streak.": "{count} اسٹریک فریز نے آپ کی {streak} دن کی اسٹریک بچا لی۔",
+  "Listen with no internet": "انٹرنیٹ کے بغیر سنیں",
+  "Quran audio offline": "قرآن کی آڈیو آف لائن",
+  "Saved, {size} MB": "محفوظ ہو گئی، {size} MB",
+  "Saving {done} of {total}": "محفوظ ہو رہی ہے: {total} میں سے {done}",
+  "Some did not save. Check your internet.": "کچھ محفوظ نہیں ہوئیں۔ انٹرنیٹ دیکھیں۔"
 }
