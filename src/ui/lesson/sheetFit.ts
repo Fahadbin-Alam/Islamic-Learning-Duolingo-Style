@@ -715,13 +715,18 @@ export function useStopsArrow({ key, stops, scrollRef }: { key: string; stops: Q
     const end = stops !== undefined && y >= stops.end - ROW_EDGE;
     setEndOf((before) => (end ? key : before === key ? undefined : before));
   };
-  const onPress = () => {
+  const press = () => {
     if (!stops) {
       return;
     }
     const y = offset.current.key === key ? offset.current.y : 0;
     scrollRef.current?.scrollTo?.({ y: atEnd ? 0 : nextRowStop(stops.stops, stops.rows, y, stops.viewport), animated: true });
   };
+  // The same function from render to render (it goes where the arrow points as last drawn), so the bar that holds the
+  // arrow is not drawn again for it.
+  const pressNow = useRef(press);
+  pressNow.current = press;
+  const onPress = useCallback(() => pressNow.current(), []);
   return { direction: (atEnd ? "up" : "down") as ScrollHintDirection, onScroll, onPress };
 }
 

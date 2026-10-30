@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Animated, Platform, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, HONORIFIC_PATTERN, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
@@ -11,7 +11,7 @@ import { colors, darken, fonts, radii, space, withAlpha } from "../theme";
 import { noBreakHyphens } from "./lessonText";
 import { SCROLL_HINT_ROOM, ScrollHintGap } from "./ScrollHint";
 import { nearestRowStop, nextRowStop, wholeRows, type LayoutBox, type RowSpan } from "./sheetFit";
-import { t } from "../../i18n";
+import { getActiveLanguage, t } from "../../i18n";
 
 export const PRAISE_WORDS = ["Great job!", "Nice!", "Excellent!", "Amazing!", "You got it!", "MashaAllah!"] as const;
 
@@ -511,10 +511,169 @@ export function FeedbackSheet({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible, correct, correctLabel, whyText, heading, sizes.full, sizes.least]);
 
-  const badgeScale = badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
+  // Made once: a new one on every render would set the views that use them up again each time.
+  const badgeScale = useMemo(() => badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] }), [badge]);
   // After a miss, the source button gives one small bounce once the badge has landed: "tap me to learn more".
-  const sourceScale = sourcePulse.interpolate({ inputRange: [0, 0.5, 1], outputRange: [1, 1.12, 1] });
-  const badgeRotate = badge.interpolate({ inputRange: [0, 1], outputRange: ["-40deg", "0deg"] });
+  const sourceScale = useMemo(() => sourcePulse.interpolate({ inputRange: [0, 0.5, 1], outputRange: [1, 1.12, 1] }), [sourcePulse]);
+  const badgeRotate = useMemo(() => badge.interpolate({ inputRange: [0, 1], outputRange: ["-40deg", "0deg"] }), [badge]);
+
+  // The parts that show the same while the question under the sheet places itself (the title row, the answer with its
+  // Why pill, the arrow's gap and the button) are kept from render to render and drawn again only when what they show
+  // changes: the sheet is drawn again as it is given its room (and its height), and those parts stay as they are. Their
+  // taps and layout reports are the same functions from render to render, and do what the latest render says.
+  const language = getActiveLanguage();
+  const onHeadLayout = useCallback((event: LayoutChangeEvent) => setHeadHeight(Math.round(event.nativeEvent.layout.height)), []);
+  const onTopLayout = useCallback((event: LayoutChangeEvent) => setTopBlock(Math.round(event.nativeEvent.layout.height)), []);
+  const onButtonLayout = useCallback((event: LayoutChangeEvent) => setButtonHeight(Math.round(event.nativeEvent.layout.height)), []);
+  const toggleWhy = () => {
+    // Opening Why under a long list scrolls the line into view.
+    revealWhy.current = !whyOpen;
+    setWhyOpen((open) => !open);
+    onWhyToggle?.(!whyOpen);
+  };
+  const latest = useRef({ toggleWhy, onArrow });
+  latest.current = { toggleWhy, onArrow };
+  const onWhyPress = useCallback(() => latest.current.toggleWhy(), []);
+  const onArrowPress = useCallback(() => latest.current.onArrow(), []);
+  const head = useMemo(
+    () => (
+      <View style={styles.headRow} onLayout={onHeadLayout} testID="feedback-head">
+        <Animated.View style={[styles.badge, { backgroundColor: correct ? colors.green : colors.heart, transform: [{ scale: badgeScale }, { rotate: badgeRotate }] }]}>
+          <Icon name={correct ? "check" : "close"} size={26} color={colors.white} />
+        </Animated.View>
+        <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
+          {withHonorifics(heading)}
+        </Text>
+        {source?.label ? (
+          <Animated.View style={[styles.sourceSlot, { transform: [{ scale: sourceScale }] }]}>
+            <Tappable
+              onPress={source.onOpen}
+              disabled={!source.onOpen}
+              style={[styles.sourceChip, { backgroundColor: source.onOpen ? ink : withAlpha(colors.white, 0.6), borderColor: ink }]}
+              accessibilityRole={source.onOpen ? "link" : "text"}
+              accessibilityLabel={t("Open source {name}", { name: source.label })}
+              hitSlop={10}
+              testID="feedback-source"
+            >
+              <Text style={[styles.sourceText, { color: source.onOpen ? colors.white : ink }]} numberOfLines={1}>
+                {source.label}
+              </Text>
+              {source.onOpen ? <Icon name="chevronRight" size={16} color={colors.white} /> : null}
+            </Tappable>
+          </Animated.View>
+        ) : null}
+      </View>
+    ),
+    // The language is read by t() inside.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [badgeRotate, badgeScale, correct, heading, ink, language, onHeadLayout, source, sourceScale]
+  );
+  const answerBlock = useMemo(
+    () => (
+      <View onLayout={onTopLayout} testID="feedback-top">
+        {answerShown && correctLabel ? (
+          isArabicOnly(correctLabel) ? (
+            <ArabicText
+              size={isQuranText(correctLabel) ? 21 : 26}
+              weight="bold"
+              quran={isQuranText(correctLabel)}
+              color={ink}
+              align="right"
+              style={styles.arabicAnswer}
+              testID="feedback-answer"
+            >
+              {correctLabel}
+            </ArabicText>
+          ) : (
+            <Text
+              style={[styles.answer, correctLabel.length > 80 ? styles.answerLong : null, hasArabic(correctLabel) ? styles.answerArabicMix : null, { color: ink }]}
+              testID="feedback-answer"
+            >
+              {withHonorifics(noBreakHyphens(correctLabel))}
+            </Text>
+          )
+        ) : null}
+
+        {whyShown && whyText ? (
+          <View style={styles.whyBlock}>
+            <Tappable
+              onPress={onWhyPress}
+              style={styles.whyButton}
+              accessibilityLabel={whyOpen ? t("Hide why") : t("Why?")}
+              accessibilityState={{ expanded: whyOpen }}
+              hitSlop={6}
+              testID="feedback-why"
+            >
+              <Text style={[styles.whyLabel, { color: ink }]}>{t("Why?")}</Text>
+              <Icon name={whyOpen ? "chevronDown" : "chevronRight"} size={16} color={ink} />
+            </Tappable>
+          </View>
+        ) : null}
+      </View>
+    ),
+    // The language is read by t() inside.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [answerShown, correctLabel, ink, language, onTopLayout, onWhyPress, whyOpen, whyShown, whyText]
+  );
+  const arrowGap = useMemo(
+    () => (
+      // The arrow sits in the gap above the button, under the scrolling part, never over its text.
+      <ScrollHintGap
+        visible={arrow !== undefined}
+        direction={arrow}
+        onPress={onArrowPress}
+        gap={buttonGap}
+        testID={arrow === "up" ? "feedback-more-up" : "feedback-more"}
+        gapTestID="feedback-gap"
+      />
+    ),
+    // The language is read by t() inside.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [arrow, buttonGap, language, onArrowPress]
+  );
+  // The steps in their right order (a sorting game's answer), each row's place read as it is laid out. The list and the
+  // rows missed are taken by what they hold: they come as new arrays on each render.
+  const missedKey = missedRows?.join(",") ?? "";
+  const onListLayout = useCallback((event: LayoutChangeEvent) => setListHeight(Math.round(event.nativeEvent.layout.height)), []);
+  const listBlock = useMemo(
+    () =>
+      listShown && correctList ? (
+        <View testID="feedback-list" style={styles.list} onLayout={onListLayout}>
+          {correctList.map((item, index) => (
+            <View
+              key={`${index}-${item}`}
+              style={[styles.listItem, index > 0 ? styles.listItemNext : null, missedRows?.includes(index) ? styles.listItemMissed : null]}
+              onLayout={onRowLayout(index)}
+              accessible
+              accessibilityLabel={`${index + 1}. ${item}${missedRows?.includes(index) ? t(", you had this one in another place") : ""}`}
+              testID={`feedback-row-${index}`}
+            >
+              <View style={[styles.listNumber, { backgroundColor: ink }]}>
+                <Text style={styles.listNumberText}>{index + 1}</Text>
+              </View>
+              <Text style={[styles.listText, { color: ink }]}>{withHonorifics(noBreakHyphens(item))}</Text>
+              {missedRows?.includes(index) ? (
+                <View style={styles.listMiss} testID={`feedback-miss-${index}`}>
+                  <Icon name="close" size={14} color={colors.heart} />
+                </View>
+              ) : null}
+            </View>
+          ))}
+        </View>
+      ) : null,
+    // correctList and missedRows by what they hold (listKey, missedKey), which onRowLayout follows too; the language is
+    // read by t() inside.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ink, language, listKey, listShown, missedKey, onListLayout]
+  );
+  const button = useMemo(
+    () => (
+      <View onLayout={onButtonLayout}>
+        <GameButton label={label} variant={correct ? "primary" : "danger"} size={slim ? "md" : "lg"} sound={buttonSound} fullWidth onPress={onContinue} testID="feedback-continue" />
+      </View>
+    ),
+    [buttonSound, correct, label, onButtonLayout, onContinue, slim]
+  );
 
   return (
     <Sheet
@@ -532,37 +691,7 @@ export function FeedbackSheet({
         onLayout={(event) => onHeight?.(Math.round(event.nativeEvent.layout.height + (slim ? SHEET_PAD_SLIM : SHEET_PAD) + inset), rowsPlaced)}
         testID="feedback-content"
       >
-        <View style={styles.headRow} onLayout={(event) => setHeadHeight(Math.round(event.nativeEvent.layout.height))} testID="feedback-head">
-          <Animated.View
-            style={[
-              styles.badge,
-              { backgroundColor: correct ? colors.green : colors.heart, transform: [{ scale: badgeScale }, { rotate: badgeRotate }] }
-            ]}
-          >
-            <Icon name={correct ? "check" : "close"} size={26} color={colors.white} />
-          </Animated.View>
-          <Text style={[correct ? styles.praise : styles.wrongTitle, { color: ink }]} accessibilityRole="header">
-            {withHonorifics(heading)}
-          </Text>
-          {source?.label ? (
-            <Animated.View style={[styles.sourceSlot, { transform: [{ scale: sourceScale }] }]}>
-              <Tappable
-                onPress={source.onOpen}
-                disabled={!source.onOpen}
-                style={[styles.sourceChip, { backgroundColor: source.onOpen ? ink : withAlpha(colors.white, 0.6), borderColor: ink }]}
-                accessibilityRole={source.onOpen ? "link" : "text"}
-                accessibilityLabel={t("Open source {name}", { name: source.label })}
-                hitSlop={10}
-                testID="feedback-source"
-              >
-                <Text style={[styles.sourceText, { color: source.onOpen ? colors.white : ink }]} numberOfLines={1}>
-                  {source.label}
-                </Text>
-                {source.onOpen ? <Icon name="chevronRight" size={16} color={colors.white} /> : null}
-              </Tappable>
-            </Animated.View>
-          ) : null}
-        </View>
+        {head}
 
         {hasBody ? (
           <View style={[styles.bodyBox, listShown ? styles.bodyBoxList : null]}>
@@ -610,82 +739,10 @@ export function FeedbackSheet({
                 }
               }}
             >
-              {listShown && correctList ? (
-                <View testID="feedback-list" style={styles.list} onLayout={(event) => setListHeight(Math.round(event.nativeEvent.layout.height))}>
-                  {correctList.map((item, index) => (
-                    <View
-                      key={`${index}-${item}`}
-                      style={[styles.listItem, index > 0 ? styles.listItemNext : null, missedRows?.includes(index) ? styles.listItemMissed : null]}
-                      onLayout={onRowLayout(index)}
-                      accessible
-                      accessibilityLabel={`${index + 1}. ${item}${missedRows?.includes(index) ? t(", you had this one in another place") : ""}`}
-                      testID={`feedback-row-${index}`}
-                    >
-                      <View style={[styles.listNumber, { backgroundColor: ink }]}>
-                        <Text style={styles.listNumberText}>{index + 1}</Text>
-                      </View>
-                      <Text style={[styles.listText, { color: ink }]}>{withHonorifics(noBreakHyphens(item))}</Text>
-                      {missedRows?.includes(index) ? (
-                        <View style={styles.listMiss} testID={`feedback-miss-${index}`}>
-                          <Icon name="close" size={14} color={colors.heart} />
-                        </View>
-                      ) : null}
-                    </View>
-                  ))}
-                </View>
-              ) : null}
+              {listBlock}
 
               {/* The answer and the Why pill: never scrolled out of sight. */}
-              <View onLayout={(event) => setTopBlock(Math.round(event.nativeEvent.layout.height))} testID="feedback-top">
-                {answerShown && correctLabel ? (
-                  isArabicOnly(correctLabel) ? (
-                    <ArabicText
-                      size={isQuranText(correctLabel) ? 21 : 26}
-                      weight="bold"
-                      quran={isQuranText(correctLabel)}
-                      color={ink}
-                      align="right"
-                      style={styles.arabicAnswer}
-                      testID="feedback-answer"
-                    >
-                      {correctLabel}
-                    </ArabicText>
-                  ) : (
-                    <Text
-                      style={[
-                        styles.answer,
-                        correctLabel.length > 80 ? styles.answerLong : null,
-                        hasArabic(correctLabel) ? styles.answerArabicMix : null,
-                        { color: ink }
-                      ]}
-                      testID="feedback-answer"
-                    >
-                      {withHonorifics(noBreakHyphens(correctLabel))}
-                    </Text>
-                  )
-                ) : null}
-
-                {whyShown && whyText ? (
-                  <View style={styles.whyBlock}>
-                    <Tappable
-                      onPress={() => {
-                        // Opening Why under a long list scrolls the line into view.
-                        revealWhy.current = !whyOpen;
-                        setWhyOpen((open) => !open);
-                        onWhyToggle?.(!whyOpen);
-                      }}
-                      style={styles.whyButton}
-                      accessibilityLabel={whyOpen ? t("Hide why") : t("Why?")}
-                      accessibilityState={{ expanded: whyOpen }}
-                      hitSlop={6}
-                      testID="feedback-why"
-                    >
-                      <Text style={[styles.whyLabel, { color: ink }]}>{t("Why?")}</Text>
-                      <Icon name={whyOpen ? "chevronDown" : "chevronRight"} size={16} color={ink} />
-                    </Tappable>
-                  </View>
-                ) : null}
-              </View>
+              {answerBlock}
 
               {whyVisible && whyText ? (
                 <View style={styles.whyTextBox}>
@@ -742,26 +799,8 @@ export function FeedbackSheet({
           </View>
         ) : null}
 
-        {/* The arrow sits in the gap above the button, under the scrolling part, never over its text. */}
-        <ScrollHintGap
-          visible={arrow !== undefined}
-          direction={arrow}
-          onPress={onArrow}
-          gap={buttonGap}
-          testID={arrow === "up" ? "feedback-more-up" : "feedback-more"}
-          gapTestID="feedback-gap"
-        />
-        <View onLayout={(event) => setButtonHeight(Math.round(event.nativeEvent.layout.height))}>
-          <GameButton
-            label={label}
-            variant={correct ? "primary" : "danger"}
-            size={slim ? "md" : "lg"}
-            sound={buttonSound}
-            fullWidth
-            onPress={onContinue}
-            testID="feedback-continue"
-          />
-        </View>
+        {arrowGap}
+        {button}
       </View>
     </Sheet>
   );

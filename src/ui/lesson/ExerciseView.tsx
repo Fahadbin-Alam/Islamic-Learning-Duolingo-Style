@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   ScrollView,
@@ -14,8 +14,7 @@ import {
 } from "react-native";
 import type { GameSoundEvent } from "../../services/gameSoundLibrary";
 import { ArabicText, hasArabic, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
-import { ChoiceTile, LONG_LABEL, tightSaving, tileTextBottom, tileTextTop, type ChoiceTileState } from "../ChoiceTile";
-import { GameButton } from "../GameButton";
+import { ChoiceTile, LONG_LABEL, tightSaving, tileTextBottom, tileTextTop, type ChoiceTileProps, type ChoiceTileState } from "../ChoiceTile";
 import { Icon } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
 import { POP_IN_DISTANCE, PopIn } from "../PopIn";
@@ -23,7 +22,7 @@ import { SHEET_RISE_MS, SHEET_SPRING, sheetRise, sheetSetOffAt } from "../Sheet"
 import { SpeechBubble } from "../SpeechBubble";
 import { colors, darken, fonts, lighten, radii, space } from "../theme";
 import { FeedbackSheet, type FeedbackSource } from "./FeedbackSheet";
-import { BAR_GAP, LessonBottomBar } from "./LessonHeader";
+import { BAR_GAP, LessonCheckBar } from "./LessonHeader";
 import { noBreakHyphens, shortWhy } from "./lessonText";
 import { EVERY_FRAME, SCROLL_HINT_SLACK, scrollHintGrowth, useScrollMore } from "./ScrollHint";
 import { getActiveLanguage, t } from "../../i18n";
@@ -407,6 +406,48 @@ export function attemptOrder<T>(items: T[], attempt = 0): T[] {
 export function retryOrder<T>(items: T[]): T[] {
   return attemptOrder(items, 1);
 }
+
+/**
+ * One tile in a column of answers: it fades under the sheet's edge (see FadeUnderSheet) and slides up into its place as
+ * it first shows (see PopIn). Drawn again only when what it shows changes: a question drawn again while its answer sheet
+ * opens (and places itself above it) leaves its tiles as they are, and a tile fading under the sheet's edge draws only
+ * the fade. `onLayout`, `viewRef` and the tile's `onPress` are the same functions from render to render.
+ */
+export const StackTile = memo(function StackTile({
+  hidden,
+  onLayout,
+  viewRef,
+  style,
+  boxTestID,
+  ...entry
+}: ChoiceTileProps & {
+  hidden: boolean;
+  onLayout?: (event: LayoutChangeEvent) => void;
+  viewRef?: (view: View | null) => void;
+  style?: StyleProp<ViewStyle>;
+  delay: number;
+  distance?: number;
+  /** The fading view's own testID (`testID` is the tile's). */
+  boxTestID?: string;
+}) {
+  return (
+    <FadeUnderSheet hidden={hidden} onLayout={onLayout} viewRef={viewRef} style={style} testID={boxTestID}>
+      <TileEntry {...entry} />
+    </FadeUnderSheet>
+  );
+});
+
+/** A True or False tile: drawn again only when it changes (its tap is the same function from render to render). */
+const SquareTile = memo(ChoiceTile);
+
+/** A column tile and its slide into place (see StackTile): drawn again only when the tile changes. */
+const TileEntry = memo(function TileEntry({ delay, distance, ...tile }: ChoiceTileProps & { delay: number; distance?: number }) {
+  return (
+    <PopIn from="up" delay={delay} distance={distance}>
+      <ChoiceTile {...tile} />
+    </PopIn>
+  );
+});
 
 const RETRY_INK = darken(colors.flame, 0.3);
 const RETRY_BG = lighten(colors.flame, 0.85);
@@ -871,16 +912,25 @@ export function ExerciseView({
       setTilesBox((was) => sameBox(was, tilesNow));
     }
   });
-  const onTileLayout = (id: string) => (event: LayoutChangeEvent) => {
-    const { y, height } = event.nativeEvent.layout;
-    const box = { y: Math.round(y), height: Math.round(height) };
-    const before = tileBoxes.current[id];
-    tileBoxes.current[id] = box;
-    // A tile that moved (the grey ones folded away) moves the sheet's room with it.
-    if (before && (before.y !== box.y || before.height !== box.height)) {
-      setTileMoves((count) => count + 1);
-    }
-  };
+  // Each tile's layout report and view are taken by the same functions from render to render (they use nothing a
+  // render holds), so a tile is drawn again only when what it shows changes.
+  const tileHandlers = useRef<Record<string, { onLayout: (event: LayoutChangeEvent) => void; viewRef: (view: View | null) => void }>>({});
+  const tileHandlersOf = (id: string) =>
+    (tileHandlers.current[id] ??= {
+      onLayout: (event: LayoutChangeEvent) => {
+        const { y, height } = event.nativeEvent.layout;
+        const box = { y: Math.round(y), height: Math.round(height) };
+        const before = tileBoxes.current[id];
+        tileBoxes.current[id] = box;
+        // A tile that moved (the grey ones folded away) moves the sheet's room with it.
+        if (before && (before.y !== box.y || before.height !== box.height)) {
+          setTileMoves((count) => count + 1);
+        }
+      },
+      viewRef: (view: View | null) => {
+        tileRefs.current[id] = view;
+      }
+    });
 
   const tileState = (choice: ExerciseChoice): ChoiceTileState => {
     if (!checked) {
@@ -1041,6 +1091,34 @@ export function ExerciseView({
     // Not read again only because the arrow came or went: the bar's new height is read with the next step, or reported.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checked, shownKey, sizing.step, sizing.settled, roomIn, blockIn, topSpace, tilesIn, promptIn, cueIn, tileMoves]);
+  // The chips and the bar show the same while the question places itself above the sheet: kept from render to render
+  // and drawn again only when what they show changes (the chips' words and the arrow's label follow the language).
+  const language = getActiveLanguage();
+  const retried = shownAttempt > 0;
+  const cueChips = useMemo(
+    () => (
+      <>
+        {review ? (
+          <PopIn style={[styles.cueChip, styles.reviewChip]}>
+            <Icon name="practice" size={18} />
+            <Text style={[styles.cueText, styles.reviewText]} testID="exercise-review">
+              {t("REVIEW")}
+            </Text>
+          </PopIn>
+        ) : null}
+        {retried ? (
+          <PopIn style={[styles.cueChip, styles.retryChip]}>
+            <Text style={[styles.cueText, styles.retryText]}>{t("Try again!")}</Text>
+          </PopIn>
+        ) : null}
+      </>
+    ),
+    // The language is read by t() inside.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [language, retried, review]
+  );
+  const onBarLayout = useCallback((event: LayoutChangeEvent) => setBarHeight(Math.round(event.nativeEvent.layout.height)), []);
+
   // A short question sits in the middle of the screen, not at the top; one too tall even at the last step of its fit
   // sits as low as puts the room's edge between two tiles. Read while unchecked and kept through the sheet, so the
   // question never moves when CHECK is tapped or tiles fold away.
@@ -1090,19 +1168,7 @@ export function ExerciseView({
                 }}
                 testID="exercise-cues"
               >
-                {review ? (
-                  <PopIn style={[styles.cueChip, styles.reviewChip]}>
-                    <Icon name="practice" size={18} />
-                    <Text style={[styles.cueText, styles.reviewText]} testID="exercise-review">
-                      {t("REVIEW")}
-                    </Text>
-                  </PopIn>
-                ) : null}
-                {shownAttempt > 0 ? (
-                  <PopIn style={[styles.cueChip, styles.retryChip]}>
-                    <Text style={[styles.cueText, styles.retryText]}>{t("Try again!")}</Text>
-                  </PopIn>
-                ) : null}
+                {cueChips}
               </FadeUnderSheet>
             ) : null}
             <View
@@ -1134,7 +1200,7 @@ export function ExerciseView({
                   {tfChoices.map((choice, index) => (
                     <React.Fragment key={choice.id}>
                       {index > 0 ? <View style={styles.squareGap} /> : null}
-                      <ChoiceTile
+                      <SquareTile
                         label={choice === truePick ? t("True") : t("False")}
                         icon={choice === truePick ? "check" : "close"}
                         iconColor={choice === truePick ? colors.green : colors.heart}
@@ -1162,28 +1228,23 @@ export function ExerciseView({
                       />
                     ) : null
                   ) : (
-                    <FadeUnderSheet
+                    <StackTile
                       key={choice.id}
                       hidden={fadedIds.includes(choice.id) || gliding.includes(choice.id)}
-                      onLayout={onTileLayout(choice.id)}
-                      viewRef={(view) => {
-                        tileRefs.current[choice.id] = view;
-                      }}
+                      onLayout={tileHandlersOf(choice.id).onLayout}
+                      viewRef={tileHandlersOf(choice.id).viewRef}
                       style={compact ? (look.smallGaps ? styles.tileGapSmallCompact : styles.tileGapCompact) : look.smallGaps ? styles.tileGapSmall : styles.tileGap}
-                    >
-                      <PopIn from="up" delay={80 + index * 60} distance={entryRise(choice.id)}>
-                        <ChoiceTile
-                          label={choice.label}
-                          compact={compact}
-                          tight={look.tight}
-                          long={longChoices}
-                          smallText={look.smallText}
-                          state={tileState(choice)}
-                          onPress={tapOf(choice)}
-                          testID={`choice-${choice.id}`}
-                        />
-                      </PopIn>
-                    </FadeUnderSheet>
+                      delay={80 + index * 60}
+                      distance={entryRise(choice.id)}
+                      label={choice.label}
+                      compact={compact}
+                      tight={look.tight}
+                      long={longChoices}
+                      smallText={look.smallText}
+                      state={tileState(choice)}
+                      onPress={tapOf(choice)}
+                      testID={`choice-${choice.id}`}
+                    />
                   )
                 )}
               </View>
@@ -1192,14 +1253,20 @@ export function ExerciseView({
         </ScrollView>
       </View>
 
-      <View onLayout={(event) => setBarHeight(Math.round(event.nativeEvent.layout.height))}>
-        <LessonBottomBar
+      <View onLayout={onBarLayout}>
+        <LessonCheckBar
+          label={t("Check")}
+          disabled={!selectedChoiceId || checked}
+          onCheck={onCheck}
+          testID="exercise-check"
           bottomInset={bottomInset}
-          scrollHint={{ visible: hintVisible, hold: holdHint, onPress: tall ? stopsArrow.onPress : scrollDown, direction: tall ? stopsArrow.direction : undefined, still: tall }}
-        >
-          {/* The correct / wrong sound follows right away, so CHECK itself stays quiet. */}
-          <GameButton label={t("Check")} fullWidth sound={false} disabled={!selectedChoiceId || checked} onPress={onCheck} testID="exercise-check" />
-        </LessonBottomBar>
+          hintVisible={hintVisible}
+          hintHold={holdHint}
+          onHint={tall ? stopsArrow.onPress : scrollDown}
+          hintDirection={tall ? stopsArrow.direction : undefined}
+          hintStill={tall}
+          language={language}
+        />
       </View>
 
       <FeedbackSheet

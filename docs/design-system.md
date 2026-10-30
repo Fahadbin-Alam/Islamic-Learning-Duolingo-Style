@@ -143,7 +143,17 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   in the same pass: CHECK draws the question twice before the sheet's first frame, as it did before these
   fit rules (three times where a hiding mascot lets the prompt wrap anew), so the sheet comes up about as
   soon. Nothing is set again that has not changed, and a tile or the prompt is drawn again only when what
-  it shows changes.
+  it shows changes. That holds in practice too (Level check, Daily, Review, My lessons, every game). There
+  a question answered with tiles, a matching game and a sorting game with every step placed keep their
+  parts as they are at CHECK, so the render CHECK draws already places them from what was read before it:
+  CHECK draws them once where the sheet's heights are the same as for the question before (a right answer,
+  most often), and twice where they are new, as before these fit rules. Only a typed answer turning into
+  tiles, or the steps left to place going away, waits for the read. The later draws change only where the
+  question sits, which parts fade under the sheet's edge and the sheet's room. Each answer tile, sorting
+  slot and matching row, the prompt, the topic label, the bar with CHECK and the sheet's title, answer,
+  list of steps and button keep the same taps and layout reports from render to render (a tap does what
+  the latest render says), so none of them is drawn again for it; a tile that fades under the sheet's edge
+  draws only its fade.
   Where the picked tile may still fold, it waits for the sheet's least height too (also read before that frame),
   so it never starts towards a place it then leaves, nor hides the chips for a scroll it never makes.
   It springs up but never past its place, so on its way up its edge never crosses what it keeps clear.
