@@ -7,12 +7,13 @@ import Purchases, {
   type PurchasesStoreProduct
 } from "react-native-purchases";
 
-import type { PremiumStatus, ShopItem } from "../types";
+import type { PlanDetails, PremiumStatus, ShopItem } from "../types";
 import {
   createSandboxClient,
   disabledAd,
   disabledPurchase,
   isSubscriptionItem,
+  periodInDays,
   rewardFor,
   type MonetizationClient
 } from "./monetizationShared";
@@ -375,6 +376,51 @@ function createLiveClient(): MonetizationClient {
       );
 
       return prices;
+    },
+
+    // A trial is only promised when the store will give it: on Google Play the default offer (the one bought) holds only
+    // offers this learner can still get; on the App Store the introductory offer is checked for eligibility.
+    async getPlanDetails(items) {
+      if (!storeReady) {
+        return {};
+      }
+
+      const details: Record<string, PlanDetails> = {};
+      const found = await Promise.all(
+        items.filter(isSubscriptionItem).map(async (item) => {
+          try {
+            return { item, pkg: await findSubscriptionPackage(item) };
+          } catch {
+            return { item, pkg: undefined };
+          }
+        })
+      );
+      let eligible: Record<string, { status: number }> = {};
+
+      if (platform === "ios") {
+        const ids = found.flatMap(({ pkg }) => (pkg?.product.introPrice ? [pkg.product.identifier] : []));
+        eligible = ids.length ? await Purchases.checkTrialOrIntroductoryPriceEligibility(ids).catch(() => ({})) : {};
+      }
+
+      for (const { item, pkg } of found) {
+        if (!pkg) continue;
+        const product = pkg.product;
+        let trialDays = 0;
+
+        if (platform === "android") {
+          const free = product.defaultOption?.freePhase;
+          trialDays = free ? periodInDays(free.billingPeriod.unit, free.billingPeriod.value * (free.billingCycleCount ?? 1)) : 0;
+        } else if (product.introPrice && product.introPrice.price === 0 && eligible[product.identifier]?.status === Purchases.INTRO_ELIGIBILITY_STATUS.INTRO_ELIGIBILITY_STATUS_ELIGIBLE) {
+          trialDays = periodInDays(product.introPrice.periodUnit, product.introPrice.periodNumberOfUnits * Math.max(1, product.introPrice.cycles));
+        }
+
+        details[item.id] = {
+          trialDays: trialDays || undefined,
+          perMonth: (item.durationDays ?? 0) >= 365 ? product.pricePerMonthString ?? undefined : undefined
+        };
+      }
+
+      return details;
     },
 
     async purchaseShopItem(item) {

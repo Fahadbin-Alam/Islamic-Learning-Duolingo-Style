@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Animated, Linking, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { UiStrings } from "../../i18n";
 import { VIDEOS_PER_HEART, canSellInStore, legalLinks, monetizationMode, planForProduct, storePlatform } from "../../services/monetizationConfig";
-import type { LearningSection, ShopItem, UserProfile } from "../../types";
+import type { LearningSection, PlanDetails, ShopItem, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
@@ -23,6 +23,8 @@ export type ShopViewProps = {
   items: ShopItem[];
   /** Store-localized prices by item id; they win over the built-in USD price. */
   storePrices: Record<string, string>;
+  /** The store's free trial and price per month for each plan. */
+  planDetails?: Record<string, PlanDetails>;
   /** A purchase or restore is running: buying is paused and the pressed button spins. */
   busy: boolean;
   section: LearningSection;
@@ -145,6 +147,7 @@ export function badgeText(item: ShopItem) {
 const BENEFITS: { icon: IconName; label: string }[] = [
   { icon: "sparkle", label: "No ads" },
   { icon: "infinity", label: "Unlimited hearts" },
+  { icon: "shield", label: "Streak shield every week" },
   { icon: "bookOpen", label: "Every lesson" }
 ];
 
@@ -352,7 +355,7 @@ export function BenefitList({ ink, skipHearts }: { ink: string; skipHearts?: boo
 }
 
 /** A plan card: "No ads" (ads only) or Premium (no ads, unlimited hearts, every lesson). */
-function PremiumCard({ plans, kind = "premium", ...rest }: Omit<RowProps, "item"> & { plans: ShopItem[]; kind?: "premium" | "no_ads" }) {
+function PremiumCard({ plans, kind = "premium", planDetails = {}, ...rest }: Omit<RowProps, "item"> & { plans: ShopItem[]; kind?: "premium" | "no_ads"; planDetails?: Record<string, PlanDetails> }) {
   const ink = darken(colors.gold, 0.62);
   const title = kind === "no_ads" ? t("No ads") : t("Premium");
   return (
@@ -370,12 +373,19 @@ function PremiumCard({ plans, kind = "premium", ...rest }: Omit<RowProps, "item"
       {plans.map((plan) => {
         const badge = badgeText(plan);
         const price = formatShopPrice(plan, rest.storePrices);
+        const { trialDays, perMonth } = planDetails[plan.id] ?? {};
+        const extra = [perMonth ? t("Just {price}/mo", { price: perMonth }) : "", trialDays ? t("{count} days free", { count: trialDays }) : ""].filter(Boolean).join(" · ");
         return (
           <View key={plan.id} style={styles.plan}>
             <View style={styles.planText}>
               <Text style={styles.planName} numberOfLines={1}>
                 {displayName(plan)}
               </Text>
+              {extra ? (
+                <Text style={styles.planExtra} numberOfLines={2} testID={`shop-plan-extra-${plan.id}`}>
+                  {extra}
+                </Text>
+              ) : null}
               {badge ? (
                 <View style={styles.planBadge}>
                   <Text style={styles.planBadgeText} numberOfLines={1}>
@@ -497,6 +507,7 @@ export function ShopView({
   user,
   items,
   storePrices,
+  planDetails = {},
   busy,
   section,
   onUseItem,
@@ -671,7 +682,7 @@ export function ShopView({
 
         {premiumPlans.length ? (
           <View style={styles.section} onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
-            <PremiumCard plans={premiumPlans} {...rowProps} />
+            <PremiumCard plans={premiumPlans} planDetails={planDetails} {...rowProps} />
           </View>
         ) : null}
 
@@ -1032,6 +1043,12 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     color: colors.ink,
     flexShrink: 1
+  },
+  planExtra: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: darken(colors.green, 0.25)
   },
   planBadge: {
     paddingHorizontal: 10,

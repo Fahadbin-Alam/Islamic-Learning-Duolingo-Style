@@ -184,7 +184,23 @@ export function keepStreak(user: UserProfile, now = new Date()): UserProfile {
   };
 }
 
-// A streak survives until the end of the day after the last finished lesson; after that it is lost.
+// Premium's streak shield: one missed day a week is forgiven, so the streak waits instead of starting again.
+export const STREAK_SHIELD_DAYS = 7;
+
+function daysBetween(fromKey: string, toKey: string) {
+  const [fy, fm, fd] = fromKey.split("-").map(Number);
+  const [ty, tm, td] = toKey.split("-").map(Number);
+  return Math.round((new Date(ty, tm - 1, td).getTime() - new Date(fy, fm - 1, fd).getTime()) / 86_400_000);
+}
+
+/** The shield is ready: a Premium learner who has not used it in the last week. */
+export function streakShieldReady(user: UserProfile, now = new Date()) {
+  return hasPremiumLessons(user) && (!user.streakShieldUsedOn || daysBetween(user.streakShieldUsedOn, localDateKey(now)) >= STREAK_SHIELD_DAYS);
+}
+
+// A streak survives until the end of the day after the last finished lesson; after that it is lost, unless exactly
+// one day was missed and Premium's shield is ready: then the missed day is covered (the streak does not grow), and a
+// lesson today carries it on.
 export function refreshStreak(user: UserProfile, now = new Date()) {
   if (!user.lastStreakDate || user.streakDays === 0) {
     return user;
@@ -192,6 +208,10 @@ export function refreshStreak(user: UserProfile, now = new Date()) {
 
   if (user.lastStreakDate === localDateKey(now) || user.lastStreakDate === previousDateKey(now)) {
     return user;
+  }
+
+  if (daysBetween(user.lastStreakDate, localDateKey(now)) === 2 && streakShieldReady(user, now)) {
+    return { ...user, lastStreakDate: previousDateKey(now), streakShieldUsedOn: localDateKey(now) };
   }
 
   return { ...user, streakDays: 0 };

@@ -13,6 +13,7 @@ jest.mock("../services/monetization", () => ({
     initialize: jest.fn(async () => undefined),
     getPremiumStatus: jest.fn(async () => null),
     getStorePrices: jest.fn(async () => ({})),
+    getPlanDetails: jest.fn(async (items: unknown[]) => jest.requireActual("../services/monetizationShared").catalogPlanDetails(items)),
     showLessonBreakAd: jest.fn(async () => undefined),
     setAdAudience: jest.fn(),
     showRewardedAd: jest.fn(async () => ({ ok: false })),
@@ -124,9 +125,11 @@ describe("the plans sheet", () => {
 
   it("shows both Premium plans with how often they charge, the no-ads plan, renewal terms and the links", async () => {
     await render(<PlanOfferSheet {...base} />);
-    expect(screen.getByTestId("plan-offer-buy-membership-yearly")).toHaveTextContent("$49.99/YR");
-    expect(screen.getByTestId("plan-offer-buy-membership-monthly")).toHaveTextContent("$6.99/MO");
+    expect(screen.getByTestId("plan-offer-price-membership-yearly")).toHaveTextContent("$49.99/yr");
+    expect(screen.getByTestId("plan-offer-price-membership-monthly")).toHaveTextContent("$6.99/mo");
+    expect(screen.getByTestId("plan-offer-row-membership-yearly")).toHaveTextContent(/Save 40%/);
     expect(screen.getByTestId("plan-offer-buy-no-ads-monthly")).toHaveTextContent("$2.99/MO");
+    expect(screen.getByText("Streak shield every week")).toBeTruthy();
     expect(screen.getByText("Renews automatically. Cancel anytime in store settings.")).toBeTruthy();
     expect(screen.getByTestId("plan-offer-restore")).toBeTruthy();
     expect(screen.getByTestId("plan-offer-terms")).toBeTruthy();
@@ -141,10 +144,47 @@ describe("the plans sheet", () => {
     expect(onClose).toHaveBeenCalledTimes(2);
   });
 
+  it("picks Yearly first; with no trial from the store it promises none and says what it costs", async () => {
+    await render(<PlanOfferSheet {...base} />);
+    expect(screen.getByTestId("plan-offer-row-membership-yearly").props.accessibilityState).toEqual(expect.objectContaining({ checked: true }));
+    expect(screen.getByTestId("plan-offer-buy")).toHaveTextContent("GET PREMIUM");
+    expect(screen.getByTestId("plan-offer-terms-line")).toHaveTextContent("$49.99/yr. Cancel anytime.");
+    expect(screen.queryByTestId("plan-offer-extra-membership-yearly")).toBeNull();
+  });
+
+  it("shows the store's free trial and price per month, and the trial's terms under the button", async () => {
+    const planDetails = { "membership-yearly": { trialDays: 7, perMonth: "$4.16" } };
+    await render(<PlanOfferSheet {...base} planDetails={planDetails} />);
+    expect(screen.getByTestId("plan-offer-extra-membership-yearly")).toHaveTextContent("Just $4.16/mo · 7 days free");
+    expect(screen.getByTestId("plan-offer-buy")).toHaveTextContent("START 7 FREE DAYS");
+    expect(screen.getByTestId("plan-offer-terms-line")).toHaveTextContent("Free for 7 days, then $49.99/yr. Cancel before then and pay nothing.");
+  });
+
+  it("Monthly can be picked instead, and the button then buys it", async () => {
+    const onBuy = jest.fn();
+    await render(<PlanOfferSheet {...base} planDetails={{ "membership-yearly": { trialDays: 7 } }} onBuy={onBuy} />);
+    await press("plan-offer-row-membership-monthly");
+    expect(screen.getByTestId("plan-offer-row-membership-monthly").props.accessibilityState).toEqual(expect.objectContaining({ checked: true }));
+    expect(screen.getByTestId("plan-offer-buy")).toHaveTextContent("GET PREMIUM");
+    expect(screen.getByTestId("plan-offer-terms-line")).toHaveTextContent("$6.99/mo. Cancel anytime.");
+    await press("plan-offer-buy");
+    await passGrownUp();
+    expect(onBuy).toHaveBeenCalledWith(expect.objectContaining({ id: "membership-monthly" }));
+  });
+
+  it("says why it opened: hearts, a Premium unit, or a streak worth keeping", async () => {
+    const { rerender } = await render(<PlanOfferSheet {...base} reason="unit" />);
+    expect(screen.getByTestId("plan-offer-line")).toHaveTextContent("Unlock every unit!");
+    await rerender(<PlanOfferSheet {...base} reason="lessons" streakDays={12} />);
+    expect(screen.getByTestId("plan-offer-line")).toHaveTextContent("Keep your 12-day streak safe!");
+    await rerender(<PlanOfferSheet {...base} reason="lessons" streakDays={1} />);
+    expect(screen.getByTestId("plan-offer-line")).toHaveTextContent("Learn with no limits!");
+  });
+
   it("asks a grown-up before any real money", async () => {
     const onBuy = jest.fn();
     await render(<PlanOfferSheet {...base} onBuy={onBuy} />);
-    await press("plan-offer-buy-membership-yearly");
+    await press("plan-offer-buy");
     expect(onBuy).not.toHaveBeenCalled();
     expect(screen.getByTestId("grownup-check")).toBeTruthy();
     await passGrownUp();
@@ -171,7 +211,7 @@ describe("the plans when hearts run out", () => {
   it("buying Premium carries the lesson on with unlimited hearts", async () => {
     purchaseShopItem.mockResolvedValue({ ok: true, itemId: "membership-yearly", transactionId: "t1", premium: { active: true, productId: "membership_yearly" } });
     await runOutOfHearts();
-    await press("plan-offer-buy-membership-yearly");
+    await press("plan-offer-buy");
     await passGrownUp();
     expect(purchaseShopItem).toHaveBeenCalledWith(expect.objectContaining({ id: "membership-yearly" }));
     expect(screen.getByTestId("exercise-view")).toBeTruthy();
@@ -238,5 +278,35 @@ describe("the plans after a few lessons", () => {
     await press("plan-offer-no-thanks");
     // The sheet slides away (or is gone): no longer taking taps.
     expect(screen.queryByTestId("plan-offer-sheet")?.props.pointerEvents ?? "none").toBe("none");
+  });
+});
+
+describe("the plans when a Premium unit is tapped", () => {
+  const PREMIUM_UNIT = "unit-premium-prayer-review-and-mastery";
+
+  async function openPrayerPath() {
+    setStoredItem(PROFILE_KEY, JSON.stringify(makeUser({ lastTopicId: "prayer", hearts: hearts(5) })));
+    await render(<TopicApp />);
+    await screen.findByTestId("learn-path-prayer");
+  }
+
+  it("open at once, even soon after the last offer, and say what the tap was for", async () => {
+    setStoredItem(OFFER_AT_KEY, String(Date.now() - 60_000));
+    // An adult: the store starts once the age screen is answered.
+    setStoredItem("sira-path-age-group", "18+");
+    await openPrayerPath();
+    await press(PREMIUM_UNIT);
+    expect(screen.getByTestId("plan-offer-sheet")).toBeTruthy();
+    expect(screen.getByTestId("plan-offer-line")).toHaveTextContent("Unlock every unit!");
+    // The simulated store gives the week free on Yearly.
+    expect(screen.getByTestId("plan-offer-buy")).toHaveTextContent("START 7 FREE DAYS");
+  });
+
+  it("a child gets the shop and its grown-up check instead", async () => {
+    setStoredItem("sira-path-age-group", "6-9");
+    await openPrayerPath();
+    await press(PREMIUM_UNIT);
+    expect(screen.queryByTestId("plan-offer-sheet")).toBeNull();
+    expect(screen.getByTestId("shop-premium")).toBeTruthy();
   });
 });

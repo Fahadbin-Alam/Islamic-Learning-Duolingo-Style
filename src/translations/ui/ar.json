@@ -582,5 +582,17 @@
   "{count} of {total} videos watched": "شاهدت {count} من {total} فيديو",
   "{total} videos = 1 heart": "{total} فيديو = قلب واحد",
   "A new update is ready!": "تحديث جديد جاهز!",
-  "Update": "تحديث"
+  "Update": "تحديث",
+  "Free for {count} days, then {price}. Cancel before then and pay nothing.": "مجانًا {count} أيام، ثم {price}. ألغِ قبلها ولن تدفع شيئًا.",
+  "Get Premium": "احصل على بريميوم",
+  "Just {price}/mo": "فقط {price}/شهر",
+  "Keep your {count}-day streak safe!": "احفظ سلسلتك من {count} يومًا!",
+  "Start {count} free days": "ابدأ {count} أيام مجانًا",
+  "Streak saved!": "نجت سلسلتك!",
+  "Streak shield every week": "درع للسلسلة كل أسبوع",
+  "Unlock every unit!": "افتح كل الوحدات!",
+  "Your streak shield kept your {count}-day streak.": "حفظ درعك سلسلتك من {count} يومًا.",
+  "{count} days free": "{count} أيام مجانًا",
+  "{price}. Cancel anytime.": "{price}. ألغِ متى شئت.",
+  "{price}/mo": "{price}/شهر"
 }

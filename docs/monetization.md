@@ -66,7 +66,9 @@ These need your logins, payment details or legal agreements, so they are yours t
 | `membership_yearly` | Auto-renewing subscription (Google: base plan `yearly`) | $49.99 / year |
 | `heart_pack_small` | Consumable | $0.99 |
 
-On Apple, put all four subscriptions in **one** subscription group, with the Premium plans ranked above the No ads plans, so moving from No ads to Premium is an upgrade Apple handles itself. On Google, the app passes the old plan when someone upgrades so they are not charged twice. A 7-day free trial on the yearly plan (an "introductory offer" on Apple, a "free trial offer" on Google) tends to lift conversions a lot; the app shows whatever the store returns.
+On Apple, put all four subscriptions in **one** subscription group, with the Premium plans ranked above the No ads plans, so moving from No ads to Premium is an upgrade Apple handles itself. On Google, the app passes the old plan when someone upgrades so they are not charged twice. **Free trial (set this up):** give `membership_yearly` a 7-day free trial for new subscribers. Google Play: Subscriptions > membership_yearly > base plan `yearly` > Add offer > Free trial, 7 days, eligibility "New customer acquisition". App Store Connect: membership_yearly > Subscription Prices > Introductory Offer > Free, 1 week, all countries. The plans sheet only says "7 days free" when the store reports a trial this person can still get (Google's default offer, Apple's intro-offer eligibility check), so skipping this step just hides the trial; nothing false is ever shown.
+
+**What Premium gives:** no ads, unlimited hearts, every unit, and a weekly streak shield (one missed day a week does not reset the streak; `refreshStreak` in src/api/islamicLearningApi.ts).
 
 ### 3. RevenueCat
 1. Create a project and add the iOS app (App Store Connect API key + in-app purchase key) and the Android app (Google Play service account JSON).

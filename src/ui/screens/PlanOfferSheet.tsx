@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Linking, ScrollView, StyleSheet, Text, View } from "react-native";
-import type { ShopItem } from "../../types";
+import type { PlanDetails, ShopItem } from "../../types";
 import { legalLinks } from "../../services/monetizationConfig";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
@@ -15,11 +15,18 @@ import { t } from "../../i18n";
 
 export type PlanOfferSheetProps = {
   visible: boolean;
-  /** "hearts": opened because the hearts ran out; "lessons": after a few finished lessons. Only the title changes. */
-  reason: "hearts" | "lessons";
+  /**
+   * "hearts": opened because the hearts ran out; "lessons": after a few finished lessons; "unit": a Premium unit was
+   * tapped. Only the line under the title changes.
+   */
+  reason: "hearts" | "lessons" | "unit";
   /** The shop's items: the plans are picked out of them. */
   items: ShopItem[];
   storePrices: Record<string, string>;
+  /** The free trial and price per month the store gives each plan (see MonetizationClient.getPlanDetails). */
+  planDetails?: Record<string, PlanDetails>;
+  /** The learner's streak: after a few lessons, a streak worth keeping is what the shield protects. */
+  streakDays?: number;
   /** A purchase or restore is running: the pressed button spins and the others wait. */
   busy: boolean;
   mascotVariant: string;
@@ -34,14 +41,26 @@ export type PlanOfferSheetProps = {
   onOpenLink?: (url: string) => void;
 };
 
+/** A streak this long is worth a line of its own. */
+const STREAK_WORTH_KEEPING = 3;
+
+function reasonLine(reason: PlanOfferSheetProps["reason"], streakDays = 0) {
+  if (reason === "hearts") return t("Never run out of hearts!");
+  if (reason === "unit") return t("Unlock every unit!");
+  return streakDays >= STREAK_WORTH_KEEPING ? t("Keep your {count}-day streak safe!", { count: streakDays }) : t("Learn with no limits!");
+}
+
 /**
- * The plans, offered by themselves now and then (see shouldOfferPlansAfterLesson) and when hearts run out. Store rules:
- * the close button and NO THANKS are there from the first frame, every price says how often it is charged, renewal and
+ * The plans, offered by themselves now and then (see shouldOfferPlansAfterLesson), when hearts run out, and when a
+ * Premium unit is tapped. The learner picks Yearly (picked first: the better deal, with the free trial) or Monthly,
+ * then one big button buys it. Store rules: the close button and NO THANKS are there from the first frame, the full
+ * price and how often it is charged are the biggest price on each plan, a trial says what it costs after, renewal and
  * the Terms and Privacy links sit under the plans, and RESTORE is offered. Real money waits for the grown-up check.
  */
-export function PlanOfferSheet({ visible, reason, items, storePrices, busy, mascotVariant, accent, onBuy, onRestore, onClose, onOpenLink }: PlanOfferSheetProps) {
+export function PlanOfferSheet({ visible, reason, items, storePrices, planDetails = {}, streakDays, busy, mascotVariant, accent, onBuy, onRestore, onClose, onOpenLink }: PlanOfferSheetProps) {
   const { ask, gate } = useGrownUpGate();
   const [pendingId, setPendingId] = useState<string | undefined>(undefined);
+  const [pickedId, setPickedId] = useState<string | undefined>(undefined);
   useBackToClose(visible && !busy, onClose);
   useOpenSound(visible, "soft_ui", `plan-offer-${reason}`);
 
@@ -54,7 +73,9 @@ export function PlanOfferSheet({ visible, reason, items, storePrices, busy, masc
   const byLength = (a: ShopItem, b: ShopItem) => (b.durationDays ?? 0) - (a.durationDays ?? 0);
   const premiumPlans = plans.filter((item) => !isNoAdsPlan(item)).sort(byLength);
   const noAdsPlan = plans.filter(isNoAdsPlan).sort((a, b) => (a.durationDays ?? 0) - (b.durationDays ?? 0))[0];
+  const picked = premiumPlans.find((item) => item.id === pickedId) ?? premiumPlans[0];
   const ink = darken(colors.gold, 0.62);
+  const trialOf = (item: ShopItem) => planDetails[item.id]?.trialDays ?? 0;
 
   const buy = (item: ShopItem) =>
     ask(() => {
@@ -71,44 +92,55 @@ export function PlanOfferSheet({ visible, reason, items, storePrices, busy, masc
     if (!busy) onClose();
   };
 
-  const planButton = (item: ShopItem, primary: boolean) => {
+  const planChoice = (item: ShopItem) => {
     const price = formatShopPrice(item, storePrices);
     const badge = badgeText(item);
     const name = displayName(item);
+    const trial = trialOf(item);
+    const perMonth = planDetails[item.id]?.perMonth;
+    const chosen = item.id === picked?.id;
     return (
-      <View key={item.id} style={[styles.plan, primary ? styles.planBest : null]} testID={`plan-offer-row-${item.id}`}>
+      <Tappable
+        key={item.id}
+        onPress={() => !busy && setPickedId(item.id)}
+        sound={busy ? false : "soft_ui"}
+        pressScale={0.98}
+        accessibilityRole="radio"
+        accessibilityState={{ checked: chosen }}
+        accessibilityLabel={[name, price, perMonth ? t("{price}/mo", { price: perMonth }) : "", trial ? t("{count} days free", { count: trial }) : "", badge ?? ""].filter(Boolean).join(", ")}
+        style={[styles.plan, chosen ? styles.planChosen : null]}
+        testID={`plan-offer-row-${item.id}`}
+      >
+        <View style={[styles.radio, chosen ? styles.radioOn : null]}>{chosen ? <Icon name="check" size={14} color={colors.white} /> : null}</View>
         <View style={styles.planText}>
-          <Text style={styles.planName} numberOfLines={1}>
-            {name}
+          <View style={styles.planNameRow}>
+            <Text style={styles.planName} numberOfLines={1}>
+              {name}
+            </Text>
+            {badge ? (
+              <View style={styles.planBadge}>
+                <Text style={styles.planBadgeText} numberOfLines={1}>
+                  {badge}
+                </Text>
+              </View>
+            ) : null}
+          </View>
+          <Text style={styles.planPrice} numberOfLines={1} testID={`plan-offer-price-${item.id}`}>
+            {price}
           </Text>
-          {badge ? (
-            <View style={styles.planBadge}>
-              <Text style={styles.planBadgeText} numberOfLines={1}>
-                {badge}
-              </Text>
-            </View>
+          {perMonth || trial ? (
+            <Text style={styles.planExtra} numberOfLines={2} testID={`plan-offer-extra-${item.id}`}>
+              {[perMonth ? t("Just {price}/mo", { price: perMonth }) : "", trial ? t("{count} days free", { count: trial }) : ""].filter(Boolean).join(" · ")}
+            </Text>
           ) : null}
         </View>
-        {busy && pendingId === item.id ? (
-          <View style={styles.spinner} accessibilityLabel={t("Working")} testID={`plan-offer-pending-${item.id}`}>
-            <ActivityIndicator color={colors.green} />
-          </View>
-        ) : (
-          <View style={busy ? styles.dim : null} pointerEvents={busy ? "none" : "auto"}>
-            <GameButton
-              label={price}
-              size="sm"
-              variant={primary ? "primary" : "blue"}
-              sound={busy ? false : undefined}
-              onPress={() => !busy && buy(item)}
-              accessibilityLabel={`${t("Premium")} ${name}, ${price}`}
-              testID={`plan-offer-buy-${item.id}`}
-            />
-          </View>
-        )}
-      </View>
+      </Tappable>
     );
   };
+
+  const pickedTrial = picked ? trialOf(picked) : 0;
+  const pickedPrice = picked ? formatShopPrice(picked, storePrices) : "";
+  const pending = busy && picked && pendingId === picked.id;
 
   return (
     <Sheet visible={visible} onClose={close} dismissOnBackdrop={false} style={styles.tallPanel} testID="plan-offer-sheet">
@@ -123,7 +155,7 @@ export function PlanOfferSheet({ visible, reason, items, storePrices, busy, masc
               </Text>
             </View>
             <Text style={styles.line} numberOfLines={2} testID="plan-offer-line">
-              {reason === "hearts" ? t("Never run out of hearts!") : t("Learn with no limits!")}
+              {reasonLine(reason, streakDays)}
             </Text>
           </View>
           <Tappable onPress={close} style={styles.close} accessibilityLabel={t("Close")} hitSlop={8} pressScale={0.9} testID="plan-offer-close">
@@ -132,17 +164,61 @@ export function PlanOfferSheet({ visible, reason, items, storePrices, busy, masc
         </View>
         <View style={styles.card}>
           <BenefitList ink={ink} />
-          {premiumPlans.map((item, index) => planButton(item, index === 0))}
         </View>
+        {premiumPlans.length ? (
+          <View style={styles.choices} accessibilityRole="radiogroup" testID="plan-offer-choices">
+            {premiumPlans.map(planChoice)}
+          </View>
+        ) : null}
+        {picked ? (
+          <View style={styles.buyArea}>
+            {pending ? (
+              <View style={styles.bigSpinner} accessibilityLabel={t("Working")} testID={`plan-offer-pending-${picked.id}`}>
+                <ActivityIndicator color={colors.green} />
+              </View>
+            ) : (
+              <View style={busy ? styles.dim : null} pointerEvents={busy ? "none" : "auto"}>
+                <GameButton
+                  label={pickedTrial ? t("Start {count} free days", { count: pickedTrial }) : t("Get Premium")}
+                  variant="primary"
+                  fullWidth
+                  sound={busy ? false : undefined}
+                  onPress={() => !busy && buy(picked)}
+                  accessibilityLabel={`${t("Premium")} ${displayName(picked)}, ${pickedPrice}`}
+                  testID="plan-offer-buy"
+                />
+              </View>
+            )}
+            <Text style={styles.terms} testID="plan-offer-terms-line">
+              {pickedTrial
+                ? t("Free for {count} days, then {price}. Cancel before then and pay nothing.", { count: pickedTrial, price: pickedPrice })
+                : t("{price}. Cancel anytime.", { price: pickedPrice })}
+            </Text>
+          </View>
+        ) : null}
         {noAdsPlan ? (
           <View style={styles.noAds} testID="plan-offer-no-ads">
-            <View style={styles.noAdsHead}>
-              <Icon name="sparkle" size={22} />
-              <Text style={styles.noAdsText} numberOfLines={2}>
-                {t("Just no ads")}
-              </Text>
-            </View>
-            {planButton(noAdsPlan, false)}
+            <Icon name="sparkle" size={22} />
+            <Text style={styles.noAdsText} numberOfLines={2}>
+              {t("Just no ads")}
+            </Text>
+            {busy && pendingId === noAdsPlan.id ? (
+              <View style={styles.spinner} accessibilityLabel={t("Working")} testID={`plan-offer-pending-${noAdsPlan.id}`}>
+                <ActivityIndicator color={colors.green} />
+              </View>
+            ) : (
+              <View style={busy ? styles.dim : null} pointerEvents={busy ? "none" : "auto"}>
+                <GameButton
+                  label={formatShopPrice(noAdsPlan, storePrices)}
+                  size="sm"
+                  variant="blue"
+                  sound={busy ? false : undefined}
+                  onPress={() => !busy && buy(noAdsPlan)}
+                  accessibilityLabel={`${t("Just no ads")}, ${formatShopPrice(noAdsPlan, storePrices)}`}
+                  testID={`plan-offer-buy-${noAdsPlan.id}`}
+                />
+              </View>
+            )}
           </View>
         ) : null}
         <GameButton label={t("No thanks")} variant="ghost" color={colors.inkSoft} fullWidth onPress={close} testID="plan-offer-no-thanks" />
@@ -210,32 +286,56 @@ const styles = StyleSheet.create({
   },
   card: {
     padding: 14,
-    gap: 10,
     borderRadius: radii.xl,
     backgroundColor: colors.gold,
     borderBottomWidth: 6,
     borderBottomColor: colors.goldLip
   },
+  choices: {
+    gap: 10
+  },
   plan: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    padding: 10,
+    gap: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
     borderRadius: radii.tile,
     backgroundColor: colors.white,
-    borderBottomWidth: 4,
-    borderBottomColor: lighten(colors.goldLip, 0.2)
-  },
-  planBest: {
     borderWidth: 2,
     borderBottomWidth: 4,
-    borderColor: colors.heartLip
+    borderColor: colors.line,
+    borderBottomColor: colors.lineLip
+  },
+  planChosen: {
+    borderColor: colors.green,
+    borderBottomColor: darken(colors.green, 0.2),
+    backgroundColor: lighten(colors.green, 0.9)
+  },
+  radio: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    borderWidth: 2,
+    borderColor: colors.line,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white
+  },
+  radioOn: {
+    borderColor: colors.green,
+    backgroundColor: colors.green
   },
   planText: {
     flex: 1,
     minWidth: 0,
-    alignItems: "flex-start",
-    gap: 4
+    gap: 2
+  },
+  planNameRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: 8
   },
   planName: {
     fontFamily: fonts.displayHeavy,
@@ -243,6 +343,18 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     color: colors.ink,
     flexShrink: 1
+  },
+  planPrice: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 20,
+    lineHeight: 26,
+    color: colors.ink
+  },
+  planExtra: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: darken(colors.green, 0.25)
   },
   planBadge: {
     paddingHorizontal: 10,
@@ -259,7 +371,24 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 0.4
   },
+  buyArea: {
+    gap: 6
+  },
+  bigSpinner: {
+    height: 52,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  terms: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft,
+    textAlign: "center"
+  },
   noAds: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
     padding: 12,
     borderRadius: radii.tile,
@@ -269,17 +398,13 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.lineLip,
     backgroundColor: colors.white
   },
-  noAdsHead: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8
-  },
   noAdsText: {
     fontFamily: fonts.displayHeavy,
     fontSize: 17,
     lineHeight: 22,
     color: colors.ink,
-    flexShrink: 1
+    flex: 1,
+    minWidth: 0
   },
   spinner: {
     minWidth: 76,

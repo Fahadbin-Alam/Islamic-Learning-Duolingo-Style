@@ -110,6 +110,7 @@ import {
 } from "./services/localProgress";
 import { AdBanner } from "./components/AdBanner";
 import { monetizationClient } from "./services/monetization";
+import { isSubscriptionItem } from "./services/monetizationShared";
 import {
   adAudienceFor,
   addHeartVideo,
@@ -216,6 +217,7 @@ import type {
   LearningSection,
   Lesson,
   LessonSession,
+  PlanDetails,
   PremiumStatus,
   ReminderPreferences,
   SocialRelation,
@@ -510,9 +512,10 @@ const HEART_VIDEOS_KEY = "sira-path-heart-videos";
 const PLAN_OFFER_AT_KEY = "sira-path-plan-offer-at";
 
 // The plans sheet: why it opened, and the lesson to start once it closes (it can open as NEXT LESSON is tapped).
+// "unit": the learner tapped a Premium unit, so a purchase starts it and NO THANKS just closes.
 type PlanOffer = {
   open: boolean;
-  reason: "hearts" | "lessons";
+  reason: "hearts" | "lessons" | "unit";
   resume?: LearningNodeView;
 };
 
@@ -638,6 +641,7 @@ export default function TopicApp() {
   const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child");
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
+  const [planDetails, setPlanDetails] = useState<Record<string, PlanDetails>>({});
   const [shopBusy, setShopBusy] = useState(false);
   const monetizationUserId = state.user?.hasAccount ? String(state.user.id) : undefined;
   const hasUser = Boolean(state.user);
@@ -658,9 +662,10 @@ export default function TopicApp() {
 
     (async () => {
       await monetizationClient.initialize(monetizationUserId);
-      const [premium, prices] = await Promise.all([
+      const [premium, prices, details] = await Promise.all([
         monetizationClient.getPremiumStatus(),
-        monetizationClient.getStorePrices(SHOP_ITEMS)
+        monetizationClient.getStorePrices(SHOP_ITEMS),
+        monetizationClient.getPlanDetails?.(SHOP_ITEMS).catch(() => ({})) ?? Promise.resolve({})
       ]);
 
       if (cancelled) {
@@ -668,6 +673,7 @@ export default function TopicApp() {
       }
 
       setStorePrices(prices);
+      setPlanDetails(details);
 
       if (premium) {
         dispatch({ type: "sync_premium", premium });
@@ -722,6 +728,11 @@ export default function TopicApp() {
         }
 
         dispatch({ type: "loaded", user, xpSummary });
+
+        // Premium's shield covered yesterday's missed day: say so once, as the app opens.
+        if (user.streakShieldUsedOn && user.streakShieldUsedOn !== (remoteSession?.user ?? savedUser)?.streakShieldUsedOn) {
+          void notify(t("Streak saved!"), t("Your streak shield kept your {count}-day streak.", { count: user.streakDays }), { mood: "cheer" });
+        }
 
         if (savedAssessment) {
           setActiveAssessment({ ...savedAssessment, questionStartedAt: Date.now() });
@@ -1315,7 +1326,7 @@ export default function TopicApp() {
     const nodeBranch = COURSE.sections.flatMap((section) => section.branches).find((branch) => branch.id === node.branchId) ?? selectedBranch;
 
     if (nodeBranch.premiumOnly && !hasPremiumLessons(user)) {
-      dispatch({ type: "open_shop", focus: "premium" });
+      openPlansForUnit(user, node);
       return;
     }
 
@@ -1353,7 +1364,7 @@ export default function TopicApp() {
     const plan = getTestOutPlan(user, testBranch.id, jumpNodeId);
 
     if (!plan && testBranch.premiumOnly && !hasPremiumLessons(user)) {
-      dispatch({ type: "open_shop", focus: "premium" });
+      openPlansForUnit(user);
       return;
     }
 
@@ -1700,6 +1711,19 @@ export default function TopicApp() {
     };
   }
 
+  // A Premium unit was tapped: the learner asked, so the plans open at once (any time, but never to a child, who gets
+  // the shop and its grown-up check); buying starts the unit's lesson.
+  function openPlansForUnit(user: UserProfile, node?: LearningNodeView) {
+    const check = planOfferCheck(user);
+
+    if (check.canSell && !check.child) {
+      openPlanOffer("unit", node);
+      return;
+    }
+
+    dispatch({ type: "open_shop", focus: "premium" });
+  }
+
   function openPlanOffer(reason: PlanOffer["reason"], resume?: LearningNodeView) {
     setStoredItem(PLAN_OFFER_AT_KEY, String(Date.now()));
     setPlanOffer({ open: true, reason, resume });
@@ -1713,7 +1737,7 @@ export default function TopicApp() {
 
     if (offer?.reason === "hearts") {
       setOutOfHearts((current) => current && { ...current, open: true });
-    } else if (offer?.resume) {
+    } else if (offer?.resume && offer.reason !== "unit") {
       void startLesson(offer.resume);
     }
   }
@@ -1842,6 +1866,10 @@ export default function TopicApp() {
         dispatch({ type: "apply_user_latest", update: (user) => applyShopItem(user, item) });
         if (purchase.premium) {
           dispatch({ type: "sync_premium", premium: purchase.premium });
+        }
+        // A free trial is used up once a plan is bought, so the plans stop offering it.
+        if (isSubscriptionItem(item)) {
+          void monetizationClient.getPlanDetails?.(SHOP_ITEMS).then(setPlanDetails, () => undefined);
         }
         return true;
       }
@@ -2742,7 +2770,7 @@ export default function TopicApp() {
             currentNodeId={sectionNextNode?.id}
             testOutGoal={(unitId, nodeId) => getTestOutGoal(learner, unitId, nodeId)}
             onTestOut={(unitId, nodeId) => void startBranchTestOut(unitId, undefined, 0, nodeId)}
-            onPremium={() => dispatch({ type: "open_shop", focus: "premium" })}
+            onPremium={() => openPlansForUnit(learner)}
             onNextTopic={() => setTopicPickerVisible(true)}
             reveal={pathReveal}
             onRevealed={() => setPathReveal(undefined)}
@@ -2918,6 +2946,7 @@ export default function TopicApp() {
             strings={strings}
             items={SHOP_ITEMS}
             storePrices={storePrices}
+            planDetails={planDetails}
             busy={shopBusy}
             section={selectedSection}
             focus={state.shopFocus}
@@ -3106,6 +3135,8 @@ export default function TopicApp() {
           reason={planOffer?.reason ?? "lessons"}
           items={offerItems}
           storePrices={storePrices}
+          planDetails={planDetails}
+          streakDays={learner.streakDays}
           busy={shopBusy}
           mascotVariant={inLesson ? lessonMascot : selectedSection.mascot}
           accent={inLesson ? lessonAccent : selectedSection.accentColor}

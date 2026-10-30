@@ -4028,7 +4028,9 @@ export const SHOP_ITEMS: ShopItem[] = [
     removesAds: true,
     durationDays: 365,
     highlightBadge: "40% off yearly",
-    benefits: ["Everything in monthly premium", "Lower yearly price"]
+    benefits: ["Everything in monthly premium", "Lower yearly price"],
+    // Set up in the stores as a 7-day free trial for new subscribers; the app only promises it when the store says so.
+    trialDays: 7
   },
   {
     id: "heart-pack-small",
