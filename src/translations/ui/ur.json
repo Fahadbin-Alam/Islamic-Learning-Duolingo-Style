@@ -418,5 +418,7 @@
   "{name} (you)": "{name} (آپ)",
   "{place} of {count}": "{count} میں سے {place}",
   "{topic}, {done} of {total}": "{topic}، {total} میں سے {done}",
-  "{topic}. Change topic": "{topic}۔ موضوع بدلیں"
+  "{topic}. Change topic": "{topic}۔ موضوع بدلیں",
+  "All caught up!": "سب دہرائی مکمل!",
+  "Let's fix your mistakes!": "آؤ اپنی غلطیاں ٹھیک کریں!"
 }

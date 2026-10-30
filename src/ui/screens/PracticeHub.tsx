@@ -23,6 +23,10 @@ export type PracticeHubProps = {
   strings: UiStrings;
   onStartPlacement: () => void;
   onStartReview: () => void;
+  /** Missed lesson questions due again in the Review deck. */
+  reviewDueCount?: number;
+  /** Starts a Review of the due missed questions; REVIEW opens it first while any are due. */
+  onStartReviewDeck?: () => void;
   onStartDailyChallenge: () => void;
   onGoFoundation: () => void;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
@@ -160,10 +164,13 @@ function SmallTile({ tint, glyph, label, badge, done, resting, onPress, delay, t
 
 /** Practice tab: one hero card for the next step, two small tiles, and the basics path. */
 export function PracticeHub({
+  user,
   learnerProfile,
   language,
   onStartPlacement,
   onStartReview,
+  reviewDueCount = 0,
+  onStartReviewDeck,
   onStartDailyChallenge,
   onGoFoundation,
   onStartLessonPractice,
@@ -172,15 +179,25 @@ export function PracticeHub({
   accent = colors.green
 }: PracticeHubProps) {
   const t = (value: string) => translateStudyText(value, language);
-  const reviewCount = learnerProfile.needs_review_question_ids.length;
+  // Missed lesson questions due again come first; then the Basics questions missed in a level check or challenge.
+  const deckDue = onStartReviewDeck ? reviewDueCount : 0;
+  const reviewCount = deckDue + learnerProfile.needs_review_question_ids.length;
   const weakCount = learnerProfile.weak_areas.length;
   const hasReview = reviewCount > 0 || weakCount > 0;
+  // Missed questions still in the deck but not due yet: the learner is caught up, not mistake-free.
+  const waiting = (user.reviewCards?.length ?? 0) > 0;
   const placed = learnerProfile.assessmentCompleted;
   const dailyDone = isToday(learnerProfile.lastDailyChallengeAt);
   const basics = getTopicArabic("foundation");
   // Tapping the grey review tile makes the mascot say why it is resting.
   const [restNote, setRestNote] = useState(false);
-  const bubble = restNote ? t("No mistakes yet!") : placed ? t("Let's sharpen what you know!") : t("Let's find your level!");
+  const bubble = restNote
+    ? t(waiting ? "All caught up!" : "No mistakes yet!")
+    : deckDue > 0
+      ? t("Let's fix your mistakes!")
+      : placed
+        ? t("Let's sharpen what you know!")
+        : t("Let's find your level!");
 
   const reviewTile = hasReview ? (
     <SmallTile
@@ -189,7 +206,7 @@ export function PracticeHub({
       glyph={{ review: true }}
       label={t("Review")}
       badge={reviewCount > 0 ? String(reviewCount) : undefined}
-      onPress={onStartReview}
+      onPress={deckDue > 0 ? onStartReviewDeck : onStartReview}
       delay={120}
     />
   ) : (

@@ -418,5 +418,7 @@
   "{name} (you)": "{name} (أنت)",
   "{place} of {count}": "{place} من {count}",
   "{topic}, {done} of {total}": "{topic}، {done} من {total}",
-  "{topic}. Change topic": "{topic}. غيّر الموضوع"
+  "{topic}. Change topic": "{topic}. غيّر الموضوع",
+  "All caught up!": "راجعتَ كل شيء!",
+  "Let's fix your mistakes!": "هيا نصحّح أخطاءك!"
 }

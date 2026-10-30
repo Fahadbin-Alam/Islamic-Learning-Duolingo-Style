@@ -418,5 +418,7 @@
   "{name} (you)": "{name} (তুমি)",
   "{place} of {count}": "{count}টির মধ্যে {place}",
   "{topic}, {done} of {total}": "{topic}, {total}টির মধ্যে {done}টি",
-  "{topic}. Change topic": "{topic}। বিষয় বদলাও"
+  "{topic}. Change topic": "{topic}। বিষয় বদলাও",
+  "All caught up!": "সব রিভিউ শেষ!",
+  "Let's fix your mistakes!": "চলো ভুলগুলো ঠিক করি!"
 }
