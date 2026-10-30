@@ -64,7 +64,7 @@ describe("New to Islam path", () => {
       expect(getNodeArabic(node.id)?.ar).toBeTruthy();
       // An ayah quote is the ayah's own Arabic.
       if (lesson.quote && lesson.learnSource?.category === "tafsir") {
-        expect(lesson.quote.text).toBe(quranAyahArabic(lesson.learnSource.reference));
+        expect(lesson.quote.text).toBe(quranAyahArabic(lesson.learnSource.reference ?? ""));
       }
     }
     for (const branch of section.branches) expect(getBranchArabic(branch.id)).toBe(INTRO.branchArabic[branch.id]);
