@@ -75,6 +75,7 @@ import {
   foldRooms,
   foldSoak,
   gapsAbove,
+  keptScrollY,
   laidOutBox,
   laidOutHeight,
   laidOutTop,
@@ -89,6 +90,7 @@ import {
   stackSpan,
   textInRoom,
   textOnScreen,
+  TILE_LIP,
   tilesUnderSheet,
   useGlideIn,
   usePickFold,
@@ -100,6 +102,7 @@ import {
   type BlockRead,
   type GlideRead,
   type LayoutBox,
+  type PartSpan,
   type QuestionPlaces,
   type RoomRead,
   type RowSpan
@@ -352,6 +355,11 @@ function sheetContentFor(
   return { correct: false, correctLabel: label, correctList: list, why: why && translateStudyText(why, english.language), seed: question.id };
 }
 
+/** The room under the prompt: across the full width, the same with smaller gaps, and next to the mascot. */
+const PROMPT_GAP = 14;
+const PROMPT_GAP_SMALL = 8;
+const MASCOT_ROW_GAP = 16;
+
 /**
  * Mascot next to a speech bubble holding the question, as in lessons. Long questions use the full width. `still`: the
  * mascot hides after the question showed (to make room for the feedback sheet), so the prompt does not pop in again.
@@ -547,7 +555,9 @@ export function FoundationAssessmentScreen({
   // The room answers folded while the sheet comes up left (see FoldGap), and the gaps' views.
   // `scrollAt`: where the question's scroll sits once it has taken up its share of the room answers above the right
   // one leave (see foldSoak), from where the learner left it at CHECK.
-  const foldGaps = useRef<{ key: string; heights: Record<string, number>; scrollAt?: number }>({ key: "", heights: {} });
+  // `from`: where the learner left the scroll then, and where the top-most right answer's top sat in the content, for
+  // where the question keeps it while the sheet is up (see keptScrollY).
+  const foldGaps = useRef<{ key: string; heights: Record<string, number>; scrollAt?: number; from?: { y: number; focusTop: number } }>({ key: "", heights: {} });
   // Where the learner left the question's scroll (by hand or with the arrow), for the room folds leave at CHECK.
   const scrolledTo = useRef({ key: "", y: 0 });
   const gapViews = useRef<Record<string, { view: View | null; from: number }>>({});
@@ -608,9 +618,16 @@ export function FoundationAssessmentScreen({
     if (promptY === undefined || promptH === undefined || answersH === undefined) {
       return;
     }
-    setPromptBox((was) => (was && was.y === promptY && was.height === promptH ? was : { y: promptY, height: promptH }));
-    setAnswersHeight(answersH);
-    setReadLocked(fitKey);
+    // Told only what changed: a state update that changes nothing still draws the question again, before the frame.
+    if (!promptIn || promptIn.y !== promptY || promptIn.height !== promptH) {
+      setPromptBox((was) => (was && was.y === promptY && was.height === promptH ? was : { y: promptY, height: promptH }));
+    }
+    if (answersH !== answersHeight) {
+      setAnswersHeight(answersH);
+    }
+    if (readLocked !== fitKey) {
+      setReadLocked(fitKey);
+    }
   });
   const layoutNow = fitLayout(answerTiles(question, selectedAnswer, words, retry));
   const fit = useSheetFit({
@@ -704,25 +721,54 @@ export function FoundationAssessmentScreen({
       : [];
 
   // The right answer right above the sheet, but never the question scrolled away: on a short phone the prompt stays
-  // whole at the top (the sheet names the right answer), also after a scroll down to reach the last answer.
+  // whole at the top (the sheet names the right answer).
   // Scrolled down to show the right answer, the question can stop part-way through the topic label (and its Arabic)
   // above the prompt: it is gone while the question sits scrolled past its top (and from the render that starts its
   // own scroll past it), so the scroll view's top edge never cuts it, and back once it is scrolled up to it again.
-  const scrollTarget = layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  // A question the learner left scrolled down (by hand or with the arrow) keeps its right answer where it showed, as in
+  // lessons: it goes back up only by the room that folds above it, and further down only where the sheet needs it to
+  // (see keptScrollY). Where the learner left it and where the right answer then sat are read as CHECK is tapped.
+  if (!locked || foldGaps.current.key !== fitKey) {
+    foldGaps.current = { key: fitKey, heights: {} };
+  }
+  const unfolded = answerTiles(question, selectedAnswer, words, retry);
+  if (locked && foldGaps.current.scrollAt === undefined) {
+    const y = scrolledTo.current.key === fitKey ? scrolledTo.current.y : 0;
+    foldGaps.current.scrollAt = y;
+    foldGaps.current.from = y > 0.5 && unfolded?.columns === 1 && layoutNow ? { y, focusTop: layoutNow.focusTop } : undefined;
+  }
+  // How far up from its bottom the prompt holds no text: the margin under it.
+  const promptBlank = long || hideMascot ? (look.smallGaps ? PROMPT_GAP_SMALL : PROMPT_GAP) : MASCOT_ROW_GAP;
+  /** Where the question sits while the sheet is up, from where the sheet would put it (see keptScrollY). */
+  const keptPlace = (sheetY: number, focusTop: number, promptSpan: PartSpan | undefined, tilesAbove: PartSpan[]) => {
+    const from = locked ? foldGaps.current.from : undefined;
+    if (!from || !promptSpan) {
+      return sheetY;
+    }
+    return keptScrollY(sheetY, from.y + focusTop - from.focusTop, [{ ...promptSpan, blank: promptBlank }, ...tilesAbove], focusTop - space.sm);
+  };
+  // The answers that stay above the top-most right one while the sheet is up (a column of them), where they sit.
+  const rightShown = tilesShown?.columns === 1 ? tilesShown.items.findIndex((option) => isAnswerOption(question, option)) : -1;
+  const stayAbove = rightShown > 0 && tilesShown ? tilesShown.items.slice(0, rightShown) : [];
+  const tilesAboveIn = (): PartSpan[] =>
+    answersTop === undefined || !tilesShown
+      ? []
+      : stayAbove.flatMap((option) => {
+          const span = stackSpan(tilesShown.items, tileBoxes.current, option, answerGap, 1);
+          return span ? [{ top: answersTop + span.top, bottom: answersTop + span.bottom, blank: TILE_LIP }] : [];
+        });
+  const scrollTarget =
+    layout && room
+      ? keptPlace(sheetScrollY(layout, sheetHeight, room.furthest), layout.focusTop, promptBox ? { top: promptBox.y, bottom: promptBox.y + promptBox.height } : undefined, tilesAboveIn())
+      : 0;
   // An answer in a column that folds away while the sheet comes up leaves its room, which closes with the sheet's
   // spring (see FoldGap), as in lessons: the right answer glides up as the sheet rises and the prompt stays put. One
   // that folds once the Why line is open goes at once, as the sheet has grown at once. A question the learner left
   // scrolled down scrolls up with the answers above the right one instead, as far as its scroll goes back towards
   // where the question then sits (see foldSoak).
-  if (!locked || foldGaps.current.key !== fitKey) {
-    foldGaps.current = { key: fitKey, heights: {} };
-  }
-  const unfolded = answerTiles(question, selectedAnswer, words, retry);
   if (locked && unfolded?.columns === 1 && tilesShown) {
     const gaps = foldGaps.current;
-    if (gaps.scrollAt === undefined) {
-      gaps.scrollAt = scrolledTo.current.key === fitKey ? scrolledTo.current.y : 0;
-    }
+    const scrolledAt = gaps.scrollAt ?? 0;
     const rightAt = unfolded.items.findIndex((option) => isAnswerOption(question, option));
     const newly = unfolded.items
       .map((option, index) => ({ option, index }))
@@ -732,10 +778,10 @@ export function FoundationAssessmentScreen({
         return { id: option, room: !whyOpened && box ? box.height + answerGap : 0, above: index < rightAt };
       });
     if (newly.length > 0) {
-      const soak = foldSoak(gaps.scrollAt, scrollTarget);
+      const soak = foldSoak(scrolledAt, scrollTarget);
       const { rooms, left } = foldRooms(newly, soak);
       Object.assign(gaps.heights, rooms);
-      gaps.scrollAt -= soak - left;
+      gaps.scrollAt = scrolledAt - (soak - left);
     }
   }
   // The answers as laid out right now, read before the frame is drawn where a view can say its place at once: a fold
@@ -778,7 +824,17 @@ export function FoundationAssessmentScreen({
     Object.entries(boxes).forEach(([id, entry]) => {
       tops[id] = entry.y;
     });
-    return { tops, focus, aim: now && sheetHeight > 0 ? sheetScrollY(now, sheetHeight, sheetRoom(now).furthest) : undefined };
+    if (!now || sheetHeight <= 0) {
+      return { tops, focus };
+    }
+    // Where it goes, worked out as the scroll target is, from the parts as laid out right now.
+    const promptHeight = laidOutHeight(promptRef.current);
+    const promptNow = promptHeight === undefined ? undefined : { top: now.promptTop, bottom: now.promptTop + promptHeight };
+    const above = stayAbove.flatMap((option) => {
+      const at = boxes[option];
+      return at ? [{ top: at.y - (held[option] ?? 0), bottom: at.y - (held[option] ?? 0) + at.height, blank: TILE_LIP }] : [];
+    });
+    return { tops, focus, aim: keptPlace(sheetScrollY(now, sheetHeight, sheetRoom(now).furthest), now.focusTop, promptNow, above) };
   };
   // An answer whose text did not show whole in the room as CHECK was tapped is gone while it glides into sight with the
   // question, and fades in once it shows whole, as in lessons (see useGlideIn). A sorting or matching game keeps its
@@ -1908,10 +1964,10 @@ const styles = StyleSheet.create({
   categoryText: { fontFamily: fonts.displayHeavy, fontSize: 14, lineHeight: 20, color: colors.correctInk, flexShrink: 1 },
   retryChip: { paddingHorizontal: 12, paddingVertical: 3, borderRadius: radii.pill, backgroundColor: RETRY_BG },
   retryText: { fontFamily: fonts.displayHeavy, fontSize: 15, lineHeight: 20, color: RETRY_INK },
-  questionRow: { flexDirection: "row", alignItems: "center", marginBottom: 16 },
+  questionRow: { flexDirection: "row", alignItems: "center", marginBottom: MASCOT_ROW_GAP },
   bubbleWrap: { flex: 1, minWidth: 0, marginStart: 4, alignItems: "flex-start" },
-  plainPrompt: { marginBottom: 14 },
-  plainPromptSmallGaps: { marginBottom: 8 },
+  plainPrompt: { marginBottom: PROMPT_GAP },
+  plainPromptSmallGaps: { marginBottom: PROMPT_GAP_SMALL },
   prompt: { flexShrink: 1, fontFamily: fonts.bodyHeavy, color: colors.ink },
   blankSlot: { fontFamily: fonts.displayHeavy, textDecorationLine: "underline" },
   blankEmpty: { textDecorationLine: "underline", textDecorationColor: colors.lineLip, color: colors.lineLip },

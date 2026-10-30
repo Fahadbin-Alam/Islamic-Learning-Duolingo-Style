@@ -265,22 +265,37 @@ export function FeedbackSheet({
     }
   }
 
-  // The sheet at full size: full padding, the lg button, the Why text whole.
-  const bodyFull = listShown ? LIST_TOP + listContent : topBlock + (whyVisible ? WHY_GAP + whyContent : 0);
-  const fullHeight = headHeight + (hasBody ? bodyFull : 0) + space.lg + BUTTON_LG + SHEET_PAD + inset;
-
-  // The sheet slim (less padding, the md button), and everything but the Why text's lines while that scrolls, with the
-  // arrow's room above the button: at full size and slim.
-  const slimHeight = fullHeight - SLIM_SAVES;
-  const scrollFixed = fullHeight - whyContent + whyPadTop - space.lg + SCROLL_HINT_ROOM;
-  const scrollFixedSlim = scrollFixed - SHEET_PAD + SHEET_PAD_SLIM - BUTTON_LG + BUTTON_MD;
-  // Slim with its Why text whole, the sheet fits its share of the window (else its body would scroll as a whole, and
-  // could cut the text).
-  const slimWhole = slimHeight <= shareMax;
-  // The least it can be: slim, with its Why text whole or, where that is shorter (or the whole text does not fit), one
-  // line of it that scrolls (it shows whole lines only).
-  const oneWhyLine = scrollFixedSlim + WHY_LINE;
-  const leastHeight = listShown ? fullHeight : whyVisible && whyLines > 1 ? (slimWhole ? Math.min(slimHeight, oneWhyLine) : oneWhyLine) : slimHeight;
+  /**
+   * The sheet's heights from the sizes of its parts: the title row (`head`), the answer with the Why pill (`top`):
+   * at full size (full padding, the lg button, the Why text whole), slim (less padding, the md button), and the least it
+   * can be. Worked out from the parts as drawn, and also from the parts as just read, before they are drawn again.
+   */
+  const sizesFrom = (head: number, top: number) => {
+    const content = rowBoxes ? listEnd + top + (whyVisible ? WHY_GAP + whyContent : 0) : bodyContent;
+    const bodyFull = listShown ? LIST_TOP + content : top + (whyVisible ? WHY_GAP + whyContent : 0);
+    const full = head + (hasBody ? bodyFull : 0) + space.lg + BUTTON_LG + SHEET_PAD + inset;
+    const slimFull = full - SLIM_SAVES;
+    // Everything but the Why text's lines while that scrolls, with the arrow's room above the button: at full size and
+    // slim.
+    const fixed = full - whyContent + whyPadTop - space.lg + SCROLL_HINT_ROOM;
+    const fixedSlim = fixed - SHEET_PAD + SHEET_PAD_SLIM - BUTTON_LG + BUTTON_MD;
+    // Slim with its Why text whole, the sheet fits its share of the window (else its body would scroll as a whole, and
+    // could cut the text).
+    const whole = slimFull <= shareMax;
+    // The least it can be: slim, with its Why text whole or, where that is shorter (or the whole text does not fit), one
+    // line of it that scrolls (it shows whole lines only).
+    const oneLine = fixedSlim + WHY_LINE;
+    const least = listShown ? full : whyVisible && whyLines > 1 ? (whole ? Math.min(slimFull, oneLine) : oneLine) : slimFull;
+    // The least is known once the parts it is made of have said their sizes (0 until then).
+    const known = (!hasBody || listShown || top > 0) && (!whyVisible || whyContent > 0);
+    return { full, slimFull, fixed, fixedSlim, whole, least: known ? least : 0 };
+  };
+  const sizes = sizesFrom(headHeight, topBlock);
+  const fullHeight = sizes.full;
+  const slimHeight = sizes.slimFull;
+  const scrollFixed = sizes.fixed;
+  const scrollFixedSlim = sizes.fixedSlim;
+  const slimWhole = sizes.whole;
 
   // Too tall for its room: slim first; then, only if that is still too tall, the Why text scrolls in whole lines.
   let slim = false;
@@ -456,35 +471,45 @@ export function FeedbackSheet({
       setWhyContent(Math.round(text.offsetHeight));
     }
   }, [whyText, whyVisible]);
-  // The same for the title row and the answer with the Why pill as the sheet opens (or its answer changes): the
-  // question then knows the least the sheet can be before the frame is drawn, not a frame after it (or, the sheet
-  // staying up from question to question, with the last answer's height).
+  // The full and least heights are told before the frame is drawn, so the question hears of a taller full height (its
+  // Why line opening) together with the height the sheet shows, never the one without the other. On the web the title
+  // row and the answer with the Why pill are read here too, as the sheet opens (or its answer changes), and the heights
+  // told are worked out from what was just read: the question knows them all in the very next render, before the
+  // frame is drawn, and is not drawn again for heights worked out from the sizes the parts had before (or, the sheet
+  // staying up from question to question, the last answer's). Each height is told only when it changes.
+  const toldSizes = useRef<{ full?: number; least?: number }>({});
   useLayoutEffect(() => {
-    if (Platform.OS !== "web" || !visible) {
+    if (!visible) {
+      toldSizes.current = {};
       return;
     }
-    const holder = contentRef.current as unknown as { querySelector?: (selector: string) => HTMLElement | null } | null;
-    const head = holder?.querySelector?.('[data-testid="feedback-head"]');
-    const top = holder?.querySelector?.('[data-testid="feedback-top"]');
-    if (head?.offsetHeight) {
-      setHeadHeight(Math.round(head.offsetHeight));
+    let head = headHeight;
+    let top = topBlock;
+    if (Platform.OS === "web") {
+      const holder = contentRef.current as unknown as { querySelector?: (selector: string) => HTMLElement | null } | null;
+      const headNow = holder?.querySelector?.('[data-testid="feedback-head"]')?.offsetHeight;
+      const topNow = holder?.querySelector?.('[data-testid="feedback-top"]')?.offsetHeight;
+      head = headNow ? Math.round(headNow) : head;
+      top = topNow ? Math.round(topNow) : top;
+      if (head !== headHeight) {
+        setHeadHeight(head);
+      }
+      if (top !== topBlock) {
+        setTopBlock(top);
+      }
     }
-    if (top?.offsetHeight) {
-      setTopBlock(Math.round(top.offsetHeight));
+    const now = head === headHeight && top === topBlock ? sizes : sizesFrom(head, top);
+    if (toldSizes.current.full !== now.full) {
+      toldSizes.current.full = now.full;
+      onFullHeight?.(now.full);
     }
-  }, [visible, correct, correctLabel, whyText, heading]);
-  // The least is known once the parts it is made of have said their sizes (0 until then).
-  const leastKnown = (!hasBody || listShown || topBlock > 0) && (!whyVisible || whyContent > 0);
-  // Told before the frame is drawn, so the question hears of a taller full height (its Why line opening) together
-  // with the height the sheet shows, never the one without the other.
-  useLayoutEffect(() => {
-    if (visible) {
-      onFullHeight?.(fullHeight);
-      onLeastHeight?.(leastKnown ? leastHeight : 0);
+    if (toldSizes.current.least !== now.least) {
+      toldSizes.current.least = now.least;
+      onLeastHeight?.(now.least);
     }
-    // Only when the height changes.
+    // When the sheet opens, its answer changes, or a height changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fullHeight, leastHeight, leastKnown, visible]);
+  }, [visible, correct, correctLabel, whyText, heading, sizes.full, sizes.least]);
 
   const badgeScale = badge.interpolate({ inputRange: [0, 1], outputRange: [0.2, 1] });
   // After a miss, the source button gives one small bounce once the badge has landed: "tap me to learn more".

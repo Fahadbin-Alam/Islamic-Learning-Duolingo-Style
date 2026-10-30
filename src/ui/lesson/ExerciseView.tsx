@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   ScrollView,
@@ -34,6 +34,7 @@ import {
   foldRooms,
   foldSoak,
   gapsAbove,
+  keptScrollY,
   laidOutBox,
   laidOutHeight,
   laidOutTop,
@@ -47,6 +48,7 @@ import {
   stackSpan,
   textInRoom,
   textOnScreen,
+  TILE_LIP,
   tilesUnderSheet,
   useGlideIn,
   usePickFold,
@@ -58,6 +60,7 @@ import {
   type BlockRead,
   type GlideRead,
   type LayoutBox,
+  type PartSpan,
   type QuestionPlaces,
   type RoomRead,
   type RowSpan
@@ -191,8 +194,11 @@ export type QuestionBubbleProps = {
   smallGaps?: boolean;
 };
 
-/** Mascot next to a speech bubble holding the question. Very long prompts drop the mascot and use the full width. */
-export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps }: QuestionBubbleProps) {
+/**
+ * Mascot next to a speech bubble holding the question. Very long prompts drop the mascot and use the full width. Drawn
+ * again only when what it shows changes: a question drawn again while its answer sheet opens leaves it as it is.
+ */
+export const QuestionBubble = memo(function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", hideMascot, still, small, smallGaps }: QuestionBubbleProps) {
   const { compact, narrow } = useLessonCompact();
   const long = prompt.length > LONG_PROMPT;
   const promptSize = (long || compact ? 17 : narrow ? 18 : 19) - (small ? SMALL_PROMPT_STEP : 0);
@@ -218,7 +224,7 @@ export function QuestionBubble({ prompt, mascotVariant, accent, mood = "think", 
       </PopIn>
     </View>
   );
-}
+});
 
 const FADE_MS = 160;
 
@@ -502,7 +508,12 @@ export function ExerciseView({
   // as the mascot hides; and the gaps' views, to tell a tile moved by a fold from one carried up as its gap closes.
   // `scrollAt`: where the question's scroll sits once it has taken up its share of the room tiles above the green one
   // leave (see foldSoak), from where the learner left it at CHECK; `scrolled`: it sat scrolled down then.
-  const foldGaps = useRef<{ key: string; heights: Record<string, number>; scrollAt?: number; scrolled?: boolean }>({ key: "", heights: {} });
+  // `from`: where the learner left the scroll then, and where the green tile's top sat in the content, for where the
+  // question keeps it while the sheet is up (see keptScrollY).
+  const foldGaps = useRef<{ key: string; heights: Record<string, number>; scrollAt?: number; scrolled?: boolean; from?: { y: number; focusTop: number } }>({
+    key: "",
+    heights: {}
+  });
   // Where the learner left the question's scroll (by hand or with the arrow), for the room folds leave at CHECK.
   const scrolledTo = useRef({ key: "", y: 0 });
   const [promptGap, setPromptGap] = useState<{ key: string; height: number; n: number } | null>(null);
@@ -668,27 +679,57 @@ export function ExerciseView({
 
   // Show the green tile (and the picked one when it sits above it) right above the sheet, but never scroll the
   // question away: on a short phone the prompt stays whole at the top, and the sheet names the answer anyway.
-  // Also when it is 0: a learner who scrolled down to reach the last tile gets the question back in sight.
   // Scrolled down to show the green tile, the question can stop part-way through the REVIEW / "Try again!" chips
   // above the prompt: they are gone while it sits scrolled past their top (and from the render that starts its own
   // scroll past them), so the scroll view's top edge never cuts them, and back once it is scrolled up to them.
-  const scrollTarget = layout && room ? sheetScrollY(layout, sheetHeight, room.furthest) : 0;
+  // A question the learner left scrolled down (by hand or with the arrow) keeps its green tile where it showed: it
+  // goes back up only by the room that folds above the green tile, and further down only where the sheet needs it
+  // to; it does not slide the green tile down to show the prompt the learner scrolled away (see keptScrollY). Where
+  // the learner left it and where the green tile then sat are read as CHECK is tapped.
+  if (!checked || foldGaps.current.key !== shownKey) {
+    foldGaps.current = { key: shownKey, heights: {} };
+  }
+  if (checked && foldGaps.current.scrollAt === undefined) {
+    const y = scrolledTo.current.key === shownKey ? scrolledTo.current.y : 0;
+    const gaps = foldGaps.current;
+    gaps.scrollAt = y;
+    gaps.scrolled = y > 0.5;
+    gaps.from = gaps.scrolled && layoutNow ? { y, focusTop: layoutNow.focusTop } : undefined;
+  }
+  // How far up from its bottom the prompt holds no text: the margin under it.
+  const promptPlain = prompt.length > LONG_PROMPT || mascotAway || fit.squeeze || look.smallPrompt;
+  const promptBlank = promptPlain ? (look.smallGaps ? space.sm : compact ? space.lg : space.xl) : compact ? space.lg : space.xxl;
+  /** Where the question sits while the sheet is up, from where the sheet would put it (see keptScrollY). */
+  const keptPlace = (sheetY: number, focusTop: number, promptSpan: PartSpan | undefined, tilesAbove: PartSpan[]) => {
+    const from = checked ? foldGaps.current.from : undefined;
+    if (!from || !promptSpan) {
+      return sheetY;
+    }
+    return keptScrollY(sheetY, from.y + focusTop - from.focusTop, [{ ...promptSpan, blank: promptBlank }, ...tilesAbove], focusTop - space.sm);
+  };
+  // The tiles that stay above the green one while the sheet is up, where they sit in the scroll content.
+  const focusId = rightId ?? selectedChoiceId;
+  const stayAbove = tfChoices ? [] : stackChoices.slice(0, Math.max(0, stackChoices.findIndex((choice) => choice.id === focusId)));
+  const tilesAboveIn = (): PartSpan[] =>
+    tilesTop === undefined
+      ? []
+      : stayAbove.flatMap((choice) => {
+          const span = stackSpan(stackChoices.map((each) => each.id), tileBoxes.current, choice.id, tileGap);
+          return span ? [{ top: tilesTop + span.top, bottom: tilesTop + span.bottom, blank: TILE_LIP }] : [];
+        });
+  const scrollTarget =
+    layout && room
+      ? keptPlace(sheetScrollY(layout, sheetHeight, room.furthest), layout.focusTop, promptBox ? { top: promptBox.y, bottom: promptBox.y + promptBox.height } : undefined, tilesAboveIn())
+      : 0;
   // A tile that folds away while the sheet comes up leaves its room, which closes with the sheet's spring: the green
   // tile then never moves in one frame (nor the prompt), it glides up as the sheet rises. One that folds once the Why
   // line is open goes at once, as the sheet has grown at once and the green tile must clear it in that frame.
   // A question the learner left scrolled down scrolls up with the tiles above the green one instead, so the green tile
   // stays where it showed, as far as its scroll goes back towards where the question then sits (see foldSoak): never
   // past it, so it never turns round on its way there.
-  if (!checked || foldGaps.current.key !== shownKey) {
-    foldGaps.current = { key: shownKey, heights: {} };
-  }
   if (checked && !tfChoices) {
     const gaps = foldGaps.current;
-    if (gaps.scrollAt === undefined) {
-      const y = scrolledTo.current.key === shownKey ? scrolledTo.current.y : 0;
-      gaps.scrollAt = y;
-      gaps.scrolled = y > 0.5;
-    }
+    const scrolledAt = gaps.scrollAt ?? 0;
     const focusIndex = shownChoices.findIndex((choice) => choice.id === (rightId ?? selectedChoiceId));
     const newly = shownChoices
       .map((choice, index) => ({ choice, index }))
@@ -698,10 +739,10 @@ export function ExerciseView({
         return { id: choice.id, room: !whyOpened && box ? box.height + tileGap : 0, above: index < focusIndex };
       });
     if (newly.length > 0) {
-      const soak = foldSoak(gaps.scrollAt, scrollTarget);
+      const soak = foldSoak(scrolledAt, scrollTarget);
       const { rooms, left } = foldRooms(newly, soak);
       Object.assign(gaps.heights, rooms);
-      gaps.scrollAt -= soak - left;
+      gaps.scrollAt = scrolledAt - (soak - left);
     }
   }
   // The tiles as laid out right now, read before the frame is drawn where a view can say its place at once: a fold
@@ -749,7 +790,17 @@ export function ExerciseView({
     Object.entries(boxes).forEach(([id, entry]) => {
       tops[id] = entry.y;
     });
-    return { tops, focus, aim: now && sheetHeight > 0 ? sheetScrollY(now, sheetHeight, sheetRoom(now).furthest) : undefined };
+    if (!now || sheetHeight <= 0) {
+      return { tops, focus };
+    }
+    // Where it goes, worked out as the scroll target is, from the parts as laid out right now.
+    const promptHeight = laidOutHeight(promptRef.current);
+    const promptNow = promptHeight === undefined ? undefined : { top: now.promptTop, bottom: now.promptTop + promptHeight };
+    const above = stayAbove.flatMap((choice) => {
+      const at = boxes[choice.id];
+      return at ? [{ top: at.y - held[choice.id], bottom: at.y - held[choice.id] + at.height, blank: TILE_LIP }] : [];
+    });
+    return { tops, focus, aim: keptPlace(sheetScrollY(now, sheetHeight, sheetRoom(now).furthest), now.focusTop, promptNow, above) };
   };
   const ownScroll = useQuestionScroll({
     open: checked,
@@ -790,7 +841,7 @@ export function ExerciseView({
       return y === undefined || height === undefined ? undefined : { y, height };
     };
     const promptNow = read(promptRef.current);
-    const tilesNow = read(tilesRef.current);
+    let tilesNow = read(tilesRef.current);
     if (promptNow) {
       // The prompt wrapped anew, shorter, as the mascot hid while the sheet comes up: the lines it gave up leave their
       // room under it, which closes with the sheet's spring, so the tiles glide up rather than jump.
@@ -799,10 +850,16 @@ export function ExerciseView({
       const lost = promptIn ? promptIn.height - promptNow.height : 0;
       if (lost > 1 && !whyOpened && !foldGaps.current.scrolled) {
         setPromptGap((was) => ({ key: shownKey, height: lost, n: (was?.n ?? 0) + 1 }));
+        // That room holds the tiles where they were: they are told the place they have once it is drawn, not read
+        // there one render later (and the question drawn once more for it).
+        tilesNow = tilesNow && { y: tilesNow.y + lost, height: tilesNow.height };
       }
-      setPromptBox((was) => sameBox(was, promptNow));
+      // Told only when it moved: a state update that changes nothing still draws the question again, before the frame.
+      if (sameBox(promptIn, promptNow) !== promptIn) {
+        setPromptBox((was) => sameBox(was, promptNow));
+      }
     }
-    if (tilesNow) {
+    if (tilesNow && sameBox(tilesIn, tilesNow) !== tilesIn) {
       setTilesBox((was) => sameBox(was, tilesNow));
     }
   });
@@ -835,6 +892,11 @@ export function ExerciseView({
       onSelect(choice.id);
     }
   };
+  // Each tile's tap is the same function from render to render, so a tile is drawn again only when it changes.
+  const pressNow = useRef(press);
+  pressNow.current = press;
+  const taps = useRef<Record<string, () => void>>({});
+  const tapOf = (choice: ExerciseChoice) => (taps.current[choice.id] ??= () => pressNow.current(choice));
 
   // A translated Why line was already cut from the English one (localizedWhy); the English rules cannot read it.
   const why = shown ? (getActiveLanguage() === "en" ? shortWhy({ explanation: shown.why, prompt, correctLabel: shown.correctLabel }) : shown.why) : undefined;
@@ -1072,7 +1134,7 @@ export function ExerciseView({
                         compact={compact}
                         smallText={look.smallText}
                         state={tileState(choice)}
-                        onPress={() => press(choice)}
+                        onPress={tapOf(choice)}
                         testID={`choice-${choice.id}`}
                       />
                     </React.Fragment>
@@ -1109,7 +1171,7 @@ export function ExerciseView({
                           long={longChoices}
                           smallText={look.smallText}
                           state={tileState(choice)}
-                          onPress={() => press(choice)}
+                          onPress={tapOf(choice)}
                           testID={`choice-${choice.id}`}
                         />
                       </PopIn>
