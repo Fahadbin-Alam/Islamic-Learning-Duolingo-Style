@@ -178,7 +178,9 @@ describe("a taller sheet (its Why line opening) moves the question in the same f
       expect(lastQuestionScroll(scrollTo)).toEqual({ y: 27, animated: false });
       expect(screen.queryByTestId("exercise-cues")).toBeNull();
       expect(screen.getByTestId("choice-b")).toBeTruthy();
-      // It shuts again: the question glides back down, and the chips come back once it is above them.
+      // The learner shuts it again: the question glides back down, and the chips come back once it is above them.
+      // (While it is open the question never goes back up to a place less far, see appRound16Settle.)
+      await fireEvent.press(screen.getByTestId("feedback-why"));
       await sheetHeight(SHEET);
       expect(lastQuestionScroll(scrollTo)).toEqual({ y: 0, animated: true });
       await scrolledTo("exercise-cues", 8);

@@ -268,9 +268,10 @@ describe("a test-out says it is a test, and TRY AGAIN is a new one", () => {
     const first = start(plan.lessons, 0).lesson.challenges.map(baseId);
     const second = start(plan.lessons, 1).lesson.challenges.map(baseId);
 
-    // Every lesson is asked about each time, so a lesson with one good question asks it again.
+    // Every lesson is asked about each time, so a lesson with one good question asks it again. Further on in a
+    // unit a lesson asks fewer questions of its own (the rest come from earlier lessons), so a few more repeat.
     expect(second.length).toBe(first.length);
-    expect(second.filter((id) => first.includes(id)).length).toBeLessThanOrEqual(Math.floor(first.length / 4));
+    expect(second.filter((id) => first.includes(id)).length).toBeLessThanOrEqual(Math.floor(first.length / 3));
   });
 
   it("changes the question and choice order even when a small unit has nothing new to ask", () => {

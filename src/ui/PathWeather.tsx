@@ -1,7 +1,11 @@
-import React, { memo, useEffect, useRef } from "react";
-import { Animated, Easing, StyleSheet, View } from "react-native";
+import React, { memo, useEffect, useRef, useState } from "react";
+import { Animated, Easing, Pressable, StyleSheet, View } from "react-native";
 import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 import { useReduceMotion } from "./Camel";
+import type { GameSoundEvent } from "../services/gameSoundLibrary";
+import { smoothKeys } from "./motion";
+import { Drop, Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
+import { feedback } from "./sound";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
@@ -62,8 +66,102 @@ function CloudShape({ color, lip, width }: { color: string; lip: string; width: 
   );
 }
 
+type CloudShow = "rain" | "storm" | "sunny";
+/** Tapping a cloud: it rains, then it storms, then it clears to a rainbow and comes back. */
+const CLOUD_SHOWS: { kind: CloudShow; sound: GameSoundEvent; ms: number }[] = [
+  { kind: "rain", sound: "splash", ms: 2600 },
+  { kind: "storm", sound: "thunder", ms: 2600 },
+  { kind: "sunny", sound: "sparkle", ms: 2600 }
+];
+
+const STORM = { cloud: "#8E9AA8", cloudLip: "#6F7C8B" };
+
+/** A cloud you can tap (see CLOUD_SHOWS). */
+function TapCloud({ sky, size, reduceMotion }: { sky: Sky; size: number; reduceMotion: boolean }) {
+  const [show, setShow] = useState<CloudShow | null>(null);
+  const { value: t, play } = useOneShot();
+  const next = useCycle(CLOUD_SHOWS.length);
+  const height = (size * CLOUD_H) / CLOUD_W;
+  const onTap = () => {
+    if (show) return;
+    const pick = CLOUD_SHOWS[next()];
+    feedback(pick.sound, pick.kind === "storm" ? "medium" : "light");
+    setShow(pick.kind);
+    play(reduceMotion ? 700 : pick.ms, () => setShow(null));
+  };
+  const moves = show !== null && !reduceMotion;
+  const dark = show === "storm" ? 1 : show === "rain" ? 0.55 : 0;
+  // The "sunny" cloud squeezes away, leaving a rainbow, then puffs back.
+  const away = show === "sunny" && !reduceMotion ? t.interpolate(smoothKeys([0, 0.18, 0.8, 1], [1, 0.05, 0.05, 1])) : 1;
+  const drops = show === "storm" ? 14 : 9;
+  return (
+    <Pressable onPress={onTap} hitSlop={8} accessibilityRole="button" accessibilityLabel="cloud" style={{ width: size, height }}>
+      {moves && (show === "rain" || show === "storm")
+        ? Array.from({ length: drops }, (_, index) => {
+            const from = (index / drops) * 0.75;
+            return (
+              <Floater key={index} t={t} from={from} to={from + (show === "storm" ? 0.16 : 0.22)} x={size * (0.15 + ((index * 37) % 70) / 100)} y={height * 0.7} rise={-size * 0.6} drift={show === "storm" ? -size * 0.08 : 0} pop={false}>
+                <Drop size={show === "storm" ? 6 : 5} color={show === "storm" ? "#5E9FD8" : "#7CC2F2"} />
+              </Floater>
+            );
+          })
+        : null}
+      {moves && show === "storm"
+        ? [0.12, 0.5].map((from) => (
+            <Animated.View
+              key={from}
+              pointerEvents="none"
+              style={[styles.abs, { left: size * 0.38, top: height * 0.6, opacity: t.interpolate({ inputRange: [0, from, from + 0.02, from + 0.08, from + 0.1, 1], outputRange: [0, 0, 1, 1, 0, 0] }) }]}
+            >
+              <Svg width={size * 0.26} height={size * 0.4} viewBox="0 0 20 30">
+                <Path d="M12 0L2 16H9L6 30L18 11H11L14 0Z" fill="#FFD43B" stroke="#F2A900" strokeWidth={1} strokeLinejoin="round" />
+              </Svg>
+            </Animated.View>
+          ))
+        : null}
+      {moves && show === "sunny" ? (
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.abs,
+            {
+              left: size * 0.05,
+              top: -height * 0.15,
+              opacity: t.interpolate({ inputRange: [0, 0.15, 0.3, 0.75, 0.9, 1], outputRange: [0, 0, 1, 1, 0, 0] }),
+              transform: [{ scale: t.interpolate(smoothKeys([0, 0.15, 0.35, 1], [0.4, 0.4, 1, 1])) }]
+            }
+          ]}
+        >
+          <Svg width={size * 0.9} height={size * 0.5} viewBox="0 0 90 50">
+            {["#FF5A5A", "#FF9F1C", "#FFD43B", "#21B573", "#4C9BFF", "#8E5CF7"].map((color, index) => (
+              <Path key={color} d={`M${8 + index * 4} 48A${37 - index * 4} ${37 - index * 4} 0 0 1 ${82 - index * 4} 48`} stroke={color} strokeWidth={4} fill="none" />
+            ))}
+          </Svg>
+        </Animated.View>
+      ) : null}
+      {moves && show === "sunny"
+        ? [0, 1, 2].map((index) => (
+            <Floater key={index} t={t} from={0.12 + index * 0.06} to={0.45 + index * 0.06} x={size * (0.2 + index * 0.25)} y={height * 0.3} rise={height * 0.4}>
+              <Sparkle size={10} color="#FFFFFF" />
+            </Floater>
+          ))
+        : null}
+      <Animated.View style={{ transform: [{ scale: away }, ...(moves && show === "storm" ? [{ translateX: shake(t, 0.1, 0.6, 2, 6, "") }] : [])] }}>
+        <CloudShape color={sky.cloud} lip={sky.cloudLip} width={size} />
+        {dark > 0 ? (
+          <View style={StyleSheet.absoluteFill} pointerEvents="none">
+            <View style={{ opacity: dark }}>
+              <CloudShape color={STORM.cloud} lip={STORM.cloudLip} width={size} />
+            </View>
+          </View>
+        ) : null}
+      </Animated.View>
+    </Pressable>
+  );
+}
+
 /** A cloud drifting across the width, starting at `start` (0..1 of the trip), wrapping round. */
-function Cloud({ sky, top, width, size, duration, start, moving }: { sky: Sky; top: number; width: number; size: number; duration: number; start: number; moving: boolean }) {
+function Cloud({ sky, top, width, size, duration, start, moving, reduceMotion }: { sky: Sky; top: number; width: number; size: number; duration: number; start: number; moving: boolean; reduceMotion: boolean }) {
   const t = useLoopValue(moving, duration);
   const span = width + size;
   // Shifted by `start` so clouds sharing a loop length are spread out; the wrap happens off screen.
@@ -73,18 +171,76 @@ function Cloud({ sky, top, width, size, duration, start, moving }: { sky: Sky; t
   });
   return (
     <Animated.View style={[styles.abs, { top, transform: [{ translateX: moving ? translateX : start * span - size }] }]}>
-      <CloudShape color={sky.cloud} lip={sky.cloudLip} width={size} />
+      <TapCloud sky={sky} size={size} reduceMotion={reduceMotion} />
     </Animated.View>
   );
 }
 
-function Sun({ top, left, low, moving }: { top: number; left: number; low?: boolean; moving: boolean }) {
+type SunShow = "shine" | "cool" | "wink";
+/** Tapping the sun: it beams and glows, then puts on sunglasses, then winks. */
+const SUN_SHOWS: { kind: SunShow; sound: GameSoundEvent; ms: number }[] = [
+  { kind: "shine", sound: "grow", ms: 1800 },
+  { kind: "cool", sound: "boing", ms: 2000 },
+  { kind: "wink", sound: "giggle", ms: 1700 }
+];
+
+function SunFace({ show }: { show: SunShow }) {
+  return (
+    <Svg width={70} height={70} viewBox="0 0 70 70" style={StyleSheet.absoluteFill}>
+      {show === "cool" ? (
+        <G>
+          <Path d="M24 31H46" stroke="#1F2D27" strokeWidth={2} />
+          <Rect x={24} y={29} width={9.5} height={6.5} rx={3} fill="#1F2D27" />
+          <Rect x={36.5} y={29} width={9.5} height={6.5} rx={3} fill="#1F2D27" />
+          <Path d="M26 31L28 30" stroke="#FFFFFF" strokeWidth={1.2} strokeLinecap="round" />
+        </G>
+      ) : show === "wink" ? (
+        <G stroke="#8A4B1E" strokeWidth={2} strokeLinecap="round" fill="none">
+          <Path d="M27 32Q29.5 29 32 32" />
+          <Path d="M38 32H43" />
+        </G>
+      ) : (
+        <G fill="#8A4B1E">
+          <Circle cx={30} cy={32} r={1.8} />
+          <Circle cx={40} cy={32} r={1.8} />
+        </G>
+      )}
+      <Path d="M29.5 38Q35 43 40.5 38" stroke="#8A4B1E" strokeWidth={2} strokeLinecap="round" fill="none" />
+      <Circle cx={26.5} cy={37} r={2} fill="#FF8FA3" opacity={0.7} />
+      <Circle cx={43.5} cy={37} r={2} fill="#FF8FA3" opacity={0.7} />
+    </Svg>
+  );
+}
+
+function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: number; low?: boolean; moving: boolean; reduceMotion: boolean }) {
   const spin = useLoopValue(moving, 24000);
   const rotate = spin.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "360deg"] });
   const size = 70;
   const rays = Array.from({ length: 12 }, (_, index) => index * 30);
+  const [show, setShow] = useState<SunShow | null>(null);
+  const { value: t, play } = useOneShot();
+  const next = useCycle(SUN_SHOWS.length);
+  const onTap = () => {
+    if (show) return;
+    const pick = SUN_SHOWS[next()];
+    feedback(pick.sound, "light");
+    setShow(pick.kind);
+    play(reduceMotion ? 900 : pick.ms, () => setShow(null));
+  };
+  const moves = show !== null && !reduceMotion;
+  const grow = moves ? t.interpolate(smoothKeys([0, 0.15, 0.3, 0.45, 0.85, 1], show === "shine" ? [1, 1.28, 1.12, 1.25, 1.2, 1] : [1, 1.12, 1, 1.06, 1.06, 1])) : 1;
+  const glow = moves && show === "shine" ? t.interpolate({ inputRange: [0, 0.15, 0.8, 1], outputRange: [0, 0.7, 0.5, 0] }) : 0;
   return (
-    <View style={[styles.abs, { top, left, width: size, height: size }]}>
+    <Pressable onPress={onTap} hitSlop={6} accessibilityRole="button" accessibilityLabel="sun" style={[styles.abs, { top, left, width: size, height: size }]}>
+      {show === "shine" ? <Animated.View pointerEvents="none" style={[styles.glow, { opacity: glow, transform: [{ scale: grow }] }]} /> : null}
+      {moves && show === "wink"
+        ? [0, 1, 2].map((index) => (
+            <Floater key={index} t={t} from={0.2 + index * 0.12} to={0.6 + index * 0.12} x={10 + index * 22} y={6 + (index % 2) * 40} rise={14}>
+              <Sparkle size={11} />
+            </Floater>
+          ))
+        : null}
+      <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ scale: grow }] }]}>
       <Animated.View style={[StyleSheet.absoluteFill, { transform: moving ? [{ rotate }] : [] }]}>
         <Svg width={size} height={size} viewBox="0 0 70 70">
           {rays.map((angle) => (
@@ -96,7 +252,9 @@ function Sun({ top, left, low, moving }: { top: number; left: number; low?: bool
         <Circle cx={35} cy={35} r={18} fill={low ? "#FF9F5A" : "#FFC21A"} />
         <Circle cx={35} cy={35} r={13} fill={low ? "#FFC08A" : "#FFE27A"} />
       </Svg>
-    </View>
+      {show ? <SunFace show={show} /> : null}
+      </Animated.View>
+    </Pressable>
   );
 }
 
@@ -150,7 +308,7 @@ function Birds({ top, width, moving }: { top: number; width: number; moving: boo
   const t = useLoopValue(moving, 15000, 2500);
   const flap = useLoopValue(moving, 520);
   const translateX = t.interpolate({ inputRange: [0, 1], outputRange: [-70, width + 10] });
-  const wings = flap.interpolate({ inputRange: [0, 0.5, 1], outputRange: [1, 0.35, 1] });
+  const wings = flap.interpolate(smoothKeys([0, 0.5, 1], [1, 0.35, 1]));
   const flock = [
     { x: 0, y: 8, s: 1 },
     { x: 22, y: 0, s: 0.8 },
@@ -185,8 +343,8 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
   const gradientId = `sky-${weather}`;
 
   return (
-    <View style={[StyleSheet.absoluteFill, styles.clip]} pointerEvents="none" testID={`weather-${weather}`}>
-      <Svg width={width} height={height} style={StyleSheet.absoluteFill}>
+    <View style={[StyleSheet.absoluteFill, styles.clip]} pointerEvents="box-none" testID={`weather-${weather}`}>
+      <Svg width={width} height={height} style={StyleSheet.absoluteFill} pointerEvents="none">
         <Defs>
           {/* Fades in under the banner and out at the end, so one unit's sky melts into the next. */}
           <LinearGradient id={gradientId} x1="0" y1="0" x2="0" y2={height} gradientUnits="userSpaceOnUse">
@@ -209,11 +367,11 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
         const first = band === 0;
         return (
           <React.Fragment key={band}>
-            {weather === "sunny" && first ? <Sun top={y + 152} left={width - 80} moving={moving} /> : null}
-            {weather === "sunset" && first ? <Sun top={y + 152} left={width - 80} low moving={moving} /> : null}
-            <Cloud sky={sky} top={y + 150} width={width} size={weather === "rain" ? 92 : 76} duration={weather === "breeze" ? 16000 : 30000} start={0.15 + 0.3 * (band % 3)} moving={moving} />
+            {weather === "sunny" && first ? <Sun top={y + 152} left={width - 80} moving={moving} reduceMotion={reduceMotion} /> : null}
+            {weather === "sunset" && first ? <Sun top={y + 152} left={width - 80} low moving={moving} reduceMotion={reduceMotion} /> : null}
+            <Cloud sky={sky} top={y + 150} width={width} size={weather === "rain" ? 92 : 76} duration={weather === "breeze" ? 16000 : 30000} start={0.15 + 0.3 * (band % 3)} moving={moving} reduceMotion={reduceMotion} />
             {weather === "cloudy" || weather === "breeze" ? (
-              <Cloud sky={sky} top={y + 300} width={width} size={58} duration={weather === "breeze" ? 12000 : 40000} start={0.65} moving={moving} />
+              <Cloud sky={sky} top={y + 300} width={width} size={58} duration={weather === "breeze" ? 12000 : 40000} start={0.65} moving={moving} reduceMotion={reduceMotion} />
             ) : null}
             {weather === "breeze" ? (
               <>
@@ -224,7 +382,7 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
             {(weather === "sunny" || weather === "breeze" || weather === "sunset") && band % 2 === 0 ? (
               <Birds top={y + (first ? 250 : 200)} width={width} moving={moving} />
             ) : null}
-            {weather === "rain" ? <RainUnderCloud top={y + 150} width={width} band={band} moving={moving} /> : null}
+            {weather === "rain" ? <RainUnderCloud top={y + 150} width={width} band={band} moving={moving} reduceMotion={reduceMotion} /> : null}
           </React.Fragment>
         );
       })}
@@ -233,13 +391,13 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
 });
 
 /** Rain under a still cloud at the screen's side, so the drops have a source. */
-function RainUnderCloud({ top, width, band, moving }: { top: number; width: number; band: number; moving: boolean }) {
+function RainUnderCloud({ top, width, band, moving, reduceMotion }: { top: number; width: number; band: number; moving: boolean; reduceMotion: boolean }) {
   const left = band % 2 === 0 ? 8 : width - 100;
   const sky = SKIES.rain;
   return (
     <>
       <View style={[styles.abs, { top: top + 110, left }]}>
-        <CloudShape color={sky.cloud} lip={sky.cloudLip} width={92} />
+        <TapCloud sky={sky} size={92} reduceMotion={reduceMotion} />
       </View>
       <Rain top={top + 150} left={left + 4} moving={moving} />
     </>
@@ -253,5 +411,14 @@ const styles = StyleSheet.create({
   },
   clip: {
     overflow: "hidden"
+  },
+  glow: {
+    position: "absolute",
+    left: 5,
+    top: 5,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#FFE27A"
   }
 });

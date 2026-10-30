@@ -659,7 +659,7 @@
           },
           {
             "title": "Abdullah ibn Jahsh",
-            "description": "Led the Nakhla raid; martyred at Uhud. Full name: 'Abd Allah ibn Jahsh ibn Ri'ab al-Asadi. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 3 AH / 625 CE at Mount Uhud.",
+            "description": "Led the Nakhla raid; martyred at Uhud. Full name: 'Abd Allah ibn Jahsh ibn Ri'ab al-Asadi. Father: Jahsh ibn Riyab. Passed away in 3 AH / 625 CE at Mount Uhud.",
             "difficulty": 3,
             "lesson_type": "story",
             "premium": false,
@@ -724,38 +724,6 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "The mother of Abdullah ibn Jahsh was Umaymah bint Abd al-Muttalib.",
-                "explanation_long": "Abdullah ibn Jahsh: Led the Nakhla raid; martyred at Uhud.",
-                "tags_json": [
-                  "abdullah-ibn-jahsh",
-                  "difficulty_3",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Where was Abdullah ibn Jahsh born?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Zabid"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Egypt"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Makkah"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Tihamah"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "c"
-                },
-                "explanation_short": "Abdullah ibn Jahsh was born in Makkah.",
                 "explanation_long": "Abdullah ibn Jahsh: Led the Nakhla raid; martyred at Uhud.",
                 "tags_json": [
                   "abdullah-ibn-jahsh",
@@ -1868,7 +1836,7 @@
           },
           {
             "title": "Abu Umamah al-Bahili",
-            "description": "Last Companion to die in Syria. Full name: Sudayy ibn Ajlan al-Bahili. Tribe: Bahila. Passed away in 81 or 86 AH at Homs.",
+            "description": "He was a companion who settled in Homs, in Sham. Full name: Sudayy ibn Ajlan al-Bahili. Tribe: Bahila. Passed away in 86 AH in Sham.",
             "difficulty": 4,
             "lesson_type": "story",
             "premium": false,
@@ -1901,7 +1869,7 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "Abu Umamah al-Bahili was from Bahila.",
-                "explanation_long": "Abu Umamah al-Bahili: Last Companion to die in Syria.",
+                "explanation_long": "Abu Umamah al-Bahili: He was a companion who settled in Homs, in Sham.",
                 "tags_json": [
                   "abu-umamah-al-bahili",
                   "difficulty_4",
@@ -1914,26 +1882,26 @@
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Palestine"
+                    "text": "Egypt"
                   },
                   {
                     "id": "b",
-                    "text": "Siffin"
+                    "text": "Yemen"
                   },
                   {
                     "id": "c",
-                    "text": "Homs"
+                    "text": "Sham"
                   },
                   {
                     "id": "d",
-                    "text": "Mu'tah"
+                    "text": "Iraq"
                   }
                 ],
                 "correct_answer_json": {
                   "choiceId": "c"
                 },
-                "explanation_short": "Abu Umamah al-Bahili passed away in Homs.",
-                "explanation_long": "Abu Umamah al-Bahili: Last Companion to die in Syria.",
+                "explanation_short": "Abu Umamah al-Bahili passed away in Sham.",
+                "explanation_long": "Abu Umamah al-Bahili: He was a companion who settled in Homs, in Sham.",
                 "tags_json": [
                   "abu-umamah-al-bahili",
                   "difficulty_4",
@@ -2418,38 +2386,6 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "The father of Amr ibn al-As was Al-As ibn Wa'il.",
-                "explanation_long": "Amr ibn al-As: Conqueror and governor of Egypt.",
-                "tags_json": [
-                  "amr-ibn-al-as",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Who was the mother of Amr ibn al-As?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Halah bint Khuwaylid"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Hamamah"
-                  },
-                  {
-                    "id": "c",
-                    "text": "An-Nabighah bint Harmalah"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Fatimah az-Zahra"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "c"
-                },
-                "explanation_short": "The mother of Amr ibn al-As was An-Nabighah bint Harmalah.",
                 "explanation_long": "Amr ibn al-As: Conqueror and governor of Egypt.",
                 "tags_json": [
                   "amr-ibn-al-as",
@@ -3160,38 +3096,6 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Who was the mother of Fatimah bint Asad?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Sumayyah bint Khayyat"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Umm Ayman"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Fatimah bint Qays"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Su'da bint Tha'labah"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "c"
-                },
-                "explanation_short": "The mother of Fatimah bint Asad was Fatimah bint Qays.",
-                "explanation_long": "Fatimah bint Asad: Mother of Ali; raised the Prophet ﷺ in her home after Abd al-Muttalib died.",
-                "tags_json": [
-                  "fatimah-bint-asad",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
                 "prompt": "Which tribe was Fatimah bint Asad from?",
                 "options_json": [
                   {
@@ -3443,38 +3347,6 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "The father of Hakim ibn Hizam was Hizam ibn Khuwaylid.",
-                "explanation_long": "Hakim ibn Hizam: Khadijah's nephew; generous merchant who accepted Islam at the conquest of Makkah.",
-                "tags_json": [
-                  "hakim-ibn-hizam",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Who was the mother of Hakim ibn Hizam?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Fakhitah bint Zuhayr"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Nasibah bint Uqbah"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Umaymah bint Abd al-Muttalib"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Umm Ayman"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "a"
-                },
-                "explanation_short": "The mother of Hakim ibn Hizam was Fakhitah bint Zuhayr.",
                 "explanation_long": "Hakim ibn Hizam: Khadijah's nephew; generous merchant who accepted Islam at the conquest of Makkah.",
                 "tags_json": [
                   "hakim-ibn-hizam",
@@ -4587,7 +4459,7 @@
           },
           {
             "title": "Khawlah bint Hakim",
-            "description": "Early Muslim woman; wife of Uthman ibn Maz'un. Full name: Khawlah bint Hakim ibn Umayya al-Sulamiyya. Father: Hakim ibn Umayyah. Born in Makkah.",
+            "description": "Early Muslim woman; wife of Uthman ibn Maz'un. Full name: Khawlah bint Hakim ibn Umayya al-Sulamiyya. Father: Hakim ibn Umayyah. Tribe: Banu Sulaym.",
             "difficulty": 3,
             "lesson_type": "story",
             "premium": false,
@@ -4629,29 +4501,29 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Where was Khawlah bint Hakim born?",
+                "prompt": "Which tribe was Khawlah bint Hakim from?",
                 "options_json": [
                   {
                     "id": "a",
-                    "text": "Makkah"
+                    "text": "Ghifar"
                   },
                   {
                     "id": "b",
-                    "text": "Tihamah"
+                    "text": "Banu Sulaym"
                   },
                   {
                     "id": "c",
-                    "text": "Zabid"
+                    "text": "Bahila"
                   },
                   {
                     "id": "d",
-                    "text": "Egypt"
+                    "text": "Banu Hilal"
                   }
                 ],
                 "correct_answer_json": {
-                  "choiceId": "a"
+                  "choiceId": "b"
                 },
-                "explanation_short": "Khawlah bint Hakim was born in Makkah.",
+                "explanation_short": "Khawlah bint Hakim was from Banu Sulaym.",
                 "explanation_long": "Khawlah bint Hakim: Early Muslim woman; wife of Uthman ibn Maz'un.",
                 "tags_json": [
                   "khawlah-bint-hakim",
@@ -4739,7 +4611,7 @@
           },
           {
             "title": "Mariyah al-Qibtiyyah",
-            "description": "Mother of the Prophet's son Ibrahim; sent by al-Muqawqis of Egypt. Full name: Mariya bint Sham'un al-Qibtiyya. Father: Sham'un. Born in Egypt. Passed away in 16 AH / 637 CE at Madinah.",
+            "description": "Mother of the Prophet's son Ibrahim; sent by al-Muqawqis of Egypt. Full name: Mariya bint Sham'un al-Qibtiyya. Born in Egypt. Passed away in 16 AH / 637 CE at Madinah.",
             "difficulty": 4,
             "lesson_type": "story",
             "premium": false,
@@ -4747,38 +4619,6 @@
             "mastery_test_eligible": false,
             "xp_reward": 16,
             "questions": [
-              {
-                "type": "multiple_choice",
-                "prompt": "Who was the father of Mariyah al-Qibtiyyah?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Abbas ibn Abd al-Muttalib"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Abdullah ibn Amr ibn Haram"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Abu Amir ar-Rahib"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Sham'un"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "d"
-                },
-                "explanation_short": "The father of Mariyah al-Qibtiyyah was Sham'un.",
-                "explanation_long": "Mariyah al-Qibtiyyah: Mother of the Prophet's son Ibrahim; sent by al-Muqawqis of Egypt.",
-                "tags_json": [
-                  "mariyah-al-qibtiyyah",
-                  "difficulty_4",
-                  "obsidian_import"
-                ]
-              },
               {
                 "type": "multiple_choice",
                 "prompt": "Where was Mariyah al-Qibtiyyah born?",
@@ -10825,38 +10665,6 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Who was the mother of Khawlah bint Ja'far al-Hanafiyyah?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Zaynab bint al-Hasan"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Ash-Shamus bint Qays"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Atikah bint Amir"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Asma bint Amr"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "d"
-                },
-                "explanation_short": "The mother of Khawlah bint Ja'far al-Hanafiyyah was Asma bint Amr.",
-                "explanation_long": "Khawlah bint Ja'far al-Hanafiyyah: Wife of Ali and mother of Muhammad ibn al-Hanafiyya.",
-                "tags_json": [
-                  "khawlah-bint-jafar-al-hanafiyyah",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
                 "prompt": "Which tribe was Khawlah bint Ja'far al-Hanafiyyah from?",
                 "options_json": [
                   {
@@ -11409,38 +11217,6 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Who was the mother of Sayyidah Nafisah?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Ash-Shamus bint Qays"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Asma bint Amr"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Zaynab bint al-Hasan"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Umm Ruman"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "c"
-                },
-                "explanation_short": "The mother of Sayyidah Nafisah was Zaynab bint al-Hasan.",
-                "explanation_long": "Sayyidah Nafisah: Descendant of the Prophet ﷺ through al-Hasan; hadith scholar in Egypt who taught al-Shafi'i.",
-                "tags_json": [
-                  "sayyidah-nafisah",
-                  "difficulty_4",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
                 "prompt": "Which tribe was Sayyidah Nafisah from?",
                 "options_json": [
                   {
@@ -11634,38 +11410,6 @@
               },
               {
                 "type": "multiple_choice",
-                "prompt": "Who was the mother of Umm al-Banin?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Barrah bint Abd al-Uzza"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Fatimah az-Zahra"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Thumamah bint Sahl"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Atikah bint Amir"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "c"
-                },
-                "explanation_short": "The mother of Umm al-Banin was Thumamah bint Sahl.",
-                "explanation_long": "Umm al-Banin: Wife of Ali and mother of al-Abbas ibn Ali.",
-                "tags_json": [
-                  "umm-al-banin",
-                  "difficulty_1",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
                 "prompt": "Which tribe was Umm al-Banin from?",
                 "options_json": [
                   {
@@ -11808,7 +11552,7 @@
           },
           {
             "title": "Umm Kulthum bint Ali",
-            "description": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah. Father: Ali ibn Abi Talib. Born in Madinah.",
+            "description": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah. Father: Ali ibn Abi Talib.",
             "difficulty": 2,
             "lesson_type": "story",
             "premium": false,
@@ -11873,38 +11617,6 @@
                   "choiceId": "a"
                 },
                 "explanation_short": "The mother of Umm Kulthum bint Ali was Fatimah az-Zahra.",
-                "explanation_long": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah.",
-                "tags_json": [
-                  "umm-kulthum-bint-ali",
-                  "difficulty_2",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Where was Umm Kulthum bint Ali born?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Makkah"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Tihamah"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Zabid"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Madinah"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "d"
-                },
-                "explanation_short": "Umm Kulthum bint Ali was born in Madinah.",
                 "explanation_long": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah.",
                 "tags_json": [
                   "umm-kulthum-bint-ali",
@@ -12024,7 +11736,7 @@
           },
           {
             "title": "Zaynab bint Ali",
-            "description": "Spoke out in Yazid's court after Karbala. Father: Ali ibn Abi Talib. Born in Madinah. Passed away in c. 62 AH / 682 CE at Damascus or Cairo (disputed).",
+            "description": "She was Ali and Fatimah's daughter, the Prophet's ﷺ granddaughter. Father: Ali ibn Abi Talib.",
             "difficulty": 3,
             "lesson_type": "story",
             "premium": false,
@@ -12057,7 +11769,7 @@
                   "choiceId": "d"
                 },
                 "explanation_short": "The father of Zaynab bint Ali was Ali ibn Abi Talib.",
-                "explanation_long": "Zaynab bint Ali: Spoke out in Yazid's court after Karbala.",
+                "explanation_long": "Zaynab bint Ali: She was Ali and Fatimah's daughter, the Prophet's ﷺ granddaughter.",
                 "tags_json": [
                   "zaynab-bint-ali",
                   "difficulty_3",
@@ -12089,39 +11801,7 @@
                   "choiceId": "c"
                 },
                 "explanation_short": "The mother of Zaynab bint Ali was Fatimah az-Zahra.",
-                "explanation_long": "Zaynab bint Ali: Spoke out in Yazid's court after Karbala.",
-                "tags_json": [
-                  "zaynab-bint-ali",
-                  "difficulty_3",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Where was Zaynab bint Ali born?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Zabid"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Madinah"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Makkah"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Tihamah"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "b"
-                },
-                "explanation_short": "Zaynab bint Ali was born in Madinah.",
-                "explanation_long": "Zaynab bint Ali: Spoke out in Yazid's court after Karbala.",
+                "explanation_long": "Zaynab bint Ali: She was Ali and Fatimah's daughter, the Prophet's ﷺ granddaughter.",
                 "tags_json": [
                   "zaynab-bint-ali",
                   "difficulty_3",
@@ -12132,7 +11812,7 @@
           },
           {
             "title": "Zaynab bint Jahsh",
-            "description": "Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37). Full name: Zaynab bint Jahsh ibn Ri'ab al-Asadiyya. Father: Jahsh ibn Riyab. Born in Makkah. Passed away in 20 AH / c. 641 CE at Madinah.",
+            "description": "Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37). Full name: Zaynab bint Jahsh ibn Ri'ab al-Asadiyya. Father: Jahsh ibn Riyab. Passed away in 20 AH / c. 641 CE at Madinah.",
             "difficulty": 4,
             "lesson_type": "story",
             "premium": false,
@@ -12197,38 +11877,6 @@
                   "choiceId": "c"
                 },
                 "explanation_short": "The mother of Zaynab bint Jahsh was Umaymah bint Abd al-Muttalib.",
-                "explanation_long": "Zaynab bint Jahsh: Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37).",
-                "tags_json": [
-                  "zaynab-bint-jahsh",
-                  "difficulty_4",
-                  "obsidian_import"
-                ]
-              },
-              {
-                "type": "multiple_choice",
-                "prompt": "Where was Zaynab bint Jahsh born?",
-                "options_json": [
-                  {
-                    "id": "a",
-                    "text": "Isfahan"
-                  },
-                  {
-                    "id": "b",
-                    "text": "Madinah"
-                  },
-                  {
-                    "id": "c",
-                    "text": "Tihamah"
-                  },
-                  {
-                    "id": "d",
-                    "text": "Makkah"
-                  }
-                ],
-                "correct_answer_json": {
-                  "choiceId": "d"
-                },
-                "explanation_short": "Zaynab bint Jahsh was born in Makkah.",
                 "explanation_long": "Zaynab bint Jahsh: Cousin and wife of the Prophet ﷺ; her marriage was ordered in the Quran (33:37).",
                 "tags_json": [
                   "zaynab-bint-jahsh",

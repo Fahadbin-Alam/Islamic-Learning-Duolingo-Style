@@ -12,6 +12,9 @@ import { colors, darken, fonts, lip, radii, space, text, topicPalette } from "..
 import { LessonBottomBar } from "./LessonHeader";
 import { looksSame, noBreakHyphens, normalizeText } from "./lessonText";
 import { useScrollMore } from "./ScrollHint";
+import { AyahListen, useAyahPlayback } from "./AyahListen";
+import { playAyah, stopAyah } from "../../services/ayahPlayer";
+import { quranAudioUrl } from "../../services/quranAudio";
 import { getActiveLanguage, t } from "../../i18n";
 
 export type LearnCardProps = {
@@ -39,6 +42,11 @@ export type LearnCardProps = {
   onOpenSource?: (url: string) => void;
   /** Shows a round speaker button on the Arabic card (wire expo-speech with language "ar", or a clip). */
   onPlayAudio?: () => void;
+  /**
+   * The reciter's audio when the Arabic word is a whole ayah: the speaker plays it once (instead of onPlayAudio),
+   * and it stops when the card leaves the screen.
+   */
+  arabicRecitation?: string;
   onContinue: () => void;
   bottomInset?: number;
   testID?: string;
@@ -107,12 +115,17 @@ export function LearnCard({
   learnSource,
   source: legacySource,
   onOpenSource,
-  onPlayAudio,
+  onPlayAudio: speak,
+  arabicRecitation,
   onContinue,
   bottomInset,
   testID = "learn-card"
 }: LearnCardProps) {
   const palette = topicPalette(accent);
+  const onPlayAudio = arabicRecitation ? () => playAyah(arabicRecitation, { once: true }) : speak;
+  const playback = useAyahPlayback();
+  const recitationFailed = Boolean(arabicRecitation) && playback.url === arabicRecitation && playback.status === "error";
+  useEffect(() => (arabicRecitation ? () => stopAyah(arabicRecitation) : undefined), [arabicRecitation]);
   const { width, height } = useWindowDimensions();
   const short = height > 0 && height < 720;
   const narrow = width > 0 && width < 360;
@@ -131,6 +144,8 @@ export function LearnCard({
   const quoteReference = quote?.reference?.trim();
   // The quote's reference opens the source when both name the same narration, so it is not said twice.
   const linkedReference = Boolean(quoteText && quoteReference && source && sameReference(quoteReference, source.label));
+  // A single ayah in Arabic gets a recitation to listen to and repeat.
+  const ayahAudio = quoteText && isArabicOnly(quoteText) ? quranAudioUrl(quoteReference) : null;
   // With facts or a quote to show, the mascot sits small next to its line to leave them room.
   const rich = factList.length > 0 || Boolean(quoteText);
   const quranWord = arabic ? isQuranText(arabic.ar) : false;
@@ -169,9 +184,24 @@ export function LearnCard({
                 accessibilityRole={showTitle ? undefined : "header"}
                 accessibilityLabel={`${arabic.translit}: ${t(arabic.meaning)}`}
               >
-                <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
-                  {arabic.ar}
-                </ArabicText>
+                {onPlayAudio ? (
+                  // Tapping the word says it too, like the speaker next to it.
+                  <Tappable
+                    onPress={onPlayAudio}
+                    pressScale={0.97}
+                    accessibilityLabel={t("Play {word}", { word: arabic.translit })}
+                    style={styles.arabicTap}
+                    testID="learn-arabic-play"
+                  >
+                    <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
+                      {arabic.ar}
+                    </ArabicText>
+                  </Tappable>
+                ) : (
+                  <ArabicText size={arabicSize} weight="bold" quran={quranWord} color={palette.ink} style={styles.arabic} testID="learn-arabic">
+                    {arabic.ar}
+                  </ArabicText>
+                )}
                 {/* The speaker sits next to the transliteration, so the Arabic line keeps the full width. */}
                 <View style={styles.translitRow}>
                   {onPlayAudio ? (
@@ -196,6 +226,11 @@ export function LearnCard({
                   )}
                 </View>
                 <Text style={styles.meaning}>{withHonorifics(noBreakHyphens(t(arabic.meaning)))}</Text>
+                {recitationFailed ? (
+                  <Text style={styles.audioError} testID="learn-audio-error">
+                    {t("Could not load. Check your internet.")}
+                  </Text>
+                ) : null}
               </View>
             </PopIn>
           ) : null}
@@ -244,9 +279,24 @@ export function LearnCard({
                 <View style={[styles.quoteBar, { backgroundColor: palette.main }]} />
                 <View style={styles.quoteBody}>
                   {isArabicOnly(quoteText) ? (
-                    <ArabicText size={narrow ? 19 : 21} quran color={colors.ink} align="right" style={styles.quoteArabic} testID="learn-quote-text">
-                      {quoteText}
-                    </ArabicText>
+                    ayahAudio ? (
+                      // Tapping the ayah recites it again from the start.
+                      <Tappable
+                        onPress={() => playAyah(ayahAudio)}
+                        pressScale={0.98}
+                        accessibilityRole="button"
+                        accessibilityLabel={t("Listen")}
+                        testID="learn-quote-ayah"
+                      >
+                        <ArabicText size={narrow ? 19 : 21} quran color={colors.ink} align="right" style={styles.quoteArabic} testID="learn-quote-text">
+                          {quoteText}
+                        </ArabicText>
+                      </Tappable>
+                    ) : (
+                      <ArabicText size={narrow ? 19 : 21} quran color={colors.ink} align="right" style={styles.quoteArabic} testID="learn-quote-text">
+                        {quoteText}
+                      </ArabicText>
+                    )
                   ) : (
                     <Text style={[styles.quoteText, quoteText.length > 160 ? styles.quoteTextLong : null]} testID="learn-quote-text">
                       {withHonorifics(noBreakHyphens(quoteText))}
@@ -270,6 +320,7 @@ export function LearnCard({
                       {withHonorifics(quoteReference)}
                     </Text>
                   ) : null}
+                  {ayahAudio ? <AyahListen url={ayahAudio} accent={palette.main} /> : null}
                 </View>
               </View>
             </PopIn>
@@ -393,6 +444,10 @@ const styles = StyleSheet.create({
   arabic: {
     maxWidth: "100%"
   },
+  arabicTap: {
+    maxWidth: "100%",
+    alignItems: "center"
+  },
   translitRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -452,6 +507,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 2,
     flexShrink: 1
+  },
+  audioError: {
+    ...text.small,
+    fontSize: 12,
+    lineHeight: 16,
+    textAlign: "center",
+    marginTop: 4
   },
   talkRow: {
     flexDirection: "row",

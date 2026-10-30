@@ -1,5 +1,5 @@
 import type { Challenge, LearningCourse, LearningNode, LearningSection, Lesson, TopicId } from "../types";
-import { fillInsFirst, reviewQuestions, type TaughtLesson } from "./scalableCurriculum";
+import { choiceQuestionsOf, fillInsFirst, recallQuestions, reviewQuestions, SET_ASIDE, withoutGiveaways, type TaughtLesson } from "./scalableCurriculum";
 
 // Each person is taught in one unit. A prophet or a woman with a lesson of their own gets the lessons that
 // teach more about them (src/data/scalableCurriculum.ts) right after it, in the same unit, and the Mothers of the
@@ -104,7 +104,9 @@ const UNNAMED_START = /^\W*(he|she|it|its|his|her|they|their)\b/i;
 /**
  * A review looks back over the lessons before it in its own unit. A plan moves lessons between units, so each
  * review in a planned unit picks its questions again: from the lessons since the unit's last review first, then
- * from the lessons before that review, and never from another unit. Its own order question stays first.
+ * from the lessons before that review, and never from another unit. Its own order question stays first. A lesson
+ * that teaches a line and also asks from earlier lessons (further on in a unit) picks those again the same way,
+ * multiple-choice ones only.
  */
 function refreshReviews(unit: LearningNode[], lessonsById: Record<string, Lesson>) {
   const taught: TaughtLesson[] = [];
@@ -114,22 +116,30 @@ function refreshReviews(unit: LearningNode[], lessonsById: Record<string, Lesson
     const lessonId = node.lessonIds[0];
     const lesson = lessonsById[lessonId];
     if (!lesson) continue;
-    const looksBack = lesson.challenges.filter((challenge) => challenge.isReview).length;
-    if (!looksBack) {
-      const questions = lesson.challenges.filter((challenge) => !UNNAMED_START.test(challenge.prompt));
-      if (questions.length) taught.push({ lessonId, nodeId: node.id, questions });
+    const own = lesson.challenges.filter((challenge) => !challenge.isReview);
+    const looksBack = lesson.challenges.length - own.length;
+    const teachesLine = own.some((challenge) => !challenge.id.endsWith("_first"));
+    if (looksBack) {
+      const picked = teachesLine
+        ? recallQuestions(lessonId, own, choiceQuestionsOf([...taught.slice(0, since), ...taught.slice(since)]), looksBack, recent)
+        : reviewQuestions(lessonId, taught.slice(since), looksBack, recent, own);
+      if (!teachesLine && picked.length < looksBack) picked.push(...reviewQuestions(lessonId, taught.slice(0, since), looksBack - picked.length, recent, [...own, ...picked]));
+      const challenges: Challenge[] = !teachesLine
+        ? [...own, ...fillInsFirst(lessonId, picked)]
+        : picked.length
+          ? withoutGiveaways([...own, ...picked])
+          : withoutGiveaways([...own, ...(SET_ASIDE.get(lessonId) ?? [])]);
+      lessonsById[lessonId] = { ...lesson, challenges };
+      recent = new Set(challenges.map((challenge) => challenge.prompt));
+      if (!teachesLine) {
+        since = taught.length;
+        continue;
+      }
+    } else {
       recent = new Set(lesson.challenges.map((challenge) => challenge.prompt));
-      continue;
     }
-    const picked = reviewQuestions(lessonId, taught.slice(since), looksBack, recent);
-    if (picked.length < looksBack) picked.push(...reviewQuestions(lessonId, taught.slice(0, since), looksBack - picked.length, recent, picked));
-    const challenges: Challenge[] = [
-      ...lesson.challenges.filter((challenge) => !challenge.isReview),
-      ...fillInsFirst(lessonId, picked)
-    ];
-    lessonsById[lessonId] = { ...lesson, challenges };
-    since = taught.length;
-    recent = new Set(challenges.map((challenge) => challenge.prompt));
+    const questions = own.filter((challenge) => !UNNAMED_START.test(challenge.prompt));
+    if (questions.length) taught.push({ lessonId, nodeId: node.id, questions });
   }
 }
 

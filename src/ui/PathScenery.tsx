@@ -1,10 +1,12 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import Svg, { Circle, Ellipse, G, Path, Rect } from "react-native-svg";
 import { useReduceMotion } from "./Camel";
 import { Icon, type IconName } from "./Icon";
-import { feedback } from "./sound";
+import { smoothKeys } from "./motion";
+import { Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
+import { feedback, playUi } from "./sound";
 
 /**
  * Pictures that stand beside the path, picked by topic so the path looks like what is being learned.
@@ -41,9 +43,11 @@ const THEMES: Record<string, SceneryKind[]> = {
   // Maryam and the date palm (Maryam 19:25), Hajar and the water.
   women_of_the_book: ["palm", "flowers", "well", "dates", "tent", "oasis", "bush", "sheep"],
   hadith: ["inkpot", "bookStand", "palm", "flowers", "well", "bush", "dates", "rocks"],
+  scholars: ["inkpot", "bookStand", "palm", "well", "flowers", "bush", "rocks", "dates"],
   prayer: ["mosque", "palm", "flowers", "oasis", "dunes", "bush", "well", "rocks"],
   manners: ["flowers", "well", "sheep", "palm", "tent", "bush", "dates", "oasis"],
   fasting: ["dates", "palm", "well", "dunes", "tent", "oasis", "rocks", "bush"],
+  ramadan: ["dates", "mosque", "palm", "well", "oasis", "tent", "dunes", "bush"],
   zakat: ["coins", "well", "dates", "palm", "flowers", "sheep", "bush", "rocks"],
   hajj: ["kaaba", "mountain", "tent", "palm", "well", "rocks", "dunes", "sheep"],
   marriage: ["flowers", "tent", "palm", "well", "dates", "bush", "oasis", "sheep"],
@@ -264,6 +268,256 @@ function Drawing({ kind }: { kind: SceneryKind }) {
   }
 }
 
+/** Kinds of flower patch; each spot beside the path picks one, and its colors, from its seed. */
+export const FLOWER_KINDS = ["daisies", "tulips", "sunflower", "bells"] as const;
+export type FlowerKind = (typeof FLOWER_KINDS)[number];
+const FLOWER_COLORS = [
+  ["#FF7FA6", "#FFC21A", "#8E5CF7"],
+  ["#FF5A5A", "#FF9F1C", "#FF7FA6"],
+  ["#4C9BFF", "#8E5CF7", "#FFFFFF"],
+  ["#FF82AB", "#FFFFFF", "#FFC21A"]
+];
+
+export function flowerFor(seed: number) {
+  const index = Math.abs(seed) % FLOWER_KINDS.length;
+  return { kind: FLOWER_KINDS[index], colors: FLOWER_COLORS[(Math.abs(seed) >> 2) % FLOWER_COLORS.length] };
+}
+
+type FlowerStage = "bloom" | "wilted" | "sprout";
+
+const STEMS = "M20 58C20 46 18 38 16 30M34 58C34 44 36 34 38 24M46 58C46 50 48 44 50 38";
+
+function Blooms({ kind, colors: palette }: { kind: FlowerKind; colors: string[] }) {
+  switch (kind) {
+    case "tulips":
+      return (
+        <G>
+          <Path d="M18 58C18 48 17 42 16 34M32 58C32 46 32 36 32 26M46 58C46 50 47 44 48 38" stroke={LEAF_DEEP} strokeWidth={2.6} strokeLinecap="round" fill="none" />
+          <Path d="M18 56C11 50 10 44 12 40C17 44 19 50 18 56ZM46 56C53 50 54 44 52 40C47 44 45 50 46 56Z" fill={LEAF} />
+          {[
+            { x: 16, y: 30, c: palette[0] },
+            { x: 32, y: 22, c: palette[1] },
+            { x: 48, y: 34, c: palette[2] }
+          ].map((tulip) => (
+            <G key={tulip.x}>
+              <Path d={`M${tulip.x - 6} ${tulip.y - 6}L${tulip.x - 3} ${tulip.y - 2}L${tulip.x} ${tulip.y - 7}L${tulip.x + 3} ${tulip.y - 2}L${tulip.x + 6} ${tulip.y - 6}C${tulip.x + 7} ${tulip.y + 4} ${tulip.x + 4} ${tulip.y + 6} ${tulip.x} ${tulip.y + 6}C${tulip.x - 4} ${tulip.y + 6} ${tulip.x - 7} ${tulip.y + 4} ${tulip.x - 6} ${tulip.y - 6}Z`} fill={tulip.c} />
+              <Path d={`M${tulip.x - 3} ${tulip.y}C${tulip.x - 3} ${tulip.y + 3} ${tulip.x - 1} ${tulip.y + 4} ${tulip.x} ${tulip.y + 4}`} stroke="#FFFFFF" strokeOpacity={0.5} strokeWidth={1.4} strokeLinecap="round" fill="none" />
+            </G>
+          ))}
+        </G>
+      );
+    case "sunflower":
+      return (
+        <G>
+          <Path d="M32 58C32 46 32 36 31 24M48 58C48 52 49 48 50 44" stroke={LEAF_DEEP} strokeWidth={3} strokeLinecap="round" fill="none" />
+          <Path d="M32 46C24 42 22 37 23 33C29 35 32 40 32 46ZM32 40C40 36 43 36 45 38C41 42 36 42 32 40Z" fill={LEAF} />
+          {Array.from({ length: 12 }, (_, index) => (
+            <Ellipse key={index} cx={31} cy={14} rx={2.6} ry={6} fill="#FFC21A" transform={`rotate(${index * 30} 31 22)`} />
+          ))}
+          <Circle cx={31} cy={22} r={6} fill="#8A4B1E" />
+          <Circle cx={29.5} cy={20.5} r={1.4} fill="#A3632E" />
+          {/* a small friend beside it */}
+          {[0, 90, 180, 270].map((angle) => (
+            <Circle key={angle} cx={50} cy={39} r={3} fill={palette[0]} transform={`rotate(${angle} 50 42)`} />
+          ))}
+          <Circle cx={50} cy={42} r={2.2} fill="#FFF3D6" />
+        </G>
+      );
+    case "bells":
+      return (
+        <G>
+          <Path d="M22 58C22 44 26 32 34 24M42 58C42 48 44 40 48 34" stroke={LEAF_DEEP} strokeWidth={2.6} strokeLinecap="round" fill="none" />
+          <Path d="M22 52C15 48 13 43 14 39C19 41 22 46 22 52ZM42 52C49 48 51 43 50 39C45 41 42 46 42 52Z" fill={LEAF} />
+          {[
+            { x: 24, y: 34, c: palette[0] },
+            { x: 30, y: 27, c: palette[1] },
+            { x: 37, y: 24, c: palette[0] },
+            { x: 47, y: 40, c: palette[1] },
+            { x: 51, y: 34, c: palette[2] }
+          ].map((bell) => (
+            <G key={`${bell.x}-${bell.y}`}>
+              <Path d={`M${bell.x - 4} ${bell.y + 5}C${bell.x - 4} ${bell.y - 1} ${bell.x - 3} ${bell.y - 4} ${bell.x} ${bell.y - 4}C${bell.x + 3} ${bell.y - 4} ${bell.x + 4} ${bell.y - 1} ${bell.x + 4} ${bell.y + 5}L${bell.x + 2} ${bell.y + 3.6}L${bell.x} ${bell.y + 5.4}L${bell.x - 2} ${bell.y + 3.6}Z`} fill={bell.c} stroke={darkenSafe(bell.c)} strokeWidth={0.6} />
+            </G>
+          ))}
+        </G>
+      );
+    case "daisies":
+    default:
+      return (
+        <G>
+          <Path d={STEMS} stroke={LEAF_DEEP} strokeWidth={2.6} strokeLinecap="round" fill="none" />
+          <Path d="M20 50C14 46 12 42 13 38C18 40 20 44 20 50ZM34 46C40 42 44 42 46 44C42 48 38 48 34 46Z" fill={LEAF} />
+          {[
+            { x: 16, y: 28, c: palette[0] },
+            { x: 38, y: 22, c: palette[1] },
+            { x: 50, y: 36, c: palette[2] }
+          ].map((flower) => (
+            <G key={`${flower.x}`}>
+              <Circle cx={flower.x - 4} cy={flower.y} r={4} fill={flower.c} />
+              <Circle cx={flower.x + 4} cy={flower.y} r={4} fill={flower.c} />
+              <Circle cx={flower.x} cy={flower.y - 4} r={4} fill={flower.c} />
+              <Circle cx={flower.x} cy={flower.y + 4} r={4} fill={flower.c} />
+              <Circle cx={flower.x} cy={flower.y} r={2.8} fill={flower.c === "#FFFFFF" ? "#FFC21A" : "#FFF3D6"} />
+            </G>
+          ))}
+        </G>
+      );
+  }
+}
+
+function darkenSafe(hex: string) {
+  return hex === "#FFFFFF" ? "#D5DDE3" : "rgba(0,0,0,0.15)";
+}
+
+function FlowerArt({ kind, colors: palette, stage }: { kind: FlowerKind; colors: string[]; stage: FlowerStage }) {
+  return (
+    <Svg width="100%" height="100%" viewBox="0 0 64 64">
+      {stage === "bloom" ? <Blooms kind={kind} colors={palette} /> : null}
+      {stage === "wilted" ? (
+        // Drooping brown stems and dry heads; the fallen petals lie on the ground.
+        <G>
+          <Path d="M20 58C20 48 18 42 20 36C22 32 26 33 26 37M34 58C34 46 35 38 38 34C41 31 45 33 44 38M46 58C46 52 47 48 50 47C53 46 54 49 52 51" stroke="#A88A5A" strokeWidth={2.4} strokeLinecap="round" fill="none" />
+          <Circle cx={26} cy={39} r={3.4} fill="#B7925E" />
+          <Circle cx={44} cy={40} r={3.4} fill="#B7925E" />
+          <Circle cx={52} cy={52.5} r={2.6} fill="#B7925E" />
+          <Path d="M20 52C16 50 14 48 14 46C17 46 19 48 20 52Z" fill="#C2A46E" />
+          <Ellipse cx={12} cy={58} rx={3} ry={1.4} fill={palette[0]} opacity={0.7} />
+          <Ellipse cx={30} cy={59} rx={3} ry={1.4} fill={palette[1]} opacity={0.7} />
+          <Ellipse cx={56} cy={58.5} rx={2.6} ry={1.2} fill={palette[2]} opacity={0.7} />
+        </G>
+      ) : null}
+      {stage === "sprout" ? (
+        // A little sprout with two leaves and a bud.
+        <G>
+          <Path d="M32 59C32 52 32 46 32 40" stroke={LEAF_DEEP} strokeWidth={2.6} strokeLinecap="round" fill="none" />
+          <Path d="M32 50C26 50 22 46 21 42C27 42 31 45 32 50ZM32 46C38 46 42 42 43 38C37 38 33 41 32 46Z" fill={LEAF} />
+          <Ellipse cx={32} cy={37} rx={3} ry={4} fill={palette[0]} />
+          <Path d="M29.5 39C30.5 41 33.5 41 34.5 39" stroke={LEAF_DEEP} strokeWidth={1.6} strokeLinecap="round" fill="none" />
+        </G>
+      ) : null}
+      <Ellipse cx={32} cy={59} rx={22} ry={3} fill={LEAF_DEEP} opacity={0.35} />
+    </Svg>
+  );
+}
+
+/** What each flower tap leads to: a bounce and a wilt, then a sprout, then a bloom again. */
+const FLOWER_NEXT: Record<FlowerStage, FlowerStage> = { bloom: "wilted", wilted: "sprout", sprout: "bloom" };
+const FLOWER_MS: Record<FlowerStage, number> = { bloom: 1700, wilted: 900, sprout: 1100 };
+
+/**
+ * A flower patch you can play with: tap and it bounces, then droops and drops its petals; tap again
+ * and a sprout grows; tap again and it blooms again.
+ */
+function FlowerPatch({ size, seed, sway, reduceMotion }: { size: number; seed: number; sway: Animated.AnimatedInterpolation<string> | null; reduceMotion: boolean }) {
+  const { kind, colors: palette } = flowerFor(seed);
+  const [stage, setStage] = useState<FlowerStage>("bloom");
+  const [going, setGoing] = useState<FlowerStage | null>(null);
+  const { value: t, play } = useOneShot();
+  const wiltTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (wiltTimer.current) clearTimeout(wiltTimer.current);
+  }, []);
+
+  const onTap = () => {
+    if (going) return;
+    const to = FLOWER_NEXT[stage];
+    if (stage === "bloom") {
+      feedback("boing", "light");
+      wiltTimer.current = setTimeout(() => playUi("wilt"), reduceMotion ? 0 : 640);
+    } else {
+      feedback(to === "bloom" ? "sparkle" : "grow", "light");
+    }
+    setGoing(to);
+    play(reduceMotion ? 1 : FLOWER_MS[stage], () => {
+      setStage(to);
+      setGoing(null);
+    });
+  };
+
+  const box = { width: size, height: size };
+  const still = [StyleSheet.absoluteFill, { transformOrigin: "bottom" as const }];
+  let layers: React.ReactNode;
+  if (!going) {
+    layers = (
+      <Animated.View style={[...still, { transform: sway ? [{ rotate: sway }] : [] }]}>
+        <FlowerArt kind={kind} colors={palette} stage={stage} />
+      </Animated.View>
+    );
+  } else if (stage === "bloom") {
+    // Bounce (0..0.35), then droop and fade into the wilted patch while petals fall.
+    layers = (
+      <>
+        <Animated.View
+          style={[
+            ...still,
+            {
+              opacity: t.interpolate({ inputRange: [0, 0.55, 0.8, 1], outputRange: [1, 1, 0, 0] }),
+              transform: [
+                { translateY: t.interpolate(smoothKeys([0, 0.12, 0.24, 0.3, 0.36, 1], [0, -size * 0.2, 0, -size * 0.05, 0, 0])) },
+                { rotate: t.interpolate(smoothKeys([0, 0.38, 0.75, 1], ["0deg", "0deg", "16deg", "16deg"])) },
+                { scaleY: t.interpolate(smoothKeys([0, 0.24, 0.28, 0.34, 0.38, 0.75, 1], [1, 1, 0.86, 1.05, 1, 0.72, 0.72])) }
+              ]
+            }
+          ]}
+        >
+          <FlowerArt kind={kind} colors={palette} stage="bloom" />
+        </Animated.View>
+        <Animated.View style={[...still, { opacity: t.interpolate({ inputRange: [0, 0.55, 0.8, 1], outputRange: [0, 0, 1, 1] }) }]}>
+          <FlowerArt kind={kind} colors={palette} stage="wilted" />
+        </Animated.View>
+        {[0, 1, 2].map((index) => (
+          <Floater key={index} t={t} from={0.42 + index * 0.08} to={0.85 + index * 0.05} x={size * (0.22 + index * 0.25)} y={size * (0.35 - (index % 2) * 0.1)} rise={-size * 0.5} drift={(index - 1) * size * 0.12} pop={false}>
+            <View style={{ width: size * 0.09, height: size * 0.06, borderRadius: size * 0.04, backgroundColor: palette[index] }} />
+          </Floater>
+        ))}
+      </>
+    );
+  } else {
+    // Shrink the old picture away, then grow the new one up from the ground with a little overshoot.
+    layers = (
+      <>
+        <Animated.View
+          style={[
+            ...still,
+            {
+              opacity: t.interpolate({ inputRange: [0, 0.3, 1], outputRange: [1, 0, 0] }),
+              transform: [{ scaleY: t.interpolate(smoothKeys([0, 0.3, 1], [1, 0.4, 0.4])) }]
+            }
+          ]}
+        >
+          <FlowerArt kind={kind} colors={palette} stage={stage} />
+        </Animated.View>
+        <Animated.View
+          style={[
+            ...still,
+            {
+              opacity: t.interpolate({ inputRange: [0, 0.22, 0.3, 1], outputRange: [0, 0, 1, 1] }),
+              transform: [
+                { scaleY: t.interpolate(smoothKeys([0, 0.22, 0.65, 0.82, 1], [0.05, 0.05, 1.15, 0.95, 1])) },
+                { scaleX: t.interpolate(smoothKeys([0, 0.22, 0.65, 0.82, 1], [0.5, 0.5, 1.05, 1.02, 1])) }
+              ]
+            }
+          ]}
+        >
+          <FlowerArt kind={kind} colors={palette} stage={going} />
+        </Animated.View>
+        {going === "bloom"
+          ? [0, 1, 2].map((index) => (
+              <Floater key={index} t={t} from={0.5 + index * 0.08} to={0.9 + index * 0.03} x={size * (0.15 + index * 0.3)} y={size * (0.25 + (index % 2) * 0.12)} rise={size * 0.18}>
+                <Sparkle size={Math.max(9, size * 0.16)} />
+              </Floater>
+            ))
+          : null}
+      </>
+    );
+  }
+  return (
+    <Pressable onPress={onTap} hitSlop={6} accessibilityRole="button" accessibilityLabel="flowers" style={box} testID="scenery-flowers">
+      {layers}
+    </Pressable>
+  );
+}
+
 /** The well's rope and bucket, hanging from the beam. */
 function WellBucket() {
   return (
@@ -277,6 +531,14 @@ function WellBucket() {
 
 /** What a tap on each picture does: the well drops its bucket and splashes, the rest hop with a boing. */
 const TAP_SOUND: Partial<Record<SceneryKind, GameSoundEvent>> = { well: "splash", oasis: "splash" };
+
+type MountainShow = "rumble" | "snow" | "sun";
+/** A mountain tap: it rumbles and drops pebbles, then it snows, then the sun peeks over it. */
+const MOUNTAIN_SHOWS: { kind: MountainShow; sound: GameSoundEvent; ms: number }[] = [
+  { kind: "rumble", sound: "thunder", ms: 1300 },
+  { kind: "snow", sound: "sparkle", ms: 1800 },
+  { kind: "sun", sound: "grow", ms: 1900 }
+];
 
 const DROPS = [
   { x: -16, peak: -20, end: 6, size: 5 },
@@ -292,10 +554,12 @@ export type PathSceneryProps = {
   animated?: boolean;
   /** Tapping plays the picture's little animation and sound. */
   tappable?: boolean;
+  /** Picks the flower kind and colors (and other per-spot looks). Pass something unique per spot. */
+  seed?: number;
   style?: StyleProp<ViewStyle>;
 };
 
-export const PathScenery = memo(function PathScenery({ kind, size = 64, animated = false, tappable = false, style }: PathSceneryProps) {
+export const PathScenery = memo(function PathScenery({ kind, size = 64, animated = false, tappable = false, seed = 0, style }: PathSceneryProps) {
   const reduceMotion = useReduceMotion();
   const sways = animated && !reduceMotion && SWAYS.has(kind);
   const sway = useRef(new Animated.Value(0)).current;
@@ -314,7 +578,20 @@ export const PathScenery = memo(function PathScenery({ kind, size = 64, animated
   const isWell = kind === "well";
   const splashes = isWell || kind === "oasis";
 
+  const isMountain = kind === "mountain";
+  const [peak, setPeak] = useState<MountainShow | null>(null);
+  const { value: peakT, play: playPeak } = useOneShot();
+  const nextPeak = useCycle(MOUNTAIN_SHOWS.length);
+
   const onTap = () => {
+    if (isMountain) {
+      if (peak) return;
+      const show = MOUNTAIN_SHOWS[nextPeak()];
+      feedback(show.sound, show.kind === "rumble" ? "medium" : "light");
+      setPeak(show.kind);
+      playPeak(reduceMotion ? 600 : show.ms, () => setPeak(null));
+      return;
+    }
     feedback(TAP_SOUND[kind] ?? "boing", "light");
     if (reduceMotion || busy.current) return;
     busy.current = true;
@@ -329,19 +606,40 @@ export const PathScenery = memo(function PathScenery({ kind, size = 64, animated
   const hop = isWell
     ? []
     : [
-        { translateY: tap.interpolate({ inputRange: [0, 0.3, 0.55, 0.7, 1], outputRange: [0, -14, 0, -4, 0] }) },
-        { rotate: tap.interpolate({ inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1], outputRange: ["0deg", "-8deg", "7deg", "-4deg", "2deg", "0deg"] }) },
-        { scaleY: tap.interpolate({ inputRange: [0, 0.5, 0.58, 0.7, 1], outputRange: [1, 1, 0.86, 1.04, 1] }) }
+        { translateY: tap.interpolate(smoothKeys([0, 0.3, 0.55, 0.7, 1], [0, -14, 0, -4, 0])) },
+        { rotate: tap.interpolate(smoothKeys([0, 0.2, 0.4, 0.6, 0.8, 1], ["0deg", "-8deg", "7deg", "-4deg", "2deg", "0deg"])) },
+        { scaleY: tap.interpolate(smoothKeys([0, 0.5, 0.58, 0.7, 1], [1, 1, 0.86, 1.04, 1])) }
       ];
   // The bucket goes down into the water, waits a moment, then comes back up.
-  const bucketY = tap.interpolate({ inputRange: [0, 0.25, 0.55, 1], outputRange: [0, (size * 14) / 64, (size * 14) / 64, 0] });
+  const bucketY = tap.interpolate(smoothKeys([0, 0.25, 0.55, 1], [0, (size * 14) / 64, (size * 14) / 64, 0]));
   // Drops jump out of the water once the bucket lands (well) or at once (oasis).
   const splashFrom = isWell ? 0.24 : 0.02;
   const splashTo = isWell ? 0.7 : 0.8;
   const waterY = (size * (isWell ? 36 : 46)) / 64;
 
+  if (kind === "flowers") {
+    if (tappable) {
+      return (
+        <View style={[{ width: size, height: size }, style]}>
+          <FlowerPatch size={size} seed={seed} sway={sways ? rotate : null} reduceMotion={reduceMotion} />
+        </View>
+      );
+    }
+    const { kind: flowerKind, colors: palette } = flowerFor(seed);
+    return (
+      <View style={[{ width: size, height: size }, style]} pointerEvents="none" testID="scenery-flowers">
+        <Animated.View style={{ width: size, height: size, transformOrigin: "bottom", transform: sways ? [{ rotate }] : [] }}>
+          <FlowerArt kind={flowerKind} colors={palette} stage="bloom" />
+        </Animated.View>
+      </View>
+    );
+  }
+
+  const peakMoves = isMountain && peak !== null && !reduceMotion;
+  const mountainHop = peakMoves && peak === "rumble" ? [{ translateX: shake(peakT, 0, 0.7, size * 0.035, 7, "") }] : [];
+
   const picture = (
-    <Animated.View style={{ width: size, height: size, transformOrigin: "bottom", transform: [...(sways ? [{ rotate }] : []), ...hop] }}>
+    <Animated.View style={{ width: size, height: size, transformOrigin: "bottom", transform: [...(sways ? [{ rotate }] : []), ...(isMountain ? mountainHop : hop)] }}>
       {iconName ? (
         <Icon name={iconName} size={size} />
       ) : (
@@ -410,8 +708,48 @@ export const PathScenery = memo(function PathScenery({ kind, size = 64, animated
       style={[{ width: size, height: size }, style]}
       testID={`scenery-${kind}`}
     >
+      {peakMoves && peak === "sun" ? (
+        // A sun peeks up from behind the peak, then sets again.
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.peakSun,
+            {
+              width: size * 0.34,
+              height: size * 0.34,
+              borderRadius: size * 0.17,
+              left: size * 0.2,
+              top: size * 0.28,
+              transform: [{ translateY: peakT.interpolate(smoothKeys([0, 0.35, 0.75, 1], [size * 0.1, -size * 0.26, -size * 0.26, size * 0.1])) }]
+            }
+          ]}
+        />
+      ) : null}
       {picture}
       {drops}
+      {peakMoves && peak === "rumble"
+        ? [0, 1, 2].map((index) => (
+            <Floater key={index} t={peakT} from={0.1 + index * 0.12} to={0.6 + index * 0.12} x={size * (0.36 + index * 0.12)} y={size * 0.3} rise={-size * 0.5} drift={(index - 0.6) * size * 0.3} pop={false}>
+              <View style={[styles.pebble, { width: size * 0.08, height: size * 0.07, borderRadius: size * 0.04 }]} />
+            </Floater>
+          ))
+        : null}
+      {peakMoves && peak === "snow"
+        ? [0, 1, 2, 3, 4, 5].map((index) => (
+            <Floater key={index} t={peakT} from={(index % 3) * 0.15} to={(index % 3) * 0.15 + 0.6} x={size * (0.12 + index * 0.14)} y={size * (0.05 + (index % 2) * 0.1)} rise={-size * 0.45} drift={(index % 2 ? 1 : -1) * size * 0.05} pop={false}>
+              <View style={[styles.flake, { width: size * 0.07, height: size * 0.07, borderRadius: size * 0.035 }]} />
+            </Floater>
+          ))
+        : null}
+      {peakMoves && peak === "snow" ? (
+        // The snow cap grows while it snows, then melts back.
+        <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { opacity: peakT.interpolate({ inputRange: [0, 0.4, 0.8, 1], outputRange: [0, 1, 1, 0] }) }]}>
+          <Svg width={size} height={size} viewBox="0 0 64 64">
+            <Path d="M24 18L33 32L28 30L24 34L19 30L15 33Z" fill="#FFFFFF" />
+            <Path d="M44 26L50 36L46 35L43 38L40 35Z" fill="#FFFFFF" />
+          </Svg>
+        </Animated.View>
+      ) : null}
     </Pressable>
   );
 });
@@ -446,6 +784,18 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     overflow: "hidden"
+  },
+  peakSun: {
+    position: "absolute",
+    backgroundColor: "#FFC21A"
+  },
+  pebble: {
+    backgroundColor: "#93A29B"
+  },
+  flake: {
+    backgroundColor: "#FFFFFF",
+    borderWidth: 0.5,
+    borderColor: "#D5E7F3"
   },
   drop: {
     position: "absolute",

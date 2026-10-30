@@ -156,6 +156,18 @@ const SAYINGS: Saying[] = [
 const slugOf = (ref: string) => ref.replace(":", "-");
 export const hadithBasicsNodeId = (ref: string) => `${HADITH_BASICS_BRANCH_ID}-${slugOf(ref)}`;
 
+// "Sunan Abi Dawud 4811 (Sahih, Al-Albani)": the grade joins the reference outside the two Sahihs.
+const quoteReference = (saying: Saying) =>
+  saying.grade ? `${saying.reference} (${saying.grade.replace(/\s*\(([^)]+)\)$/, ", $1")})` : saying.reference;
+
+/** Each saying as the daily card shows it: the child's line, the quote and its reference, as on its learn card. */
+export const HADITH_BASICS_SAYINGS = SAYINGS.map((saying) => ({
+  line: saying.line,
+  quote: saying.quote,
+  reference: quoteReference(saying),
+  url: `https://sunnah.com/${saying.ref}`
+}));
+
 function sourceOf(saying: Saying, lessonId: string): LessonSource {
   return {
     id: `${lessonId.replace(/-/g, "_")}_src_1`,
@@ -250,7 +262,7 @@ function buildHadithBasics() {
       intro: saying.line,
       explanationContent: saying.quote,
       learnLine: saying.line,
-      quote: { text: saying.quote, reference: saying.grade ? `${saying.reference} (${saying.grade.replace(/\s*\(([^)]+)\)$/, ", $1")})` : saying.reference },
+      quote: { text: saying.quote, reference: quoteReference(saying) },
       learnSource: source,
       lessonType: "skill",
       difficulty: 1,

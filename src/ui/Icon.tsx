@@ -54,9 +54,12 @@ export type IconName =
   | "logout"
   | "plus"
   | "play"
+  | "repeat"
   | "handHeart"
   | "shield"
-  | "coins";
+  | "coins"
+  | "search"
+  | "share";
 
 export type IconProps = {
   name: IconName;
@@ -660,6 +663,12 @@ const ICONS: Record<IconName, Drawer> = {
   play: (t) => (
     <Path d="M7.4 4.8c0-1 1.1-1.6 1.9-1.1l10.4 7.2c.7.5.7 1.6 0 2.1L9.3 20.3c-.8.5-1.9-.1-1.9-1.1z" {...t.f(C.green)} />
   ),
+  repeat: (t) => (
+    <G>
+      <Path d="M4.6 11.2V9.8a3.2 3.2 0 0 1 3.2-3.2h11M19.4 12.8v1.4a3.2 3.2 0 0 1-3.2 3.2h-11" strokeWidth={2.6} strokeLinecap="round" {...t.s(C.purple)} />
+      <Path d="M15.6 3.4 19 6.6l-3.4 3.2M8.4 14.2 5 17.4l3.4 3.2" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round" {...t.s(C.purple)} />
+    </G>
+  ),
   handHeart: (t) => (
     <G>
       <Path d={HEART} transform="translate(5.6 0.4) scale(0.54)" {...t.f(C.heart)} />
@@ -686,6 +695,21 @@ const ICONS: Record<IconName, Drawer> = {
       <Circle cx={9.2} cy={14.4} r={4.6} strokeWidth={1.4} {...t.ds(C.goldLip)} />
       <Path d="M9.2 11.6v5.6" strokeWidth={1.8} strokeLinecap="round" {...t.ds(C.goldLip)} />
       <Shine t={t} d="M4.6 12.4c.5-1.4 1.6-2.5 3-3 .5-.2.8.5.3.8-1 .4-1.8 1.3-2.2 2.4-.2.5-1.2.3-1.1-.2z" />
+    </G>
+  ),
+  search: (t) => (
+    <G>
+      <Circle cx={10.4} cy={10.4} r={6.6} strokeWidth={3} {...t.s(C.grayDeep)} />
+      <Path d="M15.4 15.4 20.6 20.6" strokeWidth={3.4} strokeLinecap="round" {...t.s(C.grayDeep)} />
+    </G>
+  ),
+  // Three friends joined up: the share row on the Me tab.
+  share: (t) => (
+    <G>
+      <Path d="M7 12 17 6M7 12l10 6" strokeWidth={2.4} strokeLinecap="round" {...t.s(C.greenLight)} />
+      <Circle cx={17.6} cy={5.6} r={3.6} {...t.f(C.green)} />
+      <Circle cx={6.4} cy={12} r={3.6} {...t.f(C.gem)} />
+      <Circle cx={17.6} cy={18.4} r={3.6} {...t.f(C.pink)} />
     </G>
   )
 };
@@ -727,7 +751,9 @@ const TOPIC_ICONS: Record<string, IconName> = {
   sahabah: "people",
   prophets: "scroll",
   women_of_the_book: "bookOpen",
-  hadith: "book"
+  hadith: "book",
+  scholars: "family",
+  ramadan: "dua"
 };
 
 /** Emblem icon for a topic world id. */

@@ -3,6 +3,7 @@ import {
   Animated,
   Easing,
   LayoutAnimation,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -16,7 +17,7 @@ import {
 } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import type { ArabicTerm } from "../../data/arabicTerms";
-import { monetizationMode } from "../../services/monetizationConfig";
+import { canSellInStore, monetizationMode, storePlatform } from "../../services/monetizationConfig";
 import type { LearningNodeView } from "../../types";
 import { ArabicText, withHonorifics } from "../ArabicText";
 import { noBreakHyphens } from "../lesson/lessonText";
@@ -113,6 +114,12 @@ export type LearnPathProps = {
   initialOpenNodeId?: string;
   /** Scroll to this node or chest id on mount instead of the current node. */
   initialFocusId?: string;
+  /**
+   * A circle to show now (a topic search hit): the path scrolls to it and opens its card, then calls onRevealed.
+   * The caller clears it there, so the same circle can be asked for again.
+   */
+  reveal?: string;
+  onRevealed?: () => void;
   /** Extra bottom padding under the end-of-topic trophy. Default 32. */
   bottomPadding?: number;
 };
@@ -779,8 +786,8 @@ function PathEnd({
   return (
     <View style={styles.end} testID="path-end">
       <View style={styles.endStage}>
-        <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="none">
-          <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} />
+        <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="box-none">
+          <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} tappable testID="path-end-mascot" />
         </View>
         {width - 8 - camelStart >= CAMEL_SIZE ? (
           <View style={[styles.mascot, { left: camelStart, top: END_NODE + END_LIP - CAMEL_H }]} pointerEvents="box-none">
@@ -870,11 +877,13 @@ export function LearnPath({
   testOutGoal,
   currentNodeId,
   onPremium,
-  canBuyPremium = monetizationMode !== "disabled",
+  canBuyPremium = canSellInStore(monetizationMode, storePlatform(Platform.OS)),
   onNextTopic,
   header,
   initialOpenNodeId,
   initialFocusId,
+  reveal,
+  onRevealed,
   bottomPadding = 32
 }: LearnPathProps) {
   const scrollRef = useRef<ScrollView>(null);
@@ -885,6 +894,9 @@ export function LearnPath({
   /** Unit (and the JUMP HERE circle) whose "Jump ahead?" sheet is up; the ids stay while the sheet slides away. */
   const [testOut, setTestOut] = useState<{ unitId: string; nodeId?: string; open: boolean } | undefined>(undefined);
   const [seenTopic, setSeenTopic] = useState(topicId);
+  const [seenReveal, setSeenReveal] = useState<string | undefined>(undefined);
+  /** The circle `reveal` asked for, until the path has scrolled to it. */
+  const [revealId, setRevealId] = useState<string | undefined>(undefined);
   /** Units drawn in full (see LIVE_MARGIN), by index. Unset until the units have measured themselves. */
   const [live, setLive] = useState<{ lo: number; hi: number } | undefined>(undefined);
   const viewport = useRef(0);
@@ -917,6 +929,22 @@ export function LearnPath({
     focusConsumed.current = true;
     animateFocus.current = false;
     followChest.current = undefined;
+  }
+
+  // A circle asked for: open its card and scroll to it, gliding there on the same topic.
+  if (reveal !== seenReveal) {
+    setSeenReveal(reveal);
+    if (reveal) {
+      setRevealId(reveal);
+      setOpenId(reveal);
+      setCardH(undefined);
+      cardScrolledFor.current = reveal;
+      // The old card closing moves the path a little before the scroll to the new one; that is not the learner.
+      programmaticUntil.current = Date.now() + 700;
+      scrolledToCurrent.current = false;
+      // Same topic, path already on screen: glide there. A new topic starts at the top and jumps.
+      animateFocus.current = seenTopic === topicId && viewport.current > 0;
+    }
   }
 
   const layout = useMemo(() => {
@@ -984,7 +1012,7 @@ export function LearnPath({
         scenery
       };
     });
-    const wanted = focusConsumed.current ? undefined : initialFocusId ?? initialOpenNodeId;
+    const wanted = revealId ?? (focusConsumed.current ? undefined : initialFocusId ?? initialOpenNodeId);
     let focusKey = currentKey;
     let focusUnitId = currentUnitId;
     let focusRatio = 0.45;
@@ -994,7 +1022,7 @@ export function LearnPath({
         if (row) {
           focusKey = row.key;
           focusUnitId = group.unit.id;
-          focusRatio = initialOpenNodeId && !initialFocusId ? 0.24 : 0.45;
+          focusRatio = revealId || (initialOpenNodeId && !initialFocusId) ? 0.24 : 0.45;
           break;
         }
       }
@@ -1008,9 +1036,9 @@ export function LearnPath({
         ? { key: before.row.key, unitId: before.unitId }
         : undefined;
     return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio, earnedChest };
-    // Focus targets are read on mount only.
+    // Focus targets are read on mount only (and while a reveal is under way).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accent, units, topicId, currentNodeId]);
+  }, [accent, units, topicId, currentNodeId, revealId]);
 
   // When the current node moves (a lesson was finished), follow it.
   if (lastCurrentKey.current !== layout.currentKey) {
@@ -1132,9 +1160,14 @@ export function LearnPath({
     }
     scrolledToCurrent.current = true;
     focusConsumed.current = true;
-    scrollTo(target, animateFocus.current);
+    // A long glide outlasts the guard that keeps the open card up while the path moves, so far away is a jump.
+    scrollTo(target, animateFocus.current && Math.abs(target - scrollY.current) < viewport.current * 2);
     animateFocus.current = false;
-  }, [absoluteRowY, layout, scrollTo, stickyHeight, units]);
+    if (revealId) {
+      setRevealId(undefined);
+      onRevealed?.();
+    }
+  }, [absoluteRowY, layout, onRevealed, revealId, scrollTo, stickyHeight, units]);
 
   // Once that chest is opened, bring the circle to play next into view.
   useEffect(() => {
@@ -1282,6 +1315,8 @@ export function LearnPath({
                 />
                 <View
                   style={styles.items}
+                  // Lets taps through to the sky's clouds and sun behind the path.
+                  pointerEvents="box-none"
                   onLayout={(event) => {
                     itemsY.current[unit.id] = event.nativeEvent.layout.y;
                     tryScrollToCurrent();
@@ -1306,6 +1341,7 @@ export function LearnPath({
                       <View
                         key={row.key}
                         style={[styles.row, { height }, isOpen ? styles.raised : null]}
+                        pointerEvents="box-none"
                         onLayout={(event) => {
                           rowY.current[row.key] = event.nativeEvent.layout.y;
                           if (row.key === layout.focusKey || row.key === layout.earnedChest?.key) tryScrollToCurrent();
@@ -1314,7 +1350,7 @@ export function LearnPath({
                         {pictures && unitLive ? (
                           <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none">
                             <View style={styles.decorShadow} pointerEvents="none" />
-                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} tappable />
+                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} tappable seed={group.unitIndex * 7 + index} />
                           </View>
                         ) : null}
                         {unitLive && !pictures && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
@@ -1331,9 +1367,9 @@ export function LearnPath({
                           </View>
                         ) : null}
                         {index === group.mascotIndex ? (
-                          <View style={[styles.mascot, { left: mascotLeft, top: top + (NODE + NODE_LIP - MASCOT_H) / 2 - 8 }]} pointerEvents="none">
+                          <View style={[styles.mascot, { left: mascotLeft, top: top + (NODE + NODE_LIP - MASCOT_H) / 2 - 8 }]} pointerEvents="box-none">
                             {/* The topic accent, not the unit tint: the mascot keeps one look across the app. */}
-                            <Mascot variant={mascotVariant} mood="happy" size={MASCOT_SIZE} accent={accent} />
+                            <Mascot variant={mascotVariant} mood="happy" size={MASCOT_SIZE} accent={accent} tappable testID="path-mascot" />
                           </View>
                         ) : null}
                         {row.current && !isOpen ? (

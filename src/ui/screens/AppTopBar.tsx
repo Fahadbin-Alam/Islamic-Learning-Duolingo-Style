@@ -5,6 +5,7 @@ import { StatChip } from "../StatChip";
 import { Tappable } from "../Tappable";
 import { colors, topicPalette } from "../theme";
 import { compactNumber, formatNumber } from "./FormattedCount";
+import { DailySheet } from "./DailySheet";
 import { StreakSheet } from "./StreakSheet";
 import { worldIcon } from "./TopicPicker";
 import { t } from "../../i18n";
@@ -22,11 +23,15 @@ export type AppTopBarProps = {
   onOpenShop: () => void;
   /** Tap the flame. Default: a small sheet that says how the streak works. */
   onStreak?: () => void;
+  /** Today's ayah and hadith were opened already: the book shows no red dot. Default false. */
+  dailySeen?: boolean;
+  /** The book opened today's ayah and hadith (to remember it for the day). */
+  onDailyOpened?: () => void;
   /** Extra top padding (status bar). Default 0. */
   topInset?: number;
 };
 
-/** Slim game bar: topic world button, streak, gems and hearts. Icons and numbers only. */
+/** Slim game bar: topic world button, today's ayah and hadith, streak, gems and hearts. Icons and numbers only. */
 export function AppTopBar({
   topicId,
   topicTitle,
@@ -37,10 +42,19 @@ export function AppTopBar({
   onOpenTopics,
   onOpenShop,
   onStreak,
+  dailySeen = false,
+  onDailyOpened,
   topInset = 0
 }: AppTopBarProps) {
   const palette = topicPalette(accent);
   const [streakOpen, setStreakOpen] = useState(false);
+  const [dailyOpen, setDailyOpen] = useState(false);
+  // The book wears a red dot until today's card is opened.
+  const dailyNew = !dailySeen;
+  const openDaily = () => {
+    setDailyOpen(true);
+    onDailyOpened?.();
+  };
   const heartLabel = hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max });
 
   return (
@@ -63,6 +77,18 @@ export function AppTopBar({
 
         {/* Counts are formatted as on the Shop card and the Me tab: "1,000", "12,345", then "120k", so they always fit. */}
         <View style={styles.stats}>
+          <Tappable
+            onPress={openDaily}
+            sound="node_tap"
+            pressScale={0.92}
+            hitSlop={6}
+            accessibilityLabel={dailyNew ? t("Today's ayah and hadith. New!") : t("Today's ayah and hadith")}
+            testID="top-bar-daily"
+            style={styles.heartChip}
+          >
+            <Icon name="bookOpen" size={26} />
+            {dailyNew ? <View style={styles.newDot} testID="top-bar-daily-new" /> : null}
+          </Tappable>
           <StatChip
             icon="flame"
             value={compactNumber(streakDays)}
@@ -107,6 +133,7 @@ export function AppTopBar({
           )}
         </View>
       </View>
+      <DailySheet visible={dailyOpen} onClose={() => setDailyOpen(false)} />
       {onStreak ? null : <StreakSheet visible={streakOpen} streakDays={streakDays} onClose={() => setStreakOpen(false)} />}
     </View>
   );
@@ -157,5 +184,16 @@ const styles = StyleSheet.create({
   },
   infinity: {
     marginStart: 4
+  },
+  newDot: {
+    position: "absolute",
+    top: 2,
+    end: 2,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: colors.white,
+    backgroundColor: colors.heart
   }
 });

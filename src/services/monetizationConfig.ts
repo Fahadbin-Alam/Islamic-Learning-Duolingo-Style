@@ -1,3 +1,5 @@
+import type { PremiumPlan } from "../types";
+
 declare const __DEV__: boolean | undefined;
 
 export type MonetizationMode = "disabled" | "sandbox" | "live";
@@ -10,10 +12,13 @@ const env = {
   revenueCatIosKey: process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY,
   revenueCatAndroidKey: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY,
   entitlementId: process.env.EXPO_PUBLIC_REVENUECAT_ENTITLEMENT_ID,
+  noAdsEntitlementId: process.env.EXPO_PUBLIC_REVENUECAT_NO_ADS_ENTITLEMENT_ID,
   heartPackProductId: process.env.EXPO_PUBLIC_HEART_PACK_PRODUCT_ID,
   gemPackProductId: process.env.EXPO_PUBLIC_GEM_PACK_PRODUCT_ID,
   monthlyProductId: process.env.EXPO_PUBLIC_MONTHLY_PRODUCT_ID,
   yearlyProductId: process.env.EXPO_PUBLIC_YEARLY_PRODUCT_ID,
+  noAdsMonthlyProductId: process.env.EXPO_PUBLIC_NO_ADS_MONTHLY_PRODUCT_ID,
+  noAdsYearlyProductId: process.env.EXPO_PUBLIC_NO_ADS_YEARLY_PRODUCT_ID,
   androidBannerUnitId: process.env.EXPO_PUBLIC_ADMOB_ANDROID_BANNER_UNIT_ID,
   androidRewardedUnitId: process.env.EXPO_PUBLIC_ADMOB_ANDROID_REWARDED_UNIT_ID,
   androidInterstitialUnitId: process.env.EXPO_PUBLIC_ADMOB_ANDROID_INTERSTITIAL_UNIT_ID,
@@ -43,13 +48,26 @@ const isDev = typeof __DEV__ !== "undefined" && Boolean(__DEV__);
 export const monetizationMode = resolveMode(env.mode, isDev);
 
 export const premiumEntitlementId = clean(env.entitlementId) || "premium";
+export const noAdsEntitlementId = clean(env.noAdsEntitlementId) || "no_ads";
 
 export const monetizationProductIds = {
   heartPackSmall: clean(env.heartPackProductId) || "heart_pack_small",
   gemPackMedium: clean(env.gemPackProductId) || "gem_pack_medium",
   membershipMonthly: clean(env.monthlyProductId) || "membership_monthly",
-  membershipYearly: clean(env.yearlyProductId) || "membership_yearly"
+  membershipYearly: clean(env.yearlyProductId) || "membership_yearly",
+  noAdsMonthly: clean(env.noAdsMonthlyProductId) || "no_ads_monthly",
+  noAdsYearly: clean(env.noAdsYearlyProductId) || "no_ads_yearly"
 };
+
+// Two plans: "No ads" only takes the ads away; Premium also gives unlimited hearts and the premium units.
+// The plan is read from the product (or backend plan) id, so a Google "productId:basePlanId" works too, and
+// any older or unknown id counts as Premium, which is what every plan gave before "No ads" existed.
+export function planForProduct(productId: string | undefined): PremiumPlan | undefined {
+  const base = clean(productId).split(":")[0];
+  if (!base) return undefined;
+  const noAds = [monetizationProductIds.noAdsMonthly, monetizationProductIds.noAdsYearly];
+  return noAds.includes(base) || base.startsWith("no_ads") ? "no_ads" : "premium";
+}
 
 export function revenueCatApiKey(platform: StorePlatform) {
   if (platform === "ios") {
@@ -61,6 +79,15 @@ export function revenueCatApiKey(platform: StorePlatform) {
   }
 
   return "";
+}
+
+/** Ads run in any mode but "disabled"; selling needs the RevenueCat key for this platform (sandbox simulates it). */
+export function canSellInStore(mode: MonetizationMode, platform: StorePlatform) {
+  return mode === "sandbox" || (mode === "live" && Boolean(revenueCatApiKey(platform)));
+}
+
+export function storePlatform(os: string): StorePlatform {
+  return os === "ios" || os === "android" ? os : "web";
 }
 
 export interface AdUnitIds {
@@ -155,4 +182,38 @@ export function adSettingsFor(audience: AdAudience, platform: StorePlatform): Ad
     tagForUnderAgeOfConsent: audience !== "adult",
     requestNonPersonalizedAdsOnly: audience !== "adult" || platform === "ios"
   };
+}
+
+// Hearts are never sold for gems. A free heart takes three short videos instead, watched one at a time; the count of
+// videos watched toward the next heart stays on the device, so leaving halfway keeps it.
+export const VIDEOS_PER_HEART = 3;
+
+/** One more video watched toward a heart: the new count, and whether this video finished a heart (the count resets). */
+export function addHeartVideo(watched: number) {
+  const next = Math.max(0, Math.floor(watched)) + 1;
+  return next >= VIDEOS_PER_HEART ? { watched: 0, heartEarned: true } : { watched: next, heartEarned: false };
+}
+
+// The plans screen opens by itself after every third finished lesson and when hearts run out, but never more than once
+// every few hours, never instead of a lesson's own result, and never to a child (store Families rules): under-13s and
+// Kid accounts only find the plans in the shop, behind the grown-up check. Nothing opens when this build cannot sell.
+export const LESSONS_BETWEEN_PLAN_OFFERS = 3;
+export const MIN_MS_BETWEEN_PLAN_OFFERS = 4 * 60 * 60 * 1000;
+
+export interface PlanOfferCheck {
+  /** The store can sell plans in this build (canSellInStore). */
+  canSell: boolean;
+  /** The learner has Premium already: nothing to offer. */
+  hasPremium: boolean;
+  /** Under 13 or a Kid account. */
+  child: boolean;
+  msSinceLastOffer: number;
+}
+
+export function mayOfferPlans({ canSell, hasPremium, child, msSinceLastOffer }: PlanOfferCheck) {
+  return canSell && !hasPremium && !child && msSinceLastOffer >= MIN_MS_BETWEEN_PLAN_OFFERS;
+}
+
+export function shouldOfferPlansAfterLesson(lessonsFinishedThisSession: number, check: PlanOfferCheck) {
+  return lessonsFinishedThisSession > 0 && lessonsFinishedThisSession % LESSONS_BETWEEN_PLAN_OFFERS === 0 && mayOfferPlans(check);
 }

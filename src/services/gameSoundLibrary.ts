@@ -13,7 +13,17 @@ export type GameSoundEvent =
   | "soft_ui"
   | "camel"
   | "splash"
-  | "boing";
+  | "boing"
+  | "giggle"
+  | "sad"
+  | "zoom"
+  | "spit"
+  | "sparkle"
+  | "thunder"
+  | "grow"
+  | "wilt"
+  | "grumble"
+  | "whoosh";
 
 export type SoundTone = {
   frequency: number;
@@ -99,6 +109,78 @@ export const SOUND_LIBRARY: Record<GameSoundEvent, SoundTone[]> = {
     { frequency: 280, durationMs: 60, gain: 0.035, type: "triangle" },
     { frequency: 420, durationMs: 60, delayMs: 40, gain: 0.035, type: "triangle" },
     { frequency: 640, durationMs: 80, delayMs: 80, gain: 0.03, type: "triangle" }
+  ],
+  // Tap reactions on the path's characters and pictures.
+  // A bubbly "hee-hee-hee": quick high hops going down.
+  giggle: [
+    { frequency: 880, durationMs: 60, gain: 0.03, type: "triangle" },
+    { frequency: 1040, durationMs: 50, delayMs: 70, gain: 0.03, type: "triangle" },
+    { frequency: 820, durationMs: 60, delayMs: 140, gain: 0.03, type: "triangle" },
+    { frequency: 980, durationMs: 50, delayMs: 210, gain: 0.028, type: "triangle" },
+    { frequency: 760, durationMs: 60, delayMs: 280, gain: 0.026, type: "triangle" },
+    { frequency: 900, durationMs: 70, delayMs: 350, gain: 0.024, type: "triangle" }
+  ],
+  // A sad little "wah-wah" going down.
+  sad: [
+    { frequency: 440, durationMs: 160, gain: 0.03, type: "sine" },
+    { frequency: 392, durationMs: 160, delayMs: 170, gain: 0.03, type: "sine" },
+    { frequency: 349, durationMs: 160, delayMs: 340, gain: 0.03, type: "sine" },
+    { frequency: 294, durationMs: 320, delayMs: 510, gain: 0.03, type: "sine" }
+  ],
+  // Running off fast: a rising zip.
+  zoom: [
+    { frequency: 300, durationMs: 50, gain: 0.03, type: "triangle" },
+    { frequency: 450, durationMs: 50, delayMs: 30, gain: 0.03, type: "triangle" },
+    { frequency: 650, durationMs: 50, delayMs: 60, gain: 0.03, type: "triangle" },
+    { frequency: 900, durationMs: 50, delayMs: 90, gain: 0.03, type: "triangle" },
+    { frequency: 1200, durationMs: 80, delayMs: 120, gain: 0.026, type: "triangle" }
+  ],
+  // A silly "ptoo!": a puff, then a pop.
+  spit: [
+    { frequency: 180, durationMs: 60, gain: 0.04, type: "sawtooth" },
+    { frequency: 900, durationMs: 40, delayMs: 90, gain: 0.04, type: "sine" },
+    { frequency: 500, durationMs: 60, delayMs: 130, gain: 0.03, type: "sine" }
+  ],
+  // Magic sparkle: quick high twinkles going up.
+  sparkle: [
+    { frequency: 1320, durationMs: 50, gain: 0.022, type: "sine" },
+    { frequency: 1760, durationMs: 50, delayMs: 50, gain: 0.022, type: "sine" },
+    { frequency: 1580, durationMs: 50, delayMs: 100, gain: 0.02, type: "sine" },
+    { frequency: 2100, durationMs: 90, delayMs: 150, gain: 0.02, type: "sine" }
+  ],
+  // A soft rumble of thunder (kept gentle for little ones).
+  thunder: [
+    { frequency: 70, durationMs: 220, gain: 0.06, type: "sawtooth" },
+    { frequency: 55, durationMs: 260, delayMs: 120, gain: 0.06, type: "sawtooth" },
+    { frequency: 62, durationMs: 300, delayMs: 300, gain: 0.05, type: "sawtooth" },
+    { frequency: 48, durationMs: 360, delayMs: 520, gain: 0.04, type: "sawtooth" }
+  ],
+  // Something growing: a slow rising sweep.
+  grow: [
+    { frequency: 330, durationMs: 80, gain: 0.026, type: "sine" },
+    { frequency: 440, durationMs: 80, delayMs: 70, gain: 0.026, type: "sine" },
+    { frequency: 554, durationMs: 80, delayMs: 140, gain: 0.026, type: "sine" },
+    { frequency: 660, durationMs: 80, delayMs: 210, gain: 0.026, type: "sine" },
+    { frequency: 880, durationMs: 140, delayMs: 280, gain: 0.024, type: "sine" }
+  ],
+  // Drooping: a slow falling sweep.
+  wilt: [
+    { frequency: 520, durationMs: 120, gain: 0.026, type: "sine" },
+    { frequency: 440, durationMs: 120, delayMs: 110, gain: 0.026, type: "sine" },
+    { frequency: 370, durationMs: 120, delayMs: 220, gain: 0.024, type: "sine" },
+    { frequency: 300, durationMs: 220, delayMs: 330, gain: 0.022, type: "sine" }
+  ],
+  // A grumpy "hmph-hmph".
+  grumble: [
+    { frequency: 160, durationMs: 90, gain: 0.04, type: "sawtooth" },
+    { frequency: 140, durationMs: 90, delayMs: 120, gain: 0.04, type: "sawtooth" },
+    { frequency: 175, durationMs: 120, delayMs: 260, gain: 0.035, type: "sawtooth" }
+  ],
+  // Wind: a soft rise and fall.
+  whoosh: [
+    { frequency: 260, durationMs: 120, gain: 0.02, type: "sine" },
+    { frequency: 340, durationMs: 120, delayMs: 90, gain: 0.022, type: "sine" },
+    { frequency: 300, durationMs: 160, delayMs: 180, gain: 0.02, type: "sine" }
   ]
 };
 

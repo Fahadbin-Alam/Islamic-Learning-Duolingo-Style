@@ -38,6 +38,11 @@ const HINT_GAP = 4;
 /** Height of the gap that holds the hint while it shows: a little air, the button, a little air. */
 export const SCROLL_HINT_ROOM = SCROLL_HINT_SIZE + HINT_GAP * 2;
 
+/** How much a gap `gap` tall grows while it holds the hint. */
+export function scrollHintGrowth(gap: number) {
+  return Math.max(0, SCROLL_HINT_ROOM - gap);
+}
+
 /**
  * Tracks a lesson ScrollView so the step can show a "more below" hint while part of it is hidden
  * under the bottom bar. Spread `scrollProps` on the ScrollView and give it `ref`. `slack`: how much
@@ -76,7 +81,20 @@ export function useScrollMore(slack: number = SCROLL_HINT_SLACK) {
     ref.current?.scrollTo?.({ y: Math.max(0, Math.min(content - viewport, offset + Math.round(viewport * 0.7))), animated: true });
   }, []);
 
-  return { ref, scrollProps, more, scrollDown };
+  /**
+   * The sizes as laid out right now, read before the frame is drawn (see laidOutHeight): the hint shows, or not, in
+   * that very frame, not a frame after it once the scroll view reports them. `offset` when it is known (a new question
+   * starts at the top).
+   */
+  const know = useCallback(
+    (viewport: number, content: number, offset?: number) => {
+      size.current = { viewport, content, offset: offset ?? size.current.offset };
+      update();
+    },
+    [update]
+  );
+
+  return { ref, scrollProps, more, scrollDown, know };
 }
 
 /** Which way a hint points: down while more is hidden below, up once the end is in view and the start is not. */
@@ -91,21 +109,31 @@ export function ScrollHint({
   visible,
   onPress,
   direction = "down",
+  still,
   testID = "scroll-more"
 }: {
   visible: boolean;
   onPress: () => void;
   direction?: ScrollHintDirection;
+  /**
+   * Shows and goes at once, without its spring: an arrow that comes with a question's first frame (it is drawn whole in
+   * that frame, not grown in after it) and goes as a sheet covers it.
+   */
+  still?: boolean;
   testID?: string;
 }) {
   const shown = useRef(new Animated.Value(visible ? 1 : 0)).current;
   const bob = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    if (still) {
+      shown.setValue(visible ? 1 : 0);
+      return undefined;
+    }
     const animation = Animated.spring(shown, { toValue: visible ? 1 : 0, friction: 6, tension: 140, useNativeDriver: true });
     animation.start();
     return () => animation.stop();
-  }, [shown, visible]);
+  }, [shown, still, visible]);
 
   useEffect(() => {
     if (!visible) {
@@ -130,7 +158,9 @@ export function ScrollHint({
   return (
     <Animated.View
       pointerEvents={visible ? "box-none" : "none"}
-      style={[styles.root, { opacity: shown, transform: [{ scale }] }]}
+      // A value set above shows only after another render (on the web an animated value draws through React), so a
+      // still arrow is drawn as it is by this very render.
+      style={[styles.root, still ? { opacity: visible ? 1 : 0 } : { opacity: shown, transform: [{ scale }] }]}
       testID={visible ? testID : undefined}
     >
       <Tappable onPress={onPress} pressScale={0.88} hitSlop={8} accessibilityLabel={up ? t("Scroll up") : t("Scroll down")} style={styles.button}>
@@ -145,27 +175,34 @@ export function ScrollHint({
 /**
  * The gap between a scrolling part and the bar under it. It is `gap` tall and grows to fit the hint
  * while more is hidden, so the button sits in the bar and never covers a line that can still be read.
+ * `hold`: it keeps the hint's room with the hint gone (under a sheet that covers the bar), so the part above it keeps
+ * its height and shows no more of what was hidden.
  */
 export function ScrollHintGap({
   visible,
+  hold,
   onPress,
   gap,
   direction,
+  still,
   testID,
   gapTestID
 }: {
   visible: boolean;
+  hold?: boolean;
   onPress: () => void;
   gap: number;
   direction?: ScrollHintDirection;
+  /** The hint shows and goes at once (see ScrollHint). */
+  still?: boolean;
   /** The hint's own testID (while it shows). */
   testID?: string;
   /** The gap's testID. */
   gapTestID?: string;
 }) {
   return (
-    <View pointerEvents="box-none" style={[styles.gap, { height: visible ? Math.max(gap, SCROLL_HINT_ROOM) : gap }]} testID={gapTestID}>
-      <ScrollHint visible={visible} onPress={onPress} direction={direction} testID={testID} />
+    <View pointerEvents="box-none" style={[styles.gap, { height: visible || hold ? gap + scrollHintGrowth(gap) : gap }]} testID={gapTestID}>
+      <ScrollHint visible={visible} onPress={onPress} direction={direction} still={still} testID={testID} />
     </View>
   );
 }
@@ -174,13 +211,14 @@ const styles = StyleSheet.create({
   gap: {
     position: "relative"
   },
+  // Across the whole gap with the button in its middle: centered alike left to right and right to left.
   root: {
     position: "absolute",
-    left: "50%",
+    left: 0,
+    right: 0,
     top: HINT_GAP,
-    width: SCROLL_HINT_SIZE,
     height: SCROLL_HINT_SIZE,
-    marginStart: -SCROLL_HINT_SIZE / 2,
+    alignItems: "center",
     zIndex: 5
   },
   button: {

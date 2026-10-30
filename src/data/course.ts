@@ -1,6 +1,10 @@
 import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
 import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits } from "./unitPlans";
+import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
+import { addDeepUnits, addSurahDeepUnits } from "./deepUnits";
+import { addSurahMeanings } from "./surahMeanings";
+import { RAMADAN } from "./ramadanDays";
 import { IMPORTED_NOTES } from "./importedNotes.generated";
 import type { Challenge, LearningCourse, Lesson, LessonSource, ShopItem, UserProfile } from "../types";
 import { preciseResourceUrl } from "../services/resourceSupport";
@@ -3941,57 +3945,90 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 // Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
-const chainedContent = chainCourse(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)));
-// No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons).
+// Deep units (deepUnits.ts) follow their unit's own circles, and then each surah's passages (surahMeanings).
+const chainedNotes = chainCourse(addSurahDeepUnits(addSurahMeanings(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES))))));
+// The 30-day Ramadan path (ramadanDays.ts) comes last in the topic list; its days are already chained in order.
+const chainedContent = {
+  course: { ...chainedNotes.course, sections: [...chainedNotes.course.sections, RAMADAN.section] },
+  lessonsById: { ...chainedNotes.lessonsById, ...RAMADAN.lessonsById }
+};
+// No question hands the learner the answer to a fill-in after it, in any lesson (reviews mix several lessons). A
+// lesson whose seed or note named no source for its fact gets the one checked for it, and a question whose fact is on
+// another page gets that page (questionSources.ts).
+const withQuestionSource = (challenge: Challenge): Challenge =>
+  challenge.source || !QUESTION_SOURCES[challenge.id] ? challenge : { ...challenge, source: QUESTION_SOURCES[challenge.id] };
 const expandedContent = {
   ...chainedContent,
   lessonsById: Object.fromEntries(
-    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => [id, { ...lesson, challenges: withoutGiveaways(lesson.challenges) }])
+    Object.entries(chainedContent.lessonsById).map(([id, lesson]) => {
+      const learnSource = lesson.learnSource ?? LESSON_SOURCES[id];
+      const sources = learnSource ? [learnSource, ...lesson.sources.filter((source) => source.id !== learnSource.id && source.url !== learnSource.url)] : lesson.sources;
+      return [id, { ...lesson, sources, ...(learnSource ? { learnSource } : {}), challenges: withoutGiveaways(lesson.challenges).map(withQuestionSource) }];
+    })
   )
 };
 
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;
 
+// Hearts come from the daily refill, three videos, a heart pack or Premium, never from gems: gems are a score the
+// path's chests and videos pay out, so there is no gem chest to buy either.
 export const SHOP_ITEMS: ShopItem[] = [
+  {
+    id: "no-ads-monthly",
+    type: "monthly_membership",
+    tier: "no_ads_monthly",
+    name: "Monthly no ads",
+    localizedDescription: "Learn with no ads.",
+    price: 2.99,
+    currencyType: "USD",
+    productId: "no_ads_monthly",
+    removesAds: true,
+    durationDays: 30,
+    benefits: ["No ads"]
+  },
+  {
+    id: "no-ads-yearly",
+    type: "yearly_membership",
+    tier: "no_ads_yearly",
+    name: "Yearly no ads",
+    localizedDescription: "A full year with no ads, for less than 6 months of the monthly plan.",
+    price: 19.99,
+    currencyType: "USD",
+    productId: "no_ads_yearly",
+    removesAds: true,
+    durationDays: 365,
+    highlightBadge: "44% off yearly",
+    benefits: ["No ads", "Lower yearly price"]
+  },
   {
     id: "membership-monthly",
     type: "monthly_membership",
     tier: "premium_monthly",
     name: "Monthly premium",
     localizedDescription: "No ads, unlimited hearts, and every premium lesson.",
-    price: 9.99,
+    price: 6.99,
     currencyType: "USD",
     productId: "membership_monthly",
     unlimitedHearts: true,
     removesAds: true,
     durationDays: 30,
-    benefits: [
-      "Full access to premium branches",
-      "Advanced lessons and deeper review",
-      "Bonus resources and premium quizzes",
-      "No ads and unlimited hearts"
-    ]
+    benefits: ["No ads and unlimited hearts", "Every premium unit"]
   },
   {
     id: "membership-yearly",
     type: "yearly_membership",
     tier: "premium_yearly",
     name: "Yearly premium",
-    localizedDescription: "Save 20% with a full year of premium access, unlimited hearts, and advanced study tools.",
-    price: 95.9,
+    localizedDescription: "A full year of no ads, unlimited hearts, and every premium lesson.",
+    price: 49.99,
     currencyType: "USD",
     productId: "membership_yearly",
     unlimitedHearts: true,
     removesAds: true,
     durationDays: 365,
-    highlightBadge: "20% off yearly",
-    benefits: [
-      "Everything in monthly premium",
-      "Lower yearly price for long-term learning",
-      "Premium tests, review mode, and branch unlocks",
-      "Ready for account sync across devices"
-    ]
+    highlightBadge: "40% off yearly",
+    benefits: ["Everything in monthly premium", "Lower yearly price"]
   },
   {
     id: "heart-pack-small",
@@ -4004,29 +4041,10 @@ export const SHOP_ITEMS: ShopItem[] = [
     heartsGranted: 5
   },
   {
-    id: "gem-heart-refill",
-    type: "gem_heart_refill",
-    name: "Refill hearts with gems",
-    localizedDescription: "Spend the gems you earned on the path to refill every heart.",
-    price: 350,
-    currencyType: "gems",
-    refillsHearts: true
-  },
-  {
-    id: "gem-pack-medium",
-    type: "gem_pack",
-    name: "Gem chest",
-    localizedDescription: "Add 1,200 gems for heart refills and future rewards.",
-    price: 4.99,
-    currencyType: "USD",
-    productId: "gem_pack_medium",
-    gemsGranted: 1200
-  },
-  {
     id: "watch-ad-heart",
     type: "rewarded_ad",
     name: "Watch and recover",
-    localizedDescription: "Earn one heart after a short sponsor break.",
+    localizedDescription: "Earn one heart after three short sponsor breaks.",
     price: 0,
     currencyType: "rewarded_ad",
     heartsGranted: 1

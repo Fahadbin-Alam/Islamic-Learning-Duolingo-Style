@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Animated, Linking, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { UiStrings } from "../../i18n";
-import { legalLinks, monetizationMode } from "../../services/monetizationConfig";
+import { VIDEOS_PER_HEART, canSellInStore, legalLinks, monetizationMode, planForProduct, storePlatform } from "../../services/monetizationConfig";
 import type { LearningSection, ShopItem, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon, type IconName } from "../Icon";
@@ -12,6 +12,9 @@ import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
 import { FormattedCount, formatNumber } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
+import { SecretTap } from "./SecretTap";
+import { PROFILE_ICONS, activeIcon, ownsIcon, type ProfileIconId } from "../../services/ummah";
+import { SECRET_HINT_PRICE, nextHintSecret } from "../../data/secretLessons";
 import { t } from "../../i18n";
 
 export type ShopViewProps = {
@@ -42,16 +45,33 @@ export type ShopViewProps = {
    * Default: the monetization mode is not "disabled".
    */
   canBuyWithMoney?: boolean;
+  canWatchAds?: boolean;
+  /** Videos already watched toward the next free heart (three make one). */
+  heartVideosWatched?: number;
   /** Scroll to this part once the shop opens. "premium": the Premium card (or the "can't be bought here" note). */
   focus?: "premium";
+  /** Profile icons for gems: buy one (it goes on at once), or switch to an owned one; undefined goes back to initials. */
+  onBuyIcon?: (id: ProfileIconId) => void;
+  onWearIcon?: (id: ProfileIconId | undefined) => void;
+  /** Buys the clue to the next secret lesson. */
+  onBuySecretHint?: () => void;
 };
 
 const MANAGE_SUBSCRIPTION_URL =
   Platform.OS === "android" ? "https://play.google.com/store/account/subscriptions" : "https://apps.apple.com/account/subscriptions";
 
-/** Same rule as TopicApp: premium learners are not sold anything again. */
+/** Same rule as TopicApp's isPremiumUser: any plan, so no ads. */
 function isPremium(user: UserProfile) {
   return Boolean(user.activeSubscriptionId);
+}
+
+/** Same rule as hasPremiumLessons: Premium learners are not sold anything again. "No ads" learners still buy hearts. */
+function isFullPremium(user: UserProfile) {
+  return planForProduct(user.activeSubscriptionId) === "premium";
+}
+
+export function isNoAdsPlan(item: ShopItem) {
+  return Boolean(item.tier) && planForProduct(item.productId ?? item.id) === "no_ads";
 }
 
 /** Same rule as canSpendGems in src/api/islamicLearningApi.ts. */
@@ -88,7 +108,7 @@ export function formatShopPrice(item: ShopItem, storePrices: Record<string, stri
 }
 
 /** Short kid-friendly names; the catalog names are written for store listings. */
-function displayName(item: ShopItem) {
+export function displayName(item: ShopItem) {
   switch (item.type) {
     case "monthly_membership":
       return t("Monthly");
@@ -103,15 +123,20 @@ function displayName(item: ShopItem) {
   }
 }
 
-function shortLine(item: ShopItem, user: UserProfile) {
+function shortLine(item: ShopItem, user: UserProfile, heartVideosWatched: number) {
   if (item.refillsHearts) return t("Fill to {count}", { count: user.hearts.max });
-  if (item.type === "rewarded_ad") return item.gemsGranted ? t("Watch: +{count} gems", { count: item.gemsGranted }) : t("Watch a video");
+  if (item.type === "rewarded_ad" && item.gemsGranted) return t("Watch: +{count} gems", { count: item.gemsGranted });
+  if (item.type === "rewarded_ad") {
+    return heartVideosWatched
+      ? t("{count} of {total} videos watched", { count: heartVideosWatched, total: VIDEOS_PER_HEART })
+      : t("{total} videos = 1 heart", { total: VIDEOS_PER_HEART });
+  }
   if (item.heartsGranted) return t("+{count} hearts", { count: item.heartsGranted });
   if (item.gemsGranted) return t("+{count} gems", { count: formatNumber(item.gemsGranted) });
   return item.localizedDescription;
 }
 
-function badgeText(item: ShopItem) {
+export function badgeText(item: ShopItem) {
   if (!item.highlightBadge) return undefined;
   const percent = item.highlightBadge.match(/\d+\s*%/);
   return percent ? t("Save {percent}", { percent: percent[0].replace(/\s/g, "") }) : item.highlightBadge;
@@ -168,6 +193,8 @@ type RowProps = {
   busy: boolean;
   pendingId?: string;
   onBuy: (item: ShopItem) => void;
+  /** Videos watched toward the next free heart. */
+  heartVideosWatched?: number;
 };
 
 const NUDGE_MS = 1400;
@@ -199,7 +226,7 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
 }
 
 function ItemRow(props: RowProps) {
-  const { item, user, storePrices, onBuy, busy } = props;
+  const { item, user, storePrices, onBuy, busy, heartVideosWatched = 0 } = props;
   const gems = item.currencyType === "gems";
   // Full hearts comes first: a learner who needs nothing is never told to save gems for it. The heart video
   // follows the same rule, so no one sits through a video that gives nothing.
@@ -209,7 +236,7 @@ function ItemRow(props: RowProps) {
   const short = gems && !full && user.gems < item.price ? item.price - user.gems : 0;
   const label = formatShopPrice(item, storePrices);
   const name = displayName(item);
-  const line = full ? t("Hearts are full") : short ? t("Need {count} more", { count: formatNumber(short) }) : shortLine(item, user);
+  const line = full ? t("Hearts are full") : short ? t("Need {count} more", { count: formatNumber(short) }) : shortLine(item, user, heartVideosWatched);
   const { style: shakeStyle, shake } = useShake(6);
   const buttonPop = useRef(new Animated.Value(1)).current;
   const rowScale = useRef(new Animated.Value(1)).current;
@@ -307,7 +334,7 @@ function ItemRow(props: RowProps) {
   );
 }
 
-function BenefitList({ ink, skipHearts }: { ink: string; skipHearts?: boolean }) {
+export function BenefitList({ ink, skipHearts }: { ink: string; skipHearts?: boolean }) {
   return (
     <View style={styles.benefits}>
       {BENEFITS.filter((benefit) => !skipHearts || benefit.icon !== "infinity").map((benefit) => (
@@ -324,19 +351,22 @@ function BenefitList({ ink, skipHearts }: { ink: string; skipHearts?: boolean })
   );
 }
 
-function PremiumCard({ plans, ...rest }: Omit<RowProps, "item"> & { plans: ShopItem[] }) {
+/** A plan card: "No ads" (ads only) or Premium (no ads, unlimited hearts, every lesson). */
+function PremiumCard({ plans, kind = "premium", ...rest }: Omit<RowProps, "item"> & { plans: ShopItem[]; kind?: "premium" | "no_ads" }) {
   const ink = darken(colors.gold, 0.62);
+  const title = kind === "no_ads" ? t("No ads") : t("Premium");
   return (
-    <View style={styles.premium} testID="shop-premium">
+    <View style={styles.premium} testID={kind === "no_ads" ? "shop-no-ads" : "shop-premium"}>
       <View style={styles.premiumHead}>
         <View style={styles.crownCircle}>
-          <Icon name="crown" size={40} />
+          <Icon name={kind === "no_ads" ? "sparkle" : "crown"} size={40} />
         </View>
         <Text style={[styles.premiumTitle, { color: ink }]} numberOfLines={1}>
-          {t("Premium")}
+          {title}
         </Text>
       </View>
-      <BenefitList ink={ink} />
+      {/* "No ads" is its whole benefit, and its title says so. */}
+      {kind === "no_ads" ? null : <BenefitList ink={ink} />}
       {plans.map((plan) => {
         const badge = badgeText(plan);
         const price = formatShopPrice(plan, rest.storePrices);
@@ -354,10 +384,104 @@ function PremiumCard({ plans, ...rest }: Omit<RowProps, "item"> & { plans: ShopI
                 </View>
               ) : null}
             </View>
-            <BuyButton {...rest} item={plan} label={price} variant="primary" accessibilityLabel={`${t("Premium")} ${displayName(plan)}, ${price}`} />
+            <BuyButton {...rest} item={plan} label={price} variant="primary" accessibilityLabel={`${title} ${displayName(plan)}, ${price}`} />
           </View>
         );
       })}
+    </View>
+  );
+}
+
+/** Profile icons: owned ones put on with a tap, others bought with gems. */
+function IconShop({ user, onBuy, onWear }: { user: UserProfile; onBuy: (id: ProfileIconId) => void; onWear?: (id: ProfileIconId | undefined) => void }) {
+  const wearing = activeIcon(user);
+  const { style: shakeStyle, shake } = useShake(6);
+  const [shaking, setShaking] = useState<string | undefined>(undefined);
+  const press = (id: ProfileIconId, price: number) => {
+    if (ownsIcon(user, id)) {
+      feedback("soft_ui", "light");
+      onWear?.(wearing === id ? undefined : id);
+      return;
+    }
+    if (user.gems < price) {
+      setShaking(id);
+      shake();
+      feedback("wrong", "error");
+      return;
+    }
+    feedback("unlock", "success");
+    onBuy(id);
+  };
+  return (
+    <View style={styles.section} testID="shop-icons">
+      <Text style={styles.sectionHeader}>{t("Icons")}</Text>
+      <View style={styles.iconGrid}>
+        {PROFILE_ICONS.map(({ id, price }) => {
+          const owned = ownsIcon(user, id);
+          const on = wearing === id;
+          return (
+            <Animated.View key={id} style={[styles.iconCell, shaking === id ? shakeStyle : null]}>
+              <Tappable
+                onPress={() => press(id, price)}
+                sound={false}
+                style={[styles.iconTile, on ? styles.iconTileOn : owned ? styles.iconTileOwned : null]}
+                accessibilityLabel={on ? t("Wearing") : owned ? t("Wear") : t("{count} gems", { count: formatNumber(price) })}
+                accessibilityState={{ selected: on }}
+                testID={`shop-icon-${id}`}
+              >
+                <Icon name={id} size={38} />
+                {on ? (
+                  <View style={styles.iconTag}>
+                    <Icon name="check" size={14} color={colors.white} />
+                  </View>
+                ) : owned ? (
+                  <Text style={styles.iconOwned} numberOfLines={1}>{t("Wear")}</Text>
+                ) : (
+                  <View style={styles.iconPrice}>
+                    <Icon name="gem" size={14} />
+                    <Text style={styles.iconPriceText} numberOfLines={1}>{formatNumber(price)}</Text>
+                  </View>
+                )}
+              </Tappable>
+            </Animated.View>
+          );
+        })}
+      </View>
+    </View>
+  );
+}
+
+/** The clue to the next secret lesson. Gone once every secret is found or hinted. */
+function SecretHintRow({ user, onBuy }: { user: UserProfile; onBuy: () => void }) {
+  const next = nextHintSecret(user);
+  const { style: shakeStyle, shake } = useShake(6);
+  if (!next) return null;
+  const short = Math.max(0, SECRET_HINT_PRICE - user.gems);
+  const press = () => {
+    if (short) {
+      shake();
+      feedback("wrong", "error");
+      return;
+    }
+    onBuy();
+  };
+  return (
+    <View style={styles.section}>
+      <Text style={styles.sectionHeader}>{t("Secrets")}</Text>
+      <View style={[styles.item, styles.hintRow]} testID="shop-secret-hint">
+        <View style={[styles.itemIcon, { backgroundColor: lighten(colors.gold, 0.8) }]}>
+          <Icon name="lantern" size={34} />
+        </View>
+        <View style={styles.itemText}>
+          <Text style={styles.itemName} numberOfLines={2}>{t("Secret clue")}</Text>
+          <Text style={[styles.itemLine, short ? styles.itemLineShort : null]} numberOfLines={2}>
+            {short ? t("Need {count} more", { count: formatNumber(short) }) : t("Where to find a secret lesson")}
+          </Text>
+        </View>
+        <Animated.View style={shakeStyle}>
+          <GameButton label={formatNumber(SECRET_HINT_PRICE)} size="sm" icon={short ? "lock" : "gem"} variant="blue" sound={short ? false : undefined} onPress={press} testID="shop-buy-secret-hint" />
+        </Animated.View>
+      </View>
     </View>
   );
 }
@@ -380,10 +504,16 @@ export function ShopView({
   onDone,
   onOpenLink,
   pendingItemId,
-  canBuyWithMoney = monetizationMode !== "disabled",
-  focus
+  canBuyWithMoney = canSellInStore(monetizationMode, storePlatform(Platform.OS)),
+  canWatchAds = monetizationMode !== "disabled",
+  heartVideosWatched = 0,
+  focus,
+  onBuyIcon,
+  onWearIcon,
+  onBuySecretHint
 }: ShopViewProps) {
   const premium = isPremium(user);
+  const fullPremium = isFullPremium(user);
   const [pendingId, setPendingId] = useState<string | undefined>(undefined);
   const { ask, gate } = useGrownUpGate();
   const heartsPop = useRef(new Animated.Value(1)).current;
@@ -418,11 +548,17 @@ export function ShopView({
     }
   }, [gemPop, heartsPop, user.gems, user.hearts.current]);
 
-  const visible = premium ? [] : items.filter((item) => canBuyWithMoney || !needsStore(item));
+  // Premium needs nothing more. "No ads" still buys hearts and gems, and can move up to Premium, but is
+  // not offered videos (they are ads) or its own plan again.
+  const visible = fullPremium
+    ? []
+    : items.filter((item) => (item.currencyType === "rewarded_ad" ? canWatchAds : canBuyWithMoney || !needsStore(item)) && !(premium && (item.type === "rewarded_ad" || isNoAdsPlan(item))));
   const hearts = visible.filter((item) => !item.tier && (item.refillsHearts || item.heartsGranted || (item.type === "rewarded_ad" && !item.gemsGranted)));
   const gemPacks = visible.filter((item) => !item.tier && !hearts.includes(item) && item.gemsGranted);
   const powerUps = visible.filter((item) => !item.tier && !hearts.includes(item) && !gemPacks.includes(item));
   const plans = visible.filter((item) => item.tier && item.tier !== "free");
+  const noAdsPlans = plans.filter(isNoAdsPlan);
+  const premiumPlans = plans.filter((item) => !isNoAdsPlan(item));
 
   const open = (url: string) => (onOpenLink ? onOpenLink(url) : void Linking.openURL(url).catch(() => undefined));
   const openGated = (url: string) => ask(() => open(url));
@@ -440,7 +576,7 @@ export function ShopView({
       onRestore();
     });
   const pending = pendingItemId ?? pendingId;
-  const rowProps = { user, storePrices, busy, pendingId: pending, onBuy: buy };
+  const rowProps = { user, storePrices, busy, pendingId: pending, onBuy: buy, heartVideosWatched };
 
   return (
     <View style={styles.root}>
@@ -450,9 +586,11 @@ export function ShopView({
         <PopIn from="scale">
           <View style={styles.balance} testID="shop-balance">
             <View style={styles.balanceGem}>
-              <Animated.View style={{ transform: [{ scale: gemPop }] }}>
-                <Icon name="gem" size={46} />
-              </Animated.View>
+              <SecretTap spot="shop_gem">
+                <Animated.View style={{ transform: [{ scale: gemPop }] }}>
+                  <Icon name="gem" size={46} />
+                </Animated.View>
+              </SecretTap>
               {/* Formatted as in the top bar above it (and on the Me tab): "1,000", "12,345", then "120k". */}
               <FormattedCount value={user.gems} compact style={styles.balanceValue} testID="shop-gems" />
             </View>
@@ -479,15 +617,17 @@ export function ShopView({
                 <Mascot variant={section.mascot} mood="cheer" size={80} accent={section.accentColor} />
                 <View style={styles.activeText}>
                   <View style={styles.activeTitleRow}>
-                    <Icon name="crown" size={28} />
-                    <Text style={[styles.premiumTitle, styles.activeTitle]}>{t("Premium")}</Text>
+                    <Icon name={fullPremium ? "crown" : "sparkle"} size={28} />
+                    <Text style={[styles.premiumTitle, styles.activeTitle]}>{fullPremium ? t("Premium") : t("No ads")}</Text>
                   </View>
-                  <Text style={styles.activeLine} numberOfLines={2}>
-                    {t("Unlimited hearts!")}
-                  </Text>
+                  {fullPremium ? (
+                    <Text style={styles.activeLine} numberOfLines={2}>
+                      {t("Unlimited hearts!")}
+                    </Text>
+                  ) : null}
                 </View>
               </View>
-              <BenefitList ink={darken(colors.gold, 0.62)} skipHearts />
+              {fullPremium ? <BenefitList ink={darken(colors.gold, 0.62)} skipHearts /> : null}
             </View>
           </PopIn>
         ) : null}
@@ -519,9 +659,19 @@ export function ShopView({
           </View>
         ) : null}
 
-        {plans.length ? (
+        {onBuyIcon ? <IconShop user={user} onBuy={onBuyIcon} onWear={onWearIcon} /> : null}
+
+        {onBuySecretHint ? <SecretHintRow user={user} onBuy={onBuySecretHint} /> : null}
+
+        {noAdsPlans.length ? (
+          <View style={styles.section}>
+            <PremiumCard plans={noAdsPlans} kind="no_ads" {...rowProps} />
+          </View>
+        ) : null}
+
+        {premiumPlans.length ? (
           <View style={styles.section} onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
-            <PremiumCard plans={plans} {...rowProps} />
+            <PremiumCard plans={premiumPlans} {...rowProps} />
           </View>
         ) : null}
 
@@ -560,7 +710,7 @@ export function ShopView({
               <Text style={styles.restoreText}>{t("Restore purchases")}</Text>
             </Tappable>
           ) : null}
-          {premium || !plans.length ? null : <Text style={styles.legal}>{t("Renews automatically. Cancel anytime in store settings.")}</Text>}
+          {!plans.length ? null : <Text style={styles.legal}>{t("Renews automatically. Cancel anytime in store settings.")}</Text>}
           <View style={styles.links}>
             <Tappable onPress={() => openGated(legalLinks.terms)} accessibilityRole="link" style={styles.link} testID="shop-terms">
               <Text style={styles.linkText}>{t("Terms")}</Text>
@@ -577,6 +727,60 @@ export function ShopView({
 }
 
 const styles = StyleSheet.create({
+  iconGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10
+  },
+  iconCell: {
+    width: "30%",
+    flexGrow: 1
+  },
+  iconTile: {
+    alignItems: "center",
+    gap: 4,
+    paddingVertical: 10,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: colors.line,
+    backgroundColor: colors.white
+  },
+  iconTileOwned: {
+    borderColor: lighten(colors.gem, 0.45)
+  },
+  iconTileOn: {
+    borderColor: colors.gem,
+    backgroundColor: lighten(colors.gem, 0.88)
+  },
+  iconTag: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.gem
+  },
+  iconOwned: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.gemLip
+  },
+  iconPrice: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 2
+  },
+  iconPriceText: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.gemLip
+  },
+  hintRow: {
+    gap: 10
+  },
   root: {
     flex: 1,
     backgroundColor: colors.snow

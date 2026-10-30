@@ -75,6 +75,14 @@ describe("applyShopItem", () => {
     expect(next.activeSubscriptionId).toBeTruthy();
   });
 
+  it("keeps the heart limit for the No ads plan", () => {
+    const user = makeUser({ hearts: { current: 1, max: 5, unlimited: false, lastRefillDate: today() } });
+    const next = applyShopItem(user, shopItem("no-ads-monthly"));
+
+    expect(next.hearts).toMatchObject({ current: 1, unlimited: false });
+    expect(next.activeSubscriptionId).toBe("no_ads_monthly");
+  });
+
   it("adds the pack's hearts for a heart pack", () => {
     const user = makeUser({ hearts: { current: 2, max: 5, unlimited: false, lastRefillDate: today() } });
     const pack = shopItem("heart-pack-small");

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
+import { isRtlLanguage } from "../i18n";
 import { ArabicText, isArabicOnly, isQuranText, withHonorifics } from "./ArabicText";
 import { Icon, type IconName } from "./Icon";
 import { noBreakHyphens } from "./lesson/lessonText";
@@ -24,6 +25,11 @@ export type ChoiceTileProps = {
   tight?: boolean;
   /** Smaller text for long answers. Defaults to this label's length; pass it so a whole set matches. */
   long?: boolean;
+  /**
+   * The smaller text of long answers whatever the label's length, Arabic script included (it takes the size of a long
+   * Arabic answer), for a set of tiles too tall for its screen even tight (see sheetFit's FIT_STEPS).
+   */
+  smallText?: boolean;
   testID?: string;
   accessibilityLabel?: string;
 };
@@ -61,11 +67,35 @@ const LOOKS: Record<ChoiceTileState, Look> = {
   dimmed: { bg: colors.white, border: colors.line, lip: colors.lineLip, text: colors.ink, badgeBorder: colors.line, badgeText: colors.inkSoft }
 };
 
+/**
+ * How far up from its bottom edge a tile holds no text: its lip, its border and the padding under its text. A sheet
+ * whose top edge reaches no further into the tile covers none of its lines.
+ */
+export function tileTextBottom({ compact, tight, square }: { compact?: boolean; tight?: boolean; square?: boolean }) {
+  const padding = square ? (compact ? 12 : 16) : tight ? ROW_PAD_TIGHT : compact ? ROW_PAD_COMPACT : ROW_PAD;
+  return LIP + 2 + padding;
+}
+
+/** How far down from its top edge a tile holds no text: its border and the padding over its text (no lip up there). */
+export function tileTextTop(options: { compact?: boolean; tight?: boolean; square?: boolean }) {
+  return tileTextBottom(options) - LIP;
+}
+
+/** Where a line of text starts on screen in the app's language: right to left in Urdu and Arabic. */
+export function lineStart(): "left" | "right" {
+  return isRtlLanguage() ? "right" : "left";
+}
+
 /** Labels longer than this use a smaller size so a long answer stays a few lines. */
 export const LONG_LABEL = 80;
 
+/** Arabic script in a tile: a long answer (or Quran text) in the smaller size, a short one as usual. */
+const ARABIC_LONG = 20;
+const ARABIC_COMPACT = 22;
+const ARABIC = 24;
+
 /** Big answer tile. Pops when selected, shakes when wrong. Text always wraps. */
-export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconColor, layout = "row", compact, tight, long: longProp, testID, accessibilityLabel }: ChoiceTileProps) {
+export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconColor, layout = "row", compact, tight, long: longProp, smallText, testID, accessibilityLabel }: ChoiceTileProps) {
   const look = LOOKS[state];
   const interactive = state !== "disabled" && state !== "dimmed";
   const press = useRef(new Animated.Value(0)).current;
@@ -91,7 +121,7 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
   const translateY = press.interpolate({ inputRange: [0, 1], outputRange: [0, LIP - 1] });
   const arabic = isArabicOnly(label);
   const square = layout === "square";
-  const long = longProp ?? label.length > LONG_LABEL;
+  const long = smallText || (longProp ?? label.length > LONG_LABEL);
   const labelSize = long ? styles.labelLong : compact ? styles.labelCompact : null;
 
   const content = (
@@ -108,7 +138,7 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
       ) : null}
       {arabic ? (
         <ArabicText
-          size={isQuranText(label) ? 20 : compact ? 22 : 24}
+          size={isQuranText(label) || smallText ? ARABIC_LONG : compact ? ARABIC_COMPACT : ARABIC}
           weight="bold"
           quran={isQuranText(label)}
           color={look.text}
@@ -118,7 +148,9 @@ export function ChoiceTile({ label, onPress, state = "idle", badge, icon, iconCo
           {label}
         </ArabicText>
       ) : (
-        <Text style={[styles.label, labelSize, square ? styles.squareLabel : styles.rowLabel, { color: look.text, textAlign: square ? "center" : "left" }]}>
+        // A row tile's text starts where the screen's lines start: on the left left to right, on the right right to left,
+        // whatever its own script (a number or a Latin word keeps its own direction, so "start" alone would put it left).
+        <Text style={[styles.label, labelSize, square ? styles.squareLabel : styles.rowLabel, { color: look.text, textAlign: square ? "center" : lineStart() }]}>
           {withHonorifics(noBreakHyphens(label))}
         </Text>
       )}

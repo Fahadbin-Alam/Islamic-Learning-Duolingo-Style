@@ -88,7 +88,7 @@ export const LEARN_LINES = {
   "abu-muusaa-al-ashariy": "He was a governor of Basra and Kufa.",
   "abu-sufyan-ibn-harb": "He led Quraysh at Uhud, then became Muslim when Makkah was opened.",
   "abu-ubaydah-ibn-al-jarrah": "He was called the Trustee of this Ummah.",
-  "abu-umamah-al-bahili": "He was the last companion to pass away in Syria.",
+  "abu-umamah-al-bahili": "He was a companion who settled in Homs, in Sham.",
   "al-hasan-ibn-ali": "He was the Prophet's ﷺ grandson and made peace with Mu'awiyah.",
   "al-husayn-ibn-ali": "He was the Prophet's ﷺ grandson, martyred at Karbala.",
   "ali-ibn-abi-talib": "He was the fourth caliph and the first child to accept Islam.",
@@ -208,7 +208,7 @@ export const LEARN_LINES = {
   "umm-kulthoom-bint-ali": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah.",
   "umm-said-bint-urwah-al-thaqafiyyah": "She was a wife of Ali ibn Abi Talib.",
   "umm-salamah-wife-of-the-prophet": "She was the last of the Prophet's ﷺ wives to pass away.",
-  "zaynab-bint-ali": "She spoke out in Yazid's court after Karbala.",
+  "zaynab-bint-ali": "She was Ali and Fatimah's daughter, the Prophet's ﷺ granddaughter.",
   "zaynab-bint-jahsh": "She was the Prophet's ﷺ cousin and wife.",
   "zaynab-bint-khuzayma": "She was called the Mother of the Poor."
 };
@@ -237,10 +237,11 @@ export const UNSURE_FACTS = {
   maryam: ["death_place"],
   "halima-al-sadeya": ["death_place"],
   "zaynab-bint-khuzayma": ["birth_place"],
-  "khawlah-bint-jafar-al-hanifiyyah": ["birth_place", "death_place"],
+  "khawlah-bint-jafar-al-hanifiyyah": ["birth_place", "death_place", "mother"],
   // Her note says she "survived Karbala"; Sunni historians say she died in Madinah before 61 AH. Her lesson
   // keeps the hand-checked line instead.
-  "umm-kulthoom-bint-ali": ["known_for"],
+  "umm-kulthoom-bint-ali": ["known_for", "birth_place"],
+  "zaynab-bint-ali": ["known_for", "birth_place", "death_place"],
   // His note's known_for is the zakat story of Quran 9:75, which many hadith scholars hold weak.
   thalabah: ["known_for"],
   // The note says Hantamah bint Hisham; Ibn Abd al-Barr and others give bint Hashim and call "bint Hisham" a slip.
@@ -248,12 +249,25 @@ export const UNSURE_FACTS = {
   // Their notes give the tribe as Quraysh, but their own full names say al-Asadi: their father Jahsh ibn Ri'ab was
   // of Banu Asad ibn Khuzaymah, allies of Quraysh in Makkah, and only their mother Umaymah was of Quraysh. A
   // "Which tribe?" question would have no one right answer, so it is not asked.
-  "zaynab-bint-jahsh": ["tribe"],
-  "abdullah-ibn-jahsh": ["tribe"],
+  "zaynab-bint-jahsh": ["tribe", "birth_place"],
+  "abdullah-ibn-jahsh": ["tribe", "birth_place"],
   // The note says Suwad bint Rafi'; Ibn Sa'd gives Su'ad bint Rafi'.
   "asad-ibn-zoraarah": ["mother"],
   // The note makes her father the poet as-Samaw'al ibn Adiya, who most likely died before she was born.
-  "barrah-bint-samuel": ["father"]
+  "barrah-bint-samuel": ["father"],
+  // Not in Siyar A'lam an-Nubala, al-Isabah or Ibn Sa'd's Tabaqat, the books their lessons cite. Ibn Sa'd gives
+  // Fatimah bint Asad's mother as Fatimah bint Haram, not bint Qays. Khawlah bint Hakim's lesson asks her tribe,
+  // Banu Sulaym (Ibn Sa'd 8/124), instead; her note has none, so that question was added to the generated lesson.
+  "amr-ibn-al-as": ["mother"],
+  "fatimah-bint-asad": ["mother"],
+  "hakim-ibn-hizam": ["mother"],
+  "maria-al-qibtiyya": ["father"],
+  "khawlah-bint-hakim": ["birth_place"],
+  "sayyida-nafisa": ["mother"],
+  "umm-al-banin": ["mother"],
+  // Ibn Sa'd says Abdullah ibn Busr was the last companion to die in Sham, and that Abu Umamah died in Sham; Siyar
+  // says he lived in Homs. His lesson keeps the hand-checked line and asks "Sham", not Homs.
+  "abu-umamah-al-bahili": ["known_for"]
 };
 
 // Facts left out of a child's lesson because they are for older learners. Ghaylan's ten wives (Mishkat al-Masabih

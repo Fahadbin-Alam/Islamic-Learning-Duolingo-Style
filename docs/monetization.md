@@ -1,21 +1,23 @@
 # Monetization
 
-Muslimo earns mainly from ads. Free learners get the whole core course and see ads; a subscription removes them.
+Muslimo earns mainly from ads. Free learners get the whole core course and see ads. Two subscriptions are on sale: **No ads** removes the ads, and **Premium** removes the ads and also gives unlimited hearts and the premium units.
 
 | Who | What they get | How it earns |
 | --- | --- | --- |
-| Free learners | All core lessons, 5 hearts a day, gems from lessons and reward chests | A banner on the path, a short break ad after every 2nd finished lesson (at most one full-screen ad every 90 seconds), and optional videos: "Free heart" and "Free gems" (20 gems, up to 5 a day) |
-| Premium (monthly or yearly) | No ads, unlimited hearts, premium branches and mastery tests | Recurring subscription revenue |
-| Anyone | Heart pack ($0.99) and gem chest of 1,200 gems ($4.99); gems refill hearts for 350 | One-off in-app purchases |
+| Free learners | All core lessons, 5 hearts a day, gems from lessons and reward chests | A banner on the path, a short break ad after every 2nd finished lesson (at most one full-screen ad every 90 seconds), and optional videos: "Free heart" (3 videos = 1 heart) and "Free gems" (20 gems, up to 5 a day) |
+| No ads ($2.99 a month or $19.99 a year) | No ads. Hearts, lessons and gems stay as on the free plan | Recurring subscription revenue |
+| Premium ($6.99 a month or $49.99 a year) | No ads, unlimited hearts, premium branches and mastery tests | Recurring subscription revenue |
+| Anyone | Heart pack ($0.99). Hearts are never bought with gems, and gems are not sold: they are a score from chests and videos | One-off in-app purchase |
 
 Ads never appear inside a lesson or at app launch, and they are requested with the G (general audiences) content rating.
 
 ### Why this mix
 
-- **Rewarded videos** pay the most per view because the learner chose to watch, and they never annoy. They are offered where a learner wants something: a heart when they run out, gems for a refill.
+- **Rewarded videos** pay the most per view because the learner chose to watch, and they never annoy. They are offered where a learner wants something: a heart when they run out (three videos make one heart, ticked off one by one on the out-of-hearts sheet; `VIDEOS_PER_HEART`), and gems.
+- **The plans offer themselves.** A Premium sheet opens after every 3rd finished lesson (in place of that lesson's break ad) and when hearts run out (before the hearts sheet, whose UNLIMITED HEARTS button opens it again). It opens by itself at most once every 4 hours, never to under-13s or Kid accounts (they only see plans in the shop, behind the grown-up check), and never in a build that cannot sell (no RevenueCat key). It has a close button and NO THANKS from the first frame, prices per month/year, renewal terms, Terms, Privacy and Restore. Tune `LESSONS_BETWEEN_PLAN_OFFERS` and `MIN_MS_BETWEEN_PLAN_OFFERS`.
 - **Break ads** after every other lesson are where most of the volume comes from. Duolingo shows one after every lesson; every other lesson with a 90-second gap keeps kids and new learners from feeling punished. Tune `LESSONS_BETWEEN_BREAK_ADS` and `MIN_MS_BETWEEN_FULL_SCREEN_ADS` in `src/services/monetizationConfig.ts` once real numbers come in.
 - **Ads are preloaded.** One break ad and one video are always loading in the background, so a break never makes anyone wait and a "watch" tap plays at once. Without this, many ad opportunities are simply lost.
-- **The subscription is the "no ads" option.** Its first benefit on the shop is now "No ads". Price it low enough that a parent buys it to remove ads (for example $4.99 a month or $29.99 a year) rather than as a content unlock.
+- **Two plans, not one.** No ads is priced low so a parent buys it just to remove ads; Premium costs a little more and adds unlimited hearts and the premium units. The shop shows No ads first. A No ads learner still sees the Premium plans (to upgrade), and the heart pack, but no video offers. A Premium learner sees only their active plan.
 
 ### Ages and ads
 
@@ -31,7 +33,7 @@ This is what Google Play calls a **mixed audience** app and what COPPA allows fo
 
 ## How it is built
 
-- **Purchases:** [RevenueCat](https://www.revenuecat.com) (`react-native-purchases`) handles App Store and Google Play billing, receipt checks and the `premium` entitlement. RevenueCat is free until the app makes $2,500 a month in tracked revenue.
+- **Purchases:** [RevenueCat](https://www.revenuecat.com) (`react-native-purchases`) handles App Store and Google Play billing, receipt checks and the `no_ads` and `premium` entitlements. RevenueCat is free until the app makes $2,500 a month in tracked revenue.
 - **Ads:** Google AdMob (`react-native-google-mobile-ads`), with Google's consent form shown first in regions that require it (EEA, UK).
 - **Backend:** `POST /api/subscriptions/revenuecat/webhook` keeps each account's premium state in sync when a plan starts, renews, is cancelled or expires. `/api/subscriptions/sync` is blocked when `SIRA_ENVIRONMENT=production` so the app cannot grant itself premium.
 - **Code:** `src/services/monetization.native.ts` (phones), `src/services/monetization.ts` (web, simulated), `src/services/monetizationConfig.ts` (keys and ad rules), `src/components/AdBanner*.tsx`.
@@ -58,17 +60,18 @@ These need your logins, payment details or legal agreements, so they are yours t
 
 | Product id | Type | Suggested price |
 | --- | --- | --- |
-| `membership_monthly` | Auto-renewing subscription (Google: base plan `monthly`) | $9.99 / month |
-| `membership_yearly` | Auto-renewing subscription (Google: base plan `yearly`) | $59.99–$95.90 / year |
+| `no_ads_monthly` | Auto-renewing subscription (Google: base plan `monthly`) | $2.99 / month |
+| `no_ads_yearly` | Auto-renewing subscription (Google: base plan `yearly`) | $19.99 / year |
+| `membership_monthly` | Auto-renewing subscription (Google: base plan `monthly`) | $6.99 / month |
+| `membership_yearly` | Auto-renewing subscription (Google: base plan `yearly`) | $49.99 / year |
 | `heart_pack_small` | Consumable | $0.99 |
-| `gem_pack_medium` | Consumable | $4.99 |
 
-On Apple, put both subscriptions in one subscription group. A 7-day free trial on the yearly plan (an "introductory offer" on Apple, a "free trial offer" on Google) tends to lift conversions a lot; the app shows whatever the store returns.
+On Apple, put all four subscriptions in **one** subscription group, with the Premium plans ranked above the No ads plans, so moving from No ads to Premium is an upgrade Apple handles itself. On Google, the app passes the old plan when someone upgrades so they are not charged twice. A 7-day free trial on the yearly plan (an "introductory offer" on Apple, a "free trial offer" on Google) tends to lift conversions a lot; the app shows whatever the store returns.
 
 ### 3. RevenueCat
 1. Create a project and add the iOS app (App Store Connect API key + in-app purchase key) and the Android app (Google Play service account JSON).
-2. Create an entitlement called `premium` and attach both subscriptions to it.
-3. Create the `default` offering with a Monthly package (`membership_monthly`) and an Annual package (`membership_yearly`).
+2. Create two entitlements. `no_ads`: attach all four subscriptions (Premium includes no ads). `premium`: attach only `membership_monthly` and `membership_yearly`.
+3. Create the `default` offering with a Monthly package (`membership_monthly`) and an Annual package (`membership_yearly`), plus two custom packages for `no_ads_monthly` and `no_ads_yearly`. The app finds each plan by its product id, so the package names do not matter.
 4. Copy the public SDK keys (`appl_…` and `goog_…`) into `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY` and `EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY`.
 5. Under Integrations → Webhooks, point it at `https://<your-api>/api/subscriptions/revenuecat/webhook` and set the Authorization header to a long random value. Put the same value in the backend's `SIRA_REVENUECAT_WEBHOOK_AUTH`.
 

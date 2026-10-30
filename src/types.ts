@@ -11,14 +11,16 @@ export type TopicId =
   | "prophets"
   | "women_of_the_book"
   | "quran_tafseer"
-  | "hadith";
+  | "hadith"
+  | "scholars"
+  | "ramadan";
 
 export type CharacterVariant = "hijabi" | "muslim_man";
 
 export type ChallengeType = "multiple_choice" | "true_false";
 export type ResourceValidationStatus = "exact_match" | "strong_support" | "weak_support" | "needs_review";
 export type ResourceSupportType = "primary" | "support";
-export type LessonSourceSite = "Quran.com" | "Sunnah.com" | "YouTube" | "Yaqeen Institute";
+export type LessonSourceSite = "Quran.com" | "Sunnah.com" | "YouTube" | "Yaqeen Institute" | "IslamQA" | "King Faisal Prize" | "Tarajm" | "Shamela";
 export type LessonSourceCategory = "tafsir" | "hadith" | "video" | "biography" | "article" | "beginner_explainer";
 
 export type LearningNodeStatus = "locked" | "available" | "current" | "completed";
@@ -201,6 +203,8 @@ export interface UserProfile {
   totalXp: number;
   // XP earned on one local calendar day (YYYY-MM-DD, same as the heart refill), for the daily goal.
   dailyXp?: { date: string; xp: number };
+  /** XP per local day for the last two weeks, for the family report's week chart. */
+  xpByDay?: Record<string, number>;
   // Local day a lesson was last finished; the streak ends once a whole day passes without one.
   lastStreakDate?: string;
   dailyGoalXp: number;
@@ -219,6 +223,12 @@ export interface UserProfile {
   pathFocusIds?: Partial<Record<TopicId, string>>;
   claimedRewardIds?: string[];
   activeSubscriptionId?: string;
+  /** This week's league (see src/services/leagues.ts). */
+  league?: LeagueState;
+  /** Local days (YYYY-MM-DD) of this Ramadan with a Ramadan lesson done, for the Ramadan streak (ramadanCalendar.ts). */
+  ramadanDays?: string[];
+  /** Ummah tab: trophies, arena, ranking nickname, icons and secret lessons (see src/services/ummah.ts). */
+  ummah?: UmmahState;
   /** The Review deck: lesson questions missed on their first try, brought back until they stick (services/reviewDeck). */
   reviewCards?: ReviewCard[];
 }
@@ -236,6 +246,44 @@ export interface ReviewCard {
   /** How many times it was missed: the weakest are asked first. */
   misses: number;
   lastSeenAt: string;
+}
+
+export interface UmmahState {
+  /** Trophies from quiz battles; they set the arena. */
+  trophies: number;
+  /** Most trophies ever, so an arena reached stays unlocked on the ladder. */
+  best: number;
+  battles: number;
+  wins: number;
+  /** The only name the Ummah ranking shows: words from fixed lists, never typed (see makeNickname). */
+  nickname?: string;
+  /** Shows on the Ummah ranking. A child's account joins only after the grown-up gate. */
+  joined?: boolean;
+  /** Profile icons bought with gems, and the one in use (none: initials). */
+  icons?: string[];
+  icon?: string;
+  /** Secret lessons found, and the ones whose clue was bought. */
+  secrets?: string[];
+  hints?: string[];
+}
+
+/** How a finished league week ended: the league before (`from`) and after (`to`), as indexes into LEAGUES. */
+export interface LeagueResult {
+  weekStart: string;
+  from: number;
+  to: number;
+  xp: number;
+  /** The learner has seen the result card. */
+  seen?: boolean;
+}
+
+export interface LeagueState {
+  /** Index into LEAGUES, 0 (Bronze) to 6 (Diamond). */
+  tier: number;
+  /** Local date of the Monday that starts the week `xp` was earned in. */
+  weekStart: string;
+  xp: number;
+  last?: LeagueResult;
 }
 
 export interface LearningCourse {
@@ -324,6 +372,11 @@ export interface Challenge {
   reviewSuggestion?: string;
   resourceLabel?: string;
   resourceUrl?: string;
+  /**
+   * The source that says this question's answer, when it is not its lesson's learnSource. The answer sheet shows
+   * it as a chip after a right or a wrong answer (src/services/questionSource.ts).
+   */
+  source?: LessonSource;
   /** Asked again from an earlier lesson; the question shows a small review cue. */
   isReview?: boolean;
 }
@@ -441,7 +494,7 @@ export interface ShopItem {
   unlimitedHearts?: boolean;
   removesAds?: boolean;
   durationDays?: number;
-  tier?: "free" | "premium_monthly" | "premium_yearly";
+  tier?: "free" | "premium_monthly" | "premium_yearly" | "no_ads_monthly" | "no_ads_yearly";
   highlightBadge?: string;
   benefits?: string[];
 }
@@ -465,8 +518,13 @@ export interface PurchaseResult {
   premium?: PremiumStatus;
 }
 
+/** "no_ads" takes the ads away; "premium" also gives unlimited hearts and the premium units. */
+export type PremiumPlan = "no_ads" | "premium";
+
 export interface PremiumStatus {
   active: boolean;
+  /** Which plan is active. Left out, it is read from productId (see planForProduct). */
+  plan?: PremiumPlan;
   productId?: string;
   expiresAt?: string | null;
   willRenew?: boolean;
