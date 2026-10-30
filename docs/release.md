@@ -96,3 +96,7 @@ To try the app on your own phone first: `eas build --platform android --profile 
 ## Shipping an update
 
 Bump `version` in `app.json` (for example `1.0.1`), commit, then run the build and submit commands again. Build numbers increase on their own.
+
+### Tell phones about the update
+
+Once the new build is live in the store (not just uploaded), raise its build number in `site/app-version.json` (`android` is the Play version code, `ios` is the App Store build number) and merge it. Phones on an older build then show "A new update is ready!" under the top bar, with an Update button that opens the store page. Keep `ios` at 0 until the iPhone app is on the App Store.

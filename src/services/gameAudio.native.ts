@@ -16,7 +16,17 @@ const SOUND_FILES: Record<GameSoundEvent, { full: number; reduced: number }> = {
   soft_ui: { full: require("../../assets/sounds/soft_ui.wav"), reduced: require("../../assets/sounds/soft_ui_reduced.wav") },
   camel: { full: require("../../assets/sounds/camel.wav"), reduced: require("../../assets/sounds/camel_reduced.wav") },
   splash: { full: require("../../assets/sounds/splash.wav"), reduced: require("../../assets/sounds/splash_reduced.wav") },
-  boing: { full: require("../../assets/sounds/boing.wav"), reduced: require("../../assets/sounds/boing_reduced.wav") }
+  boing: { full: require("../../assets/sounds/boing.wav"), reduced: require("../../assets/sounds/boing_reduced.wav") },
+  giggle: { full: require("../../assets/sounds/giggle.wav"), reduced: require("../../assets/sounds/giggle_reduced.wav") },
+  sad: { full: require("../../assets/sounds/sad.wav"), reduced: require("../../assets/sounds/sad_reduced.wav") },
+  zoom: { full: require("../../assets/sounds/zoom.wav"), reduced: require("../../assets/sounds/zoom_reduced.wav") },
+  spit: { full: require("../../assets/sounds/spit.wav"), reduced: require("../../assets/sounds/spit_reduced.wav") },
+  sparkle: { full: require("../../assets/sounds/sparkle.wav"), reduced: require("../../assets/sounds/sparkle_reduced.wav") },
+  thunder: { full: require("../../assets/sounds/thunder.wav"), reduced: require("../../assets/sounds/thunder_reduced.wav") },
+  grow: { full: require("../../assets/sounds/grow.wav"), reduced: require("../../assets/sounds/grow_reduced.wav") },
+  wilt: { full: require("../../assets/sounds/wilt.wav"), reduced: require("../../assets/sounds/wilt_reduced.wav") },
+  grumble: { full: require("../../assets/sounds/grumble.wav"), reduced: require("../../assets/sounds/grumble_reduced.wav") },
+  whoosh: { full: require("../../assets/sounds/whoosh.wav"), reduced: require("../../assets/sounds/whoosh_reduced.wav") }
 };
 
 const players = new Map<string, AudioPlayer>();
