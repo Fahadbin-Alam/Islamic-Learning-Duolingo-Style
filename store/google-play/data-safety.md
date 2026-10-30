@@ -9,6 +9,7 @@ For Play Console → Policy and programs → App content → Data safety. These 
 | Muslimo backend (`backend/app/models.py`) | Account (name, email, password hash, parent/learner role, language), progress, XP, gems, hearts, answers with response time and confidence, review queue, reminder settings, the accounts a user follows on the Crew screen, subscription status, sign-in tokens |
 | Google Mobile Ads SDK (AdMob) | Advertising ID / app set ID, IP address (approximate location), device info, ad interactions, diagnostics |
 | RevenueCat SDK | App user id, purchase history |
+| Usage stats and crash reports (`src/services/analytics.ts`, sent to PostHog over HTTPS, no SDK) | App opens, lessons started / finished / left early, tabs and topics opened, crash messages and stack traces, app version, OS, app language, a coarse age band. For 13+ a random id made on the phone (not linked to the account); under 13, Kid accounts and no age given: no id. No name, email, account, answers or advertising ID. Usage stats can be turned off in Settings > Share app stats; crash reports always go. Only sent in builds with `EXPO_PUBLIC_POSTHOG_KEY` set |
 | On device only | Learning progress for guests, local reminders (`expo-notifications`, scheduled on the device), sound settings, Family codes (`src/services/familyCode.ts`), the city picked for prayer-time lessons (prayer times are worked out on the phone; no location permission) |
 
 No precise location, contacts, photos, files, microphone, camera, health, messages, calendar or web browsing data is collected. The age group from the age screen stays on the device and is not collected. Push tokens are not collected: reminders are local notifications. Family codes are not collected either: the Family page (behind the grown-up check) puts a numbers-only progress code into the phone's own share menu when a grown-up taps SEND TO A PARENT, and the parent pastes it into the app on their phone, where it is stored. Nothing goes to our servers or to an SDK, so it is not "collected", and a transfer the user starts to an app they pick is exempt from "shared". No Data safety answer changes.
@@ -47,7 +48,7 @@ Notes:
 
 - "Required" vs "Optional": Google says data is optional only if users can choose not to provide it and still use the app. Ads data is collected for every free user, so it is required. Account data is optional because the app works without an account.
 - Answers include response time and the confidence rating the learner gives. They are learning analytics under App interactions; they are never sent to AdMob.
-- If you add Firebase, Crashlytics, Sentry or any analytics SDK later, update Crash logs, Diagnostics and App interactions.
+- Usage stats and crash reports (PostHog, a service provider processing for us) are already covered by the App interactions, Crash logs and Diagnostics rows above: nothing changes. PostHog gets no advertising ID and is not an ads SDK, so the Families answers stay the same. If you add Firebase, Crashlytics, Sentry or another analytics SDK later, recheck these rows.
 - Google's own guide for the ads SDK: https://developers.google.com/admob/android/privacy/play-data-disclosure.
 
 ## Other App content declarations
