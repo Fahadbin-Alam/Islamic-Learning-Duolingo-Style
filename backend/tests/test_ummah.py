@@ -41,10 +41,11 @@ def test_typed_names_and_unknown_icons_never_reach_the_ranking(client):
 def test_ummah_follows_the_learner_through_user_sync(client):
     _, headers = register(client, "Maryam")
 
-    user = sync(client, headers, ummah=ummah(260, "Gentle Gazelle 18", secrets=["secret-charity"], hints=["secret-intentions"]))
+    user = sync(client, headers, ummah=ummah(260, "Gentle Gazelle 18", secrets=["secret-charity"], hints=["secret-intentions"], hadith=["hadith-one-body"]))
 
     assert user["ummah"]["trophies"] == 260
     assert user["ummah"]["secrets"] == ["secret-charity"]
+    assert user["ummah"]["hadith"] == ["hadith-one-body"]
     assert user["ummah"]["joined"] is True
 
 

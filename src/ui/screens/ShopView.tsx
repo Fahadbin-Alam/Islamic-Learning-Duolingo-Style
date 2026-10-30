@@ -15,6 +15,7 @@ import { useGrownUpGate } from "./GrownUpGate";
 import { SecretTap } from "./SecretTap";
 import { PROFILE_ICONS, activeIcon, ownsIcon, type ProfileIconId } from "../../services/ummah";
 import { SECRET_HINT_PRICE, nextHintSecret } from "../../data/secretLessons";
+import { HADITH_CARD_PRICE, HADITH_TREASURES, nextHadith, ownedHadith } from "../../data/hadithTreasures";
 import { t } from "../../i18n";
 
 export type ShopViewProps = {
@@ -55,6 +56,10 @@ export type ShopViewProps = {
   onWearIcon?: (id: ProfileIconId | undefined) => void;
   /** Buys the clue to the next secret lesson. */
   onBuySecretHint?: () => void;
+  /** Opens the hadith chest: the next hadith card for gems. */
+  onBuyHadith?: () => void;
+  /** Opens "My hadith", the cards bought so far. */
+  onOpenHadith?: () => void;
 };
 
 const MANAGE_SUBSCRIPTION_URL =
@@ -486,6 +491,57 @@ function SecretHintRow({ user, onBuy }: { user: UserProfile; onBuy: () => void }
   );
 }
 
+/** The hadith chest (a new hadith card for gems) and "My hadith". The chest row goes once every card is owned. */
+function HadithRows({ user, onBuy, onOpen }: { user: UserProfile; onBuy: () => void; onOpen?: () => void }) {
+  const next = nextHadith(user);
+  const owned = ownedHadith(user).length;
+  const { style: shakeStyle, shake } = useShake(6);
+  const short = Math.max(0, HADITH_CARD_PRICE - user.gems);
+  const press = () => {
+    if (short) {
+      shake();
+      feedback("wrong", "error");
+      return;
+    }
+    onBuy();
+  };
+  return (
+    <View style={styles.section} testID="shop-hadith">
+      <Text style={styles.sectionHeader}>{t("Hadith")}</Text>
+      {next ? (
+        <View style={[styles.item, styles.hintRow]} testID="shop-hadith-chest">
+          <View style={[styles.itemIcon, { backgroundColor: lighten(colors.gem, 0.85) }]}>
+            <Icon name="chest" size={34} />
+          </View>
+          <View style={styles.itemText}>
+            <Text style={styles.itemName} numberOfLines={2}>{t("Hadith chest")}</Text>
+            <Text style={[styles.itemLine, short ? styles.itemLineShort : null]} numberOfLines={2} testID="shop-hadith-line">
+              {short ? t("Need {count} more", { count: formatNumber(short) }) : t("Open a new hadith")}
+            </Text>
+          </View>
+          <Animated.View style={shakeStyle}>
+            <GameButton label={formatNumber(HADITH_CARD_PRICE)} size="sm" icon={short ? "lock" : "gem"} variant="blue" sound={short ? false : undefined} onPress={press} testID="shop-buy-hadith" />
+          </Animated.View>
+        </View>
+      ) : null}
+      {owned && onOpen ? (
+        <Tappable onPress={onOpen} style={[styles.item, styles.hintRow]} accessibilityLabel={`${t("My hadith")}, ${t("{count} of {total} collected", { count: owned, total: HADITH_TREASURES.length })}`} testID="shop-my-hadith">
+          <View style={[styles.itemIcon, { backgroundColor: lighten(colors.gold, 0.8) }]}>
+            <Icon name="bookOpen" size={34} />
+          </View>
+          <View style={styles.itemText}>
+            <Text style={styles.itemName} numberOfLines={2}>{t("My hadith")}</Text>
+            <Text style={styles.itemLine} numberOfLines={2}>
+              {t("{count} of {total} collected", { count: owned, total: HADITH_TREASURES.length })}
+            </Text>
+          </View>
+          <Icon name="chevronRight" size={20} color={colors.inkSoft} />
+        </Tappable>
+      ) : null}
+    </View>
+  );
+}
+
 /** A quick spring from big back to normal size. */
 function popValue(value: Animated.Value) {
   value.setValue(1.35);
@@ -510,7 +566,9 @@ export function ShopView({
   focus,
   onBuyIcon,
   onWearIcon,
-  onBuySecretHint
+  onBuySecretHint,
+  onBuyHadith,
+  onOpenHadith
 }: ShopViewProps) {
   const premium = isPremium(user);
   const fullPremium = isFullPremium(user);
@@ -658,6 +716,8 @@ export function ShopView({
             ))}
           </View>
         ) : null}
+
+        {onBuyHadith ? <HadithRows user={user} onBuy={onBuyHadith} onOpen={onOpenHadith} /> : null}
 
         {onBuyIcon ? <IconShop user={user} onBuy={onBuyIcon} onWear={onWearIcon} /> : null}
 
