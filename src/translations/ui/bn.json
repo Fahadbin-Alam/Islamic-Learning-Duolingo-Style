@@ -582,5 +582,17 @@
   "{count} of {total} videos watched": "{total}টির মধ্যে {count}টি ভিডিও দেখা হয়েছে",
   "{total} videos = 1 heart": "{total}টি ভিডিও = ১টি হার্ট",
   "A new update is ready!": "নতুন আপডেট এসেছে!",
-  "Update": "আপডেট"
+  "Update": "আপডেট",
+  "Free for {count} days, then {price}. Cancel before then and pay nothing.": "{count} দিন ফ্রি, তারপর {price}। এর আগে বাতিল করলে কিছুই দিতে হবে না।",
+  "Get Premium": "প্রিমিয়াম নাও",
+  "Just {price}/mo": "মাত্র {price}/মাস",
+  "Keep your {count}-day streak safe!": "তোমার {count} দিনের স্ট্রিক নিরাপদ রাখো!",
+  "Start {count} free days": "{count} দিন ফ্রি শুরু করো",
+  "Streak saved!": "স্ট্রিক বেঁচে গেছে!",
+  "Streak shield every week": "প্রতি সপ্তাহে স্ট্রিক ঢাল",
+  "Unlock every unit!": "সব ইউনিট খুলে নাও!",
+  "Your streak shield kept your {count}-day streak.": "তোমার স্ট্রিক ঢাল {count} দিনের স্ট্রিক বাঁচিয়েছে।",
+  "{count} days free": "{count} দিন ফ্রি",
+  "{price}. Cancel anytime.": "{price}। যেকোনো সময় বাতিল করো।",
+  "{price}/mo": "{price}/মাস"
 }

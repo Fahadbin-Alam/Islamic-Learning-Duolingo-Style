@@ -582,5 +582,17 @@
   "{count} of {total} videos watched": "{total} میں سے {count} ویڈیو دیکھ لیے",
   "{total} videos = 1 heart": "{total} ویڈیو = 1 دل",
   "A new update is ready!": "نئی اپڈیٹ آ گئی ہے!",
-  "Update": "اپڈیٹ"
+  "Update": "اپڈیٹ",
+  "Free for {count} days, then {price}. Cancel before then and pay nothing.": "{count} دن مفت، پھر {price}۔ اس سے پہلے منسوخ کریں تو کچھ نہیں دینا۔",
+  "Get Premium": "پریمیم لیں",
+  "Just {price}/mo": "صرف {price}/ماہ",
+  "Keep your {count}-day streak safe!": "اپنی {count} دن کی اسٹریک محفوظ رکھو!",
+  "Start {count} free days": "{count} مفت دن شروع کریں",
+  "Streak saved!": "اسٹریک بچ گئی!",
+  "Streak shield every week": "ہر ہفتے اسٹریک ڈھال",
+  "Unlock every unit!": "ہر یونٹ کھولو!",
+  "Your streak shield kept your {count}-day streak.": "تمہاری اسٹریک ڈھال نے {count} دن کی اسٹریک بچا لی۔",
+  "{count} days free": "{count} دن مفت",
+  "{price}. Cancel anytime.": "{price}۔ کبھی بھی منسوخ کریں۔",
+  "{price}/mo": "{price}/ماہ"
 }

@@ -207,6 +207,8 @@ export interface UserProfile {
   xpByDay?: Record<string, number>;
   // Local day a lesson was last finished; the streak ends once a whole day passes without one.
   lastStreakDate?: string;
+  /** Local day Premium's streak shield last saved the streak from one missed day (at most once a week). */
+  streakShieldUsedOn?: string;
   dailyGoalXp: number;
   gems: number;
   hearts: HeartsBalance;
@@ -478,6 +480,14 @@ export interface ShopItem {
   tier?: "free" | "premium_monthly" | "premium_yearly" | "no_ads_monthly" | "no_ads_yearly";
   highlightBadge?: string;
   benefits?: string[];
+  /** Free days before the first charge, when the store offers them (the store's own offer wins, see PlanDetails). */
+  trialDays?: number;
+}
+
+/** What the store says about a plan beyond its price: the free trial this learner can get, and the price per month. */
+export interface PlanDetails {
+  trialDays?: number;
+  perMonth?: string;
 }
 
 export interface XpSummary {
