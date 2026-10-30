@@ -35,6 +35,7 @@ export {
 export { shortWhy, noBreakHyphens, looksSame, normalizeText, WHY_MAX, type WhySource } from "./lessonText";
 export { OrderGame, seededShuffle, type OrderGameProps, type OrderOption } from "./OrderGame";
 export { LessonComplete, type LessonCompleteProps } from "./LessonComplete";
+export { QuizComplete, type QuizCompleteProps } from "./QuizComplete";
 export { QuitSheet, type QuitSheetProps } from "./QuitSheet";
 export { getLessonLine, getLessonProgress, isPlayablePractice, lessonLineWords, lessonStars, LESSON_LINE_MAX_WORDS, type LessonStepScreen } from "./lessonSteps";
 export { ScrollHint, ScrollHintGap, useScrollMore, SCROLL_HINT_ROOM, SCROLL_HINT_SLACK } from "./ScrollHint";

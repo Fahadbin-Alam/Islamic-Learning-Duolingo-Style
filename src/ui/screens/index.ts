@@ -2,6 +2,7 @@ export { AppTopBar, type AppTopBarProps } from "./AppTopBar";
 export { BottomTabs, tabForScreen, type BottomTabsProps, type TabKey } from "./BottomTabs";
 export { LearnPath, testOutGoalLine, type LearnPathProps, type PathChest, type PathItem, type PathUnit } from "./LearnPath";
 export { TopicPicker, type TopicPickerProps, type TopicPickerTopic } from "./TopicPicker";
+export { QuizSheet, type QuizSheetProps, type QuizSheetTopic, type QuizSheetUnit } from "./QuizSheet";
 export { PracticeHub, type PracticeHubProps } from "./PracticeHub";
 export { ShopView, formatShopPrice, type ShopViewProps } from "./ShopView";
 export { ProfileView, countStars, type ProfileViewProps } from "./ProfileView";

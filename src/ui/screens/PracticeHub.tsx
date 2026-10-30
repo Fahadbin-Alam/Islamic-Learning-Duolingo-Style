@@ -25,6 +25,10 @@ export type PracticeHubProps = {
   onStartReview: () => void;
   onStartDailyChallenge: () => void;
   onGoFoundation: () => void;
+  /** QUIZZES: a scored quiz of a topic or a unit. Left out when there is none to take. */
+  onOpenQuizzes?: () => void;
+  /** The best score on the path topic's quiz, in percent; unset until it is taken. */
+  quizBest?: number;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
   onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
@@ -167,6 +171,8 @@ export function PracticeHub({
   onStartDailyChallenge,
   onGoFoundation,
   onStartLessonPractice,
+  onOpenQuizzes,
+  quizBest,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
   accent = colors.green
@@ -255,6 +261,35 @@ export function PracticeHub({
           </>
         )}
       </View>
+
+      {onOpenQuizzes ? (
+        <PopIn delay={215} from="up">
+          <Tappable
+            onPress={onOpenQuizzes}
+            style={[styles.basicsRow, styles.quizRow]}
+            testID="practice-quizzes"
+            accessibilityLabel={quizBest !== undefined ? `${t("Quizzes")}, ${quizBest}%` : t("Quizzes")}
+          >
+            <View style={[styles.basicsIcon, styles.quizIcon]}>
+              <Icon name="trophy" size={30} />
+            </View>
+            <View style={styles.quizText}>
+              <Text style={styles.basicsTitle} numberOfLines={1}>
+                {t("Quizzes")}
+              </Text>
+              <Text style={styles.quizLine} numberOfLines={2}>
+                {t("How much do you know?")}
+              </Text>
+            </View>
+            {quizBest !== undefined ? (
+              <View style={styles.quizPill} testID="practice-quiz-best">
+                <Text style={styles.quizPillText}>{`${quizBest}%`}</Text>
+              </View>
+            ) : null}
+            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+          </Tappable>
+        </PopIn>
+      ) : null}
 
       {onStartLessonPractice ? (
         <PopIn delay={230} from="up">
@@ -472,6 +507,40 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexWrap: "wrap",
     columnGap: 10
+  },
+  quizRow: {
+    paddingVertical: 12,
+    borderColor: lighten(colors.gold, 0.6),
+    borderBottomColor: colors.goldLip,
+    backgroundColor: lighten(colors.gold, 0.88)
+  },
+  quizIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: colors.white
+  },
+  quizText: {
+    flex: 1,
+    minWidth: 0
+  },
+  quizLine: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 14,
+    lineHeight: 18,
+    color: darken(colors.goldLip, 0.45)
+  },
+  quizPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: radii.pill,
+    backgroundColor: colors.white
+  },
+  quizPillText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    color: darken(colors.goldLip, 0.45)
   },
   // Arabic sits a size above the English next to it (20 over 17).
   basicsTitle: {
