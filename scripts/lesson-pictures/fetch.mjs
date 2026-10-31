@@ -1,7 +1,9 @@
 // Downloads the lesson photos named in places.json from Wikimedia Commons and records who to credit.
 // Usage: node scripts/lesson-pictures/fetch.mjs   (Node 18+; needs internet to commons.wikimedia.org)
-// Only Public domain, CC0, CC BY and CC BY-SA files are accepted. The photos are saved at 800px wide in
-// assets/pictures/<id>.jpg and the credits in src/data/lessonPictureCredits.json.
+// Only Public domain, CC0, CC BY and CC BY-SA files are accepted. The photos are saved (Commons serves ~960px) in
+// assets/pictures/<id>.jpg and the credits in src/data/lessonPictureCredits.json. Afterwards shrink each to 640px wide
+// (JPEG, under 90 KB), add it to src/data/lessonPictureImages.ts and docs/photo-credits.md, and look at every photo:
+// places and things only, never a picture of a prophet, a Companion or anyone meant to stand for them.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

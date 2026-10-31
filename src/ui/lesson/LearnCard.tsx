@@ -17,6 +17,8 @@ import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
 import { sourceUrl } from "../../services/sourceLink";
 import { getActiveLanguage, t } from "../../i18n";
+import type { LessonPicture } from "../../data/lessonPictures";
+import { LessonPhoto } from "./LessonPhoto";
 
 export type LearnCardProps = {
   /** Lesson title, e.g. "As-Salamu Alaikum". Hidden when it only repeats the Arabic word's transliteration. */
@@ -48,6 +50,8 @@ export type LearnCardProps = {
    * and it stops when the card leaves the screen.
    */
   arabicRecitation?: string;
+  /** A real photo of the place the lesson is about (Makkah, Uhud...), under the word card. */
+  picture?: LessonPicture;
   onContinue: () => void;
   bottomInset?: number;
   testID?: string;
@@ -118,6 +122,7 @@ export function LearnCard({
   onOpenSource,
   onPlayAudio: speak,
   arabicRecitation,
+  picture,
   onContinue,
   bottomInset,
   testID = "learn-card"
@@ -148,7 +153,7 @@ export function LearnCard({
   // A single ayah in Arabic gets a recitation to listen to and repeat.
   const ayahAudio = quoteText && isArabicOnly(quoteText) ? quranAudioUrl(quoteReference) : null;
   // With facts or a quote to show, the mascot sits small next to its line to leave them room.
-  const rich = factList.length > 0 || Boolean(quoteText);
+  const rich = factList.length > 0 || Boolean(quoteText) || Boolean(picture);
   const quranWord = arabic ? isQuranText(arabic.ar) : false;
   const arabicSize = quranWord ? (narrow || short ? 24 : 28) : narrow || short ? (narrow ? 30 : 34) : 40;
   const openSource = (url: string) => {
@@ -253,6 +258,9 @@ export function LearnCard({
               <Mascot variant={mascotVariant} mood="wave" accent={accent} size={short ? 118 : 150} />
             </View>
           )}
+
+          {/* Under the mascot's line, so the line the lesson teaches stays in view on small phones. */}
+          {picture ? <LessonPhoto picture={picture} short={short} delay={380} /> : null}
 
           {factList.length > 0 ? (
             <View style={[styles.facts, short ? styles.factsShort : null]} testID="learn-facts">

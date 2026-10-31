@@ -227,6 +227,7 @@ import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
+import { pictureForLesson, pictureForQuestion } from "./data/lessonPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
   AccountRole,
@@ -2971,6 +2972,11 @@ export default function TopicApp() {
   // The learn line and the Why line are cut from the English lesson, then translated, so each language says the same.
   const englishLesson = state.activeSession?.lesson;
   const englishChallenge = lessonStep ? englishLesson?.challenges[lessonStep.index] : undefined;
+  // Real photos of the places a lesson or a question names, matched on the English text so every language shows the same.
+  const pictureLesson = englishLesson ?? lesson;
+  const lessonPicture = pictureLesson ? pictureForLesson(pictureLesson) : undefined;
+  const pictureChallenge = englishChallenge ?? challenge;
+  const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   const lessonProgress = getLessonProgress({
@@ -3117,6 +3123,7 @@ export default function TopicApp() {
             learnSource={lesson.learnSource}
             onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
             arabicRecitation={lessonRecitation ?? undefined}
+            picture={lessonPicture}
             // No speaker that stays silent: hidden with sound effects off or without an Arabic voice.
             onPlayAudio={lessonArabic && arabicVoiceId && state.user?.soundEffectsEnabled !== false ? () => speakArabic(lessonArabic.ar) : undefined}
             onContinue={continueFromTeach}
@@ -3160,6 +3167,7 @@ export default function TopicApp() {
               mascotVariant={lessonMascot}
               accent={lessonAccent}
               praiseSeed={challenge.id}
+              picture={questionPicture}
               playSound={false}
               continueSound={continueEndsLesson || continueOpensRefill ? false : undefined}
               onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}

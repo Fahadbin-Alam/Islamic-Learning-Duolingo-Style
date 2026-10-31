@@ -2,7 +2,7 @@
   "kaaba": {
     "file": "File:The Kaaba during Hajj - edited.jpg",
     "page": "https://commons.wikimedia.org/wiki/File:The_Kaaba_during_Hajj_-_edited.jpg",
-    "author": "Adli Wahid Minor modifications made by Basile Morin, from the original version.",
+    "author": "Adli Wahid, edited by Basile Morin",
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
@@ -45,13 +45,6 @@
     "file": "File:Jabbal An-Nour (2024).jpg",
     "page": "https://commons.wikimedia.org/wiki/File:Jabbal_An-Nour_(2024).jpg",
     "author": "Kaliper1",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
-  },
-  "thawr": {
-    "file": "File:Jabl e Thawr.jpg",
-    "page": "https://commons.wikimedia.org/wiki/File:Jabl_e_Thawr.jpg",
-    "author": "King Eliot",
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
   },
@@ -128,7 +121,7 @@
   "desert": {
     "file": "File:Desert vegetation (8398931457).jpg",
     "page": "https://commons.wikimedia.org/wiki/File:Desert_vegetation_(8398931457).jpg",
-    "author": "Peter Dowley from Dubai, United Arab Emirates",
+    "author": "Peter Dowley",
     "license": "CC BY 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
   },

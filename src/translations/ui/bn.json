@@ -641,5 +641,7 @@
   "Gets harder as your streak grows.": "স্ট্রিক যত বাড়বে, তত কঠিন হবে।",
   "Gentle questions, more true or false.": "সহজ প্রশ্ন, বেশি সত্য বা মিথ্যা।",
   "More questions from memory.": "মনে রেখে উত্তর দেওয়ার প্রশ্ন বেশি।",
-  "The toughest questions. Good luck!": "সবচেয়ে কঠিন প্রশ্ন। শুভকামনা!"
+  "The toughest questions. Good luck!": "সবচেয়ে কঠিন প্রশ্ন। শুভকামনা!",
+  "Photo: {credit}": "ছবি: {credit}",
+  "Shows the photo bigger": "ছবিটি বড় করে দেখায়"
 }
