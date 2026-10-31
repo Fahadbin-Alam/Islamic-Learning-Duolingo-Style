@@ -780,6 +780,7 @@ const TOPIC_ICONS: Record<string, IconName> = {
   hadith: "book",
   scholars: "family",
   ramadan: "dua",
+  eid: "moon",
   intro: "handHeart"
 };
 
