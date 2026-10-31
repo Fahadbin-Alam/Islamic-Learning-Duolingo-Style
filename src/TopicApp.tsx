@@ -165,7 +165,7 @@ import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./servic
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
-import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
+import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
 import { pickBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
@@ -891,6 +891,7 @@ export default function TopicApp() {
 
   useEffect(() => {
     configureUiSound(soundPreferences);
+    preloadUiSounds();
   }, [soundPreferences]);
 
   function playUiSound(event: "soft_ui" | "node_tap" | "correct" | "wrong" | "xp" | "unlock" | "lesson_complete" | "streak" | "reward_chest") {
