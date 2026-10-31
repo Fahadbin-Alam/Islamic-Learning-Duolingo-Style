@@ -27,7 +27,9 @@ const PLACES: PlaceRule[] = [
   { id: "zamzam", caption: "Zamzam water in Makkah", match: /\bzam ?zam\b/i },
   { id: "safa-marwa", caption: "Between Safa and Marwah", match: /\bsafa\b|\bmarwah?\b/i },
   // Not "Ka'b" (Ka'b ibn Malik, Ubayy ibn Ka'b).
-  { id: "kaaba", caption: "The Ka'bah in Makkah", match: /\b(?:kaabah?|ka['‘’]bah?)\b/i },
+  { id: "kaaba", caption: "The Ka'bah in Makkah", match: /\b(?:kaabah?|kabah|ka['‘’]bah?)\b/i },
+  // The qiblah is the Ka'bah, whatever else the lesson names (it once faced Jerusalem).
+  { id: "kaaba", caption: "The Ka'bah in Makkah", match: /\bqiblah?\b/i },
   { id: "arafah", caption: "Mount Arafat", match: /\barafa[ht]\b|\barafah\b/i },
   { id: "mina", caption: "The tents of Mina", match: /\bmina\b/i },
   { id: "muzdalifah", caption: "Muzdalifah", match: /\bmuzdalifah?\b/i },
@@ -52,7 +54,7 @@ const credits: Record<string, PictureCredit> = require("./lessonPictureCredits.j
 /** Only places with a downloaded, credited photo can show. */
 const AVAILABLE = PLACES.filter((place) => PICTURE_IMAGES[place.id] && credits[place.id]);
 
-export const LESSON_PICTURE_IDS = AVAILABLE.map((place) => place.id);
+export const LESSON_PICTURE_IDS = [...new Set(AVAILABLE.map((place) => place.id))];
 
 export function getLessonPicture(id: string): LessonPicture | undefined {
   const place = AVAILABLE.find((entry) => entry.id === id);
@@ -69,12 +71,17 @@ export function pictureForText(...texts: (string | undefined)[]): LessonPicture 
   return place ? getLessonPicture(place.id) : undefined;
 }
 
+/** "Revealed in Madinah": where a surah came down, not what it is about. */
+const ONLY_WHERE = /\brevealed\s+(?:in|at|near)\s+[A-Z][\w'‘’-]*/g;
+
 /**
- * A lesson's photo: the place its title names, else the place its learn line or facts name. The questions' answers
- * are never read, so the photo cannot give an answer away.
+ * A lesson's photo: the place its title names, else the place its learn line names, so the photo shows what the
+ * lesson teaches. A fact chip ("Revealed in Madinah", "Born in Makkah") only says where, so it never picks the
+ * photo: Surah Al-Baqarah is not about the Prophet's Mosque. The questions' answers are never read, so the photo
+ * cannot give an answer away.
  */
-export function pictureForLesson(lesson: Pick<Lesson, "title" | "learnLine" | "learnFacts">): LessonPicture | undefined {
-  return pictureForText(lesson.title) ?? pictureForText(lesson.learnLine, ...(lesson.learnFacts ?? []));
+export function pictureForLesson(lesson: Pick<Lesson, "title" | "learnLine">): LessonPicture | undefined {
+  return pictureForText(lesson.title) ?? pictureForText(lesson.learnLine?.replace(ONLY_WHERE, ""));
 }
 
 /** A question's photo: only a place its own prompt names, never one from its answers. */

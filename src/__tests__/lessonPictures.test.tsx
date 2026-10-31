@@ -73,6 +73,18 @@ describe("lesson photos", () => {
     expect(pictureForText("Be kind to your parents.")).toBeUndefined();
   });
 
+  test("a photo shows what the lesson is about, never just where a surah came down", () => {
+    const lessons = Object.values(LESSONS_BY_ID);
+    const baqarah = lessons.find((lesson) => lesson.title === "Surah Al-Baqarah")!;
+    expect(baqarah.learnFacts).toContain("Revealed in Madinah");
+    expect(pictureForLesson(baqarah)).toBeUndefined();
+    expect(pictureForLesson({ title: "Help and victory", learnLine: "Allah's help came.", learnFacts: ["The victory: Makkah opened"] })).toBeUndefined();
+    if (LESSON_PICTURE_IDS.includes("kaaba")) {
+      expect(pictureForLesson(lessons.find((lesson) => lesson.title === "The new qiblah")!)?.id).toBe("kaaba");
+      expect(pictureForLesson(lessons.find((lesson) => lesson.title === "Building the Kabah")!)?.id).toBe("kaaba");
+    }
+  });
+
   test("a question shows a photo only for a place its own prompt names, never one from its answers", () => {
     expect(pictureForQuestion("Where did the first revelation come?")).toBeUndefined();
     if (LESSON_PICTURE_IDS.includes("uhud")) expect(pictureForQuestion("Which mountain is Uhud?")?.id).toBe("uhud");
@@ -81,7 +93,8 @@ describe("lesson photos", () => {
   test("hundreds of lessons and questions get a photo", () => {
     const lessons = Object.values(LESSONS_BY_ID);
     const withPhoto = lessons.filter((lesson) => pictureForLesson(lesson));
-    expect(withPhoto.length).toBeGreaterThan(100);
+    // Only lessons about a place: a fact chip like "Revealed in Madinah" never picks the photo.
+    expect(withPhoto.length).toBeGreaterThan(80);
     const questions = lessons.flatMap((lesson) => lesson.challenges).filter((challenge) => pictureForQuestion(challenge.prompt));
     expect(questions.length).toBeGreaterThan(50);
   });
@@ -110,6 +123,20 @@ describe("photo on the learn card", () => {
     expect(screen.getByTestId("photo-sheet-image")).toBeTruthy();
     expect(screen.getByTestId("photo-sheet-credit")).toBeTruthy();
     await fireEvent.press(screen.getByTestId("photo-sheet-close"));
+  });
+
+  test("the big photo shows the whole picture in its own shape, as large as the screen allows", async () => {
+    const { photoAspect, photoSheetSize } = require("../ui/lesson/LessonPhoto");
+    // A wide photo on a phone fills the width; on a short screen it stays under 62% of the height.
+    expect(photoSheetSize(16 / 9, 390, 844)).toEqual({ width: 358, height: 201 });
+    expect(photoSheetSize(4 / 3, 1280, 600).height).toBeLessThanOrEqual(372);
+    expect(photoSheetSize(4 / 3, 1280, 900).width).toBe(600);
+    await render(<LearnCard {...base} picture={picture} />);
+    await fireEvent.press(screen.getByTestId("lesson-photo"));
+    const image = screen.getByTestId("photo-sheet-image");
+    expect(image.props.resizeMode).toBe("contain");
+    const style = Object.assign({}, ...[image.props.style].flat(5).filter(Boolean));
+    expect(style.width / style.height).toBeCloseTo(photoAspect(picture), 1);
   });
 
   test("no photo, no photo box", async () => {
