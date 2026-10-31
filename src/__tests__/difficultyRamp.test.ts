@@ -76,9 +76,10 @@ describe("the course", () => {
     )
   );
   // Notes lessons and the hand-written deep units (deepUnits.ts) set their own questions, so the ramp is not theirs.
-  const generated = units.filter(
-    (unit) => unit.length >= 6 && unit.every((lesson) => !lesson.id.startsWith("lesson-notes-") && !lesson.id.startsWith("lesson-deep-"))
-  );
+  // A unit's generated circles are checked without the deep lessons that follow them.
+  const generated = units
+    .map((unit) => unit.filter((lesson) => !lesson.id.startsWith("lesson-deep-")))
+    .filter((unit) => unit.length >= 6 && unit.every((lesson) => !lesson.id.startsWith("lesson-notes-")));
   const share = (lessons: typeof generated[number], test: (question: Challenge) => boolean) => {
     const questions = lessons.flatMap((lesson) => lesson.challenges);
     return questions.filter(test).length / Math.max(1, questions.length);

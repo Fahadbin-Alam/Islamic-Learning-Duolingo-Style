@@ -2,6 +2,7 @@ import type { Challenge, DifficultyTier, LearningCourse, LearningNode, Lesson, L
 import { hadith, quran, type DeepUnit, type Question } from "./deepKit";
 import { EID_SECTION, LIFE_UNITS } from "./lifeUnits";
 import { WOMEN_UNITS } from "./womenUnits";
+import { SAHABA_UNITS } from "./sahabaUnits";
 export type { DeepUnit } from "./deepKit";
 import { QURAN_AYAHS } from "./quranAyahs";
 import { SCHOLAR_UNITS, SCHOLARS_SECTION } from "./scholarUnits";
@@ -2857,7 +2858,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {

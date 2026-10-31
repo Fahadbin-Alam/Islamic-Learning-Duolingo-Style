@@ -225,7 +225,7 @@ export const CHAIN_LINKS: readonly ChainLink[] = [
   {
     teacher: "ibn-abd-ad-daim",
     student: "ibn-taymiyyah",
-    source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: he learned from Ibn 'Abd al-Daa'im, al-Qaasim al-Arbili and others; he read by himself and copied Sunan Abi Dawood.", "He read by himself and copied Sunan Abi Dawood")
+    source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: he learned from Ibn 'Abd al-Daa'im, al-Qaasim al-Arbili and others; he read by himself and copied Sunan Abi Dawood.", "He read by himself and copied Sunan Abi Dawood, and he studied al-rijaal")
   },
   {
     teacher: "ibn-taymiyyah",
