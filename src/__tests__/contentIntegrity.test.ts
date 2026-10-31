@@ -198,9 +198,9 @@ describe("lessons imported from notes", () => {
     expect(problems).toEqual([]);
   });
 
-  test("Quran units follow the learning order: Al-Fatihah, Juz Amma from An-Nas back, then the mushaf", () => {
+  test("Quran units follow the order of the mushaf: Al-Fatihah, Al-Baqarah, Ali 'Imran... An-Nas", () => {
     const quran = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
-    const rank = (surah: number) => (surah === 1 ? 0 : surah >= 78 ? 1 + (114 - surah) : 100 + surah);
+    const rank = (surah: number) => surah;
     // A lesson's first source may be the hadith its card says (Ayat al-Kursi, Sahih Muslim 810); its surah is
     // the first Quran source it lists.
     const surahOfNode = (node: (typeof quran.nodes)[number]) =>
@@ -211,8 +211,10 @@ describe("lessons imported from notes", () => {
     );
     expect(firstOfUnit).toEqual([...firstOfUnit].sort((left, right) => left - right));
     expect(quran.branches[0].title).toBe("Surah Al-Fatihah");
-    // Right after Al-Fatihah: An-Nas, Al-Falaq, Al-Ikhlas, Al-Masad.
-    expect([...new Set(surahs)].slice(0, 5)).toEqual([1, 114, 113, 112, 111]);
+    // Right after Al-Fatihah: Al-Baqarah, Ali 'Imran, An-Nisa, Al-Ma'idah; An-Nas last.
+    expect([...new Set(surahs)].slice(0, 5)).toEqual([1, 2, 3, 4, 5]);
+    expect(quran.branches.map((branch) => branch.title).slice(0, 3)).toEqual(["Surah Al-Fatihah", "Surah Al-Baqarah", "Surah Ali 'Imran"]);
+    expect(quran.branches[quran.branches.length - 1].title).toBe("Surah An-Nas");
   });
 
   test("a lesson about one person stays short and opens with what they are known for", () => {

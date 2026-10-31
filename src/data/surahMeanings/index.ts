@@ -27,7 +27,7 @@ export const SURAH_NAMES: readonly string[] = [
   "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kawthar", "Al-Kafirun", "An-Nasr", "Al-Masad", "Al-Ikhlas", "Al-Falaq", "An-Nas"
 ];
 
-/** The surahs whose whole meaning is taught so far, in the order the Quran topic teaches them (Juz Amma first). */
+/** The surahs whose whole meaning is taught, in the order the Quran topic teaches them: the mushaf order. */
 export const SURAH_MEANINGS: readonly SurahMeaning[] = [...ALL_SURAH_MEANINGS].sort((left, right) => surahLearningRank(left.surah) - surahLearningRank(right.surah));
 
 /** The Quran topic's own unit for a surah, when it has one; the passages join the end of it. */
