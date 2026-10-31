@@ -225,41 +225,42 @@ function pingPong(value: Animated.Value, duration: number, delay = 0) {
   ]);
 }
 
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
 function ProgressRing({ color, track, progress }: { color: string; track: string; progress: number }) {
   const target = Math.min(1, Math.max(0, progress));
-  const [shown, setShown] = useState(0);
   const anim = useRef(new Animated.Value(0)).current;
 
+  // The ring fills by moving its own stroke, frame by frame, without drawing the path again each frame (that used to
+  // keep the phone busy for the second after the path opened, just when a learner taps).
   useEffect(() => {
-    const id = anim.addListener(({ value }) => setShown(value));
     const timing = Animated.timing(anim, { toValue: target, duration: 900, delay: 250, easing: Easing.out(Easing.cubic), useNativeDriver: false });
     timing.start();
-    return () => {
-      timing.stop();
-      anim.removeListener(id);
-    };
+    return () => timing.stop();
   }, [anim, target]);
 
   const stroke = 7;
   const radius = (RING - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
+  const dashOffset = anim.interpolate({ inputRange: [0, 1], outputRange: [circumference, 0] });
+  // Hidden while empty: a round cap on a stroke of no length still draws a dot.
+  const fillOpacity = anim.interpolate({ inputRange: [0, 0.001, 1], outputRange: [0, 1, 1] });
   return (
     <Svg width={RING} height={RING} style={styles.ring} pointerEvents="none">
       <Circle cx={RING / 2} cy={RING / 2} r={radius} stroke={track} strokeWidth={stroke} fill="none" />
-      {shown > 0.001 ? (
-        <Circle
-          cx={RING / 2}
-          cy={RING / 2}
-          r={radius}
-          stroke={color}
-          strokeWidth={stroke}
-          fill="none"
-          strokeLinecap="round"
-          strokeDasharray={`${circumference} ${circumference}`}
-          strokeDashoffset={circumference * (1 - shown)}
-          transform={`rotate(-90 ${RING / 2} ${RING / 2})`}
-        />
-      ) : null}
+      <AnimatedCircle
+        cx={RING / 2}
+        cy={RING / 2}
+        r={radius}
+        stroke={color}
+        strokeWidth={stroke}
+        strokeOpacity={fillOpacity}
+        fill="none"
+        strokeLinecap="round"
+        strokeDasharray={`${circumference} ${circumference}`}
+        strokeDashoffset={dashOffset}
+        transform={`rotate(-90 ${RING / 2} ${RING / 2})`}
+      />
     </Svg>
   );
 }
