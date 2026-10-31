@@ -14,7 +14,7 @@ The code is ready to build for both stores. What is left needs your own accounts
 | iOS ads are non-personalised, so no App Tracking Transparency prompt is needed; SKAdNetwork ids for AdMob | `src/services/monetization.native.ts`, `app.config.js` |
 | No microphone, background audio, overlay or storage permissions (blocked even though libraries ask for them) | `app.json` → `android.blockedPermissions`, `expo-audio` plugin options |
 | Works fully offline when no API address is set, and never calls `localhost` from a release build | `src/config/backend.ts` |
-| Production API image and a one-click Render deployment with Postgres | `backend/Dockerfile`, `render.yaml` |
+| Production API image and a one-click Render deployment (database on Neon) | `backend/Dockerfile`, `render.yaml` |
 | CI checks: typecheck, app tests, backend tests, Android/iOS bundles, release config | `.github/workflows/ci.yml`, `scripts/check-release-config.mjs` |
 
 Store listing text, privacy policy, terms, the account-deletion web page, Data safety and App Privacy answers are being written separately under `store/` and `site/`.
@@ -40,8 +40,10 @@ eas init        # creates the EAS project and writes its id into app.json; commi
 
 The app works without a server: progress and the account stay on the phone. A server adds cloud backup, sign-in on other devices and premium sync from RevenueCat.
 
-1. On render.com: **New → Blueprint**, pick this repository. It creates the `muslimo-api` web service and a Postgres database from `render.yaml`.
-2. When asked, set `SIRA_REVENUECAT_WEBHOOK_AUTH` to a long random value (the same one you give RevenueCat).
+Step-by-step (free Render web service + free Neon Postgres): [docs/hosting.md](hosting.md).
+
+1. On render.com: **New → Blueprint**, pick this repository. It creates the `muslimo-api` web service from `render.yaml`.
+2. When asked, set `SIRA_DATABASE_URL` to the Neon connection string, `SIRA_GOOGLE_CLIENT_IDS_RAW` to the Google client ids, and `SIRA_REVENUECAT_WEBHOOK_AUTH` to a long random value (the same one you give RevenueCat).
 3. When it is live, open `https://<your-service>.onrender.com/api/health`; it should say `"ok": true`.
 4. Optional: add a custom domain such as `api.yourdomain.com` in Render.
 

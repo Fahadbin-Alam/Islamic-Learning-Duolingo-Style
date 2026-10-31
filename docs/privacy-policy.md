@@ -5,7 +5,7 @@ Muslimo respects your privacy and only collects the information needed to run th
 ## Information We Collect
 
 - account information such as name, email address, and sign-in provider
-- lesson progress, XP, streaks, mastery, and review history
+- lesson progress, XP, streaks, mastery, quiz scores, and review history (saved on our server for account holders, so it returns on a new phone)
 - question attempts and learning activity
 - subscription and entitlement state when premium features are enabled
 - optional social connection data that you choose to add

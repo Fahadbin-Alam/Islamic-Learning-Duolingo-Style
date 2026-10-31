@@ -12,6 +12,8 @@ import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
 import type { UmmahRankings } from "./ummah";
 
 const SESSION_KEY = "sira-path-session-token";
+// Set while this phone has progress the server has not taken yet (made offline, or the send failed).
+const PENDING_SYNC_KEY = "sira-path-pending-sync";
 
 type RemoteAccount = {
   name: string;
@@ -78,6 +80,7 @@ export async function registerRemoteAccount(input: {
 }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/register", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -91,6 +94,7 @@ export async function registerRemoteAccount(input: {
 export async function loginRemoteAccount(input: { email: string; password: string }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/login", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -114,6 +118,7 @@ export async function socialLoginRemoteAccount(input: {
 }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/social", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -131,13 +136,38 @@ export async function syncRemoteUser(user: UserProfile) {
     return;
   }
 
-  await backendRequest("/api/me/user", {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({ user })
-  });
+  // Marked first, so an app closed mid-send still knows the server may be behind.
+  setStoredItem(PENDING_SYNC_KEY, "1");
+  try {
+    await backendRequest("/api/me/user", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ user })
+    });
+  } catch (error) {
+    // Set again: an older send that finished meanwhile may have cleared it.
+    setStoredItem(PENDING_SYNC_KEY, "1");
+    throw error;
+  }
+  removeStoredItem(PENDING_SYNC_KEY);
+}
+
+/** True while progress made on this phone (often offline) still has to reach the server. */
+export function hasPendingSync() {
+  return getStoredItem(PENDING_SYNC_KEY) === "1";
+}
+
+/**
+ * Which copy of the learner to start from. The server's copy, unless this phone has progress the server never
+ * got (lessons done offline): then the phone's own copy of the same learner wins, and is sent once online.
+ */
+export function pickStartingUser<T extends { id: number | string }>(remote: T | undefined, saved: T | null | undefined) {
+  if (remote && saved && hasPendingSync() && String(saved.id) === String(remote.id)) {
+    return saved;
+  }
+  return remote ?? saved ?? undefined;
 }
 
 export async function logoutRemoteAccount() {
@@ -342,6 +372,7 @@ export function setSessionToken(token: string) {
 
 export function clearSessionToken() {
   removeStoredItem(SESSION_KEY);
+  removeStoredItem(PENDING_SYNC_KEY);
 }
 
 export class BackendRequestError extends Error {
@@ -355,23 +386,36 @@ export function isBackendConfigured() {
   return Boolean(BACKEND_CONFIG.baseUrl);
 }
 
-async function backendRequest<T = unknown>(path: string, options?: RequestInit) {
+/**
+ * Wakes the server when the app opens, so it is awake by the time the learner logs in or opens Crew.
+ * Fire and forget: it never throws.
+ */
+export function wakeBackend() {
+  if (!isBackendConfigured()) {
+    return;
+  }
+
+  void backendRequest("/api/health", { timeoutMs: BACKEND_CONFIG.authTimeoutMs }).catch(() => undefined);
+}
+
+async function backendRequest<T = unknown>(path: string, options?: RequestInit & { timeoutMs?: number }) {
   if (!isBackendConfigured()) {
     // Offline-only build: callers treat network errors as "keep working locally".
     throw new Error("Network unavailable: no backend is configured for this build.");
   }
 
   const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-  const timeout = controller ? setTimeout(() => controller.abort(), BACKEND_CONFIG.requestTimeoutMs) : null;
+  const { timeoutMs = BACKEND_CONFIG.requestTimeoutMs, ...requestOptions } = options ?? {};
+  const timeout = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
   let response: Response;
 
   try {
     response = await fetch(`${BACKEND_CONFIG.baseUrl}${path}`, {
-      ...options,
+      ...requestOptions,
       signal: controller?.signal,
       headers: {
         "Content-Type": "application/json",
-        ...(options?.headers ?? {})
+        ...(requestOptions.headers ?? {})
       }
     });
   } catch (error) {

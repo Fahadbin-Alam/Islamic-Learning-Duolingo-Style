@@ -90,4 +90,41 @@ describe("backend sync", () => {
     );
     expect(backend.getSessionToken()).toBeNull();
   });
+
+  it("remembers progress made offline and sends it once back online", async () => {
+    const backend = loadBackend("https://api.example.org");
+    backend.setSessionToken("saved-token");
+    const phoneCopy = { id: 7, hasAccount: true, totalXp: 120 };
+    const serverCopy = { id: 7, hasAccount: true, totalXp: 80 };
+
+    // No pending progress: the server's copy is the one to start from.
+    expect(backend.pickStartingUser(serverCopy, phoneCopy)).toBe(serverCopy);
+
+    global.fetch = jest.fn().mockRejectedValue(new TypeError("Network request failed"));
+    await expect(backend.syncRemoteUser(phoneCopy as never)).rejects.toThrow(/network/i);
+    expect(backend.hasPendingSync()).toBe(true);
+
+    // Next open, the server still has the older copy: the phone's own copy wins, but never another learner's.
+    expect(backend.pickStartingUser(serverCopy, phoneCopy)).toBe(phoneCopy);
+    expect(backend.pickStartingUser({ ...serverCopy, id: 8 }, phoneCopy)).toEqual({ ...serverCopy, id: 8 });
+    expect(backend.pickStartingUser(undefined, phoneCopy)).toBe(phoneCopy);
+
+    const fetchMock = jest.fn().mockResolvedValue(jsonResponse(200, { ok: true }));
+    global.fetch = fetchMock;
+    await backend.syncRemoteUser(phoneCopy as never);
+    expect(fetchMock).toHaveBeenCalledWith("https://api.example.org/api/me/user", expect.objectContaining({ method: "PUT" }));
+    expect(backend.hasPendingSync()).toBe(false);
+    expect(backend.pickStartingUser(serverCopy, phoneCopy)).toBe(serverCopy);
+  });
+
+  it("forgets pending progress on log out", async () => {
+    const backend = loadBackend("https://api.example.org");
+    backend.setSessionToken("saved-token");
+    global.fetch = jest.fn().mockRejectedValue(new TypeError("Network request failed"));
+    await expect(backend.syncRemoteUser({ id: 7, hasAccount: true } as never)).rejects.toThrow();
+    expect(backend.hasPendingSync()).toBe(true);
+
+    await backend.logoutRemoteAccount().catch(() => undefined);
+    expect(backend.hasPendingSync()).toBe(false);
+  });
 });
