@@ -37,11 +37,11 @@ function kingFaisalPrize(slug: string, title: string, summary: string, highlight
   };
 }
 
-const ABU_HANIFAH_PAGE = (summary: string, highlight?: string) => islamqa(46992, "The madhhab of Imam Abu Hanifah", summary, highlight);
-const MALIK_PAGE = (summary: string, highlight?: string) => islamqa(119256, "A brief biography of Imam Malik", summary, highlight);
-const SHAFII_PAGE = (summary: string, highlight?: string) => islamqa(153652, "A brief biography of Imam ash-Shafi'i", summary, highlight);
-const AHMAD_PAGE = (summary: string, highlight?: string) => islamqa(153333, "A brief biography of Imam Ahmad", summary, highlight);
-const IBN_TAYMIYYAH_PAGE = (summary: string, highlight?: string) => islamqa(96323, "Shaykh al-Islam Ibn Taymiyah and the praise of the imams", summary, highlight);
+export const ABU_HANIFAH_PAGE = (summary: string, highlight?: string) => islamqa(46992, "The madhhab of Imam Abu Hanifah", summary, highlight);
+export const MALIK_PAGE = (summary: string, highlight?: string) => islamqa(119256, "A brief biography of Imam Malik", summary, highlight);
+export const SHAFII_PAGE = (summary: string, highlight?: string) => islamqa(153652, "A brief biography of Imam ash-Shafi'i", summary, highlight);
+export const AHMAD_PAGE = (summary: string, highlight?: string) => islamqa(153333, "A brief biography of Imam Ahmad", summary, highlight);
+export const IBN_TAYMIYYAH_PAGE = (summary: string, highlight?: string) => islamqa(96323, "Shaykh al-Islam Ibn Taymiyah and the praise of the imams", summary, highlight);
 const ALBANI_PAGE = (summary: string, highlight?: string) => islamqa(113687, "Shaykh al-Albani was a great muhaddith and faqih", summary, highlight);
 const ALBANI_PRIZE = (summary: string, highlight?: string) => kingFaisalPrize("sheikh-mohammad-nasir-ad-din-al-albani", "Sheikh Mohammad Nasir Ad-Din Al-Albani", summary, highlight);
 const IBN_BAZ_PRIZE = (summary: string, highlight?: string) => kingFaisalPrize("shaikh-abd-al-aziz-a-bin-baz", "Shaikh Abd Al-Aziz Bin Baz", summary, highlight);
