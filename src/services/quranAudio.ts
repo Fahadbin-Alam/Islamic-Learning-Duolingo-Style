@@ -5,15 +5,17 @@
  * Audio: Mishary Rashid Alafasy (murattal, 128 kbps), streamed from the Islamic Network audio CDN
  * (https://alquran.cloud, files from https://everyayah.com). Its terms
  * (https://alquran.cloud/terms-and-conditions) let apps stream the recitations; the copyright stays
- * with the reciter. The file is only fetched when the learner taps Listen, and no learner data is sent
- * with it. To move to another source (e.g. Quran Foundation through our backend), change
+ * with the reciter. A file is only fetched when the learner taps Listen or saves the recitations for
+ * offline (offlineAudio.ts), and no learner data is sent with it. To move to another source (e.g. Quran Foundation through our backend), change
  * QURAN_AUDIO_SOURCE only: every caller goes through quranAudioUrl().
  */
 export const QURAN_AUDIO_SOURCE = {
   reciter: "Mishary Alafasy",
   credit: "Islamic Network",
   /** {n} is the ayah's number counted through the whole Quran, 1 to 6236. */
-  urlTemplate: "https://cdn.islamic.network/quran/audio/128/ar.alafasy/{n}.mp3"
+  urlTemplate: "https://cdn.islamic.network/quran/audio/128/ar.alafasy/{n}.mp3",
+  /** Where offlineAudio.ts keeps the saved copies; a new source gets a new folder. */
+  offlineFolder: "quran-audio-alafasy-128"
 } as const;
 
 /** Ayahs in each surah (Hafs 'an 'Asim, the count in the Madinah mushaf), surah 1 first. */

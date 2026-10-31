@@ -15,6 +15,7 @@ import { useScrollMore } from "./ScrollHint";
 import { AyahListen, useAyahPlayback } from "./AyahListen";
 import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
+import { sourceUrl } from "../../services/sourceLink";
 import { getActiveLanguage, t } from "../../i18n";
 
 export type LearnCardProps = {
@@ -35,7 +36,7 @@ export type LearnCardProps = {
    * The one source that says what the card says (lesson.learnSource). Its chip shows only the short
    * reference ("Quran 2:43", "Sahih al-Bukhari 6018") on one line, never a page title: no reference, no chip.
    */
-  learnSource?: { reference?: string; url: string };
+  learnSource?: { reference?: string; url: string; highlight?: string };
   /** Older call sites: a chip with this label. Ignored when learnSource is given; pass learnSource instead. */
   source?: { label: string; url: string };
   /** Defaults to opening the url with Linking. */
@@ -136,7 +137,7 @@ export function LearnCard({
   const learnReference = learnSource?.reference?.trim();
   const source = learnSource
     ? learnReference && learnSource.url
-      ? { label: learnReference, url: learnSource.url }
+      ? { label: learnReference, url: sourceUrl(learnSource) }
       : undefined
     : legacySource;
   const factList = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);

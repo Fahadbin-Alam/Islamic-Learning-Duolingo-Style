@@ -35,7 +35,7 @@ function sunnah(ref: string, reference: string, narrator: string | undefined, su
   };
 }
 
-function islamqa(answer: number, title: string, summary: string): LessonSource {
+function islamqa(answer: number, title: string, summary: string, highlight?: string): LessonSource {
   return {
     id: `secret_islamqa_${answer}`,
     site: "IslamQA",
@@ -45,7 +45,8 @@ function islamqa(answer: number, title: string, summary: string): LessonSource {
     reference: `IslamQA ${answer}`,
     from: "Islam Question & Answer",
     grade: "Biography",
-    summary
+    summary,
+    highlight
   };
 }
 
@@ -114,7 +115,7 @@ export const SECRET_LESSONS: SecretLesson[] = [
     line: "Imam Malik only taught once seventy scholars said he was ready.",
     quote: MALIK_SEVENTY,
     reference: "IslamQA 119256",
-    source: islamqa(119256, "A brief biography of Imam Malik", `Malik said: ${MALIK_SEVENTY}`),
+    source: islamqa(119256, "A brief biography of Imam Malik", `Malik said: ${MALIK_SEVENTY}`, "I did not sit in the mosque to teach until seventy elder of great knowledge testified that I was qualified to do that"),
     spot: "league",
     clue: "Tap your league shield under Friends 3 times."
   },
@@ -125,7 +126,7 @@ export const SECRET_LESSONS: SecretLesson[] = [
     line: "Imam ash-Shafi'i wrote Ar-Risalah, the first book on the rules of fiqh.",
     quote: SHAFII_RISALAH,
     reference: "IslamQA 153652",
-    source: islamqa(153652, "A brief biography of Imam ash-Shafi'i", SHAFII_RISALAH),
+    source: islamqa(153652, "A brief biography of Imam ash-Shafi'i", SHAFII_RISALAH, "in which he laid the foundations for the field of usul al-fiqh"),
     spot: "mascot",
     clue: "Tap the helper next to Ummah Battle 3 times."
   }

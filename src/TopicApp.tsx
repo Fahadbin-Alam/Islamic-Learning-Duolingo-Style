@@ -25,7 +25,9 @@ import {
   recordLessonAnswer,
   reviewDueCount,
   createTestOutSession,
-  isLessonPractice,
+  canQuiz,
+  createQuizSession,
+  isHeartFree,
   PRACTICE_XP_PER_CORRECT_ANSWER,
   didExtendStreak,
   getAssessmentXp,
@@ -95,6 +97,8 @@ import {
   removeCrewMember,
   fetchUmmahRankings,
   syncRemoteUser,
+  hasPendingSync,
+  pickStartingUser,
   type CrewMember,
   type CrewPayload
 } from "./services/backendSync";
@@ -164,6 +168,7 @@ import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
 import { pickBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
 import { buySecretHint, findSecret, hasFound, secretAt, type SecretLesson, type SecretSpot } from "./data/secretLessons";
+import { buyHadith, type HadithCard } from "./data/hadithTreasures";
 import {
   AccountSheet,
   AppTopBar,
@@ -173,6 +178,8 @@ import {
   CrewView,
   BattleView,
   LeagueResultSheet,
+  HadithCardSheet,
+  HadithListSheet,
   SecretContext,
   SecretListSheet,
   SecretSheet,
@@ -192,21 +199,25 @@ import {
   SettingsSheet,
   ShopView,
   TopicPicker,
+  QuizSheet,
   UpdateBanner,
   tabForScreen,
   useNotices,
   type PathItem,
   type PathUnit,
   type TabKey,
-  type TopicPickerTopic
+  type TopicPickerTopic,
+  type QuizSheetTopic
 } from "./ui/screens";
+import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
-import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
+import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, QuizComplete, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
+import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
@@ -220,6 +231,7 @@ import type {
   LearningSection,
   Lesson,
   LessonSession,
+  QuizScope,
   PremiumStatus,
   ReminderPreferences,
   SocialRelation,
@@ -283,6 +295,20 @@ type TestOutResult = {
   attempt: number;
   /** The JUMP HERE circle the test was for, so TRY AGAIN tests for the same one. */
   jumpNodeId?: string;
+};
+
+// A finished quiz's result screen (QuizComplete).
+type QuizSummary = {
+  scope: QuizScope;
+  title: string;
+  correct: number;
+  total: number;
+  percent: number;
+  previousBest?: number;
+  newBest: boolean;
+  xp: number;
+  gems: number;
+  goOver: { id: string; title: string }[];
 };
 
 type LessonCelebration = {
@@ -439,8 +465,8 @@ function reducer(state: AppState, action: Action): AppState {
         ...state,
         // The path's node card already shows what the lesson is, so go straight to learning.
         // A test-out has nothing new to teach, so it starts with the questions.
-        // So does practice of lessons already done.
-        screen: action.session.mode === "test_out" || action.session.mode === "lesson_practice" ? "lesson_question" : "lesson_teach",
+        // So do practice of lessons already done and a quiz.
+        screen: action.session.mode === "test_out" || action.session.mode === "lesson_practice" || action.session.mode === "quiz" ? "lesson_question" : "lesson_teach",
         ...NO_LESSON,
         activeSession: action.session,
         lessonQueue: startLessonQueue(action.session.lesson.challenges.length)
@@ -613,11 +639,15 @@ export default function TopicApp() {
   const [battle, setBattle] = useState<BattleQuestion[] | undefined>(undefined);
   const [openSecret, setOpenSecret] = useState<{ secret: SecretLesson; isNew: boolean } | undefined>(undefined);
   const [secretListOpen, setSecretListOpen] = useState(false);
+  const [openHadith, setOpenHadith] = useState<{ card: HadithCard; isNew: boolean } | undefined>(undefined);
+  const [hadithListOpen, setHadithListOpen] = useState(false);
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   // The tile picked in the language sheet, and the language shown before the learner has saved one.
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
   const [startLanguage, setStartLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
+  const [quizSummary, setQuizSummary] = useState<QuizSummary | undefined>(undefined);
+  const [quizSheetVisible, setQuizSheetVisible] = useState(false);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
@@ -691,7 +721,9 @@ export default function TopicApp() {
       const savedUser = loadSavedUserProfile();
       const savedAccount = loadLocalAuthAccount();
       const remoteSession = await hydrateRemoteSession();
-      const baseUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remoteSession?.user ?? savedUser ?? fallbackUser)));
+      // Lessons done offline stay: the saved copy wins over an older server copy until it is sent.
+      const startingUser = pickStartingUser(remoteSession?.user, savedUser) ?? fallbackUser;
+      const baseUser = withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(startingUser)));
       // A logged-out account stays on the device for the next log in, but the learner plays as a guest.
       const accountSeed = remoteSession?.account ?? (savedAccount?.signedOut ? undefined : savedAccount);
       const user = accountSeed ? withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, accountSeed))) : baseUser;
@@ -757,6 +789,25 @@ export default function TopicApp() {
     saveUserProfile(state.user);
     void syncRemoteUser(state.user).catch(() => undefined);
   }, [state.user]);
+
+  // Progress made offline is sent once the phone is back online: on each return to the app, and every
+  // minute while some is still waiting.
+  const latestUserRef = useRef(state.user);
+  latestUserRef.current = state.user;
+  useEffect(() => {
+    const retry = () => {
+      const user = latestUserRef.current;
+      if (user && hasPendingSync()) {
+        void syncRemoteUser(user).catch(() => undefined);
+      }
+    };
+    const timer = setInterval(retry, 60000);
+    const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && retry());
+    return () => {
+      clearInterval(timer);
+      listener.remove();
+    };
+  }, []);
 
   // The running practice session, and its end screen once it is done, are kept next to the saved
   // learner, so a reload resumes the one or shows the other again.
@@ -1054,6 +1105,34 @@ export default function TopicApp() {
 
     return season ? [...topics.filter((topic) => topic.topicId === RAMADAN_TOPIC), ...topics.filter((topic) => topic.topicId !== RAMADAN_TOPIC)] : topics;
   }, [localizedSections, season, state.user?.completedNodeIds]);
+
+  // The Quizzes sheet: every topic with a quiz (Ramadan only in its season), each with its units' quizzes and the
+  // best scores. Worked out only while the sheet is open.
+  const quizTopics = useMemo<QuizSheetTopic[]>(() => {
+    const user = state.user;
+
+    if (!quizSheetVisible || !user) {
+      return [];
+    }
+
+    return localizedSections
+      .filter((section) => (season || section.topicId !== RAMADAN_TOPIC) && canQuiz(user, { kind: "topic", topicId: section.topicId }, ageGroup))
+      .map((section) => ({
+        topicId: section.topicId,
+        title: section.title,
+        accent: section.accentColor,
+        arabic: getTopicArabic(section.topicId),
+        best: getQuizScore(user, { kind: "topic", topicId: section.topicId })?.best,
+        units: section.branches
+          .filter((branch) => canQuiz(user, { kind: "unit", topicId: section.topicId, unitId: branch.id }, ageGroup))
+          .map((branch) => ({
+            id: branch.id,
+            title: branch.title,
+            arabic: getBranchArabic(branch.id),
+            best: getQuizScore(user, { kind: "unit", topicId: section.topicId, unitId: branch.id })?.best
+          }))
+      }));
+  }, [ageGroup, localizedSections, quizSheetVisible, season, state.user]);
 
   // Names in every language are in the index, so it is built once.
   const searchIndex = useMemo(() => buildTopicSearchIndex(COURSE.sections), []);
@@ -1391,6 +1470,35 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
+  // Quizzes in Practice: a scored quiz of a whole topic (no unitId) or one unit. Each new try asks other questions.
+  function startQuiz(topicId: string, unitId?: string) {
+    if (!state.user) {
+      return;
+    }
+
+    const section = localizedSections.find((item) => item.topicId === topicId);
+    const unit = unitId ? section?.branches.find((branch) => branch.id === unitId) : undefined;
+
+    if (!section || (unitId && !unit)) {
+      return;
+    }
+
+    const scope: QuizScope = unit ? { kind: "unit", topicId: section.topicId, unitId: unit.id } : { kind: "topic", topicId: section.topicId };
+    const title = unit ? unit.title : t("{topic} quiz", { topic: section.title });
+    const session = createQuizSession({ user: state.user, scope, title, attempt: getQuizScore(state.user, scope)?.taken ?? 0, ageGroup });
+
+    setQuizSheetVisible(false);
+
+    if (!session) {
+      void notify(t("No quiz here yet."), undefined, { mood: "think" });
+      return;
+    }
+
+    setQuizSummary(undefined);
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "start_lesson", session });
+  }
+
   // MY LESSONS in Practice: questions from the lessons finished most recently, in every topic.
   function startLessonPractice() {
     if (!state.user) {
@@ -1508,7 +1616,7 @@ export default function TopicApp() {
 
     // No hearts left: no next question (and no missed one asked again) until the learner refills. Practice of
     // lessons already done needs no hearts.
-    if (isOutOfHearts(state.user) && !isLessonPractice(state.activeSession)) {
+    if (isOutOfHearts(state.user) && !isHeartFree(state.activeSession)) {
       openOutOfHearts(state.user, true);
       return;
     }
@@ -1596,6 +1704,45 @@ export default function TopicApp() {
         streakExtended: didExtendStreak(user, nextUser),
         stars: lessonStars(state.sessionMistakes),
         streakDays: nextUser.streakDays
+      });
+      const xpSummary = await learningApi.getXpSummaries(nextUser);
+      dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
+      maybeShowLessonBreakAd(nextUser);
+      return;
+    }
+
+    if (state.activeSession.mode === "quiz" && state.activeSession.quizScope) {
+      const scope = state.activeSession.quizScope;
+      const total = state.activeSession.lesson.challenges.length;
+      const correct = state.sessionCorrectCount;
+      // Practice pay: 2 XP per right answer. A quiz keeps the streak, as practice does.
+      const xp = correct * PRACTICE_XP_PER_CORRECT_ANSWER;
+      const record = recordQuizScore(user, scope, correct, total);
+      const nextUser = withExperienceDefaults({
+        ...keepStreak(addXp(record.user, xp)),
+        lastLearningAt: new Date().toISOString()
+      });
+      const section = localizedSections.find((item) => item.topicId === scope.topicId);
+      // A unit quiz's misses are all in that unit, so only a topic quiz names units to go over.
+      const goOver =
+        scope.kind === "topic"
+          ? unitsToGoOver(state.sessionMissedLessonIds, scope.topicId).flatMap((unitId) => {
+              const branch = section?.branches.find((item) => item.id === unitId);
+              return branch ? [{ id: branch.id, title: branch.title }] : [];
+            })
+          : [];
+
+      setQuizSummary({
+        scope,
+        title: state.activeSession.lesson.title,
+        correct,
+        total,
+        percent: record.percent,
+        previousBest: record.previousBest,
+        newBest: record.newBest,
+        xp,
+        gems: record.gems,
+        goOver
       });
       const xpSummary = await learningApi.getXpSummaries(nextUser);
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
@@ -1783,6 +1930,40 @@ export default function TopicApp() {
       return;
     }
     dispatch({ type: "close_lesson_complete" });
+  }
+
+  // Leaving a quiz's result: CONTINUE goes back to Practice, NEW QUIZ asks the same quiz with other questions, and a
+  // unit to go over opens on the path (a library topic's unit on its own, other topics at its first circle).
+  function leaveQuizComplete(next?: { retake: true } | { unitId: string }) {
+    const summary = quizSummary;
+    setQuizSummary(undefined);
+    setLessonCompleteSummary(undefined);
+    dispatch({ type: "close_lesson_complete" });
+
+    if (planOfferDueRef.current) {
+      planOfferDueRef.current = false;
+      openPlanOffer("lessons");
+      return;
+    }
+
+    if (!summary) {
+      return;
+    }
+
+    if (next && "retake" in next) {
+      startQuiz(summary.scope.topicId, summary.scope.kind === "unit" ? summary.scope.unitId : undefined);
+      return;
+    }
+
+    if (next && "unitId" in next) {
+      const library = LIBRARY_TOPICS.has(summary.scope.topicId);
+      const firstNode = COURSE.sections.find((section) => section.topicId === summary.scope.topicId)?.nodes.find((node) => node.branchId === next.unitId);
+      dispatch({ type: "select_topic", topicId: summary.scope.topicId, unitId: library ? next.unitId : undefined });
+      setPathReveal(library ? undefined : firstNode?.id);
+      return;
+    }
+
+    dispatch({ type: "open_review" });
   }
 
   function maybeShowLessonBreakAd(user: UserProfile) {
@@ -2691,9 +2872,9 @@ export default function TopicApp() {
     state.screen === "lesson_feedback" &&
     Boolean(lesson) &&
     (isLastLessonStep(state.lessonQueue, state.stepIndex) || (lessonSession?.mode === "test_out" && isTestLost(lessonSession, state.sessionMistakes))) &&
-    (!isOutOfHearts(state.user) || isLessonPractice(lessonSession));
+    (!isOutOfHearts(state.user) || isHeartFree(lessonSession));
   // GOT IT with no hearts left opens the out-of-hearts sheet, which plays its own sound as it opens.
-  const continueOpensRefill = state.screen === "lesson_feedback" && isOutOfHearts(state.user) && !isLessonPractice(lessonSession);
+  const continueOpensRefill = state.screen === "lesson_feedback" && isOutOfHearts(state.user) && !isHeartFree(lessonSession);
   const quitSheet = (
     <QuitSheet
       visible={quitLessonVisible}
@@ -2704,6 +2885,10 @@ export default function TopicApp() {
         setQuitLessonVisible(false);
         void Speech.stop();
         dispatch({ type: "reset_lesson" });
+        // A quiz started in Practice goes back there.
+        if (state.activeSession?.mode === "quiz") {
+          dispatch({ type: "open_review" });
+        }
       }}
     />
   );
@@ -2829,7 +3014,9 @@ export default function TopicApp() {
         )}
         {(state.screen === "lesson_question" || state.screen === "lesson_feedback") && challenge && lessonStep && lessonShell(
           <>
-            {inTest ? <TestStrip passingScore={testPassingScore} total={lesson?.challenges.length ?? 0} accent={lessonAccent} /> : null}
+            {inTest ? (
+              <TestStrip passingScore={testPassingScore} total={lesson?.challenges.length ?? 0} accent={lessonAccent} quiz={lessonSession?.mode === "quiz"} />
+            ) : null}
             <ExerciseView
               // A missed question asked again at the end is a new try: a fresh view with its tiles in another order.
               key={`${challenge.id}-${lessonStep.attempt}`}
@@ -2859,7 +3046,25 @@ export default function TopicApp() {
             />
           </>
         )}
-        {state.screen === "lesson_complete" && lessonCompleteSummary && (
+        {state.screen === "lesson_complete" && quizSummary && (
+          <QuizComplete
+            title={quizSummary.title}
+            correct={quizSummary.correct}
+            total={quizSummary.total}
+            percent={quizSummary.percent}
+            previousBest={quizSummary.previousBest}
+            newBest={quizSummary.newBest}
+            xp={quizSummary.xp}
+            gems={quizSummary.gems}
+            goOver={quizSummary.goOver}
+            mascotVariant={lessonMascot}
+            accent={lessonAccent}
+            onContinue={() => leaveQuizComplete()}
+            onRetake={() => leaveQuizComplete({ retake: true })}
+            onGoOver={(unitId) => leaveQuizComplete({ unitId })}
+          />
+        )}
+        {state.screen === "lesson_complete" && !quizSummary && lessonCompleteSummary && (
           <LessonComplete
             headline={lessonCompleteSummary.headline}
             title={lessonCompleteSummary.title}
@@ -2919,6 +3124,8 @@ export default function TopicApp() {
             onStartReviewDeck={startReviewDeck}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
             onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
+            onOpenQuizzes={() => setQuizSheetVisible(true)}
+            quizBest={getQuizScore(state.user, { kind: "topic", topicId: selectedSection.topicId })?.best}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
         )}
@@ -2958,6 +3165,13 @@ export default function TopicApp() {
               dispatch({ type: "apply_user_latest", update: buySecretHint });
               setSecretListOpen(true);
             }}
+            onBuyHadith={() => {
+              const { card } = buyHadith(state.user!);
+              if (!card) return;
+              dispatch({ type: "apply_user_latest", update: (user) => buyHadith(user).user });
+              setOpenHadith({ card, isNew: true });
+            }}
+            onOpenHadith={() => setHadithListOpen(true)}
           />
         )}
         {state.screen === "social" && (
@@ -3003,6 +3217,8 @@ export default function TopicApp() {
         ) : null}
         <SecretListSheet visible={secretListOpen} user={state.user} onClose={() => setSecretListOpen(false)} />
         <SecretSheet secret={openSecret?.secret} isNew={openSecret?.isNew} onClose={() => setOpenSecret(undefined)} />
+        <HadithListSheet visible={hadithListOpen} user={state.user} onClose={() => setHadithListOpen(false)} />
+        <HadithCardSheet card={openHadith?.card} isNew={openHadith?.isNew} onClose={() => setOpenHadith(undefined)} />
         {/* A finished league week is told once, the first time Crew opens after it. */}
         <LeagueResultSheet
           result={crewLeagueUser ? unseenLeagueResult(crewLeagueUser) : undefined}
@@ -3023,6 +3239,15 @@ export default function TopicApp() {
               dispatch({ type: "select_topic", topicId: topicId as TopicId, unitId: nodeId ? undefined : unitId });
               setPathReveal(nodeId);
             }}
+          />
+        )}
+        {!inLesson && (
+          <QuizSheet
+            visible={quizSheetVisible}
+            onClose={() => setQuizSheetVisible(false)}
+            topics={quizTopics}
+            topicId={selectedSection.topicId}
+            onStart={startQuiz}
           />
         )}
         <AccountSheet
@@ -3192,7 +3417,7 @@ function feedbackSource(challenge: Challenge, lesson: Lesson | undefined) {
   const source = questionSource(challenge, lesson);
   const reference = source?.reference?.trim();
   if (!source || !reference) return undefined;
-  return { label: shortReference(reference), onOpen: source.url ? () => void Linking.openURL(source.url).catch(() => undefined) : undefined };
+  return { label: shortReference(reference), onOpen: source.url ? () => openSource(source) : undefined };
 }
 
 function readHeartVideosWatched() {
@@ -3529,16 +3754,16 @@ function unique<T>(items: T[]) {
   return Array.from(new Set(items));
 }
 
-/** Above every test-out question: it is a test, and how many right answers pass it. */
-function TestStrip({ passingScore, total, accent }: { passingScore: number; total: number; accent: string }) {
+/** Above every test-out question: it is a test, and how many right answers pass it. A quiz has no pass mark. */
+function TestStrip({ passingScore, total, accent, quiz }: { passingScore: number; total: number; accent: string; quiz?: boolean }) {
   return (
     <PopIn from="up" style={styles.testStrip}>
-      <View style={[styles.testChip, { backgroundColor: lighten(accent, 0.85) }]} testID="test-out-label">
-        <Icon name="key" size={18} />
-        <Text style={[styles.testChipText, { color: darken(accent, 0.4) }]}>{t("TEST")}</Text>
+      <View style={[styles.testChip, { backgroundColor: lighten(accent, 0.85) }]} testID={quiz ? "quiz-label" : "test-out-label"}>
+        <Icon name={quiz ? "trophy" : "key"} size={18} />
+        <Text style={[styles.testChipText, { color: darken(accent, 0.4) }]}>{quiz ? t("QUIZ") : t("TEST")}</Text>
       </View>
-      <Text style={styles.testGoal} testID="test-out-goal">
-        {t("Get {count} of {total} right", { count: passingScore, total })}
+      <Text style={styles.testGoal} testID={quiz ? "quiz-goal" : "test-out-goal"}>
+        {quiz ? t("{count} questions · no hearts lost", { count: total }) : t("Get {count} of {total} right", { count: passingScore, total })}
       </Text>
     </PopIn>
   );
