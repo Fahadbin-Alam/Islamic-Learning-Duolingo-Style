@@ -145,10 +145,12 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   soon. Nothing is set again that has not changed, and a tile or the prompt is drawn again only when what
   it shows changes. That holds in practice too (Level check, Daily, Review, My lessons, every game). There
   a question answered with tiles, a matching game and a sorting game with every step placed keep their
-  parts as they are at CHECK, so the render CHECK draws already places them from what was read before it:
-  CHECK draws them once where the sheet's heights are the same as for the question before (a right answer,
-  most often), and twice where they are new, as before these fit rules. Only a typed answer turning into
-  tiles, or the steps left to place going away, waits for the read. The later draws change only where the
+  parts as they are at CHECK, so the render CHECK draws already lays them out from what was read before it,
+  and the sheet's heights told before that frame place them in the next one: CHECK draws them twice, as
+  before these fit rules. Practice keeps one sheet from question to question, so the heights it told for the
+  question before never place this one (a taller one would hide the topic label for a render, which then
+  fades back in). Only a typed answer turning into tiles, or the steps left to place going away, waits for
+  the read too. The later draws change only where the
   question sits, which parts fade under the sheet's edge and the sheet's room. Each answer tile, sorting
   slot and matching row, the prompt, the topic label, the bar with CHECK and the sheet's title, answer,
   list of steps and button keep the same taps and layout reports from render to render (a tap does what

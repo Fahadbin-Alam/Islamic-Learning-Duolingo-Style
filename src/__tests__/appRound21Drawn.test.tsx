@@ -195,6 +195,40 @@ describe("a practice question answered with tiles is placed in the very render C
     expect(rooms[1]).toBeDefined();
   });
 
+  it("places the next question for its own sheet, never for the height the last question's sheet told", async () => {
+    // Practice keeps one sheet from question to question: a tall one (a sorting game's list, a long Why) told for the
+    // question before would place this one too far down, and hide its topic label, for a render.
+    const scrolls = jest.spyOn(sheetFit, "useQuestionScroll");
+    try {
+      const on = handlers();
+      const next = FOUNDATION_QUESTION_BANK.find((entry) => entry.type === "multiple_choice" && entry.id !== pickOne.id && (entry.options?.length ?? 0) >= 3)!;
+      const placeAnswers = async () => {
+        await fireEvent(screen.getByTestId("assessment-scroll-box"), "layout", layout(800));
+        await fireEvent(screen.getByTestId("assessment-prompt"), "layout", layout(100, 0));
+        await fireEvent(screen.getByTestId("assessment-answers"), "layout", layout(100, 100));
+      };
+      const view = await render(<FoundationAssessmentScreen assessment={stateOf(pickOne)} language="en" selectedAnswer={pickOne.options![1]} {...on} />);
+      await placeAnswers();
+      await view.rerender(<FoundationAssessmentScreen assessment={checkedOf(pickOne, pickOne.options![1])} language="en" selectedAnswer={pickOne.options![1]} {...on} />);
+      await fireEvent(screen.getByTestId("feedback-content"), "layout", layout(600));
+      const ready = () => scrolls.mock.calls.map(([input]) => (input as { ready: boolean }).ready);
+      expect(ready()[ready().length - 1]).toBe(true);
+      // CONTINUE, then CHECK on the next question.
+      await view.rerender(<FoundationAssessmentScreen assessment={stateOf(next)} language="en" selectedAnswer={next.options![0]} {...on} />);
+      await placeAnswers();
+      scrolls.mockClear();
+      await view.rerender(<FoundationAssessmentScreen assessment={checkedOf(next, next.options![0])} language="en" selectedAnswer={next.options![0]} {...on} />);
+      // Not placed (nor its label hidden) until its own sheet tells its height...
+      expect(ready()).not.toContain(true);
+      expect(screen.getByTestId("assessment-label").props.style).not.toMatchObject({ opacity: 0 });
+      // ...and placed once it has.
+      await fireEvent(screen.getByTestId("feedback-content"), "layout", layout(250));
+      expect(ready()[ready().length - 1]).toBe(true);
+    } finally {
+      scrolls.mockRestore();
+    }
+  });
+
   it("still waits for the read where CHECK takes away the steps left to place", async () => {
     const rooms = await roomsAtCheck(order, [order.orderItems![0]]);
     expect(rooms[0]).toBeUndefined();

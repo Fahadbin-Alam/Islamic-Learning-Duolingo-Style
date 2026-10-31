@@ -554,9 +554,31 @@ export function FoundationAssessmentScreen({
   // each answer or row of a game) sit in the scroll content with no space above it, for the places the arrow scrolls it to.
   const [partsIn, setPartsIn] = useState<{ key: string; rows: RowSpan[] } | null>(null);
   const [barHeight, setBarHeight] = useState(0);
-  const [sheetHeight, setSheetHeight] = useState(0);
-  const [sheetFull, setSheetFull] = useState(0);
-  const [sheetLeast, setSheetLeast] = useState(0);
+  // The sheet's heights as it told them, and the CHECK they were told for. Practice keeps one sheet from question to
+  // question, so the heights it told for the question before are not this one's: it tells this one's before the frame
+  // CHECK draws (see FeedbackSheet), and until then none is known, as in lessons (a fresh view each question). Taken
+  // for this question's, the last one's would place it (and hide the topic label, or an answer under the sheet's edge)
+  // for a sheet of another size, and the render after would put that right, what hid then fading back in.
+  const checks = useRef({ locked: false, count: 0 });
+  if (checks.current.locked !== locked) {
+    checks.current = { locked, count: checks.current.count + (locked ? 1 : 0) };
+  }
+  const checkNow = checks.current.count;
+  const [told, setTold] = useState({ check: 0, height: 0, full: 0, least: 0 });
+  const tells = useMemo(() => {
+    const tell = (part: "height" | "full" | "least") => (value: number) => {
+      const check = checks.current.count;
+      setTold((was) => {
+        const base = was.check === check ? was : { check, height: 0, full: 0, least: 0 };
+        return base[part] === value ? base : { ...base, [part]: value };
+      });
+    };
+    return { height: tell("height"), full: tell("full"), least: tell("least") };
+  }, []);
+  const toldNow = told.check === checkNow;
+  const sheetHeight = toldNow ? told.height : 0;
+  const sheetFull = toldNow ? told.full : 0;
+  const sheetLeast = toldNow ? told.least : 0;
   const [answersHeight, setAnswersHeight] = useState(0);
   // The prompt and the topic label are read inside the question, which sits under the space that moves a question too
   // tall for its room down (see useQuestionFit): placed by that space, worked out rather than read (a browser reports a
@@ -579,7 +601,7 @@ export function FoundationAssessmentScreen({
   const [tileMoves, setTileMoves] = useState(0);
   const rootRef = useRef<View>(null);
   // On the web the sheet's new height (its Why line opening) is known before the browser paints it.
-  useSheetHeightNow({ root: rootRef, open: locked, reported: sheetHeight > 0, onHeight: setSheetHeight });
+  useSheetHeightNow({ root: rootRef, open: locked, reported: sheetHeight > 0, onHeight: tells.height });
   const [whyOpened, setWhyOpened] = useState(false);
   // A new question starts with no tile places.
   const boxesFor = useRef(question.id);
@@ -622,9 +644,9 @@ export function FoundationAssessmentScreen({
   // Answers that are tiles stay as they are at CHECK (a tile keeps its size as it turns green, red or grey, and the
   // prompt keeps its own), as do a matching game's rows (each tile's pair number sits over its corner) and a sorting
   // game with every step placed (none is left to place, so the steps to place under the slots were gone already):
-  // their places as read before CHECK are where they are, so the very render CHECK draws places the question, with no
-  // read to wait for and no render more for it. Should a read still find a change, it is set before the frame is drawn,
-  // as for any other.
+  // their places as read before CHECK are where they are, so the very render CHECK draws knows them, with no read to
+  // wait for (the sheet's heights, told before the frame is drawn, then place the question). Should a read still find a
+  // change, it is set before the frame is drawn, as for any other.
   const [readLocked, setReadLocked] = useState<string | undefined>(undefined);
   const readsNow = laidOutHeight(wrapRef.current) !== undefined;
   const keepsPlace =
@@ -1240,9 +1262,9 @@ export function FoundationAssessmentScreen({
         praiseSeed={shownSheet?.seed}
         onContinue={onContinue}
         maxHeight={sheetMaxHeight}
-        onHeight={setSheetHeight}
-        onFullHeight={setSheetFull}
-        onLeastHeight={setSheetLeast}
+        onHeight={tells.height}
+        onFullHeight={tells.full}
+        onLeastHeight={tells.least}
         onWhyToggle={setWhyOpened}
       />
 
