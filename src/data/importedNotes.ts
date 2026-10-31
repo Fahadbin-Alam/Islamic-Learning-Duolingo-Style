@@ -244,13 +244,11 @@ const MAX_UNIT_SIZE = 10;
 const MAX_CHIP_WORDS = 5;
 
 /**
- * Where a surah comes in the Quran path: Al-Fatihah first, then Juz Amma from An-Nas back to An-Naba
- * (114, 113, ... 78), the short surahs children learn first, then the rest in the order of the mushaf.
+ * Where a surah comes in the Quran path: the order of the mushaf, Al-Fatihah, Al-Baqarah, Ali 'Imran... An-Nas,
+ * so the Quran topic reads like the Quran itself (Fahad, 2026-10-31).
  */
 export function surahLearningRank(surah: number) {
-  if (surah === 1) return 0;
-  if (surah >= 78) return 1 + (114 - surah);
-  return 100 + surah;
+  return surah;
 }
 
 // "https://quran.com/18" is a whole surah; "https://quran.com/18/10" is one ayah of it.

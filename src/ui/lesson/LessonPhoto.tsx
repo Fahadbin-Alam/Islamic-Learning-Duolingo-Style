@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Linking, StyleSheet, Text, View } from "react-native";
+import { Image, Linking, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { creditLine, type LessonPicture } from "../../data/lessonPictures";
 import { t } from "../../i18n";
 import { PopIn } from "../PopIn";
@@ -29,15 +29,34 @@ function PhotoCredit({ picture, testID }: { picture: LessonPicture; testID?: str
   );
 }
 
-/** The photo large, with its caption and credit, in a sheet over the lesson. */
+/** Width over height of a bundled photo; 4:3 when it cannot be read. */
+export function photoAspect(picture: LessonPicture) {
+  const size = Image.resolveAssetSource?.(picture.image as number);
+  return size?.width && size?.height ? size.width / size.height : 4 / 3;
+}
+
+/**
+ * How big the sheet shows a photo: the whole photo, nothing cut off, as wide as the sheet allows (up to 600) and
+ * no taller than 62% of the screen, so the caption and Close stay in view.
+ */
+export function photoSheetSize(aspect: number, screenWidth: number, screenHeight: number) {
+  const maxWidth = Math.min(600, Math.max(200, screenWidth - 2 * space.lg));
+  const maxHeight = Math.max(160, screenHeight * 0.62);
+  const width = Math.min(maxWidth, maxHeight * aspect);
+  return { width: Math.round(width), height: Math.round(width / aspect) };
+}
+
+/** The photo large and whole, with its caption and credit, in a sheet over the lesson. */
 export function PhotoSheet({ picture, visible, onClose }: { picture: LessonPicture; visible: boolean; onClose: () => void }) {
+  const { width, height } = useWindowDimensions();
+  const size = photoSheetSize(photoAspect(picture), width || 390, height || 800);
   return (
     <Sheet visible={visible} onClose={onClose} testID="photo-sheet">
       <View style={styles.sheetBody}>
         <Image
           source={picture.image}
-          style={styles.sheetImage}
-          resizeMode="cover"
+          style={[styles.sheetImage, size]}
+          resizeMode="contain"
           accessible
           accessibilityLabel={t(picture.caption)}
           testID="photo-sheet-image"
@@ -113,8 +132,8 @@ const styles = StyleSheet.create({
   },
   photo: {
     width: "100%",
+    // Always 16:9, so the photo is never squeezed into a strip that cuts the place off.
     aspectRatio: 16 / 9,
-    maxHeight: 190,
     borderRadius: radii.lg,
     overflow: "hidden",
     backgroundColor: colors.mist,
@@ -124,9 +143,11 @@ const styles = StyleSheet.create({
   photoShort: {
     maxHeight: 128
   },
+  // Covers the box from its middle, so the place sits in the center of the frame.
   photoImage: {
     width: "100%",
-    height: "100%"
+    height: "100%",
+    alignSelf: "center"
   },
   captionChip: {
     position: "absolute",
@@ -174,9 +195,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch"
   },
   sheetImage: {
-    width: "100%",
-    aspectRatio: 4 / 3,
-    maxHeight: 360,
+    alignSelf: "center",
     borderRadius: radii.lg,
     backgroundColor: colors.mist
   },

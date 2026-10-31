@@ -38,6 +38,10 @@ function addLesson(lesson: Lesson) {
   add("quote", lesson.quote?.text);
   add("source", lesson.quote?.reference);
   add("source", lesson.learnSource?.reference);
+  lesson.learnDeeper?.meaning.forEach((line) => add("lesson", line));
+  add("lesson", lesson.learnDeeper?.story);
+  add("lesson", lesson.learnDeeper?.takeaway);
+  lesson.learnDeeper?.sources.forEach((source) => add("source", source.reference));
   addQuestions(lesson.challenges);
   const practice = lesson.practiceActivities?.find(isPlayablePractice);
   if (practice) {
