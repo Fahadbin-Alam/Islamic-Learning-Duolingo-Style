@@ -38,20 +38,54 @@ export function playGameSound(event: GameSoundEvent, preferences?: SoundPreferen
   }
 
   try {
-    const reduced = Boolean(preferences?.reduced);
-    const key = `${event}${reduced ? "_reduced" : ""}`;
-    let player = players.get(key);
-
-    if (!player) {
-      player = createAudioPlayer(SOUND_FILES[event][reduced ? "reduced" : "full"]);
-      players.set(key, player);
-    }
+    const player = playerFor(event, Boolean(preferences?.reduced));
 
     void player.seekTo(0).catch(() => undefined);
     player.play();
   } catch {
     // Keep sound optional and never block the learning flow.
   }
+}
+
+/** The sounds nearly every screen plays: loaded ahead so their first tap does not wait for the file to open. */
+const COMMON_SOUNDS: GameSoundEvent[] = ["soft_ui", "node_tap", "correct", "wrong", "xp", "whoosh"];
+const PRELOAD_GAP_MS = 120;
+let preloadTimer: ReturnType<typeof setTimeout> | undefined;
+
+function playerFor(event: GameSoundEvent, reduced: boolean) {
+  const key = `${event}${reduced ? "_reduced" : ""}`;
+  let player = players.get(key);
+  if (!player) {
+    player = createAudioPlayer(SOUND_FILES[event][reduced ? "reduced" : "full"]);
+    players.set(key, player);
+  }
+  return player;
+}
+
+/**
+ * Opens the common sounds' players one at a time, a little apart, so no single frame pays for all of them. Without
+ * it the first tap on each button opened its sound file right then, and that tap felt slow (sometimes like it missed).
+ */
+export function preloadGameSounds(preferences?: SoundPreferences) {
+  if (preferences?.enabled === false) {
+    return;
+  }
+  clearTimeout(preloadTimer);
+  const reduced = Boolean(preferences?.reduced);
+  const queue = [...COMMON_SOUNDS];
+  const next = () => {
+    const event = queue.shift();
+    if (!event) {
+      return;
+    }
+    try {
+      playerFor(event, reduced);
+    } catch {
+      // Sound is optional.
+    }
+    preloadTimer = setTimeout(next, PRELOAD_GAP_MS);
+  };
+  preloadTimer = setTimeout(next, PRELOAD_GAP_MS);
 }
 
 export function primeGameAudio(preferences?: SoundPreferences) {

@@ -1,6 +1,6 @@
 export * from "./theme";
 export { useAppFonts } from "./fonts";
-export { configureUiSound, getUiSoundPreferences, playUi, haptic, feedback, type HapticKind } from "./sound";
+export { configureUiSound, getUiSoundPreferences, preloadUiSounds, playUi, haptic, feedback, type HapticKind } from "./sound";
 export { Tappable, type TappableProps } from "./Tappable";
 export { GameButton, type GameButtonProps, type GameButtonVariant, type GameButtonSize } from "./GameButton";
 export { ChoiceTile, type ChoiceTileProps, type ChoiceTileState } from "./ChoiceTile";
