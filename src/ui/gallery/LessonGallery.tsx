@@ -86,6 +86,7 @@ function LearnDemo({ lesson, accent, mascot = "boy", isNewWord }: { lesson: Less
         onPlayAudio={arabic ? noop : undefined}
         learnSource={lesson.learnSource}
         picture={pictureForLesson(lesson)}
+        deeper={lesson.learnDeeper}
         mascotVariant={mascot}
         accent={accent}
         onContinue={noop}
