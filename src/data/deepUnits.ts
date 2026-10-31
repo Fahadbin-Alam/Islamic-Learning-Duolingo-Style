@@ -1,4 +1,8 @@
-import type { Challenge, DifficultyTier, LearningCourse, LearningNode, Lesson, LessonSource, TopicId } from "../types";
+import type { Challenge, DifficultyTier, LearningCourse, LearningNode, Lesson, LessonSource } from "../types";
+import { hadith, quran, type DeepUnit, type Question } from "./deepKit";
+import { EID_SECTION, LIFE_UNITS } from "./lifeUnits";
+import { WOMEN_UNITS } from "./womenUnits";
+export type { DeepUnit } from "./deepKit";
 import { QURAN_AYAHS } from "./quranAyahs";
 import { SCHOLAR_UNITS, SCHOLARS_SECTION } from "./scholarUnits";
 
@@ -7,56 +11,6 @@ import { SCHOLAR_UNITS, SCHOLARS_SECTION } from "./scholarUnits";
 // teaches one card (a line, up to three chips, maybe a quote) and asks only what that card shows, with four
 // choices. Every fact is from one checked Sunni source: a hadith on sunnah.com (number and grade as sunnah.com
 // gives them), the Quran, or Tafsir Ibn Kathir on quran.com. Anything the scholars differ on is left out.
-
-type Question =
-  | { q: string; a: string; wrong: [string, string, string]; why: string }
-  | { q: string; tf: boolean; why: string };
-
-interface DeepLesson {
-  slug: string;
-  title: string;
-  line: string;
-  facts?: string[];
-  quote?: { text: string; reference: string };
-  source: LessonSource;
-  difficulty: DifficultyTier;
-  questions: Question[];
-}
-
-export interface DeepUnit {
-  /** Short key for ids: deep-<key>-<slug>. */
-  key: string;
-  topicId: TopicId;
-  /** The existing unit the deep lessons join, after its own circles. */
-  branchId: string;
-  /** A unit of its own, added to its topic as a new unit at the end (the Muhajirun). */
-  branch?: { title: string; description: string };
-  /** Who or what the unit is about, for the review lines. */
-  name: string;
-  kind: LearningNode["kind"];
-  lessonType: NonNullable<Lesson["lessonType"]>;
-  /** A surah unit's surah, on every lesson and circle. */
-  surahName?: string;
-  lessons: DeepLesson[];
-}
-
-function hadith(book: "bukhari" | "muslim" | "tirmidhi" | "abudawud", number: string, narrator: string, grade: string, summary: string): LessonSource {
-  const names = { bukhari: ["Sahih al-Bukhari", "Imam al-Bukhari"], muslim: ["Sahih Muslim", "Imam Muslim"], tirmidhi: ["Jami at-Tirmidhi", "Imam at-Tirmidhi"], abudawud: ["Sunan Abi Dawud", "Imam Abu Dawud"] };
-  const [collection, collector] = names[book];
-  // "3667, 3668": one hadith sunnah.com shows under two numbers; the link goes to the last one, as the reference ends with it.
-  const linked = number.split(", ").pop();
-  return {
-    id: `deep_${book}_${number.replace(/\W+/g, "_")}`,
-    site: "Sunnah.com",
-    category: "hadith",
-    title: `${collection} ${number}`,
-    url: `https://sunnah.com/${book}:${linked}`,
-    reference: `${collection} ${number}`,
-    from: `${narrator}; collected by ${collector}`,
-    grade,
-    summary
-  };
-}
 
 const SURAH_NAMES: Record<number, string> = { 1: "Al-Fatihah", 67: "Al-Mulk", 103: "Al-'Asr", 112: "Al-Ikhlas", 113: "Al-Falaq", 114: "An-Nas" };
 
@@ -2438,20 +2392,6 @@ const CHILDREN: DeepUnit = {
 
 // The Muhajirun: the companions who left Makkah for Allah's sake. A unit of its own in the Sahabah topic, with
 // no starter circles before it.
-function quran(surah: number, ayahNumber: number, summary: string): LessonSource {
-  return {
-    id: `deep_quran_${surah}_${ayahNumber}`,
-    site: "Quran.com",
-    category: "tafsir",
-    title: `Quran ${surah}:${ayahNumber}`,
-    url: `https://quran.com/${surah}/${ayahNumber}`,
-    reference: `Quran ${surah}:${ayahNumber}`,
-    from: "The Quran, on Quran.com",
-    grade: "Quran",
-    summary
-  };
-}
-
 const MUHAJIRUN: DeepUnit = {
   key: "muhajirun",
   topicId: "sahabah",
@@ -2917,7 +2857,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...SCHOLAR_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -3048,8 +2988,11 @@ export function addSurahDeepUnits(content: { course: LearningCourse; lessonsById
 
 function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]) {
   const lessonsById = { ...content.lessonsById };
-  // A topic made only of deep units (Scholars) starts as an empty section.
-  const all = content.course.sections.some((section) => section.topicId === SCHOLARS_SECTION.topicId) ? content.course.sections : [...content.course.sections, SCHOLARS_SECTION];
+  // A topic made only of deep units (Scholars, Eid) starts as an empty section.
+  const all = [SCHOLARS_SECTION, EID_SECTION].reduce(
+    (sections, empty) => (sections.some((section) => section.topicId === empty.topicId) ? sections : [...sections, empty]),
+    content.course.sections
+  );
   const sections = all.map((topic) => {
     const added = deepUnits.filter((unit) => unit.branch && unit.topicId === topic.topicId && !topic.branches.some((branch) => branch.id === unit.branchId));
     // A new unit goes after the topic's own units, before the ones from the notes.
