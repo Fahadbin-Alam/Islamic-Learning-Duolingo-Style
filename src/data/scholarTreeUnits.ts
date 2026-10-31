@@ -562,8 +562,734 @@ const IBN_MASUD: DeepUnit = {
   ]
 };
 
+// The Tabi'in on the tree: the students of the Sahabah, and their students. Their years are left out where the reports differ.
+
+const ALQAMAH_WAQQAS: DeepUnit = {
+  key: "tree-alqamah-waqqas",
+  topicId: "scholars",
+  branchId: "scholar-alqamah-waqqas",
+  name: "Alqamah ibn Waqqas",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "heard-umar",
+      title: "He heard Umar on the minbar",
+      line: "Alqamah ibn Waqqas heard Umar teach from the minbar.",
+      facts: ["Hadith: actions are by intentions", "It is the first hadith in Sahih al-Bukhari"],
+      source: hadith("bukhari", "1", "Umar ibn al-Khattab", "Alqamah ibn Waqqas heard Umar say on the minbar: I heard the Messenger of Allah ﷺ say, actions are only by intentions."),
+      difficulty: 1,
+      questions: [
+        { q: "Who did Alqamah ibn Waqqas hear on the minbar?", a: "Umar ibn al-Khattab", wrong: [...LATER], why: "Umar told the people a hadith from the Prophet ﷺ." },
+        { q: "Which hadith did he hear from Umar?", a: "Actions are by intentions", wrong: ["Smiling is charity", "Cleanliness is half of faith", "The strong man controls his anger"], why: "It opens Sahih al-Bukhari." },
+        { q: "Alqamah ibn Waqqas was a student of the Sahabah.", tf: true, why: "He was a Tabi'i who heard Umar himself." }
+      ]
+    },
+    {
+      slug: "scholar-of-madinah",
+      title: "A scholar of Madinah",
+      line: "Alqamah ibn Waqqas was one of the scholars of Madinah.",
+      facts: ["He learned from Umar, Aishah and Ibn Umar", "He did not narrate many hadith"],
+      source: siyar(4, 61, "Alqamah ibn Waqqas al-Laythi, one of the scholars of Madinah. He narrated from Umar, Aishah, Ibn Umar and others, and did not narrate many hadith."),
+      difficulty: 2,
+      questions: [
+        { q: "In which city was Alqamah ibn Waqqas a scholar?", a: "Madinah", wrong: ["Kufa", "Baghdad", "Cairo"], why: "He is counted among the scholars of Madinah." },
+        { q: "Which of these did he learn from?", a: "Aishah", wrong: [...LATER], why: "He narrated from Umar, Aishah and Ibn Umar." },
+        { q: "Alqamah ibn Waqqas narrated thousands of hadith.", tf: false, why: "Adh-Dhahabi says he did not narrate many." }
+      ]
+    },
+    {
+      slug: "trusted",
+      title: "Trusted by the experts",
+      line: "Hadith experts called Alqamah ibn Waqqas thiqah: trustworthy.",
+      facts: ["Ibn Sa'd and an-Nasa'i said it", "His hadith are in all six books"],
+      source: siyar(4, 61, "Ibn Sa'd and an-Nasa'i said: thiqah (trustworthy). His hadith are in all six books of hadith."),
+      difficulty: 3,
+      questions: [
+        { q: "What does thiqah mean?", a: "Trustworthy", wrong: ["Weak", "Unknown", "Forgetful"], why: "It is praise for a narrator who is honest and precise." },
+        { q: "Where are his hadith found?", a: "In all six books of hadith", wrong: ["In no books", "Only in poems", "Only in history books"], why: "Al-Bukhari, Muslim, Abu Dawud, at-Tirmidhi, an-Nasa'i and Ibn Majah." },
+        { q: "A narrator can be trusted even if he narrated only a few hadith.", tf: true, why: "Alqamah narrated few, and was called trustworthy." }
+      ]
+    },
+    {
+      slug: "his-students",
+      title: "His students",
+      line: "Az-Zuhri and Muhammad at-Taymi learned from Alqamah.",
+      facts: ["At-Taymi passed on 'actions are by intentions'", "Both are on the tree"],
+      source: siyar(4, 61, "Among those who narrated from Alqamah ibn Waqqas: his son Abdullah, Ibn Shihab az-Zuhri and Muhammad ibn Ibrahim at-Taymi."),
+      difficulty: 4,
+      questions: [
+        { q: "Which student passed on Umar's hadith of intentions from him?", a: "Muhammad at-Taymi", wrong: [...LATER], why: "Umar, then Alqamah, then at-Taymi." },
+        { q: "Which great scholar of Madinah also learned from him?", a: "Az-Zuhri", wrong: ["Abu Jahl", "Musaylimah", "Abu Lahab"], why: "Az-Zuhri later taught Imam Malik." },
+        { q: "Put the chain in order, from the top.", a: "Umar, Alqamah, at-Taymi", wrong: ["At-Taymi, Alqamah, Umar", "Alqamah, Umar, at-Taymi", "Umar, at-Taymi, Alqamah"], why: "A teacher comes before his student." }
+      ]
+    }
+  ]
+};
+
+const URWAH: DeepUnit = {
+  key: "tree-urwah",
+  topicId: "scholars",
+  branchId: "scholar-urwah",
+  name: "Urwah ibn az-Zubayr",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "aishahs-nephew",
+      title: "Aishah's nephew",
+      line: "Urwah stayed close to his aunt Aishah and learned fiqh from her.",
+      facts: ["His mother: Asma, daughter of Abu Bakr", "His father: az-Zubayr ibn al-Awwam"],
+      source: siyar(4, 421, "Urwah, son of az-Zubayr and of Asma daughter of Abu Bakr, one of the seven fuqaha of Madinah. He kept close to his aunt Aishah and learned fiqh from her."),
+      difficulty: 1,
+      questions: [
+        { q: "Who was Urwah's aunt and teacher?", a: "Aishah", wrong: ["Khadijah", "Fatimah", "Maryam"], why: "His mother Asma was Aishah's sister." },
+        { q: "Who was Urwah's mother?", a: "Asma, daughter of Abu Bakr", wrong: ["Aishah", "Fatimah", "Hafsah"], why: "Asma was Aishah's older sister." },
+        { q: "Urwah was one of the seven fuqaha of Madinah.", tf: true, why: "The seven great scholars of fiqh there." }
+      ]
+    },
+    {
+      slug: "his-students",
+      title: "His students",
+      line: "Az-Zuhri and Urwah's son Hisham learned from him.",
+      facts: ["Abu az-Zinad too", "Az-Zuhri later taught Imam Malik"],
+      source: siyar(4, 422, "Among those who narrated from Urwah: his son Hisham, Ibn Shihab az-Zuhri and Abu az-Zinad."),
+      difficulty: 2,
+      questions: [
+        { q: "Which of these was Urwah's student?", a: "His son Hisham", wrong: ["Aishah", "Asma", "Umar ibn al-Khattab"], why: "The others were older, from the Sahabah." },
+        { q: "Which of his students taught Imam Malik?", a: "Az-Zuhri", wrong: [...LATER], why: "Aishah, Urwah, az-Zuhri, Malik: a chain on the tree." },
+        { q: "Urwah's own son Hisham learned from him.", tf: true, why: "Hisham ibn Urwah became a scholar too." }
+      ]
+    },
+    {
+      slug: "every-hadith",
+      title: "Every hadith she had",
+      line: "Urwah made sure he had every hadith Aishah narrated.",
+      facts: ["He told young people: learn now", "He sat at Sahabah's doors to ask them"],
+      source: siyar(4, 424, "Urwah told the young: learn, for you are the young of a people and will be their elders. He said he made sure he had every hadith of Aishah, and would go to a companion's door to ask him."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Urwah tell young people?", a: "Learn now, you will be the elders", wrong: ["Play now, learn later", "Only old people should learn", "Do not ask questions"], why: "Today's young are tomorrow's teachers." },
+        { q: "How did Urwah learn from the Sahabah?", a: "He went to their doors to ask them", wrong: ["He waited for letters", "He read it in newspapers", "He never asked anyone"], why: "Students went to the teachers." },
+        { q: "Urwah tried to collect every hadith Aishah had.", tf: true, why: "He made sure none of hers was missing." }
+      ]
+    },
+    {
+      slug: "a-sea",
+      title: "A sea of knowledge",
+      line: "Az-Zuhri: Urwah is a sea that buckets cannot make muddy.",
+      facts: ["So much knowledge it never ran low", "Umar ibn Abd al-Aziz praised him too"],
+      source: siyar(4, 425, "Az-Zuhri said: I found Urwah a sea that the buckets do not make muddy. Umar ibn Abd al-Aziz said none was more knowledgeable than Urwah."),
+      difficulty: 4,
+      questions: [
+        { q: "What did az-Zuhri compare Urwah to?", a: "A sea that buckets cannot muddy", wrong: ["A small well", "A dry river", "A cup of water"], why: "Take as much as you like, and it stays clear and full." },
+        { q: "Which ruler, known for justice, praised Urwah?", a: "Umar ibn Abd al-Aziz", wrong: ["Fir'awn", "Abu Jahl", "Namrud"], why: "He said none was more knowledgeable." },
+        { q: "Az-Zuhri, who praised him, was his student.", tf: true, why: "Students know their teacher best." }
+      ]
+    },
+    {
+      slug: "patience",
+      title: "His patience",
+      line: "When Urwah lost his leg, he thanked Allah for what remained.",
+      facts: ["He said: You took, but You left", "He kept his Quran reading that night"],
+      source: siyar(4, 430, "When Urwah's leg was cut off, he said: O Allah, if You took, You have left; and if You tested, You have kept well. He did not leave his part of the Quran that night."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Urwah say when he lost his leg?", a: "You took, but You left me much", wrong: ["Why me?", "I give up", "Nothing is left"], why: "He looked at what Allah had left him." },
+        { q: "What does Urwah's story teach?", a: "Patience and thanks in hard times", wrong: ["Complain loudly", "Stop worshipping", "Blame others"], why: "A scholar lives by what he knows." },
+        { q: "Urwah's test made him stop his worship.", tf: false, why: "He kept up his Quran and thanked Allah." }
+      ]
+    }
+  ]
+};
+
+const NAFI: DeepUnit = {
+  key: "tree-nafi",
+  topicId: "scholars",
+  branchId: "scholar-nafi",
+  name: "Nafi",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "ibn-umars-man",
+      title: "With Ibn Umar",
+      line: "Nafi was freed by Ibn Umar, and learned from him.",
+      facts: ["Mawla: a freed man, tied to the family", "Mufti and scholar of Madinah"],
+      source: siyar(5, 95, "Nafi, the mawla of Ibn Umar, the mufti and scholar of Madinah. He narrated from Ibn Umar, Aishah, Abu Hurayrah and others."),
+      difficulty: 1,
+      questions: [
+        { q: "Which Sahabi was Nafi's teacher?", a: "Abdullah ibn Umar", wrong: [...LATER], why: "Nafi was his freed man and student." },
+        { q: "Nafi became the mufti of which city?", a: "Madinah", wrong: ["Kufa", "Baghdad", "Cairo"], why: "Mufti: a scholar who answers questions on the religion." },
+        { q: "A freed man could become a great scholar.", tf: true, why: "Nafi became the mufti of Madinah." }
+      ]
+    },
+    {
+      slug: "golden-chain",
+      title: "The soundest chain",
+      line: "Al-Bukhari: the soundest chain is Malik, Nafi, Ibn Umar.",
+      facts: ["Chain: who heard it from whom", "Nafi links Malik to Ibn Umar"],
+      source: siyar(5, 97, "Al-Bukhari said: the soundest of chains is Malik, from Nafi, from Ibn Umar."),
+      difficulty: 2,
+      questions: [
+        { q: "Al-Bukhari called which chain the soundest?", a: "Malik, from Nafi, from Ibn Umar", wrong: ["Ibn Baz, from Ibn Taymiyyah", "Abu Jahl, from Abu Lahab", "Nafi, from Imam al-Bukhari"], why: "Each one in it was very precise." },
+        { q: "Who is in the middle of this chain?", a: "Nafi", wrong: ["Imam al-Bukhari", "Ibn Taymiyyah", "Ibn Baz"], why: "Malik heard from Nafi, and Nafi from Ibn Umar." },
+        { q: "Imam Malik learned from Nafi.", tf: true, why: "Malik came to him as a youth." }
+      ]
+    },
+    {
+      slug: "twenty-seven",
+      title: "A hadith through Nafi",
+      line: "Prayer in congregation is 27 times better than praying alone.",
+      facts: ["Ibn Umar heard it from the Prophet ﷺ", "Then Nafi, then Malik"],
+      source: hadith("muslim", "650a", "Malik, from Nafi, from Ibn Umar", "The Messenger of Allah ﷺ said: prayer in congregation is twenty-seven degrees better than prayer alone."),
+      difficulty: 3,
+      questions: [
+        { q: "How much better is prayer in congregation?", a: "27 degrees", wrong: ["2 degrees", "7 degrees", "100 degrees"], why: "The Prophet ﷺ said so, and Nafi passed it on." },
+        { q: "Who passed this hadith from Ibn Umar to Malik?", a: "Nafi", wrong: [...LATER], why: "Ibn Umar, then Nafi, then Malik." },
+        { q: "Praying together has more reward than praying alone.", tf: true, why: "Twenty-seven degrees more." }
+      ]
+    },
+    {
+      slug: "sent-to-egypt",
+      title: "Sent to teach",
+      line: "Umar ibn Abd al-Aziz sent Nafi to Egypt to teach the sunnah.",
+      facts: ["He made Hajj and Umrah with Ibn Umar 30-some times", "Malik came to learn from him as a youth"],
+      source: siyar(5, 97, "Nafi went on Hajj and Umrah with Ibn Umar thirty-some times. Umar ibn Abd al-Aziz sent him to Egypt to teach the people the sunnah."),
+      difficulty: 4,
+      questions: [
+        { q: "Where was Nafi sent to teach the sunnah?", a: "Egypt", wrong: ["India", "China", "Spain"], why: "Umar ibn Abd al-Aziz sent him." },
+        { q: "About how many times did Nafi do Hajj and Umrah with Ibn Umar?", a: "Thirty-some", wrong: ["Once", "Three", "Three hundred"], why: "He was always beside his teacher." },
+        { q: "Nafi learned by travelling with his teacher.", tf: true, why: "Years beside Ibn Umar, on Hajj and Umrah." }
+      ]
+    },
+    {
+      slug: "seal-it",
+      title: "Seal it",
+      line: "Malik: when Nafi says something, seal it.",
+      facts: ["Seal it: it is certain, no need to check", "Ibn Khirash: trustworthy, noble"],
+      source: siyar(5, 98, "Malik said: when Nafi says something, put a seal on it. Abd ar-Rahman ibn Khirash said: Nafi is trustworthy and noble."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Malik say about Nafi's words?", a: "Seal it", wrong: ["Check it ten times", "Throw it away", "Ask someone else"], why: "He trusted Nafi completely." },
+        { q: "What makes a narrator trusted?", a: "Honesty and precision", wrong: ["Wealth", "Height", "A loud voice"], why: "Nafi had both." },
+        { q: "Malik thought Nafi's words needed checking with others.", tf: false, why: "He said: seal it." }
+      ]
+    }
+  ]
+};
+
+const ATA: DeepUnit = {
+  key: "tree-ata",
+  topicId: "scholars",
+  branchId: "scholar-ata",
+  name: "Ata ibn Abi Rabah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "mufti-of-makkah",
+      title: "The mufti of Makkah",
+      line: "Ata ibn Abi Rabah was the mufti of the Haram in Makkah.",
+      facts: ["He learned from Aishah, Ibn Abbas and Abu Hurayrah", "Abu Hanifah learned from him"],
+      source: siyar(5, 79, "Ata was born in the caliphate of Uthman. He narrated from Aishah, Ibn Abbas, Abu Hurayrah and others, and Abu Hanifah was among those who learned from him."),
+      difficulty: 1,
+      questions: [
+        { q: "Where did Ata give fatwa?", a: "At the Haram in Makkah", wrong: ["In Baghdad", "In Cairo", "In Damascus"], why: "He was the mufti of the Haram." },
+        { q: "Which of the four imams learned from Ata?", a: "Abu Hanifah", wrong: ["Imam Ahmad", "Ash-Shafi'i", "None of them"], why: "Ata was his greatest teacher." },
+        { q: "Ata learned from Sahabah like Ibn Abbas and Aishah.", tf: true, why: "He was a Tabi'i." }
+      ]
+    },
+    {
+      slug: "looks-dont-matter",
+      title: "Knowledge, not looks",
+      line: "Ata was dark, lame and later blind, yet led Makkah in knowledge.",
+      facts: ["Later he lost his sight", "Trustworthy, with much hadith"],
+      source: siyar(5, 80, "The fatwa of Makkah came to rest with Ata. He was black, lame and weak in one hand, and later went blind, yet he led the people of Makkah in knowledge."),
+      difficulty: 2,
+      questions: [
+        { q: "What made Ata great?", a: "His knowledge and taqwa", wrong: ["His looks", "His money", "His tribe"], why: "Allah raises people by knowledge and faith." },
+        { q: "What happened to Ata's sight later?", a: "He went blind", wrong: ["It got better", "Nothing", "He wore glasses"], why: "And he kept teaching." },
+        { q: "Ata's looks kept him from leading in knowledge.", tf: false, why: "He became the mufti of Makkah." }
+      ]
+    },
+    {
+      slug: "two-hundred",
+      title: "Two hundred Sahabah",
+      line: "Ata met about two hundred of the Sahabah.",
+      facts: ["None knew the Hajj rites better", "Abu Ja'far al-Baqir said so"],
+      source: siyar(5, 81, "Ata said: I met two hundred of the companions of the Messenger of Allah ﷺ. Abu Ja'far said: none was left on earth who knew the rites of Hajj better than Ata."),
+      difficulty: 3,
+      questions: [
+        { q: "About how many Sahabah did Ata meet?", a: "200", wrong: ["2", "20", "2,000"], why: "He said he met two hundred." },
+        { q: "What did Ata know better than anyone of his time?", a: "The rites of Hajj", wrong: ["Sailing ships", "Building forts", "Trading horses"], why: "He was the mufti of the Haram." },
+        { q: "Ata learned from many of the Sahabah.", tf: true, why: "He met about two hundred of them." }
+      ]
+    },
+    {
+      slug: "no-fatwa-but-ata",
+      title: "Only Ata gives fatwa",
+      line: "At Hajj it was called out: no one gives fatwa but Ata.",
+      facts: ["He made Hajj more than 70 times", "Called out by the rulers of the time"],
+      source: siyar(5, 82, "In the days of Hajj a caller would announce: no one gives fatwa to the people but Ata. He made Hajj more than seventy times."),
+      difficulty: 4,
+      questions: [
+        { q: "What was called out at Hajj?", a: "No one gives fatwa but Ata", wrong: ["No one may pray", "Leave Makkah now", "Only buy from Ata"], why: "So pilgrims got answers from the best scholar." },
+        { q: "About how many times did Ata make Hajj?", a: "More than 70", wrong: ["Once", "Seven", "More than 700"], why: "He lived in Makkah." },
+        { q: "Pilgrims were told to take fatwa from Ata.", tf: true, why: "He knew the Hajj best." }
+      ]
+    },
+    {
+      slug: "abu-hanifahs-praise",
+      title: "Abu Hanifah's teacher",
+      line: "Abu Hanifah: I never saw anyone better than Ata.",
+      facts: ["Abu Hanifah met many scholars", "Ata stood above them all for him"],
+      source: siyar(5, 83, "Abu Hanifah said: of all I met, I never saw anyone better than Ata ibn Abi Rabah."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Abu Hanifah say about Ata?", a: "I never saw anyone better", wrong: ["He was too strict", "He knew nothing", "I never met him"], why: "Ata was his greatest teacher." },
+        { q: "Put the chain in order, from the top.", a: "Ibn Abbas, Ata, Abu Hanifah", wrong: ["Abu Hanifah, Ata, Ibn Abbas", "Ata, Ibn Abbas, Abu Hanifah", "Ibn Abbas, Abu Hanifah, Ata"], why: "A teacher comes before his student." },
+        { q: "Abu Hanifah is linked to Ibn Abbas through Ata.", tf: true, why: "Ibn Abbas taught Ata, and Ata taught Abu Hanifah." }
+      ]
+    }
+  ]
+};
+
+const ALQAMAH_QAYS: DeepUnit = {
+  key: "tree-alqamah-qays",
+  topicId: "scholars",
+  branchId: "scholar-alqamah-qays",
+  name: "Alqamah ibn Qays",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "faqih-of-kufa",
+      title: "The faqih of Kufa",
+      line: "Alqamah ibn Qays was the faqih and Quran reciter of Kufa.",
+      facts: ["Born in the Prophet's ﷺ lifetime", "Uncle of Ibrahim an-Nakha'i"],
+      source: siyar(4, 53, "Alqamah ibn Qays, the faqih of Kufa, its scholar and its reciter. He was born in the lifetime of the Prophet ﷺ, and was the maternal uncle of Ibrahim an-Nakha'i."),
+      difficulty: 1,
+      questions: [
+        { q: "In which city was Alqamah ibn Qays the faqih?", a: "Kufa", wrong: ["Madinah", "Makkah", "Cairo"], why: "He was its scholar and reciter." },
+        { q: "Which scholar was his nephew?", a: "Ibrahim an-Nakha'i", wrong: [...LATER], why: "Adh-Dhahabi calls Alqamah his uncle." },
+        { q: "Alqamah was born in the lifetime of the Prophet ﷺ.", tf: true, why: "But he did not meet him, so he is a Tabi'i." }
+      ]
+    },
+    {
+      slug: "with-ibn-masud",
+      title: "Ibn Mas'ud's student",
+      line: "Alqamah stayed with Ibn Mas'ud and perfected the Quran with him.",
+      facts: ["He also learned from Umar, Uthman, Ali and Aishah", "He became like his teacher"],
+      source: siyar(4, 54, "Alqamah kept close to Ibn Mas'ud until he led in knowledge, and perfected the Quran with him. He narrated from Umar, Uthman, Ali, Aishah and others."),
+      difficulty: 2,
+      questions: [
+        { q: "Who was Alqamah's main teacher?", a: "Abdullah ibn Mas'ud", wrong: [...LATER], why: "He stayed with him until he led in knowledge." },
+        { q: "What did he perfect with Ibn Mas'ud?", a: "The Quran", wrong: ["Poetry", "Trade", "Archery"], why: "Ibn Mas'ud was a master of the Quran." },
+        { q: "Alqamah learned from only one Sahabi.", tf: false, why: "Also Umar, Uthman, Ali, Aishah and more." }
+      ]
+    },
+    {
+      slug: "like-paper",
+      title: "Like reading from paper",
+      line: "Alqamah: what I learned young, I still see as if on paper.",
+      facts: ["Learn while young", "Imam Ahmad: trustworthy, of the good people"],
+      source: siyar(4, 55, "Alqamah said: what I memorized when young, it is as if I look at it on a sheet of paper. Ahmad ibn Hanbal said: Alqamah is trustworthy, one of the people of good."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Alqamah say about what he learned young?", a: "It stayed like writing on paper", wrong: ["He forgot it all", "It was useless", "He never learned young"], why: "Learning young stays with you." },
+        { q: "What did Imam Ahmad call Alqamah?", a: "Trustworthy, one of the good", wrong: ["Weak", "Unknown", "Forgetful"], why: "High praise from a great imam." },
+        { q: "What you learn young can stay with you for life.", tf: true, why: "Alqamah saw it in himself." }
+      ]
+    },
+    {
+      slug: "if-you-see-alqamah",
+      title: "Like seeing Abdullah",
+      line: "Seeing Alqamah was nearly like seeing Ibn Mas'ud.",
+      facts: ["Abdullah: Ibn Mas'ud", "And Ibrahim was most like Alqamah"],
+      source: siyar(4, 55, "If you see Alqamah, it does not harm you not to see Abdullah: he is the most like him in manner and guidance. And if you see Ibrahim an-Nakha'i, it does not harm you not to see Alqamah."),
+      difficulty: 4,
+      questions: [
+        { q: "Why was seeing Alqamah like seeing Ibn Mas'ud?", a: "He was most like him in manner", wrong: ["They were twins", "He wore his clothes", "He lived in his house"], why: "He took his teacher's way." },
+        { q: "And who was most like Alqamah?", a: "Ibrahim an-Nakha'i", wrong: [...LATER], why: "Ibn Mas'ud, Alqamah, Ibrahim: each like his teacher." },
+        { q: "A student can carry on his teacher's way.", tf: true, why: "Alqamah carried Ibn Mas'ud's." }
+      ]
+    },
+    {
+      slug: "humble",
+      title: "He disliked fame",
+      line: "Alqamah disliked crowds following him for fame.",
+      facts: ["He wanted no fame", "He read the whole Quran in five days"],
+      source: siyar(4, 59, "Alqamah disliked that people walk behind him and say: this is Alqamah."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Alqamah dislike?", a: "People following him for fame", wrong: ["Teaching", "Reading Quran", "Giving charity"], why: "He wanted his deeds for Allah alone." },
+        { q: "What does this teach a student?", a: "Humility, not showing off", wrong: ["Seek fame", "Boast of knowledge", "Look down on others"], why: "Knowledge should make you humble." },
+        { q: "Alqamah enjoyed being famous.", tf: false, why: "He disliked it." }
+      ]
+    }
+  ]
+};
+
+const TAYMI: DeepUnit = {
+  key: "tree-taymi",
+  topicId: "scholars",
+  branchId: "scholar-taymi",
+  name: "Muhammad at-Taymi",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "scholar-of-madinah",
+      title: "A scholar of Madinah",
+      line: "Muhammad at-Taymi was a scholar of Madinah, with Salim and Nafi.",
+      facts: ["His grandfather was a Muhajir", "He saw Sa'd ibn Abi Waqqas"],
+      source: siyar(5, 294, "Muhammad ibn Ibrahim at-Taymi, the hafiz, one of the scholars of Madinah along with Salim and Nafi. His grandfather al-Harith was a Muhajir, a cousin of Abu Bakr. He saw Sa'd ibn Abi Waqqas."),
+      difficulty: 1,
+      questions: [
+        { q: "In which city was at-Taymi a scholar?", a: "Madinah", wrong: ["Kufa", "Basra", "Makkah"], why: "Alongside Salim and Nafi." },
+        { q: "Which Sahabi did he see?", a: "Sa'd ibn Abi Waqqas", wrong: [...LATER], why: "He was a Tabi'i." },
+        { q: "His grandfather made the Hijrah.", tf: true, why: "Al-Harith was one of the Muhajirun." }
+      ]
+    },
+    {
+      slug: "his-teachers",
+      title: "His teachers",
+      line: "At-Taymi learned from Ibn Umar, Jabir, Anas and Alqamah.",
+      facts: ["Also from Abu Sa'id al-Khudri", "Yahya al-Ansari learned from him"],
+      source: siyar(5, 294, "He narrated from Ibn Umar, Abu Sa'id, Jabir, Anas and Alqamah ibn Waqqas. Yahya ibn Sa'id al-Ansari, Hisham ibn Urwah, az-Zuhri and al-Awza'i narrated from him."),
+      difficulty: 2,
+      questions: [
+        { q: "Which Tabi'i on the tree taught at-Taymi?", a: "Alqamah ibn Waqqas", wrong: [...LATER], why: "Alqamah had heard Umar." },
+        { q: "Which of his students is on the tree?", a: "Yahya ibn Sa'id al-Ansari", wrong: ["Imam al-Bukhari", "Ibn Taymiyyah", "Ibn Baz"], why: "Yahya then taught Sufyan." },
+        { q: "At-Taymi learned from Sahabah and from Tabi'in.", tf: true, why: "Ibn Umar and Anas, and also Alqamah." }
+      ]
+    },
+    {
+      slug: "intentions",
+      title: "The hadith of intentions",
+      line: "At-Taymi alone passed on the intentions hadith from Alqamah.",
+      facts: ["Umar, then Alqamah, then at-Taymi", "The Sahih books accepted it"],
+      source: siyar(5, 295, "The hadith 'actions are by intentions' is his alone: he narrated it from Alqamah, from Umar, and the authors of the Sahih collections accepted it."),
+      difficulty: 3,
+      questions: [
+        { q: "Which famous hadith came through at-Taymi?", a: "Actions are by intentions", wrong: ["Smiling is charity", "Cleanliness is half of faith", "The strong man controls his anger"], why: "Umar, Alqamah, at-Taymi, then Yahya." },
+        { q: "Who did at-Taymi hear it from?", a: "Alqamah ibn Waqqas", wrong: ["Imam al-Bukhari", "Ibn Taymiyyah", "Ibn Baz"], why: "And Alqamah heard Umar." },
+        { q: "The authors of the Sahih books accepted this hadith.", tf: true, why: "Al-Bukhari put it first in his Sahih." }
+      ]
+    },
+    {
+      slug: "one-chain",
+      title: "One link at a time",
+      line: "One trusted link at a time, the hadith reached al-Bukhari.",
+      facts: ["Yahya, Sufyan and al-Humaydi came after", "Each heard it from the one before"],
+      source: hadith("bukhari", "1", "Umar ibn al-Khattab", "Al-Bukhari's first hadith comes through al-Humaydi, Sufyan, Yahya ibn Sa'id, Muhammad ibn Ibrahim at-Taymi, Alqamah ibn Waqqas, and Umar, from the Prophet ﷺ."),
+      difficulty: 4,
+      questions: [
+        { q: "Who heard the hadith of intentions from at-Taymi?", a: "Yahya ibn Sa'id al-Ansari", wrong: ["Umar", "Alqamah ibn Waqqas", "Imam al-Bukhari"], why: "Umar and Alqamah came before him; al-Bukhari much later." },
+        { q: "Put the chain in order, from the top.", a: "Alqamah, at-Taymi, Yahya", wrong: ["Yahya, at-Taymi, Alqamah", "At-Taymi, Alqamah, Yahya", "Alqamah, Yahya, at-Taymi"], why: "A teacher comes before his student." },
+        { q: "If one link in a chain is weak, the whole chain is weakened.", tf: true, why: "That is why every link was checked." }
+      ]
+    }
+  ]
+};
+
+const ZUHRI: DeepUnit = {
+  key: "tree-zuhri",
+  topicId: "scholars",
+  branchId: "scholar-zuhri",
+  name: "Az-Zuhri",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "imam-of-his-time",
+      title: "Imam of his time",
+      line: "Ibn Shihab az-Zuhri was the great hadith master of his time.",
+      facts: ["Hafiz: one who memorizes a great deal of hadith", "From Madinah"],
+      source: siyar(5, 326, "Muhammad ibn Muslim ibn Shihab az-Zuhri, the imam, the scholar, the hafiz of his time."),
+      difficulty: 1,
+      questions: [
+        { q: "What is a hafiz of hadith?", a: "One who memorizes much hadith", wrong: ["A guard at a gate", "A fast runner", "A ship captain"], why: "Az-Zuhri was the hafiz of his time." },
+        { q: "Az-Zuhri is also called...", a: "Ibn Shihab", wrong: ["Ibn Baz", "Ibn Taymiyyah", "Ibn Kathir"], why: "After his ancestor Shihab." },
+        { q: "Az-Zuhri was a Tabi'i.", tf: true, why: "He learned from the Sahabah and their students." }
+      ]
+    },
+    {
+      slug: "his-teachers",
+      title: "Eight years with Sa'id",
+      line: "Az-Zuhri sat with Sa'id ibn al-Musayyab for eight years.",
+      facts: ["He also learned from Urwah", "And from Alqamah ibn Waqqas"],
+      source: siyar(5, 327, "Az-Zuhri sat with Sa'id ibn al-Musayyab for eight years and learned fiqh from him. He also learned from Alqamah ibn Waqqas and Urwah ibn az-Zubayr."),
+      difficulty: 2,
+      questions: [
+        { q: "How long did az-Zuhri sit with Sa'id ibn al-Musayyab?", a: "Eight years", wrong: ["Eight days", "Eight weeks", "Eight minutes"], why: "He learned fiqh from him." },
+        { q: "Which Tabi'i on the tree taught him Aishah's hadith?", a: "Urwah ibn az-Zubayr", wrong: [...LATER], why: "Aishah, Urwah, az-Zuhri." },
+        { q: "Az-Zuhri learned from just one teacher.", tf: false, why: "Sa'id, Urwah, Alqamah and many more." }
+      ]
+    },
+    {
+      slug: "never-forgot",
+      title: "He never forgot",
+      line: "Az-Zuhri: I never trusted my heart with knowledge and it forgot.",
+      facts: ["He memorized the Quran in 80 nights", "He wrote everything on tablets too"],
+      source: siyar(5, 332, "Az-Zuhri said: I never entrusted my heart with knowledge and then forgot it. He memorized the Quran in eighty nights."),
+      difficulty: 3,
+      questions: [
+        { q: "In how many nights did az-Zuhri memorize the Quran?", a: "80", wrong: ["8", "800", "8,000"], why: "About two and a half months." },
+        { q: "What did he say about his memory?", a: "He never forgot what he learned", wrong: ["He forgot everything", "He could not memorize", "He only remembered poems"], why: "Allah gave him a strong memory." },
+        { q: "Az-Zuhri memorized the Quran.", tf: true, why: "In eighty nights." }
+      ]
+    },
+    {
+      slug: "his-students",
+      title: "His students",
+      line: "Malik, al-Layth and Sufyan learned from az-Zuhri.",
+      facts: ["About 2,000 hadith, said Ibn al-Madini", "Abu Dawud: about 2,200"],
+      source: siyar(5, 328, "Among those who narrated from him: Malik, al-Layth and Sufyan ibn Uyaynah. Ali ibn al-Madini said he had about two thousand hadith; Abu Dawud said two thousand two hundred."),
+      difficulty: 4,
+      questions: [
+        { q: "Which of the four imams learned from az-Zuhri?", a: "Imam Malik", wrong: ["Imam Ahmad", "Ash-Shafi'i", "None of them"], why: "Aishah, Urwah, az-Zuhri, Malik." },
+        { q: "About how many hadith did az-Zuhri have, said Ibn al-Madini?", a: "2,000", wrong: ["20", "200", "200,000"], why: "A great store of hadith." },
+        { q: "Sufyan ibn Uyaynah, on the tree, learned from az-Zuhri.", tf: true, why: "Sufyan later taught al-Humaydi." }
+      ]
+    },
+    {
+      slug: "who-you-take-from",
+      title: "Whom you learn from",
+      line: "Malik: this knowledge is religion, so choose your teachers.",
+      facts: ["Malik left 70 who were honest but not experts", "Students crowded at az-Zuhri's door"],
+      source: siyar(5, 343, "Malik said: this knowledge is religion, so look at whom you take it from. I met seventy in the masjid who narrated, honest enough to guard a treasury, yet took nothing from them, as they were not experts in it; and when az-Zuhri came, we crowded at his door."),
+      difficulty: 5,
+      questions: [
+        { q: "Malik said: this knowledge is religion, so...", a: "look whom you take it from", wrong: ["take it from anyone", "do not learn it", "only read it alone"], why: "Learn from trusted, upright scholars." },
+        { q: "Why did Malik not take from seventy honest men?", a: "They were not experts in hadith", wrong: ["They were liars", "They lived far away", "They were too young"], why: "Honesty alone is not enough; precision is needed too." },
+        { q: "Whom you learn the religion from does not matter.", tf: false, why: "Malik said to look carefully." }
+      ]
+    }
+  ]
+};
+
+const NAKHAI: DeepUnit = {
+  key: "tree-nakhai",
+  topicId: "scholars",
+  branchId: "scholar-nakhai",
+  name: "Ibrahim an-Nakha'i",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "faqih-of-iraq",
+      title: "The faqih of Iraq",
+      line: "Ibrahim an-Nakha'i was the faqih of Iraq, in Kufa.",
+      facts: ["He learned from Alqamah and Masruq", "And from his uncle al-Aswad"],
+      source: siyar(4, 520, "Ibrahim an-Nakha'i, the imam, the hafiz, the faqih of Iraq. He narrated from his uncle al-Aswad, Masruq, Alqamah ibn Qays and many senior Tabi'in."),
+      difficulty: 1,
+      questions: [
+        { q: "Ibrahim an-Nakha'i was the faqih of which land?", a: "Iraq", wrong: ["Egypt", "Yemen", "Sham"], why: "He lived in Kufa." },
+        { q: "Which student of Ibn Mas'ud taught him?", a: "Alqamah ibn Qays", wrong: [...LATER], why: "Ibn Mas'ud, Alqamah, Ibrahim." },
+        { q: "Ibrahim learned from senior Tabi'in.", tf: true, why: "Alqamah, Masruq, al-Aswad and many more." }
+      ]
+    },
+    {
+      slug: "ibn-masuds-knowledge",
+      title: "Ibn Mas'ud's knowledge",
+      line: "Through Alqamah, Ibrahim held the knowledge of Ibn Mas'ud.",
+      facts: ["Mufti of Kufa, with ash-Sha'bi", "As a boy he went in to see Aishah"],
+      source: siyar(4, 521, "Ibrahim knew the knowledge of Ibn Mas'ud well. As a boy he entered upon Aishah. He was the mufti of Kufa along with ash-Sha'bi, and al-A'mash said he was the money-changer of hadith."),
+      difficulty: 2,
+      questions: [
+        { q: "Whose knowledge reached Ibrahim through Alqamah?", a: "Ibn Mas'ud's", wrong: ["Imam al-Bukhari's", "Ibn Taymiyyah's", "Ibn Baz's"], why: "Ibn Mas'ud, Alqamah, Ibrahim." },
+        { q: "Why was he called the money-changer of hadith?", a: "He could tell sound from weak", wrong: ["He sold coins", "He was a banker", "He loved money"], why: "As a money-changer spots fake coins." },
+        { q: "As a boy, Ibrahim saw Aishah.", tf: true, why: "He went in to see her as a child." }
+      ]
+    },
+    {
+      slug: "more-than-one",
+      title: "Heard from many",
+      line: "Ibrahim: 'Abdullah said' means I heard it from many.",
+      facts: ["Abdullah: Ibn Mas'ud", "Many sources make a report stronger"],
+      source: siyar(4, 522, "Al-A'mash asked Ibrahim to give his chain for what he told from Abdullah. Ibrahim said: when I say 'Abdullah said', I have heard it from more than one; when I say 'so-and-so told me', that one told me."),
+      difficulty: 3,
+      questions: [
+        { q: "When Ibrahim said 'Abdullah said', what did it mean?", a: "He heard it from more than one", wrong: ["He made it up", "He heard it once", "He read it in a dream"], why: "More than one person had told him." },
+        { q: "Who is 'Abdullah' here?", a: "Ibn Mas'ud", wrong: ["Imam al-Bukhari", "Ibn Taymiyyah", "Ibn Baz"], why: "The teacher of Kufa." },
+        { q: "Hearing a report from many people makes it stronger.", tf: true, why: "That is why he said it." }
+      ]
+    },
+    {
+      slug: "you-ask-me",
+      title: "You ask me?",
+      line: "Sa'id ibn Jubayr: why ask me, while Ibrahim is among you?",
+      facts: ["Scholars praised one another", "Sa'id was a great Tabi'i himself"],
+      source: siyar(4, 523, "Sa'id ibn Jubayr said to the people of Kufa: you ask me for fatwa, while Ibrahim an-Nakha'i is among you?"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Sa'id ibn Jubayr tell the people of Kufa?", a: "Ask Ibrahim, he is among you", wrong: ["Never ask anyone", "Go to Egypt", "Ask the rulers"], why: "He honoured Ibrahim's knowledge." },
+        { q: "What does this show about the scholars?", a: "They honoured each other", wrong: ["They were jealous", "They never met", "They hid knowledge"], why: "They pointed people to each other." },
+        { q: "Great scholars sent people to other scholars.", tf: true, why: "Sa'id sent them to Ibrahim." }
+      ]
+    },
+    {
+      slug: "toward-abu-hanifah",
+      title: "On to Abu Hanifah",
+      line: "Ibrahim taught Hammad, and Hammad taught Abu Hanifah.",
+      facts: ["Ibn Mas'ud, Alqamah, Ibrahim, Hammad, Abu Hanifah", "The school of Kufa"],
+      source: siyar(5, 231, "Hammad learned fiqh from Ibrahim an-Nakha'i and was the most learned of his students; Abu Hanifah learned from Hammad."),
+      difficulty: 5,
+      questions: [
+        { q: "Who was Ibrahim's top student in fiqh?", a: "Hammad ibn Abi Sulayman", wrong: ["Imam al-Bukhari", "Ibn Taymiyyah", "Ibn Baz"], why: "Hammad then taught Abu Hanifah." },
+        { q: "Put the Kufa chain in order, from the top.", a: "Alqamah, Ibrahim, Hammad", wrong: ["Hammad, Ibrahim, Alqamah", "Ibrahim, Alqamah, Hammad", "Alqamah, Hammad, Ibrahim"], why: "A teacher comes before his student." },
+        { q: "Abu Hanifah's fiqh goes back to Ibn Mas'ud through Kufa.", tf: true, why: "Ibn Mas'ud, Alqamah, Ibrahim, Hammad, Abu Hanifah." }
+      ]
+    }
+  ]
+};
+
+const YAHYA_ANSARI: DeepUnit = {
+  key: "tree-yahya-ansari",
+  topicId: "scholars",
+  branchId: "scholar-yahya-ansari",
+  name: "Yahya al-Ansari",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "scholar-of-madinah",
+      title: "Student of the seven",
+      line: "Yahya al-Ansari learned from the seven fuqaha of Madinah.",
+      facts: ["He heard Anas ibn Malik", "He was an Ansari, of Banu an-Najjar"],
+      source: siyar(5, 468, "Yahya ibn Sa'id al-Ansari, the scholar of Madinah in his time, the student of the seven fuqaha. He heard Anas ibn Malik, Sa'id ibn al-Musayyab, Nafi, az-Zuhri and many others."),
+      difficulty: 1,
+      questions: [
+        { q: "Whose student was Yahya al-Ansari?", a: "The seven fuqaha of Madinah", wrong: ["The scholars of China", "Later scholars", "No one"], why: "He learned from them in Madinah." },
+        { q: "Which Sahabi did he hear?", a: "Anas ibn Malik", wrong: [...LATER], why: "So he is a Tabi'i." },
+        { q: "Yahya al-Ansari came from the Ansar.", tf: true, why: "From Banu an-Najjar of Madinah." }
+      ]
+    },
+    {
+      slug: "his-students",
+      title: "Great students",
+      line: "Malik, Sufyan ath-Thawri and Shu'bah learned from Yahya.",
+      facts: ["Older az-Zuhri narrated from him too", "Also Abu Yusuf and Ibn al-Mubarak"],
+      source: siyar(5, 468, "Az-Zuhri narrated from him though he was older; and Ibn Abi Dhi'b, Shu'bah, Malik, Sufyan ath-Thawri, al-Awza'i, al-Layth and many more."),
+      difficulty: 2,
+      questions: [
+        { q: "Which of the four imams learned from Yahya?", a: "Imam Malik", wrong: ["Imam Ahmad", "Ash-Shafi'i", "None of them"], why: "Malik was from Madinah too." },
+        { q: "Which older scholar still narrated from Yahya?", a: "Az-Zuhri", wrong: [...LATER], why: "Good scholars learn even from younger ones." },
+        { q: "An older scholar can learn from a younger one.", tf: true, why: "Az-Zuhri did." }
+      ]
+    },
+    {
+      slug: "intentions",
+      title: "The hadith of intentions",
+      line: "Through Yahya, 'actions are by intentions' spread far and wide.",
+      facts: ["About 200 people narrated it from him", "He heard it from at-Taymi"],
+      source: siyar(5, 469, "He is the narrator of the hadith 'actions are by intentions', and it became famous through him: it is said about two hundred narrated it from him."),
+      difficulty: 3,
+      questions: [
+        { q: "About how many people narrated the hadith of intentions from Yahya?", a: "About 200", wrong: ["2", "20", "20,000"], why: "From one chain to two hundred students." },
+        { q: "Who did Yahya hear it from?", a: "Muhammad at-Taymi", wrong: ["Imam al-Bukhari", "Ibn Taymiyyah", "Ibn Baz"], why: "Umar, Alqamah, at-Taymi, Yahya." },
+        { q: "The hadith of intentions became famous through Yahya.", tf: true, why: "So many learned it from him." }
+      ]
+    },
+    {
+      slug: "judge",
+      title: "Judge of Madinah",
+      line: "Yahya was the judge and mufti of the Prophet's ﷺ city.",
+      facts: ["He saw Ibn Umar", "A judge settles people's disputes"],
+      source: siyar(5, 470, "Al-Hakim said: he was the judge of the city of the Messenger of Allah ﷺ and its mufti in his time. He saw Abdullah ibn Umar."),
+      difficulty: 4,
+      questions: [
+        { q: "What work did Yahya do in Madinah?", a: "Judge and mufti", wrong: ["Soldier", "Merchant", "Poet"], why: "He judged and answered questions." },
+        { q: "Which Sahabi did Yahya see?", a: "Abdullah ibn Umar", wrong: ["Imam al-Bukhari", "Ibn Taymiyyah", "Ibn Baz"], why: "As well as hearing Anas." },
+        { q: "Yahya judged people in Madinah.", tf: true, why: "He was its judge." }
+      ]
+    },
+    {
+      slug: "most-precise",
+      title: "Most precise",
+      line: "Imam Ahmad: Yahya al-Ansari was the most precise of people.",
+      facts: ["Hisham ibn Urwah: just, pleasing, trustworthy", "Precise: careful with every word"],
+      source: siyar(5, 471, "Ahmad ibn Hanbal said: Yahya ibn Sa'id al-Ansari was the most precise of people. Hisham ibn Urwah called him the just, the pleasing, the trustworthy."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Imam Ahmad say about Yahya?", a: "The most precise of people", wrong: ["Too slow", "Often wrong", "Unknown"], why: "High praise from a great imam." },
+        { q: "How did Hisham ibn Urwah describe him?", a: "Just, pleasing, trustworthy", wrong: ["Rich and famous", "Strong and tall", "Fast and loud"], why: "Hisham was Urwah's son." },
+        { q: "Precision matters when passing on hadith.", tf: true, why: "Each word of the Prophet ﷺ must be kept." }
+      ]
+    }
+  ]
+};
+
+const HAMMAD: DeepUnit = {
+  key: "tree-hammad",
+  topicId: "scholars",
+  branchId: "scholar-hammad",
+  name: "Hammad ibn Abi Sulayman",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "faqih-of-iraq",
+      title: "The faqih of Iraq",
+      line: "Hammad ibn Abi Sulayman was a faqih of Iraq, in Kufa.",
+      facts: ["He heard Anas ibn Malik", "Ibrahim an-Nakha'i taught him fiqh"],
+      source: siyar(5, 231, "Hammad ibn Abi Sulayman, the faqih of Iraq. He narrated from Anas ibn Malik, and learned fiqh from Ibrahim an-Nakha'i, the noblest and most learned of his students."),
+      difficulty: 1,
+      questions: [
+        { q: "Who taught Hammad fiqh?", a: "Ibrahim an-Nakha'i", wrong: [...LATER], why: "Hammad was his top student." },
+        { q: "Which Sahabi did Hammad hear?", a: "Anas ibn Malik", wrong: ["Imam al-Bukhari", "Ibn Taymiyyah", "Ibn Baz"], why: "So he is one of the younger Tabi'in." },
+        { q: "Hammad lived in Kufa.", tf: true, why: "He was a faqih of Iraq." }
+      ]
+    },
+    {
+      slug: "ask-hammad",
+      title: "Ask Hammad",
+      line: "Ibrahim was asked who to ask after him. He said: Hammad.",
+      facts: ["Hammad had asked him about everything", "A teacher choosing his heir"],
+      source: siyar(5, 232, "Ibrahim an-Nakha'i was asked: whom shall we ask after you? He said: Hammad. He also said: go to Hammad, for he asked me about all that people asked me."),
+      difficulty: 2,
+      questions: [
+        { q: "Who did Ibrahim say to ask after him?", a: "Hammad", wrong: [...LATER], why: "His best student." },
+        { q: "Why was Hammad ready?", a: "He had asked about everything", wrong: ["He was rich", "He was old", "He was tall"], why: "A good student asks many questions." },
+        { q: "Asking many questions helped Hammad learn.", tf: true, why: "Ibrahim said so himself." }
+      ]
+    },
+    {
+      slug: "generous",
+      title: "Iftar for 500",
+      line: "In Ramadan, Hammad gave iftar to 500 people every day.",
+      facts: ["After Eid he gave each 100 dirhams", "Allah gave him wealth, and he shared it"],
+      source: siyar(5, 234, "It reached us that Hammad was wealthy, and gave iftar to five hundred people in Ramadan, and after Eid gave each of them a hundred dirhams."),
+      difficulty: 3,
+      questions: [
+        { q: "How many people did Hammad feed for iftar in Ramadan?", a: "500", wrong: ["5", "50", "5,000"], why: "He was generous with his wealth." },
+        { q: "What did he give them after Eid?", a: "100 dirhams each", wrong: ["Nothing", "A camel each", "A house each"], why: "A gift on top of the meals." },
+        { q: "A scholar can also be wealthy and generous.", tf: true, why: "Hammad was both." }
+      ]
+    },
+    {
+      slug: "teacher-of-abu-hanifah",
+      title: "Teacher of Abu Hanifah",
+      line: "Hammad taught fiqh to Abu Hanifah, the first of the four imams.",
+      facts: ["Abu Hanifah's greatest shaykh was Ata", "Hammad taught him fiqh in Kufa"],
+      source: siyar(6, 391, "Abu Hanifah narrated from Ata ibn Abi Rabah, his greatest shaykh, and from Hammad ibn Abi Sulayman, with whom he learned fiqh."),
+      difficulty: 4,
+      questions: [
+        { q: "Which imam learned fiqh from Hammad?", a: "Abu Hanifah", wrong: ["Imam Malik", "Imam Ahmad", "Ash-Shafi'i"], why: "Hammad was his fiqh teacher in Kufa." },
+        { q: "Put the chain in order, from the top.", a: "Ibrahim, Hammad, Abu Hanifah", wrong: ["Abu Hanifah, Hammad, Ibrahim", "Hammad, Ibrahim, Abu Hanifah", "Ibrahim, Abu Hanifah, Hammad"], why: "A teacher comes before his student." },
+        { q: "Abu Hanifah learned from both Ata and Hammad.", tf: true, why: "Ata in Makkah, Hammad in Kufa." }
+      ]
+    }
+  ]
+};
+
 /** The tree's own units, oldest first: they join the Scholars topic beside the seven imams and scholars. */
-export const SCHOLAR_TREE_UNITS: readonly DeepUnit[] = [UMAR, AISHAH, IBN_MASUD, IBN_ABBAS, IBN_UMAR];
+export const SCHOLAR_TREE_UNITS: readonly DeepUnit[] = [
+  UMAR, AISHAH, IBN_MASUD, IBN_ABBAS, IBN_UMAR,
+  ALQAMAH_WAQQAS, URWAH, NAFI, ATA, ALQAMAH_QAYS, TAYMI, ZUHRI, NAKHAI, YAHYA_ANSARI, HAMMAD
+];
 
 /** Their units in the Scholars topic: title and the one line under it. */
 export const SCHOLAR_TREE_BRANCHES: readonly { id: string; title: string; description: string }[] = [
@@ -571,5 +1297,15 @@ export const SCHOLAR_TREE_BRANCHES: readonly { id: string; title: string; descri
   { id: "scholar-aishah", title: "Aishah's knowledge", description: "The woman with the most fiqh in the Ummah." },
   { id: "scholar-ibn-masud", title: "Ibn Mas'ud", description: "Teacher of the Quran, and of Kufa." },
   { id: "scholar-ibn-abbas", title: "Ibn Abbas", description: "Scholar of the Ummah, imam of tafsir." },
-  { id: "scholar-ibn-umar", title: "Ibn Umar", description: "Sixty years of fatwa in Madinah." }
+  { id: "scholar-ibn-umar", title: "Ibn Umar", description: "Sixty years of fatwa in Madinah." },
+  { id: "scholar-alqamah-waqqas", title: "Alqamah ibn Waqqas", description: "Heard Umar on the minbar." },
+  { id: "scholar-urwah", title: "Urwah ibn az-Zubayr", description: "Aishah's nephew and student." },
+  { id: "scholar-nafi", title: "Nafi", description: "Ibn Umar's student, Malik's teacher." },
+  { id: "scholar-ata", title: "Ata ibn Abi Rabah", description: "The mufti of Makkah." },
+  { id: "scholar-alqamah-qays", title: "Alqamah ibn Qays", description: "Ibn Mas'ud's student in Kufa." },
+  { id: "scholar-taymi", title: "Muhammad at-Taymi", description: "Passed on the hadith of intentions." },
+  { id: "scholar-zuhri", title: "Az-Zuhri", description: "Hadith master of Madinah." },
+  { id: "scholar-nakhai", title: "Ibrahim an-Nakha'i", description: "The faqih of Iraq." },
+  { id: "scholar-yahya-ansari", title: "Yahya al-Ansari", description: "Judge of Madinah." },
+  { id: "scholar-hammad", title: "Hammad", description: "Abu Hanifah's teacher of fiqh." }
 ];
