@@ -61,7 +61,7 @@ export interface PathUnit {
   /** Unit needs Premium: nodes look locked and the card offers UNLOCK. */
   premiumLocked?: boolean;
   /**
-   * Its circles still to play make a fair test-out: the banner key (current unit only) and the
+   * Its circles still to play make a fair test-out: the banner's TEST OUT key and the
    * JUMP HERE button on its locked circles open "Jump ahead?". Default: true for the unit of the
    * circle to play next, false for the others.
    */
@@ -80,7 +80,7 @@ export type LearnPathProps = {
   onStartNode: (node: LearningNodeView) => void;
   onClaimChest: (chest: PathChest) => void;
   /**
-   * Test out of a unit. The current unit's banner key and JUMP HERE on a locked circle (units with
+   * Test out of a unit. The banner's TEST OUT key and JUMP HERE on a locked circle (units with
    * canTestOut, or the circles in jumpNodeIds) ask "Jump ahead?" first, then call this on START TEST.
    * From JUMP HERE it also gets the tapped circle; from the banner key, no circle.
    */
@@ -679,7 +679,10 @@ function UnitBanner({
             testID={`unit-test-out-${unit.id}`}
             style={[styles.keyButton, { borderBottomColor: darken(color, 0.3) }]}
           >
-            <Icon name="key" size={22} />
+            <Icon name="key" size={20} />
+            <Text style={[styles.keyLabel, { color: darken(color, 0.35) }]} numberOfLines={1}>
+              {t("Test out")}
+            </Text>
           </Tappable>
         ) : null}
       </View>
@@ -1333,7 +1336,7 @@ export function LearnPath({
                 <UnitBanner
                   unit={unit}
                   color={color}
-                  onTestOut={onTestOut && unit.id === layout.currentUnitId && unitCanTestOut(unit) ? () => askTestOut(unit.id) : undefined}
+                  onTestOut={onTestOut && unitCanTestOut(unit) ? () => askTestOut(unit.id) : undefined}
                   onPremium={onPremium ? () => onPremium(unit.id) : undefined}
                   onBannerLayout={(height) => {
                     bannerH.current[unit.id] = height;
@@ -1869,13 +1872,21 @@ const styles = StyleSheet.create({
   },
   keyButton: {
     marginStart: 10,
-    width: 40,
     height: 38,
+    paddingHorizontal: 10,
     borderRadius: 12,
     backgroundColor: colors.white,
     borderBottomWidth: 4,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
+  },
+  keyLabel: {
+    marginStart: 4,
+    maxWidth: 92,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 18
   },
   stickyWrap: {
     position: "absolute",

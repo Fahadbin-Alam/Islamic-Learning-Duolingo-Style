@@ -570,7 +570,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "Ahmad ibn Abd al-Halim",
       line: "Ibn Taymiyyah's name was Ahmad ibn Abd al-Halim, born in 661 AH.",
       facts: ["Born Rabi al-Awwal, 661 AH", "Called Shaykh al-Islam"],
-      source: IBN_TAYMIYYAH_PAGE("Shaykh al-Islam Ahmad ibn 'Abd al-Haleem ibn Taymiyah; al-Suyuti says he was born in Rabee' al-Awwal 661 AH.", "One of the prominent figures, he was born"),
+      source: IBN_TAYMIYYAH_PAGE("Shaykh al-Islam Ahmad ibn 'Abd al-Haleem ibn Taymiyah; al-Suyuti says he was born in Rabee' al-Awwal 661 AH.", "the Shaykh of Islam, the leader of ascetics … One of the prominent figures, he was born"),
       difficulty: 1,
       questions: [
         { q: "What was Ibn Taymiyyah's own name?", a: "Ahmad ibn Abd al-Halim", wrong: ["Ahmad ibn Hanbal", "Muhammad ibn Idris", "Malik ibn Anas"], why: "Ibn Taymiyyah is his family name." },
@@ -583,7 +583,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "From Harran to Damascus",
       line: "In 667 AH, his father took him from Harran to Damascus.",
       facts: ["Harran: his family's town", "Grandfather: a great imam too"],
-      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: his father took him with him from Harraan in 667 AH. Al-Suyuti names his grandfather, the imam Majd al-Deen 'Abd al-Salam.", "His father took him with him from Harraan in 667 AH"),
+      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: his father took him with him from Harraan in 667 AH. Al-Suyuti names his grandfather, the imam Majd al-Deen 'Abd al-Salam.", "His father took him with him from Harraan in 667 AH … al-Fakhr, among others"),
       difficulty: 2,
       questions: [
         { q: "Which town did his family come from?", a: "Harran", wrong: ["Gaza", "Kufa", "Madinah"], why: "His father brought him from there in 667 AH." },
@@ -596,7 +596,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "His teachers",
       line: "Ibn Taymiyyah had many teachers, and copied Sunan Abi Dawud.",
       facts: ["Teacher: Ibn Abd ad-Da'im", "Copied Sunan Abi Dawud himself"],
-      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: he learned from Ibn 'Abd al-Daa'im, al-Qaasim al-Arbili and others; he read by himself and copied Sunan Abi Dawood.", "He read by himself and copied Sunan Abi Dawood"),
+      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: he learned from Ibn 'Abd al-Daa'im, al-Qaasim al-Arbili and others; he read by himself and copied Sunan Abi Dawood.", "He read by himself and copied Sunan Abi Dawood, and he studied al-rijaal"),
       difficulty: 2,
       questions: [
         { q: "Which of these was one of his teachers?", a: "Ibn Abd ad-Da'im", wrong: ["Imam Malik", "Abu Hanifah", "Ibn Baz"], why: "Ibn Hajar names him first." },
@@ -622,7 +622,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "Three hundred books",
       line: "Al-Suyuti said Ibn Taymiyyah wrote three hundred books.",
       facts: ["Tafsir, hadith and fiqh", "Quick memory, great courage"],
-      source: IBN_TAYMIYYAH_PAGE("Al-Suyuti: he wrote three hundred books. Ibn Hajar: he had an amazing ability to recollect quickly; he was courageous. Adh-Dhahabi: he excelled in tafseer.", "He wrote three hundred books"),
+      source: IBN_TAYMIYYAH_PAGE("Al-Suyuti: he wrote three hundred books. Ibn Hajar: he had an amazing ability to recollect quickly; he was courageous. Adh-Dhahabi: he excelled in tafseer.", "He was a man of vast learning … He wrote three hundred books"),
       difficulty: 3,
       questions: [
         { q: "How many books did al-Suyuti say he wrote?", a: "Three hundred", wrong: ["Three", "Thirty", "Ten"], why: "He wrote, taught and gave fatwas." },
@@ -635,7 +635,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "The stronger evidence",
       line: "His fatwas followed the stronger evidence, not one madhhab.",
       facts: ["Followed the dalil", "Like the four imams taught"],
-      source: IBN_TAYMIYYAH_PAGE("Adh-Dhahabi: when he issued a fatwa he did not adhere to the view of a madhhab, rather he based his fatwa on whichever view was supported by the stronger evidence.", "when he issued a fatwa he did not adhere to the view of a madhhab"),
+      source: IBN_TAYMIYYAH_PAGE("Adh-Dhahabi: when he issued a fatwa he did not adhere to the view of a madhhab, rather he based his fatwa on whichever view was supported by the stronger evidence.", "He surpassed all people in knowledge of fiqh … supported by the stronger evidence"),
       difficulty: 4,
       questions: [
         { q: "What did his fatwas follow?", a: "The stronger evidence", wrong: ["Whatever rulers wanted", "Only his teachers", "His feelings"], why: "Adh-Dhahabi says so." },
