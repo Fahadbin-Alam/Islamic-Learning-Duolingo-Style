@@ -65,10 +65,14 @@ class User(Base, TimestampMixin):
     path_focus_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     # The app's weekly league: {tier, weekStart, xp, last}; see src/services/leagues.ts.
     league_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
-    # The app's Ummah tab: {trophies, best, battles, wins, nickname, joined, icons, icon, secrets, hints};
+    # The app's Ummah tab: {trophies, best, battles, wins, nickname, joined, icons, icon, secrets, hints, hadith};
     # see src/services/ummah.ts. Only joined learners show on the ranking, by nickname.
     ummah_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     social_hub_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    # Everything else on the app's profile that has no column of its own (quiz scores, Ramadan days, the review
+    # deck, streak freezes, and fields later builds add), so it survives a new phone without a migration each time.
+    # See EXTRA_STATE_* in service_layer.py for the limits.
+    progress_extra_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
     sessions: Mapped[List["AuthSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     progress_entries: Mapped[List["UserProgress"]] = relationship(back_populates="user", cascade="all, delete-orphan")

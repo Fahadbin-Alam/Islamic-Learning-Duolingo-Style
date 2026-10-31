@@ -36,6 +36,17 @@ export function stashAccountProfile(email: string, user: UserProfile) {
   setStoredItem(ACCOUNT_STORAGE_KEY, JSON.stringify({ email: email.trim().toLowerCase(), user }));
 }
 
+// The stashed progress of this email, left in place.
+export function peekAccountProfile(email: string): UserProfile | null {
+  try {
+    const raw = getStoredItem(ACCOUNT_STORAGE_KEY);
+    const parsed = raw ? (JSON.parse(raw) as { email?: string; user?: UserProfile }) : null;
+    return parsed && parsed.email === email.trim().toLowerCase() && parsed.user ? parsed.user : null;
+  } catch {
+    return null;
+  }
+}
+
 // Hands back the stashed progress of this email once, then forgets it.
 export function takeAccountProfile(email: string): UserProfile | null {
   try {

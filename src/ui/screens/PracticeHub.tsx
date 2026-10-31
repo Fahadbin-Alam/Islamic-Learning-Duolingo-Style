@@ -23,8 +23,16 @@ export type PracticeHubProps = {
   strings: UiStrings;
   onStartPlacement: () => void;
   onStartReview: () => void;
+  /** Missed lesson questions due again in the Review deck. */
+  reviewDueCount?: number;
+  /** Starts a Review of the due missed questions; REVIEW opens it first while any are due. */
+  onStartReviewDeck?: () => void;
   onStartDailyChallenge: () => void;
   onGoFoundation: () => void;
+  /** QUIZZES: a scored quiz of a topic or a unit. Left out when there is none to take. */
+  onOpenQuizzes?: () => void;
+  /** The best score on the path topic's quiz, in percent; unset until it is taken. */
+  quizBest?: number;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
   onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
@@ -160,27 +168,42 @@ function SmallTile({ tint, glyph, label, badge, done, resting, onPress, delay, t
 
 /** Practice tab: one hero card for the next step, two small tiles, and the basics path. */
 export function PracticeHub({
+  user,
   learnerProfile,
   language,
   onStartPlacement,
   onStartReview,
+  reviewDueCount = 0,
+  onStartReviewDeck,
   onStartDailyChallenge,
   onGoFoundation,
   onStartLessonPractice,
+  onOpenQuizzes,
+  quizBest,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
   accent = colors.green
 }: PracticeHubProps) {
   const t = (value: string) => translateStudyText(value, language);
-  const reviewCount = learnerProfile.needs_review_question_ids.length;
+  // Missed lesson questions due again come first; then the Basics questions missed in a level check or challenge.
+  const deckDue = onStartReviewDeck ? reviewDueCount : 0;
+  const reviewCount = deckDue + learnerProfile.needs_review_question_ids.length;
   const weakCount = learnerProfile.weak_areas.length;
   const hasReview = reviewCount > 0 || weakCount > 0;
+  // Missed questions still in the deck but not due yet: the learner is caught up, not mistake-free.
+  const waiting = (user.reviewCards?.length ?? 0) > 0;
   const placed = learnerProfile.assessmentCompleted;
   const dailyDone = isToday(learnerProfile.lastDailyChallengeAt);
   const basics = getTopicArabic("foundation");
   // Tapping the grey review tile makes the mascot say why it is resting.
   const [restNote, setRestNote] = useState(false);
-  const bubble = restNote ? t("No mistakes yet!") : placed ? t("Let's sharpen what you know!") : t("Let's find your level!");
+  const bubble = restNote
+    ? t(waiting ? "All caught up!" : "No mistakes yet!")
+    : deckDue > 0
+      ? t("Let's fix your mistakes!")
+      : placed
+        ? t("Let's sharpen what you know!")
+        : t("Let's find your level!");
 
   const reviewTile = hasReview ? (
     <SmallTile
@@ -189,7 +212,7 @@ export function PracticeHub({
       glyph={{ review: true }}
       label={t("Review")}
       badge={reviewCount > 0 ? String(reviewCount) : undefined}
-      onPress={onStartReview}
+      onPress={deckDue > 0 ? onStartReviewDeck : onStartReview}
       delay={120}
     />
   ) : (
@@ -255,6 +278,35 @@ export function PracticeHub({
           </>
         )}
       </View>
+
+      {onOpenQuizzes ? (
+        <PopIn delay={215} from="up">
+          <Tappable
+            onPress={onOpenQuizzes}
+            style={[styles.basicsRow, styles.quizRow]}
+            testID="practice-quizzes"
+            accessibilityLabel={quizBest !== undefined ? `${t("Quizzes")}, ${quizBest}%` : t("Quizzes")}
+          >
+            <View style={[styles.basicsIcon, styles.quizIcon]}>
+              <Icon name="trophy" size={30} />
+            </View>
+            <View style={styles.quizText}>
+              <Text style={styles.basicsTitle} numberOfLines={1}>
+                {t("Quizzes")}
+              </Text>
+              <Text style={styles.quizLine} numberOfLines={2}>
+                {t("How much do you know?")}
+              </Text>
+            </View>
+            {quizBest !== undefined ? (
+              <View style={styles.quizPill} testID="practice-quiz-best">
+                <Text style={styles.quizPillText}>{`${quizBest}%`}</Text>
+              </View>
+            ) : null}
+            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+          </Tappable>
+        </PopIn>
+      ) : null}
 
       {onStartLessonPractice ? (
         <PopIn delay={230} from="up">
@@ -472,6 +524,40 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexWrap: "wrap",
     columnGap: 10
+  },
+  quizRow: {
+    paddingVertical: 12,
+    borderColor: lighten(colors.gold, 0.6),
+    borderBottomColor: colors.goldLip,
+    backgroundColor: lighten(colors.gold, 0.88)
+  },
+  quizIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: colors.white
+  },
+  quizText: {
+    flex: 1,
+    minWidth: 0
+  },
+  quizLine: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 14,
+    lineHeight: 18,
+    color: darken(colors.goldLip, 0.45)
+  },
+  quizPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: radii.pill,
+    backgroundColor: colors.white
+  },
+  quizPillText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    color: darken(colors.goldLip, 0.45)
   },
   // Arabic sits a size above the English next to it (20 over 17).
   basicsTitle: {
