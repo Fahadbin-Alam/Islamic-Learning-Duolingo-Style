@@ -27,6 +27,14 @@ import type {
   XpSummary
 } from "../types";
 import { buildGuidedLesson } from "../services/lessonGuidance";
+import {
+  REVIEW_SESSION_SIZE,
+  dueCards,
+  recordReviewMiss,
+  recordReviewRight,
+  reviewOrder,
+  type ReviewCardKey
+} from "../services/reviewDeck";
 import { planForProduct } from "../services/monetizationConfig";
 import { enrichLessonSources, getPrimaryLessonSource } from "../services/resourceSupport";
 import { logDailyXp } from "../services/familyCode";
@@ -688,6 +696,115 @@ export function createQuizSession(input: {
     attempt,
     clusterTitle: input.title,
     quizScope: input.scope
+  };
+}
+
+// The question a deck card stands for, in its own lesson: a lesson asks a copy of an earlier one as a review
+// ("<lesson>_review_2"), and practice, a test-out or a Review put a prefix on the id, so it is found by id, by
+// the end of the id, or by the same prompt and answer.
+function ownChallenge(lessonId: string, challenge: Challenge): Challenge | undefined {
+  const own = (LESSONS_BY_ID[lessonId]?.challenges ?? []).filter((item) => !item.isReview);
+  const answerOf = (item: Challenge) => item.choices.find((choice) => choice.id === item.correctChoiceId)?.label;
+
+  return (
+    own.find((item) => item.id === challenge.id) ??
+    own.filter((item) => challenge.id.endsWith(`_${item.id}`)).sort((a, b) => b.id.length - a.id.length)[0] ??
+    own.find((item) => normalizedPrompt(item) === normalizedPrompt(challenge) && answerOf(item) === answerOf(challenge))
+  );
+}
+
+// The deck card for a question asked in a session, or nothing when it cannot be asked on its own: a question
+// that leans on the lesson around it ("this surah") or shows its answer reads wrong in a Review.
+export function reviewCardKeyFor(session: Pick<LessonSession, "lesson">, challenge: Challenge): ReviewCardKey | undefined {
+  const lessonId = challenge.sourceLessonId ?? session.lesson.id;
+  const own = ownChallenge(lessonId, challenge);
+
+  if (!own || isContextBound(own.prompt) || answerShowsInText(own)) {
+    return undefined;
+  }
+
+  return { lessonId, challengeId: own.id };
+}
+
+// A question's first try, in any lesson, test-out, practice or Review, moves the Review deck: a miss puts it in
+// (or back to the start), a right answer moves a due card on. In a Review every right answer counts.
+export function recordLessonAnswer(user: UserProfile, session: LessonSession, challenge: Challenge, correct: boolean, now = new Date()): UserProfile {
+  const key = reviewCardKeyFor(session, challenge);
+
+  if (!key) {
+    return user;
+  }
+
+  const reviewCards = correct
+    ? recordReviewRight(user.reviewCards, key, now, Boolean(session.reviewDeck))
+    : recordReviewMiss(user.reviewCards, key, now);
+
+  return reviewCards === user.reviewCards ? user : { ...user, reviewCards };
+}
+
+export function reviewDueCount(user: Pick<UserProfile, "reviewCards">, now = new Date()) {
+  return reviewSessionCards(user, now).length;
+}
+
+// The due cards a Review can ask, weakest first; a card whose lesson or question is gone is left out.
+function reviewSessionCards(user: Pick<UserProfile, "reviewCards">, now: Date) {
+  return reviewOrder(dueCards(user.reviewCards, now)).filter((card) =>
+    (LESSONS_BY_ID[card.lessonId]?.challenges ?? []).some((item) => item.id === card.challengeId)
+  );
+}
+
+// REVIEW in Practice: up to 10 missed questions that are due, weakest first. Like "My lessons" it costs no
+// hearts and pays practice XP; a miss comes back at the end, and each first try moves its card in the deck.
+export function createReviewSession(user: UserProfile, now = new Date()): LessonSession | undefined {
+  const cards = reviewSessionCards(user, now).slice(0, REVIEW_SESSION_SIZE);
+
+  if (!cards.length) {
+    return undefined;
+  }
+
+  const prepared = new Map<string, Lesson>();
+  const challenges = cards.map((card, index) => {
+    const lesson = LESSONS_BY_ID[card.lessonId];
+    const full = prepared.get(lesson.id) ?? prepareLessonForSession(lesson);
+    prepared.set(lesson.id, full);
+    const base = full.challenges.find((item) => item.id === card.challengeId) ?? lesson.challenges.find((item) => item.id === card.challengeId)!;
+    // The tiles in a new order each time the card comes back, so the answer is not remembered by its place.
+    const seen = card.misses + card.box;
+
+    return {
+      ...base,
+      id: `review_deck_${index}_${base.id}`,
+      choices: shuffleChoicesForAttempt(base, seen),
+      isReview: true,
+      sourceNodeId: base.sourceNodeId ?? lesson.nodeId,
+      sourceLessonId: lesson.id,
+      miniLesson: base.miniLesson ?? lesson.explanationContent ?? lesson.intro,
+      reviewSuggestion: base.reviewSuggestion ?? `Review ${lesson.title}`
+    };
+  });
+  const lessons = Array.from(prepared.values());
+  const sources = uniqueById(lessons.flatMap((lesson) => lesson.sources));
+
+  return {
+    id: `session_review_deck_${now.getTime()}`,
+    lesson: {
+      id: "review_deck",
+      nodeId: lessons[0].nodeId,
+      title: "Review",
+      intro: "Questions you missed.",
+      explanationContent: "Questions you missed.",
+      lessonType: "review",
+      xpReward: challenges.length * PRACTICE_XP_PER_CORRECT_ANSWER,
+      sources,
+      sourceReferences: sources,
+      masteryState: "learning",
+      masteryTestEligible: false,
+      challenges
+    },
+    startedAt: now.toISOString(),
+    heartsAtStart: user.hearts.current,
+    mode: "lesson_practice",
+    reviewDeck: true
   };
 }
 

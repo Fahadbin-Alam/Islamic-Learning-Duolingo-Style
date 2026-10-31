@@ -21,6 +21,9 @@ import {
   completeLessonCluster,
   canPracticeLessons,
   createLessonPracticeSession,
+  createReviewSession,
+  recordLessonAnswer,
+  reviewDueCount,
   createTestOutSession,
   canQuiz,
   createQuizSession,
@@ -49,6 +52,7 @@ import {
   refillHeartsForToday,
   LIBRARY_TOPICS
 } from "./api/islamicLearningApi";
+import { cleanReviewCards } from "./services/reviewDeck";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
 import { localDayNumber } from "./data/dailyCard";
@@ -1516,6 +1520,22 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
+  // REVIEW in Practice: the missed questions that are due again, weakest first.
+  function startReviewDeck() {
+    if (!state.user) {
+      return;
+    }
+
+    const session = createReviewSession(state.user);
+
+    if (!session) {
+      return;
+    }
+
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "start_lesson", session });
+  }
+
   function answerChallenge() {
     if (!state.user || !state.activeSession || !state.selectedChoiceId || state.answerState) {
       return;
@@ -1560,6 +1580,11 @@ export default function TopicApp() {
         learnerProfile: nextProfile,
         lastLearningAt: new Date().toISOString()
       });
+    }
+
+    if (!isRetry) {
+      // A first-try miss goes in the Review deck; a right answer moves a due one on (services/reviewDeck).
+      nextUser = recordLessonAnswer(nextUser, state.activeSession, challenge, correct);
     }
 
     playUiSound(correct ? "correct" : "wrong");
@@ -1678,7 +1703,7 @@ export default function TopicApp() {
 
       setLessonCompleteSummary({
         headline: t("Practice done!"),
-        title: t("My lessons"),
+        title: t(state.activeSession.reviewDeck ? "Review" : "My lessons"),
         xp,
         streakExtended: didExtendStreak(user, nextUser),
         stars: lessonStars(state.sessionMistakes),
@@ -3155,6 +3180,8 @@ export default function TopicApp() {
             accent={selectedSection.accentColor}
             onStartPlacement={() => openFoundationAssessment("placement")}
             onStartReview={() => openFoundationAssessment("review")}
+            reviewDueCount={reviewDueCount(state.user)}
+            onStartReviewDeck={startReviewDeck}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
             onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
             onOpenQuizzes={() => setQuizSheetVisible(true)}
@@ -3749,7 +3776,8 @@ function withExperienceDefaults(user: UserProfile): UserProfile {
     foundationAssessmentSkipped: Boolean(user.foundationAssessmentSkipped),
     soundEffectsEnabled: user.soundEffectsEnabled !== false,
     reducedSoundEffects: Boolean(user.reducedSoundEffects),
-    claimedRewardIds: Array.isArray(user.claimedRewardIds) ? user.claimedRewardIds : []
+    claimedRewardIds: Array.isArray(user.claimedRewardIds) ? user.claimedRewardIds : [],
+    reviewCards: cleanReviewCards(user.reviewCards)
   };
 }
 

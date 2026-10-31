@@ -611,5 +611,7 @@
   "You know a lot!": "أنت تعرف الكثير!",
   "You know {percent}%": "تعرف {percent}%",
   "{count} questions · no hearts lost": "{count} أسئلة · بلا خسارة قلوب",
-  "{topic} quiz": "مسابقة {topic}"
+  "{topic} quiz": "مسابقة {topic}",
+  "All caught up!": "راجعتَ كل شيء!",
+  "Let's fix your mistakes!": "هيا نصحّح أخطاءك!"
 }

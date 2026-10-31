@@ -231,6 +231,23 @@ export interface UserProfile {
   ummah?: UmmahState;
   /** Quizzes taken, by quiz id ("topic:<topicId>" or "unit:<unitId>"; see src/services/quizzes.ts). */
   quizScores?: Record<string, QuizScore>;
+  /** The Review deck: lesson questions missed on their first try, brought back until they stick (services/reviewDeck). */
+  reviewCards?: ReviewCard[];
+}
+
+/** One missed lesson question in the Review deck. */
+export interface ReviewCard {
+  /** The lesson the question belongs to (its own lesson, not the one that asked it as a review). */
+  lessonId: string;
+  /** The question's id in that lesson. */
+  challengeId: string;
+  /** 0 just missed; each first-try right answer moves it up one, and past the last box it has stuck. */
+  box: number;
+  /** When it is next asked (ISO time). */
+  dueAt: string;
+  /** How many times it was missed: the weakest are asked first. */
+  misses: number;
+  lastSeenAt: string;
 }
 
 /** What a quiz asks about: a whole topic, or one of its units. */
@@ -485,6 +502,8 @@ export interface LessonSession {
   attempt?: number;
   /** A test-out started from JUMP HERE: the circle it was tapped on, so TRY AGAIN tests for the same one. */
   jumpNodeId?: string;
+  /** A Review of missed questions (mode "lesson_practice"): every first-try answer moves its card in the deck. */
+  reviewDeck?: boolean;
 }
 
 export interface ShopItem {

@@ -611,5 +611,7 @@
   "You know a lot!": "তুমি অনেক জানো!",
   "You know {percent}%": "তুমি {percent}% জানো",
   "{count} questions · no hearts lost": "{count}টি প্রশ্ন · হার্ট কমবে না",
-  "{topic} quiz": "{topic} কুইজ"
+  "{topic} quiz": "{topic} কুইজ",
+  "All caught up!": "সব রিভিউ শেষ!",
+  "Let's fix your mistakes!": "চলো ভুলগুলো ঠিক করি!"
 }
