@@ -895,7 +895,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyHeavy,
     fontSize: 13,
     lineHeight: 18,
-    color: colors.gemLip
+    color: colors.dateLip
   },
   hintRow: {
     gap: 10
