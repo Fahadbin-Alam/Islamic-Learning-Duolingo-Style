@@ -1,0 +1,23 @@
+[
+  { "id": "kaaba", "look": "The Kaaba (black cube) in Masjid al-Haram, Makkah", "file": "" },
+  { "id": "makkah", "look": "Masjid al-Haram / Makkah city view (clock tower OK)", "file": "" },
+  { "id": "madinah", "look": "Al-Masjid an-Nabawi in Madinah: minarets or courtyard umbrellas. Avoid a close-up of the Green Dome", "file": "" },
+  { "id": "aqsa", "look": "Al-Aqsa (Qibli) Mosque in Jerusalem, the grey/silver-domed mosque (NOT only the Dome of the Rock)", "file": "" },
+  { "id": "uhud", "look": "Mount Uhud near Madinah", "file": "" },
+  { "id": "badr", "look": "Badr: the battlefield plain or the Badr area in Saudi Arabia", "file": "" },
+  { "id": "hira", "look": "Jabal an-Nur (Mountain of Light) or the Cave of Hira entrance, near Makkah", "file": "" },
+  { "id": "thawr", "look": "Jabal Thawr (Mount Thawr) near Makkah", "file": "" },
+  { "id": "arafah", "look": "Mount Arafat / Jabal al-Rahmah plain", "file": "" },
+  { "id": "mina", "look": "The white tents of Mina", "file": "" },
+  { "id": "muzdalifah", "look": "Muzdalifah (the open plain or its mosque)", "file": "" },
+  { "id": "safa-marwa", "look": "The Safa and Marwa gallery inside Masjid al-Haram", "file": "" },
+  { "id": "zamzam", "look": "Zamzam water coolers or taps (no faces)", "file": "" },
+  { "id": "hegra", "look": "Hegra / Mada'in Salih carved rock tombs (al-Hijr, home of Thamud)", "file": "" },
+  { "id": "sinai", "look": "Mount Sinai landscape", "file": "" },
+  { "id": "taif", "look": "Ta'if mountains or city, Saudi Arabia", "file": "" },
+  { "id": "damascus", "look": "The Umayyad Mosque in Damascus", "file": "" },
+  { "id": "jerusalem", "look": "Old City of Jerusalem skyline (Dome of the Rock visible is fine)", "file": "" },
+  { "id": "desert", "look": "Arabian desert dunes with camels, no riders' faces", "file": "" },
+  { "id": "date-palms", "look": "Date palm trees with hanging dates", "file": "" },
+  { "id": "manuscript", "look": "An early Quran manuscript page, e.g. the Birmingham Quran manuscript", "file": "" }
+]
