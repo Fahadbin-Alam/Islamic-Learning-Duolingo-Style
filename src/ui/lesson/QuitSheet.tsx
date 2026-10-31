@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GameButton } from "../GameButton";
 import { Mascot } from "../Mascot";
@@ -23,8 +23,13 @@ export type QuitSheetProps = {
   quitLabel?: string;
 };
 
-/** "Wait, don't go!" sheet shown when the learner taps X in a lesson. Place it last in the lesson screen. */
-export function QuitSheet({
+/**
+ * "Wait, don't go!" sheet shown when the learner taps X in a lesson. Place it last in the lesson screen. Drawn again
+ * only when its props change (it opens, or its words do): the screen under it drawn again leaves it as it is. Its
+ * default words are read as it is drawn, so a screen that passes the same taps from render to render passes its words
+ * too (they then follow the language).
+ */
+export const QuitSheet = memo(function QuitSheet({
   visible,
   onKeepLearning,
   onQuit,
@@ -49,7 +54,7 @@ export function QuitSheet({
       <GameButton label={quitLabel} variant="ghost" color={colors.heart} fullWidth onPress={onQuit} style={styles.ghost} testID="quit-end" />
     </Sheet>
   );
-}
+});
 
 const styles = StyleSheet.create({
   body: {
