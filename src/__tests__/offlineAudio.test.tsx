@@ -196,7 +196,9 @@ describe("Settings row", () => {
 
     await fireEvent.press(screen.getByTestId("settings-quran-offline-action"));
     await act(async () => undefined);
-    const mb = ((offlineAyahUrls().length * 100_000) / (1024 * 1024)).toFixed(1);
+    // Under 10 MB the size shows one decimal, from 10 MB on a whole number (QuranOfflineRow).
+    const bytes = offlineAyahUrls().length * 100_000;
+    const mb = (bytes / (1024 * 1024)).toFixed(bytes < 10 * 1024 * 1024 ? 1 : 0);
     expect(screen.getByTestId("settings-quran-offline-status")).toHaveTextContent(`Saved, ${mb} MB`);
     expect(screen.getByTestId("settings-quran-offline-action")).toHaveTextContent("Remove");
 

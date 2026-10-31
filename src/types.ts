@@ -13,7 +13,8 @@ export type TopicId =
   | "quran_tafseer"
   | "hadith"
   | "scholars"
-  | "ramadan";
+  | "ramadan"
+  | "intro";
 
 export type CharacterVariant = "hijabi" | "muslim_man";
 

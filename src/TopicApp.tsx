@@ -187,6 +187,7 @@ import {
   SecretSheet,
   type RankingsState,
   AgeSheet,
+  BackgroundSheet,
   LanguageSheet,
   LearnPath,
   PrayerSheet,
@@ -223,6 +224,7 @@ import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
+import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
   AccountRole,
   Challenge,
@@ -671,6 +673,13 @@ export default function TopicApp() {
   // Sign-up asks the age first even with ads off: under 13, the account takes a parent's name and email.
   const signUpNeedsAge = Platform.OS !== "web" && !ageGroup;
   const [ageBeforeSignUp, setAgeBeforeSignUp] = useState(false);
+  // Who the learner is (Muslim, new to Islam, Christian, Jewish or curious), asked once after the age on a first
+  // launch. Anyone but a Muslim starts on the New to Islam path, in the unit that fits them. Kept on this device.
+  const [learnerBackground, setLearnerBackground] = useState<LearnerBackground | undefined>(() => {
+    const saved = getStoredItem(BACKGROUND_KEY);
+    return isLearnerBackground(saved) ? saved : undefined;
+  });
+  const beginner = Boolean(learnerBackground && learnerBackground !== "muslim");
   const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child");
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
@@ -1107,8 +1116,10 @@ export default function TopicApp() {
         : {})
     }));
 
-    return season ? [...topics.filter((topic) => topic.topicId === RAMADAN_TOPIC), ...topics.filter((topic) => topic.topicId !== RAMADAN_TOPIC)] : topics;
-  }, [localizedSections, season, state.user?.completedNodeIds]);
+    // Someone new to Islam finds the beginner path first (after Ramadan in its season).
+    const ordered = beginner ? [...topics.filter((topic) => topic.topicId === INTRO_TOPIC), ...topics.filter((topic) => topic.topicId !== INTRO_TOPIC)] : topics;
+    return season ? [...ordered.filter((topic) => topic.topicId === RAMADAN_TOPIC), ...ordered.filter((topic) => topic.topicId !== RAMADAN_TOPIC)] : ordered;
+  }, [beginner, localizedSections, season, state.user?.completedNodeIds]);
 
   // The Quizzes sheet: every topic with a quiz (Ramadan only in its season), each with its units' quizzes and the
   // best scores. Worked out only while the sheet is open.
@@ -1377,6 +1388,21 @@ export default function TopicApp() {
       primeGameAudio({ enabled: true, reduced: Boolean(nextUser.reducedSoundEffects) });
       playGameSound("soft_ui", { enabled: true, reduced: Boolean(nextUser.reducedSoundEffects) });
     }
+  }
+
+  // The answer to "Tell us about you": anyone but a Muslim goes to the New to Islam path, with START on the first
+  // lesson of the unit that fits them (the prophets for a Christian or Jewish learner, first steps for a new Muslim).
+  function chooseBackground(background: LearnerBackground) {
+    setStoredItem(BACKGROUND_KEY, background);
+    setLearnerBackground(background);
+    const start = introStartFor(background);
+
+    if (!start || !state.user) {
+      return;
+    }
+
+    dispatch({ type: "apply_user", user: withPathFocus(state.user, start.unitId, start.nodeId) });
+    dispatch({ type: "select_topic", topicId: INTRO_TOPIC });
   }
 
   function openTopicScreen(topicId: TopicId) {
@@ -3454,6 +3480,11 @@ export default function TopicApp() {
               setAccountModalVisible(true);
             }
           }}
+        />
+        <BackgroundSheet
+          // A learner who has done lessons already (before this question came in) is not asked.
+          visible={Boolean(state.user && ageGroup && !learnerBackground && !languageModalVisible && !accountModalVisible && !state.user.completedNodeIds.length)}
+          onSave={chooseBackground}
         />
         <LanguageSheet
           visible={languageModalVisible}

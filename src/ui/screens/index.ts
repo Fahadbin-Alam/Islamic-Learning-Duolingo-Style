@@ -18,6 +18,7 @@ export { RamadanBanner, type RamadanBannerProps } from "./RamadanBanner";
 export { UpdateBanner, type UpdateBannerProps } from "./UpdateBanner";
 export { RewardPop, type RewardPopProps } from "./RewardPop";
 export { AgeSheet, type AgeSheetProps } from "./AgeSheet";
+export { BackgroundSheet, type BackgroundSheetProps } from "./BackgroundSheet";
 export { LanguageSheet, type LanguageSheetProps } from "./LanguageSheet";
 export { PrayerSheet, cityName, type PrayerSheetProps } from "./PrayerSheet";
 export {
