@@ -174,7 +174,7 @@ function BattleResultView({ result, onDone, mascotVariant, accent }: { result: B
           </Text>
         </View>
       </PopIn>
-      {result.gems ? <Text style={styles.resultGems}>{t("+{count} gems", { count: result.gems })}</Text> : null}
+      {result.gems ? <Text style={styles.resultGems}>{t("+{count} dates", { count: result.gems })}</Text> : null}
       {result.newArena ? (
         <Text style={[styles.newArena, { color: darken(arena.color, 0.35) }]} testID="battle-new-arena">
           {t("New arena: {name}!", { name: arenaName(ARENAS.indexOf(arena)) })}

@@ -60,7 +60,8 @@ export type IconName =
   | "coins"
   | "search"
   | "share"
-  | "freeze";
+  | "freeze"
+  | "date";
 
 export type IconProps = {
   name: IconName;
@@ -711,6 +712,16 @@ const ICONS: Record<IconName, Drawer> = {
       <Circle cx={17.6} cy={5.6} r={3.6} {...t.f(C.green)} />
       <Circle cx={6.4} cy={12} r={3.6} {...t.f(C.gem)} />
       <Circle cx={17.6} cy={18.4} r={3.6} {...t.f(C.pink)} />
+    </G>
+  ),
+  // One plump, shiny date: the app's coin (what other games call gems).
+  date: (t) => (
+    <G>
+      <Path d="M12 2.6c4.6 0 7.4 3.9 7.4 9.6 0 5.6-3 9.2-7.4 9.2s-7.4-3.6-7.4-9.2c0-5.7 2.8-9.6 7.4-9.6z" {...t.f("#D9792F")} />
+      <Path d="M19.4 12.2c0 5.6-3 9.2-7.4 9.2-2.2 0-4-.9-5.3-2.4 6 .8 10.2-3.4 10.6-11.6 1.4 1.3 2.1 2.8 2.1 4.8z" {...t.d("#A9501C")} />
+      <Path d="M9.2 9.4c.9 1.7 1 3.5.3 5.4M14.4 11.8c.7 1.5.5 3.2-.4 4.6" strokeWidth={1} strokeLinecap="round" {...t.ds("#8A3F14")} />
+      <Path d="M9 3.3C9.8 1.8 10.9 1.1 12 1.1s2.2.7 3 2.2c-1.7.7-4.3.7-6 0z" {...t.d(C.goldLip)} />
+      <Shine t={t} d="M7.2 9.4c.2-2.6 1.4-4.6 3.2-5.4.6-.3 1 .5.5.9-1.4 1-2.2 2.6-2.5 4.7-.1.7-1.2.5-1.2-.2z" />
     </G>
   ),
   // An ice cube with a snowflake: the streak freeze.

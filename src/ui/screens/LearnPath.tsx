@@ -478,7 +478,7 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
         sound={ready ? "reward_chest" : "soft_ui"}
         hapticKind={ready ? "success" : "light"}
         pressScale={0.9}
-        accessibilityLabel={ready ? t("Open chest, {count} gems", { count: chest.gemsReward }) : chest.claimed ? t("Opened chest") : t("Locked chest")}
+        accessibilityLabel={ready ? t("Open chest, {count} dates", { count: chest.gemsReward }) : chest.claimed ? t("Opened chest") : t("Locked chest")}
         testID={`path-chest-${chest.id}`}
       >
         <Animated.View style={shakeStyle}>
@@ -491,7 +491,7 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
         </Animated.View>
         {ready ? (
           <View style={styles.rewardPill} pointerEvents="none">
-            <Icon name="gem" size={14} />
+            <Icon name="date" size={14} />
             <Text style={styles.rewardText}>{`+${chest.gemsReward}`}</Text>
           </View>
         ) : null}
@@ -1670,14 +1670,14 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: colors.white,
     borderWidth: 2,
-    borderColor: lighten(colors.gem, 0.55)
+    borderColor: lighten(colors.date, 0.6)
   },
   rewardText: {
     marginStart: 3,
     fontFamily: fonts.displayHeavy,
     fontSize: 14,
     lineHeight: 19,
-    color: colors.gemLip
+    color: colors.dateLip
   },
   decor: {
     position: "absolute",

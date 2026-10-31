@@ -245,7 +245,7 @@ export function ProfileView({
         <StatCard testID="profile-streak" icon="flame" value={user.streakDays} label={t("Day streak")} color={colors.flame} dim={user.streakDays <= 0} />
         <StatCard testID="profile-xp" icon="bolt" value={user.totalXp} label={t("Total XP")} color={GOLD_INK} />
         <StatCard testID="profile-stars" icon="star" value={totalStars} label={t("Stars")} color={GOLD_INK} />
-        <StatCard testID="profile-gems" icon="gem" value={user.gems} label={t("Gems")} color={colors.gemLip} />
+        <StatCard testID="profile-gems" icon="date" value={user.gems} label={t("Dates")} color={colors.dateLip} />
       </View>
 
       {guest && onCreateAccount ? (

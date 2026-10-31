@@ -84,11 +84,12 @@ function FreezeCard({ freezes, gems, onBuy }: { freezes: number; gems: number; o
           <GameButton
             label={formatNumber(STREAK_FREEZE_PRICE)}
             size="sm"
-            icon={short ? "lock" : "gem"}
+            icon={short ? "lock" : "date"}
             variant="blue"
+            color={colors.date}
             sound={short ? false : undefined}
             onPress={press}
-            accessibilityLabel={t("Buy a streak freeze for {count} gems", { count: formatNumber(STREAK_FREEZE_PRICE) })}
+            accessibilityLabel={t("Buy a streak freeze for {count} dates", { count: formatNumber(STREAK_FREEZE_PRICE) })}
             testID="streak-buy-freeze"
           />
         </Animated.View>

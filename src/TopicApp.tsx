@@ -2071,7 +2071,7 @@ export default function TopicApp() {
         const watched = readRewardedGemVideos();
 
         if (gemVideo && rewardedGemVideosLeft(watched, today) === 0) {
-          void notify(t("That's all for today"), t("Come back tomorrow for more gems."), { mood: "think" });
+          void notify(t("That's all for today"), t("Come back tomorrow for more dates."), { mood: "think" });
           return false;
         }
 
@@ -3865,7 +3865,7 @@ function getJourneyRewardStops(user: UserProfile, section: LearningSection, bran
       return {
         id: rewardId,
         title: index === nodes.length - 1 ? t("Branch treasure") : t("Reward chest"),
-        copy: index === nodes.length - 1 ? t("A tidy little gem drop for finishing this stretch of the path.") : t("Open this after clearing the path up to here."),
+        copy: index === nodes.length - 1 ? t("A handful of dates for finishing this stretch of the path.") : t("Open this after clearing the path up to here."),
         gemsReward: index === nodes.length - 1 ? 25 : 12,
         unlocked,
         claimed: claimed.has(rewardId)

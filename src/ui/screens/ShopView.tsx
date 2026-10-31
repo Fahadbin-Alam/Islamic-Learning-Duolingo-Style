@@ -4,6 +4,7 @@ import type { UiStrings } from "../../i18n";
 import { VIDEOS_PER_HEART, canSellInStore, legalLinks, monetizationMode, planForProduct, storePlatform } from "../../services/monetizationConfig";
 import type { LearningSection, ShopItem, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
+import { DateCoin } from "../DateCoin";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
 import { PopIn, useShake } from "../PopIn";
@@ -125,7 +126,7 @@ export function displayName(item: ShopItem) {
     case "gem_heart_refill":
       return t("Refill hearts");
     case "rewarded_ad":
-      return item.gemsGranted ? t("Free gems") : t("Free heart");
+      return item.gemsGranted ? t("Free dates") : t("Free heart");
     default:
       return item.name;
   }
@@ -133,14 +134,14 @@ export function displayName(item: ShopItem) {
 
 function shortLine(item: ShopItem, user: UserProfile, heartVideosWatched: number) {
   if (item.refillsHearts) return t("Fill to {count}", { count: user.hearts.max });
-  if (item.type === "rewarded_ad" && item.gemsGranted) return t("Watch: +{count} gems", { count: item.gemsGranted });
+  if (item.type === "rewarded_ad" && item.gemsGranted) return t("Watch: +{count} dates", { count: item.gemsGranted });
   if (item.type === "rewarded_ad") {
     return heartVideosWatched
       ? t("{count} of {total} videos watched", { count: heartVideosWatched, total: VIDEOS_PER_HEART })
       : t("{total} videos = 1 heart", { total: VIDEOS_PER_HEART });
   }
   if (item.heartsGranted) return t("+{count} hearts", { count: item.heartsGranted });
-  if (item.gemsGranted) return t("+{count} gems", { count: formatNumber(item.gemsGranted) });
+  if (item.gemsGranted) return t("+{count} dates", { count: formatNumber(item.gemsGranted) });
   return item.localizedDescription;
 }
 
@@ -223,6 +224,7 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
         size="sm"
         icon={icon}
         variant={variant}
+        color={variant === "blue" ? colors.date : undefined}
         // A muted item plays its own sound (see ItemRow): the buzz when locked, a soft tap when hearts are full.
         sound={busy || muted ? false : undefined}
         onPress={() => !busy && onBuy(item)}
@@ -333,9 +335,9 @@ function ItemRow(props: RowProps) {
           onBuy={press}
           label={label}
           variant={gems ? "blue" : item.type === "rewarded_ad" ? "gold" : "primary"}
-          icon={gems ? (short ? "lock" : "gem") : item.type === "rewarded_ad" ? "play" : undefined}
+          icon={gems ? (short ? "lock" : "date") : item.type === "rewarded_ad" ? "play" : undefined}
           muted={muted}
-          accessibilityLabel={`${name}, ${gems ? `${t("{count} gems", { count: formatNumber(item.price) })}${full ? t(", hearts are full") : short ? t(", not enough gems") : ""}` : item.type === "rewarded_ad" ? `${t("watch a video")}${full ? t(", hearts are full") : ""}` : label}`}
+          accessibilityLabel={`${name}, ${gems ? `${t("{count} dates", { count: formatNumber(item.price) })}${full ? t(", hearts are full") : short ? t(", not enough dates") : ""}` : item.type === "rewarded_ad" ? `${t("watch a video")}${full ? t(", hearts are full") : ""}` : label}`}
         />
       </Animated.View>
     </Animated.View>
@@ -433,7 +435,7 @@ function IconShop({ user, onBuy, onWear }: { user: UserProfile; onBuy: (id: Prof
                 onPress={() => press(id, price)}
                 sound={false}
                 style={[styles.iconTile, on ? styles.iconTileOn : owned ? styles.iconTileOwned : null]}
-                accessibilityLabel={on ? t("Wearing") : owned ? t("Wear") : t("{count} gems", { count: formatNumber(price) })}
+                accessibilityLabel={on ? t("Wearing") : owned ? t("Wear") : t("{count} dates", { count: formatNumber(price) })}
                 accessibilityState={{ selected: on }}
                 testID={`shop-icon-${id}`}
               >
@@ -446,7 +448,7 @@ function IconShop({ user, onBuy, onWear }: { user: UserProfile; onBuy: (id: Prof
                   <Text style={styles.iconOwned} numberOfLines={1}>{t("Wear")}</Text>
                 ) : (
                   <View style={styles.iconPrice}>
-                    <Icon name="gem" size={14} />
+                    <Icon name="date" size={14} />
                     <Text style={styles.iconPriceText} numberOfLines={1}>{formatNumber(price)}</Text>
                   </View>
                 )}
@@ -487,7 +489,7 @@ function SecretHintRow({ user, onBuy }: { user: UserProfile; onBuy: () => void }
           </Text>
         </View>
         <Animated.View style={shakeStyle}>
-          <GameButton label={formatNumber(SECRET_HINT_PRICE)} size="sm" icon={short ? "lock" : "gem"} variant="blue" sound={short ? false : undefined} onPress={press} testID="shop-buy-secret-hint" />
+          <GameButton label={formatNumber(SECRET_HINT_PRICE)} size="sm" icon={short ? "lock" : "date"} variant="blue" color={colors.date} sound={short ? false : undefined} onPress={press} testID="shop-buy-secret-hint" />
         </Animated.View>
       </View>
     </View>
@@ -530,11 +532,12 @@ function StreakFreezeRow({ user, onBuy }: { user: UserProfile; onBuy: () => void
             <GameButton
               label={formatNumber(STREAK_FREEZE_PRICE)}
               size="sm"
-              icon={short ? "lock" : "gem"}
+              icon={short ? "lock" : "date"}
               variant="blue"
+              color={colors.date}
               sound={short ? false : undefined}
               onPress={press}
-              accessibilityLabel={t("Buy a streak freeze for {count} gems", { count: formatNumber(STREAK_FREEZE_PRICE) })}
+              accessibilityLabel={t("Buy a streak freeze for {count} dates", { count: formatNumber(STREAK_FREEZE_PRICE) })}
               testID="shop-buy-streak-freeze"
             />
           </Animated.View>
@@ -573,7 +576,7 @@ function HadithRows({ user, onBuy, onOpen }: { user: UserProfile; onBuy: () => v
             </Text>
           </View>
           <Animated.View style={shakeStyle}>
-            <GameButton label={formatNumber(HADITH_CARD_PRICE)} size="sm" icon={short ? "lock" : "gem"} variant="blue" sound={short ? false : undefined} onPress={press} testID="shop-buy-hadith" />
+            <GameButton label={formatNumber(HADITH_CARD_PRICE)} size="sm" icon={short ? "lock" : "date"} variant="blue" color={colors.date} sound={short ? false : undefined} onPress={press} testID="shop-buy-hadith" />
           </Animated.View>
         </View>
       ) : null}
@@ -700,7 +703,7 @@ export function ShopView({
             <View style={styles.balanceGem}>
               <SecretTap spot="shop_gem">
                 <Animated.View style={{ transform: [{ scale: gemPop }] }}>
-                  <Icon name="gem" size={46} />
+                  <DateCoin size={46} playKey={user.gems} idle />
                 </Animated.View>
               </SecretTap>
               {/* Formatted as in the top bar above it (and on the Me tab): "1,000", "12,345", then "120k". */}
@@ -755,7 +758,7 @@ export function ShopView({
 
         {gemPacks.length ? (
           <View style={styles.section}>
-            <Text style={styles.sectionHeader}>{t("Gems")}</Text>
+            <Text style={styles.sectionHeader}>{t("Dates")}</Text>
             {gemPacks.map((item) => (
               <ItemRow key={item.id} item={item} {...rowProps} />
             ))}
@@ -892,7 +895,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyHeavy,
     fontSize: 13,
     lineHeight: 18,
-    color: colors.gemLip
+    color: colors.dateLip
   },
   hintRow: {
     gap: 10
@@ -923,11 +926,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: radii.lg,
-    backgroundColor: lighten(colors.gem, 0.88),
+    backgroundColor: lighten(colors.date, 0.9),
     borderWidth: 2,
     borderBottomWidth: 4,
-    borderColor: lighten(colors.gem, 0.6),
-    borderBottomColor: lighten(colors.gem, 0.35)
+    borderColor: lighten(colors.date, 0.65),
+    borderBottomColor: lighten(colors.date, 0.4)
   },
   balanceGem: {
     flexDirection: "row",
@@ -939,7 +942,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.displayHeavy,
     fontSize: 40,
     lineHeight: 48,
-    color: colors.gemLip,
+    color: colors.dateLip,
     flexShrink: 1
   },
   balanceHearts: {
