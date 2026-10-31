@@ -49,6 +49,8 @@ export type UmmahRanksProps = {
   /** A child's account: joining the ranking asks a grown-up first. */
   forChild?: boolean;
   onBattle: () => void;
+  /** Opens the Friends page, where a friend can be asked to a battle. Missing without a server or an account. */
+  onBattleFriend?: () => void;
   onJoin: (joined: boolean) => void;
   onNewNickname: () => void;
   onRefresh: () => void;
@@ -95,7 +97,7 @@ function RankRow({ row, index }: { row: UmmahRankRow; index: number }) {
 }
 
 /** The Ummah "Ranks" page: the learner's arena and BATTLE, the ranking of everyone, and the secret lessons card. */
-export function UmmahRanks({ user, rankings, unavailable, signedOut, forChild, onBattle, onJoin, onNewNickname, onRefresh, onSignIn, onOpenSecrets, mascotVariant = "muslim_man", accent = colors.green }: UmmahRanksProps) {
+export function UmmahRanks({ user, rankings, unavailable, signedOut, forChild, onBattle, onBattleFriend, onJoin, onNewNickname, onRefresh, onSignIn, onOpenSecrets, mascotVariant = "muslim_man", accent = colors.green }: UmmahRanksProps) {
   const ummah = ummahOf(user);
   const at = arenaIndex(ummah.trophies);
   const arena = ARENAS[at];
@@ -191,6 +193,7 @@ export function UmmahRanks({ user, rankings, unavailable, signedOut, forChild, o
         <View style={styles.battleMain}>
           <Text style={styles.battleLine} numberOfLines={2}>{t("5 hard questions. Get 4 right to win!")}</Text>
           <GameButton label={t("Battle")} icon="bolt" variant="gold" fullWidth onPress={onBattle} testID="ummah-battle" />
+          {onBattleFriend ? <GameButton label={t("Battle a friend")} icon="people" variant="secondary" size="sm" fullWidth onPress={onBattleFriend} testID="ummah-battle-friend" /> : null}
         </View>
       </View>
 

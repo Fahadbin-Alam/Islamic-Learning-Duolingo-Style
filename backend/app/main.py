@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.api.routes.analytics import router as analytics_router
 from backend.app.api.routes.auth import router as auth_router
+from backend.app.api.routes.battles import router as battles_router
 from backend.app.api.routes.catalog import router as catalog_router
 from backend.app.api.routes.friends import router as friends_router
 from backend.app.api.routes.ummah import router as ummah_router
@@ -38,6 +39,7 @@ app.include_router(auth_router, prefix="/api")
 app.include_router(profile_router, prefix="/api")
 app.include_router(friends_router, prefix="/api")
 app.include_router(ummah_router, prefix="/api")
+app.include_router(battles_router, prefix="/api")
 app.include_router(catalog_router, prefix="/api")
 app.include_router(learning_router, prefix="/api")
 app.include_router(subscriptions_router, prefix="/api")

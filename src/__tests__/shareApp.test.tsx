@@ -62,16 +62,14 @@ describe("Invite friends in the app", () => {
     });
   }
 
-  it("asks a grown-up first, then opens the phone's share menu with the invite", async () => {
+  it("opens the phone's share menu with the invite straight away, with no grown-up question", async () => {
     const share = jest.spyOn(Share, "share").mockResolvedValue({ action: "sharedAction" });
     setStoredItem("sira-path-user-profile", JSON.stringify(makeUser()));
     await render(<TopicApp />);
     await screen.findByTestId("learn-path-foundation");
     await press("tab-me");
     await press("profile-share");
-    expect(share).not.toHaveBeenCalled();
-    const [a, b] = (String(screen.getByTestId("grownup-question").props.children).match(/\d+/g) ?? []).map(Number);
-    await press(`grownup-option-${a * b}`);
+    expect(screen.queryByTestId("grownup-question")).toBeNull();
     expect(share).toHaveBeenCalledTimes(1);
     const { message } = share.mock.calls[0][0] as { message: string };
     expect(message).toContain(PLAY_STORE_URL);

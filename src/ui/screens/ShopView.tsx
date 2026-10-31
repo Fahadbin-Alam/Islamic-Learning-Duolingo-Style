@@ -64,6 +64,8 @@ export type ShopViewProps = {
   onBuyHadith?: () => void;
   /** Opens "My hadith", the cards bought so far. */
   onOpenHadith?: () => void;
+  /** Shows this shelf, when it has anything on it (tests and the gallery). Default: Hearts, or Dates for focus "premium". */
+  shelf?: ShopShelf;
 };
 
 const MANAGE_SUBSCRIPTION_URL =
@@ -598,6 +600,31 @@ function HadithRows({ user, onBuy, onOpen }: { user: UserProfile; onBuy: () => v
   );
 }
 
+/** The shop's shelves, one at a time, so the screen never shows everything at once. */
+export type ShopShelf = "hearts" | "hadith" | "icons" | "dates";
+
+function shelfLabel(shelf: ShopShelf) {
+  switch (shelf) {
+    case "hadith":
+      return t("Hadith");
+    case "icons":
+      return t("Icons");
+    case "dates":
+      return t("Dates");
+    default:
+      return t("Hearts");
+  }
+}
+
+const SHELF_ICONS: Record<ShopShelf, IconName> = { hearts: "heart", hadith: "scroll", icons: "star8", dates: "date" };
+
+/** The shelf a store item sits on: hearts and power-ups on Hearts, date packs and plans on Dates. */
+export function itemShelf(item: ShopItem): ShopShelf {
+  if (item.tier) return "dates";
+  if (item.refillsHearts || item.heartsGranted || (item.type === "rewarded_ad" && !item.gemsGranted)) return "hearts";
+  return item.gemsGranted ? "dates" : "hearts";
+}
+
 /** A quick spring from big back to normal size. */
 function popValue(value: Animated.Value) {
   value.setValue(1.35);
@@ -625,7 +652,8 @@ export function ShopView({
   onBuySecretHint,
   onBuyStreakFreeze,
   onBuyHadith,
-  onOpenHadith
+  onOpenHadith,
+  shelf: shelfProp
 }: ShopViewProps) {
   const premium = isPremium(user);
   const fullPremium = isFullPremium(user);
@@ -693,6 +721,22 @@ export function ShopView({
   const pending = pendingItemId ?? pendingId;
   const rowProps = { user, storePrices, busy, pendingId: pending, onBuy: buy, heartVideosWatched };
 
+  // Only shelves with something on them; Premium's "can't be bought here" note lives on the Dates shelf.
+  const shelves: ShopShelf[] = [];
+  if (hearts.length || powerUps.length || onBuyStreakFreeze) shelves.push("hearts");
+  if (onBuyHadith || onBuySecretHint) shelves.push("hadith");
+  if (onBuyIcon) shelves.push("icons");
+  if (gemPacks.length || plans.length || (!canBuyWithMoney && !premium)) shelves.push("dates");
+  const [picked, setPicked] = useState<ShopShelf | undefined>(focus === "premium" ? "dates" : undefined);
+  const wanted = shelfProp ?? picked;
+  const shelf: ShopShelf | undefined = wanted && shelves.includes(wanted) ? wanted : shelves[0];
+  const pickShelf = (next: ShopShelf) => {
+    if (next === shelf) return;
+    feedback("soft_ui", "light");
+    setPicked(next);
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+  };
+
   return (
     <View style={styles.root}>
       <ScrollView ref={scrollRef} style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="shop-view">
@@ -724,6 +768,32 @@ export function ShopView({
           </View>
         </PopIn>
 
+        {shelves.length > 1 ? (
+          <View style={styles.shelfBar} accessibilityRole="tablist" testID="shop-shelves">
+            {shelves.map((key) => {
+              const on = key === shelf;
+              return (
+                <Tappable
+                  key={key}
+                  onPress={() => pickShelf(key)}
+                  sound={false}
+                  style={[styles.shelfTab, on ? styles.shelfTabOn : null]}
+                  accessibilityRole="tab"
+                  accessibilityState={{ selected: on }}
+                  accessibilityLabel={shelfLabel(key)}
+                  testID={`shop-shelf-${key}`}
+                  pressScale={0.95}
+                >
+                  <Icon name={SHELF_ICONS[key]} size={24} />
+                  <Text style={[styles.shelfText, on ? styles.shelfTextOn : null]} numberOfLines={1}>
+                    {shelfLabel(key)}
+                  </Text>
+                </Tappable>
+              );
+            })}
+          </View>
+        ) : null}
+
         {premium ? (
           <PopIn delay={80} from="up">
             <View style={styles.activeCard} testID="shop-premium-active">
@@ -747,7 +817,7 @@ export function ShopView({
           </PopIn>
         ) : null}
 
-        {hearts.length ? (
+        {shelf === "hearts" && hearts.length ? (
           <View style={styles.section}>
             <Text style={styles.sectionHeader}>{t("Hearts")}</Text>
             {hearts.map((item) => (
@@ -756,7 +826,7 @@ export function ShopView({
           </View>
         ) : null}
 
-        {gemPacks.length ? (
+        {shelf === "dates" && gemPacks.length ? (
           <View style={styles.section}>
             <Text style={styles.sectionHeader}>{t("Dates")}</Text>
             {gemPacks.map((item) => (
@@ -765,7 +835,7 @@ export function ShopView({
           </View>
         ) : null}
 
-        {powerUps.length ? (
+        {shelf === "hearts" && powerUps.length ? (
           <View style={styles.section}>
             <Text style={styles.sectionHeader}>{t("Power-ups")}</Text>
             {powerUps.map((item) => (
@@ -774,27 +844,27 @@ export function ShopView({
           </View>
         ) : null}
 
-        {onBuyStreakFreeze ? <StreakFreezeRow user={user} onBuy={onBuyStreakFreeze} /> : null}
+        {shelf === "hearts" && onBuyStreakFreeze ? <StreakFreezeRow user={user} onBuy={onBuyStreakFreeze} /> : null}
 
-        {onBuyHadith ? <HadithRows user={user} onBuy={onBuyHadith} onOpen={onOpenHadith} /> : null}
+        {shelf === "hadith" && onBuyHadith ? <HadithRows user={user} onBuy={onBuyHadith} onOpen={onOpenHadith} /> : null}
 
-        {onBuyIcon ? <IconShop user={user} onBuy={onBuyIcon} onWear={onWearIcon} /> : null}
+        {shelf === "icons" && onBuyIcon ? <IconShop user={user} onBuy={onBuyIcon} onWear={onWearIcon} /> : null}
 
-        {onBuySecretHint ? <SecretHintRow user={user} onBuy={onBuySecretHint} /> : null}
+        {shelf === "hadith" && onBuySecretHint ? <SecretHintRow user={user} onBuy={onBuySecretHint} /> : null}
 
-        {noAdsPlans.length ? (
+        {shelf === "dates" && noAdsPlans.length ? (
           <View style={styles.section}>
             <PremiumCard plans={noAdsPlans} kind="no_ads" {...rowProps} />
           </View>
         ) : null}
 
-        {premiumPlans.length ? (
+        {shelf === "dates" && premiumPlans.length ? (
           <View style={styles.section} onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
             <PremiumCard plans={premiumPlans} {...rowProps} />
           </View>
         ) : null}
 
-        {!canBuyWithMoney && !premium ? (
+        {shelf === "dates" && !canBuyWithMoney && !premium ? (
           // Only what is true here, in a child's words: this build cannot sell the crown units (premiumOnly,
           // a handful of circles), so they stay locked, and every other lesson is free to play.
           <View style={styles.appHint} testID="shop-app-hint" onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
@@ -963,6 +1033,41 @@ const styles = StyleSheet.create({
   section: {
     marginTop: 20,
     gap: 10
+  },
+  shelfBar: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginTop: 16
+  },
+  shelfTab: {
+    flexGrow: 1,
+    flexBasis: "22%",
+    minWidth: 64,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 2,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: colors.line,
+    backgroundColor: colors.white
+  },
+  shelfTabOn: {
+    borderColor: colors.date,
+    backgroundColor: lighten(colors.date, 0.85)
+  },
+  shelfText: {
+    fontFamily: fonts.display,
+    fontSize: 14,
+    lineHeight: 19,
+    color: colors.inkSoft,
+    flexShrink: 1
+  },
+  shelfTextOn: {
+    color: darken(colors.date, 0.35)
   },
   sectionHeader: {
     fontFamily: fonts.displayHeavy,

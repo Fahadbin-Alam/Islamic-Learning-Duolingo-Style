@@ -100,6 +100,27 @@ class Friendship(Base):
     user: Mapped["User"] = relationship(foreign_keys=[user_id], overlaps="following")
 
 
+class FriendBattle(Base):
+    """One learner asking a friend (both added each other) to a quiz battle. Both answer the same questions, picked
+    in the app from `seed`, and the higher score wins once both have played."""
+
+    __tablename__ = "friend_battles"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    challenger_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    opponent_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    # pending (asked, not answered), accepted (both may play), declined, done (both played).
+    status: Mapped[str] = mapped_column(String(20), default="pending", server_default="pending", nullable=False)
+    seed: Mapped[int] = mapped_column(Integer, nullable=False)
+    challenger_score: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    opponent_score: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+    challenger: Mapped["User"] = relationship(foreign_keys=[challenger_id])
+    opponent: Mapped["User"] = relationship(foreign_keys=[opponent_id])
+
+
 class AuthSession(Base):
     __tablename__ = "auth_sessions"
 
