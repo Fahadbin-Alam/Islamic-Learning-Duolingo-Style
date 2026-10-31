@@ -644,7 +644,6 @@
   "The toughest questions. Good luck!": "أصعب الأسئلة. بالتوفيق!",
   "Photo: {credit}": "الصورة: {credit}",
   "Shows the photo bigger": "يعرض الصورة أكبر",
-  "Tap a scholar to see who taught him and whom he taught. Swipe left and right.": "اضغط على عالم لترى من علّمه ومن تعلّم منه. اسحب يمينًا ويسارًا.",
   "The Prophet ﷺ": "النبي ﷺ",
   "Tabi'in": "التابعون",
   "Tabi' al-Tabi'in": "تابعو التابعين",
@@ -653,5 +652,8 @@
   "Chain back to the Prophet ﷺ": "السند إلى النبي ﷺ",
   "Learned from": "تعلّم من",
   "Taught": "علّم",
-  "Open lessons": "افتح الدروس"
+  "Start lessons": "ابدأ الدروس",
+  "Continue lessons": "تابع الدروس",
+  "Also in {topic}: {unit}": "أيضًا في {topic}: {unit}",
+  "Tap anyone to learn about them and see who taught whom. Drag or swipe to move around.": "اضغط على أي اسم لتتعلّم عنه وترى من علّم من. اسحب لتتنقّل في الشجرة."
 }

@@ -55,6 +55,12 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "scholar-ibn-taymiyyah": { ar: "ابن تيمية", translit: "Ibn Taymiyyah", meaning: "Shaykh al-Islam Ibn Taymiyyah" },
   "scholar-ibn-baz": { ar: "ابن باز", translit: "Ibn Baz", meaning: "Shaykh Ibn Baz" },
   "scholar-albani": { ar: "الألباني", translit: "Al-Albani", meaning: "Shaykh al-Albani" },
+  // The rest of the family tree (src/data/scholarTreeUnits.ts)
+  "scholar-umar": { ar: "علم عمر", translit: "'Ilm 'Umar", meaning: "Umar's knowledge" },
+  "scholar-aishah": { ar: "علم عائشة", translit: "'Ilm 'A'ishah", meaning: "Aishah's knowledge" },
+  "scholar-ibn-masud": { ar: "ابن مسعود", translit: "Ibn Mas'ud", meaning: "Abdullah ibn Mas'ud" },
+  "scholar-ibn-abbas": { ar: "ابن عباس", translit: "Ibn 'Abbas", meaning: "Abdullah ibn Abbas" },
+  "scholar-ibn-umar": { ar: "ابن عمر", translit: "Ibn 'Umar", meaning: "Abdullah ibn Umar" },
   // Foundation: greetings, daily words and first worship
   "foundation-greetings": { ar: "التحية", translit: "At-tahiyyah", meaning: "The greeting" },
   "foundation-daily-words": { ar: "الأذكار اليومية", translit: "Al-adhkar al-yawmiyyah", meaning: "Daily remembrances" },
@@ -633,6 +639,7 @@ const IMPORTED_UNIT_ARABIC: Partial<Record<TopicId, ArabicTerm>> = {
 // vowel marks, is exactly the banner's spelling (the tests check this).
 const LEARN_FORMS = [
   "الْمُهَاجِرُونَ", "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
+  "عِلْمُ عُمَرَ", "عِلْمُ عَائِشَةَ", "ابْنُ مَسْعُودٍ", "ابْنُ عَبَّاسٍ", "ابْنُ عُمَرَ",
   "التَّحِيَّةُ", "الْأَذْكَارُ الْيَوْمِيَّةُ", "الْعِبَارَاتُ الْيَوْمِيَّةُ",
   "آدَابُ الْبَيْتِ وَالطَّعَامِ", "بِدَايَةُ الْعِبَادَةِ", "الْوُضُوءُ", "أَسَاسِيَّاتُ الصَّلَاةِ",
   "أَوْقَاتُ الصَّلَاةِ", "الْأَذَانُ وَالْإِقَامَةُ", "الرُّكُوعُ وَالسُّجُودُ", "التَّشَهُّدُ",

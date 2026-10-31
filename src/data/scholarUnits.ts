@@ -1,5 +1,6 @@
 import type { LearningSection, LessonSource } from "../types";
 import type { DeepUnit } from "./deepUnits";
+import { SCHOLAR_TREE_BRANCHES, SCHOLAR_TREE_UNITS } from "./scholarTreeUnits";
 
 // The Scholars topic: the four imams of the madhhabs and three later scholars, each a deep unit of his life.
 // Every fact is from one biography page (IslamQA, or the King Faisal Prize's laureate pages) and only what the
@@ -889,28 +890,47 @@ const ALBANI: DeepUnit = {
   ]
 };
 
-export const SCHOLAR_UNITS: readonly DeepUnit[] = [ABU_HANIFAH, MALIK, SHAFII, AHMAD, IBN_TAYMIYYAH, IBN_BAZ, ALBANI];
+export const SCHOLAR_UNITS: readonly DeepUnit[] = [ABU_HANIFAH, MALIK, SHAFII, AHMAD, IBN_TAYMIYYAH, IBN_BAZ, ALBANI, ...SCHOLAR_TREE_UNITS];
+
+const IMAM_BRANCHES = [
+  { id: "scholar-abu-hanifah", title: "Abu Hanifah", description: "From Kufa. The first of the four imams." },
+  { id: "scholar-malik", title: "Imam Malik", description: "From Madinah. Teacher of ash-Shafi'i." },
+  { id: "scholar-shafii", title: "Imam ash-Shafi'i", description: "Learned from Malik, and from Muhammad ibn al-Hasan, Abu Hanifah's student." },
+  { id: "scholar-ahmad", title: "Imam Ahmad", description: "Learned from ash-Shafi'i, and first from Abu Yusuf, Abu Hanifah's student." },
+  { id: "scholar-ibn-taymiyyah", title: "Ibn Taymiyyah", description: "Centuries later, in Damascus. Teacher of Ibn al-Qayyim." },
+  { id: "scholar-ibn-baz", title: "Ibn Baz", description: "From Riyadh. Grand Mufti of Saudi Arabia." },
+  { id: "scholar-albani", title: "Al-Albani", description: "From Albania, then Damascus. A scholar of hadith." }
+];
+
+/** The Scholars topic's units, oldest first: the Sahabah at the top of the tree, down to the scholars of our time. */
+const SCHOLAR_ORDER = [
+  "scholar-umar",
+  "scholar-aishah",
+  "scholar-ibn-masud",
+  "scholar-ibn-abbas",
+  "scholar-ibn-umar",
+  "scholar-abu-hanifah",
+  "scholar-malik",
+  "scholar-shafii",
+  "scholar-ahmad",
+  "scholar-ibn-taymiyyah",
+  "scholar-ibn-baz",
+  "scholar-albani"
+];
+const ALL_BRANCHES = new Map([...IMAM_BRANCHES, ...SCHOLAR_TREE_BRANCHES].map((branch) => [branch.id, branch]));
 
 /** The Scholars topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SCHOLARS_SECTION: LearningSection = {
   id: "scholars",
   topicId: "scholars",
   title: "Scholars",
-  description: "The four imams and later scholars, shown as a family tree of who learned from whom.",
+  description: "The Sahabah, the four imams and the scholars after them, as a family tree of who learned from whom.",
   badge: "Topic 9",
-  focus: "Abu Hanifah, Malik, ash-Shafi'i, Ahmad, Ibn Taymiyyah, Ibn Baz and al-Albani.",
+  focus: "Aishah, Ibn Abbas, Ibn Mas'ud, the four imams, Ibn Taymiyyah, Ibn Baz, al-Albani and more.",
   mascot: "muslim_man",
   accentColor: "#7A5CC8",
   starsTarget: 0,
-  branches: [
-    { id: "scholar-abu-hanifah", topicId: "scholars", title: "Abu Hanifah", description: "From Kufa. The first of the four imams.", order: 1 },
-    { id: "scholar-malik", topicId: "scholars", title: "Imam Malik", description: "From Madinah. Teacher of ash-Shafi'i.", order: 2 },
-    { id: "scholar-shafii", topicId: "scholars", title: "Imam ash-Shafi'i", description: "Learned from Malik, and from Muhammad ibn al-Hasan, Abu Hanifah's student.", order: 3 },
-    { id: "scholar-ahmad", topicId: "scholars", title: "Imam Ahmad", description: "Learned from ash-Shafi'i, and first from Abu Yusuf, Abu Hanifah's student.", order: 4 },
-    { id: "scholar-ibn-taymiyyah", topicId: "scholars", title: "Ibn Taymiyyah", description: "Centuries later, in Damascus. Teacher of Ibn al-Qayyim.", order: 5 },
-    { id: "scholar-ibn-baz", topicId: "scholars", title: "Ibn Baz", description: "From Riyadh. Grand Mufti of Saudi Arabia.", order: 6 },
-    { id: "scholar-albani", topicId: "scholars", title: "Al-Albani", description: "From Albania, then Damascus. A scholar of hadith.", order: 7 }
-  ],
+  branches: SCHOLAR_ORDER.map((id, index) => ({ ...(ALL_BRANCHES.get(id) as { id: string; title: string; description: string }), topicId: "scholars" as const, order: index + 1 })),
   nodes: []
 };
 
@@ -922,7 +942,13 @@ export type ScholarYears = { era: "AH" | "CE"; born?: number; died?: number };
  * each link from his unit's page. Ash-Shafi'i learned from Malik and from Abu Hanifah's student Muhammad ibn
  * al-Hasan; Ahmad from ash-Shafi'i and from Abu Hanifah's companion Abu Yusuf. The later rows are centuries apart.
  */
-export const SCHOLAR_TREE: Record<string, { row: number; years: ScholarYears; learnedFrom?: { id: string; via?: string }[] }> = {
+export const SCHOLAR_TREE: Record<string, { row: number; years?: ScholarYears; learnedFrom?: { id: string; via?: string }[] }> = {
+  // Their years are left off where the reports differ (Aishah: 57 or 58 AH); the tree's colours give their generation.
+  "scholar-umar": { row: 1 },
+  "scholar-aishah": { row: 1 },
+  "scholar-ibn-masud": { row: 1 },
+  "scholar-ibn-abbas": { row: 1 },
+  "scholar-ibn-umar": { row: 1 },
   "scholar-abu-hanifah": { row: 0, years: { era: "AH", born: 80, died: 150 } },
   "scholar-malik": { row: 0, years: { era: "AH", born: 93, died: 179 } },
   "scholar-shafii": { row: 1, years: { era: "AH", died: 204 }, learnedFrom: [{ id: "scholar-malik" }, { id: "scholar-abu-hanifah", via: "Muhammad ibn al-Hasan" }] },

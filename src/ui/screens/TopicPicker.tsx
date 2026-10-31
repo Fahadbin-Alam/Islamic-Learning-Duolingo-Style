@@ -173,7 +173,19 @@ function UnitRow({ unit, accent, active, onPress }: { unit: TopicPickerUnit; acc
 }
 
 /** A topic's sub-topics: the whole topic first, then each unit (a companion, a surah) to learn on its own. */
-function UnitList({ topic, activeUnitId, onPick }: { topic: TopicPickerTopic; activeUnitId?: string; onPick: (unitId?: string) => void }) {
+function UnitList({
+  topic,
+  activeUnitId,
+  onPick,
+  topics,
+  onPickElsewhere
+}: {
+  topic: TopicPickerTopic;
+  activeUnitId?: string;
+  onPick: (unitId?: string) => void;
+  topics: TopicPickerTopic[];
+  onPickElsewhere: (topicId: string, unitId: string) => void;
+}) {
   const palette = topicPalette(topic.accent);
   return (
     <View testID={`topic-units-${topic.topicId}`}>
@@ -192,7 +204,16 @@ function UnitList({ topic, activeUnitId, onPick }: { topic: TopicPickerTopic; ac
         </Text>
       </Tappable>
       {(topic.units ?? []).every((unit) => unit.tree) ? (
-        <ScholarTree units={topic.units ?? []} onPick={onPick} />
+        <ScholarTree
+          units={topic.units ?? []}
+          onPick={onPick}
+          onPickElsewhere={onPickElsewhere}
+          findElsewhere={(topicId, unitId) => {
+            const other = topics.find((item) => item.topicId === topicId);
+            const unit = other?.units?.find((item) => item.id === unitId);
+            return other && unit ? { title: unit.title, topicTitle: other.title } : undefined;
+          }}
+        />
       ) : (
         (topic.units ?? []).map((unit) => (
           <UnitRow key={unit.id} unit={unit} accent={topic.accent} active={unit.id === activeUnitId} onPress={() => onPick(unit.id)} />
@@ -296,6 +317,11 @@ export function TopicPicker({ visible, onClose, topics, activeTopicId, activeUni
             activeUnitId={openTopic.topicId === activeTopicId ? activeUnitId : undefined}
             onPick={(unitId) => {
               onSelect(openTopic.topicId, unitId);
+              onClose();
+            }}
+            topics={topics}
+            onPickElsewhere={(topicId, unitId) => {
+              onSelect(topicId, unitId);
               onClose();
             }}
           />

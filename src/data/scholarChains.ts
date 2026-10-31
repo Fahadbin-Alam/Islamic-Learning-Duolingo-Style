@@ -1,4 +1,4 @@
-import type { LessonSource, SupportedLanguage } from "../types";
+import type { LessonSource, SupportedLanguage, TopicId } from "../types";
 import { ABU_HANIFAH_PAGE, AHMAD_PAGE, IBN_TAYMIYYAH_PAGE, SHAFII_PAGE } from "./scholarUnits";
 
 // Chains of knowledge for the Scholars family tree: who learned from whom, back to the Prophet ﷺ through the
@@ -24,6 +24,8 @@ export type ChainPerson = {
   col: number;
   /** The scholar's own lesson unit, when he has one. */
   unitId?: string;
+  /** Another topic's unit about the same person (his life as a Sahabi, her life as a wife of the Prophet ﷺ). */
+  alsoIn?: { topicId: TopicId; unitId: string };
 };
 
 export type ChainLink = { teacher: string; student: string; source: LessonSource };
@@ -97,13 +99,13 @@ const SIYAR_AHMAD_TEACHERS = siyar(11, 181, "Ahmad heard hadith from Sufyan ibn 
 const SIYAR_AHMAD_STUDENTS = siyar(11, 181, "Al-Bukhari narrated from Ahmad, and Muslim and Abu Dawud narrated a great deal from him.");
 
 export const CHAIN_PEOPLE: readonly ChainPerson[] = [
-  { id: "prophet", names: { en: "Prophet Muhammad ﷺ", ar: "النبي محمد ﷺ", bn: "নবী মুহাম্মদ ﷺ", ur: "نبی محمد ﷺ" }, generation: "prophet", row: 0, col: 3.25 },
+  { id: "prophet", names: { en: "Prophet Muhammad ﷺ", ar: "النبي محمد ﷺ", bn: "নবী মুহাম্মদ ﷺ", ur: "نبی محمد ﷺ" }, generation: "prophet", row: 0, col: 3.25, alsoIn: { topicId: "prophets", unitId: "prophets-final-example" } },
 
-  { id: "umar", names: { en: "Umar ibn al-Khattab", ar: "عمر بن الخطاب", bn: "উমর ইবনুল খাত্তাব", ur: "عمر بن خطاب" }, generation: "sahabi", row: 1, col: 0 },
-  { id: "aishah", names: { en: "Aishah", ar: "عائشة", bn: "আয়েশা", ur: "عائشہ" }, generation: "sahabi", row: 1, col: 1.5 },
-  { id: "ibn-umar", names: { en: "Abdullah ibn Umar", ar: "عبد الله بن عمر", bn: "আব্দুল্লাহ ইবনে উমর", ur: "عبداللہ بن عمر" }, generation: "sahabi", row: 1, col: 3 },
-  { id: "ibn-abbas", names: { en: "Abdullah ibn Abbas", ar: "عبد الله بن عباس", bn: "আব্দুল্লাহ ইবনে আব্বাস", ur: "عبداللہ بن عباس" }, generation: "sahabi", row: 1, col: 4.75 },
-  { id: "ibn-masud", names: { en: "Abdullah ibn Mas'ud", ar: "عبد الله بن مسعود", bn: "আব্দুল্লাহ ইবনে মাসউদ", ur: "عبداللہ بن مسعود" }, generation: "sahabi", row: 1, col: 6.25 },
+  { id: "umar", names: { en: "Umar ibn al-Khattab", ar: "عمر بن الخطاب", bn: "উমর ইবনুল খাত্তাব", ur: "عمر بن خطاب" }, generation: "sahabi", row: 1, col: 0, unitId: "scholar-umar", alsoIn: { topicId: "sahabah", unitId: "sahabi-umar-ibn-al-khattab" } },
+  { id: "aishah", names: { en: "Aishah", ar: "عائشة", bn: "আয়েশা", ur: "عائشہ" }, generation: "sahabi", row: 1, col: 1.5, unitId: "scholar-aishah", alsoIn: { topicId: "women_of_the_book", unitId: "women-mothers" } },
+  { id: "ibn-umar", names: { en: "Abdullah ibn Umar", ar: "عبد الله بن عمر", bn: "আব্দুল্লাহ ইবনে উমর", ur: "عبداللہ بن عمر" }, generation: "sahabi", row: 1, col: 3, unitId: "scholar-ibn-umar" },
+  { id: "ibn-abbas", names: { en: "Abdullah ibn Abbas", ar: "عبد الله بن عباس", bn: "আব্দুল্লাহ ইবনে আব্বাস", ur: "عبداللہ بن عباس" }, generation: "sahabi", row: 1, col: 4.75, unitId: "scholar-ibn-abbas" },
+  { id: "ibn-masud", names: { en: "Abdullah ibn Mas'ud", ar: "عبد الله بن مسعود", bn: "আব্দুল্লাহ ইবনে মাসউদ", ur: "عبداللہ بن مسعود" }, generation: "sahabi", row: 1, col: 6.25, unitId: "scholar-ibn-masud", alsoIn: { topicId: "sahabah", unitId: "sahabi-abdullah-ibn-masud" } },
 
   { id: "alqamah-waqqas", names: { en: "Alqamah ibn Waqqas", ar: "علقمة بن وقاص", bn: "আলকামা ইবনে ওয়াক্কাস", ur: "علقمہ بن وقاص" }, generation: "tabii", row: 2, col: 0 },
   { id: "urwah", names: { en: "Urwah ibn az-Zubayr", ar: "عروة بن الزبير", bn: "উরওয়া ইবনুয যুবাইর", ur: "عروہ بن زبیر" }, generation: "tabii", row: 2, col: 1.5 },
