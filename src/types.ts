@@ -240,7 +240,12 @@ export interface UserProfile {
   quizScores?: Record<string, QuizScore>;
   /** The Review deck: lesson questions missed on their first try, brought back until they stick (services/reviewDeck). */
   reviewCards?: ReviewCard[];
+  /** How hard lessons are (Settings): "auto" climbs with the streak and lessons done (src/data/challengeLevel.ts). */
+  difficulty?: DifficultyChoice;
 }
+
+/** Lesson difficulty as the learner picks it in Settings; unset is "auto". */
+export type DifficultyChoice = "auto" | "easy" | "hard" | "really_hard";
 
 /** One missed lesson question in the Review deck. */
 export interface ReviewCard {

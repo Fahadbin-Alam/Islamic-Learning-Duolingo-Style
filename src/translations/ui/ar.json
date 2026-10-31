@@ -632,5 +632,14 @@
   "New to Islam": "جديد على الإسلام",
   "Tell us about you": "أخبرنا عنك",
   "One God, the Quran, Jesus and the prophets, living side by side, and first steps as a Muslim.": "إله واحد، والقرآن، وعيسى والأنبياء، والعيش معًا، والخطوات الأولى للمسلم.",
-  "I'm just curious": "أودّ التعرّف فقط"
+  "I'm just curious": "أودّ التعرّف فقط",
+  "Difficulty": "الصعوبة",
+  "Auto": "تلقائي",
+  "Easy": "سهل",
+  "Hard": "صعب",
+  "Really hard": "صعب جدًا",
+  "Gets harder as your streak grows.": "تصعب أكثر كلما طالت سلسلتك.",
+  "Gentle questions, more true or false.": "أسئلة لطيفة، صح أو خطأ أكثر.",
+  "More questions from memory.": "أسئلة أكثر من الذاكرة.",
+  "The toughest questions. Good luck!": "أصعب الأسئلة. بالتوفيق!"
 }
