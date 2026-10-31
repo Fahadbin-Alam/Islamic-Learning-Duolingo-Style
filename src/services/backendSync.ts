@@ -353,6 +353,45 @@ export async function removeCrewMember(friendId: number) {
   await backendRequest(`/api/friends/${friendId}`, { method: "DELETE", headers: authHeaders() });
 }
 
+/**
+ * A quiz battle between two friends (see backend/app/api/routes/battles.py): one asks, the other says yes, then
+ * both answer the same questions (picked from `seed`). Their score shows only once both have played.
+ */
+export type FriendBattle = {
+  id: number;
+  friend: { id: number; name: string; avatarInitials: string };
+  youStarted: boolean;
+  status: "pending" | "accepted" | "done";
+  seed: number;
+  yourScore: number | null;
+  theyPlayed: boolean;
+  theirScore?: number | null;
+  outcome?: "win" | "loss" | "draw";
+  createdAt?: string | null;
+};
+
+export async function fetchFriendBattles() {
+  const body = await backendRequest<{ battles: FriendBattle[] }>("/api/battles", { headers: authHeaders() });
+  return body.battles ?? [];
+}
+
+export async function startFriendBattle(friendId: number) {
+  return backendRequest<FriendBattle>("/api/battles", { method: "POST", headers: authHeaders(), body: JSON.stringify({ friendId }) });
+}
+
+export async function acceptFriendBattle(battleId: number) {
+  return backendRequest<FriendBattle>(`/api/battles/${battleId}/accept`, { method: "POST", headers: authHeaders() });
+}
+
+/** The friend says no, or the one who asked takes it back. */
+export async function declineFriendBattle(battleId: number) {
+  await backendRequest(`/api/battles/${battleId}/decline`, { method: "POST", headers: authHeaders() });
+}
+
+export async function sendFriendBattleScore(battleId: number, correct: number) {
+  return backendRequest<FriendBattle>(`/api/battles/${battleId}/score`, { method: "POST", headers: authHeaders(), body: JSON.stringify({ correct }) });
+}
+
 /** Saves the learner's Ummah state (trophies, nickname, joined) and returns the ranking of everyone who joined. */
 export async function fetchUmmahRankings(ummah: UmmahState) {
   return backendRequest<UmmahRankings>("/api/ummah/rankings", {

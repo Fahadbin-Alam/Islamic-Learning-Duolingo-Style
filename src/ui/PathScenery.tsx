@@ -6,6 +6,7 @@ import { useReduceMotion } from "./Camel";
 import { Icon, type IconName } from "./Icon";
 import { smoothKeys } from "./motion";
 import { Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
+import { ShowScenery, WellBucket, hasShows } from "./sceneryShows";
 import { feedback, playUi } from "./sound";
 
 /**
@@ -519,17 +520,6 @@ function FlowerPatch({ size, seed, sway, reduceMotion }: { size: number; seed: n
   );
 }
 
-/** The well's rope and bucket, hanging from the beam. */
-function WellBucket() {
-  return (
-    <G>
-      <Path d="M32 0V30" stroke={INK} strokeWidth={1.2} />
-      <Path d="M27 30H37L36 37H28Z" fill="#9A5724" />
-      <Path d="M27 30H37" stroke="#7A421A" strokeWidth={1.4} />
-    </G>
-  );
-}
-
 /** What a tap on each picture does: the well drops its bucket and splashes, the rest hop with a boing. */
 const TAP_SOUND: Partial<Record<SceneryKind, GameSoundEvent>> = { well: "splash", oasis: "splash" };
 
@@ -633,6 +623,24 @@ export const PathScenery = memo(function PathScenery({ kind, size = 64, animated
           <FlowerArt kind={flowerKind} colors={palette} stage="bloom" />
         </Animated.View>
       </View>
+    );
+  }
+
+  if (tappable && hasShows(kind)) {
+    // The well, palm, sheep, tent, basket and pond each have a run of tap shows (see sceneryShows.tsx).
+    return (
+      <ShowScenery
+        kind={kind}
+        size={size}
+        art={
+          <Svg width={size} height={size} viewBox="0 0 64 64">
+            <Drawing kind={kind} />
+          </Svg>
+        }
+        sway={sways ? rotate : null}
+        reduceMotion={reduceMotion}
+        style={style}
+      />
     );
   }
 

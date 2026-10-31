@@ -4,7 +4,7 @@ import { FoundationAssessmentScreen, FoundationDashboard, PracticeComplete } fro
 import { COURSE, SHOP_ITEMS } from "../../data/course";
 import { FOUNDATION_QUESTION_BANK } from "../../data/foundationQuestionBank";
 import { getUiStrings } from "../../i18n";
-import type { CrewMember } from "../../services/backendSync";
+import type { CrewMember, FriendBattle } from "../../services/backendSync";
 import {
   advanceFoundationAssessment,
   createEmptyLearnerProfile,
@@ -20,7 +20,7 @@ import { BottomTabs, type TabKey } from "../screens/BottomTabs";
 import { CrewView, type CrewViewState } from "../screens/CrewView";
 import { PracticeHub } from "../screens/PracticeHub";
 import { ProfileView } from "../screens/ProfileView";
-import { ShopView } from "../screens/ShopView";
+import { ShopView, type ShopShelf } from "../screens/ShopView";
 import { HadithCardSheet, HadithListSheet } from "../screens/SecretSheet";
 import { buyHadith, type HadithCard } from "../../data/hadithTreasures";
 import { colors } from "../theme";
@@ -32,6 +32,11 @@ const STATES = [
   "shop-premium",
   "shop-busy",
   "shop-hadith",
+  "shop-all-hearts",
+  "shop-all-hadith",
+  "shop-all-icons",
+  "shop-all-dates",
+  "crew-battles",
   "profile-guest",
   "profile-user",
   "crew-ready",
@@ -209,6 +214,14 @@ function TabFrame({ tab, user, children }: { tab: TabKey; user: UserProfile; chi
   );
 }
 
+// A friend battle in every state, for the Friends page.
+const demoBattles: FriendBattle[] = [
+  { id: 1, friend: { id: 4, name: "Bilal", avatarInitials: "B" }, youStarted: false, status: "pending", seed: 11, yourScore: null, theyPlayed: false },
+  { id: 2, friend: { id: 2, name: "Yusuf Abdur-Rahman Al-Khwarizmi", avatarInitials: "YA" }, youStarted: true, status: "accepted", seed: 12, yourScore: null, theyPlayed: true },
+  { id: 3, friend: { id: 5, name: "Maryam", avatarInitials: "MS" }, youStarted: true, status: "pending", seed: 13, yourScore: null, theyPlayed: false },
+  { id: 4, friend: { id: 3, name: "Mum", avatarInitials: "M" }, youStarted: false, status: "done", seed: 14, yourScore: 4, theirScore: 3, theyPlayed: true, outcome: "win" }
+];
+
 function CrewDemo({ state }: { state: State }) {
   const [email, setEmail] = useState("");
   const [relation, setRelation] = useState<SocialRelation>("friend");
@@ -236,6 +249,12 @@ function CrewDemo({ state }: { state: State }) {
         onRemoveFriend={noop}
         onRefresh={noop}
         onCreateAccount={noop}
+        battles={state === "crew-battles" ? demoBattles : []}
+        onChallenge={noop}
+        onAnswerBattle={noop}
+        onPlayBattle={noop}
+        onCancelBattle={noop}
+        onShareApp={noop}
       />
     </TabFrame>
   );
@@ -325,6 +344,7 @@ function HadithShopDemo() {
           setCard(bought.card);
         }}
         onOpenHadith={() => setListOpen(true)}
+        shelf="hadith"
       />
       <HadithCardSheet card={card} isNew onClose={() => setCard(undefined)} />
       <HadithListSheet visible={listOpen} user={user} onClose={() => setListOpen(false)} />
@@ -359,6 +379,31 @@ function Screen({ state }: { state: State }) {
   }
   if (state === "shop-hadith") {
     return <HadithShopDemo />;
+  }
+  if (state.startsWith("shop-all-")) {
+    const user = { ...makeUser("guest"), gems: 130 };
+    return (
+      <TabFrame tab="shop" user={user}>
+        <ShopView
+          user={user}
+          strings={strings}
+          items={SHOP_ITEMS}
+          storePrices={{}}
+          busy={false}
+          section={foundation}
+          onUseItem={noop}
+          onRestore={noop}
+          onOpenLink={noop}
+          onBuyStreakFreeze={noop}
+          onBuyHadith={noop}
+          onOpenHadith={noop}
+          onBuyIcon={noop}
+          onWearIcon={noop}
+          onBuySecretHint={noop}
+          shelf={state.replace("shop-all-", "") as ShopShelf}
+        />
+      </TabFrame>
+    );
   }
   if (state.startsWith("shop")) {
     const user = makeUser(state === "shop-premium" ? "premium" : "guest");

@@ -96,6 +96,12 @@ import {
   declineCrewRequest,
   removeCrewMember,
   fetchUmmahRankings,
+  fetchFriendBattles,
+  startFriendBattle,
+  acceptFriendBattle,
+  declineFriendBattle,
+  sendFriendBattleScore,
+  type FriendBattle,
   syncRemoteUser,
   hasPendingSync,
   pickStartingUser,
@@ -168,7 +174,7 @@ import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
-import { pickBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
+import { pickBattleQuestions, pickFriendBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
 import { formatNumber } from "./ui/screens/FormattedCount";
 import { isDailyLink } from "./data/dailyCard";
 import { buyStreakFreeze, markFreezeSaveSeen, streakFreezeCount, unseenFreezeSave } from "./services/streakFreeze";
@@ -547,6 +553,8 @@ const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
 const HEART_VIDEOS_KEY = "sira-path-heart-videos";
 const PLAN_OFFER_AT_KEY = "sira-path-plan-offer-at";
+// The ayah and hadith of the day open by themselves this long after the app settles on its first open of the day.
+const DAILY_AUTO_OPEN_MS = 900;
 
 // The plans sheet: why it opened, and the lesson to start once it closes (it can open as NEXT LESSON is tapped).
 type PlanOffer = {
@@ -655,6 +663,9 @@ export default function TopicApp() {
   const [inviteEmail, setInviteEmail] = useState("");
   const [rankings, setRankings] = useState<RankingsState>({ status: "idle" });
   const [battle, setBattle] = useState<BattleQuestion[] | undefined>(undefined);
+  // Battles with friends (from the server), and the one being played now, if it is a friend battle.
+  const [friendBattles, setFriendBattles] = useState<FriendBattle[]>([]);
+  const [versus, setVersus] = useState<{ name: string; battle: FriendBattle; sending?: boolean } | undefined>(undefined);
   const [openSecret, setOpenSecret] = useState<{ secret: SecretLesson; isNew: boolean } | undefined>(undefined);
   const [secretListOpen, setSecretListOpen] = useState(false);
   const [openHadith, setOpenHadith] = useState<{ card: HadithCard; isNew: boolean } | undefined>(undefined);
@@ -1306,6 +1317,30 @@ export default function TopicApp() {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [freezeSave, state.screen, otherSheetOpen]);
+  // The first open of each day shows today's ayah and hadith by itself (and recites the ayah), once nothing
+  // else is asking for the screen: not before the first-launch questions, not over a lesson or another sheet.
+  const dailyAutoDone = useRef(false);
+  const dailyAutoReady = Boolean(
+    state.user &&
+      ageGroup &&
+      (learnerBackground || state.user.completedNodeIds.length) &&
+      !languageModalVisible &&
+      !accountModalVisible &&
+      !otherSheetOpen &&
+      !freezeSave &&
+      !state.screen.startsWith("lesson_") &&
+      state.screen !== "assessment"
+  );
+  useEffect(() => {
+    if (dailyAutoDone.current || !dailyAutoReady || dailySeenDay === localDayNumber()) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      dailyAutoDone.current = true;
+      setDailyOpenSignal((count) => count + 1);
+    }, DAILY_AUTO_OPEN_MS);
+    return () => clearTimeout(timer);
+  }, [dailyAutoReady, dailySeenDay]);
   useEffect(() => {
     if (!accountPromptDue || accountPromptShown || !guestUser || !onFoundationPath || otherSheetOpen) {
       return;
@@ -2711,10 +2746,74 @@ export default function TopicApp() {
 
   function startBattle() {
     const questions = pickBattleQuestions({ language: currentLanguage, young: ageGroup === "6-9" });
+    setVersus(undefined);
     setBattle(questions);
   }
 
+  function replaceFriendBattle(next: FriendBattle) {
+    setFriendBattles((current) => (current.some((item) => item.id === next.id) ? current.map((item) => (item.id === next.id ? next : item)) : [next, ...current]));
+  }
+
+  async function loadFriendBattles() {
+    try {
+      setFriendBattles(await fetchFriendBattles());
+    } catch (error) {
+      // An older server without battles, or no connection: the Friends page still works without them.
+      console.warn("Friend battles failed", error);
+    }
+  }
+
+  async function challengeFriend(member: CrewMember) {
+    try {
+      replaceFriendBattle(await startFriendBattle(member.id));
+      void notify(t("Battle sent!"), t("{name} plays once they say yes.", { name: member.name.trim().split(/\s+/)[0] || member.name }), { mood: "cheer" });
+    } catch (error) {
+      void notify(crewErrorTitle(error, "battle"), undefined, { mood: "sad" });
+    }
+  }
+
+  function playFriendBattle(next: FriendBattle) {
+    setVersus({ name: next.friend.name.trim().split(/\s+/)[0] || next.friend.name, battle: next });
+    setBattle(pickFriendBattleQuestions(next.seed, currentLanguage));
+  }
+
+  // YES opens the battle straight away; NO (or taking back one this learner asked for) closes it.
+  async function answerFriendBattle(next: FriendBattle, accept: boolean) {
+    try {
+      if (accept) {
+        const accepted = await acceptFriendBattle(next.id);
+        replaceFriendBattle(accepted);
+        playFriendBattle(accepted);
+        return;
+      }
+      await declineFriendBattle(next.id);
+      setFriendBattles((current) => current.filter((item) => item.id !== next.id));
+    } catch (error) {
+      void notify(crewErrorTitle(error, "battle"), undefined, { mood: "sad" });
+      void loadFriendBattles();
+    }
+  }
+
+  function finishFriendBattle(played: FriendBattle, correct: number) {
+    setVersus((current) => (current ? { ...current, sending: true } : current));
+    replaceFriendBattle({ ...played, yourScore: correct });
+    void sendFriendBattleScore(played.id, correct)
+      .then((scored) => {
+        replaceFriendBattle(scored);
+        setVersus((current) => (current?.battle.id === scored.id ? { ...current, battle: scored, sending: false } : current));
+      })
+      .catch((error) => {
+        console.warn("Friend battle score failed", error);
+        setVersus((current) => (current ? { ...current, sending: false } : current));
+        void loadFriendBattles();
+      });
+  }
+
   function finishBattle(correct: number) {
+    if (versus) {
+      finishFriendBattle(versus.battle, correct);
+      return undefined;
+    }
     const outcome = applyBattle(state.user as UserProfile, correct);
     dispatch({ type: "apply_user_latest", update: (user) => applyBattle(user, correct).user });
     return outcome.result;
@@ -2755,7 +2854,7 @@ export default function TopicApp() {
     setCrew((current) => ({ ...current, status: "loading" }));
 
     try {
-      const payload = await fetchCrew(localDateKey());
+      const [payload] = await Promise.all([fetchCrew(localDateKey()), loadFriendBattles()]);
       setCrew({ status: "ready", payload });
     } catch (error) {
       setCrew({
@@ -3322,6 +3421,12 @@ export default function TopicApp() {
             onAddFriend={addCrewFriend}
             onRemoveFriend={removeCrewFriend}
             onAnswerRequest={answerCrewRequest}
+            battles={friendBattles}
+            onChallenge={(member) => void challengeFriend(member)}
+            onAnswerBattle={(next, accept) => void answerFriendBattle(next, accept)}
+            onPlayBattle={playFriendBattle}
+            onCancelBattle={(next) => void answerFriendBattle(next, false)}
+            onShareApp={() => void shareApp()}
             onRefresh={loadCrew}
             onCreateAccount={openCrewAccount}
             league={crewLeagueUser?.league}
@@ -3343,7 +3448,11 @@ export default function TopicApp() {
           <BattleView
             questions={battle}
             onFinish={finishBattle}
-            onClose={() => setBattle(undefined)}
+            versus={versus}
+            onClose={() => {
+              setBattle(undefined);
+              setVersus(undefined);
+            }}
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
           />
@@ -3659,8 +3768,12 @@ function firstName(name: string) {
 }
 
 // Short titles for the crew notices; the server's own sentences are written for grown-ups.
-function crewErrorTitle(error: unknown, action: "add" | "remove" | "answer") {
+function crewErrorTitle(error: unknown, action: "add" | "remove" | "answer" | "battle") {
   if (error instanceof BackendRequestError && error.status < 500) {
+    if (action === "battle") {
+      return error.status === 409 ? t("You already have a battle with them") : error.status === 429 ? t("Finish a battle first") : t("That battle is gone");
+    }
+
     if (action === "answer") {
       return t("That request is gone");
     }

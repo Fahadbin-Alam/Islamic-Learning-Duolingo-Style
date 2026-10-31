@@ -97,6 +97,11 @@ export function KitGallery() {
             <PathScenery kind="mountain" size={80} tappable />
           </View>
           <View style={styles.wrapRow}>
+            {(["well", "palm", "sheep", "tent", "dates", "oasis"] as const).map((kind) => (
+              <PathScenery key={kind} kind={kind} size={80} animated tappable />
+            ))}
+          </View>
+          <View style={styles.wrapRow}>
             {[0, 1, 2, 3].map((seed) => (
               <PathScenery key={seed} kind="flowers" size={72} animated tappable seed={seed * 5} />
             ))}

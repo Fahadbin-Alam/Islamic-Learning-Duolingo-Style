@@ -362,9 +362,11 @@ describe("every tap on a shop item makes a sound", () => {
     await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-heart"));
     expect(sounds()).toEqual(["soft_ui"]);
     expect(onUseItem).not.toHaveBeenCalled();
-    // The gems video still plays, and with a heart missing the heart video does too.
+    // The dates video (on the Dates shelf) still plays, and with a heart missing the heart video does too.
+    await fireEvent.press(screen.getByTestId("shop-shelf-dates"));
     await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-gems"));
     expect(onUseItem).toHaveBeenCalledWith(expect.objectContaining({ id: "watch-ad-gems" }));
+    await fireEvent.press(screen.getByTestId("shop-shelf-hearts"));
     const missing = makeUser({ hearts: { current: 4, max: 5, unlimited: false, lastRefillDate: "2026-10-20" } });
     await view.rerender(<ShopView user={missing} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney />);
     expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("3 videos = 1 heart");
