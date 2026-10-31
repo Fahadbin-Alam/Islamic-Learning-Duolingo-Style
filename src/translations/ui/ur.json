@@ -680,5 +680,8 @@
   "vs {name}": "بمقابلہ {name}",
   "{name} played. Your turn!": "{name} کھیل چکے۔ اب آپ کی باری!",
   "{name} plays once they say yes.": "{name} ہاں کہتے ہی کھیلیں گے۔",
-  "{name} won this time!": "اس بار {name} جیت گئے!"
+  "{name} won this time!": "اس بار {name} جیت گئے!",
+  "What it means": "اس کا مطلب",
+  "The story": "واقعہ",
+  "Take home": "یاد رکھنے کی بات"
 }

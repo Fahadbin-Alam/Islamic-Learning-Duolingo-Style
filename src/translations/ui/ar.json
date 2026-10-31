@@ -680,5 +680,8 @@
   "vs {name}": "ضد {name}",
   "{name} played. Your turn!": "لعب {name}. دورك!",
   "{name} plays once they say yes.": "سيلعب {name} بعد أن يوافق.",
-  "{name} won this time!": "فاز {name} هذه المرة!"
+  "{name} won this time!": "فاز {name} هذه المرة!",
+  "What it means": "ما معناها",
+  "The story": "القصة",
+  "Take home": "الفائدة"
 }

@@ -52,6 +52,11 @@ export type LearnCardProps = {
   arabicRecitation?: string;
   /** A real photo of the place the lesson is about (Makkah, Uhud...), under the word card. */
   picture?: LessonPicture;
+  /**
+   * The deeper lesson (lesson.learnDeeper): what the ayahs mean, the story, what to take home, and a chip for each
+   * tafsir book it comes from. The harder questions ask about it, so it is shown in full.
+   */
+  deeper?: { meaning: string[]; story?: string; takeaway?: string; sources: { reference?: string; url: string; highlight?: string }[] };
   onContinue: () => void;
   bottomInset?: number;
   testID?: string;
@@ -123,6 +128,7 @@ export function LearnCard({
   onPlayAudio: speak,
   arabicRecitation,
   picture,
+  deeper,
   onContinue,
   bottomInset,
   testID = "learn-card"
@@ -153,7 +159,7 @@ export function LearnCard({
   // A single ayah in Arabic gets a recitation to listen to and repeat.
   const ayahAudio = quoteText && isArabicOnly(quoteText) ? quranAudioUrl(quoteReference) : null;
   // With facts or a quote to show, the mascot sits small next to its line to leave them room.
-  const rich = factList.length > 0 || Boolean(quoteText) || Boolean(picture);
+  const rich = factList.length > 0 || Boolean(quoteText) || Boolean(picture) || Boolean(deeper);
   const quranWord = arabic ? isQuranText(arabic.ar) : false;
   const arabicSize = quranWord ? (narrow || short ? 24 : 28) : narrow || short ? (narrow ? 30 : 34) : 40;
   const openSource = (url: string) => {
@@ -335,6 +341,8 @@ export function LearnCard({
             </PopIn>
           ) : null}
 
+          {deeper ? <DeeperLesson deeper={deeper} palette={palette} short={short} onOpen={openSource} /> : null}
+
           {source && !linkedReference ? (
             <PopIn delay={480} style={[styles.sourceWrap, short ? styles.sourceWrapShort : null]}>
               <Tappable
@@ -361,6 +369,77 @@ export function LearnCard({
         <GameButton label={t("Continue")} fullWidth onPress={onContinue} testID="learn-continue" />
       </LessonBottomBar>
     </View>
+  );
+}
+
+/** What the ayahs mean, the story and what to take home, with a chip for each tafsir book it comes from. */
+function DeeperLesson({
+  deeper,
+  palette,
+  short,
+  onOpen
+}: {
+  deeper: NonNullable<LearnCardProps["deeper"]>;
+  palette: ReturnType<typeof topicPalette>;
+  short: boolean;
+  onOpen: (url: string) => void;
+}) {
+  const meaning = deeper.meaning.map((line) => line.trim()).filter(Boolean);
+  const chips = deeper.sources.filter((each) => each.reference?.trim() && each.url);
+  return (
+    <PopIn delay={500} from="up" style={[styles.deeper, short ? styles.deeperShort : null, { borderColor: palette.soft }]}>
+      <View testID="learn-deeper">
+        <View style={styles.deeperHead}>
+          <Icon name="bookOpen" size={20} color={palette.ink} />
+          <Text style={[styles.deeperTitle, { color: palette.ink }]} accessibilityRole="header">
+            {t("What it means")}
+          </Text>
+        </View>
+        {meaning.map((line, index) => (
+          <View key={`${index}-${line}`} style={styles.deeperRow}>
+            <View style={[styles.deeperDot, { backgroundColor: palette.main }]} />
+            <Text style={styles.deeperText} testID="learn-deeper-meaning">
+              {withHonorifics(noBreakHyphens(line))}
+            </Text>
+          </View>
+        ))}
+        {deeper.story?.trim() ? (
+          <View style={[styles.deeperStory, { backgroundColor: palette.light }]} testID="learn-deeper-story">
+            <Text style={[styles.deeperLabel, { color: palette.ink }]}>{t("The story")}</Text>
+            <Text style={styles.deeperText}>{withHonorifics(noBreakHyphens(deeper.story.trim()))}</Text>
+          </View>
+        ) : null}
+        {deeper.takeaway?.trim() ? (
+          <View style={styles.deeperTake} testID="learn-deeper-takeaway">
+            <Icon name="sparkle" size={18} color={GOLD_INK} />
+            <View style={styles.deeperTakeBody}>
+              <Text style={[styles.deeperLabel, { color: GOLD_INK }]}>{t("Take home")}</Text>
+              <Text style={styles.deeperText}>{withHonorifics(noBreakHyphens(deeper.takeaway.trim()))}</Text>
+            </View>
+          </View>
+        ) : null}
+        {chips.length ? (
+          <View style={styles.deeperChips}>
+            {chips.map((each) => (
+              <Tappable
+                key={each.url}
+                onPress={() => onOpen(sourceUrl(each))}
+                style={styles.deeperChip}
+                accessibilityLabel={t("Open source {name}", { name: each.reference! })}
+                accessibilityRole="link"
+                hitSlop={4}
+                testID="learn-deeper-source"
+              >
+                <Icon name="book" size={15} />
+                <Text style={styles.deeperChipText} numberOfLines={1}>
+                  {withHonorifics(each.reference!)}
+                </Text>
+              </Tappable>
+            ))}
+          </View>
+        ) : null}
+      </View>
+    </PopIn>
   );
 }
 
@@ -674,6 +753,101 @@ const styles = StyleSheet.create({
   },
   sourceChevron: {
     marginStart: 4
+  },
+  deeper: {
+    alignSelf: "stretch",
+    marginTop: space.lg,
+    borderWidth: 2,
+    borderRadius: radii.lg,
+    backgroundColor: colors.white,
+    paddingHorizontal: space.md,
+    paddingVertical: space.md
+  },
+  deeperShort: {
+    marginTop: space.md
+  },
+  deeperHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: space.xs
+  },
+  deeperTitle: {
+    marginStart: 6,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 17,
+    lineHeight: 23
+  },
+  deeperRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: space.xs
+  },
+  deeperDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    marginTop: 8,
+    marginEnd: 8
+  },
+  deeperText: {
+    flex: 1,
+    flexShrink: 1,
+    fontFamily: fonts.bodyBold,
+    fontSize: 15,
+    lineHeight: 22,
+    color: colors.ink
+  },
+  deeperLabel: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    letterSpacing: 0.5,
+    marginBottom: 2
+  },
+  deeperStory: {
+    marginTop: space.sm,
+    borderRadius: radii.md,
+    paddingHorizontal: space.sm,
+    paddingVertical: space.sm
+  },
+  deeperTake: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: space.sm,
+    borderRadius: radii.md,
+    backgroundColor: "#FFF6D9",
+    paddingHorizontal: space.sm,
+    paddingVertical: space.sm
+  },
+  deeperTakeBody: {
+    flex: 1,
+    minWidth: 0,
+    marginStart: 6
+  },
+  deeperChips: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: space.sm,
+    gap: 6
+  },
+  deeperChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    maxWidth: "100%",
+    borderWidth: 2,
+    borderColor: colors.line,
+    borderRadius: radii.pill,
+    minHeight: 32,
+    paddingHorizontal: 10,
+    paddingVertical: 3
+  },
+  deeperChipText: {
+    marginStart: 5,
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft
   },
   sourceText: {
     marginStart: 6,

@@ -680,5 +680,8 @@
   "vs {name}": "বনাম {name}",
   "{name} played. Your turn!": "{name} খেলেছে। এবার তোমার পালা!",
   "{name} plays once they say yes.": "{name} হ্যাঁ বললেই খেলবে।",
-  "{name} won this time!": "এবার {name} জিতেছে!"
+  "{name} won this time!": "এবার {name} জিতেছে!",
+  "What it means": "এর অর্থ",
+  "The story": "ঘটনাটি",
+  "Take home": "যা শিখে রাখবে"
 }

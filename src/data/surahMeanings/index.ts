@@ -1,11 +1,15 @@
 import type { Challenge, DifficultyTier, LearningBranch, LearningCourse, LearningNode, Lesson, LessonSource } from "../../types";
 import { SURAH_MEANING_AYAHS } from "../surahMeaningAyahs";
-import type { Passage, SurahMeaning } from "./types";
+import type { Passage, PassageDeep, SurahMeaning } from "./types";
 import { ALL_SURAH_MEANINGS } from "./all";
+import { DEEP_002 } from "./deep002";
 import { surahLearningRank } from "../importedNotes";
 import { LESSON_SOURCES } from "../questionSources";
 
-export type { Passage, SurahMeaning } from "./types";
+export type { Passage, PassageDeep, SurahMeaning } from "./types";
+
+/** The surahs taught in depth, passage by passage, by surah number: Al-Baqarah first, the rest to follow. */
+export const DEEP_PASSAGES: Record<number, Record<string, PassageDeep>> = { 2: DEEP_002 };
 
 // The meaning of whole surahs, passage by passage: one learn card for each passage, so a learner who finishes a
 // surah's unit has learned what every one of its ayahs says. Each card shows one ayah of the passage in Arabic
@@ -27,7 +31,7 @@ export const SURAH_NAMES: readonly string[] = [
   "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kawthar", "Al-Kafirun", "An-Nasr", "Al-Masad", "Al-Ikhlas", "Al-Falaq", "An-Nas"
 ];
 
-/** The surahs whose whole meaning is taught so far, in the order the Quran topic teaches them (Juz Amma first). */
+/** The surahs whose whole meaning is taught, in the order the Quran topic teaches them: the mushaf order. */
 export const SURAH_MEANINGS: readonly SurahMeaning[] = [...ALL_SURAH_MEANINGS].sort((left, right) => surahLearningRank(left.surah) - surahLearningRank(right.surah));
 
 /** The Quran topic's own unit for a surah, when it has one; the passages join the end of it. */
@@ -65,6 +69,39 @@ function meaningSource(surah: number, at: string, line: string): LessonSource {
   };
 }
 
+/** A tafsir book on one passage, on Quran.com: it opens at the passage's first ayah. */
+export function tafsirSource(book: "ibn-kathir" | "saadi", surah: number, at: string, summary: string): LessonSource {
+  const [from] = passageAyahs(at);
+  const kathir = book === "ibn-kathir";
+  const name = kathir ? "Tafsir Ibn Kathir" : "Tafsir as-Sa'di";
+  return {
+    id: `surah_deep_${kathir ? "ibn_kathir" : "saadi"}_${surah}_${at.replace("-", "_")}`,
+    site: "Quran.com",
+    category: "tafsir",
+    title: `${name} on ${SURAH_NAMES[surah - 1]} ${surah}:${at}`,
+    url: `https://quran.com/${surah}:${from}/tafsirs/${kathir ? "en-tafisr-ibn-kathir" : "ar-tafseer-al-saddi"}`,
+    reference: `${name} ${surah}:${at}`,
+    from: kathir ? "Tafsir Ibn Kathir (abridged English), on Quran.com" : "Tafsir as-Sa'di (Arabic), on Quran.com",
+    grade: "Tafsir",
+    summary
+  };
+}
+
+function hadithOf(hadith: NonNullable<PassageDeep["hadith"]>): LessonSource {
+  const bukhari = hadith.collection === "bukhari";
+  return {
+    id: `hadith_${hadith.collection}_${hadith.number}`,
+    site: "Sunnah.com",
+    category: "hadith",
+    title: `${bukhari ? "Sahih al-Bukhari" : "Sahih Muslim"} ${hadith.number}`,
+    url: `https://sunnah.com/${hadith.collection}:${hadith.number}`,
+    reference: `${bukhari ? "Sahih al-Bukhari" : "Sahih Muslim"} ${hadith.number}`,
+    from: `${hadith.narrator}; collected by Imam ${bukhari ? "al-Bukhari" : "Muslim"}`,
+    grade: "Sahih",
+    summary: hadith.text
+  };
+}
+
 // The right answer comes first, so the choices turn by a stable hash of the question id (as in deepUnits.ts).
 function turn<T>(id: string, items: T[]): T[] {
   let hash = 0;
@@ -73,9 +110,17 @@ function turn<T>(id: string, items: T[]): T[] {
   return items.map((_, index) => items[(start + index) % items.length]);
 }
 
-function choiceQuestion(id: string, prompt: string, answer: string, wrong: string[], why: string, source: LessonSource): Challenge {
+function choiceQuestion(id: string, prompt: string, answer: string, wrong: string[], why: string, source: LessonSource, answerSource?: LessonSource): Challenge {
   const choices = turn(id, [answer, ...wrong].map((label, index) => ({ id: "abcd"[index], label })));
-  return { id, type: "multiple_choice", prompt, choices, correctChoiceId: "a", explanation: why, resourceLabel: "Open source", resourceUrl: source.url };
+  return { id, type: "multiple_choice", prompt, choices, correctChoiceId: "a", explanation: why, resourceLabel: "Open source", resourceUrl: source.url, ...(answerSource ? { source: answerSource } : {}) };
+}
+
+/** The deeper card line that holds a question's answer, for its Why; else the take-home line. */
+function deepWhy(deep: PassageDeep, answer: string) {
+  const words = answer.toLowerCase().match(/[a-z0-9']{4,}/g) ?? [];
+  const lines = [...deep.meaning, ...(deep.story ? [deep.story] : []), deep.takeaway];
+  const score = (line: string) => words.filter((word) => line.toLowerCase().includes(word)).length;
+  return lines.reduce((best, line) => (score(line) > score(best) ? line : best), deep.takeaway);
 }
 
 /** The other passages to borrow wrong answers from: the nearest ones in the same surah, then the next surahs. */
@@ -124,6 +169,16 @@ function passageLesson(surah: SurahMeaning, index: number, branchId: string): Le
       resourceUrl: source.url
     }
   ];
+  // A passage taught in depth adds two harder questions about its meaning, after the card's own three.
+  const deep = DEEP_PASSAGES[surah.surah]?.[passage.at];
+  const tafsirs = deep ? [tafsirSource("ibn-kathir", surah.surah, passage.at, deep.meaning[0]), tafsirSource("saadi", surah.surah, passage.at, deep.meaning[0])] : [];
+  const hadith = deep?.hadith ? hadithOf(deep.hadith) : undefined;
+  if (deep) {
+    deep.q.forEach(([prompt, answer, ...others], at) => {
+      const answerSource = at === 0 && hadith ? hadith : tafsirs[0];
+      challenges.push(choiceQuestion(`${nodeId}-deep-${at + 1}`, prompt, answer, others, deepWhy(deep, answer), source, answerSource));
+    });
+  }
   const [from, to] = passageAyahs(passage.at);
   const shown = passage.ayah === 0 ? undefined : (passage.ayah ?? from);
   const arabic = shown ? SURAH_MEANING_AYAHS[`${surah.surah}:${shown}`] : undefined;
@@ -140,10 +195,11 @@ function passageLesson(surah: SurahMeaning, index: number, branchId: string): Le
     learnFacts: passage.facts,
     ...(arabic ? { quote: { text: arabic, reference: `Quran ${surah.surah}:${shown}` } } : {}),
     learnSource: source,
+    ...(deep ? { learnDeeper: { meaning: deep.meaning, ...(deep.story ? { story: deep.story } : {}), takeaway: deep.takeaway, sources: [...tafsirs, ...(hadith ? [hadith] : [])] } } : {}),
     lessonType: "surah",
     difficulty,
-    xpReward: 10 + difficulty,
-    sources: [source],
+    xpReward: 10 + difficulty + (deep ? 2 : 0),
+    sources: [source, ...tafsirs, ...(hadith ? [hadith] : [])],
     challenges
   };
 }

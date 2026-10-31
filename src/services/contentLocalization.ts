@@ -22,6 +22,14 @@ export function localizeLessonContent(lesson: Lesson, language: SupportedLanguag
       : lesson.quote,
     learnLine: lesson.learnLine ? translateStudyText(lesson.learnLine, language) : lesson.learnLine,
     learnFacts: lesson.learnFacts?.map((fact) => translateStudyText(fact, language)),
+    learnDeeper: lesson.learnDeeper
+      ? {
+          meaning: lesson.learnDeeper.meaning.map((line) => translateStudyText(line, language)),
+          story: lesson.learnDeeper.story ? translateStudyText(lesson.learnDeeper.story, language) : lesson.learnDeeper.story,
+          takeaway: lesson.learnDeeper.takeaway ? translateStudyText(lesson.learnDeeper.takeaway, language) : lesson.learnDeeper.takeaway,
+          sources: lesson.learnDeeper.sources.map((source) => localizeSource(source, language))
+        }
+      : lesson.learnDeeper,
     teachingMoments: lesson.teachingMoments?.map((moment) => ({
       ...moment,
       eyebrow: translateStudyText(moment.eyebrow, language),

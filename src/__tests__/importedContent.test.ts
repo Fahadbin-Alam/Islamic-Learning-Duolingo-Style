@@ -43,16 +43,14 @@ describe("imported lessons on the path", () => {
     }
   });
 
-  it("reaches Juz Amma right after Al-Fatihah, starting from An-Nas", () => {
+  it("goes through the surahs in the order of the mushaf, Al-Baqarah right after Al-Fatihah", () => {
     const quran = section("quran_tafseer");
     const surahs = quran.nodes.map((node) => surahNumber(lessonOf(node.id)));
-    const firstJuzAmma = surahs.findIndex((surah) => surah >= 78);
     expect(quran.branches[0].id).toBe("quran-surah-fatihah");
-    expect(surahs[firstJuzAmma]).toBe(114);
-    // Only the Al-Fatihah unit comes before it.
-    expect(firstJuzAmma).toBeLessThanOrEqual(quran.nodes.filter((node) => node.branchId === "quran-surah-fatihah").length);
+    expect(quran.branches[1].id).toBe("quran-surah-baqarah");
     const ranks = surahs.filter((surah) => surah > 0).map(surahLearningRank);
     expect(ranks).toEqual([...ranks].sort((left, right) => left - right));
+    expect(surahs.filter((surah) => surah > 0).pop()).toBe(114);
   });
 
   it("orders the hadith lessons from young children's to adults'", () => {

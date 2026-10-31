@@ -459,6 +459,11 @@ export interface Lesson {
   quote?: { text: string; reference?: string };
   /** The one source that says what the learn card says; the card's source chip shows only this, labelled with its short reference. */
   learnSource?: LessonSource;
+  /**
+   * The deeper lesson under the learn card (Quran passages taught in depth): what the ayahs mean, the story, what to
+   * take home, and the tafsir books it comes from, each a chip.
+   */
+  learnDeeper?: { meaning: string[]; story?: string; takeaway?: string; sources: LessonSource[] };
   lessonType?: "skill" | "story" | "surah" | "scenario" | "review" | "mastery";
   difficulty?: DifficultyTier;
   xpReward: number;
