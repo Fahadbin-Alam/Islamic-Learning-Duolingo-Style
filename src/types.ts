@@ -13,6 +13,7 @@ export type TopicId =
   | "quran_tafseer"
   | "hadith"
   | "scholars"
+  | "eid"
   | "ramadan"
   | "intro";
 

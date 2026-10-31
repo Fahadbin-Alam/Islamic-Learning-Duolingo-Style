@@ -43,6 +43,7 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   hadith: { ar: "الحديث", translit: "Al-hadith", meaning: "The Prophet's ﷺ sayings" },
   scholars: { ar: "العلماء", translit: "Al-'ulama'", meaning: "The scholars" },
   ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" },
+  eid: { ar: "العيد", translit: "Al-'Id", meaning: "The Eid" },
   intro: { ar: "مدخل إلى الإسلام", translit: "Madkhal ila al-Islam", meaning: "A first look at Islam" }
 };
 
@@ -167,7 +168,11 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // Ramadan (src/data/ramadanDays.ts): the three units of the 30-day path
   ...RAMADAN.branchArabic,
   // New to Islam (src/data/introToIslam.ts): its four units
-  ...INTRO.branchArabic
+  ...INTRO.branchArabic,
+  // Hajj as the Prophet ﷺ did it, and the Eid topic (src/data/lifeUnits.ts)
+  "hajj-in-depth": { ar: "حجة الوداع", translit: "Hajjat al-wada'", meaning: "The Farewell Hajj" },
+  "eid-two-eids": { ar: "العيدان", translit: "Al-'idan", meaning: "The two Eids" },
+  "eid-special-days": { ar: "الأيام الفاضلة", translit: "Al-ayyam al-fadilah", meaning: "The blessed days" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -655,6 +660,7 @@ const LEARN_FORMS = [
   "الْحَدِيثُ", "الْأُمَّهَاتُ", "آلُ عَلِيٍّ", "أَحَادِيثُ لِلْأَطْفَالِ", "فِي حِفْظِ اللَّهِ",
   "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",
   "مَا الْإِسْلَامُ", "أَنْبِيَاءُ تَعْرِفُهُمْ", "أَهْلُ الْكِتَابِ", "الْخُطُوَاتُ الْأُولَى",
+  "حَجَّةُ الْوَدَاعِ", "الْعِيدَانِ", "الْأَيَّامُ الْفَاضِلَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
