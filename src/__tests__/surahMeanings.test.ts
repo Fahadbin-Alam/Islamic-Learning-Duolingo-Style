@@ -117,17 +117,28 @@ describe("Al-Baqarah in depth", () => {
   const baqarah = SURAH_MEANINGS.find((surah) => surah.surah === 2)!;
   const deep = DEEP_PASSAGES[2];
 
-  it("explains every passage of Al-Baqarah: its meaning, what to take home, and harder questions", () => {
-    expect(Object.keys(deep)).toEqual(baqarah.passages.map((passage) => passage.at));
+  it("explains every passage of each surah taught in depth: its meaning, what to take home, and harder questions", () => {
+    expect(Object.keys(DEEP_PASSAGES).map(Number)).toEqual(Object.keys(DEEP_PASSAGES).map((_, index) => index + 2));
     const problems: string[] = [];
-    for (const [at, each] of Object.entries(deep)) {
-      if (each.meaning.length < 2 || each.meaning.length > 3 || each.meaning.some((line) => line.length > 112)) problems.push(`${at} meaning`);
-      if (each.takeaway.length > 95) problems.push(`${at} takeaway`);
-      if (each.story && each.story.length > 200) problems.push(`${at} story`);
-      if (each.q.length !== 2) problems.push(`${at}: two questions`);
-      for (const [prompt, ...choices] of each.q) {
-        if (prompt.length > 70) problems.push(`${at} prompt: ${prompt}`);
-        if (new Set(choices).size !== 4 || choices.some((choice) => choice.length > 42)) problems.push(`${at} choices: ${prompt}`);
+    for (const [number, passages] of Object.entries(DEEP_PASSAGES)) {
+      const surah = SURAH_MEANINGS.find((each) => each.surah === Number(number))!;
+      expect(Object.keys(passages)).toEqual(surah.passages.map((passage) => passage.at));
+      for (const [at, each] of Object.entries(passages)) {
+        const where = `${number}:${at}`;
+        if (each.meaning.length < 2 || each.meaning.length > 3 || each.meaning.some((line) => line.length > 112)) problems.push(`${where} meaning`);
+        if (each.takeaway.length > 95) problems.push(`${where} takeaway`);
+        if (each.story && each.story.length > 200) problems.push(`${where} story`);
+        if (each.q.length !== 2) problems.push(`${where}: two questions`);
+        for (const [prompt, ...choices] of each.q) {
+          if (prompt.length > 70) problems.push(`${where} prompt: ${prompt}`);
+          if (new Set(choices).size !== 4 || choices.some((choice) => choice.length > 42)) problems.push(`${where} choices: ${prompt}`);
+        }
+        // Each answer is said on the card: in a meaning line, the story or the take-home line.
+        const lesson = LESSONS_BY_ID[`lesson-surah-meaning-${number}-${at}`];
+        const card = [...each.meaning, each.story ?? "", each.takeaway];
+        for (const challenge of lesson.challenges.slice(3)) {
+          if (!card.includes(challenge.explanation)) problems.push(`${where} why: ${challenge.prompt}`);
+        }
       }
     }
     expect(problems).toEqual([]);
@@ -143,7 +154,7 @@ describe("Al-Baqarah in depth", () => {
       ["Tafsir as-Sa'di 2:30-39", "https://quran.com/2:30/tafsirs/ar-tafseer-al-saddi"]
     ]);
     // A surah not yet taught in depth keeps its short card.
-    expect(LESSONS_BY_ID["lesson-surah-meaning-3-1-9"]?.learnDeeper).toBeUndefined();
+    expect(LESSONS_BY_ID["lesson-surah-meaning-6-1-11"]?.learnDeeper ?? undefined).toBeUndefined();
   });
 
   it("asks two harder questions after the card's own three, each answered on the card and sourced", () => {
@@ -154,7 +165,7 @@ describe("Al-Baqarah in depth", () => {
       const card = [...lesson.learnDeeper!.meaning, lesson.learnDeeper!.story ?? "", lesson.learnDeeper!.takeaway ?? ""];
       for (const challenge of hard) {
         expect(card).toContain(challenge.explanation);
-        expect(challenge.source?.url).toMatch(/^https:\/\/(quran\.com\/2:\d+\/tafsirs\/en-tafisr-ibn-kathir|sunnah\.com\/bukhari:5009)$/);
+        expect(challenge.source?.url).toMatch(/^https:\/\/(quran\.com\/2:\d+\/tafsirs\/en-tafisr-ibn-kathir|sunnah\.com\/bukhari:\d+)$/);
       }
     }
     // The last two ayahs at night: the hadith that says it is the question's source.
