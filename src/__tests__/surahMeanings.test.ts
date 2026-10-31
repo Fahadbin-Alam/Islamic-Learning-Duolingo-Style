@@ -154,7 +154,8 @@ describe("Al-Baqarah in depth", () => {
       ["Tafsir as-Sa'di 2:30-39", "https://quran.com/2:30/tafsirs/ar-tafseer-al-saddi"]
     ]);
     // A surah not yet taught in depth keeps its short card.
-    expect(LESSONS_BY_ID["lesson-surah-meaning-6-1-11"]?.learnDeeper ?? undefined).toBeUndefined();
+    const plain = SURAH_MEANINGS.find((each) => !DEEP_PASSAGES[each.surah])!;
+    expect(LESSONS_BY_ID[`lesson-surah-meaning-${plain.surah}-${plain.passages[0].at}`]?.learnDeeper ?? undefined).toBeUndefined();
   });
 
   it("asks two harder questions after the card's own three, each answered on the card and sourced", () => {
