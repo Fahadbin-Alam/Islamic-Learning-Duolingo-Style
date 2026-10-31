@@ -80,6 +80,7 @@ export async function registerRemoteAccount(input: {
 }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/register", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -93,6 +94,7 @@ export async function registerRemoteAccount(input: {
 export async function loginRemoteAccount(input: { email: string; password: string }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/login", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -116,6 +118,7 @@ export async function socialLoginRemoteAccount(input: {
 }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/social", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -383,23 +386,36 @@ export function isBackendConfigured() {
   return Boolean(BACKEND_CONFIG.baseUrl);
 }
 
-async function backendRequest<T = unknown>(path: string, options?: RequestInit) {
+/**
+ * Wakes the server when the app opens, so it is awake by the time the learner logs in or opens Crew.
+ * Fire and forget: it never throws.
+ */
+export function wakeBackend() {
+  if (!isBackendConfigured()) {
+    return;
+  }
+
+  void backendRequest("/api/health", { timeoutMs: BACKEND_CONFIG.authTimeoutMs }).catch(() => undefined);
+}
+
+async function backendRequest<T = unknown>(path: string, options?: RequestInit & { timeoutMs?: number }) {
   if (!isBackendConfigured()) {
     // Offline-only build: callers treat network errors as "keep working locally".
     throw new Error("Network unavailable: no backend is configured for this build.");
   }
 
   const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-  const timeout = controller ? setTimeout(() => controller.abort(), BACKEND_CONFIG.requestTimeoutMs) : null;
+  const { timeoutMs = BACKEND_CONFIG.requestTimeoutMs, ...requestOptions } = options ?? {};
+  const timeout = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
   let response: Response;
 
   try {
     response = await fetch(`${BACKEND_CONFIG.baseUrl}${path}`, {
-      ...options,
+      ...requestOptions,
       signal: controller?.signal,
       headers: {
         "Content-Type": "application/json",
-        ...(options?.headers ?? {})
+        ...(requestOptions.headers ?? {})
       }
     });
   } catch (error) {

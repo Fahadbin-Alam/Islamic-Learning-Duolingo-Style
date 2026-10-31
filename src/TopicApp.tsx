@@ -95,6 +95,7 @@ import {
   syncRemoteUser,
   hasPendingSync,
   pickStartingUser,
+  wakeBackend,
   type CrewMember,
   type CrewPayload
 } from "./services/backendSync";
@@ -109,6 +110,7 @@ import {
   saveActiveAssessment,
   savePracticeResult,
   saveUserProfile,
+  peekAccountProfile,
   stashAccountProfile,
   takeAccountProfile
 } from "./services/localProgress";
@@ -713,6 +715,8 @@ export default function TopicApp() {
     let mounted = true;
 
     async function load() {
+      // The server sleeps when idle; start waking it now so log in and sync don't wait on it later.
+      wakeBackend();
       const fallbackUser = await learningApi.getUser(1001);
       const savedUser = loadSavedUserProfile();
       const savedAccount = loadLocalAuthAccount();
@@ -2241,7 +2245,16 @@ export default function TopicApp() {
       finishLogin(remote.account.name, remote.account.email);
       return;
     } catch (error) {
-      if (error instanceof Error && !isBackendOfflineError(error)) {
+      if (error instanceof BackendRequestError && error.status === 401) {
+        const moved = await moveLocalAccountToServer();
+        if (moved === "moved") {
+          return;
+        }
+        if (moved !== "kept_on_phone") {
+          failAccount(t("Wrong email or password."));
+          return;
+        }
+      } else if (error instanceof Error && !isBackendOfflineError(error)) {
         failAccount(t("Wrong email or password."));
         return;
       }
@@ -2270,6 +2283,45 @@ export default function TopicApp() {
       user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, account)))
     });
     finishLogin(account.name, account.email);
+  }
+
+  /**
+   * An account made on a build with no server (or while offline) lives only on this phone, so the server answers
+   * "wrong password" for it. When the password matches the one saved here, the same account is made on the server
+   * with this phone's progress, and from then on it syncs like any other. "kept_on_phone" means the server could
+   * not take it now (offline, say), so the learner logs in on the phone as before.
+   */
+  async function moveLocalAccountToServer(): Promise<"moved" | "wrong_password" | "kept_on_phone"> {
+    const saved = loadLocalAuthAccount();
+    const account = saved?.password ? loginLocalAuthAccount(accountEmail, accountPassword) : null;
+
+    if (!account || !state.user) {
+      return "wrong_password";
+    }
+
+    const savedProgress = peekAccountProfile(account.email);
+    const signedInHere = state.user.hasAccount && normalizeEmail(state.user.accountEmail ?? "") === normalizeEmail(account.email);
+    const baseUser = signedInHere ? state.user : savedProgress ? prepareUserForToday(savedProgress) : state.user;
+    const localUser = withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, account)));
+
+    try {
+      const remote = await registerRemoteAccount({
+        name: account.name,
+        email: account.email,
+        password: accountPassword,
+        role: account.role,
+        reminderPreferences: account.reminderPreferences ?? defaultReminderPreferences(),
+        user: localUser,
+        socialHub: { connections: [], battleHistory: [] }
+      });
+      takeAccountProfile(account.email);
+      dispatch({ type: "apply_user", user: withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user))) });
+      finishLogin(remote.account.name, remote.account.email);
+      return "moved";
+    } catch (error) {
+      // The server already has this email with another password: the one typed is wrong for it.
+      return error instanceof BackendRequestError && error.status === 409 ? "wrong_password" : "kept_on_phone";
+    }
   }
 
   function finishLogin(name: string, email: string) {
@@ -2458,15 +2510,23 @@ export default function TopicApp() {
     // Apple can hide the name (and the email behind a relay address), so fall back to a plain one.
     const name = identity.name?.trim() || (identity.provider === "apple" ? "Learner" : email.split("@")[0]);
     const reminderPreferences = defaultReminderPreferences();
+    // The same email already has an account on this phone (made before the server existed): logging in makes it on
+    // the server too, with the progress it has here.
+    const phoneOnly = loadLocalAuthAccount();
+    const movingPhoneAccount = !creating && Boolean(phoneOnly) && normalizeEmail(phoneOnly?.email ?? "") === email;
+    const signedInHere = state.user.hasAccount && normalizeEmail(state.user.accountEmail ?? "") === email;
+    const progressHere = movingPhoneAccount && !signedInHere ? peekAccountProfile(email) : null;
+    const uploadUser = progressHere ? prepareUserForToday(progressHere) : state.user;
 
     try {
       const remote = await socialLoginRemoteAccount({
         provider: identity.provider,
         idToken: identity.idToken,
-        name,
-        allowCreate: creating,
-        reminderPreferences,
-        user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, { name, email, createdAt: new Date().toISOString(), provider: identity.provider }))),
+        name: movingPhoneAccount ? phoneOnly?.name ?? name : name,
+        allowCreate: creating || movingPhoneAccount,
+        role: movingPhoneAccount ? phoneOnly?.role : undefined,
+        reminderPreferences: movingPhoneAccount ? phoneOnly?.reminderPreferences ?? reminderPreferences : reminderPreferences,
+        user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(uploadUser, { name, email, createdAt: new Date().toISOString(), provider: identity.provider }))),
         socialHub: { connections: [], battleHistory: [] }
       });
       const account = {

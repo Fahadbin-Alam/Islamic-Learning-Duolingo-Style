@@ -69,6 +69,10 @@ class User(Base, TimestampMixin):
     # see src/services/ummah.ts. Only joined learners show on the ranking, by nickname.
     ummah_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     social_hub_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    # Everything else on the app's profile that has no column of its own (quiz scores, Ramadan days, the review
+    # deck, streak freezes, and fields later builds add), so it survives a new phone without a migration each time.
+    # See EXTRA_STATE_* in service_layer.py for the limits.
+    progress_extra_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
     sessions: Mapped[List["AuthSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     progress_entries: Mapped[List["UserProgress"]] = relationship(back_populates="user", cascade="all, delete-orphan")
