@@ -208,6 +208,12 @@ export interface UserProfile {
   xpByDay?: Record<string, number>;
   // Local day a lesson was last finished; the streak ends once a whole day passes without one.
   lastStreakDate?: string;
+  /** Streak freezes owned (bought with gems, at most MAX_STREAK_FREEZES): each one covers one missed day. */
+  streakFreezes?: number;
+  /** Local days (YYYY-MM-DD) a freeze covered, newest last, for the streak sheet. */
+  frozenDays?: string[];
+  /** The last time freezes saved the streak, until the learner has seen the "streak saved" card. */
+  freezeSave?: { date: string; days: number; streak: number; seen?: boolean };
   dailyGoalXp: number;
   gems: number;
   hearts: HeartsBalance;

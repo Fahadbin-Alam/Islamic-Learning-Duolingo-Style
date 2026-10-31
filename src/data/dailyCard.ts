@@ -124,3 +124,8 @@ export function getDailyCard(language: SupportedLanguage, date: Date = new Date(
     hadith: DAILY_HADITH[day % DAILY_HADITH.length]
   };
 }
+
+/** The link the home-screen widgets open the app with (muslimo://daily), to show today's card. */
+export function isDailyLink(url: string | null | undefined) {
+  return Boolean(url && /^muslimo:\/\/\/?daily(?:[/?#]|$)/i.test(url));
+}

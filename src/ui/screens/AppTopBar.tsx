@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Icon } from "../Icon";
 import { StatChip } from "../StatChip";
@@ -15,6 +15,10 @@ export type AppTopBarProps = {
   topicTitle: string;
   accent: string;
   streakDays: number;
+  /** Streak freezes owned, shown on the streak sheet. Leave out to hide them. */
+  streakFreezes?: number;
+  /** Buy a streak freeze from the streak sheet. */
+  onBuyStreakFreeze?: () => void;
   gems: number;
   hearts: { current: number; max: number; unlimited: boolean };
   /** Tap the topic button. */
@@ -27,6 +31,8 @@ export type AppTopBarProps = {
   dailySeen?: boolean;
   /** The book opened today's ayah and hadith (to remember it for the day). */
   onDailyOpened?: () => void;
+  /** Opens today's ayah and hadith each time it goes up (a tap on the home-screen widget). */
+  dailyOpenSignal?: number;
   /** Extra top padding (status bar). Default 0. */
   topInset?: number;
 };
@@ -37,6 +43,8 @@ export function AppTopBar({
   topicTitle,
   accent,
   streakDays,
+  streakFreezes,
+  onBuyStreakFreeze,
   gems,
   hearts,
   onOpenTopics,
@@ -44,6 +52,7 @@ export function AppTopBar({
   onStreak,
   dailySeen = false,
   onDailyOpened,
+  dailyOpenSignal = 0,
   topInset = 0
 }: AppTopBarProps) {
   const palette = topicPalette(accent);
@@ -55,6 +64,10 @@ export function AppTopBar({
     setDailyOpen(true);
     onDailyOpened?.();
   };
+  useEffect(() => {
+    if (dailyOpenSignal > 0) openDaily();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dailyOpenSignal]);
   const heartLabel = hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max });
 
   return (
@@ -134,7 +147,16 @@ export function AppTopBar({
         </View>
       </View>
       <DailySheet visible={dailyOpen} onClose={() => setDailyOpen(false)} />
-      {onStreak ? null : <StreakSheet visible={streakOpen} streakDays={streakDays} onClose={() => setStreakOpen(false)} />}
+      {onStreak ? null : (
+        <StreakSheet
+          visible={streakOpen}
+          streakDays={streakDays}
+          freezes={streakFreezes}
+          gems={gems}
+          onBuyFreeze={onBuyStreakFreeze}
+          onClose={() => setStreakOpen(false)}
+        />
+      )}
     </View>
   );
 }
