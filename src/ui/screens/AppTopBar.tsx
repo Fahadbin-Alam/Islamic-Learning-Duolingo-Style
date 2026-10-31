@@ -112,11 +112,11 @@ export function AppTopBar({
             testID="top-bar-streak"
           />
           <StatChip
-            icon="gem"
+            icon="date"
             value={compactNumber(gems)}
-            color={colors.gem}
+            color={colors.date}
             onPress={onOpenShop}
-            accessibilityLabel={t("{count} gems", { count: formatNumber(gems) })}
+            accessibilityLabel={t("{count} dates", { count: formatNumber(gems) })}
             testID="top-bar-gems"
           />
           {hearts.unlimited ? (

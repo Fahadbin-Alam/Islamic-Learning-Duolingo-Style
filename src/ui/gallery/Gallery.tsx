@@ -52,7 +52,7 @@ export function KitGallery() {
         <Section title="Stat chips">
           <View style={styles.statRow}>
             <StatChip icon="flame" value={12} color={colors.flame} accessibilityLabel="Streak 12 days" />
-            <StatChip icon="gem" value={gems} color={colors.gem} accessibilityLabel={`${gems} gems`} onPress={() => setGems((v) => v + 10)} />
+            <StatChip icon="date" value={gems} color={colors.date} accessibilityLabel={`${gems} dates`} onPress={() => setGems((v) => v + 10)} />
             <StatChip icon="heart" value={5} color={colors.heart} accessibilityLabel="5 hearts" />
             <StatChip icon="flame" value={0} color={colors.flame} dim accessibilityLabel="No streak" />
           </View>
@@ -123,7 +123,7 @@ export function KitGallery() {
           <View style={styles.gap} />
           <GameButton label="Check" fullWidth disabled />
           <View style={styles.gap} />
-          <GameButton label="Get gems" icon="gem" variant="secondary" fullWidth />
+          <GameButton label="Get dates" icon="date" variant="secondary" fullWidth />
           <View style={styles.gap} />
           <GameButton label="Refill hearts" icon="heart" variant="danger" fullWidth />
           <View style={styles.gap} />
@@ -183,7 +183,7 @@ export function KitGallery() {
               <CountUp key={`acc-${countKey}`} value={92} suffix="%" style={[styles.countValue, { color: colors.green }]} />
             </View>
             <View style={[styles.countCard, { borderColor: colors.gem }]}>
-              <Icon name="gem" size={28} />
+              <Icon name="date" size={28} />
               <CountUp key={`gem-${countKey}`} value={20} prefix="+" style={[styles.countValue, { color: colors.gem }]} />
             </View>
           </View>

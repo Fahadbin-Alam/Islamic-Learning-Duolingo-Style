@@ -297,7 +297,7 @@ describe("lesson screens", () => {
     expect(screen.getByText("XP EARNED")).toBeTruthy();
     expect(screen.getByText("STARS")).toBeTruthy();
     expect(screen.getByText("STREAK")).toBeTruthy();
-    expect(screen.getByText("+5 gems")).toBeTruthy();
+    expect(screen.getByText("+5 dates")).toBeTruthy();
     await fireEvent.press(screen.getByText("NEXT LESSON"));
     expect(onContinue).toHaveBeenCalledTimes(1);
     await fireEvent.press(screen.getByText("BACK TO PATH"));

@@ -4054,8 +4054,8 @@ export const SHOP_ITEMS: ShopItem[] = [
   {
     id: "watch-ad-gems",
     type: "rewarded_ad",
-    name: "Watch for gems",
-    localizedDescription: "Earn 20 gems after a short sponsor break, up to five times a day.",
+    name: "Watch for dates",
+    localizedDescription: "Earn 20 dates after a short sponsor break, up to five times a day.",
     price: 0,
     currencyType: "rewarded_ad",
     gemsGranted: 20
