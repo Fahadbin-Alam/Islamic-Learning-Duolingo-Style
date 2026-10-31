@@ -59,7 +59,8 @@
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#14B86A"
+        "backgroundImage": "./assets/adaptive-icon-background.png",
+        "backgroundColor": "#FF9F45"
       },
       "blockedPermissions": [
         "android.permission.RECORD_AUDIO",

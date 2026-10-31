@@ -449,10 +449,10 @@ async function frame(browser, device, name, rawFile) {
   await page.close();
 }
 
-async function featureGraphic(browser, rawFile) {
+// The banner is the app cover (source/cover.html), the same one scripts/app-cover.mjs renders.
+async function featureGraphic(browser) {
   const page = await browser.newPage({ viewport: { width: 1024, height: 500 } });
-  const query = new URLSearchParams({ img: pathToFileURL(rawFile).href });
-  await page.goto(`${pathToFileURL(join(SOURCE, "feature.html")).href}?${query}`);
+  await page.goto(`${pathToFileURL(join(SOURCE, "cover.html")).href}?part=feature`);
   await pause(page, 300);
   await page.screenshot({ path: join(OUT, "google-play", "feature-graphic.png") });
   await page.close();
@@ -466,7 +466,7 @@ for (const [key, device] of Object.entries(DEVICES)) {
   for (const name of Object.keys(CAPTIONS)) {
     const raw = await captureScreen(browser, { ...device, key }, name);
     await frame(browser, device, name, raw);
-    if (FEATURE_GRAPHIC && key === "iphone-6.9" && name === "02-path") await featureGraphic(browser, raw);
+    if (FEATURE_GRAPHIC && key === "iphone-6.9" && name === "02-path") await featureGraphic(browser);
     console.log(`${device.dir}/${name}.png`);
   }
 }
