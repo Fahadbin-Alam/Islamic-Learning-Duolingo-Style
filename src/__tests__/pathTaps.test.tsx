@@ -36,7 +36,7 @@ describe("tapping things on the path", () => {
     jest.useRealTimers();
   });
 
-  it("plays every camel reaction in turn: happy, sad, zoom, spit, laugh, baby, jump", async () => {
+  it("plays every camel reaction in turn: happy, cooked, sad, zoom, spit, laugh, baby, jump", async () => {
     await render(<Camel size={64} range={40} walking tappable testID="camel" />);
     const heard: string[] = [];
     for (let index = 0; index < CAMEL_REACTIONS.length + 1; index += 1) {
@@ -44,7 +44,7 @@ describe("tapping things on the path", () => {
       heard.push(String(lastSound()));
     }
     expect(heard).toEqual([...CAMEL_REACTIONS.map((reaction) => reaction.sound), CAMEL_REACTIONS[0].sound]);
-    expect(CAMEL_REACTIONS.map((reaction) => reaction.kind)).toEqual(["happy", "sad", "zoom", "spit", "laugh", "baby", "jump"]);
+    expect(CAMEL_REACTIONS.map((reaction) => reaction.kind)).toEqual(["happy", "cooked", "sad", "zoom", "spit", "laugh", "baby", "jump"]);
   });
 
   it("only grunts when tapped again in the middle of a reaction", async () => {
@@ -109,6 +109,7 @@ describe("tapping things on the path", () => {
       sunSounds.push(String(lastSound()));
       await finish();
     }
-    expect(sunSounds).toEqual(["grow", "boing", "giggle"]);
+    // The first tap brings night (outside a SceneProvider nothing else changes), then beam, sunglasses, wink.
+    expect(sunSounds).toEqual(["night", "grow", "boing"]);
   });
 });

@@ -58,14 +58,17 @@ export function AppTopBar({
   const palette = topicPalette(accent);
   const [streakOpen, setStreakOpen] = useState(false);
   const [dailyOpen, setDailyOpen] = useState(false);
+  // Opened by itself (the app opening for the first time today, or the widget): the ayah is recited too.
+  const [dailyAuto, setDailyAuto] = useState(false);
   // The book wears a red dot until today's card is opened.
   const dailyNew = !dailySeen;
-  const openDaily = () => {
+  const openDaily = (auto = false) => {
+    setDailyAuto(auto);
     setDailyOpen(true);
     onDailyOpened?.();
   };
   useEffect(() => {
-    if (dailyOpenSignal > 0) openDaily();
+    if (dailyOpenSignal > 0) openDaily(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dailyOpenSignal]);
   const heartLabel = hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max });
@@ -91,7 +94,7 @@ export function AppTopBar({
         {/* Counts are formatted as on the Shop card and the Me tab: "1,000", "12,345", then "120k", so they always fit. */}
         <View style={styles.stats}>
           <Tappable
-            onPress={openDaily}
+            onPress={() => openDaily()}
             sound="node_tap"
             pressScale={0.92}
             hitSlop={6}
@@ -146,7 +149,7 @@ export function AppTopBar({
           )}
         </View>
       </View>
-      <DailySheet visible={dailyOpen} onClose={() => setDailyOpen(false)} />
+      <DailySheet visible={dailyOpen} autoPlay={dailyAuto} onClose={() => setDailyOpen(false)} />
       {onStreak ? null : (
         <StreakSheet
           visible={streakOpen}

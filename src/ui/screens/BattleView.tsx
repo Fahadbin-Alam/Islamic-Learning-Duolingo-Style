@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaInsetsContext } from "react-native-safe-area-context";
 import type { BattleQuestion } from "../../services/battleQuestions";
+import type { FriendBattle } from "../../services/backendSync";
 import { ARENAS, BATTLE_QUESTIONS, BATTLE_SECONDS, BATTLE_WIN_SCORE, arenaFor, type BattleResult } from "../../services/ummah";
 import { ChoiceTile, type ChoiceTileState } from "../ChoiceTile";
 import { Confetti } from "../Confetti";
@@ -24,8 +25,13 @@ const TICK_MS = 250;
 
 export type BattleViewProps = {
   questions: BattleQuestion[];
-  /** Called once, when the last question is answered or runs out of time, with the right answers. */
-  onFinish: (correct: number) => BattleResult;
+  /**
+   * Called once, when the last question is answered or runs out of time, with the right answers. A solo battle
+   * returns the trophies won or lost; a friend battle returns nothing (the server scores it).
+   */
+  onFinish: (correct: number) => BattleResult | undefined;
+  /** A battle against a friend: their first name, and the battle as the server last sent it (after this score). */
+  versus?: { name: string; battle?: FriendBattle; sending?: boolean };
   /** Leaves the battle. Leaving before the end is a loss. */
   onClose: () => void;
   mascotVariant?: string;
@@ -33,7 +39,7 @@ export type BattleViewProps = {
 };
 
 /** A quiz battle over the whole app: hard questions against the clock, then trophies won or lost. */
-export function BattleView({ questions, onFinish, onClose, mascotVariant = "muslim_man", accent = colors.green }: BattleViewProps) {
+export function BattleView({ questions, onFinish, onClose, versus, mascotVariant = "muslim_man", accent = colors.green }: BattleViewProps) {
   const insets = useContext(SafeAreaInsetsContext);
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<string | undefined>(undefined);
@@ -41,6 +47,8 @@ export function BattleView({ questions, onFinish, onClose, mascotVariant = "musl
   const [correct, setCorrect] = useState(0);
   const [left, setLeft] = useState(BATTLE_SECONDS * 1000);
   const [result, setResult] = useState<BattleResult | undefined>(undefined);
+  // A friend battle's own score, once played: the result screen then waits for (or shows) theirs.
+  const [played, setPlayed] = useState<number | undefined>(undefined);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const finished = useRef(false);
   const question = questions[index];
@@ -50,16 +58,22 @@ export function BattleView({ questions, onFinish, onClose, mascotVariant = "musl
     if (finished.current) return;
     finished.current = true;
     const outcome = onFinish(score);
+    if (!outcome) {
+      setPlayed(score);
+      feedback(score >= BATTLE_WIN_SCORE ? "lesson_complete" : "soft_ui", score >= BATTLE_WIN_SCORE ? "success" : "light");
+      return;
+    }
     setResult(outcome);
     feedback(outcome.outcome === "win" ? "lesson_complete" : "soft_ui", outcome.outcome === "win" ? "success" : "light");
   };
 
+  const over = Boolean(result) || played !== undefined;
   // Leaving mid-battle counts the answers so far, like running out of time on the rest.
   const leave = () => {
-    if (!result) finish(correct);
+    if (!over) finish(correct);
     onClose();
   };
-  useBackToClose(true, result ? onClose : leave);
+  useBackToClose(true, over ? onClose : leave);
 
   const next = (score: number) => {
     timer.current = setTimeout(() => {
@@ -113,7 +127,9 @@ export function BattleView({ questions, onFinish, onClose, mascotVariant = "musl
   return (
     <Portal>
       <View style={[styles.root, pad]} testID="battle-view">
-        {result ? (
+        {played !== undefined && versus ? (
+          <FriendResultView correct={played} versus={versus} onDone={onClose} mascotVariant={mascotVariant} accent={accent} />
+        ) : result ? (
           <BattleResultView result={result} onDone={onClose} mascotVariant={mascotVariant} accent={accent} />
         ) : question ? (
           <>
@@ -121,6 +137,12 @@ export function BattleView({ questions, onFinish, onClose, mascotVariant = "musl
               <Tappable onPress={leave} style={styles.close} accessibilityLabel={t("Leave battle")} hitSlop={8} testID="battle-leave">
                 <Icon name="close" size={22} color={colors.inkSoft} />
               </Tappable>
+              {versus ? (
+                <View style={styles.versus} testID="battle-versus">
+                  <Icon name="bolt" size={16} />
+                  <Text style={styles.versusText} numberOfLines={1}>{t("vs {name}", { name: versus.name })}</Text>
+                </View>
+              ) : null}
               <View style={styles.dots} accessibilityLabel={t("Question {count} of {total}", { count: index + 1, total: questions.length })}>
                 {questions.map((item, at) => (
                   <View key={item.id} style={[styles.dot, at < index || (at === index && answered) ? styles.dotDone : null, at === index ? styles.dotNow : null]} />
@@ -150,6 +172,43 @@ export function BattleView({ questions, onFinish, onClose, mascotVariant = "musl
         )}
       </View>
     </Portal>
+  );
+}
+
+/** A friend battle's end: this learner's score, then theirs once both have played. No trophies change. */
+function FriendResultView({ correct, versus, onDone, mascotVariant, accent }: { correct: number; versus: NonNullable<BattleViewProps["versus"]>; onDone: () => void; mascotVariant: string; accent: string }) {
+  const battle = versus.battle;
+  const done = battle?.status === "done" && typeof battle.theirScore === "number";
+  const outcome = done ? battle.outcome : undefined;
+  const title = !done ? t("Nice battle!") : outcome === "win" ? t("You beat {name}!", { name: versus.name }) : outcome === "draw" ? t("It's a tie!") : t("{name} won this time!", { name: versus.name });
+  return (
+    <View style={styles.result} testID="battle-friend-result">
+      {outcome === "win" ? <Confetti active count={44} /> : null}
+      <Mascot variant={mascotVariant} mood={outcome === "win" ? "cheer" : outcome === "loss" ? "sad" : done ? "think" : "happy"} size={130} accent={accent} />
+      <Text style={styles.resultTitle} accessibilityRole="header" testID="battle-friend-title">
+        {title}
+      </Text>
+      <PopIn from="scale" delay={150}>
+        <View style={styles.vsBoard} testID="battle-friend-board">
+          <View style={styles.vsSide}>
+            <Text style={styles.vsName} numberOfLines={1}>{t("You")}</Text>
+            <Text style={styles.vsScore} testID="battle-friend-mine">{correct}</Text>
+          </View>
+          <Icon name="bolt" size={28} />
+          <View style={styles.vsSide}>
+            <Text style={styles.vsName} numberOfLines={1}>{versus.name}</Text>
+            <Text style={styles.vsScore} testID="battle-friend-theirs">{done ? battle.theirScore : "?"}</Text>
+          </View>
+        </View>
+      </PopIn>
+      <Text style={styles.resultLine}>{t("{count} of {total} right", { count: correct, total: BATTLE_QUESTIONS })}</Text>
+      {!done ? (
+        <Text style={styles.resultHint} testID="battle-friend-waiting">
+          {versus.sending ? t("Sending your score...") : t("Waiting for {name} to play.", { name: versus.name })}
+        </Text>
+      ) : null}
+      <GameButton label={t("Continue")} fullWidth onPress={onDone} testID="battle-done" />
+    </View>
   );
 }
 
@@ -207,6 +266,50 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.mist
+  },
+  versus: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 2,
+    maxWidth: "40%",
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: radii.pill,
+    backgroundColor: lighten(colors.gold, 0.78)
+  },
+  versusText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 14,
+    lineHeight: 20,
+    color: darken(colors.gold, 0.55),
+    flexShrink: 1
+  },
+  vsBoard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 14,
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: lighten(colors.gold, 0.4),
+    backgroundColor: lighten(colors.gold, 0.85)
+  },
+  vsSide: {
+    alignItems: "center",
+    minWidth: 72,
+    maxWidth: 120
+  },
+  vsName: {
+    ...text.small,
+    fontFamily: fonts.bodyHeavy
+  },
+  vsScore: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 34,
+    lineHeight: 42,
+    color: darken(colors.gold, 0.55)
   },
   dots: {
     flex: 1,

@@ -27,6 +27,7 @@ import { Camel, useReduceMotion } from "../Camel";
 import { Mascot } from "../Mascot";
 import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
 import { PathWeather, weatherFor } from "../PathWeather";
+import { SceneProvider, Snooze, useScene } from "../sceneMood";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
@@ -760,6 +761,25 @@ function TestOutSheet({
   );
 }
 
+// ---------- night and sleep ----------
+
+/** The night sky behind the whole path; it shows when the day skies fade out (see sceneMood.tsx). */
+function NightSky({ top, bottom }: { top: number; bottom: number }) {
+  const { dark } = useScene();
+  return <Animated.View pointerEvents="none" style={[styles.nightSky, { top, bottom, opacity: dark }]} testID="path-night-sky" />;
+}
+
+/** The path's kid: tap for a reaction; falls asleep with the rest when the screen is left alone. */
+function PathMascot({ variant, mood, accent, testID }: { variant: string; mood: "happy" | "cheer"; accent: string; testID: string }) {
+  const { asleep } = useScene();
+  return (
+    <View>
+      <Mascot variant={variant} mood={asleep ? "sleepy" : mood} size={MASCOT_SIZE} accent={accent} tappable testID={testID} />
+      {asleep ? <Snooze x={MASCOT_SIZE * 0.7} y={MASCOT_H * 0.12} size={20} /> : null}
+    </View>
+  );
+}
+
 // ---------- end of the topic ----------
 
 function PathEnd({
@@ -788,7 +808,7 @@ function PathEnd({
     <View style={styles.end} testID="path-end">
       <View style={styles.endStage}>
         <View style={[styles.mascot, { left: mascotLeft, top: (END_NODE + END_LIP - MASCOT_H) / 2 + 4 }]} pointerEvents="box-none">
-          <Mascot variant={mascotVariant} mood={done ? "cheer" : "happy"} size={MASCOT_SIZE} accent={color} tappable testID="path-end-mascot" />
+          <PathMascot variant={mascotVariant} mood={done ? "cheer" : "happy"} accent={color} testID="path-end-mascot" />
         </View>
         {width - 8 - camelStart >= CAMEL_SIZE ? (
           <View style={[styles.mascot, { left: camelStart, top: END_NODE + END_LIP - CAMEL_H }]} pointerEvents="box-none">
@@ -889,6 +909,9 @@ export function LearnPath({
 }: LearnPathProps) {
   const scrollRef = useRef<ScrollView>(null);
   const [width, setWidth] = useState(390);
+  const [headerH, setHeaderH] = useState(0);
+  /** Wakes everyone on the path (they fall asleep when the screen is left alone; see sceneMood.tsx). */
+  const wakeScene = useRef<(() => void) | null>(null);
   const [openId, setOpenId] = useState<string | undefined>(initialOpenNodeId);
   const [cardH, setCardH] = useState<number | undefined>(undefined);
   const [stickyId, setStickyId] = useState<string | undefined>(undefined);
@@ -1255,7 +1278,7 @@ export function LearnPath({
   const topicDone = units.length > 0 && units.every((unit) => unit.total > 0 && unit.done >= unit.total);
 
   return (
-    <View style={styles.root}>
+    <SceneProvider style={styles.root} wakeRef={wakeScene}>
       <ScrollView
         ref={scrollRef}
         style={styles.scroll}
@@ -1265,6 +1288,7 @@ export function LearnPath({
         onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
           const y = event.nativeEvent.contentOffset.y;
           scrollY.current = y;
+          wakeScene.current?.();
           updateSticky(y);
           updateLive(y);
           // react-native-web never fires onScrollBeginDrag, so a user scroll closes the card here.
@@ -1284,7 +1308,8 @@ export function LearnPath({
         testID={`learn-path-${topicId}`}
       >
         <View onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
-          {header}
+          <View onLayout={(event: LayoutChangeEvent) => setHeaderH(event.nativeEvent.layout.height)}>{header}</View>
+          <NightSky top={headerH} bottom={-bottomPadding} />
           {layout.byUnit.map((group) => {
             const { unit, color, rows, premium } = group;
             // Only units near the circle to play next move their pictures: the rest stay still to spare cheap phones.
@@ -1363,14 +1388,15 @@ export function LearnPath({
                           </View>
                         ) : null}
                         {index === group.camelIndex && unitLive ? (
-                          <View style={[styles.mascot, { left: camelLeft, top: top + (NODE + NODE_LIP - CAMEL_H) / 2 }]} pointerEvents="box-none">
-                            <Camel size={CAMEL_SIZE} range={camelRange} accent={color} walking tappable testID="path-camel" />
+                          // Walks right across the row: off one edge of the screen and back in from the other, passing behind the circle.
+                          <View style={[styles.mascot, { left: 0, top: top + (NODE + NODE_LIP - CAMEL_H) / 2 }]} pointerEvents="box-none">
+                            <Camel size={CAMEL_SIZE} wrapWidth={width} home={camelLeft + camelRange / 2} accent={color} walking tappable testID="path-camel" />
                           </View>
                         ) : null}
                         {index === group.mascotIndex ? (
                           <View style={[styles.mascot, { left: mascotLeft, top: top + (NODE + NODE_LIP - MASCOT_H) / 2 - 8 }]} pointerEvents="box-none">
                             {/* The topic accent, not the unit tint: the mascot keeps one look across the app. */}
-                            <Mascot variant={mascotVariant} mood="happy" size={MASCOT_SIZE} accent={accent} tappable testID="path-mascot" />
+                            <PathMascot variant={mascotVariant} mood="happy" accent={accent} testID="path-mascot" />
                           </View>
                         ) : null}
                         {row.current && !isOpen ? (
@@ -1464,7 +1490,7 @@ export function LearnPath({
           }}
         />
       ) : null}
-    </View>
+    </SceneProvider>
   );
 }
 
@@ -1472,6 +1498,12 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: colors.snow
+  },
+  nightSky: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    backgroundColor: "#22305C"
   },
   scroll: {
     flex: 1,

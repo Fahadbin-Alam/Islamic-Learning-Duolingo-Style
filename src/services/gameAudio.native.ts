@@ -26,7 +26,13 @@ const SOUND_FILES: Record<GameSoundEvent, { full: number; reduced: number }> = {
   grow: { full: require("../../assets/sounds/grow.wav"), reduced: require("../../assets/sounds/grow_reduced.wav") },
   wilt: { full: require("../../assets/sounds/wilt.wav"), reduced: require("../../assets/sounds/wilt_reduced.wav") },
   grumble: { full: require("../../assets/sounds/grumble.wav"), reduced: require("../../assets/sounds/grumble_reduced.wav") },
-  whoosh: { full: require("../../assets/sounds/whoosh.wav"), reduced: require("../../assets/sounds/whoosh_reduced.wav") }
+  whoosh: { full: require("../../assets/sounds/whoosh.wav"), reduced: require("../../assets/sounds/whoosh_reduced.wav") },
+  chirp: { full: require("../../assets/sounds/chirp.wav"), reduced: require("../../assets/sounds/chirp_reduced.wav") },
+  baa: { full: require("../../assets/sounds/baa.wav"), reduced: require("../../assets/sounds/baa_reduced.wav") },
+  snore: { full: require("../../assets/sounds/snore.wav"), reduced: require("../../assets/sounds/snore_reduced.wav") },
+  sizzle: { full: require("../../assets/sounds/sizzle.wav"), reduced: require("../../assets/sounds/sizzle_reduced.wav") },
+  pop: { full: require("../../assets/sounds/pop.wav"), reduced: require("../../assets/sounds/pop_reduced.wav") },
+  night: { full: require("../../assets/sounds/night.wav"), reduced: require("../../assets/sounds/night_reduced.wav") }
 };
 
 const players = new Map<string, AudioPlayer>();
