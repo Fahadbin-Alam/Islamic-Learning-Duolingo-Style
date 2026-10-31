@@ -10,6 +10,7 @@ import { LinkRow, SegmentButton, SheetTitle, Toggle, useBackToClose } from "./sh
 import { QuranOfflineRow } from "./QuranOfflineRow";
 import { offlineAudioSupported } from "../../services/offlineAudio";
 import { t } from "../../i18n";
+import type { DifficultyChoice } from "../../types";
 
 export type LearnerRole = "child" | "parent";
 
@@ -22,6 +23,9 @@ export type SettingsSheetProps = {
   weeklyCheckIn: boolean;
   soundEnabled: boolean;
   softSound: boolean;
+  /** How hard lessons are; unset is "auto". */
+  difficulty?: DifficultyChoice;
+  onSelectDifficulty?: (difficulty: DifficultyChoice) => void;
   onSelectRole: (role?: LearnerRole) => void;
   onToggleStreak: () => void;
   onToggleIslamic: () => void;
@@ -51,6 +55,14 @@ const ROLES: Array<{ id?: LearnerRole; label: string; line: string; testID: stri
   { id: "parent", label: "Parent", line: "Cheer on your child.", testID: "settings-role-parent" }
 ];
 
+// How hard lessons are. Auto climbs with the streak and the lessons done; the line under says what each does.
+const DIFFICULTIES: Array<{ id: DifficultyChoice; label: string; line: string; testID: string }> = [
+  { id: "auto", label: "Auto", line: "Gets harder as your streak grows.", testID: "settings-difficulty-auto" },
+  { id: "easy", label: "Easy", line: "Gentle questions, more true or false.", testID: "settings-difficulty-easy" },
+  { id: "hard", label: "Hard", line: "More questions from memory.", testID: "settings-difficulty-hard" },
+  { id: "really_hard", label: "Really hard", line: "The toughest questions. Good luck!", testID: "settings-difficulty-really-hard" }
+];
+
 export function SettingsSheet({
   visible,
   role,
@@ -60,6 +72,8 @@ export function SettingsSheet({
   weeklyCheckIn,
   soundEnabled,
   softSound,
+  difficulty,
+  onSelectDifficulty,
   onSelectRole,
   onToggleStreak,
   onToggleIslamic,
@@ -79,6 +93,7 @@ export function SettingsSheet({
 }: SettingsSheetProps) {
   useBackToClose(visible, onClose);
   const activeRole = ROLES.find((option) => option.id === role) ?? ROLES[0];
+  const activeDifficulty = DIFFICULTIES.find((option) => option.id === difficulty) ?? DIFFICULTIES[0];
   const { ref, scrollProps, more, scrollDown } = useScrollMore();
 
   // The title and SAVE stay put; the rows scroll between them, with a bouncing arrow while some are hidden.
@@ -103,6 +118,24 @@ export function SettingsSheet({
               <Text style={styles.hint}>{t(activeRole.line)}</Text>
             </View>
           )}
+
+          {onSelectDifficulty ? (
+            <View style={styles.roles} testID="settings-difficulty">
+              <Text style={styles.label}>{t("Difficulty")}</Text>
+              <View style={styles.segments}>
+                {DIFFICULTIES.map((option) => (
+                  <SegmentButton
+                    key={option.testID}
+                    label={t(option.label)}
+                    active={option === activeDifficulty}
+                    onPress={() => onSelectDifficulty(option.id)}
+                    testID={option.testID}
+                  />
+                ))}
+              </View>
+              <Text style={styles.hint}>{t(activeDifficulty.line)}</Text>
+            </View>
+          ) : null}
 
           {onOpenLanguage ? (
             <View style={styles.card}>
@@ -181,6 +214,11 @@ const styles = StyleSheet.create({
   hint: {
     ...text.small,
     textAlign: "center"
+  },
+  label: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    color: colors.ink
   },
   segments: {
     flexDirection: "row",

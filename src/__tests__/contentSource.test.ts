@@ -10,6 +10,7 @@ import { learningApi } from "../api/islamicLearningApi";
 import { lessonForAge } from "../data/ageLevels";
 import { COURSE, LESSONS_BY_ID, STARTER_USER } from "../data/course";
 import { FOUNDATION_CATEGORY_META, FOUNDATION_PROGRESS_LABELS, FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
+import { ALL_HARD_QUESTIONS } from "../data/hardQuestions";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic } from "../data/arabicTerms";
 import { getFoundationWordBank } from "../services/foundationAssessment";
 import { getTopicCopy } from "../i18n";
@@ -37,16 +38,20 @@ function addLesson(lesson: Lesson) {
   add("quote", lesson.quote?.text);
   add("source", lesson.quote?.reference);
   add("source", lesson.learnSource?.reference);
-  for (const challenge of lesson.challenges) {
-    add("question", challenge.prompt);
-    challenge.choices.forEach((choice) => add("question", choice.label));
-    add("question", englishWhy(challenge));
-  }
+  addQuestions(lesson.challenges);
   const practice = lesson.practiceActivities?.find(isPlayablePractice);
   if (practice) {
     add("practice", practice.title);
     add("practice", practice.prompt);
     practice.options.forEach((option) => add("practice", option.label));
+  }
+}
+
+function addQuestions(challenges: Lesson["challenges"]) {
+  for (const challenge of challenges) {
+    add("question", challenge.prompt);
+    challenge.choices.forEach((choice) => add("question", choice.label));
+    add("question", englishWhy(challenge));
   }
 }
 
@@ -98,6 +103,8 @@ async function buildSource() {
     addLesson(lessonForAge(lesson, "6-9"));
     addLesson((await learningApi.getLessonSession(lesson.id, STARTER_USER)).lesson);
   }
+  // The harder questions that come in as the streak grows, or on Hard and Really hard (challengeLevel.ts).
+  addQuestions(ALL_HARD_QUESTIONS);
   Object.values(FOUNDATION_CATEGORY_META).forEach((meta) => Object.values(meta).forEach((value) => typeof value === "string" && add("course", value)));
   FOUNDATION_PROGRESS_LABELS.forEach((label) => add("course", label));
   FOUNDATION_QUESTION_BANK.forEach(addFoundation);

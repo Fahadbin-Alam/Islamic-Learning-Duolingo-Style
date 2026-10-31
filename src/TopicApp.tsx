@@ -227,6 +227,7 @@ import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
   AccountRole,
+  DifficultyChoice,
   Challenge,
   FoundationAssessmentState,
   FoundationCategoryId,
@@ -636,6 +637,7 @@ export default function TopicApp() {
   const [settingsStreakReminder, setSettingsStreakReminder] = useState(true);
   const [settingsIslamicReminder, setSettingsIslamicReminder] = useState(true);
   const [settingsSoundEnabled, setSettingsSoundEnabled] = useState(true);
+  const [settingsDifficulty, setSettingsDifficulty] = useState<DifficultyChoice>("auto");
   const [settingsReducedSound, setSettingsReducedSound] = useState(false);
   const [crew, setCrew] = useState<CrewState>({ status: "idle" });
   const [inviteEmail, setInviteEmail] = useState("");
@@ -2158,6 +2160,7 @@ export default function TopicApp() {
     setSettingsIslamicReminder(state.user.reminderPreferences?.islamicReminders !== false);
     setSettingsSoundEnabled(state.user.soundEffectsEnabled !== false);
     setSettingsReducedSound(Boolean(state.user.reducedSoundEffects));
+    setSettingsDifficulty(state.user.difficulty ?? "auto");
     setSettingsModalVisible(true);
   }
 
@@ -2404,7 +2407,8 @@ export default function TopicApp() {
       accountRole: settingsRole,
       reminderPreferences,
       soundEffectsEnabled: settingsSoundEnabled,
-      reducedSoundEffects: settingsReducedSound
+      reducedSoundEffects: settingsReducedSound,
+      difficulty: settingsDifficulty
     };
 
     if (state.user.hasAccount) {
@@ -3381,6 +3385,8 @@ export default function TopicApp() {
           weeklyCheckIn={settingsWeeklyReminder}
           soundEnabled={settingsSoundEnabled}
           softSound={settingsReducedSound}
+          difficulty={settingsDifficulty}
+          onSelectDifficulty={setSettingsDifficulty}
           onSelectRole={setSettingsRole}
           onToggleStreak={() => setSettingsStreakReminder((value) => !value)}
           onToggleIslamic={() => setSettingsIslamicReminder((value) => !value)}
