@@ -58,7 +58,6 @@ import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
 import { localDayNumber } from "./data/dailyCard";
 import {
   DEFAULT_LANGUAGE,
-  deviceLanguage,
   getLanguageOption,
   getNodeTitle,
   getTopicCopy,
@@ -648,7 +647,6 @@ export default function TopicApp() {
   const [inviteRelation, setInviteRelation] = useState<SocialRelation>("friend");
   // The tile picked in the language sheet, and the language shown before the learner has saved one.
   const [pendingLanguage, setPendingLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
-  const [startLanguage, setStartLanguage] = useState<SupportedLanguage>(DEFAULT_LANGUAGE);
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
   const [quizSummary, setQuizSummary] = useState<QuizSummary | undefined>(undefined);
   const [quizSheetVisible, setQuizSheetVisible] = useState(false);
@@ -747,10 +745,9 @@ export default function TopicApp() {
 
       if (mounted) {
         setHasSavedAccount(Boolean(knownAccount));
-        // A first launch asks once which language to learn in, with the phone's language picked if offered.
-        const phoneLanguage = user.preferredLanguage ? undefined : deviceLanguage();
-        setPendingLanguage(normalizeLanguage(user.preferredLanguage ?? phoneLanguage));
-        setStartLanguage(normalizeLanguage(phoneLanguage));
+        // A first launch asks once which language to learn in, with English picked. The phone's language is
+        // never used: the app stays English until the learner saves another language in the picker.
+        setPendingLanguage(normalizeLanguage(user.preferredLanguage));
 
         if (knownAccount) {
           setAccountName(knownAccount.name);
@@ -844,7 +841,7 @@ export default function TopicApp() {
   }, [activeAssessment, assessmentOwnerKey, practiceResult, state.loading]);
 
 
-  const currentLanguage = normalizeLanguage(state.user?.preferredLanguage ?? startLanguage);
+  const currentLanguage = normalizeLanguage(state.user?.preferredLanguage);
   // t() reads the active language, so set it before any child renders.
   setActiveLanguage(currentLanguage);
   const strings = useMemo(() => getUiStrings(currentLanguage), [currentLanguage]);

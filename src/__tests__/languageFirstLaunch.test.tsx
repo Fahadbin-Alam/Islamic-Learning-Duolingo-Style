@@ -60,4 +60,39 @@ describe("language on first launch", () => {
     await screen.findByTestId("learn-path-foundation");
     expect(screen.queryByTestId("language-sheet")).toBeNull();
   });
+
+  // iPhone testers set to Arabic (or with an Arabic region) saw the app open in Arabic. English comes first everywhere.
+  describe.each(["ar-SA", "ar", "ur-PK", "bn-BD"])("on a %s phone", (phoneLocale) => {
+    const RealDateTimeFormat = Intl.DateTimeFormat;
+    let spy: jest.SpyInstance;
+
+    beforeEach(() => {
+      spy = jest.spyOn(Intl, "DateTimeFormat").mockImplementation(((locales?: string | string[], options?: Intl.DateTimeFormatOptions) => {
+        const real = new RealDateTimeFormat(locales ?? "en-US", options);
+        return Object.assign(Object.create(real), {
+          resolvedOptions: () => ({ ...real.resolvedOptions(), locale: phoneLocale })
+        });
+      }) as unknown as typeof Intl.DateTimeFormat);
+    });
+    afterEach(() => spy.mockRestore());
+
+    it("opens in English with English picked until the learner saves another language", async () => {
+      await render(<TopicApp />);
+      await screen.findByTestId("learn-path-foundation");
+      expect(screen.getByText("Language")).toBeTruthy();
+      expect(screen.getByTestId("language-en").props.accessibilityState).toMatchObject({ selected: true });
+      expect(screen.getByTestId("language-ar").props.accessibilityState).toMatchObject({ selected: false });
+
+      await press("language-save");
+      expect(JSON.parse(getStoredItem("sira-path-user-profile") ?? "{}").preferredLanguage).toBe("en");
+    });
+
+    it("only switches to Arabic when the learner picks it", async () => {
+      await render(<TopicApp />);
+      await screen.findByTestId("learn-path-foundation");
+      await press("language-ar");
+      await press("language-save");
+      expect(JSON.parse(getStoredItem("sira-path-user-profile") ?? "{}").preferredLanguage).toBe("ar");
+    });
+  });
 });

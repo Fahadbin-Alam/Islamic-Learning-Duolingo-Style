@@ -276,17 +276,6 @@ export function getNodeTitle(_nodeId: string, fallback: string, language: Suppor
 // Bangla, Urdu and Arabic are machine translated and still need a native speaker's review.
 export const LANGUAGE_PICKER_ENABLED = true;
 
-/** The phone's (or browser's) language when the app offers it, else undefined. */
-export function deviceLanguage(): SupportedLanguage | undefined {
-  try {
-    const locale = Intl.DateTimeFormat().resolvedOptions().locale.toLowerCase();
-    const option = LANGUAGE_OPTIONS.find((item) => item.id !== DEFAULT_LANGUAGE && locale.split("-")[0] === item.id);
-    return option?.id;
-  } catch {
-    return undefined;
-  }
-}
-
 export function normalizeLanguage(language?: string, pickerEnabled = LANGUAGE_PICKER_ENABLED): SupportedLanguage {
   if (!pickerEnabled) {
     return DEFAULT_LANGUAGE;
