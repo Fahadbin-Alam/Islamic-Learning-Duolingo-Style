@@ -5,11 +5,16 @@ export type PopInProps = {
   children?: React.ReactNode;
   delay?: number;
   from?: "scale" | "up" | "down";
+  /** How far it slides in from ("up" and "down"): 24 unless given. */
+  distance?: number;
   style?: StyleProp<ViewStyle>;
 };
 
+/** How far PopIn slides its children in from, unless told. */
+export const POP_IN_DISTANCE = 24;
+
 /** Animates its children in on mount. */
-export function PopIn({ children, delay = 0, from = "scale", style }: PopInProps) {
+export function PopIn({ children, delay = 0, from = "scale", distance = POP_IN_DISTANCE, style }: PopInProps) {
   const progress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -28,7 +33,7 @@ export function PopIn({ children, delay = 0, from = "scale", style }: PopInProps
   const transform =
     from === "scale"
       ? [{ scale: progress.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1] }) }]
-      : [{ translateY: progress.interpolate({ inputRange: [0, 1], outputRange: [from === "up" ? 24 : -24, 0] }) }];
+      : [{ translateY: progress.interpolate({ inputRange: [0, 1], outputRange: [from === "up" ? distance : -distance, 0] }) }];
 
   return <Animated.View style={[style, { opacity, transform }]}>{children}</Animated.View>;
 }

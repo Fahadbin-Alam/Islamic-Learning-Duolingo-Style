@@ -108,7 +108,7 @@ const UI_STRINGS: UiStrings = {
   account: "Account",
   save: "Save",
   logIn: "Log in",
-  crew: "Crew",
+  crew: "Ummah",
   battle: "Battle",
   hearts: "Hearts",
   language: "Language",

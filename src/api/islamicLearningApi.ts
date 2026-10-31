@@ -20,6 +20,7 @@ import type {
   Lesson,
   LessonSession,
   PremiumStatus,
+  QuizScope,
   ShopItem,
   TopicId,
   UserProfile,
@@ -331,7 +332,7 @@ export function isWarmUpLearner(user: UserProfile) {
 // A wrong answer costs a heart, except in a test-out (pass the session): its misses only count against
 // the pass mark, so one failed jump cannot use up a child's hearts. The warm-up lessons cost none either.
 export function loseHeart(user: UserProfile, session?: LessonSession) {
-  if (user.hearts.unlimited || isTestOutSession(session) || isLessonPractice(session) || isWarmUpLearner(user)) {
+  if (user.hearts.unlimited || isTestOutSession(session) || isHeartFree(session) || isWarmUpLearner(user)) {
     return user;
   }
 
@@ -511,6 +512,15 @@ export function isLessonPractice(session: LessonSession | undefined) {
   return session?.mode === "lesson_practice";
 }
 
+export function isQuizSession(session: LessonSession | undefined) {
+  return session?.mode === "quiz";
+}
+
+// Practice of lessons already done and quizzes cost no hearts, and can be played with none left.
+export function isHeartFree(session: LessonSession | undefined) {
+  return isLessonPractice(session) || isQuizSession(session);
+}
+
 // The lessons "My lessons" practice asks about: the most recent ones the learner finished, newest last.
 const LESSON_PRACTICE_POOL = 12;
 
@@ -578,13 +588,116 @@ export function createLessonPracticeSession(user: UserProfile, attempt = 0): Les
   };
 }
 
+// A quiz asks 10 questions (5 at least when its lessons have them) spread over the lessons it covers.
+export const QUIZ_MAX_QUESTIONS = TEST_OUT_MAX_QUESTIONS;
+// Each try starts somewhere else; after this many tries the turns come round again (each try works out the one
+// before it, so this also keeps picking quick).
+const QUIZ_ATTEMPT_CYCLE = 6;
+
+// The lessons a quiz asks about, in path order: every unit of the topic (or the one unit) the learner may open,
+// not only lessons already done, as it measures what they know. Left out: premium units for a free learner and
+// gated units (for older learners), which open only lesson by lesson. Asked at the learner's age.
+export function quizLessonsFor(user: UserProfile, scope: QuizScope, ageGroup?: AgeGroup | null): Lesson[] {
+  const section = COURSE.sections.find((item) => item.topicId === scope.topicId);
+
+  if (!section) {
+    return [];
+  }
+
+  const premium = hasPremiumLessons(user);
+  const units = new Set(
+    section.branches
+      .filter((branch) => (scope.kind === "topic" || branch.id === scope.unitId) && (premium || !branch.premiumOnly) && !branch.gated)
+      .map((branch) => branch.id)
+  );
+
+  return section.nodes
+    .filter((node) => units.has(node.branchId))
+    .flatMap((node) => node.lessonIds)
+    .map((lessonId) => LESSONS_BY_ID[lessonId])
+    .filter((lesson): lesson is Lesson => Boolean(lesson))
+    .map((lesson) => lessonForAge(lesson, ageGroup));
+}
+
+// A quiz is offered once it has at least 3 questions to ask.
+export function canQuiz(user: UserProfile, scope: QuizScope, ageGroup?: AgeGroup | null) {
+  return pickTestOutChallenges(quizLessonsFor(user, scope, ageGroup)).length >= TEST_OUT_MIN_QUESTIONS;
+}
+
+// A quiz of a topic or a unit (Practice tab, Quizzes): questions picked like a test-out's, one per lesson first,
+// spread over the whole topic, with no giveaways. Each is asked once (a miss is not asked again), costs no
+// hearts and marks nothing done; the score is what it is for. Pays practice XP, 2 per right answer.
+// `attempt` (the times this quiz was taken) changes the questions.
+export function createQuizSession(input: {
+  user: UserProfile;
+  scope: QuizScope;
+  title: string;
+  attempt?: number;
+  ageGroup?: AgeGroup | null;
+}): LessonSession | undefined {
+  const lessons = quizLessonsFor(input.user, input.scope, input.ageGroup);
+  const attempt = Math.max(0, Math.floor(input.attempt ?? 0)) % QUIZ_ATTEMPT_CYCLE;
+  const picks = pickTestOutChallenges(lessons, attempt);
+
+  if (picks.length < TEST_OUT_MIN_QUESTIONS) {
+    return undefined;
+  }
+
+  const prepared = new Map<string, Lesson>();
+  const challenges = picks.map(({ lesson, challenge }, index) => {
+    const full = prepared.get(lesson.id) ?? prepareLessonForSession(lesson);
+    prepared.set(lesson.id, full);
+    const base = full.challenges.find((item) => item.id === challenge.id) ?? challenge;
+
+    return {
+      ...base,
+      id: `quiz_${index}_${base.id}`,
+      choices: shuffleChoicesForAttempt(base, attempt),
+      isReview: false,
+      sourceNodeId: base.sourceNodeId ?? lesson.nodeId,
+      sourceLessonId: base.sourceLessonId ?? lesson.id,
+      miniLesson: base.miniLesson ?? lesson.explanationContent ?? lesson.intro,
+      reviewSuggestion: base.reviewSuggestion ?? `Review ${lesson.title}`
+    };
+  });
+  const sources = uniqueById(Array.from(prepared.values()).flatMap((lesson) => lesson.sources));
+  const scopeId = input.scope.kind === "topic" ? input.scope.topicId : input.scope.unitId;
+
+  return {
+    id: `session_quiz_${scopeId}_${attempt}_${Date.now()}`,
+    lesson: {
+      id: `lesson_quiz_${scopeId}`,
+      nodeId: picks[0].lesson.nodeId,
+      ...(input.scope.kind === "unit" ? { branchId: input.scope.unitId } : {}),
+      title: input.title,
+      intro: "How much do you know?",
+      explanationContent: "How much do you know?",
+      lessonType: "mastery",
+      xpReward: challenges.length * PRACTICE_XP_PER_CORRECT_ANSWER,
+      sources,
+      sourceReferences: sources,
+      masteryState: "mastery",
+      masteryTestEligible: false,
+      challenges
+    },
+    startedAt: new Date().toISOString(),
+    heartsAtStart: input.user.hearts.current,
+    mode: "quiz",
+    // Each question once, as in a test, with no pass mark.
+    isTest: true,
+    attempt,
+    clusterTitle: input.title,
+    quizScope: input.scope
+  };
+}
+
 function isTestOutSession(session: LessonSession | undefined) {
   return Boolean(session && (session.isTest || session.mode === "test_out"));
 }
 
 // A test-out is lost once it has more misses than its pass mark allows; the app ends it then, at once.
 export function isTestLost(session: LessonSession | undefined, misses: number) {
-  if (!session || !isTestOutSession(session)) {
+  if (!session || !isTestOutSession(session) || isQuizSession(session)) {
     return false;
   }
 

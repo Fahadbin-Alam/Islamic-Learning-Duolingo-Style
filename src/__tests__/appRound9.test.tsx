@@ -27,7 +27,7 @@ import React from "react";
 import { Dimensions, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react-native";
 import { FoundationAssessmentScreen } from "../components/FoundationLearning";
-import { COURSE, SHOP_ITEMS } from "../data/course";
+import { COURSE } from "../data/course";
 import { FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import { getUiStrings } from "../i18n";
 import { playGameSound } from "../services/gameAudio";
@@ -39,7 +39,7 @@ import { WHY_LINE } from "../ui/lesson/FeedbackSheet";
 import { nearestRowStop, nextRowStop, overRoom, tilesUnderSheet, wholeRows, type RowSpan } from "../ui/lesson/sheetFit";
 import { AppTopBar, ShopView, StreakSheet } from "../ui/screens";
 import { statValueSize } from "../ui/screens/ProfileView";
-import { makeUser } from "./testUtils";
+import { SHOP_ITEMS_WITH_GEMS, makeUser } from "./testUtils";
 
 const layout = (height: number, y = 0, width = 288) => ({ nativeEvent: { layout: { x: 0, y, width, height } } });
 const flat = (style: unknown) => (StyleSheet.flatten(style as never) ?? {}) as Record<string, unknown>;
@@ -195,9 +195,9 @@ describe("the ordering game keeps its prompt on screen and folds away the steps 
       placed.slice(0, 4).forEach((id) => expect(screen.getByTestId(`order-placed-${id}`)).toBeTruthy());
       placed.slice(4).forEach((id) => expect(screen.queryByTestId(`order-placed-${id}`)).toBeNull());
       expect(screen.getByText("Put Fajr's two rak'ahs in order!")).toBeTruthy();
-      // TRY AGAIN keeps the six steps that were right, every one of them back on screen.
+      // TRY AGAIN keeps the six steps that were right, every one of them back on screen once the sheet has gone.
       await fireEvent.press(screen.getByTestId("feedback-continue"));
-      ids.slice(0, 6).forEach((id) => expect(screen.getByTestId(`order-placed-${id}`)).toBeTruthy());
+      await waitFor(() => ids.slice(0, 6).forEach((id) => expect(screen.getByTestId(`order-placed-${id}`)).toBeTruthy()));
       scrollTo.mockRestore();
     });
   });
@@ -546,7 +546,7 @@ describe("the shop's BUY button is a button of its own", () => {
   const section = COURSE.sections[0] as LearningSection;
   const shop = async (user = makeUser()) => {
     const onUseItem = jest.fn();
-    await render(<ShopView user={user} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney={false} />);
+    await render(<ShopView user={user} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} onUseItem={onUseItem} onRestore={jest.fn()} canBuyWithMoney={false} />);
     (playGameSound as jest.Mock).mockClear();
     return onUseItem;
   };
@@ -618,7 +618,7 @@ describe("the gem count reads the same in the top bar and on the Shop card", () 
     await render(
       <>
         {bar(gems)}
-        <ShopView user={makeUser({ gems })} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} onUseItem={jest.fn()} onRestore={jest.fn()} canBuyWithMoney={false} />
+        <ShopView user={makeUser({ gems })} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} onUseItem={jest.fn()} onRestore={jest.fn()} canBuyWithMoney={false} />
       </>
     );
     expect(screen.getByTestId("top-bar-gems")).toHaveTextContent(shown);

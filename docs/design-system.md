@@ -97,32 +97,86 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   shows (never at the top first), and keeps that place
   when CHECK is tapped, its Why line opens or tiles fold; it scrolls only when the sheet would cover the
   green tile, and only as far as that needs. A question taller than its room (a long "Try again!" question
-  on a small phone) draws its tiles tight, with less padding in each, when that makes it fit, from the first
-  frame it shows, so every answer is in sight and whole, never one cut by the room's bottom edge; it keeps
-  them so through the sheet, and the next try is measured again. A question too tall even then keeps its
-  usual tiles and scrolls as before, under the arrow (tight tiles would not bring its last tile into sight,
-  only move where the room's edge cuts it), so its last tile can show cut at the room's edge. No English
-  question is that tall at 320 px; some long Urdu and Arabic ones are.
-  The sheet never covers the prompt or the green tile, its Why line open. The question gives its room
-  first: on a short phone the grey tiles fold away and the mascot hides (until the next question), so the
-  sheet can stay full size. Only when that is not enough does the sheet go slim (less padding, a smaller
-  button), and only then does the Why text alone scroll, from its top, in whole lines, with the arrow in the
-  gap above the button (it turns to point up at the end, so the gap is never empty). The heading, the
-  "Correct answer" line and the Why pill always show whole. A tile the sheet's top edge would cut is gone
-  at once while the sheet is up, in the very frame the sheet starts to cover it (never the green tile, nor
-  the picked tile when it sits whole above the sheet), and fades back with the next try; tiles wholly under
-  the sheet stay. When the learner opens the Why line and the sheet grows, the question moves in that same
-  frame, not after it; it glides as the sheet comes up or shrinks. It only ever goes where it ends: it waits
-  while a hiding mascot lets the prompt wrap anew, and its content never gets shorter under it on the way, so
-  it never jumps or turns back. The sheet is never taller than its room, not even in the frame its Why line
-  opens. The small chips above the prompt
-  (REVIEW, "Try again!", practice's topic label) are gone while the question sits scrolled past their top,
-  and already from the frame its own scroll (CHECK, Why) starts towards a place past them, so no frame
+  on a small phone, a long Urdu or Arabic one) takes the steps of its fit (`FIT_STEPS` in
+  `src/ui/lesson/sheetFit.ts`), one at a time and only as far as it needs to show every answer whole: tight
+  tiles (less padding, never under 44 px), then the smaller text of long answers (15 px, Arabic script at the
+  20 px of a long Arabic answer), then a 2 px smaller prompt across the full width (no mascot), then smaller
+  gaps. Each step is drawn and measured before the frame is painted, so the question shows from its first
+  frame with the look it keeps; it keeps it through CHECK and the sheet, and the next try is measured
+  again. A question too tall even at the last step keeps its usual look and shows the arrow from its first
+  frame; it sits moved down just so far that the room's edge (the arrow's room taken) falls between two
+  tiles, so every tile in sight is whole and the next one starts below the edge. A tap on the arrow scrolls it a
+  page down to the next place where every part in sight is whole (the room's top edge just above a part, its
+  bottom edge between two); at the end the arrow turns to point up, and a tap goes back to the top. The arrow's
+  room stays in the bar all through the try, at the end too and through the sheet (which covers the bar), so the
+  room above it keeps its height. Practice uses the same steps, its sorting and matching games too, and measures
+  each question before its first frame; the screen stays up from question to question, so the last question's
+  arrow, scroll and look are reset before the next one is drawn. At CHECK its answers are read again before that
+  frame is drawn (a typed answer turns into tiles), so nothing is placed from the answers as they were before.
+  Tiles slide up into their places as a question first shows, never from under the room's bottom edge: a tile
+  resting near the edge starts closer to its place, and one out of sight under it only fades in.
+  The sheet never covers the prompt or the green tile, its Why line open, while anything can make room. The
+  question gives its room first: on a short phone the grey tiles fold away and the mascot hides (until the
+  next question), so the sheet can stay full size. Only when that is not enough does the sheet go slim (less
+  padding, a smaller button), and only then does the Why text alone scroll, from its top, in whole lines,
+  with the arrow in the gap above the button (it turns to point up at the end, so the gap is never empty),
+  and only where that makes the sheet shorter than slim with the whole text (two lines whole take less room
+  than one line over the arrow's room) or the whole text would not fit the sheet's share of the screen.
+  The heading, the "Correct answer" line and the Why pill always show whole. When even the sheet at its
+  least (slim, its Why text one line) would reach into the green tile's text (a long translated prompt,
+  which never scrolls away, over a long answer the sheet says again) the picked tile folds away too,
+  when it sits above the green one (in a pick-all-that-fit question, the wrong picks above the first right
+  answer) and that keeps the sheet's edge under the green tile's text: the sheet
+  still says it was wrong. While the sheet at its least reaches no further into the green tile than under
+  its text, the picked tile stays, and the Why text scrolls instead. Once folded it stays so while the sheet
+  is up, also when the Why line opens and the sheet grows, so the green tile never moves back down under the
+  sheet. A
+  tile the sheet's top edge would cut is gone at once while the sheet is up, in the very frame the sheet
+  starts to cover it, and fades back with the next try; tiles wholly under the sheet stay. The green tile
+  and the picked one above it stay while the sheet's edge reaches no further into them than under their text
+  (their lip, border and padding); only when nothing gives the sheet its room and its edge would cross the
+  green tile's text (or the row of True and False) is that tile gone too, so the edge never cuts a line of it,
+  and the sheet's "Correct answer" line names it. When the learner opens the Why line and the sheet grows,
+  the question moves in that same frame, not after it; it glides as the sheet comes up or shrinks. The sheet's
+  height is read before its first frame is drawn, so the question starts to move in the frame the sheet opens.
+  Where the picked tile may still fold, it waits for the sheet's least height too (also read before that frame),
+  so it never starts towards a place it then leaves, nor hides the chips for a scroll it never makes.
+  It springs up but never past its place, so on its way up its edge never crosses what it keeps clear.
+  While the sheet comes up, a tile that folds away (in practice too, and the lines a prompt gives up as the
+  mascot hides) leaves its room, which closes with the sheet's own spring and in step with it (room that opens
+  a frame or two after the sheet set off closes as the rest of the sheet's way goes, and is shut in the very
+  frame the sheet reaches its place): the green tile never moves in one frame, it glides up as the sheet
+  rises, never behind its edge, and the prompt above it stays put. A question the learner left scrolled
+  down (by hand or with the arrow) scrolls up with what folds above the green tile instead, in that
+  frame and as far as its scroll goes back towards where the question then sits (never past it, so it never
+  turns round on its way), so the green tile stays where it showed; only the rest of that room is left to
+  close. A tile whose text did not show whole in the room as CHECK was tapped (the green tile of a question
+  too tall for its room, resting out of sight under the room's edge or over its top) is gone while it
+  glides into sight with the question and fades in once it shows whole (or, where the question comes to rest
+  with it still cut, once it has), so the room's edge never cuts its lines on the way; the sheet's "Correct
+  answer" line names it meanwhile. Once the Why line is open the sheet has grown at once, so what folds then
+  goes at once and the question goes on at once, in that frame; it never goes back to a place less far than it
+  was sent, so the prompt, moved up at CHECK, never moves back down (the green tile, risen with a fold, then
+  sits a little higher above the sheet). The Why text fades in where it stays, with no slide, so its box never
+  cuts a line of it.
+  It only ever goes where it ends: it waits while a hiding mascot lets the prompt wrap anew (on the web the new
+  prompt is read before that frame is drawn, so the wait ends in it), and its content never gets shorter under
+  it on the way, so it never jumps or turns back. The sheet is never taller than its room, not even in the
+  frame its Why line opens. The small chips above the prompt
+  (REVIEW, "Try again!", practice's topic label) are gone while the question sits scrolled past their top
+  (by a hand or the arrow before CHECK too), and already from the frame its own scroll (CHECK, Why) starts
+  towards a place past them, so no frame
   shows them cut; they are back, whole and in place, when it is scrolled up to them. In the ordering game the prompt stays on screen above the sheet, placed tiles the sheet would
-  cut fold away before its edge reaches them as it rises (and only ever more while it is up) until TRY AGAIN, and the "Correct order" list shows whole rows only: it starts at the top,
+  cut fold away before its edge reaches them as it rises (and only ever more while it is up) until TRY AGAIN;
+  the steps that come back under it then, and the tiles to place again, show once it has gone and fade in. The "Correct order" list shows whole rows only: it starts at the top,
   scrolls by whole rows, and its arrow points down while rows are hidden and up at the end. The rows the
   learner had in another place get a white band and a red ✕ in that list, and the list opens where they
-  show, so the mistake is in sight even when its red tiles fold away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`).
+  show, so the mistake is in sight even when its red tiles fold away. Practice (Level check, Daily, Review) uses the same rule and code (`src/ui/lesson/sheetFit.ts`);
+  in its sorting and matching games a row the list sheet's top edge would cut is gone while the sheet is up.
+  Right to left (Urdu, Arabic) the screens mirror: the "more below" arrow sits in the middle of its gap the
+  same in both directions, and a row tile's text starts where its line starts (on the right), Latin words and
+  numbers in it too; True and False keep their centred text. Scores ("2/6", "10/40") read left to right in
+  every language.
 - **Lesson complete**: confetti, cheering mascot, three counting stat cards, CONTINUE.
 
 ## Copy bank

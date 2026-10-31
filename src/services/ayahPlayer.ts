@@ -1,9 +1,12 @@
 import type { AudioPlayer, AudioStatus } from "expo-audio";
+import { localAyahUri, saveAyahForOffline } from "./offlineAudio";
 
 /**
  * One shared player for ayah recitations (see quranAudio.ts for the source): only one ayah plays at a
  * time, and starting another one stops the first. Repeat loops the ayah until it is turned off, for
  * memorizing. Game sounds keep their own players in gameAudio.
+ * An ayah saved on the phone (offlineAudio.ts) plays from there, so it works with no internet; one that
+ * streamed is saved after it starts, for next time. Cards still know an ayah by its web url.
  */
 export type AyahPlayback = {
   url: string | null;
@@ -51,6 +54,9 @@ function onStatus(status: AudioStatus) {
     clearLoadTimer();
     if (state.status !== "playing") {
       setState({ status: "playing" });
+      if (state.url && !localAyahUri(state.url)) {
+        void saveAyahForOffline(state.url);
+      }
     }
   } else if (status.didJustFinish && (!state.repeat || playingOnce)) {
     setState({ status: "idle" });
@@ -77,12 +83,13 @@ export function playAyah(url: string, { once = false }: { once?: boolean } = {})
     const { createAudioPlayer, setAudioModeAsync } = expoAudio();
     // A recitation the learner asked for plays even with the iPhone's silent switch on.
     void setAudioModeAsync({ playsInSilentMode: true, interruptionMode: "mixWithOthers" }).catch(() => undefined);
+    const source = localAyahUri(url) ?? url;
     if (!player) {
-      player = createAudioPlayer(url);
+      player = createAudioPlayer(source);
       statusSubscription = player.addListener("playbackStatusUpdate", onStatus);
     } else if (state.url !== url) {
       player.pause();
-      player.replace(url);
+      player.replace(source);
     } else {
       void player.seekTo(0).catch(() => undefined);
     }

@@ -1,9 +1,9 @@
-const env = typeof process !== "undefined" ? ((process as { env?: Record<string, string | undefined> }).env ?? {}) : {};
-
-function readEnv(name: string) {
-  const value = env[name]?.trim() ?? "";
+// Expo inlines EXPO_PUBLIC_* values only where the code says `process.env.EXPO_PUBLIC_NAME` literally,
+// so each id is read by name here; a lookup like env[name] comes back empty in a release build.
+function clean(value: string | undefined) {
+  const trimmed = value?.trim() ?? "";
   // Placeholders from .env.example ("ADD_...") count as not set.
-  return value.startsWith("ADD_") ? "" : value;
+  return trimmed.startsWith("ADD_") ? "" : trimmed;
 }
 
 /**
@@ -13,6 +13,6 @@ function readEnv(name: string) {
  * iOS needs its own client id. Sign in with Apple needs no ids: it shows on iOS next to Google.
  */
 export const GOOGLE_SIGN_IN_CONFIG = {
-  webClientId: readEnv("EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID"),
-  iosClientId: readEnv("EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID")
+  webClientId: clean(process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID),
+  iosClientId: clean(process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID)
 } as const;

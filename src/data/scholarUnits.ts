@@ -6,7 +6,8 @@ import type { DeepUnit } from "./deepUnits";
 // page states; anything the page itself hedges or calls disputed is left out. SCHOLAR_TREE says who learned
 // from whom, for the family tree in the topic picker.
 
-function islamqa(answer: number, title: string, summary: string): LessonSource {
+// `highlight` is the page's own words for the fact (copied from the page), which the source opens at.
+function islamqa(answer: number, title: string, summary: string, highlight?: string): LessonSource {
   return {
     id: `deep_islamqa_${answer}`,
     site: "IslamQA",
@@ -16,11 +17,12 @@ function islamqa(answer: number, title: string, summary: string): LessonSource {
     reference: `IslamQA ${answer}`,
     from: "Islam Question & Answer",
     grade: "Biography",
-    summary
+    summary,
+    highlight
   };
 }
 
-function kingFaisalPrize(slug: string, title: string, summary: string): LessonSource {
+function kingFaisalPrize(slug: string, title: string, summary: string, highlight?: string): LessonSource {
   return {
     id: `deep_kfp_${slug.replace(/\W+/g, "_")}`,
     site: "King Faisal Prize",
@@ -30,19 +32,20 @@ function kingFaisalPrize(slug: string, title: string, summary: string): LessonSo
     reference: "King Faisal Prize",
     from: "King Faisal Prize, laureate page",
     grade: "Biography",
-    summary
+    summary,
+    highlight
   };
 }
 
-const ABU_HANIFAH_PAGE = (summary: string) => islamqa(46992, "The madhhab of Imam Abu Hanifah", summary);
-const MALIK_PAGE = (summary: string) => islamqa(119256, "A brief biography of Imam Malik", summary);
-const SHAFII_PAGE = (summary: string) => islamqa(153652, "A brief biography of Imam ash-Shafi'i", summary);
-const AHMAD_PAGE = (summary: string) => islamqa(153333, "A brief biography of Imam Ahmad", summary);
-const IBN_TAYMIYYAH_PAGE = (summary: string) => islamqa(96323, "Shaykh al-Islam Ibn Taymiyah and the praise of the imams", summary);
-const ALBANI_PAGE = (summary: string) => islamqa(113687, "Shaykh al-Albani was a great muhaddith and faqih", summary);
-const ALBANI_PRIZE = (summary: string) => kingFaisalPrize("sheikh-mohammad-nasir-ad-din-al-albani", "Sheikh Mohammad Nasir Ad-Din Al-Albani", summary);
-const IBN_BAZ_PRIZE = (summary: string) => kingFaisalPrize("shaikh-abd-al-aziz-a-bin-baz", "Shaikh Abd Al-Aziz Bin Baz", summary);
-const IBN_BAZ_TARAJM = (summary: string): LessonSource => ({
+const ABU_HANIFAH_PAGE = (summary: string, highlight?: string) => islamqa(46992, "The madhhab of Imam Abu Hanifah", summary, highlight);
+const MALIK_PAGE = (summary: string, highlight?: string) => islamqa(119256, "A brief biography of Imam Malik", summary, highlight);
+const SHAFII_PAGE = (summary: string, highlight?: string) => islamqa(153652, "A brief biography of Imam ash-Shafi'i", summary, highlight);
+const AHMAD_PAGE = (summary: string, highlight?: string) => islamqa(153333, "A brief biography of Imam Ahmad", summary, highlight);
+const IBN_TAYMIYYAH_PAGE = (summary: string, highlight?: string) => islamqa(96323, "Shaykh al-Islam Ibn Taymiyah and the praise of the imams", summary, highlight);
+const ALBANI_PAGE = (summary: string, highlight?: string) => islamqa(113687, "Shaykh al-Albani was a great muhaddith and faqih", summary, highlight);
+const ALBANI_PRIZE = (summary: string, highlight?: string) => kingFaisalPrize("sheikh-mohammad-nasir-ad-din-al-albani", "Sheikh Mohammad Nasir Ad-Din Al-Albani", summary, highlight);
+const IBN_BAZ_PRIZE = (summary: string, highlight?: string) => kingFaisalPrize("shaikh-abd-al-aziz-a-bin-baz", "Shaikh Abd Al-Aziz Bin Baz", summary, highlight);
+const IBN_BAZ_TARAJM = (summary: string, highlight?: string): LessonSource => ({
   id: "deep_tarajm_69265",
   site: "Tarajm",
   category: "biography",
@@ -51,7 +54,8 @@ const IBN_BAZ_TARAJM = (summary: string): LessonSource => ({
   reference: "Tarajm: Ibn Baz",
   from: "Tarajm, biographies of scholars (Arabic)",
   grade: "Biography",
-  summary
+  summary,
+  highlight
 });
 
 const ABU_HANIFAH: DeepUnit = {
@@ -67,7 +71,7 @@ const ABU_HANIFAH: DeepUnit = {
       title: "An-Nu'man of Kufa",
       line: "Abu Hanifah's name was an-Nu'man ibn Thabit, of Kufa.",
       facts: ["Name: an-Nu'man ibn Thabit", "City: Kufa, in Iraq"],
-      source: ABU_HANIFAH_PAGE("Abu Haneefah al-Nu'maan ibn Thaabit al-Taymi al-Kufi."),
+      source: ABU_HANIFAH_PAGE("Abu Haneefah al-Nu'maan ibn Thaabit al-Taymi al-Kufi.", "Imam Abu Haneefah is the great faqeeh and scholar of Iraq"),
       difficulty: 1,
       questions: [
         { q: "What was Abu Hanifah's own name?", a: "An-Nu'man ibn Thabit", wrong: ["Malik ibn Anas", "Ahmad ibn Hanbal", "Muhammad ibn Idris"], why: "Abu Hanifah is his kunya; an-Nu'man is his name." },
@@ -80,7 +84,7 @@ const ABU_HANIFAH: DeepUnit = {
       title: "Born in 80 AH",
       line: "Abu Hanifah was born in 80 AH, when some Sahabah still lived.",
       facts: ["Born 80 AH", "He saw Anas ibn Malik in Kufa"],
-      source: ABU_HANIFAH_PAGE("He was born in the year 80 AH, during the lifetime of some of the younger Sahabah, and saw Anas ibn Malik when he came to Kufa."),
+      source: ABU_HANIFAH_PAGE("He was born in the year 80 AH, during the lifetime of some of the younger Sahabah, and saw Anas ibn Malik when he came to Kufa.", "He was born in the year 80 AH, during the lifetime of some of the younger Sahabah"),
       difficulty: 1,
       questions: [
         { q: "In which year was Abu Hanifah born?", a: "80 AH", wrong: ["150 AH", "204 AH", "661 AH"], why: "Some younger Sahabah were still alive then." },
@@ -93,7 +97,7 @@ const ABU_HANIFAH: DeepUnit = {
       title: "His greatest shaykh",
       line: "Abu Hanifah's greatest teacher was Ata ibn Abi Rabah.",
       facts: ["Greatest shaykh: Ata", "Also learned from ash-Sha'bi", "He travelled for knowledge"],
-      source: ABU_HANIFAH_PAGE("He learned from 'Ata' ibn Abi Rabah, who was his greatest Shaykh, and from al-Shu'bi and many others, and he travelled to seek reports."),
+      source: ABU_HANIFAH_PAGE("He learned from 'Ata' ibn Abi Rabah, who was his greatest Shaykh, and from al-Shu'bi and many others, and he travelled to seek reports.", "ibn Abi Rabah, who was his greatest Shaykh"),
       difficulty: 2,
       questions: [
         { q: "Who was Abu Hanifah's greatest shaykh?", a: "Ata ibn Abi Rabah", wrong: ["Imam Malik", "Ibn Shihab", "Hushaym"], why: "He learned from him above all others." },
@@ -106,7 +110,7 @@ const ABU_HANIFAH: DeepUnit = {
       title: "The first madhhab",
       line: "The Hanafi madhhab was the first of the madhhabs of fiqh.",
       facts: ["First of the madhhabs", "People need him in fiqh"],
-      source: ABU_HANIFAH_PAGE("The Hanafi madhhab was the first of the fiqhi madhhabs, and the people are dependent on Abu Haneefah with regard to fiqh."),
+      source: ABU_HANIFAH_PAGE("The Hanafi madhhab was the first of the fiqhi madhhabs, and the people are dependent on Abu Haneefah with regard to fiqh.", "it was the first of the fiqhi madhhabs"),
       difficulty: 2,
       questions: [
         { q: "Which madhhab was the first?", a: "The Hanafi madhhab", wrong: ["The Maliki madhhab", "The Shafi'i madhhab", "The Hanbali madhhab"], why: "It began with Abu Hanifah." },
@@ -119,7 +123,7 @@ const ABU_HANIFAH: DeepUnit = {
       title: "The hadith comes first",
       line: "Abu Hanifah said: if the hadith is sahih, that is my madhhab.",
       facts: ["The other three imams said the same", "He was strict with hadith"],
-      source: ABU_HANIFAH_PAGE("He said: If the hadeeth is saheeh then that is my madhhab. He was very strict about accepting ahadeeth, as false reports were widespread in Iraq."),
+      source: ABU_HANIFAH_PAGE("He said: If the hadeeth is saheeh then that is my madhhab. He was very strict about accepting ahadeeth, as false reports were widespread in Iraq.", "If the hadeeth is saheeh then that is my madhhab"),
       difficulty: 3,
       questions: [
         { q: "What did Abu Hanifah say about a sahih hadith?", a: "That is my madhhab", wrong: ["Leave it", "Ask a judge", "Only for scholars"], why: "An authentic hadith comes before any opinion." },
@@ -132,7 +136,7 @@ const ABU_HANIFAH: DeepUnit = {
       title: "Abu Yusuf and Muhammad",
       line: "His students Abu Yusuf and Muhammad carried his madhhab on.",
       facts: ["Some Hanafi views are from his students", "Abu Yusuf: he spoke most clearly"],
-      source: ABU_HANIFAH_PAGE("The Hanafi madhhab may adopt the view of a student of the imam such as Abu Yoosuf and Muhammad. Abu Yoosuf said he was the most well-spoken and clear of the people."),
+      source: ABU_HANIFAH_PAGE("The Hanafi madhhab may adopt the view of a student of the imam such as Abu Yoosuf and Muhammad. Abu Yoosuf said he was the most well-spoken and clear of the people.", "may adopt the view of a student of the imam such as Abu Yoosuf and Muhammad"),
       difficulty: 3,
       questions: [
         { q: "Which two students carried on his madhhab?", a: "Abu Yusuf and Muhammad", wrong: ["Malik and Ahmad", "Abu Bakr and Umar", "Nafi and Hushaym"], why: "Some Hanafi views are theirs." },
@@ -145,7 +149,7 @@ const ABU_HANIFAH: DeepUnit = {
       title: "He would not be a judge",
       line: "Abu Hanifah turned down wealth and refused to become a judge.",
       facts: ["Offered great wealth: refused", "Hurt to force him: still refused"],
-      source: ABU_HANIFAH_PAGE("He was offered worldly gains and a great deal of wealth, but he turned his back on it. He was whipped to force him to accept the position of judge, but he refused."),
+      source: ABU_HANIFAH_PAGE("He was offered worldly gains and a great deal of wealth, but he turned his back on it. He was whipped to force him to accept the position of judge, but he refused.", "He was offered worldly gains and a great deal of wealth, but he turned his back on it"),
       difficulty: 4,
       questions: [
         { q: "What did Abu Hanifah do when offered great wealth?", a: "He turned it down", wrong: ["He took it all", "He hid it", "He traded it"], why: "He did not want the dunya." },
@@ -158,7 +162,7 @@ const ABU_HANIFAH: DeepUnit = {
       title: "Died in 150 AH",
       line: "Abu Hanifah died in 150 AH, at about seventy years old.",
       facts: ["Died 150 AH", "Age: seventy", "Adh-Dhahabi: his life needs two volumes"],
-      source: ABU_HANIFAH_PAGE("He died as a martyr of dropsy in 150 AH at the age of seventy. Al-Dhahabi said it would take two volumes to tell the story of his life."),
+      source: ABU_HANIFAH_PAGE("He died as a martyr of dropsy in 150 AH at the age of seventy. Al-Dhahabi said it would take two volumes to tell the story of his life.", "he died as a martyr of dropsy in 150 AH at the age of seventy"),
       difficulty: 4,
       questions: [
         { q: "In which year did Abu Hanifah die?", a: "150 AH", wrong: ["80 AH", "179 AH", "241 AH"], why: "He was about seventy." },
@@ -182,7 +186,7 @@ const MALIK: DeepUnit = {
       title: "Malik ibn Anas",
       line: "Imam Malik ibn Anas was born in Madinah in 93 AH.",
       facts: ["Born 93 AH, Madinah", "Mother: al-Aliyah"],
-      source: MALIK_PAGE("Malik ibn Anas was born in 93 AH in Madinah, according to the majority of scholars; his mother's name was al-'Aliyah bint Shurayk al-Azdiyyah."),
+      source: MALIK_PAGE("Malik ibn Anas was born in 93 AH in Madinah, according to the majority of scholars; his mother's name was al-'Aliyah bint Shurayk al-Azdiyyah.", "according to the majority of scholars – was born in 93 AH in Madinah"),
       difficulty: 1,
       questions: [
         { q: "In which city was Imam Malik born?", a: "Madinah", wrong: ["Kufa", "Baghdad", "Gaza"], why: "He lived and taught in the Prophet's ﷺ city." },
@@ -195,7 +199,7 @@ const MALIK: DeepUnit = {
       title: "A family of knowledge",
       line: "Malik's grandfather was a Tabi'i; Malik learned the Quran young.",
       facts: ["Grandfather: a senior Tabi'i", "Quran memorized early"],
-      source: MALIK_PAGE("His grandfather Malik ibn Abi 'Amir was one of the senior Tabi'in. Imam Malik memorized the Qur'an early in life."),
+      source: MALIK_PAGE("His grandfather Malik ibn Abi 'Amir was one of the senior Tabi'in. Imam Malik memorized the Qur'an early in life.", "His grandfather Malik ibn Abi `Amir was one of the senior Tabi`in; Imam Malik memorized the Qur’an early in life – as is the case in many Muslim families"),
       difficulty: 1,
       questions: [
         { q: "Who in Malik's family was a senior Tabi'i?", a: "His grandfather", wrong: ["His son", "His brother", "His uncle"], why: "Malik ibn Abi Amir was among the senior Tabi'in." },
@@ -208,7 +212,7 @@ const MALIK: DeepUnit = {
       title: "His teachers",
       line: "Malik learned from Ibn Hurmuz for seven years, then others.",
       facts: ["Ibn Hurmuz: seven years", "Nafi: freed servant of Ibn Umar", "Ibn Shihab az-Zuhri"],
-      source: MALIK_PAGE("He studied with Ibn Hormuz for seven years when he was very young. He studied with Nafi', the freed slave of Ibn 'Umar, and under Imam Ibn Shihab az-Zuhri."),
+      source: MALIK_PAGE("He studied with Ibn Hormuz for seven years when he was very young. He studied with Nafi', the freed slave of Ibn 'Umar, and under Imam Ibn Shihab az-Zuhri.", "He studied with Ibn Hormuz for seven years … He studied under Imam Ibn Shihab az-Zuhri"),
       difficulty: 2,
       questions: [
         { q: "How long did Malik study with Ibn Hurmuz?", a: "Seven years", wrong: ["One month", "One year", "Forty years"], why: "He started very young." },
@@ -221,7 +225,7 @@ const MALIK: DeepUnit = {
       title: "A vessel of knowledge",
       line: "Az-Zuhri told him forty hadith: you are a vessel of knowledge.",
       facts: ["Forty hadith in one sitting", "Vessel of knowledge"],
-      source: MALIK_PAGE("Ibn Shihab narrated forty hadiths to me, then said: Now go, for you are one of the vessels of knowledge."),
+      source: MALIK_PAGE("Ibn Shihab narrated forty hadiths to me, then said: Now go, for you are one of the vessels of knowledge.", "So I took out my boards and he narrated forty hadiths to me … Now go, for you are one of the vessels of knowledge"),
       difficulty: 3,
       questions: [
         { q: "How many hadith did az-Zuhri tell him?", a: "Forty", wrong: ["Four", "Ten", "One thousand"], why: "Malik remembered them all." },
@@ -234,7 +238,7 @@ const MALIK: DeepUnit = {
       title: "Seventy said yes",
       line: "Malik only taught once seventy scholars said he was qualified.",
       facts: ["Seventy elders testified", "Then he sat to teach"],
-      source: MALIK_PAGE("Malik said: I did not sit in the mosque to teach until seventy elders of great knowledge testified that I was qualified."),
+      source: MALIK_PAGE("Malik said: I did not sit in the mosque to teach until seventy elders of great knowledge testified that I was qualified.", "I did not sit in the mosque to teach until seventy elder of great knowledge testified that I was qualified to do that"),
       difficulty: 3,
       questions: [
         { q: "How many scholars testified before Malik began teaching?", a: "Seventy", wrong: ["Two", "Ten", "Three hundred"], why: "He waited until they agreed." },
@@ -247,7 +251,7 @@ const MALIK: DeepUnit = {
       title: "Ten years on one question",
       line: "Malik said: I have thought about one issue for over ten years.",
       facts: ["Very careful with fatwa", "Said to Ibn al-Qasim"],
-      source: MALIK_PAGE("He said to Ibn al-Qasim: I have been thinking about an issue for more than ten years, and I have not yet reached any conclusion."),
+      source: MALIK_PAGE("His student Ibn al-Qasim heard him say: I have been thinking about an issue for more than ten years, and I have not yet reached any conclusion.", "I have been thinking about an issue for more than ten years, and I have not yet reached any conclusion about it"),
       difficulty: 3,
       questions: [
         { q: "How long had Malik thought about one issue?", a: "More than ten years", wrong: ["One hour", "One day", "One week"], why: "He did not rush to give a ruling." },
@@ -260,7 +264,7 @@ const MALIK: DeepUnit = {
       title: "A quiet circle",
       line: "Malik's circle had no arguing and no raised voices.",
       facts: ["No chatter or shouting", "He honored the Prophet's ﷺ hadith"],
-      source: MALIK_PAGE("He greatly venerated the hadith of the Messenger of Allah. There were no arguments in his circle, and no chatter, clamour or raising of voices."),
+      source: MALIK_PAGE("He greatly venerated the hadith of the Messenger of Allah. There were no arguments in his circle, and no chatter, clamour or raising of voices.", "He greatly venerated the hadith of the Messenger of Allah … no chatter, clamour or raising of voices"),
       difficulty: 4,
       questions: [
         { q: "What was Malik's teaching circle like?", a: "Calm, with no arguing", wrong: ["Loud and busy", "Full of jokes", "Always arguing"], why: "He honored the hadith of the Prophet ﷺ." },
@@ -273,7 +277,7 @@ const MALIK: DeepUnit = {
       title: "He sold his roof",
       line: "Seeking knowledge, Malik spent so much he sold his roof's wood.",
       facts: ["Knocked down his roof", "Sold the wood for knowledge"],
-      source: MALIK_PAGE("He spent so much in seeking knowledge that he ended up having to knock down the roof of his house and sell the lumber."),
+      source: MALIK_PAGE("He spent so much in seeking knowledge that he ended up having to knock down the roof of his house and sell the lumber.", "Malik was so preoccupied with seeking knowledge that he ended up having to knock down the roof of his house and sell the lumber"),
       difficulty: 4,
       questions: [
         { q: "What did Malik sell to keep seeking knowledge?", a: "The wood of his roof", wrong: ["His books", "His horse", "His sword"], why: "He gave everything for knowledge." },
@@ -286,7 +290,7 @@ const MALIK: DeepUnit = {
       title: "Malik is the star",
       line: "Ash-Shafi'i said: in hadith, Malik is the star.",
       facts: ["Praise from ash-Shafi'i", "Arrested and hurt by al-Mansur's men", "Died 179 AH, aged about ninety"],
-      source: MALIK_PAGE("Ash-Shafi'i said: When it comes to hadith narrations, Malik is the star. Most historians say he died in 179 AH; he lived about ninety years and people learned from him for about seventy."),
+      source: MALIK_PAGE("Ash-Shafi'i said: When it comes to hadith narrations, Malik is the star. Most historians say he died in 179 AH; he lived about ninety years and people learned from him for about seventy.", "When it comes to hadith narrations, Malik is the star"),
       difficulty: 5,
       questions: [
         { q: "Who said Malik is the star of hadith?", a: "Ash-Shafi'i", wrong: ["Abu Hanifah", "Ibn Baz", "Az-Zuhri"], why: "Ash-Shafi'i was his student." },
@@ -310,7 +314,7 @@ const SHAFII: DeepUnit = {
       title: "Muhammad ibn Idris",
       line: "Ash-Shafi'i was Muhammad ibn Idris, of the Prophet's ﷺ tribe.",
       facts: ["Kunya: Abu Abdillah", "Lineage meets the Prophet's ﷺ at Abd Manaf"],
-      source: SHAFII_PAGE("Muhammad ibn Idris ibn al-'Abbas ibn 'Uthman ibn Shafi'; his lineage meets that of the Prophet ﷺ in 'Abd Manaf. Muslim ibn Khalid called him Abu 'Abdillah."),
+      source: SHAFII_PAGE("Muhammad ibn Idris ibn al-'Abbas ibn 'Uthman ibn Shafi'; his lineage meets that of the Prophet ﷺ in 'Abd Manaf. Muslim ibn Khalid called him Abu 'Abdillah.", "Thus his lineage meets that of the Prophet"),
       difficulty: 1,
       questions: [
         { q: "What was ash-Shafi'i's own name?", a: "Muhammad ibn Idris", wrong: ["Ahmad ibn Hanbal", "Malik ibn Anas", "An-Nu'man ibn Thabit"], why: "Ash-Shafi'i is named after his ancestor Shafi'." },
@@ -323,7 +327,7 @@ const SHAFII: DeepUnit = {
       title: "A poor orphan",
       line: "Ash-Shafi'i was born in Gaza and grew up a poor orphan.",
       facts: ["Born in Gaza, most say", "Grew up poor, with no father"],
-      source: SHAFII_PAGE("Most historians are of the view that ash-Shafi'i was born in Gaza in Palestine. The reports are agreed that he lived the life of a poor orphan."),
+      source: SHAFII_PAGE("Most historians are of the view that ash-Shafi'i was born in Gaza in Palestine. The reports are agreed that he lived the life of a poor orphan.", "Most historians are of the view that ash-Shafa`i was born in Gaza in Palestine"),
       difficulty: 1,
       questions: [
         { q: "Where was ash-Shafi'i born, as most historians say?", a: "Gaza", wrong: ["Madinah", "Kufa", "Baghdad"], why: "Gaza is in Palestine." },
@@ -336,7 +340,7 @@ const SHAFII: DeepUnit = {
       title: "Among the Bedouin",
       line: "Ash-Shafi'i lived with Hudhayl, a tribe, to learn pure Arabic.",
       facts: ["Quran, then hadith", "Hudhayl: a Bedouin tribe"],
-      source: SHAFII_PAGE("He memorized the Holy Quran, then the hadith. He said: I left Makkah and stayed with Hudhayl in the wilderness, to learn their speech and adopt their manners."),
+      source: SHAFII_PAGE("He memorized the Holy Quran, then the hadith. He said: I left Makkah and stayed with Hudhayl in the wilderness, to learn their speech and adopt their manners.", "I left Makkah and stayed with Hudhayl in the wilderness, to learn their speech and adopt their manners"),
       difficulty: 2,
       questions: [
         { q: "Why did ash-Shafi'i stay with the tribe of Hudhayl?", a: "To learn their Arabic", wrong: ["To trade camels", "To hide", "To fight"], why: "He learned their speech and manners." },
@@ -349,7 +353,7 @@ const SHAFII: DeepUnit = {
       title: "To Imam Malik",
       line: "Ash-Shafi'i went to Madinah to study with Imam Malik.",
       facts: ["Carried a letter from Makkah's governor", "Malik: fear Allah and avoid sins"],
-      source: SHAFII_PAGE("Ash-Shafi'i went to Malik carrying a letter of recommendation from the governor of Makkah. Malik said: O Muhammad, fear Allah and avoid sins, for you will become very prominent."),
+      source: SHAFII_PAGE("Ash-Shafi'i went to Malik carrying a letter of recommendation from the governor of Makkah. Malik said: O Muhammad, fear Allah and avoid sins, for you will become very prominent.", "went to Malik carrying a letter … for you will become very prominent"),
       difficulty: 2,
       questions: [
         { q: "Which imam did ash-Shafi'i study with in Madinah?", a: "Imam Malik", wrong: ["Abu Hanifah", "Ahmad", "Ibn Taymiyyah"], why: "Malik was the great scholar of Madinah." },
@@ -362,7 +366,7 @@ const SHAFII: DeepUnit = {
       title: "Learning from both sides",
       line: "He also learned from Muhammad ibn al-Hasan, a Hanafi.",
       facts: ["Muhammad ibn al-Hasan: Hanafi", "Ash-Shafi'i learned from both schools"],
-      source: SHAFII_PAGE("He learned from his companion Muhammad ibn al-Hasan and studied many books with him; Muhammad ibn al-Hasan's testimony helped clear him when he was accused."),
+      source: SHAFII_PAGE("He learned from his companion Muhammad ibn al-Hasan and studied many books with him; Muhammad ibn al-Hasan's testimony helped clear him when he was accused.", "learned from his companion Muhammad ibn al-Hasan and studied many books with him"),
       difficulty: 3,
       questions: [
         { q: "Whose student was Muhammad ibn al-Hasan?", a: "Abu Hanifah", wrong: ["Imam Malik", "Ahmad", "Ash-Shafi'i"], why: "He was one of the two great Hanafi students." },
@@ -375,7 +379,7 @@ const SHAFII: DeepUnit = {
       title: "Ar-Risalah",
       line: "Ash-Shafi'i's Ar-Risalah laid the foundations of usul al-fiqh.",
       facts: ["Usul al-fiqh: principles of fiqh", "Rewritten in Egypt"],
-      source: SHAFII_PAGE("He wrote a book, Ar-Risalah, for the first time, in which he laid the foundations for the field of usul al-fiqh; when he returned to Egypt, he rewrote it."),
+      source: SHAFII_PAGE("He wrote a book, Ar-Risalah, for the first time, in which he laid the foundations for the field of usul al-fiqh; when he returned to Egypt, he rewrote it.", "in which he laid the foundations for the field of usul al-fiqh"),
       difficulty: 3,
       questions: [
         { q: "What is ash-Shafi'i's famous book called?", a: "Ar-Risalah", wrong: ["Al-Muwatta", "Al-Musnad", "Sahih al-Bukhari"], why: "It set out the principles of fiqh." },
@@ -388,7 +392,7 @@ const SHAFII: DeepUnit = {
       title: "Governor of Najran",
       line: "Ash-Shafi'i became governor of Najran and ruled with justice.",
       facts: ["Najran: in the south of Arabia", "He established justice"],
-      source: SHAFII_PAGE("Ash-Shafi'i became the governor of Najran, where he established justice."),
+      source: SHAFII_PAGE("Ash-Shafi'i became the governor of Najran, where he established justice.", "became the governor of Najran, where he established justice"),
       difficulty: 4,
       questions: [
         { q: "Which place did ash-Shafi'i govern?", a: "Najran", wrong: ["Baghdad", "Kufa", "Madinah"], why: "He ruled it with justice." },
@@ -401,7 +405,7 @@ const SHAFII: DeepUnit = {
       title: "He taught Ahmad",
       line: "Ahmad ibn Hanbal met ash-Shafi'i and learned fiqh from him.",
       facts: ["Ahmad: like sunshine for the world", "Teacher and student, both imams"],
-      source: SHAFII_PAGE("It was at that time that Ahmad ibn Hanbal met him. Ahmad said: Ash-Shafi'i was like sunshine for this world and good health for the body."),
+      source: SHAFII_PAGE("It was at that time that Ahmad ibn Hanbal met him. Ahmad said: Ash-Shafi'i was like sunshine for this world and good health for the body.", "was like sunshine for this world and good health for the body"),
       difficulty: 4,
       questions: [
         { q: "Which imam was ash-Shafi'i's student?", a: "Ahmad ibn Hanbal", wrong: ["Imam Malik", "Abu Hanifah", "Ibn Hurmuz"], why: "Ahmad became the imam of the Hanbali madhhab." },
@@ -414,7 +418,7 @@ const SHAFII: DeepUnit = {
       title: "Died in Egypt, 204 AH",
       line: "Ash-Shafi'i died in Egypt in 204 AH, aged fifty-four.",
       facts: ["Last night of Rajab, 204 AH", "His grave is in Egypt"],
-      source: SHAFII_PAGE("He died there, in Egypt, on the last night of Rajab 204 AH at the age of fifty-four, and his grave is there."),
+      source: SHAFII_PAGE("He died there, in Egypt, on the last night of Rajab 204 AH at the age of fifty-four, and his grave is there.", "then he died there on the last night of Rajab 204 AH at the age of fifty-four"),
       difficulty: 5,
       questions: [
         { q: "Where did ash-Shafi'i die?", a: "Egypt", wrong: ["Gaza", "Madinah", "Baghdad"], why: "His grave is there." },
@@ -438,7 +442,7 @@ const AHMAD: DeepUnit = {
       title: "Born in Baghdad",
       line: "Imam Ahmad ibn Hanbal was born in Baghdad in 164 AH.",
       facts: ["Rabi al-Awwal, 164 AH", "His mother came from Marw"],
-      source: AHMAD_PAGE("He was born in Rabi' al-Awwal 164 AH in Baghdad, where his mother had come when she was pregnant with him from Marw."),
+      source: AHMAD_PAGE("He was born in Rabi' al-Awwal 164 AH in Baghdad, where his mother had come when she was pregnant with him from Marw.", "in Baghdad, where his mother had come when she was pregnant with him from Marw"),
       difficulty: 1,
       questions: [
         { q: "In which city was Imam Ahmad born?", a: "Baghdad", wrong: ["Madinah", "Gaza", "Kufa"], why: "His mother came there from Marw." },
@@ -451,7 +455,7 @@ const AHMAD: DeepUnit = {
       title: "An orphan from Shayban",
       line: "Ahmad's father, an army commander, died when Ahmad was small.",
       facts: ["Tribe of Shayban: Arab", "Raised an orphan"],
-      source: AHMAD_PAGE("His father was Shaybani and an army commander, and died when Ahmad was small; growing up as an orphan forced him to be self-reliant."),
+      source: AHMAD_PAGE("His father was Shaybani and an army commander, and died when Ahmad was small; growing up as an orphan forced him to be self-reliant.", "His father was an army commander, and died when Ahmad was small"),
       difficulty: 1,
       questions: [
         { q: "What was Ahmad's father?", a: "An army commander", wrong: ["A judge", "A poet", "A farmer"], why: "He died when Ahmad was small." },
@@ -464,7 +468,7 @@ const AHMAD: DeepUnit = {
       title: "His first teachers",
       line: "Ahmad learned from Abu Yusuf, then Hushaym for four years.",
       facts: ["Abu Yusuf: Abu Hanifah's companion", "Hushaym al-Wasiti: four years"],
-      source: AHMAD_PAGE("He first learned hadith from Abu Yusuf, the companion of Abu Hanifah, then remained the student of Hushaym ibn Bashir al-Wasiti for four years."),
+      source: AHMAD_PAGE("He first learned hadith from Abu Yusuf, the companion of Abu Hanifah, then remained the student of Hushaym ibn Bashir al-Wasiti for four years.", "he first learned hadith from Abu Yusuf, the companion of Abu Hanifah"),
       difficulty: 2,
       questions: [
         { q: "Who taught Ahmad hadith first?", a: "Abu Yusuf", wrong: ["Imam Malik", "Ibn Taymiyyah", "Nafi"], why: "Abu Yusuf was Abu Hanifah's companion." },
@@ -477,7 +481,7 @@ const AHMAD: DeepUnit = {
       title: "Travels for hadith",
       line: "Ahmad travelled for hadith and made Hajj five times.",
       facts: ["Three Hajjs on foot", "Met ash-Shafi'i on the journey"],
-      source: AHMAD_PAGE("In 186 AH he began his travels in search of hadiths, during which he met ash-Shafi'i. He went for Hajj five times, for three of which he travelled on foot."),
+      source: AHMAD_PAGE("In 186 AH he began his travels in search of hadiths, during which he met ash-Shafi'i. He went for Hajj five times, for three of which he travelled on foot.", "Then in 186 AH, he began his travels in search of hadiths … for three of which he travelled on foot"),
       difficulty: 2,
       questions: [
         { q: "How many times did Ahmad go for Hajj?", a: "Five", wrong: ["Once", "Twice", "Twenty"], why: "Three of them on foot." },
@@ -490,7 +494,7 @@ const AHMAD: DeepUnit = {
       title: "All the way to San'a",
       line: "Ahmad went to San'a, in Yemen, to learn from Abd ar-Razzaq.",
       facts: ["San'a: in Yemen", "Friend: Yahya ibn Ma'in"],
-      source: AHMAD_PAGE("Yahya ibn Ma'in introduced him: This is your brother Ahmad ibn Hanbal. Ahmad then went to learn from 'Abd al-Razzaq in San'a'."),
+      source: AHMAD_PAGE("Yahya ibn Ma'in introduced him: This is your brother Ahmad ibn Hanbal. Ahmad then went to learn from 'Abd al-Razzaq in San'a'.", "This is your brother Ahmad ibn Hanbal"),
       difficulty: 3,
       questions: [
         { q: "Which city did Ahmad travel to, to learn from Abd ar-Razzaq?", a: "San'a", wrong: ["Gaza", "Kufa", "Cairo"], why: "San'a is in Yemen." },
@@ -503,7 +507,7 @@ const AHMAD: DeepUnit = {
       title: "Until the grave",
       line: "Ahmad said: I will seek knowledge until I enter the grave.",
       facts: ["Taught only from age forty", "Read hadith from his books"],
-      source: AHMAD_PAGE("He said: I will continue to seek knowledge until I enter the grave. Ahmad did not start to teach hadith and issue fatwas until he reached forty, and narrated only by reading from his books."),
+      source: AHMAD_PAGE("He said: I will continue to seek knowledge until I enter the grave. Ahmad did not start to teach hadith and issue fatwas until he reached forty, and narrated only by reading from his books.", "I will continue to seek knowledge until I enter the grave"),
       difficulty: 3,
       questions: [
         { q: "Until when did Ahmad say he would seek knowledge?", a: "Until the grave", wrong: ["Until age twenty", "Until he got rich", "Until he married"], why: "Learning never ends." },
@@ -516,7 +520,7 @@ const AHMAD: DeepUnit = {
       title: "He lived on little",
       line: "Ahmad refused gifts from rulers and lived on his father's land.",
       facts: ["Refused caliphs' gifts", "Lived on inherited property"],
-      source: AHMAD_PAGE("He refused gifts from the caliphs and lived on the income of property that his father had left to him."),
+      source: AHMAD_PAGE("He refused gifts from the caliphs and lived on the income of property that his father had left to him.", "Ahmad lived on the income of property that his father had left to him"),
       difficulty: 4,
       questions: [
         { q: "What did Ahmad live on?", a: "His father's property", wrong: ["Rulers' gifts", "Begging", "Selling books"], why: "He kept himself free of rulers' money." },
@@ -529,7 +533,7 @@ const AHMAD: DeepUnit = {
       title: "The great trial",
       line: "Three caliphs jailed and hurt Ahmad, yet he stood firm.",
       facts: ["Al-Ma'mun, al-Mu'tasim, al-Wathiq", "The trial was about the Quran"],
-      source: AHMAD_PAGE("He was detained and beaten, for his position on the Qur'an, by three of the caliphs in succession: al-Ma'mun, al-Mu'tasim and al-Wathiq."),
+      source: AHMAD_PAGE("He was detained and beaten, for his position on the Qur'an, by three of the caliphs in succession: al-Ma'mun, al-Mu'tasim and al-Wathiq.", "He was detained and beaten for that reason by three of the caliphs in succession"),
       difficulty: 4,
       questions: [
         { q: "How many caliphs tested Ahmad, one after another?", a: "Three", wrong: ["One", "Two", "Ten"], why: "Al-Ma'mun, al-Mu'tasim and al-Wathiq." },
@@ -542,7 +546,7 @@ const AHMAD: DeepUnit = {
       title: "Died in 241 AH",
       line: "Imam Ahmad died in Baghdad on a Friday in 241 AH.",
       facts: ["12 Rabi al-Awwal, 241 AH", "Harmalah: none more pious"],
-      source: AHMAD_PAGE("He passed away on a Friday morning, on the twelfth of Rabi' al-Awwal 241 AH, in Baghdad. Harmalah said he never saw anyone more pious or more knowledgeable than Ahmad ibn Hanbal."),
+      source: AHMAD_PAGE("He passed away on a Friday morning, on the twelfth of Rabi' al-Awwal 241 AH, in Baghdad. Harmalah said he never saw anyone more pious or more knowledgeable than Ahmad ibn Hanbal.", "This great scholar passed away on a Friday morning"),
       difficulty: 5,
       questions: [
         { q: "Where did Imam Ahmad die?", a: "Baghdad", wrong: ["San'a", "Makkah", "Egypt"], why: "The city where he was born." },
@@ -566,7 +570,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "Ahmad ibn Abd al-Halim",
       line: "Ibn Taymiyyah's name was Ahmad ibn Abd al-Halim, born in 661 AH.",
       facts: ["Born Rabi al-Awwal, 661 AH", "Called Shaykh al-Islam"],
-      source: IBN_TAYMIYYAH_PAGE("Shaykh al-Islam Ahmad ibn 'Abd al-Haleem ibn Taymiyah; al-Suyuti says he was born in Rabee' al-Awwal 661 AH."),
+      source: IBN_TAYMIYYAH_PAGE("Shaykh al-Islam Ahmad ibn 'Abd al-Haleem ibn Taymiyah; al-Suyuti says he was born in Rabee' al-Awwal 661 AH.", "One of the prominent figures, he was born"),
       difficulty: 1,
       questions: [
         { q: "What was Ibn Taymiyyah's own name?", a: "Ahmad ibn Abd al-Halim", wrong: ["Ahmad ibn Hanbal", "Muhammad ibn Idris", "Malik ibn Anas"], why: "Ibn Taymiyyah is his family name." },
@@ -579,7 +583,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "From Harran to Damascus",
       line: "In 667 AH, his father took him from Harran to Damascus.",
       facts: ["Harran: his family's town", "Grandfather: a great imam too"],
-      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: his father took him with him from Harraan in 667 AH. Al-Suyuti names his grandfather, the imam Majd al-Deen 'Abd al-Salam."),
+      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: his father took him with him from Harraan in 667 AH. Al-Suyuti names his grandfather, the imam Majd al-Deen 'Abd al-Salam.", "His father took him with him from Harraan in 667 AH"),
       difficulty: 2,
       questions: [
         { q: "Which town did his family come from?", a: "Harran", wrong: ["Gaza", "Kufa", "Madinah"], why: "His father brought him from there in 667 AH." },
@@ -592,7 +596,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "His teachers",
       line: "Ibn Taymiyyah had many teachers, and copied Sunan Abi Dawud.",
       facts: ["Teacher: Ibn Abd ad-Da'im", "Copied Sunan Abi Dawud himself"],
-      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: he learned from Ibn 'Abd al-Daa'im, al-Qaasim al-Arbili and others; he read by himself and copied Sunan Abi Dawood."),
+      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: he learned from Ibn 'Abd al-Daa'im, al-Qaasim al-Arbili and others; he read by himself and copied Sunan Abi Dawood.", "He read by himself and copied Sunan Abi Dawood"),
       difficulty: 2,
       questions: [
         { q: "Which of these was one of his teachers?", a: "Ibn Abd ad-Da'im", wrong: ["Imam Malik", "Abu Hanifah", "Ibn Baz"], why: "Ibn Hajar names him first." },
@@ -605,7 +609,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "Ibn al-Qayyim and adh-Dhahabi",
       line: "Ibn al-Qayyim was his student; adh-Dhahabi called him shaykh.",
       facts: ["Ibn al-Qayyim: many useful books", "Adh-Dhahabi: unrivalled in knowledge"],
-      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar mentions his student Shams al-Deen ibn Qayyim al-Jawziyyah, the author of so many beneficial books. Adh-Dhahabi said: He is our Shaykh, unrivalled in our time in knowledge."),
+      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar mentions his student Shams al-Deen ibn Qayyim al-Jawziyyah, the author of so many beneficial books. Adh-Dhahabi said: He is our Shaykh, unrivalled in our time in knowledge.", "his student was Shaykh Shams al-Deen ibn Qayyim al-Jawziyyah"),
       difficulty: 3,
       questions: [
         { q: "Which famous scholar was his student?", a: "Ibn al-Qayyim", wrong: ["Imam Ahmad", "Ash-Shafi'i", "Imam Malik"], why: "He wrote many useful books." },
@@ -618,7 +622,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "Three hundred books",
       line: "Al-Suyuti said Ibn Taymiyyah wrote three hundred books.",
       facts: ["Tafsir, hadith and fiqh", "Quick memory, great courage"],
-      source: IBN_TAYMIYYAH_PAGE("Al-Suyuti: he wrote three hundred books. Ibn Hajar: he had an amazing ability to recollect quickly; he was courageous. Adh-Dhahabi: he excelled in tafseer."),
+      source: IBN_TAYMIYYAH_PAGE("Al-Suyuti: he wrote three hundred books. Ibn Hajar: he had an amazing ability to recollect quickly; he was courageous. Adh-Dhahabi: he excelled in tafseer.", "He wrote three hundred books"),
       difficulty: 3,
       questions: [
         { q: "How many books did al-Suyuti say he wrote?", a: "Three hundred", wrong: ["Three", "Thirty", "Ten"], why: "He wrote, taught and gave fatwas." },
@@ -631,7 +635,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "The stronger evidence",
       line: "His fatwas followed the stronger evidence, not one madhhab.",
       facts: ["Followed the dalil", "Like the four imams taught"],
-      source: IBN_TAYMIYYAH_PAGE("Adh-Dhahabi: when he issued a fatwa he did not adhere to the view of a madhhab, rather he based his fatwa on whichever view was supported by the stronger evidence."),
+      source: IBN_TAYMIYYAH_PAGE("Adh-Dhahabi: when he issued a fatwa he did not adhere to the view of a madhhab, rather he based his fatwa on whichever view was supported by the stronger evidence.", "when he issued a fatwa he did not adhere to the view of a madhhab"),
       difficulty: 4,
       questions: [
         { q: "What did his fatwas follow?", a: "The stronger evidence", wrong: ["Whatever rulers wanted", "Only his teachers", "His feelings"], why: "Adh-Dhahabi says so." },
@@ -644,7 +648,7 @@ const IBN_TAYMIYYAH: DeepUnit = {
       title: "Prison and a huge funeral",
       line: "Jailed in Cairo and Alexandria, he died in prison in 728 AH.",
       facts: ["Patient under harm", "No funeral gathered more people"],
-      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: he was imprisoned in Cairo, then in Alexandria; he died in 728 AH imprisoned in the citadel. Barzaali: there was no one for whose funeral people gathered as they did for him."),
+      source: IBN_TAYMIYYAH_PAGE("Ibn Hajar: he was imprisoned in Cairo, then in Alexandria; he died in 728 AH imprisoned in the citadel. Barzaali: there was no one for whose funeral people gathered as they did for him.", "he was imprisoned in Cairo, then in Alexandria"),
       difficulty: 5,
       questions: [
         { q: "In which two cities was he jailed?", a: "Cairo and Alexandria", wrong: ["Makkah and Madinah", "Kufa and Baghdad", "Gaza and San'a"], why: "He was harmed for holding to the Sunnah." },
@@ -668,7 +672,7 @@ const IBN_BAZ: DeepUnit = {
       title: "Born in Riyadh",
       line: "Shaykh Abd al-Aziz ibn Baz was born in Riyadh in 1912.",
       facts: ["Born 22 November 1912", "Riyadh, Saudi Arabia"],
-      source: IBN_BAZ_PRIZE("Born: November 22, 1912, Riyadh, Kingdom of Saudi Arabia."),
+      source: IBN_BAZ_PRIZE("Born: November 22, 1912, Riyadh, Kingdom of Saudi Arabia.", "Born: November 22, 1912, Riyadh, Kingdom of Saudi Arabia"),
       difficulty: 1,
       questions: [
         { q: "In which city was Ibn Baz born?", a: "Riyadh", wrong: ["Damascus", "Baghdad", "Cairo"], why: "In what is now Saudi Arabia." },
@@ -694,7 +698,7 @@ const IBN_BAZ: DeepUnit = {
       title: "The Quran as a boy",
       line: "Ibn Baz memorized the Quran before he reached puberty.",
       facts: ["Taught by Abdullah ibn Mufayrij", "Ten years with Muhammad ibn Abd al-Latif"],
-      source: IBN_BAZ_TARAJM("I memorized the Quran before puberty under Shaykh Abdullah ibn Mufayrij. He attended the circles of Shaykh Muhammad ibn Abd al-Latif Al ash-Shaykh for about ten years, 1347 to 1357 AH."),
+      source: IBN_BAZ_TARAJM("I memorized the Quran before puberty under Shaykh Abdullah ibn Mufayrij. He attended the circles of Shaykh Muhammad ibn Abd al-Latif Al ash-Shaykh for about ten years, 1347 to 1357 AH.", "فحفظت القرآن الكريم قبل البلوغ على يد الشيخ عبد الله بن مفيرج"),
       difficulty: 2,
       questions: [
         { q: "When did Ibn Baz memorize the Quran?", a: "Before puberty", wrong: ["At sixty", "After he went blind", "Never"], why: "He began young." },
@@ -720,7 +724,7 @@ const IBN_BAZ: DeepUnit = {
       title: "The Islamic University",
       line: "Ibn Baz moved to Madinah and later led its Islamic University.",
       facts: ["Deputy head: 1381 AH", "Head: from 1390 AH"],
-      source: IBN_BAZ_TARAJM("In 1381 AH he moved to Madinah as deputy president of the Islamic University; in 1390 AH a royal decree made him its president."),
+      source: IBN_BAZ_TARAJM("In 1381 AH he moved to Madinah as deputy president of the Islamic University; in 1390 AH a royal decree made him its president.", "انتقل ابن باز إلى المدينة النبوية"),
       difficulty: 3,
       questions: [
         { q: "Which university did Ibn Baz lead?", a: "The Islamic University of Madinah", wrong: ["A university in Cairo", "A university in Damascus", "A university in Baghdad"], why: "First as deputy, then as head." },
@@ -733,7 +737,7 @@ const IBN_BAZ: DeepUnit = {
       title: "Service to Islam",
       line: "In 1982, Ibn Baz won a King Faisal Prize for serving Islam.",
       facts: ["Preaching, research, teaching", "Care for the youth"],
-      source: IBN_BAZ_PRIZE("King Faisal Prize in Service to Islam, 1982 Laureate: his activities included preaching, research and Islamic education, and dedicated care to the youth."),
+      source: IBN_BAZ_PRIZE("King Faisal Prize in Service to Islam, 1982 Laureate: his activities included preaching, research and Islamic education, and dedicated care to the youth.", "His activities were diverse and included preaching, research, and Islamic education"),
       difficulty: 4,
       questions: [
         { q: "Which prize did Ibn Baz win in 1982?", a: "King Faisal Prize for Service to Islam", wrong: ["A sports medal", "A poetry prize", "A science prize"], why: "For his scholarship and good deeds." },
@@ -746,7 +750,7 @@ const IBN_BAZ: DeepUnit = {
       title: "The Grand Mufti",
       line: "Ibn Baz was Grand Mufti of Saudi Arabia until he died.",
       facts: ["Head of the senior scholars", "Radio fatwas: Nur ala ad-Darb"],
-      source: IBN_BAZ_TARAJM("He was appointed Grand Mufti and remained so until his death, chairing the Council of Senior Scholars; he answered questions on the radio programme Nur 'ala ad-Darb for over thirty years."),
+      source: IBN_BAZ_TARAJM("He was appointed Grand Mufti and remained so until his death, chairing the Council of Senior Scholars; he answered questions on the radio programme Nur 'ala ad-Darb for over thirty years.", "مكث عبد العزيز بن باز في برنامج نور على الدرب"),
       difficulty: 4,
       questions: [
         { q: "Which post did Ibn Baz hold until his death?", a: "Grand Mufti", wrong: ["King", "Army general", "Trader"], why: "The country's highest post for fatwas." },
@@ -759,7 +763,7 @@ const IBN_BAZ: DeepUnit = {
       title: "Buried in Makkah",
       line: "Ibn Baz died in 1420 AH, 1999, and was buried in Makkah.",
       facts: ["27 Muharram 1420 AH, aged about 89", "Janazah in al-Masjid al-Haram"],
-      source: IBN_BAZ_TARAJM("He died at dawn on Thursday 27 Muharram 1420 AH (13 May 1999), aged about 89; he was prayed over after Friday prayer in al-Masjid al-Haram and buried in al-Adl cemetery in Makkah."),
+      source: IBN_BAZ_TARAJM("He died at dawn on Thursday 27 Muharram 1420 AH (13 May 1999), aged about 89; he was prayed over after Friday prayer in al-Masjid al-Haram and buried in al-Adl cemetery in Makkah.", "حتى توفي في فجر يوم الخميس 27 محرم 1420"),
       difficulty: 5,
       questions: [
         { q: "Where was Ibn Baz buried?", a: "Makkah", wrong: ["Riyadh", "Damascus", "Madinah"], why: "In al-Adl cemetery." },
@@ -772,7 +776,7 @@ const IBN_BAZ: DeepUnit = {
       title: "Praise for al-Albani",
       line: "Ibn Baz signed a fatwa praising al-Albani's work for the Sunnah.",
       facts: ["The Standing Committee", "Known for knowledge and virtue"],
-      source: ALBANI_PAGE("A Standing Committee answer, signed by Shaykh Ibn Baaz and others: This man is well known to us for his knowledge and virtue, his veneration of and service to the Sunnah."),
+      source: ALBANI_PAGE("A Standing Committee answer, signed by Shaykh Ibn Baaz and others: This man is well known to us for his knowledge and virtue, his veneration of and service to the Sunnah.", "This man is well known to us for his knowledge and virtue"),
       difficulty: 5,
       questions: [
         { q: "Which scholar did Ibn Baz and the committee praise?", a: "Al-Albani", wrong: ["Ibn Hurmuz", "Az-Zuhri", "Hushaym"], why: "For his service to the Sunnah." },
@@ -796,7 +800,7 @@ const ALBANI: DeepUnit = {
       title: "Born in Albania",
       line: "Shaykh al-Albani was born in Shkoder, Albania, in 1914.",
       facts: ["Born 16 August 1914", "Al-Albani: the man from Albania"],
-      source: ALBANI_PRIZE("Born: August 16, 1914, Shkodër, Republic of Albania."),
+      source: ALBANI_PRIZE("Born: August 16, 1914, Shkodër, Republic of Albania.", "Born: August 16, 1914, Shkodër, Republic of Albania"),
       difficulty: 1,
       questions: [
         { q: "Which country was al-Albani born in?", a: "Albania", wrong: ["Egypt", "Iraq", "Yemen"], why: "His name means the one from Albania." },
@@ -835,7 +839,7 @@ const ALBANI: DeepUnit = {
       title: "Sound and weak hadith",
       line: "His best-loved works: a series of sound hadith, and one of weak.",
       facts: ["Silsilah as-Sahihah", "Silsilah ad-Da'ifah", "Irwa al-Ghalil"],
-      source: ALBANI_PRIZE("Laureate for contributions to the study, verification and authentication of the Hadith, through works such as Irwa' al-Ghalil and Silsilat al-Ahadith al-Sahihah and al-Da'ifah; in his speech he said these two series were closest to his heart."),
+      source: ALBANI_PRIZE("Laureate for contributions to the study, verification and authentication of the Hadith, through works such as Irwa' al-Ghalil and Silsilat al-Ahadith al-Sahihah and al-Da'ifah; in his speech he said these two series were closest to his heart.", "was awarded the prize for his remarkable contributions to the study, verification and authentication of the Hadith"),
       difficulty: 3,
       questions: [
         { q: "Which two works were closest to his heart?", a: "The sound and the weak hadith series", wrong: ["Two poetry books", "Two history books", "Two maps"], why: "As-Silsilah as-Sahihah and ad-Da'ifah." },
@@ -861,7 +865,7 @@ const ALBANI: DeepUnit = {
       title: "Prize in 1999",
       line: "Al-Albani won the King Faisal Prize in Islamic Studies in 1999.",
       facts: ["For his hadith work", "Ibn Baz won his in 1982"],
-      source: ALBANI_PRIZE("King Faisal Prize in Islamic Studies, 1999 Laureate, for contributions to the study, verification and authentication of the Hadith."),
+      source: ALBANI_PRIZE("King Faisal Prize in Islamic Studies, 1999 Laureate, for contributions to the study, verification and authentication of the Hadith.", "was awarded the prize for his remarkable contributions to the study, verification and authentication of the Hadith"),
       difficulty: 4,
       questions: [
         { q: "In which year did al-Albani win the King Faisal Prize?", a: "1999", wrong: ["1914", "1950", "1982"], why: "In Islamic Studies." },
@@ -874,7 +878,7 @@ const ALBANI: DeepUnit = {
       title: "Not blind following",
       line: "Al-Albani told students not to follow him, or anyone, blindly.",
       facts: ["A muhaddith and a faqih", "Human: right and wrong at times"],
-      source: ALBANI_PAGE("Shaykh al-Albani was a great muhaddith and a mujtahid faqeeh; he was a human being who got things right and made mistakes, and he was emphatic in telling them not to follow him blindly."),
+      source: ALBANI_PAGE("Shaykh al-Albani was a great muhaddith and a mujtahid faqeeh; he was a human being who got things right and made mistakes, and he was emphatic in telling them not to follow him blindly.", "he was more emphatic in telling them not to follow him blindly"),
       difficulty: 5,
       questions: [
         { q: "What did al-Albani tell his students?", a: "Do not follow me blindly", wrong: ["Never ask questions", "Only read my books", "Stop learning"], why: "Follow the evidence." },

@@ -5,11 +5,15 @@ import type {
   ReminderPreferences,
   SocialHubState,
   SocialRelation,
+  UmmahState,
   UserProfile
 } from "../types";
 import { getStoredItem, setStoredItem, removeStoredItem } from "./appStorage";
+import type { UmmahRankings } from "./ummah";
 
 const SESSION_KEY = "sira-path-session-token";
+// Set while this phone has progress the server has not taken yet (made offline, or the send failed).
+const PENDING_SYNC_KEY = "sira-path-pending-sync";
 
 type RemoteAccount = {
   name: string;
@@ -129,13 +133,38 @@ export async function syncRemoteUser(user: UserProfile) {
     return;
   }
 
-  await backendRequest("/api/me/user", {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({ user })
-  });
+  // Marked first, so an app closed mid-send still knows the server may be behind.
+  setStoredItem(PENDING_SYNC_KEY, "1");
+  try {
+    await backendRequest("/api/me/user", {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ user })
+    });
+  } catch (error) {
+    // Set again: an older send that finished meanwhile may have cleared it.
+    setStoredItem(PENDING_SYNC_KEY, "1");
+    throw error;
+  }
+  removeStoredItem(PENDING_SYNC_KEY);
+}
+
+/** True while progress made on this phone (often offline) still has to reach the server. */
+export function hasPendingSync() {
+  return getStoredItem(PENDING_SYNC_KEY) === "1";
+}
+
+/**
+ * Which copy of the learner to start from. The server's copy, unless this phone has progress the server never
+ * got (lessons done offline): then the phone's own copy of the same learner wins, and is sent once online.
+ */
+export function pickStartingUser<T extends { id: number | string }>(remote: T | undefined, saved: T | null | undefined) {
+  if (remote && saved && hasPendingSync() && String(saved.id) === String(remote.id)) {
+    return saved;
+  }
+  return remote ?? saved ?? undefined;
 }
 
 export async function logoutRemoteAccount() {
@@ -321,6 +350,15 @@ export async function removeCrewMember(friendId: number) {
   await backendRequest(`/api/friends/${friendId}`, { method: "DELETE", headers: authHeaders() });
 }
 
+/** Saves the learner's Ummah state (trophies, nickname, joined) and returns the ranking of everyone who joined. */
+export async function fetchUmmahRankings(ummah: UmmahState) {
+  return backendRequest<UmmahRankings>("/api/ummah/rankings", {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ ummah })
+  });
+}
+
 export function getSessionToken() {
   return getStoredItem(SESSION_KEY);
 }
@@ -331,6 +369,7 @@ export function setSessionToken(token: string) {
 
 export function clearSessionToken() {
   removeStoredItem(SESSION_KEY);
+  removeStoredItem(PENDING_SYNC_KEY);
 }
 
 export class BackendRequestError extends Error {

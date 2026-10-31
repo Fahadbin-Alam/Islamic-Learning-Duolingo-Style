@@ -22,6 +22,11 @@ export type SheetProps = {
   portal?: boolean;
   /** Extra bottom padding for the home indicator. */
   bottomInset?: number;
+  /**
+   * Comes up with its spring but never past its place: what is kept clear of its top edge where it rests (the green
+   * tile above the feedback sheet) is never crossed by it on the way up either.
+   */
+  noOvershoot?: boolean;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
@@ -35,6 +40,38 @@ const TONE_BG: Record<SheetTone, string> = {
 const DEFAULT_INSET = Platform.OS === "ios" ? 30 : 16;
 // Room left above a lifted sheet for the status bar.
 const KEYBOARD_TOP_GAP = 48;
+
+/** The spring a sheet comes up with. What makes room for it on its way up (see FoldGap) closes with the same spring. */
+export const SHEET_SPRING = { friction: 9, tension: 80 };
+
+// The spring's stiffness and damping, as Animated works them out from its tension and friction (its mass is 1).
+const SPRING_STIFFNESS = (SHEET_SPRING.tension - 30) * 3.62 + 194;
+const SPRING_DAMPING = (SHEET_SPRING.friction - 8) * 3 + 25;
+const SPRING_DECAY = SPRING_DAMPING / 2;
+const SPRING_SWING = Math.sqrt(Math.max(0, SPRING_STIFFNESS - SPRING_DECAY * SPRING_DECAY));
+
+/**
+ * How long a sheet held at its place (`noOvershoot`) takes to come up: its spring swings past nothing, it stops in the
+ * frame it reaches its place. Undefined for a spring that would creep up to its place instead of reaching it.
+ */
+export const SHEET_RISE_MS = SPRING_SWING > 0 ? (1000 * (Math.PI - Math.atan2(SPRING_SWING, SPRING_DECAY))) / SPRING_SWING : undefined;
+
+/** How far such a sheet has come up, from 0 to 1, `ms` after it set off. */
+export function sheetRise(ms: number) {
+  if (SHEET_RISE_MS === undefined || ms >= SHEET_RISE_MS) {
+    return 1;
+  }
+  const t = Math.max(0, ms) / 1000;
+  return 1 - Math.exp(-SPRING_DECAY * t) * (Math.cos(SPRING_SWING * t) + (SPRING_DECAY / SPRING_SWING) * Math.sin(SPRING_SWING * t));
+}
+
+// When a sheet last set off on its way up (Date.now()), for what makes room for it to close in step (see FoldGap).
+let lastSetOff = Number.NEGATIVE_INFINITY;
+
+/** When a sheet last set off on its way up (Date.now()). */
+export function sheetSetOffAt() {
+  return lastSetOff;
+}
 
 /**
  * How far the on-screen keyboard reaches up over the window, in points (0 when it is closed).
@@ -77,6 +114,7 @@ export function Sheet({
   dismissOnBackdrop = true,
   portal,
   bottomInset = DEFAULT_INSET,
+  noOvershoot,
   style,
   testID
 }: SheetProps) {
@@ -94,7 +132,8 @@ export function Sheet({
   useEffect(() => {
     if (visible) {
       setMounted(true);
-      const animation = Animated.spring(progress, { toValue: 1, friction: 9, tension: 80, useNativeDriver: true });
+      const animation = Animated.spring(progress, { toValue: 1, ...SHEET_SPRING, overshootClamping: noOvershoot, useNativeDriver: true });
+      lastSetOff = Date.now();
       animation.start();
       return () => animation.stop();
     }
@@ -105,7 +144,7 @@ export function Sheet({
       }
     });
     return () => animation.stop();
-  }, [progress, visible]);
+  }, [noOvershoot, progress, visible]);
 
   // The content mounts on the very render that opens the sheet, not one render later, so a child that acts when it
   // opens (a list that scrolls to a row) finds its views already there. It unmounts once it has slid away.

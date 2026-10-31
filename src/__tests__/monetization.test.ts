@@ -3,7 +3,6 @@ jest.mock("@react-native-async-storage/async-storage", () =>
 );
 
 import { applyPremiumStatus, applyShopItem, canSpendGems, hasPremiumLessons, isPremiumUser, localDateKey } from "../api/islamicLearningApi";
-import { SHOP_ITEMS } from "../data/course";
 import { removeStoredItem } from "../services/appStorage";
 import { createSandboxClient } from "../services/monetizationShared";
 import {
@@ -18,11 +17,11 @@ import {
   rewardedGemVideosLeft,
   shouldShowLessonBreakAd
 } from "../services/monetizationConfig";
-import { makeUser } from "./testUtils";
+import { SHOP_ITEMS_WITH_GEMS, makeUser } from "./testUtils";
 
 const today = () => localDateKey();
 const shopItem = (id: string) => {
-  const item = SHOP_ITEMS.find((candidate) => candidate.id === id);
+  const item = SHOP_ITEMS_WITH_GEMS.find((candidate) => candidate.id === id);
   if (!item) {
     throw new Error(`Missing shop item ${id}`);
   }

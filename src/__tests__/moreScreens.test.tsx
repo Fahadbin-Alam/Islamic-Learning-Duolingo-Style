@@ -2,7 +2,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { FoundationAssessmentScreen } from "../components/FoundationLearning";
-import { COURSE, SHOP_ITEMS } from "../data/course";
+import { COURSE } from "../data/course";
+import { SHOP_ITEMS_WITH_GEMS } from "./testUtils";
 import { FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import { getUiStrings } from "../i18n";
 import type { CrewMember } from "../services/backendSync";
@@ -121,14 +122,14 @@ describe("ShopView", () => {
   function renderShop(user: UserProfile, busy = false, pendingItemId?: string) {
     const handlers = { onUseItem: jest.fn(), onRestore: jest.fn(), onOpenLink: jest.fn() };
     return render(
-      <ShopView user={user} strings={strings} items={SHOP_ITEMS} storePrices={{ "heart-pack-small": "€1,09" }} busy={busy} pendingItemId={pendingItemId} section={section} {...handlers} />
+      <ShopView user={user} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{ "heart-pack-small": "€1,09" }} busy={busy} pendingItemId={pendingItemId} section={section} {...handlers} />
     ).then(() => handlers);
   }
 
   it("buys gem and video items straight away, and real-money items after the grown-up gate", async () => {
     const handlers = await renderShop(makeUser());
 
-    for (const item of SHOP_ITEMS) {
+    for (const item of SHOP_ITEMS_WITH_GEMS) {
       await fireEvent.press(screen.getByTestId(`shop-buy-${item.id}`));
       if (item.currencyType !== "gems" && item.currencyType !== "rewarded_ad") {
         expect(screen.getByText("Ask a grown-up")).toBeTruthy();
@@ -136,7 +137,7 @@ describe("ShopView", () => {
       }
     }
 
-    expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(SHOP_ITEMS.map((item) => item.id));
+    expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(SHOP_ITEMS_WITH_GEMS.map((item) => item.id));
     expect(screen.getByText("€1,09")).toBeTruthy();
     expect(screen.getByText(/Renews automatically/)).toBeTruthy();
     // Two plans, each with a monthly and a yearly price.
@@ -201,16 +202,16 @@ describe("ShopView", () => {
 
   it("plays the heart video while a heart is missing", async () => {
     const handlers = await renderShop(makeUser({ hearts: { current: 4, max: 5, unlimited: false, lastRefillDate: "2026-10-18" } }));
-    expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("Watch a video");
+    expect(screen.getByTestId("shop-line-watch-ad-heart")).toHaveTextContent("3 videos = 1 heart");
     await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-heart"));
     expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(["watch-ad-heart"]);
   });
 
   it("hides what the store cannot sell (web): only gem items stay, with no plans or restore", async () => {
     const handlers = { onUseItem: jest.fn(), onRestore: jest.fn(), onOpenLink: jest.fn() };
-    await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} canWatchAds={false} {...handlers} />);
+    await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} canWatchAds={false} {...handlers} />);
 
-    for (const item of SHOP_ITEMS) {
+    for (const item of SHOP_ITEMS_WITH_GEMS) {
       if (item.currencyType === "gems") expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
       else expect(screen.queryByTestId(`shop-buy-${item.id}`)).toBeNull();
     }
@@ -224,9 +225,9 @@ describe("ShopView", () => {
   });
 
   it("keeps the videos but hides every paid item when the build has ads but no store", async () => {
-    await render(<ShopView user={makeUser({ hearts: { current: 3, max: 5, unlimited: false, lastRefillDate: "2026-01-01" } })} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} />);
+    await render(<ShopView user={makeUser({ hearts: { current: 3, max: 5, unlimited: false, lastRefillDate: "2026-01-01" } })} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} />);
 
-    for (const item of SHOP_ITEMS) {
+    for (const item of SHOP_ITEMS_WITH_GEMS) {
       if (item.currencyType === "USD") expect(screen.queryByTestId(`shop-buy-${item.id}`)).toBeNull();
       else expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
     }
@@ -236,7 +237,7 @@ describe("ShopView", () => {
 
   it("celebrates when a purchase fills the hearts", async () => {
     const { playGameSound } = jest.requireMock("../services/gameAudio");
-    const props = { strings, items: SHOP_ITEMS, storePrices: {}, busy: false, section, onUseItem: jest.fn(), onRestore: jest.fn() };
+    const props = { strings, items: SHOP_ITEMS_WITH_GEMS, storePrices: {}, busy: false, section, onUseItem: jest.fn(), onRestore: jest.fn() };
     const view = await render(<ShopView user={makeUser()} {...props} />);
     playGameSound.mockClear();
     await view.rerender(<ShopView user={makeUser({ gems: 150, hearts: { current: 5, max: 5, unlimited: false, lastRefillDate: "2026-10-18" } })} {...props} />);
@@ -284,10 +285,10 @@ describe("ShopView", () => {
   });
 
   it("formats prices", () => {
-    const yearly = SHOP_ITEMS.find((item) => item.id === "membership-yearly")!;
+    const yearly = SHOP_ITEMS_WITH_GEMS.find((item) => item.id === "membership-yearly")!;
     expect(formatShopPrice(yearly)).toBe("$49.99/yr");
-    expect(formatShopPrice(SHOP_ITEMS.find((item) => item.id === "no-ads-monthly")!)).toBe("$2.99/mo");
-    expect(formatShopPrice(SHOP_ITEMS.find((item) => item.currencyType === "gems")!)).toBe("350");
+    expect(formatShopPrice(SHOP_ITEMS_WITH_GEMS.find((item) => item.id === "no-ads-monthly")!)).toBe("$2.99/mo");
+    expect(formatShopPrice(SHOP_ITEMS_WITH_GEMS.find((item) => item.currencyType === "gems")!)).toBe("350");
   });
 });
 
@@ -451,7 +452,7 @@ describe("CrewView", () => {
     expect(handlers.onRefresh).toHaveBeenCalledTimes(1);
   });
 
-  it("says Crew is coming soon when the build has no server, with nothing to retry", async () => {
+  it("says Friends are coming soon when the build has no server, with nothing to retry", async () => {
     const handlers = {
       onChangeInviteEmail: jest.fn(),
       onChangeInviteRelation: jest.fn(),
@@ -461,7 +462,7 @@ describe("CrewView", () => {
       onCreateAccount: jest.fn()
     };
     await render(<CrewView user={makeUser()} crew={{ status: "idle" }} inviteEmail="" inviteRelation="friend" unavailable {...handlers} />);
-    expect(screen.getByText("Crew is coming soon!")).toBeTruthy();
+    expect(screen.getByText("Friends are coming soon!")).toBeTruthy();
     expect(screen.queryByText("TRY AGAIN")).toBeNull();
     expect(screen.queryByText("No internet")).toBeNull();
     expect(handlers.onRefresh).not.toHaveBeenCalled();

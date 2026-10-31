@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import re
 from datetime import date, datetime, timezone
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from fastapi import HTTPException, status
 from sqlalchemy import select
@@ -149,6 +150,7 @@ def frontend_user_payload(user: User) -> Dict[str, Any]:
         "lastTopicId": user.last_topic_id,
         "pathFocusIds": user.path_focus_json or {},
         "league": user.league_json or None,
+        "ummah": user.ummah_json or None,
         "activeSubscriptionId": entitlement.plan_type if entitlement else None,
     }
 
@@ -205,6 +207,54 @@ def clean_league(value: Any, fallback: Dict[str, Any]) -> Dict[str, Any]:
     return league
 
 
+# Same lists as src/services/ummah.ts: a nickname is one word, one animal and a two-digit number, never typed,
+# so no real name can reach the ranking.
+NICKNAME_WORDS = ["Brave", "Kind", "Swift", "Bright", "Patient", "Honest", "Gentle", "Wise", "Calm", "Steady", "Happy", "Noble"]
+NICKNAME_ANIMALS = ["Falcon", "Camel", "Gazelle", "Eagle", "Lion", "Horse", "Dove", "Owl", "Oryx", "Hoopoe", "Dolphin", "Panther"]
+NICKNAME_PATTERN = re.compile(rf"^({'|'.join(NICKNAME_WORDS)}) ({'|'.join(NICKNAME_ANIMALS)}) [1-9][0-9]$")
+PROFILE_ICONS = {"lantern", "palm", "moon", "star8", "dates", "sun", "water", "trophy", "crown"}
+UMMAH_MAX_TROPHIES = 100000
+
+
+def clean_count(value: Any, ceiling: int = UMMAH_MAX_TROPHIES) -> int:
+    return min(value, ceiling) if isinstance(value, int) and not isinstance(value, bool) and value >= 0 else 0
+
+
+def clean_ids(value: Any, allowed: Optional[set] = None) -> List[str]:
+    if not isinstance(value, list):
+        return []
+    return [item for item in dict.fromkeys(value) if isinstance(item, str) and 0 < len(item) <= 60 and (allowed is None or item in allowed)][:50]
+
+
+def is_valid_nickname(value: Any) -> bool:
+    return isinstance(value, str) and bool(NICKNAME_PATTERN.match(value))
+
+
+def clean_ummah(value: Any, fallback: Dict[str, Any]) -> Dict[str, Any]:
+    """The app's Ummah state. A nickname outside the word lists is dropped, and without one the learner cannot join."""
+    if not isinstance(value, dict):
+        return fallback
+    trophies = clean_count(value.get("trophies"))
+    ummah: Dict[str, Any] = {
+        "trophies": trophies,
+        "best": max(trophies, clean_count(value.get("best"))),
+        "battles": clean_count(value.get("battles"), 10_000_000),
+        "wins": clean_count(value.get("wins"), 10_000_000),
+        "icons": clean_ids(value.get("icons"), PROFILE_ICONS),
+        "secrets": clean_ids(value.get("secrets")),
+        "hints": clean_ids(value.get("hints")),
+        "hadith": clean_ids(value.get("hadith")),
+    }
+    nickname = value.get("nickname")
+    if is_valid_nickname(nickname):
+        ummah["nickname"] = nickname
+    ummah["joined"] = value.get("joined") is True and "nickname" in ummah
+    icon = value.get("icon")
+    if isinstance(icon, str) and icon in ummah["icons"]:
+        ummah["icon"] = icon
+    return ummah
+
+
 def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Optional[Dict[str, Any]] = None) -> User:
     hearts = snapshot.get("hearts") or {}
     user.display_name = snapshot.get("displayName") or user.display_name
@@ -235,6 +285,7 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     user.node_stars_json = clean_node_stars(snapshot.get("nodeStars"), user.node_stars_json or {})
     user.path_focus_json = clean_path_focus(snapshot.get("pathFocusIds"), user.path_focus_json or {})
     user.league_json = clean_league(snapshot.get("league"), user.league_json or {})
+    user.ummah_json = clean_ummah(snapshot.get("ummah"), user.ummah_json or {})
     last_topic = snapshot.get("lastTopicId")
     if isinstance(last_topic, str) and 0 < len(last_topic) <= 40:
         user.last_topic_id = last_topic

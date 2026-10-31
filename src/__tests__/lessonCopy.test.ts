@@ -589,11 +589,9 @@ describe("round 5: reviews stay in their unit, gentle words, names that read rig
     expect(naming).toEqual([]);
   });
 
-  it("holds each hyphen of a Quran span title to its word, so no line ends on a lone Al-", () => {
-    const spans = sectionOf("quran_tafseer").branches.filter((branch) => / to /.test(branch.title));
-    expect(spans.length).toBeGreaterThan(5);
-    expect(spans.filter((branch) => /\p{L}-(?!\u2060)/u.test(branch.title)).map((branch) => branch.title)).toEqual([]);
-    expect(spans.find((branch) => branch.id === "notes-quran-tafseer-surahs-104-96")?.title).toBe("Surah Al-\u2060Humazah to Al-\u2060'Alaq");
+  it("gives every surah its own unit, so no Quran span unit is left", () => {
+    // Each surah now has its own unit (surahMeanings), so the old "Surah X to Y" spans are all gone.
+    expect(sectionOf("quran_tafseer").branches.filter((branch) => / to /.test(branch.title)).map((branch) => branch.title)).toEqual([]);
   });
 
   it("never asks the tribe of Zaynab bint Jahsh or her brother Abdullah, who were of Asad ibn Khuzaymah, not Quraysh by birth", () => {

@@ -1,0 +1,337 @@
+import type { Challenge, DifficultyTier, LearningBranch, LearningCourse, LearningNode, Lesson, LessonSource } from "../../types";
+import { SURAH_MEANING_AYAHS } from "../surahMeaningAyahs";
+import type { Passage, SurahMeaning } from "./types";
+import { ALL_SURAH_MEANINGS } from "./all";
+import { surahLearningRank } from "../importedNotes";
+import { LESSON_SOURCES } from "../questionSources";
+
+export type { Passage, SurahMeaning } from "./types";
+
+// The meaning of whole surahs, passage by passage: one learn card for each passage, so a learner who finishes a
+// surah's unit has learned what every one of its ayahs says. Each card shows one ayah of the passage in Arabic
+// (with its recitation) and asks about the card. A surah with a unit of its own (Al-Baqarah, Al-Mulk...) gets
+// its passages at the end of that unit; any other surah gets a unit of its own, next to its short lesson in the
+// Quran topic. Al-Fatihah's own unit already teaches each of its seven ayahs.
+
+/** Surah names as the app writes them, surah 1 first. */
+export const SURAH_NAMES: readonly string[] = [
+  "Al-Fatihah", "Al-Baqarah", "Ali 'Imran", "An-Nisa", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Tawbah", "Yunus", "Hud", "Yusuf",
+  "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra", "Al-Kahf", "Maryam", "Taha", "Al-Anbya", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan",
+  "Ash-Shu'ara", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum", "Luqman", "As-Sajdah", "Al-Ahzab", "Saba", "Fatir", "Ya-Sin", "As-Saffat", "Sad",
+  "Az-Zumar", "Ghafir", "Fussilat", "Ash-Shuraa", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiyah", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf",
+  "Adh-Dhariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadila", "Al-Hashr", "Al-Mumtahanah", "As-Saf",
+  "Al-Jumu'ah", "Al-Munafiqun", "At-Taghabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij", "Nuh", "Al-Jinn",
+  "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba", "An-Nazi'at", "'Abasa", "At-Takwir", "Al-Infitar",
+  "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr", "Al-Balad", "Ash-Shams", "Al-Layl", "Ad-Duhaa",
+  "Ash-Sharh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat", "Al-Qari'ah", "At-Takathur", "Al-'Asr", "Al-Humazah",
+  "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kawthar", "Al-Kafirun", "An-Nasr", "Al-Masad", "Al-Ikhlas", "Al-Falaq", "An-Nas"
+];
+
+/** The surahs whose whole meaning is taught so far, in the order the Quran topic teaches them (Juz Amma first). */
+export const SURAH_MEANINGS: readonly SurahMeaning[] = [...ALL_SURAH_MEANINGS].sort((left, right) => surahLearningRank(left.surah) - surahLearningRank(right.surah));
+
+/** The Quran topic's own unit for a surah, when it has one; the passages join the end of it. */
+const OWN_UNITS: Record<number, string> = {
+  1: "quran-surah-fatihah",
+  2: "quran-surah-baqarah",
+  3: "quran-surah-ali-imran",
+  4: "quran-surah-nisa",
+  5: "quran-surah-maidah",
+  12: "quran-surah-yusuf",
+  18: "quran-surah-kahf",
+  19: "quran-surah-maryam",
+  36: "quran-surah-yasin",
+  67: "quran-surah-mulk"
+};
+
+/** "1-7" gives [1, 7]; "255" gives [255, 255]. */
+export function passageAyahs(at: string): [number, number] {
+  const [from, to = from] = at.split("-").map(Number);
+  return [from, to];
+}
+
+function meaningSource(surah: number, at: string, line: string): LessonSource {
+  const [from, to] = passageAyahs(at);
+  return {
+    id: `surah_meaning_${surah}_${from}_${to}`,
+    site: "Quran.com",
+    category: "tafsir",
+    title: `${SURAH_NAMES[surah - 1]} ${surah}:${at}`,
+    url: `https://quran.com/${surah}/${at}`,
+    reference: `Quran ${surah}:${at}`,
+    from: "Saheeh International and Tafsir Ibn Kathir, on Quran.com",
+    grade: "Quran",
+    summary: line
+  };
+}
+
+// The right answer comes first, so the choices turn by a stable hash of the question id (as in deepUnits.ts).
+function turn<T>(id: string, items: T[]): T[] {
+  let hash = 0;
+  for (let index = 0; index < id.length; index += 1) hash = (hash * 31 + id.charCodeAt(index)) | 0;
+  const start = Math.abs(hash) % items.length;
+  return items.map((_, index) => items[(start + index) % items.length]);
+}
+
+function choiceQuestion(id: string, prompt: string, answer: string, wrong: string[], why: string, source: LessonSource): Challenge {
+  const choices = turn(id, [answer, ...wrong].map((label, index) => ({ id: "abcd"[index], label })));
+  return { id, type: "multiple_choice", prompt, choices, correctChoiceId: "a", explanation: why, resourceLabel: "Open source", resourceUrl: source.url };
+}
+
+/** The other passages to borrow wrong answers from: the nearest ones in the same surah, then the next surahs. */
+function others(surah: SurahMeaning, index: number): Passage[] {
+  const own = surah.passages;
+  const near = own
+    .map((passage, at) => ({ passage, distance: Math.abs(at - index) }))
+    .filter(({ distance }) => distance > 0)
+    .sort((left, right) => left.distance - right.distance)
+    .map(({ passage }) => passage);
+  const rest = SURAH_MEANINGS.filter((each) => each !== surah)
+    .sort((left, right) => Math.abs(left.surah - surah.surah) - Math.abs(right.surah - surah.surah))
+    .flatMap((each) => each.passages);
+  return [...near, ...rest];
+}
+
+const OPPOSITE_SHIFT = 0.5;
+
+function passageLesson(surah: SurahMeaning, index: number, branchId: string): Lesson {
+  const passage = surah.passages[index];
+  const name = SURAH_NAMES[surah.surah - 1];
+  const nodeId = `surah-meaning-${surah.surah}-${passage.at}`;
+  const source = meaningSource(surah.surah, passage.at, passage.line);
+  const many = passage.at.includes("-");
+  const pool = others(surah, index);
+  const titles = pool.map((each) => each.title).filter((title, at, all) => title !== passage.title && all.indexOf(title) === at).slice(0, 3);
+  const [q, a, ...wrong] = passage.q;
+  // A false statement is another passage's line, from the far side of the same surah, so it is clearly about
+  // something else. A surah of one passage only asks its own line.
+  const far = surah.passages[(index + Math.max(1, Math.round(surah.passages.length * OPPOSITE_SHIFT))) % surah.passages.length];
+  const statementTrue = index % 2 === 0 || surah.passages.length === 1;
+  const challenges: Challenge[] = [
+    choiceQuestion(`${nodeId}-q1`, q, a, wrong, passage.why ?? passage.line, source),
+    choiceQuestion(`${nodeId}-q2`, many ? `Ayahs ${passage.at}: what are they about?` : `Ayah ${passage.at}: what is it about?`, passage.title, titles, passage.line, source),
+    {
+      id: `${nodeId}-q3`,
+      type: "true_false",
+      prompt: `${many ? `Ayahs ${passage.at} say` : `Ayah ${passage.at} says`}: ${statementTrue ? passage.line : far.line}`,
+      choices: [
+        { id: "true", label: "True" },
+        { id: "false", label: "False" }
+      ],
+      correctChoiceId: statementTrue ? "true" : "false",
+      explanation: passage.line,
+      resourceLabel: "Open source",
+      resourceUrl: source.url
+    }
+  ];
+  const [from, to] = passageAyahs(passage.at);
+  const shown = passage.ayah === 0 ? undefined : (passage.ayah ?? from);
+  const arabic = shown ? SURAH_MEANING_AYAHS[`${surah.surah}:${shown}`] : undefined;
+  const difficulty = Math.min(5, 1 + Math.floor((index * 4) / Math.max(1, surah.passages.length - 1))) as DifficultyTier;
+  return {
+    id: `lesson-${nodeId}`,
+    nodeId,
+    branchId,
+    surahName: name,
+    ayahRange: to > from ? `${from}-${to}` : `${from}`,
+    title: passage.title,
+    intro: passage.line,
+    learnLine: passage.line,
+    learnFacts: passage.facts,
+    ...(arabic ? { quote: { text: arabic, reference: `Quran ${surah.surah}:${shown}` } } : {}),
+    learnSource: source,
+    lessonType: "surah",
+    difficulty,
+    xpReward: 10 + difficulty,
+    sources: [source],
+    challenges
+  };
+}
+
+// A review after every six passages, and a final quiz: one question from each passage before it, a different one
+// each time, as the deep units do.
+const REVIEW_EVERY = 6;
+
+function reviewLesson(name: string, branchId: string, nodeId: string, title: string, line: string, taught: Lesson[], count: number, difficulty: DifficultyTier): Lesson {
+  const picks = taught.slice(-count).map((lesson, index) => {
+    const own = lesson.challenges;
+    const picked = own[(own.length - 1 + taught.length + index) % own.length];
+    return { ...picked, id: `${nodeId}-recall-${index + 1}`, isReview: true, sourceNodeId: lesson.nodeId, sourceLessonId: lesson.id, reviewSuggestion: `Review ${lesson.title}` };
+  });
+  return { id: `lesson-${nodeId}`, nodeId, branchId, surahName: name, title, intro: line, learnLine: line, lessonType: "review", difficulty, xpReward: 14, sources: [], challenges: picks };
+}
+
+export interface SurahMeaningUnit {
+  surah: number;
+  name: string;
+  branchId: string;
+  /** A branch to add to the Quran topic, for a surah with no unit of its own yet. */
+  branch?: LearningBranch;
+  lessons: Lesson[];
+}
+
+/** Every surah meaning unit, its lessons in path order (passages, reviews, final quiz). */
+export function surahMeaningUnits(): SurahMeaningUnit[] {
+  return SURAH_MEANINGS.map((surah) => {
+    const name = SURAH_NAMES[surah.surah - 1];
+    const own = OWN_UNITS[surah.surah];
+    const branchId = own ?? `quran-surah-meaning-${surah.surah}`;
+    const lessons: Lesson[] = [];
+    const taught: Lesson[] = [];
+    surah.passages.forEach((_, index) => {
+      const lesson = passageLesson(surah, index, branchId);
+      lessons.push(lesson);
+      taught.push(lesson);
+      const last = index === surah.passages.length - 1;
+      if (!last && (index + 1) % REVIEW_EVERY === 0) {
+        const round = (index + 1) / REVIEW_EVERY;
+        lessons.push(reviewLesson(name, branchId, `surah-meaning-${surah.surah}-review-${round}`, "Deep review", `Can you still remember these about ${name}?`, taught, REVIEW_EVERY, 4));
+      }
+    });
+    if (taught.length > 1) {
+      lessons.push(reviewLesson(name, branchId, `surah-meaning-${surah.surah}-final-quiz`, "Final quiz", `The last test: everything about ${name}!`, taught, Math.min(8, taught.length), 5));
+    }
+    const branch: LearningBranch | undefined = own
+      ? undefined
+      : { id: branchId, topicId: "quran_tafseer", title: `Surah ${name}`, description: `Every ayah of ${name}, in simple words.`, surahName: name, ayahRange: "All" };
+    return { surah: surah.surah, name, branchId, ...(branch ? { branch } : {}), lessons };
+  });
+}
+
+const quranUrlSurah = (lesson: Lesson | undefined) => Number(lesson?.sources.map((source) => /quran\.com\/(\d+)/.exec(source.url)?.[1]).find(Boolean));
+
+/** The ayah of this surah a topic lesson teaches: from its own source ("quran.com/3/200" gives 200), else its ayah range. */
+function citedAyah(lesson: Lesson | undefined, surah: number): number | undefined {
+  if (!lesson) return undefined;
+  const pattern = new RegExp(`quran\\.com/${surah}[/:](\\d+)`);
+  const own = (lesson.learnSource ?? LESSON_SOURCES[lesson.id] ?? lesson.sources[0])?.url ?? "";
+  const ayah = Number(pattern.exec(own)?.[1] ?? /^(\d+)/.exec(lesson.ayahRange ?? "")?.[1]);
+  return ayah > 0 ? ayah : undefined;
+}
+
+/** A topic lesson whose source is a hadith, not an ayah: the ayah its story starts at. */
+const TOPIC_AYAHS: Record<string, number> = {
+  "quran-surah-kahf-knowledge-and-khidr": 60
+};
+
+/**
+ * Puts a surah unit's own topic lessons among its passages, each right after the passage that holds its ayah, so
+ * the whole unit walks the surah from its start to its end and the learner memorizes the order as well as the
+ * meaning. A topic with no ayah of its own, like the topics' review, follows the topic before it.
+ */
+function inAyahOrder(passages: LearningNode[], topics: LearningNode[], surah: number, lessonsById: Record<string, Lesson>): LearningNode[] {
+  let last = 0;
+  const waiting = topics
+    .map((node, index) => {
+      last = TOPIC_AYAHS[node.id] ?? (node.kind === "skill" ? citedAyah(lessonsById[node.lessonIds[0]], surah) : undefined) ?? last;
+      return { node, ayah: last, index };
+    })
+    // The topics' review comes after the last of them.
+    .map((each, _, all) => (each.node.kind === "review" ? { ...each, ayah: Math.max(...all.map(({ ayah }) => ayah)) } : each))
+    .sort((left, right) => left.ayah - right.ayah || left.index - right.index);
+  const sequence: LearningNode[] = [];
+  for (const passage of passages) {
+    if (passage.kind === "review" && passage === passages[passages.length - 1]) sequence.push(...waiting.splice(0).map(({ node }) => node));
+    sequence.push(passage);
+    if (passage.kind !== "skill" || !passage.ayahRange) continue;
+    const [, to] = passageAyahs(passage.ayahRange);
+    while (waiting.length && waiting[0].ayah <= to) sequence.push(waiting.shift()!.node);
+  }
+  sequence.push(...waiting.map(({ node }) => node));
+  // A topic asks from memory only about lessons that now come before it: a question from a lesson that moved after
+  // it becomes one from the passages just before it.
+  for (const node of topics) {
+    const lesson = lessonsById[node.lessonIds[0]];
+    const earlier = sequence.slice(0, sequence.indexOf(node));
+    const ids = new Set(earlier.map((each) => each.id));
+    const recent = earlier.filter((each) => passages.includes(each) && each.kind === "skill").reverse();
+    let swapped = 0;
+    const challenges = lesson.challenges.map((challenge) => {
+      if (!challenge.isReview || ids.has(challenge.sourceNodeId ?? "")) return challenge;
+      const from = recent[swapped++];
+      if (!from) return undefined;
+      const fromLesson = lessonsById[from.lessonIds[0]];
+      return { ...fromLesson.challenges[0], id: challenge.id, isReview: true, sourceNodeId: from.id, sourceLessonId: fromLesson.id, reviewSuggestion: `Review ${fromLesson.title}` };
+    });
+    lessonsById[lesson.id] = { ...lesson, challenges: challenges.filter((challenge): challenge is Challenge => Boolean(challenge)) };
+  }
+  return sequence;
+}
+
+/**
+ * Adds each surah's passages to the Quran topic, after the deep units are in (addDeepUnits), before chainCourse.
+ * A surah with its own unit gets them after that unit's opening and deep circles, with its topic lessons among
+ * them in ayah order (inAyahOrder). Any other surah gets a new unit that opens with its short lesson, taken out of
+ * the unit of several surahs that held it and listed just before that unit, so the path still goes surah by surah
+ * (add a whole such unit's surahs in one batch). Every circle of the unit opens after the one before it. Lesson
+ * and node ids are fixed, so progress stays.
+ */
+export function addSurahMeanings(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }) {
+  const lessonsById = { ...content.lessonsById };
+  const sections = content.course.sections.map((section) => {
+    if (section.topicId !== "quran_tafseer") return section;
+    let nodes = [...section.nodes];
+    let branches = [...section.branches];
+    for (const unit of surahMeaningUnits()) {
+      let own = nodes.filter((node) => node.branchId === unit.branchId);
+      let topics: LearningNode[] = [];
+      if (unit.branch) {
+        // The circle that teaches this surah's short lesson moves out of its unit of several surahs, to open the
+        // surah's own unit. A circle that waited on it waits on what it waited on.
+        const intro = nodes.find((node) => quranUrlSurah(lessonsById[node.lessonIds[0]]) === unit.surah && !Object.values(OWN_UNITS).includes(node.branchId));
+        if (!intro) continue;
+        const group = intro.branchId;
+        const opener: LearningNode = { ...intro, branchId: unit.branchId, requiredNodeIds: [], order: 1 };
+        lessonsById[intro.lessonIds[0]] = { ...lessonsById[intro.lessonIds[0]], branchId: unit.branchId, unlockRules: [] };
+        nodes = nodes.map((node) =>
+          node === intro ? opener : node.requiredNodeIds.includes(intro.id) ? { ...node, requiredNodeIds: [...node.requiredNodeIds.filter((id) => id !== intro.id), ...intro.requiredNodeIds] } : node
+        );
+        // Before what is left of that unit, after the surahs already taken out of it, so the path keeps its order.
+        const place = branches.findIndex((branch) => branch.id === group);
+        branches = [...branches.slice(0, place), unit.branch, ...branches.slice(place)];
+        own = [opener];
+      } else {
+        if (!own.length) continue;
+        topics = own.filter((node) => node.id.startsWith(`${unit.branchId}-`));
+      }
+      const start = own[0];
+      const end = own[own.length - 1];
+      const passages = unit.lessons.map((lesson, index): LearningNode => {
+        lessonsById[lesson.id] = lesson;
+        return {
+          id: lesson.nodeId,
+          skillId: `skill_surah_meaning_${unit.surah}_${index + 1}`,
+          title: lesson.title,
+          topicId: "quran_tafseer",
+          branchId: unit.branchId,
+          surahName: unit.name,
+          ...(lesson.ayahRange ? { ayahRange: lesson.ayahRange } : {}),
+          kind: lesson.lessonType === "review" ? "review" : "skill",
+          lessonIds: [lesson.id],
+          requiredNodeIds: [],
+          xpReward: lesson.xpReward,
+          starsReward: 3,
+          order: 0,
+          difficulty: lesson.difficulty
+        };
+      });
+      const sequence = [...own.filter((node) => !topics.includes(node)), ...inAyahOrder(passages, topics, unit.surah, lessonsById)];
+      const unitNodes = sequence.map((node, index) => {
+        const before = sequence[index - 1];
+        const lesson = lessonsById[node.lessonIds[0]];
+        if (before) lessonsById[node.lessonIds[0]] = { ...lesson, unlockRules: [`Complete ${before.title}`] };
+        return { ...node, requiredNodeIds: before ? [before.id] : start.requiredNodeIds, order: index + 1 };
+      });
+      const last = unitNodes[unitNodes.length - 1];
+      // A unit that another unit waited on now hands over at its final quiz.
+      const moved = (node: LearningNode) => (node.requiredNodeIds.includes(end.id) ? { ...node, requiredNodeIds: node.requiredNodeIds.map((id) => (id === end.id ? last.id : id)) } : node);
+      const at = nodes.findIndex((node) => node.branchId === unit.branchId);
+      const others = (from: LearningNode[]) => from.filter((node) => node.branchId !== unit.branchId).map(moved);
+      nodes = [...others(nodes.slice(0, at)), ...unitNodes, ...others(nodes.slice(at))];
+    }
+    // A unit of several surahs whose surahs all have units of their own now is gone.
+    branches = branches.filter((branch) => nodes.some((node) => node.branchId === branch.id)).map((branch, index) => ({ ...branch, order: index + 1 }));
+    return { ...section, branches, nodes, starsTarget: nodes.reduce((total, node) => total + node.starsReward, 0) };
+  });
+  return { course: { ...content.course, sections }, lessonsById };
+}

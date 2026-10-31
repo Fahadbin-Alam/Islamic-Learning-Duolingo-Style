@@ -147,6 +147,7 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "sahabi-abu-dharr-al-ghifari": { ar: "أبو ذر الغفاري", translit: "Abu Dharr al-Ghifari", meaning: "From Ghifar tribe" },
   "sahabi-abdullah-ibn-masud": { ar: "عبد الله بن مسعود", translit: "Abdullah ibn Mas'ud", meaning: "Quran reciter" },
   "sahabi-anas-ibn-malik": { ar: "أنس بن مالك", translit: "Anas ibn Malik", meaning: "The Prophet's ﷺ servant" },
+  "sahabi-muhajirun": { ar: "المهاجرون", translit: "Al-Muhajirun", meaning: "The emigrants" },
 
   // Women of the Book: women of the Quran and the Mothers of the Believers
   "women-quran": { ar: "النساء في القرآن", translit: "An-nisa fil-Quran", meaning: "Women in the Quran" },
@@ -625,7 +626,7 @@ const IMPORTED_UNIT_ARABIC: Partial<Record<TopicId, ArabicTerm>> = {
 // The vowelled form of every unit banner word, for a learn card that borrows it. Each one, without its
 // vowel marks, is exactly the banner's spelling (the tests check this).
 const LEARN_FORMS = [
-  "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
+  "الْمُهَاجِرُونَ", "أَبُو حَنِيفَةَ", "مَالِكُ بْنُ أَنَسٍ", "الشَّافِعِيُّ", "أَحْمَدُ بْنُ حَنْبَلٍ", "ابْنُ تَيْمِيَّةَ", "ابْنُ بَازٍ", "الْأَلْبَانِيُّ",
   "التَّحِيَّةُ", "الْأَذْكَارُ الْيَوْمِيَّةُ", "الْعِبَارَاتُ الْيَوْمِيَّةُ",
   "آدَابُ الْبَيْتِ وَالطَّعَامِ", "بِدَايَةُ الْعِبَادَةِ", "الْوُضُوءُ", "أَسَاسِيَّاتُ الصَّلَاةِ",
   "أَوْقَاتُ الصَّلَاةِ", "الْأَذَانُ وَالْإِقَامَةُ", "الرُّكُوعُ وَالسُّجُودُ", "التَّشَهُّدُ",
@@ -712,6 +713,8 @@ const UNIT_LEAD_ARABIC: Record<string, { form: string; translit: string }> = {
 // The ids name the span by surah number (src/data/importedNotes.ts). A no-break space holds "سورة" to its name,
 // so a small phone never ends a line on "سورة" with the name alone below it.
 const SURAH_SPAN_UNIT = /^notes-quran-tafseer-surahs-(\d+)(?:-(\d+))?$/;
+// A surah with a unit of its own for its whole meaning (src/data/surahMeanings) is named like a span of one surah.
+const SURAH_MEANING_UNIT = /^quran-surah-meaning-(\d+)$/;
 
 function surahSpanForm(first: number, last: number) {
   const name = (surah: number) => `\u00a0${SURAH_NAMES[surah - 1].replace(/ /g, "\u00a0")}`;
@@ -726,8 +729,8 @@ function buildNamedImportedUnits() {
   const units = new Map<string, { term: ArabicTerm; form: string }>();
   for (const section of COURSE.sections) {
     for (const branch of section.branches) {
-      if (!branch.id.startsWith("notes-") || Object.prototype.hasOwnProperty.call(BRANCH_ARABIC, branch.id)) continue;
-      const span = SURAH_SPAN_UNIT.exec(branch.id);
+      if (!(branch.id.startsWith("notes-") || SURAH_MEANING_UNIT.test(branch.id)) || Object.prototype.hasOwnProperty.call(BRANCH_ARABIC, branch.id)) continue;
+      const span = SURAH_SPAN_UNIT.exec(branch.id) ?? SURAH_MEANING_UNIT.exec(branch.id);
       const first = span ? Number(span[1]) : NaN;
       const last = span ? Number(span[2] ?? span[1]) : NaN;
       if (SURAH_NAMES[first - 1] && SURAH_NAMES[last - 1]) {

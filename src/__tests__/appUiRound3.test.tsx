@@ -1,7 +1,8 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { fireEvent, render, screen, within } from "@testing-library/react-native";
-import { COURSE, SHOP_ITEMS } from "../data/course";
+import { COURSE } from "../data/course";
+import { SHOP_ITEMS_WITH_GEMS } from "./testUtils";
 import { getUiStrings } from "../i18n";
 import { createEmptyLearnerProfile } from "../services/foundationAssessment";
 import type { LearningNodeView, LearningSection, UserProfile } from "../types";
@@ -117,7 +118,7 @@ describe("premium circles where Premium cannot be bought", () => {
 describe("shop hearts", () => {
   it("says hearts are full before asking for more gems", async () => {
     await render(
-      <ShopView user={makeUser({ gems: 120 })} strings={strings} items={SHOP_ITEMS} storePrices={{}} busy={false} section={foundation} onUseItem={jest.fn()} onRestore={jest.fn()} />
+      <ShopView user={makeUser({ gems: 120 })} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={foundation} onUseItem={jest.fn()} onRestore={jest.fn()} />
     );
     expect(screen.getByTestId("shop-line-gem-heart-refill")).toHaveTextContent("Hearts are full");
     expect(screen.queryByText(/^Need \d+ more$/)).toBeNull();
@@ -187,5 +188,18 @@ describe("learn card source chip", () => {
   it("shows no chip without a learnSource reference, even when an older source is passed", async () => {
     await render(<LearnCard {...base} learnSource={{ url: "https://example.org/article" }} source={{ label: "A long article title", url: "https://example.org/article" }} />);
     expect(screen.queryByTestId("learn-source")).toBeNull();
+  });
+
+  it("opens a long page at the highlighted words that say the fact", async () => {
+    const onOpenSource = jest.fn();
+    await render(
+      <LearnCard
+        {...base}
+        learnSource={{ reference: "IslamQA 119256", url: "https://islamqa.info/en/answers/119256", highlight: "He studied with Ibn Hormuz … under Imam Ibn Shihab az-Zuhri" }}
+        onOpenSource={onOpenSource}
+      />
+    );
+    fireEvent.press(screen.getByTestId("learn-source"));
+    expect(onOpenSource).toHaveBeenCalledWith("https://islamqa.info/en/answers/119256#:~:text=He%20studied%20with%20Ibn,Imam%20Ibn%20Shihab%20az%2DZuhri");
   });
 });

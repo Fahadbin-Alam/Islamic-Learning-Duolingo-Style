@@ -21,6 +21,8 @@ import { CrewView, type CrewViewState } from "../screens/CrewView";
 import { PracticeHub } from "../screens/PracticeHub";
 import { ProfileView } from "../screens/ProfileView";
 import { ShopView } from "../screens/ShopView";
+import { HadithCardSheet, HadithListSheet } from "../screens/SecretSheet";
+import { buyHadith, type HadithCard } from "../../data/hadithTreasures";
 import { colors } from "../theme";
 
 const STATES = [
@@ -29,6 +31,7 @@ const STATES = [
   "shop",
   "shop-premium",
   "shop-busy",
+  "shop-hadith",
   "profile-guest",
   "profile-user",
   "crew-ready",
@@ -299,6 +302,36 @@ function CompleteDemo({ state }: { state: State }) {
   );
 }
 
+/** The shop with gems to spend: the Hadith chest opens a card, and My hadith lists the cards bought. */
+function HadithShopDemo() {
+  const [user, setUser] = useState(() => ({ ...makeUser("guest"), gems: 130 }));
+  const [card, setCard] = useState<HadithCard | undefined>(undefined);
+  const [listOpen, setListOpen] = useState(false);
+  return (
+    <TabFrame tab="shop" user={user}>
+      <ShopView
+        user={user}
+        strings={strings}
+        items={SHOP_ITEMS}
+        storePrices={{}}
+        busy={false}
+        section={foundation}
+        onUseItem={noop}
+        onRestore={noop}
+        onOpenLink={noop}
+        onBuyHadith={() => {
+          const bought = buyHadith(user);
+          setUser(bought.user);
+          setCard(bought.card);
+        }}
+        onOpenHadith={() => setListOpen(true)}
+      />
+      <HadithCardSheet card={card} isNew onClose={() => setCard(undefined)} />
+      <HadithListSheet visible={listOpen} user={user} onClose={() => setListOpen(false)} />
+    </TabFrame>
+  );
+}
+
 // The practice demos pass the topic accent, as the app does, so hub, quiz and end screen show the path's mascot.
 function Screen({ state }: { state: State }) {
   if (state.startsWith("practice-complete")) {
@@ -324,6 +357,9 @@ function Screen({ state }: { state: State }) {
       </TabFrame>
     );
   }
+  if (state === "shop-hadith") {
+    return <HadithShopDemo />;
+  }
   if (state.startsWith("shop")) {
     const user = makeUser(state === "shop-premium" ? "premium" : "guest");
     return (
@@ -334,7 +370,7 @@ function Screen({ state }: { state: State }) {
           items={SHOP_ITEMS}
           storePrices={{}}
           busy={state === "shop-busy"}
-          pendingItemId={state === "shop-busy" ? "gem-pack-medium" : undefined}
+          pendingItemId={state === "shop-busy" ? "heart-pack-small" : undefined}
           section={foundation}
           onUseItem={noop}
           onRestore={noop}

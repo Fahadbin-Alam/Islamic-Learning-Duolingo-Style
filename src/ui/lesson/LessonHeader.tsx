@@ -5,7 +5,7 @@ import { useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, space } from "../theme";
-import { ScrollHintGap } from "./ScrollHint";
+import { ScrollHintGap, type ScrollHintDirection } from "./ScrollHint";
 import { t } from "../../i18n";
 
 export type LessonHearts = { current: number; max: number; unlimited: boolean };
@@ -105,11 +105,18 @@ export function LessonHeader({ progress, hearts, onClose, topInset = 0, style }:
 
 const DEFAULT_BOTTOM_INSET = Platform.OS === "ios" ? 26 : 14;
 
+/** The gap at the top of the bar that holds the "more below" arrow: it grows by scrollHintGrowth(BAR_GAP) while it does. */
+export const BAR_GAP = space.lg;
+
 export type LessonBottomBarProps = {
   children?: React.ReactNode;
   bottomInset?: number;
-  /** "More below" arrow at the top of the bar (from useScrollMore). The bar grows to hold it, so it covers no text. */
-  scrollHint?: { visible: boolean; onPress: () => void };
+  /**
+   * "More below" arrow at the top of the bar (from useScrollMore). The bar grows to hold it, so it covers no text.
+   * `hold`: the bar keeps that room with the arrow gone, while a sheet covers it (see ScrollHintGap). `direction`: up
+   * once the end is in sight (see useStopsArrow); `still`: it shows and goes at once (see ScrollHint).
+   */
+  scrollHint?: { visible: boolean; hold?: boolean; onPress: () => void; direction?: ScrollHintDirection; still?: boolean };
   style?: StyleProp<ViewStyle>;
 };
 
@@ -117,7 +124,18 @@ export type LessonBottomBarProps = {
 export function LessonBottomBar({ children, bottomInset = DEFAULT_BOTTOM_INSET, scrollHint, style }: LessonBottomBarProps) {
   return (
     <View style={[styles.bottomBar, { paddingBottom: space.lg + bottomInset }, scrollHint ? styles.bottomBarHint : null, style]}>
-      {scrollHint ? <ScrollHintGap visible={scrollHint.visible} onPress={scrollHint.onPress} gap={space.lg} /> : null}
+      {scrollHint ? (
+        <ScrollHintGap
+          visible={scrollHint.visible}
+          hold={scrollHint.hold}
+          onPress={scrollHint.onPress}
+          direction={scrollHint.direction}
+          still={scrollHint.still}
+          gap={BAR_GAP}
+          testID={scrollHint.direction === "up" ? "scroll-more-up" : "scroll-more"}
+          gapTestID="bar-hint-gap"
+        />
+      ) : null}
       {children}
     </View>
   );
