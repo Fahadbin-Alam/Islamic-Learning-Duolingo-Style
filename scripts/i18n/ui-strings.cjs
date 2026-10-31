@@ -10,6 +10,7 @@ const TABLE_FILES = {
   "src/ui/screens/BottomTabs.tsx": ["TABS"],
   "src/ui/screens/SettingsSheet.tsx": ["ROLES", "DIFFICULTIES"],
   "src/ui/screens/BackgroundSheet.tsx": ["OPTIONS"],
+  "src/ui/screens/ScholarTree.tsx": ["GENERATION_LABEL"],
   "src/services/prayerTimes.ts": ["PRAYER_LABELS"],
   "src/ui/screens/ShopView.tsx": ["BENEFITS"],
   "src/ui/screens/FamilySheet.tsx": ["ADD_ERRORS"],
