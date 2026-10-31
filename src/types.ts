@@ -235,6 +235,22 @@ export interface UserProfile {
   ramadanDays?: string[];
   /** Ummah tab: trophies, arena, ranking nickname, icons and secret lessons (see src/services/ummah.ts). */
   ummah?: UmmahState;
+  /** Quizzes taken, by quiz id ("topic:<topicId>" or "unit:<unitId>"; see src/services/quizzes.ts). */
+  quizScores?: Record<string, QuizScore>;
+}
+
+/** What a quiz asks about: a whole topic, or one of its units. */
+export type QuizScope = { kind: "topic"; topicId: TopicId } | { kind: "unit"; topicId: TopicId; unitId: string };
+
+/** A quiz's saved result. Scores are percents, 0 to 100. */
+export interface QuizScore {
+  best: number;
+  last: number;
+  /** Times taken; each new try asks other questions. */
+  taken: number;
+  takenAt: string;
+  /** The one-time gems for a first perfect score were given. */
+  perfectRewarded?: boolean;
 }
 
 export interface UmmahState {
@@ -254,6 +270,8 @@ export interface UmmahState {
   /** Secret lessons found, and the ones whose clue was bought. */
   secrets?: string[];
   hints?: string[];
+  /** Hadith treasure cards bought with gems (src/data/hadithTreasures.ts). */
+  hadith?: string[];
 }
 
 /** How a finished league week ended: the league before (`from`) and after (`to`), as indexes into LEAGUES. */
@@ -438,6 +456,11 @@ export interface LessonSource {
   title: string;
   url: string;
   summary: string;
+  /**
+   * The page's own words that say this source's fact, copied exactly as the page shows them: the source opens
+   * scrolled to them, highlighted (src/services/sourceLink.ts). Only on long pages, and only text checked on the page.
+   */
+  highlight?: string;
   reference?: string;
   from?: string;
   grade?: string;
@@ -454,7 +477,10 @@ export interface LessonSession {
   startedAt: string;
   heartsAtStart: number;
   /** "lesson_practice": questions from lessons already done (Practice tab); costs no hearts, pays practice XP. */
-  mode?: "standard" | "test_out" | "lesson_practice";
+  /** "quiz": a scored quiz of a topic or unit (Practice tab, Quizzes); each question once, no hearts, nothing marked done. */
+  mode?: "standard" | "test_out" | "lesson_practice" | "quiz";
+  /** A quiz: what it covers (see src/services/quizzes.ts). */
+  quizScope?: QuizScope;
   clusterTitle?: string;
   targetNodeIds?: string[];
   targetLessonIds?: string[];
