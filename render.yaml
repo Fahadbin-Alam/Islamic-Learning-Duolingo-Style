@@ -1,28 +1,24 @@
-# Render Blueprint for the Muslimo API and its Postgres database.
-# In Render: New > Blueprint, pick this repository, then fill in the secrets it asks for.
+# Render Blueprint for the Muslimo API. The database is a free Neon Postgres (see docs/hosting.md).
+# In Render: New > Blueprint, pick this repository, then paste the secrets it asks for.
 services:
   - type: web
     name: muslimo-api
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: .
-    plan: starter
+    # Free: sleeps after 15 idle minutes and takes up to a minute to wake. The app works offline meanwhile and
+    # syncs once it answers. Switch to "starter" (about $7 a month) to keep it always awake.
+    plan: free
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:
       - key: SIRA_ENVIRONMENT
         value: production
+      # The Neon connection string (postgresql://...neon.tech/...?sslmode=require).
       - key: SIRA_DATABASE_URL
-        fromDatabase:
-          name: muslimo-db
-          property: connectionString
+        sync: false
       - key: SIRA_REVENUECAT_WEBHOOK_AUTH
         sync: false
       # Google sign-in: the same web client id the app is built with (EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID).
       - key: SIRA_GOOGLE_CLIENT_IDS_RAW
         sync: false
-
-databases:
-  - name: muslimo-db
-    databaseName: muslimo
-    plan: basic-256mb
