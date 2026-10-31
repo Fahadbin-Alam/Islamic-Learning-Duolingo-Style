@@ -3,14 +3,17 @@ import { Animated, Easing, Pressable, StyleSheet, View } from "react-native";
 import Svg, { Circle, Defs, Ellipse, G, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 import { useReduceMotion } from "./Camel";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
-import { smoothKeys } from "./motion";
-import { Drop, Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
+import { sampleCurve, smoothKeys } from "./motion";
+import { Drop, Floater, Heart, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
+import { useScene } from "./sceneMood";
 import { feedback } from "./sound";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
- * like days going by: a sunny sky, a breezy one, clouds, a little rain, a sunset, birds flying by. Only plain weather:
- * no moon or stars (see the content rule in docs/design-system.md).
+ * like days going by: a sunny sky, a breezy one, clouds, a little rain, a sunset, birds flying by. Tapping
+ * the sun turns it into a full moon and night falls over the path (see sceneMood.tsx); tapping the moon
+ * brings the day back. Only plain weather: a round moon, never a crescent, and no stars (see the content
+ * rule in docs/design-system.md).
  */
 export type Weather = "sunny" | "breeze" | "cloudy" | "rain" | "sunset";
 
@@ -169,16 +172,22 @@ function Cloud({ sky, top, width, size, duration, start, moving, reduceMotion }:
     inputRange: [0, 1 - start, 1 - start + 0.0001, 1],
     outputRange: [start * span - size, span - size, -size, start * span - size]
   });
+  // Dimmer at night, so they don't glare against the dark sky.
+  const { dark } = useScene();
   return (
-    <Animated.View style={[styles.abs, { top, transform: [{ translateX: moving ? translateX : start * span - size }] }]}>
+    <Animated.View style={[styles.abs, { top, opacity: dark.interpolate({ inputRange: [0, 1], outputRange: [1, 0.5] }), transform: [{ translateX: moving ? translateX : start * span - size }] }]}>
       <TapCloud sky={sky} size={size} reduceMotion={reduceMotion} />
     </Animated.View>
   );
 }
 
 type SunShow = "shine" | "cool" | "wink";
-/** Tapping the sun: it beams and glows, then puts on sunglasses, then winks. */
-const SUN_SHOWS: { kind: SunShow; sound: GameSoundEvent; ms: number }[] = [
+/**
+ * Tapping the sun: first it sets and the moon comes up (night over the whole path; tap the moon for
+ * day). The next taps: it beams and glows, puts on sunglasses, winks, then night again.
+ */
+export const SUN_SHOWS: { kind: SunShow | "night"; sound: GameSoundEvent; ms: number }[] = [
+  { kind: "night", sound: "night", ms: 0 },
   { kind: "shine", sound: "grow", ms: 1800 },
   { kind: "cool", sound: "boing", ms: 2000 },
   { kind: "wink", sound: "giggle", ms: 1700 }
@@ -212,7 +221,26 @@ function SunFace({ show }: { show: SunShow }) {
   );
 }
 
+/** A round full moon with a sleepy smile. Never a crescent (content rule). */
+function MoonArt({ size }: { size: number }) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 70 70">
+      <Circle cx={35} cy={35} r={24} fill="#FFF6CC" opacity={0.25} />
+      <Circle cx={35} cy={35} r={18} fill="#FFF1B8" />
+      <Circle cx={28} cy={27} r={3.2} fill="#F0E2A0" />
+      <Circle cx={44} cy={42} r={4} fill="#F0E2A0" />
+      <Circle cx={41} cy={25} r={2} fill="#F0E2A0" />
+      <G stroke="#8A7A3E" strokeWidth={1.8} strokeLinecap="round" fill="none">
+        <Path d="M27 34Q30 36.5 33 34" />
+        <Path d="M37 34Q40 36.5 43 34" />
+        <Path d="M31.5 40Q35 42.5 38.5 40" />
+      </G>
+    </Svg>
+  );
+}
+
 function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: number; low?: boolean; moving: boolean; reduceMotion: boolean }) {
+  const { night, setNight, dark } = useScene();
   const spin = useLoopValue(moving, 24000);
   const rotate = spin.interpolate({ inputRange: [0, 1], outputRange: ["0deg", "360deg"] });
   const size = 70;
@@ -221,17 +249,33 @@ function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: numb
   const { value: t, play } = useOneShot();
   const next = useCycle(SUN_SHOWS.length);
   const onTap = () => {
+    if (night) {
+      // The moon: back to day.
+      feedback("sparkle", "light");
+      setNight(false);
+      return;
+    }
     if (show) return;
     const pick = SUN_SHOWS[next()];
     feedback(pick.sound, "light");
+    if (pick.kind === "night") {
+      setNight(true);
+      return;
+    }
     setShow(pick.kind);
     play(reduceMotion ? 900 : pick.ms, () => setShow(null));
   };
+  const sunUp = dark.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
+  const sunSet = dark.interpolate({ inputRange: [0, 1], outputRange: [0, size * 0.5] });
   const moves = show !== null && !reduceMotion;
   const grow = moves ? t.interpolate(smoothKeys([0, 0.15, 0.3, 0.45, 0.85, 1], show === "shine" ? [1, 1.28, 1.12, 1.25, 1.2, 1] : [1, 1.12, 1, 1.06, 1.06, 1])) : 1;
   const glow = moves && show === "shine" ? t.interpolate({ inputRange: [0, 0.15, 0.8, 1], outputRange: [0, 0.7, 0.5, 0] }) : 0;
   return (
-    <Pressable onPress={onTap} hitSlop={6} accessibilityRole="button" accessibilityLabel="sun" style={[styles.abs, { top, left, width: size, height: size }]}>
+    <Pressable onPress={onTap} hitSlop={6} accessibilityRole="button" accessibilityLabel={night ? "moon" : "sun"} style={[styles.abs, { top, left, width: size, height: size }]}>
+      <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { opacity: dark, transform: [{ translateY: dark.interpolate({ inputRange: [0, 1], outputRange: [size * 0.5, 0] }) }] }]}>
+        <MoonArt size={size} />
+      </Animated.View>
+      <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { opacity: sunUp, transform: [{ translateY: sunSet }] }]}>
       {show === "shine" ? <Animated.View pointerEvents="none" style={[styles.glow, { opacity: glow, transform: [{ scale: grow }] }]} /> : null}
       {moves && show === "wink"
         ? [0, 1, 2].map((index) => (
@@ -253,6 +297,7 @@ function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: numb
         <Circle cx={35} cy={35} r={13} fill={low ? "#FFC08A" : "#FFE27A"} />
       </Svg>
       {show ? <SunFace show={show} /> : null}
+      </Animated.View>
       </Animated.View>
     </Pressable>
   );
@@ -303,26 +348,129 @@ function Rain({ top, left, moving }: { top: number; left: number; moving: boolea
   );
 }
 
-/** Three little birds flapping across the sky together. */
-function Birds({ top, width, moving }: { top: number; width: number; moving: boolean }) {
+type BirdShow = "scatter" | "loop" | "sing" | "love" | "swoop" | "feathers" | "speed";
+/** Tapping the birds: each tap plays the next one. A tap mid-show skips to the next. */
+export const BIRD_SHOWS: { kind: BirdShow; sound: GameSoundEvent; ms: number }[] = [
+  { kind: "scatter", sound: "chirp", ms: 1800 },
+  { kind: "loop", sound: "zoom", ms: 1600 },
+  { kind: "sing", sound: "chirp", ms: 2000 },
+  { kind: "love", sound: "sparkle", ms: 1800 },
+  { kind: "swoop", sound: "whoosh", ms: 1500 },
+  { kind: "feathers", sound: "boing", ms: 1900 },
+  { kind: "speed", sound: "zoom", ms: 1400 }
+];
+
+const FLOCK = [
+  { x: 0, y: 8, s: 1, away: { x: -26, y: -18 } },
+  { x: 22, y: 0, s: 0.8, away: { x: 8, y: -30 } },
+  { x: 30, y: 16, s: 0.7, away: { x: 30, y: 10 } }
+];
+
+function Feather() {
+  return (
+    <Svg width={12} height={7} viewBox="0 0 12 7">
+      <Path d="M1 6C3 1 8 0 11 1C9 4 5 6 1 6Z" fill="#E8EEF3" stroke="#93A2AE" strokeWidth={0.8} />
+    </Svg>
+  );
+}
+
+/** Three little birds flapping across the sky together. Tap them for a show (BIRD_SHOWS). At night they've gone home. */
+function Birds({ top, width, moving, reduceMotion }: { top: number; width: number; moving: boolean; reduceMotion: boolean }) {
   const t = useLoopValue(moving, 15000, 2500);
   const flap = useLoopValue(moving, 520);
+  const { night, dark } = useScene();
+  const [show, setShow] = useState<BirdShow | null>(null);
+  const { value: s, play } = useOneShot();
+  const next = useCycle(BIRD_SHOWS.length);
   const translateX = t.interpolate({ inputRange: [0, 1], outputRange: [-70, width + 10] });
   const wings = flap.interpolate(smoothKeys([0, 0.5, 1], [1, 0.35, 1]));
-  const flock = [
-    { x: 0, y: 8, s: 1 },
-    { x: 22, y: 0, s: 0.8 },
-    { x: 30, y: 16, s: 0.7 }
-  ];
+  const onTap = () => {
+    const pick = BIRD_SHOWS[next()];
+    feedback(pick.sound, "light");
+    setShow(pick.kind);
+    play(reduceMotion ? 500 : pick.ms, () => setShow(null));
+  };
+  const moves = show !== null && !reduceMotion;
+  const k = (keys: number[], values: number[]) => s.interpolate(smoothKeys(keys, values));
+  let flock: object[] = [];
+  let flockOpacity: Animated.AnimatedInterpolation<number> | number = 1;
+  if (moves) {
+    switch (show) {
+      case "loop":
+        flock = [
+          { translateX: s.interpolate(sampleCurve(0, 1, 32, (p) => 26 * Math.sin(2 * Math.PI * p))) },
+          { translateY: s.interpolate(sampleCurve(0, 1, 32, (p) => -26 * (1 - Math.cos(2 * Math.PI * p)))) }
+        ];
+        break;
+      case "swoop":
+        flock = [{ translateY: k([0, 0.4, 0.75, 1], [0, 46, -10, 0]) }, { translateX: k([0, 0.5, 1], [0, 30, 0]) }];
+        break;
+      case "speed":
+        flock = [{ translateX: k([0, 0.4, 0.41, 1], [0, 170, -120, 0]) }];
+        flockOpacity = s.interpolate({ inputRange: [0, 0.3, 0.4, 0.5, 0.75, 1], outputRange: [1, 1, 0, 0, 1, 1] });
+        break;
+      case "feathers":
+        flock = [{ translateY: shake(s, 0, 0.4, 3, 4, "") }];
+        break;
+      case "sing":
+      case "love":
+        flock = [{ translateY: k([0, 0.15, 0.3, 0.45, 0.6, 0.75, 1], [0, -4, 0, -4, 0, -4, 0]) }];
+        break;
+      default:
+        break;
+    }
+  }
   return (
-    <Animated.View style={[styles.abs, { top, width: 60, height: 30, transform: [{ translateX: moving ? translateX : width * 0.18 }] }]}>
-      {flock.map((bird) => (
-        <Animated.View key={bird.x} style={[styles.abs, { left: bird.x, top: bird.y, transform: [{ scale: bird.s }, { scaleY: moving ? wings : 1 }] }]}>
-          <Svg width={22} height={12} viewBox="0 0 22 12">
-            <Path d="M1 4C5 1 9 2 11 7C13 2 17 1 21 4" stroke="#5D6B74" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          </Svg>
+    <Animated.View
+      style={[styles.abs, { top, width: 60, height: 30, opacity: dark.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }), transform: [{ translateX: moving ? translateX : width * 0.18 }] }]}
+      pointerEvents={night ? "none" : "box-none"}
+    >
+      <Pressable onPress={onTap} hitSlop={14} accessibilityRole="button" accessibilityLabel="birds" style={{ width: 60, height: 30 }} testID="sky-birds">
+        <Animated.View style={[StyleSheet.absoluteFill, { opacity: flockOpacity, transform: flock as never[] }]}>
+          {FLOCK.map((bird) => {
+            const away =
+              moves && show === "scatter"
+                ? [
+                    { translateX: k([0, 0.3, 0.7, 1], [0, bird.away.x, bird.away.x, 0]) },
+                    { translateY: k([0, 0.3, 0.7, 1], [0, bird.away.y, bird.away.y, 0]) }
+                  ]
+                : [];
+            return (
+              <Animated.View key={bird.x} style={[styles.abs, { left: bird.x, top: bird.y, transform: [...away, { scale: bird.s }, { scaleY: moving || moves ? wings : 1 }] }]}>
+                <Svg width={22} height={12} viewBox="0 0 22 12">
+                  <Path d="M1 4C5 1 9 2 11 7C13 2 17 1 21 4" stroke="#5D6B74" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                </Svg>
+              </Animated.View>
+            );
+          })}
         </Animated.View>
-      ))}
+        {moves && show === "speed"
+          ? [0, 1, 2].map((line) => (
+              <Animated.View key={line} pointerEvents="none" style={[styles.abs, styles.speed, { left: -20 - line * 6, top: 6 + line * 8, width: 26, opacity: s.interpolate({ inputRange: [0, 0.05, 0.35, 0.45, 1], outputRange: [0, 1, 1, 0, 0] }) }]} />
+            ))
+          : null}
+        {moves && show === "sing"
+          ? [0.05, 0.3, 0.55].map((from, index) => (
+              <Floater key={from} t={s} from={from} to={from + 0.4} x={10 + index * 16} y={-4} rise={20} drift={(index - 1) * 8}>
+                <Word size={13} color="#8E5CF7">♪</Word>
+              </Floater>
+            ))
+          : null}
+        {moves && show === "love"
+          ? [0, 0.2, 0.4].map((from, index) => (
+              <Floater key={from} t={s} from={from} to={from + 0.5} x={8 + index * 16} y={-2} rise={22} drift={(index - 1) * 6}>
+                <Heart size={11} />
+              </Floater>
+            ))
+          : null}
+        {moves && show === "feathers"
+          ? [0.1, 0.25, 0.4].map((from, index) => (
+              <Floater key={from} t={s} from={from} to={from + 0.55} x={6 + index * 18} y={14} rise={-40} drift={(index % 2 ? 1 : -1) * 12} pop={false}>
+                <Feather />
+              </Floater>
+            ))
+          : null}
+      </Pressable>
     </Animated.View>
   );
 }
@@ -341,9 +489,13 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
   const sky = SKIES[weather];
   const bands = Math.max(1, Math.ceil(height / BAND));
   const gradientId = `sky-${weather}`;
+  // At night the day sky fades away and the dark sky behind the path shows through.
+  const { dark } = useScene();
+  const daySky = dark.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
 
   return (
     <View style={[StyleSheet.absoluteFill, styles.clip]} pointerEvents="box-none" testID={`weather-${weather}`}>
+      <Animated.View style={[StyleSheet.absoluteFill, { opacity: daySky }]} pointerEvents="none">
       <Svg width={width} height={height} style={StyleSheet.absoluteFill} pointerEvents="none">
         <Defs>
           {/* Fades in under the banner and out at the end, so one unit's sky melts into the next. */}
@@ -362,6 +514,7 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
           </G>
         ) : null}
       </Svg>
+      </Animated.View>
       {Array.from({ length: bands }, (_, band) => {
         const y = band * BAND;
         const first = band === 0;
@@ -380,7 +533,7 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
               </>
             ) : null}
             {(weather === "sunny" || weather === "breeze" || weather === "sunset") && band % 2 === 0 ? (
-              <Birds top={y + (first ? 250 : 200)} width={width} moving={moving} />
+              <Birds top={y + (first ? 250 : 200)} width={width} moving={moving} reduceMotion={reduceMotion} />
             ) : null}
             {weather === "rain" ? <RainUnderCloud top={y + 150} width={width} band={band} moving={moving} reduceMotion={reduceMotion} /> : null}
           </React.Fragment>
@@ -411,6 +564,11 @@ const styles = StyleSheet.create({
   },
   clip: {
     overflow: "hidden"
+  },
+  speed: {
+    height: 2,
+    borderRadius: 2,
+    backgroundColor: "rgba(93,107,116,0.5)"
   },
   glow: {
     position: "absolute",
