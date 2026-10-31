@@ -1,6 +1,6 @@
 import { COURSE, LESSONS_BY_ID } from "../data/course";
 import { SURAH_MEANING_AYAHS } from "../data/surahMeaningAyahs";
-import { passageAyahs, SURAH_MEANINGS, SURAH_NAMES, surahMeaningUnits } from "../data/surahMeanings";
+import { DEEP_PASSAGES, passageAyahs, SURAH_MEANINGS, SURAH_NAMES, surahMeaningUnits } from "../data/surahMeanings";
 import { quranAudioUrl, SURAH_AYAH_COUNTS } from "../services/quranAudio";
 import { lessonLineWords, LESSON_LINE_MAX_WORDS } from "../ui/lesson/lessonSteps";
 
@@ -59,7 +59,7 @@ describe("the meaning of whole surahs", () => {
   it("asks what each passage says: its question, its name, and a true or false line", () => {
     const first = LESSONS_BY_ID["lesson-surah-meaning-2-1-7"];
     expect(first.learnLine).toBe("This Book has no doubt; it guides those mindful of Allah.");
-    expect(first.challenges.map((challenge) => challenge.prompt)).toEqual([
+    expect(first.challenges.slice(0, 3).map((challenge) => challenge.prompt)).toEqual([
       "Who does this Book guide?",
       "Ayahs 1-7: what are they about?",
       "Ayahs 1-7 say: This Book has no doubt; it guides those mindful of Allah."
@@ -110,5 +110,61 @@ describe("the meaning of whole surahs", () => {
     expect(problems).toEqual([]);
     const imran = quran.nodes.filter((node) => node.branchId === "quran-surah-ali-imran").map((node) => node.id);
     expect(imran.indexOf("quran-surah-ali-imran-dialogue-and-clarity")).toBeLessThan(imran.indexOf("quran-surah-ali-imran-steadfastness"));
+  });
+});
+
+describe("Al-Baqarah in depth", () => {
+  const baqarah = SURAH_MEANINGS.find((surah) => surah.surah === 2)!;
+  const deep = DEEP_PASSAGES[2];
+
+  it("explains every passage of Al-Baqarah: its meaning, what to take home, and harder questions", () => {
+    expect(Object.keys(deep)).toEqual(baqarah.passages.map((passage) => passage.at));
+    const problems: string[] = [];
+    for (const [at, each] of Object.entries(deep)) {
+      if (each.meaning.length < 2 || each.meaning.length > 3 || each.meaning.some((line) => line.length > 112)) problems.push(`${at} meaning`);
+      if (each.takeaway.length > 95) problems.push(`${at} takeaway`);
+      if (each.story && each.story.length > 200) problems.push(`${at} story`);
+      if (each.q.length !== 2) problems.push(`${at}: two questions`);
+      for (const [prompt, ...choices] of each.q) {
+        if (prompt.length > 70) problems.push(`${at} prompt: ${prompt}`);
+        if (new Set(choices).size !== 4 || choices.some((choice) => choice.length > 42)) problems.push(`${at} choices: ${prompt}`);
+      }
+    }
+    expect(problems).toEqual([]);
+  });
+
+  it("shows the meaning, the story and the take-home line on the card, with the tafsir books as sources", () => {
+    const adam = LESSONS_BY_ID["lesson-surah-meaning-2-30-39"];
+    expect(adam.learnDeeper?.meaning).toEqual(deep["30-39"].meaning);
+    expect(adam.learnDeeper?.story).toMatch(/Iblis was too proud/);
+    expect(adam.learnDeeper?.takeaway).toBe(deep["30-39"].takeaway);
+    expect(adam.learnDeeper?.sources.map((source) => [source.reference, source.url])).toEqual([
+      ["Tafsir Ibn Kathir 2:30-39", "https://quran.com/2:30/tafsirs/en-tafisr-ibn-kathir"],
+      ["Tafsir as-Sa'di 2:30-39", "https://quran.com/2:30/tafsirs/ar-tafseer-al-saddi"]
+    ]);
+    // A surah not yet taught in depth keeps its short card.
+    expect(LESSONS_BY_ID["lesson-surah-meaning-3-1-9"]?.learnDeeper).toBeUndefined();
+  });
+
+  it("asks two harder questions after the card's own three, each answered on the card and sourced", () => {
+    for (const passage of baqarah.passages) {
+      const lesson = LESSONS_BY_ID[`lesson-surah-meaning-2-${passage.at}`];
+      const hard = lesson.challenges.slice(3);
+      expect(hard.map((challenge) => challenge.prompt)).toEqual(deep[passage.at].q.map(([prompt]) => prompt));
+      const card = [...lesson.learnDeeper!.meaning, lesson.learnDeeper!.story ?? "", lesson.learnDeeper!.takeaway ?? ""];
+      for (const challenge of hard) {
+        expect(card).toContain(challenge.explanation);
+        expect(challenge.source?.url).toMatch(/^https:\/\/(quran\.com\/2:\d+\/tafsirs\/en-tafisr-ibn-kathir|sunnah\.com\/bukhari:5009)$/);
+      }
+    }
+    // The last two ayahs at night: the hadith that says it is the question's source.
+    expect(LESSONS_BY_ID["lesson-surah-meaning-2-284-286"].challenges[3].source?.reference).toBe("Sahih al-Bukhari 5009");
+  });
+
+  it("gets harder through the surah", () => {
+    const levels = baqarah.passages.map((passage) => LESSONS_BY_ID[`lesson-surah-meaning-2-${passage.at}`].difficulty ?? 0);
+    expect(levels).toEqual([...levels].sort((left, right) => left - right));
+    expect(levels[0]).toBe(1);
+    expect(levels[levels.length - 1]).toBe(5);
   });
 });

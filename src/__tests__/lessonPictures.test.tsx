@@ -78,7 +78,7 @@ describe("lesson photos", () => {
     const baqarah = lessons.find((lesson) => lesson.title === "Surah Al-Baqarah")!;
     expect(baqarah.learnFacts).toContain("Revealed in Madinah");
     expect(pictureForLesson(baqarah)).toBeUndefined();
-    expect(pictureForLesson({ title: "Help and victory", learnLine: "Allah's help came.", learnFacts: ["The victory: Makkah opened"] })).toBeUndefined();
+    expect(pictureForLesson({ title: "Help and victory", learnLine: "Allah's help came.", learnFacts: ["The victory: Makkah opened"] } as Parameters<typeof pictureForLesson>[0])).toBeUndefined();
     if (LESSON_PICTURE_IDS.includes("kaaba")) {
       expect(pictureForLesson(lessons.find((lesson) => lesson.title === "The new qiblah")!)?.id).toBe("kaaba");
       expect(pictureForLesson(lessons.find((lesson) => lesson.title === "Building the Kabah")!)?.id).toBe("kaaba");

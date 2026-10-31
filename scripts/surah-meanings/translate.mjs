@@ -28,6 +28,8 @@ const screens = Object.fromEntries(LANGUAGES.map((language) => [language, JSON.p
 // {r} is an ayah or a range, kept as written; {x} is another text, translated on its own.
 const PATTERNS = [
   [/^Quran (\d+:\d+(?:-\d+)?)$/, { bn: "কুরআন {r}", ur: "قرآن {r}", ar: "القرآن {r}" }],
+  [/^Tafsir Ibn Kathir (\d+:\d+(?:-\d+)?)$/, { bn: "তাফসীর ইবনে কাসীর {r}", ur: "تفسیر ابن کثیر {r}", ar: "تفسير ابن كثير {r}" }],
+  [/^Tafsir as-Sa'di (\d+:\d+(?:-\d+)?)$/, { bn: "তাফসীর আস-সা'দী {r}", ur: "تفسیر السعدی {r}", ar: "تفسير السعدي {r}" }],
   [/^Ayahs (\d+-\d+): what are they about\?$/, { bn: "আয়াত {r}: এগুলো কী নিয়ে?", ur: "آیات {r}: یہ کس بارے میں ہیں؟", ar: "الآيات {r}: عمّ تتحدث؟" }],
   [/^Ayah (\d+): what is it about\?$/, { bn: "আয়াত {r}: এটি কী নিয়ে?", ur: "آیت {r}: یہ کس بارے میں ہے؟", ar: "الآية {r}: عمّ تتحدث؟" }],
   [/^Ayahs (\d+-\d+) say: (.+)$/, { bn: "আয়াত {r} বলে: {x}", ur: "آیات {r} کہتی ہیں: {x}", ar: "تقول الآيات {r}: {x}" }],

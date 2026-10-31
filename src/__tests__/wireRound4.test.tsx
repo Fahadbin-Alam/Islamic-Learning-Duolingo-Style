@@ -78,6 +78,9 @@ const titleText = (title: string) => new RegExp(title.replace(/[.*+?^${}()|[\]\\
 const QURAN = COURSE.sections.find((section) => section.topicId === "quran_tafseer")!;
 const FOUNDATION = COURSE.sections.find((section) => section.topicId === "foundation")!;
 const quranUnits = QURAN.branches.map((branch) => QURAN.nodes.filter((node) => node.branchId === branch.id)).filter((nodes) => nodes.length > 0);
+// A short surah unit after the first (the Quran goes in mushaf order, so unit 2 is the long Al-Baqarah): its key
+// tests all of the rest of it in one go.
+const SHORT = quranUnits.findIndex((nodes, index) => index > 0 && nodes.length <= 12);
 
 function testOut(user: UserProfile, branchId: string, jumpNodeId?: string) {
   const plan = getTestOutPlan(user, branchId, jumpNodeId)!;
@@ -100,8 +103,8 @@ describe("after a test-out in a later unit", () => {
   it("NEXT LESSON and START go to the circle the test opened, for JUMP HERE and then the unit's key", async () => {
     const user = makeUser({ hearts: TODAY_HEARTS(false), lastTopicId: "quran_tafseer" });
     seedUser(user);
-    // Quran unit 2: JUMP HERE on its fourth circle, while unit 1 is still open.
-    const unit = quranUnits[1];
+    // A later Quran unit: JUMP HERE on its fourth circle, while unit 1 is still open.
+    const unit = quranUnits[SHORT];
     const target = unit[3];
     expect(getJumpNodeIds(user, "quran_tafseer").has(target.id)).toBe(true);
     const jump = testOut(user, target.branchId, target.id);
@@ -145,7 +148,7 @@ describe("after a test-out in a later unit", () => {
     }
     expect(await screen.findByText("You jumped ahead!")).toBeTruthy();
     expect(savedUser().totalXp - afterJump.totalXp).toBeLessThanOrEqual(key.challenges.length * PRACTICE_XP_PER_CORRECT_ANSWER);
-    const next = learningApi.getPathNodes(savedUser()).find((node) => node.id === quranUnits[2][0].id)!;
+    const next = learningApi.getPathNodes(savedUser()).find((node) => node.id === quranUnits[SHORT + 1][0].id)!;
     expect(next.status).toBe("available");
     await press("complete-continue");
     expect(await screen.findByTestId("learn-card")).toHaveTextContent(titleText(next.title));
@@ -154,7 +157,7 @@ describe("after a test-out in a later unit", () => {
   it("NEXT LESSON after JUMP HERE opens the circle the child tapped", async () => {
     const user = makeUser({ hearts: TODAY_HEARTS(false), lastTopicId: "quran_tafseer" });
     seedUser(user);
-    const target = quranUnits[1][3];
+    const target = quranUnits[SHORT][3];
     const jump = testOut(user, target.branchId, target.id);
 
     await render(<TopicApp />);
