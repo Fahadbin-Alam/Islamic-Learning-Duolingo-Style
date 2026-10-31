@@ -464,7 +464,7 @@ describe("ShopView with purchases off", () => {
     const onDone = jest.fn();
     const section = COURSE.sections[0];
     await render(
-      <ShopView user={makeUser()} strings={getUiStrings("en")} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} onDone={onDone} />
+      <ShopView user={makeUser()} strings={getUiStrings("en")} items={SHOP_ITEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} onDone={onDone} shelf="dates" />
     );
     expect(screen.queryByText(/in the app/i)).toBeNull();
     // One short, true line a 6-year-old can read: no "Premium", at most 6 words.

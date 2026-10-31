@@ -11,6 +11,7 @@ import { createEmptyLearnerProfile, createFoundationAssessment } from "../servic
 import { legalLinks } from "../services/monetizationConfig";
 import type { LearningSection, UserProfile } from "../types";
 import { CrewView, PracticeHub, ProfileView, ShopView, countStars, formatShopPrice, type CrewViewState } from "../ui/screens";
+import { itemShelf, type ShopShelf } from "../ui/screens/ShopView";
 import { compactNumber } from "../ui/screens/FormattedCount";
 
 jest.mock("../services/gameAudio", () => ({
@@ -119,6 +120,25 @@ describe("PracticeHub", () => {
 });
 
 describe("ShopView", () => {
+  // The shop shows one shelf at a time; a test opens the shelf an item sits on before pressing it.
+  async function openShelf(shelf: ShopShelf) {
+    await fireEvent.press(screen.getByTestId(`shop-shelf-${shelf}`));
+  }
+  async function pressItem(id: string) {
+    await openShelf(itemShelf(SHOP_ITEMS_WITH_GEMS.find((item) => item.id === id)!));
+    await fireEvent.press(screen.getByTestId(`shop-buy-${id}`));
+  }
+
+  it("shows one shelf at a time: Hearts first, then Dates with the packs and plans", async () => {
+    await renderShop(makeUser());
+    expect(screen.getByTestId("shop-shelf-hearts").props.accessibilityState).toMatchObject({ selected: true });
+    expect(screen.getByTestId("shop-buy-gem-heart-refill")).toBeTruthy();
+    expect(screen.queryByTestId("shop-premium")).toBeNull();
+    await openShelf("dates");
+    expect(screen.getByTestId("shop-premium")).toBeTruthy();
+    expect(screen.queryByTestId("shop-buy-gem-heart-refill")).toBeNull();
+  });
+
   function renderShop(user: UserProfile, busy = false, pendingItemId?: string) {
     const handlers = { onUseItem: jest.fn(), onRestore: jest.fn(), onOpenLink: jest.fn() };
     return render(
@@ -130,7 +150,7 @@ describe("ShopView", () => {
     const handlers = await renderShop(makeUser());
 
     for (const item of SHOP_ITEMS_WITH_GEMS) {
-      await fireEvent.press(screen.getByTestId(`shop-buy-${item.id}`));
+      await pressItem(item.id);
       if (item.currencyType !== "gems" && item.currencyType !== "rewarded_ad") {
         expect(screen.getByText("Ask a grown-up")).toBeTruthy();
         await solveGate();
@@ -138,7 +158,9 @@ describe("ShopView", () => {
     }
 
     expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(SHOP_ITEMS_WITH_GEMS.map((item) => item.id));
+    await openShelf("hearts");
     expect(screen.getByText("€1,09")).toBeTruthy();
+    await openShelf("dates");
     expect(screen.getByText(/Renews automatically/)).toBeTruthy();
     // Two plans, each with a monthly and a yearly price.
     expect(screen.getAllByText("Monthly")).toHaveLength(2);
@@ -153,7 +175,7 @@ describe("ShopView", () => {
   it("does not buy, restore or open links when the gate answer is wrong", async () => {
     const handlers = await renderShop(makeUser());
 
-    await fireEvent.press(screen.getByTestId("shop-buy-membership-yearly"));
+    await pressItem("membership-yearly");
     await solveGate(false);
     await fireEvent.press(screen.getByTestId("grownup-close"));
     expect(handlers.onUseItem).not.toHaveBeenCalled();
@@ -196,7 +218,7 @@ describe("ShopView", () => {
     expect(playGameSound.mock.calls.map((call: unknown[]) => call[0])).toEqual(["soft_ui"]);
     expect(handlers.onUseItem).not.toHaveBeenCalled();
     // The gem video still plays: gems have no most.
-    await fireEvent.press(screen.getByTestId("shop-buy-watch-ad-gems"));
+    await pressItem("watch-ad-gems");
     expect(handlers.onUseItem.mock.calls.map(([item]) => item.id)).toEqual(["watch-ad-gems"]);
   });
 
@@ -212,9 +234,11 @@ describe("ShopView", () => {
     await render(<ShopView user={makeUser()} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} canWatchAds={false} {...handlers} />);
 
     for (const item of SHOP_ITEMS_WITH_GEMS) {
+      await openShelf(itemShelf(item));
       if (item.currencyType === "gems") expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
       else expect(screen.queryByTestId(`shop-buy-${item.id}`)).toBeNull();
     }
+    await openShelf("dates");
     expect(screen.queryByTestId("shop-premium")).toBeNull();
     expect(screen.queryByTestId("shop-restore")).toBeNull();
     expect(screen.queryByText(/Renews automatically/)).toBeNull();
@@ -228,6 +252,7 @@ describe("ShopView", () => {
     await render(<ShopView user={makeUser({ hearts: { current: 3, max: 5, unlimited: false, lastRefillDate: "2026-01-01" } })} strings={strings} items={SHOP_ITEMS_WITH_GEMS} storePrices={{}} busy={false} section={section} canBuyWithMoney={false} onUseItem={jest.fn()} onRestore={jest.fn()} />);
 
     for (const item of SHOP_ITEMS_WITH_GEMS) {
+      await openShelf(itemShelf(item));
       if (item.currencyType === "USD") expect(screen.queryByTestId(`shop-buy-${item.id}`)).toBeNull();
       else expect(screen.getByTestId(`shop-buy-${item.id}`)).toBeTruthy();
     }
@@ -247,9 +272,10 @@ describe("ShopView", () => {
 
   it("pauses buying while busy and spins the pending item", async () => {
     const handlers = await renderShop(makeUser(), true, "gem-pack-medium");
+    await openShelf("dates");
     expect(screen.getByTestId("shop-pending-gem-pack-medium")).toBeTruthy();
-    await fireEvent.press(screen.getByTestId("shop-buy-membership-yearly"));
-    await fireEvent.press(screen.getByTestId("shop-buy-gem-heart-refill"));
+    await pressItem("membership-yearly");
+    await pressItem("gem-heart-refill");
     await fireEvent.press(screen.getByTestId("shop-restore"));
     expect(screen.queryByTestId("grownup-question")).toBeNull();
     expect(handlers.onUseItem).not.toHaveBeenCalled();
@@ -264,6 +290,7 @@ describe("ShopView", () => {
     expect(screen.queryByTestId("shop-buy-watch-ad-heart")).toBeNull();
     expect(screen.queryByTestId("shop-buy-watch-ad-gems")).toBeNull();
     expect(screen.getByTestId("shop-buy-heart-pack-small")).toBeTruthy();
+    await openShelf("dates");
     expect(screen.getByTestId("shop-premium")).toBeTruthy();
     expect(screen.getByText(/Renews automatically/)).toBeTruthy();
     await fireEvent.press(screen.getByTestId("shop-buy-membership-monthly"));
@@ -400,12 +427,11 @@ describe("CrewView", () => {
     expect(handlers.onRemoveFriend).toHaveBeenCalledWith(waiting);
   });
 
-  it("invites a friend by email only after the grown-up gate", async () => {
+  it("invites a friend by email straight away, with no grown-up question", async () => {
     const handlers = await renderCrew({ status: "ready", payload: { me: member(1, "Amina", "you", 300), friends: [] } }, makeUser(), "y@example.com");
 
     await fireEvent.press(screen.getByText("INVITE"));
-    expect(screen.getByText("Ask a grown-up")).toBeTruthy();
-    await solveGate();
+    expect(screen.queryByText("Ask a grown-up")).toBeNull();
     await fireEvent.changeText(screen.getByTestId("crew-email"), "y@example.com");
     await fireEvent.press(screen.getByTestId("crew-relation-parent"));
     await fireEvent.press(screen.getByText("ADD"));
@@ -419,7 +445,6 @@ describe("CrewView", () => {
   it("adds a friend when Enter is pressed in the email field", async () => {
     const handlers = await renderCrew({ status: "ready", payload: { me: member(1, "Amina", "you", 300), friends: [] } }, makeUser(), "y@example.com");
     await fireEvent.press(screen.getByText("INVITE"));
-    await solveGate();
     await fireEvent(screen.getByTestId("crew-email"), "submitEditing");
     expect(handlers.onAddFriend).toHaveBeenCalledTimes(1);
   });

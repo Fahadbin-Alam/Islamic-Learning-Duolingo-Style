@@ -63,3 +63,23 @@ export function pickBattleQuestions(options: { language?: SupportedLanguage; you
   }
   return picked;
 }
+
+/** The same numbers from the same seed on every phone (mulberry32), so two friends get the same battle. */
+export function seededRandom(seed: number) {
+  let state = seed >>> 0;
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/**
+ * A friend battle's questions: picked from the battle's seed, so both friends answer the same ones (each in their
+ * own language). Always the full hard pool, whoever is younger, so it is the same battle for both.
+ */
+export function pickFriendBattleQuestions(seed: number, language?: SupportedLanguage) {
+  return pickBattleQuestions({ language, random: seededRandom(seed) });
+}
