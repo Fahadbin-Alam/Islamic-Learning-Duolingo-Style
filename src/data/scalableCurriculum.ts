@@ -1799,7 +1799,7 @@ SECTION_SEEDS.push(
       },
       {
         id: "aqidah-lived-iman",
-        title: "Lived iman",
+        title: "Faith in action",
         description: "Bring belief out of theory and into repentance, patience, and moral steadiness.",
         order: 4,
         difficultyRange: [2, 5],

@@ -44,6 +44,7 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   scholars: { ar: "العلماء", translit: "Al-'ulama'", meaning: "The scholars" },
   ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" },
   eid: { ar: "العيد", translit: "Al-'Id", meaning: "The Eid" },
+  akhirah: { ar: "اليوم الآخر", translit: "Al-Yawm al-Akhir", meaning: "The Last Day" },
   intro: { ar: "مدخل إلى الإسلام", translit: "Madkhal ila al-Islam", meaning: "A first look at Islam" }
 };
 
@@ -123,12 +124,31 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "fasting-times-and-rules": { ar: "أحكام الصيام", translit: "Ahkam as-siyam", meaning: "Rules of fasting" },
   "fasting-protection": { ar: "حفظ الصيام", translit: "Hifz as-siyam", meaning: "Protecting the fast" },
   "fasting-ramadan-growth": { ar: "شهر رمضان", translit: "Shahr Ramadan", meaning: "Month of Ramadan" },
+  "fasting-reward": { ar: "فضل الصيام", translit: "Fadl as-siyam", meaning: "The virtue of fasting" },
+  "fasting-suhur-iftar": { ar: "السحور والإفطار", translit: "As-suhur wal-iftar", meaning: "Suhur and iftar" },
+  "fasting-extra": { ar: "صيام التطوع", translit: "Siyam at-tatawwu'", meaning: "Voluntary fasting" },
+  "fasting-ease": { ar: "رخص الصيام", translit: "Rukhas as-siyam", meaning: "Ease in fasting" },
+  "fasting-last-ten": { ar: "ليالي العشر", translit: "Layali al-'ashr", meaning: "The last ten nights" },
 
   // Zakat: duty, recipients and generosity
   "zakat-meaning-and-duty": { ar: "فريضة الزكاة", translit: "Faridat az-zakah", meaning: "The duty of zakat" },
   "zakat-recipients": { ar: "مصارف الزكاة", translit: "Masarif az-zakah", meaning: "Zakat recipients" },
   "zakat-character-and-intention": { ar: "النية والإخلاص", translit: "An-niyyah wal-ikhlas", meaning: "Intention and sincerity" },
   "zakat-broader-generosity": { ar: "الصدقة والكرم", translit: "As-sadaqah wal-karam", meaning: "Charity and generosity" },
+  "zakat-pillar": { ar: "ركن الزكاة", translit: "Rukn az-zakah", meaning: "The pillar of zakat" },
+  "zakat-al-fitr": { ar: "زكاة الفطر", translit: "Zakat al-fitr", meaning: "Zakat al-Fitr" },
+  "zakat-everyday-charity": { ar: "كل معروف صدقة", translit: "Kullu ma'rufin sadaqah", meaning: "Every good deed is charity" },
+  "zakat-spend-quran": { ar: "الإنفاق في سبيل الله", translit: "Al-infaq fi sabilillah", meaning: "Spending for Allah" },
+  "hadith-famous": { ar: "أحاديث مشهورة", translit: "Ahadith mashhurah", meaning: "Famous hadith" },
+  "hadith-good-heart": { ar: "صلاح القلب", translit: "Salah al-qalb", meaning: "A sound heart" },
+  "hadith-knowledge": { ar: "طلب العلم", translit: "Talab al-'ilm", meaning: "Seeking knowledge" },
+  "prayer-reward": { ar: "فضل الصلاة", translit: "Fadl as-salah", meaning: "The virtue of prayer" },
+  "prayer-extra": { ar: "صلاة التطوع", translit: "Salat at-tatawwu'", meaning: "Voluntary prayer" },
+  "prayer-jumuah": { ar: "صلاة الجمعة", translit: "Salat al-jumu'ah", meaning: "The Friday prayer" },
+  "prayer-after-salah": { ar: "أذكار بعد الصلاة", translit: "Adhkar ba'd as-salah", meaning: "Remembrance after prayer" },
+  "hajj-umrah": { ar: "العمرة", translit: "Al-'umrah", meaning: "The Umrah" },
+  "hajj-sacred-house": { ar: "البيت الحرام", translit: "Al-bayt al-haram", meaning: "The Sacred House" },
+  "hajj-three-masjids": { ar: "المساجد الثلاثة", translit: "Al-masajid ath-thalathah", meaning: "The three masjids" },
 
   // Hajj: duty, rites and sacred sites
   "hajj-duty": { ar: "فريضة الحج", translit: "Faridat al-Hajj", meaning: "The duty of Hajj" },
@@ -174,7 +194,6 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // The imported women, one unit per theme (src/data/importedNotes.ts); the Mothers of the Believers from the
   // notes are taught in "women-mothers" (src/data/unitPlans.ts).
   "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1": { ar: "الأمهات", translit: "Al-ummahat", meaning: "Mothers" },
-  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3": { ar: "آل علي", translit: "Al Ali", meaning: "Ali's family" },
 
   // Hadith: sayings for children first, then the imported hadith for young children (src/data/importedNotes.ts)
   "hadith-for-kids": { ar: "أحاديث للأطفال", translit: "Ahadith lil-atfal", meaning: "Hadith for children" },
@@ -188,7 +207,33 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // Hajj as the Prophet ﷺ did it, and the Eid topic (src/data/lifeUnits.ts)
   "hajj-in-depth": { ar: "حجة الوداع", translit: "Hajjat al-wada'", meaning: "The Farewell Hajj" },
   "eid-two-eids": { ar: "العيدان", translit: "Al-'idan", meaning: "The two Eids" },
-  "eid-special-days": { ar: "الأيام الفاضلة", translit: "Al-ayyam al-fadilah", meaning: "The blessed days" }
+  "eid-special-days": { ar: "الأيام الفاضلة", translit: "Al-ayyam al-fadilah", meaning: "The blessed days" },
+  // The Seerah units in the prophets topic (src/data/seerahUnits.ts)
+  "seerah-early-life": { ar: "النشأة", translit: "An-nash'ah", meaning: "The early years" },
+  "seerah-revelation": { ar: "بدء الوحي", translit: "Bad' al-wahy", meaning: "The start of revelation" },
+  "seerah-makkah-call": { ar: "الدعوة في مكة", translit: "Ad-da'wah fi Makkah", meaning: "The call in Makkah" },
+  "seerah-taif": { ar: "الطائف", translit: "At-Ta'if", meaning: "Ta'if" },
+  "seerah-isra-miraj": { ar: "الإسراء والمعراج", translit: "Al-Isra wal-Mi'raj", meaning: "The Night Journey and Ascension" },
+  "seerah-hijrah": { ar: "الهجرة", translit: "Al-Hijrah", meaning: "The migration" },
+  "seerah-badr": { ar: "غزوة بدر", translit: "Ghazwat Badr", meaning: "The battle of Badr" },
+  "seerah-uhud": { ar: "غزوة أحد", translit: "Ghazwat Uhud", meaning: "The battle of Uhud" },
+  "seerah-trench": { ar: "غزوة الخندق", translit: "Ghazwat al-Khandaq", meaning: "The battle of the Trench" },
+  "seerah-hudaybiyah": { ar: "صلح الحديبية", translit: "Sulh al-Hudaybiyah", meaning: "The treaty of Hudaybiyah" },
+  "seerah-conquest": { ar: "فتح مكة", translit: "Fath Makkah", meaning: "The Conquest of Makkah" },
+  "seerah-farewell": { ar: "حجة الوداع والوفاة", translit: "Hajjat al-wada' wal-wafah", meaning: "The Farewell Hajj and his passing" },
+  "seerah-character": { ar: "الخلق العظيم", translit: "Al-khuluq al-'azim", meaning: "The great character" },
+  // The Day of Judgment topic (src/data/akhirahUnits.ts)
+  "akhirah-last-day": { ar: "الإيمان باليوم الآخر", translit: "Al-iman bil-yawm al-akhir", meaning: "Faith in the Last Day" },
+  "akhirah-minor-signs": { ar: "أشراط الساعة الصغرى", translit: "Ashrat as-sa'ah as-sughra", meaning: "The small signs of the Hour" },
+  "akhirah-major-signs": { ar: "أشراط الساعة الكبرى", translit: "Ashrat as-sa'ah al-kubra", meaning: "The big signs of the Hour" },
+  "akhirah-death-grave": { ar: "الموت والقبر", translit: "Al-mawt wal-qabr", meaning: "Death and the grave" },
+  "akhirah-horn-gathering": { ar: "النفخ في الصور والحشر", translit: "An-nafkh fis-sur wal-hashr", meaning: "The Horn and the gathering" },
+  "akhirah-reckoning": { ar: "الحساب والميزان", translit: "Al-hisab wal-mizan", meaning: "The reckoning and the scale" },
+  "akhirah-intercession-pool": { ar: "الشفاعة والحوض", translit: "Ash-shafa'ah wal-hawd", meaning: "The intercession and the Pool" },
+  "akhirah-bridge": { ar: "الصراط", translit: "As-Sirat", meaning: "The bridge" },
+  "akhirah-jannah": { ar: "الجنة", translit: "Al-Jannah", meaning: "Paradise" },
+  "akhirah-jahannam": { ar: "جهنم", translit: "Jahannam", meaning: "The Fire" },
+  "akhirah-get-ready": { ar: "الاستعداد للآخرة", translit: "Al-isti'dad lil-akhirah", meaning: "Getting ready for the Hereafter" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -679,6 +724,16 @@ const LEARN_FORMS = [
   "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",
   "مَا الْإِسْلَامُ", "أَنْبِيَاءُ تَعْرِفُهُمْ", "أَهْلُ الْكِتَابِ", "الْخُطُوَاتُ الْأُولَى",
   "حَجَّةُ الْوَدَاعِ", "الْعِيدَانِ", "الْأَيَّامُ الْفَاضِلَةُ",
+  "الْيَوْمُ الْآخِرُ", "الْإِيمَانُ بِالْيَوْمِ الْآخِرِ", "أَشْرَاطُ السَّاعَةِ الصُّغْرَى", "أَشْرَاطُ السَّاعَةِ الْكُبْرَى",
+  "الْمَوْتُ وَالْقَبْرُ", "النَّفْخُ فِي الصُّورِ وَالْحَشْرُ", "الْحِسَابُ وَالْمِيزَانُ", "الشَّفَاعَةُ وَالْحَوْضُ",
+  "الصِّرَاطُ", "الْجَنَّةُ", "جَهَنَّمُ", "الِاسْتِعْدَادُ لِلْآخِرَةِ",
+  "النَّشْأَةُ", "بَدْءُ الْوَحْيِ", "الدَّعْوَةُ فِي مَكَّةَ", "الطَّائِفُ", "الْإِسْرَاءُ وَالْمِعْرَاجُ", "الْهِجْرَةُ",
+  "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
+  "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
+  "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
+  "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ",
+  "فَضْلُ الصَّلَاةِ", "صَلَاةُ التَّطَوُّعِ", "صَلَاةُ الْجُمُعَةِ", "أَذْكَارُ بَعْدَ الصَّلَاةِ",
+  "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));

@@ -77,7 +77,9 @@ describe("the meaning of whole surahs", () => {
     const nodes = quran.nodes.filter((node) => node.branchId === "quran-surah-baqarah");
     const meaning = nodes.filter((node) => node.id.startsWith("surah-meaning-2-"));
     expect(meaning.filter((node) => node.kind !== "review")).toHaveLength(40);
-    expect(nodes[nodes.length - 1].id).toBe("surah-meaning-2-final-quiz");
+    // The passages end on their final quiz; the ayah-by-ayah lessons come after it.
+    expect(meaning[meaning.length - 1].id).toBe("surah-meaning-2-final-quiz");
+    expect(nodes[nodes.indexOf(meaning[meaning.length - 1]) + 1]?.id.startsWith("deep-baqarah1-")).toBe(true);
     expect(meaning.filter((node) => /-review-\d+$/.test(node.id))).toHaveLength(6);
     // Each topic comes right after the passage that holds its ayah.
     const ids = nodes.map((node) => node.id);
@@ -122,7 +124,8 @@ describe("Al-Baqarah in depth", () => {
     const problems: string[] = [];
     for (const [number, passages] of Object.entries(DEEP_PASSAGES)) {
       const surah = SURAH_MEANINGS.find((each) => each.surah === Number(number))!;
-      expect(Object.keys(passages)).toEqual(surah.passages.map((passage) => passage.at));
+      // Sorted: a one-ayah passage key such as "20" is an integer key, which JS always lists first.
+      expect(Object.keys(passages).sort()).toEqual(surah.passages.map((passage) => passage.at).sort());
       for (const [at, each] of Object.entries(passages)) {
         const where = `${number}:${at}`;
         if (each.meaning.length < 2 || each.meaning.length > 3 || each.meaning.some((line) => line.length > 112)) problems.push(`${where} meaning`);
@@ -153,8 +156,11 @@ describe("Al-Baqarah in depth", () => {
       ["Tafsir Ibn Kathir 2:30-39", "https://quran.com/2:30/tafsirs/en-tafisr-ibn-kathir"],
       ["Tafsir as-Sa'di 2:30-39", "https://quran.com/2:30/tafsirs/ar-tafseer-al-saddi"]
     ]);
-    // A surah not yet taught in depth keeps its short card.
-    expect(LESSONS_BY_ID["lesson-surah-meaning-6-1-11"]?.learnDeeper ?? undefined).toBeUndefined();
+    // Every surah with a meanings card is now taught in depth, so every first card opens a deeper view.
+    for (const each of SURAH_MEANINGS) {
+      expect(DEEP_PASSAGES[each.surah]).toBeDefined();
+      expect(LESSONS_BY_ID[`lesson-surah-meaning-${each.surah}-${each.passages[0].at}`]?.learnDeeper).toBeDefined();
+    }
   });
 
   it("asks two harder questions after the card's own three, each answered on the card and sourced", () => {

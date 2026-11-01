@@ -14,7 +14,7 @@ import { getCatalog } from "../translations";
 import { ExerciseView, LearnCard } from "../ui/lesson";
 
 const ROOT = path.resolve(__dirname, "../..");
-const credits: Record<string, { file: string; page: string; author: string; license: string }> = require("../data/lessonPictureCredits.json");
+const credits: Record<string, { file: string; page: string; author: string; license: string; drawn?: boolean }> = require("../data/lessonPictureCredits.json");
 const places: { id: string; file: string }[] = require("../../scripts/lesson-pictures/places.json");
 const imagesSource = fs.readFileSync(path.join(ROOT, "src/data/lessonPictureImages.ts"), "utf8");
 
@@ -42,11 +42,26 @@ describe("lesson photos", () => {
       expect(credits[place.id]?.file).toBe(place.file);
       expect(LESSON_PICTURE_IDS).toContain(place.id);
     }
-    expect(Object.keys(credits).sort()).toEqual(places.map((place) => place.id).sort());
+    const drawn = Object.keys(credits).filter((id) => credits[id].drawn);
+    for (const id of drawn) {
+      const file = path.join(ROOT, "assets/pictures", `${id}.jpg`);
+      expect(fs.statSync(file).size).toBeLessThan(90 * 1024);
+      expect(imagesSource).toContain(`assets/pictures/${id}.jpg`);
+      expect(LESSON_PICTURE_IDS).toContain(id);
+    }
+    expect(Object.keys(credits).sort()).toEqual([...places.map((place) => place.id), ...drawn].sort());
+  });
+
+  test("Makkah, Madinah, the Ka'bah and the Hajj places are drawn as they looked long ago, not photos of today", () => {
+    for (const id of ["makkah", "madinah", "kaaba", "zamzam", "safa-marwa", "mina", "arafah", "muzdalifah", "hira", "uhud", "taif", "jerusalem"]) {
+      expect([id, credits[id]?.drawn]).toEqual([id, true]);
+    }
+    // Imam Malik was born in Madinah in 93 AH: his card shows old Madinah.
+    expect(pictureForText("Imam Malik was born in Madinah in 93 AH.")?.credit.drawn).toBe(true);
   });
 
   test("only free licenses, each with an author and its Commons page", () => {
-    for (const [id, credit] of Object.entries(credits)) {
+    for (const [id, credit] of Object.entries(credits).filter(([, each]) => !each.drawn)) {
       expect([id, credit.license]).toEqual([id, expect.stringMatching(/^(public domain|pd\b|cc0|cc[- ]by(-sa)?[- ]\d)/i)]);
       expect(credit.license).not.toMatch(/\b(nc|nd)\b/i);
       expect(credit.author.trim()).not.toBe("");
@@ -101,7 +116,7 @@ describe("lesson photos", () => {
 });
 
 describe("photo on the learn card", () => {
-  const picture = getLessonPicture(LESSON_PICTURE_IDS[0])!;
+  const picture = getLessonPicture(LESSON_PICTURE_IDS.find((id) => !getLessonPicture(id)!.credit.drawn)!)!;
   const base = { title: "Growing up", line: "He grew up in Makkah.", mascotVariant: "boy", accent: "#21B573", onContinue: jest.fn() };
 
   test("shows the photo with its caption and credit, and opens the credit's Commons page", async () => {
@@ -114,6 +129,13 @@ describe("photo on the learn card", () => {
     await fireEvent.press(credit);
     expect(open).toHaveBeenCalledWith(picture.credit.page);
     open.mockRestore();
+  });
+
+  test("a drawing says it is a drawing of how the place looked long ago, with no link", async () => {
+    const drawing = getLessonPicture("madinah")!;
+    await render(<LearnCard {...base} picture={drawing} />);
+    expect(screen.getByText("Madinah long ago, among its date palms")).toBeTruthy();
+    expect(screen.getByTestId("lesson-photo-credit")).toHaveTextContent("A drawing of how it looked long ago");
   });
 
   test("tapping the photo shows it big, and Close hides it", async () => {

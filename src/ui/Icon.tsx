@@ -61,7 +61,10 @@ export type IconName =
   | "search"
   | "share"
   | "freeze"
-  | "date";
+  | "date"
+  | "quill"
+  | "rose"
+  | "gift";
 
 export type IconProps = {
   name: IconName;
@@ -605,6 +608,41 @@ const ICONS: Record<IconName, Drawer> = {
       />
     </G>
   ),
+  // An inkpot and a feather pen: the hadith, the Prophet's ﷺ words written down by those who heard them.
+  quill: (t) => (
+    <G>
+      <Path d="M7.6 14.2C8.6 8.4 13 3.8 21.2 2.2c-.8 7.4-5.6 12-11.4 13.2z" {...t.f(C.cream)} />
+      <Path d="M8.4 14.4 19.8 3.6" strokeWidth={1.2} strokeLinecap="round" {...t.ds(C.parchmentDeep)} />
+      {!t.isMono ? (
+        <Path d="M12.2 8.6l2.4.4M14.4 6.6l2.6.2M10.4 11l2.2.6" strokeWidth={1} strokeLinecap="round" stroke={C.parchmentDeep} />
+      ) : null}
+      <Rect x={2.6} y={14.6} width={10.4} height={7} rx={2.4} {...t.f(C.indigoDeep)} />
+      <Rect x={4.8} y={12.6} width={6} height={2.6} rx={0.9} {...t.f(C.indigo)} />
+      <Shine t={t} d="M4 16.4h1.2v3.6H4z" />
+    </G>
+  ),
+  // A rose: the women of the Quran and the Mothers of the Believers.
+  rose: (t) => (
+    <G>
+      <Path d="M12 12.4v9.2" strokeWidth={1.8} strokeLinecap="round" {...t.s(C.greenDeep)} />
+      <Path d="M12 18c-2.8 0-4.8-1.4-5.6-3.6 2.6-.4 4.6.8 5.6 3.6z" {...t.f(C.green)} />
+      <Path d="M12 16.4c2.6-.2 4.4-1.6 5-3.6-2.4-.2-4.2.9-5 3.6z" {...t.f(C.greenLight)} />
+      <Path d="M12 2.6c3.8 0 6.2 2.4 6.2 5.4S15.6 13.4 12 13.4 5.8 11 5.8 8 8.2 2.6 12 2.6z" {...t.f(C.pink)} />
+      <Path d="M12 5c2 0 3.4 1.2 3.4 2.8S14 10.8 12 10.8 8.6 9.4 8.6 7.8 10 5 12 5z" {...t.d(C.heart)} />
+      <Path d="M10.4 7.6c.4-1 1.2-1.4 2-1.2.9.2 1.2 1.2.6 1.8" strokeWidth={1} strokeLinecap="round" {...t.ds(C.heartDeep)} />
+      <Shine t={t} d="M7.6 6.4c.4-1.2 1.4-2 2.6-2.4l.3.7c-1 .4-1.7 1-2.1 2z" />
+    </G>
+  ),
+  // A wrapped present: the gifts and joy of Eid.
+  gift: (t) => (
+    <G>
+      <Rect x={3.4} y={10.6} width={17.2} height={10.8} rx={2} {...t.f(C.heart)} />
+      <Rect x={2.4} y={7.4} width={19.2} height={4.2} rx={1.4} {...t.f(C.heartDeep)} />
+      <Rect x={10.6} y={7.4} width={2.8} height={14} {...t.d(C.gold)} />
+      <Path d="M12 7.4c-1.6-3.6-5.4-4.4-5.8-2.4-.4 1.8 2.8 2.6 5.8 2.4zM12 7.4c1.6-3.6 5.4-4.4 5.8-2.4.4 1.8-2.8 2.6-5.8 2.4z" {...t.f(C.gold)} />
+      <Shine t={t} d="M4.8 12.2h1.2v6.4H4.8z" />
+    </G>
+  ),
   moon: (t) => (
     <G>
       <Circle cx={12} cy={12} r={10.4} {...t.f(C.indigo)} />
@@ -776,12 +814,13 @@ const TOPIC_ICONS: Record<string, IconName> = {
   marriage: "homeHeart",
   sahabah: "people",
   prophets: "scroll",
-  women_of_the_book: "bookOpen",
-  hadith: "book",
+  women_of_the_book: "rose",
+  hadith: "quill",
   scholars: "family",
   ramadan: "dua",
-  eid: "moon",
-  intro: "handHeart"
+  eid: "gift",
+  akhirah: "sun",
+  intro: "lantern"
 };
 
 /** Emblem icon for a topic world id. */

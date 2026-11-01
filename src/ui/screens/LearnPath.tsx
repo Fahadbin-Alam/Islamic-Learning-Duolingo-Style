@@ -27,6 +27,8 @@ import { Camel, useReduceMotion } from "../Camel";
 import { Mascot } from "../Mascot";
 import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
 import { PathWeather, weatherFor } from "../PathWeather";
+import { WorldTuft, worldFor } from "../pathWorlds";
+import { usePathWorldChoice } from "../../services/pathWorldChoice";
 import { SceneProvider, Snooze, useScene } from "../sceneMood";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
@@ -61,7 +63,7 @@ export interface PathUnit {
   /** Unit needs Premium: nodes look locked and the card offers UNLOCK. */
   premiumLocked?: boolean;
   /**
-   * Its circles still to play make a fair test-out: the banner key (current unit only) and the
+   * Its circles still to play make a fair test-out: the banner's TEST OUT key and the
    * JUMP HERE button on its locked circles open "Jump ahead?". Default: true for the unit of the
    * circle to play next, false for the others.
    */
@@ -80,7 +82,7 @@ export type LearnPathProps = {
   onStartNode: (node: LearningNodeView) => void;
   onClaimChest: (chest: PathChest) => void;
   /**
-   * Test out of a unit. The current unit's banner key and JUMP HERE on a locked circle (units with
+   * Test out of a unit. The banner's TEST OUT key and JUMP HERE on a locked circle (units with
    * canTestOut, or the circles in jumpNodeIds) ask "Jump ahead?" first, then call this on START TEST.
    * From JUMP HERE it also gets the tapped circle; from the banner key, no circle.
    */
@@ -128,14 +130,14 @@ export type LearnPathProps = {
 // ---------- geometry ----------
 
 const OFFSETS = [0, 48, 72, 48, 0, -48, -72, -48];
-const NODE = 72;
+const NODE = 62;
 const NODE_LIP = 7;
-const RING = 96;
-const ROW_H = 98;
+const RING = 84;
+const ROW_H = 88;
 const CURRENT_EXTRA = 46;
 /** Where a circle's face starts inside its RING box (the hit box is centred with a half-lip top margin). */
 const FACE_TOP = (RING - NODE) / 2 - NODE_LIP / 4;
-const CHEST = 68;
+const CHEST = 58;
 const MASCOT_SIZE = 84;
 const MASCOT_W = MASCOT_SIZE;
 const MASCOT_H = Math.round((MASCOT_SIZE * 7) / 6);
@@ -163,7 +165,7 @@ const UNIT_PAD = 16;
  * sticky banner has measured itself: a low guess never lets the real banner peek out under it.
  */
 const STICKY_MIN = 64;
-const END_NODE = 88;
+const END_NODE = 76;
 const END_LIP = 8;
 const HINT_MS = 1600;
 
@@ -390,7 +392,7 @@ const PathNode = memo(function PathNode({
           <View style={[styles.nodeRim, { borderColor: withAlpha(colors.white, locked ? 0.45 : 0.28) }]} />
           <View style={styles.nodeShine} />
           <View style={styles.nodeShineDot} />
-          {showIcon ? <Icon name={look.icon} size={34} color={look.iconColor} detailColor={look.iconDetail} /> : null}
+          {showIcon ? <Icon name={look.icon} size={29} color={look.iconColor} detailColor={look.iconDetail} /> : null}
         </Animated.View>
       </Pressable>
     </View>
@@ -679,7 +681,10 @@ function UnitBanner({
             testID={`unit-test-out-${unit.id}`}
             style={[styles.keyButton, { borderBottomColor: darken(color, 0.3) }]}
           >
-            <Icon name="key" size={22} />
+            <Icon name="key" size={20} />
+            <Text style={[styles.keyLabel, { color: darken(color, 0.35) }]} numberOfLines={1}>
+              {t("Test out")}
+            </Text>
           </Tappable>
         ) : null}
       </View>
@@ -837,11 +842,11 @@ function PathEnd({
               <View style={[styles.endFace, { backgroundColor: done ? colors.gold : colors.locked }]}>
                 <View style={styles.nodeShine} />
                 {done ? (
-                  <Icon name="trophy" size={46} color={colors.white} detailColor={colors.goldLip} />
+                  <Icon name="trophy" size={40} color={colors.white} detailColor={colors.goldLip} />
                 ) : (
                   // The real gold cup, faded: the prize ahead, not one more locked review node.
                   <View style={styles.endFaded}>
-                    <Icon name="trophy" size={50} />
+                    <Icon name="trophy" size={43} />
                   </View>
                 )}
               </View>
@@ -971,6 +976,7 @@ export function LearnPath({
     }
   }
 
+  const worldChoice = usePathWorldChoice();
   const layout = useMemo(() => {
     let currentUnitId: string | undefined;
     let currentKey: string | undefined;
@@ -1010,16 +1016,17 @@ export function LearnPath({
       const camelIndex = mascotIndex < 0 ? -1 : mascotIndex + 1 < rows.length ? mascotIndex + 1 : mascotIndex - 1;
       // Topic pictures beside the path, about one every SCENERY_EVERY rows (at least one a unit), never on the
       // mascot's or the camel's row.
+      const world = worldFor(worldChoice, topicId, unitIndex);
       const scenery: { index: number; kind: SceneryKind }[] = [];
       const free = (candidate: number) =>
         candidate < rows.length && candidate !== mascotIndex && candidate !== camelIndex && !scenery.some((spot) => spot.index === candidate);
       for (let wanted = 2; wanted < rows.length; wanted += SCENERY_EVERY) {
         const candidate = [wanted, wanted + 1, wanted - 1].find(free);
-        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, scenery.length) });
+        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, scenery.length, world) });
       }
       if (scenery.length === 0) {
         const candidate = [1, 0].find(free);
-        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, 0) });
+        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, 0, world) });
       }
       return {
         unit,
@@ -1029,6 +1036,7 @@ export function LearnPath({
         nodeCount: unit.total > 0 ? unit.total : place,
         unitIndex,
         weather: weatherFor(topicId, unitIndex),
+        world,
         /** Rows only; the banner and paddings are added where the sky is drawn. */
         rowsHeight: rows.reduce((sum, row) => sum + row.height, 0),
         mascotIndex,
@@ -1062,7 +1070,7 @@ export function LearnPath({
     return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio, earnedChest };
     // Focus targets are read on mount only (and while a reveal is under way).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accent, units, topicId, currentNodeId, revealId]);
+  }, [accent, units, topicId, currentNodeId, revealId, worldChoice]);
 
   // When the current node moves (a lesson was finished), follow it.
   if (lastCurrentKey.current !== layout.currentKey) {
@@ -1328,12 +1336,12 @@ export function LearnPath({
                 }}
               >
                 {unitLive ? (
-                  <PathWeather weather={group.weather} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
+                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
                 ) : null}
                 <UnitBanner
                   unit={unit}
                   color={color}
-                  onTestOut={onTestOut && unit.id === layout.currentUnitId && unitCanTestOut(unit) ? () => askTestOut(unit.id) : undefined}
+                  onTestOut={onTestOut && unitCanTestOut(unit) ? () => askTestOut(unit.id) : undefined}
                   onPremium={onPremium ? () => onPremium(unit.id) : undefined}
                   onBannerLayout={(height) => {
                     bannerH.current[unit.id] = height;
@@ -1384,7 +1392,11 @@ export function LearnPath({
                             style={[styles.tuft, { left: side < 0 ? 10 + (index % 3) * 8 : width - 10 - TUFT_SIZE - (index % 3) * 8, top: top + NODE - 8 }]}
                             pointerEvents="none"
                           >
-                            <GroundTuft variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            {group.world === "desert" ? (
+                              <GroundTuft variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            ) : (
+                              <WorldTuft world={group.world} variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            )}
                           </View>
                         ) : null}
                         {index === group.camelIndex && unitLive ? (
@@ -1563,18 +1575,18 @@ const styles = StyleSheet.create({
   },
   nodeShine: {
     position: "absolute",
-    top: 9,
-    left: 13,
-    width: 24,
-    height: 11,
+    top: 8,
+    left: 11,
+    width: 21,
+    height: 10,
     borderRadius: 6,
     backgroundColor: withAlpha(colors.white, 0.4),
     transform: [{ rotate: "-28deg" }]
   },
   nodeShineDot: {
     position: "absolute",
-    top: 22,
-    left: 10,
+    top: 19,
+    left: 9,
     width: 6,
     height: 6,
     borderRadius: 3,
@@ -1869,13 +1881,21 @@ const styles = StyleSheet.create({
   },
   keyButton: {
     marginStart: 10,
-    width: 40,
     height: 38,
+    paddingHorizontal: 10,
     borderRadius: 12,
     backgroundColor: colors.white,
     borderBottomWidth: 4,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
+  },
+  keyLabel: {
+    marginStart: 4,
+    maxWidth: 92,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 18
   },
   stickyWrap: {
     position: "absolute",

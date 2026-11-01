@@ -14,6 +14,7 @@ export type TopicId =
   | "hadith"
   | "scholars"
   | "eid"
+  | "akhirah"
   | "ramadan"
   | "intro";
 

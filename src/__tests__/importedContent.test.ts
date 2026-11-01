@@ -324,7 +324,10 @@ describe("imported lessons stand on their own", () => {
   it("group the women from the notes by theme, without Umm Jamil or Umm Anmar", () => {
     const women = section("women_of_the_book");
     const fromNotes = women.branches.filter((branch) => branch.id.startsWith("notes-"));
-    expect(fromNotes.map((branch) => branch.title)).toEqual(["Mothers", "Ali's family"]);
+    expect(fromNotes.map((branch) => branch.title)).toEqual(["Mothers"]);
+    // Ali's family is not a unit, and none of its women are taught anywhere.
+    expect(women.branches.map((branch) => branch.title)).not.toContain("Ali's family");
+    expect(women.nodes.filter((node) => /zaynab-bint-ali|umm-kulthoom-bint-ali|umm-al-banin|sayyida-nafisa/.test(node.id))).toEqual([]);
     const titles = women.nodes.map((node) => node.title);
     expect(titles.filter((title) => /Umm Jamil|Umm Anmar/.test(title))).toEqual([]);
     // The Mothers of the Believers from the notes are taught with the others, in the order the Prophet ﷺ married them.
@@ -332,12 +335,6 @@ describe("imported lessons stand on their own", () => {
     const wives = ["Zaynab bint Khuzaymah", "Umm Salamah", "Zaynab bint Jahsh", "Juwayriyah bint al-Harith", "Umm Habibah", "Safiyyah bint Huyayy", "Maymunah bint al-Harith"];
     expect(mothers.filter((title) => wives.includes(title))).toEqual(wives);
     expect(mothers.slice(0, 1)).toEqual(["Khadijah"]);
-    // Ali's wives with nothing certain to teach but that they were his wives are left out, so no two say the same.
-    const family = women.nodes.filter((node) => node.branchId === fromNotes[1].id).map((node) => lessonOf(node.id)!);
-    expect(family.map((lesson) => lesson.title)).not.toEqual(expect.arrayContaining(["As-Sahba' at-Taghlibiyyah"]));
-    const lines = family.map((lesson) => lesson.learnLine);
-    expect(lines.filter((line, index) => lines.indexOf(line) !== index)).toEqual([]);
-    expect(lines.filter((line) => line === "She was a wife of Ali ibn Abi Talib.")).toEqual([]);
   });
 });
 
