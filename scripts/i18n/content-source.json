@@ -9205,27 +9205,251 @@
   },
   {
     "kind": "course",
-    "text": "The first prophets"
+    "text": "Adam"
   },
   {
     "kind": "course",
-    "text": "Start with the earliest prophets and the first lessons of repentance and patience."
+    "text": "The first human: made from clay, taught the names, forgiven, and sent to the earth."
   },
   {
     "kind": "arabic",
-    "text": "Beginning of mankind"
+    "text": "Prophet Adam"
   },
   {
     "kind": "course",
-    "text": "Tested messengers"
+    "text": "Idris"
   },
   {
     "kind": "course",
-    "text": "Go through the prophets whose lives teach sacrifice, purity, courage, and trust."
+    "text": "A truthful prophet whom Allah raised to a high place."
   },
   {
     "kind": "arabic",
-    "text": "Messengers tested"
+    "text": "Prophet Idris"
+  },
+  {
+    "kind": "course",
+    "text": "Nuh"
+  },
+  {
+    "kind": "course",
+    "text": "Nine hundred and fifty years of calling, the Ark, and the flood."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Noah"
+  },
+  {
+    "kind": "course",
+    "text": "Salih"
+  },
+  {
+    "kind": "course",
+    "text": "Sent to Thamud, who carved homes in the rocks and were given a she-camel as a sign."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Salih"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim"
+  },
+  {
+    "kind": "course",
+    "text": "The close friend of Allah: the idols, the fire, and his tests."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Abraham"
+  },
+  {
+    "kind": "course",
+    "text": "Lut"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim's nephew, who warned his town and was saved with the believers."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Lot"
+  },
+  {
+    "kind": "course",
+    "text": "Shu'ayb"
+  },
+  {
+    "kind": "course",
+    "text": "Sent to Madyan, whose people cheated on the scales."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Shu'ayb"
+  },
+  {
+    "kind": "course",
+    "text": "Ismail"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim's son: Zamzam, the Ka'bah, and his patience."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Ishmael"
+  },
+  {
+    "kind": "course",
+    "text": "Ishaq and Ya'qub"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim's son Ishaq and his grandson Ya'qub, also called Isra'il."
+  },
+  {
+    "kind": "arabic",
+    "text": "Isaac and Jacob"
+  },
+  {
+    "kind": "course",
+    "text": "Yusuf"
+  },
+  {
+    "kind": "course",
+    "text": "The dream, the well, the prison, and forgiving his brothers."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Joseph"
+  },
+  {
+    "kind": "course",
+    "text": "Ayyub"
+  },
+  {
+    "kind": "course",
+    "text": "Years of illness and loss, beautiful patience, and Allah's cure."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Job"
+  },
+  {
+    "kind": "course",
+    "text": "Dhul-Kifl"
+  },
+  {
+    "kind": "course",
+    "text": "Named in the Quran among the patient and the best."
+  },
+  {
+    "kind": "course",
+    "text": "Yunus"
+  },
+  {
+    "kind": "course",
+    "text": "He left his people, the big fish, and his dua in the dark."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Jonah"
+  },
+  {
+    "kind": "course",
+    "text": "Musa and Harun"
+  },
+  {
+    "kind": "course",
+    "text": "Pharaoh, the sea, the Tawrah, Bani Isra'il, and the journey with al-Khidr."
+  },
+  {
+    "kind": "arabic",
+    "text": "Moses and Aaron"
+  },
+  {
+    "kind": "course",
+    "text": "Yusha' ibn Nun"
+  },
+  {
+    "kind": "course",
+    "text": "Musa's helper, who led Bani Isra'il after him."
+  },
+  {
+    "kind": "arabic",
+    "text": "Joshua son of Nun"
+  },
+  {
+    "kind": "course",
+    "text": "Ilyas and Al-Yasa'"
+  },
+  {
+    "kind": "course",
+    "text": "Ilyas called his people away from the idol Ba'l, and Al-Yasa' came after him."
+  },
+  {
+    "kind": "arabic",
+    "text": "Elijah and Elisha"
+  },
+  {
+    "kind": "course",
+    "text": "Dawud"
+  },
+  {
+    "kind": "course",
+    "text": "A king and prophet: the Zabur, iron, fasting, and fair judging."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet David"
+  },
+  {
+    "kind": "course",
+    "text": "Sulayman"
+  },
+  {
+    "kind": "course",
+    "text": "Dawud's son: the wind, the jinn, the ant, and the hoopoe."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Solomon"
+  },
+  {
+    "kind": "course",
+    "text": "Zakariyya"
+  },
+  {
+    "kind": "course",
+    "text": "He looked after Maryam and asked Allah for a child in old age."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Zechariah"
+  },
+  {
+    "kind": "course",
+    "text": "Yahya"
+  },
+  {
+    "kind": "course",
+    "text": "Zakariyya's son: wise as a boy, kind to his parents."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet John"
+  },
+  {
+    "kind": "course",
+    "text": "Isa"
+  },
+  {
+    "kind": "course",
+    "text": "Born to Maryam without a father: his miracles, his message, and his return."
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Jesus"
   },
   {
     "kind": "course",
@@ -9238,38 +9462,6 @@
   {
     "kind": "arabic",
     "text": "Seal of the prophets"
-  },
-  {
-    "kind": "course",
-    "text": "Early messengers"
-  },
-  {
-    "kind": "course",
-    "text": "Travel through the earliest lessons of humanity, repentance, warning, and trust."
-  },
-  {
-    "kind": "arabic",
-    "text": "The first messengers"
-  },
-  {
-    "kind": "course",
-    "text": "Ibrahim's family"
-  },
-  {
-    "kind": "course",
-    "text": "Move through Ibrahim's family, trust, and the tests that reshape generations."
-  },
-  {
-    "kind": "arabic",
-    "text": "Family of Ibrahim"
-  },
-  {
-    "kind": "course",
-    "text": "Musa, Dawud and Sulayman"
-  },
-  {
-    "kind": "course",
-    "text": "Learn from Musa, Harun, Dawud, Sulayman, and the test of leadership under Allah."
   },
   {
     "kind": "course",
@@ -9428,32 +9620,8 @@
     "text": "The great character"
   },
   {
-    "kind": "course",
-    "text": "Ayyub and more"
-  },
-  {
-    "kind": "course",
-    "text": "Yunus and more"
-  },
-  {
-    "kind": "course",
-    "text": "Adam"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Adam"
-  },
-  {
     "kind": "arabic",
     "text": "The names"
-  },
-  {
-    "kind": "course",
-    "text": "Nuh"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Noah"
   },
   {
     "kind": "course",
@@ -9465,50 +9633,6 @@
   },
   {
     "kind": "course",
-    "text": "Ibrahim"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Abraham"
-  },
-  {
-    "kind": "course",
-    "text": "Ibrahim and the idols"
-  },
-  {
-    "kind": "course",
-    "text": "Yusuf"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Joseph"
-  },
-  {
-    "kind": "course",
-    "text": "Yusuf and dreams"
-  },
-  {
-    "kind": "arabic",
-    "text": "The dream"
-  },
-  {
-    "kind": "course",
-    "text": "Isa"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Jesus"
-  },
-  {
-    "kind": "course",
-    "text": "Muhammad ﷺ"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Muhammad ﷺ"
-  },
-  {
-    "kind": "course",
     "text": "Salih's camel"
   },
   {
@@ -9517,19 +9641,15 @@
   },
   {
     "kind": "course",
-    "text": "Lut was brave"
+    "text": "Ibrahim and the idols"
   },
   {
-    "kind": "arabic",
-    "text": "Prophet Lot"
+    "kind": "course",
+    "text": "Lut was brave"
   },
   {
     "kind": "course",
     "text": "Building the Ka'bah"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Ishmael"
   },
   {
     "kind": "course",
@@ -9542,6 +9662,18 @@
   {
     "kind": "course",
     "text": "Ya'qub's patience"
+  },
+  {
+    "kind": "course",
+    "text": "Yusuf and dreams"
+  },
+  {
+    "kind": "arabic",
+    "text": "The dream"
+  },
+  {
+    "kind": "arabic",
+    "text": "Named in the Quran"
   },
   {
     "kind": "course",
@@ -9564,12 +9696,40 @@
     "text": "Prophet Aaron"
   },
   {
+    "kind": "arabic",
+    "text": "Joshua, Musa's helper"
+  },
+  {
+    "kind": "course",
+    "text": "Ilyas"
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Elijah"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Yasa'"
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Elisha"
+  },
+  {
     "kind": "course",
     "text": "Dawud the fair king"
   },
   {
     "kind": "course",
     "text": "Sulayman and the ant"
+  },
+  {
+    "kind": "course",
+    "text": "Muhammad ﷺ"
+  },
+  {
+    "kind": "arabic",
+    "text": "Prophet Muhammad ﷺ"
   },
   {
     "kind": "course",
@@ -9906,86 +10066,6 @@
   {
     "kind": "course",
     "text": "Always smiling"
-  },
-  {
-    "kind": "course",
-    "text": "Al-Yasa'"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Elisha"
-  },
-  {
-    "kind": "course",
-    "text": "Ayyub"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Job"
-  },
-  {
-    "kind": "course",
-    "text": "Dhul-Kifl"
-  },
-  {
-    "kind": "arabic",
-    "text": "Named in the Quran"
-  },
-  {
-    "kind": "course",
-    "text": "Idris"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Idris"
-  },
-  {
-    "kind": "course",
-    "text": "Ilyas"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Elijah"
-  },
-  {
-    "kind": "course",
-    "text": "Shu'ayb"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Shu'ayb"
-  },
-  {
-    "kind": "course",
-    "text": "Yahya"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet John"
-  },
-  {
-    "kind": "course",
-    "text": "Yunus"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Jonah"
-  },
-  {
-    "kind": "course",
-    "text": "Yusha' ibn Nun"
-  },
-  {
-    "kind": "arabic",
-    "text": "Joshua, Musa's helper"
-  },
-  {
-    "kind": "course",
-    "text": "Zakariyya"
-  },
-  {
-    "kind": "arabic",
-    "text": "Prophet Zechariah"
   },
   {
     "kind": "course",
@@ -11809,6 +11889,14 @@
   },
   {
     "kind": "course",
+    "text": "The intercession and the Pool"
+  },
+  {
+    "kind": "course",
+    "text": "The Prophet ﷺ intercedes for all people, and his Pool of al-Kawthar."
+  },
+  {
+    "kind": "course",
     "text": "The reckoning and the scales"
   },
   {
@@ -11821,31 +11909,11 @@
   },
   {
     "kind": "course",
-    "text": "The intercession and the Pool"
-  },
-  {
-    "kind": "course",
-    "text": "The Prophet ﷺ intercedes for all people, and his Pool of al-Kawthar."
-  },
-  {
-    "kind": "course",
     "text": "The bridge"
   },
   {
     "kind": "course",
     "text": "The bridge over Jahannam: some cross like lightning, some crawl."
-  },
-  {
-    "kind": "course",
-    "text": "Jannah"
-  },
-  {
-    "kind": "course",
-    "text": "What Allah has prepared for the believers: things no eye has seen."
-  },
-  {
-    "kind": "arabic",
-    "text": "Paradise"
   },
   {
     "kind": "course",
@@ -11858,6 +11926,18 @@
   {
     "kind": "arabic",
     "text": "The Fire"
+  },
+  {
+    "kind": "course",
+    "text": "Jannah"
+  },
+  {
+    "kind": "course",
+    "text": "What Allah has prepared for the believers: things no eye has seen."
+  },
+  {
+    "kind": "arabic",
+    "text": "Paradise"
   },
   {
     "kind": "course",
@@ -12005,10 +12085,6 @@
   },
   {
     "kind": "course",
-    "text": "Forty what?"
-  },
-  {
-    "kind": "course",
     "text": "The great earthquake"
   },
   {
@@ -12018,6 +12094,10 @@
   {
     "kind": "course",
     "text": "Mountains like wool"
+  },
+  {
+    "kind": "course",
+    "text": "Forty what?"
   },
   {
     "kind": "course",
@@ -12037,11 +12117,31 @@
   },
   {
     "kind": "course",
+    "text": "Looking for help"
+  },
+  {
+    "kind": "course",
+    "text": "He falls in sujud"
+  },
+  {
+    "kind": "course",
+    "text": "The saved dua"
+  },
+  {
+    "kind": "course",
+    "text": "The Pool"
+  },
+  {
+    "kind": "course",
     "text": "The book of deeds"
   },
   {
     "kind": "course",
     "text": "Right hand or left"
+  },
+  {
+    "kind": "course",
+    "text": "No translator"
   },
   {
     "kind": "course",
@@ -12081,30 +12181,6 @@
   },
   {
     "kind": "course",
-    "text": "No translator"
-  },
-  {
-    "kind": "course",
-    "text": "Looking for help"
-  },
-  {
-    "kind": "course",
-    "text": "He falls in sujud"
-  },
-  {
-    "kind": "course",
-    "text": "The saved dua"
-  },
-  {
-    "kind": "course",
-    "text": "The Pool"
-  },
-  {
-    "kind": "course",
-    "text": "A grain of faith"
-  },
-  {
-    "kind": "course",
     "text": "Everyone comes to it"
   },
   {
@@ -12129,6 +12205,46 @@
   },
   {
     "kind": "course",
+    "text": "Seven gates"
+  },
+  {
+    "kind": "course",
+    "text": "Seventy times hotter"
+  },
+  {
+    "kind": "course",
+    "text": "What surrounds them"
+  },
+  {
+    "kind": "course",
+    "text": "One dip"
+  },
+  {
+    "kind": "course",
+    "text": "Two breaths"
+  },
+  {
+    "kind": "course",
+    "text": "Even half a date"
+  },
+  {
+    "kind": "course",
+    "text": "A grain of faith"
+  },
+  {
+    "kind": "course",
+    "text": "A hundred mercies"
+  },
+  {
+    "kind": "course",
+    "text": "Eight gates"
+  },
+  {
+    "kind": "course",
+    "text": "Faces like the full moon"
+  },
+  {
+    "kind": "course",
     "text": "No eye has seen"
   },
   {
@@ -12142,14 +12258,6 @@
   {
     "kind": "course",
     "text": "A hundred levels"
-  },
-  {
-    "kind": "course",
-    "text": "Eight gates"
-  },
-  {
-    "kind": "course",
-    "text": "Faces like the full moon"
   },
   {
     "kind": "course",
@@ -12186,34 +12294,6 @@
   {
     "kind": "course",
     "text": "Death itself ends"
-  },
-  {
-    "kind": "course",
-    "text": "Seventy times hotter"
-  },
-  {
-    "kind": "course",
-    "text": "Seven gates"
-  },
-  {
-    "kind": "course",
-    "text": "What surrounds them"
-  },
-  {
-    "kind": "course",
-    "text": "One dip"
-  },
-  {
-    "kind": "course",
-    "text": "Even half a date"
-  },
-  {
-    "kind": "course",
-    "text": "Two breaths"
-  },
-  {
-    "kind": "course",
-    "text": "A hundred mercies"
   },
   {
     "kind": "course",
@@ -14836,26 +14916,6 @@
     "text": "Nuh called people to Allah alone."
   },
   {
-    "kind": "question",
-    "text": "Allah taught Adam the ____ of all things."
-  },
-  {
-    "kind": "question",
-    "text": "games"
-  },
-  {
-    "kind": "question",
-    "text": "names"
-  },
-  {
-    "kind": "question",
-    "text": "songs"
-  },
-  {
-    "kind": "question",
-    "text": "Even the angels did not know these names."
-  },
-  {
     "kind": "lesson",
     "text": "Allah took Ibrahim as His close friend."
   },
@@ -15062,26 +15122,6 @@
   {
     "kind": "question",
     "text": "Isa is a prophet of Allah, not an angel."
-  },
-  {
-    "kind": "question",
-    "text": "Allah taught Yusuf to explain ____."
-  },
-  {
-    "kind": "question",
-    "text": "poems"
-  },
-  {
-    "kind": "question",
-    "text": "dreams"
-  },
-  {
-    "kind": "question",
-    "text": "stars"
-  },
-  {
-    "kind": "question",
-    "text": "He explained the king's dream of seven fat cows."
   },
   {
     "kind": "lesson",
@@ -16633,6 +16673,10 @@
   },
   {
     "kind": "question",
+    "text": "songs"
+  },
+  {
+    "kind": "question",
     "text": "words"
   },
   {
@@ -17094,6 +17138,10 @@
   {
     "kind": "question",
     "text": "If your mind wanders, gently bring it back to ____."
+  },
+  {
+    "kind": "question",
+    "text": "games"
   },
   {
     "kind": "lesson",
@@ -18374,6 +18422,10 @@
   {
     "kind": "question",
     "text": "Quran"
+  },
+  {
+    "kind": "question",
+    "text": "poems"
   },
   {
     "kind": "question",
@@ -21869,10 +21921,6 @@
   },
   {
     "kind": "question",
-    "text": "Sulayman"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 30: what were the first words of baby Isa?"
   },
   {
@@ -22305,6 +22353,10 @@
   },
   {
     "kind": "question",
+    "text": "stars"
+  },
+  {
+    "kind": "question",
     "text": "clouds"
   },
   {
@@ -22374,6 +22426,18 @@
   {
     "kind": "source",
     "text": "Quran 2:31"
+  },
+  {
+    "kind": "question",
+    "text": "Allah taught Adam the ____ of all things."
+  },
+  {
+    "kind": "question",
+    "text": "names"
+  },
+  {
+    "kind": "question",
+    "text": "Even the angels did not know these names."
   },
   {
     "kind": "lesson",
@@ -22557,10 +22621,6 @@
   },
   {
     "kind": "question",
-    "text": "Dawud"
-  },
-  {
-    "kind": "question",
     "text": "Who was the mother of Ishaq?"
   },
   {
@@ -22570,6 +22630,18 @@
   {
     "kind": "source",
     "text": "Quran 12:101"
+  },
+  {
+    "kind": "question",
+    "text": "Allah taught Yusuf to explain ____."
+  },
+  {
+    "kind": "question",
+    "text": "dreams"
+  },
+  {
+    "kind": "question",
+    "text": "He explained the king's dream of seven fat cows."
   },
   {
     "kind": "question",
@@ -25176,10 +25248,6 @@
     "text": "Who stayed patient through illness and loss, and Allah healed him?"
   },
   {
-    "kind": "question",
-    "text": "Salih"
-  },
-  {
     "kind": "lesson",
     "text": "The Quran praises him as one of the patient."
   },
@@ -25272,10 +25340,6 @@
     "text": "Who was a prophet sent to the people of Madyan?"
   },
   {
-    "kind": "question",
-    "text": "Ismail"
-  },
-  {
     "kind": "lesson",
     "text": "Father: Zakariyya"
   },
@@ -25358,10 +25422,6 @@
   {
     "kind": "question",
     "text": "Who looked after Maryam and was the father of Yahya?"
-  },
-  {
-    "kind": "question",
-    "text": "Lut"
   },
   {
     "kind": "lesson",
@@ -44498,10 +44558,6 @@
   {
     "kind": "question",
     "text": "Ibrahim and Ismail"
-  },
-  {
-    "kind": "question",
-    "text": "Musa and Harun"
   },
   {
     "kind": "question",
@@ -79565,74 +79621,6 @@
   },
   {
     "kind": "lesson",
-    "text": "Between the two blowings is forty. Forty what? Not said."
-  },
-  {
-    "kind": "lesson",
-    "text": "He refused to guess"
-  },
-  {
-    "kind": "lesson",
-    "text": "All of the body decays but the tailbone"
-  },
-  {
-    "kind": "lesson",
-    "text": "From it Allah rebuilds us"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 4814"
-  },
-  {
-    "kind": "question",
-    "text": "What did Abu Hurayrah do when asked 'forty days or years?'"
-  },
-  {
-    "kind": "question",
-    "text": "Said forty days"
-  },
-  {
-    "kind": "question",
-    "text": "Laughed"
-  },
-  {
-    "kind": "question",
-    "text": "Refused to guess"
-  },
-  {
-    "kind": "question",
-    "text": "Said forty years"
-  },
-  {
-    "kind": "question",
-    "text": "He only said what he heard."
-  },
-  {
-    "kind": "question",
-    "text": "Which bone does not decay?"
-  },
-  {
-    "kind": "question",
-    "text": "The skull"
-  },
-  {
-    "kind": "question",
-    "text": "The tailbone"
-  },
-  {
-    "kind": "question",
-    "text": "From it Allah rebuilds the body."
-  },
-  {
-    "kind": "question",
-    "text": "Abu Hurayrah's lesson: don't add to what the Prophet ﷺ said."
-  },
-  {
-    "kind": "question",
-    "text": "If you don't know, say you don't know."
-  },
-  {
-    "kind": "lesson",
     "text": "The earth will shake its final shake and tell its news."
   },
   {
@@ -79838,6 +79826,74 @@
   {
     "kind": "question",
     "text": "The Striking Calamity, surah 101."
+  },
+  {
+    "kind": "lesson",
+    "text": "Between the two blowings is forty. Forty what? Not said."
+  },
+  {
+    "kind": "lesson",
+    "text": "He refused to guess"
+  },
+  {
+    "kind": "lesson",
+    "text": "All of the body decays but the tailbone"
+  },
+  {
+    "kind": "lesson",
+    "text": "From it Allah rebuilds us"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4814"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Hurayrah do when asked 'forty days or years?'"
+  },
+  {
+    "kind": "question",
+    "text": "Said forty days"
+  },
+  {
+    "kind": "question",
+    "text": "Laughed"
+  },
+  {
+    "kind": "question",
+    "text": "Refused to guess"
+  },
+  {
+    "kind": "question",
+    "text": "Said forty years"
+  },
+  {
+    "kind": "question",
+    "text": "He only said what he heard."
+  },
+  {
+    "kind": "question",
+    "text": "Which bone does not decay?"
+  },
+  {
+    "kind": "question",
+    "text": "The skull"
+  },
+  {
+    "kind": "question",
+    "text": "The tailbone"
+  },
+  {
+    "kind": "question",
+    "text": "From it Allah rebuilds the body."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hurayrah's lesson: don't add to what the Prophet ﷺ said."
+  },
+  {
+    "kind": "question",
+    "text": "If you don't know, say you don't know."
   },
   {
     "kind": "lesson",
@@ -80181,63 +80237,267 @@
   },
   {
     "kind": "lesson",
-    "text": "Even an atom's weight of good, you will see it."
+    "text": "People ask prophet after prophet for help that Day."
   },
   {
     "kind": "lesson",
-    "text": "Quran 99:7-8"
+    "text": "The sun is close, people suffer"
   },
   {
     "kind": "lesson",
-    "text": "Nothing is too small"
+    "text": "Each prophet says: myself"
   },
   {
     "kind": "source",
-    "text": "Quran 99:7"
+    "text": "Sahih al-Bukhari 4712"
   },
   {
     "kind": "question",
-    "text": "How small a good deed will you see on that Day?"
+    "text": "Who do people go to first for help?"
   },
   {
     "kind": "question",
-    "text": "Only ones people saw"
+    "text": "The father of mankind."
   },
   {
     "kind": "question",
-    "text": "Even an atom's weight"
+    "text": "Who do they come to at last?"
   },
   {
     "kind": "question",
-    "text": "Quran 99:7."
+    "text": "Bukhari 4712."
   },
   {
     "kind": "question",
-    "text": "You smile at a sad classmate. Does it count?"
+    "text": "The other prophets each sent the people on to someone else."
   },
   {
     "kind": "question",
-    "text": "Yes, even small good is seen"
+    "text": "Until they reached the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ falls in sujud; Allah says: ask, and it is given."
+  },
+  {
+    "kind": "lesson",
+    "text": "Chief of mankind that Day"
+  },
+  {
+    "kind": "lesson",
+    "text": "Intercede and it is accepted"
   },
   {
     "kind": "question",
-    "text": "No, too small"
+    "text": "What does the Prophet ﷺ do first?"
   },
   {
     "kind": "question",
-    "text": "Only if filmed"
+    "text": "Sleeps"
   },
   {
     "kind": "question",
-    "text": "An atom's weight of good."
+    "text": "Falls in sujud to Allah"
   },
   {
     "kind": "question",
-    "text": "Small bad deeds are forgotten on that Day."
+    "text": "Gives a speech"
   },
   {
     "kind": "question",
-    "text": "Quran 99:8, unless Allah forgives them."
+    "text": "Beneath the Throne."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah tell him?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask another prophet"
+  },
+  {
+    "kind": "question",
+    "text": "Ask and you will be given"
+  },
+  {
+    "kind": "question",
+    "text": "Intercede and it will be accepted."
+  },
+  {
+    "kind": "question",
+    "text": "What did he call himself that Day?"
+  },
+  {
+    "kind": "question",
+    "text": "Chief of the people"
+  },
+  {
+    "kind": "question",
+    "text": "A king of gold"
+  },
+  {
+    "kind": "question",
+    "text": "The last in line"
+  },
+  {
+    "kind": "lesson",
+    "text": "Every prophet had one special dua. He ﷺ saved his for his ummah."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6304"
+  },
+  {
+    "kind": "lesson",
+    "text": "His love for us"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ save his special dua for?"
+  },
+  {
+    "kind": "question",
+    "text": "Victory in battle"
+  },
+  {
+    "kind": "question",
+    "text": "To intercede for his ummah"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 6304."
+  },
+  {
+    "kind": "question",
+    "text": "He wanted fame"
+  },
+  {
+    "kind": "question",
+    "text": "How much he cared for us"
+  },
+  {
+    "kind": "question",
+    "text": "He forgot to use it"
+  },
+  {
+    "kind": "question",
+    "text": "He thought of us before himself."
+  },
+  {
+    "kind": "question",
+    "text": "How do we show love back?"
+  },
+  {
+    "kind": "question",
+    "text": "Follow his Sunnah and send salawat"
+  },
+  {
+    "kind": "question",
+    "text": "Only talk about him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah gave him ﷺ al-Kawthar, a river and a Pool."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shortest surah"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah give the Prophet ﷺ in Surah 108?"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 108:1."
+  },
+  {
+    "kind": "question",
+    "text": "Which is the shortest surah?"
+  },
+  {
+    "kind": "question",
+    "text": "Just three ayahs."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Kawthar is linked to the Pool of the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Its water flows into his Pool."
+  },
+  {
+    "kind": "lesson",
+    "text": "Drink from his ﷺ Pool once and never be thirsty again."
+  },
+  {
+    "kind": "lesson",
+    "text": "Smells better than musk"
+  },
+  {
+    "kind": "lesson",
+    "text": "Cups as many as the stars"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6579"
+  },
+  {
+    "kind": "question",
+    "text": "How wide is the Pool?"
+  },
+  {
+    "kind": "question",
+    "text": "A few steps"
+  },
+  {
+    "kind": "question",
+    "text": "A day's walk"
+  },
+  {
+    "kind": "question",
+    "text": "A month's journey"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 6579."
+  },
+  {
+    "kind": "question",
+    "text": "What happens to whoever drinks from it?"
+  },
+  {
+    "kind": "question",
+    "text": "Never thirsty again"
+  },
+  {
+    "kind": "question",
+    "text": "Falls asleep"
+  },
+  {
+    "kind": "question",
+    "text": "Gets rich"
+  },
+  {
+    "kind": "question",
+    "text": "Grows wings"
+  },
+  {
+    "kind": "question",
+    "text": "How many cups does it have?"
+  },
+  {
+    "kind": "question",
+    "text": "As many as the stars"
+  },
+  {
+    "kind": "question",
+    "text": "Countless."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the intercession and the Pool!"
   },
   {
     "kind": "lesson",
@@ -80373,6 +80633,66 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah will speak to each person with no translator in between."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7512"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shield yourself, even with half a date"
+  },
+  {
+    "kind": "question",
+    "text": "Who will be between you and Allah when He speaks to you?"
+  },
+  {
+    "kind": "question",
+    "text": "Your teacher"
+  },
+  {
+    "kind": "question",
+    "text": "No one, no translator"
+  },
+  {
+    "kind": "question",
+    "text": "Your parents"
+  },
+  {
+    "kind": "question",
+    "text": "A lawyer"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 7512."
+  },
+  {
+    "kind": "question",
+    "text": "What will you see to your right and left?"
+  },
+  {
+    "kind": "question",
+    "text": "Only your deeds"
+  },
+  {
+    "kind": "question",
+    "text": "What you sent ahead."
+  },
+  {
+    "kind": "question",
+    "text": "How little charity can shield you from the Fire?"
+  },
+  {
+    "kind": "question",
+    "text": "Only a million"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 7512 and 1417."
+  },
+  {
+    "kind": "lesson",
     "text": "An easy reckoning: your deeds are shown, not argued."
   },
   {
@@ -80434,10 +80754,6 @@
   {
     "kind": "question",
     "text": "Runs away"
-  },
-  {
-    "kind": "question",
-    "text": "Sleeps"
   },
   {
     "kind": "question",
@@ -80785,6 +81101,66 @@
   },
   {
     "kind": "lesson",
+    "text": "Even an atom's weight of good, you will see it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Quran 99:7-8"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nothing is too small"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 99:7"
+  },
+  {
+    "kind": "question",
+    "text": "How small a good deed will you see on that Day?"
+  },
+  {
+    "kind": "question",
+    "text": "Only ones people saw"
+  },
+  {
+    "kind": "question",
+    "text": "Even an atom's weight"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 99:7."
+  },
+  {
+    "kind": "question",
+    "text": "You smile at a sad classmate. Does it count?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, even small good is seen"
+  },
+  {
+    "kind": "question",
+    "text": "No, too small"
+  },
+  {
+    "kind": "question",
+    "text": "Only if filmed"
+  },
+  {
+    "kind": "question",
+    "text": "An atom's weight of good."
+  },
+  {
+    "kind": "question",
+    "text": "Small bad deeds are forgotten on that Day."
+  },
+  {
+    "kind": "question",
+    "text": "Quran 99:8, unless Allah forgives them."
+  },
+  {
+    "kind": "lesson",
     "text": "Allah sets up the scales: not even a mustard seed is missed."
   },
   {
@@ -80969,383 +81345,7 @@
   },
   {
     "kind": "lesson",
-    "text": "Allah will speak to each person with no translator in between."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 7512"
-  },
-  {
-    "kind": "lesson",
-    "text": "Shield yourself, even with half a date"
-  },
-  {
-    "kind": "question",
-    "text": "Who will be between you and Allah when He speaks to you?"
-  },
-  {
-    "kind": "question",
-    "text": "Your teacher"
-  },
-  {
-    "kind": "question",
-    "text": "No one, no translator"
-  },
-  {
-    "kind": "question",
-    "text": "Your parents"
-  },
-  {
-    "kind": "question",
-    "text": "A lawyer"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 7512."
-  },
-  {
-    "kind": "question",
-    "text": "What will you see to your right and left?"
-  },
-  {
-    "kind": "question",
-    "text": "Only your deeds"
-  },
-  {
-    "kind": "question",
-    "text": "What you sent ahead."
-  },
-  {
-    "kind": "question",
-    "text": "How little charity can shield you from the Fire?"
-  },
-  {
-    "kind": "question",
-    "text": "Only a million"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 7512 and 1417."
-  },
-  {
-    "kind": "lesson",
     "text": "The last test: everything about the reckoning!"
-  },
-  {
-    "kind": "lesson",
-    "text": "People ask prophet after prophet for help that Day."
-  },
-  {
-    "kind": "lesson",
-    "text": "The sun is close, people suffer"
-  },
-  {
-    "kind": "lesson",
-    "text": "Each prophet says: myself"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 4712"
-  },
-  {
-    "kind": "question",
-    "text": "Who do people go to first for help?"
-  },
-  {
-    "kind": "question",
-    "text": "The father of mankind."
-  },
-  {
-    "kind": "question",
-    "text": "Who do they come to at last?"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 4712."
-  },
-  {
-    "kind": "question",
-    "text": "The other prophets each sent the people on to someone else."
-  },
-  {
-    "kind": "question",
-    "text": "Until they reached the Prophet ﷺ."
-  },
-  {
-    "kind": "lesson",
-    "text": "He ﷺ falls in sujud; Allah says: ask, and it is given."
-  },
-  {
-    "kind": "lesson",
-    "text": "Chief of mankind that Day"
-  },
-  {
-    "kind": "lesson",
-    "text": "Intercede and it is accepted"
-  },
-  {
-    "kind": "question",
-    "text": "What does the Prophet ﷺ do first?"
-  },
-  {
-    "kind": "question",
-    "text": "Falls in sujud to Allah"
-  },
-  {
-    "kind": "question",
-    "text": "Gives a speech"
-  },
-  {
-    "kind": "question",
-    "text": "Beneath the Throne."
-  },
-  {
-    "kind": "question",
-    "text": "What does Allah tell him?"
-  },
-  {
-    "kind": "question",
-    "text": "Ask another prophet"
-  },
-  {
-    "kind": "question",
-    "text": "Ask and you will be given"
-  },
-  {
-    "kind": "question",
-    "text": "Intercede and it will be accepted."
-  },
-  {
-    "kind": "question",
-    "text": "What did he call himself that Day?"
-  },
-  {
-    "kind": "question",
-    "text": "Chief of the people"
-  },
-  {
-    "kind": "question",
-    "text": "A king of gold"
-  },
-  {
-    "kind": "question",
-    "text": "The last in line"
-  },
-  {
-    "kind": "lesson",
-    "text": "Every prophet had one special dua. He ﷺ saved his for his ummah."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 6304"
-  },
-  {
-    "kind": "lesson",
-    "text": "His love for us"
-  },
-  {
-    "kind": "question",
-    "text": "What did the Prophet ﷺ save his special dua for?"
-  },
-  {
-    "kind": "question",
-    "text": "Victory in battle"
-  },
-  {
-    "kind": "question",
-    "text": "To intercede for his ummah"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 6304."
-  },
-  {
-    "kind": "question",
-    "text": "He wanted fame"
-  },
-  {
-    "kind": "question",
-    "text": "How much he cared for us"
-  },
-  {
-    "kind": "question",
-    "text": "He forgot to use it"
-  },
-  {
-    "kind": "question",
-    "text": "He thought of us before himself."
-  },
-  {
-    "kind": "question",
-    "text": "How do we show love back?"
-  },
-  {
-    "kind": "question",
-    "text": "Follow his Sunnah and send salawat"
-  },
-  {
-    "kind": "question",
-    "text": "Only talk about him"
-  },
-  {
-    "kind": "lesson",
-    "text": "Allah gave him ﷺ al-Kawthar, a river and a Pool."
-  },
-  {
-    "kind": "lesson",
-    "text": "Shortest surah"
-  },
-  {
-    "kind": "question",
-    "text": "What did Allah give the Prophet ﷺ in Surah 108?"
-  },
-  {
-    "kind": "question",
-    "text": "Quran 108:1."
-  },
-  {
-    "kind": "question",
-    "text": "Which is the shortest surah?"
-  },
-  {
-    "kind": "question",
-    "text": "Just three ayahs."
-  },
-  {
-    "kind": "question",
-    "text": "Al-Kawthar is linked to the Pool of the Prophet ﷺ."
-  },
-  {
-    "kind": "question",
-    "text": "Its water flows into his Pool."
-  },
-  {
-    "kind": "lesson",
-    "text": "Drink from his ﷺ Pool once and never be thirsty again."
-  },
-  {
-    "kind": "lesson",
-    "text": "Smells better than musk"
-  },
-  {
-    "kind": "lesson",
-    "text": "Cups as many as the stars"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 6579"
-  },
-  {
-    "kind": "question",
-    "text": "How wide is the Pool?"
-  },
-  {
-    "kind": "question",
-    "text": "A few steps"
-  },
-  {
-    "kind": "question",
-    "text": "A day's walk"
-  },
-  {
-    "kind": "question",
-    "text": "A month's journey"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 6579."
-  },
-  {
-    "kind": "question",
-    "text": "What happens to whoever drinks from it?"
-  },
-  {
-    "kind": "question",
-    "text": "Never thirsty again"
-  },
-  {
-    "kind": "question",
-    "text": "Falls asleep"
-  },
-  {
-    "kind": "question",
-    "text": "Gets rich"
-  },
-  {
-    "kind": "question",
-    "text": "Grows wings"
-  },
-  {
-    "kind": "question",
-    "text": "How many cups does it have?"
-  },
-  {
-    "kind": "question",
-    "text": "As many as the stars"
-  },
-  {
-    "kind": "question",
-    "text": "Countless."
-  },
-  {
-    "kind": "lesson",
-    "text": "Even a grain of faith gets a person out of the Fire."
-  },
-  {
-    "kind": "lesson",
-    "text": "Then a wheat grain"
-  },
-  {
-    "kind": "lesson",
-    "text": "Then an atom's weight"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 44"
-  },
-  {
-    "kind": "question",
-    "text": "Who will be taken out of the Fire in this hadith?"
-  },
-  {
-    "kind": "question",
-    "text": "One with even a grain of faith"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 44."
-  },
-  {
-    "kind": "question",
-    "text": "What must they have said?"
-  },
-  {
-    "kind": "question",
-    "text": "Good morning"
-  },
-  {
-    "kind": "question",
-    "text": "Any words"
-  },
-  {
-    "kind": "question",
-    "text": "With faith in the heart."
-  },
-  {
-    "kind": "question",
-    "text": "Smallest amount of faith named?"
-  },
-  {
-    "kind": "question",
-    "text": "A brick"
-  },
-  {
-    "kind": "question",
-    "text": "Allah's mercy is huge."
-  },
-  {
-    "kind": "lesson",
-    "text": "The last test: everything about the intercession and the Pool!"
   },
   {
     "kind": "lesson",
@@ -81709,6 +81709,570 @@
   },
   {
     "kind": "lesson",
+    "text": "Jahannam has seven gates, each with its share of people."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 15:44"
+  },
+  {
+    "kind": "lesson",
+    "text": "Jannah has eight"
+  },
+  {
+    "kind": "question",
+    "text": "How many gates does Jahannam have?"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 15:44."
+  },
+  {
+    "kind": "question",
+    "text": "How many gates does Jannah have?"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 3257: one more than the Fire."
+  },
+  {
+    "kind": "question",
+    "text": "Allah's mercy is greater than His anger."
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 3194."
+  },
+  {
+    "kind": "lesson",
+    "text": "Our fire is one part of seventy of the heat of Jahannam."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3265"
+  },
+  {
+    "kind": "lesson",
+    "text": "Each part as hot as ours"
+  },
+  {
+    "kind": "question",
+    "text": "Our fire is how much of Jahannam's heat?"
+  },
+  {
+    "kind": "question",
+    "text": "Twice as hot"
+  },
+  {
+    "kind": "question",
+    "text": "One part of seventy"
+  },
+  {
+    "kind": "question",
+    "text": "The same"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 3265."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Allah tell us this?"
+  },
+  {
+    "kind": "question",
+    "text": "To warn us so we stay away"
+  },
+  {
+    "kind": "question",
+    "text": "To scare kids for fun"
+  },
+  {
+    "kind": "question",
+    "text": "To make us hopeless"
+  },
+  {
+    "kind": "question",
+    "text": "A warning is a mercy."
+  },
+  {
+    "kind": "question",
+    "text": "Jahannam is like the fire we know."
+  },
+  {
+    "kind": "question",
+    "text": "Seventy times stronger."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jannah is surrounded by hard things; the Fire by what we crave."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2822"
+  },
+  {
+    "kind": "lesson",
+    "text": "Bukhari 6487"
+  },
+  {
+    "kind": "question",
+    "text": "What surrounds Jannah?"
+  },
+  {
+    "kind": "question",
+    "text": "Hard things"
+  },
+  {
+    "kind": "question",
+    "text": "Easy fun"
+  },
+  {
+    "kind": "question",
+    "text": "Gold walls"
+  },
+  {
+    "kind": "question",
+    "text": "Muslim 2822."
+  },
+  {
+    "kind": "question",
+    "text": "What surrounds the Fire?"
+  },
+  {
+    "kind": "question",
+    "text": "Desires and cravings"
+  },
+  {
+    "kind": "question",
+    "text": "Waking for Fajr when sleepy is a hard thing that leads to Jannah."
+  },
+  {
+    "kind": "question",
+    "text": "Good often feels hard at first."
+  },
+  {
+    "kind": "lesson",
+    "text": "Protect yourselves and your families from the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Strong angels guard it"
+  },
+  {
+    "kind": "question",
+    "text": "Who does 66:6 tell you to protect?"
+  },
+  {
+    "kind": "question",
+    "text": "Yourself and your family"
+  },
+  {
+    "kind": "question",
+    "text": "Only yourself"
+  },
+  {
+    "kind": "question",
+    "text": "What is the Fire's fuel?"
+  },
+  {
+    "kind": "question",
+    "text": "People and stones"
+  },
+  {
+    "kind": "question",
+    "text": "Gas"
+  },
+  {
+    "kind": "question",
+    "text": "Paper"
+  },
+  {
+    "kind": "question",
+    "text": "Teaching your little brother to pray protects him."
+  },
+  {
+    "kind": "question",
+    "text": "That is protecting your family."
+  },
+  {
+    "kind": "lesson",
+    "text": "One dip in Jannah erases a lifetime of pain."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2807"
+  },
+  {
+    "kind": "lesson",
+    "text": "\"No, my Lord, never\""
+  },
+  {
+    "kind": "question",
+    "text": "After one dip in the Fire, what does the richest man say?"
+  },
+  {
+    "kind": "question",
+    "text": "It's fine"
+  },
+  {
+    "kind": "question",
+    "text": "I never saw any good"
+  },
+  {
+    "kind": "question",
+    "text": "I was rich"
+  },
+  {
+    "kind": "question",
+    "text": "I want more"
+  },
+  {
+    "kind": "question",
+    "text": "Muslim 2807."
+  },
+  {
+    "kind": "question",
+    "text": "After one dip in Jannah, what does the poorest man say?"
+  },
+  {
+    "kind": "question",
+    "text": "I'm still sad"
+  },
+  {
+    "kind": "question",
+    "text": "I never felt hardship"
+  },
+  {
+    "kind": "question",
+    "text": "I was poor"
+  },
+  {
+    "kind": "question",
+    "text": "This world is all"
+  },
+  {
+    "kind": "question",
+    "text": "Rich people win"
+  },
+  {
+    "kind": "question",
+    "text": "Pain lasts forever"
+  },
+  {
+    "kind": "question",
+    "text": "The Akhirah outweighs everything here"
+  },
+  {
+    "kind": "question",
+    "text": "One moment there erases a lifetime here."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Fire was allowed two breaths: one in summer, one in winter."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3260"
+  },
+  {
+    "kind": "lesson",
+    "text": "The hottest heat, the bitterest cold"
+  },
+  {
+    "kind": "question",
+    "text": "How many breaths was the Fire allowed?"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 3260."
+  },
+  {
+    "kind": "question",
+    "text": "When are they?"
+  },
+  {
+    "kind": "question",
+    "text": "Day and night"
+  },
+  {
+    "kind": "question",
+    "text": "Ramadan and Eid"
+  },
+  {
+    "kind": "question",
+    "text": "Spring and autumn"
+  },
+  {
+    "kind": "question",
+    "text": "Summer and winter"
+  },
+  {
+    "kind": "question",
+    "text": "Strongest heat and bitterest cold."
+  },
+  {
+    "kind": "question",
+    "text": "A very hot day can remind you of the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Jahannam?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Shield yourself from the Fire, even with half a date in charity."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1417"
+  },
+  {
+    "kind": "lesson",
+    "text": "If not, with a good word"
+  },
+  {
+    "kind": "question",
+    "text": "What small thing can shield you from the Fire?"
+  },
+  {
+    "kind": "question",
+    "text": "A selfie"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing small"
+  },
+  {
+    "kind": "question",
+    "text": "Half a date in charity"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 1417."
+  },
+  {
+    "kind": "question",
+    "text": "If you have nothing to give?"
+  },
+  {
+    "kind": "question",
+    "text": "Take from others"
+  },
+  {
+    "kind": "question",
+    "text": "Say a good word"
+  },
+  {
+    "kind": "question",
+    "text": "Do nothing"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 6023."
+  },
+  {
+    "kind": "question",
+    "text": "Small charity matters to Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Even half a date."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even a grain of faith gets a person out of the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Then a wheat grain"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then an atom's weight"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 44"
+  },
+  {
+    "kind": "question",
+    "text": "Who will be taken out of the Fire in this hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "One with even a grain of faith"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 44."
+  },
+  {
+    "kind": "question",
+    "text": "What must they have said?"
+  },
+  {
+    "kind": "question",
+    "text": "Any words"
+  },
+  {
+    "kind": "question",
+    "text": "Good morning"
+  },
+  {
+    "kind": "question",
+    "text": "With faith in the heart."
+  },
+  {
+    "kind": "question",
+    "text": "Smallest amount of faith named?"
+  },
+  {
+    "kind": "question",
+    "text": "A brick"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's mercy is huge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah kept ninety-nine parts of mercy for that Day."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6469"
+  },
+  {
+    "kind": "lesson",
+    "text": "Never feel too safe"
+  },
+  {
+    "kind": "question",
+    "text": "How many parts of mercy did Allah keep for that Day?"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 6469."
+  },
+  {
+    "kind": "question",
+    "text": "What is the one part used for?"
+  },
+  {
+    "kind": "question",
+    "text": "All creatures' mercy to each other"
+  },
+  {
+    "kind": "question",
+    "text": "Even a mother animal lifts her hoof off her baby (Bukhari 6000)."
+  },
+  {
+    "kind": "question",
+    "text": "A believer lives between hope and fear."
+  },
+  {
+    "kind": "question",
+    "text": "Never hopeless, never too safe."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Jahannam!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Jannah has eight gates. Ar-Rayyan is only for those who fasted."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sahih al-Bukhari 3257"
+  },
+  {
+    "kind": "lesson",
+    "text": "Closed after the fasters enter"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1896"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 3257."
+  },
+  {
+    "kind": "question",
+    "text": "What is the gate for fasting people called?"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 1896."
+  },
+  {
+    "kind": "question",
+    "text": "Anyone can enter by ar-Rayyan."
+  },
+  {
+    "kind": "question",
+    "text": "Only those who fasted."
+  },
+  {
+    "kind": "lesson",
+    "text": "The first group to enter Jannah shine like the full moon."
+  },
+  {
+    "kind": "lesson",
+    "text": "No illness or dirt"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sweat like musk"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hearts with no grudges"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3245"
+  },
+  {
+    "kind": "question",
+    "text": "How will the first group in Jannah look?"
+  },
+  {
+    "kind": "question",
+    "text": "Tired"
+  },
+  {
+    "kind": "question",
+    "text": "Like the full moon"
+  },
+  {
+    "kind": "question",
+    "text": "Like shadows"
+  },
+  {
+    "kind": "question",
+    "text": "Like stones"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 3245."
+  },
+  {
+    "kind": "question",
+    "text": "What will their sweat smell like?"
+  },
+  {
+    "kind": "question",
+    "text": "People in Jannah get sick."
+  },
+  {
+    "kind": "question",
+    "text": "No sickness, no dirt."
+  },
+  {
+    "kind": "lesson",
     "text": "Allah prepared what no eye has seen and no heart imagined."
   },
   {
@@ -81930,102 +82494,6 @@
   {
     "kind": "question",
     "text": "Like the sky and the earth"
-  },
-  {
-    "kind": "lesson",
-    "text": "Jannah has eight gates. Ar-Rayyan is only for those who fasted."
-  },
-  {
-    "kind": "lesson",
-    "text": "Sahih al-Bukhari 3257"
-  },
-  {
-    "kind": "lesson",
-    "text": "Closed after the fasters enter"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 1896"
-  },
-  {
-    "kind": "question",
-    "text": "How many gates does Jannah have?"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 3257."
-  },
-  {
-    "kind": "question",
-    "text": "What is the gate for fasting people called?"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 1896."
-  },
-  {
-    "kind": "question",
-    "text": "Anyone can enter by ar-Rayyan."
-  },
-  {
-    "kind": "question",
-    "text": "Only those who fasted."
-  },
-  {
-    "kind": "lesson",
-    "text": "The first group to enter Jannah shine like the full moon."
-  },
-  {
-    "kind": "lesson",
-    "text": "No illness or dirt"
-  },
-  {
-    "kind": "lesson",
-    "text": "Sweat like musk"
-  },
-  {
-    "kind": "lesson",
-    "text": "Hearts with no grudges"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 3245"
-  },
-  {
-    "kind": "question",
-    "text": "How will the first group in Jannah look?"
-  },
-  {
-    "kind": "question",
-    "text": "Tired"
-  },
-  {
-    "kind": "question",
-    "text": "Like the full moon"
-  },
-  {
-    "kind": "question",
-    "text": "Like shadows"
-  },
-  {
-    "kind": "question",
-    "text": "Like stones"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 3245."
-  },
-  {
-    "kind": "question",
-    "text": "What will their sweat smell like?"
-  },
-  {
-    "kind": "question",
-    "text": "People in Jannah get sick."
-  },
-  {
-    "kind": "question",
-    "text": "No sickness, no dirt."
   },
   {
     "kind": "lesson",
@@ -82658,418 +83126,6 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about Jannah!"
-  },
-  {
-    "kind": "lesson",
-    "text": "Our fire is one part of seventy of the heat of Jahannam."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 3265"
-  },
-  {
-    "kind": "lesson",
-    "text": "Each part as hot as ours"
-  },
-  {
-    "kind": "question",
-    "text": "Our fire is how much of Jahannam's heat?"
-  },
-  {
-    "kind": "question",
-    "text": "Twice as hot"
-  },
-  {
-    "kind": "question",
-    "text": "One part of seventy"
-  },
-  {
-    "kind": "question",
-    "text": "The same"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 3265."
-  },
-  {
-    "kind": "question",
-    "text": "Why did Allah tell us this?"
-  },
-  {
-    "kind": "question",
-    "text": "To warn us so we stay away"
-  },
-  {
-    "kind": "question",
-    "text": "To scare kids for fun"
-  },
-  {
-    "kind": "question",
-    "text": "To make us hopeless"
-  },
-  {
-    "kind": "question",
-    "text": "A warning is a mercy."
-  },
-  {
-    "kind": "question",
-    "text": "Jahannam is like the fire we know."
-  },
-  {
-    "kind": "question",
-    "text": "Seventy times stronger."
-  },
-  {
-    "kind": "lesson",
-    "text": "Protect yourselves and your families from the Fire."
-  },
-  {
-    "kind": "lesson",
-    "text": "Strong angels guard it"
-  },
-  {
-    "kind": "question",
-    "text": "Who does 66:6 tell you to protect?"
-  },
-  {
-    "kind": "question",
-    "text": "Yourself and your family"
-  },
-  {
-    "kind": "question",
-    "text": "Only yourself"
-  },
-  {
-    "kind": "question",
-    "text": "What is the Fire's fuel?"
-  },
-  {
-    "kind": "question",
-    "text": "People and stones"
-  },
-  {
-    "kind": "question",
-    "text": "Gas"
-  },
-  {
-    "kind": "question",
-    "text": "Paper"
-  },
-  {
-    "kind": "question",
-    "text": "Teaching your little brother to pray protects him."
-  },
-  {
-    "kind": "question",
-    "text": "That is protecting your family."
-  },
-  {
-    "kind": "lesson",
-    "text": "Jahannam has seven gates, each with its share of people."
-  },
-  {
-    "kind": "source",
-    "text": "Quran 15:44"
-  },
-  {
-    "kind": "lesson",
-    "text": "Jannah has eight"
-  },
-  {
-    "kind": "question",
-    "text": "How many gates does Jahannam have?"
-  },
-  {
-    "kind": "question",
-    "text": "Quran 15:44."
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 3257: one more than the Fire."
-  },
-  {
-    "kind": "question",
-    "text": "Allah's mercy is greater than His anger."
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 3194."
-  },
-  {
-    "kind": "lesson",
-    "text": "Jannah is surrounded by hard things; the Fire by what we crave."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih Muslim 2822"
-  },
-  {
-    "kind": "lesson",
-    "text": "Bukhari 6487"
-  },
-  {
-    "kind": "question",
-    "text": "What surrounds Jannah?"
-  },
-  {
-    "kind": "question",
-    "text": "Hard things"
-  },
-  {
-    "kind": "question",
-    "text": "Easy fun"
-  },
-  {
-    "kind": "question",
-    "text": "Gold walls"
-  },
-  {
-    "kind": "question",
-    "text": "Muslim 2822."
-  },
-  {
-    "kind": "question",
-    "text": "What surrounds the Fire?"
-  },
-  {
-    "kind": "question",
-    "text": "Desires and cravings"
-  },
-  {
-    "kind": "question",
-    "text": "Waking for Fajr when sleepy is a hard thing that leads to Jannah."
-  },
-  {
-    "kind": "question",
-    "text": "Good often feels hard at first."
-  },
-  {
-    "kind": "lesson",
-    "text": "One dip in Jannah erases a lifetime of pain."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih Muslim 2807"
-  },
-  {
-    "kind": "lesson",
-    "text": "\"No, my Lord, never\""
-  },
-  {
-    "kind": "question",
-    "text": "After one dip in the Fire, what does the richest man say?"
-  },
-  {
-    "kind": "question",
-    "text": "It's fine"
-  },
-  {
-    "kind": "question",
-    "text": "I never saw any good"
-  },
-  {
-    "kind": "question",
-    "text": "I was rich"
-  },
-  {
-    "kind": "question",
-    "text": "I want more"
-  },
-  {
-    "kind": "question",
-    "text": "Muslim 2807."
-  },
-  {
-    "kind": "question",
-    "text": "After one dip in Jannah, what does the poorest man say?"
-  },
-  {
-    "kind": "question",
-    "text": "I'm still sad"
-  },
-  {
-    "kind": "question",
-    "text": "I never felt hardship"
-  },
-  {
-    "kind": "question",
-    "text": "I was poor"
-  },
-  {
-    "kind": "question",
-    "text": "This world is all"
-  },
-  {
-    "kind": "question",
-    "text": "Rich people win"
-  },
-  {
-    "kind": "question",
-    "text": "Pain lasts forever"
-  },
-  {
-    "kind": "question",
-    "text": "The Akhirah outweighs everything here"
-  },
-  {
-    "kind": "question",
-    "text": "One moment there erases a lifetime here."
-  },
-  {
-    "kind": "lesson",
-    "text": "Shield yourself from the Fire, even with half a date in charity."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 1417"
-  },
-  {
-    "kind": "lesson",
-    "text": "If not, with a good word"
-  },
-  {
-    "kind": "question",
-    "text": "What small thing can shield you from the Fire?"
-  },
-  {
-    "kind": "question",
-    "text": "A selfie"
-  },
-  {
-    "kind": "question",
-    "text": "Nothing small"
-  },
-  {
-    "kind": "question",
-    "text": "Half a date in charity"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 1417."
-  },
-  {
-    "kind": "question",
-    "text": "If you have nothing to give?"
-  },
-  {
-    "kind": "question",
-    "text": "Take from others"
-  },
-  {
-    "kind": "question",
-    "text": "Say a good word"
-  },
-  {
-    "kind": "question",
-    "text": "Do nothing"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 6023."
-  },
-  {
-    "kind": "question",
-    "text": "Small charity matters to Allah."
-  },
-  {
-    "kind": "question",
-    "text": "Even half a date."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Jahannam?"
-  },
-  {
-    "kind": "lesson",
-    "text": "The Fire was allowed two breaths: one in summer, one in winter."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 3260"
-  },
-  {
-    "kind": "lesson",
-    "text": "The hottest heat, the bitterest cold"
-  },
-  {
-    "kind": "question",
-    "text": "How many breaths was the Fire allowed?"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 3260."
-  },
-  {
-    "kind": "question",
-    "text": "When are they?"
-  },
-  {
-    "kind": "question",
-    "text": "Day and night"
-  },
-  {
-    "kind": "question",
-    "text": "Ramadan and Eid"
-  },
-  {
-    "kind": "question",
-    "text": "Spring and autumn"
-  },
-  {
-    "kind": "question",
-    "text": "Summer and winter"
-  },
-  {
-    "kind": "question",
-    "text": "Strongest heat and bitterest cold."
-  },
-  {
-    "kind": "question",
-    "text": "A very hot day can remind you of the Fire."
-  },
-  {
-    "kind": "lesson",
-    "text": "Allah kept ninety-nine parts of mercy for that Day."
-  },
-  {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 6469"
-  },
-  {
-    "kind": "lesson",
-    "text": "Never feel too safe"
-  },
-  {
-    "kind": "question",
-    "text": "How many parts of mercy did Allah keep for that Day?"
-  },
-  {
-    "kind": "question",
-    "text": "Bukhari 6469."
-  },
-  {
-    "kind": "question",
-    "text": "What is the one part used for?"
-  },
-  {
-    "kind": "question",
-    "text": "All creatures' mercy to each other"
-  },
-  {
-    "kind": "question",
-    "text": "Even a mother animal lifts her hoof off her baby (Bukhari 6000)."
-  },
-  {
-    "kind": "question",
-    "text": "A believer lives between hope and fear."
-  },
-  {
-    "kind": "question",
-    "text": "Never hopeless, never too safe."
-  },
-  {
-    "kind": "lesson",
-    "text": "The last test: everything about Jahannam!"
   },
   {
     "kind": "lesson",

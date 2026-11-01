@@ -1,6 +1,6 @@
 import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
 import { mergeImportedNotes } from "./importedNotes";
-import { arrangeUnits } from "./unitPlans";
+import { arrangeUnits, dropEmptyUnits } from "./unitPlans";
 import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
 import { addDeepUnits, addSurahDeepUnits } from "./deepUnits";
 import { addSurahMeanings } from "./surahMeanings";
@@ -3947,7 +3947,7 @@ function withLearnLines(lessons: Record<string, Lesson>): Record<string, Lesson>
 const scaledContent = buildExpandedContent(BASE_COURSE, withLearnLines(BASE_LESSONS_BY_ID));
 // Each person is taught in one unit (unitPlans.ts); then each unit opens after the one before it.
 // Deep units (deepUnits.ts) follow their unit's own circles, and then each surah's passages (surahMeanings).
-const chainedNotes = chainCourse(addSurahDeepUnits(addSurahMeanings(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES))))));
+const chainedNotes = chainCourse(dropEmptyUnits(addSurahDeepUnits(addSurahMeanings(addDeepUnits(arrangeUnits(mergeImportedNotes(scaledContent.course, scaledContent.lessonsById, IMPORTED_NOTES)))))));
 // The 30-day Ramadan path (ramadanDays.ts) comes last in the topic list; its days are already chained in order. The
 // beginner path for people new to Islam (introToIslam.ts) follows it, and is put first for them in the topic picker.
 const chainedContent = {

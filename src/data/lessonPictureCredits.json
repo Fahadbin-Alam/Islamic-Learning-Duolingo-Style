@@ -150,5 +150,117 @@
     "author": "Unknown author",
     "license": "Public domain",
     "licenseUrl": ""
+  },
+  "sirat": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "scales": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "pool": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "sun-west": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "grave": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "garden": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "ark": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "sea-split": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "big-fish": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "ants": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "nile": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "ahqaf": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "desert-well": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
   }
 }
