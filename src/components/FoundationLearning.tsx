@@ -740,7 +740,15 @@ export function FoundationAssessmentScreen({
   };
   const layout = pickFolds ? rightLayout : softLayout;
   const room = layout ? sheetRoom(layout) : undefined;
-  const sheetMaxHeight = locked && fit.fitted && placeKnown && room ? room.room : undefined;
+  // The sheet is held to its room only once it has told its heights for this CHECK. A question that keeps its place
+  // knows it in the render CHECK draws, before the sheet has said how tall it is, so nothing can yet tell whether the
+  // question is to give room (its grey answers fold, its mascot hides). Held then to the room the question has as it
+  // is, the sheet would go slim for it and tell that height: the question would be placed for the slimmer sheet (left
+  // scrolled down, its scroll taking up all of the folds' room for it), and in the render after, the sheet back to its
+  // full size in the room the folds make, sent on to another place, a step back the other way. Drawn first at its own
+  // size, as before that render knew the place, the sheet tells the heights the question is placed for in the very
+  // next render; the room it gets there makes it slim only where even what the question gives is not enough.
+  const sheetMaxHeight = locked && fit.fitted && placeKnown && sheetFull > 0 && room ? room.room : undefined;
   // A question the learner left scrolled down (by hand or with the arrow) keeps its right answer where it showed, as in
   // lessons: it goes back up only by the room that folds above it, and further down only where the sheet needs it to
   // (see keptScrollY). Where the learner left it and where the right answer then sat are read as CHECK is tapped.
