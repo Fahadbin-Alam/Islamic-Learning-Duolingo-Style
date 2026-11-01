@@ -124,7 +124,8 @@ describe("Al-Baqarah in depth", () => {
     const problems: string[] = [];
     for (const [number, passages] of Object.entries(DEEP_PASSAGES)) {
       const surah = SURAH_MEANINGS.find((each) => each.surah === Number(number))!;
-      expect(Object.keys(passages)).toEqual(surah.passages.map((passage) => passage.at));
+      // Sorted: a one-ayah passage key such as "20" is an integer key, which JS always lists first.
+      expect(Object.keys(passages).sort()).toEqual(surah.passages.map((passage) => passage.at).sort());
       for (const [at, each] of Object.entries(passages)) {
         const where = `${number}:${at}`;
         if (each.meaning.length < 2 || each.meaning.length > 3 || each.meaning.some((line) => line.length > 112)) problems.push(`${where} meaning`);
