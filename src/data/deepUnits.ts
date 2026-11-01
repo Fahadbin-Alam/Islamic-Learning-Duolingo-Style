@@ -45,7 +45,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "family-lines",
       title: "Expert in family lines",
       line: "Abu Bakr knew the family lines of Quraysh best of all.",
-      facts: ["The poet Hassan learned from him", "Same tribe as the Prophet ﷺ"],
+      facts: ["The poet Hassan learned from him.", "He was from the same tribe as the Prophet ﷺ."],
       source: hadith("muslim", "2490", "Aishah", "Sahih", "The Prophet ﷺ sent Hassan ibn Thabit to Abu Bakr, who knew the lineage of Quraysh best."),
       difficulty: 2,
       questions: [
@@ -59,7 +59,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "good-before-islam",
       title: "Known for good",
       line: "A chief said Abu Bakr helped the poor and welcomed guests.",
-      facts: ["Chief: Ibn ad-Dughunnah", "Kept ties with family", "Helped people in hardship"],
+      facts: ["Chief: Ibn ad-Dughunnah", "He kept ties with family.", "He helped people in hardship."],
       source: hadith("bukhari", "3905", "Aishah", "Sahih", "Ibn ad-Dughunnah praised Abu Bakr: he helps the poor, keeps family ties, welcomes guests and helps people in hardship."),
       difficulty: 2,
       questions: [
@@ -73,7 +73,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "he-speaks-truth",
       title: "He speaks the truth",
       line: "Abu Bakr believed the Prophet ﷺ when others called him a liar.",
-      facts: ["Abu Bakr said: he speaks the truth", "Gave himself and his wealth", "Leave my companion alone!"],
+      facts: ["Abu Bakr said: he speaks the truth", "He gave himself and his wealth.", "Leave my companion alone!"],
       source: hadith("bukhari", "3661", "Abu ad-Darda", "Sahih", "The Prophet ﷺ said: you called me a liar, but Abu Bakr said he speaks the truth, and helped me with himself and his wealth."),
       difficulty: 3,
       questions: [
@@ -87,7 +87,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "first-believers",
       title: "The first believers",
       line: "At first, only five slaves, two women and Abu Bakr believed.",
-      facts: ["Told by Ammar ibn Yasir", "Very few Muslims at the start"],
+      facts: ["Told by Ammar ibn Yasir", "There were very few Muslims at the start."],
       source: hadith("bukhari", "3660", "Ammar ibn Yasir", "Sahih", "Ammar saw the Prophet ﷺ when only five slaves, two women and Abu Bakr were with him."),
       difficulty: 3,
       questions: [
@@ -115,7 +115,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "defending",
       title: "Standing up for him",
       line: "Abu Bakr pulled Uqbah away as he choked the Prophet ﷺ.",
-      facts: ["It happened while he prayed", "Abu Bakr quoted Quran 40:28", "Told by Abdullah ibn Amr"],
+      facts: ["It happened while he was praying.", "Abu Bakr quoted Quran 40:28.", "Told by Abdullah ibn Amr"],
       source: hadith("bukhari", "3678", "Abdullah ibn Amr", "Sahih", "Uqbah ibn Abi Mu'ayt choked the Prophet ﷺ while he prayed; Abu Bakr pushed him away and recited: will you kill a man because he says my Lord is Allah?"),
       difficulty: 3,
       questions: [
@@ -129,7 +129,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "masjid-at-home",
       title: "A masjid by his house",
       line: "Abu Bakr built a little masjid by his house and wept reciting.",
-      facts: ["Set out for Abyssinia first", "Chief brought him back", "Crowds watched him weep"],
+      facts: ["He first set out for Abyssinia.", "A chief brought him back.", "Crowds watched him weep as he recited."],
       source: hadith("bukhari", "3905", "Aishah", "Sahih", "Abu Bakr set out for Abyssinia, came back under Ibn ad-Dughunnah's protection, and built a masjid in front of his house where he wept reciting."),
       difficulty: 3,
       questions: [
@@ -143,7 +143,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "allahs-protection",
       title: "Allah's protection",
       line: "Abu Bakr gave back the chief's protection: Allah's was enough.",
-      facts: ["Quraysh said: pray only indoors", "He refused to hide"],
+      facts: ["Quraysh told him: pray only indoors.", "He refused to hide."],
       source: hadith("bukhari", "3905", "Aishah", "Sahih", "Abu Bakr told Ibn ad-Dughunnah: I release you from your protection, and I am pleased with the protection of Allah."),
       difficulty: 3,
       questions: [
@@ -157,7 +157,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "waiting-for-hijrah",
       title: "Waiting for the Hijrah",
       line: "Abu Bakr fed two camels four months, waiting for the Hijrah.",
-      facts: ["The Prophet ﷺ said: wait", "He came at noon with the news", "He paid for his camel"],
+      facts: ["The Prophet ﷺ told him: wait.", "He came at noon with the news.", "He paid for his own camel."],
       source: hadith("bukhari", "3905", "Aishah", "Sahih", "The Prophet ﷺ asked Abu Bakr to wait so they could make Hijrah together; Abu Bakr fed two camels for four months."),
       difficulty: 3,
       questions: [
@@ -199,7 +199,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "do-not-grieve",
       title: "Do not grieve",
       line: "In the cave, Abu Bakr feared the enemy would see them.",
-      facts: ["Quran 9:40: do not grieve", "Allah is with us"],
+      facts: ["Quran 9:40: do not grieve", "Allah is with us."],
       quote: { text: "What do you think of two, the third of whom is Allah?", reference: "Sahih al-Bukhari 3653" },
       source: hadith("bukhari", "3653", "Abu Bakr", "Sahih", "In the cave Abu Bakr said: if one of them looked down, he would see us. The Prophet ﷺ said: what do you think of two, the third of whom is Allah?"),
       difficulty: 3,
@@ -270,7 +270,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "forgiving-mistah",
       title: "He forgave",
       line: "Allah told Abu Bakr to forgive a relative, so he kept helping.",
-      facts: ["Relative: Mistah", "Ayah: Quran 24:22", "I want Allah to forgive me"],
+      facts: ["Relative: Mistah", "Ayah: Quran 24:22", "He said: I want Allah to forgive me."],
       source: hadith("bukhari", "4750", "Aishah", "Sahih", "Abu Bakr swore to stop helping Mistah; Allah revealed Quran 24:22, and Abu Bakr said: I want Allah to forgive me, and kept giving to him."),
       difficulty: 4,
       questions: [
@@ -284,7 +284,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "four-good-deeds",
       title: "Four good deeds",
       line: "In one day, Abu Bakr fasted, fed the poor, visited the sick.",
-      facts: ["He also joined a funeral", "All four: a promise of Jannah"],
+      facts: ["He had also joined a funeral.", "All four: a promise of Jannah"],
       source: hadith("muslim", "1028a", "Abu Hurayrah", "Sahih", "The Prophet ﷺ asked who had fasted, followed a funeral, fed a poor person and visited the sick that day; Abu Bakr had done all four."),
       difficulty: 4,
       questions: [
@@ -298,7 +298,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "every-gate",
       title: "Every gate of Jannah",
       line: "The Prophet ﷺ hoped Abu Bakr is called from every gate.",
-      facts: ["Gate of fasting: Ar-Rayyan", "Gates of prayer and charity too"],
+      facts: ["Gate of fasting: Ar-Rayyan", "There are gates of prayer and charity too."],
       source: hadith("bukhari", "3666", "Abu Hurayrah", "Sahih", "Some will be called from every gate of Jannah; the Prophet ﷺ said: I hope you are one of them, Abu Bakr."),
       difficulty: 4,
       questions: [
@@ -312,7 +312,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "not-from-pride",
       title: "Not out of pride",
       line: "Abu Bakr's robe slipped down, but the Prophet ﷺ said: not pride.",
-      facts: ["Warning: dragging clothes in pride", "Abu Bakr worried about himself"],
+      facts: ["Warning: dragging clothes in pride", "Abu Bakr worried about himself."],
       source: hadith("bukhari", "3665", "Abdullah ibn Umar", "Sahih", "Abu Bakr said one side of his robe slips down; the Prophet ﷺ said: you are not one who does it out of pride."),
       difficulty: 4,
       questions: [
@@ -326,7 +326,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "khalil",
       title: "The closest friend",
       line: "If the Prophet ﷺ took a khalil, it would be Abu Bakr.",
-      facts: ["Khalil: the closest friend", "Only Abu Bakr's door left open", "Abu Bakr wept at the speech"],
+      facts: ["Khalil: the closest friend", "Only Abu Bakr's door was left open.", "Abu Bakr wept at the speech."],
       source: hadith("bukhari", "3654", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said: if I were to take a khalil other than my Lord, I would take Abu Bakr; close every door to the masjid except Abu Bakr's."),
       difficulty: 4,
       questions: [
@@ -340,7 +340,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "most-beloved",
       title: "Most beloved",
       line: "Asked who he loved most among men, the Prophet ﷺ said Abu Bakr.",
-      facts: ["Asked by Amr ibn al-As", "First: Aishah, then her father", "Next: Umar"],
+      facts: ["Amr ibn al-As asked him.", "First: Aishah, then her father", "Next: Umar"],
       source: hadith("bukhari", "3662", "Amr ibn al-As", "Sahih", "Amr asked who was most beloved to the Prophet ﷺ: Aishah; and among men, her father; then Umar."),
       difficulty: 4,
       questions: [
@@ -354,7 +354,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "uhud-shook",
       title: "The mountain shook",
       line: "On Uhud, the Prophet ﷺ called Abu Bakr a siddiq.",
-      facts: ["With Umar and Uthman", "A prophet, a siddiq, two martyrs"],
+      facts: ["Umar and Uthman were with them.", "A prophet, a siddiq, two martyrs"],
       source: hadith("bukhari", "3675", "Anas ibn Malik", "Sahih", "Uhud shook under the Prophet ﷺ, Abu Bakr, Umar and Uthman; he said: be firm, on you are a prophet, a siddiq and two martyrs."),
       difficulty: 5,
       questions: [
@@ -368,7 +368,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "leading-hajj",
       title: "Leader of the Hajj",
       line: "A year before the Farewell Hajj, Abu Bakr led the Hajj.",
-      facts: ["No idol worshippers after this year", "No tawaf without clothes", "Abu Hurayrah announced it"],
+      facts: ["No idol worshippers after this year.", "No tawaf without clothes.", "Abu Hurayrah announced it."],
       source: hadith("bukhari", "1622", "Abu Hurayrah", "Sahih", "The Prophet ﷺ made Abu Bakr leader of the Hajj the year before the Farewell Hajj; he sent people to announce that no idol worshipper may make Hajj after that year."),
       difficulty: 4,
       questions: [
@@ -382,7 +382,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "leading-salah",
       title: "In the Prophet's ﷺ place",
       line: "Aishah said her father weeps, yet the Prophet ﷺ chose him.",
-      facts: ["Aishah: he weeps too much", "Aishah suggested Umar", "He said again: Abu Bakr"],
+      facts: ["Aishah: he weeps too much", "Aishah suggested Umar instead.", "He said again: Abu Bakr"],
       source: hadith("bukhari", "679", "Aishah", "Sahih", "In his last illness the Prophet ﷺ said: tell Abu Bakr to lead the people in prayer. Aishah said he weeps and suggested Umar, but he repeated his order."),
       difficulty: 4,
       questions: [
@@ -396,7 +396,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "go-to-abu-bakr",
       title: "Then go to Abu Bakr",
       line: "Asked who to turn to after him, he ﷺ said: Abu Bakr.",
-      facts: ["She meant: after your death", "Told by Jubayr ibn Mut'im"],
+      facts: ["She meant: after your death.", "Told by Jubayr ibn Mut'im"],
       source: hadith("bukhari", "3659", "Jubayr ibn Mut'im", "Sahih", "A woman asked the Prophet ﷺ what to do if she came back and did not find him; he said: then go to Abu Bakr."),
       difficulty: 5,
       questions: [
@@ -409,7 +409,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "the-speech",
       title: "Allah never dies",
       line: "Abu Bakr said: whoever worshipped Muhammad, Muhammad has died.",
-      facts: ["Allah is alive and never dies", "He recited Quran 3:144", "Umar sat down"],
+      facts: ["Allah is alive and never dies.", "He recited Quran 3:144.", "Umar sat down."],
       source: hadith("bukhari", "3667, 3668", "Aishah", "Sahih", "When the Prophet ﷺ died, Abu Bakr said: whoever worshipped Muhammad, Muhammad has died; whoever worships Allah, Allah is alive and never dies. Then he recited 3:144."),
       difficulty: 5,
       questions: [
@@ -423,7 +423,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "saqifah",
       title: "The first pledge",
       line: "At Saqifah, Umar pledged to Abu Bakr: the best of us.",
-      facts: ["Abu Bakr suggested Umar or Abu Ubaydah", "Then all the people pledged"],
+      facts: ["Abu Bakr suggested Umar or Abu Ubaydah.", "Then all the people pledged to him."],
       source: hadith("bukhari", "3667, 3668", "Aishah", "Sahih", "At the hall of Banu Sa'idah Abu Bakr suggested Umar or Abu Ubaydah; Umar said: you are our master, the best of us and the most beloved to the Prophet ﷺ, and pledged to him."),
       difficulty: 5,
       questions: [
@@ -437,7 +437,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "zakat-firm",
       title: "Salah and zakat together",
       line: "Abu Bakr would fight anyone who split salah from zakat.",
-      facts: ["Even over one young goat", "Umar later saw he was right"],
+      facts: ["Even over one young goat.", "Umar later saw he was right."],
       source: hadith("bukhari", "1399, 1400", "Abu Hurayrah", "Sahih", "Abu Bakr said: by Allah, I will fight whoever separates salah and zakat, even if they hold back a young goat they gave in the Prophet's ﷺ time."),
       difficulty: 5,
       questions: [
@@ -450,7 +450,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "collecting-quran",
       title: "Gathering the Quran",
       line: "After Yamamah, Abu Bakr had Zayd ibn Thabit gather the Quran.",
-      facts: ["Many reciters died at Yamamah", "The idea came from Umar", "Zayd: harder than moving a mountain"],
+      facts: ["Many reciters died at Yamamah.", "The idea came from Umar.", "Zayd: harder than moving a mountain"],
       source: hadith("bukhari", "4986", "Zayd bin Thabit", "Sahih", "After many reciters died at Yamamah, Umar urged Abu Bakr to gather the Quran, and Abu Bakr gave the task to Zayd ibn Thabit."),
       difficulty: 5,
       questions: [
@@ -464,7 +464,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "last-days",
       title: "His last days",
       line: "Abu Bakr asked to be wrapped in his old clothes, washed.",
-      facts: ["Died at 63, like the Prophet ﷺ", "Living need new clothes more", "Died the night before Tuesday"],
+      facts: ["He died at 63, like the Prophet ﷺ.", "He said: the living need new clothes more.", "He died the night before Tuesday."],
       source: hadith("bukhari", "1387", "Aishah", "Sahih", "Abu Bakr asked to be shrouded in his washed garment, saying the living have more right to new clothes; he died on the night before Tuesday."),
       difficulty: 5,
       questions: [
@@ -477,7 +477,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "dream-of-the-well",
       title: "The dream of the well",
       line: "In a dream, Ibn Abi Quhafah drew water after the Prophet ﷺ.",
-      facts: ["Ibn Abi Quhafah: Abu Bakr", "One or two buckets", "Then Umar drew the most"],
+      facts: ["Ibn Abi Quhafah: Abu Bakr", "He drew one or two buckets.", "Then Umar drew the most."],
       source: hadith("bukhari", "3664", "Abu Hurayrah", "Sahih", "In a dream the Prophet ﷺ drew water from a well; then Ibn Abi Quhafah drew one or two buckets, then Ibn al-Khattab drew a huge amount."),
       difficulty: 5,
       questions: [
@@ -504,7 +504,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "best-after",
       title: "Ali's answer",
       line: "Ali said the best person after the Prophet ﷺ is Abu Bakr.",
-      facts: ["Asked by his son Muhammad", "Then Umar", "Ali: I am just a Muslim"],
+      facts: ["His son Muhammad asked him.", "Then Umar.", "Ali: I am just a Muslim"],
       source: hadith("bukhari", "3671", "Muhammad ibn al-Hanafiyyah", "Sahih", "Muhammad ibn al-Hanafiyyah asked his father Ali who was best after the Prophet ﷺ; he said: Abu Bakr, then Umar."),
       difficulty: 5,
       questions: [
@@ -518,7 +518,7 @@ const ABU_BAKR: DeepUnit = {
       slug: "ten-promised",
       title: "Promised Jannah",
       line: "Abu Bakr is first of ten the Prophet ﷺ named for Jannah.",
-      facts: ["Then Umar, Uthman, Ali", "Told by Abd ar-Rahman ibn Awf"],
+      facts: ["Then Umar, Uthman and Ali.", "Told by Abd ar-Rahman ibn Awf"],
       source: hadith("tirmidhi", "3747", "Abdur-Rahman ibn Awf", "Sahih (Darussalam)", "The Prophet ﷺ said: Abu Bakr is in Paradise, Umar is in Paradise, Uthman, Ali... ten in all."),
       difficulty: 5,
       questions: [
@@ -558,7 +558,7 @@ const FATIHAH: DeepUnit = {
       slug: "mother-of-the-book",
       title: "Why the Mother of the Book",
       line: "The Quran begins with it, and every salah begins with it.",
-      facts: ["Seven ayahs: all agree", "Holds the meanings of the Quran"],
+      facts: ["All agree it has seven ayahs.", "It holds the meanings of the whole Quran."],
       source: ibnKathir(1, "Al-Bukhari said it is called Umm al-Kitab because the Quran starts with it and the prayer starts with it; there is no disagreement that it has seven ayahs."),
       difficulty: 3,
       questions: [
@@ -571,7 +571,7 @@ const FATIHAH: DeepUnit = {
       slug: "greatest-surah",
       title: "The greatest surah",
       line: "The Prophet ﷺ called Al-Fatihah the greatest surah in the Quran.",
-      facts: ["Told to Abu Sa'id ibn al-Mu'alla", "He was praying when called"],
+      facts: ["He told this to Abu Sa'id ibn al-Mu'alla.", "He was praying when he was called."],
       source: hadith("bukhari", "4474", "Abu Sa'id ibn al-Mu'alla", "Sahih", "The Prophet ﷺ said: I will teach you the greatest surah in the Quran: Alhamdulillahi Rabbil-'alamin, the seven repeated ayahs."),
       difficulty: 3,
       questions: [
@@ -584,7 +584,7 @@ const FATIHAH: DeepUnit = {
       slug: "two-lights",
       title: "Two lights",
       line: "An angel said: rejoice in two lights no prophet had before.",
-      facts: ["Al-Fatihah", "The end of Al-Baqarah", "Reward for every letter"],
+      facts: ["Al-Fatihah", "And the end of Al-Baqarah.", "There is reward for every letter."],
       source: hadith("muslim", "806", "Ibn Abbas", "Sahih", "An angel came down and said: rejoice in two lights given to you that no prophet before you was given: Al-Fatihah and the end of Surah Al-Baqarah."),
       difficulty: 4,
       questions: [
@@ -597,7 +597,7 @@ const FATIHAH: DeepUnit = {
       slug: "ruqyah",
       title: "A healing",
       line: "A companion read Al-Fatihah over a stung chief; he was cured.",
-      facts: ["Stung by a scorpion", "The Prophet ﷺ: how did you know?"],
+      facts: ["A chief had been stung by a scorpion.", "The Prophet ﷺ asked: how did you know?"],
       source: hadith("bukhari", "5007", "Abu Sa'id al-Khudri", "Sahih", "A companion recited Al-Fatihah over a chief stung by a scorpion and he recovered; the Prophet ﷺ asked how he knew it was a ruqyah."),
       difficulty: 3,
       questions: [
@@ -639,7 +639,7 @@ const FATIHAH: DeepUnit = {
       slug: "rahman-rahim",
       title: "The Merciful",
       line: "Ar-Rahman's mercy covers all; Ar-Rahim's is for believers.",
-      facts: ["Both from rahmah, mercy", "Ar-Rahman: only for Allah"],
+      facts: ["Both come from rahmah, mercy.", "Ar-Rahman: only for Allah"],
       quote: ayah(3),
       source: ibnKathir(1, "Ar-Rahman and Ar-Rahim come from rahmah; Ar-Rahman is wider and is a name for Allah alone, Ar-Rahim is especially for the believers (33:43)."),
       difficulty: 4,
@@ -654,7 +654,7 @@ const FATIHAH: DeepUnit = {
       slug: "day-of-recompense",
       title: "The Day of Recompense",
       line: "On the Day of Recompense, Allah alone owns anything.",
-      facts: ["Ad-Din: the reckoning", "Good for good, evil for evil", "Umar: judge yourself first"],
+      facts: ["Ad-Din: the reckoning", "Good is paid with good, evil with evil.", "Umar: judge yourself first"],
       quote: ayah(4),
       source: ibnKathir(4, "Yawm ad-Din is the Day of Recompense; on it no one owns anything but Allah. Umar said: hold yourselves to account before you are held to account."),
       difficulty: 4,
@@ -696,7 +696,7 @@ const FATIHAH: DeepUnit = {
       slug: "straight-path",
       title: "Keep us on the path",
       line: "We ask Allah to keep us firm on the straight path: Islam.",
-      facts: ["Sirat: a clear road, no turns", "Asked in every salah"],
+      facts: ["Sirat: a clear road, no turns", "We ask for it in every salah."],
       quote: ayah(6),
       source: ibnKathir(6, "As-Sirat al-Mustaqim is the clear path with no branches, and it is Islam; believers ask in every prayer to stay firm on it."),
       difficulty: 5,
@@ -710,7 +710,7 @@ const FATIHAH: DeepUnit = {
       slug: "favored-ones",
       title: "Those Allah favored",
       line: "The favored: prophets, the truthful, martyrs and the righteous.",
-      facts: ["Explained by Quran 4:69", "Avoid: knowing truth, leaving it", "Avoid: losing true knowledge"],
+      facts: ["Quran 4:69 explains who they are.", "Avoid: knowing truth, leaving it", "Avoid: losing true knowledge"],
       quote: ayah(7),
       source: ibnKathir(7, "Those Allah favored are the prophets, the truthful, the martyrs and the righteous (4:69); we ask to avoid those who knew the truth and left it, and those who lost true knowledge."),
       difficulty: 5,
@@ -725,7 +725,7 @@ const FATIHAH: DeepUnit = {
       slug: "amin",
       title: "Saying Amin",
       line: "After Al-Fatihah we say Amin: O Allah, answer our dua.",
-      facts: ["Say it with the imam", "Matching the angels' Amin", "Past sins forgiven"],
+      facts: ["Say it with the imam.", "It may match the angels' Amin.", "Then past sins are forgiven."],
       source: hadith("bukhari", "780", "Abu Hurayrah", "Sahih", "Say Amin when the imam says it; whoever's Amin matches the angels' Amin has his past sins forgiven."),
       difficulty: 3,
       questions: [
@@ -750,7 +750,7 @@ const UMAR: DeepUnit = {
       slug: "becoming-muslim",
       title: "Umar becomes Muslim",
       line: "When Umar became Muslim, his people threatened his life.",
-      facts: ["He stayed home in fear", "Al-As ibn Wa'il protected him", "The crowd went back"],
+      facts: ["He stayed home in fear.", "Al-As ibn Wa'il protected him.", "The crowd went back."],
       source: hadith("bukhari", "3864", "Ibn Umar", "Sahih", "When Umar became Muslim, his people threatened to kill him; Al-As ibn Wa'il gave him protection and the crowd turned back."),
       difficulty: 2,
       questions: [
@@ -764,7 +764,7 @@ const UMAR: DeepUnit = {
       slug: "powerful",
       title: "Strength for Islam",
       line: "Ibn Mas'ud said: we have been strong since Umar became Muslim.",
-      facts: ["Told by Abdullah ibn Mas'ud", "Muslims felt stronger"],
+      facts: ["Told by Abdullah ibn Mas'ud", "The Muslims felt stronger."],
       source: hadith("bukhari", "3684", "Abdullah ibn Masud", "Sahih", "Ibn Mas'ud said: we have been powerful since Umar embraced Islam."),
       difficulty: 2,
       questions: [
@@ -777,7 +777,7 @@ const UMAR: DeepUnit = {
       slug: "hafsah",
       title: "A husband for Hafsah",
       line: "Umar offered his widowed daughter to Uthman, then Abu Bakr.",
-      facts: ["Her husband died after Badr", "Then the Prophet ﷺ married her", "Abu Bakr kept the secret"],
+      facts: ["Her husband died after Badr.", "Then the Prophet ﷺ married her.", "Abu Bakr kept the secret."],
       source: hadith("bukhari", "4005", "Ibn Umar", "Sahih", "Umar offered Hafsah in marriage to Uthman, then to Abu Bakr; then the Prophet ﷺ asked for her hand. Abu Bakr later said he had known the Prophet ﷺ spoke of her and kept his secret."),
       difficulty: 3,
       questions: [
@@ -791,7 +791,7 @@ const UMAR: DeepUnit = {
       slug: "lord-agreed",
       title: "My Lord agreed with me",
       line: "Umar said: my Lord agreed with me in three things.",
-      facts: ["Praying at Maqam Ibrahim", "The ayah of hijab", "A warning to the Prophet's ﷺ wives"],
+      facts: ["Praying at Maqam Ibrahim.", "The ayah of hijab.", "A warning to the Prophet's ﷺ wives."],
       source: hadith("bukhari", "402", "Umar ibn al-Khattab", "Sahih", "Umar said: my Lord agreed with me in three things: taking the Maqam of Ibrahim as a place of prayer, the ayah of hijab, and the ayah about the Prophet's ﷺ wives."),
       difficulty: 3,
       questions: [
@@ -805,7 +805,7 @@ const UMAR: DeepUnit = {
       slug: "truth-on-tongue",
       title: "Truth on his tongue",
       line: "Allah put the truth on Umar's tongue and in his heart.",
-      facts: ["Told by Ibn Umar", "The Quran often agreed with him"],
+      facts: ["Told by Ibn Umar", "The Quran often agreed with him."],
       source: hadith("tirmidhi", "3682", "Ibn Umar", "Sahih (Darussalam)", "The Prophet ﷺ said: Allah has put the truth upon the tongue and in the heart of Umar."),
       difficulty: 3,
       questions: [
@@ -818,7 +818,7 @@ const UMAR: DeepUnit = {
       slug: "inspired",
       title: "One who is inspired",
       line: "Past nations had inspired men; in this ummah, that is Umar.",
-      facts: ["Inspired, but not a prophet", "Told by Abu Hurayrah"],
+      facts: ["He was inspired, but not a prophet.", "Told by Abu Hurayrah"],
       source: hadith("bukhari", "3689", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: among the nations before you were people who were inspired though not prophets; if there is any in my ummah, it is Umar."),
       difficulty: 4,
       questions: [
@@ -831,7 +831,7 @@ const UMAR: DeepUnit = {
       slug: "satan-path",
       title: "Shaytan takes another path",
       line: "Shaytan never meets Umar on a path but takes another.",
-      facts: ["The women hurried to cover up", "The Prophet ﷺ was smiling"],
+      facts: ["The women hurried to cover up.", "The Prophet ﷺ was smiling."],
       source: hadith("bukhari", "3683", "Sad ibn Abi Waqqas", "Sahih", "The Prophet ﷺ said: O Ibn al-Khattab, never does Shaytan find you on a path but he takes a path other than yours."),
       difficulty: 3,
       questions: [
@@ -859,7 +859,7 @@ const UMAR: DeepUnit = {
       slug: "palace",
       title: "A palace in Jannah",
       line: "The Prophet ﷺ dreamed of a palace in Jannah, built for Umar.",
-      facts: ["A woman making wudu beside it", "Umar wept"],
+      facts: ["A woman was making wudu beside it.", "Umar wept."],
       source: hadith("bukhari", "3680", "Abu Hurayrah", "Sahih", "The Prophet ﷺ saw in a dream a palace in Paradise for Umar; he remembered Umar's sense of honor and turned away. Umar wept."),
       difficulty: 3,
       questions: [
@@ -873,7 +873,7 @@ const UMAR: DeepUnit = {
       slug: "milk",
       title: "The cup of milk",
       line: "In a dream, the Prophet ﷺ gave Umar his leftover milk.",
-      facts: ["Milk flowed through his nails", "Its meaning: knowledge"],
+      facts: ["The milk flowed out through his nails.", "Its meaning: knowledge"],
       source: hadith("bukhari", "3681", "Ibn Umar", "Sahih", "The Prophet ﷺ saw himself drinking milk until it flowed from his nails, then gave the rest to Umar. He said it means knowledge."),
       difficulty: 3,
       questions: [
@@ -886,7 +886,7 @@ const UMAR: DeepUnit = {
       slug: "shirt",
       title: "The long shirt",
       line: "In a dream, Umar's shirt was so long he dragged it.",
-      facts: ["Others' shirts reached their chests", "Its meaning: religion"],
+      facts: ["Others' shirts reached only their chests.", "Its meaning: religion"],
       source: hadith("bukhari", "3691", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ saw people in shirts, some reaching only the chest; Umar's was so long he dragged it. He said it means religion."),
       difficulty: 3,
       questions: [
@@ -899,7 +899,7 @@ const UMAR: DeepUnit = {
       slug: "if-a-prophet",
       title: "If there were a prophet",
       line: "If there were a prophet after me, it would be Umar.",
-      facts: ["But no prophet comes after him ﷺ", "Told by Uqbah ibn Amir"],
+      facts: ["But no prophet comes after him ﷺ.", "Told by Uqbah ibn Amir"],
       source: hadith("tirmidhi", "3686", "Uqbah ibn Amir", "Hasan (Darussalam)", "The Prophet ﷺ said: if there were to be a prophet after me, it would have been Umar ibn al-Khattab."),
       difficulty: 4,
       questions: [
@@ -912,7 +912,7 @@ const UMAR: DeepUnit = {
       slug: "wolf",
       title: "The talking wolf",
       line: "The Prophet ﷺ said: Abu Bakr and Umar believe it too.",
-      facts: ["A wolf spoke to a shepherd", "Abu Bakr and Umar were not there"],
+      facts: ["A wolf spoke to a shepherd.", "Abu Bakr and Umar were not even there."],
       source: hadith("bukhari", "3690", "Abu Hurayrah", "Sahih", "The Prophet ﷺ told of a wolf that spoke to a shepherd. People were amazed; he said: I believe it, and so do Abu Bakr and Umar, though they were not there."),
       difficulty: 4,
       questions: [
@@ -925,7 +925,7 @@ const UMAR: DeepUnit = {
       slug: "garden-gate",
       title: "Good news at the gate",
       line: "At a garden gate, Umar was given the good news of Jannah.",
-      facts: ["Abu Musa opened the gate", "Abu Bakr, then Umar, then Uthman", "Umar praised Allah"],
+      facts: ["Abu Musa opened the gate.", "First Abu Bakr, then Umar, then Uthman.", "Umar praised Allah."],
       source: hadith("bukhari", "3693", "Abu Musa", "Sahih", "In a garden of Madinah, the Prophet ﷺ told Abu Musa to open the gate and give good news of Paradise to Abu Bakr, then Umar, then Uthman."),
       difficulty: 3,
       questions: [
@@ -938,7 +938,7 @@ const UMAR: DeepUnit = {
       slug: "learning-turns",
       title: "Learning in turns",
       line: "Umar and his Ansari neighbor took turns visiting the Prophet ﷺ.",
-      facts: ["Each told the other the news", "Told by Umar"],
+      facts: ["Each told the other the news.", "Told by Umar"],
       source: hadith("bukhari", "89", "Umar ibn al-Khattab", "Sahih", "Umar and his Ansari neighbor took turns going to the Prophet ﷺ, one day each, and each brought the other the news of revelation and more."),
       difficulty: 3,
       questions: [
@@ -951,7 +951,7 @@ const UMAR: DeepUnit = {
       slug: "three-knocks",
       title: "Ask three times",
       line: "Abu Musa asked three times, then left; Umar wanted a witness.",
-      facts: ["Ask three times, then return", "Abu Sa'id was the witness"],
+      facts: ["Ask three times, then go back.", "Abu Sa'id was the witness."],
       source: hadith("bukhari", "6245", "Abu Sa'id al-Khudri", "Sahih", "Abu Musa asked three times to enter on Umar, got no answer and left; Umar asked for a witness to the hadith, and Abu Sa'id testified the Prophet ﷺ said it."),
       difficulty: 3,
       questions: [
@@ -964,7 +964,7 @@ const UMAR: DeepUnit = {
       slug: "stopped-at-quran",
       title: "He stopped at the Quran",
       line: "Angry at a rude man, Umar stopped when he heard Quran 7:199.",
-      facts: ["Forgive and leave the foolish", "Told by Ibn Abbas"],
+      facts: ["Forgive, and turn away from the foolish.", "Told by Ibn Abbas"],
       source: hadith("bukhari", "4642", "Ibn Abbas", "Sahih", "Uyaynah spoke rudely to Umar, who grew angry; al-Hurr recited Quran 7:199 on forgiving and leaving the foolish, and Umar stopped at it, holding firmly to Allah's Book."),
       difficulty: 4,
       questions: [
@@ -977,7 +977,7 @@ const UMAR: DeepUnit = {
       slug: "ibn-abbas",
       title: "The young scholar",
       line: "Umar sat young Ibn Abbas with the elders who fought at Badr.",
-      facts: ["The elders asked why", "Umar tested them on Surah An-Nasr"],
+      facts: ["The elders asked why.", "Umar tested them on Surah An-Nasr."],
       source: hadith("bukhari", "4970", "Ibn Abbas", "Sahih", "Umar seated young Ibn Abbas with the elders of Badr and asked about Surah An-Nasr; Ibn Abbas said it told of the Prophet's ﷺ death drawing near, and Umar agreed."),
       difficulty: 4,
       questions: [
@@ -990,7 +990,7 @@ const UMAR: DeepUnit = {
       slug: "black-stone",
       title: "Only a stone",
       line: "Umar kissed the Black Stone and said: you are only a stone.",
-      facts: ["It cannot harm or benefit", "He did it to follow the Prophet ﷺ"],
+      facts: ["It cannot harm or benefit.", "He did it only to follow the Prophet ﷺ."],
       source: hadith("bukhari", "1597", "Abis ibn Rabi'ah", "Sahih", "Umar kissed the Black Stone and said: I know you are a stone that can neither benefit nor harm; had I not seen the Prophet ﷺ kiss you, I would not have kissed you."),
       difficulty: 3,
       questions: [
@@ -1003,7 +1003,7 @@ const UMAR: DeepUnit = {
       slug: "uways",
       title: "Uways from Yemen",
       line: "Umar found Uways and asked him to pray for his forgiveness.",
-      facts: ["The Prophet ﷺ described him", "He was kind to his mother", "From Qaran, in Yemen"],
+      facts: ["The Prophet ﷺ described him.", "He was kind to his mother.", "He was from Qaran, in Yemen."],
       source: hadith("muslim", "2542c", "Usayr ibn Jabir", "Sahih", "The Prophet ﷺ told of Uways ibn Amir of Qaran, good to his mother; whoever meets him should ask him to pray for forgiveness for him. Umar found him and asked."),
       difficulty: 4,
       questions: [
@@ -1017,7 +1017,7 @@ const UMAR: DeepUnit = {
       slug: "plague",
       title: "The plague in Sham",
       line: "Hearing of plague in Sham, Umar asked advice and turned back.",
-      facts: ["From Allah's decree to Allah's decree", "A hadith settled it", "Told by Ibn Abbas"],
+      facts: ["We go from Allah's decree to Allah's decree.", "A hadith settled the question.", "Told by Ibn Abbas"],
       source: hadith("bukhari", "5729", "Ibn Abbas", "Sahih", "Umar consulted the Muhajirun and Ansar about plague in Sham; Abd ar-Rahman ibn Awf told him the Prophet ﷺ said: do not enter a land with plague, and do not leave it if it breaks out where you are."),
       difficulty: 5,
       questions: [
@@ -1031,7 +1031,7 @@ const UMAR: DeepUnit = {
       slug: "martyrdom-dua",
       title: "Umar's dua",
       line: "Umar asked Allah for martyrdom and death in Madinah.",
-      facts: ["Martyrdom in Allah's cause", "Death in the city of the Prophet ﷺ"],
+      facts: ["He asked for martyrdom in Allah's cause.", "And death in the city of the Prophet ﷺ."],
       source: hadith("bukhari", "1890", "Aslam", "Sahih", "Umar said: O Allah, grant me martyrdom in Your cause, and let my death be in the city of Your Messenger ﷺ."),
       difficulty: 3,
       questions: [
@@ -1044,7 +1044,7 @@ const UMAR: DeepUnit = {
       slug: "stabbed",
       title: "Stabbed at prayer",
       line: "Umar was stabbed as he began leading the prayer.",
-      facts: ["He had just said the takbir", "Abd ar-Rahman ibn Awf led on", "Umar died at 63"],
+      facts: ["He had just said the takbir.", "Abd ar-Rahman ibn Awf led the rest.", "Umar died at 63."],
       source: hadith("bukhari", "3700", "Amr ibn Maimun", "Sahih", "Umar was stabbed just after the opening takbir of the prayer; he took Abd ar-Rahman ibn Awf's hand to lead the people, who prayed a short prayer."),
       difficulty: 4,
       questions: [
@@ -1058,7 +1058,7 @@ const UMAR: DeepUnit = {
       slug: "afraid-of-allah",
       title: "Afraid to meet Allah",
       line: "Dying, Umar called his good standing a favor from Allah.",
-      facts: ["Ibn Abbas comforted him", "Gold the size of the earth"],
+      facts: ["Ibn Abbas comforted him.", "He spoke of gold as big as the earth."],
       source: hadith("bukhari", "3692", "Al-Miswar ibn Makhramah", "Sahih", "When Umar was stabbed, Ibn Abbas comforted him; Umar said the Prophet's ﷺ and Abu Bakr's pleasure with him were Allah's favor, and that if he had gold filling the earth he would ransom himself from Allah's punishment."),
       difficulty: 4,
       questions: [
@@ -1071,7 +1071,7 @@ const UMAR: DeepUnit = {
       slug: "two-companions",
       title: "Beside his two companions",
       line: "Umar asked Aishah to be buried beside his two companions.",
-      facts: ["The Prophet ﷺ and Abu Bakr", "Don't say: Chief of the Believers", "He asked for his debts to be paid"],
+      facts: ["He wished to lie by the Prophet ﷺ and Abu Bakr.", "He said: don't call me Chief of the Believers.", "He asked for his debts to be paid."],
       source: hadith("bukhari", "3700", "Amr ibn Maimun", "Sahih", "Umar sent his son to ask Aishah's permission to be buried with his two companions, and told him not to call him the Chief of the Believers. He also had his debts counted and paid."),
       difficulty: 5,
       questions: [
@@ -1085,7 +1085,7 @@ const UMAR: DeepUnit = {
       slug: "his-debts",
       title: "Pay my debts",
       line: "Dying, Umar told his son to pay all his debts.",
-      facts: ["About 86,000 owed", "Ask no one but his people"],
+      facts: ["He owed about 86,000.", "Ask no one but his own people."],
       source: hadith("bukhari", "3700", "Amr ibn Maimun", "Sahih", "Umar had his debts counted, about eighty-six thousand, and told Abdullah to pay them from his family's property, then from Banu Adi, then Quraysh, and no one else."),
       difficulty: 4,
       questions: [
@@ -1098,7 +1098,7 @@ const UMAR: DeepUnit = {
       slug: "lift-your-clothes",
       title: "Advice to a young man",
       line: "Even while dying, Umar gently advised a young man.",
-      facts: ["Keeps clothes clean", "And is better before Allah"],
+      facts: ["It keeps your clothes clean.", "And it is better before Allah."],
       source: hadith("bukhari", "3700", "Amr ibn Maimun", "Sahih", "As a young man turned away, his clothes touching the ground, the dying Umar called him back: lift your clothes, for that keeps them clean and protects you before your Lord."),
       difficulty: 4,
       questions: [
@@ -1111,7 +1111,7 @@ const UMAR: DeepUnit = {
       slug: "with-those-you-love",
       title: "With those you love",
       line: "Anas loved Abu Bakr and Umar, hoping to be with them.",
-      facts: ["You will be with those you love", "Told by Anas"],
+      facts: ["You will be with those you love.", "Told by Anas"],
       source: hadith("bukhari", "3688", "Anas ibn Malik", "Sahih", "The Prophet ﷺ told a man: you will be with those you love; Anas said: I love the Prophet ﷺ, Abu Bakr and Umar, and hope to be with them."),
       difficulty: 3,
       questions: [
@@ -1124,7 +1124,7 @@ const UMAR: DeepUnit = {
       slug: "most-generous",
       title: "No one like Umar",
       line: "Ibn Umar saw no one more generous than his father, Umar.",
-      facts: ["After the Prophet ﷺ died", "Told by Aslam"],
+      facts: ["It was after the Prophet ﷺ died.", "Told by Aslam"],
       source: hadith("bukhari", "3687", "Aslam", "Sahih", "Ibn Umar said: since the Prophet ﷺ died, I never saw anyone more serious, hard working and generous than Umar."),
       difficulty: 3,
       questions: [
@@ -1151,7 +1151,7 @@ const MULK: DeepUnit = {
       slug: "intercedes",
       title: "The surah that pleads",
       line: "A surah of thirty ayahs pleads for its reader until forgiven.",
-      facts: ["It is Surah Al-Mulk", "Also called Tabarak"],
+      facts: ["It is Surah Al-Mulk.", "It is also called Tabarak."],
       source: hadith("tirmidhi", "2891", "Abu Hurayrah", "Hasan (Darussalam)", "The Prophet ﷺ said: there is a surah in the Quran of thirty ayahs which intercedes for a man until he is forgiven: Tabarak alladhi biyadihil-mulk."),
       difficulty: 2,
       questions: [
@@ -1177,7 +1177,7 @@ const MULK: DeepUnit = {
       slug: "the-test",
       title: "Life is a test",
       line: "Allah made death and life to test who does the best deeds.",
-      facts: ["Best deeds, not most deeds", "He is Almighty and Forgiving"],
+      facts: ["Allah looks for the best deeds, not the most.", "He is the Almighty, the Forgiving."],
       quote: mulk(2),
       source: ibnKathir(2, "He brought creation into being to test them, to see which of them is best in deeds. Allah did not say which of you does the most deeds.", 67),
       difficulty: 3,
@@ -1191,7 +1191,7 @@ const MULK: DeepUnit = {
       slug: "seven-heavens",
       title: "No flaw in the sky",
       line: "Look at the seven heavens again: you will find no flaw.",
-      facts: ["Seven heavens, one above another", "Look again, and again"],
+      facts: ["Seven heavens, one above another.", "Look again, and again."],
       quote: mulk(3),
       source: ibnKathir(3, "Allah created seven heavens stacked one above the other; no fault is seen in His creation, and the eye that searches again and again returns tired and humbled.", 67),
       difficulty: 3,
@@ -1205,7 +1205,7 @@ const MULK: DeepUnit = {
       slug: "stars",
       title: "Why the stars",
       line: "Qatadah said the stars are beauty, missiles and travel signs.",
-      facts: ["Beauty for the sky", "Missiles at the devils", "Signs to find the way"],
+      facts: ["They are beauty for the sky.", "They are missiles at the devils.", "They are signs to find the way."],
       source: ibnKathir(5, "Qatadah said the stars were created for three things: an adornment for the sky, missiles against the devils, and signs for finding the way.", 67),
       difficulty: 4,
       questions: [
@@ -1218,7 +1218,7 @@ const MULK: DeepUnit = {
       slug: "the-warner",
       title: "Did no warner come?",
       line: "Hell's keepers ask: did no warner come to you?",
-      facts: ["They say: yes, but we denied", "No punishment before a messenger"],
+      facts: ["They say: yes, but we denied.", "Allah punishes no one before sending a messenger."],
       source: ibnKathir(8, "Allah reminds of His justice: He does not punish anyone until the proof is set and a messenger is sent (Quran 17:15).", 67),
       difficulty: 4,
       questions: [
@@ -1231,7 +1231,7 @@ const MULK: DeepUnit = {
       slug: "unseen",
       title: "Fearing Allah unseen",
       line: "Whoever fears Allah unseen gets forgiveness and a great reward.",
-      facts: ["When no one else sees", "Like secret charity"],
+      facts: ["Fearing Allah when no one else sees.", "It is like secret charity."],
       source: ibnKathir(12, "This is the one who fears his Lord when no one sees him but Allah, leaving sins and doing good; his sins are forgiven and he is greatly rewarded.", 67),
       difficulty: 3,
       questions: [
@@ -1258,7 +1258,7 @@ const MULK: DeepUnit = {
       slug: "earth",
       title: "Walk and eat",
       line: "The earth is made easy: walk on it, eat His provision.",
-      facts: ["Work, and trust Allah", "Birds leave hungry, come back full"],
+      facts: ["Work, and trust Allah.", "Birds leave hungry and come back full."],
       quote: mulk(15),
       source: ibnKathir(15, "Travel and seek a living, but know your efforts only help if Allah makes it easy; using means does not cancel trusting Allah, as in the hadith of the birds (Jami at-Tirmidhi 2344).", 67),
       difficulty: 4,
@@ -1273,7 +1273,7 @@ const MULK: DeepUnit = {
       slug: "birds",
       title: "Who holds the birds up?",
       line: "None holds the birds up in the sky but Ar-Rahman.",
-      facts: ["Wings spread, then folded", "Out of His mercy"],
+      facts: ["Their wings spread, then fold.", "Only Allah holds them up, out of His mercy."],
       quote: mulk(19),
       source: ibnKathir(19, "Birds spread and fold their wings in flight; Allah holds them up in the air, making the air serve them out of His mercy.", 67),
       difficulty: 3,
@@ -1301,7 +1301,7 @@ const MULK: DeepUnit = {
       slug: "water",
       title: "If your water sank away",
       line: "If your water sank away, who could bring you flowing water?",
-      facts: ["Only Allah", "Water is His favor"],
+      facts: ["Only Allah can do it.", "Water is His favor."],
       quote: mulk(30),
       source: ibnKathir(30, "If the water sank deep into the earth, no axe or strong arm could reach it; only Allah brings flowing water, out of His favor.", 67),
       difficulty: 3,
@@ -1326,7 +1326,7 @@ const UTHMAN: DeepUnit = {
       slug: "third",
       title: "Third in rank",
       line: "The companions ranked Abu Bakr first, then Umar, then Uthman.",
-      facts: ["In the Prophet's ﷺ lifetime", "Told by Ibn Umar"],
+      facts: ["It was in the Prophet's ﷺ lifetime.", "Told by Ibn Umar"],
       source: hadith("bukhari", "3697", "Ibn Umar", "Sahih", "In the Prophet's ﷺ lifetime we considered no one equal to Abu Bakr, then Umar, then Uthman."),
       difficulty: 2,
       questions: [
@@ -1339,7 +1339,7 @@ const UTHMAN: DeepUnit = {
       slug: "modesty",
       title: "Even angels are shy",
       line: "The Prophet ﷺ said: even the angels are shy before Uthman.",
-      facts: ["He fixed his clothes for Uthman", "Told by Aishah"],
+      facts: ["He fixed his clothes when Uthman came.", "Told by Aishah"],
       source: hadith("muslim", "2401", "Aishah", "Sahih", "When Uthman asked to come in, the Prophet ﷺ sat up and set his clothes right, and said: should I not be shy before one whom even the angels are shy before?"),
       difficulty: 3,
       questions: [
@@ -1352,7 +1352,7 @@ const UTHMAN: DeepUnit = {
       slug: "badr",
       title: "Why he missed Badr",
       line: "Uthman missed Badr to nurse his wife, the Prophet's ﷺ daughter.",
-      facts: ["Same reward as those at Badr", "Ibn Umar answered a critic"],
+      facts: ["He got the same reward as those at Badr.", "Ibn Umar answered a critic."],
       source: hadith("bukhari", "3698", "Uthman ibn Mawhab", "Sahih", "Ibn Umar explained that Uthman missed Badr because his wife, the Prophet's ﷺ daughter, was ill; the Prophet ﷺ told him he would have the reward and share of those at Badr."),
       difficulty: 3,
       questions: [
@@ -1365,7 +1365,7 @@ const UTHMAN: DeepUnit = {
       slug: "his-hand",
       title: "This is Uthman's hand",
       line: "At the pledge, the Prophet ﷺ said: this hand is Uthman's.",
-      facts: ["Uthman was sent to Makkah", "No one there more respected"],
+      facts: ["Uthman was sent to Makkah.", "No one there was more respected."],
       source: hadith("bukhari", "3698", "Uthman ibn Mawhab", "Sahih", "Uthman was the Prophet's ﷺ envoy in Makkah during the pledge of Ridwan; the Prophet ﷺ held up his right hand and said: this is Uthman's hand, and pledged for him."),
       difficulty: 4,
       questions: [
@@ -1378,7 +1378,7 @@ const UTHMAN: DeepUnit = {
       slug: "rumah",
       title: "The well of Rumah",
       line: "Uthman bought the well of Rumah and equipped a whole army.",
-      facts: ["Both were promised Jannah", "The army of hardship: Tabuk"],
+      facts: ["Both were promised Jannah.", "The army of hardship went to Tabuk."],
       source: hadith("bukhari", "2778", "Abu Abdur-Rahman as-Sulami", "Sahih", "Uthman reminded the companions that the Prophet ﷺ promised Paradise to whoever dug the well of Rumah and to whoever equipped the army of hardship, and he had done both; they confirmed it."),
       difficulty: 3,
       questions: [
@@ -1391,7 +1391,7 @@ const UTHMAN: DeepUnit = {
       slug: "thousand",
       title: "A thousand dinars",
       line: "Uthman poured a thousand dinars into the Prophet's ﷺ lap.",
-      facts: ["For the army of hardship", "Said twice by the Prophet ﷺ"],
+      facts: ["It was for the army of hardship.", "The Prophet ﷺ said it twice."],
       source: hadith("tirmidhi", "3701", "Abd ar-Rahman ibn Samurah", "Hasan (Darussalam)", "Uthman brought a thousand dinars for the army of hardship and poured them into the Prophet's ﷺ lap; he turned them over and said twice: whatever Uthman does after today will not harm him."),
       difficulty: 4,
       questions: [
@@ -1404,7 +1404,7 @@ const UTHMAN: DeepUnit = {
       slug: "gate",
       title: "Jannah, with a trial",
       line: "Uthman was told: Jannah is yours, after a trial will strike you.",
-      facts: ["Third at the garden gate", "He said: Allah's help is sought"],
+      facts: ["He was the third at the garden gate.", "He said: Allah's help is sought."],
       source: hadith("bukhari", "3693", "Abu Musa", "Sahih", "At the garden gate, the Prophet ﷺ told Abu Musa to give Uthman good news of Paradise with a calamity that would strike him; Uthman praised Allah and said: Allah's help is sought."),
       difficulty: 4,
       questions: [
@@ -1417,7 +1417,7 @@ const UTHMAN: DeepUnit = {
       slug: "uhud",
       title: "A martyr on Uhud",
       line: "On Uhud, the Prophet ﷺ named Uthman one of two martyrs.",
-      facts: ["With the Prophet ﷺ, Abu Bakr, Umar", "Be firm, O Uhud"],
+      facts: ["He was with the Prophet ﷺ, Abu Bakr and Umar.", "He said: be firm, O Uhud."],
       source: hadith("bukhari", "3686", "Anas ibn Malik", "Sahih", "Uhud shook under the Prophet ﷺ, Abu Bakr, Umar and Uthman; he said: be firm, Uhud, for on you are a Prophet, a Siddiq and two martyrs."),
       difficulty: 3,
       questions: [
@@ -1430,7 +1430,7 @@ const UTHMAN: DeepUnit = {
       slug: "forgiven",
       title: "Allah forgave him",
       line: "Ibn Umar said Allah forgave Uthman for what he did at Uhud.",
-      facts: ["Quran 3:155", "Ibn Umar defended him"],
+      facts: ["Quran 3:155", "Ibn Umar defended him."],
       source: hadith("bukhari", "3698", "Uthman ibn Mawhab", "Sahih", "Asked about Uthman at Uhud, Ibn Umar testified that Allah had excused and forgiven him."),
       difficulty: 4,
       questions: [
@@ -1443,7 +1443,7 @@ const UTHMAN: DeepUnit = {
       slug: "the-six",
       title: "One of the six",
       line: "Dying, Umar named six men, Uthman among them, to pick a caliph.",
-      facts: ["The Prophet ﷺ was pleased with them", "Ali was one of them too"],
+      facts: ["The Prophet ﷺ was pleased with them.", "Ali was one of them too."],
       source: hadith("bukhari", "3700", "Amr ibn Maimun", "Sahih", "Umar named Ali, Uthman, az-Zubayr, Talhah, Sa'd and Abd ar-Rahman, with whom the Prophet ﷺ was pleased when he died, to choose the next caliph."),
       difficulty: 3,
       questions: [
@@ -1456,7 +1456,7 @@ const UTHMAN: DeepUnit = {
       slug: "the-pledge",
       title: "Everyone pledged to him",
       line: "Abd ar-Rahman ibn Awf asked the people, then pledged to Uthman.",
-      facts: ["Three nights of asking", "Then all the Muslims pledged"],
+      facts: ["He asked people for three nights.", "Then all the Muslims pledged."],
       source: hadith("bukhari", "7207", "Al-Miswar ibn Makhramah", "Sahih", "Abd ar-Rahman ibn Awf consulted the people for three nights, found they held no one equal to Uthman, and pledged to him; then all the Muslims pledged."),
       difficulty: 4,
       questions: [
@@ -1469,7 +1469,7 @@ const UTHMAN: DeepUnit = {
       slug: "third-adhan",
       title: "A new call for Jumu'ah",
       line: "As Madinah grew, Uthman added a call before Jumu'ah.",
-      facts: ["Called out at az-Zawra", "Told by as-Sa'ib ibn Yazid"],
+      facts: ["It was called out at az-Zawra.", "Told by as-Sa'ib ibn Yazid"],
       source: hadith("bukhari", "916", "As-Sa'ib ibn Yazid", "Sahih", "When the people grew in number in Uthman's time, he added a third call for the Friday prayer, given at az-Zawra."),
       difficulty: 4,
       questions: [
@@ -1482,7 +1482,7 @@ const UTHMAN: DeepUnit = {
       slug: "one-mushaf",
       title: "One Quran for all",
       line: "Uthman had the Quran copied and sent a copy to each land.",
-      facts: ["Hudhayfah feared differences", "From Hafsah's pages"],
+      facts: ["Hudhayfah feared people would differ.", "They were copied from Hafsah's pages."],
       source: hadith("bukhari", "4987", "Anas ibn Malik", "Sahih", "Hudhayfah feared people would differ over the Quran, so Uthman took Hafsah's pages, had Zayd ibn Thabit and others write copies, and sent one to every province."),
       difficulty: 4,
       questions: [
@@ -1496,7 +1496,7 @@ const UTHMAN: DeepUnit = {
       slug: "quraysh-tongue",
       title: "In the tongue of Quraysh",
       line: "If the writers differed, Uthman said: write it as Quraysh speak.",
-      facts: ["The Quran came in their tongue"],
+      facts: ["The Quran came down in their tongue."],
       source: hadith("bukhari", "4987", "Anas ibn Malik", "Sahih", "Uthman told the three Qurayshi writers: if you differ with Zayd on anything of the Quran, write it in the tongue of Quraysh, for it was revealed in their tongue."),
       difficulty: 5,
       questions: [
@@ -1509,7 +1509,7 @@ const UTHMAN: DeepUnit = {
       slug: "lost-verse",
       title: "The ayah they searched for",
       line: "Zayd sought one ayah of Al-Ahzab and found it with Khuzaymah.",
-      facts: ["Quran 33:23", "Zayd ibn Thabit wrote the copies"],
+      facts: ["Quran 33:23", "Zayd ibn Thabit wrote the copies."],
       source: hadith("bukhari", "4988", "Zayd ibn Thabit", "Sahih", "Zayd missed an ayah of Al-Ahzab that he had heard the Prophet ﷺ recite, searched for it, and found it with Khuzaymah ibn Thabit: among the believers are men true to their covenant with Allah."),
       difficulty: 5,
       questions: [
@@ -1522,7 +1522,7 @@ const UTHMAN: DeepUnit = {
       slug: "wudu",
       title: "Uthman's wudu",
       line: "Uthman showed people the Prophet's ﷺ wudu, step by step.",
-      facts: ["Each part washed three times", "Then two rak'ahs, fully focused"],
+      facts: ["Each part washed three times", "Then two rak'ahs, fully focused."],
       source: hadith("bukhari", "159", "Humran", "Sahih", "Uthman made wudu, washing each part three times, and said the Prophet ﷺ said: whoever makes wudu like this and prays two rak'ahs without his mind wandering, his past sins are forgiven."),
       difficulty: 3,
       questions: [
@@ -1559,7 +1559,7 @@ const ALI: DeepUnit = {
       slug: "abu-turab",
       title: "Abu Turab",
       line: "The Prophet ﷺ found Ali dusty in the masjid: get up, Abu Turab!",
-      facts: ["Abu Turab: man of dust", "His favorite name"],
+      facts: ["Abu Turab: man of dust", "It was his favorite name."],
       source: hadith("bukhari", "3703", "Sahl ibn Sa'd", "Sahih", "The Prophet ﷺ found Ali asleep in the masjid with dust on his back, wiped it off and said: get up, O Abu Turab. No name was dearer to Ali."),
       difficulty: 2,
       questions: [
@@ -1572,7 +1572,7 @@ const ALI: DeepUnit = {
       slug: "the-cloak",
       title: "Under the cloak",
       line: "The Prophet ﷺ took Ali, Fatimah, Hasan and Husayn in his cloak.",
-      facts: ["Then recited Quran 33:33", "Told by Aishah"],
+      facts: ["Then he recited Quran 33:33.", "Told by Aishah"],
       source: hadith("muslim", "2424", "Aishah", "Sahih", "The Prophet ﷺ went out in a striped cloak; he took Hasan, Husayn, Fatimah and Ali under it, then recited: Allah wishes only to remove impurity from you, people of the household."),
       difficulty: 3,
       questions: [
@@ -1585,7 +1585,7 @@ const ALI: DeepUnit = {
       slug: "the-flag",
       title: "The flag at Khaybar",
       line: "At Khaybar, Ali was handed the flag and his eyes were healed.",
-      facts: ["Ali had sore eyes", "Healed by the Prophet's ﷺ dua", "Victory came through him"],
+      facts: ["Ali had sore eyes.", "The Prophet's ﷺ du'a healed him.", "Victory came through him."],
       source: hadith("bukhari", "3701", "Sahl bin Sa'd", "Sahih", "The Prophet ﷺ said: tomorrow I will give the flag to a man through whom Allah will give victory. He called Ali, who had sore eyes, put his saliva on them and prayed, and Ali was healed."),
       difficulty: 3,
       questions: [
@@ -1598,7 +1598,7 @@ const ALI: DeepUnit = {
       slug: "red-camels",
       title: "Better than red camels",
       line: "Invite first: one person guided beats a herd of red camels.",
-      facts: ["Advice to Ali at Khaybar", "Red camels: the finest wealth"],
+      facts: ["This was advice to Ali at Khaybar.", "Red camels: the finest wealth"],
       source: hadith("bukhari", "3701", "Sahl bin Sa'd", "Sahih", "The Prophet ﷺ told Ali: go steadily, invite them to Islam, for if Allah guides one man through you, it is better for you than red camels."),
       difficulty: 4,
       questions: [
@@ -1611,7 +1611,7 @@ const ALI: DeepUnit = {
       slug: "harun",
       title: "Like Harun to Musa",
       line: "To the Prophet ﷺ, Ali was like Harun to Musa.",
-      facts: ["Ali stayed in Madinah", "The journey to Tabuk"],
+      facts: ["Ali stayed behind in Madinah.", "It was the journey to Tabuk."],
       source: hadith("bukhari", "4416", "Sad ibn Abi Waqqas", "Sahih", "The Prophet ﷺ left Ali in charge in Madinah when he went to Tabuk and said: will you not be pleased to be to me like Harun to Musa? But there is no prophet after me."),
       difficulty: 4,
       questions: [
@@ -1638,7 +1638,7 @@ const ALI: DeepUnit = {
       slug: "love-of-ali",
       title: "A sign of faith",
       line: "Only a believer loves Ali; only a hypocrite hates him.",
-      facts: ["A promise to Ali", "Told by Ali himself"],
+      facts: ["It was a promise to Ali.", "Told by Ali himself"],
       source: hadith("muslim", "78", "Ali ibn Abi Talib", "Sahih", "Ali said: the Prophet ﷺ promised me that none but a believer would love me and none but a hypocrite would hate me."),
       difficulty: 3,
       questions: [
@@ -1651,7 +1651,7 @@ const ALI: DeepUnit = {
       slug: "treaty",
       title: "I will not erase it",
       line: "Writing the treaty, Ali would not erase 'Messenger of Allah'.",
-      facts: ["Quraysh objected to it", "The Prophet ﷺ then wrote it himself"],
+      facts: ["Quraysh objected to it.", "Then the Prophet ﷺ wrote it himself."],
       source: hadith("bukhari", "2699", "Al-Bara ibn Azib", "Sahih", "Quraysh refused the words 'Messenger of Allah' in the treaty; the Prophet ﷺ told Ali to rub them out, but Ali said he would never erase it, so the Prophet ﷺ took the paper and wrote."),
       difficulty: 4,
       questions: [
@@ -1664,7 +1664,7 @@ const ALI: DeepUnit = {
       slug: "hajj-camels",
       title: "In charge of the camels",
       line: "At Hajj, Ali gave all the sacrifice meat away in charity.",
-      facts: ["Not even to pay the butcher", "Told by Ali"],
+      facts: ["Not even to pay the butcher.", "Told by Ali"],
       source: hadith("bukhari", "1717", "Ali ibn Abi Talib", "Sahih", "The Prophet ﷺ put Ali in charge of the sacrificial camels, to give their meat, skins and coverings in charity, and to give the butcher nothing of them as wages."),
       difficulty: 3,
       questions: [
@@ -1677,7 +1677,7 @@ const ALI: DeepUnit = {
       slug: "praised-umar",
       title: "Ali's words for Umar",
       line: "At Umar's funeral, Ali wished he had deeds like Umar's.",
-      facts: ["You will be with your two companions", "Told by Ibn Abbas"],
+      facts: ["You will be with your two companions.", "Told by Ibn Abbas"],
       source: hadith("bukhari", "3685", "Ibn Abbas", "Sahih", "At Umar's funeral, Ali said: I would love to meet Allah with deeds like yours; I always thought Allah would keep you with your two companions."),
       difficulty: 4,
       questions: [
@@ -1690,7 +1690,7 @@ const ALI: DeepUnit = {
       slug: "the-sheet",
       title: "Only the Quran",
       line: "Ali had no other book, only the Quran and one sheet.",
-      facts: ["And understanding from Allah", "Told by Abu Juhayfah"],
+      facts: ["And understanding that Allah gives.", "Told by Abu Juhayfah"],
       source: hadith("bukhari", "111", "Abu Juhayfah", "Sahih", "Asked whether he had any book besides the Quran, Ali said: no, only Allah's Book, understanding given to a Muslim, and this sheet about blood money and freeing captives."),
       difficulty: 4,
       questions: [
@@ -1703,7 +1703,7 @@ const ALI: DeepUnit = {
       slug: "drink-standing",
       title: "A drink at Kufa",
       line: "In Kufa, Ali drank standing, as he saw the Prophet ﷺ do.",
-      facts: ["After the Dhuhr prayer", "Told by an-Nazzal ibn Sabrah"],
+      facts: ["It was after the Dhuhr prayer.", "Told by an-Nazzal ibn Sabrah"],
       source: hadith("bukhari", "5616", "An-Nazzal ibn Sabrah", "Sahih", "At the masjid of Kufa, Ali washed with water and drank the rest standing, saying people dislike it, but the Prophet ﷺ did as I just did."),
       difficulty: 4,
       questions: [
@@ -1716,7 +1716,7 @@ const ALI: DeepUnit = {
       slug: "no-division",
       title: "Stay as one",
       line: "Ali told the people of Iraq to judge as before, hating division.",
-      facts: ["Until the people are united", "Told by Ubaydah"],
+      facts: ["Until the people are united.", "Told by Ubaydah"],
       source: hadith("bukhari", "3707", "Ubaydah as-Salmani", "Sahih", "Ali said: judge as you used to judge, for I hate differing, until the people are one group, or I die as my companions died."),
       difficulty: 5,
       questions: [
@@ -1729,7 +1729,7 @@ const ALI: DeepUnit = {
       slug: "humble",
       title: "Just one of the Muslims",
       line: "Ali said the best after the Prophet ﷺ were Abu Bakr, then Umar.",
-      facts: ["Asked by his son", "Then you? I am one of the Muslims"],
+      facts: ["His son asked him.", "Then you? He said: I am one of the Muslims."],
       source: hadith("bukhari", "3671", "Muhammad ibn al-Hanafiyyah", "Sahih", "Muhammad ibn al-Hanafiyyah asked his father who was best after the Prophet ﷺ. Ali said Abu Bakr, then Umar. Asked 'then you?', he said: I am only one of the Muslims."),
       difficulty: 3,
       questions: [
@@ -1779,7 +1779,7 @@ const SPEECH: DeepUnit = {
       slug: "good-word",
       title: "A good word is charity",
       line: "A good word is charity, like helping someone onto their ride.",
-      facts: ["Every joint owes charity daily", "Judging fairly is charity"],
+      facts: ["Every joint owes charity each day.", "Judging fairly is charity."],
       source: hadith("bukhari", "2989", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said charity is due for every joint each day: judging fairly, helping a man onto his ride or lifting his luggage, and a good word are all charity."),
       difficulty: 2,
       questions: [
@@ -1805,7 +1805,7 @@ const SPEECH: DeepUnit = {
       slug: "truth",
       title: "Truth leads to Jannah",
       line: "Truth leads to goodness, and goodness leads to Jannah.",
-      facts: ["Keep telling the truth", "Lying leads to wrongdoing"],
+      facts: ["Keep telling the truth.", "Lying leads to wrongdoing."],
       source: hadith("bukhari", "6094", "Abdullah ibn Masud", "Sahih", "The Prophet ﷺ said: truthfulness leads to righteousness and righteousness leads to Paradise; a man keeps telling the truth until he is a truthful person. Lying leads to wickedness."),
       difficulty: 3,
       questions: [
@@ -1819,7 +1819,7 @@ const SPEECH: DeepUnit = {
       slug: "backbiting",
       title: "What backbiting is",
       line: "Backbiting is saying about your brother what he would dislike.",
-      facts: ["Even if it is true", "If untrue, it is worse: slander"],
+      facts: ["Backbiting is wrong even if it is true.", "If untrue, it is worse: slander."],
       source: hadith("muslim", "2589", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said backbiting is talking about your brother in a way he dislikes; if it is true it is backbiting, and if it is not true it is slander."),
       difficulty: 3,
       questions: [
@@ -1832,7 +1832,7 @@ const SPEECH: DeepUnit = {
       slug: "suspicion",
       title: "No suspicion, no spying",
       line: "Beware of suspicion: it is the most false of talk.",
-      facts: ["Do not spy", "Do not envy or hate", "Be brothers"],
+      facts: ["Do not spy.", "Do not envy or hate.", "Be brothers."],
       source: hadith("bukhari", "6064", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: beware of suspicion, for it is the most false of talk; do not look for faults, do not spy, do not envy, do not cut off or hate one another, and be brothers."),
       difficulty: 3,
       questions: [
@@ -1871,7 +1871,7 @@ const SPEECH: DeepUnit = {
       slug: "leave-arguing",
       title: "Leave the argument",
       line: "A house in Jannah for leaving an argument, even when right.",
-      facts: ["Leave lies, even joking", "Best house: good character"],
+      facts: ["Leave lies, even when joking.", "Best house: good character"],
       source: hadith("abudawud", "4800", "Abu Umamah", "Hasan (Al-Albani)", "The Prophet ﷺ said: I guarantee a house on the edge of Paradise for one who leaves arguing even if he is right, one in the middle for one who leaves lying even in jest, and one at the top for one with good character."),
       difficulty: 5,
       questions: [
@@ -1895,7 +1895,7 @@ const PARENTS: DeepUnit = {
       slug: "your-mother",
       title: "Your mother, three times",
       line: "Who deserves your kindness most? Mother thrice, then father.",
-      facts: ["Mother: said three times", "Then your father"],
+      facts: ["Mother: said three times", "Then your father."],
       source: hadith("bukhari", "5971", "Abu Hurairah", "Sahih", "A man asked who most deserves his good company; the Prophet ﷺ said: your mother, then your mother, then your mother, then your father."),
       difficulty: 2,
       questions: [
@@ -1921,7 +1921,7 @@ const PARENTS: DeepUnit = {
       slug: "serve-them",
       title: "Strive in their service",
       line: "A man wanted jihad. The Prophet ﷺ sent him to his parents.",
-      facts: ["Are your parents alive?", "Strive in serving them"],
+      facts: ["He asked: are your parents alive?", "Then strive in serving them."],
       source: hadith("bukhari", "3004", "Abdullah ibn Amr", "Sahih", "A man asked permission to join the fighting; the Prophet ﷺ asked if his parents were alive, then said: strive in their service."),
       difficulty: 3,
       questions: [
@@ -1934,7 +1934,7 @@ const PARENTS: DeepUnit = {
       slug: "old-age",
       title: "Parents in old age",
       line: "Parents growing old are a door to Jannah. Do not miss it.",
-      facts: ["Said three times", "Old parents: a door to Jannah"],
+      facts: ["He said it three times.", "Old parents: a door to Jannah"],
       source: hadith("muslim", "2551a", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said three times: let him be humbled, the one who finds one or both of his parents in old age and does not enter Paradise."),
       difficulty: 4,
       questions: [
@@ -1947,7 +1947,7 @@ const PARENTS: DeepUnit = {
       slug: "a-big-sin",
       title: "A great sin",
       line: "Disobeying parents is among the greatest sins.",
-      facts: ["With shirk and false witness"],
+      facts: ["It is listed with shirk and false witness."],
       source: hadith("bukhari", "5976", "Abu Bakrah", "Sahih", "The Prophet ﷺ named among the greatest sins: associating partners with Allah, disobeying parents, and false speech and false witness."),
       difficulty: 4,
       questions: [
@@ -1960,7 +1960,7 @@ const PARENTS: DeepUnit = {
       slug: "her-mother",
       title: "Kind to a non-Muslim mother",
       line: "Asma could be kind to her mother, who was not Muslim.",
-      facts: ["Asma bint Abi Bakr", "Quran 60:8 came about it"],
+      facts: ["It was Asma bint Abi Bakr.", "Quran 60:8 came down about it."],
       source: hadith("bukhari", "5978", "Asma bint Abi Bakr", "Sahih", "Asma's mother came hoping for her kindness; Asma asked the Prophet ﷺ whether to treat her kindly and he said yes."),
       difficulty: 4,
       questions: [
@@ -2010,7 +2010,7 @@ const NEIGHBORS: DeepUnit = {
       slug: "safe-neighbor",
       title: "He does not believe",
       line: "He does not truly believe, whose neighbor is not safe from him.",
-      facts: ["Said three times", "Told by Abu Shurayh"],
+      facts: ["He said it three times.", "Told by Abu Shurayh"],
       source: hadith("bukhari", "6016", "Abu Shurayh", "Sahih", "The Prophet ﷺ said three times: by Allah, he does not believe. Asked who, he said: the one whose neighbor is not safe from his harm."),
       difficulty: 3,
       questions: [
@@ -2023,7 +2023,7 @@ const NEIGHBORS: DeepUnit = {
       slug: "small-gift",
       title: "No gift is too small",
       line: "Never scorn a gift to a neighbor, even a sheep's hoof.",
-      facts: ["Said to the Muslim women", "Small gifts build love"],
+      facts: ["He said it to the Muslim women.", "Small gifts build love."],
       source: hadith("bukhari", "6017", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: O Muslim women, no neighbor should look down on a gift to her neighbor, even a sheep's hoof."),
       difficulty: 2,
       questions: [
@@ -2049,7 +2049,7 @@ const NEIGHBORS: DeepUnit = {
       slug: "nearest-door",
       title: "The nearest door",
       line: "Two neighbors? Give your gift first to the nearest door.",
-      facts: ["Aishah asked about it"],
+      facts: ["Aishah asked him about it."],
       source: hadith("bukhari", "2259", "Aishah", "Sahih", "Aishah asked which of two neighbors to give a gift; the Prophet ﷺ said: the one whose door is nearer to you."),
       difficulty: 3,
       questions: [
@@ -2062,7 +2062,7 @@ const NEIGHBORS: DeepUnit = {
       slug: "guest",
       title: "Honoring a guest",
       line: "Honor your guest: one day of your best, three days of welcome.",
-      facts: ["After three days: charity", "A guest should not overstay"],
+      facts: ["After three days, it counts as charity.", "A guest should not overstay."],
       source: hadith("bukhari", "6135", "Abu Shurayh al-Ka'bi", "Sahih", "The Prophet ﷺ said: whoever believes in Allah and the Last Day should honor his guest: his due is a day and a night, hospitality is three days, and after that it is charity. A guest should not stay until he burdens his host."),
       difficulty: 4,
       questions: [
@@ -2099,7 +2099,7 @@ const ANGER: DeepUnit = {
       slug: "dont-be-angry",
       title: "Do not get angry",
       line: "A man asked for advice. Again and again: don't get angry.",
-      facts: ["He asked many times", "Same answer each time"],
+      facts: ["The man asked many times.", "He gave the same answer each time."],
       source: hadith("bukhari", "6116", "Abu Hurayrah", "Sahih", "A man asked the Prophet ﷺ for advice; he said: do not get angry. The man asked again several times and each time he said: do not get angry."),
       difficulty: 2,
       questions: [
@@ -2112,7 +2112,7 @@ const ANGER: DeepUnit = {
       slug: "seek-refuge",
       title: "Seek refuge from Shaytan",
       line: "When angry, say: I seek refuge with Allah from Shaytan.",
-      facts: ["A'udhu billahi minash-shaytan", "Two men were arguing"],
+      facts: ["A'udhu billahi minash-shaytan", "Two men were arguing."],
       source: hadith("bukhari", "3282", "Sulayman ibn Surad", "Sahih", "Two men argued and one's face went red; the Prophet ﷺ said: I know a word that would take his anger away: I seek refuge with Allah from Shaytan."),
       difficulty: 3,
       questions: [
@@ -2125,7 +2125,7 @@ const ANGER: DeepUnit = {
       slug: "sit-down",
       title: "Sit down, then lie down",
       line: "If you are angry standing, sit; if it stays, lie down.",
-      facts: ["Change your position", "Told by Abu Dharr"],
+      facts: ["Change your position.", "Told by Abu Dharr"],
       source: hadith("abudawud", "4782", "Abu Dharr", "Sahih (Al-Albani)", "The Prophet ﷺ said: when one of you is angry while standing, let him sit; if the anger goes, good; otherwise let him lie down."),
       difficulty: 3,
       questions: [
@@ -2151,7 +2151,7 @@ const ANGER: DeepUnit = {
       slug: "three-days",
       title: "Not more than three days",
       line: "Do not cut off a Muslim brother for more than three days.",
-      facts: ["Do not hate or envy", "Be brothers"],
+      facts: ["Do not hate or envy", "Be brothers."],
       source: hadith("bukhari", "6065", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: do not hate, envy or turn away from one another; be brothers. A Muslim may not cut off his brother for more than three days."),
       difficulty: 4,
       questions: [
@@ -2201,7 +2201,7 @@ const SPOUSES: DeepUnit = {
       slug: "helped-at-home",
       title: "He helped at home",
       line: "The Prophet ﷺ helped his family at home, then went to pray.",
-      facts: ["Aishah was asked", "Then he left for salah"],
+      facts: ["Aishah was asked about it.", "Then he left for salah."],
       source: hadith("bukhari", "676", "Al-Aswad from Aishah", "Sahih", "Aishah was asked what the Prophet ﷺ did at home; she said he busied himself serving his family, and when prayer time came he went out to pray."),
       difficulty: 2,
       questions: [
@@ -2214,7 +2214,7 @@ const SPOUSES: DeepUnit = {
       slug: "morsel",
       title: "Even a bite of food",
       line: "Even the bite you put in your wife's mouth is rewarded.",
-      facts: ["When done for Allah", "Told by Sa'd ibn Abi Waqqas"],
+      facts: ["When it is done for Allah.", "Told by Sa'd ibn Abi Waqqas"],
       source: hadith("bukhari", "56", "Sad ibn Abi Waqqas", "Sahih", "The Prophet ﷺ said: you will be rewarded for whatever you spend for Allah's sake, even a morsel you put in your wife's mouth."),
       difficulty: 3,
       questions: [
@@ -2253,7 +2253,7 @@ const SPOUSES: DeepUnit = {
       slug: "choose-religion",
       title: "Choose by faith",
       line: "People marry for wealth, family, beauty or faith: choose faith.",
-      facts: ["Four reasons", "Faith is the winner"],
+      facts: ["People marry for four reasons.", "Choosing faith is the winner."],
       source: hadith("bukhari", "5090", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: a woman is married for four things: her wealth, her family, her beauty and her religion; so choose the religious one."),
       difficulty: 3,
       questions: [
@@ -2266,7 +2266,7 @@ const SPOUSES: DeepUnit = {
       slug: "khadijah",
       title: "Khadijah's comfort",
       line: "At the first revelation, Khadijah comforted the Prophet ﷺ.",
-      facts: ["Allah will never disgrace you", "You keep family ties", "You help the weak"],
+      facts: ["Allah will never disgrace you.", "You keep family ties.", "You help the weak."],
       source: hadith("bukhari", "3", "Aishah", "Sahih", "After the first revelation the Prophet ﷺ came home afraid; Khadijah said: by Allah, Allah will never disgrace you; you keep family ties, help the weak, honor guests and help in hardship."),
       difficulty: 4,
       questions: [
@@ -2290,7 +2290,7 @@ const CHILDREN: DeepUnit = {
       slug: "fitrah",
       title: "Born on the fitrah",
       line: "Every child is born on the fitrah, the natural faith.",
-      facts: ["Parents shape the child", "Told by Abu Hurayrah"],
+      facts: ["Parents shape the child.", "Told by Abu Hurayrah"],
       source: hadith("bukhari", "1385", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: every child is born on the fitrah, and his parents shape him into another religion."),
       difficulty: 2,
       questions: [
@@ -2303,7 +2303,7 @@ const CHILDREN: DeepUnit = {
       slug: "kissing",
       title: "Mercy to children",
       line: "The Prophet ﷺ kissed Al-Hasan: who shows no mercy gets none.",
-      facts: ["A man had ten children, never kissed", "Mercy is returned"],
+      facts: ["A man had ten children, never kissed", "Mercy is returned to the merciful."],
       source: hadith("bukhari", "5997", "Abu Hurayrah", "Sahih", "The Prophet ﷺ kissed Al-Hasan; Al-Aqra said he had ten children and had kissed none. The Prophet ﷺ said: whoever is not merciful will not be shown mercy."),
       difficulty: 2,
       questions: [
@@ -2316,7 +2316,7 @@ const CHILDREN: DeepUnit = {
       slug: "carrying-umamah",
       title: "Praying with Umamah",
       line: "The Prophet ﷺ prayed carrying his little granddaughter Umamah.",
-      facts: ["Put her down to bow down", "Picked her up to stand"],
+      facts: ["He put her down to bow down.", "He picked her up when he stood."],
       source: hadith("bukhari", "516", "Abu Qatadah", "Sahih", "The Prophet ﷺ prayed while carrying Umamah, daughter of Zaynab; when he prostrated he put her down, and when he stood he picked her up."),
       difficulty: 3,
       questions: [
@@ -2329,7 +2329,7 @@ const CHILDREN: DeepUnit = {
       slug: "daughters",
       title: "A shield of daughters",
       line: "Be good to your daughters, and they'll be a shield for you.",
-      facts: ["A mother split one date", "Told by Aishah"],
+      facts: ["A mother split one date between her girls.", "Told by Aishah"],
       source: hadith("bukhari", "1418", "Aishah", "Sahih", "A mother split a single date between her two daughters; the Prophet ﷺ said: whoever is tested with daughters and is good to them, they will be a shield for him from the Fire."),
       difficulty: 3,
       questions: [
@@ -2342,7 +2342,7 @@ const CHILDREN: DeepUnit = {
       slug: "two-girls",
       title: "Close as two fingers",
       line: "Raise two girls well, and you'll be close to the Prophet ﷺ.",
-      facts: ["Until they grow up", "Like two fingers together"],
+      facts: ["Raising them until they grow up.", "Close like two fingers together."],
       source: hadith("muslim", "2631", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: whoever raises two girls until they grow up, he and I will come on the Day of Resurrection like this, and he joined his fingers."),
       difficulty: 4,
       questions: [
@@ -2355,7 +2355,7 @@ const CHILDREN: DeepUnit = {
       slug: "fair",
       title: "Be fair to your children",
       line: "Fear Allah and be fair between your children.",
-      facts: ["A gift to one son only", "The father took it back"],
+      facts: ["A father gave a gift to one son only.", "The father took it back."],
       source: hadith("bukhari", "2587", "An-Nu'man ibn Bashir", "Sahih", "An-Nu'man's father gave him a gift and asked the Prophet ﷺ to witness it; he asked if he gave all his sons the same, and said: fear Allah and be fair between your children. The father took the gift back."),
       difficulty: 4,
       questions: [
@@ -2368,7 +2368,7 @@ const CHILDREN: DeepUnit = {
       slug: "teach-eating",
       title: "O boy, say Bismillah",
       line: "The Prophet ﷺ taught a boy: Bismillah, right hand, nearest food.",
-      facts: ["Umar ibn Abi Salamah", "He followed it all his life"],
+      facts: ["Umar ibn Abi Salamah", "He followed it all his life."],
       source: hadith("bukhari", "5376", "Umar bin Abi Salamah", "Sahih", "As a boy in the Prophet's ﷺ care, Umar ibn Abi Salamah's hand wandered around the dish; he said: O boy, say Bismillah, eat with your right hand, and eat from what is near you."),
       difficulty: 3,
       questions: [
@@ -2381,7 +2381,7 @@ const CHILDREN: DeepUnit = {
       slug: "righteous-child",
       title: "A child who prays for you",
       line: "When a person dies, a good child's dua still helps him.",
-      facts: ["Ongoing charity", "Useful knowledge", "A good child's dua"],
+      facts: ["Ongoing charity.", "Useful knowledge.", "A good child's dua"],
       source: hadith("muslim", "1631", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: when a person dies his deeds end except three: ongoing charity, knowledge that benefits, or a righteous child who prays for him."),
       difficulty: 4,
       questions: [
@@ -2408,7 +2408,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "who",
       title: "Who were the Muhajirun?",
       line: "The Muhajirun left their homes and wealth in Makkah for Allah.",
-      facts: ["Muhajir: one who emigrates", "The Quran calls them truthful"],
+      facts: ["Muhajir: one who emigrates", "The Quran calls them truthful."],
       quote: ayah(8, 59),
       source: quran(59, 8, "The poor emigrants, driven from their homes and wealth, seek Allah's bounty and pleasure and help Allah and His Messenger; they are the truthful."),
       difficulty: 1,
@@ -2422,7 +2422,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "pleased",
       title: "Allah is pleased with them",
       line: "Allah is pleased with the first Muhajirun and Ansar.",
-      facts: ["And with those who follow them well", "Gardens with rivers await them"],
+      facts: ["And with those who follow them well.", "Gardens with rivers await them."],
       quote: ayah(100, 9),
       source: quran(9, 100, "Allah is pleased with the first forerunners of the Muhajirun and the Ansar and those who follow them well, and has prepared gardens with rivers for them."),
       difficulty: 1,
@@ -2436,7 +2436,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "intention",
       title: "Hijrah is by intention",
       line: "A hijrah is rewarded by the intention behind it.",
-      facts: ["Deeds are by intentions", "Told by Umar"],
+      facts: ["Deeds are by intentions.", "Told by Umar"],
       source: hadith("bukhari", "1", "Umar ibn al-Khattab", "Sahih", "Deeds are by intentions; whoever emigrated for something of this world, or to marry a woman, his hijrah is for what he emigrated for."),
       difficulty: 2,
       questions: [
@@ -2449,7 +2449,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "true-muhajir",
       title: "The true muhajir",
       line: "The true muhajir leaves everything Allah has forbidden.",
-      facts: ["A Muslim harms no one", "Told by Abdullah ibn Amr"],
+      facts: ["A Muslim harms no one.", "Told by Abdullah ibn Amr"],
       source: hadith("bukhari", "10", "Abdullah ibn Amr", "Sahih", "A Muslim is one from whose tongue and hands the Muslims are safe, and a muhajir is one who leaves what Allah has forbidden."),
       difficulty: 2,
       questions: [
@@ -2462,7 +2462,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "first-teachers",
       title: "The first to arrive",
       line: "Mus'ab ibn Umayr came to Madinah first, to teach the Quran.",
-      facts: ["With Ibn Umm Maktum", "Then Bilal, Sa'd and Ammar"],
+      facts: ["With Ibn Umm Maktum.", "Then Bilal, Sa'd and Ammar came."],
       source: hadith("bukhari", "3925", "Al-Bara ibn Azib", "Sahih", "The first to come to us were Mus'ab ibn Umayr and Ibn Umm Maktum, teaching people the Quran; then Bilal, Sa'd and Ammar; then Umar with twenty companions; then the Prophet ﷺ."),
       difficulty: 2,
       questions: [
@@ -2475,7 +2475,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "joy",
       title: "Madinah's great joy",
       line: "Madinah was never so happy as when the Prophet ﷺ arrived.",
-      facts: ["Even the girls called out", "Told by al-Bara"],
+      facts: ["Even the girls called out with joy.", "Told by al-Bara"],
       source: hadith("bukhari", "3925", "Al-Bara ibn Azib", "Sahih", "Al-Bara never saw the people of Madinah so joyful as at the Prophet's ﷺ arrival; even the girls were saying: the Messenger of Allah has come."),
       difficulty: 2,
       questions: [
@@ -2488,7 +2488,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "fever",
       title: "Fever in Madinah",
       line: "In Madinah, Abu Bakr and Bilal fell ill with fever.",
-      facts: ["Bilal missed Makkah", "Told by Aishah"],
+      facts: ["Bilal missed Makkah.", "Told by Aishah"],
       source: hadith("bukhari", "3926", "Aishah", "Sahih", "When the Prophet ﷺ came to Madinah, Abu Bakr and Bilal fell ill with fever, and Bilal longed for the valleys of Makkah."),
       difficulty: 3,
       questions: [
@@ -2501,7 +2501,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "love-madinah",
       title: "Make us love Madinah",
       line: "The Prophet ﷺ prayed: make us love Madinah like Makkah, or more.",
-      facts: ["Bless its food", "Take its fever away"],
+      facts: ["He prayed: bless its food.", "And take its fever away."],
       source: hadith("bukhari", "3926", "Aishah", "Sahih", "The Prophet ﷺ prayed: O Allah, make us love Madinah as we love Makkah or more, make it healthy, bless its measures, and take its fever away."),
       difficulty: 3,
       questions: [
@@ -2514,7 +2514,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "brothers",
       title: "Brothers in Islam",
       line: "The Prophet ﷺ made each Muhajir a brother to one of the Ansar.",
-      facts: ["Abd ar-Rahman and Sa'd ibn ar-Rabi'", "Sa'd offered half his wealth"],
+      facts: ["Abd ar-Rahman and Sa'd ibn ar-Rabi'", "Sa'd offered half his wealth."],
       source: hadith("bukhari", "3780", "Ibrahim ibn Sa'd, from his father", "Sahih", "When the Muhajirun reached Madinah, the Prophet ﷺ made Abd ar-Rahman ibn Awf and Sa'd ibn ar-Rabi' brothers; Sa'd offered to share all he had."),
       difficulty: 3,
       questions: [
@@ -2527,7 +2527,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "market",
       title: "Show me the market",
       line: "Abd ar-Rahman ibn Awf thanked Sa'd and asked for the market.",
-      facts: ["The market of Qaynuqa'", "He came back with a profit"],
+      facts: ["He went to the market of Qaynuqa'.", "He came back with a profit."],
       source: hadith("bukhari", "2048", "Abd ar-Rahman ibn Awf", "Sahih", "Abd ar-Rahman said he did not need Sa'd's wealth and asked for a market; they showed him the market of Qaynuqa', and he came back with a profit."),
       difficulty: 3,
       questions: [
@@ -2540,7 +2540,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "ansar-love",
       title: "The Ansar loved them",
       line: "The Ansar loved the Muhajirun and put them before themselves.",
-      facts: ["Even when they were in need", "Quran 59:9"],
+      facts: ["Even when they were in need.", "Quran 59:9"],
       quote: ayah(9, 59),
       source: quran(59, 9, "Those who had settled in Madinah love those who emigrated to them, and put them before themselves even when they are in need."),
       difficulty: 3,
@@ -2554,7 +2554,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "but-for-hijrah",
       title: "But for the hijrah",
       line: "The Prophet ﷺ said: but for the hijrah, I'd be an Ansari.",
-      facts: ["He would take the Ansar's valley", "Told by Abu Hurayrah"],
+      facts: ["He would take the Ansar's valley.", "Told by Abu Hurayrah"],
       source: hadith("bukhari", "3779", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: if the Ansar went through a valley, I would take the Ansar's valley; and but for the hijrah, I would have been one of the Ansar."),
       difficulty: 4,
       questions: [
@@ -2567,7 +2567,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "two-hijrahs",
       title: "Two hijrahs",
       line: "Those who went to Abyssinia first earned two hijrahs.",
-      facts: ["Ja'far stayed there with the Negus", "Asma bint Umays asked"],
+      facts: ["Ja'far stayed there with the Negus.", "Asma bint Umays asked him."],
       source: hadith("bukhari", "4230, 4231", "Abu Musa", "Sahih", "Asma bint Umays told the Prophet ﷺ what Umar said; he replied that Umar and his companions have one hijrah, and the people of the ship have two."),
       difficulty: 4,
       questions: [
@@ -2580,7 +2580,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "negus",
       title: "A prayer for the Negus",
       line: "When the Negus died, the Prophet ﷺ led a funeral prayer for him.",
-      facts: ["Ask forgiveness for your brother", "Four takbirs"],
+      facts: ["Ask forgiveness for your brother.", "He said four takbirs."],
       source: hadith("bukhari", "1327", "Abu Hurayrah", "Sahih", "The Prophet ﷺ told of the Negus's death on the day he died, said: ask forgiveness for your brother, and led the funeral prayer with four takbirs."),
       difficulty: 4,
       questions: [
@@ -2593,7 +2593,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "musab",
       title: "Mus'ab's last cloth",
       line: "Mus'ab died at Uhud with one cloth too short to cover him.",
-      facts: ["Grass covered his feet", "Told by Khabbab"],
+      facts: ["Grass covered his feet.", "Told by Khabbab"],
       source: hadith("bukhari", "1276", "Khabbab", "Sahih", "Mus'ab ibn Umayr was martyred at Uhud; his only cloth could not cover both his head and feet, so the Prophet ﷺ told them to cover his head and put idhkhir grass on his feet."),
       difficulty: 5,
       questions: [
@@ -2606,7 +2606,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "zayd",
       title: "Zayd ibn Harithah",
       line: "People called Zayd 'son of Muhammad' until Quran 33:5 came.",
-      facts: ["Call them by their fathers", "Told by Ibn Umar"],
+      facts: ["Call them by their fathers' names.", "Told by Ibn Umar"],
       quote: ayah(5, 33),
       source: hadith("bukhari", "4782", "Abdullah ibn Umar", "Sahih", "They called Zayd ibn Harithah 'Zayd ibn Muhammad' until Allah revealed: call them by their fathers."),
       difficulty: 5,
@@ -2620,7 +2620,7 @@ const MUHAJIRUN: DeepUnit = {
       slug: "after-conquest",
       title: "No hijrah after the conquest",
       line: "Hijrah from Makkah ended at its conquest; good intention stays.",
-      facts: ["Jihad remains too", "Told by Ibn Abbas"],
+      facts: ["Jihad and intention remain too.", "Told by Ibn Abbas"],
       source: hadith("bukhari", "2783", "Ibn Abbas", "Sahih", "The Prophet ﷺ said: there is no hijrah after the conquest, but jihad and good intention remain."),
       difficulty: 5,
       questions: [
@@ -2662,7 +2662,7 @@ const NAS: DeepUnit = {
       slug: "before-sleep",
       title: "Before sleeping",
       line: "Each night the Prophet ﷺ read the last three and wiped himself.",
-      facts: ["He blew into his cupped hands", "Three times"],
+      facts: ["He blew into his cupped hands.", "He did it three times."],
       source: hadith("bukhari", "5017", "Aishah", "Sahih", "Every night in bed the Prophet ﷺ cupped his hands, recited Al-Ikhlas, Al-Falaq and An-Nas, blew into them, and wiped as much of his body as he could, three times."),
       difficulty: 4,
       questions: [
@@ -2675,7 +2675,7 @@ const NAS: DeepUnit = {
       slug: "morning-evening",
       title: "Morning and evening",
       line: "Recite the three surahs three times each morning and evening.",
-      facts: ["They are enough for you", "Told by Abdullah ibn Khubayb"],
+      facts: ["They are enough for you.", "Told by Abdullah ibn Khubayb"],
       source: hadith("abudawud", "5082", "Abdullah ibn Khubayb", "Hasan (Al-Albani)", "On a dark rainy night the Prophet ﷺ told Abdullah ibn Khubayb: say Al-Ikhlas and the two surahs of refuge three times morning and evening; they will suffice you for everything."),
       difficulty: 5,
       questions: [
@@ -2701,7 +2701,7 @@ const FALAQ: DeepUnit = {
       slug: "never-seen",
       title: "Ayahs like no others",
       line: "Nothing like Al-Falaq and An-Nas was ever revealed.",
-      facts: ["Revealed in one night", "Told by Uqbah ibn Amir"],
+      facts: ["They were revealed in one night.", "Told by Uqbah ibn Amir"],
       quote: ayah(1, 113),
       source: hadith("muslim", "814a", "Uqbah ibn Amir", "Sahih", "The Prophet ﷺ said: what wonderful ayahs were sent down tonight, the like of which were never seen: Say, I seek refuge with the Lord of the dawn, and Say, I seek refuge with the Lord of mankind."),
       difficulty: 2,
@@ -2728,7 +2728,7 @@ const FALAQ: DeepUnit = {
       slug: "when-ill",
       title: "When he was ill",
       line: "When ill, the Prophet ﷺ read Al-Falaq and An-Nas on himself.",
-      facts: ["Aishah did it for him later", "Hoping for their blessing"],
+      facts: ["Later, Aishah did it for him.", "She hoped for their blessing."],
       source: hadith("bukhari", "5016", "Aishah", "Sahih", "When the Prophet ﷺ was ill he recited the two surahs of refuge and blew over himself; when his illness grew, Aishah recited them and wiped his hand over him, hoping for their blessing."),
       difficulty: 4,
       questions: [
@@ -2754,7 +2754,7 @@ const IKHLAS: DeepUnit = {
       slug: "a-third",
       title: "A third of the Quran",
       line: "Al-Ikhlas is equal to a third of the Quran.",
-      facts: ["A man recited it again and again", "Told by Abu Sa'id"],
+      facts: ["A man recited it again and again.", "Told by Abu Sa'id"],
       quote: ayah(1, 112),
       source: hadith("bukhari", "5013", "Abu Sa'id al-Khudri", "Sahih", "A man kept repeating Al-Ikhlas, and another thought it was too little; the Prophet ﷺ swore that it is equal to a third of the Quran."),
       difficulty: 1,
@@ -2768,7 +2768,7 @@ const IKHLAS: DeepUnit = {
       slug: "one-night",
       title: "A third in one night",
       line: "You can recite a third of the Quran tonight: recite Al-Ikhlas.",
-      facts: ["The companions found it hard", "Told by Abu Sa'id"],
+      facts: ["The companions found it hard.", "Told by Abu Sa'id"],
       source: hadith("bukhari", "5015", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ asked: can any of you recite a third of the Quran in one night? When they found it hard, he said: Allah, the One, the Self-Sufficient, is a third of the Quran."),
       difficulty: 2,
       questions: [
@@ -2781,7 +2781,7 @@ const IKHLAS: DeepUnit = {
       slug: "none-like-him",
       title: "None is like Him",
       line: "Al-Ikhlas ends: there is none equal or comparable to Allah.",
-      facts: ["Quran 112:4", "Nothing at all is like Him"],
+      facts: ["Quran 112:4", "Nothing at all is like Him."],
       source: ibnKathir(4, "There is none similar to Allah, none equal to Him, and nothing at all is like Him.", 112),
       difficulty: 2,
       questions: [
@@ -2794,7 +2794,7 @@ const IKHLAS: DeepUnit = {
       slug: "allah-loves-him",
       title: "Allah loves him",
       line: "A man loved Al-Ikhlas, so the Prophet ﷺ said: Allah loves him.",
-      facts: ["He ended each prayer's recitation with it", "It describes ar-Rahman"],
+      facts: ["He ended each prayer's recitation with it.", "It describes ar-Rahman."],
       source: hadith("bukhari", "7375", "Aishah", "Sahih", "A leader always ended his recitation in prayer with Al-Ikhlas because it describes ar-Rahman and he loved it; the Prophet ﷺ said: tell him that Allah loves him."),
       difficulty: 3,
       questions: [
@@ -2819,7 +2819,7 @@ const ASR: DeepUnit = {
       slug: "time",
       title: "By time",
       line: "Allah swears by time, when people do good or evil.",
-      facts: ["Al-'Asr: time", "People are in loss"],
+      facts: ["Al-'Asr: time", "People are in loss."],
       quote: ayah(1, 103),
       source: ibnKathir(1, "Al-'Asr is the time in which the deeds of the Children of Adam happen, good or evil; Allah swears by it that people are in loss.", 103),
       difficulty: 2,
@@ -2833,7 +2833,7 @@ const ASR: DeepUnit = {
       slug: "four-things",
       title: "Four things save us",
       line: "Faith, good deeds, truth and patience save us from loss.",
-      facts: ["Urge one another", "Quran 103:3"],
+      facts: ["Urge one another to truth and patience.", "Quran 103:3"],
       source: ibnKathir(3, "Except those who believe in their hearts, do good deeds with their limbs, urge one another to truth, which is obedience, and to patience against harm.", 103),
       difficulty: 3,
       questions: [
@@ -2846,7 +2846,7 @@ const ASR: DeepUnit = {
       slug: "enough",
       title: "Enough for people",
       line: "Ash-Shafi'i: if people pondered Al-'Asr, it would suffice.",
-      facts: ["Imam ash-Shafi'i", "In Tafsir Ibn Kathir"],
+      facts: ["Imam ash-Shafi'i said it.", "It is in Tafsir Ibn Kathir."],
       source: ibnKathir(1, "Ash-Shafi'i said: if the people were to ponder this surah, it would be sufficient for them.", 103),
       difficulty: 4,
       questions: [
