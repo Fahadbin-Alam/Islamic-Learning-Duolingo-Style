@@ -837,4 +837,394 @@ const NISA_TWO: DeepUnit = {
   ]
 };
 
-export const NISA_UNITS: readonly DeepUnit[] = [NISA_ONE, NISA_TWO];
+const NISA_THREE: DeepUnit = {
+  key: "nisa3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-nisa",
+  name: "An-Nisa, ayahs 101 to 176",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Nisa",
+  lessons: [
+    {
+      slug: "shorten",
+      title: "A gift for travelers",
+      line: "Travelers may shorten the prayer; a charity from Allah.",
+      facts: ["Qasr: shortening prayer", "Accept Allah's charity"],
+      quote: q4(101),
+      source: hadith("muslim", "686a", "Ya'la ibn Umayyah", "Sahih", "Ya'la asked Umar why people still shorten the prayer when they are safe, since 4:101 mentions fear. Umar had wondered the same and asked the Prophet ﷺ, who said: it is a charity Allah has given you, so accept His charity.", "It is an act of charity which Allah has done to you, so accept His charity"),
+      difficulty: 3,
+      questions: [
+        { q: "Who may shorten the prayer, in 4:101?", a: "Those traveling in the land", wrong: ["Those who are busy", "Those who are tired", "Only the old"], why: "Wa idha darabtum fil-ard." },
+        { q: "What did the Prophet ﷺ call shortening the prayer?", a: "A charity from Allah to accept", wrong: ["A punishment", "A sin to avoid", "Only for war"], why: "Muslim 686a, from Ya'la ibn Umayyah." },
+        { q: "Who asked the Prophet ﷺ about it when people were safe?", a: "Umar ibn al-Khattab", wrong: ["Abu Bakr", "Ali", "Uthman"], why: "Umar wondered too, so he asked." }
+      ]
+    },
+    {
+      slug: "fear-prayer",
+      title: "Prayer even in danger",
+      line: "Even facing an enemy, believers prayed in turns with weapons.",
+      facts: ["Salat al-Khawf: the fear prayer", "Two groups take turns"],
+      quote: q4(102),
+      source: ik(102, "In danger the Prophet ﷺ led the prayer in two rows. One group prayed while the other stood guard, then they changed places. They kept their weapons with them.", "he made us stand in two lines behind him"),
+      difficulty: 3,
+      questions: [
+        { q: "Was prayer dropped when an enemy was near, in 4:102?", tf: false, why: "They prayed in turns, keeping guard." },
+        { q: "What did they hold during the fear prayer?", a: "Their weapons", wrong: ["Their sandals", "Their food", "Their books"], why: "Wal-ya'khudhu aslihatahum." },
+        { q: "How did the two groups pray?", a: "One prayed while the other guarded", wrong: ["All slept", "Both left", "Only the leader prayed"], why: "Then they changed places." }
+      ]
+    },
+    {
+      slug: "fixed-times",
+      title: "Prayer at its time",
+      line: "Remember Allah always; prayer is written at fixed times.",
+      facts: ["Kitaban mawquta: fixed times", "Remember Allah standing, sitting"],
+      quote: q4(103),
+      source: ik(103, "After prayer, remember Allah standing, sitting and lying down, in all conditions. Ibn Abbas said the prayer has a fixed time, just as Hajj has.", "The prayer has a fixed time, just as the case with Hajj"),
+      difficulty: 3,
+      questions: [
+        { q: "When should we remember Allah, in 4:103?", a: "Standing, sitting and lying down", wrong: ["Only in the mosque", "Only on Friday", "Only in Ramadan"], why: "Ibn Kathir: in all conditions." },
+        { q: "What did Ibn Abbas compare the prayer's fixed time to?", a: "Hajj", wrong: ["Zakah", "Eid", "Trade"], why: "The prayer has a fixed time, like Hajj." },
+        { q: "Which deed did the Prophet ﷺ call dearest to Allah, in Bukhari 527?", a: "Prayer at its fixed time", wrong: ["Long travel", "Building homes", "Silence"], why: "Then kindness to parents, from Abdullah ibn Mas'ud." }
+      ]
+    },
+    {
+      slug: "judge-truth",
+      title: "Never defend the cheater",
+      line: "Judge by what Allah has shown; never plead for the dishonest.",
+      facts: ["Khawwan: a betrayer", "The Book came in truth"],
+      quote: q4(105),
+      source: ik(105, "Allah sent down the Book in truth: it truly came from Him and its news and commands are true. Judge between people by what He has shown, and do not argue for those who betray.", "meaning, it truly came from Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom must you not defend, in 4:105?", a: "The treacherous", wrong: ["The poor", "Orphans", "Travelers"], why: "Wa la takun lil-kha'inina khasima." },
+        { q: "What does 'the Book in truth' mean, per Ibn Kathir?", a: "It truly came from Allah", wrong: ["A poem", "A story only", "A guess"], why: "Its news and commands are true." },
+        { q: "Is it fine to argue for a friend you know is lying?", tf: false, why: "4:105 forbids pleading for betrayers." }
+      ]
+    },
+    {
+      slug: "seek-forgiveness",
+      title: "The door of forgiveness",
+      line: "Whoever does wrong, then asks forgiveness, finds Allah Merciful.",
+      facts: ["Istighfar: asking forgiveness", "Your sin is on yourself"],
+      quote: q4(110),
+      source: ik(110, "Allah shows His generosity: He forgives whoever repents to Him from whatever evil they did. Whoever earns a sin earns it against himself.", "in that He forgives whoever repents to Him from whatever evil they commit"),
+      difficulty: 3,
+      questions: [
+        { q: "What will one who seeks forgiveness find, in 4:110?", a: "Allah Forgiving, Merciful", wrong: ["A closed door", "Anger", "Nothing"], why: "Yajidillaha ghafurar-rahima." },
+        { q: "Against whom does a sinner earn his sin, in 4:111?", a: "Against himself", wrong: ["Against his tribe", "Against his parents", "Against strangers"], why: "Fa-innama yaksibuhu 'ala nafsih." },
+        { q: "Ibn Kathir: Allah forgives only small sins of those who repent.", tf: false, why: "Whatever evil they did, if they repent." }
+      ]
+    },
+    {
+      slug: "blame-innocent",
+      title: "Blaming the innocent",
+      line: "Doing wrong and blaming an innocent person is a double sin.",
+      facts: ["Buhtan: slander", "Ithm mubin: clear sin"],
+      quote: q4(112),
+      source: ik(112, "Allah warns those who commit a fault and then throw it on someone innocent. They carry a lie and a clear sin.", "Warning those who Falsely Accuse Innocent People"),
+      difficulty: 3,
+      questions: [
+        { q: "What does 4:112 say about blaming an innocent person?", a: "A lie and a clear sin", wrong: ["Smart", "Forgiven at once", "A small slip"], why: "Faqadih-tamala buhtanan wa ithman mubina." },
+        { q: "You break a cup and blame your sister. Which ayah warns you?", a: "4:112", wrong: ["4:3", "4:59", "4:86"], why: "Throwing your fault on the innocent." },
+        { q: "What do you carry when you blame the innocent?", a: "Slander and a clear sin", wrong: ["Nothing", "A reward", "A gift"], why: "Buhtan and ithm mubin." }
+      ]
+    },
+    {
+      slug: "secret-talk",
+      title: "Good secret talk",
+      line: "Most secret talk is useless, except charity, good, and peace.",
+      facts: ["Najwa: secret talk", "Islah: making peace"],
+      quote: q4(114),
+      source: hadith("bukhari", "2692", "Umm Kulthum bint Uqbah", "Sahih", "The Prophet ﷺ said: whoever makes peace between people by passing on good words and saying good things is not a liar.", "He who makes peace between the people by inventing good information or saying good things, is not a liar"),
+      difficulty: 4,
+      questions: [
+        { q: "Which secret talk is good, in 4:114?", a: "Charity, kindness, or making peace", wrong: ["Gossip", "Plotting", "Mocking"], why: "Illa man amara bi-sadaqatin aw ma'rufin aw islah." },
+        { q: "One who makes peace by saying good things is...", a: "Not a liar", wrong: ["A liar", "Blamed", "Punished"], why: "Bukhari 2692, from Umm Kulthum bint Uqbah." },
+        { q: "Most secret talk has good in it, per 4:114.", tf: false, why: "La khayra fi kathirin min najwahum." }
+      ]
+    },
+    {
+      slug: "nature",
+      title: "Shaytan's promises",
+      line: "Shaytan promises and gives false hopes; his promise is deceit.",
+      facts: ["Ghurur: deceit", "Changing Allah's creation"],
+      quote: q4(120),
+      source: ik(119, "Shaytan vowed to mislead people and order them to change what Allah created. Al-Hasan al-Basri said this means tattooing.", "means tattooing, according to Al-Hasan"),
+      difficulty: 4,
+      questions: [
+        { q: "What are Shaytan's promises, in 4:120?", a: "Nothing but deceit", wrong: ["True", "Half true", "Useful"], why: "Wa ma ya'iduhumush-shaytanu illa ghurura." },
+        { q: "Al-Hasan al-Basri explained 'changing Allah's creation' as...", a: "Tattooing", wrong: ["Planting trees", "Building houses", "Cooking food"], why: "Ibn Kathir quotes Al-Hasan." },
+        { q: "Whoever takes Shaytan as a friend has suffered what loss, in 4:119?", a: "A clear loss", wrong: ["A small loss", "No loss", "A gain"], why: "Faqad khasira khusranan mubina." }
+      ]
+    },
+    {
+      slug: "truest",
+      title: "None truer than Allah",
+      line: "Allah's promise is true; no one is truer in speech than Allah.",
+      facts: ["Wa'dallahi haqqa", "Truest in speech"],
+      quote: q4(122),
+      source: ik(122, "Allah promises Gardens to those who believe and do good, and His promise will happen. None is more truthful in speech and in what he tells than Allah.", "none is more truthful in statement and narration than Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "Whose words are truest, in 4:122?", a: "Allah's", wrong: ["Poets'", "Kings'", "Elders'"], why: "Wa man asdaqu minallahi qila." },
+        { q: "Who is promised Gardens with rivers, in 4:122?", a: "Those who believe and do good", wrong: ["The rich", "Anyone who says so", "The strong"], why: "Wal-ladhina amanu wa 'amilus-salihat." },
+        { q: "Can Allah's promise fail?", tf: false, why: "Wa'dallahi haqqa: a true promise." }
+      ]
+    },
+    {
+      slug: "not-wishes",
+      title: "Not by wishful thinking",
+      line: "Paradise is not by wishes; every deed, good or bad, is repaid.",
+      facts: ["Amani: wishes", "Even a thorn wipes sins"],
+      quote: q4(123),
+      source: hadith("muslim", "2574", "Abu Hurayrah", "Sahih", "When 4:123 came, the Muslims were worried. The Prophet ﷺ said: be moderate and stand firm; every trouble that hits a Muslim wipes his sins, even stumbling on the path or the prick of a thorn.", "even stumbling on the path or the pricking of a thorn"),
+      difficulty: 4,
+      questions: [
+        { q: "Is success by wishes, per 4:123?", tf: false, why: "Laysa bi-amaniyyikum: not by your wishes." },
+        { q: "What did the Prophet ﷺ say a thorn's prick does for a Muslim?", a: "Wipes away some sins", wrong: ["Nothing", "Adds sins", "Brings bad luck"], why: "Muslim 2574, from Abu Hurayrah." },
+        { q: "Ibn Kathir: true faith rests in the heart and is proven by...", a: "Actions", wrong: ["Wealth", "Family name", "Clothes"], why: "Not wishful thinking or mere hopes." }
+      ]
+    },
+    {
+      slug: "khalil",
+      title: "Ibrahim, the Khalil",
+      line: "Best faith: submit to Allah, do good, follow Ibrahim's way.",
+      facts: ["Khalil: close friend", "Hanif: upright"],
+      quote: q4(125),
+      source: ik(125, "Allah took Ibrahim as His Khalil, a close friend. This encourages us to follow him, for he is a leader whose way is followed.", "encourages following Ibrahim Al-Khalil"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did Allah take as a Khalil, in 4:125?", a: "Ibrahim", wrong: ["Nuh", "Musa", "Isa"], why: "Wattakhadhallahu Ibrahima khalila." },
+        { q: "Who is best in religion, in 4:125?", a: "One who submits his face to Allah and does good", wrong: ["The loudest", "The richest", "The oldest"], why: "Aslama wajhahu lillahi wa huwa muhsin." },
+        { q: "Why does Ibn Kathir say Allah mentions this title?", a: "To encourage following Ibrahim", wrong: ["To praise wealth", "To end prayer", "To start a war"], why: "He is an Imam whose way is followed." }
+      ]
+    },
+    {
+      slug: "peace-better",
+      title: "Making peace is better",
+      line: "When spouses drift apart, making peace is better than parting.",
+      facts: ["As-sulhu khayr", "Giving up a little"],
+      quote: q4(128),
+      source: hadith("bukhari", "4601", "Aishah", "Sahih", "Aishah explained 4:128: a man disliked his wife and wanted to divorce her, but she said she would give up some of her rights to stay. This ayah came about that.", "So this Verse was revealed in this connection"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 4:128 call better?", a: "Making peace", wrong: ["Arguing", "Leaving quickly", "Silence forever"], why: "Was-sulhu khayr." },
+        { q: "Who explained 4:128 in Bukhari 4601?", a: "Aishah", wrong: ["Hafsah", "Umm Salamah", "Fatimah"], why: "About a wife who chose to stay." },
+        { q: "Ibn Kathir: peace, even giving up some rights, beats parting.", tf: true, why: "Coming to peaceful terms is better than parting." }
+      ]
+    },
+    {
+      slug: "fairness",
+      title: "Fair with every wife",
+      line: "No one loves equally; still, never lean fully to one wife.",
+      facts: ["Hearts are with Allah", "Do not leave her hanging"],
+      quote: q4(129),
+      source: ik(129, "Aishah said the Prophet ﷺ divided his time equally between his wives and said: O Allah, this is my division in what I own, so do not blame me for what You own and I do not own, meaning the heart.", "This is my division in what I own"),
+      difficulty: 4,
+      questions: [
+        { q: "What can no husband do perfectly, in 4:129?", a: "Be equal in the heart's love", wrong: ["Speak kindly", "Spend fairly", "Share time"], why: "Wa lan tastati'u an ta'dilu." },
+        { q: "What must he not do, in 4:129?", a: "Lean fully to one, leaving the other hanging", wrong: ["Be kind", "Spend on them", "Visit both"], why: "Fa-la tamilu kullal-mayl." },
+        { q: "What did the Prophet ﷺ ask Allah not to blame him for?", a: "What is in the heart", wrong: ["His time", "His spending", "His travels"], why: "What You own and I do not own." }
+      ]
+    },
+    {
+      slug: "justice",
+      title: "Justice, even on yourself",
+      line: "Stand firm for justice, even against yourself or your parents.",
+      facts: ["Qawwamina bil-qist", "Truth over family"],
+      quote: q4(135),
+      source: ik(135, "Testify for Allah's sake with the truth, even against your parents and relatives. Do not bend for their sake, for the truth is above everyone.", "even if you have to testify against your parents and kin, do not compromise for their sake"),
+      difficulty: 4,
+      questions: [
+        { q: "Against whom must you still speak the truth, in 4:135?", a: "Yourself, parents and relatives", wrong: ["Only strangers", "Only enemies", "No one"], why: "Wa law 'ala anfusikum awil-walidayn." },
+        { q: "Should someone's wealth or poverty change your witness?", tf: false, why: "In yakun ghaniyyan aw faqiran fallahu awla bihima." },
+        { q: "Ibn Kathir says the truth stands...", a: "Above everyone", wrong: ["Below family", "Equal to tribe", "Behind money"], why: "Do not compromise for their sake." }
+      ]
+    },
+    {
+      slug: "complete-faith",
+      title: "Believe in all of it",
+      line: "Believers are told to keep believing in all of faith's pillars.",
+      facts: ["Allah, His Messenger, His Books", "Angels and the Last Day"],
+      quote: q4(136),
+      source: ik(136, "Allah commands His believing servants to hold firmly to every part of faith. This is not repetition, but completing faith and keeping it strong.", "Allah commands His faithful servants to adhere to all the elements of faith"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom does 4:136 address with 'believe'?", a: "Those who already believe", wrong: ["Only disbelievers", "Only angels", "Only children"], why: "Ya ayyuhal-ladhina amanu aminu." },
+        { q: "Why tell believers to believe, per Ibn Kathir?", a: "To complete and keep their faith", wrong: ["They had none", "To test grammar", "By mistake"], why: "Not mere repetition." },
+        { q: "Which is NOT named in 4:136?", a: "Saints' graves", wrong: ["His angels", "His Books", "The Last Day"], why: "Allah, Messenger, Books, angels, messengers, Last Day." }
+      ]
+    },
+    {
+      slug: "mocking",
+      title: "Leave the mocking gathering",
+      line: "When Allah's ayahs are mocked, do not sit with them.",
+      facts: ["Leave, or change the topic", "Silence can share the sin"],
+      quote: q4(140),
+      source: ik(140, "When you hear Allah's verses denied and mocked, do not sit with them until they talk about something else. Staying on would make you like them.", "then sit not with them, until they engage in talk other than that"),
+      difficulty: 4,
+      questions: [
+        { q: "What should you do when Allah's ayahs are mocked, in 4:140?", a: "Do not sit with them", wrong: ["Laugh along", "Stay quiet and stay", "Join in"], why: "Fa-la taq'udu ma'ahum." },
+        { q: "Until when, in 4:140?", a: "Until they change the topic", wrong: ["Forever", "Until night", "Until they leave"], why: "Hatta yakhudu fi hadithin ghayrih." },
+        { q: "Staying in such a sitting makes you like them.", tf: true, why: "Innakum idhan mithluhum." }
+      ]
+    },
+    {
+      slug: "lazy-prayer",
+      title: "Lazy in prayer",
+      line: "Hypocrites stand for prayer lazily, only to be seen.",
+      facts: ["Kusala: lazy", "Fajr and Isha are hardest for them"],
+      quote: q4(142),
+      source: hadith("bukhari", "657", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: no prayer is heavier on the hypocrites than Fajr and Isha. If they knew their reward, they would come even crawling.", "No prayer is heavier upon the hypocrites than the Fajr and the"),
+      difficulty: 5,
+      questions: [
+        { q: "How do hypocrites stand for prayer, in 4:142?", a: "Lazily, to be seen", wrong: ["Gladly", "In secret", "Early"], why: "Qamu kusala yura'unan-nas." },
+        { q: "Which two prayers are heaviest on hypocrites, in Bukhari 657?", a: "Fajr and Isha", wrong: ["Dhuhr and Asr", "Asr and Maghrib", "Jumu'ah and Eid"], why: "Narrated by Abu Hurayrah." },
+        { q: "If they knew the reward, they would come even...", a: "Crawling", wrong: ["Late", "Never", "Riding"], why: "Even if crawling." }
+      ]
+    },
+    {
+      slug: "repent-door",
+      title: "The way back",
+      line: "Even a hypocrite who sincerely repents is forgiven.",
+      facts: ["Repent and fix your deeds", "Hold fast to Allah"],
+      quote: q4(146),
+      source: ik(146, "Whoever among the hypocrites repents in this life, Allah accepts his repentance if it is sincere and followed by good deeds and holding fast to Allah.", "whoever among the hypocrites repents in this life, Allah will accept his repentance"),
+      difficulty: 5,
+      questions: [
+        { q: "Can a hypocrite be forgiven, per 4:146?", tf: true, why: "Illal-ladhina tabu wa aslahu." },
+        { q: "Which is NOT a condition in 4:146?", a: "Paying a fee", wrong: ["Repenting", "Mending deeds", "Holding fast to Allah"], why: "Tabu, aslahu, i'tasamu billah." },
+        { q: "Who are they counted with after repenting?", a: "The believers", wrong: ["The hypocrites", "The angels", "The jinn"], why: "Fa-ula'ika ma'al-mu'minin." }
+      ]
+    },
+    {
+      slug: "grateful",
+      title: "Why punish the grateful?",
+      line: "Allah gains nothing by punishing you if you thank and believe.",
+      facts: ["Shakir: Appreciative", "Gratitude plus faith"],
+      quote: q4(147),
+      source: ik(147, "Allah has no need to punish you if you correct your deeds and believe. He appreciates those who appreciate Him, and knows whose hearts truly believe.", "Allah appreciates those who appreciate Him"),
+      difficulty: 5,
+      questions: [
+        { q: "What does Allah ask in 4:147?", a: "Why would He punish you if you thank and believe?", wrong: ["Why do you pray?", "Why do you eat?", "Why do you travel?"], why: "Ma yaf'alullahu bi-'adhabikum in shakartum." },
+        { q: "Which name of Allah ends 4:147?", a: "Shakir, the Appreciative", wrong: ["Al-Qahhar", "Al-Malik", "Al-Jabbar"], why: "Wa kanallahu shakiran 'alima." },
+        { q: "Ibn Kathir: Allah appreciates those who...", a: "Appreciate Him", wrong: ["Are rich", "Are famous", "Never sin"], why: "And He gives them full reward." }
+      ]
+    },
+    {
+      slug: "pardon",
+      title: "Speak only if wronged",
+      line: "Allah dislikes public bad talk, except from one who was wronged.",
+      facts: ["The wronged may speak up", "Pardoning is closer to Allah"],
+      quote: q4(149),
+      source: ik(149, "Whether you show a good deed or hide it, or forgive someone who wronged you, this brings you closer to Allah and raises your reward. Allah pardons though He is able to punish.", "forgive those who wrong you, then this will bring you closer to Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "Who may speak out about harm done, in 4:148?", a: "One who was wronged", wrong: ["Anyone bored", "A gossip", "No one ever"], why: "Illa man zulim." },
+        { q: "What brings you closer to Allah, per Ibn Kathir on 4:149?", a: "Forgiving one who wronged you", wrong: ["Shaming him", "Revenge", "Ignoring Allah"], why: "It raises your reward with Him." },
+        { q: "Which names end 4:149?", a: "Ever Pardoning, All-Powerful", wrong: ["All-Seeing, All-Hearing", "Most Rich, Praised", "Wise, Knowing"], why: "Fa-innallaha kana 'afuwwan qadira." }
+      ]
+    },
+    {
+      slug: "all-messengers",
+      title: "Believe in every messenger",
+      line: "Believe in all of Allah's messengers; reject none of them.",
+      facts: ["No picking and choosing", "Reward for full faith"],
+      quote: q4(152),
+      source: ik(152, "Those who believe in Allah and all His messengers, making no difference between them in faith, will be given their rewards.", "And those who believe in Allah and His Messengers and make no distinction between any of them"),
+      difficulty: 5,
+      questions: [
+        { q: "What do the blamed people say, in 4:150?", a: "We believe in some and reject others", wrong: ["We believe in all", "We know nothing", "We will pray"], why: "Nu'minu bi-ba'din wa nakfuru bi-ba'd." },
+        { q: "Who gets their reward, in 4:152?", a: "Those who reject no messenger", wrong: ["Those who pick one", "Those who doubt", "Those who wait"], why: "Wa lam yufarriqu bayna ahadin minhum." },
+        { q: "A Muslim may believe in Musa but reject Isa.", tf: false, why: "4:152: no distinction between any of them." }
+      ]
+    },
+    {
+      slug: "isa-raised",
+      title: "Isa raised to Allah",
+      line: "Isa was not crucified; Allah raised him up to Himself.",
+      facts: ["Rafa'ahullahu ilayh", "Their claim was a guess"],
+      quote: q4(158),
+      source: ik(158, "They claimed they ended the life of Isa, but they did not, nor did they crucify him; it was made to appear so. They follow only guesses. Allah raised him up to Himself.", "But Allah raised him up unto Himself"),
+      difficulty: 5,
+      questions: [
+        { q: "Was Isa crucified, per 4:157?", tf: false, why: "Wa ma salabuh." },
+        { q: "What did Allah do with Isa, in 4:158?", a: "Raised him up to Himself", wrong: ["Hid him in a cave", "Sent him to Egypt", "Made him a king"], why: "Bal rafa'ahullahu ilayh." },
+        { q: "What do those who claimed it follow, in 4:157?", a: "Only guesswork", wrong: ["Sure knowledge", "A clear book", "Eyewitnesses"], why: "Illat-tiba'az-zann." }
+      ]
+    },
+    {
+      slug: "revelation",
+      title: "One chain of revelation",
+      line: "Allah inspired the Prophet ﷺ as He inspired Nuh and those after.",
+      facts: ["Zabur to Dawud", "Musa: the Kalim"],
+      quote: q4(163),
+      source: ik(164, "Some messengers are named in the Quran and others are not. Allah spoke to Musa directly, an honor for him, which is why he is called the Kalim.", "this is why he is called the Kalim, he whom Allah spoke to directly"),
+      difficulty: 5,
+      questions: [
+        { q: "Which Book was given to Dawud, in 4:163?", a: "The Zabur", wrong: ["The Tawrah", "The Injil", "The Suhuf"], why: "Wa atayna Dawuda zabura." },
+        { q: "Which prophet did Allah speak to directly, in 4:164?", a: "Musa", wrong: ["Ibrahim", "Yusuf", "Nuh"], why: "Wa kallamallahu Musa taklima." },
+        { q: "Are all messengers named in the Quran, per 4:164?", tf: false, why: "Wa rusulan lam naqsushum 'alayk." }
+      ]
+    },
+    {
+      slug: "no-excuse",
+      title: "No excuse left",
+      line: "Messengers came with good news and warnings; no excuse is left.",
+      facts: ["Mubashshirin: bringing good news", "Mundhirin: warning"],
+      quote: q4(165),
+      source: ik(165, "Allah sent messengers with good news and warnings and made clear what He loves and what He dislikes. This way, no one will have an excuse before Allah.", "This way, no one will have an excuse with Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "Why were messengers sent, in 4:165?", a: "So people have no excuse before Allah", wrong: ["To collect taxes", "To build palaces", "To rule by force"], why: "Li'alla yakuna lin-nasi 'alallahi hujjah." },
+        { q: "What two jobs do messengers have, in 4:165?", a: "Giving good news and warning", wrong: ["Trading and farming", "Ruling and fighting", "Singing and writing"], why: "Mubashshirina wa mundhirin." },
+        { q: "Ibn Kathir: messengers explained what Allah loves and dislikes.", tf: true, why: "So no one has an excuse." }
+      ]
+    },
+    {
+      slug: "no-extremes",
+      title: "No going to extremes",
+      line: "Do not go to extremes in religion; say only the truth.",
+      facts: ["Ghuluw: going too far", "Isa: servant and messenger"],
+      quote: q4(171),
+      source: hadith("bukhari", "3445", "Umar ibn al-Khattab", "Sahih", "Umar heard the Prophet ﷺ say: do not over-praise me as Isa son of Maryam was over-praised. I am only a servant, so call me the servant of Allah and His Messenger.", "Do not exaggerate in praising me"),
+      difficulty: 5,
+      questions: [
+        { q: "What does 4:171 forbid?", a: "Going to extremes in religion", wrong: ["Praying at night", "Giving charity", "Fasting Mondays"], why: "La taghlu fi dinikum." },
+        { q: "What did the Prophet ﷺ ask to be called, in Bukhari 3445?", a: "The servant of Allah and His Messenger", wrong: ["The son of Allah", "A king", "An angel"], why: "Narrated by Umar ibn al-Khattab." },
+        { q: "Isa was too proud to be Allah's servant, per 4:172.", tf: false, why: "Lan yastankifal-Masihu an yakuna 'abdan lillah." }
+      ]
+    },
+    {
+      slug: "clear-light",
+      title: "A clear light",
+      line: "A clear proof and a bright light came: the Quran.",
+      facts: ["Burhan: clear proof", "Nur mubin: clear light"],
+      quote: q4(174),
+      source: ik(174, "Allah tells all people that a plain proof has come from Him that removes every excuse and doubt. Ibn Jurayj and others said the clear light is the Quran.", "Ibn Jurayj and others said"),
+      difficulty: 5,
+      questions: [
+        { q: "What is the 'clear light' in 4:174, per Ibn Jurayj?", a: "The Quran", wrong: ["The sun", "A lamp", "The moon"], why: "Wa anzalna ilaykum nuran mubina." },
+        { q: "Whom does 4:174 speak to?", a: "All mankind", wrong: ["Only Arabs", "Only scholars", "Only kings"], why: "Ya ayyuhan-nas." },
+        { q: "What does Allah give those who hold fast to Him, in 4:175?", a: "His mercy and a straight path", wrong: ["Gold only", "Long life", "Fame"], why: "Wa yahdihim ilayhi siratan mustaqima." }
+      ]
+    },
+    {
+      slug: "kalalah",
+      title: "Made clear, so you don't stray",
+      line: "Allah explains the shares for one with no parent or child.",
+      facts: ["Kalalah: no parent, no child", "Allah knows all"],
+      quote: q4(176),
+      source: ik(176, "Allah makes His law clear and sets its limits so that you do not stray from the truth after this explanation. He knows every outcome and benefit.", "Thus) does Allah make clear to you"),
+      difficulty: 5,
+      questions: [
+        { q: "What is 'kalalah' in 4:176?", a: "One who leaves no parent or child", wrong: ["An orphan", "A traveler", "A widow"], why: "In imru'un halaka laysa lahu walad." },
+        { q: "Why does Allah make the law clear, in 4:176?", a: "So you do not go astray", wrong: ["To make it hard", "To test memory", "For poetry"], why: "Yubayyinullahu lakum an tadillu." },
+        { q: "Which Surah ends with the ayah on kalalah?", a: "An-Nisa", wrong: ["Al-Baqarah", "Ali 'Imran", "Al-Ma'idah"], why: "4:176 is the last ayah of An-Nisa." }
+      ]
+    }
+  ]
+};
+
+export const NISA_UNITS: readonly DeepUnit[] = [NISA_ONE, NISA_TWO, NISA_THREE];
