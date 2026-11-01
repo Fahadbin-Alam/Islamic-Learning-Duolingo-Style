@@ -2,7 +2,8 @@ import type { SupportedLanguage } from "../types";
 
 // Playful come-back reminders in the path camel's voice. The longer a learner is away the
 // sillier the camel gets, and after a month it says it will stop. Every step has a plain
-// funny message and one with a gentle Islamic touch. Kept kind and kid-safe:
+// funny message, one with a gentle Islamic touch and an extra-silly one; the streak one says
+// how long the streak is. Kept kind and kid-safe:
 // no guilt, no fear, nothing about sin or reward, just a camel who misses you.
 
 export type ComebackStep = "resume" | "streak" | "day2" | "day3" | "day5" | "day7" | "day14" | "day30";
@@ -213,13 +214,110 @@ const ISLAMIC_COPY: Partial<Record<SupportedLanguage, Record<ComebackStep, Comeb
   }
 };
 
-/** Which of a step's two messages a learner gets; changes with the day of their last lesson so repeat absences differ. */
-export function messageVariant(lastLearningAt: number) {
-  return Math.floor(lastLearningAt / 86_400_000) % 2;
+// A third, extra-silly message for each step: the camel's wild ideas while it waits. Same rules: kind,
+// kid-safe, no guilt.
+const SILLY_COPY: Partial<Record<SupportedLanguage, Record<ComebackStep, ComebackMessage>>> = {
+  en: {
+    resume: { title: "🐪 Your lesson is sitting all alone", body: "It keeps asking where you went. Come finish it, it's really short!" },
+    streak: { title: "🔥 Breaking news: your streak wants a snack", body: "It only eats lessons. One small one tonight will do!" },
+    day2: { title: "🐪 Your camel tried learning without you", body: "It answered \"banana\" to every question. Please help!" },
+    day3: { title: "🌴 Even the palm trees are asking about you", body: "Your camel told them you'd be back today. Prove it right!" },
+    day5: { title: "🐪 Your camel is practicing its sad face", body: "It's getting really good at it. One lesson turns it back into a smile!" },
+    day7: { title: "🐪 Your camel made a \"Missing friend\" poster", body: "Last seen: one week ago. Reward: one very happy camel. Come back!" },
+    day14: { title: "🐪 Grass grew on your path while you were away", body: "Your camel is eating it to keep busy. Come walk the path again!" },
+    day30: { title: "🐪 Okay, your camel is taking a little break too", body: "No more reminders for now. Your path stays right here, whenever you want it." }
+  },
+  ar: {
+    resume: { title: "🐪 درسك جالس وحده", body: "يسأل باستمرار أين ذهبت. تعال وأكمله، إنه قصير جدًا!" },
+    streak: { title: "🔥 خبر عاجل: سلسلتك جائعة", body: "إنها لا تأكل إلا الدروس. درس صغير الليلة يكفي!" },
+    day2: { title: "🐪 جملك حاول التعلّم من دونك", body: "أجاب «موزة» عن كل سؤال. أرجوك ساعده!" },
+    day3: { title: "🌴 حتى النخيل يسأل عنك", body: "جملك أخبرها أنك ستعود اليوم. أثبت أنه على حق!" },
+    day5: { title: "🐪 جملك يتدرّب على وجهه الحزين", body: "صار بارعًا فيه جدًا. درس واحد يعيد إليه ابتسامته!" },
+    day7: { title: "🐪 جملك علّق ملصق «صديق مفقود»", body: "آخر ظهور: قبل أسبوع. المكافأة: جمل سعيد جدًا. عد إلينا!" },
+    day14: { title: "🐪 نبت العشب على طريقك في غيابك", body: "جملك يأكله ليمضي الوقت. عد وامشِ في طريقك من جديد!" },
+    day30: { title: "🐪 حسنًا، جملك سيأخذ استراحة صغيرة أيضًا", body: "لا تذكيرات أخرى الآن. طريقك باقٍ هنا متى ما أردته." }
+  },
+  bn: {
+    resume: { title: "🐪 তোমার পাঠটা একা বসে আছে", body: "বারবার জিজ্ঞেস করছে তুমি কোথায় গেলে। এসে শেষ করো, খুব ছোট!" },
+    streak: { title: "🔥 ব্রেকিং নিউজ: তোমার স্ট্রিকের খিদে পেয়েছে", body: "সে শুধু পাঠ খায়। আজ রাতে একটা ছোট পাঠ হলেই চলবে!" },
+    day2: { title: "🐪 তোমার উট তোমাকে ছাড়া শিখতে চেষ্টা করেছে", body: "সব প্রশ্নের উত্তর দিয়েছে \"কলা\"। প্লিজ সাহায্য করো!" },
+    day3: { title: "🌴 খেজুর গাছগুলোও তোমার খোঁজ নিচ্ছে", body: "উট ওদের বলেছে তুমি আজ ফিরবে। প্রমাণ করো সে ঠিক!" },
+    day5: { title: "🐪 তোমার উট মন খারাপের মুখ অনুশীলন করছে", body: "সে এতে খুব পাকা হয়ে গেছে। একটা পাঠেই আবার হাসি ফিরবে!" },
+    day7: { title: "🐪 তোমার উট \"হারানো বন্ধু\" পোস্টার লাগিয়েছে", body: "শেষ দেখা: এক সপ্তাহ আগে। পুরস্কার: একটা খুশি উট। ফিরে এসো!" },
+    day14: { title: "🐪 তুমি নেই, তাই পথে ঘাস গজিয়েছে", body: "উট সময় কাটাতে সেগুলো খাচ্ছে। এসে আবার পথে হাঁটো!" },
+    day30: { title: "🐪 ঠিক আছে, তোমার উটও একটু বিশ্রাম নিচ্ছে", body: "আপাতত আর রিমাইন্ডার নয়। যখন চাও, তোমার পথ এখানেই আছে।" }
+  },
+  ur: {
+    resume: { title: "🐪 آپ کا سبق اکیلا بیٹھا ہے", body: "بار بار پوچھ رہا ہے کہ آپ کہاں گئے۔ آئیں اسے مکمل کریں، بہت چھوٹا ہے!" },
+    streak: { title: "🔥 تازہ خبر: آپ کی اسٹریک کو بھوک لگی ہے", body: "یہ صرف سبق کھاتی ہے۔ آج رات ایک چھوٹا سبق کافی ہے!" },
+    day2: { title: "🐪 آپ کے اونٹ نے آپ کے بغیر سیکھنے کی کوشش کی", body: "اس نے ہر سوال کا جواب \"کیلا\" دیا۔ براہِ کرم مدد کریں!" },
+    day3: { title: "🌴 کھجور کے درخت بھی آپ کا پوچھ رہے ہیں", body: "اونٹ نے انہیں بتایا کہ آپ آج آئیں گے۔ اسے سچا ثابت کریں!" },
+    day5: { title: "🐪 آپ کا اونٹ اداس چہرہ بنانے کی مشق کر رہا ہے", body: "وہ اس میں ماہر ہو گیا ہے۔ ایک سبق اس کی مسکراہٹ واپس لے آئے گا!" },
+    day7: { title: "🐪 آپ کے اونٹ نے \"گمشدہ دوست\" کا پوسٹر لگایا", body: "آخری بار دیکھا گیا: ایک ہفتہ پہلے۔ انعام: ایک خوش اونٹ۔ واپس آئیں!" },
+    day14: { title: "🐪 آپ کے جانے کے بعد راستے پر گھاس اگ آئی", body: "اونٹ وقت گزارنے کے لیے اسے کھا رہا ہے۔ آئیں اور پھر سے چلیں!" },
+    day30: { title: "🐪 ٹھیک ہے، آپ کا اونٹ بھی تھوڑا آرام کر رہا ہے", body: "فی الحال مزید یاد دہانیاں نہیں۔ جب چاہیں، آپ کا راستہ یہیں ہے۔" }
+  }
+};
+
+// The streak reminder when there is a real streak to save, so the learner knows exactly what's at stake:
+// it says how many days, and mentions a streak freeze when one is standing by.
+const STREAK_COUNT_COPY: Partial<Record<SupportedLanguage, { title: string; body: string; freezeBody: string }>> = {
+  en: {
+    title: "🔥 Your {count}-day streak is sweating",
+    body: "One short lesson tonight keeps all {count} days safe. You've got this!",
+    freezeBody: "A streak freeze is standing by, but who needs it? One quick lesson tonight!"
+  },
+  ar: {
+    title: "🔥 سلسلتك وصلت إلى {count} وهي قلقة الآن",
+    body: "درس قصير الليلة يحفظ كل أيامك. أنت قادر!",
+    freezeBody: "تجميد السلسلة جاهز، لكن من يحتاجه؟ درس سريع الليلة!"
+  },
+  bn: {
+    title: "🔥 তোমার {count} দিনের স্ট্রিক ঘামছে",
+    body: "আজ রাতে একটা ছোট পাঠে সব {count} দিন নিরাপদ। তুমি পারবে!",
+    freezeBody: "স্ট্রিক ফ্রিজ তৈরি আছে, কিন্তু দরকার কী? আজ রাতে একটা ছোট পাঠ!"
+  },
+  ur: {
+    title: "🔥 آپ کی {count} دن کی اسٹریک کو پسینہ آ رہا ہے",
+    body: "آج رات ایک چھوٹا سبق تمام {count} دن محفوظ رکھے گا۔ آپ کر سکتے ہیں!",
+    freezeBody: "اسٹریک فریز تیار ہے، مگر اس کی ضرورت کیا؟ آج رات ایک جلدی سبق!"
+  }
+};
+
+const DIGITS: Partial<Record<SupportedLanguage, string>> = { ar: "٠١٢٣٤٥٦٧٨٩", bn: "০১২৩৪৫৬৭৮৯", ur: "۰۱۲۳۴۵۶۷۸۹" };
+
+/** A number in the language's own digits, like the rest of the copy (٧ in Arabic, ৭ in Bangla). */
+export function localDigits(value: number, language: SupportedLanguage) {
+  const digits = DIGITS[language];
+  const plain = String(Math.round(value));
+  return digits ? plain.replace(/\d/g, (digit) => digits[Number(digit)]) : plain;
 }
 
-export function comebackMessage(language: SupportedLanguage, step: ComebackStep, variant = 0): ComebackMessage {
-  const table = variant % 2 === 1 ? ISLAMIC_COPY : COPY;
+/** What the learner has going on, so a reminder can say what's up (how long the streak is, a freeze ready). */
+export interface ComebackStatus {
+  streakDays?: number;
+  streakFreezes?: number;
+}
+
+const VARIANTS = [COPY, ISLAMIC_COPY, SILLY_COPY];
+
+/** Which of a step's three messages a learner gets; changes with the day of their last lesson so repeat absences differ. */
+export function messageVariant(lastLearningAt: number) {
+  return Math.floor(lastLearningAt / 86_400_000) % VARIANTS.length;
+}
+
+export function comebackMessage(language: SupportedLanguage, step: ComebackStep, variant = 0, status: ComebackStatus = {}): ComebackMessage {
+  const streak = Math.floor(status.streakDays ?? 0);
+  // A streak of two days or more is worth naming: "Your 12-day streak is sweating".
+  if (step === "streak" && streak >= 2 && variant % VARIANTS.length !== 1) {
+    const copy = STREAK_COUNT_COPY[language] ?? STREAK_COUNT_COPY.en!;
+    const count = localDigits(streak, language);
+    return {
+      title: copy.title.replace("{count}", count),
+      body: ((status.streakFreezes ?? 0) > 0 ? copy.freezeBody : copy.body).replace("{count}", count)
+    };
+  }
+  const table = VARIANTS[((variant % VARIANTS.length) + VARIANTS.length) % VARIANTS.length];
   return (table[language] ?? table.en!)[step];
 }
 
