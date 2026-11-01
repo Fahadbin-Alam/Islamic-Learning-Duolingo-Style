@@ -535,11 +535,13 @@ export type PathWeatherProps = {
   world?: PathWorld;
   width: number;
   height: number;
-  /** Clouds drift, the sun turns, rain falls. Units far from the current one pass false. */
+  /** Clouds drift, the sun turns, rain falls, birds fly. Units off the screen pass false. */
   animated?: boolean;
+  /** Only one unit drops the odd meteor, so they don't fall all at once. */
+  meteor?: boolean;
 };
 
-export const PathWeather = memo(function PathWeather({ weather, world = "desert", width, height, animated = false }: PathWeatherProps) {
+export const PathWeather = memo(function PathWeather({ weather, world = "desert", width, height, animated = false, meteor = animated }: PathWeatherProps) {
   const reduceMotion = useReduceMotion();
   const moving = animated && !reduceMotion;
   // Clouds and the place's strip always move (cheap loops on the native driver); the rest only near the learner.
@@ -598,7 +600,7 @@ export const PathWeather = memo(function PathWeather({ weather, world = "desert"
               <Birds top={y + (first ? 250 : 200)} width={width} moving={moving} reduceMotion={reduceMotion} />
             ) : null}
             {weather === "rain" ? <RainUnderCloud top={y + 150} width={width} band={band} moving={moving} drifting={drifting} reduceMotion={reduceMotion} /> : null}
-            {first ? <SkyMeteor width={width} moving={moving} /> : null}
+            {first ? <SkyMeteor width={width} moving={moving && meteor} /> : null}
           </React.Fragment>
         );
       })}
