@@ -9,8 +9,15 @@ import { colors, fonts, radii, space } from "../theme";
 
 const openPage = (url: string) => void Linking.openURL(url).catch(() => undefined);
 
-/** Who took the photo and its license; opens the photo's Wikimedia Commons page. */
+/** Who took the photo and its license; opens the photo's Wikimedia Commons page. A drawing says it is one. */
 function PhotoCredit({ picture, testID }: { picture: LessonPicture; testID?: string }) {
+  if (picture.credit.drawn) {
+    return (
+      <Text style={[styles.credit, styles.creditTap]} numberOfLines={1} testID={testID}>
+        {t("A drawing of how it looked long ago")}
+      </Text>
+    );
+  }
   const line = t("Photo: {credit}", { credit: creditLine(picture.credit) });
   return (
     <Tappable

@@ -3,13 +3,16 @@ import type { Lesson } from "../types";
 import { PICTURE_IMAGES } from "./lessonPictureImages";
 
 /**
- * Real photos of the places lessons talk about (Makkah, the Kaaba, Uhud, the Cave of Hira...), so a learner can
- * picture them. Every photo is free to use (Wikimedia Commons, public domain or CC BY / CC BY-SA) and credited
- * (lessonPictureCredits.json, written by scripts/lesson-pictures/fetch.mjs). Only places and things: never a
- * picture of a prophet, a Companion or anyone meant to stand for them. The photos ship inside the app (small
- * JPEGs in assets/pictures), so they show offline.
+ * Pictures of the places lessons talk about (Makkah, the Kaaba, Uhud, the Cave of Hira...), so a learner can
+ * picture them as they were in the early years of Islam. Makkah, Madinah, the Ka'bah and the Hajj places are our
+ * own drawings of how they looked long ago (scripts/lesson-pictures/draw.mjs): no towers, cranes or crowds of
+ * today. The rest are photos of places that still look as they did (Wikimedia Commons, public domain or CC BY /
+ * CC BY-SA, credited in lessonPictureCredits.json). Only places and things: never a picture of a prophet, a
+ * Companion or anyone meant to stand for them. They ship inside the app (small JPEGs in assets/pictures), so
+ * they show offline.
  */
-export type PictureCredit = { file: string; page: string; author: string; license: string; licenseUrl: string };
+/** `drawn`: one of our own drawings of how a place looked long ago (scripts/lesson-pictures/draw.mjs), not a photo. */
+export type PictureCredit = { file: string; page: string; author: string; license: string; licenseUrl: string; drawn?: boolean };
 
 export type LessonPicture = {
   id: string;
@@ -24,26 +27,26 @@ type PlaceRule = { id: string; caption: string; match: RegExp };
 /** Most specific first: "the Cave of Hira near Makkah" shows Hira, "the Kaaba in Makkah" the Kaaba. */
 const PLACES: PlaceRule[] = [
   { id: "hira", caption: "Mount an-Nur, where the Cave of Hira is", match: /\bhira'?\b|\bjabal (?:al-|an-)?nur\b|mountain of light/i },
-  { id: "zamzam", caption: "Zamzam water in Makkah", match: /\bzam ?zam\b/i },
-  { id: "safa-marwa", caption: "Between Safa and Marwah", match: /\bsafa\b|\bmarwah?\b/i },
+  { id: "zamzam", caption: "The well of Zamzam long ago", match: /\bzam ?zam\b/i },
+  { id: "safa-marwa", caption: "The hills of Safa and Marwah long ago", match: /\bsafa\b|\bmarwah?\b/i },
   // Not "Ka'b" (Ka'b ibn Malik, Ubayy ibn Ka'b).
-  { id: "kaaba", caption: "The Ka'bah in Makkah", match: /\b(?:kaabah?|kabah|ka['‘’]bah?)\b/i },
+  { id: "kaaba", caption: "The Ka'bah long ago", match: /\b(?:kaabah?|kabah|ka['‘’]bah?)\b/i },
   // The qiblah is the Ka'bah, whatever else the lesson names (it once faced Jerusalem).
-  { id: "kaaba", caption: "The Ka'bah in Makkah", match: /\bqiblah?\b/i },
-  { id: "arafah", caption: "Mount Arafat", match: /\barafa[ht]\b|\barafah\b/i },
-  { id: "mina", caption: "The tents of Mina", match: /\bmina\b/i },
-  { id: "muzdalifah", caption: "Muzdalifah", match: /\bmuzdalifah?\b/i },
+  { id: "kaaba", caption: "The Ka'bah long ago", match: /\bqiblah?\b/i },
+  { id: "arafah", caption: "The plain of Arafah", match: /\barafa[ht]\b|\barafah\b/i },
+  { id: "mina", caption: "The valley of Mina long ago", match: /\bmina\b/i },
+  { id: "muzdalifah", caption: "Muzdalifah at night", match: /\bmuzdalifah?\b/i },
   { id: "uhud", caption: "Mount Uhud, near Madinah", match: /\buhud\b/i },
   { id: "badr", caption: "The land around Badr", match: /\bbadr\b/i },
   { id: "aqsa", caption: "Masjid al-Aqsa in Jerusalem", match: /\baqsa\b|\bbayt al-maqdis\b/i },
-  { id: "jerusalem", caption: "The old city of Jerusalem", match: /\bjerusalem\b/i },
+  { id: "jerusalem", caption: "Jerusalem long ago", match: /\bjerusalem\b/i },
   { id: "sinai", caption: "Mount Sinai", match: /\bmount (?:sinai|t[uū]r)\b|\bsinai\b/i },
   { id: "hegra", caption: "Al-Hijr, where Thamud carved homes in rock", match: /\bthamud\b|\bhegra\b|\bmada'?in salih\b/i },
   { id: "taif", caption: "The mountains of Ta'if", match: /\bta['‘’]?if\b/i },
   { id: "damascus", caption: "The Umayyad Mosque in Damascus", match: /\bdamascus\b|\bumayyad mosque\b/i },
   { id: "manuscript", caption: "An early page of the Quran", match: /\bmushaf\b|\bmanuscripts?\b|\bcompil(?:ed|ing|ation)\b[^.]*\bquran\b|\bquran\b[^.]*\bcompil(?:ed|ing|ation)\b/i },
-  { id: "madinah", caption: "The Prophet's Mosque in Madinah", match: /\bmadinah\b|\bmedina\b|\byathrib\b|\bprophet['‘’]s mosque\b|\bmasjid an-nabawi\b/i },
-  { id: "makkah", caption: "Masjid al-Haram in Makkah", match: /\bmakkah\b|\bmecca\b|\bmasjid al-haram\b|\bsacred mosque\b/i },
+  { id: "madinah", caption: "Madinah long ago, among its date palms", match: /\bmadinah\b|\bmedina\b|\byathrib\b|\bprophet['‘’]s mosque\b|\bmasjid an-nabawi\b/i },
+  { id: "makkah", caption: "Makkah long ago", match: /\bmakkah\b|\bmecca\b|\bmasjid al-haram\b|\bsacred mosque\b/i },
   { id: "date-palms", caption: "Date palms", match: /\bdate palms?\b|\bpalm trees?\b|\bdate trees?\b/i },
   { id: "desert", caption: "The Arabian desert", match: /\bdesert\b/i }
 ];

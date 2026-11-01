@@ -143,8 +143,8 @@ describe("lesson ui (round 2)", () => {
       expect(sign).toHaveStyle({ fontFamily: NASKH });
     }
     expect(screen.getAllByText("ﷺ").length).toBeGreaterThanOrEqual(3);
-    // Up to three chips; "Father:" is the soft key of the first one.
-    expect(screen.getByTestId("learn-facts")).toHaveTextContent(/Father: Abdullah.*Born in Makkah.*Mother: Aminah/);
+    // Up to three key points; "Father" is the soft label of the first one.
+    expect(screen.getByTestId("learn-facts")).toHaveTextContent(/Father.*Abdullah.*Born in Makkah.*Mother.*Aminah/);
     expect(screen.queryByText("One too many")).toBeNull();
     // The quote is shown in full, and its reference doubles as the source link (not said twice).
     expect(screen.getByTestId("learn-quote-text")).toHaveTextContent(quote.text);
