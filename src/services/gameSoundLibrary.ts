@@ -29,7 +29,11 @@ export type GameSoundEvent =
   | "snore"
   | "sizzle"
   | "pop"
-  | "night";
+  | "night"
+  | "meteor"
+  | "giant"
+  | "hello"
+  | "yawn";
 
 export type SoundTone = {
   frequency: number;
@@ -227,6 +231,40 @@ export const SOUND_LIBRARY: Record<GameSoundEvent, SoundTone[]> = {
     { frequency: 659, durationMs: 220, delayMs: 200, gain: 0.02, type: "sine" },
     { frequency: 523, durationMs: 220, delayMs: 400, gain: 0.02, type: "sine" },
     { frequency: 392, durationMs: 420, delayMs: 600, gain: 0.018, type: "sine" }
+  ],
+  // A rock falling from the sky: a whistle sliding down, a soft thud, then little bits landing.
+  meteor: [
+    { frequency: 1500, durationMs: 120, gain: 0.018, type: "sine" },
+    { frequency: 1200, durationMs: 120, delayMs: 100, gain: 0.018, type: "sine" },
+    { frequency: 950, durationMs: 120, delayMs: 200, gain: 0.018, type: "sine" },
+    { frequency: 720, durationMs: 120, delayMs: 300, gain: 0.018, type: "sine" },
+    { frequency: 70, durationMs: 340, delayMs: 420, gain: 0.06, type: "sawtooth" },
+    { frequency: 52, durationMs: 380, delayMs: 470, gain: 0.05, type: "sawtooth" },
+    { frequency: 900, durationMs: 40, delayMs: 760, gain: 0.016, type: "sine" },
+    { frequency: 1200, durationMs: 40, delayMs: 860, gain: 0.014, type: "sine" }
+  ],
+  // Growing huge, then shrinking back: a long rise, a wobble at the top, a slide down and a pop.
+  giant: [
+    { frequency: 220, durationMs: 110, gain: 0.026, type: "sine" },
+    { frequency: 294, durationMs: 110, delayMs: 100, gain: 0.026, type: "sine" },
+    { frequency: 392, durationMs: 110, delayMs: 200, gain: 0.026, type: "sine" },
+    { frequency: 523, durationMs: 110, delayMs: 300, gain: 0.026, type: "sine" },
+    { frequency: 659, durationMs: 260, delayMs: 400, gain: 0.024, type: "triangle" },
+    { frequency: 523, durationMs: 90, delayMs: 1200, gain: 0.022, type: "sine" },
+    { frequency: 392, durationMs: 90, delayMs: 1290, gain: 0.022, type: "sine" },
+    { frequency: 294, durationMs: 90, delayMs: 1380, gain: 0.022, type: "sine" },
+    { frequency: 700, durationMs: 60, delayMs: 1500, gain: 0.03, type: "triangle" }
+  ],
+  // A cheerful "hi-yaa!" for a wave: up, then up again.
+  hello: [
+    { frequency: 660, durationMs: 90, gain: 0.03, type: "triangle" },
+    { frequency: 990, durationMs: 140, delayMs: 110, gain: 0.03, type: "triangle" }
+  ],
+  // A big yawn: a slow rise and a long sigh down.
+  yawn: [
+    { frequency: 260, durationMs: 260, gain: 0.024, type: "sine" },
+    { frequency: 330, durationMs: 300, delayMs: 220, gain: 0.024, type: "sine" },
+    { frequency: 250, durationMs: 420, delayMs: 520, gain: 0.02, type: "sine" }
   ]
 };
 
