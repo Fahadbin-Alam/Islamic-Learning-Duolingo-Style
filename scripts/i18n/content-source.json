@@ -81,6 +81,26 @@
   },
   {
     "kind": "course",
+    "text": "Famous hadith"
+  },
+  {
+    "kind": "course",
+    "text": "Short hadith that scholars teach first, because so much of Islam is in them."
+  },
+  {
+    "kind": "course",
+    "text": "Hadith about knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Why learning Islam matters, and why every hadith needs a true source."
+  },
+  {
+    "kind": "arabic",
+    "text": "Seeking knowledge"
+  },
+  {
+    "kind": "course",
     "text": "As-salamu alaykum"
   },
   {
@@ -198,6 +218,66 @@
   {
     "kind": "course",
     "text": "Pray like the Prophet ﷺ"
+  },
+  {
+    "kind": "course",
+    "text": "Deeds and intentions"
+  },
+  {
+    "kind": "course",
+    "text": "As if you see Him"
+  },
+  {
+    "kind": "course",
+    "text": "Leave what's not your business"
+  },
+  {
+    "kind": "course",
+    "text": "Clear, and in between"
+  },
+  {
+    "kind": "course",
+    "text": "Religion is sincerity"
+  },
+  {
+    "kind": "course",
+    "text": "A good deed after a bad one"
+  },
+  {
+    "kind": "course",
+    "text": "Deep review"
+  },
+  {
+    "kind": "course",
+    "text": "Believe, then stay firm"
+  },
+  {
+    "kind": "course",
+    "text": "Final quiz"
+  },
+  {
+    "kind": "course",
+    "text": "A path to Jannah"
+  },
+  {
+    "kind": "course",
+    "text": "A sign of good"
+  },
+  {
+    "kind": "course",
+    "text": "Pass it on"
+  },
+  {
+    "kind": "course",
+    "text": "Never make one up"
+  },
+  {
+    "kind": "course",
+    "text": "Two people to envy"
+  },
+  {
+    "kind": "course",
+    "text": "Angels surround them"
   },
   {
     "kind": "course",
@@ -541,10 +621,6 @@
   },
   {
     "kind": "course",
-    "text": "Deep review"
-  },
-  {
-    "kind": "course",
     "text": "Pray as you can"
   },
   {
@@ -554,10 +630,6 @@
   {
     "kind": "course",
     "text": "Pray as you saw me"
-  },
-  {
-    "kind": "course",
-    "text": "Final quiz"
   },
   {
     "kind": "course",
@@ -5753,6 +5825,18 @@
   },
   {
     "kind": "course",
+    "text": "Hadith for a good heart"
+  },
+  {
+    "kind": "course",
+    "text": "What the Prophet ﷺ taught about the heart, mercy, shyness and good manners."
+  },
+  {
+    "kind": "arabic",
+    "text": "A sound heart"
+  },
+  {
+    "kind": "course",
     "text": "Spread Salam"
   },
   {
@@ -5978,6 +6062,30 @@
   {
     "kind": "course",
     "text": "Online"
+  },
+  {
+    "kind": "course",
+    "text": "The heart decides"
+  },
+  {
+    "kind": "course",
+    "text": "The best of you"
+  },
+  {
+    "kind": "course",
+    "text": "Shyness is faith"
+  },
+  {
+    "kind": "course",
+    "text": "Allah loves gentleness"
+  },
+  {
+    "kind": "course",
+    "text": "Show mercy, get mercy"
+  },
+  {
+    "kind": "course",
+    "text": "Ease someone's hardship"
   },
   {
     "kind": "course",
@@ -29513,6 +29621,842 @@
   },
   {
     "kind": "lesson",
+    "text": "Deeds are judged by intentions; each gets what he intended."
+  },
+  {
+    "kind": "lesson",
+    "text": "First hadith in Bukhari"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Umar"
+  },
+  {
+    "kind": "question",
+    "text": "What are deeds judged by?"
+  },
+  {
+    "kind": "question",
+    "text": "Who sees them"
+  },
+  {
+    "kind": "question",
+    "text": "How loud they are"
+  },
+  {
+    "kind": "question",
+    "text": "Intentions"
+  },
+  {
+    "kind": "question",
+    "text": "Their size"
+  },
+  {
+    "kind": "question",
+    "text": "Which hadith opens Sahih al-Bukhari?"
+  },
+  {
+    "kind": "question",
+    "text": "The hadith of the dog"
+  },
+  {
+    "kind": "question",
+    "text": "The hadith of Badr"
+  },
+  {
+    "kind": "question",
+    "text": "None at all"
+  },
+  {
+    "kind": "question",
+    "text": "Deeds are by intentions"
+  },
+  {
+    "kind": "question",
+    "text": "Imam al-Bukhari put it first."
+  },
+  {
+    "kind": "question",
+    "text": "Two people do the same deed. Can their reward differ?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, by their intentions"
+  },
+  {
+    "kind": "question",
+    "text": "No, never"
+  },
+  {
+    "kind": "question",
+    "text": "Only if one is older"
+  },
+  {
+    "kind": "question",
+    "text": "Each gets what he intended."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ihsan: worship Allah as if you see Him; He sees you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Taught by Jibril"
+  },
+  {
+    "kind": "lesson",
+    "text": "Islam, iman, ihsan"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 8a"
+  },
+  {
+    "kind": "question",
+    "text": "What is ihsan?"
+  },
+  {
+    "kind": "question",
+    "text": "Worship as if you see Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Praying only when watched"
+  },
+  {
+    "kind": "question",
+    "text": "Worship once a year"
+  },
+  {
+    "kind": "question",
+    "text": "Being rich"
+  },
+  {
+    "kind": "question",
+    "text": "Who came to ask about Islam, iman and ihsan?"
+  },
+  {
+    "kind": "question",
+    "text": "A king of Rome"
+  },
+  {
+    "kind": "question",
+    "text": "A child"
+  },
+  {
+    "kind": "question",
+    "text": "Jibril, as a man"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ told Umar afterward: that was Jibril."
+  },
+  {
+    "kind": "question",
+    "text": "Even when we can't see Allah, He sees us."
+  },
+  {
+    "kind": "question",
+    "text": "He sees you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Good Islam means leaving what does not concern you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Less gossip"
+  },
+  {
+    "kind": "lesson",
+    "text": "Less wasted time"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 2317"
+  },
+  {
+    "kind": "question",
+    "text": "What does good Islam leave alone?"
+  },
+  {
+    "kind": "question",
+    "text": "What does not concern you"
+  },
+  {
+    "kind": "question",
+    "text": "Kindness"
+  },
+  {
+    "kind": "question",
+    "text": "Friends gossip about someone. What fits this hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Stay out of it"
+  },
+  {
+    "kind": "question",
+    "text": "Spread it further"
+  },
+  {
+    "kind": "question",
+    "text": "Add more details"
+  },
+  {
+    "kind": "question",
+    "text": "Post it online"
+  },
+  {
+    "kind": "question",
+    "text": "It does not concern you."
+  },
+  {
+    "kind": "question",
+    "text": "Minding your own business is part of good Islam."
+  },
+  {
+    "kind": "question",
+    "text": "Leaving what doesn't concern him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Halal is clear, haram is clear; avoid the doubtful between."
+  },
+  {
+    "kind": "lesson",
+    "text": "Protect your religion"
+  },
+  {
+    "kind": "lesson",
+    "text": "Protect your honor"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 52"
+  },
+  {
+    "kind": "question",
+    "text": "What lies between clear halal and clear haram?"
+  },
+  {
+    "kind": "question",
+    "text": "Only sweets"
+  },
+  {
+    "kind": "question",
+    "text": "Only games"
+  },
+  {
+    "kind": "question",
+    "text": "Doubtful things"
+  },
+  {
+    "kind": "question",
+    "text": "What do you protect by avoiding doubtful things?"
+  },
+  {
+    "kind": "question",
+    "text": "Your religion and honor"
+  },
+  {
+    "kind": "question",
+    "text": "Your money only"
+  },
+  {
+    "kind": "question",
+    "text": "Your phone"
+  },
+  {
+    "kind": "question",
+    "text": "When unsure if something is halal, it's safer to leave it."
+  },
+  {
+    "kind": "question",
+    "text": "Avoid the doubtful things."
+  },
+  {
+    "kind": "lesson",
+    "text": "The religion is sincerity: to Allah, His Book, His Messenger ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Tamim ad-Dari"
+  },
+  {
+    "kind": "lesson",
+    "text": "And to all Muslims"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 55a"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say the religion is?"
+  },
+  {
+    "kind": "question",
+    "text": "A family name"
+  },
+  {
+    "kind": "question",
+    "text": "A tradition only"
+  },
+  {
+    "kind": "question",
+    "text": "Hard rules"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is named in the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's Book"
+  },
+  {
+    "kind": "question",
+    "text": "Gold"
+  },
+  {
+    "kind": "question",
+    "text": "Poetry"
+  },
+  {
+    "kind": "question",
+    "text": "Markets"
+  },
+  {
+    "kind": "question",
+    "text": "To Allah, His Book, His Messenger."
+  },
+  {
+    "kind": "question",
+    "text": "Sincerity to Muslims is part of the religion."
+  },
+  {
+    "kind": "question",
+    "text": "Their leaders and all of them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fear Allah anywhere; follow a bad deed with a good one."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told to Abu Dharr"
+  },
+  {
+    "kind": "lesson",
+    "text": "Good wipes out bad"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1987"
+  },
+  {
+    "kind": "question",
+    "text": "You made a mistake. What does this hadith say to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Make another mistake"
+  },
+  {
+    "kind": "question",
+    "text": "Follow it with a good deed"
+  },
+  {
+    "kind": "question",
+    "text": "Give up"
+  },
+  {
+    "kind": "question",
+    "text": "Hide forever"
+  },
+  {
+    "kind": "question",
+    "text": "Where should we be mindful of Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "Only in Ramadan"
+  },
+  {
+    "kind": "question",
+    "text": "Only at home"
+  },
+  {
+    "kind": "question",
+    "text": "Wherever we are"
+  },
+  {
+    "kind": "question",
+    "text": "Only in the masjid"
+  },
+  {
+    "kind": "question",
+    "text": "Have taqwa wherever you are."
+  },
+  {
+    "kind": "question",
+    "text": "How should we treat people, says this hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Coldly"
+  },
+  {
+    "kind": "question",
+    "text": "Rudely"
+  },
+  {
+    "kind": "question",
+    "text": "Only if they are rich"
+  },
+  {
+    "kind": "question",
+    "text": "With good character"
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about famous hadith?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Say: I believe in Allah, then stay firm on it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked by Sufyan"
+  },
+  {
+    "kind": "lesson",
+    "text": "A short, full answer"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 38"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ tell Sufyan to say?"
+  },
+  {
+    "kind": "question",
+    "text": "I will try later"
+  },
+  {
+    "kind": "question",
+    "text": "I believe in Allah"
+  },
+  {
+    "kind": "question",
+    "text": "I am the best"
+  },
+  {
+    "kind": "question",
+    "text": "And after saying it?"
+  },
+  {
+    "kind": "question",
+    "text": "Forget it"
+  },
+  {
+    "kind": "question",
+    "text": "Change it often"
+  },
+  {
+    "kind": "question",
+    "text": "Keep it secret"
+  },
+  {
+    "kind": "question",
+    "text": "Stay firm on it"
+  },
+  {
+    "kind": "question",
+    "text": "Then be steadfast."
+  },
+  {
+    "kind": "question",
+    "text": "Being steadfast means staying on the right path every day."
+  },
+  {
+    "kind": "question",
+    "text": "Not just once, but always."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about famous hadith!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Walk a path to seek knowledge; Allah eases your path to Jannah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Learning is worship"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2699a"
+  },
+  {
+    "kind": "question",
+    "text": "Seeking knowledge makes which path easy?"
+  },
+  {
+    "kind": "question",
+    "text": "The path to Jannah"
+  },
+  {
+    "kind": "question",
+    "text": "The path to the market"
+  },
+  {
+    "kind": "question",
+    "text": "The path home"
+  },
+  {
+    "kind": "question",
+    "text": "No path"
+  },
+  {
+    "kind": "question",
+    "text": "Doing these lessons can be a path of knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Any path seeking knowledge counts."
+  },
+  {
+    "kind": "question",
+    "text": "What kind of knowledge is meant here first?"
+  },
+  {
+    "kind": "question",
+    "text": "Video game cheats"
+  },
+  {
+    "kind": "question",
+    "text": "Rumors"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge of the religion"
+  },
+  {
+    "kind": "question",
+    "text": "Gossip"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge that brings you closer to Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whom Allah wants good for, He gives understanding of the deen."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Mu'awiyah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 71"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah give someone He wants good for?"
+  },
+  {
+    "kind": "question",
+    "text": "Fame"
+  },
+  {
+    "kind": "question",
+    "text": "Understanding of the religion"
+  },
+  {
+    "kind": "question",
+    "text": "Only money"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ said: I distribute, but who gives?"
+  },
+  {
+    "kind": "question",
+    "text": "Traders"
+  },
+  {
+    "kind": "question",
+    "text": "The people"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is the One who gives."
+  },
+  {
+    "kind": "question",
+    "text": "Learning your deen is a sign of good."
+  },
+  {
+    "kind": "question",
+    "text": "Allah gives it to whom He wants good for."
+  },
+  {
+    "kind": "lesson",
+    "text": "Convey from me, even a single verse."
+  },
+  {
+    "kind": "lesson",
+    "text": "Share what you learn"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3461"
+  },
+  {
+    "kind": "question",
+    "text": "How much should we pass on?"
+  },
+  {
+    "kind": "question",
+    "text": "Even one verse"
+  },
+  {
+    "kind": "question",
+    "text": "Only whole books"
+  },
+  {
+    "kind": "question",
+    "text": "Only when grown"
+  },
+  {
+    "kind": "question",
+    "text": "You learned a hadith today. What fits?"
+  },
+  {
+    "kind": "question",
+    "text": "Change its words"
+  },
+  {
+    "kind": "question",
+    "text": "Make up more"
+  },
+  {
+    "kind": "question",
+    "text": "Share it, truthfully"
+  },
+  {
+    "kind": "question",
+    "text": "Convey, even one verse."
+  },
+  {
+    "kind": "question",
+    "text": "Only scholars may share what they know."
+  },
+  {
+    "kind": "question",
+    "text": "Even one verse should be passed on."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever lies about the Prophet ﷺ on purpose earns the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Why sources matter"
+  },
+  {
+    "kind": "lesson",
+    "text": "Check before you share"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 110"
+  },
+  {
+    "kind": "question",
+    "text": "Why does every hadith in this app show a source?"
+  },
+  {
+    "kind": "question",
+    "text": "No reason"
+  },
+  {
+    "kind": "question",
+    "text": "Lying about him ﷺ is a grave sin"
+  },
+  {
+    "kind": "question",
+    "text": "For decoration"
+  },
+  {
+    "kind": "question",
+    "text": "To look smart"
+  },
+  {
+    "kind": "question",
+    "text": "A friend shares a hadith with no source. What do you do?"
+  },
+  {
+    "kind": "question",
+    "text": "Check it before sharing"
+  },
+  {
+    "kind": "question",
+    "text": "Share it fast"
+  },
+  {
+    "kind": "question",
+    "text": "Add to it"
+  },
+  {
+    "kind": "question",
+    "text": "We must not say what he ﷺ did not say."
+  },
+  {
+    "kind": "question",
+    "text": "Making up a hadith is a small thing."
+  },
+  {
+    "kind": "question",
+    "text": "It earns a seat in the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Envy only two: a generous rich man, and a wise teacher."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wealth spent rightly"
+  },
+  {
+    "kind": "lesson",
+    "text": "Wisdom taught to others"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 73"
+  },
+  {
+    "kind": "question",
+    "text": "Whose wisdom should we wish for?"
+  },
+  {
+    "kind": "question",
+    "text": "One who acts on it and teaches it"
+  },
+  {
+    "kind": "question",
+    "text": "One who hides it"
+  },
+  {
+    "kind": "question",
+    "text": "One who boasts"
+  },
+  {
+    "kind": "question",
+    "text": "One who forgets it"
+  },
+  {
+    "kind": "question",
+    "text": "Which rich person is worth copying?"
+  },
+  {
+    "kind": "question",
+    "text": "One who shows off"
+  },
+  {
+    "kind": "question",
+    "text": "One who spends it rightly"
+  },
+  {
+    "kind": "question",
+    "text": "One who hoards it"
+  },
+  {
+    "kind": "question",
+    "text": "One who wastes it"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth spent in the right way."
+  },
+  {
+    "kind": "question",
+    "text": "Teaching what you know is a reason to be admired."
+  },
+  {
+    "kind": "question",
+    "text": "He acts on it and teaches it."
+  },
+  {
+    "kind": "lesson",
+    "text": "People who study Quran in a masjid get calm, mercy and angels."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah mentions them"
+  },
+  {
+    "kind": "question",
+    "text": "What surrounds people who study Quran together?"
+  },
+  {
+    "kind": "question",
+    "text": "Clouds"
+  },
+  {
+    "kind": "question",
+    "text": "The angels"
+  },
+  {
+    "kind": "question",
+    "text": "Birds"
+  },
+  {
+    "kind": "question",
+    "text": "Strangers"
+  },
+  {
+    "kind": "question",
+    "text": "What comes down on them?"
+  },
+  {
+    "kind": "question",
+    "text": "Calm and mercy"
+  },
+  {
+    "kind": "question",
+    "text": "Rain"
+  },
+  {
+    "kind": "question",
+    "text": "Fear"
+  },
+  {
+    "kind": "question",
+    "text": "Calm descends and mercy covers them."
+  },
+  {
+    "kind": "question",
+    "text": "Allah mentions them to those with Him."
+  },
+  {
+    "kind": "question",
+    "text": "As the hadith says."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about knowledge!"
+  },
+  {
+    "kind": "lesson",
     "text": "Uthman showed wudu: hands, mouth, nose, face, arms, head, feet."
   },
   {
@@ -30329,10 +31273,6 @@
   },
   {
     "kind": "question",
-    "text": "Fame"
-  },
-  {
-    "kind": "question",
     "text": "Whoever joins nothing with Him."
   },
   {
@@ -30993,10 +31933,6 @@
   },
   {
     "kind": "question",
-    "text": "Rain"
-  },
-  {
-    "kind": "question",
     "text": "Who does the second angel pray against?"
   },
   {
@@ -31461,10 +32397,6 @@
   },
   {
     "kind": "question",
-    "text": "As the hadith says."
-  },
-  {
-    "kind": "question",
     "text": "Nothing surprises Allah."
   },
   {
@@ -31873,10 +32805,6 @@
   },
   {
     "kind": "question",
-    "text": "Gold"
-  },
-  {
-    "kind": "question",
     "text": "Learning Allah's names is a great deed."
   },
   {
@@ -31954,10 +32882,6 @@
   {
     "kind": "question",
     "text": "What is like Allah, says Quran 42:11?"
-  },
-  {
-    "kind": "question",
-    "text": "The angels"
   },
   {
     "kind": "question",
@@ -32318,10 +33242,6 @@
   {
     "kind": "question",
     "text": "What should you do with what benefits you?"
-  },
-  {
-    "kind": "question",
-    "text": "Give up"
   },
   {
     "kind": "question",
@@ -33162,10 +34082,6 @@
   {
     "kind": "question",
     "text": "Anger"
-  },
-  {
-    "kind": "question",
-    "text": "Fear"
   },
   {
     "kind": "question",
@@ -34656,10 +35572,6 @@
     "text": "Never look down on a good deed, even meeting with a smile."
   },
   {
-    "kind": "lesson",
-    "text": "Told to Abu Dharr"
-  },
-  {
     "kind": "question",
     "text": "Which small deed did the Prophet ﷺ say not to look down on?"
   },
@@ -34946,10 +35858,6 @@
   {
     "kind": "question",
     "text": "What does the hadith tell us to be instead?"
-  },
-  {
-    "kind": "question",
-    "text": "Strangers"
   },
   {
     "kind": "question",
@@ -36333,6 +37241,298 @@
   },
   {
     "kind": "lesson",
+    "text": "If the heart is good, the whole body is good."
+  },
+  {
+    "kind": "lesson",
+    "text": "A small piece of flesh"
+  },
+  {
+    "kind": "question",
+    "text": "Which part of the body decides the rest?"
+  },
+  {
+    "kind": "question",
+    "text": "The hair"
+  },
+  {
+    "kind": "question",
+    "text": "The heart"
+  },
+  {
+    "kind": "question",
+    "text": "If the heart is good, what happens?"
+  },
+  {
+    "kind": "question",
+    "text": "The whole body is good"
+  },
+  {
+    "kind": "question",
+    "text": "Only the eyes change"
+  },
+  {
+    "kind": "question",
+    "text": "You get taller"
+  },
+  {
+    "kind": "question",
+    "text": "Taking care of our hearts matters most."
+  },
+  {
+    "kind": "question",
+    "text": "The heart leads the whole body."
+  },
+  {
+    "kind": "lesson",
+    "text": "The best of you are those with the best character."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ never spoke rudely"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3559"
+  },
+  {
+    "kind": "question",
+    "text": "Who are the best people, he ﷺ said?"
+  },
+  {
+    "kind": "question",
+    "text": "Those with the best character"
+  },
+  {
+    "kind": "question",
+    "text": "The most famous"
+  },
+  {
+    "kind": "question",
+    "text": "Did he ﷺ ever use bad words?"
+  },
+  {
+    "kind": "question",
+    "text": "When angry"
+  },
+  {
+    "kind": "question",
+    "text": "He never used bad language."
+  },
+  {
+    "kind": "question",
+    "text": "Good manners can make you among the best."
+  },
+  {
+    "kind": "question",
+    "text": "The best of you have the best character."
+  },
+  {
+    "kind": "lesson",
+    "text": "Modesty, haya, is part of faith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Haya: modesty, shyness"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 24"
+  },
+  {
+    "kind": "question",
+    "text": "What is haya part of?"
+  },
+  {
+    "kind": "question",
+    "text": "Rudeness"
+  },
+  {
+    "kind": "question",
+    "text": "A man scolded his brother for being shy. What did he ﷺ say?"
+  },
+  {
+    "kind": "question",
+    "text": "Leave him"
+  },
+  {
+    "kind": "question",
+    "text": "Scold him more"
+  },
+  {
+    "kind": "question",
+    "text": "Make him loud"
+  },
+  {
+    "kind": "question",
+    "text": "Ignore Islam"
+  },
+  {
+    "kind": "question",
+    "text": "Leave him, for haya is part of faith."
+  },
+  {
+    "kind": "question",
+    "text": "Haya means modesty and shyness from wrong."
+  },
+  {
+    "kind": "question",
+    "text": "It keeps a person from bad deeds."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is gentle, and He loves gentleness."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told to Aishah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Gentleness gets more"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2593"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah love, says this hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Shouting"
+  },
+  {
+    "kind": "question",
+    "text": "What does gentleness get that harshness doesn't?"
+  },
+  {
+    "kind": "question",
+    "text": "What Allah gives for it"
+  },
+  {
+    "kind": "question",
+    "text": "Only laughs"
+  },
+  {
+    "kind": "question",
+    "text": "Punishment"
+  },
+  {
+    "kind": "question",
+    "text": "Being gentle is a weakness."
+  },
+  {
+    "kind": "question",
+    "text": "Allah loves it and rewards it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Be merciful to those on earth, and Allah will show you mercy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ar-Rahman's mercy"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 1924"
+  },
+  {
+    "kind": "question",
+    "text": "Who does Ar-Rahman show mercy to?"
+  },
+  {
+    "kind": "question",
+    "text": "The proud"
+  },
+  {
+    "kind": "question",
+    "text": "The harsh"
+  },
+  {
+    "kind": "question",
+    "text": "Nobody"
+  },
+  {
+    "kind": "question",
+    "text": "The merciful"
+  },
+  {
+    "kind": "question",
+    "text": "Whom should we be merciful to?"
+  },
+  {
+    "kind": "question",
+    "text": "Those on earth"
+  },
+  {
+    "kind": "question",
+    "text": "Only family"
+  },
+  {
+    "kind": "question",
+    "text": "Being kind to animals is mercy too."
+  },
+  {
+    "kind": "question",
+    "text": "They are among those on earth."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ease a believer's hardship; Allah eases yours on Judgment Day."
+  },
+  {
+    "kind": "lesson",
+    "text": "Help others, Allah helps you"
+  },
+  {
+    "kind": "question",
+    "text": "Ease someone's hardship. What does Allah do?"
+  },
+  {
+    "kind": "question",
+    "text": "Makes yours harder"
+  },
+  {
+    "kind": "question",
+    "text": "Gives you fame"
+  },
+  {
+    "kind": "question",
+    "text": "Eases yours on Judgment Day"
+  },
+  {
+    "kind": "question",
+    "text": "How long does Allah help a servant?"
+  },
+  {
+    "kind": "question",
+    "text": "Only one day"
+  },
+  {
+    "kind": "question",
+    "text": "Only if he's rich"
+  },
+  {
+    "kind": "question",
+    "text": "While he helps his brother"
+  },
+  {
+    "kind": "question",
+    "text": "Hiding a Muslim's faults is also rewarded."
+  },
+  {
+    "kind": "question",
+    "text": "Allah will hide his faults too."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about a good heart!"
+  },
+  {
+    "kind": "lesson",
     "text": "Fasting was written for us as it was for nations before us."
   },
   {
@@ -37109,10 +38309,6 @@
   },
   {
     "kind": "question",
-    "text": "Only if he's rich"
-  },
-  {
-    "kind": "question",
     "text": "No, nothing is cut"
   },
   {
@@ -37222,10 +38418,6 @@
   {
     "kind": "question",
     "text": "On which days are deeds presented?"
-  },
-  {
-    "kind": "question",
-    "text": "Only in Ramadan"
   },
   {
     "kind": "question",
@@ -38481,10 +39673,6 @@
   },
   {
     "kind": "question",
-    "text": "No, never"
-  },
-  {
-    "kind": "question",
     "text": "What does Allah give someone who forgives?"
   },
   {
@@ -38837,10 +40025,6 @@
   },
   {
     "kind": "question",
-    "text": "Only when grown"
-  },
-  {
-    "kind": "question",
     "text": "Only on Eid"
   },
   {
@@ -38878,10 +40062,6 @@
   {
     "kind": "question",
     "text": "Ignoring people"
-  },
-  {
-    "kind": "question",
-    "text": "Shouting"
   },
   {
     "kind": "question",
@@ -38945,10 +40125,6 @@
   },
   {
     "kind": "question",
-    "text": "Which of these is named in the hadith?"
-  },
-  {
-    "kind": "question",
     "text": "A coin"
   },
   {
@@ -38998,10 +40174,6 @@
   {
     "kind": "question",
     "text": "Only the poor"
-  },
-  {
-    "kind": "question",
-    "text": "Only family"
   },
   {
     "kind": "question",
@@ -39654,10 +40826,6 @@
   {
     "kind": "question",
     "text": "Only themselves"
-  },
-  {
-    "kind": "question",
-    "text": "Traders"
   },
   {
     "kind": "question",
@@ -40597,10 +41765,6 @@
   },
   {
     "kind": "question",
-    "text": "The most famous"
-  },
-  {
-    "kind": "question",
     "text": "Goodness starts at home."
   },
   {
@@ -40946,10 +42110,6 @@
   {
     "kind": "question",
     "text": "Which good deed of his did she name?"
-  },
-  {
-    "kind": "question",
-    "text": "Being rich"
   },
   {
     "kind": "question",
@@ -42598,10 +43758,6 @@
   {
     "kind": "question",
     "text": "Send one helper from each side"
-  },
-  {
-    "kind": "question",
-    "text": "Stay out of it"
   },
   {
     "kind": "question",
@@ -46396,10 +47552,6 @@
     "text": "Each told the other the news."
   },
   {
-    "kind": "lesson",
-    "text": "Told by Umar"
-  },
-  {
     "kind": "source",
     "text": "Sahih al-Bukhari 89"
   },
@@ -48757,10 +49909,6 @@
   },
   {
     "kind": "question",
-    "text": "A child"
-  },
-  {
-    "kind": "question",
     "text": "A hypocrite"
   },
   {
@@ -49182,10 +50330,6 @@
   {
     "kind": "question",
     "text": "What did Ali say when asked 'then you?'"
-  },
-  {
-    "kind": "question",
-    "text": "I am the best"
   },
   {
     "kind": "question",
@@ -52153,10 +53297,6 @@
   },
   {
     "kind": "question",
-    "text": "Poetry"
-  },
-  {
-    "kind": "question",
     "text": "Who came after them?"
   },
   {
@@ -52670,10 +53810,6 @@
   {
     "kind": "question",
     "text": "The king of Abyssinia"
-  },
-  {
-    "kind": "question",
-    "text": "A king of Rome"
   },
   {
     "kind": "question",
@@ -53685,10 +54821,6 @@
   },
   {
     "kind": "question",
-    "text": "Keep it secret"
-  },
-  {
-    "kind": "question",
     "text": "So proclaim what you are commanded."
   },
   {
@@ -53878,10 +55010,6 @@
   {
     "kind": "question",
     "text": "What did he ﷺ tell those who complained?"
-  },
-  {
-    "kind": "question",
-    "text": "Hide forever"
   },
   {
     "kind": "question",
@@ -54278,10 +55406,6 @@
   {
     "kind": "question",
     "text": "Kings of Persia"
-  },
-  {
-    "kind": "question",
-    "text": "Birds"
   },
   {
     "kind": "question",
@@ -57293,10 +58417,6 @@
   },
   {
     "kind": "question",
-    "text": "Forget it"
-  },
-  {
-    "kind": "question",
     "text": "Tell those who were absent"
   },
   {
@@ -57822,10 +58942,6 @@
   {
     "kind": "question",
     "text": "Did he ﷺ ever criticize food?"
-  },
-  {
-    "kind": "question",
-    "text": "Only at home"
   },
   {
     "kind": "question",
@@ -64685,10 +65801,6 @@
   },
   {
     "kind": "question",
-    "text": "No reason"
-  },
-  {
-    "kind": "question",
     "text": "Fasting on Eid day is forbidden."
   },
   {
@@ -65386,10 +66498,6 @@
   {
     "kind": "lesson",
     "text": "The Last Day and the decree"
-  },
-  {
-    "kind": "source",
-    "text": "Sahih Muslim 8a"
   },
   {
     "kind": "question",
@@ -66170,10 +67278,6 @@
   {
     "kind": "question",
     "text": "Killing"
-  },
-  {
-    "kind": "question",
-    "text": "Kindness"
   },
   {
     "kind": "lesson",
@@ -67401,10 +68505,6 @@
   },
   {
     "kind": "question",
-    "text": "Your phone"
-  },
-  {
-    "kind": "question",
     "text": "Your friends"
   },
   {
@@ -67997,10 +69097,6 @@
   },
   {
     "kind": "question",
-    "text": "The heart"
-  },
-  {
-    "kind": "question",
     "text": "The tailbone"
   },
   {
@@ -68366,10 +69462,6 @@
   {
     "kind": "question",
     "text": "Only enemies"
-  },
-  {
-    "kind": "question",
-    "text": "Nobody"
   },
   {
     "kind": "question",
@@ -70709,10 +71801,6 @@
   },
   {
     "kind": "question",
-    "text": "Gossip"
-  },
-  {
-    "kind": "question",
     "text": "Lies"
   },
   {
@@ -71837,10 +72925,6 @@
   },
   {
     "kind": "question",
-    "text": "Only money"
-  },
-  {
-    "kind": "question",
     "text": "Only health"
   },
   {
@@ -72158,10 +73242,6 @@
   {
     "kind": "question",
     "text": "Putting things right"
-  },
-  {
-    "kind": "question",
-    "text": "Seeking knowledge"
   },
   {
     "kind": "lesson",
@@ -74525,10 +75605,6 @@
   },
   {
     "kind": "question",
-    "text": "Only games"
-  },
-  {
-    "kind": "question",
     "text": "Tests, like those before us"
   },
   {
@@ -74754,10 +75830,6 @@
   {
     "kind": "question",
     "text": "Only after ten years"
-  },
-  {
-    "kind": "question",
-    "text": "Only if they are rich"
   },
   {
     "kind": "question",
@@ -78658,10 +79730,6 @@
   {
     "kind": "question",
     "text": "The loud"
-  },
-  {
-    "kind": "question",
-    "text": "The proud"
   },
   {
     "kind": "question",
@@ -83310,10 +84378,6 @@
   {
     "kind": "question",
     "text": "Ayah 87: what were the believers to make their homes?"
-  },
-  {
-    "kind": "question",
-    "text": "Markets"
   },
   {
     "kind": "question",
@@ -88689,10 +89753,6 @@
   },
   {
     "kind": "question",
-    "text": "Hard rules"
-  },
-  {
-    "kind": "question",
     "text": "A human sent as messenger"
   },
   {
@@ -90093,10 +91153,6 @@
   },
   {
     "kind": "question",
-    "text": "Rudely"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 41-50: what are they about?"
   },
   {
@@ -90366,10 +91422,6 @@
   {
     "kind": "question",
     "text": "The kings"
-  },
-  {
-    "kind": "question",
-    "text": "The people"
   },
   {
     "kind": "lesson",
@@ -93265,10 +94317,6 @@
   },
   {
     "kind": "question",
-    "text": "Add to it"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 11-20: what are they about?"
   },
   {
@@ -94870,10 +95918,6 @@
   {
     "kind": "question",
     "text": "A busy heart"
-  },
-  {
-    "kind": "question",
-    "text": "A sound heart"
   },
   {
     "kind": "question",
@@ -99769,10 +100813,6 @@
   },
   {
     "kind": "question",
-    "text": "Clouds"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 8-14: what are they about?"
   },
   {
@@ -102105,10 +103145,6 @@
   },
   {
     "kind": "question",
-    "text": "Their size"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 16: whose is the kingdom on that Day?"
   },
   {
@@ -103282,10 +104318,6 @@
   {
     "kind": "question",
     "text": "Ayah 5: for whom do the angels ask forgiveness?"
-  },
-  {
-    "kind": "question",
-    "text": "Those on earth"
   },
   {
     "kind": "lesson",
@@ -108466,10 +109498,6 @@
   {
     "kind": "question",
     "text": "Wherever you are"
-  },
-  {
-    "kind": "question",
-    "text": "Only in the masjid"
   },
   {
     "kind": "question",
@@ -114974,10 +116002,6 @@
   {
     "kind": "question",
     "text": "How small a good deed will be seen?"
-  },
-  {
-    "kind": "question",
-    "text": "None at all"
   },
   {
     "kind": "question",
@@ -124042,10 +125066,6 @@
   {
     "kind": "question",
     "text": "All year"
-  },
-  {
-    "kind": "question",
-    "text": "Only one day"
   },
   {
     "kind": "question",
