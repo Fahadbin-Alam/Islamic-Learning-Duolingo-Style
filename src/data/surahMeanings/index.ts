@@ -15,13 +15,14 @@ import { DEEP_011 } from "./deep011";
 import { DEEP_012 } from "./deep012";
 import { DEEP_013 } from "./deep013";
 import { DEEP_014 } from "./deep014";
+import { DEEP_015 } from "./deep015";
 import { surahLearningRank } from "../importedNotes";
 import { LESSON_SOURCES } from "../questionSources";
 
 export type { Passage, PassageDeep, SurahMeaning } from "./types";
 
 /** The surahs taught in depth, passage by passage, by surah number: Al-Baqarah first, the rest to follow. */
-export const DEEP_PASSAGES: Record<number, Record<string, PassageDeep>> = { 2: DEEP_002, 3: DEEP_003, 4: DEEP_004, 5: DEEP_005, 6: DEEP_006, 7: DEEP_007, 8: DEEP_008, 9: DEEP_009, 10: DEEP_010, 11: DEEP_011, 12: DEEP_012, 13: DEEP_013, 14: DEEP_014 };
+export const DEEP_PASSAGES: Record<number, Record<string, PassageDeep>> = { 2: DEEP_002, 3: DEEP_003, 4: DEEP_004, 5: DEEP_005, 6: DEEP_006, 7: DEEP_007, 8: DEEP_008, 9: DEEP_009, 10: DEEP_010, 11: DEEP_011, 12: DEEP_012, 13: DEEP_013, 14: DEEP_014, 15: DEEP_015 };
 
 // The meaning of whole surahs, passage by passage: one learn card for each passage, so a learner who finishes a
 // surah's unit has learned what every one of its ayahs says. Each card shows one ayah of the passage in Arabic
