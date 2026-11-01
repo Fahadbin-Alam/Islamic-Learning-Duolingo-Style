@@ -27,6 +27,8 @@ import { Camel, useReduceMotion } from "../Camel";
 import { Mascot } from "../Mascot";
 import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
 import { PathWeather, weatherFor } from "../PathWeather";
+import { WorldTuft, worldFor } from "../pathWorlds";
+import { usePathWorldChoice } from "../../services/pathWorldChoice";
 import { SceneProvider, Snooze, useScene } from "../sceneMood";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
@@ -974,6 +976,7 @@ export function LearnPath({
     }
   }
 
+  const worldChoice = usePathWorldChoice();
   const layout = useMemo(() => {
     let currentUnitId: string | undefined;
     let currentKey: string | undefined;
@@ -1013,16 +1016,17 @@ export function LearnPath({
       const camelIndex = mascotIndex < 0 ? -1 : mascotIndex + 1 < rows.length ? mascotIndex + 1 : mascotIndex - 1;
       // Topic pictures beside the path, about one every SCENERY_EVERY rows (at least one a unit), never on the
       // mascot's or the camel's row.
+      const world = worldFor(worldChoice, topicId, unitIndex);
       const scenery: { index: number; kind: SceneryKind }[] = [];
       const free = (candidate: number) =>
         candidate < rows.length && candidate !== mascotIndex && candidate !== camelIndex && !scenery.some((spot) => spot.index === candidate);
       for (let wanted = 2; wanted < rows.length; wanted += SCENERY_EVERY) {
         const candidate = [wanted, wanted + 1, wanted - 1].find(free);
-        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, scenery.length) });
+        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, scenery.length, world) });
       }
       if (scenery.length === 0) {
         const candidate = [1, 0].find(free);
-        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, 0) });
+        if (candidate !== undefined) scenery.push({ index: candidate, kind: sceneryFor(topicId, unitIndex, 0, world) });
       }
       return {
         unit,
@@ -1032,6 +1036,7 @@ export function LearnPath({
         nodeCount: unit.total > 0 ? unit.total : place,
         unitIndex,
         weather: weatherFor(topicId, unitIndex),
+        world,
         /** Rows only; the banner and paddings are added where the sky is drawn. */
         rowsHeight: rows.reduce((sum, row) => sum + row.height, 0),
         mascotIndex,
@@ -1065,7 +1070,7 @@ export function LearnPath({
     return { byUnit, currentUnitId, currentKey, focusKey, focusUnitId, focusRatio, earnedChest };
     // Focus targets are read on mount only (and while a reveal is under way).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accent, units, topicId, currentNodeId, revealId]);
+  }, [accent, units, topicId, currentNodeId, revealId, worldChoice]);
 
   // When the current node moves (a lesson was finished), follow it.
   if (lastCurrentKey.current !== layout.currentKey) {
@@ -1331,7 +1336,7 @@ export function LearnPath({
                 }}
               >
                 {unitLive ? (
-                  <PathWeather weather={group.weather} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
+                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
                 ) : null}
                 <UnitBanner
                   unit={unit}
@@ -1387,7 +1392,11 @@ export function LearnPath({
                             style={[styles.tuft, { left: side < 0 ? 10 + (index % 3) * 8 : width - 10 - TUFT_SIZE - (index % 3) * 8, top: top + NODE - 8 }]}
                             pointerEvents="none"
                           >
-                            <GroundTuft variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            {group.world === "desert" ? (
+                              <GroundTuft variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            ) : (
+                              <WorldTuft world={group.world} variant={(group.unitIndex + index) % 3} size={TUFT_SIZE} />
+                            )}
                           </View>
                         ) : null}
                         {index === group.camelIndex && unitLive ? (

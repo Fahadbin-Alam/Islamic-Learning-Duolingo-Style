@@ -9,6 +9,8 @@ import { GameButton, type GameButtonSize, type GameButtonVariant } from "../Game
 import { ICON_NAMES, Icon } from "../Icon";
 import { Mascot, type MascotMood } from "../Mascot";
 import { PathScenery } from "../PathScenery";
+import { BACKDROP_H } from "../pathWorlds";
+import { WORLD_KINDS } from "../worldArt";
 import { PathWeather } from "../PathWeather";
 import { PopIn } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
@@ -101,6 +103,16 @@ export function KitGallery() {
               <PathScenery key={kind} kind={kind} size={80} animated tappable />
             ))}
           </View>
+          <View style={styles.wrapRow} testID="gallery-world-pictures">
+            {(["bookStand", "inkpot", "bush", "rocks", ...WORLD_KINDS] as const).map((kind) => (
+              <PathScenery key={kind} kind={kind} size={80} animated tappable />
+            ))}
+          </View>
+          {(["beach", "forest", "snow", "camp"] as const).map((world) => (
+            <View key={world} style={styles.worldStrip}>
+              <PathWeather weather="sunny" world={world} width={340} height={BACKDROP_H + 60} animated />
+            </View>
+          ))}
           <View style={styles.wrapRow}>
             {[0, 1, 2, 3].map((seed) => (
               <PathScenery key={seed} kind="flowers" size={72} animated tappable seed={seed * 5} />
@@ -489,5 +501,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center"
+  },
+  worldStrip: {
+    width: 340,
+    height: BACKDROP_H + 20,
+    overflow: "hidden",
+    borderRadius: 12
   }
 });

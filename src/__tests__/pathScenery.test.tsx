@@ -59,8 +59,8 @@ describe("path scenery", () => {
     await fireEvent.press(screen.getByTestId("scenery-sheep"));
     expect(playGameSound).toHaveBeenLastCalledWith("baa", expect.anything());
 
-    await render(<PathScenery kind="rocks" tappable />);
-    await fireEvent.press(screen.getByTestId("scenery-rocks"));
+    await render(<PathScenery kind="dunes" tappable />);
+    await fireEvent.press(screen.getByTestId("scenery-dunes"));
     expect(playGameSound).toHaveBeenLastCalledWith("boing", expect.anything());
 
     await render(<Camel size={64} range={40} walking tappable testID="camel" />);

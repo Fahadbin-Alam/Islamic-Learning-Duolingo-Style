@@ -8,7 +8,8 @@ const ROOT = path.resolve(__dirname, "../..");
 // Tables of English copy that are translated where they are shown (t(TABLE[key])).
 const TABLE_FILES = {
   "src/ui/screens/BottomTabs.tsx": ["TABS"],
-  "src/ui/screens/SettingsSheet.tsx": ["ROLES", "DIFFICULTIES"],
+  "src/ui/screens/SettingsSheet.tsx": ["ROLES", "DIFFICULTIES", "WORLD_LINES"],
+  "src/ui/pathWorlds.tsx": ["WORLD_LABELS"],
   "src/ui/screens/BackgroundSheet.tsx": ["OPTIONS"],
   "src/ui/screens/ScholarTree.tsx": ["GENERATION_LABEL"],
   "src/services/prayerTimes.ts": ["PRAYER_LABELS"],
