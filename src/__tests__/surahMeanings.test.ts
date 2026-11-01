@@ -77,7 +77,9 @@ describe("the meaning of whole surahs", () => {
     const nodes = quran.nodes.filter((node) => node.branchId === "quran-surah-baqarah");
     const meaning = nodes.filter((node) => node.id.startsWith("surah-meaning-2-"));
     expect(meaning.filter((node) => node.kind !== "review")).toHaveLength(40);
-    expect(nodes[nodes.length - 1].id).toBe("surah-meaning-2-final-quiz");
+    // The passages end on their final quiz; the ayah-by-ayah lessons come after it.
+    expect(meaning[meaning.length - 1].id).toBe("surah-meaning-2-final-quiz");
+    expect(nodes[nodes.indexOf(meaning[meaning.length - 1]) + 1]?.id.startsWith("deep-baqarah1-")).toBe(true);
     expect(meaning.filter((node) => /-review-\d+$/.test(node.id))).toHaveLength(6);
     // Each topic comes right after the passage that holds its ayah.
     const ids = nodes.map((node) => node.id);

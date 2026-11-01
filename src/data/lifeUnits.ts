@@ -32,7 +32,7 @@ const RIGHTS: DeepUnit = {
       slug: "like-rights",
       title: "Rights on both sides",
       line: "Wives have rights like the rights on them, in fairness.",
-      facts: ["Quran 2:228", "In what is fair and known"],
+      facts: ["Quran 2:228", "Each gives the other's rights in fairness."],
       quote: quranQuote(2, 228),
       source: quran(2, 228, "Wives have rights similar to what is expected of them, according to what is reasonable; men have a degree of responsibility over them."),
       difficulty: 2,
@@ -46,7 +46,7 @@ const RIGHTS: DeepUnit = {
       slug: "mahr",
       title: "The mahr is hers",
       line: "Give women their mahr as a gift: it belongs to the wife.",
-      facts: ["Quran 4:4", "Not her father's, not his", "She may give some back freely"],
+      facts: ["Quran 4:4", "It is not her father's, and not her husband's.", "She may give some back, if she wants to."],
       quote: quranQuote(4, 4),
       source: quran(4, 4, "Give women their bridal gifts graciously; if they give up some of it willingly, you may take it with ease."),
       difficulty: 2,
@@ -60,7 +60,7 @@ const RIGHTS: DeepUnit = {
       slug: "spend",
       title: "He provides for her",
       line: "A husband spends on his family as much as he can afford.",
-      facts: ["Quran 65:7", "Rich spend more, poor what they can", "Ease comes after hardship"],
+      facts: ["Quran 65:7", "The rich spend more, the poor what they can.", "Allah brings ease after hardship."],
       quote: quranQuote(65, 7),
       source: quran(65, 7, "Let the man of wealth spend from his wealth, and the one whose provision is limited spend from what Allah gave him; Allah does not burden a soul beyond what He gave it."),
       difficulty: 3,
@@ -87,7 +87,7 @@ const RIGHTS: DeepUnit = {
       slug: "farewell-sermon",
       title: "Fear Allah about women",
       line: "At his last Hajj he said: fear Allah concerning women.",
-      facts: ["The Farewell Sermon", "They are a trust from Allah", "Food and clothing, fairly"],
+      facts: ["He said it in his Farewell Sermon.", "They are a trust from Allah", "Give them food and clothing, fairly."],
       source: hadith("muslim", "1218", "Jabir ibn Abdullah", "Sahih", "In the Farewell Sermon the Prophet ﷺ said: fear Allah concerning women; you took them on the security of Allah; their right on you is food and clothing in a fitting manner."),
       difficulty: 3,
       questions: [
@@ -100,7 +100,7 @@ const RIGHTS: DeepUnit = {
       slug: "best-to-wives",
       title: "Best to your wives",
       line: "The best of you are those who are best to their wives.",
-      facts: ["Best faith: best character", "Hasan Sahih"],
+      facts: ["The best in faith have the best character.", "Hasan Sahih"],
       source: hadith("tirmidhi", "1162", "Abu Hurayrah", "Hasan Sahih (Al-Albani)", "The most complete believers in faith are those with the best character, and the best of you are those who are best to their women."),
       difficulty: 3,
       questions: [
@@ -113,7 +113,7 @@ const RIGHTS: DeepUnit = {
       slug: "treat-nicely",
       title: "Treat women nicely",
       line: "The Prophet ﷺ said twice: treat women nicely.",
-      facts: ["Don't try to force change", "Be patient and gentle"],
+      facts: ["Don't try to change her by force.", "Be patient and gentle"],
       source: hadith("bukhari", "3331", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: treat women nicely; a woman is like a rib, if you try to straighten it by force it breaks; so treat women nicely."),
       difficulty: 3,
       questions: [
@@ -126,7 +126,7 @@ const RIGHTS: DeepUnit = {
       slug: "qawwam",
       title: "He looks after her",
       line: "Quran 4:34: men are in charge of women's care, as they spend.",
-      facts: ["Qawwam: protector, maintainer", "Comes with spending on her", "Responsibility, not ownership"],
+      facts: ["Qawwam: protector, maintainer", "This comes with spending on her.", "It is a responsibility, not ownership."],
       quote: quranQuote(4, 34),
       source: quran(4, 34, "Men are in charge of women by what Allah has given one over the other and what they spend from their wealth; righteous women are devoutly obedient and guard in the husband's absence what Allah would have them guard."),
       difficulty: 4,
@@ -140,7 +140,7 @@ const RIGHTS: DeepUnit = {
       slug: "steps",
       title: "Steps before any discipline",
       line: "In 4:34, the first step is kind advice, then sleeping apart.",
-      facts: ["1. Talk and advise", "2. Sleep apart", "3. A last, light step"],
+      facts: ["First, talk and give kind advice.", "Next, sleep apart.", "Last, a light step that does no harm."],
       source: quran(4, 34, "For wives you fear will turn against the marriage: first advise them, then leave them in bed, then strike them; and if they obey, seek no means against them."),
       difficulty: 4,
       questions: [
@@ -154,7 +154,7 @@ const RIGHTS: DeepUnit = {
       slug: "siwak",
       title: "With a siwak and the like",
       line: "Ibn Abbas: the 'strike' in 4:34 is with a tiny siwak.",
-      facts: ["A siwak: a small tooth-stick", "Al-Hasan: no pain", "No injury, no humiliation"],
+      facts: ["A siwak: a small tooth-stick", "Al-Hasan: no pain", "It must not injure or humiliate."],
       source: ISLAMQA_4_34("Ata asked Ibn Abbas what is the hitting that is not harsh; he said: with a siwak and the like. Al-Hasan al-Basri said it should not cause pain. It must not be harsh or cause injury.", "Hitting with a siwak and the like"),
       difficulty: 5,
       questions: [
@@ -181,7 +181,7 @@ const RIGHTS: DeepUnit = {
       slug: "never-hit",
       title: "He never hit a woman",
       line: "Aishah said: he never struck a woman or a servant.",
-      facts: ["The best example", "He only fought in battle"],
+      facts: ["He is the best example for husbands.", "He only ever fought in battle."],
       source: hadith("muslim", "2328", "Aishah", "Sahih", "Aishah said: the Messenger of Allah ﷺ never struck anyone with his hand, not a woman nor a servant, except when fighting in the path of Allah."),
       difficulty: 4,
       questions: [
@@ -220,7 +220,7 @@ const RIGHTS: DeepUnit = {
       slug: "arbiters",
       title: "Call the families in",
       line: "If a couple may split, send a wise helper from each family.",
-      facts: ["Quran 4:35", "If they want peace, Allah helps"],
+      facts: ["Quran 4:35", "If both want peace, Allah brings them together."],
       quote: quranQuote(4, 35),
       source: quran(4, 35, "If you fear a breach between the two, send an arbitrator from his people and one from hers; if they both want reconciliation, Allah will bring it about."),
       difficulty: 4,
@@ -234,7 +234,7 @@ const RIGHTS: DeepUnit = {
       slug: "part-kindly",
       title: "Keep well or part well",
       line: "Either stay together kindly, or part with kindness.",
-      facts: ["Quran 2:229", "Never take back her gifts unfairly"],
+      facts: ["Quran 2:229", "Never unfairly take back what you gave her."],
       quote: quranQuote(2, 229),
       source: quran(2, 229, "Divorce is twice; then either keep her in an acceptable manner or release her with good treatment."),
       difficulty: 4,
@@ -260,7 +260,7 @@ const HAJJ_DEEP: DeepUnit = {
       slug: "once",
       title: "Once in a lifetime",
       line: "Hajj is due once in a life, for those able.",
-      facts: ["Quran 3:97", "Asked: every year? He was silent"],
+      facts: ["Quran 3:97", "Asked if it was every year, he was silent."],
       quote: quranQuote(3, 97),
       source: hadith("muslim", "1337", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said Allah made Hajj a duty. A man asked: every year? He stayed silent, then said: if I said yes, it would become a duty and you could not do it."),
       difficulty: 2,
@@ -274,7 +274,7 @@ const HAJJ_DEEP: DeepUnit = {
       slug: "talbiyah",
       title: "Labbayk!",
       line: "Pilgrims call out: Here I am, O Allah, here I am!",
-      facts: ["Called the talbiyah", "You have no partner", "Praise and blessings are Yours"],
+      facts: ["This call is the talbiyah.", "It says: You have no partner.", "It says: praise and blessings are Yours."],
       source: hadith("bukhari", "1549", "Abdullah ibn Umar", "Sahih", "The talbiyah of the Prophet ﷺ: Labbayk Allahumma labbayk, labbayk la sharika laka labbayk, inna al-hamda wan-ni'mata laka wal-mulk, la sharika lak."),
       difficulty: 2,
       questions: [
@@ -314,7 +314,7 @@ const HAJJ_DEEP: DeepUnit = {
       slug: "arafah",
       title: "Hajj is Arafah",
       line: "The Prophet ﷺ said: Hajj is Arafah. Miss it, and you miss Hajj.",
-      facts: ["9th of Dhul-Hijjah", "Most freed from the Fire"],
+      facts: ["It is on the 9th of Dhul-Hijjah.", "On it, Allah frees the most people from the Fire."],
       source: hadith("tirmidhi", "889", "Abd ar-Rahman ibn Ya'mar", "Sahih (Al-Albani)", "At Arafah the Prophet ﷺ had it called out: Hajj is Arafah; whoever reaches Jam' (Muzdalifah) before Fajr has caught the Hajj."),
       difficulty: 3,
       questions: [
@@ -327,7 +327,7 @@ const HAJJ_DEEP: DeepUnit = {
       slug: "no-harm",
       title: "Do it, no harm",
       line: "Rites done out of order? He said: do it, no harm.",
-      facts: ["Shaved before sacrificing?", "Sacrificed before stoning?", "Answer: no harm"],
+      facts: ["One had shaved before sacrificing.", "One had sacrificed before stoning.", "To each he said: no harm."],
       source: hadith("bukhari", "1736", "Abdullah ibn Amr", "Sahih", "On the day of sacrifice people asked about doing rites out of order: shaving before sacrificing, sacrificing before stoning. To each he said: do it, there is no harm."),
       difficulty: 4,
       questions: [
@@ -340,7 +340,7 @@ const HAJJ_DEEP: DeepUnit = {
       slug: "stoning",
       title: "Seven pebbles, each with takbir",
       line: "Seven small pebbles at each pillar, Allahu akbar with each.",
-      facts: ["Then face the qiblah", "Long du'a with raised hands"],
+      facts: ["Then face the qiblah", "Then a long du'a with hands raised."],
       source: hadith("bukhari", "1751", "Salim", "Sahih", "Ibn Umar threw seven small pebbles at the first jamrah with a takbir for each, then faced the qiblah and made long du'a with raised hands, saying he saw the Prophet ﷺ do so."),
       difficulty: 4,
       questions: [
@@ -353,7 +353,7 @@ const HAJJ_DEEP: DeepUnit = {
       slug: "for-parent",
       title: "Hajj for an old father",
       line: "May I do Hajj for my old father? He said: yes.",
-      facts: ["He could not sit on a camel", "From the tribe of Khath'am"],
+      facts: ["He could not sit on a camel", "She was from the tribe of Khath'am."],
       source: hadith("bukhari", "1513", "Ibn Abbas", "Sahih", "A woman of Khath'am said: Hajj became due on my father, but he is too old to sit on a mount; may I do Hajj for him? He said: yes."),
       difficulty: 4,
       questions: [
@@ -366,7 +366,7 @@ const HAJJ_DEEP: DeepUnit = {
       slug: "mabrur",
       title: "An accepted Hajj",
       line: "The reward of an accepted Hajj is nothing less than Paradise.",
-      facts: ["Hajj mabrur: accepted, pure", "Umrah to Umrah wipes sins"],
+      facts: ["Hajj mabrur: accepted, pure", "Umrah to Umrah wipes the sins between."],
       source: hadith("bukhari", "1773", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: an Umrah is an expiation for sins between it and the one before, and the reward of an accepted Hajj is nothing but Paradise."),
       difficulty: 4,
       questions: [
@@ -379,7 +379,7 @@ const HAJJ_DEEP: DeepUnit = {
       slug: "best-ten-days",
       title: "The best ten days",
       line: "No deeds beat those of the first ten days of Dhul-Hijjah.",
-      facts: ["Not even jihad, mostly", "Fast Arafah if not on Hajj"],
+      facts: ["Not even jihad, except giving your life and wealth.", "Fast Arafah if you are not on Hajj."],
       source: hadith("bukhari", "969", "Ibn Abbas", "Sahih", "The Prophet ﷺ said: no good deeds on other days are better than those done in these ten days. Not even jihad? Not even jihad, except a man who risks himself and his wealth and returns with nothing."),
       difficulty: 5,
       questions: [
@@ -404,7 +404,7 @@ const EID: DeepUnit = {
       slug: "two-days",
       title: "Two days, better than before",
       line: "Allah gave Muslims two Eids: al-Fitr and al-Adha.",
-      facts: ["Replaced two old feast days", "In Madinah", "Sahih (Al-Albani)"],
+      facts: ["They replaced two old days of play.", "This was in Madinah.", "Sahih (Al-Albani)"],
       source: hadith("abudawud", "1134", "Anas ibn Malik", "Sahih (Al-Albani)", "In Madinah people had two days of play from before Islam. The Prophet ﷺ said: Allah has given you better than them: the day of al-Adha and the day of al-Fitr."),
       difficulty: 2,
       questions: [
@@ -430,7 +430,7 @@ const EID: DeepUnit = {
       slug: "fitr-dates",
       title: "Dates before Eid prayer",
       line: "On Eid al-Fitr he ate odd-numbered dates before going out.",
-      facts: ["Odd: 1, 3, 5...", "Shows the fast is over"],
+      facts: ["Odd: 1, 3, 5...", "It shows the fast is over."],
       source: hadith("bukhari", "953", "Anas bin Malik", "Sahih", "The Prophet ﷺ did not go out on the day of Eid al-Fitr until he had eaten some dates, and he ate an odd number."),
       difficulty: 3,
       questions: [
@@ -443,7 +443,7 @@ const EID: DeepUnit = {
       slug: "zakat-fitr",
       title: "Zakat al-Fitr first",
       line: "Pay zakat al-Fitr, a sa' of food, before the Eid prayer.",
-      facts: ["For every Muslim, young or old", "A sa': about 3 kg", "Dates or barley"],
+      facts: ["It is due for every Muslim, young or old.", "A sa': about 3 kg", "It is paid in dates or barley."],
       source: hadith("bukhari", "1503", "Ibn Umar", "Sahih", "The Prophet ﷺ made zakat al-Fitr a sa' of dates or barley on every Muslim, free or slave, male or female, young or old, to be paid before people go out to the Eid prayer."),
       difficulty: 3,
       questions: [
@@ -456,7 +456,7 @@ const EID: DeepUnit = {
       slug: "prayer-first",
       title: "Prayer, then the talk",
       line: "On Eid he began with the prayer, then gave the khutbah.",
-      facts: ["At the open musalla", "People stayed in rows"],
+      facts: ["He prayed at the open musalla.", "People stayed sitting in their rows."],
       source: hadith("bukhari", "956", "Abu Sa'id al-Khudri", "Sahih", "On Eid al-Fitr and al-Adha the Prophet ﷺ went to the musalla; first he prayed, then stood before the people, who stayed in their rows, and advised them."),
       difficulty: 3,
       questions: [
@@ -469,7 +469,7 @@ const EID: DeepUnit = {
       slug: "everyone-out",
       title: "Everyone comes out",
       line: "He told women and girls to come out on Eid, too.",
-      facts: ["Even young women at home", "To share the good and du'a"],
+      facts: ["Even young women who stayed at home came.", "They shared in the good and the du'a."],
       source: hadith("bukhari", "974", "Umm Atiyyah", "Sahih", "Umm Atiyyah said: our Prophet ﷺ ordered us to bring out on Eid the young women and those who stay in seclusion; women on their period stayed away from the prayer place itself."),
       difficulty: 3,
       questions: [
@@ -482,7 +482,7 @@ const EID: DeepUnit = {
       slug: "other-way",
       title: "A different way home",
       line: "He went to Eid by one road and came home by another.",
-      facts: ["Meet more people", "Spread the greeting"],
+      facts: ["You meet more people.", "You spread the salam further."],
       source: hadith("bukhari", "986", "Jabir ibn Abdullah", "Sahih", "On the day of Eid the Prophet ﷺ returned by a different road from the one he took."),
       difficulty: 3,
       questions: [
@@ -508,7 +508,7 @@ const EID: DeepUnit = {
       slug: "udhiyah",
       title: "Two rams for Allah",
       line: "On Eid al-Adha he sacrificed two rams with his own hands.",
-      facts: ["Said Bismillah, Allahu akbar", "Black-and-white rams"],
+      facts: ["Said Bismillah, Allahu akbar", "The rams were black and white."],
       source: hadith("bukhari", "5565", "Anas ibn Malik", "Sahih", "The Prophet ﷺ sacrificed two horned black-and-white rams; he slaughtered them with his own hands, said Allah's name and the takbir."),
       difficulty: 4,
       questions: [
@@ -533,7 +533,7 @@ const SPECIAL_DAYS: DeepUnit = {
       slug: "arafah-fast",
       title: "Fasting the Day of Arafah",
       line: "Fasting Arafah wipes the sins of the year before and after.",
-      facts: ["9th of Dhul-Hijjah", "For those not on Hajj"],
+      facts: ["It is on the 9th of Dhul-Hijjah.", "It is for those not on Hajj."],
       source: hadith("muslim", "1162", "Abu Qatadah", "Sahih", "The Prophet ﷺ said fasting the day of Arafah expiates the sins of the year before and the year after, and fasting Ashura expiates the year before."),
       difficulty: 3,
       questions: [
@@ -546,7 +546,7 @@ const SPECIAL_DAYS: DeepUnit = {
       slug: "ashura",
       title: "Ashura and Musa",
       line: "Ashura is the day Allah saved Musa; the Prophet ﷺ fasted it.",
-      facts: ["10th of Muharram", "We are closer to Musa"],
+      facts: ["It is on the 10th of Muharram.", "We are closer to Musa"],
       source: hadith("bukhari", "2004", "Ibn Abbas", "Sahih", "The Prophet ﷺ saw the Jews of Madinah fasting Ashura, the day Allah saved Bani Isra'il and Musa fasted. He said: we have more right to Musa than you, fasted it and told Muslims to fast it."),
       difficulty: 3,
       questions: [
@@ -585,7 +585,7 @@ const SPECIAL_DAYS: DeepUnit = {
       slug: "tashriq",
       title: "Days of eating and dhikr",
       line: "Tashriq days are for eating, drinking and remembering Allah.",
-      facts: ["11-13 Dhul-Hijjah", "Right after Eid al-Adha"],
+      facts: ["They are the 11th to 13th of Dhul-Hijjah.", "They come right after Eid al-Adha."],
       source: hadith("muslim", "1141", "Nubayshah al-Hudhali", "Sahih", "The Prophet ﷺ said: the days of tashriq are days of eating and drinking, and of remembering Allah."),
       difficulty: 4,
       questions: [
@@ -609,7 +609,7 @@ const PRAYER_EXAMPLES: DeepUnit = {
       slug: "uthman-wudu",
       title: "Uthman shows wudu",
       line: "Uthman showed wudu: hands, mouth, nose, face, arms, head, feet.",
-      facts: ["Each part three times", "Head wiped once", "Then two rak'ahs"],
+      facts: ["Each part was washed three times.", "The head was wiped once.", "Then he prayed two rak'ahs."],
       source: hadith("bukhari", "159", "Humran", "Sahih", "Uthman washed his hands three times, rinsed his mouth and nose, washed his face and arms to the elbows three times, wiped his head, washed his feet three times, and said: I saw the Prophet ﷺ do wudu like this."),
       difficulty: 2,
       questions: [
@@ -636,7 +636,7 @@ const PRAYER_EXAMPLES: DeepUnit = {
       slug: "breaks-wudu",
       title: "When wudu breaks",
       line: "After the toilet or passing wind, do wudu again to pray.",
-      facts: ["Called hadath", "No prayer without wudu"],
+      facts: ["This is called hadath.", "No prayer without wudu"],
       source: hadith("bukhari", "135", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: the prayer of one who has a hadath is not accepted until he does wudu. Abu Hurayrah explained hadath as passing wind."),
       difficulty: 3,
       questions: [
@@ -649,7 +649,7 @@ const PRAYER_EXAMPLES: DeepUnit = {
       slug: "after-wudu",
       title: "The words after wudu",
       line: "After wudu, say the shahadah: eight gates of Paradise open.",
-      facts: ["Ash-hadu an la ilaha illallah", "Then two calm rak'ahs"],
+      facts: ["Ash-hadu an la ilaha illallah", "Then pray two calm rak'ahs."],
       source: hadith("muslim", "234", "Uqbah ibn Amir", "Sahih", "The Prophet ﷺ said: whoever does wudu well, then says: I bear witness there is no god but Allah alone with no partner and Muhammad is His slave and Messenger, the eight gates of Paradise open for him."),
       difficulty: 3,
       questions: [
@@ -662,7 +662,7 @@ const PRAYER_EXAMPLES: DeepUnit = {
       slug: "no-water",
       title: "No water? Tayammum",
       line: "With no water, wipe your face and hands with clean earth.",
-      facts: ["Called tayammum", "Ammar rolled in dust; too much!", "Strike the earth once"],
+      facts: ["This is called tayammum.", "Ammar rolled in dust; too much!", "Strike the earth once"],
       source: hadith("bukhari", "338", "Abd ar-Rahman ibn Abza", "Sahih", "Ammar rolled in the dust for lack of water; the Prophet ﷺ said: this was enough, struck the earth with his hands, blew on them and wiped his face and hands."),
       difficulty: 4,
       questions: [
@@ -675,7 +675,7 @@ const PRAYER_EXAMPLES: DeepUnit = {
       slug: "go-back",
       title: "Go back and pray",
       line: "A man rushed his prayer and was told: go back and pray.",
-      facts: ["Told three times", "Be still in every position", "Then he was taught"],
+      facts: ["He was told this three times.", "Be still in every position", "Then he was taught"],
       source: hadith("bukhari", "757", "Abu Hurairah", "Sahih", "A man prayed quickly; the Prophet ﷺ said three times: go back and pray, you have not prayed. Then he taught him: say takbir, recite, bow until at ease, stand straight, prostrate until at ease, sit calmly."),
       difficulty: 4,
       questions: [
@@ -701,7 +701,7 @@ const PRAYER_EXAMPLES: DeepUnit = {
       slug: "river",
       title: "A river five times a day",
       line: "Five prayers wash sins away, like a river five times a day.",
-      facts: ["No dirt would remain", "Told by Abu Hurayrah"],
+      facts: ["No dirt would be left on you.", "Told by Abu Hurayrah"],
       source: hadith("bukhari", "528", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: if a river were at your door and you bathed in it five times a day, would any dirt remain? That is like the five prayers: Allah wipes out sins with them."),
       difficulty: 3,
       questions: [
@@ -714,7 +714,7 @@ const PRAYER_EXAMPLES: DeepUnit = {
       slug: "pray-as-me",
       title: "Pray as you saw me",
       line: "He said: pray as you have seen me pray.",
-      facts: ["Malik ibn al-Huwayrith's group", "Stayed twenty days to learn"],
+      facts: ["Malik ibn al-Huwayrith came with a group.", "They stayed twenty days to learn."],
       source: hadith("bukhari", "631", "Malik bin Al-Huwairith", "Sahih", "Young men stayed with the Prophet ﷺ twenty days; he sent them home to teach their families and said: pray as you have seen me pray; when prayer is due, one of you call the adhan, and the eldest lead."),
       difficulty: 4,
       questions: [
