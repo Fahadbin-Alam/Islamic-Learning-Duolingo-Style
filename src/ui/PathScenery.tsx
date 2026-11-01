@@ -50,6 +50,7 @@ const THEMES: Record<string, SceneryKind[]> = {
   fasting: ["dates", "palm", "well", "dunes", "tent", "oasis", "rocks", "bush"],
   ramadan: ["dates", "mosque", "palm", "well", "oasis", "tent", "dunes", "bush"],
   eid: ["sheep", "mosque", "palm", "flowers", "tent", "dates", "oasis", "bush"],
+  akhirah: ["mountain", "rocks", "dunes", "oasis", "palm", "flowers", "well", "bush"],
   intro: ["palm", "flowers", "well", "mosque", "oasis", "dunes", "bush", "sheep"],
   zakat: ["coins", "well", "dates", "palm", "flowers", "sheep", "bush", "rocks"],
   hajj: ["kaaba", "mountain", "tent", "palm", "well", "rocks", "dunes", "sheep"],
