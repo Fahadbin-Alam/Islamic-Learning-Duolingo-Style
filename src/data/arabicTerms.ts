@@ -130,6 +130,9 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "prayer-extra": { ar: "صلاة التطوع", translit: "Salat at-tatawwu'", meaning: "Voluntary prayer" },
   "prayer-jumuah": { ar: "صلاة الجمعة", translit: "Salat al-jumu'ah", meaning: "The Friday prayer" },
   "prayer-after-salah": { ar: "أذكار بعد الصلاة", translit: "Adhkar ba'd as-salah", meaning: "Remembrance after prayer" },
+  "hajj-umrah": { ar: "العمرة", translit: "Al-'umrah", meaning: "The Umrah" },
+  "hajj-sacred-house": { ar: "البيت الحرام", translit: "Al-bayt al-haram", meaning: "The Sacred House" },
+  "hajj-three-masjids": { ar: "المساجد الثلاثة", translit: "Al-masajid ath-thalathah", meaning: "The three masjids" },
 
   // Hajj: duty, rites and sacred sites
   "hajj-duty": { ar: "فريضة الحج", translit: "Faridat al-Hajj", meaning: "The duty of Hajj" },
@@ -712,6 +715,7 @@ const LEARN_FORMS = [
   "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
   "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ",
   "فَضْلُ الصَّلَاةِ", "صَلَاةُ التَّطَوُّعِ", "صَلَاةُ الْجُمُعَةِ", "أَذْكَارُ بَعْدَ الصَّلَاةِ",
+  "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
