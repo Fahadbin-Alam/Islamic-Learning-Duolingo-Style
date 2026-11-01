@@ -13,8 +13,8 @@ import { PICTURE_IMAGES } from "./lessonPictureImages";
  */
 /**
  * `drawn`: one of our own drawings (scripts/lesson-pictures/draw.mjs), not a photo: of how a place looked long ago,
- * or, with `note`, of a thing a lesson teaches ("thing": a wudu jug, a prayer rug) or of the unseen things of the
- * Last Day ("unseen": the bridge, the scales), which only help the learner imagine.
+ * or of a thing a lesson teaches (`note: "thing"`: a wudu jug, a prayer rug), said as just "A drawing".
+ * `imagined`: a drawing of something no one alive has seen (the bridge, the Ark), only to help picture it.
  */
 export type PictureCredit = {
   file: string;
@@ -23,7 +23,8 @@ export type PictureCredit = {
   license: string;
   licenseUrl: string;
   drawn?: boolean;
-  note?: "unseen" | "thing";
+  imagined?: boolean;
+  note?: "thing";
 };
 
 export type LessonPicture = {
@@ -59,20 +60,26 @@ const PLACES: PlaceRule[] = [
   { id: "manuscript", caption: "An early page of the Quran", match: /\bmushaf\b|\bmanuscripts?\b|\bcompil(?:ed|ing|ation)\b[^.]*\bquran\b|\bquran\b[^.]*\bcompil(?:ed|ing|ation)\b/i },
   { id: "madinah", caption: "Madinah long ago, among its date palms", match: /\bmadinah\b|\bmedina\b|\byathrib\b|\bprophet['‘’]s mosque\b|\bmasjid an-nabawi\b/i },
   { id: "makkah", caption: "Makkah long ago", match: /\bmakkah\b|\bmecca\b|\bmasjid al-haram\b|\bsacred mosque\b/i },
-  // What the lesson teaches about, not a place: the stories of the prophets, then the Last Day (only pictures to
-  // help imagine: the app says only Allah knows how they truly are), then worship and knowledge.
-  { id: "ark", caption: "Nuh's ark on the flood", match: /\b(?:nuh|noah)\b[^.]{0,80}\b(?:ark|ship|flood)\b|\b(?:ark|ship|flood)\b[^.]{0,80}\b(?:nuh|noah)\b|\bthe great flood\b/i },
-  { id: "sea-split", caption: "The sea parted into two walls", match: /\b(?:split|parted|divided|opened)\b[^.]{0,30}\bsea\b|\bsea\b[^.]{0,20}\b(?:split|parted|divided)\b|\bred sea\b/i },
-  { id: "whale", caption: "The great fish of Yunus", match: /\bwhale\b|\b(?:big|huge|great) fish\b|\bbelly of the fish\b/i },
+  // Things the Quran and sunnah describe, drawn only to help picture them (scripts/lesson-pictures/draw.mjs). The
+  // unseen ones (the bridge, the scales, the Pool, Jannah) say they are only a drawing: Allah knows how they truly are.
+  { id: "sirat", caption: "The bridge over Jahannam, only as a drawing", match: /\bsirat\b(?!\s+al-mustaqim)|\bthe bridge\b|\bbridge (?:over|across|laid)\b/i },
+  { id: "scales", caption: "The scales of the Day, only as a drawing", match: /\bmizan\b(?! al-)|\bthe scales\b(?! (?:in|of) (?:trade|the market))|\bon the scale\b|\bscales? of (?:deeds|justice)\b/i },
+  { id: "pool", caption: "The Pool, only as a drawing", match: /\bhawd\b|\bkawthar\b|\bthe pool\b|\bhis ﷺ pool\b/i },
+  { id: "sun-west", caption: "The sun rising, here from the west", match: /\bsun (?:will )?rises? (?:from|in) the west\b|\bsun rising (?:from|in) the west\b|\brises in the west\b/i },
+  { id: "grave", caption: "A grave in the desert", match: /\bin the grave\b|\bthe grave['’]s\b|\bbarzakh\b|\bout of (?:the|their) graves\b|\bgrave gets\b|\bdeath and the grave\b/i },
+  { id: "garden", caption: "Gardens with rivers, only a picture: no eye has seen Jannah", match: /\bgardens? (?:with|beneath|under|of bliss)\b|\brivers? of (?:jannah|paradise)\b|\b(?:jannah|paradise) has\b|\bin (?:jannah|paradise):|\bpeople of jannah\b|\babout jannah\b/i },
+  { id: "ark", caption: "The Ark on the waves, as a drawing", match: /\bark\b|\bthe flood\b/i },
+  { id: "sea-split", caption: "The sea parted, as a drawing", match: /\bsea (?:was |is )?(?:split|parted)\b|\b(?:split|parted|struck|crossed|crossing) the sea\b|\bred sea\b/i },
+  { id: "big-fish", caption: "The big fish in the dark sea, as a drawing", match: /\bwhale\b|\bbig fish\b|\bthe fish\b/i },
+  { id: "ants", caption: "An ant hill", match: /\bants?\b/i },
+  { id: "nile", caption: "The River Nile long ago", match: /\bnile\b|\b(?:in|into|on) the river\b/i },
+  { id: "ahqaf", caption: "The sand hills of al-Ahqaf, land of 'Ad", match: /\b[Aa]hqaf\b|(?:^|[\s(])['‘’]Ad\b/ },
+  { id: "desert-well", caption: "A well in the desert long ago", match: /\b(?:a|the) well\b(?!-)/i },
+  // What else a lesson teaches about: two more stories, the Last Day, then worship and knowledge.
   { id: "cave", caption: "A cave in the mountains", match: /\b(?:people|youths?|young men|companions|sleepers) of the cave\b|\bashab al-kahf\b|\bcave of thawr\b|\bthawr\b/i },
   { id: "elephant", caption: "The year of the elephant", match: /\babrahah\b|\bal-fil\b|\b(?:army|year|people|owners|companions) of the elephant\b|\bthe elephant\b/i },
-  { id: "sirat", caption: "The bridge over Jahannam", match: /\bas-sirat\b(?!\s+al-mustaqim)|\bthe bridge\b|\bbridge over\b|\bcross(?:es|ing)? the bridge\b/i },
-  { id: "mizan", caption: "The scales of deeds", match: /\bmizan\b(?! al-)|\bthe scales?\b|\bon the scale\b|\bweigh(?:s|ed|ing)? (?:the )?deeds\b/i },
-  { id: "kawthar", caption: "The Pool of al-Kawthar", match: /\bkawthar\b|\bthe pool\b|\bal-hawd\b|\bhis pool\b/i },
   { id: "book-deeds", caption: "The book of deeds", match: /\bbook of (?:deeds|records?)\b|\brecord of deeds\b|\b(?:right|left) hand or (?:left|right)\b|\bgiven (?:his|her|their) (?:book|record)\b/i },
   { id: "gathering", caption: "The wide land of the gathering", match: /\bthe gathering\b|\bmahshar\b|\bgathered (?:together|on|before)\b|\bseven in the shade\b|\bthe sun (?:is )?(?:brought|comes) (?:close|near)\b|\braised (?:up )?(?:from (?:the|their) graves|just as)\b/i },
-  { id: "jannah", caption: "The gardens of Jannah", match: /\bjannah\b|\bparadise\b|\bjannat\b|\bfirdaws\b/i },
-  { id: "grave", caption: "A grave, kept simple", match: /\bthe grave\b|\bbarzakh\b|\bburied\b|\bjanazah\b|\bfuneral\b/i },
   { id: "wudu", caption: "Water for wudu", match: /\bwudu'?\b|\bablution\b|\bghusl\b/i },
   { id: "iftar", caption: "Dates and water at sunset", match: /\biftar\b|\bsuhoor\b|\bsuhur\b|\bbreak(?:s|ing)? (?:the|your|their|his|our) fast\b/i },
   { id: "zakat", caption: "Giving zakat from what you have", match: /\bzakat\b|\bzakah\b|\bnisab\b/i },

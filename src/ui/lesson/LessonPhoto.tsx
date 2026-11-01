@@ -12,13 +12,11 @@ const openPage = (url: string) => void Linking.openURL(url).catch(() => undefine
 /** Who took the photo and its license; opens the photo's Wikimedia Commons page. A drawing says it is one. */
 function PhotoCredit({ picture, testID }: { picture: LessonPicture; testID?: string }) {
   if (picture.credit.drawn) {
-    // The unseen things of the Last Day are only a picture to help imagine them.
-    const note = picture.credit.note;
     return (
-      <Text style={[styles.credit, styles.creditTap]} numberOfLines={note === "unseen" ? 2 : 1} testID={testID}>
-        {note === "unseen"
-          ? t("A picture to help you imagine. Only Allah knows how it truly is.")
-          : note === "thing"
+      <Text style={[styles.credit, styles.creditTap]} numberOfLines={1} testID={testID}>
+        {picture.credit.imagined
+          ? t("Only a drawing: Allah knows best how it truly is")
+          : picture.credit.note === "thing"
             ? t("A drawing")
             : t("A drawing of how it looked long ago")}
       </Text>

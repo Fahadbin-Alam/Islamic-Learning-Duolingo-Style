@@ -81,17 +81,18 @@ describe("pictures of what a page teaches", () => {
     expect(pictureForText("What is the bridge? It is set over Jahannam.")?.id).toBe("sirat");
     expect(pictureForText("As-Sirat. The bridge")?.id).toBe("sirat");
     expect(pictureForText("Guide us to as-Sirat al-Mustaqim, the straight path")).toBeUndefined();
-    expect(pictureForText("Deeds are weighed on the scales.")?.id).toBe("mizan");
-    expect(pictureForText("Adh-Dhahabi wrote Mizan al-I'tidal.")?.id).not.toBe("mizan");
-    expect(pictureForText("The Pool of al-Kawthar is whiter than milk.")?.id).toBe("kawthar");
+    expect(pictureForText("Deeds are weighed on the scales.")?.id).toBe("scales");
+    expect(pictureForText("Adh-Dhahabi wrote Mizan al-I'tidal.")?.id).not.toBe("scales");
+    expect(pictureForText("The Pool of al-Kawthar is whiter than milk.")?.id).toBe("pool");
     expect(pictureForText("Nuh built the ark as Allah told him.")?.id).toBe("ark");
     expect(pictureForText("Its leaves were like the ears of elephants.")).toBeUndefined();
   });
 
   it("says the unseen things of the Last Day are only a picture to help imagine them", () => {
-    for (const id of ["sirat", "mizan", "kawthar", "book-deeds", "gathering", "jannah"]) {
-      expect([id, getLessonPicture(id)?.credit.note]).toEqual([id, "unseen"]);
+    for (const id of ["sirat", "scales", "pool", "book-deeds", "gathering", "garden"]) {
+      expect([id, getLessonPicture(id)?.credit.imagined]).toEqual([id, true]);
     }
+    expect(getLessonPicture("wudu")?.credit.note).toBe("thing");
   });
 
   it("shows a page's picture once a lesson", () => {
@@ -102,7 +103,7 @@ describe("pictures of what a page teaches", () => {
       learnDeeper: { meaning: ["The scales are exact."], story: "Nuh built the ark.", sources: [] }
     };
     expect(pictureForLesson(lesson)).toBeUndefined();
-    expect(pictureForPage(lesson, "facts")?.id).toBe("mizan");
+    expect(pictureForPage(lesson, "facts")?.id).toBe("scales");
     expect(pictureForPage(lesson, "meaning", ["start", "facts"])).toBeUndefined();
     expect(pictureForPage(lesson, "story", ["start", "facts", "meaning"])?.id).toBe("ark");
   });

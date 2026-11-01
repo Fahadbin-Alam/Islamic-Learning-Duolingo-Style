@@ -899,7 +899,7 @@ export function ShopView({
               <Text style={styles.restoreText}>{t("Restore purchases")}</Text>
             </Tappable>
           ) : null}
-          {!plans.length ? null : <Text style={styles.legal}>{t("Renews automatically. Cancel anytime in store settings.")}</Text>}
+          {!plans.length || shelf !== "dates" ? null : <Text style={styles.legal}>{t("Renews automatically. Cancel anytime in store settings.")}</Text>}
           <View style={styles.links}>
             <Tappable onPress={() => openGated(legalLinks.terms)} accessibilityRole="link" style={styles.link} testID="shop-terms">
               <Text style={styles.linkText}>{t("Terms")}</Text>
@@ -983,8 +983,10 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 32
   },
+  // The title, the shelf headings and each row's words sit in the middle, as on the Me tab.
   title: {
-    ...text.h1
+    ...text.h1,
+    textAlign: "center"
   },
   balance: {
     flexDirection: "row",
@@ -1073,7 +1075,8 @@ const styles = StyleSheet.create({
     fontFamily: fonts.displayHeavy,
     fontSize: 20,
     lineHeight: 26,
-    color: colors.ink
+    color: colors.ink,
+    textAlign: "center"
   },
   item: {
     flexDirection: "row",
@@ -1144,23 +1147,26 @@ const styles = StyleSheet.create({
   },
   itemText: {
     flex: 1,
-    minWidth: 0
+    minWidth: 0,
+    alignItems: "center"
   },
   itemName: {
     fontFamily: fonts.displayHeavy,
     fontSize: 17,
     lineHeight: 22,
     color: colors.ink,
-    flexShrink: 1
+    flexShrink: 1,
+    textAlign: "center"
   },
   itemLine: {
     ...text.tiny,
     fontSize: 14,
     lineHeight: 19,
-    flexShrink: 1
+    flexShrink: 1,
+    textAlign: "center"
   },
   itemLineWrap: {
-    alignSelf: "flex-start",
+    alignSelf: "center",
     maxWidth: "100%"
   },
   itemLineShort: {

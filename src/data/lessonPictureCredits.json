@@ -158,25 +158,110 @@
     "license": "Drawing",
     "licenseUrl": "",
     "drawn": true,
-    "note": "unseen"
+    "imagined": true
   },
-  "mizan": {
+  "scales": {
     "file": "scripts/lesson-pictures/draw.mjs",
     "page": "",
     "author": "Muslimo",
     "license": "Drawing",
     "licenseUrl": "",
     "drawn": true,
-    "note": "unseen"
+    "imagined": true
   },
-  "kawthar": {
+  "pool": {
     "file": "scripts/lesson-pictures/draw.mjs",
     "page": "",
     "author": "Muslimo",
     "license": "Drawing",
     "licenseUrl": "",
     "drawn": true,
-    "note": "unseen"
+    "imagined": true
+  },
+  "sun-west": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "grave": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "garden": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "ark": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "sea-split": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "big-fish": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "ants": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "nile": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "ahqaf": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "desert-well": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
   },
   "gathering": {
     "file": "scripts/lesson-pictures/draw.mjs",
@@ -185,16 +270,7 @@
     "license": "Drawing",
     "licenseUrl": "",
     "drawn": true,
-    "note": "unseen"
-  },
-  "jannah": {
-    "file": "scripts/lesson-pictures/draw.mjs",
-    "page": "",
-    "author": "Muslimo",
-    "license": "Drawing",
-    "licenseUrl": "",
-    "drawn": true,
-    "note": "unseen"
+    "imagined": true
   },
   "book-deeds": {
     "file": "scripts/lesson-pictures/draw.mjs",
@@ -203,16 +279,7 @@
     "license": "Drawing",
     "licenseUrl": "",
     "drawn": true,
-    "note": "unseen"
-  },
-  "grave": {
-    "file": "scripts/lesson-pictures/draw.mjs",
-    "page": "",
-    "author": "Muslimo",
-    "license": "Drawing",
-    "licenseUrl": "",
-    "drawn": true,
-    "note": "thing"
+    "imagined": true
   },
   "wudu": {
     "file": "scripts/lesson-pictures/draw.mjs",
@@ -258,30 +325,6 @@
     "licenseUrl": "",
     "drawn": true,
     "note": "thing"
-  },
-  "ark": {
-    "file": "scripts/lesson-pictures/draw.mjs",
-    "page": "",
-    "author": "Muslimo",
-    "license": "Drawing",
-    "licenseUrl": "",
-    "drawn": true
-  },
-  "sea-split": {
-    "file": "scripts/lesson-pictures/draw.mjs",
-    "page": "",
-    "author": "Muslimo",
-    "license": "Drawing",
-    "licenseUrl": "",
-    "drawn": true
-  },
-  "whale": {
-    "file": "scripts/lesson-pictures/draw.mjs",
-    "page": "",
-    "author": "Muslimo",
-    "license": "Drawing",
-    "licenseUrl": "",
-    "drawn": true
   },
   "cave": {
     "file": "scripts/lesson-pictures/draw.mjs",
