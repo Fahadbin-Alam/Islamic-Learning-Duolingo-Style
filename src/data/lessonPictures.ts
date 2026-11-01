@@ -59,9 +59,19 @@ const AVAILABLE = PLACES.filter((place) => PICTURE_IMAGES[place.id] && credits[p
 
 export const LESSON_PICTURE_IDS = [...new Set(AVAILABLE.map((place) => place.id))];
 
+/**
+ * One picture per place, made once: the same place always gives the same object, so a question drawn again (as its
+ * answer sheet opens) is handed the same photo and its prompt, which is memoized, is not drawn again for it.
+ */
+const PICTURES = new Map<string, LessonPicture>();
+for (const place of AVAILABLE) {
+  if (!PICTURES.has(place.id)) {
+    PICTURES.set(place.id, { id: place.id, caption: place.caption, image: PICTURE_IMAGES[place.id], credit: credits[place.id] });
+  }
+}
+
 export function getLessonPicture(id: string): LessonPicture | undefined {
-  const place = AVAILABLE.find((entry) => entry.id === id);
-  return place ? { id: place.id, caption: place.caption, image: PICTURE_IMAGES[place.id], credit: credits[place.id] } : undefined;
+  return PICTURES.get(id);
 }
 
 /** The photo for the first place a text names, most specific place first. */
