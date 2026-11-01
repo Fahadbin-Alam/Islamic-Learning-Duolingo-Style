@@ -22,6 +22,13 @@ export type MascotMood =
   | "sleepy";
 export type MascotVariant = "girl" | "boy";
 
+/**
+ * What the kid wears when it teaches a lesson (src/ui/lesson/Teacher.tsx): a scholar's turban (or a dark scarf),
+ * round glasses and a book; the plain white of ihram for Hajj; a lantern for the Last Day; gold trim for Eid and
+ * Ramadan. "plain" is the everyday robe.
+ */
+export type MascotOutfit = "plain" | "scholar" | "ihram" | "lantern" | "festive";
+
 export type MascotProps = {
   /** 'girl' | 'boy'. Legacy ids: 'hijabi' -> girl, 'muslim_man' -> boy. Anything else -> girl. */
   variant?: string;
@@ -33,6 +40,10 @@ export type MascotProps = {
    */
   accent?: string;
   animated?: boolean;
+  /** What it wears (see MascotOutfit). Default "plain". */
+  outfit?: MascotOutfit;
+  /** Moves its mouth as if talking for this long (ms) after it shows up, then stops. 0 or unset: quiet. */
+  talkMs?: number;
   /** A tap makes the mascot react: laugh, get mad, wave, cry, fall in love... one after another. */
   tappable?: boolean;
   testID?: string;
@@ -360,11 +371,11 @@ function scarfFor(accent: string) {
   return SCARF_COLORS.find((candidate) => distance(candidate) > 70) ?? SCARF_COLORS[0];
 }
 
-function GirlHead({ accent, mood, blink }: { accent: string; mood: MascotMood; blink: boolean }) {
-  const scarfBase = scarfFor(accent);
+function GirlHead({ accent, mood, blink, outfit }: { accent: string; mood: MascotMood; blink: boolean; outfit?: MascotOutfit }) {
+  const scarfBase = outfit === "ihram" ? "#FFFFFF" : outfit === "scholar" ? SCHOLAR_SCARF : scarfFor(accent);
   const scarf = scarfBase;
   const scarfDeep = darken(scarfBase, 0.18);
-  const band = lighten(scarfBase, 0.7);
+  const band = outfit === "ihram" ? IHRAM_DEEP : lighten(scarfBase, 0.7);
   return (
     <G>
       {/* scarf drape over the shoulders, covering hair and neck */}
@@ -386,7 +397,9 @@ function GirlHead({ accent, mood, blink }: { accent: string; mood: MascotMood; b
   );
 }
 
-function BoyHead({ mood, blink }: { mood: MascotMood; blink: boolean }) {
+function BoyHead({ mood, blink, outfit }: { mood: MascotMood; blink: boolean; outfit?: MascotOutfit }) {
+  // In ihram a man's head stays bare: hair, no kufi. A scholar winds a white turban round his kufi.
+  const bare = outfit === "ihram";
   return (
     <G>
       {/* ears */}
@@ -401,32 +414,54 @@ function BoyHead({ mood, blink }: { mood: MascotMood; blink: boolean }) {
         d="M28.2 62 C26.6 34 41 22 60 22 C79 22 93.4 34 91.8 62 C90.4 54.6 88 50.6 84 48.6 C76 47.2 68 46.6 60 46.6 C52 46.6 44 47.2 36 48.6 C32 50.6 29.6 54.6 28.2 62 Z"
         fill={HAIR}
       />
-      {/* kufi */}
-      <Path
-        d="M30 41 C31 25 44 16.5 60 16.5 C76 16.5 89 25 90 41 C81 38 71 37 60 37 C49 37 39 38 30 41 Z"
-        fill="#FFFFFF"
-        stroke={colors.lineLip}
-        strokeWidth={1.6}
-        strokeLinejoin="round"
-      />
-      <Path
-        d="M30 41 C39 38 49 37 60 37 C71 37 81 38 90 41 L90.4 44.6 C81 41.6 71 40.6 60 40.6 C49 40.6 39 41.6 29.6 44.6 Z"
-        fill={colors.line}
-      />
-      <G fill={colors.line}>
-        <Circle cx={45} cy={28} r={1.6} />
-        <Circle cx={60} cy={24} r={1.6} />
-        <Circle cx={75} cy={28} r={1.6} />
-        <Circle cx={52} cy={33} r={1.4} />
-        <Circle cx={68} cy={33} r={1.4} />
-      </G>
-      <Path d="M37 31 C40 25 46 21 52 19.6" stroke={colors.mist} strokeWidth={3} strokeLinecap="round" fill="none" />
+      {bare ? (
+        <Path d="M29.6 46 C30 26 43.6 17.4 60 17.4 C76.4 17.4 90 26 90.4 46 C82 40.6 72 38.8 60 38.8 C48 38.8 38 40.6 29.6 46 Z" fill={HAIR} />
+      ) : (
+        <G>
+          {/* kufi */}
+          <Path
+            d="M30 41 C31 25 44 16.5 60 16.5 C76 16.5 89 25 90 41 C81 38 71 37 60 37 C49 37 39 38 30 41 Z"
+            fill="#FFFFFF"
+            stroke={colors.lineLip}
+            strokeWidth={1.6}
+            strokeLinejoin="round"
+          />
+          <Path
+            d="M30 41 C39 38 49 37 60 37 C71 37 81 38 90 41 L90.4 44.6 C81 41.6 71 40.6 60 40.6 C49 40.6 39 41.6 29.6 44.6 Z"
+            fill={colors.line}
+          />
+          <G fill={colors.line}>
+            <Circle cx={45} cy={28} r={1.6} />
+            <Circle cx={60} cy={24} r={1.6} />
+            <Circle cx={75} cy={28} r={1.6} />
+            <Circle cx={52} cy={33} r={1.4} />
+            <Circle cx={68} cy={33} r={1.4} />
+          </G>
+          <Path d="M37 31 C40 25 46 21 52 19.6" stroke={colors.mist} strokeWidth={3} strokeLinecap="round" fill="none" />
+        </G>
+      )}
+      {outfit === "scholar" ? (
+        // A white turban wound round the kufi, with its folds and a tail at the back.
+        <G>
+          <Path d="M26.6 44 C26.6 26 41 14 60 14 C79 14 93.4 26 93.4 44 C83 39.6 72 38.4 60 38.4 C48 38.4 37 39.6 26.6 44 Z" fill="#FBFBF6" stroke={colors.lineLip} strokeWidth={1.6} strokeLinejoin="round" />
+          <G stroke="#DCDFE6" strokeWidth={2} strokeLinecap="round" fill="none">
+            <Path d="M31 35 C44 26 76 26 89 35" />
+            <Path d="M34 27 C46 20 74 20 86 27" />
+            <Path d="M30 40.6 C46 33 74 33 90 40.6" />
+          </G>
+          <Path d="M88 40 C94 46 95 54 92 60" stroke="#FBFBF6" strokeWidth={5} strokeLinecap="round" fill="none" />
+        </G>
+      ) : null}
       <Face mood={mood} blink={blink} />
     </G>
   );
 }
 
-type ArtProps = { variant: MascotVariant; mood: MascotMood; accent: string; blink: boolean };
+type ArtProps = { variant: MascotVariant; mood: MascotMood; accent: string; blink: boolean; outfit?: MascotOutfit };
+
+const IHRAM = "#F6F6F0";
+const IHRAM_DEEP = "#D9D9CF";
+const SCHOLAR_SCARF = "#4A5A8C";
 
 /**
  * The mascot is drawn in layers so the waving arm can swing smoothly on the native driver:
@@ -435,10 +470,12 @@ type ArtProps = { variant: MascotVariant; mood: MascotMood; accent: string; blin
  */
 type Layer = "all" | "body" | "head" | "front";
 
-function MascotArt({ variant, mood, accent, blink, layer }: ArtProps & { layer: Layer }) {
-  const robeLip = darken(accent, 0.2);
-  const sleeve = darken(accent, 0.07);
-  const trim = lighten(accent, 0.55);
+function MascotArt({ variant, mood, accent: robeAccent, blink, layer, outfit = "plain" }: ArtProps & { layer: Layer }) {
+  // Ihram is plain white cloth, whatever the topic's color.
+  const accent = outfit === "ihram" ? IHRAM : robeAccent;
+  const robeLip = outfit === "ihram" ? IHRAM_DEEP : darken(accent, 0.2);
+  const sleeve = outfit === "ihram" ? "#ECECE4" : darken(accent, 0.07);
+  const trim = outfit === "festive" ? colors.gold : lighten(accent, 0.55);
   const pose = poseFor(mood);
   const swingsRight = mood === "wave";
   const show = (part: Exclude<Layer, "all">) => layer === "all" || layer === part;
@@ -460,6 +497,22 @@ function MascotArt({ variant, mood, accent, blink, layer }: ArtProps & { layer: 
           ) : (
             <Path d="M38 116 C46 119 74 119 82 116" stroke={trim} strokeWidth={2.6} strokeLinecap="round" fill="none" />
           )}
+          {outfit === "ihram" && variant === "boy" ? (
+            // The upper cloth of ihram, over the left shoulder and under the right arm.
+            <Path d="M44 84 C56 96 68 108 80 124" stroke={IHRAM_DEEP} strokeWidth={5} strokeLinecap="round" fill="none" />
+          ) : null}
+          {outfit === "festive" ? (
+            // Eid clothes: a gold collar and a gold hem with little dots.
+            <G>
+              <Path d="M48 82 Q60 92 72 82" stroke={colors.gold} strokeWidth={3} strokeLinecap="round" fill="none" />
+              <Path d="M33 121 C46 125 74 125 87 121" stroke={colors.gold} strokeWidth={3.2} strokeLinecap="round" fill="none" />
+              <G fill={lighten(colors.gold, 0.4)}>
+                <Circle cx={44} cy={118} r={1.4} />
+                <Circle cx={60} cy={119.6} r={1.4} />
+                <Circle cx={76} cy={118} r={1.4} />
+              </G>
+            </G>
+          ) : null}
           {/* arms */}
           <G stroke={sleeve} strokeWidth={11} strokeLinecap="round" fill="none">
             <Path d={armPath(SHOULDER_L, pose.leftCtrl, pose.left)} />
@@ -468,9 +521,17 @@ function MascotArt({ variant, mood, accent, blink, layer }: ArtProps & { layer: 
         </G>
       ) : null}
       {/* head */}
-      {show("head") ? variant === "boy" ? <BoyHead mood={mood} blink={blink} /> : <GirlHead accent={accent} mood={mood} blink={blink} /> : null}
+      {show("head") ? (
+        <G>
+          {variant === "boy" ? <BoyHead mood={mood} blink={blink} outfit={outfit} /> : <GirlHead accent={accent} mood={mood} blink={blink} outfit={outfit} />}
+          {outfit === "scholar" ? <Glasses /> : null}
+        </G>
+      ) : null}
       {show("front") ? (
         <G>
+          {/* What the teacher holds: drawn before the hands, so a hand holds it. */}
+          {outfit === "scholar" ? <Book at={pose.left} /> : null}
+          {outfit === "lantern" ? <Lantern at={pose.right} /> : null}
           {/* hands */}
           <Circle cx={pose.left.x} cy={pose.left.y} r={7} fill={SKIN} />
           <Circle cx={pose.left.x - 2} cy={pose.left.y - 2.2} r={2} fill="#FFFFFF" fillOpacity={0.4} />
@@ -503,6 +564,62 @@ function Hand({ at }: { at: Point }) {
   );
 }
 
+/** Round reading glasses over the eyes. */
+function Glasses() {
+  return (
+    <G stroke="#3B3B46" strokeWidth={2} fill="#FFFFFF" fillOpacity={0.18}>
+      <Circle cx={48.5} cy={56} r={7.2} />
+      <Circle cx={71.5} cy={56} r={7.2} />
+      <Path d="M55.7 55 Q60 52.6 64.3 55" fill="none" />
+    </G>
+  );
+}
+
+/** A small book, held open at the hand. */
+function Book({ at }: { at: Point }) {
+  return (
+    <G transform={`rotate(-10 ${at.x} ${at.y})`}>
+      <Path d={`M${at.x - 13} ${at.y - 15} L${at.x} ${at.y - 12} L${at.x + 13} ${at.y - 15} L${at.x + 13} ${at.y + 3} L${at.x} ${at.y + 6} L${at.x - 13} ${at.y + 3} Z`} fill="#7A4E2D" />
+      <Path d={`M${at.x - 11} ${at.y - 13} L${at.x} ${at.y - 10.4} L${at.x + 11} ${at.y - 13} L${at.x + 11} ${at.y + 1} L${at.x} ${at.y + 3.6} L${at.x - 11} ${at.y + 1} Z`} fill="#FBF3E2" />
+      <Path d={`M${at.x} ${at.y - 10.4} L${at.x} ${at.y + 3.6}`} stroke="#D8C6A2" strokeWidth={1.2} />
+      <G stroke="#C9B48F" strokeWidth={1} strokeLinecap="round">
+        <Path d={`M${at.x - 8.6} ${at.y - 7.8} L${at.x - 2.6} ${at.y - 6.6}`} />
+        <Path d={`M${at.x - 8.6} ${at.y - 4.4} L${at.x - 2.6} ${at.y - 3.2}`} />
+        <Path d={`M${at.x + 2.6} ${at.y - 6.6} L${at.x + 8.6} ${at.y - 7.8}`} />
+        <Path d={`M${at.x + 2.6} ${at.y - 3.2} L${at.x + 8.6} ${at.y - 4.4}`} />
+      </G>
+    </G>
+  );
+}
+
+/** A small lantern with a warm light, hanging from the hand. */
+function Lantern({ at }: { at: Point }) {
+  const x = at.x + 3;
+  const top = at.y + 2;
+  return (
+    <G>
+      <Path d={`M${at.x} ${at.y} Q${x + 1} ${top - 3} ${x} ${top + 2}`} stroke="#8A6A2C" strokeWidth={1.6} fill="none" />
+      <Circle cx={x} cy={top + 13} r={11} fill="#FFE59A" fillOpacity={0.35} />
+      <Path d={`M${x - 5} ${top + 2} L${x + 5} ${top + 2} L${x + 7} ${top + 6} L${x - 7} ${top + 6} Z`} fill={colors.goldLip} />
+      <Path d={`M${x - 6} ${top + 6} L${x + 6} ${top + 6} L${x + 5} ${top + 19} L${x - 5} ${top + 19} Z`} fill="#FFD66B" stroke={colors.goldLip} strokeWidth={1.6} strokeLinejoin="round" />
+      <Path d={`M${x} ${top + 6} L${x} ${top + 19}`} stroke={colors.goldLip} strokeWidth={1.2} />
+      <Ellipse cx={x} cy={top + 13} rx={2} ry={3.2} fill="#FF9F2E" />
+      <Path d={`M${x - 6} ${top + 19} L${x + 6} ${top + 19} L${x + 4} ${top + 22} L${x - 4} ${top + 22} Z`} fill={colors.goldLip} />
+    </G>
+  );
+}
+
+/** The mouth open mid-word, drawn over the closed smile while the mascot talks. */
+function TalkMouth() {
+  return (
+    <G>
+      <Ellipse cx={60} cy={69.6} rx={10} ry={6.4} fill={SKIN} />
+      <Ellipse cx={60} cy={70} rx={5.6} ry={4.6} fill={MOUTH} />
+      <Ellipse cx={60} cy={72.6} rx={3.4} ry={1.8} fill={TONGUE} />
+    </G>
+  );
+}
+
 /** The waving arm (sleeve only) or its hand, for the swinging layers. */
 function WaveArmArt({ accent, part }: { accent: string; part: "arm" | "hand" }) {
   const pose = poseFor("wave");
@@ -518,13 +635,14 @@ const WAVE_DEG = 11;
 const WAVE_MS = 300;
 
 /** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
-function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style }: MascotProps) {
+function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.green, animated = true, style, outfit = "plain", talkMs = 0 }: MascotProps) {
   const resolved = resolveMascotVariant(variant);
   const reduceMotion = useReduceMotion();
   const moving = animated && !reduceMotion;
   const bob = useRef(new Animated.Value(0)).current;
   const wave = useRef(new Animated.Value(0)).current;
   const [blink, setBlink] = useState(false);
+  const talk = useTalk(moving ? talkMs : 0);
 
   // Bob (or bounce when cheering).
   useEffect(() => {
@@ -617,7 +735,7 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
       {waving ? (
         <>
           <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
-            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} layer="body" />
+            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="body" />
           </Svg>
           <Animated.View style={swingStyle} pointerEvents="none">
             <Svg width={size} height={height} viewBox={viewBox}>
@@ -625,7 +743,7 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
             </Svg>
           </Animated.View>
           <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
-            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} layer="head" />
+            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="head" />
           </Svg>
           <Animated.View style={swingStyle} pointerEvents="none">
             <Svg width={size} height={height} viewBox={viewBox}>
@@ -633,14 +751,21 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
             </Svg>
           </Animated.View>
           <Svg width={size} height={height} viewBox={viewBox} style={StyleSheet.absoluteFill}>
-            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} layer="front" />
+            <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="front" />
           </Svg>
         </>
       ) : (
         <Svg width={size} height={height} viewBox={viewBox}>
-          <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} layer="all" />
+          <MemoArt variant={resolved} mood={mood} accent={accent} blink={blink} outfit={outfit} layer="all" />
         </Svg>
       )}
+      {talkMs > 0 && moving ? (
+        <Animated.View style={[StyleSheet.absoluteFill, { opacity: talk }]} pointerEvents="none" testID="mascot-talking">
+          <Svg width={size} height={height} viewBox={viewBox}>
+            <TalkMouth />
+          </Svg>
+        </Animated.View>
+      ) : null}
     </Animated.View>
   );
 }
@@ -1020,6 +1145,39 @@ export function Mascot(props: MascotProps) {
       ) : null}
     </Pressable>
   );
+}
+
+/**
+ * A mouth that opens and shuts like speech for `ms`, with little pauses between words, then stays shut.
+ * Native driver opacity only (no frame-by-frame state). Shared by the kid and the camel.
+ */
+export function useTalk(ms: number) {
+  const open = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    open.setValue(0);
+    if (ms <= 0) return undefined;
+    const flaps: Animated.CompositeAnimation[] = [Animated.delay(260)];
+    let spent = 260;
+    let word = 0;
+    while (spent < ms) {
+      const quick = 80 + ((word * 37) % 50);
+      flaps.push(
+        Animated.timing(open, { toValue: 1, duration: quick, easing: Easing.out(Easing.quad), useNativeDriver: true }),
+        Animated.timing(open, { toValue: 0, duration: quick + 30, easing: Easing.in(Easing.quad), useNativeDriver: true })
+      );
+      spent += quick * 2 + 30;
+      word += 1;
+      // A short breath every few words.
+      if (word % 4 === 0) {
+        flaps.push(Animated.delay(220));
+        spent += 220;
+      }
+    }
+    const run = Animated.sequence(flaps);
+    run.start();
+    return () => run.stop();
+  }, [ms, open]);
+  return open;
 }
 
 const styles = StyleSheet.create({

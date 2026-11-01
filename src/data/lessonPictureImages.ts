@@ -21,5 +21,22 @@ export const PICTURE_IMAGES: Record<string, ImageSourcePropType> = {
   "jerusalem": require("../../assets/pictures/jerusalem.jpg"),
   "desert": require("../../assets/pictures/desert.jpg"),
   "date-palms": require("../../assets/pictures/date-palms.jpg"),
-  "manuscript": require("../../assets/pictures/manuscript.jpg")
+  "manuscript": require("../../assets/pictures/manuscript.jpg"),
+  "sirat": require("../../assets/pictures/sirat.jpg"),
+  "mizan": require("../../assets/pictures/mizan.jpg"),
+  "kawthar": require("../../assets/pictures/kawthar.jpg"),
+  "gathering": require("../../assets/pictures/gathering.jpg"),
+  "jannah": require("../../assets/pictures/jannah.jpg"),
+  "book-deeds": require("../../assets/pictures/book-deeds.jpg"),
+  "grave": require("../../assets/pictures/grave.jpg"),
+  "wudu": require("../../assets/pictures/wudu.jpg"),
+  "prayer": require("../../assets/pictures/prayer.jpg"),
+  "iftar": require("../../assets/pictures/iftar.jpg"),
+  "zakat": require("../../assets/pictures/zakat.jpg"),
+  "books": require("../../assets/pictures/books.jpg"),
+  "ark": require("../../assets/pictures/ark.jpg"),
+  "sea-split": require("../../assets/pictures/sea-split.jpg"),
+  "whale": require("../../assets/pictures/whale.jpg"),
+  "cave": require("../../assets/pictures/cave.jpg"),
+  "elephant": require("../../assets/pictures/elephant.jpg")
 };

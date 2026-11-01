@@ -1,3 +1,4 @@
+import { Teacher, teacherFor } from "../lesson/Teacher";
 import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
@@ -493,8 +494,30 @@ const STATES: State[] = [
       />
     )
   },
-  { id: "quit", render: () => <QuitDemo /> }
+  { id: "quit", render: () => <QuitDemo /> },
+  // Every lesson teacher, in the clothes of its topic (src/ui/lesson/Teacher.tsx).
+  {
+    id: "teachers",
+    render: () => (
+      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 12, padding: 16, justifyContent: "center" }} testID="gallery-teachers">
+        {TEACHER_TOPICS.map((topic) => (
+          <View key={topic} style={{ alignItems: "center", width: 104 }}>
+            <Teacher look={teacherFor(topic)} variant={topic === "hajj" || topic === "scholars" ? "boy" : "girl"} accent={PRAYER_ACCENT} size={84} talkMs={4000} />
+            <Text style={{ fontSize: 12, marginTop: 4 }}>{topic}</Text>
+          </View>
+        ))}
+        {(["scholars", "hajj"] as const).map((topic) => (
+          <View key={`${topic}-girl`} style={{ alignItems: "center", width: 104 }}>
+            <Teacher look={teacherFor(topic)} variant="girl" accent={PRAYER_ACCENT} size={84} />
+            <Text style={{ fontSize: 12, marginTop: 4 }}>{topic} (girl)</Text>
+          </View>
+        ))}
+      </View>
+    )
+  }
 ];
+
+const TEACHER_TOPICS = ["foundation", "quran_tafseer", "prophets", "scholars", "hajj", "akhirah", "eid"];
 
 function readHash() {
   if (Platform.OS !== "web" || typeof window === "undefined") {

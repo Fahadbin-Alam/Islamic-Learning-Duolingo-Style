@@ -11,8 +11,20 @@ import { PICTURE_IMAGES } from "./lessonPictureImages";
  * Companion or anyone meant to stand for them. They ship inside the app (small JPEGs in assets/pictures), so
  * they show offline.
  */
-/** `drawn`: one of our own drawings of how a place looked long ago (scripts/lesson-pictures/draw.mjs), not a photo. */
-export type PictureCredit = { file: string; page: string; author: string; license: string; licenseUrl: string; drawn?: boolean };
+/**
+ * `drawn`: one of our own drawings (scripts/lesson-pictures/draw.mjs), not a photo: of how a place looked long ago,
+ * or, with `note`, of a thing a lesson teaches ("thing": a wudu jug, a prayer rug) or of the unseen things of the
+ * Last Day ("unseen": the bridge, the scales), which only help the learner imagine.
+ */
+export type PictureCredit = {
+  file: string;
+  page: string;
+  author: string;
+  license: string;
+  licenseUrl: string;
+  drawn?: boolean;
+  note?: "unseen" | "thing";
+};
 
 export type LessonPicture = {
   id: string;
@@ -47,6 +59,25 @@ const PLACES: PlaceRule[] = [
   { id: "manuscript", caption: "An early page of the Quran", match: /\bmushaf\b|\bmanuscripts?\b|\bcompil(?:ed|ing|ation)\b[^.]*\bquran\b|\bquran\b[^.]*\bcompil(?:ed|ing|ation)\b/i },
   { id: "madinah", caption: "Madinah long ago, among its date palms", match: /\bmadinah\b|\bmedina\b|\byathrib\b|\bprophet['‘’]s mosque\b|\bmasjid an-nabawi\b/i },
   { id: "makkah", caption: "Makkah long ago", match: /\bmakkah\b|\bmecca\b|\bmasjid al-haram\b|\bsacred mosque\b/i },
+  // What the lesson teaches about, not a place: the stories of the prophets, then the Last Day (only pictures to
+  // help imagine: the app says only Allah knows how they truly are), then worship and knowledge.
+  { id: "ark", caption: "Nuh's ark on the flood", match: /\b(?:nuh|noah)\b[^.]{0,80}\b(?:ark|ship|flood)\b|\b(?:ark|ship|flood)\b[^.]{0,80}\b(?:nuh|noah)\b|\bthe great flood\b/i },
+  { id: "sea-split", caption: "The sea parted into two walls", match: /\b(?:split|parted|divided|opened)\b[^.]{0,30}\bsea\b|\bsea\b[^.]{0,20}\b(?:split|parted|divided)\b|\bred sea\b/i },
+  { id: "whale", caption: "The great fish of Yunus", match: /\bwhale\b|\b(?:big|huge|great) fish\b|\bbelly of the fish\b/i },
+  { id: "cave", caption: "A cave in the mountains", match: /\b(?:people|youths?|young men|companions|sleepers) of the cave\b|\bashab al-kahf\b|\bcave of thawr\b|\bthawr\b/i },
+  { id: "elephant", caption: "The year of the elephant", match: /\babrahah\b|\bal-fil\b|\b(?:army|year|people|owners|companions) of the elephant\b|\bthe elephant\b/i },
+  { id: "sirat", caption: "The bridge over Jahannam", match: /\bas-sirat\b(?!\s+al-mustaqim)|\bthe bridge\b|\bbridge over\b|\bcross(?:es|ing)? the bridge\b/i },
+  { id: "mizan", caption: "The scales of deeds", match: /\bmizan\b(?! al-)|\bthe scales?\b|\bon the scale\b|\bweigh(?:s|ed|ing)? (?:the )?deeds\b/i },
+  { id: "kawthar", caption: "The Pool of al-Kawthar", match: /\bkawthar\b|\bthe pool\b|\bal-hawd\b|\bhis pool\b/i },
+  { id: "book-deeds", caption: "The book of deeds", match: /\bbook of (?:deeds|records?)\b|\brecord of deeds\b|\b(?:right|left) hand or (?:left|right)\b|\bgiven (?:his|her|their) (?:book|record)\b/i },
+  { id: "gathering", caption: "The wide land of the gathering", match: /\bthe gathering\b|\bmahshar\b|\bgathered (?:together|on|before)\b|\bseven in the shade\b|\bthe sun (?:is )?(?:brought|comes) (?:close|near)\b|\braised (?:up )?(?:from (?:the|their) graves|just as)\b/i },
+  { id: "jannah", caption: "The gardens of Jannah", match: /\bjannah\b|\bparadise\b|\bjannat\b|\bfirdaws\b/i },
+  { id: "grave", caption: "A grave, kept simple", match: /\bthe grave\b|\bbarzakh\b|\bburied\b|\bjanazah\b|\bfuneral\b/i },
+  { id: "wudu", caption: "Water for wudu", match: /\bwudu'?\b|\bablution\b|\bghusl\b/i },
+  { id: "iftar", caption: "Dates and water at sunset", match: /\biftar\b|\bsuhoor\b|\bsuhur\b|\bbreak(?:s|ing)? (?:the|your|their|his|our) fast\b/i },
+  { id: "zakat", caption: "Giving zakat from what you have", match: /\bzakat\b|\bzakah\b|\bnisab\b/i },
+  { id: "prayer", caption: "A prayer rug before the mihrab", match: /\bprayer (?:mat|rug)\b|\bmihrab\b|\bsujud\b|\bsajdah\b|\bprostrat(?:e|es|ion|ing)\b|\bruku'?\b|\btakbir\b|\bsalah\b|\bsalat\b/i },
+  { id: "books", caption: "Books of knowledge", match: /\bwrote\b[^.]{0,40}\bbooks?\b|\bhis books?\b|\bher books?\b|\bauthored\b|\blibrar(?:y|ies)\b|\bmusnad\b|\bal-muwatta\b|\bcompiled\b[^.]{0,40}\bhadith\b/i },
   { id: "date-palms", caption: "Date palms", match: /\bdate palms?\b|\bpalm trees?\b|\bdate trees?\b/i },
   { id: "desert", caption: "The Arabian desert", match: /\bdesert\b/i }
 ];
@@ -95,4 +126,36 @@ export function pictureForQuestion(prompt: string): LessonPicture | undefined {
 /** "Photo: Jane Doe, CC BY-SA 4.0" */
 export function creditLine(credit: PictureCredit) {
   return `${credit.author}, ${credit.license}`;
+}
+
+/** The words a lesson page teaches, in English, for its picture. */
+function pageText(lesson: Pick<Lesson, "learnFacts" | "learnDeeper">, page: string) {
+  switch (page) {
+    case "facts":
+      return (lesson.learnFacts ?? []).join("\n");
+    case "meaning":
+      return (lesson.learnDeeper?.meaning ?? []).join("\n");
+    case "story":
+      return lesson.learnDeeper?.story;
+    case "takeaway":
+      return lesson.learnDeeper?.takeaway;
+    default:
+      return undefined;
+  }
+}
+
+/**
+ * A picture for one page of a lesson (What you learn, What it means, the story, Take home): the first thing that
+ * page names that has a picture, e.g. the bridge on the page that teaches the bridge. A picture shows once a
+ * lesson: not when the lesson's first page already showed it, nor on a later page after an earlier one did.
+ */
+export function pictureForPage(
+  lesson: Pick<Lesson, "title" | "learnLine" | "learnFacts" | "learnDeeper">,
+  page: string,
+  pagesBefore: string[] = []
+): LessonPicture | undefined {
+  const picture = pictureForText(pageText(lesson, page));
+  if (!picture) return undefined;
+  const shown = new Set([pictureForLesson(lesson)?.id, ...pagesBefore.map((before) => pictureForText(pageText(lesson, before))?.id)]);
+  return shown.has(picture.id) ? undefined : picture;
 }

@@ -234,7 +234,8 @@ import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
-import { pictureForLesson, pictureForQuestion } from "./data/lessonPictures";
+import { teacherFor } from "./ui/lesson/Teacher";
+import { pictureForLesson, pictureForPage, pictureForQuestion, pictureForText } from "./data/lessonPictures";
 import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
@@ -3085,6 +3086,8 @@ export default function TopicApp() {
   const lesson = lessonSession?.lesson;
   const lessonAccent = currentLessonSection.accentColor;
   const lessonMascot = currentLessonSection.mascot;
+  // Who teaches the lesson's pages: the camel or the kid, dressed for the topic.
+  const lessonTeacher = teacherFor(currentLessonSection.topicId);
   const lessonArabic = lesson ? getLessonArabic(lesson.nodeId, lesson.branchId ?? findNodeById(lesson.nodeId)?.branchId) : undefined;
   // A word that is (part of) the card's ayah is heard from the reciter; other words from the device's Arabic voice, if it has one.
   const lessonRecitation = lessonArabic
@@ -3100,10 +3103,23 @@ export default function TopicApp() {
   const englishChallenge = lessonStep ? englishLesson?.challenges[lessonStep.index] : undefined;
   // Real photos of the places a lesson or a question names, matched on the English text so every language shows the same.
   const pictureLesson = englishLesson ?? lesson;
-  const lessonPicture = pictureLesson ? pictureForLesson(pictureLesson) : undefined;
+  // Else what its Arabic word means: "As-Sirat, the bridge" shows the bridge.
+  const lessonPicture = pictureLesson
+    ? pictureForLesson(pictureLesson) ?? (lessonArabic ? pictureForText(`${lessonArabic.translit}. ${lessonArabic.meaning}`) : undefined)
+    : undefined;
   // A surah's own lesson ("Surah Al-Baqarah") opens on a picture of what its name means, then lists its parts.
   const lessonSurahNumber = pictureLesson ? surahNumberForTitle(pictureLesson.title) : undefined;
   const lessonSurah = lessonSurahNumber ? { number: lessonSurahNumber, parts: surahParts(lessonSurahNumber) } : undefined;
+  // A later page shows a picture of what it teaches (the bridge, the scales, the ark...), once per lesson.
+  const pageMatch =
+    pictureLesson && learnStep && learnStep.page !== "start" && learnStep.page !== "teach" && learnStep.page !== "quiz"
+      ? pictureForPage(
+          pictureLesson,
+          learnStep.page,
+          state.lessonQueue.slice(0, state.stepIndex).flatMap((step) => (isLearnStep(step) ? [step.page] : []))
+        )
+      : undefined;
+  const pagePicture = pageMatch && pageMatch.id !== lessonPicture?.id ? pageMatch : undefined;
   const pictureChallenge = englishChallenge ?? challenge;
   const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
   const inTest = isTestSession(lessonSession);
@@ -3267,6 +3283,8 @@ export default function TopicApp() {
             onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
             arabicRecitation={lessonRecitation ?? undefined}
             picture={lessonPicture}
+            pagePicture={pagePicture}
+            teacher={lessonTeacher}
             surah={lessonSurah}
             deeper={lesson.learnDeeper}
             // No speaker that stays silent: hidden with sound effects off or without an Arabic voice.
