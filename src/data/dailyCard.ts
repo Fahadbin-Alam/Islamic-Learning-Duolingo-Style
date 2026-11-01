@@ -129,3 +129,39 @@ export function getDailyCard(language: SupportedLanguage, date: Date = new Date(
 export function isDailyLink(url: string | null | undefined) {
   return Boolean(url && /^muslimo:\/\/\/?daily(?:[/?#]|$)/i.test(url));
 }
+
+/** When today's card was last on screen: the day, how many times today, and the last time (ms). */
+export interface DailyShown {
+  day: number;
+  count: number;
+  at: number;
+}
+
+/** The card opens by itself at most this many times a day... */
+export const DAILY_SHOWS_PER_DAY = 2;
+/** ...and the second time only on an open this long after the first. */
+export const DAILY_SHOW_GAP_MS = 4 * 60 * 60 * 1000;
+
+/**
+ * True when the ayah and hadith of the day should open by themselves: on the first open of the day, and once more
+ * on an open at least four hours later, so a learner who comes back in the evening sees it again. Never more.
+ */
+export function dailyAutoDue(shown: DailyShown | undefined, now: Date = new Date()) {
+  if (!shown || shown.day !== localDayNumber(now)) return true;
+  return shown.count < DAILY_SHOWS_PER_DAY && now.getTime() - shown.at >= DAILY_SHOW_GAP_MS;
+}
+
+/** The record after the card was on screen now (opened by itself or by hand). */
+export function markDailyShown(shown: DailyShown | undefined, now: Date = new Date()): DailyShown {
+  const day = localDayNumber(now);
+  return { day, count: shown?.day === day ? shown.count + 1 : 1, at: now.getTime() };
+}
+
+export function parseDailyShown(raw: string | null | undefined): DailyShown | undefined {
+  try {
+    const value = raw ? JSON.parse(raw) : undefined;
+    return value && typeof value.day === "number" && typeof value.count === "number" && typeof value.at === "number" ? value : undefined;
+  } catch {
+    return undefined;
+  }
+}
