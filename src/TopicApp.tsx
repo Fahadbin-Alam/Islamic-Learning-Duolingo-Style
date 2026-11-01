@@ -50,8 +50,10 @@ import {
   pickTestOutChallenges,
   prepareUserForToday,
   refillHeartsForToday,
-  LIBRARY_TOPICS
+  LIBRARY_TOPICS,
+  harderQuestions
 } from "./api/islamicLearningApi";
+import { challengeLevel, HARDER_OFFER_AFTER, nextLevel, TOP_LEVEL } from "./data/challengeLevel";
 import { cleanReviewCards } from "./services/reviewDeck";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
@@ -227,7 +229,7 @@ import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, t
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
-import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
+import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
@@ -372,6 +374,10 @@ interface AppState {
    */
   sessionMistakes: number;
   sessionMissedLessonIds: string[];
+  /** Questions right on the first try in a row, in a lesson: a few and it asks "Want it harder?". */
+  rightInARow: number;
+  /** The learner said no to "Want it harder?" in this lesson, so it does not ask again. */
+  harderDeclined: boolean;
   loading: boolean;
 }
 
@@ -402,7 +408,9 @@ type Action =
   | { type: "apply_user"; user: UserProfile }
   | { type: "apply_user_latest"; update: (user: UserProfile) => UserProfile }
   | { type: "sync_premium"; premium: PremiumStatus }
-  | { type: "reset_lesson" };
+  | { type: "reset_lesson" }
+  | { type: "make_harder"; challenges: LessonSession["lesson"]["challenges"]; user: UserProfile }
+  | { type: "keep_difficulty" };
 
 const initialState: AppState = {
   screen: "home",
@@ -416,6 +424,8 @@ const initialState: AppState = {
   sessionCorrectCount: 0,
   sessionMistakes: 0,
   sessionMissedLessonIds: [],
+  rightInARow: 0,
+  harderDeclined: false,
   loading: true
 };
 
@@ -430,7 +440,9 @@ const NO_LESSON = {
   answerState: undefined,
   sessionCorrectCount: 0,
   sessionMistakes: 0,
-  sessionMissedLessonIds: [] as string[]
+  sessionMissedLessonIds: [] as string[],
+  rightInARow: 0,
+  harderDeclined: false
 };
 
 function reducer(state: AppState, action: Action): AppState {
@@ -515,6 +527,7 @@ function reducer(state: AppState, action: Action): AppState {
         lessonQueue: step.queue,
         doneCount: step.done ? state.doneCount + 1 : state.doneCount,
         sessionCorrectCount: action.correct && scored ? state.sessionCorrectCount + 1 : state.sessionCorrectCount,
+        rightInARow: action.correct && scored ? state.rightInARow + 1 : 0,
         sessionMistakes: action.correct || !scored ? state.sessionMistakes : state.sessionMistakes + 1,
         sessionMissedLessonIds: action.correct || !scored || !action.missedLessonId || state.sessionMissedLessonIds.includes(action.missedLessonId)
           ? state.sessionMissedLessonIds
@@ -558,6 +571,28 @@ function reducer(state: AppState, action: Action): AppState {
       return state.user ? { ...state, user: applyPremiumStatus(state.user, action.premium) } : state;
     case "reset_lesson":
       return { ...state, ...NO_LESSON, screen: "branch" };
+    case "make_harder": {
+      // The harder questions come next, right after the one just answered; the lesson's own questions follow.
+      if (!state.activeSession || !action.challenges.length) {
+        return { ...state, user: action.user, rightInARow: 0 };
+      }
+      const start = state.activeSession.lesson.challenges.length;
+      const added: FlowStep[] = action.challenges.map((_, offset) => ({ index: start + offset, attempt: 0 }));
+      const queue = [...state.lessonQueue.slice(0, state.stepIndex + 1), ...added, ...state.lessonQueue.slice(state.stepIndex + 1)];
+      return {
+        ...state,
+        user: action.user,
+        rightInARow: 0,
+        activeSession: {
+          ...state.activeSession,
+          lesson: { ...state.activeSession.lesson, challenges: [...state.activeSession.lesson.challenges, ...action.challenges] }
+        },
+        lessonQueue: queue,
+        lessonTotal: state.lessonTotal + added.length
+      };
+    }
+    case "keep_difficulty":
+      return { ...state, rightInARow: 0, harderDeclined: true };
     default:
       return state;
   }
@@ -689,6 +724,9 @@ export default function TopicApp() {
   const [settingsSoundEnabled, setSettingsSoundEnabled] = useState(true);
   const [settingsDifficulty, setSettingsDifficulty] = useState<DifficultyChoice>("auto");
   const [settingsReducedSound, setSettingsReducedSound] = useState(false);
+  // "Want it harder?" is open: how many were right in a row when it opened (kept while the sheet slides away).
+  const [harderOfferOpen, setHarderOfferOpen] = useState(false);
+  const [harderInARow, setHarderInARow] = useState(0);
   const [crew, setCrew] = useState<CrewState>({ status: "idle" });
   const [inviteEmail, setInviteEmail] = useState("");
   const [rankings, setRankings] = useState<RankingsState>({ status: "idle" });
@@ -1743,7 +1781,45 @@ export default function TopicApp() {
       return;
     }
 
+    // A few right first time in a row: "Want it harder?" before the next step.
+    if (harderOffer()) {
+      setHarderInARow(state.rightInARow);
+      setHarderOfferOpen(true);
+      return;
+    }
+
     void continueLesson(state.user);
+  }
+
+  // The harder questions "Want it harder?" would add now, or none when it should not ask: only in a lesson (not a
+  // test, practice or quiz), after HARDER_OFFER_AFTER right first time in a row, not once the learner said no,
+  // not on the last step, and only when there is something harder to ask.
+  function harderOffer() {
+    const session = state.activeSession;
+    if (!state.user || !session || (session.mode && session.mode !== "standard") || session.isTest) return undefined;
+    if (state.answerState !== "correct" || state.rightInARow < HARDER_OFFER_AFTER || state.harderDeclined) return undefined;
+    if (isLastLessonStep(state.lessonQueue, state.stepIndex)) return undefined;
+    const level = challengeLevel(state.user, ageGroup);
+    const extras = harderQuestions(session.lesson, state.user, nextLevel(level));
+    return extras.length ? { extras, level } : undefined;
+  }
+
+  function chooseHarder(harder: boolean) {
+    setHarderOfferOpen(false);
+    const user = state.user;
+    if (!user) return;
+    if (!harder) {
+      dispatch({ type: "keep_difficulty" });
+      void continueLesson(user);
+      return;
+    }
+    const offer = harderOffer();
+    const level = offer?.level ?? challengeLevel(user, ageGroup);
+    // A step harder for every lesson after this one too, up to the top level.
+    const nextUser = level < TOP_LEVEL ? { ...user, challengeBoost: Math.min(TOP_LEVEL, (user.challengeBoost ?? 0) + 1) } : user;
+    dispatch({ type: "make_harder", challenges: offer?.extras ?? [], user: nextUser });
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "next_challenge" });
   }
 
   // Asked again on each learn card until a voice turns up (the speech engine can still be starting).
@@ -2498,7 +2574,9 @@ export default function TopicApp() {
       reminderPreferences,
       soundEffectsEnabled: settingsSoundEnabled,
       reducedSoundEffects: settingsReducedSound,
-      difficulty: settingsDifficulty
+      difficulty: settingsDifficulty,
+      // Picking a difficulty starts the "Want it harder?" steps again from it.
+      challengeBoost: settingsDifficulty !== (state.user.difficulty ?? "auto") ? 0 : state.user.challengeBoost
     };
 
     if (state.user.hasAccount) {
@@ -3154,7 +3232,19 @@ export default function TopicApp() {
       progress={lessonProgress}
       hearts={lessonHearts}
       onClose={() => setQuitLessonVisible(true)}
-      overlay={quitSheet}
+      overlay={
+        <>
+          {quitSheet}
+          <HarderSheet
+            visible={harderOfferOpen}
+            inARow={harderInARow}
+            mascotVariant={lessonMascot}
+            accent={lessonAccent}
+            onHarder={() => chooseHarder(true)}
+            onKeep={() => chooseHarder(false)}
+          />
+        </>
+      }
     >
       {children}
     </LessonScreen>

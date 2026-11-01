@@ -19,7 +19,7 @@ const WORLD_LINES: Record<PathWorldChoice, string> = {
   auto: "Each unit is a new place.",
   desert: "Dunes, palms and camels.",
   beach: "Waves, crabs and boats.",
-  forest: "Pines, mushrooms and an owl.",
+  forest: "Pines, mushrooms and a rabbit.",
   snow: "Snowy peaks and goats.",
   camp: "Tents and horses at Badr."
 };

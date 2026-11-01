@@ -11,6 +11,7 @@ import {
   Blossom,
   BookStandLegs,
   Bunny,
+  Carrot,
   Butterfly,
   ClosedBook,
   InkPot,
@@ -52,7 +53,7 @@ export type WorldShowKind =
   | "turtle"
   | "pine"
   | "mushroom"
-  | "owl"
+  | "rabbit"
   | "log"
   | "goat"
   | "cave"
@@ -116,7 +117,7 @@ export const WORLD_SHOWS: Record<WorldShowKind, Show[]> = {
   turtle: [{ name: "swim", sound: "whoosh", ms: 2400 }, { name: "hide", sound: "pop", ms: 2000 }, { name: "babies", sound: "sparkle", ms: 2400 }, HOP, SPIN, LOVE],
   pine: [{ name: "cones", sound: "pop", ms: 1800 }, { name: "squirrel", sound: "giggle", ms: 2200 }, { name: "snow", sound: "sparkle", ms: 2000 }, { name: "wind", sound: "whoosh", ms: 1700 }, GIANT, LOVE],
   mushroom: [{ name: "bounce", sound: "boing", ms: 1900 }, { name: "sprout", sound: "grow", ms: 2000 }, { name: "rain", sound: "splash", ms: 2000 }, HOP, WIGGLE, LOVE],
-  owl: [{ name: "hoot", sound: "chirp", ms: 1800 }, { name: "blink", sound: "pop", ms: 1500 }, { name: "fly", sound: "whoosh", ms: 2000 }, { name: "turn", sound: "boing", ms: 1500 }, HOP, LOVE],
+  rabbit: [{ name: "zoom", sound: "zoom", ms: 2200 }, { name: "nibble", sound: "pop", ms: 2000 }, { name: "dig", sound: "whoosh", ms: 1900 }, { name: "thump", sound: "boing", ms: 1500 }, HOP, LOVE],
   log: [{ name: "squirrel", sound: "giggle", ms: 2200 }, { name: "bugs", sound: "pop", ms: 2400 }, { name: "sprout", sound: "grow", ms: 2000 }, HOP, WIGGLE, LOVE],
   goat: [{ name: "maa", sound: "baa", ms: 1400 }, { name: "climb", sound: "boing", ms: 1700 }, { name: "headbutt", sound: "zoom", ms: 1500 }, { name: "munch", sound: "pop", ms: 1800 }, SPIN, LOVE],
   cave: [{ name: "echo", sound: "giggle", ms: 1900 }, { name: "eyes", sound: "pop", ms: 1800 }, { name: "bats", sound: "whoosh", ms: 2000 }, { name: "glow", sound: "sparkle", ms: 2000 }, { name: "rumble", sound: "thunder", ms: 1400, strong: true }, HOP],
@@ -775,36 +776,48 @@ export function worldLook(kind: WorldShowKind, name: string, t: Animated.Value, 
       return { front: pops(t, s, [{ x: 0.02, y: 0.62, at: 0.1 }, { x: 0.68, y: 0.58, at: 0.3 }, { x: 0.18, y: 0.68, at: 0.5 }], (index) => <MiniMushroom s={(12 + index * 2) * u} color={["#FF8A1F", "#FF5A5A", "#8E5CF7"][index]} />) };
     case "mushroom:rain":
       return { moves: [{ scaleX: k(t, [0, 0.2, 0.8, 1], [1, 1.08, 1.08, 1]) }], front: rainDrops(t, s, -s * 0.2, s * 0.25, 8) };
-    case "owl:hoot":
+    case "rabbit:zoom":
+      // Zooms off to the right, out of sight, and pops back in from the left.
       return {
-        moves: [{ scaleY: k(t, [0, 0.15, 0.3, 0.5, 0.65, 0.8, 1], [1, 1.06, 1, 1.06, 1, 1, 1]) }],
-        front: ["hoo", "hoo!"].map((word, index) => (
-          <Floater key={word} t={t} from={0.05 + index * 0.35} to={0.55 + index * 0.35} x={s * (0.6 + index * 0.05)} y={s * 0.05} rise={s * 0.25} drift={s * 0.1}>
-            <Word size={Math.max(10, 12 * u)} color="#7A5133">{word}</Word>
+        moves: [
+          { translateX: k(t, [0, 0.1, 0.45, 0.46, 0.55, 0.9, 1], [0, -s * 0.06, s * 1.6, -s * 1.6, -s * 1.6, 0, 0]) },
+          { translateY: t.interpolate(sampleCurve(0.1, 0.9, 60, (p) => -s * 0.08 * Math.abs(Math.sin(p * Math.PI * 14)))) }
+        ]
+      };
+    case "rabbit:nibble":
+      // A carrot appears in front of the nose and gets eaten bite by bite.
+      return {
+        moves: [{ rotate: shake(t, 0.15, 0.85, 3, 12) }],
+        front: (
+          <Abs
+            x={s * 0.78}
+            y={s * 0.5}
+            style={{
+              opacity: t.interpolate({ inputRange: [0, 0.05, 0.1, 0.85, 0.9, 1], outputRange: [0, 0, 1, 1, 0, 0] }),
+              transformOrigin: "right",
+              transform: [{ rotate: "-35deg" }, { scaleX: t.interpolate({ inputRange: [0, 0.15, 0.4, 0.6, 0.85, 1], outputRange: [1, 1, 0.7, 0.4, 0.15, 0.15] }) }]
+            }}
+          >
+            <Carrot s={18 * u} />
+          </Abs>
+        )
+      };
+    case "rabbit:dig":
+      return {
+        moves: [{ rotate: shake(t, 0.05, 0.8, 5, 7) }],
+        front: [0, 1, 2, 3].map((index) => (
+          <Floater key={index} t={t} from={0.05 + index * 0.15} to={0.4 + index * 0.15} x={s * 0.12} y={s * 0.78} rise={s * 0.3} drift={-s * (0.1 + index * 0.05)}>
+            <View style={{ width: 6 * u, height: 6 * u, borderRadius: 6 * u, backgroundColor: "#9A6B45" }} />
           </Floater>
         ))
       };
-    case "owl:blink":
-      // Big slow blinks: lids close over the eyes and open again.
+    case "rabbit:thump":
+      // Thumps a back foot twice: a little bounce and a "thump!".
       return {
-        front: [25, 39].map((cx) => (
-          <Abs key={cx} x={(cx - 6.6) * u} y={23.4 * u} style={{ width: 13.2 * u, height: 13.2 * u, borderRadius: 7 * u, backgroundColor: "#9A6B45", transformOrigin: "top", transform: [{ scaleY: k(t, [0, 0.1, 0.25, 0.35, 0.5, 0.6, 0.75, 1], [0, 1, 1, 0, 0, 1, 0, 0]) }] }} />
-        ))
-      };
-    case "owl:fly":
-      return {
-        moves: [
-          { translateY: k(t, [0, 0.15, 0.45, 0.75, 1], [0, 2, -s * 0.5, -s * 0.1, 0]) },
-          { translateX: k(t, [0, 0.45, 0.75, 1], [0, s * 0.15, -s * 0.1, 0]) },
-          { scaleX: t.interpolate(sampleCurve(0.1, 0.9, 30, (p) => 1 + 0.12 * Math.sin(p * 60))) }
-        ]
-      };
-    case "owl:turn":
-      return {
-        moves: [{ scaleX: k(t, [0, 0.2, 0.3, 0.7, 0.8, 1], [1, 1, -1, -1, 1, 1]) }],
+        moves: [{ translateY: k(t, [0, 0.15, 0.25, 0.4, 0.5, 1], [0, -s * 0.06, 0, -s * 0.06, 0, 0]) }],
         front: (
-          <Floater t={t} from={0.25} to={0.85} x={s * 0.7} y={0} rise={s * 0.15}>
-            <Word size={Math.max(12, 15 * u)} color="#7A5133">?</Word>
+          <Floater t={t} from={0.2} to={0.9} x={s * 0.05} y={s * 0.6} rise={s * 0.25}>
+            <Word size={Math.max(10, 12 * u)} color="#7A5133">thump!</Word>
           </Floater>
         )
       };

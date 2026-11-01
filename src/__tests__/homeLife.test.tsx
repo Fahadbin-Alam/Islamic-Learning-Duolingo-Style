@@ -2,7 +2,9 @@ import React from "react";
 import { act, fireEvent, render, screen } from "@testing-library/react-native";
 import { playGameSound } from "../services/gameAudio";
 import { SOUND_LIBRARY } from "../services/gameSoundLibrary";
-import { IDLE_OF, idleKindFor } from "../ui/idleLife";
+import { IDLE_OF, SLEEPERS, idleKindFor, idleMoves } from "../ui/idleLife";
+import { Animated } from "react-native";
+import { WORLD_ITEMS } from "../ui/pathWorlds";
 import { IDLE_FIDGETS, Mascot, TAP_REACTIONS } from "../ui/Mascot";
 import { PathScenery } from "../ui/PathScenery";
 import { PathWeather } from "../ui/PathWeather";
@@ -40,6 +42,35 @@ describe("a path where everything moves", () => {
     expect(IDLE_OF.sheep).toBe("graze");
     expect(IDLE_OF.kaaba).toBe("glint");
     expect(IDLE_OF.mosque).toBe("glint");
+  });
+
+  it("moves the animals far enough to see: the sheep trots about 13 px on a 64 px picture", () => {
+    const t = new Animated.Value(0);
+    const moves = idleMoves("graze", t, 64);
+    const x = moves.find((move) => "translateX" in move)?.translateX as unknown as { __getValue: () => number };
+    t.setValue(0.3);
+    expect(Math.abs(x.__getValue())).toBeGreaterThanOrEqual(12);
+    // Every animal and every thing (but the Kaaba and the mosque) has a move of its own.
+    for (const kind of ["sheep", "goat", "horse", "crab", "turtle", "rabbit", "boat", "sandcastle", "tent", "mountain", "cave"]) {
+      expect(idleMoves(idleKindFor(kind), new Animated.Value(0), 64).length).toBeGreaterThan(0);
+    }
+    expect(SLEEPERS.has("sheep")).toBe(true);
+  });
+
+  it("has a rabbit in the forest instead of the owl", () => {
+    expect(WORLD_ITEMS.forest).toContain("rabbit");
+    expect(WORLD_ITEMS.forest).not.toContain("owl");
+    expect(IDLE_OF.rabbit).toBe("hop");
+  });
+
+  it("lets the sheep keep breathing and snoring while the path sleeps", async () => {
+    await render(
+      <SceneProvider idleMs={1000}>
+        <PathScenery kind="sheep" size={64} animated tappable seed={1} />
+      </SceneProvider>
+    );
+    await run(3000);
+    expect(screen.getAllByText(/z/i).length).toBeGreaterThan(0);
   });
 
   it("lets the trees grow huge and a meteor land on the rocks, each with its own sound", () => {

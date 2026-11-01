@@ -660,7 +660,6 @@
   "It's a tie!": "সমান সমান!",
   "Nice battle!": "দারুণ খেলেছ!",
   "Sending your score...": "তোমার স্কোর পাঠানো হচ্ছে...",
-  "Share Muslimo": "Muslimo শেয়ার করো",
   "Tap a friend to battle them.": "চ্যালেঞ্জ করতে একজন বন্ধুর উপর চাপ দাও।",
   "That battle is gone": "এই চ্যালেঞ্জটা আর নেই",
   "They won {theirs} to {mine}": "ওরা {theirs}–{mine} এ জিতেছে",
@@ -693,7 +692,7 @@
   "Each unit is a new place.": "প্রতিটি ইউনিট নতুন জায়গা।",
   "Dunes, palms and camels.": "বালিয়াড়ি, খেজুর গাছ আর উট।",
   "Waves, crabs and boats.": "ঢেউ, কাঁকড়া আর নৌকা।",
-  "Pines, mushrooms and an owl.": "পাইন গাছ, মাশরুম আর একটি পেঁচা।",
+  "Pines, mushrooms and a rabbit.": "পাইন গাছ, মাশরুম আর একটি খরগোশ।",
   "Snowy peaks and goats.": "বরফে ঢাকা চূড়া আর ছাগল।",
   "Tents and horses at Badr.": "বদরে তাঁবু আর ঘোড়া।",
   "What you learn": "যা শিখবে",
@@ -715,5 +714,10 @@
   "Continue lessons": "পাঠ চালিয়ে যাও",
   "Also in {topic}: {unit}": "{topic}-এও আছে: {unit}",
   "Tap anyone to learn about them and see who taught whom. Drag or swipe to move around.": "যেকোনো নামে চাপ দাও, তাঁর সম্পর্কে শেখো আর দেখো কে কাকে শিখিয়েছেন। ঘোরাতে টেনে নাও বা সোয়াইপ করো।",
+  "{count} right in a row!": "পরপর {count}টি সঠিক!",
+  "Want it harder?": "আরও কঠিন চাও?",
+  "Tougher questions from now on. You can change it in Settings.": "এখন থেকে আরও কঠিন প্রশ্ন। সেটিংসে বদলাতে পারবে।",
+  "Yes, make it harder": "হ্যাঁ, আরও কঠিন করো",
+  "Keep it as it is": "যেমন আছে তেমনই থাক",
   "Only a drawing: Allah knows best how it truly is": "শুধু একটি আঁকা ছবি: এটি আসলে কেমন, আল্লাহই ভালো জানেন"
 }

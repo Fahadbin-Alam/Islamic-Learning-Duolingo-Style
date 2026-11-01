@@ -660,7 +660,6 @@
   "It's a tie!": "تعادل!",
   "Nice battle!": "منافسة رائعة!",
   "Sending your score...": "جارٍ إرسال نتيجتك...",
-  "Share Muslimo": "شارك Muslimo",
   "Tap a friend to battle them.": "اضغط على صديق لتنافسه.",
   "That battle is gone": "هذه المنافسة لم تعد موجودة",
   "They won {theirs} to {mine}": "فازوا {theirs} مقابل {mine}",
@@ -693,7 +692,7 @@
   "Each unit is a new place.": "كل وحدة مكان جديد.",
   "Dunes, palms and camels.": "كثبان ونخيل وجمال.",
   "Waves, crabs and boats.": "أمواج وسرطانات وقوارب.",
-  "Pines, mushrooms and an owl.": "صنوبر وفطر وبومة.",
+  "Pines, mushrooms and a rabbit.": "صنوبر وفطر وأرنب.",
   "Snowy peaks and goats.": "قمم مثلجة وماعز.",
   "Tents and horses at Badr.": "خيام وخيول في بدر.",
   "What you learn": "ما ستتعلّمه",
@@ -715,5 +714,10 @@
   "Continue lessons": "تابع الدروس",
   "Also in {topic}: {unit}": "أيضًا في {topic}: {unit}",
   "Tap anyone to learn about them and see who taught whom. Drag or swipe to move around.": "اضغط على أي اسم لتتعلّم عنه وترى من علّم من. اسحب لتتنقّل في الشجرة.",
+  "{count} right in a row!": "{count} إجابات صحيحة متتالية!",
+  "Want it harder?": "تريدها أصعب؟",
+  "Tougher questions from now on. You can change it in Settings.": "أسئلة أصعب من الآن. يمكنك تغيير ذلك من الإعدادات.",
+  "Yes, make it harder": "نعم، اجعلها أصعب",
+  "Keep it as it is": "اتركها كما هي",
   "Only a drawing: Allah knows best how it truly is": "رسم للتقريب فقط: والله أعلم بحقيقته"
 }
