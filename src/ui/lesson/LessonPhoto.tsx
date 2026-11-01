@@ -14,7 +14,11 @@ function PhotoCredit({ picture, testID }: { picture: LessonPicture; testID?: str
   if (picture.credit.drawn) {
     return (
       <Text style={[styles.credit, styles.creditTap]} numberOfLines={1} testID={testID}>
-        {t("A drawing of how it looked long ago")}
+        {picture.credit.imagined
+          ? t("Only a drawing: Allah knows best how it truly is")
+          : picture.credit.note === "thing"
+            ? t("A drawing")
+            : t("A drawing of how it looked long ago")}
       </Text>
     );
   }

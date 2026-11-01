@@ -7,6 +7,7 @@ import { Drop, Floater, Heart, Puff, Sparkle, Word, shake, useCycle, useOneShot 
 import { Snooze, useScene } from "./sceneMood";
 import { feedback } from "./sound";
 import { colors, darken, lighten } from "./theme";
+import { useTalk } from "./Mascot";
 
 export { useReduceMotion };
 
@@ -31,9 +32,18 @@ export type CamelProps = {
   home?: number;
   /** Each tap plays the next reaction (see CAMEL_REACTIONS). */
   tappable?: boolean;
+  /**
+   * What it wears when it teaches a lesson (src/ui/lesson/Teacher.tsx): "reader" round glasses and a little cap
+   * for the Quran, "traveler" a desert head-cloth for the stories of the prophets and the Companions.
+   */
+  outfit?: CamelOutfit;
+  /** Moves its mouth as if talking for this long (ms) after it shows up. */
+  talkMs?: number;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 };
+
+export type CamelOutfit = "plain" | "reader" | "traveler";
 
 const VIEW_W = 120;
 const VIEW_H = 100;
@@ -144,7 +154,51 @@ function CamelFace({ face }: { face: CamelFaceKind }) {
   );
 }
 
-function Body({ accent, face }: { accent: string; face: CamelFaceKind }) {
+/** The camel's teaching clothes, drawn over its head. */
+function CamelOutfitArt({ outfit }: { outfit: CamelOutfit }) {
+  if (outfit === "reader") {
+    return (
+      <G>
+        {/* A little white cap, and round glasses on the nose. */}
+        <Path d="M85.5 12.5 C86 4.5 92 1.6 97 1.8 C102.4 2 106.4 5.6 106.6 12 C100 9.6 92 9.8 85.5 12.5 Z" fill="#FBFBF6" stroke={colors.lineLip} strokeWidth={1.2} />
+        <Path d="M86 12.4 C92 10 100 9.8 106.6 12" stroke={colors.line} strokeWidth={1.8} fill="none" />
+        <Circle cx={96.5} cy={17} r={5} fill="#FFFFFF" fillOpacity={0.2} stroke="#3B3B46" strokeWidth={1.6} />
+        <Path d="M101.5 17.6 Q104 18.6 106.4 20.4" stroke="#3B3B46" strokeWidth={1.4} strokeLinecap="round" fill="none" />
+        <Path d="M91.5 16.4 L86.5 15" stroke="#3B3B46" strokeWidth={1.4} strokeLinecap="round" />
+      </G>
+    );
+  }
+  if (outfit === "traveler") {
+    return (
+      <G>
+        {/* A desert head-cloth over the head and down the back of the neck, held by a dark cord. */}
+        <Path d="M83 17 C83 6 91 1.6 97 1.8 C103.6 2 108.6 6.6 108.4 13.6 L104.6 13.4 C103 9.6 99.6 7.6 96 7.8 C91.4 8 88.6 11.4 88 17 L86 30 C85.6 34 82 35 80.6 32 Z" fill="#F3EEE4" />
+        <G stroke="#D2493F" strokeWidth={1} strokeLinecap="round">
+          <Path d="M88 5.6 L91.6 9" />
+          <Path d="M94 3.2 L97.4 6.6" />
+          <Path d="M100.4 3.6 L103.6 7" />
+          <Path d="M84.6 15 L87.6 17.6" />
+          <Path d="M84 22 L87 24.4" />
+        </G>
+        <Path d="M85 10.8 C90 5.2 101 4.6 107.4 9.8" stroke="#2A2833" strokeWidth={2.2} strokeLinecap="round" fill="none" />
+      </G>
+    );
+  }
+  return null;
+}
+
+/** The mouth open mid-word, over the camel's closed mouth, while it talks. */
+function CamelTalkMouth() {
+  return (
+    <Svg width="100%" height="100%" viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}>
+      <Ellipse cx={105.4} cy={29} rx={6.2} ry={3.8} fill={FUR_LIGHT} />
+      <Ellipse cx={105.4} cy={29.6} rx={3.6} ry={2.9} fill="#8A4B1E" />
+      <Ellipse cx={105.4} cy={31.2} rx={2.2} ry={1.1} fill="#FF7E8E" />
+    </Svg>
+  );
+}
+
+function Body({ accent, face, outfit = "plain" }: { accent: string; face: CamelFaceKind; outfit?: CamelOutfit }) {
   const cloth = accent;
   const clothLip = darken(accent, 0.18);
   return (
@@ -173,6 +227,7 @@ function Body({ accent, face }: { accent: string; face: CamelFaceKind }) {
       <Ellipse cx={106} cy={25} rx={9} ry={7.4} fill={FUR_LIGHT} />
       <Path d="M110.5 21.5Q112.5 22.5 111.8 24.5" stroke={FUR_DEEP} strokeWidth={1.4} strokeLinecap="round" fill="none" />
       <CamelFace face={face} />
+      <CamelOutfitArt outfit={outfit} />
     </Svg>
   );
 }
@@ -221,11 +276,14 @@ export const Camel = memo(function Camel({
   wrapWidth,
   home = 0,
   tappable = false,
+  outfit = "plain",
+  talkMs = 0,
   style,
   testID
 }: CamelProps) {
   const reduceMotion = useReduceMotion();
   const { asleep } = useScene();
+  const talk = useTalk(reduceMotion ? 0 : talkMs);
   const wraps = Boolean(wrapWidth && wrapWidth > size);
   const height = Math.round((size * VIEW_H) / VIEW_W);
   const travel = Math.max(0, range);
@@ -543,7 +601,12 @@ export const Camel = memo(function Camel({
         ))}
         </Animated.View>
         <Animated.View style={[StyleSheet.absoluteFill, { transform: [{ translateY: Animated.add(anim.bob, lieDown) }] }]}>
-          <Body accent={accent} face={faceNow} />
+          <Body accent={accent} face={faceNow} outfit={outfit} />
+          {talkMs > 0 && !reduceMotion ? (
+            <Animated.View style={[StyleSheet.absoluteFill, { opacity: talk }]} pointerEvents="none" testID="camel-talking">
+              <CamelTalkMouth />
+            </Animated.View>
+          ) : null}
         </Animated.View>
         {shows && reaction === "zoom"
           ? // Speed lines streaming off the tail while it runs.

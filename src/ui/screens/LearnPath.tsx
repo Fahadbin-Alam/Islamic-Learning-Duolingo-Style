@@ -29,7 +29,7 @@ import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathSc
 import { PathWeather, weatherFor } from "../PathWeather";
 import { WorldTuft, worldFor } from "../pathWorlds";
 import { usePathWorldChoice } from "../../services/pathWorldChoice";
-import { SceneProvider, Snooze, useScene } from "../sceneMood";
+import { QuakeView, SceneProvider, Snooze, useScene } from "../sceneMood";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
@@ -487,10 +487,17 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
       >
         <Animated.View style={shakeStyle}>
           <Animated.View style={[styles.chestArt, { transform: [{ scale: bounce }] }]}>
+            {/* A solid plate behind the chest, like the circles have, so busy scenery never swallows it. */}
+            <View style={[styles.chestPlate, ready ? styles.chestPlateReady : null]} />
             <View style={styles.groundShadow} />
-            <Animated.View style={[{ transform: [{ rotate }] }, ready ? null : chest.claimed ? styles.chestClaimed : styles.chestLocked]}>
+            <Animated.View style={{ transform: [{ rotate }] }}>
               <Icon name={chest.claimed ? "chestOpen" : "chest"} size={CHEST} />
             </Animated.View>
+            {!ready ? (
+              <View style={[styles.chestBadge, chest.claimed ? styles.chestBadgeDone : null]} pointerEvents="none">
+                <Icon name={chest.claimed ? "check" : "lock"} size={13} />
+              </View>
+            ) : null}
           </Animated.View>
         </Animated.View>
         {ready ? (
@@ -507,6 +514,22 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
 
 // ---------- node card ----------
 
+/** A review circle closes a part of a unit (a story, a group of ayahs): "Deep review", "Review", "Final quiz". */
+const PART_END = /(^|-)(review(-\d+)?|final-quiz)$/;
+
+/**
+ * The first circle of the next part, when `node` is a circle to play that is not itself a review: a test of the
+ * circles from here to the part's review lets a learner who knows the story skip to it.
+ */
+export function nextPartStart(unit: PathUnit, node: LearningNodeView): LearningNodeView | undefined {
+  if (node.status === "locked" || node.status === "completed" || PART_END.test(node.id)) return undefined;
+  const nodes = unit.items.flatMap((item) => (item.kind === "node" ? [item.node] : []));
+  const at = nodes.findIndex((item) => item.id === node.id);
+  if (at < 0) return undefined;
+  const end = nodes.findIndex((item, index) => index > at && PART_END.test(item.id));
+  return end > at ? nodes[end + 1] : undefined;
+}
+
 function NodeCard({
   item,
   color,
@@ -520,6 +543,7 @@ function NodeCard({
   onStart,
   onPremium,
   onJump,
+  onSkipPart,
   onCardLayout
 }: {
   item: Extract<PathItem, { kind: "node" }>;
@@ -536,6 +560,8 @@ function NodeCard({
   onPremium?: () => void;
   /** A locked circle whose unit can be tested out: JUMP HERE asks "Jump ahead?" for the unit. */
   onJump?: () => void;
+  /** The circle to play is the start of a part (a story, up to its review): a test can skip the whole part. */
+  onSkipPart?: () => void;
   onCardLayout: (height: number) => void;
 }) {
   const { node, arabic } = item;
@@ -577,6 +603,24 @@ function NodeCard({
         testID="node-card-start"
       />
     );
+    if (onSkipPart && node.status !== "completed") {
+      // Already know this story? A short test skips to the next part.
+      action = (
+        <>
+          {action}
+          <GameButton
+            label={t("I know this part")}
+            icon="key"
+            variant="ghost"
+            color={colors.white}
+            fullWidth
+            onPress={onSkipPart}
+            style={styles.cardSkip}
+            testID="node-card-skip-part"
+          />
+        </>
+      );
+    }
   }
 
   return (
@@ -1315,13 +1359,11 @@ export function LearnPath({
         }}
         testID={`learn-path-${topicId}`}
       >
-        <View onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
+        <QuakeView onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
           <View onLayout={(event: LayoutChangeEvent) => setHeaderH(event.nativeEvent.layout.height)}>{header}</View>
           <NightSky top={headerH} bottom={-bottomPadding} />
           {layout.byUnit.map((group) => {
             const { unit, color, rows, premium } = group;
-            // Only units near the circle to play next move their pictures: the rest stay still to spare cheap phones.
-            const nearCurrent = currentUnitIndex < 0 ? group.unitIndex < 2 : Math.abs(group.unitIndex - currentUnitIndex) <= 1;
             const unitDone = unit.total > 0 && unit.done >= unit.total;
             const holdsOpen = openRow?.group.unit.id === unit.id;
             const unitLive = holdsOpen || isLive(group.unitIndex);
@@ -1336,7 +1378,7 @@ export function LearnPath({
                 }}
               >
                 {unitLive ? (
-                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
+                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={unitLive} meteor={group.unitIndex === Math.max(0, currentUnitIndex)} />
                 ) : null}
                 <UnitBanner
                   unit={unit}
@@ -1384,7 +1426,7 @@ export function LearnPath({
                         {pictures && unitLive ? (
                           <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none">
                             <View style={styles.decorShadow} pointerEvents="none" />
-                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} tappable seed={group.unitIndex * 7 + index} />
+                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={unitLive} tappable seed={group.unitIndex * 7 + index} />
                           </View>
                         ) : null}
                         {unitLive && !pictures && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (
@@ -1457,6 +1499,15 @@ export function LearnPath({
                                     }
                                   : undefined
                               }
+                              onSkipPart={(() => {
+                                const target = onTestOut ? nextPartStart(unit, (row.item as { node: LearningNodeView }).node) : undefined;
+                                return target && jumpNodeIds?.has(target.id) && !unit.premiumLocked
+                                  ? () => {
+                                      open(undefined);
+                                      askTestOut(unit.id, target.id);
+                                    }
+                                  : undefined;
+                              })()}
                               onCardLayout={(cardHeight) => onCardLayout(row.key, unit, top, cardHeight)}
                             />
                           </View>
@@ -1471,7 +1522,7 @@ export function LearnPath({
           {units.length > 0 ? (
             <PathEnd done={topicDone} color={accent} mascotVariant={mascotVariant} width={width} onNextTopic={onNextTopic} />
           ) : null}
-        </View>
+        </QuakeView>
       </ScrollView>
       {sticky ? (
         <StickyBanner
@@ -1510,6 +1561,9 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: colors.snow
+  },
+  cardSkip: {
+    marginTop: 6
   },
   nightSky: {
     position: "absolute",
@@ -1682,11 +1736,35 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: withAlpha(colors.ink, 0.08)
   },
-  chestLocked: {
-    opacity: 0.5
+  chestPlate: {
+    position: "absolute",
+    width: CHEST + 18,
+    height: CHEST + 18,
+    borderRadius: (CHEST + 18) / 2,
+    backgroundColor: colors.white,
+    borderWidth: 3,
+    borderColor: colors.line,
+    borderBottomWidth: 6
   },
-  chestClaimed: {
-    opacity: 0.45
+  chestPlateReady: {
+    backgroundColor: "#FFF6D6",
+    borderColor: "#F5B700"
+  },
+  chestBadge: {
+    position: "absolute",
+    right: -4,
+    bottom: -2,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.line
+  },
+  chestBadgeDone: {
+    borderColor: colors.green
   },
   sparkle: {
     position: "absolute"

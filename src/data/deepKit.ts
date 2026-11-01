@@ -38,7 +38,8 @@ export interface DeepUnit {
   lessons: DeepLesson[];
 }
 
-export function hadith(book: HadithBook, number: string, narrator: string, grade: string, summary: string): LessonSource {
+/** A hadith on sunnah.com. `highlight` is a phrase of its English text, so the link opens with those words lit up. */
+export function hadith(book: HadithBook, number: string, narrator: string, grade: string, summary: string, highlight?: string): LessonSource {
   const names: Record<HadithBook, [string, string]> = { bukhari: ["Sahih al-Bukhari", "Imam al-Bukhari"], muslim: ["Sahih Muslim", "Imam Muslim"], tirmidhi: ["Jami at-Tirmidhi", "Imam at-Tirmidhi"], abudawud: ["Sunan Abi Dawud", "Imam Abu Dawud"], ibnmajah: ["Sunan Ibn Majah", "Imam Ibn Majah"], nasai: ["Sunan an-Nasa'i", "Imam an-Nasa'i"] };
   const [collection, collector] = names[book];
   // "3667, 3668": one hadith sunnah.com shows under two numbers; the link goes to the last one, as the reference ends with it.
@@ -52,7 +53,8 @@ export function hadith(book: HadithBook, number: string, narrator: string, grade
     reference: `${collection} ${number}`,
     from: `${narrator}; collected by ${collector}`,
     grade,
-    summary
+    summary,
+    ...(highlight ? { highlight } : {})
   };
 }
 

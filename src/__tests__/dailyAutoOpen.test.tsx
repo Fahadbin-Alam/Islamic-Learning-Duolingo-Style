@@ -78,3 +78,21 @@ describe("ayah and hadith of the day on opening the app", () => {
     expect(playAyah).not.toHaveBeenCalled();
   });
 });
+
+describe("the card opens by itself twice a day at most", () => {
+  const { dailyAutoDue, markDailyShown } = require("../data/dailyCard") as typeof import("../data/dailyCard");
+  const morning = new Date(2026, 10, 1, 8, 0);
+  const at = (hours: number) => new Date(morning.getTime() + hours * 3600000);
+
+  it("opens on the first open of the day, again four hours later, then not again that day", () => {
+    expect(dailyAutoDue(undefined, morning)).toBe(true);
+    const once = markDailyShown(undefined, morning);
+    expect(dailyAutoDue(once, at(1))).toBe(false);
+    expect(dailyAutoDue(once, at(4))).toBe(true);
+    const twice = markDailyShown(once, at(4));
+    expect(twice.count).toBe(2);
+    expect(dailyAutoDue(twice, at(10))).toBe(false);
+    // A new day starts over.
+    expect(dailyAutoDue(twice, at(24))).toBe(true);
+  });
+});

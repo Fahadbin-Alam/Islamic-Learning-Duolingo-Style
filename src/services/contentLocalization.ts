@@ -102,10 +102,8 @@ export function translateStudyText(text: string, language: SupportedLanguage) {
   return translated === trimmed ? text : translated;
 }
 
-function localizeSourceUrl(url: string, site: LessonSource["site"], language: SupportedLanguage) {
-  if (language === "en" || site === "YouTube") {
-    return url;
-  }
-
-  return `https://translate.google.com/translate?sl=auto&tl=${language}&u=${encodeURIComponent(url)}`;
+// Source links always open the English page (Fahad, 2026-11-01): the tafsir and hadith are read in English, at the
+// highlighted line, never through a machine translation that loses the highlight and garbles the wording.
+function localizeSourceUrl(url: string, _site: LessonSource["site"], _language: SupportedLanguage) {
+  return url;
 }

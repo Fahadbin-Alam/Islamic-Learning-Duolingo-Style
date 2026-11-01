@@ -135,6 +135,13 @@ function shownChallenge(challenges: Challenge[]) {
   );
 }
 
+/** CONTINUE through learn pages until a question shows. */
+async function toQuestion() {
+  for (let page = 0; page < 12 && screen.queryByTestId("learn-continue") && !screen.queryByTestId("exercise-view"); page += 1) {
+    await press("learn-continue");
+  }
+}
+
 async function answer(challenge: Challenge, right: boolean) {
   const pick = right ? challenge.correctChoiceId : challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)!.id;
   await press(`choice-${pick}`);
@@ -148,7 +155,7 @@ describe("TopicApp lesson flow", () => {
     clearActiveAssessment();
   });
 
-  it("brings a missed question back once at the end, with no free retry in between, and rates the stars", async () => {
+  it("teaches a page, asks, teaches, asks, then quizzes the circle; a quiz miss comes back at the end", async () => {
     const user = makeUser({ hearts: { current: 5, max: 5, unlimited: true, lastRefillDate: "2026-10-19" } });
     seedUser(user);
     const node = learningApi.getPathNodes(user).find((item) => item.topicId === "foundation" && item.status === "current")!;
@@ -159,13 +166,18 @@ describe("TopicApp lesson flow", () => {
     await renderApp();
     await press(`path-node-${node.id}`);
     await press("node-card-start");
-    await screen.findByTestId("learn-card");
-    await press("learn-continue");
+    // The first page: the lesson's line, no question yet.
+    expect(await screen.findByTestId("learn-card")).toBeTruthy();
+    expect(screen.queryByTestId("exercise-view")).toBeNull();
+    await toQuestion();
 
     const first = shownChallenge(challenges)!;
     expect(first.id).toBe(challenges[0].id);
     await answer(first, false);
 
+    // Never two questions in a row while learning: a page comes between them.
+    expect(screen.getByTestId("learn-card")).toBeTruthy();
+    await toQuestion();
     // The next question, not the one just missed.
     const second = shownChallenge(challenges)!;
     expect(second.id).toBe(challenges[1].id);
@@ -173,11 +185,23 @@ describe("TopicApp lesson flow", () => {
     await answer(second, true);
 
     for (const challenge of challenges.slice(2)) {
+      await toQuestion();
       expect(shownChallenge(challenges)!.id).toBe(challenge.id);
       await answer(challenge, true);
     }
 
-    // The missed one comes back at the end as a new try.
+    // Quiz time: every question of the circle once more, in order.
+    expect(screen.getByTestId("learn-quiz")).toBeTruthy();
+    await press("learn-continue");
+    expect(shownChallenge(challenges)!.id).toBe(first.id);
+    expect(screen.queryByText("Try again!")).toBeNull();
+    await answer(first, false);
+    for (const challenge of challenges.slice(1)) {
+      expect(shownChallenge(challenges)!.id).toBe(challenge.id);
+      await answer(challenge, true);
+    }
+
+    // The quiz's miss comes back at the end as a new try.
     expect(shownChallenge(challenges)!.id).toBe(first.id);
     expect(screen.getByText("Try again!")).toBeTruthy();
     await answer(first, true);

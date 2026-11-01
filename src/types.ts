@@ -23,7 +23,7 @@ export type CharacterVariant = "hijabi" | "muslim_man";
 export type ChallengeType = "multiple_choice" | "true_false";
 export type ResourceValidationStatus = "exact_match" | "strong_support" | "weak_support" | "needs_review";
 export type ResourceSupportType = "primary" | "support";
-export type LessonSourceSite = "Quran.com" | "Sunnah.com" | "YouTube" | "Yaqeen Institute" | "IslamQA" | "King Faisal Prize" | "Tarajm" | "Shamela";
+export type LessonSourceSite = "Quran.com" | "Sunnah.com" | "YouTube" | "Yaqeen Institute" | "IslamQA" | "King Faisal Prize" | "Tarajm" | "Shamela" | "Hanbali Disciples";
 export type LessonSourceCategory = "tafsir" | "hadith" | "video" | "biography" | "article" | "beginner_explainer";
 
 export type LearningNodeStatus = "locked" | "available" | "current" | "completed";
@@ -244,6 +244,11 @@ export interface UserProfile {
   reviewCards?: ReviewCard[];
   /** How hard lessons are (Settings): "auto" climbs with the streak and lessons done (src/data/challengeLevel.ts). */
   difficulty?: DifficultyChoice;
+  /**
+   * Steps harder than `difficulty` gives, one for each "Yes, harder!" to "Want it harder?" in a lesson (0 to 5).
+   * Picking a difficulty in Settings starts it again from 0.
+   */
+  challengeBoost?: number;
 }
 
 /** Lesson difficulty as the learner picks it in Settings; unset is "auto". */

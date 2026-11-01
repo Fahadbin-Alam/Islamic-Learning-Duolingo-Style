@@ -84,7 +84,7 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   each (`src/ui/worldShows.tsx`). The kid fidgets by itself every few seconds (looks around, sways,
   hops, waves, stretches). Places (`src/ui/pathWorlds.tsx`): each unit walks through a place, with a
   strip along its bottom and that place's pictures beside the path: the desert, a beach (waves rolling
-  in, crab, sandcastle, boat, shell, turtle), a forest (pines, mushroom, owl, log), snowy mountains
+  in, crab, sandcastle, boat, shell, turtle), a forest (pines, mushroom, rabbit, log), snowy mountains
   (goat, cave, falling snow) and, on the Sahabah path, the camp at Badr (tents, horse, plain green
   banner, shield, the wells; nothing about the fighting). Settings > Path scenery picks one place for
   every unit, or Mix (the default: each unit is the next place). The topic's own picture (the book

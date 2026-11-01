@@ -6,10 +6,15 @@ import { useReduceMotion } from "./Camel";
 import { Icon, type IconName } from "./Icon";
 import { smoothKeys } from "./motion";
 import { Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
+import { IDLE_PERIOD, IdleBits, SLEEPERS, idleKindFor, idleMoves, useIdleClock } from "./idleLife";
+import { useScene } from "./sceneMood";
 import { ShowScenery, WellBucket, hasShows } from "./sceneryShows";
 import { feedback, playUi } from "./sound";
 import { WorldDrawing, isWorldKind, type WorldKind } from "./worldArt";
 import { WORLD_ITEMS, type PathWorld } from "./pathWorlds";
+
+/** Pictures that stay still while the path sleeps. */
+const STILL_ASLEEP = new Set(["mosque", "kaaba"]);
 
 /**
  * Pictures that stand beside the path, picked by topic so the path looks like what is being learned.
@@ -571,7 +576,31 @@ export type PathSceneryProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-export const PathScenery = memo(function PathScenery({ kind, size = 64, animated = false, tappable = false, seed = 0, style }: PathSceneryProps) {
+/**
+ * A picture beside the path. Near the learner every picture also moves a little by itself (see
+ * idleLife.tsx), and everything rests while the path is asleep.
+ */
+export const PathScenery = memo(function PathScenery(props: PathSceneryProps) {
+  const { kind, size = 64, animated = false, seed = 0, style } = props;
+  const reduceMotion = useReduceMotion();
+  const { asleep } = useScene();
+  // While the path sleeps, animals snore and the rest breathe slowly; the Kaaba and the mosque rest.
+  const resting = asleep && !STILL_ASLEEP.has(kind);
+  const idle = asleep ? (SLEEPERS.has(kind) ? "sleep" : "breathe") : idleKindFor(kind);
+  const live = animated && !reduceMotion && (!asleep || resting);
+  const t = useIdleClock(live, (asleep ? IDLE_PERIOD.sleep : IDLE_PERIOD[idle]) + (seed % 5) * 260, seed);
+  return (
+    <Animated.View
+      pointerEvents="box-none"
+      style={[{ width: size, height: size, transformOrigin: "bottom", transform: live ? (idleMoves(idle, t, size) as never[]) : [] }, style]}
+    >
+      <SceneryBody {...props} style={undefined} />
+      {live ? <IdleBits kind={idle} t={t} size={size} /> : null}
+    </Animated.View>
+  );
+});
+
+const SceneryBody = memo(function SceneryBody({ kind, size = 64, animated = false, tappable = false, seed = 0, style }: PathSceneryProps) {
   const reduceMotion = useReduceMotion();
   const sways = animated && !reduceMotion && SWAYS.has(kind);
   const sway = useRef(new Animated.Value(0)).current;
