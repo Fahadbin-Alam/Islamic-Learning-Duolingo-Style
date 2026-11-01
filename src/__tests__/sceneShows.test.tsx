@@ -4,7 +4,7 @@ import { playGameSound } from "../services/gameAudio";
 import { GAME_SOUND_EVENTS } from "../services/gameSoundLibrary";
 import { Camel } from "../ui/Camel";
 import { PathScenery } from "../ui/PathScenery";
-import { BIRD_SHOWS, PathWeather } from "../ui/PathWeather";
+import { BIRD_SHOWS, MOON_PHASES, PathWeather } from "../ui/PathWeather";
 import { IDLE_MS, SceneProvider, useScene } from "../ui/sceneMood";
 import { SCENERY_SHOWS, type ShowKind } from "../ui/sceneryShows";
 
@@ -89,6 +89,12 @@ describe("home path shows", () => {
     expect(lastSound()).toBe("night");
     expect(screen.getByTestId("is-night")).toBeTruthy();
     await run(1200);
+    // The moon shows its phases (full, gibbous, half) before the day comes back.
+    for (let tap = 1; tap < MOON_PHASES.length; tap += 1) {
+      await fireEvent.press(screen.getByLabelText("moon"));
+      expect(screen.getByTestId("is-night")).toBeTruthy();
+      await run(800);
+    }
     await fireEvent.press(screen.getByLabelText("moon"));
     expect(screen.queryByTestId("is-night")).toBeNull();
     expect(screen.getByLabelText("sun")).toBeTruthy();

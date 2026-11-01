@@ -8,6 +8,8 @@ import { smoothKeys } from "./motion";
 import { Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
 import { ShowScenery, WellBucket, hasShows } from "./sceneryShows";
 import { feedback, playUi } from "./sound";
+import { WorldDrawing, isWorldKind, type WorldKind } from "./worldArt";
+import { WORLD_ITEMS, type PathWorld } from "./pathWorlds";
 
 /**
  * Pictures that stand beside the path, picked by topic so the path looks like what is being learned.
@@ -30,12 +32,13 @@ export type SceneryKind =
   | "oasis"
   | "rocks"
   | "dates"
-  | "bush";
+  | "bush"
+  | WorldKind;
 
 const ICON_KINDS: Partial<Record<SceneryKind, IconName>> = { mosque: "mosque", kaaba: "kaaba", coins: "coins" };
 
 /** Plants sway in the wind; everything else stands still. */
-const SWAYS: ReadonlySet<SceneryKind> = new Set<SceneryKind>(["palm", "flowers", "bush"]);
+const SWAYS: ReadonlySet<SceneryKind> = new Set<SceneryKind>(["palm", "flowers", "bush", "pine", "banner"]);
 
 const THEMES: Record<string, SceneryKind[]> = {
   quran_tafseer: ["bookStand", "palm", "oasis", "flowers", "dunes", "sheep", "rocks", "well"],
@@ -60,9 +63,24 @@ const THEMES: Record<string, SceneryKind[]> = {
 
 const DEFAULT_THEME: SceneryKind[] = ["palm", "well", "dunes", "sheep", "flowers", "mountain", "oasis", "bush"];
 
-/** The picture for a unit's `slot`-th spot beside the path, by topic. Next spots never repeat a picture. */
-export function sceneryFor(topicId: string, unitIndex: number, slot: number): SceneryKind {
+/** A topic's own picture (the book stand for Quran...), kept as the first picture in every place. */
+const SIGNATURES: ReadonlySet<SceneryKind> = new Set<SceneryKind>(["bookStand", "inkpot", "mosque", "kaaba", "coins"]);
+
+/**
+ * The picture for a unit's `slot`-th spot beside the path, by topic and place (see pathWorlds.tsx).
+ * Next spots never repeat a picture.
+ */
+export function sceneryFor(topicId: string, unitIndex: number, slot: number, world: PathWorld = "desert"): SceneryKind {
   const theme = THEMES[topicId] ?? DEFAULT_THEME;
+  if (world !== "desert") {
+    const signature = theme[0];
+    const items = WORLD_ITEMS[world] as SceneryKind[];
+    if (SIGNATURES.has(signature)) {
+      if (slot === 0) return signature;
+      return items[(unitIndex * 3 + slot - 1) % items.length];
+    }
+    return items[(unitIndex * 3 + slot) % items.length];
+  }
   // Each unit starts a few pictures on, so the units of a long topic don't all open with the same one.
   return theme[(unitIndex * 3 + slot) % theme.length];
 }
@@ -83,6 +101,7 @@ const PAGE = "#FFFFFF";
 const INK = "#1F2D27";
 
 function Drawing({ kind }: { kind: SceneryKind }) {
+  if (isWorldKind(kind)) return <WorldDrawing kind={kind} />;
   switch (kind) {
     case "palm":
       return (
