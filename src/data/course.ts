@@ -1,4 +1,5 @@
 import { buildExpandedContent, chainCourse, withoutGiveaways } from "./scalableCurriculum";
+import { applySourceHighlights } from "./sourceHighlights";
 import { mergeImportedNotes } from "./importedNotes";
 import { arrangeUnits } from "./unitPlans";
 import { LESSON_SOURCES, QUESTION_SOURCES } from "./questionSources";
@@ -3969,6 +3970,9 @@ const expandedContent = {
     })
   )
 };
+
+// Sources open at the words on their page that say the lesson's fact.
+applySourceHighlights(Object.values(expandedContent.lessonsById));
 
 export const COURSE = expandedContent.course;
 export const LESSONS_BY_ID = expandedContent.lessonsById;
