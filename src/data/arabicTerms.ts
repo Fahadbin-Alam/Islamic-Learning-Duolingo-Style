@@ -159,7 +159,6 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // The imported women, one unit per theme (src/data/importedNotes.ts); the Mothers of the Believers from the
   // notes are taught in "women-mothers" (src/data/unitPlans.ts).
   "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-1": { ar: "الأمهات", translit: "Al-ummahat", meaning: "Mothers" },
-  "notes-women-of-the-book-mothers-of-the-believers-from-your-notes-3": { ar: "آل علي", translit: "Al Ali", meaning: "Ali's family" },
 
   // Hadith: sayings for children first, then the imported hadith for young children (src/data/importedNotes.ts)
   "hadith-for-kids": { ar: "أحاديث للأطفال", translit: "Ahadith lil-atfal", meaning: "Hadith for children" },
