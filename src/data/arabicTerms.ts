@@ -173,6 +173,13 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "hajj-in-depth": { ar: "حجة الوداع", translit: "Hajjat al-wada'", meaning: "The Farewell Hajj" },
   "eid-two-eids": { ar: "العيدان", translit: "Al-'idan", meaning: "The two Eids" },
   "eid-special-days": { ar: "الأيام الفاضلة", translit: "Al-ayyam al-fadilah", meaning: "The blessed days" },
+  // The Seerah units in the prophets topic (src/data/seerahUnits.ts)
+  "seerah-early-life": { ar: "النشأة", translit: "An-nash'ah", meaning: "The early years" },
+  "seerah-revelation": { ar: "بدء الوحي", translit: "Bad' al-wahy", meaning: "The start of revelation" },
+  "seerah-makkah-call": { ar: "الدعوة في مكة", translit: "Ad-da'wah fi Makkah", meaning: "The call in Makkah" },
+  "seerah-taif": { ar: "الطائف", translit: "At-Ta'if", meaning: "Ta'if" },
+  "seerah-isra-miraj": { ar: "الإسراء والمعراج", translit: "Al-Isra wal-Mi'raj", meaning: "The Night Journey and Ascension" },
+  "seerah-hijrah": { ar: "الهجرة", translit: "Al-Hijrah", meaning: "The migration" },
   // The Day of Judgment topic (src/data/akhirahUnits.ts)
   "akhirah-last-day": { ar: "الإيمان باليوم الآخر", translit: "Al-iman bil-yawm al-akhir", meaning: "Faith in the Last Day" },
   "akhirah-minor-signs": { ar: "أشراط الساعة الصغرى", translit: "Ashrat as-sa'ah as-sughra", meaning: "The small signs of the Hour" },
@@ -676,6 +683,7 @@ const LEARN_FORMS = [
   "الْيَوْمُ الْآخِرُ", "الْإِيمَانُ بِالْيَوْمِ الْآخِرِ", "أَشْرَاطُ السَّاعَةِ الصُّغْرَى", "أَشْرَاطُ السَّاعَةِ الْكُبْرَى",
   "الْمَوْتُ وَالْقَبْرُ", "النَّفْخُ فِي الصُّورِ وَالْحَشْرُ", "الْحِسَابُ وَالْمِيزَانُ", "الشَّفَاعَةُ وَالْحَوْضُ",
   "الصِّرَاطُ", "الْجَنَّةُ", "جَهَنَّمُ", "الِاسْتِعْدَادُ لِلْآخِرَةِ",
+  "النَّشْأَةُ", "بَدْءُ الْوَحْيِ", "الدَّعْوَةُ فِي مَكَّةَ", "الطَّائِفُ", "الْإِسْرَاءُ وَالْمِعْرَاجُ", "الْهِجْرَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
