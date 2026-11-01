@@ -19,7 +19,7 @@ const LAST_DAY: DeepUnit = {
       slug: "pillar",
       title: "A pillar of faith",
       line: "Faith in the Last Day is a pillar of iman.",
-      facts: ["Jibril asked the Prophet ﷺ", "Allah, angels, books, messengers", "The Last Day and the decree"],
+      facts: ["Jibril came looking like a man and asked the Prophet ﷺ about iman.", "Iman has six pillars: Allah, His angels, His books, His messengers, the Last Day and the decree.", "So believing in the Last Day is one of the six pillars."],
       source: hadith("muslim", "8a", "Umar ibn al-Khattab", "Sahih", "Jibril came as a man in white and asked about iman; the Prophet ﷺ said: to believe in Allah, His angels, His books, His messengers, the Last Day, and the decree, the good of it and the bad of it."),
       difficulty: 2,
       questions: [

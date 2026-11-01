@@ -21,6 +21,7 @@ import type { LessonPicture } from "../../data/lessonPictures";
 import { LessonPhoto } from "./LessonPhoto";
 import { SurahCover, SurahParts } from "./SurahCover";
 import { splitLessonFacts } from "./lessonNotes";
+import { highlightPieces, type LearnPageKind, type TeachLesson } from "./lessonPages";
 
 export type LearnCardProps = {
   /** Lesson title, e.g. "As-Salamu Alaikum". Hidden when it only repeats the Arabic word's transliteration. */
@@ -69,6 +70,22 @@ export type LearnCardProps = {
    * taught in are listed under "Inside this surah".
    */
   surah?: { number: number; meaning?: string; parts?: string[] };
+  /**
+   * One page of the lesson (src/ui/lesson/lessonPages.ts): "start" is the title, the word, the line, the photo and the
+   * ayah; "facts" is What you learn with what the source says; "meaning", "story" and "takeaway" are the deeper
+   * lesson's parts; "teach" is one Good to know fact; "quiz" says the circle's quiz starts. Unset: everything at once.
+   */
+  page?: LearnPageKind;
+  /** What the source says, in one sentence: shown on the "facts" page under the points. */
+  summary?: string;
+  /** Words to highlight on the page: the answers this lesson's questions ask for. */
+  marks?: string[];
+  /** The "teach" page's fact. */
+  teach?: TeachLesson;
+  /** How many questions the "quiz" page announces. */
+  quizCount?: number;
+  /** The source's link and credits show on this page (the "facts" page, or the first page without one). */
+  sourceHere?: boolean;
   onContinue: () => void;
   bottomInset?: number;
   testID?: string;
@@ -141,10 +158,18 @@ export function LearnCard({
   picture,
   deeper,
   surah,
+  page,
+  summary,
+  marks = [],
+  teach,
+  quizCount,
+  sourceHere,
   onContinue,
   bottomInset,
   testID = "learn-card"
 }: LearnCardProps) {
+  const all = !page;
+  const at = (kind: LearnPageKind) => all || page === kind;
   const palette = topicPalette(accent);
   const onPlayAudio = arabicRecitation ? () => playAyah(arabicRecitation, { once: true }) : speak;
   const playback = useAyahPlayback();
@@ -194,22 +219,30 @@ export function LearnCard({
     <View style={styles.root} testID={testID}>
       <View style={styles.scrollBox}>
         <ScrollView ref={ref} style={styles.scroll} contentContainerStyle={[styles.content, short ? styles.contentShort : null]} {...scrollProps}>
+          {/* Every page after the first names its lesson, small, above what it teaches. */}
+          {!all && page !== "start" && page !== "quiz" ? (
+            <Text style={styles.pageEyebrow} numberOfLines={2} testID="learn-page-title">
+              {withHonorifics(noBreakHyphens(page === "teach" ? t("Good to know") : title))}
+            </Text>
+          ) : null}
+          {page === "teach" && teach ? <TeachPage teach={teach} marks={marks} palette={palette} mascotVariant={mascotVariant} accent={accent} short={short} /> : null}
+          {page === "quiz" ? <QuizPage count={quizCount} mascotVariant={mascotVariant} accent={accent} short={short} /> : null}
           {/* A surah's own lesson opens on a picture of what its name means. */}
-          {surah ? <SurahCover surah={surah.number} meaning={surah.meaning ?? arabic?.meaning} arabicName={arabic?.ar} short={short} /> : null}
+          {surah && at("start") ? <SurahCover surah={surah.number} meaning={surah.meaning ?? arabic?.meaning} arabicName={arabic?.ar} short={short} /> : null}
           {/* NEW marks a new word, so it only shows with one the learner has not met yet. */}
-          {arabic && isNewWord ? (
+          {arabic && isNewWord && at("start") ? (
             <PopIn style={styles.newPill}>
               <Icon name="sparkle" size={16} color={GOLD_INK} />
               <Text style={styles.newText}>{t("NEW")}</Text>
             </PopIn>
           ) : null}
-          {showTitle ? (
+          {showTitle && at("start") ? (
             <Text style={[styles.title, short ? styles.titleShort : null]} accessibilityRole="header">
               {withHonorifics(noBreakHyphens(title))}
             </Text>
           ) : null}
 
-          {arabic ? (
+          {arabic && at("start") ? (
             <PopIn delay={120} style={[styles.cardWrap, short ? styles.cardWrapShort : null]}>
               <View style={[styles.cardLip, { backgroundColor: palette.soft }]} />
               <View
@@ -269,7 +302,7 @@ export function LearnCard({
             </PopIn>
           ) : null}
 
-          {arabic || rich ? (
+          {!at("start") ? null : arabic || rich ? (
             <View style={[styles.talkRow, short ? styles.talkRowShort : null]}>
               <Mascot variant={mascotVariant} mood={arabic ? "happy" : "wave"} accent={accent} size={short ? (rich ? 52 : 64) : rich ? 68 : 92} />
               <SlideIn delay={320} style={styles.bubbleWrap}>
@@ -291,9 +324,9 @@ export function LearnCard({
           )}
 
           {/* Under the mascot's line, so the line the lesson teaches stays in view on small phones. */}
-          {picture ? <LessonPhoto picture={picture} short={short} delay={380} /> : null}
+          {picture && at("start") ? <LessonPhoto picture={picture} short={short} delay={380} /> : null}
 
-          {notes.points.length > 0 ? (
+          {notes.points.length > 0 && at("facts") ? (
             // The facts read as a short lesson: a heading, then each fact as its own numbered line.
             <PopIn delay={420} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
               <View style={[styles.notes, { borderColor: palette.soft }]} testID="learn-facts">
@@ -310,7 +343,7 @@ export function LearnCard({
                     </View>
                     <Text style={[styles.noteText, short ? styles.noteTextShort : null]}>
                       {point.key ? <Text style={styles.noteKey}>{`${point.key}: `}</Text> : null}
-                      {withHonorifics(noBreakHyphens(point.text))}
+                      <Marked text={noBreakHyphens(point.text)} marks={marks} />
                     </Text>
                   </View>
                 ))}
@@ -318,7 +351,18 @@ export function LearnCard({
             </PopIn>
           ) : null}
 
-          {quoteText ? (
+          {page === "facts" && summary?.trim() ? (
+            <PopIn delay={notes.points.length ? 520 : 200} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
+              <View style={[styles.summary, { backgroundColor: palette.light, borderColor: palette.soft }]} testID="learn-summary">
+                <Text style={[styles.deeperLabel, { color: palette.ink }]}>{t("What the source says")}</Text>
+                <Text style={[styles.deeperText, styles.summaryText]}>
+                  <Marked text={noBreakHyphens(summary.trim())} marks={marks} />
+                </Text>
+              </View>
+            </PopIn>
+          ) : null}
+
+          {quoteText && at("start") ? (
             <PopIn delay={460} from="up" style={[styles.quoteWrap, short ? styles.quoteWrapShort : null]}>
               <View style={[styles.quote, { borderColor: palette.soft }]} testID="learn-quote">
                 <View style={[styles.quoteBar, { backgroundColor: palette.main }]} />
@@ -376,12 +420,14 @@ export function LearnCard({
             </PopIn>
           ) : null}
 
-          {surah?.parts?.length ? <SurahParts parts={surah.parts} accent={accent} short={short} /> : null}
+          {surah?.parts?.length && (all || sourceHere) ? <SurahParts parts={surah.parts} accent={accent} short={short} /> : null}
 
-          {deeper ? <DeeperLesson deeper={deeper} palette={palette} short={short} onOpen={openSource} /> : null}
+          {deeper && (all || page === "meaning" || page === "story" || page === "takeaway") ? (
+            <DeeperLesson deeper={deeper} palette={palette} short={short} onOpen={openSource} part={all ? undefined : (page as "meaning" | "story" | "takeaway")} marks={marks} />
+          ) : null}
 
           {/* Where it is from, at the end of the lesson: the source's link, then who told it and its grade. */}
-          {(source && !linkedReference) || (credits && !linkedReference) ? (
+          {(all || sourceHere) && ((source && !linkedReference) || (credits && !linkedReference)) ? (
             <PopIn delay={480} style={[styles.sourceWrap, short ? styles.sourceWrapShort : null]}>
               <Text style={styles.sourceLabel}>{t("Source")}</Text>
               {source && !linkedReference ? (
@@ -423,44 +469,61 @@ function DeeperLesson({
   deeper,
   palette,
   short,
-  onOpen
+  onOpen,
+  part,
+  marks = []
 }: {
   deeper: NonNullable<LearnCardProps["deeper"]>;
   palette: ReturnType<typeof topicPalette>;
   short: boolean;
   onOpen: (url: string) => void;
+  /** Only this part, on its own page; unset shows all of it. */
+  part?: "meaning" | "story" | "takeaway";
+  marks?: string[];
 }) {
-  const meaning = deeper.meaning.map((line) => line.trim()).filter(Boolean);
-  const chips = deeper.sources.filter((each) => each.reference?.trim() && each.url);
+  const meaning = part && part !== "meaning" ? [] : deeper.meaning.map((line) => line.trim()).filter(Boolean);
+  const hasStory = Boolean(deeper.story?.trim());
+  const hasTakeaway = Boolean(deeper.takeaway?.trim());
+  const showStory = hasStory && (!part || part === "story");
+  const showTakeaway = hasTakeaway && (!part || part === "takeaway");
+  // The tafsir books go on the last page of the deeper lesson.
+  const lastPart = hasTakeaway ? "takeaway" : hasStory ? "story" : "meaning";
+  const chips = !part || part === lastPart ? deeper.sources.filter((each) => each.reference?.trim() && each.url) : [];
   return (
     <PopIn delay={500} from="up" style={[styles.deeper, short ? styles.deeperShort : null, { borderColor: palette.soft }]}>
       <View testID="learn-deeper">
-        <View style={styles.deeperHead}>
-          <Icon name="bookOpen" size={20} color={palette.ink} />
-          <Text style={[styles.deeperTitle, { color: palette.ink }]} accessibilityRole="header">
-            {t("What it means")}
-          </Text>
-        </View>
+        {meaning.length ? (
+          <View style={styles.deeperHead}>
+            <Icon name="bookOpen" size={20} color={palette.ink} />
+            <Text style={[styles.deeperTitle, { color: palette.ink }]} accessibilityRole="header">
+              {t("What it means")}
+            </Text>
+          </View>
+        ) : null}
         {meaning.map((line, index) => (
           <View key={`${index}-${line}`} style={styles.deeperRow}>
             <View style={[styles.deeperDot, { backgroundColor: palette.main }]} />
-            <Text style={styles.deeperText} testID="learn-deeper-meaning">
-              {withHonorifics(noBreakHyphens(line))}
+            <Text style={[styles.deeperText, part ? styles.pagedText : null]} testID="learn-deeper-meaning">
+              <Marked text={noBreakHyphens(line)} marks={marks} />
             </Text>
           </View>
         ))}
-        {deeper.story?.trim() ? (
-          <View style={[styles.deeperStory, { backgroundColor: palette.light }]} testID="learn-deeper-story">
+        {showStory ? (
+          <View style={[styles.deeperStory, part ? styles.deeperFirst : null, { backgroundColor: palette.light }]} testID="learn-deeper-story">
             <Text style={[styles.deeperLabel, { color: palette.ink }]}>{t("The story")}</Text>
-            <Text style={styles.deeperText}>{withHonorifics(noBreakHyphens(deeper.story.trim()))}</Text>
+            <Text style={[styles.deeperText, part ? styles.pagedText : null]}>
+              <Marked text={noBreakHyphens(deeper.story!.trim())} marks={marks} />
+            </Text>
           </View>
         ) : null}
-        {deeper.takeaway?.trim() ? (
-          <View style={styles.deeperTake} testID="learn-deeper-takeaway">
+        {showTakeaway ? (
+          <View style={[styles.deeperTake, part ? styles.deeperFirst : null]} testID="learn-deeper-takeaway">
             <Icon name="sparkle" size={18} color={GOLD_INK} />
             <View style={styles.deeperTakeBody}>
               <Text style={[styles.deeperLabel, { color: GOLD_INK }]}>{t("Take home")}</Text>
-              <Text style={styles.deeperText}>{withHonorifics(noBreakHyphens(deeper.takeaway.trim()))}</Text>
+              <Text style={[styles.deeperText, part ? styles.pagedText : null]}>
+                <Marked text={noBreakHyphens(deeper.takeaway!.trim())} marks={marks} />
+              </Text>
             </View>
           </View>
         ) : null}
@@ -486,6 +549,104 @@ function DeeperLesson({
         ) : null}
       </View>
     </PopIn>
+  );
+}
+
+/** Text with the words the questions ask about picked out, so the eye lands on what will be asked. */
+function Marked({ text: value, marks }: { text: string; marks: string[] }) {
+  const pieces = highlightPieces(value, marks);
+  if (pieces.length === 1 && !pieces[0].mark) {
+    return <>{withHonorifics(value)}</>;
+  }
+  return (
+    <>
+      {pieces.map((piece, index) =>
+        piece.mark ? (
+          <Text key={index} style={styles.mark} testID="learn-mark">
+            {withHonorifics(piece.text)}
+          </Text>
+        ) : (
+          <React.Fragment key={index}>{withHonorifics(piece.text)}</React.Fragment>
+        )
+      )}
+    </>
+  );
+}
+
+/** Good to know: the one fact the next question asks, said by the mascot, or a small flash card of it. */
+function TeachPage({
+  teach,
+  marks,
+  palette,
+  mascotVariant,
+  accent,
+  short
+}: {
+  teach: TeachLesson;
+  marks: string[];
+  palette: ReturnType<typeof topicPalette>;
+  mascotVariant: string;
+  accent: string;
+  short: boolean;
+}) {
+  const answerMarks = teach.answer ? [teach.answer, ...marks] : marks;
+  return (
+    <View style={styles.teach} testID="learn-teach">
+      {teach.lines.length ? (
+        <View style={[styles.talkRow, short ? styles.talkRowShort : null]}>
+          <Mascot variant={mascotVariant} mood="happy" accent={accent} size={short ? 56 : 72} />
+          <SlideIn delay={200} style={styles.bubbleWrap}>
+            <SpeechBubble style={styles.bubbleWide}>
+              {teach.lines.map((line, index) => (
+                <Text key={index} style={[styles.lineText, index > 0 ? styles.teachExtra : null]} testID="learn-teach-line">
+                  <Marked text={noBreakHyphens(line)} marks={answerMarks} />
+                </Text>
+              ))}
+            </SpeechBubble>
+          </SlideIn>
+        </View>
+      ) : null}
+      {teach.card ? (
+        <PopIn delay={teach.lines.length ? 420 : 200} from="up" style={styles.notesWrap}>
+          <View style={[styles.teachCard, { borderColor: palette.soft }]} testID="learn-teach-card">
+            <Text style={styles.teachQuestion}>{withHonorifics(noBreakHyphens(teach.card.question))}</Text>
+            <View
+              style={[
+                styles.teachAnswer,
+                teach.card.isFalse
+                  ? { backgroundColor: colors.wrongBg, borderColor: colors.wrongBg }
+                  : { backgroundColor: palette.light, borderColor: palette.soft }
+              ]}
+            >
+              <Icon name={teach.card.isFalse ? "close" : "check"} size={18} color={teach.card.isFalse ? colors.wrongInk : palette.ink} />
+              <Text style={[styles.teachAnswerText, { color: teach.card.isFalse ? colors.wrongInk : palette.ink }]}>{withHonorifics(noBreakHyphens(teach.card.answer))}</Text>
+            </View>
+          </View>
+        </PopIn>
+      ) : null}
+      {!teach.lines.length ? (
+        <View style={styles.teachMascot}>
+          <Mascot variant={mascotVariant} mood="happy" accent={accent} size={short ? 72 : 96} />
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+/** Quiz time: the circle's quiz is next. */
+function QuizPage({ count, mascotVariant, accent, short }: { count?: number; mascotVariant: string; accent: string; short: boolean }) {
+  return (
+    <View style={[styles.talkColumn, short ? styles.talkColumnShort : null]} testID="learn-quiz">
+      <SlideIn delay={150} style={styles.bubbleTop}>
+        <SpeechBubble tail="down" tailAlign="center">
+          <Text style={styles.bigLine}>{t("Quiz time!")}</Text>
+          <Text style={styles.quizSub}>
+            {count && count > 1 ? t("{count} questions on this circle. Get them right to move on.", { count }) : t("Get them right to move on.")}
+          </Text>
+        </SpeechBubble>
+      </SlideIn>
+      <Mascot variant={mascotVariant} mood="cheer" accent={accent} size={short ? 118 : 150} />
+    </View>
   );
 }
 
@@ -962,6 +1123,90 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyHeavy,
     fontSize: 13,
     lineHeight: 18,
+    color: colors.inkSoft
+  },
+  pageEyebrow: {
+    alignSelf: "stretch",
+    textAlign: "center",
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 20,
+    letterSpacing: 0.5,
+    color: colors.inkSoft,
+    marginBottom: space.xs
+  },
+  pagedText: {
+    fontSize: 18,
+    lineHeight: 27
+  },
+  deeperFirst: {
+    marginTop: 0
+  },
+  mark: {
+    fontFamily: fonts.bodyHeavy,
+    color: colors.ink,
+    backgroundColor: "#FFE9A8"
+  },
+  summary: {
+    borderWidth: 2,
+    borderRadius: radii.lg,
+    paddingHorizontal: space.md,
+    paddingVertical: space.sm
+  },
+  summaryText: {
+    flex: 0
+  },
+  teach: {
+    alignSelf: "stretch",
+    alignItems: "center"
+  },
+  teachExtra: {
+    marginTop: space.xs,
+    fontSize: 16,
+    lineHeight: 23,
+    color: colors.inkSoft
+  },
+  teachCard: {
+    borderWidth: 2,
+    borderRadius: radii.lg,
+    backgroundColor: colors.white,
+    paddingHorizontal: space.md,
+    paddingVertical: space.md
+  },
+  teachQuestion: {
+    fontFamily: fonts.bodyBold,
+    fontSize: 18,
+    lineHeight: 26,
+    color: colors.ink
+  },
+  teachAnswer: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    maxWidth: "100%",
+    marginTop: space.sm,
+    borderWidth: 2,
+    borderRadius: radii.md,
+    paddingHorizontal: space.sm,
+    paddingVertical: 6,
+    gap: 6
+  },
+  teachAnswerText: {
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 18,
+    lineHeight: 25
+  },
+  teachMascot: {
+    marginTop: space.lg,
+    alignItems: "center"
+  },
+  quizSub: {
+    marginTop: space.xs,
+    textAlign: "center",
+    fontFamily: fonts.bodyBold,
+    fontSize: 16,
+    lineHeight: 23,
     color: colors.inkSoft
   },
   sourceText: {

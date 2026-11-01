@@ -95,7 +95,8 @@ describe("videos for a heart on the out-of-hearts sheet", () => {
     expect(showRewardedAd).toHaveBeenCalledTimes(3);
     expect(showRewardedAd).toHaveBeenCalledWith(expect.objectContaining({ id: "watch-ad-heart" }));
     expect(getStoredItem("sira-path-heart-videos")).toBe("0");
-    expect(screen.getByTestId("exercise-view")).toBeTruthy();
+    // The lesson goes on: the next page after the missed question (the sheet may still be sliding away).
+    expect(screen.getByTestId("learn-card")).toBeTruthy();
     expect(screen.getByTestId("lesson-hearts").props.accessibilityLabel).toBe("1 of 5 hearts");
     expect(savedUser().hearts.current).toBe(1);
   });
@@ -106,7 +107,8 @@ describe("videos for a heart on the out-of-hearts sheet", () => {
     await runOutOfHearts();
     expect(screen.getByTestId("refill-video")).toHaveTextContent("WATCH VIDEO 3 OF 3");
     await press("refill-video");
-    expect(screen.getByTestId("exercise-view")).toBeTruthy();
+    // The lesson goes on: the next page after the missed question (the sheet may still be sliding away).
+    expect(screen.getByTestId("learn-card")).toBeTruthy();
     expect(savedUser().hearts.current).toBe(1);
   });
 
