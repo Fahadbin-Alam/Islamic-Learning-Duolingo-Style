@@ -178,6 +178,7 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "prophets-unit-adam": { ar: "آدم", translit: "Adam", meaning: "Prophet Adam" },
   "prophets-unit-idris": { ar: "إدريس", translit: "Idris", meaning: "Prophet Idris" },
   "prophets-unit-nuh": { ar: "نوح", translit: "Nuh", meaning: "Prophet Noah" },
+  "prophets-unit-hud": { ar: "هود", translit: "Hud", meaning: "Prophet Hud" },
   "prophets-unit-salih": { ar: "صالح", translit: "Salih", meaning: "Prophet Salih" },
   "prophets-unit-ibrahim": { ar: "إبراهيم", translit: "Ibrahim", meaning: "Prophet Abraham" },
   "prophets-unit-lut": { ar: "لوط", translit: "Lut", meaning: "Prophet Lot" },
