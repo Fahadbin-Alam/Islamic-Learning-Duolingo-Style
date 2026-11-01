@@ -7825,10 +7825,6 @@
   },
   {
     "kind": "course",
-    "text": "Ali's wives, his daughters and his family after them."
-  },
-  {
-    "kind": "course",
     "text": "Hawwa"
   },
   {
@@ -8230,38 +8226,6 @@
   {
     "kind": "course",
     "text": "Barrah bint Samaw'al"
-  },
-  {
-    "kind": "course",
-    "text": "Khawlah bint Ja'far al-Hanafiyyah"
-  },
-  {
-    "kind": "arabic",
-    "text": "Wife of Ali"
-  },
-  {
-    "kind": "course",
-    "text": "Umm al-Banin"
-  },
-  {
-    "kind": "course",
-    "text": "Umm Kulthum bint Ali"
-  },
-  {
-    "kind": "arabic",
-    "text": "Granddaughter of the Prophet ﷺ"
-  },
-  {
-    "kind": "course",
-    "text": "Zaynab bint Ali"
-  },
-  {
-    "kind": "course",
-    "text": "Sayyidah Nafisah"
-  },
-  {
-    "kind": "arabic",
-    "text": "From the Prophet's ﷺ family"
   },
   {
     "kind": "course",
@@ -24433,26 +24397,6 @@
   },
   {
     "kind": "lesson",
-    "text": "She was Ali's wife and the mother of Muhammad ibn al-Hanafiyyah."
-  },
-  {
-    "kind": "lesson",
-    "text": "Father: Ja'far ibn Qays"
-  },
-  {
-    "kind": "lesson",
-    "text": "Tribe: Banu Hanifa"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the father of Khawlah bint Ja'far al-Hanafiyyah?"
-  },
-  {
-    "kind": "question",
-    "text": "Which tribe was Khawlah bint Ja'far al-Hanafiyyah from?"
-  },
-  {
-    "kind": "lesson",
     "text": "Father: Al-Harith ibn Hazn"
   },
   {
@@ -24520,28 +24464,8 @@
     "text": "Who was Ibrahim's wife and the mother of Ishaq?"
   },
   {
-    "kind": "lesson",
-    "text": "Father: Al-Hasan al-Anwar ibn Zayd"
-  },
-  {
-    "kind": "source",
-    "text": "Siyar A'lam an-Nubala 10/106"
-  },
-  {
     "kind": "question",
-    "text": "Who was the father of Sayyidah Nafisah?"
-  },
-  {
-    "kind": "question",
-    "text": "Al-Hasan al-Anwar ibn Zayd"
-  },
-  {
-    "kind": "question",
-    "text": "Which tribe was Sayyidah Nafisah from?"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the father of Zaynab bint Ali?"
+    "text": "Umm Kulthum bint Ali"
   },
   {
     "kind": "lesson",
@@ -24573,34 +24497,6 @@
   },
   {
     "kind": "lesson",
-    "text": "She was Ali's wife and the mother of al-Abbas ibn Ali."
-  },
-  {
-    "kind": "lesson",
-    "text": "Father: Hizam ibn Khalid"
-  },
-  {
-    "kind": "lesson",
-    "text": "Tribe: Banu Kilab"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the father of Umm al-Banin?"
-  },
-  {
-    "kind": "question",
-    "text": "Zam'ah ibn Qays"
-  },
-  {
-    "kind": "question",
-    "text": "Hizam ibn Khalid"
-  },
-  {
-    "kind": "question",
-    "text": "Which tribe was Umm al-Banin from?"
-  },
-  {
-    "kind": "lesson",
     "text": "She was the Prophet's ﷺ wife and emigrated to Abyssinia."
   },
   {
@@ -24618,26 +24514,6 @@
   {
     "kind": "question",
     "text": "Who was the mother of Umm Habibah?"
-  },
-  {
-    "kind": "lesson",
-    "text": "She was the Prophet's ﷺ granddaughter, daughter of Ali and Fatimah."
-  },
-  {
-    "kind": "source",
-    "text": "Tabaqat Ibn Sa'd 8/338"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the father of Umm Kulthum bint Ali?"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Umm Kulthum bint Ali?"
-  },
-  {
-    "kind": "question",
-    "text": "Ash-Shamus bint Qays"
   },
   {
     "kind": "lesson",
@@ -24665,6 +24541,10 @@
   },
   {
     "kind": "question",
+    "text": "Ash-Shamus bint Qays"
+  },
+  {
+    "kind": "question",
     "text": "Asma bint Amr"
   },
   {
@@ -24678,18 +24558,6 @@
   {
     "kind": "question",
     "text": "Which tribe was Umm Salamah from?"
-  },
-  {
-    "kind": "lesson",
-    "text": "She was Ali and Fatimah's daughter, the Prophet's ﷺ granddaughter."
-  },
-  {
-    "kind": "source",
-    "text": "Tabaqat Ibn Sa'd 8/340"
-  },
-  {
-    "kind": "question",
-    "text": "Who was the mother of Zaynab bint Ali?"
   },
   {
     "kind": "source",
@@ -87012,6 +86880,30 @@
     "text": "Quran 46:1-10"
   },
   {
+    "kind": "lesson",
+    "text": "Who is more astray than one who calls on what will not answer him, till the Day of Resurrection?"
+  },
+  {
+    "kind": "lesson",
+    "text": "On that Day those false gods will be their enemies and will deny their worship."
+  },
+  {
+    "kind": "lesson",
+    "text": "Say: I am nothing new among the messengers, and I only follow what is revealed to me."
+  },
+  {
+    "kind": "lesson",
+    "text": "Call on Allah alone: only He hears every dua."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 46:1-10"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 46:1-10"
+  },
+  {
     "kind": "question",
     "text": "Who is most astray, in Al-Ahqaf?"
   },
@@ -87026,6 +86918,26 @@
   {
     "kind": "question",
     "text": "Ayahs 1-10 say: Who is more astray than one calling on what can't answer?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 5: who is the most astray?"
+  },
+  {
+    "kind": "question",
+    "text": "One who calls on what will not answer"
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 9: what did the Prophet ﷺ say he only follows?"
+  },
+  {
+    "kind": "question",
+    "text": "What is revealed to him"
+  },
+  {
+    "kind": "question",
+    "text": "His own ideas"
   },
   {
     "kind": "lesson",
@@ -87048,6 +86960,34 @@
     "text": "Quran 46:11-20"
   },
   {
+    "kind": "lesson",
+    "text": "Allah told the human to be good to parents: his mother carried him and gave birth to him with hardship."
+  },
+  {
+    "kind": "lesson",
+    "text": "Carrying and weaning take thirty months; when he reaches forty, he prays to be thankful."
+  },
+  {
+    "kind": "lesson",
+    "text": "My Lord, help me thank Your favour on me and my parents, do good You love, and make my children good."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man asked the Prophet ﷺ who most deserves his kindness. He said: your mother, three times, and then your father."
+  },
+  {
+    "kind": "lesson",
+    "text": "Thank Allah, then honour your parents, starting with your mum."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 46:11-20"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 46:11-20"
+  },
+  {
     "kind": "question",
     "text": "How long is carrying and weaning, in Al-Ahqaf?"
   },
@@ -87058,6 +86998,30 @@
   {
     "kind": "question",
     "text": "Ayahs 11-20 say: Jinn heard the Quran and went back to warn their people."
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 15: how long are carrying and weaning?"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did the Prophet ﷺ name three times for kindness?"
+  },
+  {
+    "kind": "question",
+    "text": "Your father"
+  },
+  {
+    "kind": "question",
+    "text": "Your teacher"
+  },
+  {
+    "kind": "question",
+    "text": "Your friend"
+  },
+  {
+    "kind": "question",
+    "text": "A man asked the Prophet ﷺ who most deserves his kindness."
   },
   {
     "kind": "lesson",
@@ -87080,6 +87044,38 @@
     "text": "Quran 46:21-26"
   },
   {
+    "kind": "lesson",
+    "text": "Hud warned his people Ad among the sand dunes: worship none but Allah; I fear for you a great Day."
+  },
+  {
+    "kind": "lesson",
+    "text": "When they saw a cloud coming toward their valleys, they said: this cloud will bring us rain."
+  },
+  {
+    "kind": "lesson",
+    "text": "No, it was the wind they had rushed for, ruining all by its Lord's command; only their homes were left."
+  },
+  {
+    "kind": "lesson",
+    "text": "When the Prophet ﷺ saw a dark cloud, worry showed on his face. He said a cloud like it came to Ad, and they thought it would bring rain."
+  },
+  {
+    "kind": "lesson",
+    "text": "Never feel safe from Allah's warning: thank Him and stay humble."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 46:21-26"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 46:21-26"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4829"
+  },
+  {
     "kind": "question",
     "text": "What did Ad think the coming cloud was?"
   },
@@ -87090,6 +87086,30 @@
   {
     "kind": "question",
     "text": "Ayahs 21-26 say: Hud warned Ad in the sand dunes; a wind destroyed them."
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 24: what did Ad think the cloud would bring?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 25: what was left of Ad after the wind?"
+  },
+  {
+    "kind": "question",
+    "text": "Their gardens"
+  },
+  {
+    "kind": "question",
+    "text": "Their army"
+  },
+  {
+    "kind": "question",
+    "text": "Only their homes"
+  },
+  {
+    "kind": "question",
+    "text": "No, it was the wind they had rushed for, ruining all by its Lord's command."
   },
   {
     "kind": "lesson",
@@ -87112,6 +87132,30 @@
     "text": "Quran 46:27-35"
   },
   {
+    "kind": "lesson",
+    "text": "Allah sent a group of jinn to hear the Quran; they said: be silent! then went to warn their people."
+  },
+  {
+    "kind": "lesson",
+    "text": "They said: our people, answer Allah's caller and believe in him; He will forgive your sins."
+  },
+  {
+    "kind": "lesson",
+    "text": "Be patient as the messengers of firm resolve were patient; on that Day, life will seem like an hour."
+  },
+  {
+    "kind": "lesson",
+    "text": "When the Quran is recited, go quiet and truly listen."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 46:27-35"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 46:27-35"
+  },
+  {
     "kind": "question",
     "text": "What did the jinn do after hearing the Quran?"
   },
@@ -87126,6 +87170,34 @@
   {
     "kind": "question",
     "text": "Ayahs 27-35 say: Be good to parents; a mother bore you with hardship."
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 29: what did the jinn say on hearing the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "Be silent"
+  },
+  {
+    "kind": "question",
+    "text": "Sing along"
+  },
+  {
+    "kind": "question",
+    "text": "Allah sent a group of jinn to hear the Quran; they said: be silent!"
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 35: whose patience should we copy?"
+  },
+  {
+    "kind": "question",
+    "text": "The messengers of firm resolve"
+  },
+  {
+    "kind": "question",
+    "text": "Be patient as the messengers of firm resolve were patient."
   },
   {
     "kind": "lesson",
