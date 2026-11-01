@@ -42,13 +42,14 @@ import { DEEP_038 } from "./deep038";
 import { DEEP_039 } from "./deep039";
 import { DEEP_040 } from "./deep040";
 import { DEEP_041 } from "./deep041";
+import { DEEP_042 } from "./deep042";
 import { surahLearningRank } from "../importedNotes";
 import { LESSON_SOURCES } from "../questionSources";
 
 export type { Passage, PassageDeep, SurahMeaning } from "./types";
 
 /** The surahs taught in depth, passage by passage, by surah number: Al-Baqarah first, the rest to follow. */
-export const DEEP_PASSAGES: Record<number, Record<string, PassageDeep>> = { 2: DEEP_002, 3: DEEP_003, 4: DEEP_004, 5: DEEP_005, 6: DEEP_006, 7: DEEP_007, 8: DEEP_008, 9: DEEP_009, 10: DEEP_010, 11: DEEP_011, 12: DEEP_012, 13: DEEP_013, 14: DEEP_014, 15: DEEP_015, 16: DEEP_016, 17: DEEP_017, 18: DEEP_018, 19: DEEP_019, 20: DEEP_020, 21: DEEP_021, 22: DEEP_022, 23: DEEP_023, 24: DEEP_024, 25: DEEP_025, 26: DEEP_026, 27: DEEP_027, 28: DEEP_028, 29: DEEP_029, 30: DEEP_030, 31: DEEP_031, 32: DEEP_032, 33: DEEP_033, 34: DEEP_034, 35: DEEP_035, 36: DEEP_036, 37: DEEP_037, 38: DEEP_038, 39: DEEP_039, 40: DEEP_040, 41: DEEP_041 };
+export const DEEP_PASSAGES: Record<number, Record<string, PassageDeep>> = { 2: DEEP_002, 3: DEEP_003, 4: DEEP_004, 5: DEEP_005, 6: DEEP_006, 7: DEEP_007, 8: DEEP_008, 9: DEEP_009, 10: DEEP_010, 11: DEEP_011, 12: DEEP_012, 13: DEEP_013, 14: DEEP_014, 15: DEEP_015, 16: DEEP_016, 17: DEEP_017, 18: DEEP_018, 19: DEEP_019, 20: DEEP_020, 21: DEEP_021, 22: DEEP_022, 23: DEEP_023, 24: DEEP_024, 25: DEEP_025, 26: DEEP_026, 27: DEEP_027, 28: DEEP_028, 29: DEEP_029, 30: DEEP_030, 31: DEEP_031, 32: DEEP_032, 33: DEEP_033, 34: DEEP_034, 35: DEEP_035, 36: DEEP_036, 37: DEEP_037, 38: DEEP_038, 39: DEEP_039, 40: DEEP_040, 41: DEEP_041, 42: DEEP_042 };
 
 // The meaning of whole surahs, passage by passage: one learn card for each passage, so a learner who finishes a
 // surah's unit has learned what every one of its ayahs says. Each card shows one ayah of the passage in Arabic
