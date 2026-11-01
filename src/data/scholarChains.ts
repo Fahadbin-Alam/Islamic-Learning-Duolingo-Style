@@ -1,5 +1,6 @@
 import type { LessonSource, SupportedLanguage, TopicId } from "../types";
 import { ABU_HANIFAH_PAGE, AHMAD_PAGE, IBN_TAYMIYYAH_PAGE, SHAFII_PAGE } from "./scholarUnits";
+import { DHAHABI_PAGE } from "./scholarTreeUnits";
 
 // Chains of knowledge for the Scholars family tree: who learned from whom, back to the Prophet ﷺ through the
 // Sahabah and the Tabi'in. Every link has a source:
@@ -141,8 +142,8 @@ export const CHAIN_PEOPLE: readonly ChainPerson[] = [
 
   { id: "ibn-abd-ad-daim", names: { en: "Ibn Abd ad-Da'im", ar: "ابن عبد الدائم", bn: "ইবনে আব্দুদ দায়েম", ur: "ابن عبد الدائم" }, generation: "scholar", row: 11, col: 3.25 },
   { id: "ibn-taymiyyah", names: { en: "Ibn Taymiyyah", ar: "ابن تيمية", bn: "ইবনে তাইমিয়া", ur: "ابن تیمیہ" }, generation: "scholar", row: 12, col: 3.25, unitId: "scholar-ibn-taymiyyah" },
-  { id: "ibn-qayyim", names: { en: "Ibn al-Qayyim", ar: "ابن القيم", bn: "ইবনুল কাইয়িম", ur: "ابن قیم" }, generation: "scholar", row: 13, col: 2.25 },
-  { id: "dhahabi", names: { en: "Adh-Dhahabi", ar: "الذهبي", bn: "আয-যাহাবি", ur: "ذہبی" }, generation: "scholar", row: 13, col: 4.25 },
+  { id: "ibn-qayyim", names: { en: "Ibn al-Qayyim", ar: "ابن القيم", bn: "ইবনুল কাইয়িম", ur: "ابن قیم" }, generation: "scholar", row: 13, col: 2.25, unitId: "scholar-ibn-qayyim" },
+  { id: "dhahabi", names: { en: "Adh-Dhahabi", ar: "الذهبي", bn: "আয-যাহাবি", ur: "ذہبی" }, generation: "scholar", row: 13, col: 4.25, unitId: "scholar-dhahabi" },
 
   { id: "ibn-baz", names: { en: "Ibn Baz", ar: "ابن باز", bn: "ইবনে বায", ur: "ابن باز" }, generation: "scholar", row: 14, col: 2.25, unitId: "scholar-ibn-baz" },
   { id: "albani", names: { en: "Al-Albani", ar: "الألباني", bn: "আল-আলবানি", ur: "البانی" }, generation: "scholar", row: 14, col: 4.25, unitId: "scholar-albani" }
@@ -237,7 +238,7 @@ export const CHAIN_LINKS: readonly ChainLink[] = [
   {
     teacher: "ibn-taymiyyah",
     student: "dhahabi",
-    source: IBN_TAYMIYYAH_PAGE("Adh-Dhahabi said of him: He is our Shaykh, unrivalled in our time in knowledge.", "his student was Shaykh Shams al-Deen ibn Qayyim al-Jawziyyah")
+    source: DHAHABI_PAGE("One of the most famous of adh-Dhahabi's shaykhs, from whom he learned and by whom he was influenced, was Shaykh al-Islam Ibn Taymiyah.", "One of the most famous of his shaykhs")
   }
 ];
 

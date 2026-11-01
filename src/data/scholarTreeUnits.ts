@@ -5,7 +5,8 @@ import type { DeepUnit } from "./deepUnits";
 // imams and hadith masters between them. Each unit is about the person's knowledge: what they learned, taught and
 // passed on (Aishah's life as a wife of the Prophet ﷺ is in Great Women; Umar's life is in Sahabah).
 // Every fact is from a hadith in Sahih al-Bukhari or Sahih Muslim (checked in the Arabic and English texts), or
-// from adh-Dhahabi's Siyar A'lam an-Nubala by volume/page (checked in the Arabic text). Only what the source states
+// from adh-Dhahabi's Siyar A'lam an-Nubala by volume/page (checked in the Arabic text). Ibn al-Qayyim and adh-Dhahabi
+// come after the Siyar's people, so theirs are from English biography pages, each opening at the passage it cites. Only what the source states
 // plainly is used; anything it hedges, calls weak, or gives differing reports on is left out.
 
 function hadith(book: "bukhari" | "muslim", number: string, narrator: string, summary: string): LessonSource {
@@ -1946,11 +1947,246 @@ const TIRMIDHI: DeepUnit = {
   ]
 };
 
+function islamqaBio(answer: number, title: string, summary: string, highlight: string): LessonSource {
+  return {
+    id: `deep_islamqa_${answer}`,
+    site: "IslamQA",
+    category: "biography",
+    title,
+    url: `https://islamqa.info/en/answers/${answer}`,
+    reference: `IslamQA ${answer}`,
+    from: "Islam Question & Answer",
+    grade: "Biography",
+    summary,
+    highlight
+  };
+}
+
+export const DHAHABI_PAGE = (summary: string, highlight: string) => islamqaBio(229097, "Biography of Imam adh-Dhahabi", summary, highlight);
+
+const IBN_QAYYIM_PAGE = (summary: string, highlight: string): LessonSource => ({
+  id: "deep_hanbalidisciples_ibn_al_qayyim",
+  site: "Hanbali Disciples",
+  category: "biography",
+  title: "Ibn al-Qayyim al-Jawziyyah",
+  url: "https://www.hanbalidisciples.com/scholars/ibn-al-qayyim-al-jawziyyah-",
+  reference: "Hanbali Disciples: Ibn al-Qayyim",
+  from: "Hanbali Disciples, biographies of scholars",
+  grade: "Biography",
+  summary,
+  highlight
+});
+
+const IBN_QAYYIM: DeepUnit = {
+  key: "tree-ibn-qayyim",
+  topicId: "scholars",
+  branchId: "scholar-ibn-qayyim",
+  name: "Ibn al-Qayyim",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "born-in-damascus",
+      title: "A home of knowledge",
+      line: "Ibn al-Qayyim was born in Damascus in 691 AH.",
+      facts: ["His family loved knowledge and piety", "His father taught him first"],
+      source: IBN_QAYYIM_PAGE("Imam Ibn al-Qayyim was born in 691 AH (1292 CE) in Damascus into a household distinguished by knowledge and piety. He received his early education from his father.", "Imam Ibn al-Qayyim was born in 691 AH"),
+      difficulty: 1,
+      questions: [
+        { q: "In which city was Ibn al-Qayyim born?", a: "Damascus", wrong: ["Cairo", "Kufa", "Cordoba"], why: "In 691 AH." },
+        { q: "Who was his first teacher?", a: "His father", wrong: ["Imam Malik", "Imam al-Bukhari", "Ata"], why: "He grew up in a home of knowledge." },
+        { q: "Ibn al-Qayyim grew up in a family of scholars.", tf: true, why: "Known for knowledge and piety." }
+      ]
+    },
+    {
+      slug: "his-name",
+      title: "Where his name comes from",
+      line: "His name comes from the Jawziyyah school, linked to his father.",
+      facts: ["He later led prayer at al-Jawziyyah", "He also taught at the Sadriyyah school"],
+      source: IBN_QAYYIM_PAGE("His father was associated with the Jawziyyah school, from which Ibn al-Qayyim derived his famous title. He later served as an imam at al-Jawziyyah and taught at the Sadriyyah school.", "His father was associated with the Jawziyyah school"),
+      difficulty: 2,
+      questions: [
+        { q: "Where does the name 'Ibn Qayyim al-Jawziyyah' come from?", a: "His father's school, al-Jawziyyah", wrong: ["A river", "A mountain", "A king"], why: "His father was linked to it." },
+        { q: "What did Ibn al-Qayyim do at al-Jawziyyah?", a: "He was its imam", wrong: ["He sold books", "He built it", "He guarded it"], why: "He also taught at the Sadriyyah." },
+        { q: "Ibn al-Qayyim taught in Damascus.", tf: true, why: "At the Sadriyyah school." }
+      ]
+    },
+    {
+      slug: "with-ibn-taymiyyah",
+      title: "Ibn Taymiyyah's student",
+      line: "From 712 AH he stayed close to Ibn Taymiyyah until his death.",
+      facts: ["One of his foremost students", "He edited and spread his teacher's works"],
+      source: IBN_QAYYIM_PAGE("His relationship with Ibn Taymiyyah was especially formative. He accompanied him closely from around 712 AH until his teacher's death, and edited, systematized and spread Ibn Taymiyyah's works.", "He accompanied him closely from around 712 AH"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was Ibn al-Qayyim's most famous teacher?", a: "Ibn Taymiyyah", wrong: ["Imam al-Bukhari", "Ibn Baz", "Az-Zuhri"], why: "He stayed with him until his death." },
+        { q: "What did he do with his teacher's books?", a: "Edited and spread them", wrong: ["Burned them", "Hid them", "Sold them all"], why: "So more people could learn." },
+        { q: "Ibn al-Qayyim met Ibn Taymiyyah only once.", tf: false, why: "He stayed close to him for years." }
+      ]
+    },
+    {
+      slug: "patient-in-trials",
+      title: "Jailed with his teacher",
+      line: "He was jailed in the Citadel alongside his teacher.",
+      facts: ["Jailed more than once", "Freed after Ibn Taymiyyah died"],
+      source: IBN_QAYYIM_PAGE("He was imprisoned multiple times, including in the Citadel alongside his teacher, and was detained until after Ibn Taymiyyah's death.", "including in the Citadel alongside his teacher"),
+      difficulty: 3,
+      questions: [
+        { q: "Where was Ibn al-Qayyim jailed with his teacher?", a: "The Citadel of Damascus", wrong: ["Baghdad", "Makkah", "Cordoba"], why: "He stayed with Ibn Taymiyyah." },
+        { q: "When was he let out?", a: "After Ibn Taymiyyah died", wrong: ["The next day", "Never", "After one hour"], why: "He stayed by his teacher." },
+        { q: "Scholars sometimes faced hard trials for their knowledge.", tf: true, why: "Ibn al-Qayyim was jailed more than once." }
+      ]
+    },
+    {
+      slug: "his-worship",
+      title: "My nourishment",
+      line: "After Fajr he made dhikr until midday: \"This is my nourishment.\"",
+      facts: ["Long bowing and prostration", "Ibn Kathir: constant in worship"],
+      source: IBN_QAYYIM_PAGE("He was known for prolonged prayers and daily remembrance after Fajr until midday, saying: This is my nourishment; if I abandon it, my strength fails. Ibn Kathir said: he was constant in worship, abundant in prayer and recitation, of excellent character, and free from envy.", "This is my nourishment"),
+      difficulty: 4,
+      questions: [
+        { q: "What did he call his morning dhikr?", a: "My nourishment", wrong: ["My hobby", "My job", "My rest"], why: "Without it his strength failed." },
+        { q: "Until when did he make dhikr after Fajr?", a: "Until midday", wrong: ["One minute", "Until Fajr ended", "He did not"], why: "Every day." },
+        { q: "Ibn Kathir said he was free from envy.", tf: true, why: "And of excellent character." }
+      ]
+    },
+    {
+      slug: "his-books",
+      title: "Zad al-Ma'ad and more",
+      line: "Ibn al-Qayyim wrote many books, like Zad al-Ma'ad.",
+      facts: ["Also Madarij as-Salikin and I'lam al-Muwaqqi'in", "He collected a huge library"],
+      source: IBN_QAYYIM_PAGE("Ibn al-Qayyim was an extraordinarily prolific author: Zad al-Ma'ad, I'lam al-Muwaqqi'in, Madarij as-Salikin, ad-Da' wa'd-Dawa' and more. He amassed a vast personal library; after his death his children kept selling his books for years.", "Ibn al-Qayyim was an extraordinarily prolific author"),
+      difficulty: 4,
+      questions: [
+        { q: "Which of these did Ibn al-Qayyim write?", a: "Zad al-Ma'ad", wrong: ["Sahih Muslim", "The Muwatta", "Al-Jami'"], why: "About the guidance of the Prophet ﷺ." },
+        { q: "What did he collect all his life?", a: "Books", wrong: ["Gold", "Horses", "Swords"], why: "His children sold them for years after." },
+        { q: "Ibn al-Qayyim wrote only one book.", tf: false, why: "He wrote a great many." }
+      ]
+    },
+    {
+      slug: "his-death",
+      title: "Back to his father",
+      line: "He died in Damascus in 751 AH, buried near his father.",
+      facts: ["In the Bab as-Saghir graveyard", "Ibn Hajar: vast in knowledge"],
+      source: IBN_QAYYIM_PAGE("Ibn al-Qayyim passed away on the night of Thursday, 13 Rajab 751 AH (1350 CE) in Damascus. He was buried in Bab as-Saghir cemetery near his father. Ibn Hajar described him as bold in expression and vast in knowledge.", "Ibn al-Qayyim passed away on the night of Thursday"),
+      difficulty: 5,
+      questions: [
+        { q: "Where is Ibn al-Qayyim buried?", a: "Damascus, near his father", wrong: ["Madinah", "Cairo", "Baghdad"], why: "In the Bab as-Saghir graveyard." },
+        { q: "Who said he was 'vast in knowledge'?", a: "Ibn Hajar", wrong: ["Imam Malik", "Ata", "Nafi"], why: "Ibn Hajar came after him." },
+        { q: "Ibn al-Qayyim outlived his teacher Ibn Taymiyyah.", tf: true, why: "Ibn Taymiyyah died in 728 AH, he in 751 AH." }
+      ]
+    }
+  ]
+};
+
+const DHAHABI: DeepUnit = {
+  key: "tree-dhahabi",
+  topicId: "scholars",
+  branchId: "scholar-dhahabi",
+  name: "Adh-Dhahabi",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "son-of-the-goldsmith",
+      title: "The goldsmith's son",
+      line: "Adh-Dhahabi was born in 673 AH. Dhahab means gold.",
+      facts: ["His father was a skilled goldsmith", "As-Safadi: the name fit him well"],
+      source: DHAHABI_PAGE("He was born in 673 AH. His father was a goldsmith who excelled in his craft, so he was known as adh-Dhahabi (dhahab = gold). As-Safadi said: being named after gold was entirely appropriate in his case.", "was a goldsmith, and he excelled in his craft"),
+      difficulty: 1,
+      questions: [
+        { q: "What does 'dhahab' mean?", a: "Gold", wrong: ["Silver", "Book", "River"], why: "His father worked with gold." },
+        { q: "What was his father's work?", a: "Goldsmith", wrong: ["Farmer", "Sailor", "Baker"], why: "He was very skilled." },
+        { q: "Adh-Dhahabi was born in 673 AH.", tf: true, why: "Twelve years after Ibn Taymiyyah." }
+      ]
+    },
+    {
+      slug: "started-at-eighteen",
+      title: "Hadith at eighteen",
+      line: "He began studying hadith at eighteen, and worked very hard.",
+      facts: ["More than 1,300 teachers", "Ibn Taymiyyah shaped him most"],
+      source: DHAHABI_PAGE("He studied hadith when he was eighteen years old, and put a great deal of effort into it. His shaykhs numbered more than one thousand three hundred. One of the most famous of them, by whom he was influenced, was Shaykh al-Islam Ibn Taymiyah.", "One of the most famous of his shaykhs"),
+      difficulty: 2,
+      questions: [
+        { q: "At what age did he start studying hadith?", a: "Eighteen", wrong: ["Sixty", "Two", "Forty"], why: "And he never stopped." },
+        { q: "About how many teachers did he have?", a: "More than 1,300", wrong: ["Three", "Ten", "Fifty"], why: "Ibn Nasir ad-Dimashqi counted them." },
+        { q: "Which teacher shaped him most?", a: "Ibn Taymiyyah", wrong: ["Imam Malik", "Ata", "Az-Zuhri"], why: "He learned from him and was influenced by him." }
+      ]
+    },
+    {
+      slug: "travels",
+      title: "Seven cities",
+      line: "He learned hadith in Damascus, Egypt, Makkah, Aleppo and more.",
+      facts: ["Also Baalbek, Alexandria and Nablus", "Teachers like Ibn Daqiq al-Eid"],
+      source: DHAHABI_PAGE("He learned hadith in Damascus, Baalbek, Egypt (from Ibn Daqiq al-Eid, ad-Dimyati and others), Alexandria, Makkah, Aleppo and Nablus.", "In Egypt he learned hadith from"),
+      difficulty: 3,
+      questions: [
+        { q: "Which of these cities did adh-Dhahabi learn in?", a: "Makkah", wrong: ["Cordoba", "Delhi", "Samarqand"], why: "Also Damascus, Egypt and Aleppo." },
+        { q: "Why did scholars travel so much?", a: "To hear hadith from more teachers", wrong: ["For holidays", "To trade gold", "To escape school"], why: "Each city had its own teachers." },
+        { q: "Adh-Dhahabi learned only in Damascus.", tf: false, why: "He travelled to many cities." }
+      ]
+    },
+    {
+      slug: "his-books",
+      title: "Siyar and more",
+      line: "He wrote Siyar A'lam an-Nubala and Tarikh al-Islam.",
+      facts: ["Also Mizan al-I'tidal, on narrators", "As-Safadi: concise and very useful"],
+      source: DHAHABI_PAGE("He wrote many books, including Mizan al-I'tidal, Siyar A'lam an-Nubala and Tarikh al-Islam. As-Safadi said: he wrote many books, and his books were concise and very useful.", "his books were concise and very useful"),
+      difficulty: 3,
+      questions: [
+        { q: "Which famous book did adh-Dhahabi write?", a: "Siyar A'lam an-Nubala", wrong: ["Sahih al-Bukhari", "Zad al-Ma'ad", "Al-Umm"], why: "Lives of the great scholars." },
+        { q: "What is Mizan al-I'tidal about?", a: "Hadith narrators", wrong: ["Cooking", "Poetry", "Gold"], why: "Who is reliable and who is not." },
+        { q: "Many lessons in this app use his Siyar.", tf: true, why: "Look at the sources of the earlier scholars." }
+      ]
+    },
+    {
+      slug: "his-students",
+      title: "Teacher of Ibn Kathir",
+      line: "Ibn Kathir, author of the famous tafsir, learned from him.",
+      facts: ["So did as-Subki and as-Safadi", "As-Subki: he trained us"],
+      source: DHAHABI_PAGE("Among the most prominent of his students were al-Hafiz Ibn Kathir, author of the Tafsir, as-Safadi and Taj ad-Din as-Subki. As-Subki said: he is the one who trained us in this field.", "Among the most prominent of his students"),
+      difficulty: 4,
+      questions: [
+        { q: "Which famous student did adh-Dhahabi teach?", a: "Ibn Kathir", wrong: ["Imam Malik", "Imam al-Bukhari", "Ata"], why: "Author of Tafsir Ibn Kathir." },
+        { q: "What did as-Subki say about him?", a: "He trained us in this field", wrong: ["He never taught", "He was a poet", "He was a goldsmith"], why: "The field of hadith." },
+        { q: "Ibn Kathir learned from adh-Dhahabi.", tf: true, why: "One of his top students." }
+      ]
+    },
+    {
+      slug: "zamzam",
+      title: "A Zamzam du'a",
+      line: "Ibn Hajar drank Zamzam hoping to reach adh-Dhahabi's level.",
+      facts: ["In memorising and understanding hadith", "Ibn Kathir: the last great scholar of hadith"],
+      source: DHAHABI_PAGE("Ibn Hajar said: I drank Zamzam water with the intention of reaching the level of adh-Dhahabi in memorising and understanding hadith. Ibn Kathir called him the historian of Islam and the shaykh of the muhaddithin.", "I drank Zamzam water with the intention of reaching the level of adh-Dhahabi"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Ibn Hajar hope for when he drank Zamzam?", a: "To reach adh-Dhahabi's level", wrong: ["To get rich", "To become king", "To travel"], why: "In memorising and understanding hadith." },
+        { q: "What did Ibn Kathir call adh-Dhahabi?", a: "The historian of Islam", wrong: ["A goldsmith", "A poet", "A sailor"], why: "And shaykh of the hadith scholars." },
+        { q: "Ibn Hajar admired adh-Dhahabi's knowledge of hadith.", tf: true, why: "He made du'a at Zamzam for it." }
+      ]
+    },
+    {
+      slug: "his-death",
+      title: "Resting in Damascus",
+      line: "Adh-Dhahabi died in Damascus in 748 AH.",
+      facts: ["Buried at al-Bab as-Saghir", "Three years before Ibn al-Qayyim"],
+      source: DHAHABI_PAGE("He died on the night of Monday 3 Dhu'l-Qa'dah 748 AH and was buried the following day in the graveyard of al-Bab as-Saghir in Damascus.", "was buried the following day in the graveyard"),
+      difficulty: 5,
+      questions: [
+        { q: "In which city did adh-Dhahabi die?", a: "Damascus", wrong: ["Cairo", "Makkah", "Baghdad"], why: "In 748 AH." },
+        { q: "Which graveyard holds adh-Dhahabi and Ibn al-Qayyim?", a: "Al-Bab as-Saghir", wrong: ["Al-Baqi'", "Al-Ma'la", "Uhud"], why: "In Damascus." },
+        { q: "Adh-Dhahabi and Ibn al-Qayyim were both students of Ibn Taymiyyah.", tf: true, why: "Both on the tree under him." }
+      ]
+    }
+  ]
+};
+
 /** The tree's own units, oldest first: they join the Scholars topic beside the seven imams and scholars. */
 export const SCHOLAR_TREE_UNITS: readonly DeepUnit[] = [
   UMAR, AISHAH, IBN_MASUD, IBN_ABBAS, IBN_UMAR,
   ALQAMAH_WAQQAS, URWAH, NAFI, ATA, ALQAMAH_QAYS, TAYMI, ZUHRI, NAKHAI, YAHYA_ANSARI, HAMMAD,
-  SUFYAN, YAHYA_YAHYA, ABU_YUSUF, SHAYBANI, HUMAYDI, BUKHARI, MUSLIM, ABU_DAWUD, TIRMIDHI
+  SUFYAN, YAHYA_YAHYA, ABU_YUSUF, SHAYBANI, HUMAYDI, BUKHARI, MUSLIM, ABU_DAWUD, TIRMIDHI,
+  IBN_QAYYIM, DHAHABI
 ];
 
 /** Their units in the Scholars topic: title and the one line under it. */
@@ -1978,5 +2214,7 @@ export const SCHOLAR_TREE_BRANCHES: readonly { id: string; title: string; descri
   { id: "scholar-bukhari", title: "Imam al-Bukhari", description: "Author of Sahih al-Bukhari." },
   { id: "scholar-muslim", title: "Imam Muslim", description: "Author of Sahih Muslim." },
   { id: "scholar-abu-dawud", title: "Abu Dawud", description: "Author of the Sunan." },
-  { id: "scholar-tirmidhi", title: "At-Tirmidhi", description: "Author of al-Jami'." }
+  { id: "scholar-tirmidhi", title: "At-Tirmidhi", description: "Author of al-Jami'." },
+  { id: "scholar-ibn-qayyim", title: "Ibn al-Qayyim", description: "Ibn Taymiyyah's student, author of Zad al-Ma'ad." },
+  { id: "scholar-dhahabi", title: "Adh-Dhahabi", description: "Historian of Islam, author of the Siyar." }
 ];

@@ -10497,6 +10497,22 @@
   },
   {
     "kind": "course",
+    "text": "Ibn al-Qayyim"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Taymiyyah's student, author of Zad al-Ma'ad."
+  },
+  {
+    "kind": "course",
+    "text": "Adh-Dhahabi"
+  },
+  {
+    "kind": "course",
+    "text": "Historian of Islam, author of the Siyar."
+  },
+  {
+    "kind": "course",
     "text": "Ibn Baz"
   },
   {
@@ -11146,6 +11162,62 @@
   {
     "kind": "course",
     "text": "Prison and a huge funeral"
+  },
+  {
+    "kind": "course",
+    "text": "A home of knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Where his name comes from"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Taymiyyah's student"
+  },
+  {
+    "kind": "course",
+    "text": "Jailed with his teacher"
+  },
+  {
+    "kind": "course",
+    "text": "My nourishment"
+  },
+  {
+    "kind": "course",
+    "text": "Zad al-Ma'ad and more"
+  },
+  {
+    "kind": "course",
+    "text": "Back to his father"
+  },
+  {
+    "kind": "course",
+    "text": "The goldsmith's son"
+  },
+  {
+    "kind": "course",
+    "text": "Hadith at eighteen"
+  },
+  {
+    "kind": "course",
+    "text": "Seven cities"
+  },
+  {
+    "kind": "course",
+    "text": "Siyar and more"
+  },
+  {
+    "kind": "course",
+    "text": "Teacher of Ibn Kathir"
+  },
+  {
+    "kind": "course",
+    "text": "A Zamzam du'a"
+  },
+  {
+    "kind": "course",
+    "text": "Resting in Damascus"
   },
   {
     "kind": "course",
@@ -67245,10 +67317,6 @@
   },
   {
     "kind": "question",
-    "text": "Ibn al-Qayyim"
-  },
-  {
-    "kind": "question",
     "text": "He wrote many useful books."
   },
   {
@@ -75034,6 +75102,726 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about At-Tirmidhi!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn al-Qayyim was born in Damascus in 691 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "His family loved knowledge and piety"
+  },
+  {
+    "kind": "lesson",
+    "text": "His father taught him first"
+  },
+  {
+    "kind": "source",
+    "text": "Hanbali Disciples: Ibn al-Qayyim"
+  },
+  {
+    "kind": "question",
+    "text": "In which city was Ibn al-Qayyim born?"
+  },
+  {
+    "kind": "question",
+    "text": "In 691 AH."
+  },
+  {
+    "kind": "question",
+    "text": "Who was his first teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "He grew up in a home of knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim grew up in a family of scholars."
+  },
+  {
+    "kind": "question",
+    "text": "Known for knowledge and piety."
+  },
+  {
+    "kind": "lesson",
+    "text": "His name comes from the Jawziyyah school, linked to his father."
+  },
+  {
+    "kind": "lesson",
+    "text": "He later led prayer at al-Jawziyyah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He also taught at the Sadriyyah school"
+  },
+  {
+    "kind": "question",
+    "text": "Where does the name 'Ibn Qayyim al-Jawziyyah' come from?"
+  },
+  {
+    "kind": "question",
+    "text": "His father's school, al-Jawziyyah"
+  },
+  {
+    "kind": "question",
+    "text": "His father was linked to it."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn al-Qayyim do at al-Jawziyyah?"
+  },
+  {
+    "kind": "question",
+    "text": "He sold books"
+  },
+  {
+    "kind": "question",
+    "text": "He built it"
+  },
+  {
+    "kind": "question",
+    "text": "He guarded it"
+  },
+  {
+    "kind": "question",
+    "text": "He was its imam"
+  },
+  {
+    "kind": "question",
+    "text": "He also taught at the Sadriyyah."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim taught in Damascus."
+  },
+  {
+    "kind": "question",
+    "text": "At the Sadriyyah school."
+  },
+  {
+    "kind": "lesson",
+    "text": "From 712 AH he stayed close to Ibn Taymiyyah until his death."
+  },
+  {
+    "kind": "lesson",
+    "text": "One of his foremost students"
+  },
+  {
+    "kind": "lesson",
+    "text": "He edited and spread his teacher's works"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Ibn al-Qayyim's most famous teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "He stayed with him until his death."
+  },
+  {
+    "kind": "question",
+    "text": "What did he do with his teacher's books?"
+  },
+  {
+    "kind": "question",
+    "text": "Hid them"
+  },
+  {
+    "kind": "question",
+    "text": "Sold them all"
+  },
+  {
+    "kind": "question",
+    "text": "Edited and spread them"
+  },
+  {
+    "kind": "question",
+    "text": "So more people could learn."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim met Ibn Taymiyyah only once."
+  },
+  {
+    "kind": "question",
+    "text": "He stayed close to him for years."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was jailed in the Citadel alongside his teacher."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jailed more than once"
+  },
+  {
+    "kind": "lesson",
+    "text": "Freed after Ibn Taymiyyah died"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Ibn al-Qayyim jailed with his teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "The Citadel of Damascus"
+  },
+  {
+    "kind": "question",
+    "text": "He stayed with Ibn Taymiyyah."
+  },
+  {
+    "kind": "question",
+    "text": "When was he let out?"
+  },
+  {
+    "kind": "question",
+    "text": "After Ibn Taymiyyah died"
+  },
+  {
+    "kind": "question",
+    "text": "The next day"
+  },
+  {
+    "kind": "question",
+    "text": "After one hour"
+  },
+  {
+    "kind": "question",
+    "text": "He stayed by his teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Scholars sometimes faced hard trials for their knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim was jailed more than once."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Fajr he made dhikr until midday: \"This is my nourishment.\""
+  },
+  {
+    "kind": "lesson",
+    "text": "Long bowing and prostration"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Kathir: constant in worship"
+  },
+  {
+    "kind": "question",
+    "text": "What did he call his morning dhikr?"
+  },
+  {
+    "kind": "question",
+    "text": "My hobby"
+  },
+  {
+    "kind": "question",
+    "text": "My job"
+  },
+  {
+    "kind": "question",
+    "text": "My rest"
+  },
+  {
+    "kind": "question",
+    "text": "Without it his strength failed."
+  },
+  {
+    "kind": "question",
+    "text": "Until when did he make dhikr after Fajr?"
+  },
+  {
+    "kind": "question",
+    "text": "Until Fajr ended"
+  },
+  {
+    "kind": "question",
+    "text": "He did not"
+  },
+  {
+    "kind": "question",
+    "text": "Until midday"
+  },
+  {
+    "kind": "question",
+    "text": "Every day."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir said he was free from envy."
+  },
+  {
+    "kind": "question",
+    "text": "And of excellent character."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn al-Qayyim wrote many books, like Zad al-Ma'ad."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also Madarij as-Salikin and I'lam al-Muwaqqi'in"
+  },
+  {
+    "kind": "lesson",
+    "text": "He collected a huge library"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these did Ibn al-Qayyim write?"
+  },
+  {
+    "kind": "question",
+    "text": "Zad al-Ma'ad"
+  },
+  {
+    "kind": "question",
+    "text": "About the guidance of the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "What did he collect all his life?"
+  },
+  {
+    "kind": "question",
+    "text": "Swords"
+  },
+  {
+    "kind": "question",
+    "text": "Books"
+  },
+  {
+    "kind": "question",
+    "text": "His children sold them for years after."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim wrote only one book."
+  },
+  {
+    "kind": "question",
+    "text": "He wrote a great many."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ibn al-Qayyim?"
+  },
+  {
+    "kind": "lesson",
+    "text": "He died in Damascus in 751 AH, buried near his father."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the Bab as-Saghir graveyard"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Hajar: vast in knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Where is Ibn al-Qayyim buried?"
+  },
+  {
+    "kind": "question",
+    "text": "Damascus, near his father"
+  },
+  {
+    "kind": "question",
+    "text": "In the Bab as-Saghir graveyard."
+  },
+  {
+    "kind": "question",
+    "text": "Who said he was 'vast in knowledge'?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Hajar"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Hajar came after him."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim outlived his teacher Ibn Taymiyyah."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Taymiyyah died in 728 AH, he in 751 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ibn al-Qayyim!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adh-Dhahabi was born in 673 AH. Dhahab means gold."
+  },
+  {
+    "kind": "lesson",
+    "text": "His father was a skilled goldsmith"
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Safadi: the name fit him well"
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 229097"
+  },
+  {
+    "kind": "question",
+    "text": "What does 'dhahab' mean?"
+  },
+  {
+    "kind": "question",
+    "text": "River"
+  },
+  {
+    "kind": "question",
+    "text": "His father worked with gold."
+  },
+  {
+    "kind": "question",
+    "text": "What was his father's work?"
+  },
+  {
+    "kind": "question",
+    "text": "Goldsmith"
+  },
+  {
+    "kind": "question",
+    "text": "Farmer"
+  },
+  {
+    "kind": "question",
+    "text": "Sailor"
+  },
+  {
+    "kind": "question",
+    "text": "Baker"
+  },
+  {
+    "kind": "question",
+    "text": "He was very skilled."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi was born in 673 AH."
+  },
+  {
+    "kind": "question",
+    "text": "Twelve years after Ibn Taymiyyah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He began studying hadith at eighteen, and worked very hard."
+  },
+  {
+    "kind": "lesson",
+    "text": "More than 1,300 teachers"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Taymiyyah shaped him most"
+  },
+  {
+    "kind": "question",
+    "text": "At what age did he start studying hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Eighteen"
+  },
+  {
+    "kind": "question",
+    "text": "And he never stopped."
+  },
+  {
+    "kind": "question",
+    "text": "About how many teachers did he have?"
+  },
+  {
+    "kind": "question",
+    "text": "More than 1,300"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Nasir ad-Dimashqi counted them."
+  },
+  {
+    "kind": "question",
+    "text": "Which teacher shaped him most?"
+  },
+  {
+    "kind": "question",
+    "text": "He learned from him and was influenced by him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned hadith in Damascus, Egypt, Makkah, Aleppo and more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also Baalbek, Alexandria and Nablus"
+  },
+  {
+    "kind": "lesson",
+    "text": "Teachers like Ibn Daqiq al-Eid"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these cities did adh-Dhahabi learn in?"
+  },
+  {
+    "kind": "question",
+    "text": "Delhi"
+  },
+  {
+    "kind": "question",
+    "text": "Also Damascus, Egypt and Aleppo."
+  },
+  {
+    "kind": "question",
+    "text": "Why did scholars travel so much?"
+  },
+  {
+    "kind": "question",
+    "text": "To escape school"
+  },
+  {
+    "kind": "question",
+    "text": "To hear hadith from more teachers"
+  },
+  {
+    "kind": "question",
+    "text": "For holidays"
+  },
+  {
+    "kind": "question",
+    "text": "To trade gold"
+  },
+  {
+    "kind": "question",
+    "text": "Each city had its own teachers."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi learned only in Damascus."
+  },
+  {
+    "kind": "question",
+    "text": "He travelled to many cities."
+  },
+  {
+    "kind": "lesson",
+    "text": "He wrote Siyar A'lam an-Nubala and Tarikh al-Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also Mizan al-I'tidal, on narrators"
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Safadi: concise and very useful"
+  },
+  {
+    "kind": "question",
+    "text": "Which famous book did adh-Dhahabi write?"
+  },
+  {
+    "kind": "question",
+    "text": "Siyar A'lam an-Nubala"
+  },
+  {
+    "kind": "question",
+    "text": "Lives of the great scholars."
+  },
+  {
+    "kind": "question",
+    "text": "What is Mizan al-I'tidal about?"
+  },
+  {
+    "kind": "question",
+    "text": "Hadith narrators"
+  },
+  {
+    "kind": "question",
+    "text": "Cooking"
+  },
+  {
+    "kind": "question",
+    "text": "Who is reliable and who is not."
+  },
+  {
+    "kind": "question",
+    "text": "Many lessons in this app use his Siyar."
+  },
+  {
+    "kind": "question",
+    "text": "Look at the sources of the earlier scholars."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Kathir, author of the famous tafsir, learned from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "So did as-Subki and as-Safadi"
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Subki: he trained us"
+  },
+  {
+    "kind": "question",
+    "text": "Which famous student did adh-Dhahabi teach?"
+  },
+  {
+    "kind": "question",
+    "text": "Author of Tafsir Ibn Kathir."
+  },
+  {
+    "kind": "question",
+    "text": "What did as-Subki say about him?"
+  },
+  {
+    "kind": "question",
+    "text": "He was a goldsmith"
+  },
+  {
+    "kind": "question",
+    "text": "He trained us in this field"
+  },
+  {
+    "kind": "question",
+    "text": "The field of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir learned from adh-Dhahabi."
+  },
+  {
+    "kind": "question",
+    "text": "One of his top students."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Hajar drank Zamzam hoping to reach adh-Dhahabi's level."
+  },
+  {
+    "kind": "lesson",
+    "text": "In memorising and understanding hadith"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Kathir: the last great scholar of hadith"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Hajar hope for when he drank Zamzam?"
+  },
+  {
+    "kind": "question",
+    "text": "To become king"
+  },
+  {
+    "kind": "question",
+    "text": "To reach adh-Dhahabi's level"
+  },
+  {
+    "kind": "question",
+    "text": "In memorising and understanding hadith."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Kathir call adh-Dhahabi?"
+  },
+  {
+    "kind": "question",
+    "text": "The historian of Islam"
+  },
+  {
+    "kind": "question",
+    "text": "A goldsmith"
+  },
+  {
+    "kind": "question",
+    "text": "A sailor"
+  },
+  {
+    "kind": "question",
+    "text": "And shaykh of the hadith scholars."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Hajar admired adh-Dhahabi's knowledge of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "He made du'a at Zamzam for it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Adh-Dhahabi?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adh-Dhahabi died in Damascus in 748 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "Buried at al-Bab as-Saghir"
+  },
+  {
+    "kind": "lesson",
+    "text": "Three years before Ibn al-Qayyim"
+  },
+  {
+    "kind": "question",
+    "text": "In which city did adh-Dhahabi die?"
+  },
+  {
+    "kind": "question",
+    "text": "In 748 AH."
+  },
+  {
+    "kind": "question",
+    "text": "Which graveyard holds adh-Dhahabi and Ibn al-Qayyim?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bab as-Saghir"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Baqi'"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ma'la"
+  },
+  {
+    "kind": "question",
+    "text": "In Damascus."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi and Ibn al-Qayyim were both students of Ibn Taymiyyah."
+  },
+  {
+    "kind": "question",
+    "text": "Both on the tree under him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Adh-Dhahabi!"
   },
   {
     "kind": "lesson",
@@ -92646,10 +93434,6 @@
   {
     "kind": "question",
     "text": "Ayah 34: what do some hoard and not spend for Allah?"
-  },
-  {
-    "kind": "question",
-    "text": "Books"
   },
   {
     "kind": "lesson",
@@ -121414,10 +122198,6 @@
   {
     "kind": "question",
     "text": "Ayah 50: what did Allah make Yunus after choosing him?"
-  },
-  {
-    "kind": "question",
-    "text": "A sailor"
   },
   {
     "kind": "question",

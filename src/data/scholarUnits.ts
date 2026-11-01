@@ -933,6 +933,8 @@ const SCHOLAR_ORDER = [
   "scholar-abu-dawud",
   "scholar-tirmidhi",
   "scholar-ibn-taymiyyah",
+  "scholar-ibn-qayyim",
+  "scholar-dhahabi",
   "scholar-ibn-baz",
   "scholar-albani"
 ];
@@ -992,6 +994,8 @@ export const SCHOLAR_TREE: Record<string, { row: number; years?: ScholarYears; l
   "scholar-shafii": { row: 1, years: { era: "AH", died: 204 }, learnedFrom: [{ id: "scholar-malik" }, { id: "scholar-abu-hanifah", via: "Muhammad ibn al-Hasan" }] },
   "scholar-ahmad": { row: 2, years: { era: "AH", born: 164, died: 241 }, learnedFrom: [{ id: "scholar-shafii" }, { id: "scholar-abu-hanifah", via: "Abu Yusuf" }] },
   "scholar-ibn-taymiyyah": { row: 3, years: { era: "AH", born: 661, died: 728 } },
+  "scholar-ibn-qayyim": { row: 4, years: { era: "AH", born: 691, died: 751 } },
+  "scholar-dhahabi": { row: 4, years: { era: "AH", born: 673, died: 748 } },
   "scholar-ibn-baz": { row: 4, years: { era: "CE", born: 1912, died: 1999 } },
   "scholar-albani": { row: 4, years: { era: "CE", born: 1914, died: 1999 } }
 };
