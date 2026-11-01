@@ -13,7 +13,10 @@ export type TopicId =
   | "quran_tafseer"
   | "hadith"
   | "scholars"
-  | "ramadan";
+  | "eid"
+  | "akhirah"
+  | "ramadan"
+  | "intro";
 
 export type CharacterVariant = "hijabi" | "muslim_man";
 
@@ -207,6 +210,12 @@ export interface UserProfile {
   xpByDay?: Record<string, number>;
   // Local day a lesson was last finished; the streak ends once a whole day passes without one.
   lastStreakDate?: string;
+  /** Streak freezes owned (bought with gems, at most MAX_STREAK_FREEZES): each one covers one missed day. */
+  streakFreezes?: number;
+  /** Local days (YYYY-MM-DD) a freeze covered, newest last, for the streak sheet. */
+  frozenDays?: string[];
+  /** The last time freezes saved the streak, until the learner has seen the "streak saved" card. */
+  freezeSave?: { date: string; days: number; streak: number; seen?: boolean };
   dailyGoalXp: number;
   gems: number;
   hearts: HeartsBalance;
@@ -231,6 +240,28 @@ export interface UserProfile {
   ummah?: UmmahState;
   /** Quizzes taken, by quiz id ("topic:<topicId>" or "unit:<unitId>"; see src/services/quizzes.ts). */
   quizScores?: Record<string, QuizScore>;
+  /** The Review deck: lesson questions missed on their first try, brought back until they stick (services/reviewDeck). */
+  reviewCards?: ReviewCard[];
+  /** How hard lessons are (Settings): "auto" climbs with the streak and lessons done (src/data/challengeLevel.ts). */
+  difficulty?: DifficultyChoice;
+}
+
+/** Lesson difficulty as the learner picks it in Settings; unset is "auto". */
+export type DifficultyChoice = "auto" | "easy" | "hard" | "really_hard";
+
+/** One missed lesson question in the Review deck. */
+export interface ReviewCard {
+  /** The lesson the question belongs to (its own lesson, not the one that asked it as a review). */
+  lessonId: string;
+  /** The question's id in that lesson. */
+  challengeId: string;
+  /** 0 just missed; each first-try right answer moves it up one, and past the last box it has stuck. */
+  box: number;
+  /** When it is next asked (ISO time). */
+  dueAt: string;
+  /** How many times it was missed: the weakest are asked first. */
+  misses: number;
+  lastSeenAt: string;
 }
 
 /** What a quiz asks about: a whole topic, or one of its units. */
@@ -430,6 +461,11 @@ export interface Lesson {
   quote?: { text: string; reference?: string };
   /** The one source that says what the learn card says; the card's source chip shows only this, labelled with its short reference. */
   learnSource?: LessonSource;
+  /**
+   * The deeper lesson under the learn card (Quran passages taught in depth): what the ayahs mean, the story, what to
+   * take home, and the tafsir books it comes from, each a chip.
+   */
+  learnDeeper?: { meaning: string[]; story?: string; takeaway?: string; sources: LessonSource[] };
   lessonType?: "skill" | "story" | "surah" | "scenario" | "review" | "mastery";
   difficulty?: DifficultyTier;
   xpReward: number;
@@ -485,6 +521,8 @@ export interface LessonSession {
   attempt?: number;
   /** A test-out started from JUMP HERE: the circle it was tapped on, so TRY AGAIN tests for the same one. */
   jumpNodeId?: string;
+  /** A Review of missed questions (mode "lesson_practice"): every first-try answer moves its card in the deck. */
+  reviewDeck?: boolean;
 }
 
 export interface ShopItem {

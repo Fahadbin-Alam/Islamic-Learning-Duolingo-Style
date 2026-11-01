@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import { COURSE } from "../../data/course";
 // Type-only: backendSync pulls in device storage, which a presentational screen must not load.
-import type { CrewMember, CrewPayload } from "../../services/backendSync";
+import type { CrewMember, CrewPayload, FriendBattle } from "../../services/backendSync";
 import type { LeagueState, SocialRelation, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
@@ -57,7 +57,18 @@ export type CrewViewProps = {
   /** This week's league, ended up to today (settleLeague). Shown on top, with or without a crew server. */
   league?: LeagueState;
   /** The Ummah ranks page (arenas, battles, the ranking of everyone). With it the tab has Ranks and Friends pages. */
-  ranks?: Omit<UmmahRanksProps, "user" | "mascotVariant" | "accent">;
+  ranks?: Omit<UmmahRanksProps, "user" | "mascotVariant" | "accent" | "onBattleFriend">;
+  /** Battles with friends: asked, waiting, ready to play and finished. */
+  battles?: FriendBattle[];
+  /** Asks a friend (both added each other) to a battle. */
+  onChallenge?: (member: CrewMember) => void;
+  /** A friend asked for a battle: true says yes (and plays it now), false says no. */
+  onAnswerBattle?: (battle: FriendBattle, accept: boolean) => void;
+  onPlayBattle?: (battle: FriendBattle) => void;
+  /** Takes back a battle this learner asked for that has not started. */
+  onCancelBattle?: (battle: FriendBattle) => void;
+  /** The phone's share menu with an invite to Muslimo (no grown-up check: the person picks who gets it). */
+  onShareApp?: () => void;
 };
 
 // Friend avatars take a topic world color, picked from their id.
@@ -197,6 +208,66 @@ function PendingRow({ member, onCancel }: { member: CrewMember; onCancel: () => 
   );
 }
 
+/** One battle with a friend, in whatever state it is in, with the one button that moves it on. */
+function BattleRow({ battle, onAnswer, onPlay, onCancel }: { battle: FriendBattle; onAnswer?: (accept: boolean) => void; onPlay?: () => void; onCancel?: () => void }) {
+  const name = firstName(battle.friend.name);
+  const member = { id: battle.friend.id, name: battle.friend.name } as CrewMember;
+  const incoming = battle.status === "pending" && !battle.youStarted;
+  const ready = battle.status === "accepted" && battle.yourScore === null;
+  const done = battle.status === "done";
+  let line: string;
+  if (incoming) line = t("Wants to battle you!");
+  else if (battle.status === "pending") line = t("Waiting for {name} to say yes", { name });
+  else if (ready) line = battle.theyPlayed ? t("{name} played. Your turn!", { name }) : t("Your turn to play!");
+  else if (!done) line = t("You got {count}. Waiting for {name}.", { count: battle.yourScore ?? 0, name });
+  else line = battle.outcome === "win" ? t("You won {mine} to {theirs}!", { mine: battle.yourScore ?? 0, theirs: battle.theirScore ?? 0 }) : battle.outcome === "draw" ? t("Tie, {mine} to {theirs}", { mine: battle.yourScore ?? 0, theirs: battle.theirScore ?? 0 }) : t("They won {theirs} to {mine}", { mine: battle.yourScore ?? 0, theirs: battle.theirScore ?? 0 });
+  const tone = done ? (battle.outcome === "win" ? styles.battleWin : battle.outcome === "loss" ? styles.battleLoss : null) : incoming || ready ? styles.battleHot : null;
+  return (
+    <PopIn from="up">
+      <View style={[styles.raceRow, tone]} testID={`battle-row-${battle.id}`}>
+        <View style={styles.battleIcon}>
+          <Icon name={done ? "trophy" : "bolt"} size={20} />
+        </View>
+        <Avatar member={member} size={36} />
+        <View style={styles.raceMain}>
+          <Text style={styles.raceName} numberOfLines={1}>{name}</Text>
+          <Text style={styles.raceMetaText} numberOfLines={2} testID={`battle-line-${battle.id}`}>{line}</Text>
+        </View>
+        {incoming ? (
+          <>
+            <GameButton label={t("Play")} size="sm" variant="gold" onPress={() => onAnswer?.(true)} testID={`battle-accept-${battle.id}`} />
+            <Tappable onPress={() => onAnswer?.(false)} style={styles.noLink} accessibilityLabel={t("Say no to {name}", { name })} hitSlop={6} testID={`battle-decline-${battle.id}`}>
+              <Icon name="close" size={18} color={colors.inkSoft} />
+            </Tappable>
+          </>
+        ) : ready ? (
+          <GameButton label={t("Play")} size="sm" variant="gold" onPress={onPlay} testID={`battle-play-${battle.id}`} />
+        ) : battle.status === "pending" ? (
+          <Tappable onPress={onCancel} style={styles.noLink} accessibilityLabel={t("Cancel battle with {name}", { name })} hitSlop={6} testID={`battle-cancel-${battle.id}`}>
+            <Icon name="close" size={18} color={colors.inkSoft} />
+          </Tappable>
+        ) : null}
+      </View>
+    </PopIn>
+  );
+}
+
+/** Open battles first (the ones waiting on this learner on top), then the last few finished. */
+export function sortBattles(battles: FriendBattle[]) {
+  const weight = (battle: FriendBattle) => {
+    if (battle.status === "pending" && !battle.youStarted) return 0;
+    if (battle.status === "accepted" && battle.yourScore === null) return 1;
+    if (battle.status !== "done") return 2;
+    return 3;
+  };
+  return battles.slice().sort((left, right) => weight(left) - weight(right));
+}
+
+/** Battles that wait on this learner: a friend asked, or it's their turn to play. */
+export function battlesWaitingOnMe(battles: FriendBattle[] = []) {
+  return battles.filter((battle) => (battle.status === "pending" && !battle.youStarted) || (battle.status === "accepted" && battle.yourScore === null)).length;
+}
+
 type UmmahPage = "ranks" | "friends";
 
 /** Ummah tab: Ranks (arenas, battles, everyone's ranking) and Friends (weekly XP race, a grown-up-gated invite sheet). */
@@ -217,6 +288,12 @@ export function CrewView({
   hasSavedAccount = false,
   league,
   ranks,
+  battles = [],
+  onChallenge,
+  onAnswerBattle,
+  onPlayBattle,
+  onCancelBattle,
+  onShareApp,
   mascotVariant = "muslim_man",
   // The brand green like the Mascot's own default; the app passes the topic accent.
   accent = colors.green
@@ -241,9 +318,10 @@ export function CrewView({
   // Nothing else starts the first load when Crew is a tab.
   const refresh = useRef(onRefresh);
   refresh.current = onRefresh;
+  // Loaded on the Ranks page too, so the Friends button can say when a friend is waiting for a battle.
   useEffect(() => {
-    if (crew.status === "idle" && user.hasAccount && !unavailable && !showRanks) refresh.current();
-  }, [crew.status, showRanks, unavailable, user.hasAccount]);
+    if (crew.status === "idle" && user.hasAccount && !unavailable) refresh.current();
+  }, [crew.status, unavailable, user.hasAccount]);
   useEffect(() => () => clearTimeout(retryTimer.current), []);
 
   const retry = () => {
@@ -253,7 +331,8 @@ export function CrewView({
     onRefresh();
   };
 
-  const openInvite = () => ask(() => setInviteOpen(true));
+  // Inviting needs no grown-up check: the other side must add back, and saying yes to them is still checked.
+  const openInvite = () => setInviteOpen(true);
   const openFriend = (member: CrewMember) => {
     setConfirmRemove(false);
     setLastFriend(member);
@@ -277,6 +356,28 @@ export function CrewView({
         ))}
       </View>
     ) : null;
+  const waitingOnMe = battlesWaitingOnMe(battles);
+  const battleList = battles.length ? (
+    <View style={[styles.race, styles.waiting]} testID="crew-battles">
+      <Text style={styles.listTitle}>{t("Battles")}</Text>
+      {sortBattles(battles).map((battle) => (
+        <BattleRow
+          key={`battle_${battle.id}`}
+          battle={battle}
+          onAnswer={(accept) => onAnswerBattle?.(battle, accept)}
+          onPlay={() => onPlayBattle?.(battle)}
+          onCancel={() => onCancelBattle?.(battle)}
+        />
+      ))}
+    </View>
+  ) : null;
+  const openBattleWith = (member: CrewMember) => battles.find((battle) => battle.friend.id === member.id && battle.status !== "done");
+  const inviteButtons = (
+    <View style={styles.inviteWrap}>
+      <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
+      {onShareApp ? <GameButton label={t("Share Muslimo")} icon="share" variant="secondary" fullWidth onPress={onShareApp} testID="crew-share" /> : null}
+    </View>
+  );
   const add = () => {
     if (!canAdd) return;
     setInviteOpen(false);
@@ -306,20 +407,24 @@ export function CrewView({
   } else if (!payload) {
     body = <Empty {...emptyProps} testID="crew-loading" mood="think" title={t("Finding your crew...")} busy />;
   } else if (!payload.friends.length && !waiting) {
-    body = <Empty {...emptyProps} testID="crew-empty" mood="wave" title={t("Add a friend to race!")} button={t("Invite")} icon="plus" onPress={openInvite} />;
+    body = (
+      <>
+        <Empty {...emptyProps} testID="crew-empty" mood="wave" title={t("Add a friend to race and battle!")} button={t("Invite")} icon="plus" onPress={openInvite} />
+        {onShareApp ? <GameButton label={t("Share Muslimo")} icon="share" variant="secondary" fullWidth onPress={onShareApp} testID="crew-share" /> : null}
+      </>
+    );
   } else if (!payload.friends.length) {
     body = (
       <>
         {waiting}
-        <View style={styles.inviteWrap}>
-          <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
-        </View>
+        {inviteButtons}
       </>
     );
   } else {
     body = (
       <>
         {waiting}
+        {battleList}
         <View style={styles.mascotRow}>
           <Mascot variant={mascotVariant} mood={myRank === 1 ? "cheer" : "happy"} size={78} accent={accent} />
           <View style={styles.bubbleWrap}>
@@ -332,10 +437,9 @@ export function CrewView({
             <RaceRow key={`${entry.relation}_${entry.id}`} entry={entry} index={index} onOpen={openFriend} />
           ))}
         </View>
+        {onChallenge ? <Text style={styles.hint}>{t("Tap a friend to battle them.")}</Text> : null}
 
-        <View style={styles.inviteWrap}>
-          <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
-        </View>
+        {inviteButtons}
       </>
     );
   }
@@ -380,12 +484,17 @@ export function CrewView({
                 <Text style={[styles.pageText, page === key ? styles.pageTextActive : null]} numberOfLines={1}>
                   {key === "ranks" ? t("Ranks") : t("Friends")}
                 </Text>
+                {key === "friends" && waitingOnMe + requests.length > 0 ? (
+                  <View style={styles.badge} testID="ummah-friends-badge">
+                    <Text style={styles.badgeText}>{waitingOnMe + requests.length}</Text>
+                  </View>
+                ) : null}
               </Tappable>
             ))}
           </View>
         ) : null}
         {showRanks && ranks ? (
-          <UmmahRanks {...ranks} user={user} mascotVariant={mascotVariant} accent={accent} />
+          <UmmahRanks {...ranks} user={user} mascotVariant={mascotVariant} accent={accent} onBattleFriend={signedOut || unavailable ? undefined : () => setPage("friends")} />
         ) : (
           <>
             {league ? <LeagueCard league={league} /> : null}
@@ -475,7 +584,24 @@ export function CrewView({
                 <Text style={styles.friendStatText}>{formatNumber(shownFriend.weeklyXp)}</Text>
               </View>
             </View>
-            <GameButton label={t("OK")} fullWidth onPress={closeFriend} testID="crew-friend-ok" />
+            {onChallenge ? (
+              openBattleWith(shownFriend) ? (
+                <Text style={styles.hint} testID="crew-friend-battle-open">{t("You already have a battle with {name}.", { name: firstName(shownFriend.name) })}</Text>
+              ) : (
+                <GameButton
+                  label={t("Battle")}
+                  icon="bolt"
+                  variant="gold"
+                  fullWidth
+                  onPress={() => {
+                    closeFriend();
+                    onChallenge(shownFriend);
+                  }}
+                  testID={`crew-challenge-${shownFriend.id}`}
+                />
+              )
+            ) : null}
+            <GameButton label={t("OK")} variant={onChallenge ? "secondary" : undefined} fullWidth onPress={closeFriend} testID="crew-friend-ok" />
             <Tappable onPress={() => setConfirmRemove(true)} style={styles.removeLink} accessibilityLabel={`Remove ${firstName(shownFriend.name)}`} testID={`crew-ask-remove-${shownFriend.id}`}>
               <Text style={styles.removeLinkText}>{t("Remove")}</Text>
             </Tappable>
@@ -496,7 +622,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 12,
     paddingBottom: 32,
-    flexGrow: 1
+    flexGrow: 1,
+    // Centered in a phone-wide column on tablets and the web, like the other tabs.
+    width: "100%",
+    maxWidth: 560,
+    alignSelf: "center"
   },
   titleRow: {
     flexDirection: "row",
@@ -648,7 +778,52 @@ const styles = StyleSheet.create({
     color: colors.goldLip
   },
   inviteWrap: {
-    marginTop: 18
+    marginTop: 18,
+    gap: 10
+  },
+  hint: {
+    ...text.small,
+    textAlign: "center",
+    marginTop: 10
+  },
+  listTitle: {
+    ...text.h3,
+    marginBottom: 2
+  },
+  battleIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: lighten(colors.gold, 0.75)
+  },
+  battleHot: {
+    borderColor: lighten(colors.gold, 0.3),
+    borderBottomColor: colors.goldLip,
+    backgroundColor: lighten(colors.gold, 0.88)
+  },
+  battleWin: {
+    borderColor: lighten(colors.green, 0.5),
+    borderBottomColor: colors.green
+  },
+  battleLoss: {
+    borderColor: colors.line
+  },
+  badge: {
+    minWidth: 22,
+    height: 22,
+    paddingHorizontal: 6,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.heart
+  },
+  badgeText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.white
   },
   sheetHead: {
     flexDirection: "row",

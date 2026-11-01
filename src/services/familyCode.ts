@@ -71,6 +71,11 @@ function isDateKey(value: unknown): value is string {
   return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
 
+/** The day `days` after `dateKey` (YYYY-MM-DD); negative goes back. */
+export function shiftDateKey(dateKey: string, days: number) {
+  return dateKeyFromDay(dayNumber(dateKey) + days);
+}
+
 /** Days from `from` to `to` (both YYYY-MM-DD); negative when `to` is earlier. */
 export function daysBetween(from: string, to: string) {
   return dayNumber(to) - dayNumber(from);

@@ -568,7 +568,7 @@ describe("the shop's BUY button is a button of its own", () => {
     }
     // Both are buttons a screen reader can reach, each with its own name; only BUY buys.
     expect(screen.getByRole("button", { name: "Refill hearts, Fill to 5" })).toBeTruthy();
-    await fireEvent.press(screen.getByRole("button", { name: "Refill hearts, 350 gems" }));
+    await fireEvent.press(screen.getByRole("button", { name: "Refill hearts, 350 dates" }));
     expect(onUseItem).toHaveBeenCalledTimes(1);
   });
 
@@ -627,7 +627,7 @@ describe("the gem count reads the same in the top bar and on the Shop card", () 
     expect(screen.getByTestId("top-bar-gems")).toHaveTextContent(shown);
     expect(screen.getByTestId("shop-gems")).toHaveTextContent(shown);
     // A screen reader hears the whole number.
-    expect(screen.getByRole("button", { name: `${gems.toLocaleString("en-US")} gems` })).toBeTruthy();
+    expect(screen.getByRole("button", { name: `${gems.toLocaleString("en-US")} dates` })).toBeTruthy();
   });
 });
 

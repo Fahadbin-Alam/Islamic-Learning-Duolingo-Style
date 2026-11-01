@@ -10,6 +10,19 @@ import { LinkRow, SegmentButton, SheetTitle, Toggle, useBackToClose } from "./sh
 import { QuranOfflineRow } from "./QuranOfflineRow";
 import { offlineAudioSupported } from "../../services/offlineAudio";
 import { t } from "../../i18n";
+import type { DifficultyChoice } from "../../types";
+import { PATH_WORLD_CHOICES, setPathWorldChoice, usePathWorldChoice, type PathWorldChoice } from "../../services/pathWorldChoice";
+import { WORLD_LABELS } from "../pathWorlds";
+
+// What each scenery pick shows on the Learn path.
+const WORLD_LINES: Record<PathWorldChoice, string> = {
+  auto: "Each unit is a new place.",
+  desert: "Dunes, palms and camels.",
+  beach: "Waves, crabs and boats.",
+  forest: "Pines, mushrooms and an owl.",
+  snow: "Snowy peaks and goats.",
+  camp: "Tents and horses at Badr."
+};
 
 export type LearnerRole = "child" | "parent";
 
@@ -22,6 +35,9 @@ export type SettingsSheetProps = {
   weeklyCheckIn: boolean;
   soundEnabled: boolean;
   softSound: boolean;
+  /** How hard lessons are; unset is "auto". */
+  difficulty?: DifficultyChoice;
+  onSelectDifficulty?: (difficulty: DifficultyChoice) => void;
   onSelectRole: (role?: LearnerRole) => void;
   onToggleStreak: () => void;
   onToggleIslamic: () => void;
@@ -51,6 +67,14 @@ const ROLES: Array<{ id?: LearnerRole; label: string; line: string; testID: stri
   { id: "parent", label: "Parent", line: "Cheer on your child.", testID: "settings-role-parent" }
 ];
 
+// How hard lessons are. Auto climbs with the streak and the lessons done; the line under says what each does.
+const DIFFICULTIES: Array<{ id: DifficultyChoice; label: string; line: string; testID: string }> = [
+  { id: "auto", label: "Auto", line: "Gets harder as your streak grows.", testID: "settings-difficulty-auto" },
+  { id: "easy", label: "Easy", line: "Gentle questions, more true or false.", testID: "settings-difficulty-easy" },
+  { id: "hard", label: "Hard", line: "More questions from memory.", testID: "settings-difficulty-hard" },
+  { id: "really_hard", label: "Really hard", line: "The toughest questions. Good luck!", testID: "settings-difficulty-really-hard" }
+];
+
 export function SettingsSheet({
   visible,
   role,
@@ -60,6 +84,8 @@ export function SettingsSheet({
   weeklyCheckIn,
   soundEnabled,
   softSound,
+  difficulty,
+  onSelectDifficulty,
   onSelectRole,
   onToggleStreak,
   onToggleIslamic,
@@ -79,7 +105,9 @@ export function SettingsSheet({
 }: SettingsSheetProps) {
   useBackToClose(visible, onClose);
   const activeRole = ROLES.find((option) => option.id === role) ?? ROLES[0];
+  const activeDifficulty = DIFFICULTIES.find((option) => option.id === difficulty) ?? DIFFICULTIES[0];
   const { ref, scrollProps, more, scrollDown } = useScrollMore();
+  const world = usePathWorldChoice();
 
   // The title and SAVE stay put; the rows scroll between them, with a bouncing arrow while some are hidden.
   return (
@@ -103,6 +131,42 @@ export function SettingsSheet({
               <Text style={styles.hint}>{t(activeRole.line)}</Text>
             </View>
           )}
+
+          {onSelectDifficulty ? (
+            <View style={styles.roles} testID="settings-difficulty">
+              <Text style={styles.label}>{t("Difficulty")}</Text>
+              <View style={styles.segments}>
+                {DIFFICULTIES.map((option) => (
+                  <SegmentButton
+                    key={option.testID}
+                    label={t(option.label)}
+                    active={option === activeDifficulty}
+                    onPress={() => onSelectDifficulty(option.id)}
+                    testID={option.testID}
+                  />
+                ))}
+              </View>
+              <Text style={styles.hint}>{t(activeDifficulty.line)}</Text>
+            </View>
+          ) : null}
+
+          <View style={styles.roles} testID="settings-scenery">
+            <Text style={styles.label}>{t("Path scenery")}</Text>
+            {[PATH_WORLD_CHOICES.slice(0, 3), PATH_WORLD_CHOICES.slice(3)].map((row) => (
+              <View key={row[0]} style={styles.segments}>
+                {row.map((choice) => (
+                  <SegmentButton
+                    key={choice}
+                    label={t(WORLD_LABELS[choice])}
+                    active={choice === world}
+                    onPress={() => setPathWorldChoice(choice)}
+                    testID={`settings-scenery-${choice}`}
+                  />
+                ))}
+              </View>
+            ))}
+            <Text style={styles.hint}>{t(WORLD_LINES[world])}</Text>
+          </View>
 
           {onOpenLanguage ? (
             <View style={styles.card}>
@@ -181,6 +245,11 @@ const styles = StyleSheet.create({
   hint: {
     ...text.small,
     textAlign: "center"
+  },
+  label: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    color: colors.ink
   },
   segments: {
     flexDirection: "row",

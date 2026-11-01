@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Icon } from "../Icon";
 import { StatChip } from "../StatChip";
@@ -15,6 +15,10 @@ export type AppTopBarProps = {
   topicTitle: string;
   accent: string;
   streakDays: number;
+  /** Streak freezes owned, shown on the streak sheet. Leave out to hide them. */
+  streakFreezes?: number;
+  /** Buy a streak freeze from the streak sheet. */
+  onBuyStreakFreeze?: () => void;
   gems: number;
   hearts: { current: number; max: number; unlimited: boolean };
   /** Tap the topic button. */
@@ -27,6 +31,8 @@ export type AppTopBarProps = {
   dailySeen?: boolean;
   /** The book opened today's ayah and hadith (to remember it for the day). */
   onDailyOpened?: () => void;
+  /** Opens today's ayah and hadith each time it goes up (a tap on the home-screen widget). */
+  dailyOpenSignal?: number;
   /** Extra top padding (status bar). Default 0. */
   topInset?: number;
 };
@@ -37,6 +43,8 @@ export function AppTopBar({
   topicTitle,
   accent,
   streakDays,
+  streakFreezes,
+  onBuyStreakFreeze,
   gems,
   hearts,
   onOpenTopics,
@@ -44,17 +52,25 @@ export function AppTopBar({
   onStreak,
   dailySeen = false,
   onDailyOpened,
+  dailyOpenSignal = 0,
   topInset = 0
 }: AppTopBarProps) {
   const palette = topicPalette(accent);
   const [streakOpen, setStreakOpen] = useState(false);
   const [dailyOpen, setDailyOpen] = useState(false);
+  // Opened by itself (the app opening for the first time today, or the widget): the ayah is recited too.
+  const [dailyAuto, setDailyAuto] = useState(false);
   // The book wears a red dot until today's card is opened.
   const dailyNew = !dailySeen;
-  const openDaily = () => {
+  const openDaily = (auto = false) => {
+    setDailyAuto(auto);
     setDailyOpen(true);
     onDailyOpened?.();
   };
+  useEffect(() => {
+    if (dailyOpenSignal > 0) openDaily(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dailyOpenSignal]);
   const heartLabel = hearts.unlimited ? t("Unlimited hearts") : t("{count} of {max} hearts", { count: hearts.current, max: hearts.max });
 
   return (
@@ -78,7 +94,7 @@ export function AppTopBar({
         {/* Counts are formatted as on the Shop card and the Me tab: "1,000", "12,345", then "120k", so they always fit. */}
         <View style={styles.stats}>
           <Tappable
-            onPress={openDaily}
+            onPress={() => openDaily()}
             sound="node_tap"
             pressScale={0.92}
             hitSlop={6}
@@ -99,11 +115,11 @@ export function AppTopBar({
             testID="top-bar-streak"
           />
           <StatChip
-            icon="gem"
+            icon="date"
             value={compactNumber(gems)}
-            color={colors.gem}
+            color={colors.date}
             onPress={onOpenShop}
-            accessibilityLabel={t("{count} gems", { count: formatNumber(gems) })}
+            accessibilityLabel={t("{count} dates", { count: formatNumber(gems) })}
             testID="top-bar-gems"
           />
           {hearts.unlimited ? (
@@ -133,8 +149,17 @@ export function AppTopBar({
           )}
         </View>
       </View>
-      <DailySheet visible={dailyOpen} onClose={() => setDailyOpen(false)} />
-      {onStreak ? null : <StreakSheet visible={streakOpen} streakDays={streakDays} onClose={() => setStreakOpen(false)} />}
+      <DailySheet visible={dailyOpen} autoPlay={dailyAuto} onClose={() => setDailyOpen(false)} />
+      {onStreak ? null : (
+        <StreakSheet
+          visible={streakOpen}
+          streakDays={streakDays}
+          freezes={streakFreezes}
+          gems={gems}
+          onBuyFreeze={onBuyStreakFreeze}
+          onClose={() => setStreakOpen(false)}
+        />
+      )}
     </View>
   );
 }

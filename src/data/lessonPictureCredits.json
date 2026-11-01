@@ -1,0 +1,154 @@
+{
+  "kaaba": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "makkah": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "madinah": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "aqsa": {
+    "file": "File:Jerusalem-2013-Temple Mount-Al-Aqsa Mosque (NE exposure).jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Jerusalem-2013-Temple_Mount-Al-Aqsa_Mosque_(NE_exposure).jpg",
+    "author": "Godot13",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "uhud": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "badr": {
+    "file": "File:Badr Saudi Arabia - panoramio (5).jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Badr_Saudi_Arabia_-_panoramio_(5).jpg",
+    "author": "Devu Anchal",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+  },
+  "hira": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "arafah": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "mina": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "muzdalifah": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "safa-marwa": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "zamzam": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "hegra": {
+    "file": "File:Hegra (Mada'in Salih), the kingdom's second Nabatean capital after Petra, Saudi Arabia - 53534957828.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Hegra_(Mada%27in_Salih),_the_kingdom%27s_second_Nabatean_capital_after_Petra,_Saudi_Arabia_-_53534957828.jpg",
+    "author": "Following Hadrian",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "sinai": {
+    "file": "File:Mount sinai egypt moses.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Mount_sinai_egypt_moses.jpg",
+    "author": "Oxfordus167",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "taif": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "damascus": {
+    "file": "File:The Umayyad Mosque, Damascus, Syria.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:The_Umayyad_Mosque,_Damascus,_Syria.jpg",
+    "author": "Vyacheslav Argenberg",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0"
+  },
+  "jerusalem": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "desert": {
+    "file": "File:Desert vegetation (8398931457).jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Desert_vegetation_(8398931457).jpg",
+    "author": "Peter Dowley",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+  },
+  "date-palms": {
+    "file": "File:Dahab Egypt Phoenix dactylifera.JPG",
+    "page": "https://commons.wikimedia.org/wiki/File:Dahab_Egypt_Phoenix_dactylifera.JPG",
+    "author": "B. Simpson Cairocamels",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0"
+  },
+  "manuscript": {
+    "file": "File:Birmingham Quran manuscript full.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Birmingham_Quran_manuscript_full.jpg",
+    "author": "Unknown author",
+    "license": "Public domain",
+    "licenseUrl": ""
+  }
+}

@@ -282,8 +282,10 @@ describe("shop", () => {
         onBuySecretHint={onBuySecretHint}
       />
     );
+    await fireEvent.press(screen.getByTestId("shop-shelf-icons"));
     await fireEvent.press(screen.getByTestId("shop-icon-moon"));
     expect(onBuyIcon).toHaveBeenCalledWith("moon");
+    await fireEvent.press(screen.getByTestId("shop-shelf-hadith"));
     await fireEvent.press(screen.getByTestId("shop-buy-secret-hint"));
     expect(onBuySecretHint).toHaveBeenCalled();
   });

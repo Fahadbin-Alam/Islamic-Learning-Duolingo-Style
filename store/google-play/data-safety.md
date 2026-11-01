@@ -47,6 +47,7 @@ Notes:
 
 - "Required" vs "Optional": Google says data is optional only if users can choose not to provide it and still use the app. Ads data is collected for every free user, so it is required. Account data is optional because the app works without an account.
 - Answers include response time and the confidence rating the learner gives. They are learning analytics under App interactions; they are never sent to AdMob.
+- Server sync (docs/hosting.md, Render + Neon) only turns on the backend row above, which was already declared: name, email, user id, other info and app interactions. Render and Neon are service providers, so this is "collected", not "shared". No Data safety answer changes.
 - If you add Firebase, Crashlytics, Sentry or any analytics SDK later, update Crash logs, Diagnostics and App interactions.
 - Google's own guide for the ads SDK: https://developers.google.com/admob/android/privacy/play-data-disclosure.
 

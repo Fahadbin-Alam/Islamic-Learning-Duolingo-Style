@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { getLessonArabic, NODE_ARABIC } from "../../data/arabicTerms";
 import { COURSE, LESSONS_BY_ID } from "../../data/course";
+import { pictureForLesson, pictureForQuestion } from "../../data/lessonPictures";
 import type { Challenge, Lesson } from "../../types";
 import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, getLessonLine, shortWhy, type LessonHearts } from "../lesson";
 import { colors, fonts, space } from "../theme";
@@ -48,6 +49,11 @@ const longQuoteLesson = allLessons.filter((lesson) => lesson.quote).sort((a, b) 
 const ayahLesson =
   allLessons.find((lesson) => /^Quran \d+:\d+$/.test(lesson.quote?.reference ?? "") && /^[\u0600-\u06FF\s]+$/.test(lesson.quote?.text ?? "")) ?? hadithLesson;
 const surahMeaningLesson = (LESSONS_BY_ID["lesson-surah-meaning-2-254-257"] ?? ayahLesson) as Lesson;
+// Lessons and a question that name a place with a photo (Makkah, the Ka'bah, Uhud...).
+const photoLesson = allLessons.find((lesson) => lesson.title === "The Ka'bah") ?? allLessons.find((lesson) => pictureForLesson(lesson)) ?? salam;
+const photoArabicLesson = allLessons.find((lesson) => pictureForLesson(lesson) && getLessonArabic(lesson.nodeId, lesson.branchId)) ?? photoLesson;
+const photoQuestion = allChallenges.find((challenge) => pictureForQuestion(challenge.prompt)?.id === "uhud") ?? salam.challenges[0];
+const eidLesson = (LESSONS_BY_ID["lesson-deep-eid-two-days"] ?? salam) as Lesson;
 const factsLesson = allLessons.find((lesson) => (lesson.learnFacts?.length ?? 0) >= 3) ?? allLessons.find((lesson) => lesson.learnFacts?.length) ?? salam;
 // A very long right answer (a real course text of about 600 characters, like a full ayah translation):
 // the wrong sheet must stay inside the screen and scroll.
@@ -80,6 +86,8 @@ function LearnDemo({ lesson, accent, mascot = "boy", isNewWord }: { lesson: Less
         quote={lesson.quote}
         onPlayAudio={arabic ? noop : undefined}
         learnSource={lesson.learnSource}
+        picture={pictureForLesson(lesson)}
+        deeper={lesson.learnDeeper}
         mascotVariant={mascot}
         accent={accent}
         onContinue={noop}
@@ -205,6 +213,7 @@ function ExerciseDemo({
         mascotVariant="girl"
         accent={accent}
         praiseSeed={challenge.id}
+        picture={pictureForQuestion(challenge.prompt)}
         defaultWhyOpen={whyOpen}
         onSelect={setSelected}
         onCheck={() => {
@@ -306,6 +315,11 @@ const STATES: State[] = [
   // A passage of a whole surah's meaning (surahMeanings): its line, facts and a long ayah to listen to.
   { id: "learn-surah-meaning", render: () => <LearnDemo lesson={surahMeaningLesson} accent={accentOf(surahMeaningLesson)} isNewWord={false} /> },
   { id: "learn-facts", render: () => <LearnDemo lesson={factsLesson} accent={accentOf(factsLesson)} mascot="girl" /> },
+  // The facts as a short lesson, and who told it and the grade with the source at the end.
+  { id: "learn-eid", render: () => <LearnDemo lesson={eidLesson} accent={accentOf(eidLesson)} mascot="girl" isNewWord={false} /> },
+  { id: "learn-photo", render: () => <LearnDemo lesson={photoLesson} accent={accentOf(photoLesson)} isNewWord={false} /> },
+  { id: "learn-photo-arabic", render: () => <LearnDemo lesson={photoArabicLesson} accent={accentOf(photoArabicLesson)} /> },
+  { id: "mc-photo", render: () => <ExerciseDemo challenge={photoQuestion} progress={0.3} /> },
   { id: "mc", render: () => <ExerciseDemo challenge={salam.challenges[0]} progress={0.25} /> },
   { id: "mc-selected", render: () => <ExerciseDemo challenge={salam.challenges[0]} initialSelected="a" progress={0.25} /> },
   { id: "mc-correct", render: () => <ExerciseDemo challenge={salam.challenges[0]} initialSelected="a" checkNow progress={0.25} /> },

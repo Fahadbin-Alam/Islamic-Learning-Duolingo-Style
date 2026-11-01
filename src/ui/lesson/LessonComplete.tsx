@@ -226,9 +226,9 @@ export function LessonComplete({
               </PopIn>
             ) : null}
             {gemsReward ? (
-              <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.gem, 0.85) }]}>
-                <Icon name="gem" size={18} />
-                <Text style={[styles.pillText, { color: colors.gemLip }]}>{t("+{count} gems", { count: gemsReward })}</Text>
+              <PopIn delay={CARD_DELAY + 4 * CARD_STAGGER} style={[styles.pill, { backgroundColor: lighten(colors.date, 0.86) }]}>
+                <Icon name="date" size={18} />
+                <Text style={[styles.pillText, { color: colors.dateLip }]}>{t("+{count} dates", { count: gemsReward })}</Text>
               </PopIn>
             ) : null}
           </View>

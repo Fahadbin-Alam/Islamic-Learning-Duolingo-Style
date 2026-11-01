@@ -7,9 +7,12 @@ import {
   findNodeByLessonId
 } from "../data/course";
 import { lessonForAge } from "../data/ageLevels";
-import { asksSameLine, givesAway as namesAnswerOf } from "../data/scalableCurriculum";
+import { challengeLevel, EXTRA_QUESTIONS, HARD_BANK_FROM, mixAgeFor, SWAP_TRUE_FALSE_FROM, type ChallengeLevel } from "../data/challengeLevel";
+import { HARD_QUESTIONS } from "../data/hardQuestions";
+import { asksSameLine, givesAway as namesAnswerOf, withoutGiveaways } from "../data/scalableCurriculum";
 import type { AgeGroup } from "../services/monetizationConfig";
 import { withRamadanDay } from "../data/ramadanCalendar";
+import { applyStreakFreezes } from "../services/streakFreeze";
 import type {
   Challenge,
   LearningCourse,
@@ -27,6 +30,14 @@ import type {
   XpSummary
 } from "../types";
 import { buildGuidedLesson } from "../services/lessonGuidance";
+import {
+  REVIEW_SESSION_SIZE,
+  dueCards,
+  recordReviewMiss,
+  recordReviewRight,
+  reviewOrder,
+  type ReviewCardKey
+} from "../services/reviewDeck";
 import { planForProduct } from "../services/monetizationConfig";
 import { enrichLessonSources, getPrimaryLessonSource } from "../services/resourceSupport";
 import { logDailyXp } from "../services/familyCode";
@@ -42,8 +53,9 @@ export interface IslamicLearningApi {
 }
 
 // Topics whose units each stand alone (a surah, a companion, a prophet, a woman of the Book, a narration, a scholar),
-// so a learner can start with Al-Ikhlas or Abu Bakr. Every other topic is a skill taught in order.
-export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars"]);
+// so a learner can start with Al-Ikhlas or Abu Bakr. Every other topic is a skill taught in order. New to Islam is one
+// too: a Christian starts on the prophets and a new Muslim on the first steps.
+export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars", "eid", "akhirah", "intro"]);
 
 export const learningApi: IslamicLearningApi = {
   async getUser() {
@@ -101,7 +113,10 @@ export const learningApi: IslamicLearningApi = {
       throw new Error(`Unknown lesson: ${lessonId}`);
     }
 
-    const progressiveLesson = prepareLessonForSession(lessonForAge(lesson, ageGroup));
+    // The question mix for the learner's age (or the one "Easy" asks), then harder as their streak and lessons
+    // done grow, or at the difficulty they picked (challengeLevel.ts).
+    const asked = lessonAtLevel(lessonForAge(lesson, mixAgeFor(user, ageGroup)), user, challengeLevel(user, ageGroup));
+    const progressiveLesson = prepareLessonForSession(asked);
 
     return {
       id: `session_${lessonId}_${Date.now()}`,
@@ -169,8 +184,10 @@ export function addXp(user: UserProfile, amount: number, now = new Date()): User
 // The first lesson finished on a day starts or keeps the streak, as on Duolingo, replays too: one more
 // after a lesson yesterday, otherwise it starts again at one. Later lessons that day change nothing. A save
 // from before streak days were dated keeps its streak going.
-export function keepStreak(user: UserProfile, now = new Date()): UserProfile {
+export function keepStreak(current: UserProfile, now = new Date()): UserProfile {
   const today = localDateKey(now);
+  // Freezes cover missed days first, so a lesson after a frozen day adds to the streak.
+  const user = applyStreakFreezes(current, today);
 
   if (user.lastStreakDate === today) {
     return user;
@@ -185,8 +202,11 @@ export function keepStreak(user: UserProfile, now = new Date()): UserProfile {
   };
 }
 
-// A streak survives until the end of the day after the last finished lesson; after that it is lost.
-export function refreshStreak(user: UserProfile, now = new Date()) {
+// A streak survives until the end of the day after the last finished lesson; after that it is lost,
+// unless enough streak freezes cover the missed days.
+export function refreshStreak(current: UserProfile, now = new Date()) {
+  const user = applyStreakFreezes(current, localDateKey(now));
+
   if (!user.lastStreakDate || user.streakDays === 0) {
     return user;
   }
@@ -616,7 +636,7 @@ export function quizLessonsFor(user: UserProfile, scope: QuizScope, ageGroup?: A
     .flatMap((node) => node.lessonIds)
     .map((lessonId) => LESSONS_BY_ID[lessonId])
     .filter((lesson): lesson is Lesson => Boolean(lesson))
-    .map((lesson) => lessonForAge(lesson, ageGroup));
+    .map((lesson) => lessonForAge(lesson, mixAgeFor(user, ageGroup)));
 }
 
 // A quiz is offered once it has at least 3 questions to ask.
@@ -688,6 +708,115 @@ export function createQuizSession(input: {
     attempt,
     clusterTitle: input.title,
     quizScope: input.scope
+  };
+}
+
+// The question a deck card stands for, in its own lesson: a lesson asks a copy of an earlier one as a review
+// ("<lesson>_review_2"), and practice, a test-out or a Review put a prefix on the id, so it is found by id, by
+// the end of the id, or by the same prompt and answer.
+function ownChallenge(lessonId: string, challenge: Challenge): Challenge | undefined {
+  const own = (LESSONS_BY_ID[lessonId]?.challenges ?? []).filter((item) => !item.isReview);
+  const answerOf = (item: Challenge) => item.choices.find((choice) => choice.id === item.correctChoiceId)?.label;
+
+  return (
+    own.find((item) => item.id === challenge.id) ??
+    own.filter((item) => challenge.id.endsWith(`_${item.id}`)).sort((a, b) => b.id.length - a.id.length)[0] ??
+    own.find((item) => normalizedPrompt(item) === normalizedPrompt(challenge) && answerOf(item) === answerOf(challenge))
+  );
+}
+
+// The deck card for a question asked in a session, or nothing when it cannot be asked on its own: a question
+// that leans on the lesson around it ("this surah") or shows its answer reads wrong in a Review.
+export function reviewCardKeyFor(session: Pick<LessonSession, "lesson">, challenge: Challenge): ReviewCardKey | undefined {
+  const lessonId = challenge.sourceLessonId ?? session.lesson.id;
+  const own = ownChallenge(lessonId, challenge);
+
+  if (!own || isContextBound(own.prompt) || answerShowsInText(own)) {
+    return undefined;
+  }
+
+  return { lessonId, challengeId: own.id };
+}
+
+// A question's first try, in any lesson, test-out, practice or Review, moves the Review deck: a miss puts it in
+// (or back to the start), a right answer moves a due card on. In a Review every right answer counts.
+export function recordLessonAnswer(user: UserProfile, session: LessonSession, challenge: Challenge, correct: boolean, now = new Date()): UserProfile {
+  const key = reviewCardKeyFor(session, challenge);
+
+  if (!key) {
+    return user;
+  }
+
+  const reviewCards = correct
+    ? recordReviewRight(user.reviewCards, key, now, Boolean(session.reviewDeck))
+    : recordReviewMiss(user.reviewCards, key, now);
+
+  return reviewCards === user.reviewCards ? user : { ...user, reviewCards };
+}
+
+export function reviewDueCount(user: Pick<UserProfile, "reviewCards">, now = new Date()) {
+  return reviewSessionCards(user, now).length;
+}
+
+// The due cards a Review can ask, weakest first; a card whose lesson or question is gone is left out.
+function reviewSessionCards(user: Pick<UserProfile, "reviewCards">, now: Date) {
+  return reviewOrder(dueCards(user.reviewCards, now)).filter((card) =>
+    (LESSONS_BY_ID[card.lessonId]?.challenges ?? []).some((item) => item.id === card.challengeId)
+  );
+}
+
+// REVIEW in Practice: up to 10 missed questions that are due, weakest first. Like "My lessons" it costs no
+// hearts and pays practice XP; a miss comes back at the end, and each first try moves its card in the deck.
+export function createReviewSession(user: UserProfile, now = new Date()): LessonSession | undefined {
+  const cards = reviewSessionCards(user, now).slice(0, REVIEW_SESSION_SIZE);
+
+  if (!cards.length) {
+    return undefined;
+  }
+
+  const prepared = new Map<string, Lesson>();
+  const challenges = cards.map((card, index) => {
+    const lesson = LESSONS_BY_ID[card.lessonId];
+    const full = prepared.get(lesson.id) ?? prepareLessonForSession(lesson);
+    prepared.set(lesson.id, full);
+    const base = full.challenges.find((item) => item.id === card.challengeId) ?? lesson.challenges.find((item) => item.id === card.challengeId)!;
+    // The tiles in a new order each time the card comes back, so the answer is not remembered by its place.
+    const seen = card.misses + card.box;
+
+    return {
+      ...base,
+      id: `review_deck_${index}_${base.id}`,
+      choices: shuffleChoicesForAttempt(base, seen),
+      isReview: true,
+      sourceNodeId: base.sourceNodeId ?? lesson.nodeId,
+      sourceLessonId: lesson.id,
+      miniLesson: base.miniLesson ?? lesson.explanationContent ?? lesson.intro,
+      reviewSuggestion: base.reviewSuggestion ?? `Review ${lesson.title}`
+    };
+  });
+  const lessons = Array.from(prepared.values());
+  const sources = uniqueById(lessons.flatMap((lesson) => lesson.sources));
+
+  return {
+    id: `session_review_deck_${now.getTime()}`,
+    lesson: {
+      id: "review_deck",
+      nodeId: lessons[0].nodeId,
+      title: "Review",
+      intro: "Questions you missed.",
+      explanationContent: "Questions you missed.",
+      lessonType: "review",
+      xpReward: challenges.length * PRACTICE_XP_PER_CORRECT_ANSWER,
+      sources,
+      sourceReferences: sources,
+      masteryState: "learning",
+      masteryTestEligible: false,
+      challenges
+    },
+    startedAt: now.toISOString(),
+    heartsAtStart: user.hearts.current,
+    mode: "lesson_practice",
+    reviewDeck: true
   };
 }
 
@@ -1275,6 +1404,106 @@ function buildReviewChallenge(lesson: Lesson, node: LearningNode): Challenge | u
     sourceLessonId: picked.sourceLessonId ?? previousLesson.id,
     reviewSuggestion: picked.reviewSuggestion ?? `Review ${previousLesson.title}`
   };
+}
+
+// Topics that stay as they are at every level: the New to Islam path stays gentle, and a Ramadan day is its own
+// short lesson.
+const UNRAMPED_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["intro", "ramadan"]);
+
+// A stable shuffle: the same order for the same seed, another order for another.
+function seededOrder<T>(items: T[], seed: string, key: (item: T) => string) {
+  return items
+    .map((item) => ({ item, rank: hashCode(`${seed}:${key(item)}`) }))
+    .sort((left, right) => left.rank - right.rank)
+    .map(({ item }) => item);
+}
+
+/**
+ * A lesson made harder for a learner at `level` (0 to 5, see challengeLevel.ts): it asks EXTRA_QUESTIONS[level]
+ * more 4-choice questions, from memory, out of lessons the learner has already finished in the same topic (the same
+ * unit first), and from level 2 its true/false questions give way to more of them. From level 3 the topic's harder
+ * questions (hardQuestions.ts) come in too: one at level 3, two at 4, three at 5. Each question keeps its own
+ * source. None is picked that leans on its own lesson, asks the same line as another, or names another's answer,
+ * and the new ones are asked last. `seed` (today, by default) changes which ones are picked.
+ */
+export function lessonAtLevel(lesson: Lesson, user: Pick<UserProfile, "completedLessonIds">, level: ChallengeLevel, seed = localDateKey()): Lesson {
+  const extra = EXTRA_QUESTIONS[level];
+  const node = findNodeByLessonId(lesson.id);
+
+  if (!extra || !node || UNRAMPED_TOPICS.has(node.topicId) || !lesson.challenges.length) {
+    return lesson;
+  }
+
+  const topicId = node.topicId;
+  // Questions from finished lessons of this topic: this unit's first, then the rest, each lot in a shuffled order.
+  const done = user.completedLessonIds
+    .filter((id) => id !== lesson.id)
+    .map((id) => ({ source: LESSONS_BY_ID[id], node: findNodeByLessonId(id) }))
+    .filter((item): item is { source: Lesson; node: LearningNode } => Boolean(item.source && item.node && item.node.topicId === topicId));
+  const sameUnit = done.filter((item) => item.node.branchId === node.branchId);
+  const otherUnits = done.filter((item) => item.node.branchId !== node.branchId);
+  const recalled = [...seededOrder(sameUnit, seed, (item) => item.source.id), ...seededOrder(otherUnits, seed, (item) => item.source.id)].flatMap(({ source }) =>
+    seededOrder(
+      source.challenges.filter((challenge) => challenge.type === "multiple_choice" && !challenge.isReview && readsRightIn(challenge, source, lesson, topicId)),
+      seed,
+      (challenge) => challenge.id
+    ).map((challenge) => ({
+      ...challenge,
+      id: `${lesson.id}_streak_${challenge.id}`,
+      isReview: true,
+      sourceNodeId: challenge.sourceNodeId ?? source.nodeId,
+      sourceLessonId: challenge.sourceLessonId ?? source.id,
+      reviewSuggestion: challenge.reviewSuggestion ?? `Review ${source.title}`
+    }))
+  );
+  const harder = seededOrder(HARD_QUESTIONS[topicId] ?? [], seed, (challenge) => challenge.id).map((challenge) => ({
+    ...challenge,
+    id: `${lesson.id}_${challenge.id}`
+  }));
+  const hardCount = level >= HARD_BANK_FROM ? level - HARD_BANK_FROM + 1 : 0;
+
+  const pick = (kept: Challenge[], count: number) => {
+    const picked: Challenge[] = [];
+    const fits = (challenge: Challenge) => {
+      const others = [...kept, ...picked];
+      return (
+        !isContextBound(challenge.prompt) &&
+        !others.some(
+          (other) =>
+            normalizedPrompt(other) === normalizedPrompt(challenge) ||
+            givesAway(challenge, other) ||
+            asksSameLine(challenge, other) ||
+            namesAnswerOf(other, challenge) ||
+            namesAnswerOf(challenge, other)
+        )
+      );
+    };
+    const take = (pool: Challenge[], limit: number) => {
+      for (const challenge of pool) {
+        if (picked.length >= limit) return;
+        if (fits(challenge)) picked.push(challenge);
+      }
+    };
+    take(harder, hardCount);
+    take(recalled, count);
+    // When there is not enough to ask from memory, more of the harder questions fill in, once they are in play.
+    if (hardCount) take(harder, count);
+    return picked;
+  };
+
+  const trueFalse = level >= SWAP_TRUE_FALSE_FROM ? lesson.challenges.filter((challenge) => challenge.type === "true_false") : [];
+  const withoutTrueFalse = lesson.challenges.filter((challenge) => challenge.type !== "true_false");
+
+  if (trueFalse.length && withoutTrueFalse.length) {
+    const picked = pick(withoutTrueFalse, extra + trueFalse.length);
+    // Swapped only when every true/false question has a 4-choice one in its place.
+    if (picked.length >= trueFalse.length) {
+      return { ...lesson, challenges: withoutGiveaways([...withoutTrueFalse, ...picked]) };
+    }
+  }
+
+  const picked = pick(lesson.challenges, extra);
+  return picked.length ? { ...lesson, challenges: withoutGiveaways([...lesson.challenges, ...picked]) } : lesson;
 }
 
 function prepareLessonForSession(lesson: Lesson): Lesson {

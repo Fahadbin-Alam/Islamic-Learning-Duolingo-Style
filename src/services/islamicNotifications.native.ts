@@ -115,7 +115,7 @@ async function rescheduleReminders(user: UserProfile, language: SupportedLanguag
 
   await ensureChannel();
   await Promise.all(slots.map((slot) => {
-    const message = comebackMessage(language, slot.step, messageVariant(lastLearningAt));
+    const message = comebackMessage(language, slot.step, messageVariant(lastLearningAt), { streakDays: user.streakDays, streakFreezes: user.streakFreezes });
     return Notifications.scheduleNotificationAsync({
       identifier: slot.id,
       content: { title: message.title, body: message.body, data: { kind: slot.step === "streak" ? "streak" : "resume", step: slot.step } },

@@ -26,7 +26,13 @@ const SOUND_FILES: Record<GameSoundEvent, { full: number; reduced: number }> = {
   grow: { full: require("../../assets/sounds/grow.wav"), reduced: require("../../assets/sounds/grow_reduced.wav") },
   wilt: { full: require("../../assets/sounds/wilt.wav"), reduced: require("../../assets/sounds/wilt_reduced.wav") },
   grumble: { full: require("../../assets/sounds/grumble.wav"), reduced: require("../../assets/sounds/grumble_reduced.wav") },
-  whoosh: { full: require("../../assets/sounds/whoosh.wav"), reduced: require("../../assets/sounds/whoosh_reduced.wav") }
+  whoosh: { full: require("../../assets/sounds/whoosh.wav"), reduced: require("../../assets/sounds/whoosh_reduced.wav") },
+  chirp: { full: require("../../assets/sounds/chirp.wav"), reduced: require("../../assets/sounds/chirp_reduced.wav") },
+  baa: { full: require("../../assets/sounds/baa.wav"), reduced: require("../../assets/sounds/baa_reduced.wav") },
+  snore: { full: require("../../assets/sounds/snore.wav"), reduced: require("../../assets/sounds/snore_reduced.wav") },
+  sizzle: { full: require("../../assets/sounds/sizzle.wav"), reduced: require("../../assets/sounds/sizzle_reduced.wav") },
+  pop: { full: require("../../assets/sounds/pop.wav"), reduced: require("../../assets/sounds/pop_reduced.wav") },
+  night: { full: require("../../assets/sounds/night.wav"), reduced: require("../../assets/sounds/night_reduced.wav") }
 };
 
 const players = new Map<string, AudioPlayer>();
@@ -38,20 +44,54 @@ export function playGameSound(event: GameSoundEvent, preferences?: SoundPreferen
   }
 
   try {
-    const reduced = Boolean(preferences?.reduced);
-    const key = `${event}${reduced ? "_reduced" : ""}`;
-    let player = players.get(key);
-
-    if (!player) {
-      player = createAudioPlayer(SOUND_FILES[event][reduced ? "reduced" : "full"]);
-      players.set(key, player);
-    }
+    const player = playerFor(event, Boolean(preferences?.reduced));
 
     void player.seekTo(0).catch(() => undefined);
     player.play();
   } catch {
     // Keep sound optional and never block the learning flow.
   }
+}
+
+/** The sounds nearly every screen plays: loaded ahead so their first tap does not wait for the file to open. */
+const COMMON_SOUNDS: GameSoundEvent[] = ["soft_ui", "node_tap", "correct", "wrong", "xp", "whoosh"];
+const PRELOAD_GAP_MS = 120;
+let preloadTimer: ReturnType<typeof setTimeout> | undefined;
+
+function playerFor(event: GameSoundEvent, reduced: boolean) {
+  const key = `${event}${reduced ? "_reduced" : ""}`;
+  let player = players.get(key);
+  if (!player) {
+    player = createAudioPlayer(SOUND_FILES[event][reduced ? "reduced" : "full"]);
+    players.set(key, player);
+  }
+  return player;
+}
+
+/**
+ * Opens the common sounds' players one at a time, a little apart, so no single frame pays for all of them. Without
+ * it the first tap on each button opened its sound file right then, and that tap felt slow (sometimes like it missed).
+ */
+export function preloadGameSounds(preferences?: SoundPreferences) {
+  if (preferences?.enabled === false) {
+    return;
+  }
+  clearTimeout(preloadTimer);
+  const reduced = Boolean(preferences?.reduced);
+  const queue = [...COMMON_SOUNDS];
+  const next = () => {
+    const event = queue.shift();
+    if (!event) {
+      return;
+    }
+    try {
+      playerFor(event, reduced);
+    } catch {
+      // Sound is optional.
+    }
+    preloadTimer = setTimeout(next, PRELOAD_GAP_MS);
+  };
+  preloadTimer = setTimeout(next, PRELOAD_GAP_MS);
 }
 
 export function primeGameAudio(preferences?: SoundPreferences) {

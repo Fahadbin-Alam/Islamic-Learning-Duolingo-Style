@@ -95,7 +95,7 @@ export const SECRET_LESSONS: SecretLesson[] = [
     reference: "Sahih al-Bukhari 6464",
     source: sunnah("bukhari:6464", "Sahih al-Bukhari 6464", "Aisha", SMALL_AND_STEADY),
     spot: "shop_gem",
-    clue: "Tap the big gem in the Shop 3 times."
+    clue: "Tap the big date in the Shop 3 times."
   },
   {
     id: "secret-charity",

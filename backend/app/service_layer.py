@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import re
 from datetime import date, datetime, timezone
 from typing import Any, Dict, List, Optional
@@ -96,6 +97,18 @@ def parse_local_date(value: Any) -> Optional[datetime]:
     return datetime(parsed.year, parsed.month, parsed.day, tzinfo=timezone.utc)
 
 
+def merge_xp_by_day(user: User, xp_by_day: Any) -> None:
+    """XP per local day from the app; a day another phone already sent more for keeps the bigger number."""
+    if not isinstance(xp_by_day, dict):
+        return
+    history = dict(user.xp_history_json or {})
+    for day, xp in xp_by_day.items():
+        if isinstance(xp, int) and not isinstance(xp, bool) and xp >= 0 and parse_local_date(day):
+            key = str(day)[:10]
+            history[key] = max(xp, int(history.get(key) or 0))
+    user.xp_history_json = {key: history[key] for key in sorted(history)[-XP_HISTORY_DAYS:]}
+
+
 def apply_daily_xp(user: User, daily_xp: Any) -> None:
     if not isinstance(daily_xp, dict) or not parse_local_date(daily_xp.get("date")):
         return
@@ -113,6 +126,8 @@ def frontend_user_payload(user: User) -> Dict[str, Any]:
     entitlement = get_active_entitlement(user)
     last_refill = user.last_heart_refill_at or user.created_at
     return {
+        # The rest of the profile first, so a column always wins over a stray copy of the same field.
+        **(user.progress_extra_json or {}),
         "id": user.id,
         "username": user.username,
         "displayName": user.display_name,
@@ -135,6 +150,7 @@ def frontend_user_payload(user: User) -> Dict[str, Any]:
         "lastStreakDate": user.last_streak_date,
         "totalXp": user.total_xp,
         "dailyXp": {"date": user.daily_xp_date, "xp": user.daily_xp} if user.daily_xp_date else None,
+        "xpByDay": user.xp_history_json or {},
         "dailyGoalXp": user.daily_goal_xp,
         "gems": user.gems,
         "hearts": {
@@ -255,7 +271,79 @@ def clean_ummah(value: Any, fallback: Dict[str, Any]) -> Dict[str, Any]:
     return ummah
 
 
+# Profile fields kept in their own columns (or never taken from the app, like who the account belongs to). Anything
+# else the app sends goes to progress_extra_json as it is, within these limits.
+COLUMN_FIELDS = {
+    "id", "username", "displayName", "avatarInitials", "hasAccount", "accountRole", "accountProvider", "accountEmail",
+    "accountCreatedAt", "lastLoginAt", "lastLearningAt", "reminderPreferences", "preferredLanguage",
+    "foundationAssessmentSkipped", "soundEffectsEnabled", "reducedSoundEffects", "reviewHeartRestoreUsed",
+    "learnerProfile", "streakDays", "lastStreakDate", "totalXp", "dailyXp", "xpByDay", "dailyGoalXp", "gems", "hearts",
+    "completedLessonIds", "completedNodeIds", "claimedRewardIds", "nodeStars", "lastTopicId", "pathFocusIds", "league",
+    "ummah", "activeSubscriptionId",
+}
+EXTRA_STATE_MAX_KEYS = 40
+EXTRA_STATE_MAX_BYTES = 256 * 1024
+EXTRA_KEY_PATTERN = re.compile(r"^[A-Za-z][A-Za-z0-9_]{0,59}$")
+
+
+def clean_extra_state(snapshot: Dict[str, Any], fallback: Dict[str, Any]) -> Dict[str, Any]:
+    """The profile fields with no column. Too many keys or too big a save keeps the last good copy instead."""
+    extra = {
+        key: value
+        for key, value in snapshot.items()
+        if key not in COLUMN_FIELDS and isinstance(key, str) and EXTRA_KEY_PATTERN.match(key) and value is not None
+    }
+    if len(extra) > EXTRA_STATE_MAX_KEYS or len(json.dumps(extra, default=str)) > EXTRA_STATE_MAX_BYTES:
+        return fallback
+    merged = dict(extra)
+    # Quiz scores from two phones: the better best, the most tries.
+    merged_quizzes = merge_quiz_scores((fallback or {}).get("quizScores"), extra.get("quizScores"))
+    if merged_quizzes is not None:
+        merged["quizScores"] = merged_quizzes
+    old_days, new_days = (fallback or {}).get("ramadanDays"), extra.get("ramadanDays")
+    if isinstance(old_days, list) and isinstance(new_days, list):
+        merged["ramadanDays"] = sorted({day for day in [*old_days, *new_days] if isinstance(day, str)})
+    # A field this phone has not heard of (sent by a newer build on another phone) is kept.
+    for key, value in (fallback or {}).items():
+        merged.setdefault(key, value)
+    return merged
+
+
+def merge_quiz_scores(old: Any, new: Any) -> Optional[Dict[str, Any]]:
+    if not isinstance(new, dict):
+        return old if isinstance(old, dict) else None
+    if not isinstance(old, dict):
+        return new
+    merged = dict(old)
+    for quiz_id, score in new.items():
+        before = old.get(quiz_id)
+        if not isinstance(score, dict) or not isinstance(before, dict):
+            merged[quiz_id] = score
+            continue
+        combined = dict(score)
+        for field in ("best", "taken"):
+            values = [value for value in (before.get(field), score.get(field)) if isinstance(value, (int, float)) and not isinstance(value, bool)]
+            if values:
+                combined[field] = max(values)
+        combined["perfectRewarded"] = bool(before.get("perfectRewarded") or score.get("perfectRewarded")) or None
+        if combined["perfectRewarded"] is None:
+            del combined["perfectRewarded"]
+        merged[quiz_id] = combined
+    return merged
+
+
+def union_ids(server: Any, phone: Any) -> List[Any]:
+    """Finished lessons from both copies: a phone that was offline never takes away what another phone finished."""
+    return list(dict.fromkeys([*(server or []), *(phone if isinstance(phone, list) else [])]))
+
+
 def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Optional[Dict[str, Any]] = None) -> User:
+    """
+    Saves the app's copy of the learner. Two phones (or one that was offline for a while) can send copies that are
+    out of step, so progress that only grows is merged instead of overwritten: finished lessons and rewards are
+    joined, stars and total XP keep the higher number, and an older streak or league week never replaces a newer one.
+    Spendable things (gems, hearts) and settings take the latest copy.
+    """
     hearts = snapshot.get("hearts") or {}
     user.display_name = snapshot.get("displayName") or user.display_name
     user.username = snapshot.get("username") or user.username
@@ -265,9 +353,15 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     user.reduced_sound = snapshot.get("reducedSoundEffects", user.reduced_sound)
     user.skipped_foundation = snapshot.get("foundationAssessmentSkipped", user.skipped_foundation)
     user.review_heart_restore_used = snapshot.get("reviewHeartRestoreUsed", user.review_heart_restore_used)
-    user.streak_days = snapshot.get("streakDays", user.streak_days)
-    user.last_streak_date = snapshot.get("lastStreakDate", user.last_streak_date)
-    user.total_xp = snapshot.get("totalXp", user.total_xp)
+    phone_streak_date = snapshot.get("lastStreakDate")
+    server_streak_date = user.last_streak_date
+    if not (isinstance(phone_streak_date, str) and isinstance(server_streak_date, str) and phone_streak_date[:10] < server_streak_date[:10]):
+        user.streak_days = snapshot.get("streakDays", user.streak_days)
+        user.last_streak_date = snapshot.get("lastStreakDate", user.last_streak_date)
+    phone_total = snapshot.get("totalXp")
+    if isinstance(phone_total, int) and not isinstance(phone_total, bool):
+        user.total_xp = max(phone_total, user.total_xp or 0)
+    merge_xp_by_day(user, snapshot.get("xpByDay"))
     apply_daily_xp(user, snapshot.get("dailyXp"))
     refill_date = parse_local_date(hearts.get("lastRefillDate"))
     if refill_date:
@@ -279,18 +373,40 @@ def apply_frontend_state(user: User, snapshot: Dict[str, Any], *, social_hub: Op
     user.hearts_unlimited = hearts.get("unlimited", user.hearts_unlimited)
     user.reminder_preferences_json = snapshot.get("reminderPreferences") or user.reminder_preferences_json or {}
     user.learner_profile_json = snapshot.get("learnerProfile") or user.learner_profile_json or {}
-    user.completed_lesson_ids_json = snapshot.get("completedLessonIds") or user.completed_lesson_ids_json or []
-    user.completed_node_ids_json = snapshot.get("completedNodeIds") or user.completed_node_ids_json or []
-    user.claimed_reward_ids_json = snapshot.get("claimedRewardIds") or user.claimed_reward_ids_json or []
-    user.node_stars_json = clean_node_stars(snapshot.get("nodeStars"), user.node_stars_json or {})
+    user.completed_lesson_ids_json = union_ids(user.completed_lesson_ids_json, snapshot.get("completedLessonIds"))
+    user.completed_node_ids_json = union_ids(user.completed_node_ids_json, snapshot.get("completedNodeIds"))
+    user.claimed_reward_ids_json = union_ids(user.claimed_reward_ids_json, snapshot.get("claimedRewardIds"))
+    server_stars = user.node_stars_json or {}
+    phone_stars = clean_node_stars(snapshot.get("nodeStars"), {})
+    user.node_stars_json = {**server_stars, **{node: max(stars, server_stars.get(node, 0)) for node, stars in phone_stars.items()}}
     user.path_focus_json = clean_path_focus(snapshot.get("pathFocusIds"), user.path_focus_json or {})
-    user.league_json = clean_league(snapshot.get("league"), user.league_json or {})
+    user.league_json = merge_league(user.league_json or {}, clean_league(snapshot.get("league"), user.league_json or {}))
+    server_best = clean_count((user.ummah_json or {}).get("best"))
     user.ummah_json = clean_ummah(snapshot.get("ummah"), user.ummah_json or {})
+    if user.ummah_json:
+        # The arenas reached stay unlocked even if an older phone sends a smaller best.
+        user.ummah_json = {**user.ummah_json, "best": max(server_best, user.ummah_json.get("best", 0))}
+    user.progress_extra_json = clean_extra_state(snapshot, user.progress_extra_json or {})
     last_topic = snapshot.get("lastTopicId")
     if isinstance(last_topic, str) and 0 < len(last_topic) <= 40:
         user.last_topic_id = last_topic
     if snapshot.get("lastLearningAt"):
-        user.last_learning_at = datetime.fromisoformat(snapshot["lastLearningAt"].replace("Z", "+00:00"))
+        phone_learning_at = datetime.fromisoformat(snapshot["lastLearningAt"].replace("Z", "+00:00"))
+        server_learning_at = as_utc(user.last_learning_at)
+        if not server_learning_at or as_utc(phone_learning_at) >= server_learning_at:
+            user.last_learning_at = phone_learning_at
     if social_hub is not None:
         user.social_hub_json = social_hub
     return user
+
+
+def merge_league(server: Dict[str, Any], phone: Dict[str, Any]) -> Dict[str, Any]:
+    """An older week from a phone that was offline keeps the server's week; the same week keeps the higher XP."""
+    if not server or not phone or server is phone:
+        return phone or server
+    server_week, phone_week = str(server.get("weekStart") or ""), str(phone.get("weekStart") or "")
+    if phone_week < server_week:
+        return server
+    if phone_week == server_week:
+        return {**phone, "xp": max(int(phone.get("xp") or 0), int(server.get("xp") or 0))}
+    return phone

@@ -144,7 +144,7 @@ export const GameButton = memo(function GameButton({
       >
         {icon ? (
           <View style={styles.icon}>
-            <Icon name={icon} size={metrics.icon} color={look.monoIcon ? look.label : undefined} />
+            <Icon name={icon} size={metrics.icon} color={look.monoIcon ? look.label : undefined} detailColor={look.monoIcon && icon === "date" ? look.face : undefined} />
           </View>
         ) : null}
         <Text

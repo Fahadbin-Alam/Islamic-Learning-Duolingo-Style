@@ -21,6 +21,9 @@ import {
   completeLessonCluster,
   canPracticeLessons,
   createLessonPracticeSession,
+  createReviewSession,
+  recordLessonAnswer,
+  reviewDueCount,
   createTestOutSession,
   canQuiz,
   createQuizSession,
@@ -49,6 +52,7 @@ import {
   refillHeartsForToday,
   LIBRARY_TOPICS
 } from "./api/islamicLearningApi";
+import { cleanReviewCards } from "./services/reviewDeck";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
 import { localDayNumber } from "./data/dailyCard";
@@ -92,9 +96,16 @@ import {
   declineCrewRequest,
   removeCrewMember,
   fetchUmmahRankings,
+  fetchFriendBattles,
+  startFriendBattle,
+  acceptFriendBattle,
+  declineFriendBattle,
+  sendFriendBattleScore,
+  type FriendBattle,
   syncRemoteUser,
   hasPendingSync,
   pickStartingUser,
+  wakeBackend,
   type CrewMember,
   type CrewPayload
 } from "./services/backendSync";
@@ -109,6 +120,7 @@ import {
   saveActiveAssessment,
   savePracticeResult,
   saveUserProfile,
+  peekAccountProfile,
   stashAccountProfile,
   takeAccountProfile
 } from "./services/localProgress";
@@ -159,10 +171,13 @@ import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./servic
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
-import { colors, configureUiSound, darken, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
+import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
 import { PortalHost } from "./ui/Portal";
 import { applyBattle, buyIcon, rerollNickname, setUmmahJoined, wearIcon, type ProfileIconId } from "./services/ummah";
-import { pickBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
+import { pickBattleQuestions, pickFriendBattleQuestions, type BattleQuestion } from "./services/battleQuestions";
+import { formatNumber } from "./ui/screens/FormattedCount";
+import { isDailyLink } from "./data/dailyCard";
+import { buyStreakFreeze, markFreezeSaveSeen, streakFreezeCount, unseenFreezeSave } from "./services/streakFreeze";
 import { buySecretHint, findSecret, hasFound, secretAt, type SecretLesson, type SecretSpot } from "./data/secretLessons";
 import { buyHadith, type HadithCard } from "./data/hadithTreasures";
 import {
@@ -181,6 +196,7 @@ import {
   SecretSheet,
   type RankingsState,
   AgeSheet,
+  BackgroundSheet,
   LanguageSheet,
   LearnPath,
   PrayerSheet,
@@ -217,8 +233,12 @@ import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
+import { pictureForLesson, pictureForQuestion } from "./data/lessonPictures";
+import { surahNumberForTitle, surahParts } from "./data/surahPictures";
+import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
   AccountRole,
+  DifficultyChoice,
   Challenge,
   FoundationAssessmentState,
   FoundationCategoryId,
@@ -534,6 +554,8 @@ const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
 const HEART_VIDEOS_KEY = "sira-path-heart-videos";
 const PLAN_OFFER_AT_KEY = "sira-path-plan-offer-at";
+// The ayah and hadith of the day open by themselves this long after the app settles on its first open of the day.
+const DAILY_AUTO_OPEN_MS = 900;
 
 // The plans sheet: why it opened, and the lesson to start once it closes (it can open as NEXT LESSON is tapped).
 type PlanOffer = {
@@ -587,6 +609,14 @@ export default function TopicApp() {
       listener.remove();
     };
   }, []);
+  // A tap on the home-screen widget opens the app at muslimo://daily: show today's ayah and hadith.
+  const [dailyOpenSignal, setDailyOpenSignal] = useState(0);
+  useEffect(() => {
+    const open = (url: string | null) => isDailyLink(url) && setDailyOpenSignal((count) => count + 1);
+    void Linking.getInitialURL().then(open).catch(() => undefined);
+    const listener = Linking.addEventListener("url", ({ url }) => open(url));
+    return () => listener.remove();
+  }, []);
   // Prayer-time lessons belong to this phone (its city and notifications), not to the account.
   const [prayerPrefs, setPrayerPrefs] = useState<PrayerNudgePrefs>(loadPrayerNudgePrefs);
   const [prayerModalVisible, setPrayerModalVisible] = useState(false);
@@ -628,11 +658,15 @@ export default function TopicApp() {
   const [settingsStreakReminder, setSettingsStreakReminder] = useState(true);
   const [settingsIslamicReminder, setSettingsIslamicReminder] = useState(true);
   const [settingsSoundEnabled, setSettingsSoundEnabled] = useState(true);
+  const [settingsDifficulty, setSettingsDifficulty] = useState<DifficultyChoice>("auto");
   const [settingsReducedSound, setSettingsReducedSound] = useState(false);
   const [crew, setCrew] = useState<CrewState>({ status: "idle" });
   const [inviteEmail, setInviteEmail] = useState("");
   const [rankings, setRankings] = useState<RankingsState>({ status: "idle" });
   const [battle, setBattle] = useState<BattleQuestion[] | undefined>(undefined);
+  // Battles with friends (from the server), and the one being played now, if it is a friend battle.
+  const [friendBattles, setFriendBattles] = useState<FriendBattle[]>([]);
+  const [versus, setVersus] = useState<{ name: string; battle: FriendBattle; sending?: boolean } | undefined>(undefined);
   const [openSecret, setOpenSecret] = useState<{ secret: SecretLesson; isNew: boolean } | undefined>(undefined);
   const [secretListOpen, setSecretListOpen] = useState(false);
   const [openHadith, setOpenHadith] = useState<{ card: HadithCard; isNew: boolean } | undefined>(undefined);
@@ -665,6 +699,13 @@ export default function TopicApp() {
   // Sign-up asks the age first even with ads off: under 13, the account takes a parent's name and email.
   const signUpNeedsAge = Platform.OS !== "web" && !ageGroup;
   const [ageBeforeSignUp, setAgeBeforeSignUp] = useState(false);
+  // Who the learner is (Muslim, new to Islam, Christian, Jewish or curious), asked once after the age on a first
+  // launch. Anyone but a Muslim starts on the New to Islam path, in the unit that fits them. Kept on this device.
+  const [learnerBackground, setLearnerBackground] = useState<LearnerBackground | undefined>(() => {
+    const saved = getStoredItem(BACKGROUND_KEY);
+    return isLearnerBackground(saved) ? saved : undefined;
+  });
+  const beginner = Boolean(learnerBackground && learnerBackground !== "muslim");
   const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child");
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
@@ -713,6 +754,8 @@ export default function TopicApp() {
     let mounted = true;
 
     async function load() {
+      // The server sleeps when idle; start waking it now so log in and sync don't wait on it later.
+      wakeBackend();
       const fallbackUser = await learningApi.getUser(1001);
       const savedUser = loadSavedUserProfile();
       const savedAccount = loadLocalAuthAccount();
@@ -861,6 +904,7 @@ export default function TopicApp() {
 
   useEffect(() => {
     configureUiSound(soundPreferences);
+    preloadUiSounds();
   }, [soundPreferences]);
 
   function playUiSound(event: "soft_ui" | "node_tap" | "correct" | "wrong" | "xp" | "unlock" | "lesson_complete" | "streak" | "reward_chest") {
@@ -1099,8 +1143,10 @@ export default function TopicApp() {
         : {})
     }));
 
-    return season ? [...topics.filter((topic) => topic.topicId === RAMADAN_TOPIC), ...topics.filter((topic) => topic.topicId !== RAMADAN_TOPIC)] : topics;
-  }, [localizedSections, season, state.user?.completedNodeIds]);
+    // Someone new to Islam finds the beginner path first (after Ramadan in its season).
+    const ordered = beginner ? [...topics.filter((topic) => topic.topicId === INTRO_TOPIC), ...topics.filter((topic) => topic.topicId !== INTRO_TOPIC)] : topics;
+    return season ? [...ordered.filter((topic) => topic.topicId === RAMADAN_TOPIC), ...ordered.filter((topic) => topic.topicId !== RAMADAN_TOPIC)] : ordered;
+  }, [beginner, localizedSections, season, state.user?.completedNodeIds]);
 
   // The Quizzes sheet: every topic with a quiz (Ramadan only in its season), each with its units' quizzes and the
   // best scores. Worked out only while the sheet is open.
@@ -1254,6 +1300,48 @@ export default function TopicApp() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prayerLessonDue, state.user, state.screen, otherSheetOpen, sectionNextNode]);
+  // Freezes spent while the learner was away: say so once, when nothing else is open.
+  const freezeSave = state.user ? unseenFreezeSave(state.user) : undefined;
+  useEffect(() => {
+    const busy = state.screen.startsWith("lesson_") || state.screen === "assessment";
+    if (!freezeSave || busy || otherSheetOpen) {
+      return;
+    }
+
+    dispatch({ type: "apply_user_latest", update: markFreezeSaveSeen });
+    void notify(
+      t("Streak saved!"),
+      freezeSave.days > 1
+        ? t("{count} streak freezes kept your {streak} day streak.", { count: freezeSave.days, streak: formatNumber(freezeSave.streak) })
+        : t("A streak freeze kept your {streak} day streak.", { streak: formatNumber(freezeSave.streak) }),
+      { mood: "cheer" }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [freezeSave, state.screen, otherSheetOpen]);
+  // The first open of each day shows today's ayah and hadith by itself (and recites the ayah), once nothing
+  // else is asking for the screen: not before the first-launch questions, not over a lesson or another sheet.
+  const dailyAutoDone = useRef(false);
+  const dailyAutoReady = Boolean(
+    state.user &&
+      ageGroup &&
+      (learnerBackground || state.user.completedNodeIds.length) &&
+      !languageModalVisible &&
+      !accountModalVisible &&
+      !otherSheetOpen &&
+      !freezeSave &&
+      !state.screen.startsWith("lesson_") &&
+      state.screen !== "assessment"
+  );
+  useEffect(() => {
+    if (dailyAutoDone.current || !dailyAutoReady || dailySeenDay === localDayNumber()) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      dailyAutoDone.current = true;
+      setDailyOpenSignal((count) => count + 1);
+    }, DAILY_AUTO_OPEN_MS);
+    return () => clearTimeout(timer);
+  }, [dailyAutoReady, dailySeenDay]);
   useEffect(() => {
     if (!accountPromptDue || accountPromptShown || !guestUser || !onFoundationPath || otherSheetOpen) {
       return;
@@ -1369,6 +1457,21 @@ export default function TopicApp() {
       primeGameAudio({ enabled: true, reduced: Boolean(nextUser.reducedSoundEffects) });
       playGameSound("soft_ui", { enabled: true, reduced: Boolean(nextUser.reducedSoundEffects) });
     }
+  }
+
+  // The answer to "Tell us about you": anyone but a Muslim goes to the New to Islam path, with START on the first
+  // lesson of the unit that fits them (the prophets for a Christian or Jewish learner, first steps for a new Muslim).
+  function chooseBackground(background: LearnerBackground) {
+    setStoredItem(BACKGROUND_KEY, background);
+    setLearnerBackground(background);
+    const start = introStartFor(background);
+
+    if (!start || !state.user) {
+      return;
+    }
+
+    dispatch({ type: "apply_user", user: withPathFocus(state.user, start.unitId, start.nodeId) });
+    dispatch({ type: "select_topic", topicId: INTRO_TOPIC });
   }
 
   function openTopicScreen(topicId: TopicId) {
@@ -1512,6 +1615,22 @@ export default function TopicApp() {
     dispatch({ type: "start_lesson", session });
   }
 
+  // REVIEW in Practice: the missed questions that are due again, weakest first.
+  function startReviewDeck() {
+    if (!state.user) {
+      return;
+    }
+
+    const session = createReviewSession(state.user);
+
+    if (!session) {
+      return;
+    }
+
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "start_lesson", session });
+  }
+
   function answerChallenge() {
     if (!state.user || !state.activeSession || !state.selectedChoiceId || state.answerState) {
       return;
@@ -1556,6 +1675,11 @@ export default function TopicApp() {
         learnerProfile: nextProfile,
         lastLearningAt: new Date().toISOString()
       });
+    }
+
+    if (!isRetry) {
+      // A first-try miss goes in the Review deck; a right answer moves a due one on (services/reviewDeck).
+      nextUser = recordLessonAnswer(nextUser, state.activeSession, challenge, correct);
     }
 
     playUiSound(correct ? "correct" : "wrong");
@@ -1674,7 +1798,7 @@ export default function TopicApp() {
 
       setLessonCompleteSummary({
         headline: t("Practice done!"),
-        title: t("My lessons"),
+        title: t(state.activeSession.reviewDeck ? "Review" : "My lessons"),
         xp,
         streakExtended: didExtendStreak(user, nextUser),
         stars: lessonStars(state.sessionMistakes),
@@ -1987,7 +2111,7 @@ export default function TopicApp() {
         const watched = readRewardedGemVideos();
 
         if (gemVideo && rewardedGemVideosLeft(watched, today) === 0) {
-          void notify(t("That's all for today"), t("Come back tomorrow for more gems."), { mood: "think" });
+          void notify(t("That's all for today"), t("Come back tomorrow for more dates."), { mood: "think" });
           return false;
         }
 
@@ -2103,6 +2227,7 @@ export default function TopicApp() {
     setSettingsIslamicReminder(state.user.reminderPreferences?.islamicReminders !== false);
     setSettingsSoundEnabled(state.user.soundEffectsEnabled !== false);
     setSettingsReducedSound(Boolean(state.user.reducedSoundEffects));
+    setSettingsDifficulty(state.user.difficulty ?? "auto");
     setSettingsModalVisible(true);
   }
 
@@ -2241,7 +2366,16 @@ export default function TopicApp() {
       finishLogin(remote.account.name, remote.account.email);
       return;
     } catch (error) {
-      if (error instanceof Error && !isBackendOfflineError(error)) {
+      if (error instanceof BackendRequestError && error.status === 401) {
+        const moved = await moveLocalAccountToServer();
+        if (moved === "moved") {
+          return;
+        }
+        if (moved !== "kept_on_phone") {
+          failAccount(t("Wrong email or password."));
+          return;
+        }
+      } else if (error instanceof Error && !isBackendOfflineError(error)) {
         failAccount(t("Wrong email or password."));
         return;
       }
@@ -2270,6 +2404,45 @@ export default function TopicApp() {
       user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, account)))
     });
     finishLogin(account.name, account.email);
+  }
+
+  /**
+   * An account made on a build with no server (or while offline) lives only on this phone, so the server answers
+   * "wrong password" for it. When the password matches the one saved here, the same account is made on the server
+   * with this phone's progress, and from then on it syncs like any other. "kept_on_phone" means the server could
+   * not take it now (offline, say), so the learner logs in on the phone as before.
+   */
+  async function moveLocalAccountToServer(): Promise<"moved" | "wrong_password" | "kept_on_phone"> {
+    const saved = loadLocalAuthAccount();
+    const account = saved?.password ? loginLocalAuthAccount(accountEmail, accountPassword) : null;
+
+    if (!account || !state.user) {
+      return "wrong_password";
+    }
+
+    const savedProgress = peekAccountProfile(account.email);
+    const signedInHere = state.user.hasAccount && normalizeEmail(state.user.accountEmail ?? "") === normalizeEmail(account.email);
+    const baseUser = signedInHere ? state.user : savedProgress ? prepareUserForToday(savedProgress) : state.user;
+    const localUser = withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(baseUser, account)));
+
+    try {
+      const remote = await registerRemoteAccount({
+        name: account.name,
+        email: account.email,
+        password: accountPassword,
+        role: account.role,
+        reminderPreferences: account.reminderPreferences ?? defaultReminderPreferences(),
+        user: localUser,
+        socialHub: { connections: [], battleHistory: [] }
+      });
+      takeAccountProfile(account.email);
+      dispatch({ type: "apply_user", user: withExperienceDefaults(ensureLearnerProfile(prepareUserForToday(remote.user))) });
+      finishLogin(remote.account.name, remote.account.email);
+      return "moved";
+    } catch (error) {
+      // The server already has this email with another password: the one typed is wrong for it.
+      return error instanceof BackendRequestError && error.status === 409 ? "wrong_password" : "kept_on_phone";
+    }
   }
 
   function finishLogin(name: string, email: string) {
@@ -2301,7 +2474,8 @@ export default function TopicApp() {
       accountRole: settingsRole,
       reminderPreferences,
       soundEffectsEnabled: settingsSoundEnabled,
-      reducedSoundEffects: settingsReducedSound
+      reducedSoundEffects: settingsReducedSound,
+      difficulty: settingsDifficulty
     };
 
     if (state.user.hasAccount) {
@@ -2458,15 +2632,23 @@ export default function TopicApp() {
     // Apple can hide the name (and the email behind a relay address), so fall back to a plain one.
     const name = identity.name?.trim() || (identity.provider === "apple" ? "Learner" : email.split("@")[0]);
     const reminderPreferences = defaultReminderPreferences();
+    // The same email already has an account on this phone (made before the server existed): logging in makes it on
+    // the server too, with the progress it has here.
+    const phoneOnly = loadLocalAuthAccount();
+    const movingPhoneAccount = !creating && Boolean(phoneOnly) && normalizeEmail(phoneOnly?.email ?? "") === email;
+    const signedInHere = state.user.hasAccount && normalizeEmail(state.user.accountEmail ?? "") === email;
+    const progressHere = movingPhoneAccount && !signedInHere ? peekAccountProfile(email) : null;
+    const uploadUser = progressHere ? prepareUserForToday(progressHere) : state.user;
 
     try {
       const remote = await socialLoginRemoteAccount({
         provider: identity.provider,
         idToken: identity.idToken,
-        name,
-        allowCreate: creating,
-        reminderPreferences,
-        user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(state.user, { name, email, createdAt: new Date().toISOString(), provider: identity.provider }))),
+        name: movingPhoneAccount ? phoneOnly?.name ?? name : name,
+        allowCreate: creating || movingPhoneAccount,
+        role: movingPhoneAccount ? phoneOnly?.role : undefined,
+        reminderPreferences: movingPhoneAccount ? phoneOnly?.reminderPreferences ?? reminderPreferences : reminderPreferences,
+        user: withExperienceDefaults(ensureLearnerProfile(applyAccountIdentity(uploadUser, { name, email, createdAt: new Date().toISOString(), provider: identity.provider }))),
         socialHub: { connections: [], battleHistory: [] }
       });
       const account = {
@@ -2565,10 +2747,74 @@ export default function TopicApp() {
 
   function startBattle() {
     const questions = pickBattleQuestions({ language: currentLanguage, young: ageGroup === "6-9" });
+    setVersus(undefined);
     setBattle(questions);
   }
 
+  function replaceFriendBattle(next: FriendBattle) {
+    setFriendBattles((current) => (current.some((item) => item.id === next.id) ? current.map((item) => (item.id === next.id ? next : item)) : [next, ...current]));
+  }
+
+  async function loadFriendBattles() {
+    try {
+      setFriendBattles(await fetchFriendBattles());
+    } catch (error) {
+      // An older server without battles, or no connection: the Friends page still works without them.
+      console.warn("Friend battles failed", error);
+    }
+  }
+
+  async function challengeFriend(member: CrewMember) {
+    try {
+      replaceFriendBattle(await startFriendBattle(member.id));
+      void notify(t("Battle sent!"), t("{name} plays once they say yes.", { name: member.name.trim().split(/\s+/)[0] || member.name }), { mood: "cheer" });
+    } catch (error) {
+      void notify(crewErrorTitle(error, "battle"), undefined, { mood: "sad" });
+    }
+  }
+
+  function playFriendBattle(next: FriendBattle) {
+    setVersus({ name: next.friend.name.trim().split(/\s+/)[0] || next.friend.name, battle: next });
+    setBattle(pickFriendBattleQuestions(next.seed, currentLanguage));
+  }
+
+  // YES opens the battle straight away; NO (or taking back one this learner asked for) closes it.
+  async function answerFriendBattle(next: FriendBattle, accept: boolean) {
+    try {
+      if (accept) {
+        const accepted = await acceptFriendBattle(next.id);
+        replaceFriendBattle(accepted);
+        playFriendBattle(accepted);
+        return;
+      }
+      await declineFriendBattle(next.id);
+      setFriendBattles((current) => current.filter((item) => item.id !== next.id));
+    } catch (error) {
+      void notify(crewErrorTitle(error, "battle"), undefined, { mood: "sad" });
+      void loadFriendBattles();
+    }
+  }
+
+  function finishFriendBattle(played: FriendBattle, correct: number) {
+    setVersus((current) => (current ? { ...current, sending: true } : current));
+    replaceFriendBattle({ ...played, yourScore: correct });
+    void sendFriendBattleScore(played.id, correct)
+      .then((scored) => {
+        replaceFriendBattle(scored);
+        setVersus((current) => (current?.battle.id === scored.id ? { ...current, battle: scored, sending: false } : current));
+      })
+      .catch((error) => {
+        console.warn("Friend battle score failed", error);
+        setVersus((current) => (current ? { ...current, sending: false } : current));
+        void loadFriendBattles();
+      });
+  }
+
   function finishBattle(correct: number) {
+    if (versus) {
+      finishFriendBattle(versus.battle, correct);
+      return undefined;
+    }
     const outcome = applyBattle(state.user as UserProfile, correct);
     dispatch({ type: "apply_user_latest", update: (user) => applyBattle(user, correct).user });
     return outcome.result;
@@ -2609,7 +2855,7 @@ export default function TopicApp() {
     setCrew((current) => ({ ...current, status: "loading" }));
 
     try {
-      const payload = await fetchCrew(localDateKey());
+      const [payload] = await Promise.all([fetchCrew(localDateKey()), loadFriendBattles()]);
       setCrew({ status: "ready", payload });
     } catch (error) {
       setCrew({
@@ -2827,6 +3073,14 @@ export default function TopicApp() {
   // The learn line and the Why line are cut from the English lesson, then translated, so each language says the same.
   const englishLesson = state.activeSession?.lesson;
   const englishChallenge = lessonStep ? englishLesson?.challenges[lessonStep.index] : undefined;
+  // Real photos of the places a lesson or a question names, matched on the English text so every language shows the same.
+  const pictureLesson = englishLesson ?? lesson;
+  const lessonPicture = pictureLesson ? pictureForLesson(pictureLesson) : undefined;
+  // A surah's own lesson ("Surah Al-Baqarah") opens on a picture of what its name means, then lists its parts.
+  const lessonSurahNumber = pictureLesson ? surahNumberForTitle(pictureLesson.title) : undefined;
+  const lessonSurah = lessonSurahNumber ? { number: lessonSurahNumber, parts: surahParts(lessonSurahNumber) } : undefined;
+  const pictureChallenge = englishChallenge ?? challenge;
+  const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
   const lessonProgress = getLessonProgress({
@@ -2891,11 +3145,14 @@ export default function TopicApp() {
             topicTitle={selectedSection.title}
             accent={selectedSection.accentColor}
             streakDays={state.user.streakDays}
+            streakFreezes={streakFreezeCount(state.user)}
+            onBuyStreakFreeze={() => dispatch({ type: "apply_user_latest", update: buyStreakFreeze })}
             gems={state.user.gems}
             hearts={lessonHearts}
             onOpenTopics={() => setTopicPickerVisible(true)}
             onOpenShop={() => dispatch({ type: "open_shop" })}
             dailySeen={dailySeenDay === localDayNumber()}
+            dailyOpenSignal={dailyOpenSignal}
             onDailyOpened={() => {
               const today = localDayNumber();
               setDailySeenDay(today);
@@ -2961,6 +3218,7 @@ export default function TopicApp() {
             // and not on a replay of a finished circle: the learner has met it.
             isNewWord={isFirstUseOfWord(lesson.nodeId) && !state.user.completedNodeIds.includes(lesson.nodeId)}
             facts={lesson.learnFacts}
+            englishFacts={englishLesson?.learnFacts}
             // The questions ask about the narration or ayah, so the card shows it in full. When its
             // reference names the same narration as the source chip, LearnCard shows them as one.
             quote={lesson.quote}
@@ -2970,6 +3228,9 @@ export default function TopicApp() {
             learnSource={lesson.learnSource}
             onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
             arabicRecitation={lessonRecitation ?? undefined}
+            picture={lessonPicture}
+            surah={lessonSurah}
+            deeper={lesson.learnDeeper}
             // No speaker that stays silent: hidden with sound effects off or without an Arabic voice.
             onPlayAudio={lessonArabic && arabicVoiceId && state.user?.soundEffectsEnabled !== false ? () => speakArabic(lessonArabic.ar) : undefined}
             onContinue={continueFromTeach}
@@ -3013,6 +3274,7 @@ export default function TopicApp() {
               mascotVariant={lessonMascot}
               accent={lessonAccent}
               praiseSeed={challenge.id}
+              picture={questionPicture}
               playSound={false}
               continueSound={continueEndsLesson || continueOpensRefill ? false : undefined}
               onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
@@ -3095,6 +3357,8 @@ export default function TopicApp() {
             accent={selectedSection.accentColor}
             onStartPlacement={() => openFoundationAssessment("placement")}
             onStartReview={() => openFoundationAssessment("review")}
+            reviewDueCount={reviewDueCount(state.user)}
+            onStartReviewDeck={startReviewDeck}
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
             onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
             onOpenQuizzes={() => setQuizSheetVisible(true)}
@@ -3138,6 +3402,7 @@ export default function TopicApp() {
               dispatch({ type: "apply_user_latest", update: buySecretHint });
               setSecretListOpen(true);
             }}
+            onBuyStreakFreeze={() => dispatch({ type: "apply_user_latest", update: buyStreakFreeze })}
             onBuyHadith={() => {
               const { card } = buyHadith(state.user!);
               if (!card) return;
@@ -3162,6 +3427,12 @@ export default function TopicApp() {
             onAddFriend={addCrewFriend}
             onRemoveFriend={removeCrewFriend}
             onAnswerRequest={answerCrewRequest}
+            battles={friendBattles}
+            onChallenge={(member) => void challengeFriend(member)}
+            onAnswerBattle={(next, accept) => void answerFriendBattle(next, accept)}
+            onPlayBattle={playFriendBattle}
+            onCancelBattle={(next) => void answerFriendBattle(next, false)}
+            onShareApp={() => void shareApp()}
             onRefresh={loadCrew}
             onCreateAccount={openCrewAccount}
             league={crewLeagueUser?.league}
@@ -3183,7 +3454,11 @@ export default function TopicApp() {
           <BattleView
             questions={battle}
             onFinish={finishBattle}
-            onClose={() => setBattle(undefined)}
+            versus={versus}
+            onClose={() => {
+              setBattle(undefined);
+              setVersus(undefined);
+            }}
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
           />
@@ -3268,6 +3543,8 @@ export default function TopicApp() {
           weeklyCheckIn={settingsWeeklyReminder}
           soundEnabled={settingsSoundEnabled}
           softSound={settingsReducedSound}
+          difficulty={settingsDifficulty}
+          onSelectDifficulty={setSettingsDifficulty}
           onSelectRole={setSettingsRole}
           onToggleStreak={() => setSettingsStreakReminder((value) => !value)}
           onToggleIslamic={() => setSettingsIslamicReminder((value) => !value)}
@@ -3367,6 +3644,11 @@ export default function TopicApp() {
               setAccountModalVisible(true);
             }
           }}
+        />
+        <BackgroundSheet
+          // A learner who has done lessons already (before this question came in) is not asked.
+          visible={Boolean(state.user && ageGroup && !learnerBackground && !languageModalVisible && !accountModalVisible && !state.user.completedNodeIds.length)}
+          onSave={chooseBackground}
         />
         <LanguageSheet
           visible={languageModalVisible}
@@ -3492,8 +3774,12 @@ function firstName(name: string) {
 }
 
 // Short titles for the crew notices; the server's own sentences are written for grown-ups.
-function crewErrorTitle(error: unknown, action: "add" | "remove" | "answer") {
+function crewErrorTitle(error: unknown, action: "add" | "remove" | "answer" | "battle") {
   if (error instanceof BackendRequestError && error.status < 500) {
+    if (action === "battle") {
+      return error.status === 409 ? t("You already have a battle with them") : error.status === 429 ? t("Finish a battle first") : t("That battle is gone");
+    }
+
     if (action === "answer") {
       return t("That request is gone");
     }
@@ -3689,7 +3975,8 @@ function withExperienceDefaults(user: UserProfile): UserProfile {
     foundationAssessmentSkipped: Boolean(user.foundationAssessmentSkipped),
     soundEffectsEnabled: user.soundEffectsEnabled !== false,
     reducedSoundEffects: Boolean(user.reducedSoundEffects),
-    claimedRewardIds: Array.isArray(user.claimedRewardIds) ? user.claimedRewardIds : []
+    claimedRewardIds: Array.isArray(user.claimedRewardIds) ? user.claimedRewardIds : [],
+    reviewCards: cleanReviewCards(user.reviewCards)
   };
 }
 
@@ -3713,7 +4000,7 @@ function getJourneyRewardStops(user: UserProfile, section: LearningSection, bran
       return {
         id: rewardId,
         title: index === nodes.length - 1 ? t("Branch treasure") : t("Reward chest"),
-        copy: index === nodes.length - 1 ? t("A tidy little gem drop for finishing this stretch of the path.") : t("Open this after clearing the path up to here."),
+        copy: index === nodes.length - 1 ? t("A handful of dates for finishing this stretch of the path.") : t("Open this after clearing the path up to here."),
         gemsReward: index === nodes.length - 1 ? 25 : 12,
         unlocked,
         claimed: claimed.has(rewardId)

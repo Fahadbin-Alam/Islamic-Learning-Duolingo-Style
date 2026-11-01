@@ -750,6 +750,41 @@ function ReactionBits({ mood, t, size }: { mood: MascotMood; t: Animated.Value; 
   }
 }
 
+/**
+ * What the path's kid does by itself while waiting for a tap, one every few seconds: looks around,
+ * sways, a little hop, a quick wave, a stretch, taps a foot, leans to peek at the path.
+ */
+export const IDLE_FIDGETS = ["look", "sway", "hop", "wave", "stretch", "tap", "peek"] as const;
+type Fidget = (typeof IDLE_FIDGETS)[number];
+const FIDGET_MS: Record<Fidget, number> = { look: 1600, sway: 1800, hop: 900, wave: 1500, stretch: 1500, tap: 1300, peek: 1500 };
+/** Waits between fidgets: a few seconds, never the same rhythm twice in a row. */
+const FIDGET_GAP = [2600, 4200, 3300, 5000, 2900];
+
+function fidgetMoves(fidget: Fidget, f: Animated.Value, size: number) {
+  const key = (keys: number[], values: number[]) => f.interpolate(smoothKeys(keys, values));
+  const turn = (keys: number[], values: number[]) => f.interpolate(smoothKeys(keys, values.map((value) => `${value}deg`)));
+  switch (fidget) {
+    case "look":
+      return [{ rotate: turn([0, 0.2, 0.45, 0.7, 1], [0, -6, -6, 5, 0]) }];
+    case "sway":
+      return [{ rotate: turn([0, 0.25, 0.5, 0.75, 1], [0, 4, -4, 3, 0]) }, { translateX: key([0, 0.25, 0.5, 0.75, 1], [0, 2, -2, 1.5, 0]) }];
+    case "hop":
+      return [{ translateY: key([0, 0.15, 0.45, 0.7, 0.82, 1], [0, 1, -size * 0.1, 0, 1, 0]) }, { scaleY: key([0, 0.15, 0.3, 0.7, 0.78, 1], [1, 0.94, 1.04, 1, 0.95, 1]) }];
+    case "stretch":
+      return [{ scaleY: key([0, 0.35, 0.65, 1], [1, 1.07, 1.07, 1]) }, { scaleX: key([0, 0.35, 0.65, 1], [1, 0.96, 0.96, 1]) }];
+    case "tap":
+      return [{ translateY: key([0, 0.15, 0.25, 0.4, 0.5, 0.65, 0.75, 1], [0, -2, 0, -2, 0, -2, 0, 0]) }, { rotate: turn([0, 0.5, 1], [0, 2, 0]) }];
+    case "peek":
+      return [{ rotate: turn([0, 0.3, 0.7, 1], [0, 9, 9, 0]) }, { translateX: key([0, 0.3, 0.7, 1], [0, 3, 3, 0]) }];
+    case "wave":
+    default:
+      return [];
+  }
+}
+
+/** The face that goes with a fidget, if it has one. */
+const FIDGET_MOOD: Partial<Record<Fidget, MascotMood>> = { look: "think", wave: "wave", stretch: "surprised" };
+
 /** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
 export function Mascot(props: MascotProps) {
   const { tappable, mood = "happy", size = 120, style, testID, animated = true } = props;
@@ -758,6 +793,29 @@ export function Mascot(props: MascotProps) {
   const { value: t, play } = useOneShot();
   const next = useCycle(TAP_REACTIONS.length);
   const height = (size * VIEW_H) / VIEW_W;
+  const [fidget, setFidget] = useState<Fidget | null>(null);
+  const { value: f, play: playFidget } = useOneShot();
+  // Fidgets only for the tappable kid on the path, while it's awake and not in the middle of a reaction.
+  const fidgets = Boolean(tappable) && animated && !reduceMotion && reaction === null && mood !== "sleepy";
+  useEffect(() => {
+    if (!fidgets) {
+      setFidget(null);
+      return undefined;
+    }
+    let turn = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const schedule = () => {
+      timer = setTimeout(() => {
+        const pick = IDLE_FIDGETS[turn % IDLE_FIDGETS.length];
+        turn += 1;
+        setFidget(pick);
+        playFidget(FIDGET_MS[pick], () => setFidget(null));
+        schedule();
+      }, FIDGET_GAP[turn % FIDGET_GAP.length] + 1600);
+    };
+    schedule();
+    return () => clearTimeout(timer);
+  }, [fidgets, playFidget]);
 
   if (!tappable) {
     return <MascotFigure {...props} />;
@@ -766,12 +824,14 @@ export function Mascot(props: MascotProps) {
   const onTap = () => {
     const pick = TAP_REACTIONS[next()];
     feedback(pick.sound, "light");
+    setFidget(null);
     setReaction(pick.mood);
     // With reduced motion the face still changes for a moment; only the moving bits are left out.
     play(pick.ms, () => setReaction(null));
   };
 
-  const shown = reaction ?? mood;
+  const fidgeting = reaction === null && fidget !== null;
+  const shown = reaction ?? (fidgeting && fidget ? FIDGET_MOOD[fidget] ?? mood : mood);
   const moves = !reduceMotion && animated;
   // Body moves for each feeling: a happy hop, an angry stomp-shake, a jump of surprise, a sad droop.
   const transform =
@@ -790,6 +850,7 @@ export function Mascot(props: MascotProps) {
                 : reaction === "sleepy"
                   ? [{ rotate: t.interpolate(smoothKeys([0, 0.2, 0.8, 1], ["0deg", "-7deg", "-7deg", "0deg"])) }]
                   : [];
+  const idleMoves = moves && fidgeting && fidget ? fidgetMoves(fidget, f, size) : [];
 
   return (
     <Pressable
@@ -800,7 +861,7 @@ export function Mascot(props: MascotProps) {
       testID={testID}
       style={[{ width: size, height }, style]}
     >
-      <Animated.View style={{ width: size, height, transformOrigin: "bottom", transform }}>
+      <Animated.View style={{ width: size, height, transformOrigin: "bottom", transform: [...transform, ...idleMoves] as never[] }}>
         <MascotFigure {...props} mood={shown} style={undefined} />
       </Animated.View>
       {moves && reaction ? (

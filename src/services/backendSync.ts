@@ -80,6 +80,7 @@ export async function registerRemoteAccount(input: {
 }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/register", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -93,6 +94,7 @@ export async function registerRemoteAccount(input: {
 export async function loginRemoteAccount(input: { email: string; password: string }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/login", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -116,6 +118,7 @@ export async function socialLoginRemoteAccount(input: {
 }) {
   const payload = await backendRequest<RemoteSessionPayload>("/api/auth/social", {
     method: "POST",
+    timeoutMs: BACKEND_CONFIG.authTimeoutMs,
     body: JSON.stringify(input)
   });
 
@@ -350,6 +353,45 @@ export async function removeCrewMember(friendId: number) {
   await backendRequest(`/api/friends/${friendId}`, { method: "DELETE", headers: authHeaders() });
 }
 
+/**
+ * A quiz battle between two friends (see backend/app/api/routes/battles.py): one asks, the other says yes, then
+ * both answer the same questions (picked from `seed`). Their score shows only once both have played.
+ */
+export type FriendBattle = {
+  id: number;
+  friend: { id: number; name: string; avatarInitials: string };
+  youStarted: boolean;
+  status: "pending" | "accepted" | "done";
+  seed: number;
+  yourScore: number | null;
+  theyPlayed: boolean;
+  theirScore?: number | null;
+  outcome?: "win" | "loss" | "draw";
+  createdAt?: string | null;
+};
+
+export async function fetchFriendBattles() {
+  const body = await backendRequest<{ battles: FriendBattle[] }>("/api/battles", { headers: authHeaders() });
+  return body.battles ?? [];
+}
+
+export async function startFriendBattle(friendId: number) {
+  return backendRequest<FriendBattle>("/api/battles", { method: "POST", headers: authHeaders(), body: JSON.stringify({ friendId }) });
+}
+
+export async function acceptFriendBattle(battleId: number) {
+  return backendRequest<FriendBattle>(`/api/battles/${battleId}/accept`, { method: "POST", headers: authHeaders() });
+}
+
+/** The friend says no, or the one who asked takes it back. */
+export async function declineFriendBattle(battleId: number) {
+  await backendRequest(`/api/battles/${battleId}/decline`, { method: "POST", headers: authHeaders() });
+}
+
+export async function sendFriendBattleScore(battleId: number, correct: number) {
+  return backendRequest<FriendBattle>(`/api/battles/${battleId}/score`, { method: "POST", headers: authHeaders(), body: JSON.stringify({ correct }) });
+}
+
 /** Saves the learner's Ummah state (trophies, nickname, joined) and returns the ranking of everyone who joined. */
 export async function fetchUmmahRankings(ummah: UmmahState) {
   return backendRequest<UmmahRankings>("/api/ummah/rankings", {
@@ -383,23 +425,36 @@ export function isBackendConfigured() {
   return Boolean(BACKEND_CONFIG.baseUrl);
 }
 
-async function backendRequest<T = unknown>(path: string, options?: RequestInit) {
+/**
+ * Wakes the server when the app opens, so it is awake by the time the learner logs in or opens Crew.
+ * Fire and forget: it never throws.
+ */
+export function wakeBackend() {
+  if (!isBackendConfigured()) {
+    return;
+  }
+
+  void backendRequest("/api/health", { timeoutMs: BACKEND_CONFIG.authTimeoutMs }).catch(() => undefined);
+}
+
+async function backendRequest<T = unknown>(path: string, options?: RequestInit & { timeoutMs?: number }) {
   if (!isBackendConfigured()) {
     // Offline-only build: callers treat network errors as "keep working locally".
     throw new Error("Network unavailable: no backend is configured for this build.");
   }
 
   const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
-  const timeout = controller ? setTimeout(() => controller.abort(), BACKEND_CONFIG.requestTimeoutMs) : null;
+  const { timeoutMs = BACKEND_CONFIG.requestTimeoutMs, ...requestOptions } = options ?? {};
+  const timeout = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
   let response: Response;
 
   try {
     response = await fetch(`${BACKEND_CONFIG.baseUrl}${path}`, {
-      ...options,
+      ...requestOptions,
       signal: controller?.signal,
       headers: {
         "Content-Type": "application/json",
-        ...(options?.headers ?? {})
+        ...(requestOptions.headers ?? {})
       }
     });
   } catch (error) {

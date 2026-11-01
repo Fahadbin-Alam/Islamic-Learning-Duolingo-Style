@@ -17,6 +17,10 @@ import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
 import { sourceUrl } from "../../services/sourceLink";
 import { getActiveLanguage, t } from "../../i18n";
+import type { LessonPicture } from "../../data/lessonPictures";
+import { LessonPhoto } from "./LessonPhoto";
+import { SurahCover, SurahParts } from "./SurahCover";
+import { splitLessonFacts } from "./lessonNotes";
 
 export type LearnCardProps = {
   /** Lesson title, e.g. "As-Salamu Alaikum". Hidden when it only repeats the Arabic word's transliteration. */
@@ -26,8 +30,13 @@ export type LearnCardProps = {
   arabic?: ArabicTerm;
   /** False when the learner has met this Arabic word before (e.g. the unit's word again): no NEW pill. Default true. */
   isNewWord?: boolean;
-  /** Up to 3 short fact chips, e.g. "Father: Umar". */
+  /**
+   * Up to 3 short facts, e.g. "Father: Umar", shown as the lines of a short lesson under "What you learn". The ones
+   * that only say where it is from ("Told by Anas", "Sahih (Al-Albani)") are shown with the source at the end.
+   */
   facts?: string[];
+  /** The same facts in English (when `facts` is translated), to tell which ones are about the source. */
+  englishFacts?: string[];
   /** A short narration or ayah, shown in full with where it is from. */
   quote?: { text: string; reference?: string };
   mascotVariant: string;
@@ -36,7 +45,7 @@ export type LearnCardProps = {
    * The one source that says what the card says (lesson.learnSource). Its chip shows only the short
    * reference ("Quran 2:43", "Sahih al-Bukhari 6018") on one line, never a page title: no reference, no chip.
    */
-  learnSource?: { reference?: string; url: string; highlight?: string };
+  learnSource?: { reference?: string; url: string; highlight?: string; category?: string };
   /** Older call sites: a chip with this label. Ignored when learnSource is given; pass learnSource instead. */
   source?: { label: string; url: string };
   /** Defaults to opening the url with Linking. */
@@ -48,6 +57,18 @@ export type LearnCardProps = {
    * and it stops when the card leaves the screen.
    */
   arabicRecitation?: string;
+  /** A real photo of the place the lesson is about (Makkah, Uhud...), under the word card. */
+  picture?: LessonPicture;
+  /**
+   * The deeper lesson (lesson.learnDeeper): what the ayahs mean, the story, what to take home, and a chip for each
+   * tafsir book it comes from. The harder questions ask about it, so it is shown in full.
+   */
+  deeper?: { meaning: string[]; story?: string; takeaway?: string; sources: { reference?: string; url: string; highlight?: string }[] };
+  /**
+   * A surah's own lesson ("Surah Al-Baqarah"): a picture of what its name means comes first, and the parts it is
+   * taught in are listed under "Inside this surah".
+   */
+  surah?: { number: number; meaning?: string; parts?: string[] };
   onContinue: () => void;
   bottomInset?: number;
   testID?: string;
@@ -55,8 +76,6 @@ export type LearnCardProps = {
 
 const GOLD_INK = darken(colors.goldLip, 0.45);
 const MAX_FACTS = 3;
-/** "Father: Umar" splits into a soft key and a bold value. */
-const FACT_KEY = /^([^:]{1,18}):\s*(.+)$/;
 
 /** True when a quote's reference names the same book and number as the source chip ("Muslim 1400a" in "Sahih Muslim 1400a"). */
 export function sameReference(reference: string, label: string) {
@@ -110,6 +129,7 @@ export function LearnCard({
   arabic,
   isNewWord = true,
   facts,
+  englishFacts,
   quote,
   mascotVariant,
   accent,
@@ -118,6 +138,9 @@ export function LearnCard({
   onOpenSource,
   onPlayAudio: speak,
   arabicRecitation,
+  picture,
+  deeper,
+  surah,
   onContinue,
   bottomInset,
   testID = "learn-card"
@@ -141,6 +164,14 @@ export function LearnCard({
       : undefined
     : legacySource;
   const factList = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
+  const englishList = englishFacts?.map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
+  const notes = splitLessonFacts(factList, {
+    english: englishList?.length === factList.length ? englishList : undefined,
+    sourceReference: learnReference,
+    hadith: learnSource?.category === "hadith" || /^(sahih|sunan|jami|muwatta|riyad|al-adab)/i.test(learnReference ?? ""),
+    language: getActiveLanguage()
+  });
+  const credits = notes.credits.join(" · ");
   const quoteText = quote?.text.trim();
   const quoteReference = quote?.reference?.trim();
   // The quote's reference opens the source when both name the same narration, so it is not said twice.
@@ -148,7 +179,7 @@ export function LearnCard({
   // A single ayah in Arabic gets a recitation to listen to and repeat.
   const ayahAudio = quoteText && isArabicOnly(quoteText) ? quranAudioUrl(quoteReference) : null;
   // With facts or a quote to show, the mascot sits small next to its line to leave them room.
-  const rich = factList.length > 0 || Boolean(quoteText);
+  const rich = factList.length > 0 || Boolean(quoteText) || Boolean(picture) || Boolean(deeper) || Boolean(surah);
   const quranWord = arabic ? isQuranText(arabic.ar) : false;
   const arabicSize = quranWord ? (narrow || short ? 24 : 28) : narrow || short ? (narrow ? 30 : 34) : 40;
   const openSource = (url: string) => {
@@ -163,6 +194,8 @@ export function LearnCard({
     <View style={styles.root} testID={testID}>
       <View style={styles.scrollBox}>
         <ScrollView ref={ref} style={styles.scroll} contentContainerStyle={[styles.content, short ? styles.contentShort : null]} {...scrollProps}>
+          {/* A surah's own lesson opens on a picture of what its name means. */}
+          {surah ? <SurahCover surah={surah.number} meaning={surah.meaning ?? arabic?.meaning} arabicName={arabic?.ar} short={short} /> : null}
           {/* NEW marks a new word, so it only shows with one the learner has not met yet. */}
           {arabic && isNewWord ? (
             <PopIn style={styles.newPill}>
@@ -238,9 +271,12 @@ export function LearnCard({
 
           {arabic || rich ? (
             <View style={[styles.talkRow, short ? styles.talkRowShort : null]}>
-              <Mascot variant={mascotVariant} mood={arabic ? "happy" : "wave"} accent={accent} size={short ? (rich ? 56 : 64) : rich ? 80 : 92} />
+              <Mascot variant={mascotVariant} mood={arabic ? "happy" : "wave"} accent={accent} size={short ? (rich ? 52 : 64) : rich ? 68 : 92} />
               <SlideIn delay={320} style={styles.bubbleWrap}>
-                <SpeechBubble>{noBreakHyphens(line)}</SpeechBubble>
+                {/* The line the lesson teaches: big enough to read at a glance, using the width the mascot leaves. */}
+                <SpeechBubble style={styles.bubbleWide}>
+                  <Text style={[styles.lineText, short || narrow ? styles.lineTextSmall : null]}>{withHonorifics(noBreakHyphens(line))}</Text>
+                </SpeechBubble>
               </SlideIn>
             </View>
           ) : (
@@ -254,24 +290,32 @@ export function LearnCard({
             </View>
           )}
 
-          {factList.length > 0 ? (
-            <View style={[styles.facts, short ? styles.factsShort : null]} testID="learn-facts">
-              {factList.map((fact, index) => {
-                const parts = fact.match(FACT_KEY);
-                return (
-                  <PopIn
-                    key={`${index}-${fact}`}
-                    delay={420 + index * 90}
-                    style={[styles.fact, short ? styles.factShort : null, { backgroundColor: palette.light, borderColor: palette.soft }]}
-                  >
-                    <Text style={[styles.factText, { color: palette.ink }]}>
-                      {parts ? <Text style={styles.factKey}>{`${parts[1]}: `}</Text> : null}
-                      {withHonorifics(noBreakHyphens(parts ? parts[2] : fact))}
+          {/* Under the mascot's line, so the line the lesson teaches stays in view on small phones. */}
+          {picture ? <LessonPhoto picture={picture} short={short} delay={380} /> : null}
+
+          {notes.points.length > 0 ? (
+            // The facts read as a short lesson: a heading, then each fact as its own numbered line.
+            <PopIn delay={420} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
+              <View style={[styles.notes, { borderColor: palette.soft }]} testID="learn-facts">
+                <View style={styles.notesHead}>
+                  <Icon name="bookOpen" size={18} color={palette.ink} />
+                  <Text style={[styles.notesTitle, { color: palette.ink }]} accessibilityRole="header">
+                    {t("What you learn")}
+                  </Text>
+                </View>
+                {notes.points.map((point, index) => (
+                  <View key={`${index}-${point.key ?? ""}-${point.text}`} style={styles.noteRow} testID="learn-fact">
+                    <View style={[styles.noteNumber, { backgroundColor: palette.main }]}>
+                      <Text style={styles.noteNumberText}>{index + 1}</Text>
+                    </View>
+                    <Text style={[styles.noteText, short ? styles.noteTextShort : null]}>
+                      {point.key ? <Text style={styles.noteKey}>{`${point.key}: `}</Text> : null}
+                      {withHonorifics(noBreakHyphens(point.text))}
                     </Text>
-                  </PopIn>
-                );
-              })}
-            </View>
+                  </View>
+                ))}
+              </View>
+            </PopIn>
           ) : null}
 
           {quoteText ? (
@@ -321,29 +365,47 @@ export function LearnCard({
                       {withHonorifics(quoteReference)}
                     </Text>
                   ) : null}
+                  {credits && linkedReference ? (
+                    <Text style={styles.quoteCredits} testID="learn-credits">
+                      {withHonorifics(noBreakHyphens(credits))}
+                    </Text>
+                  ) : null}
                   {ayahAudio ? <AyahListen url={ayahAudio} accent={palette.main} /> : null}
                 </View>
               </View>
             </PopIn>
           ) : null}
 
-          {source && !linkedReference ? (
+          {surah?.parts?.length ? <SurahParts parts={surah.parts} accent={accent} short={short} /> : null}
+
+          {deeper ? <DeeperLesson deeper={deeper} palette={palette} short={short} onOpen={openSource} /> : null}
+
+          {/* Where it is from, at the end of the lesson: the source's link, then who told it and its grade. */}
+          {(source && !linkedReference) || (credits && !linkedReference) ? (
             <PopIn delay={480} style={[styles.sourceWrap, short ? styles.sourceWrapShort : null]}>
-              <Tappable
-                onPress={() => openSource(source.url)}
-                style={styles.sourceChip}
-                accessibilityLabel={t("Open source {name}", { name: source.label })}
-                accessibilityRole="link"
-                testID="learn-source"
-              >
-                <Icon name="book" size={18} />
-                <Text style={styles.sourceText} numberOfLines={1}>
-                  {withHonorifics(source.label)}
+              <Text style={styles.sourceLabel}>{t("Source")}</Text>
+              {source && !linkedReference ? (
+                <Tappable
+                  onPress={() => openSource(source.url)}
+                  style={styles.sourceChip}
+                  accessibilityLabel={t("Open source {name}", { name: source.label })}
+                  accessibilityRole="link"
+                  testID="learn-source"
+                >
+                  <Icon name="book" size={18} />
+                  <Text style={styles.sourceText} numberOfLines={1}>
+                    {withHonorifics(source.label)}
+                  </Text>
+                  <View style={styles.sourceChevron}>
+                    <Icon name="chevronRight" size={16} color={colors.inkSoft} />
+                  </View>
+                </Tappable>
+              ) : null}
+              {credits ? (
+                <Text style={styles.sourceCredits} testID="learn-credits">
+                  {withHonorifics(noBreakHyphens(credits))}
                 </Text>
-                <View style={styles.sourceChevron}>
-                  <Icon name="chevronRight" size={16} color={colors.inkSoft} />
-                </View>
-              </Tappable>
+              ) : null}
             </PopIn>
           ) : null}
         </ScrollView>
@@ -353,6 +415,77 @@ export function LearnCard({
         <GameButton label={t("Continue")} fullWidth onPress={onContinue} testID="learn-continue" />
       </LessonBottomBar>
     </View>
+  );
+}
+
+/** What the ayahs mean, the story and what to take home, with a chip for each tafsir book it comes from. */
+function DeeperLesson({
+  deeper,
+  palette,
+  short,
+  onOpen
+}: {
+  deeper: NonNullable<LearnCardProps["deeper"]>;
+  palette: ReturnType<typeof topicPalette>;
+  short: boolean;
+  onOpen: (url: string) => void;
+}) {
+  const meaning = deeper.meaning.map((line) => line.trim()).filter(Boolean);
+  const chips = deeper.sources.filter((each) => each.reference?.trim() && each.url);
+  return (
+    <PopIn delay={500} from="up" style={[styles.deeper, short ? styles.deeperShort : null, { borderColor: palette.soft }]}>
+      <View testID="learn-deeper">
+        <View style={styles.deeperHead}>
+          <Icon name="bookOpen" size={20} color={palette.ink} />
+          <Text style={[styles.deeperTitle, { color: palette.ink }]} accessibilityRole="header">
+            {t("What it means")}
+          </Text>
+        </View>
+        {meaning.map((line, index) => (
+          <View key={`${index}-${line}`} style={styles.deeperRow}>
+            <View style={[styles.deeperDot, { backgroundColor: palette.main }]} />
+            <Text style={styles.deeperText} testID="learn-deeper-meaning">
+              {withHonorifics(noBreakHyphens(line))}
+            </Text>
+          </View>
+        ))}
+        {deeper.story?.trim() ? (
+          <View style={[styles.deeperStory, { backgroundColor: palette.light }]} testID="learn-deeper-story">
+            <Text style={[styles.deeperLabel, { color: palette.ink }]}>{t("The story")}</Text>
+            <Text style={styles.deeperText}>{withHonorifics(noBreakHyphens(deeper.story.trim()))}</Text>
+          </View>
+        ) : null}
+        {deeper.takeaway?.trim() ? (
+          <View style={styles.deeperTake} testID="learn-deeper-takeaway">
+            <Icon name="sparkle" size={18} color={GOLD_INK} />
+            <View style={styles.deeperTakeBody}>
+              <Text style={[styles.deeperLabel, { color: GOLD_INK }]}>{t("Take home")}</Text>
+              <Text style={styles.deeperText}>{withHonorifics(noBreakHyphens(deeper.takeaway.trim()))}</Text>
+            </View>
+          </View>
+        ) : null}
+        {chips.length ? (
+          <View style={styles.deeperChips}>
+            {chips.map((each) => (
+              <Tappable
+                key={each.url}
+                onPress={() => onOpen(sourceUrl(each))}
+                style={styles.deeperChip}
+                accessibilityLabel={t("Open source {name}", { name: each.reference! })}
+                accessibilityRole="link"
+                hitSlop={4}
+                testID="learn-deeper-source"
+              >
+                <Icon name="book" size={15} />
+                <Text style={styles.deeperChipText} numberOfLines={1}>
+                  {withHonorifics(each.reference!)}
+                </Text>
+              </Tappable>
+            ))}
+          </View>
+        ) : null}
+      </View>
+    </PopIn>
   );
 }
 
@@ -373,7 +506,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   content: {
-    paddingHorizontal: space.lg,
+    paddingHorizontal: space.md,
     paddingTop: space.sm,
     paddingBottom: space.xxxl,
     alignItems: "center",
@@ -531,6 +664,20 @@ const styles = StyleSheet.create({
     marginStart: space.xs,
     alignItems: "flex-start"
   },
+  bubbleWide: {
+    alignSelf: "stretch"
+  },
+  lineText: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 19,
+    lineHeight: 26,
+    color: colors.ink,
+    flexShrink: 1
+  },
+  lineTextSmall: {
+    fontSize: 17,
+    lineHeight: 23
+  },
   talkColumn: {
     alignItems: "center",
     alignSelf: "stretch",
@@ -551,36 +698,65 @@ const styles = StyleSheet.create({
     textAlign: "center",
     flexShrink: 1
   },
-  facts: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
+  notesWrap: {
     alignSelf: "stretch",
     marginTop: space.lg
   },
-  factsShort: {
-    marginTop: 6
+  notesWrapShort: {
+    marginTop: space.sm
   },
-  fact: {
+  notes: {
     borderWidth: 2,
-    borderRadius: radii.pill,
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    margin: 3,
-    maxWidth: "100%"
+    borderRadius: radii.lg,
+    backgroundColor: colors.white,
+    paddingHorizontal: space.md,
+    paddingTop: space.sm,
+    paddingBottom: space.md
   },
-  factShort: {
-    paddingVertical: 3,
-    margin: 2
+  notesHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 2
   },
-  factText: {
+  notesTitle: {
+    marginStart: 6,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 16,
+    lineHeight: 22
+  },
+  noteRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: space.sm
+  },
+  noteNumber: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    marginEnd: 10,
+    marginTop: 1
+  },
+  noteNumberText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 13,
+    lineHeight: 17,
+    color: colors.white
+  },
+  noteText: {
+    flex: 1,
     flexShrink: 1,
-    fontFamily: fonts.bodyHeavy,
-    fontSize: 15,
-    lineHeight: 20,
-    textAlign: "center"
+    fontFamily: fonts.bodyBold,
+    fontSize: 18,
+    lineHeight: 26,
+    color: colors.ink
   },
-  factKey: {
+  noteTextShort: {
+    fontSize: 16,
+    lineHeight: 23
+  },
+  noteKey: {
     fontFamily: fonts.bodyBold,
     color: colors.inkSoft
   },
@@ -611,8 +787,8 @@ const styles = StyleSheet.create({
   quoteText: {
     flexShrink: 1,
     fontFamily: fonts.bodyBold,
-    fontSize: 16,
-    lineHeight: 23,
+    fontSize: 17,
+    lineHeight: 25,
     color: colors.ink
   },
   quoteTextLong: {
@@ -646,7 +822,33 @@ const styles = StyleSheet.create({
   },
   sourceWrap: {
     marginTop: space.xl,
-    maxWidth: "100%"
+    maxWidth: "100%",
+    alignItems: "center"
+  },
+  sourceLabel: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    color: colors.inkSoft,
+    marginBottom: 6
+  },
+  sourceCredits: {
+    marginTop: 6,
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft,
+    textAlign: "center"
+  },
+  quoteCredits: {
+    marginTop: 2,
+    fontFamily: fonts.bodyBold,
+    fontSize: 12,
+    lineHeight: 17,
+    color: colors.inkSoft,
+    textAlign: "right"
   },
   sourceWrapShort: {
     marginTop: space.sm
@@ -666,6 +868,101 @@ const styles = StyleSheet.create({
   },
   sourceChevron: {
     marginStart: 4
+  },
+  deeper: {
+    alignSelf: "stretch",
+    marginTop: space.lg,
+    borderWidth: 2,
+    borderRadius: radii.lg,
+    backgroundColor: colors.white,
+    paddingHorizontal: space.md,
+    paddingVertical: space.md
+  },
+  deeperShort: {
+    marginTop: space.md
+  },
+  deeperHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: space.xs
+  },
+  deeperTitle: {
+    marginStart: 6,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 17,
+    lineHeight: 23
+  },
+  deeperRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: space.xs
+  },
+  deeperDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    marginTop: 8,
+    marginEnd: 8
+  },
+  deeperText: {
+    flex: 1,
+    flexShrink: 1,
+    fontFamily: fonts.bodyBold,
+    fontSize: 17,
+    lineHeight: 25,
+    color: colors.ink
+  },
+  deeperLabel: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    letterSpacing: 0.5,
+    marginBottom: 2
+  },
+  deeperStory: {
+    marginTop: space.sm,
+    borderRadius: radii.md,
+    paddingHorizontal: space.sm,
+    paddingVertical: space.sm
+  },
+  deeperTake: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: space.sm,
+    borderRadius: radii.md,
+    backgroundColor: "#FFF6D9",
+    paddingHorizontal: space.sm,
+    paddingVertical: space.sm
+  },
+  deeperTakeBody: {
+    flex: 1,
+    minWidth: 0,
+    marginStart: 6
+  },
+  deeperChips: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: space.sm,
+    gap: 6
+  },
+  deeperChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    maxWidth: "100%",
+    borderWidth: 2,
+    borderColor: colors.line,
+    borderRadius: radii.pill,
+    minHeight: 32,
+    paddingHorizontal: 10,
+    paddingVertical: 3
+  },
+  deeperChipText: {
+    marginStart: 5,
+    flexShrink: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft
   },
   sourceText: {
     marginStart: 6,

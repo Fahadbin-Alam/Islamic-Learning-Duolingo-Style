@@ -23,7 +23,7 @@ export type ProfileViewProps = {
   onOpenSettings: () => void;
   /** Family row: a parent's view of this phone's progress and of kids they follow. Opens after the grown-up gate. */
   onOpenFamily?: () => void;
-  /** Share row: the phone's share menu with an invite and the store link. Opens after the grown-up gate. */
+  /** Share row: the phone's share menu with an invite and the store link. No grown-up check: the person picks who gets it in the share menu. */
   onShareApp?: () => void;
   /** Crew and Shop are bottom tabs now; kept optional so the old call site still type-checks. */
   onOpenCrew?: () => void;
@@ -245,7 +245,7 @@ export function ProfileView({
         <StatCard testID="profile-streak" icon="flame" value={user.streakDays} label={t("Day streak")} color={colors.flame} dim={user.streakDays <= 0} />
         <StatCard testID="profile-xp" icon="bolt" value={user.totalXp} label={t("Total XP")} color={GOLD_INK} />
         <StatCard testID="profile-stars" icon="star" value={totalStars} label={t("Stars")} color={GOLD_INK} />
-        <StatCard testID="profile-gems" icon="gem" value={user.gems} label={t("Gems")} color={colors.gemLip} />
+        <StatCard testID="profile-gems" icon="date" value={user.gems} label={t("Dates")} color={colors.dateLip} />
       </View>
 
       {guest && onCreateAccount ? (
@@ -264,7 +264,7 @@ export function ProfileView({
 
       <View style={styles.menu}>
         {onOpenFamily ? <MenuRow icon="family" label={t("Family")} onPress={() => ask(onOpenFamily)} testID="profile-family" /> : null}
-        {onShareApp ? <MenuRow icon="share" label={t("Invite friends")} onPress={() => ask(onShareApp)} testID="profile-share" /> : null}
+        {onShareApp ? <MenuRow icon="share" label={t("Invite friends")} onPress={onShareApp} testID="profile-share" /> : null}
         <MenuRow icon="settings" label={strings.settings} onPress={onOpenSettings} testID="profile-settings" last={!onToggleSound} />
         {onToggleSound ? (
           <MenuRow

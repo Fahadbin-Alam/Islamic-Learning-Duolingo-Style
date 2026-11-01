@@ -44,6 +44,7 @@ The age group from the age screen stays on the device, so it is not declared. No
 Notes:
 
 - "Product Interaction" is linked because lesson progress and answers are stored on the user's account. The AdMob part of it is not linked to identity.
+- Server sync (docs/hosting.md) stores the same account data already declared above (linked to the user). No label changes.
 - Product Personalization covers choosing question difficulty and review from past answers. It is not used for ads.
 - Apple's guide: https://developer.apple.com/app-store/app-privacy-details/. Google's guide for the ads SDK on iOS: https://developers.google.com/admob/ios/privacy/data-disclosure. RevenueCat's: https://www.revenuecat.com/docs/platform-resources/apple-platform-resources/apple-app-privacy.
 

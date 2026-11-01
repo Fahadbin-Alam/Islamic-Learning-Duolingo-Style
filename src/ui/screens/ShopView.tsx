@@ -4,6 +4,7 @@ import type { UiStrings } from "../../i18n";
 import { VIDEOS_PER_HEART, canSellInStore, legalLinks, monetizationMode, planForProduct, storePlatform } from "../../services/monetizationConfig";
 import type { LearningSection, ShopItem, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
+import { DateCoin } from "../DateCoin";
 import { Icon, type IconName } from "../Icon";
 import { Mascot } from "../Mascot";
 import { PopIn, useShake } from "../PopIn";
@@ -15,6 +16,7 @@ import { useGrownUpGate } from "./GrownUpGate";
 import { SecretTap } from "./SecretTap";
 import { PROFILE_ICONS, activeIcon, ownsIcon, type ProfileIconId } from "../../services/ummah";
 import { SECRET_HINT_PRICE, nextHintSecret } from "../../data/secretLessons";
+import { MAX_STREAK_FREEZES, STREAK_FREEZE_PRICE, streakFreezeCount } from "../../services/streakFreeze";
 import { HADITH_CARD_PRICE, HADITH_TREASURES, nextHadith, ownedHadith } from "../../data/hadithTreasures";
 import { t } from "../../i18n";
 
@@ -56,10 +58,14 @@ export type ShopViewProps = {
   onWearIcon?: (id: ProfileIconId | undefined) => void;
   /** Buys the clue to the next secret lesson. */
   onBuySecretHint?: () => void;
+  /** Buys one streak freeze with gems. */
+  onBuyStreakFreeze?: () => void;
   /** Opens the hadith chest: the next hadith card for gems. */
   onBuyHadith?: () => void;
   /** Opens "My hadith", the cards bought so far. */
   onOpenHadith?: () => void;
+  /** Shows this shelf, when it has anything on it (tests and the gallery). Default: Hearts, or Dates for focus "premium". */
+  shelf?: ShopShelf;
 };
 
 const MANAGE_SUBSCRIPTION_URL =
@@ -122,7 +128,7 @@ export function displayName(item: ShopItem) {
     case "gem_heart_refill":
       return t("Refill hearts");
     case "rewarded_ad":
-      return item.gemsGranted ? t("Free gems") : t("Free heart");
+      return item.gemsGranted ? t("Free dates") : t("Free heart");
     default:
       return item.name;
   }
@@ -130,14 +136,14 @@ export function displayName(item: ShopItem) {
 
 function shortLine(item: ShopItem, user: UserProfile, heartVideosWatched: number) {
   if (item.refillsHearts) return t("Fill to {count}", { count: user.hearts.max });
-  if (item.type === "rewarded_ad" && item.gemsGranted) return t("Watch: +{count} gems", { count: item.gemsGranted });
+  if (item.type === "rewarded_ad" && item.gemsGranted) return t("Watch: +{count} dates", { count: item.gemsGranted });
   if (item.type === "rewarded_ad") {
     return heartVideosWatched
       ? t("{count} of {total} videos watched", { count: heartVideosWatched, total: VIDEOS_PER_HEART })
       : t("{total} videos = 1 heart", { total: VIDEOS_PER_HEART });
   }
   if (item.heartsGranted) return t("+{count} hearts", { count: item.heartsGranted });
-  if (item.gemsGranted) return t("+{count} gems", { count: formatNumber(item.gemsGranted) });
+  if (item.gemsGranted) return t("+{count} dates", { count: formatNumber(item.gemsGranted) });
   return item.localizedDescription;
 }
 
@@ -220,6 +226,7 @@ function BuyButton({ item, busy, pendingId, onBuy, label, variant, icon, muted, 
         size="sm"
         icon={icon}
         variant={variant}
+        color={variant === "blue" ? colors.date : undefined}
         // A muted item plays its own sound (see ItemRow): the buzz when locked, a soft tap when hearts are full.
         sound={busy || muted ? false : undefined}
         onPress={() => !busy && onBuy(item)}
@@ -330,9 +337,9 @@ function ItemRow(props: RowProps) {
           onBuy={press}
           label={label}
           variant={gems ? "blue" : item.type === "rewarded_ad" ? "gold" : "primary"}
-          icon={gems ? (short ? "lock" : "gem") : item.type === "rewarded_ad" ? "play" : undefined}
+          icon={gems ? (short ? "lock" : "date") : item.type === "rewarded_ad" ? "play" : undefined}
           muted={muted}
-          accessibilityLabel={`${name}, ${gems ? `${t("{count} gems", { count: formatNumber(item.price) })}${full ? t(", hearts are full") : short ? t(", not enough gems") : ""}` : item.type === "rewarded_ad" ? `${t("watch a video")}${full ? t(", hearts are full") : ""}` : label}`}
+          accessibilityLabel={`${name}, ${gems ? `${t("{count} dates", { count: formatNumber(item.price) })}${full ? t(", hearts are full") : short ? t(", not enough dates") : ""}` : item.type === "rewarded_ad" ? `${t("watch a video")}${full ? t(", hearts are full") : ""}` : label}`}
         />
       </Animated.View>
     </Animated.View>
@@ -430,7 +437,7 @@ function IconShop({ user, onBuy, onWear }: { user: UserProfile; onBuy: (id: Prof
                 onPress={() => press(id, price)}
                 sound={false}
                 style={[styles.iconTile, on ? styles.iconTileOn : owned ? styles.iconTileOwned : null]}
-                accessibilityLabel={on ? t("Wearing") : owned ? t("Wear") : t("{count} gems", { count: formatNumber(price) })}
+                accessibilityLabel={on ? t("Wearing") : owned ? t("Wear") : t("{count} dates", { count: formatNumber(price) })}
                 accessibilityState={{ selected: on }}
                 testID={`shop-icon-${id}`}
               >
@@ -443,7 +450,7 @@ function IconShop({ user, onBuy, onWear }: { user: UserProfile; onBuy: (id: Prof
                   <Text style={styles.iconOwned} numberOfLines={1}>{t("Wear")}</Text>
                 ) : (
                   <View style={styles.iconPrice}>
-                    <Icon name="gem" size={14} />
+                    <Icon name="date" size={14} />
                     <Text style={styles.iconPriceText} numberOfLines={1}>{formatNumber(price)}</Text>
                   </View>
                 )}
@@ -484,8 +491,59 @@ function SecretHintRow({ user, onBuy }: { user: UserProfile; onBuy: () => void }
           </Text>
         </View>
         <Animated.View style={shakeStyle}>
-          <GameButton label={formatNumber(SECRET_HINT_PRICE)} size="sm" icon={short ? "lock" : "gem"} variant="blue" sound={short ? false : undefined} onPress={press} testID="shop-buy-secret-hint" />
+          <GameButton label={formatNumber(SECRET_HINT_PRICE)} size="sm" icon={short ? "lock" : "date"} variant="blue" color={colors.date} sound={short ? false : undefined} onPress={press} testID="shop-buy-secret-hint" />
         </Animated.View>
+      </View>
+    </View>
+  );
+}
+
+/** A streak freeze for gems, up to two held at once. */
+function StreakFreezeRow({ user, onBuy }: { user: UserProfile; onBuy: () => void }) {
+  const { style: shakeStyle, shake } = useShake(6);
+  const owned = streakFreezeCount(user);
+  const full = owned >= MAX_STREAK_FREEZES;
+  const short = full ? 0 : Math.max(0, STREAK_FREEZE_PRICE - user.gems);
+  const press = () => {
+    if (short) {
+      shake();
+      feedback("wrong", "error");
+      return;
+    }
+    onBuy();
+  };
+  return (
+    <View style={styles.section}>
+      <Text style={styles.sectionHeader}>{t("Streak")}</Text>
+      <View style={[styles.item, styles.hintRow]} testID="shop-streak-freeze">
+        <View style={[styles.itemIcon, { backgroundColor: lighten(colors.gem, 0.85) }]}>
+          <Icon name="freeze" size={34} />
+        </View>
+        <View style={styles.itemText}>
+          <Text style={styles.itemName} numberOfLines={2}>{t("Streak freeze")}</Text>
+          <Text style={[styles.itemLine, short ? styles.itemLineShort : null]} numberOfLines={2} testID="shop-streak-freeze-line">
+            {short ? t("Need {count} more", { count: formatNumber(short) }) : t("{count} of {max} streak freezes", { count: owned, max: MAX_STREAK_FREEZES })}
+          </Text>
+        </View>
+        {full ? (
+          <View style={styles.freezeFull} testID="shop-streak-freeze-full">
+            <Icon name="check" size={24} />
+          </View>
+        ) : (
+          <Animated.View style={shakeStyle}>
+            <GameButton
+              label={formatNumber(STREAK_FREEZE_PRICE)}
+              size="sm"
+              icon={short ? "lock" : "date"}
+              variant="blue"
+              color={colors.date}
+              sound={short ? false : undefined}
+              onPress={press}
+              accessibilityLabel={t("Buy a streak freeze for {count} dates", { count: formatNumber(STREAK_FREEZE_PRICE) })}
+              testID="shop-buy-streak-freeze"
+            />
+          </Animated.View>
+        )}
       </View>
     </View>
   );
@@ -520,7 +578,7 @@ function HadithRows({ user, onBuy, onOpen }: { user: UserProfile; onBuy: () => v
             </Text>
           </View>
           <Animated.View style={shakeStyle}>
-            <GameButton label={formatNumber(HADITH_CARD_PRICE)} size="sm" icon={short ? "lock" : "gem"} variant="blue" sound={short ? false : undefined} onPress={press} testID="shop-buy-hadith" />
+            <GameButton label={formatNumber(HADITH_CARD_PRICE)} size="sm" icon={short ? "lock" : "date"} variant="blue" color={colors.date} sound={short ? false : undefined} onPress={press} testID="shop-buy-hadith" />
           </Animated.View>
         </View>
       ) : null}
@@ -540,6 +598,31 @@ function HadithRows({ user, onBuy, onOpen }: { user: UserProfile; onBuy: () => v
       ) : null}
     </View>
   );
+}
+
+/** The shop's shelves, one at a time, so the screen never shows everything at once. */
+export type ShopShelf = "hearts" | "hadith" | "icons" | "dates";
+
+function shelfLabel(shelf: ShopShelf) {
+  switch (shelf) {
+    case "hadith":
+      return t("Hadith");
+    case "icons":
+      return t("Icons");
+    case "dates":
+      return t("Dates");
+    default:
+      return t("Hearts");
+  }
+}
+
+const SHELF_ICONS: Record<ShopShelf, IconName> = { hearts: "heart", hadith: "scroll", icons: "star8", dates: "date" };
+
+/** The shelf a store item sits on: hearts and power-ups on Hearts, date packs and plans on Dates. */
+export function itemShelf(item: ShopItem): ShopShelf {
+  if (item.tier) return "dates";
+  if (item.refillsHearts || item.heartsGranted || (item.type === "rewarded_ad" && !item.gemsGranted)) return "hearts";
+  return item.gemsGranted ? "dates" : "hearts";
 }
 
 /** A quick spring from big back to normal size. */
@@ -567,8 +650,10 @@ export function ShopView({
   onBuyIcon,
   onWearIcon,
   onBuySecretHint,
+  onBuyStreakFreeze,
   onBuyHadith,
-  onOpenHadith
+  onOpenHadith,
+  shelf: shelfProp
 }: ShopViewProps) {
   const premium = isPremium(user);
   const fullPremium = isFullPremium(user);
@@ -636,6 +721,22 @@ export function ShopView({
   const pending = pendingItemId ?? pendingId;
   const rowProps = { user, storePrices, busy, pendingId: pending, onBuy: buy, heartVideosWatched };
 
+  // Only shelves with something on them; Premium's "can't be bought here" note lives on the Dates shelf.
+  const shelves: ShopShelf[] = [];
+  if (hearts.length || powerUps.length || onBuyStreakFreeze) shelves.push("hearts");
+  if (onBuyHadith || onBuySecretHint) shelves.push("hadith");
+  if (onBuyIcon) shelves.push("icons");
+  if (gemPacks.length || plans.length || (!canBuyWithMoney && !premium)) shelves.push("dates");
+  const [picked, setPicked] = useState<ShopShelf | undefined>(focus === "premium" ? "dates" : undefined);
+  const wanted = shelfProp ?? picked;
+  const shelf: ShopShelf | undefined = wanted && shelves.includes(wanted) ? wanted : shelves[0];
+  const pickShelf = (next: ShopShelf) => {
+    if (next === shelf) return;
+    feedback("soft_ui", "light");
+    setPicked(next);
+    scrollRef.current?.scrollTo({ y: 0, animated: false });
+  };
+
   return (
     <View style={styles.root}>
       <ScrollView ref={scrollRef} style={styles.root} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} testID="shop-view">
@@ -646,7 +747,7 @@ export function ShopView({
             <View style={styles.balanceGem}>
               <SecretTap spot="shop_gem">
                 <Animated.View style={{ transform: [{ scale: gemPop }] }}>
-                  <Icon name="gem" size={46} />
+                  <DateCoin size={46} playKey={user.gems} idle />
                 </Animated.View>
               </SecretTap>
               {/* Formatted as in the top bar above it (and on the Me tab): "1,000", "12,345", then "120k". */}
@@ -666,6 +767,32 @@ export function ShopView({
             </Animated.View>
           </View>
         </PopIn>
+
+        {shelves.length > 1 ? (
+          <View style={styles.shelfBar} accessibilityRole="tablist" testID="shop-shelves">
+            {shelves.map((key) => {
+              const on = key === shelf;
+              return (
+                <Tappable
+                  key={key}
+                  onPress={() => pickShelf(key)}
+                  sound={false}
+                  style={[styles.shelfTab, on ? styles.shelfTabOn : null]}
+                  accessibilityRole="tab"
+                  accessibilityState={{ selected: on }}
+                  accessibilityLabel={shelfLabel(key)}
+                  testID={`shop-shelf-${key}`}
+                  pressScale={0.95}
+                >
+                  <Icon name={SHELF_ICONS[key]} size={24} />
+                  <Text style={[styles.shelfText, on ? styles.shelfTextOn : null]} numberOfLines={1}>
+                    {shelfLabel(key)}
+                  </Text>
+                </Tappable>
+              );
+            })}
+          </View>
+        ) : null}
 
         {premium ? (
           <PopIn delay={80} from="up">
@@ -690,7 +817,7 @@ export function ShopView({
           </PopIn>
         ) : null}
 
-        {hearts.length ? (
+        {shelf === "hearts" && hearts.length ? (
           <View style={styles.section}>
             <Text style={styles.sectionHeader}>{t("Hearts")}</Text>
             {hearts.map((item) => (
@@ -699,16 +826,16 @@ export function ShopView({
           </View>
         ) : null}
 
-        {gemPacks.length ? (
+        {shelf === "dates" && gemPacks.length ? (
           <View style={styles.section}>
-            <Text style={styles.sectionHeader}>{t("Gems")}</Text>
+            <Text style={styles.sectionHeader}>{t("Dates")}</Text>
             {gemPacks.map((item) => (
               <ItemRow key={item.id} item={item} {...rowProps} />
             ))}
           </View>
         ) : null}
 
-        {powerUps.length ? (
+        {shelf === "hearts" && powerUps.length ? (
           <View style={styles.section}>
             <Text style={styles.sectionHeader}>{t("Power-ups")}</Text>
             {powerUps.map((item) => (
@@ -717,25 +844,27 @@ export function ShopView({
           </View>
         ) : null}
 
-        {onBuyHadith ? <HadithRows user={user} onBuy={onBuyHadith} onOpen={onOpenHadith} /> : null}
+        {shelf === "hearts" && onBuyStreakFreeze ? <StreakFreezeRow user={user} onBuy={onBuyStreakFreeze} /> : null}
 
-        {onBuyIcon ? <IconShop user={user} onBuy={onBuyIcon} onWear={onWearIcon} /> : null}
+        {shelf === "hadith" && onBuyHadith ? <HadithRows user={user} onBuy={onBuyHadith} onOpen={onOpenHadith} /> : null}
 
-        {onBuySecretHint ? <SecretHintRow user={user} onBuy={onBuySecretHint} /> : null}
+        {shelf === "icons" && onBuyIcon ? <IconShop user={user} onBuy={onBuyIcon} onWear={onWearIcon} /> : null}
 
-        {noAdsPlans.length ? (
+        {shelf === "hadith" && onBuySecretHint ? <SecretHintRow user={user} onBuy={onBuySecretHint} /> : null}
+
+        {shelf === "dates" && noAdsPlans.length ? (
           <View style={styles.section}>
             <PremiumCard plans={noAdsPlans} kind="no_ads" {...rowProps} />
           </View>
         ) : null}
 
-        {premiumPlans.length ? (
+        {shelf === "dates" && premiumPlans.length ? (
           <View style={styles.section} onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
             <PremiumCard plans={premiumPlans} {...rowProps} />
           </View>
         ) : null}
 
-        {!canBuyWithMoney && !premium ? (
+        {shelf === "dates" && !canBuyWithMoney && !premium ? (
           // Only what is true here, in a child's words: this build cannot sell the crown units (premiumOnly,
           // a handful of circles), so they stay locked, and every other lesson is free to play.
           <View style={styles.appHint} testID="shop-app-hint" onLayout={(event) => focusPremium(event.nativeEvent.layout.y)}>
@@ -836,10 +965,14 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyHeavy,
     fontSize: 13,
     lineHeight: 18,
-    color: colors.gemLip
+    color: colors.dateLip
   },
   hintRow: {
     gap: 10
+  },
+  freezeFull: {
+    width: 44,
+    alignItems: "center"
   },
   root: {
     flex: 1,
@@ -863,11 +996,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: radii.lg,
-    backgroundColor: lighten(colors.gem, 0.88),
+    backgroundColor: lighten(colors.date, 0.9),
     borderWidth: 2,
     borderBottomWidth: 4,
-    borderColor: lighten(colors.gem, 0.6),
-    borderBottomColor: lighten(colors.gem, 0.35)
+    borderColor: lighten(colors.date, 0.65),
+    borderBottomColor: lighten(colors.date, 0.4)
   },
   balanceGem: {
     flexDirection: "row",
@@ -879,7 +1012,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.displayHeavy,
     fontSize: 40,
     lineHeight: 48,
-    color: colors.gemLip,
+    color: colors.dateLip,
     flexShrink: 1
   },
   balanceHearts: {
@@ -900,6 +1033,41 @@ const styles = StyleSheet.create({
   section: {
     marginTop: 20,
     gap: 10
+  },
+  shelfBar: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    marginTop: 16
+  },
+  shelfTab: {
+    flexGrow: 1,
+    flexBasis: "22%",
+    minWidth: 64,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 2,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: colors.line,
+    backgroundColor: colors.white
+  },
+  shelfTabOn: {
+    borderColor: colors.date,
+    backgroundColor: lighten(colors.date, 0.85)
+  },
+  shelfText: {
+    fontFamily: fonts.display,
+    fontSize: 14,
+    lineHeight: 19,
+    color: colors.inkSoft,
+    flexShrink: 1
+  },
+  shelfTextOn: {
+    color: darken(colors.date, 0.35)
   },
   sectionHeader: {
     fontFamily: fonts.displayHeavy,

@@ -106,7 +106,8 @@ describe("LearnPath's circle to play next", () => {
     await render(<LearnPath {...base} />);
     expect(label(0)).toMatch(/, start$/);
     expect(label(3)).not.toMatch(/, start$/);
-    expect(screen.queryByTestId("unit-test-out-unit-b")).toBeNull();
+    // Every unit that can be tested out shows its TEST OUT key, not only the one being played.
+    expect(screen.getByTestId("unit-test-out-unit-b")).toBeTruthy();
   });
 
   it("puts START, and the unit's key, on the circle the caller names while it is open", async () => {

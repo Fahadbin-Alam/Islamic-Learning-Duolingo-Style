@@ -69,6 +69,10 @@ class User(Base, TimestampMixin):
     # see src/services/ummah.ts. Only joined learners show on the ranking, by nickname.
     ummah_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
     social_hub_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
+    # Everything else on the app's profile that has no column of its own (quiz scores, Ramadan days, the review
+    # deck, streak freezes, and fields later builds add), so it survives a new phone without a migration each time.
+    # See EXTRA_STATE_* in service_layer.py for the limits.
+    progress_extra_json: Mapped[dict] = mapped_column(JSON, default=dict, nullable=False)
 
     sessions: Mapped[List["AuthSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     progress_entries: Mapped[List["UserProgress"]] = relationship(back_populates="user", cascade="all, delete-orphan")
@@ -94,6 +98,27 @@ class Friendship(Base):
 
     friend: Mapped["User"] = relationship(foreign_keys=[friend_id])
     user: Mapped["User"] = relationship(foreign_keys=[user_id], overlaps="following")
+
+
+class FriendBattle(Base):
+    """One learner asking a friend (both added each other) to a quiz battle. Both answer the same questions, picked
+    in the app from `seed`, and the higher score wins once both have played."""
+
+    __tablename__ = "friend_battles"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    challenger_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    opponent_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    # pending (asked, not answered), accepted (both may play), declined, done (both played).
+    status: Mapped[str] = mapped_column(String(20), default="pending", server_default="pending", nullable=False)
+    seed: Mapped[int] = mapped_column(Integer, nullable=False)
+    challenger_score: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    opponent_score: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+
+    challenger: Mapped["User"] = relationship(foreign_keys=[challenger_id])
+    opponent: Mapped["User"] = relationship(foreign_keys=[opponent_id])
 
 
 class AuthSession(Base):
