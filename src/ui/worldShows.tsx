@@ -1,6 +1,7 @@
 import React, { type ReactNode } from "react";
 import { Animated, View } from "react-native";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
+import { bigLook } from "./bigShows";
 import { sampleCurve } from "./motion";
 import { Drop, Floater, Heart, Puff, Sparkle, Word, shake } from "./reactions";
 import { Abs, DateFruit, Faller, Fish, Frog, Gusts, Hopper, LEAF, Leaf, Note, Splash, deg, k, windowOf, type Look } from "./showKit";
@@ -67,6 +68,10 @@ const GROW: Show = { name: "grow", sound: "grow", ms: 1900 };
 const WIGGLE: Show = { name: "wiggle", sound: "giggle", ms: 1500 };
 const LOVE: Show = { name: "love", sound: "sparkle", ms: 1800 };
 const SHINE: Show = { name: "shine", sound: "sparkle", ms: 1700 };
+/** The tree grows huge and shrinks back (bigShows.tsx). */
+export const GIANT: Show = { name: "giant", sound: "giant", ms: 2600 };
+/** A little meteor falls, lands with a bonk and everything settles back (bigShows.tsx). */
+export const METEOR: Show = { name: "meteor", sound: "meteor", ms: 2400, strong: true };
 
 export const WORLD_SHOWS: Record<WorldShowKind, Show[]> = {
   // The first tap closes the book and puts it on a shelf; the next takes it down and opens it again.
@@ -92,6 +97,7 @@ export const WORLD_SHOWS: Record<WorldShowKind, Show[]> = {
     { name: "butterflies", sound: "sparkle", ms: 2400 },
     { name: "bloom", sound: "grow", ms: 2000 },
     { name: "berries", sound: "pop", ms: 1800 },
+    GIANT,
     HOP
   ],
   rocks: [
@@ -100,6 +106,7 @@ export const WORLD_SHOWS: Record<WorldShowKind, Show[]> = {
     { name: "roll", sound: "pop", ms: 1900 },
     { name: "sprout", sound: "grow", ms: 2000 },
     { name: "snail", sound: "giggle", ms: 2600 },
+    METEOR,
     SHINE
   ],
   crab: [{ name: "scuttle", sound: "zoom", ms: 1700 }, { name: "snap", sound: "pop", ms: 1500 }, { name: "dig", sound: "whoosh", ms: 2000 }, HOP, SPIN, LOVE],
@@ -107,7 +114,7 @@ export const WORLD_SHOWS: Record<WorldShowKind, Show[]> = {
   boat: [{ name: "sail", sound: "whoosh", ms: 2400 }, { name: "rock", sound: "splash", ms: 1800 }, { name: "fish", sound: "splash", ms: 1600 }, { name: "gull", sound: "chirp", ms: 2200 }, HOP, LOVE],
   shell: [{ name: "pearl", sound: "sparkle", ms: 2000 }, { name: "listen", sound: "whoosh", ms: 2000 }, HOP, SPIN, GROW, LOVE],
   turtle: [{ name: "swim", sound: "whoosh", ms: 2400 }, { name: "hide", sound: "pop", ms: 2000 }, { name: "babies", sound: "sparkle", ms: 2400 }, HOP, SPIN, LOVE],
-  pine: [{ name: "cones", sound: "pop", ms: 1800 }, { name: "squirrel", sound: "giggle", ms: 2200 }, { name: "snow", sound: "sparkle", ms: 2000 }, { name: "wind", sound: "whoosh", ms: 1700 }, GROW, LOVE],
+  pine: [{ name: "cones", sound: "pop", ms: 1800 }, { name: "squirrel", sound: "giggle", ms: 2200 }, { name: "snow", sound: "sparkle", ms: 2000 }, { name: "wind", sound: "whoosh", ms: 1700 }, GIANT, LOVE],
   mushroom: [{ name: "bounce", sound: "boing", ms: 1900 }, { name: "sprout", sound: "grow", ms: 2000 }, { name: "rain", sound: "splash", ms: 2000 }, HOP, WIGGLE, LOVE],
   owl: [{ name: "hoot", sound: "chirp", ms: 1800 }, { name: "blink", sound: "pop", ms: 1500 }, { name: "fly", sound: "whoosh", ms: 2000 }, { name: "turn", sound: "boing", ms: 1500 }, HOP, LOVE],
   log: [{ name: "squirrel", sound: "giggle", ms: 2200 }, { name: "bugs", sound: "pop", ms: 2400 }, { name: "sprout", sound: "grow", ms: 2000 }, HOP, WIGGLE, LOVE],
@@ -241,6 +248,8 @@ function pops(t: Animated.Value, s: number, spots: { x: number; y: number; at: n
 
 /** What each show looks like. Anything not drawn here falls back to a generic show. */
 export function worldLook(kind: WorldShowKind, name: string, t: Animated.Value, s: number, art: ReactNode): Look {
+  const big = bigLook(name, t, s);
+  if (big) return big;
   const u = s / 64;
   switch (`${kind}:${name}`) {
     // ---------- the book stand ----------

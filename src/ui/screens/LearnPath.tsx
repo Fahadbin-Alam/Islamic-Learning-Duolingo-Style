@@ -29,7 +29,7 @@ import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathSc
 import { PathWeather, weatherFor } from "../PathWeather";
 import { WorldTuft, worldFor } from "../pathWorlds";
 import { usePathWorldChoice } from "../../services/pathWorldChoice";
-import { SceneProvider, Snooze, useScene } from "../sceneMood";
+import { QuakeView, SceneProvider, Snooze, useScene } from "../sceneMood";
 import { PopIn, useShake } from "../PopIn";
 import { ProgressBar } from "../ProgressBar";
 import { Sheet } from "../Sheet";
@@ -487,10 +487,17 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
       >
         <Animated.View style={shakeStyle}>
           <Animated.View style={[styles.chestArt, { transform: [{ scale: bounce }] }]}>
+            {/* A solid plate behind the chest, like the circles have, so busy scenery never swallows it. */}
+            <View style={[styles.chestPlate, ready ? styles.chestPlateReady : null]} />
             <View style={styles.groundShadow} />
-            <Animated.View style={[{ transform: [{ rotate }] }, ready ? null : chest.claimed ? styles.chestClaimed : styles.chestLocked]}>
+            <Animated.View style={{ transform: [{ rotate }] }}>
               <Icon name={chest.claimed ? "chestOpen" : "chest"} size={CHEST} />
             </Animated.View>
+            {!ready ? (
+              <View style={[styles.chestBadge, chest.claimed ? styles.chestBadgeDone : null]} pointerEvents="none">
+                <Icon name={chest.claimed ? "check" : "lock"} size={13} />
+              </View>
+            ) : null}
           </Animated.View>
         </Animated.View>
         {ready ? (
@@ -1315,7 +1322,7 @@ export function LearnPath({
         }}
         testID={`learn-path-${topicId}`}
       >
-        <View onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
+        <QuakeView onStartShouldSetResponder={() => Boolean(openId)} onResponderRelease={tapClose} testID="learn-path-content">
           <View onLayout={(event: LayoutChangeEvent) => setHeaderH(event.nativeEvent.layout.height)}>{header}</View>
           <NightSky top={headerH} bottom={-bottomPadding} />
           {layout.byUnit.map((group) => {
@@ -1471,7 +1478,7 @@ export function LearnPath({
           {units.length > 0 ? (
             <PathEnd done={topicDone} color={accent} mascotVariant={mascotVariant} width={width} onNextTopic={onNextTopic} />
           ) : null}
-        </View>
+        </QuakeView>
       </ScrollView>
       {sticky ? (
         <StickyBanner
@@ -1682,11 +1689,35 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: withAlpha(colors.ink, 0.08)
   },
-  chestLocked: {
-    opacity: 0.5
+  chestPlate: {
+    position: "absolute",
+    width: CHEST + 18,
+    height: CHEST + 18,
+    borderRadius: (CHEST + 18) / 2,
+    backgroundColor: colors.white,
+    borderWidth: 3,
+    borderColor: colors.line,
+    borderBottomWidth: 6
   },
-  chestClaimed: {
-    opacity: 0.45
+  chestPlateReady: {
+    backgroundColor: "#FFF6D6",
+    borderColor: "#F5B700"
+  },
+  chestBadge: {
+    position: "absolute",
+    right: -4,
+    bottom: -2,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+    borderWidth: 2,
+    borderColor: colors.line
+  },
+  chestBadgeDone: {
+    borderColor: colors.green
   },
   sparkle: {
     position: "absolute"

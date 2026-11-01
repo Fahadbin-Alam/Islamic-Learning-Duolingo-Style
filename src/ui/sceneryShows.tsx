@@ -1,7 +1,8 @@
-import React, { useState, type ReactNode } from "react";
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { Animated, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
+import { METEOR_HIT, bigLook } from "./bigShows";
 import { sampleCurve, smoothKeys } from "./motion";
 import { Drop, Floater, Heart, Puff, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
 import { Snooze, useScene } from "./sceneMood";
@@ -63,7 +64,7 @@ export const SCENERY_SHOWS: Record<ShowKind, SceneryShow[]> = {
     { name: "wind", sound: "whoosh", ms: 1700 },
     { name: "drop", sound: "pop", ms: 1600 },
     { name: "bird", sound: "chirp", ms: 2400 },
-    { name: "tall", sound: "grow", ms: 1700 },
+    { name: "giant", sound: "giant", ms: 2600 },
     { name: "leaves", sound: "whoosh", ms: 2000 },
     { name: "dance", sound: "giggle", ms: 2000 },
     { name: "spin", sound: "zoom", ms: 1300 },
@@ -114,6 +115,8 @@ export function hasShows(kind: string): kind is ShowKind {
 
 /** What each show looks like: moves for the picture and the bits around it. */
 function lookFor(kind: ShowKind, name: string, t: Animated.Value, s: number, art: ReactNode): Look {
+  const big = bigLook(name, t, s);
+  if (big) return big;
   const u = s / 64;
   switch (kind) {
     case "well": {
@@ -219,13 +222,6 @@ function lookFor(kind: ShowKind, name: string, t: Animated.Value, s: number, art
                 ))}
               </>
             )
-          };
-        case "tall":
-          return {
-            moves: [
-              { scaleY: k(t, [0, 0.12, 0.45, 0.62, 0.78, 0.9, 1], [1, 0.85, 1.4, 1.4, 0.9, 1.05, 1]) },
-              { scaleX: k(t, [0, 0.12, 0.45, 0.62, 0.78, 1], [1, 1.1, 0.92, 0.92, 1.06, 1]) }
-            ]
           };
         case "leaves":
           return {
@@ -708,7 +704,12 @@ export function ShowScenery({ kind, size, art, sway, reduceMotion, style }: Show
   const [show, setShow] = useState<number | null>(null);
   const { value: t, play } = useOneShot();
   const next = useCycle(shows.length);
-  const { asleep } = useScene();
+  const { asleep, rumble } = useScene();
+  // A meteor bumps the whole path when it lands.
+  const bump = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (bump.current) clearTimeout(bump.current);
+  }, []);
 
   // The book stand's book stays up on its shelf between taps until a tap brings it down.
   const [shelved, setShelved] = useState(false);
@@ -721,6 +722,8 @@ export function ShowScenery({ kind, size, art, sway, reduceMotion, style }: Show
     setShow(index);
     if (kind === "bookStand") setShelved(pick.name === "shelf" ? true : pick.name === "down" ? false : shelved);
     play(reduceMotion ? 500 : pick.ms, () => setShow(null));
+    if (bump.current) clearTimeout(bump.current);
+    bump.current = pick.name === "meteor" && !reduceMotion ? setTimeout(rumble, pick.ms * METEOR_HIT) : null;
   };
 
   const u = size / 64;

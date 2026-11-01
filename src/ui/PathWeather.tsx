@@ -7,7 +7,8 @@ import { sampleCurve, smoothKeys } from "./motion";
 import { Drop, Floater, Heart, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
 import { useScene } from "./sceneMood";
 import { BACKDROP_H, WorldBackdrop, type PathWorld } from "./pathWorlds";
-import { feedback } from "./sound";
+import { feedback, playUi } from "./sound";
+import { METEOR_HIT, bigLook } from "./bigShows";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
@@ -596,7 +597,8 @@ export const PathWeather = memo(function PathWeather({ weather, world = "desert"
             {(weather === "sunny" || weather === "breeze" || weather === "sunset") && band % 2 === 0 ? (
               <Birds top={y + (first ? 250 : 200)} width={width} moving={moving} reduceMotion={reduceMotion} />
             ) : null}
-            {weather === "rain" ? <RainUnderCloud top={y + 150} width={width} band={band} moving={moving} reduceMotion={reduceMotion} /> : null}
+            {weather === "rain" ? <RainUnderCloud top={y + 150} width={width} band={band} moving={moving} drifting={drifting} reduceMotion={reduceMotion} /> : null}
+            {first ? <SkyMeteor width={width} moving={moving} /> : null}
           </React.Fragment>
         );
       })}
@@ -606,17 +608,75 @@ export const PathWeather = memo(function PathWeather({ weather, world = "desert"
   );
 });
 
-/** Rain under a still cloud at the screen's side, so the drops have a source. */
-function RainUnderCloud({ top, width, band, moving, reduceMotion }: { top: number; width: number; band: number; moving: boolean; reduceMotion: boolean }) {
+/** Rain under a cloud at the screen's side, so the drops have a source. The cloud wanders slowly to and fro, the rain with it. */
+function RainUnderCloud({ top, width, band, moving, drifting, reduceMotion }: { top: number; width: number; band: number; moving: boolean; drifting: boolean; reduceMotion: boolean }) {
   const left = band % 2 === 0 ? 8 : width - 100;
   const sky = SKIES.rain;
+  const wander = useLoopValue(drifting, 12000 + band * 900);
+  const reach = Math.min(70, width * 0.18) * (band % 2 === 0 ? 1 : -1);
+  const translateX = wander.interpolate(smoothKeys([0, 0.5, 1], [0, reach, 0]));
+  const translateY = wander.interpolate(smoothKeys([0, 0.25, 0.5, 0.75, 1], [0, -4, 0, -4, 0]));
   return (
-    <>
-      <View style={[styles.abs, { top: top + 110, left }]}>
+    <Animated.View pointerEvents="box-none" style={[StyleSheet.absoluteFill, { transform: [{ translateX: drifting ? translateX : 0 }] }]}>
+      <Animated.View style={[styles.abs, { top: top + 110, left, transform: [{ translateY: drifting ? translateY : 0 }] }]}>
         <TapCloud sky={sky} size={92} reduceMotion={reduceMotion} />
-      </View>
+      </Animated.View>
       <Rain top={top + 150} left={left + 4} moving={moving} />
-    </>
+    </Animated.View>
+  );
+}
+
+/** Where the sky's meteor lands, in turn: as parts of the width, and px down the unit. */
+const METEOR_SPOTS = [
+  { x: 0.18, y: 420 },
+  { x: 0.82, y: 330 },
+  { x: 0.24, y: 560 }
+];
+/** The first meteor comes soon after the learner arrives; the next ones once in a while. */
+const METEOR_FIRST_MS = 9000;
+const METEOR_EVERY_MS = 45000;
+const METEOR_MS = 2400;
+const METEOR_BOX = 110;
+
+/**
+ * Once in a while a little meteor falls out of the sky beside the path: a fiery tail, a BONK, a flash and
+ * a puff of dust, and the whole path gives a shake. Then it all settles back to normal. Not while
+ * everyone sleeps.
+ */
+function SkyMeteor({ width, moving }: { width: number; moving: boolean }) {
+  const { asleep, rumble } = useScene();
+  const { value: t, play } = useOneShot();
+  const [spot, setSpot] = useState<number | null>(null);
+  useEffect(() => {
+    if (!moving || asleep) return undefined;
+    let turn = 0;
+    let bump: ReturnType<typeof setTimeout> | undefined;
+    let timer: ReturnType<typeof setTimeout>;
+    const fall = (wait: number) => {
+      timer = setTimeout(() => {
+        const index = turn % METEOR_SPOTS.length;
+        turn += 1;
+        setSpot(index);
+        playUi("meteor");
+        play(METEOR_MS, () => setSpot(null));
+        bump = setTimeout(rumble, METEOR_MS * METEOR_HIT);
+        fall(METEOR_EVERY_MS);
+      }, wait);
+    };
+    fall(METEOR_FIRST_MS);
+    return () => {
+      clearTimeout(timer);
+      if (bump) clearTimeout(bump);
+    };
+  }, [moving, asleep, play, rumble]);
+  if (spot === null) return null;
+  const at = METEOR_SPOTS[spot];
+  const look = bigLook("meteor", t, METEOR_BOX);
+  return (
+    <View pointerEvents="none" style={[styles.abs, { left: at.x * width - METEOR_BOX / 2, top: at.y - METEOR_BOX * 0.72, width: METEOR_BOX, height: METEOR_BOX }]} testID="sky-meteor">
+      {look?.behind}
+      {look?.front}
+    </View>
   );
 }
 
