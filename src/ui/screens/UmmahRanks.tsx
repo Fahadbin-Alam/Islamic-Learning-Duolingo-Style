@@ -241,10 +241,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderBottomWidth: 4
   },
+  // The arena sits in the middle of its card: the big trophy, then its name and trophies under it.
   arenaHead: {
-    flexDirection: "row",
     alignItems: "center",
-    gap: 12
+    gap: 6
   },
   bigTrophy: {
     width: 80,
@@ -254,13 +254,14 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   arenaMain: {
-    flex: 1,
-    minWidth: 0
+    maxWidth: "100%",
+    alignItems: "center"
   },
   arenaName: {
     fontFamily: fonts.displayHeavy,
     fontSize: 22,
-    lineHeight: 28
+    lineHeight: 28,
+    textAlign: "center"
   },
   trophyLine: {
     flexDirection: "row",
@@ -308,11 +309,13 @@ const styles = StyleSheet.create({
   battleLine: {
     ...text.bodyBold,
     fontSize: 15,
-    lineHeight: 20
+    lineHeight: 20,
+    textAlign: "center"
   },
   sectionHead: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     flexWrap: "wrap",
     gap: 8,
     marginTop: 22,
@@ -321,7 +324,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     ...text.h2,
     flexShrink: 1,
-    marginEnd: "auto"
+    textAlign: "center"
   },
   nick: {
     flexDirection: "row",
@@ -461,15 +464,18 @@ const styles = StyleSheet.create({
   },
   secretText: {
     flex: 1,
-    minWidth: 0
+    minWidth: 0,
+    alignItems: "center"
   },
   secretTitle: {
     fontFamily: fonts.displayHeavy,
     fontSize: 18,
     lineHeight: 24,
-    color: darken(colors.gold, 0.6)
+    color: darken(colors.gold, 0.6),
+    textAlign: "center"
   },
   secretLine: {
-    ...text.small
+    ...text.small,
+    textAlign: "center"
   }
 });

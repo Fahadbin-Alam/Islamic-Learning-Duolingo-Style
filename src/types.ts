@@ -244,6 +244,11 @@ export interface UserProfile {
   reviewCards?: ReviewCard[];
   /** How hard lessons are (Settings): "auto" climbs with the streak and lessons done (src/data/challengeLevel.ts). */
   difficulty?: DifficultyChoice;
+  /**
+   * Steps harder than `difficulty` gives, one for each "Yes, harder!" to "Want it harder?" in a lesson (0 to 5).
+   * Picking a difficulty in Settings starts it again from 0.
+   */
+  challengeBoost?: number;
 }
 
 /** Lesson difficulty as the learner picks it in Settings; unset is "auto". */

@@ -39,8 +39,30 @@ export function autoChallengeLevel(user: Pick<UserProfile, "streakDays" | "compl
   return Math.min(level, ageGroup ? AUTO_CAP[ageGroup] : 4) as ChallengeLevel;
 }
 
-/** The level a learner's lessons are asked at: Auto's climb, or the level they picked. */
-export function challengeLevel(user: Pick<UserProfile, "streakDays" | "completedLessonIds" | "difficulty">, ageGroup?: AgeGroup | null): ChallengeLevel {
+/** The highest level there is. */
+export const TOP_LEVEL: ChallengeLevel = 5;
+
+/**
+ * The level a learner's lessons are asked at: Auto's climb, or the level they picked, plus a step for each time
+ * they said yes to "Want it harder?" in a lesson (user.challengeBoost), up to the top level.
+ */
+export function challengeLevel(
+  user: Pick<UserProfile, "streakDays" | "completedLessonIds" | "difficulty" | "challengeBoost">,
+  ageGroup?: AgeGroup | null
+): ChallengeLevel {
+  const boost = Math.max(0, Math.floor(user.challengeBoost ?? 0));
+  return Math.min(TOP_LEVEL, pickedLevel(user, ageGroup) + boost) as ChallengeLevel;
+}
+
+/** Right first time this many in a row in a lesson, and it asks "Want it harder?". */
+export const HARDER_OFFER_AFTER = 3;
+
+/** One step harder than `level` (the top level stays where it is). */
+export function nextLevel(level: ChallengeLevel): ChallengeLevel {
+  return Math.min(TOP_LEVEL, level + 1) as ChallengeLevel;
+}
+
+function pickedLevel(user: Pick<UserProfile, "streakDays" | "completedLessonIds" | "difficulty">, ageGroup?: AgeGroup | null): ChallengeLevel {
   switch (user.difficulty) {
     case "easy":
       return 0;

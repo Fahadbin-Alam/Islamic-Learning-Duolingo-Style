@@ -36,6 +36,7 @@ export type IconName =
   | "bolt"
   | "arrowLeft"
   | "chevronDown"
+  | "menu"
   | "chevronRight"
   | "settings"
   | "info"
@@ -538,6 +539,7 @@ const ICONS: Record<IconName, Drawer> = {
   chevronDown: (t) => (
     <Path d="M5.8 9 12 15.2 18.2 9" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" {...t.s(C.grayDeep)} />
   ),
+  menu: (t) => <Path d="M4.5 6.5H19.5M4.5 12H19.5M4.5 17.5H19.5" strokeWidth={3} strokeLinecap="round" {...t.s(C.grayDeep)} />,
   chevronRight: (t) => (
     <Path d="M9 5.8 15.2 12 9 18.2" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" {...t.s(C.grayDeep)} />
   ),

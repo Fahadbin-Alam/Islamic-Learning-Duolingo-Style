@@ -660,7 +660,6 @@
   "It's a tie!": "برابر رہا!",
   "Nice battle!": "زبردست مقابلہ!",
   "Sending your score...": "آپ کا اسکور بھیجا جا رہا ہے...",
-  "Share Muslimo": "Muslimo شیئر کریں",
   "Tap a friend to battle them.": "مقابلے کے لیے کسی دوست پر ٹیپ کریں۔",
   "That battle is gone": "یہ مقابلہ اب نہیں رہا",
   "They won {theirs} to {mine}": "وہ {theirs} سے {mine} سے جیتے",
@@ -714,5 +713,10 @@
   "Start lessons": "اسباق شروع کریں",
   "Continue lessons": "اسباق جاری رکھیں",
   "Also in {topic}: {unit}": "{topic} میں بھی: {unit}",
-  "Tap anyone to learn about them and see who taught whom. Drag or swipe to move around.": "کسی بھی نام پر ٹیپ کریں، ان کے بارے میں سیکھیں اور دیکھیں کس نے کس کو پڑھایا۔ گھمانے کے لیے کھینچیں یا سوائپ کریں۔"
+  "Tap anyone to learn about them and see who taught whom. Drag or swipe to move around.": "کسی بھی نام پر ٹیپ کریں، ان کے بارے میں سیکھیں اور دیکھیں کس نے کس کو پڑھایا۔ گھمانے کے لیے کھینچیں یا سوائپ کریں۔",
+  "{count} right in a row!": "لگاتار {count} درست!",
+  "Want it harder?": "اور مشکل چاہیے؟",
+  "Tougher questions from now on. You can change it in Settings.": "اب سے مشکل سوال۔ آپ اسے سیٹنگز میں بدل سکتے ہیں۔",
+  "Yes, make it harder": "ہاں، اور مشکل کرو",
+  "Keep it as it is": "جیسا ہے ویسا رہنے دو"
 }
