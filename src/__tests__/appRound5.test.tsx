@@ -135,7 +135,8 @@ describe("the path's START after a jump ahead (V8)", () => {
     expect(nodeLabel(quranUnits[0][0])).not.toMatch(/, start$/);
     // The unit the jump landed in keeps its TEST OUT key.
     expect(screen.getByTestId(`unit-test-out-${target.branchId}`)).toBeTruthy();
-  });
+    // A whole jump test plus two app starts: about 20 s alone, and much longer when the suites run in parallel.
+  }, 90000);
 
   it("keeps each topic's own circle: a Foundation lesson does not move the Quran START", async () => {
     const skipped = jumpTest(makeUser(), target).plan;
