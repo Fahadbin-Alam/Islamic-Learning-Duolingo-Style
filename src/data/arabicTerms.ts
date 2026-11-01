@@ -44,6 +44,7 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   scholars: { ar: "العلماء", translit: "Al-'ulama'", meaning: "The scholars" },
   ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" },
   eid: { ar: "العيد", translit: "Al-'Id", meaning: "The Eid" },
+  akhirah: { ar: "اليوم الآخر", translit: "Al-Yawm al-Akhir", meaning: "The Last Day" },
   intro: { ar: "مدخل إلى الإسلام", translit: "Madkhal ila al-Islam", meaning: "A first look at Islam" }
 };
 
@@ -171,7 +172,19 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   // Hajj as the Prophet ﷺ did it, and the Eid topic (src/data/lifeUnits.ts)
   "hajj-in-depth": { ar: "حجة الوداع", translit: "Hajjat al-wada'", meaning: "The Farewell Hajj" },
   "eid-two-eids": { ar: "العيدان", translit: "Al-'idan", meaning: "The two Eids" },
-  "eid-special-days": { ar: "الأيام الفاضلة", translit: "Al-ayyam al-fadilah", meaning: "The blessed days" }
+  "eid-special-days": { ar: "الأيام الفاضلة", translit: "Al-ayyam al-fadilah", meaning: "The blessed days" },
+  // The Day of Judgment topic (src/data/akhirahUnits.ts)
+  "akhirah-last-day": { ar: "الإيمان باليوم الآخر", translit: "Al-iman bil-yawm al-akhir", meaning: "Faith in the Last Day" },
+  "akhirah-minor-signs": { ar: "أشراط الساعة الصغرى", translit: "Ashrat as-sa'ah as-sughra", meaning: "The small signs of the Hour" },
+  "akhirah-major-signs": { ar: "أشراط الساعة الكبرى", translit: "Ashrat as-sa'ah al-kubra", meaning: "The big signs of the Hour" },
+  "akhirah-death-grave": { ar: "الموت والقبر", translit: "Al-mawt wal-qabr", meaning: "Death and the grave" },
+  "akhirah-horn-gathering": { ar: "النفخ في الصور والحشر", translit: "An-nafkh fis-sur wal-hashr", meaning: "The Horn and the gathering" },
+  "akhirah-reckoning": { ar: "الحساب والميزان", translit: "Al-hisab wal-mizan", meaning: "The reckoning and the scale" },
+  "akhirah-intercession-pool": { ar: "الشفاعة والحوض", translit: "Ash-shafa'ah wal-hawd", meaning: "The intercession and the Pool" },
+  "akhirah-bridge": { ar: "الصراط", translit: "As-Sirat", meaning: "The bridge" },
+  "akhirah-jannah": { ar: "الجنة", translit: "Al-Jannah", meaning: "Paradise" },
+  "akhirah-jahannam": { ar: "جهنم", translit: "Jahannam", meaning: "The Fire" },
+  "akhirah-get-ready": { ar: "الاستعداد للآخرة", translit: "Al-isti'dad lil-akhirah", meaning: "Getting ready for the Hereafter" }
 };
 
 export const NODE_ARABIC: Record<string, ArabicTerm> = {
@@ -660,6 +673,9 @@ const LEARN_FORMS = [
   "الزَّوَاجُ فِي السُّنَّةِ", "أَهْلًا رَمَضَانُ", "أَعْمَالُ رَمَضَانَ", "الْعَشْرُ الْأَوَاخِرُ",
   "مَا الْإِسْلَامُ", "أَنْبِيَاءُ تَعْرِفُهُمْ", "أَهْلُ الْكِتَابِ", "الْخُطُوَاتُ الْأُولَى",
   "حَجَّةُ الْوَدَاعِ", "الْعِيدَانِ", "الْأَيَّامُ الْفَاضِلَةُ",
+  "الْيَوْمُ الْآخِرُ", "الْإِيمَانُ بِالْيَوْمِ الْآخِرِ", "أَشْرَاطُ السَّاعَةِ الصُّغْرَى", "أَشْرَاطُ السَّاعَةِ الْكُبْرَى",
+  "الْمَوْتُ وَالْقَبْرُ", "النَّفْخُ فِي الصُّورِ وَالْحَشْرُ", "الْحِسَابُ وَالْمِيزَانُ", "الشَّفَاعَةُ وَالْحَوْضُ",
+  "الصِّرَاطُ", "الْجَنَّةُ", "جَهَنَّمُ", "الِاسْتِعْدَادُ لِلْآخِرَةِ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
