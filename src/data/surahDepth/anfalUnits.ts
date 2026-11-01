@@ -512,4 +512,297 @@ const ANFAL_TWO: DeepUnit = {
   ]
 };
 
-export const ANFAL_UNITS: readonly DeepUnit[] = [ANFAL_ONE, ANFAL_TWO];
+/** Ayahs 41 to 75: the fifth, the Day of Criterion, standing firm, Shaytan's lie, keeping promises, peace and brotherhood. */
+const ANFAL_THREE: DeepUnit = {
+  key: "anfal3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-8",
+  name: "Al-Anfal, ayahs 41 to 75",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Anfal",
+  lessons: [
+    {
+      slug: "the-fifth",
+      title: "One fifth for Allah's causes",
+      line: "A fifth of the spoils goes to orphans, the poor and others.",
+      facts: ["Khumus: one fifth", "Even a needle counts"],
+      quote: q8(41),
+      source: ik(41, "A fifth of the spoils is set aside for Allah, the Messenger ﷺ, his relatives, orphans, the poor and the wayfarer. It must be handed over in full, whether little or much, even a thread and needle.", "the one-fifth should be reserved and paid in full"),
+      difficulty: 2,
+      questions: [
+        { q: "How much of the spoils is set aside, in 8:41?", a: "One fifth", wrong: ["One half", "One tenth", "All of it"], why: "Fa anna lillahi khumusah." },
+        { q: "Which group is named for the fifth, in 8:41?", a: "Orphans", wrong: ["Merchants", "Poets", "Kings"], why: "Wal-yatama wal-masakini wabnis-sabil." },
+        { q: "Per Ibn Kathir, even a needle must be handed over.", tf: true, why: "Whether it was little or substantial, even a yarn and needle." }
+      ]
+    },
+    {
+      slug: "day-of-criterion",
+      title: "The Day of Criterion",
+      line: "Badr is the Day of Criterion: Allah split truth from falsehood.",
+      facts: ["Yawm al-Furqan", "Two forces met"],
+      quote: q8(41),
+      source: ik(41, "Allah made His favor known when He distinguished between truth and falsehood at Badr. That is why the day was called al-Furqan.", "when He distinguished between truth and falsehood in the battle of Badr"),
+      difficulty: 2,
+      questions: [
+        { q: "What does 8:41 call the day of Badr?", a: "The Day of Criterion", wrong: ["The Day of Rest", "The Day of Trade", "The Day of Rain"], why: "Yawmal-furqan." },
+        { q: "Why is it called that, per Ibn Kathir?", a: "Allah split truth from falsehood", wrong: ["It rained", "It was a Friday", "Trade began"], why: "He distinguished between truth and falsehood in the battle of Badr." },
+        { q: "The Day of Criterion is the day the two forces met.", tf: true, why: "Yawmal-taqal-jam'an." }
+      ]
+    },
+    {
+      slug: "met-without-appointment",
+      title: "A meeting Allah arranged",
+      line: "Had they set a date, they would have missed; Allah arranged it.",
+      facts: ["Near and far side", "Clear proof for all"],
+      quote: q8(42),
+      source: ik(42, "The Muslims camped on the near side of the valley and Quraysh on the far side, with the caravan lower down. Had they set a meeting and known the enemy's numbers, they would not have met them. Allah brought it about.", "you would not have met them"),
+      difficulty: 3,
+      questions: [
+        { q: "Had they made an appointment, what would happen, in 8:42?", a: "They would have missed it", wrong: ["They would win sooner", "They would trade", "Nothing different"], why: "Walaw tawa'adtum lakhtalaftum fil-mi'ad." },
+        { q: "Why did the meeting happen, in 8:42?", a: "Allah decreed it", wrong: ["By chance", "For trade", "For a feast"], why: "Liyaqdiyallahu amran kana maf'ula." },
+        { q: "Where was the caravan, in 8:42?", a: "On lower ground", wrong: ["On a mountain", "In Makkah", "In Madinah"], why: "War-rakbu asfala minkum." }
+      ]
+    },
+    {
+      slug: "few-in-a-dream",
+      title: "Few in a dream",
+      line: "In a dream the enemy looked few, so hearts grew firm.",
+      facts: ["A true dream", "No quarrel, no fear"],
+      quote: q8(43),
+      source: ik(43, "Mujahid said Allah showed the Prophet ﷺ the enemy as few in a dream. He told his Companions and their resolve grew. Had they seen them as many, they would have lost heart and argued.", "conveyed this news to his Companions and their resolve strengthened"),
+      difficulty: 3,
+      questions: [
+        { q: "How did the enemy look in the dream, in 8:43?", a: "Few", wrong: ["Many", "Hidden", "Friendly"], why: "Idh yurikahumullahu fi manamika qalila." },
+        { q: "What would seeing them as many have caused, in 8:43?", a: "Losing heart and arguing", wrong: ["More joy", "A quick win", "A feast"], why: "Lafashiltum wa latanaza'tum fil-amr." },
+        { q: "What happened when he told his Companions, per Mujahid?", a: "Their resolve grew", wrong: ["They left", "They laughed", "They slept"], why: "Their resolve strengthened." }
+      ]
+    },
+    {
+      slug: "few-in-each-others-eyes",
+      title: "Few in each other's eyes",
+      line: "Each side looked few to the other, so Allah's decree came true.",
+      facts: ["A mercy for believers", "All returns to Allah"],
+      quote: q8(44),
+      source: ik(44, "When they met, Allah made the disbelievers look few to the believers, which shows His compassion: it encouraged them to meet the enemy.", "Allah made them see few disbelievers in their eyes, so that they would be encouraged"),
+      difficulty: 3,
+      questions: [
+        { q: "How did the enemy look to the believers, in 8:44?", a: "Few", wrong: ["Huge", "Invisible", "Asleep"], why: "Wa idh yurikumuhum idhil-taqaytum fi a'yunikum qalila." },
+        { q: "What does this show, per Ibn Kathir?", a: "Allah's compassion for the believers", wrong: ["The believers' strength", "Luck", "Nothing"], why: "Demonstrates Allah's compassion towards the believers." },
+        { q: "To Allah all matters return, says 8:44.", tf: true, why: "Wa ilallahi turja'ul-umur." }
+      ]
+    },
+    {
+      slug: "do-not-wish-for-the-enemy",
+      title: "Do not wish to meet the enemy",
+      line: "Ask Allah for safety; if tested, be patient and firm.",
+      facts: ["Ask for afiyah", "Stand firm if it comes"],
+      quote: q8(45),
+      source: hadith("bukhari", "2966", "Abdullah ibn Abi Awfa", "Sahih", "The Prophet ﷺ said: O people, do not wish to meet the enemy, and ask Allah for safety. But if you meet them, be patient. Then he made du'a to Allah, Revealer of the Book and Mover of the clouds.", "Do not wish to face the enemy (in a battle) and ask Allah to save you (from calamities)"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ say not to wish for?", a: "To meet the enemy", wrong: ["Rain", "Wealth", "Long life"], why: "Do not wish to face the enemy." },
+        { q: "What should we ask Allah for instead?", a: "Safety", wrong: ["Fame", "Battles", "Gold"], why: "Ask Allah to save you from calamities." },
+        { q: "If the test comes, what should we do, per Bukhari 2966?", a: "Be patient", wrong: ["Run away", "Complain", "Give up"], why: "If you should face the enemy, then be patient." }
+      ]
+    },
+    {
+      slug: "firm-and-remembering",
+      title: "Stand firm and remember Allah",
+      line: "Stand firm, remember Allah much, and do not quarrel.",
+      facts: ["Dhikr in hardship", "Quarrels weaken"],
+      quote: q8(46),
+      source: ik(45, "Believers are told to stand firm, remember Allah and never neglect His remembrance in hard moments, and to obey Allah and His Messenger ﷺ. Disputes make them lose courage, so they must be patient.", "They are commanded to remember Allah while in that condition and never neglect His remembrance"),
+      difficulty: 4,
+      questions: [
+        { q: "What should believers do much, in 8:45?", a: "Remember Allah", wrong: ["Sleep", "Boast", "Argue"], why: "Wadhkurullaha kathiran la'allakum tuflihun." },
+        { q: "What does disputing cause, in 8:46?", a: "Losing courage and strength", wrong: ["More wealth", "Better plans", "Nothing"], why: "Wa la tanaza'u fatafshalu wa tadh-haba rihukum." },
+        { q: "Allah is with the patient, says 8:46.", tf: true, why: "Innallaha ma'as-sabirin." }
+      ]
+    },
+    {
+      slug: "not-for-show",
+      title: "Not out of pride or show",
+      line: "Never march out proudly just to be seen by people.",
+      facts: ["Batar: arrogance", "Ri'a': showing off"],
+      quote: q8(47),
+      source: ik(47, "Allah forbids copying the idolators who marched out arrogantly to be seen by people. Abu Jahl refused to go home even after the caravan was safe, wanting the Arabs to talk about them.", "boasting arrogantly with people"),
+      difficulty: 4,
+      questions: [
+        { q: "How did the idolators march out, in 8:47?", a: "Proudly, to be seen", wrong: ["Humbly", "In secret", "Unwillingly"], why: "Batarana wa ri'a'an-nas." },
+        { q: "Who refused to go home, per Ibn Kathir?", a: "Abu Jahl", wrong: ["Abu Sufyan", "Abu Talib", "Suraqah"], why: "When Abu Jahl was told that the caravan escaped safely." },
+        { q: "Showing off is a trait believers should copy.", tf: false, why: "Wa la takunu kalladhina kharaju min diyarihim batara." }
+      ]
+    },
+    {
+      slug: "shaytans-empty-promise",
+      title: "Shaytan's empty promise",
+      line: "Shaytan said: I am your neighbor; when the angels came, he ran.",
+      facts: ["As Suraqah", "I see what you see not"],
+      quote: q8(48),
+      source: ik(48, "Shaytan made their march look good and promised help. He came in the form of Suraqah ibn Malik. When he saw the angels coming to help the believers, he ran away.", "Shaytan witnessed the angels coming to their aid"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Shaytan promise, in 8:48?", a: "I am your neighbor and helper", wrong: ["Gold", "A kingdom", "Rain"], why: "Wa inni jarun lakum." },
+        { q: "Whose form did he take, per Ibn Kathir?", a: "Suraqah ibn Malik", wrong: ["Abu Jahl", "Abu Lahab", "Umayyah"], why: "Shaytan appeared to them in the shape of Suraqah bin Malik." },
+        { q: "Why did Shaytan run, per Ibn Abbas?", a: "He saw the angels", wrong: ["He got tired", "It rained", "He was hungry"], why: "Shaytan witnessed the angels coming to their aid." }
+      ]
+    },
+    {
+      slug: "deceived-by-their-religion",
+      title: "Deceived by their religion?",
+      line: "Hypocrites mocked the believers; Allah suffices those who trust.",
+      facts: ["Hypocrites mocked", "Tawakkul wins"],
+      quote: q8(49),
+      source: ik(49, "The hypocrites said the believers were deceived by their religion. But whoever trusts in Allah, Allah is All-Mighty, All-Wise.", "But whoever puts his trust in Allah, then surely, Allah is All-Mighty, All-Wise"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the hypocrites say, in 8:49?", a: "They are deceived by their religion", wrong: ["They are strong", "They are rich", "They are right"], why: "Gharra ha'ula'i dinuhum." },
+        { q: "What does 8:49 promise those who trust Allah?", a: "Allah is Mighty, Wise for them", wrong: ["They will be alone", "They will lose", "Nothing"], why: "Wa man yatawakkal alallahi fa innallaha azizun hakim." },
+        { q: "Those with sick hearts joined the hypocrites in 8:49.", tf: true, why: "Wal-ladhina fi qulubihim marad." }
+      ]
+    },
+    {
+      slug: "blessings-change",
+      title: "Blessings change when we change",
+      line: "Allah does not take a blessing until people change themselves.",
+      facts: ["Linked to 13:11", "Fir'awn's people"],
+      quote: q8(53),
+      source: ik(53, "Allah is perfectly just: He does not take away a blessing He gave except because of evil the people did, as in 13:11. Fir'awn's people lost their gardens and treasures for their sins.", "He will not change a bounty that He has granted someone, except on account of an evil that they committed"),
+      difficulty: 4,
+      questions: [
+        { q: "When does Allah change a blessing, in 8:53?", a: "When people change themselves", wrong: ["Every year", "At random", "Never"], why: "Hatta yughayyiru ma bi-anfusihim." },
+        { q: "Which ayah does Ibn Kathir pair with 8:53?", a: "13:11", wrong: ["2:255", "112:1", "36:58"], why: "Allah will not change the condition of a people, 13:11." },
+        { q: "Allah wronged Fir'awn's people, per Ibn Kathir.", tf: false, why: "Allah did not wrong them, but it is they who wronged themselves." }
+      ]
+    },
+    {
+      slug: "no-treachery",
+      title: "No treachery, even with enemies",
+      line: "Fear a breach? End the pact openly; Allah hates betrayal.",
+      facts: ["Ala sawa': equal terms", "Keep treaties"],
+      quote: q8(58),
+      source: ik(58, "If a treaty partner may betray, end the treaty openly so both sides know. Allah does not like the treacherous, and this even includes treachery against disbelievers.", "This even includes treachery against the disbelievers"),
+      difficulty: 4,
+      questions: [
+        { q: "How should a treaty be ended, in 8:58?", a: "Openly, on equal terms", wrong: ["In secret", "By surprise", "Never at all"], why: "Fambidh ilayhim ala sawa'." },
+        { q: "Whom does Allah not love, in 8:58?", a: "The treacherous", wrong: ["The patient", "The poor", "The travelers"], why: "Innallaha la yuhibbul-kha'inin." },
+        { q: "Per Ibn Kathir, treachery is wrong even with disbelievers.", tf: true, why: "This even includes treachery against the disbelievers." }
+      ]
+    },
+    {
+      slug: "spending-repaid",
+      title: "What you spend is repaid",
+      line: "Whatever you spend in Allah's cause is repaid to you in full.",
+      facts: ["No injustice", "Seven hundred fold"],
+      quote: q8(60),
+      source: ik(60, "Whatever is spent in Allah's cause will be repaid in full, and Ibn Kathir recalls 2:261: a grain that grows seven ears with a hundred grains each.", "whatever you spend on Jihad will be repaid to you in full"),
+      difficulty: 4,
+      questions: [
+        { q: "What happens to what is spent in Allah's cause, in 8:60?", a: "It is repaid in full", wrong: ["It is lost", "It is half repaid", "It is forgotten"], why: "Yuwaffa ilaykum wa antum la tuzlamun." },
+        { q: "Which parable does Ibn Kathir add?", a: "A grain with seven ears", wrong: ["A tree with no fruit", "A spider's web", "A mirage"], why: "It grows seven ears, and each ear has a hundred grains." },
+        { q: "Nobody spending for Allah is wronged, says 8:60.", tf: true, why: "Wa antum la tuzlamun." }
+      ]
+    },
+    {
+      slug: "incline-to-peace",
+      title: "If they want peace, accept it",
+      line: "If the enemy seeks peace, accept it and trust Allah.",
+      facts: ["Hudaybiyah", "Tawakkul"],
+      quote: q8(61),
+      source: ik(61, "If the enemy seeks peace and a truce, accept it and trust in Allah. That is why the Prophet ﷺ accepted the Hudaybiyah truce from Quraysh.", "and accept offers of peace from them"),
+      difficulty: 5,
+      questions: [
+        { q: "What should Muslims do if the enemy leans to peace, in 8:61?", a: "Lean to it too", wrong: ["Refuse it", "Ignore it", "Mock it"], why: "Wa in janahu lis-salmi fajnah laha." },
+        { q: "Which truce does Ibn Kathir name?", a: "Hudaybiyah", wrong: ["Ta'if", "Tabuk", "Uhud"], why: "When the pagans inclined to peace in the year of Hudaybiyah." },
+        { q: "What should go with making peace, in 8:61?", a: "Trust in Allah", wrong: ["Fear of people", "Doubt", "Pride"], why: "Wa tawakkal alallah." }
+      ]
+    },
+    {
+      slug: "hearts-united",
+      title: "Hearts only Allah can unite",
+      line: "All the wealth on earth could not unite their hearts; Allah did.",
+      facts: ["Aws and Khazraj", "Brothers by grace"],
+      quote: q8(63),
+      source: ik(63, "Before Islam the Ansar tribes of Aws and Khazraj had many wars. All the world's wealth could not have joined them, but Allah united their hearts with the light of faith.", "Before Islam, there were many wars between the Ansar tribes of Aws and Khazraj"),
+      difficulty: 5,
+      questions: [
+        { q: "Who united the believers' hearts, in 8:63?", a: "Allah", wrong: ["Money", "A treaty", "A king"], why: "Wa lakinnallaha allafa baynahum." },
+        { q: "Which two tribes were enemies before Islam, per Ibn Kathir?", a: "Aws and Khazraj", wrong: ["Quraysh and Thaqif", "Hashim and Umayyah", "Ad and Thamud"], why: "Many wars between the Ansar tribes of Aws and Khazraj." },
+        { q: "All the earth's wealth could have united them, says 8:63.", tf: false, why: "Law anfaqta ma fil-ardi jami'an ma allafta bayna qulubihim." }
+      ]
+    },
+    {
+      slug: "allah-is-enough",
+      title: "Allah is enough for you",
+      line: "Allah is enough for the Prophet ﷺ and his believers.",
+      facts: ["Hasbuka Allah", "Few but steadfast"],
+      quote: q8(64),
+      source: ik(64, "Allah affirms He will suffice, aid, support and help the believers against their enemies, even when the enemy is many and the believers few.", "Allah affirms that He will suffice, aid, support, and help the believers"),
+      difficulty: 5,
+      questions: [
+        { q: "Who is sufficient for the Prophet ﷺ, in 8:64?", a: "Allah", wrong: ["His army", "His tribe", "His wealth"], why: "Ya ayyuhan-nabiyyu hasbukallah." },
+        { q: "Who else is Allah enough for, in 8:64?", a: "The believers who follow him", wrong: ["Only kings", "Only scholars", "No one else"], why: "Wa manit-taba'aka minal-mu'minin." },
+        { q: "Allah helps the believers even when they are few, per Ibn Kathir.", tf: true, why: "Even if their enemies are numerous... while the believers are few." }
+      ]
+    },
+    {
+      slug: "muhajirin-and-ansar",
+      title: "The Muhajirin and the Ansar",
+      line: "Those who moved and those who sheltered them are allies.",
+      facts: ["Brotherhood", "Help in religion"],
+      quote: q8(72),
+      source: ik(72, "The Muhajirin left homes and wealth for Allah, and the Ansar of Madinah sheltered them. They are allies of one another, which is why the Messenger ﷺ made them brothers.", "forged ties of brotherhood between the Muhajirin and Ansar"),
+      difficulty: 5,
+      questions: [
+        { q: "Who gave shelter, in 8:72?", a: "The Ansar", wrong: ["Quraysh", "The Romans", "The Persians"], why: "Wal-ladhina awaw wa nasaru." },
+        { q: "What did the Messenger ﷺ build between them, per Ibn Kathir?", a: "Ties of brotherhood", wrong: ["A wall", "A market", "A fort"], why: "Forged ties of brotherhood between the Muhajirin and Ansar." },
+        { q: "What are they to one another, in 8:72?", a: "Allies", wrong: ["Strangers", "Rivals", "Servants"], why: "Ula'ika ba'duhum awliya'u ba'd." }
+      ]
+    },
+    {
+      slug: "no-inheritance-across-faiths",
+      title: "Inheritance between faiths",
+      line: "A Muslim does not inherit from a disbeliever, nor the reverse.",
+      facts: ["Allies of each other", "Fitnah if mixed"],
+      quote: q8(73),
+      source: hadith("bukhari", "6764", "Usamah ibn Zayd", "Sahih", "The Prophet ﷺ said: a Muslim cannot be the heir of a disbeliever, nor can a disbeliever be the heir of a Muslim.", "A Muslim cannot be the heir of a disbeliever, nor can a disbeliever be the heir of a Muslim"),
+      difficulty: 5,
+      questions: [
+        { q: "Can a Muslim inherit from a disbeliever, in Bukhari 6764?", a: "No", wrong: ["Yes, always", "Only land", "Only money"], why: "A Muslim cannot be the heir of a disbeliever." },
+        { q: "What are the disbelievers to one another, in 8:73?", a: "Allies", wrong: ["Enemies only", "Strangers", "Servants"], why: "Wal-ladhina kafaru ba'duhum awliya'u ba'd." },
+        { q: "What follows if believers do not support each other, in 8:73?", a: "Fitnah and great corruption", wrong: ["Peace", "Wealth", "Rain"], why: "Takun fitnatun fil-ardi wa fasadun kabir." }
+      ]
+    },
+    {
+      slug: "believers-in-truth-again",
+      title: "The believers in truth, again",
+      line: "Al-Anfal ends as it began: these are the believers in truth.",
+      facts: ["Forgiveness", "Generous provision"],
+      quote: q8(74),
+      source: ik(74, "Allah repeats the faith of the believers as at the start of the surah and promises forgiveness and honorable provision: abundant, pure and everlasting, never ending or boring.", "provisions that never end or run out"),
+      difficulty: 5,
+      questions: [
+        { q: "What are the Muhajirin and Ansar called, in 8:74?", a: "The believers in truth", wrong: ["The rich", "The rulers", "The poets"], why: "Ula'ika humul-mu'minuna haqqa." },
+        { q: "What is their reward, in 8:74?", a: "Forgiveness and generous provision", wrong: ["Only fame", "Only land", "Nothing yet"], why: "Lahum maghfiratun wa rizqun karim." },
+        { q: "Which ayah also called them believers in truth?", a: "8:4", wrong: ["8:30", "8:60", "8:41"], why: "Ula'ika humul-mu'minuna haqqa, in 8:4 and 8:74." }
+      ]
+    },
+    {
+      slug: "later-believers-and-kin",
+      title: "Later believers and close kin",
+      line: "Later believers are of you; relatives inherit first.",
+      facts: ["Ulul-arham", "Allah knows all"],
+      quote: q8(75),
+      source: ik(74, "Those who follow the believers in faith and good deeds later will be with them in the Hereafter. Relatives by blood are nearest to one another in Allah's decree.", "those who follow the path of the believers in faith and performing good deeds, will be with them in the Hereafter"),
+      difficulty: 5,
+      questions: [
+        { q: "What about those who believed later, in 8:75?", a: "They are of you", wrong: ["They are outsiders", "They are less", "They are rejected"], why: "Fa ula'ika minkum." },
+        { q: "Who are nearest to one another, in 8:75?", a: "Relatives by blood", wrong: ["Neighbors", "Business partners", "Travelers"], why: "Wa ulul-arhami ba'duhum awla bi-ba'd." },
+        { q: "How does Al-Anfal end, in 8:75?", a: "Allah knows everything", wrong: ["Allah is far", "Allah forgets", "Allah is silent"], why: "Innallaha bikulli shay'in alim." }
+      ]
+    }
+  ]
+};
+
+export const ANFAL_UNITS: readonly DeepUnit[] = [ANFAL_ONE, ANFAL_TWO, ANFAL_THREE];
