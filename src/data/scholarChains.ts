@@ -120,24 +120,24 @@ export const CHAIN_PEOPLE: readonly ChainPerson[] = [
   { id: "yahya-ansari", names: { en: "Yahya ibn Sa'id al-Ansari", ar: "يحيى بن سعيد الأنصاري", bn: "ইয়াহইয়া ইবনে সাঈদ আল-আনসারি", ur: "یحییٰ بن سعید انصاری" }, generation: "tabii", row: 4, col: 0, unitId: "scholar-yahya-ansari" },
   { id: "hammad", names: { en: "Hammad ibn Abi Sulayman", ar: "حماد بن أبي سليمان", bn: "হাম্মাদ ইবনে আবি সুলাইমান", ur: "حماد بن ابی سلیمان" }, generation: "tabii", row: 4, col: 6.25, unitId: "scholar-hammad" },
 
-  { id: "sufyan", names: { en: "Sufyan ibn Uyaynah", ar: "سفيان بن عيينة", bn: "সুফিয়ান ইবনে উয়াইনা", ur: "سفیان بن عیینہ" }, generation: "tabiTabii", row: 5, col: 0.75 },
+  { id: "sufyan", names: { en: "Sufyan ibn Uyaynah", ar: "سفيان بن عيينة", bn: "সুফিয়ান ইবনে উয়াইনা", ur: "سفیان بن عیینہ" }, generation: "tabiTabii", row: 5, col: 0.75, unitId: "scholar-sufyan" },
   { id: "malik", names: { en: "Imam Malik", ar: "مالك بن أنس", bn: "ইমাম মালিক", ur: "امام مالک" }, generation: "tabiTabii", row: 5, col: 2.5, unitId: "scholar-malik" },
   { id: "abu-hanifah", names: { en: "Abu Hanifah", ar: "أبو حنيفة", bn: "আবু হানিফা", ur: "ابو حنیفہ" }, generation: "scholar", row: 5, col: 5.5, unitId: "scholar-abu-hanifah" },
 
-  { id: "yahya-yahya", names: { en: "Yahya ibn Yahya", ar: "يحيى بن يحيى التميمي", bn: "ইয়াহইয়া ইবনে ইয়াহইয়া", ur: "یحییٰ بن یحییٰ" }, generation: "scholar", row: 6, col: 2.25 },
-  { id: "shaybani", names: { en: "Muhammad ibn al-Hasan", ar: "محمد بن الحسن الشيباني", bn: "মুহাম্মাদ ইবনুল হাসান", ur: "محمد بن حسن شیبانی" }, generation: "scholar", row: 6, col: 4.5 },
-  { id: "abu-yusuf", names: { en: "Abu Yusuf", ar: "أبو يوسف", bn: "আবু ইউসুফ", ur: "ابو یوسف" }, generation: "scholar", row: 6, col: 6.25 },
+  { id: "yahya-yahya", names: { en: "Yahya ibn Yahya", ar: "يحيى بن يحيى التميمي", bn: "ইয়াহইয়া ইবনে ইয়াহইয়া", ur: "یحییٰ بن یحییٰ" }, generation: "scholar", row: 6, col: 2.25, unitId: "scholar-yahya-yahya" },
+  { id: "shaybani", names: { en: "Muhammad ibn al-Hasan", ar: "محمد بن الحسن الشيباني", bn: "মুহাম্মাদ ইবনুল হাসান", ur: "محمد بن حسن شیبانی" }, generation: "scholar", row: 6, col: 4.5, unitId: "scholar-shaybani" },
+  { id: "abu-yusuf", names: { en: "Abu Yusuf", ar: "أبو يوسف", bn: "আবু ইউসুফ", ur: "ابو یوسف" }, generation: "scholar", row: 6, col: 6.25, unitId: "scholar-abu-yusuf" },
 
   { id: "shafii", names: { en: "Ash-Shafi'i", ar: "الشافعي", bn: "ইমাম শাফেয়ি", ur: "امام شافعی" }, generation: "scholar", row: 7, col: 3.5, unitId: "scholar-shafii" },
 
-  { id: "humaydi", names: { en: "Al-Humaydi", ar: "الحميدي", bn: "আল-হুমাইদি", ur: "حمیدی" }, generation: "scholar", row: 8, col: 1 },
+  { id: "humaydi", names: { en: "Al-Humaydi", ar: "الحميدي", bn: "আল-হুমাইদি", ur: "حمیدی" }, generation: "scholar", row: 8, col: 1, unitId: "scholar-humaydi" },
   { id: "ahmad", names: { en: "Ahmad ibn Hanbal", ar: "أحمد بن حنبل", bn: "আহমাদ ইবনে হাম্বল", ur: "احمد بن حنبل" }, generation: "scholar", row: 8, col: 4.5, unitId: "scholar-ahmad" },
 
-  { id: "bukhari", names: { en: "Imam al-Bukhari", ar: "البخاري", bn: "ইমাম বুখারি", ur: "امام بخاری" }, generation: "scholar", row: 9, col: 2 },
-  { id: "abu-dawud", names: { en: "Abu Dawud", ar: "أبو داود", bn: "আবু দাউদ", ur: "ابو داؤد" }, generation: "scholar", row: 9, col: 5.5 },
+  { id: "bukhari", names: { en: "Imam al-Bukhari", ar: "البخاري", bn: "ইমাম বুখারি", ur: "امام بخاری" }, generation: "scholar", row: 9, col: 2, unitId: "scholar-bukhari" },
+  { id: "abu-dawud", names: { en: "Abu Dawud", ar: "أبو داود", bn: "আবু দাউদ", ur: "ابو داؤد" }, generation: "scholar", row: 9, col: 5.5, unitId: "scholar-abu-dawud" },
 
-  { id: "muslim", names: { en: "Imam Muslim", ar: "مسلم بن الحجاج", bn: "ইমাম মুসলিম", ur: "امام مسلم" }, generation: "scholar", row: 10, col: 3 },
-  { id: "tirmidhi", names: { en: "At-Tirmidhi", ar: "الترمذي", bn: "আত-তিরমিযি", ur: "امام ترمذی" }, generation: "scholar", row: 10, col: 1 },
+  { id: "muslim", names: { en: "Imam Muslim", ar: "مسلم بن الحجاج", bn: "ইমাম মুসলিম", ur: "امام مسلم" }, generation: "scholar", row: 10, col: 3, unitId: "scholar-muslim" },
+  { id: "tirmidhi", names: { en: "At-Tirmidhi", ar: "الترمذي", bn: "আত-তিরমিযি", ur: "امام ترمذی" }, generation: "scholar", row: 10, col: 1, unitId: "scholar-tirmidhi" },
 
   { id: "ibn-abd-ad-daim", names: { en: "Ibn Abd ad-Da'im", ar: "ابن عبد الدائم", bn: "ইবনে আব্দুদ দায়েম", ur: "ابن عبد الدائم" }, generation: "scholar", row: 11, col: 3.25 },
   { id: "ibn-taymiyyah", names: { en: "Ibn Taymiyyah", ar: "ابن تيمية", bn: "ইবনে তাইমিয়া", ur: "ابن تیمیہ" }, generation: "scholar", row: 12, col: 3.25, unitId: "scholar-ibn-taymiyyah" },

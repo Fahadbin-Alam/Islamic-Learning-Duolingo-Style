@@ -98,7 +98,7 @@ describe("Scholars family tree", () => {
     expect(screen.getByTestId("chain-to-prophet")).toBeTruthy();
     expect(screen.getByTestId("chain-link-humaydi")).toBeTruthy();
     expect(screen.getByTestId("chain-link-muslim")).toBeTruthy();
-    expect(screen.queryByTestId("chain-open-lessons")).toBeNull();
+    expect(screen.getByTestId("chain-open-lessons")).toBeTruthy();
 
     await fireEvent.press(screen.getByTestId("chain-source-humaydi-bukhari"));
     expect(openURL).toHaveBeenCalledWith("https://sunnah.com/bukhari:1");

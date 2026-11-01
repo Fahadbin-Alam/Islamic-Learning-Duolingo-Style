@@ -1285,10 +1285,672 @@ const HAMMAD: DeepUnit = {
   ]
 };
 
+
+// The students of the Tabi'in's students, and the hadith masters after them, down to al-Bukhari, Muslim, Abu Dawud and at-Tirmidhi.
+
+const SUFYAN: DeepUnit = {
+  key: "tree-sufyan",
+  topicId: "scholars",
+  branchId: "scholar-sufyan",
+  name: "Sufyan ibn Uyaynah",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "hafiz-of-his-age",
+      title: "Hafiz of his age",
+      line: "Sufyan ibn Uyaynah was the great hadith master of his age.",
+      facts: ["Born in Kufa, lived in Makkah", "Called Shaykh al-Islam"],
+      source: siyar(8, 454, "Sufyan ibn Uyaynah, the great imam, the hafiz of the age, Shaykh al-Islam, from Kufa, then Makkah."),
+      difficulty: 1,
+      questions: [
+        { q: "Where did Sufyan ibn Uyaynah live and teach?", a: "Makkah", wrong: ["Cairo", "Baghdad", "Damascus"], why: "He was born in Kufa and settled in Makkah." },
+        { q: "What was Sufyan a master of?", a: "Hadith", wrong: ["Sailing", "Trade", "Poetry only"], why: "He was the hafiz of his age." },
+        { q: "Sufyan ibn Uyaynah was born in Kufa.", tf: true, why: "Then he made Makkah his home." }
+      ]
+    },
+    {
+      slug: "learned-young",
+      title: "He started as a boy",
+      line: "Sufyan sought hadith as a boy, from az-Zuhri and others.",
+      facts: ["Also from Yahya al-Ansari", "And from Amr ibn Dinar, most of all"],
+      source: siyar(8, 455, "He sought hadith as a boy and met the great scholars. He heard from Amr ibn Dinar, a great deal, from Ibn Shihab az-Zuhri, Yahya ibn Sa'id al-Ansari and many more."),
+      difficulty: 2,
+      questions: [
+        { q: "When did Sufyan start seeking hadith?", a: "As a boy", wrong: ["At sixty", "Never", "After he retired"], why: "He met the great scholars while young." },
+        { q: "Which Tabi'i on the tree taught Sufyan?", a: "Az-Zuhri", wrong: [...LATER], why: "And Yahya al-Ansari too." },
+        { q: "Sufyan learned from Yahya ibn Sa'id al-Ansari.", tf: true, why: "That is how he got the hadith of intentions." }
+      ]
+    },
+    {
+      slug: "his-students",
+      title: "Teachers became students",
+      line: "Even Sufyan's own teachers, like Shu'bah, narrated from him.",
+      facts: ["Ash-Shafi'i and Ahmad learned from him", "Al-Humaydi too, and Ibn al-Madini"],
+      source: siyar(8, 456, "Al-A'mash, Ibn Jurayj and Shu'bah, who were among his teachers, narrated from him; and Ibn al-Mubarak, ash-Shafi'i, al-Humaydi, Ahmad ibn Hanbal, Ibn al-Madini and Yahya ibn Ma'in."),
+      difficulty: 3,
+      questions: [
+        { q: "Which two of the four imams learned from Sufyan?", a: "Ash-Shafi'i and Ahmad", wrong: ["Abu Hanifah and Malik", "Malik and Ahmad", "None of them"], why: "Both narrated from him." },
+        { q: "Which student of his taught al-Bukhari?", a: "Al-Humaydi", wrong: ["Umar", "Ata", "Nafi"], why: "Sufyan, al-Humaydi, al-Bukhari." },
+        { q: "Some of Sufyan's teachers later narrated from him.", tf: true, why: "Shu'bah and al-A'mash among them." }
+      ]
+    },
+    {
+      slug: "knowledge-of-hijaz",
+      title: "Hajj to meet him",
+      line: "Students made Hajj just to meet Sufyan ibn Uyaynah.",
+      facts: ["Ash-Shafi'i: without Malik and Sufyan, Hijaz's knowledge goes", "He held nearly every hadith of rulings"],
+      source: siyar(8, 457, "Many students of hadith made Hajj with no other aim than to meet Sufyan. Ash-Shafi'i said: were it not for Malik and Sufyan ibn Uyaynah, the knowledge of the Hijaz would have gone."),
+      difficulty: 4,
+      questions: [
+        { q: "Why did many students make the trip to Makkah?", a: "To meet Sufyan and learn", wrong: ["To trade", "To see the sea", "To fight"], why: "His chains were short and high." },
+        { q: "Ash-Shafi'i said: without Malik and Sufyan, what would have gone?", a: "The knowledge of the Hijaz", wrong: ["The wells of Makkah", "The date palms", "The trade routes"], why: "They held the hadith of Makkah and Madinah." },
+        { q: "Ash-Shafi'i praised Sufyan ibn Uyaynah.", tf: true, why: "Sufyan was his teacher." }
+      ]
+    },
+    {
+      slug: "tafsir",
+      title: "Master of tafsir",
+      line: "Ibn Wahb: none knew Quran tafsir better than Sufyan.",
+      facts: ["Ash-Shafi'i: none was slower to give fatwa", "Ibn al-Madini: az-Zuhri's most precise student"],
+      source: siyar(8, 458, "Ash-Shafi'i said: I never saw anyone more careful to hold back from fatwa than him. Ibn Wahb said: I know no one more learned in the tafsir of the Quran than Ibn Uyaynah. Ibn al-Madini said: none of az-Zuhri's students was more precise."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Ibn Wahb praise Sufyan for?", a: "Tafsir of the Quran", wrong: ["Building", "Archery", "Medicine"], why: "None knew it better, he said." },
+        { q: "What did ash-Shafi'i notice about Sufyan and fatwa?", a: "He held back from giving fatwa", wrong: ["He gave fatwa on everything", "He never studied fiqh", "He sold fatwas"], why: "Great scholars feared speaking without knowledge." },
+        { q: "Being slow to give fatwa is a sign of taqwa.", tf: true, why: "They feared saying about Allah what they did not know." }
+      ]
+    }
+  ]
+};
+
+const YAHYA_YAHYA: DeepUnit = {
+  key: "tree-yahya-yahya",
+  topicId: "scholars",
+  branchId: "scholar-yahya-yahya",
+  name: "Yahya ibn Yahya",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "scholar-of-khurasan",
+      title: "Scholar of Khurasan",
+      line: "Yahya ibn Yahya at-Tamimi was the scholar of Khurasan.",
+      facts: ["From Nishapur", "He wrote hadith in Hijaz, Iraq, Sham and Egypt"],
+      source: siyar(10, 512, "Yahya ibn Yahya at-Tamimi, Shaykh al-Islam, scholar of Khurasan, of Nishapur. He wrote hadith in his city, the Hijaz, Iraq, Sham and Egypt."),
+      difficulty: 1,
+      questions: [
+        { q: "Which land was Yahya ibn Yahya the scholar of?", a: "Khurasan", wrong: ["Yemen", "Spain", "Egypt"], why: "He lived in Nishapur." },
+        { q: "Where did he travel to write hadith?", a: "Hijaz, Iraq, Sham and Egypt", wrong: ["Nowhere", "Only his street", "China and India"], why: "Scholars travelled far for hadith." },
+        { q: "Yahya ibn Yahya stayed home and never travelled.", tf: false, why: "He wrote hadith in many lands." }
+      ]
+    },
+    {
+      slug: "read-to-malik",
+      title: "He read to Malik",
+      line: "Yahya read hadith to Imam Malik, and Muslim learned from Yahya.",
+      facts: ["Malik, from Nafi, from Ibn Umar", "Malik, Yahya, Muslim: a chain on the tree"],
+      source: hadith("muslim", "650a", "Yahya ibn Yahya, from Malik, from Nafi, from Ibn Umar", "Yahya ibn Yahya said: I read to Malik, from Nafi, from Ibn Umar: the Messenger of Allah ﷺ said, prayer in congregation is twenty-seven degrees better than prayer alone."),
+      difficulty: 2,
+      questions: [
+        { q: "Which imam did Yahya read hadith to?", a: "Imam Malik", wrong: ["Imam Ahmad", "Ibn Taymiyyah", "Ibn Baz"], why: "In Madinah." },
+        { q: "Which great collector learned from Yahya?", a: "Imam Muslim", wrong: ["Umar", "Ata", "Urwah"], why: "Malik, Yahya, Muslim: a chain on the tree." },
+        { q: "Prayer in congregation is 27 degrees better.", tf: true, why: "This hadith came down through Yahya." }
+      ]
+    },
+    {
+      slug: "his-students",
+      title: "Al-Bukhari and Muslim",
+      line: "Both al-Bukhari and Muslim learned hadith from Yahya ibn Yahya.",
+      facts: ["He learned from Malik and al-Layth", "He met some younger Tabi'in"],
+      source: siyar(10, 512, "He met some of the younger Tabi'in, and learned from Malik, al-Layth ibn Sa'd and many more. Al-Bukhari and Muslim narrated from him."),
+      difficulty: 3,
+      questions: [
+        { q: "Which two famous collectors learned from Yahya?", a: "Al-Bukhari and Muslim", wrong: ["Umar and Ali", "Ata and Nafi", "Ibn Baz and al-Albani"], why: "Both narrated from him." },
+        { q: "Which great scholar of Egypt taught Yahya?", a: "Al-Layth ibn Sa'd", wrong: ["Abu Jahl", "Fir'awn", "Qarun"], why: "Along with Malik." },
+        { q: "Yahya ibn Yahya met some of the Tabi'in.", tf: true, why: "Some of the younger ones." }
+      ]
+    },
+    {
+      slug: "praise",
+      title: "None like him",
+      line: "Imam Ahmad: people never saw anyone like Yahya ibn Yahya.",
+      facts: ["Ishaq ibn Rahwayh: I never saw his like", "Born in 142 AH"],
+      source: siyar(10, 513, "Ishaq ibn Rahwayh said: I never saw the like of Yahya ibn Yahya. Ahmad ibn Hanbal said: Yahya ibn Yahya never saw his own like, and people never saw his like."),
+      difficulty: 4,
+      questions: [
+        { q: "What did Imam Ahmad say about Yahya?", a: "People never saw his like", wrong: ["He was weak", "He was unknown", "He was rude"], why: "High praise from a great imam." },
+        { q: "Who else said he never saw Yahya's like?", a: "Ishaq ibn Rahwayh", wrong: ["Abu Jahl", "Abu Lahab", "Musaylimah"], why: "Ishaq was a great imam of Khurasan." },
+        { q: "Great scholars praised Yahya ibn Yahya.", tf: true, why: "Ahmad and Ishaq among them." }
+      ]
+    },
+    {
+      slug: "travel-to-him",
+      title: "Worth the journey",
+      line: "Imam Ahmad: if I had the money, I would travel to Yahya.",
+      facts: ["Ishaq: he shared what to share, held back the rest", "He died an imam of the people"],
+      source: siyar(10, 514, "Ahmad ibn Hanbal said: Yahya ibn Yahya was an imam to me; if I had the money, I would have travelled to him. Ishaq said: he brought out of his knowledge what he should, and held back what he should."),
+      difficulty: 5,
+      questions: [
+        { q: "What would Imam Ahmad do if he had the money?", a: "Travel to learn from Yahya", wrong: ["Buy a palace", "Start a trade", "Stay home"], why: "Knowledge was worth the journey." },
+        { q: "What did Ishaq praise in how Yahya taught?", a: "He knew what to share and what to hold", wrong: ["He talked nonstop", "He never taught", "He hid all he knew"], why: "Wisdom is saying the right thing at the right time." },
+        { q: "A wise scholar shares what helps people.", tf: true, why: "And holds back what does not." }
+      ]
+    }
+  ]
+};
+
+const ABU_YUSUF: DeepUnit = {
+  key: "tree-abu-yusuf",
+  topicId: "scholars",
+  branchId: "scholar-abu-yusuf",
+  name: "Abu Yusuf",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "best-student",
+      title: "Abu Hanifah's best student",
+      line: "Abu Yusuf stayed with Abu Hanifah and was his best student.",
+      facts: ["He also heard Hisham ibn Urwah", "And Yahya al-Ansari"],
+      source: siyar(8, 536, "Abu Yusuf narrated from Hisham ibn Urwah, Yahya ibn Sa'id al-Ansari and Abu Hanifah, whom he stayed with and learned fiqh from; he was the noblest and most learned of his students."),
+      difficulty: 1,
+      questions: [
+        { q: "Whose best student was Abu Yusuf?", a: "Abu Hanifah", wrong: ["Imam Malik", "Imam Ahmad", "Ash-Shafi'i"], why: "He was the most learned of his students." },
+        { q: "Which Tabi'i on the tree also taught Abu Yusuf?", a: "Yahya al-Ansari", wrong: [...LATER], why: "He heard hadith from him." },
+        { q: "Abu Yusuf learned fiqh from Abu Hanifah.", tf: true, why: "He stayed with him for years." }
+      ]
+    },
+    {
+      slug: "a-hundred-dirhams",
+      title: "Stay in the circle",
+      line: "Abu Yusuf was poor, so Abu Hanifah paid him to keep studying.",
+      facts: ["100 dirhams, again and again", "Stay in the circle, he said"],
+      source: siyar(8, 536, "Abu Yusuf's father was poor and told him to work. Abu Hanifah gave Abu Yusuf a hundred dirhams and said: stay in the circle, and when this runs out, tell me. Days later he gave him another hundred."),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Abu Hanifah give Abu Yusuf money?", a: "So he could keep studying", wrong: ["To buy a horse", "To pay a debt", "To start a shop"], why: "His family was poor." },
+        { q: "What did Abu Hanifah tell him?", a: "Stay in the circle", wrong: ["Go home", "Stop learning", "Find a job"], why: "The study circle, where knowledge was taught." },
+        { q: "A teacher can help a poor student keep learning.", tf: true, why: "Abu Hanifah did." }
+      ]
+    },
+    {
+      slug: "seventeen-years",
+      title: "Seventeen years",
+      line: "Abu Yusuf stayed with Abu Hanifah for seventeen years.",
+      facts: ["Ibn Ma'in: most precise in hadith of the people of ra'y", "He prayed 200 rak'ahs a day"],
+      source: siyar(8, 537, "Abu Yusuf said: I was with Abu Hanifah seventeen years. Ibn Ma'in said: among the people of ra'y, none was more precise in hadith than Abu Yusuf. His daily prayer was two hundred rak'ahs."),
+      difficulty: 3,
+      questions: [
+        { q: "How long was Abu Yusuf with Abu Hanifah?", a: "Seventeen years", wrong: ["Seven days", "One month", "Seventy years"], why: "Long years of learning." },
+        { q: "What did Ibn Ma'in praise Abu Yusuf for?", a: "Precision in hadith", wrong: ["Building mosques", "Poetry", "Wealth"], why: "None of his group was more precise." },
+        { q: "Abu Yusuf knew hadith as well as fiqh.", tf: true, why: "He also knew tafsir and history." }
+      ]
+    },
+    {
+      slug: "teacher-of-ahmad",
+      title: "Imam Ahmad's first teacher",
+      line: "Imam Ahmad first wrote hadith with Abu Yusuf.",
+      facts: ["Muhammad ash-Shaybani learned from him", "Yahya ibn Ma'in too"],
+      source: siyar(8, 536, "Muhammad ibn al-Hasan was among those who studied under him; Yahya ibn Ma'in and Ahmad ibn Hanbal narrated from him. Ahmad said: when I first wrote hadith, I went to Abu Yusuf."),
+      difficulty: 4,
+      questions: [
+        { q: "Which imam first wrote hadith with Abu Yusuf?", a: "Imam Ahmad", wrong: ["Imam Malik", "Abu Hanifah", "Ibn Taymiyyah"], why: "Ahmad said so himself." },
+        { q: "Which student of Abu Yusuf is on the tree?", a: "Muhammad ash-Shaybani", wrong: ["Umar", "Ata", "Nafi"], why: "Ash-Shaybani completed his fiqh with him." },
+        { q: "Abu Yusuf links Abu Hanifah to Imam Ahmad.", tf: true, why: "Abu Hanifah, Abu Yusuf, Ahmad." }
+      ]
+    },
+    {
+      slug: "back-to-the-sources",
+      title: "Back to the Quran and sunnah",
+      line: "Abu Yusuf: drop any fatwa of mine against the Quran and sunnah.",
+      facts: ["He said it as he was dying", "Yahya ibn Yahya heard him"],
+      source: siyar(8, 537, "Yahya ibn Yahya at-Tamimi said: I heard Abu Yusuf say as he was dying: every fatwa I gave, I take back, except what agrees with the Book and the sunnah."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Abu Yusuf say about his fatwas?", a: "Keep only what agrees with Quran and sunnah", wrong: ["Follow all of them", "Burn the Quran", "Never read hadith"], why: "The sources come first." },
+        { q: "Who heard him say it?", a: "Yahya ibn Yahya", wrong: ["Umar", "Ata", "Urwah"], why: "Yahya ibn Yahya at-Tamimi of Nishapur." },
+        { q: "The Quran and sunnah come before any scholar's opinion.", tf: true, why: "Abu Yusuf said so himself." }
+      ]
+    }
+  ]
+};
+
+const SHAYBANI: DeepUnit = {
+  key: "tree-shaybani",
+  topicId: "scholars",
+  branchId: "scholar-shaybani",
+  name: "Muhammad ash-Shaybani",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "faqih-of-iraq",
+      title: "The faqih of Iraq",
+      line: "Muhammad ash-Shaybani was a faqih of Iraq, raised in Kufa.",
+      facts: ["He learned from Abu Hanifah", "Then finished fiqh with Abu Yusuf"],
+      source: siyar(9, 134, "Muhammad ibn al-Hasan ash-Shaybani, faqih of Iraq, companion of Abu Hanifah. Born in Wasit, raised in Kufa. He took some fiqh from Abu Hanifah and completed it with Abu Yusuf, and narrated from Malik."),
+      difficulty: 1,
+      questions: [
+        { q: "Who did ash-Shaybani finish his fiqh with?", a: "Abu Yusuf", wrong: [...LATER], why: "After learning from Abu Hanifah." },
+        { q: "Where did he grow up?", a: "Kufa", wrong: ["Makkah", "Cairo", "Madinah"], why: "He was born in Wasit and raised in Kufa." },
+        { q: "Ash-Shaybani learned from Abu Hanifah.", tf: true, why: "Then from his student Abu Yusuf." }
+      ]
+    },
+    {
+      slug: "three-years-with-malik",
+      title: "Three years with Malik",
+      line: "Ash-Shaybani spent three years with Malik, hearing 700 hadith.",
+      facts: ["He learned from both Iraq and Madinah", "He judged for Harun ar-Rashid"],
+      source: siyar(9, 135, "Muhammad ibn al-Hasan said: I stayed with Malik three years and more, and heard seven hundred hadith from his own mouth. He became judge for ar-Rashid after Abu Yusuf."),
+      difficulty: 2,
+      questions: [
+        { q: "How long did ash-Shaybani stay with Imam Malik?", a: "Three years and more", wrong: ["One day", "Thirty years", "He never met him"], why: "He heard 700 hadith from him." },
+        { q: "How many hadith did he hear from Malik's own mouth?", a: "700", wrong: ["7", "70", "70,000"], why: "Seven hundred." },
+        { q: "Ash-Shaybani learned from both Abu Hanifah and Malik.", tf: true, why: "Iraq and Madinah." }
+      ]
+    },
+    {
+      slug: "teacher-of-shafii",
+      title: "Ash-Shafi'i's teacher",
+      line: "Ash-Shafi'i wrote a camel-load of notes from ash-Shaybani.",
+      facts: ["He was famous for his sharp mind", "Ash-Shafi'i praised his clear Arabic"],
+      source: siyar(9, 135, "Ash-Shafi'i used to say: I wrote from him a camel-load, and I never debated anyone sharper. Ash-Shafi'i took from him a great deal."),
+      difficulty: 3,
+      questions: [
+        { q: "How much did ash-Shafi'i write from him?", a: "A camel-load", wrong: ["One line", "A single page", "Nothing"], why: "A great deal of knowledge." },
+        { q: "What was ash-Shaybani famous for?", a: "His sharp mind", wrong: ["His wealth", "His height", "His voice"], why: "His intelligence became a proverb." },
+        { q: "Ash-Shafi'i learned from ash-Shaybani.", tf: true, why: "So ash-Shafi'i links back to Abu Hanifah." }
+      ]
+    },
+    {
+      slug: "his-books",
+      title: "His books",
+      line: "Imam Ahmad learned fine fiqh from ash-Shaybani's books.",
+      facts: ["One book: al-Jami' as-Saghir", "Ibn Ma'in wrote it down from him"],
+      source: siyar(9, 136, "Ibn Ma'in said: I wrote down al-Jami' as-Saghir from him. Ibrahim al-Harbi asked Imam Ahmad: where did you get these fine questions? He said: from the books of Muhammad ibn al-Hasan."),
+      difficulty: 4,
+      questions: [
+        { q: "Which book did Ibn Ma'in write down from him?", a: "Al-Jami' as-Saghir", wrong: ["Sahih al-Bukhari", "The Muwatta", "Riyad as-Salihin"], why: "A book of fiqh by ash-Shaybani." },
+        { q: "Where did Imam Ahmad get fine fiqh questions from?", a: "Ash-Shaybani's books", wrong: ["Old poems", "Greek books", "His dreams"], why: "Ahmad said so himself." },
+        { q: "Scholars of different schools learned from each other.", tf: true, why: "Ahmad read ash-Shaybani's books." }
+      ]
+    }
+  ]
+};
+
+const HUMAYDI: DeepUnit = {
+  key: "tree-humaydi",
+  topicId: "scholars",
+  branchId: "scholar-humaydi",
+  name: "Al-Humaydi",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "shaykh-of-the-haram",
+      title: "Shaykh of the Haram",
+      line: "Al-Humaydi was an imam of Makkah and wrote the book al-Musnad.",
+      facts: ["He learned from Sufyan ibn Uyaynah", "And from ash-Shafi'i"],
+      source: siyar(10, 616, "Al-Humaydi, the imam, hafiz and faqih, Shaykh of the Haram, of Makkah, author of al-Musnad. He narrated a great deal from Sufyan ibn Uyaynah, and from ash-Shafi'i; al-Bukhari narrated from him."),
+      difficulty: 1,
+      questions: [
+        { q: "Which book did al-Humaydi write?", a: "Al-Musnad", wrong: ["Sahih Muslim", "The Muwatta", "Al-Umm"], why: "A collection of hadith." },
+        { q: "Where did al-Humaydi teach?", a: "At the Haram in Makkah", wrong: ["In Baghdad", "In Cairo", "In Kufa"], why: "He was Shaykh of the Haram." },
+        { q: "Al-Humaydi learned from ash-Shafi'i.", tf: true, why: "And most of all from Sufyan." }
+      ]
+    },
+    {
+      slug: "nineteen-years",
+      title: "Nineteen years with Sufyan",
+      line: "Al-Humaydi sat with Sufyan ibn Uyaynah for about nineteen years.",
+      facts: ["Head of Sufyan's students", "Imam Ahmad: al-Humaydi is an imam"],
+      source: siyar(10, 617, "Ahmad said: al-Humaydi is an imam to us. Abu Hatim said: the most precise in Ibn Uyaynah is al-Humaydi, head of his students. Al-Humaydi said: I sat with Sufyan nineteen years or so."),
+      difficulty: 2,
+      questions: [
+        { q: "How long did al-Humaydi sit with Sufyan?", a: "About nineteen years", wrong: ["Nineteen days", "Nine weeks", "One year"], why: "Long years with one teacher." },
+        { q: "What did Imam Ahmad call al-Humaydi?", a: "An imam", wrong: ["A beginner", "Weak", "Unknown"], why: "Ahmad honoured him." },
+        { q: "Al-Humaydi led Sufyan's students.", tf: true, why: "Abu Hatim called him their head." }
+      ]
+    },
+    {
+      slug: "ten-thousand",
+      title: "Ten thousand hadith",
+      line: "Al-Humaydi memorized ten thousand hadith from Sufyan.",
+      facts: ["Ash-Shafi'i praised his memory", "Ibn Sa'd: trustworthy, many hadith"],
+      source: siyar(10, 618, "Ash-Shafi'i said: I never saw anyone with a better memory than al-Humaydi; he had memorized ten thousand hadith from Sufyan ibn Uyaynah."),
+      difficulty: 3,
+      questions: [
+        { q: "How many hadith did al-Humaydi memorize from Sufyan?", a: "10,000", wrong: ["10", "100", "1,000,000"], why: "Ash-Shafi'i said so." },
+        { q: "Who praised al-Humaydi's memory?", a: "Ash-Shafi'i", wrong: ["Abu Jahl", "Fir'awn", "Qarun"], why: "His own teacher." },
+        { q: "Al-Humaydi had a weak memory.", tf: false, why: "Ten thousand hadith from one teacher." }
+      ]
+    },
+    {
+      slug: "first-hadith",
+      title: "Al-Bukhari's first hadith",
+      line: "Al-Bukhari's very first hadith comes from al-Humaydi.",
+      facts: ["Actions are by intentions", "Al-Humaydi, from Sufyan, from Yahya al-Ansari"],
+      source: hadith("bukhari", "1", "Umar ibn al-Khattab", "Al-Bukhari opens his Sahih: al-Humaydi told us, Sufyan told us, Yahya ibn Sa'id al-Ansari told us, through at-Taymi and Alqamah, from Umar: actions are only by intentions."),
+      difficulty: 4,
+      questions: [
+        { q: "Whose hadith opens Sahih al-Bukhari?", a: "Al-Humaydi's, from Sufyan", wrong: ["Ibn Taymiyyah's", "Ibn Baz's", "Al-Albani's"], why: "The first name al-Bukhari says is al-Humaydi." },
+        { q: "Put the chain in order, from Umar.", a: "Umar, Alqamah, at-Taymi, Yahya", wrong: ["Yahya, Umar, Alqamah, at-Taymi", "At-Taymi, Yahya, Umar, Alqamah", "Alqamah, Umar, Yahya, at-Taymi"], why: "Then Sufyan, al-Humaydi and al-Bukhari." },
+        { q: "Al-Bukhari was al-Humaydi's student.", tf: true, why: "He narrated from him." }
+      ]
+    }
+  ]
+};
+
+const BUKHARI: DeepUnit = {
+  key: "tree-bukhari",
+  topicId: "scholars",
+  branchId: "scholar-bukhari",
+  name: "Imam al-Bukhari",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "memorizing-at-ten",
+      title: "Memorizing at ten",
+      line: "Al-Bukhari began memorizing hadith at ten years old.",
+      facts: ["By sixteen he knew whole books by heart", "Then Hajj with his mother and brother"],
+      source: siyar(12, 393, "Al-Bukhari said: I was inspired to memorize hadith while at school, at ten or younger. By sixteen I had memorized the books of Ibn al-Mubarak and Waki'. Then I went to Makkah with my mother and brother."),
+      difficulty: 1,
+      questions: [
+        { q: "At what age did al-Bukhari start memorizing hadith?", a: "About ten", wrong: ["Forty", "Sixty", "Two"], why: "While still at school." },
+        { q: "Who went to Makkah with him?", a: "His mother and brother", wrong: ["His teacher only", "A king", "No one"], why: "For Hajj, and he stayed to learn." },
+        { q: "Children can start learning hadith young.", tf: true, why: "Al-Bukhari did at about ten." }
+      ]
+    },
+    {
+      slug: "his-history-book",
+      title: "A book by moonlight",
+      line: "Al-Bukhari wrote his History by moonlight in Madinah.",
+      facts: ["The book: at-Tarikh", "Almost every name in it has a story"],
+      source: siyar(12, 400, "Al-Bukhari said: I wrote the book at-Tarikh then, beside the grave of the Messenger of Allah ﷺ, on moonlit nights. Hardly a name in it is without a story."),
+      difficulty: 2,
+      questions: [
+        { q: "Which book did al-Bukhari write by moonlight in Madinah?", a: "At-Tarikh, his History", wrong: ["The Muwatta", "Al-Umm", "Sahih Muslim"], why: "A book about the narrators of hadith." },
+        { q: "Where did he write it?", a: "By the Prophet's ﷺ grave", wrong: ["In a palace", "On a ship", "In a market"], why: "In Madinah, on moonlit nights." },
+        { q: "Al-Bukhari wrote more than one book.", tf: true, why: "His Sahih and his History, and others." }
+      ]
+    },
+    {
+      slug: "the-sahih",
+      title: "How the Sahih began",
+      line: "One friend's wish started Sahih al-Bukhari.",
+      facts: ["Someone said: collect a short book of sunnah", "It stayed in al-Bukhari's heart"],
+      source: siyar(12, 401, "Al-Bukhari said: I was with Ishaq ibn Rahwayh, and one of us said: if only you would gather a short book of the sunnah of the Prophet ﷺ. It stayed in my heart, and I began gathering this book."),
+      difficulty: 3,
+      questions: [
+        { q: "Where was al-Bukhari when the idea came?", a: "With Ishaq ibn Rahwayh", wrong: ["With Ibn Taymiyyah", "With Ibn Baz", "With al-Albani"], why: "Ishaq was one of his teachers." },
+        { q: "What was the idea?", a: "A short book of only sound sunnah", wrong: ["A book of poems", "A book of stories", "A map of the world"], why: "That became Sahih al-Bukhari." },
+        { q: "One good idea can lead to a great work.", tf: true, why: "The Sahih began with one wish." }
+      ]
+    },
+    {
+      slug: "six-hundred-thousand",
+      title: "Chosen with care",
+      line: "Al-Bukhari chose his Sahih from about 600,000 hadith.",
+      facts: ["He made ghusl and prayed before each hadith", "Two rak'ahs for every entry"],
+      source: siyar(12, 402, "Al-Bukhari said: I brought this book out of about six hundred thousand hadith. And: I never put a hadith in my Sahih without first taking a bath and praying two rak'ahs."),
+      difficulty: 4,
+      questions: [
+        { q: "From about how many hadith did he choose the Sahih?", a: "600,000", wrong: ["600", "6,000", "60"], why: "He kept only what was sound." },
+        { q: "What did he do before writing each hadith?", a: "Ghusl and two rak'ahs", wrong: ["Ate a meal", "Slept", "Went to market"], why: "He treated the work as worship." },
+        { q: "Al-Bukhari put every hadith he heard into his Sahih.", tf: false, why: "He chose only the sound ones." }
+      ]
+    },
+    {
+      slug: "teacher-of-teachers",
+      title: "Teacher of teachers",
+      line: "Imam Muslim called al-Bukhari the teacher of teachers.",
+      facts: ["Physician of hadith's hidden flaws", "At-Tirmidhi learned from him too"],
+      source: siyar(12, 432, "Muslim ibn al-Hajjaj came to al-Bukhari and said: let me kiss your feet, teacher of teachers, master of the hadith scholars. At-Tirmidhi said: in Iraq and Khurasan I saw none more learned in hidden flaws, history and chains."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Imam Muslim call al-Bukhari?", a: "Teacher of teachers", wrong: ["My student", "A beginner", "A poet"], why: "Muslim learned from him." },
+        { q: "Which two collectors on the tree learned from al-Bukhari?", a: "Muslim and at-Tirmidhi", wrong: ["Umar and Ali", "Ata and Nafi", "Ibn Baz and al-Albani"], why: "Both were his students." },
+        { q: "At-Tirmidhi praised al-Bukhari's knowledge of chains.", tf: true, why: "He saw none more learned in it." }
+      ]
+    }
+  ]
+};
+
+const MUSLIM: DeepUnit = {
+  key: "tree-muslim",
+  topicId: "scholars",
+  branchId: "scholar-muslim",
+  name: "Imam Muslim",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "author-of-the-sahih",
+      title: "Author of the Sahih",
+      line: "Imam Muslim of Nishapur wrote Sahih Muslim.",
+      facts: ["His first teacher: Yahya ibn Yahya", "He made Hajj as a young man"],
+      source: siyar(12, 558, "Muslim ibn al-Hajjaj, the great imam and hafiz, of Nishapur, author of the Sahih. He first heard hadith from Yahya ibn Yahya at-Tamimi, and made Hajj while still young."),
+      difficulty: 1,
+      questions: [
+        { q: "Which famous book did Imam Muslim write?", a: "Sahih Muslim", wrong: ["Sahih al-Bukhari", "The Muwatta", "Al-Umm"], why: "One of the two Sahih books." },
+        { q: "Who was his first teacher of hadith?", a: "Yahya ibn Yahya", wrong: [...LATER], why: "In Nishapur." },
+        { q: "Imam Muslim was from Nishapur.", tf: true, why: "A city of Khurasan." }
+      ]
+    },
+    {
+      slug: "his-travels",
+      title: "His travels",
+      line: "Muslim heard hadith in Iraq, the two Harams and Egypt.",
+      facts: ["He learned from Imam Ahmad", "And from Ishaq ibn Rahwayh"],
+      source: siyar(12, 558, "He heard hadith in Iraq, the two Harams and Egypt. Among his teachers: Ahmad ibn Hanbal and Ishaq ibn Rahwayh."),
+      difficulty: 2,
+      questions: [
+        { q: "Which of the four imams taught Muslim?", a: "Imam Ahmad", wrong: ["Abu Hanifah", "Imam Malik", "None of them"], why: "Ahmad lived in his time." },
+        { q: "Where did Muslim travel for hadith?", a: "Iraq, the two Harams and Egypt", wrong: ["China and Japan", "Nowhere", "Only Nishapur"], why: "Makkah and Madinah are the two Harams." },
+        { q: "Imam Muslim learned from Ishaq ibn Rahwayh.", tf: true, why: "So did al-Bukhari." }
+      ]
+    },
+    {
+      slug: "three-hundred-thousand",
+      title: "From 300,000",
+      line: "Muslim compiled his Sahih from 300,000 hadith he had heard.",
+      facts: ["He chose only sound hadith", "One of the two Sahih books"],
+      source: siyar(12, 565, "Muslim said: I compiled this Musnad Sahih from three hundred thousand hadith that I heard."),
+      difficulty: 3,
+      questions: [
+        { q: "From how many hadith did Muslim compile his Sahih?", a: "300,000", wrong: ["300", "3,000", "30"], why: "He kept only the sound ones." },
+        { q: "What does 'Sahih' mean?", a: "Sound, authentic", wrong: ["Long", "Old", "Secret"], why: "A book of sound hadith." },
+        { q: "Muslim put every hadith he heard in his Sahih.", tf: false, why: "He chose carefully." }
+      ]
+    },
+    {
+      slug: "four-huffaz",
+      title: "One of four",
+      line: "Muslim was named one of the world's four hadith masters.",
+      facts: ["Abu Zur'ah in Rayy, Muslim in Nishapur", "Ad-Darimi in Samarqand, al-Bukhari in Bukhara"],
+      source: siyar(12, 564, "Muhammad ibn Bashshar said: the huffaz of the world are four: Abu Zur'ah in Rayy, Muslim in Nishapur, Abdullah ad-Darimi in Samarqand, and Muhammad ibn Isma'il in Bukhara."),
+      difficulty: 4,
+      questions: [
+        { q: "Where was Muslim named as the hadith master?", a: "Nishapur", wrong: ["Rayy", "Samarqand", "Bukhara"], why: "The others were in the other cities." },
+        { q: "Which other master on the tree was in the list?", a: "Al-Bukhari", wrong: ["Ibn Taymiyyah", "Ibn Baz", "Al-Albani"], why: "Muhammad ibn Isma'il is al-Bukhari." },
+        { q: "Muslim and al-Bukhari lived at the same time.", tf: true, why: "Muslim even learned from him." }
+      ]
+    },
+    {
+      slug: "al-bukharis-student",
+      title: "Al-Bukhari's student",
+      line: "Muslim asked al-Bukhari about a hadith's hidden flaw.",
+      facts: ["He kissed him between the eyes", "Then asked: what is its flaw?"],
+      source: siyar(12, 436, "Muslim came to al-Bukhari, kissed him between the eyes and said: let me kiss your feet. Then he asked him about the hidden flaw in a hadith on the expiation of a sitting."),
+      difficulty: 5,
+      questions: [
+        { q: "What did Muslim call al-Bukhari?", a: "Teacher of teachers", wrong: ["My student", "A beginner", "A poet"], why: "Out of deep respect." },
+        { q: "What is a hidden flaw ('illah) in a hadith?", a: "A hidden weakness only experts spot", wrong: ["A spelling mistake", "A long chain", "A happy ending"], why: "Al-Bukhari was an expert in spotting them." },
+        { q: "Great scholars showed respect to their teachers.", tf: true, why: "Muslim did to al-Bukhari." }
+      ]
+    }
+  ]
+};
+
+const ABU_DAWUD: DeepUnit = {
+  key: "tree-abu-dawud",
+  topicId: "scholars",
+  branchId: "scholar-abu-dawud",
+  name: "Abu Dawud",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "shaykh-of-sunnah",
+      title: "Shaykh of the sunnah",
+      line: "Abu Dawud of Sijistan was a leading hadith master of Basra.",
+      facts: ["He travelled, collected and wrote", "Called Shaykh as-Sunnah"],
+      source: siyar(13, 203, "Abu Dawud as-Sijistani, the imam, Shaykh of the sunnah, foremost of the huffaz, the hadith scholar of Basra."),
+      difficulty: 1,
+      questions: [
+        { q: "Abu Dawud was the hadith scholar of which city?", a: "Basra", wrong: ["Makkah", "Cairo", "Cordoba"], why: "He came from Sijistan." },
+        { q: "What was he called?", a: "Shaykh of the sunnah", wrong: ["King of poets", "Lord of ships", "Master of trade"], why: "For his care for the sunnah." },
+        { q: "Abu Dawud was a scholar of hadith.", tf: true, why: "One of the foremost." }
+      ]
+    },
+    {
+      slug: "his-teachers",
+      title: "Teachers in many lands",
+      line: "Abu Dawud learned from Imam Ahmad in Baghdad, and many more.",
+      facts: ["Ishaq ibn Rahwayh in Khurasan", "Qutaybah in Balkh, others in Egypt"],
+      source: siyar(13, 205, "He heard from Ishaq ibn Rahwayh in Khurasan, Ahmad ibn Hanbal in Baghdad, Qutaybah ibn Sa'id in Balkh, Ahmad ibn Salih in Egypt, and many others."),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Abu Dawud learn from Imam Ahmad?", a: "Baghdad", wrong: ["Makkah", "Cairo", "Damascus"], why: "Ahmad taught in Baghdad." },
+        { q: "Which of these was NOT a place he learned in?", a: "Spain", wrong: ["Baghdad", "Khurasan", "Egypt"], why: "He travelled east and west, but not to Spain." },
+        { q: "Abu Dawud learned in many lands.", tf: true, why: "Iraq, Khurasan, Sham, Egypt and more." }
+      ]
+    },
+    {
+      slug: "the-sunan",
+      title: "The Sunan",
+      line: "Abu Dawud chose 4,800 hadith from 500,000 for his Sunan.",
+      facts: ["His book: Sunan Abi Dawud", "Sound hadith and those close to it"],
+      source: siyar(13, 210, "Abu Dawud said: I wrote five hundred thousand hadith from the Messenger of Allah ﷺ and chose from them what is in this book, the Sunan: four thousand eight hundred hadith, the sound and what is like it and close to it."),
+      difficulty: 3,
+      questions: [
+        { q: "How many hadith are in Abu Dawud's Sunan?", a: "About 4,800", wrong: ["48", "480", "48,000"], why: "Chosen from 500,000." },
+        { q: "What is his famous book called?", a: "Sunan Abi Dawud", wrong: ["Sahih Muslim", "The Muwatta", "Al-Musnad"], why: "One of the six books of hadith." },
+        { q: "Abu Dawud chose carefully what went in his book.", tf: true, why: "Fewer than one in a hundred." }
+      ]
+    },
+    {
+      slug: "like-iron",
+      title: "Soft as iron for Dawud",
+      line: "Hadith was made easy for Abu Dawud, like iron for Prophet Dawud.",
+      facts: ["Al-Hakim: imam of the hadith people in his time", "He knew 100,000 hadith for review"],
+      source: siyar(13, 212, "When Abu Dawud wrote the Sunan, it was said: hadith was made soft for Abu Dawud as iron was made soft for Dawud, peace be upon him. Al-Hakim said: Abu Dawud was the imam of the hadith people in his time, without dispute."),
+      difficulty: 4,
+      questions: [
+        { q: "What was made soft for Prophet Dawud?", a: "Iron", wrong: ["Stone", "Gold", "Water"], why: "Allah softened iron for him." },
+        { q: "What did al-Hakim call Abu Dawud?", a: "Imam of the hadith people", wrong: ["A weak narrator", "A poet", "A trader"], why: "Without dispute, in his time." },
+        { q: "The saying means hadith came easily to Abu Dawud.", tf: true, why: "Like iron in Dawud's hands." }
+      ]
+    },
+    {
+      slug: "student-of-ahmad",
+      title: "Imam Ahmad's student",
+      line: "Abu Dawud: Imam Ahmad's top student, and a great faqih.",
+      facts: ["He asked Ahmad about fine points of fiqh", "He stayed in Ahmad's circle for a time"],
+      source: siyar(13, 215, "Abu Dawud, besides leading in hadith, was among the great fuqaha; he was one of Imam Ahmad's best students, stayed in his circle for a time, and asked him about fine questions."),
+      difficulty: 5,
+      questions: [
+        { q: "Whose best students was Abu Dawud among?", a: "Imam Ahmad's", wrong: ["Ibn Taymiyyah's", "Ibn Baz's", "Al-Albani's"], why: "He sat in his circle." },
+        { q: "Besides hadith, what else was Abu Dawud great in?", a: "Fiqh", wrong: ["Sailing", "Poetry", "Trade"], why: "His book shows it." },
+        { q: "Abu Dawud was only a hadith scholar, not a faqih.", tf: false, why: "Adh-Dhahabi counts him among the great fuqaha." }
+      ]
+    }
+  ]
+};
+
+const TIRMIDHI: DeepUnit = {
+  key: "tree-tirmidhi",
+  topicId: "scholars",
+  branchId: "scholar-tirmidhi",
+  name: "At-Tirmidhi",
+  kind: "story",
+  lessonType: "story",
+  lessons: [
+    {
+      slug: "author-of-al-jami",
+      title: "Author of al-Jami'",
+      line: "At-Tirmidhi wrote al-Jami', a famous book of hadith.",
+      facts: ["Also a book on hidden flaws: al-'Ilal", "He lost his sight in old age"],
+      source: siyar(13, 270, "At-Tirmidhi, the hafiz and imam, author of al-Jami' and of the book al-'Ilal. The sound view is that he lost his sight in old age, after his travels and writing."),
+      difficulty: 1,
+      questions: [
+        { q: "Which book did at-Tirmidhi write?", a: "Al-Jami'", wrong: ["The Muwatta", "Sahih Muslim", "Al-Umm"], why: "Also called Sunan at-Tirmidhi." },
+        { q: "What happened to his sight?", a: "He lost it in old age", wrong: ["It was perfect always", "He was born blind", "He wore glasses"], why: "After his travels and writing." },
+        { q: "At-Tirmidhi wrote more than one book.", tf: true, why: "Al-Jami' and al-'Ilal, and more." }
+      ]
+    },
+    {
+      slug: "student-of-al-bukhari",
+      title: "Al-Bukhari's student",
+      line: "At-Tirmidhi learned much from al-Bukhari.",
+      facts: ["He travelled to Khurasan, Iraq and the two Harams", "Also Qutaybah and Ishaq ibn Rahwayh"],
+      source: siyar(13, 271, "He travelled and heard hadith in Khurasan, Iraq and the two Harams, from Qutaybah ibn Sa'id, Ishaq ibn Rahwayh and many others, and he narrated a great deal from al-Bukhari."),
+      difficulty: 2,
+      questions: [
+        { q: "Which great collector taught at-Tirmidhi a lot?", a: "Al-Bukhari", wrong: ["Ibn Taymiyyah", "Ibn Baz", "Al-Albani"], why: "Al-Bukhari, then at-Tirmidhi." },
+        { q: "Where did at-Tirmidhi travel for hadith?", a: "Khurasan, Iraq and the two Harams", wrong: ["Spain and France", "Nowhere", "China"], why: "Makkah and Madinah are the two Harams." },
+        { q: "At-Tirmidhi travelled to learn.", tf: true, why: "Like the scholars before him." }
+      ]
+    },
+    {
+      slug: "teacher-heard-him",
+      title: "His teacher heard him",
+      line: "Al-Bukhari himself heard a hadith from at-Tirmidhi.",
+      facts: ["A great honour for a student", "A teacher learning from his student"],
+      source: siyar(13, 272, "His shaykh al-Bukhari wrote from him: at-Tirmidhi said of one hadith, Muhammad ibn Isma'il heard this hadith from me."),
+      difficulty: 3,
+      questions: [
+        { q: "Who heard a hadith from at-Tirmidhi?", a: "His teacher al-Bukhari", wrong: ["Umar", "Ata", "Nafi"], why: "A teacher learning from his student." },
+        { q: "What does this show?", a: "Great scholars learned from anyone", wrong: ["Al-Bukhari forgot things", "Students are better", "Teachers never listen"], why: "They took knowledge wherever it was." },
+        { q: "A teacher can learn from his student.", tf: true, why: "Al-Bukhari did." }
+      ]
+    },
+    {
+      slug: "memory-and-piety",
+      title: "None like him in Khurasan",
+      line: "After al-Bukhari, none in Khurasan matched at-Tirmidhi.",
+      facts: ["His memory was a proverb", "He wept out of fear of Allah"],
+      source: siyar(13, 273, "Abu Sa'd al-Idrisi said: at-Tirmidhi's memory was a proverb. Umar ibn Allak said: al-Bukhari died and left none in Khurasan like Abu Isa in knowledge, memory, piety and zuhd."),
+      difficulty: 4,
+      questions: [
+        { q: "What was at-Tirmidhi's memory like?", a: "A proverb, it was so strong", wrong: ["Very weak", "Average", "He never memorized"], why: "People used it as an example." },
+        { q: "After whom was none in Khurasan like him?", a: "Al-Bukhari", wrong: ["Ibn Taymiyyah", "Ibn Baz", "Al-Albani"], why: "His teacher." },
+        { q: "At-Tirmidhi was known for piety as well as knowledge.", tf: true, why: "And zuhd: not loving this world." }
+      ]
+    },
+    {
+      slug: "shown-to-scholars",
+      title: "Checked by the scholars",
+      line: "Scholars of three lands checked al-Jami' and approved it.",
+      facts: ["Hijaz, Iraq and Khurasan", "Adh-Dhahabi: it holds useful knowledge"],
+      source: siyar(13, 274, "At-Tirmidhi said: I wrote this book and showed it to the scholars of the Hijaz, Iraq and Khurasan, and they were pleased with it. Adh-Dhahabi said: al-Jami' holds useful knowledge and many benefits."),
+      difficulty: 5,
+      questions: [
+        { q: "Who did at-Tirmidhi show his book to?", a: "Scholars of Hijaz, Iraq and Khurasan", wrong: ["No one", "Only his family", "Kings only"], why: "So it could be checked." },
+        { q: "Why show your work to other scholars?", a: "So mistakes can be caught", wrong: ["To boast", "To sell it", "To hide it"], why: "Checking keeps knowledge sound." },
+        { q: "The scholars approved of al-Jami'.", tf: true, why: "They were pleased with it." }
+      ]
+    }
+  ]
+};
+
 /** The tree's own units, oldest first: they join the Scholars topic beside the seven imams and scholars. */
 export const SCHOLAR_TREE_UNITS: readonly DeepUnit[] = [
   UMAR, AISHAH, IBN_MASUD, IBN_ABBAS, IBN_UMAR,
-  ALQAMAH_WAQQAS, URWAH, NAFI, ATA, ALQAMAH_QAYS, TAYMI, ZUHRI, NAKHAI, YAHYA_ANSARI, HAMMAD
+  ALQAMAH_WAQQAS, URWAH, NAFI, ATA, ALQAMAH_QAYS, TAYMI, ZUHRI, NAKHAI, YAHYA_ANSARI, HAMMAD,
+  SUFYAN, YAHYA_YAHYA, ABU_YUSUF, SHAYBANI, HUMAYDI, BUKHARI, MUSLIM, ABU_DAWUD, TIRMIDHI
 ];
 
 /** Their units in the Scholars topic: title and the one line under it. */
@@ -1307,5 +1969,14 @@ export const SCHOLAR_TREE_BRANCHES: readonly { id: string; title: string; descri
   { id: "scholar-zuhri", title: "Az-Zuhri", description: "Hadith master of Madinah." },
   { id: "scholar-nakhai", title: "Ibrahim an-Nakha'i", description: "The faqih of Iraq." },
   { id: "scholar-yahya-ansari", title: "Yahya al-Ansari", description: "Judge of Madinah." },
-  { id: "scholar-hammad", title: "Hammad", description: "Abu Hanifah's teacher of fiqh." }
+  { id: "scholar-hammad", title: "Hammad", description: "Abu Hanifah's teacher of fiqh." },
+  { id: "scholar-sufyan", title: "Sufyan ibn Uyaynah", description: "Hadith master of Makkah." },
+  { id: "scholar-yahya-yahya", title: "Yahya ibn Yahya", description: "Scholar of Khurasan, Muslim's teacher." },
+  { id: "scholar-abu-yusuf", title: "Abu Yusuf", description: "Abu Hanifah's best student." },
+  { id: "scholar-shaybani", title: "Muhammad ash-Shaybani", description: "Ash-Shafi'i's teacher from Iraq." },
+  { id: "scholar-humaydi", title: "Al-Humaydi", description: "Al-Bukhari's first teacher in his Sahih." },
+  { id: "scholar-bukhari", title: "Imam al-Bukhari", description: "Author of Sahih al-Bukhari." },
+  { id: "scholar-muslim", title: "Imam Muslim", description: "Author of Sahih Muslim." },
+  { id: "scholar-abu-dawud", title: "Abu Dawud", description: "Author of the Sunan." },
+  { id: "scholar-tirmidhi", title: "At-Tirmidhi", description: "Author of al-Jami'." }
 ];
