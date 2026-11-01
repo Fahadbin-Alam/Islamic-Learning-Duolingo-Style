@@ -17,7 +17,7 @@ export type WorldKind =
   | "turtle"
   | "pine"
   | "mushroom"
-  | "owl"
+  | "rabbit"
   | "log"
   | "goat"
   | "cave"
@@ -25,7 +25,7 @@ export type WorldKind =
   | "shield"
   | "banner";
 
-export const WORLD_KINDS: readonly WorldKind[] = ["crab", "sandcastle", "boat", "shell", "turtle", "pine", "mushroom", "owl", "log", "goat", "cave", "horse", "shield", "banner"];
+export const WORLD_KINDS: readonly WorldKind[] = ["crab", "sandcastle", "boat", "shell", "turtle", "pine", "mushroom", "rabbit", "log", "goat", "cave", "horse", "shield", "banner"];
 
 export function isWorldKind(kind: string): kind is WorldKind {
   return (WORLD_KINDS as readonly string[]).includes(kind);
@@ -151,23 +151,26 @@ export function WorldDrawing({ kind }: { kind: WorldKind }) {
           <Path d="M6 58C6 54 5 52 4 50M10 58C10 54 11 52 12 51" stroke={LEAF} strokeWidth={2} strokeLinecap="round" fill="none" />
         </G>
       );
-    case "owl":
+    case "rabbit":
+      // A bunny sitting in the grass, facing right.
       return (
         <G>
-          <Path d="M4 55H60" stroke={TRUNK} strokeWidth={5} strokeLinecap="round" />
-          <Path d="M50 55L58 49" stroke={TRUNK} strokeWidth={3} strokeLinecap="round" />
-          <Path d="M18 22L19 11L26 18Z M46 22L45 11L38 18Z" fill="#7A5133" />
-          <Ellipse cx={32} cy={36} rx={16} ry={19} fill="#9A6B45" />
-          <Ellipse cx={32} cy={42} rx={10} ry={11.5} fill="#E8C9A0" />
-          <Path d="M27 40L29 42L31 40M33 45L35 47L37 45M28 48L30 50L32 48" stroke="#C49A6C" strokeWidth={1.2} strokeLinecap="round" fill="none" />
-          <Circle cx={25} cy={30} r={6.4} fill={PAGE} />
-          <Circle cx={39} cy={30} r={6.4} fill={PAGE} />
-          <Circle cx={25.6} cy={30.6} r={3.2} fill={INK} />
-          <Circle cx={39.6} cy={30.6} r={3.2} fill={INK} />
-          <Circle cx={26.6} cy={29.4} r={1} fill={PAGE} />
-          <Circle cx={40.6} cy={29.4} r={1} fill={PAGE} />
-          <Path d="M30 35H34L32 39Z" fill="#FF9F1C" />
-          <Path d="M27 55V51.5M30 55V51.5M34 55V51.5M37 55V51.5" stroke="#FF9F1C" strokeWidth={1.8} strokeLinecap="round" />
+          <Ellipse cx={30} cy={58.5} rx={20} ry={2.6} fill={INK} opacity={0.1} />
+          <Path d="M36 22C33 12 34 4 38 4C42 4 42 14 40 22Z" fill="#B8A898" />
+          <Path d="M37.5 20C36 13 36.5 8 38.4 8C40 8 40 14 39 20Z" fill="#FFB3C7" />
+          <Path d="M43 23C44 13 47 6 50.5 7C53.5 8 51 17 47 24Z" fill="#B8A898" />
+          <Path d="M45 22C46.5 15 48.5 10.5 50 11C51 11.6 49.5 17 46.6 22.6Z" fill="#FFB3C7" />
+          <Ellipse cx={28} cy={45} rx={17} ry={13} fill="#CBBCAD" />
+          <Circle cx={12.5} cy={44} r={5} fill={PAGE} />
+          <Ellipse cx={30} cy={56} rx={8} ry={3} fill="#B8A898" />
+          <Circle cx={42} cy={31} r={10.5} fill="#CBBCAD" />
+          <Ellipse cx={47} cy={36} rx={5} ry={3.6} fill="#E8DED3" />
+          <Circle cx={45.2} cy={28.6} r={1.9} fill={INK} />
+          <Circle cx={45.8} cy={28} r={0.6} fill={PAGE} />
+          <Ellipse cx={51.2} cy={33.6} rx={1.6} ry={1.2} fill="#FF7FA0" />
+          <Path d="M51 35.5Q50 37.5 48 37" stroke={INK} strokeWidth={0.9} strokeLinecap="round" fill="none" />
+          <Ellipse cx={42} cy={56} rx={5} ry={2.6} fill="#E8DED3" />
+          <Path d="M4 58C4 54 3 52 2 50M8 58C8 54 9 52 10 51M58 58C58 55 59 53 60 52" stroke={LEAF} strokeWidth={2} strokeLinecap="round" fill="none" />
         </G>
       );
     case "log":
@@ -420,6 +423,16 @@ export function Snail({ s }: { s: number }) {
       <Circle cx={30} cy={8.5} r={1.2} fill={INK} />
       <Circle cx={13} cy={11} r={8} fill="#C47A3A" />
       <Path d="M13 11m-4 0a4 4 0 1 0 8 0a2.5 2.5 0 1 0 -5 0" stroke="#8A4B1E" strokeWidth={1.4} fill="none" />
+    </Svg>
+  );
+}
+
+export function Carrot({ s }: { s: number }) {
+  return (
+    <Svg width={s} height={s} viewBox="0 0 30 30">
+      <Path d="M4 15C4 12 20 9 26 14C20 19 4 18 4 15Z" fill="#FF8A1F" />
+      <Path d="M10 13.6V16.4M15 12.8V16.8" stroke="#E06A00" strokeWidth={1} strokeLinecap="round" />
+      <Path d="M25 14L29 10M25 14L30 14M25 14L29 18" stroke="#21B573" strokeWidth={2} strokeLinecap="round" />
     </Svg>
   );
 }

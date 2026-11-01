@@ -1364,8 +1364,6 @@ export function LearnPath({
           <NightSky top={headerH} bottom={-bottomPadding} />
           {layout.byUnit.map((group) => {
             const { unit, color, rows, premium } = group;
-            // Only units near the circle to play next move their pictures: the rest stay still to spare cheap phones.
-            const nearCurrent = currentUnitIndex < 0 ? group.unitIndex < 2 : Math.abs(group.unitIndex - currentUnitIndex) <= 1;
             const unitDone = unit.total > 0 && unit.done >= unit.total;
             const holdsOpen = openRow?.group.unit.id === unit.id;
             const unitLive = holdsOpen || isLive(group.unitIndex);
@@ -1380,7 +1378,7 @@ export function LearnPath({
                 }}
               >
                 {unitLive ? (
-                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={group.unitIndex === Math.max(0, currentUnitIndex)} />
+                  <PathWeather weather={group.weather} world={group.world} width={width} height={UNIT_PAD + SKY_BANNER + 22 + group.rowsHeight + 40} animated={unitLive} meteor={group.unitIndex === Math.max(0, currentUnitIndex)} />
                 ) : null}
                 <UnitBanner
                   unit={unit}
@@ -1428,7 +1426,7 @@ export function LearnPath({
                         {pictures && unitLive ? (
                           <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none">
                             <View style={styles.decorShadow} pointerEvents="none" />
-                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={nearCurrent} tappable seed={group.unitIndex * 7 + index} />
+                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={unitLive} tappable seed={group.unitIndex * 7 + index} />
                           </View>
                         ) : null}
                         {unitLive && !pictures && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (

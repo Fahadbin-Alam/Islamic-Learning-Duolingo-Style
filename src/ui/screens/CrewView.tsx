@@ -372,10 +372,13 @@ export function CrewView({
     </View>
   ) : null;
   const openBattleWith = (member: CrewMember) => battles.find((battle) => battle.friend.id === member.id && battle.status !== "done");
+  const shareButton = onShareApp ? (
+    <GameButton label={t("Invite friends")} icon="share" variant="secondary" fullWidth onPress={onShareApp} testID="crew-share" />
+  ) : null;
   const inviteButtons = (
     <View style={styles.inviteWrap}>
       <GameButton label={t("Invite")} icon="plus" fullWidth onPress={openInvite} testID="crew-invite" />
-      {onShareApp ? <GameButton label={t("Share Muslimo")} icon="share" variant="secondary" fullWidth onPress={onShareApp} testID="crew-share" /> : null}
+      {shareButton}
     </View>
   );
   const add = () => {
@@ -386,18 +389,27 @@ export function CrewView({
 
   let body: React.ReactNode;
   if (unavailable) {
-    body = <Empty {...emptyProps} testID="crew-soon" mood="happy" title={t("Friends are coming soon!")} />;
+    body = (
+      <>
+        <Empty {...emptyProps} testID="crew-soon" mood="happy" title={t("Friends are coming soon!")} />
+        {shareButton}
+      </>
+    );
   } else if (signedOut) {
     // An account without a server session (made offline), or a saved one that logged out, logs in; everyone else signs up.
     body = (
-      <Empty
-        {...emptyProps}
-        testID="crew-signed-out"
-        mood="wave"
-        title={t("Race your friends!")}
-        button={user.hasAccount || hasSavedAccount ? t("Log in") : t("Sign up")}
-        onPress={onCreateAccount}
-      />
+      <>
+        <Empty
+          {...emptyProps}
+          testID="crew-signed-out"
+          mood="wave"
+          title={t("Race your friends!")}
+          button={user.hasAccount || hasSavedAccount ? t("Log in") : t("Sign up")}
+          onPress={onCreateAccount}
+        />
+        {/* Inviting needs no account: the phone's share menu sends the store link. */}
+        {shareButton}
+      </>
     );
   } else if (isOffline) {
     body = <Empty {...emptyProps} testID="crew-offline" mood="sad" title={t("No internet")} button={t("Try again")} onPress={retry} busy={retrying} />;
@@ -410,7 +422,7 @@ export function CrewView({
     body = (
       <>
         <Empty {...emptyProps} testID="crew-empty" mood="wave" title={t("Add a friend to race and battle!")} button={t("Invite")} icon="plus" onPress={openInvite} />
-        {onShareApp ? <GameButton label={t("Share Muslimo")} icon="share" variant="secondary" fullWidth onPress={onShareApp} testID="crew-share" /> : null}
+        {shareButton}
       </>
     );
   } else if (!payload.friends.length) {
@@ -628,16 +640,18 @@ const styles = StyleSheet.create({
     maxWidth: 560,
     alignSelf: "center"
   },
+  // The title sits in the middle, as on the Me tab.
   titleRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     flexWrap: "wrap",
     gap: 8
   },
   title: {
     ...text.h1,
     flexShrink: 1,
-    marginEnd: "auto"
+    textAlign: "center"
   },
   pages: {
     flexDirection: "row",

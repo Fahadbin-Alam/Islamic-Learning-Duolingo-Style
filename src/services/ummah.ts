@@ -88,14 +88,16 @@ export function applyBattle(user: UserProfile, correct: number): { user: UserPro
 // Nicknames are two words and a number from these lists only, so nobody can put a real name on the ranking.
 // The server checks the same lists (backend/app/api/routes/ummah.py).
 export const NICKNAME_WORDS = ["Brave", "Kind", "Swift", "Bright", "Patient", "Honest", "Gentle", "Wise", "Calm", "Steady", "Happy", "Noble"];
-export const NICKNAME_ANIMALS = ["Falcon", "Camel", "Gazelle", "Eagle", "Lion", "Horse", "Dove", "Owl", "Oryx", "Hoopoe", "Dolphin", "Panther"];
+export const NICKNAME_ANIMALS = ["Falcon", "Camel", "Gazelle", "Eagle", "Lion", "Horse", "Dove", "Oryx", "Hoopoe", "Dolphin", "Panther"];
+// No longer handed out (Fahad does not want owls in the app), but names already given still count as nicknames.
+const RETIRED_ANIMALS = ["Owl"];
 
 export function makeNickname(random: () => number = Math.random) {
   const pick = <T,>(list: T[]) => list[Math.floor(random() * list.length) % list.length];
   return `${pick(NICKNAME_WORDS)} ${pick(NICKNAME_ANIMALS)} ${10 + (Math.floor(random() * 90) % 90)}`;
 }
 
-const NICKNAME = new RegExp(`^(${NICKNAME_WORDS.join("|")}) (${NICKNAME_ANIMALS.join("|")}) [1-9][0-9]$`);
+const NICKNAME = new RegExp(`^(${NICKNAME_WORDS.join("|")}) (${[...NICKNAME_ANIMALS, ...RETIRED_ANIMALS].join("|")}) [1-9][0-9]$`);
 
 export function isValidNickname(value: unknown): value is string {
   return typeof value === "string" && NICKNAME.test(value);
