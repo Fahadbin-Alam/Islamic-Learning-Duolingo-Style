@@ -20697,27 +20697,27 @@
   },
   {
     "kind": "question",
-    "text": "What do Hell's keepers ask each group?"
+    "text": "Ayah 1: what is in Allah's hand?"
   },
   {
     "kind": "question",
-    "text": "Where is your money?"
+    "text": "Half of all things"
   },
   {
     "kind": "question",
-    "text": "Did no warner come to you?"
+    "text": "All dominion"
   },
   {
     "kind": "question",
-    "text": "Who are you?"
+    "text": "Only the sea"
   },
   {
     "kind": "question",
-    "text": "Are you sorry?"
+    "text": "Only the moon"
   },
   {
     "kind": "question",
-    "text": "And they answer: yes, a warner came, but we denied him."
+    "text": "Blessed is the One in whose hand is all dominion, and He has power over everything."
   },
   {
     "kind": "lesson",
@@ -20773,15 +20773,27 @@
   },
   {
     "kind": "question",
-    "text": "Who holds the birds up in the sky, in Al-Mulk?"
+    "text": "Ayah 23: what three gifts did Allah give us?"
   },
   {
     "kind": "question",
-    "text": "The clouds"
+    "text": "Kings and armies"
   },
   {
     "kind": "question",
-    "text": "The wind alone"
+    "text": "Wings and tails"
+  },
+  {
+    "kind": "question",
+    "text": "Hearing, sight and hearts"
+  },
+  {
+    "kind": "question",
+    "text": "Gold, silver and land"
+  },
+  {
+    "kind": "question",
+    "text": "He brought you into being and gave you hearing, sight and hearts; little do you thank."
   },
   {
     "kind": "lesson",
@@ -33769,6 +33781,30 @@
   },
   {
     "kind": "question",
+    "text": "What do Hell's keepers ask each group?"
+  },
+  {
+    "kind": "question",
+    "text": "Where is your money?"
+  },
+  {
+    "kind": "question",
+    "text": "Did no warner come to you?"
+  },
+  {
+    "kind": "question",
+    "text": "Who are you?"
+  },
+  {
+    "kind": "question",
+    "text": "Are you sorry?"
+  },
+  {
+    "kind": "question",
+    "text": "And they answer: yes, a warner came, but we denied him."
+  },
+  {
+    "kind": "question",
     "text": "Ibn Kathir says Allah does not punish until what?"
   },
   {
@@ -34094,6 +34130,10 @@
   {
     "kind": "question",
     "text": "Who holds the birds up in the air?"
+  },
+  {
+    "kind": "question",
+    "text": "The wind alone"
   },
   {
     "kind": "question",
@@ -54778,10 +54818,6 @@
   {
     "kind": "question",
     "text": "From nowhere"
-  },
-  {
-    "kind": "question",
-    "text": "Only the sea"
   },
   {
     "kind": "question",
@@ -85597,6 +85633,10 @@
   },
   {
     "kind": "question",
+    "text": "The clouds"
+  },
+  {
+    "kind": "question",
     "text": "Ayahs 10-21: what are they about?"
   },
   {
@@ -91538,10 +91578,6 @@
   {
     "kind": "question",
     "text": "Ayah 78: what did Allah give us that we rarely thank Him for?"
-  },
-  {
-    "kind": "question",
-    "text": "Hearing, sight and hearts"
   },
   {
     "kind": "question",
@@ -109088,12 +109124,48 @@
     "text": "Quran 67:1-5"
   },
   {
+    "kind": "lesson",
+    "text": "He created death and life to test which of you is best in deeds."
+  },
+  {
+    "kind": "lesson",
+    "text": "Look at the seven skies again and again: your sight comes back tired, finding no flaw."
+  },
+  {
+    "kind": "lesson",
+    "text": "Life is a test of good deeds, not of who owns the most."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 67:1-5"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 67:1-5"
+  },
+  {
     "kind": "question",
     "text": "Why did Allah create death and life, in Al-Mulk?"
   },
   {
     "kind": "question",
     "text": "Ayahs 1-5 say: Allah made death and life to test who does best."
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 3: what does the eye find in the skies?"
+  },
+  {
+    "kind": "question",
+    "text": "Holes everywhere"
+  },
+  {
+    "kind": "question",
+    "text": "Broken parts"
+  },
+  {
+    "kind": "question",
+    "text": "Many cracks"
   },
   {
     "kind": "lesson",
@@ -109114,6 +109186,30 @@
   {
     "kind": "source",
     "text": "Quran 67:6-14"
+  },
+  {
+    "kind": "lesson",
+    "text": "The people of the Fire will say: had we only listened or used our minds, we would not be here."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those who fear their Lord unseen will have forgiveness and a great reward."
+  },
+  {
+    "kind": "lesson",
+    "text": "Speak secretly or openly: He knows what is in the chests. Does the Creator not know?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fear Allah when nobody is watching: He sees what hides inside you."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 67:6-14"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 67:6-14"
   },
   {
     "kind": "question",
@@ -109144,6 +109240,34 @@
     "text": "Ayahs 6-14 say: If your water sank away, who would bring you flowing water?"
   },
   {
+    "kind": "question",
+    "text": "Ayah 12: who gets forgiveness and a great reward?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who fear their Lord unseen"
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 13: what does Allah know, spoken or hidden?"
+  },
+  {
+    "kind": "question",
+    "text": "Only deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing hidden"
+  },
+  {
+    "kind": "question",
+    "text": "What is in the chests"
+  },
+  {
+    "kind": "question",
+    "text": "Only loud words"
+  },
+  {
     "kind": "lesson",
     "text": "Who holds the birds up in the sky but the Merciful?"
   },
@@ -109160,12 +109284,80 @@
     "text": "Quran 67:15-22"
   },
   {
+    "kind": "lesson",
+    "text": "He made the earth easy to walk on: travel its paths and eat from His provision."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do they not see the birds above them, spreading and folding their wings?"
+  },
+  {
+    "kind": "lesson",
+    "text": "None holds them up but the Most Merciful; He sees all things."
+  },
+  {
+    "kind": "lesson",
+    "text": "Every bird in the sky is a quiet sign of His mercy."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 67:15-22"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 67:15-22"
+  },
+  {
+    "kind": "question",
+    "text": "Who holds the birds up in the sky, in Al-Mulk?"
+  },
+  {
     "kind": "question",
     "text": "Ayahs 15-22: what are they about?"
   },
   {
     "kind": "question",
     "text": "Ayahs 15-22 say: Who holds the birds up in the sky but the Merciful?"
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 15: how did Allah make the earth for us?"
+  },
+  {
+    "kind": "question",
+    "text": "Always shaking"
+  },
+  {
+    "kind": "question",
+    "text": "Empty of food"
+  },
+  {
+    "kind": "question",
+    "text": "Easy to walk on"
+  },
+  {
+    "kind": "question",
+    "text": "Too hard to cross"
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 19: what are the birds doing?"
+  },
+  {
+    "kind": "question",
+    "text": "Sleeping in trees"
+  },
+  {
+    "kind": "question",
+    "text": "Swimming deep"
+  },
+  {
+    "kind": "question",
+    "text": "Sitting still"
+  },
+  {
+    "kind": "question",
+    "text": "Spreading and folding wings"
   },
   {
     "kind": "lesson",
@@ -109184,12 +109376,52 @@
     "text": "Quran 67:23-30"
   },
   {
+    "kind": "lesson",
+    "text": "Say: He is the Most Merciful; we believe in Him and on Him we rely."
+  },
+  {
+    "kind": "lesson",
+    "text": "If your water sank deep into the earth, who would bring you flowing water?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Each drink you take is a gift: thank the One who keeps it flowing."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 67:23-30"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 67:23-30"
+  },
+  {
     "kind": "question",
     "text": "Who brings us flowing water, in Al-Mulk?"
   },
   {
     "kind": "question",
     "text": "Ayahs 23-30 say: Deniers will say: if only we had listened and thought."
+  },
+  {
+    "kind": "question",
+    "text": "Ayah 29: on whom do the believers rely?"
+  },
+  {
+    "kind": "question",
+    "text": "On luck"
+  },
+  {
+    "kind": "question",
+    "text": "On the Most Merciful"
+  },
+  {
+    "kind": "question",
+    "text": "On their wealth"
+  },
+  {
+    "kind": "question",
+    "text": "On their tribe"
   },
   {
     "kind": "lesson",
@@ -124318,10 +124550,6 @@
   {
     "kind": "question",
     "text": "Only what we write"
-  },
-  {
-    "kind": "question",
-    "text": "Nothing hidden"
   },
   {
     "kind": "question",
