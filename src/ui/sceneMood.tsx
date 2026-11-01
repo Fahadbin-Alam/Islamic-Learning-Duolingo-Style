@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Animated, Easing, View, type StyleProp, type ViewStyle } from "react-native";
-import { useReduceMotion } from "./motion";
+import { sampleCurve, useReduceMotion } from "./motion";
 import { Floater, Word } from "./reactions";
 
 /**
@@ -25,10 +25,23 @@ export type SceneMood = {
   setNight: (night: boolean) => void;
   /** A touch or a scroll: wakes everyone and restarts the idle clock. */
   wake: () => void;
+  /** 0..1 clock of the last ground bump (a meteor landing): the whole path shakes for a moment. */
+  quake: Animated.Value;
+  /** Shakes the whole path once, then everything settles back. */
+  rumble: () => void;
 };
 
 const DAYLIGHT = new Animated.Value(0);
-const SceneContext = createContext<SceneMood>({ night: false, asleep: false, dark: DAYLIGHT, setNight: () => undefined, wake: () => undefined });
+const STILL = new Animated.Value(0);
+const SceneContext = createContext<SceneMood>({ night: false, asleep: false, dark: DAYLIGHT, setNight: () => undefined, wake: () => undefined, quake: STILL, rumble: () => undefined });
+
+/** How long the path shakes after a meteor lands. */
+export const QUAKE_MS = 650;
+
+/** The path's sideways shake for a quake clock: a few quick swings that die away. */
+export function quakeShift(quake: Animated.Value) {
+  return quake.interpolate(sampleCurve(0, 1, 40, (p) => (p >= 1 ? 0 : 7 * (1 - p) * Math.sin(p * Math.PI * 9))));
+}
 
 export function useScene() {
   return useContext(SceneContext);
@@ -97,7 +110,14 @@ export function SceneProvider({ children, idle = true, idleMs = IDLE_MS, wakeRef
     }
   }, []);
 
-  const value = useMemo<SceneMood>(() => ({ night, asleep, dark, setNight, wake }), [night, asleep, dark, setNight, wake]);
+  const quake = useRef(new Animated.Value(0)).current;
+  const rumble = useCallback(() => {
+    if (reduceMotion) return;
+    quake.setValue(0);
+    Animated.timing(quake, { toValue: 1, duration: QUAKE_MS, easing: Easing.linear, useNativeDriver: true }).start();
+  }, [quake, reduceMotion]);
+
+  const value = useMemo<SceneMood>(() => ({ night, asleep, dark, setNight, wake, quake, rumble }), [night, asleep, dark, setNight, wake, quake, rumble]);
   return (
     <SceneContext.Provider value={value}>
       <View
@@ -113,6 +133,12 @@ export function SceneProvider({ children, idle = true, idleMs = IDLE_MS, wakeRef
       </View>
     </SceneContext.Provider>
   );
+}
+
+/** A view that shakes with the scene's quakes (see `rumble`). Takes the props of a View. */
+export function QuakeView({ style, ...rest }: React.ComponentProps<typeof View>) {
+  const { quake } = useScene();
+  return <Animated.View {...rest} style={[style, { transform: [{ translateX: quakeShift(quake) }] }]} />;
 }
 
 /** A looping clock for the snoring Zs. */

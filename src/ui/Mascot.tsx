@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { Animated, Easing, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import Svg, { Circle, Ellipse, G, Path } from "react-native-svg";
-import { smoothKeys, useReduceMotion } from "./motion";
+import { sampleCurve, smoothKeys, useReduceMotion } from "./motion";
 import { Drop, Floater, Heart, Puff, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
 import { feedback } from "./sound";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
@@ -645,20 +645,71 @@ function MascotFigure({ variant, mood = "happy", size = 120, accent = colors.gre
   );
 }
 
-type TapReaction = { mood: MascotMood; sound: GameSoundEvent; ms: number };
+/** Big whole-body moves some taps do on top of the face: a high jump, a little dance, a twirl. */
+type TapMove = "jump" | "dance" | "twirl";
+type TapReaction = { mood: MascotMood; sound: GameSoundEvent; ms: number; move?: TapMove };
 
-/** What the mascot does on each tap, in turn. Kept gentle: every feeling, nothing mean. */
+/**
+ * What the mascot does on each tap, in turn. Kept gentle: every feeling, nothing mean. Each sound
+ * matches the move: a "hi-yaa" for the wave, a yawn for sleepy, a boing for the jump.
+ */
 export const TAP_REACTIONS: TapReaction[] = [
-  { mood: "wave", sound: "boing", ms: 1800 },
+  { mood: "wave", sound: "hello", ms: 1800 },
   { mood: "laugh", sound: "giggle", ms: 1900 },
+  { mood: "cheer", sound: "boing", ms: 1500, move: "jump" },
   { mood: "mad", sound: "grumble", ms: 1800 },
-  { mood: "surprised", sound: "boing", ms: 1500 },
+  { mood: "surprised", sound: "pop", ms: 1500 },
+  { mood: "laugh", sound: "giggle", ms: 2200, move: "dance" },
   { mood: "love", sound: "sparkle", ms: 2000 },
   { mood: "cry", sound: "sad", ms: 2100 },
+  { mood: "happy", sound: "zoom", ms: 1400, move: "twirl" },
   { mood: "cheer", sound: "xp", ms: 1700 },
-  { mood: "sleepy", sound: "whoosh", ms: 2200 },
+  { mood: "sleepy", sound: "yawn", ms: 2200 },
   { mood: "think", sound: "soft_ui", ms: 1700 }
 ];
+
+/** Musical notes, for dancing. */
+function Notes({ t, size, from = 0 }: { t: Animated.Value; size: number; from?: number }) {
+  const u = size / VIEW_W;
+  return (
+    <>
+      {[0, 0.22, 0.44].map((at, index) => (
+        <Floater key={at} t={t} from={from + at * (1 - from)} to={Math.min(1, from + (at + 0.45) * (1 - from))} x={(index % 2 ? 96 : 6) * u} y={(30 - index * 6) * u} rise={28 * u} drift={(index % 2 ? 10 : -10) * u}>
+          <Word size={Math.max(12, 18 * u)} color="#8E5CF7">{index % 2 ? "♫" : "♪"}</Word>
+        </Floater>
+      ))}
+    </>
+  );
+}
+
+/** Body moves for a tap's big move. */
+function tapMoveTransform(move: TapMove, t: Animated.Value, size: number) {
+  const key = (keys: number[], values: number[]) => t.interpolate(smoothKeys(keys, values));
+  switch (move) {
+    case "jump":
+      // Crouch, spring up high, land with a squash.
+      return [
+        { translateY: key([0, 0.15, 0.45, 0.72, 0.8, 1], [0, 2, -size * 0.32, 0, 2, 0]) },
+        { scaleY: key([0, 0.15, 0.25, 0.68, 0.76, 0.86, 1], [1, 0.88, 1.08, 1, 0.9, 1.03, 1]) }
+      ];
+    case "dance": {
+      // Side step, side step, little hops in time with the notes.
+      const lean = sampleCurve(0, 1, 48, (p) => (p > 0.92 ? 0 : 6 * Math.sin(p * Math.PI * 6)));
+      return [
+        { translateX: t.interpolate(sampleCurve(0, 1, 48, (p) => (p > 0.92 ? 0 : size * 0.06 * Math.sin(p * Math.PI * 6)))) },
+        { translateY: t.interpolate(sampleCurve(0, 1, 48, (p) => (p > 0.92 ? 0 : -size * 0.04 * Math.abs(Math.sin(p * Math.PI * 12))))) },
+        { rotate: t.interpolate({ ...lean, outputRange: lean.outputRange.map((value) => `${value}deg`) }) }
+      ];
+    }
+    case "twirl":
+    default:
+      // A spin on the spot (seen from the front: it turns round and back), with a little hop.
+      return [
+        { translateY: key([0, 0.2, 0.5, 0.8, 1], [0, -size * 0.05, -size * 0.1, -size * 0.05, 0]) },
+        { scaleX: t.interpolate(sampleCurve(0.05, 0.9, 32, (p) => Math.cos(((p - 0.05) / 0.85) * 4 * Math.PI))) }
+      ];
+  }
+}
 
 /** The little things that pop off the mascot for a reaction, laid out on its box. */
 function ReactionBits({ mood, t, size }: { mood: MascotMood; t: Animated.Value; size: number }) {
@@ -754,11 +805,24 @@ function ReactionBits({ mood, t, size }: { mood: MascotMood; t: Animated.Value; 
  * What the path's kid does by itself while waiting for a tap, one every few seconds: looks around,
  * sways, a little hop, a quick wave, a stretch, taps a foot, leans to peek at the path.
  */
-export const IDLE_FIDGETS = ["look", "sway", "hop", "wave", "stretch", "tap", "peek"] as const;
+export const IDLE_FIDGETS = ["look", "sway", "hop", "wave", "dance", "stretch", "tap", "jump", "peek", "yawn", "twirl", "butterfly"] as const;
 type Fidget = (typeof IDLE_FIDGETS)[number];
-const FIDGET_MS: Record<Fidget, number> = { look: 1600, sway: 1800, hop: 900, wave: 1500, stretch: 1500, tap: 1300, peek: 1500 };
-/** Waits between fidgets: a few seconds, never the same rhythm twice in a row. */
-const FIDGET_GAP = [2600, 4200, 3300, 5000, 2900];
+const FIDGET_MS: Record<Fidget, number> = {
+  look: 1600,
+  sway: 1800,
+  hop: 900,
+  wave: 1500,
+  dance: 2200,
+  stretch: 1500,
+  tap: 1300,
+  jump: 1200,
+  peek: 1500,
+  yawn: 1900,
+  twirl: 1300,
+  butterfly: 2600
+};
+/** Waits between fidgets: a couple of seconds, never the same rhythm twice in a row. */
+const FIDGET_GAP = [1600, 2600, 2000, 3200, 1800];
 
 function fidgetMoves(fidget: Fidget, f: Animated.Value, size: number) {
   const key = (keys: number[], values: number[]) => f.interpolate(smoothKeys(keys, values));
@@ -776,6 +840,18 @@ function fidgetMoves(fidget: Fidget, f: Animated.Value, size: number) {
       return [{ translateY: key([0, 0.15, 0.25, 0.4, 0.5, 0.65, 0.75, 1], [0, -2, 0, -2, 0, -2, 0, 0]) }, { rotate: turn([0, 0.5, 1], [0, 2, 0]) }];
     case "peek":
       return [{ rotate: turn([0, 0.3, 0.7, 1], [0, 9, 9, 0]) }, { translateX: key([0, 0.3, 0.7, 1], [0, 3, 3, 0]) }];
+    case "dance":
+      return tapMoveTransform("dance", f, size);
+    case "jump":
+      return tapMoveTransform("jump", f, size);
+    case "twirl":
+      return tapMoveTransform("twirl", f, size);
+    case "yawn":
+      // Stretches up tall with the yawn, then sinks back.
+      return [{ scaleY: key([0, 0.3, 0.7, 1], [1, 1.06, 1.06, 1]) }, { rotate: turn([0, 0.3, 0.7, 1], [0, -4, -4, 0]) }];
+    case "butterfly":
+      // Watches a butterfly go round its head: leans one way, then the other.
+      return [{ rotate: turn([0, 0.25, 0.5, 0.75, 1], [0, -6, 0, 6, 0]) }, { translateY: key([0, 0.5, 0.6, 0.7, 1], [0, 0, -size * 0.05, 0, 0]) }];
     case "wave":
     default:
       return [];
@@ -783,13 +859,70 @@ function fidgetMoves(fidget: Fidget, f: Animated.Value, size: number) {
 }
 
 /** The face that goes with a fidget, if it has one. */
-const FIDGET_MOOD: Partial<Record<Fidget, MascotMood>> = { look: "think", wave: "wave", stretch: "surprised" };
+const FIDGET_MOOD: Partial<Record<Fidget, MascotMood>> = {
+  look: "think",
+  wave: "wave",
+  stretch: "surprised",
+  dance: "laugh",
+  jump: "cheer",
+  yawn: "sleepy",
+  butterfly: "love"
+};
+
+/** A little butterfly that flutters round the kid's head. */
+function FidgetButterfly({ t, size }: { t: Animated.Value; size: number }) {
+  const u = size / VIEW_W;
+  const x = t.interpolate(sampleCurve(0, 1, 40, (p) => 60 * u + 52 * u * Math.cos(p * Math.PI * 2 + Math.PI)));
+  const y = t.interpolate(sampleCurve(0, 1, 40, (p) => 14 * u + 12 * u * Math.sin(p * Math.PI * 4)));
+  const flap = t.interpolate(sampleCurve(0, 1, 60, (p) => 0.4 + 0.6 * Math.abs(Math.cos(p * Math.PI * 18))));
+  const wing = Math.max(6, 10 * u);
+  return (
+    <Animated.View pointerEvents="none" style={{ position: "absolute", left: 0, top: 0, opacity: t.interpolate({ inputRange: [0, 0.08, 0.9, 1], outputRange: [0, 1, 1, 0] }), transform: [{ translateX: x }, { translateY: y }] }}>
+      <Animated.View style={{ flexDirection: "row", transform: [{ scaleX: flap }] }}>
+        <View style={{ width: wing, height: wing * 1.2, borderRadius: wing, backgroundColor: "#FF82AB" }} />
+        <View style={{ width: wing, height: wing * 1.2, borderRadius: wing, backgroundColor: "#FFB020", marginLeft: -2 }} />
+      </Animated.View>
+    </Animated.View>
+  );
+}
+
+/** Things that pop off the kid during a fidget (no sound: fidgets are quiet). */
+function FidgetBits({ fidget, f, size }: { fidget: Fidget; f: Animated.Value; size: number }) {
+  const u = size / VIEW_W;
+  switch (fidget) {
+    case "dance":
+      return <Notes t={f} size={size} />;
+    case "jump":
+      return (
+        <>
+          {[{ x: 8, y: 30, from: 0.35 }, { x: 98, y: 24, from: 0.42 }].map((star) => (
+            <Floater key={star.x} t={f} from={star.from} to={star.from + 0.45} x={star.x * u} y={star.y * u} rise={14 * u}>
+              <Sparkle size={Math.max(9, 13 * u)} />
+            </Floater>
+          ))}
+        </>
+      );
+    case "yawn":
+      return (
+        <Floater t={f} from={0.2} to={0.95} x={92 * u} y={18 * u} rise={18 * u} drift={8 * u}>
+          <Word size={Math.max(10, 14 * u)} color="#8C7BF4">z</Word>
+        </Floater>
+      );
+    case "butterfly":
+      return <FidgetButterfly t={f} size={size} />;
+    default:
+      return null;
+  }
+}
 
 /** The app's mascot: a friendly child (girl in hijab, or boy in a kufi). */
 export function Mascot(props: MascotProps) {
   const { tappable, mood = "happy", size = 120, style, testID, animated = true } = props;
   const reduceMotion = useReduceMotion();
-  const [reaction, setReaction] = useState<MascotMood | null>(null);
+  const [tapped, setTapped] = useState<TapReaction | null>(null);
+  const reaction = tapped?.mood ?? null;
+  // A slow breath in and out, so the kid is never standing frozen between fidgets.
+  const breath = useRef(new Animated.Value(0)).current;
   const { value: t, play } = useOneShot();
   const next = useCycle(TAP_REACTIONS.length);
   const height = (size * VIEW_H) / VIEW_W;
@@ -797,6 +930,14 @@ export function Mascot(props: MascotProps) {
   const { value: f, play: playFidget } = useOneShot();
   // Fidgets only for the tappable kid on the path, while it's awake and not in the middle of a reaction.
   const fidgets = Boolean(tappable) && animated && !reduceMotion && reaction === null && mood !== "sleepy";
+  const breathes = Boolean(tappable) && animated && !reduceMotion;
+  useEffect(() => {
+    breath.setValue(0);
+    if (!breathes) return undefined;
+    const loop = Animated.loop(Animated.sequence([Animated.timing(breath, { toValue: 1, duration: mood === "sleepy" ? 3200 : 2400, easing: Easing.linear, useNativeDriver: true })]));
+    loop.start();
+    return () => loop.stop();
+  }, [breathes, breath, mood]);
   useEffect(() => {
     if (!fidgets) {
       setFidget(null);
@@ -825,9 +966,9 @@ export function Mascot(props: MascotProps) {
     const pick = TAP_REACTIONS[next()];
     feedback(pick.sound, "light");
     setFidget(null);
-    setReaction(pick.mood);
+    setTapped(pick);
     // With reduced motion the face still changes for a moment; only the moving bits are left out.
-    play(pick.ms, () => setReaction(null));
+    play(pick.ms, () => setTapped(null));
   };
 
   const fidgeting = reaction === null && fidget !== null;
@@ -837,6 +978,8 @@ export function Mascot(props: MascotProps) {
   const transform =
     !moves || !reaction
       ? []
+      : tapped?.move
+        ? tapMoveTransform(tapped.move, t, size)
       : reaction === "laugh"
         ? [{ rotate: shake(t, 0.05, 0.85, 5, 7) }]
         : reaction === "mad"
@@ -851,6 +994,7 @@ export function Mascot(props: MascotProps) {
                   ? [{ rotate: t.interpolate(smoothKeys([0, 0.2, 0.8, 1], ["0deg", "-7deg", "-7deg", "0deg"])) }]
                   : [];
   const idleMoves = moves && fidgeting && fidget ? fidgetMoves(fidget, f, size) : [];
+  const breathing = breathes ? [{ scaleY: breath.interpolate(smoothKeys([0, 0.5, 1], [1, 1.018, 1])) }] : [];
 
   return (
     <Pressable
@@ -861,12 +1005,17 @@ export function Mascot(props: MascotProps) {
       testID={testID}
       style={[{ width: size, height }, style]}
     >
-      <Animated.View style={{ width: size, height, transformOrigin: "bottom", transform: [...transform, ...idleMoves] as never[] }}>
+      <Animated.View style={{ width: size, height, transformOrigin: "bottom", transform: [...breathing, ...transform, ...idleMoves] as never[] }}>
         <MascotFigure {...props} mood={shown} style={undefined} />
       </Animated.View>
       {moves && reaction ? (
         <View style={StyleSheet.absoluteFill} pointerEvents="none">
-          <ReactionBits mood={reaction} t={t} size={size} />
+          {tapped?.move === "dance" ? <Notes t={t} size={size} /> : <ReactionBits mood={reaction} t={t} size={size} />}
+        </View>
+      ) : null}
+      {moves && fidgeting && fidget ? (
+        <View style={StyleSheet.absoluteFill} pointerEvents="none">
+          <FidgetBits fidget={fidget} f={f} size={size} />
         </View>
       ) : null}
     </Pressable>
