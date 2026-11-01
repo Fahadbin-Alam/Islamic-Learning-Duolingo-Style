@@ -55,7 +55,7 @@ export interface IslamicLearningApi {
 // Topics whose units each stand alone (a surah, a companion, a prophet, a woman of the Book, a narration, a scholar),
 // so a learner can start with Al-Ikhlas or Abu Bakr. Every other topic is a skill taught in order. New to Islam is one
 // too: a Christian starts on the prophets and a new Muslim on the first steps.
-export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars", "eid", "intro"]);
+export const LIBRARY_TOPICS: ReadonlySet<TopicId> = new Set<TopicId>(["quran_tafseer", "sahabah", "prophets", "women_of_the_book", "hadith", "scholars", "eid", "akhirah", "intro"]);
 
 export const learningApi: IslamicLearningApi = {
   async getUser() {
