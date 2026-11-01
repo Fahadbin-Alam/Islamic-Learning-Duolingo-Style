@@ -55,7 +55,7 @@ import {
 import { cleanReviewCards } from "./services/reviewDeck";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
-import { localDayNumber } from "./data/dailyCard";
+import { dailyAutoDue, localDayNumber, markDailyShown, parseDailyShown } from "./data/dailyCard";
 import {
   DEFAULT_LANGUAGE,
   deviceLanguage,
@@ -577,6 +577,7 @@ const HEART_VIDEOS_KEY = "sira-path-heart-videos";
 const PLAN_OFFER_AT_KEY = "sira-path-plan-offer-at";
 // The ayah and hadith of the day open by themselves this long after the app settles on its first open of the day.
 const DAILY_AUTO_OPEN_MS = 900;
+const DAILY_SHOWN_KEY = "sira-path-daily-shown";
 
 // The plans sheet: why it opened, and the lesson to start once it closes (it can open as NEXT LESSON is tapped).
 type PlanOffer = {
@@ -617,6 +618,13 @@ export default function TopicApp() {
   const [languageModalVisible, setLanguageModalVisible] = useState(false);
   // The local day the top bar's daily ayah and hadith were last opened.
   const [dailySeenDay, setDailySeenDay] = useState(() => Number(getStoredItem("sira-path-daily-seen")));
+  // When the card was last on screen, for opening it by itself twice a day at most (dailyAutoDue).
+  const [dailyShown, setDailyShown] = useState(() => {
+    const saved = parseDailyShown(getStoredItem(DAILY_SHOWN_KEY));
+    // Before this record existed, a card seen today counts as shown once, this morning.
+    const seenDay = Number(getStoredItem("sira-path-daily-seen"));
+    return saved ?? (seenDay === localDayNumber() ? { day: seenDay, count: 1, at: Date.now() } : undefined);
+  });
   // A newer Muslimo in the store shows a banner under the top bar; checked on every open and every return to the app.
   const [updateReady, setUpdateReady] = useState(false);
   const [updateClosed, setUpdateClosed] = useState(false);
@@ -1339,8 +1347,9 @@ export default function TopicApp() {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [freezeSave, state.screen, otherSheetOpen]);
-  // The first open of each day shows today's ayah and hadith by itself (and recites the ayah), once nothing
-  // else is asking for the screen: not before the first-launch questions, not over a lesson or another sheet.
+  // The first open of each day shows today's ayah and hadith by itself (and recites the ayah), and an open four
+  // hours or more later shows it once more; never more than twice a day. It waits until nothing else is asking for
+  // the screen: not before the first-launch questions, not over a lesson or another sheet.
   const dailyAutoDone = useRef(false);
   const dailyAutoReady = Boolean(
     state.user &&
@@ -1354,7 +1363,7 @@ export default function TopicApp() {
       state.screen !== "assessment"
   );
   useEffect(() => {
-    if (dailyAutoDone.current || !dailyAutoReady || dailySeenDay === localDayNumber()) {
+    if (dailyAutoDone.current || !dailyAutoReady || !dailyAutoDue(dailyShown)) {
       return;
     }
     const timer = setTimeout(() => {
@@ -1362,7 +1371,7 @@ export default function TopicApp() {
       setDailyOpenSignal((count) => count + 1);
     }, DAILY_AUTO_OPEN_MS);
     return () => clearTimeout(timer);
-  }, [dailyAutoReady, dailySeenDay]);
+  }, [dailyAutoReady, dailyShown]);
   useEffect(() => {
     if (!accountPromptDue || accountPromptShown || !guestUser || !onFoundationPath || otherSheetOpen) {
       return;
@@ -3176,6 +3185,9 @@ export default function TopicApp() {
               const today = localDayNumber();
               setDailySeenDay(today);
               setStoredItem("sira-path-daily-seen", String(today));
+              const shown = markDailyShown(dailyShown);
+              setDailyShown(shown);
+              setStoredItem(DAILY_SHOWN_KEY, JSON.stringify(shown));
             }}
           />
         )}

@@ -514,6 +514,22 @@ function PathChestView({ chest, onClaim }: { chest: PathChest; onClaim: () => vo
 
 // ---------- node card ----------
 
+/** A review circle closes a part of a unit (a story, a group of ayahs): "Deep review", "Review", "Final quiz". */
+const PART_END = /(^|-)(review(-\d+)?|final-quiz)$/;
+
+/**
+ * The first circle of the next part, when `node` is a circle to play that is not itself a review: a test of the
+ * circles from here to the part's review lets a learner who knows the story skip to it.
+ */
+export function nextPartStart(unit: PathUnit, node: LearningNodeView): LearningNodeView | undefined {
+  if (node.status === "locked" || node.status === "completed" || PART_END.test(node.id)) return undefined;
+  const nodes = unit.items.flatMap((item) => (item.kind === "node" ? [item.node] : []));
+  const at = nodes.findIndex((item) => item.id === node.id);
+  if (at < 0) return undefined;
+  const end = nodes.findIndex((item, index) => index > at && PART_END.test(item.id));
+  return end > at ? nodes[end + 1] : undefined;
+}
+
 function NodeCard({
   item,
   color,
@@ -527,6 +543,7 @@ function NodeCard({
   onStart,
   onPremium,
   onJump,
+  onSkipPart,
   onCardLayout
 }: {
   item: Extract<PathItem, { kind: "node" }>;
@@ -543,6 +560,8 @@ function NodeCard({
   onPremium?: () => void;
   /** A locked circle whose unit can be tested out: JUMP HERE asks "Jump ahead?" for the unit. */
   onJump?: () => void;
+  /** The circle to play is the start of a part (a story, up to its review): a test can skip the whole part. */
+  onSkipPart?: () => void;
   onCardLayout: (height: number) => void;
 }) {
   const { node, arabic } = item;
@@ -584,6 +603,24 @@ function NodeCard({
         testID="node-card-start"
       />
     );
+    if (onSkipPart && node.status !== "completed") {
+      // Already know this story? A short test skips to the next part.
+      action = (
+        <>
+          {action}
+          <GameButton
+            label={t("I know this part")}
+            icon="key"
+            variant="ghost"
+            color={colors.white}
+            fullWidth
+            onPress={onSkipPart}
+            style={styles.cardSkip}
+            testID="node-card-skip-part"
+          />
+        </>
+      );
+    }
   }
 
   return (
@@ -1464,6 +1501,15 @@ export function LearnPath({
                                     }
                                   : undefined
                               }
+                              onSkipPart={(() => {
+                                const target = onTestOut ? nextPartStart(unit, (row.item as { node: LearningNodeView }).node) : undefined;
+                                return target && jumpNodeIds?.has(target.id) && !unit.premiumLocked
+                                  ? () => {
+                                      open(undefined);
+                                      askTestOut(unit.id, target.id);
+                                    }
+                                  : undefined;
+                              })()}
                               onCardLayout={(cardHeight) => onCardLayout(row.key, unit, top, cardHeight)}
                             />
                           </View>
@@ -1517,6 +1563,9 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: colors.snow
+  },
+  cardSkip: {
+    marginTop: 6
   },
   nightSky: {
     position: "absolute",
