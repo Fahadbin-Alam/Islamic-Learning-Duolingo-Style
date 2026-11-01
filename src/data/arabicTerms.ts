@@ -123,6 +123,9 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "zakat-al-fitr": { ar: "زكاة الفطر", translit: "Zakat al-fitr", meaning: "Zakat al-Fitr" },
   "zakat-everyday-charity": { ar: "كل معروف صدقة", translit: "Kullu ma'rufin sadaqah", meaning: "Every good deed is charity" },
   "zakat-spend-quran": { ar: "الإنفاق في سبيل الله", translit: "Al-infaq fi sabilillah", meaning: "Spending for Allah" },
+  "hadith-famous": { ar: "أحاديث مشهورة", translit: "Ahadith mashhurah", meaning: "Famous hadith" },
+  "hadith-good-heart": { ar: "صلاح القلب", translit: "Salah al-qalb", meaning: "A sound heart" },
+  "hadith-knowledge": { ar: "طلب العلم", translit: "Talab al-'ilm", meaning: "Seeking knowledge" },
 
   // Hajj: duty, rites and sacred sites
   "hajj-duty": { ar: "فريضة الحج", translit: "Faridat al-Hajj", meaning: "The duty of Hajj" },
@@ -703,6 +706,7 @@ const LEARN_FORMS = [
   "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
   "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
   "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
+  "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
