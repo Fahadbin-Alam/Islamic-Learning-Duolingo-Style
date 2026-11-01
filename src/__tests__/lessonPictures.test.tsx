@@ -138,6 +138,19 @@ describe("photo on the learn card", () => {
     expect(screen.getByTestId("lesson-photo-credit")).toHaveTextContent("A drawing of how it looked long ago");
   });
 
+  test("a drawing of something unseen, like the bridge, says it is only a drawing", async () => {
+    const bridge = pictureForText("A slippery bridge laid over Jahannam, with hooks and thorns.")!;
+    expect(bridge.id).toBe("sirat");
+    expect(bridge.credit.imagined).toBe(true);
+    await render(<LearnCard {...base} picture={bridge} />);
+    expect(screen.getByTestId("lesson-photo-credit")).toHaveTextContent("Only a drawing: Allah knows best how it truly is");
+    // The prophets' stories get pictures of things, never of people.
+    expect(pictureForText("Nuh built the Ark and called people to Allah, patiently.")?.id).toBe("ark");
+    expect(pictureForText("Yunus glorified Allah in the whale, and Allah saved him.")?.id).toBe("big-fish");
+    expect(pictureForText("Allah parted the sea for them and drowned Pharaoh's people.")?.id).toBe("sea-split");
+    expect(pictureForText("As well as this, be kind.")).toBeUndefined();
+  });
+
   test("tapping the photo shows it big, and Close hides it", async () => {
     await render(<LearnCard {...base} picture={picture} />);
     expect(screen.queryByTestId("photo-sheet-image")).toBeNull();

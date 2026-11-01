@@ -1,9 +1,9 @@
 import type { LearningSection } from "../types";
 import { hadith, quran, quranQuote, type DeepUnit } from "./deepKit";
 
-// The Day of Judgment topic: belief in the Last Day, the signs of the Hour, death and the grave, the Horn and the
-// gathering, the reckoning and the scales, the intercession and the Pool, the bridge, Jannah and Jahannam, and how
-// to get ready. Every card is from the Quran or a hadith checked on sunnah.com (number and grade as sunnah.com gives
+// The Day of Judgment topic, in order: belief in the Last Day, the signs of the Hour, death and the grave, the Horn
+// and the gathering, the intercession and the Pool, the reckoning and the scales, the bridge, Jahannam and Jannah, and
+// how to get ready. Every card is from the Quran or a hadith checked on sunnah.com (number and grade as sunnah.com gives
 // them). Anything the scholars differ on (the order of the major signs, dates, weak reports) is left out.
 
 const LAST_DAY: DeepUnit = {
@@ -567,19 +567,6 @@ const GATHERING: DeepUnit = {
       ]
     },
     {
-      slug: "forty",
-      title: "Forty what?",
-      line: "Between the two blowings is forty. Forty what? Not said.",
-      facts: ["He refused to guess", "All of the body decays but the tailbone", "From it Allah rebuilds us"],
-      source: hadith("bukhari", "4814", "Abu Hurairah", "Sahih", "Between the two blowings is forty. They asked: forty days? forty years? He refused to answer. Everything of the body decays except the tailbone, and from it Allah rebuilds the body."),
-      difficulty: 4,
-      questions: [
-        { q: "What did Abu Hurayrah do when asked 'forty days or years?'", a: "Refused to guess", wrong: ["Said forty years", "Said forty days", "Laughed"], why: "He only said what he heard." },
-        { q: "Which bone does not decay?", a: "The tailbone", wrong: ["The skull", "The teeth", "The heart"], why: "From it Allah rebuilds the body." },
-        { q: "Abu Hurayrah's lesson: don't add to what the Prophet ﷺ said.", tf: true, why: "If you don't know, say you don't know." }
-      ]
-    },
-    {
       slug: "quake",
       title: "The great earthquake",
       line: "The earth will shake its final shake and tell its news.",
@@ -619,6 +606,19 @@ const GATHERING: DeepUnit = {
         { q: "What will the mountains be like?", a: "Fluffed-up wool", wrong: ["Gold", "Ice", "Glass"], why: "Quran 101:5." },
         { q: "What will people be like?", a: "Scattered moths", wrong: ["Sleeping cats", "Tall trees", "Calm birds"], why: "Quran 101:4." },
         { q: "Which surah describes this?", a: "Al-Qari'ah", wrong: ["Al-Fatihah", "Al-Kawthar", "Al-Ikhlas"], why: "The Striking Calamity, surah 101." }
+      ]
+    },
+    {
+      slug: "forty",
+      title: "Forty what?",
+      line: "Between the two blowings is forty. Forty what? Not said.",
+      facts: ["He refused to guess", "All of the body decays but the tailbone", "From it Allah rebuilds us"],
+      source: hadith("bukhari", "4814", "Abu Hurairah", "Sahih", "Between the two blowings is forty. They asked: forty days? forty years? He refused to answer. Everything of the body decays except the tailbone, and from it Allah rebuilds the body."),
+      difficulty: 4,
+      questions: [
+        { q: "What did Abu Hurayrah do when asked 'forty days or years?'", a: "Refused to guess", wrong: ["Said forty years", "Said forty days", "Laughed"], why: "He only said what he heard." },
+        { q: "Which bone does not decay?", a: "The tailbone", wrong: ["The skull", "The teeth", "The heart"], why: "From it Allah rebuilds the body." },
+        { q: "Abu Hurayrah's lesson: don't add to what the Prophet ﷺ said.", tf: true, why: "If you don't know, say you don't know." }
       ]
     },
     {
@@ -701,20 +701,6 @@ const RECKONING: DeepUnit = {
   lessonType: "skill",
   lessons: [
     {
-      slug: "atom",
-      title: "An atom's weight",
-      line: "Even an atom's weight of good, you will see it.",
-      facts: ["Quran 99:7-8", "Nothing is too small"],
-      quote: quranQuote(99, 7),
-      source: quran(99, 7, "Whoever does an atom's weight of good will see it, and whoever does an atom's weight of evil will see it."),
-      difficulty: 2,
-      questions: [
-        { q: "How small a good deed will you see on that Day?", a: "Even an atom's weight", wrong: ["Only big ones", "Only ones people saw", "None"], why: "Quran 99:7." },
-        { q: "You smile at a sad classmate. Does it count?", a: "Yes, even small good is seen", wrong: ["No, too small", "Only if filmed", "Only in Ramadan"], why: "An atom's weight of good." },
-        { q: "Small bad deeds are forgotten on that Day.", tf: false, why: "Quran 99:8, unless Allah forgives them." }
-      ]
-    },
-    {
       slug: "book",
       title: "The book of deeds",
       line: "Each person gets a book that missed nothing, small or big.",
@@ -740,6 +726,19 @@ const RECKONING: DeepUnit = {
         { q: "What does the one with the book in his right hand say?", a: "Come, read my book!", wrong: ["Hide it!", "I lost it", "It is not mine"], why: "He is happy to show it." },
         { q: "What does the one with it in his left hand wish?", a: "That he never got it", wrong: ["For a bigger book", "To read it again", "For a pen"], why: "Quran 69:25." },
         { q: "Getting the book in the right hand is good news.", tf: true, why: "Quran 69:19-24." }
+      ]
+    },
+    {
+      slug: "no-interpreter",
+      title: "No translator",
+      line: "Allah will speak to each person with no translator in between.",
+      facts: ["Sahih al-Bukhari 7512", "Shield yourself, even with half a date"],
+      source: hadith("bukhari", "7512", "Adi ibn Hatim", "Sahih", "Every one of you will be spoken to by his Lord with no interpreter between them; he looks right and left and sees only his deeds, and ahead he sees the Fire; so protect yourselves from the Fire, even with half a date."),
+      difficulty: 3,
+      questions: [
+        { q: "Who will be between you and Allah when He speaks to you?", a: "No one, no translator", wrong: ["Your parents", "A lawyer", "Your teacher"], why: "Bukhari 7512." },
+        { q: "What will you see to your right and left?", a: "Only your deeds", wrong: ["Your friends", "Your money", "Nothing"], why: "What you sent ahead." },
+        { q: "How little charity can shield you from the Fire?", a: "Even half a date", wrong: ["Only a million", "Only gold", "None"], why: "Bukhari 7512 and 1417." }
       ]
     },
     {
@@ -823,6 +822,20 @@ const RECKONING: DeepUnit = {
       ]
     },
     {
+      slug: "atom",
+      title: "An atom's weight",
+      line: "Even an atom's weight of good, you will see it.",
+      facts: ["Quran 99:7-8", "Nothing is too small"],
+      quote: quranQuote(99, 7),
+      source: quran(99, 7, "Whoever does an atom's weight of good will see it, and whoever does an atom's weight of evil will see it."),
+      difficulty: 2,
+      questions: [
+        { q: "How small a good deed will you see on that Day?", a: "Even an atom's weight", wrong: ["Only big ones", "Only ones people saw", "None"], why: "Quran 99:7." },
+        { q: "You smile at a sad classmate. Does it count?", a: "Yes, even small good is seen", wrong: ["No, too small", "Only if filmed", "Only in Ramadan"], why: "An atom's weight of good." },
+        { q: "Small bad deeds are forgotten on that Day.", tf: false, why: "Quran 99:8, unless Allah forgives them." }
+      ]
+    },
+    {
       slug: "scales",
       title: "The scales of justice",
       line: "Allah sets up the scales: not even a mustard seed is missed.",
@@ -860,19 +873,6 @@ const RECKONING: DeepUnit = {
         { q: "What is heaviest on the scale?", a: "Good character", wrong: ["Gold", "Big muscles", "Many followers"], why: "Tirmidhi 2002." },
         { q: "Which is good character?", a: "Being kind and honest", wrong: ["Swearing at people", "Lying to win", "Mocking others"], why: "Character weighs most." },
         { q: "Allah dislikes foul, rude speech.", tf: true, why: "Tirmidhi 2002." }
-      ]
-    },
-    {
-      slug: "no-interpreter",
-      title: "No translator",
-      line: "Allah will speak to each person with no translator in between.",
-      facts: ["Sahih al-Bukhari 7512", "Shield yourself, even with half a date"],
-      source: hadith("bukhari", "7512", "Adi ibn Hatim", "Sahih", "Every one of you will be spoken to by his Lord with no interpreter between them; he looks right and left and sees only his deeds, and ahead he sees the Fire; so protect yourselves from the Fire, even with half a date."),
-      difficulty: 3,
-      questions: [
-        { q: "Who will be between you and Allah when He speaks to you?", a: "No one, no translator", wrong: ["Your parents", "A lawyer", "Your teacher"], why: "Bukhari 7512." },
-        { q: "What will you see to your right and left?", a: "Only your deeds", wrong: ["Your friends", "Your money", "Nothing"], why: "What you sent ahead." },
-        { q: "How little charity can shield you from the Fire?", a: "Even half a date", wrong: ["Only a million", "Only gold", "None"], why: "Bukhari 7512 and 1417." }
       ]
     }
   ]
@@ -951,19 +951,6 @@ const HAWD: DeepUnit = {
         { q: "How wide is the Pool?", a: "A month's journey", wrong: ["A few steps", "One mile", "A day's walk"], why: "Bukhari 6579." },
         { q: "What happens to whoever drinks from it?", a: "Never thirsty again", wrong: ["Falls asleep", "Gets rich", "Grows wings"], why: "Bukhari 6579." },
         { q: "How many cups does it have?", a: "As many as the stars", wrong: ["Seven", "One", "A hundred"], why: "Countless." }
-      ]
-    },
-    {
-      slug: "barley",
-      title: "A grain of faith",
-      line: "Even a grain of faith gets a person out of the Fire.",
-      facts: ["Then a wheat grain", "Then an atom's weight"],
-      source: hadith("bukhari", "44", "Anas ibn Malik", "Sahih", "Whoever says la ilaha illallah with faith the weight of a barley grain in his heart will be taken out of the Fire; then a wheat grain; then an atom."),
-      difficulty: 4,
-      questions: [
-        { q: "Who will be taken out of the Fire in this hadith?", a: "One with even a grain of faith", wrong: ["Only scholars", "Only the rich", "No one"], why: "Bukhari 44." },
-        { q: "What must they have said?", a: "La ilaha illallah", wrong: ["Nothing", "Any words", "Good morning"], why: "With faith in the heart." },
-        { q: "Smallest amount of faith named?", a: "An atom's weight", wrong: ["A mountain", "A brick", "A tree"], why: "Allah's mercy is huge." }
       ]
     }
   ]
@@ -1071,6 +1058,32 @@ const JANNAH: DeepUnit = {
   lessonType: "skill",
   lessons: [
     {
+      slug: "gates",
+      title: "Eight gates",
+      line: "Jannah has eight gates. Ar-Rayyan is only for those who fasted.",
+      facts: ["Sahih al-Bukhari 3257", "Closed after the fasters enter"],
+      source: hadith("bukhari", "1896", "Sahl bin Sa'd", "Sahih", "In Paradise there is a gate called ar-Rayyan; those who fasted enter through it on the Day of Resurrection and no one else; when they have entered it is closed."),
+      difficulty: 2,
+      questions: [
+        { q: "How many gates does Jannah have?", a: "Eight", wrong: ["Two", "Seven", "Twelve"], why: "Bukhari 3257." },
+        { q: "What is the gate for fasting people called?", a: "Ar-Rayyan", wrong: ["Al-Firdaws", "Al-Kawthar", "As-Salam"], why: "Bukhari 1896." },
+        { q: "Anyone can enter by ar-Rayyan.", tf: false, why: "Only those who fasted." }
+      ]
+    },
+    {
+      slug: "moon-faces",
+      title: "Faces like the full moon",
+      line: "The first group to enter Jannah shine like the full moon.",
+      facts: ["No illness or dirt", "Sweat like musk", "Hearts with no grudges"],
+      source: hadith("bukhari", "3245", "Abu Hurairah", "Sahih", "The first group to enter Paradise will shine like the full moon; they will not spit or blow their noses; their vessels are of gold and their sweat smells of musk."),
+      difficulty: 3,
+      questions: [
+        { q: "How will the first group in Jannah look?", a: "Like the full moon", wrong: ["Like shadows", "Like stones", "Tired"], why: "Bukhari 3245." },
+        { q: "What will their sweat smell like?", a: "Musk", wrong: ["Smoke", "Nothing at all", "Rain"], why: "Bukhari 3245." },
+        { q: "People in Jannah get sick.", tf: false, why: "No sickness, no dirt." }
+      ]
+    },
+    {
       slug: "no-eye",
       title: "No eye has seen",
       line: "Allah prepared what no eye has seen and no heart imagined.",
@@ -1122,32 +1135,6 @@ const JANNAH: DeepUnit = {
         { q: "How many levels does Jannah have?", a: "One hundred", wrong: ["Seven", "Ten", "One"], why: "Bukhari 2790." },
         { q: "Which level should you ask for?", a: "Al-Firdaws", wrong: ["The lowest", "Any one", "None"], why: "The highest and best." },
         { q: "How far apart are two levels?", a: "Like the sky and the earth", wrong: ["One step", "A meter", "A mile"], why: "Bukhari 2790." }
-      ]
-    },
-    {
-      slug: "gates",
-      title: "Eight gates",
-      line: "Jannah has eight gates. Ar-Rayyan is only for those who fasted.",
-      facts: ["Sahih al-Bukhari 3257", "Closed after the fasters enter"],
-      source: hadith("bukhari", "1896", "Sahl bin Sa'd", "Sahih", "In Paradise there is a gate called ar-Rayyan; those who fasted enter through it on the Day of Resurrection and no one else; when they have entered it is closed."),
-      difficulty: 2,
-      questions: [
-        { q: "How many gates does Jannah have?", a: "Eight", wrong: ["Two", "Seven", "Twelve"], why: "Bukhari 3257." },
-        { q: "What is the gate for fasting people called?", a: "Ar-Rayyan", wrong: ["Al-Firdaws", "Al-Kawthar", "As-Salam"], why: "Bukhari 1896." },
-        { q: "Anyone can enter by ar-Rayyan.", tf: false, why: "Only those who fasted." }
-      ]
-    },
-    {
-      slug: "moon-faces",
-      title: "Faces like the full moon",
-      line: "The first group to enter Jannah shine like the full moon.",
-      facts: ["No illness or dirt", "Sweat like musk", "Hearts with no grudges"],
-      source: hadith("bukhari", "3245", "Abu Hurairah", "Sahih", "The first group to enter Paradise will shine like the full moon; they will not spit or blow their noses; their vessels are of gold and their sweat smells of musk."),
-      difficulty: 3,
-      questions: [
-        { q: "How will the first group in Jannah look?", a: "Like the full moon", wrong: ["Like shadows", "Like stones", "Tired"], why: "Bukhari 3245." },
-        { q: "What will their sweat smell like?", a: "Musk", wrong: ["Smoke", "Nothing at all", "Rain"], why: "Bukhari 3245." },
-        { q: "People in Jannah get sick.", tf: false, why: "No sickness, no dirt." }
       ]
     },
     {
@@ -1297,6 +1284,20 @@ const JAHANNAM: DeepUnit = {
   lessonType: "skill",
   lessons: [
     {
+      slug: "gates",
+      title: "Seven gates",
+      line: "Jahannam has seven gates, each with its share of people.",
+      facts: ["Quran 15:44", "Jannah has eight"],
+      quote: quranQuote(15, 44),
+      source: quran(15, 44, "It has seven gates; for every gate is a portion of them assigned."),
+      difficulty: 3,
+      questions: [
+        { q: "How many gates does Jahannam have?", a: "Seven", wrong: ["Eight", "One", "Ten"], why: "Quran 15:44." },
+        { q: "How many gates does Jannah have?", a: "Eight", wrong: ["Seven", "Two", "Twelve"], why: "Bukhari 3257: one more than the Fire." },
+        { q: "Allah's mercy is greater than His anger.", tf: true, why: "Bukhari 3194." }
+      ]
+    },
+    {
       slug: "seventy",
       title: "Seventy times hotter",
       line: "Our fire is one part of seventy of the heat of Jahannam.",
@@ -1307,6 +1308,19 @@ const JAHANNAM: DeepUnit = {
         { q: "Our fire is how much of Jahannam's heat?", a: "One part of seventy", wrong: ["Half", "The same", "Twice as hot"], why: "Bukhari 3265." },
         { q: "Why did Allah tell us this?", a: "To warn us so we stay away", wrong: ["To scare kids for fun", "No reason", "To make us hopeless"], why: "A warning is a mercy." },
         { q: "Jahannam is like the fire we know.", tf: false, why: "Seventy times stronger." }
+      ]
+    },
+    {
+      slug: "surrounded",
+      title: "What surrounds them",
+      line: "Jannah is surrounded by hard things; the Fire by what we crave.",
+      facts: ["Sahih Muslim 2822", "Bukhari 6487"],
+      source: hadith("muslim", "2822", "Anas ibn Malik", "Sahih", "Paradise is surrounded by hardships, and the Fire is surrounded by desires."),
+      difficulty: 3,
+      questions: [
+        { q: "What surrounds Jannah?", a: "Hard things", wrong: ["Easy fun", "Gold walls", "Nothing"], why: "Muslim 2822." },
+        { q: "What surrounds the Fire?", a: "Desires and cravings", wrong: ["Hard work", "Prayer", "Patience"], why: "Muslim 2822." },
+        { q: "Waking for Fajr when sleepy is a hard thing that leads to Jannah.", tf: true, why: "Good often feels hard at first." }
       ]
     },
     {
@@ -1324,33 +1338,6 @@ const JAHANNAM: DeepUnit = {
       ]
     },
     {
-      slug: "gates",
-      title: "Seven gates",
-      line: "Jahannam has seven gates, each with its share of people.",
-      facts: ["Quran 15:44", "Jannah has eight"],
-      quote: quranQuote(15, 44),
-      source: quran(15, 44, "It has seven gates; for every gate is a portion of them assigned."),
-      difficulty: 3,
-      questions: [
-        { q: "How many gates does Jahannam have?", a: "Seven", wrong: ["Eight", "One", "Ten"], why: "Quran 15:44." },
-        { q: "How many gates does Jannah have?", a: "Eight", wrong: ["Seven", "Two", "Twelve"], why: "Bukhari 3257: one more than the Fire." },
-        { q: "Allah's mercy is greater than His anger.", tf: true, why: "Bukhari 3194." }
-      ]
-    },
-    {
-      slug: "surrounded",
-      title: "What surrounds them",
-      line: "Jannah is surrounded by hard things; the Fire by what we crave.",
-      facts: ["Sahih Muslim 2822", "Bukhari 6487"],
-      source: hadith("muslim", "2822", "Anas ibn Malik", "Sahih", "Paradise is surrounded by hardships, and the Fire is surrounded by desires."),
-      difficulty: 3,
-      questions: [
-        { q: "What surrounds Jannah?", a: "Hard things", wrong: ["Easy fun", "Gold walls", "Nothing"], why: "Muslim 2822." },
-        { q: "What surrounds the Fire?", a: "Desires and cravings", wrong: ["Hard work", "Prayer", "Patience"], why: "Muslim 2822." },
-        { q: "Waking for Fajr when sleepy is a hard thing that leads to Jannah.", tf: true, why: "Good often feels hard at first." }
-      ]
-    },
-    {
       slug: "one-dip",
       title: "One dip",
       line: "One dip in Jannah erases a lifetime of pain.",
@@ -1361,6 +1348,19 @@ const JAHANNAM: DeepUnit = {
         { q: "After one dip in the Fire, what does the richest man say?", a: "I never saw any good", wrong: ["I was rich", "I want more", "It's fine"], why: "Muslim 2807." },
         { q: "After one dip in Jannah, what does the poorest man say?", a: "I never felt hardship", wrong: ["I was poor", "I'm still sad", "Nothing"], why: "Muslim 2807." },
         { q: "What does this teach?", a: "The Akhirah outweighs everything here", wrong: ["This world is all", "Rich people win", "Pain lasts forever"], why: "One moment there erases a lifetime here." }
+      ]
+    },
+    {
+      slug: "breaths",
+      title: "Two breaths",
+      line: "The Fire was allowed two breaths: one in summer, one in winter.",
+      facts: ["Sahih al-Bukhari 3260", "The hottest heat, the bitterest cold"],
+      source: hadith("bukhari", "3260", "Abu Hurairah", "Sahih", "The Fire complained to its Lord: parts of me eat other parts. So He allowed it two breaths, one in winter and one in summer: that is the strongest heat and the bitterest cold you feel."),
+      difficulty: 4,
+      questions: [
+        { q: "How many breaths was the Fire allowed?", a: "Two", wrong: ["One", "Seven", "None"], why: "Bukhari 3260." },
+        { q: "When are they?", a: "Summer and winter", wrong: ["Day and night", "Ramadan and Eid", "Spring and autumn"], why: "Strongest heat and bitterest cold." },
+        { q: "A very hot day can remind you of the Fire.", tf: true, why: "Bukhari 3260." }
       ]
     },
     {
@@ -1377,16 +1377,16 @@ const JAHANNAM: DeepUnit = {
       ]
     },
     {
-      slug: "breaths",
-      title: "Two breaths",
-      line: "The Fire was allowed two breaths: one in summer, one in winter.",
-      facts: ["Sahih al-Bukhari 3260", "The hottest heat, the bitterest cold"],
-      source: hadith("bukhari", "3260", "Abu Hurairah", "Sahih", "The Fire complained to its Lord: parts of me eat other parts. So He allowed it two breaths, one in winter and one in summer: that is the strongest heat and the bitterest cold you feel."),
+      slug: "barley",
+      title: "A grain of faith",
+      line: "Even a grain of faith gets a person out of the Fire.",
+      facts: ["Then a wheat grain", "Then an atom's weight"],
+      source: hadith("bukhari", "44", "Anas ibn Malik", "Sahih", "Whoever says la ilaha illallah with faith the weight of a barley grain in his heart will be taken out of the Fire; then a wheat grain; then an atom."),
       difficulty: 4,
       questions: [
-        { q: "How many breaths was the Fire allowed?", a: "Two", wrong: ["One", "Seven", "None"], why: "Bukhari 3260." },
-        { q: "When are they?", a: "Summer and winter", wrong: ["Day and night", "Ramadan and Eid", "Spring and autumn"], why: "Strongest heat and bitterest cold." },
-        { q: "A very hot day can remind you of the Fire.", tf: true, why: "Bukhari 3260." }
+        { q: "Who will be taken out of the Fire in this hadith?", a: "One with even a grain of faith", wrong: ["Only scholars", "Only the rich", "No one"], why: "Bukhari 44." },
+        { q: "What must they have said?", a: "La ilaha illallah", wrong: ["Nothing", "Any words", "Good morning"], why: "With faith in the heart." },
+        { q: "Smallest amount of faith named?", a: "An atom's weight", wrong: ["A mountain", "A brick", "A tree"], why: "Allah's mercy is huge." }
       ]
     },
     {
@@ -1523,7 +1523,10 @@ const READY: DeepUnit = {
   ]
 };
 
-export const AKHIRAH_UNITS: readonly DeepUnit[] = [LAST_DAY, MINOR_SIGNS, MAJOR_SIGNS, GRAVE, GATHERING, RECKONING, HAWD, SIRAT, JANNAH, JAHANNAM, READY];
+// In the order things happen: the signs, death and the grave, then the Horn and everyone raised and gathered; the
+// great intercession that starts the judgment, the reckoning and the scales; the bridge over Jahannam; then Jahannam
+// (and those taken out of it by intercession) and Jannah, where the last one out of the Fire enters last.
+export const AKHIRAH_UNITS: readonly DeepUnit[] = [LAST_DAY, MINOR_SIGNS, MAJOR_SIGNS, GRAVE, GATHERING, HAWD, RECKONING, SIRAT, JAHANNAM, JANNAH, READY];
 
 /** The Day of Judgment topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const AKHIRAH_SECTION: LearningSection = {

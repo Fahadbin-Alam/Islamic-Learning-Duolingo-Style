@@ -21,5 +21,18 @@ export const PICTURE_IMAGES: Record<string, ImageSourcePropType> = {
   "jerusalem": require("../../assets/pictures/jerusalem.jpg"),
   "desert": require("../../assets/pictures/desert.jpg"),
   "date-palms": require("../../assets/pictures/date-palms.jpg"),
-  "manuscript": require("../../assets/pictures/manuscript.jpg")
+  "manuscript": require("../../assets/pictures/manuscript.jpg"),
+  "sirat": require("../../assets/pictures/sirat.jpg"),
+  "scales": require("../../assets/pictures/scales.jpg"),
+  "pool": require("../../assets/pictures/pool.jpg"),
+  "sun-west": require("../../assets/pictures/sun-west.jpg"),
+  "grave": require("../../assets/pictures/grave.jpg"),
+  "garden": require("../../assets/pictures/garden.jpg"),
+  "ark": require("../../assets/pictures/ark.jpg"),
+  "sea-split": require("../../assets/pictures/sea-split.jpg"),
+  "big-fish": require("../../assets/pictures/big-fish.jpg"),
+  "ants": require("../../assets/pictures/ants.jpg"),
+  "nile": require("../../assets/pictures/nile.jpg"),
+  "ahqaf": require("../../assets/pictures/ahqaf.jpg"),
+  "desert-well": require("../../assets/pictures/desert-well.jpg")
 };
