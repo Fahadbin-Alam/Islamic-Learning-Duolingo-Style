@@ -128,14 +128,14 @@ export type LearnPathProps = {
 // ---------- geometry ----------
 
 const OFFSETS = [0, 48, 72, 48, 0, -48, -72, -48];
-const NODE = 72;
+const NODE = 62;
 const NODE_LIP = 7;
-const RING = 96;
-const ROW_H = 98;
+const RING = 84;
+const ROW_H = 88;
 const CURRENT_EXTRA = 46;
 /** Where a circle's face starts inside its RING box (the hit box is centred with a half-lip top margin). */
 const FACE_TOP = (RING - NODE) / 2 - NODE_LIP / 4;
-const CHEST = 68;
+const CHEST = 58;
 const MASCOT_SIZE = 84;
 const MASCOT_W = MASCOT_SIZE;
 const MASCOT_H = Math.round((MASCOT_SIZE * 7) / 6);
@@ -163,7 +163,7 @@ const UNIT_PAD = 16;
  * sticky banner has measured itself: a low guess never lets the real banner peek out under it.
  */
 const STICKY_MIN = 64;
-const END_NODE = 88;
+const END_NODE = 76;
 const END_LIP = 8;
 const HINT_MS = 1600;
 
@@ -390,7 +390,7 @@ const PathNode = memo(function PathNode({
           <View style={[styles.nodeRim, { borderColor: withAlpha(colors.white, locked ? 0.45 : 0.28) }]} />
           <View style={styles.nodeShine} />
           <View style={styles.nodeShineDot} />
-          {showIcon ? <Icon name={look.icon} size={34} color={look.iconColor} detailColor={look.iconDetail} /> : null}
+          {showIcon ? <Icon name={look.icon} size={29} color={look.iconColor} detailColor={look.iconDetail} /> : null}
         </Animated.View>
       </Pressable>
     </View>
@@ -840,11 +840,11 @@ function PathEnd({
               <View style={[styles.endFace, { backgroundColor: done ? colors.gold : colors.locked }]}>
                 <View style={styles.nodeShine} />
                 {done ? (
-                  <Icon name="trophy" size={46} color={colors.white} detailColor={colors.goldLip} />
+                  <Icon name="trophy" size={40} color={colors.white} detailColor={colors.goldLip} />
                 ) : (
                   // The real gold cup, faded: the prize ahead, not one more locked review node.
                   <View style={styles.endFaded}>
-                    <Icon name="trophy" size={50} />
+                    <Icon name="trophy" size={43} />
                   </View>
                 )}
               </View>
@@ -1566,18 +1566,18 @@ const styles = StyleSheet.create({
   },
   nodeShine: {
     position: "absolute",
-    top: 9,
-    left: 13,
-    width: 24,
-    height: 11,
+    top: 8,
+    left: 11,
+    width: 21,
+    height: 10,
     borderRadius: 6,
     backgroundColor: withAlpha(colors.white, 0.4),
     transform: [{ rotate: "-28deg" }]
   },
   nodeShineDot: {
     position: "absolute",
-    top: 22,
-    left: 10,
+    top: 19,
+    left: 9,
     width: 6,
     height: 6,
     borderRadius: 3,
