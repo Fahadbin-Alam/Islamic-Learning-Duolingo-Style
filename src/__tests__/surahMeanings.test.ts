@@ -156,9 +156,11 @@ describe("Al-Baqarah in depth", () => {
       ["Tafsir Ibn Kathir 2:30-39", "https://quran.com/2:30/tafsirs/en-tafisr-ibn-kathir"],
       ["Tafsir as-Sa'di 2:30-39", "https://quran.com/2:30/tafsirs/ar-tafseer-al-saddi"]
     ]);
-    // A surah not yet taught in depth keeps its short card.
-    const plain = SURAH_MEANINGS.find((each) => !DEEP_PASSAGES[each.surah])!;
-    expect(LESSONS_BY_ID[`lesson-surah-meaning-${plain.surah}-${plain.passages[0].at}`]?.learnDeeper ?? undefined).toBeUndefined();
+    // Every surah with a meanings card is now taught in depth, so every first card opens a deeper view.
+    for (const each of SURAH_MEANINGS) {
+      expect(DEEP_PASSAGES[each.surah]).toBeDefined();
+      expect(LESSONS_BY_ID[`lesson-surah-meaning-${each.surah}-${each.passages[0].at}`]?.learnDeeper).toBeDefined();
+    }
   });
 
   it("asks two harder questions after the card's own three, each answered on the card and sourced", () => {
