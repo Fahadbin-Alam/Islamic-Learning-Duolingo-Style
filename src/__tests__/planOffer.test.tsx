@@ -174,7 +174,9 @@ describe("the plans when hearts run out", () => {
     await press("plan-offer-buy-membership-yearly");
     await passGrownUp();
     expect(purchaseShopItem).toHaveBeenCalledWith(expect.objectContaining({ id: "membership-yearly" }));
-    expect(screen.getByTestId("exercise-view")).toBeTruthy();
+    // The lesson goes on: the next page after the missed question.
+    expect(screen.queryByTestId("refill-sheet")).toBeNull();
+    expect(screen.getByTestId("learn-card")).toBeTruthy();
     expect(savedUser().hearts.unlimited).toBe(true);
   });
 

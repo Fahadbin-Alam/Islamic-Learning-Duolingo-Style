@@ -45,6 +45,7 @@ import { clearActiveAssessment, clearPracticeResult } from "../services/localPro
 import type { Challenge, FoundationAssessmentState, FoundationQuestion, LearningNode, LearningNodeView, UserProfile } from "../types";
 import { isPlayablePractice } from "../ui/lesson";
 import { LearnPath, RefillSheet, type PathUnit } from "../ui/screens";
+import { finishLessonRight, toQuestion } from "./lessonDriver";
 import { makeUser } from "./testUtils";
 
 type Answer = string | string[] | Record<string, string>;
@@ -155,10 +156,7 @@ describe("the path's START after a jump ahead (V8)", () => {
     await screen.findByTestId("learn-path-foundation");
     await press(`path-node-${node.id}`);
     await press("node-card-start");
-    await press("learn-continue");
-    for (const challenge of session.lesson.challenges) {
-      await answer(challenge, true);
-    }
+    await finishLessonRight(session.lesson.challenges);
     expect(await screen.findByTestId("lesson-complete")).toBeTruthy();
     const saved = savedUser().pathFocusIds ?? {};
     expect(saved.quran_tafseer).toBe(target.id);
@@ -261,7 +259,7 @@ describe("the out-of-hearts sheet's sound (V10)", () => {
     await screen.findByTestId("learn-path-foundation");
     await press(`path-node-${node.id}`);
     await press("node-card-start");
-    await press("learn-continue");
+    await toQuestion();
     await press(`choice-${first.choices.find((choice) => choice.id !== first.correctChoiceId)!.id}`);
     await press("exercise-check");
     expect(sounds()).toContain("wrong");

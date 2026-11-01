@@ -46,6 +46,7 @@ import {
   submitFoundationAssessmentAnswer
 } from "../services/foundationAssessment";
 import type { Challenge, FoundationAssessmentState, UserProfile } from "../types";
+import { finishLessonRight, questionOnScreen, toQuestion } from "./lessonDriver";
 import { makeUser } from "./testUtils";
 
 const PROFILE_KEY = "sira-path-user-profile";
@@ -261,14 +262,11 @@ describe("path circles and lesson cards", () => {
     await press(`path-node-${node.id}`);
     expect(screen.getByTestId("node-card-start")).toHaveTextContent(new RegExp(`Start \\+${getNodeXp(node)} XP`, "i"));
     await press("node-card-start");
-    await press("learn-continue");
+    await toQuestion();
 
-    // One miss, then it comes back and is right: 2 stars.
+    // One miss, then everything right (the circle's quiz asks it again): 2 stars.
     await answer(challenges[0], false);
-    for (const challenge of challenges.slice(1)) {
-      await answer(challenge, true);
-    }
-    await answer(challenges[0], true);
+    await finishLessonRight(challenges);
     expect(screen.getByLabelText("2 of 3 stars")).toBeTruthy();
     // The card counts up to it, so read the saved total.
     expect(savedUser().totalXp).toBe(user.totalXp + getNodeXp(node));
@@ -322,7 +320,15 @@ describe("path circles and lesson cards", () => {
 
   it("puts the lesson's own source on the learn card, by its short reference", async () => {
     const lesson = await openFoundationCard((item) => Boolean(item?.learnSource?.reference));
-    // The chip, or the quote's own reference line when they name the same source.
+    // The chip, or the quote's own reference line when they name the same source: on the first page with the
+    // quote, or on the What you learn page.
+    for (let step = 0; step < 8 && !screen.queryByTestId("learn-source") && !screen.queryByTestId("learn-quote-reference"); step += 1) {
+      if (screen.queryByTestId("exercise-view")) {
+        await answer(questionOnScreen(lesson.challenges)!, true);
+      } else {
+        await press("learn-continue");
+      }
+    }
     const shown = screen.queryByTestId("learn-source") ?? screen.getByTestId("learn-quote-reference");
     expect(shown).toHaveTextContent(lesson.learnSource!.reference!);
   });
