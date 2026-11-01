@@ -126,6 +126,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "hadith-famous": { ar: "أحاديث مشهورة", translit: "Ahadith mashhurah", meaning: "Famous hadith" },
   "hadith-good-heart": { ar: "صلاح القلب", translit: "Salah al-qalb", meaning: "A sound heart" },
   "hadith-knowledge": { ar: "طلب العلم", translit: "Talab al-'ilm", meaning: "Seeking knowledge" },
+  "prayer-reward": { ar: "فضل الصلاة", translit: "Fadl as-salah", meaning: "The virtue of prayer" },
+  "prayer-extra": { ar: "صلاة التطوع", translit: "Salat at-tatawwu'", meaning: "Voluntary prayer" },
+  "prayer-jumuah": { ar: "صلاة الجمعة", translit: "Salat al-jumu'ah", meaning: "The Friday prayer" },
+  "prayer-after-salah": { ar: "أذكار بعد الصلاة", translit: "Adhkar ba'd as-salah", meaning: "Remembrance after prayer" },
 
   // Hajj: duty, rites and sacred sites
   "hajj-duty": { ar: "فريضة الحج", translit: "Faridat al-Hajj", meaning: "The duty of Hajj" },
@@ -707,6 +711,7 @@ const LEARN_FORMS = [
   "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
   "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
   "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ",
+  "فَضْلُ الصَّلَاةِ", "صَلَاةُ التَّطَوُّعِ", "صَلَاةُ الْجُمُعَةِ", "أَذْكَارُ بَعْدَ الصَّلَاةِ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
