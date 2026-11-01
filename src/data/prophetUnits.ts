@@ -1419,4 +1419,507 @@ const YUSHA = unit("prophet-yusha", "prophets-unit-yusha", "Yusha'", [
   }
 ]);
 
-export const PROPHET_UNITS: readonly DeepUnit[] = [ADAM, IDRIS, NUH, HUD, SALIH, IBRAHIM, LUT, SHUAIB, ISMAIL, ISHAQ_YAQUB, YUSUF, AYYUB, YUNUS, MUSA, YUSHA];
+const ILYAS_ALYASA = unit("prophet-ilyas-alyasa", "prophets-unit-ilyas-alyasa", "Ilyas and Al-Yasa'", [
+  {
+    slug: "messenger",
+    title: "Ilyas, a messenger",
+    line: "Ilyas, a messenger, asked his people: will you not fear Allah?",
+    facts: ["Quran 37:123-124", "Sent to his people"],
+    quote: quranQuote(37, 123),
+    source: quran(37, 123, "Ilyas was one of the messengers, when he said to his people: will you not fear Allah?"),
+    difficulty: 2,
+    questions: [
+      { q: "What was Ilyas, as Quran 37:123 says?", a: "One of the messengers", wrong: ["A king", "A magician", "An angel"], why: "Quran 37:123." },
+      { q: "What did Ilyas ask his people?", a: "Will you not fear Allah?", wrong: ["Will you pay me?", "Where is the king?", "Who is strongest?"], why: "Quran 37:124." },
+      { q: "Ilyas called his people back to Allah alone.", tf: true, why: "Quran 37:124-126." }
+    ]
+  },
+  {
+    slug: "baal",
+    title: "The idol Ba'l",
+    line: "His people prayed to an idol called Ba'l and left Allah.",
+    facts: ["Quran 37:125", "Allah, best of creators"],
+    quote: quranQuote(37, 125),
+    source: quran(37, 125, "Do you call on Ba'l and leave the Best of creators, Allah, your Lord and the Lord of your forefathers?"),
+    difficulty: 3,
+    questions: [
+      { q: "What was the name of the idol of Ilyas's people?", a: "Ba'l", wrong: ["Hubal", "Al-Lat", "Wadd"], why: "Quran 37:125." },
+      { q: "What does Ilyas call Allah in Quran 37:125?", a: "The Best of creators", wrong: ["The god of the sea", "One of many", "The sun"], why: "And leave the Best of creators." },
+      { q: "Whose Lord did Ilyas say Allah is?", a: "Theirs and their forefathers'", wrong: ["Only the king's", "Only his", "No one's"], why: "Your Lord and the Lord of your forefathers (Quran 37:126)." }
+    ]
+  },
+  {
+    slug: "peace",
+    title: "Peace upon Ilyas",
+    line: "Allah sends peace upon Ilyas, a believing servant.",
+    facts: ["Quran 37:130", "Among the doers of good"],
+    quote: quranQuote(37, 130),
+    source: quran(37, 130, "Peace be upon Ilyas. This is how We reward those who do good. He was one of Our believing servants."),
+    difficulty: 3,
+    questions: [
+      { q: "What does Allah send upon Ilyas in Quran 37:130?", a: "Peace", wrong: ["Wealth", "Anger", "A storm"], why: "Quran 37:130." },
+      { q: "What kind of servant was Ilyas?", a: "A believing servant", wrong: ["A lazy servant", "A king's servant", "A runaway"], why: "Quran 37:132." },
+      { q: "Allah rewards those who do good like this.", tf: true, why: "This is how We reward the doers of good (Quran 37:131)." }
+    ]
+  },
+  {
+    slug: "alyasa",
+    title: "Al-Yasa', among the best",
+    line: "The Quran names Al-Yasa' among the chosen and the best.",
+    facts: ["Quran 38:48", "Quran 6:86"],
+    quote: quranQuote(38, 48),
+    source: quran(38, 48, "And remember Ismail, Al-Yasa' and Dhul-Kifl: each of them was among the best."),
+    difficulty: 4,
+    questions: [
+      { q: "How does Quran 38:48 describe Al-Yasa'?", a: "Among the best", wrong: ["Among the losers", "A tyrant", "Unknown"], why: "Each of them was among the best." },
+      { q: "Who is named with Al-Yasa' in Quran 38:48?", a: "Ismail and Dhul-Kifl", wrong: ["Pharaoh and Haman", "Qarun", "Iblis"], why: "Quran 38:48." },
+      { q: "In Quran 6:86, Allah preferred Al-Yasa' over the worlds.", tf: true, why: "All of them We preferred over the worlds." }
+    ]
+  }
+]);
+
+const DAWUD = unit("prophet-dawud", "prophets-unit-dawud", "Dawud", [
+  {
+    slug: "jalut",
+    title: "Dawud and Jalut",
+    line: "Dawud defeated Jalut, and Allah gave him a kingdom and wisdom.",
+    facts: ["Quran 2:251", "Kingship and wisdom"],
+    quote: quranQuote(2, 251),
+    source: quran(2, 251, "They defeated them by Allah's permission, and Dawud killed Jalut, and Allah gave him the kingdom and wisdom and taught him what He willed."),
+    difficulty: 1,
+    questions: [
+      { q: "Whom did Dawud defeat?", a: "Jalut", wrong: ["Pharaoh", "Qarun", "Namrud"], why: "Quran 2:251." },
+      { q: "By whose permission did they win?", a: "Allah's", wrong: ["The king's", "Their own", "The giant's"], why: "By Allah's permission." },
+      { q: "What did Allah give Dawud after that?", a: "Kingdom and wisdom", wrong: ["Only gold", "A ship", "Nothing"], why: "Quran 2:251." }
+    ]
+  },
+  {
+    slug: "zabur",
+    title: "The Zabur",
+    line: "Allah gave Dawud a book called the Zabur.",
+    facts: ["Quran 17:55", "Recited quickly"],
+    quote: quranQuote(17, 55),
+    source: quran(17, 55, "We have made some prophets better than others, and to Dawud We gave the Zabur."),
+    difficulty: 1,
+    questions: [
+      { q: "Which book did Allah give Dawud?", a: "The Zabur", wrong: ["The Tawrah", "The Injil", "The Quran"], why: "Quran 17:55." },
+      { q: "How fast could Dawud recite the Zabur?", a: "Before his animals were saddled", wrong: ["In a year", "Never in one go", "In a month"], why: "Sahih al-Bukhari 3417." },
+      { q: "The Zabur was given to Musa.", tf: false, why: "It was given to Dawud." }
+    ]
+  },
+  {
+    slug: "mountains-birds",
+    title: "Mountains and birds praise",
+    line: "The mountains and birds praised Allah along with Dawud.",
+    facts: ["Quran 34:10", "Iron made soft"],
+    quote: quranQuote(34, 10),
+    source: quran(34, 10, "We gave Dawud a favor from Us: O mountains and birds, praise along with him. And We made iron soft for him."),
+    difficulty: 2,
+    questions: [
+      { q: "What praised Allah along with Dawud?", a: "The mountains and the birds", wrong: ["The fish", "The stars", "The kings"], why: "Quran 34:10." },
+      { q: "Which metal did Allah make soft for Dawud?", a: "Iron", wrong: ["Gold", "Silver", "Copper"], why: "Quran 34:10." },
+      { q: "What did Dawud make from the iron?", a: "Coats of armor", wrong: ["Swords for sale", "Crowns", "Coins"], why: "Quran 34:11 and 21:80." }
+    ]
+  },
+  {
+    slug: "own-hands",
+    title: "Food from his own work",
+    line: "Though a king, Dawud ate only from his own hands' work.",
+    facts: ["Sahih al-Bukhari 2072", "Best food is earned"],
+    source: hadith("bukhari", "2072", "Al-Miqdam ibn Ma'dikarib", "Sahih", "No one has eaten better food than what he earned with his own hands, and Allah's prophet Dawud used to eat from the work of his own hands."),
+    difficulty: 2,
+    questions: [
+      { q: "What is the best food, the Prophet ﷺ said?", a: "What you earn with your hands", wrong: ["A king's feast", "Free food", "Food from far away"], why: "Sahih al-Bukhari 2072." },
+      { q: "Whose example did he ﷺ give?", a: "Dawud's", wrong: ["Pharaoh's", "Qarun's", "Yunus's"], why: "Dawud ate from the work of his hands." },
+      { q: "Dawud lived off the treasury because he was king.", tf: false, why: "He ate from his own work." }
+    ]
+  },
+  {
+    slug: "fast-of-dawud",
+    title: "The fast of Dawud",
+    line: "The fast Allah loves most: Dawud's, fasting every other day.",
+    facts: ["Sahih al-Bukhari 1131", "Also his night prayer"],
+    source: hadith("bukhari", "1131", "Abdullah ibn Amr", "Sahih", "The prayer most loved by Allah is Dawud's and the fast most loved by Allah is Dawud's. He slept half the night, prayed a third, and slept a sixth, and he fasted every other day."),
+    difficulty: 3,
+    questions: [
+      { q: "How did Dawud fast?", a: "Every other day", wrong: ["Every day", "Once a year", "Only Mondays"], why: "Sahih al-Bukhari 1131." },
+      { q: "How much of the night did Dawud pray?", a: "A third", wrong: ["All of it", "None", "A tenth"], why: "He prayed a third of the night." },
+      { q: "Whose fast did the Prophet ﷺ call most loved by Allah?", a: "Dawud's", wrong: ["Musa's", "Isa's", "Nuh's"], why: "Sahih al-Bukhari 1131." }
+    ]
+  },
+  {
+    slug: "judge",
+    title: "Judge with truth",
+    line: "Allah told Dawud: judge between people with truth, not desire.",
+    facts: ["Quran 38:26", "A successor on earth"],
+    quote: quranQuote(38, 26),
+    source: quran(38, 26, "O Dawud, We have made you a successor on earth, so judge between people with truth and do not follow desire, for it will lead you away from Allah's path."),
+    difficulty: 4,
+    questions: [
+      { q: "How was Dawud told to judge?", a: "With truth", wrong: ["With guesses", "With desire", "With gifts"], why: "Quran 38:26." },
+      { q: "What did Allah warn would lead him astray?", a: "Following desire", wrong: ["Praying", "Fasting", "Working"], why: "Do not follow desire." },
+      { q: "What does Quran 38:17 call Dawud?", a: "A man of strength, always turning to Allah", wrong: ["A weak man", "A careless king", "A poet"], why: "The possessor of strength; he always turned back to Allah." }
+    ]
+  }
+]);
+
+const SULAYMAN = unit("prophet-sulayman", "prophets-unit-sulayman", "Sulayman", [
+  {
+    slug: "birds",
+    title: "The language of birds",
+    line: "Sulayman, Dawud's heir, was taught the speech of the birds.",
+    facts: ["Quran 27:16", "A clear favor"],
+    quote: quranQuote(27, 16),
+    source: quran(27, 16, "Sulayman inherited from Dawud and said: O people, we have been taught the speech of birds and given from everything. This is a clear favor."),
+    difficulty: 1,
+    questions: [
+      { q: "Whose speech was Sulayman taught?", a: "The birds'", wrong: ["The fish's", "The stars'", "The kings'"], why: "Quran 27:16." },
+      { q: "Who was Sulayman's father?", a: "Dawud", wrong: ["Musa", "Ibrahim", "Zakariyya"], why: "Sulayman inherited from Dawud." },
+      { q: "What did Sulayman call these gifts?", a: "A clear favor", wrong: ["His own skill", "Luck", "Magic"], why: "This is a clear favor." }
+    ]
+  },
+  {
+    slug: "field",
+    title: "The sheep in the field",
+    line: "Allah gave Sulayman understanding in the case of the field.",
+    facts: ["Quran 21:78-79", "Both had wisdom"],
+    quote: quranQuote(21, 79),
+    source: quran(21, 79, "We made Sulayman understand the case, and to each of them We gave judgment and knowledge."),
+    difficulty: 2,
+    questions: [
+      { q: "What ruined the field in the case?", a: "Sheep, at night", wrong: ["A flood", "Locusts", "Fire"], why: "Quran 21:78." },
+      { q: "Who did Allah give understanding of the case?", a: "Sulayman", wrong: ["The farmer", "The shepherd", "No one"], why: "Quran 21:79." },
+      { q: "Allah gave Dawud and Sulayman both judgment and knowledge.", tf: true, why: "To each of them We gave judgment and knowledge." }
+    ]
+  },
+  {
+    slug: "two-mothers",
+    title: "The two mothers",
+    line: "Sulayman found a baby's true mother by her mercy.",
+    facts: ["Sahih al-Bukhari 3427", "A wise judge"],
+    source: hadith("bukhari", "3427", "Abu Hurairah", "Sahih", "A wolf took one of two women's babies, and both claimed the living one. Sulayman called for a knife to divide it. The younger said: don't, may Allah have mercy on you, it is hers. So he gave the baby to the younger."),
+    difficulty: 3,
+    questions: [
+      { q: "How did Sulayman find the true mother?", a: "She would give up the baby to save it", wrong: ["She shouted louder", "She was older", "She paid him"], why: "Sahih al-Bukhari 3427." },
+      { q: "Who got the baby in the end?", a: "The younger woman", wrong: ["The older woman", "Sulayman", "No one"], why: "He gave the child to the younger." },
+      { q: "Sulayman really meant to cut the baby.", tf: false, why: "It was a test to show who the real mother was." }
+    ]
+  },
+  {
+    slug: "ant",
+    title: "The ant's warning",
+    line: "An ant warned the others, and Sulayman smiled and thanked Allah.",
+    facts: ["Quran 27:18-19", "Make me grateful"],
+    quote: quranQuote(27, 19),
+    source: quran(27, 19, "He smiled, amused at her words, and said: my Lord, inspire me to be grateful for Your favor on me and my parents, and to do good that pleases You."),
+    difficulty: 3,
+    questions: [
+      { q: "What did the ant tell the other ants?", a: "Go into your homes", wrong: ["Attack the army", "Climb a tree", "Run to the sea"], why: "So Sulayman's army does not crush you (Quran 27:18)." },
+      { q: "What did Sulayman do when he heard the ant?", a: "Smiled and thanked Allah", wrong: ["Got angry", "Ignored it", "Stepped on it"], why: "Quran 27:19." },
+      { q: "Sulayman asked Allah to make him grateful.", tf: true, why: "My Lord, inspire me to be grateful." }
+    ]
+  },
+  {
+    slug: "hoopoe",
+    title: "The hoopoe's news",
+    line: "The hoopoe brought news of Saba, a land ruled by a queen.",
+    facts: ["Quran 27:22-24", "Sure news from Saba"],
+    quote: quranQuote(27, 22),
+    source: quran(27, 22, "The hoopoe did not stay away long and said: I know something you do not, and I have come to you from Saba with sure news."),
+    difficulty: 4,
+    questions: [
+      { q: "Which bird brought Sulayman news?", a: "The hoopoe", wrong: ["The crow", "The eagle", "The dove"], why: "Quran 27:20-22." },
+      { q: "Where did the news come from?", a: "Saba", wrong: ["Egypt", "Madyan", "Babylon"], why: "I have come from Saba." },
+      { q: "What did the people of Saba worship?", a: "The sun", wrong: ["The moon", "A calf", "Fire"], why: "Quran 27:24." }
+    ]
+  },
+  {
+    slug: "queen",
+    title: "The queen submits",
+    line: "The queen of Saba said: I submit with Sulayman to Allah.",
+    facts: ["Quran 27:44", "Her throne was brought"],
+    quote: quranQuote(27, 44),
+    source: quran(27, 44, "She said: my Lord, I have wronged myself, and I submit with Sulayman to Allah, Lord of the worlds."),
+    difficulty: 4,
+    questions: [
+      { q: "What did the queen of Saba do in the end?", a: "Submitted to Allah", wrong: ["Went to war", "Ran away", "Built an idol"], why: "Quran 27:44." },
+      { q: "How fast was her throne brought?", a: "In the blink of an eye", wrong: ["In a year", "In a month", "Never"], why: "Before your glance returns (Quran 27:40)." },
+      { q: "What did Sulayman call it when he saw the throne?", a: "A favor from my Lord, to test me", wrong: ["My own power", "Magic", "Luck"], why: "Quran 27:40." }
+    ]
+  },
+  {
+    slug: "wind-jinn",
+    title: "The wind and the jinn",
+    line: "Allah put the wind and some jinn to work for Sulayman.",
+    facts: ["Quran 34:12", "A month's journey"],
+    quote: quranQuote(34, 12),
+    source: quran(34, 12, "And to Sulayman the wind: its morning course a month and its evening course a month. And some jinn worked for him by his Lord's permission."),
+    difficulty: 4,
+    questions: [
+      { q: "What did Allah make serve Sulayman?", a: "The wind and some jinn", wrong: ["The sun", "The angels", "The sea monsters"], why: "Quran 34:12." },
+      { q: "How far did the wind carry him in a morning?", a: "A month's journey", wrong: ["One mile", "A year's journey", "Nowhere"], why: "Quran 34:12." },
+      { q: "What did Sulayman ask for in Quran 38:35?", a: "Forgiveness and a unique kingdom", wrong: ["Long life only", "Many sons", "Revenge"], why: "My Lord, forgive me and give me a kingdom." }
+    ]
+  },
+  {
+    slug: "staff",
+    title: "The staff and the jinn",
+    line: "Sulayman died leaning on his staff, and the jinn did not know.",
+    facts: ["Quran 34:14", "Only Allah knows the unseen"],
+    quote: quranQuote(34, 14),
+    source: quran(34, 14, "When We decreed his death, nothing showed the jinn he had died except a creature of the earth eating his staff. When he fell, the jinn saw that had they known the unseen, they would not have stayed in hard work."),
+    difficulty: 5,
+    questions: [
+      { q: "What showed the jinn that Sulayman had died?", a: "A creature eating his staff", wrong: ["A loud voice", "An angel", "A dream"], why: "Quran 34:14." },
+      { q: "What does this teach about the jinn?", a: "They do not know the unseen", wrong: ["They know everything", "They never die", "They are angels"], why: "Had they known the unseen..." },
+      { q: "Who alone knows the unseen?", a: "Allah", wrong: ["The jinn", "Fortune tellers", "Kings"], why: "Quran 27:65." }
+    ]
+  }
+]);
+
+const ZAKARIYYA = unit("prophet-zakariyya", "prophets-unit-zakariyya", "Zakariyya", [
+  {
+    slug: "maryam",
+    title: "Caring for Maryam",
+    line: "Zakariyya cared for Maryam and found food with her from Allah.",
+    facts: ["Quran 3:37", "Allah provides"],
+    quote: quranQuote(3, 37),
+    source: quran(3, 37, "She was put in Zakariyya's care. Whenever he came to her in the prayer room, he found food with her. He said: Maryam, where is this from? She said: from Allah."),
+    difficulty: 1,
+    questions: [
+      { q: "Who looked after Maryam?", a: "Zakariyya", wrong: ["Musa", "Yahya", "Dawud"], why: "Quran 3:37." },
+      { q: "What did Zakariyya find with Maryam?", a: "Food from Allah", wrong: ["Gold", "Books", "Nothing"], why: "Quran 3:37." },
+      { q: "What was Zakariyya's work, the Prophet ﷺ said?", a: "A carpenter", wrong: ["A king", "A sailor", "A merchant"], why: "Sahih Muslim 2379." }
+    ]
+  },
+  {
+    slug: "quiet-dua",
+    title: "A quiet dua",
+    line: "Old and grey, Zakariyya asked Allah quietly for a child.",
+    facts: ["Quran 19:3-5", "Never let down by dua"],
+    quote: quranQuote(19, 4),
+    source: quran(19, 4, "My Lord, my bones have weakened and my head is white with grey, and I have never been disappointed in calling on You."),
+    difficulty: 2,
+    questions: [
+      { q: "How old was Zakariyya when he asked for a child?", a: "Very old", wrong: ["Young", "A boy", "Middle-aged"], why: "My bones have weakened (Quran 19:4)." },
+      { q: "How did Zakariyya make his dua?", a: "Quietly", wrong: ["Shouting", "Through a messenger", "In a letter"], why: "He called his Lord in secret (Quran 19:3)." },
+      { q: "Zakariyya said he was never let down when he called on Allah.", tf: true, why: "Quran 19:4." }
+    ]
+  },
+  {
+    slug: "sign",
+    title: "Three days of silence",
+    line: "Given the good news, Zakariyya could not speak for three nights.",
+    facts: ["Quran 19:10", "Glorify Allah"],
+    quote: quranQuote(19, 10),
+    source: quran(19, 10, "He said: my Lord, give me a sign. He said: your sign is that you will not speak to people for three nights, though you are well."),
+    difficulty: 3,
+    questions: [
+      { q: "What was the sign given to Zakariyya?", a: "He could not speak for three nights", wrong: ["A star fell", "Rain came", "He grew young"], why: "Quran 19:10." },
+      { q: "Was Zakariyya sick during the sign?", a: "No, he was well", wrong: ["Yes, very sick", "He slept", "He fainted"], why: "Though you are well." },
+      { q: "What did he tell people to do, by signs?", a: "Glorify Allah morning and evening", wrong: ["Go home", "Bring gifts", "Be quiet forever"], why: "Quran 19:11." }
+    ]
+  },
+  {
+    slug: "hasten",
+    title: "Hurrying to good",
+    line: "Allah answered him: they hurried to good, with hope and fear.",
+    facts: ["Quran 21:89-90", "His wife was healed"],
+    quote: quranQuote(21, 90),
+    source: quran(21, 90, "We answered him and gave him Yahya and made his wife able to bear a child. They used to hurry to good deeds and call on Us in hope and fear, and they were humble before Us."),
+    difficulty: 4,
+    questions: [
+      { q: "What did Zakariyya's family hurry to?", a: "Good deeds", wrong: ["The market", "Wars", "Games"], why: "Quran 21:90." },
+      { q: "How did they call on Allah?", a: "In hope and fear", wrong: ["Proudly", "Rarely", "Only in joy"], why: "Quran 21:90." },
+      { q: "What did Allah do for Zakariyya's wife?", a: "Made her able to have a child", wrong: ["Made her a queen", "Nothing", "Sent her away"], why: "Quran 21:90." }
+    ]
+  }
+]);
+
+const YAHYA = unit("prophet-yahya", "prophets-unit-yahya", "Yahya", [
+  {
+    slug: "name",
+    title: "A brand new name",
+    line: "Allah named the boy Yahya, a name given to no one before.",
+    facts: ["Quran 19:7", "Good news to Zakariyya"],
+    quote: quranQuote(19, 7),
+    source: quran(19, 7, "O Zakariyya, We give you good news of a boy named Yahya. We have not given that name to anyone before."),
+    difficulty: 1,
+    questions: [
+      { q: "Who named Yahya?", a: "Allah", wrong: ["His mother", "The king", "His neighbors"], why: "Quran 19:7." },
+      { q: "What was special about the name Yahya?", a: "No one had it before", wrong: ["It meant king", "It was very long", "Nothing"], why: "Quran 19:7." },
+      { q: "Yahya was Zakariyya's son.", tf: true, why: "Good news of a boy for Zakariyya." }
+    ]
+  },
+  {
+    slug: "wise-boy",
+    title: "Wise as a boy",
+    line: "Hold the Book firmly, Yahya: Allah gave him wisdom as a boy.",
+    facts: ["Quran 19:12", "Kind and pure"],
+    quote: quranQuote(19, 12),
+    source: quran(19, 12, "O Yahya, hold the Book firmly. And We gave him wisdom while still a boy."),
+    difficulty: 2,
+    questions: [
+      { q: "When was Yahya given wisdom?", a: "As a boy", wrong: ["At sixty", "Never", "After death"], why: "Quran 19:12." },
+      { q: "How was Yahya told to hold the Book?", a: "Firmly", wrong: ["Lightly", "Secretly", "Never"], why: "Quran 19:12." },
+      { q: "What two things came with his wisdom, in Quran 19:13?", a: "Tenderness and purity", wrong: ["Gold and land", "Fame and power", "Swords"], why: "Affection from Us and purity." }
+    ]
+  },
+  {
+    slug: "parents",
+    title: "Good to his parents",
+    line: "Yahya was dutiful to his parents, never proud or disobedient.",
+    facts: ["Quran 19:14", "Peace on him"],
+    quote: quranQuote(19, 14),
+    source: quran(19, 14, "He was dutiful to his parents, and he was not a proud, disobedient tyrant."),
+    difficulty: 3,
+    questions: [
+      { q: "How was Yahya to his parents?", a: "Dutiful", wrong: ["Rude", "Distant", "Careless"], why: "Quran 19:14." },
+      { q: "On which three days is there peace on Yahya?", a: "Born, dying, and raised", wrong: ["Every Friday", "Eid days", "Only his birthday"], why: "Quran 19:15." },
+      { q: "Yahya was a proud tyrant.", tf: false, why: "He was not a proud, disobedient tyrant." }
+    ]
+  },
+  {
+    slug: "second-heaven",
+    title: "Yahya and Isa together",
+    line: "On the Night Journey, he ﷺ met Yahya and Isa together.",
+    facts: ["Sahih al-Bukhari 3887", "They were cousins"],
+    source: hadith("bukhari", "3887", "Malik ibn Sa'sa'ah", "Sahih", "When I went over the second heaven, there I saw Yahya and Isa, who were cousins. Jibril said: these are Yahya and Isa, greet them. I greeted them, and they said: welcome, O pious brother and pious prophet."),
+    difficulty: 4,
+    questions: [
+      { q: "In which heaven did he ﷺ meet Yahya and Isa?", a: "The second", wrong: ["The fourth", "The seventh", "The first"], why: "Sahih al-Bukhari 3887." },
+      { q: "How were Yahya and Isa related?", a: "Cousins", wrong: ["Father and son", "Brothers", "Not related"], why: "They were cousins." },
+      { q: "Who were Yahya's parents?", a: "Zakariyya and his wife", wrong: ["Musa and Asiyah", "Dawud and his wife", "Unknown"], why: "Quran 19:7 and 21:90." }
+    ]
+  }
+]);
+
+const ISA = unit("prophet-isa", "prophets-unit-isa", "Isa", [
+  {
+    slug: "maryam-chosen",
+    title: "Maryam is chosen",
+    line: "The angels said: Maryam, Allah chose you above all women.",
+    facts: ["Quran 3:42", "Purified and chosen"],
+    quote: quranQuote(3, 42),
+    source: quran(3, 42, "The angels said: O Maryam, Allah has chosen you, purified you, and chosen you above the women of the worlds."),
+    difficulty: 1,
+    questions: [
+      { q: "Who told Maryam she was chosen?", a: "The angels", wrong: ["Zakariyya", "The king", "Her neighbors"], why: "Quran 3:42." },
+      { q: "Above whom was Maryam chosen?", a: "The women of the worlds", wrong: ["Only her town", "The angels", "The prophets"], why: "Quran 3:42." },
+      { q: "Isa's mother is Maryam.", tf: true, why: "He is called Isa son of Maryam." }
+    ]
+  },
+  {
+    slug: "palm-tree",
+    title: "Under the palm tree",
+    line: "Under a palm tree, Allah gave Maryam a stream and fresh dates.",
+    facts: ["Quran 19:24-25", "Do not grieve"],
+    quote: quranQuote(19, 25),
+    source: quran(19, 25, "Shake the trunk of the palm tree towards you, and fresh ripe dates will fall on you."),
+    difficulty: 2,
+    questions: [
+      { q: "Where did Maryam give birth?", a: "By a palm tree", wrong: ["In a palace", "On a ship", "In a city"], why: "Quran 19:23." },
+      { q: "What fell from the palm tree?", a: "Fresh ripe dates", wrong: ["Apples", "Leaves only", "Nothing"], why: "Quran 19:25." },
+      { q: "What did Allah give her below her?", a: "A stream", wrong: ["A well", "A house", "A rug"], why: "Quran 19:24." }
+    ]
+  },
+  {
+    slug: "cradle",
+    title: "A baby speaks",
+    line: "Baby Isa spoke from the cradle: I am the servant of Allah.",
+    facts: ["Quran 19:29-30", "A prophet"],
+    quote: quranQuote(19, 30),
+    source: quran(19, 30, "He said: I am the servant of Allah. He has given me the Book and made me a prophet."),
+    difficulty: 2,
+    questions: [
+      { q: "What were Isa's first words, from the cradle?", a: "I am the servant of Allah", wrong: ["I am a king", "I am God", "Hello, mother"], why: "Quran 19:30." },
+      { q: "Why did people speak to the baby?", a: "Maryam pointed to him", wrong: ["He cried", "He was lost", "He was sick"], why: "Quran 19:29." },
+      { q: "Isa called himself Allah's servant, not God.", tf: true, why: "I am the servant of Allah." }
+    ]
+  },
+  {
+    slug: "like-adam",
+    title: "Like Adam",
+    line: "Isa's creation is like Adam's: Allah said Be, and he was.",
+    facts: ["Quran 3:59", "No father"],
+    quote: quranQuote(3, 59),
+    source: quran(3, 59, "The example of Isa with Allah is like that of Adam. He created him from dust, then said to him: Be, and he was."),
+    difficulty: 3,
+    questions: [
+      { q: "Whom is Isa compared to in Quran 3:59?", a: "Adam", wrong: ["Musa", "Nuh", "Yusuf"], why: "Quran 3:59." },
+      { q: "Why the comparison?", a: "Both came without a father", wrong: ["Both were kings", "Both sailed", "Both were rich"], why: "Adam had neither father nor mother." },
+      { q: "What word did Allah say to create?", a: "Be", wrong: ["Go", "Wait", "Grow"], why: "He said to him: Be, and he was." }
+    ]
+  },
+  {
+    slug: "miracles",
+    title: "Miracles by Allah's permission",
+    line: "Isa healed the blind and the sick, all by Allah's permission.",
+    facts: ["Quran 3:49", "A bird from clay"],
+    quote: quranQuote(3, 49),
+    source: quran(3, 49, "I make for you from clay the shape of a bird, then breathe into it and it becomes a bird by Allah's permission. I heal the blind and the leper, and bring the dead to life by Allah's permission."),
+    difficulty: 3,
+    questions: [
+      { q: "How did Isa do his miracles?", a: "By Allah's permission", wrong: ["By his own power", "By magic", "By tricks"], why: "Quran 3:49 says it again and again." },
+      { q: "What did Isa make from clay?", a: "The shape of a bird", wrong: ["A house", "A pot", "A camel"], why: "Quran 3:49." },
+      { q: "Whom did Isa heal?", a: "The blind and the leper", wrong: ["Only kings", "No one", "Only animals"], why: "Quran 3:49." }
+    ]
+  },
+  {
+    slug: "table",
+    title: "The table from heaven",
+    line: "The disciples asked for a table from heaven, and Isa prayed.",
+    facts: ["Quran 5:112-115", "A sign and a feast"],
+    quote: quranQuote(5, 114),
+    source: quran(5, 114, "Isa son of Maryam said: O Allah, our Lord, send down to us a table from heaven, to be a feast for the first and last of us and a sign from You. Provide for us; You are the best of providers."),
+    difficulty: 4,
+    questions: [
+      { q: "Who asked for a table from heaven?", a: "The disciples", wrong: ["The Romans", "Pharaoh", "The jinn"], why: "Quran 5:112." },
+      { q: "What did Isa call Allah in his dua?", a: "The best of providers", wrong: ["The king of Rome", "The god of bread", "The sun"], why: "Quran 5:114." },
+      { q: "Which surah is named after this table?", a: "Al-Ma'idah", wrong: ["Al-Baqarah", "Maryam", "Yusuf"], why: "Al-Ma'idah means the table spread." }
+    ]
+  },
+  {
+    slug: "ahmad",
+    title: "Good news of Ahmad",
+    line: "Isa gave good news of a messenger after him named Ahmad.",
+    facts: ["Quran 61:6", "Confirming the Tawrah"],
+    quote: quranQuote(61, 6),
+    source: quran(61, 6, "Isa son of Maryam said: O Children of Isra'il, I am Allah's messenger to you, confirming the Tawrah before me and giving good news of a messenger after me whose name is Ahmad."),
+    difficulty: 4,
+    questions: [
+      { q: "What name did Isa give the messenger after him?", a: "Ahmad", wrong: ["Musa", "Yahya", "Dawud"], why: "Quran 61:6." },
+      { q: "Which book did Isa confirm?", a: "The Tawrah", wrong: ["The Zabur only", "No book", "A new law of Rome"], why: "Quran 61:6." },
+      { q: "Was there any prophet between Isa and Muhammad ﷺ?", a: "No", wrong: ["Yes, three", "Yes, one", "Many"], why: "Sahih al-Bukhari 3442." }
+    ]
+  },
+  {
+    slug: "raised",
+    title: "Raised up to Allah",
+    line: "Isa was not killed or crucified; Allah raised him up to Himself.",
+    facts: ["Quran 4:157-158", "Allah is Mighty, Wise"],
+    quote: quranQuote(4, 158),
+    source: quran(4, 158, "Rather, Allah raised him up to Himself. Allah is Mighty and Wise."),
+    difficulty: 5,
+    questions: [
+      { q: "Was Isa crucified, as the Quran says?", a: "No", wrong: ["Yes", "Only for a day", "Nobody knows"], why: "They did not crucify him (Quran 4:157)." },
+      { q: "What did Allah do with Isa?", a: "Raised him up to Himself", wrong: ["Hid him in a cave", "Made him a king", "Nothing"], why: "Quran 4:158." },
+      { q: "What will Isa say about worshipping him and his mother?", a: "I never told them to", wrong: ["It is right", "Only sometimes", "Ask Maryam"], why: "Quran 5:116-117." }
+    ]
+  },
+  {
+    slug: "return",
+    title: "Isa will come back",
+    line: "Before the Hour, Isa will come down and judge with justice.",
+    facts: ["Sahih al-Bukhari 3448", "A sign of the Hour"],
+    source: hadith("bukhari", "3448", "Abu Hurairah", "Sahih", "By Him in whose hand is my soul, the son of Maryam will soon come down among you as a just judge. He will break the cross, wealth will overflow, and one prostration will be better than the world and all in it."),
+    difficulty: 5,
+    questions: [
+      { q: "How will Isa rule when he comes back?", a: "As a just judge", wrong: ["As a tyrant", "As a new prophet with a new book", "He will not rule"], why: "Sahih al-Bukhari 3448." },
+      { q: "What will one prostration be worth then?", a: "More than the world", wrong: ["Nothing", "One coin", "A day"], why: "Sahih al-Bukhari 3448." },
+      { q: "Who said: I am the closest of people to the son of Maryam?", a: "Muhammad ﷺ", wrong: ["Musa", "Yahya", "Dawud"], why: "Sahih al-Bukhari 3442." }
+    ]
+  }
+]);
+
+export const PROPHET_UNITS: readonly DeepUnit[] = [ADAM, IDRIS, NUH, HUD, SALIH, IBRAHIM, LUT, SHUAIB, ISMAIL, ISHAQ_YAQUB, YUSUF, AYYUB, YUNUS, MUSA, YUSHA, ILYAS_ALYASA, DAWUD, SULAYMAN, ZAKARIYYA, YAHYA, ISA];
