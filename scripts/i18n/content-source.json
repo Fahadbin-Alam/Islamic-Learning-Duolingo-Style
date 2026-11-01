@@ -10229,6 +10229,142 @@
   },
   {
     "kind": "course",
+    "text": "Umar's knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "The milk of knowledge, and the teachers he sent out."
+  },
+  {
+    "kind": "course",
+    "text": "Aishah's knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "The woman with the most fiqh in the Ummah."
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Mas'ud"
+  },
+  {
+    "kind": "course",
+    "text": "Teacher of the Quran, and of Kufa."
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Abbas"
+  },
+  {
+    "kind": "course",
+    "text": "Scholar of the Ummah, imam of tafsir."
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Umar"
+  },
+  {
+    "kind": "course",
+    "text": "Sixty years of fatwa in Madinah."
+  },
+  {
+    "kind": "course",
+    "text": "Alqamah ibn Waqqas"
+  },
+  {
+    "kind": "course",
+    "text": "Heard Umar on the minbar."
+  },
+  {
+    "kind": "course",
+    "text": "Urwah ibn az-Zubayr"
+  },
+  {
+    "kind": "course",
+    "text": "Aishah's nephew and student."
+  },
+  {
+    "kind": "course",
+    "text": "Nafi"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Umar's student, Malik's teacher."
+  },
+  {
+    "kind": "arabic",
+    "text": "Nafi, freed man of Ibn Umar"
+  },
+  {
+    "kind": "course",
+    "text": "Ata ibn Abi Rabah"
+  },
+  {
+    "kind": "course",
+    "text": "The mufti of Makkah."
+  },
+  {
+    "kind": "course",
+    "text": "Alqamah ibn Qays"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Mas'ud's student in Kufa."
+  },
+  {
+    "kind": "course",
+    "text": "Muhammad at-Taymi"
+  },
+  {
+    "kind": "course",
+    "text": "Passed on the hadith of intentions."
+  },
+  {
+    "kind": "course",
+    "text": "Az-Zuhri"
+  },
+  {
+    "kind": "course",
+    "text": "Hadith master of Madinah."
+  },
+  {
+    "kind": "arabic",
+    "text": "Ibn Shihab az-Zuhri"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim an-Nakha'i"
+  },
+  {
+    "kind": "course",
+    "text": "The faqih of Iraq."
+  },
+  {
+    "kind": "course",
+    "text": "Yahya al-Ansari"
+  },
+  {
+    "kind": "course",
+    "text": "Judge of Madinah."
+  },
+  {
+    "kind": "arabic",
+    "text": "Yahya ibn Sa'id al-Ansari"
+  },
+  {
+    "kind": "course",
+    "text": "Hammad"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Hanifah's teacher of fiqh."
+  },
+  {
+    "kind": "arabic",
+    "text": "Hammad ibn Abi Sulayman"
+  },
+  {
+    "kind": "course",
     "text": "Abu Hanifah"
   },
   {
@@ -10249,6 +10385,34 @@
   },
   {
     "kind": "course",
+    "text": "Abu Yusuf"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Hanifah's best student."
+  },
+  {
+    "kind": "arabic",
+    "text": "Judge Abu Yusuf"
+  },
+  {
+    "kind": "course",
+    "text": "Muhammad ash-Shaybani"
+  },
+  {
+    "kind": "course",
+    "text": "Ash-Shafi'i's teacher from Iraq."
+  },
+  {
+    "kind": "course",
+    "text": "Sufyan ibn Uyaynah"
+  },
+  {
+    "kind": "course",
+    "text": "Hadith master of Makkah."
+  },
+  {
+    "kind": "course",
     "text": "Imam ash-Shafi'i"
   },
   {
@@ -10257,11 +10421,67 @@
   },
   {
     "kind": "course",
+    "text": "Al-Humaydi"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Bukhari's first teacher in his Sahih."
+  },
+  {
+    "kind": "course",
+    "text": "Yahya ibn Yahya"
+  },
+  {
+    "kind": "course",
+    "text": "Scholar of Khurasan, Muslim's teacher."
+  },
+  {
+    "kind": "arabic",
+    "text": "Yahya ibn Yahya at-Tamimi"
+  },
+  {
+    "kind": "course",
     "text": "Imam Ahmad"
   },
   {
     "kind": "course",
     "text": "Learned from ash-Shafi'i, and first from Abu Yusuf, Abu Hanifah's student."
+  },
+  {
+    "kind": "course",
+    "text": "Imam al-Bukhari"
+  },
+  {
+    "kind": "course",
+    "text": "Author of Sahih al-Bukhari."
+  },
+  {
+    "kind": "course",
+    "text": "Imam Muslim"
+  },
+  {
+    "kind": "course",
+    "text": "Author of Sahih Muslim."
+  },
+  {
+    "kind": "course",
+    "text": "Abu Dawud"
+  },
+  {
+    "kind": "course",
+    "text": "Author of the Sunan."
+  },
+  {
+    "kind": "arabic",
+    "text": "Abu Dawud as-Sijistani"
+  },
+  {
+    "kind": "course",
+    "text": "At-Tirmidhi"
+  },
+  {
+    "kind": "course",
+    "text": "Author of al-Jami'."
   },
   {
     "kind": "course",
@@ -10274,6 +10494,22 @@
   {
     "kind": "arabic",
     "text": "Shaykh al-Islam Ibn Taymiyyah"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn al-Qayyim"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Taymiyyah's student, author of Zad al-Ma'ad."
+  },
+  {
+    "kind": "course",
+    "text": "Adh-Dhahabi"
+  },
+  {
+    "kind": "course",
+    "text": "Historian of Islam, author of the Siyar."
   },
   {
     "kind": "course",
@@ -10298,6 +10534,310 @@
   {
     "kind": "arabic",
     "text": "Shaykh al-Albani"
+  },
+  {
+    "kind": "course",
+    "text": "The milk of knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Actions are by intentions"
+  },
+  {
+    "kind": "course",
+    "text": "When Jibril came to teach"
+  },
+  {
+    "kind": "course",
+    "text": "The inspired one"
+  },
+  {
+    "kind": "course",
+    "text": "Bring a witness"
+  },
+  {
+    "kind": "course",
+    "text": "A teacher for Kufa"
+  },
+  {
+    "kind": "course",
+    "text": "Knowledge before age"
+  },
+  {
+    "kind": "course",
+    "text": "The most fiqh of all women"
+  },
+  {
+    "kind": "course",
+    "text": "She asked until she understood"
+  },
+  {
+    "kind": "course",
+    "text": "2,210 hadith"
+  },
+  {
+    "kind": "course",
+    "text": "Even Sahabah learned from her"
+  },
+  {
+    "kind": "course",
+    "text": "The elders asked her"
+  },
+  {
+    "kind": "course",
+    "text": "Ayahs, sunnah and medicine"
+  },
+  {
+    "kind": "course",
+    "text": "What the Tabi'in said"
+  },
+  {
+    "kind": "course",
+    "text": "The shepherd boy"
+  },
+  {
+    "kind": "course",
+    "text": "Seventy surahs"
+  },
+  {
+    "kind": "course",
+    "text": "Every ayah"
+  },
+  {
+    "kind": "course",
+    "text": "Full of knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "The school of Kufa"
+  },
+  {
+    "kind": "course",
+    "text": "Teach him the Book"
+  },
+  {
+    "kind": "course",
+    "text": "The water for wudu"
+  },
+  {
+    "kind": "course",
+    "text": "The scholar of the Ummah"
+  },
+  {
+    "kind": "course",
+    "text": "Waiting at the door"
+  },
+  {
+    "kind": "course",
+    "text": "Thirty Sahabah, one question"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Bahr: the sea"
+  },
+  {
+    "kind": "course",
+    "text": "Interpreter of the Quran"
+  },
+  {
+    "kind": "course",
+    "text": "Student, then teacher"
+  },
+  {
+    "kind": "course",
+    "text": "Umar's son"
+  },
+  {
+    "kind": "course",
+    "text": "A righteous man"
+  },
+  {
+    "kind": "course",
+    "text": "Sixty years of fatwa"
+  },
+  {
+    "kind": "course",
+    "text": "Careful with answers"
+  },
+  {
+    "kind": "course",
+    "text": "Following the Prophet ﷺ"
+  },
+  {
+    "kind": "course",
+    "text": "Write me all knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Malik, from Nafi, from Ibn Umar"
+  },
+  {
+    "kind": "course",
+    "text": "He heard Umar on the minbar"
+  },
+  {
+    "kind": "course",
+    "text": "A scholar of Madinah"
+  },
+  {
+    "kind": "course",
+    "text": "Trusted by the experts"
+  },
+  {
+    "kind": "course",
+    "text": "His students"
+  },
+  {
+    "kind": "course",
+    "text": "Aishah's nephew"
+  },
+  {
+    "kind": "course",
+    "text": "Every hadith she had"
+  },
+  {
+    "kind": "course",
+    "text": "A sea of knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "His patience"
+  },
+  {
+    "kind": "course",
+    "text": "With Ibn Umar"
+  },
+  {
+    "kind": "course",
+    "text": "The soundest chain"
+  },
+  {
+    "kind": "course",
+    "text": "A hadith through Nafi"
+  },
+  {
+    "kind": "course",
+    "text": "Sent to teach"
+  },
+  {
+    "kind": "course",
+    "text": "Seal it"
+  },
+  {
+    "kind": "course",
+    "text": "The mufti of Makkah"
+  },
+  {
+    "kind": "course",
+    "text": "Knowledge, not looks"
+  },
+  {
+    "kind": "course",
+    "text": "Two hundred Sahabah"
+  },
+  {
+    "kind": "course",
+    "text": "Only Ata gives fatwa"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Hanifah's teacher"
+  },
+  {
+    "kind": "course",
+    "text": "The faqih of Kufa"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Mas'ud's student"
+  },
+  {
+    "kind": "course",
+    "text": "Like reading from paper"
+  },
+  {
+    "kind": "course",
+    "text": "Like seeing Abdullah"
+  },
+  {
+    "kind": "course",
+    "text": "He disliked fame"
+  },
+  {
+    "kind": "course",
+    "text": "His teachers"
+  },
+  {
+    "kind": "course",
+    "text": "The hadith of intentions"
+  },
+  {
+    "kind": "course",
+    "text": "One link at a time"
+  },
+  {
+    "kind": "course",
+    "text": "Imam of his time"
+  },
+  {
+    "kind": "course",
+    "text": "Eight years with Sa'id"
+  },
+  {
+    "kind": "course",
+    "text": "He never forgot"
+  },
+  {
+    "kind": "course",
+    "text": "Whom you learn from"
+  },
+  {
+    "kind": "course",
+    "text": "The faqih of Iraq"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Mas'ud's knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Heard from many"
+  },
+  {
+    "kind": "course",
+    "text": "You ask me?"
+  },
+  {
+    "kind": "course",
+    "text": "On to Abu Hanifah"
+  },
+  {
+    "kind": "course",
+    "text": "Student of the seven"
+  },
+  {
+    "kind": "course",
+    "text": "Great students"
+  },
+  {
+    "kind": "course",
+    "text": "Judge of Madinah"
+  },
+  {
+    "kind": "course",
+    "text": "Most precise"
+  },
+  {
+    "kind": "course",
+    "text": "Ask Hammad"
+  },
+  {
+    "kind": "course",
+    "text": "Iftar for 500"
+  },
+  {
+    "kind": "course",
+    "text": "Teacher of Abu Hanifah"
   },
   {
     "kind": "course",
@@ -10341,10 +10881,6 @@
   },
   {
     "kind": "course",
-    "text": "His teachers"
-  },
-  {
-    "kind": "course",
     "text": "A vessel of knowledge"
   },
   {
@@ -10366,6 +10902,58 @@
   {
     "kind": "course",
     "text": "Malik is the star"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Hanifah's best student"
+  },
+  {
+    "kind": "course",
+    "text": "Stay in the circle"
+  },
+  {
+    "kind": "course",
+    "text": "Seventeen years"
+  },
+  {
+    "kind": "course",
+    "text": "Imam Ahmad's first teacher"
+  },
+  {
+    "kind": "course",
+    "text": "Back to the Quran and sunnah"
+  },
+  {
+    "kind": "course",
+    "text": "Three years with Malik"
+  },
+  {
+    "kind": "course",
+    "text": "Ash-Shafi'i's teacher"
+  },
+  {
+    "kind": "course",
+    "text": "His books"
+  },
+  {
+    "kind": "course",
+    "text": "Hafiz of his age"
+  },
+  {
+    "kind": "course",
+    "text": "He started as a boy"
+  },
+  {
+    "kind": "course",
+    "text": "Teachers became students"
+  },
+  {
+    "kind": "course",
+    "text": "Hajj to meet him"
+  },
+  {
+    "kind": "course",
+    "text": "Master of tafsir"
   },
   {
     "kind": "course",
@@ -10405,6 +10993,42 @@
   },
   {
     "kind": "course",
+    "text": "Shaykh of the Haram"
+  },
+  {
+    "kind": "course",
+    "text": "Nineteen years with Sufyan"
+  },
+  {
+    "kind": "course",
+    "text": "Ten thousand hadith"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Bukhari's first hadith"
+  },
+  {
+    "kind": "course",
+    "text": "Scholar of Khurasan"
+  },
+  {
+    "kind": "course",
+    "text": "He read to Malik"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Bukhari and Muslim"
+  },
+  {
+    "kind": "course",
+    "text": "None like him"
+  },
+  {
+    "kind": "course",
+    "text": "Worth the journey"
+  },
+  {
+    "kind": "course",
     "text": "Born in Baghdad"
   },
   {
@@ -10441,6 +11065,82 @@
   },
   {
     "kind": "course",
+    "text": "Memorizing at ten"
+  },
+  {
+    "kind": "course",
+    "text": "A book by moonlight"
+  },
+  {
+    "kind": "course",
+    "text": "How the Sahih began"
+  },
+  {
+    "kind": "course",
+    "text": "Chosen with care"
+  },
+  {
+    "kind": "course",
+    "text": "Teacher of teachers"
+  },
+  {
+    "kind": "course",
+    "text": "Author of the Sahih"
+  },
+  {
+    "kind": "course",
+    "text": "His travels"
+  },
+  {
+    "kind": "course",
+    "text": "From 300,000"
+  },
+  {
+    "kind": "course",
+    "text": "One of four"
+  },
+  {
+    "kind": "course",
+    "text": "Al-Bukhari's student"
+  },
+  {
+    "kind": "course",
+    "text": "Shaykh of the sunnah"
+  },
+  {
+    "kind": "course",
+    "text": "Teachers in many lands"
+  },
+  {
+    "kind": "course",
+    "text": "The Sunan"
+  },
+  {
+    "kind": "course",
+    "text": "Soft as iron for Dawud"
+  },
+  {
+    "kind": "course",
+    "text": "Imam Ahmad's student"
+  },
+  {
+    "kind": "course",
+    "text": "Author of al-Jami'"
+  },
+  {
+    "kind": "course",
+    "text": "His teacher heard him"
+  },
+  {
+    "kind": "course",
+    "text": "None like him in Khurasan"
+  },
+  {
+    "kind": "course",
+    "text": "Checked by the scholars"
+  },
+  {
+    "kind": "course",
     "text": "Ahmad ibn Abd al-Halim"
   },
   {
@@ -10462,6 +11162,62 @@
   {
     "kind": "course",
     "text": "Prison and a huge funeral"
+  },
+  {
+    "kind": "course",
+    "text": "A home of knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Where his name comes from"
+  },
+  {
+    "kind": "course",
+    "text": "Ibn Taymiyyah's student"
+  },
+  {
+    "kind": "course",
+    "text": "Jailed with his teacher"
+  },
+  {
+    "kind": "course",
+    "text": "My nourishment"
+  },
+  {
+    "kind": "course",
+    "text": "Zad al-Ma'ad and more"
+  },
+  {
+    "kind": "course",
+    "text": "Back to his father"
+  },
+  {
+    "kind": "course",
+    "text": "The goldsmith's son"
+  },
+  {
+    "kind": "course",
+    "text": "Hadith at eighteen"
+  },
+  {
+    "kind": "course",
+    "text": "Seven cities"
+  },
+  {
+    "kind": "course",
+    "text": "Siyar and more"
+  },
+  {
+    "kind": "course",
+    "text": "Teacher of Ibn Kathir"
+  },
+  {
+    "kind": "course",
+    "text": "A Zamzam du'a"
+  },
+  {
+    "kind": "course",
+    "text": "Resting in Damascus"
   },
   {
     "kind": "course",
@@ -20346,10 +21102,6 @@
   {
     "kind": "question",
     "text": "Who recited An-Nisa to the Prophet ﷺ?"
-  },
-  {
-    "kind": "question",
-    "text": "Ibn Mas'ud"
   },
   {
     "kind": "question",
@@ -38033,10 +38785,6 @@
   },
   {
     "kind": "question",
-    "text": "Ibn Umar"
-  },
-  {
-    "kind": "question",
     "text": "Abu Sa'id"
   },
   {
@@ -44606,10 +45354,6 @@
   {
     "kind": "question",
     "text": "The whole of childhood."
-  },
-  {
-    "kind": "question",
-    "text": "Ibn Abbas"
   },
   {
     "kind": "question",
@@ -64653,10 +65397,6 @@
   },
   {
     "kind": "question",
-    "text": "Ata ibn Abi Rabah"
-  },
-  {
-    "kind": "question",
     "text": "He learned from him above all others."
   },
   {
@@ -65161,14 +65901,6 @@
   },
   {
     "kind": "question",
-    "text": "Ibn Shihab az-Zuhri"
-  },
-  {
-    "kind": "question",
-    "text": "Abu Yusuf"
-  },
-  {
-    "kind": "question",
     "text": "Az-Zuhri was a great scholar of hadith."
   },
   {
@@ -65409,10 +66141,6 @@
   },
   {
     "kind": "question",
-    "text": "His books"
-  },
-  {
-    "kind": "question",
     "text": "His horse"
   },
   {
@@ -65470,10 +66198,6 @@
   {
     "kind": "question",
     "text": "Who said Malik is the star of hadith?"
-  },
-  {
-    "kind": "question",
-    "text": "Az-Zuhri"
   },
   {
     "kind": "question",
@@ -66085,10 +66809,6 @@
   },
   {
     "kind": "question",
-    "text": "Nafi"
-  },
-  {
-    "kind": "question",
     "text": "Abu Yusuf was Abu Hanifah's companion."
   },
   {
@@ -66594,10 +67314,6 @@
   {
     "kind": "question",
     "text": "Which famous scholar was his student?"
-  },
-  {
-    "kind": "question",
-    "text": "Ibn al-Qayyim"
   },
   {
     "kind": "question",
@@ -67681,6 +68397,7434 @@
   },
   {
     "kind": "lesson",
+    "text": "In a dream, the Prophet ﷺ gave Umar milk: knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ drank his fill first"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then he gave Umar the rest"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 82"
+  },
+  {
+    "kind": "question",
+    "text": "In the dream, what did the Prophet ﷺ give Umar?"
+  },
+  {
+    "kind": "question",
+    "text": "A ring"
+  },
+  {
+    "kind": "question",
+    "text": "He drank his fill, then gave Umar the rest."
+  },
+  {
+    "kind": "question",
+    "text": "What did the milk in the dream mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ explained it himself."
+  },
+  {
+    "kind": "question",
+    "text": "Umar's knowledge came from the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "The milk passed from the Prophet ﷺ to him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar taught from the minbar: actions are only by intentions."
+  },
+  {
+    "kind": "lesson",
+    "text": "The first hadith in Sahih al-Bukhari"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar heard it from the Prophet ﷺ"
+  },
+  {
+    "kind": "question",
+    "text": "Which hadith did Umar teach from the minbar?"
+  },
+  {
+    "kind": "question",
+    "text": "Actions are only by intentions"
+  },
+  {
+    "kind": "question",
+    "text": "Smiling is charity"
+  },
+  {
+    "kind": "question",
+    "text": "Do not be angry"
+  },
+  {
+    "kind": "question",
+    "text": "The strong man controls himself"
+  },
+  {
+    "kind": "question",
+    "text": "Every deed is judged by why you did it."
+  },
+  {
+    "kind": "question",
+    "text": "Where is this hadith in Sahih al-Bukhari?"
+  },
+  {
+    "kind": "question",
+    "text": "It is the last"
+  },
+  {
+    "kind": "question",
+    "text": "It is not in it"
+  },
+  {
+    "kind": "question",
+    "text": "It is in the middle"
+  },
+  {
+    "kind": "question",
+    "text": "It is the very first"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari opened his book with it."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari's chain for this hadith goes through Umar to the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Tap Umar on the tree to see the whole chain."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar saw Jibril come as a man to teach the religion."
+  },
+  {
+    "kind": "lesson",
+    "text": "Very white clothes, very black hair"
+  },
+  {
+    "kind": "lesson",
+    "text": "He asked, the Prophet ﷺ answered"
+  },
+  {
+    "kind": "question",
+    "text": "Who came in very white clothes to ask the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "A trader from Yemen"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said: That was Jibril."
+  },
+  {
+    "kind": "question",
+    "text": "Which three did Jibril ask about?"
+  },
+  {
+    "kind": "question",
+    "text": "Musa, Isa and Ibrahim"
+  },
+  {
+    "kind": "question",
+    "text": "Islam, Iman and Ihsan"
+  },
+  {
+    "kind": "question",
+    "text": "Salah, Zakah and Hajj"
+  },
+  {
+    "kind": "question",
+    "text": "Makkah, Madinah and Quds"
+  },
+  {
+    "kind": "question",
+    "text": "Then he asked about the Hour."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Jibril come?"
+  },
+  {
+    "kind": "question",
+    "text": "To teach the Muslims their religion"
+  },
+  {
+    "kind": "question",
+    "text": "To bring a new book"
+  },
+  {
+    "kind": "question",
+    "text": "To lead the prayer"
+  },
+  {
+    "kind": "question",
+    "text": "To warn of an army"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said he came to teach you your religion."
+  },
+  {
+    "kind": "lesson",
+    "text": "If anyone in this Ummah is inspired, it is Umar."
+  },
+  {
+    "kind": "lesson",
+    "text": "Inspired: guided to the right view"
+  },
+  {
+    "kind": "lesson",
+    "text": "He was not a prophet"
+  },
+  {
+    "kind": "question",
+    "text": "Who did the Prophet ﷺ say would be the inspired one of his Ummah?"
+  },
+  {
+    "kind": "question",
+    "text": "If there is one, it is Umar."
+  },
+  {
+    "kind": "question",
+    "text": "What does 'inspired' mean in this hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Someone who knows the unseen"
+  },
+  {
+    "kind": "question",
+    "text": "Guided to the right view, but not a prophet"
+  },
+  {
+    "kind": "question",
+    "text": "A new prophet"
+  },
+  {
+    "kind": "question",
+    "text": "The hadith says: though they were not prophets."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar asked Abu Musa for a witness before he took his hadith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Sa'id al-Khudri bore witness"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar: I was busy in the markets"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 2062"
+  },
+  {
+    "kind": "question",
+    "text": "A written book"
+  },
+  {
+    "kind": "question",
+    "text": "A witness for the hadith"
+  },
+  {
+    "kind": "question",
+    "text": "Umar was careful with what was said about the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Who bore witness for Abu Musa?"
+  },
+  {
+    "kind": "question",
+    "text": "The youngest of the Ansar who were sitting there."
+  },
+  {
+    "kind": "question",
+    "text": "Umar said he missed this hadith because trade in the markets kept him busy."
+  },
+  {
+    "kind": "question",
+    "text": "Even Umar did not know every hadith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar sent Ibn Mas'ud to teach the people of Kufa."
+  },
+  {
+    "kind": "lesson",
+    "text": "Both fought at Badr"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar: I preferred you over myself"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Umar send to Kufa as its teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "And Ammar ibn Yasir as governor."
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar mean by 'I preferred you over myself'?"
+  },
+  {
+    "kind": "question",
+    "text": "He gave up a scholar he needed"
+  },
+  {
+    "kind": "question",
+    "text": "He wanted to leave Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "He disliked Ibn Mas'ud"
+  },
+  {
+    "kind": "question",
+    "text": "He was sending gold"
+  },
+  {
+    "kind": "question",
+    "text": "He kept less knowledge near him so Kufa could have more."
+  },
+  {
+    "kind": "question",
+    "text": "Ammar and Ibn Mas'ud had both fought at Badr."
+  },
+  {
+    "kind": "question",
+    "text": "Umar called them of the noblest companions, people of Badr."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar sat young Ibn Abbas with the elders, for his knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "He tested them on Surah An-Nasr"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas: it told of the Prophet's ﷺ passing"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Umar seat young Ibn Abbas with the elders of Badr?"
+  },
+  {
+    "kind": "question",
+    "text": "Because he was a governor"
+  },
+  {
+    "kind": "question",
+    "text": "Because of his knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Because he was rich"
+  },
+  {
+    "kind": "question",
+    "text": "Because he was the oldest"
+  },
+  {
+    "kind": "question",
+    "text": "Umar honoured knowledge, not age."
+  },
+  {
+    "kind": "question",
+    "text": "Which surah did Umar ask them about?"
+  },
+  {
+    "kind": "question",
+    "text": "When the help of Allah and the victory come."
+  },
+  {
+    "kind": "question",
+    "text": "Umar agreed with Ibn Abbas's meaning of the surah."
+  },
+  {
+    "kind": "question",
+    "text": "He said: I know of it only what you know."
+  },
+  {
+    "kind": "lesson",
+    "text": "Aishah had the most fiqh of all the women of this Ummah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fiqh: understanding the rulings of the religion"
+  },
+  {
+    "kind": "lesson",
+    "text": "Daughter of Abu Bakr"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/135"
+  },
+  {
+    "kind": "question",
+    "text": "What is fiqh?"
+  },
+  {
+    "kind": "question",
+    "text": "Understanding the rulings of the religion"
+  },
+  {
+    "kind": "question",
+    "text": "Writing Arabic poems"
+  },
+  {
+    "kind": "question",
+    "text": "Learning the stars"
+  },
+  {
+    "kind": "question",
+    "text": "Telling old stories"
+  },
+  {
+    "kind": "question",
+    "text": "Fiqh tells you how to pray, fast, trade and live by Islam."
+  },
+  {
+    "kind": "question",
+    "text": "Whose daughter was Aishah?"
+  },
+  {
+    "kind": "question",
+    "text": "She was the daughter of Abu Bakr as-Siddiq."
+  },
+  {
+    "kind": "question",
+    "text": "Of all the women of this Ummah, Aishah had the most fiqh."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi says so at the start of her life story."
+  },
+  {
+    "kind": "lesson",
+    "text": "Aishah kept asking until she understood."
+  },
+  {
+    "kind": "lesson",
+    "text": "She asked about Quran 84:8"
+  },
+  {
+    "kind": "lesson",
+    "text": "Easy reckoning: deeds are only shown"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 103"
+  },
+  {
+    "kind": "question",
+    "text": "What did Aishah do when she did not understand something?"
+  },
+  {
+    "kind": "question",
+    "text": "She stayed quiet"
+  },
+  {
+    "kind": "question",
+    "text": "She guessed the meaning"
+  },
+  {
+    "kind": "question",
+    "text": "She waited for years"
+  },
+  {
+    "kind": "question",
+    "text": "She asked again until she understood"
+  },
+  {
+    "kind": "question",
+    "text": "A good student asks."
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah did Aishah ask the Prophet ﷺ about?"
+  },
+  {
+    "kind": "question",
+    "text": "He will have an easy reckoning"
+  },
+  {
+    "kind": "question",
+    "text": "Read in the name of your Lord"
+  },
+  {
+    "kind": "question",
+    "text": "Say: He is Allah, One"
+  },
+  {
+    "kind": "question",
+    "text": "Surah Al-Inshiqaq 84:8."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said the easy reckoning is only the showing of the deeds."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever is argued with over his deeds is ruined."
+  },
+  {
+    "kind": "lesson",
+    "text": "Aishah narrated about 2,210 hadith from the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "174 are in both al-Bukhari and Muslim"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bukhari alone: 54. Muslim alone: 69."
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/139"
+  },
+  {
+    "kind": "question",
+    "text": "About how many hadith did Aishah narrate?"
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi counts 2,210 in her Musnad."
+  },
+  {
+    "kind": "question",
+    "text": "How many of her hadith are in BOTH al-Bukhari and Muslim?"
+  },
+  {
+    "kind": "question",
+    "text": "54 more are in al-Bukhari alone, and 69 in Muslim alone."
+  },
+  {
+    "kind": "question",
+    "text": "Only men narrated hadith from the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Aishah alone narrated over two thousand."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sahabah like Ibn Umar and Ibn Abbas narrated hadith from Aishah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ata ibn Abi Rabah too"
+  },
+  {
+    "kind": "lesson",
+    "text": "And a great many Tabi'in"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/137"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these men narrated hadith from Aishah?"
+  },
+  {
+    "kind": "question",
+    "text": "The other three lived long after her."
+  },
+  {
+    "kind": "question",
+    "text": "Which Tabi'i on the tree also narrated from Aishah?"
+  },
+  {
+    "kind": "question",
+    "text": "Ata later taught Abu Hanifah."
+  },
+  {
+    "kind": "question",
+    "text": "Aishah taught both Sahabah and Tabi'in."
+  },
+  {
+    "kind": "question",
+    "text": "Even great Sahabah came to learn from her."
+  },
+  {
+    "kind": "lesson",
+    "text": "The senior Sahabah asked Aishah about the shares of inheritance."
+  },
+  {
+    "kind": "lesson",
+    "text": "Masruq saw it himself"
+  },
+  {
+    "kind": "lesson",
+    "text": "Inheritance shares: al-fara'id"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/182"
+  },
+  {
+    "kind": "question",
+    "text": "What did the senior Sahabah ask Aishah about?"
+  },
+  {
+    "kind": "question",
+    "text": "Building houses"
+  },
+  {
+    "kind": "question",
+    "text": "The shares of inheritance"
+  },
+  {
+    "kind": "question",
+    "text": "Trade routes"
+  },
+  {
+    "kind": "question",
+    "text": "Masruq swore he saw it."
+  },
+  {
+    "kind": "question",
+    "text": "Who said he saw the senior Sahabah asking her?"
+  },
+  {
+    "kind": "question",
+    "text": "Masruq"
+  },
+  {
+    "kind": "question",
+    "text": "Masruq was a Tabi'i who learned from her."
+  },
+  {
+    "kind": "question",
+    "text": "The senior Sahabah never asked a woman about the religion."
+  },
+  {
+    "kind": "question",
+    "text": "They asked Aishah, because she knew."
+  },
+  {
+    "kind": "lesson",
+    "text": "Urwah: no one knew more Quran, sunnah or medicine than her."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also inheritance, history and family lines"
+  },
+  {
+    "kind": "lesson",
+    "text": "She learned medicine by listening"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/183"
+  },
+  {
+    "kind": "question",
+    "text": "How did Aishah learn medicine?"
+  },
+  {
+    "kind": "question",
+    "text": "She never learned it"
+  },
+  {
+    "kind": "question",
+    "text": "By listening and memorizing"
+  },
+  {
+    "kind": "question",
+    "text": "From Greek books"
+  },
+  {
+    "kind": "question",
+    "text": "At a school in Sham"
+  },
+  {
+    "kind": "question",
+    "text": "She heard people describe cures, and kept them in memory."
+  },
+  {
+    "kind": "question",
+    "text": "Urwah listed what Aishah knew well. Which was NOT on his list?"
+  },
+  {
+    "kind": "question",
+    "text": "Family lines"
+  },
+  {
+    "kind": "question",
+    "text": "He named the Quran, sunnah, poetry, history, lineage, judging and medicine."
+  },
+  {
+    "kind": "question",
+    "text": "Aishah's knowledge was only about women's matters."
+  },
+  {
+    "kind": "question",
+    "text": "She knew the Quran, sunnah, inheritance, poetry, history and medicine."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Aishah?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Az-Zuhri: Aishah's knowledge outweighs that of all women."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ata: she had the most fiqh of people"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ata and az-Zuhri are on the tree"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 2/185"
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri said: put Aishah's knowledge beside all the women's, and..."
+  },
+  {
+    "kind": "question",
+    "text": "they would be equal"
+  },
+  {
+    "kind": "question",
+    "text": "hers would be less"
+  },
+  {
+    "kind": "question",
+    "text": "no one could tell"
+  },
+  {
+    "kind": "question",
+    "text": "hers would be greater"
+  },
+  {
+    "kind": "question",
+    "text": "He was a great scholar of Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Ata said Aishah had the most ___ of people."
+  },
+  {
+    "kind": "question",
+    "text": "servants"
+  },
+  {
+    "kind": "question",
+    "text": "fiqh"
+  },
+  {
+    "kind": "question",
+    "text": "Ata himself was the mufti of Makkah."
+  },
+  {
+    "kind": "question",
+    "text": "Ata and az-Zuhri, who praised her, are both on the scholars tree."
+  },
+  {
+    "kind": "question",
+    "text": "Ata taught Abu Hanifah; az-Zuhri taught Imam Malik."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Aishah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "You are a boy who will be taught, said the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "He asked: teach me these words"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adh-Dhahabi: its chain is sahih"
+  },
+  {
+    "kind": "question",
+    "text": "What was Ibn Mas'ud's work as a boy?"
+  },
+  {
+    "kind": "question",
+    "text": "Making swords"
+  },
+  {
+    "kind": "question",
+    "text": "Fishing"
+  },
+  {
+    "kind": "question",
+    "text": "Herding sheep"
+  },
+  {
+    "kind": "question",
+    "text": "He herded sheep in Makkah."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say to him?"
+  },
+  {
+    "kind": "question",
+    "text": "You are a boy who will be taught"
+  },
+  {
+    "kind": "question",
+    "text": "And he became a great teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud asked the Prophet ﷺ to teach him."
+  },
+  {
+    "kind": "question",
+    "text": "He said: teach me these words."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mas'ud took seventy surahs from the Prophet ﷺ himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Sahabah knew he knew the Quran well"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yet he said: I am not the best of them"
+  },
+  {
+    "kind": "question",
+    "text": "Seven hundred"
+  },
+  {
+    "kind": "question",
+    "text": "From his blessed mouth."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Mas'ud say after this?"
+  },
+  {
+    "kind": "question",
+    "text": "Do not ask others"
+  },
+  {
+    "kind": "question",
+    "text": "I know everything"
+  },
+  {
+    "kind": "question",
+    "text": "I am the best of them"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge and humility together."
+  },
+  {
+    "kind": "question",
+    "text": "The Sahabah knew Ibn Mas'ud was among those who knew the Quran best."
+  },
+  {
+    "kind": "question",
+    "text": "No one in his gathering disagreed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Learn the Quran from four: Ibn Mas'ud was named first."
+  },
+  {
+    "kind": "lesson",
+    "text": "With Salim, Ubayy and Mu'adh"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abdullah ibn Amr narrated it"
+  },
+  {
+    "kind": "question",
+    "text": "Whose name came first among the four Quran teachers?"
+  },
+  {
+    "kind": "question",
+    "text": "Salim"
+  },
+  {
+    "kind": "question",
+    "text": "The hadith begins with him."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these was NOT one of the four?"
+  },
+  {
+    "kind": "question",
+    "text": "The four were Ibn Mas'ud, Salim, Ubayy and Mu'adh."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ chose Ibn Mas'ud as a teacher of the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "Learn it from four."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ asked Ibn Mas'ud to recite, and wept."
+  },
+  {
+    "kind": "lesson",
+    "text": "I like to hear it from others"
+  },
+  {
+    "kind": "question",
+    "text": "Which surah did Ibn Mas'ud recite to the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Until ayah 41."
+  },
+  {
+    "kind": "question",
+    "text": "Why did the Prophet ﷺ want to hear it from him?"
+  },
+  {
+    "kind": "question",
+    "text": "To test his Arabic"
+  },
+  {
+    "kind": "question",
+    "text": "To end a dispute"
+  },
+  {
+    "kind": "question",
+    "text": "He liked to hear it from others"
+  },
+  {
+    "kind": "question",
+    "text": "He had forgotten it"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ wept when Ibn Mas'ud reached 4:41."
+  },
+  {
+    "kind": "question",
+    "text": "The ayah about bringing a witness from every nation."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mas'ud knew where every surah came down."
+  },
+  {
+    "kind": "lesson",
+    "text": "He would travel to anyone who knew more"
+  },
+  {
+    "kind": "lesson",
+    "text": "Even if only camels could reach him"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5002"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Mas'ud say he knew about every surah?"
+  },
+  {
+    "kind": "question",
+    "text": "How long it takes to read"
+  },
+  {
+    "kind": "question",
+    "text": "Where it came down"
+  },
+  {
+    "kind": "question",
+    "text": "How much it weighs"
+  },
+  {
+    "kind": "question",
+    "text": "Which tribe liked it best"
+  },
+  {
+    "kind": "question",
+    "text": "And about whom every ayah came."
+  },
+  {
+    "kind": "question",
+    "text": "What would he do if someone knew the Quran better?"
+  },
+  {
+    "kind": "question",
+    "text": "Travel to him to learn"
+  },
+  {
+    "kind": "question",
+    "text": "Ignore him"
+  },
+  {
+    "kind": "question",
+    "text": "Argue with him"
+  },
+  {
+    "kind": "question",
+    "text": "Write him a letter"
+  },
+  {
+    "kind": "question",
+    "text": "If camels could reach him, he would go."
+  },
+  {
+    "kind": "question",
+    "text": "Even a great scholar keeps wanting to learn more."
+  },
+  {
+    "kind": "question",
+    "text": "That is what Ibn Mas'ud said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar called short Ibn Mas'ud a vessel full of knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mas'ud was very short"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar smiled as they talked"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/491"
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar call Ibn Mas'ud?"
+  },
+  {
+    "kind": "question",
+    "text": "A small vessel full of knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "A tall tree"
+  },
+  {
+    "kind": "question",
+    "text": "A lion of war"
+  },
+  {
+    "kind": "question",
+    "text": "A rich merchant"
+  },
+  {
+    "kind": "question",
+    "text": "He was small in body, great in knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Tall people are wiser"
+  },
+  {
+    "kind": "question",
+    "text": "Only rich people learn"
+  },
+  {
+    "kind": "question",
+    "text": "Looks matter most"
+  },
+  {
+    "kind": "question",
+    "text": "Worth is in knowledge and faith, not looks"
+  },
+  {
+    "kind": "question",
+    "text": "Umar honoured him for what he carried inside."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud was very tall."
+  },
+  {
+    "kind": "question",
+    "text": "The seated men nearly hid him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ibn Mas'ud?"
+  },
+  {
+    "kind": "lesson",
+    "text": "In Kufa, Alqamah learned from Ibn Mas'ud and became like him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mas'ud was like the Prophet ﷺ in his manner"
+  },
+  {
+    "kind": "lesson",
+    "text": "Alqamah was like Ibn Mas'ud"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 1/485"
+  },
+  {
+    "kind": "question",
+    "text": "Which student of Ibn Mas'ud grew to be like him?"
+  },
+  {
+    "kind": "question",
+    "text": "Musaylimah"
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah was likened to Abdullah."
+  },
+  {
+    "kind": "question",
+    "text": "Who did Ibn Mas'ud resemble in his manner?"
+  },
+  {
+    "kind": "question",
+    "text": "In his guidance, manner and bearing."
+  },
+  {
+    "kind": "question",
+    "text": "Students learn manners from teachers, not only facts."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah took on his teacher's way."
+  },
+  {
+    "kind": "lesson",
+    "text": "O Allah, teach him the Book: a dua for Ibn Abbas."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Book: the Quran"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas was his cousin"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ ask Allah to teach Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "The Book (the Quran)"
+  },
+  {
+    "kind": "question",
+    "text": "Archery"
+  },
+  {
+    "kind": "question",
+    "text": "What was Ibn Abbas to the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "His cousin"
+  },
+  {
+    "kind": "question",
+    "text": "His grandson"
+  },
+  {
+    "kind": "question",
+    "text": "His father al-Abbas was the Prophet's ﷺ uncle."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ made dua for Ibn Abbas while hugging him."
+  },
+  {
+    "kind": "question",
+    "text": "He embraced him, then made the dua."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas set out water, and got a dua for understanding."
+  },
+  {
+    "kind": "lesson",
+    "text": "O Allah, give him understanding of the religion"
+  },
+  {
+    "kind": "lesson",
+    "text": "A small kind deed"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 143"
+  },
+  {
+    "kind": "question",
+    "text": "What had Ibn Abbas put out for the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Water for wudu"
+  },
+  {
+    "kind": "question",
+    "text": "His sandals"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ asked who put it there."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ ask Allah to give him?"
+  },
+  {
+    "kind": "question",
+    "text": "A strong horse"
+  },
+  {
+    "kind": "question",
+    "text": "A large family"
+  },
+  {
+    "kind": "question",
+    "text": "Fiqh in the religion."
+  },
+  {
+    "kind": "question",
+    "text": "A small kindness earned Ibn Abbas a great dua."
+  },
+  {
+    "kind": "question",
+    "text": "Serving the Prophet ﷺ brought him knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas: the scholar of the Ummah, imam of tafsir."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hibr al-Ummah: its great scholar"
+  },
+  {
+    "kind": "lesson",
+    "text": "Tafsir: explaining the Quran"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/331"
+  },
+  {
+    "kind": "question",
+    "text": "What is tafsir?"
+  },
+  {
+    "kind": "question",
+    "text": "Learning to write"
+  },
+  {
+    "kind": "question",
+    "text": "Counting stars"
+  },
+  {
+    "kind": "question",
+    "text": "A kind of fast"
+  },
+  {
+    "kind": "question",
+    "text": "Explaining the meaning of the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas is called the imam of tafsir."
+  },
+  {
+    "kind": "question",
+    "text": "Which title belongs to Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "Scholar of the Ummah"
+  },
+  {
+    "kind": "question",
+    "text": "The Truthful"
+  },
+  {
+    "kind": "question",
+    "text": "Lion of Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Hibr al-Ummah."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet's ﷺ dua for Ibn Abbas came true."
+  },
+  {
+    "kind": "question",
+    "text": "He became the great scholar of the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas waited in the dust at a teacher's door."
+  },
+  {
+    "kind": "lesson",
+    "text": "He used his cloak as a pillow"
+  },
+  {
+    "kind": "lesson",
+    "text": "I have more right to come to you"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/343"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Abbas do while the Sahabi napped?"
+  },
+  {
+    "kind": "question",
+    "text": "Woke him up"
+  },
+  {
+    "kind": "question",
+    "text": "Went home"
+  },
+  {
+    "kind": "question",
+    "text": "Sent a servant"
+  },
+  {
+    "kind": "question",
+    "text": "Waited at his door"
+  },
+  {
+    "kind": "question",
+    "text": "He rested his head on his cloak in the dust."
+  },
+  {
+    "kind": "question",
+    "text": "Why did he not let the man come to him?"
+  },
+  {
+    "kind": "question",
+    "text": "He was not allowed"
+  },
+  {
+    "kind": "question",
+    "text": "He wanted a gift"
+  },
+  {
+    "kind": "question",
+    "text": "The student should go to the teacher"
+  },
+  {
+    "kind": "question",
+    "text": "He was too tired"
+  },
+  {
+    "kind": "question",
+    "text": "I have more right to come to you."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas used his family's rank to make scholars come to him."
+  },
+  {
+    "kind": "question",
+    "text": "He went to them himself, and waited."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas asked up to thirty Sahabah about one single matter."
+  },
+  {
+    "kind": "lesson",
+    "text": "He checked from many sides"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/344"
+  },
+  {
+    "kind": "question",
+    "text": "How many Sahabah did Ibn Abbas ask about one matter?"
+  },
+  {
+    "kind": "question",
+    "text": "He wanted the whole picture."
+  },
+  {
+    "kind": "question",
+    "text": "What does this teach a student?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask only one person"
+  },
+  {
+    "kind": "question",
+    "text": "Never ask anyone"
+  },
+  {
+    "kind": "question",
+    "text": "Trust any rumour"
+  },
+  {
+    "kind": "question",
+    "text": "Check carefully before you are sure"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge needs care."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi said the chain of this report is sahih."
+  },
+  {
+    "kind": "question",
+    "text": "Sahih: sound and authentic."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas was called al-Bahr, the sea, for how much he knew."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mujahid, his student, said it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Tawus: no one knew more"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/350"
+  },
+  {
+    "kind": "question",
+    "text": "What was Ibn Abbas called because of his knowledge?"
+  },
+  {
+    "kind": "question",
+    "text": "Dhun-Nurayn"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bahr, the sea"
+  },
+  {
+    "kind": "question",
+    "text": "His knowledge was wide and deep, like a sea."
+  },
+  {
+    "kind": "question",
+    "text": "Which of his students said he was called the sea?"
+  },
+  {
+    "kind": "question",
+    "text": "Mujahid"
+  },
+  {
+    "kind": "question",
+    "text": "Mujahid learned tafsir from him."
+  },
+  {
+    "kind": "question",
+    "text": "Tawus said he saw no one more learned than Ibn Abbas."
+  },
+  {
+    "kind": "question",
+    "text": "Tawus was one of the Tabi'in of Yemen."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ibn Abbas?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mas'ud: Ibn Abbas is an excellent interpreter of the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "Tarjuman al-Quran"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mas'ud was much older"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/347"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Mas'ud call Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "The trustee of the Ummah"
+  },
+  {
+    "kind": "question",
+    "text": "Sword of Islam"
+  },
+  {
+    "kind": "question",
+    "text": "The caller to prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Tarjuman al-Quran."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud said: if Ibn Abbas had reached our age..."
+  },
+  {
+    "kind": "question",
+    "text": "he would forget it all"
+  },
+  {
+    "kind": "question",
+    "text": "he would leave Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "none of us would come near him"
+  },
+  {
+    "kind": "question",
+    "text": "he would be caliph"
+  },
+  {
+    "kind": "question",
+    "text": "He was young, yet already so learned."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud was jealous of young Ibn Abbas."
+  },
+  {
+    "kind": "question",
+    "text": "He praised him highly."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas learned from Ubayy and Zayd, then taught Mujahid."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sa'id ibn Jubayr read it to him too"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ikrimah, Urwah and Tawus narrated from him"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/332"
+  },
+  {
+    "kind": "question",
+    "text": "To whom did Ibn Abbas read the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "Malik and Nafi"
+  },
+  {
+    "kind": "question",
+    "text": "Ubayy ibn Ka'b and Zayd ibn Thabit"
+  },
+  {
+    "kind": "question",
+    "text": "Mujahid and Ata"
+  },
+  {
+    "kind": "question",
+    "text": "Two great Quran teachers among the Sahabah."
+  },
+  {
+    "kind": "question",
+    "text": "Who read the Quran to Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "Ubayy and Zayd"
+  },
+  {
+    "kind": "question",
+    "text": "Umar and Abu Bakr"
+  },
+  {
+    "kind": "question",
+    "text": "Malik and ash-Shafi'i"
+  },
+  {
+    "kind": "question",
+    "text": "Mujahid and Sa'id ibn Jubayr"
+  },
+  {
+    "kind": "question",
+    "text": "They became great scholars of tafsir."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas was a student before he became a teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Every teacher was first a student."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ibn Abbas!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Umar narrated much knowledge from the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also from his father, Abu Bakr, Uthman and Ali"
+  },
+  {
+    "kind": "lesson",
+    "text": "Too young for Uhud; first battle: the Trench"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/204"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Abdullah ibn Umar's father?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar means Umar's son."
+  },
+  {
+    "kind": "question",
+    "text": "What was Ibn Umar's first battle?"
+  },
+  {
+    "kind": "question",
+    "text": "Yarmuk"
+  },
+  {
+    "kind": "question",
+    "text": "He was too young for Uhud."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar narrated from Abu Bakr, Uthman and Ali as well as the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "He learned from the greatest Sahabah."
+  },
+  {
+    "kind": "lesson",
+    "text": "What a good man Abdullah is, if only he prayed at night!"
+  },
+  {
+    "kind": "lesson",
+    "text": "After that he slept only a little at night"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hafsah, his sister, told the Prophet ﷺ his dream"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3739"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ wish Ibn Umar would do?"
+  },
+  {
+    "kind": "question",
+    "text": "Move to Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "Write poetry"
+  },
+  {
+    "kind": "question",
+    "text": "Trade more"
+  },
+  {
+    "kind": "question",
+    "text": "What an excellent man, if only he prayed at night."
+  },
+  {
+    "kind": "question",
+    "text": "Who took Ibn Umar's dream to the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Hafsah, his sister"
+  },
+  {
+    "kind": "question",
+    "text": "Hafsah was a wife of the Prophet ﷺ and Umar's daughter."
+  },
+  {
+    "kind": "question",
+    "text": "After this, Ibn Umar slept only a little at night."
+  },
+  {
+    "kind": "question",
+    "text": "He acted on the advice straight away."
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Malik: Ibn Umar gave the people fatwa for sixty years."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fatwa: an answer on a matter of religion"
+  },
+  {
+    "kind": "lesson",
+    "text": "Madinah's imam after Zayd ibn Thabit"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/221"
+  },
+  {
+    "kind": "question",
+    "text": "For how long did Ibn Umar give fatwa?"
+  },
+  {
+    "kind": "question",
+    "text": "Six months"
+  },
+  {
+    "kind": "question",
+    "text": "Six years"
+  },
+  {
+    "kind": "question",
+    "text": "Six hundred years"
+  },
+  {
+    "kind": "question",
+    "text": "Sixty years"
+  },
+  {
+    "kind": "question",
+    "text": "Imam Malik said so."
+  },
+  {
+    "kind": "question",
+    "text": "What is a fatwa?"
+  },
+  {
+    "kind": "question",
+    "text": "An answer on a matter of religion"
+  },
+  {
+    "kind": "question",
+    "text": "A battle plan"
+  },
+  {
+    "kind": "question",
+    "text": "People asked; the scholar answered."
+  },
+  {
+    "kind": "question",
+    "text": "Imam Malik, from Madinah, praised Ibn Umar as an imam of Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "He was the imam after Zayd ibn Thabit."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Umar turned away more questions than he answered."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas answered every question"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nafi sat with both of them"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/222"
+  },
+  {
+    "kind": "question",
+    "text": "Who answered almost every question at Hajj time?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar held back more often."
+  },
+  {
+    "kind": "question",
+    "text": "Why would a scholar turn a question away?"
+  },
+  {
+    "kind": "question",
+    "text": "To avoid speaking about Allah's religion without sure knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "He disliked people"
+  },
+  {
+    "kind": "question",
+    "text": "He was paid not to answer"
+  },
+  {
+    "kind": "question",
+    "text": "Saying something wrong about the religion is serious."
+  },
+  {
+    "kind": "question",
+    "text": "Nafi sat with Ibn Umar one day and Ibn Abbas the next."
+  },
+  {
+    "kind": "question",
+    "text": "So he saw how each of them answered."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Umar followed the Prophet's ﷺ way with great care."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik reported it"
+  },
+  {
+    "kind": "lesson",
+    "text": "He watched how the Prophet ﷺ did things"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 3/213"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Umar care about most?"
+  },
+  {
+    "kind": "question",
+    "text": "Winning debates"
+  },
+  {
+    "kind": "question",
+    "text": "Following the Prophet's ﷺ way"
+  },
+  {
+    "kind": "question",
+    "text": "Gathering wealth"
+  },
+  {
+    "kind": "question",
+    "text": "He wanted to do things as the Prophet ﷺ did."
+  },
+  {
+    "kind": "question",
+    "text": "Which imam reported this about Ibn Umar?"
+  },
+  {
+    "kind": "question",
+    "text": "Malik of Madinah, who learned through Nafi."
+  },
+  {
+    "kind": "question",
+    "text": "The sunnah is the way of the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "His words, his deeds and what he approved."
+  },
+  {
+    "kind": "lesson",
+    "text": "Asked to write all knowledge, Ibn Umar gave four rules."
+  },
+  {
+    "kind": "lesson",
+    "text": "Meet Allah free of people's blood and wealth"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hold your tongue from their honour; stay with the Muslims"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Umar say first, when asked for all knowledge?"
+  },
+  {
+    "kind": "question",
+    "text": "Here it is"
+  },
+  {
+    "kind": "question",
+    "text": "Ask my father"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge is a lot"
+  },
+  {
+    "kind": "question",
+    "text": "No one can write all of it."
+  },
+  {
+    "kind": "question",
+    "text": "He said: meet Allah with none of people's ___ on you."
+  },
+  {
+    "kind": "question",
+    "text": "blood"
+  },
+  {
+    "kind": "question",
+    "text": "Then their wealth, then their honour."
+  },
+  {
+    "kind": "question",
+    "text": "His advice was to keep to the main body (jama'ah) of the Muslims."
+  },
+  {
+    "kind": "question",
+    "text": "Do not split from them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ibn Umar?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Umar's freed servant Nafi carried his hadith to Imam Malik."
+  },
+  {
+    "kind": "lesson",
+    "text": "Nafi was his mawla"
+  },
+  {
+    "kind": "lesson",
+    "text": "Prayer together: 27 times better"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 650a"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Nafi?"
+  },
+  {
+    "kind": "question",
+    "text": "A Sahabi from Yemen"
+  },
+  {
+    "kind": "question",
+    "text": "A judge of Kufa"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar's freed servant"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar's father"
+  },
+  {
+    "kind": "question",
+    "text": "A mawla: freed, but still of his household."
+  },
+  {
+    "kind": "question",
+    "text": "Prayer in congregation is how many degrees better than alone?"
+  },
+  {
+    "kind": "question",
+    "text": "Twenty-seven"
+  },
+  {
+    "kind": "question",
+    "text": "Malik, from Nafi, from Ibn Umar."
+  },
+  {
+    "kind": "question",
+    "text": "This chain runs: Malik, then Nafi, then Ibn Umar, then the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "It is on the tree."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ibn Umar!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Alqamah ibn Waqqas heard Umar teach from the minbar."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hadith: actions are by intentions"
+  },
+  {
+    "kind": "lesson",
+    "text": "It is the first hadith in Sahih al-Bukhari"
+  },
+  {
+    "kind": "question",
+    "text": "Who did Alqamah ibn Waqqas hear on the minbar?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar told the people a hadith from the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Which hadith did he hear from Umar?"
+  },
+  {
+    "kind": "question",
+    "text": "The strong man controls his anger"
+  },
+  {
+    "kind": "question",
+    "text": "Cleanliness is half of faith"
+  },
+  {
+    "kind": "question",
+    "text": "It opens Sahih al-Bukhari."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah ibn Waqqas was a student of the Sahabah."
+  },
+  {
+    "kind": "question",
+    "text": "He was a Tabi'i who heard Umar himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "Alqamah ibn Waqqas was one of the scholars of Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned from Umar, Aishah and Ibn Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "He did not narrate many hadith"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/61"
+  },
+  {
+    "kind": "question",
+    "text": "In which city was Alqamah ibn Waqqas a scholar?"
+  },
+  {
+    "kind": "question",
+    "text": "He is counted among the scholars of Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these did he learn from?"
+  },
+  {
+    "kind": "question",
+    "text": "He narrated from Umar, Aishah and Ibn Umar."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah ibn Waqqas narrated thousands of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi says he did not narrate many."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hadith experts called Alqamah ibn Waqqas thiqah: trustworthy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Sa'd and an-Nasa'i said it"
+  },
+  {
+    "kind": "lesson",
+    "text": "His hadith are in all six books"
+  },
+  {
+    "kind": "question",
+    "text": "What does thiqah mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Weak"
+  },
+  {
+    "kind": "question",
+    "text": "Forgetful"
+  },
+  {
+    "kind": "question",
+    "text": "It is praise for a narrator who is honest and precise."
+  },
+  {
+    "kind": "question",
+    "text": "Where are his hadith found?"
+  },
+  {
+    "kind": "question",
+    "text": "Only in poems"
+  },
+  {
+    "kind": "question",
+    "text": "Only in history books"
+  },
+  {
+    "kind": "question",
+    "text": "In all six books of hadith"
+  },
+  {
+    "kind": "question",
+    "text": "In no books"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari, Muslim, Abu Dawud, at-Tirmidhi, an-Nasa'i and Ibn Majah."
+  },
+  {
+    "kind": "question",
+    "text": "A narrator can be trusted even if he narrated only a few hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah narrated few, and was called trustworthy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Az-Zuhri and Muhammad at-Taymi learned from Alqamah."
+  },
+  {
+    "kind": "lesson",
+    "text": "At-Taymi passed on 'actions are by intentions'"
+  },
+  {
+    "kind": "lesson",
+    "text": "Both are on the tree"
+  },
+  {
+    "kind": "question",
+    "text": "Which student passed on Umar's hadith of intentions from him?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar, then Alqamah, then at-Taymi."
+  },
+  {
+    "kind": "question",
+    "text": "Which great scholar of Madinah also learned from him?"
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri later taught Imam Malik."
+  },
+  {
+    "kind": "question",
+    "text": "Put the chain in order, from the top."
+  },
+  {
+    "kind": "question",
+    "text": "Umar, at-Taymi, Alqamah"
+  },
+  {
+    "kind": "question",
+    "text": "Umar, Alqamah, at-Taymi"
+  },
+  {
+    "kind": "question",
+    "text": "At-Taymi, Alqamah, Umar"
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah, Umar, at-Taymi"
+  },
+  {
+    "kind": "question",
+    "text": "A teacher comes before his student."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Alqamah ibn Waqqas!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Urwah stayed close to his aunt Aishah and learned fiqh from her."
+  },
+  {
+    "kind": "lesson",
+    "text": "His mother: Asma, daughter of Abu Bakr"
+  },
+  {
+    "kind": "lesson",
+    "text": "His father: az-Zubayr ibn al-Awwam"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/421"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Urwah's aunt and teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "His mother Asma was Aishah's sister."
+  },
+  {
+    "kind": "question",
+    "text": "Who was Urwah's mother?"
+  },
+  {
+    "kind": "question",
+    "text": "Asma, daughter of Abu Bakr"
+  },
+  {
+    "kind": "question",
+    "text": "Urwah was one of the seven fuqaha of Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "The seven great scholars of fiqh there."
+  },
+  {
+    "kind": "lesson",
+    "text": "Az-Zuhri and Urwah's son Hisham learned from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu az-Zinad too"
+  },
+  {
+    "kind": "lesson",
+    "text": "Az-Zuhri later taught Imam Malik"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/422"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these was Urwah's student?"
+  },
+  {
+    "kind": "question",
+    "text": "His son Hisham"
+  },
+  {
+    "kind": "question",
+    "text": "The others were older, from the Sahabah."
+  },
+  {
+    "kind": "question",
+    "text": "Which of his students taught Imam Malik?"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah, Urwah, az-Zuhri, Malik: a chain on the tree."
+  },
+  {
+    "kind": "question",
+    "text": "Urwah's own son Hisham learned from him."
+  },
+  {
+    "kind": "question",
+    "text": "Hisham ibn Urwah became a scholar too."
+  },
+  {
+    "kind": "lesson",
+    "text": "Urwah made sure he had every hadith Aishah narrated."
+  },
+  {
+    "kind": "lesson",
+    "text": "He told young people: learn now"
+  },
+  {
+    "kind": "lesson",
+    "text": "He sat at Sahabah's doors to ask them"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/424"
+  },
+  {
+    "kind": "question",
+    "text": "What did Urwah tell young people?"
+  },
+  {
+    "kind": "question",
+    "text": "Do not ask questions"
+  },
+  {
+    "kind": "question",
+    "text": "Learn now, you will be the elders"
+  },
+  {
+    "kind": "question",
+    "text": "Play now, learn later"
+  },
+  {
+    "kind": "question",
+    "text": "Only old people should learn"
+  },
+  {
+    "kind": "question",
+    "text": "Today's young are tomorrow's teachers."
+  },
+  {
+    "kind": "question",
+    "text": "How did Urwah learn from the Sahabah?"
+  },
+  {
+    "kind": "question",
+    "text": "He went to their doors to ask them"
+  },
+  {
+    "kind": "question",
+    "text": "He waited for letters"
+  },
+  {
+    "kind": "question",
+    "text": "He read it in newspapers"
+  },
+  {
+    "kind": "question",
+    "text": "He never asked anyone"
+  },
+  {
+    "kind": "question",
+    "text": "Students went to the teachers."
+  },
+  {
+    "kind": "question",
+    "text": "Urwah tried to collect every hadith Aishah had."
+  },
+  {
+    "kind": "question",
+    "text": "He made sure none of hers was missing."
+  },
+  {
+    "kind": "lesson",
+    "text": "Az-Zuhri: Urwah is a sea that buckets cannot make muddy."
+  },
+  {
+    "kind": "lesson",
+    "text": "So much knowledge it never ran low"
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar ibn Abd al-Aziz praised him too"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/425"
+  },
+  {
+    "kind": "question",
+    "text": "What did az-Zuhri compare Urwah to?"
+  },
+  {
+    "kind": "question",
+    "text": "A sea that buckets cannot muddy"
+  },
+  {
+    "kind": "question",
+    "text": "A small well"
+  },
+  {
+    "kind": "question",
+    "text": "A dry river"
+  },
+  {
+    "kind": "question",
+    "text": "A cup of water"
+  },
+  {
+    "kind": "question",
+    "text": "Take as much as you like, and it stays clear and full."
+  },
+  {
+    "kind": "question",
+    "text": "Which ruler, known for justice, praised Urwah?"
+  },
+  {
+    "kind": "question",
+    "text": "Namrud"
+  },
+  {
+    "kind": "question",
+    "text": "Umar ibn Abd al-Aziz"
+  },
+  {
+    "kind": "question",
+    "text": "Fir'awn"
+  },
+  {
+    "kind": "question",
+    "text": "He said none was more knowledgeable."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri, who praised him, was his student."
+  },
+  {
+    "kind": "question",
+    "text": "Students know their teacher best."
+  },
+  {
+    "kind": "lesson",
+    "text": "When Urwah lost his leg, he thanked Allah for what remained."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said: You took, but You left"
+  },
+  {
+    "kind": "lesson",
+    "text": "He kept his Quran reading that night"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/430"
+  },
+  {
+    "kind": "question",
+    "text": "What did Urwah say when he lost his leg?"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing is left"
+  },
+  {
+    "kind": "question",
+    "text": "You took, but You left me much"
+  },
+  {
+    "kind": "question",
+    "text": "He looked at what Allah had left him."
+  },
+  {
+    "kind": "question",
+    "text": "What does Urwah's story teach?"
+  },
+  {
+    "kind": "question",
+    "text": "Blame others"
+  },
+  {
+    "kind": "question",
+    "text": "Patience and thanks in hard times"
+  },
+  {
+    "kind": "question",
+    "text": "Complain loudly"
+  },
+  {
+    "kind": "question",
+    "text": "Stop worshipping"
+  },
+  {
+    "kind": "question",
+    "text": "A scholar lives by what he knows."
+  },
+  {
+    "kind": "question",
+    "text": "Urwah's test made him stop his worship."
+  },
+  {
+    "kind": "question",
+    "text": "He kept up his Quran and thanked Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Urwah ibn az-Zubayr!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nafi was freed by Ibn Umar, and learned from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mawla: a freed man, tied to the family"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mufti and scholar of Madinah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/95"
+  },
+  {
+    "kind": "question",
+    "text": "Which Sahabi was Nafi's teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "Nafi was his freed man and student."
+  },
+  {
+    "kind": "question",
+    "text": "Nafi became the mufti of which city?"
+  },
+  {
+    "kind": "question",
+    "text": "Mufti: a scholar who answers questions on the religion."
+  },
+  {
+    "kind": "question",
+    "text": "A freed man could become a great scholar."
+  },
+  {
+    "kind": "question",
+    "text": "Nafi became the mufti of Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bukhari: the soundest chain is Malik, Nafi, Ibn Umar."
+  },
+  {
+    "kind": "lesson",
+    "text": "Chain: who heard it from whom"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nafi links Malik to Ibn Umar"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/97"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari called which chain the soundest?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Baz, from Ibn Taymiyyah"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Jahl, from Abu Lahab"
+  },
+  {
+    "kind": "question",
+    "text": "Nafi, from Imam al-Bukhari"
+  },
+  {
+    "kind": "question",
+    "text": "Each one in it was very precise."
+  },
+  {
+    "kind": "question",
+    "text": "Who is in the middle of this chain?"
+  },
+  {
+    "kind": "question",
+    "text": "Malik heard from Nafi, and Nafi from Ibn Umar."
+  },
+  {
+    "kind": "question",
+    "text": "Imam Malik learned from Nafi."
+  },
+  {
+    "kind": "question",
+    "text": "Malik came to him as a youth."
+  },
+  {
+    "kind": "lesson",
+    "text": "Prayer in congregation is 27 times better than praying alone."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Umar heard it from the Prophet ﷺ"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then Nafi, then Malik"
+  },
+  {
+    "kind": "question",
+    "text": "How much better is prayer in congregation?"
+  },
+  {
+    "kind": "question",
+    "text": "2 degrees"
+  },
+  {
+    "kind": "question",
+    "text": "7 degrees"
+  },
+  {
+    "kind": "question",
+    "text": "100 degrees"
+  },
+  {
+    "kind": "question",
+    "text": "27 degrees"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said so, and Nafi passed it on."
+  },
+  {
+    "kind": "question",
+    "text": "Who passed this hadith from Ibn Umar to Malik?"
+  },
+  {
+    "kind": "question",
+    "text": "Praying together has more reward than praying alone."
+  },
+  {
+    "kind": "question",
+    "text": "Twenty-seven degrees more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar ibn Abd al-Aziz sent Nafi to Egypt to teach the sunnah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He made Hajj and Umrah with Ibn Umar 30-some times"
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik came to learn from him as a youth"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Nafi sent to teach the sunnah?"
+  },
+  {
+    "kind": "question",
+    "text": "India"
+  },
+  {
+    "kind": "question",
+    "text": "China"
+  },
+  {
+    "kind": "question",
+    "text": "Spain"
+  },
+  {
+    "kind": "question",
+    "text": "Umar ibn Abd al-Aziz sent him."
+  },
+  {
+    "kind": "question",
+    "text": "About how many times did Nafi do Hajj and Umrah with Ibn Umar?"
+  },
+  {
+    "kind": "question",
+    "text": "Thirty-some"
+  },
+  {
+    "kind": "question",
+    "text": "He was always beside his teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Nafi learned by travelling with his teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Years beside Ibn Umar, on Hajj and Umrah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik: when Nafi says something, seal it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seal it: it is certain, no need to check"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Khirash: trustworthy, noble"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/98"
+  },
+  {
+    "kind": "question",
+    "text": "What did Malik say about Nafi's words?"
+  },
+  {
+    "kind": "question",
+    "text": "Check it ten times"
+  },
+  {
+    "kind": "question",
+    "text": "Throw it away"
+  },
+  {
+    "kind": "question",
+    "text": "Ask someone else"
+  },
+  {
+    "kind": "question",
+    "text": "He trusted Nafi completely."
+  },
+  {
+    "kind": "question",
+    "text": "What makes a narrator trusted?"
+  },
+  {
+    "kind": "question",
+    "text": "Honesty and precision"
+  },
+  {
+    "kind": "question",
+    "text": "Height"
+  },
+  {
+    "kind": "question",
+    "text": "A loud voice"
+  },
+  {
+    "kind": "question",
+    "text": "Nafi had both."
+  },
+  {
+    "kind": "question",
+    "text": "Malik thought Nafi's words needed checking with others."
+  },
+  {
+    "kind": "question",
+    "text": "He said: seal it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Nafi!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ata ibn Abi Rabah was the mufti of the Haram in Makkah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned from Aishah, Ibn Abbas and Abu Hurayrah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah learned from him"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/79"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Ata give fatwa?"
+  },
+  {
+    "kind": "question",
+    "text": "In Cairo"
+  },
+  {
+    "kind": "question",
+    "text": "At the Haram in Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "He was the mufti of the Haram."
+  },
+  {
+    "kind": "question",
+    "text": "Which of the four imams learned from Ata?"
+  },
+  {
+    "kind": "question",
+    "text": "Ata was his greatest teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Ata learned from Sahabah like Ibn Abbas and Aishah."
+  },
+  {
+    "kind": "question",
+    "text": "He was a Tabi'i."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ata was dark, lame and later blind, yet led Makkah in knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Later he lost his sight"
+  },
+  {
+    "kind": "lesson",
+    "text": "Trustworthy, with much hadith"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/80"
+  },
+  {
+    "kind": "question",
+    "text": "What made Ata great?"
+  },
+  {
+    "kind": "question",
+    "text": "His money"
+  },
+  {
+    "kind": "question",
+    "text": "His knowledge and taqwa"
+  },
+  {
+    "kind": "question",
+    "text": "His looks"
+  },
+  {
+    "kind": "question",
+    "text": "Allah raises people by knowledge and faith."
+  },
+  {
+    "kind": "question",
+    "text": "What happened to Ata's sight later?"
+  },
+  {
+    "kind": "question",
+    "text": "It got better"
+  },
+  {
+    "kind": "question",
+    "text": "He wore glasses"
+  },
+  {
+    "kind": "question",
+    "text": "He went blind"
+  },
+  {
+    "kind": "question",
+    "text": "And he kept teaching."
+  },
+  {
+    "kind": "question",
+    "text": "Ata's looks kept him from leading in knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "He became the mufti of Makkah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ata met about two hundred of the Sahabah."
+  },
+  {
+    "kind": "lesson",
+    "text": "None knew the Hajj rites better"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Ja'far al-Baqir said so"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/81"
+  },
+  {
+    "kind": "question",
+    "text": "About how many Sahabah did Ata meet?"
+  },
+  {
+    "kind": "question",
+    "text": "He said he met two hundred."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ata know better than anyone of his time?"
+  },
+  {
+    "kind": "question",
+    "text": "Building forts"
+  },
+  {
+    "kind": "question",
+    "text": "Trading horses"
+  },
+  {
+    "kind": "question",
+    "text": "The rites of Hajj"
+  },
+  {
+    "kind": "question",
+    "text": "Sailing ships"
+  },
+  {
+    "kind": "question",
+    "text": "Ata learned from many of the Sahabah."
+  },
+  {
+    "kind": "question",
+    "text": "He met about two hundred of them."
+  },
+  {
+    "kind": "lesson",
+    "text": "At Hajj it was called out: no one gives fatwa but Ata."
+  },
+  {
+    "kind": "lesson",
+    "text": "He made Hajj more than 70 times"
+  },
+  {
+    "kind": "lesson",
+    "text": "Called out by the rulers of the time"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/82"
+  },
+  {
+    "kind": "question",
+    "text": "What was called out at Hajj?"
+  },
+  {
+    "kind": "question",
+    "text": "No one gives fatwa but Ata"
+  },
+  {
+    "kind": "question",
+    "text": "No one may pray"
+  },
+  {
+    "kind": "question",
+    "text": "Only buy from Ata"
+  },
+  {
+    "kind": "question",
+    "text": "So pilgrims got answers from the best scholar."
+  },
+  {
+    "kind": "question",
+    "text": "About how many times did Ata make Hajj?"
+  },
+  {
+    "kind": "question",
+    "text": "More than 700"
+  },
+  {
+    "kind": "question",
+    "text": "More than 70"
+  },
+  {
+    "kind": "question",
+    "text": "He lived in Makkah."
+  },
+  {
+    "kind": "question",
+    "text": "Pilgrims were told to take fatwa from Ata."
+  },
+  {
+    "kind": "question",
+    "text": "He knew the Hajj best."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah: I never saw anyone better than Ata."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah met many scholars"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ata stood above them all for him"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/83"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Hanifah say about Ata?"
+  },
+  {
+    "kind": "question",
+    "text": "I never saw anyone better"
+  },
+  {
+    "kind": "question",
+    "text": "He was too strict"
+  },
+  {
+    "kind": "question",
+    "text": "He knew nothing"
+  },
+  {
+    "kind": "question",
+    "text": "I never met him"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas, Abu Hanifah, Ata"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas, Ata, Abu Hanifah"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah, Ata, Ibn Abbas"
+  },
+  {
+    "kind": "question",
+    "text": "Ata, Ibn Abbas, Abu Hanifah"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah is linked to Ibn Abbas through Ata."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas taught Ata, and Ata taught Abu Hanifah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ata ibn Abi Rabah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Alqamah ibn Qays was the faqih and Quran reciter of Kufa."
+  },
+  {
+    "kind": "lesson",
+    "text": "Born in the Prophet's ﷺ lifetime"
+  },
+  {
+    "kind": "lesson",
+    "text": "Uncle of Ibrahim an-Nakha'i"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/53"
+  },
+  {
+    "kind": "question",
+    "text": "In which city was Alqamah ibn Qays the faqih?"
+  },
+  {
+    "kind": "question",
+    "text": "He was its scholar and reciter."
+  },
+  {
+    "kind": "question",
+    "text": "Which scholar was his nephew?"
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi calls Alqamah his uncle."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah was born in the lifetime of the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "But he did not meet him, so he is a Tabi'i."
+  },
+  {
+    "kind": "lesson",
+    "text": "Alqamah stayed with Ibn Mas'ud and perfected the Quran with him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He also learned from Umar, Uthman, Ali and Aishah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He became like his teacher"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/54"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Alqamah's main teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "He stayed with him until he led in knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "What did he perfect with Ibn Mas'ud?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud was a master of the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah learned from only one Sahabi."
+  },
+  {
+    "kind": "question",
+    "text": "Also Umar, Uthman, Ali, Aishah and more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Alqamah: what I learned young, I still see as if on paper."
+  },
+  {
+    "kind": "lesson",
+    "text": "Learn while young"
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad: trustworthy, of the good people"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/55"
+  },
+  {
+    "kind": "question",
+    "text": "What did Alqamah say about what he learned young?"
+  },
+  {
+    "kind": "question",
+    "text": "It was useless"
+  },
+  {
+    "kind": "question",
+    "text": "He never learned young"
+  },
+  {
+    "kind": "question",
+    "text": "It stayed like writing on paper"
+  },
+  {
+    "kind": "question",
+    "text": "He forgot it all"
+  },
+  {
+    "kind": "question",
+    "text": "What did Imam Ahmad call Alqamah?"
+  },
+  {
+    "kind": "question",
+    "text": "Trustworthy, one of the good"
+  },
+  {
+    "kind": "question",
+    "text": "High praise from a great imam."
+  },
+  {
+    "kind": "question",
+    "text": "What you learn young can stay with you for life."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah saw it in himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seeing Alqamah was nearly like seeing Ibn Mas'ud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abdullah: Ibn Mas'ud"
+  },
+  {
+    "kind": "lesson",
+    "text": "And Ibrahim was most like Alqamah"
+  },
+  {
+    "kind": "question",
+    "text": "Why was seeing Alqamah like seeing Ibn Mas'ud?"
+  },
+  {
+    "kind": "question",
+    "text": "He lived in his house"
+  },
+  {
+    "kind": "question",
+    "text": "He was most like him in manner"
+  },
+  {
+    "kind": "question",
+    "text": "He wore his clothes"
+  },
+  {
+    "kind": "question",
+    "text": "He took his teacher's way."
+  },
+  {
+    "kind": "question",
+    "text": "And who was most like Alqamah?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud, Alqamah, Ibrahim: each like his teacher."
+  },
+  {
+    "kind": "question",
+    "text": "A student can carry on his teacher's way."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah carried Ibn Mas'ud's."
+  },
+  {
+    "kind": "lesson",
+    "text": "Alqamah disliked crowds following him for fame."
+  },
+  {
+    "kind": "lesson",
+    "text": "He wanted no fame"
+  },
+  {
+    "kind": "lesson",
+    "text": "He read the whole Quran in five days"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/59"
+  },
+  {
+    "kind": "question",
+    "text": "What did Alqamah dislike?"
+  },
+  {
+    "kind": "question",
+    "text": "Teaching"
+  },
+  {
+    "kind": "question",
+    "text": "Giving charity"
+  },
+  {
+    "kind": "question",
+    "text": "People following him for fame"
+  },
+  {
+    "kind": "question",
+    "text": "He wanted his deeds for Allah alone."
+  },
+  {
+    "kind": "question",
+    "text": "Boast of knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Look down on others"
+  },
+  {
+    "kind": "question",
+    "text": "Humility, not showing off"
+  },
+  {
+    "kind": "question",
+    "text": "Seek fame"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge should make you humble."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah enjoyed being famous."
+  },
+  {
+    "kind": "question",
+    "text": "He disliked it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Alqamah ibn Qays!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Muhammad at-Taymi was a scholar of Madinah, with Salim and Nafi."
+  },
+  {
+    "kind": "lesson",
+    "text": "His grandfather was a Muhajir"
+  },
+  {
+    "kind": "lesson",
+    "text": "He saw Sa'd ibn Abi Waqqas"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/294"
+  },
+  {
+    "kind": "question",
+    "text": "In which city was at-Taymi a scholar?"
+  },
+  {
+    "kind": "question",
+    "text": "Alongside Salim and Nafi."
+  },
+  {
+    "kind": "question",
+    "text": "Which Sahabi did he see?"
+  },
+  {
+    "kind": "question",
+    "text": "His grandfather made the Hijrah."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Harith was one of the Muhajirun."
+  },
+  {
+    "kind": "lesson",
+    "text": "At-Taymi learned from Ibn Umar, Jabir, Anas and Alqamah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also from Abu Sa'id al-Khudri"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yahya al-Ansari learned from him"
+  },
+  {
+    "kind": "question",
+    "text": "Which Tabi'i on the tree taught at-Taymi?"
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah had heard Umar."
+  },
+  {
+    "kind": "question",
+    "text": "Which of his students is on the tree?"
+  },
+  {
+    "kind": "question",
+    "text": "Yahya then taught Sufyan."
+  },
+  {
+    "kind": "question",
+    "text": "At-Taymi learned from Sahabah and from Tabi'in."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Umar and Anas, and also Alqamah."
+  },
+  {
+    "kind": "lesson",
+    "text": "At-Taymi alone passed on the intentions hadith from Alqamah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Umar, then Alqamah, then at-Taymi"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Sahih books accepted it"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/295"
+  },
+  {
+    "kind": "question",
+    "text": "Which famous hadith came through at-Taymi?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar, Alqamah, at-Taymi, then Yahya."
+  },
+  {
+    "kind": "question",
+    "text": "Who did at-Taymi hear it from?"
+  },
+  {
+    "kind": "question",
+    "text": "And Alqamah heard Umar."
+  },
+  {
+    "kind": "question",
+    "text": "The authors of the Sahih books accepted this hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari put it first in his Sahih."
+  },
+  {
+    "kind": "lesson",
+    "text": "One trusted link at a time, the hadith reached al-Bukhari."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yahya, Sufyan and al-Humaydi came after"
+  },
+  {
+    "kind": "lesson",
+    "text": "Each heard it from the one before"
+  },
+  {
+    "kind": "question",
+    "text": "Who heard the hadith of intentions from at-Taymi?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar and Alqamah came before him; al-Bukhari much later."
+  },
+  {
+    "kind": "question",
+    "text": "Yahya, at-Taymi, Alqamah"
+  },
+  {
+    "kind": "question",
+    "text": "At-Taymi, Alqamah, Yahya"
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah, Yahya, at-Taymi"
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah, at-Taymi, Yahya"
+  },
+  {
+    "kind": "question",
+    "text": "If one link in a chain is weak, the whole chain is weakened."
+  },
+  {
+    "kind": "question",
+    "text": "That is why every link was checked."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Muhammad at-Taymi!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Shihab az-Zuhri was the great hadith master of his time."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hafiz: one who memorizes a great deal of hadith"
+  },
+  {
+    "kind": "lesson",
+    "text": "From Madinah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/326"
+  },
+  {
+    "kind": "question",
+    "text": "What is a hafiz of hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "A ship captain"
+  },
+  {
+    "kind": "question",
+    "text": "One who memorizes much hadith"
+  },
+  {
+    "kind": "question",
+    "text": "A guard at a gate"
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri was the hafiz of his time."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri is also called..."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir"
+  },
+  {
+    "kind": "question",
+    "text": "After his ancestor Shihab."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri was a Tabi'i."
+  },
+  {
+    "kind": "question",
+    "text": "He learned from the Sahabah and their students."
+  },
+  {
+    "kind": "lesson",
+    "text": "Az-Zuhri sat with Sa'id ibn al-Musayyab for eight years."
+  },
+  {
+    "kind": "lesson",
+    "text": "He also learned from Urwah"
+  },
+  {
+    "kind": "lesson",
+    "text": "And from Alqamah ibn Waqqas"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/327"
+  },
+  {
+    "kind": "question",
+    "text": "How long did az-Zuhri sit with Sa'id ibn al-Musayyab?"
+  },
+  {
+    "kind": "question",
+    "text": "Eight weeks"
+  },
+  {
+    "kind": "question",
+    "text": "Eight minutes"
+  },
+  {
+    "kind": "question",
+    "text": "Eight years"
+  },
+  {
+    "kind": "question",
+    "text": "Eight days"
+  },
+  {
+    "kind": "question",
+    "text": "He learned fiqh from him."
+  },
+  {
+    "kind": "question",
+    "text": "Which Tabi'i on the tree taught him Aishah's hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah, Urwah, az-Zuhri."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri learned from just one teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Sa'id, Urwah, Alqamah and many more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Az-Zuhri: I never trusted my heart with knowledge and it forgot."
+  },
+  {
+    "kind": "lesson",
+    "text": "He memorized the Quran in 80 nights"
+  },
+  {
+    "kind": "lesson",
+    "text": "He wrote everything on tablets too"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/332"
+  },
+  {
+    "kind": "question",
+    "text": "In how many nights did az-Zuhri memorize the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "About two and a half months."
+  },
+  {
+    "kind": "question",
+    "text": "What did he say about his memory?"
+  },
+  {
+    "kind": "question",
+    "text": "He only remembered poems"
+  },
+  {
+    "kind": "question",
+    "text": "He never forgot what he learned"
+  },
+  {
+    "kind": "question",
+    "text": "He forgot everything"
+  },
+  {
+    "kind": "question",
+    "text": "He could not memorize"
+  },
+  {
+    "kind": "question",
+    "text": "Allah gave him a strong memory."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri memorized the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "In eighty nights."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik, al-Layth and Sufyan learned from az-Zuhri."
+  },
+  {
+    "kind": "lesson",
+    "text": "About 2,000 hadith, said Ibn al-Madini"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Dawud: about 2,200"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/328"
+  },
+  {
+    "kind": "question",
+    "text": "Which of the four imams learned from az-Zuhri?"
+  },
+  {
+    "kind": "question",
+    "text": "Aishah, Urwah, az-Zuhri, Malik."
+  },
+  {
+    "kind": "question",
+    "text": "About how many hadith did az-Zuhri have, said Ibn al-Madini?"
+  },
+  {
+    "kind": "question",
+    "text": "A great store of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Sufyan ibn Uyaynah, on the tree, learned from az-Zuhri."
+  },
+  {
+    "kind": "question",
+    "text": "Sufyan later taught al-Humaydi."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik: this knowledge is religion, so choose your teachers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik left 70 who were honest but not experts"
+  },
+  {
+    "kind": "lesson",
+    "text": "Students crowded at az-Zuhri's door"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/343"
+  },
+  {
+    "kind": "question",
+    "text": "Malik said: this knowledge is religion, so..."
+  },
+  {
+    "kind": "question",
+    "text": "take it from anyone"
+  },
+  {
+    "kind": "question",
+    "text": "do not learn it"
+  },
+  {
+    "kind": "question",
+    "text": "only read it alone"
+  },
+  {
+    "kind": "question",
+    "text": "look whom you take it from"
+  },
+  {
+    "kind": "question",
+    "text": "Learn from trusted, upright scholars."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Malik not take from seventy honest men?"
+  },
+  {
+    "kind": "question",
+    "text": "They lived far away"
+  },
+  {
+    "kind": "question",
+    "text": "They were too young"
+  },
+  {
+    "kind": "question",
+    "text": "They were not experts in hadith"
+  },
+  {
+    "kind": "question",
+    "text": "They were liars"
+  },
+  {
+    "kind": "question",
+    "text": "Honesty alone is not enough; precision is needed too."
+  },
+  {
+    "kind": "question",
+    "text": "Whom you learn the religion from does not matter."
+  },
+  {
+    "kind": "question",
+    "text": "Malik said to look carefully."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Az-Zuhri!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim an-Nakha'i was the faqih of Iraq, in Kufa."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned from Alqamah and Masruq"
+  },
+  {
+    "kind": "lesson",
+    "text": "And from his uncle al-Aswad"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/520"
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim an-Nakha'i was the faqih of which land?"
+  },
+  {
+    "kind": "question",
+    "text": "He lived in Kufa."
+  },
+  {
+    "kind": "question",
+    "text": "Which student of Ibn Mas'ud taught him?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud, Alqamah, Ibrahim."
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim learned from senior Tabi'in."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah, Masruq, al-Aswad and many more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Through Alqamah, Ibrahim held the knowledge of Ibn Mas'ud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mufti of Kufa, with ash-Sha'bi"
+  },
+  {
+    "kind": "lesson",
+    "text": "As a boy he went in to see Aishah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/521"
+  },
+  {
+    "kind": "question",
+    "text": "Whose knowledge reached Ibrahim through Alqamah?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud's"
+  },
+  {
+    "kind": "question",
+    "text": "Imam al-Bukhari's"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Taymiyyah's"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Baz's"
+  },
+  {
+    "kind": "question",
+    "text": "Why was he called the money-changer of hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "He sold coins"
+  },
+  {
+    "kind": "question",
+    "text": "He was a banker"
+  },
+  {
+    "kind": "question",
+    "text": "He loved money"
+  },
+  {
+    "kind": "question",
+    "text": "He could tell sound from weak"
+  },
+  {
+    "kind": "question",
+    "text": "As a money-changer spots fake coins."
+  },
+  {
+    "kind": "question",
+    "text": "As a boy, Ibrahim saw Aishah."
+  },
+  {
+    "kind": "question",
+    "text": "He went in to see her as a child."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim: 'Abdullah said' means I heard it from many."
+  },
+  {
+    "kind": "lesson",
+    "text": "Many sources make a report stronger"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/522"
+  },
+  {
+    "kind": "question",
+    "text": "When Ibrahim said 'Abdullah said', what did it mean?"
+  },
+  {
+    "kind": "question",
+    "text": "He heard it once"
+  },
+  {
+    "kind": "question",
+    "text": "He read it in a dream"
+  },
+  {
+    "kind": "question",
+    "text": "He heard it from more than one"
+  },
+  {
+    "kind": "question",
+    "text": "He made it up"
+  },
+  {
+    "kind": "question",
+    "text": "More than one person had told him."
+  },
+  {
+    "kind": "question",
+    "text": "Who is 'Abdullah' here?"
+  },
+  {
+    "kind": "question",
+    "text": "The teacher of Kufa."
+  },
+  {
+    "kind": "question",
+    "text": "Hearing a report from many people makes it stronger."
+  },
+  {
+    "kind": "question",
+    "text": "That is why he said it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sa'id ibn Jubayr: why ask me, while Ibrahim is among you?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Scholars praised one another"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sa'id was a great Tabi'i himself"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 4/523"
+  },
+  {
+    "kind": "question",
+    "text": "What did Sa'id ibn Jubayr tell the people of Kufa?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask Ibrahim, he is among you"
+  },
+  {
+    "kind": "question",
+    "text": "Go to Egypt"
+  },
+  {
+    "kind": "question",
+    "text": "Ask the rulers"
+  },
+  {
+    "kind": "question",
+    "text": "He honoured Ibrahim's knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "What does this show about the scholars?"
+  },
+  {
+    "kind": "question",
+    "text": "They never met"
+  },
+  {
+    "kind": "question",
+    "text": "They hid knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "They honoured each other"
+  },
+  {
+    "kind": "question",
+    "text": "They pointed people to each other."
+  },
+  {
+    "kind": "question",
+    "text": "Great scholars sent people to other scholars."
+  },
+  {
+    "kind": "question",
+    "text": "Sa'id sent them to Ibrahim."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim taught Hammad, and Hammad taught Abu Hanifah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Mas'ud, Alqamah, Ibrahim, Hammad, Abu Hanifah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/231"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Ibrahim's top student in fiqh?"
+  },
+  {
+    "kind": "question",
+    "text": "Hammad then taught Abu Hanifah."
+  },
+  {
+    "kind": "question",
+    "text": "Put the Kufa chain in order, from the top."
+  },
+  {
+    "kind": "question",
+    "text": "Hammad, Ibrahim, Alqamah"
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim, Alqamah, Hammad"
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah, Hammad, Ibrahim"
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah, Ibrahim, Hammad"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah's fiqh goes back to Ibn Mas'ud through Kufa."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Mas'ud, Alqamah, Ibrahim, Hammad, Abu Hanifah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ibrahim an-Nakha'i!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yahya al-Ansari learned from the seven fuqaha of Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He heard Anas ibn Malik"
+  },
+  {
+    "kind": "lesson",
+    "text": "He was an Ansari, of Banu an-Najjar"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/468"
+  },
+  {
+    "kind": "question",
+    "text": "Whose student was Yahya al-Ansari?"
+  },
+  {
+    "kind": "question",
+    "text": "The seven fuqaha of Madinah"
+  },
+  {
+    "kind": "question",
+    "text": "The scholars of China"
+  },
+  {
+    "kind": "question",
+    "text": "Later scholars"
+  },
+  {
+    "kind": "question",
+    "text": "He learned from them in Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Which Sahabi did he hear?"
+  },
+  {
+    "kind": "question",
+    "text": "So he is a Tabi'i."
+  },
+  {
+    "kind": "question",
+    "text": "Yahya al-Ansari came from the Ansar."
+  },
+  {
+    "kind": "question",
+    "text": "From Banu an-Najjar of Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik, Sufyan ath-Thawri and Shu'bah learned from Yahya."
+  },
+  {
+    "kind": "lesson",
+    "text": "Older az-Zuhri narrated from him too"
+  },
+  {
+    "kind": "lesson",
+    "text": "Also Abu Yusuf and Ibn al-Mubarak"
+  },
+  {
+    "kind": "question",
+    "text": "Which of the four imams learned from Yahya?"
+  },
+  {
+    "kind": "question",
+    "text": "Malik was from Madinah too."
+  },
+  {
+    "kind": "question",
+    "text": "Which older scholar still narrated from Yahya?"
+  },
+  {
+    "kind": "question",
+    "text": "Good scholars learn even from younger ones."
+  },
+  {
+    "kind": "question",
+    "text": "An older scholar can learn from a younger one."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zuhri did."
+  },
+  {
+    "kind": "lesson",
+    "text": "Through Yahya, 'actions are by intentions' spread far and wide."
+  },
+  {
+    "kind": "lesson",
+    "text": "About 200 people narrated it from him"
+  },
+  {
+    "kind": "lesson",
+    "text": "He heard it from at-Taymi"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/469"
+  },
+  {
+    "kind": "question",
+    "text": "About how many people narrated the hadith of intentions from Yahya?"
+  },
+  {
+    "kind": "question",
+    "text": "About 200"
+  },
+  {
+    "kind": "question",
+    "text": "From one chain to two hundred students."
+  },
+  {
+    "kind": "question",
+    "text": "Who did Yahya hear it from?"
+  },
+  {
+    "kind": "question",
+    "text": "Umar, Alqamah, at-Taymi, Yahya."
+  },
+  {
+    "kind": "question",
+    "text": "The hadith of intentions became famous through Yahya."
+  },
+  {
+    "kind": "question",
+    "text": "So many learned it from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yahya was the judge and mufti of the Prophet's ﷺ city."
+  },
+  {
+    "kind": "lesson",
+    "text": "He saw Ibn Umar"
+  },
+  {
+    "kind": "lesson",
+    "text": "A judge settles people's disputes"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/470"
+  },
+  {
+    "kind": "question",
+    "text": "What work did Yahya do in Madinah?"
+  },
+  {
+    "kind": "question",
+    "text": "Merchant"
+  },
+  {
+    "kind": "question",
+    "text": "Poet"
+  },
+  {
+    "kind": "question",
+    "text": "Judge and mufti"
+  },
+  {
+    "kind": "question",
+    "text": "Soldier"
+  },
+  {
+    "kind": "question",
+    "text": "He judged and answered questions."
+  },
+  {
+    "kind": "question",
+    "text": "Which Sahabi did Yahya see?"
+  },
+  {
+    "kind": "question",
+    "text": "As well as hearing Anas."
+  },
+  {
+    "kind": "question",
+    "text": "Yahya judged people in Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "He was its judge."
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad: Yahya al-Ansari was the most precise of people."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hisham ibn Urwah: just, pleasing, trustworthy"
+  },
+  {
+    "kind": "lesson",
+    "text": "Precise: careful with every word"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/471"
+  },
+  {
+    "kind": "question",
+    "text": "What did Imam Ahmad say about Yahya?"
+  },
+  {
+    "kind": "question",
+    "text": "The most precise of people"
+  },
+  {
+    "kind": "question",
+    "text": "Too slow"
+  },
+  {
+    "kind": "question",
+    "text": "Often wrong"
+  },
+  {
+    "kind": "question",
+    "text": "How did Hisham ibn Urwah describe him?"
+  },
+  {
+    "kind": "question",
+    "text": "Fast and loud"
+  },
+  {
+    "kind": "question",
+    "text": "Just, pleasing, trustworthy"
+  },
+  {
+    "kind": "question",
+    "text": "Strong and tall"
+  },
+  {
+    "kind": "question",
+    "text": "Hisham was Urwah's son."
+  },
+  {
+    "kind": "question",
+    "text": "Precision matters when passing on hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Each word of the Prophet ﷺ must be kept."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Yahya al-Ansari!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hammad ibn Abi Sulayman was a faqih of Iraq, in Kufa."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim an-Nakha'i taught him fiqh"
+  },
+  {
+    "kind": "question",
+    "text": "Who taught Hammad fiqh?"
+  },
+  {
+    "kind": "question",
+    "text": "Hammad was his top student."
+  },
+  {
+    "kind": "question",
+    "text": "Which Sahabi did Hammad hear?"
+  },
+  {
+    "kind": "question",
+    "text": "So he is one of the younger Tabi'in."
+  },
+  {
+    "kind": "question",
+    "text": "Hammad lived in Kufa."
+  },
+  {
+    "kind": "question",
+    "text": "He was a faqih of Iraq."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim was asked who to ask after him. He said: Hammad."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hammad had asked him about everything"
+  },
+  {
+    "kind": "lesson",
+    "text": "A teacher choosing his heir"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/232"
+  },
+  {
+    "kind": "question",
+    "text": "Who did Ibrahim say to ask after him?"
+  },
+  {
+    "kind": "question",
+    "text": "His best student."
+  },
+  {
+    "kind": "question",
+    "text": "Why was Hammad ready?"
+  },
+  {
+    "kind": "question",
+    "text": "He was tall"
+  },
+  {
+    "kind": "question",
+    "text": "He had asked about everything"
+  },
+  {
+    "kind": "question",
+    "text": "A good student asks many questions."
+  },
+  {
+    "kind": "question",
+    "text": "Asking many questions helped Hammad learn."
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim said so himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "In Ramadan, Hammad gave iftar to 500 people every day."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Eid he gave each 100 dirhams"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah gave him wealth, and he shared it"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 5/234"
+  },
+  {
+    "kind": "question",
+    "text": "How many people did Hammad feed for iftar in Ramadan?"
+  },
+  {
+    "kind": "question",
+    "text": "He was generous with his wealth."
+  },
+  {
+    "kind": "question",
+    "text": "What did he give them after Eid?"
+  },
+  {
+    "kind": "question",
+    "text": "A house each"
+  },
+  {
+    "kind": "question",
+    "text": "100 dirhams each"
+  },
+  {
+    "kind": "question",
+    "text": "A gift on top of the meals."
+  },
+  {
+    "kind": "question",
+    "text": "A scholar can also be wealthy and generous."
+  },
+  {
+    "kind": "question",
+    "text": "Hammad was both."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hammad taught fiqh to Abu Hanifah, the first of the four imams."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Hanifah's greatest shaykh was Ata"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hammad taught him fiqh in Kufa"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 6/391"
+  },
+  {
+    "kind": "question",
+    "text": "Which imam learned fiqh from Hammad?"
+  },
+  {
+    "kind": "question",
+    "text": "Hammad was his fiqh teacher in Kufa."
+  },
+  {
+    "kind": "question",
+    "text": "Hammad, Ibrahim, Abu Hanifah"
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim, Abu Hanifah, Hammad"
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim, Hammad, Abu Hanifah"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah, Hammad, Ibrahim"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah learned from both Ata and Hammad."
+  },
+  {
+    "kind": "question",
+    "text": "Ata in Makkah, Hammad in Kufa."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Hammad ibn Abi Sulayman!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sufyan ibn Uyaynah was the great hadith master of his age."
+  },
+  {
+    "kind": "lesson",
+    "text": "Born in Kufa, lived in Makkah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Called Shaykh al-Islam"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 8/454"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Sufyan ibn Uyaynah live and teach?"
+  },
+  {
+    "kind": "question",
+    "text": "He was born in Kufa and settled in Makkah."
+  },
+  {
+    "kind": "question",
+    "text": "What was Sufyan a master of?"
+  },
+  {
+    "kind": "question",
+    "text": "Sailing"
+  },
+  {
+    "kind": "question",
+    "text": "Poetry only"
+  },
+  {
+    "kind": "question",
+    "text": "He was the hafiz of his age."
+  },
+  {
+    "kind": "question",
+    "text": "Sufyan ibn Uyaynah was born in Kufa."
+  },
+  {
+    "kind": "question",
+    "text": "Then he made Makkah his home."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sufyan sought hadith as a boy, from az-Zuhri and others."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also from Yahya al-Ansari"
+  },
+  {
+    "kind": "lesson",
+    "text": "And from Amr ibn Dinar, most of all"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 8/455"
+  },
+  {
+    "kind": "question",
+    "text": "When did Sufyan start seeking hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "As a boy"
+  },
+  {
+    "kind": "question",
+    "text": "After he retired"
+  },
+  {
+    "kind": "question",
+    "text": "He met the great scholars while young."
+  },
+  {
+    "kind": "question",
+    "text": "Which Tabi'i on the tree taught Sufyan?"
+  },
+  {
+    "kind": "question",
+    "text": "And Yahya al-Ansari too."
+  },
+  {
+    "kind": "question",
+    "text": "Sufyan learned from Yahya ibn Sa'id al-Ansari."
+  },
+  {
+    "kind": "question",
+    "text": "That is how he got the hadith of intentions."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even Sufyan's own teachers, like Shu'bah, narrated from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i and Ahmad learned from him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Humaydi too, and Ibn al-Madini"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 8/456"
+  },
+  {
+    "kind": "question",
+    "text": "Which two of the four imams learned from Sufyan?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah and Malik"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i and Ahmad"
+  },
+  {
+    "kind": "question",
+    "text": "Both narrated from him."
+  },
+  {
+    "kind": "question",
+    "text": "Which student of his taught al-Bukhari?"
+  },
+  {
+    "kind": "question",
+    "text": "Ata"
+  },
+  {
+    "kind": "question",
+    "text": "Sufyan, al-Humaydi, al-Bukhari."
+  },
+  {
+    "kind": "question",
+    "text": "Some of Sufyan's teachers later narrated from him."
+  },
+  {
+    "kind": "question",
+    "text": "Shu'bah and al-A'mash among them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Students made Hajj just to meet Sufyan ibn Uyaynah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i: without Malik and Sufyan, Hijaz's knowledge goes"
+  },
+  {
+    "kind": "lesson",
+    "text": "He held nearly every hadith of rulings"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 8/457"
+  },
+  {
+    "kind": "question",
+    "text": "Why did many students make the trip to Makkah?"
+  },
+  {
+    "kind": "question",
+    "text": "To meet Sufyan and learn"
+  },
+  {
+    "kind": "question",
+    "text": "To see the sea"
+  },
+  {
+    "kind": "question",
+    "text": "His chains were short and high."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i said: without Malik and Sufyan, what would have gone?"
+  },
+  {
+    "kind": "question",
+    "text": "The date palms"
+  },
+  {
+    "kind": "question",
+    "text": "The trade routes"
+  },
+  {
+    "kind": "question",
+    "text": "The knowledge of the Hijaz"
+  },
+  {
+    "kind": "question",
+    "text": "The wells of Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "They held the hadith of Makkah and Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i praised Sufyan ibn Uyaynah."
+  },
+  {
+    "kind": "question",
+    "text": "Sufyan was his teacher."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Wahb: none knew Quran tafsir better than Sufyan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i: none was slower to give fatwa"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn al-Madini: az-Zuhri's most precise student"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 8/458"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Wahb praise Sufyan for?"
+  },
+  {
+    "kind": "question",
+    "text": "Tafsir of the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "None knew it better, he said."
+  },
+  {
+    "kind": "question",
+    "text": "What did ash-Shafi'i notice about Sufyan and fatwa?"
+  },
+  {
+    "kind": "question",
+    "text": "He never studied fiqh"
+  },
+  {
+    "kind": "question",
+    "text": "He sold fatwas"
+  },
+  {
+    "kind": "question",
+    "text": "He held back from giving fatwa"
+  },
+  {
+    "kind": "question",
+    "text": "He gave fatwa on everything"
+  },
+  {
+    "kind": "question",
+    "text": "Great scholars feared speaking without knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Being slow to give fatwa is a sign of taqwa."
+  },
+  {
+    "kind": "question",
+    "text": "They feared saying about Allah what they did not know."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Sufyan ibn Uyaynah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yahya ibn Yahya at-Tamimi was the scholar of Khurasan."
+  },
+  {
+    "kind": "lesson",
+    "text": "From Nishapur"
+  },
+  {
+    "kind": "lesson",
+    "text": "He wrote hadith in Hijaz, Iraq, Sham and Egypt"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 10/512"
+  },
+  {
+    "kind": "question",
+    "text": "Which land was Yahya ibn Yahya the scholar of?"
+  },
+  {
+    "kind": "question",
+    "text": "Khurasan"
+  },
+  {
+    "kind": "question",
+    "text": "He lived in Nishapur."
+  },
+  {
+    "kind": "question",
+    "text": "Where did he travel to write hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Only his street"
+  },
+  {
+    "kind": "question",
+    "text": "China and India"
+  },
+  {
+    "kind": "question",
+    "text": "Hijaz, Iraq, Sham and Egypt"
+  },
+  {
+    "kind": "question",
+    "text": "Scholars travelled far for hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Yahya ibn Yahya stayed home and never travelled."
+  },
+  {
+    "kind": "question",
+    "text": "He wrote hadith in many lands."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yahya read hadith to Imam Malik, and Muslim learned from Yahya."
+  },
+  {
+    "kind": "lesson",
+    "text": "Malik, Yahya, Muslim: a chain on the tree"
+  },
+  {
+    "kind": "question",
+    "text": "Which imam did Yahya read hadith to?"
+  },
+  {
+    "kind": "question",
+    "text": "In Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Which great collector learned from Yahya?"
+  },
+  {
+    "kind": "question",
+    "text": "Urwah"
+  },
+  {
+    "kind": "question",
+    "text": "Malik, Yahya, Muslim: a chain on the tree."
+  },
+  {
+    "kind": "question",
+    "text": "Prayer in congregation is 27 degrees better."
+  },
+  {
+    "kind": "question",
+    "text": "This hadith came down through Yahya."
+  },
+  {
+    "kind": "lesson",
+    "text": "Both al-Bukhari and Muslim learned hadith from Yahya ibn Yahya."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned from Malik and al-Layth"
+  },
+  {
+    "kind": "lesson",
+    "text": "He met some younger Tabi'in"
+  },
+  {
+    "kind": "question",
+    "text": "Which two famous collectors learned from Yahya?"
+  },
+  {
+    "kind": "question",
+    "text": "Ata and Nafi"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Baz and al-Albani"
+  },
+  {
+    "kind": "question",
+    "text": "Which great scholar of Egypt taught Yahya?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Layth ibn Sa'd"
+  },
+  {
+    "kind": "question",
+    "text": "Along with Malik."
+  },
+  {
+    "kind": "question",
+    "text": "Yahya ibn Yahya met some of the Tabi'in."
+  },
+  {
+    "kind": "question",
+    "text": "Some of the younger ones."
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad: people never saw anyone like Yahya ibn Yahya."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ishaq ibn Rahwayh: I never saw his like"
+  },
+  {
+    "kind": "lesson",
+    "text": "Born in 142 AH"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 10/513"
+  },
+  {
+    "kind": "question",
+    "text": "He was weak"
+  },
+  {
+    "kind": "question",
+    "text": "He was unknown"
+  },
+  {
+    "kind": "question",
+    "text": "He was rude"
+  },
+  {
+    "kind": "question",
+    "text": "People never saw his like"
+  },
+  {
+    "kind": "question",
+    "text": "Who else said he never saw Yahya's like?"
+  },
+  {
+    "kind": "question",
+    "text": "Ishaq ibn Rahwayh"
+  },
+  {
+    "kind": "question",
+    "text": "Ishaq was a great imam of Khurasan."
+  },
+  {
+    "kind": "question",
+    "text": "Great scholars praised Yahya ibn Yahya."
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad and Ishaq among them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad: if I had the money, I would travel to Yahya."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ishaq: he shared what to share, held back the rest"
+  },
+  {
+    "kind": "lesson",
+    "text": "He died an imam of the people"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 10/514"
+  },
+  {
+    "kind": "question",
+    "text": "What would Imam Ahmad do if he had the money?"
+  },
+  {
+    "kind": "question",
+    "text": "Travel to learn from Yahya"
+  },
+  {
+    "kind": "question",
+    "text": "Buy a palace"
+  },
+  {
+    "kind": "question",
+    "text": "Start a trade"
+  },
+  {
+    "kind": "question",
+    "text": "Stay home"
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge was worth the journey."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ishaq praise in how Yahya taught?"
+  },
+  {
+    "kind": "question",
+    "text": "He talked nonstop"
+  },
+  {
+    "kind": "question",
+    "text": "He never taught"
+  },
+  {
+    "kind": "question",
+    "text": "He hid all he knew"
+  },
+  {
+    "kind": "question",
+    "text": "He knew what to share and what to hold"
+  },
+  {
+    "kind": "question",
+    "text": "Wisdom is saying the right thing at the right time."
+  },
+  {
+    "kind": "question",
+    "text": "A wise scholar shares what helps people."
+  },
+  {
+    "kind": "question",
+    "text": "And holds back what does not."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Yahya ibn Yahya!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Yusuf stayed with Abu Hanifah and was his best student."
+  },
+  {
+    "kind": "lesson",
+    "text": "He also heard Hisham ibn Urwah"
+  },
+  {
+    "kind": "lesson",
+    "text": "And Yahya al-Ansari"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 8/536"
+  },
+  {
+    "kind": "question",
+    "text": "Whose best student was Abu Yusuf?"
+  },
+  {
+    "kind": "question",
+    "text": "He was the most learned of his students."
+  },
+  {
+    "kind": "question",
+    "text": "Which Tabi'i on the tree also taught Abu Yusuf?"
+  },
+  {
+    "kind": "question",
+    "text": "He heard hadith from him."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Yusuf learned fiqh from Abu Hanifah."
+  },
+  {
+    "kind": "question",
+    "text": "He stayed with him for years."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Yusuf was poor, so Abu Hanifah paid him to keep studying."
+  },
+  {
+    "kind": "lesson",
+    "text": "100 dirhams, again and again"
+  },
+  {
+    "kind": "lesson",
+    "text": "Stay in the circle, he said"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Abu Hanifah give Abu Yusuf money?"
+  },
+  {
+    "kind": "question",
+    "text": "So he could keep studying"
+  },
+  {
+    "kind": "question",
+    "text": "To buy a horse"
+  },
+  {
+    "kind": "question",
+    "text": "To pay a debt"
+  },
+  {
+    "kind": "question",
+    "text": "To start a shop"
+  },
+  {
+    "kind": "question",
+    "text": "His family was poor."
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Hanifah tell him?"
+  },
+  {
+    "kind": "question",
+    "text": "Find a job"
+  },
+  {
+    "kind": "question",
+    "text": "The study circle, where knowledge was taught."
+  },
+  {
+    "kind": "question",
+    "text": "A teacher can help a poor student keep learning."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hanifah did."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Yusuf stayed with Abu Hanifah for seventeen years."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Ma'in: most precise in hadith of the people of ra'y"
+  },
+  {
+    "kind": "lesson",
+    "text": "He prayed 200 rak'ahs a day"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 8/537"
+  },
+  {
+    "kind": "question",
+    "text": "How long was Abu Yusuf with Abu Hanifah?"
+  },
+  {
+    "kind": "question",
+    "text": "Seventy years"
+  },
+  {
+    "kind": "question",
+    "text": "Long years of learning."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Ma'in praise Abu Yusuf for?"
+  },
+  {
+    "kind": "question",
+    "text": "Precision in hadith"
+  },
+  {
+    "kind": "question",
+    "text": "Building mosques"
+  },
+  {
+    "kind": "question",
+    "text": "None of his group was more precise."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Yusuf knew hadith as well as fiqh."
+  },
+  {
+    "kind": "question",
+    "text": "He also knew tafsir and history."
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad first wrote hadith with Abu Yusuf."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muhammad ash-Shaybani learned from him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yahya ibn Ma'in too"
+  },
+  {
+    "kind": "question",
+    "text": "Which imam first wrote hadith with Abu Yusuf?"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad said so himself."
+  },
+  {
+    "kind": "question",
+    "text": "Which student of Abu Yusuf is on the tree?"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shaybani completed his fiqh with him."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Yusuf links Abu Hanifah to Imam Ahmad."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Yusuf: drop any fatwa of mine against the Quran and sunnah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He said it as he was dying"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yahya ibn Yahya heard him"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Yusuf say about his fatwas?"
+  },
+  {
+    "kind": "question",
+    "text": "Keep only what agrees with Quran and sunnah"
+  },
+  {
+    "kind": "question",
+    "text": "Follow all of them"
+  },
+  {
+    "kind": "question",
+    "text": "Burn the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "The sources come first."
+  },
+  {
+    "kind": "question",
+    "text": "Who heard him say it?"
+  },
+  {
+    "kind": "question",
+    "text": "Yahya ibn Yahya at-Tamimi of Nishapur."
+  },
+  {
+    "kind": "question",
+    "text": "The Quran and sunnah come before any scholar's opinion."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Yusuf said so himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Abu Yusuf!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Muhammad ash-Shaybani was a faqih of Iraq, raised in Kufa."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned from Abu Hanifah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then finished fiqh with Abu Yusuf"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 9/134"
+  },
+  {
+    "kind": "question",
+    "text": "Who did ash-Shaybani finish his fiqh with?"
+  },
+  {
+    "kind": "question",
+    "text": "After learning from Abu Hanifah."
+  },
+  {
+    "kind": "question",
+    "text": "Where did he grow up?"
+  },
+  {
+    "kind": "question",
+    "text": "He was born in Wasit and raised in Kufa."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shaybani learned from Abu Hanifah."
+  },
+  {
+    "kind": "question",
+    "text": "Then from his student Abu Yusuf."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shaybani spent three years with Malik, hearing 700 hadith."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned from both Iraq and Madinah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He judged for Harun ar-Rashid"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 9/135"
+  },
+  {
+    "kind": "question",
+    "text": "How long did ash-Shaybani stay with Imam Malik?"
+  },
+  {
+    "kind": "question",
+    "text": "Three years and more"
+  },
+  {
+    "kind": "question",
+    "text": "Thirty years"
+  },
+  {
+    "kind": "question",
+    "text": "He never met him"
+  },
+  {
+    "kind": "question",
+    "text": "He heard 700 hadith from him."
+  },
+  {
+    "kind": "question",
+    "text": "How many hadith did he hear from Malik's own mouth?"
+  },
+  {
+    "kind": "question",
+    "text": "Seven hundred."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shaybani learned from both Abu Hanifah and Malik."
+  },
+  {
+    "kind": "question",
+    "text": "Iraq and Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i wrote a camel-load of notes from ash-Shaybani."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was famous for his sharp mind"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i praised his clear Arabic"
+  },
+  {
+    "kind": "question",
+    "text": "How much did ash-Shafi'i write from him?"
+  },
+  {
+    "kind": "question",
+    "text": "A camel-load"
+  },
+  {
+    "kind": "question",
+    "text": "One line"
+  },
+  {
+    "kind": "question",
+    "text": "A single page"
+  },
+  {
+    "kind": "question",
+    "text": "A great deal of knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "What was ash-Shaybani famous for?"
+  },
+  {
+    "kind": "question",
+    "text": "His wealth"
+  },
+  {
+    "kind": "question",
+    "text": "His voice"
+  },
+  {
+    "kind": "question",
+    "text": "His sharp mind"
+  },
+  {
+    "kind": "question",
+    "text": "His intelligence became a proverb."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i learned from ash-Shaybani."
+  },
+  {
+    "kind": "question",
+    "text": "So ash-Shafi'i links back to Abu Hanifah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad learned fine fiqh from ash-Shaybani's books."
+  },
+  {
+    "kind": "lesson",
+    "text": "One book: al-Jami' as-Saghir"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Ma'in wrote it down from him"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 9/136"
+  },
+  {
+    "kind": "question",
+    "text": "Which book did Ibn Ma'in write down from him?"
+  },
+  {
+    "kind": "question",
+    "text": "The Muwatta"
+  },
+  {
+    "kind": "question",
+    "text": "Riyad as-Salihin"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jami' as-Saghir"
+  },
+  {
+    "kind": "question",
+    "text": "A book of fiqh by ash-Shaybani."
+  },
+  {
+    "kind": "question",
+    "text": "Where did Imam Ahmad get fine fiqh questions from?"
+  },
+  {
+    "kind": "question",
+    "text": "Old poems"
+  },
+  {
+    "kind": "question",
+    "text": "Greek books"
+  },
+  {
+    "kind": "question",
+    "text": "His dreams"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shaybani's books"
+  },
+  {
+    "kind": "question",
+    "text": "Scholars of different schools learned from each other."
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad read ash-Shaybani's books."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Muhammad ash-Shaybani!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Humaydi was an imam of Makkah and wrote the book al-Musnad."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned from Sufyan ibn Uyaynah"
+  },
+  {
+    "kind": "lesson",
+    "text": "And from ash-Shafi'i"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 10/616"
+  },
+  {
+    "kind": "question",
+    "text": "Which book did al-Humaydi write?"
+  },
+  {
+    "kind": "question",
+    "text": "Sahih Muslim"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Umm"
+  },
+  {
+    "kind": "question",
+    "text": "A collection of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Where did al-Humaydi teach?"
+  },
+  {
+    "kind": "question",
+    "text": "He was Shaykh of the Haram."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Humaydi learned from ash-Shafi'i."
+  },
+  {
+    "kind": "question",
+    "text": "And most of all from Sufyan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Humaydi sat with Sufyan ibn Uyaynah for about nineteen years."
+  },
+  {
+    "kind": "lesson",
+    "text": "Head of Sufyan's students"
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Ahmad: al-Humaydi is an imam"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 10/617"
+  },
+  {
+    "kind": "question",
+    "text": "How long did al-Humaydi sit with Sufyan?"
+  },
+  {
+    "kind": "question",
+    "text": "Nine weeks"
+  },
+  {
+    "kind": "question",
+    "text": "About nineteen years"
+  },
+  {
+    "kind": "question",
+    "text": "Nineteen days"
+  },
+  {
+    "kind": "question",
+    "text": "Long years with one teacher."
+  },
+  {
+    "kind": "question",
+    "text": "What did Imam Ahmad call al-Humaydi?"
+  },
+  {
+    "kind": "question",
+    "text": "An imam"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad honoured him."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Humaydi led Sufyan's students."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Hatim called him their head."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Humaydi memorized ten thousand hadith from Sufyan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ash-Shafi'i praised his memory"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Sa'd: trustworthy, many hadith"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 10/618"
+  },
+  {
+    "kind": "question",
+    "text": "How many hadith did al-Humaydi memorize from Sufyan?"
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shafi'i said so."
+  },
+  {
+    "kind": "question",
+    "text": "Who praised al-Humaydi's memory?"
+  },
+  {
+    "kind": "question",
+    "text": "His own teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Humaydi had a weak memory."
+  },
+  {
+    "kind": "question",
+    "text": "Ten thousand hadith from one teacher."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bukhari's very first hadith comes from al-Humaydi."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Humaydi, from Sufyan, from Yahya al-Ansari"
+  },
+  {
+    "kind": "question",
+    "text": "Whose hadith opens Sahih al-Bukhari?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Humaydi's, from Sufyan"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Albani's"
+  },
+  {
+    "kind": "question",
+    "text": "The first name al-Bukhari says is al-Humaydi."
+  },
+  {
+    "kind": "question",
+    "text": "Put the chain in order, from Umar."
+  },
+  {
+    "kind": "question",
+    "text": "Alqamah, Umar, Yahya, at-Taymi"
+  },
+  {
+    "kind": "question",
+    "text": "Umar, Alqamah, at-Taymi, Yahya"
+  },
+  {
+    "kind": "question",
+    "text": "Yahya, Umar, Alqamah, at-Taymi"
+  },
+  {
+    "kind": "question",
+    "text": "At-Taymi, Yahya, Umar, Alqamah"
+  },
+  {
+    "kind": "question",
+    "text": "Then Sufyan, al-Humaydi and al-Bukhari."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari was al-Humaydi's student."
+  },
+  {
+    "kind": "question",
+    "text": "He narrated from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Humaydi!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bukhari began memorizing hadith at ten years old."
+  },
+  {
+    "kind": "lesson",
+    "text": "By sixteen he knew whole books by heart"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then Hajj with his mother and brother"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/393"
+  },
+  {
+    "kind": "question",
+    "text": "At what age did al-Bukhari start memorizing hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "About ten"
+  },
+  {
+    "kind": "question",
+    "text": "While still at school."
+  },
+  {
+    "kind": "question",
+    "text": "Who went to Makkah with him?"
+  },
+  {
+    "kind": "question",
+    "text": "His mother and brother"
+  },
+  {
+    "kind": "question",
+    "text": "His teacher only"
+  },
+  {
+    "kind": "question",
+    "text": "For Hajj, and he stayed to learn."
+  },
+  {
+    "kind": "question",
+    "text": "Children can start learning hadith young."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari did at about ten."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bukhari wrote his History by moonlight in Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The book: at-Tarikh"
+  },
+  {
+    "kind": "lesson",
+    "text": "Almost every name in it has a story"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/400"
+  },
+  {
+    "kind": "question",
+    "text": "Which book did al-Bukhari write by moonlight in Madinah?"
+  },
+  {
+    "kind": "question",
+    "text": "At-Tarikh, his History"
+  },
+  {
+    "kind": "question",
+    "text": "A book about the narrators of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Where did he write it?"
+  },
+  {
+    "kind": "question",
+    "text": "In a market"
+  },
+  {
+    "kind": "question",
+    "text": "By the Prophet's ﷺ grave"
+  },
+  {
+    "kind": "question",
+    "text": "In Madinah, on moonlit nights."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari wrote more than one book."
+  },
+  {
+    "kind": "question",
+    "text": "His Sahih and his History, and others."
+  },
+  {
+    "kind": "lesson",
+    "text": "One friend's wish started Sahih al-Bukhari."
+  },
+  {
+    "kind": "lesson",
+    "text": "Someone said: collect a short book of sunnah"
+  },
+  {
+    "kind": "lesson",
+    "text": "It stayed in al-Bukhari's heart"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/401"
+  },
+  {
+    "kind": "question",
+    "text": "Where was al-Bukhari when the idea came?"
+  },
+  {
+    "kind": "question",
+    "text": "With al-Albani"
+  },
+  {
+    "kind": "question",
+    "text": "With Ishaq ibn Rahwayh"
+  },
+  {
+    "kind": "question",
+    "text": "With Ibn Taymiyyah"
+  },
+  {
+    "kind": "question",
+    "text": "With Ibn Baz"
+  },
+  {
+    "kind": "question",
+    "text": "Ishaq was one of his teachers."
+  },
+  {
+    "kind": "question",
+    "text": "What was the idea?"
+  },
+  {
+    "kind": "question",
+    "text": "A short book of only sound sunnah"
+  },
+  {
+    "kind": "question",
+    "text": "A book of poems"
+  },
+  {
+    "kind": "question",
+    "text": "A book of stories"
+  },
+  {
+    "kind": "question",
+    "text": "A map of the world"
+  },
+  {
+    "kind": "question",
+    "text": "That became Sahih al-Bukhari."
+  },
+  {
+    "kind": "question",
+    "text": "One good idea can lead to a great work."
+  },
+  {
+    "kind": "question",
+    "text": "The Sahih began with one wish."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bukhari chose his Sahih from about 600,000 hadith."
+  },
+  {
+    "kind": "lesson",
+    "text": "He made ghusl and prayed before each hadith"
+  },
+  {
+    "kind": "lesson",
+    "text": "Two rak'ahs for every entry"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/402"
+  },
+  {
+    "kind": "question",
+    "text": "From about how many hadith did he choose the Sahih?"
+  },
+  {
+    "kind": "question",
+    "text": "He kept only what was sound."
+  },
+  {
+    "kind": "question",
+    "text": "What did he do before writing each hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Went to market"
+  },
+  {
+    "kind": "question",
+    "text": "Ghusl and two rak'ahs"
+  },
+  {
+    "kind": "question",
+    "text": "Ate a meal"
+  },
+  {
+    "kind": "question",
+    "text": "He treated the work as worship."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari put every hadith he heard into his Sahih."
+  },
+  {
+    "kind": "question",
+    "text": "He chose only the sound ones."
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Muslim called al-Bukhari the teacher of teachers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Physician of hadith's hidden flaws"
+  },
+  {
+    "kind": "lesson",
+    "text": "At-Tirmidhi learned from him too"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/432"
+  },
+  {
+    "kind": "question",
+    "text": "What did Imam Muslim call al-Bukhari?"
+  },
+  {
+    "kind": "question",
+    "text": "My student"
+  },
+  {
+    "kind": "question",
+    "text": "Muslim learned from him."
+  },
+  {
+    "kind": "question",
+    "text": "Which two collectors on the tree learned from al-Bukhari?"
+  },
+  {
+    "kind": "question",
+    "text": "Muslim and at-Tirmidhi"
+  },
+  {
+    "kind": "question",
+    "text": "Both were his students."
+  },
+  {
+    "kind": "question",
+    "text": "At-Tirmidhi praised al-Bukhari's knowledge of chains."
+  },
+  {
+    "kind": "question",
+    "text": "He saw none more learned in it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Imam al-Bukhari!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Imam Muslim of Nishapur wrote Sahih Muslim."
+  },
+  {
+    "kind": "lesson",
+    "text": "His first teacher: Yahya ibn Yahya"
+  },
+  {
+    "kind": "lesson",
+    "text": "He made Hajj as a young man"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/558"
+  },
+  {
+    "kind": "question",
+    "text": "Which famous book did Imam Muslim write?"
+  },
+  {
+    "kind": "question",
+    "text": "One of the two Sahih books."
+  },
+  {
+    "kind": "question",
+    "text": "Who was his first teacher of hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "In Nishapur."
+  },
+  {
+    "kind": "question",
+    "text": "Imam Muslim was from Nishapur."
+  },
+  {
+    "kind": "question",
+    "text": "A city of Khurasan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslim heard hadith in Iraq, the two Harams and Egypt."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned from Imam Ahmad"
+  },
+  {
+    "kind": "lesson",
+    "text": "And from Ishaq ibn Rahwayh"
+  },
+  {
+    "kind": "question",
+    "text": "Which of the four imams taught Muslim?"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad lived in his time."
+  },
+  {
+    "kind": "question",
+    "text": "Where did Muslim travel for hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Only Nishapur"
+  },
+  {
+    "kind": "question",
+    "text": "Iraq, the two Harams and Egypt"
+  },
+  {
+    "kind": "question",
+    "text": "China and Japan"
+  },
+  {
+    "kind": "question",
+    "text": "Makkah and Madinah are the two Harams."
+  },
+  {
+    "kind": "question",
+    "text": "Imam Muslim learned from Ishaq ibn Rahwayh."
+  },
+  {
+    "kind": "question",
+    "text": "So did al-Bukhari."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslim compiled his Sahih from 300,000 hadith he had heard."
+  },
+  {
+    "kind": "lesson",
+    "text": "He chose only sound hadith"
+  },
+  {
+    "kind": "lesson",
+    "text": "One of the two Sahih books"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/565"
+  },
+  {
+    "kind": "question",
+    "text": "From how many hadith did Muslim compile his Sahih?"
+  },
+  {
+    "kind": "question",
+    "text": "He kept only the sound ones."
+  },
+  {
+    "kind": "question",
+    "text": "What does 'Sahih' mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Sound, authentic"
+  },
+  {
+    "kind": "question",
+    "text": "Old"
+  },
+  {
+    "kind": "question",
+    "text": "A book of sound hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Muslim put every hadith he heard in his Sahih."
+  },
+  {
+    "kind": "question",
+    "text": "He chose carefully."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslim was named one of the world's four hadith masters."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Zur'ah in Rayy, Muslim in Nishapur"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ad-Darimi in Samarqand, al-Bukhari in Bukhara"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/564"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Muslim named as the hadith master?"
+  },
+  {
+    "kind": "question",
+    "text": "Samarqand"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhara"
+  },
+  {
+    "kind": "question",
+    "text": "Nishapur"
+  },
+  {
+    "kind": "question",
+    "text": "Rayy"
+  },
+  {
+    "kind": "question",
+    "text": "The others were in the other cities."
+  },
+  {
+    "kind": "question",
+    "text": "Which other master on the tree was in the list?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari"
+  },
+  {
+    "kind": "question",
+    "text": "Muhammad ibn Isma'il is al-Bukhari."
+  },
+  {
+    "kind": "question",
+    "text": "Muslim and al-Bukhari lived at the same time."
+  },
+  {
+    "kind": "question",
+    "text": "Muslim even learned from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muslim asked al-Bukhari about a hadith's hidden flaw."
+  },
+  {
+    "kind": "lesson",
+    "text": "He kissed him between the eyes"
+  },
+  {
+    "kind": "lesson",
+    "text": "Then asked: what is its flaw?"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 12/436"
+  },
+  {
+    "kind": "question",
+    "text": "What did Muslim call al-Bukhari?"
+  },
+  {
+    "kind": "question",
+    "text": "Out of deep respect."
+  },
+  {
+    "kind": "question",
+    "text": "What is a hidden flaw ('illah) in a hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "A happy ending"
+  },
+  {
+    "kind": "question",
+    "text": "A hidden weakness only experts spot"
+  },
+  {
+    "kind": "question",
+    "text": "A spelling mistake"
+  },
+  {
+    "kind": "question",
+    "text": "A long chain"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari was an expert in spotting them."
+  },
+  {
+    "kind": "question",
+    "text": "Great scholars showed respect to their teachers."
+  },
+  {
+    "kind": "question",
+    "text": "Muslim did to al-Bukhari."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Imam Muslim!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Dawud of Sijistan was a leading hadith master of Basra."
+  },
+  {
+    "kind": "lesson",
+    "text": "He travelled, collected and wrote"
+  },
+  {
+    "kind": "lesson",
+    "text": "Called Shaykh as-Sunnah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/203"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dawud was the hadith scholar of which city?"
+  },
+  {
+    "kind": "question",
+    "text": "Cordoba"
+  },
+  {
+    "kind": "question",
+    "text": "He came from Sijistan."
+  },
+  {
+    "kind": "question",
+    "text": "What was he called?"
+  },
+  {
+    "kind": "question",
+    "text": "Master of trade"
+  },
+  {
+    "kind": "question",
+    "text": "King of poets"
+  },
+  {
+    "kind": "question",
+    "text": "Lord of ships"
+  },
+  {
+    "kind": "question",
+    "text": "For his care for the sunnah."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dawud was a scholar of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "One of the foremost."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Dawud learned from Imam Ahmad in Baghdad, and many more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ishaq ibn Rahwayh in Khurasan"
+  },
+  {
+    "kind": "lesson",
+    "text": "Qutaybah in Balkh, others in Egypt"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/205"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Abu Dawud learn from Imam Ahmad?"
+  },
+  {
+    "kind": "question",
+    "text": "Ahmad taught in Baghdad."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these was NOT a place he learned in?"
+  },
+  {
+    "kind": "question",
+    "text": "He travelled east and west, but not to Spain."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dawud learned in many lands."
+  },
+  {
+    "kind": "question",
+    "text": "Iraq, Khurasan, Sham, Egypt and more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Dawud chose 4,800 hadith from 500,000 for his Sunan."
+  },
+  {
+    "kind": "lesson",
+    "text": "His book: Sunan Abi Dawud"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sound hadith and those close to it"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/210"
+  },
+  {
+    "kind": "question",
+    "text": "How many hadith are in Abu Dawud's Sunan?"
+  },
+  {
+    "kind": "question",
+    "text": "About 4,800"
+  },
+  {
+    "kind": "question",
+    "text": "Chosen from 500,000."
+  },
+  {
+    "kind": "question",
+    "text": "What is his famous book called?"
+  },
+  {
+    "kind": "question",
+    "text": "One of the six books of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dawud chose carefully what went in his book."
+  },
+  {
+    "kind": "question",
+    "text": "Fewer than one in a hundred."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hadith was made easy for Abu Dawud, like iron for Prophet Dawud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Hakim: imam of the hadith people in his time"
+  },
+  {
+    "kind": "lesson",
+    "text": "He knew 100,000 hadith for review"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/212"
+  },
+  {
+    "kind": "question",
+    "text": "What was made soft for Prophet Dawud?"
+  },
+  {
+    "kind": "question",
+    "text": "Stone"
+  },
+  {
+    "kind": "question",
+    "text": "Allah softened iron for him."
+  },
+  {
+    "kind": "question",
+    "text": "What did al-Hakim call Abu Dawud?"
+  },
+  {
+    "kind": "question",
+    "text": "Imam of the hadith people"
+  },
+  {
+    "kind": "question",
+    "text": "A weak narrator"
+  },
+  {
+    "kind": "question",
+    "text": "Without dispute, in his time."
+  },
+  {
+    "kind": "question",
+    "text": "The saying means hadith came easily to Abu Dawud."
+  },
+  {
+    "kind": "question",
+    "text": "Like iron in Dawud's hands."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Dawud: Imam Ahmad's top student, and a great faqih."
+  },
+  {
+    "kind": "lesson",
+    "text": "He asked Ahmad about fine points of fiqh"
+  },
+  {
+    "kind": "lesson",
+    "text": "He stayed in Ahmad's circle for a time"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/215"
+  },
+  {
+    "kind": "question",
+    "text": "Whose best students was Abu Dawud among?"
+  },
+  {
+    "kind": "question",
+    "text": "Imam Ahmad's"
+  },
+  {
+    "kind": "question",
+    "text": "He sat in his circle."
+  },
+  {
+    "kind": "question",
+    "text": "Besides hadith, what else was Abu Dawud great in?"
+  },
+  {
+    "kind": "question",
+    "text": "His book shows it."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dawud was only a hadith scholar, not a faqih."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi counts him among the great fuqaha."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Abu Dawud!"
+  },
+  {
+    "kind": "lesson",
+    "text": "At-Tirmidhi wrote al-Jami', a famous book of hadith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also a book on hidden flaws: al-'Ilal"
+  },
+  {
+    "kind": "lesson",
+    "text": "He lost his sight in old age"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/270"
+  },
+  {
+    "kind": "question",
+    "text": "Which book did at-Tirmidhi write?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jami'"
+  },
+  {
+    "kind": "question",
+    "text": "Also called Sunan at-Tirmidhi."
+  },
+  {
+    "kind": "question",
+    "text": "What happened to his sight?"
+  },
+  {
+    "kind": "question",
+    "text": "He lost it in old age"
+  },
+  {
+    "kind": "question",
+    "text": "It was perfect always"
+  },
+  {
+    "kind": "question",
+    "text": "He was born blind"
+  },
+  {
+    "kind": "question",
+    "text": "After his travels and writing."
+  },
+  {
+    "kind": "question",
+    "text": "At-Tirmidhi wrote more than one book."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jami' and al-'Ilal, and more."
+  },
+  {
+    "kind": "lesson",
+    "text": "At-Tirmidhi learned much from al-Bukhari."
+  },
+  {
+    "kind": "lesson",
+    "text": "He travelled to Khurasan, Iraq and the two Harams"
+  },
+  {
+    "kind": "lesson",
+    "text": "Also Qutaybah and Ishaq ibn Rahwayh"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/271"
+  },
+  {
+    "kind": "question",
+    "text": "Which great collector taught at-Tirmidhi a lot?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari, then at-Tirmidhi."
+  },
+  {
+    "kind": "question",
+    "text": "Where did at-Tirmidhi travel for hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Khurasan, Iraq and the two Harams"
+  },
+  {
+    "kind": "question",
+    "text": "Spain and France"
+  },
+  {
+    "kind": "question",
+    "text": "At-Tirmidhi travelled to learn."
+  },
+  {
+    "kind": "question",
+    "text": "Like the scholars before him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bukhari himself heard a hadith from at-Tirmidhi."
+  },
+  {
+    "kind": "lesson",
+    "text": "A great honour for a student"
+  },
+  {
+    "kind": "lesson",
+    "text": "A teacher learning from his student"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/272"
+  },
+  {
+    "kind": "question",
+    "text": "Who heard a hadith from at-Tirmidhi?"
+  },
+  {
+    "kind": "question",
+    "text": "His teacher al-Bukhari"
+  },
+  {
+    "kind": "question",
+    "text": "A teacher learning from his student."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari forgot things"
+  },
+  {
+    "kind": "question",
+    "text": "Students are better"
+  },
+  {
+    "kind": "question",
+    "text": "Teachers never listen"
+  },
+  {
+    "kind": "question",
+    "text": "Great scholars learned from anyone"
+  },
+  {
+    "kind": "question",
+    "text": "They took knowledge wherever it was."
+  },
+  {
+    "kind": "question",
+    "text": "A teacher can learn from his student."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari did."
+  },
+  {
+    "kind": "lesson",
+    "text": "After al-Bukhari, none in Khurasan matched at-Tirmidhi."
+  },
+  {
+    "kind": "lesson",
+    "text": "His memory was a proverb"
+  },
+  {
+    "kind": "lesson",
+    "text": "He wept out of fear of Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/273"
+  },
+  {
+    "kind": "question",
+    "text": "What was at-Tirmidhi's memory like?"
+  },
+  {
+    "kind": "question",
+    "text": "Very weak"
+  },
+  {
+    "kind": "question",
+    "text": "Average"
+  },
+  {
+    "kind": "question",
+    "text": "He never memorized"
+  },
+  {
+    "kind": "question",
+    "text": "A proverb, it was so strong"
+  },
+  {
+    "kind": "question",
+    "text": "People used it as an example."
+  },
+  {
+    "kind": "question",
+    "text": "After whom was none in Khurasan like him?"
+  },
+  {
+    "kind": "question",
+    "text": "His teacher."
+  },
+  {
+    "kind": "question",
+    "text": "At-Tirmidhi was known for piety as well as knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "And zuhd: not loving this world."
+  },
+  {
+    "kind": "lesson",
+    "text": "Scholars of three lands checked al-Jami' and approved it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hijaz, Iraq and Khurasan"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adh-Dhahabi: it holds useful knowledge"
+  },
+  {
+    "kind": "source",
+    "text": "Siyar A'lam an-Nubala 13/274"
+  },
+  {
+    "kind": "question",
+    "text": "Who did at-Tirmidhi show his book to?"
+  },
+  {
+    "kind": "question",
+    "text": "Kings only"
+  },
+  {
+    "kind": "question",
+    "text": "Scholars of Hijaz, Iraq and Khurasan"
+  },
+  {
+    "kind": "question",
+    "text": "So it could be checked."
+  },
+  {
+    "kind": "question",
+    "text": "Why show your work to other scholars?"
+  },
+  {
+    "kind": "question",
+    "text": "To hide it"
+  },
+  {
+    "kind": "question",
+    "text": "So mistakes can be caught"
+  },
+  {
+    "kind": "question",
+    "text": "To boast"
+  },
+  {
+    "kind": "question",
+    "text": "Checking keeps knowledge sound."
+  },
+  {
+    "kind": "question",
+    "text": "The scholars approved of al-Jami'."
+  },
+  {
+    "kind": "question",
+    "text": "They were pleased with it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about At-Tirmidhi!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn al-Qayyim was born in Damascus in 691 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "His family loved knowledge and piety"
+  },
+  {
+    "kind": "lesson",
+    "text": "His father taught him first"
+  },
+  {
+    "kind": "source",
+    "text": "Hanbali Disciples: Ibn al-Qayyim"
+  },
+  {
+    "kind": "question",
+    "text": "In which city was Ibn al-Qayyim born?"
+  },
+  {
+    "kind": "question",
+    "text": "In 691 AH."
+  },
+  {
+    "kind": "question",
+    "text": "Who was his first teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "He grew up in a home of knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim grew up in a family of scholars."
+  },
+  {
+    "kind": "question",
+    "text": "Known for knowledge and piety."
+  },
+  {
+    "kind": "lesson",
+    "text": "His name comes from the Jawziyyah school, linked to his father."
+  },
+  {
+    "kind": "lesson",
+    "text": "He later led prayer at al-Jawziyyah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He also taught at the Sadriyyah school"
+  },
+  {
+    "kind": "question",
+    "text": "Where does the name 'Ibn Qayyim al-Jawziyyah' come from?"
+  },
+  {
+    "kind": "question",
+    "text": "His father's school, al-Jawziyyah"
+  },
+  {
+    "kind": "question",
+    "text": "His father was linked to it."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn al-Qayyim do at al-Jawziyyah?"
+  },
+  {
+    "kind": "question",
+    "text": "He sold books"
+  },
+  {
+    "kind": "question",
+    "text": "He built it"
+  },
+  {
+    "kind": "question",
+    "text": "He guarded it"
+  },
+  {
+    "kind": "question",
+    "text": "He was its imam"
+  },
+  {
+    "kind": "question",
+    "text": "He also taught at the Sadriyyah."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim taught in Damascus."
+  },
+  {
+    "kind": "question",
+    "text": "At the Sadriyyah school."
+  },
+  {
+    "kind": "lesson",
+    "text": "From 712 AH he stayed close to Ibn Taymiyyah until his death."
+  },
+  {
+    "kind": "lesson",
+    "text": "One of his foremost students"
+  },
+  {
+    "kind": "lesson",
+    "text": "He edited and spread his teacher's works"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Ibn al-Qayyim's most famous teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "He stayed with him until his death."
+  },
+  {
+    "kind": "question",
+    "text": "What did he do with his teacher's books?"
+  },
+  {
+    "kind": "question",
+    "text": "Hid them"
+  },
+  {
+    "kind": "question",
+    "text": "Sold them all"
+  },
+  {
+    "kind": "question",
+    "text": "Edited and spread them"
+  },
+  {
+    "kind": "question",
+    "text": "So more people could learn."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim met Ibn Taymiyyah only once."
+  },
+  {
+    "kind": "question",
+    "text": "He stayed close to him for years."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was jailed in the Citadel alongside his teacher."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jailed more than once"
+  },
+  {
+    "kind": "lesson",
+    "text": "Freed after Ibn Taymiyyah died"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Ibn al-Qayyim jailed with his teacher?"
+  },
+  {
+    "kind": "question",
+    "text": "The Citadel of Damascus"
+  },
+  {
+    "kind": "question",
+    "text": "He stayed with Ibn Taymiyyah."
+  },
+  {
+    "kind": "question",
+    "text": "When was he let out?"
+  },
+  {
+    "kind": "question",
+    "text": "After Ibn Taymiyyah died"
+  },
+  {
+    "kind": "question",
+    "text": "The next day"
+  },
+  {
+    "kind": "question",
+    "text": "After one hour"
+  },
+  {
+    "kind": "question",
+    "text": "He stayed by his teacher."
+  },
+  {
+    "kind": "question",
+    "text": "Scholars sometimes faced hard trials for their knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim was jailed more than once."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Fajr he made dhikr until midday: \"This is my nourishment.\""
+  },
+  {
+    "kind": "lesson",
+    "text": "Long bowing and prostration"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Kathir: constant in worship"
+  },
+  {
+    "kind": "question",
+    "text": "What did he call his morning dhikr?"
+  },
+  {
+    "kind": "question",
+    "text": "My hobby"
+  },
+  {
+    "kind": "question",
+    "text": "My job"
+  },
+  {
+    "kind": "question",
+    "text": "My rest"
+  },
+  {
+    "kind": "question",
+    "text": "Without it his strength failed."
+  },
+  {
+    "kind": "question",
+    "text": "Until when did he make dhikr after Fajr?"
+  },
+  {
+    "kind": "question",
+    "text": "Until Fajr ended"
+  },
+  {
+    "kind": "question",
+    "text": "He did not"
+  },
+  {
+    "kind": "question",
+    "text": "Until midday"
+  },
+  {
+    "kind": "question",
+    "text": "Every day."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir said he was free from envy."
+  },
+  {
+    "kind": "question",
+    "text": "And of excellent character."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn al-Qayyim wrote many books, like Zad al-Ma'ad."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also Madarij as-Salikin and I'lam al-Muwaqqi'in"
+  },
+  {
+    "kind": "lesson",
+    "text": "He collected a huge library"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these did Ibn al-Qayyim write?"
+  },
+  {
+    "kind": "question",
+    "text": "Zad al-Ma'ad"
+  },
+  {
+    "kind": "question",
+    "text": "About the guidance of the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "What did he collect all his life?"
+  },
+  {
+    "kind": "question",
+    "text": "Swords"
+  },
+  {
+    "kind": "question",
+    "text": "Books"
+  },
+  {
+    "kind": "question",
+    "text": "His children sold them for years after."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim wrote only one book."
+  },
+  {
+    "kind": "question",
+    "text": "He wrote a great many."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ibn al-Qayyim?"
+  },
+  {
+    "kind": "lesson",
+    "text": "He died in Damascus in 751 AH, buried near his father."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the Bab as-Saghir graveyard"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Hajar: vast in knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Where is Ibn al-Qayyim buried?"
+  },
+  {
+    "kind": "question",
+    "text": "Damascus, near his father"
+  },
+  {
+    "kind": "question",
+    "text": "In the Bab as-Saghir graveyard."
+  },
+  {
+    "kind": "question",
+    "text": "Who said he was 'vast in knowledge'?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Hajar"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Hajar came after him."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn al-Qayyim outlived his teacher Ibn Taymiyyah."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Taymiyyah died in 728 AH, he in 751 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ibn al-Qayyim!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adh-Dhahabi was born in 673 AH. Dhahab means gold."
+  },
+  {
+    "kind": "lesson",
+    "text": "His father was a skilled goldsmith"
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Safadi: the name fit him well"
+  },
+  {
+    "kind": "source",
+    "text": "IslamQA 229097"
+  },
+  {
+    "kind": "question",
+    "text": "What does 'dhahab' mean?"
+  },
+  {
+    "kind": "question",
+    "text": "River"
+  },
+  {
+    "kind": "question",
+    "text": "His father worked with gold."
+  },
+  {
+    "kind": "question",
+    "text": "What was his father's work?"
+  },
+  {
+    "kind": "question",
+    "text": "Goldsmith"
+  },
+  {
+    "kind": "question",
+    "text": "Farmer"
+  },
+  {
+    "kind": "question",
+    "text": "Sailor"
+  },
+  {
+    "kind": "question",
+    "text": "Baker"
+  },
+  {
+    "kind": "question",
+    "text": "He was very skilled."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi was born in 673 AH."
+  },
+  {
+    "kind": "question",
+    "text": "Twelve years after Ibn Taymiyyah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He began studying hadith at eighteen, and worked very hard."
+  },
+  {
+    "kind": "lesson",
+    "text": "More than 1,300 teachers"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Taymiyyah shaped him most"
+  },
+  {
+    "kind": "question",
+    "text": "At what age did he start studying hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Eighteen"
+  },
+  {
+    "kind": "question",
+    "text": "And he never stopped."
+  },
+  {
+    "kind": "question",
+    "text": "About how many teachers did he have?"
+  },
+  {
+    "kind": "question",
+    "text": "More than 1,300"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Nasir ad-Dimashqi counted them."
+  },
+  {
+    "kind": "question",
+    "text": "Which teacher shaped him most?"
+  },
+  {
+    "kind": "question",
+    "text": "He learned from him and was influenced by him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He learned hadith in Damascus, Egypt, Makkah, Aleppo and more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also Baalbek, Alexandria and Nablus"
+  },
+  {
+    "kind": "lesson",
+    "text": "Teachers like Ibn Daqiq al-Eid"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these cities did adh-Dhahabi learn in?"
+  },
+  {
+    "kind": "question",
+    "text": "Delhi"
+  },
+  {
+    "kind": "question",
+    "text": "Also Damascus, Egypt and Aleppo."
+  },
+  {
+    "kind": "question",
+    "text": "Why did scholars travel so much?"
+  },
+  {
+    "kind": "question",
+    "text": "To escape school"
+  },
+  {
+    "kind": "question",
+    "text": "To hear hadith from more teachers"
+  },
+  {
+    "kind": "question",
+    "text": "For holidays"
+  },
+  {
+    "kind": "question",
+    "text": "To trade gold"
+  },
+  {
+    "kind": "question",
+    "text": "Each city had its own teachers."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi learned only in Damascus."
+  },
+  {
+    "kind": "question",
+    "text": "He travelled to many cities."
+  },
+  {
+    "kind": "lesson",
+    "text": "He wrote Siyar A'lam an-Nubala and Tarikh al-Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "Also Mizan al-I'tidal, on narrators"
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Safadi: concise and very useful"
+  },
+  {
+    "kind": "question",
+    "text": "Which famous book did adh-Dhahabi write?"
+  },
+  {
+    "kind": "question",
+    "text": "Siyar A'lam an-Nubala"
+  },
+  {
+    "kind": "question",
+    "text": "Lives of the great scholars."
+  },
+  {
+    "kind": "question",
+    "text": "What is Mizan al-I'tidal about?"
+  },
+  {
+    "kind": "question",
+    "text": "Hadith narrators"
+  },
+  {
+    "kind": "question",
+    "text": "Cooking"
+  },
+  {
+    "kind": "question",
+    "text": "Who is reliable and who is not."
+  },
+  {
+    "kind": "question",
+    "text": "Many lessons in this app use his Siyar."
+  },
+  {
+    "kind": "question",
+    "text": "Look at the sources of the earlier scholars."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Kathir, author of the famous tafsir, learned from him."
+  },
+  {
+    "kind": "lesson",
+    "text": "So did as-Subki and as-Safadi"
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Subki: he trained us"
+  },
+  {
+    "kind": "question",
+    "text": "Which famous student did adh-Dhahabi teach?"
+  },
+  {
+    "kind": "question",
+    "text": "Author of Tafsir Ibn Kathir."
+  },
+  {
+    "kind": "question",
+    "text": "What did as-Subki say about him?"
+  },
+  {
+    "kind": "question",
+    "text": "He was a goldsmith"
+  },
+  {
+    "kind": "question",
+    "text": "He trained us in this field"
+  },
+  {
+    "kind": "question",
+    "text": "The field of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir learned from adh-Dhahabi."
+  },
+  {
+    "kind": "question",
+    "text": "One of his top students."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Hajar drank Zamzam hoping to reach adh-Dhahabi's level."
+  },
+  {
+    "kind": "lesson",
+    "text": "In memorising and understanding hadith"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Kathir: the last great scholar of hadith"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Hajar hope for when he drank Zamzam?"
+  },
+  {
+    "kind": "question",
+    "text": "To become king"
+  },
+  {
+    "kind": "question",
+    "text": "To reach adh-Dhahabi's level"
+  },
+  {
+    "kind": "question",
+    "text": "In memorising and understanding hadith."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Kathir call adh-Dhahabi?"
+  },
+  {
+    "kind": "question",
+    "text": "The historian of Islam"
+  },
+  {
+    "kind": "question",
+    "text": "A goldsmith"
+  },
+  {
+    "kind": "question",
+    "text": "A sailor"
+  },
+  {
+    "kind": "question",
+    "text": "And shaykh of the hadith scholars."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Hajar admired adh-Dhahabi's knowledge of hadith."
+  },
+  {
+    "kind": "question",
+    "text": "He made du'a at Zamzam for it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Adh-Dhahabi?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adh-Dhahabi died in Damascus in 748 AH."
+  },
+  {
+    "kind": "lesson",
+    "text": "Buried at al-Bab as-Saghir"
+  },
+  {
+    "kind": "lesson",
+    "text": "Three years before Ibn al-Qayyim"
+  },
+  {
+    "kind": "question",
+    "text": "In which city did adh-Dhahabi die?"
+  },
+  {
+    "kind": "question",
+    "text": "In 748 AH."
+  },
+  {
+    "kind": "question",
+    "text": "Which graveyard holds adh-Dhahabi and Ibn al-Qayyim?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bab as-Saghir"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Baqi'"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ma'la"
+  },
+  {
+    "kind": "question",
+    "text": "In Damascus."
+  },
+  {
+    "kind": "question",
+    "text": "Adh-Dhahabi and Ibn al-Qayyim were both students of Ibn Taymiyyah."
+  },
+  {
+    "kind": "question",
+    "text": "Both on the tree under him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Adh-Dhahabi!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah gave Muslims two Eids: al-Fitr and al-Adha."
   },
   {
@@ -68517,15 +76661,15 @@
   },
   {
     "kind": "lesson",
-    "text": "Jibril asked the Prophet ﷺ"
+    "text": "Jibril came looking like a man and asked the Prophet ﷺ about iman."
   },
   {
     "kind": "lesson",
-    "text": "Allah, angels, books, messengers"
+    "text": "Iman has six pillars: Allah, His angels, His books, His messengers, the Last Day and the decree."
   },
   {
     "kind": "lesson",
-    "text": "The Last Day and the decree"
+    "text": "So believing in the Last Day is one of the six pillars."
   },
   {
     "kind": "question",
@@ -68946,10 +77090,6 @@
   {
     "kind": "question",
     "text": "Which companion told us he saw it?"
-  },
-  {
-    "kind": "question",
-    "text": "Fir'awn"
   },
   {
     "kind": "question",
@@ -70238,10 +78378,6 @@
   {
     "kind": "question",
     "text": "Who built a barrier against Ya'juj and Ma'juj?"
-  },
-  {
-    "kind": "question",
-    "text": "Namrud"
   },
   {
     "kind": "question",
@@ -71892,10 +80028,6 @@
     "text": "Quran 84:8"
   },
   {
-    "kind": "source",
-    "text": "Sahih al-Bukhari 103"
-  },
-  {
     "kind": "question",
     "text": "What is the 'easy reckoning'?"
   },
@@ -72686,10 +80818,6 @@
   {
     "kind": "question",
     "text": "Follow his Sunnah and send salawat"
-  },
-  {
-    "kind": "question",
-    "text": "Ignore him"
   },
   {
     "kind": "question",
@@ -74445,10 +82573,6 @@
   },
   {
     "kind": "question",
-    "text": "A loud voice"
-  },
-  {
-    "kind": "question",
     "text": "Nothing small"
   },
   {
@@ -75154,14 +83278,6 @@
   {
     "kind": "question",
     "text": "They never heard of Allah"
-  },
-  {
-    "kind": "question",
-    "text": "They were too young"
-  },
-  {
-    "kind": "question",
-    "text": "They lived far away"
   },
   {
     "kind": "lesson",
@@ -75926,10 +84042,6 @@
   {
     "kind": "question",
     "text": "What did their hearts become like?"
-  },
-  {
-    "kind": "question",
-    "text": "Stone"
   },
   {
     "kind": "question",
@@ -79992,10 +88104,6 @@
     "text": "Hide it forever"
   },
   {
-    "kind": "question",
-    "text": "Blame others"
-  },
-  {
     "kind": "lesson",
     "text": "Muhammad ﷺ is a messenger; messengers passed away before him."
   },
@@ -82094,10 +90202,6 @@
   {
     "kind": "question",
     "text": "Their scholars"
-  },
-  {
-    "kind": "question",
-    "text": "Kings only"
   },
   {
     "kind": "question",
@@ -85332,10 +93436,6 @@
     "text": "Ayah 34: what do some hoard and not spend for Allah?"
   },
   {
-    "kind": "question",
-    "text": "Books"
-  },
-  {
     "kind": "lesson",
     "text": "In the cave: don't grieve, Allah is with us."
   },
@@ -86090,10 +94190,6 @@
   {
     "kind": "question",
     "text": "Ayah 38: what were deniers dared to bring?"
-  },
-  {
-    "kind": "question",
-    "text": "A new prophet"
   },
   {
     "kind": "question",
@@ -87065,10 +95161,6 @@
   },
   {
     "kind": "question",
-    "text": "His wealth"
-  },
-  {
-    "kind": "question",
     "text": "His people"
   },
   {
@@ -87918,10 +96010,6 @@
   {
     "kind": "question",
     "text": "Only one did"
-  },
-  {
-    "kind": "question",
-    "text": "They never met"
   },
   {
     "kind": "question",
@@ -89354,10 +97442,6 @@
   {
     "kind": "question",
     "text": "To make it big"
-  },
-  {
-    "kind": "question",
-    "text": "To hide it"
   },
   {
     "kind": "question",
@@ -91965,10 +100049,6 @@
   },
   {
     "kind": "question",
-    "text": "Height"
-  },
-  {
-    "kind": "question",
     "text": "Ayahs 13-17: what are they about?"
   },
   {
@@ -93466,10 +101546,6 @@
   {
     "kind": "question",
     "text": "His staff"
-  },
-  {
-    "kind": "question",
-    "text": "His sandals"
   },
   {
     "kind": "question",
@@ -99861,10 +107937,6 @@
   },
   {
     "kind": "question",
-    "text": "Giving charity"
-  },
-  {
-    "kind": "question",
     "text": "Ayah 8: when must we not obey our parents?"
   },
   {
@@ -101014,10 +109086,6 @@
   {
     "kind": "question",
     "text": "His bag"
-  },
-  {
-    "kind": "question",
-    "text": "His voice"
   },
   {
     "kind": "lesson",
@@ -103650,10 +111718,6 @@
   {
     "kind": "question",
     "text": "Ayah 102: what did the son tell his father?"
-  },
-  {
-    "kind": "question",
-    "text": "Ask someone else"
   },
   {
     "kind": "question",
@@ -108313,10 +116377,6 @@
   },
   {
     "kind": "question",
-    "text": "Old poems"
-  },
-  {
-    "kind": "question",
     "text": "The stars' names"
   },
   {
@@ -108825,10 +116885,6 @@
   },
   {
     "kind": "question",
-    "text": "A dry river"
-  },
-  {
-    "kind": "question",
     "text": "A passing cloud"
   },
   {
@@ -109114,10 +117170,6 @@
   {
     "kind": "question",
     "text": "Ayah 13: why did Allah make nations and tribes?"
-  },
-  {
-    "kind": "question",
-    "text": "To boast"
   },
   {
     "kind": "question",
@@ -111298,10 +119350,6 @@
   {
     "kind": "question",
     "text": "Noble"
-  },
-  {
-    "kind": "question",
-    "text": "Old"
   },
   {
     "kind": "question",
@@ -114153,10 +122201,6 @@
   },
   {
     "kind": "question",
-    "text": "A sailor"
-  },
-  {
-    "kind": "question",
     "text": "One of the righteous"
   },
   {
@@ -116673,10 +124717,6 @@
   },
   {
     "kind": "question",
-    "text": "Say: He is Allah, One"
-  },
-  {
-    "kind": "question",
     "text": "By the fig and the olive"
   },
   {
@@ -117710,10 +125750,6 @@
   {
     "kind": "question",
     "text": "Ayah 24: what should man look at and think about?"
-  },
-  {
-    "kind": "question",
-    "text": "His money"
   },
   {
     "kind": "question",
@@ -121873,10 +129909,6 @@
   },
   {
     "kind": "question",
-    "text": "Throw it away"
-  },
-  {
-    "kind": "question",
     "text": "You will be asked about it"
   },
   {
@@ -125505,10 +133537,6 @@
   },
   {
     "kind": "question",
-    "text": "Building houses"
-  },
-  {
-    "kind": "question",
     "text": "Studying"
   },
   {
@@ -127701,10 +135729,6 @@
   },
   {
     "kind": "question",
-    "text": "Went home"
-  },
-  {
-    "kind": "question",
     "text": "Changed the word"
   },
   {
@@ -128490,10 +136514,6 @@
   {
     "kind": "question",
     "text": "Reading books"
-  },
-  {
-    "kind": "question",
-    "text": "Learning to write"
   },
   {
     "kind": "question",
@@ -130626,10 +138646,6 @@
   {
     "kind": "question",
     "text": "Watching the weather"
-  },
-  {
-    "kind": "question",
-    "text": "Counting stars"
   },
   {
     "kind": "question",
@@ -133885,10 +141901,6 @@
   },
   {
     "kind": "question",
-    "text": "A spelling mistake"
-  },
-  {
-    "kind": "question",
     "text": "There are many truths"
   },
   {
@@ -134106,10 +142118,6 @@
   {
     "kind": "question",
     "text": "How many grains come from one, in 2:261?"
-  },
-  {
-    "kind": "question",
-    "text": "Seven hundred"
   },
   {
     "kind": "question",
@@ -137150,10 +145158,6 @@
   {
     "kind": "question",
     "text": "A friend says, \"I believe in Allah, but I don't need to follow the Prophet ﷺ.\""
-  },
-  {
-    "kind": "question",
-    "text": "Following the Prophet ﷺ"
   },
   {
     "kind": "question",

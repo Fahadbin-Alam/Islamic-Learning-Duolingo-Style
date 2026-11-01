@@ -98,7 +98,7 @@ describe("Scholars family tree", () => {
     expect(screen.getByTestId("chain-to-prophet")).toBeTruthy();
     expect(screen.getByTestId("chain-link-humaydi")).toBeTruthy();
     expect(screen.getByTestId("chain-link-muslim")).toBeTruthy();
-    expect(screen.queryByTestId("chain-open-lessons")).toBeNull();
+    expect(screen.getByTestId("chain-open-lessons")).toBeTruthy();
 
     await fireEvent.press(screen.getByTestId("chain-source-humaydi-bukhari"));
     expect(openURL).toHaveBeenCalledWith("https://sunnah.com/bukhari:1");
@@ -110,5 +110,29 @@ describe("Scholars family tree", () => {
     expect(onSelect).toHaveBeenCalledWith("scholars", "scholar-ahmad");
     expect(onClose).toHaveBeenCalled();
     openURL.mockRestore();
+  });
+
+  it("opens a Sahabi's own lessons from the tree, and her life in another topic", async () => {
+    const onSelect = jest.fn();
+    const onClose = jest.fn();
+    const women = { topicId: "women_of_the_book", title: "Great Women", accent: "#E0609A", done: 0, total: 10, units: [{ id: "women-mothers", title: "Mothers of the Believers", done: 0, total: 10 }] };
+    await render(<TopicPicker visible onClose={onClose} onSelect={onSelect} activeTopicId="foundation" topics={[scholars, women]} />);
+    await fireEvent.press(screen.getByTestId("topic-tile-scholars"));
+    await fireEvent.press(screen.getByTestId("chain-person-aishah"));
+    expect(screen.getByTestId("chain-person-name")).toHaveTextContent("Aishah");
+    expect(screen.getByTestId("chain-open-elsewhere")).toHaveTextContent("Also in Great Women: Mothers of the Believers");
+    await fireEvent.press(screen.getByTestId("chain-open-lessons"));
+    expect(onSelect).toHaveBeenLastCalledWith("scholars", "scholar-aishah");
+
+    // The sheet stays up in this test (its parent closes it), so the tree is still there.
+    await fireEvent.press(screen.getByTestId("chain-person-aishah"));
+    await fireEvent.press(screen.getByTestId("chain-open-elsewhere"));
+    expect(onSelect).toHaveBeenLastCalledWith("women_of_the_book", "women-mothers");
+  });
+
+  it("gives every Sahabi on the tree lessons of their own", () => {
+    for (const person of CHAIN_PEOPLE.filter((item) => item.generation === "sahabi")) {
+      expect(`${person.id}: ${person.unitId ?? "none"}`).toBe(`${person.id}: scholar-${person.id}`);
+    }
   });
 });

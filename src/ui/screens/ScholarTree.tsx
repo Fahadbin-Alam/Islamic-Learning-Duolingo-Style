@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import {
   CHAIN_BREAK_ROWS,
@@ -28,6 +28,67 @@ import { useBackToClose } from "./sheetParts";
 
 /** A scholar's own lesson unit, as the topic picker lists it. */
 export type ScholarTreeUnit = { id: string; title: string; done: number; total: number; tree?: { years: string; note: string } };
+
+/** A unit in another topic (a Sahabi's life, a Mother of the Believers), found by the picker: its title and topic. */
+export type ElsewhereUnit = { title: string; topicTitle: string };
+
+/**
+ * On the web, a mouse can drag the tree: sideways moves the tree, up and down moves the page around it. A drag
+ * never counts as a tap on the card it started on (`dragged` says so until the click after it has passed).
+ */
+function useMouseDrag(scroller: React.RefObject<ScrollView | null>) {
+  const dragged = useRef(false);
+  useEffect(() => {
+    if (Platform.OS !== "web") return undefined;
+    const node = (scroller.current as unknown as { getScrollableNode?: () => HTMLElement } | null)?.getScrollableNode?.();
+    if (!node || typeof window === "undefined") return undefined;
+    // The nearest box above the tree that scrolls up and down (the topic sheet's list).
+    const pageOf = (element: HTMLElement) => {
+      for (let box = element.parentElement; box; box = box.parentElement) {
+        const overflow = window.getComputedStyle(box).overflowY;
+        if ((overflow === "auto" || overflow === "scroll") && box.scrollHeight > box.clientHeight) return box;
+      }
+      return undefined;
+    };
+    let start: { x: number; y: number; left: number; top: number; page?: HTMLElement } | undefined;
+    const move = (event: MouseEvent) => {
+      if (!start) return;
+      const dx = event.clientX - start.x;
+      const dy = event.clientY - start.y;
+      if (!dragged.current && Math.abs(dx) + Math.abs(dy) < 6) return;
+      dragged.current = true;
+      node.style.cursor = "grabbing";
+      node.scrollLeft = start.left - dx;
+      if (start.page) start.page.scrollTop = start.top - dy;
+      event.preventDefault();
+    };
+    const up = () => {
+      start = undefined;
+      node.style.cursor = "grab";
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mouseup", up);
+      // The click that ends a drag comes right after mouseup: let it pass first.
+      setTimeout(() => {
+        dragged.current = false;
+      }, 0);
+    };
+    const down = (event: MouseEvent) => {
+      if (event.button !== 0) return;
+      const page = pageOf(node);
+      dragged.current = false;
+      start = { x: event.clientX, y: event.clientY, left: node.scrollLeft, top: page?.scrollTop ?? 0, page };
+      window.addEventListener("mousemove", move);
+      window.addEventListener("mouseup", up);
+    };
+    node.style.cursor = "grab";
+    node.addEventListener("mousedown", down);
+    return () => {
+      node.removeEventListener("mousedown", down);
+      up();
+    };
+  }, [scroller]);
+  return dragged;
+}
 
 // Card and grid sizes: three cards and a bit show on a 320 px phone, so it is clear the tree goes on sideways.
 const CARD_W = 100;
@@ -160,14 +221,18 @@ function LinkRow({ personId, link, onPick }: { personId: string; link: ChainLink
 function PersonSheet({
   personId,
   unit,
+  elsewhere,
   onPick,
   onOpenUnit,
+  onOpenElsewhere,
   onClose
 }: {
   personId?: string;
   unit?: ScholarTreeUnit;
+  elsewhere?: ElsewhereUnit;
   onPick: (id: string) => void;
   onOpenUnit: (unitId: string) => void;
+  onOpenElsewhere: () => void;
   onClose: () => void;
 }) {
   const visible = personId !== undefined;
@@ -192,12 +257,41 @@ function PersonSheet({
                   {person.names.ar}
                 </ArabicText>
               ) : null}
-              {unit?.tree ? <Text style={styles.years}>{unit.tree.years}</Text> : null}
+              {unit?.tree?.years ? <Text style={styles.years}>{unit.tree.years}</Text> : null}
             </View>
             <Tappable onPress={onClose} accessibilityLabel={t("Close")} testID="chain-person-close" style={styles.close} hitSlop={8} pressScale={0.88}>
               <Icon name="close" size={20} color={colors.inkSoft} />
             </Tappable>
           </View>
+
+          {unit ? (
+            <View style={styles.section}>
+              {unit.tree?.note ? <Text style={styles.note}>{unit.tree.note}</Text> : null}
+              <GameButton
+                label={unit.done > 0 && unit.done < unit.total ? t("Continue lessons") : t("Start lessons")}
+                icon="book"
+                onPress={() => onOpenUnit(unit.id)}
+                fullWidth
+                testID="chain-open-lessons"
+              />
+            </View>
+          ) : null}
+
+          {elsewhere ? (
+            <Tappable
+              onPress={onOpenElsewhere}
+              pressScale={0.97}
+              accessibilityRole="button"
+              testID="chain-open-elsewhere"
+              style={styles.elsewhere}
+            >
+              <Icon name="book" size={18} />
+              <Text style={styles.elsewhereText} numberOfLines={2}>
+                {t("Also in {topic}: {unit}", { topic: elsewhere.topicTitle, unit: elsewhere.title })}
+              </Text>
+              <Icon name="chevronRight" size={16} color={colors.inkSoft} />
+            </Tappable>
+          ) : null}
 
           {chain ? (
             <View style={styles.section} testID="chain-to-prophet">
@@ -239,12 +333,6 @@ function PersonSheet({
             </View>
           ) : null}
 
-          {unit ? (
-            <View style={styles.section}>
-              {unit.tree?.note ? <Text style={styles.note}>{unit.tree.note}</Text> : null}
-              <GameButton label={t("Open lessons")} onPress={() => onOpenUnit(unit.id)} fullWidth testID="chain-open-lessons" />
-            </View>
-          ) : null}
         </ScrollView>
       ) : null}
     </Sheet>
@@ -256,7 +344,18 @@ function PersonSheet({
  * source. It is wider than the phone, so it pans left and right. Tapping someone lights up his chain above and his
  * students below, and opens his teachers, students and sources; the seven imams with lessons open them from there.
  */
-export function ScholarTree({ units, onPick }: { units: ScholarTreeUnit[]; onPick: (unitId: string) => void }) {
+export function ScholarTree({
+  units,
+  onPick,
+  findElsewhere,
+  onPickElsewhere
+}: {
+  units: ScholarTreeUnit[];
+  onPick: (unitId: string) => void;
+  /** Looks up a unit in another topic, for the people who also have one there (a Sahabi's life, Aishah as a wife). */
+  findElsewhere?: (topicId: string, unitId: string) => ElsewhereUnit | undefined;
+  onPickElsewhere?: (topicId: string, unitId: string) => void;
+}) {
   const [selected, setSelected] = useState<string | undefined>(undefined);
   const [sheetOpen, setSheetOpen] = useState(false);
   const scroller = useRef<ScrollView>(null);
@@ -276,6 +375,8 @@ export function ScholarTree({ units, onPick }: { units: ScholarTreeUnit[]; onPic
     return (up(link.teacher) && up(link.student)) || (down(link.teacher) && down(link.student));
   };
 
+  const dragged = useMouseDrag(scroller);
+
   // Moves to someone: lights up his lines and brings his card into view.
   const pick = (id: string) => {
     setSelected(id);
@@ -287,13 +388,15 @@ export function ScholarTree({ units, onPick }: { units: ScholarTreeUnit[]; onPic
   };
 
   const selectedPerson = selected ? chainPerson(selected) : undefined;
+  const alsoIn = selectedPerson?.alsoIn;
+  const elsewhere = alsoIn && findElsewhere ? findElsewhere(alsoIn.topicId, alsoIn.unitId) : undefined;
   const lit = CHAIN_LINKS.filter(linkLit);
   const unlit = CHAIN_LINKS.filter((link) => !linkLit(link));
 
   return (
     <View testID="topic-family-tree">
       <Text style={styles.heading}>{t("Family tree")}</Text>
-      <Text style={styles.hint}>{t("Tap a scholar to see who taught him and whom he taught. Swipe left and right.")}</Text>
+      <Text style={styles.hint}>{t("Tap anyone to learn about them and see who taught whom. Drag or swipe to move around.")}</Text>
       <View style={styles.legend}>
         {(Object.keys(GENERATION_LABEL) as ChainGeneration[]).map((generation) => (
           <View key={generation} style={styles.legendItem}>
@@ -343,14 +446,19 @@ export function ScholarTree({ units, onPick }: { units: ScholarTreeUnit[]; onPic
             </View>
           ))}
           {CHAIN_PEOPLE.map((person) => (
-            <TreeCard key={person.id} person={person} unit={person.unitId ? unitById.get(person.unitId) : undefined} state={stateOf(person.id)} onPress={() => pick(person.id)} />
+            <TreeCard key={person.id} person={person} unit={person.unitId ? unitById.get(person.unitId) : undefined} state={stateOf(person.id)} onPress={() => !dragged.current && pick(person.id)} />
           ))}
         </View>
       </ScrollView>
       <PersonSheet
         personId={sheetOpen ? selected : undefined}
         unit={selectedPerson?.unitId ? unitById.get(selectedPerson.unitId) : undefined}
+        elsewhere={elsewhere}
         onPick={pick}
+        onOpenElsewhere={() => {
+          setSheetOpen(false);
+          if (alsoIn) onPickElsewhere?.(alsoIn.topicId, alsoIn.unitId);
+        }}
         onOpenUnit={(unitId) => {
           setSheetOpen(false);
           onPick(unitId);
@@ -575,6 +683,27 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyBold,
     fontSize: 12,
     color: colors.inkSoft
+  },
+  elsewhere: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 2,
+    borderColor: colors.line,
+    borderBottomWidth: 4,
+    borderBottomColor: colors.lineLip,
+    borderRadius: 14,
+    backgroundColor: colors.white
+  },
+  elsewhereText: {
+    flex: 1,
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 14,
+    lineHeight: 19,
+    color: colors.ink
   },
   note: {
     marginBottom: 10,

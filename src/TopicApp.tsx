@@ -1164,7 +1164,7 @@ export default function TopicApp() {
                   arabic: getBranchArabic(branch.id),
                   done: nodes.filter((node) => completed.has(node.id)).length,
                   total: nodes.length,
-                  ...(tree ? { tree: { row: tree.row, years: scholarYears(tree.years), note: branch.description } } : {})
+                  ...(tree ? { tree: { row: tree.row, years: tree.years ? scholarYears(tree.years) : "", note: branch.description } } : {})
                 };
               })
               .filter((unit) => unit.total > 0)
