@@ -2601,6 +2601,198 @@
   },
   {
     "kind": "course",
+    "text": "Life in justice"
+  },
+  {
+    "kind": "course",
+    "text": "Fasting is prescribed"
+  },
+  {
+    "kind": "course",
+    "text": "Ease for the sick"
+  },
+  {
+    "kind": "course",
+    "text": "The month of the Quran"
+  },
+  {
+    "kind": "course",
+    "text": "I am near"
+  },
+  {
+    "kind": "course",
+    "text": "The white thread"
+  },
+  {
+    "kind": "course",
+    "text": "No unjust wealth"
+  },
+  {
+    "kind": "course",
+    "text": "The new moons"
+  },
+  {
+    "kind": "course",
+    "text": "Do not go too far"
+  },
+  {
+    "kind": "course",
+    "text": "Don't throw yourselves into ruin"
+  },
+  {
+    "kind": "course",
+    "text": "Manners of Hajj"
+  },
+  {
+    "kind": "course",
+    "text": "Trade during Hajj"
+  },
+  {
+    "kind": "course",
+    "text": "Good in both worlds"
+  },
+  {
+    "kind": "course",
+    "text": "Sweet words, bad deeds"
+  },
+  {
+    "kind": "course",
+    "text": "Enter Islam fully"
+  },
+  {
+    "kind": "course",
+    "text": "Allah's help is near"
+  },
+  {
+    "kind": "course",
+    "text": "Whom to spend on"
+  },
+  {
+    "kind": "course",
+    "text": "It may be good for you"
+  },
+  {
+    "kind": "course",
+    "text": "Caring for orphans"
+  },
+  {
+    "kind": "course",
+    "text": "Don't swear away good"
+  },
+  {
+    "kind": "course",
+    "text": "Two full years"
+  },
+  {
+    "kind": "course",
+    "text": "Don't forget kindness"
+  },
+  {
+    "kind": "course",
+    "text": "Pray even in fear"
+  },
+  {
+    "kind": "course",
+    "text": "A goodly loan"
+  },
+  {
+    "kind": "course",
+    "text": "Talut the king"
+  },
+  {
+    "kind": "course",
+    "text": "The river test"
+  },
+  {
+    "kind": "course",
+    "text": "Spend before that Day"
+  },
+  {
+    "kind": "course",
+    "text": "The greatest ayah"
+  },
+  {
+    "kind": "course",
+    "text": "Ayat al-Kursi at night"
+  },
+  {
+    "kind": "course",
+    "text": "No compulsion"
+  },
+  {
+    "kind": "course",
+    "text": "Out of darkness into light"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim and the king"
+  },
+  {
+    "kind": "course",
+    "text": "A hundred years"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim and the four birds"
+  },
+  {
+    "kind": "course",
+    "text": "One grain, seven hundred"
+  },
+  {
+    "kind": "course",
+    "text": "Don't spoil your charity"
+  },
+  {
+    "kind": "course",
+    "text": "The burnt garden"
+  },
+  {
+    "kind": "course",
+    "text": "Give from the good"
+  },
+  {
+    "kind": "course",
+    "text": "Shaytan threatens poverty"
+  },
+  {
+    "kind": "course",
+    "text": "Given wisdom"
+  },
+  {
+    "kind": "course",
+    "text": "Giving in secret"
+  },
+  {
+    "kind": "course",
+    "text": "The poor who don't ask"
+  },
+  {
+    "kind": "course",
+    "text": "Trade is allowed, riba is not"
+  },
+  {
+    "kind": "course",
+    "text": "Give the debtor time"
+  },
+  {
+    "kind": "course",
+    "text": "Write it down"
+  },
+  {
+    "kind": "course",
+    "text": "What's in yourselves"
+  },
+  {
+    "kind": "course",
+    "text": "The Messenger ﷺ believed"
+  },
+  {
+    "kind": "course",
+    "text": "Not beyond your capacity"
+  },
+  {
+    "kind": "course",
     "text": "Clear ayahs"
   },
   {
@@ -4434,10 +4626,6 @@
   {
     "kind": "course",
     "text": "Spend in Allah's way"
-  },
-  {
-    "kind": "course",
-    "text": "A goodly loan"
   },
   {
     "kind": "course",
@@ -9722,10 +9910,6 @@
   {
     "kind": "course",
     "text": "Laylat al-Qadr, i'tikaf, and getting ready for Eid."
-  },
-  {
-    "kind": "course",
-    "text": "The month of the Quran"
   },
   {
     "kind": "arabic",
@@ -31298,10 +31482,6 @@
   {
     "kind": "question",
     "text": "If you have nothing good to say, what should you do?"
-  },
-  {
-    "kind": "question",
-    "text": "Write it down"
   },
   {
     "kind": "question",
@@ -57281,10 +57461,6 @@
   },
   {
     "kind": "question",
-    "text": "A hundred years"
-  },
-  {
-    "kind": "question",
     "text": "Fifty thousand years"
   },
   {
@@ -63513,10 +63689,6 @@
   },
   {
     "kind": "question",
-    "text": "Allah's help is near"
-  },
-  {
-    "kind": "question",
     "text": "There is no help"
   },
   {
@@ -63881,10 +64053,6 @@
   },
   {
     "kind": "question",
-    "text": "Two full years"
-  },
-  {
-    "kind": "question",
     "text": "Two months"
   },
   {
@@ -63922,10 +64090,6 @@
   {
     "kind": "lesson",
     "text": "Stand before Allah humbly"
-  },
-  {
-    "kind": "lesson",
-    "text": "Pray even in fear"
   },
   {
     "kind": "source",
@@ -110589,6 +110753,3338 @@
   },
   {
     "kind": "lesson",
+    "text": "Goodness is not facing east or west, but faith and giving."
+  },
+  {
+    "kind": "lesson",
+    "text": "Faith, charity, prayer"
+  },
+  {
+    "kind": "lesson",
+    "text": "Keeping promises, patience"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:177"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:177 say true goodness is NOT?"
+  },
+  {
+    "kind": "question",
+    "text": "Just facing east or west"
+  },
+  {
+    "kind": "question",
+    "text": "It is faith and deeds."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is part of 'birr' in 2:177?"
+  },
+  {
+    "kind": "question",
+    "text": "Keeping your promises"
+  },
+  {
+    "kind": "question",
+    "text": "Wearing new clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Those who fulfill their promise."
+  },
+  {
+    "kind": "question",
+    "text": "Goodness is both belief and action."
+  },
+  {
+    "kind": "question",
+    "text": "Faith, then giving, prayer and patience."
+  },
+  {
+    "kind": "lesson",
+    "text": "In fair justice there is life, and forgiving is better still."
+  },
+  {
+    "kind": "lesson",
+    "text": "Justice protects lives"
+  },
+  {
+    "kind": "lesson",
+    "text": "Forgiveness is a mercy"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:179"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:179"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:179 say is found in fair justice?"
+  },
+  {
+    "kind": "question",
+    "text": "Life"
+  },
+  {
+    "kind": "question",
+    "text": "Fil-qisasi hayah."
+  },
+  {
+    "kind": "question",
+    "text": "How does justice protect life?"
+  },
+  {
+    "kind": "question",
+    "text": "It ends all work"
+  },
+  {
+    "kind": "question",
+    "text": "People hold back from harming others"
+  },
+  {
+    "kind": "question",
+    "text": "It makes people rich"
+  },
+  {
+    "kind": "question",
+    "text": "It stops the rain"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:178 call the family's choice to forgive?"
+  },
+  {
+    "kind": "question",
+    "text": "A crime"
+  },
+  {
+    "kind": "question",
+    "text": "A mercy from your Lord"
+  },
+  {
+    "kind": "question",
+    "text": "A weakness"
+  },
+  {
+    "kind": "question",
+    "text": "Takhfifun min rabbikum wa rahmah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fasting was written for you as for those before you."
+  },
+  {
+    "kind": "lesson",
+    "text": "So you gain taqwa"
+  },
+  {
+    "kind": "lesson",
+    "text": "Not new to Islam"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:183"
+  },
+  {
+    "kind": "question",
+    "text": "Who fasted before the Muslims, says 2:183?"
+  },
+  {
+    "kind": "question",
+    "text": "Nations before them"
+  },
+  {
+    "kind": "question",
+    "text": "Nobody ever"
+  },
+  {
+    "kind": "question",
+    "text": "Kama kutiba 'alal-ladhina min qablikum."
+  },
+  {
+    "kind": "question",
+    "text": "Why do we fast, in 2:183?"
+  },
+  {
+    "kind": "question",
+    "text": "To lose weight only"
+  },
+  {
+    "kind": "question",
+    "text": "To save money"
+  },
+  {
+    "kind": "question",
+    "text": "To sleep more"
+  },
+  {
+    "kind": "question",
+    "text": "To gain taqwa"
+  },
+  {
+    "kind": "question",
+    "text": "Fasting trains the heart, not just the stomach."
+  },
+  {
+    "kind": "question",
+    "text": "It builds taqwa."
+  },
+  {
+    "kind": "lesson",
+    "text": "The sick or traveling can make up the days later."
+  },
+  {
+    "kind": "lesson",
+    "text": "Make up later"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:184"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:184"
+  },
+  {
+    "kind": "question",
+    "text": "What can a sick person do in Ramadan, in 2:184?"
+  },
+  {
+    "kind": "question",
+    "text": "Pay a fine only"
+  },
+  {
+    "kind": "question",
+    "text": "Fast twice as long"
+  },
+  {
+    "kind": "question",
+    "text": "Make up the days later"
+  },
+  {
+    "kind": "question",
+    "text": "Never fast again"
+  },
+  {
+    "kind": "question",
+    "text": "Fa'iddatun min ayyamin ukhar."
+  },
+  {
+    "kind": "question",
+    "text": "Who else may break the fast?"
+  },
+  {
+    "kind": "question",
+    "text": "A busy student"
+  },
+  {
+    "kind": "question",
+    "text": "Someone bored"
+  },
+  {
+    "kind": "question",
+    "text": "A sports fan"
+  },
+  {
+    "kind": "question",
+    "text": "Aw 'ala safar."
+  },
+  {
+    "kind": "question",
+    "text": "Fasting is for how many days, in 2:184?"
+  },
+  {
+    "kind": "question",
+    "text": "A counted number of days"
+  },
+  {
+    "kind": "question",
+    "text": "All year"
+  },
+  {
+    "kind": "question",
+    "text": "Only one day"
+  },
+  {
+    "kind": "question",
+    "text": "As many as you like"
+  },
+  {
+    "kind": "question",
+    "text": "Ayyaman ma'dudat."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ramadan is the month the Quran was sent down; Allah wants ease."
+  },
+  {
+    "kind": "lesson",
+    "text": "Guidance and criterion"
+  },
+  {
+    "kind": "lesson",
+    "text": "Say Allahu akbar"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:185"
+  },
+  {
+    "kind": "question",
+    "text": "What was sent down in Ramadan, in 2:185?"
+  },
+  {
+    "kind": "question",
+    "text": "The Tawrah only"
+  },
+  {
+    "kind": "question",
+    "text": "Shahru Ramadanal-ladhi unzila fihil-Quran."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah want for us, in 2:185?"
+  },
+  {
+    "kind": "question",
+    "text": "Hunger forever"
+  },
+  {
+    "kind": "question",
+    "text": "Ease, not hardship"
+  },
+  {
+    "kind": "question",
+    "text": "Yuridullahu bikumul-yusr."
+  },
+  {
+    "kind": "question",
+    "text": "What do we do after completing the days?"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep all Eid"
+  },
+  {
+    "kind": "question",
+    "text": "Glorify Allah (takbir)"
+  },
+  {
+    "kind": "question",
+    "text": "Forget Him"
+  },
+  {
+    "kind": "question",
+    "text": "Wa litukabbirullah."
+  },
+  {
+    "kind": "lesson",
+    "text": "When My servants ask about Me: I am near, I answer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ask Him directly"
+  },
+  {
+    "kind": "lesson",
+    "text": "Respond to Him"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:186"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:186"
+  },
+  {
+    "kind": "question",
+    "text": "How close is Allah to one who calls Him, in 2:186?"
+  },
+  {
+    "kind": "question",
+    "text": "Too busy"
+  },
+  {
+    "kind": "question",
+    "text": "Unreachable"
+  },
+  {
+    "kind": "question",
+    "text": "Near"
+  },
+  {
+    "kind": "question",
+    "text": "Fa inni qarib."
+  },
+  {
+    "kind": "question",
+    "text": "Do we need a go-between to ask Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "No, ask Him directly"
+  },
+  {
+    "kind": "question",
+    "text": "Only through a king"
+  },
+  {
+    "kind": "question",
+    "text": "I answer the caller."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah ask of us in return?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask nothing"
+  },
+  {
+    "kind": "question",
+    "text": "Respond to Him and believe"
+  },
+  {
+    "kind": "question",
+    "text": "Pay Him"
+  },
+  {
+    "kind": "question",
+    "text": "Falyastajibu li walyu'minu bi."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Baqarah, ayahs 177 to 286?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Eat and drink until dawn's white thread shows against the night."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1916"
+  },
+  {
+    "kind": "lesson",
+    "text": "Adi's two threads"
+  },
+  {
+    "kind": "question",
+    "text": "Until when may a fasting person eat, in 2:187?"
+  },
+  {
+    "kind": "question",
+    "text": "Until dawn appears"
+  },
+  {
+    "kind": "question",
+    "text": "Until Asr"
+  },
+  {
+    "kind": "question",
+    "text": "The white thread from the black."
+  },
+  {
+    "kind": "question",
+    "text": "What did Adi put under his pillow?"
+  },
+  {
+    "kind": "question",
+    "text": "A Quran"
+  },
+  {
+    "kind": "question",
+    "text": "A white and a black thread"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 1916."
+  },
+  {
+    "kind": "question",
+    "text": "What do the threads really mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Two colors of clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Day and month"
+  },
+  {
+    "kind": "question",
+    "text": "Night's darkness and dawn's light"
+  },
+  {
+    "kind": "question",
+    "text": "Real threads"
+  },
+  {
+    "kind": "question",
+    "text": "As the Prophet ﷺ explained."
+  },
+  {
+    "kind": "lesson",
+    "text": "Don't eat each other's wealth unjustly or bribe judges."
+  },
+  {
+    "kind": "lesson",
+    "text": "Honest earnings"
+  },
+  {
+    "kind": "lesson",
+    "text": "No bribes"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:188"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:188"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:188 forbid?"
+  },
+  {
+    "kind": "question",
+    "text": "Giving gifts"
+  },
+  {
+    "kind": "question",
+    "text": "Saving money"
+  },
+  {
+    "kind": "question",
+    "text": "Taking wealth unjustly"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:188."
+  },
+  {
+    "kind": "question",
+    "text": "Offering money to judges to win unfairly is..."
+  },
+  {
+    "kind": "question",
+    "text": "Fine"
+  },
+  {
+    "kind": "question",
+    "text": "A bribe, forbidden"
+  },
+  {
+    "kind": "question",
+    "text": "While you know it is wrong."
+  },
+  {
+    "kind": "question",
+    "text": "Copying someone's work and selling it as yours fits 2:188."
+  },
+  {
+    "kind": "question",
+    "text": "It is taking what is not yours."
+  },
+  {
+    "kind": "lesson",
+    "text": "The new moons mark times for people and for Hajj."
+  },
+  {
+    "kind": "lesson",
+    "text": "Islamic months by the moon"
+  },
+  {
+    "kind": "lesson",
+    "text": "Righteousness is taqwa"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:189"
+  },
+  {
+    "kind": "question",
+    "text": "What are the new moons for, in 2:189?"
+  },
+  {
+    "kind": "question",
+    "text": "Telling fortunes"
+  },
+  {
+    "kind": "question",
+    "text": "Marking times and Hajj"
+  },
+  {
+    "kind": "question",
+    "text": "Mawaqitu lin-nasi wal-hajj."
+  },
+  {
+    "kind": "question",
+    "text": "How do Muslims know Ramadan starts?"
+  },
+  {
+    "kind": "question",
+    "text": "By the new moon"
+  },
+  {
+    "kind": "question",
+    "text": "By the weather"
+  },
+  {
+    "kind": "question",
+    "text": "By the sun's heat"
+  },
+  {
+    "kind": "question",
+    "text": "Lunar months."
+  },
+  {
+    "kind": "question",
+    "text": "What is true righteousness, in 2:189?"
+  },
+  {
+    "kind": "question",
+    "text": "Entering houses from the back"
+  },
+  {
+    "kind": "question",
+    "text": "Fancy doors"
+  },
+  {
+    "kind": "question",
+    "text": "Long names"
+  },
+  {
+    "kind": "question",
+    "text": "Walakinnal-birra manittaqa."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even in battle, never cross the limits Allah set."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rules even in war"
+  },
+  {
+    "kind": "lesson",
+    "text": "No harming the innocent"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:190"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:190"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah dislike, in 2:190?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who forgive"
+  },
+  {
+    "kind": "question",
+    "text": "Those who are patient"
+  },
+  {
+    "kind": "question",
+    "text": "Those who transgress limits"
+  },
+  {
+    "kind": "question",
+    "text": "Innallaha la yuhibbul-mu'tadin."
+  },
+  {
+    "kind": "question",
+    "text": "Who must never be harmed, says Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Only soldiers"
+  },
+  {
+    "kind": "question",
+    "text": "Women, children and the old"
+  },
+  {
+    "kind": "question",
+    "text": "Nobody is protected"
+  },
+  {
+    "kind": "question",
+    "text": "Islam has rules even in war."
+  },
+  {
+    "kind": "question",
+    "text": "In Islam, even war has strict limits."
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:190."
+  },
+  {
+    "kind": "lesson",
+    "text": "Spend in Allah's way; don't throw yourselves into ruin."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Ayyub explained it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Do good: ihsan"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:195"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 2512"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:195 tell us to do with wealth?"
+  },
+  {
+    "kind": "question",
+    "text": "Burn it"
+  },
+  {
+    "kind": "question",
+    "text": "Spend it in Allah's way"
+  },
+  {
+    "kind": "question",
+    "text": "Wa anfiqu fi sabilillah."
+  },
+  {
+    "kind": "question",
+    "text": "What was the 'ruin', says Abu Ayyub?"
+  },
+  {
+    "kind": "question",
+    "text": "Fasting too much"
+  },
+  {
+    "kind": "question",
+    "text": "Clinging to wealth and leaving the effort"
+  },
+  {
+    "kind": "question",
+    "text": "Spending too much"
+  },
+  {
+    "kind": "question",
+    "text": "Praying too much"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Dawud 2512."
+  },
+  {
+    "kind": "question",
+    "text": "How does 2:195 end?"
+  },
+  {
+    "kind": "question",
+    "text": "Do good: Allah loves the good-doers"
+  },
+  {
+    "kind": "question",
+    "text": "Be first"
+  },
+  {
+    "kind": "question",
+    "text": "Innallaha yuhibbul-muhsinin."
+  },
+  {
+    "kind": "lesson",
+    "text": "In Hajj: no rude talk, no sinning, no arguing."
+  },
+  {
+    "kind": "lesson",
+    "text": "Taqwa: the best provision"
+  },
+  {
+    "kind": "lesson",
+    "text": "Known months"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:197"
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is forbidden in Hajj, in 2:197?"
+  },
+  {
+    "kind": "question",
+    "text": "Making dua"
+  },
+  {
+    "kind": "question",
+    "text": "Wa la jidala fil-hajj."
+  },
+  {
+    "kind": "question",
+    "text": "What is the best provision, in 2:197?"
+  },
+  {
+    "kind": "question",
+    "text": "Fa inna khayraz-zadit-taqwa."
+  },
+  {
+    "kind": "question",
+    "text": "Staying calm when crowds push fits 2:197."
+  },
+  {
+    "kind": "question",
+    "text": "No arguing in Hajj."
+  },
+  {
+    "kind": "lesson",
+    "text": "No sin in seeking Allah's bounty in trade during Hajj."
+  },
+  {
+    "kind": "lesson",
+    "text": "Remember Him at Muzdalifah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Halal trade"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:198"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:198"
+  },
+  {
+    "kind": "question",
+    "text": "Is buying and selling during Hajj a sin, says 2:198?"
+  },
+  {
+    "kind": "question",
+    "text": "No, it is allowed"
+  },
+  {
+    "kind": "question",
+    "text": "Laysa 'alaykum junah."
+  },
+  {
+    "kind": "question",
+    "text": "Where should pilgrims remember Allah after 'Arafat?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Mash'ar al-Haram"
+  },
+  {
+    "kind": "question",
+    "text": "At home"
+  },
+  {
+    "kind": "question",
+    "text": "At Muzdalifah."
+  },
+  {
+    "kind": "question",
+    "text": "Earning halal money can be part of a good life."
+  },
+  {
+    "kind": "question",
+    "text": "Seeking Allah's bounty."
+  },
+  {
+    "kind": "lesson",
+    "text": "Our Lord, give us good here and in the Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rabbana atina"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:201"
+  },
+  {
+    "kind": "question",
+    "text": "What does the dua in 2:201 ask for?"
+  },
+  {
+    "kind": "question",
+    "text": "Fid-dunya hasanah wa fil-akhirati hasanah."
+  },
+  {
+    "kind": "question",
+    "text": "What else does it ask protection from?"
+  },
+  {
+    "kind": "question",
+    "text": "Wa qina 'adhaban-nar."
+  },
+  {
+    "kind": "question",
+    "text": "Asking only for this world is the best dua."
+  },
+  {
+    "kind": "question",
+    "text": "Those people have no share in the Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some talk sweetly, but when given power, spread ruin."
+  },
+  {
+    "kind": "lesson",
+    "text": "Watch deeds, not words"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pride stops repentance"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:205"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:204"
+  },
+  {
+    "kind": "question",
+    "text": "What gives this person away, in 2:204-205?"
+  },
+  {
+    "kind": "question",
+    "text": "His deeds, not his words"
+  },
+  {
+    "kind": "question",
+    "text": "When he gains power he spreads ruin."
+  },
+  {
+    "kind": "question",
+    "text": "What happens when he is told 'fear Allah', in 2:206?"
+  },
+  {
+    "kind": "question",
+    "text": "He stays silent"
+  },
+  {
+    "kind": "question",
+    "text": "Pride takes hold of him"
+  },
+  {
+    "kind": "question",
+    "text": "He repents"
+  },
+  {
+    "kind": "question",
+    "text": "He thanks them"
+  },
+  {
+    "kind": "question",
+    "text": "Akhadhat-hul-'izzatu bil-ithm."
+  },
+  {
+    "kind": "question",
+    "text": "If someone reminds you to fear Allah, what fits?"
+  },
+  {
+    "kind": "question",
+    "text": "Accept it humbly"
+  },
+  {
+    "kind": "question",
+    "text": "The opposite of 2:206."
+  },
+  {
+    "kind": "lesson",
+    "text": "Enter Islam completely; don't follow Shaytan's footsteps."
+  },
+  {
+    "kind": "lesson",
+    "text": "All of Islam"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:208"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:208"
+  },
+  {
+    "kind": "question",
+    "text": "How should believers enter Islam, in 2:208?"
+  },
+  {
+    "kind": "question",
+    "text": "Completely"
+  },
+  {
+    "kind": "question",
+    "text": "Halfway"
+  },
+  {
+    "kind": "question",
+    "text": "Udkhulu fis-silmi kaffah."
+  },
+  {
+    "kind": "question",
+    "text": "Whose footsteps does 2:208 warn against?"
+  },
+  {
+    "kind": "question",
+    "text": "The scholars'"
+  },
+  {
+    "kind": "question",
+    "text": "He is a clear enemy."
+  },
+  {
+    "kind": "question",
+    "text": "Practicing as much of Islam as we can fits 2:208."
+  },
+  {
+    "kind": "lesson",
+    "text": "Did you think you'd enter Jannah without tests like theirs?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Tests came before"
+  },
+  {
+    "kind": "lesson",
+    "text": "Help is near"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:214"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:214"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:214 say came to those before us?"
+  },
+  {
+    "kind": "question",
+    "text": "Hard tests"
+  },
+  {
+    "kind": "question",
+    "text": "Only ease"
+  },
+  {
+    "kind": "question",
+    "text": "Endless holidays"
+  },
+  {
+    "kind": "question",
+    "text": "They were shaken."
+  },
+  {
+    "kind": "question",
+    "text": "What did the believers ask?"
+  },
+  {
+    "kind": "question",
+    "text": "Why pray?"
+  },
+  {
+    "kind": "question",
+    "text": "When is Allah's help?"
+  },
+  {
+    "kind": "question",
+    "text": "Who is king?"
+  },
+  {
+    "kind": "question",
+    "text": "What is the answer at the end of 2:214?"
+  },
+  {
+    "kind": "question",
+    "text": "Ala inna nasrallahi qarib."
+  },
+  {
+    "kind": "lesson",
+    "text": "Spend on parents, relatives, orphans, the poor and travelers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Family first"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows every good"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:215"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:215"
+  },
+  {
+    "kind": "question",
+    "text": "Who comes first in 2:215?"
+  },
+  {
+    "kind": "question",
+    "text": "Celebrities"
+  },
+  {
+    "kind": "question",
+    "text": "Fa lil-walidayn."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is named in 2:215?"
+  },
+  {
+    "kind": "question",
+    "text": "A famous singer"
+  },
+  {
+    "kind": "question",
+    "text": "The traveler in need"
+  },
+  {
+    "kind": "question",
+    "text": "Ibnis-sabil."
+  },
+  {
+    "kind": "question",
+    "text": "Does Allah know even small good deeds?"
+  },
+  {
+    "kind": "question",
+    "text": "Only public ones"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, every one"
+  },
+  {
+    "kind": "question",
+    "text": "Fa innallaha bihi 'alim."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows, we don't"
+  },
+  {
+    "kind": "lesson",
+    "text": "Trust His plan"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:216"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:216 say about things we dislike?"
+  },
+  {
+    "kind": "question",
+    "text": "They are always bad"
+  },
+  {
+    "kind": "question",
+    "text": "They never happen"
+  },
+  {
+    "kind": "question",
+    "text": "They are luck"
+  },
+  {
+    "kind": "question",
+    "text": "They may be good for us"
+  },
+  {
+    "kind": "question",
+    "text": "Who knows what is truly best?"
+  },
+  {
+    "kind": "question",
+    "text": "Only us"
+  },
+  {
+    "kind": "question",
+    "text": "Wallahu ya'lamu wa antum la ta'lamun."
+  },
+  {
+    "kind": "question",
+    "text": "You missed the bus and met a friend who needed help. What fits 2:216?"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing happens for a reason"
+  },
+  {
+    "kind": "question",
+    "text": "It may have been good for you"
+  },
+  {
+    "kind": "question",
+    "text": "It was pure bad luck"
+  },
+  {
+    "kind": "question",
+    "text": "Allah forgot you"
+  },
+  {
+    "kind": "question",
+    "text": "Trust Allah's plan."
+  },
+  {
+    "kind": "lesson",
+    "text": "In wine and gambling the harm is greater than the benefit."
+  },
+  {
+    "kind": "lesson",
+    "text": "Later fully forbidden"
+  },
+  {
+    "kind": "lesson",
+    "text": "Give the surplus"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:219"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:219 say about wine and gambling?"
+  },
+  {
+    "kind": "question",
+    "text": "They are healthy"
+  },
+  {
+    "kind": "question",
+    "text": "They are fine in moderation"
+  },
+  {
+    "kind": "question",
+    "text": "They bring luck"
+  },
+  {
+    "kind": "question",
+    "text": "Their harm is greater than benefit"
+  },
+  {
+    "kind": "question",
+    "text": "Wa ithmuhuma akbaru min naf'ihima."
+  },
+  {
+    "kind": "question",
+    "text": "Where were they fully forbidden later?"
+  },
+  {
+    "kind": "question",
+    "text": "Surat al-Ma'idah"
+  },
+  {
+    "kind": "question",
+    "text": "Surat al-Fatihah"
+  },
+  {
+    "kind": "question",
+    "text": "Surat al-Ikhlas"
+  },
+  {
+    "kind": "question",
+    "text": "They never were"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir explains the steps."
+  },
+  {
+    "kind": "question",
+    "text": "What should we spend, says 2:219?"
+  },
+  {
+    "kind": "question",
+    "text": "What is beyond our needs"
+  },
+  {
+    "kind": "question",
+    "text": "Everything we have"
+  },
+  {
+    "kind": "question",
+    "text": "Qulil-'afw."
+  },
+  {
+    "kind": "lesson",
+    "text": "Improving an orphan's affairs is best; they are your brothers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Honest care"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows intentions"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:220"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:220"
+  },
+  {
+    "kind": "question",
+    "text": "What is best for orphans, in 2:220?"
+  },
+  {
+    "kind": "question",
+    "text": "Ignoring them"
+  },
+  {
+    "kind": "question",
+    "text": "Taking their money"
+  },
+  {
+    "kind": "question",
+    "text": "Sending them away"
+  },
+  {
+    "kind": "question",
+    "text": "Improving their affairs"
+  },
+  {
+    "kind": "question",
+    "text": "Islahun lahum khayr."
+  },
+  {
+    "kind": "question",
+    "text": "How does 2:220 describe orphans you live with?"
+  },
+  {
+    "kind": "question",
+    "text": "Servants"
+  },
+  {
+    "kind": "question",
+    "text": "Guests only"
+  },
+  {
+    "kind": "question",
+    "text": "Your brothers"
+  },
+  {
+    "kind": "question",
+    "text": "Fa ikhwanukum."
+  },
+  {
+    "kind": "question",
+    "text": "Allah knows who means harm and who means good."
+  },
+  {
+    "kind": "question",
+    "text": "Wallahu ya'lamul-mufsida minal-muslih."
+  },
+  {
+    "kind": "lesson",
+    "text": "Don't use Allah's name in oaths to avoid doing good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Careless oaths forgiven"
+  },
+  {
+    "kind": "lesson",
+    "text": "The heart counts"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:224"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:224"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:224 warn against?"
+  },
+  {
+    "kind": "question",
+    "text": "Swearing not to do good"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:224."
+  },
+  {
+    "kind": "question",
+    "text": "Which oaths does Allah not hold against us, in 2:225?"
+  },
+  {
+    "kind": "question",
+    "text": "Careless slips of the tongue"
+  },
+  {
+    "kind": "question",
+    "text": "All oaths"
+  },
+  {
+    "kind": "question",
+    "text": "Oaths in court"
+  },
+  {
+    "kind": "question",
+    "text": "Promises to parents"
+  },
+  {
+    "kind": "question",
+    "text": "Bil-laghwi fi aymanikum."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah hold us to?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the words"
+  },
+  {
+    "kind": "question",
+    "text": "Only written oaths"
+  },
+  {
+    "kind": "question",
+    "text": "What our hearts intended"
+  },
+  {
+    "kind": "question",
+    "text": "Bima kasabat qulubukum."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mothers nurse their babies for two full years, if they wish."
+  },
+  {
+    "kind": "lesson",
+    "text": "Father provides kindly"
+  },
+  {
+    "kind": "lesson",
+    "text": "No one burdened too much"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:233"
+  },
+  {
+    "kind": "question",
+    "text": "How long is full nursing, in 2:233?"
+  },
+  {
+    "kind": "question",
+    "text": "Hawlayni kamilayn."
+  },
+  {
+    "kind": "question",
+    "text": "Who provides for the mother and baby?"
+  },
+  {
+    "kind": "question",
+    "text": "The baby"
+  },
+  {
+    "kind": "question",
+    "text": "The father, with kindness"
+  },
+  {
+    "kind": "question",
+    "text": "Bil-ma'ruf."
+  },
+  {
+    "kind": "question",
+    "text": "Islam cares for babies and mothers."
+  },
+  {
+    "kind": "question",
+    "text": "No soul is burdened too much."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even when parting, do not forget kindness between you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Grace to each other"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:237"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:237"
+  },
+  {
+    "kind": "question",
+    "text": "What should people not forget, even when parting?"
+  },
+  {
+    "kind": "question",
+    "text": "Their grudges"
+  },
+  {
+    "kind": "question",
+    "text": "Their arguments"
+  },
+  {
+    "kind": "question",
+    "text": "Wa la tansawul-fadla baynakum."
+  },
+  {
+    "kind": "question",
+    "text": "What is nearer to taqwa, in 2:237?"
+  },
+  {
+    "kind": "question",
+    "text": "Forgiving"
+  },
+  {
+    "kind": "question",
+    "text": "Taking more"
+  },
+  {
+    "kind": "question",
+    "text": "Wa an ta'fu aqrabu lit-taqwa."
+  },
+  {
+    "kind": "question",
+    "text": "After a fight with a friend, what fits 2:237?"
+  },
+  {
+    "kind": "question",
+    "text": "Never speak again"
+  },
+  {
+    "kind": "question",
+    "text": "Stay kind and forgive"
+  },
+  {
+    "kind": "question",
+    "text": "Spread rumors"
+  },
+  {
+    "kind": "question",
+    "text": "Do not forget kindness."
+  },
+  {
+    "kind": "lesson",
+    "text": "Guard the prayers, especially the middle prayer, Asr."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 628"
+  },
+  {
+    "kind": "lesson",
+    "text": "Stand humbly"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:238 command?"
+  },
+  {
+    "kind": "question",
+    "text": "Skip some prayers"
+  },
+  {
+    "kind": "question",
+    "text": "Pray once a week"
+  },
+  {
+    "kind": "question",
+    "text": "Pray only in Ramadan"
+  },
+  {
+    "kind": "question",
+    "text": "Hafizu 'alas-salawat."
+  },
+  {
+    "kind": "question",
+    "text": "Which prayer did he ﷺ call the middle prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "A night prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Eid prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Fajr only"
+  },
+  {
+    "kind": "question",
+    "text": "Muslim 628."
+  },
+  {
+    "kind": "question",
+    "text": "How should we stand in prayer, in 2:238?"
+  },
+  {
+    "kind": "question",
+    "text": "Looking around"
+  },
+  {
+    "kind": "question",
+    "text": "Humbly, devoted to Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Rushing"
+  },
+  {
+    "kind": "question",
+    "text": "Wa qumu lillahi qanitin."
+  },
+  {
+    "kind": "lesson",
+    "text": "If afraid, pray walking or riding; prayer is never dropped."
+  },
+  {
+    "kind": "lesson",
+    "text": "Prayer in every state"
+  },
+  {
+    "kind": "lesson",
+    "text": "Remember Allah after"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:239"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:239"
+  },
+  {
+    "kind": "question",
+    "text": "How can someone in danger pray, in 2:239?"
+  },
+  {
+    "kind": "question",
+    "text": "Only later"
+  },
+  {
+    "kind": "question",
+    "text": "Fa rijalan aw rukbana."
+  },
+  {
+    "kind": "question",
+    "text": "Is the prayer dropped in hard times?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, for a year"
+  },
+  {
+    "kind": "question",
+    "text": "No, it is done as one can"
+  },
+  {
+    "kind": "question",
+    "text": "Even sick in bed, a Muslim prays as they can."
+  },
+  {
+    "kind": "question",
+    "text": "Prayer adjusts; it is not dropped."
+  },
+  {
+    "kind": "lesson",
+    "text": "Who will lend Allah a good loan, which He multiplies many times?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Charity is a loan to Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "He returns it many times"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:245"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:245"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:245 call spending for Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "A fine"
+  },
+  {
+    "kind": "question",
+    "text": "Qardan hasana."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah do with it?"
+  },
+  {
+    "kind": "question",
+    "text": "Keeps it the same"
+  },
+  {
+    "kind": "question",
+    "text": "Multiplies it many times"
+  },
+  {
+    "kind": "question",
+    "text": "Loses it"
+  },
+  {
+    "kind": "question",
+    "text": "Ad'afan kathirah."
+  },
+  {
+    "kind": "question",
+    "text": "Who gives and withholds provision?"
+  },
+  {
+    "kind": "question",
+    "text": "Banks"
+  },
+  {
+    "kind": "question",
+    "text": "Wallahu yaqbidu wa yabsut."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah chose Talut as king for his knowledge and strength."
+  },
+  {
+    "kind": "lesson",
+    "text": "Not chosen for wealth"
+  },
+  {
+    "kind": "lesson",
+    "text": "A sign: the Ark"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:247"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Allah choose Talut, in 2:247?"
+  },
+  {
+    "kind": "question",
+    "text": "His family name"
+  },
+  {
+    "kind": "question",
+    "text": "Bastatan fil-'ilmi wal-jism."
+  },
+  {
+    "kind": "question",
+    "text": "What did the people object to?"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:247."
+  },
+  {
+    "kind": "question",
+    "text": "Good leaders are chosen for wealth."
+  },
+  {
+    "kind": "question",
+    "text": "Knowledge and strength matter more."
+  },
+  {
+    "kind": "lesson",
+    "text": "Talut's army was tested by a river; few held back."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only a handful allowed"
+  },
+  {
+    "kind": "lesson",
+    "text": "Small groups can win"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:249"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:249"
+  },
+  {
+    "kind": "question",
+    "text": "What was the test in 2:249?"
+  },
+  {
+    "kind": "question",
+    "text": "Crossing a desert"
+  },
+  {
+    "kind": "question",
+    "text": "Not drinking from a river"
+  },
+  {
+    "kind": "question",
+    "text": "Except a handful."
+  },
+  {
+    "kind": "question",
+    "text": "How many passed the test?"
+  },
+  {
+    "kind": "question",
+    "text": "Most of them"
+  },
+  {
+    "kind": "question",
+    "text": "Illa qalilan minhum."
+  },
+  {
+    "kind": "question",
+    "text": "What did the faithful few say?"
+  },
+  {
+    "kind": "question",
+    "text": "We need more water"
+  },
+  {
+    "kind": "question",
+    "text": "A small group can win by Allah's permission"
+  },
+  {
+    "kind": "question",
+    "text": "Let's go home"
+  },
+  {
+    "kind": "question",
+    "text": "We are too few"
+  },
+  {
+    "kind": "question",
+    "text": "Kam min fi'atin qalilah."
+  },
+  {
+    "kind": "lesson",
+    "text": "They prayed for patience, and young Dawud defeated Jalut."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rabbana afrigh 'alayna sabra"
+  },
+  {
+    "kind": "lesson",
+    "text": "Kingship and wisdom"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:251"
+  },
+  {
+    "kind": "question",
+    "text": "Who defeated Jalut, in 2:251?"
+  },
+  {
+    "kind": "question",
+    "text": "Wa qatala Dawudu Jalut."
+  },
+  {
+    "kind": "question",
+    "text": "What did the believers pray for?"
+  },
+  {
+    "kind": "question",
+    "text": "Rabbana afrigh 'alayna sabran."
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah give Dawud?"
+  },
+  {
+    "kind": "question",
+    "text": "Only a sword"
+  },
+  {
+    "kind": "question",
+    "text": "Only wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Wa atahullahul-mulka wal-hikmah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Spend now, before a Day with no trade and no friendship."
+  },
+  {
+    "kind": "lesson",
+    "text": "Now is the time"
+  },
+  {
+    "kind": "lesson",
+    "text": "Only deeds then"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:254"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:254"
+  },
+  {
+    "kind": "question",
+    "text": "What will be missing on that Day, in 2:254?"
+  },
+  {
+    "kind": "question",
+    "text": "Trade and friendship to help"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "La bay'un fihi wa la khullah."
+  },
+  {
+    "kind": "question",
+    "text": "When should we spend in good?"
+  },
+  {
+    "kind": "question",
+    "text": "After death"
+  },
+  {
+    "kind": "question",
+    "text": "Only when old"
+  },
+  {
+    "kind": "question",
+    "text": "Now, in this life"
+  },
+  {
+    "kind": "question",
+    "text": "Min qabli an ya'tiya yawm."
+  },
+  {
+    "kind": "question",
+    "text": "Good deeds done now are saved for that Day."
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:254."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ayat al-Kursi is the greatest ayah in Allah's Book."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ubayy's answer"
+  },
+  {
+    "kind": "question",
+    "text": "Which is the greatest ayah, in Muslim 810?"
+  },
+  {
+    "kind": "question",
+    "text": "The first ayah of Al-Fatihah"
+  },
+  {
+    "kind": "question",
+    "text": "The last ayah of the Quran"
+  },
+  {
+    "kind": "question",
+    "text": "Who answered correctly?"
+  },
+  {
+    "kind": "question",
+    "text": "May knowledge delight you."
+  },
+  {
+    "kind": "question",
+    "text": "What are Allah's names at its start?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Ghafur, Ash-Shakur"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Wahhab, Ar-Razzaq"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Hayy, Al-Qayyum"
+  },
+  {
+    "kind": "question",
+    "text": "The Ever-Living, the Sustainer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Recite Ayat al-Kursi in bed and a guard stays with you."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5010"
+  },
+  {
+    "kind": "lesson",
+    "text": "Protection till morning"
+  },
+  {
+    "kind": "question",
+    "text": "When should we recite Ayat al-Kursi, in Bukhari 5010?"
+  },
+  {
+    "kind": "question",
+    "text": "Only at Eid"
+  },
+  {
+    "kind": "question",
+    "text": "Only when eating"
+  },
+  {
+    "kind": "question",
+    "text": "Only in the car"
+  },
+  {
+    "kind": "question",
+    "text": "A guard stays till morning."
+  },
+  {
+    "kind": "question",
+    "text": "Who taught it to Abu Hurairah in the story?"
+  },
+  {
+    "kind": "question",
+    "text": "A devil, who spoke the truth that time"
+  },
+  {
+    "kind": "question",
+    "text": "He told you the truth, though he is a liar."
+  },
+  {
+    "kind": "question",
+    "text": "What does it bring until morning?"
+  },
+  {
+    "kind": "question",
+    "text": "Protection from Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Bad dreams"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 5010."
+  },
+  {
+    "kind": "lesson",
+    "text": "No compulsion in religion; truth stands clear from error."
+  },
+  {
+    "kind": "lesson",
+    "text": "The firm handhold"
+  },
+  {
+    "kind": "lesson",
+    "text": "Faith must be chosen"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:256"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:256"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:256 say about forcing faith?"
+  },
+  {
+    "kind": "question",
+    "text": "Force is fine"
+  },
+  {
+    "kind": "question",
+    "text": "Only force children"
+  },
+  {
+    "kind": "question",
+    "text": "La ikraha fid-din."
+  },
+  {
+    "kind": "question",
+    "text": "What has the believer grasped, in 2:256?"
+  },
+  {
+    "kind": "question",
+    "text": "A coin"
+  },
+  {
+    "kind": "question",
+    "text": "The firmest handhold"
+  },
+  {
+    "kind": "question",
+    "text": "A broken rope"
+  },
+  {
+    "kind": "question",
+    "text": "Al-'urwatul-wuthqa."
+  },
+  {
+    "kind": "question",
+    "text": "True faith must come from the heart."
+  },
+  {
+    "kind": "question",
+    "text": "That is why there is no compulsion."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is the believers' Protector; He brings them into light."
+  },
+  {
+    "kind": "lesson",
+    "text": "Darknesses, plural"
+  },
+  {
+    "kind": "lesson",
+    "text": "Light, one"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:257"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:257"
+  },
+  {
+    "kind": "question",
+    "text": "Who is the Protector (Wali) of the believers, in 2:257?"
+  },
+  {
+    "kind": "question",
+    "text": "Allahu waliyyul-ladhina amanu."
+  },
+  {
+    "kind": "question",
+    "text": "Where does Allah bring them?"
+  },
+  {
+    "kind": "question",
+    "text": "Into darkness"
+  },
+  {
+    "kind": "question",
+    "text": "Minaz-zulumati ilan-nur."
+  },
+  {
+    "kind": "question",
+    "text": "Why is 'light' one but 'darknesses' many?"
+  },
+  {
+    "kind": "question",
+    "text": "Truth is one; falsehood has many kinds"
+  },
+  {
+    "kind": "question",
+    "text": "A spelling mistake"
+  },
+  {
+    "kind": "question",
+    "text": "There are many truths"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah brings the sun from the east; bring it from the west."
+  },
+  {
+    "kind": "lesson",
+    "text": "A clear proof"
+  },
+  {
+    "kind": "lesson",
+    "text": "The king was stunned"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:258"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:258"
+  },
+  {
+    "kind": "question",
+    "text": "Who argued with Ibrahim about his Lord, in 2:258?"
+  },
+  {
+    "kind": "question",
+    "text": "A proud king"
+  },
+  {
+    "kind": "question",
+    "text": "Because Allah had given him a kingdom."
+  },
+  {
+    "kind": "question",
+    "text": "What challenge silenced the king?"
+  },
+  {
+    "kind": "question",
+    "text": "Make it rain"
+  },
+  {
+    "kind": "question",
+    "text": "Fa'ti biha minal-maghrib."
+  },
+  {
+    "kind": "question",
+    "text": "What does the story show?"
+  },
+  {
+    "kind": "question",
+    "text": "Kings control the sun"
+  },
+  {
+    "kind": "question",
+    "text": "Arguing is always bad"
+  },
+  {
+    "kind": "question",
+    "text": "The sun can stop"
+  },
+  {
+    "kind": "question",
+    "text": "Only Allah controls creation"
+  },
+  {
+    "kind": "question",
+    "text": "Clear proof silences falsehood."
+  },
+  {
+    "kind": "lesson",
+    "text": "A man wondered how a ruined town lives again; Allah showed him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Died for 100 years"
+  },
+  {
+    "kind": "lesson",
+    "text": "His food unchanged"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:259"
+  },
+  {
+    "kind": "question",
+    "text": "How long did the man stay dead, in 2:259?"
+  },
+  {
+    "kind": "question",
+    "text": "A week"
+  },
+  {
+    "kind": "question",
+    "text": "Mi'ata 'am."
+  },
+  {
+    "kind": "question",
+    "text": "What had not changed when he woke?"
+  },
+  {
+    "kind": "question",
+    "text": "His donkey"
+  },
+  {
+    "kind": "question",
+    "text": "His food and drink"
+  },
+  {
+    "kind": "question",
+    "text": "The town"
+  },
+  {
+    "kind": "question",
+    "text": "Lam yatasannah."
+  },
+  {
+    "kind": "question",
+    "text": "What did he say after seeing it?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is able to do all things"
+  },
+  {
+    "kind": "question",
+    "text": "It was a dream"
+  },
+  {
+    "kind": "question",
+    "text": "I don't believe it"
+  },
+  {
+    "kind": "question",
+    "text": "A'lamu annallaha 'ala kulli shay'in qadir."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim asked to see how Allah raises the dead: four birds came."
+  },
+  {
+    "kind": "lesson",
+    "text": "To calm his heart"
+  },
+  {
+    "kind": "lesson",
+    "text": "They came flying"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:260"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:260"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Ibrahim ask, in 2:260?"
+  },
+  {
+    "kind": "question",
+    "text": "He doubted Allah"
+  },
+  {
+    "kind": "question",
+    "text": "To test Allah"
+  },
+  {
+    "kind": "question",
+    "text": "To reassure his heart"
+  },
+  {
+    "kind": "question",
+    "text": "Walakin liyatma'inna qalbi."
+  },
+  {
+    "kind": "question",
+    "text": "How many birds were there?"
+  },
+  {
+    "kind": "question",
+    "text": "Arba'atan minat-tayr."
+  },
+  {
+    "kind": "question",
+    "text": "What happened when Ibrahim called them?"
+  },
+  {
+    "kind": "question",
+    "text": "They stayed still"
+  },
+  {
+    "kind": "question",
+    "text": "They came flying to him"
+  },
+  {
+    "kind": "question",
+    "text": "Ya'tinaka sa'ya."
+  },
+  {
+    "kind": "lesson",
+    "text": "Spending for Allah is like a grain growing seven hundred grains."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seven ears, 100 each"
+  },
+  {
+    "kind": "lesson",
+    "text": "He multiplies more"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:261"
+  },
+  {
+    "kind": "question",
+    "text": "How many grains come from one, in 2:261?"
+  },
+  {
+    "kind": "question",
+    "text": "Seven hundred"
+  },
+  {
+    "kind": "question",
+    "text": "Seven ears, a hundred each."
+  },
+  {
+    "kind": "question",
+    "text": "Can Allah give even more?"
+  },
+  {
+    "kind": "question",
+    "text": "Only less"
+  },
+  {
+    "kind": "question",
+    "text": "Only the same"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, for whom He wills"
+  },
+  {
+    "kind": "question",
+    "text": "Wallahu yuda'ifu liman yasha'."
+  },
+  {
+    "kind": "question",
+    "text": "A small charity can grow huge with Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:261."
+  },
+  {
+    "kind": "lesson",
+    "text": "A kind word is better than charity followed by hurt."
+  },
+  {
+    "kind": "lesson",
+    "text": "No reminding, no hurting"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is Rich"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:263"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:263"
+  },
+  {
+    "kind": "question",
+    "text": "What is better than charity followed by hurt, in 2:263?"
+  },
+  {
+    "kind": "question",
+    "text": "A loud speech"
+  },
+  {
+    "kind": "question",
+    "text": "A kind word and forgiveness"
+  },
+  {
+    "kind": "question",
+    "text": "Silence forever"
+  },
+  {
+    "kind": "question",
+    "text": "Qawlun ma'rufun wa maghfirah."
+  },
+  {
+    "kind": "question",
+    "text": "What spoils charity, in 2:264?"
+  },
+  {
+    "kind": "question",
+    "text": "Giving a little"
+  },
+  {
+    "kind": "question",
+    "text": "Reminding and hurting"
+  },
+  {
+    "kind": "question",
+    "text": "Giving secretly"
+  },
+  {
+    "kind": "question",
+    "text": "Bil-manni wal-adha."
+  },
+  {
+    "kind": "question",
+    "text": "You gave a friend money; later you keep reminding them. What fits 2:264?"
+  },
+  {
+    "kind": "question",
+    "text": "Remind them more"
+  },
+  {
+    "kind": "question",
+    "text": "Ask for double"
+  },
+  {
+    "kind": "question",
+    "text": "Stop: it spoils the reward"
+  },
+  {
+    "kind": "question",
+    "text": "Don't ruin your charity."
+  },
+  {
+    "kind": "lesson",
+    "text": "Would you like your garden burned when you are old and weak?"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4538"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibn Abbas explained"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:266"
+  },
+  {
+    "kind": "question",
+    "text": "What does the garden stand for, says Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "Real farming"
+  },
+  {
+    "kind": "question",
+    "text": "Money in a bank"
+  },
+  {
+    "kind": "question",
+    "text": "A person's good deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 4538."
+  },
+  {
+    "kind": "question",
+    "text": "What lost the man his 'garden'?"
+  },
+  {
+    "kind": "question",
+    "text": "Old age only"
+  },
+  {
+    "kind": "question",
+    "text": "Bad soil"
+  },
+  {
+    "kind": "question",
+    "text": "Sinning after doing good"
+  },
+  {
+    "kind": "question",
+    "text": "His good deeds were lost."
+  },
+  {
+    "kind": "question",
+    "text": "Keep doing good to the end of life."
+  },
+  {
+    "kind": "question",
+    "text": "Don't let sins burn your deeds."
+  },
+  {
+    "kind": "lesson",
+    "text": "Give from the good things you earn, not the worst you have."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only give what you'd take"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:267"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:267"
+  },
+  {
+    "kind": "question",
+    "text": "What should we give, in 2:267?"
+  },
+  {
+    "kind": "question",
+    "text": "Only broken things"
+  },
+  {
+    "kind": "question",
+    "text": "Only leftovers"
+  },
+  {
+    "kind": "question",
+    "text": "From the good things"
+  },
+  {
+    "kind": "question",
+    "text": "Min tayyibati ma kasabtum."
+  },
+  {
+    "kind": "question",
+    "text": "Would you happily take what you give, if it were bad?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, gladly"
+  },
+  {
+    "kind": "question",
+    "text": "Only if free"
+  },
+  {
+    "kind": "question",
+    "text": "Except with closed eyes."
+  },
+  {
+    "kind": "question",
+    "text": "Giving a toy you still like fits 2:267."
+  },
+  {
+    "kind": "question",
+    "text": "Give from the good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaytan threatens you with poverty; Allah promises forgiveness."
+  },
+  {
+    "kind": "lesson",
+    "text": "Don't fear giving"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is generous"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:268"
+  },
+  {
+    "kind": "question",
+    "text": "What does Shaytan threaten us with, in 2:268?"
+  },
+  {
+    "kind": "question",
+    "text": "Ya'idukumul-faqr."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah promise?"
+  },
+  {
+    "kind": "question",
+    "text": "Maghfiratan minhu wa fadla."
+  },
+  {
+    "kind": "question",
+    "text": "Why does Shaytan scare us about money?"
+  },
+  {
+    "kind": "question",
+    "text": "So we stop giving"
+  },
+  {
+    "kind": "question",
+    "text": "To help us"
+  },
+  {
+    "kind": "question",
+    "text": "To make us rich"
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever is given wisdom has been given much good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hikmah is a gift"
+  },
+  {
+    "kind": "lesson",
+    "text": "Understanding the Quran"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:269"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:269"
+  },
+  {
+    "kind": "question",
+    "text": "What has someone with wisdom been given, in 2:269?"
+  },
+  {
+    "kind": "question",
+    "text": "Much good"
+  },
+  {
+    "kind": "question",
+    "text": "Khayran kathira."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Abbas say wisdom means in 2:269?"
+  },
+  {
+    "kind": "question",
+    "text": "Being loud"
+  },
+  {
+    "kind": "question",
+    "text": "Being old"
+  },
+  {
+    "kind": "question",
+    "text": "Who takes the lesson, says 2:269?"
+  },
+  {
+    "kind": "question",
+    "text": "Ulul-albab."
+  },
+  {
+    "kind": "lesson",
+    "text": "Giving openly is good; giving in secret to the poor is better."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaded on that Day"
+  },
+  {
+    "kind": "lesson",
+    "text": "Left hand doesn't know"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:271"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1423"
+  },
+  {
+    "kind": "question",
+    "text": "Which charity is better, in 2:271?"
+  },
+  {
+    "kind": "question",
+    "text": "Only loud charity"
+  },
+  {
+    "kind": "question",
+    "text": "Secret charity to the poor"
+  },
+  {
+    "kind": "question",
+    "text": "Charity to show off"
+  },
+  {
+    "kind": "question",
+    "text": "No charity"
+  },
+  {
+    "kind": "question",
+    "text": "Fahuwa khayrun lakum."
+  },
+  {
+    "kind": "question",
+    "text": "How secret is the charity in Bukhari 1423?"
+  },
+  {
+    "kind": "question",
+    "text": "The left hand doesn't know"
+  },
+  {
+    "kind": "question",
+    "text": "Everyone hears"
+  },
+  {
+    "kind": "question",
+    "text": "Posted online"
+  },
+  {
+    "kind": "question",
+    "text": "Announced loudly"
+  },
+  {
+    "kind": "question",
+    "text": "Giving openly is never allowed."
+  },
+  {
+    "kind": "question",
+    "text": "It is good; secret is better."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some poor people are too dignified to beg; look for them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Know them by signs"
+  },
+  {
+    "kind": "lesson",
+    "text": "Dignity in need"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:273"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:273"
+  },
+  {
+    "kind": "question",
+    "text": "Why do some think these poor are rich, in 2:273?"
+  },
+  {
+    "kind": "question",
+    "text": "They own palaces"
+  },
+  {
+    "kind": "question",
+    "text": "They don't beg"
+  },
+  {
+    "kind": "question",
+    "text": "They wear gold"
+  },
+  {
+    "kind": "question",
+    "text": "Minat-ta'affuf."
+  },
+  {
+    "kind": "question",
+    "text": "How do we recognize them?"
+  },
+  {
+    "kind": "question",
+    "text": "By their cars"
+  },
+  {
+    "kind": "question",
+    "text": "By their signs"
+  },
+  {
+    "kind": "question",
+    "text": "By loud asking"
+  },
+  {
+    "kind": "question",
+    "text": "We can't"
+  },
+  {
+    "kind": "question",
+    "text": "Ta'rifuhum bisimahum."
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:273 teach us to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Look out for quiet people in need"
+  },
+  {
+    "kind": "question",
+    "text": "Only help those who shout"
+  },
+  {
+    "kind": "question",
+    "text": "Help nobody"
+  },
+  {
+    "kind": "question",
+    "text": "Wait to be asked"
+  },
+  {
+    "kind": "question",
+    "text": "Dignified people need help too."
+  },
+  {
+    "kind": "lesson",
+    "text": "Charity grows"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:275"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah allow and forbid, in 2:275?"
+  },
+  {
+    "kind": "question",
+    "text": "Allowed trade, forbade riba"
+  },
+  {
+    "kind": "question",
+    "text": "Allowed riba, forbade trade"
+  },
+  {
+    "kind": "question",
+    "text": "Forbade both"
+  },
+  {
+    "kind": "question",
+    "text": "Allowed both"
+  },
+  {
+    "kind": "question",
+    "text": "Wa ahallallahul-bay'a wa harramar-riba."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah make grow, in 2:276?"
+  },
+  {
+    "kind": "question",
+    "text": "Riba"
+  },
+  {
+    "kind": "question",
+    "text": "Greed"
+  },
+  {
+    "kind": "question",
+    "text": "Wa yurbis-sadaqat."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah wipe out, in 2:276?"
+  },
+  {
+    "kind": "question",
+    "text": "Savings"
+  },
+  {
+    "kind": "question",
+    "text": "Yamhaqullahur-riba."
+  },
+  {
+    "kind": "lesson",
+    "text": "If a debtor is struggling, give him time; forgiving is better."
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 1563a"
+  },
+  {
+    "kind": "lesson",
+    "text": "Saved on that Day"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:280"
+  },
+  {
+    "kind": "question",
+    "text": "What should we do if a debtor is struggling, in 2:280?"
+  },
+  {
+    "kind": "question",
+    "text": "Add interest"
+  },
+  {
+    "kind": "question",
+    "text": "Give him time"
+  },
+  {
+    "kind": "question",
+    "text": "Shame him"
+  },
+  {
+    "kind": "question",
+    "text": "Take his home"
+  },
+  {
+    "kind": "question",
+    "text": "Fanaziratun ila maysarah."
+  },
+  {
+    "kind": "question",
+    "text": "What is even better than waiting?"
+  },
+  {
+    "kind": "question",
+    "text": "Forgiving the debt"
+  },
+  {
+    "kind": "question",
+    "text": "Doubling it"
+  },
+  {
+    "kind": "question",
+    "text": "Taking his car"
+  },
+  {
+    "kind": "question",
+    "text": "Wa an tasaddaqu khayrun lakum."
+  },
+  {
+    "kind": "question",
+    "text": "What does Muslim 1563a promise the lender who gives time?"
+  },
+  {
+    "kind": "question",
+    "text": "More interest"
+  },
+  {
+    "kind": "question",
+    "text": "Relief on the Day of Resurrection"
+  },
+  {
+    "kind": "question",
+    "text": "Saved from that Day's distress."
+  },
+  {
+    "kind": "lesson",
+    "text": "When you take a debt for a set time, write it down."
+  },
+  {
+    "kind": "lesson",
+    "text": "The longest ayah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Two witnesses"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:282"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:282"
+  },
+  {
+    "kind": "question",
+    "text": "What does 2:282 tell us to do with debts?"
+  },
+  {
+    "kind": "question",
+    "text": "Double them"
+  },
+  {
+    "kind": "question",
+    "text": "Write them down"
+  },
+  {
+    "kind": "question",
+    "text": "Faktubuh."
+  },
+  {
+    "kind": "question",
+    "text": "What is special about 2:282?"
+  },
+  {
+    "kind": "question",
+    "text": "It has no words"
+  },
+  {
+    "kind": "question",
+    "text": "It is the longest ayah"
+  },
+  {
+    "kind": "question",
+    "text": "It is the shortest"
+  },
+  {
+    "kind": "question",
+    "text": "It is the first"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir notes it."
+  },
+  {
+    "kind": "question",
+    "text": "Why write debts down?"
+  },
+  {
+    "kind": "question",
+    "text": "So no one is wronged or forgets"
+  },
+  {
+    "kind": "question",
+    "text": "To shame people"
+  },
+  {
+    "kind": "question",
+    "text": "To make it longer"
+  },
+  {
+    "kind": "question",
+    "text": "Fairness for both sides."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whether you show or hide what's in you, Allah knows it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Companions worried"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:284"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 126"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah know, in 2:284?"
+  },
+  {
+    "kind": "question",
+    "text": "Only what we write"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing hidden"
+  },
+  {
+    "kind": "question",
+    "text": "What we show and what we hide"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 2:284."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ tell the worried Companions to say?"
+  },
+  {
+    "kind": "question",
+    "text": "We give up"
+  },
+  {
+    "kind": "question",
+    "text": "It's too hard"
+  },
+  {
+    "kind": "question",
+    "text": "Not us"
+  },
+  {
+    "kind": "question",
+    "text": "Muslim 126."
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah reveal after their obedience?"
+  },
+  {
+    "kind": "question",
+    "text": "A warning"
+  },
+  {
+    "kind": "question",
+    "text": "No soul is burdened beyond its capacity"
+  },
+  {
+    "kind": "question",
+    "text": "A harder rule"
+  },
+  {
+    "kind": "question",
+    "text": "La yukallifullahu nafsan illa wus'aha."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Messenger ﷺ and the believers say: we hear and obey."
+  },
+  {
+    "kind": "lesson",
+    "text": "Enough for the night"
+  },
+  {
+    "kind": "question",
+    "text": "What do the believers say, in 2:285?"
+  },
+  {
+    "kind": "question",
+    "text": "We hear and disobey"
+  },
+  {
+    "kind": "question",
+    "text": "What do the last two ayahs of Al-Baqarah give at night?"
+  },
+  {
+    "kind": "question",
+    "text": "Bukhari 5009."
+  },
+  {
+    "kind": "question",
+    "text": "Do the believers separate between Allah's messengers?"
+  },
+  {
+    "kind": "question",
+    "text": "Only two"
+  },
+  {
+    "kind": "question",
+    "text": "La nufarriqu bayna ahadin min rusulih."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah burdens no soul beyond what it can bear."
+  },
+  {
+    "kind": "lesson",
+    "text": "Rabbana la tu'akhidhna"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pardon, forgive, mercy"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 2:286"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 2:286"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah never do, in 2:286?"
+  },
+  {
+    "kind": "question",
+    "text": "Show mercy"
+  },
+  {
+    "kind": "question",
+    "text": "Listen to duas"
+  },
+  {
+    "kind": "question",
+    "text": "Burden a soul beyond its capacity"
+  },
+  {
+    "kind": "question",
+    "text": "Forgive"
+  },
+  {
+    "kind": "question",
+    "text": "What do we ask if we forget or make a mistake?"
+  },
+  {
+    "kind": "question",
+    "text": "Make it harder"
+  },
+  {
+    "kind": "question",
+    "text": "Don't hold it against us"
+  },
+  {
+    "kind": "question",
+    "text": "Punish us more"
+  },
+  {
+    "kind": "question",
+    "text": "Ignore us"
+  },
+  {
+    "kind": "question",
+    "text": "Rabbana la tu'akhidhna in nasina aw akhta'na."
+  },
+  {
+    "kind": "question",
+    "text": "Which three things do we ask at the very end?"
+  },
+  {
+    "kind": "question",
+    "text": "Pardon, forgiveness and mercy"
+  },
+  {
+    "kind": "question",
+    "text": "Gold, fame and power"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep, food and play"
+  },
+  {
+    "kind": "question",
+    "text": "Wa'fu 'anna waghfir lana warhamna."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Baqarah, ayahs 177 to 286!"
+  },
+  {
+    "kind": "lesson",
     "text": "The Quran was first sent down in the month of Ramadan."
   },
   {
@@ -111076,20 +114572,12 @@
     "text": "Make du'a: Allah is near, and He answers whoever calls Him."
   },
   {
-    "kind": "source",
-    "text": "Quran 2:186"
-  },
-  {
     "kind": "question",
     "text": "Allah says He is what to His servants?"
   },
   {
     "kind": "question",
     "text": "Asleep"
-  },
-  {
-    "kind": "question",
-    "text": "Near"
   },
   {
     "kind": "question",
@@ -111114,10 +114602,6 @@
   {
     "kind": "question",
     "text": "A sick person misses fasts. What can they do?"
-  },
-  {
-    "kind": "question",
-    "text": "Never fast again"
   },
   {
     "kind": "question",
@@ -111844,10 +115328,6 @@
     "text": "There is no compulsion in religion: no one is forced into Islam."
   },
   {
-    "kind": "source",
-    "text": "Quran 2:256"
-  },
-  {
     "kind": "question",
     "text": "Can anyone be forced into Islam?"
   },
@@ -111968,10 +115448,6 @@
     "text": "Allah asks no one to carry more than they can."
   },
   {
-    "kind": "source",
-    "text": "Quran 2:286"
-  },
-  {
     "kind": "question",
     "text": "How much does Allah ask of a person?"
   },
@@ -111982,10 +115458,6 @@
   {
     "kind": "question",
     "text": "What they can bear"
-  },
-  {
-    "kind": "question",
-    "text": "Allah burdens no soul beyond what it can bear."
   },
   {
     "kind": "question",
