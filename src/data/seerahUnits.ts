@@ -702,4 +702,686 @@ const HIJRAH: DeepUnit = {
   ]
 };
 
-export const SEERAH_UNITS: readonly DeepUnit[] = [EARLY, REVELATION, MAKKAH, TAIF, ISRA, HIJRAH];
+const BADR: DeepUnit = {
+  key: "seerah-badr",
+  topicId: "prophets",
+  branchId: "seerah-badr",
+  branch: { title: "Seerah: Badr", description: "A small group of believers, a night of calm, angels sent down, and help from Allah." },
+  name: "the day of Badr",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "few",
+      title: "Few in number",
+      line: "At Badr the believers were few, and Allah gave them victory.",
+      facts: ["Quran 3:123", "A small group"],
+      quote: quranQuote(3, 123),
+      source: quran(3, 123, "Allah gave you victory at Badr when you were few and weak, so be mindful of Allah, that you may be grateful."),
+      difficulty: 1,
+      questions: [
+        { q: "How does Quran 3:123 describe the believers at Badr?", a: "Few and weak", wrong: ["Many and rich", "Well armed", "Tired of war"], why: "When you were few." },
+        { q: "Who gave them victory at Badr?", a: "Allah", wrong: ["Their numbers", "Their wealth", "The Romans"], why: "Allah gave you victory at Badr." },
+        { q: "What does Allah ask after the victory?", a: "Be grateful and mindful of Him", wrong: ["Boast about it", "Take more land", "Rest forever"], why: "That you may be grateful." }
+      ]
+    },
+    {
+      slug: "talut",
+      title: "Like the men of Talut",
+      line: "The people of Badr were about 310, like Talut's men.",
+      facts: ["Over three hundred and ten", "All were believers"],
+      source: hadith("bukhari", "3957", "Al-Bara ibn Azib", "Sahih", "The companions who were at Badr said they were as many as the companions of Talut who crossed the river with him: over three hundred and ten, and none crossed with him but a believer."),
+      difficulty: 2,
+      questions: [
+        { q: "About how many Muslims were at Badr?", a: "Just over 310", wrong: ["Ten thousand", "About 40", "One thousand"], why: "Sahih al-Bukhari 3957." },
+        { q: "Whose army had the same number?", a: "Talut's", wrong: ["Fir'awn's", "Dhul-Qarnayn's", "Sulayman's"], why: "Those who crossed the river with him." },
+        { q: "Only believers crossed the river with Talut.", tf: true, why: "Al-Bara said so." }
+      ]
+    },
+    {
+      slug: "calm",
+      title: "Sleep and rain",
+      line: "Before Badr, Allah sent calm sleep and rain to steady them.",
+      facts: ["Quran 8:11", "Rain firmed the ground"],
+      quote: quranQuote(8, 11),
+      source: quran(8, 11, "Allah covered you with sleep as calm from Him, and sent rain from the sky to purify you, remove Satan's whispers, strengthen your hearts and make your feet firm."),
+      difficulty: 2,
+      questions: [
+        { q: "What did Allah send over them as calm?", a: "Light sleep", wrong: ["A loud storm", "Great fear", "Hunger"], why: "Sleep as a calm from Him." },
+        { q: "What did the rain do, as Quran 8:11 says?", a: "Purified them and made feet firm", wrong: ["Ended the battle", "Flooded the valley", "Scared them away"], why: "And strengthened their hearts." },
+        { q: "Allah took away Satan's whispers with the rain.", tf: true, why: "To remove from you the evil of Satan." }
+      ]
+    },
+    {
+      slug: "thousand",
+      title: "A thousand angels",
+      line: "They asked Allah for help, and He sent a thousand angels.",
+      facts: ["Quran 8:9", "Help came from du'a"],
+      quote: quranQuote(8, 9),
+      source: quran(8, 9, "When you called on your Lord for help, He answered you: I will help you with a thousand angels, one after another."),
+      difficulty: 1,
+      questions: [
+        { q: "What did the believers do before help came?", a: "Called on Allah for help", wrong: ["Ran away", "Made a deal", "Gave up"], why: "When you called on your Lord for help." },
+        { q: "How many angels does Quran 8:9 mention?", a: "A thousand", wrong: ["Ten", "Seven", "One hundred"], why: "One after another." },
+        { q: "Du'a was part of the victory at Badr.", tf: true, why: "Allah answered their call." }
+      ]
+    },
+    {
+      slug: "jibril-badr",
+      title: "Jibril at Badr",
+      line: "At Badr he ﷺ said: this is Jibril, holding his horse's head.",
+      facts: ["Ready for battle"],
+      source: hadith("bukhari", "3995", "Ibn Abbas", "Sahih", "On the day of Badr the Prophet ﷺ said: this is Jibril, holding the head of his horse, equipped for battle."),
+      difficulty: 2,
+      questions: [
+        { q: "Which angel did he ﷺ point to at Badr?", a: "Jibril", wrong: ["Israfil", "Malik", "Ridwan"], why: "Sahih al-Bukhari 3995." },
+        { q: "What was Jibril holding?", a: "His horse's head", wrong: ["A book", "A lamp", "A trumpet"], why: "Ready for battle." },
+        { q: "Angels took part at Badr.", tf: true, why: "The Quran and sahih hadith both say so." }
+      ]
+    },
+    {
+      slug: "allah-threw",
+      title: "Allah threw",
+      line: "You did not throw when you threw: Allah did, says Quran 8:17.",
+      facts: ["Quran 8:17", "Victory is from Allah"],
+      source: quran(8, 17, "It was not you who threw when you threw, but Allah threw, to test the believers with a good test. Allah is All-Hearing, All-Knowing."),
+      difficulty: 3,
+      questions: [
+        { q: "Who truly threw, as Quran 8:17 says?", a: "Allah", wrong: ["The archers", "The wind", "No one"], why: "But Allah threw." },
+        { q: "What should a believer learn from this?", a: "Success comes from Allah", wrong: ["We win alone", "Plans never matter", "Never try"], why: "We act, and Allah gives the result." },
+        { q: "The believers were tested with a good test.", tf: true, why: "To test the believers with a good test." }
+      ]
+    },
+    {
+      slug: "people-of-badr",
+      title: "The people of Badr",
+      line: "Allah may have told the people of Badr: I have forgiven you.",
+      facts: ["Said for Hatib", "A high rank"],
+      source: hadith("bukhari", "3007", "Ali ibn Abi Talib", "Sahih", "When Hatib made a mistake, the Prophet ﷺ said: he was at Badr, and who knows, perhaps Allah looked at the people of Badr and said: do as you like, I have forgiven you."),
+      difficulty: 3,
+      questions: [
+        { q: "Why was Hatib forgiven his mistake?", a: "He had been at Badr", wrong: ["He was rich", "He was old", "He was a poet"], why: "The people of Badr have a high rank." },
+        { q: "What did he ﷺ say Allah may have told the people of Badr?", a: "I have forgiven you", wrong: ["Go home", "Fight again", "You are kings"], why: "Sahih al-Bukhari 3007." },
+        { q: "The people of Badr hold a special honor.", tf: true, why: "Because of their faith on that day." }
+      ]
+    }
+  ]
+};
+
+const UHUD: DeepUnit = {
+  key: "seerah-uhud",
+  topicId: "prophets",
+  branchId: "seerah-uhud",
+  branch: { title: "Seerah: Uhud", description: "The archers on the hill, a hard lesson in obeying, his wounds ﷺ, and a mountain that loves us." },
+  name: "the day of Uhud",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "archers",
+      title: "The archers on the hill",
+      line: "He ﷺ told fifty archers: stay in your place, whatever happens.",
+      facts: ["Led by Abdullah ibn Jubayr", "Fifty archers"],
+      source: hadith("bukhari", "3039", "Al-Bara ibn Azib", "Sahih", "At Uhud the Prophet ﷺ put Abdullah ibn Jubayr over fifty archers and said: stay in your place, even if you see birds snatching us, until I send for you."),
+      difficulty: 1,
+      questions: [
+        { q: "How many archers did he ﷺ place on the hill?", a: "Fifty", wrong: ["Five", "Five hundred", "Three"], why: "Sahih al-Bukhari 3039." },
+        { q: "Who led the archers?", a: "Abdullah ibn Jubayr", wrong: ["Khalid ibn al-Walid", "Abu Bakr", "Hamzah"], why: "He was their commander." },
+        { q: "What was their order?", a: "Stay until he sends for you", wrong: ["Chase the enemy", "Go home at noon", "Collect the spoils"], why: "Even if you see birds snatching us." }
+      ]
+    },
+    {
+      slug: "they-left",
+      title: "When they left the hill",
+      line: "Most archers left their place, and the battle turned.",
+      facts: ["Quran 3:152", "Some wanted this world"],
+      quote: quranQuote(3, 152),
+      source: quran(3, 152, "Allah kept His promise until you lost heart, argued about the order and disobeyed after He showed you what you loved; some of you wanted this world and some wanted the Hereafter. Then He forgave you."),
+      difficulty: 2,
+      questions: [
+        { q: "What went wrong at Uhud, as Quran 3:152 says?", a: "They disobeyed the order", wrong: ["The weather", "They had no food", "They were lost"], why: "They argued about the order and disobeyed." },
+        { q: "What did some of them want, says the ayah?", a: "This world", wrong: ["To go home", "To sleep", "To build"], why: "Some wanted this world, some the Hereafter." },
+        { q: "Allah forgave them after Uhud.", tf: true, why: "And He has forgiven you." }
+      ]
+    },
+    {
+      slug: "wounded",
+      title: "His wounds ﷺ",
+      line: "At Uhud his face ﷺ was wounded; Fatimah cared for him.",
+      facts: ["A front tooth broken", "Ali brought water"],
+      source: hadith("bukhari", "2911", "Sahl ibn Sa'd", "Sahih", "At Uhud the Prophet's ﷺ face was wounded and a front tooth broken. Fatimah washed the blood while Ali poured water; when it did not stop, she burned a palm mat and put its ashes on the wound, and the bleeding stopped."),
+      difficulty: 2,
+      questions: [
+        { q: "Who washed his wound ﷺ at Uhud?", a: "Fatimah", wrong: ["Aishah", "Khadijah", "Asma"], why: "While Ali poured water." },
+        { q: "What stopped the bleeding?", a: "Ash from a burned palm mat", wrong: ["Honey", "Cold water", "A song"], why: "Sahl ibn Sa'd tells it." },
+        { q: "He ﷺ was hurt for the sake of this religion.", tf: true, why: "His face was wounded and a tooth broken." }
+      ]
+    },
+    {
+      slug: "smell-jannah",
+      title: "The smell of Jannah",
+      line: "Anas ibn an-Nadr said at Uhud: I smell Jannah beyond Uhud.",
+      facts: ["Uncle of Anas ibn Malik", "He was a martyr"],
+      source: hadith("bukhari", "2805", "Anas ibn Malik", "Sahih", "Anas ibn an-Nadr went forward at Uhud and said: O Sa'd ibn Mu'adh, Paradise! By the Lord of An-Nadr, I smell its scent from beyond Uhud. He was martyred that day."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Anas ibn an-Nadr smell beyond Uhud?", a: "Jannah", wrong: ["Rain", "Flowers of Madinah", "Smoke"], why: "I smell its scent from beyond Uhud." },
+        { q: "Who did he say it to?", a: "Sa'd ibn Mu'adh", wrong: ["Abu Sufyan", "Umar", "Bilal"], why: "Sahih al-Bukhari 2805." },
+        { q: "Anas ibn an-Nadr was martyred at Uhud.", tf: true, why: "He gave his life that day." }
+      ]
+    },
+    {
+      slug: "do-not-weaken",
+      title: "Do not lose heart",
+      line: "After Uhud Allah said: do not weaken, do not grieve.",
+      facts: ["Quran 3:139"],
+      quote: quranQuote(3, 139),
+      source: quran(3, 139, "Do not weaken and do not grieve; you will be uppermost if you are believers."),
+      difficulty: 1,
+      questions: [
+        { q: "What did Allah tell the believers after Uhud?", a: "Do not weaken or grieve", wrong: ["Give up", "Leave Madinah", "Blame each other"], why: "Quran 3:139." },
+        { q: "Who will be uppermost, says Quran 3:139?", a: "True believers", wrong: ["The rich", "The strong", "The many"], why: "If you are believers." },
+        { q: "A hard day means Allah has left the believers.", tf: false, why: "He comforted them right after Uhud." }
+      ]
+    },
+    {
+      slug: "loves-us",
+      title: "A mountain that loves us",
+      line: "Of Uhud he ﷺ said: it loves us, and we love it.",
+      facts: ["Near Madinah"],
+      source: hadith("bukhari", "4083", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: this is a mountain that loves us, and we love it."),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ say about Mount Uhud?", a: "It loves us, and we love it", wrong: ["It is cursed", "Never go near it", "It is gold"], why: "Sahih al-Bukhari 4083." },
+        { q: "Where is Mount Uhud?", a: "Near Madinah", wrong: ["In Makkah", "In Yemen", "In Syria"], why: "North of Madinah." },
+        { q: "He ﷺ hated Uhud after the battle.", tf: false, why: "He said it loves us and we love it." }
+      ]
+    }
+  ]
+};
+
+const TRENCH: DeepUnit = {
+  key: "seerah-khandaq",
+  topicId: "prophets",
+  branchId: "seerah-trench",
+  branch: { title: "Seerah: the Trench", description: "Digging in the cold and hunger, the rock that turned to sand, and the wind Allah sent." },
+  name: "the Trench",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "digging",
+      title: "Digging in the cold",
+      line: "Hungry and cold, they dug the trench, and he ﷺ prayed for them.",
+      facts: ["A very cold morning", "No servants to help"],
+      source: hadith("bukhari", "2834", "Anas ibn Malik", "Sahih", "The Prophet ﷺ saw the Muhajirun and Ansar digging on a very cold morning, tired and hungry, and said: O Allah, the real life is the life of the Hereafter, so forgive the Ansar and the Muhajirun. They answered: we are those who pledged to Muhammad to strive as long as we live."),
+      difficulty: 1,
+      questions: [
+        { q: "What was the weather when they dug?", a: "Very cold", wrong: ["Very hot", "Rainy", "Windy and warm"], why: "A very cold morning." },
+        { q: "What did he ﷺ say is the real life?", a: "The life of the Hereafter", wrong: ["Life in a palace", "A long life", "A rich life"], why: "So forgive the Ansar and the Muhajirun." },
+        { q: "The companions answered him ﷺ with a promise.", tf: true, why: "We pledged to Muhammad as long as we live." }
+      ]
+    },
+    {
+      slug: "rock",
+      title: "The rock became sand",
+      line: "A huge rock stopped them; he ﷺ struck it, and it became sand.",
+      facts: ["A stone on his belly", "Three days without food"],
+      source: hadith("bukhari", "4101", "Jabir ibn Abdullah", "Sahih", "A big rock blocked the trench. The Prophet ﷺ came down, a stone tied to his belly from hunger, for they had not eaten for three days; he struck the rock with the spade and it became like sand."),
+      difficulty: 2,
+      questions: [
+        { q: "What happened when he ﷺ struck the rock?", a: "It turned to sand", wrong: ["It broke the spade", "Nothing happened", "Water came out"], why: "Sahih al-Bukhari 4101." },
+        { q: "Why was a stone tied to his belly ﷺ?", a: "Hunger", wrong: ["Cold", "An injury", "As a weapon"], why: "They had not eaten for three days." },
+        { q: "He ﷺ was as hungry as his companions.", tf: true, why: "He shared their hardship." }
+      ]
+    },
+    {
+      slug: "from-above",
+      title: "From above and below",
+      line: "The armies came from all sides; hearts rose to throats.",
+      facts: ["Quran 33:10", "Al-Ahzab: the allies"],
+      quote: quranQuote(33, 10),
+      source: quran(33, 10, "When they came at you from above and below you, when eyes grew wild and hearts reached the throats, and you thought all kinds of thoughts about Allah."),
+      difficulty: 2,
+      questions: [
+        { q: "From where did the enemies come, as Quran 33:10 says?", a: "From above and below", wrong: ["Only the sea", "Only the east", "From nowhere"], why: "From above you and from below you." },
+        { q: "What does the surah's name Al-Ahzab mean?", a: "The allied groups", wrong: ["The trench", "The wind", "The night"], why: "Many tribes joined against Madinah." },
+        { q: "The believers felt great fear that day.", tf: true, why: "Hearts reached the throats." }
+      ]
+    },
+    {
+      slug: "promised",
+      title: "This is what was promised",
+      line: "Seeing the armies, the believers said: Allah's promise is true.",
+      facts: ["Quran 33:22", "Faith grew stronger"],
+      quote: quranQuote(33, 22),
+      source: quran(33, 22, "When the believers saw the allied armies, they said: this is what Allah and His Messenger promised us; Allah and His Messenger spoke the truth. It only increased them in faith and submission."),
+      difficulty: 2,
+      questions: [
+        { q: "What did the believers say when they saw the armies?", a: "Allah and His Messenger spoke the truth", wrong: ["Let us run", "We are finished", "Let us surrender"], why: "Quran 33:22." },
+        { q: "What did the danger do to their faith?", a: "It increased it", wrong: ["It ended it", "Nothing", "It made them doubt"], why: "It only increased them in faith." },
+        { q: "Tests can make true believers stronger.", tf: true, why: "Their faith grew." }
+      ]
+    },
+    {
+      slug: "wind",
+      title: "The wind and the unseen army",
+      line: "Allah sent a wind and armies they could not see.",
+      facts: ["Quran 33:9", "The allies went home"],
+      quote: quranQuote(33, 9),
+      source: quran(33, 9, "Remember Allah's favor when armies came at you: We sent against them a wind and armies you did not see. Allah sees what you do."),
+      difficulty: 1,
+      questions: [
+        { q: "What did Allah send against the allies?", a: "A wind and unseen armies", wrong: ["A flood", "An earthquake", "Snow"], why: "Quran 33:9." },
+        { q: "Who were the armies they could not see?", a: "Angels", wrong: ["Jinn", "Romans", "Persians"], why: "Armies you did not see." },
+        { q: "The believers won the Trench mainly by fighting.", tf: false, why: "Allah sent the wind, and the allies left." }
+      ]
+    },
+    {
+      slug: "turn",
+      title: "The tide turns",
+      line: "After the Trench he ﷺ said: they will not come at us again.",
+      facts: ["The last attack on Madinah"],
+      source: hadith("bukhari", "4109", "Sulaiman ibn Surad", "Sahih", "On the day of Al-Ahzab the Prophet ﷺ said: from now on we will go to them, and they will not come to us."),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ say after the Trench?", a: "They will not come at us again", wrong: ["We must leave Madinah", "Build more walls", "Make peace forever"], why: "Sahih al-Bukhari 4109." },
+        { q: "What does it show about the Trench?", a: "It was a turning point", wrong: ["It was a loss", "It never ended", "It was in Makkah"], why: "Quraysh never attacked Madinah again." },
+        { q: "Quraysh attacked Madinah again after the Trench.", tf: false, why: "It happened as he ﷺ said." }
+      ]
+    }
+  ]
+};
+
+const HUDAYBIYAH: DeepUnit = {
+  key: "seerah-hudaybiyah",
+  topicId: "prophets",
+  branchId: "seerah-hudaybiyah",
+  branch: { title: "Seerah: Hudaybiyah", description: "The trip for Umrah, the pledge under the tree, a hard treaty, and a clear victory." },
+  name: "Hudaybiyah",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "fourteen-hundred",
+      title: "Fourteen hundred",
+      line: "About 1,400 companions went with him ﷺ to Hudaybiyah.",
+      facts: ["Going for Umrah", "Hudaybiyah was a well"],
+      source: hadith("bukhari", "4150", "Al-Bara ibn Azib", "Sahih", "We were fourteen hundred with the Prophet ﷺ on the day of Hudaybiyah. Hudaybiyah was a well; we drew it dry. He ﷺ came, sat at its edge, rinsed his mouth with water, made du'a and poured it in, and it gave water for us and our camels."),
+      difficulty: 1,
+      questions: [
+        { q: "How many companions were at Hudaybiyah?", a: "About 1,400", wrong: ["About 40", "About 10,000", "About 300"], why: "Sahih al-Bukhari 4150." },
+        { q: "What was Hudaybiyah?", a: "A well near Makkah", wrong: ["A mountain", "A city in Syria", "A ship"], why: "They drew it dry." },
+        { q: "After his du'a ﷺ, the dry well gave water again.", tf: true, why: "Enough for them and their camels." }
+      ]
+    },
+    {
+      slug: "fingers",
+      title: "Water from his fingers",
+      line: "With only a small pot, water flowed between his fingers ﷺ.",
+      facts: ["Everyone was thirsty", "All made wudu"],
+      source: hadith("bukhari", "3576", "Jabir ibn Abdullah", "Sahih", "At Hudaybiyah the people were thirsty and had only a small pot of water. The Prophet ﷺ put his hand in it, and water began to flow between his fingers like springs; we drank and made wudu."),
+      difficulty: 2,
+      questions: [
+        { q: "Where did the water flow from?", a: "Between his fingers ﷺ", wrong: ["A new river", "The sky", "A rock"], why: "Like springs." },
+        { q: "What did they use the water for?", a: "Drinking and wudu", wrong: ["Only for camels", "Washing clothes", "Nothing"], why: "Sahih al-Bukhari 3576." },
+        { q: "This was a miracle Allah gave him ﷺ.", tf: true, why: "Many companions saw it." }
+      ]
+    },
+    {
+      slug: "tree",
+      title: "The pledge under the tree",
+      line: "Allah was pleased with those who pledged under the tree.",
+      facts: ["Quran 48:18", "Bay'at ar-Ridwan"],
+      quote: quranQuote(48, 18),
+      source: quran(48, 18, "Allah was pleased with the believers when they pledged to you under the tree; He knew what was in their hearts, sent down calm on them, and rewarded them with a near victory."),
+      difficulty: 1,
+      questions: [
+        { q: "Where did they make the pledge?", a: "Under a tree", wrong: ["Inside the Ka'bah", "In a cave", "On a ship"], why: "Quran 48:18." },
+        { q: "What is this pledge called?", a: "Bay'at ar-Ridwan", wrong: ["Bay'at al-Aqabah", "Hilf al-Fudul", "Al-Hijrah"], why: "Ridwan: Allah's pleasure." },
+        { q: "Allah said He was pleased with them.", tf: true, why: "Allah was pleased with the believers." }
+      ]
+    },
+    {
+      slug: "umar-asks",
+      title: "Umar's questions",
+      line: "Umar asked why accept hard terms. He ﷺ said: I obey Allah.",
+      facts: ["Allah will help me"],
+      source: hadith("bukhari", "2731", "Al-Miswar and Marwan", "Sahih", "Umar asked: are you not truly Allah's Messenger? Are we not in the right? Then why accept less in our religion? He ﷺ said: I am Allah's Messenger, I do not disobey Him, and He will make me victorious."),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ answer Umar?", a: "I do not disobey Allah", wrong: ["You are right, let us fight", "Go back to Madinah", "I am tired"], why: "And He will make me victorious." },
+        { q: "Why was Umar upset?", a: "The terms seemed unfair", wrong: ["He was hungry", "He was ill", "He lost his camel"], why: "He did not yet see the wisdom." },
+        { q: "Trusting Allah's command is better than our own feelings.", tf: true, why: "The treaty led to great good." }
+      ]
+    },
+    {
+      slug: "clear-victory",
+      title: "A clear victory",
+      line: "Going home, Allah revealed: We have given you a clear victory.",
+      facts: ["Quran 48:1", "Dearer than the world"],
+      quote: quranQuote(48, 1),
+      source: hadith("bukhari", "4177", "Umar ibn al-Khattab", "Sahih", "On a journey at night he ﷺ said: tonight a surah was revealed to me that is dearer to me than all the sun rises on. Then he recited: We have given you a clear victory."),
+      difficulty: 2,
+      questions: [
+        { q: "What did Allah call the treaty in Quran 48:1?", a: "A clear victory", wrong: ["A loss", "A mistake", "A small deal"], why: "We have given you a clear victory." },
+        { q: "How dear was Surah Al-Fath to him ﷺ?", a: "Dearer than all the sun rises on", wrong: ["Like any surah", "Less than gold", "Not dear"], why: "Sahih al-Bukhari 4177." },
+        { q: "What looked like a loss was a victory.", tf: true, why: "Allah called it a clear victory." }
+      ]
+    },
+    {
+      slug: "real-victory",
+      title: "The real victory",
+      line: "Al-Bara said: we count the pledge of Ridwan as the real victory.",
+      facts: ["Not only the Conquest"],
+      source: hadith("bukhari", "4150", "Al-Bara ibn Azib", "Sahih", "You think the victory is the Conquest of Makkah. We count the victory as the pledge of Ridwan on the day of Hudaybiyah."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Al-Bara call the real victory?", a: "The pledge of Ridwan", wrong: ["Badr", "Uhud", "Ta'if"], why: "Sahih al-Bukhari 4150." },
+        { q: "What did others think the victory was?", a: "The Conquest of Makkah", wrong: ["The Trench", "Khaybar", "The Hijrah"], why: "Al-Bara answered them." },
+        { q: "To the companions, faith and loyalty were a victory.", tf: true, why: "The pledge was the real win." }
+      ]
+    },
+    {
+      slug: "seal",
+      title: "Letters to kings",
+      line: "He ﷺ had a silver ring made to seal his letters to kings.",
+      facts: ["Muhammad Rasul Allah", "Kings read sealed letters"],
+      source: hadith("bukhari", "65", "Anas ibn Malik", "Sahih", "The Prophet ﷺ wanted to write to rulers and was told they only read sealed letters, so he had a silver ring made, engraved: Muhammad, Messenger of Allah."),
+      difficulty: 2,
+      questions: [
+        { q: "Why did he ﷺ have a ring made?", a: "To seal letters to rulers", wrong: ["As a gift", "For beauty only", "To trade it"], why: "Rulers only read sealed letters." },
+        { q: "What was the ring made of?", a: "Silver", wrong: ["Gold", "Iron", "Wood"], why: "Sahih al-Bukhari 65." },
+        { q: "The ring said: Muhammad, Messenger of Allah.", tf: true, why: "Anas saw its white shine." }
+      ]
+    }
+  ]
+};
+
+const CONQUEST: DeepUnit = {
+  key: "seerah-fath",
+  topicId: "prophets",
+  branchId: "seerah-conquest",
+  branch: { title: "Seerah: the Conquest of Makkah", description: "Ten thousand in Ramadan, Surah Al-Fath on his camel, the idols falling, and safety for Makkah." },
+  name: "the Conquest of Makkah",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "ten-thousand",
+      title: "Ten thousand in Ramadan",
+      line: "He ﷺ set out for Makkah in Ramadan with ten thousand.",
+      facts: ["Eight years after Hijrah", "He broke his fast"],
+      source: hadith("bukhari", "4276", "Ibn Abbas", "Sahih", "The Prophet ﷺ left Madinah in Ramadan with ten thousand, eight and a half years after the Hijrah; he and they were fasting until Al-Kadid, where he broke his fast."),
+      difficulty: 1,
+      questions: [
+        { q: "How many went with him ﷺ to Makkah?", a: "Ten thousand", wrong: ["Three hundred", "One thousand", "Fifty"], why: "Sahih al-Bukhari 4276." },
+        { q: "In which month did they set out?", a: "Ramadan", wrong: ["Dhul-Hijjah", "Muharram", "Shawwal"], why: "They were fasting at first." },
+        { q: "He ﷺ broke his fast on the journey.", tf: true, why: "At Al-Kadid; a traveler may break the fast." }
+      ]
+    },
+    {
+      slug: "reciting",
+      title: "Reciting on his camel",
+      line: "He ﷺ entered Makkah reciting Surah Al-Fath on his camel.",
+      facts: ["A beautiful voice"],
+      source: hadith("bukhari", "4281", "Abdullah ibn Mughaffal", "Sahih", "I saw the Messenger of Allah ﷺ on the day of the Conquest on his camel, reciting Surah Al-Fath in a beautiful, repeating voice."),
+      difficulty: 2,
+      questions: [
+        { q: "Which surah did he ﷺ recite on that day?", a: "Al-Fath", wrong: ["Al-Baqarah", "Yasin", "Al-Mulk"], why: "Sahih al-Bukhari 4281." },
+        { q: "Where was he ﷺ as he recited?", a: "On his camel", wrong: ["On the minbar", "In a tent", "On the Ka'bah"], why: "Abdullah ibn Mughaffal saw him." },
+        { q: "He ﷺ entered Makkah boasting and proud.", tf: false, why: "He entered reciting the Quran." }
+      ]
+    },
+    {
+      slug: "idols",
+      title: "Truth has come",
+      line: "360 idols stood round the Ka'bah. He ﷺ said: truth has come.",
+      facts: ["Quran 17:81", "Falsehood vanished"],
+      quote: quranQuote(17, 81),
+      source: hadith("bukhari", "4287", "Abdullah ibn Mas'ud", "Sahih", "When the Prophet ﷺ entered Makkah on the day of the Conquest, there were 360 idols around the Ka'bah; he struck them with a stick in his hand, saying: truth has come and falsehood has gone."),
+      difficulty: 1,
+      questions: [
+        { q: "How many idols were around the Ka'bah?", a: "360", wrong: ["7", "40", "1,000"], why: "Sahih al-Bukhari 4287." },
+        { q: "What did he ﷺ recite as they fell?", a: "Truth has come, falsehood has gone", wrong: ["Allahu akbar only", "We have won", "Run away"], why: "Quran 17:81." },
+        { q: "The Ka'bah was made a house for Allah alone again.", tf: true, why: "As Ibrahim built it." }
+      ]
+    },
+    {
+      slug: "safe",
+      title: "Whoever enters is safe",
+      line: "He ﷺ said: whoever enters Abu Sufyan's house is safe.",
+      facts: ["Mercy in victory"],
+      source: hadith("muslim", "1780a", "Abu Hurairah", "Sahih", "On the day of the Conquest, Abu Sufyan worried for Quraysh; the Messenger of Allah ﷺ said: whoever enters the house of Abu Sufyan is safe."),
+      difficulty: 2,
+      questions: [
+        { q: "Whose house did he ﷺ make a place of safety?", a: "Abu Sufyan's", wrong: ["Abu Lahab's", "Abu Jahl's", "His own only"], why: "Sahih Muslim 1780a." },
+        { q: "What does this show on the day of victory?", a: "Mercy", wrong: ["Revenge", "Pride", "Greed"], why: "He gave safety to old enemies." },
+        { q: "Abu Sufyan had once been an enemy of Islam.", tf: true, why: "Yet his house became a place of safety." }
+      ]
+    },
+    {
+      slug: "nasr",
+      title: "When Allah's help comes",
+      line: "Surah An-Nasr: help came, and people entered Islam in crowds.",
+      facts: ["Quran 110:1-2", "Then glorify and repent"],
+      quote: quranQuote(110, 2),
+      source: quran(110, 2, "When the help of Allah and the victory come, and you see people entering Allah's religion in crowds, glorify your Lord with praise and ask His forgiveness."),
+      difficulty: 1,
+      questions: [
+        { q: "How did people enter Islam, as Surah An-Nasr says?", a: "In crowds", wrong: ["One by one, secretly", "Not at all", "Only kings"], why: "Quran 110:2." },
+        { q: "What should a believer do after success?", a: "Praise Allah and ask forgiveness", wrong: ["Boast", "Rest forever", "Take revenge"], why: "Glorify your Lord and seek forgiveness." },
+        { q: "Success is a time to be humble before Allah.", tf: true, why: "That is the lesson of An-Nasr." }
+      ]
+    }
+  ]
+};
+
+const FAREWELL: DeepUnit = {
+  key: "seerah-wada",
+  topicId: "prophets",
+  branchId: "seerah-farewell",
+  branch: { title: "Seerah: the Farewell Hajj and his passing", description: "His last Hajj and sermon, the religion completed, his last days, and his last words ﷺ." },
+  name: "his ﷺ last year",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "sacred",
+      title: "As sacred as this day",
+      line: "At his last Hajj he ﷺ said: your blood and wealth are sacred.",
+      facts: ["On the day of sacrifice", "Like this day and city"],
+      source: hadith("bukhari", "1739", "Ibn Abbas", "Sahih", "On the day of sacrifice he ﷺ asked: what day is this? What city? What month? They said: sacred. He said: your blood, your wealth and your honor are sacred to one another, like this day, in this city, in this month."),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ say are sacred between Muslims?", a: "Blood, wealth and honor", wrong: ["Only gold", "Only land", "Only names"], why: "Sahih al-Bukhari 1739." },
+        { q: "Why did he ﷺ first ask about the day, city and month?", a: "To show how sacred they are", wrong: ["He forgot them", "To test their memory only", "To start a game"], why: "Our rights are just as sacred." },
+        { q: "Harming a Muslim's honor is a small thing.", tf: false, why: "It is as sacred as the day of Hajj." }
+      ]
+    },
+    {
+      slug: "convey",
+      title: "Let them pass it on",
+      line: "He ﷺ said: let those present tell those who are absent.",
+      facts: ["Every Muslim passes it on"],
+      source: hadith("bukhari", "1739", "Ibn Abbas", "Sahih", "He ﷺ said: O Allah, have I conveyed? Then: let those present tell those who are absent, and do not go back to disbelief after me, striking one another's necks."),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ ask those present to do?", a: "Tell those who were absent", wrong: ["Keep it secret", "Write it on gold", "Forget it"], why: "So the message reaches everyone." },
+        { q: "What did he ﷺ warn them against after him?", a: "Fighting one another", wrong: ["Trading", "Traveling", "Fasting"], why: "Do not go back to disbelief, fighting each other." },
+        { q: "Passing on what we learn is part of Islam.", tf: true, why: "Let those present tell those absent." }
+      ]
+    },
+    {
+      slug: "book",
+      title: "Hold on to the Book",
+      line: "Hold on to the Book of Allah, he ﷺ said, and never stray.",
+      facts: ["At Arafah", "O Allah, be witness"],
+      source: hadith("muslim", "1218", "Jabir ibn Abdullah", "Sahih", "At Arafah he ﷺ said: I have left among you something; if you hold on to it you will never go astray: the Book of Allah. You will be asked about me, so what will you say? They said: you conveyed, fulfilled and advised. He said: O Allah, be witness."),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ leave so we will not go astray?", a: "The Book of Allah", wrong: ["A palace", "Gold", "A sword"], why: "Sahih Muslim 1218." },
+        { q: "What did the people say he ﷺ had done?", a: "Conveyed the message", wrong: ["Nothing", "Built cities", "Become king"], why: "You conveyed, fulfilled and advised." },
+        { q: "He ﷺ asked Allah to be witness.", tf: true, why: "O Allah, be witness." }
+      ]
+    },
+    {
+      slug: "perfected",
+      title: "The religion completed",
+      line: "On Friday at Arafah came: today I perfected your religion.",
+      facts: ["Quran 5:3", "Friday at Arafah"],
+      source: hadith("bukhari", "45", "Umar ibn al-Khattab", "Sahih", "A Jewish man told Umar: if the ayah 'today I have perfected your religion for you' had come to us, we would make that day a festival. Umar said: we know the day and place: the Prophet ﷺ was standing at Arafah on a Friday."),
+      difficulty: 2,
+      questions: [
+        { q: "Where was he ﷺ when 'today I perfected your religion' came?", a: "At Arafah", wrong: ["In Madinah", "In Hira", "In Ta'if"], why: "Sahih al-Bukhari 45." },
+        { q: "On which day of the week did it come?", a: "Friday", wrong: ["Monday", "Sunday", "Tuesday"], why: "Umar knew the day and the place." },
+        { q: "Islam was completed in the Prophet's ﷺ lifetime.", tf: true, why: "Today I have perfected your religion." }
+      ]
+    },
+    {
+      slug: "abu-bakr-leads",
+      title: "Tell Abu Bakr to lead",
+      line: "In his last illness he ﷺ said: let Abu Bakr lead the prayer.",
+      facts: ["Said more than once"],
+      source: hadith("bukhari", "664", "Aishah", "Sahih", "In his last illness, when the adhan was called, he ﷺ said: tell Abu Bakr to lead the people in prayer. They said Abu Bakr was soft-hearted; he said it again, and again."),
+      difficulty: 2,
+      questions: [
+        { q: "Who did he ﷺ ask to lead the prayer in his illness?", a: "Abu Bakr", wrong: ["Umar", "Ali", "Bilal"], why: "Sahih al-Bukhari 664." },
+        { q: "What did people say about Abu Bakr?", a: "He was soft-hearted", wrong: ["He was away", "He was too young", "He did not know the Quran"], why: "They feared he could not stand in his place." },
+        { q: "He ﷺ repeated the order more than once.", tf: true, why: "He said it again." }
+      ]
+    },
+    {
+      slug: "last-look",
+      title: "His last smile",
+      line: "On Monday he ﷺ looked at the rows in prayer and smiled.",
+      facts: ["Abu Bakr leading", "Face like a Quran page"],
+      source: hadith("bukhari", "680", "Anas ibn Malik", "Sahih", "Abu Bakr led the prayers in his illness until Monday; as the people stood in rows, the Prophet ﷺ lifted the curtain of his room and looked at us, his face like a page of the Quran, and smiled."),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ see when he lifted the curtain?", a: "The people praying in rows", wrong: ["An empty masjid", "A market", "A battle"], why: "Sahih al-Bukhari 680." },
+        { q: "What did he ﷺ do when he saw them?", a: "He smiled", wrong: ["He wept", "He called out", "He left"], why: "Happy to see his ummah praying." },
+        { q: "His face was like a page of the Quran.", tf: true, why: "Anas described it so." }
+      ]
+    },
+    {
+      slug: "highest-companion",
+      title: "The highest companion",
+      line: "His last words ﷺ: O Allah, with the highest companion.",
+      facts: ["His head on Aishah's lap", "Prophets are given a choice"],
+      source: hadith("bukhari", "4463", "Aishah", "Sahih", "He ﷺ used to say: no prophet dies until he is shown his place in Paradise and given a choice. When death came, with his head on my thigh, he looked up and said: O Allah, with the highest companion."),
+      difficulty: 2,
+      questions: [
+        { q: "What were his last words ﷺ?", a: "O Allah, with the highest companion", wrong: ["Farewell, Makkah", "Bring me water", "Call Abu Bakr"], why: "Sahih al-Bukhari 4463." },
+        { q: "What is every prophet given before death?", a: "A choice", wrong: ["A crown", "A letter", "Nothing"], why: "After being shown his place in Paradise." },
+        { q: "He ﷺ chose to be with Allah.", tf: true, why: "The highest companion." }
+      ]
+    },
+    {
+      slug: "sixty-three",
+      title: "Sixty-three years",
+      line: "He ﷺ passed away at sixty-three years old.",
+      facts: ["Age 63"],
+      source: hadith("bukhari", "3536", "Aishah", "Sahih", "Aishah said: the Prophet ﷺ died when he was sixty-three years old."),
+      difficulty: 1,
+      questions: [
+        { q: "How old was he ﷺ when he passed away?", a: "Sixty-three", wrong: ["Forty", "Fifty", "Eighty"], why: "Sahih al-Bukhari 3536." },
+        { q: "Who told us his age?", a: "Aishah", wrong: ["Abu Lahab", "Heraclius", "Waraqah"], why: "His wife." },
+        { q: "His message stayed after him, in the Quran and Sunnah.", tf: true, why: "He left us the Book of Allah." }
+      ]
+    }
+  ]
+};
+
+const CHARACTER: DeepUnit = {
+  key: "seerah-khuluq",
+  topicId: "prophets",
+  branchId: "seerah-character",
+  branch: { title: "Seerah: his character ﷺ", description: "What he was like at home and with people: gentle, shy, smiling, easygoing and fair." },
+  name: "his ﷺ character",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "great-character",
+      title: "A great character",
+      line: "Allah says: you are truly of a great character.",
+      facts: ["Quran 68:4"],
+      quote: quranQuote(68, 4),
+      source: quran(68, 4, "And you are truly of a great character."),
+      difficulty: 1,
+      questions: [
+        { q: "How does Allah describe his character ﷺ?", a: "Great", wrong: ["Harsh", "Ordinary", "Proud"], why: "Quran 68:4." },
+        { q: "Who praised his character ﷺ in the Quran?", a: "Allah", wrong: ["Quraysh", "The Romans", "The poets"], why: "You are truly of a great character." },
+        { q: "Good character is part of following him ﷺ.", tf: true, why: "He is our example." }
+      ]
+    },
+    {
+      slug: "quran-character",
+      title: "His character was the Quran",
+      line: "Aishah said: his character ﷺ was the Quran.",
+      facts: ["He lived what it taught"],
+      source: hadith("muslim", "746a", "Aishah", "Sahih", "Sa'd ibn Hisham asked Aishah about the character of the Messenger of Allah ﷺ. She said: do you not read the Quran? His character was the Quran."),
+      difficulty: 1,
+      questions: [
+        { q: "What did Aishah say his character ﷺ was?", a: "The Quran", wrong: ["Like a king's", "Strict", "Unknown"], why: "Sahih Muslim 746a." },
+        { q: "What does this mean?", a: "He lived what the Quran taught", wrong: ["He only read it", "He kept it hidden", "He changed it"], why: "Its teachings were his manners." },
+        { q: "To learn his character, read the Quran.", tf: true, why: "That was Aishah's advice." }
+      ]
+    },
+    {
+      slug: "easier",
+      title: "He chose the easier way",
+      line: "Given two choices, he ﷺ chose the easier, unless it was a sin.",
+      facts: ["No revenge for himself"],
+      source: hadith("bukhari", "3560", "Aishah", "Sahih", "Whenever the Messenger of Allah ﷺ had a choice of two things, he chose the easier unless it was a sin; and he never took revenge for himself, only when Allah's limits were broken."),
+      difficulty: 2,
+      questions: [
+        { q: "Which choice did he ﷺ usually take?", a: "The easier one, if not a sin", wrong: ["Always the hardest", "The most expensive", "Whatever others chose"], why: "Sahih al-Bukhari 3560." },
+        { q: "Did he ﷺ take revenge for himself?", a: "Never", wrong: ["Always", "Sometimes", "Only on Fridays"], why: "Only for Allah's limits." },
+        { q: "Islam likes making things easy for people.", tf: true, why: "He chose ease when it was allowed." }
+      ]
+    },
+    {
+      slug: "food",
+      title: "He never faulted food",
+      line: "He ﷺ never criticized food: he ate it, or left it quietly.",
+      facts: ["No complaining"],
+      source: hadith("bukhari", "3563", "Abu Hurairah", "Sahih", "The Prophet ﷺ never criticized any food; if he liked it he ate it, and if not, he left it."),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ do with food he did not like?", a: "Left it quietly", wrong: ["Complained loudly", "Threw it away", "Sent it back angry"], why: "Sahih al-Bukhari 3563." },
+        { q: "Did he ﷺ ever criticize food?", a: "Never", wrong: ["Often", "Only at feasts", "Only at home"], why: "He ate it or left it." },
+        { q: "We can follow this at every meal.", tf: true, why: "No complaining about food." }
+      ]
+    },
+    {
+      slug: "shy",
+      title: "Shyer than a young girl",
+      line: "He ﷺ was shyer than a young girl behind her curtain.",
+      facts: ["Haya: modesty"],
+      source: hadith("bukhari", "3562", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ was more shy than a young girl behind her curtain."),
+      difficulty: 1,
+      questions: [
+        { q: "How shy was he ﷺ?", a: "Shyer than a young girl in her room", wrong: ["Not shy at all", "Only sometimes", "Shy only with kings"], why: "Sahih al-Bukhari 3562." },
+        { q: "What is haya?", a: "Modesty and shyness from wrong", wrong: ["Anger", "Pride", "Laziness"], why: "A beautiful part of faith." },
+        { q: "Being shy from wrong is a good quality.", tf: true, why: "He ﷺ had it most of all." }
+      ]
+    },
+    {
+      slug: "smiled",
+      title: "Always smiling",
+      line: "A companion said: I never saw anyone smile more than him ﷺ.",
+      facts: ["He smiled most"],
+      source: hadith("tirmidhi", "3641", "Abdullah ibn al-Harith ibn Jaz", "Sahih", "I have not seen anyone who smiled more than the Messenger of Allah ﷺ."),
+      difficulty: 1,
+      questions: [
+        { q: "Who smiled more than anyone, a companion said?", a: "The Messenger of Allah ﷺ", wrong: ["Abu Jahl", "Heraclius", "The poets"], why: "Jami at-Tirmidhi 3641." },
+        { q: "What can we learn from his smile ﷺ?", a: "Meet people cheerfully", wrong: ["Always frown", "Avoid people", "Smile only for gifts"], why: "Kindness starts with a smile." },
+        { q: "He ﷺ was known as gloomy and stern.", tf: false, why: "No one smiled more than him." }
+      ]
+    }
+  ]
+};
+
+export const SEERAH_UNITS: readonly DeepUnit[] = [EARLY, REVELATION, MAKKAH, TAIF, ISRA, HIJRAH, BADR, UHUD, TRENCH, HUDAYBIYAH, CONQUEST, FAREWELL, CHARACTER];
