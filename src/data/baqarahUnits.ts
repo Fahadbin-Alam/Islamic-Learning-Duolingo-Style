@@ -819,4 +819,773 @@ const BAQARAH_ONE: DeepUnit = {
   ]
 };
 
-export const BAQARAH_UNITS: readonly DeepUnit[] = [BAQARAH_ONE];
+/** Ayahs 75 to 176: the covenant, Ibrahim and the Ka'bah, the new qiblah, patience, the signs of Allah, good food. */
+const BAQARAH_TWO: DeepUnit = {
+  key: "baqarah2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-baqarah",
+  name: "Al-Baqarah, ayahs 75 to 176",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Baqarah",
+  lessons: [
+    {
+      slug: "heard-and-changed",
+      title: "They heard, then changed it",
+      line: "Some heard Allah's words, understood them, then twisted them.",
+      facts: ["Knowing is not enough", "Honesty with revelation"],
+      quote: q2(75),
+      source: ik(75, "A group among the Children of Israel heard the Word of Allah and changed its meaning after they had understood it, knowingly. So the believers should not expect easy faith from such people."),
+      difficulty: 3,
+      questions: [
+        { q: "What did some do after understanding Allah's words, in 2:75?", a: "Twisted their meaning", wrong: ["Taught them well", "Wrote them in gold", "Recited them daily"], why: "They changed it knowingly." },
+        { q: "Did they twist it by mistake?", a: "No, they knew what they did", wrong: ["Yes, by accident", "Yes, they were children", "They never heard it"], why: "After they had understood it." },
+        { q: "Knowing the truth is enough even if you change it.", tf: false, why: "Knowledge must be followed honestly." }
+      ]
+    },
+    {
+      slug: "wishful",
+      title: "Only wishful thinking",
+      line: "Some knew nothing of the Book but their own wishes.",
+      facts: ["Ummi: cannot read", "Amani: false hopes"],
+      quote: q2(78),
+      source: ik(78, "Ummiyyun are those who do not read or write and do not know what is in the Book; they only have amani, wishful hopes, and guesses."),
+      difficulty: 3,
+      questions: [
+        { q: "What did they rely on instead of the Book, in 2:78?", a: "Wishful hopes and guesses", wrong: ["Careful study", "The scholars' books", "The Tawrah by heart"], why: "Amani: false desires." },
+        { q: "What does 'ummi' mean?", a: "One who does not read or write", wrong: ["A king", "A traveler", "A poet"], why: "Ibn Kathir explains it so." },
+        { q: "What protects us from wishful religion?", a: "Learning what Allah really said", wrong: ["Guessing", "Following rumors", "Ignoring the Quran"], why: "Know the Book itself." }
+      ]
+    },
+    {
+      slug: "woe-writers",
+      title: "Written by their own hands",
+      line: "Woe to those who write words and call them Allah's.",
+      facts: ["For a small price", "Lying about Allah"],
+      quote: q2(79),
+      source: ik(79, "Woe to those who write a book with their own hands and say this is from Allah, to buy with it a small price; woe for what their hands wrote and what they earned."),
+      difficulty: 3,
+      questions: [
+        { q: "What does 2:79 warn against?", a: "Writing words and calling them Allah's", wrong: ["Writing letters", "Reading books", "Learning to write"], why: "Lying about Allah is a great sin." },
+        { q: "Why did they do it?", a: "For a small worldly price", wrong: ["To help the poor", "By accident", "To please Allah"], why: "To buy with it a small price." },
+        { q: "Saying 'Allah said' about something He did not say is serious.", tf: true, why: "Quran 2:79." }
+      ]
+    },
+    {
+      slug: "few-days",
+      title: "'Only a few days'",
+      line: "They said the Fire would touch them for a few days only.",
+      facts: ["A claim with no promise", "Deeds decide, not names"],
+      quote: q2(80),
+      source: ik(80, "They claimed the Fire would touch them only for a number of days. Allah asks: have you taken a promise from Allah, or do you say about Allah what you do not know?"),
+      difficulty: 3,
+      questions: [
+        { q: "What did they claim in 2:80?", a: "The Fire would touch them only a few days", wrong: ["They would never die", "They were angels", "The world would end soon"], why: "A claim without proof." },
+        { q: "What does Allah ask them?", a: "Did you take a promise from Allah?", wrong: ["Are you hungry?", "Where do you live?", "Who is your king?"], why: "Or do you say what you do not know?" },
+        { q: "Being from a certain family guarantees Jannah.", tf: false, why: "Faith and deeds decide." }
+      ]
+    },
+    {
+      slug: "earns-evil",
+      title: "Surrounded by sins",
+      line: "Whoever earns evil and is surrounded by sins loses.",
+      facts: ["Believers who do good win", "Ashab al-Jannah"],
+      quote: q2(82),
+      source: ik(81, "Whoever earns evil and his sins surround him, those are the people of the Fire; and those who believe and do righteous deeds are the people of Jannah, forever."),
+      difficulty: 2,
+      questions: [
+        { q: "Who are the people of Jannah, in 2:82?", a: "Those who believe and do good", wrong: ["Those with big families", "Those who are rich", "Those who never work"], why: "Faith with good deeds." },
+        { q: "What surrounds the losers in 2:81?", a: "Their sins", wrong: ["Their friends", "Their houses", "Their money"], why: "Sins piled up without repentance." },
+        { q: "What should we do after a sin, so it does not pile up?", a: "Repent quickly", wrong: ["Add more", "Forget it", "Blame others"], why: "Tawbah wipes it away." }
+      ]
+    },
+    {
+      slug: "covenant-list",
+      title: "The covenant",
+      line: "Worship only Allah, be good to parents, orphans and the poor.",
+      facts: ["Speak good to people", "Prayer and zakah"],
+      quote: q2(83),
+      source: ik(83, "Allah took a covenant from the Children of Israel: worship none but Allah, be good to parents, relatives, orphans and the poor, speak good to people, pray and give zakah. Most turned away."),
+      difficulty: 2,
+      questions: [
+        { q: "What comes first in the covenant of 2:83?", a: "Worship none but Allah", wrong: ["Build houses", "Travel far", "Collect gold"], why: "Tawhid comes before everything." },
+        { q: "Right after worshipping Allah, who must we be good to?", a: "Parents", wrong: ["Kings", "Rich people", "Strangers only"], why: "Parents come next." },
+        { q: "How should we speak to people, in 2:83?", a: "Speak good to them", wrong: ["Speak harshly", "Never speak", "Only to friends"], why: "Wa qulu lin-nasi husna." }
+      ]
+    },
+    {
+      slug: "part-of-book",
+      title: "Half the Book?",
+      line: "Do you believe in part of the Book and reject the rest?",
+      facts: ["Take all of it", "No picking and choosing"],
+      quote: q2(85),
+      source: ik(85, "They were told not to shed each other's blood or drive each other from their homes; they broke this, yet ransomed captives as the Book said. Allah asks: do you believe in part of the Book and reject part?"),
+      difficulty: 3,
+      questions: [
+        { q: "What does 2:85 blame them for?", a: "Following only the parts they liked", wrong: ["Reading too much", "Giving charity", "Praying at night"], why: "Believing in part, rejecting part." },
+        { q: "How should a Muslim take the Quran?", a: "All of it, with trust", wrong: ["Only the easy parts", "Only the stories", "Only on Fridays"], why: "Ibn Kathir explains it so." },
+        { q: "Picking only the rules we like is fine.", tf: false, why: "Quran 2:85." }
+      ]
+    },
+    {
+      slug: "ruh-qudus",
+      title: "Messengers one after another",
+      line: "Allah sent Musa, then messengers, then Isa with clear signs.",
+      facts: ["Ruh al-Qudus is Jibril", "Many messengers"],
+      quote: q2(87),
+      source: ik(87, "Allah gave Musa the Tawrah and sent messengers after him, and gave Isa son of Maryam clear proofs and supported him with Ruh al-Qudus, who is Jibril."),
+      difficulty: 3,
+      questions: [
+        { q: "Who is Ruh al-Qudus, in 2:87?", a: "Jibril", wrong: ["Musa", "A star", "A king"], why: "Ibn Kathir: it is Jibril." },
+        { q: "Whom did Allah support with clear signs in 2:87?", a: "Isa son of Maryam", wrong: ["Fir'awn", "Qarun", "Haman"], why: "Quran 2:87." },
+        { q: "Did Allah send messengers after Musa?", a: "Yes, one after another", wrong: ["No, none", "Only one", "Only kings"], why: "Wa qaffayna min ba'dihi bir-rusul." }
+      ]
+    },
+    {
+      slug: "wrapped-hearts",
+      title: "'Our hearts are wrapped'",
+      line: "They said our hearts are wrapped; really their rejection did it.",
+      facts: ["An excuse, not a reason", "Little do they believe"],
+      quote: q2(88),
+      source: ik(88, "They said: our hearts are ghulf, covered, so we do not understand. Allah said: rather He has cursed them for their disbelief, so little do they believe."),
+      difficulty: 3,
+      questions: [
+        { q: "What excuse did they give in 2:88?", a: "Our hearts are covered", wrong: ["We are too busy", "We are sick", "We are poor"], why: "Qulubuna ghulf." },
+        { q: "What was the real reason?", a: "Their own rejection", wrong: ["Bad weather", "No one told them", "They were too young"], why: "Allah shows the truth." },
+        { q: "Blaming our hearts is an excuse to stop trying.", tf: true, why: "We should keep asking Allah for guidance." }
+      ]
+    },
+    {
+      slug: "recognized",
+      title: "They knew him",
+      line: "They awaited a prophet, then rejected him out of envy.",
+      facts: ["Envy blocks truth", "They knew the signs"],
+      quote: q2(89),
+      source: ik(89, "Before he came, they used to pray for victory through the coming prophet; when the Prophet ﷺ came and they recognized him, they rejected him out of envy that Allah chose him from the Arabs."),
+      difficulty: 3,
+      questions: [
+        { q: "What were they waiting for, before 2:89?", a: "A coming prophet", wrong: ["A new king", "Rain", "A war"], why: "They knew his description." },
+        { q: "Why did they reject him, in 2:90?", a: "Envy", wrong: ["They never heard of him", "He was unkind", "He asked for money"], why: "Envy that Allah chose him." },
+        { q: "Envy can stop a person from accepting the truth.", tf: true, why: "Quran 2:90." }
+      ]
+    },
+    {
+      slug: "calf-love",
+      title: "Love of the calf",
+      line: "We heard and disobeyed; the calf's love soaked their hearts.",
+      facts: ["Words without obeying", "Love shapes deeds"],
+      quote: q2(93),
+      source: ik(93, "When the mountain was raised over them they said: we hear and we disobey, and the love of the calf soaked into their hearts because of their disbelief."),
+      difficulty: 3,
+      questions: [
+        { q: "What did they say in 2:93?", a: "We hear and we disobey", wrong: ["We hear and we obey", "We are sorry", "Teach us more"], why: "Sami'na wa 'asayna." },
+        { q: "What did the believers say instead, in 2:285?", a: "We hear and we obey", wrong: ["We hear and we disobey", "We will think", "Not now"], why: "Sami'na wa ata'na." },
+        { q: "What soaked into their hearts?", a: "Love of the calf", wrong: ["Love of Musa", "Love of learning", "Love of charity"], why: "Quran 2:93." }
+      ]
+    },
+    {
+      slug: "long-life",
+      title: "A thousand years",
+      line: "Some wish for a thousand years, but long life saves no one.",
+      facts: ["Only deeds help", "Allah sees all"],
+      quote: q2(96),
+      source: ik(96, "They are the most eager of people for life; each wishes he could live a thousand years, but even that would not push the punishment away from him. Allah sees what they do."),
+      difficulty: 2,
+      questions: [
+        { q: "How long did some wish to live, in 2:96?", a: "A thousand years", wrong: ["Ten years", "One day", "Forever young"], why: "Quran 2:96." },
+        { q: "Would a long life alone save them?", a: "No, deeds decide", wrong: ["Yes, always", "Yes, if rich", "Yes, if famous"], why: "It would not push the punishment away." },
+        { q: "What is the best use of a long life?", a: "Filling it with good deeds", wrong: ["Collecting more money", "Sleeping more", "Worrying"], why: "Every day is a chance." }
+      ]
+    },
+    {
+      slug: "jibril-enemy",
+      title: "An enemy of Jibril?",
+      line: "Whoever is an enemy of Jibril, he only brought the Quran down.",
+      facts: ["Jibril and Mika'il", "Angels obey Allah"],
+      quote: q2(97),
+      source: ik(97, "Some said Jibril was their enemy. Allah said: Jibril brought the Quran down to your heart by Allah's permission, confirming what came before; whoever is an enemy of Allah, His angels, Jibril and Mika'il, Allah is his enemy."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Jibril bring down, in 2:97?", a: "The Quran", wrong: ["Rain", "Gold", "Armies"], why: "To your heart, by Allah's permission." },
+        { q: "Which two angels are named in 2:98?", a: "Jibril and Mika'il", wrong: ["Harut and Marut only", "Munkar and Nakir", "Malik and Ridwan"], why: "Quran 2:98." },
+        { q: "Hating an angel of Allah is fine.", tf: false, why: "They do only what Allah commands." }
+      ]
+    },
+    {
+      slug: "magic",
+      title: "Magic is from the devils",
+      line: "The devils taught magic; it harms only by Allah's permission.",
+      facts: ["Sulayman did not disbelieve", "Harm, never benefit"],
+      quote: q2(102),
+      source: ik(102, "The devils lied about Sulayman's kingdom and taught people magic. Sulayman did not disbelieve, the devils did. Magic harms no one except by Allah's permission, and it harms and does not benefit."),
+      difficulty: 4,
+      questions: [
+        { q: "Who taught people magic, in 2:102?", a: "The devils", wrong: ["Sulayman", "The prophets", "The scholars"], why: "Sulayman did not disbelieve." },
+        { q: "Can magic harm anyone without Allah's permission?", a: "No", wrong: ["Yes, always", "Only at night", "Only on Fridays"], why: "Except by Allah's permission." },
+        { q: "What does 2:102 say magic brings?", a: "Harm, not benefit", wrong: ["Wealth", "Wisdom", "Health"], why: "Ma yadurruhum wa la yanfa'uhum." }
+      ]
+    },
+    {
+      slug: "unzurna",
+      title: "Say 'unzurna'",
+      line: "Don't say 'ra'ina', say 'unzurna', and listen well.",
+      facts: ["Choose clear, kind words", "Respect the Prophet ﷺ"],
+      quote: q2(104),
+      source: ik(104, "Some people twisted the word ra'ina into an insult. Allah told the believers to say unzurna, 'look at us, be patient with us', instead, and to listen."),
+      difficulty: 3,
+      questions: [
+        { q: "Which word were believers told to use, in 2:104?", a: "Unzurna", wrong: ["Ra'ina", "Ya Muhammad", "Hey you"], why: "Unzurna: look at us." },
+        { q: "Why was 'ra'ina' left?", a: "Some twisted it into an insult", wrong: ["It was too long", "It was Persian", "It was a name"], why: "Ibn Kathir explains it." },
+        { q: "What does 2:104 teach about our words?", a: "Choose clear, respectful words", wrong: ["Words never matter", "Joke about anything", "Speak in riddles"], why: "Manners in speech." }
+      ]
+    },
+    {
+      slug: "better-ayah",
+      title: "Something better",
+      line: "When Allah changes a ruling, He brings one better or similar.",
+      facts: ["Naskh: replacing a ruling", "Allah is able"],
+      quote: q2(106),
+      source: ik(106, "Whatever ayah Allah abrogates or causes to be forgotten, He brings one better than it or like it. Allah is able to do all things, and the kingdom of the heavens and earth is His."),
+      difficulty: 4,
+      questions: [
+        { q: "When a ruling is replaced, what does Allah bring, in 2:106?", a: "One better or like it", wrong: ["Nothing", "Something worse", "A riddle"], why: "Quran 2:106." },
+        { q: "Why can Allah do this?", a: "He is able to do all things", wrong: ["He changed His mind", "He forgot", "People voted"], why: "His is the kingdom." },
+        { q: "Which ruling changed later in Al-Baqarah?", a: "The direction of prayer", wrong: ["Belief in Allah", "Honesty", "Kindness to parents"], why: "The qiblah, in 2:142-150." }
+      ]
+    },
+    {
+      slug: "forgive-overlook",
+      title: "Forgive and overlook",
+      line: "Forgive and overlook until Allah brings His command.",
+      facts: ["Patience with others", "Good deeds sent ahead"],
+      quote: q2(109),
+      source: ik(109, "Many wished to turn the believers back from faith out of envy; Allah told the believers to forgive and overlook, and to keep praying and giving zakah, for whatever good they send ahead they will find with Allah."),
+      difficulty: 2,
+      questions: [
+        { q: "What were believers told to do in 2:109?", a: "Forgive and overlook", wrong: ["Take revenge", "Give up faith", "Argue all day"], why: "Fa'fu wasfahu." },
+        { q: "What happens to good you send ahead, in 2:110?", a: "You find it with Allah", wrong: ["It is lost", "It is forgotten", "It goes to others"], why: "Quran 2:110." },
+        { q: "A classmate teases you for your faith. What fits 2:109?", a: "Stay calm, forgive and keep praying", wrong: ["Shout back", "Stop praying", "Tease them worse"], why: "Patience and prayer." }
+      ]
+    },
+    {
+      slug: "submits-face",
+      title: "Submit and do good",
+      line: "Whoever submits to Allah and does good has his reward.",
+      facts: ["Islam plus ihsan", "No fear, no grief"],
+      quote: q2(112),
+      source: ik(112, "Whoever submits his face to Allah sincerely, and is a muhsin following the right way, will have his reward with his Lord. Deeds need sincerity and the right way to be accepted."),
+      difficulty: 3,
+      questions: [
+        { q: "Who has his reward with his Lord, in 2:112?", a: "Whoever submits to Allah and does good", wrong: ["Whoever is born rich", "Whoever claims it", "Whoever is famous"], why: "Quran 2:112." },
+        { q: "What two things make a deed accepted, says Ibn Kathir?", a: "Sincerity and the right way", wrong: ["Size and speed", "Money and fame", "Luck and age"], why: "For Allah, as He taught." },
+        { q: "Just claiming Jannah is enough.", tf: false, why: "Bring proof: faith and good deeds." }
+      ]
+    },
+    {
+      slug: "masajid",
+      title: "Keep the masjids open",
+      line: "Who is more wrong than one who stops Allah's name in masjids?",
+      facts: ["Masjids are for remembrance", "Keep them open and alive"],
+      quote: q2(114),
+      source: ik(114, "Who is more unjust than one who prevents Allah's name from being mentioned in His masjids and works to ruin them? Masjids are for Allah's remembrance."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 2:114 call blocking Allah's name in masjids?", a: "The worst wrong", wrong: ["A small thing", "A good deed", "A game"], why: "Who is more unjust?" },
+        { q: "What are masjids for?", a: "Remembering Allah", wrong: ["Shouting", "Selling goods", "Playing loud games"], why: "Allah's name is mentioned there." },
+        { q: "Helping keep a masjid clean and open is good.", tf: true, why: "The opposite of 2:114." }
+      ]
+    },
+    {
+      slug: "east-west",
+      title: "East and west",
+      line: "East and west are Allah's; wherever you turn, there is Allah.",
+      facts: ["Prayed on his camel", "Sahih Muslim 700c"],
+      quote: q2(115),
+      source: hadith("muslim", "700c", "Ibn Umar", "Sahih", "The Messenger of Allah ﷺ prayed voluntary prayer on his camel while coming from Makkah to Madinah, whichever way it faced, and about this the ayah came: wherever you turn, there is the Face of Allah."),
+      difficulty: 3,
+      questions: [
+        { q: "To whom do the east and the west belong, in 2:115?", a: "To Allah", wrong: ["To kings", "To nobody", "To the sun"], why: "Quran 2:115." },
+        { q: "How did he ﷺ pray voluntary prayers on a journey?", a: "On his camel, whichever way it faced", wrong: ["He never did", "Only standing on the ground", "Only at home"], why: "Muslim 700c." },
+        { q: "Can Allah be worshipped anywhere?", a: "Yes, all the earth is His", wrong: ["Only in one city", "Only indoors", "Only in the morning"], why: "East and west are His." }
+      ]
+    },
+    {
+      slug: "kun",
+      title: "Be, and it is",
+      line: "Allah has no son. He says 'Be', and it is.",
+      facts: ["Kun fayakun", "Everything obeys Him"],
+      quote: q2(117),
+      source: ik(117, "They said Allah has taken a son; glory be to Him! All in the heavens and earth belong to Him and obey Him. He originated the heavens and earth, and when He decrees a thing He only says to it 'Be', and it is."),
+      difficulty: 2,
+      questions: [
+        { q: "What does Allah say when He decrees a thing, in 2:117?", a: "Be", wrong: ["Wait", "Maybe", "Later"], why: "Kun fayakun." },
+        { q: "Does Allah need a son?", a: "No, glory be to Him", wrong: ["Yes", "Sometimes", "Only one"], why: "Everything already belongs to Him." },
+        { q: "Badi' in 2:117 means...", a: "Originator, making without a model", wrong: ["Copier", "Builder of houses", "Painter"], why: "He made the heavens and earth from nothing." }
+      ]
+    },
+    {
+      slug: "haqqa-tilawah",
+      title: "Recite it as it deserves",
+      line: "Those who recite the Book as it deserves truly believe in it.",
+      facts: ["Read, understand, follow", "Halal and haram"],
+      quote: q2(121),
+      source: ik(121, "Those given the Book who recite it as it should be recited are true believers. Ibn Mas'ud said: reciting it properly means making its halal halal, its haram haram, and not twisting its words."),
+      difficulty: 3,
+      questions: [
+        { q: "What does 'haqqa tilawatihi' mean?", a: "Reciting it as it deserves", wrong: ["Reciting it fast", "Reading it once", "Singing it loudly"], why: "Quran 2:121." },
+        { q: "What did Ibn Mas'ud say proper reciting includes?", a: "Following its halal and haram", wrong: ["Only a nice voice", "Only speed", "Only the stories"], why: "And not twisting its words." },
+        { q: "Reading the Quran well means living by it too.", tf: true, why: "Ibn Kathir quotes Ibn Mas'ud." }
+      ]
+    },
+    {
+      slug: "ibrahim-tested",
+      title: "Ibrahim was tested",
+      line: "Allah tested Ibrahim with commands; he fulfilled them all.",
+      facts: ["Made an imam for people", "Not for wrongdoers"],
+      quote: q2(124),
+      source: ik(124, "Allah tested Ibrahim with commands and he fulfilled them, so Allah made him an imam for people. Ibrahim asked: and from my children? Allah said: My promise does not reach the wrongdoers."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah make Ibrahim after his tests?", a: "An imam, a leader for people", wrong: ["A king", "A trader", "A poet"], why: "Quran 2:124." },
+        { q: "What did Ibrahim ask for his children?", a: "That some be leaders too", wrong: ["Gold", "Long life", "Nothing"], why: "And from my children?" },
+        { q: "Whom does Allah's promise not reach, in 2:124?", a: "The wrongdoers", wrong: ["The poor", "The young", "Travelers"], why: "La yanalu 'ahdi az-zalimin." }
+      ]
+    },
+    {
+      slug: "safe-house",
+      title: "A house of safety",
+      line: "Allah made the House a place to return to, and of safety.",
+      facts: ["Maqam Ibrahim", "Umar's wish, Bukhari 402"],
+      quote: q2(125),
+      source: hadith("bukhari", "402", "Umar ibn al-Khattab", "Sahih", "My Lord agreed with me in three things. I said: O Messenger of Allah ﷺ, I wish we took the Station of Ibrahim as a place of prayer; then came the ayah: take the Station of Ibrahim as a place of prayer."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah make the House, in 2:125?", a: "A place of return and safety", wrong: ["A market", "A palace", "A fort for war"], why: "Mathabatan lin-nasi wa amna." },
+        { q: "Whose wish matched the ayah about Maqam Ibrahim?", a: "Umar", wrong: ["Abu Jahl", "Abu Lahab", "Qarun"], why: "Bukhari 402." },
+        { q: "Who were told to purify the House for worshippers?", a: "Ibrahim and Isma'il", wrong: ["Musa and Harun", "Dawud and Sulayman", "Yunus and Ayyub"], why: "Quran 2:125." }
+      ]
+    },
+    {
+      slug: "city-safe",
+      title: "Make this city safe",
+      line: "Ibrahim prayed: make this a safe city and feed its people.",
+      facts: ["Makkah's safety", "Fruits brought from far"],
+      quote: q2(126),
+      source: ik(126, "Ibrahim prayed: my Lord, make this a secure city and provide its people with fruits, those who believe. Allah said: and whoever disbelieves, I will let him enjoy a little."),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ibrahim ask for Makkah, in 2:126?", a: "Safety and food", wrong: ["Rivers of gold", "Tall towers", "A big army"], why: "A secure city with fruits." },
+        { q: "Did Ibrahim's dua come true?", a: "Yes, Makkah is safe and fed", wrong: ["No", "Only for a day", "Nobody knows"], why: "Fruits reach it from everywhere." },
+        { q: "What does 2:126 teach us to do?", a: "Make dua for our cities", wrong: ["Never ask Allah", "Only ask for ourselves", "Give up hope"], why: "Follow Ibrahim's way." }
+      ]
+    },
+    {
+      slug: "raising-house",
+      title: "Raising the House",
+      line: "Ibrahim and Isma'il raised the Ka'bah: Lord, accept from us.",
+      facts: ["Working and praying", "Rabbana taqabbal minna"],
+      quote: q2(127),
+      source: ik(127, "Ibrahim and Isma'il raised the foundations of the House, saying: our Lord, accept from us; You are the All-Hearing, All-Knowing. They did a great deed and still feared it might not be accepted."),
+      difficulty: 2,
+      questions: [
+        { q: "Who raised the foundations of the Ka'bah, in 2:127?", a: "Ibrahim and Isma'il", wrong: ["Nuh and his son", "Musa and Harun", "Adam alone"], why: "Quran 2:127." },
+        { q: "What did they pray while working?", a: "Our Lord, accept from us", wrong: ["Make us famous", "Pay us well", "Let us rest"], why: "Rabbana taqabbal minna." },
+        { q: "After a good deed, what does their dua teach?", a: "Ask Allah to accept it", wrong: ["Boast about it", "Forget Allah", "Ask for praise"], why: "Humble even after great work." }
+      ]
+    },
+    {
+      slug: "make-us-muslim",
+      title: "Make us Muslims",
+      line: "Make us submit to You, and our children; show us our rites.",
+      facts: ["Dua for the children", "Show us our manasik"],
+      quote: q2(128),
+      source: ik(128, "Ibrahim and Isma'il prayed: our Lord, make us Muslims, submitting to You, and from our children a nation submitting to You, show us our rites of worship and accept our repentance."),
+      difficulty: 2,
+      questions: [
+        { q: "What did they ask for their children, in 2:128?", a: "A nation submitting to Allah", wrong: ["Riches", "Fame", "Power"], why: "Wa min dhurriyyatina." },
+        { q: "What does 'manasik' mean in 2:128?", a: "Rites of worship", wrong: ["Markets", "Houses", "Songs"], why: "Show us how to worship You." },
+        { q: "Even prophets asked Allah to accept their repentance.", tf: true, why: "Wa tub 'alayna." }
+      ]
+    },
+    {
+      slug: "send-messenger",
+      title: "Send them a messenger",
+      line: "Ibrahim prayed for a messenger; Allah sent Muhammad ﷺ.",
+      facts: ["Recite, teach, purify", "Dua answered"],
+      quote: q2(129),
+      source: ik(129, "Ibrahim prayed that Allah send to the people of Makkah a messenger from among them, to recite His ayahs, teach them the Book and wisdom and purify them. Allah answered with Muhammad ﷺ."),
+      difficulty: 2,
+      questions: [
+        { q: "Who answered Ibrahim's dua in 2:129?", a: "Muhammad ﷺ", wrong: ["Musa", "Sulayman", "Yusuf"], why: "A messenger from among them." },
+        { q: "What would the messenger do, in 2:129?", a: "Recite, teach and purify", wrong: ["Collect taxes", "Build palaces", "Lead wars only"], why: "Quran 2:129." },
+        { q: "A dua can be answered long after it is made.", tf: true, why: "Ibrahim's dua, answered centuries later." }
+      ]
+    },
+    {
+      slug: "deen-ibrahim",
+      title: "The way of Ibrahim",
+      line: "Who turns from Ibrahim's way, except one who fools himself?",
+      facts: ["Chosen in this world", "Righteous in the next"],
+      quote: q2(130),
+      source: ik(130, "No one turns away from the religion of Ibrahim, pure tawhid, except one who fools himself. Allah chose him in this world, and in the Hereafter he is among the righteous."),
+      difficulty: 2,
+      questions: [
+        { q: "Who turns away from Ibrahim's way, in 2:130?", a: "One who fools himself", wrong: ["A wise person", "A scholar", "A prophet"], why: "Illa man safiha nafsah." },
+        { q: "What was at the heart of Ibrahim's way?", a: "Worshipping Allah alone", wrong: ["Idols", "Stars", "Kings"], why: "Pure tawhid." },
+        { q: "Where is Ibrahim in the Hereafter, in 2:130?", a: "Among the righteous", wrong: ["Forgotten", "Among the losers", "Unknown"], why: "Quran 2:130." }
+      ]
+    },
+    {
+      slug: "wasiyyah",
+      title: "A father's last advice",
+      line: "Ibrahim and Ya'qub told their sons: die only as Muslims.",
+      facts: ["'What will you worship?'", "Faith passed on"],
+      quote: q2(133),
+      source: ik(133, "Ibrahim advised his sons, and so did Ya'qub: Allah chose this religion for you, so do not die except as Muslims. At death Ya'qub asked: what will you worship after me? They said: your God, the God of your fathers."),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ya'qub ask his sons at death, in 2:133?", a: "What will you worship after me?", wrong: ["Who gets my money?", "Where will you live?", "What will you eat?"], why: "His biggest worry was their faith." },
+        { q: "What did they answer?", a: "Your God, the One God", wrong: ["Our money", "The stars", "Nothing"], why: "The God of Ibrahim, Isma'il and Ishaq." },
+        { q: "What does this teach parents?", a: "Care most about children's faith", wrong: ["Only leave wealth", "Never talk about faith", "Only care for grades"], why: "Faith is the best gift." }
+      ]
+    },
+    {
+      slug: "passed-nation",
+      title: "A nation that has passed",
+      line: "They have what they earned; you have what you earned.",
+      facts: ["Your own deeds count", "No borrowing good deeds"],
+      quote: q2(134),
+      source: ik(134, "That was a nation that has passed away. They have what they earned and you have what you earned; being related to righteous people will not help you without your own deeds."),
+      difficulty: 2,
+      questions: [
+        { q: "Does a good ancestor save you without your own deeds?", a: "No", wrong: ["Yes, always", "Yes, if famous", "Only on Fridays"], why: "You have what you earned." },
+        { q: "Will you be asked about others' deeds, in 2:134?", a: "No, only your own", wrong: ["Yes, everyone's", "Only your parents'", "Only your friends'"], why: "Wa la tus'aluna 'amma kanu ya'malun." },
+        { q: "Honor righteous ancestors by doing good like them.", tf: true, why: "Ibn Kathir explains it." }
+      ]
+    },
+    {
+      slug: "all-prophets",
+      title: "We believe in all of them",
+      line: "We believe in all the prophets and make no division among them.",
+      facts: ["Ibrahim to Isa", "We submit to Him"],
+      quote: q2(136),
+      source: ik(136, "Say: we believe in Allah and what was sent to us, and to Ibrahim, Isma'il, Ishaq, Ya'qub and the tribes, and what Musa, Isa and the prophets were given; we make no distinction between any of them."),
+      difficulty: 2,
+      questions: [
+        { q: "Which prophets do Muslims believe in, in 2:136?", a: "All of them", wrong: ["Only Muhammad ﷺ", "Only Musa", "Only Ibrahim"], why: "No distinction among them." },
+        { q: "Which of these is named in 2:136?", a: "Isa", wrong: ["Luqman", "Dhul-Qarnayn", "Khidr"], why: "Musa and Isa are named." },
+        { q: "Believing in one prophet and rejecting another is fine.", tf: false, why: "Quran 2:136." }
+      ]
+    },
+    {
+      slug: "sibghah",
+      title: "Allah's color",
+      line: "Take the sibghah of Allah: His religion; whose color is better?",
+      facts: ["Sibghah: dye, color", "Islam colors life"],
+      quote: q2(138),
+      source: ik(138, "Our sibghah is the sibghah of Allah, and whose sibghah is better than Allah's? Ibn Abbas and others said it means the religion of Allah."),
+      difficulty: 3,
+      questions: [
+        { q: "What does 'sibghah' literally mean?", a: "A dye or color", wrong: ["A song", "A house", "A sword"], why: "Like dye soaking cloth." },
+        { q: "What is 'the sibghah of Allah', says Ibn Abbas?", a: "Allah's religion", wrong: ["A flag", "A painting", "A rainbow"], why: "Ibn Kathir reports it." },
+        { q: "Like dye, faith should show in all our life.", tf: true, why: "Whose color is better than Allah's?" }
+      ]
+    },
+    {
+      slug: "fools-qiblah",
+      title: "'Why did they turn?'",
+      line: "Fools will ask why the Muslims turned from their old qiblah.",
+      facts: ["East and west are His", "He guides whom He wills"],
+      quote: q2(142),
+      source: ik(142, "The foolish among people will say: what turned them away from their qiblah? Say: to Allah belong the east and the west; He guides whom He wills to a straight path."),
+      difficulty: 2,
+      questions: [
+        { q: "What did foolish people question, in 2:142?", a: "The change of qiblah", wrong: ["The fasting", "The adhan", "The Friday sermon"], why: "What turned them from their qiblah?" },
+        { q: "What is the answer in 2:142?", a: "East and west belong to Allah", wrong: ["We got lost", "The old one broke", "It was a mistake"], why: "Lillahil-mashriqu wal-maghrib." },
+        { q: "Which way did the Muslims face before the Ka'bah?", a: "Jerusalem (Bayt al-Maqdis)", wrong: ["Yemen", "Egypt", "Persia"], why: "For sixteen or seventeen months." }
+      ]
+    },
+    {
+      slug: "middle-nation",
+      title: "A middle nation",
+      line: "Allah made this ummah a just middle nation, witnesses for all.",
+      facts: ["Wasat: just and best", "Witnesses for Nuh"],
+      quote: q2(143),
+      source: hadith("bukhari", "4487", "Abu Sa'id al-Khudri", "Sahih", "Nuh will be asked: did you convey the Message? He will say yes. His people will deny it, and Muhammad ﷺ and his followers will testify for him. That is the meaning of: We made you a just nation, that you be witnesses."),
+      difficulty: 3,
+      questions: [
+        { q: "What does 'wasat' mean in 2:143?", a: "Just and best, balanced", wrong: ["Small", "Lazy", "Late"], why: "Ibn Kathir explains it." },
+        { q: "For which prophet will this ummah testify?", a: "Nuh", wrong: ["Fir'awn", "Qarun", "Haman"], why: "Bukhari 4487." },
+        { q: "What is a balanced ummah like?", a: "Fair, not extreme either way", wrong: ["Harsh to everyone", "Careless about religion", "Always in the middle of fights"], why: "Just and the best." }
+      ]
+    },
+    {
+      slug: "faith-not-lost",
+      title: "Your prayers were not lost",
+      line: "Allah would never let the prayers before the change go to waste.",
+      facts: ["Sahih al-Bukhari 4486", "Allah is Most Kind"],
+      quote: q2(143),
+      source: hadith("bukhari", "4486", "Al-Bara ibn Azib", "Sahih", "He ﷺ prayed toward Jerusalem for sixteen or seventeen months, wishing for the Ka'bah. Some men had died before the change, and people wondered about them; Allah revealed: Allah would never let your faith be lost."),
+      difficulty: 3,
+      questions: [
+        { q: "What worried people about those who died before the change?", a: "Whether their prayers counted", wrong: ["Their houses", "Their debts", "Their names"], why: "Bukhari 4486." },
+        { q: "What did Allah answer, in 2:143?", a: "He would never let your faith be lost", wrong: ["Pray them again", "They are lost", "Nobody knows"], why: "Wa ma kanallahu liyudi'a imanakum." },
+        { q: "'Faith' in 2:143 includes the prayers they prayed.", tf: true, why: "Al-Bara's report." }
+      ]
+    },
+    {
+      slug: "turn-face",
+      title: "Turn to the Ka'bah",
+      line: "We see you look to the sky; now turn to al-Masjid al-Haram.",
+      facts: ["He ﷺ longed for it", "Wherever you are"],
+      quote: q2(144),
+      source: ik(144, "The Prophet ﷺ kept looking to the sky hoping for the qiblah to change to the Ka'bah. Allah said: We will turn you to a qiblah that pleases you; so turn your face toward al-Masjid al-Haram, wherever you are."),
+      difficulty: 2,
+      questions: [
+        { q: "Why did he ﷺ keep looking to the sky?", a: "Hoping the qiblah would change", wrong: ["Watching the weather", "Counting stars", "Looking for birds"], why: "Quran 2:144." },
+        { q: "Which way do Muslims face in prayer since 2:144?", a: "The Ka'bah in Makkah", wrong: ["The sunrise", "Jerusalem", "Any way they like"], why: "Shatral-Masjidil-Haram." },
+        { q: "Do Muslims everywhere face the same Ka'bah?", a: "Yes, wherever they are", wrong: ["No, only in Makkah", "Only on Friday", "Only in Ramadan"], why: "Wa haythu ma kuntum." }
+      ]
+    },
+    {
+      slug: "quba-turn",
+      title: "Turning mid-prayer",
+      line: "People at Quba heard the news and turned during their prayer.",
+      facts: ["Sahih al-Bukhari 4488", "Obeying at once"],
+      quote: q2(144),
+      source: hadith("bukhari", "4488", "Ibn Umar", "Sahih", "While people were praying Fajr in the Quba mosque, someone came and said Allah had revealed that they should face the Ka'bah, so they turned toward the Ka'bah."),
+      difficulty: 2,
+      questions: [
+        { q: "Where were the people praying Fajr?", a: "The Quba mosque", wrong: ["In Makkah", "In Taif", "In Jerusalem"], why: "Bukhari 4488." },
+        { q: "What did they do when they heard?", a: "Turned to the Ka'bah at once", wrong: ["Waited a year", "Argued", "Left the masjid"], why: "They obeyed right away." },
+        { q: "What does their turning teach?", a: "Obey Allah quickly", wrong: ["Delay obeying", "Ask many questions first", "Ignore news"], why: "Unlike the people of the cow." }
+      ]
+    },
+    {
+      slug: "race-good",
+      title: "Race to good",
+      line: "Everyone faces some direction, so race each other to good.",
+      facts: ["Fastabiqul-khayrat", "Allah gathers all"],
+      quote: q2(148),
+      source: ik(148, "Every nation has a direction it faces, so hasten to good deeds. Wherever you are, Allah will bring you all together; Allah is able to do all things."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 'fastabiqul-khayrat' mean?", a: "Race to good deeds", wrong: ["Race to be rich", "Run away", "Win every game"], why: "Quran 2:148." },
+        { q: "What will Allah do wherever we are?", a: "Bring us all together", wrong: ["Forget us", "Leave us", "Split us forever"], why: "On the Day of Resurrection." },
+        { q: "Your friend gave charity first. What fits 2:148?", a: "Be happy and race to do good too", wrong: ["Feel jealous", "Stop giving", "Mock them"], why: "A good kind of competition." }
+      ]
+    },
+    {
+      slug: "remember-me",
+      title: "Remember Me",
+      line: "Remember Me and I will remember you; be grateful.",
+      facts: ["Sahih al-Bukhari 7405", "Allah draws near"],
+      quote: q2(152),
+      source: hadith("bukhari", "7405", "Abu Hurairah", "Sahih", "Allah says: I am as My servant thinks of Me, and I am with him when he remembers Me. If he remembers Me in himself, I remember him in Myself; if in a gathering, I remember him in a better gathering."),
+      difficulty: 2,
+      questions: [
+        { q: "What does Allah promise in 2:152?", a: "Remember Me, I will remember you", wrong: ["Pay Me, I pay you", "Forget Me", "Wait for Me"], why: "Fadhkuruni adhkurkum." },
+        { q: "If you remember Allah in a gathering, He...", a: "Remembers you in a better gathering", wrong: ["Ignores it", "Forgets you", "Waits a year"], why: "Bukhari 7405." },
+        { q: "What else does 2:152 ask of us?", a: "Be grateful, not ungrateful", wrong: ["Be loud", "Be rich", "Be famous"], why: "Washkuru li wa la takfurun." }
+      ]
+    },
+    {
+      slug: "with-patient",
+      title: "Allah is with the patient",
+      line: "Seek help in patience and prayer; Allah is with the patient.",
+      facts: ["Sahih Muslim 2999", "Good in every state"],
+      quote: q2(153),
+      source: hadith("muslim", "2999", "Suhaib", "Sahih", "How wonderful is the believer's affair: all of it is good. If something good comes, he is grateful, and that is good for him; if a hardship comes, he is patient, and that is good for him."),
+      difficulty: 2,
+      questions: [
+        { q: "Who is Allah with, in 2:153?", a: "The patient", wrong: ["The proud", "The loud", "The lazy"], why: "Innallaha ma'as-sabirin." },
+        { q: "What should a believer do when good comes, in Muslim 2999?", a: "Be grateful", wrong: ["Boast", "Hide it", "Waste it"], why: "Gratitude is good for him." },
+        { q: "And when hardship comes?", a: "Be patient", wrong: ["Give up", "Complain to everyone", "Stop praying"], why: "Patience is good for him." }
+      ]
+    },
+    {
+      slug: "alive",
+      title: "They are alive",
+      line: "Don't call those who die in Allah's way dead: they are alive.",
+      facts: ["Alive with their Lord", "We cannot perceive it"],
+      quote: q2(154),
+      source: ik(154, "Allah said do not say about those who die in His way that they are dead; rather they are alive, given provision with their Lord, but you do not perceive it."),
+      difficulty: 3,
+      questions: [
+        { q: "What does 2:154 say about those who die in Allah's way?", a: "They are alive", wrong: ["They are forgotten", "They are lost", "They are asleep forever"], why: "Bal ahya'." },
+        { q: "Can we see their life?", a: "No, we do not perceive it", wrong: ["Yes, always", "Only at night", "Only scholars can"], why: "Wa lakin la tash'urun." },
+        { q: "Their life is with their Lord, not on this earth.", tf: true, why: "Ibn Kathir explains it." }
+      ]
+    },
+    {
+      slug: "tests",
+      title: "We will test you",
+      line: "We are tested with fear, hunger and loss; the patient win.",
+      facts: ["Tests are certain", "Patience wins"],
+      quote: q2(155),
+      source: ik(155, "Allah tells us He will test His servants with some fear and hunger, and loss of wealth, lives and fruits; whoever is patient is rewarded, and whoever despairs is not."),
+      difficulty: 2,
+      questions: [
+        { q: "Which of these is a test named in 2:155?", a: "Hunger", wrong: ["Too much sleep", "Long holidays", "Too many friends"], why: "Fear, hunger, loss of wealth, lives and fruits." },
+        { q: "Who gets good news in 2:155?", a: "The patient", wrong: ["The richest", "The fastest", "The tallest"], why: "Wa bashshiris-sabirin." },
+        { q: "Being tested means Allah does not love you.", tf: false, why: "Tests come to everyone, to raise the patient." }
+      ]
+    },
+    {
+      slug: "inna-lillah",
+      title: "To Allah we belong",
+      line: "In loss, say: to Allah we belong, and to Him we return.",
+      facts: ["Sahih Muslim 918a", "Umm Salamah's story"],
+      quote: q2(156),
+      source: hadith("muslim", "918a", "Umm Salamah", "Sahih", "Any Muslim struck by a calamity who says what Allah commanded, 'to Allah we belong and to Him we return; O Allah, reward me in my loss and give me better', Allah gives him better. When Abu Salamah died she said it, and Allah gave her the Messenger of Allah ﷺ."),
+      difficulty: 2,
+      questions: [
+        { q: "What do the patient say in hardship, in 2:156?", a: "To Allah we belong and to Him we return", wrong: ["It's not fair", "Why me?", "I give up"], why: "Inna lillahi wa inna ilayhi raji'un." },
+        { q: "What did Umm Salamah get after saying the dua?", a: "Someone better: the Prophet ﷺ as husband", wrong: ["Nothing", "Gold", "A palace"], why: "Muslim 918a." },
+        { q: "What is added to the dua in Muslim 918a?", a: "O Allah, reward me and give me better", wrong: ["Take everything", "Make me famous", "Punish others"], why: "Allahumma'jurni fi musibati." }
+      ]
+    },
+    {
+      slug: "safa-marwah",
+      title: "Safa and Marwah",
+      line: "Safa and Marwah are among the signs of Allah.",
+      facts: ["Hajar ran between them", "Aishah taught Urwah"],
+      quote: q2(158),
+      source: hadith("bukhari", "1643", "Aishah", "Sahih", "Urwah thought 2:158 meant walking between Safa and Marwah could be skipped. Aishah said: no, my nephew; the ayah came because some Ansar felt unsure about it, and the Messenger of Allah ﷺ made the walk between them a practice."),
+      difficulty: 3,
+      questions: [
+        { q: "What are Safa and Marwah, in 2:158?", a: "Signs of Allah", wrong: ["Two rivers", "Two cities", "Two palaces"], why: "Min sha'a'irillah." },
+        { q: "Who corrected Urwah's understanding of 2:158?", a: "Aishah", wrong: ["Abu Jahl", "Abu Lahab", "Fir'awn"], why: "Bukhari 1643." },
+        { q: "Which mother ran between Safa and Marwah looking for water?", a: "Hajar, mother of Isma'il", wrong: ["Maryam", "Asiyah", "Sarah"], why: "Pilgrims walk where she walked." }
+      ]
+    },
+    {
+      slug: "hiding-truth",
+      title: "Hiding the clear signs",
+      line: "Hiding Allah's guidance is a great sin, unless one repents.",
+      facts: ["Repent, reform, make clear", "Allah accepts tawbah"],
+      quote: q2(160),
+      source: ik(159, "Those who hide the clear proofs and guidance Allah revealed are cursed, except those who repent, correct themselves and make the truth clear; Allah accepts their repentance, He is the Most Merciful."),
+      difficulty: 3,
+      questions: [
+        { q: "What is the sin in 2:159?", a: "Hiding Allah's clear guidance", wrong: ["Teaching it", "Writing it down", "Sharing it"], why: "Quran 2:159." },
+        { q: "What three things save them, in 2:160?", a: "Repent, reform, make it clear", wrong: ["Hide it better", "Move away", "Stay silent"], why: "Illal-ladhina tabu wa aslahu wa bayyanu." },
+        { q: "Allah accepts repentance even after a big sin.", tf: true, why: "At-Tawwab ar-Rahim." }
+      ]
+    },
+    {
+      slug: "one-god",
+      title: "Your God is One",
+      line: "Your God is One God; none is worshipped but Him, the Merciful.",
+      facts: ["Ar-Rahman, Ar-Rahim", "Tawhid"],
+      quote: q2(163),
+      source: ik(163, "Allah tells us He is One with no partner and no equal; He is the One God, there is no god but Him, Ar-Rahman, Ar-Rahim."),
+      difficulty: 1,
+      questions: [
+        { q: "How many gods does 2:163 say there are?", a: "One God", wrong: ["Two", "Three", "Many"], why: "Wa ilahukum ilahun wahid." },
+        { q: "Which two names of Allah end 2:163?", a: "Ar-Rahman, Ar-Rahim", wrong: ["Al-Malik, Al-Quddus", "Al-Ghafur, Al-Wadud", "As-Sami', Al-Basir"], why: "The Most Merciful, the Especially Merciful." },
+        { q: "Is anyone else worthy of worship?", a: "No one", wrong: ["Angels", "Prophets", "Saints"], why: "La ilaha illa huwa." }
+      ]
+    },
+    {
+      slug: "signs",
+      title: "Signs for those who think",
+      line: "Sky, earth, night, day, ships, rain: signs for thinking people.",
+      facts: ["Winds and clouds", "Look and reflect"],
+      quote: q2(164),
+      source: ik(164, "In the creation of the heavens and earth, the alternation of night and day, ships sailing the sea, rain that revives the earth, animals spread on it, the winds and the clouds, are signs for people who reason."),
+      difficulty: 2,
+      questions: [
+        { q: "Which is named as a sign in 2:164?", a: "Ships sailing the sea", wrong: ["Cars", "Planes", "Phones"], why: "Quran 2:164." },
+        { q: "Who benefits from these signs?", a: "People who reason", wrong: ["People who sleep", "People who never look", "Nobody"], why: "Li-qawmin ya'qilun." },
+        { q: "Watching clouds and rain can be worship when you reflect.", tf: true, why: "They point to the Creator." }
+      ]
+    },
+    {
+      slug: "love-allah",
+      title: "Love Allah most",
+      line: "Some love idols like they love Allah; believers love Allah more.",
+      facts: ["Love that leads to obeying", "Leaders will disown"],
+      quote: q2(165),
+      source: ik(165, "Some people take rivals besides Allah and love them as they love Allah; but the believers are stronger in their love for Allah. On that Day the leaders will disown their followers."),
+      difficulty: 3,
+      questions: [
+        { q: "Who loves Allah the most, in 2:165?", a: "The believers", wrong: ["The idol makers", "The leaders", "Nobody"], why: "Wal-ladhina amanu ashaddu hubban lillah." },
+        { q: "What will leaders do to their followers, in 2:166?", a: "Disown them", wrong: ["Save them", "Pay them", "Thank them"], why: "Quran 2:166." },
+        { q: "Whom should we love most?", a: "Allah", wrong: ["Our phones", "Famous people", "Money"], why: "Then His Messenger ﷺ, then others for His sake." }
+      ]
+    },
+    {
+      slug: "halal-tayyib",
+      title: "Halal and good",
+      line: "Eat what is halal and good; don't follow Shaytan's footsteps.",
+      facts: ["Sahih Muslim 1015", "Halal food, answered dua"],
+      quote: q2(168),
+      source: hadith("muslim", "1015", "Abu Hurairah", "Sahih", "Allah is Good and accepts only what is good. He mentioned a traveler, dusty and disheveled, raising his hands: O Lord, O Lord, while his food, drink and clothing are haram; so how can he be answered?"),
+      difficulty: 2,
+      questions: [
+        { q: "What food does 2:168 tell people to eat?", a: "Halal and good", wrong: ["Anything at all", "Only meat", "Only bread"], why: "Halalan tayyiba." },
+        { q: "Whose footsteps should we not follow?", a: "Shaytan's", wrong: ["The prophets'", "Our teachers'", "Good friends'"], why: "Quran 2:168." },
+        { q: "What can stop a dua being answered, in Muslim 1015?", a: "Haram food and clothing", wrong: ["Short hair", "A long trip", "Asking twice"], why: "Allah accepts only what is good." }
+      ]
+    },
+    {
+      slug: "fathers-way",
+      title: "'Our fathers did it'",
+      line: "We follow our fathers, they say, even if fathers were misguided.",
+      facts: ["Follow proof, not habit", "Think for yourself"],
+      quote: q2(170),
+      source: ik(170, "When told to follow what Allah revealed, they say: we follow what we found our fathers doing. Even if their fathers understood nothing and had no guidance?"),
+      difficulty: 2,
+      questions: [
+        { q: "What excuse do they give in 2:170?", a: "We follow our fathers", wrong: ["We are tired", "We are hungry", "We are busy"], why: "Quran 2:170." },
+        { q: "What does Allah ask about those fathers?", a: "What if they had no guidance?", wrong: ["Were they rich?", "Were they tall?", "Were they famous?"], why: "Even if they understood nothing?" },
+        { q: "What should decide what we follow?", a: "What Allah revealed", wrong: ["Old habits only", "What is popular", "Whatever is easy"], why: "Revelation over habit." }
+      ]
+    },
+    {
+      slug: "good-and-thanks",
+      title: "Eat and give thanks",
+      line: "Believers, eat the good things We gave you, and thank Allah.",
+      facts: ["Food is His gift", "Thank Him"],
+      quote: q2(172),
+      source: ik(172, "Allah commands the believers to eat from the good, lawful things He provided and to thank Him for it, if it is Him they worship."),
+      difficulty: 1,
+      questions: [
+        { q: "What does 2:172 ask after eating good things?", a: "Thank Allah", wrong: ["Sleep", "Complain", "Waste the rest"], why: "Washkuru lillah." },
+        { q: "Who gave us our food?", a: "Allah", wrong: ["Only the shop", "Luck", "Nobody"], why: "Min tayyibati ma razaqnakum." },
+        { q: "Saying alhamdulillah after eating fits 2:172.", tf: true, why: "Thanking Allah for food." }
+      ]
+    },
+    {
+      slug: "forbidden-food",
+      title: "What is forbidden",
+      line: "Forbidden: carrion, blood, pork, and food offered to idols.",
+      facts: ["Necessity is excused", "Allah is Forgiving"],
+      quote: q2(173),
+      source: ik(173, "Allah forbade dead animals, blood, the flesh of swine, and what is offered to other than Allah. Whoever is forced by need, not wanting it and not going beyond need, has no sin."),
+      difficulty: 2,
+      questions: [
+        { q: "Which of these does 2:173 forbid?", a: "Pork", wrong: ["Dates", "Milk", "Honey"], why: "The flesh of swine." },
+        { q: "What if a person is forced by hunger, with nothing else?", a: "No sin, taking only what is needed", wrong: ["Still a big sin", "Eat as much as you like", "Must starve"], why: "Quran 2:173." },
+        { q: "Food offered to an idol is halal.", tf: false, why: "Offered to other than Allah is forbidden." }
+      ]
+    },
+    {
+      slug: "small-price",
+      title: "Selling for a small price",
+      line: "Hiding the truth for a small price is a terrible trade.",
+      facts: ["Truth over money", "Allah won't speak to them"],
+      quote: q2(174),
+      source: ik(174, "Those who hide what Allah revealed of the Book and sell it for a small price eat nothing but fire into their bellies; Allah will not speak to them on the Day of Resurrection or purify them."),
+      difficulty: 3,
+      questions: [
+        { q: "For what did they hide the truth, in 2:174?", a: "A small worldly price", wrong: ["To protect people", "By mistake", "For Allah"], why: "Thamanan qalila." },
+        { q: "What does Allah not do with them on that Day?", a: "Speak to them or purify them", wrong: ["Count them", "See them", "Gather them"], why: "Quran 2:174." },
+        { q: "Telling the truth is better than money.", tf: true, why: "The lesson of 2:174." }
+      ]
+    }
+  ]
+};
+
+export const BAQARAH_UNITS: readonly DeepUnit[] = [BAQARAH_ONE, BAQARAH_TWO];
