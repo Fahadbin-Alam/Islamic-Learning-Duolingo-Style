@@ -11,6 +11,18 @@ import { QuranOfflineRow } from "./QuranOfflineRow";
 import { offlineAudioSupported } from "../../services/offlineAudio";
 import { t } from "../../i18n";
 import type { DifficultyChoice } from "../../types";
+import { PATH_WORLD_CHOICES, setPathWorldChoice, usePathWorldChoice, type PathWorldChoice } from "../../services/pathWorldChoice";
+import { WORLD_LABELS } from "../pathWorlds";
+
+// What each scenery pick shows on the Learn path.
+const WORLD_LINES: Record<PathWorldChoice, string> = {
+  auto: "Each unit is a new place.",
+  desert: "Dunes, palms and camels.",
+  beach: "Waves, crabs and boats.",
+  forest: "Pines, mushrooms and an owl.",
+  snow: "Snowy peaks and goats.",
+  camp: "Tents and horses at Badr."
+};
 
 export type LearnerRole = "child" | "parent";
 
@@ -95,6 +107,7 @@ export function SettingsSheet({
   const activeRole = ROLES.find((option) => option.id === role) ?? ROLES[0];
   const activeDifficulty = DIFFICULTIES.find((option) => option.id === difficulty) ?? DIFFICULTIES[0];
   const { ref, scrollProps, more, scrollDown } = useScrollMore();
+  const world = usePathWorldChoice();
 
   // The title and SAVE stay put; the rows scroll between them, with a bouncing arrow while some are hidden.
   return (
@@ -136,6 +149,24 @@ export function SettingsSheet({
               <Text style={styles.hint}>{t(activeDifficulty.line)}</Text>
             </View>
           ) : null}
+
+          <View style={styles.roles} testID="settings-scenery">
+            <Text style={styles.label}>{t("Path scenery")}</Text>
+            {[PATH_WORLD_CHOICES.slice(0, 3), PATH_WORLD_CHOICES.slice(3)].map((row) => (
+              <View key={row[0]} style={styles.segments}>
+                {row.map((choice) => (
+                  <SegmentButton
+                    key={choice}
+                    label={t(WORLD_LABELS[choice])}
+                    active={choice === world}
+                    onPress={() => setPathWorldChoice(choice)}
+                    testID={`settings-scenery-${choice}`}
+                  />
+                ))}
+              </View>
+            ))}
+            <Text style={styles.hint}>{t(WORLD_LINES[world])}</Text>
+          </View>
 
           {onOpenLanguage ? (
             <View style={styles.card}>

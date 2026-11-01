@@ -185,12 +185,15 @@ export const CAMEL_REACTIONS: { kind: CamelReaction; sound: GameSoundEvent; ms: 
   // Poof! Cooked into a roast on the bone... nom nom... and poof, back again, just kidding.
   { kind: "cooked", sound: "sizzle", ms: 3200 },
   { kind: "sad", sound: "sad", ms: 2200 },
-  { kind: "zoom", sound: "zoom", ms: 1700 },
+  { kind: "zoom", sound: "zoom", ms: 2300 },
   { kind: "spit", sound: "spit", ms: 1600 },
   { kind: "laugh", sound: "giggle", ms: 1800 },
   { kind: "baby", sound: "sparkle", ms: 2800 },
   { kind: "jump", sound: "camel", ms: 760 }
 ];
+
+/** The sprint's beats, as parts of its clock: turn left, wind up, gone, back in from the right, skid, turn back. */
+const ZOOM = { turn: 0.07, windUp: 0.2, gone: 0.3, enter: 0.44, skid: 0.66, back: 0.8 };
 
 const FACE_FOR: Record<CamelReaction, CamelFaceKind> = {
   happy: "happy",
@@ -243,6 +246,8 @@ export const Camel = memo(function Camel({
   const walk = useRef<{ running: boolean; current?: Animated.CompositeAnimation }>({ running: false });
 
   const [reaction, setReaction] = useState<CamelReaction | null>(null);
+  /** Where the sprint set off from (px from the box's left), for the dust it leaves behind. */
+  const [dustAt, setDustAt] = useState(0);
   const { value: t, play } = useOneShot();
   const next = useCycle(CAMEL_REACTIONS.length);
   const moving = walking && !reduceMotion && reaction === null && !asleep;
@@ -345,6 +350,56 @@ export const Camel = memo(function Camel({
     };
   }, [step, stride, pos, dash, travel, wraps]);
 
+  /** The sprint to start once the walk has stopped: where it set off from, and how long the show lasts. */
+  const sprint = useRef<{ here: number; ms: number } | null>(null);
+  useEffect(() => {
+    const plan = sprint.current;
+    if (reaction !== "zoom" || !plan) return undefined;
+    sprint.current = null;
+    // A cartoon sprint to the left: turn to face left, legs spin on the spot, then BLAST off the left
+    // edge in a blink, and come racing back in from the right, skidding to a stop where it stood.
+    const ms = (fraction: number) => Math.round(plan.ms * fraction);
+    const screenW = wrapWidth ?? Dimensions.get("window").width;
+    const here = plan.here;
+    // A wrap walk's box is the whole row; a lane camel's box may sit mid-screen, so it overshoots.
+    const offLeft = wraps ? -(here + size + 30) : -(screenW + size);
+    const offRight = wraps ? screenW - here + 30 : screenW + size;
+    const turnBack = facing.current;
+    const from = stepNow.current;
+    const run = Animated.parallel([
+      Animated.sequence([
+        Animated.timing(dir, { toValue: -1, duration: ms(ZOOM.turn), easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.delay(ms(ZOOM.windUp - ZOOM.turn)),
+        Animated.timing(dir, { toValue: -1, duration: ms(ZOOM.back - ZOOM.windUp), useNativeDriver: true }),
+        Animated.timing(dir, { toValue: turnBack, duration: ms(0.06), easing: Easing.inOut(Easing.sin), useNativeDriver: true })
+      ]),
+      Animated.sequence([
+        // Wind up: a little shuffle backwards (to the right) while the feet spin.
+        Animated.timing(dash, { toValue: size * 0.08, duration: ms(ZOOM.windUp), easing: Easing.out(Easing.quad), useNativeDriver: true }),
+        // Gone! Off the left edge in a blink.
+        Animated.timing(dash, { toValue: offLeft, duration: ms(ZOOM.gone - ZOOM.windUp), easing: Easing.in(Easing.cubic), useNativeDriver: true }),
+        Animated.delay(ms(ZOOM.enter - ZOOM.gone)),
+        Animated.timing(dash, { toValue: offRight, duration: 0, useNativeDriver: true }),
+        // Racing back in from the right, braking hard at the end (a skid).
+        Animated.timing(dash, { toValue: -size * 0.06, duration: ms(ZOOM.skid - ZOOM.enter), easing: Easing.out(Easing.cubic), useNativeDriver: true }),
+        Animated.timing(dash, { toValue: 0, duration: ms(ZOOM.back - ZOOM.skid), easing: Easing.inOut(Easing.sin), useNativeDriver: true })
+      ]),
+      Animated.sequence([
+        Animated.timing(stride, { toValue: 1, duration: 120, useNativeDriver: true }),
+        Animated.delay(ms(ZOOM.skid) - 120),
+        Animated.timing(stride, { toValue: 0, duration: ms(ZOOM.back - ZOOM.skid), useNativeDriver: true })
+      ]),
+      // The legs go round in a blur: many more steps than a walk.
+      Animated.timing(step, { toValue: from + 26, duration: ms(ZOOM.skid), easing: Easing.linear, useNativeDriver: true })
+    ], { stopTogether: false });
+    run.start(() => {
+      stepNow.current = from + 26;
+    });
+    return () => run.stop();
+    // Runs when a reaction starts; the rest is read from the plan and refs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reaction]);
+
   const onTap = () => {
     // One show at a time; a tap during it just gets the grunt.
     if (reaction) {
@@ -356,21 +411,11 @@ export const Camel = memo(function Camel({
     stopWalk();
     setReaction(pick.kind);
     if (pick.kind === "zoom" && !reduceMotion) {
-      // Run off the screen the way it faces and come back in from the other side.
-      const far = (Dimensions.get("window").width + size) * facing.current;
-      const half = (pick.ms * 0.46) | 0;
-      const from = stepNow.current;
-      Animated.parallel([
-        Animated.sequence([
-          Animated.timing(dash, { toValue: far, duration: half, easing: Easing.in(Easing.quad), useNativeDriver: true }),
-          Animated.timing(dash, { toValue: -far, duration: 0, useNativeDriver: true }),
-          Animated.timing(dash, { toValue: 0, duration: half, easing: Easing.out(Easing.quad), useNativeDriver: true })
-        ]),
-        Animated.timing(stride, { toValue: 1, duration: 120, useNativeDriver: true }),
-        Animated.timing(step, { toValue: from + 9, duration: half * 2, easing: Easing.linear, useNativeDriver: true })
-      ]).start(() => {
-        stepNow.current = from + 9;
-      });
+      const here = wraps ? posNow.current : posNow.current * travel;
+      setDustAt(here);
+      // Started once the walk has fully stopped (see the effect below): the walk's clean-up stops the legs'
+      // clock, and an animation started now would be stopped with it, leaving the camel stuck in place.
+      sprint.current = { here, ms: pick.ms };
     }
     play(reduceMotion ? 900 : pick.ms, () => {
       dash.setValue(0);
@@ -389,6 +434,14 @@ export const Camel = memo(function Camel({
         return { ...none, y: t.interpolate(smoothKeys([0, 0.15, 0.85, 1], [0, 2, 2, 0])), scaleY: t.interpolate(smoothKeys([0, 0.15, 0.85, 1], [1, 0.93, 0.93, 1])) };
       case "laugh":
         return { ...none, rotate: shake(t, 0.05, 0.9, 5, 8) };
+      case "zoom":
+        // Crouches and leans back to wind up, leans hard into the sprint, rocks back on the skid.
+        return {
+          ...none,
+          rotate: t.interpolate(smoothKeys([0, ZOOM.turn, ZOOM.windUp, ZOOM.windUp + 0.04, ZOOM.enter, ZOOM.skid - 0.04, ZOOM.skid, ZOOM.skid + 0.06, ZOOM.back, 1], ["0deg", "0deg", "-7deg", "12deg", "12deg", "10deg", "-9deg", "3deg", "0deg", "0deg"])),
+          scaleY: t.interpolate(smoothKeys([0, ZOOM.turn, ZOOM.windUp, ZOOM.windUp + 0.04, ZOOM.skid, ZOOM.skid + 0.04, ZOOM.back, 1], [1, 1, 0.9, 1.04, 1, 0.92, 1, 1])),
+          y: t.interpolate(smoothKeys([0, ZOOM.turn, ZOOM.windUp, ZOOM.windUp + 0.05, ZOOM.gone, 1], [0, 0, 2, -size * 0.06, 0, 0]))
+        };
       case "spit":
         // Leans back to puff up, then throws the head forward.
         return { ...none, rotate: t.interpolate(smoothKeys([0, 0.3, 0.38, 0.5, 1], ["0deg", "-6deg", "5deg", "0deg", "0deg"])) };
@@ -493,9 +546,20 @@ export const Camel = memo(function Camel({
           <Body accent={accent} face={faceNow} />
         </Animated.View>
         {shows && reaction === "zoom"
-          ? // Speed lines behind the tail.
-            [0, 1, 2].map((line) => (
-              <View key={line} style={[styles.speed, { left: -size * (0.3 + line * 0.08), top: height * (0.3 + line * 0.14), width: size * 0.34 }]} />
+          ? // Speed lines streaming off the tail while it runs.
+            [0, 1, 2, 3].map((line) => (
+              <Animated.View
+                key={line}
+                style={[
+                  styles.speed,
+                  {
+                    left: -size * (0.55 + line * 0.1),
+                    top: height * (0.22 + line * 0.14),
+                    width: size * (0.5 - (line % 2) * 0.12),
+                    opacity: t.interpolate({ inputRange: [0, ZOOM.windUp, ZOOM.windUp + 0.02, ZOOM.skid - 0.02, ZOOM.skid + 0.04, 1], outputRange: [0, 0, 1, 1, 0, 0], extrapolate: "clamp" })
+                  }
+                ]}
+              />
             ))
           : null}
         {shows && reaction === "spit" ? (
@@ -554,9 +618,11 @@ export const Camel = memo(function Camel({
     </>
   );
   const boxWidth = wraps && wrapWidth ? wrapWidth : size + travel;
+  const dust = shows && reaction === "zoom" ? <SprintDust t={t} left={dustAt} size={size} height={height} /> : null;
   if (!tappable) {
     return (
       <View style={[{ width: boxWidth, height }, style]} pointerEvents="none" testID={testID}>
+        {dust}
         <Animated.View style={[styles.lane, { width: size, height, transform: [{ translateX: anim.x }] }]}>{figure}</Animated.View>
       </View>
     );
@@ -564,6 +630,7 @@ export const Camel = memo(function Camel({
   // Only the camel itself takes taps, wherever it has walked to: the rest of its row stays free.
   return (
     <View style={[{ width: boxWidth, height }, style]} pointerEvents="box-none">
+      {dust}
       <Animated.View style={[styles.lane, { width: size, height, transform: [{ translateX: anim.x }] }]} pointerEvents="box-none">
         <Pressable onPress={onTap} hitSlop={8} accessibilityRole="button" accessibilityLabel="camel" style={{ width: size, height }} testID={testID}>
           {figure}
@@ -572,6 +639,27 @@ export const Camel = memo(function Camel({
     </View>
   );
 });
+
+/**
+ * The dust the sprint leaves: a cloud where it set off (left hanging in the air, cartoon style) and a
+ * spray of dust where it skids to a stop.
+ */
+function SprintDust({ t, left, size, height }: { t: Animated.Value; left: number; size: number; height: number }) {
+  return (
+    <View pointerEvents="none" style={[styles.lane, { left, width: size, height }]}>
+      {[0, 1, 2, 3].map((index) => (
+        <Floater key={`go${index}`} t={t} from={ZOOM.windUp + index * 0.015} to={ZOOM.windUp + 0.32 + index * 0.03} x={size * (0.35 + index * 0.14)} y={height * (0.62 - (index % 2) * 0.16)} rise={size * 0.08} drift={size * (0.1 + index * 0.06)}>
+          <Puff size={size * (0.26 + (index % 2) * 0.08)} color="#F3D598" />
+        </Floater>
+      ))}
+      {[0, 1, 2].map((index) => (
+        <Floater key={`skid${index}`} t={t} from={ZOOM.skid - 0.08 + index * 0.02} to={ZOOM.skid + 0.2 + index * 0.02} x={size * (0.55 + index * 0.12)} y={height * 0.72} rise={size * 0.12} drift={size * (0.2 + index * 0.1)}>
+          <Puff size={size * 0.2} color="#F3D598" />
+        </Floater>
+      ))}
+    </View>
+  );
+}
 
 /** A cartoon roast on the bone, sizzling. */
 function Roast({ width }: { width: number }) {

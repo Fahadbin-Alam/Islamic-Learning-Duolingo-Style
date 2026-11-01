@@ -6,14 +6,15 @@ import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import { sampleCurve, smoothKeys } from "./motion";
 import { Drop, Floater, Heart, Sparkle, Word, shake, useCycle, useOneShot } from "./reactions";
 import { useScene } from "./sceneMood";
+import { BACKDROP_H, WorldBackdrop, type PathWorld } from "./pathWorlds";
 import { feedback } from "./sound";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
  * like days going by: a sunny sky, a breezy one, clouds, a little rain, a sunset, birds flying by. Tapping
  * the sun turns it into a full moon and night falls over the path (see sceneMood.tsx); tapping the moon
- * brings the day back. Only plain weather: a round moon, never a crescent, and no stars (see the content
- * rule in docs/design-system.md).
+ * shows its phases (full, gibbous, half), then brings the day back. Only plain weather: never a thin
+ * crescent, and no stars (see the content rule in docs/design-system.md).
  */
 export type Weather = "sunny" | "breeze" | "cloudy" | "rain" | "sunset";
 
@@ -40,6 +41,8 @@ const SKIES: Record<Weather, Sky> = {
 const BAND = 420;
 /** Px from the unit's top until its sky is at full color (the banner sits over most of it). */
 const SKY_IN = 150;
+/** How far the sky runs on past the bottom of its unit (LearnPath adds it to the unit's height). */
+const SKY_TAIL = 40;
 const CLOUD_W = 84;
 const CLOUD_H = 40;
 
@@ -172,10 +175,14 @@ function Cloud({ sky, top, width, size, duration, start, moving, reduceMotion }:
     inputRange: [0, 1 - start, 1 - start + 0.0001, 1],
     outputRange: [start * span - size, span - size, -size, start * span - size]
   });
+  // A slow float up and down and a soft puff in and out, so even a cloud that's far from the edge looks alive.
+  const bob = useLoopValue(moving, 4200 + Math.round(start * 1800));
+  const translateY = bob.interpolate(smoothKeys([0, 0.5, 1], [0, -5, 0]));
+  const puff = bob.interpolate(smoothKeys([0, 0.25, 0.75, 1], [1, 1.04, 0.97, 1]));
   // Dimmer at night, so they don't glare against the dark sky.
   const { dark } = useScene();
   return (
-    <Animated.View style={[styles.abs, { top, opacity: dark.interpolate({ inputRange: [0, 1], outputRange: [1, 0.5] }), transform: [{ translateX: moving ? translateX : start * span - size }] }]}>
+    <Animated.View style={[styles.abs, { top, opacity: dark.interpolate({ inputRange: [0, 1], outputRange: [1, 0.5] }), transform: [{ translateX: moving ? translateX : start * span - size }, { translateY: moving ? translateY : 0 }, { scaleX: moving ? puff : 1 }] }]}>
       <TapCloud sky={sky} size={size} reduceMotion={reduceMotion} />
     </Animated.View>
   );
@@ -183,8 +190,8 @@ function Cloud({ sky, top, width, size, duration, start, moving, reduceMotion }:
 
 type SunShow = "shine" | "cool" | "wink";
 /**
- * Tapping the sun: first it sets and the moon comes up (night over the whole path; tap the moon for
- * day). The next taps: it beams and glows, puts on sunglasses, winks, then night again.
+ * Tapping the sun: first it sets and the moon comes up (night over the whole path; tap the moon to see
+ * it full, gibbous and half lit, then once more for day). The next taps: it beams and glows, puts on sunglasses, winks, then night again.
  */
 export const SUN_SHOWS: { kind: SunShow | "night"; sound: GameSoundEvent; ms: number }[] = [
   { kind: "night", sound: "night", ms: 0 },
@@ -221,19 +228,50 @@ function SunFace({ show }: { show: SunShow }) {
   );
 }
 
-/** A round full moon with a sleepy smile. Never a crescent (content rule). */
-function MoonArt({ size }: { size: number }) {
+/**
+ * The moon's looks, in the order a tap on the moon goes through them: full, then fuller on one side
+ * (gibbous), then half lit. One more tap brings the day back. Never a thin crescent, and no stars
+ * (content rule).
+ */
+export const MOON_PHASES = ["full", "gibbous", "half"] as const;
+export type MoonPhase = (typeof MOON_PHASES)[number];
+
+/** The moon, with a sleepy smile on its lit side. */
+function MoonArt({ size, phase = "full" }: { size: number; phase?: MoonPhase }) {
+  // The lit part: the right half, plus (gibbous) a bulge over the left half. The rest is the dim night side.
+  const lit = phase === "full" ? null : phase === "half" ? "M35 17A18 18 0 0 1 35 53Z" : "M35 17A18 18 0 0 1 35 53A9 18 0 0 1 35 17Z";
+  const faceShift = phase === "half" ? 6 : phase === "gibbous" ? 3 : 0;
   return (
     <Svg width={size} height={size} viewBox="0 0 70 70">
       <Circle cx={35} cy={35} r={24} fill="#FFF6CC" opacity={0.25} />
-      <Circle cx={35} cy={35} r={18} fill="#FFF1B8" />
-      <Circle cx={28} cy={27} r={3.2} fill="#F0E2A0" />
-      <Circle cx={44} cy={42} r={4} fill="#F0E2A0" />
-      <Circle cx={41} cy={25} r={2} fill="#F0E2A0" />
-      <G stroke="#8A7A3E" strokeWidth={1.8} strokeLinecap="round" fill="none">
-        <Path d="M27 34Q30 36.5 33 34" />
-        <Path d="M37 34Q40 36.5 43 34" />
-        <Path d="M31.5 40Q35 42.5 38.5 40" />
+      {lit ? (
+        <G>
+          <Circle cx={35} cy={35} r={18} fill="#3D4C7E" />
+          <Path d={lit} fill="#FFF1B8" />
+          <Circle cx={44} cy={42} r={3.4} fill="#F0E2A0" />
+          <Circle cx={42} cy={25} r={2} fill="#F0E2A0" />
+        </G>
+      ) : (
+        <G>
+          <Circle cx={35} cy={35} r={18} fill="#FFF1B8" />
+          <Circle cx={28} cy={27} r={3.2} fill="#F0E2A0" />
+          <Circle cx={44} cy={42} r={4} fill="#F0E2A0" />
+          <Circle cx={41} cy={25} r={2} fill="#F0E2A0" />
+        </G>
+      )}
+      <G stroke="#8A7A3E" strokeWidth={1.8} strokeLinecap="round" fill="none" transform={`translate(${faceShift} 0)`}>
+        {phase === "half" ? (
+          <>
+            <Path d="M36 33Q38.5 35.5 41 33" />
+            <Path d="M37.5 40Q40 42 42.5 40" />
+          </>
+        ) : (
+          <>
+            <Path d="M27 34Q30 36.5 33 34" />
+            <Path d="M37 34Q40 36.5 43 34" />
+            <Path d="M31.5 40Q35 42.5 38.5 40" />
+          </>
+        )}
       </G>
     </Svg>
   );
@@ -248,10 +286,23 @@ function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: numb
   const [show, setShow] = useState<SunShow | null>(null);
   const { value: t, play } = useOneShot();
   const next = useCycle(SUN_SHOWS.length);
+  const [phase, setPhase] = useState(0);
+  const { value: moonT, play: playMoon } = useOneShot();
+  // However night ended (a tap, or a touch waking everyone), the next one starts with a full moon.
+  useEffect(() => {
+    if (!night) setPhase(0);
+  }, [night]);
   const onTap = () => {
     if (night) {
-      // The moon: back to day.
+      // The moon: each tap shows its next look (full, gibbous, half), then the day comes back.
+      if (phase + 1 < MOON_PHASES.length) {
+        feedback("sparkle", "light");
+        setPhase(phase + 1);
+        playMoon(reduceMotion ? 300 : 700);
+        return;
+      }
       feedback("sparkle", "light");
+      setPhase(0);
       setNight(false);
       return;
     }
@@ -273,7 +324,9 @@ function Sun({ top, left, low, moving, reduceMotion }: { top: number; left: numb
   return (
     <Pressable onPress={onTap} hitSlop={6} accessibilityRole="button" accessibilityLabel={night ? "moon" : "sun"} style={[styles.abs, { top, left, width: size, height: size }]}>
       <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { opacity: dark, transform: [{ translateY: dark.interpolate({ inputRange: [0, 1], outputRange: [size * 0.5, 0] }) }] }]}>
-        <MoonArt size={size} />
+        <Animated.View style={{ transform: [{ scale: moonT.interpolate(smoothKeys([0, 0.3, 0.6, 1], [1, 0.85, 1.08, 1])) }, { rotate: moonT.interpolate(smoothKeys([0, 0.5, 1], ["0deg", "-12deg", "0deg"])) }] }}>
+          <MoonArt size={size} phase={MOON_PHASES[phase]} />
+        </Animated.View>
       </Animated.View>
       <Animated.View pointerEvents="none" style={[StyleSheet.absoluteFill, { opacity: sunUp, transform: [{ translateY: sunSet }] }]}>
       {show === "shine" ? <Animated.View pointerEvents="none" style={[styles.glow, { opacity: glow, transform: [{ scale: grow }] }]} /> : null}
@@ -477,15 +530,19 @@ function Birds({ top, width, moving, reduceMotion }: { top: number; width: numbe
 
 export type PathWeatherProps = {
   weather: Weather;
+  /** The place this unit walks through: its strip runs along the bottom (see pathWorlds.tsx). */
+  world?: PathWorld;
   width: number;
   height: number;
   /** Clouds drift, the sun turns, rain falls. Units far from the current one pass false. */
   animated?: boolean;
 };
 
-export const PathWeather = memo(function PathWeather({ weather, width, height, animated = false }: PathWeatherProps) {
+export const PathWeather = memo(function PathWeather({ weather, world = "desert", width, height, animated = false }: PathWeatherProps) {
   const reduceMotion = useReduceMotion();
   const moving = animated && !reduceMotion;
+  // Clouds and the place's strip always move (cheap loops on the native driver); the rest only near the learner.
+  const drifting = !reduceMotion;
   const sky = SKIES[weather];
   const bands = Math.max(1, Math.ceil(height / BAND));
   const gradientId = `sky-${weather}`;
@@ -522,9 +579,13 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
           <React.Fragment key={band}>
             {weather === "sunny" && first ? <Sun top={y + 152} left={width - 80} moving={moving} reduceMotion={reduceMotion} /> : null}
             {weather === "sunset" && first ? <Sun top={y + 152} left={width - 80} low moving={moving} reduceMotion={reduceMotion} /> : null}
-            <Cloud sky={sky} top={y + 150} width={width} size={weather === "rain" ? 92 : 76} duration={weather === "breeze" ? 16000 : 30000} start={0.15 + 0.3 * (band % 3)} moving={moving} reduceMotion={reduceMotion} />
+            <Cloud sky={sky} top={y + 150} width={width} size={weather === "rain" ? 92 : 76} duration={weather === "breeze" ? 14000 : 22000} start={0.15 + 0.3 * (band % 3)} moving={drifting} reduceMotion={reduceMotion} />
             {weather === "cloudy" || weather === "breeze" ? (
-              <Cloud sky={sky} top={y + 300} width={width} size={58} duration={weather === "breeze" ? 12000 : 40000} start={0.65} moving={moving} reduceMotion={reduceMotion} />
+              <Cloud sky={sky} top={y + 300} width={width} size={58} duration={weather === "breeze" ? 11000 : 28000} start={0.65} moving={drifting} reduceMotion={reduceMotion} />
+            ) : null}
+            {weather === "sunny" || weather === "sunset" ? (
+              // A small cloud far behind, drifting more slowly.
+              <Cloud sky={sky} top={y + 330} width={width} size={46} duration={34000} start={0.45 + 0.2 * (band % 2)} moving={drifting} reduceMotion={reduceMotion} />
             ) : null}
             {weather === "breeze" ? (
               <>
@@ -539,6 +600,8 @@ export const PathWeather = memo(function PathWeather({ weather, width, height, a
           </React.Fragment>
         );
       })}
+      {/* The unit itself ends SKY_TAIL above the sky's bottom (the sky runs on to melt into the next one). */}
+      <WorldBackdrop world={world} width={width} top={height - SKY_TAIL - BACKDROP_H + 14} moving={drifting} />
     </View>
   );
 });
