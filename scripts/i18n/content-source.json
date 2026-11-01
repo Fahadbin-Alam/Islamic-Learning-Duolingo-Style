@@ -417,6 +417,54 @@
   },
   {
     "kind": "course",
+    "text": "The reward of salah"
+  },
+  {
+    "kind": "course",
+    "text": "Why salah matters so much, and what Allah gives the one who guards it."
+  },
+  {
+    "kind": "arabic",
+    "text": "The virtue of prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Extra prayers"
+  },
+  {
+    "kind": "course",
+    "text": "The sunnah prayers he ﷺ loved: before Fajr, witr, duha, and greeting the masjid."
+  },
+  {
+    "kind": "arabic",
+    "text": "Voluntary prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Jumu'ah"
+  },
+  {
+    "kind": "course",
+    "text": "The Friday prayer: getting ready, listening to the khutbah, and the hour of du'a."
+  },
+  {
+    "kind": "arabic",
+    "text": "The Friday prayer"
+  },
+  {
+    "kind": "course",
+    "text": "After the salah"
+  },
+  {
+    "kind": "course",
+    "text": "The words he ﷺ said after salam, and the du'a he told Mu'adh never to leave."
+  },
+  {
+    "kind": "arabic",
+    "text": "Remembrance after prayer"
+  },
+  {
+    "kind": "course",
     "text": "What wudu is"
   },
   {
@@ -846,6 +894,94 @@
   {
     "kind": "course",
     "text": "Big quiz 2"
+  },
+  {
+    "kind": "course",
+    "text": "Pray to remember Me"
+  },
+  {
+    "kind": "course",
+    "text": "The first deed judged"
+  },
+  {
+    "kind": "course",
+    "text": "Every step counts"
+  },
+  {
+    "kind": "course",
+    "text": "The two cool prayers"
+  },
+  {
+    "kind": "course",
+    "text": "Isha and Fajr together"
+  },
+  {
+    "kind": "course",
+    "text": "Closest in sujud"
+  },
+  {
+    "kind": "course",
+    "text": "Give us comfort"
+  },
+  {
+    "kind": "course",
+    "text": "Salah stops bad deeds"
+  },
+  {
+    "kind": "course",
+    "text": "A house in Jannah"
+  },
+  {
+    "kind": "course",
+    "text": "Better than the world"
+  },
+  {
+    "kind": "course",
+    "text": "End the night with witr"
+  },
+  {
+    "kind": "course",
+    "text": "Duha: charity for your bones"
+  },
+  {
+    "kind": "course",
+    "text": "Greeting the masjid"
+  },
+  {
+    "kind": "course",
+    "text": "Pray at home too"
+  },
+  {
+    "kind": "course",
+    "text": "Leave the trade"
+  },
+  {
+    "kind": "course",
+    "text": "Get ready for Jumu'ah"
+  },
+  {
+    "kind": "course",
+    "text": "Quiet in the khutbah"
+  },
+  {
+    "kind": "course",
+    "text": "Angels at the door"
+  },
+  {
+    "kind": "course",
+    "text": "The hour of du'a"
+  },
+  {
+    "kind": "course",
+    "text": "After Jumu'ah"
+  },
+  {
+    "kind": "course",
+    "text": "Astaghfirullah three times"
+  },
+  {
+    "kind": "course",
+    "text": "Help me remember You"
   },
   {
     "kind": "course",
@@ -22257,10 +22393,6 @@
   },
   {
     "kind": "question",
-    "text": "Jumu'ah"
-  },
-  {
-    "kind": "question",
     "text": "Praying at night in Ramadan with faith brings forgiveness."
   },
   {
@@ -31221,6 +31353,1366 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah says: worship Me, and pray to remember Me."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 20:14"
+  },
+  {
+    "kind": "lesson",
+    "text": "Said to Musa"
+  },
+  {
+    "kind": "question",
+    "text": "Why do we pray, says Quran 20:14?"
+  },
+  {
+    "kind": "question",
+    "text": "To show off"
+  },
+  {
+    "kind": "question",
+    "text": "To exercise"
+  },
+  {
+    "kind": "question",
+    "text": "To pass time"
+  },
+  {
+    "kind": "question",
+    "text": "To remember Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Establish prayer for My remembrance."
+  },
+  {
+    "kind": "question",
+    "text": "To whom did Allah say this first?"
+  },
+  {
+    "kind": "question",
+    "text": "At the valley of Tuwa, in Surah Ta-Ha."
+  },
+  {
+    "kind": "question",
+    "text": "Salah keeps Allah in our minds through the day."
+  },
+  {
+    "kind": "question",
+    "text": "That is its purpose: His remembrance."
+  },
+  {
+    "kind": "lesson",
+    "text": "The first deed judged on Judgment Day is the salah."
+  },
+  {
+    "kind": "lesson",
+    "text": "If it's good, he succeeds"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 413"
+  },
+  {
+    "kind": "question",
+    "text": "Which deed is judged first on Judgment Day?"
+  },
+  {
+    "kind": "question",
+    "text": "The salah"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Sports"
+  },
+  {
+    "kind": "question",
+    "text": "If the salah is sound, what happens?"
+  },
+  {
+    "kind": "question",
+    "text": "He succeeds"
+  },
+  {
+    "kind": "question",
+    "text": "He fails"
+  },
+  {
+    "kind": "question",
+    "text": "He starts again"
+  },
+  {
+    "kind": "question",
+    "text": "If it is sound, he has succeeded."
+  },
+  {
+    "kind": "question",
+    "text": "Extra prayers can help fill what is lacking."
+  },
+  {
+    "kind": "question",
+    "text": "The same hadith says Allah looks at his extra prayers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Each step to the masjid raises a level and wipes a sin."
+  },
+  {
+    "kind": "lesson",
+    "text": "Make wudu well first"
+  },
+  {
+    "kind": "lesson",
+    "text": "Angels pray for you"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 647"
+  },
+  {
+    "kind": "question",
+    "text": "What does each step to the masjid do?"
+  },
+  {
+    "kind": "question",
+    "text": "Makes you tired only"
+  },
+  {
+    "kind": "question",
+    "text": "Costs a reward"
+  },
+  {
+    "kind": "question",
+    "text": "Raises a level, wipes a sin"
+  },
+  {
+    "kind": "question",
+    "text": "Who prays for you while you sit after salah?"
+  },
+  {
+    "kind": "question",
+    "text": "Nobody"
+  },
+  {
+    "kind": "question",
+    "text": "Only the imam"
+  },
+  {
+    "kind": "question",
+    "text": "The angels keep praying for him."
+  },
+  {
+    "kind": "question",
+    "text": "Walking to the masjid only to pray matters."
+  },
+  {
+    "kind": "question",
+    "text": "With the intention only to pray."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever prays the two cool prayers, Fajr and Asr, enters Jannah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Abu Musa"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 574"
+  },
+  {
+    "kind": "question",
+    "text": "Which are the two cool prayers?"
+  },
+  {
+    "kind": "question",
+    "text": "Eid and Jumu'ah"
+  },
+  {
+    "kind": "question",
+    "text": "Fajr and Asr"
+  },
+  {
+    "kind": "question",
+    "text": "Dhuhr and Isha"
+  },
+  {
+    "kind": "question",
+    "text": "Maghrib and Isha"
+  },
+  {
+    "kind": "question",
+    "text": "The cool times of morning and afternoon."
+  },
+  {
+    "kind": "question",
+    "text": "What is promised for guarding them?"
+  },
+  {
+    "kind": "question",
+    "text": "A prize"
+  },
+  {
+    "kind": "question",
+    "text": "Fajr is easy to miss, so its reward is great."
+  },
+  {
+    "kind": "question",
+    "text": "It is one of the two cool prayers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray Isha and Fajr in jamaah: like praying the whole night."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Uthman"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 656a"
+  },
+  {
+    "kind": "question",
+    "text": "Isha in congregation is like praying how long?"
+  },
+  {
+    "kind": "question",
+    "text": "Half the night"
+  },
+  {
+    "kind": "question",
+    "text": "One minute"
+  },
+  {
+    "kind": "question",
+    "text": "A whole year"
+  },
+  {
+    "kind": "question",
+    "text": "And Fajr in congregation too?"
+  },
+  {
+    "kind": "question",
+    "text": "Like one hour"
+  },
+  {
+    "kind": "question",
+    "text": "Like nothing"
+  },
+  {
+    "kind": "question",
+    "text": "Like a day of fasting"
+  },
+  {
+    "kind": "question",
+    "text": "Like the whole night"
+  },
+  {
+    "kind": "question",
+    "text": "As if he prayed the whole night."
+  },
+  {
+    "kind": "question",
+    "text": "Who heard this and taught it?"
+  },
+  {
+    "kind": "question",
+    "text": "Heraclius"
+  },
+  {
+    "kind": "question",
+    "text": "He told it after Maghrib in the masjid."
+  },
+  {
+    "kind": "lesson",
+    "text": "You are closest to your Lord in sujud; make du'a there."
+  },
+  {
+    "kind": "lesson",
+    "text": "Forehead on the ground"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 482"
+  },
+  {
+    "kind": "question",
+    "text": "When is a servant closest to his Lord?"
+  },
+  {
+    "kind": "question",
+    "text": "In sujud"
+  },
+  {
+    "kind": "question",
+    "text": "When shopping"
+  },
+  {
+    "kind": "question",
+    "text": "When sleeping"
+  },
+  {
+    "kind": "question",
+    "text": "When boasting"
+  },
+  {
+    "kind": "question",
+    "text": "What should we do much of in sujud?"
+  },
+  {
+    "kind": "question",
+    "text": "Rushing"
+  },
+  {
+    "kind": "question",
+    "text": "Du'a"
+  },
+  {
+    "kind": "question",
+    "text": "Looking around"
+  },
+  {
+    "kind": "question",
+    "text": "So make much du'a then."
+  },
+  {
+    "kind": "question",
+    "text": "Sujud is a time to ask Allah for what you need."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ told us to make du'a there."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about the reward of salah?"
+  },
+  {
+    "kind": "lesson",
+    "text": "He ﷺ said: Bilal, call the iqamah and give us comfort by it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Salah is rest, not a burden"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 4985"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ find in salah?"
+  },
+  {
+    "kind": "question",
+    "text": "A burden"
+  },
+  {
+    "kind": "question",
+    "text": "Boredom"
+  },
+  {
+    "kind": "question",
+    "text": "Tiredness"
+  },
+  {
+    "kind": "question",
+    "text": "Comfort and rest"
+  },
+  {
+    "kind": "question",
+    "text": "Give us comfort by it."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he ﷺ ask to call the iqamah?"
+  },
+  {
+    "kind": "question",
+    "text": "Salah can be a break from a hard day."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ called it comfort."
+  },
+  {
+    "kind": "lesson",
+    "text": "Salah keeps you away from shameful and bad deeds."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 29:45"
+  },
+  {
+    "kind": "lesson",
+    "text": "Remembering Allah is greater"
+  },
+  {
+    "kind": "question",
+    "text": "What does salah keep us away from, says 29:45?"
+  },
+  {
+    "kind": "question",
+    "text": "Work"
+  },
+  {
+    "kind": "question",
+    "text": "Shameful and bad deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Friends"
+  },
+  {
+    "kind": "question",
+    "text": "Food"
+  },
+  {
+    "kind": "question",
+    "text": "Prayer keeps one away from immorality."
+  },
+  {
+    "kind": "question",
+    "text": "What does the ayah call greater?"
+  },
+  {
+    "kind": "question",
+    "text": "The remembrance of Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Games"
+  },
+  {
+    "kind": "question",
+    "text": "Praying well should change how we act."
+  },
+  {
+    "kind": "question",
+    "text": "It keeps us from wrongdoing."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about the reward of salah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray twelve extra rak'ahs a day; a house is built in Jannah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Umm Habibah"
+  },
+  {
+    "kind": "lesson",
+    "text": "She never left them"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 728"
+  },
+  {
+    "kind": "question",
+    "text": "Twelve extra rak'ahs a day bring what?"
+  },
+  {
+    "kind": "question",
+    "text": "A new bike"
+  },
+  {
+    "kind": "question",
+    "text": "What did Umm Habibah do after hearing it?"
+  },
+  {
+    "kind": "question",
+    "text": "Did it once"
+  },
+  {
+    "kind": "question",
+    "text": "Told no one"
+  },
+  {
+    "kind": "question",
+    "text": "Never left them"
+  },
+  {
+    "kind": "question",
+    "text": "Forgot it"
+  },
+  {
+    "kind": "question",
+    "text": "I never left them since I heard it."
+  },
+  {
+    "kind": "question",
+    "text": "Extra prayers are on top of the five."
+  },
+  {
+    "kind": "question",
+    "text": "They are sunnah, not the obligatory five."
+  },
+  {
+    "kind": "lesson",
+    "text": "Two rak'ahs before Fajr beat the world and all in it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Aishah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 725a"
+  },
+  {
+    "kind": "question",
+    "text": "The two rak'ahs before Fajr are better than what?"
+  },
+  {
+    "kind": "question",
+    "text": "The world and all in it"
+  },
+  {
+    "kind": "question",
+    "text": "One sweet"
+  },
+  {
+    "kind": "question",
+    "text": "A toy"
+  },
+  {
+    "kind": "question",
+    "text": "When are these two rak'ahs prayed?"
+  },
+  {
+    "kind": "question",
+    "text": "At dawn, before Fajr's fard"
+  },
+  {
+    "kind": "question",
+    "text": "After Isha"
+  },
+  {
+    "kind": "question",
+    "text": "At noon"
+  },
+  {
+    "kind": "question",
+    "text": "At sunset"
+  },
+  {
+    "kind": "question",
+    "text": "Who narrated this hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "The mother of the believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Make witr your last prayer of the night."
+  },
+  {
+    "kind": "lesson",
+    "text": "Witr means odd"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 998"
+  },
+  {
+    "kind": "question",
+    "text": "Which prayer should be your last at night?"
+  },
+  {
+    "kind": "question",
+    "text": "Witr"
+  },
+  {
+    "kind": "question",
+    "text": "What does witr mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Even"
+  },
+  {
+    "kind": "question",
+    "text": "Long"
+  },
+  {
+    "kind": "question",
+    "text": "Loud"
+  },
+  {
+    "kind": "question",
+    "text": "Odd"
+  },
+  {
+    "kind": "question",
+    "text": "Its rak'ahs are an odd number."
+  },
+  {
+    "kind": "question",
+    "text": "Witr is prayed in the night, after Isha."
+  },
+  {
+    "kind": "question",
+    "text": "It closes the night's prayers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Every joint owes charity daily; two rak'ahs of duha cover it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Each tasbih is charity"
+  },
+  {
+    "kind": "lesson",
+    "text": "Duha: mid-morning"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 720"
+  },
+  {
+    "kind": "question",
+    "text": "What covers the charity due on every joint?"
+  },
+  {
+    "kind": "question",
+    "text": "Two rak'ahs of duha"
+  },
+  {
+    "kind": "question",
+    "text": "A nap"
+  },
+  {
+    "kind": "question",
+    "text": "One sip of water"
+  },
+  {
+    "kind": "question",
+    "text": "A loud shout"
+  },
+  {
+    "kind": "question",
+    "text": "When is duha prayed?"
+  },
+  {
+    "kind": "question",
+    "text": "In the mid-morning"
+  },
+  {
+    "kind": "question",
+    "text": "At midnight"
+  },
+  {
+    "kind": "question",
+    "text": "After Maghrib"
+  },
+  {
+    "kind": "question",
+    "text": "After sunrise, before Dhuhr."
+  },
+  {
+    "kind": "question",
+    "text": "Saying Subhanallah counts as charity."
+  },
+  {
+    "kind": "question",
+    "text": "Every tasbih is charity."
+  },
+  {
+    "kind": "lesson",
+    "text": "When you enter a masjid, pray two rak'ahs before you sit."
+  },
+  {
+    "kind": "lesson",
+    "text": "Before sitting down"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 444"
+  },
+  {
+    "kind": "question",
+    "text": "You walk into a masjid. What first?"
+  },
+  {
+    "kind": "question",
+    "text": "Pray two rak'ahs"
+  },
+  {
+    "kind": "question",
+    "text": "Sit and chat"
+  },
+  {
+    "kind": "question",
+    "text": "Lie down"
+  },
+  {
+    "kind": "question",
+    "text": "Eat"
+  },
+  {
+    "kind": "question",
+    "text": "When are they prayed?"
+  },
+  {
+    "kind": "question",
+    "text": "Only on Eid"
+  },
+  {
+    "kind": "question",
+    "text": "After leaving"
+  },
+  {
+    "kind": "question",
+    "text": "Next week"
+  },
+  {
+    "kind": "question",
+    "text": "Before he sits."
+  },
+  {
+    "kind": "question",
+    "text": "The masjid has its own greeting prayer."
+  },
+  {
+    "kind": "question",
+    "text": "Two rak'ahs before sitting."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray some prayers at home; don't make your homes like graves."
+  },
+  {
+    "kind": "lesson",
+    "text": "Extra prayers at home"
+  },
+  {
+    "kind": "question",
+    "text": "Where should some prayers be prayed?"
+  },
+  {
+    "kind": "question",
+    "text": "Only outdoors"
+  },
+  {
+    "kind": "question",
+    "text": "At home"
+  },
+  {
+    "kind": "question",
+    "text": "Only at school"
+  },
+  {
+    "kind": "question",
+    "text": "Never at home"
+  },
+  {
+    "kind": "question",
+    "text": "A home with no prayer is likened to what?"
+  },
+  {
+    "kind": "question",
+    "text": "A grave"
+  },
+  {
+    "kind": "question",
+    "text": "A garden"
+  },
+  {
+    "kind": "question",
+    "text": "A market"
+  },
+  {
+    "kind": "question",
+    "text": "Do not make them graves."
+  },
+  {
+    "kind": "question",
+    "text": "Family can see and learn when you pray at home."
+  },
+  {
+    "kind": "question",
+    "text": "Prayer brings life to a home."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about extra prayers!"
+  },
+  {
+    "kind": "lesson",
+    "text": "When the call comes on Friday, hurry to remember Allah."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:9"
+  },
+  {
+    "kind": "lesson",
+    "text": "Leave buying and selling"
+  },
+  {
+    "kind": "question",
+    "text": "What should we leave when Jumu'ah is called?"
+  },
+  {
+    "kind": "question",
+    "text": "Our wudu"
+  },
+  {
+    "kind": "question",
+    "text": "Our family"
+  },
+  {
+    "kind": "question",
+    "text": "Buying and selling"
+  },
+  {
+    "kind": "question",
+    "text": "The masjid"
+  },
+  {
+    "kind": "question",
+    "text": "Where do we hurry to?"
+  },
+  {
+    "kind": "question",
+    "text": "The market"
+  },
+  {
+    "kind": "question",
+    "text": "A game"
+  },
+  {
+    "kind": "question",
+    "text": "Home to sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Surah Al-Jumu'ah is named after Friday."
+  },
+  {
+    "kind": "question",
+    "text": "Jumu'ah means Friday, the day of gathering."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bathe, wear scent, listen quietly: forgiven till next Friday."
+  },
+  {
+    "kind": "lesson",
+    "text": "Don't push between people"
+  },
+  {
+    "kind": "lesson",
+    "text": "Told by Salman"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 883"
+  },
+  {
+    "kind": "question",
+    "text": "What should you do before Jumu'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Wear dirty clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Eat garlic"
+  },
+  {
+    "kind": "question",
+    "text": "Bathe and wear scent"
+  },
+  {
+    "kind": "question",
+    "text": "Skip wudu"
+  },
+  {
+    "kind": "question",
+    "text": "What must you not do in the masjid?"
+  },
+  {
+    "kind": "question",
+    "text": "Sit"
+  },
+  {
+    "kind": "question",
+    "text": "Push between two people"
+  },
+  {
+    "kind": "question",
+    "text": "Pray"
+  },
+  {
+    "kind": "question",
+    "text": "He does not separate two people."
+  },
+  {
+    "kind": "question",
+    "text": "What is forgiven for doing it all?"
+  },
+  {
+    "kind": "question",
+    "text": "Sins until next Friday"
+  },
+  {
+    "kind": "question",
+    "text": "One sin"
+  },
+  {
+    "kind": "question",
+    "text": "Only big sins"
+  },
+  {
+    "kind": "question",
+    "text": "Between that Friday and the next."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even saying 'be quiet' during the khutbah is idle talk."
+  },
+  {
+    "kind": "lesson",
+    "text": "Listen to the khutbah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 934"
+  },
+  {
+    "kind": "question",
+    "text": "Your friend talks in the khutbah. What do you do?"
+  },
+  {
+    "kind": "question",
+    "text": "Talk back"
+  },
+  {
+    "kind": "question",
+    "text": "Stay quiet and listen"
+  },
+  {
+    "kind": "question",
+    "text": "Tell him 'shh!' loudly"
+  },
+  {
+    "kind": "question",
+    "text": "Saying 'be quiet' is idle talk too."
+  },
+  {
+    "kind": "question",
+    "text": "What should we do in the khutbah?"
+  },
+  {
+    "kind": "question",
+    "text": "Chat"
+  },
+  {
+    "kind": "question",
+    "text": "Play games"
+  },
+  {
+    "kind": "question",
+    "text": "Listen quietly"
+  },
+  {
+    "kind": "question",
+    "text": "Talking in the khutbah is fine if it's short."
+  },
+  {
+    "kind": "question",
+    "text": "Even 'be quiet' counts as idle talk."
+  },
+  {
+    "kind": "lesson",
+    "text": "On Friday, angels at the masjid door write who comes first."
+  },
+  {
+    "kind": "lesson",
+    "text": "Early is best"
+  },
+  {
+    "kind": "lesson",
+    "text": "They stop at the khutbah"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 929"
+  },
+  {
+    "kind": "question",
+    "text": "Who writes down the names at the masjid door?"
+  },
+  {
+    "kind": "question",
+    "text": "The imam"
+  },
+  {
+    "kind": "question",
+    "text": "The guard"
+  },
+  {
+    "kind": "question",
+    "text": "When do the angels close their pages?"
+  },
+  {
+    "kind": "question",
+    "text": "After Asr"
+  },
+  {
+    "kind": "question",
+    "text": "Never"
+  },
+  {
+    "kind": "question",
+    "text": "When the khutbah starts"
+  },
+  {
+    "kind": "question",
+    "text": "At sunrise"
+  },
+  {
+    "kind": "question",
+    "text": "They fold their pages and listen."
+  },
+  {
+    "kind": "question",
+    "text": "Coming early to Jumu'ah has more reward."
+  },
+  {
+    "kind": "question",
+    "text": "The first comers are like those who give a camel."
+  },
+  {
+    "kind": "lesson",
+    "text": "On Friday there's an hour when every du'a gets answered."
+  },
+  {
+    "kind": "lesson",
+    "text": "A short time"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 935"
+  },
+  {
+    "kind": "question",
+    "text": "What is special about this hour on Friday?"
+  },
+  {
+    "kind": "question",
+    "text": "Du'a is answered"
+  },
+  {
+    "kind": "question",
+    "text": "Shops are free"
+  },
+  {
+    "kind": "question",
+    "text": "No one prays"
+  },
+  {
+    "kind": "question",
+    "text": "It lasts all day"
+  },
+  {
+    "kind": "question",
+    "text": "How long is that hour?"
+  },
+  {
+    "kind": "question",
+    "text": "A month"
+  },
+  {
+    "kind": "question",
+    "text": "Short"
+  },
+  {
+    "kind": "question",
+    "text": "All day"
+  },
+  {
+    "kind": "question",
+    "text": "A week"
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ showed its shortness with his hand."
+  },
+  {
+    "kind": "question",
+    "text": "Make many du'as on Fridays."
+  },
+  {
+    "kind": "question",
+    "text": "To meet that hour."
+  },
+  {
+    "kind": "lesson",
+    "text": "After the prayer, spread out, seek Allah's bounty, remember Him."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:10"
+  },
+  {
+    "kind": "lesson",
+    "text": "Work is allowed after"
+  },
+  {
+    "kind": "question",
+    "text": "What may we do after Jumu'ah ends?"
+  },
+  {
+    "kind": "question",
+    "text": "Stay until night"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep in the masjid"
+  },
+  {
+    "kind": "question",
+    "text": "Go and seek Allah's bounty"
+  },
+  {
+    "kind": "question",
+    "text": "Never work again"
+  },
+  {
+    "kind": "question",
+    "text": "Quran 62:10."
+  },
+  {
+    "kind": "question",
+    "text": "What should we keep doing all day?"
+  },
+  {
+    "kind": "question",
+    "text": "Remember Allah much"
+  },
+  {
+    "kind": "question",
+    "text": "Complain"
+  },
+  {
+    "kind": "question",
+    "text": "Forget Him"
+  },
+  {
+    "kind": "question",
+    "text": "Remember Allah much so you may succeed."
+  },
+  {
+    "kind": "question",
+    "text": "Friday is a day of rest from all work, all day."
+  },
+  {
+    "kind": "question",
+    "text": "After the prayer, go and seek Allah's bounty."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Jumu'ah!"
+  },
+  {
+    "kind": "lesson",
+    "text": "After salam, he ﷺ said Astaghfirullah three times."
+  },
+  {
+    "kind": "lesson",
+    "text": "Then: Allahumma antas-salam"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 591"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ say three times after salam?"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allahumma antas-salam mean?"
+  },
+  {
+    "kind": "question",
+    "text": "Peace be on me"
+  },
+  {
+    "kind": "question",
+    "text": "Let's go"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, You are Peace"
+  },
+  {
+    "kind": "question",
+    "text": "O Allah, I am tired"
+  },
+  {
+    "kind": "question",
+    "text": "And from You is peace."
+  },
+  {
+    "kind": "question",
+    "text": "Asking forgiveness right after salah is Sunnah."
+  },
+  {
+    "kind": "question",
+    "text": "He ﷺ did it three times."
+  },
+  {
+    "kind": "lesson",
+    "text": "After salah: Subhanallah 33, Alhamdulillah 33, Allahu akbar 33."
+  },
+  {
+    "kind": "lesson",
+    "text": "Then one more to make 100"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 597a"
+  },
+  {
+    "kind": "question",
+    "text": "How many times each: Subhanallah, Alhamdulillah, Allahu akbar?"
+  },
+  {
+    "kind": "question",
+    "text": "What makes it a full hundred?"
+  },
+  {
+    "kind": "question",
+    "text": "La ilaha illallah..."
+  },
+  {
+    "kind": "question",
+    "text": "Clapping"
+  },
+  {
+    "kind": "question",
+    "text": "Amin"
+  },
+  {
+    "kind": "question",
+    "text": "A song"
+  },
+  {
+    "kind": "question",
+    "text": "La ilaha illallah wahdahu la sharika lah."
+  },
+  {
+    "kind": "question",
+    "text": "What is forgiven for it?"
+  },
+  {
+    "kind": "question",
+    "text": "Only one sin"
+  },
+  {
+    "kind": "question",
+    "text": "Sins, even like sea foam"
+  },
+  {
+    "kind": "lesson",
+    "text": "After each salah: O Allah, help me remember and thank You."
+  },
+  {
+    "kind": "lesson",
+    "text": "I love you, Mu'adh"
+  },
+  {
+    "kind": "lesson",
+    "text": "Help me worship You well"
+  },
+  {
+    "kind": "source",
+    "text": "Sunan Abi Dawud 1522"
+  },
+  {
+    "kind": "question",
+    "text": "What did he ﷺ tell Mu'adh before the du'a?"
+  },
+  {
+    "kind": "question",
+    "text": "By Allah, I love you"
+  },
+  {
+    "kind": "question",
+    "text": "You are late"
+  },
+  {
+    "kind": "question",
+    "text": "Go home"
+  },
+  {
+    "kind": "question",
+    "text": "Be quiet"
+  },
+  {
+    "kind": "question",
+    "text": "What does the du'a ask help for?"
+  },
+  {
+    "kind": "question",
+    "text": "Getting rich"
+  },
+  {
+    "kind": "question",
+    "text": "Winning games"
+  },
+  {
+    "kind": "question",
+    "text": "Remembering, thanking, worshipping well"
+  },
+  {
+    "kind": "question",
+    "text": "When should this du'a be said?"
+  },
+  {
+    "kind": "question",
+    "text": "Once a year"
+  },
+  {
+    "kind": "question",
+    "text": "Only when sad"
+  },
+  {
+    "kind": "question",
+    "text": "After every prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Never leave it after every prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about after the salah!"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah's right on His servants: worship Him and join no partner."
   },
   {
@@ -31265,10 +32757,6 @@
   },
   {
     "kind": "question",
-    "text": "Wealth"
-  },
-  {
-    "kind": "question",
     "text": "Long life"
   },
   {
@@ -31286,10 +32774,6 @@
   {
     "kind": "question",
     "text": "Mu'adh ibn Jabal"
-  },
-  {
-    "kind": "question",
-    "text": "Heraclius"
   },
   {
     "kind": "question",
@@ -31461,10 +32945,6 @@
   },
   {
     "kind": "question",
-    "text": "Only big sins"
-  },
-  {
-    "kind": "question",
     "text": "His mercy is wide."
   },
   {
@@ -31626,10 +33106,6 @@
   {
     "kind": "question",
     "text": "When you ask, who should you ask?"
-  },
-  {
-    "kind": "question",
-    "text": "A grave"
   },
   {
     "kind": "question",
@@ -31805,10 +33281,6 @@
   },
   {
     "kind": "question",
-    "text": "Sleep"
-  },
-  {
-    "kind": "question",
     "text": "Write down our deeds"
   },
   {
@@ -31862,14 +33334,6 @@
   {
     "kind": "question",
     "text": "At which prayers do the angels change shifts?"
-  },
-  {
-    "kind": "question",
-    "text": "Fajr and Asr"
-  },
-  {
-    "kind": "question",
-    "text": "Dhuhr and Isha"
   },
   {
     "kind": "question",
@@ -32046,10 +33510,6 @@
   {
     "kind": "question",
     "text": "Often"
-  },
-  {
-    "kind": "question",
-    "text": "Never"
   },
   {
     "kind": "question",
@@ -33110,10 +34570,6 @@
   {
     "kind": "question",
     "text": "Who should be dearest to a believer?"
-  },
-  {
-    "kind": "question",
-    "text": "Games"
   },
   {
     "kind": "question",
@@ -35969,10 +37425,6 @@
   },
   {
     "kind": "question",
-    "text": "Food"
-  },
-  {
-    "kind": "question",
     "text": "Guarding what we say."
   },
   {
@@ -36528,10 +37980,6 @@
     "text": "Jibril spoke of neighbors so much, they seemed set to inherit."
   },
   {
-    "kind": "lesson",
-    "text": "Told by Aishah"
-  },
-  {
     "kind": "question",
     "text": "Who kept advising the Prophet ﷺ about neighbors?"
   },
@@ -36833,10 +38281,6 @@
   },
   {
     "kind": "question",
-    "text": "A month"
-  },
-  {
-    "kind": "question",
     "text": "Three days"
   },
   {
@@ -37102,10 +38546,6 @@
   {
     "kind": "question",
     "text": "Argue"
-  },
-  {
-    "kind": "question",
-    "text": "Lie down"
   },
   {
     "kind": "question",
@@ -37453,10 +38893,6 @@
   },
   {
     "kind": "question",
-    "text": "Nobody"
-  },
-  {
-    "kind": "question",
     "text": "The merciful"
   },
   {
@@ -37613,15 +39049,7 @@
   },
   {
     "kind": "question",
-    "text": "A game"
-  },
-  {
-    "kind": "question",
     "text": "A shield"
-  },
-  {
-    "kind": "question",
-    "text": "A burden"
   },
   {
     "kind": "question",
@@ -37869,10 +39297,6 @@
   },
   {
     "kind": "question",
-    "text": "A whole year"
-  },
-  {
-    "kind": "question",
     "text": "Whoever fasts one day for Allah's sake."
   },
   {
@@ -37914,10 +39338,6 @@
   {
     "kind": "question",
     "text": "At suhur"
-  },
-  {
-    "kind": "question",
-    "text": "At noon"
   },
   {
     "kind": "question",
@@ -37990,10 +39410,6 @@
   {
     "kind": "question",
     "text": "When is suhur eaten?"
-  },
-  {
-    "kind": "question",
-    "text": "At sunset"
   },
   {
     "kind": "question",
@@ -38170,10 +39586,6 @@
   {
     "kind": "question",
     "text": "An hour after"
-  },
-  {
-    "kind": "question",
-    "text": "At midnight"
   },
   {
     "kind": "question",
@@ -38526,10 +39938,6 @@
   {
     "kind": "question",
     "text": "Every single day"
-  },
-  {
-    "kind": "question",
-    "text": "Once a year"
   },
   {
     "kind": "question",
@@ -39222,10 +40630,6 @@
   {
     "kind": "question",
     "text": "A long trip"
-  },
-  {
-    "kind": "question",
-    "text": "A market"
   },
   {
     "kind": "question",
@@ -40025,10 +41429,6 @@
   },
   {
     "kind": "question",
-    "text": "Only on Eid"
-  },
-  {
-    "kind": "question",
     "text": "Yes, by doing good"
   },
   {
@@ -40086,10 +41486,6 @@
   {
     "kind": "question",
     "text": "Guiding a lost man is charity."
-  },
-  {
-    "kind": "question",
-    "text": "Who narrated this hadith?"
   },
   {
     "kind": "lesson",
@@ -41717,15 +43113,7 @@
   },
   {
     "kind": "question",
-    "text": "The masjid"
-  },
-  {
-    "kind": "question",
     "text": "Her husband's home"
-  },
-  {
-    "kind": "question",
-    "text": "The market"
   },
   {
     "kind": "question",
@@ -42762,10 +44150,6 @@
   {
     "kind": "question",
     "text": "The husband"
-  },
-  {
-    "kind": "question",
-    "text": "The imam"
   },
   {
     "kind": "question",
@@ -44574,10 +45958,6 @@
   {
     "kind": "question",
     "text": "At night"
-  },
-  {
-    "kind": "question",
-    "text": "After Asr"
   },
   {
     "kind": "question",
@@ -49245,10 +50625,6 @@
   },
   {
     "kind": "question",
-    "text": "The Friday prayer"
-  },
-  {
-    "kind": "question",
     "text": "It was for Jumu'ah."
   },
   {
@@ -49450,10 +50826,6 @@
   {
     "kind": "question",
     "text": "Humran was Uthman's freed servant."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Uthman"
   },
   {
     "kind": "question",
@@ -49814,10 +51186,6 @@
   {
     "kind": "question",
     "text": "What had Fatimah asked for?"
-  },
-  {
-    "kind": "question",
-    "text": "A garden"
   },
   {
     "kind": "question",
@@ -51837,23 +53205,11 @@
   },
   {
     "kind": "question",
-    "text": "Go home"
-  },
-  {
-    "kind": "question",
     "text": "Which kind words did he say with it?"
   },
   {
     "kind": "question",
-    "text": "You are late"
-  },
-  {
-    "kind": "question",
     "text": "Try harder"
-  },
-  {
-    "kind": "question",
-    "text": "Be quiet"
   },
   {
     "kind": "question",
@@ -52449,10 +53805,6 @@
   },
   {
     "kind": "question",
-    "text": "A prize"
-  },
-  {
-    "kind": "question",
     "text": "A right for all"
   },
   {
@@ -52734,10 +54086,6 @@
   {
     "kind": "lesson",
     "text": "Visitors thought Ibn Mas'ud was from the Prophet's ﷺ family."
-  },
-  {
-    "kind": "lesson",
-    "text": "Told by Abu Musa"
   },
   {
     "kind": "lesson",
@@ -54545,10 +55893,6 @@
   },
   {
     "kind": "question",
-    "text": "Pray"
-  },
-  {
-    "kind": "question",
     "text": "What did he ﷺ answer?"
   },
   {
@@ -55426,10 +56770,6 @@
   {
     "kind": "question",
     "text": "Speak louder"
-  },
-  {
-    "kind": "question",
-    "text": "Listen quietly"
   },
   {
     "kind": "question",
@@ -57170,10 +58510,6 @@
   {
     "kind": "question",
     "text": "What stopped the bleeding?"
-  },
-  {
-    "kind": "question",
-    "text": "A song"
   },
   {
     "kind": "question",
@@ -60537,10 +61873,6 @@
   },
   {
     "kind": "question",
-    "text": "To exercise"
-  },
-  {
-    "kind": "question",
     "text": "It was Sulayman's road"
   },
   {
@@ -62000,20 +63332,12 @@
     "text": "She never stopped praying them."
   },
   {
-    "kind": "source",
-    "text": "Sahih Muslim 728"
-  },
-  {
     "kind": "question",
     "text": "How many voluntary rak'ahs a day earn a house in Paradise?"
   },
   {
     "kind": "question",
     "text": "Twelve rak'ahs in a day and a night."
-  },
-  {
-    "kind": "question",
-    "text": "What did Umm Habibah do after hearing it?"
   },
   {
     "kind": "question",
@@ -62026,10 +63350,6 @@
   {
     "kind": "question",
     "text": "Prayed them once"
-  },
-  {
-    "kind": "question",
-    "text": "Told no one"
   },
   {
     "kind": "question",
@@ -70020,10 +71340,6 @@
     "text": "The first deed a person is judged on is the prayer."
   },
   {
-    "kind": "source",
-    "text": "Jami at-Tirmidhi 413"
-  },
-  {
     "kind": "lesson",
     "text": "Extra prayers fill gaps"
   },
@@ -70218,10 +71534,6 @@
   {
     "kind": "question",
     "text": "Hands"
-  },
-  {
-    "kind": "question",
-    "text": "Friends"
   },
   {
     "kind": "question",
@@ -72450,10 +73762,6 @@
   {
     "kind": "question",
     "text": "If you have nothing to give?"
-  },
-  {
-    "kind": "question",
-    "text": "Complain"
   },
   {
     "kind": "question",
@@ -74845,10 +76153,6 @@
   },
   {
     "kind": "question",
-    "text": "Getting rich"
-  },
-  {
-    "kind": "question",
     "text": "Winning arguments"
   },
   {
@@ -76082,10 +77386,6 @@
   {
     "kind": "question",
     "text": "Ayah 239: how do you pray in fear or danger?"
-  },
-  {
-    "kind": "question",
-    "text": "Next week"
   },
   {
     "kind": "question",
@@ -80957,10 +82257,6 @@
   },
   {
     "kind": "question",
-    "text": "At sunrise"
-  },
-  {
-    "kind": "question",
     "text": "At lunch"
   },
   {
@@ -84201,10 +85497,6 @@
   },
   {
     "kind": "question",
-    "text": "Boredom"
-  },
-  {
-    "kind": "question",
     "text": "Healing"
   },
   {
@@ -85286,10 +86578,6 @@
   {
     "kind": "question",
     "text": "To make the heart firm"
-  },
-  {
-    "kind": "question",
-    "text": "To pass time"
   },
   {
     "kind": "lesson",
@@ -91436,10 +92724,6 @@
     "text": "Take off your shoes"
   },
   {
-    "kind": "lesson",
-    "text": "Pray to remember Me"
-  },
-  {
     "kind": "source",
     "text": "Quran 20:10"
   },
@@ -92154,10 +93438,6 @@
   {
     "kind": "question",
     "text": "Ayah 132: whom should we tell to pray?"
-  },
-  {
-    "kind": "question",
-    "text": "Our family"
   },
   {
     "kind": "lesson",
@@ -94846,10 +96126,6 @@
   {
     "kind": "question",
     "text": "When do children ask permission to enter, in An-Nur?"
-  },
-  {
-    "kind": "question",
-    "text": "All day"
   },
   {
     "kind": "question",
@@ -98201,10 +99477,6 @@
   },
   {
     "kind": "source",
-    "text": "Quran 29:45"
-  },
-  {
-    "kind": "source",
     "text": "Quran 29:45-51"
   },
   {
@@ -98234,10 +99506,6 @@
   {
     "kind": "question",
     "text": "What does prayer keep us from, in Al-Ankabut?"
-  },
-  {
-    "kind": "question",
-    "text": "Shameful and bad deeds"
   },
   {
     "kind": "question",
@@ -99854,10 +101122,6 @@
   {
     "kind": "question",
     "text": "How often should we remember Allah, in Al-Ahzab?"
-  },
-  {
-    "kind": "question",
-    "text": "Only when sad"
   },
   {
     "kind": "question",
@@ -102401,10 +103665,6 @@
   },
   {
     "kind": "question",
-    "text": "To show off"
-  },
-  {
-    "kind": "question",
     "text": "Now and then"
   },
   {
@@ -103530,10 +104790,6 @@
   {
     "kind": "question",
     "text": "What did Allah make the night for, in Ghafir?"
-  },
-  {
-    "kind": "question",
-    "text": "Work"
   },
   {
     "kind": "question",
@@ -110813,10 +112069,6 @@
   },
   {
     "kind": "source",
-    "text": "Quran 62:9"
-  },
-  {
-    "kind": "source",
     "text": "Quran 62:9-11"
   },
   {
@@ -114998,10 +116250,6 @@
   {
     "kind": "question",
     "text": "Prostrate"
-  },
-  {
-    "kind": "question",
-    "text": "Eat"
   },
   {
     "kind": "question",
@@ -119389,10 +120637,6 @@
   },
   {
     "kind": "question",
-    "text": "Like nothing"
-  },
-  {
-    "kind": "question",
     "text": "Different"
   },
   {
@@ -120366,10 +121610,6 @@
   {
     "kind": "question",
     "text": "Bowing to kings"
-  },
-  {
-    "kind": "question",
-    "text": "Sports"
   },
   {
     "kind": "question",
@@ -125301,10 +126541,6 @@
   },
   {
     "kind": "question",
-    "text": "Forget Him"
-  },
-  {
-    "kind": "question",
     "text": "Wa litukabbirullah."
   },
   {
@@ -125814,10 +127050,6 @@
   {
     "kind": "question",
     "text": "Al-Mash'ar al-Haram"
-  },
-  {
-    "kind": "question",
-    "text": "At home"
   },
   {
     "kind": "question",
@@ -126581,15 +127813,7 @@
   },
   {
     "kind": "question",
-    "text": "Looking around"
-  },
-  {
-    "kind": "question",
     "text": "Humbly, devoted to Allah"
-  },
-  {
-    "kind": "question",
-    "text": "Rushing"
   },
   {
     "kind": "question",
@@ -127250,10 +128474,6 @@
   {
     "kind": "question",
     "text": "How long did the man stay dead, in 2:259?"
-  },
-  {
-    "kind": "question",
-    "text": "A week"
   },
   {
     "kind": "question",
@@ -128354,10 +129574,6 @@
   {
     "kind": "question",
     "text": "What does Allah forgive for whoever fasts this way?"
-  },
-  {
-    "kind": "question",
-    "text": "Only one sin"
   },
   {
     "kind": "question",
