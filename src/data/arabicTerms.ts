@@ -180,6 +180,13 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "seerah-taif": { ar: "الطائف", translit: "At-Ta'if", meaning: "Ta'if" },
   "seerah-isra-miraj": { ar: "الإسراء والمعراج", translit: "Al-Isra wal-Mi'raj", meaning: "The Night Journey and Ascension" },
   "seerah-hijrah": { ar: "الهجرة", translit: "Al-Hijrah", meaning: "The migration" },
+  "seerah-badr": { ar: "غزوة بدر", translit: "Ghazwat Badr", meaning: "The battle of Badr" },
+  "seerah-uhud": { ar: "غزوة أحد", translit: "Ghazwat Uhud", meaning: "The battle of Uhud" },
+  "seerah-trench": { ar: "غزوة الخندق", translit: "Ghazwat al-Khandaq", meaning: "The battle of the Trench" },
+  "seerah-hudaybiyah": { ar: "صلح الحديبية", translit: "Sulh al-Hudaybiyah", meaning: "The treaty of Hudaybiyah" },
+  "seerah-conquest": { ar: "فتح مكة", translit: "Fath Makkah", meaning: "The Conquest of Makkah" },
+  "seerah-farewell": { ar: "حجة الوداع والوفاة", translit: "Hajjat al-wada' wal-wafah", meaning: "The Farewell Hajj and his passing" },
+  "seerah-character": { ar: "الخلق العظيم", translit: "Al-khuluq al-'azim", meaning: "The great character" },
   // The Day of Judgment topic (src/data/akhirahUnits.ts)
   "akhirah-last-day": { ar: "الإيمان باليوم الآخر", translit: "Al-iman bil-yawm al-akhir", meaning: "Faith in the Last Day" },
   "akhirah-minor-signs": { ar: "أشراط الساعة الصغرى", translit: "Ashrat as-sa'ah as-sughra", meaning: "The small signs of the Hour" },
@@ -684,6 +691,7 @@ const LEARN_FORMS = [
   "الْمَوْتُ وَالْقَبْرُ", "النَّفْخُ فِي الصُّورِ وَالْحَشْرُ", "الْحِسَابُ وَالْمِيزَانُ", "الشَّفَاعَةُ وَالْحَوْضُ",
   "الصِّرَاطُ", "الْجَنَّةُ", "جَهَنَّمُ", "الِاسْتِعْدَادُ لِلْآخِرَةِ",
   "النَّشْأَةُ", "بَدْءُ الْوَحْيِ", "الدَّعْوَةُ فِي مَكَّةَ", "الطَّائِفُ", "الْإِسْرَاءُ وَالْمِعْرَاجُ", "الْهِجْرَةُ",
+  "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
