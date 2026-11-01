@@ -77,10 +77,17 @@ const tileOrder = () =>
     .map((node) => node.props.testID as string | undefined)
     .filter((id): id is string => Boolean(id?.startsWith("choice-")));
 const heartLabel = () => screen.getByTestId("lesson-hearts").props.accessibilityLabel as string;
-// The lesson bar's fill, out of 100 (the learn card is the first of its four steps).
+// The lesson bar's fill, out of 100: every step of the lesson (learn pages and questions) counts the same.
 const progress = () => screen.getByTestId("lesson-progress").props.accessibilityValue.now as number;
 
-// Foundation's first circle: a learn card, then its own questions (no review question this early).
+/** CONTINUE through learn pages ("Good to know", "Quiz time!") until a question shows. */
+async function toQuestion() {
+  for (let page = 0; page < 12 && screen.queryByTestId("learn-continue") && !screen.queryByTestId("exercise-view"); page += 1) {
+    await press("learn-continue");
+  }
+}
+
+// Foundation's first circle: learn pages and its own questions in turn, then its quiz (no review question this early).
 async function startFirstLesson(user: UserProfile) {
   seedUser(user);
   const node = learningApi.getPathNodes(user).find((item) => item.topicId === "foundation" && item.status === "current") as LearningNodeView;
@@ -89,7 +96,7 @@ async function startFirstLesson(user: UserProfile) {
   await screen.findByTestId("learn-path-foundation");
   await press(`path-node-${node.id}`);
   await press("node-card-start");
-  await press("learn-continue");
+  await toQuestion();
   return { node, challenges };
 }
 
@@ -120,6 +127,17 @@ describe("lesson queue: a miss comes back until it is right", () => {
     expect(right.queue).toHaveLength(4);
     expect(isLastLessonStep(right.queue, 3)).toBe(true);
   });
+
+  it("does not add a miss to the end when the circle's quiz asks it again anyway", () => {
+    const queue = [{ index: 0, attempt: 0 }, { index: 1, attempt: 0 }, { index: 0, attempt: 0, quiz: true }];
+    const miss = answerLessonStep(queue, 0, false, false);
+    expect(miss.requeued).toBe(false);
+    expect(miss.queue).toHaveLength(3);
+    // Missed in the quiz, it comes back at the end as its next try.
+    const quizMiss = answerLessonStep(queue, 2, false, false);
+    expect(quizMiss.requeued).toBe(true);
+    expect(quizMiss.queue[3]).toEqual({ index: 0, attempt: 1, quiz: true });
+  });
 });
 
 describe("TopicApp heart rule", () => {
@@ -133,18 +151,23 @@ describe("TopicApp heart rule", () => {
   it("never completes a lesson answered all wrong: each wrong retry costs a heart and 0 hearts opens the sheet", async () => {
     const { node, challenges } = await startFirstLesson(makeUser({ hearts: hearts(5) }));
     expect(challenges).toHaveLength(3);
+    // Each question once while learning, then the quiz asks them again.
     const order = [0, 1, 2, 0, 1];
+    let bar = progress();
 
     for (const [turn, index] of order.entries()) {
+      await toQuestion();
       const shown = shownChallenge(challenges)!;
       expect(shown.id).toBe(challenges[index].id);
-      // The comebacks say so; the first round does not.
-      expect(Boolean(screen.queryByText("Try again!"))).toBe(turn >= challenges.length);
+      // The quiz asks fresh: no "Try again!" in the first rounds.
+      expect(screen.queryByText("Try again!")).toBeNull();
       await check(shown, false);
       // Every wrong answer costs a heart, the retries too.
       expect(heartLabel()).toBe(`${4 - turn} of 5 hearts`);
-      // Nothing was answered right, so the bar has not moved past the learn card.
-      expect(progress()).toBe(25);
+      // The bar never goes back, and never fills while nothing is right.
+      expect(progress()).toBeGreaterThanOrEqual(bar);
+      expect(progress()).toBeLessThan(100);
+      bar = progress();
       await press("feedback-continue");
     }
 
@@ -156,21 +179,21 @@ describe("TopicApp heart rule", () => {
     expect(savedUser().completedLessonIds).not.toContain(node.firstLessonId);
     expect(savedUser().completedNodeIds).not.toContain(node.id);
 
-    // The free refill fills the hearts one by one, then the lesson goes on with the next missed question.
+    // The free refill fills the hearts one by one, then the lesson goes on with the quiz's last question.
     await press("refill-claim");
     await act(async () => {
       await new Promise((resolve) => setTimeout(resolve, 1100));
     });
     expect(heartLabel()).toBe("5 of 5 hearts");
     expect(shownChallenge(challenges)!.id).toBe(challenges[2].id);
-    expect(screen.getByText("Try again!")).toBeTruthy();
 
-    // Right at last, each one: the lesson-complete flow follows the last of them. Stars count first tries.
+    // Right at last, each one (the quiz's misses come back as a new try): the lesson-complete flow follows the last
+    // of them. Stars count first tries.
     for (const [turn, index] of [2, 0, 1].entries()) {
       const shown = shownChallenge(challenges)!;
       expect(shown.id).toBe(challenges[index].id);
+      expect(Boolean(screen.queryByText("Try again!"))).toBe(turn > 0);
       await check(shown, true);
-      expect(progress()).toBe(25 * (turn + 2));
       await press("feedback-continue");
     }
     expect(await screen.findByTestId("stat-stars")).toBeTruthy();
@@ -178,18 +201,31 @@ describe("TopicApp heart rule", () => {
     expect(savedUser().completedLessonIds).toContain(node.firstLessonId);
   });
 
-  it("brings a question missed twice back twice, its tiles moved each time, and the bar never goes back", async () => {
+  it("brings a question missed in the quiz back twice, its tiles moved each time, and the bar never goes back", async () => {
     const { challenges } = await startFirstLesson(makeUser({ hearts: hearts(5, true) }));
     const [first, ...rest] = challenges;
 
-    const firstTry = tileOrder();
+    // While learning: the first is missed, the others right.
     await check(first, false);
-    expect(progress()).toBe(25);
     await press("feedback-continue");
-    for (const [turn, challenge] of rest.entries()) {
+    for (const challenge of rest) {
+      await toQuestion();
       expect(shownChallenge(challenges)!.id).toBe(challenge.id);
       await check(challenge, true);
-      expect(progress()).toBe(25 * (turn + 2));
+      await press("feedback-continue");
+    }
+
+    // The quiz asks the first again, fresh, and it is missed again.
+    await toQuestion();
+    expect(shownChallenge(challenges)!.id).toBe(first.id);
+    expect(screen.queryByText("Try again!")).toBeNull();
+    const firstTry = tileOrder();
+    await check(first, false);
+    const bar = progress();
+    await press("feedback-continue");
+    for (const challenge of rest) {
+      expect(shownChallenge(challenges)!.id).toBe(challenge.id);
+      await check(challenge, true);
       await press("feedback-continue");
     }
 
@@ -198,8 +234,10 @@ describe("TopicApp heart rule", () => {
     expect(screen.getByText("Try again!")).toBeTruthy();
     const secondTry = tileOrder();
     expect(secondTry).not.toEqual(firstTry);
+    const before = progress();
+    expect(before).toBeGreaterThanOrEqual(bar);
     await check(first, false);
-    expect(progress()).toBe(75);
+    expect(progress()).toBe(before);
     expect(screen.queryByTestId("stat-stars")).toBeNull();
     await press("feedback-continue");
 
@@ -212,7 +250,7 @@ describe("TopicApp heart rule", () => {
     expect(progress()).toBe(100);
     await press("feedback-continue");
 
-    // One question missed on its first try: 2 stars, however often it came back.
+    // Missed on its first try while learning and in the quiz: 2 stars, however often it came back.
     expect(await screen.findByTestId("stat-stars")).toBeTruthy();
     expect(screen.getByLabelText("2 of 3 stars")).toBeTruthy();
   });

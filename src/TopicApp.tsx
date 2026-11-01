@@ -168,7 +168,8 @@ import {
 } from "./services/foundationAssessment";
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
-import { answerLessonStep, isLastLessonStep, startLessonQueue, type LessonStep } from "./services/lessonQueue";
+import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } from "./services/lessonQueue";
+import { buildLessonFlow, flowProgress, isLearnStep, isQuestionStep, teachLesson, highlightWords, lessonSummary } from "./ui/lesson/lessonPages";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
@@ -226,7 +227,7 @@ import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, t
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
-import { ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, QuizComplete, getLessonProgress, isPlayablePractice, lessonStars } from "./ui/lesson";
+import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
@@ -350,11 +351,16 @@ interface AppState {
   user?: UserProfile;
   xpSummary: XpSummary[];
   activeSession?: LessonSession;
-  /** The questions to ask, in order: the lesson's own, then each miss again, until it is answered right. */
-  lessonQueue: LessonStep[];
+  /**
+   * The steps of the lesson, in order: learn pages and questions (learn, answer, learn, answer, then the circle's
+   * quiz), then each miss again, until it is answered right. A test or practice holds only questions.
+   */
+  lessonQueue: FlowStep[];
+  /** How many steps the lesson started with, for the progress bar (a miss asked again adds none). */
+  lessonTotal: number;
   /** Position in lessonQueue. */
   stepIndex: number;
-  /** The lesson's questions that are done (answered right; in a test, answered): the progress bar. */
+  /** The lesson's steps that are done (pages read, questions answered right; in a test, answered): the progress bar. */
   doneCount: number;
   selectedChoiceId?: string;
   answerState: AnswerState;
@@ -387,11 +393,10 @@ type Action =
   | { type: "close_shop" }
   | { type: "close_social" }
   | { type: "start_lesson"; session: LessonSession }
-  | { type: "show_practice_screen" }
-  | { type: "begin_lesson_questions" }
   | { type: "select_choice"; choiceId: string }
   | { type: "answer"; correct: boolean; user: UserProfile; missedLessonId?: string; scored?: boolean; isTest?: boolean }
   | { type: "next_challenge" }
+  | { type: "next_page" }
   | { type: "finish_lesson"; user: UserProfile; xpSummary: XpSummary[] }
   | { type: "close_lesson_complete" }
   | { type: "apply_user"; user: UserProfile }
@@ -404,6 +409,7 @@ const initialState: AppState = {
   selectedTopic: "foundation",
   xpSummary: [],
   lessonQueue: [],
+  lessonTotal: 0,
   stepIndex: 0,
   doneCount: 0,
   answerState: undefined,
@@ -416,7 +422,8 @@ const initialState: AppState = {
 // Leaving or finishing a lesson: nothing of it is kept.
 const NO_LESSON = {
   activeSession: undefined,
-  lessonQueue: [] as LessonStep[],
+  lessonQueue: [] as FlowStep[],
+  lessonTotal: 0,
   stepIndex: 0,
   doneCount: 0,
   selectedChoiceId: undefined,
@@ -476,26 +483,23 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
     case "close_social":
       return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
-    case "start_lesson":
+    case "start_lesson": {
+      // The path's node card already shows what the lesson is, so go straight to learning: learn a page, answer,
+      // learn, answer, then the circle's quiz. A test-out has nothing new to teach, so it is only the questions.
+      // So are practice of lessons already done and a quiz.
+      const questionsOnly = action.session.mode === "test_out" || action.session.mode === "lesson_practice" || action.session.mode === "quiz";
+      const queue: FlowStep[] = questionsOnly
+        ? startLessonQueue(action.session.lesson.challenges.length)
+        : buildLessonFlow(action.session.lesson, { practice: Boolean(action.session.lesson.practiceActivities?.some(isPlayablePractice)) });
       return {
         ...state,
-        // The path's node card already shows what the lesson is, so go straight to learning.
-        // A test-out has nothing new to teach, so it starts with the questions.
-        // So do practice of lessons already done and a quiz.
-        screen: action.session.mode === "test_out" || action.session.mode === "lesson_practice" || action.session.mode === "quiz" ? "lesson_question" : "lesson_teach",
         ...NO_LESSON,
+        screen: screenForStep(queue[0]),
         activeSession: action.session,
-        lessonQueue: startLessonQueue(action.session.lesson.challenges.length)
+        lessonQueue: queue,
+        lessonTotal: queue.length
       };
-    case "show_practice_screen":
-      return { ...state, screen: "lesson_practice" };
-    case "begin_lesson_questions":
-      return {
-        ...state,
-        screen: "lesson_question",
-        selectedChoiceId: undefined,
-        answerState: undefined
-      };
+    }
     case "select_choice":
       return { ...state, selectedChoiceId: action.choiceId };
     case "answer":
@@ -517,10 +521,20 @@ function reducer(state: AppState, action: Action): AppState {
           : [...state.sessionMissedLessonIds, action.missedLessonId]
       };
       }
+    case "next_page":
+      // A learn page read (or the ordering game played) is a step done.
+      return {
+        ...state,
+        screen: screenForStep(state.lessonQueue[state.stepIndex + 1]),
+        stepIndex: state.stepIndex + 1,
+        doneCount: state.doneCount + 1,
+        selectedChoiceId: undefined,
+        answerState: undefined
+      };
     case "next_challenge":
       return {
         ...state,
-        screen: "lesson_question",
+        screen: screenForStep(state.lessonQueue[state.stepIndex + 1]),
         stepIndex: state.stepIndex + 1,
         selectedChoiceId: undefined,
         answerState: undefined
@@ -547,6 +561,13 @@ function reducer(state: AppState, action: Action): AppState {
     default:
       return state;
   }
+}
+
+/** The lesson screen a step is shown on. */
+function screenForStep(step: FlowStep | undefined): Screen {
+  if (isLearnStep(step)) return "lesson_teach";
+  if (step && "kind" in step && step.kind === "practice") return "lesson_practice";
+  return "lesson_question";
 }
 
 const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
@@ -1636,7 +1657,8 @@ export default function TopicApp() {
       return;
     }
 
-    const step = state.lessonQueue[state.stepIndex];
+    const queued = state.lessonQueue[state.stepIndex];
+    const step = isQuestionStep(queued) ? queued : undefined;
     const challenge = step ? state.activeSession.lesson.challenges[step.index] : undefined;
 
     if (!step || !challenge) {
@@ -1693,19 +1715,11 @@ export default function TopicApp() {
     });
   }
 
-  function beginLessonQuestions() {
-    challengeStartedAtRef.current = Date.now();
-    dispatch({ type: "begin_lesson_questions" });
-  }
-
-  // Lessons are one learn card, an optional ordering game, then the questions.
+  // A lesson is learn pages and questions in turn, the ordering game after the last page, then the circle's quiz:
+  // CONTINUE on a page (or finishing the game) goes to the next step.
   function continueFromTeach() {
-    if (currentPracticeActivity) {
-      dispatch({ type: "show_practice_screen" });
-      return;
-    }
-
-    beginLessonQuestions();
+    challengeStartedAtRef.current = Date.now();
+    dispatch({ type: "next_page" });
   }
 
   function continueFromFeedback() {
@@ -3067,7 +3081,9 @@ export default function TopicApp() {
   const lessonRecitation = lessonArabic
     ? recitationForArabic(lessonArabic.ar, [lesson?.quote?.reference, lesson?.learnSource?.reference])
     : null;
-  const lessonStep = state.lessonQueue[state.stepIndex];
+  const queuedStep = state.lessonQueue[state.stepIndex];
+  const lessonStep = isQuestionStep(queuedStep) ? queuedStep : undefined;
+  const learnStep = isLearnStep(queuedStep) ? queuedStep : undefined;
   const challenge = lessonStep ? lesson?.challenges[lessonStep.index] : undefined;
   const correctLabel = challenge?.choices.find((choice) => choice.id === challenge.correctChoiceId)?.label ?? "";
   // The learn line and the Why line are cut from the English lesson, then translated, so each language says the same.
@@ -3083,13 +3099,16 @@ export default function TopicApp() {
   const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
   const inTest = isTestSession(lessonSession);
   const testPassingScore = inTest && lesson ? lessonSession?.passingScore ?? testOutPassingScore(lesson.challenges.length) : 0;
-  const lessonProgress = getLessonProgress({
-    screen: state.screen,
-    hasTeach: !inTest,
-    hasPractice: Boolean(currentPracticeActivity),
-    challengeCount: lesson?.challenges.length ?? 1,
-    done: state.doneCount
-  });
+  // The pages of the lesson: what the source says (when it is about this lesson), the words its questions ask
+  // for (highlighted), and a Good to know page's fact, all in the learner's language.
+  const lessonSummaryShown = lesson && englishLesson && lessonSummary(englishLesson) ? lesson.learnSource?.summary : undefined;
+  const lessonMarks = lesson ? highlightWords(lesson) : [];
+  const teachChallenge = learnStep?.page === "teach" && learnStep.index !== undefined ? lesson?.challenges[learnStep.index] : undefined;
+  const teachShown = teachChallenge ? teachLesson(teachChallenge) : undefined;
+  const quizQuestionCount = state.lessonQueue.filter((step) => isQuestionStep(step) && step.quiz && step.attempt === 0).length;
+  const lessonHasFactsPage = state.lessonQueue.some((step) => isLearnStep(step) && step.page === "facts");
+  // Every step the lesson started with counts the same: pages read and questions done.
+  const lessonProgress = state.screen === "lesson_complete" ? 1 : flowProgress(state.doneCount, state.lessonTotal);
   const lessonHearts = {
     current: state.user.hearts.current,
     max: state.user.hearts.max,
@@ -3210,7 +3229,14 @@ export default function TopicApp() {
         )}
         {state.screen === "lesson_teach" && lesson && lessonShell(
           <LearnCard
-            key={lesson.id}
+            // Each page comes in fresh, with its own entry.
+            key={`${lesson.id}-${state.stepIndex}`}
+            page={learnStep?.page}
+            summary={learnStep?.page === "facts" ? lessonSummaryShown : undefined}
+            marks={lessonMarks}
+            teach={teachShown}
+            quizCount={learnStep?.page === "quiz" ? quizQuestionCount : undefined}
+            sourceHere={learnStep?.page === "facts" || (learnStep?.page === "start" && !lessonHasFactsPage)}
             title={lesson.title}
             line={localizedLessonLine(englishLesson ?? lesson, currentLanguage)}
             arabic={lessonArabic}
@@ -3245,7 +3271,7 @@ export default function TopicApp() {
             correctOrderIds={currentPracticeActivity.correctOrderIds ?? currentPracticeActivity.options.map((option) => option.id)}
             mascotVariant={lessonMascot}
             accent={lessonAccent}
-            onDone={beginLessonQuestions}
+            onDone={continueFromTeach}
           />
         )}
         {(state.screen === "lesson_question" || state.screen === "lesson_feedback") && challenge && lessonStep && lessonShell(
@@ -3255,10 +3281,11 @@ export default function TopicApp() {
             ) : null}
             <ExerciseView
               // A missed question asked again at the end is a new try: a fresh view with its tiles in another order.
-              key={`${challenge.id}-${lessonStep.attempt}`}
+              key={`${challenge.id}-${lessonStep.quiz ? "quiz" : "learn"}-${lessonStep.attempt}`}
               kind={challenge.type}
               prompt={challenge.prompt}
-              choices={challenge.choices}
+              // The circle's quiz asks a question met a minute ago: its tiles come in another order.
+              choices={lessonStep.quiz ? attemptOrder(challenge.choices, 1) : challenge.choices}
               selectedChoiceId={state.selectedChoiceId}
               correctChoiceId={challenge.correctChoiceId}
               result={state.screen === "lesson_feedback"
