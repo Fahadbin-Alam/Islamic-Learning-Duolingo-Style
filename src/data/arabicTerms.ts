@@ -119,6 +119,10 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "zakat-recipients": { ar: "مصارف الزكاة", translit: "Masarif az-zakah", meaning: "Zakat recipients" },
   "zakat-character-and-intention": { ar: "النية والإخلاص", translit: "An-niyyah wal-ikhlas", meaning: "Intention and sincerity" },
   "zakat-broader-generosity": { ar: "الصدقة والكرم", translit: "As-sadaqah wal-karam", meaning: "Charity and generosity" },
+  "zakat-pillar": { ar: "ركن الزكاة", translit: "Rukn az-zakah", meaning: "The pillar of zakat" },
+  "zakat-al-fitr": { ar: "زكاة الفطر", translit: "Zakat al-fitr", meaning: "Zakat al-Fitr" },
+  "zakat-everyday-charity": { ar: "كل معروف صدقة", translit: "Kullu ma'rufin sadaqah", meaning: "Every good deed is charity" },
+  "zakat-spend-quran": { ar: "الإنفاق في سبيل الله", translit: "Al-infaq fi sabilillah", meaning: "Spending for Allah" },
 
   // Hajj: duty, rites and sacred sites
   "hajj-duty": { ar: "فريضة الحج", translit: "Faridat al-Hajj", meaning: "The duty of Hajj" },
@@ -698,6 +702,7 @@ const LEARN_FORMS = [
   "النَّشْأَةُ", "بَدْءُ الْوَحْيِ", "الدَّعْوَةُ فِي مَكَّةَ", "الطَّائِفُ", "الْإِسْرَاءُ وَالْمِعْرَاجُ", "الْهِجْرَةُ",
   "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
   "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
+  "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
