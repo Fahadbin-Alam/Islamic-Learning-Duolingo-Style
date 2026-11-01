@@ -11,8 +11,11 @@ import { PICTURE_IMAGES } from "./lessonPictureImages";
  * Companion or anyone meant to stand for them. They ship inside the app (small JPEGs in assets/pictures), so
  * they show offline.
  */
-/** `drawn`: one of our own drawings of how a place looked long ago (scripts/lesson-pictures/draw.mjs), not a photo. */
-export type PictureCredit = { file: string; page: string; author: string; license: string; licenseUrl: string; drawn?: boolean };
+/**
+ * `drawn`: one of our own drawings of how a place looked long ago (scripts/lesson-pictures/draw.mjs), not a photo.
+ * `imagined`: a drawing of something no one alive has seen (the bridge, the Ark), only to help picture it.
+ */
+export type PictureCredit = { file: string; page: string; author: string; license: string; licenseUrl: string; drawn?: boolean; imagined?: boolean };
 
 export type LessonPicture = {
   id: string;
@@ -47,6 +50,21 @@ const PLACES: PlaceRule[] = [
   { id: "manuscript", caption: "An early page of the Quran", match: /\bmushaf\b|\bmanuscripts?\b|\bcompil(?:ed|ing|ation)\b[^.]*\bquran\b|\bquran\b[^.]*\bcompil(?:ed|ing|ation)\b/i },
   { id: "madinah", caption: "Madinah long ago, among its date palms", match: /\bmadinah\b|\bmedina\b|\byathrib\b|\bprophet['‘’]s mosque\b|\bmasjid an-nabawi\b/i },
   { id: "makkah", caption: "Makkah long ago", match: /\bmakkah\b|\bmecca\b|\bmasjid al-haram\b|\bsacred mosque\b/i },
+  // Things the Quran and sunnah describe, drawn only to help picture them (scripts/lesson-pictures/draw.mjs). The
+  // unseen ones (the bridge, the scales, the Pool, Jannah) say they are only a drawing: Allah knows how they truly are.
+  { id: "sirat", caption: "The bridge over Jahannam, only as a drawing", match: /\bsirat\b|\bthe bridge\b|\bbridge (?:over|across|laid)\b/i },
+  { id: "scales", caption: "The scales of the Day, only as a drawing", match: /\bmizan\b|\bthe scales\b(?! (?:in|of) (?:trade|the market))|\bon the scale\b|\bscales? of (?:deeds|justice)\b/i },
+  { id: "pool", caption: "The Pool, only as a drawing", match: /\bhawd\b|\bkawthar\b|\bthe pool\b|\bhis ﷺ pool\b/i },
+  { id: "sun-west", caption: "The sun rising, here from the west", match: /\bsun (?:will )?rises? (?:from|in) the west\b|\bsun rising (?:from|in) the west\b|\brises in the west\b/i },
+  { id: "grave", caption: "A grave in the desert", match: /\bin the grave\b|\bthe grave['’]s\b|\bbarzakh\b|\bout of (?:the|their) graves\b|\bgrave gets\b|\bdeath and the grave\b/i },
+  { id: "garden", caption: "Gardens with rivers, only a picture: no eye has seen Jannah", match: /\bgardens? (?:with|beneath|under|of bliss)\b|\brivers? of (?:jannah|paradise)\b|\b(?:jannah|paradise) has\b|\bin (?:jannah|paradise):|\bpeople of jannah\b|\babout jannah\b/i },
+  { id: "ark", caption: "The Ark on the waves, as a drawing", match: /\bark\b|\bthe flood\b/i },
+  { id: "sea-split", caption: "The sea parted, as a drawing", match: /\bsea (?:was |is )?(?:split|parted)\b|\b(?:split|parted|struck|crossed|crossing) the sea\b|\bred sea\b/i },
+  { id: "big-fish", caption: "The big fish in the dark sea, as a drawing", match: /\bwhale\b|\bbig fish\b|\bthe fish\b/i },
+  { id: "ants", caption: "An ant hill", match: /\bants?\b/i },
+  { id: "nile", caption: "The River Nile long ago", match: /\bnile\b|\b(?:in|into|on) the river\b/i },
+  { id: "ahqaf", caption: "The sand hills of al-Ahqaf, land of 'Ad", match: /\b[Aa]hqaf\b|(?:^|[\s(])['‘’]Ad\b/ },
+  { id: "desert-well", caption: "A well in the desert long ago", match: /\b(?:a|the) well\b(?!-)/i },
   { id: "date-palms", caption: "Date palms", match: /\bdate palms?\b|\bpalm trees?\b|\bdate trees?\b/i },
   { id: "desert", caption: "The Arabian desert", match: /\bdesert\b/i }
 ];
