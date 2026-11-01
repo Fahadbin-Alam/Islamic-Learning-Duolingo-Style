@@ -19,7 +19,8 @@ const NOT_FREE = /\b(nc|nd|fair use|non-?free)\b/i;
 const strip = (html = "") => html.replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim();
 
 fs.mkdirSync(OUT, { recursive: true });
-const credits = {};
+// Keeps the drawn pictures (scripts/lesson-pictures/draw.mjs), which are not on Commons.
+const credits = Object.fromEntries(Object.entries(JSON.parse(fs.readFileSync(CREDITS, "utf8"))).filter(([, credit]) => credit.drawn));
 let failed = 0;
 for (const place of places) {
   if (!place.file) {

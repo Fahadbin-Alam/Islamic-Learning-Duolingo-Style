@@ -234,6 +234,7 @@ import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { pictureForLesson, pictureForQuestion } from "./data/lessonPictures";
+import { surahNumberForTitle, surahParts } from "./data/surahPictures";
 import { BACKGROUND_KEY, INTRO_TOPIC, introStartFor, isLearnerBackground, type LearnerBackground } from "./data/introToIslam";
 import type {
   AccountRole,
@@ -3075,6 +3076,9 @@ export default function TopicApp() {
   // Real photos of the places a lesson or a question names, matched on the English text so every language shows the same.
   const pictureLesson = englishLesson ?? lesson;
   const lessonPicture = pictureLesson ? pictureForLesson(pictureLesson) : undefined;
+  // A surah's own lesson ("Surah Al-Baqarah") opens on a picture of what its name means, then lists its parts.
+  const lessonSurahNumber = pictureLesson ? surahNumberForTitle(pictureLesson.title) : undefined;
+  const lessonSurah = lessonSurahNumber ? { number: lessonSurahNumber, parts: surahParts(lessonSurahNumber) } : undefined;
   const pictureChallenge = englishChallenge ?? challenge;
   const questionPicture = pictureChallenge ? pictureForQuestion(pictureChallenge.prompt) : undefined;
   const inTest = isTestSession(lessonSession);
@@ -3224,6 +3228,7 @@ export default function TopicApp() {
             onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
             arabicRecitation={lessonRecitation ?? undefined}
             picture={lessonPicture}
+            surah={lessonSurah}
             deeper={lesson.learnDeeper}
             // No speaker that stays silent: hidden with sound effects off or without an Arabic voice.
             onPlayAudio={lessonArabic && arabicVoiceId && state.user?.soundEffectsEnabled !== false ? () => speakArabic(lessonArabic.ar) : undefined}
