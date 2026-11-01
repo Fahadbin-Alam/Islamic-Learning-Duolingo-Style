@@ -108,6 +108,11 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "fasting-times-and-rules": { ar: "أحكام الصيام", translit: "Ahkam as-siyam", meaning: "Rules of fasting" },
   "fasting-protection": { ar: "حفظ الصيام", translit: "Hifz as-siyam", meaning: "Protecting the fast" },
   "fasting-ramadan-growth": { ar: "شهر رمضان", translit: "Shahr Ramadan", meaning: "Month of Ramadan" },
+  "fasting-reward": { ar: "فضل الصيام", translit: "Fadl as-siyam", meaning: "The virtue of fasting" },
+  "fasting-suhur-iftar": { ar: "السحور والإفطار", translit: "As-suhur wal-iftar", meaning: "Suhur and iftar" },
+  "fasting-extra": { ar: "صيام التطوع", translit: "Siyam at-tatawwu'", meaning: "Voluntary fasting" },
+  "fasting-ease": { ar: "رخص الصيام", translit: "Rukhas as-siyam", meaning: "Ease in fasting" },
+  "fasting-last-ten": { ar: "ليالي العشر", translit: "Layali al-'ashr", meaning: "The last ten nights" },
 
   // Zakat: duty, recipients and generosity
   "zakat-meaning-and-duty": { ar: "فريضة الزكاة", translit: "Faridat az-zakah", meaning: "The duty of zakat" },
@@ -692,6 +697,7 @@ const LEARN_FORMS = [
   "الصِّرَاطُ", "الْجَنَّةُ", "جَهَنَّمُ", "الِاسْتِعْدَادُ لِلْآخِرَةِ",
   "النَّشْأَةُ", "بَدْءُ الْوَحْيِ", "الدَّعْوَةُ فِي مَكَّةَ", "الطَّائِفُ", "الْإِسْرَاءُ وَالْمِعْرَاجُ", "الْهِجْرَةُ",
   "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
+  "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
 ];
 const LEARN_FORM = new Map(LEARN_FORMS.map((form) => [withoutVowels(form), form]));
