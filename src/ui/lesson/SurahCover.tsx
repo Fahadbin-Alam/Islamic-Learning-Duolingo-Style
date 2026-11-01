@@ -47,7 +47,7 @@ export function SurahParts({ parts, accent, short }: { parts: string[]; accent: 
   const shown = parts.slice(0, SHOWN_PARTS);
   const more = parts.length - shown.length;
   return (
-    <PopIn delay={520} from="up" style={[styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
+    <PopIn delay={180} from="up" style={[styles.parts, short ? styles.partsShort : null, { borderColor: palette.soft }]}>
       <View testID="surah-parts">
         <Text style={[styles.partsHead, { color: palette.ink }]} accessibilityRole="header">
           {t("Inside this surah")}

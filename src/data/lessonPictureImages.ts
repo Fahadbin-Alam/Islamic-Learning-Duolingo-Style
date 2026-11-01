@@ -34,5 +34,14 @@ export const PICTURE_IMAGES: Record<string, ImageSourcePropType> = {
   "ants": require("../../assets/pictures/ants.jpg"),
   "nile": require("../../assets/pictures/nile.jpg"),
   "ahqaf": require("../../assets/pictures/ahqaf.jpg"),
-  "desert-well": require("../../assets/pictures/desert-well.jpg")
+  "desert-well": require("../../assets/pictures/desert-well.jpg"),
+  "gathering": require("../../assets/pictures/gathering.jpg"),
+  "book-deeds": require("../../assets/pictures/book-deeds.jpg"),
+  "wudu": require("../../assets/pictures/wudu.jpg"),
+  "prayer": require("../../assets/pictures/prayer.jpg"),
+  "iftar": require("../../assets/pictures/iftar.jpg"),
+  "zakat": require("../../assets/pictures/zakat.jpg"),
+  "books": require("../../assets/pictures/books.jpg"),
+  "cave": require("../../assets/pictures/cave.jpg"),
+  "elephant": require("../../assets/pictures/elephant.jpg")
 };

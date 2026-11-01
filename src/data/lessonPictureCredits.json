@@ -262,5 +262,84 @@
     "license": "Drawing",
     "licenseUrl": "",
     "drawn": true
+  },
+  "gathering": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "book-deeds": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "imagined": true
+  },
+  "wudu": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "prayer": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "iftar": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "zakat": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "books": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true,
+    "note": "thing"
+  },
+  "cave": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
+  },
+  "elephant": {
+    "file": "scripts/lesson-pictures/draw.mjs",
+    "page": "",
+    "author": "Muslimo",
+    "license": "Drawing",
+    "licenseUrl": "",
+    "drawn": true
   }
 }
