@@ -3218,6 +3218,7 @@ export default function TopicApp() {
             // and not on a replay of a finished circle: the learner has met it.
             isNewWord={isFirstUseOfWord(lesson.nodeId) && !state.user.completedNodeIds.includes(lesson.nodeId)}
             facts={lesson.learnFacts}
+            englishFacts={englishLesson?.learnFacts}
             // The questions ask about the narration or ayah, so the card shows it in full. When its
             // reference names the same narration as the source chip, LearnCard shows them as one.
             quote={lesson.quote}

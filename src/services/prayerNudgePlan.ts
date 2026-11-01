@@ -126,23 +126,31 @@ const PRAYER_NAMES: Record<SupportedLanguage, Record<PrayerName, string>> = {
 const NUDGE_COPY: Record<SupportedLanguage, Array<{ title: string; body: string }>> = {
   en: [
     { title: "After {prayer}: one tiny lesson?", body: "Just two minutes. The camel saved your spot!" },
-    { title: "A little learning after {prayer}", body: "Bismillah! A short lesson is waiting on your path." }
+    { title: "A little learning after {prayer}", body: "Bismillah! A short lesson is waiting on your path." },
+    { title: "🐪 {prayer} done? Your camel is clapping", body: "Well, it's trying. Hooves are hard. Keep the good going with one lesson!" },
+    { title: "Fresh from {prayer}? Perfect timing", body: "Your heart is calm, your camel is ready. Two minutes of learning?" }
   ],
   ar: [
     { title: "بعد {prayer}: درس صغير؟", body: "دقيقتان فقط. الجمل حفظ لك مكانك!" },
-    { title: "قليل من التعلم بعد {prayer}", body: "بسم الله! درس قصير ينتظرك في مسارك." }
+    { title: "قليل من التعلم بعد {prayer}", body: "بسم الله! درس قصير ينتظرك في مسارك." },
+    { title: "🐪 صلّيت {prayer}؟ جملك يصفّق لك", body: "يحاول على الأقل، فالحوافر صعبة! واصل الخير بدرس واحد." },
+    { title: "بعد {prayer} مباشرة؟ توقيت ممتاز", body: "قلبك هادئ وجملك مستعد. دقيقتان من التعلم؟" }
   ],
   bn: [
     { title: "{prayer}-এর পর একটা ছোট্ট পাঠ?", body: "মাত্র দুই মিনিট। উট তোমার জায়গা ধরে রেখেছে!" },
-    { title: "{prayer}-এর পর একটু শেখা", body: "বিসমিল্লাহ! তোমার পথে একটা ছোট পাঠ অপেক্ষা করছে।" }
+    { title: "{prayer}-এর পর একটু শেখা", body: "বিসমিল্লাহ! তোমার পথে একটা ছোট পাঠ অপেক্ষা করছে।" },
+    { title: "🐪 {prayer} শেষ? তোমার উট তালি দিচ্ছে", body: "চেষ্টা করছে আরকি, খুরে তালি কঠিন! একটা পাঠে ভালো কাজ চালিয়ে যাও।" },
+    { title: "{prayer} পড়ে এলে? দারুণ সময়", body: "মন শান্ত, উটও তৈরি। দুই মিনিট শিখবে?" }
   ],
   ur: [
     { title: "{prayer} کے بعد ایک چھوٹا سا سبق؟", body: "بس دو منٹ۔ اونٹ نے آپ کی جگہ سنبھال رکھی ہے!" },
-    { title: "{prayer} کے بعد تھوڑا سا سیکھنا", body: "بسم اللہ! آپ کے راستے پر ایک مختصر سبق انتظار کر رہا ہے۔" }
+    { title: "{prayer} کے بعد تھوڑا سا سیکھنا", body: "بسم اللہ! آپ کے راستے پر ایک مختصر سبق انتظار کر رہا ہے۔" },
+    { title: "🐪 {prayer} پڑھ لی؟ آپ کا اونٹ تالیاں بجا رہا ہے", body: "کوشش کر رہا ہے، کھروں سے تالی مشکل ہے! ایک سبق سے نیکی جاری رکھیں۔" },
+    { title: "{prayer} کے فوراً بعد؟ بہترین وقت", body: "دل پُرسکون ہے اور اونٹ تیار۔ دو منٹ سیکھیں؟" }
   ]
 };
 
-/** The two lines alternate through the day so the same words don't come five times in a row. */
+/** The lines take turns through the day so the same words don't come five times in a row. */
 export function prayerNudgeMessage(language: SupportedLanguage, prayer: PrayerName, at: Date) {
   const copy = NUDGE_COPY[language] ?? NUDGE_COPY.en;
   const names = PRAYER_NAMES[language] ?? PRAYER_NAMES.en;

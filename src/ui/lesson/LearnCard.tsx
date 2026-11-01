@@ -20,6 +20,7 @@ import { getActiveLanguage, t } from "../../i18n";
 import type { LessonPicture } from "../../data/lessonPictures";
 import { LessonPhoto } from "./LessonPhoto";
 import { SurahCover, SurahParts } from "./SurahCover";
+import { splitLessonFacts } from "./lessonNotes";
 
 export type LearnCardProps = {
   /** Lesson title, e.g. "As-Salamu Alaikum". Hidden when it only repeats the Arabic word's transliteration. */
@@ -29,8 +30,13 @@ export type LearnCardProps = {
   arabic?: ArabicTerm;
   /** False when the learner has met this Arabic word before (e.g. the unit's word again): no NEW pill. Default true. */
   isNewWord?: boolean;
-  /** Up to 3 short fact chips, e.g. "Father: Umar". */
+  /**
+   * Up to 3 short facts, e.g. "Father: Umar", shown as the lines of a short lesson under "What you learn". The ones
+   * that only say where it is from ("Told by Anas", "Sahih (Al-Albani)") are shown with the source at the end.
+   */
   facts?: string[];
+  /** The same facts in English (when `facts` is translated), to tell which ones are about the source. */
+  englishFacts?: string[];
   /** A short narration or ayah, shown in full with where it is from. */
   quote?: { text: string; reference?: string };
   mascotVariant: string;
@@ -39,7 +45,7 @@ export type LearnCardProps = {
    * The one source that says what the card says (lesson.learnSource). Its chip shows only the short
    * reference ("Quran 2:43", "Sahih al-Bukhari 6018") on one line, never a page title: no reference, no chip.
    */
-  learnSource?: { reference?: string; url: string; highlight?: string };
+  learnSource?: { reference?: string; url: string; highlight?: string; category?: string };
   /** Older call sites: a chip with this label. Ignored when learnSource is given; pass learnSource instead. */
   source?: { label: string; url: string };
   /** Defaults to opening the url with Linking. */
@@ -70,8 +76,6 @@ export type LearnCardProps = {
 
 const GOLD_INK = darken(colors.goldLip, 0.45);
 const MAX_FACTS = 3;
-/** "Father: Umar" splits into a soft key and a bold value. */
-const FACT_KEY = /^([^:]{1,18}):\s*(.+)$/;
 
 /** True when a quote's reference names the same book and number as the source chip ("Muslim 1400a" in "Sahih Muslim 1400a"). */
 export function sameReference(reference: string, label: string) {
@@ -125,6 +129,7 @@ export function LearnCard({
   arabic,
   isNewWord = true,
   facts,
+  englishFacts,
   quote,
   mascotVariant,
   accent,
@@ -159,6 +164,14 @@ export function LearnCard({
       : undefined
     : legacySource;
   const factList = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
+  const englishList = englishFacts?.map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
+  const notes = splitLessonFacts(factList, {
+    english: englishList?.length === factList.length ? englishList : undefined,
+    sourceReference: learnReference,
+    hadith: learnSource?.category === "hadith" || /^(sahih|sunan|jami|muwatta|riyad|al-adab)/i.test(learnReference ?? ""),
+    language: getActiveLanguage()
+  });
+  const credits = notes.credits.join(" · ");
   const quoteText = quote?.text.trim();
   const quoteReference = quote?.reference?.trim();
   // The quote's reference opens the source when both name the same narration, so it is not said twice.
@@ -280,27 +293,27 @@ export function LearnCard({
           {/* Under the mascot's line, so the line the lesson teaches stays in view on small phones. */}
           {picture ? <LessonPhoto picture={picture} short={short} delay={380} /> : null}
 
-          {/* What to learn, as full-width rows in big type (not small tags), so it reads as the lesson itself. */}
-          {factList.length > 0 ? (
-            <PopIn delay={420} from="up" style={[styles.facts, short ? styles.factsShort : null, { borderColor: palette.soft }]}>
-              <View testID="learn-facts">
-                <Text style={[styles.factsHead, { color: palette.ink }]} accessibilityRole="header">
-                  {t("Key points")}
-                </Text>
-                {factList.map((fact, index) => {
-                  const parts = fact.match(FACT_KEY);
-                  return (
-                    <View key={`${index}-${fact}`} style={[styles.fact, index > 0 ? styles.factDivided : null]} testID="learn-fact">
-                      <View style={[styles.factBadge, { backgroundColor: palette.light, borderColor: palette.soft }]}>
-                        <Text style={[styles.factNumber, { color: palette.ink }]}>{index + 1}</Text>
-                      </View>
-                      <View style={styles.factBody}>
-                        {parts ? <Text style={styles.factKey}>{withHonorifics(parts[1])}</Text> : null}
-                        <Text style={[styles.factText, short || narrow ? styles.factTextSmall : null]}>{withHonorifics(noBreakHyphens(parts ? parts[2] : fact))}</Text>
-                      </View>
+          {notes.points.length > 0 ? (
+            // The facts read as a short lesson: a heading, then each fact as its own numbered line.
+            <PopIn delay={420} from="up" style={[styles.notesWrap, short ? styles.notesWrapShort : null]}>
+              <View style={[styles.notes, { borderColor: palette.soft }]} testID="learn-facts">
+                <View style={styles.notesHead}>
+                  <Icon name="bookOpen" size={18} color={palette.ink} />
+                  <Text style={[styles.notesTitle, { color: palette.ink }]} accessibilityRole="header">
+                    {t("What you learn")}
+                  </Text>
+                </View>
+                {notes.points.map((point, index) => (
+                  <View key={`${index}-${point.key ?? ""}-${point.text}`} style={styles.noteRow} testID="learn-fact">
+                    <View style={[styles.noteNumber, { backgroundColor: palette.main }]}>
+                      <Text style={styles.noteNumberText}>{index + 1}</Text>
                     </View>
-                  );
-                })}
+                    <Text style={[styles.noteText, short ? styles.noteTextShort : null]}>
+                      {point.key ? <Text style={styles.noteKey}>{`${point.key}: `}</Text> : null}
+                      {withHonorifics(noBreakHyphens(point.text))}
+                    </Text>
+                  </View>
+                ))}
               </View>
             </PopIn>
           ) : null}
@@ -352,6 +365,11 @@ export function LearnCard({
                       {withHonorifics(quoteReference)}
                     </Text>
                   ) : null}
+                  {credits && linkedReference ? (
+                    <Text style={styles.quoteCredits} testID="learn-credits">
+                      {withHonorifics(noBreakHyphens(credits))}
+                    </Text>
+                  ) : null}
                   {ayahAudio ? <AyahListen url={ayahAudio} accent={palette.main} /> : null}
                 </View>
               </View>
@@ -362,23 +380,32 @@ export function LearnCard({
 
           {deeper ? <DeeperLesson deeper={deeper} palette={palette} short={short} onOpen={openSource} /> : null}
 
-          {source && !linkedReference ? (
+          {/* Where it is from, at the end of the lesson: the source's link, then who told it and its grade. */}
+          {(source && !linkedReference) || (credits && !linkedReference) ? (
             <PopIn delay={480} style={[styles.sourceWrap, short ? styles.sourceWrapShort : null]}>
-              <Tappable
-                onPress={() => openSource(source.url)}
-                style={styles.sourceChip}
-                accessibilityLabel={t("Open source {name}", { name: source.label })}
-                accessibilityRole="link"
-                testID="learn-source"
-              >
-                <Icon name="book" size={18} />
-                <Text style={styles.sourceText} numberOfLines={1}>
-                  {withHonorifics(source.label)}
+              <Text style={styles.sourceLabel}>{t("Source")}</Text>
+              {source && !linkedReference ? (
+                <Tappable
+                  onPress={() => openSource(source.url)}
+                  style={styles.sourceChip}
+                  accessibilityLabel={t("Open source {name}", { name: source.label })}
+                  accessibilityRole="link"
+                  testID="learn-source"
+                >
+                  <Icon name="book" size={18} />
+                  <Text style={styles.sourceText} numberOfLines={1}>
+                    {withHonorifics(source.label)}
+                  </Text>
+                  <View style={styles.sourceChevron}>
+                    <Icon name="chevronRight" size={16} color={colors.inkSoft} />
+                  </View>
+                </Tappable>
+              ) : null}
+              {credits ? (
+                <Text style={styles.sourceCredits} testID="learn-credits">
+                  {withHonorifics(noBreakHyphens(credits))}
                 </Text>
-                <View style={styles.sourceChevron}>
-                  <Icon name="chevronRight" size={16} color={colors.inkSoft} />
-                </View>
-              </Tappable>
+              ) : null}
             </PopIn>
           ) : null}
         </ScrollView>
@@ -671,68 +698,66 @@ const styles = StyleSheet.create({
     textAlign: "center",
     flexShrink: 1
   },
-  facts: {
+  notesWrap: {
     alignSelf: "stretch",
-    marginTop: space.lg,
+    marginTop: space.lg
+  },
+  notesWrapShort: {
+    marginTop: space.sm
+  },
+  notes: {
     borderWidth: 2,
     borderRadius: radii.lg,
     backgroundColor: colors.white,
     paddingHorizontal: space.md,
     paddingTop: space.sm,
-    paddingBottom: space.xs
+    paddingBottom: space.md
   },
-  factsShort: {
-    marginTop: space.sm
-  },
-  factsHead: {
-    fontFamily: fonts.displayHeavy,
-    fontSize: 15,
-    lineHeight: 20,
-    letterSpacing: 0.5,
-    marginBottom: 2
-  },
-  fact: {
+  notesHead: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: space.sm
+    marginBottom: 2
   },
-  factDivided: {
-    borderTopWidth: 1,
-    borderTopColor: colors.line
+  notesTitle: {
+    marginStart: 6,
+    fontFamily: fonts.displayHeavy,
+    fontSize: 16,
+    lineHeight: 22
   },
-  factBadge: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    borderWidth: 2,
+  noteRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: space.sm
+  },
+  noteNumber: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
-    marginEnd: space.sm
+    marginEnd: 10,
+    marginTop: 1
   },
-  factNumber: {
+  noteNumberText: {
     fontFamily: fonts.displayHeavy,
-    fontSize: 15,
-    lineHeight: 19
-  },
-  factBody: {
-    flex: 1,
-    minWidth: 0
-  },
-  factText: {
-    flexShrink: 1,
-    fontFamily: fonts.bodyHeavy,
-    fontSize: 19,
-    lineHeight: 25,
-    color: colors.ink
-  },
-  factTextSmall: {
-    fontSize: 17,
-    lineHeight: 23
-  },
-  factKey: {
-    fontFamily: fonts.bodyBold,
     fontSize: 13,
     lineHeight: 17,
+    color: colors.white
+  },
+  noteText: {
+    flex: 1,
+    flexShrink: 1,
+    fontFamily: fonts.bodyBold,
+    fontSize: 18,
+    lineHeight: 26,
+    color: colors.ink
+  },
+  noteTextShort: {
+    fontSize: 16,
+    lineHeight: 23
+  },
+  noteKey: {
+    fontFamily: fonts.bodyBold,
     color: colors.inkSoft
   },
   quoteWrap: {
@@ -767,8 +792,8 @@ const styles = StyleSheet.create({
     color: colors.ink
   },
   quoteTextLong: {
-    fontSize: 16,
-    lineHeight: 23
+    fontSize: 15,
+    lineHeight: 21
   },
   quoteArabic: {
     alignSelf: "stretch"
@@ -797,7 +822,33 @@ const styles = StyleSheet.create({
   },
   sourceWrap: {
     marginTop: space.xl,
-    maxWidth: "100%"
+    maxWidth: "100%",
+    alignItems: "center"
+  },
+  sourceLabel: {
+    fontFamily: fonts.bodyHeavy,
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    color: colors.inkSoft,
+    marginBottom: 6
+  },
+  sourceCredits: {
+    marginTop: 6,
+    fontFamily: fonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.inkSoft,
+    textAlign: "center"
+  },
+  quoteCredits: {
+    marginTop: 2,
+    fontFamily: fonts.bodyBold,
+    fontSize: 12,
+    lineHeight: 17,
+    color: colors.inkSoft,
+    textAlign: "right"
   },
   sourceWrapShort: {
     marginTop: space.sm
@@ -838,8 +889,8 @@ const styles = StyleSheet.create({
   deeperTitle: {
     marginStart: 6,
     fontFamily: fonts.displayHeavy,
-    fontSize: 18,
-    lineHeight: 24
+    fontSize: 17,
+    lineHeight: 23
   },
   deeperRow: {
     flexDirection: "row",

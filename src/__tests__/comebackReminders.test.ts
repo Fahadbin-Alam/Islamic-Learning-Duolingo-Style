@@ -83,7 +83,7 @@ describe("come-back reminder ladder", () => {
 
   it("has every step written in every app language, short enough for a lock screen", () => {
     (["en", "ar", "bn", "ur"] as const).forEach((language) => {
-      STEPS.forEach((step) => [0, 1].forEach((variant) => {
+      STEPS.forEach((step) => [0, 1, 2].forEach((variant) => {
         const message = comebackMessage(language, step, variant);
         expect(message.title.length).toBeGreaterThan(5);
         expect(message.title.length).toBeLessThanOrEqual(60);
@@ -97,7 +97,7 @@ describe("come-back reminder ladder", () => {
 
   it("keeps the old app name out of the messages", () => {
     (["en", "ar", "bn", "ur"] as const).forEach((language) =>
-      STEPS.forEach((step) => [0, 1].forEach((variant) =>
+      STEPS.forEach((step) => [0, 1, 2].forEach((variant) =>
         expect(JSON.stringify(comebackMessage(language, step, variant))).not.toMatch(/sira|سيرة/i)
       ))
     );
@@ -106,6 +106,51 @@ describe("come-back reminder ladder", () => {
   it("gives every step a second message with an Islamic touch, alternating between absences", () => {
     STEPS.forEach((step) => expect(comebackMessage("en", step, 1).title).not.toBe(comebackMessage("en", step, 0).title));
     expect(messageVariant(at("2026-10-22T09:00:00"))).not.toBe(messageVariant(at("2026-10-23T09:00:00")));
+  });
+
+  it("gives every step a third, extra-silly message too", () => {
+    STEPS.forEach((step) => {
+      const titles = [0, 1, 2].map((variant) => comebackMessage("en", step, variant).title);
+      expect(new Set(titles).size).toBe(3);
+    });
+    const variants = [0, 1, 2, 3].map((day) => messageVariant(at("2026-10-22T09:00:00") + day * 86_400_000));
+    expect(new Set(variants.slice(0, 3)).size).toBe(3);
+    expect(variants[3]).toBe(variants[0]);
+  });
+
+  it("says how long the streak is, in the learner's own digits, so they know what's at stake", () => {
+    const en = comebackMessage("en", "streak", 0, { streakDays: 12 });
+    expect(en.title).toBe("🔥 Your 12-day streak is sweating");
+    expect(en.body).toContain("12 days");
+    expect(comebackMessage("en", "streak", 2, { streakDays: 12, streakFreezes: 1 }).body).toMatch(/streak freeze/i);
+    expect(comebackMessage("bn", "streak", 0, { streakDays: 12 }).title).toContain("১২");
+    expect(comebackMessage("ur", "streak", 0, { streakDays: 7 }).title).toContain("۷");
+    expect(comebackMessage("ar", "streak", 0, { streakDays: 7 }).title).toContain("٧");
+    // A one-day streak, the Islamic-touch turn and other steps keep their own words.
+    expect(comebackMessage("en", "streak", 0, { streakDays: 1 })).toEqual(comebackMessage("en", "streak", 0));
+    expect(comebackMessage("en", "streak", 1, { streakDays: 12 })).toEqual(comebackMessage("en", "streak", 1));
+    expect(comebackMessage("en", "day3", 0, { streakDays: 12 })).toEqual(comebackMessage("en", "day3", 0));
+    (["en", "ar", "bn", "ur"] as const).forEach((language) => {
+      [0, 2].forEach((variant) => [0, 1].forEach((freezes) => {
+        const message = comebackMessage(language, "streak", variant, { streakDays: 365, streakFreezes: freezes });
+        expect(message.title.length).toBeLessThanOrEqual(60);
+        expect(message.body.length).toBeLessThanOrEqual(110);
+        expect(message.title + message.body).not.toContain("{count}");
+      }));
+    });
+  });
+
+  it("puts the streak count in the scheduled phone reminder", async () => {
+    scheduled.length = 0;
+    // A last-lesson day whose variant is not the Islamic-touch one.
+    let day = at("2026-10-22T09:00:00");
+    while (messageVariant(day) === 1) day += 86_400_000;
+    const last = new Date(day);
+    jest.useFakeTimers({ now: day + 5 * 60_000, doNotFake: ["nextTick", "setImmediate", "queueMicrotask"] });
+    native.scheduleIslamicReminderChecks(makeUser({ lastLearningAt: last.toISOString(), streakDays: 9, reminderPreferences: ALL_ON }), "en");
+    await jest.runAllTimersAsync();
+    jest.useRealTimers();
+    expect(scheduled.find((request) => request.identifier === "sira-comeback-1")?.content.title).toBe("🔥 Your 9-day streak is sweating");
   });
 
   it("catches up to the latest step for web", () => {
