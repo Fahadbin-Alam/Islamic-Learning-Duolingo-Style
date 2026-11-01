@@ -530,4 +530,311 @@ const NISA_ONE: DeepUnit = {
   ]
 };
 
-export const NISA_UNITS: readonly DeepUnit[] = [NISA_ONE];
+/** Ayahs 44 to 100: shirk, trusts, obeying Allah and the Messenger ﷺ, the oppressed, the Quran's harmony, salam, Hijrah. */
+const NISA_TWO: DeepUnit = {
+  key: "nisa2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-nisa",
+  name: "An-Nisa, ayahs 44 to 100",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Nisa",
+  lessons: [
+    {
+      slug: "shirk",
+      title: "The one sin not forgiven",
+      line: "Allah forgives any sin He wills, but not dying on shirk.",
+      facts: ["Shirk: worshipping others with Allah", "Repent before death"],
+      quote: q4(48),
+      source: ik(48, "Allah does not forgive a servant who meets Him while associating partners with Him, but He forgives any other sin for whom He wills. Shirk is forgiven only by repenting from it before death.", "He does not forgive a servant if he meets Him while he is associating partners with Him"),
+      difficulty: 3,
+      questions: [
+        { q: "Which sin does 4:48 say Allah does not forgive?", a: "Shirk, if one dies on it", wrong: ["Every sin", "Small slips", "Forgetting dua"], why: "Innallaha la yaghfiru an yushraka bih." },
+        { q: "What about all other sins?", a: "He forgives whom He wills", wrong: ["Never forgiven", "Forgiven for no one", "Only by paying"], why: "Wa yaghfiru ma duna dhalika liman yasha'." },
+        { q: "Can someone who did shirk repent before death and be forgiven?", tf: true, why: "Ibn Kathir: shirk is forgiven after repenting from it." }
+      ]
+    },
+    {
+      slug: "no-self-praise",
+      title: "Do not praise yourself",
+      line: "Do not claim you are pure; Allah purifies whom He wills.",
+      facts: ["Tazkiyah: purifying", "Fatil: a date-stone thread"],
+      quote: q4(49),
+      source: ik(49, "Some claimed purity for themselves, saying they alone were loved by Allah. Allah purifies whom He wills, because He alone knows the reality of all things.", "the decision in this matter is with Allah Alone"),
+      difficulty: 3,
+      questions: [
+        { q: "Who decides who is truly pure, in 4:49?", a: "Allah alone", wrong: ["The person himself", "His tribe", "His friends"], why: "Balillahu yuzakki man yasha'." },
+        { q: "What does 'fatil' in 4:49 stand for?", a: "The smallest amount", wrong: ["A big reward", "A palace", "A long rope"], why: "Not even a thread on a date-stone of injustice." },
+        { q: "Boasting 'I am surely better than all' fits 4:49.", tf: false, why: "Ayah 4:49 blames claiming purity for oneself." }
+      ]
+    },
+    {
+      slug: "envy-bounty",
+      title: "Envy of Allah's gifts",
+      line: "Envying people for what Allah gave them is blamed in 4:54.",
+      facts: ["Hasad: envy", "Naqir: a date-stone speck"],
+      quote: q4(54),
+      source: ik(54, "If they owned the kingdom they would not give anyone even a naqir, the speck on the back of a date-stone. Allah asks: do they envy people for what He gave them of His bounty?", "even if it was the speck on the back of a date-stone"),
+      difficulty: 3,
+      questions: [
+        { q: "What does 4:54 blame?", a: "Envying people for Allah's gifts", wrong: ["Thanking Allah", "Helping people", "Sharing food"], why: "Am yahsudunan-nasa 'ala ma atahumullahu min fadlih." },
+        { q: "'Naqir' in 4:53 means...", a: "The speck on a date-stone", wrong: ["A gold coin", "A large field", "A camel"], why: "Ibn Abbas: the tiny speck on a date-stone." },
+        { q: "To whom did Allah give the Book and wisdom, in 4:54?", a: "The family of Ibrahim", wrong: ["The family of Fir'awn", "The people of Ad", "The Romans"], why: "Fa-qad atayna ala Ibrahimal-kitaba wal-hikmah." }
+      ]
+    },
+    {
+      slug: "gardens",
+      title: "Shade that lasts",
+      line: "Believers who do good enter Gardens with deep, lasting shade.",
+      facts: ["Khalidin: forever", "Zillan zalila: thick shade"],
+      quote: q4(57),
+      source: ik(57, "They live in Gardens with rivers flowing wherever they wish, forever. They will never be moved, nor would they want to move, and their spouses are purified of every fault.", "They will reside in it for eternity, and they will not be transferred or removed from it"),
+      difficulty: 3,
+      questions: [
+        { q: "How long do believers stay in the Gardens, in 4:57?", a: "Forever", wrong: ["A thousand years", "A day", "Until they are bored"], why: "Khalidina fiha abada." },
+        { q: "Will they want to leave, per Ibn Kathir?", tf: false, why: "They will not be moved, nor want to move." },
+        { q: "What shade is promised in 4:57?", a: "Thick, lasting shade", wrong: ["No shade", "A thin tent", "Clouds only"], why: "Wa nudkhiluhum zillan zalila." }
+      ]
+    },
+    {
+      slug: "trusts",
+      title: "Give back the trusts",
+      line: "Allah commands you to return trusts and to judge with justice.",
+      facts: ["Amanah: a trust", "Adl: justice"],
+      quote: q4(58),
+      source: ik(58, "Allah commands that every kind of trust be returned: rights owed to Allah like prayer and zakah, and what people entrust to each other. Those who judge must judge with justice.", "Allah commands that all types of trusts be fulfillled"),
+      difficulty: 3,
+      questions: [
+        { q: "What does 4:58 command first?", a: "Return trusts to their owners", wrong: ["Build forts", "Collect taxes", "Travel far"], why: "An tu'addul-amanati ila ahliha." },
+        { q: "Is prayer a trust too, per Ibn Kathir?", tf: true, why: "Allah's rights on His servants are trusts." },
+        { q: "How must people be judged, in 4:58?", a: "With justice", wrong: ["By wealth", "By tribe", "By looks"], why: "An tahkumu bil-'adl." }
+      ]
+    },
+    {
+      slug: "obey",
+      title: "Obey in what is good",
+      line: "Obey Allah, the Messenger ﷺ, and leaders, only in good.",
+      facts: ["Sahih al-Bukhari 7145", "Ulul-amr: those in charge"],
+      quote: q4(59),
+      source: hadith("bukhari", "7145", "Ali ibn Abi Talib", "Sahih", "A commander told his men in anger to enter a fire. They refused, and the Prophet ﷺ said: had they entered it they would never have come out; obedience is only in what is good.", "obedience is required only in what is good"),
+      difficulty: 4,
+      questions: [
+        { q: "When must a leader be obeyed, per Bukhari 7145?", a: "Only in what is good", wrong: ["In everything", "Never", "Only when he is rich"], why: "No obedience in disobeying Allah." },
+        { q: "What did the angry commander order?", a: "To enter a fire", wrong: ["To pray", "To rest", "To eat"], why: "Bukhari 7145, from Ali." },
+        { q: "Whom does 4:59 name first to obey?", a: "Allah", wrong: ["The leaders", "The elders", "The army"], why: "Ati'ullaha wa ati'ur-rasul." }
+      ]
+    },
+    {
+      slug: "refer-back",
+      title: "Take it back to the source",
+      line: "When you disagree, return it to the Quran and the Sunnah.",
+      facts: ["Raddu ilallah: back to Allah", "Back to the Messenger ﷺ"],
+      quote: q4(59),
+      source: ik(59, "Mujahid and others said: if you differ in anything, refer it to the Book of Allah and the Sunnah of His Messenger ﷺ, in big matters and small.", "(Refer) to the Book of Allah and the Sunnah of His Messenger"),
+      difficulty: 4,
+      questions: [
+        { q: "Where do disputes go, in 4:59?", a: "The Quran and the Sunnah", wrong: ["Old customs", "The richest man", "A coin toss"], why: "Faruddu ilallahi war-rasul." },
+        { q: "Does this apply to small matters too, per Ibn Kathir?", tf: true, why: "Major or minor areas of the religion." },
+        { q: "What does 4:59 say this way is?", a: "Better and best in the end", wrong: ["Hard and useless", "Optional", "Only for scholars"], why: "Dhalika khayrun wa ahsanu ta'wila." }
+      ]
+    },
+    {
+      slug: "no-faith-until",
+      title: "Accept his judgment",
+      line: "No one truly believes until he accepts the Prophet's ﷺ judgment.",
+      facts: ["Sahih al-Bukhari 4585", "Az-Zubayr and the stream"],
+      quote: q4(65),
+      source: hadith("bukhari", "4585", "Urwah ibn az-Zubayr", "Sahih", "Az-Zubayr and a man of the Ansar argued over a stream. The Prophet ﷺ judged, the man complained, and Az-Zubayr said he thought 4:65 came down about it.", "Irrigate (your lands) and then let the water flow to your neighbor"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Az-Zubayr and the Ansari argue about?", a: "Water from a stream", wrong: ["A camel", "A house", "A sword"], why: "Bukhari 4585." },
+        { q: "What must believers feel about his judgment, in 4:65?", a: "No resistance, full acceptance", wrong: ["Doubt", "Anger", "Delay"], why: "Thumma la yajidu fi anfusihim harajan." },
+        { q: "By whom does Allah swear in 4:65?", a: "By your Lord", wrong: ["By the sun", "By time", "By the fig"], why: "Fa-la wa rabbika la yu'minun." }
+      ]
+    },
+    {
+      slug: "best-company",
+      title: "The best company",
+      line: "Whoever obeys Allah and the Messenger ﷺ is with the prophets.",
+      facts: ["Sahih al-Bukhari 4586", "Siddiqin, martyrs, righteous"],
+      quote: q4(69),
+      source: hadith("bukhari", "4586", "Aishah", "Sahih", "In his last illness the Prophet ﷺ, his voice hoarse, recited 4:69: with those Allah has blessed, the prophets, the siddiqin, the martyrs and the righteous.", "In the company of those whom is the Grace of Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "Which four groups does 4:69 name?", a: "Prophets, siddiqin, martyrs, righteous", wrong: ["Kings, poets, traders, soldiers", "Angels, jinn, men, birds", "Judges, rich, strong, young"], why: "How excellent these companions are!" },
+        { q: "When did the Prophet ﷺ recite 4:69 aloud?", a: "In his last illness", wrong: ["At Badr", "On the Night Journey", "At his wedding"], why: "Aishah heard him, Bukhari 4586." },
+        { q: "Every prophet is given a choice before death, Aishah heard.", tf: true, why: "Between this world and the Hereafter." }
+      ]
+    },
+    {
+      slug: "oppressed",
+      title: "For the oppressed",
+      line: "Stand up for the weak who cry: our Lord, rescue us.",
+      facts: ["Sahih al-Bukhari 4587", "The weak in Makkah"],
+      quote: q4(75),
+      source: hadith("bukhari", "4587", "Ibn Abbas", "Sahih", "Ibn Abbas said: my mother and I were among the weak and oppressed in Makkah.", "My mother and I were among the weak and oppressed"),
+      difficulty: 4,
+      questions: [
+        { q: "Who said he and his mother were among the oppressed?", a: "Ibn Abbas", wrong: ["Abu Bakr", "Khalid", "Umar"], why: "Sahih al-Bukhari 4587." },
+        { q: "Where were the oppressed of 4:75?", a: "Makkah", wrong: ["Madinah", "Sham", "Yemen"], why: "Ibn Kathir: the weak Muslims kept in Makkah." },
+        { q: "What did they pray, in 4:75?", a: "Our Lord, rescue us", wrong: ["Make us rich", "Make us kings", "Give us rain"], why: "Rabbana akhrijna min hadhihil-qaryah." }
+      ]
+    },
+    {
+      slug: "weak-plot",
+      title: "Shaytan's weak plot",
+      line: "The plot of Shaytan is always weak.",
+      facts: ["Kayd: plot", "Da'if: weak"],
+      quote: q4(76),
+      source: ik(76, "The believers strive in obedience to Allah, the disbelievers in obedience to Shaytan; and ever feeble indeed is the plot of Shaytan.", "ever feeble indeed is the plot of Shaytan"),
+      difficulty: 3,
+      questions: [
+        { q: "How strong is Shaytan's plot, in 4:76?", a: "Always weak", wrong: ["Unbeatable", "Very strong", "Equal to Allah"], why: "Inna kaydash-shaytani kana da'ifa." },
+        { q: "For whom do the believers strive, in 4:76?", a: "In the cause of Allah", wrong: ["For fame", "For gold", "For a tribe"], why: "Fi sabilillah." },
+        { q: "Whom do the disbelievers follow, per Ibn Kathir?", a: "Shaytan", wrong: ["The prophets", "Angels", "The wise"], why: "They fight in obedience to Shaytan." }
+      ]
+    },
+    {
+      slug: "high-towers",
+      title: "No tower stops death",
+      line: "Death will find you, even in high strong towers.",
+      facts: ["Buruj mushayyadah: high forts", "This life: a short joy"],
+      quote: q4(78),
+      source: ik(78, "Wherever you are, death will reach you, even in fortresses built strong and high. No caution or fortification can ever avert death.", "No caution or fortification can ever avert death"),
+      difficulty: 3,
+      questions: [
+        { q: "Can a strong tower keep death away, in 4:78?", tf: false, why: "Wa law kuntum fi burujin mushayyadah." },
+        { q: "What does 4:77 call the joy of this world?", a: "Short", wrong: ["Endless", "The best thing", "Free of pain"], why: "Qul mata'ud-dunya qalil." },
+        { q: "What is better, in 4:77?", a: "The Hereafter, for the mindful", wrong: ["Gold", "Fame", "A long life"], why: "Wal-akhiratu khayrun limanittaqa." }
+      ]
+    },
+    {
+      slug: "good-from-allah",
+      title: "Good is from Allah",
+      line: "Good that reaches you is from Allah; harm is from yourself.",
+      facts: ["All is by Allah's decree", "Our sins bring harm"],
+      quote: q4(79),
+      source: ik(79, "When good came, hypocrites said it was from Allah; when hardship came, they blamed the Prophet ﷺ. Allah answers: all things are from Allah. Good is His favor; harm comes by your own deeds.", "This is from Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did the hypocrites blame for hardship, in 4:78?", a: "The Prophet ﷺ", wrong: ["Themselves", "The weather", "Shaytan"], why: "They said: this is from you." },
+        { q: "Where does good come from, in 4:79?", a: "From Allah", wrong: ["From luck", "From stars", "From ourselves alone"], why: "Ma asabaka min hasanatin faminallah." },
+        { q: "Where does harm come from, in 4:79?", a: "From our own deeds", wrong: ["From the Prophet ﷺ", "From a bad omen", "From nowhere"], why: "Wa ma asabaka min sayyi'atin fa-min nafsik." }
+      ]
+    },
+    {
+      slug: "obey-messenger",
+      title: "Obeying him is obeying Allah",
+      line: "Whoever obeys the Messenger ﷺ has obeyed Allah.",
+      facts: ["Sahih al-Bukhari 7137", "He speaks by revelation"],
+      quote: q4(80),
+      source: hadith("bukhari", "7137", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: whoever obeys me obeys Allah, and whoever disobeys me disobeys Allah.", "Whoever obeys me, obeys Allah, and whoever disobeys me, disobeys Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "Obeying the Messenger ﷺ is obeying whom, in 4:80?", a: "Allah", wrong: ["Only him", "The leaders", "No one"], why: "Man yuti'ir-rasula faqad ata'allah." },
+        { q: "Whoever disobeys him, per Bukhari 7137, disobeys...", a: "Allah", wrong: ["Only his tribe", "No one", "The angels"], why: "Whoever disobeys me disobeys Allah." },
+        { q: "Who narrated Bukhari 7137?", a: "Abu Hurayrah", wrong: ["Anas", "Aishah", "Ibn Umar"], why: "Sahih al-Bukhari 7137." }
+      ]
+    },
+    {
+      slug: "ponder",
+      title: "No contradiction",
+      line: "Ponder the Quran: from other than Allah, it would clash.",
+      facts: ["Tadabbur: deep thought", "Ikhtilaf: contradiction"],
+      quote: q4(82),
+      source: ik(82, "Allah commands us to reflect on the Quran. There are no contradictions or conflicting statements in it, because it is revelation from the All-Wise.", "there are no inconsistencies, contradictions, conflicting statements or discrepancies"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 4:82 ask us to do with the Quran?", a: "Ponder it deeply", wrong: ["Only hang it", "Read it fast", "Sell it"], why: "Afala yatadabbarunal-Qur'an." },
+        { q: "What would a man-made book have, in 4:82?", a: "Many contradictions", wrong: ["No words", "Only stories", "Perfect harmony"], why: "Lawajadu fihi-khtilafan kathira." },
+        { q: "Ibn Kathir: the Quran has no contradictions at all.", tf: true, why: "It is from the Most-Wise." }
+      ]
+    },
+    {
+      slug: "rumors",
+      title: "Do not spread rumors",
+      line: "Do not spread news before those who know have checked it.",
+      facts: ["Verify first", "Refer it to those who know"],
+      quote: q4(83),
+      source: ik(83, "This rebukes those who pass on what people say without checking it. The Sahih says: whoever narrates a hadith knowing it is false is one of the liars.", "without investigating the reliability and truth of what he is disclosing"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 4:83 blame people for?", a: "Spreading news without checking", wrong: ["Keeping quiet", "Asking scholars", "Making dua"], why: "Adha'u bih: they broadcast it." },
+        { q: "Whom should news go to first, in 4:83?", a: "The Messenger ﷺ and those in charge", wrong: ["The whole market", "Enemies", "Children"], why: "Wa law raddahu ilar-rasul." },
+        { q: "Passing on a false hadith knowingly makes you...", a: "One of the liars", wrong: ["A scholar", "A hero", "Excused"], why: "Ibn Kathir quotes the Sahih." }
+      ]
+    },
+    {
+      slug: "intercede",
+      title: "A good word for others",
+      line: "Speak up for a good cause and you share its reward.",
+      facts: ["Shafa'ah: speaking for someone", "Sahih al-Bukhari 1432"],
+      quote: q4(85),
+      source: hadith("bukhari", "1432", "Abu Musa al-Ash'ari", "Sahih", "When someone in need came, the Prophet ﷺ would tell his companions: recommend him and you will be rewarded.", "Help and recommend him and you will receive the reward for it"),
+      difficulty: 4,
+      questions: [
+        { q: "What does a person who speaks up for good get, in 4:85?", a: "A share of its reward", wrong: ["Nothing", "Blame", "Money only"], why: "Yakun lahu nasibun minha." },
+        { q: "What about speaking up for evil?", a: "A share of its burden", wrong: ["A reward", "Nothing", "A gift"], why: "Yakun lahu kiflun minha." },
+        { q: "What did the Prophet ﷺ tell his companions when a needy man came?", a: "Recommend him, and be rewarded", wrong: ["Send him away", "Ignore him", "Make him wait"], why: "Bukhari 1432." }
+      ]
+    },
+    {
+      slug: "salam",
+      title: "Return the salam better",
+      line: "When greeted, reply with a better greeting, or at least equal.",
+      facts: ["As-salamu alaykum", "Add wa rahmatullah"],
+      quote: q4(86),
+      source: ik(86, "If a Muslim greets you with salam, return it with a better salam, or at least an equal one.", "if the Muslim greets you with the Salam, then return the greeting with a better Salam"),
+      difficulty: 3,
+      questions: [
+        { q: "How should you answer a greeting, in 4:86?", a: "Better, or at least equal", wrong: ["Ignore it", "Shorter", "Only nod"], why: "Fa-hayyu bi-ahsana minha aw rudduha." },
+        { q: "Someone says 'As-salamu alaykum'. Which reply is better?", a: "Wa alaykumus-salam wa rahmatullah", wrong: ["Hi", "Nothing", "A wave only"], why: "Adding more is the better reply." },
+        { q: "Is replying to salam left to your mood?", tf: false, why: "4:86 commands returning it." }
+      ]
+    },
+    {
+      slug: "verify",
+      title: "Check before you judge",
+      line: "Never tell one who greets you with salam: you're no believer.",
+      facts: ["Sahih al-Bukhari 4591", "A man with his sheep"],
+      quote: q4(94),
+      source: hadith("bukhari", "4591", "Ibn Abbas", "Sahih", "A man among his sheep greeted some Muslims with salam, but they did not accept it and took his sheep. Allah revealed 4:94.", "There was a man amidst his sheep"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the man say to the Muslims, in Bukhari 4591?", a: "Peace be on you", wrong: ["Go away", "Nothing", "I am lost"], why: "He greeted them with salam." },
+        { q: "What does 4:94 command?", a: "Verify, and do not deny one's salam", wrong: ["Act quickly", "Trust rumors", "Take their sheep"], why: "Fa-tabayyanu." },
+        { q: "What did Allah remind them in 4:94?", a: "You were like him before", wrong: ["You were always better", "He was a liar", "Sheep are better"], why: "Kadhalika kuntum min qabl." }
+      ]
+    },
+    {
+      slug: "excused",
+      title: "Those with an excuse",
+      line: "Allah excused the blind and disabled from going out to fight.",
+      facts: ["Sahih al-Bukhari 4592", "Ibn Umm Maktum"],
+      quote: q4(95),
+      source: hadith("bukhari", "4592", "Zayd ibn Thabit", "Sahih", "As the Prophet ﷺ dictated 4:95, the blind Ibn Umm Maktum said he would strive if he could. Allah then revealed: except those who are disabled.", "Except those who are disabled"),
+      difficulty: 5,
+      questions: [
+        { q: "Who said he would go if he could, in Bukhari 4592?", a: "Ibn Umm Maktum", wrong: ["Bilal", "Ammar", "Salman"], why: "He was a blind man." },
+        { q: "Which words came down after he spoke?", a: "Except those who are disabled", wrong: ["Except the rich", "Except the old", "Except traders"], why: "Ghayru ulid-darar." },
+        { q: "Who was writing the ayah for the Prophet ﷺ?", a: "Zayd ibn Thabit", wrong: ["Ali", "Mu'awiyah", "Uthman"], why: "The Prophet ﷺ dictated it to him." }
+      ]
+    },
+    {
+      slug: "wide-earth",
+      title: "Allah's earth is wide",
+      line: "Leave home for Allah and you find room; the reward is sure.",
+      facts: ["Hijrah: leaving for Allah", "Muragham: places of refuge"],
+      quote: q4(100),
+      source: ik(100, "The angels ask those who stayed under oppression: was not Allah's earth spacious enough to emigrate? The truly weak, who could not leave, are excused.", "Was not the earth of Allah spacious enough for you"),
+      difficulty: 5,
+      questions: [
+        { q: "What do the angels ask, in 4:97?", a: "Was Allah's earth not wide enough?", wrong: ["Where is your gold?", "Who is your king?", "Why are you late?"], why: "Alam takun ardullahi wasi'ah." },
+        { q: "Who is excused in 4:98?", a: "The truly weak who cannot leave", wrong: ["The rich", "The lazy", "Everyone"], why: "Men, women and children with no way out." },
+        { q: "What happens to one who dies on his way, in 4:100?", a: "His reward is sure with Allah", wrong: ["It is lost", "Halved", "Only if he arrives"], why: "Faqad waqa'a ajruhu 'alallah." }
+      ]
+    }
+  ]
+};
+
+export const NISA_UNITS: readonly DeepUnit[] = [NISA_ONE, NISA_TWO];
