@@ -554,9 +554,9 @@ export function FoundationAssessmentScreen({
   // each answer or row of a game) sit in the scroll content with no space above it, for the places the arrow scrolls it to.
   const [partsIn, setPartsIn] = useState<{ key: string; rows: RowSpan[] } | null>(null);
   const [barHeight, setBarHeight] = useState(0);
-  // The sheet's heights as it told them, and the CHECK they were told for. Practice keeps one sheet from question to
-  // question, so the heights it told for the question before are not this one's: it tells this one's before the frame
-  // CHECK draws (see FeedbackSheet), and until then none is known, as in lessons (a fresh view each question). Taken
+  // The sheet's heights as it told them, and the CHECK they were told for. This screen stays from question to
+  // question, so the heights told for the question before are not this one's: its sheet tells this one's before the
+  // frame CHECK draws (see FeedbackSheet), and until then none is known, as in lessons (a fresh view each question). Taken
   // for this question's, the last one's would place it (and hide the topic label, or an answer under the sheet's edge)
   // for a sheet of another size, and the render after would put that right, what hid then fading back in.
   const checks = useRef({ locked: false, count: 0 });
@@ -1254,6 +1254,12 @@ export function FoundationAssessmentScreen({
       </View>
 
       <FeedbackSheet
+        // A fresh sheet for each CHECK, as in lessons (a fresh view each question); it keeps the one it has while it
+        // slides away. Kept from question to question, a sheet would open with what it had worked out for the last
+        // one: its start below the screen (it would show for a frame, drop away and rise), its list's scroll (a "more"
+        // arrow and a wider gap over CONTINUE on a sheet with nothing to scroll), and on a phone its title and answer
+        // sizes (a question folded for a sheet taller than its own).
+        key={checkNow}
         visible={locked}
         correct={Boolean(shownSheet?.correct)}
         correctLabel={shownSheet?.correctList ? undefined : shownSheet?.correctLabel}

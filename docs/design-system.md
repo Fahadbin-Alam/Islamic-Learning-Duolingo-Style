@@ -147,9 +147,10 @@ path nodes are 72 px circles with a 7 px lip; sheets radius 24 on top.
   a question answered with tiles, a matching game and a sorting game with every step placed keep their
   parts as they are at CHECK, so the render CHECK draws already lays them out from what was read before it,
   and the sheet's heights told before that frame place them in the next one: CHECK draws them twice, as
-  before these fit rules. Practice keeps one sheet from question to question, so the heights it told for the
-  question before never place this one (a taller one would hide the topic label for a render, which then
-  fades back in). Only a typed answer turning into tiles, or the steps left to place going away, waits for
+  before these fit rules. Practice opens a fresh sheet for each CHECK, as lessons do (one kept from question
+  to question opened with the last one's start, list scroll and sizes: it showed for a frame and dropped away,
+  or kept a "more" arrow with nothing to scroll), and the heights told for the question before never place
+  this one (a taller one would hide the topic label for a render, which then fades back in). Only a typed answer turning into tiles, or the steps left to place going away, waits for
   the read too. The later draws change only where the
   question sits, which parts fade under the sheet's edge and the sheet's room. Each answer tile, sorting
   slot and matching row, the prompt, the topic label, the bar with CHECK and the sheet's title, answer,
