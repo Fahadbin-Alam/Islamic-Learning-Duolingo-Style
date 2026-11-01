@@ -1014,4 +1014,786 @@ const ARAF_THREE: DeepUnit = {
   ]
 };
 
-export const ARAF_UNITS: readonly DeepUnit[] = [ARAF_ONE, ARAF_TWO, ARAF_THREE];
+
+/** Ayahs 103 to 141: Musa and Fir'awn, the staff and the magicians, the plagues, the sea, and the call for an idol. */
+const ARAF_FOUR: DeepUnit = {
+  key: "araf4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-7",
+  name: "Al-A'raf, ayahs 103 to 141",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-A'raf",
+  lessons: [
+    {
+      slug: "musa-to-firawn",
+      title: "Musa is sent to Fir'awn",
+      line: "After those prophets, Allah sent Musa with signs to Fir'awn.",
+      facts: ["Fir'awn: ruler of Egypt", "Ayat: signs"],
+      quote: q7(103),
+      source: ik(103, "After Nuh, Hud, Salih, Lut and Shu'ayb, Allah sent Musa with clear signs to Fir'awn, ruler of Egypt, and his chiefs. They rejected the signs out of injustice and stubbornness.", "who was ruler of Egypt during the time of Musa"),
+      difficulty: 2,
+      questions: [
+        { q: "Who ruled Egypt in Musa's time, per Ibn Kathir?", a: "Fir'awn", wrong: ["Namrud", "Haman", "Qarun"], why: "Fir'awn, who was ruler of Egypt during the time of Musa." },
+        { q: "Why did they reject the signs, per Ibn Kathir?", a: "Injustice and stubbornness", wrong: ["They never saw them", "They were busy", "They were asleep"], why: "Out of injustice and stubbornness on their part." },
+        { q: "Musa's story comes after the five prophets of 7:59-102.", tf: true, why: "Thumma ba'athna min ba'dihim Musa." }
+      ]
+    },
+    {
+      slug: "only-the-truth",
+      title: "Only the truth about Allah",
+      line: "Musa told Fir'awn: I say only the truth; let Bani Isra'il go.",
+      facts: ["Rasul from the Lord of all", "Let them go with me"],
+      quote: q7(105),
+      source: ik(105, "Musa said: I am a messenger from the Lord of all that exists. It is my duty to say only the truth about Him, because of what I know of His might. I bring clear proof, so let the Children of Israel go with me.", "It is incumbent and a duty for me to convey only the Truth from Him"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Musa ask Fir'awn, in 7:105?", a: "Let Bani Isra'il go with me", wrong: ["Make me a minister", "Give me gold", "Build me a palace"], why: "Fa arsil ma'iya bani Isra'il." },
+        { q: "What may Musa say about Allah, in 7:105?", a: "Only the truth", wrong: ["Whatever pleases Fir'awn", "Nothing at all", "Guesses"], why: "An la aqula alallahi illal-haqq." },
+        { q: "What did Fir'awn demand, in 7:106?", a: "Show a sign", wrong: ["Leave Egypt", "Bow to him", "Pay a tax"], why: "In kunta ji'ta bi-ayatin fa'ti biha." }
+      ]
+    },
+    {
+      slug: "staff-and-hand",
+      title: "The staff and the shining hand",
+      line: "Musa's staff became a serpent; his hand shone white.",
+      facts: ["Thu'ban: a great serpent", "Bayda: white, shining"],
+      quote: q7(107),
+      source: ik(108, "Musa threw his staff and it became a huge serpent. Then he took his hand out of his cloak and it was shining white, not from any illness. When he put it back, it returned to its normal color.", "it was shining, not because of leprosy or sickness"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the staff become, in 7:107?", a: "A huge serpent", wrong: ["A tree", "A bird", "A river"], why: "Fa idha hiya thu'banun mubin." },
+        { q: "How did Musa's hand look, in 7:108?", a: "Shining white", wrong: ["Red", "Black", "Hidden"], why: "Fa idha hiya bayda'u lin-nazirin." },
+        { q: "The white hand was from an illness.", tf: false, why: "It was shining, not because of leprosy or sickness." }
+      ]
+    },
+    {
+      slug: "called-magician",
+      title: "They called it magic",
+      line: "The chiefs called Musa a skilled magician to turn people away.",
+      facts: ["Sahirun alim: skilled magician", "They feared losing power"],
+      quote: q7(109),
+      source: ik(109, "The chiefs agreed with Fir'awn that Musa was a skilled magician. They plotted to make him look like a liar, fearing he would win the people and drive them out of their land.", "They plotted to portray Musa as a liar and fake"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the chiefs call Musa, in 7:109?", a: "A skilled magician", wrong: ["A prophet", "A king", "A farmer"], why: "Inna hadha lasahirun alim." },
+        { q: "What did they fear Musa would do, in 7:110?", a: "Drive them out of their land", wrong: ["Give them gifts", "Build temples", "Join them"], why: "Yuridu an yukhrijakum min ardikum." },
+        { q: "They plotted to make Musa look like a liar.", tf: true, why: "They plotted to portray Musa as a liar and fake." }
+      ]
+    },
+    {
+      slug: "gather-magicians",
+      title: "Gather every magician",
+      line: "Fir'awn gathered magicians from every city, promising rewards.",
+      facts: ["Magic was common then", "Close to Fir'awn"],
+      quote: q7(112),
+      source: ik(111, "They said: delay him, and send callers to every city to bring skilled magicians. Magic was the trade of that time, widespread and popular, and they thought Musa's signs were the same kind of magic.", "At this time, magic was the trade of the day and it was widespread and popular"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the chiefs advise, in 7:111-112?", a: "Gather magicians from the cities", wrong: ["Free the slaves", "Build a ship", "Leave Egypt"], why: "Wa arsil fil-mada'ini hashirin." },
+        { q: "What did Fir'awn promise the magicians, in 7:114?", a: "Reward and nearness to him", wrong: ["Nothing", "Exile", "Prison"], why: "Na'am wa innakum laminal-muqarrabin." },
+        { q: "Why magicians, per Ibn Kathir?", a: "Magic was the trade of the day", wrong: ["They were prophets", "They were soldiers", "They were farmers"], why: "Magic was widespread and popular at that time." }
+      ]
+    },
+    {
+      slug: "you-throw-first",
+      title: "You throw first",
+      line: "Musa let the magicians throw first, so truth shone after.",
+      facts: ["Sahru a'yun an-nas", "A great trick"],
+      quote: q7(116),
+      source: ik(116, "Musa told the magicians to throw first. They bewitched people's eyes and scared them with a great trick. Ibn Kathir says the wisdom was that the truth came after, while all were waiting, making it more impressive to their hearts.", "thus making the truth even more impressive to their hearts"),
+      difficulty: 3,
+      questions: [
+        { q: "Who threw first, in 7:116?", a: "The magicians", wrong: ["Musa", "Fir'awn", "Harun"], why: "Qala alqu: he said, you throw." },
+        { q: "What did their magic do, in 7:116?", a: "Bewitched people's eyes", wrong: ["Changed real things", "Made rain", "Healed people"], why: "Saharu a'yunan-nas." },
+        { q: "Letting them go first made the truth more striking, per Ibn Kathir.", tf: true, why: "Making the truth even more impressive to their hearts." }
+      ]
+    },
+    {
+      slug: "staff-swallows",
+      title: "The staff swallows the tricks",
+      line: "Musa's staff swallowed their tricks; the truth stood firm.",
+      facts: ["Talqafu: swallowed", "Truth confirmed"],
+      quote: q7(117),
+      source: ik(117, "Allah told Musa to throw his staff, and it swallowed all their falsehood. Ibn Abbas said it swallowed every rope and stick the magicians threw. The magicians knew this was from heaven, not magic.", "stick swallowed all the ropes and sticks that the magicians threw"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the staff do, in 7:117?", a: "Swallowed their tricks", wrong: ["Broke in two", "Flew away", "Became gold"], why: "Fa idha hiya talqafu ma ya'fikun." },
+        { q: "What did the staff swallow, per Ibn Abbas?", a: "All their ropes and sticks", wrong: ["Fir'awn's throne", "The river", "The palace"], why: "It swallowed all the ropes and sticks the magicians threw." },
+        { q: "How did Fir'awn's side end, in 7:119?", a: "Defeated and humbled", wrong: ["Victorious", "Rewarded", "Unchanged"], why: "Faghulibu hunalika wanqalabu saghirin." }
+      ]
+    },
+    {
+      slug: "magicians-bow",
+      title: "The magicians fall in sajdah",
+      line: "The magicians knew the truth and fell down in prostration.",
+      facts: ["Rabbil-alamin", "Rabbi Musa wa Harun"],
+      quote: q7(121),
+      source: ik(120, "The magicians realized this was from heaven and by no means magic. They fell in prostration and said: we believe in the Lord of all that exists, the Lord of Musa and Harun.", "The magicians realized that this was from heaven and was by no means magic"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the magicians do, in 7:120?", a: "Fell in prostration", wrong: ["Ran away", "Attacked Musa", "Laughed"], why: "Wa ulqiyas-saharatu sajidin." },
+        { q: "Whom did they say they believe in, in 7:121-122?", a: "The Lord of Musa and Harun", wrong: ["Fir'awn", "The cows", "Their ropes"], why: "Rabbi Musa wa Harun." },
+        { q: "The magicians knew it was not magic.", tf: true, why: "They realized this was from heaven and by no means magic." }
+      ]
+    },
+    {
+      slug: "pour-patience",
+      title: "Pour patience upon us",
+      line: "Threatened by Fir'awn, they prayed: Lord, pour patience on us.",
+      facts: ["Afrigh alayna sabra", "Die as Muslims"],
+      quote: q7(126),
+      source: ik(126, "Fir'awn threatened them for believing without his permission. They said: we are returning to our Lord. Our Lord, pour patience on us, keep us firm in Your religion, and let us die as Muslims.", "with your religion and being firm in it"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the believing magicians ask, in 7:126?", a: "Patience, and to die as Muslims", wrong: ["Wealth", "Revenge", "To return to magic"], why: "Rabbana afrigh alayna sabran wa tawaffana muslimin." },
+        { q: "Why was Fir'awn angry, in 7:123?", a: "They believed without his permission", wrong: ["They lost", "They were late", "They stole"], why: "Amantum bihi qabla an adhana lakum." },
+        { q: "To whom did they say they would return, in 7:125?", a: "To their Lord", wrong: ["To Fir'awn", "To their homes", "To magic"], why: "Inna ila rabbina munqalibun." }
+      ]
+    },
+    {
+      slug: "seek-help-patience",
+      title: "Seek help in Allah and be patient",
+      line: "Musa said: seek help in Allah, be patient; the earth is Allah's.",
+      facts: ["Ista'inu billah", "The end is for the pious"],
+      quote: q7(128),
+      source: ik(128, "When Fir'awn pressed on with his plot, Musa told his people to seek Allah's help and be patient, promising that the good end would be theirs. The earth is Allah's; He gives it to whom He wills.", "and promised them that the good end will be theirs and that they will prevail"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Musa tell his people, in 7:128?", a: "Seek Allah's help and be patient", wrong: ["Give up", "Fight at once", "Run to the desert"], why: "Ista'inu billahi wasbiru." },
+        { q: "To whom does the earth belong, in 7:128?", a: "To Allah", wrong: ["To Fir'awn", "To the strong", "To no one"], why: "Innal-arda lillah." },
+        { q: "For whom is the good end, in 7:128?", a: "The pious", wrong: ["The rich", "The proud", "The many"], why: "Wal-aqibatu lil-muttaqin." }
+      ]
+    },
+    {
+      slug: "how-you-act",
+      title: "So He may see how you act",
+      line: "Musa said: Allah may give you the land, then watch you.",
+      facts: ["Before and after Musa", "Hardship then a test"],
+      quote: q7(129),
+      source: ik(129, "Bani Isra'il complained: we suffered before you came and after. Musa said: perhaps your Lord will destroy your enemy and make you successors, so He may see how you act, urging them to be thankful when hardship lifts.", "encouraging them to appreciate Allah when the afflictions are removed and replaced by a bounty"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Bani Isra'il complain, in 7:129?", a: "We suffered before and after you", wrong: ["We are too rich", "We are bored", "We miss Egypt"], why: "Udhina min qabli an ta'tiyana wa min ba'di ma ji'tana." },
+        { q: "Why would Allah make them successors, in 7:129?", a: "To see how they act", wrong: ["To make them proud", "For no reason", "To punish them"], why: "Fa yanzura kayfa ta'malun." },
+        { q: "Ease after hardship is also a test.", tf: true, why: "He wants to see how you act once the afflictions lift." }
+      ]
+    },
+    {
+      slug: "years-of-drought",
+      title: "Years of drought",
+      line: "Fir'awn's people got drought and blamed Musa for every bad year.",
+      facts: ["Sinin: years of drought", "Tatayyur: bad omens"],
+      quote: q7(130),
+      source: ik(130, "Allah tried Fir'awn's people with years of drought and poor harvests so they would take heed. When good came they said: we deserve it; when bad came they blamed Musa. Their fortune is with Allah.", "Allah says that their afflictions are with and from Him"),
+      difficulty: 3,
+      questions: [
+        { q: "What did they say when good came, in 7:131?", a: "This is ours", wrong: ["Thank Allah", "Thank Musa", "Share it"], why: "Qalu lana hadhihi." },
+        { q: "Whom did they blame for bad times, in 7:131?", a: "Musa and those with him", wrong: ["Fir'awn", "Themselves", "The weather only"], why: "Yattayyaru bi-Musa wa man ma'ah." },
+        { q: "Bad omens decide what happens to us.", tf: false, why: "Their omens are with Allah: all is from Him." }
+      ]
+    },
+    {
+      slug: "five-signs",
+      title: "Flood, locusts, lice, frogs, blood",
+      line: "Sign after sign came; each time they promised, then broke it.",
+      facts: ["Five clear signs", "Promises broken"],
+      quote: q7(133),
+      source: ik(133, "They said they would never believe. So came the flood, the locusts, the lice, the frogs and the blood. Each time they begged Musa to pray, Allah removed it, and each time they broke their promise.", "Musa invoked his Lord and He removed the affliction from them, but they did not keep their promises"),
+      difficulty: 4,
+      questions: [
+        { q: "Which of these was a sign sent in 7:133?", a: "Frogs", wrong: ["Snow", "Snakes", "Lions"], why: "At-tufan, al-jarad, al-qummal, ad-difa', ad-dam." },
+        { q: "What did they do after each sign was lifted, in 7:135?", a: "Broke their promise", wrong: ["Believed", "Freed Bani Isra'il", "Thanked Allah"], why: "Idha hum yankuthun." },
+        { q: "What happened to their water, per Ibn Kathir?", a: "It turned to blood", wrong: ["It turned to milk", "It froze", "It dried up only"], why: "Any water they collected turned to blood." }
+      ]
+    },
+    {
+      slug: "drowned-sea",
+      title: "Drowned in the sea",
+      line: "Fir'awn's army drowned; the weak inherited the blessed land.",
+      facts: ["Al-yamm: the sea", "Sabr rewarded"],
+      quote: q7(137),
+      source: ik(137, "After sign upon sign, Allah drowned Fir'awn's people in the sea that Musa parted by Allah's power, after Musa and Bani Isra'il passed through. The weak inherited the blessed land, because of their patience.", "by drowning them in the sea that Musa parted by Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "How did Fir'awn's people end, in 7:136?", a: "Drowned in the sea", wrong: ["Burned", "Lost in sand", "Turned to stone"], why: "Fa aghraqnahum fil-yamm." },
+        { q: "Who inherited the land, in 7:137?", a: "Those who were counted weak", wrong: ["Fir'awn's sons", "The magicians", "Strangers"], why: "Al-qawmal-ladhina kanu yustad'afun." },
+        { q: "Why was Allah's promise fulfilled for them, in 7:137?", a: "Because of their patience", wrong: ["Because of their wealth", "Because of their army", "By luck"], why: "Bima sabaru." }
+      ]
+    },
+    {
+      slug: "make-us-a-god",
+      title: "Make us a god like theirs",
+      line: "Just saved, some asked for an idol; Musa called them ignorant.",
+      facts: ["Jahilun: ignorant", "Idols are in vain"],
+      quote: q7(138),
+      source: ik(138, "Right after crossing the sea and seeing Allah's signs, some of Bani Isra'il passed people worshipping idols and said: make us a god like theirs. Musa said: you are an ignorant people; what they do is in vain.", "Allah mentions the words that the ignorant ones among the Children of Israel uttered to Musa after they crossed the sea"),
+      difficulty: 4,
+      questions: [
+        { q: "What did some ask Musa, in 7:138?", a: "Make us a god like theirs", wrong: ["Take us back", "Give us food", "Teach us magic"], why: "Ij'al lana ilahan kama lahum alihah." },
+        { q: "What did Musa call them, in 7:138?", a: "An ignorant people", wrong: ["A wise people", "A brave people", "A rich people"], why: "Innakum qawmun tajhalun." },
+        { q: "They asked this right after crossing the sea.", tf: true, why: "After they crossed the sea and witnessed Allah's signs." }
+      ]
+    },
+    {
+      slug: "dhat-anwat",
+      title: "A tree like theirs",
+      line: "Going to Hunayn, the Prophet ﷺ warned against 7:138.",
+      facts: ["Dhat Anwat", "Subhan Allah"],
+      quote: q7(138),
+      source: hadith("tirmidhi", "2180", "Abu Waqid al-Laythi", "Sahih", "On the way to Hunayn they passed a tree the idol worshippers hung weapons on, called Dhat Anwat. Some said: make one for us. The Prophet ﷺ said: Subhan Allah, this is like what Musa's people said: make for us a god like their gods.", "This is like what Musa"),
+      difficulty: 5,
+      questions: [
+        { q: "Where were they going, in Tirmidhi 2180?", a: "To Hunayn", wrong: ["To Badr", "To Ta'if", "To Tabuk"], why: "When the Messenger of Allah went out to Hunain." },
+        { q: "What did the Prophet ﷺ compare the request to?", a: "Musa's people asking for a god", wrong: ["Adam's tree", "Nuh's ark", "Yusuf's well"], why: "This is like what Musa's people said." },
+        { q: "What did the Prophet ﷺ say first?", a: "Subhan Allah", wrong: ["Allahu akbar only", "Al-hamdu lillah", "Nothing"], why: "Subhan Allah! This is like what Musa's people said." }
+      ]
+    },
+    {
+      slug: "remember-rescue",
+      title: "Remember who saved you",
+      line: "Musa: shall I seek you a god other than Allah, your Saviour?",
+      facts: ["Fir'awn's cruelty", "A great trial"],
+      quote: q7(140),
+      source: ik(140, "Musa reminded Bani Isra'il of Allah's blessings: He saved them from Fir'awn's tyranny and the disgrace they suffered, and they watched their enemy drown.", "Musa reminded the Children of Israel of Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Musa ask them, in 7:140?", a: "Shall I seek a god besides Allah?", wrong: ["Shall we go back?", "Shall I be king?", "Shall we build a ship?"], why: "A ghayrallahi abghikum ilaha." },
+        { q: "Whom did Allah save them from, in 7:141?", a: "Fir'awn's people", wrong: ["The people of 'Ad", "The jinn", "The Romans"], why: "Wa idh anjaynakum min ali Fir'awn." },
+        { q: "Their hardship under Fir'awn was a great trial from their Lord.", tf: true, why: "Wa fi dhalikum bala'un min rabbikum azim." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 142 to 171: forty nights, the mountain, the Tablets, the calf, the seventy, the Prophet ﷺ foretold, the Sabbath town. */
+const ARAF_FIVE: DeepUnit = {
+  key: "araf5",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-7",
+  name: "Al-A'raf, ayahs 142 to 171",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-A'raf",
+  lessons: [
+    {
+      slug: "forty-nights",
+      title: "Forty nights",
+      line: "Allah set Musa thirty nights, then ten more: forty in all.",
+      facts: ["Thirty plus ten", "Harun stood in his place"],
+      quote: q7(142),
+      source: ik(142, "Allah set thirty nights for Musa, which the scholars of tafsir say he fasted, then added ten to make forty. Musa left Harun with the people and told him to act rightly, only as a reminder, for Harun was a noble prophet.", "Musa left his brother Harun with the Children of Israel and commanded him to use wisdom and refrain from mischief"),
+      difficulty: 2,
+      questions: [
+        { q: "How many nights in all, in 7:142?", a: "Forty", wrong: ["Thirty", "Seven", "Ten"], why: "Thirty, completed with ten: arba'ina laylah." },
+        { q: "Whom did Musa leave in charge, in 7:142?", a: "His brother Harun", wrong: ["Yusha'", "As-Samiri", "Fir'awn"], why: "Ukhlufni fi qawmi." },
+        { q: "Harun was himself a noble prophet.", tf: true, why: "Harun was an honorable and noble Prophet." }
+      ]
+    },
+    {
+      slug: "mountain-to-dust",
+      title: "The mountain turned to dust",
+      line: "Musa asked to see Allah; the mountain crumbled and Musa fainted.",
+      facts: ["Lan tarani", "Subhanak, tubtu ilayk"],
+      quote: q7(143),
+      source: ik(143, "Musa asked to see Allah. Allah said: you cannot see Me, but look at the mountain. When His Lord appeared to it, it crumbled to dust and Musa fell unconscious. Waking, he glorified Allah and repented.", "Musa asks to see Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What happened to the mountain, in 7:143?", a: "It crumbled to dust", wrong: ["It grew taller", "It moved", "Nothing"], why: "Ja'alahu dakka." },
+        { q: "What happened to Musa, in 7:143?", a: "He fell unconscious", wrong: ["He ran away", "He laughed", "He became king"], why: "Wa kharra Musa sa'iqa." },
+        { q: "What did Musa say on waking?", a: "Glory to You, I repent to You", wrong: ["Show me again", "I am tired", "Let me go home"], why: "Subhanaka tubtu ilayka." }
+      ]
+    },
+    {
+      slug: "the-tablets",
+      title: "Hold the Tablets firmly",
+      line: "Allah chose Musa and wrote guidance for him on the Tablets.",
+      facts: ["Al-alwah: the Tablets", "Take the best of it"],
+      quote: q7(145),
+      source: ik(144, "Allah chose Musa above the people of his time by His message and by speaking to him, and gave him the Tablets. Ibn Kathir adds that Muhammad ﷺ is the chief of all the children of Adam.", "He has chosen him above the people of his time, by His Message and by speaking to him"),
+      difficulty: 3,
+      questions: [
+        { q: "How was Musa chosen, in 7:144?", a: "By messages and Allah speaking to him", wrong: ["By wealth", "By an army", "By a crown"], why: "Bi-risalati wa bi-kalami." },
+        { q: "What was Musa told to do with the Tablets, in 7:145?", a: "Hold them firmly", wrong: ["Hide them", "Sell them", "Bury them"], why: "Fa khudh-ha bi-quwwah." },
+        { q: "Who is the chief of all the children of Adam, per Ibn Kathir?", a: "Muhammad ﷺ", wrong: ["Musa", "Adam", "Nuh"], why: "Muhammad is the chief of all the Children of Adam." }
+      ]
+    },
+    {
+      slug: "pride-blinds",
+      title: "Pride blocks the signs",
+      line: "Allah turns the proud from His signs; they pick the wrong road.",
+      facts: ["Yatakabbarun: the proud", "Deeds wasted"],
+      quote: q7(146),
+      source: ik(146, "Allah keeps the hearts of the arrogant from understanding His signs. Even if they see every sign, they do not believe; if they see the right way they leave it, and if they see the wrong way they take it.", "I shall deprive the hearts of those who are too proud to obey Me"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom does Allah turn from His signs, in 7:146?", a: "The arrogant", wrong: ["The humble", "The poor", "Children"], why: "Alladhina yatakabbaruna fil-ard." },
+        { q: "Which way do they take, in 7:146?", a: "The wrong way", wrong: ["The right way", "No way", "Both"], why: "In yaraw sabilal-ghayyi yattakhidhuhu sabila." },
+        { q: "Even seeing every sign, the proud do not believe.", tf: true, why: "Wa in yaraw kulla ayatin la yu'minu biha." }
+      ]
+    },
+    {
+      slug: "golden-calf",
+      title: "The calf that could not speak",
+      line: "With Musa away, they worshipped a calf made from jewelry.",
+      facts: ["As-Samiri", "It could not guide"],
+      quote: q7(148),
+      source: ik(148, "While Musa was away, As-Samiri shaped a calf from ornaments and it seemed to make a sound. Could they not see it neither spoke nor guided? Then they regretted: if our Lord does not forgive us, we are lost.", "He made the shape of a calf with these ornaments"),
+      difficulty: 3,
+      questions: [
+        { q: "What was the calf made from, in 7:148?", a: "Their ornaments", wrong: ["Wood", "Clay", "Stone"], why: "Min huliyyihim ijlan." },
+        { q: "What could the calf not do, in 7:148?", a: "Speak or guide them", wrong: ["Shine", "Be seen", "Be carried"], why: "Annahu la yukallimuhum wa la yahdihim sabila." },
+        { q: "Who made the calf, per Ibn Kathir?", a: "As-Samiri", wrong: ["Harun", "Musa", "Fir'awn"], why: "The calf that As-Samiri made for them." }
+      ]
+    },
+    {
+      slug: "forgive-me-brother",
+      title: "Forgive me and my brother",
+      line: "Musa came back grieved, then prayed for himself and Harun.",
+      facts: ["Ghadban asifa: angry, grieved", "Arhamur-rahimin"],
+      quote: q7(151),
+      source: ik(150, "Musa returned angry and full of regret, threw down the Tablets and took hold of his brother. Harun said: the people overpowered me. Musa then prayed: my Lord, forgive me and my brother, You are the Most Merciful.", "he became angry and full of regret"),
+      difficulty: 4,
+      questions: [
+        { q: "How did Musa return, in 7:150?", a: "Angry and grieved", wrong: ["Happy", "Sleepy", "Calm"], why: "Ghadbana asifa." },
+        { q: "What did Harun say, in 7:150?", a: "The people overpowered me", wrong: ["I joined them", "I was away", "I made the calf"], why: "Innal-qawmas-tad'afuni." },
+        { q: "Whom did Musa ask forgiveness for, in 7:151?", a: "Himself and his brother", wrong: ["Only the people", "Only Fir'awn", "No one"], why: "Rabbighfir li wa li-akhi." }
+      ]
+    },
+    {
+      slug: "door-of-repentance",
+      title: "The door of repentance",
+      line: "Whoever repents after wrong and believes finds Allah forgiving.",
+      facts: ["Tawbah: repentance", "Ghafur, Rahim"],
+      quote: q7(153),
+      source: ik(152, "Those who took the calf earned humiliation, and the same is for all who invent new things in religion. But whoever does evil, then repents and believes, finds Allah Oft-Forgiving, Most Merciful.", "is for all those who invent an innovation (in religion)"),
+      difficulty: 4,
+      questions: [
+        { q: "Who finds Allah forgiving, in 7:153?", a: "Those who repent and believe", wrong: ["Only the sinless", "Only prophets", "No one"], why: "Thumma tabu min ba'diha wa amanu." },
+        { q: "Whom does the warning in 7:152 cover, per Ibn Kathir?", a: "All who invent in religion", wrong: ["Only one tribe", "No one today", "Only kings"], why: "It is for all those who invent an innovation in religion." },
+        { q: "After repentance, Allah is Oft-Forgiving, Most Merciful.", tf: true, why: "Inna rabbaka min ba'diha laghafurun rahim." }
+      ]
+    },
+    {
+      slug: "anger-calmed",
+      title: "When the anger calmed",
+      line: "Calmed, Musa took up the Tablets: guidance and mercy inside.",
+      facts: ["Sakata: calmed", "Huda wa rahmah"],
+      quote: q7(154),
+      source: ik(154, "When Musa's anger calmed, he picked up the Tablets he had thrown out of anger for Allah's sake. In their writing was guidance and mercy for those who fear their Lord.", "which he had thrown out of jealousy for Allah and anger for His sake"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Musa do when calm, in 7:154?", a: "Took up the Tablets", wrong: ["Left the people", "Broke the calf", "Went to Egypt"], why: "Akhadhal-alwah." },
+        { q: "What was in the Tablets, in 7:154?", a: "Guidance and mercy", wrong: ["Gold", "Maps", "Magic"], why: "Wa fi nuskhatiha hudan wa rahmah." },
+        { q: "Musa's anger was for Allah's sake.", tf: true, why: "Out of jealousy for Allah and anger for His sake." }
+      ]
+    },
+    {
+      slug: "seventy-men",
+      title: "The seventy chosen men",
+      line: "Musa chose seventy men; when the earth shook, he begged mercy.",
+      facts: ["Sab'ina rajula", "Anta waliyyuna"],
+      quote: q7(155),
+      source: ik(156, "Allah told Musa to choose seventy men to pray to their Lord. When the earthquake seized them, Musa said: will You destroy us for what the foolish did? You are our protector, so forgive us and have mercy.", "Allah commanded Musa to choose seventy men"),
+      difficulty: 4,
+      questions: [
+        { q: "How many men did Musa choose, in 7:155?", a: "Seventy", wrong: ["Forty", "Twelve", "Seven"], why: "Sab'ina rajulan li-miqatina." },
+        { q: "What seized them, in 7:155?", a: "A violent earthquake", wrong: ["A flood", "A fire", "A wind"], why: "Akhadhat-humur-rajfah." },
+        { q: "What did Musa call Allah, in 7:155?", a: "Our Protector", wrong: ["Our judge only", "Our king only", "Our guest"], why: "Anta waliyyuna faghfir lana warhamna." }
+      ]
+    },
+    {
+      slug: "mercy-embraces",
+      title: "My mercy embraces all things",
+      line: "Allah's mercy covers all things; it is written for the pious.",
+      facts: ["Wasi'at kulla shay'", "Taqwa, zakah, iman"],
+      quote: q7(156),
+      source: hadith("bukhari", "6000", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Allah divided mercy into a hundred parts, kept ninety-nine with Him and sent one part down to earth. By that one part, creatures are merciful to each other, so a mare lifts her hoof away from her foal.", "Allah divided Mercy into one hundred parts"),
+      difficulty: 3,
+      questions: [
+        { q: "What does Allah's mercy embrace, in 7:156?", a: "All things", wrong: ["Only angels", "Only Muslims", "Nothing"], why: "Wa rahmati wasi'at kulla shay'." },
+        { q: "How many parts of mercy came to earth, in Bukhari 6000?", a: "One part of a hundred", wrong: ["All hundred", "Fifty", "Ninety-nine"], why: "He kept ninety-nine and sent down one." },
+        { q: "For whom is mercy written, in 7:156?", a: "The pious who give zakah and believe", wrong: ["The proud", "The idle", "The cruel"], why: "Lilladhina yattaquna wa yu'tunaz-zakah." }
+      ]
+    },
+    {
+      slug: "foretold-prophet",
+      title: "Written in the Tawrah and Injil",
+      line: "The unlettered Prophet ﷺ is described in the Tawrah and Injil.",
+      facts: ["An-nabiyy al-ummi", "Light sent down"],
+      quote: q7(157),
+      source: hadith("bukhari", "2125", "Ata ibn Yasar", "Sahih", "Abdullah ibn Amr said the Prophet ﷺ is described in the Torah with qualities the Quran gives him: O Prophet, We sent you as a witness, a giver of good news and a warner.", "he is described in Torah with some of the qualities attributed to him in the Qur"),
+      difficulty: 4,
+      questions: [
+        { q: "Where is the Prophet ﷺ described, in 7:157?", a: "In the Tawrah and Injil", wrong: ["Only in poems", "Nowhere before", "In Greek books"], why: "Yajidunahu maktuban indahum fit-tawrati wal-injil." },
+        { q: "Who told of the Torah's description, in Bukhari 2125?", a: "Abdullah ibn Amr", wrong: ["Abu Bakr", "Anas", "Ali"], why: "Ata met Abdullah bin Amr and asked him." },
+        { q: "The Prophet ﷺ makes the good things lawful and the evil ones unlawful.", tf: true, why: "Yuhillu lahumut-tayyibati wa yuharrimu alayhimul-khaba'ith." }
+      ]
+    },
+    {
+      slug: "to-all-mankind",
+      title: "Sent to all mankind",
+      line: "The Prophet ﷺ was sent to all people, Arab and non-Arab alike.",
+      facts: ["Ya ayyuhan-nas", "Jami'an: all of you"],
+      quote: q7(158),
+      source: hadith("bukhari", "335", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said he was given five things no one before him was given. Among them: every prophet was sent to his own nation only, but he was sent to all mankind.", "I have been given five things which were not given to any one else before me"),
+      difficulty: 3,
+      questions: [
+        { q: "To whom was the Prophet ﷺ sent, in 7:158?", a: "To all mankind", wrong: ["Only Arabs", "Only Quraysh", "Only Makkah"], why: "Inni rasulullahi ilaykum jami'a." },
+        { q: "How many special gifts does Bukhari 335 list?", a: "Five", wrong: ["Two", "Ten", "Seven"], why: "I have been given five things." },
+        { q: "Earlier prophets were sent only to their own nation.", tf: true, why: "Every Prophet used to be sent to his nation only." }
+      ]
+    },
+    {
+      slug: "twelve-springs",
+      title: "Twelve springs from the rock",
+      line: "Musa struck the rock; twelve springs burst out, one per tribe.",
+      facts: ["Twelve tribes", "Manna and quails"],
+      quote: q7(160),
+      source: ik(160, "Allah divided Bani Isra'il into twelve tribes. When they asked for water, Musa struck the stone and twelve springs gushed out, each tribe knowing its own. Allah shaded them with clouds and sent manna and quails.", "We revealed to Musa when his people asked him for water"),
+      difficulty: 3,
+      questions: [
+        { q: "How many springs burst out, in 7:160?", a: "Twelve", wrong: ["One", "Seven", "Forty"], why: "Fanbajasat minhuthnata ashrata ayna." },
+        { q: "What food was sent down, in 7:160?", a: "Manna and quails", wrong: ["Bread and fish", "Dates and milk", "Rice"], why: "Wa anzalna alayhimul-manna was-salwa." },
+        { q: "Each tribe knew its own drinking place.", tf: true, why: "Qad alima kullu unasin mashrabahum." }
+      ]
+    },
+    {
+      slug: "say-forgive-us",
+      title: "Enter humbly and say: forgive us",
+      line: "Told to enter humbly asking forgiveness, some changed the word.",
+      facts: ["Hittah: forgive us", "Sujjadan: bowing"],
+      quote: q7(161),
+      source: ik(161, "They were told to live in the town, eat freely, say: forgive our sins, and enter the gate bowing humbly. But the wrongdoers among them changed the word they were given, and a punishment came from the sky.", "and enter the gate prostrating (bowing with humility)"),
+      difficulty: 4,
+      questions: [
+        { q: "How were they told to enter, in 7:161?", a: "Bowing humbly", wrong: ["Proudly", "Running", "Singing"], why: "Wadkhulul-baba sujjada." },
+        { q: "What did the wrongdoers do, in 7:162?", a: "Changed the word", wrong: ["Said it twice", "Stayed silent", "Wrote it down"], why: "Fabaddalal-ladhina zalamu minhum qawlan." },
+        { q: "What were they told to say?", a: "Forgive our sins", wrong: ["Give us gold", "We are best", "Nothing"], why: "Wa qulu hittah." }
+      ]
+    },
+    {
+      slug: "sabbath-town",
+      title: "The town by the sea",
+      line: "Fish came on the Sabbath only; it was a test they failed.",
+      facts: ["As-sabt: the Sabbath", "A test by Allah"],
+      quote: q7(163),
+      source: ik(163, "The town by the sea broke the Sabbath. Their fish came openly on the Sabbath and not on other days, a test for their disobedience. They used tricks to get around Allah's command.", "for their evil actions, transgression and defiance by way of deceit"),
+      difficulty: 4,
+      questions: [
+        { q: "When did the fish come, in 7:163?", a: "On the Sabbath", wrong: ["Every day", "Only at night", "Never"], why: "Idh ta'tihim hitanuhum yawma sabtihim shurra'a." },
+        { q: "Why were they tested, in 7:163?", a: "For their disobedience", wrong: ["For their charity", "For no reason", "For their prayers"], why: "Bima kanu yafsuqun." },
+        { q: "They used tricks to get around the command, per Ibn Kathir.", tf: true, why: "Defiance by way of deceit." }
+      ]
+    },
+    {
+      slug: "why-preach",
+      title: "Why do you still advise them?",
+      line: "Those who kept forbidding evil were saved; advice is a duty.",
+      facts: ["Ma'dhiratan: an excuse", "Three groups"],
+      quote: q7(165),
+      source: ik(164, "The town split into three: those who broke the Sabbath, those who forbade them, and those who did neither and asked: why preach to them? The preachers said: to be free of blame before our Lord, and perhaps they will fear Him. The forbidders were saved.", "Another group prohibited them from transgression and avoided them"),
+      difficulty: 4,
+      questions: [
+        { q: "Into how many groups was the town split, per Ibn Kathir?", a: "Three", wrong: ["Two", "Five", "Twelve"], why: "The people of this village were divided into three groups." },
+        { q: "Why did the preachers keep advising, in 7:164?", a: "To be blameless before Allah", wrong: ["To get paid", "To show off", "To start a fight"], why: "Ma'dhiratan ila rabbikum wa la'allahum yattaqun." },
+        { q: "Who was saved, in 7:165?", a: "Those who forbade evil", wrong: ["Those who stayed silent", "Those who broke it", "No one"], why: "Anjaynal-ladhina yanhawna anis-su'." }
+      ]
+    },
+    {
+      slug: "change-it",
+      title: "Change it with your hand",
+      line: "See wrong? Change it by hand, then tongue, else hate it.",
+      facts: ["Hand, tongue, heart", "The weakest faith"],
+      quote: q7(165),
+      source: hadith("muslim", "49", "Abu Sa'id al-Khudri", "Sahih", "The Prophet ﷺ said: whoever of you sees something wrong, let him change it with his hand; if he cannot, then with his tongue; if he cannot, then with his heart, and that is the weakest of faith.", "He who amongst you sees something abominable should m"),
+      difficulty: 5,
+      questions: [
+        { q: "What is the first way to change a wrong, in Muslim 49?", a: "With the hand", wrong: ["With silence", "With money", "By leaving"], why: "Let him change it with his hand." },
+        { q: "What is the weakest of faith, in Muslim 49?", a: "Hating it in the heart", wrong: ["Using the tongue", "Using the hand", "Ignoring it"], why: "With his heart, and that is the weakest of faith." },
+        { q: "The saved group in 7:165 acted on this teaching.", tf: true, why: "They forbade the wrong and were rescued." }
+      ]
+    },
+    {
+      slug: "hereafter-better",
+      title: "The Hereafter is better",
+      line: "Some grabbed this world, saying: we will be forgiven anyway.",
+      facts: ["False hope", "Hold fast to the Book"],
+      quote: q7(169),
+      source: ik(169, "A later generation inherited the Book but grabbed the cheap things of this world, saying: we will be forgiven, then did the same again. The home of the Hereafter is better for those with taqwa; Allah never wastes the reward of those who hold to the Book and pray.", "And the home in the Hereafter is better for those who have Taqwa"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the later generation say, in 7:169?", a: "We will be forgiven", wrong: ["We will repent now", "We fear Allah", "We will share"], why: "Wa yaquluna sayughfaru lana." },
+        { q: "Whose reward is never wasted, in 7:170?", a: "Those who hold the Book and pray", wrong: ["Those who grab the world", "The lazy", "The proud"], why: "Innaa la nudi'u ajral-muslihin." },
+        { q: "Sinning while saying we will be forgiven is false hope.", tf: true, why: "They take the same sin again whenever it comes." }
+      ]
+    },
+    {
+      slug: "mountain-raised",
+      title: "The mountain raised above them",
+      line: "Allah raised the mountain over them: hold firm to the Book.",
+      facts: ["Nataqna: We raised", "Khudhu ma ataynakum"],
+      quote: q7(171),
+      source: ik(171, "Ibn Abbas said Allah raised the mountain over them like a canopy, as in 4:154, and they thought it would fall. They were told: hold firmly to what We gave you and remember what is in it.", "We raised the mountain, as Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "What was raised over them, in 7:171?", a: "The mountain", wrong: ["A cloud", "A tent", "A wall"], why: "Wa idh nataqnal-jabala fawqahum." },
+        { q: "What were they told, in 7:171?", a: "Hold firmly what We gave you", wrong: ["Leave the Book", "Run away", "Build a city"], why: "Khudhu ma ataynakum bi-quwwah." },
+        { q: "Which ayah does Ibn Abbas link to 7:171?", a: "4:154", wrong: ["2:255", "1:1", "112:1"], why: "We raised over them the mountain, 4:154." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 172 to 206: the covenant of Am I not your Lord, the Beautiful Names, the Hour, forgiveness, and the sajdah. */
+const ARAF_SIX: DeepUnit = {
+  key: "araf6",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-7",
+  name: "Al-A'raf, ayahs 172 to 206",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-A'raf",
+  lessons: [
+    {
+      slug: "am-i-not",
+      title: "Am I not your Lord?",
+      line: "Before this world, Adam's children said: yes, You are our Lord.",
+      facts: ["Alastu bi-rabbikum", "Bala: yes"],
+      quote: q7(172),
+      source: ik(172, "Allah brought Adam's descendants out and they testified that He is their Lord and King, with no god but Him. He created them on this fitrah, so no one can say on Judgment Day: we did not know, or we only followed our fathers.", "Allah created them on this Fitrah"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Allah ask Adam's children, in 7:172?", a: "Am I not your Lord?", wrong: ["Who made you?", "Where are you?", "What do you want?"], why: "Alastu bi-rabbikum." },
+        { q: "What did they answer, in 7:172?", a: "Yes, we testify", wrong: ["No", "We do not know", "Ask our fathers"], why: "Qalu bala shahidna." },
+        { q: "Following our fathers is an excuse on Judgment Day.", tf: false, why: "7:173 removes that excuse." }
+      ]
+    },
+    {
+      slug: "threw-it-away",
+      title: "He threw the signs away",
+      line: "A man given knowledge threw it off and chased this world.",
+      facts: ["Insalakha: slipped out", "Clung to the earth"],
+      quote: q7(175),
+      source: ik(175, "Allah tells of a man given His signs who threw them off, so Shaytan caught him and he went astray. Ibn Mas'ud said he was Bal'am of Bani Isra'il. He clung to this world and his desires, like a dog that pants either way.", "Is about Bal"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the man do with Allah's signs, in 7:175?", a: "Threw them off", wrong: ["Taught them", "Wrote them", "Kept them"], why: "Fansalakha minha." },
+        { q: "What did he cling to, in 7:176?", a: "The earth and his desires", wrong: ["The Book", "The prayer", "The truth"], why: "Akhlada ilal-ardi wattaba'a hawah." },
+        { q: "Knowledge without action can still lead someone astray.", tf: true, why: "He was given the signs and still went astray." }
+      ]
+    },
+    {
+      slug: "hearts-eyes-ears",
+      title: "Hearts, eyes and ears unused",
+      line: "Some have hearts, eyes and ears but never use them for truth.",
+      facts: ["Like cattle", "Al-ghafilun: the heedless"],
+      quote: q7(179),
+      source: ik(178, "Whomever Allah guides is truly guided, and whomever He leaves astray is a loser. Whatever Allah wills happens, and what He does not will does not happen.", "Verily, whatever Allah wills occurs; and whatever He does not will, does not occur"),
+      difficulty: 3,
+      questions: [
+        { q: "What do the heedless not do with their hearts, in 7:179?", a: "Understand", wrong: ["Beat", "Feel", "Grow"], why: "Lahum qulubun la yafqahuna biha." },
+        { q: "What are they compared to, in 7:179?", a: "Cattle, or even more astray", wrong: ["Angels", "Lions", "Birds"], why: "Ula'ika kal-an'ami bal hum adall." },
+        { q: "Whatever Allah wills happens, per Ibn Kathir.", tf: true, why: "Whatever Allah wills occurs." }
+      ]
+    },
+    {
+      slug: "beautiful-names",
+      title: "The most beautiful names",
+      line: "Allah has the most beautiful names: call on Him by them.",
+      facts: ["Al-asma' al-husna", "Ninety-nine names"],
+      quote: q7(180),
+      source: hadith("bukhari", "2736", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: Allah has ninety-nine names, one hundred minus one; whoever knows them will enter Paradise.", "Allah has ninety-nine names"),
+      difficulty: 3,
+      questions: [
+        { q: "How should we call on Allah, in 7:180?", a: "By His beautiful names", wrong: ["By idols' names", "Without names", "By numbers"], why: "Wa lillahil-asma'ul-husna fad'uhu biha." },
+        { q: "How many names are in Bukhari 2736?", a: "Ninety-nine", wrong: ["Seven", "Forty", "Twelve"], why: "One hundred minus one." },
+        { q: "Ibn Kathir says Allah's names are not limited to ninety-nine.", tf: true, why: "Allah's Names are not restricted to only ninety-nine." }
+      ]
+    },
+    {
+      slug: "group-on-truth",
+      title: "A group always on the truth",
+      line: "Some always guide by the truth; such a group never ends.",
+      facts: ["Yahduna bil-haqq", "Until the Last Day"],
+      quote: q7(181),
+      source: hadith("bukhari", "3641", "Mu'awiyah", "Sahih", "The Prophet ﷺ said: a group of my followers will keep obeying Allah's orders, unharmed by those who desert or oppose them, until the Last Day comes while they are still on the right path.", "A group of people amongst my followers will remain obedient to Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "What does the community do, in 7:181?", a: "Guides with truth and justice", wrong: ["Stays silent", "Follows desires", "Hides away"], why: "Ummatun yahduna bil-haqqi wa bihi ya'dilun." },
+        { q: "Until when will the group last, in Bukhari 3641?", a: "Until the Last Day", wrong: ["One century", "Ten years", "Until Badr"], why: "Till Allah's order comes upon them." },
+        { q: "Those who oppose them will not harm them.", tf: true, why: "They will not be harmed by anyone who opposes them." }
+      ]
+    },
+    {
+      slug: "step-by-step",
+      title: "Seized step by step",
+      line: "Deniers get more and more, feel safe, then are seized.",
+      facts: ["Istidraj: step by step", "Kaydi matin"],
+      quote: q7(182),
+      source: ik(182, "For those who deny His signs, Allah opens doors of provision and living. They are fooled and think they are on the right path, then they are seized when they do not expect it.", "They will be deceived by all this and think that they are on the correct path"),
+      difficulty: 4,
+      questions: [
+        { q: "What opens for the deniers first, per Ibn Kathir?", a: "Doors of provision", wrong: ["Doors of Hell", "Prison doors", "Nothing"], why: "The doors of provisions will be opened for them." },
+        { q: "What do they wrongly think, per Ibn Kathir?", a: "That they are on the right path", wrong: ["That they are lost", "That they are poor", "That they will die"], why: "They think that they are on the correct path." },
+        { q: "Having lots of wealth always means Allah is pleased.", tf: false, why: "It may be istidraj: a slow test." }
+      ]
+    },
+    {
+      slug: "no-madness",
+      title: "Your companion is not mad",
+      line: "Reflect: the Prophet ﷺ is no madman but a clear warner.",
+      facts: ["Sahibuhum: their companion", "Nadhirun mubin"],
+      quote: q7(184),
+      source: ik(184, "Do they not reflect? Muhammad ﷺ is not mad; he is truly Allah's Messenger, calling to the truth, a clear warner to anyone with a mind and heart to understand.", "Muhammad is not mad, rather, he is truly the Messenger of Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the Prophet ﷺ called, in 7:184?", a: "A clear warner", wrong: ["A poet", "A magician", "A king"], why: "In huwa illa nadhirun mubin." },
+        { q: "What are they told to do, in 7:184?", a: "Reflect", wrong: ["Sleep", "Shout", "Leave"], why: "Awalam yatafakkaru." },
+        { q: "Is there madness in their companion, per 7:184?", a: "No", wrong: ["Yes", "A little", "Sometimes"], why: "Ma bi-sahibihim min jinnah." }
+      ]
+    },
+    {
+      slug: "look-and-think",
+      title: "Look at the heavens and earth",
+      line: "Look at the heavens and earth; your end may be near.",
+      facts: ["Malakut: kingdom", "The end may be near"],
+      quote: q7(185),
+      source: ik(185, "Do they not think about the heavens, the earth and all Allah made, so they become sure He has no equal? They should be warned that their lives may be near their end.", "They should be warned that their lifes may have reached their end"),
+      difficulty: 3,
+      questions: [
+        { q: "What should they look at, in 7:185?", a: "The kingdom of the heavens and earth", wrong: ["Only gold", "Only idols", "Only the market"], why: "Awalam yanzuru fi malakutis-samawati wal-ard." },
+        { q: "What might be near, in 7:185?", a: "The end of their lives", wrong: ["A holiday", "A harvest", "A wedding"], why: "Wa an asa an yakuna qadiqtaraba ajaluhum." },
+        { q: "Creation points to One with no equal.", tf: true, why: "He who has all this has no equal or rival." }
+      ]
+    },
+    {
+      slug: "the-hour",
+      title: "When is the Hour?",
+      line: "Only Allah knows when the Hour comes; it will come suddenly.",
+      facts: ["As-sa'ah: the Hour", "Baghtatan: suddenly"],
+      quote: q7(187),
+      source: hadith("bukhari", "6503", "Sahl ibn Sa'd", "Sahih", "The Prophet ﷺ said: I have been sent and the Hour like these two, showing two of his fingers held together.", "I have been sent and the Hour (is at hand) as these two"),
+      difficulty: 4,
+      questions: [
+        { q: "Who knows when the Hour comes, in 7:187?", a: "Only Allah", wrong: ["The angels", "The stars", "The scholars"], why: "Innama ilmuha inda rabbi." },
+        { q: "How will the Hour come, in 7:187?", a: "Suddenly", wrong: ["Slowly", "With a date", "After a warning letter"], why: "La ta'tikum illa baghtah." },
+        { q: "What did the Prophet ﷺ show with two fingers?", a: "He and the Hour are close", wrong: ["Two prayers", "Two wives", "Two cities"], why: "I have been sent and the Hour as these two." }
+      ]
+    },
+    {
+      slug: "no-unseen",
+      title: "I do not know the unseen",
+      line: "The Prophet ﷺ knew of the unseen only what Allah told him.",
+      facts: ["Al-ghayb: the unseen", "A warner and bringer of good news"],
+      quote: q7(188),
+      source: ik(188, "Allah told His Prophet ﷺ to leave all matters to Him and say he does not know the unseen future, only what Allah tells him. If he did, he would have gained much good and no harm would touch him.", "he does not know the unseen future, but he knows of it only what Allah informs him"),
+      difficulty: 4,
+      questions: [
+        { q: "What does the Prophet ﷺ know of the unseen, per Ibn Kathir?", a: "Only what Allah tells him", wrong: ["Everything", "The time of the Hour", "Every secret"], why: "He knows of it only what Allah informs him." },
+        { q: "What is the Prophet ﷺ, in 7:188?", a: "A warner and bringer of good news", wrong: ["A fortune teller", "A magician", "A king"], why: "In ana illa nadhirun wa bashir." },
+        { q: "The Prophet ﷺ owned benefit and harm by himself.", tf: false, why: "La amliku li-nafsi naf'an wa la darran illa ma sha'allah." }
+      ]
+    },
+    {
+      slug: "idols-helpless",
+      title: "Idols that cannot help",
+      line: "Idols create nothing, cannot help, and cannot even walk or hear.",
+      facts: ["Created, not creators", "No feet, hands, eyes, ears"],
+      quote: q7(195),
+      source: ik(191, "Do they worship things that create nothing and are themselves created? They cannot help their worshippers or even themselves. Have they feet to walk, hands to hold, eyes to see, ears to hear?", "Do they attribute as partners to Allah those who created nothing but they themselves are created"),
+      difficulty: 4,
+      questions: [
+        { q: "What do idols create, in 7:191?", a: "Nothing", wrong: ["Rain", "Children", "Food"], why: "Ma la yakhluqu shay'an wa hum yukhlaqun." },
+        { q: "Can idols help themselves, in 7:192?", a: "No", wrong: ["Yes", "Sometimes", "Only at night"], why: "Wa la anfusahum yansurun." },
+        { q: "Who protects the righteous, in 7:196?", a: "Allah", wrong: ["The idols", "The chiefs", "The jinn"], why: "Inna waliyyiyallahul-ladhi nazzalal-kitab." }
+      ]
+    },
+    {
+      slug: "hold-forgiveness",
+      title: "Forgive, enjoin good, turn away",
+      line: "Forgive, tell people what is good, and turn from the foolish.",
+      facts: ["Khudhil-afw: forgive", "Al-urf: the good"],
+      quote: q7(199),
+      source: hadith("bukhari", "4644", "Abdullah ibn az-Zubayr", "Sahih", "Abdullah ibn az-Zubayr said: Allah ordered His Prophet ﷺ to forgive people their bad behavior toward him.", "Allah ordered His Prophet to forgive the people their misbehavior"),
+      difficulty: 3,
+      questions: [
+        { q: "What three things does 7:199 command?", a: "Forgive, enjoin good, turn away", wrong: ["Fight, take, keep", "Sleep, eat, rest", "Shout, argue, leave"], why: "Khudhil-afwa wa'mur bil-urfi wa a'rid anil-jahilin." },
+        { q: "What was 7:199 about, per Ibn az-Zubayr?", a: "People's manners", wrong: ["Trade rules", "Fasting", "War"], why: "Forgive the people their misbehavior." },
+        { q: "Whom should we turn away from, in 7:199?", a: "The foolish", wrong: ["Our parents", "The poor", "Our teachers"], why: "Wa a'rid anil-jahilin." }
+      ]
+    },
+    {
+      slug: "seek-refuge",
+      title: "Seek refuge with Allah",
+      line: "When Shaytan stirs you, say: a'udhu billahi minash-shaytan.",
+      facts: ["Isti'adhah", "Anger goes away"],
+      quote: q7(200),
+      source: hadith("bukhari", "3282", "Sulayman ibn Surad", "Sahih", "Two men argued before the Prophet ﷺ and one became red with anger. The Prophet ﷺ said: I know a word that would calm him: I seek refuge with Allah from Shaytan.", "I know a word, the saying of which will cause him to relax"),
+      difficulty: 3,
+      questions: [
+        { q: "What should we do when Shaytan stirs us, in 7:200?", a: "Seek refuge with Allah", wrong: ["Shout back", "Ignore Allah", "Run outside"], why: "Fasta'idh billah." },
+        { q: "What calms anger, in Bukhari 3282?", a: "Seeking refuge from Shaytan", wrong: ["Eating", "Sleeping", "Arguing more"], why: "I seek refuge with Allah from Satan." },
+        { q: "Allah is All-Hearing, All-Knowing, says 7:200.", tf: true, why: "Innahu sami'un alim." }
+      ]
+    },
+    {
+      slug: "taqwa-sees",
+      title: "They remember, then they see",
+      line: "When Shaytan touches the pious, they remember Allah and see.",
+      facts: ["Tadhakkaru: they remember", "Mubsirun: they see"],
+      quote: q7(201),
+      source: ik(201, "When an evil thought, anger or a whisper of Shaytan comes to the people of taqwa, they remember Allah's punishment and reward, repent and seek refuge. Then they see clearly and know their mistake.", "they become aright and aware of the error of their ways"),
+      difficulty: 4,
+      questions: [
+        { q: "What do the pious do when Shaytan touches them, in 7:201?", a: "They remember Allah", wrong: ["They give up", "They follow him", "They blame others"], why: "Tadhakkaru fa idha hum mubsirun." },
+        { q: "What happens after they remember, in 7:201?", a: "They see clearly", wrong: ["They forget", "They sleep", "They get lost"], why: "Fa idha hum mubsirun." },
+        { q: "What do the devils do to their brothers, in 7:202?", a: "Pull them deeper into error", wrong: ["Leave them alone", "Guide them", "Teach them"], why: "Yamuddunahum fil-ghayy." }
+      ]
+    },
+    {
+      slug: "listen-quran",
+      title: "Listen when the Quran is recited",
+      line: "When the Quran is recited, listen and be quiet to get mercy.",
+      facts: ["Istami'u: listen", "Ansitu: be silent"],
+      quote: q7(204),
+      source: ik(204, "After calling the Quran clear proof, guidance and mercy, Allah commanded listening when it is recited, out of respect for it. This is the opposite of the Quraysh idol worshippers, who said: do not listen, make noise.", "He commanded that one listen to the Qur"),
+      difficulty: 3,
+      questions: [
+        { q: "What should we do when the Quran is recited, in 7:204?", a: "Listen and be silent", wrong: ["Talk over it", "Leave the room", "Play music"], why: "Fastami'u lahu wa ansitu." },
+        { q: "What do listeners hope for, in 7:204?", a: "Mercy", wrong: ["Money", "Fame", "Sleep"], why: "La'allakum turhamun." },
+        { q: "Who said: do not listen, make noise?", a: "The idol worshippers of Quraysh", wrong: ["The Companions", "The angels", "The jinn who believed"], why: "Ibn Kathir quotes 41:26." }
+      ]
+    },
+    {
+      slug: "morning-evening",
+      title: "Remember Him morning and evening",
+      line: "Remember your Lord humbly and softly, morning and evening.",
+      facts: ["Bil-ghuduwwi wal-asal", "Not loudly"],
+      quote: q7(205),
+      source: ik(205, "Allah orders that He be remembered often in the mornings and evenings, humbly and with fear, in secret and not loudly. So Ibn Kathir says dhikr is best not done in a loud voice.", "remember your Lord in secret, not loudly, with eagerness and fear"),
+      difficulty: 4,
+      questions: [
+        { q: "When does 7:205 tell us to remember Allah?", a: "Morning and evening", wrong: ["Only Fridays", "Only Ramadan", "Once a year"], why: "Bil-ghuduwwi wal-asal." },
+        { q: "How should dhikr be, per Ibn Kathir?", a: "Humble and not loud", wrong: ["Shouted", "Rushed", "Hidden from Allah"], why: "In secret, not loudly, with eagerness and fear." },
+        { q: "Whom are we told not to be like, in 7:205?", a: "The heedless", wrong: ["The angels", "The prophets", "The humble"], why: "Wa la takun minal-ghafilin." }
+      ]
+    },
+    {
+      slug: "sajdah-end",
+      title: "The angels bow: a sajdah",
+      line: "Al-A'raf ends with the angels' sajdah; we prostrate too.",
+      facts: ["The first sajdah of the Quran", "Shaytan weeps"],
+      quote: q7(206),
+      source: hadith("muslim", "81", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: when a son of Adam recites a sajdah ayah and prostrates, Shaytan withdraws weeping and says: woe to me, he was told to prostrate and did, and Paradise is his; I was told and refused, and the Fire is mine.", "when, the son of Adam recites the Ayat of Sajdah (prostration) and then falls down in prostration, the Satan goes into seclusion and weeps"),
+      difficulty: 5,
+      questions: [
+        { q: "What do the angels near Allah do, in 7:206?", a: "Glorify Him and prostrate", wrong: ["Rest", "Argue", "Refuse"], why: "Wa yusabbihunahu wa lahu yasjudun." },
+        { q: "What does Shaytan do when we make sajdah, in Muslim 81?", a: "Withdraws weeping", wrong: ["Laughs", "Joins in", "Sleeps"], why: "The Satan goes into seclusion and weeps." },
+        { q: "Al-A'raf began with Iblis refusing to bow and ends with a sajdah.", tf: true, why: "7:11-12 and 7:206 frame the whole surah." }
+      ]
+    }
+  ]
+};
+
+export const ARAF_UNITS: readonly DeepUnit[] = [ARAF_ONE, ARAF_TWO, ARAF_THREE, ARAF_FOUR, ARAF_FIVE, ARAF_SIX];
