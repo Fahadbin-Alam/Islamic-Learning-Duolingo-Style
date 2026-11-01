@@ -203,6 +203,7 @@ const TOPIC_COPY: Record<TopicId, { title: string; description: string; focus: s
   hadith: { title: "Hadith", description: "Narrations of the Prophet ﷺ with their references, one hadith at a time.", focus: "The words of the Prophet ﷺ, where they are recorded, and what they teach.", badge: "Topic 8" },
   scholars: { title: "Scholars", description: "The four imams and later scholars, shown as a family tree of who learned from whom.", focus: "Abu Hanifah, Malik, ash-Shafi'i, Ahmad, Ibn Taymiyyah, Ibn Baz and al-Albani.", badge: "Topic 9" },
   eid: { title: "Eid and special days", description: "The two Eids and the special days of the Islamic year, as the Prophet ﷺ kept them.", focus: "Eid al-Fitr, Eid al-Adha, Arafah, Ashura, Shawwal and Friday.", badge: "Topic 10" },
+  akhirah: { title: "Day of Judgment", description: "The Last Day from the Quran and sahih hadith: the signs, the grave, the reckoning, Jannah and Jahannam.", focus: "Signs of the Hour, the grave, the scales, the bridge, Jannah, Jahannam, and getting ready.", badge: "Topic 11" },
   ramadan: { title: "Ramadan", description: "A 30-day Ramadan path: one short lesson for each day of the month.", focus: "Fasting with faith, suhur and iftar, good deeds, the last ten nights and Eid.", badge: "Ramadan mode" },
   intro: { title: "New to Islam", description: "A gentle start for anyone new to Islam: what Muslims believe, the prophets you may know, and first steps.", focus: "One God, the Quran, Jesus and the prophets, living side by side, and first steps as a Muslim.", badge: "Beginners" }
 };
