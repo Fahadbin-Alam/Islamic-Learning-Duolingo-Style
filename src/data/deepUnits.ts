@@ -7,6 +7,7 @@ import { BAQARAH_UNITS } from "./baqarahUnits";
 import { SEERAH_UNITS } from "./seerahUnits";
 import { AQIDAH_UNITS } from "./aqidahUnits";
 import { FASTING_UNITS } from "./fastingUnits";
+import { ZAKAT_UNITS } from "./zakatUnits";
 import { SAHABA_UNITS } from "./sahabaUnits";
 export type { DeepUnit } from "./deepKit";
 import { QURAN_AYAHS } from "./quranAyahs";
@@ -2863,7 +2864,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...BAQARAH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...BAQARAH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
