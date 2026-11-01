@@ -1588,4 +1588,745 @@ const BAQARAH_TWO: DeepUnit = {
   ]
 };
 
-export const BAQARAH_UNITS: readonly DeepUnit[] = [BAQARAH_ONE, BAQARAH_TWO];
+/** Ayahs 177 to 286: true goodness, fasting, Hajj, spending, Talut, Ayat al-Kursi, debts and the closing duas. */
+const BAQARAH_THREE: DeepUnit = {
+  key: "baqarah3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-baqarah",
+  name: "Al-Baqarah, ayahs 177 to 286",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Baqarah",
+  lessons: [
+    {
+      slug: "birr",
+      title: "What true goodness is",
+      line: "Goodness is not facing east or west, but faith and giving.",
+      facts: ["Faith, charity, prayer", "Keeping promises, patience"],
+      quote: q2(177),
+      source: ik(177, "Righteousness is not turning your faces east or west; it is believing in Allah, the Last Day, the angels, the Book and the prophets, giving wealth to relatives, orphans, the poor and travelers, praying, giving zakah, keeping promises and being patient."),
+      difficulty: 3,
+      questions: [
+        { q: "What does 2:177 say true goodness is NOT?", a: "Just facing east or west", wrong: ["Believing in Allah", "Giving charity", "Being patient"], why: "It is faith and deeds." },
+        { q: "Which of these is part of 'birr' in 2:177?", a: "Keeping your promises", wrong: ["Winning arguments", "Wearing new clothes", "Being famous"], why: "Those who fulfill their promise." },
+        { q: "Goodness is both belief and action.", tf: true, why: "Faith, then giving, prayer and patience." }
+      ]
+    },
+    {
+      slug: "life-in-justice",
+      title: "Life in justice",
+      line: "In fair justice there is life, and forgiving is better still.",
+      facts: ["Justice protects lives", "Forgiveness is a mercy"],
+      quote: q2(179),
+      source: ik(179, "Allah made equal justice a law so that people hold back from harming one another, which protects lives; and He allowed the victim's family to forgive, a lightening and a mercy from your Lord."),
+      difficulty: 4,
+      questions: [
+        { q: "What does 2:179 say is found in fair justice?", a: "Life", wrong: ["Wealth", "Fame", "Sleep"], why: "Fil-qisasi hayah." },
+        { q: "How does justice protect life?", a: "People hold back from harming others", wrong: ["It makes people rich", "It stops the rain", "It ends all work"], why: "Ibn Kathir explains it." },
+        { q: "What does 2:178 call the family's choice to forgive?", a: "A mercy from your Lord", wrong: ["A weakness", "A crime", "A mistake"], why: "Takhfifun min rabbikum wa rahmah." }
+      ]
+    },
+    {
+      slug: "fasting-written",
+      title: "Fasting is prescribed",
+      line: "Fasting was written for you as for those before you.",
+      facts: ["So you gain taqwa", "Not new to Islam"],
+      quote: q2(183),
+      source: ik(183, "Allah addresses the believers and commands them to fast, as it was prescribed for the nations before them, so that they may gain taqwa, purifying the body and soul."),
+      difficulty: 1,
+      questions: [
+        { q: "Who fasted before the Muslims, says 2:183?", a: "Nations before them", wrong: ["Nobody ever", "Only angels", "Only animals"], why: "Kama kutiba 'alal-ladhina min qablikum." },
+        { q: "Why do we fast, in 2:183?", a: "To gain taqwa", wrong: ["To lose weight only", "To save money", "To sleep more"], why: "La'allakum tattaqun." },
+        { q: "Fasting trains the heart, not just the stomach.", tf: true, why: "It builds taqwa." }
+      ]
+    },
+    {
+      slug: "sick-traveler",
+      title: "Ease for the sick",
+      line: "The sick or traveling can make up the days later.",
+      facts: ["Allah wants ease", "Make up later"],
+      quote: q2(184),
+      source: ik(184, "Fasting is for a counted number of days. Whoever is sick or on a journey may break the fast and make up the same number of days later."),
+      difficulty: 2,
+      questions: [
+        { q: "What can a sick person do in Ramadan, in 2:184?", a: "Make up the days later", wrong: ["Never fast again", "Pay a fine only", "Fast twice as long"], why: "Fa'iddatun min ayyamin ukhar." },
+        { q: "Who else may break the fast?", a: "A traveler", wrong: ["A busy student", "Someone bored", "A sports fan"], why: "Aw 'ala safar." },
+        { q: "Fasting is for how many days, in 2:184?", a: "A counted number of days", wrong: ["All year", "Only one day", "As many as you like"], why: "Ayyaman ma'dudat." }
+      ]
+    },
+    {
+      slug: "ramadan-quran",
+      title: "The month of the Quran",
+      line: "Ramadan is the month the Quran was sent down; Allah wants ease.",
+      facts: ["Guidance and criterion", "Say Allahu akbar"],
+      quote: q2(185),
+      source: ik(185, "Allah praised Ramadan above other months by choosing it to send down the Quran. He wants ease for you, not hardship, and that you complete the days and glorify Him for guiding you."),
+      difficulty: 1,
+      questions: [
+        { q: "What was sent down in Ramadan, in 2:185?", a: "The Quran", wrong: ["The Tawrah only", "Rain", "Gold"], why: "Shahru Ramadanal-ladhi unzila fihil-Quran." },
+        { q: "What does Allah want for us, in 2:185?", a: "Ease, not hardship", wrong: ["Hardship", "Hunger forever", "Sadness"], why: "Yuridullahu bikumul-yusr." },
+        { q: "What do we do after completing the days?", a: "Glorify Allah (takbir)", wrong: ["Forget Him", "Stay silent", "Sleep all Eid"], why: "Wa litukabbirullah." }
+      ]
+    },
+    {
+      slug: "i-am-near",
+      title: "I am near",
+      line: "When My servants ask about Me: I am near, I answer.",
+      facts: ["Ask Him directly", "Respond to Him"],
+      quote: q2(186),
+      source: ik(186, "When My servants ask you about Me, I am near; I answer the call of the caller when he calls on Me. So let them respond to Me and believe in Me, that they may be guided. No one's dua is wasted."),
+      difficulty: 1,
+      questions: [
+        { q: "How close is Allah to one who calls Him, in 2:186?", a: "Near", wrong: ["Far away", "Too busy", "Unreachable"], why: "Fa inni qarib." },
+        { q: "Do we need a go-between to ask Allah?", a: "No, ask Him directly", wrong: ["Yes, always", "Only through a king", "Only once a year"], why: "I answer the caller." },
+        { q: "What does Allah ask of us in return?", a: "Respond to Him and believe", wrong: ["Pay Him", "Forget Him", "Ask nothing"], why: "Falyastajibu li walyu'minu bi." }
+      ]
+    },
+    {
+      slug: "white-thread",
+      title: "The white thread",
+      line: "Eat and drink until dawn's white thread shows against the night.",
+      facts: ["Sahih al-Bukhari 1916", "Adi's two threads"],
+      quote: q2(187),
+      source: hadith("bukhari", "1916", "Adi ibn Hatim", "Sahih", "When the ayah came, I put a white thread and a black thread under my pillow and looked at them all night. The Messenger of Allah ﷺ told me: it means the darkness of the night and the whiteness of the dawn."),
+      difficulty: 2,
+      questions: [
+        { q: "Until when may a fasting person eat, in 2:187?", a: "Until dawn appears", wrong: ["Until noon", "All day", "Until Asr"], why: "The white thread from the black." },
+        { q: "What did Adi put under his pillow?", a: "A white and a black thread", wrong: ["A Quran", "Dates", "A lamp"], why: "Bukhari 1916." },
+        { q: "What do the threads really mean?", a: "Night's darkness and dawn's light", wrong: ["Real threads", "Two colors of clothes", "Day and month"], why: "As the Prophet ﷺ explained." }
+      ]
+    },
+    {
+      slug: "no-bribes",
+      title: "No unjust wealth",
+      line: "Don't eat each other's wealth unjustly or bribe judges.",
+      facts: ["Honest earnings", "No bribes"],
+      quote: q2(188),
+      source: ik(188, "Do not consume one another's wealth unjustly, nor offer it to judges to take part of people's wealth sinfully while you know. A judge's ruling does not make wrong into right."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 2:188 forbid?", a: "Taking wealth unjustly", wrong: ["Trading", "Giving gifts", "Saving money"], why: "Quran 2:188." },
+        { q: "Offering money to judges to win unfairly is...", a: "A bribe, forbidden", wrong: ["A gift", "Charity", "Fine"], why: "While you know it is wrong." },
+        { q: "Copying someone's work and selling it as yours fits 2:188.", tf: false, why: "It is taking what is not yours." }
+      ]
+    },
+    {
+      slug: "crescents",
+      title: "The new moons",
+      line: "The new moons mark times for people and for Hajj.",
+      facts: ["Islamic months by the moon", "Righteousness is taqwa"],
+      quote: q2(189),
+      source: ik(189, "They asked about the crescents. Say: they are signs marking times for people and for Hajj. Righteousness is not entering houses from the back, but having taqwa."),
+      difficulty: 2,
+      questions: [
+        { q: "What are the new moons for, in 2:189?", a: "Marking times and Hajj", wrong: ["Luck", "Telling fortunes", "Decoration only"], why: "Mawaqitu lin-nasi wal-hajj." },
+        { q: "How do Muslims know Ramadan starts?", a: "By the new moon", wrong: ["By the weather", "By the sun's heat", "By guessing"], why: "Lunar months." },
+        { q: "What is true righteousness, in 2:189?", a: "Taqwa", wrong: ["Entering houses from the back", "Fancy doors", "Long names"], why: "Walakinnal-birra manittaqa." }
+      ]
+    },
+    {
+      slug: "no-transgress",
+      title: "Do not go too far",
+      line: "Even in battle, never cross the limits Allah set.",
+      facts: ["Rules even in war", "No harming the innocent"],
+      quote: q2(190),
+      source: ik(190, "Fight those who fight you, but do not transgress. Ibn Kathir says this forbids mutilation, cheating, and harming women, children, the old, and monks."),
+      difficulty: 4,
+      questions: [
+        { q: "What does Allah dislike, in 2:190?", a: "Those who transgress limits", wrong: ["Those who pray", "Those who forgive", "Those who are patient"], why: "Innallaha la yuhibbul-mu'tadin." },
+        { q: "Who must never be harmed, says Ibn Kathir?", a: "Women, children and the old", wrong: ["Nobody is protected", "Only kings", "Only soldiers"], why: "Islam has rules even in war." },
+        { q: "In Islam, even war has strict limits.", tf: true, why: "Quran 2:190." }
+      ]
+    },
+    {
+      slug: "ruin",
+      title: "Don't throw yourselves into ruin",
+      line: "Spend in Allah's way; don't throw yourselves into ruin.",
+      facts: ["Abu Ayyub explained it", "Do good: ihsan"],
+      quote: q2(195),
+      source: hadith("abudawud", "2512", "Abu Ayyub", "Sahih", "Abu Ayyub said this ayah came about the Ansar: when Islam grew strong, they thought to stay home with their wealth and leave spending in Allah's way. Ruin was staying with their wealth and leaving the effort."),
+      difficulty: 3,
+      questions: [
+        { q: "What does 2:195 tell us to do with wealth?", a: "Spend it in Allah's way", wrong: ["Hide it all", "Waste it", "Burn it"], why: "Wa anfiqu fi sabilillah." },
+        { q: "What was the 'ruin', says Abu Ayyub?", a: "Clinging to wealth and leaving the effort", wrong: ["Spending too much", "Praying too much", "Fasting too much"], why: "Abu Dawud 2512." },
+        { q: "How does 2:195 end?", a: "Do good: Allah loves the good-doers", wrong: ["Be rich", "Be loud", "Be first"], why: "Innallaha yuhibbul-muhsinin." }
+      ]
+    },
+    {
+      slug: "hajj-manners",
+      title: "Manners of Hajj",
+      line: "In Hajj: no rude talk, no sinning, no arguing.",
+      facts: ["Taqwa: the best provision", "Known months"],
+      quote: q2(197),
+      source: ik(197, "Hajj is in well-known months. Whoever begins it must avoid obscene talk, sins and arguing. Take provision, and the best provision is taqwa."),
+      difficulty: 2,
+      questions: [
+        { q: "Which of these is forbidden in Hajj, in 2:197?", a: "Arguing", wrong: ["Making dua", "Walking", "Drinking water"], why: "Wa la jidala fil-hajj." },
+        { q: "What is the best provision, in 2:197?", a: "Taqwa", wrong: ["Gold", "Food only", "Fine clothes"], why: "Fa inna khayraz-zadit-taqwa." },
+        { q: "Staying calm when crowds push fits 2:197.", tf: true, why: "No arguing in Hajj." }
+      ]
+    },
+    {
+      slug: "trade-hajj",
+      title: "Trade during Hajj",
+      line: "No sin in seeking Allah's bounty in trade during Hajj.",
+      facts: ["Remember Him at Muzdalifah", "Halal trade"],
+      quote: q2(198),
+      source: ik(198, "Ibn Abbas said people felt unsure about trading in Hajj, so Allah revealed: there is no sin on you in seeking bounty from your Lord. Then remember Allah at al-Mash'ar al-Haram."),
+      difficulty: 3,
+      questions: [
+        { q: "Is buying and selling during Hajj a sin, says 2:198?", a: "No, it is allowed", wrong: ["Yes, always", "Only on Fridays", "Only for kings"], why: "Laysa 'alaykum junah." },
+        { q: "Where should pilgrims remember Allah after 'Arafat?", a: "Al-Mash'ar al-Haram", wrong: ["The market", "At home", "In Taif"], why: "At Muzdalifah." },
+        { q: "Earning halal money can be part of a good life.", tf: true, why: "Seeking Allah's bounty." }
+      ]
+    },
+    {
+      slug: "both-worlds",
+      title: "Good in both worlds",
+      line: "Our Lord, give us good here and in the Hereafter.",
+      facts: ["Rabbana atina", "His most frequent dua"],
+      quote: q2(201),
+      source: ik(201, "Some only ask for this world and have no share in the Hereafter. Others say: our Lord, give us good in this world and good in the Hereafter, and protect us from the Fire. Ibn Kathir says this dua gathers every good."),
+      difficulty: 1,
+      questions: [
+        { q: "What does the dua in 2:201 ask for?", a: "Good in both worlds", wrong: ["Only money", "Only fame", "Only this world"], why: "Fid-dunya hasanah wa fil-akhirati hasanah." },
+        { q: "What else does it ask protection from?", a: "The Fire", wrong: ["Rain", "Work", "Friends"], why: "Wa qina 'adhaban-nar." },
+        { q: "Asking only for this world is the best dua.", tf: false, why: "Those people have no share in the Hereafter." }
+      ]
+    },
+    {
+      slug: "sweet-words",
+      title: "Sweet words, bad deeds",
+      line: "Some talk sweetly, but when given power, spread ruin.",
+      facts: ["Watch deeds, not words", "Pride stops repentance"],
+      quote: q2(205),
+      source: ik(204, "Some people's speech pleases you and they swear by Allah, yet they are the worst in disputes; when they gain power they spread ruin, and when told to fear Allah, pride drives them to sin."),
+      difficulty: 3,
+      questions: [
+        { q: "What gives this person away, in 2:204-205?", a: "His deeds, not his words", wrong: ["His clothes", "His voice", "His height"], why: "When he gains power he spreads ruin." },
+        { q: "What happens when he is told 'fear Allah', in 2:206?", a: "Pride takes hold of him", wrong: ["He repents", "He thanks them", "He stays silent"], why: "Akhadhat-hul-'izzatu bil-ithm." },
+        { q: "If someone reminds you to fear Allah, what fits?", a: "Accept it humbly", wrong: ["Get angry", "Mock them", "Ignore them"], why: "The opposite of 2:206." }
+      ]
+    },
+    {
+      slug: "fully-in",
+      title: "Enter Islam fully",
+      line: "Enter Islam completely; don't follow Shaytan's footsteps.",
+      facts: ["All of Islam", "Shaytan is an enemy"],
+      quote: q2(208),
+      source: ik(208, "Allah commands the believers to enter Islam completely, practicing all its rulings as much as they can, and not to follow Shaytan, who is a clear enemy."),
+      difficulty: 2,
+      questions: [
+        { q: "How should believers enter Islam, in 2:208?", a: "Completely", wrong: ["Halfway", "Only on Fridays", "Only in Ramadan"], why: "Udkhulu fis-silmi kaffah." },
+        { q: "Whose footsteps does 2:208 warn against?", a: "Shaytan's", wrong: ["The prophets'", "Our parents'", "The scholars'"], why: "He is a clear enemy." },
+        { q: "Practicing as much of Islam as we can fits 2:208.", tf: true, why: "Ibn Kathir explains it." }
+      ]
+    },
+    {
+      slug: "help-near",
+      title: "Allah's help is near",
+      line: "Did you think you'd enter Jannah without tests like theirs?",
+      facts: ["Tests came before", "Help is near"],
+      quote: q2(214),
+      source: ik(214, "Do you think you will enter Jannah without being tested like those before you? They were shaken until the Messenger and the believers said: when is Allah's help? Surely, Allah's help is near."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 2:214 say came to those before us?", a: "Hard tests", wrong: ["Only ease", "Nothing", "Endless holidays"], why: "They were shaken." },
+        { q: "What did the believers ask?", a: "When is Allah's help?", wrong: ["Where is the market?", "Who is king?", "Why pray?"], why: "Mata nasrullah?" },
+        { q: "What is the answer at the end of 2:214?", a: "Allah's help is near", wrong: ["There is no help", "Wait forever", "Give up"], why: "Ala inna nasrallahi qarib." }
+      ]
+    },
+    {
+      slug: "spend-on",
+      title: "Whom to spend on",
+      line: "Spend on parents, relatives, orphans, the poor and travelers.",
+      facts: ["Family first", "Allah knows every good"],
+      quote: q2(215),
+      source: ik(215, "They ask what to spend. Say: whatever good you spend is for parents, relatives, orphans, the poor and the stranded traveler; whatever good you do, Allah knows it."),
+      difficulty: 1,
+      questions: [
+        { q: "Who comes first in 2:215?", a: "Parents", wrong: ["Strangers", "The rich", "Celebrities"], why: "Fa lil-walidayn." },
+        { q: "Which of these is named in 2:215?", a: "The traveler in need", wrong: ["The richest man", "A famous singer", "A king"], why: "Ibnis-sabil." },
+        { q: "Does Allah know even small good deeds?", a: "Yes, every one", wrong: ["Only big ones", "No", "Only public ones"], why: "Fa innallaha bihi 'alim." }
+      ]
+    },
+    {
+      slug: "dislike-good",
+      title: "It may be good for you",
+      line: "You may dislike a thing that is good for you.",
+      facts: ["Allah knows, we don't", "Trust His plan"],
+      quote: q2(216),
+      source: ik(216, "Perhaps you dislike something while it is good for you, and like something while it is bad for you. Allah knows and you do not know."),
+      difficulty: 1,
+      questions: [
+        { q: "What does 2:216 say about things we dislike?", a: "They may be good for us", wrong: ["They are always bad", "They never happen", "They are luck"], why: "'Asa an takrahu shay'an wa huwa khayrun lakum." },
+        { q: "Who knows what is truly best?", a: "Allah", wrong: ["Only us", "Our phones", "Nobody"], why: "Wallahu ya'lamu wa antum la ta'lamun." },
+        { q: "You missed the bus and met a friend who needed help. What fits 2:216?", a: "It may have been good for you", wrong: ["It was pure bad luck", "Allah forgot you", "Nothing happens for a reason"], why: "Trust Allah's plan." }
+      ]
+    },
+    {
+      slug: "wine-gambling",
+      title: "Wine and gambling",
+      line: "In wine and gambling the harm is greater than the benefit.",
+      facts: ["Later fully forbidden", "Give the surplus"],
+      quote: q2(219),
+      source: ik(219, "They ask about wine and gambling. Say: in them is great sin and some benefit, but the sin is greater. This was a step; later Allah fully forbade them in Surat al-Ma'idah."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 2:219 say about wine and gambling?", a: "Their harm is greater than benefit", wrong: ["They are healthy", "They are fine in moderation", "They bring luck"], why: "Wa ithmuhuma akbaru min naf'ihima." },
+        { q: "Where were they fully forbidden later?", a: "Surat al-Ma'idah", wrong: ["Surat al-Fatihah", "Surat al-Ikhlas", "They never were"], why: "Ibn Kathir explains the steps." },
+        { q: "What should we spend, says 2:219?", a: "What is beyond our needs", wrong: ["Everything we have", "Nothing", "Only coins"], why: "Qulil-'afw." }
+      ]
+    },
+    {
+      slug: "orphans",
+      title: "Caring for orphans",
+      line: "Improving an orphan's affairs is best; they are your brothers.",
+      facts: ["Honest care", "Allah knows intentions"],
+      quote: q2(220),
+      source: ik(220, "When the warning about orphans' wealth came, people feared even sharing food with them. Allah said: improving their affairs is best, and if you mix with them, they are your brothers."),
+      difficulty: 2,
+      questions: [
+        { q: "What is best for orphans, in 2:220?", a: "Improving their affairs", wrong: ["Ignoring them", "Taking their money", "Sending them away"], why: "Islahun lahum khayr." },
+        { q: "How does 2:220 describe orphans you live with?", a: "Your brothers", wrong: ["Strangers", "Servants", "Guests only"], why: "Fa ikhwanukum." },
+        { q: "Allah knows who means harm and who means good.", tf: true, why: "Wallahu ya'lamul-mufsida minal-muslih." }
+      ]
+    },
+    {
+      slug: "oaths",
+      title: "Don't swear away good",
+      line: "Don't use Allah's name in oaths to avoid doing good.",
+      facts: ["Careless oaths forgiven", "The heart counts"],
+      quote: q2(224),
+      source: ik(224, "Do not make your oaths by Allah an excuse to stop doing good, being dutiful and making peace between people. Allah does not hold you to careless oaths, but to what your hearts intend."),
+      difficulty: 3,
+      questions: [
+        { q: "What does 2:224 warn against?", a: "Swearing not to do good", wrong: ["Doing good", "Making peace", "Being kind"], why: "Quran 2:224." },
+        { q: "Which oaths does Allah not hold against us, in 2:225?", a: "Careless slips of the tongue", wrong: ["All oaths", "Oaths in court", "Promises to parents"], why: "Bil-laghwi fi aymanikum." },
+        { q: "What does Allah hold us to?", a: "What our hearts intended", wrong: ["Nothing", "Only the words", "Only written oaths"], why: "Bima kasabat qulubukum." }
+      ]
+    },
+    {
+      slug: "nursing",
+      title: "Two full years",
+      line: "Mothers nurse their babies for two full years, if they wish.",
+      facts: ["Father provides kindly", "No one burdened too much"],
+      quote: q2(233),
+      source: ik(233, "Mothers may nurse their children for two full years for whoever wishes to complete it, and the father provides their food and clothing kindly. No soul is burdened beyond its capacity."),
+      difficulty: 2,
+      questions: [
+        { q: "How long is full nursing, in 2:233?", a: "Two years", wrong: ["Two months", "Ten years", "One week"], why: "Hawlayni kamilayn." },
+        { q: "Who provides for the mother and baby?", a: "The father, with kindness", wrong: ["Nobody", "The neighbors", "The baby"], why: "Bil-ma'ruf." },
+        { q: "Islam cares for babies and mothers.", tf: true, why: "No soul is burdened too much." }
+      ]
+    },
+    {
+      slug: "dont-forget-kindness",
+      title: "Don't forget kindness",
+      line: "Even when parting, do not forget kindness between you.",
+      facts: ["Grace to each other", "Allah sees all"],
+      quote: q2(237),
+      source: ik(237, "Even when a marriage ends, Allah tells both sides: do not forget kindness and generosity between you; to forgive is nearer to taqwa."),
+      difficulty: 2,
+      questions: [
+        { q: "What should people not forget, even when parting?", a: "Kindness between them", wrong: ["Their anger", "Their grudges", "Their arguments"], why: "Wa la tansawul-fadla baynakum." },
+        { q: "What is nearer to taqwa, in 2:237?", a: "Forgiving", wrong: ["Arguing", "Taking more", "Shouting"], why: "Wa an ta'fu aqrabu lit-taqwa." },
+        { q: "After a fight with a friend, what fits 2:237?", a: "Stay kind and forgive", wrong: ["Spread rumors", "Take revenge", "Never speak again"], why: "Do not forget kindness." }
+      ]
+    },
+    {
+      slug: "middle-prayer",
+      title: "Guard the prayers",
+      line: "Guard the prayers, especially the middle prayer, Asr.",
+      facts: ["Sahih Muslim 628", "Stand humbly"],
+      quote: q2(238),
+      source: hadith("muslim", "628", "Abdullah ibn Mas'ud", "Sahih", "On the day of al-Ahzab, the enemy kept the Messenger of Allah ﷺ from the afternoon prayer until the sun turned red. He said: they kept us from the middle prayer, the Asr prayer."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 2:238 command?", a: "Guard the prayers", wrong: ["Skip some prayers", "Pray once a week", "Pray only in Ramadan"], why: "Hafizu 'alas-salawat." },
+        { q: "Which prayer did he ﷺ call the middle prayer?", a: "Asr", wrong: ["Fajr only", "A night prayer", "Eid prayer"], why: "Muslim 628." },
+        { q: "How should we stand in prayer, in 2:238?", a: "Humbly, devoted to Allah", wrong: ["Rushing", "Talking", "Looking around"], why: "Wa qumu lillahi qanitin." }
+      ]
+    },
+    {
+      slug: "pray-anyway",
+      title: "Pray even in fear",
+      line: "If afraid, pray walking or riding; prayer is never dropped.",
+      facts: ["Prayer in every state", "Remember Allah after"],
+      quote: q2(239),
+      source: ik(239, "If you fear an enemy, pray on foot or riding, however you can; when you are safe again, remember Allah as He taught you. Prayer is never dropped while one is able."),
+      difficulty: 2,
+      questions: [
+        { q: "How can someone in danger pray, in 2:239?", a: "Walking or riding", wrong: ["Not at all", "Only later", "Only at home"], why: "Fa rijalan aw rukbana." },
+        { q: "Is the prayer dropped in hard times?", a: "No, it is done as one can", wrong: ["Yes, always", "Yes, for a year", "Only on trips"], why: "Ibn Kathir explains it." },
+        { q: "Even sick in bed, a Muslim prays as they can.", tf: true, why: "Prayer adjusts; it is not dropped." }
+      ]
+    },
+    {
+      slug: "goodly-loan",
+      title: "A goodly loan",
+      line: "Who will lend Allah a good loan, which He multiplies many times?",
+      facts: ["Charity is a loan to Allah", "He returns it many times"],
+      quote: q2(245),
+      source: ik(245, "Allah encourages spending in His cause: who will lend Allah a goodly loan so He multiplies it many times? Allah withholds and gives abundantly, and to Him you return."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 2:245 call spending for Allah?", a: "A goodly loan", wrong: ["A tax", "A waste", "A fine"], why: "Qardan hasana." },
+        { q: "What does Allah do with it?", a: "Multiplies it many times", wrong: ["Loses it", "Keeps it the same", "Returns half"], why: "Ad'afan kathirah." },
+        { q: "Who gives and withholds provision?", a: "Allah", wrong: ["Luck", "Banks", "Nobody"], why: "Wallahu yaqbidu wa yabsut." }
+      ]
+    },
+    {
+      slug: "talut",
+      title: "Talut the king",
+      line: "Allah chose Talut as king for his knowledge and strength.",
+      facts: ["Not chosen for wealth", "A sign: the Ark"],
+      quote: q2(247),
+      source: ik(247, "The Children of Israel asked their prophet for a king. Allah chose Talut; they objected that he was not rich. Their prophet said: Allah chose him and gave him more knowledge and strength."),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Allah choose Talut, in 2:247?", a: "Knowledge and strength", wrong: ["His wealth", "His fame", "His family name"], why: "Bastatan fil-'ilmi wal-jism." },
+        { q: "What did the people object to?", a: "He was not rich", wrong: ["He was too tall", "He was too young", "He could not read"], why: "Quran 2:247." },
+        { q: "Good leaders are chosen for wealth.", tf: false, why: "Knowledge and strength matter more." }
+      ]
+    },
+    {
+      slug: "river-test",
+      title: "The river test",
+      line: "Talut's army was tested by a river; few held back.",
+      facts: ["Only a handful allowed", "Small groups can win"],
+      quote: q2(249),
+      source: ik(249, "Talut said: Allah will test you with a river; whoever drinks from it is not with me, except a handful. Most drank; the few who obeyed said: how often a small group has beaten a large one by Allah's permission."),
+      difficulty: 3,
+      questions: [
+        { q: "What was the test in 2:249?", a: "Not drinking from a river", wrong: ["Climbing a mountain", "Fasting a year", "Crossing a desert"], why: "Except a handful." },
+        { q: "How many passed the test?", a: "Only a few", wrong: ["Everyone", "Nobody", "Most of them"], why: "Illa qalilan minhum." },
+        { q: "What did the faithful few say?", a: "A small group can win by Allah's permission", wrong: ["Let's go home", "We are too few", "We need more water"], why: "Kam min fi'atin qalilah." }
+      ]
+    },
+    {
+      slug: "dawud-jalut",
+      title: "Dawud and Jalut",
+      line: "They prayed for patience, and young Dawud defeated Jalut.",
+      facts: ["Rabbana afrigh 'alayna sabra", "Kingship and wisdom"],
+      quote: q2(251),
+      source: ik(251, "The believers prayed: our Lord, pour patience on us and make our feet firm. They defeated Jalut's army by Allah's permission; Dawud brought Jalut down, and Allah gave Dawud kingship and wisdom."),
+      difficulty: 2,
+      questions: [
+        { q: "Who defeated Jalut, in 2:251?", a: "Dawud", wrong: ["Talut", "Musa", "Sulayman"], why: "Wa qatala Dawudu Jalut." },
+        { q: "What did the believers pray for?", a: "Patience and firm feet", wrong: ["Gold", "More soldiers", "To go home"], why: "Rabbana afrigh 'alayna sabran." },
+        { q: "What did Allah give Dawud?", a: "Kingship and wisdom", wrong: ["Nothing", "Only a sword", "Only wealth"], why: "Wa atahullahul-mulka wal-hikmah." }
+      ]
+    },
+    {
+      slug: "before-a-day",
+      title: "Spend before that Day",
+      line: "Spend now, before a Day with no trade and no friendship.",
+      facts: ["Now is the time", "Only deeds then"],
+      quote: q2(254),
+      source: ik(254, "Allah commands the believers to spend from what He gave them before a Day comes when there is no buying, no friendship to help, and no intercession except by His permission."),
+      difficulty: 2,
+      questions: [
+        { q: "What will be missing on that Day, in 2:254?", a: "Trade and friendship to help", wrong: ["The sun", "People", "Allah's knowledge"], why: "La bay'un fihi wa la khullah." },
+        { q: "When should we spend in good?", a: "Now, in this life", wrong: ["After death", "Never", "Only when old"], why: "Min qabli an ya'tiya yawm." },
+        { q: "Good deeds done now are saved for that Day.", tf: true, why: "Quran 2:254." }
+      ]
+    },
+    {
+      slug: "greatest-ayah",
+      title: "The greatest ayah",
+      line: "Ayat al-Kursi is the greatest ayah in Allah's Book.",
+      facts: ["Sahih Muslim 810", "Ubayy's answer"],
+      quote: q2(255),
+      source: hadith("muslim", "810", "Ubayy ibn Ka'b", "Sahih", "The Messenger of Allah ﷺ asked: which ayah of Allah's Book is greatest? I said: Allah, there is no god but Him, the Ever-Living, the Sustainer. He patted my chest and said: may knowledge delight you."),
+      difficulty: 1,
+      questions: [
+        { q: "Which is the greatest ayah, in Muslim 810?", a: "Ayat al-Kursi", wrong: ["The first ayah of Al-Fatihah", "The last ayah of the Quran", "2:1"], why: "Muslim 810." },
+        { q: "Who answered correctly?", a: "Ubayy ibn Ka'b", wrong: ["Abu Jahl", "Abu Lahab", "Qarun"], why: "May knowledge delight you." },
+        { q: "What are Allah's names at its start?", a: "Al-Hayy, Al-Qayyum", wrong: ["Al-Malik, Al-Quddus", "Al-Ghafur, Ash-Shakur", "Al-Wahhab, Ar-Razzaq"], why: "The Ever-Living, the Sustainer." }
+      ]
+    },
+    {
+      slug: "kursi-night",
+      title: "Ayat al-Kursi at night",
+      line: "Recite Ayat al-Kursi in bed and a guard stays with you.",
+      facts: ["Sahih al-Bukhari 5010", "Protection till morning"],
+      quote: q2(255),
+      source: hadith("bukhari", "5010", "Abu Hurairah", "Sahih", "Abu Hurairah guarded the zakah food and caught a thief, who taught him: when you go to bed, recite Ayat al-Kursi, and a guard from Allah stays with you and no devil comes near till morning. The Prophet ﷺ said: he told you the truth, though he is a liar; that was a devil."),
+      difficulty: 2,
+      questions: [
+        { q: "When should we recite Ayat al-Kursi, in Bukhari 5010?", a: "When going to bed", wrong: ["Only at Eid", "Only when eating", "Only in the car"], why: "A guard stays till morning." },
+        { q: "Who taught it to Abu Hurairah in the story?", a: "A devil, who spoke the truth that time", wrong: ["An angel", "A king", "A child"], why: "He told you the truth, though he is a liar." },
+        { q: "What does it bring until morning?", a: "Protection from Allah", wrong: ["Gold", "Bad dreams", "Nothing"], why: "Bukhari 5010." }
+      ]
+    },
+    {
+      slug: "no-compulsion",
+      title: "No compulsion",
+      line: "No compulsion in religion; truth stands clear from error.",
+      facts: ["The firm handhold", "Faith must be chosen"],
+      quote: q2(256),
+      source: ik(256, "Do not force anyone to enter Islam, for its proofs are clear. Whoever rejects false gods and believes in Allah has grasped the firmest handhold that never breaks."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 2:256 say about forcing faith?", a: "No compulsion in religion", wrong: ["Force is fine", "Only force children", "Only on Fridays"], why: "La ikraha fid-din." },
+        { q: "What has the believer grasped, in 2:256?", a: "The firmest handhold", wrong: ["A broken rope", "A sword", "A coin"], why: "Al-'urwatul-wuthqa." },
+        { q: "True faith must come from the heart.", tf: true, why: "That is why there is no compulsion." }
+      ]
+    },
+    {
+      slug: "into-light",
+      title: "Out of darkness into light",
+      line: "Allah is the believers' Protector; He brings them into light.",
+      facts: ["Darknesses, plural", "Light, one"],
+      quote: q2(257),
+      source: ik(257, "Allah is the Wali of the believers; He brings them out of darknesses into light. Ibn Kathir notes 'light' is one because truth is one, while falsehood has many kinds."),
+      difficulty: 2,
+      questions: [
+        { q: "Who is the Protector (Wali) of the believers, in 2:257?", a: "Allah", wrong: ["Money", "Kings", "Stars"], why: "Allahu waliyyul-ladhina amanu." },
+        { q: "Where does Allah bring them?", a: "Out of darkness into light", wrong: ["Into darkness", "Nowhere", "Into the sea"], why: "Minaz-zulumati ilan-nur." },
+        { q: "Why is 'light' one but 'darknesses' many?", a: "Truth is one; falsehood has many kinds", wrong: ["A spelling mistake", "There are many truths", "No reason"], why: "Ibn Kathir explains it." }
+      ]
+    },
+    {
+      slug: "sun-from-east",
+      title: "Ibrahim and the king",
+      line: "Allah brings the sun from the east; bring it from the west.",
+      facts: ["A clear proof", "The king was stunned"],
+      quote: q2(258),
+      source: ik(258, "A king argued with Ibrahim about his Lord. Ibrahim said: my Lord gives life and death. The king claimed he did too. Ibrahim said: Allah brings the sun from the east, so bring it from the west; the king was dumbfounded."),
+      difficulty: 2,
+      questions: [
+        { q: "Who argued with Ibrahim about his Lord, in 2:258?", a: "A proud king", wrong: ["His son", "An angel", "A prophet"], why: "Because Allah had given him a kingdom." },
+        { q: "What challenge silenced the king?", a: "Bring the sun from the west", wrong: ["Make it rain", "Count the stars", "Build a tower"], why: "Fa'ti biha minal-maghrib." },
+        { q: "What does the story show?", a: "Only Allah controls creation", wrong: ["Kings control the sun", "Arguing is always bad", "The sun can stop"], why: "Clear proof silences falsehood." }
+      ]
+    },
+    {
+      slug: "hundred-years",
+      title: "A hundred years",
+      line: "A man wondered how a ruined town lives again; Allah showed him.",
+      facts: ["Died for 100 years", "His food unchanged"],
+      quote: q2(259),
+      source: ik(259, "A man passed a ruined town and wondered how Allah would revive it. Allah caused him to die for a hundred years, then raised him; his food had not changed, and he watched his donkey's bones come together."),
+      difficulty: 3,
+      questions: [
+        { q: "How long did the man stay dead, in 2:259?", a: "A hundred years", wrong: ["One day", "Ten years", "A week"], why: "Mi'ata 'am." },
+        { q: "What had not changed when he woke?", a: "His food and drink", wrong: ["The town", "His donkey", "The trees"], why: "Lam yatasannah." },
+        { q: "What did he say after seeing it?", a: "Allah is able to do all things", wrong: ["It was a dream", "I don't believe it", "Nothing"], why: "A'lamu annallaha 'ala kulli shay'in qadir." }
+      ]
+    },
+    {
+      slug: "four-birds",
+      title: "Ibrahim and the four birds",
+      line: "Ibrahim asked to see how Allah raises the dead: four birds came.",
+      facts: ["To calm his heart", "They came flying"],
+      quote: q2(260),
+      source: ik(260, "Ibrahim asked: my Lord, show me how You give life to the dead. Allah said: do you not believe? He said: yes, but to reassure my heart. He took four birds, placed parts on hills, called them, and they came flying."),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Ibrahim ask, in 2:260?", a: "To reassure his heart", wrong: ["He doubted Allah", "For fun", "To test Allah"], why: "Walakin liyatma'inna qalbi." },
+        { q: "How many birds were there?", a: "Four", wrong: ["Two", "Ten", "One"], why: "Arba'atan minat-tayr." },
+        { q: "What happened when Ibrahim called them?", a: "They came flying to him", wrong: ["Nothing", "They ran away", "They stayed still"], why: "Ya'tinaka sa'ya." }
+      ]
+    },
+    {
+      slug: "seven-hundred",
+      title: "One grain, seven hundred",
+      line: "Spending for Allah is like a grain growing seven hundred grains.",
+      facts: ["Seven ears, 100 each", "He multiplies more"],
+      quote: q2(261),
+      source: ik(261, "Those who spend in Allah's way are like a grain that grows seven ears, each with a hundred grains; Allah multiplies even more for whom He wills."),
+      difficulty: 1,
+      questions: [
+        { q: "How many grains come from one, in 2:261?", a: "Seven hundred", wrong: ["Seven", "Ten", "Two"], why: "Seven ears, a hundred each." },
+        { q: "Can Allah give even more?", a: "Yes, for whom He wills", wrong: ["No", "Only less", "Only the same"], why: "Wallahu yuda'ifu liman yasha'." },
+        { q: "A small charity can grow huge with Allah.", tf: true, why: "Quran 2:261." }
+      ]
+    },
+    {
+      slug: "no-reminders",
+      title: "Don't spoil your charity",
+      line: "A kind word is better than charity followed by hurt.",
+      facts: ["No reminding, no hurting", "Allah is Rich"],
+      quote: q2(263),
+      source: ik(263, "Kind words and forgiveness are better than charity followed by harm. Do not ruin your charity by reminding people of it or hurting them, like one who spends to show off."),
+      difficulty: 2,
+      questions: [
+        { q: "What is better than charity followed by hurt, in 2:263?", a: "A kind word and forgiveness", wrong: ["More money", "Silence forever", "A loud speech"], why: "Qawlun ma'rufun wa maghfirah." },
+        { q: "What spoils charity, in 2:264?", a: "Reminding and hurting", wrong: ["Giving secretly", "Smiling", "Giving a little"], why: "Bil-manni wal-adha." },
+        { q: "You gave a friend money; later you keep reminding them. What fits 2:264?", a: "Stop: it spoils the reward", wrong: ["Remind them more", "Tell everyone", "Ask for double"], why: "Don't ruin your charity." }
+      ]
+    },
+    {
+      slug: "burnt-garden",
+      title: "The burnt garden",
+      line: "Would you like your garden burned when you are old and weak?",
+      facts: ["Sahih al-Bukhari 4538", "Ibn Abbas explained"],
+      quote: q2(266),
+      source: hadith("bukhari", "4538", "Ubaid bin Umair", "Sahih", "Umar asked the Companions about 2:266. Ibn Abbas said it is a parable for deeds: a rich man who did good, then Allah sent Shaytan to him and he sinned until his good deeds were lost."),
+      difficulty: 4,
+      questions: [
+        { q: "What does the garden stand for, says Ibn Abbas?", a: "A person's good deeds", wrong: ["Real farming", "Money in a bank", "A city"], why: "Bukhari 4538." },
+        { q: "What lost the man his 'garden'?", a: "Sinning after doing good", wrong: ["Rain", "Old age only", "Bad soil"], why: "His good deeds were lost." },
+        { q: "Keep doing good to the end of life.", tf: true, why: "Don't let sins burn your deeds." }
+      ]
+    },
+    {
+      slug: "give-good",
+      title: "Give from the good",
+      line: "Give from the good things you earn, not the worst you have.",
+      facts: ["Only give what you'd take", "Allah is Rich"],
+      quote: q2(267),
+      source: ik(267, "Spend from the good things you have earned and that Allah brought from the earth; do not aim for the bad to give it, when you yourselves would not take it except with closed eyes."),
+      difficulty: 1,
+      questions: [
+        { q: "What should we give, in 2:267?", a: "From the good things", wrong: ["Only broken things", "Only leftovers", "Nothing"], why: "Min tayyibati ma kasabtum." },
+        { q: "Would you happily take what you give, if it were bad?", a: "No", wrong: ["Yes, gladly", "Only on Fridays", "Only if free"], why: "Except with closed eyes." },
+        { q: "Giving a toy you still like fits 2:267.", tf: true, why: "Give from the good." }
+      ]
+    },
+    {
+      slug: "fear-poverty",
+      title: "Shaytan threatens poverty",
+      line: "Shaytan threatens you with poverty; Allah promises forgiveness.",
+      facts: ["Don't fear giving", "Allah is generous"],
+      quote: q2(268),
+      source: ik(268, "Shaytan threatens you with poverty so you hold back from giving, and orders you to sin, while Allah promises forgiveness from Him and bounty."),
+      difficulty: 2,
+      questions: [
+        { q: "What does Shaytan threaten us with, in 2:268?", a: "Poverty", wrong: ["Wealth", "Health", "Friends"], why: "Ya'idukumul-faqr." },
+        { q: "What does Allah promise?", a: "Forgiveness and bounty", wrong: ["Poverty", "Nothing", "Sadness"], why: "Maghfiratan minhu wa fadla." },
+        { q: "Why does Shaytan scare us about money?", a: "So we stop giving", wrong: ["To help us", "To make us rich", "No reason"], why: "Ibn Kathir explains it." }
+      ]
+    },
+    {
+      slug: "wisdom",
+      title: "Given wisdom",
+      line: "Whoever is given wisdom has been given much good.",
+      facts: ["Hikmah is a gift", "Understanding the Quran"],
+      quote: q2(269),
+      source: ik(269, "Allah gives wisdom to whom He wills, and whoever is given wisdom has been given abundant good. Ibn Abbas said wisdom here is understanding the Quran."),
+      difficulty: 2,
+      questions: [
+        { q: "What has someone with wisdom been given, in 2:269?", a: "Much good", wrong: ["Little", "Nothing", "Only trouble"], why: "Khayran kathira." },
+        { q: "What did Ibn Abbas say wisdom means in 2:269?", a: "Understanding the Quran", wrong: ["Being old", "Being rich", "Being loud"], why: "Ibn Kathir reports it." },
+        { q: "Who takes the lesson, says 2:269?", a: "People of understanding", wrong: ["Nobody", "Only kings", "Only children"], why: "Ulul-albab." }
+      ]
+    },
+    {
+      slug: "secret-charity",
+      title: "Giving in secret",
+      line: "Giving openly is good; giving in secret to the poor is better.",
+      facts: ["Shaded on that Day", "Left hand doesn't know"],
+      quote: q2(271),
+      source: hadith("bukhari", "1423", "Abu Hurairah", "Sahih", "Seven will be shaded by Allah on the Day there is no shade but His, among them a man who gives charity so secretly that his left hand does not know what his right hand gave."),
+      difficulty: 2,
+      questions: [
+        { q: "Which charity is better, in 2:271?", a: "Secret charity to the poor", wrong: ["Charity to show off", "No charity", "Only loud charity"], why: "Fahuwa khayrun lakum." },
+        { q: "How secret is the charity in Bukhari 1423?", a: "The left hand doesn't know", wrong: ["Everyone hears", "Posted online", "Announced loudly"], why: "Bukhari 1423." },
+        { q: "Giving openly is never allowed.", tf: false, why: "It is good; secret is better." }
+      ]
+    },
+    {
+      slug: "dont-beg",
+      title: "The poor who don't ask",
+      line: "Some poor people are too dignified to beg; look for them.",
+      facts: ["Know them by signs", "Dignity in need"],
+      quote: q2(273),
+      source: ik(273, "Give to the poor who are held back in Allah's cause and cannot travel to earn. The unaware think them rich because they do not beg; you know them by their signs, and they do not ask people insistently."),
+      difficulty: 2,
+      questions: [
+        { q: "Why do some think these poor are rich, in 2:273?", a: "They don't beg", wrong: ["They wear gold", "They shout", "They own palaces"], why: "Minat-ta'affuf." },
+        { q: "How do we recognize them?", a: "By their signs", wrong: ["By loud asking", "We can't", "By their cars"], why: "Ta'rifuhum bisimahum." },
+        { q: "What does 2:273 teach us to do?", a: "Look out for quiet people in need", wrong: ["Only help those who shout", "Help nobody", "Wait to be asked"], why: "Dignified people need help too." }
+      ]
+    },
+    {
+      slug: "riba",
+      title: "Trade is allowed, riba is not",
+      line: "Allah allowed trade and forbade riba, interest.",
+      facts: ["Riba is forbidden", "Charity grows"],
+      quote: q2(275),
+      source: ik(275, "Those who take riba said trade is just like riba, but Allah permitted trade and forbade riba. Allah destroys riba and makes charity grow."),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah allow and forbid, in 2:275?", a: "Allowed trade, forbade riba", wrong: ["Allowed riba, forbade trade", "Forbade both", "Allowed both"], why: "Wa ahallallahul-bay'a wa harramar-riba." },
+        { q: "What does Allah make grow, in 2:276?", a: "Charity", wrong: ["Riba", "Greed", "Debt"], why: "Wa yurbis-sadaqat." },
+        { q: "What does Allah wipe out, in 2:276?", a: "Riba", wrong: ["Charity", "Trade", "Savings"], why: "Yamhaqullahur-riba." }
+      ]
+    },
+    {
+      slug: "give-time",
+      title: "Give the debtor time",
+      line: "If a debtor is struggling, give him time; forgiving is better.",
+      facts: ["Sahih Muslim 1563a", "Saved on that Day"],
+      quote: q2(280),
+      source: hadith("muslim", "1563a", "Abu Qatadah", "Sahih", "Abu Qatadah's debtor said he was hard up, and Abu Qatadah said: I heard the Messenger of Allah ﷺ say: whoever wishes Allah to save him from the distress of the Day of Resurrection, let him give time to a struggling debtor or forgive the debt."),
+      difficulty: 2,
+      questions: [
+        { q: "What should we do if a debtor is struggling, in 2:280?", a: "Give him time", wrong: ["Shame him", "Take his home", "Add interest"], why: "Fanaziratun ila maysarah." },
+        { q: "What is even better than waiting?", a: "Forgiving the debt", wrong: ["Doubling it", "Telling everyone", "Taking his car"], why: "Wa an tasaddaqu khayrun lakum." },
+        { q: "What does Muslim 1563a promise the lender who gives time?", a: "Relief on the Day of Resurrection", wrong: ["More interest", "Nothing", "Fame"], why: "Saved from that Day's distress." }
+      ]
+    },
+    {
+      slug: "write-debts",
+      title: "Write it down",
+      line: "When you take a debt for a set time, write it down.",
+      facts: ["The longest ayah", "Two witnesses"],
+      quote: q2(282),
+      source: ik(282, "The ayah of debts, the longest in the Quran, tells believers to write down a debt for a fixed term, with a fair writer and witnesses, so no one is wronged and no one forgets."),
+      difficulty: 2,
+      questions: [
+        { q: "What does 2:282 tell us to do with debts?", a: "Write them down", wrong: ["Forget them", "Hide them", "Double them"], why: "Faktubuh." },
+        { q: "What is special about 2:282?", a: "It is the longest ayah", wrong: ["It is the shortest", "It is the first", "It has no words"], why: "Ibn Kathir notes it." },
+        { q: "Why write debts down?", a: "So no one is wronged or forgets", wrong: ["To shame people", "For fun", "To make it longer"], why: "Fairness for both sides." }
+      ]
+    },
+    {
+      slug: "what-you-hide",
+      title: "What's in yourselves",
+      line: "Whether you show or hide what's in you, Allah knows it.",
+      facts: ["The Companions worried", "We hear and obey"],
+      quote: q2(284),
+      source: hadith("muslim", "126", "Ibn Abbas", "Sahih", "When 2:284 came, the Companions were deeply worried. The Prophet ﷺ told them: say, we hear and obey and submit. Then Allah revealed: Allah does not burden a soul beyond its capacity."),
+      difficulty: 3,
+      questions: [
+        { q: "What does Allah know, in 2:284?", a: "What we show and what we hide", wrong: ["Only what we say", "Only what we write", "Nothing hidden"], why: "Quran 2:284." },
+        { q: "What did he ﷺ tell the worried Companions to say?", a: "We hear and obey", wrong: ["We give up", "It's too hard", "Not us"], why: "Muslim 126." },
+        { q: "What did Allah reveal after their obedience?", a: "No soul is burdened beyond its capacity", wrong: ["A harder rule", "Nothing", "A warning"], why: "La yukallifullahu nafsan illa wus'aha." }
+      ]
+    },
+    {
+      slug: "amana-rasul",
+      title: "The Messenger ﷺ believed",
+      line: "The Messenger ﷺ and the believers say: we hear and obey.",
+      facts: ["Sahih al-Bukhari 5009", "Enough for the night"],
+      quote: q2(285),
+      source: hadith("bukhari", "5009", "Abu Mas'ud", "Sahih", "The Prophet ﷺ said: whoever recites the last two ayahs of Surat al-Baqarah at night, they will be enough for him."),
+      difficulty: 1,
+      questions: [
+        { q: "What do the believers say, in 2:285?", a: "We hear and we obey", wrong: ["We hear and disobey", "Maybe later", "Not now"], why: "Sami'na wa ata'na." },
+        { q: "What do the last two ayahs of Al-Baqarah give at night?", a: "They are enough for you", wrong: ["Nothing", "Bad dreams", "Hunger"], why: "Bukhari 5009." },
+        { q: "Do the believers separate between Allah's messengers?", a: "No", wrong: ["Yes", "Sometimes", "Only two"], why: "La nufarriqu bayna ahadin min rusulih." }
+      ]
+    },
+    {
+      slug: "no-burden",
+      title: "Not beyond your capacity",
+      line: "Allah burdens no soul beyond what it can bear.",
+      facts: ["Rabbana la tu'akhidhna", "Pardon, forgive, mercy"],
+      quote: q2(286),
+      source: ik(286, "Allah does not burden a soul beyond its capacity; it gets what good it earned and bears what evil it earned. Then the duas: do not hold us to account if we forget or err, pardon us, forgive us, have mercy on us."),
+      difficulty: 1,
+      questions: [
+        { q: "What does Allah never do, in 2:286?", a: "Burden a soul beyond its capacity", wrong: ["Forgive", "Show mercy", "Listen to duas"], why: "La yukallifullahu nafsan illa wus'aha." },
+        { q: "What do we ask if we forget or make a mistake?", a: "Don't hold it against us", wrong: ["Punish us more", "Ignore us", "Make it harder"], why: "Rabbana la tu'akhidhna in nasina aw akhta'na." },
+        { q: "Which three things do we ask at the very end?", a: "Pardon, forgiveness and mercy", wrong: ["Gold, fame and power", "Sleep, food and play", "Nothing"], why: "Wa'fu 'anna waghfir lana warhamna." }
+      ]
+    }
+  ]
+};
+
+export const BAQARAH_UNITS: readonly DeepUnit[] = [BAQARAH_ONE, BAQARAH_TWO, BAQARAH_THREE];
