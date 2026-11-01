@@ -14,7 +14,6 @@ import { PopIn, useShake } from "../PopIn";
 import { SpeechBubble } from "../SpeechBubble";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text, topicPalette } from "../theme";
-import { isRtlLanguage } from "../../i18n";
 
 export type PracticeHubProps = {
   user: UserProfile;
@@ -112,7 +111,7 @@ function HeroCard({ tint, glyph, title, arabic, button, buttonVariant, done, onP
               {title}
             </Text>
             {arabic ? (
-              <ArabicText size={20} weight="bold" color={palette.ink} align={isRtlLanguage() ? "right" : "left"}>
+              <ArabicText size={20} weight="bold" color={palette.ink} align="center">
                 {arabic}
               </ArabicText>
             ) : null}
@@ -298,12 +297,14 @@ export function PracticeHub({
                 {t("How much do you know?")}
               </Text>
             </View>
-            {quizBest !== undefined ? (
-              <View style={styles.quizPill} testID="practice-quiz-best">
-                <Text style={styles.quizPillText}>{`${quizBest}%`}</Text>
-              </View>
-            ) : null}
-            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            <View style={[styles.rowEnd, styles.quizEnd]}>
+              {quizBest !== undefined ? (
+                <View style={styles.quizPill} testID="practice-quiz-best">
+                  <Text style={styles.quizPillText}>{`${quizBest}%`}</Text>
+                </View>
+              ) : null}
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
           </Tappable>
         </PopIn>
       ) : null}
@@ -319,7 +320,9 @@ export function PracticeHub({
                 {t("My lessons")}
               </Text>
             </View>
-            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            <View style={styles.rowEnd}>
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
           </Tappable>
         </PopIn>
       ) : null}
@@ -334,12 +337,14 @@ export function PracticeHub({
               {t("Basics")}
             </Text>
             {basics ? (
-              <ArabicText size={20} weight="bold" color={colors.correctInk} align={isRtlLanguage() ? "right" : "left"}>
+              <ArabicText size={20} weight="bold" color={colors.correctInk} align="center">
                 {basics.ar}
               </ArabicText>
             ) : null}
           </View>
-          <Icon name="chevronRight" size={24} color={colors.lineLip} />
+          <View style={styles.rowEnd}>
+            <Icon name="chevronRight" size={24} color={colors.lineLip} />
+          </View>
         </Tappable>
       </PopIn>
     </ScrollView>
@@ -356,16 +361,18 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 32
   },
+  // Everything on the tab sits in the middle, as on the Me tab.
   titleRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     flexWrap: "wrap",
     gap: 8
   },
   title: {
     ...text.h1,
     flexShrink: 1,
-    marginEnd: "auto"
+    textAlign: "center"
   },
   levelPill: {
     flexDirection: "row",
@@ -390,11 +397,12 @@ const styles = StyleSheet.create({
   mascotRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 2,
     marginBottom: 10
   },
   bubbleWrap: {
-    flex: 1,
+    flexShrink: 1,
     minWidth: 0,
     marginStart: 6
   },
@@ -406,9 +414,8 @@ const styles = StyleSheet.create({
     gap: 14
   },
   heroRow: {
-    flexDirection: "row",
     alignItems: "center",
-    gap: 16
+    gap: 8
   },
   heroIcon: {
     width: 76,
@@ -419,13 +426,13 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   heroText: {
-    flex: 1,
-    minWidth: 0,
-    alignItems: "flex-start"
+    maxWidth: "100%",
+    alignItems: "center"
   },
   heroTitle: {
     ...text.h2,
-    flexShrink: 1
+    flexShrink: 1,
+    textAlign: "center"
   },
   tiles: {
     flexDirection: "row",
@@ -522,8 +529,21 @@ const styles = StyleSheet.create({
     minWidth: 0,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     flexWrap: "wrap",
     columnGap: 10
+  },
+  // The chevron side is as wide as the icon side, so the words sit in the middle of the row.
+  rowEnd: {
+    width: 42,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    gap: 4
+  },
+  quizEnd: {
+    width: undefined,
+    minWidth: 50
   },
   quizRow: {
     paddingVertical: 12,
@@ -539,13 +559,15 @@ const styles = StyleSheet.create({
   },
   quizText: {
     flex: 1,
-    minWidth: 0
+    minWidth: 0,
+    alignItems: "center"
   },
   quizLine: {
     fontFamily: fonts.bodyBold,
     fontSize: 14,
     lineHeight: 18,
-    color: darken(colors.goldLip, 0.45)
+    color: darken(colors.goldLip, 0.45),
+    textAlign: "center"
   },
   quizPill: {
     paddingHorizontal: 10,
@@ -564,6 +586,7 @@ const styles = StyleSheet.create({
     ...text.h3,
     fontSize: 17,
     lineHeight: 22,
-    flexShrink: 1
+    flexShrink: 1,
+    textAlign: "center"
   }
 });

@@ -1428,10 +1428,75 @@ function seededOrder<T>(items: T[], seed: string, key: (item: T) => string) {
  */
 export function lessonAtLevel(lesson: Lesson, user: Pick<UserProfile, "completedLessonIds">, level: ChallengeLevel, seed = localDateKey()): Lesson {
   const extra = EXTRA_QUESTIONS[level];
+  const pools = extra ? harderPools(lesson, user, seed) : undefined;
+
+  if (!pools) {
+    return lesson;
+  }
+
+  const hardCount = level >= HARD_BANK_FROM ? level - HARD_BANK_FROM + 1 : 0;
+  const pick = (kept: Challenge[], count: number) => pickHarder(kept, pools, hardCount, count);
+
+  const trueFalse = level >= SWAP_TRUE_FALSE_FROM ? lesson.challenges.filter((challenge) => challenge.type === "true_false") : [];
+  const withoutTrueFalse = lesson.challenges.filter((challenge) => challenge.type !== "true_false");
+
+  if (trueFalse.length && withoutTrueFalse.length) {
+    const picked = pick(withoutTrueFalse, extra + trueFalse.length);
+    // Swapped only when every true/false question has a 4-choice one in its place.
+    if (picked.length >= trueFalse.length) {
+      return { ...lesson, challenges: withoutGiveaways([...withoutTrueFalse, ...picked]) };
+    }
+  }
+
+  const picked = pick(lesson.challenges, extra);
+  return picked.length ? { ...lesson, challenges: withoutGiveaways([...lesson.challenges, ...picked]) } : lesson;
+}
+
+/**
+ * "Want it harder?" in the middle of a lesson (after a few right in a row): `count` more questions for the lesson
+ * the learner is in, at `level`. The topic's harder questions come first (from level 3, as many as the level
+ * allows, at least one), then questions from memory out of lessons already finished in the topic. None is one
+ * the lesson already asks, or one that clashes with its questions (same line, names another's answer). Each
+ * keeps its own source, or the lesson's when it has none. Empty when there is nothing harder to ask.
+ */
+export function harderQuestions(
+  lesson: Lesson,
+  user: Pick<UserProfile, "completedLessonIds">,
+  level: ChallengeLevel,
+  count = 2,
+  seed = `${localDateKey()}:harder:${level}`
+): Challenge[] {
+  const pools = harderPools(lesson, user, seed);
+
+  if (!pools || count <= 0) {
+    return [];
+  }
+
+  const asked = new Set(lesson.challenges.map((challenge) => challenge.id));
+  const fresh = {
+    harder: pools.harder.filter((challenge) => !asked.has(challenge.id)),
+    recalled: pools.recalled.filter((challenge) => !asked.has(challenge.id))
+  };
+  const hardCount = Math.max(1, level >= HARD_BANK_FROM ? level - HARD_BANK_FROM + 1 : 1);
+  const primarySource = getPrimaryLessonSource(lesson.sources);
+
+  return pickHarder(lesson.challenges, fresh, Math.min(count, hardCount), count).map((challenge) => ({
+    ...challenge,
+    resourceUrl: challenge.resourceUrl ?? primarySource?.url,
+    resourceLabel: challenge.resourceLabel ?? (primarySource ? "Open exact source" : undefined)
+  }));
+}
+
+type HarderPools = { harder: Challenge[]; recalled: Challenge[] };
+
+// The questions a lesson can be made harder with: the topic's harder questions (hardQuestions.ts) and 4-choice
+// questions from lessons the learner has finished in the same topic (this unit's first), each lot in an order
+// `seed` picks. Undefined for a topic that is never made harder (intro, Ramadan) or a lesson with no questions.
+function harderPools(lesson: Lesson, user: Pick<UserProfile, "completedLessonIds">, seed: string): HarderPools | undefined {
   const node = findNodeByLessonId(lesson.id);
 
-  if (!extra || !node || UNRAMPED_TOPICS.has(node.topicId) || !lesson.challenges.length) {
-    return lesson;
+  if (!node || UNRAMPED_TOPICS.has(node.topicId) || !lesson.challenges.length) {
+    return undefined;
   }
 
   const topicId = node.topicId;
@@ -1460,50 +1525,39 @@ export function lessonAtLevel(lesson: Lesson, user: Pick<UserProfile, "completed
     ...challenge,
     id: `${lesson.id}_${challenge.id}`
   }));
-  const hardCount = level >= HARD_BANK_FROM ? level - HARD_BANK_FROM + 1 : 0;
 
-  const pick = (kept: Challenge[], count: number) => {
-    const picked: Challenge[] = [];
-    const fits = (challenge: Challenge) => {
-      const others = [...kept, ...picked];
-      return (
-        !isContextBound(challenge.prompt) &&
-        !others.some(
-          (other) =>
-            normalizedPrompt(other) === normalizedPrompt(challenge) ||
-            givesAway(challenge, other) ||
-            asksSameLine(challenge, other) ||
-            namesAnswerOf(other, challenge) ||
-            namesAnswerOf(challenge, other)
-        )
-      );
-    };
-    const take = (pool: Challenge[], limit: number) => {
-      for (const challenge of pool) {
-        if (picked.length >= limit) return;
-        if (fits(challenge)) picked.push(challenge);
-      }
-    };
-    take(harder, hardCount);
-    take(recalled, count);
-    // When there is not enough to ask from memory, more of the harder questions fill in, once they are in play.
-    if (hardCount) take(harder, count);
-    return picked;
+  return { harder, recalled };
+}
+
+// Up to `count` questions that fit beside `kept`: `hardCount` of the harder ones first, then from memory, then
+// more of the harder ones when memory runs short (once they are in play). None leans on its own lesson, asks the
+// same line as another, or names another's answer.
+function pickHarder(kept: Challenge[], pools: HarderPools, hardCount: number, count: number) {
+  const picked: Challenge[] = [];
+  const fits = (challenge: Challenge) => {
+    const others = [...kept, ...picked];
+    return (
+      !isContextBound(challenge.prompt) &&
+      !others.some(
+        (other) =>
+          normalizedPrompt(other) === normalizedPrompt(challenge) ||
+          givesAway(challenge, other) ||
+          asksSameLine(challenge, other) ||
+          namesAnswerOf(other, challenge) ||
+          namesAnswerOf(challenge, other)
+      )
+    );
   };
-
-  const trueFalse = level >= SWAP_TRUE_FALSE_FROM ? lesson.challenges.filter((challenge) => challenge.type === "true_false") : [];
-  const withoutTrueFalse = lesson.challenges.filter((challenge) => challenge.type !== "true_false");
-
-  if (trueFalse.length && withoutTrueFalse.length) {
-    const picked = pick(withoutTrueFalse, extra + trueFalse.length);
-    // Swapped only when every true/false question has a 4-choice one in its place.
-    if (picked.length >= trueFalse.length) {
-      return { ...lesson, challenges: withoutGiveaways([...withoutTrueFalse, ...picked]) };
+  const take = (pool: Challenge[], limit: number) => {
+    for (const challenge of pool) {
+      if (picked.length >= limit) return;
+      if (fits(challenge)) picked.push(challenge);
     }
-  }
-
-  const picked = pick(lesson.challenges, extra);
-  return picked.length ? { ...lesson, challenges: withoutGiveaways([...lesson.challenges, ...picked]) } : lesson;
+  };
+  take(pools.harder, hardCount);
+  take(pools.recalled, count);
+  if (hardCount) take(pools.harder, count);
+  return picked;
 }
 
 function prepareLessonForSession(lesson: Lesson): Lesson {

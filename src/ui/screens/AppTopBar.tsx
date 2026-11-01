@@ -82,13 +82,17 @@ export function AppTopBar({
           pressScale={0.92}
           hitSlop={6}
           accessibilityLabel={t("{topic}. Change topic", { topic: topicTitle })}
+          accessibilityRole="button"
           testID="top-bar-topic"
-          style={styles.topicButton}
+          // A raised button with a menu mark, so it reads as "tap me for all the topics", not a picture.
+          style={[styles.topicButton, { backgroundColor: palette.light, borderColor: palette.soft, borderBottomColor: palette.lip }]}
         >
-          <View style={[styles.emblem, { backgroundColor: palette.light, borderColor: palette.soft, borderBottomColor: palette.lip }]}>
-            <Icon name={worldIcon(topicId)} size={26} />
+          <View style={styles.menuMark} testID="top-bar-menu-mark">
+            <Icon name="menu" size={18} color={palette.lip} />
           </View>
-          <Icon name="chevronDown" size={16} color={colors.inkSoft} />
+          <View style={styles.emblem}>
+            <Icon name={worldIcon(topicId)} size={24} />
+          </View>
         </Tappable>
 
         {/* Counts are formatted as on the Shop card and the Me tab: "1,000", "12,345", then "120k", so they always fit. */}
@@ -179,19 +183,27 @@ const styles = StyleSheet.create({
   topicButton: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 4,
-    paddingEnd: 2,
-    borderRadius: 14
-  },
-  emblem: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
+    height: 42,
+    paddingStart: 6,
+    paddingEnd: 4,
+    borderRadius: 14,
     borderWidth: 2,
-    borderBottomWidth: 4,
+    borderBottomWidth: 4
+  },
+  menuMark: {
+    width: 22,
+    height: 22,
     alignItems: "center",
     justifyContent: "center",
     marginEnd: 2
+  },
+  emblem: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: colors.white,
+    alignItems: "center",
+    justifyContent: "center"
   },
   stats: {
     flex: 1,
