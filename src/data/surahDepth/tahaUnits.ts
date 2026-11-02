@@ -595,4 +595,339 @@ const TAHA_TWO: DeepUnit = {
   ]
 };
 
-export const TAHA_UNITS: readonly DeepUnit[] = [TAHA_ONE, TAHA_TWO];
+/** Ayahs 99 to 135: the Quran as a reminder, the Day of Resurrection, "My Lord, increase me in knowledge", Adam, and patience with prayer. */
+const TAHA_THREE: DeepUnit = {
+  key: "taha3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-20",
+  name: "Ta-Ha, ayahs 99 to 135",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Ta-Ha",
+  lessons: [
+    {
+      slug: "a-reminder-from-us",
+      title: "A reminder from Us",
+      line: "Allah told the true stories of old and gave the Quran.",
+      facts: ["Stories told as they happened", "No Book more complete"],
+      quote: q20(99),
+      source: ik(99, "Allah told the Prophet ﷺ the story of Musa exactly as it happened, and gave him the Quran as a reminder. No Prophet was given a Book like it or more complete.", "No Prophet was given any Book like it or more complete than it"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah give, in 20:99?", a: "A Reminder from Him", wrong: ["A kingdom", "A treasure", "A palace"], why: "Thus We relate to you some information of what happened before. And indeed We have given you from Us a Reminder." },
+        { q: "How are the past stories told, per Ibn Kathir?", a: "Just as they happened", wrong: ["Made more exciting", "With parts missing", "As fables"], why: "We relate to you the information of the past just as it happened, without any increase or decrease." },
+        { q: "Was any Prophet given a more complete Book, per Ibn Kathir?", a: "No", wrong: ["Yes, many", "Yes, one", "Only Musa"], why: "No Prophet was given any Book like it or more complete than it." }
+      ]
+    },
+    {
+      slug: "it-will-feel-like-a-day",
+      title: "It will feel like a day",
+      line: "When the Horn is blown, life will feel like just a day.",
+      facts: ["The Sur is a horn", "This life is short"],
+      quote: q20(104),
+      source: ik(104, "On the Day the Horn is blown, people will whisper that they stayed only ten days, and the wisest will say just a day. Then everyone will feel how short this life really was.", "on the Day of Judgement they will sense the shortness of the worldly life"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the Sur, per the hadith Ibn Kathir cites?", a: "A horn blown into", wrong: ["A wall", "A book", "A bell tower"], why: "It is a horn that will be blown into." },
+        { q: "How long will the wisest say they stayed, in 20:104?", a: "One day", wrong: ["A thousand years", "Ten years", "A century"], why: "When the best among them in knowledge and wisdom will say: You stayed no longer than a day!" },
+        { q: "How will they speak, in 20:103?", a: "In a very low voice", wrong: ["Shouting", "Singing", "Not at all"], why: "They will speak in a very low voice to each other: You stayed not longer than ten." }
+      ]
+    },
+    {
+      slug: "the-mountains-scattered",
+      title: "The mountains scattered",
+      line: "Mountains will become dust, and the earth a flat, level plain.",
+      facts: ["No hill or valley", "All voices hushed"],
+      quote: q20(105),
+      source: ik(105, "People asked about the mountains. Allah said He will blast them into dust and leave the earth flat, with no valley or hill. Every voice will be hushed, and only soft footsteps heard.", "on that Day you will not see in the earth any valley, hill, or any place"),
+      difficulty: 3,
+      questions: [
+        { q: "What will happen to the mountains, in 20:105?", a: "Scattered as dust", wrong: ["Grow taller", "Turn to gold", "Stay the same"], why: "Say: My Lord will blast them and scatter them as particles of dust." },
+        { q: "What will the earth become, in 20:106?", a: "A level smooth plain", wrong: ["A deep sea", "A forest", "A mountain"], why: "Then He shall leave it as a level smooth plain." },
+        { q: "What does Hamsa mean, per Ibn Abbas?", a: "The steps of feet", wrong: ["Thunder", "Loud cries", "Music"], why: "Sa'id bin Jubayr related that Ibn Abbas said: This means the steps of feet." }
+      ]
+    },
+    {
+      slug: "intercession-by-his-leave",
+      title: "Intercession by His leave",
+      line: "No one may intercede on that Day without Allah's permission.",
+      facts: ["The Prophet ﷺ will intercede", "Allah knows all"],
+      quote: q20(109),
+      source: ik(109, "On the Day of Resurrection no one can intercede unless Allah allows it. Ibn Kathir cites the hadith that the Prophet ﷺ will fall in sujud under the Throne, then be told: intercede, and it will be accepted.", "Speak and you will be heard, intercede and your intercession will be accepted"),
+      difficulty: 3,
+      questions: [
+        { q: "Whose intercession helps, in 20:109?", a: "Whom Allah permits", wrong: ["Anyone rich", "Any king", "No one ever"], why: "On that day no intercession shall avail, except the one for whom the Most Gracious has given permission." },
+        { q: "Where will the Prophet ﷺ fall in sujud, in the hadith?", a: "Under the Throne", wrong: ["At a river", "On a mountain", "By a gate"], why: "I will come under the Throne and I will fall down into prostration." },
+        { q: "Can creatures encompass Allah's knowledge, per 20:110?", a: "No", wrong: ["Yes, all of it", "Yes, if they study", "Only angels can"], why: "He knows what happens to them, and what will happen to them, but they will never encompass anything of His knowledge." }
+      ]
+    },
+    {
+      slug: "the-ever-living-the-sustainer",
+      title: "The Ever Living, the Sustainer",
+      line: "All faces will be humble before the Ever Living, the Sustainer.",
+      facts: ["He never dies", "He never sleeps"],
+      quote: q20(111),
+      source: ik(111, "Every face will be humbled before Allah, the Ever Living Who never dies, the Sustainer Who never sleeps. Everything needs Him and nothing could last without Him.", "the Ever Living, Who does not die, the Sustainer of all, Who does not sleep"),
+      difficulty: 4,
+      questions: [
+        { q: "Before whom will faces be humbled, in 20:111?", a: "The Ever Living, the Sustainer", wrong: ["The kings", "The angels", "The wealthy"], why: "And all faces shall be humbled before the Ever Living, the Sustainer." },
+        { q: "What does Al-Hayy never do, per Ibn Kathir?", a: "Die", wrong: ["Hear", "See", "Speak"], why: "The Ever Living, Who does not die, the Sustainer of all, Who does not sleep." },
+        { q: "Everything is in need of Allah, per Ibn Kathir.", tf: true, why: "He is the One Whom everything is in need of and whom nothing could survive without." }
+      ]
+    },
+    {
+      slug: "beware-of-wrongdoing",
+      title: "Beware of wrongdoing",
+      line: "Wronging others becomes darkness on the Day of Resurrection.",
+      facts: ["Every right is returned", "Treat others fairly"],
+      quote: q20(111),
+      source: hadith("muslim", "2578", "Jabir ibn Abdullah", "Sahih", "The Messenger of Allah ﷺ said: beware of wronging others, for wrongdoing will be darkness on the Day of Resurrection.", "Be on your guard against committing oppression, for oppression is a darkness on the Day of Resurrection"),
+      difficulty: 4,
+      questions: [
+        { q: "What will wrongdoing become, in the hadith?", a: "Darkness on that Day", wrong: ["Light", "Gold", "Nothing"], why: "Be on your guard against committing oppression, for oppression is a darkness on the Day of Resurrection." },
+        { q: "Who is a failure, in 20:111?", a: "One who carried wrongdoing", wrong: ["One who was poor", "One who was ill", "One who was weak"], why: "And he who carried wrongdoing, will be indeed a complete failure." },
+        { q: "What else does the hadith warn against?", a: "Stinginess", wrong: ["Sleeping", "Smiling", "Travelling"], why: "And be on your guard against stinginess." }
+      ]
+    },
+    {
+      slug: "no-fear-of-injustice",
+      title: "No fear of injustice",
+      line: "A believer who does good will never be wronged or shortchanged.",
+      facts: ["No extra sins added", "No good deed lost"],
+      quote: q20(112),
+      source: ik(112, "Whoever does good while believing need not fear injustice. Ibn Abbas and others said their bad deeds will not be increased and their good deeds will not be reduced.", "their evils will not be increased and their good deeds will not be decreased"),
+      difficulty: 4,
+      questions: [
+        { q: "What need the good believer not fear, in 20:112?", a: "Injustice or curtailment", wrong: ["Rain", "Hunger", "Old age"], why: "Then he will have no fear of injustice, nor of any curtailment." },
+        { q: "Will their good deeds be reduced, per Ibn Kathir?", a: "No, never", wrong: ["Yes, by half", "Some of them", "Only small ones"], why: "This means that their evils will not be increased and their good deeds will not be decreased." },
+        { q: "What does Hadm mean, per Ibn Kathir?", a: "A decrease", wrong: ["An increase", "A gift", "A road"], why: "Zulm means an increase that comes from the sins of others being placed upon the person, and Hadm means a decrease." }
+      ]
+    },
+    {
+      slug: "a-quran-in-arabic",
+      title: "A Quran in Arabic",
+      line: "The Quran came in clear Arabic so people may have taqwa.",
+      facts: ["Clear and eloquent", "Allah is the True King"],
+      quote: q20(113),
+      source: ik(113, "Allah sent the Quran in clear, eloquent Arabic, explaining its warnings so people would leave sins and do good. High above all is Allah, the True King, and everything from Him is true.", "a warner in the clear and eloquent Arabic language"),
+      difficulty: 4,
+      questions: [
+        { q: "In which language was the Quran sent, in 20:113?", a: "Arabic", wrong: ["Persian", "Greek", "Hebrew"], why: "And thus We have sent it down as a Quran in Arabic." },
+        { q: "Why were the warnings explained, in 20:113?", a: "So they may have taqwa", wrong: ["To scare them away", "For poetry", "For trade"], why: "And have explained therein in detail the warnings, in order that they may have Taqwa." },
+        { q: "How is Allah described, in 20:114?", a: "The True King", wrong: ["A distant king", "One of many", "A sleeping king"], why: "Then High above all be Allah, the True King." }
+      ]
+    },
+    {
+      slug: "increase-me-in-knowledge",
+      title: "Increase me in knowledge",
+      line: "The Prophet ﷺ was taught: My Lord, increase me in knowledge.",
+      facts: ["A dua for learners", "Listen first, then recite"],
+      quote: q20(114),
+      source: ik(114, "The Prophet ﷺ was told not to rush reciting before Jibril finished, but to listen, and to pray: my Lord, increase me in knowledge. He kept growing in knowledge all his life.", "Give me more knowledge from You"),
+      difficulty: 4,
+      questions: [
+        { q: "What dua is taught, in 20:114?", a: "My Lord! Increase me in knowledge", wrong: ["Give me gold", "Make me famous", "Give me a palace"], why: "And say: My Lord! Increase me in knowledge." },
+        { q: "What was the Prophet ﷺ told not to do, in 20:114?", a: "Rush before revelation ended", wrong: ["Sleep", "Travel", "Smile"], why: "And be not in haste with the Quran before its revelation is completed to you." },
+        { q: "When did he ﷺ stop increasing in knowledge, per Ibn Uyaynah?", a: "Only when he passed away", wrong: ["At forty", "After Hijrah", "After Badr"], why: "The Prophet ﷺ did not cease increasing in knowledge until Allah took him." }
+      ]
+    },
+    {
+      slug: "do-not-rush-the-revelation",
+      title: "Do not rush the revelation",
+      line: "The Prophet ﷺ hurried to recite; Allah promised to gather it.",
+      facts: ["Allah kept it in his heart", "Listen, then follow"],
+      quote: q20(114),
+      source: hadith("bukhari", "5", "Ibn Abbas", "Sahih", "Ibn Abbas said the Messenger of Allah ﷺ would move his lips quickly with the revelation, so Allah revealed: move not your tongue to hasten it; it is for Us to gather it and let you recite it.", "Move not your tongue concerning (the Quran) to make haste therewith"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ do with his lips, in the hadith?", a: "Moved them quickly", wrong: ["Kept them closed", "Whistled", "Covered them"], why: "Allah's Messenger used to bear the revelation with great trouble and used to move his lips quickly with the Inspiration." },
+        { q: "Who would gather the Quran in his heart?", a: "Allah", wrong: ["Jibril alone", "The scribes", "His friends"], why: "It is for Us to collect it and to give you the ability to recite it." },
+        { q: "Ibn Abbas showed how the lips moved by moving his own.", tf: true, why: "Ibn Abbas moved his lips saying, I am moving my lips in front of you as Allah's Messenger used to move his." }
+      ]
+    },
+    {
+      slug: "adam-forgot",
+      title: "Adam forgot",
+      line: "Adam was given a promise but forgot; Iblis refused to bow.",
+      facts: ["Insan and forgetting", "Iblis was proud"],
+      quote: q20(115),
+      source: ik(115, "Allah took a promise from Adam, but he forgot it. Ibn Abbas said a person is called Insan because he forgot. The angels bowed to honour Adam, but Iblis refused out of pride.", "man was named Insan only because he was given a covenant, but he forgot it"),
+      difficulty: 4,
+      questions: [
+        { q: "What happened to Adam's promise, in 20:115?", a: "He forgot it", wrong: ["He sold it", "He wrote it", "He hid it"], why: "And indeed We made a covenant with Adam before, but he forgot." },
+        { q: "Why is man called Insan, per Ibn Abbas?", a: "He forgot his covenant", wrong: ["He is tall", "He is strong", "He speaks"], why: "Verily, man was named Insan only because he was given a covenant, but he forgot it." },
+        { q: "Who refused to prostrate, in 20:116?", a: "Iblis", wrong: ["Jibril", "Mika'il", "All the angels"], why: "They prostrated themselves all except Iblis; he refused." }
+      ]
+    },
+    {
+      slug: "a-life-of-ease-in-paradise",
+      title: "A life of ease in Paradise",
+      line: "In Paradise Adam had no hunger, thirst or burning sun.",
+      facts: ["Iblis is an enemy", "No burdens there"],
+      quote: q20(119),
+      source: ik(117, "Allah warned Adam that Iblis was an enemy to him and his wife. In Paradise they had no hunger, no thirst and no burning sun, a life with no burdens and no hardship.", "But here, in Paradise, you live a life of ease with no burdens and no difficulties"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Allah call Iblis, in 20:117?", a: "An enemy to Adam and his wife", wrong: ["A friend", "A teacher", "A guard"], why: "O Adam! Verily, this is an enemy to you and to your wife." },
+        { q: "What would they not suffer, in 20:119?", a: "Thirst or the sun's heat", wrong: ["Joy", "Rest", "Peace"], why: "And you will suffer not from thirst therein nor from the sun's heat." },
+        { q: "What was life in Paradise like, per Ibn Kathir?", a: "Ease with no burdens", wrong: ["Hard work", "Long journeys", "Many worries"], why: "But here, in Paradise, you live a life of ease with no burdens and no difficulties." }
+      ]
+    },
+    {
+      slug: "the-tree-and-the-trick",
+      title: "The tree and the trick",
+      line: "Shaytan tricked Adam with a false promise of forever.",
+      facts: ["A lie about forever", "Shaytan deceives"],
+      quote: q20(120),
+      source: ik(120, "Shaytan whispered to Adam, offering a tree of eternity and a kingdom that never ends. He swore he was a sincere adviser, and so led them both into the slip by deception.", "he caused them to fall through deception"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Shaytan offer Adam, in 20:120?", a: "The Tree of Eternity", wrong: ["A river", "A crown of gold", "Wings"], why: "O Adam! Shall I lead you to the Tree of Eternity and to a kingdom that will never waste away?" },
+        { q: "How did Shaytan make them slip, per Ibn Kathir?", a: "Through deception", wrong: ["By force", "By a storm", "By hunger"], why: "It has already been mentioned that he caused them to fall through deception." },
+        { q: "What did Shaytan swear, in 7:21?", a: "That he was a sincere adviser", wrong: ["That he was an angel", "That he was a king", "That he would leave"], why: "And he swore by Allah to them both: Verily, I am one of the sincere well-wishers for you both." }
+      ]
+    },
+    {
+      slug: "allah-chose-and-forgave-adam",
+      title: "Allah chose and forgave Adam",
+      line: "Adam slipped, then Allah chose him, forgave him and guided him.",
+      facts: ["Repentance accepted", "Guidance after a mistake"],
+      quote: q20(122),
+      source: ik(122, "Adam and his wife ate from the tree and slipped. Then Allah chose Adam, turned to him with forgiveness and guided him. A slip followed by repentance can bring a person closer to Allah.", "Then his Lord chose him, and turned to him with forgiveness, and gave him guidance"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Allah do after Adam slipped, in 20:122?", a: "Chose and forgave him", wrong: ["Forgot him", "Left him alone", "Made him an angel"], why: "Then his Lord chose him, and turned to him with forgiveness, and gave him guidance." },
+        { q: "What did they cover themselves with, in 20:121?", a: "Leaves of Paradise", wrong: ["Silk", "Wool", "Sand"], why: "And they began to cover themselves with the leaves of the Paradise for their covering." },
+        { q: "Allah gave Adam guidance after forgiving him, per 20:122.", tf: true, why: "Then his Lord chose him, and turned to him with forgiveness, and gave him guidance." }
+      ]
+    },
+    {
+      slug: "whoever-follows-my-guidance",
+      title: "Whoever follows My guidance",
+      line: "Whoever follows Allah's guidance is neither lost nor distressed.",
+      facts: ["Guidance came through Prophets", "Calm in both lives"],
+      quote: q20(123),
+      source: ik(123, "Allah sent Adam and his children down to earth and promised guidance through the Prophets. Ibn Abbas said whoever follows it will not be misguided here or distressed in the Hereafter.", "He will not be misguided in this life and he will not be distressed in the Hereafter"),
+      difficulty: 5,
+      questions: [
+        { q: "What happens to one who follows the guidance, in 20:123?", a: "Neither astray nor distressed", wrong: ["Gets rich", "Never works", "Becomes a king"], why: "Then whoever follows My guidance he shall neither go astray nor shall be distressed." },
+        { q: "What is the guidance, per Abu Al-Aliyah?", a: "Prophets, Messengers and evidence", wrong: ["Stars", "Dreams", "Old songs"], why: "This guidance means the Prophets, the Messengers and the evidence." },
+        { q: "Where will the follower not be distressed, per Ibn Abbas?", a: "In the Hereafter", wrong: ["Only in the market", "Only at home", "Only at sea"], why: "He will not be misguided in this life and he will not be distressed in the Hereafter." }
+      ]
+    },
+    {
+      slug: "a-restless-heart",
+      title: "A restless heart",
+      line: "Turning from Allah's reminder leaves the heart restless.",
+      facts: ["Comfort is not happiness", "Peace comes from guidance"],
+      quote: q20(124),
+      source: ik(124, "Whoever turns away from Allah's reminder has a hard life. Even if he eats and wears whatever he likes, his heart has no certainty or calm, only worry and doubt.", "his heart will not have pure certainty and guidance"),
+      difficulty: 5,
+      questions: [
+        { q: "What life does one who turns away have, in 20:124?", a: "A life of hardship", wrong: ["A life of ease", "A long holiday", "A royal life"], why: "But whosoever turns away from My Reminder, verily, for him is a life of hardship." },
+        { q: "Can he be unhappy even with comforts, per Ibn Kathir?", a: "Yes, his heart is restless", wrong: ["No, never", "Only if poor", "Only when ill"], why: "Even if he appears to be in comfort outwardly and he wears whatever he likes, eats whatever he likes and lives wherever he wants, he will not be happy." },
+        { q: "What is missing from his heart, per Ibn Kathir?", a: "Certainty and guidance", wrong: ["Blood", "Strength", "Music"], why: "For verily, his heart will not have pure certainty and guidance." }
+      ]
+    },
+    {
+      slug: "be-patient-and-glorify",
+      title: "Be patient and glorify",
+      line: "Be patient, and praise Allah before sunrise and before sunset.",
+      facts: ["Fajr and Asr", "Night prayer too"],
+      quote: q20(130),
+      source: ik(130, "Allah comforted the Prophet ﷺ: be patient with what they say, and praise your Lord before sunrise, which is Fajr, before sunset, which is Asr, and in hours of the night.", "Be patient concerning their rejection of you"),
+      difficulty: 5,
+      questions: [
+        { q: "What was the Prophet ﷺ told to be, in 20:130?", a: "Patient", wrong: ["Angry", "Silent forever", "Afraid"], why: "So bear patiently what they say." },
+        { q: "Which prayer is before sunrise, per Ibn Kathir?", a: "Fajr", wrong: ["Asr", "Maghrib", "Isha"], why: "And glorify the praises of your Lord before the rising of the sun. This is speaking of the Morning (Fajr) prayer." },
+        { q: "Which prayer is before sunset, per Ibn Kathir?", a: "Asr", wrong: ["Fajr", "Dhuhr", "Isha"], why: "And before its setting. This is speaking of the Mid-afternoon (Asr) prayer." }
+      ]
+    },
+    {
+      slug: "like-seeing-the-full-moon",
+      title: "Like seeing the full moon",
+      line: "Believers will see their Lord, so guard Fajr and Asr prayers.",
+      facts: ["The full moon", "Do not miss them"],
+      quote: q20(130),
+      source: hadith("bukhari", "554", "Jarir ibn Abdullah", "Sahih", "Looking at the full moon, the Prophet ﷺ said: you will see your Lord as you see this moon. So if you can, do not miss the prayer before sunrise and before sunset.", "Certainly you will see your Lord as you see this moon"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ look at, in the hadith?", a: "The full moon", wrong: ["The sun", "A star", "The sea"], why: "We were with the Prophet ﷺ and he looked at the moon, full-moon." },
+        { q: "Which two prayers did he ﷺ say not to miss?", a: "Before sunrise and sunset", wrong: ["Only Isha", "Only Dhuhr", "Only Eid"], why: "So if you can avoid missing a prayer before the sunrise (Fajr) and a prayer before sunset (Asr), you must do so." },
+        { q: "Believers will have trouble seeing their Lord, in the hadith.", tf: false, why: "Certainly you will see your Lord as you see this moon and you will have no trouble in seeing Him." }
+      ]
+    },
+    {
+      slug: "never-angry-again",
+      title: "Never angry again",
+      line: "In Paradise, Allah grants His pleasure and is never angry again.",
+      facts: ["That you may be pleased", "The best gift"],
+      quote: q20(130),
+      source: hadith("bukhari", "6549", "Abu Sa'id al-Khudri", "Sahih", "Allah will ask the people of Paradise if they are pleased. They will say yes. He will say He has better: He will grant them His pleasure and never be angry with them again.", "I will bestow My pleasure and contentment upon you so that I will never be angry with you"),
+      difficulty: 5,
+      questions: [
+        { q: "What will Allah ask the people of Paradise?", a: "Are you pleased?", wrong: ["Are you tired?", "Are you hungry?", "Where are you?"], why: "Allah will say, Are you pleased?" },
+        { q: "What is better than all they were given?", a: "Allah's lasting pleasure", wrong: ["More gold", "A bigger river", "More trees"], why: "I will bestow My pleasure and contentment upon you so that I will never be angry with you after forever." },
+        { q: "Why does Ibn Kathir link it to 20:130?", a: "It says: that you may be pleased", wrong: ["It names the moon", "It mentions gold", "It names a river"], why: "That you may become pleased with the reward which Allah shall give you." }
+      ]
+    },
+    {
+      slug: "do-not-long-for-their-glitter",
+      title: "Do not long for their glitter",
+      line: "Do not envy others' riches; Allah's provision is better.",
+      facts: ["Riches are a test", "Be thankful"],
+      quote: q20(131),
+      source: ik(131, "Do not long for the luxury others enjoy. It is a short-lived glitter used to test them. What your Lord provides, in this life and the next, is better and lasts longer.", "it is only short-lived splendor and a feeble bounty"),
+      difficulty: 5,
+      questions: [
+        { q: "What should we not strain our eyes toward, in 20:131?", a: "Others' worldly splendour", wrong: ["The Quran", "The sky", "Our parents"], why: "And strain not your eyes in longing for the things We have given for enjoyment to various groups of them, the splendor of the life of this world." },
+        { q: "Why are they given it, in 20:131?", a: "To test them", wrong: ["To reward them", "By accident", "To share it"], why: "That We may test them thereby." },
+        { q: "What is better and more lasting, in 20:131?", a: "Your Lord's provision", wrong: ["Their palaces", "Their gold", "Their fame"], why: "But the provision of your Lord is better and more lasting." }
+      ]
+    },
+    {
+      slug: "prayer-for-your-family",
+      title: "Prayer for your family",
+      line: "Tell your family to pray, be patient in it; Allah provides.",
+      facts: ["Umar woke his family", "Taqwa has the good end"],
+      quote: q20(132),
+      source: ik(132, "Allah said to tell your family to pray and keep at it yourself. Umar would wake his family at night for prayer and recite this ayah. Allah provides for us, and the good end is for the God-fearing.", "When he would awaken, he would make his family get up as well"),
+      difficulty: 5,
+      questions: [
+        { q: "Whom should we enjoin prayer on, in 20:132?", a: "Our family", wrong: ["Only strangers", "No one", "Only kings"], why: "And enjoin Salah on your family, and be patient in offering them." },
+        { q: "Who provides, in 20:132?", a: "Allah provides for us", wrong: ["We provide for Allah", "Kings provide", "No one"], why: "We ask not of you a provision: We provide for you." },
+        { q: "Whom did Umar wake for night prayer, per Ibn Kathir?", a: "His family", wrong: ["His neighbours", "The army", "The market"], why: "When he would awaken, he would make his family get up as well." }
+      ]
+    },
+    {
+      slug: "the-quran-is-the-sign",
+      title: "The Quran is the sign",
+      line: "They asked for a sign; the Quran is the greatest sign.",
+      facts: ["Every Prophet had signs", "Ours is revelation"],
+      quote: q20(133),
+      source: hadith("bukhari", "4981", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said every Prophet was given miracles that made people believe, but what he was given is revelation from Allah, so he hoped to have the most followers.", "what I have been given, is Divine Inspiration which Allah has revealed to me"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the deniers ask for, in 20:133?", a: "A sign from his Lord", wrong: ["Gold", "A king", "Rain"], why: "And they say: Why does he not bring us a sign from his Lord?" },
+        { q: "What was the Prophet ﷺ given, in the hadith?", a: "Divine revelation", wrong: ["A staff", "A ship", "A camel only"], why: "What I have been given, is Divine Inspiration which Allah has revealed to me." },
+        { q: "What did the Prophet ﷺ hope for, in the hadith?", a: "The most followers", wrong: ["The most gold", "A long life", "A big house"], why: "So I hope that my followers will outnumber the followers of the other Prophets on the Day of Resurrection." }
+      ]
+    },
+    {
+      slug: "who-is-on-the-straight-path",
+      title: "Who is on the straight path",
+      line: "Ta-Ha ends: wait, and you will know who is truly guided.",
+      facts: ["As-Sirat As-Sawi", "Truth becomes clear"],
+      quote: q20(135),
+      source: ik(135, "The surah ends by telling the deniers: everyone is waiting, so wait. You will come to know who is on the straight road, and who is truly guided.", "This means the straight road"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ tell them, in 20:135?", a: "Each one is waiting, so wait", wrong: ["Go away", "Pay a tax", "Build a wall"], why: "Say: Each one is waiting, so wait you too." },
+        { q: "What does As-Sirat As-Sawi mean, per Ibn Kathir?", a: "The straight road", wrong: ["A bridge", "A river", "A mountain"], why: "This means the straight road." },
+        { q: "Would they have asked for a Messenger if punished first, per 20:134?", a: "Yes", wrong: ["No", "Only some", "They stayed silent"], why: "Our Lord! If only You had sent us a Messenger, we should certainly have followed Your Ayat." }
+      ]
+    }
+  ]
+};
+
+export const TAHA_UNITS: readonly DeepUnit[] = [TAHA_ONE, TAHA_TWO, TAHA_THREE];
