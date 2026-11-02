@@ -526,4 +526,325 @@ const TAWBAH_TWO: DeepUnit = {
   ]
 };
 
-export const TAWBAH_UNITS: readonly DeepUnit[] = [TAWBAH_ONE, TAWBAH_TWO];
+/** Ayahs 41 to 72: Tabuk, excuses, trusting Allah's decree, the zakah recipients, hypocrites and true believers. */
+const TAWBAH_THREE: DeepUnit = {
+  key: "tawbah3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-9",
+  name: "At-Tawbah, ayahs 41 to 72",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "At-Tawbah",
+  lessons: [
+    {
+      slug: "light-or-heavy",
+      title: "Go out, light or heavy",
+      line: "Go out for Allah's cause, whether it feels easy or hard.",
+      facts: ["Said for the journey to Tabuk", "Better for you, if you knew"],
+      quote: q9(41),
+      source: ik(41, "Allah ordered the believers to go out with the Messenger ﷺ to Tabuk whether they felt active or lazy, at ease or in hardship. Abu ad-Duha said this was the first part of Bara'ah revealed.", "regardless whether they felt active, lazy, at ease or had difficult circumstances"),
+      difficulty: 2,
+      questions: [
+        { q: "What does light or heavy mean in 9:41, per Ibn Kathir?", a: "Whether it feels easy or hard", wrong: ["Thin or fat people", "Day or night", "Rich or poor towns"], why: "Whether they felt active, lazy, at ease or had difficult circumstances." },
+        { q: "Which journey was 9:41 about?", a: "Tabuk", wrong: ["Badr", "Uhud", "Khaybar"], why: "Allah commanded mass mobilization for the battle of Tabuk." },
+        { q: "9:41 says striving with wealth and lives is better for you.", tf: true, why: "This is better for you, if you but knew." }
+      ]
+    },
+    {
+      slug: "if-it-were-easy",
+      title: "If only it were short",
+      line: "They would have gone if the trip were short and easy.",
+      facts: ["The road was long", "They swore false excuses"],
+      quote: q9(42),
+      source: ik(42, "Those who stayed back from Tabuk would have gone if the gain were close and the trip short. The distance was long, so they swore false excuses, and Allah knew they were lying.", "travel for only a short distance"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did some stay back, in 9:42?", a: "The journey was long", wrong: ["They were too old", "It was raining", "They had no food"], why: "But the distance was long for them." },
+        { q: "What did they swear when the believers came back?", a: "That they would have come if able", wrong: ["That they had come", "That they were sick", "That they had no shoes"], why: "If we only could, we would certainly have come forth with you." },
+        { q: "Allah knew they were telling the truth.", tf: false, why: "And Allah knows that they are liars." }
+      ]
+    },
+    {
+      slug: "forgiveness-before-blame",
+      title: "Forgiveness before the blame",
+      line: "Allah began with forgiveness before His gentle blame in 9:43.",
+      facts: ["May Allah forgive you", "A very soft correction"],
+      quote: q9(43),
+      source: ik(43, "Awn said: have you heard a softer blame than this? It starts with forgiveness before the criticism, for allowing some to stay behind.", "starting with forgiveness before criticism"),
+      difficulty: 2,
+      questions: [
+        { q: "How does 9:43 begin?", a: "May Allah forgive you", wrong: ["Woe to you", "Go back", "Be silent"], why: "May Allah forgive you. Why did you grant them leave?" },
+        { q: "What did Awn notice about 9:43?", a: "Forgiveness comes before blame", wrong: ["It is very long", "It has no blame", "It is a story"], why: "Starting with forgiveness before criticism." },
+        { q: "Gentle words help a correction be accepted.", tf: true, why: "Have you heard criticism softer than this?" }
+      ]
+    },
+    {
+      slug: "no-preparation",
+      title: "They made no preparation",
+      line: "Had they truly meant to go, they would have prepared.",
+      facts: ["Intention shows in action", "Allah disliked their going"],
+      quote: q9(46),
+      source: ik(46, "Had they meant to go out with the Messenger ﷺ, they would have prepared for it. Allah disliked their going, as they would only have spread disorder.", "they would have prepared for such task"),
+      difficulty: 3,
+      questions: [
+        { q: "What showed they never meant to go, in 9:46?", a: "They made no preparation", wrong: ["They left early", "They packed food", "They bought camels"], why: "They would have made some preparation for it." },
+        { q: "What would they have added had they gone, in 9:47?", a: "Only disorder", wrong: ["More strength", "More food", "More courage"], why: "They would have added to you nothing except disorder." },
+        { q: "A true intention shows in getting ready.", tf: true, why: "If they had intended to march out, they would have made preparation." }
+      ]
+    },
+    {
+      slug: "only-what-allah-wrote",
+      title: "Only what Allah has written",
+      line: "Nothing reaches us except what Allah has written for us.",
+      facts: ["He is our Protector", "Believers trust in Him"],
+      quote: q9(51),
+      source: ik(51, "Say: nothing will happen to us except what Allah has decreed, for we are under His control and decree. He is our Master and Protector, and the believers trust in Him.", "we are under His control and decree"),
+      difficulty: 3,
+      questions: [
+        { q: "What does 9:51 tell believers to say?", a: "Only what Allah wrote reaches us", wrong: ["We are always lucky", "We never get hurt", "Nothing is planned"], why: "Nothing shall ever happen to us except what Allah has ordained for us." },
+        { q: "What does Mawla mean, per Ibn Kathir?", a: "Master and protector", wrong: ["A neighbour", "A teacher", "A guest"], why: "He is our Mawla: Master and protector." },
+        { q: "In whom should the believers put their trust, in 9:51?", a: "In Allah", wrong: ["In their wealth", "In their numbers", "In their leaders"], why: "And in Allah let the believers put their trust." }
+      ]
+    },
+    {
+      slug: "two-best-things",
+      title: "One of the two best things",
+      line: "For a believer, every outcome in Allah's path is good.",
+      facts: ["Victory is good", "Martyrdom is good"],
+      quote: q9(52),
+      source: ik(52, "The believers wait for one of two good things: martyrdom or victory, as Ibn Abbas, Mujahid and Qatadah explained.", "martyrdom or victory"),
+      difficulty: 3,
+      questions: [
+        { q: "What are the two best things in 9:52, per Ibn Abbas?", a: "Martyrdom or victory", wrong: ["Gold or silver", "Rest or sleep", "Fame or praise"], why: "One of the two best things: martyrdom or victory." },
+        { q: "For a sincere believer, both outcomes are good.", tf: true, why: "Except one of the two best things." },
+        { q: "Who explained the two best things, besides Ibn Abbas?", a: "Mujahid and Qatadah", wrong: ["Abu Jahl and Utbah", "Pharaoh and Haman", "No one else"], why: "According to the meaning given by Ibn Abbas, Mujahid, Qatadah." }
+      ]
+    },
+    {
+      slug: "lazy-to-prayer",
+      title: "Coming to prayer lazily",
+      line: "Fajr and Isha are the heaviest prayers for the hypocrites.",
+      facts: ["They came to prayer lazily", "They gave unwillingly"],
+      quote: q9(54),
+      source: hadith("bukhari", "657", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said no prayer is heavier on the hypocrites than Fajr and Isha, and if they knew their reward they would come even crawling.", "if they knew what is in them (in reward), they would have attended them, even if (it was) crawling"),
+      difficulty: 3,
+      questions: [
+        { q: "Which two prayers are heaviest for the hypocrites?", a: "Fajr and Isha", wrong: ["Dhuhr and Asr", "Asr and Maghrib", "Jumu'ah and Eid"], why: "No prayer is heavier upon the hypocrites than the Fajr and the Isha." },
+        { q: "How would they come if they knew the reward?", a: "Even crawling", wrong: ["Only riding", "Only if paid", "Only on Fridays"], why: "They would have attended them, even if crawling." },
+        { q: "9:54 says they came to the prayer lazily.", tf: true, why: "They came not to the Salah except in a lazy state." }
+      ]
+    },
+    {
+      slug: "do-not-be-amazed",
+      title: "Do not be amazed by their wealth",
+      line: "Do not be dazzled by the wealth and children of the hypocrites.",
+      facts: ["Wealth can be a test", "What is with Allah is better"],
+      quote: q9(55),
+      source: ik(55, "Allah told His Messenger not to be amazed by their wealth and children. Like 20:131, it teaches that worldly shine is a test, and what is with Allah is better and lasts longer.", "let not their wealth nor their children amaze you"),
+      difficulty: 4,
+      questions: [
+        { q: "What must not amaze us, in 9:55?", a: "Their wealth and children", wrong: ["The stars", "The sea", "The mountains"], why: "So let not their wealth nor their children amaze you." },
+        { q: "Which ayah does Ibn Kathir link to 9:55?", a: "20:131", wrong: ["1:1", "112:1", "2:255"], why: "Strain not your eyes in longing for the things We have given (20:131)." },
+        { q: "More wealth always means Allah is pleased.", tf: false, why: "Do they think that in wealth and children We hasten unto them with good things? (23:55-56)" }
+      ]
+    },
+    {
+      slug: "allah-is-sufficient",
+      title: "Allah is enough for us",
+      line: "Be content with what Allah gives: Allah is enough for us.",
+      facts: ["Contentment", "Hope in Allah alone"],
+      quote: q9(59),
+      source: ik(59, "Had they been content with what Allah and His Messenger gave them and said Allah is sufficient for us, hoping in Allah alone, it would have been better for them.", "Allah is sufficient for us"),
+      difficulty: 4,
+      questions: [
+        { q: "What should they have said, in 9:59?", a: "Allah is sufficient for us", wrong: ["Give us more now", "We want it all", "This is unfair"], why: "And had said: Allah is sufficient for us." },
+        { q: "Why were they angry, in 9:58?", a: "They were not given zakah", wrong: ["They lost a race", "Their camel ran", "It was too hot"], why: "If they are not given thereof, behold! They are enraged." },
+        { q: "Contentment with Allah's giving is a sign of obedience.", tf: true, why: "He made these the indications of obedience." }
+      ]
+    },
+    {
+      slug: "eight-recipients",
+      title: "Who receives zakah",
+      line: "Allah Himself named the eight groups who receive zakah.",
+      facts: ["The poor come first", "Not left to anyone else"],
+      quote: q9(60),
+      source: ik(60, "After the hypocrites complained about how the alms were shared, Allah said He Himself divided the zakah and named its groups, starting with the poor, whose need is greatest.", "it is He who divided the alms"),
+      difficulty: 4,
+      questions: [
+        { q: "Who decided the zakah groups, per Ibn Kathir?", a: "Allah Himself", wrong: ["The collectors", "The richest man", "Each giver alone"], why: "It is He who divided the alms." },
+        { q: "How many groups receive zakah in 9:60?", a: "Eight", wrong: ["Three", "Five", "Twelve"], why: "The poor, the needy, collectors, hearts, captives, debtors, Allah's cause, travellers." },
+        { q: "Which of these is a zakah group in 9:60?", a: "Those in debt", wrong: ["The richest", "The famous", "The strongest"], why: "And for those in debt." }
+      ]
+    },
+    {
+      slug: "faqir-and-miskin",
+      title: "The faqir and the miskin",
+      line: "The faqir does not ask; the miskin asks people for help.",
+      facts: ["Faqir: poor and dignified", "Miskin: needy and asking"],
+      quote: q9(60),
+      source: ik(60, "Ibn Abbas, Mujahid, Al-Hasan and others said the faqir is a dignified person who asks no one for anything, while the miskin goes after people asking.", "the Faqir is a graceful person who does not ask anyone for anything"),
+      difficulty: 5,
+      questions: [
+        { q: "Who is the faqir, per Ibn Abbas and others?", a: "A poor person who does not ask", wrong: ["A rich trader", "A traveller", "A collector"], why: "The Faqir is a graceful person who does not ask anyone for anything." },
+        { q: "Who is the miskin, per the same scholars?", a: "One who asks people", wrong: ["One who never needs", "One who collects zakah", "One who is a guest"], why: "The Miskin is the one who follows after people, begging." },
+        { q: "The poor come first in 9:60 because their need is greatest.", tf: true, why: "Starting with the Fuqara' because they have more need." }
+      ]
+    },
+    {
+      slug: "the-hidden-poor",
+      title: "The poor you do not notice",
+      line: "The truly poor often hide their need and do not beg.",
+      facts: ["Look for the quiet poor", "Give before they ask"],
+      quote: q9(60),
+      source: hadith("bukhari", "1479", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said the poor person is not the one who goes around asking for a bite or a date, but the one without enough whose state is unknown, so no one gives him, and who does not beg.", "whose condition is not known to others"),
+      difficulty: 5,
+      questions: [
+        { q: "Who is the real poor person, per Abu Hurayrah?", a: "One whose need is hidden", wrong: ["One who asks loudly", "One with many friends", "One who travels"], why: "Whose condition is not known to others." },
+        { q: "The real poor person, in the hadith, does not beg.", tf: true, why: "And who does not beg of people." },
+        { q: "What does the hadith teach givers to do?", a: "Look out for quiet need", wrong: ["Give only to beggars", "Never give", "Give only once"], why: "Whose condition is not known to others, that others may give him." }
+      ]
+    },
+    {
+      slug: "an-ear-for-good",
+      title: "He listens to what is good",
+      line: "The Prophet ﷺ listened for good and was a mercy to believers.",
+      facts: ["He believes the believers", "A mercy to them"],
+      quote: q9(61),
+      source: ik(61, "The hypocrites mocked the Messenger ﷺ as one who believes anything. Allah answered: he listens to what is best, he believes in Allah, he believes the believers, and he is a mercy to them.", "he believes the believers"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the hypocrites call the Prophet ﷺ, in 9:61?", a: "An ear for everything", wrong: ["A poet", "A king", "A trader"], why: "He is (lending his) ear to every news." },
+        { q: "What is he to the believers, in 9:61?", a: "A mercy", wrong: ["A burden", "A stranger", "A judge only"], why: "And is a mercy to those of you who believe." },
+        { q: "9:61 says he believes the believers.", tf: true, why: "He believes in Allah; has faith in the believers." }
+      ]
+    },
+    {
+      slug: "please-allah-first",
+      title: "Please Allah first",
+      line: "Pleasing Allah matters more than pleasing people.",
+      facts: ["They swore to please people", "Allah has more right"],
+      quote: q9(62),
+      source: ik(62, "The hypocrites swore oaths to please the believers, but it is more fitting that they should please Allah and His Messenger, if they truly believe.", "it is more fitting that they should please Allah and His Messenger"),
+      difficulty: 5,
+      questions: [
+        { q: "Whom should they have tried to please, in 9:62?", a: "Allah and His Messenger", wrong: ["Their chiefs", "The crowd", "Their friends"], why: "It is more fitting that they should please Allah and His Messenger." },
+        { q: "Why did they swear oaths, in 9:62?", a: "To please the people", wrong: ["To please Allah", "To win a prize", "To end a war"], why: "They swear by Allah to you in order to please you." },
+        { q: "Pleasing people comes before pleasing Allah.", tf: false, why: "It is more fitting that they should please Allah." }
+      ]
+    },
+    {
+      slug: "not-a-joke",
+      title: "Allah's ayat are not a joke",
+      line: "Mocking Allah, His ayat or His Messenger is never just a joke.",
+      facts: ["We were only joking, they said", "No excuse was accepted"],
+      quote: q9(65),
+      source: ik(65, "On the way to Tabuk some mocked the reciters of the Quran. When asked, they said they were only talking idly and joking. Allah said: was it Allah, His ayat and His Messenger you were mocking?", "only talking idly and joking"),
+      difficulty: 5,
+      questions: [
+        { q: "What excuse did the mockers give, in 9:65?", a: "We were only joking", wrong: ["We were asleep", "We were lost", "We were praying"], why: "We were only talking idly and joking." },
+        { q: "What did Allah reply, in 9:65?", a: "Was it Allah you mocked?", wrong: ["You are forgiven", "Joke more", "Say it again"], why: "Was it at Allah, and His Ayat and His Messenger that you were mocking?" },
+        { q: "Joking about Allah's ayat is harmless fun.", tf: false, why: "Make no excuse; you disbelieved after you had believed." }
+      ]
+    },
+    {
+      slug: "they-forgot-allah",
+      title: "They forgot Allah",
+      line: "Whoever forgets Allah is left forgotten by Him.",
+      facts: ["Command good, forbid evil", "Open your hand to give"],
+      quote: q9(67),
+      source: ik(67, "The hypocrites order evil, forbid good and close their hands from giving. They forgot to remember Allah, so He treats them as forgotten.", "forgotten the remembrance of Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the hypocrites forget, per Ibn Kathir?", a: "The remembrance of Allah", wrong: ["Their homes", "Their names", "Their money"], why: "They have forgotten the remembrance of Allah." },
+        { q: "What does they close their hands mean?", a: "They do not spend for Allah", wrong: ["They pray badly", "They fight", "They sleep"], why: "They close their hands from spending in Allah's cause." },
+        { q: "Hypocrites order good and forbid evil.", tf: false, why: "They enjoin evil, and forbid the good." }
+      ]
+    },
+    {
+      slug: "nations-before-them",
+      title: "Learn from the nations before",
+      line: "Nations before were not wronged; they wronged themselves.",
+      facts: ["Six nations are named", "Allah wrongs no one"],
+      quote: q9(70),
+      source: ik(70, "Allah reminds the hypocrites of the nations before them who rejected the Messengers: the people of Nuh, Ad, Thamud, Ibrahim's people, Madyan and the overturned cities.", "learned the end of the nations before you who rejected the Messengers"),
+      difficulty: 5,
+      questions: [
+        { q: "Who is named first in 9:70?", a: "The people of Nuh", wrong: ["The people of Musa", "The Romans", "The Persians"], why: "The people of Nuh, Ad, Thamud." },
+        { q: "Who wronged those nations, in 9:70?", a: "They wronged themselves", wrong: ["Allah wronged them", "Their rivals", "The weather"], why: "It was not Allah Who wronged them, but they wronged themselves." },
+        { q: "Ad perished by a barren wind, per Ibn Kathir.", tf: true, why: "Ad, who perished with the barren wind when they rejected Hud." }
+      ]
+    },
+    {
+      slug: "believers-help-each-other",
+      title: "Believers help each other",
+      line: "Believing men and women support and help one another.",
+      facts: ["They command good", "They pray and give zakah"],
+      quote: q9(71),
+      source: ik(71, "After describing the hypocrites, Allah describes the believers: men and women who help and support each other, command good, forbid evil, pray, give zakah and obey Allah.", "they help and aid each other"),
+      difficulty: 5,
+      questions: [
+        { q: "What are believers to one another, in 9:71?", a: "Supporters of one another", wrong: ["Rivals", "Strangers", "Judges"], why: "The believers, men and women, are supporters of one another." },
+        { q: "Which is NOT a quality in 9:71?", a: "Closing their hands", wrong: ["Praying", "Giving zakah", "Obeying Allah"], why: "They perform the Salah, give the Zakah and obey Allah." },
+        { q: "9:71 includes both believing men and women.", tf: true, why: "The believers, men and women." }
+      ]
+    },
+    {
+      slug: "like-a-wall",
+      title: "Like bricks in a wall",
+      line: "Believers hold each other up like bricks in one wall.",
+      facts: ["He laced his fingers", "Each brick needs the others"],
+      quote: q9(71),
+      source: hadith("bukhari", "481", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said a believer to a believer is like the bricks of a wall, each strengthening the other, and he laced his fingers together.", "like the bricks of a wall, enforcing each other"),
+      difficulty: 5,
+      questions: [
+        { q: "What are believers like, per Abu Musa's hadith?", a: "Bricks of one wall", wrong: ["Grains of sand", "Leaves in wind", "Stars far apart"], why: "Like the bricks of a wall, enforcing each other." },
+        { q: "What did the Prophet ﷺ do with his hands?", a: "He laced his fingers", wrong: ["He clapped", "He waved", "He pointed up"], why: "He clasped his hands, by interlacing his fingers." },
+        { q: "In a wall, each brick supports the others.", tf: true, why: "Enforcing each other." }
+      ]
+    },
+    {
+      slug: "one-body",
+      title: "Like one body",
+      line: "When one believer hurts, the others feel it like one body.",
+      facts: ["Mercy, love, kindness", "Fever and no sleep"],
+      quote: q9(71),
+      source: hadith("bukhari", "6011", "An-Nu'man ibn Bashir", "Sahih", "The Prophet ﷺ said the believers, in their mercy, love and kindness to each other, are like one body: if one part is unwell, the whole body shares the sleeplessness and fever.", "resembling one body"),
+      difficulty: 5,
+      questions: [
+        { q: "What are the believers like, in their mercy to each other?", a: "One body", wrong: ["Two armies", "A busy market", "A long road"], why: "Resembling one body." },
+        { q: "What does the whole body share when one part is ill?", a: "Fever and sleeplessness", wrong: ["Food and drink", "Wealth", "Nothing at all"], why: "The whole body shares the sleeplessness and fever with it." },
+        { q: "A believer should feel the pain of other believers.", tf: true, why: "If any part of the body is not well then the whole body shares." }
+      ]
+    },
+    {
+      slug: "fine-dwellings",
+      title: "Fine homes in Eden",
+      line: "Allah promised believers Gardens with rivers and fine homes.",
+      facts: ["Gardens of Adn", "They stay forever"],
+      quote: q9(72),
+      source: ik(72, "Allah promised the believing men and women Gardens with rivers beneath, where they stay forever, and fine homes built beautifully in the Gardens of Eden.", "built beautifully in good surroundings"),
+      difficulty: 5,
+      questions: [
+        { q: "What does Allah promise in 9:72, besides Gardens?", a: "Fine homes", wrong: ["Big armies", "Ships", "Crowns"], why: "And beautiful mansions in gardens of Adn." },
+        { q: "What flows beneath the Gardens, in 9:72?", a: "Rivers", wrong: ["Sand", "Fire", "Ice"], why: "Gardens under which rivers flow." },
+        { q: "Ibn Kathir says the homes are built beautifully.", tf: true, why: "Built beautifully in good surroundings." }
+      ]
+    },
+    {
+      slug: "allahs-pleasure",
+      title: "The greatest joy: His pleasure",
+      line: "Greater than Paradise itself is Allah being pleased with you.",
+      facts: ["He will never be angry", "The supreme success"],
+      quote: q9(72),
+      source: hadith("bukhari", "6549", "Abu Sa'id al-Khudri", "Sahih", "Allah will ask the people of Paradise if they are pleased, then say He will give them something better: His pleasure, so that He will never be angry with them again.", "I will bestow My pleasure and contentment upon you"),
+      difficulty: 5,
+      questions: [
+        { q: "What is the greatest bliss, in 9:72?", a: "The pleasure of Allah", wrong: ["The rivers", "The gold", "The homes"], why: "But the greatest bliss is the good pleasure of Allah." },
+        { q: "What will Allah give that is better than Paradise?", a: "His pleasure forever", wrong: ["More gold", "More rivers", "A bigger home"], why: "I will bestow My pleasure and contentment upon you." },
+        { q: "After that, Allah will never be angry with them.", tf: true, why: "So that I will never be angry with you after forever." }
+      ]
+    }
+  ]
+};
+
+export const TAWBAH_UNITS: readonly DeepUnit[] = [TAWBAH_ONE, TAWBAH_TWO, TAWBAH_THREE];
