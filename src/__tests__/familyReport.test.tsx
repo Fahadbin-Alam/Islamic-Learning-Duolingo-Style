@@ -156,6 +156,8 @@ describe("Family sheet", () => {
       onAddKid: jest.fn(() => "added" as const),
       onRemoveKid: jest.fn(),
       today: "2026-10-28",
+      kidsMode: false,
+      onKidsModeChange: jest.fn(),
       ...overrides
     };
   }
@@ -201,6 +203,88 @@ describe("Family sheet", () => {
     expect(onRemoveKid).not.toHaveBeenCalled();
     await act(async () => fireEvent.press(screen.getByTestId("family-kid-ab12cd34-remove-yes")));
     expect(onRemoveKid).toHaveBeenCalledWith("ab12cd34");
+  });
+});
+
+describe("Family sheet: Kids mode and live links", () => {
+  function props(overrides: Partial<React.ComponentProps<typeof FamilySheet>> = {}): React.ComponentProps<typeof FamilySheet> {
+    return {
+      visible: true,
+      onClose: jest.fn(),
+      report: SNAPSHOT,
+      onShareReport: jest.fn(() => "MUSLIMO-1-CODE"),
+      topics: TOPICS,
+      kids: [],
+      onAddKid: jest.fn(() => "added" as const),
+      onRemoveKid: jest.fn(),
+      today: "2026-10-28",
+      kidsMode: false,
+      onKidsModeChange: jest.fn(),
+      ...overrides
+    };
+  }
+
+  function live(overrides: Partial<NonNullable<React.ComponentProps<typeof FamilySheet>["live"]>> = {}) {
+    return {
+      signedIn: true,
+      kids: [],
+      parents: [],
+      onMakeCode: jest.fn(async () => ({ code: "ABC234" })),
+      onLinkKid: jest.fn(async () => undefined as string | undefined),
+      onRemoveKid: jest.fn(),
+      onRemoveParent: jest.fn(),
+      onSignIn: jest.fn(),
+      ...overrides
+    };
+  }
+
+  it("turns Kids mode on and off", async () => {
+    const onKidsModeChange = jest.fn();
+    await render(<FamilySheet {...props({ onKidsModeChange })} />);
+    expect(screen.getByTestId("family-kids-mode")).toHaveTextContent(/Off:/);
+    await act(async () => fireEvent.press(screen.getByTestId("family-kids-mode-toggle")));
+    expect(onKidsModeChange).toHaveBeenCalledWith(true);
+  });
+
+  it("gets a code for a parent and lists the parents linked", async () => {
+    const links = live({ parents: [{ id: 7, name: "Mum", avatarInitials: "M" }] });
+    await render(<FamilySheet {...props({ live: links })} />);
+    await act(async () => fireEvent.press(screen.getByTestId("family-link-code-make")));
+    expect(screen.getByTestId("family-link-code-text")).toHaveTextContent("ABC234");
+    expect(screen.getByTestId("family-parent-7")).toHaveTextContent(/Mum/);
+    await act(async () => fireEvent.press(screen.getByTestId("family-parent-7-remove")));
+    await act(async () => fireEvent.press(screen.getByTestId("family-parent-7-remove-yes")));
+    expect(links.onRemoveParent).toHaveBeenCalledWith(7);
+  });
+
+  it("asks a signed-out learner to sign in first", async () => {
+    const links = live({ signedIn: false });
+    await render(<FamilySheet {...props({ live: links })} />);
+    expect(screen.queryByTestId("family-link-code-make")).toBeNull();
+    await act(async () => fireEvent.press(screen.getByTestId("family-link-sign-in")));
+    expect(links.onSignIn).toHaveBeenCalled();
+  });
+
+  it("links a child with their code, shows an error, and lists live kids", async () => {
+    const onLinkKid = jest.fn(async (code: string) => (code === "BAD" ? "That code didn't work. Ask for a new one." : undefined));
+    const liveKid = { nickname: "Yusuf", snapshot: { ...SNAPSHOT, id: "live-12", date: "2026-10-28" }, addedAt: "" };
+    const links = live({ onLinkKid, kids: [liveKid] });
+    await render(<FamilySheet {...props({ initialTab: "kids", live: links })} />);
+    expect(screen.getByTestId("family-kid-live-12")).toHaveTextContent(/Live · Learned yesterday/);
+
+    await act(async () => fireEvent.changeText(screen.getByTestId("family-link-kid-code"), "bad"));
+    await act(async () => fireEvent.press(screen.getByTestId("family-link-kid-go")));
+    expect(onLinkKid).toHaveBeenCalledWith("BAD");
+    expect(screen.getByTestId("family-link-kid-code-error")).toHaveTextContent("That code didn't work. Ask for a new one.");
+
+    await act(async () => fireEvent.changeText(screen.getByTestId("family-link-kid-code"), "abc234"));
+    await act(async () => fireEvent.press(screen.getByTestId("family-link-kid-go")));
+    expect(screen.getByTestId("family-added")).toHaveTextContent("Linked!");
+
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-open")));
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-remove")));
+    await act(async () => fireEvent.press(screen.getByTestId("family-kid-live-12-remove-yes")));
+    expect(links.onRemoveKid).toHaveBeenCalledWith(12);
   });
 });
 
@@ -258,5 +342,35 @@ describe("Family in the app", () => {
     expect(screen.getByTestId("family-kid-ab12cd34")).toHaveTextContent(/Aisha/);
     expect(readFamilyKids(getStoredItem("sira-path-family-kids"))[0].nickname).toBe("Aisha");
     share.mockRestore();
+  });
+
+  it("turns Kids mode on for a young learner: no marriage topic, and a grown-up can turn it off", async () => {
+    setStoredItem("sira-path-user-profile", JSON.stringify(makeUser()));
+    setStoredItem("sira-path-age-group", "6-9");
+    removeStoredItem("sira-path-kids-mode");
+    try {
+      await render(<TopicApp />);
+      await screen.findByTestId("learn-path-foundation");
+      await press("top-bar-topic");
+      expect(screen.getByTestId("topic-tile-prayer")).toBeTruthy();
+      expect(screen.queryByTestId("topic-tile-marriage")).toBeNull();
+      await press("topic-picker-close");
+
+      await press("tab-me");
+      await press("profile-family");
+      await passGate();
+      expect(screen.getByTestId("family-kids-mode")).toHaveTextContent(/On:/);
+      await press("family-kids-mode-toggle");
+      expect(getStoredItem("sira-path-kids-mode")).toBe("off");
+      expect(screen.getByTestId("family-kids-mode")).toHaveTextContent(/Off:/);
+      await press("family-close");
+
+      await press("tab-learn");
+      await press("top-bar-topic");
+      expect(screen.getByTestId("topic-tile-marriage")).toBeTruthy();
+    } finally {
+      removeStoredItem("sira-path-age-group");
+      removeStoredItem("sira-path-kids-mode");
+    }
   });
 });

@@ -182,7 +182,8 @@ describe("JUMP HERE in a library topic", () => {
       jumpNodeId: target.id
     }).lesson.challenges;
     expect(shownChallenge(second)?.id).toBe(second[0].id);
-  });
+    // Answers a whole Quran test-out; it takes longer as the Quran path grows (about 50-60 s on CI now).
+  }, 150000);
 });
 
 describe("remembered between visits", () => {
