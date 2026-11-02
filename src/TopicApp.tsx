@@ -109,8 +109,15 @@ import {
   pickStartingUser,
   wakeBackend,
   type CrewMember,
-  type CrewPayload
+  type CrewPayload,
+  fetchFamilyLinks,
+  makeFamilyLinkCode,
+  linkFamilyKid,
+  unlinkFamilyKid,
+  unlinkFamilyParent,
+  type FamilyLinks
 } from "./services/backendSync";
+import { isKidsMode, isKidsTopic, kidsLearner, readKidsModeChoice, saveKidsModeChoice, type KidsModeChoice } from "./services/kidsMode";
 import {
   clearAccountProfile,
   clearActiveAssessment,
@@ -227,7 +234,7 @@ import {
   type QuizSheetTopic
 } from "./ui/screens";
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
-import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
+import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
@@ -783,7 +790,19 @@ export default function TopicApp() {
     return isLearnerBackground(saved) ? saved : undefined;
   });
   const beginner = Boolean(learnerBackground && learnerBackground !== "muslim");
-  const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child");
+  // Kids mode (src/services/kidsMode.ts): on by itself under 13 or for a Kid account; a grown-up can change it.
+  const [kidsModeChoice, setKidsModeChoice] = useState<KidsModeChoice | undefined>(() => readKidsModeChoice());
+  const kidsMode = isKidsMode(kidsModeChoice, ageGroup, state.user?.accountRole);
+  const changeKidsMode = (on: boolean) => {
+    const choice: KidsModeChoice = on ? "on" : "off";
+    saveKidsModeChoice(choice);
+    setKidsModeChoice(choice);
+  };
+  // A young learner by age, account or Kids mode: child-directed ads, and no plan offers that open by themselves.
+  const childLearner = ageGroup === "6-9" || ageGroup === "10-12" || state.user?.accountRole === "child" || kidsMode;
+  // The age lessons and quizzes are asked for: the youngest mix in Kids mode.
+  const lessonAge: AgeGroup | undefined = kidsMode ? "6-9" : ageGroup;
+  const adAudience = adAudienceFor(ageGroup, state.user?.accountRole === "child" || kidsMode);
   const adsAllowedToStart = !needsAgeCheck || Boolean(ageGroup);
   const [storePrices, setStorePrices] = useState<Record<string, string>>({});
   const [shopBusy, setShopBusy] = useState(false);
@@ -1235,7 +1254,7 @@ export default function TopicApp() {
     }
 
     return localizedSections
-      .filter((section) => (season || section.topicId !== RAMADAN_TOPIC) && canQuiz(user, { kind: "topic", topicId: section.topicId }, ageGroup))
+      .filter((section) => (season || section.topicId !== RAMADAN_TOPIC) && (!kidsMode || isKidsTopic(section.topicId)) && canQuiz(user, { kind: "topic", topicId: section.topicId }, lessonAge))
       .map((section) => ({
         topicId: section.topicId,
         title: section.title,
@@ -1243,7 +1262,7 @@ export default function TopicApp() {
         arabic: getTopicArabic(section.topicId),
         best: getQuizScore(user, { kind: "topic", topicId: section.topicId })?.best,
         units: section.branches
-          .filter((branch) => canQuiz(user, { kind: "unit", topicId: section.topicId, unitId: branch.id }, ageGroup))
+          .filter((branch) => canQuiz(user, { kind: "unit", topicId: section.topicId, unitId: branch.id }, lessonAge))
           .map((branch) => ({
             id: branch.id,
             title: branch.title,
@@ -1251,11 +1270,22 @@ export default function TopicApp() {
             best: getQuizScore(user, { kind: "unit", topicId: section.topicId, unitId: branch.id })?.best
           }))
       }));
-  }, [ageGroup, localizedSections, quizSheetVisible, season, state.user]);
+  }, [kidsMode, lessonAge, localizedSections, quizSheetVisible, season, state.user]);
 
   // Names in every language are in the index, so it is built once.
   const searchIndex = useMemo(() => buildTopicSearchIndex(COURSE.sections), []);
-  const searchCourse = useCallback((query: string) => searchTopics(searchIndex, query), [searchIndex]);
+  const searchCourse = useCallback(
+    (query: string) => searchTopics(searchIndex, query).filter((hit) => !kidsMode || isKidsTopic(hit.topicId)),
+    [kidsMode, searchIndex]
+  );
+  // Kids mode leaves out grown-up topics: from the picker, and the path moves off one that was open.
+  const shownPickerTopics = useMemo(
+    () => (kidsMode ? pickerTopics.filter((topic) => isKidsTopic(topic.topicId as TopicId)) : pickerTopics),
+    [kidsMode, pickerTopics]
+  );
+  useEffect(() => {
+    if (kidsMode && !isKidsTopic(state.selectedTopic)) dispatch({ type: "select_topic", topicId: "foundation" });
+  }, [kidsMode, state.selectedTopic]);
 
   const currentLessonSection = useMemo(() => {
     if (!state.activeSession) {
@@ -1311,10 +1341,76 @@ export default function TopicApp() {
       topicsDone: Object.fromEntries(pickerTopics.map((topic) => [topic.topicId, topic.done]))
     });
   }, [familyToday, pickerTopics, state.user, userStars]);
+  // Live family links between accounts (needs the server and a signed-in account).
+  const [familyLinks, setFamilyLinks] = useState<FamilyLinks>({ kids: [], parents: [] });
+  const [familyOffline, setFamilyOffline] = useState(false);
+  const familySignedIn = Boolean(state.user?.hasAccount && getSessionToken());
+  const loadFamilyLinks = async () => {
+    if (!isBackendConfigured() || !getSessionToken()) return;
+    try {
+      setFamilyLinks(await fetchFamilyLinks(localDateKey()));
+      setFamilyOffline(false);
+    } catch {
+      setFamilyOffline(true);
+    }
+  };
   const openFamily = () => {
     setFamilyKids(loadFamilyKids());
     setFamilyVisible(true);
+    void loadFamilyLinks();
   };
+  // A linked child's live numbers as the same report a pasted code shows, with stars and topics counted here.
+  const liveFamilyKids = useMemo<FamilyKid[]>(
+    () =>
+      familyLinks.kids.map((kid) => {
+        const completed = new Set(kid.completedNodeIds);
+        const topicsDone = Object.fromEntries(
+          localizedSections.map((section) => [section.topicId, section.nodes.filter((node) => completed.has(node.id)).length])
+        );
+        const stars = getTotalStars({ completedNodeIds: kid.completedNodeIds, nodeStars: kid.nodeStars });
+        return { nickname: kid.name, addedAt: "", snapshot: snapshotFromLinkedKid(kid, familyToday, stars, topicsDone) };
+      }),
+    [familyLinks.kids, familyToday, localizedSections]
+  );
+  const familyErrorLine = (error: unknown) =>
+    error instanceof BackendRequestError && error.status !== 401 && error.message ? error.message : t("Couldn't reach Muslimo. Try again in a minute.");
+  const familyLive = isBackendConfigured()
+    ? {
+        signedIn: familySignedIn,
+        kids: liveFamilyKids,
+        parents: familyLinks.parents,
+        offline: familyOffline,
+        onMakeCode: async () => {
+          try {
+            const { code } = await makeFamilyLinkCode();
+            return { code };
+          } catch (error) {
+            return { error: familyErrorLine(error) };
+          }
+        },
+        onLinkKid: async (code: string) => {
+          try {
+            const kid = await linkFamilyKid(code, localDateKey());
+            setFamilyLinks((links) => ({ ...links, kids: [...links.kids.filter((entry) => entry.id !== kid.id), kid] }));
+            return undefined;
+          } catch (error) {
+            return familyErrorLine(error);
+          }
+        },
+        onRemoveKid: (id: number) => {
+          setFamilyLinks((links) => ({ ...links, kids: links.kids.filter((kid) => kid.id !== id) }));
+          void unlinkFamilyKid(id).catch(() => void loadFamilyLinks());
+        },
+        onRemoveParent: (id: number) => {
+          setFamilyLinks((links) => ({ ...links, parents: links.parents.filter((parent) => parent.id !== id) }));
+          void unlinkFamilyParent(id).catch(() => void loadFamilyLinks());
+        },
+        onSignIn: () => {
+          setFamilyVisible(false);
+          openCrewAccount();
+        }
+      }
+    : undefined;
   // The parent asked for it behind the grown-up gate: the code goes to the share sheet they pick from.
   const shareFamilyReport = () => {
     if (!familyReport) return undefined;
@@ -1595,7 +1691,8 @@ export default function TopicApp() {
     };
 
     dispatch({ type: "apply_user", user: activeUser });
-    const session = await learningApi.getLessonSession(node.firstLessonId, activeUser, ageGroup);
+    // Kids mode builds the lesson at the easiest level; the saved profile keeps its own difficulty.
+    const session = await learningApi.getLessonSession(node.firstLessonId, kidsMode ? kidsLearner(activeUser) : activeUser, lessonAge);
     challengeStartedAtRef.current = Date.now();
     dispatch({ type: "start_lesson", session });
   }
@@ -1662,7 +1759,7 @@ export default function TopicApp() {
 
     const scope: QuizScope = unit ? { kind: "unit", topicId: section.topicId, unitId: unit.id } : { kind: "topic", topicId: section.topicId };
     const title = unit ? unit.title : t("{topic} quiz", { topic: section.title });
-    const session = createQuizSession({ user: state.user, scope, title, attempt: getQuizScore(state.user, scope)?.taken ?? 0, ageGroup });
+    const session = createQuizSession({ user: state.user, scope, title, attempt: getQuizScore(state.user, scope)?.taken ?? 0, ageGroup: lessonAge });
 
     setQuizSheetVisible(false);
 
@@ -1806,7 +1903,8 @@ export default function TopicApp() {
   // not on the last step, and only when there is something harder to ask.
   function harderOffer() {
     const session = state.activeSession;
-    if (!state.user || !session || (session.mode && session.mode !== "standard") || session.isTest) return undefined;
+    // Kids mode keeps lessons simple: it never asks "Want it harder?".
+    if (kidsMode || !state.user || !session || (session.mode && session.mode !== "standard") || session.isTest) return undefined;
     if (state.answerState !== "correct" || state.rightInARow < HARDER_OFFER_AFTER || state.harderDeclined) return undefined;
     if (isLastLessonStep(state.lessonQueue, state.stepIndex)) return undefined;
     const level = challengeLevel(state.user, ageGroup);
@@ -2097,7 +2195,7 @@ export default function TopicApp() {
     return {
       canSell: canSellInStore(monetizationMode, storePlatform(Platform.OS)),
       hasPremium: hasPremiumLessons(user),
-      child: ageGroup === "6-9" || ageGroup === "10-12" || user.accountRole === "child",
+      child: childLearner || user.accountRole === "child",
       msSinceLastOffer: Date.now() - readPlanOfferAt()
     };
   }
@@ -2879,7 +2977,7 @@ export default function TopicApp() {
   }, [ummahKey, battle]);
 
   function startBattle() {
-    const questions = pickBattleQuestions({ language: currentLanguage, young: ageGroup === "6-9" });
+    const questions = pickBattleQuestions({ language: currentLanguage, young: lessonAge === "6-9" });
     setVersus(undefined);
     setBattle(questions);
   }
@@ -3703,7 +3801,7 @@ export default function TopicApp() {
               rankings,
               unavailable: !isBackendConfigured(),
               signedOut: !ummahSignedIn,
-              forChild: ageGroup === "6-9" || ageGroup === "10-12" || state.user.accountRole === "child",
+              forChild: childLearner,
               onBattle: startBattle,
               onJoin: (joined) => dispatch({ type: "apply_user_latest", update: (user) => setUmmahJoined(user, joined) }),
               onNewNickname: () => dispatch({ type: "apply_user_latest", update: (user) => rerollNickname(user) }),
@@ -3741,7 +3839,7 @@ export default function TopicApp() {
           <TopicPicker
             visible={topicPickerVisible}
             onClose={() => setTopicPickerVisible(false)}
-            topics={pickerTopics}
+            topics={shownPickerTopics}
             activeTopicId={selectedSection.topicId}
             search={searchCourse}
             activeUnitId={pathUnitId}
@@ -3792,6 +3890,9 @@ export default function TopicApp() {
             onAddKid={addKid}
             onRemoveKid={removeKid}
             today={familyToday}
+            kidsMode={kidsMode}
+            onKidsModeChange={changeKidsMode}
+            live={familyLive}
             initialTab={state.user?.accountRole === "parent" ? "kids" : "report"}
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
