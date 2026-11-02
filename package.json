@@ -15,6 +15,7 @@
     "backend:bootstrap": "python -m backend.scripts.bootstrap",
     "typecheck": "tsc --noEmit",
     "import:notes": "node scripts/obsidian-import/import-obsidian-notes.mjs",
+    "check:store": "node scripts/check-store-listings.mjs",
     "test:notes": "node --test scripts/obsidian-import/lib.test.mjs && python -m pytest backend/tests/test_imported_notes.py -q",
     "test": "jest",
     "test:backend": "python -m pytest backend/tests",
