@@ -345,4 +345,297 @@ const SHUARA_ONE: DeepUnit = {
   ]
 };
 
-export const SHUARA_UNITS: readonly DeepUnit[] = [SHUARA_ONE];
+/** Ayahs 69 to 140: Ibrahim against idols and his prayers, the clean heart, Nuh and the laden ship, and Hud warning the people of 'Ad. */
+const SHUARA_TWO: DeepUnit = {
+  key: "shuara2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-26",
+  name: "Ash-Shu'ara, ayahs 69 to 140",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Ash-Shu'ara",
+  lessons: [
+    {
+      slug: "what-do-you-worship",
+      title: "What do you worship?",
+      line: "Ibrahim asked his father and people what their statues were.",
+      facts: ["He spoke out from a young age", "An example for this Ummah"],
+      quote: q26(70),
+      source: ik(70, "Allah told His Messenger ﷺ to recite Ibrahim's story so the Ummah would follow his sincerity and trust in Allah. Ibrahim asked his father and people: what do you worship? Meaning, what are these statues you are so devoted to?", "what are these statues to which you are so devoted"),
+      difficulty: 2,
+      questions: [
+        { q: "Who did Ibrahim ask, in 26:70?", a: "His father and his people", wrong: ["Fir'awn", "The angels", "Traders"], why: "When he said to his father and his people: What do you worship?" },
+        { q: "Why was his story told to the Ummah?", a: "To follow his example", wrong: ["To learn farming", "To fear statues", "To travel"], why: "So that they could follow this example of sincerity towards Allah, putting one's trust in Him." },
+        { tf: true, q: "His people said they were devoted to idols.", why: "We worship idols, and to them we are ever devoted." }
+      ]
+    },
+    {
+      slug: "we-found-our-fathers",
+      title: "We found our fathers doing it",
+      line: "Idols cannot hear or help; the people only copied their fathers.",
+      facts: ["Do they hear when you call?", "Copying is not a proof"],
+      quote: q26(74),
+      source: ik(74, "Ibrahim asked: do they hear you when you call, or help or harm you? They had no answer except: we found our fathers doing so. They knew the idols could do nothing, but they rushed to copy their fathers.", "They knew that their idols could not do anything, but they had seen their fathers doing this"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ibrahim ask about the idols, in 26:72?", a: "Do they hear you?", wrong: ["Are they gold?", "Who made them?", "Are they old?"], why: "He said: Do they hear you when you call?" },
+        { q: "What was the people's only reason?", a: "Their fathers did it", wrong: ["The idols spoke", "They saw miracles", "A Prophet said so"], why: "They said: (Nay) but we found our fathers doing so." },
+        { tf: false, q: "The people believed the idols could truly help.", why: "They knew that their idols could not do anything, but they had seen their fathers doing this." }
+      ]
+    },
+    {
+      slug: "not-afraid-of-idols",
+      title: "Not afraid of idols",
+      line: "Ibrahim said idols are his enemies; only the Lord is not.",
+      facts: ["If they can harm, let them try", "Nuh and Hud spoke the same way"],
+      quote: q26(77),
+      source: ik(77, "Ibrahim said that what they worshipped was an enemy to him, except the Lord of the worlds. If these idols have any power, let them harm me; I am their enemy and do not care about them.", "I am an enemy to them and I do not care about them"),
+      difficulty: 2,
+      questions: [
+        { q: "Who did Ibrahim exclude from his enmity, in 26:77?", a: "The Lord of the worlds", wrong: ["His father", "The king", "The stars"], why: "Verily, they are enemies to me, save the Lord of Al-'Alamin." },
+        { q: "What did Ibrahim show by daring the idols?", a: "They have no power", wrong: ["He was afraid", "He wanted gifts", "He loved them"], why: "If these idols mean anything and have any influence, then let them do me any kind of harm." },
+        { q: "Which word did Ibrahim leave lasting among his offspring?", a: "La ilaha illallah", wrong: ["A poem", "A family name", "A song"], why: "And he made it a Word lasting among his offspring, meaning: La Ilaha Illallah." }
+      ]
+    },
+    {
+      slug: "he-feeds-me",
+      title: "He feeds me and gives me drink",
+      line: "Ibrahim worshipped the One who created, guides and feeds him.",
+      facts: ["He sends rain from the clouds", "Water for people and animals"],
+      quote: q26(79),
+      source: ik(79, "Ibrahim said he worships only the One who created him and guides him, and who feeds him and gives him drink. Allah provides from the heavens and earth, driving clouds and sending sweet water for people and animals.", "He is my Creator Who provides for me from that which He has made available in the heavens and on earth"),
+      difficulty: 3,
+      questions: [
+        { q: "What two things does Allah do first, in 26:78?", a: "Creates and guides", wrong: ["Sleeps and wakes", "Buys and sells", "Builds and breaks"], why: "Who has created me, and it is He Who guides me." },
+        { q: "How does Allah give drink, per Ibn Kathir?", a: "He sends sweet rainwater", wrong: ["Only from wells people dig", "From the idols", "He does not"], why: "He sends down the water fresh and sweet so that many of those whom He has created may drink." },
+        { tf: true, q: "Animals also drink from the water Allah sends.", why: "So that many of those whom He has created, animals and men alike, may drink from it." }
+      ]
+    },
+    {
+      slug: "when-i-am-ill",
+      title: "When I am ill, He cures me",
+      line: "Ibrahim said: when I am ill, He cures me.",
+      facts: ["Only Allah truly heals", "Good things are named for Allah"],
+      quote: q26(80),
+      source: ik(80, "Ibrahim said when I am ill, He cures me. He spoke of illness as his own, though Allah decrees it, out of respect towards Allah. No one can heal except Allah, who heals through the means that lead to recovery.", "Here he attributed sickness to himself, even though it is Allah Who decrees it, out of respect towards Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Ibrahim say when I am ill?", a: "Out of respect for Allah", wrong: ["He was never ill", "He blamed doctors", "He forgot"], why: "Here he attributed sickness to himself, even though it is Allah Who decrees it, out of respect towards Allah." },
+        { q: "Who truly heals, per Ibn Kathir?", a: "Only Allah", wrong: ["Only medicine", "The idols", "The stars"], why: "When I fall sick, no one is able to heal me but Him, Who heals me with the means that may lead to recovery." },
+        { tf: false, q: "Taking medicine goes against trusting Allah to cure.", why: "Allah heals me with the means that may lead to recovery." }
+      ]
+    },
+    {
+      slug: "dua-for-the-sick",
+      title: "The dua for the sick",
+      line: "Visiting the sick, the Prophet ﷺ asked Allah, the One who cures.",
+      facts: ["Lord of the people, take it away", "No cure but His"],
+      quote: q26(80),
+      source: hadith("bukhari", "5675", "Aisha", "Sahih", "Whenever the Prophet ﷺ visited a sick person he prayed: take away the illness, O Lord of the people, cure him, You are the One who cures. There is no cure but Yours, a cure that leaves no illness.", "Cure him as You are the One Who cures"),
+      difficulty: 3,
+      questions: [
+        { q: "When did the Prophet ﷺ say this dua?", a: "When visiting the sick", wrong: ["At sunrise only", "Before eating", "On Eid only"], why: "Whenever Allah's Messenger ﷺ paid a visit to a patient, he used to invoke Allah." },
+        { q: "What does the dua call Allah?", a: "The One Who cures", wrong: ["The One who sleeps", "The doctor's helper", "The Lord of idols"], why: "Cure him as You are the One Who cures. There is no cure but Yours." },
+        { q: "Which cure does the dua ask for?", a: "One that leaves no illness", wrong: ["A slow one", "A costly one", "A secret one"], why: "A cure that leaves no disease." }
+      ]
+    },
+    {
+      slug: "only-he-forgives",
+      title: "Only He forgives",
+      line: "Allah gives life and death, and only He forgives sins.",
+      facts: ["Ibrahim hoped for forgiveness", "The Day of Recompense"],
+      quote: q26(82),
+      source: ik(82, "Allah causes death and then gives life again; no one else can. Ibrahim hoped Allah would forgive his faults on the Day of Recompense, because no one can forgive sins in this world or the next except Him.", "no one is able to forgive sins in this world or the Hereafter except Him"),
+      difficulty: 3,
+      questions: [
+        { q: "Who can forgive sins, per Ibn Kathir?", a: "Only Allah", wrong: ["Any Prophet", "Any scholar", "The idols"], why: "No one is able to forgive sins in this world or the Hereafter except Him." },
+        { q: "When did Ibrahim hope to be forgiven, in 26:82?", a: "On the Day of Recompense", wrong: ["On his birthday", "At the market", "Never"], why: "And Who, I hope, will forgive me my faults on the Day of Recompense." },
+        { tf: true, q: "Only Allah gives life and causes death.", why: "He is the One Who gives life and causes death, and no one besides Him is able to do that." }
+      ]
+    },
+    {
+      slug: "a-good-name-after-me",
+      title: "A good name after me",
+      line: "Ibrahim asked for knowledge and a good name after him.",
+      facts: ["Hukm means knowledge", "Peace be upon Ibrahim"],
+      quote: q26(84),
+      source: ik(84, "Ibrahim asked Allah for Hukm, which Ibn Abbas said is knowledge, to join the righteous, and to be remembered well after his death as a good example. Allah granted it: peace be upon Ibrahim.", "cause me to be remembered in a good manner after my death"),
+      difficulty: 4,
+      questions: [
+        { q: "What is Hukm, per Ibn Abbas?", a: "Knowledge", wrong: ["Wealth", "A kingdom", "Strength"], why: "Here Ibrahim asks his Lord to give him Hukm. Ibn Abbas said: This is knowledge." },
+        { q: "What did Ibrahim ask for in 26:84?", a: "A good mention after him", wrong: ["A tall palace", "Many camels", "A long life"], why: "Cause me to be remembered in a good manner after my death, so that I will be taken as a good example." },
+        { q: "Which garden did he ask to inherit, in 26:85?", a: "The Paradise of Delight", wrong: ["A garden in Egypt", "His father's farm", "A royal garden"], why: "And make me one of the inheritors of the Paradise of Delight." }
+      ]
+    },
+    {
+      slug: "a-clean-heart",
+      title: "A clean heart",
+      line: "On that Day only a clean heart helps, not wealth or sons.",
+      facts: ["Free of shirk", "The sound heart of a believer"],
+      quote: q26(89),
+      source: ik(89, "On the Day of Resurrection no wealth or children can save anyone. Only the one who comes to Allah with a clean heart is helped: a heart free from any impurity or shirk, the sound heart of the believer.", "free from any impurity or Shirk"),
+      difficulty: 4,
+      questions: [
+        { q: "What will not help on that Day, in 26:88?", a: "Wealth and sons", wrong: ["A clean heart", "Faith", "Sincerity"], why: "The Day whereon neither wealth nor sons will avail." },
+        { q: "What is a clean heart, per Ibn Kathir?", a: "Free from impurity and shirk", wrong: ["A happy heart", "A strong heart", "A rich heart"], why: "Meaning, free from any impurity or Shirk." },
+        { q: "What did Sa'id bin al-Musayyib call it?", a: "The sound heart", wrong: ["The proud heart", "The soft heart", "The loud heart"], why: "Sa'id bin Al-Musayyib said: The clean heart is the sound heart." }
+      ]
+    },
+    {
+      slug: "the-heart-leads-the-body",
+      title: "The heart leads the body",
+      line: "The Prophet ﷺ said: a good heart makes the body good.",
+      facts: ["Stay away from doubtful things", "Keep the heart clean"],
+      quote: q26(89),
+      source: hadith("bukhari", "52", "An-Nu'man bin Bashir", "Sahih", "The Prophet ﷺ said halal and haram are clear, with doubtful things between them; whoever avoids the doubtful protects his religion. In the body is a piece of flesh: if it is good the whole body is good, and if it is spoiled the body is spoiled. It is the heart.", "There is a piece of flesh in the body"),
+      difficulty: 4,
+      questions: [
+        { q: "What piece of flesh did the Prophet ﷺ mean?", a: "The heart", wrong: ["The hand", "The tongue", "The eye"], why: "There is a piece of flesh in the body: if it becomes good the whole body becomes good, and that is the heart." },
+        { q: "What protects one's religion, per An-Nu'man's hadith?", a: "Avoiding doubtful things", wrong: ["Arguing a lot", "Owning land", "Staying silent always"], why: "Whoever saves himself from these suspicious things saves his religion and his honor." },
+        { tf: true, q: "When the heart is spoiled, the whole body is spoiled.", why: "But if it gets spoilt the whole body gets spoilt and that is the heart." }
+      ]
+    },
+    {
+      slug: "paradise-brought-near",
+      title: "Paradise brought near",
+      line: "Paradise will be brought close, adorned for the people of taqwa.",
+      facts: ["They chose it over this world", "False gods cannot help anyone"],
+      quote: q26(90),
+      source: ik(90, "Paradise will be brought near to those who had taqwa, adorned and decorated for them to see. They are the pious who preferred it over this world and worked for it. Those who worshipped others will find their false gods cannot help them.", "adorned and decorated for them to behold it"),
+      difficulty: 4,
+      questions: [
+        { q: "For whom is Paradise brought near, in 26:90?", a: "People of taqwa", wrong: ["The richest", "The strongest", "Everyone"], why: "And Paradise will be brought near to those who had Taqwa." },
+        { q: "How will Paradise look to them?", a: "Adorned and decorated", wrong: ["Empty", "Hidden", "Far away"], why: "It will be brought close to its people, adorned and decorated for them to behold it." },
+        { q: "What did its people do in this world?", a: "Preferred it and strove for it", wrong: ["Ignored it", "Mocked it", "Only wished for it"], why: "Its people are the pious who preferred it to whatever was in this world, and strove for it." }
+      ]
+    },
+    {
+      slug: "too-late-regret",
+      title: "Regret that comes too late",
+      line: "The misled will admit their error and wish to return, too late.",
+      facts: ["No intercessor, no close friend", "Choose rightly now"],
+      quote: q26(102),
+      source: ik(102, "Those who followed misguiding leaders will blame them, then see that they themselves are to blame. They will say: we were clearly wrong, we have no intercessor or close friend, and wish to return to the world to believe.", "Then they will realize that themselves are to blame"),
+      difficulty: 4,
+      questions: [
+        { q: "What will they admit, in 26:97?", a: "We were in clear error", wrong: ["We were right", "We were tricked by Prophets", "Nothing"], why: "By Allah, we were truly in a manifest error." },
+        { q: "What will they wish for, in 26:102?", a: "A chance to return", wrong: ["More gold", "A long sleep", "A new idol"], why: "If we only had a chance to return, we shall truly be among the believers!" },
+        { tf: false, q: "Their leaders will be able to save them.", why: "Can you avail us anything from the Fire? Then they will realize that themselves are to blame." }
+      ]
+    },
+    {
+      slug: "nuh-the-first-messenger",
+      title: "Nuh, the first Messenger",
+      line: "Nuh was the first Messenger sent once idol worship began.",
+      facts: ["Denying one denies all", "Will you not have taqwa?"],
+      quote: q26(105),
+      source: ik(105, "Nuh was the first Messenger Allah sent to the people of earth after they began to worship idols. His people denied him, and denying him was like denying all the Messengers.", "who was the first Messenger sent by Allah to the people of earth after they started to worship idols"),
+      difficulty: 4,
+      questions: [
+        { q: "Why does 26:105 say they denied the Messengers?", a: "Denying one is denying all", wrong: ["Many came at once", "It is a mistake", "Nuh had many names"], why: "Allah revealed that their disbelieving in him was akin to disbelieving in all the Messengers." },
+        { q: "When was Nuh sent, per Ibn Kathir?", a: "After idol worship began", wrong: ["Before Adam", "After Musa", "In Makkah"], why: "Who was the first Messenger sent by Allah to the people of earth after they started to worship idols." },
+        { q: "What did Nuh ask his people, in 26:106?", a: "Will you not have taqwa?", wrong: ["Will you pay me?", "Will you build a ship?", "Will you travel?"], why: "When their brother Nuh said to them: Will you not have Taqwa?" }
+      ]
+    },
+    {
+      slug: "no-payment-asked",
+      title: "No payment asked",
+      line: "Nuh was a trustworthy Messenger who asked no reward from people.",
+      facts: ["He added and removed nothing", "His reward is with Allah"],
+      quote: q26(109),
+      source: ik(109, "Nuh said he was a trustworthy Messenger, passing on Allah's message without adding or removing anything. He asked them for no payment for his advice; his reward was with the Lord of the worlds.", "I do not want any payment for the advice I give you"),
+      difficulty: 4,
+      questions: [
+        { q: "What did trustworthy mean for Nuh?", a: "Passing the message exactly", wrong: ["Keeping money safe", "Never speaking", "Being rich"], why: "I convey the Messages of my Lord to you, and I do not add anything to them or take anything away from them." },
+        { q: "What payment did Nuh ask, in 26:109?", a: "None", wrong: ["Half their crops", "Gold", "A house"], why: "No reward do I ask of you for it; my reward is only from the Lord of all that exists." },
+        { tf: true, q: "Hud later said the very same words to his people.", why: "He said to them, as Nuh had said to his people." }
+      ]
+    },
+    {
+      slug: "i-will-not-drive-them-away",
+      title: "I will not drive them away",
+      line: "Nuh refused to send away poor believers to please the proud.",
+      facts: ["Hearts are for Allah to judge", "Noble or common, all are welcome"],
+      quote: q26(114),
+      source: ik(114, "The leaders said they would not follow Nuh when the lowly followed him. Nuh said their account is with Allah, and refused to drive the believers away: whoever believes belongs with him, whether noble or common.", "whether he is noble or common, upper-class or lower-class"),
+      difficulty: 5,
+      questions: [
+        { q: "Why did the leaders refuse Nuh, in 26:111?", a: "Poor people followed him", wrong: ["He was poor", "He was a stranger", "He asked for money"], why: "Shall we believe in you, when the inferior follow you?" },
+        { q: "Who judges what is in people's hearts, per Nuh?", a: "Allah", wrong: ["Nuh", "The leaders", "The crowd"], why: "Whatever is in their hearts is for Allah to know." },
+        { q: "Which believers did Nuh welcome?", a: "Noble and common alike", wrong: ["Only the rich", "Only his family", "Only the strong"], why: "Then he belongs to me and I to him, whether he is noble or common, upper-class or lower-class." }
+      ]
+    },
+    {
+      slug: "the-laden-ship",
+      title: "The laden ship",
+      line: "Allah saved Nuh and the believers in a ship full of pairs.",
+      facts: ["Nuh called for many years", "Judge between me and them"],
+      quote: q26(119),
+      source: ik(119, "Nuh called his people night and day for a long time, but they threatened to stone him. He asked Allah to judge between them. Allah saved him and the believers in the laden ship, filled with one pair from every species.", "one pair from every species"),
+      difficulty: 5,
+      questions: [
+        { q: "What did his people threaten, in 26:116?", a: "To stone him", wrong: ["To exile him to sea", "To make him king", "To fine him"], why: "If you cease not, O Nuh you will surely be among those stoned." },
+        { q: "What filled the laden ship, per Ibn Kathir?", a: "Cargo and pairs of every species", wrong: ["Only gold", "Only soldiers", "Nothing"], why: "One that is filled with cargo and the couples, one pair from every species." },
+        { q: "How did Nuh call his people?", a: "Night and day, secretly and openly", wrong: ["Once only", "By letter", "Only on Fridays"], why: "Calling them to Allah night and day, in secret and openly." }
+      ]
+    },
+    {
+      slug: "ad-of-the-sand-hills",
+      title: "'Ad of the sand hills",
+      line: "Hud was sent to 'Ad, a tall, strong people near Hadramawt.",
+      facts: ["They came after Nuh's people", "Blessed with wealth and gardens"],
+      quote: q26(124),
+      source: ik(124, "Hud was sent to his people 'Ad, who lived in the Ahqaf, curved sand-hills near Hadramawt by Yemen. They came after Nuh's people, were tall and strong, and had wealth, gardens and children, yet they worshipped others.", "curved sand-hills near Hadramawt"),
+      difficulty: 5,
+      questions: [
+        { q: "Where did 'Ad live, per Ibn Kathir?", a: "Sand hills near Hadramawt", wrong: ["The banks of the Nile", "Makkah", "Damascus"], why: "His people used to live in the Ahqaf, curved sand-hills near Hadramawt, on the borders of Yemen." },
+        { q: "When did 'Ad live?", a: "After the people of Nuh", wrong: ["Before Adam", "After Musa", "In Madinah's time"], why: "They lived after the time of Nuh." },
+        { tf: false, q: "Hud was a stranger from another land.", why: "So Allah sent Hud, one of their own, as a Messenger." }
+      ]
+    },
+    {
+      slug: "building-to-show-off",
+      title: "Building to show off",
+      line: "Hud warned against useless towers built only to show off.",
+      facts: ["They built as if living forever", "They were harsh like tyrants"],
+      quote: q26(128),
+      source: ik(128, "'Ad built huge landmarks on high places for fun, not need, just to show off their strength. Hud told them this wasted time and effort. They built strong fortresses as if they would live forever, and seized people like tyrants.", "for fun and to show off your strength"),
+      difficulty: 5,
+      questions: [
+        { q: "Why did 'Ad build their landmarks?", a: "To show off their strength", wrong: ["To shelter the poor", "To pray in them", "To store food"], why: "Not because you need it, but for fun and to show off your strength." },
+        { q: "How did they build, in 26:129?", a: "As if living forever", wrong: ["With mud", "Quickly", "Only for guests"], why: "And do you get for yourselves Masani' as if you will live therein forever?" },
+        { q: "Why was it blameworthy?", a: "It wasted time and effort", wrong: ["It was too small", "It was ugly", "It was too cheap"], why: "It was a waste of time and exhausted people's bodies for no purpose." }
+      ]
+    },
+    {
+      slug: "remember-his-gifts",
+      title: "Remember His gifts",
+      line: "Hud reminded them of cattle, children, gardens and springs.",
+      facts: ["Warning with encouragement", "Fear a great Day"],
+      quote: q26(133),
+      source: ik(133, "Hud began reminding them of Allah's blessings: cattle, children, gardens and springs. He called them with encouragement and warning, fearing for them the punishment of a great Day, but it did not help.", "Then Hud began reminding them of the blessings that Allah had bestowed upon them"),
+      difficulty: 5,
+      questions: [
+        { q: "Which blessings did Hud name, in 26:133-134?", a: "Cattle, children, gardens, springs", wrong: ["Ships and ports", "Gold and silk", "Horses and swords"], why: "He has aided you with cattle and children, and gardens and springs." },
+        { q: "How did Hud call his people?", a: "With hope and warning", wrong: ["Only with threats", "With money", "Only by silence"], why: "So he called them to Allah with words of encouragement and words of warning." },
+        { tf: true, q: "Hud feared the punishment of a great Day for them.", why: "Verily, I fear for you the torment of a Great Day." }
+      ]
+    },
+    {
+      slug: "same-to-us",
+      title: "It is all the same to us",
+      line: "'Ad ignored Hud, so a fierce wind ended them.",
+      facts: ["They followed their forefathers", "Stronger than the strongest"],
+      quote: q26(139),
+      source: ik(139, "'Ad said: it is all the same to us whether you preach or not, and we will not be punished. They kept denying Hud, so Allah destroyed them with a strong, furious, freezing wind, stronger than the strongest people.", "Allah sent against them a strong and furious wind"),
+      difficulty: 5,
+      questions: [
+        { q: "What did 'Ad say to Hud, in 26:136?", a: "Preaching makes no difference", wrong: ["Teach us more", "We believe", "Give us time"], why: "It is the same to us whether you preach or be not of those who preach." },
+        { q: "How were 'Ad destroyed, per Ibn Kathir?", a: "A strong, furious wind", wrong: ["A flood", "An earthquake", "A fire"], why: "Allah sent against them a strong and furious wind, a fiercely blowing wind that was intensely cold." },
+        { q: "Why was a wind suited to them?", a: "It was stronger than their strength", wrong: ["They loved wind", "They lived at sea", "It was summer"], why: "They were the strongest and fiercest of people, so Allah overpowered them with something even stronger." }
+      ]
+    }
+  ]
+};
+
+export const SHUARA_UNITS: readonly DeepUnit[] = [SHUARA_ONE, SHUARA_TWO];
