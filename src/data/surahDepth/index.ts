@@ -14,6 +14,17 @@ import { IBRAHIM_UNITS } from "./ibrahimUnits";
 import { HIJR_UNITS } from "./hijrUnits";
 import { NAHL_UNITS } from "./nahlUnits";
 import { ISRA_UNITS } from "./israUnits";
+import { KAHF_UNITS } from "./kahfUnits";
+import { MARYAM_UNITS } from "./maryamUnits";
+import { TAHA_UNITS } from "./tahaUnits";
+import { ANBIYA_UNITS } from "./anbiyaUnits";
+import { HAJJ_UNITS } from "./hajjUnits";
+import { MUMINUN_UNITS } from "./muminunUnits";
+import { NUR_UNITS } from "./nurUnits";
+import { FURQAN_UNITS } from "./furqanUnits";
+import { SHUARA_UNITS } from "./shuaraUnits";
+import { NAML_UNITS } from "./namlUnits";
+import { QASAS_UNITS } from "./qasasUnits";
 
 // The surahs after Al-Baqarah taught ayah by ayah, in mushaf order (Al-Baqarah itself is in ../baqarahUnits.ts).
-export const SURAH_DEPTH_UNITS: readonly DeepUnit[] = [...IMRAN_UNITS, ...NISA_UNITS, ...MAIDAH_UNITS, ...ANAM_UNITS, ...ARAF_UNITS, ...ANFAL_UNITS, ...TAWBAH_UNITS, ...YUNUS_UNITS, ...HUD_UNITS, ...YUSUF_UNITS, ...RAAD_UNITS, ...IBRAHIM_UNITS, ...HIJR_UNITS, ...NAHL_UNITS, ...ISRA_UNITS];
+export const SURAH_DEPTH_UNITS: readonly DeepUnit[] = [...IMRAN_UNITS, ...NISA_UNITS, ...MAIDAH_UNITS, ...ANAM_UNITS, ...ARAF_UNITS, ...ANFAL_UNITS, ...TAWBAH_UNITS, ...YUNUS_UNITS, ...HUD_UNITS, ...YUSUF_UNITS, ...RAAD_UNITS, ...IBRAHIM_UNITS, ...HIJR_UNITS, ...NAHL_UNITS, ...ISRA_UNITS, ...KAHF_UNITS, ...MARYAM_UNITS, ...TAHA_UNITS, ...ANBIYA_UNITS, ...HAJJ_UNITS, ...MUMINUN_UNITS, ...NUR_UNITS, ...FURQAN_UNITS, ...SHUARA_UNITS, ...NAML_UNITS, ...QASAS_UNITS];

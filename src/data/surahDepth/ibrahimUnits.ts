@@ -288,6 +288,34 @@ const IBRAHIM_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "hell-lies-ahead",
+      title: "Hell lies ahead of the tyrant",
+      line: "The stubborn tyrant who fought the truth has Hell ahead of him.",
+      facts: ["A drink he cannot enjoy", "We seek refuge with Allah"],
+      quote: q14(16),
+      source: ik(16, "Ahead of the stubborn tyrant who rejected the Messengers is Hell, where his drink brings him no relief. Ibn Kathir ends by asking Allah for refuge from all of it.", "we seek refuge with Allah from all of this"),
+      difficulty: 3,
+      questions: [
+        { q: "What lies ahead of the arrogant tyrant, in 14:16?", a: "Hell", wrong: ["A palace", "A garden", "A long rest"], why: "In front of him is Hell." },
+        { tf: true, q: "Ibn Kathir asks Allah for refuge from this punishment.", why: "We seek refuge with Allah from all of this." },
+        { q: "Who is warned, in 14:15 to 14:16?", a: "The obstinate, arrogant tyrant", wrong: ["The humble believer", "The traveler", "The orphan"], why: "Every obstinate, arrogant dictator was brought to a complete loss." }
+      ]
+    },
+    {
+      slug: "no-relief-yet-just",
+      title: "No relief, yet Allah is just",
+      line: "The tyrant finds no relief there, and Allah wrongs no one.",
+      facts: ["He will not die there", "Allah is never unjust"],
+      quote: q14(17),
+      source: ik(17, "The tyrant sips his drink unwillingly, and death comes from every side, yet he does not die. All of this is a just repayment, for Allah is never unjust to His servants.", "And your Lord is not at all unjust to"),
+      difficulty: 4,
+      questions: [
+        { q: "How will he sip his drink, in 14:17?", a: "Unwillingly", wrong: ["Happily", "Quickly", "With thanks"], why: "He will sip it unwillingly." },
+        { q: "Will death end it for him, in 14:17?", a: "No, he will not die", wrong: ["Yes, at once", "After one day", "If he asks"], why: "Death will come to him from every side, yet he will not die." },
+        { q: "Is Allah ever unjust to His servants, per 41:46?", a: "Never", wrong: ["Sometimes", "To the weak", "On some days"], why: "And your Lord is not at all unjust to His slaves." }
+      ]
+    },
+    {
       slug: "deeds-like-ashes",
       title: "Deeds like ashes",
       line: "Deeds without faith are ashes blown away on a stormy day.",
@@ -695,6 +723,48 @@ const IBRAHIM_FOUR: DeepUnit = {
         { q: "What will the land of gathering be like?", a: "A pure loaf of bread", wrong: ["A rocky hill", "A dense forest", "A deep sea"], why: "On reddish white land like a pure loaf of bread." },
         { q: "What will the land have, per Sahl?", a: "No landmarks at all", wrong: ["Many towers", "Rivers and trees", "Old cities"], why: "That land will have no landmarks for anybody." },
         { q: "Who narrated the hadith of the white land?", a: "Sahl ibn Sa'd", wrong: ["Jabir", "Anas", "Abu Umamah"], why: "Narrated Sahl bin Sa'd: I heard the Prophet ﷺ saying, The people will be gathered." }
+      ]
+    },
+    {
+      slug: "bound-together",
+      title: "Bound together that Day",
+      line: "On that Day wrongdoers stand bound together with their like.",
+      facts: ["Each with his like", "No one can slip away"],
+      quote: q14(49),
+      source: ik(49, "On the Day the earth is changed, the people of disbelief and mischief will be gathered and bound together, each with others like them.", "bound together, each with his or her like"),
+      difficulty: 4,
+      questions: [
+        { q: "How will the criminals appear, in 14:49?", a: "Bound together in fetters", wrong: ["Free to roam", "Hidden away", "Asleep"], why: "And you will see the criminals that Day, bound together in fetters." },
+        { q: "With whom is each one bound, per Ibn Kathir?", a: "Others like him", wrong: ["His enemies", "The angels", "His teachers"], why: "Bound together, each with his or her like." },
+        { tf: false, q: "In 14:49, wrongdoers can hide on that Day.", why: "You will see the criminals that Day, bound together in fetters." }
+      ]
+    },
+    {
+      slug: "garments-of-tar",
+      title: "Garments of tar",
+      line: "Their clothing will be of tar, which catches fire very fast.",
+      facts: ["A fitting repayment", "Allah requites each soul"],
+      quote: q14(50),
+      source: ik(50, "Their garments will be of tar, the pitch used to coat camels. Qatadah said tar is among the fastest things to catch fire.", "Qatiran (tar) is one of the fastest objects to catch fire"),
+      difficulty: 4,
+      questions: [
+        { q: "What will their garments be made of, in 14:50?", a: "Tar", wrong: ["Silk", "Wool", "Cotton"], why: "Their garments will be of Qatiran (tar)." },
+        { q: "What was tar used for, per Ibn Kathir?", a: "To coat camels", wrong: ["To build ships only", "To make bread", "To write books"], why: "Their garments will be of Qatiran (pitch), that is used to coat camels." },
+        { q: "What did Qatadah say about tar?", a: "It catches fire very fast", wrong: ["It is cold", "It smells sweet", "It is rare"], why: "Qatiran (tar) is one of the fastest objects to catch fire." }
+      ]
+    },
+    {
+      slug: "habits-of-ignorance",
+      title: "Leave the old habits",
+      line: "The Prophet ﷺ warned of four habits from before Islam.",
+      facts: ["Do not boast of family", "Repent before it is too late"],
+      quote: q14(50),
+      source: hadith("muslim", "934", "Abu Malik al-Ash'ari", "Sahih", "The Prophet ﷺ named four habits from before Islam: boasting of rank, mocking others' family lines, seeking rain from stars, and wailing. He urged repentance before death.", "four characteristics belonging to pre-Islamic period which they do not abandon"),
+      difficulty: 5,
+      questions: [
+        { q: "How many old habits did the Prophet ﷺ name?", a: "Four", wrong: ["Two", "Seven", "Ten"], why: "Among my people there are four characteristics belonging to pre-Islamic period." },
+        { q: "Which is one of those habits?", a: "Boasting of high rank", wrong: ["Giving charity", "Praying at night", "Visiting the sick"], why: "Boasting of high rank, reviling other peoples' genealogies, seeking rain by stars." },
+        { q: "Who narrated the hadith of the four habits?", a: "Abu Malik al-Ash'ari", wrong: ["Abu Hurairah", "Anas", "Jabir"], why: "Abu Malik al-Ash'ari reported Allah's Messenger ﷺ as saying." }
       ]
     },
     {

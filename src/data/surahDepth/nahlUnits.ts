@@ -327,6 +327,34 @@ const NAHL_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "denial-at-death",
+      title: "Denial at death",
+      line: "At death some deny their wrong, but Allah knows what they did.",
+      facts: ["Excuses do not help", "Allah knows every deed"],
+      quote: q16(28),
+      source: ik(28, "When the angels take the souls of those who wronged themselves, they pretend they did no evil. The angels reply that Allah knows best what they did.", "Truly, Allah is Most Knowing of what you did"),
+      difficulty: 3,
+      questions: [
+        { q: "What do the wrongdoers claim at death, in 16:28?", a: "We did not do any evil", wrong: ["We are sorry", "We need more time", "We were rich"], why: "We did not do any evil." },
+        { q: "What do the angels answer, in 16:28?", a: "Allah knows what you did", wrong: ["You are right", "Go back home", "Try again"], why: "Yes! Truly, Allah is Most Knowing of what you did." },
+        { tf: false, q: "False excuses will hide deeds from Allah at death.", why: "Truly, Allah is Most Knowing of what you did." }
+      ]
+    },
+    {
+      slug: "home-of-the-arrogant",
+      title: "An evil home for the arrogant",
+      line: "Those too proud to follow the Messengers end in an evil home.",
+      facts: ["Pride blocks the truth", "Humility opens the heart"],
+      quote: q16(29),
+      source: ik(29, "An evil home awaits those who were too arrogant to heed Allah's signs and follow His Messengers.", "for those who were too arrogant to pay attention to the signs of Allah and follow His Messengers"),
+      difficulty: 4,
+      questions: [
+        { q: "For whom is the evil home, in 16:29?", a: "The arrogant", wrong: ["The poor", "The travelers", "The orphans"], why: "Indeed, what an evil abode there is for the arrogant." },
+        { q: "What were they too proud to do, per Ibn Kathir?", a: "Follow His Messengers", wrong: ["Eat together", "Build houses", "Plant trees"], why: "Those who were too arrogant to pay attention to the signs of Allah and follow His Messengers." },
+        { tf: true, q: "Pride kept them from Allah's signs, per Ibn Kathir.", why: "Those who were too arrogant to pay attention to the signs of Allah." }
+      ]
+    },
+    {
       slug: "that-which-is-good",
       title: "They say: good",
       line: "Asked what Allah revealed, the godfearing say: good.",
@@ -606,6 +634,76 @@ const NAHL_FOUR: DeepUnit = {
       ]
     },
     {
+      slug: "a-share-for-idols",
+      title: "A share for false gods",
+      line: "They gave idols a share of Allah's gifts; they will be asked.",
+      facts: ["All provision is from Allah", "Every lie will be questioned"],
+      quote: q16(56),
+      source: ik(56, "The idol worshippers set aside part of what Allah gave them for their idols. Allah swore that He will question them about these lies.", "so Allah swore by His Almighty Self to question them about these lies and fabrications"),
+      difficulty: 3,
+      questions: [
+        { q: "What did they assign to false gods, in 16:56?", a: "A share of their provision", wrong: ["Nothing", "Their homes", "Their prayers only"], why: "And they assign a portion of that which We have provided them with." },
+        { q: "What did Allah swear, per Ibn Kathir?", a: "To question them about their lies", wrong: ["To forget them", "To make them rich", "To leave them be"], why: "So Allah swore by His Almighty Self to question them about these lies and fabrications." },
+        { q: "Who gives all provision, in 16:56?", a: "Allah", wrong: ["The idols", "The kings", "The stars"], why: "That which We have provided them with." }
+      ]
+    },
+    {
+      slug: "no-children-for-allah",
+      title: "Allah has no children",
+      line: "They said the angels were Allah's daughters; He has no children.",
+      facts: ["Glorified is He", "The angels are His servants"],
+      quote: q16(57),
+      source: ik(57, "The idol worshippers called the angels Allah's daughters, yet Allah has no offspring, and the angels are servants of the Most Merciful.", "They attributed offspring to Him when He has no offspring"),
+      difficulty: 3,
+      questions: [
+        { q: "What did they wrongly assign to Allah, in 16:57?", a: "Daughters", wrong: ["Sons only", "A palace", "A throne of gold"], why: "And they assign daughters to Allah! Glorified is He." },
+        { q: "Does Allah have any offspring, per Ibn Kathir?", a: "No, none", wrong: ["Yes, angels", "Yes, many", "Only one"], why: "They attributed offspring to Him when He has no offspring." },
+        { q: "What are the angels, per Ibn Kathir?", a: "Servants of the Most Merciful", wrong: ["Allah's children", "Idols", "Stars"], why: "The angels, who are servants of the Most Merciful." }
+      ]
+    },
+    {
+      slug: "sad-at-a-daughter",
+      title: "Sad at a daughter",
+      line: "In ignorance some grieved when a girl was born to them.",
+      facts: ["A habit Islam ended", "Every child is a gift"],
+      quote: q16(58),
+      source: ik(58, "In the days of ignorance, a man told of a newborn daughter would grow dark with distress and grief. Allah blamed this attitude.", "meaning with distress and grief"),
+      difficulty: 3,
+      questions: [
+        { q: "What happened to his face, in 16:58?", a: "It became dark", wrong: ["It glowed", "It smiled", "It turned red with joy"], why: "His face becomes dark, and he is filled with inner grief." },
+        { q: "What does the dark face mean, per Ibn Kathir?", a: "Distress and grief", wrong: ["Sunburn", "Anger at a friend", "Tiredness"], why: "Meaning with distress and grief." },
+        { tf: false, q: "Allah praised those who grieved at a girl's birth.", why: "Certainly, evil is their decision." }
+      ]
+    },
+    {
+      slug: "raising-two-girls",
+      title: "Raising daughters well",
+      line: "The Prophet ﷺ promised nearness to whoever raises girls well.",
+      facts: ["Daughters bring reward", "Care for them with love"],
+      quote: q16(58),
+      source: hadith("muslim", "2631", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: whoever raises two girls well until they grow up, he and I will come on the Day of Resurrection close together, and he joined his fingers.", "He, who brought up two girls properly till they grew up"),
+      difficulty: 4,
+      questions: [
+        { q: "How many girls are named in the hadith?", a: "Two", wrong: ["Five", "Ten", "One hundred"], why: "He, who brought up two girls properly till they grew up." },
+        { q: "What did the Prophet ﷺ show with his fingers?", a: "Nearness to him", wrong: ["A number", "A direction", "A warning"], why: "He interlaced his fingers, explaining the point of nearness." },
+        { q: "Who narrated the hadith of raising two girls?", a: "Anas ibn Malik", wrong: ["Abu Hurairah", "Aishah", "Jabir"], why: "Anas b. Malik reported Allah's Messenger ﷺ as saying." }
+      ]
+    },
+    {
+      slug: "evil-is-their-decision",
+      title: "Evil is their decision",
+      line: "Allah condemned hiding or harming daughters as an evil choice.",
+      facts: ["Islam protects girls", "Daughters inherit too"],
+      quote: q16(59),
+      source: ik(59, "The man would hide from people and wonder whether to keep her in humiliation, denying her inheritance and care, or to bury her, as was done in ignorance. Allah says evil is their decision.", "Certainly, evil is their decision"),
+      difficulty: 4,
+      questions: [
+        { q: "What does Allah call their choice, in 16:59?", a: "Evil", wrong: ["Wise", "Kind", "Brave"], why: "Certainly, evil is their decision." },
+        { q: "What did he do from the people, in 16:59?", a: "He hid himself", wrong: ["He threw a feast", "He gave gifts", "He traveled"], why: "He hides himself from the people." },
+        { q: "What rights did they deny daughters, per Ibn Kathir?", a: "Inheritance and care", wrong: ["Only toys", "Only names", "Nothing at all"], why: "Not letting her inherit from him and not taking care of her." }
+      ]
+    },
+    {
       slug: "the-highest-description",
       title: "The highest description",
       line: "Allah alone is perfect in every way.",
@@ -780,6 +878,20 @@ const NAHL_FOUR: DeepUnit = {
       ]
     },
     {
+      slug: "no-equal-to-allah",
+      title: "No servant is His equal",
+      line: "You share no wealth equally with servants; Allah has no equal.",
+      facts: ["Provision is a test", "Be content and thankful"],
+      quote: q16(71),
+      source: ik(71, "People would never make their servants equal partners in their wealth, so how could Allah accept His servants as His equals? Umar wrote that provision differs as a test.", "Be content with your provision in this world"),
+      difficulty: 4,
+      questions: [
+        { q: "Who gave some more wealth than others, in 16:71?", a: "Allah", wrong: ["Luck", "The kings", "The stars"], why: "And Allah honored some of you over others with wealth and properties." },
+        { q: "What is the point of the parable, per Ibn Abbas?", a: "Allah has no partner", wrong: ["Wealth is evil", "Share everything", "Servants rule"], why: "How can My servant have a share with Me in My power?" },
+        { q: "What did Umar advise Abu Musa?", a: "Be content with your provision", wrong: ["Seek more gold", "Hide your wealth", "Leave your work"], why: "Be content with your provision in this world." }
+      ]
+    },
+    {
       slug: "spouses-and-children",
       title: "Spouses and children",
       line: "Allah gave us spouses of our own kind, and children.",
@@ -950,6 +1062,76 @@ const NAHL_FIVE: DeepUnit = {
         { q: "What is the duty of the Messenger ﷺ, in 16:82?", a: "To convey clearly", wrong: ["To force people", "To punish", "To collect wealth"], why: "Your duty (O Muhammad) is only to convey (the Message) in a clear way." },
         { q: "What do many do with Allah's grace, in 16:83?", a: "Recognize it, yet deny it", wrong: ["Thank Him daily", "Never notice it", "Give it away"], why: "They recognize the grace of Allah, yet they deny it." },
         { q: "How do they deny the blessings, per Ibn Kathir?", a: "Worshipping others", wrong: ["Losing them", "Selling them", "Hiding them"], why: "They still deny this by worshipping others besides Him." }
+      ]
+    },
+    {
+      slug: "no-excuse-that-day",
+      title: "No excuse that Day",
+      line: "A witness rises from each nation; deniers get no excuse.",
+      facts: ["Each Prophet testifies", "No return to repent"],
+      quote: q16(84),
+      source: ik(84, "On the Day of Resurrection Allah raises a witness from every nation, its Prophet, and the deniers are not allowed to offer excuses or go back to repent.", "He will raise a witness from every nation - that is - their Prophet"),
+      difficulty: 3,
+      questions: [
+        { q: "Who is the witness from each nation, per Ibn Kathir?", a: "Their Prophet", wrong: ["Their king", "Their poet", "Their neighbor"], why: "He will raise a witness from every nation - that is - their Prophet." },
+        { q: "What are the deniers not given, in 16:84?", a: "Leave to make excuses", wrong: ["Water", "Light", "Shade"], why: "Then those who disbelieve will not be given leave." },
+        { tf: false, q: "In 16:84, deniers may return to the world to repent.", why: "Nor will they be allowed to return to the world to repent." }
+      ]
+    },
+    {
+      slug: "no-respite",
+      title: "No delay",
+      line: "When the wrongdoers see the punishment, it is not delayed.",
+      facts: ["Repent now, not later", "Today the door is open"],
+      quote: q16(85),
+      source: ik(85, "Once the wrongdoers see the punishment, it is not lessened even for a moment, nor delayed, so the time to repent is now.", "it will not be reduced for them even for a moment"),
+      difficulty: 4,
+      questions: [
+        { q: "Will the punishment be delayed, in 16:85?", a: "No", wrong: ["Yes, a year", "Yes, a day", "If they ask"], why: "Nor will they be given respite." },
+        { q: "Will it be reduced, per Ibn Kathir?", a: "Not even for a moment", wrong: ["By half", "On Fridays", "At night"], why: "It will not be reduced for them even for a moment." },
+        { tf: true, q: "The lesson of 16:85 is to repent before that Day.", why: "Nor will they be allowed to return to the world to repent." }
+      ]
+    },
+    {
+      slug: "idols-disown-them",
+      title: "Their idols disown them",
+      line: "The false gods call their worshippers liars on that Day.",
+      facts: ["False gods cannot help", "Worship Allah alone"],
+      quote: q16(86),
+      source: ik(86, "On that Day the idols turn against those who worshipped them and call them liars, just when they need them most.", "their gods will disown them when they need them most"),
+      difficulty: 4,
+      questions: [
+        { q: "What do the false gods say, in 16:86?", a: "You indeed are liars", wrong: ["Welcome", "We will help", "Follow us"], why: "But they will throw back their statement at them: You indeed are liars!" },
+        { q: "When do the idols disown them, per Ibn Kathir?", a: "When they need them most", wrong: ["Never", "In childhood", "At a wedding"], why: "Their gods will disown them when they need them most." },
+        { q: "Whom did the idol worshippers call upon, in 16:86?", a: "Partners besides Allah", wrong: ["Allah alone", "The Prophets", "No one"], why: "These are our partners whom we used to call upon besides you." }
+      ]
+    },
+    {
+      slug: "all-submit",
+      title: "All submit that Day",
+      line: "On that Day everyone submits to Allah, and lies vanish.",
+      facts: ["Everyone hears and obeys", "Inventions disappear"],
+      quote: q16(87),
+      source: ik(87, "On that Day all will humble themselves and surrender to Allah, and every false thing they invented will vanish, leaving them no helper.", "they will all surrender to Allah, there will not be anyone who does not hear and obey"),
+      difficulty: 4,
+      questions: [
+        { q: "What will everyone offer, in 16:87?", a: "Full submission to Allah", wrong: ["Gold", "Excuses", "Their idols"], why: "And they will offer their full submission to Allah on that Day." },
+        { q: "What happens to their inventions, in 16:87?", a: "They wander away", wrong: ["They grow", "They help", "They speak"], why: "And what they falsely invented will wander away from them." },
+        { q: "Will anyone refuse to obey, per Ibn Kathir?", a: "No one", wrong: ["Many will", "Kings will", "Half will"], why: "There will not be anyone who does not hear and obey." }
+      ]
+    },
+    {
+      slug: "misleading-others",
+      title: "Misleading others",
+      line: "Those who block others from Allah's path carry a double burden.",
+      facts: ["Guide others to good", "Levels differ by deeds"],
+      quote: q16(88),
+      source: ik(88, "Those who disbelieved and also turned people away from Allah's path get one punishment for their disbelief and another for misleading others. Levels differ by deeds.", "one punishment for their disbelief and another punishment for turning others away from following the truth"),
+      difficulty: 5,
+      questions: [
+        { q: "What did they do besides disbelieve, in 16:88?", a: "Obstruct Allah's path", wrong: ["Feed the poor", "Build mosques", "Teach Quran"], why: "Those who disbelieved and tried to obstruct the path of Allah." },
+        { q: "Why is there a second punishment, per Ibn Kathir?", a: "For turning others away", wrong: ["For being poor", "For being sick", "For traveling"], why: "Another punishment for turning others away from following the truth." },
+        { tf: true, q: "Ibn Kathir says levels differ, as Paradise has degrees.", why: "Just as there will be varying degrees of Paradise for the believers." }
       ]
     },
     {
@@ -1152,6 +1334,20 @@ const NAHL_SIX: DeepUnit = {
       ]
     },
     {
+      slug: "allah-knows-what-he-reveals",
+      title: "Allah knows what He reveals",
+      line: "When a ruling was replaced, deniers cried forgery; Allah knows.",
+      facts: ["Allah rules as He wills", "Believe in all of it"],
+      quote: q16(101),
+      source: ik(101, "When some rulings were replaced by others, the deniers called the Prophet a forger. But Allah does whatever He wills and rules as He wants, and He knows best what He reveals.", "But Allah is the Lord Who does whatever He wills, and rules as He wants"),
+      difficulty: 4,
+      questions: [
+        { q: "Who knows best what is revealed, in 16:101?", a: "Allah", wrong: ["The poets", "The deniers", "The kings"], why: "And Allah knows best what He reveals." },
+        { q: "What did the deniers call him, in 16:101?", a: "A forger", wrong: ["A king", "A poet", "A merchant"], why: "They say: You are but a forger." },
+        { q: "How does Allah rule, per Ibn Kathir?", a: "As He wants", wrong: ["By vote", "By chance", "As people wish"], why: "But Allah is the Lord Who does whatever He wills, and rules as He wants." }
+      ]
+    },
+    {
       slug: "the-holy-spirit-brought-it",
       title: "Jibril brought it down",
       line: "Jibril brought the Quran down from Allah with truth.",
@@ -1206,6 +1402,90 @@ const NAHL_SEVEN: DeepUnit = {
   lessonType: "surah",
   surahName: "An-Nahl",
   lessons: [
+    {
+      slug: "forced-heart-firm",
+      title: "Forced, but the heart stays firm",
+      line: "One forced to deny, his heart firm in faith, is excused.",
+      facts: ["The heart is what counts", "Allah knows what is inside"],
+      quote: q16(106),
+      source: ik(106, "Whoever is forced by beatings to say words of disbelief, while his heart refuses them and stays at peace with faith, is excused by Allah.", "but his heart refuses to accept what he is saying"),
+      difficulty: 4,
+      questions: [
+        { q: "Who is excused, in 16:106?", a: "One forced, his heart firm in faith", wrong: ["One who chose it freely", "One who joked", "One who forgot"], why: "Except one who was forced while his heart is at peace with the faith." },
+        { q: "What matters most in this case, per Ibn Kathir?", a: "What his heart accepts", wrong: ["His clothes", "His tribe", "His wealth"], why: "But his heart refuses to accept what he is saying." },
+        { tf: false, q: "In 16:106, choosing disbelief freely is excused.", why: "But whoever opens their breasts to disbelief, on them is wrath from Allah." }
+      ]
+    },
+    {
+      slug: "bilal-alone-alone",
+      title: "Bilal stood firm",
+      line: "Under harsh pressure, Bilal kept saying: Alone, Alone.",
+      facts: ["Steadfastness is better", "Faith over comfort"],
+      quote: q16(106),
+      source: ik(106, "Scholars agreed one forced may go along to save himself, or refuse. Bilal refused under harsh torment, saying, Alone, Alone. Remaining steadfast is better.", "It is better and preferable for the Muslim to remain steadfast in his religion"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Bilal keep saying?", a: "Alone, Alone", wrong: ["Help me", "I give up", "Let me go"], why: "He refused, saying, Alone, Alone." },
+        { q: "What is better, per Ibn Kathir?", a: "To remain steadfast", wrong: ["To give in", "To run away", "To stay silent"], why: "It is better and preferable for the Muslim to remain steadfast in his religion." },
+        { tf: true, q: "Scholars agree one forced may go along to save himself.", why: "It is permissible for him to either go along with them in the interests of self-preservation, or to refuse." }
+      ]
+    },
+    {
+      slug: "this-world-over-the-next",
+      title: "Choosing this world",
+      line: "They left faith because they loved this world over the next.",
+      facts: ["The Hereafter is lasting", "This world is passing"],
+      quote: q16(107),
+      source: ik(107, "Those who left the faith willingly did so because they preferred this life to the Hereafter, so Allah did not guide their hearts.", "because they preferred this life to the Hereafter"),
+      difficulty: 4,
+      questions: [
+        { q: "What did they prefer, in 16:107?", a: "This world's life", wrong: ["The Hereafter", "Prayer", "Charity"], why: "That is because they preferred the life of this world over that of the Hereafter." },
+        { q: "Whom does Allah not guide, in 16:107?", a: "Those who disbelieve", wrong: ["The poor", "The young", "The travelers"], why: "And Allah does not guide the people who disbelieve." },
+        { tf: true, q: "Loving this world too much can pull one from faith.", why: "Because they preferred this life to the Hereafter." }
+      ]
+    },
+    {
+      slug: "sealed-hearts",
+      title: "Sealed hearts",
+      line: "Their hearts, ears and eyes were sealed; they are heedless.",
+      facts: ["Use your senses for good", "Ask Allah to keep your heart"],
+      quote: q16(108),
+      source: ik(108, "Allah put a seal on their hearts, ears and eyes, so they could not understand or benefit from them, and they became heedless.", "He put a seal on their hearts so that they would not be able to understand what is beneficial for them"),
+      difficulty: 4,
+      questions: [
+        { q: "What three things were sealed, in 16:108?", a: "Hearts, hearing and sight", wrong: ["Hands, feet and mouth", "Homes, gates and roads", "Books, pens and paper"], why: "Upon whose hearts, hearing and sight Allah has set a seal." },
+        { q: "What does the seal stop, per Ibn Kathir?", a: "Understanding what benefits them", wrong: ["Eating", "Sleeping", "Walking"], why: "So that they would not be able to understand what is beneficial for them." },
+        { q: "What are they called, in 16:108?", a: "The heedless", wrong: ["The wise", "The patient", "The grateful"], why: "And they are the heedless." }
+      ]
+    },
+    {
+      slug: "the-true-losers",
+      title: "The true losers",
+      line: "In the Hereafter, they are surely the losers.",
+      facts: ["Loss of self and family", "Real loss is in the Hereafter"],
+      quote: q16(109),
+      source: ik(109, "It is certain that such people will be the losers in the Hereafter, losing themselves and their families on the Day of Resurrection.", "they will lose themselves and their families on the Day of Resurrection"),
+      difficulty: 3,
+      questions: [
+        { q: "What will they be in the Hereafter, in 16:109?", a: "The losers", wrong: ["The winners", "The leaders", "The guests"], why: "No doubt, in the Hereafter they will be the losers." },
+        { q: "What will they lose, per Ibn Kathir?", a: "Themselves and their families", wrong: ["Only money", "Only a house", "Nothing"], why: "They will lose themselves and their families on the Day of Resurrection." },
+        { q: "What does no doubt mean, per Ibn Kathir?", a: "It is certain", wrong: ["It is a guess", "It might be", "It is a joke"], why: "No doubt means, it is inevitable." }
+      ]
+    },
+    {
+      slug: "forgiven-after-hardship",
+      title: "Forgiven after hardship",
+      line: "Those who slipped, then strove with patience, are forgiven.",
+      facts: ["Allah is Most Merciful", "Patience after a slip"],
+      quote: q16(110),
+      source: ik(110, "Some weak believers in Makkah gave in under pressure, then escaped by migrating, struggled and stayed patient. Allah forgives them and shows them mercy.", "He will forgive them and show mercy to them when they are resurrected"),
+      difficulty: 4,
+      questions: [
+        { q: "What did they do after their trial, in 16:110?", a: "Migrated, strove and were patient", wrong: ["Gave up", "Went back to idols", "Hid forever"], why: "For those who emigrated after they were put to trials and then performed Jihad, and were patient." },
+        { q: "How does Allah treat them, in 16:110?", a: "Forgiving, Most Merciful", wrong: ["Harshly", "He forgets them", "He ignores them"], why: "Your Lord is indeed Forgiving, Most Merciful." },
+        { q: "What did they leave behind, per Ibn Kathir?", a: "Homeland, families and wealth", wrong: ["Only shoes", "Nothing", "Their faith"], why: "Leaving their homeland, families and wealth behind." }
+      ]
+    },
     {
       slug: "every-soul-pleads-for-itself",
       title: "Every soul for itself",
@@ -1289,6 +1569,34 @@ const NAHL_SEVEN: DeepUnit = {
         { q: "What should we not say with our tongues, in 16:116?", a: "This is lawful, this is forbidden", wrong: ["Thank you", "Peace be on you", "Allah is Great"], why: "Saying: This is lawful and this is forbidden, to invent lies against Allah." },
         { q: "Will those who invent lies against Allah succeed, in 16:116?", tf: false, why: "Verily, those who invent lies against Allah, will never succeed." },
         { q: "Who else is included, per Ibn Kathir?", a: "One who forbids what Allah allowed", wrong: ["One who prays", "One who studies", "One who gives"], why: "Whoever declares something unlawful that Allah has permitted, only because it suits his opinions." }
+      ]
+    },
+    {
+      slug: "a-brief-enjoyment",
+      title: "A brief enjoyment",
+      line: "Those who lie about Allah get brief joy, then a painful end.",
+      facts: ["Do not invent rules", "This world is short"],
+      quote: q16(117),
+      source: ik(117, "Those who invent lies about Allah, making things lawful or forbidden by whim, never succeed. In this world they have passing pleasure, then severe punishment.", "As for this world, it is transient pleasure"),
+      difficulty: 4,
+      questions: [
+        { q: "What do they get in this world, in 16:117?", a: "A brief enjoyment", wrong: ["Eternal joy", "Nothing", "Endless wealth"], why: "A passing brief enjoyment will be theirs." },
+        { q: "Will liars against Allah succeed, in 16:116?", a: "Never", wrong: ["Always", "Sometimes", "If rich"], why: "Verily, those who invent lies against Allah, will never succeed." },
+        { q: "What is this world for them, per Ibn Kathir?", a: "Transient pleasure", wrong: ["A lasting home", "A prison", "A palace"], why: "As for this world, it is transient pleasure." }
+      ]
+    },
+    {
+      slug: "we-did-not-wrong-them",
+      title: "We did not wrong them",
+      line: "Some foods were forbidden to the Jews; Allah did not wrong them.",
+      facts: ["Allah desires ease for us", "Allah wrongs no one"],
+      quote: q16(118),
+      source: ik(118, "Allah made things easy for this Ummah. He mentions the foods He forbade the Jews before, as told in Al-An'am, and says He did not wrong them in these limits.", "meaning, in the restrictions that We imposed upon them"),
+      difficulty: 4,
+      questions: [
+        { q: "Did Allah wrong them, in 16:118?", a: "No", wrong: ["Yes", "A little", "Only once"], why: "And We did not wrong them, but they wronged themselves." },
+        { q: "What does Allah desire for this Ummah, per Ibn Kathir?", a: "Ease, not hardship", wrong: ["Hardship", "Hunger", "Fear"], why: "Because Allah desires ease for us, not hardship." },
+        { q: "Which surah first lists these foods, per Ibn Kathir?", a: "Surah Al-An'am", wrong: ["Surah Yusuf", "Surah Maryam", "Surah Hud"], why: "Meaning in Surat Al-An'am." }
       ]
     },
     {
