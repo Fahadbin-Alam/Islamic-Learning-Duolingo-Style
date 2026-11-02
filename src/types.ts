@@ -522,6 +522,8 @@ export interface LessonSession {
   passingScore?: number;
   /** A test-out (set with mode "test_out"): the screen says it is a test, shows `passingScore`, and gives no free retry. */
   isTest?: boolean;
+  /** A unit's test played from its circle (mode "standard", with isTest): passing it finishes the circle. */
+  unitTest?: boolean;
   /** Which try at this test-out, from 0; TRY AGAIN passes the next one so the questions change. */
   attempt?: number;
   /** A test-out started from JUMP HERE: the circle it was tapped on, so TRY AGAIN tests for the same one. */
