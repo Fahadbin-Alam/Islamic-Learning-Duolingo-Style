@@ -151,6 +151,9 @@ import {
   scheduleIslamicReminderChecks
 } from "./services/islamicNotifications";
 import { onPrayerNudgeOpened, requestPrayerNudgePermission, schedulePrayerNudges } from "./services/prayerNudges";
+import { onAdhkarReminderOpened, requestAdhkarReminderPermission, scheduleAdhkarReminders } from "./services/adhkarReminders";
+import { adhkarDoneToday, adhkarRemindersOn, markAdhkarDone, saveAdhkarReminders } from "./services/adhkarProgress";
+import { adhkarTimeFor, type AdhkarTime } from "./data/adhkar";
 import { loadPrayerNudgePrefs, savePrayerNudgePrefs } from "./services/prayerNudgePlan";
 import type { PrayerNudgePrefs } from "./services/prayerTimes";
 import { findPrayerCity } from "./data/prayerCities";
@@ -210,6 +213,8 @@ import {
   ProfileView,
   FamilySheet,
   RamadanBanner,
+  AdhkarBanner,
+  AdhkarSheet,
   PlanOfferSheet,
   RefillSheet,
   RewardPop,
@@ -693,6 +698,10 @@ export default function TopicApp() {
   }, []);
   // Prayer-time lessons belong to this phone (its city and notifications), not to the account.
   const [prayerPrefs, setPrayerPrefs] = useState<PrayerNudgePrefs>(loadPrayerNudgePrefs);
+  // The daily adhkar sheet: which list it is open on (none when closed), the lists done today, and the reminders.
+  const [adhkarOpen, setAdhkarOpen] = useState<AdhkarTime | null>(null);
+  const [adhkarDone, setAdhkarDone] = useState<AdhkarTime[]>(() => adhkarDoneToday());
+  const [adhkarReminders, setAdhkarReminders] = useState(adhkarRemindersOn);
   const [prayerModalVisible, setPrayerModalVisible] = useState(false);
   const [prayerLessonDue, setPrayerLessonDue] = useState(false);
   const [accountPromptShown, setAccountPromptShown] = useState(false);
@@ -1021,6 +1030,27 @@ export default function TopicApp() {
 
   // Tapping a prayer nudge opens the tiny lesson it promised.
   useEffect(() => onPrayerNudgeOpened(() => setPrayerLessonDue(true)), []);
+
+  // The adhkar reminders follow the switch and the language; tapping one opens its list.
+  useEffect(() => {
+    void scheduleAdhkarReminders(adhkarReminders, currentLanguage);
+  }, [adhkarReminders, currentLanguage]);
+  useEffect(() => onAdhkarReminderOpened((time) => openAdhkar(time)), []);
+
+  function openAdhkar(time: AdhkarTime = adhkarTimeFor(new Date())) {
+    // A new day starts with nothing ticked.
+    setAdhkarDone(adhkarDoneToday());
+    setAdhkarOpen(time);
+  }
+
+  async function toggleAdhkarReminders() {
+    const on = !adhkarReminders;
+    if (on && !(await requestAdhkarReminderPermission())) {
+      return;
+    }
+    saveAdhkarReminders(on);
+    setAdhkarReminders(on);
+  }
 
   const pathNodes = useMemo(() => {
     return state.user ? learningApi.getPathNodes(state.user) : [];
@@ -3362,6 +3392,7 @@ export default function TopicApp() {
             onOpenShop={() => dispatch({ type: "open_shop" })}
             dailySeen={dailySeenDay === localDayNumber()}
             dailyOpenSignal={dailyOpenSignal}
+            onOpenAdhkar={() => openAdhkar()}
             onDailyOpened={() => {
               const today = localDayNumber();
               setDailySeenDay(today);
@@ -3414,6 +3445,8 @@ export default function TopicApp() {
                     {t("All of {topic}", { topic: selectedSection.title })}
                   </Text>
                 </Tappable>
+              ) : selectedSection.topicId === "duas" ? (
+                <AdhkarBanner accent={selectedSection.accentColor} now={adhkarTimeFor(new Date())} doneToday={adhkarDone} onOpen={(time) => openAdhkar(time)} />
               ) : (
                 ramadanBanner
               )
@@ -3831,6 +3864,15 @@ export default function TopicApp() {
             setSettingsModalVisible(false);
             setPrayerModalVisible(true);
           }}
+        />
+        <AdhkarSheet
+          visible={adhkarOpen !== null}
+          time={adhkarOpen ?? "morning"}
+          doneToday={adhkarDone}
+          onFinished={(time) => setAdhkarDone(markAdhkarDone(time))}
+          remindersOn={adhkarReminders}
+          onToggleReminders={() => void toggleAdhkarReminders()}
+          onClose={() => setAdhkarOpen(null)}
         />
         <PrayerSheet
           visible={prayerModalVisible}

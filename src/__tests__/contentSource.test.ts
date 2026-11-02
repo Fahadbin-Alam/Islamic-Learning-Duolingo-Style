@@ -11,6 +11,7 @@ import { lessonForAge } from "../data/ageLevels";
 import { COURSE, LESSONS_BY_ID, STARTER_USER } from "../data/course";
 import { FOUNDATION_CATEGORY_META, FOUNDATION_PROGRESS_LABELS, FOUNDATION_QUESTION_BANK } from "../data/foundationQuestionBank";
 import { ALL_HARD_QUESTIONS } from "../data/hardQuestions";
+import { adhkarText } from "../data/adhkar";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic } from "../data/arabicTerms";
 import { getFoundationWordBank } from "../services/foundationAssessment";
 import { getTopicCopy } from "../i18n";
@@ -112,6 +113,8 @@ async function buildSource() {
   Object.values(FOUNDATION_CATEGORY_META).forEach((meta) => Object.values(meta).forEach((value) => typeof value === "string" && add("course", value)));
   FOUNDATION_PROGRESS_LABELS.forEach((label) => add("course", label));
   FOUNDATION_QUESTION_BANK.forEach(addFoundation);
+  // The daily adhkar sheet: names, meanings, rewards and sources.
+  adhkarText().forEach((line) => add("lesson", line));
   return [...entries].map(([text, kind]) => ({ kind, text }));
 }
 

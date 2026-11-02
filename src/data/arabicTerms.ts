@@ -45,6 +45,7 @@ export const TOPIC_ARABIC: Record<string, ArabicTerm> = {
   ramadan: { ar: "رمضان", translit: "Ramadan", meaning: "The month of Ramadan" },
   eid: { ar: "العيد", translit: "Al-'Id", meaning: "The Eid" },
   akhirah: { ar: "اليوم الآخر", translit: "Al-Yawm al-Akhir", meaning: "The Last Day" },
+  duas: { ar: "الأدعية والأذكار", translit: "Al-ad'iyah wal-adhkar", meaning: "Duas and remembrance" },
   intro: { ar: "مدخل إلى الإسلام", translit: "Madkhal ila al-Islam", meaning: "A first look at Islam" }
 };
 
@@ -261,6 +262,11 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "akhirah-bridge": { ar: "الصراط", translit: "As-Sirat", meaning: "The bridge" },
   "akhirah-jannah": { ar: "الجنة", translit: "Al-Jannah", meaning: "Paradise" },
   "akhirah-jahannam": { ar: "جهنم", translit: "Jahannam", meaning: "The Fire" },
+  "duas-morning-evening": { ar: "أذكار الصباح والمساء", translit: "Adhkar as-sabah wal-masa'", meaning: "Morning and evening adhkar" },
+  "duas-sleep": { ar: "أذكار النوم والاستيقاظ", translit: "Adhkar an-nawm wal-istiqaz", meaning: "Adhkar of sleeping and waking" },
+  "duas-every-day": { ar: "أدعية اليوم", translit: "Ad'iyat al-yawm", meaning: "Duas of the day" },
+  "duas-quran": { ar: "أدعية من القرآن", translit: "Ad'iyah min al-Quran", meaning: "Duas from the Quran" },
+  "duas-reward": { ar: "فضل الذكر", translit: "Fadl adh-dhikr", meaning: "The virtue of dhikr" },
   "akhirah-get-ready": { ar: "الاستعداد للآخرة", translit: "Al-isti'dad lil-akhirah", meaning: "Getting ready for the Hereafter" }
 };
 
@@ -757,6 +763,7 @@ const LEARN_FORMS = [
   "الْيَوْمُ الْآخِرُ", "الْإِيمَانُ بِالْيَوْمِ الْآخِرِ", "أَشْرَاطُ السَّاعَةِ الصُّغْرَى", "أَشْرَاطُ السَّاعَةِ الْكُبْرَى",
   "الْمَوْتُ وَالْقَبْرُ", "النَّفْخُ فِي الصُّورِ وَالْحَشْرُ", "الْحِسَابُ وَالْمِيزَانُ", "الشَّفَاعَةُ وَالْحَوْضُ",
   "الصِّرَاطُ", "الْجَنَّةُ", "جَهَنَّمُ", "الِاسْتِعْدَادُ لِلْآخِرَةِ",
+  "أَذْكَارُ الصَّبَاحِ وَالْمَسَاءِ", "أَذْكَارُ النَّوْمِ وَالِاسْتِيقَاظِ", "أَدْعِيَةُ الْيَوْمِ", "أَدْعِيَةٌ مِنَ الْقُرْآنِ", "فَضْلُ الذِّكْرِ",
   "النَّشْأَةُ", "بَدْءُ الْوَحْيِ", "الدَّعْوَةُ فِي مَكَّةَ", "الطَّائِفُ", "الْإِسْرَاءُ وَالْمِعْرَاجُ", "الْهِجْرَةُ",
   "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
   "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
