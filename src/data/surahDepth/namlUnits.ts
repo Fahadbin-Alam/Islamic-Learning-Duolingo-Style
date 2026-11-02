@@ -940,6 +940,20 @@ const NAML_SIX: DeepUnit = {
       ]
     },
     {
+      slug: "repaid-for-what-we-did",
+      title: "Repaid for what we did",
+      line: "Those who bring only bad deeds are repaid for what they did.",
+      facts: ["Allah is never unjust", "Good deeds can outweigh bad"],
+      quote: q27(90),
+      source: ik(90, "Whoever comes to Allah with bad deeds and no good deeds, or whose bad deeds outweigh the good, will meet the Fire, and be told: are you repaid anything but what you used to do?", "whose evil deeds outweigh his good deeds"),
+      difficulty: 4,
+      questions: [
+        { q: "Who is meant by bringing an evil deed, in 27:90?", a: "One whose bad outweighs good", wrong: ["Anyone who slips once", "Only animals", "No one at all"], why: "Whoever comes to Allah with evil deeds, and with no good deeds to his credit, or whose evil deeds outweigh his good deeds." },
+        { q: "What are they repaid with, in 27:90?", a: "Only what they used to do", wrong: ["More than they did", "Others' deeds", "Nothing at all"], why: "Are you being recompensed anything except what you used to do?" },
+        { tf: true, q: "Allah repays people only for what they themselves did.", why: "Are you being recompensed anything except what you used to do?" }
+      ]
+    },
+    {
       slug: "lord-of-this-city",
       title: "Lord of this city",
       line: "The Prophet ﷺ was told to worship the Lord of Makkah alone.",
