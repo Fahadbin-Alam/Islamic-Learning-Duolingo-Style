@@ -6612,6 +6612,114 @@
     "text": "A lesson for thinkers"
   },
   {
+    "kind": "course",
+    "text": "Eleven stars, the sun and the moon"
+  },
+  {
+    "kind": "course",
+    "text": "Keep the dream quiet"
+  },
+  {
+    "kind": "course",
+    "text": "A dream you like, a dream you dislike"
+  },
+  {
+    "kind": "course",
+    "text": "Chosen and taught"
+  },
+  {
+    "kind": "course",
+    "text": "The noble son of the noble"
+  },
+  {
+    "kind": "course",
+    "text": "The brothers' envy"
+  },
+  {
+    "kind": "course",
+    "text": "Throw him in a well instead"
+  },
+  {
+    "kind": "course",
+    "text": "Trust us with Yusuf"
+  },
+  {
+    "kind": "course",
+    "text": "Comfort in the well"
+  },
+  {
+    "kind": "course",
+    "text": "Patience is most fitting"
+  },
+  {
+    "kind": "course",
+    "text": "Patience at the first blow"
+  },
+  {
+    "kind": "course",
+    "text": "Sold for a few coins"
+  },
+  {
+    "kind": "course",
+    "text": "A home in Egypt"
+  },
+  {
+    "kind": "course",
+    "text": "Wisdom and knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "I seek refuge in Allah"
+  },
+  {
+    "kind": "course",
+    "text": "Allah turned evil away"
+  },
+  {
+    "kind": "course",
+    "text": "Leaving a sin for Allah"
+  },
+  {
+    "kind": "course",
+    "text": "The shirt torn from the back"
+  },
+  {
+    "kind": "course",
+    "text": "This is a noble angel"
+  },
+  {
+    "kind": "course",
+    "text": "Prison is dearer to me"
+  },
+  {
+    "kind": "course",
+    "text": "Shade on that Day"
+  },
+  {
+    "kind": "course",
+    "text": "Jailed though innocent"
+  },
+  {
+    "kind": "course",
+    "text": "Two dreams in prison"
+  },
+  {
+    "kind": "course",
+    "text": "Tawhid before the dreams"
+  },
+  {
+    "kind": "course",
+    "text": "Many lords, or Allah the One?"
+  },
+  {
+    "kind": "course",
+    "text": "The dreams explained"
+  },
+  {
+    "kind": "course",
+    "text": "Mention me to your king"
+  },
+  {
     "kind": "arabic",
     "text": "The Thunder"
   },
@@ -12409,19 +12517,7 @@
   },
   {
     "kind": "course",
-    "text": "Eleven stars, the sun and the moon"
-  },
-  {
-    "kind": "course",
     "text": "Down the well"
-  },
-  {
-    "kind": "course",
-    "text": "I seek refuge in Allah"
-  },
-  {
-    "kind": "course",
-    "text": "Prison is dearer to me"
   },
   {
     "kind": "course",
@@ -105960,10 +106056,6 @@
     "text": "Ya'qub: beautiful patience"
   },
   {
-    "kind": "lesson",
-    "text": "Sold for a few coins"
-  },
-  {
     "kind": "source",
     "text": "Quran 12:7-20"
   },
@@ -106190,10 +106282,6 @@
   {
     "kind": "lesson",
     "text": "In prison Yusuf taught tawhid and explained two dreams."
-  },
-  {
-    "kind": "lesson",
-    "text": "Many lords, or Allah the One?"
   },
   {
     "kind": "lesson",
@@ -198090,6 +198178,1550 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about Hud, ayahs 100 to 123!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah calls the story of Yusuf the best of stories."
+  },
+  {
+    "kind": "lesson",
+    "text": "An Arabic Quran to understand"
+  },
+  {
+    "kind": "lesson",
+    "text": "A clear Book"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:1"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah relate in 12:3?"
+  },
+  {
+    "kind": "question",
+    "text": "Tales of kings only"
+  },
+  {
+    "kind": "question",
+    "text": "We relate unto you the best of stories through Our revelations unto you."
+  },
+  {
+    "kind": "question",
+    "text": "In which language was the Quran sent down, per 12:2?"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, We have sent it down as an Arabic Qur'an in order that you may understand."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir says the Quran needs other books to be complete."
+  },
+  {
+    "kind": "question",
+    "text": "He says the Quran is sufficient and needs no other book besides it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Young Yusuf saw eleven stars, the sun and moon bow to him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Stars were his eleven brothers"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sun and moon were his parents"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:4"
+  },
+  {
+    "kind": "question",
+    "text": "How many stars did Yusuf see, in 12:4?"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, I saw eleven stars and the sun and the moon."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did the sun and the moon stand for?"
+  },
+  {
+    "kind": "question",
+    "text": "His father and mother"
+  },
+  {
+    "kind": "question",
+    "text": "Two kings"
+  },
+  {
+    "kind": "question",
+    "text": "Two angels"
+  },
+  {
+    "kind": "question",
+    "text": "The sun and the moon represent his father and mother."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas said the dreams of Prophets are revelation from Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Abdullah bin Abbas stated that the dreams of Prophets are revelations from Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ya'qub told Yusuf not to tell his brothers, lest they envy him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shaytan is an open enemy"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hide a blessing until it comes"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:5"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:5"
+  },
+  {
+    "kind": "question",
+    "text": "Whom should Yusuf not tell, in 12:5?"
+  },
+  {
+    "kind": "question",
+    "text": "The caravan"
+  },
+  {
+    "kind": "question",
+    "text": "Relate not your vision to your brothers."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ya'qub fear the brothers would feel?"
+  },
+  {
+    "kind": "question",
+    "text": "Fear of wolves"
+  },
+  {
+    "kind": "question",
+    "text": "Ya'qub feared they would envy him and plot evil against him."
+  },
+  {
+    "kind": "question",
+    "text": "In 12:5, Shaytan is called an open enemy to man."
+  },
+  {
+    "kind": "question",
+    "text": "Verily, Shaytan is to man an open enemy!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Thank Allah for a good dream; seek refuge from a bad one."
+  },
+  {
+    "kind": "lesson",
+    "text": "A good dream is from Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "A bad dream will not harm you"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6985"
+  },
+  {
+    "kind": "question",
+    "text": "Where does a dream you like come from, per the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "From food"
+  },
+  {
+    "kind": "question",
+    "text": "From Shaytan"
+  },
+  {
+    "kind": "question",
+    "text": "If anyone of you sees a dream that he likes, then it is from Allah."
+  },
+  {
+    "kind": "question",
+    "text": "What should you do after a bad dream?"
+  },
+  {
+    "kind": "question",
+    "text": "Stay awake all week"
+  },
+  {
+    "kind": "question",
+    "text": "Ask a fortune teller"
+  },
+  {
+    "kind": "question",
+    "text": "He should seek refuge with Allah from its evil."
+  },
+  {
+    "kind": "question",
+    "text": "A bad dream should be told to many people."
+  },
+  {
+    "kind": "question",
+    "text": "He should not mention it to anybody, for it will not harm him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah would choose Yusuf and teach him to explain dreams."
+  },
+  {
+    "kind": "lesson",
+    "text": "Prophethood for Yusuf"
+  },
+  {
+    "kind": "lesson",
+    "text": "Like Ibrahim and Ishaq before"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:6"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:6"
+  },
+  {
+    "kind": "question",
+    "text": "What would Allah teach Yusuf, in 12:6?"
+  },
+  {
+    "kind": "question",
+    "text": "The meaning of dreams"
+  },
+  {
+    "kind": "question",
+    "text": "Farming dates"
+  },
+  {
+    "kind": "question",
+    "text": "Thus will your Lord choose you and teach you the interpretation of dreams."
+  },
+  {
+    "kind": "question",
+    "text": "On whom had Allah perfected His favor before, in 12:6?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim and Ishaq"
+  },
+  {
+    "kind": "question",
+    "text": "As He perfected it on your fathers, Ibrahim and Ishaq aforetime!"
+  },
+  {
+    "kind": "question",
+    "text": "Allah knows best whom to choose for His Message."
+  },
+  {
+    "kind": "question",
+    "text": "Allah knows best whom to chose for His Messages."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ named Yusuf the noble son of three noble Prophets."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yusuf son of Ya'qub"
+  },
+  {
+    "kind": "lesson",
+    "text": "Son of Ishaq, son of Ibrahim"
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf, the son of Ya'qub, the son of Ishaq, the son of Ibrahim."
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf, his father, grandfather and great-grandfather were all Prophets."
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim, Ishaq, Ya'qub and Yusuf were all Prophets, father to son."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Yusuf, ayahs 1 to 20?"
+  },
+  {
+    "kind": "lesson",
+    "text": "The brothers envied Yusuf and Binyamin for their father's love."
+  },
+  {
+    "kind": "lesson",
+    "text": "Signs for those who ask"
+  },
+  {
+    "kind": "lesson",
+    "text": "They planned to repent after"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:8"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:7"
+  },
+  {
+    "kind": "question",
+    "text": "Who was Yusuf's full brother?"
+  },
+  {
+    "kind": "question",
+    "text": "Yahudha"
+  },
+  {
+    "kind": "question",
+    "text": "Binyamin"
+  },
+  {
+    "kind": "question",
+    "text": "Rubil"
+  },
+  {
+    "kind": "question",
+    "text": "Why did the brothers want Yusuf gone, in 12:9?"
+  },
+  {
+    "kind": "question",
+    "text": "To find water"
+  },
+  {
+    "kind": "question",
+    "text": "To win a race"
+  },
+  {
+    "kind": "question",
+    "text": "To sell grain"
+  },
+  {
+    "kind": "question",
+    "text": "To have their father's favor"
+  },
+  {
+    "kind": "question",
+    "text": "So that the favor of your father may be given to you alone."
+  },
+  {
+    "kind": "question",
+    "text": "They planned to become righteous after their wrong."
+  },
+  {
+    "kind": "question",
+    "text": "And after that you will be righteous folk, intending repentance before the sin."
+  },
+  {
+    "kind": "lesson",
+    "text": "One brother said: do not harm him, leave him in a well."
+  },
+  {
+    "kind": "lesson",
+    "text": "The eldest spoke up"
+  },
+  {
+    "kind": "lesson",
+    "text": "A caravan would find him"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:10"
+  },
+  {
+    "kind": "question",
+    "text": "Where did one brother suggest putting Yusuf, in 12:10?"
+  },
+  {
+    "kind": "question",
+    "text": "Throw him down to the bottom of a well."
+  },
+  {
+    "kind": "question",
+    "text": "Who would pick Yusuf up, per 12:10?"
+  },
+  {
+    "kind": "question",
+    "text": "A caravan of travelers"
+  },
+  {
+    "kind": "question",
+    "text": "A king's army"
+  },
+  {
+    "kind": "question",
+    "text": "Sailors"
+  },
+  {
+    "kind": "question",
+    "text": "He will be picked up by some caravan of travelers."
+  },
+  {
+    "kind": "question",
+    "text": "Their plan could have stopped Allah's will for Yusuf."
+  },
+  {
+    "kind": "question",
+    "text": "Allah the Exalted willed that Yusuf fulfill a mission that must be fulfilled and complete."
+  },
+  {
+    "kind": "lesson",
+    "text": "The brothers asked to take Yusuf out to play the next day."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ya'qub feared a wolf"
+  },
+  {
+    "kind": "lesson",
+    "text": "They used his words later"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:13"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:13"
+  },
+  {
+    "kind": "question",
+    "text": "What did the brothers say they would do, in 12:12?"
+  },
+  {
+    "kind": "question",
+    "text": "Enjoy and play"
+  },
+  {
+    "kind": "question",
+    "text": "Go to war"
+  },
+  {
+    "kind": "question",
+    "text": "Sell sheep"
+  },
+  {
+    "kind": "question",
+    "text": "Send him with us tomorrow to enjoy himself and play."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ya'qub fear, in 12:13?"
+  },
+  {
+    "kind": "question",
+    "text": "A wolf would eat him"
+  },
+  {
+    "kind": "question",
+    "text": "I fear lest a wolf should devour him, while you are careless of him."
+  },
+  {
+    "kind": "question",
+    "text": "The brothers later used their father's own words in their lie."
+  },
+  {
+    "kind": "question",
+    "text": "They heard these words from his mouth and used them later."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the well, Allah promised Yusuf he would one day tell them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah's mercy in hard times"
+  },
+  {
+    "kind": "lesson",
+    "text": "A good end was promised"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:15"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah reveal to Yusuf in the well, in 12:15?"
+  },
+  {
+    "kind": "question",
+    "text": "He should run home"
+  },
+  {
+    "kind": "question",
+    "text": "He would one day tell them of it"
+  },
+  {
+    "kind": "question",
+    "text": "He would stay there forever"
+  },
+  {
+    "kind": "question",
+    "text": "He would become a sailor"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed, you shall one day inform them of this their affair, when they know you not."
+  },
+  {
+    "kind": "question",
+    "text": "What did this revelation give Yusuf?"
+  },
+  {
+    "kind": "question",
+    "text": "Comfort and strength"
+  },
+  {
+    "kind": "question",
+    "text": "Allah revealed to Yusuf to comfort his heart and strengthen his resolve."
+  },
+  {
+    "kind": "question",
+    "text": "Allah sends relief in times of distress."
+  },
+  {
+    "kind": "question",
+    "text": "Allah mentions His mercy and His relief that He sends in times of distress."
+  },
+  {
+    "kind": "lesson",
+    "text": "They brought a shirt with false blood; Ya'qub chose patience."
+  },
+  {
+    "kind": "lesson",
+    "text": "They forgot to tear the shirt"
+  },
+  {
+    "kind": "lesson",
+    "text": "Help is sought from Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:16"
+  },
+  {
+    "kind": "question",
+    "text": "When did the brothers come back, in 12:16?"
+  },
+  {
+    "kind": "question",
+    "text": "At dawn, laughing"
+  },
+  {
+    "kind": "question",
+    "text": "At noon, singing"
+  },
+  {
+    "kind": "question",
+    "text": "Early in the night, weeping"
+  },
+  {
+    "kind": "question",
+    "text": "And they came to their father in the early part of the night weeping."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Ya'qub not believe the shirt?"
+  },
+  {
+    "kind": "question",
+    "text": "It was too big"
+  },
+  {
+    "kind": "question",
+    "text": "It was green"
+  },
+  {
+    "kind": "question",
+    "text": "It was new"
+  },
+  {
+    "kind": "question",
+    "text": "They forgot to tear the shirt, and this is why Ya'qub did not believe them."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ya'qub say is most fitting, in 12:18?"
+  },
+  {
+    "kind": "question",
+    "text": "So (for me) patience is most fitting."
+  },
+  {
+    "kind": "lesson",
+    "text": "Real patience is shown at the first moment of hardship."
+  },
+  {
+    "kind": "lesson",
+    "text": "Like Ya'qub's beautiful patience"
+  },
+  {
+    "kind": "lesson",
+    "text": "No complaint to people"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 1302"
+  },
+  {
+    "kind": "question",
+    "text": "When is real patience shown, per the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "At the first stroke of hardship"
+  },
+  {
+    "kind": "question",
+    "text": "A year later"
+  },
+  {
+    "kind": "question",
+    "text": "After crying for days"
+  },
+  {
+    "kind": "question",
+    "text": "The real patience is at the first stroke of a calamity."
+  },
+  {
+    "kind": "question",
+    "text": "Who narrated the hadith on real patience?"
+  },
+  {
+    "kind": "question",
+    "text": "Narrated Anas: The Prophet ﷺ said, the real patience is at the first stroke."
+  },
+  {
+    "kind": "question",
+    "text": "Ya'qub chose patience the moment he heard the news."
+  },
+  {
+    "kind": "lesson",
+    "text": "A caravan drew Yusuf out; he was sold for a few dirhams."
+  },
+  {
+    "kind": "lesson",
+    "text": "Twenty dirhams, said Ibn Mas'ud"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knew all they did"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:20"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:19"
+  },
+  {
+    "kind": "question",
+    "text": "What did the water-drawer say, in 12:19?"
+  },
+  {
+    "kind": "question",
+    "text": "A treasure is here"
+  },
+  {
+    "kind": "question",
+    "text": "What good news! Here is a boy"
+  },
+  {
+    "kind": "question",
+    "text": "The well is dry"
+  },
+  {
+    "kind": "question",
+    "text": "How much was Yusuf sold for, per Ibn Mas'ud?"
+  },
+  {
+    "kind": "question",
+    "text": "Twenty dirhams"
+  },
+  {
+    "kind": "question",
+    "text": "For a few Dirhams, twenty Dirhams, according to Abdullah bin Mas'ud."
+  },
+  {
+    "kind": "question",
+    "text": "Allah did not know what they did to Yusuf."
+  },
+  {
+    "kind": "question",
+    "text": "And Allah was the All-Knower of what they did."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Yusuf, ayahs 1 to 20!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The 'Aziz of Egypt bought Yusuf and told his wife: honor him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The 'Aziz was a minister"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah has full power"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:21"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:21"
+  },
+  {
+    "kind": "question",
+    "text": "Who bought Yusuf in Egypt?"
+  },
+  {
+    "kind": "question",
+    "text": "The king's cook"
+  },
+  {
+    "kind": "question",
+    "text": "The 'Aziz, a minister"
+  },
+  {
+    "kind": "question",
+    "text": "The man who bought Yusuf was the minister of Egypt, and his title was 'Aziz."
+  },
+  {
+    "kind": "question",
+    "text": "What did he tell his wife, in 12:21?"
+  },
+  {
+    "kind": "question",
+    "text": "Send him to work"
+  },
+  {
+    "kind": "question",
+    "text": "Sell him again"
+  },
+  {
+    "kind": "question",
+    "text": "Keep him outside"
+  },
+  {
+    "kind": "question",
+    "text": "Make his stay comfortable"
+  },
+  {
+    "kind": "question",
+    "text": "Make his stay comfortable, maybe he will profit us or we shall adopt him as a son."
+  },
+  {
+    "kind": "question",
+    "text": "Most people know Allah's wisdom in what He decrees."
+  },
+  {
+    "kind": "question",
+    "text": "And Allah has full power and control over His affairs, but most of men know not."
+  },
+  {
+    "kind": "lesson",
+    "text": "When Yusuf grew up, Allah gave him wisdom and knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "This was prophethood"
+  },
+  {
+    "kind": "lesson",
+    "text": "A reward for doing good"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:22"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah give Yusuf when he grew up, in 12:22?"
+  },
+  {
+    "kind": "question",
+    "text": "We gave him wisdom and knowledge, thus We reward the doers of good."
+  },
+  {
+    "kind": "question",
+    "text": "What were the wisdom and knowledge, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Prophethood"
+  },
+  {
+    "kind": "question",
+    "text": "Which is the prophethood that Allah sent him with."
+  },
+  {
+    "kind": "question",
+    "text": "Allah rewards the doers of good, in 12:22."
+  },
+  {
+    "kind": "question",
+    "text": "Thus We reward the doers of good."
+  },
+  {
+    "kind": "lesson",
+    "text": "The 'Aziz's wife called Yusuf to wrong; he refused firmly."
+  },
+  {
+    "kind": "lesson",
+    "text": "He would not betray his master"
+  },
+  {
+    "kind": "lesson",
+    "text": "Wrongdoers never succeed"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:23"
+  },
+  {
+    "kind": "question",
+    "text": "What did Yusuf say first, in 12:23?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask the king"
+  },
+  {
+    "kind": "question",
+    "text": "Wait until night"
+  },
+  {
+    "kind": "question",
+    "text": "Why would Yusuf not betray the 'Aziz?"
+  },
+  {
+    "kind": "question",
+    "text": "He had been kind to him"
+  },
+  {
+    "kind": "question",
+    "text": "He feared the guards"
+  },
+  {
+    "kind": "question",
+    "text": "He wanted money"
+  },
+  {
+    "kind": "question",
+    "text": "He was leaving"
+  },
+  {
+    "kind": "question",
+    "text": "Your husband is my master who provided me with comfortable living and was kind to me."
+  },
+  {
+    "kind": "question",
+    "text": "Wrongdoers will never be successful, in 12:23."
+  },
+  {
+    "kind": "question",
+    "text": "Verily, the wrongdoers will never be successful."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah turned evil away from Yusuf, His sincere servant."
+  },
+  {
+    "kind": "lesson",
+    "text": "He saw a sign from his Lord"
+  },
+  {
+    "kind": "lesson",
+    "text": "Chosen and purified"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:24"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:24"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah turn away from Yusuf, in 12:24?"
+  },
+  {
+    "kind": "question",
+    "text": "Evil and sin"
+  },
+  {
+    "kind": "question",
+    "text": "Thus it was, that We might turn away from him evil and immoral sins."
+  },
+  {
+    "kind": "question",
+    "text": "What kind of servant was Yusuf, in 12:24?"
+  },
+  {
+    "kind": "question",
+    "text": "Sincere and chosen"
+  },
+  {
+    "kind": "question",
+    "text": "Surely, he was one of Our Mukhlasin servants, chosen and purified."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Jarir names exactly what sign Yusuf saw."
+  },
+  {
+    "kind": "question",
+    "text": "He says it should be left vague, as Allah left it."
+  },
+  {
+    "kind": "lesson",
+    "text": "A bad deed left for Allah's sake is written as good."
+  },
+  {
+    "kind": "lesson",
+    "text": "A good deed counts ten times"
+  },
+  {
+    "kind": "lesson",
+    "text": "Up to seven hundred times"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 7501"
+  },
+  {
+    "kind": "question",
+    "text": "What is written if you leave a bad deed for Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "Two bad deeds"
+  },
+  {
+    "kind": "question",
+    "text": "A bad deed"
+  },
+  {
+    "kind": "question",
+    "text": "If he refrains from doing it for My Sake, then write it as a good deed."
+  },
+  {
+    "kind": "question",
+    "text": "How many times is a good deed written when done?"
+  },
+  {
+    "kind": "question",
+    "text": "Ten, up to seven hundred"
+  },
+  {
+    "kind": "question",
+    "text": "Once only"
+  },
+  {
+    "kind": "question",
+    "text": "Write it for him as ten good deeds up to seven-hundred times."
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf left the wrong for Allah's sake."
+  },
+  {
+    "kind": "lesson",
+    "text": "His shirt torn from the back proved Yusuf told the truth."
+  },
+  {
+    "kind": "lesson",
+    "text": "He ran to the door"
+  },
+  {
+    "kind": "lesson",
+    "text": "A witness from her family"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:27"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:25"
+  },
+  {
+    "kind": "question",
+    "text": "Where was Yusuf's shirt torn, in 12:25?"
+  },
+  {
+    "kind": "question",
+    "text": "At the sleeve"
+  },
+  {
+    "kind": "question",
+    "text": "And she tore his shirt from the back."
+  },
+  {
+    "kind": "question",
+    "text": "Who gave the test of the shirt, in 12:26?"
+  },
+  {
+    "kind": "question",
+    "text": "A witness of her household"
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf's father"
+  },
+  {
+    "kind": "question",
+    "text": "And a witness of her household bore witness."
+  },
+  {
+    "kind": "question",
+    "text": "A shirt torn from the back showed Yusuf was running away."
+  },
+  {
+    "kind": "question",
+    "text": "Had Yusuf run away from her, she would have held to his shirt from the back."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Yusuf, ayahs 21 to 42?"
+  },
+  {
+    "kind": "lesson",
+    "text": "The women saw Yusuf, cut their hands, and called him an angel."
+  },
+  {
+    "kind": "lesson",
+    "text": "A banquet with knives"
+  },
+  {
+    "kind": "lesson",
+    "text": "Beautiful inside and out"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:31"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:30"
+  },
+  {
+    "kind": "question",
+    "text": "What did the women do when they saw Yusuf, in 12:31?"
+  },
+  {
+    "kind": "question",
+    "text": "Sang songs"
+  },
+  {
+    "kind": "question",
+    "text": "Cut their hands"
+  },
+  {
+    "kind": "question",
+    "text": "Fell asleep"
+  },
+  {
+    "kind": "question",
+    "text": "Then, when they saw him, they exalted him and cut their hands."
+  },
+  {
+    "kind": "question",
+    "text": "What did the women call Yusuf, in 12:31?"
+  },
+  {
+    "kind": "question",
+    "text": "A noble angel"
+  },
+  {
+    "kind": "question",
+    "text": "This is none other than a noble angel!"
+  },
+  {
+    "kind": "question",
+    "text": "Some scholars said she then praised his inner purity too."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yusuf prayed: prison is dearer to me than their call."
+  },
+  {
+    "kind": "lesson",
+    "text": "He relied on Allah, not himself"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah answered his prayer"
+  },
+  {
+    "kind": "question",
+    "text": "What did Yusuf say is dearer to him, in 12:33?"
+  },
+  {
+    "kind": "question",
+    "text": "Going home"
+  },
+  {
+    "kind": "question",
+    "text": "Prison is dearer to me than that to which they invite me."
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah do, in 12:34?"
+  },
+  {
+    "kind": "question",
+    "text": "Answered his prayer"
+  },
+  {
+    "kind": "question",
+    "text": "Moved him home"
+  },
+  {
+    "kind": "question",
+    "text": "So his Lord answered his invocation and turned away from him their plot."
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf trusted his own strength, not Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Please, do not abandon me and leave me to rely on myself."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah shades one who refuses a wrong call, saying: I fear Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seven are shaded that Day"
+  },
+  {
+    "kind": "lesson",
+    "text": "A youth raised in worship too"
+  },
+  {
+    "kind": "question",
+    "text": "How many will Allah shade, per the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah will give shade to seven, on the Day when there will be no shade but His."
+  },
+  {
+    "kind": "question",
+    "text": "Which youth is shaded, per the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "One raised in worship of Allah"
+  },
+  {
+    "kind": "question",
+    "text": "The strongest youth"
+  },
+  {
+    "kind": "question",
+    "text": "The richest youth"
+  },
+  {
+    "kind": "question",
+    "text": "A youth who has been brought up in the worship of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir links the hadith of the seven to Yusuf's choice."
+  },
+  {
+    "kind": "question",
+    "text": "He cites it right after Yusuf chose prison out of fear of Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "They saw he was innocent but still put Yusuf in prison."
+  },
+  {
+    "kind": "lesson",
+    "text": "To hide the talk in town"
+  },
+  {
+    "kind": "lesson",
+    "text": "His name was cleared later"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:35"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:35"
+  },
+  {
+    "kind": "question",
+    "text": "Did they know Yusuf was innocent, per 12:35?"
+  },
+  {
+    "kind": "question",
+    "text": "Only Yusuf knew"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, they had seen proof"
+  },
+  {
+    "kind": "question",
+    "text": "No, they had no idea"
+  },
+  {
+    "kind": "question",
+    "text": "Only the king knew"
+  },
+  {
+    "kind": "question",
+    "text": "After they had seen the proofs of his innocence, to imprison him for a time."
+  },
+  {
+    "kind": "question",
+    "text": "How long was he to be jailed, in 12:35?"
+  },
+  {
+    "kind": "question",
+    "text": "For a time"
+  },
+  {
+    "kind": "question",
+    "text": "Until he paid"
+  },
+  {
+    "kind": "question",
+    "text": "To imprison him for a time."
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf later left prison with his honor intact."
+  },
+  {
+    "kind": "question",
+    "text": "When this was successfully achieved, Yusuf left the prison with his honor intact."
+  },
+  {
+    "kind": "lesson",
+    "text": "The king's drink-maker"
+  },
+  {
+    "kind": "lesson",
+    "text": "The king's baker"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:36"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:36"
+  },
+  {
+    "kind": "question",
+    "text": "Who were the two men, per Qatadah?"
+  },
+  {
+    "kind": "question",
+    "text": "The king's drink-maker and baker"
+  },
+  {
+    "kind": "question",
+    "text": "Two princes"
+  },
+  {
+    "kind": "question",
+    "text": "Two soldiers"
+  },
+  {
+    "kind": "question",
+    "text": "Two farmers"
+  },
+  {
+    "kind": "question",
+    "text": "One of them was the king's distiller and the other was his baker."
+  },
+  {
+    "kind": "question",
+    "text": "What did one man see on his head, in 12:36?"
+  },
+  {
+    "kind": "question",
+    "text": "A basket of fish"
+  },
+  {
+    "kind": "question",
+    "text": "Bread with birds eating it"
+  },
+  {
+    "kind": "question",
+    "text": "I saw myself carrying bread on my head and birds were eating thereof."
+  },
+  {
+    "kind": "question",
+    "text": "They asked Yusuf because they saw him as a doer of good."
+  },
+  {
+    "kind": "question",
+    "text": "Verily, we think you are one of the doers of good."
+  },
+  {
+    "kind": "lesson",
+    "text": "First Yusuf told them he follows the faith of his fathers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim, Ishaq and Ya'qub"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:38"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:37"
+  },
+  {
+    "kind": "question",
+    "text": "Whose religion did Yusuf follow, in 12:38?"
+  },
+  {
+    "kind": "question",
+    "text": "The 'Aziz"
+  },
+  {
+    "kind": "question",
+    "text": "The Egyptian priests"
+  },
+  {
+    "kind": "question",
+    "text": "And I have followed the religion of my fathers, Ibrahim, Ishaq and Ya'qub."
+  },
+  {
+    "kind": "question",
+    "text": "Where did Yusuf's knowledge come from, in 12:37?"
+  },
+  {
+    "kind": "question",
+    "text": "His Lord taught him"
+  },
+  {
+    "kind": "question",
+    "text": "Old books"
+  },
+  {
+    "kind": "question",
+    "text": "This is of that which my Lord has taught me."
+  },
+  {
+    "kind": "question",
+    "text": "Most people thank Allah for sending Messengers."
+  },
+  {
+    "kind": "question",
+    "text": "But most men thank not."
+  },
+  {
+    "kind": "lesson",
+    "text": "Are many gods better, or Allah, the One, the Irresistible?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Only names they made up"
+  },
+  {
+    "kind": "lesson",
+    "text": "That is the straight religion"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:39"
+  },
+  {
+    "kind": "question",
+    "text": "What did Yusuf ask, in 12:39?"
+  },
+  {
+    "kind": "question",
+    "text": "Are many lords better or Allah, the One?"
+  },
+  {
+    "kind": "question",
+    "text": "What are the idols, per 12:40?"
+  },
+  {
+    "kind": "question",
+    "text": "Wise kings"
+  },
+  {
+    "kind": "question",
+    "text": "Old Prophets"
+  },
+  {
+    "kind": "question",
+    "text": "You do not worship besides Him but only names which you have named."
+  },
+  {
+    "kind": "question",
+    "text": "To whom is the command, in 12:40?"
+  },
+  {
+    "kind": "question",
+    "text": "The command is for none but Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "One would serve the king drink again; the other would not live."
+  },
+  {
+    "kind": "lesson",
+    "text": "He spoke gently to the sad one"
+  },
+  {
+    "kind": "lesson",
+    "text": "The matter was decided"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:41"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:41"
+  },
+  {
+    "kind": "question",
+    "text": "What would the drink-maker do, in 12:41?"
+  },
+  {
+    "kind": "question",
+    "text": "Stay in prison"
+  },
+  {
+    "kind": "question",
+    "text": "Serve his master drink again"
+  },
+  {
+    "kind": "question",
+    "text": "As for one of you, he will pour out wine for his master to drink."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Yusuf speak indirectly?"
+  },
+  {
+    "kind": "question",
+    "text": "To lessen the other's grief"
+  },
+  {
+    "kind": "question",
+    "text": "He was unsure"
+  },
+  {
+    "kind": "question",
+    "text": "He did not direct this speech at him, so as to lessen the grief of the other person."
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf said the matter they asked about was decided."
+  },
+  {
+    "kind": "question",
+    "text": "Thus is the case judged concerning which you both did inquire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yusuf asked to be mentioned; Shaytan made the man forget."
+  },
+  {
+    "kind": "lesson",
+    "text": "A few more years in prison"
+  },
+  {
+    "kind": "lesson",
+    "text": "Three to nine years"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 12:42"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 12:42"
+  },
+  {
+    "kind": "question",
+    "text": "What did Yusuf ask the freed man, in 12:42?"
+  },
+  {
+    "kind": "question",
+    "text": "Tell my father"
+  },
+  {
+    "kind": "question",
+    "text": "Open the door"
+  },
+  {
+    "kind": "question",
+    "text": "Bring me food"
+  },
+  {
+    "kind": "question",
+    "text": "Who made the man forget, in 12:42?"
+  },
+  {
+    "kind": "question",
+    "text": "But Shaytan made him forget to mention it to his master."
+  },
+  {
+    "kind": "question",
+    "text": "How many years is a few, per Mujahid and Qatadah?"
+  },
+  {
+    "kind": "question",
+    "text": "Three to nine"
+  },
+  {
+    "kind": "question",
+    "text": "It means between three and nine, according to Mujahid and Qatadah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Yusuf, ayahs 21 to 42!"
   },
   {
     "kind": "lesson",
