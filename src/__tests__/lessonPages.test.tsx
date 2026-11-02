@@ -40,7 +40,7 @@ function walk(lesson: Lesson, flow: FlowStep[]) {
   return seen;
 }
 
-describe("a lesson in small pages: learn, answer, learn, answer, then the circle's quiz", () => {
+describe("a lesson in small pages: learn, answer, learn, answer", () => {
   it("never asks a lesson's own question before a page has taught its answer", () => {
     const unanswerable: string[] = [];
     for (const lesson of LESSONS) {
@@ -57,25 +57,25 @@ describe("a lesson in small pages: learn, answer, learn, answer, then the circle
     expect(unanswerable.slice(0, 10)).toEqual([]);
   });
 
-  it("puts a page between two questions while pages are left, and ends with a quiz of the circle", () => {
+  it("puts a page between two questions while pages are left, and never asks the circle's own questions twice", () => {
     for (const lesson of LESSONS) {
       const flow = buildLessonFlow(lesson);
       expect(isLearnStep(flow[0])).toBe(true);
       const quizAt = flow.findIndex((step) => isLearnStep(step) && step.page === "quiz");
       const learning = quizAt >= 0 ? flow.slice(0, quizAt) : flow;
       const pageKinds = learning.filter(isLearnStep).filter((step) => step.page !== "teach").map((step) => step.page);
-      // Every page shows once, in order, before the quiz.
+      // Every page shows once, in order.
       expect(pageKinds).toEqual(lessonPages(lesson).map((page) => page.page));
       if (isRecallLesson(lesson)) continue;
+      // No "Quiz time!" in a lesson: the quiz circles and the unit's test ask again later.
+      expect(quizAt).toBe(-1);
       const own = lesson.challenges.filter((challenge) => !challenge.isReview).length;
-      // Each own question once while learning; the quiz asks them again with the reviews.
-      expect(learning.filter(isQuestionStep)).toHaveLength(own);
-      const quiz = flow.slice(quizAt + 1).filter(isQuestionStep);
-      if (own >= 2) {
-        expect(quizAt).toBeGreaterThan(0);
-        expect(quiz.every((step) => step.quiz)).toBe(true);
-        expect(quiz.length).toBe(own + lesson.challenges.filter((challenge) => challenge.isReview).length);
-      }
+      const asked = flow.filter(isQuestionStep);
+      expect(asked.filter((step) => !step.quiz)).toHaveLength(own);
+      // Only the reviews of earlier circles come after the pages, each once.
+      expect(asked.filter((step) => step.quiz).map((step) => step.index)).toEqual(
+        lesson.challenges.flatMap((challenge, index) => (challenge.isReview ? [index] : []))
+      );
     }
   });
 
@@ -174,14 +174,19 @@ describe("LearnCard pages", () => {
     expect(screen.getAllByTestId("learn-deeper-source").length).toBeGreaterThan(0);
   });
 
-  it("says Good to know and Quiz time", async () => {
+  it("says Good to know, Quiz time and Test time", async () => {
     await render(<LearnCard {...props} page="teach" teach={{ lines: ["Uthman was from Quraysh."], answer: "Quraysh" }} />);
     expect(screen.getByTestId("learn-page-title")).toHaveTextContent("Good to know");
     expect(screen.getByTestId("learn-mark")).toHaveTextContent("Quraysh");
 
     await render(<LearnCard {...props} page="quiz" quizCount={4} />);
     expect(screen.getByText("Quiz time!")).toBeTruthy();
-    expect(screen.getByText("4 questions on this circle. Get them right to move on.")).toBeTruthy();
+    expect(screen.getByText("4 questions from your last lessons, in new ways.")).toBeTruthy();
+
+    // A unit's test says so, with its pass mark.
+    await render(<LearnCard {...props} page="quiz" quizCount={8} testPass={7} />);
+    expect(screen.getByText("Test time!")).toBeTruthy();
+    expect(screen.getByText("Get 7 of 8 right to pass this unit.")).toBeTruthy();
   });
 });
 

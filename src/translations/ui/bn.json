@@ -707,7 +707,6 @@
   "What the source says": "উৎসে যা বলা আছে",
   "Good to know": "জেনে রাখো",
   "Quiz time!": "কুইজের সময়!",
-  "{count} questions on this circle. Get them right to move on.": "এই বৃত্তে {count}টি প্রশ্ন। ঠিক উত্তর দিয়ে এগিয়ে যাও।",
   "Get them right to move on.": "ঠিক উত্তর দিয়ে এগিয়ে যাও।",
   "I know this part": "এই অংশটা আমি জানি",
   "Start lessons": "পাঠ শুরু করো",
@@ -726,5 +725,16 @@
   "Take this home with you.": "এই কথাটা মনে রেখো।",
   "A drawing": "আঁকা ছবি",
   "On the page, look for": "পাতায় এটি খুঁজুন",
-  "In English:": "ইংরেজিতে:"
+  "In English:": "ইংরেজিতে:",
+  "All matched!": "সব মিলেছে!",
+  "All matched! {count} tries to get there.": "সব মিলেছে! {count} বারের চেষ্টায়।",
+  "Build the answer": "উত্তরটি সাজাও",
+  "Drag the right word into the gap!": "সঠিক শব্দটি টেনে ফাঁকা জায়গায় বসাও!",
+  "Fill in the gap": "শূন্যস্থান পূরণ করো",
+  "Get {count} of {total} right to pass this unit.": "এই ইউনিট পাস করতে {total}টির মধ্যে {count}টি সঠিক করো।",
+  "Get {count} of {total} to pass the unit test.": "ইউনিট টেস্ট পাস করতে {total}টির মধ্যে {count}টি সঠিক করো।",
+  "Is it “{answer}”?": "উত্তর কি “{answer}”?",
+  "Tap a question, then its answer!": "একটি প্রশ্নে চাপো, তারপর তার উত্তরে!",
+  "Test time!": "টেস্টের সময়!",
+  "{count} questions from your last lessons, in new ways.": "তোমার আগের পাঠগুলো থেকে {count}টি প্রশ্ন, নতুনভাবে।"
 }
