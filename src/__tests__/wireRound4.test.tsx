@@ -92,8 +92,9 @@ function testOut(user: UserProfile, branchId: string, jumpNodeId?: string) {
 const nodeLabel = (node: LearningNode) => screen.getByTestId(`path-node-${node.id}`).props.accessibilityLabel as string;
 
 // Two whole test-outs played through the app: slower than one screen.
-// The whole path renders here with its moving pictures; on a busy CI machine that can pass 30 s.
-jest.setTimeout(90000);
+// The whole path renders here with its moving pictures, and the Quran path grows with every surah taught ayah by
+// ayah; on a busy CI machine one test can pass 90 s.
+jest.setTimeout(180000);
 
 afterEach(() => {
   removeStoredItem(PROFILE_KEY);

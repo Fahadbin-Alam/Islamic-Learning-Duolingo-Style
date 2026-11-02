@@ -104,6 +104,10 @@ import {
   declineFriendBattle,
   sendFriendBattleScore,
   type FriendBattle,
+  fetchInvite,
+  redeemInviteCode,
+  claimInviteRewards,
+  type InviteInfo,
   syncRemoteUser,
   hasPendingSync,
   pickStartingUser,
@@ -215,6 +219,7 @@ import {
   RamadanBanner,
   AdhkarBanner,
   AdhkarSheet,
+  RamadanDayPop,
   PlanOfferSheet,
   RefillSheet,
   RewardPop,
@@ -234,14 +239,14 @@ import {
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
-import { shareApp } from "./services/shareApp";
+import { shareApp, shareRamadanDay } from "./services/shareApp";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
-import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
+import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
 import { pictureForLesson, pictureForPage, pictureForQuestion, pictureForText } from "./data/lessonPictures";
@@ -752,6 +757,14 @@ export default function TopicApp() {
   const [battle, setBattle] = useState<BattleQuestion[] | undefined>(undefined);
   // Battles with friends (from the server), and the one being played now, if it is a friend battle.
   const [friendBattles, setFriendBattles] = useState<FriendBattle[]>([]);
+  const [invite, setInvite] = useState<InviteInfo | undefined>(undefined);
+  // On opening (and after logging in), collect dates for friends who joined with this learner's code.
+  const inviteAccountKey = state.user?.hasAccount ? String(state.user.id) : "";
+  useEffect(() => {
+    setInvite(undefined);
+    if (inviteAccountKey) void loadInvite();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inviteAccountKey]);
   const [versus, setVersus] = useState<{ name: string; battle: FriendBattle; sending?: boolean } | undefined>(undefined);
   const [openSecret, setOpenSecret] = useState<{ secret: SecretLesson; isNew: boolean } | undefined>(undefined);
   const [secretListOpen, setSecretListOpen] = useState(false);
@@ -1190,6 +1203,18 @@ export default function TopicApp() {
   // Ramadan mode: from two weeks before Ramadan until Eid, the Learn path opens with the Ramadan banner and the
   // topic picker puts Ramadan first. Worked out again whenever the learner changes, so a new day shows on the next lesson.
   const season = useMemo(() => ramadanSeason(), [state.user]);
+  // The "I finished day N" card pops up once, when today's Ramadan lesson turns done (not on every app open).
+  const [ramadanPop, setRamadanPop] = useState(false);
+  const ramadanDoneBefore = useRef<{ userId?: number; done: boolean }>({ done: false });
+  useEffect(() => {
+    const user = state.user;
+    const done = Boolean(user && didRamadanToday(user));
+    const before = ramadanDoneBefore.current;
+    if (done && !before.done && before.userId === user?.id) {
+      setRamadanPop(true);
+    }
+    ramadanDoneBefore.current = { userId: user?.id, done };
+  }, [state.user]);
   const ramadanBanner = useMemo(() => {
     const user = state.user;
     const ramadan = localizedSections.find((section) => section.topicId === RAMADAN_TOPIC);
@@ -1217,9 +1242,11 @@ export default function TopicApp() {
               }
             : undefined
         }
+        onReminders={prayerPrefs.ramadan && prayerPrefs.cityId ? undefined : () => setPrayerModalVisible(true)}
+        onShare={season.phase === "ramadan" ? () => void shareRamadanDay(season.day, ramadanStreak(user)) : undefined}
       />
     );
-  }, [localizedSections, pathNodes, season, state.user]);
+  }, [localizedSections, pathNodes, prayerPrefs, season, state.user]);
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
     const topics = localizedSections.map((section) => ({
@@ -2365,7 +2392,7 @@ export default function TopicApp() {
   // Permission comes first so the nudges are scheduled with it once the new settings land.
   async function savePrayerSettings(prefs: PrayerNudgePrefs) {
     setPrayerModalVisible(false);
-    const allowed = !prefs.enabled || (await requestPrayerNudgePermission());
+    const allowed = !(prefs.enabled || prefs.ramadan) || (await requestPrayerNudgePermission());
     savePrayerNudgePrefs(prefs);
     setPrayerPrefs(prefs);
 
@@ -2999,6 +3026,48 @@ export default function TopicApp() {
     setOpenSecret({ secret, isNew });
   }
 
+  /** Loads the learner's invite code and collects dates for friends who joined with it. Never throws. */
+  async function loadInvite() {
+    if (!isBackendConfigured() || !getSessionToken() || !state.user?.hasAccount) {
+      return;
+    }
+
+    try {
+      const info = await fetchInvite();
+      setInvite(info);
+      if (info.unclaimedDates > 0) {
+        const claimed = await claimInviteRewards();
+        setInvite({ ...info, unclaimedDates: 0 });
+        if (claimed.rewardDates > 0) {
+          dispatch({ type: "apply_user_latest", update: (user) => ({ ...user, gems: user.gems + claimed.rewardDates }) });
+          void notify(t("Your friends joined!"), t("+{count} dates", { count: claimed.rewardDates }), { mood: "cheer" });
+        }
+      }
+    } catch {
+      // Offline or an older server: the card just stays hidden until the next try.
+    }
+  }
+
+  async function redeemInvite(code: string) {
+    try {
+      const result = await redeemInviteCode(code);
+      dispatch({ type: "apply_user_latest", update: (user) => ({ ...user, gems: user.gems + result.rewardDates }) });
+      setInvite((current) => (current ? { ...current, usedCode: true, canUseCode: false } : current));
+      void notify(t("Welcome gift!"), t("+{count} dates", { count: result.rewardDates }), { mood: "cheer" });
+    } catch (error) {
+      const status = error instanceof BackendRequestError ? error.status : 0;
+      const message =
+        status === 404
+          ? t("That code doesn't work. Check it and try again.")
+          : status === 409
+            ? t("You already used an invite code.")
+            : status === 400
+              ? t("You can't use this code.")
+              : t("No internet");
+      void notify(message, undefined, { mood: "think" });
+    }
+  }
+
   async function loadCrew() {
     if (!state.user?.hasAccount) {
       setCrew({ status: "signed_out" });
@@ -3020,6 +3089,7 @@ export default function TopicApp() {
     try {
       const [payload] = await Promise.all([fetchCrew(localDateKey()), loadFriendBattles()]);
       setCrew({ status: "ready", payload });
+      void loadInvite();
     } catch (error) {
       setCrew({
         status: "error",
@@ -3209,7 +3279,7 @@ export default function TopicApp() {
 
   const inLesson = state.screen.startsWith("lesson_") || state.screen === "assessment";
   const prayerCity = findPrayerCity(prayerPrefs.cityId);
-  const prayerSettingLabel = prayerPrefs.enabled && prayerCity ? cityName(prayerCity, currentLanguage) : t("Off");
+  const prayerSettingLabel = (prayerPrefs.enabled || prayerPrefs.ramadan) && prayerCity ? cityName(prayerCity, currentLanguage) : t("Off");
   const enabledSocialProviders = socialProviders.map((id) => ({ id, label: id === "google" ? t("Continue with Google") : t("Continue with Apple") }));
   const activeTab = tabForScreen(state.screen);
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
@@ -3674,7 +3744,7 @@ export default function TopicApp() {
             onToggleSound={toggleSoundEffects}
             onOpenSettings={openSettingsModal}
             onOpenFamily={openFamily}
-            onShareApp={() => void shareApp()}
+            onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
@@ -3728,8 +3798,10 @@ export default function TopicApp() {
             onAnswerBattle={(next, accept) => void answerFriendBattle(next, accept)}
             onPlayBattle={playFriendBattle}
             onCancelBattle={(next) => void answerFriendBattle(next, false)}
-            onShareApp={() => void shareApp()}
+            onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             onRefresh={loadCrew}
+            invite={invite}
+            onRedeemInvite={(code) => void redeemInvite(code)}
             onCreateAccount={openCrewAccount}
             league={crewLeagueUser?.league}
             ranks={{
@@ -3938,6 +4010,21 @@ export default function TopicApp() {
           onCancel={() => closeTestOutResult(false)}
           testID="test-out-result"
         />
+        {season?.phase === "ramadan" ? (
+          <RamadanDayPop
+            visible={ramadanPop && !inLesson && !rewardCelebration}
+            day={season.day}
+            length={season.length}
+            doneDays={ramadanDoneDayNumbers(state.user)}
+            streak={ramadanStreak(state.user)}
+            accent={localizedSections.find((section) => section.topicId === RAMADAN_TOPIC)?.accentColor ?? colors.green}
+            onShare={() => {
+              setRamadanPop(false);
+              void shareRamadanDay(season.day, ramadanStreak(state.user!));
+            }}
+            onClose={() => setRamadanPop(false)}
+          />
+        ) : null}
         <RewardPop
           visible={Boolean(rewardCelebration)}
           gems={rewardCelebration?.stop.gemsReward ?? 0}

@@ -4,6 +4,7 @@ import type { RamadanSeason } from "../../data/ramadanCalendar";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
 import { ProgressBar } from "../ProgressBar";
+import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, space, text } from "../theme";
 import { formatNumber } from "./FormattedCount";
 import { t } from "../../i18n";
@@ -20,13 +21,17 @@ export type RamadanBannerProps = {
   total: number;
   /** Plays the next Ramadan circle; not given once the whole path is done. */
   onPlay?: () => void;
+  /** Opens the suhoor and iftar reminder setting; only given while they are off. */
+  onReminders?: () => void;
+  /** Shares "I finished day N of Ramadan"; shown once today's lesson is done. */
+  onShare?: () => void;
 };
 
 /**
  * Ramadan mode, at the top of the Learn path: in the two weeks before Ramadan, how many days are left; during
  * Ramadan, the day of the month, the Ramadan streak and a button for today's lesson.
  */
-export function RamadanBanner({ season, accent, streak, doneToday, done, total, onPlay }: RamadanBannerProps) {
+export function RamadanBanner({ season, accent, streak, doneToday, done, total, onPlay, onReminders, onShare }: RamadanBannerProps) {
   const ink = darken(accent, 0.25);
   const inRamadan = season.phase === "ramadan";
   const title = inRamadan
@@ -71,6 +76,22 @@ export function RamadanBanner({ season, accent, streak, doneToday, done, total, 
           onPress={onPlay}
           testID="ramadan-play"
         />
+      ) : null}
+      {inRamadan && doneToday && onShare ? (
+        <GameButton
+          label={t("Share day {day}", { day: formatNumber(season.day) })}
+          color={accent}
+          size="md"
+          fullWidth
+          onPress={onShare}
+          testID="ramadan-share"
+        />
+      ) : null}
+      {onReminders ? (
+        <Tappable onPress={onReminders} pressScale={0.98} style={styles.reminders} accessibilityRole="button" testID="ramadan-reminders">
+          <Icon name="moon" size={20} />
+          <Text style={[styles.remindersText, { color: ink }]}>{t("Get suhoor and iftar reminders")}</Text>
+        </Tappable>
       ) : null}
     </View>
   );
@@ -127,5 +148,16 @@ const styles = StyleSheet.create({
   },
   count: {
     ...text.tiny
+  },
+  reminders: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: space.sm,
+    minHeight: 40
+  },
+  remindersText: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15
   }
 });
