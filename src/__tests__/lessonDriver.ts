@@ -1,9 +1,9 @@
 import { act, fireEvent, screen } from "@testing-library/react-native";
 import type { Challenge } from "../types";
-import { checkCandidate, puzzleWords } from "../ui/lesson/questionFormats";
+import { checkCandidate, fillPiece } from "../ui/lesson/questionFormats";
 
 // Drives a lesson in the app's tests: learn pages and questions in turn, a quiz circle's matching round, and every
-// way a question can be asked (tiles, a gap to fill, a word puzzle, true or false).
+// way a question can be asked (tiles, a gap to fill, a missing word in the answer, true or false).
 
 async function press(testID: string) {
   await act(async () => {
@@ -19,7 +19,7 @@ export async function toQuestion() {
 }
 
 function onGame() {
-  return Boolean(screen.queryByTestId("gap-game") || screen.queryByTestId("build-game") || screen.queryByTestId("match-game"));
+  return Boolean(screen.queryByTestId("gap-game") || screen.queryByTestId("fill-game") || screen.queryByTestId("match-game"));
 }
 
 function promptShown(challenge: Challenge) {
@@ -34,8 +34,11 @@ function promptShown(challenge: Challenge) {
 
 /** The question on screen: found by its prompt and, for tiles and gaps, by its tiles. */
 export function questionOnScreen(challenges: Challenge[]) {
-  if (screen.queryByTestId("build-game")) {
-    return challenges.find((challenge) => promptShown(challenge) && puzzleWords(answerOf(challenge)).every((word) => screen.queryAllByTestId(`build-tile-${word}`).length > 0));
+  if (screen.queryByTestId("fill-game")) {
+    return challenges.find((challenge) => {
+      const fill = fillPiece(challenge);
+      return Boolean(fill) && promptShown(challenge) && fill!.options.every((word) => screen.queryAllByTestId(`choice-fill:${word}`).length > 0);
+    });
   }
   if (screen.queryByTestId("choice-true") && screen.queryByTestId("choice-false")) {
     const asCheck = challenges.find((challenge) => promptShown(challenge) && !challenge.choices.some((choice) => choice.id === "true"));
@@ -51,10 +54,8 @@ function answerOf(challenge: Challenge) {
 
 /** Picks the right answer to the question on screen, in whatever way it is asked (CHECK not pressed yet). */
 export async function pickRight(shown: Challenge) {
-  if (screen.queryByTestId("build-game")) {
-    for (const word of puzzleWords(answerOf(shown))) {
-      await press(`build-tile-${word}`);
-    }
+  if (screen.queryByTestId("fill-game")) {
+    await press(`choice-fill:${fillPiece(shown)!.piece}`);
     return;
   }
   const isCheck = !shown.choices.some((choice) => choice.id === "true") && screen.queryByTestId("choice-true") && !screen.queryByTestId(`choice-${shown.correctChoiceId}`);

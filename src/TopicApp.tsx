@@ -172,8 +172,8 @@ import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } from "./services/lessonQueue";
 import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachLesson, highlightWords, lessonSummary } from "./ui/lesson/lessonPages";
-import { checkAnswerId, checkCandidate, puzzleExtras, questionFormat } from "./ui/lesson/questionFormats";
-import { BuildGame, CheckGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
+import { checkAnswerId, checkCandidate, fillPiece, questionFormat } from "./ui/lesson/questionFormats";
+import { CheckGame, FillGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
@@ -3252,6 +3252,7 @@ export default function TopicApp() {
   );
   const questionFormatNow = challenge ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage }) : "choose";
   const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
+  const fillNow = challenge && questionFormatNow === "fill" ? fillPiece(challenge) : undefined;
   // The match round's pairs: each question and its answer.
   const matchStep = isMatchStep(queuedStep) ? queuedStep : undefined;
   const matchPairs = matchStep && lesson
@@ -3486,13 +3487,12 @@ export default function TopicApp() {
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
               />
-            ) : questionFormatNow === "build" ? (
-              <BuildGame
-                key={`${challenge.id}-build-${lessonStep.attempt}`}
+            ) : questionFormatNow === "fill" && fillNow ? (
+              <FillGame
+                key={`${challenge.id}-fill-${lessonStep.attempt}`}
                 prompt={challenge.prompt}
-                answer={correctLabel}
+                fill={fillNow}
                 correctChoiceId={challenge.correctChoiceId}
-                extras={puzzleExtras(challenge)}
                 {...questionShared}
                 onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
               />
