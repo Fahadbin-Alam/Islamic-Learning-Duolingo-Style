@@ -998,4 +998,429 @@ const NAHL_FIVE: DeepUnit = {
   ]
 };
 
-export const NAHL_UNITS: readonly DeepUnit[] = [NAHL_ONE, NAHL_TWO, NAHL_THREE, NAHL_FOUR, NAHL_FIVE];
+/** Ayahs 90 to 105: justice and kindness, keeping promises, a good life, seeking refuge, and the clear Arabic Quran. */
+const NAHL_SIX: DeepUnit = {
+  key: "nahl6",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-16",
+  name: "An-Nahl, ayahs 90 to 105",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Nahl",
+  lessons: [
+    {
+      slug: "justice-and-kindness",
+      title: "Justice and kindness",
+      line: "Allah orders justice, kindness and giving to relatives.",
+      facts: ["Be fair and moderate", "Keep the ties of kinship"],
+      quote: q16(90),
+      source: ik(90, "Allah commands His servants to be just, fair and moderate, encourages kindness and good treatment, and commands us to uphold the ties of kinship.", "He commands His servant to be just"),
+      difficulty: 3,
+      questions: [
+        { q: "What three things does Allah order, in 16:90?", a: "Justice, kindness, giving to relatives", wrong: ["Wealth, fame, power", "Sleep, food, rest", "Travel, trade, play"], why: "Verily, Allah orders justice and kindness, and giving (help) to the relatives." },
+        { q: "What does being just mean, per Ibn Kathir?", a: "Fair and moderate", wrong: ["Rich and strong", "Loud and fast", "Quiet and shy"], why: "He commands His servant to be just, fair and moderate." },
+        { q: "What does giving to relatives mean, per Ibn Kathir?", a: "Upholding ties of kinship", wrong: ["Giving them orders", "Avoiding them", "Selling to them"], why: "Allah is commanding us to uphold the ties of kinship." }
+      ]
+    },
+    {
+      slug: "what-allah-forbids",
+      title: "What Allah forbids",
+      line: "Allah forbids shameful sins, evil and aggression.",
+      facts: ["Ibn Masud: the most complete ayah", "He admonishes so we take heed"],
+      quote: q16(90),
+      source: ik(90, "Allah forbids Fahsha, all forbidden things; Munkar, wrong done openly; and Baghy, aggression towards people. Ibn Masud called 16:90 the most comprehensive ayah in the Quran.", "Baghy refers to aggression towards people"),
+      difficulty: 4,
+      questions: [
+        { q: "What does Allah forbid, in 16:90?", a: "Immoral sins, evil, tyranny", wrong: ["Rest and food", "Trade and travel", "Smiling"], why: "And He forbids immoral sins, and evil and tyranny." },
+        { q: "What is Baghy, per Ibn Kathir?", a: "Aggression towards people", wrong: ["Kindness", "Praying", "Learning"], why: "Baghy refers to aggression towards people." },
+        { q: "What did Ibn Masud call 16:90?", a: "The most comprehensive ayah", wrong: ["The shortest ayah", "The first ayah", "The last ayah"], why: "The most comprehensive Ayah in the Qur'an is in Surat An-Nahl." },
+        { q: "Why does Allah admonish us, in 16:90?", a: "So that we may take heed", wrong: ["To scare us", "To tire us", "To test machines"], why: "He admonishes you, so that perhaps you may take heed." }
+      ]
+    },
+    {
+      slug: "keep-your-promises",
+      title: "Keep your promises",
+      line: "Fulfil your promises; Allah is your witness to them.",
+      facts: ["Do not break confirmed oaths", "Allah knows what you do"],
+      quote: q16(91),
+      source: ik(91, "One of Allah's commands is to fulfil covenants, keep promises and fulfil oaths after confirming them, because you have made Allah your guarantor.", "to fulfill covenants, keep promises and to fulfill oaths after confirming them"),
+      difficulty: 3,
+      questions: [
+        { q: "What should we fulfil, in 16:91?", a: "The covenants of Allah", wrong: ["Our wishes", "Our dreams", "Our games"], why: "And fulfill the covenants (taken in the Name of) Allah when you have taken them." },
+        { q: "Whom have you made your guarantor, in 16:91?", a: "Allah", wrong: ["A friend", "A judge", "No one"], why: "And indeed you have appointed Allah as your guarantor." },
+        { q: "Keeping promises is one of Allah's commands, per Ibn Kathir.", tf: true, why: "This is one of the commands of Allah, to fulfill covenants, keep promises." }
+      ]
+    },
+    {
+      slug: "the-undone-thread",
+      title: "Do not undo your thread",
+      line: "Breaking a promise is like undoing thread you spun strong.",
+      facts: ["Do not cheat with oaths", "Do not switch to the stronger side"],
+      quote: q16(92),
+      source: ik(92, "Mujahid, Qatadah and Ibn Zayd said the one who undoes her strong thread is like one who breaks a covenant after confirming it. Using oaths to trick people is forbidden.", "This is like the one who breaks a covenant after confirming it"),
+      difficulty: 4,
+      questions: [
+        { q: "What does the woman do with her thread, in 16:92?", a: "Undoes it after it is strong", wrong: ["Sells it", "Gives it away", "Loses it"], why: "Do not be like the one who undoes the thread which she has spun, after it has become strong." },
+        { q: "What is the undone thread like, per Mujahid?", a: "Breaking a covenant", wrong: ["Losing money", "Forgetting a name", "A long journey"], why: "This is like the one who breaks a covenant after confirming it." },
+        { q: "What did some do with alliances, per Mujahid?", a: "Dropped them for stronger groups", wrong: ["Kept them always", "Wrote them down", "Shared them"], why: "They would cancel the alliance with the first group and make an alliance with the second who were more powerful." }
+      ]
+    },
+    {
+      slug: "what-allah-has-remains",
+      title: "What Allah has remains",
+      line: "What we have runs out; what is with Allah lasts forever.",
+      facts: ["Do not sell oaths cheaply", "Patience brings the best reward"],
+      quote: q16(96),
+      source: ik(96, "Do not break an oath for a little worldly gain. What you have will come to an end, but the reward with Allah in Paradise will remain without end.", "His reward for you in Paradise will remain, without interruption or end"),
+      difficulty: 3,
+      questions: [
+        { q: "What happens to what we have, in 16:96?", a: "It will be used up", wrong: ["It lasts forever", "It doubles", "It turns to gold"], why: "Whatever you have will be exhausted." },
+        { q: "What happens to what is with Allah, in 16:96?", a: "It will remain", wrong: ["It ends", "It shrinks", "It is lost"], why: "And what is with Allah will remain." },
+        { q: "How long does the reward in Paradise last, per Ibn Kathir?", a: "Without end", wrong: ["A year", "A lifetime", "A day"], why: "His reward for you in Paradise will remain, without interruption or end." },
+        { q: "Whom will Allah reward for their best deeds, in 16:96?", a: "Those who are patient", wrong: ["The proud", "The lazy", "The loud"], why: "And to those who are patient, We will certainly grant them their rewards." }
+      ]
+    },
+    {
+      slug: "a-good-life",
+      title: "A good life",
+      line: "Man or woman, a believer who does good gets a good life.",
+      facts: ["Contentment and peace", "The best reward later"],
+      quote: q16(97),
+      source: ik(97, "Allah promises any believer, male or female, who does righteous deeds a good life now and reward for their best deeds later. The good life includes peace in every part of life, contentment and happiness.", "The good life includes feeling tranquillity in all aspects of life"),
+      difficulty: 3,
+      questions: [
+        { q: "Who is promised a good life, in 16:97?", a: "Believers, male or female, doing good", wrong: ["Only men", "Only the rich", "Only kings"], why: "Whoever does righteous deeds - whether male or female - while he (or she) is a believer." },
+        { q: "What did Ali say the good life is, per Ibn Kathir?", a: "Contentment", wrong: ["Wealth", "Fame", "Power"], why: "It was reported that Ali bin Abi Talib interpreted as contentment." },
+        { q: "What does the good life include, per Ibn Kathir?", a: "Tranquillity in all of life", wrong: ["Never working", "Big houses", "No tests"], why: "The good life includes feeling tranquillity in all aspects of life." }
+      ]
+    },
+    {
+      slug: "content-with-what-allah-gives",
+      title: "Content with Allah's gift",
+      line: "Successful is the one who is content with what Allah gives.",
+      facts: ["Accepting Islam", "Having enough"],
+      quote: q16(97),
+      source: hadith("muslim", "1054", "Abdullah ibn Amr", "Sahih", "Ibn Kathir quotes this on 16:97: successful is the one who accepted Islam, was given enough, and was made content by Allah with what He gave him.", "been made contented by Allah with what He has given him"),
+      difficulty: 4,
+      questions: [
+        { q: "Who is successful, in the hadith?", a: "One who accepted Islam", wrong: ["One who is famous", "One who is rich", "One who is strong"], why: "He Is successful who has accepted Islam." },
+        { q: "How much provision does the successful one have, in the hadith?", a: "Sufficient for his needs", wrong: ["Huge amounts", "None at all", "More than all"], why: "Who has been provided with sufficient for his want." },
+        { q: "What did Allah make him feel, in the hadith?", a: "Content", wrong: ["Greedy", "Sad", "Bored"], why: "And been made contented by Allah with what He has given him." }
+      ]
+    },
+    {
+      slug: "seek-refuge-before-reciting",
+      title: "Seek refuge first",
+      line: "Before reciting the Quran, seek refuge with Allah from Shaytan.",
+      facts: ["So you are not confused", "So you can reflect"],
+      quote: q16(98),
+      source: ik(98, "When we want to read the Quran we should seek refuge with Allah from the cursed Shaytan, so we do not get confused and he cannot stop us from thinking about what we read.", "they should seek refuge with Allah from the cursed Shaytan"),
+      difficulty: 3,
+      questions: [
+        { q: "When should we seek refuge, in 16:98?", a: "When reciting the Quran", wrong: ["When eating", "When sleeping", "When running"], why: "So when you recite the Qur'an, seek refuge with Allah from Shaytan, the outcast." },
+        { q: "Why seek refuge before reading, per Ibn Kathir?", a: "So we are not confused", wrong: ["To read faster", "To sound loud", "To finish early"], why: "The reason for seeking refuge with Allah before reading is that the reader should not get confused or mixed up." },
+        { q: "Most scholars say refuge is sought before starting to read.", tf: true, why: "Hence the majority of scholars said that refuge should be sought with Allah before starting to read." }
+      ]
+    },
+    {
+      slug: "refuge-calms-anger",
+      title: "Refuge calms anger",
+      line: "Saying I seek refuge with Allah from Shaytan calms anger.",
+      facts: ["Two men argued", "One word helps"],
+      quote: q16(98),
+      source: hadith("bukhari", "3282", "Sulayman ibn Surad", "Sahih", "Two men argued and one grew very angry. The Prophet ﷺ said he knew a word that would calm him: I seek refuge with Allah from Satan.", "then all his anger will go away"),
+      difficulty: 4,
+      questions: [
+        { q: "What were the two men doing, in the hadith?", a: "Arguing", wrong: ["Praying", "Eating", "Sleeping"], why: "Two men abused each other and the face of one of them became red with anger." },
+        { q: "What word did the Prophet ﷺ teach, in the hadith?", a: "I seek refuge with Allah from Satan", wrong: ["Go away", "I am right", "Say nothing"], why: "If he says: I seek Refuge with Allah from Satan." },
+        { q: "What would happen if he said it, in the hadith?", a: "His anger would go away", wrong: ["He would win", "He would cry", "Nothing"], why: "Then all his anger will go away." },
+        { q: "Who narrated the anger hadith?", a: "Sulayman ibn Surad", wrong: ["Abu Hurairah", "Anas", "Aishah"], why: "Narrated Sulaiman bin Surad." }
+      ]
+    },
+    {
+      slug: "no-power-over-believers",
+      title: "No power over believers",
+      line: "Shaytan has no power over those who trust their Lord.",
+      facts: ["Only over those who follow him", "Trust Allah alone"],
+      quote: q16(99),
+      source: ik(99, "Shaytan has no power over those who believe and put their trust in Allah. Ath-Thawri said he cannot make them commit a sin they will not repent from. His power is only over those who obey him.", "He has no power to make them commit a sin they will not repent from"),
+      difficulty: 4,
+      questions: [
+        { q: "Over whom has Shaytan no power, in 16:99?", a: "Believers who trust their Lord", wrong: ["Everyone", "No one", "Only kings"], why: "Verily, he has no power over those who believe and put their trust only in their Lord." },
+        { q: "What can Shaytan not make believers do, per Ath-Thawri?", a: "A sin they never repent from", wrong: ["Eat food", "Sleep", "Walk"], why: "He has no power to make them commit a sin they will not repent from." },
+        { q: "Over whom is his power, in 16:100?", a: "Those who obey and follow him", wrong: ["The angels", "The Prophets", "The patient"], why: "His power is only over those who obey and follow him (Shaytan)." }
+      ]
+    },
+    {
+      slug: "the-holy-spirit-brought-it",
+      title: "Jibril brought it down",
+      line: "Jibril brought the Quran down from Allah with truth.",
+      facts: ["It makes believers firm", "Guidance and good news"],
+      quote: q16(102),
+      source: ik(102, "Ruh-ul-Qudus is Jibril, who brought the Quran from Allah with truth and justice, to make believers firm, and as a guide and good news for the Muslims.", "He has made it a guide and good news to the Muslims who believe in Allah and His Messengers"),
+      difficulty: 3,
+      questions: [
+        { q: "Who is Ruh-ul-Qudus, per Ibn Kathir?", a: "Jibril", wrong: ["Mikail", "Israfil", "A Prophet"], why: "Say: Ruh-ul-Qudus has brought it...) meaning, Jibril." },
+        { q: "How did he bring it, in 16:102?", a: "With truth", wrong: ["With doubt", "In secret", "With music"], why: "Ruh-ul-Qudus has brought it (the Qur'an) down from your Lord with truth." },
+        { q: "Whom is the Quran good news for, in 16:102?", a: "The Muslims", wrong: ["No one", "The proud", "Only angels"], why: "And as a guide and good news for the Muslims." }
+      ]
+    },
+    {
+      slug: "a-clear-arabic-tongue",
+      title: "A clear Arabic tongue",
+      line: "The Quran is clear Arabic; no foreigner could have taught it.",
+      facts: ["Its style is eloquent", "Its meanings are perfect"],
+      quote: q16(103),
+      source: ik(103, "The idolaters claimed a foreign servant taught the Prophet ﷺ, but that man hardly spoke Arabic. The Quran, with its eloquent style and perfect meanings, could never come from him.", "which is more perfect than any Book revealed to any previously sent Prophet"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the idolaters claim, in 16:103?", a: "A man teaches him", wrong: ["An angel lied", "He wrote poems", "He read books"], why: "It is only a human being who teaches him." },
+        { q: "What language is the Quran, in 16:103?", a: "Clear Arabic", wrong: ["Persian", "Greek", "Hebrew"], why: "While this (the Qur'an) is (in) a clear Arabic tongue." },
+        { q: "How well did the man they named speak Arabic, per Ibn Kathir?", a: "Hardly at all", wrong: ["Perfectly", "Like a poet", "Better than all"], why: "He was a foreigner who did not know much Arabic, only enough simple phrases." }
+      ]
+    },
+    {
+      slug: "al-amin-the-trustworthy",
+      title: "Al-Amin, the Trustworthy",
+      line: "His people called the Prophet ﷺ Al-Amin, the Trustworthy.",
+      facts: ["He was never a liar", "Liars are those who reject"],
+      quote: q16(105),
+      source: ik(105, "The Prophet ﷺ was the most honest and righteous of people. He was so well known for truthfulness that his people always called him Al-Amin, the Trustworthy.", "they always addressed him as Al-Amin"),
+      difficulty: 3,
+      questions: [
+        { q: "Who fabricate falsehood, in 16:105?", a: "Those who reject Allah's Ayat", wrong: ["The believers", "The Prophets", "The angels"], why: "It is only those who do not believe in Allah's Ayat who fabricate the falsehood." },
+        { q: "What did his people call the Prophet ﷺ, per Ibn Kathir?", a: "Al-Amin", wrong: ["Al-Malik", "Al-Qawi", "Al-Ghani"], why: "They always addressed him as Al-Amin (the Trustworthy)." },
+        { q: "What does Al-Amin mean?", a: "The Trustworthy", wrong: ["The Strong", "The Rich", "The Tall"], why: "They always addressed him as Al-Amin (the Trustworthy)." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 110 to 128: every soul pleads for itself, lawful food, Ibrahim, Friday, wise invitation and patience. */
+const NAHL_SEVEN: DeepUnit = {
+  key: "nahl7",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-16",
+  name: "An-Nahl, ayahs 110 to 128",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Nahl",
+  lessons: [
+    {
+      slug: "every-soul-pleads-for-itself",
+      title: "Every soul for itself",
+      line: "On that Day each person pleads for himself alone.",
+      facts: ["No one else pleads for him", "No one is wronged"],
+      quote: q16(111),
+      source: ik(111, "On that Day every person will make his own case. No one else will plead for him, not his father, son, brother or wife, and everyone is paid in full without any injustice.", "no one else will plead on his behalf"),
+      difficulty: 3,
+      questions: [
+        { q: "For whom does each person plead, in 16:111?", a: "Himself", wrong: ["His friends", "His tribe", "His king"], why: "The Day when every person will come pleading for himself." },
+        { q: "Who else will plead for him, per Ibn Kathir?", a: "No one", wrong: ["His father", "His brother", "His wife"], why: "No one else will plead on his behalf; not his father, not his son, nor his brother, nor his wife." },
+        { q: "Will anyone be dealt with unjustly, in 16:111?", tf: false, why: "And every one will be paid in full for what he did, and they will not be dealt with unjustly." }
+      ]
+    },
+    {
+      slug: "the-secure-town",
+      title: "The secure town",
+      line: "Makkah was safe and full of provision, yet it was ungrateful.",
+      facts: ["Whoever entered was safe", "Ingratitude changed it"],
+      quote: q16(112),
+      source: ik(112, "The example is of Makkah: secure and peaceful, a sanctuary where whoever entered was safe, with provision coming from every place. Its people denied the favors of Allah.", "Whoever entered Makkah, he was safe"),
+      difficulty: 3,
+      questions: [
+        { q: "Which town is the example, per Ibn Kathir?", a: "Makkah", wrong: ["Madinah", "Damascus", "Cairo"], why: "This example refers to the people of Makkah." },
+        { q: "How did provision come to it, in 16:112?", a: "In abundance from every place", wrong: ["Rarely", "From one well", "Never"], why: "Its provision coming to it in abundance from every place." },
+        { q: "Who was safe in Makkah, per Ibn Kathir?", a: "Whoever entered it", wrong: ["No one", "Only kings", "Only traders"], why: "Whoever entered Makkah, he was safe." },
+        { q: "What did its people do with Allah's favors, in 16:112?", a: "Denied them", wrong: ["Thanked Him", "Shared them", "Counted them"], why: "But it (its people) denied the favors of Allah." }
+      ]
+    },
+    {
+      slug: "the-greatest-favor",
+      title: "The greatest favor",
+      line: "The greatest blessing on Makkah was the Messenger ﷺ sent to it.",
+      facts: ["A Messenger from themselves", "Believers became secure"],
+      quote: q16(113),
+      source: ik(113, "The greatest blessing Allah gave the people of Makkah was sending them a Messenger from among themselves. After the believers lived in fear, Allah gave them security and plenty.", "After the believers lived in fear, Allah granted them security"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did Allah send them, in 16:113?", a: "A Messenger from themselves", wrong: ["A king", "A stranger", "An army"], why: "There has come to them a Messenger from among themselves." },
+        { q: "What was their greatest blessing, per Ibn Kathir?", a: "The Messenger ﷺ sent to them", wrong: ["Their markets", "Their camels", "Their poems"], why: "The greatest of which was Muhammad being sent to them." },
+        { q: "What did Allah give the believers after fear, per Ibn Kathir?", a: "Security", wrong: ["More fear", "Nothing", "Hunger"], why: "After the believers lived in fear, Allah granted them security." }
+      ]
+    },
+    {
+      slug: "eat-lawful-and-be-grateful",
+      title: "Eat good food, give thanks",
+      line: "Eat the lawful, good food Allah gives, and thank Him.",
+      facts: ["He is the Giver of all favors", "He alone deserves worship"],
+      quote: q16(114),
+      source: ik(114, "Allah orders the believers to eat the good and lawful things He has provided and to thank Him, for He is the Giver of all favors and alone deserves worship.", "to eat the good and lawful things that He has provided, and to give thanks to Him for that"),
+      difficulty: 3,
+      questions: [
+        { q: "What should we eat, in 16:114?", a: "Lawful and good food", wrong: ["Anything at all", "Only meat", "Only sweets"], why: "So eat of the lawful and good food which Allah has provided for you." },
+        { q: "What should we be for Allah's favor, in 16:114?", a: "Grateful", wrong: ["Proud", "Silent", "Bored"], why: "And be grateful for Allah's favor, if it is He Whom you worship." },
+        { q: "Why thank Allah for food, per Ibn Kathir?", a: "He is the Giver of all favors", wrong: ["It is cheap", "It is a habit", "Others told us"], why: "For He is the Giver and Originator of all favors." }
+      ]
+    },
+    {
+      slug: "the-forbidden-foods",
+      title: "The forbidden foods",
+      line: "Only a few foods are forbidden, and need makes it easy.",
+      facts: ["Dead meat, blood, pork", "Allah is Pardoning, Merciful"],
+      quote: q16(115),
+      source: ik(115, "Allah forbade things that harm people in religion and in this life: dead meat, blood, the flesh of pigs, and what is offered to other than Allah. One forced by need is forgiven.", "dead meat, blood and the flesh of pigs"),
+      difficulty: 3,
+      questions: [
+        { q: "Which of these is forbidden, in 16:115?", a: "The flesh of swine", wrong: ["Dates", "Milk", "Honey"], why: "He has only forbidden dead flesh, blood, the flesh of swine." },
+        { q: "Why were these foods forbidden, per Ibn Kathir?", a: "They harm us", wrong: ["They cost a lot", "They taste bad", "No reason"], why: "Allah mentions what He has forbidden things which harm them in both religious and worldly affairs." },
+        { q: "What about one forced by need, in 16:115?", a: "Allah is Pardoning, Merciful", wrong: ["He is never forgiven", "He must pay", "He must leave"], why: "But if one is forced by necessity, without willful disobedience, nor transgressing, then, Allah is Pardoning, Most Merciful." }
+      ]
+    },
+    {
+      slug: "do-not-make-up-rules",
+      title: "Do not make up rules",
+      line: "Never call something halal or haram without Allah's word.",
+      facts: ["That is lying about Allah", "Liars never succeed"],
+      quote: q16(116),
+      source: ik(116, "This includes anyone who invents something new in religion without evidence, or calls lawful what Allah forbade, or forbids what Allah allowed, just because it suits their opinion.", "whoever declares something unlawful that Allah has permitted"),
+      difficulty: 4,
+      questions: [
+        { q: "What should we not say with our tongues, in 16:116?", a: "This is lawful, this is forbidden", wrong: ["Thank you", "Peace be on you", "Allah is Great"], why: "Saying: This is lawful and this is forbidden, to invent lies against Allah." },
+        { q: "Will those who invent lies against Allah succeed, in 16:116?", tf: false, why: "Verily, those who invent lies against Allah, will never succeed." },
+        { q: "Who else is included, per Ibn Kathir?", a: "One who forbids what Allah allowed", wrong: ["One who prays", "One who studies", "One who gives"], why: "Whoever declares something unlawful that Allah has permitted, only because it suits his opinions." }
+      ]
+    },
+    {
+      slug: "the-door-of-repentance",
+      title: "The door of repentance",
+      line: "Whoever sins, then repents and does good, finds Allah merciful.",
+      facts: ["Give up the sin", "Turn to obedience"],
+      quote: q16(119),
+      source: ik(119, "Whoever does wrong out of ignorance, then repents and does good, Allah accepts their repentance. They give up the sins and turn to obeying Allah, and He is Pardoning, Most Merciful.", "they give up the sins they used to commit and turn to doing acts of obedience to Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What must those who did evil do, in 16:119?", a: "Repent and do good", wrong: ["Hide forever", "Give up hope", "Blame others"], why: "And afterward repent and do righteous deeds." },
+        { q: "What does repenting mean, per Ibn Kathir?", a: "Give up sins, turn to obedience", wrong: ["Say sorry only", "Travel far", "Stay silent"], why: "They give up the sins they used to commit and turn to doing acts of obedience to Allah." },
+        { q: "How does 16:119 describe your Lord?", a: "Pardoning, Most Merciful", wrong: ["Harsh", "Far away", "Silent"], why: "Verily, after that, your Lord is Pardoning, Most Merciful." }
+      ]
+    },
+    {
+      slug: "ibrahim-was-an-ummah",
+      title: "Ibrahim was an Ummah",
+      line: "Ibrahim was a leader to follow, obedient, a Hanif.",
+      facts: ["Not one of the idolaters", "A nation on his own"],
+      quote: q16(120),
+      source: ik(120, "Ummah here means a leader who is followed. Qanit means humble and obedient, and Hanif means one who turns away from Shirk to Tawhid. Mujahid said he was a nation on his own.", "Ummah here means the leader who is followed"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Ibrahim, in 16:120?", a: "An Ummah, obedient, a Hanif", wrong: ["A king", "A poet", "A trader"], why: "Verily, Ibrahim was (himself) an Ummah, obedient to Allah, a Hanif." },
+        { q: "What does Ummah mean in 16:120, per Ibn Kathir?", a: "A leader who is followed", wrong: ["A city", "A market", "A tribe"], why: "Ummah here means the leader who is followed." },
+        { q: "What does Hanif mean, per Ibn Kathir?", a: "One who leaves Shirk for Tawhid", wrong: ["A traveler", "A builder", "A soldier"], why: "Hanif means one who deliberately steers clear of Shirk in favor of Tawhid." },
+        { q: "What did Mujahid say Ummah means?", a: "A nation on his own", wrong: ["A small family", "A big army", "A teacher"], why: "Mujahid said: Ummah (here) means that he was a nation on his own." }
+      ]
+    },
+    {
+      slug: "ibrahim-was-thankful",
+      title: "Ibrahim was thankful",
+      line: "Ibrahim thanked Allah, who chose him and guided him.",
+      facts: ["Good in this world", "Among the righteous later"],
+      quote: q16(121),
+      source: ik(121, "Ibrahim thanked Allah for His blessings. Allah chose him and guided him to worship Him alone, gave him good in this world, a truthful tongue, and he is among the righteous in the Hereafter.", "he gave thanks for the blessings that Allah gave him"),
+      difficulty: 3,
+      questions: [
+        { q: "What was Ibrahim for Allah's favors, in 16:121?", a: "Thankful", wrong: ["Forgetful", "Proud", "Silent"], why: "(He was) thankful for His favors." },
+        { q: "What did Allah do for Ibrahim, in 16:121?", a: "Chose and guided him", wrong: ["Left him", "Made him rich only", "Made him a king"], why: "He (Allah) chose him and guided him to a straight path." },
+        { q: "What good did he get in this world, per Mujahid?", a: "A truthful tongue", wrong: ["Gold", "A palace", "An army"], why: "Mujahid said: This means a truthful tongue." }
+      ]
+    },
+    {
+      slug: "follow-ibrahim",
+      title: "Follow the way of Ibrahim",
+      line: "Allah told the Prophet ﷺ to follow the way of Ibrahim.",
+      facts: ["Ibrahim was a Hanif", "Pure Tawhid"],
+      quote: q16(123),
+      source: ik(123, "Because of his perfection, greatness and the soundness of his Tawhid, Allah revealed to the Seal of the Messengers to follow the religion of Ibrahim, the Hanif.", "because of his perfection, greatness, and the soundness of his Tawhid and his way"),
+      difficulty: 4,
+      questions: [
+        { q: "Whose religion should the Prophet ﷺ follow, in 16:123?", a: "Ibrahim", wrong: ["Nuh", "Adam", "Dawud"], why: "Follow the religion of Ibrahim (he was a) Hanif." },
+        { q: "Why follow Ibrahim, per Ibn Kathir?", a: "His sound Tawhid", wrong: ["His wealth", "His age", "His city"], why: "Because of his perfection, greatness, and the soundness of his Tawhid and his way." },
+        { q: "Was Ibrahim one of the idolaters, in 16:123?", tf: false, why: "And he was not one of the idolators." }
+      ]
+    },
+    {
+      slug: "friday-for-this-ummah",
+      title: "Friday for this Ummah",
+      line: "Allah gave this Ummah Friday as its day to gather.",
+      facts: ["Each nation had a day", "Friday: creation completed"],
+      quote: q16(124),
+      source: ik(124, "For every nation Allah prescribed a day each week to gather and worship Him. For this Ummah He prescribed Friday, the day He completed His creation.", "For this Ummah He prescribed Friday"),
+      difficulty: 4,
+      questions: [
+        { q: "What day did Allah give this Ummah, per Ibn Kathir?", a: "Friday", wrong: ["Monday", "Saturday", "Sunday"], why: "For this Ummah He prescribed Friday." },
+        { q: "Why Friday, per Ibn Kathir?", a: "Allah completed creation on it", wrong: ["It is the longest", "It is the first", "It is cold"], why: "It is the sixth day, on which Allah completed and perfected His creation." },
+        { q: "Did every nation get a day to gather for worship, per Ibn Kathir?", tf: true, why: "For every nation Allah prescribed one day of the week for people to gather to worship Him." }
+      ]
+    },
+    {
+      slug: "last-but-first",
+      title: "Last, but first",
+      line: "We came last, but we will be first on the Last Day.",
+      facts: ["Allah guided us to Friday", "Others follow after us"],
+      quote: q16(124),
+      source: hadith("bukhari", "876", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said Muslims came last but will be foremost on the Day of Resurrection, and Allah guided us to Friday while other nations follow after us.", "So Allah gave us the guidance for it"),
+      difficulty: 4,
+      questions: [
+        { q: "When did the Muslims come, in the hadith?", a: "Last", wrong: ["First", "In the middle", "Never"], why: "We (Muslims) are the last (to come)." },
+        { q: "Where will Muslims be on the Day of Resurrection, in the hadith?", a: "Foremost", wrong: ["Last", "Forgotten", "Lost"], why: "But (will be) the foremost on the Day of Resurrection." },
+        { q: "To which day did Allah guide us, in the hadith?", a: "Friday", wrong: ["Monday", "Saturday", "Sunday"], why: "So Allah gave us the guidance for it (Friday)." }
+      ]
+    },
+    {
+      slug: "invite-with-wisdom",
+      title: "Invite with wisdom",
+      line: "Call people to Allah with wisdom and kind, good words.",
+      facts: ["Argue in the best way", "Guidance is from Allah"],
+      quote: q16(125),
+      source: ik(125, "Allah commands inviting people to Him with wisdom and good preaching, and if they debate, to do it with kindness, gentleness and good speech, as Musa and Harun were told to speak gently.", "with kindness, gentleness and good speech"),
+      difficulty: 3,
+      questions: [
+        { q: "How should we invite to Allah, in 16:125?", a: "With wisdom and fair preaching", wrong: ["With shouting", "With force", "With tricks"], why: "Invite to the way of your Lord with wisdom and fair preaching." },
+        { q: "How should we argue, per Ibn Kathir?", a: "With kindness and gentleness", wrong: ["Loudly", "Rudely", "Never kindly"], why: "With kindness, gentleness and good speech." },
+        { q: "Who were told to speak gently to Pharaoh, per Ibn Kathir?", a: "Musa and Harun", wrong: ["Nuh and Hud", "Yusuf and Yaqub", "Isa and Yahya"], why: "Allah commanded him to speak gently, as He commanded Musa and Harun to do when he sent them to Pharaoh." },
+        { q: "Is guiding people the caller's task, per Ibn Kathir?", tf: false, why: "It is not your task to guide them. You are just a warner." }
+      ]
+    },
+    {
+      slug: "patience-is-better",
+      title: "Patience is better",
+      line: "Patience is better, and it only comes by Allah's help.",
+      facts: ["Do not grieve over them", "Do not worry about plots"],
+      quote: q16(127),
+      source: ik(127, "Allah commands patience and teaches that patience only comes by the will, help and power of Allah. Do not grieve or be upset by those who plot, for Allah protects and supports.", "patience cannot be acquired except by the will, help, decree and power of Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "What is better, in 16:126?", a: "Being patient", wrong: ["Being loud", "Being proud", "Being fast"], why: "But if you have patience with them, then it is better for those who are patient." },
+        { q: "How does patience come, in 16:127?", a: "By the help of Allah", wrong: ["By money", "By sleep", "By luck"], why: "And be patient, and your patience will not be, but by the help of Allah." },
+        { q: "What does do not be distressed mean, per Ibn Kathir?", a: "Do not be worried or upset", wrong: ["Do not eat", "Do not speak", "Do not travel"], why: "And do not be distressed) means do not be worried or upset." }
+      ]
+    },
+    {
+      slug: "allah-is-with-them",
+      title: "Allah is with them",
+      line: "Allah is with those who have Taqwa and do good.",
+      facts: ["He supports and guides them", "The last ayah of An-Nahl"],
+      quote: q16(128),
+      source: ik(128, "Allah is with those who have Taqwa and do good, supporting, helping and guiding them, as He told Musa and Harun, and as the Prophet ﷺ told Abu Bakr in the cave: Allah is with us.", "He is with them in the sense of supporting them, helping them and guiding them"),
+      difficulty: 4,
+      questions: [
+        { q: "With whom is Allah, in 16:128?", a: "Those with Taqwa who do good", wrong: ["The proud", "The lazy", "No one"], why: "Truly, Allah is with those who have Taqwa, and the doers of good." },
+        { q: "How is Allah with them, per Ibn Kathir?", a: "Supporting, helping, guiding", wrong: ["Ignoring them", "Testing only", "Watching only"], why: "He is with them in the sense of supporting them, helping them and guiding them." },
+        { q: "What did the Prophet ﷺ tell Abu Bakr in the cave, per Ibn Kathir?", a: "Do not worry, Allah is with us", wrong: ["Run away", "Stay quiet forever", "Go home"], why: "Do not worry, Allah is with us." },
+        { q: "What do those with Taqwa do, per Ibn Kathir?", a: "Keep away from the forbidden", wrong: ["Sleep all day", "Boast", "Collect gold"], why: "Those who have Taqwa) means, they keep away from that which is forbidden." }
+      ]
+    }
+  ]
+};
+
+export const NAHL_UNITS: readonly DeepUnit[] = [NAHL_ONE, NAHL_TWO, NAHL_THREE, NAHL_FOUR, NAHL_FIVE, NAHL_SIX, NAHL_SEVEN];
