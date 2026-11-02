@@ -554,4 +554,297 @@ const HAJJ_TWO: DeepUnit = {
   ]
 };
 
-export const HAJJ_UNITS: readonly DeepUnit[] = [HAJJ_ONE, HAJJ_TWO];
+/** Ayahs 42 to 78: hearts that see, a day like a thousand years, signs in rain and night, a fly no idol can create, and a religion with no hardship. */
+const HAJJ_THREE: DeepUnit = {
+  key: "hajj3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-22",
+  name: "Al-Hajj, ayahs 42 to 78",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Hajj",
+  lessons: [
+    {
+      slug: "denied-before-you",
+      title: "They denied before you too",
+      line: "Allah comforts the Prophet ﷺ: earlier nations denied too.",
+      facts: ["Nuh, Ad, Thamud, Ibrahim, Lut, Madyan", "Musa was denied as well"],
+      quote: q22(42),
+      source: ik(42, "Allah comforts His Prophet ﷺ: the peoples of Nuh, Ad, Thamud, Ibrahim, Lut and Madyan denied their Messengers before, and Musa was denied too, despite clear signs.", "the disbelief of those among his people who opposed him"),
+      difficulty: 2,
+      questions: [
+        { q: "Why does Allah list earlier nations, in 22:42?", a: "To comfort the Prophet ﷺ", wrong: ["To praise them", "To scare children", "To teach history only"], why: "Here Allah consoles His Prophet Muhammad ﷺ for the disbelief of those who opposed him." },
+        { q: "Which Prophet's people is named first, in 22:42?", a: "Nuh", wrong: ["Musa", "Isa", "Yusuf"], why: "So did deny before them the people of Nuh, Ad and Thamud." },
+        { tf: true, q: "Musa was also denied, per 22:44.", why: "And the dwellers of Madyan; and denied was Musa." }
+      ]
+    },
+    {
+      slug: "respite-then-seized",
+      title: "Respite, not forgetting",
+      line: "Allah gives wrongdoers time, but He does not forget them.",
+      facts: ["Delay is a chance to repent", "Allah's grip is certain"],
+      quote: q22(44),
+      source: hadith("bukhari", "4686", "Abu Musa", "Sahih", "The Prophet ﷺ said Allah gives respite to the wrongdoer, but when He takes him, He does not let him go.", "Allah gives respite to the oppressor"),
+      difficulty: 2,
+      questions: [
+        { q: "What does Allah give the wrongdoer first, per the hadith?", a: "Respite", wrong: ["Wealth only", "Nothing", "Punishment at once"], why: "Allah gives respite to the oppressor." },
+        { tf: false, q: "A delay means Allah has forgotten.", why: "When He takes him over, He never releases him." },
+        { q: "What does I granted respite mean, per Ibn Kathir?", a: "I delayed and postponed", wrong: ["I forgave all", "I forgot", "I rewarded"], why: "But I granted respite to the disbelievers for a while means, I delayed and postponed." }
+      ]
+    },
+    {
+      slug: "hearts-that-see",
+      title: "Hearts that see",
+      line: "True blindness is not in the eyes but in the heart.",
+      facts: ["Travel and learn from ruins", "Insight lives in the heart"],
+      quote: q22(46),
+      source: ik(46, "Have they not travelled and seen what happened to past nations? The real blind person is not the one whose eyes cannot see, but the one with no insight, who cannot learn the lesson.", "the blind person is not the one whose eyes cannot see, but rather the one who has no insight"),
+      difficulty: 3,
+      questions: [
+        { q: "What grows blind, in 22:46?", a: "The hearts in the breasts", wrong: ["Only the eyes", "The ears", "The hands"], why: "It is not the eyes that grow blind, but it is the hearts which are in the breasts that grow blind." },
+        { q: "Who is truly blind, per Ibn Kathir?", a: "One with no insight", wrong: ["One who wears glasses", "One who is old", "One who sleeps"], why: "The blind person is not the one whose eyes cannot see, but rather the one who has no insight." },
+        { q: "What does 22:46 urge people to do?", a: "Travel and reflect", wrong: ["Stay home", "Build towers", "Sleep more"], why: "Have they not traveled through the land, and have they hearts wherewith to understand?" }
+      ]
+    },
+    {
+      slug: "day-like-thousand-years",
+      title: "A day like a thousand years",
+      line: "A day with Allah is like a thousand years we count.",
+      facts: ["Allah never breaks His promise", "He is never in a hurry"],
+      quote: q22(47),
+      source: ik(47, "They ask to hurry the punishment, but Allah never fails His promise. A day with your Lord is like a thousand of our years, so He does not rush, and nothing escapes Him.", "what is counted as a thousand years with His creation is as one day with Him"),
+      difficulty: 3,
+      questions: [
+        { q: "How long is a day with your Lord, in 22:47?", a: "Like a thousand years", wrong: ["Like one hour", "Like ten years", "Like a week"], why: "And verily a day with your Lord is as a thousand years of what you reckon." },
+        { tf: true, q: "Allah never fails His promise.", why: "And Allah fails not His promise." },
+        { q: "What did the deniers ask for, in 22:47?", a: "To hurry the torment", wrong: ["More rain", "A new Prophet", "More time"], why: "And they ask you to hasten on the torment!" }
+      ]
+    },
+    {
+      slug: "plain-warner-noble-provision",
+      title: "A plain warner",
+      line: "The Prophet ﷺ is a plain warner; believers get forgiveness.",
+      facts: ["Forgiveness for past sins", "Noble provision means Paradise"],
+      quote: q22(50),
+      source: ik(50, "The Prophet ﷺ was sent as a clear warner. Those who believe and do good get forgiveness for past sins and a great reward for few good deeds; noble provision means Paradise.", "forgiveness for their previous bad deeds, and a great reward in return for a few good deeds"),
+      difficulty: 3,
+      questions: [
+        { q: "What was the Prophet ﷺ told to say, in 22:49?", a: "I am only a plain warner", wrong: ["I am a king", "I am a poet", "I am an angel"], why: "Say: O mankind! I am sent to you only as a plain warner." },
+        { q: "What do believers who do good get, in 22:50?", a: "Forgiveness and noble provision", wrong: ["Only fame", "Only gold", "Nothing yet"], why: "For them is forgiveness and Rizq Karim." },
+        { q: "What is Rizq Karim, per Al-Qurazi?", a: "Paradise", wrong: ["A big farm", "A palace on earth", "A trade profit"], why: "When you hear Allah's saying Rizq Karim, this means Paradise." }
+      ]
+    },
+    {
+      slug: "reward-of-emigrants",
+      title: "Reward of the emigrants",
+      line: "Those who leave home for Allah get a provision they love.",
+      facts: ["They left family and land for Allah", "An entrance that pleases them"],
+      quote: q22(58),
+      source: ik(58, "Those who leave their homes, families and lands for Allah, then die, will be given a good provision by Allah in Paradise and an entrance they will be pleased with.", "He will reward them from His bounty and provision in Paradise"),
+      difficulty: 3,
+      questions: [
+        { q: "What will Allah give the emigrants, in 22:58?", a: "A good provision", wrong: ["A small reward", "Nothing", "Only praise"], why: "Surely, Allah will provide a good provision for them." },
+        { q: "Who is the Best of providers, in 22:58?", a: "Allah", wrong: ["The kings", "The merchants", "The tribes"], why: "And verily, it is Allah Who indeed is the Best of those who make provision." },
+        { q: "How will they feel about their entrance, in 22:59?", a: "Well-pleased", wrong: ["Worried", "Unsure", "Sad"], why: "He will make them enter an entrance with which they shall be well-pleased." }
+      ]
+    },
+    {
+      slug: "night-into-day",
+      title: "Night into day",
+      line: "Allah merges night into day and day into night.",
+      facts: ["Long nights in winter", "Long days in summer"],
+      quote: q22(61),
+      source: ik(61, "Allah makes the night enter the day and the day enter the night: in winter the nights are long, in summer the days are long. He hears and sees everything.", "Sometimes the night is long and the day is short, as in winter"),
+      difficulty: 3,
+      questions: [
+        { q: "What does Allah merge, in 22:61?", a: "Night into day and day into night", wrong: ["Sea into land", "Sun into moon", "Rain into snow"], why: "Allah merges the night into the day, and He merges the day into the night." },
+        { q: "When are nights long, per Ibn Kathir?", a: "In winter", wrong: ["In summer", "In spring", "Never"], why: "Sometimes the night is long and the day is short, as in winter." },
+        { q: "Which two Names end 22:61?", a: "All-Hearer, All-Seer", wrong: ["All-Rich, All-Praised", "Most High, Most Great", "Oft-Forgiving, Most Kind"], why: "And verily, Allah is All-Hearer, All-Seer." }
+      ]
+    },
+    {
+      slug: "allah-is-the-truth",
+      title: "Allah is the Truth",
+      line: "Allah is the Truth; all else that people call on is false.",
+      facts: ["Only He deserves worship", "He is the Most High, Most Great"],
+      quote: q22(62),
+      source: ik(62, "Allah is the true God; none besides Him deserves worship. Whatever is worshipped instead of Him is false, because it can neither benefit nor harm. He is the Most High, the Most Great.", "the true God, besides Whom no one deserves worship"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 22:62 call Allah?", a: "The Truth", wrong: ["A legend", "One of many", "Far away"], why: "That is because Allah, He is the Truth." },
+        { q: "What does 22:62 call what they invoke besides Him?", a: "False", wrong: ["Helpful", "Holy", "Strong"], why: "And what they invoke besides Him, it is false." },
+        { q: "Why are false gods false, per Ibn Kathir?", a: "They neither benefit nor harm", wrong: ["They are too old", "They are too small", "They are far"], why: "Everything worshipped instead of Him is false, because it can neither bring benefit nor cause harm." }
+      ]
+    },
+    {
+      slug: "earth-turns-green",
+      title: "The earth turns green",
+      line: "Rain falls and the earth turns green by Allah's kindness.",
+      facts: ["He knows every hidden seed", "He is the Most Kind, Well-Aware"],
+      quote: q22(63),
+      source: ik(63, "Allah sends rain on dry land and it turns green. He knows every seed in every corner of the earth, however small, and each gets its share of water and grows.", "He knows what seeds are in the various regions of the earth"),
+      difficulty: 4,
+      questions: [
+        { q: "What happens to the earth after rain, in 22:63?", a: "It becomes green", wrong: ["It turns red", "It cracks", "It stays dry"], why: "Allah sends down water from the sky, and then the earth becomes green." },
+        { q: "What does Allah know, per Ibn Kathir?", a: "Every seed in the earth", wrong: ["Only big trees", "Only crops", "Only rivers"], why: "He knows what seeds are in the various regions of the earth, no matter how small they are." },
+        { q: "Which Names end 22:63?", a: "Most Kind, Well-Acquainted", wrong: ["All-Strong, All-Mighty", "Most High, Most Great", "First and Last"], why: "Verily, Allah is the Most Kind and Courteous, Well-Acquainted with all things." }
+      ]
+    },
+    {
+      slug: "ships-and-the-sky",
+      title: "Ships and the sky held up",
+      line: "Allah made ships sail for us and holds the sky from falling.",
+      facts: ["Everything on earth serves us", "He is Kind and Merciful to people"],
+      quote: q22(65),
+      source: ik(65, "Allah made all on earth of use to us: animals, crops and fruits. Ships sail by His command through rough seas, and by His kindness He holds the sky from falling on the earth.", "by His kindness, mercy and power, He withholds the heaven from falling on the earth"),
+      difficulty: 4,
+      questions: [
+        { q: "What sails by Allah's command, in 22:65?", a: "The ships", wrong: ["The clouds", "The mountains", "The castles"], why: "And the ships that sail through the sea by His command." },
+        { q: "What does Allah hold back, in 22:65?", a: "The sky from falling", wrong: ["The sun from rising", "The rain forever", "The wind"], why: "He withholds the heaven from falling on the earth except by His leave." },
+        { tf: true, q: "Allah is kind to people even when they do wrong.", why: "Allah is for mankind full of kindness, Most Merciful, meaning, even though they do wrong." }
+      ]
+    },
+    {
+      slug: "life-death-life",
+      title: "Life, death, then life",
+      line: "Allah gave us life, will cause us to die, then raise us.",
+      facts: ["From nothing to life", "Raised on the Day of Resurrection"],
+      quote: q22(66),
+      source: ik(66, "Allah gave you life after you were nothing, then will cause you to die, then give you life again on the Day of Resurrection. Yet man is so often ungrateful.", "He gave you life after you were nothing, and brought you into existence"),
+      difficulty: 4,
+      questions: [
+        { q: "What order does 22:66 give?", a: "Life, death, then life again", wrong: ["Death, then nothing", "Life forever here", "Life, then nothing"], why: "It is He, Who gave you life, and then will cause you to die, and will again give you life." },
+        { q: "When is the second life, per Ibn Kathir?", a: "The Day of Resurrection", wrong: ["Next spring", "In a dream", "In old age"], why: "And will again give you life means, on the Day of Resurrection." },
+        { q: "What does Kafur mean in 22:66, per Ibn Kathir?", a: "Denying", wrong: ["Grateful", "Brave", "Quiet"], why: "Verily, man is indeed Kafurun, meaning, denying." }
+      ]
+    },
+    {
+      slug: "invite-to-your-lord",
+      title: "Invite them to your Lord",
+      line: "Don't let arguments stop you; keep inviting to your Lord.",
+      facts: ["You are on straight guidance", "Allah will judge the differences"],
+      quote: q22(67),
+      source: ik(67, "Every nation was given rites. Do not let their arguing turn you from the truth; keep inviting to your Lord, for you are on a clear, straight path. Allah will judge between you.", "a clear and straight path which will lead you to the desired end"),
+      difficulty: 4,
+      questions: [
+        { q: "What should the Prophet ﷺ keep doing, in 22:67?", a: "Invite them to his Lord", wrong: ["Argue louder", "Give up", "Stay silent forever"], why: "But invite them to your Lord. Verily, you indeed are on the straight guidance." },
+        { q: "What should he say if they argue, in 22:68?", a: "Allah knows best what you do", wrong: ["You win", "I will fight", "Leave me"], why: "And if they argue with you, say: Allah knows best of what you do." },
+        { q: "Who will judge the differences, in 22:69?", a: "Allah, on Resurrection Day", wrong: ["The elders", "The kings", "No one"], why: "Allah will judge between you on the Day of Resurrection about that wherein you used to differ." }
+      ]
+    },
+    {
+      slug: "all-in-the-book",
+      title: "All in the Book",
+      line: "Allah knows everything, and it is all written in the Book.",
+      facts: ["Written before creation", "It is easy for Allah"],
+      quote: q22(70),
+      source: hadith("muslim", "2653", "Abdullah ibn Amr", "Sahih", "The Prophet ﷺ said Allah wrote the measures of creation fifty thousand years before He created the heavens and the earth, while His Throne was on the water.", "fifty thousand years before He created the heavens and the earth"),
+      difficulty: 4,
+      questions: [
+        { q: "Where is everything recorded, in 22:70?", a: "In the Book", wrong: ["On stone walls", "In the stars", "Nowhere"], why: "Verily, it is all in the Book. Verily, that is easy for Allah." },
+        { q: "When were the measures written, per the hadith?", a: "50,000 years before creation", wrong: ["Last year", "At Adam's birth", "At the Flood"], why: "Allah ordained the measures of the creation fifty thousand years before He created the heavens and the earth." },
+        { tf: true, q: "Knowing and recording all things is easy for Allah.", why: "Verily, that is easy for Allah." }
+      ]
+    },
+    {
+      slug: "cannot-create-a-fly",
+      title: "Cannot create a fly",
+      line: "All false gods together could not create even one fly.",
+      facts: ["They cannot get back what a fly takes", "Weak are seeker and sought"],
+      quote: q22(73),
+      source: ik(73, "Allah gives a parable: even if all the idols came together, they could not create one fly. If a fly took something from them, they could not get it back. How weak are both.", "Even if all the idols and false gods whom you worship were to come together to create a single fly"),
+      difficulty: 5,
+      questions: [
+        { q: "What can false gods not create, in 22:73?", a: "A fly", wrong: ["A mountain only", "A star only", "A sea only"], why: "Those on whom you call besides Allah cannot create a fly, even though they combine together." },
+        { q: "If a fly snatches something, what can they do, in 22:73?", a: "Nothing to get it back", wrong: ["Catch it fast", "Make a new one", "Ask it nicely"], why: "They will have no power to release it from the fly." },
+        { q: "Who is the seeker, per Ibn Abbas?", a: "The idol", wrong: ["The fly", "The Prophet ﷺ", "The angel"], why: "Ibn Abbas said, The seeker is the idol and the sought is the fly." }
+      ]
+    },
+    {
+      slug: "rightful-esteem",
+      title: "Esteem Allah rightly",
+      line: "Those who worship idols have not valued Allah as He deserves.",
+      facts: ["Allah is All-Strong", "Allah is All-Mighty"],
+      quote: q22(74),
+      source: ik(73, "Allah shows how weak the idols are and how foolish it is to worship them. Those who do so have not regarded Allah with the esteem He deserves; He is All-Strong, All-Mighty.", "Here Allah points out the insignificance of the idols"),
+      difficulty: 5,
+      questions: [
+        { q: "What have they failed to do, in 22:74?", a: "Esteem Allah rightly", wrong: ["Build idols", "Travel far", "Write books"], why: "They have not regarded Allah with His rightful esteem." },
+        { q: "Which Names end 22:74?", a: "All-Strong, All-Mighty", wrong: ["All-Hearer, All-Seer", "Most Kind, Most Merciful", "First and Last"], why: "Verily, Allah is All-Strong, All-Mighty." },
+        { q: "What does the fly parable show, per Ibn Kathir?", a: "Idols are weak and worthless", wrong: ["Flies are holy", "Idols are strong", "Flies are evil"], why: "Here Allah points out the insignificance of the idols and the foolishness of those who worship them." }
+      ]
+    },
+    {
+      slug: "messengers-chosen",
+      title: "Messengers chosen by Allah",
+      line: "Allah chooses Messengers from the angels and from people.",
+      facts: ["He knows who deserves it", "All matters return to Allah"],
+      quote: q22(75),
+      source: ik(75, "Allah chooses Messengers from the angels and from mankind to carry His Message. He hears and sees all and knows best who is worthy, and He protects His Messengers.", "He chooses Messengers from His angels as He wills"),
+      difficulty: 5,
+      questions: [
+        { q: "From whom does Allah choose Messengers, in 22:75?", a: "Angels and people", wrong: ["Only kings", "Only jinn", "Only the rich"], why: "Allah chooses Messengers from angels and from men." },
+        { q: "To whom do all matters return, in 22:76?", a: "To Allah", wrong: ["To the people", "To the angels", "To no one"], why: "And to Allah return all matters." },
+        { tf: true, q: "Allah knows best with whom to place His Message.", why: "Allah knows best with whom to place His Message." }
+      ]
+    },
+    {
+      slug: "bow-prostrate-do-good",
+      title: "Bow, prostrate, do good",
+      line: "Believers: bow, prostrate, worship your Lord and do good.",
+      facts: ["Strive for Allah as you ought", "Allah chose this Ummah"],
+      quote: q22(77),
+      source: ik(78, "Believers are told to bow, prostrate, worship and do good, and strive for Allah with wealth, tongue and body. Allah chose this Ummah and honored it with the noblest Messenger.", "Allah has selected you and chosen you over all other nations"),
+      difficulty: 5,
+      questions: [
+        { q: "What four things are believers told, in 22:77?", a: "Bow, prostrate, worship, do good", wrong: ["Eat, sleep, rest, play", "Buy, sell, travel, build", "Sing, dance, shout, run"], why: "O you who believe! Bow down, and prostrate yourselves, and worship your Lord and do good." },
+        { q: "Why do they do it, in 22:77?", a: "That they may succeed", wrong: ["To be famous", "To get rich", "To please people"], why: "And do good that you may be successful." },
+        { q: "How should we strive, per Ibn Kathir?", a: "With wealth, tongue and body", wrong: ["With swords only", "With silence", "With money only"], why: "Strive hard in Allah's cause as you ought to strive means, with your wealth and your tongues and your bodies." }
+      ]
+    },
+    {
+      slug: "no-hardship-in-religion",
+      title: "No hardship in the religion",
+      line: "Allah has put no hardship on us in this religion.",
+      facts: ["The sick may pray sitting", "The traveller shortens prayer"],
+      quote: q22(78),
+      source: hadith("bukhari", "1117", "Imran ibn Husayn", "Sahih", "The Prophet ﷺ told a sick man: pray standing; if you cannot, pray sitting; and if you cannot, pray lying on your side.", "Pray while standing and if you can"),
+      difficulty: 5,
+      questions: [
+        { q: "What has Allah not placed on us, in 22:78?", a: "Hardship in religion", wrong: ["Any prayer", "Any duty", "Any reward"], why: "And has not laid upon you in religion any hardship." },
+        { q: "If you cannot stand, how do you pray, per the hadith?", a: "Sitting", wrong: ["Not at all", "Only later", "Only in a masjid"], why: "Pray while standing and if you can't, pray while sitting." },
+        { q: "How does the traveller pray four-rakah prayers, per Ibn Kathir?", a: "Shortened to two", wrong: ["Made six", "Skipped", "Doubled"], why: "Four Rak'ahs when one is settled, which are shortened to two Rak'ah when one is traveling." }
+      ]
+    },
+    {
+      slug: "make-things-easy",
+      title: "Make things easy",
+      line: "The Prophet ﷺ said: make things easy, not hard, for people.",
+      facts: ["Give good news", "Do not push people away"],
+      quote: q22(78),
+      source: hadith("bukhari", "69", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: make things easy for people and do not make them hard; give good news and do not drive people away.", "Facilitate things to people"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ tell us to do with religion for people?", a: "Make it easy", wrong: ["Make it hard", "Keep it secret", "Charge for it"], why: "Facilitate things to people and do not make it hard for them." },
+        { q: "What should we give people, per the hadith?", a: "Good tidings", wrong: ["Bad news", "Hard rules", "Nothing"], why: "And give them good tidings and do not make them run away." },
+        { q: "What does hardship mean in 22:78, per Ibn Abbas?", a: "Difficulty", wrong: ["War", "Hunger", "Travel"], why: "Ibn Abbas said: This means difficulty." }
+      ]
+    },
+    {
+      slug: "named-you-muslims",
+      title: "He named you Muslims",
+      line: "Allah named us Muslims in earlier Books and in the Quran.",
+      facts: ["The religion of our father Ibrahim", "Hold fast to Allah, the best Protector"],
+      quote: q22(78),
+      source: ik(78, "This is the religion of your father Ibrahim. Allah named you Muslims in the earlier Books and in the Quran. So pray, give zakah and hold fast to Allah: He is your Protector and the best Helper.", "He is your Protector and your Helper"),
+      difficulty: 5,
+      questions: [
+        { q: "Who named us Muslims, per Ibn Abbas?", a: "Allah", wrong: ["Ibrahim", "The Arabs", "The angels"], why: "He has named you Muslims before: This refers to Allah, may He be glorified." },
+        { q: "Whose religion is it, in 22:78?", a: "Our father Ibrahim's", wrong: ["Fir'awn's", "The Romans'", "The Persians'"], why: "It is the religion of your father Ibrahim." },
+        { q: "How does Al-Hajj end, in 22:78?", a: "Excellent Protector and Helper", wrong: ["A hard warning", "A story of war", "A trade rule"], why: "He is your Mawla, what an Excellent Mawla and what an Excellent Helper!" }
+      ]
+    }
+  ]
+};
+
+export const HAJJ_UNITS: readonly DeepUnit[] = [HAJJ_ONE, HAJJ_TWO, HAJJ_THREE];
