@@ -735,5 +735,14 @@
   "Is it “{answer}”?": "هل هي “{answer}”؟",
   "Tap a question, then its answer!": "اضغط على سؤال، ثم على إجابته!",
   "Test time!": "وقت الاختبار!",
-  "{count} questions from your last lessons, in new ways.": "{count} أسئلة من دروسك الأخيرة، بطرق جديدة."
+  "{count} questions from your last lessons, in new ways.": "{count} أسئلة من دروسك الأخيرة، بطرق جديدة.",
+  "Day {day} of Ramadan done!": "أتممت اليوم {day} من رمضان!",
+  "Get suhoor and iftar reminders": "احصل على تذكير السحور والإفطار",
+  "In Ramadan: before Fajr for suhoor, and just before Maghrib for iftar.": "في رمضان: قبل الفجر للسحور، وقبيل المغرب للإفطار.",
+  "Learn with me, one short lesson a day:": "تعلّم معي، درس قصير كل يوم:",
+  "Share": "شارك",
+  "Share day {day}": "شارك اليوم {day}",
+  "Suhoor and iftar reminders": "تذكير السحور والإفطار",
+  "{count} days in a row.": "{count} أيام متتالية.",
+  "🌙 I finished day {day} of Ramadan on Muslimo!": "🌙 أتممت اليوم {day} من رمضان على Muslimo!"
 }

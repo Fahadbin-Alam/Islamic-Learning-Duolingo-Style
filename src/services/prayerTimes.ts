@@ -13,6 +13,8 @@ export interface PrayerNudgePrefs {
   /** Unset: the usual one where the city is. */
   asr?: AsrMethod;
   prayers: Record<PrayerName, boolean>;
+  /** Suhoor and iftar reminders on the days of Ramadan (ramadanReminders.ts). Uses the same city. */
+  ramadan?: boolean;
 }
 
 export const PRAYERS: PrayerName[] = ["fajr", "dhuhr", "asr", "maghrib", "isha"];

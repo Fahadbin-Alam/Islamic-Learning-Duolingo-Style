@@ -735,5 +735,14 @@
   "Is it “{answer}”?": "উত্তর কি “{answer}”?",
   "Tap a question, then its answer!": "একটি প্রশ্নে চাপো, তারপর তার উত্তরে!",
   "Test time!": "টেস্টের সময়!",
-  "{count} questions from your last lessons, in new ways.": "তোমার আগের পাঠগুলো থেকে {count}টি প্রশ্ন, নতুনভাবে।"
+  "{count} questions from your last lessons, in new ways.": "তোমার আগের পাঠগুলো থেকে {count}টি প্রশ্ন, নতুনভাবে।",
+  "Day {day} of Ramadan done!": "রমজানের {day} নম্বর দিন শেষ!",
+  "Get suhoor and iftar reminders": "সাহরি ও ইফতারের রিমাইন্ডার নাও",
+  "In Ramadan: before Fajr for suhoor, and just before Maghrib for iftar.": "রমজানে: সাহরির জন্য ফজরের আগে, আর ইফতারের জন্য মাগরিবের ঠিক আগে।",
+  "Learn with me, one short lesson a day:": "আমার সাথে শেখো, দিনে একটা ছোট পাঠ:",
+  "Share": "শেয়ার করো",
+  "Share day {day}": "দিন {day} শেয়ার করো",
+  "Suhoor and iftar reminders": "সাহরি ও ইফতারের রিমাইন্ডার",
+  "{count} days in a row.": "টানা {count} দিন।",
+  "🌙 I finished day {day} of Ramadan on Muslimo!": "🌙 আমি Muslimo-তে রমজানের {day} নম্বর দিন শেষ করেছি!"
 }

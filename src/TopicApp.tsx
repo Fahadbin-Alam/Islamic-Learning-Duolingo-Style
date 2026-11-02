@@ -210,6 +210,7 @@ import {
   ProfileView,
   FamilySheet,
   RamadanBanner,
+  RamadanDayPop,
   PlanOfferSheet,
   RefillSheet,
   RewardPop,
@@ -229,14 +230,14 @@ import {
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
-import { shareApp } from "./services/shareApp";
+import { shareApp, shareRamadanDay } from "./services/shareApp";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
-import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
+import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
 import { pictureForLesson, pictureForPage, pictureForQuestion, pictureForText } from "./data/lessonPictures";
@@ -1160,6 +1161,18 @@ export default function TopicApp() {
   // Ramadan mode: from two weeks before Ramadan until Eid, the Learn path opens with the Ramadan banner and the
   // topic picker puts Ramadan first. Worked out again whenever the learner changes, so a new day shows on the next lesson.
   const season = useMemo(() => ramadanSeason(), [state.user]);
+  // The "I finished day N" card pops up once, when today's Ramadan lesson turns done (not on every app open).
+  const [ramadanPop, setRamadanPop] = useState(false);
+  const ramadanDoneBefore = useRef<{ userId?: number; done: boolean }>({ done: false });
+  useEffect(() => {
+    const user = state.user;
+    const done = Boolean(user && didRamadanToday(user));
+    const before = ramadanDoneBefore.current;
+    if (done && !before.done && before.userId === user?.id) {
+      setRamadanPop(true);
+    }
+    ramadanDoneBefore.current = { userId: user?.id, done };
+  }, [state.user]);
   const ramadanBanner = useMemo(() => {
     const user = state.user;
     const ramadan = localizedSections.find((section) => section.topicId === RAMADAN_TOPIC);
@@ -1187,9 +1200,11 @@ export default function TopicApp() {
               }
             : undefined
         }
+        onReminders={prayerPrefs.ramadan && prayerPrefs.cityId ? undefined : () => setPrayerModalVisible(true)}
+        onShare={season.phase === "ramadan" ? () => void shareRamadanDay(season.day, ramadanStreak(user)) : undefined}
       />
     );
-  }, [localizedSections, pathNodes, season, state.user]);
+  }, [localizedSections, pathNodes, prayerPrefs, season, state.user]);
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
     const topics = localizedSections.map((section) => ({
@@ -2335,7 +2350,7 @@ export default function TopicApp() {
   // Permission comes first so the nudges are scheduled with it once the new settings land.
   async function savePrayerSettings(prefs: PrayerNudgePrefs) {
     setPrayerModalVisible(false);
-    const allowed = !prefs.enabled || (await requestPrayerNudgePermission());
+    const allowed = !(prefs.enabled || prefs.ramadan) || (await requestPrayerNudgePermission());
     savePrayerNudgePrefs(prefs);
     setPrayerPrefs(prefs);
 
@@ -3179,7 +3194,7 @@ export default function TopicApp() {
 
   const inLesson = state.screen.startsWith("lesson_") || state.screen === "assessment";
   const prayerCity = findPrayerCity(prayerPrefs.cityId);
-  const prayerSettingLabel = prayerPrefs.enabled && prayerCity ? cityName(prayerCity, currentLanguage) : t("Off");
+  const prayerSettingLabel = (prayerPrefs.enabled || prayerPrefs.ramadan) && prayerCity ? cityName(prayerCity, currentLanguage) : t("Off");
   const enabledSocialProviders = socialProviders.map((id) => ({ id, label: id === "google" ? t("Continue with Google") : t("Continue with Apple") }));
   const activeTab = tabForScreen(state.screen);
   // GET HEARTS only when the shop can give some now: a store that sells heart packs or videos, or a
@@ -3896,6 +3911,21 @@ export default function TopicApp() {
           onCancel={() => closeTestOutResult(false)}
           testID="test-out-result"
         />
+        {season?.phase === "ramadan" ? (
+          <RamadanDayPop
+            visible={ramadanPop && !inLesson && !rewardCelebration}
+            day={season.day}
+            length={season.length}
+            doneDays={ramadanDoneDayNumbers(state.user)}
+            streak={ramadanStreak(state.user)}
+            accent={localizedSections.find((section) => section.topicId === RAMADAN_TOPIC)?.accentColor ?? colors.green}
+            onShare={() => {
+              setRamadanPop(false);
+              void shareRamadanDay(season.day, ramadanStreak(state.user!));
+            }}
+            onClose={() => setRamadanPop(false)}
+          />
+        ) : null}
         <RewardPop
           visible={Boolean(rewardCelebration)}
           gems={rewardCelebration?.stop.gemsReward ?? 0}
