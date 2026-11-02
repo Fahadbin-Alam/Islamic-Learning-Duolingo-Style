@@ -58,7 +58,7 @@ const MUNAFIQUN_ONE: DeepUnit = {
       questions: [
         { q: "What does Munafiq mean?", a: "A hypocrite", wrong: ["A traveler", "A teacher", "A trader"], why: "The surah is named Al-Munafiqun, the hypocrites, who pretended to be Muslims." },
         { q: "What did Allah say of their witness?", a: "They are liars", wrong: ["They are honest", "They are confused", "They are scholars"], why: "Allah bears witness that the hypocrites are liars indeed." },
-        { tf: true, q: "Their statement had real belief behind it.", why: "False. Allah informs that there is no substance to their statement." }
+        { tf: false, q: "Their statement had real belief behind it.", why: "False. Allah informs that there is no substance to their statement." }
       ]
     },
     {
@@ -128,7 +128,7 @@ const MUNAFIQUN_ONE: DeepUnit = {
       questions: [
         { q: "What did they exchange guidance for?", a: "Misguidance", wrong: ["Gold", "Land", "Knowledge"], why: "They reverted from faith to disbelief and exchanged guidance for misguidance." },
         { q: "What came first, per 63:3?", a: "They believed", wrong: ["They traveled", "They fought", "They fasted"], why: "That is because they believed, and then disbelieved." },
-        { tf: true, q: "They kept their faith firm to the end.", why: "False. They reverted from faith to disbelief." }
+        { tf: false, q: "They kept their faith firm to the end.", why: "False. They reverted from faith to disbelief." }
       ]
     },
     {
@@ -156,7 +156,7 @@ const MUNAFIQUN_ONE: DeepUnit = {
       questions: [
         { q: "What pleased people about the hypocrites?", a: "Their bodies and speech", wrong: ["Their prayers", "Their charity", "Their fasting"], why: "When you look at them, their bodies please you; and when they speak, you listen to their words." },
         { q: "What were they like inside?", a: "Weak and fearful", wrong: ["Brave and strong", "Calm and wise", "Kind and humble"], why: "Hypocrites are truly weak and feeble, full of fear, fright and cowardice." },
-        { tf: true, q: "Looking good always means being good.", why: "False. Hypocrites have a graceful outer appearance and are eloquent, yet they are weak inside." }
+        { tf: false, q: "Looking good always means being good.", why: "False. Hypocrites have a graceful outer appearance and are eloquent, yet they are weak inside." }
       ]
     },
     {
@@ -184,7 +184,7 @@ const MUNAFIQUN_ONE: DeepUnit = {
       questions: [
         { q: "What does the wood example teach?", a: "A shape with little inside", wrong: ["Great strength", "Long life", "Hard work"], why: "They are shapes that do not have much substance." },
         { q: "Propped up wood cannot do what?", a: "Stand on its own", wrong: ["Look tall", "Be seen", "Have a shape"], why: "They are as blocks of wood propped up, shapes that do not have much substance." },
-        { tf: true, q: "The example praises the hypocrites.", why: "False. They are shapes that do not have much substance." }
+        { tf: false, q: "The example praises the hypocrites.", why: "False. They are shapes that do not have much substance." }
       ]
     },
     {
@@ -226,7 +226,7 @@ const MUNAFIQUN_ONE: DeepUnit = {
       questions: [
         { q: "What animal is a hypocrite compared to?", a: "A sheep", wrong: ["A lion", "A camel", "A bird"], why: "The similitude of a hypocrite is that of a sheep which roams aimlessly between two flocks." },
         { q: "How many flocks does the sheep wander between?", a: "Two", wrong: ["One", "Three", "Five"], why: "A sheep which roams aimlessly between two flocks." },
-        { tf: true, q: "The sheep settles firmly with one flock.", why: "False. She goes to one at one time and to the other at another time." }
+        { tf: false, q: "The sheep settles firmly with one flock.", why: "False. She goes to one at one time and to the other at another time." }
       ]
     },
     {
@@ -365,7 +365,7 @@ const MUNAFIQUN_TWO: DeepUnit = {
       questions: [
         { q: "To whom do the treasures belong?", a: "Allah", wrong: ["The kings", "The traders", "The hypocrites"], why: "And to Allah belong the treasures of the heavens and the earth." },
         { q: "What did the hypocrites fail to grasp?", a: "That Allah provides", wrong: ["How to count", "How to travel", "How to farm"], why: "And to Allah belong the treasures of the heavens and the earth, but the hypocrites comprehend not." },
-        { tf: true, q: "Stopping charity can cut off Allah's provision.", why: "False. To Allah belong the treasures of the heavens and the earth." }
+        { tf: false, q: "Stopping charity can cut off Allah's provision.", why: "False. To Allah belong the treasures of the heavens and the earth." }
       ]
     },
     {
@@ -407,7 +407,7 @@ const MUNAFIQUN_TWO: DeepUnit = {
       questions: [
         { q: "To whom does honor belong, per 63:8?", a: "Allah, His Messenger, the believers", wrong: ["The rich", "The strong tribes", "The hypocrites"], why: "Al-Izzah belongs to Allah, and to His Messenger, and to the believers." },
         { q: "What does Izzah mean?", a: "Honor and might", wrong: ["Sleep", "Travel", "Food"], why: "Al-Izzah belongs to Allah, and to His Messenger, and to the believers." },
-        { tf: true, q: "The hypocrites understood where honor comes from.", why: "False. But the hypocrites know not." }
+        { tf: false, q: "The hypocrites understood where honor comes from.", why: "False. But the hypocrites know not." }
       ]
     },
     {
@@ -574,7 +574,7 @@ const MUNAFIQUN_THREE: DeepUnit = {
       questions: [
         { q: "Which ayahs does Ibn Kathir quote?", a: "23:99-100", wrong: ["2:255", "112:1-4", "1:1-7"], why: "My Lord! send me back. So that I may do good. No! It is but a word that he speaks. (23:99-100)" },
         { q: "What is the Barzakh?", a: "A barrier until resurrection", wrong: ["A river", "A city", "A mountain"], why: "And behind them is Barzakh (a barrier) until the Day when they will be resurrected." },
-        { tf: true, q: "A person is sent back if he asks at death.", why: "False. No! It is but a word that he speaks." }
+        { tf: false, q: "A person is sent back if he asks at death.", why: "False. No! It is but a word that he speaks." }
       ]
     },
     {

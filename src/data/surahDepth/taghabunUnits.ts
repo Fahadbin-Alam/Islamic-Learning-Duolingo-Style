@@ -72,7 +72,7 @@ const TAGHABUN_ONE: DeepUnit = {
       questions: [
         { q: "What happens to what Allah wills?", a: "It happens", wrong: ["It waits forever", "It is cancelled", "It is forgotten"], why: "Whatever He wills occurs without resistance." },
         { q: "Can anything happen that Allah does not will?", a: "No, never", wrong: ["Yes, often", "Only at night", "Only by luck"], why: "Whatever He does not will, never occurs." },
-        { tf: true, q: "Some things can resist Allah's will.", why: "False. Whatever He wills occurs without resistance." }
+        { tf: false, q: "Some things can resist Allah's will.", why: "False. Whatever He wills occurs without resistance." }
       ]
     },
     {
@@ -114,7 +114,7 @@ const TAGHABUN_ONE: DeepUnit = {
       questions: [
         { q: "How were the heavens and earth created?", a: "With truth", wrong: ["By accident", "For play", "Without a plan"], why: "He has created the heavens and the earth with truth." },
         { q: "What does with truth mean, per Ibn Kathir?", a: "With fairness and wisdom", wrong: ["With speed", "With noise", "With gold"], why: "He has created the heavens and the earth with truth, with equity and wisdom." },
-        { tf: true, q: "The universe was made without wisdom.", why: "False. He created them with equity and wisdom." }
+        { tf: false, q: "The universe was made without wisdom.", why: "False. He created them with equity and wisdom." }
       ]
     },
     {
@@ -170,7 +170,7 @@ const TAGHABUN_ONE: DeepUnit = {
       questions: [
         { q: "What does Allah look at, per the hadith?", a: "Hearts and deeds", wrong: ["Faces and wealth", "Clothes and homes", "Names and tribes"], why: "Allah does not look to your faces and your wealth but He looks to your heart and to your deeds." },
         { q: "What does Allah not judge us by?", a: "Our faces and wealth", wrong: ["Our hearts", "Our deeds", "Our intentions"], why: "Verily Allah does not look to your faces and your wealth." },
-        { tf: true, q: "A rich person is better to Allah for being rich.", why: "False. Allah does not look to your faces and your wealth but to your heart and deeds." }
+        { tf: false, q: "A rich person is better to Allah for being rich.", why: "False. Allah does not look to your faces and your wealth but to your heart and deeds." }
       ]
     },
     {
@@ -212,7 +212,7 @@ const TAGHABUN_ONE: DeepUnit = {
       questions: [
         { q: "What did they say about the Messengers?", a: "Shall mere men guide us?", wrong: ["We love you", "Teach us more", "Stay with us"], why: "But they said: Shall mere men guide us?" },
         { q: "What did the Messengers bring?", a: "Clear proofs", wrong: ["Gold", "Armies", "Magic"], why: "There came to them their Messengers with Bayyinat, supporting arguments, evidence, and clear proofs." },
-        { tf: true, q: "Being human made the Messengers less true.", why: "False. They came with Bayyinat, clear proofs, but they dismissed a human Messenger." }
+        { tf: false, q: "Being human made the Messengers less true.", why: "False. They came with Bayyinat, clear proofs, but they dismissed a human Messenger." }
       ]
     },
     {
@@ -309,7 +309,7 @@ const TAGHABUN_TWO: DeepUnit = {
       questions: [
         { q: "What is the Light in 64:8?", a: "The Quran", wrong: ["The sun", "A lamp", "The moon"], why: "And in the Light which We have sent down, that is, the Quran." },
         { q: "What are we told to believe in?", a: "Allah, His Messenger, the Light", wrong: ["Stars and luck", "Kings and gold", "Dreams"], why: "Therefore, believe in Allah and in His Messenger and in the Light which We have sent down." },
-        { tf: true, q: "Some deeds escape Allah's knowledge.", why: "False. None of your deeds ever escapes His knowledge." }
+        { tf: false, q: "Some deeds escape Allah's knowledge.", why: "False. None of your deeds ever escapes His knowledge." }
       ]
     },
     {
@@ -365,7 +365,7 @@ const TAGHABUN_TWO: DeepUnit = {
       questions: [
         { q: "Who said there is no greater loss and gain?", a: "Muqatil bin Hayyan", wrong: ["Abu Lahab", "Firawn", "Qarun"], why: "Muqatil bin Hayyan said, There is no mutual loss and gain greater than these entering Paradise." },
         { q: "What is the greatest gain?", a: "Entering Paradise", wrong: ["Winning a race", "Getting rich", "Being famous"], why: "There is no mutual loss and gain greater than these entering Paradise." },
-        { tf: true, q: "Losing money is the biggest loss of all.", why: "False. There is no mutual loss and gain greater than Paradise and the Fire." }
+        { tf: false, q: "Losing money is the biggest loss of all.", why: "False. There is no mutual loss and gain greater than Paradise and the Fire." }
       ]
     }
   ]
