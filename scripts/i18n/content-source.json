@@ -7733,6 +7733,14 @@
   },
   {
     "kind": "course",
+    "text": "Denial at death"
+  },
+  {
+    "kind": "course",
+    "text": "An evil home for the arrogant"
+  },
+  {
+    "kind": "course",
     "text": "They say: good"
   },
   {
@@ -7797,6 +7805,26 @@
   },
   {
     "kind": "course",
+    "text": "A share for false gods"
+  },
+  {
+    "kind": "course",
+    "text": "Allah has no children"
+  },
+  {
+    "kind": "course",
+    "text": "Sad at a daughter"
+  },
+  {
+    "kind": "course",
+    "text": "Raising daughters well"
+  },
+  {
+    "kind": "course",
+    "text": "Evil is their decision"
+  },
+  {
+    "kind": "course",
     "text": "The highest description"
   },
   {
@@ -7845,6 +7873,10 @@
   },
   {
     "kind": "course",
+    "text": "No servant is His equal"
+  },
+  {
+    "kind": "course",
     "text": "Spouses and children"
   },
   {
@@ -7882,6 +7914,26 @@
   {
     "kind": "course",
     "text": "Shade and clothing"
+  },
+  {
+    "kind": "course",
+    "text": "No excuse that Day"
+  },
+  {
+    "kind": "course",
+    "text": "No delay"
+  },
+  {
+    "kind": "course",
+    "text": "Their idols disown them"
+  },
+  {
+    "kind": "course",
+    "text": "All submit that Day"
+  },
+  {
+    "kind": "course",
+    "text": "Misleading others"
   },
   {
     "kind": "course",
@@ -7929,6 +7981,10 @@
   },
   {
     "kind": "course",
+    "text": "Allah knows what He reveals"
+  },
+  {
+    "kind": "course",
     "text": "Jibril brought it down"
   },
   {
@@ -7938,6 +7994,30 @@
   {
     "kind": "course",
     "text": "Al-Amin, the Trustworthy"
+  },
+  {
+    "kind": "course",
+    "text": "Forced, but the heart stays firm"
+  },
+  {
+    "kind": "course",
+    "text": "Bilal stood firm"
+  },
+  {
+    "kind": "course",
+    "text": "Choosing this world"
+  },
+  {
+    "kind": "course",
+    "text": "Sealed hearts"
+  },
+  {
+    "kind": "course",
+    "text": "The true losers"
+  },
+  {
+    "kind": "course",
+    "text": "Forgiven after hardship"
   },
   {
     "kind": "course",
@@ -7962,6 +8042,14 @@
   {
     "kind": "course",
     "text": "Do not make up rules"
+  },
+  {
+    "kind": "course",
+    "text": "A brief enjoyment"
+  },
+  {
+    "kind": "course",
+    "text": "We did not wrong them"
   },
   {
     "kind": "course",
@@ -162525,10 +162613,6 @@
   },
   {
     "kind": "lesson",
-    "text": "A brief enjoyment"
-  },
-  {
-    "kind": "lesson",
     "text": "What is with Allah is best"
   },
   {
@@ -217105,6 +217189,106 @@
   },
   {
     "kind": "lesson",
+    "text": "At death some deny their wrong, but Allah knows what they did."
+  },
+  {
+    "kind": "lesson",
+    "text": "Excuses do not help"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows every deed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:28"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:28"
+  },
+  {
+    "kind": "question",
+    "text": "What do the wrongdoers claim at death, in 16:28?"
+  },
+  {
+    "kind": "question",
+    "text": "We did not do any evil"
+  },
+  {
+    "kind": "question",
+    "text": "We need more time"
+  },
+  {
+    "kind": "question",
+    "text": "We were rich"
+  },
+  {
+    "kind": "question",
+    "text": "What do the angels answer, in 16:28?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah knows what you did"
+  },
+  {
+    "kind": "question",
+    "text": "Truly, Allah is Most Knowing of what you did."
+  },
+  {
+    "kind": "question",
+    "text": "False excuses will hide deeds from Allah at death."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those too proud to follow the Messengers end in an evil home."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pride blocks the truth"
+  },
+  {
+    "kind": "lesson",
+    "text": "Humility opens the heart"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:29"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:29"
+  },
+  {
+    "kind": "question",
+    "text": "For whom is the evil home, in 16:29?"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed, what an evil abode there is for the arrogant."
+  },
+  {
+    "kind": "question",
+    "text": "What were they too proud to do, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Eat together"
+  },
+  {
+    "kind": "question",
+    "text": "Follow His Messengers"
+  },
+  {
+    "kind": "question",
+    "text": "Pride kept them from Allah's signs, per Ibn Kathir."
+  },
+  {
+    "kind": "question",
+    "text": "Those who were too arrogant to pay attention to the signs of Allah."
+  },
+  {
+    "kind": "lesson",
     "text": "Asked what Allah revealed, the godfearing say: good."
   },
   {
@@ -218189,6 +218373,310 @@
   },
   {
     "kind": "lesson",
+    "text": "They gave idols a share of Allah's gifts; they will be asked."
+  },
+  {
+    "kind": "lesson",
+    "text": "All provision is from Allah"
+  },
+  {
+    "kind": "lesson",
+    "text": "Every lie will be questioned"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:56"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:56"
+  },
+  {
+    "kind": "question",
+    "text": "What did they assign to false gods, in 16:56?"
+  },
+  {
+    "kind": "question",
+    "text": "Their prayers only"
+  },
+  {
+    "kind": "question",
+    "text": "A share of their provision"
+  },
+  {
+    "kind": "question",
+    "text": "And they assign a portion of that which We have provided them with."
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah swear, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "To leave them be"
+  },
+  {
+    "kind": "question",
+    "text": "To question them about their lies"
+  },
+  {
+    "kind": "question",
+    "text": "So Allah swore by His Almighty Self to question them about these lies and fabrications."
+  },
+  {
+    "kind": "question",
+    "text": "Who gives all provision, in 16:56?"
+  },
+  {
+    "kind": "question",
+    "text": "That which We have provided them with."
+  },
+  {
+    "kind": "lesson",
+    "text": "They said the angels were Allah's daughters; He has no children."
+  },
+  {
+    "kind": "lesson",
+    "text": "Glorified is He"
+  },
+  {
+    "kind": "lesson",
+    "text": "The angels are His servants"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:57"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:57"
+  },
+  {
+    "kind": "question",
+    "text": "What did they wrongly assign to Allah, in 16:57?"
+  },
+  {
+    "kind": "question",
+    "text": "Daughters"
+  },
+  {
+    "kind": "question",
+    "text": "Sons only"
+  },
+  {
+    "kind": "question",
+    "text": "A throne of gold"
+  },
+  {
+    "kind": "question",
+    "text": "Glorified is He."
+  },
+  {
+    "kind": "question",
+    "text": "Does Allah have any offspring, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, angels"
+  },
+  {
+    "kind": "question",
+    "text": "They attributed offspring to Him when He has no offspring."
+  },
+  {
+    "kind": "question",
+    "text": "What are the angels, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Servants of the Most Merciful"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's children"
+  },
+  {
+    "kind": "lesson",
+    "text": "In ignorance some grieved when a girl was born to them."
+  },
+  {
+    "kind": "lesson",
+    "text": "A habit Islam ended"
+  },
+  {
+    "kind": "lesson",
+    "text": "Every child is a gift"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:58"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:58"
+  },
+  {
+    "kind": "question",
+    "text": "What happened to his face, in 16:58?"
+  },
+  {
+    "kind": "question",
+    "text": "It turned red with joy"
+  },
+  {
+    "kind": "question",
+    "text": "It became dark"
+  },
+  {
+    "kind": "question",
+    "text": "It glowed"
+  },
+  {
+    "kind": "question",
+    "text": "It smiled"
+  },
+  {
+    "kind": "question",
+    "text": "His face becomes dark, and he is filled with inner grief."
+  },
+  {
+    "kind": "question",
+    "text": "What does the dark face mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Distress and grief"
+  },
+  {
+    "kind": "question",
+    "text": "Sunburn"
+  },
+  {
+    "kind": "question",
+    "text": "Anger at a friend"
+  },
+  {
+    "kind": "question",
+    "text": "Allah praised those who grieved at a girl's birth."
+  },
+  {
+    "kind": "question",
+    "text": "Certainly, evil is their decision."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ promised nearness to whoever raises girls well."
+  },
+  {
+    "kind": "lesson",
+    "text": "Daughters bring reward"
+  },
+  {
+    "kind": "lesson",
+    "text": "Care for them with love"
+  },
+  {
+    "kind": "question",
+    "text": "How many girls are named in the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "He, who brought up two girls properly till they grew up."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ show with his fingers?"
+  },
+  {
+    "kind": "question",
+    "text": "A direction"
+  },
+  {
+    "kind": "question",
+    "text": "Nearness to him"
+  },
+  {
+    "kind": "question",
+    "text": "He interlaced his fingers, explaining the point of nearness."
+  },
+  {
+    "kind": "question",
+    "text": "Who narrated the hadith of raising two girls?"
+  },
+  {
+    "kind": "question",
+    "text": "Anas b. Malik reported Allah's Messenger ﷺ as saying."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about An-Nahl, ayahs 51 to 72?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah condemned hiding or harming daughters as an evil choice."
+  },
+  {
+    "kind": "lesson",
+    "text": "Islam protects girls"
+  },
+  {
+    "kind": "lesson",
+    "text": "Daughters inherit too"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:59"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:59"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah call their choice, in 16:59?"
+  },
+  {
+    "kind": "question",
+    "text": "What did he do from the people, in 16:59?"
+  },
+  {
+    "kind": "question",
+    "text": "He hid himself"
+  },
+  {
+    "kind": "question",
+    "text": "He threw a feast"
+  },
+  {
+    "kind": "question",
+    "text": "He gave gifts"
+  },
+  {
+    "kind": "question",
+    "text": "He traveled"
+  },
+  {
+    "kind": "question",
+    "text": "He hides himself from the people."
+  },
+  {
+    "kind": "question",
+    "text": "What rights did they deny daughters, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Only toys"
+  },
+  {
+    "kind": "question",
+    "text": "Inheritance and care"
+  },
+  {
+    "kind": "question",
+    "text": "Not letting her inherit from him and not taking care of her."
+  },
+  {
+    "kind": "lesson",
     "text": "Allah alone is perfect in every way."
   },
   {
@@ -218470,10 +218958,6 @@
   {
     "kind": "question",
     "text": "And (as) a guidance) meaning, for their hearts."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about An-Nahl, ayahs 51 to 72?"
   },
   {
     "kind": "lesson",
@@ -219026,6 +219510,70 @@
   {
     "kind": "question",
     "text": "Narrated Anas bin Malik."
+  },
+  {
+    "kind": "lesson",
+    "text": "You share no wealth equally with servants; Allah has no equal."
+  },
+  {
+    "kind": "lesson",
+    "text": "Provision is a test"
+  },
+  {
+    "kind": "lesson",
+    "text": "Be content and thankful"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:71"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:71"
+  },
+  {
+    "kind": "question",
+    "text": "Who gave some more wealth than others, in 16:71?"
+  },
+  {
+    "kind": "question",
+    "text": "And Allah honored some of you over others with wealth and properties."
+  },
+  {
+    "kind": "question",
+    "text": "What is the point of the parable, per Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah has no partner"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth is evil"
+  },
+  {
+    "kind": "question",
+    "text": "Servants rule"
+  },
+  {
+    "kind": "question",
+    "text": "What did Umar advise Abu Musa?"
+  },
+  {
+    "kind": "question",
+    "text": "Seek more gold"
+  },
+  {
+    "kind": "question",
+    "text": "Hide your wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Leave your work"
+  },
+  {
+    "kind": "question",
+    "text": "Be content with your provision"
   },
   {
     "kind": "lesson",
@@ -219802,6 +220350,322 @@
   {
     "kind": "question",
     "text": "They still deny this by worshipping others besides Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "A witness rises from each nation; deniers get no excuse."
+  },
+  {
+    "kind": "lesson",
+    "text": "Each Prophet testifies"
+  },
+  {
+    "kind": "lesson",
+    "text": "No return to repent"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:84"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:84"
+  },
+  {
+    "kind": "question",
+    "text": "Who is the witness from each nation, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Their neighbor"
+  },
+  {
+    "kind": "question",
+    "text": "Their Prophet"
+  },
+  {
+    "kind": "question",
+    "text": "Their king"
+  },
+  {
+    "kind": "question",
+    "text": "Their poet"
+  },
+  {
+    "kind": "question",
+    "text": "He will raise a witness from every nation - that is - their Prophet."
+  },
+  {
+    "kind": "question",
+    "text": "What are the deniers not given, in 16:84?"
+  },
+  {
+    "kind": "question",
+    "text": "Shade"
+  },
+  {
+    "kind": "question",
+    "text": "Leave to make excuses"
+  },
+  {
+    "kind": "question",
+    "text": "Then those who disbelieve will not be given leave."
+  },
+  {
+    "kind": "question",
+    "text": "In 16:84, deniers may return to the world to repent."
+  },
+  {
+    "kind": "question",
+    "text": "Nor will they be allowed to return to the world to repent."
+  },
+  {
+    "kind": "lesson",
+    "text": "When the wrongdoers see the punishment, it is not delayed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Repent now, not later"
+  },
+  {
+    "kind": "lesson",
+    "text": "Today the door is open"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:85"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:85"
+  },
+  {
+    "kind": "question",
+    "text": "Will the punishment be delayed, in 16:85?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, a year"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, a day"
+  },
+  {
+    "kind": "question",
+    "text": "Nor will they be given respite."
+  },
+  {
+    "kind": "question",
+    "text": "Will it be reduced, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Not even for a moment"
+  },
+  {
+    "kind": "question",
+    "text": "By half"
+  },
+  {
+    "kind": "question",
+    "text": "The lesson of 16:85 is to repent before that Day."
+  },
+  {
+    "kind": "lesson",
+    "text": "The false gods call their worshippers liars on that Day."
+  },
+  {
+    "kind": "lesson",
+    "text": "False gods cannot help"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:86"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:86"
+  },
+  {
+    "kind": "question",
+    "text": "What do the false gods say, in 16:86?"
+  },
+  {
+    "kind": "question",
+    "text": "We will help"
+  },
+  {
+    "kind": "question",
+    "text": "You indeed are liars"
+  },
+  {
+    "kind": "question",
+    "text": "But they will throw back their statement at them: You indeed are liars!"
+  },
+  {
+    "kind": "question",
+    "text": "When do the idols disown them, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "In childhood"
+  },
+  {
+    "kind": "question",
+    "text": "Their gods will disown them when they need them most."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did the idol worshippers call upon, in 16:86?"
+  },
+  {
+    "kind": "question",
+    "text": "Partners besides Allah"
+  },
+  {
+    "kind": "question",
+    "text": "These are our partners whom we used to call upon besides you."
+  },
+  {
+    "kind": "lesson",
+    "text": "On that Day everyone submits to Allah, and lies vanish."
+  },
+  {
+    "kind": "lesson",
+    "text": "Everyone hears and obeys"
+  },
+  {
+    "kind": "lesson",
+    "text": "Inventions disappear"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:87"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:87"
+  },
+  {
+    "kind": "question",
+    "text": "What will everyone offer, in 16:87?"
+  },
+  {
+    "kind": "question",
+    "text": "Full submission to Allah"
+  },
+  {
+    "kind": "question",
+    "text": "And they will offer their full submission to Allah on that Day."
+  },
+  {
+    "kind": "question",
+    "text": "What happens to their inventions, in 16:87?"
+  },
+  {
+    "kind": "question",
+    "text": "They help"
+  },
+  {
+    "kind": "question",
+    "text": "They speak"
+  },
+  {
+    "kind": "question",
+    "text": "They wander away"
+  },
+  {
+    "kind": "question",
+    "text": "They grow"
+  },
+  {
+    "kind": "question",
+    "text": "And what they falsely invented will wander away from them."
+  },
+  {
+    "kind": "question",
+    "text": "Will anyone refuse to obey, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Many will"
+  },
+  {
+    "kind": "question",
+    "text": "Kings will"
+  },
+  {
+    "kind": "question",
+    "text": "Half will"
+  },
+  {
+    "kind": "question",
+    "text": "There will not be anyone who does not hear and obey."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those who block others from Allah's path carry a double burden."
+  },
+  {
+    "kind": "lesson",
+    "text": "Guide others to good"
+  },
+  {
+    "kind": "lesson",
+    "text": "Levels differ by deeds"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:88"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:88"
+  },
+  {
+    "kind": "question",
+    "text": "What did they do besides disbelieve, in 16:88?"
+  },
+  {
+    "kind": "question",
+    "text": "Obstruct Allah's path"
+  },
+  {
+    "kind": "question",
+    "text": "Teach Quran"
+  },
+  {
+    "kind": "question",
+    "text": "Those who disbelieved and tried to obstruct the path of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Why is there a second punishment, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "For traveling"
+  },
+  {
+    "kind": "question",
+    "text": "For turning others away"
+  },
+  {
+    "kind": "question",
+    "text": "For being sick"
+  },
+  {
+    "kind": "question",
+    "text": "Another punishment for turning others away from following the truth."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir says levels differ, as Paradise has degrees."
+  },
+  {
+    "kind": "question",
+    "text": "Just as there will be varying degrees of Paradise for the believers."
   },
   {
     "kind": "lesson",
@@ -220617,6 +221481,58 @@
   },
   {
     "kind": "lesson",
+    "text": "When a ruling was replaced, deniers cried forgery; Allah knows."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah rules as He wills"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:101"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:101"
+  },
+  {
+    "kind": "question",
+    "text": "Who knows best what is revealed, in 16:101?"
+  },
+  {
+    "kind": "question",
+    "text": "What did the deniers call him, in 16:101?"
+  },
+  {
+    "kind": "question",
+    "text": "A forger"
+  },
+  {
+    "kind": "question",
+    "text": "They say: You are but a forger."
+  },
+  {
+    "kind": "question",
+    "text": "How does Allah rule, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "By vote"
+  },
+  {
+    "kind": "question",
+    "text": "As people wish"
+  },
+  {
+    "kind": "question",
+    "text": "As He wants"
+  },
+  {
+    "kind": "question",
+    "text": "But Allah is the Lord Who does whatever He wills, and rules as He wants."
+  },
+  {
+    "kind": "lesson",
     "text": "Jibril brought the Quran down from Allah with truth."
   },
   {
@@ -220810,6 +221726,378 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about An-Nahl, ayahs 90 to 105!"
+  },
+  {
+    "kind": "lesson",
+    "text": "One forced to deny, his heart firm in faith, is excused."
+  },
+  {
+    "kind": "lesson",
+    "text": "The heart is what counts"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows what is inside"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:106"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:106"
+  },
+  {
+    "kind": "question",
+    "text": "Who is excused, in 16:106?"
+  },
+  {
+    "kind": "question",
+    "text": "One who joked"
+  },
+  {
+    "kind": "question",
+    "text": "One who forgot"
+  },
+  {
+    "kind": "question",
+    "text": "One forced, his heart firm in faith"
+  },
+  {
+    "kind": "question",
+    "text": "One who chose it freely"
+  },
+  {
+    "kind": "question",
+    "text": "Except one who was forced while his heart is at peace with the faith."
+  },
+  {
+    "kind": "question",
+    "text": "What matters most in this case, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "What his heart accepts"
+  },
+  {
+    "kind": "question",
+    "text": "But his heart refuses to accept what he is saying."
+  },
+  {
+    "kind": "question",
+    "text": "In 16:106, choosing disbelief freely is excused."
+  },
+  {
+    "kind": "question",
+    "text": "But whoever opens their breasts to disbelief, on them is wrath from Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Under harsh pressure, Bilal kept saying: Alone, Alone."
+  },
+  {
+    "kind": "lesson",
+    "text": "Steadfastness is better"
+  },
+  {
+    "kind": "lesson",
+    "text": "Faith over comfort"
+  },
+  {
+    "kind": "question",
+    "text": "What did Bilal keep saying?"
+  },
+  {
+    "kind": "question",
+    "text": "Let me go"
+  },
+  {
+    "kind": "question",
+    "text": "Alone, Alone"
+  },
+  {
+    "kind": "question",
+    "text": "He refused, saying, Alone, Alone."
+  },
+  {
+    "kind": "question",
+    "text": "What is better, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "To remain steadfast"
+  },
+  {
+    "kind": "question",
+    "text": "To give in"
+  },
+  {
+    "kind": "question",
+    "text": "To run away"
+  },
+  {
+    "kind": "question",
+    "text": "It is better and preferable for the Muslim to remain steadfast in his religion."
+  },
+  {
+    "kind": "question",
+    "text": "Scholars agree one forced may go along to save himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "They left faith because they loved this world over the next."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Hereafter is lasting"
+  },
+  {
+    "kind": "lesson",
+    "text": "This world is passing"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:107"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:107"
+  },
+  {
+    "kind": "question",
+    "text": "What did they prefer, in 16:107?"
+  },
+  {
+    "kind": "question",
+    "text": "This world's life"
+  },
+  {
+    "kind": "question",
+    "text": "That is because they preferred the life of this world over that of the Hereafter."
+  },
+  {
+    "kind": "question",
+    "text": "Whom does Allah not guide, in 16:107?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who disbelieve"
+  },
+  {
+    "kind": "question",
+    "text": "And Allah does not guide the people who disbelieve."
+  },
+  {
+    "kind": "question",
+    "text": "Loving this world too much can pull one from faith."
+  },
+  {
+    "kind": "question",
+    "text": "Because they preferred this life to the Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Their hearts, ears and eyes were sealed; they are heedless."
+  },
+  {
+    "kind": "lesson",
+    "text": "Use your senses for good"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ask Allah to keep your heart"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:108"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:108"
+  },
+  {
+    "kind": "question",
+    "text": "What three things were sealed, in 16:108?"
+  },
+  {
+    "kind": "question",
+    "text": "Books, pens and paper"
+  },
+  {
+    "kind": "question",
+    "text": "Hearts, hearing and sight"
+  },
+  {
+    "kind": "question",
+    "text": "Hands, feet and mouth"
+  },
+  {
+    "kind": "question",
+    "text": "Homes, gates and roads"
+  },
+  {
+    "kind": "question",
+    "text": "Upon whose hearts, hearing and sight Allah has set a seal."
+  },
+  {
+    "kind": "question",
+    "text": "What does the seal stop, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Understanding what benefits them"
+  },
+  {
+    "kind": "question",
+    "text": "So that they would not be able to understand what is beneficial for them."
+  },
+  {
+    "kind": "question",
+    "text": "What are they called, in 16:108?"
+  },
+  {
+    "kind": "question",
+    "text": "And they are the heedless."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the Hereafter, they are surely the losers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Loss of self and family"
+  },
+  {
+    "kind": "lesson",
+    "text": "Real loss is in the Hereafter"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:109"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:109"
+  },
+  {
+    "kind": "question",
+    "text": "What will they be in the Hereafter, in 16:109?"
+  },
+  {
+    "kind": "question",
+    "text": "The guests"
+  },
+  {
+    "kind": "question",
+    "text": "The winners"
+  },
+  {
+    "kind": "question",
+    "text": "No doubt, in the Hereafter they will be the losers."
+  },
+  {
+    "kind": "question",
+    "text": "What will they lose, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Themselves and their families"
+  },
+  {
+    "kind": "question",
+    "text": "They will lose themselves and their families on the Day of Resurrection."
+  },
+  {
+    "kind": "question",
+    "text": "What does no doubt mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "It is certain"
+  },
+  {
+    "kind": "question",
+    "text": "It is a guess"
+  },
+  {
+    "kind": "question",
+    "text": "It might be"
+  },
+  {
+    "kind": "question",
+    "text": "It is a joke"
+  },
+  {
+    "kind": "question",
+    "text": "No doubt means, it is inevitable."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those who slipped, then strove with patience, are forgiven."
+  },
+  {
+    "kind": "lesson",
+    "text": "Patience after a slip"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:110"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:110"
+  },
+  {
+    "kind": "question",
+    "text": "What did they do after their trial, in 16:110?"
+  },
+  {
+    "kind": "question",
+    "text": "Went back to idols"
+  },
+  {
+    "kind": "question",
+    "text": "Migrated, strove and were patient"
+  },
+  {
+    "kind": "question",
+    "text": "How does Allah treat them, in 16:110?"
+  },
+  {
+    "kind": "question",
+    "text": "He ignores them"
+  },
+  {
+    "kind": "question",
+    "text": "Forgiving, Most Merciful"
+  },
+  {
+    "kind": "question",
+    "text": "He forgets them"
+  },
+  {
+    "kind": "question",
+    "text": "Your Lord is indeed Forgiving, Most Merciful."
+  },
+  {
+    "kind": "question",
+    "text": "What did they leave behind, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Homeland, families and wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Only shoes"
+  },
+  {
+    "kind": "question",
+    "text": "Leaving their homeland, families and wealth behind."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about An-Nahl, ayahs 110 to 128?"
   },
   {
     "kind": "lesson",
@@ -221141,7 +222429,99 @@
   },
   {
     "kind": "lesson",
-    "text": "Can you still remember these about An-Nahl, ayahs 110 to 128?"
+    "text": "Those who lie about Allah get brief joy, then a painful end."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not invent rules"
+  },
+  {
+    "kind": "lesson",
+    "text": "This world is short"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:117"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:117"
+  },
+  {
+    "kind": "question",
+    "text": "What do they get in this world, in 16:117?"
+  },
+  {
+    "kind": "question",
+    "text": "Endless wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Eternal joy"
+  },
+  {
+    "kind": "question",
+    "text": "A passing brief enjoyment will be theirs."
+  },
+  {
+    "kind": "question",
+    "text": "Will liars against Allah succeed, in 16:116?"
+  },
+  {
+    "kind": "question",
+    "text": "If rich"
+  },
+  {
+    "kind": "question",
+    "text": "What is this world for them, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "A lasting home"
+  },
+  {
+    "kind": "question",
+    "text": "Transient pleasure"
+  },
+  {
+    "kind": "lesson",
+    "text": "Some foods were forbidden to the Jews; Allah did not wrong them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah desires ease for us"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 16:118"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 16:118"
+  },
+  {
+    "kind": "question",
+    "text": "Did Allah wrong them, in 16:118?"
+  },
+  {
+    "kind": "question",
+    "text": "And We did not wrong them, but they wronged themselves."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah desire for this Ummah, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Because Allah desires ease for us, not hardship."
+  },
+  {
+    "kind": "question",
+    "text": "Which surah first lists these foods, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Meaning in Surat Al-An'am."
   },
   {
     "kind": "lesson",
@@ -224605,10 +225985,6 @@
   },
   {
     "kind": "question",
-    "text": "A throne of gold"
-  },
-  {
-    "kind": "question",
     "text": "Maqam Mahmud"
   },
   {
@@ -225949,10 +227325,6 @@
   },
   {
     "kind": "question",
-    "text": "What did they leave behind, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
     "text": "A life of luxury and ease"
   },
   {
@@ -227118,10 +228490,6 @@
   {
     "kind": "question",
     "text": "They pass away"
-  },
-  {
-    "kind": "question",
-    "text": "They grow"
   },
   {
     "kind": "question",
@@ -244337,10 +245705,6 @@
   },
   {
     "kind": "question",
-    "text": "By half"
-  },
-  {
-    "kind": "question",
     "text": "By a mountain"
   },
   {
@@ -252705,10 +254069,6 @@
   },
   {
     "kind": "question",
-    "text": "Teach Quran"
-  },
-  {
-    "kind": "question",
     "text": "And that they say what they do not do."
   },
   {
@@ -253865,10 +255225,6 @@
   },
   {
     "kind": "question",
-    "text": "Their king"
-  },
-  {
-    "kind": "question",
     "text": "Prostrating only before Allah alone and not before anything that He has created."
   },
   {
@@ -254090,10 +255446,6 @@
   {
     "kind": "question",
     "text": "Strength for war"
-  },
-  {
-    "kind": "question",
-    "text": "To run away"
   },
   {
     "kind": "question",
@@ -254906,10 +256258,6 @@
   {
     "kind": "question",
     "text": "Who was not saved, in 27:57?"
-  },
-  {
-    "kind": "question",
-    "text": "The guests"
   },
   {
     "kind": "question",
@@ -259245,10 +260593,6 @@
   },
   {
     "kind": "question",
-    "text": "Their Prophet"
-  },
-  {
-    "kind": "question",
     "text": "Wise elders"
   },
   {
@@ -260766,10 +262110,6 @@
   {
     "kind": "question",
     "text": "Is liking fine clothes pride?"
-  },
-  {
-    "kind": "question",
-    "text": "Only shoes"
   },
   {
     "kind": "question",
