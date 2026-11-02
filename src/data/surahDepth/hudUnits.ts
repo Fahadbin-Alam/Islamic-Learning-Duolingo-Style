@@ -358,4 +358,311 @@ const HUD_ONE: DeepUnit = {
   ]
 };
 
-export const HUD_UNITS: readonly DeepUnit[] = [HUD_ONE];
+/** Ayahs 25 to 49: Nuh calls his people, the ship, the Flood, his son, Mount Judi, and the news of the Unseen. */
+const HUD_TWO: DeepUnit = {
+  key: "hud2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-11",
+  name: "Hud, ayahs 25 to 49",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Hud",
+  lessons: [
+    {
+      slug: "nuh-the-plain-warner",
+      title: "Nuh, a plain warner",
+      line: "Nuh was the first Messenger sent to people who worshipped idols.",
+      facts: ["He said: worship only Allah", "He feared a painful Day for them"],
+      quote: q11(25),
+      source: ik(25, "Nuh was the first Messenger Allah sent to the people of the earth after they began worshipping idols. He warned them openly of Allah's punishment.", "He was the first Messenger whom Allah sent to the people of the earth"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Nuh call himself, in 11:25?", a: "A plain warner", wrong: ["A great king", "A rich trader", "A poet"], why: "I have come to you as a plain warner." },
+        { q: "What did Nuh fear for his people, in 11:26?", a: "The torment of a painful Day", wrong: ["A hard winter", "Losing their trade", "A long journey"], why: "Surely, I fear for you the torment of a painful Day." },
+        { q: "Nuh was the first Messenger sent to people who worshipped idols.", tf: true, why: "He was the first Messenger whom Allah sent to the people of the earth who were polytheists." }
+      ]
+    },
+    {
+      slug: "the-weak-follow-the-truth",
+      title: "The truth is not judged by its followers",
+      line: "The chiefs mocked Nuh's followers as poor, but truth is truth.",
+      facts: ["They called him a mere man", "Truth is noble in itself"],
+      quote: q11(27),
+      source: ik(27, "Truth is not rejected because its followers are poor. The followers of the truth are the noble ones, even if poor, and its rejecters are lowly, even if rich.", "the followers of the truth are the noble ones, even though they may be poor"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the chiefs say about Nuh, in 11:27?", a: "A man like ourselves", wrong: ["An angel from the sky", "A king of kings", "A great magician"], why: "We see you but a man like ourselves." },
+        { q: "Who are the truly noble, per Ibn Kathir?", a: "Followers of the truth", wrong: ["The richest people", "The loudest people", "The oldest families"], why: "The followers of the truth are the noble ones, even though they may be poor." },
+        { q: "The truth should be rejected if poor people follow it.", tf: false, why: "Verily, the truth is not to be rejected because of the lowly status of those who follow it." }
+      ]
+    },
+    {
+      slug: "the-poor-follow-messengers",
+      title: "The poor follow the Messengers",
+      line: "An emperor asked: do nobles or the poor follow him ﷺ?",
+      facts: ["The answer: the poor", "So it was with all Messengers"],
+      quote: q11(27),
+      source: hadith("bukhari", "7", "Ibn Abbas", "Sahih", "Heraclius asked Abu Sufyan whether the nobles or the poor followed the Prophet ﷺ. He answered that the poor followed him, and Heraclius said such are the followers of Messengers.", "It is the poor who follow him"),
+      difficulty: 2,
+      questions: [
+        { q: "Who mostly followed the Prophet ﷺ, per the answer to Heraclius?", a: "The poor", wrong: ["The kings", "The rich merchants", "The soldiers"], why: "Do the nobles or the poor follow him? I replied, It is the poor who follow him." },
+        { q: "Who mocked Nuh's followers as the lowest, in 11:27?", a: "The chiefs of his people", wrong: ["The children", "The travellers", "The farmers"], why: "The chiefs who disbelieved among his people said... the meanest among us." },
+        { q: "Heraclius also asked if the followers were growing in number.", tf: true, why: "He said, Are his followers increasing or decreasing? I replied, They are increasing." }
+      ]
+    },
+    {
+      slug: "no-forcing-the-truth",
+      title: "Faith cannot be forced",
+      line: "Nuh had clear proof, but would not force it on haters.",
+      facts: ["A mercy hidden from their eyes", "They rushed to deny it"],
+      quote: q11(28),
+      source: ik(28, "Nuh had clear proof and prophethood, a mercy from Allah. They could not see it and rushed to deny it, and he asked: should we force it on you while you hate it?", "Should we force you to accept it, while you actually detest it"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Nuh have from his Lord, in 11:28?", a: "A clear proof", wrong: ["A great army", "A palace", "A treasure chest"], why: "Tell me, if I have a clear proof from my Lord." },
+        { q: "Why did they reject the mercy, per Ibn Kathir?", a: "It was hidden from their sight", wrong: ["It was too heavy", "It came at night", "It was in Persian"], why: "It was hidden from you and you are not guided to it." },
+        { q: "Nuh said he would force them to accept faith.", tf: false, why: "Shall we compel you to accept it when you have a strong hatred for it?" }
+      ]
+    },
+    {
+      slug: "no-wage-for-the-message",
+      title: "No wage for the message",
+      line: "Nuh asked no money, and would not drive the believers away.",
+      facts: ["His reward is from Allah", "The poor believers stay"],
+      quote: q11(29),
+      source: ik(29, "Nuh asked no payment for his advice; he sought reward only from Allah. The chiefs wanted him to send the poor believers away, and he refused.", "I am only seeking the reward from Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Nuh ask for in return, in 11:29?", a: "No wealth at all", wrong: ["A share of crops", "Gold and silver", "A house"], why: "O my people! I ask of you no wealth for it, my reward is from none but Allah." },
+        { q: "What did the chiefs want Nuh to do with the believers?", a: "Drive them away", wrong: ["Make them chiefs", "Give them money", "Teach them poetry"], why: "I am not going to drive away those who have believed." },
+        { q: "The Quraysh asked the Prophet ﷺ for something similar.", tf: true, why: "They wanted the Prophet ﷺ to sit with them in a special gathering of the elite." }
+      ]
+    },
+    {
+      slug: "no-treasures-no-unseen",
+      title: "No treasures, no Unseen, no angel",
+      line: "Nuh claimed no treasures, no Unseen, and no angel nature.",
+      facts: ["A human Messenger", "Allah knows what is in hearts"],
+      quote: q11(31),
+      source: ik(31, "Nuh had no power over Allah's treasures and no knowledge of the Unseen except what Allah let him know. He was not an angel but a human Messenger aided with miracles.", "he is merely a human Messenger aided with miracles"),
+      difficulty: 3,
+      questions: [
+        { q: "Which claim did Nuh deny making, in 11:31?", a: "That he was an angel", wrong: ["That Allah is One", "That he was a warner", "That he feared for them"], why: "Nor do I say I am an angel." },
+        { q: "Who knows what is in the believers' hearts, per 11:31?", a: "Allah", wrong: ["The chiefs", "The crowd", "No one at all"], why: "Allah knows what is in their inner selves." },
+        { q: "Nuh said he had the treasures of Allah with him.", tf: false, why: "And I do not say to you that with me are the treasures of Allah." }
+      ]
+    },
+    {
+      slug: "bring-what-you-threaten",
+      title: "Bring what you threaten us with",
+      line: "They dared Nuh to bring punishment; only Allah brings it.",
+      facts: ["They were tired of his calls", "None escapes Allah"],
+      quote: q11(32),
+      source: ik(32, "The people told Nuh he had argued too long and dared him to bring the punishment. He said only Allah brings it, and nothing escapes Him.", "It is only Allah Who can punish you and hasten your punishment for you"),
+      difficulty: 3,
+      questions: [
+        { q: "What did his people dare Nuh to do, in 11:32?", a: "Bring the punishment", wrong: ["Leave the town", "Build a palace", "Stop praying"], why: "Now bring upon us what you threaten us with, if you are of the truthful." },
+        { q: "Who brings the punishment, per Nuh in 11:33?", a: "Only Allah", wrong: ["Nuh himself", "The chiefs", "The angels by choice"], why: "Only Allah will bring it on you, if He wills, and then you will escape not." },
+        { q: "Nuh said his advice cannot help those Allah leaves astray.", tf: true, why: "And my advice will not profit you... if Allah's will is to keep you astray." }
+      ]
+    },
+    {
+      slug: "upon-me-be-my-crime",
+      title: "A pause in the middle of the story",
+      line: "Mid-story, Allah answers those who said he ﷺ made it up.",
+      facts: ["The sin would be his alone", "The story is not invented"],
+      quote: q11(35),
+      source: ik(35, "In the middle of Nuh's story, Allah answers the Makkans who said the Prophet ﷺ invented it: if he had, the sin would be his. The story is true and not made up.", "This is presented in the middle of the story to affirm the story itself"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Makkans claim, in 11:35?", a: "He made it up", wrong: ["He was a king", "He was an angel", "He was rich"], why: "Or they say: He has fabricated it." },
+        { q: "Why does 11:35 come mid-story, per Ibn Kathir?", a: "To affirm the story is true", wrong: ["To end the surah", "To start a new surah", "To change the subject"], why: "This is presented in the middle of the story to affirm the story itself." },
+        { q: "The Prophet ﷺ said: if I made it up, the sin is mine.", tf: true, why: "Say: If I have fabricated it, upon me be my crimes." }
+      ]
+    },
+    {
+      slug: "build-the-ship",
+      title: "Build the ship under Our Eyes",
+      line: "Allah told Nuh no more would believe, and to build the ship.",
+      facts: ["Built under Allah's watch", "Taught by revelation"],
+      quote: q11(37),
+      source: ik(36, "Allah revealed to Nuh that no more of his people would believe, so he should not grieve. He was to build the ship under Allah's sight, with Allah teaching him how.", "We will teach you (Nuh) what to do"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah tell Nuh, in 11:36?", a: "No more of them will believe", wrong: ["All will believe soon", "Leave the land", "Stop calling them"], why: "None of your people will believe except those who have believed already." },
+        { q: "How was the ship built, in 11:37?", a: "Under Our Eyes and revelation", wrong: ["By the chiefs", "In secret at night", "From stone"], why: "And construct the ship under Our Eyes and with Our revelation." },
+        { q: "Nuh was told to plead for the wrongdoers.", tf: false, why: "And address Me not on behalf of those who did wrong; they are surely to be drowned." }
+      ]
+    },
+    {
+      slug: "they-mocked-the-ship",
+      title: "They laughed at the ship",
+      line: "Each time the chiefs passed the ship, they mocked Nuh.",
+      facts: ["They denied any flood", "Soon they would know"],
+      quote: q11(38),
+      source: ik(38, "Whenever the chiefs passed by, they mocked Nuh and denied his warning of the flood. He warned that they would soon know who would be disgraced.", "they teased him and rejected his threat that they would drown"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the chiefs do as they passed, in 11:38?", a: "They mocked him", wrong: ["They helped him", "They brought wood", "They prayed with him"], why: "Whenever the chiefs of his people passed by him, they mocked at him." },
+        { q: "What would come on the deniers, in 11:39?", a: "A disgracing torment", wrong: ["A rich harvest", "A peaceful life", "A great feast"], why: "A torment that will cover him with disgrace and on whom will fall a lasting torment." },
+        { q: "The chiefs believed a flood was coming.", tf: false, why: "They teased him and rejected his threat that they would drown." }
+      ]
+    },
+    {
+      slug: "the-earth-gushed-water",
+      title: "Water burst from the earth",
+      line: "When the command came, water gushed from the face of the earth.",
+      facts: ["Rain poured from the sky", "Pairs of each kind boarded"],
+      quote: q11(40),
+      source: ik(40, "Ibn Abbas said At-Tannur is the face of the earth: the whole earth burst into springs, even places where fire is lit. Nuh loaded a pair of every kind of creature.", "the face of the earth became gushing water springs"),
+      difficulty: 4,
+      questions: [
+        { q: "What does At-Tannur mean, per Ibn Abbas?", a: "The face of the earth", wrong: ["A tall mountain", "A big river", "The sky"], why: "At-Tannur is the face of the earth." },
+        { q: "How many of each kind went on the ship, in 11:40?", a: "Two, a male and a female", wrong: ["Ten of each", "One of each", "Only birds"], why: "Embark therein, of each kind two (male and female)." },
+        { q: "The heavens poured and the earth gushed, and the waters met.", tf: true, why: "So the waters (of the heaven and the earth) met for a matter predestined. (54:12)" }
+      ]
+    },
+    {
+      slug: "only-a-few-believed",
+      title: "Only a few believed",
+      line: "After 950 years of calling, only a few believed with Nuh.",
+      facts: ["About eighty people", "With their women"],
+      quote: q11(40),
+      source: ik(40, "Only a very small number believed, even after Nuh lived among them for nine hundred and fifty years. Ibn Abbas said they were about eighty people with their women.", "nine hundred and fifty years"),
+      difficulty: 4,
+      questions: [
+        { q: "How long did Nuh call his people, per Ibn Kathir?", a: "950 years", wrong: ["50 years", "10 years", "500 years"], why: "Even after the long period of time that he (Nuh) was among them – nine hundred and fifty years." },
+        { q: "How many believed with Nuh, per Ibn Abbas?", a: "About eighty", wrong: ["Ten thousand", "Only one", "Half the people"], why: "They were eighty people including their women." },
+        { q: "Most of Nuh's people believed in the end.", tf: false, why: "And none believed with him, except a few." }
+      ]
+    },
+    {
+      slug: "in-the-name-of-allah",
+      title: "In the Name of Allah it sails",
+      line: "Nuh said: in Allah's Name is its sailing and its anchoring.",
+      facts: ["Say Bismillah before things", "Even when you ride"],
+      quote: q11(41),
+      source: ik(41, "The ship's sailing and anchoring were by the Name of Allah. So it is preferred to say Bismillah at the start of every matter, including boarding a ship or a mount.", "it is preferred to mention the Name of Allah (Bismillah) at the beginning of all affairs"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Nuh say on boarding, in 11:41?", a: "In the Name of Allah", wrong: ["Good luck to us", "Hurry, hurry", "We are strong"], why: "Embark therein: in the Name of Allah will be its course and its anchorage." },
+        { q: "When is Bismillah preferred, per Ibn Kathir?", a: "At the start of all affairs", wrong: ["Only at night", "Only in Ramadan", "Only when sad"], why: "It is preferred to mention the Name of Allah (Bismillah) at the beginning of all affairs." },
+        { q: "Nuh called Allah Oft-Forgiving, Most Merciful as they set sail.", tf: true, why: "Surely, my Lord is Oft-Forgiving, Most Merciful." }
+      ]
+    },
+    {
+      slug: "the-riding-dua",
+      title: "The prayer for riding",
+      line: "The Prophet ﷺ praised Allah who made rides serve us.",
+      facts: ["Bismillah, then Alhamdulillah", "Then ask forgiveness"],
+      quote: q11(41),
+      source: hadith("abudawud", "2602", "Ali ibn Rabi'ah", "Sahih", "On mounting a ride he said Bismillah, then Alhamdulillah, then: Glory be to Him who made this serve us, and to our Lord we return. He said the Prophet ﷺ did the same.", "Glory be to Him Who has made this subservient to us"),
+      difficulty: 4,
+      questions: [
+        { q: "What is said first when mounting, per the hadith?", a: "In the name of Allah", wrong: ["Goodbye", "Let us race", "Nothing at all"], why: "When he put his foot in the stirrup, he said: In the name of Allah." },
+        { q: "Who made the ride serve us, per the dua?", a: "Allah", wrong: ["The rider", "The trader", "The animal itself"], why: "Glory be to Him Who has made this subservient to us, for we had not the strength." },
+        { q: "The dua ends by asking Allah's forgiveness.", tf: true, why: "Glory be to Thee, I have wronged myself, so forgive me, for only Thou forgivest sins." }
+      ]
+    },
+    {
+      slug: "no-mountain-saves",
+      title: "No mountain could save him",
+      line: "Nuh called his son aboard; he ran to a mountain and drowned.",
+      facts: ["Waves like mountains", "None saved but by mercy"],
+      quote: q11(43),
+      source: ik(43, "The son thought the flood would not reach the mountain tops. Nuh told him nothing is saved that day from Allah's command except whom He shows mercy.", "nothing will be saved today from the command of Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "What were the waves like, in 11:42?", a: "Like mountains", wrong: ["Like small ripples", "Like a calm lake", "Like sand"], why: "So it sailed with them amidst waves like mountains." },
+        { q: "Where did the son think he would be safe, in 11:43?", a: "On a mountain", wrong: ["In a cave", "In a tower", "In the desert"], why: "I will betake myself to some mountain, it will save me from the water." },
+        { q: "That day, only those Allah showed mercy were saved.", tf: true, why: "This day there is no savior from the decree of Allah except him on whom He has mercy." }
+      ]
+    },
+    {
+      slug: "the-ship-rests-on-judi",
+      title: "The ship rests on Judi",
+      line: "The earth swallowed its water and the sky held its rain.",
+      facts: ["The water went down", "The ship rested on Judi"],
+      quote: q11(44),
+      source: ik(44, "Allah commanded the earth to swallow its water and the sky to stop raining. The water went down and the ship came to rest on Mount Judi.", "He commanded the earth to swallow its water"),
+      difficulty: 4,
+      questions: [
+        { q: "What was the earth told to do, in 11:44?", a: "Swallow its water", wrong: ["Shake hard", "Grow trees", "Split open"], why: "O earth! Swallow up your water, and O sky! Withhold your rain." },
+        { q: "Where did the ship rest, in 11:44?", a: "On Mount Judi", wrong: ["On Mount Sinai", "In Makkah", "On an island"], why: "And it rested on (Mount) Judi." },
+        { q: "The sky was told to keep raining.", tf: false, why: "And O sky! Withhold (your rain)." }
+      ]
+    },
+    {
+      slug: "not-of-your-family",
+      title: "He is not of your family",
+      line: "Nuh asked about his son; the promise was for believers.",
+      facts: ["His deeds were not righteous", "Ask not without knowledge"],
+      quote: q11(46),
+      source: ik(45, "Allah promised to save Nuh's family who believed. His son disbelieved and opposed his father, so he was not among those promised to be saved.", "I only promised you that I would save those of your family who believe"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Nuh say to his Lord, in 11:45?", a: "My son is of my family", wrong: ["Punish my son", "Forget my son", "My son is a king"], why: "O my Lord! Verily, my son is of my family!" },
+        { q: "Why was the son not of his family, in 11:46?", a: "His deeds were unrighteous", wrong: ["He was too young", "He lived far away", "He was a stranger"], why: "Surely, he is not of your family; verily, his work is unrighteous." },
+        { q: "The promise was to save the believers of Nuh's family.", tf: true, why: "I only promised you that I would save those of your family who believe." }
+      ]
+    },
+    {
+      slug: "nuh-seeks-refuge",
+      title: "Nuh seeks refuge and forgiveness",
+      line: "Nuh sought refuge from asking without knowledge.",
+      facts: ["He turned back at once", "He asked forgiveness"],
+      quote: q11(47),
+      source: ik(47, "Nuh said: O my Lord, I seek refuge with You from asking what I have no knowledge of. Unless You forgive me and have mercy on me, I will be among the losers.", "I seek refuge with You from asking You that of which I have no knowledge"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Nuh seek refuge from, in 11:47?", a: "Asking without knowledge", wrong: ["The cold wind", "His people", "The deep sea"], why: "O my Lord! I seek refuge with You from asking You that of which I have no knowledge." },
+        { q: "Without Allah's forgiveness, what would Nuh be?", a: "Among the losers", wrong: ["Among the kings", "Among the rich", "Among the poets"], why: "And unless You forgive me and have mercy on me, I would indeed be one of the losers." },
+        { q: "Nuh argued back after Allah answered him.", tf: false, why: "Nuh said: O my Lord! I seek refuge with You from asking You that of which I have no knowledge." }
+      ]
+    },
+    {
+      slug: "down-with-peace",
+      title: "Come down with peace",
+      line: "Nuh and the believers came down with peace and blessings.",
+      facts: ["Peace for every believer after", "Later nations would deny"],
+      quote: q11(48),
+      source: ik(48, "When the ship rested, peace was sent on Nuh and the believers with him, and on every believer from their children until the Day of Resurrection.", "This salutation was also for every believer from his progeny until the Day of Resurrection"),
+      difficulty: 5,
+      questions: [
+        { q: "With what did Nuh come down, in 11:48?", a: "Peace and blessings", wrong: ["Anger and fear", "Gold and silver", "Swords and shields"], why: "O Nuh! Come down with peace from Us and blessings on you." },
+        { q: "Whom does that peace include, per Ibn Kathir?", a: "Every believer after them", wrong: ["Only Nuh", "Only the animals", "Only his ship"], why: "This salutation was also for every believer from his progeny until the Day of Resurrection." },
+        { q: "Some later nations would enjoy life, then face torment.", tf: true, why: "But there will be other people to whom We shall grant their pleasures, but in the end a painful torment." }
+      ]
+    },
+    {
+      slug: "nuh-on-judgement-day",
+      title: "Witnesses for Nuh",
+      line: "On the Last Day, this Ummah testifies for Nuh.",
+      facts: ["His people will deny it", "The Ummah testifies for him"],
+      quote: q11(49),
+      source: hadith("bukhari", "4487", "Abu Sa'id al-Khudri", "Sahih", "On the Day of Resurrection, Nuh will say he delivered the message, and his people will deny it. The Prophet ﷺ and his followers will testify that Nuh did deliver it.", "Did you convey the Message?"),
+      difficulty: 5,
+      questions: [
+        { q: "What will Nuh's people say on that Day, per the hadith?", a: "No warner came to us", wrong: ["We believed him", "We were busy", "We forgot"], why: "They will say, No Warner came to us." },
+        { q: "Who will testify for Nuh, per the hadith?", a: "This Ummah", wrong: ["His son", "The chiefs", "No one"], why: "Muhammad and his followers. So they will testify that he conveyed the Message." },
+        { q: "Nuh will say that he conveyed the message.", tf: true, why: "Allah will say, Did you convey the Message? He will say, Yes." }
+      ]
+    },
+    {
+      slug: "news-of-the-unseen",
+      title: "News of the Unseen",
+      line: "News of the Unseen: be patient, the end is for the pious.",
+      facts: ["No one knew it before", "Help comes to Messengers"],
+      quote: q11(49),
+      source: ik(49, "Allah revealed these stories as they happened, though neither the Prophet ﷺ nor his people knew them before. So be patient: the good end is for those with taqwa.", "Then, We will make the (good) end for you and those who follow you"),
+      difficulty: 5,
+      questions: [
+        { q: "What are these stories, in 11:49?", a: "News of the Unseen", wrong: ["Old poems", "Market tales", "Dreams"], why: "This is of the news of the Unseen which We reveal unto you." },
+        { q: "For whom is the good end, in 11:49?", a: "Those who have taqwa", wrong: ["The richest", "The strongest", "The oldest"], why: "So be patient. Surely, the (good) end is for those who have Taqwa." },
+        { q: "The Prophet ﷺ and his people knew these stories before.", tf: false, why: "Neither you nor your people knew it before this." }
+      ]
+    }
+  ]
+};
+
+export const HUD_UNITS: readonly DeepUnit[] = [HUD_ONE, HUD_TWO];
