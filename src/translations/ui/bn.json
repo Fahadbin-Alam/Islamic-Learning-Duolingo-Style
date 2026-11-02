@@ -748,5 +748,14 @@
   "Welcome gift!": "স্বাগতম উপহার!",
   "That code doesn't work. Check it and try again.": "এই কোডটি কাজ করছে না। দেখে আবার চেষ্টা করুন।",
   "You already used an invite code.": "আপনি আগেই একটি ইনভাইট কোড ব্যবহার করেছেন।",
-  "You can't use this code.": "আপনি এই কোডটি ব্যবহার করতে পারবেন না।"
+  "You can't use this code.": "আপনি এই কোডটি ব্যবহার করতে পারবেন না।",
+  "Day {day} of Ramadan done!": "রমজানের {day} নম্বর দিন শেষ!",
+  "Get suhoor and iftar reminders": "সাহরি ও ইফতারের রিমাইন্ডার নাও",
+  "In Ramadan: before Fajr for suhoor, and just before Maghrib for iftar.": "রমজানে: সাহরির জন্য ফজরের আগে, আর ইফতারের জন্য মাগরিবের ঠিক আগে।",
+  "Learn with me, one short lesson a day:": "আমার সাথে শেখো, দিনে একটা ছোট পাঠ:",
+  "Share": "শেয়ার করো",
+  "Share day {day}": "দিন {day} শেয়ার করো",
+  "Suhoor and iftar reminders": "সাহরি ও ইফতারের রিমাইন্ডার",
+  "{count} days in a row.": "টানা {count} দিন।",
+  "🌙 I finished day {day} of Ramadan on Muslimo!": "🌙 আমি Muslimo-তে রমজানের {day} নম্বর দিন শেষ করেছি!"
 }

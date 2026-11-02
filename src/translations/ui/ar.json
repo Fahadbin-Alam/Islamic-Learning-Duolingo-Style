@@ -748,5 +748,14 @@
   "Welcome gift!": "هدية الترحيب!",
   "That code doesn't work. Check it and try again.": "هذا الرمز لا يعمل. تحقّق منه وحاول مرة أخرى.",
   "You already used an invite code.": "لقد استخدمت رمز دعوة من قبل.",
-  "You can't use this code.": "لا يمكنك استخدام هذا الرمز."
+  "You can't use this code.": "لا يمكنك استخدام هذا الرمز.",
+  "Day {day} of Ramadan done!": "أتممت اليوم {day} من رمضان!",
+  "Get suhoor and iftar reminders": "احصل على تذكير السحور والإفطار",
+  "In Ramadan: before Fajr for suhoor, and just before Maghrib for iftar.": "في رمضان: قبل الفجر للسحور، وقبيل المغرب للإفطار.",
+  "Learn with me, one short lesson a day:": "تعلّم معي، درس قصير كل يوم:",
+  "Share": "شارك",
+  "Share day {day}": "شارك اليوم {day}",
+  "Suhoor and iftar reminders": "تذكير السحور والإفطار",
+  "{count} days in a row.": "{count} أيام متتالية.",
+  "🌙 I finished day {day} of Ramadan on Muslimo!": "🌙 أتممت اليوم {day} من رمضان على Muslimo!"
 }

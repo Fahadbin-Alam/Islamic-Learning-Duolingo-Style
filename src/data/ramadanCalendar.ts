@@ -87,3 +87,13 @@ export function ramadanStreak(user: UserProfile, now = new Date()): number {
 export function didRamadanToday(user: UserProfile, now = new Date()): boolean {
   return ramadanSeason(now)?.phase === "ramadan" && (user.ramadanDays ?? []).includes(dayKey(now));
 }
+
+/** The days of this Ramadan (1 to 30) with a Ramadan lesson done, for the "day done" card. Empty outside Ramadan. */
+export function ramadanDoneDayNumbers(user: UserProfile, now = new Date()): number[] {
+  const season = ramadanSeason(now);
+  if (season?.phase !== "ramadan") return [];
+  return (user.ramadanDays ?? [])
+    .map((day) => daysBetween(season.start, day) + 1)
+    .filter((number) => number >= 1 && number <= season.length)
+    .sort((a, b) => a - b);
+}
