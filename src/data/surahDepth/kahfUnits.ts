@@ -230,6 +230,20 @@ const KAHF_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "a-sign-of-the-hour",
+      title: "A sign that the Hour is true",
+      line: "Allah revealed the sleepers so people knew the Hour is true.",
+      facts: ["Allah raises the dead", "His promise is true"],
+      quote: q18(21),
+      source: ik(21, "People of that time doubted the Resurrection, so Allah let them find the young men of the Cave as a proof that bodies will be raised.", "Allah resurrected the people of the Cave as a sign and proof of resurrection"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Allah make their case known, in 18:21?", a: "So people know His promise is true", wrong: ["To make them kings", "To build a market", "To start a war"], why: "That they might know that the promise of Allah is true." },
+        { q: "What did some people doubt, per Ibn Kathir?", a: "The Resurrection", wrong: ["The sunrise", "The rain", "The seasons"], why: "The people of that time were skeptical about the Resurrection." },
+        { tf: true, q: "Per Ikrimah, the sleepers were a proof of resurrection.", why: "Allah resurrected the people of the Cave as a sign and proof of resurrection." }
+      ]
+    },
+    {
       slug: "leave-the-number-to-allah",
       title: "Leave the number to Allah",
       line: "People argued about their number; Allah knows it best.",
@@ -297,6 +311,20 @@ const KAHF_ONE: DeepUnit = {
         { q: "How many believers were there, in the hadith?", a: "Six", wrong: ["Two", "Ten", "Forty"], why: "This verse was revealed in relation to six persons and I and Ibn Mas'ud were amongst them." },
         { q: "What did the idolaters want?", a: "Them sent away", wrong: ["Them made leaders", "Them paid", "Them invited to eat"], why: "The polytheists said to him: Do not keep such persons near you." },
         { q: "Allah allowed sending the poor believers away.", tf: false, why: "Drive not away those who call upon their Lord morning and evening desiring only His pleasure." }
+      ]
+    },
+    {
+      slug: "the-truth-is-from-your-lord",
+      title: "The truth is from your Lord",
+      line: "The truth is from your Lord; each person chooses.",
+      facts: ["The Quran is the truth", "Our choices matter"],
+      quote: q18(29),
+      source: ik(29, "The Prophet ﷺ is told to say that what he brought is the truth from Allah. Whoever wills may believe or not, and this is a stern warning for wrongdoers.", "What I have brought to you from your Lord is the truth"),
+      difficulty: 4,
+      questions: [
+        { q: "Where is the truth from, in 18:29?", a: "Your Lord", wrong: ["The poets", "The kings", "The stars"], why: "And say: The truth is from your Lord." },
+        { q: "What is the whoever-wills line, per Ibn Kathir?", a: "A stern warning", wrong: ["A joke", "A song", "A riddle"], why: "This is a type of threat and stern warning." },
+        { tf: false, q: "Ibn Kathir says the truth from Allah has some doubt in it.", why: "What I have brought to you from your Lord is the truth, in which there is no confusion or doubt." }
       ]
     },
     {
@@ -869,6 +897,20 @@ const KAHF_FOUR: DeepUnit = {
       ]
     },
     {
+      slug: "a-just-ruler",
+      title: "A just ruler",
+      line: "Dhul-Qarnayn said wrongdoers are punished, then face their Lord.",
+      facts: ["Justice is from faith", "Everyone returns to Allah"],
+      quote: q18(87),
+      source: ik(87, "Allah gave Dhul-Qarnayn power over a people. He ruled that those who persist in wrong are punished, then return to their Lord, showing his justice and faith.", "His justice and faith became apparent in the ruling he pronounced"),
+      difficulty: 4,
+      questions: [
+        { q: "Who will be punished, in 18:87?", a: "Him who does wrong", wrong: ["The poor", "The travelers", "The children"], why: "As for him who does wrong, we shall punish him." },
+        { q: "What did his ruling show, per Ibn Kathir?", a: "His justice and faith", wrong: ["His anger", "His wealth", "His fear"], why: "His justice and faith became apparent in the ruling he pronounced." },
+        { tf: true, q: "Ibn Kathir says 18:87 confirms the Hereafter.", why: "This implies a confirmation of the Hereafter and the reward and punishment." }
+      ]
+    },
+    {
       slug: "journey-to-the-east",
       title: "Journey to the east",
       line: "In the far east, a people had no shade from the sun.",
@@ -953,6 +995,34 @@ const KAHF_FOUR: DeepUnit = {
       ]
     },
     {
+      slug: "hell-shown-plainly",
+      title: "Shown plainly",
+      line: "On that Day, Hell is shown plainly to the disbelievers.",
+      facts: ["Believe before you see", "Allah warns out of mercy"],
+      quote: q18(100),
+      source: ik(100, "On the Day of Resurrection Allah will bring Hell into view for the disbelievers before they enter it, adding to their grief.", "He will bring it forth for them to see"),
+      difficulty: 4,
+      questions: [
+        { q: "To whom is Hell shown, in 18:100?", a: "The disbelievers", wrong: ["The angels", "The Prophets", "The believers"], why: "And on that Day We shall present Hell to the disbelievers, plain to view." },
+        { q: "When is it shown, per Ibn Kathir?", a: "Before they enter it", wrong: ["Never", "In this world", "After a year"], why: "He will bring it forth for them to see its punishment before they enter it." },
+        { tf: true, q: "Ibn Kathir says seeing it adds to their grief.", why: "This will intensify their distress and grief." }
+      ]
+    },
+    {
+      slug: "seventy-thousand-reins",
+      title: "Seventy thousand reins",
+      line: "The Prophet ﷺ said angels will bring Hell forward by reins.",
+      facts: ["The Day is real", "Angels obey Allah"],
+      quote: q18(100),
+      source: hadith("muslim", "2842", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ said Hell will be brought on the Day of Judgment with seventy thousand reins, each pulled by seventy thousand angels.", "Hell would be brought on that day"),
+      difficulty: 5,
+      questions: [
+        { q: "How many reins, in the hadith?", a: "Seventy thousand", wrong: ["Seven", "Seventy", "One hundred"], why: "Hell would be brought on that day with seventy thousand bridles." },
+        { q: "Who pull each rein, in the hadith?", a: "Seventy thousand angels", wrong: ["The people", "The jinn", "Horses"], why: "And seventy thousand angels dragging each bridle." },
+        { q: "Who narrated the hadith of the reins?", a: "Abdullah ibn Mas'ud", wrong: ["Abu Hurairah", "Anas ibn Malik", "Aishah"], why: "Abdullah b. Mas'ud reported Allah's Messenger ﷺ as saying." }
+      ]
+    },
+    {
       slug: "eyes-covered-from-the-reminder",
       title: "Eyes covered from the reminder",
       line: "Some turn a blind eye and deaf ear to Allah's reminder.",
@@ -967,6 +1037,20 @@ const KAHF_FOUR: DeepUnit = {
       ]
     },
     {
+      slug: "no-protector-but-allah",
+      title: "No protector but Allah",
+      line: "Can deniers take Allah's servants as protectors besides Him?",
+      facts: ["Only Allah protects", "Those worshipped will disown them"],
+      quote: q18(102),
+      source: ik(102, "Allah asks if the disbelievers think taking His servants as protectors besides Him is right or will benefit them. Those servants will disown them.", "do they think that this is right for them and that it is going to benefit them"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did they take as protectors, in 18:102?", a: "Allah's servants", wrong: ["Their parents", "Their animals", "Their homes"], why: "That they can take My servants as Awliya [protectors] besides Me?" },
+        { q: "What does Allah ask about this, per Ibn Kathir?", a: "Will it benefit them?", wrong: ["Is it cheap?", "Is it far?", "Is it old?"], why: "Do they think that this is right for them and that it is going to benefit them?" },
+        { tf: true, q: "Ibn Kathir links 19:82: they will deny that worship.", why: "Nay, but they will deny their worship of them, and become opponents to them. (19:82)" }
+      ]
+    },
+    {
       slug: "the-greatest-losers",
       title: "The greatest losers",
       line: "The worst losers think they do good, yet their deeds are lost.",
@@ -978,6 +1062,34 @@ const KAHF_FOUR: DeepUnit = {
         { q: "What do the losers think, in 18:104?", a: "That they are doing good", wrong: ["That they are losing", "That they are lazy", "That they are lost"], why: "While they thought that they were acquiring good by their deeds." },
         { q: "Is 18:103 about one group only, per Ibn Kathir?", a: "No, it is general", wrong: ["Yes, one tribe", "Yes, one town", "Yes, one family"], why: "So the Ayah is general and refers to everyone who worships Allah in a way that is not acceptable." },
         { q: "What do they deny, in 18:105?", a: "Allah's signs and meeting Him", wrong: ["Their names", "Their homes", "The weather"], why: "They are those who deny the Ayat of their Lord and the meeting with Him." }
+      ]
+    },
+    {
+      slug: "weightless-on-the-scale",
+      title: "Weightless on the scale",
+      line: "A big man without faith weighs less than a gnat's wing.",
+      facts: ["Faith gives deeds weight", "Size and wealth do not count"],
+      quote: q18(105),
+      source: hadith("bukhari", "4729", "Abu Hurairah", "Sahih", "The Prophet ﷺ said a huge fat man will come on the Day of Resurrection and weigh less than a mosquito's wing in Allah's sight, then recited 18:105.", "a huge fat man will come who will not weigh, the weight of the wing of a mosquito"),
+      difficulty: 4,
+      questions: [
+        { q: "What will the man weigh, in the hadith?", a: "Less than a mosquito's wing", wrong: ["A mountain", "A camel", "A house"], why: "He will not weigh the weight of the wing of a mosquito in Allah's Sight." },
+        { q: "Which ayah did the Prophet ﷺ recite after?", a: "18:105", wrong: ["2:255", "112:1", "36:1"], why: "We shall not give them any weight on the Day of Resurrection." },
+        { tf: false, q: "In the hadith, body size makes deeds heavy.", why: "A huge fat man will come who will not weigh the weight of the wing of a mosquito." }
+      ]
+    },
+    {
+      slug: "mocking-the-signs",
+      title: "Mocking the signs",
+      line: "Those who mocked Allah's signs and Messengers earn Hell.",
+      facts: ["Respect Allah's signs", "Never mock the Messengers"],
+      quote: q18(106),
+      source: ik(106, "Their recompense is Hell because they disbelieved and treated Allah's signs and Messengers as a joke.", "they took the signs and Messengers of Allah as a joke"),
+      difficulty: 4,
+      questions: [
+        { q: "What did they take as a jest, in 18:106?", a: "Allah's Ayat and Messengers", wrong: ["Their games", "Their food", "Their poems"], why: "Because they disbelieved and took My Ayat and My Messengers for jest." },
+        { q: "Why are they punished, per Ibn Kathir?", a: "Disbelief and mocking", wrong: ["Being poor", "Being sick", "Traveling"], why: "Because of their disbelief and because they took the signs and Messengers of Allah as a joke." },
+        { tf: true, q: "In 18:106 their recompense is Hell.", why: "That shall be their recompense, Hell." }
       ]
     },
     {
