@@ -1013,4 +1013,352 @@ const HUD_FOUR: DeepUnit = {
   ]
 };
 
-export const HUD_UNITS: readonly DeepUnit[] = [HUD_ONE, HUD_TWO, HUD_THREE, HUD_FOUR];
+/** Ayahs 84 to 99: Shu'ayb and the people of Madyan, then Musa and Fir'awn. */
+const HUD_FIVE: DeepUnit = {
+  key: "hud5",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-11",
+  name: "Hud, ayahs 84 to 99",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Hud",
+  lessons: [
+    {
+      slug: "shuayb-and-fair-measure",
+      title: "Shu'ayb and the fair measure",
+      line: "Shu'ayb told Madyan to worship Allah and stop cheating.",
+      facts: ["Madyan, near Ma'an", "They were wealthy"],
+      quote: q11(84),
+      source: ik(84, "Madyan was an Arab tribe between the Hijaz and Sham. Shu'ayb told them to worship Allah alone and forbade them from cheating in weights and measures.", "He also prohibited them from cheating in their weights and measures"),
+      difficulty: 2,
+      questions: [
+        { q: "To which people was Shu'ayb sent, in 11:84?", a: "Madyan", wrong: ["'Ad", "Thamud", "Saba"], why: "And to the Madyan people (We sent) their brother Shu'ayb." },
+        { q: "What wrong did Shu'ayb forbid, in 11:84?", a: "Short measure and weight", wrong: ["Planting trees", "Building homes", "Travelling"], why: "And give not short measure or weight." },
+        { q: "Shu'ayb said he saw them living in plenty.", tf: true, why: "I see you in prosperity." }
+      ]
+    },
+    {
+      slug: "what-allah-leaves-is-better",
+      title: "Honest profit is better",
+      line: "Give full measure; the honest profit Allah leaves you is better.",
+      facts: ["Fair when giving and taking", "Do not spread corruption"],
+      quote: q11(86),
+      source: ik(86, "The profit you earn from honest trade with full measure is better for you than wrongly taking people's wealth.", "is better for you than wrongfully taking the wealth of the people"),
+      difficulty: 2,
+      questions: [
+        { q: "What must they give, in 11:85?", a: "Full measure and weight", wrong: ["Half measure", "No measure", "Extra taxes"], why: "Give full measure and weight in justice." },
+        { q: "What is better for them, in 11:86?", a: "What Allah leaves them", wrong: ["Stolen wealth", "Cheating profit", "Gold from robbers"], why: "That which is left by Allah is better for you, if you are believers." },
+        { q: "Fair measure is needed only when selling, not buying.", tf: false, why: "He commanded them to give just measure and weight whether they were giving or receiving." }
+      ]
+    },
+    {
+      slug: "whoever-cheats",
+      title: "Whoever cheats is not of us",
+      line: "The Prophet ﷺ found hidden wet grain and warned cheaters.",
+      facts: ["Show the faults of goods", "Honesty brings barakah"],
+      quote: q11(85),
+      source: hadith("muslim", "102", "Abu Hurairah", "Sahih", "The Prophet ﷺ found wet grain hidden under dry grain and said: why not put it on top so people can see it? Whoever cheats is not of me.", "He who deceives is not of me"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the seller hide, per the hadith?", a: "Wet grain under dry grain", wrong: ["Gold in a sack", "A broken scale", "Old dates"], why: "Why did you not place this (the drenched part) over other eatables so that the people could see it?" },
+        { q: "What did the Prophet ﷺ say about one who deceives?", a: "He is not of me", wrong: ["He is clever", "He is rich", "He is forgiven"], why: "He who deceives is not of me (is not my follower)." },
+        { q: "The Prophet ﷺ told the seller to put the wet part where people could see.", tf: true, why: "Why did you not place this over other eatables so that the people could see it?" }
+      ]
+    },
+    {
+      slug: "honest-trade-is-blessed",
+      title: "Honest trade is blessed",
+      line: "Buyers and sellers who are truthful are blessed in their deal.",
+      facts: ["Tell the truth", "Lies remove the blessing"],
+      quote: q11(85),
+      source: hadith("bukhari", "2079", "Hakim ibn Hizam", "Sahih", "If the buyer and seller speak the truth and show the faults, their deal is blessed. If they lie or hide things, the blessing is lost.", "then they would be blessed in their transaction"),
+      difficulty: 3,
+      questions: [
+        { q: "What makes a sale blessed, per the hadith?", a: "Truth and showing faults", wrong: ["A high price", "Fast talking", "Hiding faults"], why: "If both the parties spoke the truth and described the defects... they would be blessed in their transaction." },
+        { q: "What happens if they lie or hide things?", a: "The blessing is lost", wrong: ["They earn more", "Nothing at all", "The price doubles"], why: "If they told lies or hid something, then the blessings of their transaction would be lost." },
+        { q: "Shu'ayb told them not to spread corruption in the land.", tf: true, why: "And do not commit mischief in the land, causing corruption." }
+      ]
+    },
+    {
+      slug: "does-your-prayer-command-you",
+      title: "Does your prayer order this?",
+      line: "They mocked: does your prayer tell us to leave our ways?",
+      facts: ["They wanted to cheat freely", "They mocked his good sense"],
+      quote: q11(87),
+      source: ik(87, "They mocked Shu'ayb: does your prayer order us to leave our fathers' idols, or to stop doing what we like with our wealth? They said it only to mock.", "These enemies of Allah were only saying this in mockery"),
+      difficulty: 3,
+      questions: [
+        { q: "What did they ask Shu'ayb about, in 11:87?", a: "His prayer", wrong: ["His camel", "His house", "His father"], why: "Does your Salah command you that we give up what our fathers used to worship?" },
+        { q: "What did they want to keep doing, in 11:87?", a: "What they liked with wealth", wrong: ["Giving charity", "Praying more", "Fasting"], why: "Or that we give up doing what we like with our property?" },
+        { q: "They called him forbearing and right-minded only to mock him.", tf: true, why: "These enemies of Allah were only saying this in mockery." }
+      ]
+    },
+    {
+      slug: "i-practise-what-i-teach",
+      title: "I do what I tell you",
+      line: "Shu'ayb said he would never forbid something and do it himself.",
+      facts: ["He wanted only to reform", "His success is from Allah"],
+      quote: q11(88),
+      source: ik(88, "Shu'ayb said he would not forbid them something and then secretly do it himself. He only wanted to set things right as much as he could.", "I do not forbid you all from something while I do it myself"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Shu'ayb want, in 11:88?", a: "Reform, as far as he could", wrong: ["Power over them", "Their money", "Fame"], why: "I only desire reform to the best of my power." },
+        { q: "Where does his success come from, in 11:88?", a: "Only from Allah", wrong: ["His tribe", "His wealth", "His speech"], why: "And my guidance cannot come except from Allah, in Him I put my trust." },
+        { q: "Shu'ayb did in secret what he told them not to do.", tf: false, why: "I do not forbid you all from something while I do it myself." }
+      ]
+    },
+    {
+      slug: "lut-is-not-far",
+      title: "Lut's people are not far off",
+      line: "Shu'ayb warned them not to share the end of Lut's people.",
+      facts: ["Nuh, Hud, Salih and Lut", "My Lord is Most Loving"],
+      quote: q11(89),
+      source: ik(89, "Do not let your hatred of me keep you in corruption, or what struck the people of Nuh, Hud, Salih and Lut will strike you. Lut's people were close in time and place.", "Do not let your hatred and enmity of me cause you to persist in your corruption"),
+      difficulty: 4,
+      questions: [
+        { q: "Whose people were not far off, in 11:89?", a: "The people of Lut", wrong: ["The people of Musa", "The people of Isa", "The Quraysh"], why: "And the people of Lut are not far off from you!" },
+        { q: "How did Shu'ayb describe his Lord, in 11:90?", a: "Most Merciful, Most Loving", wrong: ["Far and silent", "Quick to anger", "Unaware"], why: "Verily, my Lord is Most Merciful, Most Loving." },
+        { q: "Not far off can mean close in time and close in place.", tf: true, why: "It has been said that this refers to the period of time... It has also been said that it refers to place." }
+      ]
+    },
+    {
+      slug: "more-weight-than-allah",
+      title: "Is my family weightier than Allah?",
+      line: "They spared Shu'ayb for his family, not out of awe of Allah.",
+      facts: ["The speaker of the Prophets", "Allah encircles all they do"],
+      quote: q11(92),
+      source: ik(92, "They left Shu'ayb alone out of respect for his family, not out of awe of Allah. He asked: is my family of more weight with you than Allah?", "Does not your awe of Allah prevent you from harming His Prophet"),
+      difficulty: 4,
+      questions: [
+        { q: "Why did they not harm Shu'ayb, in 11:91?", a: "Because of his family", wrong: ["Because of his wealth", "Because they feared Allah", "Because he left"], why: "Were it not for your family, you would have been stoned." },
+        { q: "What was Shu'ayb called, per Ath-Thawri?", a: "The speaker of the Prophets", wrong: ["The king of Madyan", "The poet of Arabs", "The rich trader"], why: "He (Shu'ayb) was called the orator of the Prophets." },
+        { q: "Allah encircles all that they do.", tf: true, why: "Verily, my Lord is surrounding all that you do." }
+      ]
+    },
+    {
+      slug: "madyan-went-away",
+      title: "Madyan went the way of Thamud",
+      line: "Shu'ayb and the believers were saved; a cry seized Madyan.",
+      facts: ["A cry, a quake and a cloud", "Neighbours of Thamud"],
+      quote: q11(94),
+      source: ik(94, "A cry, a quake and a shadowy cloud all came on Madyan in one day. Each surah names the one that fits its story, which is one of the Quran's fine secrets.", "They were one nation upon which all of these punishments were gathered on the day of their destruction"),
+      difficulty: 4,
+      questions: [
+        { q: "Who was saved, in 11:94?", a: "Shu'ayb and the believers", wrong: ["The chiefs", "The traders", "No one"], why: "We saved Shu'ayb and those who believed with him by a mercy from Us." },
+        { q: "Which people are Madyan compared to, in 11:95?", a: "Thamud", wrong: ["'Ad", "The Romans", "Quraysh"], why: "So away with Madyan just as Thamud went away." },
+        { q: "Madyan and Thamud lived far from each other.", tf: false, why: "They (Thamud) were their neighbors and they did not live far from the homes of the people of Madyan." }
+      ]
+    },
+    {
+      slug: "fir-awn-leads-his-people",
+      title: "Fir'awn leads his people",
+      line: "Musa brought clear signs; Fir'awn's people followed him anyway.",
+      facts: ["No right guidance in it", "He leads them on that Day too"],
+      quote: q11(97),
+      source: ik(97, "Fir'awn's chiefs followed his way, which had no guidance, only ignorance and stubbornness. As they followed him in this life, he will lead them on the Day of Resurrection.", "there was no right guidance in it"),
+      difficulty: 5,
+      questions: [
+        { q: "Whom did Fir'awn's chiefs follow, in 11:97?", a: "Fir'awn's command", wrong: ["Musa's command", "Their own hearts", "The angels"], why: "But they followed the command of Fir'awn." },
+        { q: "What was Fir'awn's command like, in 11:97?", a: "No right guide", wrong: ["Wise and fair", "Full of mercy", "Like revelation"], why: "And the command of Fir'awn was no right guide." },
+        { q: "Musa was sent with signs and clear authority.", tf: true, why: "And indeed We sent Musa with Our Ayat and a manifest authority." }
+      ]
+    },
+    {
+      slug: "following-bad-leaders",
+      title: "Following leaders into loss",
+      line: "Followers of wrong leaders share their end in both lives.",
+      facts: ["A curse in this world", "And another on that Day"],
+      quote: q11(99),
+      source: ik(99, "Mujahid said they are followed by a curse in this world and another on the Day of Resurrection: two curses.", "so these are two curses"),
+      difficulty: 5,
+      questions: [
+        { q: "When does the curse follow them, in 11:99?", a: "Here and on Judgement Day", wrong: ["Only in this life", "Only for a week", "Never"], why: "They were pursued by a curse in this and on the Day of Resurrection." },
+        { q: "How many curses did Mujahid count?", a: "Two", wrong: ["One", "Seven", "Ten"], why: "Another curse will be added to them on the Day of Resurrection, so these are two curses." },
+        { q: "Following a leader into wrong saves you from blame.", tf: false, why: "Just as they followed him in this life... likewise he will lead them to the Hellfire." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 100 to 123: lessons from the towns, the Day all gather, standing firm, prayer, and the purpose of the stories. */
+const HUD_SIX: DeepUnit = {
+  key: "hud6",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-11",
+  name: "Hud, ayahs 100 to 123",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Hud",
+  lessons: [
+    {
+      slug: "they-wronged-themselves",
+      title: "They wronged themselves",
+      line: "Some towns still stand, some are gone; Allah wronged none.",
+      facts: ["Their idols did not help", "They only added loss"],
+      quote: q11(101),
+      source: ik(101, "Allah did not wrong them; they wronged themselves by denying their Messengers. Their idols could not save them and only added to their loss.", "the idols did not benefit them, nor did they save them"),
+      difficulty: 2,
+      questions: [
+        { q: "Who wronged the destroyed towns, in 11:101?", a: "They wronged themselves", wrong: ["Allah wronged them", "Their neighbours", "Their animals"], why: "We wronged them not, but they wronged themselves." },
+        { q: "What did their idols add, in 11:101?", a: "Nothing but ruin", wrong: ["Wealth", "Safety", "Rain"], why: "Nor did they add aught to them but destruction." },
+        { q: "Some of those towns still stand today.", tf: true, why: "Of them, some are (still) standing, and some have been (already) reaped." }
+      ]
+    },
+    {
+      slug: "respite-then-seizure",
+      title: "Respite, then seizure",
+      line: "Allah gives the wrongdoer time, but when He seizes, none escape.",
+      facts: ["Time is not safety", "His seizure is severe"],
+      quote: q11(102),
+      source: hadith("bukhari", "4686", "Abu Musa", "Sahih", "Allah gives the wrongdoer respite, but when He seizes him, He does not let him go. Then the Prophet ﷺ recited 11:102.", "Allah gives respite to the oppressor, but when He takes him over, He never releases him"),
+      difficulty: 2,
+      questions: [
+        { q: "What does Allah give the wrongdoer first, per the hadith?", a: "Respite", wrong: ["Punishment at once", "A reward", "A new home"], why: "Allah gives respite to the oppressor." },
+        { q: "What happens when Allah seizes him?", a: "He never lets him go", wrong: ["He lets him go", "He waits more", "He forgets him"], why: "But when He takes him over, He never releases him." },
+        { q: "The Prophet ﷺ recited 11:102 after that hadith.", tf: true, why: "Then he recited: Such is the seizure of your Lord when He seizes towns in the midst of their wrong." }
+      ]
+    },
+    {
+      slug: "a-day-all-gather",
+      title: "A Day when all are gathered",
+      line: "On that Day all gather; none speaks without His leave.",
+      facts: ["Its time is fixed", "Some wretched, some blessed"],
+      quote: q11(105),
+      source: ik(105, "On the Day of Judgement no one will speak except with Allah's permission. Even the Messengers will only say: O Allah, save us, save us.", "on the Day of Judgement no one will speak except with the permission of Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "Who gathers on that Day, in 11:103?", a: "All of mankind", wrong: ["Only kings", "Only the rich", "Only one nation"], why: "That is a Day whereon mankind will be gathered together." },
+        { q: "Who may speak that Day, in 11:105?", a: "Only with His leave", wrong: ["Anyone loudly", "Only the rich", "Only kings"], why: "On the Day when it comes, no person shall speak except by His leave." },
+        { q: "The time of that Day is already fixed.", tf: true, why: "And We delay it only for a term (already) fixed." }
+      ]
+    },
+    {
+      slug: "a-gift-without-end",
+      title: "A gift without an end",
+      line: "The blessed live in Paradise, a gift that is never cut off.",
+      facts: ["Never sick, never old", "Never die"],
+      quote: q11(108),
+      source: hadith("muslim", "2837", "Abu Sa'id al-Khudri and Abu Hurairah", "Sahih", "A caller in Paradise will announce: you will be healthy and never fall ill, live and never die, stay young and never grow old.", "you would remain young and never grow old"),
+      difficulty: 3,
+      questions: [
+        { q: "How is Paradise described, in 11:108?", a: "A gift without an end", wrong: ["A short rest", "A gift for a year", "A test"], why: "A gift without an end." },
+        { q: "What will the caller in Paradise say, per the hadith?", a: "You will never grow old", wrong: ["Prepare to leave", "Work hard now", "Wait your turn"], why: "You would remain young and never grow old." },
+        { q: "The joys of Paradise will one day be cut off.", tf: false, why: "A gift without an end. This means that it will never be cut off." }
+      ]
+    },
+    {
+      slug: "only-copying-fathers",
+      title: "Only copying their fathers",
+      line: "Idol worshippers had no proof; they only copied their fathers.",
+      facts: ["No support for shirk", "Musa's Book was also argued over"],
+      quote: q11(109),
+      source: ik(109, "The idolaters had no support for their shirk; they only copied their fathers in ignorance. The Book of Musa was also argued over, so the Prophet ﷺ had an example before him.", "They are only mimicking their fathers in ignorance"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did the idolaters worship idols, in 11:109?", a: "Their fathers did", wrong: ["They saw proof", "A Prophet said so", "Angels told them"], why: "They worship nothing but what their fathers worshipped before them." },
+        { q: "Which earlier Book did people also argue over, in 11:110?", a: "The Book of Musa", wrong: ["The Book of Nuh", "Poems of Arabia", "No book at all"], why: "Indeed, We gave the Book to Musa, but differences arose therein." },
+        { q: "Allah punishes no one until a Messenger has come to them.", tf: true, why: "And We never punish until We have sent a Messenger (to give warning). (17:15)" }
+      ]
+    },
+    {
+      slug: "stand-firm-as-commanded",
+      title: "Stand firm as commanded",
+      line: "Stand straight as you were commanded, and do not go too far.",
+      facts: ["Firm and upright", "Never cross the limits"],
+      quote: q11(112),
+      source: hadith("muslim", "38", "Sufyan ibn Abdullah ath-Thaqafi", "Sahih", "A man asked the Prophet ﷺ for one teaching about Islam. He said: say I believe in Allah, then stay firm on it.", "Say I affirm my faith in Allah and then remain steadfast to it"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 11:112 command?", a: "Stand firm and straight", wrong: ["Rest and wait", "Run away", "Stay quiet"], why: "So stand (ask Allah to make) you firm and straight as you are commanded." },
+        { q: "What did the Prophet ﷺ say after: I believe in Allah?", a: "Then stay firm on it", wrong: ["Then travel", "Then be silent", "Then rest"], why: "Say I affirm my faith in Allah and then remain steadfast to it." },
+        { q: "Going beyond the limits is allowed if the other side is wrong.", tf: false, why: "Transgression causes destruction to its practitioner, even if the transgression was directed against a polytheist." }
+      ]
+    },
+    {
+      slug: "do-not-lean-to-wrongdoers",
+      title: "Do not lean toward wrongdoers",
+      line: "Do not side with wrongdoers, or you share in their wrong.",
+      facts: ["No help besides Allah", "Siding with them is approving"],
+      quote: q11(113),
+      source: ik(113, "Ibn Abbas said: do not side with those who do wrong. Seeking their help is like approving of what they do.", "Do not side with those who do wrong"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 11:113 forbid?", a: "Leaning toward wrongdoers", wrong: ["Helping the poor", "Praying at night", "Trading fairly"], why: "And incline not toward those who do wrong, lest the Fire should touch you." },
+        { q: "What did Ibn Abbas say the ayah means?", a: "Do not side with them", wrong: ["Fight them all", "Copy their ways", "Make them leaders"], why: "Do not side with those who do wrong." },
+        { q: "Seeking help from wrongdoers is like approving their wrong.", tf: true, why: "Do not seek assistance from wrongdoers, because it will be as if you are condoning their actions." }
+      ]
+    },
+    {
+      slug: "good-deeds-remove-bad",
+      title: "Good deeds wipe out bad ones",
+      line: "Pray at both ends of the day; good deeds erase bad ones.",
+      facts: ["Like bathing five times daily", "Be patient in doing good"],
+      quote: q11(114),
+      source: hadith("bukhari", "528", "Abu Hurairah", "Sahih", "If a river ran by your door and you bathed in it five times a day, would any dirt remain? That is like the five prayers, by which Allah wipes out sins.", "That is the example of the five prayers with which Allah blots out (annuls) evil deeds"),
+      difficulty: 4,
+      questions: [
+        { q: "What do good deeds do, in 11:114?", a: "Remove bad deeds", wrong: ["Add to sins", "Nothing at all", "Only bring wealth"], why: "Verily, the good deeds remove the evil deeds." },
+        { q: "What are the five prayers like, per the hadith?", a: "Bathing in a river", wrong: ["Climbing a hill", "Eating a meal", "Lighting a fire"], why: "If there was a river at the door of anyone of you and he took a bath in it five times a day..." },
+        { q: "Allah never wastes the reward of those who do good.", tf: true, why: "And be patient; verily, Allah wastes not the reward of the doers of good." }
+      ]
+    },
+    {
+      slug: "people-who-forbid-corruption",
+      title: "People who stop corruption",
+      line: "Few in earlier nations stopped corruption; those few were saved.",
+      facts: ["Command good, forbid evil", "Change it as you can"],
+      quote: q11(116),
+      source: hadith("muslim", "49", "Abu Sa'id al-Khudri", "Sahih", "Whoever sees something evil should change it with his hand; if he cannot, then with his tongue; and if he cannot, then with his heart.", "He who amongst you sees something abominable should modify it with the help of his hand"),
+      difficulty: 4,
+      questions: [
+        { q: "Who was saved among earlier nations, in 11:116?", a: "The few who forbade evil", wrong: ["The rich", "The chiefs", "No one"], why: "Prohibiting others from corruption in the earth, except a few of those whom We saved." },
+        { q: "What is the first way to change evil, per the hadith?", a: "With the hand", wrong: ["With silence", "By running", "By joining in"], why: "He who amongst you sees something abominable should modify it with the help of his hand." },
+        { q: "Allah destroys towns whose people do good.", tf: false, why: "And your Lord would never destroy the towns wrongfully, while their people were doers of good." }
+      ]
+    },
+    {
+      slug: "mercy-ends-disagreement",
+      title: "Mercy for those who follow",
+      line: "People will keep differing, except those Allah shows mercy.",
+      facts: ["He could make all one nation", "Mercy is in following the Messengers"],
+      quote: q11(119),
+      source: ik(118, "People will always differ in beliefs. Those who receive Allah's mercy are those who follow the Messengers and hold to what they brought.", "those who have received the mercy of Allah by following the Messengers are excluded from this"),
+      difficulty: 5,
+      questions: [
+        { q: "Could Allah have made all people one nation, per 11:118?", a: "Yes, if He willed", wrong: ["No, never", "Only the Arabs", "Only once"], why: "And if your Lord had so willed, He could surely have made mankind one Ummah." },
+        { q: "Who is spared from disagreement, in 11:119?", a: "Those shown His mercy", wrong: ["The richest", "The loudest", "The strongest"], why: "Except him on whom your Lord has bestowed His mercy." },
+        { q: "Allah's mercy comes through following the Messengers.", tf: true, why: "Those who have received the mercy of Allah by following the Messengers are excluded from this." }
+      ]
+    },
+    {
+      slug: "stories-that-steady-the-heart",
+      title: "Stories that steady the heart",
+      line: "Allah told these Prophets' stories to make the heart firm.",
+      facts: ["Truth, warning and reminder", "Brothers before him were patient"],
+      quote: q11(120),
+      source: ik(120, "Allah tells the stories of the Messengers before to make the Prophet's ﷺ heart firm, so he takes them as an example. This surah brings truth, a warning and a reminder.", "in order to make your heart firm and so that you may take an example"),
+      difficulty: 5,
+      questions: [
+        { q: "Why are the Messengers' stories told, in 11:120?", a: "To make the heart firm", wrong: ["Only for fun", "To fill time", "To praise kings"], why: "That We may make strong and firm your heart thereby." },
+        { q: "What does Surah Hud bring believers, in 11:120?", a: "Truth and a reminder", wrong: ["Riddles", "Old poems", "Market news"], why: "And in this has come to you the truth, as well as an admonition and a reminder for the believers." },
+        { q: "In 11:120, the truth that came refers to Surah Hud.", tf: true, why: "This is referring to this Surah itself... and it is the correct view." }
+      ]
+    },
+    {
+      slug: "worship-him-and-trust-him",
+      title: "Worship Him and trust Him",
+      line: "Hud ends: the Unseen is Allah's, so worship Him and trust Him.",
+      facts: ["All affairs return to Him", "He is never unaware"],
+      quote: q11(123),
+      source: ik(123, "Allah knows the Unseen of the heavens and earth, and all returns to Him. So worship Him and rely on Him, for He is enough for whoever trusts Him.", "for verily, He is sufficient for whoever trusts and turns to Him"),
+      difficulty: 5,
+      questions: [
+        { q: "To whom belongs the Unseen, in 11:123?", a: "To Allah", wrong: ["To the stars", "To fortune tellers", "To kings"], why: "And to Allah belongs the Ghayb of the heavens and the earth." },
+        { q: "What two things does 11:123 command?", a: "Worship Him and trust Him", wrong: ["Travel and trade", "Sleep and eat", "Build and plant"], why: "So worship Him and put your trust in Him." },
+        { q: "Allah is unaware of some things people do.", tf: false, why: "And your Lord is not unaware of what you (people) do." }
+      ]
+    }
+  ]
+};
+
+export const HUD_UNITS: readonly DeepUnit[] = [HUD_ONE, HUD_TWO, HUD_THREE, HUD_FOUR, HUD_FIVE, HUD_SIX];
