@@ -442,4 +442,422 @@ const YUSUF_TWO: DeepUnit = {
   ]
 };
 
-export const YUSUF_UNITS: readonly DeepUnit[] = [YUSUF_ONE, YUSUF_TWO];
+/** Ayahs 43 to 57: the king's dream, a plan for the hard years, Yusuf's name cleared, and trust over the storehouses. */
+const YUSUF_THREE: DeepUnit = {
+  key: "yusuf3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-yusuf",
+  name: "Yusuf, ayahs 43 to 57",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Yusuf",
+  lessons: [
+    {
+      slug: "seven-fat-cows",
+      title: "Seven fat cows, seven lean",
+      line: "The king dreamt seven lean cows ate seven fat ones.",
+      facts: ["Seven green ears, seven dry", "His chiefs could not explain"],
+      quote: q12(43),
+      source: ik(43, "The king saw seven fat cows eaten by seven lean ones, and seven green ears of grain and seven dry. His chiefs called it mixed-up dreams and could not explain it.", "He gathered the priests, the chiefs of his state and the princes and told them what he had seen in a dream"),
+      difficulty: 4,
+      questions: [
+        { q: "What ate the seven fat cows, in 12:43?", a: "Seven lean cows", wrong: ["Seven lions", "Seven wolves", "Seven birds"], why: "I saw seven fat cows, whom seven lean ones were devouring." },
+        { q: "What did the chiefs call the dream, in 12:44?", a: "Mixed-up false dreams", wrong: ["A true vision", "A warning from stars", "A poem"], why: "They said: Mixed up false dreams and we are not skilled in the interpretation of dreams." },
+        { q: "The king's chiefs explained the dream well.", tf: false, why: "We are not skilled in the interpretation of dreams." }
+      ]
+    },
+    {
+      slug: "the-man-remembers",
+      title: "The freed man remembers",
+      line: "The freed man remembered Yusuf, the man of truth, at last.",
+      facts: ["Years after he forgot", "Yusuf did not blame him"],
+      quote: q12(45),
+      source: ik(43, "The man saved from prison finally remembered Yusuf and asked to be sent to him. Yusuf explained the dream without blaming him for forgetting, and without asking to be freed first.", "without criticizing the man for forgetting his request that he had made to him"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the freed man call Yusuf, in 12:46?", a: "The man of truth", wrong: ["The king's son", "The stranger", "The poet"], why: "O Yusuf, the man of truth! Explain to us seven fat cows." },
+        { q: "Did Yusuf blame the man for forgetting?", a: "No, he explained at once", wrong: ["Yes, harshly", "He refused to speak", "He asked for gold first"], why: "Without criticizing the man for forgetting his request that he had made to him." },
+        { q: "Yusuf demanded to be freed before explaining the dream.", tf: false, why: "Neither did he make a precondition that he be released before explaining the meaning." }
+      ]
+    },
+    {
+      slug: "store-it-in-the-ear",
+      title: "Store it in the ear",
+      line: "Sow for seven years and store the grain left in its ears.",
+      facts: ["Eat only a little", "Then seven hard years"],
+      quote: q12(47),
+      source: ik(43, "Yusuf said the cows were years. Seven good years would come, so store the harvest in its ears to keep it fresh and eat little, for seven hard years would follow.", "leave it in the ears so as to preserve it better"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the cows stand for, per Yusuf?", a: "Years", wrong: ["Kings", "Rivers", "Cities"], why: "He interpreted the cows to be years." },
+        { q: "How should they store the harvest, in 12:47?", a: "Left in its ears", wrong: ["Ground into flour", "Thrown in the river", "Sold to traders"], why: "That which you reap you shall leave it in the ears." },
+        { q: "Yusuf told them to eat freely in the good years.", tf: false, why: "Except a little of it which you may eat. Stay away from extravagance." }
+      ]
+    },
+    {
+      slug: "a-year-of-relief",
+      title: "Then a year of rain",
+      line: "After the hard years would come a year of plenty and rain.",
+      facts: ["Good news beyond the dream", "People would press oil again"],
+      quote: q12(49),
+      source: ik(43, "Yusuf also gave good news not in the dream: after the seven years of drought would come a year of rain when the land would give in plenty.", "He delivered the good news to them that after the consecutive years of drought, there will come a fertile year"),
+      difficulty: 4,
+      questions: [
+        { q: "What came after the seven hard years, in 12:49?", a: "A year of abundant rain", wrong: ["Seven more hard years", "A flood", "A war"], why: "Then thereafter will come a year in which people will have abundant rain." },
+        { q: "What would people press in that year, in 12:49?", a: "Grapes and oil", wrong: ["Gold", "Stones", "Wool"], why: "And in which they will press (wine and oil)." },
+        { q: "Yusuf added good news beyond what the dream showed.", tf: true, why: "He delivered the good news to them that after the years of drought, there will come a fertile year." }
+      ]
+    },
+    {
+      slug: "clear-my-name-first",
+      title: "Clear my name first",
+      line: "Yusuf would not leave prison until his innocence was clear.",
+      facts: ["Ask about the women", "He wanted no doubt left"],
+      quote: q12(50),
+      source: ik(50, "When the king sent for him, Yusuf refused to leave until the king looked into the women who cut their hands, so all would know he was jailed unjustly.", "Yusuf refused to leave the prison until the king and his subjects declare his innocence"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Yusuf say to the king's messenger, in 12:50?", a: "Ask about the women", wrong: ["Bring me gold", "Free my friends", "Come back tomorrow"], why: "Return to your king and ask him, what happened to the women who cut their hands?" },
+        { q: "Why did Yusuf wait?", a: "To clear his name first", wrong: ["He liked prison", "He was ill", "He feared the king"], why: "He wanted them to know that sending him to prison was an act of injustice." },
+        { q: "Yusuf rushed out the moment he was called.", tf: false, why: "Yusuf refused to leave the prison until the king and his subjects declare his innocence." }
+      ]
+    },
+    {
+      slug: "the-patience-of-yusuf",
+      title: "The patience of Yusuf",
+      line: "The Prophet ﷺ praised how long Yusuf waited in prison.",
+      facts: ["Mercy on Lut too", "Humble praise of a brother"],
+      quote: q12(50),
+      source: hadith("bukhari", "3372", "Abu Hurairah", "Sahih", "The Prophet ﷺ said that had he stayed in prison as long as Yusuf did, he would have accepted the offer of release. This humbly praises Yusuf's patience.", "If I were to stay in prison for such a long time as Joseph did I would have accepted the offer"),
+      difficulty: 4,
+      questions: [
+        { q: "What would the Prophet ﷺ have done in Yusuf's place?", a: "Accepted the offer to leave", wrong: ["Stayed forever", "Asked for gold", "Written a letter"], why: "If I were to stay in prison for such a long time I would have accepted the offer." },
+        { q: "What does the hadith on the long prison stay praise?", a: "His patience", wrong: ["His wealth", "His strength", "His speed"], why: "The Sunnah of our Prophet ﷺ praised Prophet Yusuf and asserted his patience." },
+        { q: "The hadith also asks Allah's mercy on Lut.", tf: true, why: "And may Allah send His mercy on Lut! He wished to have powerful support!" }
+      ]
+    },
+    {
+      slug: "the-truth-is-clear",
+      title: "Now the truth is clear",
+      line: "The women cleared Yusuf; the 'Aziz's wife admitted the truth.",
+      facts: ["No evil known of him", "He is of the truthful"],
+      quote: q12(51),
+      source: ik(50, "The king asked the women. They said they knew no evil of Yusuf. The 'Aziz's wife said the truth is now clear: it was her doing, and he is truthful.", "Now the truth is manifest"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the women say, in 12:51?", a: "No evil know we against him", wrong: ["He is guilty", "We do not remember", "Ask his brothers"], why: "Allah forbid! No evil know we against him!" },
+        { q: "What did the 'Aziz's wife say, in 12:51?", a: "Now the truth is clear", wrong: ["Keep him in prison", "He must leave Egypt", "I do not know him"], why: "Now the truth is manifest (to all)... and he is surely of the truthful." },
+        { q: "The inquiry left doubt about Yusuf.", tf: false, why: "And he is surely of the truthful." }
+      ]
+    },
+    {
+      slug: "the-self-inclines-to-evil",
+      title: "The self inclines to evil",
+      line: "The self leans to evil, except whom Allah shows mercy.",
+      facts: ["No one frees himself of blame", "Allah forgives and has mercy"],
+      quote: q12(53),
+      source: ik(50, "In 12:53 the self is said to lean toward evil, except those to whom Allah gives His mercy. Allah is Oft-Forgiving, Most Merciful.", "except when my Lord bestows His mercy"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the self inclined to, in 12:53?", a: "Evil", wrong: ["Only good", "Sleep", "Nothing"], why: "Verily, the self is inclined to evil." },
+        { q: "Who is protected from it, in 12:53?", a: "Those shown Allah's mercy", wrong: ["The rich", "The strong", "The old"], why: "Except when my Lord bestows His mercy (upon whom He wills)." },
+        { q: "12:53 ends with: my Lord is Oft-Forgiving, Most Merciful.", tf: true, why: "Verily, my Lord is Oft-Forgiving, Most Merciful." }
+      ]
+    },
+    {
+      slug: "high-in-rank-and-trusted",
+      title: "High in rank and trusted",
+      line: "The king spoke with Yusuf and made him close and trusted.",
+      facts: ["He saw his wisdom and manners", "Free, with his honor clear"],
+      quote: q12(54),
+      source: ik(54, "Once Yusuf's innocence was clear, the king brought him close. When he spoke with him and saw his wisdom and good manners, he said: today you are high in rank and fully trusted.", "You have assumed an exalted status with us and are indeed fully trusted"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the king say to Yusuf, in 12:54?", a: "You are high in rank and trusted", wrong: ["Go back to prison", "Leave Egypt", "Work in the fields"], why: "Verily, this day, you are with us high in rank and fully trusted." },
+        { q: "When did the king honor him so?", a: "After speaking with him", wrong: ["Before meeting him", "After a battle", "After a year"], why: "Then, when he spoke to him, he said: this day, you are with us high in rank." },
+        { q: "The king wanted Yusuf among his close aides.", tf: true, why: "That I may make him among my close aids and associates." }
+      ]
+    },
+    {
+      slug: "guard-with-knowledge",
+      title: "A guard with knowledge",
+      line: "Yusuf asked to run the storehouses: an honest, knowing guard.",
+      facts: ["Ready for the hard years", "Self-praise allowed when needed"],
+      quote: q12(55),
+      source: ik(54, "Yusuf asked to be put over the storehouses so he could share the grain wisely in the hard years. He described himself as honest and knowing, which is allowed when there is a need.", "Yusuf praised himself, for this is allowed when"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Yusuf ask to be put over, in 12:55?", a: "The storehouses of the land", wrong: ["The army", "The palace kitchen", "The ships"], why: "Set me over the storehouses of the land." },
+        { q: "How did Yusuf describe himself, in 12:55?", a: "A guard with knowledge", wrong: ["A strong fighter", "A rich man", "A fast rider"], why: "I will indeed guard them with full knowledge." },
+        { q: "Praising your own skill is never allowed.", tf: false, why: "This is allowed when one's abilities are unknown and there is a need to do so." }
+      ]
+    },
+    {
+      slug: "reward-not-lost",
+      title: "No reward is lost",
+      line: "Allah gave Yusuf power in Egypt; good deeds are never wasted.",
+      facts: ["Free after slavery and prison", "Patience rewarded"],
+      quote: q12(56),
+      source: ik(56, "Allah gave Yusuf authority in Egypt to go where he liked. Allah did not let his patience with his brothers and in prison be lost, but rewarded it.", "We did not let the patience of Yusuf"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Allah give Yusuf in the land, in 12:56?", a: "Full authority", wrong: ["A small farm", "A ship", "A shop"], why: "Thus did We give full authority to Yusuf in the land." },
+        { q: "Whose reward does Allah never let be lost, in 12:56?", a: "The good-doers", wrong: ["The proud", "The rich", "The loud"], why: "And We make not to be lost the reward of the good doers." },
+        { q: "Yusuf's patience went unrewarded.", tf: false, why: "We did not let the patience of Yusuf be lost." }
+      ]
+    },
+    {
+      slug: "better-in-the-hereafter",
+      title: "Better in the Hereafter",
+      line: "The reward of the Hereafter is better for believers with Taqwa.",
+      facts: ["Greater than any kingdom", "Faith and Taqwa together"],
+      quote: q12(57),
+      source: ik(56, "What Allah prepared for Yusuf in the Hereafter is far greater than the power He gave him in this life. The Hereafter is better for those who believe and have Taqwa.", "is much greater, substantial and honored than the authority He gave him in this life"),
+      difficulty: 5,
+      questions: [
+        { q: "What is better, in 12:57?", a: "The reward of the Hereafter", wrong: ["Power in Egypt", "Gold", "Long life"], why: "And verily, the reward of the Hereafter is better." },
+        { q: "For whom is it better, in 12:57?", a: "Those who believe and have Taqwa", wrong: ["Kings only", "Traders", "Poets"], why: "For those who believed and had Taqwa." },
+        { q: "Yusuf's power in Egypt was his greatest reward.", tf: false, why: "His reward in the Hereafter is much greater than the authority He gave him in this life." }
+      ]
+    },
+    {
+      slug: "the-most-honorable",
+      title: "The most honorable",
+      line: "The most honorable are the most God-fearing, then came Yusuf.",
+      facts: ["Then he named Yusuf", "A Prophet son of Prophets"],
+      quote: q12(57),
+      source: hadith("bukhari", "3383", "Abu Hurairah", "Sahih", "Asked who is the most honorable, the Prophet ﷺ said the most God-fearing. Asked again, he named Yusuf, Allah's Prophet, son of Allah's Prophet, son of Allah's Prophet, son of Allah's Khalil.", "The most honorable person is"),
+      difficulty: 5,
+      questions: [
+        { q: "Who is most honorable, per the first answer?", a: "The most God-fearing", wrong: ["The richest", "The strongest", "The oldest"], why: "Who is the most honorable amongst the people? He replied, the most Allah fearing." },
+        { q: "Whom did the Prophet ﷺ name next?", a: "Yusuf", wrong: ["Sulayman", "Dawud", "Nuh"], why: "The most honorable person is Yusuf, Allah's Prophet, the son of Allah's Prophet." },
+        { q: "Taqwa is the first measure of honor.", tf: true, why: "He replied, the most Allah fearing." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 58 to 82: the brothers come for grain, Binyamin, the king's cup, and the eldest brother stays behind. */
+const YUSUF_FOUR: DeepUnit = {
+  key: "yusuf4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-yusuf",
+  name: "Yusuf, ayahs 58 to 82",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Yusuf",
+  lessons: [
+    {
+      slug: "brothers-come-for-grain",
+      title: "The brothers come for grain",
+      line: "The drought brought the brothers to Egypt; Yusuf knew them.",
+      facts: ["They did not know him", "Binyamin stayed home"],
+      quote: q12(58),
+      source: ik(58, "The drought reached Kana'an, so ten brothers came to Egypt to buy food. Yusuf knew them at once, but they did not know him, for they had lost him as a boy.", "he knew them the minute he saw them"),
+      difficulty: 4,
+      questions: [
+        { q: "Did the brothers know Yusuf, in 12:58?", a: "No, but he knew them", wrong: ["Yes, at once", "Only the eldest did", "They guessed later that day"], why: "And he recognized them, but they recognized him not." },
+        { q: "Why did they come to Egypt?", a: "To buy food in the drought", wrong: ["To find Yusuf", "To trade horses", "To meet the king"], why: "The drought also reached the area of Kana'an, where Ya'qub and his children resided." },
+        { q: "Ya'qub kept Binyamin at home that first time.", tf: true, why: "They were ten, because Ya'qub kept his son and Yusuf's brother Binyamin with him." }
+      ]
+    },
+    {
+      slug: "a-mercy-for-egypt",
+      title: "A mercy for Egypt",
+      line: "Yusuf shared the grain fairly and ate little himself.",
+      facts: ["One camel load a family", "One meal a day at court"],
+      quote: q12(58),
+      source: ik(58, "Yusuf guarded the harvest and gave each family one camel load a year. He and the king ate only one meal a day so the food would last. He was a mercy to the people of Egypt.", "Indeed, Yusuf was a mercy from Allah sent to the people of Egypt"),
+      difficulty: 4,
+      questions: [
+        { q: "How much did each family get a year?", a: "One camel load", wrong: ["Ten camel loads", "A ship's load", "Nothing"], why: "Yusuf would not give a family man more than whatever a camel could carry." },
+        { q: "How did Yusuf eat in those years?", a: "Without filling himself", wrong: ["Feasts every day", "Only meat", "Only sweets"], why: "Yusuf himself did not fill his stomach from this food." },
+        { q: "Ibn Kathir calls Yusuf a mercy to the people of Egypt.", tf: true, why: "Indeed, Yusuf was a mercy from Allah sent to the people of Egypt." }
+      ]
+    },
+    {
+      slug: "bring-your-brother",
+      title: "Bring me your brother",
+      line: "Yusuf asked them to bring their other brother next time.",
+      facts: ["Full measure, the best host", "No grain without him"],
+      quote: q12(59),
+      source: ik(58, "Yusuf gave them what they needed and told them to bring the brother they had mentioned. If they came without him, there would be no grain for them.", "Bring me your brother from your father"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did Yusuf ask them to bring, in 12:59?", a: "Their brother from their father", wrong: ["Their mother", "Their cousins", "A camel"], why: "Bring me a brother of yours from your father." },
+        { q: "What if they came without him, in 12:60?", a: "No grain for them", wrong: ["Double grain", "A prize", "A free ride"], why: "But if you bring him not to me, there shall be no measure (of corn) for you with me." },
+        { q: "Yusuf called himself the best of hosts.", tf: true, why: "See you not that I give full measure, and that I am the best of the hosts?" }
+      ]
+    },
+    {
+      slug: "money-in-their-bags",
+      title: "Money back in their bags",
+      line: "Yusuf quietly had their money put back in their bags.",
+      facts: ["So they would come again", "They might have nothing left"],
+      quote: q12(62),
+      source: ik(58, "Yusuf told his servants to put their goods back into their bags without them knowing, so they would return. It was said he feared they had nothing more to trade.", "because he feared that his brothers might not have any more merchandise"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Yusuf have put in their bags, in 12:62?", a: "Their money", wrong: ["A letter", "A gold cup", "A map"], why: "And Yusuf told his servants to put their money into their bags." },
+        { q: "Why did he do it, in 12:62?", a: "So they would come again", wrong: ["To test the guards", "To get rid of it", "By mistake"], why: "In order that they might come again." },
+        { q: "The brothers saw the servants do it.", tf: false, why: "To put their money into their bags, while they were unaware." }
+      ]
+    },
+    {
+      slug: "allah-is-the-best-guard",
+      title: "Allah is the best guardian",
+      line: "Ya'qub said: Allah is the best guardian, Most Merciful.",
+      facts: ["He remembered their promise before", "He trusted Allah, not them"],
+      quote: q12(64),
+      source: ik(63, "The brothers promised to guard Binyamin, as they had promised about Yusuf. Ya'qub reminded them, then said Allah is the best guard and the Most Merciful of those who show mercy.", "Allah has the most mercy with me among all those who show mercy"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Ya'qub ask, in 12:64?", a: "Shall I trust you as with Yusuf?", wrong: ["Where is the gold?", "Who is the king?", "When is the harvest?"], why: "Can I entrust him to you except as I entrusted his brother [Yusuf] to you aforetime?" },
+        { q: "Who is the best guardian, in 12:64?", a: "Allah", wrong: ["The brothers", "The king", "The 'Aziz"], why: "But Allah is the Best to guard." },
+        { q: "The brothers used the same promise as with Yusuf.", tf: true, why: "This is what they said to Ya'qub about their brother Yusuf: verily, we will take care of him." }
+      ]
+    },
+    {
+      slug: "an-oath-by-allah",
+      title: "An oath by Allah",
+      line: "Ya'qub sent Binyamin only after they swore a firm oath by Allah.",
+      facts: ["Unless they were overpowered", "Allah is Witness"],
+      quote: q12(66),
+      source: ik(65, "They found their money returned and pressed to take Binyamin. Ya'qub sent him only after they swore by Allah to bring him back unless overpowered, since the family needed food.", "until you swear by Allah with the strongest oath"),
+      difficulty: 4,
+      questions: [
+        { q: "What did they find in their bags, in 12:65?", a: "Their money returned", wrong: ["Stones", "Letters", "Nothing"], why: "They found their money had been returned to them." },
+        { q: "What did Ya'qub require, in 12:66?", a: "A solemn oath by Allah", wrong: ["A gold payment", "A written deal", "A hostage"], why: "Until you swear a solemn oath to me in Allah's Name, that you will bring him back." },
+        { q: "Who did Ya'qub say is Witness, in 12:66?", a: "Allah", wrong: ["The eldest son", "The neighbors", "The caravan"], why: "Allah is the Witness to what we have said." }
+      ]
+    },
+    {
+      slug: "different-gates",
+      title: "Enter by different gates",
+      line: "Ya'qub told his sons: enter by different gates, trust Allah.",
+      facts: ["He feared the evil eye", "The decision is Allah's alone"],
+      quote: q12(67),
+      source: ik(67, "Ya'qub told his sons to enter Egypt by different gates, since he feared the evil eye on them. Yet he said this cannot stop Allah's decree; in Him he put his trust.", "he feared the evil eye for them"),
+      difficulty: 5,
+      questions: [
+        { q: "How should the sons enter, in 12:67?", a: "By different gates", wrong: ["By one gate", "At night only", "By boat"], why: "Do not enter by one gate, but enter by different gates." },
+        { q: "What did Ya'qub fear, per Ibn Abbas and others?", a: "The evil eye", wrong: ["Robbers", "Wild animals", "Rain"], why: "He feared the evil eye for them, because they were handsome." },
+        { q: "Ya'qub said his advice could block Allah's decree.", tf: false, why: "And I cannot avail you against Allah at all. Verily, the decision rests only with Allah." }
+      ]
+    },
+    {
+      slug: "the-evil-eye-is-real",
+      title: "The evil eye is real",
+      line: "The Prophet ﷺ said the effect of the evil eye is a fact.",
+      facts: ["Take care, then trust Allah", "Nothing beats Allah's decree"],
+      quote: q12(67),
+      source: hadith("bukhari", "5740", "Abu Hurairah", "Sahih", "The Prophet ﷺ said the effect of an evil eye is a fact.", "The effect of an evil eye is a fact"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ say about the evil eye?", a: "Its effect is a fact", wrong: ["It is a myth", "It is only for kings", "It helps people"], why: "The effect of an evil eye is a fact." },
+        { q: "What did Ya'qub do after taking care?", a: "Trusted in Allah", wrong: ["Hired guards", "Stayed home", "Cancelled the trip"], why: "In Him, I put my trust and let all those that trust, put their trust in Him." },
+        { q: "Taking care and trusting Allah go together.", tf: true, why: "It was but a need of Ya'qub's inner self which he discharged, while trusting Allah." }
+      ]
+    },
+    {
+      slug: "i-am-your-brother",
+      title: "I am your brother",
+      line: "Yusuf told Binyamin in secret: I am your brother, do not grieve.",
+      facts: ["Honored as guests", "Binyamin kept the secret"],
+      quote: q12(69),
+      source: ik(69, "Yusuf honored the brothers as guests, then met Binyamin alone and told him he was his brother. He asked him not to be sad and to keep the news to himself.", "He met his brother in confidence and told him"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Yusuf tell Binyamin, in 12:69?", a: "I am your brother", wrong: ["I am the king", "Go home now", "I am a stranger"], why: "Verily, I am your brother, so grieve not for what they used to do." },
+        { q: "How did Yusuf tell him?", a: "In private", wrong: ["Before everyone", "By letter", "In a dream"], why: "He met his brother in confidence and told him the story." },
+        { q: "Binyamin told the others at once.", tf: false, why: "He ordered Binyamin to hide the news from them." }
+      ]
+    },
+    {
+      slug: "the-kings-cup",
+      title: "The king's cup",
+      line: "Yusuf had the king's cup placed in Binyamin's bag.",
+      facts: ["Used to measure grain", "A camel load as reward"],
+      quote: q12(70),
+      source: ik(70, "Yusuf had the king's cup, used to drink and to measure grain, placed in Binyamin's bag. A caller cried out that the caravan had stolen, offering a camel load to whoever returned it.", "Yusuf had the bowl placed in Binyamin"),
+      difficulty: 5,
+      questions: [
+        { q: "Where was the cup placed, in 12:70?", a: "In Binyamin's bag", wrong: ["In the eldest's bag", "Under a tent", "On a camel"], why: "He put the bowl in his brother's bag." },
+        { q: "What was the reward for finding it, in 12:72?", a: "A camel load", wrong: ["A palace", "Ten slaves", "A sword"], why: "And for him who produces it is (the reward of) a camel load." },
+        { q: "The cup was also used to measure grain.", tf: true, why: "Later, it measured food grains since food became scarce in that time." }
+      ]
+    },
+    {
+      slug: "by-their-own-ruling",
+      title: "By their own ruling",
+      line: "The brothers named the penalty; by it, Binyamin was kept.",
+      facts: ["Not the law of the king", "Allah planned it for Yusuf"],
+      quote: q12(76),
+      source: ik(73, "The brothers swore they were no thieves and said the one with the cup should be held. Yusuf searched their bags first, then Binyamin's. Allah planned this, for Egypt's law would not allow it.", "Allah only allowed Yusuf to take his brother as a captive after his brothers agreed to this judgement beforehand"),
+      difficulty: 5,
+      questions: [
+        { q: "Whose bags were searched first, in 12:76?", a: "The other brothers'", wrong: ["Binyamin's", "The servants'", "None"], why: "So he began (the search) in their bags before the bag of his brother." },
+        { q: "Who set the penalty for the thief?", a: "The brothers themselves", wrong: ["The king", "Ya'qub", "The caravan"], why: "His penalty should be that he, in whose bag it is found, should be held." },
+        { q: "The king's law in Egypt allowed keeping Binyamin.", tf: false, why: "He could not take his brother by the law of the king, except that Allah willed it." }
+      ]
+    },
+    {
+      slug: "above-every-knower",
+      title: "Above every knower",
+      line: "Over everyone with knowledge is the All-Knowing, Allah.",
+      facts: ["Allah raises whom He wills", "All knowledge ends with Him"],
+      quote: q12(76),
+      source: ik(73, "Allah raises whom He wills in degrees. Al-Hasan said every knowing person has someone who knows more, until it ends with Allah.", "There is no knowledgeable person, but there is another person with more knowledge until it ends at Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "Who is above all who have knowledge, in 12:76?", a: "The All-Knowing, Allah", wrong: ["The king", "The scholars", "The elders"], why: "But over all those endowed with knowledge is the All-Knowing." },
+        { q: "Where does knowledge end, per Al-Hasan?", a: "With Allah", wrong: ["With books", "With kings", "With the old"], why: "There is another person with more knowledge until it ends at Allah." },
+        { q: "Allah raises in degrees whom He wills, in 12:76.", tf: true, why: "We raise to degrees whom We will." }
+      ]
+    },
+    {
+      slug: "kept-it-to-himself",
+      title: "He kept it to himself",
+      line: "They blamed Yusuf too; he answered only in his heart.",
+      facts: ["He revealed nothing yet", "Allah knows best what they say"],
+      quote: q12(77),
+      source: ik(77, "The brothers said a brother of his had stolen before, meaning Yusuf. Yusuf did not answer aloud; he said only within himself that Allah knows best what they describe.", "Yusuf said this to himself and did not utter it aloud"),
+      difficulty: 5,
+      questions: [
+        { q: "Whom did they blame along with Binyamin, in 12:77?", a: "Yusuf", wrong: ["The 'Aziz", "The caravan", "Ya'qub"], why: "If he steals, there was a brother of his who did steal before (him)." },
+        { q: "How did Yusuf answer, in 12:77?", a: "Only in his heart", wrong: ["Loudly", "In a letter", "With anger"], why: "Yusuf said this to himself and did not utter it aloud." },
+        { q: "Yusuf revealed who he was right then.", tf: false, why: "But these things did Yusuf keep in himself, revealing not the secrets to them." }
+      ]
+    },
+    {
+      slug: "take-one-of-us",
+      title: "Take one of us instead",
+      line: "They begged him to take another; Yusuf would wrong no one.",
+      facts: ["Their old father would grieve", "Only the one with the cup"],
+      quote: q12(79),
+      source: ik(78, "The brothers asked the 'Aziz to take one of them in Binyamin's place for their father's sake. He said it would be wrong to take an innocent man for the one they had judged.", "if we take an innocent man instead of the guilty man"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the brothers offer, in 12:78?", a: "Take one of us in his place", wrong: ["A bag of gold", "Their camels", "To leave Egypt"], why: "So take one of us in his place." },
+        { q: "Why did they say Binyamin must go home?", a: "He has an old father", wrong: ["He is ill", "He is a prince", "He has a farm"], why: "Verily, he has an old father (who will grieve for him)." },
+        { q: "Yusuf agreed to take another brother instead.", tf: false, why: "Allah forbid, that we should take anyone but him with whom we found our property." }
+      ]
+    },
+    {
+      slug: "the-eldest-stays",
+      title: "The eldest stays behind",
+      line: "The eldest stayed in Egypt, ashamed to face his father.",
+      facts: ["They had sworn an oath", "Ask the town and the caravan"],
+      quote: q12(80),
+      source: ik(80, "Having failed their oath to Ya'qub, the brothers talked in private. The eldest said he would not leave Egypt until his father allowed it or Allah judged. The rest went home to tell the truth.", "I will not leave Egypt"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the eldest remind them of, in 12:80?", a: "Their oath to their father", wrong: ["Their debts", "Their camels", "A dream"], why: "Know you not that your father did take an oath from you in Allah's Name?" },
+        { q: "What did the eldest decide, in 12:80?", a: "To stay in Egypt", wrong: ["To fight the guards", "To go home first", "To hide in the desert"], why: "Therefore I will not leave this land until my father permits me." },
+        { q: "They told Ya'qub to ask the town and the caravan.", tf: true, why: "And ask (the people of) the town where we have been, and the caravan in which we returned." }
+      ]
+    }
+  ]
+};
+
+export const YUSUF_UNITS: readonly DeepUnit[] = [YUSUF_ONE, YUSUF_TWO, YUSUF_THREE, YUSUF_FOUR];
