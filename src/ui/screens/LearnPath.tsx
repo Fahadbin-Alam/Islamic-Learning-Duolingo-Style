@@ -151,6 +151,8 @@ const TUFT_SIZE = 26;
  * only their plain circles (same size, so nothing moves). Long topics like the Quran stay smooth this way.
  */
 const LIVE_MARGIN = 1;
+/** Units beyond the live ones (on each side) that still draw their circles; the rest draw plain circles. */
+const MOUNT_MARGIN = 3;
 /** Room the unit banner takes above the rows, for sizing the sky (it only needs to be about right). */
 const SKY_BANNER = 130;
 const CAMEL_SIZE = 72;
@@ -1324,6 +1326,12 @@ export function LearnPath({
   // Until the units have measured themselves, draw the ones around where the path opens.
   const focusUnitIndex = Math.max(0, layout.byUnit.findIndex((group) => group.unit.id === layout.focusUnitId));
   const isLive = (unitIndex: number) => (live ? unitIndex >= live.lo && unitIndex <= live.hi : Math.abs(unitIndex - focusUnitIndex) <= 1 || unitIndex === 0);
+  // Units farther away than this keep only their banner and an empty stretch of the same height, so a path of
+  // thousands of circles (the Quran, ayah by ayah) stays light: only units near the screen hold their circles.
+  const isMounted = (unitIndex: number) =>
+    unitIndex === 0 ||
+    unitIndex === currentUnitIndex ||
+    (live ? unitIndex >= live.lo - MOUNT_MARGIN && unitIndex <= live.hi + MOUNT_MARGIN : Math.abs(unitIndex - focusUnitIndex) <= MOUNT_MARGIN + 1);
   const sticky = stickyId ? layout.byUnit.find((group) => group.unit.id === stickyId) : undefined;
   const openRow = findRow(openId);
   const testOutGroup = testOut ? layout.byUnit.find((group) => group.unit.id === testOut.unitId) : undefined;
@@ -1368,6 +1376,7 @@ export function LearnPath({
             const unitDone = unit.total > 0 && unit.done >= unit.total;
             const holdsOpen = openRow?.group.unit.id === unit.id;
             const unitLive = holdsOpen || isLive(group.unitIndex);
+            const unitMounted = holdsOpen || isMounted(group.unitIndex);
             return (
               <View
                 key={unit.id}
@@ -1401,6 +1410,23 @@ export function LearnPath({
                 >
                   {rows.map((row, index) => {
                     const nodeCenter = center + row.offset;
+                    if (!unitMounted) {
+                      // Far from the screen: a plain circle in the same place (tapping it still opens the card).
+                      const node = row.item.kind === "node" ? row.item.node : undefined;
+                      return (
+                        <View key={row.key} style={[styles.row, { height: row.height }]} pointerEvents="box-none">
+                          {node ? (
+                            <Pressable
+                              onPress={() => onNodePress(row.key)}
+                              accessibilityRole="button"
+                              accessibilityLabel={`${node.title}, ${premium ? t("premium") : row.current ? t("start") : t(node.status)}`}
+                              testID={`path-node-${node.id}`}
+                              style={[styles.farNode, { left: nodeCenter - NODE / 2, top: row.current ? CURRENT_EXTRA : 0, backgroundColor: lighten(color, 0.55) }]}
+                            />
+                          ) : null}
+                        </View>
+                      );
+                    }
                     const top = row.current ? CURRENT_EXTRA : 0;
                     const isOpen = openId === row.key && row.item.kind === "node";
                     const side = row.offset > 0 ? -1 : row.offset < 0 ? 1 : -1;
@@ -1596,6 +1622,12 @@ const styles = StyleSheet.create({
   },
   row: {
     width: "100%"
+  },
+  farNode: {
+    position: "absolute",
+    width: NODE,
+    height: NODE,
+    borderRadius: NODE / 2
   },
   slot: {
     position: "absolute",
