@@ -790,4 +790,436 @@ const YUNUS_THREE: DeepUnit = {
   ]
 };
 
-export const YUNUS_UNITS: readonly DeepUnit[] = [YUNUS_ONE, YUNUS_TWO, YUNUS_THREE];
+/** Ayahs 71 to 92: Nuh trusts Allah, one religion for every Prophet, Musa and Fir'awn, prayer at home, the sea split. */
+const YUNUS_FOUR: DeepUnit = {
+  key: "yunus4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-10",
+  name: "Yunus, ayahs 71 to 92",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Yunus",
+  lessons: [
+    {
+      slug: "nuh-trusts-allah",
+      title: "Nuh puts his trust in Allah",
+      line: "Nuh told his people: plot all you like; I trust in Allah.",
+      facts: ["He did not stop calling", "He feared no one but Allah"],
+      quote: q10(71),
+      source: ik(71, "If his stay and his reminders were hard on them, Nuh said he did not care what they thought and would not stop inviting them. They could gather their partners and plot; he trusted Allah.", "then I do not care what you think, and I will not stop inviting you"),
+      difficulty: 2,
+      questions: [
+        { q: "Who did Nuh put his trust in, in 10:71?", a: "Allah", wrong: ["His sons", "His people", "The ark"], why: "Then I put my trust in Allah." },
+        { q: "What did Nuh say about his calling, per Ibn Kathir?", a: "He would not stop", wrong: ["He would quit", "He would hide", "He would leave"], why: "I will not stop inviting you." },
+        { q: "Nuh asked his people for a reward.", tf: false, why: "No reward have I asked of you, my reward is only from Allah (10:72)." }
+      ]
+    },
+    {
+      slug: "one-religion",
+      title: "One religion for every Prophet",
+      line: "Every Prophet's religion was Islam; only their laws differed.",
+      facts: ["Prophets are brothers", "Nuh was a Muslim"],
+      quote: q10(72),
+      source: hadith("bukhari", "3443", "Abu Hurairah", "Sahih", "The Prophets are brothers from one father with different mothers: their religion is one.", "The prophets are paternal brothers; their mothers are different, but their religion is one"),
+      difficulty: 2,
+      questions: [
+        { q: "What was Nuh commanded to be, in 10:72?", a: "One of the Muslims", wrong: ["A king", "A sailor", "A judge"], why: "And I have been commanded to be of the Muslims." },
+        { q: "How are the Prophets described, per the hadith?", a: "Brothers with one religion", wrong: ["Rivals", "Strangers", "Kings"], why: "The prophets are paternal brothers; their religion is one." },
+        { q: "Islam is the religion of all the Prophets, per Ibn Kathir.", tf: true, why: "Islam is the religion of all of the Prophets from the first to the last." }
+      ]
+    },
+    {
+      slug: "saved-in-the-ark",
+      title: "Saved in the ark",
+      line: "Nuh and the believers were saved in the ark; deniers drowned.",
+      facts: ["Al-fulk: the ark", "A lesson for later nations"],
+      quote: q10(73),
+      source: ik(73, "They denied Nuh, but Allah saved him and those on his religion in the ark, made them successors, and drowned those who denied. Fulk refers to the ark.", "Fulk refers to the ark"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was saved with Nuh, in 10:73?", a: "Those with him in the ark", wrong: ["Everyone", "Only his son", "No one"], why: "We delivered him, and those with him in the ship." },
+        { q: "What does al-fulk mean, per Ibn Kathir?", a: "The ark", wrong: ["The mountain", "The flood", "The city"], why: "Fulk refers to the ark." },
+        { q: "The story of Nuh was a lesson for the Quraysh.", tf: true, why: "Let this be a lesson for your people, lest they be destroyed like them." }
+      ]
+    },
+    {
+      slug: "messengers-after-nuh",
+      title: "Messengers after Nuh",
+      line: "Messengers came after Nuh, but many still refused.",
+      facts: ["Nuh: the first Messenger", "Stubborn hearts are sealed"],
+      quote: q10(74),
+      source: ik(74, "After Nuh, Allah sent Messengers with clear proofs, but nations would not believe what they had rejected from the start. Nuh was the first Messenger sent to the people of the earth.", "they already rejected it from the beginning"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did nations not believe, per 10:74?", a: "They rejected it from the start", wrong: ["No proof came", "They never heard", "They were asleep"], why: "They would not believe what they had already rejected beforehand." },
+        { q: "Who was the first Messenger to the people of the earth?", a: "Nuh", wrong: ["Ibrahim", "Musa", "Hud"], why: "You are the first Messenger Allah sent to the people of the earth." },
+        { q: "Allah seals the hearts of those who keep transgressing.", tf: true, why: "Thus We seal the hearts of the transgressors." }
+      ]
+    },
+    {
+      slug: "musa-and-harun",
+      title: "Musa and Harun go to Fir'awn",
+      line: "Musa and Harun brought signs; Fir'awn's chiefs called it magic.",
+      facts: ["Too proud for the truth", "They knew it was true"],
+      quote: q10(76),
+      source: ik(75, "Allah sent Musa and Harun to Fir'awn and his chiefs with His signs. They were too arrogant to follow the truth, and called it clear magic though they knew it was true.", "they were too arrogant to follow the truth and submit to it"),
+      difficulty: 3,
+      questions: [
+        { q: "Who did Allah send to Fir'awn, in 10:75?", a: "Musa and Harun", wrong: ["Nuh and Hud", "Yusuf alone", "Salih and Lut"], why: "Then after them We sent Musa and Harun to Fir'awn and his chiefs." },
+        { q: "What did they call the truth, in 10:76?", a: "Clear magic", wrong: ["A good dream", "A song", "Old stories"], why: "This is indeed clear magic." },
+        { q: "They secretly knew the signs were true (27:14).", tf: true, why: "They belied them wrongfully and arrogantly, though they themselves were convinced thereof." }
+      ]
+    },
+    {
+      slug: "the-fathers-way",
+      title: "Stuck on their fathers' way",
+      line: "They refused, saying: you want to turn us from our fathers' way.",
+      facts: ["Magicians never succeed", "They feared losing power"],
+      quote: q10(78),
+      source: ik(78, "Musa told them magicians never succeed. They answered: have you come to turn us from our fathers' religion, so you two can have greatness, meaning grandeur and leadership in the land?", "means grandeur and leadership"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Musa say about magicians, in 10:77?", a: "They never succeed", wrong: ["They are wise", "They always win", "They are kind"], why: "But the magicians will never be successful." },
+        { q: "What did they fear Musa would turn them from, in 10:78?", a: "Their fathers' way", wrong: ["Their trade", "Their homes", "Their farms"], why: "Have you come to turn us away from that we found our fathers following?" },
+        { q: "They accused Musa and Harun of wanting greatness in the land.", tf: true, why: "And that you two may have greatness in the land?" }
+      ]
+    },
+    {
+      slug: "magic-comes-to-nothing",
+      title: "Allah undoes their magic",
+      line: "Allah undoes their magic and makes the truth stand firm.",
+      facts: ["Cast what you want!", "Truth wins at the festival"],
+      quote: q10(81),
+      source: ik(81, "Fir'awn gathered every skilled sorcerer. Musa let them cast first, then Allah undid their magic, and His signs prevailed in that public festival.", "The signs of the Lord prevailed in that public festival"),
+      difficulty: 3,
+      questions: [
+        { q: "Who did Musa tell to cast first, in 10:80?", a: "The sorcerers", wrong: ["Harun", "Fir'awn", "The chiefs"], why: "Musa said to them: Cast down what you want to cast!" },
+        { q: "What will Allah do to their magic, in 10:81?", a: "Make it come to nothing", wrong: ["Make it stronger", "Let it win", "Copy it"], why: "What you have brought is sorcery, Allah will surely make it of no effect." },
+        { q: "Allah sets the truth firm even if the criminals hate it.", tf: true, why: "Allah will establish the truth by His Words, however much the criminals may hate it." }
+      ]
+    },
+    {
+      slug: "young-believers",
+      title: "Only some youth believed",
+      line: "Only some young people believed in Musa, fearing Fir'awn.",
+      facts: ["Fear of a tyrant", "Fir'awn was arrogant"],
+      quote: q10(83),
+      source: ik(83, "Despite the clear signs, only a few youth believed in Musa, afraid Fir'awn and his chiefs would punish them. His people feared him and his power too much.", "His people feared him and his power too much"),
+      difficulty: 4,
+      questions: [
+        { q: "Who believed in Musa at first, in 10:83?", a: "Some of the youth", wrong: ["All the chiefs", "Fir'awn himself", "No one"], why: "None believed in Musa except the offspring of his people." },
+        { q: "Why were they afraid, in 10:83?", a: "Fir'awn might punish them", wrong: ["Of the sea", "Of the desert", "Of hunger"], why: "Because of the fear of Fir'awn and his chiefs, lest they should persecute them." },
+        { q: "Fir'awn was a humble ruler.", tf: false, why: "Fir'awn was an arrogant tyrant on the earth." }
+      ]
+    },
+    {
+      slug: "put-your-trust",
+      title: "If you believe, trust Him",
+      line: "Musa said: if you believe in Allah, put your trust in Him.",
+      facts: ["Worship and trust together", "Allah is enough"],
+      quote: q10(84),
+      source: ik(84, "Allah is sufficient for whoever trusts Him. Allah joins worship and trust in many places, as in: You alone we worship, and You alone we ask for help (1:5).", "Allah combines worship and reliance in many places"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Musa tell his people to do, in 10:84?", a: "Put their trust in Allah", wrong: ["Run away", "Hide their faith", "Build a city"], why: "If you have believed in Allah, then put your trust in Him." },
+        { q: "Which two does Allah often join, per Ibn Kathir?", a: "Worship and trust", wrong: ["Wealth and fame", "Sleep and food", "Trade and travel"], why: "Allah combines worship and reliance in many places." },
+        { q: "Allah is enough for whoever trusts Him (65:3).", tf: true, why: "Whosoever puts his trust in Allah, then He will suffice him." }
+      ]
+    },
+    {
+      slug: "not-a-trial",
+      title: "Make us not a trial",
+      line: "They prayed: our Lord, make us not a trial for wrongdoers.",
+      facts: ["Save us by Your mercy", "Trust, then ask"],
+      quote: q10(85),
+      source: ik(85, "They said: in Allah we trust; do not give the wrongdoers power over us so they think they are right and we fall into trial. Save us by Your mercy.", "Do not give them authority over us so they might make us fall into Fitnah"),
+      difficulty: 4,
+      questions: [
+        { q: "What did they say first, in 10:85?", a: "In Allah we put our trust", wrong: ["We give up", "We are strong", "We will fight"], why: "They said: In Allah we put our trust." },
+        { q: "What does make us not a trial mean, per Mujahid?", a: "Do not give them power over us", wrong: ["Make us rich", "Make us famous", "Make us leave"], why: "Do not give them authority over us so they might make us fall into Fitnah." },
+        { q: "They asked to be saved by Allah's mercy (10:86).", tf: true, why: "And save us by Your mercy from the disbelieving folk." }
+      ]
+    },
+    {
+      slug: "homes-as-masjids",
+      title: "Homes as places of prayer",
+      line: "When praying openly was unsafe, they prayed in their homes.",
+      facts: ["Keep up the prayer", "Good news for believers"],
+      quote: q10(87),
+      source: ik(87, "The Children of Israel could not pray in public in front of Fir'awn's people, so Allah allowed them to pray in their houses, facing the qiblah.", "So Allah permitted them to pray in their houses"),
+      difficulty: 4,
+      questions: [
+        { q: "What were Musa and Harun told to make their homes, in 10:87?", a: "Places of worship", wrong: ["Markets", "Forts", "Stables"], why: "Make your dwellings as places for your worship." },
+        { q: "Why did they pray at home, per Ibn Abbas?", a: "Praying in public was unsafe", wrong: ["The masjid was far", "It was raining", "They were tired"], why: "We cannot offer our prayers in public in front of Fir'awn's people." },
+        { q: "Keeping up the prayer was part of the command.", tf: true, why: "And perform the Salah, and give glad tidings to the believers." }
+      ]
+    },
+    {
+      slug: "stay-on-the-straight-way",
+      title: "Your prayer is answered",
+      line: "Allah answered Musa and Harun: now stay on the straight way.",
+      facts: ["Harun said Amin", "Stay firm"],
+      quote: q10(89),
+      source: ik(89, "Musa prayed and Harun said Amin, and Allah answered both. Ibn Abbas said the command after it means: be steadfast and follow My command.", "Be steadfast and follow My command"),
+      difficulty: 5,
+      questions: [
+        { q: "Whose prayer was accepted, in 10:89?", a: "Musa and Harun", wrong: ["Fir'awn", "The magicians", "The chiefs"], why: "Verily, the invocation of you both is accepted." },
+        { q: "What did Harun say to Musa's prayer, per Ibn Kathir?", a: "Amin", wrong: ["No", "Wait", "Never"], why: "Harun said Amin to his brother's prayer." },
+        { q: "After an answered prayer, the command was to stay firm.", tf: true, why: "So you both keep to the straight way." }
+      ]
+    },
+    {
+      slug: "the-sea-split",
+      title: "Paths through the sea",
+      line: "The sea split into dry paths and the Children of Israel crossed.",
+      facts: ["Twelve paths", "Fir'awn followed and drowned"],
+      quote: q10(90),
+      source: ik(90, "Musa struck the sea with his staff and it split into twelve dry paths, one for each tribe. They crossed, and when Fir'awn's army followed, the sea closed over them.", "The sea was split into twelve paths"),
+      difficulty: 5,
+      questions: [
+        { q: "How many paths opened in the sea, per Ibn Kathir?", a: "Twelve", wrong: ["One", "Seven", "Forty"], why: "The sea was split into twelve paths, each route for each tribe." },
+        { q: "What did Musa say when caught at the shore (26:62)?", a: "My Lord is with me", wrong: ["We are lost", "Turn back", "Swim fast"], why: "Nay, verily, with me is my Lord. He will guide me." },
+        { q: "Fir'awn followed them out of oppression and enmity.", tf: true, why: "Fir'awn with his hosts followed them in oppression and enmity." }
+      ]
+    },
+    {
+      slug: "ashura",
+      title: "The day of Ashura",
+      line: "Muslims fast Ashura, the day Allah saved Musa from Fir'awn.",
+      facts: ["10th of Muharram", "We have more right to Musa"],
+      quote: q10(90),
+      source: hadith("bukhari", "2004", "Ibn Abbas", "Sahih", "In Madinah he saw people fasting Ashura, the day Allah saved the Children of Israel from their enemy. He said: we have more claim to Musa than you, and fasted it and told Muslims to fast it.", "We have more claim over Moses than you"),
+      difficulty: 5,
+      questions: [
+        { q: "What happened on Ashura, per the hadith?", a: "Allah saved Musa's people", wrong: ["The Quran came down", "Makkah was opened", "The Kabah was built"], why: "The day on which Allah rescued Bani Israel from their enemy." },
+        { q: "What did he ﷺ do on Ashura, per the hadith?", a: "Fasted and told others to fast", wrong: ["Feasted", "Travelled", "Slept"], why: "So, he fasted on that day and ordered the Muslims to fast." },
+        { q: "Fir'awn was drowned on the day of Ashura, per Ibn Kathir.", tf: true, why: "Fir'awn and his people were destroyed on the day of Ashura." }
+      ]
+    },
+    {
+      slug: "too-late",
+      title: "Faith that came too late",
+      line: "Drowning, Fir'awn said I believe, but it was too late.",
+      facts: ["Now you believe?", "Believe while you can"],
+      quote: q10(91),
+      source: ik(91, "As the sea closed, Fir'awn said he believed. Allah answered: now, when you disobeyed before and were among the corrupters? Faith at the moment of punishment does not help.", "do you say that just now when you have disobeyed Allah before that"),
+      difficulty: 5,
+      questions: [
+        { q: "When did Fir'awn say he believed, in 10:90?", a: "While drowning", wrong: ["At the start", "In his palace", "Never"], why: "Till when drowning overtook him, he said: I believe." },
+        { q: "What was the answer to him, in 10:91?", a: "Now? After disobeying before?", wrong: ["Welcome", "Well done", "Try again"], why: "Now (you believe) while you refused to believe before?" },
+        { q: "Faith at the moment of punishment still helps.", tf: false, why: "Their faith could not avail them when they saw Our punishment (40:85)." }
+      ]
+    },
+    {
+      slug: "a-sign-for-later",
+      title: "His body, a sign",
+      line: "Fir'awn's body was brought out as a sign for those after him.",
+      facts: ["Proof of his end", "Many are heedless"],
+      quote: q10(92),
+      source: ik(92, "Allah brought out Fir'awn's body so that it would be proof of his death and destruction for the Children of Israel, and a proof that Allah is All-Powerful.", "so that might be a proof of your death and destruction for the Children of Israel"),
+      difficulty: 5,
+      questions: [
+        { q: "Why was his body brought out, in 10:92?", a: "As a sign for those after", wrong: ["To honor him", "To bury him in gold", "To scare the sea"], why: "That you may be a sign to those who come after you!" },
+        { q: "What did his body prove, per Ibn Kathir?", a: "That he truly died", wrong: ["That he won", "That he escaped", "That he was a god"], why: "So that it might be a proof of your death and destruction." },
+        { q: "Many people are heedless of Allah's signs.", tf: true, why: "And verily, many among mankind are heedless of Our Ayat." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 93 to 109: a good home, the people of Yunus, no compulsion, signs in the sky, harm and good from Allah, be patient. */
+const YUNUS_FIVE: DeepUnit = {
+  key: "yunus5",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-10",
+  name: "Yunus, ayahs 93 to 109",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Yunus",
+  lessons: [
+    {
+      slug: "a-good-home",
+      title: "A good home and good things",
+      line: "Allah settled the Children of Israel and gave them good things.",
+      facts: ["An honorable home", "Pure, lawful provision"],
+      quote: q10(93),
+      source: ik(93, "Allah settled the Children of Israel in an honorable place and gave them good provision: lawful, pure and useful, good in nature and in law.", "means from the lawful, pure and useful provision that is good in nature and in Law"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Allah settle them, in 10:93?", a: "In an honorable dwelling", wrong: ["In the sea", "In a cave", "In Fir'awn's palace"], why: "We settled the Children of Israel in an honorable dwelling place." },
+        { q: "What kind of provision did they get, per Ibn Kathir?", a: "Lawful, pure and useful", wrong: ["Stolen", "Spoiled", "Very little"], why: "The lawful, pure and useful provision that is good in nature." },
+        { q: "Allah will judge their differences on the Day of Resurrection.", tf: true, why: "Your Lord will judge between them on the Day of Resurrection." }
+      ]
+    },
+    {
+      slug: "every-sign-not-enough",
+      title: "Even every sign",
+      line: "The truth has come; some will not believe even with every sign.",
+      facts: ["Do not doubt", "Belief must come in time"],
+      quote: q10(97),
+      source: ik(96, "Those against whom the Word of Allah is justified will not believe in a way that benefits them, even if every sign came, until they see the painful punishment.", "meaning they would not believe in a way that they might benefit from that belief"),
+      difficulty: 2,
+      questions: [
+        { q: "What has come from your Lord, in 10:94?", a: "The truth", wrong: ["A rumor", "A riddle", "A guess"], why: "Verily, the truth has come to you from your Lord." },
+        { q: "When will such people believe, in 10:97?", a: "Only when they see the torment", wrong: ["At once", "After one sign", "With no sign"], why: "Even if every sign should come to them, until they see the painful torment." },
+        { q: "Belief that comes too late does not benefit, per Ibn Kathir.", tf: true, why: "They would not believe in a way that they might benefit from that belief." }
+      ]
+    },
+    {
+      slug: "people-of-yunus",
+      title: "The people of Yunus",
+      line: "Only the people of Yunus believed in time and were spared.",
+      facts: ["The town of Nineveh", "Near Mosul"],
+      quote: q10(98),
+      source: ik(98, "Between Musa and Yunus no whole nation believed except the people of Yunus in Nineveh. Seeing signs of the punishment, they turned to Allah, and He lifted it.", "there was no nation, in its entirety, that believed except the people of Yunus"),
+      difficulty: 3,
+      questions: [
+        { q: "Which people were spared after believing, in 10:98?", a: "The people of Yunus", wrong: ["The people of Nuh", "The people of Ad", "Fir'awn's people"], why: "Except the people of Yunus; when they believed, We removed from them the torment." },
+        { q: "Where did the people of Yunus live, per Qatadah?", a: "Nineveh, near Mosul", wrong: ["Makkah", "Egypt", "Yemen"], why: "The people of Yunus were in Naynawa, the land of Mosul." },
+        { q: "Allah let them enjoy life for a while after.", tf: true, why: "And permitted them to enjoy for a while." }
+      ]
+    },
+    {
+      slug: "forty-nights",
+      title: "Forty nights of crying to Allah",
+      line: "They repented sincerely, crying to Allah, and He lifted it.",
+      facts: ["Sincere regret", "Children and cattle too"],
+      quote: q10(98),
+      source: ik(98, "When they thought the punishment was near, Allah put repentance in their hearts. They cried out to Allah for forty nights, and seeing their sincerity, He removed it.", "They then cried out to Allah for forty nights"),
+      difficulty: 3,
+      questions: [
+        { q: "How long did they cry out to Allah, per Qatadah?", a: "Forty nights", wrong: ["One night", "Seven days", "A year"], why: "They then cried out to Allah for forty nights." },
+        { q: "Why did Allah lift the punishment, per Qatadah?", a: "Their repentance was sincere", wrong: ["They paid gold", "They fought", "They hid"], why: "When Allah saw the truth in their hearts and that they were sincere in their repentance." },
+        { q: "They brought their children and cattle as they prayed.", tf: true, why: "They brought their children and cattle and asked Allah to lift the torment." }
+      ]
+    },
+    {
+      slug: "few-followers",
+      title: "Some Prophets had few followers",
+      line: "Some Prophets had few followers, and one had no one at all.",
+      facts: ["Success is not numbers", "Musa had many"],
+      quote: q10(98),
+      source: hadith("bukhari", "5705", "Ibn Abbas", "Sahih", "Nations were shown to him: a Prophet passed with a few followers, and a Prophet passed with nobody. Then he saw Musa's crowd, then his own Ummah filling the horizon.", "A prophet would pass by accompanied by nobody"),
+      difficulty: 3,
+      questions: [
+        { q: "What did he ﷺ see about some Prophets, per the hadith?", a: "Some had nobody with them", wrong: ["All had huge crowds", "None had followers", "All were kings"], why: "A prophet would pass by accompanied by nobody." },
+        { q: "Whose followers were a big crowd, per the hadith?", a: "Musa's", wrong: ["Fir'awn's", "Nuh's", "Hud's"], why: "It is Moses and his followers." },
+        { q: "A Prophet with few followers still did his duty fully.", tf: true, why: "Many Messengers were denied by most of their people, yet they conveyed the message." }
+      ]
+    },
+    {
+      slug: "no-compelling-faith",
+      title: "No one is forced to believe",
+      line: "Had Allah willed, all would believe; faith is never forced.",
+      facts: ["The duty: convey", "Guidance is Allah's"],
+      quote: q10(99),
+      source: ik(99, "Had Allah willed, everyone on earth would believe, but He has wisdom. Forcing people to believe is not for the Prophet, nor was he commanded to do it.", "it is not for you to do that. You are not commanded to do that either"),
+      difficulty: 3,
+      questions: [
+        { q: "Will you compel mankind to believe, asks 10:99?", a: "No, that is not your role", wrong: ["Yes, by force", "Yes, with money", "Yes, with threats"], why: "So, will you then compel mankind, until they become believers?" },
+        { q: "What is the duty of the Messenger ﷺ, per 13:40?", a: "Only to convey", wrong: ["To force faith", "To judge hearts", "To punish all"], why: "Your duty is only to convey, and it is up to Us to reckon." },
+        { q: "No one believes except by Allah's leave (10:100).", tf: true, why: "It is not for any person to believe, except by the leave of Allah." }
+      ]
+    },
+    {
+      slug: "look-at-the-heavens",
+      title: "Look at the heavens and earth",
+      line: "Look at the heavens and earth; they are full of signs.",
+      facts: ["Stars, rain, seas", "Signs need open hearts"],
+      quote: q10(101),
+      source: ik(101, "Allah guides His servants to reflect: the stars, sun and moon, night and day, rain, crops, animals, mountains and seas are all clear signs for those with understanding.", "What Allah has created in the heavens and the earth is part of the clear signs"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 10:101 tell us to do?", a: "Look at the heavens and earth", wrong: ["Close our eyes", "Count our money", "Sleep more"], why: "Say: Behold all that is in the heavens and the earth." },
+        { q: "Who do signs and warnings not benefit, in 10:101?", a: "Those who will not believe", wrong: ["The young", "The old", "Travelers"], why: "But neither Ayat nor warners benefit those who do not believe." },
+        { q: "The rain that brings the earth to life is one of the signs.", tf: true, why: "Whatever rain Allah sends down, bringing the earth to life after its death, is from its signs." }
+      ]
+    },
+    {
+      slug: "allah-saves-believers",
+      title: "Saving the believers is His promise",
+      line: "Allah has made it a duty on Himself to save the believers.",
+      facts: ["He saves His Messengers", "Mercy is written"],
+      quote: q10(103),
+      source: ik(103, "Allah saves His Messengers and the believers. This is a right Allah has made binding on Himself, like: your Lord has written mercy for Himself (6:54).", "this is a right that Allah, the Exalted, has obligated upon His Noble Self"),
+      difficulty: 4,
+      questions: [
+        { q: "Who does Allah save, in 10:103?", a: "His Messengers and the believers", wrong: ["Only the strong", "Only the rich", "No one"], why: "Then We save Our Messengers and those who believe!" },
+        { q: "Who made saving believers a duty on Allah?", a: "Allah Himself", wrong: ["The angels", "The people", "The Prophets"], why: "This is a right that Allah has obligated upon His Noble Self." },
+        { q: "Allah has written mercy for Himself (6:54).", tf: true, why: "Your Lord has written (prescribed) mercy for Himself." }
+      ]
+    },
+    {
+      slug: "be-a-hanif",
+      title: "Turn your face to the true faith",
+      line: "I worship only Allah, who gives life and death; be a hanif.",
+      facts: ["Hanif: turns from shirk", "Worship for Allah alone"],
+      quote: q10(105),
+      source: ik(105, "Direct your face to the hanif religion means making worship sincerely for Allah alone. Hanif means one who turns away from associating partners with Allah.", "Hanif means one who turns away from associating partners with Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "Who is the only One worshipped, in 10:104?", a: "Allah, who causes death", wrong: ["The idols", "The stars", "The kings"], why: "I will worship Allah, the One Who causes you to die." },
+        { q: "What does hanif mean, per Ibn Kathir?", a: "One who turns from shirk", wrong: ["One who travels", "One who is rich", "One who sings"], why: "Hanif means one who turns away from associating partners with Allah." },
+        { q: "Calling on what cannot help or harm is wrongdoing (10:106).", tf: true, why: "If you did, you would certainly be one of the wrongdoers." }
+      ]
+    },
+    {
+      slug: "only-allah-lifts-harm",
+      title: "Only Allah lifts harm",
+      line: "Only Allah removes harm, and no one can block His good.",
+      facts: ["Ask Allah alone", "The pens are lifted"],
+      quote: q10(107),
+      source: hadith("tirmidhi", "2516", "Ibn Abbas", "Sahih", "Be mindful of Allah and He will protect you. If all creation gathered to benefit you, they could not except as Allah wrote for you, and the same for harm.", "if the entire creation were to gather together to do something to benefit you"),
+      difficulty: 5,
+      questions: [
+        { q: "Who can lift a harm Allah sends, in 10:107?", a: "None but Him", wrong: ["The doctors", "The idols", "Anyone strong"], why: "If Allah touches you with harm, there is none who can lift it but He." },
+        { q: "If all creation gathered to help you, what then, per the hadith?", a: "Only what Allah wrote", wrong: ["Anything you want", "Double your wish", "Nothing ever"], why: "You would never get any benefit except that Allah had written for you." },
+        { q: "Anyone can stop the good Allah wants for you.", tf: false, why: "If He intends good for you, then none can repel His favor." }
+      ]
+    },
+    {
+      slug: "pardoning-and-merciful",
+      title: "The Pardoning, the Merciful",
+      line: "Allah is Pardoning and Merciful to all who turn back to Him.",
+      facts: ["Any sin can be forgiven", "Turn back in repentance"],
+      quote: q10(107),
+      source: ik(107, "Good, harm and benefit come only from Allah. He is forgiving and merciful to those who turn to Him in repentance, whatever sin they did, even shirk if they repent.", "He is forgiving and merciful towards those who turn to Him in repentance"),
+      difficulty: 5,
+      questions: [
+        { q: "Which two names end 10:107?", a: "The Pardoning, the Merciful", wrong: ["The Strong, the Rich", "The Last, the First", "The King, the Holy"], why: "And He is the Pardoning, the Merciful." },
+        { q: "Who does Allah forgive, per Ibn Kathir?", a: "Those who repent", wrong: ["No one", "Only the rich", "Only the young"], why: "He is forgiving and merciful towards those who turn to Him in repentance." },
+        { q: "Even shirk is forgiven if a person truly repents.", tf: true, why: "Even if the person associated a partner with Allah, Allah would forgive him if he repented." }
+      ]
+    },
+    {
+      slug: "guided-for-yourself",
+      title: "Guidance is for your own good",
+      line: "Whoever is guided gains for himself; whoever strays loses.",
+      facts: ["The truth has come", "Not a guardian over you"],
+      quote: q10(108),
+      source: ik(108, "What the Messenger brought is the truth with no doubt. Whoever follows it benefits himself, and whoever strays from it suffers for himself.", "whoever is guided by it and follows it, then he only benefits himself by doing so"),
+      difficulty: 5,
+      questions: [
+        { q: "Who gains when someone is guided, in 10:108?", a: "The guided person", wrong: ["Allah", "The angels", "No one"], why: "Whoever receives guidance, he does so for the good of himself." },
+        { q: "What is the Messenger ﷺ not, in 10:108?", a: "A guardian over them", wrong: ["A warner", "Truthful", "A Messenger"], why: "And I am not set over you as a guardian." },
+        { q: "Whoever strays only hurts himself.", tf: true, why: "Whoever goes astray, he does so at his own loss." }
+      ]
+    },
+    {
+      slug: "be-patient",
+      title: "Follow and be patient",
+      line: "Follow the revelation and be patient until Allah judges.",
+      facts: ["Best of judges", "Patience with opposition"],
+      quote: q10(109),
+      source: ik(109, "Hold to what Allah revealed and be patient with the opposition you meet, until Allah judges between you. He is the best of judges in His justice and wisdom.", "be patient with the opposition that you meet from the people"),
+      difficulty: 5,
+      questions: [
+        { q: "What does 10:109 command?", a: "Follow revelation, be patient", wrong: ["Give up", "Argue forever", "Hide away"], why: "Follow what is revealed to you, and be patient until Allah gives judgment." },
+        { q: "Who is the best of judges, in 10:109?", a: "Allah", wrong: ["Kings", "Elders", "Crowds"], why: "And He is the best of the judges." },
+        { q: "10:109 is the last ayah of Surah Yunus.", tf: true, why: "Surah Yunus has 109 ayahs." }
+      ]
+    }
+  ]
+};
+
+export const YUNUS_UNITS: readonly DeepUnit[] = [YUNUS_ONE, YUNUS_TWO, YUNUS_THREE, YUNUS_FOUR, YUNUS_FIVE];
