@@ -289,4 +289,283 @@ const NUR_ONE: DeepUnit = {
   ]
 };
 
-export const NUR_UNITS: readonly DeepUnit[] = [NUR_ONE];
+/** Ayahs 35 to 64: the parable of Allah's Light, the masjids and the men who fill them, everything glorifying Allah, clouds and creatures, "we hear and we obey", and the manners of home and gatherings. */
+const NUR_TWO: DeepUnit = {
+  key: "nur2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-24",
+  name: "An-Nur, ayahs 35 to 64",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Nur",
+  lessons: [
+    {
+      slug: "light-of-the-heavens",
+      title: "The Light of the heavens and earth",
+      line: "Allah is the Light of the heavens and the earth.",
+      facts: ["Ibn Abbas: He guides all who live in them", "By His Light they are lit up"],
+      quote: q24(35),
+      source: ik(35, "Allah is the Light of the heavens and the earth. Ibn Abbas said it means He is the Guide of all who live in them. As-Suddi said by His Light the heavens and earth are lit up.", "means, the Guide of the inhabitants of the heavens and the earth"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Allah, in 24:35?", a: "The Light of the heavens and earth", wrong: ["A star in the sky", "The sun", "A lamp in a house"], why: "Allah is the Light of the heavens and the earth." },
+        { q: "What does it mean, per Ibn Abbas?", a: "Guide of all who live in them", wrong: ["Maker of lamps", "Owner of the sun only", "Keeper of fire"], why: "Means, the Guide of the inhabitants of the heavens and the earth." },
+        { tf: true, q: "As-Suddi said the heavens and earth are lit by His Light.", why: "By His Light the heavens and earth are illuminated." }
+      ]
+    },
+    {
+      slug: "night-prayer-dua-of-light",
+      title: "The night prayer dua",
+      line: "At night prayer, the Prophet ﷺ praised Allah as the Light.",
+      facts: ["He prayed it at Tahajjud", "It praises Allah, Lord of all"],
+      quote: q24(35),
+      source: hadith("bukhari", "1120", "Abdullah ibn Abbas", "Sahih", "When the Prophet ﷺ got up for the night prayer he would say: O Allah, all praise is Yours, You are the Holder of the heavens and earth, and You are the Light of the heavens and the earth.", "You are the Light of the Heavens and the Earth"),
+      difficulty: 2,
+      questions: [
+        { q: "When did the Prophet ﷺ say this dua?", a: "Rising for the night prayer", wrong: ["At lunch", "On a journey only", "At the market"], why: "When the Prophet ﷺ got up at night to offer the Tahajjud prayer, he used to say." },
+        { q: "What does the dua call Allah?", a: "The Light of the heavens and earth", wrong: ["The lamp of the house", "The moon of the night", "One of many lights"], why: "You are the Light of the Heavens and the Earth." },
+        { tf: true, q: "The dua begins by praising Allah.", why: "O Allah! All the praises are for you, You are the Holder of the Heavens and the Earth." }
+      ]
+    },
+    {
+      slug: "lamp-in-a-niche",
+      title: "A lamp in a niche",
+      line: "A believer's heart is like a bright lamp in clear glass.",
+      facts: ["The Quran is like pure, shining oil", "Light upon light"],
+      quote: q24(35),
+      source: ik(35, "Allah gives a parable: a lamp in a niche, inside clear glass, lit with pure olive oil. The believer's pure heart is the lamp in the glass, and the Quran and Shari'ah that guide it are the pure, shining oil.", "The heart of the believer in its purity and clarity is likened to a lamp in transparent and jewel-like glass"),
+      difficulty: 2,
+      questions: [
+        { q: "Where is the lamp, in 24:35?", a: "In a glass, in a niche", wrong: ["Under the sea", "On a mountain", "In a cave"], why: "The parable of His Light is as a niche and within it a lamp: the lamp is in a glass." },
+        { q: "What is like the lamp in the glass, per Ibn Kathir?", a: "The believer's pure heart", wrong: ["The sun", "A king's palace", "A mirror"], why: "The heart of the believer in its purity and clarity is likened to a lamp in transparent and jewel-like glass." },
+        { q: "What is like the pure shining oil?", a: "The Quran and Shari'ah", wrong: ["Gold coins", "Rain water", "Fresh milk"], why: "The Qur'an and Shari'ah by which it is guided are likened to good, pure, shining oil." }
+      ]
+    },
+    {
+      slug: "houses-of-allah",
+      title: "The houses of Allah",
+      line: "Masjids are Allah's houses, kept clean, where He is remembered.",
+      facts: ["Idle talk is not for the masjid", "His Name is glorified morning and evening"],
+      quote: q24(36),
+      source: ik(36, "Allah's light belongs in the masjids, the places on earth He loves most. The masjids are His houses where He alone is worshipped. Allah ordered them raised and kept clean of filth and idle talk.", "The Masjids are His houses where He Alone is worshipped"),
+      difficulty: 3,
+      questions: [
+        { q: "What happens in these houses, in 24:36?", a: "Allah's Name is remembered", wrong: ["People sell goods", "People play games", "People sleep all day"], why: "In houses which Allah has ordered to be raised, in them His Name is remembered." },
+        { q: "What are the masjids, per Ibn Kathir?", a: "His houses where He alone is worshipped", wrong: ["Markets", "Schools only", "Places for parties"], why: "The Masjids are His houses where He Alone is worshipped." },
+        { q: "What did Allah forbid in the masjids, per Ibn Abbas?", a: "Idle talk", wrong: ["Remembering Allah", "Praying", "Reading Quran"], why: "Allah forbade idle talk in them." }
+      ]
+    },
+    {
+      slug: "build-a-masjid",
+      title: "Build a masjid, get a home",
+      line: "Whoever builds a masjid for Allah gets a home in Paradise.",
+      facts: ["Uthman rebuilt the Prophet's ﷺ masjid", "It must be for Allah's pleasure"],
+      quote: q24(36),
+      source: hadith("bukhari", "450", "Uthman ibn Affan", "Sahih", "When people argued about Uthman rebuilding the Prophet's ﷺ masjid, he said he heard the Prophet ﷺ say: whoever builds a masjid for Allah's pleasure, Allah builds for him a similar place in Paradise.", "Allah would build for him a similar place in Paradise"),
+      difficulty: 3,
+      questions: [
+        { q: "What does Allah build for one who builds a masjid?", a: "A similar place in Paradise", wrong: ["A palace on earth", "A big shop", "Nothing"], why: "Allah would build for him a similar place in Paradise." },
+        { q: "Which masjid did Uthman rebuild?", a: "The Prophet's ﷺ masjid", wrong: ["A masjid in Egypt", "A masjid in Syria", "No masjid"], why: "His intention to reconstruct the mosque of Allah's Messenger." },
+        { tf: true, q: "The builder should intend Allah's pleasure.", why: "Whoever built a mosque, intending Allah's Pleasure." }
+      ]
+    },
+    {
+      slug: "trade-does-not-distract",
+      title: "Trade does not distract them",
+      line: "Their shopping and selling never keep them from Allah.",
+      facts: ["Ibn Umar saw shops close for prayer", "What Allah has is better and lasting"],
+      quote: q24(37),
+      source: ik(37, "These men do not let trade or selling distract them from remembering Allah, praying and giving zakah. They know what Allah has is better and lasting. Ibn Umar saw people in the market close their shops for prayer.", "they give priority to obeying Allah and doing what He wants and what pleases Him"),
+      difficulty: 3,
+      questions: [
+        { q: "What does not distract these men, in 24:37?", a: "Trade and business", wrong: ["Prayer", "Zakah", "Remembering Allah"], why: "Men whom neither trade nor business diverts from the remembrance of Allah." },
+        { q: "What do they put first, per Ibn Kathir?", a: "Obeying Allah", wrong: ["Their profits", "Their games", "Their sleep"], why: "They give priority to obeying Allah and doing what He wants and what pleases Him." },
+        { q: "What did the market people do at the iqamah?", a: "Closed their stores for prayer", wrong: ["Sold even more", "Went home to sleep", "Ignored it"], why: "They closed their stores and entered the Masjid." }
+      ]
+    },
+    {
+      slug: "deeds-like-a-mirage",
+      title: "Deeds like a mirage",
+      line: "Deeds without faith are like a mirage: water that is not there.",
+      facts: ["A thirsty man runs to it", "He finds nothing when he arrives"],
+      quote: q24(39),
+      source: ik(39, "Allah compares the deeds of disbelievers who think they are doing well to a mirage in a flat desert. From far away it looks like water, but when the thirsty man reaches it he finds nothing.", "Their likeness is that of a mirage which is seen in a desert plain"),
+      difficulty: 3,
+      questions: [
+        { q: "What are their deeds like, in 24:39?", a: "A mirage", wrong: ["A river", "A garden", "A well"], why: "As for those who disbelieved, their deeds are like a mirage." },
+        { q: "What does the thirsty man think the mirage is?", a: "Water", wrong: ["Gold", "A house", "A friend"], why: "The thirsty one thinks it to be water until he comes up to it, he finds it to be nothing." },
+        { q: "What is a Qi'ah, per Ibn Kathir?", a: "A vast, flat land", wrong: ["A deep sea", "A tall mountain", "A thick forest"], why: "The word Qi'ah refers to a vast, flat, level area of land in which the mirage may appear." }
+      ]
+    },
+    {
+      slug: "darkness-upon-darkness",
+      title: "Darkness upon darkness",
+      line: "Without Allah's guidance, a heart is like a dark, deep sea.",
+      facts: ["Waves on waves, clouds on top", "No light except from Allah"],
+      quote: q24(40),
+      source: ik(40, "Another parable: darkness in a deep sea, waves upon waves, with clouds above, so dark a man can hardly see his own hand. Whoever Allah does not give light has no light.", "he can hardly see it because it is so intensely dark"),
+      difficulty: 4,
+      questions: [
+        { q: "What covers the deep sea, in 24:40?", a: "Waves upon waves and clouds", wrong: ["Sunlight", "Ice and snow", "Boats and ships"], why: "Overwhelmed with waves topped by waves, topped by dark clouds." },
+        { q: "What can a man hardly see there?", a: "His own hand", wrong: ["The sun", "A ship", "A fish"], why: "If a man stretches out his hand, he can hardly see it!" },
+        { q: "Who has no light, in 24:40?", a: "One Allah gives no light", wrong: ["One without a lamp", "One who sleeps", "One at sea"], why: "And he for whom Allah has not appointed light, for him there is no light." }
+      ]
+    },
+    {
+      slug: "birds-glorify-allah",
+      title: "Birds glorify Allah",
+      line: "Everything glorifies Allah, even birds with wings spread.",
+      facts: ["Each knows its own prayer and praise", "Allah taught each its way"],
+      quote: q24(41),
+      source: ik(41, "Everyone in the heavens and earth glorifies Allah: angels, people, jinn, animals, even objects. Birds glorify their Lord while flying, and each creature knows its own way of worship.", "while they are flying they glorify their Lord"),
+      difficulty: 4,
+      questions: [
+        { q: "Which creatures are named in 24:41?", a: "Birds with wings outspread", wrong: ["Fish in the sea", "Lions in the forest", "Ants in a hill"], why: "And the birds with wings outspread." },
+        { q: "When do birds glorify Allah, per Ibn Kathir?", a: "While they are flying", wrong: ["Only at night", "Only in nests", "Never"], why: "While they are flying they glorify their Lord." },
+        { tf: true, q: "Each creature knows its own prayer and glorification.", why: "Of each one He knows indeed his Salah and his glorification." }
+      ]
+    },
+    {
+      slug: "allah-drives-the-clouds",
+      title: "Allah drives the clouds",
+      line: "Allah gently moves clouds, piles them up, and rain comes out.",
+      facts: ["He joins scattered clouds", "Night and day take turns"],
+      quote: q24(43),
+      source: ik(43, "Allah drives the clouds gently when they are first formed, joins them after they were scattered, and piles them up in layers. Then you see the rain come out from the gaps between them.", "He piles them up on top of one another"),
+      difficulty: 4,
+      questions: [
+        { q: "How does Allah drive the clouds, in 24:43?", a: "Gently", wrong: ["Roughly", "Never", "Only in summer"], why: "See you not that Allah drives the clouds gently." },
+        { q: "What does Allah do with the clouds, per Ibn Kathir?", a: "Piles them up in layers", wrong: ["Paints them", "Freezes them", "Melts them"], why: "He piles them up on top of one another." },
+        { q: "Where does the rain come from, in 24:43?", a: "From between the clouds", wrong: ["From the ground", "From the mountains", "From the sea directly"], why: "And you see the rain come forth from between them." }
+      ]
+    },
+    {
+      slug: "creatures-from-water",
+      title: "Every creature from water",
+      line: "Allah made every moving creature from water, in many shapes.",
+      facts: ["Some creep, some walk on two or four", "Allah creates what He wills"],
+      quote: q24(45),
+      source: ik(45, "Allah created every moving creature from water. Some creep on their bellies like snakes, some walk on two legs like people and birds, and some on four like cattle. Allah creates what He wills.", "from one kind of water"),
+      difficulty: 4,
+      questions: [
+        { q: "From what did Allah create every creature, in 24:45?", a: "Water", wrong: ["Fire", "Light", "Stone"], why: "Allah has created every moving creature from water." },
+        { q: "Which walk on two legs, per Ibn Kathir?", a: "Humans and birds", wrong: ["Snakes", "Cattle", "Fish"], why: "And some that walk on two legs, like humans and birds." },
+        { q: "Which creep on their bellies, per Ibn Kathir?", a: "Snakes and the like", wrong: ["Horses", "Birds", "People"], why: "Of them there are some that creep on their bellies, like snakes and so on." }
+      ]
+    },
+    {
+      slug: "we-hear-and-we-obey",
+      title: "We hear and we obey",
+      line: "When called to Allah and His Messenger ﷺ, believers obey.",
+      facts: ["Hypocrites turned away", "The obedient are the successful"],
+      quote: q24(51),
+      source: ik(51, "Hypocrites said they obeyed but turned away. True believers, when called to Allah and His Messenger ﷺ, say: we hear and we obey. Allah calls them successful: they get what they want and are saved from what they fear.", "which is achieving what one wants and being saved from what one fears"),
+      difficulty: 4,
+      questions: [
+        { q: "What do believers say, in 24:51?", a: "We hear and we obey", wrong: ["We will think about it", "Not today", "Ask someone else"], why: "Is that they say: We hear and we obey. And such are the successful." },
+        { q: "What is success, per Ibn Kathir?", a: "Getting what you want, safe from what you fear", wrong: ["Getting rich fast", "Being famous", "Winning arguments"], why: "Achieving what one wants and being saved from what one fears." },
+        { q: "Who are the successful, in 24:52?", a: "Those who obey Allah and His Messenger", wrong: ["Those who argue most", "Those with most money", "Those who turn away"], why: "And whosoever obeys Allah and His Messenger, fears Allah, and has Taqwa of Him, such are the successful." }
+      ]
+    },
+    {
+      slug: "promise-of-succession",
+      title: "Allah's promise to the believers",
+      line: "Allah promised believers strength and safety after fear.",
+      facts: ["It came true for the Prophet's ﷺ Ummah", "The condition: worship Allah alone"],
+      quote: q24(55),
+      source: ik(55, "Allah promised those who believe and do good that He would make them successors in the land, let them practise their religion, and give them safety after fear. Allah fulfilled this for the Ummah of His Messenger ﷺ.", "He would cause his Ummah to become successors on earth"),
+      difficulty: 4,
+      questions: [
+        { q: "What will believers get after fear, in 24:55?", a: "Safety and security", wrong: ["More fear", "Nothing", "Endless war"], why: "And He will surely give them in exchange a safe security after their fear." },
+        { q: "What is the condition, in 24:55?", a: "Worship Allah, no partners", wrong: ["Be very rich", "Build tall towers", "Have big armies"], why: "If they worship Me and do not associate anything with Me." },
+        { tf: true, q: "Ibn Kathir says Allah fulfilled the promise for the Ummah.", why: "This is what Allah did indeed do, may He be glorified and exalted." }
+      ]
+    },
+    {
+      slug: "pray-give-obey",
+      title: "Pray, give, obey",
+      line: "Pray, give zakah, and obey the Messenger ﷺ to get mercy.",
+      facts: ["Zakah is kindness to the poor", "Obeying brings Allah's mercy"],
+      quote: q24(56),
+      source: ik(56, "Allah commands prayer, worshipping Him alone, and zakah, a kindness to His poor and weak creatures, and obeying the Messenger ﷺ so that Allah has mercy on them.", "which is an act of kindness towards His poor and weak creatures"),
+      difficulty: 5,
+      questions: [
+        { q: "What three things are commanded, in 24:56?", a: "Salah, Zakah, obey the Messenger ﷺ", wrong: ["Sleep, eat, play", "Travel, trade, build", "Hunt, fish, farm"], why: "And perform the Salah, and give the Zakah and obey the Messenger ﷺ that you may receive mercy." },
+        { q: "What is zakah, per Ibn Kathir?", a: "Kindness to the poor and weak", wrong: ["A tax for kings", "A gift to the rich", "A game"], why: "To pay the Zakah, which is an act of kindness towards His poor and weak creatures." },
+        { q: "What do the obedient receive, in 24:56?", a: "Mercy", wrong: ["Fame", "Punishment", "Nothing"], why: "That you may receive mercy." }
+      ]
+    },
+    {
+      slug: "three-times-of-rest",
+      title: "Three times to knock",
+      line: "Children knock before entering at three times of family rest.",
+      facts: ["Before Fajr, midday rest, after Isha", "Other times they may come in freely"],
+      quote: q24(58),
+      source: ik(58, "Allah tells families that young children and helpers should ask permission at three private times: before Fajr, at the midday rest, and after Isha, because people are resting or asleep then.", "because people are asleep in their beds at that time"),
+      difficulty: 5,
+      questions: [
+        { q: "Which time is first, in 24:58?", a: "Before the Fajr prayer", wrong: ["After lunch", "At sunset", "At noon prayer"], why: "Before the Fajr prayer, and while you put off your clothes during the afternoon, and after the Isha prayer." },
+        { q: "Why ask before Fajr, per Ibn Kathir?", a: "People are asleep", wrong: ["The door is broken", "It is too hot", "It is market time"], why: "Because people are asleep in their beds at that time." },
+        { tf: true, q: "At other times there is no sin in moving about the home.", why: "Other than these times there is no sin on you or on them to move about." }
+      ]
+    },
+    {
+      slug: "salam-when-entering",
+      title: "Salam when you come home",
+      line: "When you enter a home, greet with a blessed, good salam.",
+      facts: ["Greet your family with salam", "Eating together or apart is fine"],
+      quote: q24(61),
+      source: ik(61, "When you enter houses, greet one another with a greeting from Allah, blessed and good. Many scholars said it means salam. Mujahid said if a house is empty, say peace upon us and upon Allah's righteous servants.", "This means greet one another with Salam"),
+      difficulty: 5,
+      questions: [
+        { q: "What should you do on entering houses, in 24:61?", a: "Greet with a greeting from Allah", wrong: ["Stay silent", "Shout loudly", "Take your shoes off only"], why: "But when you enter the houses, greet one another with a greeting from Allah, blessed and good." },
+        { q: "What is that greeting, per the scholars?", a: "Salam", wrong: ["A wave", "A handshake only", "A song"], why: "This means greet one another with Salam." },
+        { tf: true, q: "Allah says no sin whether you eat together or apart.", why: "No sin on you whether you eat together or apart." }
+      ]
+    },
+    {
+      slug: "salam-when-leaving",
+      title: "Salam when you leave",
+      line: "Ask before leaving a gathering, and say salam as you go.",
+      facts: ["Believers asked the Prophet ﷺ before leaving", "Salam on leaving is as due as on arriving"],
+      quote: q24(62),
+      source: hadith("abudawud", "5208", "Abu Hurairah", "Hasan Sahih", "The Prophet ﷺ said: when one of you comes to a gathering, he should give salam, and when he wants to get up, he should give salam, for the first is not more of a duty than the last.", "When one of you comes to an assembly, he should give a salutation"),
+      difficulty: 5,
+      questions: [
+        { q: "What did true believers do before leaving, in 24:62?", a: "Asked permission", wrong: ["Slipped away", "Ran out", "Said nothing"], why: "They go not away until they have asked his permission." },
+        { q: "When should you say salam, per the hadith?", a: "On arriving and on leaving", wrong: ["Only arriving", "Only leaving", "Only at night"], why: "When one of you comes to an assembly, he should give a salutation and if he feels inclined to get up, he should give a salutation." },
+        { tf: false, q: "The salam on arriving matters more than the salam on leaving.", why: "For the former is not more of a duty than the latter." }
+      ]
+    },
+    {
+      slug: "honor-the-messenger",
+      title: "Honoring the Messenger ﷺ",
+      line: "Call the Messenger ﷺ with respect, not like calling a friend.",
+      facts: ["Say O Messenger of Allah", "Not just his first name"],
+      quote: q24(63),
+      source: ik(63, "People used to call him O Muhammad. Allah forbade calling him like they call each other, out of respect, and told them to say O Prophet of Allah or O Messenger of Allah ﷺ.", "Allah commanded that His Prophet should be treated with respect and honor"),
+      difficulty: 5,
+      questions: [
+        { q: "What does 24:63 forbid?", a: "Calling him like calling each other", wrong: ["Praying at night", "Giving charity", "Visiting family"], why: "Make not the calling of the Messenger ﷺ among you as your calling one of another." },
+        { q: "How should they address him, per Ibn Abbas?", a: "O Messenger of Allah", wrong: ["Hey you", "O friend", "O neighbor"], why: "And told them to say, O Prophet of Allah, O Messenger of Allah." },
+        { q: "Why, per Qatadah?", a: "To treat him with respect and honor", wrong: ["To save time", "To be loud", "No reason"], why: "Allah commanded that His Prophet should be treated with respect and honor." }
+      ]
+    },
+    {
+      slug: "allah-knows-your-condition",
+      title: "Allah knows your condition",
+      line: "Everything belongs to Allah, and He knows what we do.",
+      facts: ["Not one speck is hidden from Him", "He will tell us what we did"],
+      quote: q24(64),
+      source: ik(64, "The surah ends: to Allah belongs all in the heavens and earth. He knows the seen and unseen, what His servants do in secret and openly, and on the Day they return He will tell them what they did.", "He knows what His servants do in secret and in the open"),
+      difficulty: 5,
+      questions: [
+        { q: "To whom belongs all in the heavens and earth, in 24:64?", a: "Allah", wrong: ["Kings", "Angels", "Nobody"], why: "Certainly, to Allah belongs all that is in the heavens and the earth." },
+        { q: "What does Allah know, per Ibn Kathir?", a: "What we do secretly and openly", wrong: ["Only open deeds", "Only big deeds", "Only good deeds"], why: "He knows what His servants do in secret and in the open." },
+        { tf: true, q: "On the Day of return, Allah will inform people of what they did.", why: "And the Day when they will be brought back to Him, then He will inform them of what they did." }
+      ]
+    }
+  ]
+};
+
+export const NUR_UNITS: readonly DeepUnit[] = [NUR_ONE, NUR_TWO];
