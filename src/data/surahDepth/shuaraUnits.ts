@@ -638,4 +638,297 @@ const SHUARA_TWO: DeepUnit = {
   ]
 };
 
-export const SHUARA_UNITS: readonly DeepUnit[] = [SHUARA_ONE, SHUARA_TWO];
+/** Ayahs 141 to 227: Salih and the she-camel, Lut, Shu'ayb and fair measures, the Quran brought by Jibril, warning near family, and the poets. */
+const SHUARA_THREE: DeepUnit = {
+  key: "shuara3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-26",
+  name: "Ash-Shu'ara, ayahs 141-227",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Ash-Shu'ara",
+  lessons: [
+    {
+      slug: "salih-and-thamud",
+      title: "Salih and Thamud",
+      line: "Salih was sent to Thamud, Arabs of Al-Hijr, after 'Ad.",
+      facts: ["He asked them for no reward", "He reminded them of blessings"],
+      quote: q26(142),
+      source: ik(142, "Salih was sent to his people Thamud, Arabs who lived in Al-Hijr between Wadi Al-Qura and Syria. They came after 'Ad and before Ibrahim. Salih called them to worship Allah alone and asked no reward from them.", "Thamud came after"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Thamud live, per Ibn Kathir?", a: "Al-Hijr", wrong: ["Egypt", "Yemen's sand hills", "Madinah"], why: "They were Arabs living in the city of Al-Hijr, which is between Wadi Al-Qura and Greater Syria." },
+        { q: "When did Thamud live?", a: "After 'Ad, before Ibrahim", wrong: ["Before Nuh", "After Musa", "After Isa"], why: "Thamud came after 'Ad and before Ibrahim, peace be upon him." },
+        { tf: true, q: "Salih asked his people for no reward.", why: "He told them that he did not seek any reward from them for his call to them." }
+      ]
+    },
+    {
+      slug: "houses-in-the-mountains",
+      title: "Houses carved in mountains",
+      line: "Thamud carved fine houses in mountains, with gardens and palms.",
+      facts: ["Will you be left safe forever?", "Built for show, not need"],
+      quote: q26(149),
+      source: ik(149, "Salih reminded them of Allah's gifts: safety, gardens, springs, crops and soft ripe dates. They skillfully carved houses into mountains, but for extravagant show, not because they needed them.", "They were highly skilled in the arts of masonry and stone-carving"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Thamud build houses, in 26:149?", a: "In the mountains", wrong: ["On boats", "In the sand", "In trees"], why: "And you hew out in the mountains, houses with great skill." },
+        { q: "What were they skilled in, per Ibn Kathir?", a: "Stone-carving", wrong: ["Shipbuilding", "Weaving silk", "Horse racing"], why: "They were highly skilled in the arts of masonry and stone-carving." },
+        { q: "What were their dates like, in 26:148?", a: "Soft and ripe", wrong: ["Dry and hard", "Bitter", "Very few"], why: "And date palms with soft clusters. Ibn Abbas said: when it becomes ripe and soft." }
+      ]
+    },
+    {
+      slug: "do-not-obey-the-wasteful",
+      title: "Do not obey the wasteful",
+      line: "Salih warned: do not follow leaders who spread mischief.",
+      facts: ["The extravagant cause corruption", "They never set things right"],
+      quote: q26(151),
+      source: ik(151, "Salih told them to fear Allah and obey him, and not to follow the extravagant who make mischief and never set things right. These were their chiefs and leaders who called them to shirk and to oppose the truth.", "their chiefs and leaders, who called them to Shirk"),
+      difficulty: 2,
+      questions: [
+        { q: "Who are the extravagant, per Ibn Kathir?", a: "Their chiefs and leaders", wrong: ["The poor", "The children", "The travelers"], why: "Meaning, their chiefs and leaders, who called them to Shirk, disbelief and opposition to the truth." },
+        { q: "What do the extravagant do, in 26:152?", a: "Make mischief, not reform", wrong: ["Build schools", "Feed the poor", "Guard the land"], why: "Who make mischief in the land, and reform not." },
+        { tf: false, q: "Salih told them to obey their chiefs over Allah.", why: "And follow not the command of the extravagant." }
+      ]
+    },
+    {
+      slug: "the-she-camel",
+      title: "The she-camel from the rock",
+      line: "Thamud asked for a sign; a she-camel came out of a rock.",
+      facts: ["Water shared day by day", "Some believed, most did not"],
+      quote: q26(155),
+      source: ik(155, "They called Salih bewitched and asked for a sign: a she-camel from a rock they pointed to. Salih prayed, the rock split and the she-camel came out. She would drink one day, and they the next.", "the rock to which they had pointed split open"),
+      difficulty: 3,
+      questions: [
+        { q: "Where did the she-camel come from?", a: "A rock that split open", wrong: ["The desert", "The sea", "A market"], why: "Then the rock to which they had pointed split open, revealing a she-camel." },
+        { q: "How was the water shared, in 26:155?", a: "Each on its own day", wrong: ["All at once", "Only at night", "She never drank"], why: "She will drink from your water one day, and on the next day you will drink from it." },
+        { q: "What did Salih do before the sign came?", a: "He prayed to Allah", wrong: ["He ran away", "He hit the rock", "He asked for money"], why: "Salih stood and prayed, then he prayed to Allah to grant them their request." }
+      ]
+    },
+    {
+      slug: "touch-her-not",
+      title: "Do not harm her",
+      line: "They harmed the she-camel against the warning, then felt regret.",
+      facts: ["Her milk fed them all", "Regret came too late"],
+      quote: q26(157),
+      source: ik(157, "Salih warned them not to harm her. She lived among them for a long time and they all drank their fill of her milk. Then they plotted against her, harmed her, and became regretful, but the punishment came.", "they benefitted from her milk which they took in sufficient quantities for every one to drink his fill"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the she-camel give them?", a: "Milk for everyone", wrong: ["Gold", "Wool only", "Nothing"], why: "They benefitted from her milk which they took in sufficient quantities for every one to drink his fill." },
+        { q: "What did Salih warn them, in 26:156?", a: "Do not harm her", wrong: ["Sell her", "Ride her", "Hide her"], why: "And touch her not with harm, lest the torment of a Great Day should seize you." },
+        { tf: true, q: "They became regretful after harming her.", why: "But they killed her, and then they became regretful." }
+      ]
+    },
+    {
+      slug: "lut-is-saved",
+      title: "Lut and his family saved",
+      line: "Allah saved Lut, Ibrahim's nephew, and his family.",
+      facts: ["They lived in Sadum", "His wife stayed behind"],
+      quote: q26(170),
+      source: ik(160, "Lut was the nephew of Ibrahim. Allah sent him to the people of Sadum to worship Allah alone and leave a shameful sin. They threatened to drive him out, and Allah saved him and his family, except his wife.", "the nephew of Ibrahim Al-Khalil"),
+      difficulty: 3,
+      questions: [
+        { q: "How was Lut related to Ibrahim?", a: "His nephew", wrong: ["His son", "His father", "His teacher"], why: "He was Lut bin Haran bin Azar, the nephew of Ibrahim Al-Khalil." },
+        { q: "What did his people threaten, in 26:167?", a: "To drive him out", wrong: ["To crown him", "To pay him", "To follow him"], why: "If you cease not, O Lut, verily, you will be one of those who are driven out!" },
+        { q: "Who was not saved with Lut's family?", a: "His wife", wrong: ["His daughters", "His guests", "No one"], why: "Except an old woman among those who remained behind. This was his wife." }
+      ]
+    },
+    {
+      slug: "people-of-the-thicket",
+      title: "The people of the thicket",
+      line: "The people of Al-Aykah were the people of Madyan, sent Shu'ayb.",
+      facts: ["Al-Aykah was a worshipped tree", "One nation, two names"],
+      quote: q26(176),
+      source: ik(176, "The companions of Al-Aykah were the people of Madyan, per the most correct view. Aykah was a tree, or thicket, they worshipped. So Shu'ayb is not called their brother here, since the name was tied to their idol.", "The companions of Al-Aykah were the people of Madyan, according to the most correct view"),
+      difficulty: 3,
+      questions: [
+        { q: "Who were the people of Al-Aykah?", a: "The people of Madyan", wrong: ["The people of 'Ad", "Fir'awn's people", "The people of Lut"], why: "The companions of Al-Aykah were the people of Madyan, according to the most correct view." },
+        { q: "What was Al-Aykah?", a: "A tree they worshipped", wrong: ["A river", "A king", "A mountain"], why: "Al-Aykah, which was a tree which they used to worship." },
+        { q: "Why is Shu'ayb not called their brother, in 26:177?", a: "The name honored their idol", wrong: ["He was a stranger", "He was angry", "He had no family"], why: "Because they called themselves by a name denoting their deification of Al-Aykah." }
+      ]
+    },
+    {
+      slug: "give-full-measure",
+      title: "Give full measure",
+      line: "Shu'ayb said: weigh fairly; give as you take.",
+      facts: ["Use a true balance", "Do not cheat people"],
+      quote: q26(181),
+      source: ik(181, "Shu'ayb told them to give full measure and weigh with a true balance, not to cheat people of their things or cause corruption. When you give, give in full, just as you want it when you take.", "Give as you take, and take as you give"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the rule of fair trade, per Ibn Kathir?", a: "Give as you take", wrong: ["Take more than you give", "Never trade", "Only buy"], why: "Give as you take, and take as you give." },
+        { q: "What must the balance be, in 26:182?", a: "True and straight", wrong: ["Heavy", "Golden", "Hidden"], why: "And weigh with the true and straight balance." },
+        { tf: false, q: "Giving short measure is fine if no one notices.", why: "And defraud not people by reducing their things." }
+      ]
+    },
+    {
+      slug: "the-day-of-shadow",
+      title: "The Day of the Shadow",
+      line: "They dared Shu'ayb to drop the sky; a shading cloud ended them.",
+      facts: ["My Lord knows best what you do", "They got what they asked for"],
+      quote: q26(189),
+      source: ik(189, "They called Shu'ayb bewitched and a liar and dared him to make a piece of the sky fall on them. Their punishment matched what they asked for: after days of great heat, a cloud came that they ran under, and the punishment came from it.", "This is what they asked for, when they asked for a part of the heaven to fall upon them"),
+      difficulty: 4,
+      questions: [
+        { q: "What did they dare Shu'ayb to do, in 26:187?", a: "Make the sky fall on them", wrong: ["Build a tower", "Bring rain", "Find gold"], why: "So, cause a piece of the heaven to fall on us, if you are of the truthful!" },
+        { q: "What was Shu'ayb's answer, in 26:188?", a: "My Lord knows best", wrong: ["I will do it now", "I cannot hear you", "Pay me first"], why: "He said: My Lord is the Best Knower of what you do." },
+        { q: "Why did a cloud fit their punishment?", a: "They asked for the sky to fall", wrong: ["They loved clouds", "It was winter", "They were farmers"], why: "This is what they asked for, when they asked for a part of the heaven to fall upon them." }
+      ]
+    },
+    {
+      slug: "brought-by-jibril",
+      title: "Brought down by Jibril",
+      line: "Jibril, the trustworthy Ruh, brought the Quran down.",
+      facts: ["From the Lord of the worlds", "Nothing added or removed"],
+      quote: q26(193),
+      source: ik(193, "The Quran is a revelation from the Lord of the worlds. The trustworthy Ruh who brought it down is Jibril, with no dispute about it. He brought it to the Prophet's ﷺ heart, with nothing added or taken away.", "This refers to Jibril, peace be upon him"),
+      difficulty: 4,
+      questions: [
+        { q: "Who is the trustworthy Ruh, in 26:193?", a: "Jibril", wrong: ["Mikail", "A poet", "A king"], why: "Which the trustworthy Ruh has brought down. This refers to Jibril, peace be upon him." },
+        { q: "Where was it brought down, in 26:194?", a: "Upon his heart", wrong: ["On a stone", "Into a book", "On a mountain"], why: "Upon your heart that you may be (one) of the warners." },
+        { tf: true, q: "Scholars do not dispute that the Ruh is Jibril.", why: "This is an issue concerning which there is no dispute." }
+      ]
+    },
+    {
+      slug: "clear-arabic",
+      title: "In clear Arabic",
+      line: "The Quran came in clear, eloquent Arabic, leaving no excuse.",
+      facts: ["Mentioned in earlier Books", "Scholars of Israel knew it"],
+      quote: q26(195),
+      source: ik(195, "The Quran was revealed in perfect, eloquent Arabic so it would be clear, leave no room for excuses and show the straight path. It was also mentioned in earlier Books, and fair-minded scholars of the Children of Israel recognized it.", "We have revealed in perfect and eloquent Arabic, so that it may be quite clear"),
+      difficulty: 4,
+      questions: [
+        { q: "In which language was the Quran revealed, in 26:195?", a: "Plain Arabic", wrong: ["Hebrew", "Greek", "Persian"], why: "In the plain Arabic language." },
+        { q: "Why clear Arabic, per Ibn Kathir?", a: "To leave no excuse", wrong: ["To be short", "To be secret", "To rhyme"], why: "So that it may be quite clear, leaving no room for excuses and establishing clear proof." },
+        { q: "Who recognized it from their Books, in 26:197?", a: "Scholars of the Children of Israel", wrong: ["The poets", "The sorcerers", "Fir'awn's chiefs"], why: "Is it not a sign to them that the learned scholars of the Children of Israel knew it?" }
+      ]
+    },
+    {
+      slug: "always-a-warner-first",
+      title: "Always a warner first",
+      line: "Allah never punished a town before sending it a warner.",
+      facts: ["Allah is never unjust", "Comfort does not save anyone"],
+      quote: q26(208),
+      source: ik(208, "Allah is just: He does not destroy any nation until He has warned it, sent Messengers and left it no excuse. Years of comfort will not help those who still deny when the promise comes.", "He does not destroy any nation until after He has left them with no excuse"),
+      difficulty: 4,
+      questions: [
+        { q: "What comes before any town is punished, in 26:208?", a: "A warner", wrong: ["A storm", "A famine", "Nothing"], why: "And never did We destroy a township but it had its warners." },
+        { q: "What does this show about Allah, per Ibn Kathir?", a: "His justice", wrong: ["His anger only", "His hurry", "His distance"], why: "Allah tells us of His justice towards His creation." },
+        { q: "Will years of enjoyment help deniers, in 26:207?", a: "No, it will not avail them", wrong: ["Yes, fully", "Only if rich", "Only the old"], why: "All that with which they used to enjoy shall not avail them." }
+      ]
+    },
+    {
+      slug: "not-from-devils",
+      title: "Not from the devils",
+      line: "Devils could never bring the Quran: it does not suit them.",
+      facts: ["They are unable to", "They are kept from hearing"],
+      quote: q26(211),
+      source: ik(211, "The Quran was not brought by devils, for three reasons: it does not suit them, since it commands good; they are not able to; and they were kept far from hearing it while it was being revealed.", "it could not be the case for three reasons"),
+      difficulty: 5,
+      questions: [
+        { q: "How many reasons does Ibn Kathir give?", a: "Three", wrong: ["One", "Seven", "Ten"], why: "It could not be the case for three reasons that the Shayatin brought it down." },
+        { q: "Why would the Quran not suit devils?", a: "It commands good", wrong: ["It is too short", "It is in Arabic", "It is old"], why: "This contains words enjoining what is right and forbidding what is evil, and light, guidance." },
+        { tf: true, q: "Devils were kept from hearing it, in 26:212.", why: "Verily, they have been removed far from hearing it." }
+      ]
+    },
+    {
+      slug: "warn-your-family",
+      title: "Warn your near family",
+      line: "Told to warn his family, the Prophet ﷺ called from As-Safa.",
+      facts: ["They trusted his truthfulness", "He warned them of the Hereafter"],
+      quote: q26(214),
+      source: hadith("bukhari", "4770", "Abdullah ibn Abbas", "Sahih", "When 26:214 came, the Prophet ﷺ climbed As-Safa and called the tribes of Quraysh. He asked: if I told you an army was in the valley, would you believe me? They said yes, we have only known you to speak the truth. He said: I am a warner to you.", "we have not found you telling anything other than the truth"),
+      difficulty: 5,
+      questions: [
+        { q: "Where did the Prophet ﷺ call his people from?", a: "As-Safa", wrong: ["The Kaaba roof", "Uhud", "A ship"], why: "The Prophet ﷺ ascended the Safa (mountain) and started calling." },
+        { q: "Why did Quraysh say they would believe him?", a: "He always told the truth", wrong: ["He was rich", "He was a poet", "He was the oldest"], why: "They said: Yes, for we have not found you telling anything other than the truth." },
+        { q: "Who does 26:214 tell him to warn first?", a: "His near kindred", wrong: ["Only strangers", "Only kings", "Only the Jinn"], why: "And warn your tribe of near kindred." }
+      ]
+    },
+    {
+      slug: "i-cannot-save-you",
+      title: "I cannot save you from Allah",
+      line: "The Prophet ﷺ told even Fatima: your own deeds must save you.",
+      facts: ["Family ties do not replace faith", "Each must work for himself"],
+      quote: q26(214),
+      source: hadith("bukhari", "4771", "Abu Hurairah", "Sahih", "When 26:214 came, the Prophet ﷺ called out to Quraysh, to Abbas, to Safiyyah and to Fatima: save yourselves, I cannot save you from Allah. To Fatima he said: ask me what you wish of my wealth, but I cannot save you from Allah.", "Ask what you wish from my property, but I cannot save you from Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ tell Fatima?", a: "I cannot save you from Allah", wrong: ["You are safe anyway", "Do nothing", "Only pray at night"], why: "Ask what you wish from my property, but I cannot save you from Allah." },
+        { q: "What could Fatima ask him for?", a: "His wealth", wrong: ["Paradise for free", "A kingdom", "Nothing at all"], why: "O Fatima, the daughter of Muhammad! Ask what you wish from my property." },
+        { tf: false, q: "Being related to a Prophet is enough to be saved.", why: "O Abbas, the son of Abdul Muttalib! I cannot save you from Allah." }
+      ]
+    },
+    {
+      slug: "lower-your-wing",
+      title: "Gentle with the believers",
+      line: "Allah told the Prophet ﷺ to be humble and kind to believers.",
+      facts: ["Trust the Mighty, the Merciful", "He is your Helper"],
+      quote: q26(215),
+      source: ik(215, "Allah told His Messenger ﷺ to warn his close family and to be kind and gentle with the believers who followed him, to put his trust in the Almighty, the Most Merciful, who is his Helper and Protector.", "to be kind and gentle with the believing servants of Allah who followed him"),
+      difficulty: 5,
+      questions: [
+        { q: "How should he treat the believers, in 26:215?", a: "Kind and humble", wrong: ["Strict and cold", "Distant", "Proud"], why: "And be kind and humble to the believers who follow you." },
+        { q: "Whom should he trust, in 26:217?", a: "The All-Mighty, Most Merciful", wrong: ["His tribe", "His wealth", "The poets"], why: "And put your trust in the All-Mighty, the Most Merciful." },
+        { q: "What is Allah to him, per Ibn Kathir?", a: "Helper and Protector", wrong: ["A stranger", "A judge only", "Far away"], why: "For He is your Helper, Protector and Supporter." }
+      ]
+    },
+    {
+      slug: "he-sees-you-pray",
+      title: "He sees you when you stand",
+      line: "Allah sees you stand in prayer, alone or in a group.",
+      facts: ["He sees every bow and sujud", "All-Hearing, All-Knowing"],
+      quote: q26(218),
+      source: ik(218, "Allah sees you when you stand up to pray, and your movements among those who prostrate. Qatadah said He sees you when you pray alone and when you pray in congregation. He hears and knows everything.", "He sees you when you pray alone and when you pray in congregation"),
+      difficulty: 5,
+      questions: [
+        { q: "What does standing up mean, per Ibn Abbas?", a: "Standing to pray", wrong: ["Standing to trade", "Waking up only", "Standing to fight"], why: "Ibn Abbas said that the Ayah, Who sees you when you stand up, means: To pray." },
+        { q: "When does Allah see you pray, per Qatadah?", a: "Alone and in congregation", wrong: ["Only in the mosque", "Only on Friday", "Only at night"], why: "He sees you when you pray alone and when you pray in congregation." },
+        { q: "Which names end this passage, in 26:220?", a: "All-Hearer, All-Knower", wrong: ["King, Holy", "First, Last", "Creator, Shaper"], why: "Verily, He, only He, is the All-Hearer, the All-Knower." }
+      ]
+    },
+    {
+      slug: "fortune-tellers",
+      title: "Fortune-tellers are nothing",
+      line: "Fortune-tellers mix one stolen word with a hundred lies.",
+      facts: ["Devils come to liars", "Do not trust fortune-tellers"],
+      quote: q26(222),
+      source: hadith("bukhari", "5762", "Aisha", "Sahih", "People asked the Prophet ﷺ about fortune-tellers and he said: they are nothing. They said sometimes what they say comes true. He said: a jinn snatches a true word and pours it into the ear of his friend, who mixes it with a hundred lies.", "The foreteller then mixes with that word one hundred lies"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ say about fortune-tellers?", a: "They are nothing", wrong: ["They are wise", "They are Prophets", "Ask them often"], why: "Some people asked Allah's Messenger ﷺ about the fore-tellers. He said: They are nothing." },
+        { q: "How many lies are mixed with one true word?", a: "One hundred", wrong: ["One", "Ten", "None"], why: "The foreteller then mixes with that word one hundred lies." },
+        { q: "On whom do the devils descend, in 26:222?", a: "Every sinful liar", wrong: ["The Prophets", "The angels", "The believers"], why: "They descend on every lying, sinful person." }
+      ]
+    },
+    {
+      slug: "the-poets",
+      title: "The poets",
+      line: "Poets say what they do not do; the Prophet ﷺ was no poet.",
+      facts: ["The astray follow them", "The Quran is not poetry"],
+      quote: q26(226),
+      source: ik(226, "Some poets wander into every kind of nonsense and say what they do not do, and the misguided follow them. The Messenger ﷺ who brought the Quran was not a poet or soothsayer; his case was clearly different.", "They indulge in every kind of nonsense"),
+      difficulty: 5,
+      questions: [
+        { q: "What do such poets do, in 26:226?", a: "Say what they do not do", wrong: ["Always tell the truth", "Teach Quran", "Never speak"], why: "And that they say what they do not do." },
+        { q: "How did Ibn Abbas explain 26:225?", a: "They indulge in nonsense", wrong: ["They pray much", "They farm", "They travel"], why: "Ibn Abbas said: They indulge in every kind of nonsense." },
+        { tf: false, q: "The Prophet ﷺ was a poet.", why: "The Messenger ﷺ to whom this Qur'an was revealed, was not a soothsayer or a poet." }
+      ]
+    },
+    {
+      slug: "the-good-poets",
+      title: "Poets who believe",
+      line: "Believing poets who do good and remember Allah are excepted.",
+      facts: ["Good deeds wipe out bad", "Words can defend the truth"],
+      quote: q26(227),
+      source: ik(227, "Except those who believe, do good deeds, remember Allah much and defend themselves when wronged. Ibn Kathir says this includes poets who once mocked Islam, then repented and praised it, for good deeds wipe out bad deeds.", "for good deeds wipe out bad deeds"),
+      difficulty: 5,
+      questions: [
+        { q: "Which poets are excepted, in 26:227?", a: "Those who believe and do good", wrong: ["The richest poets", "The oldest poets", "None"], why: "Except those who believe and do righteous deeds, and remember Allah much." },
+        { q: "What did repentant poets do, per Ibn Kathir?", a: "Praised Islam to make up", wrong: ["Stopped speaking", "Left Arabia", "Burned their books"], why: "So they praised Islam and its followers in order to make up for their insults." },
+        { q: "What rule does Ibn Kathir give about repentant poets?", a: "Good deeds wipe out bad", wrong: ["Words never matter", "Poems are sins", "Old sins stay forever"], why: "For good deeds wipe out bad deeds." }
+      ]
+    }
+  ]
+};
+
+export const SHUARA_UNITS: readonly DeepUnit[] = [SHUARA_ONE, SHUARA_TWO, SHUARA_THREE];
