@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { Animated, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
-import Svg, { Circle, Path } from "react-native-svg";
+import Svg, { Circle, Ellipse, Path } from "react-native-svg";
 import type { GameSoundEvent } from "../services/gameSoundLibrary";
 import { METEOR_HIT, bigLook } from "./bigShows";
 import { sampleCurve, smoothKeys } from "./motion";
@@ -46,11 +46,20 @@ export { WellBucket };
  * asks for reduced motion (the sound still plays).
  */
 
-export type ShowKind = "well" | "palm" | "sheep" | "tent" | "dates" | "oasis" | WorldShowKind;
+export type ShowKind = "well" | "palm" | "sheep" | "tent" | "dates" | "oasis" | "kaaba" | WorldShowKind;
 export type SceneryShow = { name: string; sound: GameSoundEvent; ms: number; strong?: boolean };
 
 export const SCENERY_SHOWS: Record<ShowKind, SceneryShow[]> = {
   ...WORLD_SHOWS,
+  // The mini Makkah. The Kaaba itself never moves: the shows happen around it.
+  kaaba: [
+    { name: "pigeons", sound: "chirp", ms: 2400 },
+    { name: "glow", sound: "sparkle", ms: 2000 },
+    { name: "tawaf", sound: "whoosh", ms: 3000 },
+    { name: "zamzam", sound: "splash", ms: 1900 },
+    { name: "name", sound: "pop", ms: 2000 },
+    { name: "dawn", sound: "grow", ms: 2600 }
+  ],
   well: [
     { name: "bucket", sound: "splash", ms: 1200 },
     { name: "grow", sound: "grow", ms: 2400 },
@@ -672,6 +681,118 @@ function lookFor(kind: ShowKind, name: string, t: Animated.Value, s: number, art
           };
       }
     }
+    case "kaaba": {
+      // Nothing here moves the picture: the Kaaba stays still and the life goes on around it.
+      const cx = 32 * u;
+      const cy = 50 * u;
+      switch (name) {
+        case "pigeons":
+          // Pigeons fly up out of the courtyard, circle and fly off.
+          return {
+            front: [0, 1, 2, 3].map((index) => (
+              <Floater key={index} t={t} from={0.04 + index * 0.08} to={0.7 + index * 0.08} x={s * (0.14 + index * 0.22)} y={s * 0.72} rise={s * (0.7 + (index % 2) * 0.2)} drift={(index % 2 ? 1 : -1) * s * 0.35} pop={false}>
+                <View style={{ transform: [{ scaleX: index % 2 ? 1 : -1 }] }}>
+                  <Pigeon s={Math.max(10, 13 * u)} />
+                </View>
+              </Floater>
+            ))
+          };
+        case "glow":
+          // A soft golden light spreads around the Kaaba.
+          return {
+            behind: (
+              <Abs x={s * 0.1} y={s * 0.25} style={{ opacity: windowOf(t, 0, 1), transform: [{ scale: k(t, [0, 0.4, 0.7, 1], [0.4, 1.15, 1.05, 0.8]) }] }}>
+                <View style={{ width: s * 0.8, height: s * 0.8, borderRadius: s, backgroundColor: "#FFE27A", opacity: 0.55 }} />
+              </Abs>
+            ),
+            front: [0, 1, 2].map((index) => (
+              <Floater key={index} t={t} from={0.2 + index * 0.15} to={0.7 + index * 0.1} x={s * (0.25 + index * 0.22)} y={s * 0.4} rise={s * 0.3}>
+                <Sparkle size={Math.max(9, s * 0.15)} />
+              </Floater>
+            ))
+          };
+        case "tawaf": {
+          // Little white dots go round the Kaaba the way pilgrims do (anticlockwise), hidden while behind it.
+          const rx = 18 * u;
+          const ry = 6.2 * u;
+          return {
+            front: Array.from({ length: 10 }, (_, index) => {
+              const start = index / 10;
+              const angle = (p: number) => 2 * Math.PI * (start + p * 1.5);
+              const opacity = t.interpolate(
+                sampleCurve(0, 1, 60, (p) => {
+                  const a = angle(p);
+                  const behind = Math.sin(a) > 0 && Math.abs(Math.cos(a)) < 0.45;
+                  const fade = Math.min(1, p / 0.08, (1 - p) / 0.08);
+                  return behind ? 0 : fade;
+                })
+              );
+              return (
+                <Animated.View
+                  key={index}
+                  pointerEvents="none"
+                  style={{
+                    position: "absolute",
+                    left: cx - 1.6 * u,
+                    top: cy - 1.6 * u,
+                    width: 3.2 * u,
+                    height: 3.2 * u,
+                    borderRadius: 3 * u,
+                    backgroundColor: "#FFFFFF",
+                    borderWidth: Math.max(0.5, 0.5 * u),
+                    borderColor: "#B9C4BF",
+                    opacity,
+                    transform: [
+                      { translateX: t.interpolate(sampleCurve(0, 1, 60, (p) => rx * Math.cos(angle(p)))) },
+                      { translateY: t.interpolate(sampleCurve(0, 1, 60, (p) => -ry * Math.sin(angle(p)))) }
+                    ]
+                  }}
+                />
+              );
+            })
+          };
+        }
+        case "zamzam":
+          // Water of Zamzam sparkles up from the courtyard.
+          return {
+            front: [
+              ...Array.from({ length: 6 }, (_, index) => (
+                <Floater key={index} t={t} from={0.05 + (index % 3) * 0.1} to={0.6 + (index % 3) * 0.1} x={s * 0.72} y={s * 0.74} rise={s * (0.35 + (index % 2) * 0.12)} drift={(index - 2.5) * s * 0.05} pop={false}>
+                  <Drop size={Math.max(5, 6 * u)} color="#5BBDFF" />
+                </Floater>
+              )),
+              <Floater key="word" t={t} from={0.2} to={1} x={s * 0.45} y={s * 0.4} rise={s * 0.3}>
+                <Word size={Math.max(10, 12 * u)} color="#2F7CD6">Zamzam</Word>
+              </Floater>
+            ]
+          };
+        case "name":
+          return {
+            front: (
+              <>
+                <Floater t={t} from={0.02} to={0.95} x={s * 0.2} y={s * 0.05} rise={s * 0.3}>
+                  <Word size={Math.max(11, 14 * u)} color="#178A56">Makkah</Word>
+                </Floater>
+                {[0, 1].map((index) => (
+                  <Floater key={index} t={t} from={0.25 + index * 0.2} to={0.75 + index * 0.2} x={s * (0.1 + index * 0.7)} y={s * 0.2} rise={s * 0.2}>
+                    <Sparkle size={Math.max(8, s * 0.13)} />
+                  </Floater>
+                ))}
+              </>
+            )
+          };
+        case "dawn":
+        default:
+          // The sun comes up over the hills behind, then sets again.
+          return {
+            behind: (
+              <Abs x={s * 0.36} y={s * 0.28} style={{ opacity: windowOf(t, 0, 1), transform: [{ translateY: k(t, [0, 0.4, 0.7, 1], [s * 0.12, -s * 0.22, -s * 0.22, s * 0.12]) }] }}>
+                <View style={{ width: s * 0.28, height: s * 0.28, borderRadius: s, backgroundColor: "#FFC21A" }} />
+              </Abs>
+            )
+          };
+      }
+    }
     default:
       return worldLook(kind, name, t, s, art);
   }
@@ -774,3 +895,17 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   }
 });
+
+/** A grey pigeon, like the ones in the courtyard of the Haram. */
+function Pigeon({ s }: { s: number }) {
+  return (
+    <Svg width={s} height={s * 0.8} viewBox="0 0 20 16">
+      <Ellipse cx={9} cy={10} rx={6.5} ry={4.6} fill="#9AA5B1" />
+      <Circle cx={14.5} cy={6.4} r={3.2} fill="#7E8A97" />
+      <Path d="M17.4 6.4L19.6 7.2L17.4 8Z" fill="#E8A35C" />
+      <Circle cx={15.3} cy={5.8} r={0.8} fill={INK} />
+      <Path d="M4 7C6 3 11 3 12 8" stroke="#6C7783" strokeWidth={1.6} fill="none" strokeLinecap="round" />
+      <Path d="M13 9.2Q14.5 10.6 13 11.6" stroke="#6FB59A" strokeWidth={1.2} fill="none" strokeLinecap="round" />
+    </Svg>
+  );
+}
