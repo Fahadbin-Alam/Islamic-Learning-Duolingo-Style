@@ -49,6 +49,132 @@ const NUR_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "a-firm-law",
+      title: "A firm law",
+      line: "Allah set a firm penalty for zina, with no soft favoritism.",
+      facts: ["Allah's laws protect families", "Justice is for all"],
+      quote: q24(2),
+      source: ik(2, "Surah An-Nur explains what is lawful and unlawful and the set penalties. Ayah 2 gives the firm penalty for zina, carried out publicly by lawful authority.", "We have explained what is lawful and unlawful, commands and prohibitions, and the prescribed punishments"),
+      difficulty: 4,
+      questions: [
+        { q: "What must not hold the believers back, in 24:2?", a: "Pity", wrong: ["Hunger", "Rain", "Sleep"], why: "Let not pity withhold you in their case, in a punishment prescribed by Allah." },
+        { q: "Who should witness the penalty, in 24:2?", a: "A party of the believers", wrong: ["No one", "Only children", "Only traders"], why: "And let a party of the believers witness their punishment." },
+        { q: "What did Allah explain in An-Nur, per Mujahid?", a: "Lawful, unlawful and penalties", wrong: ["Only stories", "Only poems", "Only trade"], why: "We have explained what is lawful and unlawful, commands and prohibitions, and the prescribed punishments." }
+      ]
+    },
+    {
+      slug: "seek-a-chaste-spouse",
+      title: "Seek a chaste spouse",
+      line: "Believers seek chaste spouses and stay away from shamelessness.",
+      facts: ["Chastity is honored", "Marriage needs good character"],
+      quote: q24(3),
+      source: ik(3, "Allah forbade the believers from taking part in zina or knowingly marrying the openly immoral. Ibn Kathir links this to ayahs asking for chaste spouses.", "they should be chaste"),
+      difficulty: 4,
+      questions: [
+        { q: "What is forbidden to the believers, in 24:3?", a: "Such an immoral match", wrong: ["Trade", "Travel", "Charity"], why: "Such a thing is forbidden to the believers." },
+        { q: "Which ayah does Ibn Kathir link to 24:3?", a: "4:25", wrong: ["1:1", "2:255", "112:1"], why: "They should be chaste. (4:25)" },
+        { tf: true, q: "Ibn Kathir cites 5:5 about desiring chastity.", why: "Desiring chastity. (5:5)" }
+      ]
+    },
+    {
+      slug: "never-accuse-without-proof",
+      title: "Never accuse without proof",
+      line: "Accusing the chaste without four witnesses is a grave sin.",
+      facts: ["Guard people's honor", "Speak only with proof"],
+      quote: q24(4),
+      source: ik(4, "Whoever accuses a chaste person without four witnesses is punished, his testimony is rejected, and he is called rebellious.", "If the accuser cannot prove that what he is saying is true, then three rulings apply to him"),
+      difficulty: 4,
+      questions: [
+        { q: "How many witnesses are needed, in 24:4?", a: "Four", wrong: ["One", "Two", "Ten"], why: "And produce not four witnesses." },
+        { q: "How many rulings apply to a false accuser, per Ibn Kathir?", a: "Three", wrong: ["One", "Five", "None"], why: "If the accuser cannot prove that what he is saying is true, then three rulings apply to him." },
+        { tf: true, q: "Ibn Kathir says the same applies if a man is falsely accused.", why: "If the person who is falsely accused is a man, the same punishment of flogging also applies." }
+      ]
+    },
+    {
+      slug: "repent-after-slander",
+      title: "Repent after slander",
+      line: "Those who repent and do good find Allah Forgiving, Merciful.",
+      facts: ["The door of repentance is open", "Fix what your tongue broke"],
+      quote: q24(5),
+      source: ik(5, "Allah makes an exception for those who repent after a false accusation and do righteous deeds, for Allah is Oft-Forgiving, Most Merciful.", "Except those who repent thereafter and do righteous deeds"),
+      difficulty: 3,
+      questions: [
+        { q: "What two things are needed, in 24:5?", a: "Repenting and doing good", wrong: ["Paying gold", "Leaving town", "Staying silent"], why: "Except those who repent thereafter and do righteous deeds." },
+        { q: "Which Names end 24:5?", a: "Forgiving, Most Merciful", wrong: ["All-Hearing, All-Seeing", "Mighty, Wise", "Rich, Praised"], why: "Verily, Allah is Oft-Forgiving, Most Merciful." },
+        { tf: false, q: "In 24:5 a slanderer can never repent.", why: "Except those who repent thereafter and do righteous deeds." }
+      ]
+    },
+    {
+      slug: "the-husbands-oaths",
+      title: "The husband's oaths",
+      line: "A husband with no witnesses swears four oaths by Allah instead.",
+      facts: ["Oaths by Allah are serious", "Allah gives a way out"],
+      quote: q24(6),
+      source: ik(6, "If a husband accuses his wife but has no proof, he may take the oath called Li'an before the judge, swearing four times by Allah that he is truthful.", "This Ayah offers a way out for husbands"),
+      difficulty: 4,
+      questions: [
+        { q: "How many times does he swear, in 24:6?", a: "Four", wrong: ["Once", "Seven", "Ten"], why: "Let the testimony of one of them be four testimonies by Allah." },
+        { q: "What is the oath called, per Ibn Kathir?", a: "Li'an", wrong: ["Zakah", "Hajj", "Witr"], why: "He can swear the Li'an (the oath of condemnation) as Allah commanded." },
+        { q: "Before whom is Li'an done, per Ibn Kathir?", a: "The Imam or judge", wrong: ["Friends only", "No one", "His children"], why: "He brings her before the Imam and states what he is accusing her of." }
+      ]
+    },
+    {
+      slug: "the-fifth-oath",
+      title: "The fifth oath",
+      line: "His fifth oath calls Allah's curse on himself if he lies.",
+      facts: ["Lying under oath is grave", "Truth is safest"],
+      quote: q24(7),
+      source: ik(7, "After four oaths, the husband adds a fifth: that Allah's curse be on him if he is lying.", "invoking of the curse of Allah on him if he be of those who tell a lie"),
+      difficulty: 4,
+      questions: [
+        { q: "What does the fifth oath invoke, in 24:7?", a: "Allah's curse if he lies", wrong: ["Blessings", "Rain", "Wealth"], why: "And the fifth; the invoking of the curse of Allah on him if he be of those who tell a lie." },
+        { q: "Which oath is the curse oath, in 24:7?", a: "The fifth", wrong: ["The first", "The third", "The tenth"], why: "And the fifth (testimony); invoking of the curse of Allah on him." },
+        { tf: true, q: "The husband in 24:7 risks Allah's curse if lying.", why: "Invoking of the curse of Allah on him if he be of those who tell a lie." }
+      ]
+    },
+    {
+      slug: "the-wifes-defense",
+      title: "The wife's defense",
+      line: "The wife defends herself by swearing four times he is lying.",
+      facts: ["Everyone may defend themselves", "Islam is fair to both"],
+      quote: q24(8),
+      source: ik(8, "The wife can avert the prescribed punishment if she swears four times by Allah that her husband is lying.", "if she bears witness four times by Allah, that he is telling a lie"),
+      difficulty: 4,
+      questions: [
+        { q: "How does she avert the punishment, in 24:8?", a: "Swearing four times he lies", wrong: ["Paying money", "Running away", "Staying silent"], why: "If she bears witness four times by Allah, that he is telling a lie." },
+        { q: "What does she avert, per Ibn Kathir?", a: "The prescribed punishment", wrong: ["A tax", "A journey", "A feast"], why: "But she shall avert the punishment, meaning, the prescribed punishment." },
+        { tf: false, q: "In 24:8 the wife has no way to defend herself.", why: "But she shall avert the punishment from her, if she bears witness four times by Allah." }
+      ]
+    },
+    {
+      slug: "her-fifth-oath",
+      title: "Her fifth oath",
+      line: "Her fifth oath calls Allah's wrath on herself if he is truthful.",
+      facts: ["Allah knows the truth", "Never hide the truth"],
+      quote: q24(9),
+      source: ik(9, "The wife's fifth oath calls for Allah's wrath on her if he is truthful. Allah's wrath is on one who knows the truth yet turns from it.", "the one upon whom is the wrath of Allah, is the one who knows the truth yet deviates from it"),
+      difficulty: 5,
+      questions: [
+        { q: "What does her fifth oath invoke, in 24:9?", a: "Allah's wrath if he is truthful", wrong: ["A gift", "A long life", "Rain"], why: "And the fifth; should be that the wrath of Allah be upon her if he speaks the truth." },
+        { q: "Who earns Allah's wrath, per Ibn Kathir?", a: "One who knows truth and turns away", wrong: ["One who forgets", "One who is sick", "One who travels"], why: "The one upon whom is the wrath of Allah, is the one who knows the truth yet deviates from it." },
+        { tf: true, q: "In 24:9 both spouses swear five times in all.", why: "Each swears four times by Allah, then a fifth oath." }
+      ]
+    },
+    {
+      slug: "a-way-out-by-grace",
+      title: "A way out by grace",
+      line: "Without Allah's grace and mercy, life would be too hard for us.",
+      facts: ["Allah's laws are mercy", "He accepts repentance"],
+      quote: q24(10),
+      source: ik(10, "Allah mentions His grace in giving people a way out of their difficulties. Without it, many matters would have been too hard.", "He has prescribed for them a way out of their difficulties"),
+      difficulty: 3,
+      questions: [
+        { q: "What two gifts are named, in 24:10?", a: "Allah's grace and mercy", wrong: ["Gold and silver", "Sun and moon", "Food and drink"], why: "And had it not been for the grace of Allah and His mercy on you!" },
+        { q: "What did Allah prescribe, per Ibn Kathir?", a: "A way out of difficulties", wrong: ["More hardship", "Endless tests", "A long trip"], why: "He has prescribed for them a way out of their difficulties." },
+        { q: "Which Name ends 24:10 with the All-Wise?", a: "The One Who accepts repentance", wrong: ["The Creator", "The Provider", "The Avenger"], why: "Allah is the One Who forgives and accepts repentance, the All-Wise." }
+      ]
+    },
+    {
       slug: "aishah-declared-innocent",
       title: "Allah declared 'A'ishah innocent",
       line: "When hypocrites spread a lie, Allah declared 'A'ishah innocent.",
@@ -158,6 +284,62 @@ const NUR_ONE: DeepUnit = {
         { q: "What does Allah ask in 24:22?", a: "Do you not love that Allah forgives you?", wrong: ["Do you not love money?", "Do you not love fame?", "Do you not love rest?"], why: "Let them pardon and forgive. Do you not love that Allah should forgive you?" },
         { q: "Whom had Abu Bakr been helping?", a: "His poor cousin Mistah", wrong: ["A rich merchant", "A king", "A foreign guest"], why: "Mistah was the cousin of As-Siddiq, the son of his maternal aunt, and he was a poor man." },
         { q: "What did Abu Bakr say in the end?", a: "I will never stop spending on him", wrong: ["I will never forgive him", "I will move away", "I will think about it"], why: "Then he resumed his spending on Mistah and said, By Allah I will never stop spending on him." }
+      ]
+    },
+    {
+      slug: "slandering-the-innocent",
+      title: "Slandering the innocent",
+      line: "Slandering chaste, innocent believing women is a destroying sin.",
+      facts: ["Protect others' honor", "Aishah was declared innocent"],
+      quote: q24(23),
+      source: ik(23, "Allah warns those who accuse chaste believing women who never think of wrong. The Mothers of the believers, above all Aishah, are first meant.", "This is a warning and threat from Allah to those who accuse chaste women"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom does 24:23 protect?", a: "Chaste believing women", wrong: ["Thieves", "Liars", "Idols"], why: "Those who accuse chaste believing women, who never even think of anything touching their chastity." },
+        { q: "Who is first meant, per Ibn Kathir?", a: "Aishah", wrong: ["Hind", "Zulaykha", "Bilqis"], why: "Especially the one who was the reason for this Ayah being revealed: Aishah bint As-Siddiq." },
+        { tf: true, q: "Ibn Kathir calls 24:23 a warning and threat from Allah.", why: "This is a warning and threat from Allah to those who accuse chaste women." }
+      ]
+    },
+    {
+      slug: "seven-destroying-sins",
+      title: "Seven destroying sins",
+      line: "The Prophet ﷺ listed seven destroying sins, slander among them.",
+      facts: ["Avoid major sins", "Guard your tongue"],
+      quote: q24(23),
+      source: hadith("bukhari", "2766", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said to avoid seven destroying sins, the last being to accuse chaste, innocent believing women.", "Avoid the seven great destructive sins"),
+      difficulty: 4,
+      questions: [
+        { q: "How many destroying sins, in the hadith?", a: "Seven", wrong: ["Three", "Ten", "Forty"], why: "Avoid the seven great destructive sins." },
+        { q: "What is first on the list, in the hadith?", a: "Joining others with Allah", wrong: ["Lying", "Theft", "Laziness"], why: "To join others in worship along with Allah." },
+        { q: "Which sin matches 24:23, in the hadith?", a: "Accusing chaste women", wrong: ["Eating too much", "Sleeping late", "Being poor"], why: "And to accuse, chaste women, who never even think of anything touching chastity and are good believers." }
+      ]
+    },
+    {
+      slug: "limbs-will-speak",
+      title: "Limbs will speak",
+      line: "On that Day tongues, hands and legs testify to what we did.",
+      facts: ["Our limbs are witnesses", "Use them for good"],
+      quote: q24(24),
+      source: hadith("muslim", "2969", "Anas ibn Malik", "Sahih", "The Prophet ﷺ smiled, then described a servant who accepts no witness but himself. His mouth is sealed, and his hands and feet speak of his deeds.", "it would be said to his hands and feet to speak and they would speak of his deeds"),
+      difficulty: 4,
+      questions: [
+        { q: "What testifies, in 24:24?", a: "Tongues, hands and legs", wrong: ["Trees", "Stones", "Stars"], why: "On the Day when their tongues, their hands, and their legs will bear witness against them." },
+        { q: "What did the Prophet ﷺ do first, in the hadith?", a: "He smiled", wrong: ["He wept", "He left", "He slept"], why: "We were in the company of Allah's Messenger ﷺ when he smiled." },
+        { q: "What speaks after the mouth is sealed, in the hadith?", a: "His hands and feet", wrong: ["His friends", "His house", "His clothes"], why: "It would be said to his hands and feet to speak and they would speak of his deeds." }
+      ]
+    },
+    {
+      slug: "the-manifest-truth",
+      title: "The Manifest Truth",
+      line: "Allah repays all deeds in full; He is the Manifest Truth.",
+      facts: ["Allah's judgment is fair", "No deed is lost"],
+      quote: q24(25),
+      source: ik(25, "Ibn Abbas said Dinahum means their account. Allah's promise, threat and reckoning are all just, with no unfairness.", "His promise, His threat and His reckoning are all just and there is no unfairness in them"),
+      difficulty: 4,
+      questions: [
+        { q: "What does Dinahum mean, per Ibn Abbas?", a: "Their account", wrong: ["Their religion", "Their money", "Their homes"], why: "Meaning their account. Every time Dinahum appears in the Qur'an it means their account." },
+        { q: "Who is the Manifest Truth, in 24:25?", a: "Allah", wrong: ["The angels", "The people", "The Book"], why: "And they will know that Allah, He is the Manifest Truth." },
+        { tf: false, q: "Ibn Kathir says Allah's reckoning has some unfairness.", why: "His promise, His threat and His reckoning are all just and there is no unfairness in them." }
       ]
     },
     {
