@@ -707,7 +707,6 @@
   "What the source says": "ماخذ کیا کہتا ہے",
   "Good to know": "جاننا اچھا ہے",
   "Quiz time!": "کوئز کا وقت!",
-  "{count} questions on this circle. Get them right to move on.": "اس دائرے پر {count} سوال۔ آگے بڑھنے کے لیے صحیح جواب دیں۔",
   "Get them right to move on.": "آگے بڑھنے کے لیے صحیح جواب دیں۔",
   "I know this part": "یہ حصہ مجھے آتا ہے",
   "Start lessons": "اسباق شروع کریں",
@@ -724,5 +723,18 @@
   "Let me explain what it means.": "آئیں، اس کا مطلب سمجھتے ہیں۔",
   "Let me tell you the story.": "آئیں، قصہ سنتے ہیں۔",
   "Take this home with you.": "یہ بات یاد رکھیں۔",
-  "A drawing": "ایک خاکہ"
+  "A drawing": "ایک خاکہ",
+  "On the page, look for": "صفحے پر یہ تلاش کریں",
+  "In English:": "انگریزی میں:",
+  "All matched!": "سب مل گئے!",
+  "All matched! {count} tries to get there.": "سب مل گئے! {count} کوششوں میں۔",
+  "Build the answer": "جواب بنائیں",
+  "Drag the right word into the gap!": "صحیح لفظ کو کھینچ کر خالی جگہ میں رکھیں!",
+  "Fill in the gap": "خالی جگہ پُر کریں",
+  "Get {count} of {total} right to pass this unit.": "یہ یونٹ پاس کرنے کے لیے {total} میں سے {count} صحیح کریں۔",
+  "Get {count} of {total} to pass the unit test.": "یونٹ ٹیسٹ پاس کرنے کے لیے {total} میں سے {count} صحیح کریں۔",
+  "Is it “{answer}”?": "کیا جواب “{answer}” ہے؟",
+  "Tap a question, then its answer!": "ایک سوال پر ٹیپ کریں، پھر اس کے جواب پر!",
+  "Test time!": "ٹیسٹ کا وقت!",
+  "{count} questions from your last lessons, in new ways.": "آپ کے پچھلے اسباق سے {count} سوال، نئے انداز میں۔"
 }

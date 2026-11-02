@@ -7,6 +7,7 @@ import { Icon, type IconName } from "./Icon";
 import { smoothKeys } from "./motion";
 import { Floater, Sparkle, shake, useCycle, useOneShot } from "./reactions";
 import { IDLE_PERIOD, IdleBits, SLEEPERS, idleKindFor, idleMoves, useIdleClock } from "./idleLife";
+import { ROAMERS, Roamer, type RoamKind } from "./roamer";
 import { useScene } from "./sceneMood";
 import { ShowScenery, WellBucket, hasShows } from "./sceneryShows";
 import { feedback, playUi } from "./sound";
@@ -40,7 +41,8 @@ export type SceneryKind =
   | "bush"
   | WorldKind;
 
-const ICON_KINDS: Partial<Record<SceneryKind, IconName>> = { mosque: "mosque", kaaba: "kaaba", coins: "coins" };
+// The Kaaba is drawn as a mini Makkah (Drawing below) and has its own tap shows.
+const ICON_KINDS: Partial<Record<SceneryKind, IconName>> = { mosque: "mosque", coins: "coins" };
 
 /** Plants sway in the wind; everything else stands still. */
 const SWAYS: ReadonlySet<SceneryKind> = new Set<SceneryKind>(["palm", "flowers", "bush", "pine", "banner"]);
@@ -53,21 +55,21 @@ const THEMES: Record<string, SceneryKind[]> = {
   women_of_the_book: ["palm", "flowers", "well", "dates", "tent", "oasis", "bush", "sheep"],
   hadith: ["inkpot", "bookStand", "palm", "flowers", "well", "bush", "dates", "rocks"],
   scholars: ["inkpot", "bookStand", "palm", "well", "flowers", "bush", "rocks", "dates"],
-  prayer: ["mosque", "palm", "flowers", "oasis", "dunes", "bush", "well", "rocks"],
+  prayer: ["mosque", "palm", "flowers", "oasis", "kaaba", "bush", "well", "rocks"],
   manners: ["flowers", "well", "sheep", "palm", "tent", "bush", "dates", "oasis"],
   fasting: ["dates", "palm", "well", "dunes", "tent", "oasis", "rocks", "bush"],
   ramadan: ["dates", "mosque", "palm", "well", "oasis", "tent", "dunes", "bush"],
   eid: ["sheep", "mosque", "palm", "flowers", "tent", "dates", "oasis", "bush"],
   akhirah: ["mountain", "rocks", "dunes", "oasis", "palm", "flowers", "well", "bush"],
-  intro: ["palm", "flowers", "well", "mosque", "oasis", "dunes", "bush", "sheep"],
+  intro: ["palm", "flowers", "well", "mosque", "oasis", "kaaba", "bush", "sheep"],
   zakat: ["coins", "well", "dates", "palm", "flowers", "sheep", "bush", "rocks"],
   hajj: ["kaaba", "mountain", "tent", "palm", "well", "rocks", "dunes", "sheep"],
   marriage: ["flowers", "tent", "palm", "well", "dates", "bush", "oasis", "sheep"],
-  aqidah: ["mountain", "palm", "oasis", "flowers", "dunes", "rocks", "bush", "well"],
-  foundation: ["palm", "well", "dunes", "sheep", "mountain", "flowers", "oasis", "dates"]
+  aqidah: ["mountain", "palm", "oasis", "flowers", "kaaba", "rocks", "bush", "well"],
+  foundation: ["palm", "well", "kaaba", "sheep", "mountain", "flowers", "oasis", "dates"]
 };
 
-const DEFAULT_THEME: SceneryKind[] = ["palm", "well", "dunes", "sheep", "flowers", "mountain", "oasis", "bush"];
+const DEFAULT_THEME: SceneryKind[] = ["palm", "well", "kaaba", "sheep", "flowers", "mountain", "oasis", "bush"];
 
 /** A topic's own picture (the book stand for Quran...), kept as the first picture in every place. */
 const SIGNATURES: ReadonlySet<SceneryKind> = new Set<SceneryKind>(["bookStand", "inkpot", "mosque", "kaaba", "coins"]);
@@ -289,6 +291,29 @@ function Drawing({ kind }: { kind: SceneryKind }) {
           <Circle cx={38} cy={34} r={2} fill="#FFC21A" />
           <Circle cx={44} cy={46} r={2} fill="#FF7FA6" />
           <Ellipse cx={32} cy={58} rx={22} ry={3} fill={LEAF_DEEP} opacity={0.3} />
+        </G>
+      );
+    case "kaaba":
+      // A mini Makkah: the Kaaba in the middle of the white courtyard of the Haram, two minarets, the hills behind.
+      return (
+        <G>
+          <Path d="M0 40L12 22L22 34L34 18L46 32L54 24L64 38V44H0Z" fill="#C9A77A" />
+          <Path d="M12 22L16 28L13 27L10 30ZM34 18L39 25L35 24L31 27Z" fill="#E2C9A2" />
+          <Rect x={6} y={18} width={4} height={34} rx={1} fill="#F4F1EA" />
+          <Path d="M5.4 18L8 11L10.6 18Z" fill="#D8C27A" />
+          <Rect x={5.5} y={28} width={5} height={2} fill="#D8D2C4" />
+          <Rect x={54} y={18} width={4} height={34} rx={1} fill="#F4F1EA" />
+          <Path d="M53.4 18L56 11L58.6 18Z" fill="#D8C27A" />
+          <Rect x={53.5} y={28} width={5} height={2} fill="#D8D2C4" />
+          <Ellipse cx={32} cy={50} rx={30} ry={10} fill="#F4F1EA" />
+          <Ellipse cx={32} cy={50} rx={24} ry={7.4} fill="#FFFFFF" />
+          <Path d="M4 47Q32 36 60 47" stroke="#D8D2C4" strokeWidth={1.4} fill="none" />
+          <Path d="M24 33L32 30L40 33V50L32 53L24 50Z" fill="#2B2D33" />
+          <Path d="M32 30L40 33L32 36L24 33Z" fill="#44474F" />
+          <Path d="M32 36V53L40 50V33Z" fill="#1C1D22" />
+          <Path d="M24 37.4L32 40.4L40 37.4V39.4L32 42.4L24 39.4Z" fill="#D8B24A" />
+          <Rect x={27} y={44} width={3} height={6} rx={0.6} fill="#D8B24A" />
+          <Ellipse cx={32} cy={59.5} rx={26} ry={2.2} fill={INK} opacity={0.08} />
         </G>
       );
     default:
@@ -574,6 +599,11 @@ export type PathSceneryProps = {
   /** Picks the flower kind and colors (and other per-spot looks). Pass something unique per spot. */
   seed?: number;
   style?: StyleProp<ViewStyle>;
+  /**
+   * The row it stands in: the animals (sheep, goat, horse, rabbit, turtle, crab) then wander the whole row
+   * by themselves like the camel (see roamer.tsx). `left` is where the picture's box stands, px.
+   */
+  roam?: { width: number; left: number };
 };
 
 /**
@@ -588,15 +618,26 @@ export const PathScenery = memo(function PathScenery(props: PathSceneryProps) {
   const resting = asleep && !STILL_ASLEEP.has(kind);
   const idle = asleep ? (SLEEPERS.has(kind) ? "sleep" : "breathe") : idleKindFor(kind);
   const live = animated && !reduceMotion && (!asleep || resting);
-  const t = useIdleClock(live, (asleep ? IDLE_PERIOD.sleep : IDLE_PERIOD[idle]) + (seed % 5) * 260, seed);
-  return (
+  // Animals given a row wander it (roamer.tsx) instead of their little idle moves; asleep they snore where they stopped.
+  const roams = Boolean(props.roam) && ROAMERS.has(kind);
+  const idleLive = live && (!roams || asleep);
+  const t = useIdleClock(idleLive, (asleep ? IDLE_PERIOD.sleep : IDLE_PERIOD[idle]) + (seed % 5) * 260, seed);
+  const picture = (
     <Animated.View
       pointerEvents="box-none"
-      style={[{ width: size, height: size, transformOrigin: "bottom", transform: live ? (idleMoves(idle, t, size) as never[]) : [] }, style]}
+      style={[{ width: size, height: size, transformOrigin: "bottom", transform: idleLive ? (idleMoves(idle, t, size) as never[]) : [] }, roams ? null : style]}
     >
       <SceneryBody {...props} style={undefined} />
-      {live ? <IdleBits kind={idle} t={t} size={size} /> : null}
+      {idleLive ? <IdleBits kind={idle} t={t} size={size} /> : null}
     </Animated.View>
+  );
+  if (!roams || !props.roam) return picture;
+  return (
+    <View pointerEvents="box-none" style={style}>
+      <Roamer kind={kind as RoamKind} size={size} width={props.roam.width} left={props.roam.left} active={animated && !reduceMotion && !asleep} seed={seed}>
+        {picture}
+      </Roamer>
+    </View>
   );
 });
 

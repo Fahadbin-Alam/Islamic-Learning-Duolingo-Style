@@ -1,9 +1,11 @@
 import type { Challenge, Lesson } from "../../types";
 import { getLessonLine } from "./lessonSteps";
 import { isCredit } from "./lessonNotes";
+import { matchPicks, questionVariety } from "./questionFormats";
 
-// A lesson in small pages, Duolingo style: learn a little, answer a question, learn a little more, answer again,
-// and a short quiz on the whole circle at the end. Each learn page holds one part of the old learn card:
+// A lesson in small pages, Duolingo style: learn a little, answer a question, learn a little more, answer again.
+// The circle does not ask its own questions a second time: the quiz circles every few lessons and the unit's test
+// at its end ask them again, in other formats (see questionFormats). Each learn page holds one part of the old learn card:
 //
 //   start     the title, the Arabic word, the mascot's line, the photo and the ayah or hadith
 //   facts     "What you learn": the lesson's points and what the source says, with its link
@@ -11,23 +13,30 @@ import { isCredit } from "./lessonNotes";
 //   story     "The story"
 //   takeaway  "Take home" and the tafsir books it comes from
 //   teach     "Good to know": the one fact a question asks when no page above teaches it
-//   quiz      "Quiz time!" before the circle's quiz
+//   quiz      "Quiz time!" / "Test time!" at the start of a quiz circle or a unit's test
 //
 // Every question comes after the page that teaches its answer, so a learner can always answer from what they
 // just read. The pages and the questions keep their own order.
 
 export type LearnPageKind = "start" | "facts" | "meaning" | "story" | "takeaway" | "teach" | "quiz";
 
-/** One question to ask: its index in lesson.challenges, which try it is, and whether it is the end-of-circle quiz. */
+/** One question to ask: its index in lesson.challenges, which try it is, and whether it is asked from memory (a review of an earlier circle, after the pages). */
 export type QuestionStep = { kind?: "question"; index: number; attempt: number; quiz?: boolean };
 /** A learn page; a "teach" page names the question whose answer it teaches. */
 export type LearnStep = { kind: "learn"; page: LearnPageKind; index?: number };
 /** The ordering game (wudu steps, salah steps). */
 export type PracticeStep = { kind: "practice" };
-export type FlowStep = QuestionStep | LearnStep | PracticeStep;
+/** A matching round: tap each question to its answer (questions by their index in lesson.challenges). */
+export type MatchStep = { kind: "match"; indices: number[] };
+export type FlowStep = QuestionStep | LearnStep | PracticeStep | MatchStep;
 
 export function isQuestionStep(step: FlowStep | undefined): step is QuestionStep {
-  return Boolean(step) && (step as { kind?: string }).kind !== "learn" && (step as { kind?: string }).kind !== "practice";
+  const kind = (step as { kind?: string } | undefined)?.kind;
+  return Boolean(step) && kind !== "learn" && kind !== "practice" && kind !== "match";
+}
+
+export function isMatchStep(step: FlowStep | undefined): step is MatchStep {
+  return (step as { kind?: string } | undefined)?.kind === "match";
 }
 
 export function isLearnStep(step: FlowStep | undefined): step is LearnStep {
@@ -156,10 +165,11 @@ export function answeredBy(challenge: Challenge, known: Set<string>) {
 /**
  * The steps of a lesson. Each question comes right after the learn page that teaches its answer; when no page
  * does, a "Good to know" page teaches it first. While pages are left, a page sits between two questions. The
- * last page is followed by the ordering game (when the lesson has one), then "Quiz time!" and the quiz: every
- * question of this circle once more, then the review questions from earlier circles.
+ * last page is followed by the ordering game (when the lesson has one), then the review questions from earlier
+ * circles. A quiz circle (review) is "Quiz time!", a matching round and its questions; a unit's test (`test`) is
+ * "Test time!" and its questions, each once.
  */
-export function buildLessonFlow(lesson: Lesson, options: { practice?: boolean } = {}): FlowStep[] {
+export function buildLessonFlow(lesson: Lesson, options: { practice?: boolean; test?: boolean } = {}): FlowStep[] {
   const pages = lessonPages(lesson);
   const steps: FlowStep[] = [{ kind: "learn", page: pages[0].page }];
   const known = new Set(contentWords(pages[0].text));
@@ -176,7 +186,12 @@ export function buildLessonFlow(lesson: Lesson, options: { practice?: boolean } 
   if (isRecallLesson(lesson)) {
     if (options.practice) steps.push({ kind: "practice" });
     if (lesson.challenges.length > 1) steps.push({ kind: "learn", page: "quiz" });
-    lesson.challenges.forEach((_, index) => steps.push({ index, attempt: 0 }));
+    // A quiz circle opens with a matching round (a test is scored, so it asks each question on its own).
+    const matched = options.test || !questionVariety() ? [] : matchPicks(lesson.challenges);
+    if (matched.length) steps.push({ kind: "match", indices: matched });
+    lesson.challenges.forEach((_, index) => {
+      if (!matched.includes(index)) steps.push({ index, attempt: 0 });
+    });
     return steps;
   }
 
@@ -214,12 +229,8 @@ export function buildLessonFlow(lesson: Lesson, options: { practice?: boolean } 
   while (shown < pages.length) show();
   if (options.practice) steps.push({ kind: "practice" });
 
-  // The circle's quiz: its own questions again (so it checks the whole lesson at once), then the reviews.
-  const quiz = [...(own.length >= 2 ? own : []), ...reviews];
-  if (quiz.length) {
-    steps.push({ kind: "learn", page: "quiz" });
-    quiz.forEach(({ index }) => steps.push({ index, attempt: 0, quiz: true }));
-  }
+  // No second round of the questions just asked: only the few from earlier circles, to keep them fresh.
+  reviews.forEach(({ index }) => steps.push({ index, attempt: 0, quiz: true }));
   return steps;
 }
 

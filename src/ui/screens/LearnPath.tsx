@@ -26,6 +26,7 @@ import { Icon, type IconName } from "../Icon";
 import { Camel, useReduceMotion } from "../Camel";
 import { Mascot } from "../Mascot";
 import { GroundTuft, PathScenery, sceneryFor, type SceneryKind } from "../PathScenery";
+import { ROAMERS } from "../roamer";
 import { PathWeather, weatherFor } from "../PathWeather";
 import { WorldTuft, worldFor } from "../pathWorlds";
 import { usePathWorldChoice } from "../../services/pathWorldChoice";
@@ -1425,8 +1426,16 @@ export function LearnPath({
                       >
                         {pictures && unitLive ? (
                           <View style={[styles.decor, { left: decorCenter - DECOR_SIZE / 2, top: top + 6 }]} pointerEvents="box-none">
-                            <View style={styles.decorShadow} pointerEvents="none" />
-                            <PathScenery kind={pictures.kind} size={DECOR_SIZE} animated={unitLive} tappable seed={group.unitIndex * 7 + index} />
+                            {/* Animals wander the whole row (their drawings carry their own shadow); the rest stand on a soft shadow. */}
+                            {ROAMERS.has(pictures.kind) ? null : <View style={styles.decorShadow} pointerEvents="none" />}
+                            <PathScenery
+                              kind={pictures.kind}
+                              size={DECOR_SIZE}
+                              animated={unitLive}
+                              tappable
+                              seed={group.unitIndex * 7 + index}
+                              roam={{ width, left: decorCenter - DECOR_SIZE / 2 }}
+                            />
                           </View>
                         ) : null}
                         {unitLive && !pictures && index !== group.camelIndex && index !== group.mascotIndex && index % 2 === 1 ? (

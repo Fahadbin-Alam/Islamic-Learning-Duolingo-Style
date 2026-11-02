@@ -155,7 +155,7 @@ describe("TopicApp lesson flow", () => {
     clearActiveAssessment();
   });
 
-  it("teaches a page, asks, teaches, asks, then quizzes the circle; a quiz miss comes back at the end", async () => {
+  it("teaches a page, asks, teaches, asks, with no repeat quiz; a miss comes back at the end", async () => {
     const user = makeUser({ hearts: { current: 5, max: 5, unlimited: true, lastRefillDate: "2026-10-19" } });
     seedUser(user);
     const node = learningApi.getPathNodes(user).find((item) => item.topicId === "foundation" && item.status === "current")!;
@@ -190,18 +190,9 @@ describe("TopicApp lesson flow", () => {
       await answer(challenge, true);
     }
 
-    // Quiz time: every question of the circle once more, in order.
-    expect(screen.getByTestId("learn-quiz")).toBeTruthy();
-    await press("learn-continue");
-    expect(shownChallenge(challenges)!.id).toBe(first.id);
-    expect(screen.queryByText("Try again!")).toBeNull();
-    await answer(first, false);
-    for (const challenge of challenges.slice(1)) {
-      expect(shownChallenge(challenges)!.id).toBe(challenge.id);
-      await answer(challenge, true);
-    }
-
-    // The quiz's miss comes back at the end as a new try.
+    // No quiz of the questions just asked: the miss comes back at the end as a new try, then the lesson is done.
+    expect(screen.queryByTestId("learn-quiz")).toBeNull();
+    await toQuestion();
     expect(shownChallenge(challenges)!.id).toBe(first.id);
     expect(screen.getByText("Try again!")).toBeTruthy();
     await answer(first, true);

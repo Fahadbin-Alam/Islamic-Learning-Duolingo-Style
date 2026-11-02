@@ -1,6 +1,7 @@
 import type { LessonSource, SupportedLanguage, TopicId } from "../types";
 import { ABU_HANIFAH_PAGE, AHMAD_PAGE, IBN_TAYMIYYAH_PAGE, SHAFII_PAGE } from "./scholarUnits";
 import { DHAHABI_PAGE } from "./scholarTreeUnits";
+import { shamelaUrl } from "./shamelaPages";
 
 // Chains of knowledge for the Scholars family tree: who learned from whom, back to the Prophet ﷺ through the
 // Sahabah and the Tabi'in. Every link has a source:
@@ -52,7 +53,7 @@ function siyar(volume: number, page: number, summary: string): LessonSource {
     site: "Shamela",
     category: "biography",
     title: `Siyar A'lam an-Nubala ${volume}/${page}`,
-    url: "https://shamela.ws/book/10906",
+    url: shamelaUrl(10906, volume, page),
     reference: `Siyar A'lam an-Nubala ${volume}/${page}`,
     from: "Siyar A'lam an-Nubala by adh-Dhahabi (Arabic, on Shamela)",
     grade: "Biography",

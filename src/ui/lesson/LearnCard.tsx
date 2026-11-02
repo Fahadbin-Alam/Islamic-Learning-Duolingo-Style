@@ -18,6 +18,7 @@ import { sourceUrl } from "../../services/sourceLink";
 import { getActiveLanguage, t } from "../../i18n";
 import type { LessonPicture } from "../../data/lessonPictures";
 import { LessonPhoto } from "./LessonPhoto";
+import { LookFor, lookForWords } from "./LookFor";
 import { SurahCover, SurahParts } from "./SurahCover";
 import { splitLessonFacts } from "./lessonNotes";
 import { highlightPieces, type LearnPageKind, type TeachLesson } from "./lessonPages";
@@ -48,7 +49,7 @@ export type LearnCardProps = {
    * The one source that says what the card says (lesson.learnSource). Its chip shows only the short
    * reference ("Quran 2:43", "Sahih al-Bukhari 6018") on one line, never a page title: no reference, no chip.
    */
-  learnSource?: { reference?: string; url: string; highlight?: string; category?: string };
+  learnSource?: { reference?: string; url: string; highlight?: string; category?: string; summary?: string };
   /** Older call sites: a chip with this label. Ignored when learnSource is given; pass learnSource instead. */
   source?: { label: string; url: string };
   /** Defaults to opening the url with Linking. */
@@ -88,6 +89,8 @@ export type LearnCardProps = {
   teach?: TeachLesson;
   /** How many questions the "quiz" page announces. */
   quizCount?: number;
+  /** A unit's test: the "quiz" page says "Test time!" and the pass mark. */
+  testPass?: number;
   /** The source's link and credits show on this page (the "facts" page, or the first page without one). */
   sourceHere?: boolean;
   onContinue: () => void;
@@ -178,6 +181,7 @@ export function LearnCard({
   marks = [],
   teach,
   quizCount,
+  testPass,
   sourceHere,
   onContinue,
   bottomInset,
@@ -203,6 +207,8 @@ export function LearnCard({
       ? { label: learnReference, url: sourceUrl(learnSource) }
       : undefined
     : legacySource;
+  // The line the source's link opens on, shown under its chip so the reader knows what to look for.
+  const lookFor = source && learnSource ? lookForWords(learnSource) : undefined;
   const factList = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
   const englishList = englishFacts?.map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
   const notes = splitLessonFacts(factList, {
@@ -241,7 +247,7 @@ export function LearnCard({
             </Text>
           ) : null}
           {page === "teach" && teach ? <TeachPage teach={teach} marks={marks} palette={palette} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
-          {page === "quiz" ? <QuizPage count={quizCount} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
+          {page === "quiz" ? <QuizPage count={quizCount} testPass={testPass} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
           {/* A surah's own lesson opens on a picture of what its name means. */}
           {surah && at("start") ? <SurahCover surah={surah.number} meaning={surah.meaning ?? arabic?.meaning} arabicName={arabic?.ar} short={short} /> : null}
           {/* NEW marks a new word, so it only shows with one the learner has not met yet. */}
@@ -448,6 +454,7 @@ export function LearnCard({
                       {withHonorifics(quoteReference)}
                     </Text>
                   ) : null}
+                  {lookFor && linkedReference ? <LookFor words={lookFor} summary={learnSource?.summary} /> : null}
                   {credits && linkedReference ? (
                     <Text style={styles.quoteCredits} testID="learn-credits">
                       {withHonorifics(noBreakHyphens(credits))}
@@ -486,6 +493,7 @@ export function LearnCard({
                   </View>
                 </Tappable>
               ) : null}
+              {source && !linkedReference && lookFor ? <LookFor words={lookFor} summary={learnSource?.summary} /> : null}
               {credits ? (
                 <Text style={styles.sourceCredits} testID="learn-credits">
                   {withHonorifics(noBreakHyphens(credits))}
@@ -716,12 +724,14 @@ function TeachPage({
 /** Quiz time: the circle's quiz is next. */
 function QuizPage({
   count,
+  testPass,
   mascotVariant,
   teacher,
   accent,
   short
 }: {
   count?: number;
+  testPass?: number;
   mascotVariant: string;
   teacher?: TeacherLook;
   accent: string;
@@ -731,9 +741,13 @@ function QuizPage({
     <View style={[styles.talkColumn, short ? styles.talkColumnShort : null]} testID="learn-quiz">
       <SlideIn delay={soon(150)} style={styles.bubbleTop}>
         <SpeechBubble tail="down" tailAlign="center">
-          <Text style={styles.bigLine}>{t("Quiz time!")}</Text>
+          <Text style={styles.bigLine}>{testPass ? t("Test time!") : t("Quiz time!")}</Text>
           <Text style={styles.quizSub}>
-            {count && count > 1 ? t("{count} questions on this circle. Get them right to move on.", { count }) : t("Get them right to move on.")}
+            {testPass && count
+              ? t("Get {count} of {total} right to pass this unit.", { count: testPass, total: count })
+              : count && count > 1
+                ? t("{count} questions from your last lessons, in new ways.", { count })
+                : t("Get them right to move on.")}
           </Text>
         </SpeechBubble>
       </SlideIn>

@@ -29,12 +29,24 @@ describe("sources open at the exact words", () => {
   });
 
   it("uses plain words only, so the link finds them on the page", () => {
-    for (const words of Object.values(HIGHLIGHTS)) {
+    for (const [key, words] of Object.entries(HIGHLIGHTS)) {
       expect([words, /['"`’“”()]/.test(words)]).toEqual([words, false]);
-      expect(words.split(/\s+/).length).toBeGreaterThanOrEqual(7);
+      // A line from an old Arabic book can be a short one, such as a name with its lineage.
+      expect(words.split(/\s+/).length).toBeGreaterThanOrEqual(key.startsWith("https://shamela.ws/") ? 3 : 7);
       expect(words.split(/\s+/).length).toBeLessThanOrEqual(40);
     }
     const bukhari = all.find((source) => source.url === "https://sunnah.com/bukhari:998" && source.highlight);
     expect(bukhari && sourceUrl(bukhari)).toMatch(/#:~:text=\w+/);
+  });
+
+  it("opens every Shamela book source on its own page, at its line", () => {
+    const shamela = all.filter((source) => source.url.includes("shamela.ws/"));
+    expect(shamela.length).toBeGreaterThan(150);
+    for (const source of shamela) {
+      expect([source.id, source.url]).toEqual([source.id, expect.stringMatching(/^https:\/\/shamela\.ws\/book\/\d+\/\d+$/)]);
+      expect([source.id, Boolean(source.highlight)]).toEqual([source.id, true]);
+    }
+    const shaybani = shamela.find((source) => source.id === "deep_siyar_9_134");
+    expect(shaybani && sourceUrl(shaybani)).toMatch(/^https:\/\/shamela\.ws\/book\/10906\/5800#:~:text=/);
   });
 });

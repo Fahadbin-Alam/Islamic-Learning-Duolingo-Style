@@ -171,7 +171,9 @@ import {
 import { playGameSound, primeGameAudio } from "./services/gameAudio";
 import { markLeagueResultSeen, settleLeague, unseenLeagueResult } from "./services/leagues";
 import { answerLessonStep, isLastLessonStep, startLessonQueue, type FlowStep } from "./services/lessonQueue";
-import { buildLessonFlow, flowProgress, isLearnStep, isQuestionStep, teachLesson, highlightWords, lessonSummary } from "./ui/lesson/lessonPages";
+import { buildLessonFlow, flowProgress, isLearnStep, isMatchStep, isQuestionStep, isRecallLesson, teachLesson, highlightWords, lessonSummary } from "./ui/lesson/lessonPages";
+import { checkAnswerId, checkCandidate, puzzleExtras, questionFormat } from "./ui/lesson/questionFormats";
+import { BuildGame, CheckGame, GapGame, MatchGame } from "./ui/lesson/WordGames";
 import * as Speech from "expo-speech";
 import { findArabicVoice, recitationForArabic } from "./services/arabicVoice";
 import { colors, configureUiSound, darken, preloadUiSounds, fonts, Icon, lighten, Mascot, PopIn, radii, space, Tappable } from "./ui";
@@ -268,6 +270,7 @@ type Screen =
   | "branch"
   | "lesson_teach"
   | "lesson_practice"
+  | "lesson_match"
   | "lesson_question"
   | "lesson_feedback"
   | "lesson_complete"
@@ -315,6 +318,8 @@ type TestOutResult = {
   attempt: number;
   /** The JUMP HERE circle the test was for, so TRY AGAIN tests for the same one. */
   jumpNodeId?: string;
+  /** A unit's test played from its circle: TRY AGAIN plays that circle again. */
+  unitTestNodeId?: string;
 };
 
 // A finished quiz's result screen (QuizComplete).
@@ -498,12 +503,15 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, screen: state.returnScreen ?? "home", returnScreen: undefined };
     case "start_lesson": {
       // The path's node card already shows what the lesson is, so go straight to learning: learn a page, answer,
-      // learn, answer, then the circle's quiz. A test-out has nothing new to teach, so it is only the questions.
+      // learn, answer. A quiz circle opens with "Quiz time!" and a matching round; a unit's test with "Test time!". A test-out has nothing new to teach, so it is only the questions.
       // So are practice of lessons already done and a quiz.
       const questionsOnly = action.session.mode === "test_out" || action.session.mode === "lesson_practice" || action.session.mode === "quiz";
       const queue: FlowStep[] = questionsOnly
         ? startLessonQueue(action.session.lesson.challenges.length)
-        : buildLessonFlow(action.session.lesson, { practice: Boolean(action.session.lesson.practiceActivities?.some(isPlayablePractice)) });
+        : buildLessonFlow(action.session.lesson, {
+            practice: Boolean(action.session.lesson.practiceActivities?.some(isPlayablePractice)),
+            test: Boolean(action.session.unitTest)
+          });
       return {
         ...state,
         ...NO_LESSON,
@@ -603,6 +611,7 @@ function reducer(state: AppState, action: Action): AppState {
 function screenForStep(step: FlowStep | undefined): Screen {
   if (isLearnStep(step)) return "lesson_teach";
   if (step && "kind" in step && step.kind === "practice") return "lesson_practice";
+  if (isMatchStep(step)) return "lesson_match";
   return "lesson_question";
 }
 
@@ -1878,7 +1887,7 @@ export default function TopicApp() {
     }
 
     // A test-out that can no longer be passed ends now, not after the questions it has left.
-    const testLost = state.activeSession.mode === "test_out" && isTestLost(state.activeSession, state.sessionMistakes);
+    const testLost = (state.activeSession.mode === "test_out" || Boolean(state.activeSession.unitTest)) && isTestLost(state.activeSession, state.sessionMistakes);
 
     // The queue already holds a miss that this answer sent to the end: the lesson ends only once all are right.
     if (!testLost && !isLastLessonStep(state.lessonQueue, state.stepIndex)) {
@@ -2001,6 +2010,28 @@ export default function TopicApp() {
       dispatch({ type: "finish_lesson", user: nextUser, xpSummary });
       maybeShowLessonBreakAd(nextUser);
       return;
+    }
+
+    // A unit's test not passed: the circle stays open, and the sheet offers TRY AGAIN.
+    if (state.activeSession.unitTest) {
+      const totalChallenges = state.activeSession.lesson.challenges.length;
+      const passingScore = state.activeSession.passingScore ?? testOutPassingScore(totalChallenges);
+      if (testLost || state.sessionCorrectCount < passingScore) {
+        const nodeId = state.activeSession.lesson.nodeId;
+        void Speech.stop();
+        dispatch({ type: "reset_lesson" });
+        setTestOutResult({
+          open: true,
+          correct: state.sessionCorrectCount,
+          asked: state.sessionCorrectCount + state.sessionMistakes,
+          total: totalChallenges,
+          passingScore,
+          unitId: state.activeSession.lesson.branchId ?? selectedBranch.id,
+          attempt: 0,
+          unitTestNodeId: nodeId
+        });
+        return;
+      }
     }
 
     const beforeNodes = learningApi.getPathNodes(user);
@@ -3123,6 +3154,11 @@ export default function TopicApp() {
     setTestOutResult((current) => current && { ...current, open: false });
     dispatch({ type: "reset_lesson" });
 
+    if (again && result?.unitTestNodeId && state.user) {
+      const node = learningApi.getPathNodes(state.user).find((item) => item.id === result.unitTestNodeId);
+      if (node) void startLesson(node);
+      return;
+    }
     if (again && result) {
       void startBranchTestOut(result.unitId, state.user, result.attempt + 1, result.jumpNodeId);
     }
@@ -3209,6 +3245,22 @@ export default function TopicApp() {
   const teachChallenge = learnStep?.page === "teach" && learnStep.index !== undefined ? lesson?.challenges[learnStep.index] : undefined;
   const teachShown = teachChallenge ? teachLesson(teachChallenge) : undefined;
   const quizQuestionCount = state.lessonQueue.filter((step) => isQuestionStep(step) && step.quiz && step.attempt === 0).length;
+  // How this question is asked: tiles, a gap to fill, a word puzzle or true-or-false (questionFormats). Asked again
+  // (a review, a quiz circle, a test or practice) it leans to another format than when it was taught.
+  const questionRecall = Boolean(
+    challenge && (challenge.isReview || (lesson && isRecallLesson(lesson)) || (lessonSession?.mode && lessonSession.mode !== "standard"))
+  );
+  const questionFormatNow = challenge ? questionFormat(challenge, { recall: questionRecall, language: currentLanguage }) : "choose";
+  const checkShown = challenge && questionFormatNow === "check" ? checkCandidate(challenge) : undefined;
+  // The match round's pairs: each question and its answer.
+  const matchStep = isMatchStep(queuedStep) ? queuedStep : undefined;
+  const matchPairs = matchStep && lesson
+    ? matchStep.indices.flatMap((index) => {
+        const item = lesson.challenges[index];
+        const right = item?.choices.find((choice) => choice.id === item.correctChoiceId)?.label;
+        return item && right ? [{ index, left: item.prompt, right }] : [];
+      })
+    : [];
   const lessonHasFactsPage = state.lessonQueue.some((step) => isLearnStep(step) && step.page === "facts");
   // Every step the lesson started with counts the same: pages read and questions done.
   const lessonProgress = state.screen === "lesson_complete" ? 1 : flowProgress(state.doneCount, state.lessonTotal);
@@ -3226,6 +3278,28 @@ export default function TopicApp() {
     (!isOutOfHearts(state.user) || isHeartFree(lessonSession));
   // GOT IT with no hearts left opens the out-of-hearts sheet, which plays its own sound as it opens.
   const continueOpensRefill = state.screen === "lesson_feedback" && isOutOfHearts(state.user) && !isHeartFree(lessonSession);
+  // What every question game shares: the answer sheet's result, the cues and the buttons.
+  const questionShared = {
+    selectedChoiceId: state.selectedChoiceId,
+    result:
+      state.screen === "lesson_feedback" && challenge
+        ? {
+            correct: state.answerState === "correct",
+            correctLabel,
+            why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
+            source: lesson ? feedbackSource(challenge, lesson) : undefined
+          }
+        : undefined,
+    attempt: lessonStep?.attempt ?? 0,
+    review: challenge?.isReview,
+    mascotVariant: lessonMascot,
+    accent: lessonAccent,
+    praiseSeed: challenge?.id,
+    playSound: false,
+    continueSound: continueEndsLesson || continueOpensRefill ? (false as const) : undefined,
+    onCheck: answerChallenge,
+    onContinue: continueFromFeedback
+  };
   const quitSheet = (
     <QuitSheet
       visible={quitLessonVisible}
@@ -3353,7 +3427,8 @@ export default function TopicApp() {
             summary={learnStep?.page === "facts" ? lessonSummaryShown : undefined}
             marks={lessonMarks}
             teach={teachShown}
-            quizCount={learnStep?.page === "quiz" ? quizQuestionCount : undefined}
+            quizCount={learnStep?.page === "quiz" ? quizQuestionCount || lesson.challenges.length : undefined}
+            testPass={learnStep?.page === "quiz" && lessonSession?.unitTest ? testPassingScore : undefined}
             sourceHere={learnStep?.page === "facts" || (learnStep?.page === "start" && !lessonHasFactsPage)}
             title={lesson.title}
             line={localizedLessonLine(englishLesson ?? lesson, currentLanguage)}
@@ -3382,6 +3457,9 @@ export default function TopicApp() {
             onContinue={continueFromTeach}
           />
         )}
+        {state.screen === "lesson_match" && matchPairs.length > 0 && lessonShell(
+          <MatchGame key={`${lesson?.id}-match-${state.stepIndex}`} pairs={matchPairs} mascotVariant={lessonMascot} accent={lessonAccent} onDone={continueFromTeach} />
+        )}
         {state.screen === "lesson_practice" && currentPracticeActivity && lessonShell(
           <OrderGame
             key={currentPracticeActivity.id}
@@ -3399,35 +3477,73 @@ export default function TopicApp() {
             {inTest ? (
               <TestStrip passingScore={testPassingScore} total={lesson?.challenges.length ?? 0} accent={lessonAccent} quiz={lessonSession?.mode === "quiz"} />
             ) : null}
-            <ExerciseView
-              // A missed question asked again at the end is a new try: a fresh view with its tiles in another order.
-              key={`${challenge.id}-${lessonStep.quiz ? "quiz" : "learn"}-${lessonStep.attempt}`}
-              kind={challenge.type}
-              prompt={challenge.prompt}
-              // The circle's quiz asks a question met a minute ago: its tiles come in another order.
-              choices={lessonStep.quiz ? attemptOrder(challenge.choices, 1) : challenge.choices}
-              selectedChoiceId={state.selectedChoiceId}
-              correctChoiceId={challenge.correctChoiceId}
-              result={state.screen === "lesson_feedback"
-                ? {
-                    correct: state.answerState === "correct",
-                    correctLabel,
-                    why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
-                    source: feedbackSource(challenge, lesson)
-                  }
-                : undefined}
-              attempt={lessonStep.attempt}
-              review={challenge.isReview}
-              mascotVariant={lessonMascot}
-              accent={lessonAccent}
-              praiseSeed={challenge.id}
-              picture={questionPicture}
-              playSound={false}
-              continueSound={continueEndsLesson || continueOpensRefill ? false : undefined}
-              onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
-              onCheck={answerChallenge}
-              onContinue={continueFromFeedback}
-            />
+{questionFormatNow === "blank" ? (
+              <GapGame
+                key={`${challenge.id}-gap-${lessonStep.attempt}`}
+                prompt={challenge.prompt}
+                choices={challenge.choices}
+                correctChoiceId={challenge.correctChoiceId}
+                {...questionShared}
+                onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+              />
+            ) : questionFormatNow === "build" ? (
+              <BuildGame
+                key={`${challenge.id}-build-${lessonStep.attempt}`}
+                prompt={challenge.prompt}
+                answer={correctLabel}
+                correctChoiceId={challenge.correctChoiceId}
+                extras={puzzleExtras(challenge)}
+                {...questionShared}
+                onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+              />
+            ) : questionFormatNow === "check" && checkShown ? (
+              <CheckGame
+                key={`${challenge.id}-check-${lessonStep.attempt}`}
+                prompt={challenge.prompt}
+                shown={checkShown}
+                shownIsRight={checkShown.id === challenge.correctChoiceId}
+                judged={
+                  state.selectedChoiceId
+                    ? (state.selectedChoiceId === challenge.correctChoiceId) === (checkShown.id === challenge.correctChoiceId)
+                      ? "true"
+                      : "false"
+                    : undefined
+                }
+                onJudge={(judged) => dispatch({ type: "select_choice", choiceId: checkAnswerId(challenge, judged) })}
+                picture={questionPicture}
+                {...questionShared}
+              />
+            ) : (
+                        <ExerciseView
+                // A missed question asked again at the end is a new try: a fresh view with its tiles in another order.
+                key={`${challenge.id}-${lessonStep.quiz ? "quiz" : "learn"}-${lessonStep.attempt}`}
+                kind={challenge.type}
+                prompt={challenge.prompt}
+                // The circle's quiz asks a question met a minute ago: its tiles come in another order.
+                choices={lessonStep.quiz ? attemptOrder(challenge.choices, 1) : challenge.choices}
+                selectedChoiceId={state.selectedChoiceId}
+                correctChoiceId={challenge.correctChoiceId}
+                result={state.screen === "lesson_feedback"
+                  ? {
+                      correct: state.answerState === "correct",
+                      correctLabel,
+                      why: localizedWhy(englishChallenge ?? challenge, currentLanguage),
+                      source: feedbackSource(challenge, lesson)
+                    }
+                  : undefined}
+                attempt={lessonStep.attempt}
+                review={challenge.isReview}
+                mascotVariant={lessonMascot}
+                accent={lessonAccent}
+                praiseSeed={challenge.id}
+                picture={questionPicture}
+                playSound={false}
+                continueSound={continueEndsLesson || continueOpensRefill ? false : undefined}
+                onSelect={(choiceId) => dispatch({ type: "select_choice", choiceId })}
+                onCheck={answerChallenge}
+                onContinue={continueFromFeedback}
+              />
+            )}
           </>
         )}
         {state.screen === "lesson_complete" && quizSummary && (
@@ -3765,7 +3881,11 @@ export default function TopicApp() {
         <ConfirmSheet
           visible={Boolean(testOutResult?.open)}
           title={t("{correct} of {total} right", { correct: testOutResult?.correct ?? 0, total: testOutResult?.asked ?? 0 })}
-          line={t("Get {count} of {total} to jump ahead.", { count: testOutResult?.passingScore ?? 0, total: testOutResult?.total ?? 0 })}
+          line={
+            testOutResult?.unitTestNodeId
+              ? t("Get {count} of {total} to pass the unit test.", { count: testOutResult?.passingScore ?? 0, total: testOutResult?.total ?? 0 })
+              : t("Get {count} of {total} to jump ahead.", { count: testOutResult?.passingScore ?? 0, total: testOutResult?.total ?? 0 })
+          }
           confirmLabel={t("Try again")}
           cancelLabel={t("Back")}
           danger={false}

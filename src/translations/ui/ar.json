@@ -707,7 +707,6 @@
   "What the source says": "ماذا يقول المصدر",
   "Good to know": "من المفيد أن تعرف",
   "Quiz time!": "وقت الاختبار!",
-  "{count} questions on this circle. Get them right to move on.": "{count} أسئلة على هذه الدائرة. أجب عنها صحيحًا لتتقدّم.",
   "Get them right to move on.": "أجب عنها صحيحًا لتتقدّم.",
   "I know this part": "أعرف هذا الجزء",
   "Start lessons": "ابدأ الدروس",
@@ -724,5 +723,18 @@
   "Let me explain what it means.": "دعني أشرح لك المعنى.",
   "Let me tell you the story.": "دعني أحكي لك القصة.",
   "Take this home with you.": "خذ هذه الفائدة معك.",
-  "A drawing": "رسم"
+  "A drawing": "رسم",
+  "On the page, look for": "ابحث في الصفحة عن",
+  "In English:": "بالإنجليزية:",
+  "All matched!": "تمت المطابقة كلها!",
+  "All matched! {count} tries to get there.": "تمت المطابقة كلها! في {count} محاولات.",
+  "Build the answer": "رتّب الإجابة",
+  "Drag the right word into the gap!": "اسحب الكلمة الصحيحة إلى الفراغ!",
+  "Fill in the gap": "املأ الفراغ",
+  "Get {count} of {total} right to pass this unit.": "أجب عن {count} من {total} إجابة صحيحة لتجتاز هذه الوحدة.",
+  "Get {count} of {total} to pass the unit test.": "أجب عن {count} من {total} إجابة صحيحة لتجتاز اختبار الوحدة.",
+  "Is it “{answer}”?": "هل هي “{answer}”؟",
+  "Tap a question, then its answer!": "اضغط على سؤال، ثم على إجابته!",
+  "Test time!": "وقت الاختبار!",
+  "{count} questions from your last lessons, in new ways.": "{count} أسئلة من دروسك الأخيرة، بطرق جديدة."
 }
