@@ -10573,6 +10573,10 @@
   },
   {
     "kind": "course",
+    "text": "Repaid for what we did"
+  },
+  {
+    "kind": "course",
     "text": "Lord of this city"
   },
   {
@@ -10734,6 +10738,174 @@
   {
     "kind": "course",
     "text": "A hand against fear"
+  },
+  {
+    "kind": "course",
+    "text": "Harun as a helper"
+  },
+  {
+    "kind": "course",
+    "text": "Strengthened by a brother"
+  },
+  {
+    "kind": "course",
+    "text": "Allah knows who is guided"
+  },
+  {
+    "kind": "course",
+    "text": "A tower of clay"
+  },
+  {
+    "kind": "course",
+    "text": "Arrogant without right"
+  },
+  {
+    "kind": "course",
+    "text": "The end in the sea"
+  },
+  {
+    "kind": "course",
+    "text": "Leaders the wrong way"
+  },
+  {
+    "kind": "course",
+    "text": "The Tawrah, a light"
+  },
+  {
+    "kind": "course",
+    "text": "You were not there"
+  },
+  {
+    "kind": "course",
+    "text": "A mercy from your Lord"
+  },
+  {
+    "kind": "course",
+    "text": "Two kinds of magic"
+  },
+  {
+    "kind": "course",
+    "text": "Bring a better Book"
+  },
+  {
+    "kind": "course",
+    "text": "Following desires"
+  },
+  {
+    "kind": "course",
+    "text": "Believers of the earlier Book"
+  },
+  {
+    "kind": "course",
+    "text": "A double reward"
+  },
+  {
+    "kind": "course",
+    "text": "Peace be to you"
+  },
+  {
+    "kind": "course",
+    "text": "A secure sanctuary"
+  },
+  {
+    "kind": "course",
+    "text": "Thankless towns"
+  },
+  {
+    "kind": "course",
+    "text": "Never without a Messenger"
+  },
+  {
+    "kind": "course",
+    "text": "What Allah has lasts"
+  },
+  {
+    "kind": "course",
+    "text": "Not the same"
+  },
+  {
+    "kind": "course",
+    "text": "Where are the partners?"
+  },
+  {
+    "kind": "course",
+    "text": "What answer did you give?"
+  },
+  {
+    "kind": "course",
+    "text": "Allah creates and chooses"
+  },
+  {
+    "kind": "course",
+    "text": "His is the praise"
+  },
+  {
+    "kind": "course",
+    "text": "Night and day, a mercy"
+  },
+  {
+    "kind": "course",
+    "text": "A witness from every nation"
+  },
+  {
+    "kind": "course",
+    "text": "Qarun and his treasure"
+  },
+  {
+    "kind": "course",
+    "text": "Do not be boastful"
+  },
+  {
+    "kind": "course",
+    "text": "Your share of this world"
+  },
+  {
+    "kind": "course",
+    "text": "Be generous as Allah was"
+  },
+  {
+    "kind": "course",
+    "text": "Because of my knowledge"
+  },
+  {
+    "kind": "course",
+    "text": "Qarun shows off"
+  },
+  {
+    "kind": "course",
+    "text": "Only the patient"
+  },
+  {
+    "kind": "course",
+    "text": "The earth took him"
+  },
+  {
+    "kind": "course",
+    "text": "Walking with pride"
+  },
+  {
+    "kind": "course",
+    "text": "Wealth is not a sign of love"
+  },
+  {
+    "kind": "course",
+    "text": "A home for the humble"
+  },
+  {
+    "kind": "course",
+    "text": "Allah loves beauty"
+  },
+  {
+    "kind": "course",
+    "text": "Better than the deed"
+  },
+  {
+    "kind": "course",
+    "text": "Back to the return"
+  },
+  {
+    "kind": "course",
+    "text": "All perishes but Allah"
   },
   {
     "kind": "arabic",
@@ -153025,10 +153197,6 @@
   },
   {
     "kind": "question",
-    "text": "A mercy from your Lord"
-  },
-  {
-    "kind": "question",
     "text": "A weakness"
   },
   {
@@ -176670,10 +176838,6 @@
   {
     "kind": "lesson",
     "text": "Kibr: pride"
-  },
-  {
-    "kind": "lesson",
-    "text": "Allah loves beauty"
   },
   {
     "kind": "question",
@@ -255393,6 +255557,50 @@
   },
   {
     "kind": "lesson",
+    "text": "Those who bring only bad deeds are repaid for what they did."
+  },
+  {
+    "kind": "lesson",
+    "text": "Good deeds can outweigh bad"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 27:90"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 27:90"
+  },
+  {
+    "kind": "question",
+    "text": "Who is meant by bringing an evil deed, in 27:90?"
+  },
+  {
+    "kind": "question",
+    "text": "One whose bad outweighs good"
+  },
+  {
+    "kind": "question",
+    "text": "Anyone who slips once"
+  },
+  {
+    "kind": "question",
+    "text": "What are they repaid with, in 27:90?"
+  },
+  {
+    "kind": "question",
+    "text": "More than they did"
+  },
+  {
+    "kind": "question",
+    "text": "Only what they used to do"
+  },
+  {
+    "kind": "question",
+    "text": "Allah repays people only for what they themselves did."
+  },
+  {
+    "kind": "lesson",
     "text": "The Prophet ﷺ was told to worship the Lord of Makkah alone."
   },
   {
@@ -257441,6 +257649,2598 @@
   },
   {
     "kind": "lesson",
+    "text": "Musa feared going alone and asked for his brother Harun's help."
+  },
+  {
+    "kind": "lesson",
+    "text": "Harun spoke more clearly"
+  },
+  {
+    "kind": "lesson",
+    "text": "Two voices carry more weight"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:34"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Musa ask for, in 28:34?"
+  },
+  {
+    "kind": "question",
+    "text": "Why is a helper useful, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "To cook food"
+  },
+  {
+    "kind": "question",
+    "text": "To carry bags"
+  },
+  {
+    "kind": "question",
+    "text": "To fight Fir'awn"
+  },
+  {
+    "kind": "question",
+    "text": "The word of two carries more weight in people's minds than the word of one."
+  },
+  {
+    "kind": "question",
+    "text": "Musa said Harun was more eloquent than him."
+  },
+  {
+    "kind": "question",
+    "text": "My brother Harun, he is more eloquent in speech than me."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah strengthened Musa through Harun and promised them victory."
+  },
+  {
+    "kind": "lesson",
+    "text": "Harun was made a Prophet"
+  },
+  {
+    "kind": "lesson",
+    "text": "They could not be harmed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:35"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:35"
+  },
+  {
+    "kind": "question",
+    "text": "How did Allah strengthen Musa, in 28:35?"
+  },
+  {
+    "kind": "question",
+    "text": "Through his brother"
+  },
+  {
+    "kind": "question",
+    "text": "Through an army"
+  },
+  {
+    "kind": "question",
+    "text": "Through gold"
+  },
+  {
+    "kind": "question",
+    "text": "Through a palace"
+  },
+  {
+    "kind": "question",
+    "text": "We will strengthen your arm through your brother."
+  },
+  {
+    "kind": "question",
+    "text": "Who would be the victors, in 28:35?"
+  },
+  {
+    "kind": "question",
+    "text": "Musa, Harun and their followers"
+  },
+  {
+    "kind": "question",
+    "text": "You two as well as those who follow you, will be the victors."
+  },
+  {
+    "kind": "question",
+    "text": "Musa asked for his brother to share his mission."
+  },
+  {
+    "kind": "question",
+    "text": "There is no one who has ever done a greater favor to his brother than Musa did for Harun."
+  },
+  {
+    "kind": "lesson",
+    "text": "They saw clear signs, yet called them invented magic."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pride stopped them"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:36"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:36"
+  },
+  {
+    "kind": "question",
+    "text": "What did they call the signs, in 28:36?"
+  },
+  {
+    "kind": "question",
+    "text": "Invented magic"
+  },
+  {
+    "kind": "question",
+    "text": "A true miracle"
+  },
+  {
+    "kind": "question",
+    "text": "This is nothing but invented magic."
+  },
+  {
+    "kind": "question",
+    "text": "What did they say of their fathers?"
+  },
+  {
+    "kind": "question",
+    "text": "Their fathers believed"
+  },
+  {
+    "kind": "question",
+    "text": "Their fathers were Prophets"
+  },
+  {
+    "kind": "question",
+    "text": "They never heard of this"
+  },
+  {
+    "kind": "question",
+    "text": "Never did we hear of this among our fathers of old."
+  },
+  {
+    "kind": "question",
+    "text": "Why did they reject it, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Stubbornness and pride"
+  },
+  {
+    "kind": "question",
+    "text": "No one showed them"
+  },
+  {
+    "kind": "question",
+    "text": "It was unclear"
+  },
+  {
+    "kind": "question",
+    "text": "They resorted to stubbornness and false arguments."
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa said: my Lord knows best who brings true guidance."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wrongdoers do not succeed"
+  },
+  {
+    "kind": "lesson",
+    "text": "The good end is Allah's to give"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:37"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:37"
+  },
+  {
+    "kind": "question",
+    "text": "Who knows best who is guided, in 28:37?"
+  },
+  {
+    "kind": "question",
+    "text": "Musa's Lord"
+  },
+  {
+    "kind": "question",
+    "text": "My Lord knows best him who came with guidance from Him."
+  },
+  {
+    "kind": "question",
+    "text": "Who will not succeed, in 28:37?"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, the wrongdoers will not be successful."
+  },
+  {
+    "kind": "question",
+    "text": "Musa left the final judgment to Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn claimed to be god and ordered a tall tower built."
+  },
+  {
+    "kind": "lesson",
+    "text": "Haman baked the bricks"
+  },
+  {
+    "kind": "lesson",
+    "text": "He called Musa a liar"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:38"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:38"
+  },
+  {
+    "kind": "question",
+    "text": "What did Fir'awn claim, in 28:38?"
+  },
+  {
+    "kind": "question",
+    "text": "That he was a Prophet"
+  },
+  {
+    "kind": "question",
+    "text": "That he was poor"
+  },
+  {
+    "kind": "question",
+    "text": "That he was a servant"
+  },
+  {
+    "kind": "question",
+    "text": "That he was their god"
+  },
+  {
+    "kind": "question",
+    "text": "I know not that you have a god other than me."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ask Haman to build?"
+  },
+  {
+    "kind": "question",
+    "text": "A tall tower"
+  },
+  {
+    "kind": "question",
+    "text": "A temple"
+  },
+  {
+    "kind": "question",
+    "text": "Set up for me a Sarh in order that I may look at the God of Musa."
+  },
+  {
+    "kind": "question",
+    "text": "What was the tower made from?"
+  },
+  {
+    "kind": "question",
+    "text": "Baked clay bricks"
+  },
+  {
+    "kind": "question",
+    "text": "Stone from Madyan"
+  },
+  {
+    "kind": "question",
+    "text": "So kindle for me a fire, O Haman, to bake clay."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn's armies were proud and denied the return to Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "They denied the Resurrection"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pride without right"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:39"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:39"
+  },
+  {
+    "kind": "question",
+    "text": "How were Fir'awn and his armies, in 28:39?"
+  },
+  {
+    "kind": "question",
+    "text": "Humble and fair"
+  },
+  {
+    "kind": "question",
+    "text": "Weak and poor"
+  },
+  {
+    "kind": "question",
+    "text": "Kind to all"
+  },
+  {
+    "kind": "question",
+    "text": "And he and his armies were arrogant in the land, without right."
+  },
+  {
+    "kind": "question",
+    "text": "What did they believe about returning to Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "They would return soon"
+  },
+  {
+    "kind": "question",
+    "text": "Only kings return"
+  },
+  {
+    "kind": "question",
+    "text": "They were unsure"
+  },
+  {
+    "kind": "question",
+    "text": "They would never return"
+  },
+  {
+    "kind": "question",
+    "text": "They thought that they would never return to Us."
+  },
+  {
+    "kind": "question",
+    "text": "Denying the Resurrection fed their pride."
+  },
+  {
+    "kind": "question",
+    "text": "They were arrogant oppressors and they believed that there would be no Resurrection."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Qasas, ayahs 33 to 43?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah seized Fir'awn's armies, and they drowned in the sea."
+  },
+  {
+    "kind": "lesson",
+    "text": "In a single morning"
+  },
+  {
+    "kind": "lesson",
+    "text": "See the end of wrongdoers"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:40"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:40"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Fir'awn's armies end, in 28:40?"
+  },
+  {
+    "kind": "question",
+    "text": "So, We seized him and his armies, and We threw them all into the sea."
+  },
+  {
+    "kind": "question",
+    "text": "How long did it take, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "A single morning"
+  },
+  {
+    "kind": "question",
+    "text": "We drowned them in the sea in a single morning."
+  },
+  {
+    "kind": "question",
+    "text": "Their end is a lesson about wrongdoing."
+  },
+  {
+    "kind": "question",
+    "text": "So, behold what was the end of the wrongdoers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn's people lead all who copy their wrong path."
+  },
+  {
+    "kind": "lesson",
+    "text": "No help on that Day"
+  },
+  {
+    "kind": "lesson",
+    "text": "Remembered with blame"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:41"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:41"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did they lead, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who copy their path"
+  },
+  {
+    "kind": "question",
+    "text": "For those who followed them and took the same path as they did."
+  },
+  {
+    "kind": "question",
+    "text": "Will they be helped on that Day, in 28:41?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, by idols"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, by armies"
+  },
+  {
+    "kind": "question",
+    "text": "No, they will not"
+  },
+  {
+    "kind": "question",
+    "text": "And on the Day of Resurrection, they will not be helped."
+  },
+  {
+    "kind": "question",
+    "text": "Their example warns us not to follow wrong leaders."
+  },
+  {
+    "kind": "question",
+    "text": "And We made them leaders inviting to the Fire for those who followed them."
+  },
+  {
+    "kind": "lesson",
+    "text": "After Fir'awn, Allah gave Musa the Tawrah as light and mercy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Guidance from blindness"
+  },
+  {
+    "kind": "lesson",
+    "text": "So people might remember"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:43"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah give Musa, in 28:43?"
+  },
+  {
+    "kind": "question",
+    "text": "The Scripture"
+  },
+  {
+    "kind": "question",
+    "text": "And indeed We gave Musa the Scripture."
+  },
+  {
+    "kind": "question",
+    "text": "What three things is the Tawrah called?"
+  },
+  {
+    "kind": "question",
+    "text": "Law, war and tax"
+  },
+  {
+    "kind": "question",
+    "text": "As an enlightenment for mankind, and a guidance and a mercy."
+  },
+  {
+    "kind": "question",
+    "text": "When was it given, in 28:43?"
+  },
+  {
+    "kind": "question",
+    "text": "After the old nations were destroyed"
+  },
+  {
+    "kind": "question",
+    "text": "Before Musa was born"
+  },
+  {
+    "kind": "question",
+    "text": "After We had destroyed the generations of old."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Qasas, ayahs 33 to 43!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told Musa's story though he was never there."
+  },
+  {
+    "kind": "lesson",
+    "text": "He could not read books"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah revealed it to him"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:44"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:44"
+  },
+  {
+    "kind": "question",
+    "text": "Was the Prophet ﷺ at the mountain with Musa?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, he saw it"
+  },
+  {
+    "kind": "question",
+    "text": "He read about it"
+  },
+  {
+    "kind": "question",
+    "text": "No, Allah revealed it"
+  },
+  {
+    "kind": "question",
+    "text": "And you were not among the witnesses, but Allah has revealed this to you."
+  },
+  {
+    "kind": "question",
+    "text": "How does this prove his prophethood?"
+  },
+  {
+    "kind": "question",
+    "text": "He told hidden past events"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ could not read books."
+  },
+  {
+    "kind": "question",
+    "text": "But he was an illiterate man who could not read books."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ was sent as a mercy to people with no warner."
+  },
+  {
+    "kind": "lesson",
+    "text": "No warner came before him"
+  },
+  {
+    "kind": "lesson",
+    "text": "So they may remember"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:46"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:46"
+  },
+  {
+    "kind": "question",
+    "text": "Why was the Prophet ﷺ sent, in 28:46?"
+  },
+  {
+    "kind": "question",
+    "text": "As a mercy from his Lord"
+  },
+  {
+    "kind": "question",
+    "text": "To gain wealth"
+  },
+  {
+    "kind": "question",
+    "text": "To rule Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "To fight Rome"
+  },
+  {
+    "kind": "question",
+    "text": "Whom was he sent to warn?"
+  },
+  {
+    "kind": "question",
+    "text": "Only Musa's people"
+  },
+  {
+    "kind": "question",
+    "text": "A people with no warner before"
+  },
+  {
+    "kind": "question",
+    "text": "To give warning to a people to whom no warner had come before you."
+  },
+  {
+    "kind": "question",
+    "text": "The aim was that people would remember and be guided."
+  },
+  {
+    "kind": "question",
+    "text": "In order that they may remember or receive admonition."
+  },
+  {
+    "kind": "lesson",
+    "text": "A Messenger came so no one could say: no one warned us."
+  },
+  {
+    "kind": "lesson",
+    "text": "Proof before judgment"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is fair"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:47"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:47"
+  },
+  {
+    "kind": "question",
+    "text": "What excuse would they make, in 28:47?"
+  },
+  {
+    "kind": "question",
+    "text": "No Messenger was sent"
+  },
+  {
+    "kind": "question",
+    "text": "We were too busy"
+  },
+  {
+    "kind": "question",
+    "text": "We were too young"
+  },
+  {
+    "kind": "question",
+    "text": "We lived too far"
+  },
+  {
+    "kind": "question",
+    "text": "Why was the Messenger ﷺ sent, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "To build Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "To end trade"
+  },
+  {
+    "kind": "question",
+    "text": "To leave them no excuse"
+  },
+  {
+    "kind": "question",
+    "text": "We have sent you to them to establish proof against them, and to give them no excuse."
+  },
+  {
+    "kind": "question",
+    "text": "Allah sends warners before holding people to account."
+  },
+  {
+    "kind": "lesson",
+    "text": "Deniers asked for Musa's signs, yet called both messages magic."
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa's signs were denied too"
+  },
+  {
+    "kind": "lesson",
+    "text": "Excuses, not reasons"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:48"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:48"
+  },
+  {
+    "kind": "question",
+    "text": "What did deniers ask for, in 28:48?"
+  },
+  {
+    "kind": "question",
+    "text": "Signs like Musa's"
+  },
+  {
+    "kind": "question",
+    "text": "Had Musa's signs convinced the deniers of old?"
+  },
+  {
+    "kind": "question",
+    "text": "No, they denied them"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, all believed"
+  },
+  {
+    "kind": "question",
+    "text": "Most believed"
+  },
+  {
+    "kind": "question",
+    "text": "What did they call the two, in 28:48?"
+  },
+  {
+    "kind": "question",
+    "text": "Two books of law"
+  },
+  {
+    "kind": "question",
+    "text": "Two poems"
+  },
+  {
+    "kind": "question",
+    "text": "Two kinds of magic, each helping the other!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said: bring a Book better guiding than these two."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Tawrah and the Quran"
+  },
+  {
+    "kind": "lesson",
+    "text": "No better guide exists"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:49"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:49"
+  },
+  {
+    "kind": "question",
+    "text": "What were they challenged to bring, in 28:49?"
+  },
+  {
+    "kind": "question",
+    "text": "A better Book from Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Then bring a Book from Allah, which is a better guide than these two."
+  },
+  {
+    "kind": "question",
+    "text": "Which two Books, per Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "Two letters"
+  },
+  {
+    "kind": "question",
+    "text": "Zabur and Injil"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas said that this refers to the Tawrah and the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ said he would follow a better Book if one existed."
+  },
+  {
+    "kind": "question",
+    "text": "That I may follow it, if you are truthful."
+  },
+  {
+    "kind": "lesson",
+    "text": "Who is more astray than one following desires without guidance?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Desires are no proof"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Word was made clear"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:50"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:50"
+  },
+  {
+    "kind": "question",
+    "text": "What do they follow, in 28:50?"
+  },
+  {
+    "kind": "question",
+    "text": "Their Prophet"
+  },
+  {
+    "kind": "question",
+    "text": "Wise elders"
+  },
+  {
+    "kind": "question",
+    "text": "Then know that they only follow their own lusts."
+  },
+  {
+    "kind": "question",
+    "text": "Who is most astray, in 28:50?"
+  },
+  {
+    "kind": "question",
+    "text": "One who follows desires without guidance"
+  },
+  {
+    "kind": "question",
+    "text": "One who asks questions"
+  },
+  {
+    "kind": "question",
+    "text": "Allah made His Word clear so people would remember."
+  },
+  {
+    "kind": "question",
+    "text": "And indeed now We have conveyed the Word to them, in order that they may remember."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Qasas, ayahs 44 to 57?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sincere People of the Book heard the Quran and believed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Some wept and accepted Islam"
+  },
+  {
+    "kind": "lesson",
+    "text": "They believed in One God"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:53"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:53"
+  },
+  {
+    "kind": "question",
+    "text": "What do they say when it is recited, in 28:53?"
+  },
+  {
+    "kind": "question",
+    "text": "We believe, it is the truth"
+  },
+  {
+    "kind": "question",
+    "text": "We will wait"
+  },
+  {
+    "kind": "question",
+    "text": "We believe in it."
+  },
+  {
+    "kind": "question",
+    "text": "What were they even before the Quran?"
+  },
+  {
+    "kind": "question",
+    "text": "Magicians"
+  },
+  {
+    "kind": "question",
+    "text": "Muslims, believing in One God"
+  },
+  {
+    "kind": "question",
+    "text": "Idol worshippers"
+  },
+  {
+    "kind": "question",
+    "text": "Even before the Quran came we were Muslims, we believed in One God."
+  },
+  {
+    "kind": "question",
+    "text": "Some People of the Book wept on hearing the Quran."
+  },
+  {
+    "kind": "question",
+    "text": "They began to weep, and they embraced Islam."
+  },
+  {
+    "kind": "lesson",
+    "text": "One who believed in his Prophet, then in ours ﷺ, gets double."
+  },
+  {
+    "kind": "lesson",
+    "text": "Three get a double reward"
+  },
+  {
+    "kind": "lesson",
+    "text": "Patience in truth"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:54"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 97"
+  },
+  {
+    "kind": "question",
+    "text": "How many people get a double reward in the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Three persons will have a double reward."
+  },
+  {
+    "kind": "question",
+    "text": "Who is one of them?"
+  },
+  {
+    "kind": "question",
+    "text": "A believer of the earlier Scripture who then accepted Islam"
+  },
+  {
+    "kind": "question",
+    "text": "Why are they rewarded twice, in 28:54?"
+  },
+  {
+    "kind": "question",
+    "text": "Because they were patient"
+  },
+  {
+    "kind": "question",
+    "text": "Because they were first"
+  },
+  {
+    "kind": "question",
+    "text": "Because they were loud"
+  },
+  {
+    "kind": "question",
+    "text": "These will be given their reward twice over, because they are patient."
+  },
+  {
+    "kind": "lesson",
+    "text": "Believers answer bad with good and give from what they have."
+  },
+  {
+    "kind": "lesson",
+    "text": "They forgive and overlook"
+  },
+  {
+    "kind": "lesson",
+    "text": "They give charity"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:54"
+  },
+  {
+    "kind": "question",
+    "text": "How do they answer evil, in 28:54?"
+  },
+  {
+    "kind": "question",
+    "text": "And repel evil with good."
+  },
+  {
+    "kind": "question",
+    "text": "What does repelling evil mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Taking revenge"
+  },
+  {
+    "kind": "question",
+    "text": "Forgiving and overlooking"
+  },
+  {
+    "kind": "question",
+    "text": "Shouting back"
+  },
+  {
+    "kind": "question",
+    "text": "They do not respond to evil in kind, rather they forgive and overlook."
+  },
+  {
+    "kind": "question",
+    "text": "They spend from what Allah gave them."
+  },
+  {
+    "kind": "question",
+    "text": "And spend out of what We have provided for them."
+  },
+  {
+    "kind": "lesson",
+    "text": "When they hear useless talk, they turn away and say: peace."
+  },
+  {
+    "kind": "lesson",
+    "text": "To us our deeds"
+  },
+  {
+    "kind": "lesson",
+    "text": "We do not seek the ignorant"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:55"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:55"
+  },
+  {
+    "kind": "question",
+    "text": "What do they do with vain talk, in 28:55?"
+  },
+  {
+    "kind": "question",
+    "text": "Turn away from it"
+  },
+  {
+    "kind": "question",
+    "text": "And when they hear evil vain talk, they withdraw from it."
+  },
+  {
+    "kind": "question",
+    "text": "What do they say, in 28:55?"
+  },
+  {
+    "kind": "question",
+    "text": "To us our deeds, and to you your deeds."
+  },
+  {
+    "kind": "question",
+    "text": "Believers sit with those who indulge in bad talk."
+  },
+  {
+    "kind": "question",
+    "text": "They do not mix with the people who indulge in such talk."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even the Prophet ﷺ cannot guide whom he loves; Allah guides."
+  },
+  {
+    "kind": "lesson",
+    "text": "Our job is to convey"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:56"
+  },
+  {
+    "kind": "question",
+    "text": "Who guides hearts, in 28:56?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ alone"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, you guide not whom you like, but Allah guides whom He wills."
+  },
+  {
+    "kind": "question",
+    "text": "What is our duty, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "To convey the Message"
+  },
+  {
+    "kind": "question",
+    "text": "All that you have to do is convey the Message, and Allah will guide whom He wills."
+  },
+  {
+    "kind": "question",
+    "text": "About whom was 28:56 revealed?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Talib, the Prophet's ﷺ uncle"
+  },
+  {
+    "kind": "lesson",
+    "text": "They feared losing their land, but Allah kept Makkah safe."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fruits come from all regions"
+  },
+  {
+    "kind": "lesson",
+    "text": "Their excuse was false"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:57"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:57"
+  },
+  {
+    "kind": "question",
+    "text": "What did they fear, in 28:57?"
+  },
+  {
+    "kind": "question",
+    "text": "Being snatched from their land"
+  },
+  {
+    "kind": "question",
+    "text": "If we follow the guidance with you, we would be snatched away from our land."
+  },
+  {
+    "kind": "question",
+    "text": "What had Allah made for them?"
+  },
+  {
+    "kind": "question",
+    "text": "A wall of iron"
+  },
+  {
+    "kind": "question",
+    "text": "A river of gold"
+  },
+  {
+    "kind": "question",
+    "text": "What was brought to it?"
+  },
+  {
+    "kind": "question",
+    "text": "Fruits of every kind"
+  },
+  {
+    "kind": "question",
+    "text": "To which are brought fruits of all kinds, a provision from Ourselves."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Qasas, ayahs 44 to 57!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Towns that were ungrateful for their ease were left empty."
+  },
+  {
+    "kind": "lesson",
+    "text": "They denied Allah's blessings"
+  },
+  {
+    "kind": "lesson",
+    "text": "Only ruins remained"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:58"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:58"
+  },
+  {
+    "kind": "question",
+    "text": "What were those towns, in 28:58?"
+  },
+  {
+    "kind": "question",
+    "text": "Poor and humble"
+  },
+  {
+    "kind": "question",
+    "text": "Thankless for their living"
+  },
+  {
+    "kind": "question",
+    "text": "And how many a town have We destroyed, which was thankless for its means of livelihood!"
+  },
+  {
+    "kind": "question",
+    "text": "What happened to their land?"
+  },
+  {
+    "kind": "question",
+    "text": "It became a city"
+  },
+  {
+    "kind": "question",
+    "text": "It grew richer"
+  },
+  {
+    "kind": "question",
+    "text": "Their land became empty and desolate."
+  },
+  {
+    "kind": "question",
+    "text": "Ingratitude for blessings is a serious danger."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah never destroys a town before sending a Messenger."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sent from the Mother of Towns"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:59"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:59"
+  },
+  {
+    "kind": "question",
+    "text": "What comes before any town is destroyed, in 28:59?"
+  },
+  {
+    "kind": "question",
+    "text": "A Messenger is sent"
+  },
+  {
+    "kind": "question",
+    "text": "Never will your Lord destroy the towns until He sends to their mother town a Messenger."
+  },
+  {
+    "kind": "question",
+    "text": "Which town is the Mother of Towns?"
+  },
+  {
+    "kind": "question",
+    "text": "Until He sends to their mother town, meaning Makkah."
+  },
+  {
+    "kind": "question",
+    "text": "Allah does not destroy anyone unjustly."
+  },
+  {
+    "kind": "question",
+    "text": "He does not destroy anyone unjustly; He destroys after establishing proof."
+  },
+  {
+    "kind": "lesson",
+    "text": "This world is brief; what is with Allah is better and lasts."
+  },
+  {
+    "kind": "lesson",
+    "text": "Use your sense"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:60"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:60"
+  },
+  {
+    "kind": "question",
+    "text": "What is better, in 28:60?"
+  },
+  {
+    "kind": "question",
+    "text": "And that which is with Allah is better and will remain forever."
+  },
+  {
+    "kind": "question",
+    "text": "A big feast"
+  },
+  {
+    "kind": "question",
+    "text": "A long river"
+  },
+  {
+    "kind": "question",
+    "text": "As if one of you were to dip his finger in the sea; let him see what comes back to him."
+  },
+  {
+    "kind": "question",
+    "text": "Preferring this world over the Hereafter lacks sense."
+  },
+  {
+    "kind": "lesson",
+    "text": "One promised great reward is unlike one with brief joys."
+  },
+  {
+    "kind": "lesson",
+    "text": "A promise that comes true"
+  },
+  {
+    "kind": "lesson",
+    "text": "A few days of joy"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:61"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:61"
+  },
+  {
+    "kind": "question",
+    "text": "What does the believer have, in 28:61?"
+  },
+  {
+    "kind": "question",
+    "text": "An excellent promise"
+  },
+  {
+    "kind": "question",
+    "text": "Only luxuries"
+  },
+  {
+    "kind": "question",
+    "text": "Is he whom We have promised an excellent promise, which he will find true."
+  },
+  {
+    "kind": "question",
+    "text": "How long does the other enjoy, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "A few days"
+  },
+  {
+    "kind": "question",
+    "text": "He is only enjoying a few days in this life."
+  },
+  {
+    "kind": "question",
+    "text": "Both kinds of people end up the same."
+  },
+  {
+    "kind": "lesson",
+    "text": "On that Day, false gods will not answer those who called them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Leaders deny their followers"
+  },
+  {
+    "kind": "lesson",
+    "text": "False hopes vanish"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:62"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:62"
+  },
+  {
+    "kind": "question",
+    "text": "What will Allah ask, in 28:62?"
+  },
+  {
+    "kind": "question",
+    "text": "Will the false gods answer, in 28:64?"
+  },
+  {
+    "kind": "question",
+    "text": "They will call upon them, but they will give no answer to them."
+  },
+  {
+    "kind": "question",
+    "text": "What will those who misled others say, in 28:63?"
+  },
+  {
+    "kind": "question",
+    "text": "We will save them"
+  },
+  {
+    "kind": "question",
+    "text": "It was not us they worshipped"
+  },
+  {
+    "kind": "question",
+    "text": "We are their gods"
+  },
+  {
+    "kind": "question",
+    "text": "We declare our innocence before You."
+  },
+  {
+    "kind": "lesson",
+    "text": "All will be asked how they answered the Messengers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Like the questions in the grave"
+  },
+  {
+    "kind": "lesson",
+    "text": "Repent now and succeed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:65"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:65"
+  },
+  {
+    "kind": "question",
+    "text": "What will people be asked, in 28:65?"
+  },
+  {
+    "kind": "question",
+    "text": "What they ate"
+  },
+  {
+    "kind": "question",
+    "text": "How they answered the Messengers"
+  },
+  {
+    "kind": "question",
+    "text": "How rich they were"
+  },
+  {
+    "kind": "question",
+    "text": "Where they lived"
+  },
+  {
+    "kind": "question",
+    "text": "Which questions is it compared to?"
+  },
+  {
+    "kind": "question",
+    "text": "The questions in the grave"
+  },
+  {
+    "kind": "question",
+    "text": "School exams"
+  },
+  {
+    "kind": "question",
+    "text": "Travel questions"
+  },
+  {
+    "kind": "question",
+    "text": "Who will be successful, in 28:67?"
+  },
+  {
+    "kind": "question",
+    "text": "Who hid away"
+  },
+  {
+    "kind": "question",
+    "text": "Who was famous"
+  },
+  {
+    "kind": "question",
+    "text": "Who was strongest"
+  },
+  {
+    "kind": "question",
+    "text": "Who repented, believed and did good"
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Qasas, ayahs 58 to 75?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah creates what He wills and chooses; the choice is His."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:68"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:68"
+  },
+  {
+    "kind": "question",
+    "text": "Who creates and chooses, in 28:68?"
+  },
+  {
+    "kind": "question",
+    "text": "And your Lord creates whatsoever He wills and chooses."
+  },
+  {
+    "kind": "question",
+    "text": "What happens to what Allah wills?"
+  },
+  {
+    "kind": "question",
+    "text": "It needs help"
+  },
+  {
+    "kind": "question",
+    "text": "It happens"
+  },
+  {
+    "kind": "question",
+    "text": "It may fail"
+  },
+  {
+    "kind": "question",
+    "text": "Whatever He wills, for what He wills, happens; and what He does not will, does not happen."
+  },
+  {
+    "kind": "question",
+    "text": "Allah knows what hearts hide and what they show."
+  },
+  {
+    "kind": "question",
+    "text": "And your Lord knows what their breasts conceal, and what they reveal."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is praised first and last, and to Him we all return."
+  },
+  {
+    "kind": "lesson",
+    "text": "La ilaha illa Huwa"
+  },
+  {
+    "kind": "lesson",
+    "text": "His decision stands"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:70"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:70"
+  },
+  {
+    "kind": "question",
+    "text": "Why is Allah praised in all He does?"
+  },
+  {
+    "kind": "question",
+    "text": "His justice and wisdom"
+  },
+  {
+    "kind": "question",
+    "text": "His armies"
+  },
+  {
+    "kind": "question",
+    "text": "To whom will we return, in 28:70?"
+  },
+  {
+    "kind": "question",
+    "text": "To our fathers"
+  },
+  {
+    "kind": "question",
+    "text": "And to Him shall you be returned."
+  },
+  {
+    "kind": "question",
+    "text": "None can reverse Allah's decision."
+  },
+  {
+    "kind": "question",
+    "text": "His is the decision, that none can put back."
+  },
+  {
+    "kind": "lesson",
+    "text": "If night never ended, only Allah could bring the day."
+  },
+  {
+    "kind": "lesson",
+    "text": "Night to rest"
+  },
+  {
+    "kind": "lesson",
+    "text": "Day to seek His bounty"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:73"
+  },
+  {
+    "kind": "question",
+    "text": "Who could bring light if night never ended, in 28:71?"
+  },
+  {
+    "kind": "question",
+    "text": "What is the night for, in 28:73?"
+  },
+  {
+    "kind": "question",
+    "text": "That you may rest therein."
+  },
+  {
+    "kind": "question",
+    "text": "What if you miss worship at night?"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing can be done"
+  },
+  {
+    "kind": "question",
+    "text": "Make it up in the day"
+  },
+  {
+    "kind": "question",
+    "text": "It is lost forever"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever misses something during the night can make it up during the day, and vice versa."
+  },
+  {
+    "kind": "lesson",
+    "text": "A witness from every nation is brought, and false claims vanish."
+  },
+  {
+    "kind": "lesson",
+    "text": "The witness is a Messenger"
+  },
+  {
+    "kind": "lesson",
+    "text": "The truth is with Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:75"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:75"
+  },
+  {
+    "kind": "question",
+    "text": "Who is the witness, per Mujahid?"
+  },
+  {
+    "kind": "question",
+    "text": "An angel only"
+  },
+  {
+    "kind": "question",
+    "text": "Mujahid said: this means a Messenger."
+  },
+  {
+    "kind": "question",
+    "text": "What will they be asked to bring, in 28:75?"
+  },
+  {
+    "kind": "question",
+    "text": "Their books of poems"
+  },
+  {
+    "kind": "question",
+    "text": "And We shall say: Bring your proof."
+  },
+  {
+    "kind": "question",
+    "text": "Their invented lies will vanish that Day."
+  },
+  {
+    "kind": "question",
+    "text": "And the lies which they invented will disappear from them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Qasas, ayahs 58 to 75!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Qarun had so much treasure that its keys tired strong men."
+  },
+  {
+    "kind": "lesson",
+    "text": "He was of Musa's people"
+  },
+  {
+    "kind": "lesson",
+    "text": "His keys were a heavy load"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:76"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:76"
+  },
+  {
+    "kind": "question",
+    "text": "Whose people was Qarun from, in 28:76?"
+  },
+  {
+    "kind": "question",
+    "text": "Fir'awn's family"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, Qarun was of Musa's people."
+  },
+  {
+    "kind": "question",
+    "text": "How was he related to Musa, per scholars?"
+  },
+  {
+    "kind": "question",
+    "text": "No relation"
+  },
+  {
+    "kind": "question",
+    "text": "They all said that he was the cousin of Musa, peace be upon him."
+  },
+  {
+    "kind": "question",
+    "text": "What was heavy for strong men?"
+  },
+  {
+    "kind": "question",
+    "text": "His throne"
+  },
+  {
+    "kind": "question",
+    "text": "The keys to his treasures"
+  },
+  {
+    "kind": "question",
+    "text": "That of which the keys would have been a burden to a body of strong men."
+  },
+  {
+    "kind": "lesson",
+    "text": "Good people told Qarun: do not boast, Allah dislikes it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sincere advice"
+  },
+  {
+    "kind": "lesson",
+    "text": "Thank Allah for wealth"
+  },
+  {
+    "kind": "question",
+    "text": "What did his people tell him, in 28:76?"
+  },
+  {
+    "kind": "question",
+    "text": "Spend it all"
+  },
+  {
+    "kind": "question",
+    "text": "Give it to Fir'awn"
+  },
+  {
+    "kind": "question",
+    "text": "Do not exult"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, Allah likes not those who exult."
+  },
+  {
+    "kind": "question",
+    "text": "What does exult mean in 28:76, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Being proud of wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Do not be arrogant and proud of your wealth."
+  },
+  {
+    "kind": "question",
+    "text": "Allah does not like those who boast."
+  },
+  {
+    "kind": "lesson",
+    "text": "Seek the Hereafter with wealth, yet keep your lawful share."
+  },
+  {
+    "kind": "lesson",
+    "text": "Give each right its due"
+  },
+  {
+    "kind": "lesson",
+    "text": "Lawful joys are allowed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:77"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:77"
+  },
+  {
+    "kind": "question",
+    "text": "What should wealth be used to seek, in 28:77?"
+  },
+  {
+    "kind": "question",
+    "text": "But seek, with that which Allah has bestowed on you, the home of the Hereafter."
+  },
+  {
+    "kind": "question",
+    "text": "What should not be forgotten, in 28:77?"
+  },
+  {
+    "kind": "question",
+    "text": "Your idols"
+  },
+  {
+    "kind": "question",
+    "text": "Your lawful share of this world"
+  },
+  {
+    "kind": "question",
+    "text": "Your enemies"
+  },
+  {
+    "kind": "question",
+    "text": "Your old debts"
+  },
+  {
+    "kind": "question",
+    "text": "And forget not your portion of lawful enjoyment in this world."
+  },
+  {
+    "kind": "question",
+    "text": "Our family and guests have rights over us."
+  },
+  {
+    "kind": "question",
+    "text": "Your family has rights over you, and your visitors have rights over you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Be good to others as Allah has been good to you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not spread mischief"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah dislikes corruption"
+  },
+  {
+    "kind": "question",
+    "text": "How should we treat others, in 28:77?"
+  },
+  {
+    "kind": "question",
+    "text": "Generously, as Allah is to us"
+  },
+  {
+    "kind": "question",
+    "text": "And be generous as Allah has been generous to you."
+  },
+  {
+    "kind": "question",
+    "text": "Whom does Allah not like, in 28:77?"
+  },
+  {
+    "kind": "question",
+    "text": "The mischief-makers"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, Allah likes not the mischief-makers."
+  },
+  {
+    "kind": "question",
+    "text": "Wealth is a reason to harm others."
+  },
+  {
+    "kind": "question",
+    "text": "Do not let your aim be to spread corruption on earth and do harm to Allah's creation."
+  },
+  {
+    "kind": "lesson",
+    "text": "Qarun said his wealth came from his own knowledge and merit."
+  },
+  {
+    "kind": "lesson",
+    "text": "He refused the advice"
+  },
+  {
+    "kind": "lesson",
+    "text": "Stronger people were destroyed before"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:78"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:78"
+  },
+  {
+    "kind": "question",
+    "text": "What did Qarun claim, in 28:78?"
+  },
+  {
+    "kind": "question",
+    "text": "He stole it"
+  },
+  {
+    "kind": "question",
+    "text": "He earned it by his knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Allah gave it as a test"
+  },
+  {
+    "kind": "question",
+    "text": "He found it"
+  },
+  {
+    "kind": "question",
+    "text": "This has been given to me only because of the knowledge I possess."
+  },
+  {
+    "kind": "question",
+    "text": "What did he think it proved?"
+  },
+  {
+    "kind": "question",
+    "text": "That he deserved it"
+  },
+  {
+    "kind": "question",
+    "text": "That he must share"
+  },
+  {
+    "kind": "question",
+    "text": "Allah has only given me this wealth because He knows that I deserve it."
+  },
+  {
+    "kind": "question",
+    "text": "Allah destroyed people stronger and richer than Qarun before him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Qarun paraded his riches, and some wished they had the same."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wishing for this world"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah's reward is better"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:79"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:79"
+  },
+  {
+    "kind": "question",
+    "text": "How did Qarun go out, in 28:79?"
+  },
+  {
+    "kind": "question",
+    "text": "In rags"
+  },
+  {
+    "kind": "question",
+    "text": "In his finery"
+  },
+  {
+    "kind": "question",
+    "text": "So, he went forth before his people in his finery."
+  },
+  {
+    "kind": "question",
+    "text": "What did worldly people wish?"
+  },
+  {
+    "kind": "question",
+    "text": "To be poor"
+  },
+  {
+    "kind": "question",
+    "text": "To become scholars"
+  },
+  {
+    "kind": "question",
+    "text": "To have what Qarun had"
+  },
+  {
+    "kind": "question",
+    "text": "To leave town"
+  },
+  {
+    "kind": "question",
+    "text": "Ah, would that we had the like of what Qarun has been given!"
+  },
+  {
+    "kind": "question",
+    "text": "What did the people of knowledge say, in 28:80?"
+  },
+  {
+    "kind": "question",
+    "text": "Qarun is right"
+  },
+  {
+    "kind": "question",
+    "text": "Get rich fast"
+  },
+  {
+    "kind": "question",
+    "text": "The reward of Allah is better for those who believe and do righteous deeds."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Qasas, ayahs 76 to 88?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah's reward is better, and only the patient reach it."
+  },
+  {
+    "kind": "lesson",
+    "text": "No eye has seen it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Patience in leaving worldly love"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:80"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:80"
+  },
+  {
+    "kind": "question",
+    "text": "Who will attain it, in 28:80?"
+  },
+  {
+    "kind": "question",
+    "text": "And this none shall attain except the patient."
+  },
+  {
+    "kind": "question",
+    "text": "What has Allah prepared, per the hadith Ibn Kathir quotes?"
+  },
+  {
+    "kind": "question",
+    "text": "What no eye has seen"
+  },
+  {
+    "kind": "question",
+    "text": "Allah has prepared for His righteous servants what no eye has seen, no ear has heard."
+  },
+  {
+    "kind": "question",
+    "text": "As-Suddi said only the patient reach Paradise."
+  },
+  {
+    "kind": "question",
+    "text": "As-Suddi said: None shall reach Paradise except for the patient."
+  },
+  {
+    "kind": "lesson",
+    "text": "The earth swallowed Qarun and his home; no one could help him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wealth could not save him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pride ends badly"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:81"
+  },
+  {
+    "kind": "question",
+    "text": "What happened to Qarun, in 28:81?"
+  },
+  {
+    "kind": "question",
+    "text": "He gave it all away"
+  },
+  {
+    "kind": "question",
+    "text": "So, We caused the earth to swallow him and his dwelling place."
+  },
+  {
+    "kind": "question",
+    "text": "Could his wealth save him?"
+  },
+  {
+    "kind": "question",
+    "text": "Half of it could"
+  },
+  {
+    "kind": "question",
+    "text": "His servants did"
+  },
+  {
+    "kind": "question",
+    "text": "No, it could not"
+  },
+  {
+    "kind": "question",
+    "text": "His wealth, group, servants and retinue were of no avail to him."
+  },
+  {
+    "kind": "question",
+    "text": "No group could help him against Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told of a proud man the earth swallowed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pride in clothing"
+  },
+  {
+    "kind": "lesson",
+    "text": "Humility is safer"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 3485"
+  },
+  {
+    "kind": "question",
+    "text": "What was the man in the hadith doing?"
+  },
+  {
+    "kind": "question",
+    "text": "Helping a neighbor"
+  },
+  {
+    "kind": "question",
+    "text": "Dragging his garment with pride"
+  },
+  {
+    "kind": "question",
+    "text": "While a man was walking, dragging his dress with pride."
+  },
+  {
+    "kind": "question",
+    "text": "What happened to him?"
+  },
+  {
+    "kind": "question",
+    "text": "He became rich"
+  },
+  {
+    "kind": "question",
+    "text": "He was praised"
+  },
+  {
+    "kind": "question",
+    "text": "He was caused to be swallowed by the earth."
+  },
+  {
+    "kind": "question",
+    "text": "Who narrated the hadith of the proud walker?"
+  },
+  {
+    "kind": "question",
+    "text": "Narrated Ibn Umar: The Prophet ﷺ said."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those who envied Qarun learned wealth does not prove love."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah gives and holds back"
+  },
+  {
+    "kind": "lesson",
+    "text": "Thank Him for His grace"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:82"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:82"
+  },
+  {
+    "kind": "question",
+    "text": "Who changed their minds, in 28:82?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who envied Qarun"
+  },
+  {
+    "kind": "question",
+    "text": "Qarun himself"
+  },
+  {
+    "kind": "question",
+    "text": "And those who desired his position the day before, began to say."
+  },
+  {
+    "kind": "question",
+    "text": "Does wealth prove Allah is pleased?"
+  },
+  {
+    "kind": "question",
+    "text": "Only gold does"
+  },
+  {
+    "kind": "question",
+    "text": "No, it does not"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth does not indicate that Allah is pleased with its owner."
+  },
+  {
+    "kind": "question",
+    "text": "Allah gives provision to whom He wills and holds it back."
+  },
+  {
+    "kind": "question",
+    "text": "It is Allah Who expands the provision or restricts it to whomsoever He pleases."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Hereafter is for those who seek no pride or corruption."
+  },
+  {
+    "kind": "lesson",
+    "text": "The good end is for Taqwa"
+  },
+  {
+    "kind": "lesson",
+    "text": "Showing off is blamed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:83"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:83"
+  },
+  {
+    "kind": "question",
+    "text": "For whom is the home of the Hereafter, in 28:83?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who seek no pride or corruption"
+  },
+  {
+    "kind": "question",
+    "text": "Whose is the good end, in 28:83?"
+  },
+  {
+    "kind": "question",
+    "text": "Those with armies"
+  },
+  {
+    "kind": "question",
+    "text": "Those with Taqwa"
+  },
+  {
+    "kind": "question",
+    "text": "When is wanting to look good blamed?"
+  },
+  {
+    "kind": "question",
+    "text": "When it is to show off"
+  },
+  {
+    "kind": "lesson",
+    "text": "Liking nice clothes is not pride; scorning people is."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is beautiful"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pride is looking down on people"
+  },
+  {
+    "kind": "question",
+    "text": "Is liking fine clothes pride?"
+  },
+  {
+    "kind": "question",
+    "text": "Only shoes"
+  },
+  {
+    "kind": "question",
+    "text": "No, Allah loves beauty"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, Allah is Graceful and He loves Grace."
+  },
+  {
+    "kind": "question",
+    "text": "What is pride, per the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "Wearing clean clothes"
+  },
+  {
+    "kind": "question",
+    "text": "Being strong"
+  },
+  {
+    "kind": "question",
+    "text": "Looking down on people is real pride."
+  },
+  {
+    "kind": "lesson",
+    "text": "Good deeds earn more than their worth; bad ones only equal."
+  },
+  {
+    "kind": "lesson",
+    "text": "Generosity for good"
+  },
+  {
+    "kind": "lesson",
+    "text": "Justice for bad"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:84"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:84"
+  },
+  {
+    "kind": "question",
+    "text": "What does a good deed earn, in 28:84?"
+  },
+  {
+    "kind": "question",
+    "text": "Less than it"
+  },
+  {
+    "kind": "question",
+    "text": "Whosoever brings good, he shall have the better thereof."
+  },
+  {
+    "kind": "question",
+    "text": "How are bad deeds repaid, in 28:84?"
+  },
+  {
+    "kind": "question",
+    "text": "Only for what was done"
+  },
+  {
+    "kind": "question",
+    "text": "Not at all ever"
+  },
+  {
+    "kind": "question",
+    "text": "Those who do evil deeds will only be requited for what they used to do."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir calls this generosity and justice."
+  },
+  {
+    "kind": "question",
+    "text": "This is the position of generosity and justice."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah promised to bring the Prophet ﷺ back to Makkah."
+  },
+  {
+    "kind": "lesson",
+    "text": "He left Makkah, then returned"
+  },
+  {
+    "kind": "lesson",
+    "text": "A mercy unexpected"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:85"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:85"
+  },
+  {
+    "kind": "question",
+    "text": "Where is the return, per Mujahid?"
+  },
+  {
+    "kind": "question",
+    "text": "To Madyan"
+  },
+  {
+    "kind": "question",
+    "text": "Mujahid said: Back to your place of birth in Makkah."
+  },
+  {
+    "kind": "question",
+    "text": "Did the Prophet ﷺ expect revelation before it came?"
+  },
+  {
+    "kind": "question",
+    "text": "No, it was a mercy"
+  },
+  {
+    "kind": "question",
+    "text": "He asked for it"
+  },
+  {
+    "kind": "question",
+    "text": "He bought it"
+  },
+  {
+    "kind": "question",
+    "text": "The Quran is a mercy from Allah."
+  },
+  {
+    "kind": "question",
+    "text": "But it is a mercy from your Lord."
+  },
+  {
+    "kind": "lesson",
+    "text": "Call on no god but Allah; everything perishes except Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "His is the decision"
+  },
+  {
+    "kind": "lesson",
+    "text": "To Him we return"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 28:88"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 28:88"
+  },
+  {
+    "kind": "question",
+    "text": "What will perish, in 28:88?"
+  },
+  {
+    "kind": "question",
+    "text": "Everything will perish save His Face, meaning, everything except Him."
+  },
+  {
+    "kind": "question",
+    "text": "Can anyone reverse Allah's decision?"
+  },
+  {
+    "kind": "question",
+    "text": "Angels can"
+  },
+  {
+    "kind": "question",
+    "text": "Kings can"
+  },
+  {
+    "kind": "question",
+    "text": "There is none who can reverse His judgement or decision."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Qasas ends: to Him you shall be returned."
+  },
+  {
+    "kind": "question",
+    "text": "His is the decision, and to Him you shall be returned."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Qasas, ayahs 76 to 88!"
+  },
+  {
+    "kind": "lesson",
     "text": "The Quran was first sent down in the month of Ramadan."
   },
   {
@@ -258118,10 +260918,6 @@
   {
     "kind": "question",
     "text": "Some dates"
-  },
-  {
-    "kind": "question",
-    "text": "A big feast"
   },
   {
     "kind": "question",
