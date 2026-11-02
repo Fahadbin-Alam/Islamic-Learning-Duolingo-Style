@@ -18,6 +18,7 @@ import { sourceUrl } from "../../services/sourceLink";
 import { getActiveLanguage, t } from "../../i18n";
 import type { LessonPicture } from "../../data/lessonPictures";
 import { LessonPhoto } from "./LessonPhoto";
+import { LookFor, lookForWords } from "./LookFor";
 import { SurahCover, SurahParts } from "./SurahCover";
 import { splitLessonFacts } from "./lessonNotes";
 import { highlightPieces, type LearnPageKind, type TeachLesson } from "./lessonPages";
@@ -48,7 +49,7 @@ export type LearnCardProps = {
    * The one source that says what the card says (lesson.learnSource). Its chip shows only the short
    * reference ("Quran 2:43", "Sahih al-Bukhari 6018") on one line, never a page title: no reference, no chip.
    */
-  learnSource?: { reference?: string; url: string; highlight?: string; category?: string };
+  learnSource?: { reference?: string; url: string; highlight?: string; category?: string; summary?: string };
   /** Older call sites: a chip with this label. Ignored when learnSource is given; pass learnSource instead. */
   source?: { label: string; url: string };
   /** Defaults to opening the url with Linking. */
@@ -206,6 +207,8 @@ export function LearnCard({
       ? { label: learnReference, url: sourceUrl(learnSource) }
       : undefined
     : legacySource;
+  // The line the source's link opens on, shown under its chip so the reader knows what to look for.
+  const lookFor = source && learnSource ? lookForWords(learnSource) : undefined;
   const factList = (facts ?? []).map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
   const englishList = englishFacts?.map((fact) => fact.trim()).filter(Boolean).slice(0, MAX_FACTS);
   const notes = splitLessonFacts(factList, {
@@ -451,6 +454,7 @@ export function LearnCard({
                       {withHonorifics(quoteReference)}
                     </Text>
                   ) : null}
+                  {lookFor && linkedReference ? <LookFor words={lookFor} summary={learnSource?.summary} /> : null}
                   {credits && linkedReference ? (
                     <Text style={styles.quoteCredits} testID="learn-credits">
                       {withHonorifics(noBreakHyphens(credits))}
@@ -489,6 +493,7 @@ export function LearnCard({
                   </View>
                 </Tappable>
               ) : null}
+              {source && !linkedReference && lookFor ? <LookFor words={lookFor} summary={learnSource?.summary} /> : null}
               {credits ? (
                 <Text style={styles.sourceCredits} testID="learn-credits">
                   {withHonorifics(noBreakHyphens(credits))}

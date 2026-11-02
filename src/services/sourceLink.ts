@@ -1,4 +1,5 @@
 import { Linking } from "react-native";
+import { highlightFor } from "../data/sourceHighlights";
 import type { LessonSource } from "../types";
 
 // A passage longer than this many words is named by its first and last words, so the whole passage lights up
@@ -33,12 +34,12 @@ export function highlightUrl(url: string, highlight?: string) {
 }
 
 /** Where a source chip opens: the source's page, at the words that say its fact when they are known. */
-export function sourceUrl(source: Pick<LessonSource, "url" | "highlight">) {
-  return highlightUrl(source.url, source.highlight);
+export function sourceUrl(source: Pick<LessonSource, "url" | "highlight"> & Partial<Pick<LessonSource, "summary">>) {
+  return highlightUrl(source.url, source.highlight ?? (source.summary ? highlightFor({ url: source.url, summary: source.summary }) : undefined));
 }
 
 /** Opens a source's page in the browser, at its highlighted words. */
-export function openSource(source: Pick<LessonSource, "url" | "highlight">) {
+export function openSource(source: Pick<LessonSource, "url" | "highlight"> & Partial<Pick<LessonSource, "summary">>) {
   const url = sourceUrl(source);
   if (url) void Linking.openURL(url).catch(() => undefined);
 }
