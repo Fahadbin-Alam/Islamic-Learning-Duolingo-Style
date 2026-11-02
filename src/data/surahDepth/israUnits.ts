@@ -623,4 +623,325 @@ const ISRA_TWO: DeepUnit = {
   ]
 };
 
-export const ISRA_UNITS: readonly DeepUnit[] = [ISRA_ONE, ISRA_TWO];
+/** Ayahs 56 to 111: Iblis and Adam, the ships, human honour, the prayer times, the Quran as a cure, and the Best Names. */
+const ISRA_THREE: DeepUnit = {
+  key: "isra3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-17",
+  name: "Al-Isra, ayahs 56 to 111",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Isra",
+  lessons: [
+    {
+      slug: "they-cannot-lift-harm",
+      title: "They cannot lift harm",
+      line: "What people call on besides Allah cannot remove their troubles.",
+      facts: ["Only Allah removes harm", "They too seek Allah"],
+      quote: q17(56),
+      source: ik(56, "Whatever people worship besides Allah has no power to remove hardship or even move it to someone else. Only Allah can do that.", "they have no such power at all"),
+      difficulty: 3,
+      questions: [
+        { q: "What can false gods not do, in 17:56?", a: "Remove adversity", wrong: ["Be called", "Be named", "Be seen"], why: "They have neither the power to remove the adversity from you nor even to shift it." },
+        { q: "Who alone removes hardship, per Ibn Kathir?", a: "Allah Alone", wrong: ["The angels", "The stars", "Kings"], why: "The only one Who is able to do that is Allah Alone, with no partner or associate." },
+        { q: "What do those being called on seek, in 17:57?", a: "A way to their Lord", wrong: ["Gold", "Fame", "Rest"], why: "Those whom they call upon, desire a means of access to their Lord." }
+      ]
+    },
+    {
+      slug: "give-them-more-time",
+      title: "Give them more time",
+      line: "Asked for a miracle, he ﷺ chose to give people more time.",
+      facts: ["As-Safa into gold", "He asked for more time"],
+      quote: q17(59),
+      source: ik(59, "Makkah asked for As-Safa to turn to gold. Allah gave the Prophet ﷺ a choice: send the sign, with punishment if they still denied, or be patient. He chose to give them more time.", "be patient and give them more time"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the people of Makkah ask for, per Ibn Kathir?", a: "As-Safa turned to gold", wrong: ["A river of milk", "A new moon", "A flying horse"], why: "The people of Makkah asked the Prophet ﷺ to turn As-Safa into gold for them." },
+        { q: "What did the Prophet ﷺ choose?", a: "Patience and more time", wrong: ["The miracle at once", "To leave Makkah", "To stay silent"], why: "He said, No, be patient and give them more time." },
+        { q: "What was sent to Thamud as a clear sign, in 17:59?", a: "The she-camel", wrong: ["A ship", "A cow", "A whale"], why: "And We sent the she-camel to Thamud as a clear sign." }
+      ]
+    },
+    {
+      slug: "iblis-refused",
+      title: "Iblis refused to bow",
+      line: "The angels bowed to Adam, but proud Iblis refused.",
+      facts: ["Made from clay, Adam was honoured", "Iblis vowed to mislead"],
+      quote: q17(61),
+      source: ik(61, "When Allah commanded the angels to prostrate to Adam, they all did except Iblis, who was too arrogant and looked down on Adam for being made from clay.", "who was too arrogant and he haughtily refused to prostrate to him"),
+      difficulty: 3,
+      questions: [
+        { q: "Who refused to prostrate, in 17:61?", a: "Iblis", wrong: ["An angel", "Jibril", "Adam"], why: "They prostrated themselves except Iblis." },
+        { q: "Why did Iblis refuse, per Ibn Kathir?", a: "Arrogance", wrong: ["He was asleep", "He was far away", "He forgot"], why: "Iblis was too arrogant and he haughtily refused to prostrate to him." },
+        { q: "What did Iblis say Adam was made from?", a: "Clay", wrong: ["Fire", "Light", "Water"], why: "Shall I prostrate myself to one whom You created from clay?" }
+      ]
+    },
+    {
+      slug: "no-power-over-my-servants",
+      title: "No power over Allah's servants",
+      line: "Shaytan has no authority over Allah's true servants.",
+      facts: ["His promises are deceit", "Allah is enough as Guardian"],
+      quote: q17(65),
+      source: ik(65, "Shaytan calls people to disobey Allah and makes empty promises, but Allah tells him he has no authority over His sincere servants, and Allah is enough as their Guardian.", "Every caller who calls people to disobey Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "What are Shaytan's promises, in 17:64?", a: "Nothing but deceit", wrong: ["True gifts", "Wise advice", "Kind help"], why: "But Shaytan promises them nothing but deceit." },
+        { q: "Over whom has Shaytan no authority, in 17:65?", a: "Allah's servants", wrong: ["The stars", "The animals", "The sea"], why: "Verily, My servants, you have no authority over them." },
+        { q: "What is Shaytan's voice, per Ibn Abbas in Ibn Kathir?", a: "Every call to disobey Allah", wrong: ["The wind", "Thunder", "A bird's song"], why: "Ibn Abbas said: Every caller who calls people to disobey Allah." }
+      ]
+    },
+    {
+      slug: "ships-on-the-sea",
+      title: "Ships on the sea",
+      line: "Allah drives ships across the sea so we can seek His bounty.",
+      facts: ["Trade between lands", "Out of His mercy"],
+      quote: q17(66),
+      source: ik(66, "Allah made ships sail on the sea for people, so they can trade between lands and seek His bounty. He does this out of His grace and mercy.", "out of His grace and mercy towards you"),
+      difficulty: 2,
+      questions: [
+        { q: "Who drives the ship through the sea, in 17:66?", a: "Allah", wrong: ["The sailors alone", "The fish", "Luck"], why: "Your Lord is He Who drives the ship for you through the sea." },
+        { q: "Why do people sail, per Ibn Kathir?", a: "To trade and seek His bounty", wrong: ["Only to play", "To hide", "To sleep"], why: "Seeking His bounty through trade between one region and another." },
+        { q: "How is Allah described at the end of 17:66?", a: "Most Merciful", wrong: ["Most Swift", "Most Strong", "Most High"], why: "Truly, He is ever Most Merciful towards you." }
+      ]
+    },
+    {
+      slug: "calling-allah-at-sea",
+      title: "Calling Allah in the storm",
+      line: "In a storm all false gods vanish, and only Allah is called.",
+      facts: ["Ikrimah's storm", "Do not forget Him on land"],
+      quote: q17(67),
+      source: ik(67, "In a storm at sea, people forget everything but Allah. Ikrimah, son of Abu Jahl, realised in such a storm that only Allah helps, on sea and land, and he went and accepted Islam.", "None can save you except Allah Alone"),
+      difficulty: 4,
+      questions: [
+        { q: "Who remains when harm strikes at sea, in 17:67?", a: "Allah alone", wrong: ["The idols", "The captain", "No one"], why: "Those that you call upon vanish from you except Him." },
+        { q: "Who accepted Islam after a sea storm, per Ibn Kathir?", a: "Ikrimah bin Abi Jahl", wrong: ["Abu Lahab", "Fir'awn", "Qarun"], why: "Ikrimah went to the Messenger ﷺ and declared his Islam, and he became a good Muslim." },
+        { q: "What does man often do back on land, in 17:67?", a: "Turn away", wrong: ["Thank more", "Pray longer", "Stay at sea"], why: "But when He brings you safe to land, you turn away. And man is ever ungrateful." }
+      ]
+    },
+    {
+      slug: "honoured-children-of-adam",
+      title: "The honoured children of Adam",
+      line: "Allah honoured people with fine form, travel and good food.",
+      facts: ["Walking upright", "Hearing, sight and a heart"],
+      quote: q17(70),
+      source: ik(70, "Allah honoured the children of Adam with the best form, walking upright and eating with their hands, with hearing, sight and a heart to understand, and with good things to eat and wear.", "He walks upright on his two feet and eats with his hand"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom has Allah honoured, in 17:70?", a: "The Children of Adam", wrong: ["Only kings", "Only the rich", "Only birds"], why: "And indeed We have honored the Children of Adam." },
+        { q: "Where did Allah carry people, in 17:70?", a: "On land and sea", wrong: ["Only on land", "Only in the air", "Nowhere"], why: "And We have carried them on land and sea." },
+        { q: "What is At-Tayyibat, per Ibn Kathir?", a: "Good food and fine things", wrong: ["Hard work", "Long trips", "Old stories"], why: "Meaning agricultural produce, fruits, meat, and milk with all kinds of delicious flavors, and fine clothes." }
+      ]
+    },
+    {
+      slug: "the-prayer-times",
+      title: "The prayer times",
+      line: "Pray from midday to night, and recite at dawn.",
+      facts: ["Zuhr, Asr, Maghrib, Isha", "Fajr at dawn"],
+      quote: q17(78),
+      source: ik(78, "From the sun past its height until the dark of night covers Zuhr, Asr, Maghrib and Isha, and the dawn recitation is Fajr. Together they are the five prayers.", "It is also understood to [generally] refer to the times of the five prayers"),
+      difficulty: 3,
+      questions: [
+        { q: "Which prayer is the recitation of dawn, per Ibn Kathir?", a: "Fajr", wrong: ["Isha", "Asr", "Zuhr"], why: "And recite the Qur'an in the early dawn, meaning Salat Al-Fajr." },
+        { q: "Which prayers fall from midday to night, per Ibn Kathir?", a: "Zuhr, Asr, Maghrib, Isha", wrong: ["Only Isha", "Fajr and Zuhr", "Only Maghrib"], why: "This was understood to mean Zuhr, Asr, Maghrib and Isha." },
+        { q: "What does midday mean, per Ibn Abbas?", a: "When the sun is at its height", wrong: ["Sunrise", "Sunset", "Midnight"], why: "Midday means when the sun is at its zenith." }
+      ]
+    },
+    {
+      slug: "fajr-is-witnessed",
+      title: "Fajr is witnessed",
+      line: "Angels of night and day gather at the Fajr prayer.",
+      facts: ["Group prayer is 25 times more", "Fajr is witnessed"],
+      quote: q17(78),
+      source: hadith("bukhari", "648", "Abu Hurairah", "Sahih", "The Prophet ﷺ said prayer in congregation is twenty-five times greater than praying alone, and the angels of the night and day gather at Fajr. Abu Hurairah then recited 17:78.", "The angels of the night and the angels of the day gather at the time of Fajr prayer"),
+      difficulty: 3,
+      questions: [
+        { q: "Who gathers at the Fajr prayer, in the hadith?", a: "Angels of night and day", wrong: ["Only the imams", "Birds of dawn", "Travellers"], why: "The angels of the night and the angels of the day gather at the time of Fajr prayer." },
+        { q: "How much greater is prayer in congregation?", a: "Twenty-five times", wrong: ["Two times", "Ten times", "One hundred times"], why: "The reward of a prayer in congregation is twenty five times greater than that of a prayer offered alone." },
+        { q: "Abu Hurairah recited 17:78 after the Fajr hadith.", tf: true, why: "Recite if you wish: Indeed, the recitation of the Qur'an in the early dawn is ever witnessed." }
+      ]
+    },
+    {
+      slug: "the-night-prayer",
+      title: "The night prayer",
+      line: "Pray at night too: the best extra prayer is at night.",
+      facts: ["Tahajjud is extra", "Maqam Mahmud is intercession"],
+      quote: q17(79),
+      source: hadith("muslim", "1163", "Abu Hurairah", "Sahih", "The Prophet ﷺ said the most excellent prayer after the obligatory ones is prayer during the night.", "the most excellent prayer after what is prescribed is prayer during the night"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the best prayer after the obligatory ones?", a: "Prayer during the night", wrong: ["Prayer at noon", "Prayer while walking", "No prayer"], why: "The most excellent prayer after what is prescribed is prayer during the night." },
+        { q: "What may Allah raise him ﷺ to, in 17:79?", a: "Maqam Mahmud", wrong: ["A palace", "A mountain", "A throne of gold"], why: "It may be that your Lord will raise you to Maqam Mahmud." },
+        { q: "What is Maqam Mahmud, per Ibn Abbas in Ibn Kathir?", a: "The station of intercession", wrong: ["A city", "A mosque", "A river"], why: "Ibn Abbas said, The position of praise and honor is the position of intercession." }
+      ]
+    },
+    {
+      slug: "a-good-entry-and-exit",
+      title: "A good entry and exit",
+      line: "Ask Allah for a good start, a good end, and His help.",
+      facts: ["Leaving Makkah", "Entering Madinah"],
+      quote: q17(80),
+      source: ik(80, "When the Prophet ﷺ was commanded to emigrate, Allah taught him to ask for a good exit from Makkah, a good entry into Madinah, and authority from Allah to support His Book.", "so he asked for authority to help him support the Book of Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What dua is taught in 17:80?", a: "Make my entry and exit good", wrong: ["Make me rich", "Make me famous", "Make the trip short"], why: "My Lord! Let my entry be good, and (likewise) my exit be good." },
+        { q: "What was the exit, per Ibn Kathir?", a: "Leaving Makkah", wrong: ["Leaving Ta'if", "Leaving Sham", "Leaving Egypt"], why: "And (likewise) my exit be good means my exit from Makkah." },
+        { q: "Why did he ﷺ ask for helping authority, per Qatadah?", a: "To support the Book of Allah", wrong: ["For wealth", "For fame", "For rest"], why: "He asked for authority to help him support the Book of Allah." }
+      ]
+    },
+    {
+      slug: "truth-has-come",
+      title: "Truth has come",
+      line: "Truth has come and falsehood has vanished, as it always will.",
+      facts: ["360 idols at the Ka'bah", "Recited at the conquest"],
+      quote: q17(81),
+      source: hadith("bukhari", "4720", "Abdullah ibn Mas'ud", "Sahih", "When the Prophet ﷺ entered Makkah at the conquest, there were 360 idols around the Ka'bah. He knocked them over with a stick, reciting that truth has come and falsehood has vanished.", "three-hundred and sixty idols"),
+      difficulty: 3,
+      questions: [
+        { q: "What has vanished, in 17:81?", a: "Falsehood", wrong: ["Truth", "The sea", "The night"], why: "Truth has come and falsehood has vanished. Surely, falsehood is ever bound to vanish." },
+        { q: "How many idols were around the Ka'bah, in the hadith?", a: "360", wrong: ["7", "40", "1000"], why: "There were three-hundred and sixty idols around the Ka'bah." },
+        { q: "When did he ﷺ recite 17:81 at the Ka'bah?", a: "At the conquest of Makkah", wrong: ["At the Hijrah", "At Badr", "At Hajj of Ibrahim"], why: "He entered Makkah in the year of the Conquest and recited: Truth has come and falsehood vanished." }
+      ]
+    },
+    {
+      slug: "a-cure-and-a-mercy",
+      title: "A cure and a mercy",
+      line: "The Quran heals hearts of doubt and brings mercy to believers.",
+      facts: ["It removes doubt", "Faith and wisdom grow"],
+      quote: q17(82),
+      source: ik(82, "The Quran takes away doubt, confusion and leaning to falsehood from believers' hearts, and it is a mercy by which they gain faith and wisdom.", "it takes away whatever is in their hearts of doubt"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the Quran for believers, in 17:82?", a: "A cure and a mercy", wrong: ["A puzzle", "A burden", "A history book only"], why: "And We send down of the Qur'an that which is a cure and a mercy to the believers." },
+        { q: "What does the Quran cure, per Ibn Kathir?", a: "Doubt and confusion in hearts", wrong: ["Only colds", "Hunger", "Tiredness"], why: "It takes away whatever is in their hearts of doubt, hypocrisy, Shirk, confusion and inclination towards falsehood." },
+        { q: "Ibn Kathir says the problem lies with the denier, not the Quran.", tf: true, why: "The problem lies with the disbeliever himself, not with the Qur'an." }
+      ]
+    },
+    {
+      slug: "in-ease-and-hardship",
+      title: "In ease and in hardship",
+      line: "In ease people turn away; in hardship they lose hope.",
+      facts: ["Stay thankful in ease", "Stay hopeful in hardship"],
+      quote: q17(83),
+      source: ik(83, "Man is weak: when blessed he turns away and becomes proud, and when hardship strikes he despairs, thinking good will never return, except those Allah protects.", "he thinks he will never have anything good again"),
+      difficulty: 4,
+      questions: [
+        { q: "What does man do when blessed, in 17:83?", a: "Turns away and grows proud", wrong: ["Thanks more", "Gives more", "Prays longer"], why: "And when We bestow Our grace on man, he turns away and becomes arrogant." },
+        { q: "What happens to him in hardship, in 17:83?", a: "He falls into despair", wrong: ["He laughs", "He sleeps", "He travels"], why: "And when evil touches him, he is in great despair." },
+        { q: "Who is safe from this weakness, per Ibn Kathir?", a: "Those whom Allah protects", wrong: ["The rich", "The strong", "No one ever"], why: "Allah tells us about the weakness inherent in man, except for those whom He protects." }
+      ]
+    },
+    {
+      slug: "the-ruh",
+      title: "The Ruh",
+      line: "Knowledge of the soul is with Allah; we were given a little.",
+      facts: ["He waited for revelation", "Our knowledge is small"],
+      quote: q17(85),
+      source: ik(85, "When asked about the Ruh, the Prophet ﷺ stayed quiet until revelation came: its knowledge is with Allah, and people have been given only a little knowledge.", "I knew that he was receiving revelation"),
+      difficulty: 4,
+      questions: [
+        { q: "With whom is knowledge of the Ruh, in 17:85?", a: "With Allah", wrong: ["With poets", "With doctors", "With no one"], why: "The Ruh (the spirit) is one of the things, the knowledge of which is only with my Lord." },
+        { q: "How much knowledge were people given, in 17:85?", a: "Only a little", wrong: ["All of it", "Most of it", "None"], why: "And of knowledge, you (mankind) have been given only a little." },
+        { q: "What did he ﷺ do when first asked, per Ibn Mas'ud?", a: "Stayed quiet for revelation", wrong: ["Answered at once", "Walked away", "Laughed"], why: "The Prophet ﷺ kept quiet and did not give them an answer, and I knew that he was receiving revelation." }
+      ]
+    },
+    {
+      slug: "none-can-match-the-quran",
+      title: "None can match the Quran",
+      line: "Even all people and jinn together could not make its like.",
+      facts: ["Words of the Creator", "Every example explained"],
+      quote: q17(88),
+      source: ik(88, "Even if all humans and jinn worked together, they could never produce anything like the Quran, because the words of creatures cannot be like the Words of the Creator.", "How could the words of created beings be like the Words of the Creator"),
+      difficulty: 3,
+      questions: [
+        { q: "Who could not make the like of the Quran, in 17:88?", a: "Mankind and the Jinn together", wrong: ["Only one poet", "Only children", "Only angels"], why: "If mankind and the Jinn were together to produce the like of this Qur'an, they could not produce the like thereof." },
+        { q: "Would helping one another make it possible?", a: "No, even if they helped", wrong: ["Yes, with help", "Yes, with time", "Only in Arabic"], why: "They could not produce the like thereof, even if they helped one another." },
+        { q: "Why can no one match it, per Ibn Kathir?", a: "It is the Word of the Creator", wrong: ["It is very long", "It is very old", "It is hidden"], why: "How could the words of created beings be like the Words of the Creator Who has no equal?" }
+      ]
+    },
+    {
+      slug: "a-human-messenger",
+      title: "A human Messenger",
+      line: "Allah sent a human Messenger so people could learn from him.",
+      facts: ["Angels for angels", "People can talk to him"],
+      quote: q17(95),
+      source: ik(95, "Allah in His mercy sends Messengers of people's own kind, so they can understand and speak with him directly. If angels lived on earth, an angel would have been sent.", "He sends to them Messengers of their own kind so that they will understand what he says"),
+      difficulty: 3,
+      questions: [
+        { q: "What stopped many from believing, in 17:94?", a: "That the Messenger ﷺ was human", wrong: ["The Quran was long", "Prayer was hard", "The road was far"], why: "Except that they said: Has Allah sent a man as (His) Messenger?" },
+        { q: "When would an angel be sent as Messenger, in 17:95?", a: "If angels walked the earth", wrong: ["If people asked twice", "On Fridays", "Never in any case"], why: "If there were on the earth, angels walking about in peace and security, We should have sent down an angel." },
+        { q: "Why is a human Messenger a mercy, per Ibn Kathir?", a: "People can learn from him", wrong: ["He never speaks", "He is hidden", "He is far away"], why: "So that they will understand what he says and will be able to speak to him directly." }
+      ]
+    },
+    {
+      slug: "man-is-ever-miserly",
+      title: "Man holds back",
+      line: "Even with Allah's treasures, people would hold back.",
+      facts: ["Fear of running out", "Allah's Hand is full"],
+      quote: q17(100),
+      source: ik(100, "Even if people owned the treasures of Allah's mercy, they would hold back for fear of running out, though they can never run out. Allah's generosity is endless.", "despite the fact that it can never be exhausted or come to an end"),
+      difficulty: 4,
+      questions: [
+        { q: "What would people do with Allah's treasures, in 17:100?", a: "Hold back for fear of spending", wrong: ["Give it all", "Lose it", "Bury it"], why: "Then you would surely hold back for fear of spending, and man is ever miserly!" },
+        { q: "Can Allah's treasures run out, per Ibn Kathir?", a: "No, never", wrong: ["Yes, slowly", "Yes, one day", "Only some"], why: "Despite the fact that it can never be exhausted or come to an end." },
+        { q: "Holding back is part of human nature, per Ibn Kathir.", tf: true, why: "Miserliness, discontent and impatience are human characteristics, except for those whom Allah helps and guides." }
+      ]
+    },
+    {
+      slug: "revealed-in-stages",
+      title: "Revealed in stages",
+      line: "The Quran came little by little over twenty-three years.",
+      facts: ["Recited slowly", "Ayah by ayah"],
+      quote: q17(106),
+      source: ik(106, "The Quran was revealed in stages, according to events, over twenty-three years, so the Prophet ﷺ could recite it to people slowly.", "over a period of twenty-three years"),
+      difficulty: 3,
+      questions: [
+        { q: "How was the Quran revealed, in 17:106?", a: "By stages", wrong: ["All in one day", "In one letter", "Only in writing"], why: "And We have revealed it by stages." },
+        { q: "Over how many years, per Ibn Kathir?", a: "Twenty-three", wrong: ["Seven", "Forty", "Ten"], why: "It was revealed in stages, according to events, over a period of twenty-three years." },
+        { q: "What does at intervals mean, per Ibn Kathir?", a: "Slowly", wrong: ["Loudly", "Quickly", "Secretly"], why: "Recite it to people, at intervals, meaning slowly." }
+      ]
+    },
+    {
+      slug: "they-fall-down-weeping",
+      title: "They fall down weeping",
+      line: "The learned fall down weeping in prostration when it is read.",
+      facts: ["Glory be to our Lord", "Their humility grows"],
+      quote: q17(107),
+      source: ik(107, "Righteous people of earlier Scripture, hearing the Quran, fall into prostration in gratitude that they lived to meet this Messenger, glorifying Allah, weeping, and growing in humility.", "in gratitude for the blessing He has bestowed on them"),
+      difficulty: 4,
+      questions: [
+        { q: "What do people of knowledge do on hearing it, in 17:107?", a: "Fall in prostration", wrong: ["Walk away", "Argue", "Fall asleep"], why: "When it is recited to them, fall down on their chins (faces) in humble prostration." },
+        { q: "What do they say, in 17:108?", a: "Glory be to our Lord", wrong: ["We are tired", "We knew nothing", "Read it again"], why: "And they say: Glory be to our Lord! Truly, the promise of our Lord must be fulfilled." },
+        { q: "What increases for them, in 17:109?", a: "Their humility", wrong: ["Their wealth", "Their pride", "Their sleep"], why: "And they fall down on their chins weeping and it increases their humility." }
+      ]
+    },
+    {
+      slug: "a-voice-in-between",
+      title: "A voice in between",
+      line: "Call Him Allah or Ar-Rahman, and recite in a middle voice.",
+      facts: ["All Best Names are His", "Not too loud, not too soft"],
+      quote: q17(110),
+      source: hadith("bukhari", "4722", "Ibn Abbas", "Sahih", "In Makkah, when the Prophet ﷺ recited aloud, the idolaters insulted the Quran, so Allah told him to recite neither too loudly nor too softly, but in between.", "was hiding himself in Mecca"),
+      difficulty: 4,
+      questions: [
+        { q: "To whom belong the Best Names, in 17:110?", a: "Allah", wrong: ["The angels", "The Prophets", "The kings"], why: "By whatever name you invoke Him (it is the same), for to Him belong the Best Names." },
+        { q: "How should prayer be recited, in 17:110?", a: "A way in between", wrong: ["Shouting", "Silently always", "Only in the heart"], why: "And offer your Salah neither aloud nor in a low voice, but follow a way between." },
+        { q: "Where was the Prophet ﷺ when 17:110 came down, per Ibn Abbas?", a: "Hiding in Makkah", wrong: ["In Madinah", "In Ta'if", "On a journey"], why: "This Verse was revealed while the Messenger ﷺ was hiding himself in Makkah." }
+      ]
+    },
+    {
+      slug: "all-praise-to-allah",
+      title: "All praise to Allah",
+      line: "Praise Allah, who has no son, no partner and needs no helper.",
+      facts: ["Magnify Him greatly", "He alone runs all things"],
+      quote: q17(111),
+      source: ik(111, "Allah has no son and no partner, and He is not weak so as to need a helper. He alone creates and runs all things, so magnify Him greatly.", "He is not so humble or weak that He needs to have a helper"),
+      difficulty: 3,
+      questions: [
+        { q: "What does Allah not have, in 17:111?", a: "A son or partner", wrong: ["Names", "Power", "Knowledge"], why: "All the praises and thanks be to Allah, Who has not begotten a son, and Who has no partner in (His) dominion." },
+        { q: "Does Allah need a helper, per Ibn Kathir?", a: "No, never", wrong: ["Yes, sometimes", "Only angels help", "Only at night"], why: "He is not so humble or weak that He needs to have a helper or supporter or adviser." },
+        { q: "How should we magnify Allah, in 17:111?", a: "With all magnificence", wrong: ["A little", "Rarely", "Only in Ramadan"], why: "And magnify Him with all magnificence." }
+      ]
+    }
+  ]
+};
+
+export const ISRA_UNITS: readonly DeepUnit[] = [ISRA_ONE, ISRA_TWO, ISRA_THREE];
