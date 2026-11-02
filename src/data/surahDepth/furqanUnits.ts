@@ -247,4 +247,297 @@ const FURQAN_ONE: DeepUnit = {
   ]
 };
 
-export const FURQAN_UNITS: readonly DeepUnit[] = [FURQAN_ONE];
+/** Ayahs 35 to 77: past nations, desires as a god, shade, night, wind and rain, the two seas, and the servants of the Most Gracious. */
+const FURQAN_TWO: DeepUnit = {
+  key: "furqan2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-25",
+  name: "Al-Furqan, ayahs 35 to 77",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Furqan",
+  lessons: [
+    {
+      slug: "harun-as-helper",
+      title: "Harun, Musa's helper",
+      line: "Allah gave Musa the Book and his brother Harun as a helper.",
+      facts: ["Harun was a Prophet too", "Past nations who denied were ruined"],
+      quote: q25(35),
+      source: ik(35, "Allah gave Musa the Scripture and made his brother Harun his helper, another Prophet who supported him. Allah reminds Quraysh of nations who denied their Messengers: Fir'awn, Nuh's people, Ad and Thamud.", "as another Prophet who helped and supported him"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was Musa's helper, in 25:35?", a: "His brother Harun", wrong: ["Yusuf", "Shu'ayb", "Lut"], why: "And placed his brother Harun with him as a helper." },
+        { q: "What was Harun, per Ibn Kathir?", a: "Another Prophet who helped him", wrong: ["A king", "A merchant", "A soldier"], why: "As another Prophet who helped and supported him." },
+        { q: "Which people were drowned, in 25:37?", a: "Nuh's people", wrong: ["Ad", "Thamud", "Madyan"], why: "And Nuh's people, when they denied the Messengers, We drowned them." }
+      ]
+    },
+    {
+      slug: "desire-as-a-god",
+      title: "Desire as a god",
+      line: "Some make their own wishes their god and follow them blindly.",
+      facts: ["Whatever they like becomes their way", "Some swapped idols for nicer stones"],
+      quote: q25(43),
+      source: ik(43, "Allah describes one who takes his own desire as his god: whatever he likes becomes his religion. Ibn Abbas said in Jahiliyyah a man would worship a white rock, then swap it for a nicer one.", "whatever he admires and sees as good in his own desires becomes his religion"),
+      difficulty: 3,
+      questions: [
+        { q: "What did he take as his god, in 25:43?", a: "His own desire", wrong: ["The sun", "A king", "His parents"], why: "Have you seen him who has taken as his god his own vain desire." },
+        { q: "What becomes his religion, per Ibn Kathir?", a: "Whatever he likes", wrong: ["The Quran", "The Sunnah", "His teacher's advice"], why: "Whatever he admires and sees as good in his own desires becomes his religion and his way." },
+        { q: "What did Ibn Abbas say some did in Jahiliyyah?", a: "Swapped a rock for a nicer one", wrong: ["Built a masjid", "Fed the poor", "Read the Tawrah"], why: "A man would worship a white rock for a while, then if he saw another that looked better, he would worship that." }
+      ]
+    },
+    {
+      slug: "the-spreading-shadow",
+      title: "The spreading shadow",
+      line: "Allah spreads the shade at dawn and the sun guides it away.",
+      facts: ["He could have made the shade stand still", "We know shade by the sun"],
+      quote: q25(45),
+      source: ik(45, "Many early scholars said the spread shadow is the time from dawn until sunrise. Allah could have made it still, but He made the sun its guide; the sun follows the shade until it disappears.", "This refers to the period from the beginning of the dawn until the sun rises"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Allah spread, in 25:45?", a: "The shadow", wrong: ["The sea", "The mountains", "The stars"], why: "Have you not seen how your Lord spread the shadow." },
+        { q: "What time is it, per the scholars?", a: "From dawn until sunrise", wrong: ["Midnight", "Noon only", "Sunset only"], why: "This refers to the period from the beginning of the dawn until the sun rises." },
+        { q: "What did Allah make the shadow's guide, in 25:45?", a: "The sun", wrong: ["The moon", "The wind", "The rain"], why: "But We have made the sun its guide." }
+      ]
+    },
+    {
+      slug: "night-and-sleep",
+      title: "Night to cover, sleep to rest",
+      line: "Night covers us, sleep rests us, and day wakes us to work.",
+      facts: ["Sleep refreshes body and soul", "Day is for earning a living"],
+      quote: q25(47),
+      source: ik(47, "Allah made the night a covering and sleep a rest. Limbs get tired from moving all day, so at night they stop, and sleep refreshes body and soul. Then day comes and people get up to work.", "so sleep provides a rejuvenation for both the body and the soul"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Allah make the night, in 25:47?", a: "A covering", wrong: ["A race", "A market", "A storm"], why: "And it is He Who makes the night a covering for you." },
+        { q: "What does sleep do, per Ibn Kathir?", a: "Refreshes body and soul", wrong: ["Makes us weak", "Wastes time", "Nothing"], why: "So sleep provides a rejuvenation for both the body and the soul." },
+        { tf: true, q: "Allah made the day a time for people to get up and work.", why: "People get up and go out to earn a living and attend to their business." }
+      ]
+    },
+    {
+      slug: "winds-bring-good-news",
+      title: "Winds bring good news",
+      line: "Allah sends winds ahead of rain like messengers of good news.",
+      facts: ["Different winds have different jobs", "Rain water is pure"],
+      quote: q25(48),
+      source: ik(48, "Allah sends winds as good news before His mercy, the rain. Some winds form clouds, some carry or drive them, some come ahead to announce them. Then He sends pure water from the sky.", "Some of them form the clouds, others carry the clouds or drive them"),
+      difficulty: 3,
+      questions: [
+        { q: "What do the winds bring, in 25:48?", a: "Glad tidings", wrong: ["Bad news", "Darkness", "Nothing"], why: "And it is He Who sends the winds as heralds of glad tidings, going before His mercy." },
+        { q: "What do some winds do, per Ibn Kathir?", a: "Form and drive the clouds", wrong: ["Dry the seas", "Light the sky", "Move mountains"], why: "Some of them form the clouds, others carry the clouds or drive them." },
+        { q: "What kind of water comes from the sky, in 25:48?", a: "Pure water", wrong: ["Salty water", "Muddy water", "Hot water"], why: "And We send down pure water from the sky." }
+      ]
+    },
+    {
+      slug: "rain-shared-out",
+      title: "Rain shared out wisely",
+      line: "Allah sends rain here, not there, so people remember Him.",
+      facts: ["It gives life to dead land", "Most people are not grateful"],
+      quote: q25(50),
+      source: ik(50, "Allah sends rain to one land and not another, with great wisdom. Ibn Abbas and Ibn Mas'ud said one year has no more rain than another; Allah shares it out as He wills, so people remember His favor.", "Allah distributes the rain as He wills"),
+      difficulty: 3,
+      questions: [
+        { q: "What does rain give life to, in 25:49?", a: "A dead land", wrong: ["Old stones", "The sky", "The stars"], why: "That We may give life thereby to a dead land." },
+        { q: "Why is rain shared out, in 25:50?", a: "So people remember Allah's grace", wrong: ["By chance", "To punish all", "For no reason"], why: "And indeed We have distributed it among them in order that they may remember the grace of Allah." },
+        { tf: true, q: "Ibn Abbas said one year does not have more rain than another.", why: "One year does not have more rain than another, but Allah distributes the rain as He wills." }
+      ]
+    },
+    {
+      slug: "the-two-seas",
+      title: "Sweet water and salty sea",
+      line: "Allah made sweet rivers and salty seas, with a barrier between.",
+      facts: ["Sweet water flows among people", "Shared out by need"],
+      quote: q25(53),
+      source: ik(53, "Allah created two kinds of water: sweet, like rivers, springs and wells, and salty and bitter, like the seas. He shares the sweet water among His creatures according to their needs, and set a barrier between them.", "He has created the two kinds of water, sweet and salty"),
+      difficulty: 3,
+      questions: [
+        { q: "What two seas are in 25:53?", a: "Sweet and salty", wrong: ["Hot and cold", "Red and black", "Old and new"], why: "This is palatable and sweet, and that is salty and bitter." },
+        { q: "Where is the sweet water, per Ibn Kathir?", a: "Rivers, springs and wells", wrong: ["The open ocean", "The clouds only", "Inside rocks only"], why: "The sweet water is like that in rivers, springs and wells." },
+        { q: "What is between them, in 25:53?", a: "A barrier and partition", wrong: ["A bridge", "A wall of fire", "Nothing"], why: "And He has set a barrier and a complete partition between them." }
+      ]
+    },
+    {
+      slug: "family-by-blood-and-marriage",
+      title: "Family by blood and marriage",
+      line: "Allah made people from water and gave them family ties.",
+      facts: ["First you are someone's child", "Then family grows by marriage"],
+      quote: q25(54),
+      source: ik(54, "Allah created man from water and gave him relatives by blood and by marriage. At first he is someone's child; then he marries and gains in-laws, and later his own children marry too.", "then he gets married and becomes a son-in-law"),
+      difficulty: 3,
+      questions: [
+        { q: "From what did Allah create man, in 25:54?", a: "Water", wrong: ["Fire", "Light", "Iron"], why: "And it is He Who has created man from water." },
+        { q: "What two kinds of family are named, in 25:54?", a: "By blood and by marriage", wrong: ["By money and fame", "By city and tribe", "By age and size"], why: "And has appointed for him kindred by blood, and kindred by marriage." },
+        { tf: true, q: "Ibn Kathir says a person starts as someone's child.", why: "In the beginning, he is someone's child, then he gets married." }
+      ]
+    },
+    {
+      slug: "the-ever-living",
+      title: "Trust the Ever-Living",
+      line: "Trust Allah, the Ever-Living who never dies.",
+      facts: ["He is the First and the Last", "He is enough as a helper"],
+      quote: q25(58),
+      source: ik(58, "In all your matters, put your trust in Allah, the Ever-Living who never dies, the First and the Last. Turn to Him; He will be enough for you, and your helper and supporter.", "He will be sufficient for you and will be your helper and supporter"),
+      difficulty: 4,
+      questions: [
+        { q: "In whom should we trust, in 25:58?", a: "The Ever-Living who dies not", wrong: ["A strong friend", "Our money", "Our luck"], why: "And put your trust in the Ever Living One Who dies not." },
+        { q: "What will Allah be for those who trust Him, per Ibn Kathir?", a: "Sufficient, a helper", wrong: ["Far away", "Silent", "Busy"], why: "He will be sufficient for you and will be your helper and supporter." },
+        { q: "What else are we told to do, in 25:58?", a: "Glorify His praises", wrong: ["Stay quiet", "Sleep more", "Count money"], why: "And glorify His praises, and sufficient is He as the All-Knower of the sins of His servants." }
+      ]
+    },
+    {
+      slug: "sun-lamp-moon-light",
+      title: "A great lamp and a shining moon",
+      line: "Allah placed great stars, a lamp-like sun and a bright moon.",
+      facts: ["The sun shines like a lamp", "The moon reflects light"],
+      quote: q25(61),
+      source: ik(61, "Allah praises Himself for the great stars He set in the sky, and the sun that shines like a lamp, and the moon that gives light, lit by a light different from the sun's own.", "which is the sun which shines like a lamp"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the great lamp, per Ibn Kathir?", a: "The sun", wrong: ["The moon", "A star", "Lightning"], why: "Which is the sun which shines like a lamp." },
+        { q: "What does the moon do, in 25:61?", a: "Gives light", wrong: ["Makes rain", "Burns hot", "Stays dark"], why: "And has placed therein a great lamp, and a moon giving light." },
+        { q: "What are Al-Buruj, per Mujahid?", a: "The giant stars", wrong: ["Tall towers", "City walls", "Deep wells"], why: "The beauty He created in the heavens of Al-Buruj, the giant stars." }
+      ]
+    },
+    {
+      slug: "night-and-day-to-make-up",
+      title: "Night and day in turns",
+      line: "Night and day take turns, so missed worship can be made up.",
+      facts: ["One comes as the other goes", "For those who remember and thank"],
+      quote: q25(62),
+      source: ik(62, "Allah made night and day follow each other forever, showing the times to worship Him. Whoever misses an act of worship at night can make it up in the day, and whoever misses it in the day can make it up at night.", "So whoever misses an act of worship during the night can make it up during the day"),
+      difficulty: 4,
+      questions: [
+        { q: "How do night and day come, in 25:62?", a: "One after the other", wrong: ["Both at once", "Only night", "Randomly"], why: "And He it is Who has put the night and the day in succession." },
+        { q: "Who benefits, in 25:62?", a: "Those who remember or give thanks", wrong: ["Only travellers", "Only farmers", "Nobody"], why: "For such who desires to remember or desires to show his gratitude." },
+        { tf: true, q: "Worship missed at night can be made up in the day.", why: "So whoever misses an act of worship during the night can make it up during the day." }
+      ]
+    },
+    {
+      slug: "walk-humbly-say-salam",
+      title: "Walk humbly, answer with peace",
+      line: "Allah's servants walk humbly and answer rude people with peace.",
+      facts: ["No pride in their walk", "They do not fight foolish words"],
+      quote: q25(63),
+      source: ik(63, "The servants of the Most Merciful walk on the earth with dignity and humility, not with pride. This is not a fake weak walk; it is calm and dignity. When foolish people speak to them, they reply with peaceful words.", "they walk with dignity and humility, not with arrogance and pride"),
+      difficulty: 4,
+      questions: [
+        { q: "How do Allah's servants walk, in 25:63?", a: "Humbly, Hawna", wrong: ["Proudly", "Running wildly", "Dragging their feet"], why: "And the servants of the Most Gracious are those who walk on the earth Hawna." },
+        { q: "What do they say to the foolish, in 25:63?", a: "Salama, peace", wrong: ["Angry words", "Nothing kind", "Shouts"], why: "And when the foolish address them they say: Salama." },
+        { q: "What does Hawna mean, per Ibn Kathir?", a: "Dignity and humility", wrong: ["Speed", "Pride", "Weakness"], why: "They walk with dignity and humility, not with arrogance and pride." }
+      ]
+    },
+    {
+      slug: "walk-calmly-to-prayer",
+      title: "Walk calmly to prayer",
+      line: "Do not rush to prayer; walk calmly and pray what you catch.",
+      facts: ["Calm walking is part of good manners", "Make up what you missed"],
+      quote: q25(63),
+      source: hadith("bukhari", "636", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: when you hear the iqamah, go to the prayer with calm and dignity and do not rush. Pray what you catch and complete what you missed.", "proceed to offer the prayer with calmness and solemnity and do not make haste"),
+      difficulty: 4,
+      questions: [
+        { q: "How should we go to prayer after the iqamah?", a: "Calmly, without rushing", wrong: ["Running fast", "Shouting", "Pushing people"], why: "Proceed to offer the prayer with calmness and solemnity and do not make haste." },
+        { q: "What if you miss part of the prayer?", a: "Complete what you missed", wrong: ["Go home", "Start a new one alone", "Skip it all"], why: "And pray whatever you are able to pray and complete whatever you have missed." },
+        { tf: false, q: "Running to catch the start of prayer is better.", why: "Proceed to offer the prayer with calmness and solemnity and do not make haste." }
+      ]
+    },
+    {
+      slug: "nights-in-prayer",
+      title: "Nights in prayer",
+      line: "Allah's servants spend part of the night bowing and standing.",
+      facts: ["They sleep little at night", "They ask forgiveness before dawn"],
+      quote: q25(64),
+      source: ik(64, "The servants of the Most Merciful spend the night worshipping their Lord, in prostration and standing. Like those who sleep little at night and ask for forgiveness before dawn.", "meaning, worshipping and obeying Him"),
+      difficulty: 5,
+      questions: [
+        { q: "How do they spend the night, in 25:64?", a: "Prostrate and standing in worship", wrong: ["Watching shows", "Playing games", "Counting coins"], why: "And those who spend the night in worship of their Lord, prostrate and standing." },
+        { q: "When do they ask forgiveness, in 51:18?", a: "Before dawn", wrong: ["At noon", "At lunch", "Never"], why: "And in the hours before dawn, they were asking for forgiveness." },
+        { tf: true, q: "Ibn Kathir explains it as worshipping and obeying Him.", why: "Meaning, worshipping and obeying Him." }
+      ]
+    },
+    {
+      slug: "spend-in-balance",
+      title: "Spend in balance",
+      line: "They spend neither wastefully nor stingily, but in balance.",
+      facts: ["The best way is the middle way", "Do not be stingy with family"],
+      quote: q25(67),
+      source: ik(67, "When they spend they are not wasteful, spending more than needed, nor stingy with their families. They follow the fairest way: the best of matters are those in the middle.", "The best of matters are those which are moderate"),
+      difficulty: 5,
+      questions: [
+        { q: "How do they spend, in 25:67?", a: "In a just balance", wrong: ["All at once", "Never", "Only on themselves"], why: "Neither extravagant nor stingy, but are in a just balance between them." },
+        { q: "Which matters are best, per Ibn Kathir?", a: "Those that are moderate", wrong: ["The most expensive", "The cheapest", "The loudest"], why: "The best of matters are those which are moderate, neither one extreme nor the other." },
+        { tf: false, q: "Being stingy with your family is part of good spending.", why: "Nor are they miserly towards their families, not spending enough on their needs." }
+      ]
+    },
+    {
+      slug: "sins-turned-to-good",
+      title: "Sins turned into good deeds",
+      line: "For those who repent and do good, Allah changes sins to good.",
+      facts: ["Repentance is accepted", "Allah is Forgiving, Merciful"],
+      quote: q25(70),
+      source: ik(70, "Allah accepts the repentance of anyone who repents, believes and does good, even after great sins. For them, Allah will change their bad deeds into good deeds. Allah is Oft-Forgiving, Most Merciful.", "Allah will change their sins into good deeds"),
+      difficulty: 5,
+      questions: [
+        { q: "What does Allah change for those who repent, in 25:70?", a: "Their sins into good deeds", wrong: ["Their names", "Their homes", "Nothing"], why: "For those, Allah will change their sins into good deeds." },
+        { q: "What three things come with this, in 25:70?", a: "Repent, believe, do good", wrong: ["Travel, trade, rest", "Eat, drink, sleep", "Run, hide, wait"], why: "Except those who repent and believe, and do righteous deeds." },
+        { tf: true, q: "Ibn Kathir says repentance is accepted from all deeds if one repents.", why: "Those who repent in this world to Allah from all of those deeds, for then Allah will accept their repentance." }
+      ]
+    },
+    {
+      slug: "pass-by-with-dignity",
+      title: "Pass by with dignity",
+      line: "They avoid false talk and pass by bad play with dignity.",
+      facts: ["They never give false witness", "They listen when reminded"],
+      quote: q25(72),
+      source: ik(72, "Allah's servants do not bear witness to falsehood or attend where it happens. If they pass by bad play or bad talk, they pass with dignity and do not let it touch them.", "they do not let it contaminate them in the slightest"),
+      difficulty: 5,
+      questions: [
+        { q: "How do they pass by bad talk, in 25:72?", a: "With dignity", wrong: ["By joining in", "By laughing", "By filming it"], why: "And if they pass by some evil play or evil talk, they pass by it with dignity." },
+        { q: "What do they not bear witness to, in 25:72?", a: "Falsehood", wrong: ["The truth", "Good deeds", "Prayer times"], why: "And those who do not bear witness to falsehood." },
+        { q: "How do they react when reminded of Allah's ayahs, in 25:73?", a: "Not deaf and blind", wrong: ["They cover their ears", "They walk away", "They sleep"], why: "When they are reminded of the Ayat of their Lord, fall not deaf and blind thereat." }
+      ]
+    },
+    {
+      slug: "comfort-of-our-eyes",
+      title: "The comfort of our eyes",
+      line: "They pray for family who obey Allah and bring them joy.",
+      facts: ["Ask for righteous children", "Ask to lead the pious"],
+      quote: q25(74),
+      source: ik(74, "Allah's servants pray: our Lord, give us from our spouses and children the comfort of our eyes, and make us leaders of the pious. Ibn Abbas said: children who obey Allah and bring joy in both worlds.", "who will strive to obey Allah and bring them joy in this world and the Hereafter"),
+      difficulty: 5,
+      questions: [
+        { q: "What do they ask for, in 25:74?", a: "Comfort of their eyes in family", wrong: ["Big houses", "Fast horses", "Gold rings"], why: "Our Lord! Bestow on us from our wives and our offspring the comfort of our eyes." },
+        { q: "What children bring comfort, per Ibn Abbas?", a: "Those who obey Allah", wrong: ["The richest ones", "The tallest ones", "The loudest ones"], why: "Who will strive to obey Allah and bring them joy in this world and the Hereafter." },
+        { q: "Whom do they ask to lead, in 25:74?", a: "Those who have Taqwa", wrong: ["Big armies", "Rich traders", "Kings"], why: "And make us leaders of those who have Taqwa." }
+      ]
+    },
+    {
+      slug: "the-highest-place",
+      title: "The highest place",
+      line: "For their patience, they get Paradise and greetings of peace.",
+      facts: ["Angels greet them at every gate", "They stay forever"],
+      quote: q25(75),
+      source: ik(75, "Those with these qualities will be rewarded on the Day of Resurrection with the highest place, Paradise, because of their patience. They will be greeted with welcome, honor and peace, and stay there forever.", "they will be greeted first with words of welcome and honor"),
+      difficulty: 5,
+      questions: [
+        { q: "Why are they rewarded, in 25:75?", a: "Because of their patience", wrong: ["Because of wealth", "Because of fame", "Because of strength"], why: "Those will be rewarded with the highest place because of their patience." },
+        { q: "How are they met there, in 25:75?", a: "With greetings and peace", wrong: ["With silence", "With questions", "With a test"], why: "Therein they shall be met with greetings and the word of peace and respect." },
+        { q: "What is the highest place, per the scholars?", a: "Paradise", wrong: ["A mountain", "A palace on earth", "A tower"], why: "With the highest place, which is Paradise." }
+      ]
+    },
+    {
+      slug: "because-of-your-dua",
+      title: "Because you call on Him",
+      line: "Allah cares for us because we call on Him and worship Him.",
+      facts: ["We were made to worship Him", "Glorify Him morning and evening"],
+      quote: q25(77),
+      source: ik(77, "Say: my Lord would not care for you if not for your calling on Him. He created people only to worship Him alone and glorify Him morning and evening.", "He only created mankind to worship Him Alone and to glorify Him morning and evening"),
+      difficulty: 5,
+      questions: [
+        { q: "Why does Allah pay attention to us, in 25:77?", a: "Because of our dua to Him", wrong: ["Because of our money", "Because of our looks", "Because of our homes"], why: "My Lord pays attention to you only because of your invocation to Him." },
+        { q: "Why were people created, per Ibn Kathir?", a: "To worship Him alone", wrong: ["To play all day", "To gather wealth", "For no reason"], why: "For He only created mankind to worship Him Alone and to glorify Him morning and evening." },
+        { tf: true, q: "Al-Furqan ends with this reminder.", why: "Say: My Lord pays attention to you only because of your invocation to Him." }
+      ]
+    }
+  ]
+};
+
+export const FURQAN_UNITS: readonly DeepUnit[] = [FURQAN_ONE, FURQAN_TWO];
