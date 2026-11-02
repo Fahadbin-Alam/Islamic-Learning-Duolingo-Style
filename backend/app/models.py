@@ -149,6 +149,19 @@ class FamilyLinkCode(Base):
     child: Mapped["User"] = relationship(foreign_keys=[child_id])
 
 
+class Invite(Base):
+    """A new learner typing a friend's invite code. Each learner can use one code, once; the friend who invited
+    them collects their reward the next time their app asks (see backend/app/api/routes/invites.py)."""
+
+    __tablename__ = "invites"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    inviter_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    invitee_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, unique=True)
+    inviter_rewarded: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false", nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+
 class AuthSession(Base):
     __tablename__ = "auth_sessions"
 

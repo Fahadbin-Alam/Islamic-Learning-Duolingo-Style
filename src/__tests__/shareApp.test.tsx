@@ -47,6 +47,15 @@ describe("invite message", () => {
     expect(inviteMessage("android", true)).toContain(APP_STORE_URL);
   });
 
+  it("carries the invite code and the dates both friends get", () => {
+    const message = inviteMessage("android", false, "K7Q2XY", 50);
+    expect(message).toContain("K7Q2XY");
+    expect(message).toContain("50 dates");
+    expect(message).toContain(PLAY_STORE_URL);
+    setActiveLanguage("ur");
+    expect(inviteMessage("android", false, "K7Q2XY", 50)).toContain("K7Q2XY");
+  });
+
   it("is translated and keeps the link", () => {
     setActiveLanguage("bn");
     const message = inviteMessage("android", false);
