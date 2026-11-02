@@ -940,7 +940,7 @@ const ANKABUT_FOUR: DeepUnit = {
     {
       slug: "spacious-is-my-earth",
       title: "Spacious is My earth",
-      line: "Allah's earth is wide; worship Him wherever you are free to.",
+      line: "Allah's earth is wide; worship Him wherever you are free.",
       facts: ["Hold on to your faith", "Allah opens a way"],
       quote: q29(56),
       source: ik(56, "Believers who could not practice Islam in Makkah migrated to Ethiopia, where they could worship freely, and later to Al-Madinah.", "they left and migrated to Ethiopia, where they were able to practice their religion"),
