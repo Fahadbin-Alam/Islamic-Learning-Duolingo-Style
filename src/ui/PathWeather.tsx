@@ -9,6 +9,7 @@ import { useScene } from "./sceneMood";
 import { BACKDROP_H, WorldBackdrop, type PathWorld } from "./pathWorlds";
 import { feedback, playUi } from "./sound";
 import { METEOR_HIT, bigLook } from "./bigShows";
+import { NoahsArk, SailingBoat } from "./seaSail";
 
 /**
  * The sky behind a unit of the path. Each unit has its own weather, so walking down the path feels
@@ -606,6 +607,13 @@ export const PathWeather = memo(function PathWeather({ weather, world = "desert"
       })}
       {/* The unit itself ends SKY_TAIL above the sky's bottom (the sky runs on to melt into the next one). */}
       <WorldBackdrop world={world} width={width} top={height - SKY_TAIL - BACKDROP_H + 14} moving={drifting} />
+      {world === "beach" ? (
+        // Out on the strip's water: the boat sails to and fro, and now and then Nuh's Ark sails by.
+        <>
+          <NoahsArk width={width} top={height - SKY_TAIL - BACKDROP_H + 14} moving={moving} />
+          <SailingBoat width={width} top={height - SKY_TAIL - BACKDROP_H + 14} moving={drifting} />
+        </>
+      ) : null}
     </View>
   );
 });

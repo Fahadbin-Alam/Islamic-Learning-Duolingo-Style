@@ -26,7 +26,8 @@ export function worldFor(choice: PathWorldChoice, topicId: string, unitIndex: nu
 
 /** The pictures beside the path in each place (the desert's come by topic, in PathScenery). */
 export const WORLD_ITEMS: Record<Exclude<PathWorld, "desert">, string[]> = {
-  beach: ["crab", "sandcastle", "boat", "palm", "shell", "turtle", "rocks"],
+  // The boat is not here: it sails out on the water of the strip (seaSail.tsx), not up beside the path.
+  beach: ["crab", "sandcastle", "palm", "shell", "turtle", "rocks"],
   forest: ["pine", "mushroom", "rabbit", "log", "bush", "flowers", "oasis"],
   snow: ["mountain", "goat", "pine", "cave", "rocks", "sheep"],
   camp: ["tent", "horse", "well", "banner", "shield", "palm", "dates"]
