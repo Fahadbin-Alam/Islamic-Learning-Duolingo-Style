@@ -8,6 +8,7 @@ from backend.app.api.routes.auth import router as auth_router
 from backend.app.api.routes.battles import router as battles_router
 from backend.app.api.routes.catalog import router as catalog_router
 from backend.app.api.routes.friends import router as friends_router
+from backend.app.api.routes.invites import router as invites_router
 from backend.app.api.routes.ummah import router as ummah_router
 from backend.app.api.routes.learning import router as learning_router
 from backend.app.api.routes.profile import router as profile_router
@@ -40,6 +41,7 @@ app.include_router(profile_router, prefix="/api")
 app.include_router(friends_router, prefix="/api")
 app.include_router(ummah_router, prefix="/api")
 app.include_router(battles_router, prefix="/api")
+app.include_router(invites_router, prefix="/api")
 app.include_router(catalog_router, prefix="/api")
 app.include_router(learning_router, prefix="/api")
 app.include_router(subscriptions_router, prefix="/api")

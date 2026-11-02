@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import { COURSE } from "../../data/course";
 // Type-only: backendSync pulls in device storage, which a presentational screen must not load.
-import type { CrewMember, CrewPayload, FriendBattle } from "../../services/backendSync";
+import type { CrewMember, CrewPayload, FriendBattle, InviteInfo } from "../../services/backendSync";
 import type { LeagueState, SocialRelation, UserProfile } from "../../types";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
@@ -69,6 +69,10 @@ export type CrewViewProps = {
   onCancelBattle?: (battle: FriendBattle) => void;
   /** The phone's share menu with an invite to Muslimo (no grown-up check: the person picks who gets it). */
   onShareApp?: () => void;
+  /** The signed-in learner's invite code; absent when signed out or the server could not be reached. */
+  invite?: InviteInfo;
+  /** A new learner types a friend's code: both get dates. */
+  onRedeemInvite?: (code: string) => void;
 };
 
 // Friend avatars take a topic world color, picked from their id.
@@ -252,6 +256,52 @@ function BattleRow({ battle, onAnswer, onPlay, onCancel }: { battle: FriendBattl
   );
 }
 
+/** The learner's invite code, how many friends used it, and (for new accounts) a box to type a friend's code. */
+export function InviteCodeCard({ invite, onRedeem }: { invite: InviteInfo; onRedeem?: (code: string) => void }) {
+  const [typing, setTyping] = useState(false);
+  const [code, setCode] = useState("");
+  const canRedeem = Boolean(onRedeem) && invite.canUseCode && !invite.usedCode;
+  const redeem = () => {
+    if (!code.trim()) return;
+    onRedeem?.(code.trim());
+    setTyping(false);
+    setCode("");
+  };
+  return (
+    <View style={styles.inviteCard} testID="invite-card">
+      <Text style={styles.inviteTitle}>{t("Invite a friend and you both get {count} dates!", { count: invite.rewardDates })}</Text>
+      <Text style={styles.inviteLabel}>{t("Your invite code")}</Text>
+      <Text style={styles.inviteCode} selectable testID="invite-code">
+        {invite.code}
+      </Text>
+      <Text style={styles.hint}>
+        {invite.joined ? t("Friends who joined with your code: {count}", { count: invite.joined }) : t("Your friend types it after signing up.")}
+      </Text>
+      {canRedeem && typing ? (
+        <View style={styles.redeemWrap}>
+          <TextField
+            value={code}
+            onChangeText={setCode}
+            placeholder={t("Friend's code")}
+            autoCapitalize="characters"
+            autoCorrect={false}
+            maxLength={12}
+            returnKeyType="done"
+            onSubmitEditing={redeem}
+            testID="invite-code-input"
+            accessibilityLabel={t("Friend's code")}
+          />
+          <GameButton label={t("Use code")} fullWidth disabled={!code.trim()} onPress={redeem} testID="invite-code-use" />
+        </View>
+      ) : canRedeem ? (
+        <Tappable onPress={() => setTyping(true)} style={styles.redeemLink} testID="invite-code-open" pressScale={0.96}>
+          <Text style={styles.redeemLinkText}>{t("Got a code from a friend?")}</Text>
+        </Tappable>
+      ) : null}
+    </View>
+  );
+}
+
 /** Open battles first (the ones waiting on this learner on top), then the last few finished. */
 export function sortBattles(battles: FriendBattle[]) {
   const weight = (battle: FriendBattle) => {
@@ -294,6 +344,8 @@ export function CrewView({
   onPlayBattle,
   onCancelBattle,
   onShareApp,
+  invite,
+  onRedeemInvite,
   mascotVariant = "muslim_man",
   // The brand green like the Mascot's own default; the app passes the topic accent.
   accent = colors.green
@@ -511,6 +563,7 @@ export function CrewView({
           <>
             {league ? <LeagueCard league={league} /> : null}
             {body}
+            {invite && !signedOut && !unavailable ? <InviteCodeCard invite={invite} onRedeem={onRedeemInvite} /> : null}
           </>
         )}
       </ScrollView>
@@ -794,6 +847,48 @@ const styles = StyleSheet.create({
   inviteWrap: {
     marginTop: 18,
     gap: 10
+  },
+  inviteCard: {
+    marginTop: 18,
+    padding: 14,
+    gap: 4,
+    borderRadius: radii.tile,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderColor: lighten(colors.gold, 0.45),
+    borderBottomColor: colors.gold,
+    backgroundColor: lighten(colors.gold, 0.9),
+    alignItems: "center"
+  },
+  inviteTitle: {
+    ...text.h3,
+    textAlign: "center"
+  },
+  inviteLabel: {
+    ...text.small,
+    marginTop: 6
+  },
+  inviteCode: {
+    fontFamily: fonts.displayHeavy,
+    fontSize: 30,
+    lineHeight: 38,
+    letterSpacing: 3,
+    color: darken(colors.gold, 0.55)
+  },
+  redeemWrap: {
+    alignSelf: "stretch",
+    gap: 8,
+    marginTop: 10
+  },
+  redeemLink: {
+    marginTop: 8,
+    paddingVertical: 6,
+    paddingHorizontal: 10
+  },
+  redeemLinkText: {
+    ...text.small,
+    fontFamily: fonts.displayHeavy,
+    color: darken(colors.gem, 0.2)
   },
   hint: {
     ...text.small,
