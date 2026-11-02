@@ -330,4 +330,297 @@ const ISRA_ONE: DeepUnit = {
   ]
 };
 
-export const ISRA_UNITS: readonly DeepUnit[] = [ISRA_ONE];
+/** Ayahs 26 to 55: kin and the poor, the middle way in spending, honest dealing, humility, and everything praising Allah. */
+const ISRA_TWO: DeepUnit = {
+  key: "isra2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-17",
+  name: "Al-Isra, ayahs 26 to 55",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Isra",
+  lessons: [
+    {
+      slug: "give-kin-their-due",
+      title: "Give relatives their due",
+      line: "After parents, give to relatives, the poor and the traveller.",
+      facts: ["Closest relatives first", "Then the poor and wayfarer"],
+      quote: q17(26),
+      source: ik(26, "After honouring parents, Allah commands kindness to relatives and keeping family ties, then giving to the poor and the stranded traveller.", "your closest relatives and the next closest"),
+      difficulty: 2,
+      questions: [
+        { q: "Who is named first in 17:26?", a: "The kinsman", wrong: ["The king", "The merchant", "The guest"], why: "And give to the kinsman his due, and to the Miskin (poor), and to the wayfarer." },
+        { q: "What does Allah mention right after parents, per Ibn Kathir?", a: "Kindness to relatives", wrong: ["Trade rules", "Travel rules", "War"], why: "When Allah mentions honoring one's parents, He follows this with the command to treat one's relatives well." },
+        { q: "Who is the wayfarer in 17:26?", a: "A traveller in need", wrong: ["A rich neighbour", "A shop owner", "A soldier"], why: "The wayfarer is the traveller far from home, named with the poor among those to be given their due." }
+      ]
+    },
+    {
+      slug: "family-ties-bring-blessing",
+      title: "Family ties bring blessing",
+      line: "Keeping family ties brings more provision and a longer life.",
+      facts: ["Visit and help relatives", "Allah blesses your provision"],
+      quote: q17(26),
+      source: hadith("bukhari", "5986", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said whoever loves to be given more provision and a longer life should keep good relations with his relatives.", "should keep good relations with his Kith and kin"),
+      difficulty: 3,
+      questions: [
+        { q: "What brings more provision, in the hadith?", a: "Keeping ties with relatives", wrong: ["Avoiding relatives", "Keeping secrets", "Sleeping early"], why: "Whoever loves that he be granted more wealth should keep good relations with his kith and kin." },
+        { q: "What else is prolonged by family ties, in the hadith?", a: "A person's life", wrong: ["The night", "The journey", "A friendship only"], why: "And that his lease of life be prolonged, then he should keep good relations with his kith and kin." },
+        { q: "Ibn Kathir quotes a hadith on family ties under 17:26.", tf: true, why: "Whoever would like to see his provision expanded and his life extended, let him maintain his ties of kinship." }
+      ]
+    },
+    {
+      slug: "do-not-waste",
+      title: "Do not waste",
+      line: "Spendthrifts are brothers of the devils, so do not waste.",
+      facts: ["Waste is spending on wrong", "Shaytan is ungrateful"],
+      quote: q17(27),
+      source: ik(27, "Allah forbids wasteful spending. Spendthrifts are like the devils in waste, foolishness and disobedience, and Shaytan is ungrateful to his Lord.", "they are their brothers in extravagance, foolishness"),
+      difficulty: 3,
+      questions: [
+        { q: "Whose brothers are the spendthrifts, in 17:27?", a: "The Shayatin", wrong: ["The angels", "The Prophets", "The poor"], why: "Verily, the spendthrifts are brothers of the Shayatin (devils)." },
+        { q: "What is extravagance, per Qatadah in Ibn Kathir?", a: "Spending on sin and wrong", wrong: ["Any spending at all", "Giving charity", "Buying food"], why: "Extravagance means spending money on sin in disobeying Allah, and on wrongful and corrupt things." },
+        { q: "How is Shaytan described in 17:27?", a: "Ungrateful to his Lord", wrong: ["Thankful", "Forgetful only", "Sleepy"], why: "And the Shaytan is ever ungrateful to his Lord." }
+      ]
+    },
+    {
+      slug: "a-soft-kind-word",
+      title: "A soft, kind word",
+      line: "If you have nothing to give, still answer with a kind word.",
+      facts: ["Do not be harsh", "Promise when you can"],
+      quote: q17(28),
+      source: ik(28, "If relatives or the needy ask and you have nothing to give, do not turn them away harshly. Speak to them softly and kindly, with a promise to give when you can.", "meaning, with a promise"),
+      difficulty: 3,
+      questions: [
+        { q: "What should you say when you have nothing to give, in 17:28?", a: "A soft, kind word", wrong: ["Nothing at all", "A harsh word", "A joke"], why: "Then, speak unto them a soft, kind word." },
+        { q: "What is the soft word, per Ibn Kathir?", a: "A promise to give later", wrong: ["A complaint", "A lecture", "A refusal"], why: "Speak unto them a soft, kind word, meaning, with a promise." },
+        { q: "17:28 allows being harsh when you cannot give.", tf: false, why: "If you turn away because you have nothing to give, then speak unto them a soft, kind word." }
+      ]
+    },
+    {
+      slug: "the-middle-way-in-spending",
+      title: "The middle way in spending",
+      line: "Do not be stingy, and do not spend everything away.",
+      facts: ["Hand not tied to the neck", "Hand not fully stretched"],
+      quote: q17(29),
+      source: ik(29, "Allah commands moderation. A miser is blamed and no one relies on him, and one who spends more than he can afford is left worn out with nothing.", "Allah enjoins moderation in living"),
+      difficulty: 3,
+      questions: [
+        { q: "What does a hand tied to the neck mean, per Ibn Kathir?", a: "Being stingy", wrong: ["Being generous", "Being sick", "Being tired"], why: "This means, do not be miserly and stingy, never giving anything to anyone." },
+        { q: "What does overextending the hand mean, per Ibn Kathir?", a: "Spending more than you can", wrong: ["Shaking hands", "Working hard", "Praying long"], why: "Nor be extravagant in spending and giving more than you can afford." },
+        { q: "What does Allah enjoin in 17:29, per Ibn Kathir?", a: "Moderation", wrong: ["Hoarding", "Giving away all", "Borrowing"], why: "Allah enjoins moderation in living. He condemns miserliness and forbids extravagance." }
+      ]
+    },
+    {
+      slug: "charity-never-lessens-wealth",
+      title: "Charity never lessens wealth",
+      line: "Charity does not lessen wealth, and humility raises you.",
+      facts: ["Forgiving brings honour", "Humble for Allah is raised"],
+      quote: q17(29),
+      source: hadith("muslim", "2588", "Abu Hurairah", "Sahih", "The Prophet ﷺ said charity does not decrease wealth, Allah increases in honour the one who forgives, and raises the one who is humble for His sake.", "Charity does not decrease wealth"),
+      difficulty: 3,
+      questions: [
+        { q: "What does charity not do, in the hadith?", a: "Decrease wealth", wrong: ["Bring reward", "Please Allah", "Help the poor"], why: "Charity does not decrease wealth." },
+        { q: "What does Allah give the one who forgives?", a: "More honour", wrong: ["Less respect", "More worry", "Nothing"], why: "No one forgives another except that Allah increases his honor." },
+        { q: "Who is raised in status, in the hadith?", a: "The humble, for Allah's sake", wrong: ["The proud", "The loud", "The richest"], why: "No one humbles himself for the sake of Allah except that Allah raises his status." }
+      ]
+    },
+    {
+      slug: "allah-gives-provision",
+      title: "Allah gives provision",
+      line: "Allah gives more to some and less to others, by His wisdom.",
+      facts: ["He sees His servants", "Rich and poor both tested"],
+      quote: q17(30),
+      source: ik(30, "Allah is the One Who provides or holds back. He makes rich and poor by His wisdom, and He knows and sees who is best served by each.", "He knows and sees who deserves to be rich and who deserves to be poor"),
+      difficulty: 4,
+      questions: [
+        { q: "Who expands and straitens provision, in 17:30?", a: "Allah", wrong: ["Kings", "Luck", "The market"], why: "Truly, your Lord expands the provision for whom He wills and straitens (for whom He wills)." },
+        { q: "By what does Allah make some rich and some poor?", a: "His wisdom", wrong: ["Chance", "Their names", "Their homes"], why: "He makes rich whomever He wills, and He makes poor whomever He wills, by the wisdom that is His." },
+        { q: "Which names end 17:30?", a: "All-Knower, All-Seer", wrong: ["Most Merciful, Most Kind", "All-Mighty, All-Wise", "Most High, Most Great"], why: "Verily, He is Ever All-Knower, All-Seer of His servants." }
+      ]
+    },
+    {
+      slug: "orphans-and-promises",
+      title: "Orphans and promises",
+      line: "Guard an orphan's wealth, and keep every promise.",
+      facts: ["Only to improve it", "Promises will be asked about"],
+      quote: q17(34),
+      source: ik(34, "Do not touch an orphan's wealth except to improve it until he grows up. Keep every promise and agreement, because each person will be asked about them.", "everything that you promise people"),
+      difficulty: 3,
+      questions: [
+        { q: "When may one go near an orphan's property, in 17:34?", a: "Only to improve it", wrong: ["To borrow it", "To spend it", "Never to check it"], why: "And come not near to the orphan's property except to improve it." },
+        { q: "What will be questioned about, in 17:34?", a: "The covenant", wrong: ["The weather", "Our clothes", "Our height"], why: "And fulfill (every) covenant. Verily, the covenant will be questioned about." },
+        { q: "What does covenant include, per Ibn Kathir?", a: "Every promise we make", wrong: ["Only big treaties", "Only written deals", "Only oaths to kings"], why: "Meaning, everything that you promise people, and the covenants that you agree to." }
+      ]
+    },
+    {
+      slug: "a-straight-balance",
+      title: "A straight balance",
+      line: "Give full measure and weigh with a straight balance.",
+      facts: ["Never cheat on weight", "Better in the end"],
+      quote: q17(35),
+      source: ik(35, "Give full measure and weigh honestly, without making things weigh less or wronging people. That is good in this life and better in the Hereafter.", "do not try to make it weigh less nor wrong people with their belongings"),
+      difficulty: 3,
+      questions: [
+        { q: "How should we measure, in 17:35?", a: "Give full measure", wrong: ["Give a little less", "Guess the weight", "Skip measuring"], why: "And give full measure when you measure, and weigh with a balance that is straight." },
+        { q: "What does a straight balance mean, per Ibn Kathir?", a: "Scales that are not distorted", wrong: ["A tall shelf", "A new shop", "A heavy stone"], why: "Meaning scales that are straight, not distorted nor causing confusion." },
+        { q: "Honest weighing is better in the end, per 17:35.", tf: true, why: "That is good (advantageous) and better in the end." }
+      ]
+    },
+    {
+      slug: "do-not-speak-without-knowledge",
+      title: "Do not speak without knowledge",
+      line: "Do not follow or say what you do not know.",
+      facts: ["Avoid suspicion", "Do not say I saw if you did not"],
+      quote: q17(36),
+      source: ik(36, "Allah forbids speaking without knowledge, only from suspicion. Do not say you saw, heard or know something when you did not.", "Allah forbids speaking without knowledge and only on the basis of suspicion"),
+      difficulty: 3,
+      questions: [
+        { q: "What does 17:36 forbid?", a: "Following what we do not know", wrong: ["Learning new things", "Asking questions", "Reading books"], why: "And follow not that of which you have no knowledge." },
+        { q: "What is speech built on suspicion, per Ibn Kathir?", a: "Forbidden", wrong: ["Recommended", "Always true", "A good habit"], why: "Allah forbids speaking without knowledge and only on the basis of suspicion." },
+        { q: "What did Qatadah warn against saying falsely?", a: "I have seen or heard", wrong: ["Thank you", "Salam", "Bismillah"], why: "Do not say, I have seen, when you did not see anything, or I have heard, when you did not hear anything." }
+      ]
+    },
+    {
+      slug: "hearing-sight-and-heart",
+      title: "Hearing, sight and heart",
+      line: "Our hearing, sight and heart will each be asked about.",
+      facts: ["Gifts we must use well", "Asked on the Last Day"],
+      quote: q17(36),
+      source: ik(36, "Hearing, sight and the heart will each be asked about on the Day of Resurrection: how a person used them.", "the person will be asked about them on the Day of Resurrection"),
+      difficulty: 4,
+      questions: [
+        { q: "Which three are questioned, in 17:36?", a: "Hearing, sight and heart", wrong: ["Hands, feet and hair", "Wealth, house and car", "Name, age and town"], why: "Verily, the hearing, and the sight, and the heart of each of those ones will be questioned." },
+        { q: "What will a person be asked about them, per Ibn Kathir?", a: "What he did with them", wrong: ["Their colour", "Their size", "Nothing"], why: "The person will be asked about them on the Day of Resurrection, and what he did with them." },
+        { q: "Ibn Kathir says the faculties will be asked about the person too.", tf: true, why: "And they will be asked about him and what he did with them." }
+      ]
+    },
+    {
+      slug: "walk-humbly",
+      title: "Walk humbly",
+      line: "Walk humbly: pride cannot split the earth or match mountains.",
+      facts: ["Arrogance is hateful to Allah", "Be humble in walking"],
+      quote: q17(37),
+      source: ik(37, "Allah forbids walking with pride. However proud a person walks, he cannot pierce the earth with his steps or grow as tall as the mountains.", "you cannot penetrate the earth with your walking"),
+      difficulty: 3,
+      questions: [
+        { q: "How should we not walk, in 17:37?", a: "With conceit and arrogance", wrong: ["Quickly", "Slowly", "Barefoot"], why: "And walk not on the earth with conceit and arrogance." },
+        { q: "What can a proud walker not do, in 17:37?", a: "Reach the mountains in height", wrong: ["Walk at all", "Speak", "See"], why: "Nor can you attain a stature like the mountains in height." },
+        { q: "How does Allah view these bad deeds, in 17:38?", a: "Hateful to Him", wrong: ["Small matters", "Allowed", "Rewarded"], why: "All the bad aspects of these are hateful to your Lord." }
+      ]
+    },
+    {
+      slug: "this-is-wisdom",
+      title: "This is wisdom",
+      line: "All these commands are part of the wisdom Allah revealed.",
+      facts: ["Good manners commanded", "Bad traits forbidden"],
+      quote: q17(39),
+      source: ik(39, "Everything commanded from 17:23 onward is good manners, and everything forbidden is a bad trait. Allah revealed this wisdom so it could be taught to people.", "What We have commanded you to do is part of good manners"),
+      difficulty: 3,
+      questions: [
+        { q: "What does 17:39 call these teachings?", a: "Al-Hikmah, wisdom", wrong: ["A poem", "A story", "A riddle"], why: "This is (part) of Al-Hikmah (wisdom) which your Lord has revealed to you." },
+        { q: "What are the commands, per Ibn Kathir?", a: "Good manners", wrong: ["Old customs", "Hard tests", "Secrets"], why: "What We have commanded you to do is part of good manners, and what We have forbidden you are evil qualities." },
+        { q: "Which sin does 17:39 warn of again?", a: "Setting up another god", wrong: ["Laziness", "Hunger", "Travel"], why: "And set not up with Allah any other god." }
+      ]
+    },
+    {
+      slug: "no-go-between-needed",
+      title: "No go-between needed",
+      line: "Even false gods would seek Allah, so worship Him directly.",
+      facts: ["Allah is far above partners", "Call on Him alone"],
+      quote: q17(42),
+      source: ik(42, "If there were other gods, they themselves would worship Allah and seek to come close to Him. So worship Him alone: no one needs a go-between with Him.", "You have no need of a deity to be an intermediary between you and Him"),
+      difficulty: 4,
+      questions: [
+        { q: "What would other gods seek, in 17:42?", a: "A way to the Lord of the Throne", wrong: ["Gold", "A kingdom", "Rest"], why: "If there had been other gods along with Him, they would certainly have sought out a way to the Lord of the Throne." },
+        { q: "Do we need a go-between with Allah, per Ibn Kathir?", a: "No", wrong: ["Yes, always", "Only for big needs", "Only on Fridays"], why: "You have no need of a deity to be an intermediary between you and Him." },
+        { q: "What does 17:43 say of Allah?", a: "Exalted high above what they say", wrong: ["He has a partner", "He sleeps", "He needs help"], why: "Glorified and Exalted is He high above what they say." }
+      ]
+    },
+    {
+      slug: "everything-praises-allah",
+      title: "Everything praises Allah",
+      line: "Heavens, earth and all within them glorify Allah's praise.",
+      facts: ["We do not understand it", "Animals, plants and more"],
+      quote: q17(44),
+      source: ik(44, "Every created thing, animals, plants and even the inanimate, glorifies Allah in its own way, though people do not understand their praise.", "there is no created being that does not celebrate the praises of Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What glorifies Allah, in 17:44?", a: "Everything", wrong: ["Only angels", "Only people", "Only birds"], why: "There is not a thing but glorifies His praise." },
+        { q: "Why do we not understand their glorification?", a: "It is not like our languages", wrong: ["It is silent", "It is rare", "It is a secret code"], why: "You do not understand them, O mankind, because it is not like your languages." },
+        { q: "Which names end 17:44?", a: "Forbearing, Oft-Forgiving", wrong: ["Mighty, Wise", "Hearing, Seeing", "Rich, Praised"], why: "Truly, He is Ever Forbearing, Oft-Forgiving." }
+      ]
+    },
+    {
+      slug: "the-food-glorified-allah",
+      title: "The food glorified Allah",
+      line: "The Companions heard food glorifying Allah as it was eaten.",
+      facts: ["Water flowed from his fingers", "Blessing is from Allah"],
+      quote: q17(44),
+      source: hadith("bukhari", "3579", "Abdullah ibn Mas'ud", "Sahih", "On a journey short of water, the Prophet ﷺ put his hand in a little water and it flowed from between his fingers. Ibn Mas'ud said they heard the food glorifying Allah as it was eaten.", "we heard the meal glorifying Allah, when it was being eaten"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Companions hear, in the hadith?", a: "The food glorifying Allah", wrong: ["Birds singing", "Thunder", "A far call"], why: "No doubt, we heard the meal glorifying Allah, when it was being eaten." },
+        { q: "What flowed from between his ﷺ fingers?", a: "Water", wrong: ["Milk", "Honey", "Oil"], why: "I saw the water flowing from among the fingers of the Messenger ﷺ." },
+        { q: "Whom did he ﷺ say the blessing was from?", a: "Allah", wrong: ["The water", "The travellers", "The town"], why: "Come to the blessed water, and the Blessing is from Allah." }
+      ]
+    },
+    {
+      slug: "who-will-bring-us-back",
+      title: "Who will bring us back?",
+      line: "The One who made you first will raise you again.",
+      facts: ["Even stones or iron", "It may be near"],
+      quote: q17(51),
+      source: ik(51, "Deniers asked how dust and bones could live again. Allah says: even if you were stone or iron, He Who created you from nothing will bring you back.", "He Who created you when you were nothing"),
+      difficulty: 3,
+      questions: [
+        { q: "Who will bring people back, in 17:51?", a: "He Who created you first", wrong: ["No one", "The angels alone", "Their families"], why: "Say: He Who created you first!" },
+        { q: "What harder things are named in 17:50?", a: "Stones or iron", wrong: ["Wood or clay", "Water or air", "Sand or salt"], why: "Say: Be you stones or iron." },
+        { q: "What should one say when asked when it will be?", a: "Perhaps it is near", wrong: ["Never", "In a thousand years", "Nobody cares"], why: "And say: When will that be? Say: Perhaps it is near!" }
+      ]
+    },
+    {
+      slug: "it-will-feel-short",
+      title: "It will feel so short",
+      line: "On rising, people will feel they stayed only a little while.",
+      facts: ["Answering with His praise", "Life will seem brief"],
+      quote: q17(52),
+      source: ik(52, "On that Day Allah will call, and everyone will rise from the earth in obedience. Life in this world will then feel as if it lasted only a little while.", "you will all rise up in response to His command and in obedience to His will"),
+      difficulty: 4,
+      questions: [
+        { q: "How will people answer the call, in 17:52?", a: "With His praise", wrong: ["With silence", "With laughter", "With refusal"], why: "On the Day when He will call you, and you will answer with (words of) His praise and obedience." },
+        { q: "How long will life seem, in 17:52?", a: "A little while", wrong: ["A very long time", "Forever", "Exactly a year"], why: "And you will think that you have stayed (in this world) but a little while." },
+        { q: "People will rise in obedience to His command, per Ibn Kathir.", tf: true, why: "You will all rise up in response to His command and in obedience to His will." }
+      ]
+    },
+    {
+      slug: "say-the-best-words",
+      title: "Say the best words",
+      line: "Speak with the best words, or Shaytan stirs up quarrels.",
+      facts: ["Shaytan is a clear enemy", "Words can lead to fights"],
+      quote: q17(53),
+      source: ik(53, "Believers should speak to one another with the best and politest words. If not, Shaytan sows discord, words turn into actions, and quarrels break out.", "with the best and politest of words"),
+      difficulty: 3,
+      questions: [
+        { q: "What words should believers say, in 17:53?", a: "The best words", wrong: ["Any words", "Few words", "Loud words"], why: "And say to My servants that they should say those words that are best." },
+        { q: "What does Shaytan do with bad words, per Ibn Kathir?", a: "Sows discord", wrong: ["Stays away", "Brings peace", "Forgets them"], why: "Shaytan will sow discord among them, and words will lead to actions." },
+        { q: "How is Shaytan described in 17:53?", a: "A plain enemy", wrong: ["A friend", "A teacher", "A helper"], why: "Surely, Shaytan is to man a plain enemy." }
+      ]
+    },
+    {
+      slug: "dawud-and-the-zabur",
+      title: "Dawud and the Zabur",
+      line: "Allah gave Dawud the Zabur, and made reciting it easy for him.",
+      facts: ["Some Prophets given more", "He ate from his own work"],
+      quote: q17(55),
+      source: hadith("bukhari", "3417", "Abu Hurairah", "Sahih", "The Prophet ﷺ said reciting the Zabur was made easy for Dawud: he finished it while his riding animals were being saddled, and he ate only from the work of his own hands.", "would finish reciting the Zabur before they were saddled"),
+      difficulty: 4,
+      questions: [
+        { q: "Which Book was given to Dawud, in 17:55?", a: "The Zabur", wrong: ["The Tawrah", "The Injil", "The Quran"], why: "And to Dawud We gave the Zabur." },
+        { q: "When did Dawud finish reciting the Zabur?", a: "Before his animals were saddled", wrong: ["Over a whole year", "Only at night", "Never"], why: "He used to order that his riding animals be saddled, and would finish reciting the Zabur before they were saddled." },
+        { q: "How did Dawud earn his food, in the hadith?", a: "From his own handiwork", wrong: ["From gifts", "From taxes", "From hunting only"], why: "And he would never eat except from the earnings of his manual work." }
+      ]
+    }
+  ]
+};
+
+export const ISRA_UNITS: readonly DeepUnit[] = [ISRA_ONE, ISRA_TWO];
