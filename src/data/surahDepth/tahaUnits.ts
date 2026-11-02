@@ -302,4 +302,297 @@ const TAHA_ONE: DeepUnit = {
   ]
 };
 
-export const TAHA_UNITS: readonly DeepUnit[] = [TAHA_ONE];
+/** Ayahs 53 to 98: the earth as a bed, the contest with the magicians, the sea split, Ashura, and the golden calf. */
+const TAHA_TWO: DeepUnit = {
+  key: "taha2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-20",
+  name: "Ta-Ha, ayahs 53 to 98",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Ta-Ha",
+  lessons: [
+    {
+      slug: "the-earth-like-a-bed",
+      title: "The earth like a bed",
+      line: "Allah spread the earth like a bed, with paths and rain.",
+      facts: ["Roads to travel", "Food for us and our animals"],
+      quote: q20(53),
+      source: ik(53, "Musa went on describing his Lord to Fir'awn: He made the earth a resting place, opened roads in it, and sent rain that brings out every kind of plant.", "He is the One Who made the earth as a bed for you"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah make the earth like, in 20:53?", a: "A bed", wrong: ["A wall", "A cave", "A ship"], why: "Who has made earth for you like a bed; and has opened ways for you therein." },
+        { q: "What does the rain bring out, in 20:53?", a: "Various kinds of plants", wrong: ["Only stones", "Gold", "Only sand"], why: "And We have brought forth with it various kinds of vegetation." },
+        { q: "Who sees these signs, in 20:54?", a: "People of understanding", wrong: ["Only kings", "Only sailors", "No one"], why: "Verily, in this are Ayat for men of understanding." }
+      ]
+    },
+    {
+      slug: "from-the-earth-we-came",
+      title: "From the earth we came",
+      line: "Made from earth, returned to it, raised from it again.",
+      facts: ["Adam made from earth", "Raised again one day"],
+      quote: q20(55),
+      source: ik(55, "Adam was created from the soil of the earth. When we die we return to it, and on the Day of Resurrection Allah will bring us out of it once again.", "the earth is your beginning"),
+      difficulty: 3,
+      questions: [
+        { q: "What three things does 20:55 say about the earth?", a: "Created, returned, brought out", wrong: ["Built, sold, left", "Seen, heard, lost", "Grown, cut, burned"], why: "Thereof We created you, and into it We shall return you, and from it We shall bring you out once again." },
+        { q: "Who was created from the earth, per Ibn Kathir?", a: "Adam, our father", wrong: ["The angels", "The jinn", "The stars"], why: "For your father, Adam, was created with dirt from the surface of the earth." },
+        { q: "Fir'awn believed once he saw all the signs, per 20:56.", tf: false, why: "And indeed We showed him all Our Ayat, but he denied and refused." }
+      ]
+    },
+    {
+      slug: "the-day-of-the-festival",
+      title: "The day of the festival",
+      line: "Musa chose a festival morning, so everyone could see clearly.",
+      facts: ["Broad daylight", "The truth is never hidden"],
+      quote: q20(59),
+      source: ik(59, "Fir'awn called the signs magic and wanted a contest. Musa chose their festival day, in the morning light, so the whole people would see. Prophets work openly, never in secret.", "This is the way of the Prophets. Their work is always clear and apparent"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Fir'awn call Musa's signs, in 20:57?", a: "Magic", wrong: ["Miracles", "Dreams", "Poems"], why: "Have you come to drive us out of our land with your magic, O Musa?" },
+        { q: "When was the meeting set, in 20:59?", a: "The day of the festival", wrong: ["At midnight", "In secret", "In winter"], why: "Your appointed meeting is the day of the festival, and let the people assemble when the sun has risen." },
+        { q: "Why in daylight, per Ibn Kathir?", a: "So all could see it clearly", wrong: ["It was cooler", "Fir'awn slept at night", "To finish early"], why: "This is the way of the Prophets. Their work is always clear and apparent." }
+      ]
+    },
+    {
+      slug: "do-not-lie-against-allah",
+      title: "Do not lie against Allah",
+      line: "Musa warned the magicians not to make lies against Allah.",
+      facts: ["The liar fails", "They argued in secret"],
+      quote: q20(61),
+      source: ik(61, "Before the contest Musa warned the magicians: do not show people something false as if it were real, for that is lying against Allah. They argued among themselves in secret.", "If you do this, then you would be lying on Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Musa warn them, in 20:61?", a: "Invent not a lie against Allah", wrong: ["Run away now", "Bow to Fir'awn", "Hide your ropes"], why: "Woe unto you! Invent not a lie against Allah." },
+        { q: "What happens to one who invents a lie, in 20:61?", a: "He fails", wrong: ["He wins", "He gets rich", "He is praised"], why: "And surely, he who invents a lie will fail miserably." },
+        { q: "How did they talk afterwards, in 20:62?", a: "In secret", wrong: ["Loudly", "In song", "Not at all"], why: "Then they debated one with another what they must do, and they kept their talk secret." }
+      ]
+    },
+    {
+      slug: "you-throw-first",
+      title: "You throw first",
+      line: "Musa let the magicians throw first, so all would see the truth.",
+      facts: ["Ropes seemed to move", "Musa feared for the people"],
+      quote: q20(66),
+      source: ik(66, "Musa told the magicians to throw first, so their tricks would be seen and the truth made plain. Their ropes and sticks seemed to move, and Musa feared the people would be fooled.", "he feared for the people that they would be tested and deceived by their magic"),
+      difficulty: 3,
+      questions: [
+        { q: "Who threw first, in 20:66?", a: "The magicians", wrong: ["Musa", "Harun", "Fir'awn"], why: "Nay, throw you first! Then behold! their ropes and their sticks, by their magic, appeared to him as though they moved fast." },
+        { q: "Did the ropes really move, in 20:66?", a: "No, they only seemed to", wrong: ["Yes, they were alive", "They flew away", "They turned to gold"], why: "Their ropes and their sticks, by their magic, appeared to him as though they moved fast." },
+        { q: "What did Musa fear, per Ibn Kathir?", a: "That the people would be fooled", wrong: ["The ropes", "Losing his staff", "The sun"], why: "He feared for the people that they would be tested and deceived by their magic." }
+      ]
+    },
+    {
+      slug: "it-swallowed-their-tricks",
+      title: "It swallowed their tricks",
+      line: "Allah said fear not; Musa's staff swallowed all their tricks.",
+      facts: ["The truth won", "Magic never succeeds"],
+      quote: q20(69),
+      source: ik(69, "Allah told Musa: fear not, you will win, throw what is in your right hand. His staff swallowed every rope and stick in broad daylight, and the truth prevailed over the trick.", "The truth prevailed and the magic was proven to be falsehood"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah tell Musa, in 20:68?", a: "Fear not, you will win", wrong: ["Run away", "Wait a year", "Hide your staff"], why: "Fear not! Surely, you will have the upper hand." },
+        { q: "What did the staff do, in 20:69?", a: "Swallowed what they made", wrong: ["Broke in two", "Flew away", "Turned to gold"], why: "And throw that which is in your right hand! It will swallow up that which they have made." },
+        { q: "The magician will never succeed, whatever his skill, per 20:69.", tf: true, why: "And the magician will never be successful, to whatever amount (of skill) he may attain." }
+      ]
+    },
+    {
+      slug: "the-magicians-believed",
+      title: "The magicians believed",
+      line: "The magicians fell in sujud and believed in Musa's Lord.",
+      facts: ["Magicians by morning", "Believers by evening"],
+      quote: q20(70),
+      source: ik(70, "The magicians knew every trick, so they knew this was no trick. They fell down in sujud and believed. Ibn Abbas said they were magicians in the morning and witnesses of faith by evening.", "At the beginning of the day they were magicians and at the end of the day they were outstanding witnesses of faith"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the magicians do, in 20:70?", a: "Fell down in sujud", wrong: ["Ran away", "Threw again", "Laughed"], why: "So the magicians fell down prostrate. They said: We believe in the Lord of Harun and Musa." },
+        { q: "Why did they know it was no trick, per Ibn Kathir?", a: "They knew all the tricks", wrong: ["Fir'awn told them", "They were tired", "A bird told them"], why: "While they were knowledgeable of the various tricks and methods in the sciences of magic, they knew with conviction that what Musa had done was not magic." },
+        { q: "How many magicians were there, per Ibn Abbas?", a: "Seventy", wrong: ["Three", "Ten", "A thousand"], why: "The magicians were seventy men who were magicians in the morning, but witnesses of faith by the time evening came." }
+      ]
+    },
+    {
+      slug: "we-will-not-choose-you",
+      title: "We will not choose you",
+      line: "Threatened, the magicians said: your power ends with this world.",
+      facts: ["Faith gave them courage", "The Hereafter lasts"],
+      quote: q20(72),
+      source: ik(72, "Fir'awn threatened the new believers. They said: we will not choose you over the clear signs and our Creator. Do what you will, your power is only in this passing world.", "Verily, we are hoping in the eternal abode"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom would they not prefer, in 20:72?", a: "Fir'awn", wrong: ["Musa", "Harun", "Their Creator"], why: "We prefer you not over what have come to us of the clear signs and to Him Who created us." },
+        { q: "Where is Fir'awn's power only, in 20:72?", a: "In this worldly life", wrong: ["Everywhere", "In the Hereafter", "Over the stars"], why: "So, decree whatever you desire to decree, for you can only decree (regarding) this life of the world." },
+        { q: "What were they hoping for, per Ibn Kathir?", a: "The eternal abode", wrong: ["Fir'awn's gold", "A palace", "Fame"], why: "You only have power in this world and it is a world that will come to an end. Verily, we are hoping in the eternal abode." }
+      ]
+    },
+    {
+      slug: "better-and-more-lasting",
+      title: "Better and more lasting",
+      line: "They hoped Allah would forgive them; His reward lasts forever.",
+      facts: ["Forced to do magic", "Allah forgives"],
+      quote: q20(73),
+      source: ik(73, "The magicians asked Allah to forgive their past wrongs and the magic Fir'awn forced on them. They said Allah is better than Fir'awn, and His reward lasts longer than anything Fir'awn promised.", "More lasting in reward than what you promised us and made us aspire to"),
+      difficulty: 4,
+      questions: [
+        { q: "What did they hope Allah would forgive, in 20:73?", a: "Their faults and forced magic", wrong: ["Nothing", "Musa's faults", "Fir'awn's faults"], why: "Verily, we have believed in our Lord, that He may forgive us our faults, and the magic to which you did compel us." },
+        { q: "Who forced them to do magic, in 20:73?", a: "Fir'awn", wrong: ["Musa", "Harun", "Their parents"], why: "And the magic to which you did compel us." },
+        { q: "Allah's reward is better and more lasting, per 20:73.", tf: true, why: "And Allah is better as regards reward in comparison to your reward, and more lasting." }
+      ]
+    },
+    {
+      slug: "the-high-ranks",
+      title: "The high ranks",
+      line: "Believers who do good get the high ranks of Paradise.",
+      facts: ["One hundred levels", "Al-Firdaws is highest"],
+      quote: q20(75),
+      source: ik(75, "Whoever meets Allah as a believer who did good deeds will have the high ranks of Paradise. Ibn Kathir cites the hadith that Paradise has a hundred levels, and the highest is Al-Firdaws.", "Paradise, which has the highest levels"),
+      difficulty: 4,
+      questions: [
+        { q: "What do believers who do good get, in 20:75?", a: "The high ranks", wrong: ["Nothing", "Low ranks", "Gold only"], why: "But whoever comes to Him as a believer, and has done righteous good deeds, for such are the high ranks." },
+        { q: "What is the highest part of Paradise?", a: "Al-Firdaws", wrong: ["Al-Kawthar", "Adn only", "Illiyyin's gate"], why: "Al-Firdaws is the name of the highest of its levels." },
+        { q: "How many levels does Paradise have, per the hadith?", a: "One hundred", wrong: ["Seven", "Ten", "Fifty"], why: "Paradise has one hundred levels and between each level is a distance like the distance between the sky and the earth." }
+      ]
+    },
+    {
+      slug: "ask-allah-for-firdaws",
+      title: "Ask Allah for Firdaws",
+      line: "When you ask Allah, ask for Al-Firdaws, the best of Paradise.",
+      facts: ["Aim high in dua", "Rivers flow from it"],
+      quote: q20(75),
+      source: hadith("bukhari", "2790", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Paradise has a hundred grades, each as far apart as the heaven and the earth. When you ask Allah, ask for Al-Firdaws, the best and highest part of Paradise.", "So, when you ask Allah (for something), ask for Al-firdaus which is the best and highest part of Paradise"),
+      difficulty: 4,
+      questions: [
+        { q: "What should we ask Allah for, in the hadith?", a: "Al-Firdaws", wrong: ["Gold", "Long life only", "A palace on earth"], why: "So, when you ask Allah (for something), ask for Al-firdaus which is the best and highest part of Paradise." },
+        { q: "How far apart are two grades, in the hadith?", a: "Like heaven and earth", wrong: ["One step", "A mile", "A day's walk"], why: "The distance between each of two grades is like the distance between the Heaven and the Earth." },
+        { q: "What comes from Al-Firdaws, in the hadith?", a: "The rivers of Paradise", wrong: ["The rain", "The sun", "The wind"], why: "And from it originate the rivers of Paradise." }
+      ]
+    },
+    {
+      slug: "those-who-purify-themselves",
+      title: "Those who purify themselves",
+      line: "Gardens of Adn, forever, reward those who purify themselves.",
+      facts: ["Rivers flow beneath", "Free from shirk"],
+      quote: q20(76),
+      source: ik(76, "The Gardens of Adn, with rivers flowing beneath them, are forever. They are the reward of one who keeps himself pure from shirk, worships Allah alone and follows the Messengers.", "This is the person who worships Allah alone"),
+      difficulty: 4,
+      questions: [
+        { q: "What flows under the Gardens of Adn, in 20:76?", a: "Rivers", wrong: ["Fire", "Sand", "Clouds"], why: "Adn Gardens, under which rivers flow, wherein they will abide forever." },
+        { q: "How long will they stay, in 20:76?", a: "Forever", wrong: ["A year", "A hundred years", "Until they leave"], why: "Wherein they will abide forever, and such is the reward of those who purify themselves." },
+        { q: "Who purifies himself, per Ibn Kathir?", a: "One who worships Allah alone", wrong: ["One who bathes daily", "One who is rich", "One who is strong"], why: "This is the person who worships Allah alone, without ascribing partners to Him." }
+      ]
+    },
+    {
+      slug: "a-dry-path-in-the-sea",
+      title: "A dry path in the sea",
+      line: "Musa struck the sea; it split into a dry path for them.",
+      facts: ["Travel by night", "Fir'awn's army drowned"],
+      quote: q20(77),
+      source: ik(77, "Musa led the Children of Israel out at night. With the sea ahead and Fir'awn behind, Allah told him to strike the sea. It split, the path dried, and Fir'awn's army was covered by the sea.", "Split for me, by the leave of Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "When did Musa leave, in 20:77?", a: "By night", wrong: ["At noon", "On the festival", "After a year"], why: "Travel by night with My servants and strike a dry path for them in the sea." },
+        { q: "What did Musa say as he struck the sea?", a: "Split for me, by Allah's leave", wrong: ["Open, O sea", "Fir'awn commands you", "Nothing"], why: "So Musa struck the sea with his stick and he said, Split for me, by the leave of Allah." },
+        { q: "What happened to Fir'awn's army, in 20:78?", a: "The sea covered them", wrong: ["They crossed", "They went home", "They believed"], why: "Then Fir'awn pursued them with his hosts, but the sea completely overwhelmed them and covered them up." }
+      ]
+    },
+    {
+      slug: "fasting-ashura",
+      title: "Fasting Ashura",
+      line: "Musa was saved on Ashura, so the Prophet ﷺ fasted that day.",
+      facts: ["A day of thanks", "More right to Musa"],
+      quote: q20(80),
+      source: hadith("bukhari", "2004", "Ibn Abbas", "Sahih", "In Madinah the Prophet ﷺ found the Jews fasting Ashura, the day Allah saved Musa. He said we have more claim to Musa, so he fasted it and told the Muslims to fast.", "We have more claim over Moses than you"),
+      difficulty: 4,
+      questions: [
+        { q: "Why did the Jews fast Ashura, in the hadith?", a: "Allah saved Musa that day", wrong: ["A harvest day", "A king's birthday", "A new moon"], why: "This is a good day, the day on which Allah rescued Bani Israel from their enemy. So, Moses fasted this day." },
+        { q: "What did the Prophet ﷺ say?", a: "We have more claim over Musa", wrong: ["Do not fast it", "Fast only once", "It is a normal day"], why: "We have more claim over Moses than you." },
+        { q: "The Prophet ﷺ fasted Ashura and told Muslims to fast it.", tf: true, why: "The Prophet ﷺ fasted on that day and ordered the Muslims to fast on that day." }
+      ]
+    },
+    {
+      slug: "allah-forgives-who-repents",
+      title: "Allah forgives who repents",
+      line: "Allah forgives whoever repents, believes and does good.",
+      facts: ["Manna and quail", "Never too late"],
+      quote: q20(82),
+      source: ik(82, "Allah gave the Children of Israel manna and quail and told them not to transgress. Then He promised: whoever turns to Him in repentance, believes and does good, He accepts, whatever the sin.", "I will accept his repentance regardless of whatever sin he did"),
+      difficulty: 4,
+      questions: [
+        { q: "What food came from the sky, in 20:80?", a: "Manna and quail", wrong: ["Bread and milk", "Dates and honey", "Fish and rice"], why: "And We sent down to you manna and quail." },
+        { q: "Whom does Allah forgive, in 20:82?", a: "One who repents, believes, does good", wrong: ["Only the rich", "No one", "Only Prophets"], why: "And verily, I am indeed forgiving to him who repents, believes and does righteous deeds, and then Ihtada." },
+        { q: "What does Ihtada mean, per Qatadah?", a: "Holding to Islam until death", wrong: ["Travelling far", "Eating well", "Sleeping early"], why: "This means he adheres to Islam until he dies." }
+      ]
+    },
+    {
+      slug: "hurrying-to-please-allah",
+      title: "Hurrying to please Allah",
+      line: "Musa hurried ahead to meet Allah, hoping to please Him more.",
+      facts: ["Forty nights", "Harun left in charge"],
+      quote: q20(84),
+      source: ik(84, "Allah set Musa a meeting of forty nights at the mountain. Musa hurried ahead, leaving Harun in charge, hoping Allah would be even more pleased with him.", "So You will be more pleased with me"),
+      difficulty: 4,
+      questions: [
+        { q: "Why did Musa hasten, in 20:84?", a: "So Allah would be pleased", wrong: ["To escape", "To rest", "To find food"], why: "And I hastened to You, O my Lord, that You might be pleased." },
+        { q: "Whom did Musa leave in charge, per Ibn Kathir?", a: "Harun", wrong: ["As-Samiri", "Yusha", "His wife"], why: "Musa made haste to go to the Mountain and he left his brother, Harun, in charge over the Children of Israel." },
+        { q: "How many nights was the meeting, per Ibn Kathir?", a: "Forty", wrong: ["Three", "Seven", "Ten"], why: "Allah made a covenant with Musa of thirty nights after which He added to them ten more nights. Thus, they were forty nights in all." }
+      ]
+    },
+    {
+      slug: "the-calf-could-not-answer",
+      title: "The calf could not answer",
+      line: "As-Samiri made a calf; it could not answer, help or harm.",
+      facts: ["Musa returned upset", "Only Allah helps"],
+      quote: q20(89),
+      source: ik(89, "While Musa was away, As-Samiri made a calf from jewellery and people worshipped it. Allah asked: could they not see it gave no answer and had no power to harm or help?", "it does not respond to them when they ask it and when they speak to it"),
+      difficulty: 4,
+      questions: [
+        { q: "Who led them astray, in 20:85?", a: "As-Samiri", wrong: ["Harun", "Fir'awn", "The magicians"], why: "Verily, We have tried your people in your absence, and As-Samiri has led them astray." },
+        { q: "How did Musa return, in 20:86?", a: "Angry and sorrowful", wrong: ["Laughing", "Silent and calm", "Sleepy"], why: "Then Musa returned to his people in a state of anger and sorrow." },
+        { q: "What could the calf do, in 20:89?", a: "Nothing, not even answer", wrong: ["Speak", "Bring rain", "Heal the sick"], why: "Did they not see that it could not return them a word, and that it had no power either to harm them or to do them good?" }
+      ]
+    },
+    {
+      slug: "harun-warned-them",
+      title: "Harun warned them",
+      line: "Harun warned: this is a test; your Lord is Most Gracious.",
+      facts: ["Follow me", "They refused"],
+      quote: q20(90),
+      source: ik(90, "Harun told the people the calf was only a test, and that their Lord is the Most Gracious, so they should follow him. They refused until Musa came back.", "He told them that their Lord was the Most Beneficent"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Harun call the calf, in 20:90?", a: "A test", wrong: ["A gift", "A god", "A toy"], why: "O my people! You are being tried in this, and verily, your Lord is the Most Gracious." },
+        { q: "What did Harun ask them, in 20:90?", a: "Follow me and obey my order", wrong: ["Leave Egypt", "Build a house", "Pray to the calf"], why: "So follow me and obey my order." },
+        { q: "Until when would they keep at it, in 20:91?", a: "Until Musa returned", wrong: ["Until noon", "Forever", "Until it rained"], why: "We will not stop worshipping it, until Musa returns to us." }
+      ]
+    },
+    {
+      slug: "o-son-of-my-mother",
+      title: "O son of my mother",
+      line: "Harun softened Musa's anger by calling him son of my mother.",
+      facts: ["Gentle words calm anger", "He feared division"],
+      quote: q20(94),
+      source: ik(94, "Musa, upset, blamed Harun. Harun answered gently, O son of my mother, explaining he feared splitting the people. Naming their mother was the softest way to calm his brother.", "The mentioning of the mother here is more delicate and profound in bringing about gentleness and mildness"),
+      difficulty: 5,
+      questions: [
+        { q: "How did Harun address Musa, in 20:94?", a: "O son of my mother", wrong: ["O king", "O magician", "O stranger"], why: "He said: O son of my mother! Seize me not by my beard, nor by my head!" },
+        { q: "What did Harun fear, in 20:94?", a: "Causing division", wrong: ["The sea", "Hunger", "The calf"], why: "Verily, I feared lest you should say: You have caused a division among the Children of Israel." },
+        { q: "Why mention the mother, per Ibn Kathir?", a: "To bring gentleness", wrong: ["To complain", "To boast", "She was there"], why: "The mentioning of the mother here is more delicate and profound in bringing about gentleness and mildness." }
+      ]
+    },
+    {
+      slug: "your-god-is-only-allah",
+      title: "Your god is only Allah",
+      line: "The calf was destroyed; your God is only Allah, Who knows all.",
+      facts: ["No god but Him", "His knowledge covers all"],
+      quote: q20(98),
+      source: ik(98, "Musa sent As-Samiri away and said the calf would be burned and scattered in the sea. Then he said: your God is only Allah, none is worthy of worship but Him, and He knows everything.", "Your God is only Allah, the One Whom there is no true God except Him"),
+      difficulty: 5,
+      questions: [
+        { q: "What would happen to the calf, in 20:97?", a: "Burned and scattered in the sea", wrong: ["Kept in a temple", "Given away", "Buried with gold"], why: "We will certainly burn it, and scatter its particles in the sea." },
+        { q: "Who is your God, in 20:98?", a: "Only Allah", wrong: ["The calf", "Musa", "Fir'awn"], why: "Your God is only Allah, there is no God but Him." },
+        { q: "What does Allah know, in 20:98?", a: "All things", wrong: ["Some things", "Only the past", "Only Egypt"], why: "He has full knowledge of all things." }
+      ]
+    }
+  ]
+};
+
+export const TAHA_UNITS: readonly DeepUnit[] = [TAHA_ONE, TAHA_TWO];
