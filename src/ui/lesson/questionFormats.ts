@@ -7,10 +7,10 @@ import { hasArabic } from "../ArabicText";
 //
 //   choose  tap the right tile (the question as written; true / false questions stay this way)
 //   blank   drag (or tap) the right word into the sentence's gap
-//   build   a puzzle: put the answer together from word tiles, in order
+//   fill    the answer with its key word missing: tap the missing word from a few choices
 //   check   true or false: "Is this the answer?" with one choice shown
 
-export type QuestionFormat = "choose" | "blank" | "build" | "check";
+export type QuestionFormat = "choose" | "blank" | "fill" | "check";
 
 /**
  * Whether questions are asked in more than one way (and quiz circles open with a matching round). Always on in
@@ -23,7 +23,7 @@ export function questionVariety() {
 export type FormatContext = {
   /** Asked again later (a review, a unit quiz or test, a practice): it should look different from when it was taught. */
   recall?: boolean;
-  /** The learner's language: word puzzles are made only from English answers, which split on spaces cleanly. */
+  /** The learner's language: missing-word answers are made only from English answers, which split on spaces cleanly. */
   language?: string;
 };
 
@@ -48,50 +48,101 @@ function isTrueFalse(challenge: Pick<Challenge, "type" | "choices" | "correctCho
   return challenge.type === "true_false" || TRUE_FALSE.test(answerOf(challenge));
 }
 
-/** The words of a label as puzzle tiles: split on spaces, the end stop dropped. */
-export function puzzleWords(label: string) {
-  return label
-    .trim()
-    .replace(/[.!?]+$/, "")
-    .split(/\s+/)
-    .filter(Boolean);
+// Little words that carry no fact: never the missing piece, never a wrong choice for it.
+const SMALL_WORDS = new Set(
+  "a an the and or but of to in on at by for from with into onto upon over under about as is are was were be been being it its his her their our your my this that these those who whom which what when where why how not no so than then there they them he she we you i all any some one his him has have had do does did will would can could should may might must very more most just only also".split(" ")
+);
+
+/** A word with the commas, quotes and brackets round it taken off. */
+function coreOf(word: string) {
+  return word.replace(/^[("'“‘[]+/, "").replace(/[)"'”’\],;:.!?]+$/, "");
 }
 
-/** How a built answer compares: case, end stops and curly quotes do not count. */
-export function sameWords(a: string[], b: string[]) {
-  const norm = (words: string[]) => words.join(" ").toLowerCase().replace(/[’‘`]/g, "'").replace(/[.!?,]+$/, "").trim();
-  return norm(a) === norm(b);
+/** A word that can be the missing piece or a wrong choice for it: a real fact word, not "the" or "of". */
+function isKeyWord(core: string) {
+  return core.length >= 3 && core.length <= 16 && /[A-Za-z]/.test(core) && !SMALL_WORDS.has(core.toLowerCase());
 }
 
-/** Extra tiles for a puzzle: words from the wrong choices that are not in the answer. */
-export function puzzleExtras(challenge: Pick<Challenge, "choices" | "correctChoiceId" | "id">, count = 3) {
-  const answer = new Set(puzzleWords(answerOf(challenge)).map((word) => word.toLowerCase()));
-  const extras: string[] = [];
+/** Two words one letter apart (one changed, added or dropped). */
+function nearlySame(a: string, b: string) {
+  if (a === b) return true;
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i += 1;
+  let j = 0;
+  while (j < a.length - i && j < b.length - i && a[a.length - 1 - j] === b[b.length - 1 - j]) j += 1;
+  return a.length - i - j <= 1 && b.length - i - j <= 1;
+}
+
+export type FillPiece = {
+  /** The answer up to the gap. */
+  before: string;
+  /** The missing word: the right choice. */
+  piece: string;
+  /** The answer after the gap (with the missing word's own comma or stop). */
+  after: string;
+  /** The missing word and 2 or 3 key words from the wrong answers, in a steady mixed order. */
+  options: string[];
+};
+
+/**
+ * The answer as a sentence with its key word missing ("Being saved from the ___, into Jannah"), and a few
+ * words to pick from: the right one and key words from the wrong answers. The key word is the answer's
+ * longest fact word, so the learner recalls the fact, not the grammar. Undefined when the answer is not a
+ * short English phrase or the wrong answers give fewer than 2 words to choose from.
+ */
+export function fillPiece(challenge: Pick<Challenge, "choices" | "correctChoiceId" | "id">): FillPiece | undefined {
+  const answer = answerOf(challenge);
+  if (!answer || hasArabic(answer) || !/[A-Za-z]/.test(answer)) return undefined;
+  const words = answer.replace(/[.!?]+$/, "").split(/\s+/).filter(Boolean);
+  if (words.length < 2 || words.length > 9) return undefined;
+  let at = -1;
+  words.forEach((word, index) => {
+    const core = coreOf(word);
+    if (isKeyWord(core) && (at < 0 || core.length > coreOf(words[at]).length)) at = index;
+  });
+  if (at < 0) return undefined;
+  const piece = coreOf(words[at]);
+  const inAnswer = new Set(words.map((word) => coreOf(word).toLowerCase()));
+  // The case should give nothing away: when the missing word has a capital, every choice gets one. When it has
+  // none, a wrong word with a capital (a name, or just the start of its answer) is used only if needed.
+  const capital = /^[A-Z]/.test(piece);
+  const wrong: { word: string; capped: boolean }[] = [];
   for (const choice of challenge.choices) {
-    if (choice.id === challenge.correctChoiceId) continue;
-    for (const word of puzzleWords(choice.label)) {
-      const key = word.toLowerCase();
-      if (!answer.has(key) && !extras.some((each) => each.toLowerCase() === key) && word.length <= 16) extras.push(word);
+    if (choice.id === challenge.correctChoiceId || hasArabic(choice.label)) continue;
+    for (const word of choice.label.split(/\s+/)) {
+      const core = coreOf(word);
+      const key = core.toLowerCase();
+      // A word one letter off the right one ("made" for "make") is a trick, not a fact: left out.
+      if (!isKeyWord(core) || inAnswer.has(key) || nearlySame(key, piece.toLowerCase()) || wrong.some((each) => each.word.toLowerCase() === key)) continue;
+      wrong.push({ word: capital ? core.charAt(0).toUpperCase() + core.slice(1) : core, capped: !capital && /^[A-Z]/.test(core) });
     }
   }
-  // A steady pick of the extras, so a re-render never swaps them.
+  if (wrong.length < 2) return undefined;
+  // Wrong words that look most like the right one (by length) make a fairer choice; steady per question.
   const seed = formatSeed(challenge.id);
-  return extras
-    .map((word, index) => ({ word, order: formatSeed(`${seed}-${index}-${word}`) }))
+  const picks = wrong
+    .map(({ word, capped }, index) => ({ word, order: (capped ? 100000 : 0) + Math.abs(word.length - piece.length) * 1000 + (formatSeed(`${seed}-${index}-${word}`) % 1000) }))
     .sort((a, b) => a.order - b.order)
-    .slice(0, count)
+    .slice(0, 3)
     .map((each) => each.word);
+  const options = [piece, ...picks]
+    .map((word, index) => ({ word, order: formatSeed(`${seed}|fill|${index}|${word}`) }))
+    .sort((a, b) => a.order - b.order)
+    .map((each) => each.word);
+  const tail = words[at].slice(words[at].indexOf(piece) + piece.length);
+  const head = words[at].slice(0, words[at].indexOf(piece));
+  return {
+    before: (at > 0 ? words.slice(0, at).join(" ") + " " : "") + head,
+    piece,
+    after: tail + (at < words.length - 1 ? " " + words.slice(at + 1).join(" ") : ""),
+    options
+  };
 }
 
-/** A puzzle needs an English answer of 2 to 6 short words, and at least 2 extra words to tell it from the others. */
-export function canBuild(challenge: Pick<Challenge, "choices" | "correctChoiceId" | "id">) {
-  const answer = answerOf(challenge);
-  if (!answer || hasArabic(answer) || !/[A-Za-z]/.test(answer)) return false;
-  const words = puzzleWords(answer);
-  if (words.length < 2 || words.length > 6 || words.some((word) => word.length > 16)) return false;
-  // Two words the same make the puzzle ambiguous ("peace be upon peace"): keep it simple.
-  if (new Set(words.map((word) => word.toLowerCase())).size !== words.length) return false;
-  return puzzleExtras(challenge).length >= 2;
+/** A missing-word question needs a short English answer with a clear key word and wrong words to choose from. */
+export function canFill(challenge: Pick<Challenge, "choices" | "correctChoiceId" | "id">) {
+  return Boolean(fillPiece(challenge));
 }
 
 /** A gap to fill needs an English prompt with "___" and short choices that fit in a sentence. */
@@ -107,7 +158,7 @@ export function canCheck(challenge: Pick<Challenge, "choices" | "correctChoiceId
 
 /**
  * How to ask this question. True / false stays as it is. A sentence with a gap is always a gap to fill. Other
- * questions are a mix of tiles, puzzles and true-or-false, steady per question; asked again later (recall), the
+ * questions are a mix of tiles, a missing word in the answer, and true-or-false, steady per question; asked again later (recall), the
  * mix leans away from plain tiles, so the learner meets the fact in other words than when they learned it.
  */
 export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "prompt" | "choices" | "correctChoiceId">, context: FormatContext = {}): QuestionFormat {
@@ -115,10 +166,10 @@ export function questionFormat(challenge: Pick<Challenge, "id" | "type" | "promp
   if (canBlank(challenge)) return "blank";
   const english = !context.language || context.language === "en";
   const roll = formatSeed(`${challenge.id}|${context.recall ? "recall" : "learn"}`) % 100;
-  const buildShare = english && canBuild(challenge) ? (context.recall ? 40 : 30) : 0;
+  const fillShare = english && canFill(challenge) ? (context.recall ? 40 : 30) : 0;
   const checkShare = canCheck(challenge) ? (context.recall ? 35 : 20) : 0;
-  if (roll < buildShare) return "build";
-  if (roll < buildShare + checkShare) return "check";
+  if (roll < fillShare) return "fill";
+  if (roll < fillShare + checkShare) return "check";
   return "choose";
 }
 
@@ -146,7 +197,7 @@ export function checkAnswerId(challenge: Pick<Challenge, "id" | "choices" | "cor
   return challenge.choices.find((choice) => choice.id !== challenge.correctChoiceId)?.id ?? `${challenge.correctChoiceId}-wrong`;
 }
 
-/** The id that stands for a wrong puzzle or gap (it matches no choice, so it is never right). */
+/** The id that stands for a wrong missing word (it matches no choice, so it is never right). */
 export const WRONG_BUILD = "__built_wrong__";
 
 export type MatchPair = { index: number; left: string; right: string };

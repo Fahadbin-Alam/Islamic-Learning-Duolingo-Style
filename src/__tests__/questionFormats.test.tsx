@@ -7,16 +7,14 @@ import {
   CHECK_FALSE,
   CHECK_TRUE,
   WRONG_BUILD,
-  canBuild,
+  canFill,
   checkAnswerId,
   checkCandidate,
+  fillPiece,
   matchPicks,
-  puzzleExtras,
-  puzzleWords,
-  questionFormat,
-  sameWords
+  questionFormat
 } from "../ui/lesson/questionFormats";
-import { BuildGame, GapGame, MatchGame } from "../ui/lesson/WordGames";
+import { FillGame, GapGame, MatchGame } from "../ui/lesson/WordGames";
 import type { Challenge } from "../types";
 
 jest.mock("../services/gameAudio", () => ({
@@ -49,27 +47,33 @@ describe("asking one question in more than one way", () => {
       const format = questionFormat(challenge);
       if (challenge.type === "true_false") expect(format).toBe("choose");
       if (format === "blank") expect(challenge.prompt).toMatch(/_{2,}/);
-      if (format === "build") expect(canBuild(challenge)).toBe(true);
+      if (format === "fill") expect(canFill(challenge)).toBe(true);
     }
   });
 
   it("mixes the formats across the course, and leans away from plain tiles when a question comes back", () => {
     const count = (recall: boolean) => {
-      const tally: Record<string, number> = { choose: 0, blank: 0, build: 0, check: 0 };
+      const tally: Record<string, number> = { choose: 0, blank: 0, fill: 0, check: 0 };
       ALL.forEach((challenge) => (tally[questionFormat(challenge, { recall })] += 1));
       return tally;
     };
     const learn = count(false);
     const recall = count(true);
-    expect(learn.build).toBeGreaterThan(100);
+    expect(learn.fill).toBeGreaterThan(100);
     expect(learn.check).toBeGreaterThan(100);
     expect(learn.blank).toBeGreaterThan(10);
     expect(recall.choose).toBeLessThan(learn.choose);
   });
 
-  it("makes word puzzles only for English", () => {
-    const buildable = ALL.find((challenge) => questionFormat(challenge) === "build")!;
-    expect(questionFormat(buildable, { language: "bn" })).not.toBe("build");
+  it("makes missing-word answers only for English", () => {
+    const fillable = ALL.find((challenge) => questionFormat(challenge) === "fill")!;
+    expect(questionFormat(fillable, { language: "bn" })).not.toBe("fill");
+  });
+
+  it("never asks the learner to build an answer from word tiles", () => {
+    for (const challenge of ALL) {
+      for (const recall of [false, true]) expect(questionFormat(challenge, { recall })).not.toBe("build");
+    }
   });
 
   it("scores true-or-false as the real answer: right when the shown choice was judged right", () => {
@@ -83,12 +87,37 @@ describe("asking one question in more than one way", () => {
     expect(rights).toBeLessThan(300);
   });
 
-  it("builds puzzles from the answer's words plus words of the wrong choices", () => {
-    expect(puzzleWords("Abu Bakr as-Siddiq.")).toEqual(["Abu", "Bakr", "as-Siddiq"]);
-    const extras = puzzleExtras(mc);
-    expect(extras.length).toBeGreaterThanOrEqual(2);
-    extras.forEach((word) => expect(["abu", "bakr", "as-siddiq"]).not.toContain(word.toLowerCase()));
-    expect(sameWords(["abu", "Bakr", "as-Siddiq"], puzzleWords("Abu Bakr as-Siddiq"))).toBe(true);
+  it("leaves out the answer's key word and offers it among key words from the wrong answers", () => {
+    const fill = fillPiece(mc)!;
+    expect(fill.piece).toBe("as-Siddiq");
+    expect(`${fill.before}${fill.piece}${fill.after}`).toBe("Abu Bakr as-Siddiq");
+    expect(fill.options).toContain("as-Siddiq");
+    expect(fill.options.length).toBeGreaterThanOrEqual(3);
+    expect(fill.options.length).toBeLessThanOrEqual(4);
+    fill.options.filter((word) => word !== "as-Siddiq").forEach((word) => expect(["abu", "bakr"]).not.toContain(word.toLowerCase()));
+    const success: Challenge = {
+      ...mc,
+      id: "q-success",
+      prompt: "What is real success in 3:185?",
+      choices: [
+        { id: "a", label: "Being rich for a long life" },
+        { id: "b", label: "Being saved from the Fire, into Jannah" },
+        { id: "c", label: "Being praised by people" }
+      ],
+      correctChoiceId: "b"
+    };
+    const second = fillPiece(success)!;
+    expect(`${second.before}${second.piece}${second.after}`).toBe("Being saved from the Fire, into Jannah");
+    expect(["the", "from", "into", "being"]).not.toContain(second.piece.toLowerCase());
+    // Every missing-word question in the course reads back as its answer and has the answer among its choices.
+    for (const challenge of ALL) {
+      const each = fillPiece(challenge);
+      if (!each) continue;
+      const answer = challenge.choices.find((choice) => choice.id === challenge.correctChoiceId)!.label.trim().replace(/[.!?]+$/, "");
+      expect(`${each.before}${each.piece}${each.after}`.replace(/\s+/g, " ")).toBe(answer.replace(/\s+/g, " "));
+      expect(each.options.filter((word) => word === each.piece)).toHaveLength(1);
+      expect(new Set(each.options.map((word) => word.toLowerCase())).size).toBe(each.options.length);
+    }
   });
 
   it("picks 3 or 4 short questions with different answers for a matching round", () => {
@@ -175,29 +204,25 @@ describe("the games", () => {
     expect(onSelect).toHaveBeenCalledWith("s");
   });
 
-  it("builds the answer from tiles and reports it right only when the words are in order", async () => {
+  it("fills the missing word with one tap and scores it as the real answer", async () => {
     const onSelect = jest.fn();
+    const fill = fillPiece(mc)!;
     await act(async () => {
-      render(<BuildGame {...base} prompt={mc.prompt} answer="Abu Bakr as-Siddiq" correctChoiceId="a" extras={["Umar", "Uthman"]} onSelect={onSelect} />);
+      render(<FillGame {...base} prompt={mc.prompt} fill={fill} correctChoiceId="a" onSelect={onSelect} />);
     });
-    for (const word of ["Bakr", "Abu", "as-Siddiq"]) {
-      await act(async () => {
-        fireEvent.press(screen.getByTestId(`build-tile-${word}`));
-      });
-    }
+    expect(screen.getByTestId("fill-game")).toBeTruthy();
+    expect(screen.queryByText(mc.prompt, { exact: false })).toBeTruthy();
+    const wrong = fill.options.find((word) => word !== fill.piece)!;
+    await act(async () => {
+      fireEvent.press(screen.getByTestId(`choice-fill:${wrong}`));
+    });
     expect(onSelect).toHaveBeenLastCalledWith(WRONG_BUILD);
-  });
-
-  it("builds the right answer", async () => {
-    const onSelect = jest.fn();
     await act(async () => {
-      render(<BuildGame {...base} prompt={mc.prompt} answer="Abu Bakr as-Siddiq" correctChoiceId="a" extras={["Umar", "Uthman"]} onSelect={onSelect} />);
+      fireEvent.press(screen.getByTestId("gap-slot"));
     });
-    for (const word of ["Abu", "Bakr", "as-Siddiq"]) {
-      await act(async () => {
-        fireEvent.press(screen.getByTestId(`build-tile-${word}`));
-      });
-    }
+    await act(async () => {
+      fireEvent.press(screen.getByTestId(`choice-fill:${fill.piece}`));
+    });
     expect(onSelect).toHaveBeenLastCalledWith("a");
   });
 
