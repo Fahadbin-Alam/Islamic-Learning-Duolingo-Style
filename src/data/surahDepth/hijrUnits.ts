@@ -341,6 +341,34 @@ const HIJR_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "promised-place",
+      title: "The place promised to his followers",
+      line: "Hell is the place promised to those who follow Iblis.",
+      facts: ["Following Shaytan has an end", "Stay with Allah's servants"],
+      quote: q15(43),
+      source: ik(43, "Hell is the home set for everyone who follows Iblis, so a believer stays close to Allah and seeks refuge from Shaytan.", "Hell is the abode designated for all those who follow Iblis"),
+      difficulty: 3,
+      questions: [
+        { q: "For whom is Hell promised, in 15:43?", a: "Those who follow Iblis", wrong: ["Allah's servants", "The angels", "The Prophets"], why: "Hell is the abode designated for all those who follow Iblis." },
+        { tf: true, q: "Following Shaytan leads to a promised end in 15:43.", why: "And surely, Hell is the place promised for them all." },
+        { q: "What do we say when Shaytan whispers, per 7:200?", a: "Seek refuge with Allah", wrong: ["Ignore Allah", "Argue with him", "Follow him"], why: "If an evil whisper comes to you from Shaytan then seek refuge with Allah." }
+      ]
+    },
+    {
+      slug: "seven-gates",
+      title: "Seven gates",
+      line: "Hell has seven gates, and each one enters by his deeds.",
+      facts: ["Each gate has its group", "Deeds decide the place"],
+      quote: q15(44),
+      source: ik(44, "Hell has seven gates, and each follower of Iblis enters a gate and a level that matches his deeds. Ibn Kathir prays: may Allah save us from that.", "Each one will enter a gate according to his deeds"),
+      difficulty: 4,
+      questions: [
+        { q: "How many gates does Hell have, in 15:44?", a: "Seven", wrong: ["Three", "Ten", "One"], why: "It has seven gates." },
+        { q: "What decides which gate one enters, per Ibn Kathir?", a: "His deeds", wrong: ["His wealth", "His tribe", "His age"], why: "Each one will enter a gate according to his deeds." },
+        { q: "What does Ibn Kathir pray after this?", a: "May Allah save us from that", wrong: ["Nothing", "For riches", "For fame"], why: "May Allah save us from that." }
+      ]
+    },
+    {
       slug: "enter-in-peace",
       title: "Enter in peace and security",
       line: "The godfearing dwell in Gardens and springs, safe and at peace.",
@@ -519,6 +547,76 @@ const HIJR_THREE: DeepUnit = {
         { q: "When was Lut to travel, in 15:65?", a: "During part of the night", wrong: ["At noon", "At sunset only", "Next week"], why: "Then travel for a portion of the night with your family." },
         { q: "Where was Lut to walk, in 15:65?", a: "Behind them in the rear", wrong: ["In front", "Alone ahead", "On a ship"], why: "And you go behind them in the rear." },
         { q: "Why did the Prophet ﷺ walk at the rear, per Ibn Kathir?", a: "To help the weak", wrong: ["To rest", "To hide", "To lead the music"], why: "In order to help the weak and carry those who had no means of transport." }
+      ]
+    },
+    {
+      slug: "the-town-came",
+      title: "The townspeople came",
+      line: "The townspeople hurried to Lut's house, pleased, meaning harm.",
+      facts: ["They heard of his guests", "They did not know the angels"],
+      quote: q15(67),
+      source: ik(67, "When Lut's people heard about his guests, they came to his house happily, wanting to do wrong, still unaware of the punishment coming the next morning.", "they came happily rejoicing about them"),
+      difficulty: 3,
+      questions: [
+        { q: "How did the townspeople come, in 15:67?", a: "Rejoicing", wrong: ["Weeping", "In fear", "With gifts"], why: "And the inhabitants of the city came rejoicing." },
+        { q: "What did they not know yet, per Ibn Kathir?", a: "Punishment was coming next morning", wrong: ["Lut had moved", "It would rain", "The guests were poor"], why: "They were still unaware of the inevitable calamity and punishment that was about to befall them the following morning." },
+        { tf: false, q: "The townspeople knew the guests were angels.", why: "The People of the City arrive upon the Angels, thinking that they are Men." }
+      ]
+    },
+    {
+      slug: "my-guests",
+      title: "These are my guests",
+      line: "Lut protected his guests: these are my guests, do not shame me.",
+      facts: ["Honoring guests", "Standing up to wrong"],
+      quote: q15(68),
+      source: ik(68, "Lut defended his guests and asked his people not to shame him. Ibn Kathir notes he said this before he knew they were angels, as Surah Hud tells.", "This is what Lut said to them before he knew that his guests were messengers from Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Lut call the visitors, in 15:68?", a: "My guests", wrong: ["Strangers", "Enemies", "Traders"], why: "Verily, these are my guests, so do not shame me." },
+        { q: "When did Lut say this, per Ibn Kathir?", a: "Before he knew they were angels", wrong: ["After they left", "Years later", "In a dream"], why: "This is what Lut said to them before he knew that his guests were messengers from Allah." },
+        { q: "Which surah tells the order of events, per Ibn Kathir?", a: "Surah Hud", wrong: ["Surah Yusuf", "Surah Maryam", "Surah Ta-Ha"], why: "As mentioned in Surat Hud." }
+      ]
+    },
+    {
+      slug: "fear-allah-lut",
+      title: "Fear Allah",
+      line: "Lut told them: have Taqwa of Allah and do not disgrace me.",
+      facts: ["Remind people of Allah", "Speak up for what is right"],
+      quote: q15(69),
+      source: ik(69, "Lut reminded his people to fear Allah and not disgrace him in front of his guests.", "And have Taqwa of Allah, and do not disgrace me"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Lut tell them to have, in 15:69?", a: "Taqwa of Allah", wrong: ["More wealth", "A feast", "A new home"], why: "And have Taqwa of Allah, and do not disgrace me." },
+        { q: "What did Lut ask them not to do to him?", a: "Disgrace him", wrong: ["Feed him", "Visit him", "Pay him"], why: "And do not disgrace me." },
+        { tf: true, q: "Lut reminded his people of Allah to stop the wrong.", why: "And have Taqwa of Allah, and do not disgrace me." }
+      ]
+    },
+    {
+      slug: "no-guests-allowed",
+      title: "We forbade you guests",
+      line: "They replied: did we not forbid you to host anyone?",
+      facts: ["They hated his good deeds", "They wanted no one protected"],
+      quote: q15(70),
+      source: ik(70, "His people answered that they had already told him not to host or protect anyone.", "did we not tell you that you should not have anyone as a guest"),
+      difficulty: 4,
+      questions: [
+        { q: "What had they forbidden Lut, in 15:70?", a: "Hosting anyone", wrong: ["Praying", "Trading", "Travelling"], why: "Did we not forbid you from entertaining any of the Alamin?" },
+        { q: "What did they mean, per Ibn Kathir?", a: "He should have no guests", wrong: ["He should leave", "He should pay tax", "He should be quiet"], why: "Did we not tell you that you should not have anyone as a guest?" },
+        { tf: false, q: "In 15:70, the people welcomed Lut's kindness to guests.", why: "Did we not forbid you from entertaining any of the Alamin?" }
+      ]
+    },
+    {
+      slug: "lawful-way",
+      title: "Pointing to the lawful way",
+      line: "Lut pointed them to their own wives, the lawful way Allah made.",
+      facts: ["Allah made marriage lawful", "Lut called them to the right path"],
+      quote: q15(71),
+      source: ik(71, "Lut told them, these are my daughters, meaning the women of his nation. He reminded them of the lawful marriage Allah had created for them.", "He reminded them about their womenfolk and what their Lord had created for them"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Lut remind them of, per Ibn Kathir?", a: "Their womenfolk, the lawful way", wrong: ["Their gold", "Their crops", "Their idols"], why: "He reminded them about their womenfolk and what their Lord had created for them." },
+        { q: "What did Lut call the women of the town, in 15:71?", a: "My daughters", wrong: ["My guests", "My enemies", "My servants"], why: "These are my daughters, if you must act so." },
+        { tf: true, q: "Lut called his people to what Allah made lawful.", why: "He reminded them about their womenfolk and what their Lord had created for them." }
       ]
     },
     {
