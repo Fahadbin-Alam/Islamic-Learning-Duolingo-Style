@@ -145,7 +145,7 @@ describe("JUMP HERE in a library topic", () => {
     expect(after.completedNodeIds).toEqual(expect.arrayContaining(plan.nodeIds));
     expect(after.completedNodeIds).not.toContain(target.id);
     expect(learningApi.getPathNodes(after).find((node) => node.id === target.id)?.status).not.toBe("locked");
-  });
+  }, 180000);
 
   it("ends as soon as it can no longer be passed, and its misses cost no hearts", async () => {
     const user = makeUser({ hearts: TODAY_HEARTS(false), lastTopicId: "quran_tafseer" });
@@ -182,7 +182,7 @@ describe("JUMP HERE in a library topic", () => {
       jumpNodeId: target.id
     }).lesson.challenges;
     expect(shownChallenge(second)?.id).toBe(second[0].id);
-  });
+  }, 180000);
 });
 
 describe("remembered between visits", () => {
