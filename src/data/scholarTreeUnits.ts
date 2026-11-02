@@ -1,5 +1,6 @@
 import type { LessonSource } from "../types";
 import type { DeepUnit } from "./deepUnits";
+import { shamelaUrl } from "./shamelaPages";
 
 // Lessons for the people on the Scholars family tree who had none: the Sahabah at its top, the Tabi'in, and the
 // imams and hadith masters between them. Each unit is about the person's knowledge: what they learned, taught and
@@ -30,7 +31,7 @@ function siyar(volume: number, page: number, summary: string): LessonSource {
     site: "Shamela",
     category: "biography",
     title: `Siyar A'lam an-Nubala ${volume}/${page}`,
-    url: "https://shamela.ws/book/10906",
+    url: shamelaUrl(10906, volume, page),
     reference: `Siyar A'lam an-Nubala ${volume}/${page}`,
     from: "Siyar A'lam an-Nubala by adh-Dhahabi (Arabic, on Shamela)",
     grade: "Biography",
