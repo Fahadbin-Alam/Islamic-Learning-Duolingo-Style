@@ -567,5 +567,490 @@ const KAHF_TWO: DeepUnit = {
   ]
 };
 
+const KAHF_THREE: DeepUnit = {
+  key: "kahf3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-kahf",
+  name: "Al-Kahf, ayahs 60 to 82",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Kahf",
+  lessons: [
+    {
+      slug: "musa-will-not-give-up",
+      title: "Musa will not give up",
+      line: "Musa set out to find a learned man, however long it took.",
+      facts: ["Where two seas meet", "Seeking knowledge takes effort"],
+      quote: q18(60),
+      source: ik(60, "Musa learned of a servant of Allah at the junction of the two seas with knowledge he did not have, so he set out with his young helper Yusha bin Nun, ready to travel for a very long time.", "even if I have to travel for a very long time"),
+      difficulty: 2,
+      questions: [
+        { q: "Where did Musa want to reach, in 18:60?", a: "The junction of the two seas", wrong: ["The top of a mountain", "A great city", "The desert's edge"], why: "I will not give up until I reach the junction of the two seas." },
+        { q: "Who was the young helper, per Ibn Kathir?", a: "Yusha bin Nun", wrong: ["Harun", "Yusuf", "Shuayb"], why: "The boy-servant was Yusha bin Nun, who later led the Children of Israel after Musa." },
+        { q: "What does Huqub show, per Ibn Kathir?", a: "He would travel a very long time", wrong: ["He would rest", "He would turn back", "He would ride fast"], why: "Meaning, even if I have to travel for a very long time." }
+      ]
+    },
+    {
+      slug: "the-most-learned",
+      title: "Who is the most learned?",
+      line: "Musa said he was most learned, so Allah taught him humility.",
+      facts: ["Knowledge belongs to Allah", "Say: Allah knows best"],
+      quote: q18(60),
+      source: hadith("bukhari", "122", "Ubayy ibn Ka'b", "Sahih", "Musa was asked who was the most learned of people and said he was. Allah corrected him for not leaving knowledge to Allah, and told him of a servant at the junction of the two seas.", "Allah admonished Moses as he did not attribute absolute knowledge to Him"),
+      difficulty: 3,
+      questions: [
+        { q: "What was Musa asked, in the hadith?", a: "Who is the most learned?", wrong: ["Who is the strongest?", "Who is the richest?", "Who is the oldest?"], why: "He was asked who was the most learned person among the people." },
+        { q: "Why was Musa corrected, in the hadith?", a: "He did not leave knowledge to Allah", wrong: ["He was late", "He was angry", "He forgot a prayer"], why: "Allah admonished Musa as he did not attribute absolute knowledge to Him." },
+        { q: "What should a person say about knowledge?", a: "Allah knows best", wrong: ["I know best", "No one knows", "My teacher knows all"], why: "Musa was corrected for not referring the knowledge to Allah." }
+      ]
+    },
+    {
+      slug: "the-fish-was-the-sign",
+      title: "The fish was the sign",
+      line: "Where the fish was lost, they would find the learned man.",
+      facts: ["The fish slipped into the sea", "It left a tunnel-like path"],
+      quote: q18(61),
+      source: ik(61, "Musa was told to carry a fish. Where they lost it would be the right place. It slipped into the sea and made a path like a tunnel.", "when you lose the fish, that will be a sign that you have reached the right place"),
+      difficulty: 2,
+      questions: [
+        { q: "What would losing the fish mean, per Ibn Kathir?", a: "They reached the right place", wrong: ["They were lost", "Time to eat", "Time to go home"], why: "When you lose the fish, that will be a sign that you have reached the right place." },
+        { q: "How did the fish go into the sea, in 18:61?", a: "As in a tunnel", wrong: ["As a bird", "As a stone", "As a wave"], why: "And it took its way through the sea as in a tunnel." },
+        { q: "Who actually forgot the fish, per Ibn Kathir?", a: "Yusha", wrong: ["Musa", "Al-Khidr", "A sailor"], why: "Forgetfulness is attributed to them both even though it was actually Yusha who forgot." }
+      ]
+    },
+    {
+      slug: "that-is-what-we-sought",
+      title: "That is what we sought",
+      line: "Tired, they saw they had passed the spot, so they turned back.",
+      facts: ["Shaytan made him forget", "They retraced their steps"],
+      quote: q18(64),
+      source: ik(62, "They walked on past the place and grew very tired. When Yusha said he had forgotten the fish, Musa said that was the place they sought, and they went back the way they came.", "their journey beyond the place where they should have stopped"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Musa ask for, in 18:62?", a: "Their morning meal", wrong: ["A boat", "A map", "Water to wash"], why: "Bring us our morning meal; truly, we have suffered much fatigue in this, our journey." },
+        { q: "Whom did Yusha blame for forgetting, in 18:63?", a: "Shaytan", wrong: ["Musa", "The fish", "The rock"], why: "None but Shaytan made me forget to remember it." },
+        { q: "What did they do once they knew, in 18:64?", a: "Went back on their footsteps", wrong: ["Went home", "Built a boat", "Waited a year"], why: "So they went back retracing their footsteps." }
+      ]
+    },
+    {
+      slug: "a-servant-given-knowledge",
+      title: "A servant given knowledge",
+      line: "They found Al-Khidr, given mercy and knowledge from Allah.",
+      facts: ["Mercy from Allah", "Knowledge from Allah"],
+      quote: q18(65),
+      source: ik(65, "At the rock they found one of Allah's servants who had been given mercy and knowledge from Allah. The authentic hadith say he was Al-Khidr.", "This was Al-Khidr, peace be upon him"),
+      difficulty: 2,
+      questions: [
+        { q: "What had Allah given the servant, in 18:65?", a: "Mercy and knowledge", wrong: ["Gold and silver", "An army", "A palace"], why: "On whom We had bestowed mercy from Us, and whom We had taught knowledge from Us." },
+        { q: "Who was the servant, per Ibn Kathir?", a: "Al-Khidr", wrong: ["Luqman", "Harun", "Yahya"], why: "This was Al-Khidr, peace be upon him, as is indicated by the authentic Hadiths." },
+        { q: "The servant's knowledge came from Allah, per 18:65.", tf: true, why: "And whom We had taught knowledge from Us." }
+      ]
+    },
+    {
+      slug: "why-he-was-called-al-khidr",
+      title: "Why he was called Al-Khidr",
+      line: "Where Al-Khidr sat on dry land, it turned green.",
+      facts: ["Khadra means green", "A blessing from Allah"],
+      quote: q18(65),
+      source: hadith("bukhari", "3402", "Abu Hurairah", "Sahih", "The Prophet ﷺ said Al-Khidr was named so because he sat on barren land and it turned green with plants.", "it turned green with plantation"),
+      difficulty: 2,
+      questions: [
+        { q: "What happened where he sat, in the hadith?", a: "The land turned green", wrong: ["It turned to sand", "Water froze", "Stones fell"], why: "He sat over a barren white land, and it turned green with plantation." },
+        { q: "What kind of land did he sit on?", a: "Barren, dry land", wrong: ["A river bank", "A garden", "A snowy hill"], why: "He sat over a barren white land." },
+        { q: "Khadra in Arabic means green.", tf: true, why: "It turned green (Khadra) beneath him." }
+      ]
+    },
+    {
+      slug: "may-i-follow-you",
+      title: "May I follow you?",
+      line: "Musa asked gently to learn, showing how a student speaks.",
+      facts: ["Ask without force", "Seek useful knowledge"],
+      quote: q18(66),
+      source: ik(66, "Musa asked to follow Al-Khidr to learn from him. Ibn Kathir says it is a gentle request with no force, the way a seeker of knowledge should speak to a scholar.", "This is the manner in which the seeker of knowledge should address the scholar"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Musa ask, in 18:66?", a: "To follow him and learn", wrong: ["To fight him", "To buy his boat", "To take him home"], why: "May I follow you so that you teach me something of that knowledge which you have been taught?" },
+        { q: "How did Musa ask, per Ibn Kathir?", a: "Gently, with no force", wrong: ["Loudly", "Angrily", "With a threat"], why: "This is a question phrased in gentle terms, with no sense of force or coercion." },
+        { q: "Whom does the manner of Musa teach?", a: "Seekers of knowledge", wrong: ["Kings", "Traders", "Soldiers"], why: "This is the manner in which the seeker of knowledge should address the scholar." }
+      ]
+    },
+    {
+      slug: "you-will-not-have-patience",
+      title: "You will not have patience",
+      line: "Al-Khidr warned that Musa would find his actions hard to bear.",
+      facts: ["Each had knowledge from Allah", "Hard to bear the unknown"],
+      quote: q18(67),
+      source: ik(67, "Al-Khidr said Musa would not be patient with what he saw, since each of them had knowledge from Allah the other did not have.", "I have knowledge from Allah that He has not taught you, and you have knowledge from Allah that He has not taught me"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Al-Khidr say, in 18:67?", a: "You will not have patience with me", wrong: ["You may lead me", "You are welcome", "You must pay me"], why: "Verily, you will not be able to have patience with me!" },
+        { q: "Why is patience hard, in 18:68?", a: "About what one does not know", wrong: ["The road was long", "Food was short", "The sea was rough"], why: "And how can you have patience about a thing which you know not?" },
+        { q: "Each of them had knowledge the other lacked, per Ibn Kathir.", tf: true, why: "I have knowledge from Allah that He has not taught you, and you have knowledge from Allah that He has not taught me." }
+      ]
+    },
+    {
+      slug: "if-allah-wills",
+      title: "If Allah wills",
+      line: "Musa promised patience, and agreed to ask nothing until told.",
+      facts: ["Musa said: In sha Allah", "A clear agreement"],
+      quote: q18(69),
+      source: ik(69, "Musa said that, if Allah willed, he would be patient and obey. Al-Khidr set the condition that Musa should not ask about anything until Al-Khidr explained it first.", "until I initiate the discussion, before you ask me about it"),
+      difficulty: 3,
+      questions: [
+        { q: "Which words did Musa add to his promise, in 18:69?", a: "If Allah wills", wrong: ["I swear", "Maybe", "For sure"], why: "If Allah wills, you will find me patient, and I will not disobey you in aught." },
+        { q: "What was the condition, in 18:70?", a: "Ask about nothing until told", wrong: ["Walk ahead", "Carry the food", "Stay silent forever"], why: "Ask me not about anything till I myself mention of it to you." },
+        { q: "Who would start the talk, per Ibn Kathir?", a: "Al-Khidr", wrong: ["Musa", "Yusha", "The sailors"], why: "Until I initiate the discussion, before you ask me about it." }
+      ]
+    },
+    {
+      slug: "the-sparrow-and-the-sea",
+      title: "The sparrow and the sea",
+      line: "A sparrow's sip of the sea shows how vast Allah's knowledge is.",
+      facts: ["Our knowledge is tiny", "Allah's knowledge has no end"],
+      quote: q18(71),
+      source: hadith("bukhari", "122", "Ubayy ibn Ka'b", "Sahih", "On the boat a sparrow dipped its beak in the sea. Al-Khidr said their knowledge, next to Allah's, was like what the sparrow took from the sea.", "except as much as this sparrow has decreased the water of the sea with its beak"),
+      difficulty: 3,
+      questions: [
+        { q: "Which bird came to the boat, in the hadith?", a: "A sparrow", wrong: ["An eagle", "A crow", "A hoopoe"], why: "A sparrow came and stood on the edge of the boat and dipped its beak once or twice in the sea." },
+        { q: "What did the sparrow's sip stand for?", a: "How little we know next to Allah", wrong: ["How thirsty birds are", "How deep the sea is", "How long the trip was"], why: "My knowledge and your knowledge have not decreased Allah's knowledge except as much as the sparrow has decreased the water of the sea." },
+        { q: "Why did the crew take them for free, in the hadith?", a: "They recognised Al-Khidr", wrong: ["They were lost", "It was a holiday", "Musa paid later"], why: "The crew recognized Al-Khidr and took them on board without fare." }
+      ]
+    },
+    {
+      slug: "the-damaged-boat",
+      title: "The damaged boat",
+      line: "Al-Khidr pulled a plank from the boat, and Musa objected.",
+      facts: ["Musa forgot his promise", "There was a hidden reason"],
+      quote: q18(71),
+      source: ik(71, "Far out at sea, Al-Khidr pulled out a plank and patched it. Musa could not keep quiet, and Al-Khidr reminded him of their agreement, since there was a reason Musa did not know.", "there is a reason and purpose for it that you do not know about"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Al-Khidr do to the boat, per Ibn Kathir?", a: "Pulled out a plank, then patched it", wrong: ["Sank it fully", "Painted it", "Sold it"], why: "Al-Khidr got up and damaged the boat, pulling out one of its planks and then patching it up again." },
+        { q: "What did Musa ask, in 18:71?", a: "Will its people drown?", wrong: ["Where are we going?", "Can I steer?", "Is it ours now?"], why: "Have you damaged it wherein its people will drown?" },
+        { q: "What excuse did Musa give, in 18:73?", a: "He had forgotten", wrong: ["He was tired", "He was hungry", "He was scared"], why: "Call me not to account for what I forgot." }
+      ]
+    },
+    {
+      slug: "the-second-test",
+      title: "The second test",
+      line: "What happened to a boy upset Musa even more.",
+      facts: ["Musa objected again", "His last chance"],
+      quote: q18(76),
+      source: ik(76, "When Al-Khidr took a young boy's life, Musa objected even more strongly. Al-Khidr reminded him again, and Musa said that if he asked once more, they should part, since his excuse had been accepted twice.", "you have accepted my apology twice"),
+      difficulty: 4,
+      questions: [
+        { q: "How did Musa react the second time, per Ibn Kathir?", a: "More strongly than before", wrong: ["He stayed calm", "He laughed", "He left quietly"], why: "He denounced him even more fervently than in the first case." },
+        { q: "What did Musa offer, in 18:76?", a: "To part if he asked again", wrong: ["To pay a fine", "To lead the way", "To fast"], why: "If I ask you anything after this, keep me not in your company." },
+        { q: "How many times was his apology accepted, per Ibn Kathir?", a: "Twice", wrong: ["Once", "Three times", "Never"], why: "You have accepted my apology twice." }
+      ]
+    },
+    {
+      slug: "if-only-he-had-been-patient",
+      title: "If only he had been patient",
+      line: "The Prophet ﷺ wished Musa had been patient to see more wonders.",
+      facts: ["Patience brings learning", "May Allah have mercy on Musa"],
+      quote: q18(76),
+      source: hadith("bukhari", "122", "Ubayy ibn Ka'b", "Sahih", "The Prophet ﷺ said: May Allah have mercy on Musa. If only he had been more patient, we would have learned more of his story with Al-Khidr.", "Would that he could have been more patient to learn more about his story with Al-Khadir"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ wish for Musa?", a: "That he had been more patient", wrong: ["That he had gone home", "That he had a boat", "That he spoke first"], why: "Would that he could have been more patient to learn more about his story." },
+        { q: "What would more patience have brought, in the hadith?", a: "More of the story told to us", wrong: ["More food", "More money", "A shorter trip"], why: "To learn more about his story with Al-Khidr." },
+        { q: "The Prophet ﷺ prayed for mercy on Musa.", tf: true, why: "The Prophet ﷺ said, May Allah be Merciful to Musa!" }
+      ]
+    },
+    {
+      slug: "the-wall-set-straight",
+      title: "The wall set straight",
+      line: "Though a town was unkind, Al-Khidr fixed its falling wall.",
+      facts: ["The town refused guests", "Musa asked about wages"],
+      quote: q18(77),
+      source: ik(77, "The people of a town refused to host them. Al-Khidr found a wall about to fall and set it straight with his hands. Musa said he could have taken wages since they were not welcomed.", "you should not have worked for them for free"),
+      difficulty: 3,
+      questions: [
+        { q: "How did the townspeople treat them, in 18:77?", a: "They refused to host them", wrong: ["They held a feast", "They gave gifts", "They built a house"], why: "They asked them for food, but they refused to entertain them." },
+        { q: "What did Al-Khidr fix, in 18:77?", a: "A wall about to fall", wrong: ["A bridge", "A well", "A boat"], why: "Then they found therein a wall about to collapse and he set it up straight." },
+        { q: "What did Musa think he should have done?", a: "Taken wages for it", wrong: ["Left the town", "Built a house", "Asked for a boat"], why: "Because they did not entertain us as guests, you should not have worked for them for free." }
+      ]
+    },
+    {
+      slug: "this-is-the-parting",
+      title: "This is the parting",
+      line: "Al-Khidr said they must part, but first he would explain.",
+      facts: ["Musa had set the condition", "The reasons are explained"],
+      quote: q18(78),
+      source: ik(78, "Since Musa had said they should part if he asked again, Al-Khidr said it was time to part, and he would explain what Musa could not bear.", "So this is the parting of the ways between me and you"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Al-Khidr say, in 18:78?", a: "This is the parting between us", wrong: ["Let us go on", "Let us rest", "Let us eat"], why: "This is the parting between you and I." },
+        { q: "Why was it time to part, per Ibn Kathir?", a: "Musa had set that condition", wrong: ["Al-Khidr was angry", "The road ended", "Yusha was tired"], why: "Because you said after the boy was killed that if you asked me anything after that, you would not accompany me any further." },
+        { q: "Al-Khidr explained his actions before parting, per 18:78.", tf: true, why: "I will tell you the interpretation of those things over which you were not able to be patient." }
+      ]
+    },
+    {
+      slug: "the-boat-was-saved",
+      title: "The boat was saved",
+      line: "A cruel king seized good boats, so a flaw saved this one.",
+      facts: ["Owned by poor workers", "A small harm, a big good"],
+      quote: q18(79),
+      source: ik(79, "The boat belonged to poor people who worked at sea. A cruel king took every good boat by force, so the damage made it look faulty and kept it safe for its owners.", "so that its poor owners who had nothing else could benefit from it"),
+      difficulty: 3,
+      questions: [
+        { q: "To whom did the boat belong, in 18:79?", a: "Poor people working at sea", wrong: ["The king", "Al-Khidr", "Rich traders"], why: "As for the boat, it belonged to poor people working in the sea." },
+        { q: "What did the king do, in 18:79?", a: "Seized every good boat", wrong: ["Built boats", "Fixed boats", "Banned fishing"], why: "There was a king behind them who seized every boat by force." },
+        { q: "Why damage the boat, per Ibn Kathir?", a: "So its poor owners could keep it", wrong: ["To sink it", "To sell it", "To punish them"], why: "So that its poor owners who had nothing else could benefit from it." }
+      ]
+    },
+    {
+      slug: "allahs-decree-is-good",
+      title: "Allah's decree is good",
+      line: "The boy would have led his parents astray; Allah knew best.",
+      facts: ["A better child given", "Trust Allah's decree"],
+      quote: q18(81),
+      source: ik(80, "The boy's parents were believers, and he would have led them into disbelief. Allah would give them a better, kinder child. Ibn Kathir reminds us that Allah's decree for a believer is good for him.", "Allah does not decree anything for the believer except it is good for him"),
+      difficulty: 4,
+      questions: [
+        { q: "What were the boy's parents, in 18:80?", a: "Believers", wrong: ["Kings", "Sailors", "Travellers"], why: "And as for the boy, his parents were believers." },
+        { q: "What would Allah give them, in 18:81?", a: "A child better in righteousness", wrong: ["Great wealth", "A new house", "A long trip"], why: "One better in righteousness and nearer to mercy." },
+        { q: "What does Allah decree for a believer, per Ibn Kathir?", a: "Only what is good for him", wrong: ["Only ease", "Only hardship", "Nothing at all"], why: "Allah does not decree anything for the believer except it is good for him." }
+      ]
+    },
+    {
+      slug: "the-orphans-treasure",
+      title: "The orphans' treasure",
+      line: "The wall hid two orphans' treasure, kept for their good father.",
+      facts: ["A father's goodness helps his children", "All done by Allah's command"],
+      quote: q18(82),
+      source: ik(82, "The wall belonged to two orphans with treasure beneath it. Their father was righteous, so Allah protected it until they grew up. Al-Khidr said he did none of it on his own.", "the blessing of his worship will extend to them in this world and in the Hereafter"),
+      difficulty: 4,
+      questions: [
+        { q: "What was under the wall, in 18:82?", a: "A treasure for two orphans", wrong: ["A spring", "A cave", "A map"], why: "There was under it a treasure belonging to them." },
+        { q: "Why was it protected, in 18:82?", a: "Their father was righteous", wrong: ["They were rich", "The king asked", "The town was kind"], why: "And their father was a righteous man." },
+        { q: "Did Al-Khidr act on his own, per Ibn Kathir?", a: "No, he was commanded", wrong: ["Yes, by himself", "Yes, for wages", "Yes, for fame"], why: "I was only commanded to do these things that were enjoined upon me." }
+      ]
+    }
+  ]
+};
 
-export const KAHF_UNITS: readonly DeepUnit[] = [KAHF_ONE, KAHF_TWO];
+const KAHF_FOUR: DeepUnit = {
+  key: "kahf4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-kahf",
+  name: "Al-Kahf, ayahs 83 to 110",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Kahf",
+  lessons: [
+    {
+      slug: "dhul-qarnayn-given-power",
+      title: "Dhul-Qarnayn given power",
+      line: "Allah gave Dhul-Qarnayn power and the means to all things.",
+      facts: ["He ruled east and west", "Given knowledge and means"],
+      quote: q18(84),
+      source: ik(84, "People asked about Dhul-Qarnayn, a man who travelled far. Allah gave him great power on earth and the means to reach what he needed, which many early scholars said means knowledge.", "This means knowledge"),
+      difficulty: 2,
+      questions: [
+        { q: "Who asked about Dhul-Qarnayn, in 18:83?", a: "People asking the Prophet ﷺ", wrong: ["The angels", "The jinn", "His army"], why: "And they ask you about Dhul-Qarnayn." },
+        { q: "What did Allah give him, in 18:84?", a: "The means of everything", wrong: ["A magic ring", "Wings", "A golden city"], why: "Verily, We established him in the earth, and We gave him the means of everything." },
+        { q: "What did Ibn Abbas say the means were?", a: "Knowledge", wrong: ["Gold", "Horses", "Ships"], why: "Ibn Abbas, Mujahid and others said: This means knowledge." }
+      ]
+    },
+    {
+      slug: "journey-to-the-west",
+      title: "Journey to the west",
+      line: "He travelled to the far west and judged its people with justice.",
+      facts: ["Wrongdoers punished", "Good-doers rewarded and spoken to kindly"],
+      quote: q18(86),
+      source: ik(86, "Dhul-Qarnayn followed routes to the farthest west he could reach. Allah let him choose how to treat a people there, and his ruling showed his justice and faith.", "His justice and faith became apparent in the ruling he pronounced"),
+      difficulty: 3,
+      questions: [
+        { q: "How far did he go, per Ibn Kathir?", a: "The farthest west one could reach", wrong: ["Into the sky", "Under the sea", "Only to the next town"], why: "He reached the furthest point that could be reached in the direction of the sun's setting." },
+        { q: "What did his ruling show, per Ibn Kathir?", a: "His justice and faith", wrong: ["His anger", "His greed", "His fear"], why: "His justice and faith became apparent in the ruling he pronounced." },
+        { q: "How would he speak to believers, in 18:88?", a: "With mild, kind words", wrong: ["Harshly", "Not at all", "With threats"], why: "And we shall speak unto him mild words." }
+      ]
+    },
+    {
+      slug: "journey-to-the-east",
+      title: "Journey to the east",
+      line: "In the far east, a people had no shade from the sun.",
+      facts: ["No buildings or trees", "Allah knew all about him"],
+      quote: q18(90),
+      source: ik(90, "Dhul-Qarnayn travelled east to where the sun rises and found a people with no buildings or trees to shade them. Allah knew everything about him and his army.", "they had no buildings or trees to cover them and shade them from the heat of the sun"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the eastern people lack, in 18:90?", a: "Shelter from the sun", wrong: ["Water", "Food", "Language"], why: "For whom We had provided no shelter against the sun." },
+        { q: "What was missing there, per Ibn Kathir?", a: "Buildings and trees", wrong: ["Rivers and lakes", "Horses", "Roads"], why: "They had no buildings or trees to cover them and shade them from the heat of the sun." },
+        { q: "What does 18:91 say Allah knew?", a: "All about him", wrong: ["Only his name", "Only his army", "Nothing"], why: "So it was! And We knew all about him." }
+      ]
+    },
+    {
+      slug: "the-people-between-two-mountains",
+      title: "Between two mountains",
+      line: "A people begged him for a barrier against Ya'juj and Ma'juj.",
+      facts: ["They hardly understood speech", "They offered payment"],
+      quote: q18(94),
+      source: ik(94, "Between two mountains he found a people who could hardly understand speech. They said Ya'juj and Ma'juj spread mischief and offered to pay him for a barrier.", "he could not understand their speech, because they were so isolated from other people"),
+      difficulty: 3,
+      questions: [
+        { q: "Where did he find the people, in 18:93?", a: "Between two mountains", wrong: ["On an island", "In a desert", "By a river"], why: "Until, when he reached between two mountains." },
+        { q: "What were Ya'juj and Ma'juj doing, in 18:94?", a: "Great mischief in the land", wrong: ["Farming", "Trading", "Sleeping"], why: "Verily, Ya'juj and Ma'juj are doing great mischief in the land." },
+        { q: "What did the people offer, in 18:94?", a: "To pay him", wrong: ["To fight him", "To leave", "To serve as soldiers"], why: "Shall we then pay you a tribute in order that you might erect a barrier?" }
+      ]
+    },
+    {
+      slug: "what-allah-gave-is-better",
+      title: "What Allah gave is better",
+      line: "He refused their money and asked only for help with the work.",
+      facts: ["Allah's gift is enough", "Help with strength"],
+      quote: q18(95),
+      source: ik(95, "Dhul-Qarnayn kindly said the power Allah gave him was better than their money, but asked them to help with their labour so he could build the barrier.", "the power and authority that Allah has given me is better for me than what you have collected"),
+      difficulty: 3,
+      questions: [
+        { q: "What did he say was better, in 18:95?", a: "What Allah had given him", wrong: ["Their gold", "Their land", "Their horses"], why: "That in which my Lord had established me is better." },
+        { q: "What help did he ask for, in 18:95?", a: "Help with strength and labour", wrong: ["Money", "Soldiers to fight", "Nothing"], why: "So help me with strength, I will erect between you and them a barrier." },
+        { q: "Which Prophet said something similar, per Ibn Kathir?", a: "Sulayman", wrong: ["Nuh", "Yunus", "Ayyub"], why: "This is like when Sulayman said: What Allah has given me is better than that which He has given you!" }
+      ]
+    },
+    {
+      slug: "the-iron-barrier",
+      title: "The iron barrier",
+      line: "He filled the gap with iron, heated it, then poured copper.",
+      facts: ["Blocks of iron", "Molten copper"],
+      quote: q18(96),
+      source: ik(96, "He stacked iron blocks until the gap between the cliffs was filled, heated them with fire, then poured molten copper over them, which many early scholars said Qitran means.", "he put the blocks on top of one another, starting at the bottom, until he reached the tops of the mountains"),
+      difficulty: 3,
+      questions: [
+        { q: "What did he ask for first, in 18:96?", a: "Pieces of iron", wrong: ["Wood", "Stones", "Sand"], why: "Give me Zubar of iron." },
+        { q: "What is Qitran, per Ibn Kathir?", a: "Copper", wrong: ["Gold", "Glass", "Tar"], why: "Ibn Abbas, Mujahid, Ikrimah, Ad-Dahhak, Qatadah and As-Suddi said it was copper." },
+        { q: "How high did the blocks go, per Ibn Kathir?", a: "To the tops of the mountains", wrong: ["Knee high", "Halfway up", "Just one row"], why: "Until he reached the tops of the mountains, filling the width and height of the gap." }
+      ]
+    },
+    {
+      slug: "a-mercy-from-my-lord",
+      title: "A mercy from my Lord",
+      line: "They could not climb or dig through; he called it Allah's mercy.",
+      facts: ["He did not boast", "It falls when Allah wills"],
+      quote: q18(98),
+      source: ik(98, "Ya'juj and Ma'juj could not climb over the barrier or dig through it. Dhul-Qarnayn called it a mercy from his Lord, and said it will be levelled when Allah's promise comes.", "could not climb over the barrier or penetrate its lower portion"),
+      difficulty: 3,
+      questions: [
+        { q: "What could they not do, in 18:97?", a: "Scale it or dig through it", wrong: ["See it", "Hear it", "Touch it"], why: "So they could not scale it or dig through it." },
+        { q: "What did he call the barrier, in 18:98?", a: "A mercy from my Lord", wrong: ["My great work", "My palace", "A gift to me"], why: "This is a mercy from my Lord." },
+        { q: "What will happen when the promise comes, per Ibn Kathir?", a: "It will be made flat", wrong: ["It will grow", "It will move", "It will turn gold"], why: "He shall Dakka it down to the ground, means, will make it flat." }
+      ]
+    },
+    {
+      slug: "the-trumpet-and-the-gathering",
+      title: "The Trumpet and the gathering",
+      line: "The Trumpet will be blown, and Allah will gather all creatures.",
+      facts: ["As-Sur is a horn", "All gathered for the reckoning"],
+      quote: q18(99),
+      source: ik(99, "When the Trumpet is blown, Allah will gather all creatures together for the reckoning. Ibn Kathir explains that As-Sur is a horn that is blown.", "As-Sur, as explained in the Hadith, is a horn that is blown into"),
+      difficulty: 3,
+      questions: [
+        { q: "What will be blown, in 18:99?", a: "The Trumpet", wrong: ["A wind", "A whistle", "A flute"], why: "And the Trumpet will be blown, and We shall collect them all together." },
+        { q: "What is As-Sur, per Ibn Kathir?", a: "A horn that is blown", wrong: ["A bell", "A drum", "A star"], why: "As-Sur, as explained in the Hadith, is a horn that is blown into." },
+        { q: "Which angel blows it, per Ibn Kathir?", a: "Israfil", wrong: ["Jibril", "Mika'il", "Malik"], why: "The one who will blow into it is the angel Israfil." }
+      ]
+    },
+    {
+      slug: "eyes-covered-from-the-reminder",
+      title: "Eyes covered from the reminder",
+      line: "Some turn a blind eye and deaf ear to Allah's reminder.",
+      facts: ["They refused guidance", "Only Allah truly protects"],
+      quote: q18(101),
+      source: ik(101, "Some people neglect Allah's reminder, turning a blind eye and a deaf ear and refusing guidance. Taking others as protectors besides Allah will not help them.", "they neglected it, turning a blind eye and a deaf ear to it"),
+      difficulty: 3,
+      questions: [
+        { q: "What covered their eyes, in 18:101?", a: "A covering from My Reminder", wrong: ["Sand", "A cloth", "Darkness of night"], why: "Those whose eyes had been under a covering from My Reminder." },
+        { q: "What did they refuse, per Ibn Kathir?", a: "Guidance and the truth", wrong: ["Food", "Gifts", "Rest"], why: "Refusing to accept guidance and follow the truth." },
+        { q: "Can others protect anyone besides Allah, per 18:102?", a: "No", wrong: ["Yes, always", "Yes, kings can", "Yes, idols can"], why: "Do then those who disbelieved think that they can take My servants as protectors besides Me?" }
+      ]
+    },
+    {
+      slug: "the-greatest-losers",
+      title: "The greatest losers",
+      line: "The worst losers think they do good, yet their deeds are lost.",
+      facts: ["Deeds must be right too", "Do not deny Allah's signs"],
+      quote: q18(104),
+      source: ik(104, "The greatest losers are those whose efforts are wasted while they think they are doing good. Ibn Kathir says the ayah is general, for anyone who worships in a way that is not acceptable yet thinks he is right.", "thinking that he is right in doing that and that his deeds will be accepted, but he is mistaken"),
+      difficulty: 4,
+      questions: [
+        { q: "What do the losers think, in 18:104?", a: "That they are doing good", wrong: ["That they are losing", "That they are lazy", "That they are lost"], why: "While they thought that they were acquiring good by their deeds." },
+        { q: "Is 18:103 about one group only, per Ibn Kathir?", a: "No, it is general", wrong: ["Yes, one tribe", "Yes, one town", "Yes, one family"], why: "So the Ayah is general and refers to everyone who worships Allah in a way that is not acceptable." },
+        { q: "What do they deny, in 18:105?", a: "Allah's signs and meeting Him", wrong: ["Their names", "Their homes", "The weather"], why: "They are those who deny the Ayat of their Lord and the meeting with Him." }
+      ]
+    },
+    {
+      slug: "gardens-of-al-firdaws",
+      title: "Gardens of Al-Firdaws",
+      line: "Good believers will live in Al-Firdaws and never wish to leave.",
+      facts: ["The best part of Paradise", "Never bored, forever"],
+      quote: q18(107),
+      source: ik(107, "Believers who do righteous deeds will have the Gardens of Al-Firdaws as their welcome. They will stay forever and never wish to move.", "they will never choose or want anything else"),
+      difficulty: 2,
+      questions: [
+        { q: "What is promised in 18:107?", a: "The Gardens of Al-Firdaws", wrong: ["A palace on earth", "A long life", "Great wealth"], why: "Shall have the Gardens of Al-Firdaws for their entertainment." },
+        { q: "Will they want to leave, in 18:108?", a: "No, never", wrong: ["Yes, after a while", "Yes, often", "Only to visit"], why: "No desire will they have for removal therefrom." },
+        { q: "Where is Al-Firdaws, per Qatadah?", a: "A hill in the centre of Paradise", wrong: ["At its edge", "Under the earth", "In the sea"], why: "Al-Firdaws is a hill in Paradise, at its center, the best of it." }
+      ]
+    },
+    {
+      slug: "ask-allah-for-al-firdaws",
+      title: "Ask Allah for Al-Firdaws",
+      line: "Ask Allah for Al-Firdaws, the highest part of Paradise.",
+      facts: ["Paradise has 100 levels", "Rivers of Paradise flow from it"],
+      quote: q18(107),
+      source: hadith("bukhari", "2790", "Abu Hurairah", "Sahih", "Paradise has one hundred levels. The Prophet ﷺ said: When you ask Allah, ask for Al-Firdaws, the best and highest part of Paradise.", "ask for Al-firdaus which is the best and highest part of Paradise"),
+      difficulty: 3,
+      questions: [
+        { q: "How many levels does Paradise have, in the hadith?", a: "One hundred", wrong: ["Seven", "Ten", "One thousand"], why: "Paradise has one-hundred grades." },
+        { q: "What should we ask Allah for, in the hadith?", a: "Al-Firdaws", wrong: ["Wealth", "Fame", "A lower level"], why: "So, when you ask Allah, ask for Al-Firdaus which is the best and highest part of Paradise." },
+        { q: "What flows from Al-Firdaws, in the hadith?", a: "The rivers of Paradise", wrong: ["Winds", "Light only", "Clouds"], why: "And from it originate the rivers of Paradise." }
+      ]
+    },
+    {
+      slug: "if-the-sea-were-ink",
+      title: "If the sea were ink",
+      line: "Seas of ink would run dry before Allah's Words ever ran out.",
+      facts: ["Even more seas would not do", "Our knowledge is a drop"],
+      quote: q18(109),
+      source: ik(109, "If the sea were ink to write the words and wisdom of Allah, it would run dry before they were done, even with more seas added.", "the sea would run dry before it all could be written down"),
+      difficulty: 3,
+      questions: [
+        { q: "What if the sea were ink, in 18:109?", a: "It would run out first", wrong: ["It would be enough", "It would grow", "It would freeze"], why: "Surely, the sea would be exhausted before the Words of my Lord would be finished." },
+        { q: "Would another sea be enough, in 18:109?", a: "No, not even another", wrong: ["Yes, two are enough", "Yes, three", "Yes, a lake"], why: "Even if We brought like it for its aid." },
+        { q: "What is our knowledge like, per Ar-Rabi?", a: "A drop next to the oceans", wrong: ["A whole ocean", "A river", "A mountain"], why: "The knowledge of all of mankind, in comparison to the knowledge of Allah, is that of a drop of water in comparison to all of the oceans." }
+      ]
+    },
+    {
+      slug: "do-good-for-allah-alone",
+      title: "Do good for Allah alone",
+      line: "Whoever hopes to meet Allah, do good and worship Him alone.",
+      facts: ["The Prophet ﷺ was a man", "Two keys of accepted deeds"],
+      quote: q18(110),
+      source: ik(110, "The Prophet ﷺ is a man to whom revelation comes that Allah is One. A deed is accepted when it is done for Allah alone and in the way of the Messenger ﷺ.", "These are the two basic features of acceptable deeds"),
+      difficulty: 4,
+      questions: [
+        { q: "What was revealed to him ﷺ, in 18:110?", a: "Your God is One God", wrong: ["Many gods exist", "No reckoning", "Nothing new"], why: "It has been revealed to me that your God is One God." },
+        { q: "What must one who hopes to meet Allah do, in 18:110?", a: "Do good and worship Him alone", wrong: ["Gain wealth", "Travel far", "Stay silent"], why: "Let him work righteousness and associate none as a partner in the worship of his Lord." },
+        { q: "What are the two keys of accepted deeds, per Ibn Kathir?", a: "For Allah alone, in the Sunnah way", wrong: ["Big and loud", "Seen by many", "Quick and easy"], why: "Their intent is for the sake of Allah alone, and are done in accordance with the way of the Messenger of Allah ﷺ." }
+      ]
+    },
+    {
+      slug: "allah-needs-no-partner",
+      title: "Allah needs no partner",
+      line: "Allah needs no partner, so do deeds for Him, not for show.",
+      facts: ["Showing off spoils deeds", "Sincerity for Allah"],
+      quote: q18(110),
+      source: hadith("muslim", "2985", "Abu Hurairah", "Sahih", "Allah says: I am the One who has no need of a partner. Whoever does a deed for Me and for another, I leave him with what he joined with Me.", "I am the One, One Who does not stand in need of a partner"),
+      difficulty: 4,
+      questions: [
+        { q: "What does Allah not need, in the hadith?", a: "A partner", wrong: ["Praise", "Thanks", "Worship"], why: "I am the One, One Who does not stand in need of a partner." },
+        { q: "What happens to a deed shared with another?", a: "Allah leaves it to that other", wrong: ["It doubles", "It is fully kept", "Nothing"], why: "If anyone does anything in which he associates anyone else with Me, I shall abandon him with one whom he associates." },
+        { q: "A deed done for Allah and for show is still accepted.", tf: false, why: "If anyone does anything in which he associates anyone else with Me, I shall abandon him with one whom he associates with Allah." }
+      ]
+    }
+  ]
+};
+
+export const KAHF_UNITS: readonly DeepUnit[] = [KAHF_ONE, KAHF_TWO, KAHF_THREE, KAHF_FOUR];
