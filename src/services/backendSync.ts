@@ -392,6 +392,32 @@ export async function sendFriendBattleScore(battleId: number, correct: number) {
   return backendRequest<FriendBattle>(`/api/battles/${battleId}/score`, { method: "POST", headers: authHeaders(), body: JSON.stringify({ correct }) });
 }
 
+/**
+ * Invite codes (see backend/app/api/routes/invites.py): a new learner types a friend's code once and both get
+ * dates. The code is the learner's id in mix-up-proof letters; it says nothing about who they are.
+ */
+export type InviteInfo = {
+  code: string;
+  joined: number;
+  rewardDates: number;
+  /** Dates waiting for friends who joined since this phone last collected them. */
+  unclaimedDates: number;
+  usedCode: boolean;
+  canUseCode: boolean;
+};
+
+export async function fetchInvite() {
+  return backendRequest<InviteInfo>("/api/invites", { headers: authHeaders() });
+}
+
+export async function redeemInviteCode(code: string) {
+  return backendRequest<{ rewardDates: number }>("/api/invites/redeem", { method: "POST", headers: authHeaders(), body: JSON.stringify({ code: code.trim() }) });
+}
+
+export async function claimInviteRewards() {
+  return backendRequest<{ rewardDates: number; friends: number }>("/api/invites/claim", { method: "POST", headers: authHeaders() });
+}
+
 /** Saves the learner's Ummah state (trophies, nickname, joined) and returns the ranking of everyone who joined. */
 export async function fetchUmmahRankings(ummah: UmmahState) {
   return backendRequest<UmmahRankings>("/api/ummah/rankings", {

@@ -735,5 +735,18 @@
   "Is it “{answer}”?": "کیا جواب “{answer}” ہے؟",
   "Tap a question, then its answer!": "ایک سوال پر ٹیپ کریں، پھر اس کے جواب پر!",
   "Test time!": "ٹیسٹ کا وقت!",
-  "{count} questions from your last lessons, in new ways.": "آپ کے پچھلے اسباق سے {count} سوال، نئے انداز میں۔"
+  "{count} questions from your last lessons, in new ways.": "آپ کے پچھلے اسباق سے {count} سوال، نئے انداز میں۔",
+  "Learn Islam with me on Muslimo! Quick, fun lessons on the Quran, Prophets and Sahabah. Sign up, type my invite code {code} and we both get {count} dates! {link}": "میرے ساتھ Muslimo پر اسلام سیکھیں! قرآن، انبیاء اور صحابہ پر چھوٹے، مزے دار سبق۔ سائن اپ کریں، میرا انوائٹ کوڈ {code} لکھیں اور ہم دونوں کو {count} کھجوریں ملیں گی! {link}",
+  "Invite a friend and you both get {count} dates!": "دوست کو بلائیں اور دونوں کو {count} کھجوریں ملیں گی!",
+  "Your invite code": "آپ کا انوائٹ کوڈ",
+  "Friends who joined with your code: {count}": "آپ کے کوڈ سے شامل ہونے والے دوست: {count}",
+  "Your friend types it after signing up.": "سائن اپ کے بعد آپ کا دوست یہ لکھے گا۔",
+  "Friend's code": "دوست کا کوڈ",
+  "Use code": "کوڈ استعمال کریں",
+  "Got a code from a friend?": "کیا کسی دوست نے کوڈ دیا ہے؟",
+  "Your friends joined!": "آپ کے دوست شامل ہو گئے!",
+  "Welcome gift!": "خوش آمدید تحفہ!",
+  "That code doesn't work. Check it and try again.": "یہ کوڈ نہیں چل رہا۔ دیکھ کر دوبارہ کوشش کریں۔",
+  "You already used an invite code.": "آپ پہلے ہی ایک انوائٹ کوڈ استعمال کر چکے ہیں۔",
+  "You can't use this code.": "آپ یہ کوڈ استعمال نہیں کر سکتے۔"
 }

@@ -735,5 +735,18 @@
   "Is it “{answer}”?": "উত্তর কি “{answer}”?",
   "Tap a question, then its answer!": "একটি প্রশ্নে চাপো, তারপর তার উত্তরে!",
   "Test time!": "টেস্টের সময়!",
-  "{count} questions from your last lessons, in new ways.": "তোমার আগের পাঠগুলো থেকে {count}টি প্রশ্ন, নতুনভাবে।"
+  "{count} questions from your last lessons, in new ways.": "তোমার আগের পাঠগুলো থেকে {count}টি প্রশ্ন, নতুনভাবে।",
+  "Learn Islam with me on Muslimo! Quick, fun lessons on the Quran, Prophets and Sahabah. Sign up, type my invite code {code} and we both get {count} dates! {link}": "Muslimo-তে আমার সাথে ইসলাম শিখুন! কুরআন, নবী ও সাহাবীদের নিয়ে ছোট, মজার পাঠ। সাইন আপ করে আমার ইনভাইট কোড {code} লিখুন, আমরা দুজনেই {count}টি খেজুর পাব! {link}",
+  "Invite a friend and you both get {count} dates!": "বন্ধুকে ডাকুন, দুজনেই পাবেন {count}টি খেজুর!",
+  "Your invite code": "আপনার ইনভাইট কোড",
+  "Friends who joined with your code: {count}": "আপনার কোড দিয়ে যোগ দিয়েছে: {count} জন বন্ধু",
+  "Your friend types it after signing up.": "সাইন আপের পর আপনার বন্ধু এটি লিখবে।",
+  "Friend's code": "বন্ধুর কোড",
+  "Use code": "কোড ব্যবহার করুন",
+  "Got a code from a friend?": "বন্ধুর কাছ থেকে কোড পেয়েছেন?",
+  "Your friends joined!": "আপনার বন্ধুরা যোগ দিয়েছে!",
+  "Welcome gift!": "স্বাগতম উপহার!",
+  "That code doesn't work. Check it and try again.": "এই কোডটি কাজ করছে না। দেখে আবার চেষ্টা করুন।",
+  "You already used an invite code.": "আপনি আগেই একটি ইনভাইট কোড ব্যবহার করেছেন।",
+  "You can't use this code.": "আপনি এই কোডটি ব্যবহার করতে পারবেন না।"
 }

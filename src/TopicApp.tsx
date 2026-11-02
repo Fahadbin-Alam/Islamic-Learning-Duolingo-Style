@@ -104,6 +104,10 @@ import {
   declineFriendBattle,
   sendFriendBattleScore,
   type FriendBattle,
+  fetchInvite,
+  redeemInviteCode,
+  claimInviteRewards,
+  type InviteInfo,
   syncRemoteUser,
   hasPendingSync,
   pickStartingUser,
@@ -743,6 +747,14 @@ export default function TopicApp() {
   const [battle, setBattle] = useState<BattleQuestion[] | undefined>(undefined);
   // Battles with friends (from the server), and the one being played now, if it is a friend battle.
   const [friendBattles, setFriendBattles] = useState<FriendBattle[]>([]);
+  const [invite, setInvite] = useState<InviteInfo | undefined>(undefined);
+  // On opening (and after logging in), collect dates for friends who joined with this learner's code.
+  const inviteAccountKey = state.user?.hasAccount ? String(state.user.id) : "";
+  useEffect(() => {
+    setInvite(undefined);
+    if (inviteAccountKey) void loadInvite();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inviteAccountKey]);
   const [versus, setVersus] = useState<{ name: string; battle: FriendBattle; sending?: boolean } | undefined>(undefined);
   const [openSecret, setOpenSecret] = useState<{ secret: SecretLesson; isNew: boolean } | undefined>(undefined);
   const [secretListOpen, setSecretListOpen] = useState(false);
@@ -2969,6 +2981,48 @@ export default function TopicApp() {
     setOpenSecret({ secret, isNew });
   }
 
+  /** Loads the learner's invite code and collects dates for friends who joined with it. Never throws. */
+  async function loadInvite() {
+    if (!isBackendConfigured() || !getSessionToken() || !state.user?.hasAccount) {
+      return;
+    }
+
+    try {
+      const info = await fetchInvite();
+      setInvite(info);
+      if (info.unclaimedDates > 0) {
+        const claimed = await claimInviteRewards();
+        setInvite({ ...info, unclaimedDates: 0 });
+        if (claimed.rewardDates > 0) {
+          dispatch({ type: "apply_user_latest", update: (user) => ({ ...user, gems: user.gems + claimed.rewardDates }) });
+          void notify(t("Your friends joined!"), t("+{count} dates", { count: claimed.rewardDates }), { mood: "cheer" });
+        }
+      }
+    } catch {
+      // Offline or an older server: the card just stays hidden until the next try.
+    }
+  }
+
+  async function redeemInvite(code: string) {
+    try {
+      const result = await redeemInviteCode(code);
+      dispatch({ type: "apply_user_latest", update: (user) => ({ ...user, gems: user.gems + result.rewardDates }) });
+      setInvite((current) => (current ? { ...current, usedCode: true, canUseCode: false } : current));
+      void notify(t("Welcome gift!"), t("+{count} dates", { count: result.rewardDates }), { mood: "cheer" });
+    } catch (error) {
+      const status = error instanceof BackendRequestError ? error.status : 0;
+      const message =
+        status === 404
+          ? t("That code doesn't work. Check it and try again.")
+          : status === 409
+            ? t("You already used an invite code.")
+            : status === 400
+              ? t("You can't use this code.")
+              : t("No internet");
+      void notify(message, undefined, { mood: "think" });
+    }
+  }
+
   async function loadCrew() {
     if (!state.user?.hasAccount) {
       setCrew({ status: "signed_out" });
@@ -2990,6 +3044,7 @@ export default function TopicApp() {
     try {
       const [payload] = await Promise.all([fetchCrew(localDateKey()), loadFriendBattles()]);
       setCrew({ status: "ready", payload });
+      void loadInvite();
     } catch (error) {
       setCrew({
         status: "error",
@@ -3641,7 +3696,7 @@ export default function TopicApp() {
             onToggleSound={toggleSoundEffects}
             onOpenSettings={openSettingsModal}
             onOpenFamily={openFamily}
-            onShareApp={() => void shareApp()}
+            onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
@@ -3695,8 +3750,10 @@ export default function TopicApp() {
             onAnswerBattle={(next, accept) => void answerFriendBattle(next, accept)}
             onPlayBattle={playFriendBattle}
             onCancelBattle={(next) => void answerFriendBattle(next, false)}
-            onShareApp={() => void shareApp()}
+            onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
             onRefresh={loadCrew}
+            invite={invite}
+            onRedeemInvite={(code) => void redeemInvite(code)}
             onCreateAccount={openCrewAccount}
             league={crewLeagueUser?.league}
             ranks={{
