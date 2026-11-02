@@ -566,4 +566,436 @@ const NAHL_THREE: DeepUnit = {
   ]
 };
 
-export const NAHL_UNITS: readonly DeepUnit[] = [NAHL_ONE, NAHL_TWO, NAHL_THREE];
+/** Ayahs 51 to 72: one God, every blessing is His, milk, honey, old age and family. */
+const NAHL_FOUR: DeepUnit = {
+  key: "nahl4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-16",
+  name: "An-Nahl, ayahs 51 to 72",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Nahl",
+  lessons: [
+    {
+      slug: "do-not-take-two-gods",
+      title: "Do not take two gods",
+      line: "Allah is only One God, so fear Him alone.",
+      facts: ["All in heaven and earth is His", "Worship is purely for Him"],
+      quote: q16(51),
+      source: ik(51, "Allah tells us there is no god but He, and none should be worshipped except Him, alone, for He is the Sovereign, Creator and Lord of all things. Mujahid said the religion is purely for Him.", "no one else should be worshipped except Him, alone, without partners"),
+      difficulty: 3,
+      questions: [
+        { q: "What does Allah forbid, in 16:51?", a: "Worshipping two gods", wrong: ["Eating dates", "Travelling", "Sleeping"], why: "Do not worship two gods. Indeed, He (Allah) is only One God." },
+        { q: "To whom belongs all in the heavens and earth, in 16:52?", a: "Allah", wrong: ["The kings", "The angels", "No one"], why: "To Him belongs all that is in the heavens and the earth and the religion." },
+        { q: "What does the religion being His mean, per Mujahid?", a: "Purely for Him", wrong: ["For sale", "For one tribe", "For a while"], why: "Mujahid said: It means purely for Him, worship is due to Him Alone." }
+      ]
+    },
+    {
+      slug: "every-blessing-is-from-allah",
+      title: "Every blessing is from Allah",
+      line: "Every good thing we have comes from Allah alone.",
+      facts: ["In harm we cry to Him", "Do not forget Him after"],
+      quote: q16(53),
+      source: ik(53, "Allah alone has the power to benefit and harm. The provisions, blessings, good health and help that His servants enjoy are all from His bounty, so when harm comes, they turn to Him.", "the provisions, blessings, good health and help, His servants enjoy are from His bounty and graciousness towards them"),
+      difficulty: 3,
+      questions: [
+        { q: "Where do our blessings come from, in 16:53?", a: "From Allah", wrong: ["From luck", "From the stars", "From idols"], why: "And whatever of blessings and good things you have, it is from Allah." },
+        { q: "What do people do when harm touches them, in 16:53?", a: "Cry to Allah for help", wrong: ["Laugh", "Sleep", "Forget Him"], why: "Then, when harm touches you, unto Him you cry aloud for help." },
+        { q: "What do some do once the harm is gone, in 16:54?", a: "Associate others with Him", wrong: ["Thank Him more", "Pray all night", "Give charity"], why: "Then, when He has removed the harm from you, behold! some of you associate others in worship with their Lord." },
+        { q: "Why do people call Allah in harm, per Ibn Kathir?", a: "None else can remove it", wrong: ["It is a habit", "Others are asleep", "It is cheap"], why: "Because you know that none has the power to remove that harm except for Him." }
+      ]
+    },
+    {
+      slug: "the-highest-description",
+      title: "The highest description",
+      line: "Allah alone is perfect in every way.",
+      facts: ["He is All-Mighty, All-Wise", "Idolaters wrongly gave Him daughters"],
+      quote: q16(60),
+      source: ik(60, "The idolaters wrongly claimed Allah had daughters while wanting sons for themselves. Allah is far above that: He has the highest description and is absolutely perfect in all ways.", "He is absolutely perfect in all ways and this absolute perfection is His Alone"),
+      difficulty: 4,
+      questions: [
+        { q: "What belongs to Allah, in 16:60?", a: "The highest description", wrong: ["A weak name", "A family", "A partner"], why: "And for Allah is the highest description." },
+        { q: "What does the highest description mean, per Ibn Kathir?", a: "He is perfect in all ways", wrong: ["He is old", "He is far", "He is hidden"], why: "He is absolutely perfect in all ways and this absolute perfection is His Alone." },
+        { q: "Which two names end 16:60?", a: "All-Mighty, All-Wise", wrong: ["Most Kind, Forgiving", "Hearing, Seeing", "First, Last"], why: "And He is the All-Mighty, the All-Wise." }
+      ]
+    },
+    {
+      slug: "allah-gives-time",
+      title: "Allah gives time",
+      line: "If Allah punished at once, no creature would be left.",
+      facts: ["He waits to an appointed term", "He covers people's faults"],
+      quote: q16(61),
+      source: ik(61, "Allah is patient with His creatures even though they do wrong. If He punished them straight away, no living creature would be left. He is forbearing, covers faults, and waits until the appointed time.", "He waits until the appointed time"),
+      difficulty: 4,
+      questions: [
+        { q: "What would happen if Allah punished everyone at once, in 16:61?", a: "No creature would be left", wrong: ["Nothing", "Only rain", "More food"], why: "He would not leave on it (the earth) a single moving creature." },
+        { q: "What does Allah do instead, in 16:61?", a: "Defers them to a set term", wrong: ["Forgets them", "Gives up", "Hurries"], why: "But He defers them to an appointed term." },
+        { q: "Can a person delay their set term by an hour, in 16:61?", tf: false, why: "When their term comes, they can neither delay nor advance it an hour." },
+        { q: "What does Allah do with people's faults, per Ibn Kathir?", a: "He covers them", wrong: ["He shouts them", "He writes songs", "He ignores Himself"], why: "The Lord is forbearing and He covers people's faults." }
+      ]
+    },
+    {
+      slug: "messengers-were-rejected-before",
+      title: "You are not alone",
+      line: "Messengers before were rejected too, so do not be sad.",
+      facts: ["Shaytan made bad deeds look nice", "He cannot save anyone"],
+      quote: q16(63),
+      source: ik(63, "Allah comforts the Prophet ﷺ: Messengers were sent to nations before and were rejected, so he has an example in his brothers among the Messengers. Shaytan made people's deeds look attractive to them.", "You, O Muhammad, have an example in your brothers among the Messengers"),
+      difficulty: 3,
+      questions: [
+        { q: "Did Allah send Messengers to nations before, in 16:63?", tf: true, why: "By Allah, We indeed sent (Messengers) to the nations before you." },
+        { q: "What did Shaytan do to those nations, in 16:63?", a: "Made their deeds look fair", wrong: ["Helped them", "Taught them truth", "Fed them"], why: "But Shaytan made their deeds seeming fair to them." },
+        { q: "Whom does the Prophet ﷺ have as an example, per Ibn Kathir?", a: "His brothers the Messengers", wrong: ["The kings", "The poets", "No one"], why: "You, O Muhammad, have an example in your brothers among the Messengers." }
+      ]
+    },
+    {
+      slug: "the-book-settles-disputes",
+      title: "The Book settles disputes",
+      line: "The Quran explains what people argue about, and guides hearts.",
+      facts: ["A guidance for hearts", "A mercy for those who hold on"],
+      quote: q16(64),
+      source: ik(64, "Allah revealed the Book to explain the truth in matters people dispute over. The Quran decides every issue they argue about, and it is a guidance for hearts and a mercy for whoever holds to it.", "is a decisive arbitrator for every issue that they argue about"),
+      difficulty: 4,
+      questions: [
+        { q: "Why was the Book revealed, in 16:64?", a: "To explain what they differ in", wrong: ["To hide truth", "To tell stories only", "To make poems"], why: "That you may clearly explain to them those things in which they differ." },
+        { q: "What else is the Book, in 16:64?", a: "A guidance and a mercy", wrong: ["A puzzle", "A secret", "A burden"], why: "And (as) a guidance and a mercy for a people who believe." },
+        { q: "The guidance is for whose hearts, per Ibn Kathir?", a: "Their hearts", wrong: ["Their wallets", "Their homes", "Their animals"], why: "And (as) a guidance) meaning, for their hearts." }
+      ]
+    },
+    {
+      slug: "rain-brings-earth-to-life",
+      title: "Rain brings the earth to life",
+      line: "Rain revives dead earth, like the Quran revives dead hearts.",
+      facts: ["A sign for those who listen", "Listen and understand"],
+      quote: q16(65),
+      source: ik(65, "Just as the Quran brings life to hearts that were dead, Allah brings the earth to life after it died by sending down water from the sky.", "He brings the earth to life after it has died, by sending down water from the sky"),
+      difficulty: 3,
+      questions: [
+        { q: "What does Allah send from the sky, in 16:65?", a: "Water", wrong: ["Gold", "Stones", "Bread"], why: "And Allah sends water down from the sky." },
+        { q: "What does the rain do to the earth, in 16:65?", a: "Revives it after its death", wrong: ["Ruins it", "Freezes it", "Moves it"], why: "Then He revives the earth with it after its death." },
+        { q: "What does the Quran do to hearts, per Ibn Kathir?", a: "Brings them to life", wrong: ["Makes them hard", "Makes them sleep", "Nothing"], why: "Just as Allah causes the Qur'an to bring life to hearts that were dead from disbelief." },
+        { q: "The sign in 16:65 is for which people?", a: "People who listen", wrong: ["People who sleep", "People who boast", "People who travel"], why: "Surely that is a sign for people who listen." }
+      ]
+    },
+    {
+      slug: "pure-milk",
+      title: "Pure milk",
+      line: "Allah brings pure, tasty milk out of the cattle.",
+      facts: ["It never mixes with the rest", "A sign of His wisdom"],
+      quote: q16(66),
+      source: ik(66, "In camels, cows and sheep there is a lesson: Allah brings out milk that is pure in its whiteness, taste and sweetness, and nothing in the animal mixes with it.", "it is free of blood, and is pure in its whiteness, taste and sweetness"),
+      difficulty: 3,
+      questions: [
+        { q: "What drink comes from cattle, in 16:66?", a: "Pure milk", wrong: ["Juice", "Honey", "Water"], why: "We have made a drink for you out of what is in its belly, pure milk." },
+        { q: "Which animals are the An'am, per Ibn Kathir?", a: "Camels, cows and sheep", wrong: ["Lions and wolves", "Birds and fish", "Bees and ants"], why: "In the cattle) meaning camels, cows and sheep." },
+        { q: "How does Ibn Kathir describe the milk?", a: "Pure in whiteness, taste, sweetness", wrong: ["Bitter", "Mixed and dark", "Salty"], why: "It is free of blood, and is pure in its whiteness, taste and sweetness." },
+        { q: "Per Ibn Kathir, one can choke on that milk.", tf: false, why: "Palatable to the drinkers.) meaning nothing to cause one to choke on it." }
+      ]
+    },
+    {
+      slug: "dates-and-grapes",
+      title: "Dates, grapes and reason",
+      line: "Dates and grapes are good food; intoxicants are forbidden.",
+      facts: ["Reason is precious", "A sign for those who think"],
+      quote: q16(67),
+      source: ik(67, "Dates and grapes give a goodly provision. Allah later forbade this Ummah from intoxicating drinks to protect their reason, the noblest feature of man.", "Allah forbade this Ummah from drinking intoxicants, in order to protect their ability to reason"),
+      difficulty: 4,
+      questions: [
+        { q: "Which fruits are named in 16:67?", a: "Date palms and grapes", wrong: ["Apples and figs", "Olives and pears", "Melons"], why: "And from the fruits of date palms and grapes." },
+        { q: "What is the goodly provision, per Ibn Abbas?", a: "What is lawful from them", wrong: ["Only the leaves", "The seeds", "The wood"], why: "Strong drink is its unlawful, and the goodly provision is its lawful." },
+        { q: "Why did Allah forbid intoxicants, per Ibn Kathir?", a: "To protect reason", wrong: ["They cost a lot", "They are heavy", "They are slow"], why: "Allah forbade this Ummah from drinking intoxicants, in order to protect their ability to reason." },
+        { q: "What does Ibn Kathir call the noblest feature of man?", a: "Reason", wrong: ["Strength", "Wealth", "Height"], why: "It is appropriate to mention reason here, because it is the noblest feature of man." }
+      ]
+    },
+    {
+      slug: "the-bee-is-guided",
+      title: "The bee is guided",
+      line: "Allah guided the bee to build homes and find its way back.",
+      facts: ["Hexagon combs, firmly built", "Easy paths from its Lord"],
+      quote: q16(68),
+      source: ik(68, "The inspiration to the bee means guidance. It builds its home in mountains, trees and buildings, with strong hexagon combs, then flies far and comes straight back to its hive.", "it comes straight back to its home where its offspring and honey are"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did your Lord inspire, in 16:68?", a: "The bee", wrong: ["The ant", "The camel", "The bird"], why: "And your Lord inspired the bee." },
+        { q: "What does inspiration mean for the bee, per Ibn Kathir?", a: "Guidance", wrong: ["A dream", "A book", "A song"], why: "What is meant by inspiration here is guidance." },
+        { q: "Where does the bee make homes, in 16:68?", a: "Mountains, trees, buildings", wrong: ["Under the sea", "In the clouds", "In sand"], why: "Take you habitations in the mountains and in the trees and in what they erect." },
+        { q: "What shape are the bee's combs, per Ibn Kathir?", a: "Hexagonal", wrong: ["Round", "Square", "Triangle"], why: "With its hexagonal shapes and interlocking forms there is no looseness in its combs." }
+      ]
+    },
+    {
+      slug: "honey-is-a-cure",
+      title: "Honey has healing",
+      line: "Honey of many colors comes from bees, and it has healing.",
+      facts: ["Colors depend on what bees eat", "A sign for those who reflect"],
+      quote: q16(69),
+      source: ik(69, "Honey comes out white, yellow, red or other colors, depending on what the bees eat, and in it there is a cure for diseases people suffer from.", "there is a cure in honey for diseases that people suffer from"),
+      difficulty: 3,
+      questions: [
+        { q: "What comes from the bees, in 16:69?", a: "A drink of varying colors", wrong: ["Milk", "Water", "Oil"], why: "There comes forth from their bellies, a drink of varying colors." },
+        { q: "What is in honey, in 16:69?", a: "A cure for people", wrong: ["Poison", "Nothing", "Sadness"], why: "In which there is a cure for men." },
+        { q: "Why does honey have different colors, per Ibn Kathir?", a: "What the bees eat", wrong: ["The weather", "The jar", "The time"], why: "White, yellow, red, or of other good colors, depending on the different things that the bees eat." }
+      ]
+    },
+    {
+      slug: "let-him-drink-honey",
+      title: "Let him drink honey",
+      line: "The Prophet ﷺ said honey again and again, and the man was cured.",
+      facts: ["Allah has said the truth", "Keep trusting the cure"],
+      quote: q16(69),
+      source: hadith("bukhari", "5684", "Abu Sa'id al-Khudri", "Sahih", "A man said his brother had stomach trouble. The Prophet ﷺ told him to give honey, again and again, saying Allah has said the truth, until the brother was cured.", "Allah has said the truth, but your brother"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ tell the man to give, in the hadith?", a: "Honey", wrong: ["Milk", "Dates", "Water"], why: "The Prophet ﷺ said to him, Let him drink honey." },
+        { q: "What happened in the end, in the hadith?", a: "He was cured", wrong: ["He got worse", "He left", "Nothing"], why: "So he made him drink honey and he was cured." },
+        { q: "What did the Prophet ﷺ say about Allah, in the hadith?", a: "Allah has said the truth", wrong: ["Allah forgot", "Allah is far", "Allah is silent"], why: "Allah has said the truth, but your brother's abdomen has told a lie." },
+        { q: "Who narrated the honey hadith?", a: "Abu Sa'id al-Khudri", wrong: ["Aishah", "Anas", "Abu Musa"], why: "Narrated Abu Sa'id Al-Khudri." }
+      ]
+    },
+    {
+      slug: "from-weakness-to-old-age",
+      title: "From strength to old age",
+      line: "Allah creates us, and some grow so old they forget.",
+      facts: ["He gives and takes strength", "He is Knowing, All-Able"],
+      quote: q16(70),
+      source: ik(70, "Allah created people from nothing and will cause them to die. Some He lets grow very old, until after knowing things they reach a stage where they know nothing, because of weakness of old age.", "after he knew things, he will reach a stage where he knows nothing because of weakness of mind due to old age"),
+      difficulty: 3,
+      questions: [
+        { q: "Who creates us and causes us to die, in 16:70?", a: "Allah", wrong: ["Time", "Nature", "Luck"], why: "And Allah created you and then He will cause you to die." },
+        { q: "What happens to some who grow very old, in 16:70?", a: "They know nothing after knowing", wrong: ["They grow taller", "They never tire", "They get younger"], why: "So that they know nothing after having known (much)." },
+        { q: "Which two names end 16:70?", a: "Knowing, capable of all things", wrong: ["Forgiving, Kind", "Near, Answering", "First, Last"], why: "Truly, Allah is Knowing, capable of all things." }
+      ]
+    },
+    {
+      slug: "the-prophets-dua",
+      title: "A dua for protection",
+      line: "The Prophet ﷺ sought refuge from laziness and weak old age.",
+      facts: ["Also from miserliness", "Ask Allah for protection"],
+      quote: q16(70),
+      source: hadith("bukhari", "4707", "Anas ibn Malik", "Sahih", "Al-Bukhari reported this dua when explaining 16:70: the Prophet ﷺ sought refuge with Allah from miserliness, laziness, weak old age and the trials of life and death.", "I seek refuge with You from miserliness, laziness"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ seek refuge from, in the hadith?", a: "Miserliness and laziness", wrong: ["Rain", "Travel", "Friends"], why: "O Allah! I seek refuge with You from miserliness, laziness." },
+        { q: "Old age is one of the things in the dua.", tf: true, why: "I seek refuge with You from miserliness, laziness; from old geriatric age." },
+        { q: "Who narrated the dua hadith?", a: "Anas ibn Malik", wrong: ["Abu Hurairah", "Jabir", "Umar"], why: "Narrated Anas bin Malik." }
+      ]
+    },
+    {
+      slug: "spouses-and-children",
+      title: "Spouses and children",
+      line: "Allah gave us spouses of our own kind, and children.",
+      facts: ["Harmony, love and mercy", "And good provision"],
+      quote: q16(72),
+      source: ik(72, "Allah gave people mates of their own kind; otherwise there would be no harmony, love and mercy. From them come children and grandchildren, and He grants good food and drink.", "If He had given them mates of another kind, there would be no harmony, love and mercy between them"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah make for you, in 16:72?", a: "Mates of your own kind", wrong: ["Stars", "Castles", "Rivers"], why: "And Allah has made for you mates of your own kind." },
+        { q: "Why mates of our own kind, per Ibn Kathir?", a: "For harmony, love and mercy", wrong: ["For speed", "For fame", "For strength"], why: "If He had given them mates of another kind, there would be no harmony, love and mercy between them." },
+        { q: "What comes from our mates, in 16:72?", a: "Sons and grandsons", wrong: ["Gold", "Servants only", "Nothing"], why: "And has made for you, from your mates, sons and grandsons." },
+        { q: "What does good provision mean, per Ibn Kathir?", a: "Food and drink", wrong: ["Gold", "Houses", "Books"], why: "And has granted you good provisions.) meaning your food and drink." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 73 to 89: true examples, the twinkling Hour, our senses, birds, homes, and the witness of every nation. */
+const NAHL_FIVE: DeepUnit = {
+  key: "nahl5",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-16",
+  name: "An-Nahl, ayahs 73 to 89",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Nahl",
+  lessons: [
+    {
+      slug: "they-cannot-provide",
+      title: "They cannot provide",
+      line: "Idols cannot bring rain or grow a single plant.",
+      facts: ["Do not liken anything to Allah", "Allah knows, we do not"],
+      quote: q16(73),
+      source: ik(73, "Allah alone is the Provider. The idols people worship cannot cause rain to fall or make plants and trees grow, not even for themselves. So do not set up rivals to Allah or describe anything as like Him.", "nobody can cause rain to fall, or make plants and trees grow"),
+      difficulty: 3,
+      questions: [
+        { q: "What can false gods not grant, in 16:73?", a: "Any provision", wrong: ["Fear", "Noise", "Dust"], why: "Such as do not have power to grant them any provision from the heavens or the earth." },
+        { q: "What does Allah say not to do, in 16:74?", a: "Give examples for Allah", wrong: ["Give charity", "Travel", "Learn"], why: "So do not give examples on behalf of Allah." },
+        { q: "What does that mean, per Ibn Kathir?", a: "Do not liken anything to Him", wrong: ["Do not speak", "Do not write", "Do not count"], why: "Do not set up rivals to Him or describe anything as being like Him." },
+        { q: "Who knows, in 16:74?", a: "Allah knows, you know not", wrong: ["Everyone knows", "No one knows", "Only kings know"], why: "Truly, Allah knows and you know not." }
+      ]
+    },
+    {
+      slug: "two-servants-not-equal",
+      title: "Two servants, not equal",
+      line: "A powerless servant and a generous giver are not the same.",
+      facts: ["An example of belief and disbelief", "Or of idols and the True God"],
+      quote: q16(75),
+      source: ik(75, "Ibn Abbas said this is an example of the believer and the disbeliever: one has no power at all, the other spends of his good provision secretly and openly. Mujahid said it compares an idol with the True God.", "This is an example given of the idol and the True God"),
+      difficulty: 4,
+      questions: [
+        { q: "How does the second man spend, in 16:75?", a: "Secretly and openly", wrong: ["Never", "Only for show", "Only once"], why: "And he spends from that secretly and openly." },
+        { q: "Are the two equal, in 16:75?", tf: false, why: "Can they be equal? (By no means)." },
+        { q: "What does the spender stand for, per Ibn Abbas?", a: "The believer", wrong: ["The idol", "The king", "The traveler"], why: "This is the example which Allah gives of the disbeliever and the believer." },
+        { q: "What did Mujahid say the example compares?", a: "An idol and the True God", wrong: ["Two kings", "Two cities", "Two seasons"], why: "This is an example given of the idol and the True God." }
+      ]
+    },
+    {
+      slug: "the-one-who-commands-justice",
+      title: "The one who commands justice",
+      line: "A mute idol is not equal to one who commands justice.",
+      facts: ["The idol cannot speak or act", "Justice and the straight path"],
+      quote: q16(76),
+      source: ik(76, "Mujahid said the dumb man is like the idol: it cannot speak or do anything and is a burden on its master. It is not equal to one who commands fairness and is on the straight path.", "the idol is dumb and cannot speak or say anything, good or otherwise"),
+      difficulty: 4,
+      questions: [
+        { q: "What can the first man do, in 16:76?", a: "Nothing at all", wrong: ["Everything", "Lead armies", "Teach"], why: "One of them dumb, who has no power over anything." },
+        { q: "What does the second man command, in 16:76?", a: "Justice", wrong: ["Fear", "Games", "Silence"], why: "Is such a man equal to one who commands justice?" },
+        { q: "What does commanding justice mean, per Ibn Kathir?", a: "Fairness, true words, good deeds", wrong: ["Shouting loudly", "Owning land", "Being rich"], why: "Meaning fairness, one whose words are true and whose deeds are righteous." },
+        { q: "Where is the just man, in 16:76?", a: "On the straight path", wrong: ["Lost", "Asleep", "Far away"], why: "And is himself on the straight path." }
+      ]
+    },
+    {
+      slug: "twinkling-of-an-eye",
+      title: "In the blink of an eye",
+      line: "The Hour comes as fast as a blink, or even nearer.",
+      facts: ["Only Allah knows the Unseen", "He is able to do all things"],
+      quote: q16(77),
+      source: ik(77, "Allah alone knows the Unseen of the heavens and the earth. When He wills something it happens in a blink, and the coming of the Hour is like the twinkling of an eye, or nearer.", "whatever He wills happens in blinking"),
+      difficulty: 3,
+      questions: [
+        { q: "To whom belongs the Unseen, in 16:77?", a: "Allah", wrong: ["Fortune-tellers", "Angels alone", "Stars"], why: "And to Allah belongs the Unseen of the heavens and the earth." },
+        { q: "How fast is the Hour, in 16:77?", a: "A twinkling of the eye, or nearer", wrong: ["A thousand years", "A slow walk", "A long day"], why: "And the matter of the Hour is not but as a twinkling of the eye, or even nearer." },
+        { q: "How quickly does what Allah wills happen, per Ibn Kathir?", a: "In a blink", wrong: ["In years", "Never", "In parts"], why: "Meaning, whatever He wills happens in blinking." }
+      ]
+    },
+    {
+      slug: "hearing-sight-and-hearts",
+      title: "Hearing, sight and hearts",
+      line: "Born knowing nothing, we got senses so we would be thankful.",
+      facts: ["They grow little by little", "Use them to obey Allah"],
+      quote: q16(78),
+      source: ik(78, "Allah brought us from our mothers knowing nothing, then gave us hearing, sight and hearts, meaning reason. These grow gradually, and He created them so we can worship and obey Him.", "Allah has created these faculties in man to enable him to worship his Lord"),
+      difficulty: 3,
+      questions: [
+        { q: "How much did we know at birth, in 16:78?", a: "Nothing", wrong: ["Everything", "Two languages", "Our letters"], why: "And Allah has brought you out from the wombs of your mothers while you knew nothing." },
+        { q: "What three gifts are in 16:78?", a: "Hearing, sight, and hearts", wrong: ["Gold, silver, gems", "Land, sea, sky", "Food, drink, sleep"], why: "And He gave you hearing, sight, and hearts." },
+        { q: "Why were they given, in 16:78?", a: "That you might give thanks", wrong: ["To boast", "To rest", "To argue"], why: "That you might give thanks." },
+        { q: "What do hearts mean, per Ibn Kathir?", a: "Reason", wrong: ["Strength", "Blood", "Feelings only"], why: "And hearts - meaning reason." }
+      ]
+    },
+    {
+      slug: "when-allah-loves-a-servant",
+      title: "When Allah loves a servant",
+      line: "Extra good deeds bring us near until Allah loves us.",
+      facts: ["First do the obligations", "Then add voluntary deeds"],
+      quote: q16(78),
+      source: hadith("bukhari", "6502", "Abu Hurairah", "Sahih", "Ibn Kathir quotes this hadith on 16:78: a servant keeps coming closer to Allah with extra deeds until Allah loves him, and then guides his hearing, sight, hands and feet.", "My slave keeps on coming closer to Me through performing Nawafil"),
+      difficulty: 5,
+      questions: [
+        { q: "What is most beloved to Allah, in the hadith?", a: "What He has enjoined", wrong: ["Wealth", "Fame", "Sleep"], why: "The most beloved things with which My slave comes nearer to Me, is what I have enjoined upon him." },
+        { q: "How does the servant keep coming closer, in the hadith?", a: "Through Nawafil, extra deeds", wrong: ["Through money", "Through travel", "Through fame"], why: "My slave keeps on coming closer to Me through performing Nawafil." },
+        { q: "What happens if the loved servant asks, in the hadith?", a: "Allah gives him", wrong: ["He is ignored", "He waits forever", "He is refused"], why: "And if he asks Me, I will give him." },
+        { q: "The loved servant only hears and sees what Allah allows, per Ibn Kathir.", tf: true, why: "He only hears for the sake of Allah, he only sees for the sake of Allah." }
+      ]
+    },
+    {
+      slug: "birds-held-in-the-sky",
+      title: "Birds held in the sky",
+      line: "None holds the birds up in the sky but Allah.",
+      facts: ["He made the air carry them", "A sign for believers"],
+      quote: q16(79),
+      source: ik(79, "Look at the birds flying between heaven and earth. They are held up only by Allah, Who gave them the strength to fly and made the air carry them.", "They are held up only by Him, it is He Who gave them the strength to do that"),
+      difficulty: 3,
+      questions: [
+        { q: "Who holds the birds up, in 16:79?", a: "Allah", wrong: ["The wind alone", "The clouds", "Nobody"], why: "None holds them up but Allah." },
+        { q: "Where are the birds held, in 16:79?", a: "In the midst of the sky", wrong: ["Under the sea", "In caves", "On the ground"], why: "Do they not see the birds held (flying) in the midst of the sky?" },
+        { q: "What did Allah make carry the birds, per Ibn Kathir?", a: "The air", wrong: ["Ropes", "Angels only", "Rain"], why: "Subjecting the air to carry them and support them." }
+      ]
+    },
+    {
+      slug: "homes-and-tents",
+      title: "Homes and light tents",
+      line: "Allah gave us homes of rest and light tents for travel.",
+      facts: ["Wool, fur and hair for comfort", "Carpets, clothes and trade"],
+      quote: q16(80),
+      source: ik(80, "Allah gave people homes to rest in, and homes from cattle hides that are light to carry on journeys. From wool, fur and hair they make carpets, clothes and goods.", "which are light and easy to carry on journeys and can be erected wherever they stop"),
+      difficulty: 3,
+      questions: [
+        { q: "What are our homes for, in 16:80?", a: "A place of rest", wrong: ["A place of fear", "A prison", "A market"], why: "And Allah had made your homes a place of rest for you." },
+        { q: "What are the light homes made of, in 16:80?", a: "Hides of cattle", wrong: ["Stone", "Glass", "Gold"], why: "And made dwellings for you out of the hides of the cattle which you find so light." },
+        { q: "Wool, fur and hair come from which animals, per Ibn Kathir?", a: "Sheep, camels and goats", wrong: ["Lions, bears, wolves", "Birds, fish, bees", "Horses only"], why: "Out of their wool, fur and hair) refers to sheep, camels and goats respectively." }
+      ]
+    },
+    {
+      slug: "shade-and-clothing",
+      title: "Shade and clothing",
+      line: "Trees give shade, and clothes protect us from the heat.",
+      facts: ["Shelters in the mountains", "So we may submit to Him"],
+      quote: q16(81),
+      source: ik(81, "Qatadah said the shade is trees. Allah made shelters in the mountains and clothes of cotton, linen and wool against the heat, and so He perfects His favor so people can worship and obey Him.", "thus He gives you what you need to go about your business, so that this will help you to worship and obey Him"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the shade, per Qatadah?", a: "Trees", wrong: ["Clouds", "Walls", "Tents"], why: "Qatadah said: This means trees." },
+        { q: "What do garments protect from, in 16:81?", a: "The heat", wrong: ["The stars", "The birds", "The sea"], why: "And He has made garments for you to protect you from the heat." },
+        { q: "Why does Allah perfect His favor, in 16:81?", a: "That you may submit to Him", wrong: ["That you may boast", "That you may rest", "That you may sell"], why: "Thus does He perfect His favor for you, that you may submit yourselves to His will." }
+      ]
+    },
+    {
+      slug: "only-to-convey",
+      title: "Only to convey",
+      line: "The Messenger ﷺ only has to deliver the Message clearly.",
+      facts: ["Do not worry if they turn away", "They know the blessings yet deny"],
+      quote: q16(82),
+      source: ik(82, "If people turn away after the reminder, the Prophet ﷺ should not worry about them: his duty is only to convey the Message clearly, and he has delivered it.", "do not worry about them"),
+      difficulty: 3,
+      questions: [
+        { q: "What is the duty of the Messenger ﷺ, in 16:82?", a: "To convey clearly", wrong: ["To force people", "To punish", "To collect wealth"], why: "Your duty (O Muhammad) is only to convey (the Message) in a clear way." },
+        { q: "What do many do with Allah's grace, in 16:83?", a: "Recognize it, yet deny it", wrong: ["Thank Him daily", "Never notice it", "Give it away"], why: "They recognize the grace of Allah, yet they deny it." },
+        { q: "How do they deny the blessings, per Ibn Kathir?", a: "Worshipping others", wrong: ["Losing them", "Selling them", "Hiding them"], why: "They still deny this by worshipping others besides Him." }
+      ]
+    },
+    {
+      slug: "a-witness-from-each-nation",
+      title: "A witness from each nation",
+      line: "Each Prophet will be a witness for his nation.",
+      facts: ["Muhammad ﷺ is witness for his Ummah", "A great honor from Allah"],
+      quote: q16(89),
+      source: ik(89, "On that Day Allah will bring a witness from every nation, their own Prophet, and bring Muhammad ﷺ as witness over his Ummah, a great honor and high position from Allah.", "the great honor and high position that Allah has bestowed upon you"),
+      difficulty: 4,
+      questions: [
+        { q: "Who is raised from each nation, in 16:89?", a: "A witness from among themselves", wrong: ["A king", "A stranger", "An animal"], why: "And on the Day when We resurrect a witness from each nation from among themselves." },
+        { q: "Who is the witness over the Ummah, in 16:89?", a: "Muhammad ﷺ", wrong: ["Musa", "Isa", "Ibrahim"], why: "And We bring you (O Muhammad) as a witness against these." },
+        { q: "What does being a witness show for the Prophet ﷺ, per Ibn Kathir?", a: "Great honor and high position", wrong: ["Weakness", "Blame", "Nothing"], why: "The great honor and high position that Allah has bestowed upon you." }
+      ]
+    },
+    {
+      slug: "recite-to-me",
+      title: "Recite to me",
+      line: "Ibn Masud recited, and the Prophet ﷺ had tears in his eyes.",
+      facts: ["He liked to hear the Quran", "He said: Enough for now"],
+      quote: q16(89),
+      source: hadith("bukhari", "5050", "Abdullah ibn Mas'ud", "Sahih", "Ibn Kathir mentions this on 16:89: Ibn Masud recited An-Nisa to the Prophet ﷺ, and at the ayah of a witness from each nation he said, Enough for the present, with eyes full of tears.", "Enough for the present"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophet ﷺ ask Ibn Masud, in the hadith?", a: "Recite the Quran to me", wrong: ["Bring me water", "Go to Makkah", "Write a letter"], why: "The Prophet ﷺ said to me, Recite (the Qur'an) to me." },
+        { q: "Which surah did Ibn Masud recite, in the hadith?", a: "An-Nisa", wrong: ["Al-Fatihah", "Yasin", "Al-Mulk"], why: "So I recited Surat-An-Nisa' (The Women)." },
+        { q: "What did Ibn Masud see, in the hadith?", a: "Eyes overflowing with tears", wrong: ["A smile", "Him asleep", "Him leaving"], why: "I looked at him and behold! His eyes were overflowing with tears." }
+      ]
+    },
+    {
+      slug: "an-explanation-of-everything",
+      title: "An explanation of everything",
+      line: "The Quran explains everything, with mercy and good news.",
+      facts: ["Past, future, lawful, unlawful", "Explained with the Sunnah"],
+      quote: q16(89),
+      source: ik(89, "The Quran contains all beneficial knowledge: news of the past and future, the lawful and unlawful, and what people need for their religion and this life. Al-Awzai said it is explained with the Sunnah.", "what is lawful and unlawful, and what people need to know about their worldly affairs"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the Book an explanation of, in 16:89?", a: "Everything", wrong: ["Only stories", "Only stars", "Only trade"], why: "And We have revealed the Book (the Qur'an) to you as an explanation of everything." },
+        { q: "Which of these is in the Quran, per Ibn Kathir?", a: "What is lawful and unlawful", wrong: ["Football scores", "Star signs", "Secret codes"], why: "Information about what is yet to come, what is lawful and unlawful." },
+        { q: "With what is the Book explained, per Al-Awzai?", a: "The Sunnah", wrong: ["Poetry", "Dreams", "Guesswork"], why: "As an explanation of everything,) meaning, with the Sunnah." },
+        { q: "Whom is the good news for, in 16:89?", a: "The Muslims", wrong: ["No one", "Only kings", "Only angels"], why: "A guidance, a mercy, and good news for the Muslims." }
+      ]
+    }
+  ]
+};
+
+export const NAHL_UNITS: readonly DeepUnit[] = [NAHL_ONE, NAHL_TWO, NAHL_THREE, NAHL_FOUR, NAHL_FIVE];
