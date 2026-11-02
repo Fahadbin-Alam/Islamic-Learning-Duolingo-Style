@@ -38,3 +38,15 @@ export function inviteMessage(os?: string, iosLive?: boolean, code?: string, rew
 export function shareApp(code?: string, rewardDates?: number) {
   return Share.share({ message: inviteMessage(undefined, undefined, code, rewardDates), title: "Muslimo" }).catch(() => undefined);
 }
+
+/** "I finished day 5 of Ramadan on Muslimo!", with the Ramadan streak when there is one, and the store links. */
+export function ramadanShareMessage(day: number, streak: number, os?: string, iosLive?: boolean) {
+  const done = t("🌙 I finished day {day} of Ramadan on Muslimo!", { day: String(day) });
+  const run = streak > 1 ? ` ${t("{count} days in a row.", { count: String(streak) })}` : "";
+  return `${done}${run} ${t("Learn with me, one short lesson a day:")}\n${inviteLinks(os, iosLive)}`;
+}
+
+/** The phone's share menu with the Ramadan day card's message. */
+export function shareRamadanDay(day: number, streak: number) {
+  return Share.share({ message: ramadanShareMessage(day, streak), title: "Muslimo" }).catch(() => undefined);
+}
