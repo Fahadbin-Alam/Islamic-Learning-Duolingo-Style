@@ -160,6 +160,76 @@ const ISRA_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "two-times-of-mischief",
+      title: "Two times of mischief",
+      line: "Allah foretold in their Scripture two times of mischief.",
+      facts: ["Allah knows what will happen", "The Quran is enough for us"],
+      quote: q17(4),
+      source: ik(4, "Allah told the Children of Israel in their Book that they would spread mischief in the land twice. Ibn Kathir says the Quran tells us all we need.", "He had already told them in the Book which He revealed to them"),
+      difficulty: 3,
+      questions: [
+        { q: "How many times of mischief were foretold, in 17:4?", a: "Twice", wrong: ["Once", "Seven times", "Never"], why: "Indeed you would do mischief in the land twice." },
+        { q: "Where were they told this, per Ibn Kathir?", a: "In the Book revealed to them", wrong: ["In a dream", "On a mountain", "In a market"], why: "He had already told them in the Book which He revealed to them." },
+        { tf: false, q: "Ibn Kathir says we need old outside reports to explain 17:4.", why: "What Allah has told us in His Book (the Qur'an) is sufficient." }
+      ]
+    },
+    {
+      slug: "the-first-time",
+      title: "The first time",
+      line: "The first time, Allah sent strong soldiers into their homes.",
+      facts: ["Allah keeps His promise", "Allah is never unjust"],
+      quote: q17(5),
+      source: ik(5, "When the first mischief came, Allah let strong soldiers enter their land. Ibn Kathir skipped the many reports about who they were, since some are made up.", "We unleashed soldiers against you from among Our creatures who were given to terrible warfare"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did Allah send the first time, in 17:5?", a: "Servants given to terrible warfare", wrong: ["Merchants", "Poets", "Shepherds"], why: "We sent against you servants of Ours given to terrible warfare." },
+        { q: "Why did Ibn Kathir skip naming the invaders?", a: "Some reports are made up", wrong: ["He forgot", "No one fought", "It was a secret"], why: "Because some of them are fabricated." },
+        { tf: true, q: "Ibn Kathir says Allah is never unjust to His servants.", why: "Your Lord is never unfair or unjust to His servants." }
+      ]
+    },
+    {
+      slug: "a-return-of-victory",
+      title: "A return of victory",
+      line: "Then Allah gave them victory, wealth, children and more people.",
+      facts: ["Allah gives after hardship", "Blessings are a test"],
+      quote: q17(6),
+      source: ik(6, "After the first defeat, Allah gave them back victory and helped them with wealth, children and greater numbers.", "Then We gave you a return of victory over them"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah give them after defeat, in 17:6?", a: "A return of victory", wrong: ["More defeat", "A long sleep", "A flood"], why: "Then We gave you a return of victory over them." },
+        { q: "What else did Allah help them with, in 17:6?", a: "Wealth and children", wrong: ["Ships and swords", "Gold idols", "Tall towers"], why: "And We helped you with wealth and children." },
+        { tf: false, q: "In 17:6 their numbers became fewer.", why: "And made you more numerous in manpower." }
+      ]
+    },
+    {
+      slug: "good-for-yourself",
+      title: "Good you do helps you",
+      line: "Good you do helps you; evil you do harms you.",
+      facts: ["Every deed returns to you", "Do good for your own sake"],
+      quote: q17(7),
+      source: ik(7, "Good deeds benefit the doer and evil harms the doer. The second time, enemies entered Bayt Al-Maqdis and ruined what they could.", "If you do good, you do good for your own selves"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom does your good deed help, in 17:7?", a: "Your own self", wrong: ["Only others", "No one", "Only kings"], why: "If you do good, you do good for your own selves." },
+        { q: "Which masjid did the enemies enter, per Ibn Kathir?", a: "Bayt Al-Maqdis", wrong: ["Masjid Quba", "A masjid in Yemen", "No masjid"], why: "And to enter the Masjid, meaning, Bayt Al-Maqdis (Jerusalem)." },
+        { q: "Which ayah does Ibn Kathir link to 17:7?", a: "45:15", wrong: ["2:255", "112:1", "1:1"], why: "Whosoever does a righteous good deed, it is for (the benefit of) himself. (45:15)" }
+      ]
+    },
+    {
+      slug: "mercy-or-return",
+      title: "Mercy is near",
+      line: "Allah may show mercy, but returning to sin brings punishment.",
+      facts: ["Hope for Allah's mercy", "Do not go back to sin"],
+      quote: q17(8),
+      source: ik(8, "Allah may show them mercy. If they return to causing mischief, Allah returns to punishing them, and Hell is a prison for the disbelievers.", "meaning, if you return to causing mischief"),
+      difficulty: 4,
+      questions: [
+        { q: "What may your Lord show, in 17:8?", a: "Mercy", wrong: ["Anger only", "Nothing", "Riches only"], why: "It may be that your Lord may show mercy unto you." },
+        { q: "What does returning mean in 17:8, per Ibn Kathir?", a: "Returning to causing mischief", wrong: ["Returning home", "Returning a loan", "Returning from travel"], why: "Meaning, if you return to causing mischief." },
+        { tf: true, q: "Ibn Abbas said Hasir in 17:8 means a jail.", why: "Ibn Abbas said: Hasir here means a jail." }
+      ]
+    },
+    {
       slug: "the-quran-guides",
       title: "The Quran guides",
       line: "The Quran guides to what is most just and brings good news.",
@@ -227,6 +297,34 @@ const ISRA_ONE: DeepUnit = {
         { q: "Who benefits when someone is guided, in 17:15?", a: "The guided one himself", wrong: ["Only his family", "His enemies", "No one"], why: "Whoever goes right, then he goes right only for the benefit of himself." },
         { q: "Can one person carry another's sins, per 17:15?", a: "No", wrong: ["Yes, always", "Only parents", "Only friends"], why: "No one laden with burdens can bear another's burden." },
         { q: "Allah punishes a people before sending a Messenger.", tf: false, why: "And We never punish until We have sent a Messenger (to give warning)." }
+      ]
+    },
+    {
+      slug: "luxury-and-ruin",
+      title: "When a town turns to sin",
+      line: "When a town's rich people spread sin, the town earns ruin.",
+      facts: ["Allah never commands evil", "Ruin comes after sin"],
+      quote: q17(16),
+      source: ik(16, "A town is ruined after those living in luxury spread sin in it. Ibn Kathir stresses that Allah never orders immorality.", "because Allah does not command or enjoin immorality"),
+      difficulty: 4,
+      questions: [
+        { q: "Who transgress in the town, in 17:16?", a: "Those who live luxuriously", wrong: ["The orphans", "The farmers", "The children"], why: "Those who live luxuriously. Then, they transgress therein." },
+        { q: "Does Allah command immorality, per Ibn Kathir?", a: "Never", wrong: ["Sometimes", "In wealth", "Only in towns"], why: "Because Allah does not command or enjoin immorality." },
+        { tf: true, q: "In 17:16 the town is ruined after it transgresses.", why: "Then, they transgress therein, and thus the word is justified against it." }
+      ]
+    },
+    {
+      slug: "generations-after-nuh",
+      title: "Generations after Nuh",
+      line: "Many nations after Nuh were destroyed; Allah sees every sin.",
+      facts: ["Learn from past nations", "Allah sees everything"],
+      quote: q17(17),
+      source: ik(17, "Allah destroyed many nations after Nuh who denied the Messengers. Before Nuh, people followed Islam for ten generations.", "Between Adam and Nuh there were ten generations, during all of which humans were following Islam"),
+      difficulty: 3,
+      questions: [
+        { q: "After which Prophet were generations destroyed, in 17:17?", a: "Nuh", wrong: ["Musa", "Isa", "Yusuf"], why: "And how many generations have We destroyed after Nuh!" },
+        { q: "How many generations between Adam and Nuh, per Ibn Abbas?", a: "Ten", wrong: ["Two", "Forty", "One hundred"], why: "Between Adam and Nuh there were ten generations." },
+        { tf: false, q: "Some deeds are hidden from Allah, per Ibn Kathir.", why: "He knows everything they do, good and evil, and nothing at all is hidden from Him." }
       ]
     },
     {
@@ -439,6 +537,62 @@ const ISRA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "allah-provides-for-children",
+      title: "Allah provides for children",
+      line: "Never harm children out of fear of poverty; Allah provides.",
+      facts: ["Children are a trust", "Provision is from Allah"],
+      quote: q17(31),
+      source: ik(31, "Allah forbids harming children out of fear of being poor. He mentions their provision first, and He is kinder to His servants than a parent.", "Allah is more compassionate towards His servants than a father to his child"),
+      difficulty: 3,
+      questions: [
+        { q: "Whose provision does 17:31 mention first?", a: "The children's", wrong: ["The parents'", "The king's", "The traders'"], why: "This is why Allah mentions the children's provision first." },
+        { q: "Who is more caring than a parent, per Ibn Kathir?", a: "Allah", wrong: ["A teacher", "A neighbor", "A king"], why: "Allah is more compassionate towards His servants than a father to his child." },
+        { tf: true, q: "In 17:31, harming children is a great sin.", why: "Surely, the killing of them is a great sin." }
+      ]
+    },
+    {
+      slug: "the-greatest-sins",
+      title: "The greatest sins",
+      line: "The Prophet ﷺ named the worst sin: setting up rivals to Allah.",
+      facts: ["Shirk is the worst sin", "Harming a child is next"],
+      quote: q17(31),
+      source: hadith("bukhari", "4477", "Abdullah ibn Mas'ud", "Sahih", "Ibn Mas'ud asked which sin is greatest. The Prophet ﷺ said setting up a rival to Allah, then harming one's child out of fear of sharing food.", "That you set up a rival unto Allah though He Alone created you"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the greatest sin, in the hadith?", a: "Setting up a rival to Allah", wrong: ["Being late", "Being poor", "Forgetting a name"], why: "That you set up a rival unto Allah though He Alone created you." },
+        { q: "What came next in the hadith?", a: "Harming one's child over food", wrong: ["Skipping lunch", "Selling land", "Sleeping late"], why: "To kill your son lest he should share your food with you." },
+        { q: "Who asked the Prophet ﷺ in the hadith?", a: "Abdullah ibn Mas'ud", wrong: ["Abu Hurairah", "Anas ibn Malik", "Bilal"], why: "Narrated Abdullah: I asked the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "do-not-go-near",
+      title: "Do not even go near",
+      line: "Do not even go near zina; it is shameful and evil.",
+      facts: ["Avoid what leads to sin", "Guard your heart and eyes"],
+      quote: q17(32),
+      source: ik(32, "Allah forbids zina and anything that leads to it. A young man asked to be allowed it, and the Prophet ﷺ gently made him think, then prayed for him.", "O Allah, forgive his sin, purify his heart and guard his chastity"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 17:32 tell us to stay away from?", a: "Even coming near zina", wrong: ["Eating dates", "Travel", "Trade"], why: "And come not near to unlawful sex. Verily, it is Fahishah." },
+        { q: "What did the Prophet ﷺ pray for the young man?", a: "A pure heart and chastity", wrong: ["Gold", "A long trip", "Fame"], why: "O Allah, forgive his sin, purify his heart and guard his chastity." },
+        { tf: false, q: "The Prophet ﷺ shouted at the young man, per Ibn Kathir.", why: "The Prophet ﷺ said: Come close. Then he put his hand on him and prayed." }
+      ]
+    },
+    {
+      slug: "every-life-is-sacred",
+      title: "Every life is sacred",
+      line: "Do not take a life Allah made sacred, except by just law.",
+      facts: ["Every life is precious", "Forgiveness is allowed"],
+      quote: q17(33),
+      source: ik(33, "Allah forbids taking life without right. The heir may seek justice, take blood money or forgive, but must never go too far.", "the heir should not go to extremes"),
+      difficulty: 4,
+      questions: [
+        { q: "What must the heir not do, in 17:33?", a: "Exceed limits", wrong: ["Forgive", "Pray", "Speak"], why: "But let him not exceed limits in the matter of taking life." },
+        { q: "What choices does the heir have, per Ibn Kathir?", a: "Justice, blood money or forgiving", wrong: ["Only revenge", "None", "Only exile"], why: "He may have him punished, or forgive for the Diyah, or forgive with no payment." },
+        { tf: false, q: "In 17:33 the heir may punish the killer's relatives.", why: "Ibn Kathir: no taking revenge on persons other than the killer." }
+      ]
+    },
+    {
       slug: "orphans-and-promises",
       title: "Orphans and promises",
       line: "Guard an orphan's wealth, and keep every promise.",
@@ -523,6 +677,20 @@ const ISRA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "no-daughters-for-allah",
+      title: "An awful saying",
+      line: "Allah did not take angels as daughters; that is an awful saying.",
+      facts: ["The angels are His servants", "Allah has no children"],
+      quote: q17(40),
+      source: ik(40, "The idol worshippers called the angels Allah's daughters, though the angels are servants of Ar-Rahman. Allah calls this an awful saying.", "who are the servants of Ar-Rahman"),
+      difficulty: 3,
+      questions: [
+        { q: "What did they call the angels, in 17:40?", a: "Daughters of Allah", wrong: ["Prophets", "Kings", "Stars"], why: "And taken for Himself from among the angels daughters?" },
+        { q: "What does Allah call their claim, in 17:40?", a: "An awful saying", wrong: ["A wise saying", "A poem", "A promise"], why: "Verily, you indeed utter an awful saying." },
+        { q: "What are the angels, per Ibn Kathir?", a: "Servants of Ar-Rahman", wrong: ["Allah's children", "Idols", "Jinn"], why: "The angels, who are the servants of Ar-Rahman." }
+      ]
+    },
+    {
       slug: "no-go-between-needed",
       title: "No go-between needed",
       line: "Even false gods would seek Allah, so worship Him directly.",
@@ -562,6 +730,62 @@ const ISRA_TWO: DeepUnit = {
         { q: "What did the Companions hear, in the hadith?", a: "The food glorifying Allah", wrong: ["Birds singing", "Thunder", "A far call"], why: "No doubt, we heard the meal glorifying Allah, when it was being eaten." },
         { q: "What flowed from between his ﷺ fingers?", a: "Water", wrong: ["Milk", "Honey", "Oil"], why: "I saw the water flowing from among the fingers of the Messenger ﷺ." },
         { q: "Whom did he ﷺ say the blessing was from?", a: "Allah", wrong: ["The water", "The travellers", "The town"], why: "Come to the blessed water, and the Blessing is from Allah." }
+      ]
+    },
+    {
+      slug: "an-invisible-veil",
+      title: "An invisible veil",
+      line: "When the Prophet ﷺ recited, a hidden veil kept deniers away.",
+      facts: ["The Quran protects", "Allah guards His Messenger"],
+      quote: q17(45),
+      source: ik(45, "When the Prophet ﷺ recited the Quran, Allah put a hidden veil between him and those who deny the Hereafter. Once, an angry woman came and could not see him.", "Certainly she will not see me"),
+      difficulty: 3,
+      questions: [
+        { q: "Who is behind the veil, in 17:45?", a: "Those who deny the Hereafter", wrong: ["The angels", "The believers", "The birds"], why: "Between you and those who believe not in the Hereafter, an invisible veil." },
+        { q: "What did Qatadah say the veil is?", a: "Coverings over their hearts", wrong: ["A curtain of cloth", "A wall of stone", "A cloud"], why: "Qatadah and Ibn Zayd said: It is coverings over their hearts." },
+        { q: "Who could not see the Prophet ﷺ, per Ibn Kathir?", a: "Umm Jamil", wrong: ["Abu Bakr", "Khadijah", "Ali"], why: "She came and found Abu Bakr, but she did not see the Prophet ﷺ." }
+      ]
+    },
+    {
+      slug: "turning-from-tawhid",
+      title: "Turning away from Allah Alone",
+      line: "When Allah Alone is mentioned, deniers turn away in dislike.",
+      facts: ["Love La ilaha illallah", "Open your heart to the Quran"],
+      quote: q17(46),
+      source: ik(46, "Coverings on their hearts keep them from understanding. When Allah's Oneness is recited, they turn away in dislike.", "when you declare Allah to be One in your recitation"),
+      difficulty: 4,
+      questions: [
+        { q: "What makes them turn away, in 17:46?", a: "Mention of Allah Alone", wrong: ["Loud noise", "Bad weather", "Hunger"], why: "And when you make mention of your Lord Alone in the Qur'an, they turn on their backs." },
+        { q: "What words did the idolators dislike, per Qatadah?", a: "La ilaha illallah", wrong: ["Good morning", "Salam", "Thank you"], why: "When the Muslims said La Ilaha Illallah, the idolators disliked this." },
+        { tf: true, q: "In 17:46 their hearts are covered from understanding.", why: "And We have put coverings over their hearts, lest they should understand it." }
+      ]
+    },
+    {
+      slug: "secret-listeners",
+      title: "Secret listeners",
+      line: "Leaders secretly listened, then called him bewitched.",
+      facts: ["The Quran moves hearts", "Pride stops people"],
+      quote: q17(47),
+      source: ik(47, "Some Quraysh leaders crept out at night to listen to the Prophet ﷺ recite. They listened until dawn, yet in secret talks they called him bewitched.", "They stayed listening to him all night until dawn came"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the wrongdoers call him, in 17:47?", a: "A bewitched man", wrong: ["A king", "A trader", "A teacher"], why: "You follow none but a bewitched man." },
+        { q: "How long did the leaders listen, per Ibn Kathir?", a: "All night until dawn", wrong: ["A minute", "One hour", "Never"], why: "They stayed listening to him all night until dawn came." },
+        { tf: false, q: "Each listener knew the others were there, per Ibn Kathir.", why: "None of them knew that the others were also there." }
+      ]
+    },
+    {
+      slug: "examples-they-made",
+      title: "The false examples",
+      line: "See the false examples they made; they went astray.",
+      facts: ["Lies cannot beat the truth", "Seek guidance sincerely"],
+      quote: q17(48),
+      source: ik(48, "They called him a poet, a soothsayer, crazy or a sorcerer. So they went astray and will never find a way to the truth.", "they will never be guided to the truth and will never find a way to reach it"),
+      difficulty: 4,
+      questions: [
+        { q: "What else did they call him, per Ibn Kathir?", a: "A poet or a soothsayer", wrong: ["A builder", "A doctor", "A farmer"], why: "Some of them said he was a poet, or a soothsayer, or crazy, or a sorcerer." },
+        { q: "What can they never find, in 17:48?", a: "A way", wrong: ["Food", "Friends", "Gold"], why: "So they have gone astray, and never can they find a way." },
+        { tf: true, q: "Ibn Kathir says they will not reach the truth this way.", why: "They will never be guided to the truth and will never find a way to reach it." }
       ]
     },
     {
