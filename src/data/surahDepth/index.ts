@@ -8,6 +8,7 @@ import { ANFAL_UNITS } from "./anfalUnits";
 import { TAWBAH_UNITS } from "./tawbahUnits";
 import { YUNUS_UNITS } from "./yunusUnits";
 import { HUD_UNITS } from "./hudUnits";
+import { YUSUF_UNITS } from "./yusufUnits";
 
 // The surahs after Al-Baqarah taught ayah by ayah, in mushaf order (Al-Baqarah itself is in ../baqarahUnits.ts).
-export const SURAH_DEPTH_UNITS: readonly DeepUnit[] = [...IMRAN_UNITS, ...NISA_UNITS, ...MAIDAH_UNITS, ...ANAM_UNITS, ...ARAF_UNITS, ...ANFAL_UNITS, ...TAWBAH_UNITS, ...YUNUS_UNITS, ...HUD_UNITS];
+export const SURAH_DEPTH_UNITS: readonly DeepUnit[] = [...IMRAN_UNITS, ...NISA_UNITS, ...MAIDAH_UNITS, ...ANAM_UNITS, ...ARAF_UNITS, ...ANFAL_UNITS, ...TAWBAH_UNITS, ...YUNUS_UNITS, ...HUD_UNITS, ...YUSUF_UNITS];
