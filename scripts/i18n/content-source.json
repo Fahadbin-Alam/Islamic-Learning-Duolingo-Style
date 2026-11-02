@@ -21060,6 +21060,166 @@
     "text": "Friday prayer"
   },
   {
+    "kind": "course",
+    "text": "Recited at Friday prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Everything glorifies Him"
+  },
+  {
+    "kind": "course",
+    "text": "The King, the Holy"
+  },
+  {
+    "kind": "course",
+    "text": "Sent to the unlettered"
+  },
+  {
+    "kind": "course",
+    "text": "A Messenger to all"
+  },
+  {
+    "kind": "course",
+    "text": "Ibrahim's dua answered"
+  },
+  {
+    "kind": "course",
+    "text": "Recite, purify, teach"
+  },
+  {
+    "kind": "course",
+    "text": "Out of clear error"
+  },
+  {
+    "kind": "course",
+    "text": "A perfect religion"
+  },
+  {
+    "kind": "course",
+    "text": "All good gathered"
+  },
+  {
+    "kind": "course",
+    "text": "Others yet to join"
+  },
+  {
+    "kind": "course",
+    "text": "Faith at the Pleiades"
+  },
+  {
+    "kind": "course",
+    "text": "Letters to the kings"
+  },
+  {
+    "kind": "course",
+    "text": "Carrying but not living it"
+  },
+  {
+    "kind": "course",
+    "text": "Words without meaning"
+  },
+  {
+    "kind": "course",
+    "text": "A mind that is not used"
+  },
+  {
+    "kind": "course",
+    "text": "If you are truthful"
+  },
+  {
+    "kind": "course",
+    "text": "They will never wish it"
+  },
+  {
+    "kind": "course",
+    "text": "Challenges to come forward"
+  },
+  {
+    "kind": "course",
+    "text": "Had they wished it"
+  },
+  {
+    "kind": "course",
+    "text": "Death will meet you"
+  },
+  {
+    "kind": "course",
+    "text": "Back to the All-Knowing"
+  },
+  {
+    "kind": "course",
+    "text": "The day of gathering"
+  },
+  {
+    "kind": "course",
+    "text": "The best day"
+  },
+  {
+    "kind": "course",
+    "text": "An hour of answered dua"
+  },
+  {
+    "kind": "course",
+    "text": "Guided to Friday"
+  },
+  {
+    "kind": "course",
+    "text": "The day creation was finished"
+  },
+  {
+    "kind": "course",
+    "text": "Go to the remembrance"
+  },
+  {
+    "kind": "course",
+    "text": "Come with calm"
+  },
+  {
+    "kind": "course",
+    "text": "Bathe for Friday"
+  },
+  {
+    "kind": "course",
+    "text": "Clean, perfumed, quiet"
+  },
+  {
+    "kind": "course",
+    "text": "A year for each step"
+  },
+  {
+    "kind": "course",
+    "text": "Early comers' reward"
+  },
+  {
+    "kind": "course",
+    "text": "The Friday adhan"
+  },
+  {
+    "kind": "course",
+    "text": "Leave off business"
+  },
+  {
+    "kind": "course",
+    "text": "Spread out and seek"
+  },
+  {
+    "kind": "course",
+    "text": "A dua at the door"
+  },
+  {
+    "kind": "course",
+    "text": "The caravan arrives"
+  },
+  {
+    "kind": "course",
+    "text": "The sermon standing"
+  },
+  {
+    "kind": "course",
+    "text": "What Allah has is better"
+  },
+  {
     "kind": "arabic",
     "text": "The Hypocrites"
   },
@@ -128497,10 +128657,6 @@
   },
   {
     "kind": "question",
-    "text": "The King, the Holy"
-  },
-  {
-    "kind": "question",
     "text": "The First, the Last"
   },
   {
@@ -143362,10 +143518,6 @@
   {
     "kind": "lesson",
     "text": "After prayer, seek Allah's bounty"
-  },
-  {
-    "kind": "lesson",
-    "text": "What Allah has is better"
   },
   {
     "kind": "source",
@@ -215790,10 +215942,6 @@
   {
     "kind": "lesson",
     "text": "The thunder glorifies Allah, and so do the angels, in awe."
-  },
-  {
-    "kind": "lesson",
-    "text": "Everything glorifies Him"
   },
   {
     "kind": "lesson",
@@ -402638,6 +402786,1930 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about As-Saff, ayahs 10 to 14!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ recited Al-Jumu'ah in the Friday prayer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Jumu'ah means Friday"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:1"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:1"
+  },
+  {
+    "kind": "question",
+    "text": "In which prayer did the Prophet ﷺ recite Al-Jumu'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Which surah did he pair with Al-Jumu'ah?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Munafiqun"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jumu'ah means Friday."
+  },
+  {
+    "kind": "question",
+    "text": "Friday is called Al-Jumu'ah because it is derived from Al-Jam', literally, gathering."
+  },
+  {
+    "kind": "lesson",
+    "text": "Living things and even objects glorify Allah's praise."
+  },
+  {
+    "kind": "lesson",
+    "text": "17:44 says the same"
+  },
+  {
+    "kind": "lesson",
+    "text": "Even stones and trees"
+  },
+  {
+    "kind": "question",
+    "text": "What glorifies Allah, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Living and lifeless things"
+  },
+  {
+    "kind": "question",
+    "text": "Even objects without life glorify Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Including all types of living creatures and inanimate objects."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is King of all, and the Holy, free of all flaws."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Malik: the King"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Quddus: the Holy"
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Quddus mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Free of all shortcomings"
+  },
+  {
+    "kind": "question",
+    "text": "He is the Holy, free of all shortcomings, His attributes are perfect."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah control as King?"
+  },
+  {
+    "kind": "question",
+    "text": "62:1 names four of Allah's Names."
+  },
+  {
+    "kind": "question",
+    "text": "The King, the Holy, the Almighty, the All-Wise."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah sent a Messenger to the Arabs from among themselves."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ummiyyin: the unlettered"
+  },
+  {
+    "kind": "lesson",
+    "text": "He was one of them"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:2"
+  },
+  {
+    "kind": "question",
+    "text": "Who are the unlettered, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "The word unlettered refers to the Arabs."
+  },
+  {
+    "kind": "question",
+    "text": "Where was the Messenger ﷺ from, in 62:2?"
+  },
+  {
+    "kind": "question",
+    "text": "From among themselves"
+  },
+  {
+    "kind": "question",
+    "text": "From a far land"
+  },
+  {
+    "kind": "question",
+    "text": "From Rome"
+  },
+  {
+    "kind": "question",
+    "text": "He it is Who sent among the unlettered ones a Messenger from among themselves."
+  },
+  {
+    "kind": "question",
+    "text": "Naming the Arabs means he was sent only to them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ was sent to all people and jinn, not only Arabs."
+  },
+  {
+    "kind": "lesson",
+    "text": "7:158 says so"
+  },
+  {
+    "kind": "lesson",
+    "text": "His message is universal"
+  },
+  {
+    "kind": "question",
+    "text": "All people and jinn"
+  },
+  {
+    "kind": "question",
+    "text": "He was sent to all people, mankind and the Jinns alike."
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah says I am sent to you all?"
+  },
+  {
+    "kind": "question",
+    "text": "Say: O mankind!"
+  },
+  {
+    "kind": "question",
+    "text": "The Quran is a reminder for non-Arabs too."
+  },
+  {
+    "kind": "question",
+    "text": "Surely, the Qur'an is also a reminder for those other than Arabs to take heed."
+  },
+  {
+    "kind": "lesson",
+    "text": "62:2 shows Allah answered Ibrahim's dua for a Messenger."
+  },
+  {
+    "kind": "lesson",
+    "text": "2:129 has the dua"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sent to the people of Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "Whose dua does 62:2 show was answered?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah has indeed accepted the invocation of His friend Ibrahim."
+  },
+  {
+    "kind": "question",
+    "text": "For whom did Ibrahim ask a Messenger?"
+  },
+  {
+    "kind": "question",
+    "text": "When he supplicated Allah to send a Messenger to the people of Makkah from among them."
+  },
+  {
+    "kind": "question",
+    "text": "Ibrahim is called Allah's friend."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Jumu'ah, ayahs 1 to 4?"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ recites Allah's ayahs, purifies, and teaches."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Hikmah: wisdom, the Sunnah"
+  },
+  {
+    "kind": "question",
+    "text": "What three things does the Messenger ﷺ do, in 62:2?"
+  },
+  {
+    "kind": "question",
+    "text": "Sing, write and travel"
+  },
+  {
+    "kind": "question",
+    "text": "Count, sell and buy"
+  },
+  {
+    "kind": "question",
+    "text": "Recite, purify and teach"
+  },
+  {
+    "kind": "question",
+    "text": "Build, trade and rule"
+  },
+  {
+    "kind": "question",
+    "text": "Reciting to them His Ayat, purifying them, and teaching them the Book and the Hikmah."
+  },
+  {
+    "kind": "question",
+    "text": "What does he teach besides the Book?"
+  },
+  {
+    "kind": "question",
+    "text": "The Hikmah"
+  },
+  {
+    "kind": "question",
+    "text": "Purifying people is part of his mission."
+  },
+  {
+    "kind": "question",
+    "text": "Reciting to them His Ayat, purifying them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Before him, people had left Ibrahim's religion for idols."
+  },
+  {
+    "kind": "lesson",
+    "text": "Tawhid was replaced by shirk"
+  },
+  {
+    "kind": "lesson",
+    "text": "Certainty by doubt"
+  },
+  {
+    "kind": "question",
+    "text": "Whose religion did the Arabs once follow?"
+  },
+  {
+    "kind": "question",
+    "text": "Namrud's"
+  },
+  {
+    "kind": "question",
+    "text": "Firawn's"
+  },
+  {
+    "kind": "question",
+    "text": "In ancient times, the Arabs used to adhere by the religion of Ibrahim."
+  },
+  {
+    "kind": "question",
+    "text": "What did they choose instead of Tawhid?"
+  },
+  {
+    "kind": "question",
+    "text": "Polytheism"
+  },
+  {
+    "kind": "question",
+    "text": "Choosing polytheism instead of Tawhid and doubts instead of certainty."
+  },
+  {
+    "kind": "question",
+    "text": "62:2 says they had been in clear error before."
+  },
+  {
+    "kind": "question",
+    "text": "And verily, they had been before in manifest error."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah sent Muhammad with a complete religion for all."
+  },
+  {
+    "kind": "lesson",
+    "text": "Guidance for this life and the next"
+  },
+  {
+    "kind": "lesson",
+    "text": "Closer to Paradise"
+  },
+  {
+    "kind": "question",
+    "text": "For whom is the religion suitable, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "All humans and jinn"
+  },
+  {
+    "kind": "question",
+    "text": "Perfect religion that is suitable for all humans and Jinns."
+  },
+  {
+    "kind": "question",
+    "text": "Where does the religion lead people?"
+  },
+  {
+    "kind": "question",
+    "text": "To idleness"
+  },
+  {
+    "kind": "question",
+    "text": "To more wealth"
+  },
+  {
+    "kind": "question",
+    "text": "It draws them closer to Paradise and Allah's pleasure."
+  },
+  {
+    "kind": "question",
+    "text": "Islam gives guidance for this life and the next."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah gathered in Muhammad the good qualities of all prophets."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah's peace and blessings on him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Until the Day of Judgement"
+  },
+  {
+    "kind": "question",
+    "text": "What did Allah gather in Muhammad?"
+  },
+  {
+    "kind": "question",
+    "text": "Many palaces"
+  },
+  {
+    "kind": "question",
+    "text": "The prophets' good qualities"
+  },
+  {
+    "kind": "question",
+    "text": "In Muhammad Allah gathered all the good qualities of the Prophets before him."
+  },
+  {
+    "kind": "question",
+    "text": "Whose qualities were gathered in him?"
+  },
+  {
+    "kind": "question",
+    "text": "Kings of Rome"
+  },
+  {
+    "kind": "question",
+    "text": "Traders of Yemen"
+  },
+  {
+    "kind": "question",
+    "text": "The prophets before him"
+  },
+  {
+    "kind": "question",
+    "text": "All the good qualities of the Prophets before him."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir sends blessings on Muhammad until the Day of Judgement."
+  },
+  {
+    "kind": "question",
+    "text": "May Allah's peace and blessings be on Muhammad until the Day of Judgement."
+  },
+  {
+    "kind": "lesson",
+    "text": "62:3 speaks of others who would join the believers later."
+  },
+  {
+    "kind": "lesson",
+    "text": "Revealed while the Companions sat"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:3"
+  },
+  {
+    "kind": "question",
+    "text": "How many times was the question asked?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ did not reply till I repeated my question thrice."
+  },
+  {
+    "kind": "question",
+    "text": "Who was sitting with them?"
+  },
+  {
+    "kind": "question",
+    "text": "At that time, Salman Al-Farisi was with us."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jumu'ah was revealed while they sat with the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "While we were sitting with the Prophet ﷺ Surat Al-Jumu'a was revealed to him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even if faith were at the stars, Salman's people would reach it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ath-Thurayya: the Pleiades"
+  },
+  {
+    "kind": "lesson",
+    "text": "Persians would believe"
+  },
+  {
+    "kind": "question",
+    "text": "Where did the Prophet ﷺ say faith might be?"
+  },
+  {
+    "kind": "question",
+    "text": "At Ath-Thurayya"
+  },
+  {
+    "kind": "question",
+    "text": "On whom did the Prophet ﷺ put his hand?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah's Messenger put his hand on Salman."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir says the Prophet ﷺ meant Persia."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ explained Allah's statement, And others among them, by mentioning Persia."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ wrote to the kings of Persia and Rome."
+  },
+  {
+    "kind": "lesson",
+    "text": "His message is for all"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mujahid: all non-Arab believers"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:3"
+  },
+  {
+    "kind": "question",
+    "text": "To which kings did the Prophet ﷺ write?"
+  },
+  {
+    "kind": "question",
+    "text": "Persia and Rome"
+  },
+  {
+    "kind": "question",
+    "text": "India and China"
+  },
+  {
+    "kind": "question",
+    "text": "Egypt only"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ sent messages to the kings of Persia and Rome, among other kings."
+  },
+  {
+    "kind": "question",
+    "text": "Who are the others, per Mujahid?"
+  },
+  {
+    "kind": "question",
+    "text": "Non-Arabs who believe"
+  },
+  {
+    "kind": "question",
+    "text": "Jinn only"
+  },
+  {
+    "kind": "question",
+    "text": "Refers to all non-Arabs who believe in the truth of the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "The hadith shows the surah came in Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "This Hadith indicates that Surat Al-Jumu'ah was revealed in Al-Madinah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Prophethood and this Ummah's blessings are Allah's grace."
+  },
+  {
+    "kind": "lesson",
+    "text": "Owner of mighty grace"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:4"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:4"
+  },
+  {
+    "kind": "question",
+    "text": "What grace does 62:4 mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Muhammad's prophethood"
+  },
+  {
+    "kind": "question",
+    "text": "Refers to the great prophethood that He granted Muhammad."
+  },
+  {
+    "kind": "question",
+    "text": "To whom does Allah give His grace?"
+  },
+  {
+    "kind": "question",
+    "text": "That is the grace of Allah, which He bestows on whom He wills."
+  },
+  {
+    "kind": "question",
+    "text": "His Ummah was favored by his being sent."
+  },
+  {
+    "kind": "question",
+    "text": "The qualities that He favored his Ummah with, by sending Muhammad to them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Jumu'ah, ayahs 1 to 4!"
+  },
+  {
+    "kind": "lesson",
+    "text": "A Book unlived is like books on a donkey's back."
+  },
+  {
+    "kind": "lesson",
+    "text": "The donkey cannot read them"
+  },
+  {
+    "kind": "lesson",
+    "text": "Knowledge must be acted on"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:5"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:5"
+  },
+  {
+    "kind": "question",
+    "text": "What animal is used in the example of 62:5?"
+  },
+  {
+    "kind": "question",
+    "text": "As the likeness of a donkey which carries huge burdens of books."
+  },
+  {
+    "kind": "question",
+    "text": "What does the donkey understand of the books?"
+  },
+  {
+    "kind": "question",
+    "text": "Every word"
+  },
+  {
+    "kind": "question",
+    "text": "The titles"
+  },
+  {
+    "kind": "question",
+    "text": "Carrying a book is the same as following it."
+  },
+  {
+    "kind": "question",
+    "text": "They read its letter but did not understand its meanings nor abided by them."
+  },
+  {
+    "kind": "lesson",
+    "text": "They read the Tawrah's words but did not follow its meaning."
+  },
+  {
+    "kind": "lesson",
+    "text": "Reading is not enough"
+  },
+  {
+    "kind": "question",
+    "text": "What did they do with the Tawrah, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Never opened it"
+  },
+  {
+    "kind": "question",
+    "text": "Read it without acting on it"
+  },
+  {
+    "kind": "question",
+    "text": "What were they ordered to do with it?"
+  },
+  {
+    "kind": "question",
+    "text": "Abide by it"
+  },
+  {
+    "kind": "question",
+    "text": "The Jews who were entrusted with the Tawrah and were ordered to abide by it."
+  },
+  {
+    "kind": "question",
+    "text": "We should understand and live by what we learn."
+  },
+  {
+    "kind": "lesson",
+    "text": "People can understand, unlike the donkey, so more is expected."
+  },
+  {
+    "kind": "lesson",
+    "text": "7:179 says the same"
+  },
+  {
+    "kind": "lesson",
+    "text": "The heedless lose out"
+  },
+  {
+    "kind": "question",
+    "text": "What could people use that the donkey cannot?"
+  },
+  {
+    "kind": "question",
+    "text": "Their minds"
+  },
+  {
+    "kind": "question",
+    "text": "Their legs"
+  },
+  {
+    "kind": "question",
+    "text": "They, on the other hand, could have understood using their minds."
+  },
+  {
+    "kind": "question",
+    "text": "62:5 ends: Allah does not guide the wrongdoers."
+  },
+  {
+    "kind": "question",
+    "text": "And Allah does not guide the people who are wrongdoers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Those who claimed to be Allah's only friends were challenged."
+  },
+  {
+    "kind": "lesson",
+    "text": "A challenge for truth"
+  },
+  {
+    "kind": "lesson",
+    "text": "2:94 has the same"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:6"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:6"
+  },
+  {
+    "kind": "question",
+    "text": "What did they claim, in 62:6?"
+  },
+  {
+    "kind": "question",
+    "text": "To be prophets"
+  },
+  {
+    "kind": "question",
+    "text": "To be Allah's only friends"
+  },
+  {
+    "kind": "question",
+    "text": "If you pretend that you are friends of Allah, to the exclusion of other people."
+  },
+  {
+    "kind": "question",
+    "text": "What was the challenge, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Walk on water"
+  },
+  {
+    "kind": "question",
+    "text": "Ask death for the misguided side"
+  },
+  {
+    "kind": "question",
+    "text": "A similar challenge is in Al-Baqarah."
+  },
+  {
+    "kind": "question",
+    "text": "We mentioned this challenge to the Jews before in Surat Al-Baqarah."
+  },
+  {
+    "kind": "lesson",
+    "text": "They would never wish it, due to the deeds they sent ahead."
+  },
+  {
+    "kind": "lesson",
+    "text": "Deeds go before us"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah knows the wrongdoers"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:7"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:7"
+  },
+  {
+    "kind": "question",
+    "text": "Why would they never wish for it, in 62:7?"
+  },
+  {
+    "kind": "question",
+    "text": "Because of the weather"
+  },
+  {
+    "kind": "question",
+    "text": "Because of travel"
+  },
+  {
+    "kind": "question",
+    "text": "But they will never long for it, because of what their hands have sent before them!"
+  },
+  {
+    "kind": "question",
+    "text": "What had their hands sent ahead, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Disbelief, injustice and sins"
+  },
+  {
+    "kind": "question",
+    "text": "Gifts and food"
+  },
+  {
+    "kind": "question",
+    "text": "Because of the disbelief, injustice and sins that they commit."
+  },
+  {
+    "kind": "question",
+    "text": "62:7 says Allah knows the wrongdoers well."
+  },
+  {
+    "kind": "lesson",
+    "text": "Others who argued against the truth got similar challenges."
+  },
+  {
+    "kind": "lesson",
+    "text": "3:61 with the Christians"
+  },
+  {
+    "kind": "lesson",
+    "text": "19:75 with the idolaters"
+  },
+  {
+    "kind": "question",
+    "text": "Where is the challenge to the Christians?"
+  },
+  {
+    "kind": "question",
+    "text": "Surah Al Imran"
+  },
+  {
+    "kind": "question",
+    "text": "We also mentioned a similar challenge against the Christians in Surah Al Imran."
+  },
+  {
+    "kind": "question",
+    "text": "Where is the challenge to the idolaters?"
+  },
+  {
+    "kind": "question",
+    "text": "And against the idolators, in Surah Maryam."
+  },
+  {
+    "kind": "question",
+    "text": "The truthful side does not fear such a challenge."
+  },
+  {
+    "kind": "question",
+    "text": "Then long for death if you are truthful."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Jumu'ah, ayahs 5 to 8?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Had they wished for death, the Prophet ﷺ said, it would come."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Bukhari recorded it"
+  },
+  {
+    "kind": "question",
+    "text": "What if they had wished for death?"
+  },
+  {
+    "kind": "question",
+    "text": "They would have perished"
+  },
+  {
+    "kind": "question",
+    "text": "Had the Jews wished for death, they would all have perished."
+  },
+  {
+    "kind": "question",
+    "text": "Imam Ahmad recorded that Ibn Abbas said."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari also recorded this report."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Bukhari, At-Tirmidhi and An-Nasa'i recorded it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The death people run from will surely meet them."
+  },
+  {
+    "kind": "lesson",
+    "text": "4:78 says the same"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:8"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:8"
+  },
+  {
+    "kind": "question",
+    "text": "What happens to the death people run from?"
+  },
+  {
+    "kind": "question",
+    "text": "It will meet them"
+  },
+  {
+    "kind": "question",
+    "text": "It forgets them"
+  },
+  {
+    "kind": "question",
+    "text": "It goes away"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, the death from which you flee will surely meet you."
+  },
+  {
+    "kind": "question",
+    "text": "Strong towers can keep death away."
+  },
+  {
+    "kind": "question",
+    "text": "Death will overtake you even if you are in fortresses built up strong and high."
+  },
+  {
+    "kind": "lesson",
+    "text": "After death, all return to Allah, who knows the seen and unseen."
+  },
+  {
+    "kind": "lesson",
+    "text": "He will tell us our deeds"
+  },
+  {
+    "kind": "lesson",
+    "text": "Prepare before the meeting"
+  },
+  {
+    "kind": "question",
+    "text": "To whom will everyone return, in 62:8?"
+  },
+  {
+    "kind": "question",
+    "text": "The Knower of unseen and seen"
+  },
+  {
+    "kind": "question",
+    "text": "Then you will be sent back to the Knower of the unseen and the seen."
+  },
+  {
+    "kind": "question",
+    "text": "What will He tell them?"
+  },
+  {
+    "kind": "question",
+    "text": "And He will inform you about what you used to do."
+  },
+  {
+    "kind": "question",
+    "text": "Allah knows both the seen and the unseen."
+  },
+  {
+    "kind": "question",
+    "text": "The Knower of the unseen and the seen."
+  },
+  {
+    "kind": "lesson",
+    "text": "The believer gets good news at death and loves to meet Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah loves to meet him too"
+  },
+  {
+    "kind": "lesson",
+    "text": "Good deeds bring good news"
+  },
+  {
+    "kind": "question",
+    "text": "Who does Allah love to meet?"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever loves to meet Him"
+  },
+  {
+    "kind": "question",
+    "text": "Who-ever loves to meet Allah, Allah too loves to meet him."
+  },
+  {
+    "kind": "question",
+    "text": "What does a believer receive near death?"
+  },
+  {
+    "kind": "question",
+    "text": "Disliking death means hating to meet Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Aisha said, But we dislike death."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Jumu'ah, ayahs 5 to 8!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Friday is named from gathering, as Muslims gather each week."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Jam: gathering"
+  },
+  {
+    "kind": "lesson",
+    "text": "Old name: Arubah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:9"
+  },
+  {
+    "kind": "question",
+    "text": "What word is Al-Jumu'ah taken from?"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jannah, garden"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jabal, mountain"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jam, gathering"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Jamal, camel"
+  },
+  {
+    "kind": "question",
+    "text": "What was Friday called in old Arabic?"
+  },
+  {
+    "kind": "question",
+    "text": "Sabt"
+  },
+  {
+    "kind": "question",
+    "text": "Ahad"
+  },
+  {
+    "kind": "question",
+    "text": "Khamis"
+  },
+  {
+    "kind": "question",
+    "text": "Arubah"
+  },
+  {
+    "kind": "question",
+    "text": "In the ancient language Friday was called, Arubah."
+  },
+  {
+    "kind": "question",
+    "text": "Muslims gather every Friday."
+  },
+  {
+    "kind": "question",
+    "text": "The people of Islam gather weekly, on every Friday in the major places of worship."
+  },
+  {
+    "kind": "lesson",
+    "text": "Friday is the best day; Adam was created on it."
+  },
+  {
+    "kind": "question",
+    "text": "What is the best day the sun rises on?"
+  },
+  {
+    "kind": "question",
+    "text": "The best day on which the sun has risen is Friday."
+  },
+  {
+    "kind": "question",
+    "text": "On it Adam was created."
+  },
+  {
+    "kind": "question",
+    "text": "The Last Hour will come on a Friday."
+  },
+  {
+    "kind": "question",
+    "text": "And the last hour will take place on no day other than Friday."
+  },
+  {
+    "kind": "lesson",
+    "text": "Friday has a short hour when good duas are answered."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ showed it is short"
+  },
+  {
+    "kind": "lesson",
+    "text": "Keep making dua"
+  },
+  {
+    "kind": "question",
+    "text": "What is special about an hour on Friday?"
+  },
+  {
+    "kind": "question",
+    "text": "Dua is answered"
+  },
+  {
+    "kind": "question",
+    "text": "Shops close"
+  },
+  {
+    "kind": "question",
+    "text": "He pointed out the shortness of that time with his hands."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir mentions the hour of answered dua."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah guided this Ummah to Friday, while others took other days."
+  },
+  {
+    "kind": "lesson",
+    "text": "Last to come, first to be judged"
+  },
+  {
+    "kind": "lesson",
+    "text": "Saturday, then Sunday"
+  },
+  {
+    "kind": "question",
+    "text": "Which day was this Ummah guided to?"
+  },
+  {
+    "kind": "question",
+    "text": "When will Muslims be foremost?"
+  },
+  {
+    "kind": "question",
+    "text": "In numbers"
+  },
+  {
+    "kind": "question",
+    "text": "We Muslims are the last to come but will be the foremost on the Day of Resurrection."
+  },
+  {
+    "kind": "question",
+    "text": "Muslims came last among the nations."
+  },
+  {
+    "kind": "question",
+    "text": "We Muslims are the last to come."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah chose Friday, the day creation was completed."
+  },
+  {
+    "kind": "lesson",
+    "text": "The sixth day"
+  },
+  {
+    "kind": "lesson",
+    "text": "Others chose other days"
+  },
+  {
+    "kind": "question",
+    "text": "Why was Friday chosen, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "It is the coldest"
+  },
+  {
+    "kind": "question",
+    "text": "It is market day"
+  },
+  {
+    "kind": "question",
+    "text": "Creation was finished on it"
+  },
+  {
+    "kind": "question",
+    "text": "Allah chose Friday for this Ummah, because it is the day the creation was finished."
+  },
+  {
+    "kind": "question",
+    "text": "Which day of creation was Friday?"
+  },
+  {
+    "kind": "question",
+    "text": "The sixth"
+  },
+  {
+    "kind": "question",
+    "text": "It was during Friday when Allah finished the creation, the sixth day."
+  },
+  {
+    "kind": "question",
+    "text": "Earlier nations were told about Friday."
+  },
+  {
+    "kind": "lesson",
+    "text": "When the Friday call is made, go to remember Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sa'y: to head for it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Not running"
+  },
+  {
+    "kind": "question",
+    "text": "What should believers do at the Friday call?"
+  },
+  {
+    "kind": "question",
+    "text": "Go to remember Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Go to the market"
+  },
+  {
+    "kind": "question",
+    "text": "What does hasten mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Jump"
+  },
+  {
+    "kind": "question",
+    "text": "Head for it"
+  },
+  {
+    "kind": "question",
+    "text": "Run fast"
+  },
+  {
+    "kind": "question",
+    "text": "Meaning, go to it and head for it."
+  },
+  {
+    "kind": "question",
+    "text": "Hasten in 62:9 means walking fast."
+  },
+  {
+    "kind": "question",
+    "text": "The meaning of Sa'y does not refer to walking quickly."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Jumu'ah, ayahs 9 to 11?"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said to walk to prayer with calm and not rush."
+  },
+  {
+    "kind": "lesson",
+    "text": "Pray what you catch"
+  },
+  {
+    "kind": "question",
+    "text": "How should we walk to the prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Jumping"
+  },
+  {
+    "kind": "question",
+    "text": "With calmness"
+  },
+  {
+    "kind": "question",
+    "text": "What do you do with the part you missed?"
+  },
+  {
+    "kind": "question",
+    "text": "Complete it"
+  },
+  {
+    "kind": "question",
+    "text": "Pray it next week"
+  },
+  {
+    "kind": "question",
+    "text": "Pray whatever you are able to pray and complete whatever you have missed."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Hasan said hastening is with the heart."
+  },
+  {
+    "kind": "question",
+    "text": "Hastening to the prayer is not accomplished by the feet."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told those coming to Friday prayer to take a bath."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ghusl: a full bath"
+  },
+  {
+    "kind": "lesson",
+    "text": "Clean for the gathering"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 877"
+  },
+  {
+    "kind": "question",
+    "text": "What should one do before Friday prayer?"
+  },
+  {
+    "kind": "question",
+    "text": "Take a bath"
+  },
+  {
+    "kind": "question",
+    "text": "Anyone of you attending the Friday prayers should take a bath."
+  },
+  {
+    "kind": "question",
+    "text": "The Two Sahihs recorded that Abdullah bin Umar said that Allah's Messenger said it."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Sa'id narrated it is required for adults."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bathe, perfume, listen quietly: sins till next Friday forgiven."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not push between people"
+  },
+  {
+    "kind": "lesson",
+    "text": "Stay silent at the sermon"
+  },
+  {
+    "kind": "question",
+    "text": "What should one do during the khutbah?"
+  },
+  {
+    "kind": "question",
+    "text": "Walk around"
+  },
+  {
+    "kind": "question",
+    "text": "Then remains silent while the Imam is delivering the Khutba."
+  },
+  {
+    "kind": "question",
+    "text": "What should one not do to people sitting?"
+  },
+  {
+    "kind": "question",
+    "text": "Sit near them"
+  },
+  {
+    "kind": "question",
+    "text": "Push between two of them"
+  },
+  {
+    "kind": "question",
+    "text": "Greet them"
+  },
+  {
+    "kind": "question",
+    "text": "Smile at them"
+  },
+  {
+    "kind": "question",
+    "text": "Does not separate two persons sitting together in the mosque."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir says to wear one's best clothes for Friday."
+  },
+  {
+    "kind": "lesson",
+    "text": "Going early and listening earns a year's reward per step."
+  },
+  {
+    "kind": "lesson",
+    "text": "Aws bin Aws narrated it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sit close and listen"
+  },
+  {
+    "kind": "source",
+    "text": "Jami at-Tirmidhi 496"
+  },
+  {
+    "kind": "question",
+    "text": "What is the reward for each step?"
+  },
+  {
+    "kind": "question",
+    "text": "A year of fasting and prayer"
+  },
+  {
+    "kind": "question",
+    "text": "One good deed"
+  },
+  {
+    "kind": "question",
+    "text": "Where should he sit?"
+  },
+  {
+    "kind": "question",
+    "text": "Close to the Imam"
+  },
+  {
+    "kind": "question",
+    "text": "At the very back"
+  },
+  {
+    "kind": "question",
+    "text": "Goes early, arriving early, gets close and listens and is silent."
+  },
+  {
+    "kind": "question",
+    "text": "Listening silently is part of earning this reward."
+  },
+  {
+    "kind": "question",
+    "text": "Gets close and listens and is silent."
+  },
+  {
+    "kind": "lesson",
+    "text": "Coming early to Friday is like giving a camel; later is less."
+  },
+  {
+    "kind": "lesson",
+    "text": "Then a cow, a ram, a hen, an egg"
+  },
+  {
+    "kind": "lesson",
+    "text": "Angels listen when the Imam comes"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 881"
+  },
+  {
+    "kind": "question",
+    "text": "What is the reward of coming in the first hour?"
+  },
+  {
+    "kind": "question",
+    "text": "Like giving a camel"
+  },
+  {
+    "kind": "question",
+    "text": "Like giving a hen"
+  },
+  {
+    "kind": "question",
+    "text": "Like giving an egg"
+  },
+  {
+    "kind": "question",
+    "text": "Then goes for the prayer in the first hour, it is as if he had sacrificed a camel."
+  },
+  {
+    "kind": "question",
+    "text": "What comes after the camel?"
+  },
+  {
+    "kind": "question",
+    "text": "A goat"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever goes in the second hour it is as if he had sacrificed a cow."
+  },
+  {
+    "kind": "question",
+    "text": "Angels come to listen when the Imam appears."
+  },
+  {
+    "kind": "question",
+    "text": "When the Imam appears, the angels present themselves to listen to Allah's remembrance."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the Prophet's ﷺ time, the adhan was called once he sat."
+  },
+  {
+    "kind": "lesson",
+    "text": "Uthman added an earlier call"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Muslims had grown in number"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 912"
+  },
+  {
+    "kind": "question",
+    "text": "When was the adhan called in the Prophet's ﷺ time?"
+  },
+  {
+    "kind": "question",
+    "text": "When the Imam sat on the pulpit"
+  },
+  {
+    "kind": "question",
+    "text": "After the prayer"
+  },
+  {
+    "kind": "question",
+    "text": "The Adhan for the Jumua prayer used to be pronounced when the Imam sat on the pulpit."
+  },
+  {
+    "kind": "question",
+    "text": "Who added another call?"
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zawra was a place near the market of Madinah."
+  },
+  {
+    "kind": "question",
+    "text": "Az-Zaura' is a place in the market of Medina."
+  },
+  {
+    "kind": "lesson",
+    "text": "At the Friday call, buying and selling must stop."
+  },
+  {
+    "kind": "lesson",
+    "text": "Scholars agree on it"
+  },
+  {
+    "kind": "lesson",
+    "text": "Better for this life and the next"
+  },
+  {
+    "kind": "question",
+    "text": "What must stop at the Friday call?"
+  },
+  {
+    "kind": "question",
+    "text": "Breathing"
+  },
+  {
+    "kind": "question",
+    "text": "Talking kindly"
+  },
+  {
+    "kind": "question",
+    "text": "Hasten to the remembrance of Allah and leave off business."
+  },
+  {
+    "kind": "question",
+    "text": "After which adhan is trade forbidden?"
+  },
+  {
+    "kind": "question",
+    "text": "The dawn adhan"
+  },
+  {
+    "kind": "question",
+    "text": "Any adhan at all"
+  },
+  {
+    "kind": "question",
+    "text": "No adhan"
+  },
+  {
+    "kind": "question",
+    "text": "The second adhan"
+  },
+  {
+    "kind": "question",
+    "text": "It is prohibited for Muslims to engage in business transactions after the second Adhan."
+  },
+  {
+    "kind": "question",
+    "text": "Leaving trade for prayer is better for us."
+  },
+  {
+    "kind": "question",
+    "text": "That is better for you if you did but know!"
+  },
+  {
+    "kind": "lesson",
+    "text": "After the prayer, go out and seek Allah's bounty."
+  },
+  {
+    "kind": "lesson",
+    "text": "Work is allowed again"
+  },
+  {
+    "kind": "lesson",
+    "text": "Seek halal provision"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:10"
+  },
+  {
+    "kind": "question",
+    "text": "What may believers do after the prayer, in 62:10?"
+  },
+  {
+    "kind": "question",
+    "text": "Stay silent all day"
+  },
+  {
+    "kind": "question",
+    "text": "Stop working forever"
+  },
+  {
+    "kind": "question",
+    "text": "When is work allowed again?"
+  },
+  {
+    "kind": "question",
+    "text": "During the call"
+  },
+  {
+    "kind": "question",
+    "text": "After the prayer is finished"
+  },
+  {
+    "kind": "question",
+    "text": "During the khutbah"
+  },
+  {
+    "kind": "question",
+    "text": "Islam forbids working on Friday at all."
+  },
+  {
+    "kind": "lesson",
+    "text": "Irak bin Malik made a dua at the masjid door after Friday."
+  },
+  {
+    "kind": "lesson",
+    "text": "He obeyed the call"
+  },
+  {
+    "kind": "lesson",
+    "text": "He asked for provision"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Irak bin Malik stand to make dua?"
+  },
+  {
+    "kind": "question",
+    "text": "At the masjid gate"
+  },
+  {
+    "kind": "question",
+    "text": "Irak bin Malik would stand by the gate of the Masjid and invoke Allah."
+  },
+  {
+    "kind": "question",
+    "text": "What did he ask Allah for?"
+  },
+  {
+    "kind": "question",
+    "text": "Of His favor"
+  },
+  {
+    "kind": "question",
+    "text": "Therefore, grant me of Your favor and You are the best of those who grant provisions."
+  },
+  {
+    "kind": "question",
+    "text": "He said he had answered Allah's call."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even while trading, remember Allah much to succeed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not let business distract"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mujahid: standing, sitting, lying"
+  },
+  {
+    "kind": "question",
+    "text": "When should we remember Allah, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Even while trading"
+  },
+  {
+    "kind": "question",
+    "text": "While you are buying and selling, giving and taking, remember Allah much."
+  },
+  {
+    "kind": "question",
+    "text": "What did Mujahid say about remembering often?"
+  },
+  {
+    "kind": "question",
+    "text": "Only standing"
+  },
+  {
+    "kind": "question",
+    "text": "Only once a day"
+  },
+  {
+    "kind": "question",
+    "text": "62:10 links remembering Allah with success."
+  },
+  {
+    "kind": "question",
+    "text": "And remember Allah much, that you may be successful."
+  },
+  {
+    "kind": "lesson",
+    "text": "A caravan came during a sermon, and many left the Prophet ﷺ."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only twelve stayed"
+  },
+  {
+    "kind": "lesson",
+    "text": "62:11 was revealed then"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 62:11"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4899"
+  },
+  {
+    "kind": "question",
+    "text": "What arrived during the Friday sermon?"
+  },
+  {
+    "kind": "question",
+    "text": "A caravan of merchandise arrived at Medina on a Friday while we were with the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "How many people stayed?"
+  },
+  {
+    "kind": "question",
+    "text": "All the people left except twelve persons."
+  },
+  {
+    "kind": "question",
+    "text": "62:11 was revealed about this event."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ gave two sermons standing, sitting between them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Leave you standing proves it"
+  },
+  {
+    "kind": "lesson",
+    "text": "He recited and reminded"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 862"
+  },
+  {
+    "kind": "question",
+    "text": "How many sermons did the Prophet ﷺ give on Friday?"
+  },
+  {
+    "kind": "question",
+    "text": "The Apostle of Allah gave two sermons between which he sat."
+  },
+  {
+    "kind": "question",
+    "text": "What does leave you standing prove, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "The Imam sits"
+  },
+  {
+    "kind": "question",
+    "text": "No sermon is needed"
+  },
+  {
+    "kind": "question",
+    "text": "The Imam walks"
+  },
+  {
+    "kind": "question",
+    "text": "The Imam stands to speak"
+  },
+  {
+    "kind": "question",
+    "text": "He recited the Quran in the sermons."
+  },
+  {
+    "kind": "question",
+    "text": "He sat, recited the Qur'an and exhorted the people."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah's reward is better than any amusement or trade."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ar-Raziq: the Provider"
+  },
+  {
+    "kind": "lesson",
+    "text": "Trust Allah for provision"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 62:11"
+  },
+  {
+    "kind": "question",
+    "text": "What is better than any trade, in 62:11?"
+  },
+  {
+    "kind": "question",
+    "text": "What Allah has"
+  },
+  {
+    "kind": "question",
+    "text": "A bigger caravan"
+  },
+  {
+    "kind": "question",
+    "text": "Say: That which Allah has is better than any amusement or merchandise!"
+  },
+  {
+    "kind": "question",
+    "text": "How does 62:11 end?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is the Light"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is the best of providers"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is the King"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is the Near"
+  },
+  {
+    "kind": "question",
+    "text": "Allah provides for those who trust in Him."
+  },
+  {
+    "kind": "question",
+    "text": "For those who trust in Him and seek His provisions when they are allowed to do so."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Jumu'ah, ayahs 9 to 11!"
   },
   {
     "kind": "lesson",
