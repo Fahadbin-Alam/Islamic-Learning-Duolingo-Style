@@ -5,7 +5,7 @@ import { hadith, quranQuote, type DeepUnit } from "../deepKit";
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
 // the ayah. Each source opens at the highlighted words that say the lesson's point.
 
-/** Tafsir Ibn Kathir on Al-Mu'minun 21:ayah, on quran.com, opened at `highlight` (words copied from that page). */
+/** Tafsir Ibn Kathir on Al-Mu'minun 23:ayah, on quran.com, opened at `highlight` (words copied from that page). */
 function ik(ayah: number, summary: string, highlight: string): LessonSource {
   return {
     id: `deep_ibn_kathir_23_${ayah}`,
