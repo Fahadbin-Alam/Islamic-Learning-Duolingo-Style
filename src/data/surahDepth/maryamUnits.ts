@@ -216,6 +216,34 @@ const MARYAM_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "a-far-place",
+      title: "A far place",
+      line: "Maryam accepted Allah's decree and went to a far-off place.",
+      facts: ["She trusted Allah's plan", "Allah cares for the patient"],
+      quote: q19(22),
+      source: ik(22, "When Jibril told Maryam what Allah had said, she accepted Allah's decree. Carrying the child, she withdrew from people to a far-off place.", "she accepted the decree of Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "Where did Maryam go, in 19:22?", a: "To a remote place", wrong: ["To the market", "To Makkah", "To the palace"], why: "And she withdrew with him to a remote place." },
+        { q: "How did she take Allah's decree, per Ibn Kathir?", a: "She accepted it", wrong: ["She ran from it", "She argued", "She laughed"], why: "When Jibril had spoken to her about what Allah said, she accepted the decree of Allah." },
+        { tf: false, q: "In 19:22 Maryam stayed among crowds of people.", why: "She withdrew with him to a remote place." }
+      ]
+    },
+    {
+      slug: "by-the-palm-tree",
+      title: "By the palm tree",
+      line: "In pain by a palm, Maryam feared no one would believe her.",
+      facts: ["Hard moments pass", "Allah was with her"],
+      quote: q19(23),
+      source: ik(23, "The pains of birth brought Maryam to a palm trunk. She knew people would not believe her story, so she wished she had been forgotten.", "She knew that she was going to be tested with the birth"),
+      difficulty: 4,
+      questions: [
+        { q: "Where did the pains bring her, in 19:23?", a: "The trunk of a date palm", wrong: ["A river bank", "A cave", "A city gate"], why: "And the pains of childbirth drove her to the trunk of a date palm." },
+        { q: "What did she fear, per Ibn Kathir?", a: "People would not believe her", wrong: ["The weather", "Losing money", "A long trip"], why: "The people would not assist her, and they would not believe her story." },
+        { q: "What does out of sight mean, per Qatadah?", a: "Unknown and forgotten", wrong: ["Very rich", "Very famous", "Far away at sea"], why: "This means something unknown, forgotten and no one knew who I was." }
+      ]
+    },
+    {
       slug: "dates-and-a-stream",
       title: "Dates and a stream",
       line: "Maryam was told not to grieve, and given water and dates.",
@@ -537,6 +565,76 @@ const MARYAM_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "gathered-around-hell",
+      title: "Gathered together",
+      line: "Allah swears He will gather deniers and devils on that Day.",
+      facts: ["The gathering is certain", "Choose your company well"],
+      quote: q19(68),
+      source: ik(68, "Allah swears by Himself that He will gather those who worshipped others besides Him, together with their devils, around Hell.", "swears by His Noble Self that He will definitely gather"),
+      difficulty: 4,
+      questions: [
+        { q: "Who are gathered with them, in 19:68?", a: "The Shayatin", wrong: ["The angels", "The Prophets", "The birds"], why: "Surely We shall gather them together, and (also) the Shayatin." },
+        { q: "By what does Allah swear, per Ibn Kathir?", a: "His Noble Self", wrong: ["The moon", "The sea", "A mountain"], why: "The Lord swears by His Noble Self that He will definitely gather them." },
+        { tf: true, q: "Ibn Abbas said Jithiyya in 19:68 means sitting.", why: "Ibn Abbas said: This means sitting." }
+      ]
+    },
+    {
+      slug: "the-worst-rebels-first",
+      title: "The worst rebels first",
+      line: "From every group, the worst rebels are taken out first.",
+      facts: ["Leaders of evil carry more", "Do not lead others astray"],
+      quote: q19(69),
+      source: ik(69, "Allah will take from every nation those most rebellious against the Most Gracious, beginning with the greatest of them in crime.", "Allah will begin with the greatest of them in crime"),
+      difficulty: 4,
+      questions: [
+        { q: "Who are taken out, in 19:69?", a: "The worst in rebellion", wrong: ["The kindest", "The youngest", "The poorest"], why: "All those who were worst in obstinate rebellion against the Most Gracious." },
+        { q: "Whom does Allah begin with, per Ibn Masud?", a: "The greatest in crime", wrong: ["The smallest", "The newest", "The richest"], why: "Allah will begin with the greatest of them in crime and continue in succession." },
+        { q: "What does every sect mean, per Mujahid?", a: "Every nation", wrong: ["Every house", "Every tree", "Every city wall"], why: "This means from every nation. This is what Mujahid said." }
+      ]
+    },
+    {
+      slug: "allah-knows-best-who-deserves",
+      title: "Allah knows best",
+      line: "Allah knows best who deserves the Fire; His judgment is perfect.",
+      facts: ["Allah is the perfect Judge", "No one is wronged"],
+      quote: q19(70),
+      source: ik(70, "Allah knows best which of His creatures deserve the Fire and whose punishment is doubled.", "Allah best knows which of His creatures deserve"),
+      difficulty: 4,
+      questions: [
+        { q: "Who knows best who is most worthy, in 19:70?", a: "Allah", wrong: ["The people", "The angels", "The devils"], why: "Then, verily, We know best those who are most worthy." },
+        { q: "What does Allah know, per Ibn Kathir?", a: "Who deserves the Fire", wrong: ["Only the weather", "Only the past", "Nothing hidden"], why: "Allah best knows which of His creatures deserve to be burned in the fire." },
+        { tf: true, q: "Ibn Kathir links 19:70 to 7:38 about double punishment.", why: "He will say: For each one there is double, but you know not. (7:38)" }
+      ]
+    },
+    {
+      slug: "everyone-passes-over",
+      title: "Everyone passes over",
+      line: "Every person will pass over it; this is Allah's firm decree.",
+      facts: ["Prepare with good deeds", "Speed depends on deeds"],
+      quote: q19(71),
+      source: ik(71, "Ibn Masud explained that people cross the bridge over Hell. Some pass like lightning, some like wind, some like fast horses, as their deeds allow.", "The first group to cross it will pass like a flash of lightning"),
+      difficulty: 4,
+      questions: [
+        { q: "Who will pass over it, in 19:71?", a: "Every one of you", wrong: ["Only kings", "No one", "Only angels"], why: "There is not one of you but will pass over it." },
+        { q: "How does the first group cross, per Ibn Masud?", a: "Like a flash of lightning", wrong: ["Like a turtle", "Very slowly", "By boat"], why: "The first group to cross it will pass like a flash of lightning." },
+        { q: "What do the angels say, per Ibn Masud?", a: "O Allah save them", wrong: ["Hurry up", "Go back", "Stop there"], why: "The angels will be saying: O Allah save them, save them." }
+      ]
+    },
+    {
+      slug: "the-pious-are-saved",
+      title: "The pious are saved",
+      line: "Allah saves those with Taqwa; the wrongdoers are left behind.",
+      facts: ["Taqwa saves", "Allah keeps His promise"],
+      quote: q19(72),
+      source: hadith("muslim", "2496", "Umm Mubashshir", "Sahih", "The Prophet ﷺ said the people of the Tree would not enter the Fire. Hafsah recited 19:71, and he recited 19:72 about Allah rescuing the God-conscious.", "We would rescue those persons who are God-conscious"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom does Allah save, in 19:72?", a: "Those who had Taqwa", wrong: ["The proud", "The rich", "The loud"], why: "Then We shall save those who had Taqwa." },
+        { q: "Which ayah did Hafsah recite, in the hadith?", a: "19:71", wrong: ["1:1", "2:255", "112:1"], why: "Hafsa said: And there is none amongst you but shall have to pass over that." },
+        { q: "Who would not enter the Fire, in the hadith?", a: "The people of the Tree", wrong: ["The people of the sea", "The traders", "The poets"], why: "The people of the Tree would never enter the fire of Hell." }
+      ]
+    },
+    {
       slug: "guidance-grows",
       title: "Guidance grows",
       line: "Allah gives more guidance to the guided; good deeds last.",
@@ -565,6 +663,62 @@ const MARYAM_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "false-gods-for-honor",
+      title: "Seeking honor from idols",
+      line: "They sought honor from false gods, who will turn on them.",
+      facts: ["Honor is from Allah", "Idols cannot help"],
+      quote: q19(81),
+      source: ik(81, "The idol worshippers thought their gods would give them honor and power. The matter is not as they claim and will not be as they hope.", "the matter is not as they claim, and it will not be as they hope"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did they take gods besides Allah, in 19:81?", a: "For honor, power and glory", wrong: ["For rain", "For food", "For fun"], why: "That they might give them honor, power and glory." },
+        { q: "Will their hope come true, per Ibn Kathir?", a: "No", wrong: ["Yes", "Partly", "Later"], why: "The matter is not as they claim, and it will not be as they hope." },
+        { tf: false, q: "In 19:81 the false gods truly give honor.", why: "The matter is not as they claim, and it will not be as they hope." }
+      ]
+    },
+    {
+      slug: "idols-become-enemies",
+      title: "Idols become enemies",
+      line: "On that Day, the worshipped will deny worship and become foes.",
+      facts: ["Only Allah stays loyal", "Worship Allah alone"],
+      quote: q19(82),
+      source: ik(82, "On the Day of Judgment the false gods will deny being worshipped and will become enemies of those who worshipped them.", "This means enemies"),
+      difficulty: 3,
+      questions: [
+        { q: "What will the false gods deny, in 19:82?", a: "Their worship", wrong: ["Their names", "Their homes", "Their food"], why: "Nay, but they will deny their worship of them." },
+        { q: "What does adversaries mean, per Ad-Dahhak?", a: "Enemies", wrong: ["Friends", "Servants", "Guests"], why: "Ad-Dahhak said: This means enemies." },
+        { tf: true, q: "Ibn Kathir links 19:82 to 46:5-6.", why: "When mankind are gathered, they will become their enemies and will deny their worshipping. (46:5-6)" }
+      ]
+    },
+    {
+      slug: "devils-push-to-evil",
+      title: "Devils push to evil",
+      line: "Devils push the disbelievers toward evil.",
+      facts: ["Remember Allah often", "Dhikr protects the heart"],
+      quote: q19(83),
+      source: ik(83, "Ibn Abbas said the devils lead them astray with temptation. Whoever turns from Allah's remembrance is given a devil as a companion.", "They will lead them astray with temptation"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom are the Shayatin sent against, in 19:83?", a: "The disbelievers", wrong: ["The angels", "The birds", "The Prophets"], why: "We have sent the Shayatin against the disbelievers to push them to do evil." },
+        { q: "How do devils mislead, per Ibn Abbas?", a: "With temptation", wrong: ["With gifts", "With rain", "With songs"], why: "They will lead them astray with temptation." },
+        { q: "Which ayah does Ibn Zayd link to 19:83?", a: "43:36", wrong: ["2:255", "1:1", "112:1"], why: "We appoint for him a Shaytan to be a companion for him. (43:36)" }
+      ]
+    },
+    {
+      slug: "days-are-counted",
+      title: "Their days are counted",
+      line: "Do not rush against them; Allah counts out their limited time.",
+      facts: ["Allah is never unaware", "Every day is counted"],
+      quote: q19(84),
+      source: ik(84, "The Prophet ﷺ is told not to hasten their punishment. Allah delays them only for a fixed, counted time.", "We are only delaying them for a fixed appointment whose time is numbered"),
+      difficulty: 4,
+      questions: [
+        { q: "What does Allah count out, in 19:84?", a: "A limited number", wrong: ["Gold coins", "Stars", "Trees"], why: "We only count out to them a (limited) number." },
+        { q: "What is counted, per As-Suddi?", a: "Years, months, days and hours", wrong: ["Coins", "Camels", "Houses"], why: "As-Suddi said: means years, months, days and hours." },
+        { tf: false, q: "Ibn Kathir says Allah is unaware of what wrongdoers do.", why: "And consider not that Allah is unaware of that which the wrongdoers do. (14:42)" }
+      ]
+    },
+    {
       slug: "a-delegation-to-the-most-gracious",
       title: "Guests of the Most Gracious",
       line: "The God-fearing will come to Allah like an honoured delegation.",
@@ -576,6 +730,20 @@ const MARYAM_TWO: DeepUnit = {
         { q: "How will the God-fearing come, in 19:85?", a: "Like a delegation", wrong: ["Alone and lost", "Walking slowly", "In chains"], why: "The Day We shall gather those with Taqwa unto the Most Gracious, like a delegation." },
         { q: "What will they ride, per Ibn Kathir?", a: "Noble steeds of light", wrong: ["Camels of gold", "Ships", "Clouds"], why: "They will come riding upon noble steeds of light." },
         { q: "Can anyone intercede without Allah's permission, per 19:87?", a: "No", wrong: ["Yes, anyone", "Yes, kings", "Yes, idols"], why: "None shall have the power of intercession, but such a one as has received permission from the Most Gracious." }
+      ]
+    },
+    {
+      slug: "driven-thirsty",
+      title: "Driven thirsty",
+      line: "The criminals are driven to Hell thirsty, while the pious ride.",
+      facts: ["The pious are honored", "Deeds decide our end"],
+      quote: q19(86),
+      source: ik(86, "The pious come to Allah like an honored delegation, while the criminals who denied the Messengers are driven to Hell, parched and thirsty.", "This means parched and thirsting for drink"),
+      difficulty: 4,
+      questions: [
+        { q: "In what state are the criminals driven, in 19:86?", a: "Thirsty", wrong: ["Full", "Asleep", "Joyful"], why: "And We shall drive the criminals to Hell, in a thirsty state." },
+        { q: "How do the pious arrive, per Ibn Kathir?", a: "Riding like a delegation", wrong: ["Crawling", "Hiding", "Running away"], why: "They will come riding upon noble steeds of light." },
+        { tf: true, q: "Ibn Abbas and others said it means parched for drink.", why: "This means parched and thirsting for drink. This was stated by Ibn Abbas." }
       ]
     },
     {
