@@ -487,4 +487,375 @@ const RAAD_TWO: DeepUnit = {
   ]
 };
 
-export const RAAD_UNITS: readonly DeepUnit[] = [RAAD_ONE, RAAD_TWO];
+/** Ayahs 25 to 31: those who break the covenant, the brief world, hearts at rest in remembrance, Tuba, and the Quran. */
+const RAAD_THREE: DeepUnit = {
+  key: "raad3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-13",
+  name: "Ar-Ra'd, ayahs 25 to 31",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Ar-Ra'd",
+  lessons: [
+    {
+      slug: "breaking-the-covenant",
+      title: "Breaking the covenant",
+      line: "Those who break Allah's covenant and cut ties face a bad home.",
+      facts: ["The opposite of the believers", "They spread mischief"],
+      quote: q13(25),
+      source: ik(25, "The wretched ones are the opposite of the believers. They break Allah's covenant, cut what Allah ordered joined, and spread mischief, so they are far from His mercy.", "their characteristics were to the opposite of the believer"),
+      difficulty: 3,
+      questions: [
+        { q: "What do the wretched ones break, in 13:25?", a: "The covenant of Allah", wrong: ["Their idols", "Their chains", "Their fast"], why: "And those who break the covenant of Allah, after its ratification." },
+        { q: "What else do they do, in 13:25?", a: "Work mischief in the land", wrong: ["Plant trees", "Feed the poor", "Build mosques"], why: "And sever that which Allah has commanded to be joined, and work mischief in the land." },
+        { q: "How do they compare to the believers, per Ibn Kathir?", a: "They are the opposite", wrong: ["They are the same", "They are better", "They are angels"], why: "Their characteristics were to the opposite of the believer's qualities in this life." },
+        { q: "Ibn Kathir says the curse means being cast away from Allah's mercy.", tf: true, why: "On them is the curse: they will be cast away from Allah's mercy." }
+      ]
+    },
+    {
+      slug: "provision-in-his-hand",
+      title: "Provision is in His hand",
+      line: "Allah gives more or less provision; this world is brief.",
+      facts: ["Wealth can be a test", "The Hereafter is better"],
+      quote: q13(26),
+      source: ik(26, "Allah alone gives more provision to whom He wills and less to whom He wills, by His wisdom and justice. Those who rejoice in this world do not know they are being tested. This life is brief next to the Hereafter.", "they do not know that they are being tested and tried"),
+      difficulty: 3,
+      questions: [
+        { q: "Who increases and decreases provision, in 13:26?", a: "Allah", wrong: ["The market", "The king", "Luck"], why: "Allah increases the provision for whom He wills, and straitens (it for whom He wills)." },
+        { q: "What is this world compared to the Hereafter, in 13:26?", a: "A brief passing enjoyment", wrong: ["Everlasting", "Better", "Equal"], why: "The life of this world compared to the Hereafter is but a brief passing enjoyment." },
+        { q: "What do those who rejoice in wealth not know, per Ibn Kathir?", a: "They are being tested", wrong: ["Gold is heavy", "Prices will rise", "Rain will come"], why: "They do not know that they are being tested and tried." }
+      ]
+    },
+    {
+      slug: "a-finger-in-the-sea",
+      title: "A finger in the sea",
+      line: "Next to the Hereafter, this world is a drop on a finger.",
+      facts: ["Look at what sticks to it", "The Hereafter is the ocean"],
+      quote: q13(26),
+      source: hadith("muslim", "2858", "Al-Mustawrid", "Sahih", "The Prophet ﷺ said this world next to the Hereafter is like one of you dipping a finger in the ocean, then seeing how much sticks to it.", "dip his finger"),
+      difficulty: 3,
+      questions: [
+        { q: "What is this world compared to, in the hadith?", a: "Water on a finger dipped in the sea", wrong: ["A great river", "A tall mountain", "A full well"], why: "If one of you should dip his finger in the ocean and then see what has stuck to it." },
+        { q: "Which finger did the Prophet ﷺ point with?", a: "The forefinger", wrong: ["The thumb", "The little finger", "No finger"], why: "And while saying this he pointed with his forefinger." },
+        { q: "Who narrated the hadith of the finger in the sea?", a: "Al-Mustawrid", wrong: ["Abu Musa", "Anas", "Aishah"], why: "Narrated on the authority of Mustaurid, brother of Bani Fihr." },
+        { q: "The hadith says this world is bigger than the Hereafter.", tf: false, why: "This world is so insignificant in comparison to the Hereafter, like a finger dipped in the ocean." }
+      ]
+    },
+    {
+      slug: "those-who-turn-to-him",
+      title: "Those who turn to Him",
+      line: "Allah guides to Himself those who turn to Him in repentance.",
+      facts: ["Miracles alone do not guide", "The door of mercy was chosen"],
+      quote: q13(27),
+      source: ik(27, "The idolaters asked for a hill of gold. The Prophet ﷺ chose that the door of repentance and mercy stay open for them instead. Guidance does not come from miracles; Allah guides those who turn to Him.", "open for them the door to repentance and mercy"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom does Allah guide, in 13:27?", a: "Those who turn to Him", wrong: ["Those who ask for gold", "Those who mock", "Everyone by force"], why: "And guides unto Himself those who turn to Him in repentance." },
+        { q: "What did the Prophet ﷺ choose for his people?", a: "The door of repentance and mercy", wrong: ["A mountain of gold", "A quick punishment", "A new river"], why: "Rather, open for them the door to repentance and mercy." },
+        { q: "Ibn Kathir says guidance depends on seeing miracles.", tf: false, why: "Earning the misguidance or the guidance are not connected to the miracles or the lack of them." }
+      ]
+    },
+    {
+      slug: "hearts-find-rest",
+      title: "Hearts find rest",
+      line: "In the remembrance of Allah do hearts find rest.",
+      facts: ["Believers feel calm with Allah", "He is their Protector"],
+      quote: q13(28),
+      source: ik(27, "Believers feel calm and at peace when Allah is remembered, happy to have Him as their Protector and Helper. Truly, in Allah's remembrance hearts find rest.", "become tranquil when He is remembered"),
+      difficulty: 2,
+      questions: [
+        { q: "Where do hearts find rest, in 13:28?", a: "In the remembrance of Allah", wrong: ["In wealth", "In games", "In fame"], why: "Verily, in the remembrance of Allah do hearts find rest." },
+        { q: "How do believers' hearts feel when Allah is remembered, per Ibn Kathir?", a: "Tranquil", wrong: ["Bored", "Angry", "Afraid of people"], why: "Their hearts become tranquil when He is remembered." },
+        { q: "Whom are the believers pleased to have as Protector, per Ibn Kathir?", a: "Allah", wrong: ["A king", "Their tribe", "Their wealth"], why: "Pleased to have Him as their Protector and Supporter." }
+      ]
+    },
+    {
+      slug: "living-and-dead",
+      title: "The living and the dead",
+      line: "Remembering Allah is life; forgetting Him is like being dead.",
+      facts: ["Dhikr gives life to the heart", "Remember Him often"],
+      quote: q13(28),
+      source: hadith("bukhari", "6407", "Abu Musa", "Sahih", "The Prophet ﷺ said the one who remembers his Lord compared to the one who does not is like the living compared to the dead.", "is that of a living creature compared to a dead one"),
+      difficulty: 3,
+      questions: [
+        { q: "Who is like the living, in the hadith?", a: "One who remembers his Lord", wrong: ["One who is rich", "One who is strong", "One who travels"], why: "The example of the one who celebrates the praises of his Lord... is that of a living creature." },
+        { q: "Who is like the dead, in the hadith?", a: "One who does not remember Allah", wrong: ["One who sleeps", "One who is old", "One who is poor"], why: "In comparison to the one who does not celebrate the praises of his Lord... a dead one." },
+        { q: "Who narrated the hadith of the living and the dead?", a: "Abu Musa", wrong: ["Abu Hurayrah", "Ibn Umar", "Anas"], why: "Narrated Abu Musa: The Prophet ﷺ said the one who celebrates the praises of his Lord." }
+      ]
+    },
+    {
+      slug: "tuba-for-them",
+      title: "Tuba for them",
+      line: "For believers who do good is Tuba and a beautiful return.",
+      facts: ["Tuba means joy and delight", "Also a tree in Paradise"],
+      quote: q13(29),
+      source: ik(27, "Ibn Abbas said Tuba means happiness and the comfort of the eye. Others said it means joy, or how excellent is what they earned. These meanings agree with each other.", "These meanings for Tuba are all synonymous and they do not contradict one another"),
+      difficulty: 3,
+      questions: [
+        { q: "What is for believers who do good, in 13:29?", a: "Tuba and a beautiful return", wrong: ["Gold now", "A long journey", "Nothing yet"], why: "Those who believed, and work righteousness, Tuba is for them and a beautiful place of (final) return." },
+        { q: "What does Tuba mean, per Ibn Abbas?", a: "Happiness and comfort of the eye", wrong: ["A river", "A city", "A warning"], why: "Tuba means happiness and comfort or refreshment of the eye." },
+        { q: "Ibn Kathir says the meanings of Tuba contradict each other.", tf: false, why: "These meanings for Tuba are all synonymous and they do not contradict one another." }
+      ]
+    },
+    {
+      slug: "a-hundred-years-of-shade",
+      title: "A hundred years of shade",
+      line: "In Paradise, one tree's shade takes a rider over a century.",
+      facts: ["Paradise is beyond imagining", "Its shade never ends"],
+      quote: q13(29),
+      source: hadith("bukhari", "3251", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said there is a tree in Paradise so huge that a rider traveling in its shade for a hundred years could not cross it.", "if a rider travels in its shade for one hundred years"),
+      difficulty: 3,
+      questions: [
+        { q: "How long could a rider travel in the tree's shade?", a: "A hundred years", wrong: ["One day", "Ten years", "One month"], why: "If a rider travels in its shade for one hundred years, he would not be able to cross it." },
+        { q: "Could the rider cross the shade?", a: "No", wrong: ["Yes, in a year", "Yes, quickly", "Only at night"], why: "He would not be able to cross it." },
+        { q: "Who narrated the hadith of the great tree in Paradise?", a: "Anas ibn Malik", wrong: ["Abu Musa", "Ibn Umar", "Aishah"], why: "Narrated Anas bin Malik: There is a tree in Paradise." }
+      ]
+    },
+    {
+      slug: "he-is-my-lord",
+      title: "He is my Lord",
+      line: "The Prophet ﷺ said: He is my Lord; in Him is my trust.",
+      facts: ["Sent like Messengers before", "They denied Ar-Rahman"],
+      quote: q13(30),
+      source: ik(30, "Allah sent the Prophet ﷺ to recite the revelation, as Messengers were sent before. The idolaters refused the name Ar-Rahman. He answered: He is my Lord, none deserves worship but Him, I trust Him and turn to Him.", "He is my Lord, there is no deity worthy of worship except Him"),
+      difficulty: 3,
+      questions: [
+        { q: "Why was the Prophet ﷺ sent, in 13:30?", a: "To recite what was revealed", wrong: ["To rule a kingdom", "To build a city", "To collect wealth"], why: "In order that you might recite unto them what We have revealed to you." },
+        { q: "Whom did they disbelieve in, in 13:30?", a: "The Most Gracious", wrong: ["The sun", "Their idols", "Their fathers"], why: "While they disbelieve in the Most Gracious (Allah)." },
+        { q: "In whom is the Prophet's ﷺ trust, in 13:30?", a: "In Allah alone", wrong: ["In his tribe", "In wealth", "In kings"], why: "He is my Lord! None has the right to be worshipped but He! In Him is my trust." },
+        { q: "What did they refuse to write at Al-Hudaybiyyah, per Ibn Kathir?", a: "Ar-Rahman Ar-Rahim", wrong: ["Their names", "The date", "A peace term"], why: "They refused to write, In the Name of Allah, Ar-Rahman Ar-Rahim." }
+      ]
+    },
+    {
+      slug: "names-dearest-to-allah",
+      title: "Names dearest to Allah",
+      line: "The names dearest to Allah are Abdullah and Abdur-Rahman.",
+      facts: ["Servant of Allah", "Servant of the Most Merciful"],
+      quote: q13(30),
+      source: hadith("muslim", "2132", "Ibn Umar", "Sahih", "The Prophet ﷺ said the names dearest to Allah are Abdullah and Abdur-Rahman.", "The names dearest to Allah are"),
+      difficulty: 3,
+      questions: [
+        { q: "Which names are dearest to Allah?", a: "Abdullah and Abdur-Rahman", wrong: ["Names of kings", "Names of stars", "Any long name"], why: "The names dearest to Allah are Abdullah and Abd al-Rahman." },
+        { q: "What does Abdur-Rahman mean?", a: "Servant of the Most Merciful", wrong: ["Son of the king", "Lion of the desert", "Light of the moon"], why: "Ar-Rahman is the Most Merciful, a Name the idolaters refused in 13:30." },
+        { q: "Who narrated the hadith on the names dearest to Allah?", a: "Ibn Umar", wrong: ["Anas", "Abu Musa", "Jabir"], why: "Ibn Umar reported that Allah's Messenger ﷺ said the names dearest to Allah." }
+      ]
+    },
+    {
+      slug: "a-quran-to-move-mountains",
+      title: "A Quran to move mountains",
+      line: "If any recitation could move mountains, it would be this Quran.",
+      facts: ["No one can make a surah like it", "The decision is all Allah's"],
+      quote: q13(31),
+      source: ik(31, "If any revealed Book could move mountains, split the earth or make the dead speak, it would be the Quran, whose eloquence no one can match. Every Prophet's miracle ended with him, but the Quran remains for all time.", "will remain as evidence for all times"),
+      difficulty: 4,
+      questions: [
+        { q: "What would a Quran that moves mountains be, per 13:31?", a: "This very Quran", wrong: ["An old poem", "A book of magic", "A king's letter"], why: "If there were a Book with which the mountains could be moved, it would have been this Quran and none else." },
+        { q: "With whom is the decision of all things, in 13:31?", a: "With Allah", wrong: ["With people", "With the stars", "With the idols"], why: "But the decision of all things is certainly with Allah." },
+        { q: "What happened to other Prophets' miracles, per Ibn Kathir?", a: "They ended with them", wrong: ["They grew", "They are still seen", "They moved to Makkah"], why: "Every Prophet's miracle disappeared upon his death, but this Quran will remain as evidence for all times." },
+        { q: "Ibn Kathir says the Quran grows old the more it is read.", tf: false, why: "The miracle of the Quran will never end, nor will it become old the more it is read." }
+      ]
+    },
+    {
+      slug: "the-miracle-that-remains",
+      title: "The miracle that remains",
+      line: "Every Prophet had miracles; the Prophet ﷺ was given revelation.",
+      facts: ["He hoped for the most followers", "The Quran lasts for all time"],
+      quote: q13(31),
+      source: hadith("bukhari", "4981", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said every Prophet was given miracles that made people believe, but what he was given is revelation from Allah, so he hoped to have the most followers on the Day of Resurrection.", "what I have been given, is Divine Inspiration which Allah has revealed to me"),
+      difficulty: 4,
+      questions: [
+        { q: "What was the Prophet ﷺ given, in the hadith?", a: "Revelation from Allah", wrong: ["A staff", "A she-camel", "A mountain of gold"], why: "What I have been given, is Divine Inspiration which Allah has revealed to me." },
+        { q: "What did the Prophet ﷺ hope for?", a: "The most followers", wrong: ["The most wealth", "The biggest palace", "The longest life"], why: "So I hope that my followers will outnumber the followers of the other Prophets." },
+        { q: "Who narrated the hadith on the miracle of revelation?", a: "Abu Hurayrah", wrong: ["Anas", "Ibn Abbas", "Abu Musa"], why: "Narrated Abu Huraira: Every Prophet was given miracles because of which people believed." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 32 to 43: respite for deniers, name your partners, Paradise, Messengers were men, the Mother of the Book, Allah as witness. */
+const RAAD_FOUR: DeepUnit = {
+  key: "raad4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-13",
+  name: "Ar-Ra'd, ayahs 32 to 43",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Ar-Ra'd",
+  lessons: [
+    {
+      slug: "mocked-before-you",
+      title: "Mocked before you",
+      line: "Messengers before were mocked too; Allah gave the mockers time.",
+      facts: ["A comfort for the Prophet ﷺ", "Respite, then reckoning"],
+      quote: q13(32),
+      source: ik(32, "Allah comforted the Prophet ﷺ: Messengers before him were mocked too, so he has an example in them. Allah gave the deniers time, then held them to account.", "comforting him in facing his people"),
+      difficulty: 3,
+      questions: [
+        { q: "What happened to Messengers before, in 13:32?", a: "They were mocked", wrong: ["They were made kings", "They were never sent", "They were all obeyed"], why: "And indeed (many) Messengers were mocked at before you." },
+        { q: "What did Allah give the deniers first, in 13:32?", a: "Respite", wrong: ["Gold", "Kingdoms", "Miracles"], why: "But I granted respite to those who disbelieved." },
+        { q: "Why does Allah mention this, per Ibn Kathir?", a: "To comfort the Prophet ﷺ", wrong: ["To scare children", "To praise the mockers", "To end the surah"], why: "Allah says to His Messenger, while comforting him in facing his people's denial of him." }
+      ]
+    },
+    {
+      slug: "respite-for-the-unjust",
+      title: "Respite for the unjust",
+      line: "Allah gives the unjust time, but once He seizes, never lets go.",
+      facts: ["Do not be fooled by delay", "Allah is never unjust"],
+      quote: q13(32),
+      source: hadith("bukhari", "4686", "Abu Musa", "Sahih", "The Prophet ﷺ said Allah gives respite to the oppressor, but when He takes him, He never releases him. Then he recited 11:102.", "Allah gives respite to the oppressor, but when He takes him over, He never releases him"),
+      difficulty: 4,
+      questions: [
+        { q: "What does Allah give the oppressor first?", a: "Respite", wrong: ["Reward", "Praise", "A palace"], why: "Allah gives respite to the oppressor." },
+        { q: "What happens when Allah takes the oppressor?", a: "He never releases him", wrong: ["He lets him go", "He waits again", "He rewards him"], why: "But when He takes him over, He never releases him." },
+        { q: "Who narrated the hadith on respite for the oppressor?", a: "Abu Musa", wrong: ["Anas", "Ibn Umar", "Aishah"], why: "Narrated Abu Musa: Allah gives respite to the oppressor." },
+        { q: "A delay in punishment means Allah has forgotten.", tf: false, why: "Allah gives respite to the oppressor, but when He takes him over, He never releases him." }
+      ]
+    },
+    {
+      slug: "name-them",
+      title: "Name them!",
+      line: "Allah watches every soul; the idols they call on do not exist.",
+      facts: ["He knows all they earn", "Name them, if you can"],
+      quote: q13(33),
+      source: ik(33, "Allah watches every soul and knows all it does. The idols can neither hear nor see nor help themselves. Allah says: Name them! If they existed, Allah would know them, for nothing escapes Him.", "nothing ever escapes His knowledge"),
+      difficulty: 4,
+      questions: [
+        { q: "Who takes charge of every person, in 13:33?", a: "Allah", wrong: ["The idols", "The kings", "The stars"], why: "Is then He (Allah) Who takes charge of every person and knows all that he has earned?" },
+        { q: "What does Allah tell them to do, in 13:33?", a: "Name them!", wrong: ["Hide them", "Paint them", "Bury them"], why: "Say: Name them!" },
+        { q: "What does Ibn Kathir say the idols cannot do?", a: "Hear, see or help themselves", wrong: ["Stand still", "Be carved", "Be carried"], why: "Idols which can neither hear nor see nor... bring good to themselves." },
+        { q: "Ibn Kathir says something can exist on earth that Allah does not know.", tf: false, why: "Had that thing existed in or on the earth, Allah would have known about it because nothing ever escapes His knowledge." }
+      ]
+    },
+    {
+      slug: "rivers-and-lasting-shade",
+      title: "Rivers and lasting shade",
+      line: "Paradise has rivers below; its food and its shade last forever.",
+      facts: ["Fruit that never runs out", "Paradise and Fire told together"],
+      quote: q13(35),
+      source: ik(34, "Paradise promised to those with Taqwa has rivers flowing beneath it, food and fruit that never end, and shade that lasts. Allah often mentions Paradise and the Fire together to make Paradise loved.", "for Paradise has foods, fruits and drinks that never end or finish"),
+      difficulty: 3,
+      questions: [
+        { q: "What flows beneath Paradise, in 13:35?", a: "Rivers", wrong: ["Fire", "Sand", "Ice"], why: "Underneath it rivers flow." },
+        { q: "What is eternal in Paradise, in 13:35?", a: "Its provision and its shade", wrong: ["Its walls only", "Its gates only", "Nothing"], why: "Its provision is eternal and so is its shade." },
+        { q: "Who is Paradise promised to, in 13:35?", a: "Those who have Taqwa", wrong: ["The rich", "The strong", "Everyone who asks"], why: "The description of the Paradise which those who have Taqwa have been promised." },
+        { q: "Why mention Paradise and the Fire together, per Ibn Kathir?", a: "To make Paradise loved and warn of the Fire", wrong: ["By chance", "To fill pages", "To confuse"], why: "To make Paradise appealing and warn against the Fire." }
+      ]
+    },
+    {
+      slug: "those-given-the-book-rejoice",
+      title: "Those given the Book rejoice",
+      line: "Truthful people of the Book rejoiced at the Quran's revelation.",
+      facts: ["Their Books foretold it", "Worship Allah, no partners"],
+      quote: q13(36),
+      source: ik(36, "Those of the People of the Book who held to it rejoiced at the Quran, because their Books told of it. The Prophet ﷺ was told to say: I am commanded to worship Allah alone, I call to Him and to Him is my return.", "they have evidence in their Books affirming the truth of the"),
+      difficulty: 4,
+      questions: [
+        { q: "Who rejoiced at the revelation, in 13:36?", a: "Those given the Book", wrong: ["The idol makers", "The mockers", "No one"], why: "Those to whom We have given the Book, rejoice at what has been revealed unto you." },
+        { q: "Why did they rejoice, per Ibn Kathir?", a: "Their Books told of the Quran", wrong: ["They found gold", "They won a war", "They were bored"], why: "They have evidence in their Books affirming the truth of the Quran." },
+        { q: "What was the Prophet ﷺ commanded, in 13:36?", a: "To worship Allah alone", wrong: ["To gather wealth", "To build idols", "To stay silent"], why: "I am commanded only to worship Allah and not to join partners with Him." }
+      ]
+    },
+    {
+      slug: "a-judgement-in-arabic",
+      title: "A judgement in Arabic",
+      line: "The Quran came in clear Arabic; never trade it for desires.",
+      facts: ["An honor for the Prophet ﷺ", "A warning to people of knowledge"],
+      quote: q13(37),
+      source: ik(36, "Allah sent down the Quran as a clear judgement in Arabic, an honor to the Prophet ﷺ. Following people's desires after the knowledge came leaves one with no protector. This warns people of knowledge not to leave the Sunnah.", "This part of the Ayah warns people of knowledge against following the paths of misguid"),
+      difficulty: 4,
+      questions: [
+        { q: "In which language was the Quran sent as a judgement, in 13:37?", a: "Arabic", wrong: ["Greek", "Persian", "Latin"], why: "And thus have We sent it (the Quran) down to be a judgement of authority in Arabic." },
+        { q: "What happens if one follows desires after knowledge, in 13:37?", a: "No protector against Allah", wrong: ["More reward", "Nothing at all", "More friends"], why: "Then you will not have any Wali (protector) or defender against Allah." },
+        { q: "Whom does 13:37 warn, per Ibn Kathir?", a: "People of knowledge", wrong: ["Only children", "Only traders", "Only travelers"], why: "This part of the Ayah warns people of knowledge against following the paths of misguidance." }
+      ]
+    },
+    {
+      slug: "messengers-had-families",
+      title: "Messengers had families",
+      line: "Messengers were human: they had wives and children.",
+      facts: ["They ate food and walked markets", "Miracles only by Allah's leave"],
+      quote: q13(38),
+      source: ik(38, "The Messengers before the Prophet ﷺ were human beings who ate food, walked in markets, and had wives and children. No Prophet could bring a miracle except by Allah's leave.", "no Prophet could have brought a miracle to his people except by"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah give the Messengers, in 13:38?", a: "Wives and offspring", wrong: ["Thrones", "Wings", "Endless life"], why: "And indeed We sent Messengers before you, and made for them wives and offspring." },
+        { q: "How can a Messenger bring a sign, in 13:38?", a: "Only by Allah's leave", wrong: ["Whenever he likes", "With magic", "By paying"], why: "And it was not for a Messenger to bring a sign except by Allah's leave." },
+        { q: "What does every matter have, in 13:38?", a: "A decree", wrong: ["A price", "A doubt", "An end without plan"], why: "(For) every matter there is a decree (from Allah)." }
+      ]
+    },
+    {
+      slug: "my-sunnah",
+      title: "This is my Sunnah",
+      line: "The Prophet ﷺ fasted and ate, prayed and slept, and married.",
+      facts: ["Balance, not extremes", "Turning from his Sunnah is wrong"],
+      quote: q13(38),
+      source: hadith("bukhari", "5063", "Anas ibn Malik", "Sahih", "Three men wanted to pray all night, fast every day and never marry. The Prophet ﷺ said he fasts and breaks his fast, prays and sleeps, and marries, and whoever turns from his Sunnah is not from him.", "I fast and break my fast"),
+      difficulty: 4,
+      questions: [
+        { q: "What did one of the three men want?", a: "To pray all night forever", wrong: ["To travel", "To trade", "To build"], why: "One of them said, I will offer the prayer throughout the night forever." },
+        { q: "What did the Prophet ﷺ say he does with fasting?", a: "He fasts and breaks his fast", wrong: ["He fasts every day", "He never fasts", "He fasts only in winter"], why: "I fast and break my fast." },
+        { q: "Who narrated the hadith of the three men?", a: "Anas ibn Malik", wrong: ["Abu Musa", "Ibn Umar", "Abu Hurayrah"], why: "Narrated Anas bin Malik: A group of three men came to the houses of the wives of the Prophet ﷺ." },
+        { q: "The Sunnah is to never sleep and pray all night.", tf: false, why: "I pray and sleep too... so he who does not follow my tradition in religion, is not from me." }
+      ]
+    },
+    {
+      slug: "the-mother-of-the-book",
+      title: "The Mother of the Book",
+      line: "Allah erases or keeps what He wills; the Mother Book is His.",
+      facts: ["Every term has a record", "Good deeds and du'a help"],
+      quote: q13(39),
+      source: ik(38, "Everything has a set measure with Allah and a record. He blots out and confirms what He wills, and with Him is the Mother of the Book. Keeping family ties, a sahih hadith says, lengthens life.", "maintaining the ties of the womb increases the life span"),
+      difficulty: 5,
+      questions: [
+        { q: "What does Allah do, in 13:39?", a: "Blots out and confirms what He wills", wrong: ["Forgets His Book", "Asks others", "Changes nothing ever"], why: "Allah blots out what He wills and confirms (what He wills)." },
+        { q: "What is with Allah, in 13:39?", a: "The Mother of the Book", wrong: ["A list of kings", "A map of stars", "Nothing"], why: "And with Him is the Mother of the Book." },
+        { q: "What increases the life span, per a sahih hadith Ibn Kathir notes?", a: "Keeping family ties", wrong: ["Sleeping more", "Eating more", "Travelling"], why: "There is also a Hadith recorded in the Sahih that affirms that maintaining the ties of the womb increases the life span." }
+      ]
+    },
+    {
+      slug: "only-to-convey",
+      title: "Only to convey",
+      line: "The Prophet's ﷺ duty is to convey; the reckoning is Allah's.",
+      facts: ["He may see some of it, or not", "Land after land opened"],
+      quote: q13(40),
+      source: ik(40, "Whether the Prophet ﷺ saw some of what was promised or passed away before, his duty was only to convey the message, and the reckoning is Allah's. Ibn Abbas said Allah was granting him land after land.", "We are granting land after land to Muhammad"),
+      difficulty: 4,
+      questions: [
+        { q: "What is the Prophet's ﷺ duty, in 13:40?", a: "Only to convey the message", wrong: ["To force belief", "To judge hearts", "To punish"], why: "Your duty is only to convey (the Message) and on Us is the reckoning." },
+        { q: "On whom is the reckoning, in 13:40?", a: "On Allah", wrong: ["On the Prophet ﷺ", "On the angels", "On the tribe"], why: "And on Us is the reckoning." },
+        { q: "What did Ibn Abbas say 13:41 means?", a: "Land after land for the Prophet ﷺ", wrong: ["Earthquakes", "Rising seas", "Falling stars"], why: "See they not that We are granting land after land to Muhammad ﷺ?" },
+        { q: "Can anyone put back Allah's judgement, in 13:41?", a: "No one", wrong: ["The kings", "The idols", "Many people"], why: "And Allah judges, there is none to put back His judgement." }
+      ]
+    },
+    {
+      slug: "all-planning-is-allahs",
+      title: "All planning is Allah's",
+      line: "People before plotted, but all planning belongs to Allah.",
+      facts: ["He knows what every soul earns", "The good end is for the godfearing"],
+      quote: q13(42),
+      source: ik(42, "Nations before plotted to drive out their Messengers, but Allah's plan won and the good end went to those who fear Him. He knows every secret and will judge each person by their deeds.", "the followers of the Messengers will earn the good end in this life and the Hereafter"),
+      difficulty: 4,
+      questions: [
+        { q: "Whose is all planning, in 13:42?", a: "Allah's", wrong: ["The plotters'", "The kings'", "No one's"], why: "But all planning is Allah's." },
+        { q: "What does Allah know, in 13:42?", a: "What every person earns", wrong: ["Only big deeds", "Only spoken words", "Only the past"], why: "He knows what every person earns." },
+        { q: "Who gets the good end, per Ibn Kathir?", a: "The followers of the Messengers", wrong: ["The plotters", "The mockers", "No one"], why: "The followers of the Messengers will earn the good end in this life and the Hereafter." }
+      ]
+    },
+    {
+      slug: "allah-is-enough-as-witness",
+      title: "Allah is enough as witness",
+      line: "They said he was no Messenger; Allah is enough as witness.",
+      facts: ["Scholars of the Book knew him", "The surah ends here"],
+      quote: q13(43),
+      source: ik(43, "When the disbelievers said he was not a Messenger, the Prophet ﷺ was told to say Allah is enough as witness. Those with knowledge of the Scripture found his description in their Books.", "in their Books and the good news of his advent"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the disbelievers say, in 13:43?", a: "You are not a Messenger", wrong: ["You are a king", "You are an angel", "You are our leader"], why: "And those who disbelieved, say: You are not a Messenger." },
+        { q: "Who is sufficient as a witness, in 13:43?", a: "Allah", wrong: ["The crowd", "The kings", "The poets"], why: "Say: Sufficient as a witness between me and you is Allah." },
+        { q: "What did scholars of the Scripture find, per Ibn Kathir?", a: "His description in their Books", wrong: ["Gold in the sand", "A lost city", "Nothing"], why: "The scholars of the People of the Scriptures who find the description of Muhammad ﷺ in their Books." }
+      ]
+    }
+  ]
+};
+
+export const RAAD_UNITS: readonly DeepUnit[] = [RAAD_ONE, RAAD_TWO, RAAD_THREE, RAAD_FOUR];
