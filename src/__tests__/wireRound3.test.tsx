@@ -114,8 +114,9 @@ async function startQuranJump(target: { id: string }) {
   await press("test-out-start");
 }
 
-// Whole test-outs played through the app: slower than one screen, more so while the full suite runs.
-jest.setTimeout(30000);
+// Whole test-outs played through the app: slower than one screen, more so while the full suite runs,
+// and the Quran path they render keeps growing as surahs are taught ayah by ayah.
+jest.setTimeout(60000);
 
 afterEach(() => {
   removeStoredItem(PROFILE_KEY);
