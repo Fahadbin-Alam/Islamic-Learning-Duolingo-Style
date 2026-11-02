@@ -10080,6 +10080,238 @@
     "text": "The trusted spirit"
   },
   {
+    "kind": "course",
+    "text": "The clear Book"
+  },
+  {
+    "kind": "course",
+    "text": "Do not wear yourself out"
+  },
+  {
+    "kind": "course",
+    "text": "Faith by choice"
+  },
+  {
+    "kind": "course",
+    "text": "Turning from every reminder"
+  },
+  {
+    "kind": "course",
+    "text": "Every good kind grows"
+  },
+  {
+    "kind": "course",
+    "text": "The Mighty, the Merciful"
+  },
+  {
+    "kind": "course",
+    "text": "Musa asks for Harun"
+  },
+  {
+    "kind": "course",
+    "text": "We are with you, listening"
+  },
+  {
+    "kind": "course",
+    "text": "A favor and a great wrong"
+  },
+  {
+    "kind": "course",
+    "text": "Who is the Lord of the worlds?"
+  },
+  {
+    "kind": "course",
+    "text": "Lord of the east and west"
+  },
+  {
+    "kind": "course",
+    "text": "The stick and the shining hand"
+  },
+  {
+    "kind": "course",
+    "text": "Gather every sorcerer"
+  },
+  {
+    "kind": "course",
+    "text": "By the might of Fir'awn"
+  },
+  {
+    "kind": "course",
+    "text": "The sorcerers bow down"
+  },
+  {
+    "kind": "course",
+    "text": "No harm"
+  },
+  {
+    "kind": "course",
+    "text": "My Lord is with me"
+  },
+  {
+    "kind": "course",
+    "text": "Two, and the third is Allah"
+  },
+  {
+    "kind": "course",
+    "text": "The sea parts"
+  },
+  {
+    "kind": "course",
+    "text": "Saved, and the fast of Ashura"
+  },
+  {
+    "kind": "course",
+    "text": "A sign for all time"
+  },
+  {
+    "kind": "course",
+    "text": "What do you worship?"
+  },
+  {
+    "kind": "course",
+    "text": "We found our fathers doing it"
+  },
+  {
+    "kind": "course",
+    "text": "Not afraid of idols"
+  },
+  {
+    "kind": "course",
+    "text": "He feeds me and gives me drink"
+  },
+  {
+    "kind": "course",
+    "text": "When I am ill, He cures me"
+  },
+  {
+    "kind": "course",
+    "text": "The dua for the sick"
+  },
+  {
+    "kind": "course",
+    "text": "Only He forgives"
+  },
+  {
+    "kind": "course",
+    "text": "A good name after me"
+  },
+  {
+    "kind": "course",
+    "text": "A clean heart"
+  },
+  {
+    "kind": "course",
+    "text": "The heart leads the body"
+  },
+  {
+    "kind": "course",
+    "text": "Paradise brought near"
+  },
+  {
+    "kind": "course",
+    "text": "Regret that comes too late"
+  },
+  {
+    "kind": "course",
+    "text": "Nuh, the first Messenger"
+  },
+  {
+    "kind": "course",
+    "text": "I will not drive them away"
+  },
+  {
+    "kind": "course",
+    "text": "The laden ship"
+  },
+  {
+    "kind": "course",
+    "text": "'Ad of the sand hills"
+  },
+  {
+    "kind": "course",
+    "text": "Building to show off"
+  },
+  {
+    "kind": "course",
+    "text": "Remember His gifts"
+  },
+  {
+    "kind": "course",
+    "text": "It is all the same to us"
+  },
+  {
+    "kind": "course",
+    "text": "Houses carved in mountains"
+  },
+  {
+    "kind": "course",
+    "text": "Do not obey the wasteful"
+  },
+  {
+    "kind": "course",
+    "text": "The she-camel from the rock"
+  },
+  {
+    "kind": "course",
+    "text": "Do not harm her"
+  },
+  {
+    "kind": "course",
+    "text": "Lut and his family saved"
+  },
+  {
+    "kind": "course",
+    "text": "The people of the thicket"
+  },
+  {
+    "kind": "course",
+    "text": "The Day of the Shadow"
+  },
+  {
+    "kind": "course",
+    "text": "Brought down by Jibril"
+  },
+  {
+    "kind": "course",
+    "text": "In clear Arabic"
+  },
+  {
+    "kind": "course",
+    "text": "Always a warner first"
+  },
+  {
+    "kind": "course",
+    "text": "Not from the devils"
+  },
+  {
+    "kind": "course",
+    "text": "Warn your near family"
+  },
+  {
+    "kind": "course",
+    "text": "I cannot save you from Allah"
+  },
+  {
+    "kind": "course",
+    "text": "Gentle with the believers"
+  },
+  {
+    "kind": "course",
+    "text": "He sees you when you stand"
+  },
+  {
+    "kind": "course",
+    "text": "Fortune-tellers are nothing"
+  },
+  {
+    "kind": "course",
+    "text": "The poets"
+  },
+  {
+    "kind": "course",
+    "text": "Poets who believe"
+  },
+  {
     "kind": "arabic",
     "text": "The Ant"
   },
@@ -64448,10 +64680,6 @@
     "text": "Quran 54:28"
   },
   {
-    "kind": "lesson",
-    "text": "Do not harm her"
-  },
-  {
     "kind": "question",
     "text": "How was the water shared with the she-camel?"
   },
@@ -75498,10 +75726,6 @@
   {
     "kind": "question",
     "text": "Who praised his character ﷺ in the Quran?"
-  },
-  {
-    "kind": "question",
-    "text": "The poets"
   },
   {
     "kind": "question",
@@ -118637,10 +118861,6 @@
   },
   {
     "kind": "question",
-    "text": "The Mighty, the Merciful"
-  },
-  {
-    "kind": "question",
     "text": "The King, the Holy"
   },
   {
@@ -118862,10 +119082,6 @@
   {
     "kind": "question",
     "text": "Run back"
-  },
-  {
-    "kind": "question",
-    "text": "My Lord is with me"
   },
   {
     "kind": "question",
@@ -124722,10 +124938,6 @@
   {
     "kind": "question",
     "text": "Ayah 117: what did Allah give Musa and Harun?"
-  },
-  {
-    "kind": "question",
-    "text": "The clear Book"
   },
   {
     "kind": "lesson",
@@ -247746,6 +247958,3682 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about Al-Furqan, ayahs 35 to 77!"
+  },
+  {
+    "kind": "lesson",
+    "text": "These are ayahs of a clear Book that shows truth from falsehood."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ta Sin Mim are opening letters"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mubin means clear"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:2"
+  },
+  {
+    "kind": "question",
+    "text": "What does Mubin mean, in 26:2?"
+  },
+  {
+    "kind": "question",
+    "text": "Clear"
+  },
+  {
+    "kind": "question",
+    "text": "These are the verses of the Clear Qur'an, the clear and unambiguous Book."
+  },
+  {
+    "kind": "question",
+    "text": "What does the clear Book tell apart?"
+  },
+  {
+    "kind": "question",
+    "text": "Day from night"
+  },
+  {
+    "kind": "question",
+    "text": "Rich from poor"
+  },
+  {
+    "kind": "question",
+    "text": "Land from sea"
+  },
+  {
+    "kind": "question",
+    "text": "The Book which distinguishes between truth and falsehood, misguidance and guidance."
+  },
+  {
+    "kind": "question",
+    "text": "Ash-Shu'ara opens with the letters Ta Sin Mim."
+  },
+  {
+    "kind": "question",
+    "text": "These are Ayat of the Book Mubin."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ grieved so much that people would not believe."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah comforted him"
+  },
+  {
+    "kind": "lesson",
+    "text": "Guidance is in Allah's hand"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:3"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:3"
+  },
+  {
+    "kind": "question",
+    "text": "Why was the Prophet ﷺ so sad, in 26:3?"
+  },
+  {
+    "kind": "question",
+    "text": "He lost a battle"
+  },
+  {
+    "kind": "question",
+    "text": "They did not believe"
+  },
+  {
+    "kind": "question",
+    "text": "Because of your keenness that they should be guided and your grief for them."
+  },
+  {
+    "kind": "question",
+    "text": "How did Allah treat the Prophet ﷺ in 26:3?"
+  },
+  {
+    "kind": "question",
+    "text": "Blaming him"
+  },
+  {
+    "kind": "question",
+    "text": "Ignoring him"
+  },
+  {
+    "kind": "question",
+    "text": "Testing his wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Consoling him"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ did not care if people were guided."
+  },
+  {
+    "kind": "question",
+    "text": "He grieved because of his keenness that they should be guided."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah could force a sign, but He wants belief that is chosen."
+  },
+  {
+    "kind": "lesson",
+    "text": "Necks would bend if He willed"
+  },
+  {
+    "kind": "lesson",
+    "text": "No compulsion in true faith"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:4"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:4"
+  },
+  {
+    "kind": "question",
+    "text": "Why does Allah not force a sign on them?"
+  },
+  {
+    "kind": "question",
+    "text": "They asked Him not to"
+  },
+  {
+    "kind": "question",
+    "text": "He wants faith by choice"
+  },
+  {
+    "kind": "question",
+    "text": "We will not do that because We do not want anyone to believe except by choice."
+  },
+  {
+    "kind": "question",
+    "text": "What would a forced sign do, in 26:4?"
+  },
+  {
+    "kind": "question",
+    "text": "Move the mountains"
+  },
+  {
+    "kind": "question",
+    "text": "Bend their necks in humility"
+  },
+  {
+    "kind": "question",
+    "text": "Make them sleep"
+  },
+  {
+    "kind": "question",
+    "text": "Allah has the power to make everyone believe."
+  },
+  {
+    "kind": "question",
+    "text": "And had your Lord willed, those on earth would have believed, all of them together."
+  },
+  {
+    "kind": "lesson",
+    "text": "Each new reminder came, and most people turned away from it."
+  },
+  {
+    "kind": "lesson",
+    "text": "They mocked the truth"
+  },
+  {
+    "kind": "lesson",
+    "text": "They will learn the result"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:5"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:5"
+  },
+  {
+    "kind": "question",
+    "text": "What did most people do with each reminder?"
+  },
+  {
+    "kind": "question",
+    "text": "Asked for more"
+  },
+  {
+    "kind": "question",
+    "text": "Turned away"
+  },
+  {
+    "kind": "question",
+    "text": "Every time a Scripture comes from heaven to them, most of the people turn away from it."
+  },
+  {
+    "kind": "question",
+    "text": "What will come to the mockers, in 26:6?"
+  },
+  {
+    "kind": "question",
+    "text": "News of what they mocked"
+  },
+  {
+    "kind": "question",
+    "text": "They will come to know the news of the consequences of this denial after a while."
+  },
+  {
+    "kind": "question",
+    "text": "The reminder comes from the Most Merciful."
+  },
+  {
+    "kind": "question",
+    "text": "And never comes there unto them a Reminder as a recent revelation from the Most Gracious."
+  },
+  {
+    "kind": "lesson",
+    "text": "Look at the earth: Allah grows every good kind in it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Crops, fruits and animals"
+  },
+  {
+    "kind": "lesson",
+    "text": "A sign of His power"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:7"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah ask us to look at, in 26:7?"
+  },
+  {
+    "kind": "question",
+    "text": "The earth and what grows"
+  },
+  {
+    "kind": "question",
+    "text": "Old palaces"
+  },
+  {
+    "kind": "question",
+    "text": "What grows by His will, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Crops, fruit and animals"
+  },
+  {
+    "kind": "question",
+    "text": "What is this growth, in 26:8?"
+  },
+  {
+    "kind": "question",
+    "text": "An accident"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, in this is an Ayah, meaning an evidence of the power of the Creator."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is All-Mighty, yet He gives the sinner time to repent."
+  },
+  {
+    "kind": "lesson",
+    "text": "He does not rush punishment"
+  },
+  {
+    "kind": "lesson",
+    "text": "This line repeats in the surah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:9"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:9"
+  },
+  {
+    "kind": "question",
+    "text": "How does the Most Merciful treat a sinner?"
+  },
+  {
+    "kind": "question",
+    "text": "Gives time to repent"
+  },
+  {
+    "kind": "question",
+    "text": "He does not hasten to punish the one who sins, but He gives him time to repent."
+  },
+  {
+    "kind": "question",
+    "text": "Who is Allah Most Merciful to, per Sa'id bin Jubayr?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who repent to Him"
+  },
+  {
+    "kind": "question",
+    "text": "He is Most Merciful towards those who repent to Him and turn to Him."
+  },
+  {
+    "kind": "question",
+    "text": "All-Mighty means having power over all things."
+  },
+  {
+    "kind": "question",
+    "text": "The One Who has power over all things, to subdue and control them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ash-Shu'ara, ayahs 1 to 68?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sent to Fir'awn, Musa asked Allah to send his brother Harun too."
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa feared his tongue was slow"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah granted his request"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:13"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:13"
+  },
+  {
+    "kind": "question",
+    "text": "Who did Musa ask Allah to send with him?"
+  },
+  {
+    "kind": "question",
+    "text": "So send for Harun."
+  },
+  {
+    "kind": "question",
+    "text": "Which people was Musa sent to, in 26:11?"
+  },
+  {
+    "kind": "question",
+    "text": "The people of Saba"
+  },
+  {
+    "kind": "question",
+    "text": "Go to the people who are wrongdoers."
+  },
+  {
+    "kind": "question",
+    "text": "Musa felt no worry at all about the task."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah told Musa and Harun: go, We are with you, listening."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:15"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:15"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah promise Musa and Harun, in 26:15?"
+  },
+  {
+    "kind": "question",
+    "text": "You will never tire"
+  },
+  {
+    "kind": "question",
+    "text": "You will be kings"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, We shall be with you, listening."
+  },
+  {
+    "kind": "question",
+    "text": "What does being with them mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Only watching"
+  },
+  {
+    "kind": "question",
+    "text": "Protection, care, support, help"
+  },
+  {
+    "kind": "question",
+    "text": "Sitting beside them"
+  },
+  {
+    "kind": "question",
+    "text": "What did they ask Fir'awn to do, in 26:17?"
+  },
+  {
+    "kind": "question",
+    "text": "Leave Egypt himself"
+  },
+  {
+    "kind": "question",
+    "text": "So allow the Children of Israel to go with us."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn boasted of raising Musa, but he enslaved a whole people."
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa admitted his past mistake"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah later made him a Messenger"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:22"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:22"
+  },
+  {
+    "kind": "question",
+    "text": "What favor did Fir'awn remind Musa of?"
+  },
+  {
+    "kind": "question",
+    "text": "Teaching him to read"
+  },
+  {
+    "kind": "question",
+    "text": "Making him a minister"
+  },
+  {
+    "kind": "question",
+    "text": "Raising him as a child"
+  },
+  {
+    "kind": "question",
+    "text": "Giving him a ship"
+  },
+  {
+    "kind": "question",
+    "text": "How did Musa answer that favor, in 26:22?"
+  },
+  {
+    "kind": "question",
+    "text": "I thank you forever"
+  },
+  {
+    "kind": "question",
+    "text": "I will serve you"
+  },
+  {
+    "kind": "question",
+    "text": "I forgot it"
+  },
+  {
+    "kind": "question",
+    "text": "You enslaved my people"
+  },
+  {
+    "kind": "question",
+    "text": "When did Musa make his old mistake, per 26:20?"
+  },
+  {
+    "kind": "question",
+    "text": "Before revelation came to him"
+  },
+  {
+    "kind": "question",
+    "text": "After he became a Prophet"
+  },
+  {
+    "kind": "question",
+    "text": "On the day of the sea"
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa said: the Lord of the heavens, the earth and all between."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn claimed to be the only god"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn called Musa mad"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:24"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:24"
+  },
+  {
+    "kind": "question",
+    "text": "How did Musa describe Allah, in 26:24?"
+  },
+  {
+    "kind": "question",
+    "text": "Lord of Egypt only"
+  },
+  {
+    "kind": "question",
+    "text": "Lord of the river"
+  },
+  {
+    "kind": "question",
+    "text": "Lord of the sorcerers"
+  },
+  {
+    "kind": "question",
+    "text": "Lord of heavens and earth"
+  },
+  {
+    "kind": "question",
+    "text": "The Lord of the heavens and the earth, and all that is between them."
+  },
+  {
+    "kind": "question",
+    "text": "What did Fir'awn claim, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "He was a Prophet"
+  },
+  {
+    "kind": "question",
+    "text": "He was a sorcerer"
+  },
+  {
+    "kind": "question",
+    "text": "No god but himself"
+  },
+  {
+    "kind": "question",
+    "text": "They believed that they had no other lord than Fir'awn."
+  },
+  {
+    "kind": "question",
+    "text": "What did Fir'awn call Musa, in 26:27?"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, your Messenger who has been sent to you is a madman!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah raises the sun in the east; Fir'awn could not."
+  },
+  {
+    "kind": "lesson",
+    "text": "Like Ibrahim's debate with the king"
+  },
+  {
+    "kind": "lesson",
+    "text": "If you did but understand"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:28"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:28"
+  },
+  {
+    "kind": "question",
+    "text": "What could Fir'awn not do, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Speak to people"
+  },
+  {
+    "kind": "question",
+    "text": "Build cities"
+  },
+  {
+    "kind": "question",
+    "text": "Gather soldiers"
+  },
+  {
+    "kind": "question",
+    "text": "Make the sun rise in the west"
+  },
+  {
+    "kind": "question",
+    "text": "Which Prophet made a similar point to a king?"
+  },
+  {
+    "kind": "question",
+    "text": "Musa told them to use their minds."
+  },
+  {
+    "kind": "question",
+    "text": "Lord of the east and the west, and all that is between them, if you did but understand!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn lost the debate; Musa then showed two clear signs."
+  },
+  {
+    "kind": "lesson",
+    "text": "The stick became a serpent"
+  },
+  {
+    "kind": "lesson",
+    "text": "His hand shone white"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:33"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:33"
+  },
+  {
+    "kind": "question",
+    "text": "What did Fir'awn do after losing the debate?"
+  },
+  {
+    "kind": "question",
+    "text": "Gave a gift"
+  },
+  {
+    "kind": "question",
+    "text": "Threatened prison"
+  },
+  {
+    "kind": "question",
+    "text": "If you choose a god other than me, I will certainly put you among the prisoners."
+  },
+  {
+    "kind": "question",
+    "text": "What did his hand look like, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Dark like night"
+  },
+  {
+    "kind": "question",
+    "text": "Red like fire"
+  },
+  {
+    "kind": "question",
+    "text": "Shining like a piece of the moon"
+  },
+  {
+    "kind": "question",
+    "text": "And behold, it was white to all beholders!"
+  },
+  {
+    "kind": "question",
+    "text": "What did the stick become, in 26:32?"
+  },
+  {
+    "kind": "question",
+    "text": "So he threw his stick, and behold, it was a serpent, manifest."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn called sorcerers from every city to face Musa."
+  },
+  {
+    "kind": "lesson",
+    "text": "He called the signs magic"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah let all the people see"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:37"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:37"
+  },
+  {
+    "kind": "question",
+    "text": "What did Fir'awn call the miracles, in 26:34?"
+  },
+  {
+    "kind": "question",
+    "text": "A trick of light"
+  },
+  {
+    "kind": "question",
+    "text": "Sorcery"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, this is indeed a well-versed sorcerer."
+  },
+  {
+    "kind": "question",
+    "text": "What was Allah's wisdom in the gathering?"
+  },
+  {
+    "kind": "question",
+    "text": "To hold a market"
+  },
+  {
+    "kind": "question",
+    "text": "All people would see His signs"
+  },
+  {
+    "kind": "question",
+    "text": "To feed the people"
+  },
+  {
+    "kind": "question",
+    "text": "To pick a king"
+  },
+  {
+    "kind": "question",
+    "text": "Fir'awn admitted the stick was a miracle."
+  },
+  {
+    "kind": "question",
+    "text": "Fir'awn was trying to convince them that this was sorcery, not a miracle."
+  },
+  {
+    "kind": "lesson",
+    "text": "The sorcerers asked for a reward and swore by Fir'awn's might."
+  },
+  {
+    "kind": "lesson",
+    "text": "The crowd followed the king's way"
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa told them to throw first"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:44"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:44"
+  },
+  {
+    "kind": "question",
+    "text": "What did the sorcerers ask Fir'awn for, in 26:41?"
+  },
+  {
+    "kind": "question",
+    "text": "Their freedom"
+  },
+  {
+    "kind": "question",
+    "text": "A new land"
+  },
+  {
+    "kind": "question",
+    "text": "A reward if they won"
+  },
+  {
+    "kind": "question",
+    "text": "What did they swear by when they threw?"
+  },
+  {
+    "kind": "question",
+    "text": "The might of Fir'awn"
+  },
+  {
+    "kind": "question",
+    "text": "By the might of Fir'awn, it is we who will certainly win!"
+  },
+  {
+    "kind": "question",
+    "text": "Why did the crowd say they would follow the sorcerers?"
+  },
+  {
+    "kind": "question",
+    "text": "They were paid"
+  },
+  {
+    "kind": "question",
+    "text": "They followed their king's religion"
+  },
+  {
+    "kind": "question",
+    "text": "They loved truth"
+  },
+  {
+    "kind": "question",
+    "text": "Musa asked them"
+  },
+  {
+    "kind": "question",
+    "text": "The people were followers of the religion of their king."
+  },
+  {
+    "kind": "lesson",
+    "text": "The stick swallowed their tricks; the sorcerers fell in sujud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Truth always beats falsehood"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:46"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:46"
+  },
+  {
+    "kind": "question",
+    "text": "What did Musa's stick do, in 26:45?"
+  },
+  {
+    "kind": "question",
+    "text": "Swallowed what they faked"
+  },
+  {
+    "kind": "question",
+    "text": "Then Musa threw his stick, and behold, it swallowed up all that they falsely showed."
+  },
+  {
+    "kind": "question",
+    "text": "What did the sorcerers do next?"
+  },
+  {
+    "kind": "question",
+    "text": "Fought Musa"
+  },
+  {
+    "kind": "question",
+    "text": "At that moment they believed in Musa and prostrated to Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Faith and falsehood never meet without faith winning."
+  },
+  {
+    "kind": "question",
+    "text": "They never confront one another but faith always prevails."
+  },
+  {
+    "kind": "lesson",
+    "text": "Threatened, the new believers said: no harm, we return to Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "They hoped for forgiveness"
+  },
+  {
+    "kind": "lesson",
+    "text": "First of their people to believe"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:50"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:50"
+  },
+  {
+    "kind": "question",
+    "text": "What did Fir'awn's threats do to their faith?"
+  },
+  {
+    "kind": "question",
+    "text": "Why did they call themselves first believers, in 26:51?"
+  },
+  {
+    "kind": "question",
+    "text": "First to fast"
+  },
+  {
+    "kind": "question",
+    "text": "First Egyptians to believe"
+  },
+  {
+    "kind": "question",
+    "text": "First humans"
+  },
+  {
+    "kind": "question",
+    "text": "First Prophets"
+  },
+  {
+    "kind": "question",
+    "text": "Because we are the first of our people, the Egyptians, to believe."
+  },
+  {
+    "kind": "question",
+    "text": "Why was saying Musa taught them magic nonsense?"
+  },
+  {
+    "kind": "question",
+    "text": "They had never met him"
+  },
+  {
+    "kind": "question",
+    "text": "Musa was asleep"
+  },
+  {
+    "kind": "question",
+    "text": "Harun taught them"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah told Musa to lead the Children of Israel out by night."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fir'awn called his armies"
+  },
+  {
+    "kind": "lesson",
+    "text": "They lost their gardens and treasures"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:52"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:52"
+  },
+  {
+    "kind": "question",
+    "text": "When did Musa lead his people out, in 26:52?"
+  },
+  {
+    "kind": "question",
+    "text": "On a feast day"
+  },
+  {
+    "kind": "question",
+    "text": "Depart by night with My servants, verily, you will be pursued."
+  },
+  {
+    "kind": "question",
+    "text": "What did Fir'awn call the Children of Israel?"
+  },
+  {
+    "kind": "question",
+    "text": "A small band"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, these indeed are but a small band."
+  },
+  {
+    "kind": "question",
+    "text": "Who inherited what Fir'awn left, per 26:59?"
+  },
+  {
+    "kind": "question",
+    "text": "Thus and We caused the Children of Israel to inherit them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sea ahead, army behind, Musa said: my Lord is with me."
+  },
+  {
+    "kind": "lesson",
+    "text": "His people feared being caught"
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa trusted Allah's promise"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:62"
+  },
+  {
+    "kind": "question",
+    "text": "Where were the believers trapped, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Inside a city"
+  },
+  {
+    "kind": "question",
+    "text": "Between the sea and the army"
+  },
+  {
+    "kind": "question",
+    "text": "In a desert cave"
+  },
+  {
+    "kind": "question",
+    "text": "The sea was ahead of them and Fir'awn and his troops were behind them."
+  },
+  {
+    "kind": "question",
+    "text": "What did Musa answer, in 26:62?"
+  },
+  {
+    "kind": "question",
+    "text": "Let us swim"
+  },
+  {
+    "kind": "question",
+    "text": "Nay, verily with me is my Lord."
+  },
+  {
+    "kind": "question",
+    "text": "Musa trusted that Allah keeps His promise."
+  },
+  {
+    "kind": "lesson",
+    "text": "In the cave, the Prophet ﷺ trusted Allah just as Musa did."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr feared being seen"
+  },
+  {
+    "kind": "lesson",
+    "text": "Trust in Allah in every danger"
+  },
+  {
+    "kind": "question",
+    "text": "Where were they when Abu Bakr was afraid?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr said: I said to the Prophet ﷺ while I was in the Cave."
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say about the two of them?"
+  },
+  {
+    "kind": "question",
+    "text": "The third of them is Allah"
+  },
+  {
+    "kind": "question",
+    "text": "We must run"
+  },
+  {
+    "kind": "question",
+    "text": "How is this like Musa at the sea?"
+  },
+  {
+    "kind": "question",
+    "text": "Both crossed water"
+  },
+  {
+    "kind": "question",
+    "text": "Both met Fir'awn"
+  },
+  {
+    "kind": "question",
+    "text": "Both were alone"
+  },
+  {
+    "kind": "question",
+    "text": "Both trusted Allah in danger"
+  },
+  {
+    "kind": "question",
+    "text": "Musa said: verily with me is my Lord."
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa struck the sea, and the water stood like huge mountains."
+  },
+  {
+    "kind": "lesson",
+    "text": "Twelve paths, one per tribe"
+  },
+  {
+    "kind": "lesson",
+    "text": "The seabed became dry"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:63"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:63"
+  },
+  {
+    "kind": "question",
+    "text": "What did each part of the sea look like, in 26:63?"
+  },
+  {
+    "kind": "question",
+    "text": "A huge mountain"
+  },
+  {
+    "kind": "question",
+    "text": "A small wave"
+  },
+  {
+    "kind": "question",
+    "text": "And it parted, and each separate part became like huge mountain."
+  },
+  {
+    "kind": "question",
+    "text": "How many paths, per Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "The sea divided into twelve paths, one for each of the tribes."
+  },
+  {
+    "kind": "question",
+    "text": "The path through the sea stayed muddy."
+  },
+  {
+    "kind": "question",
+    "text": "Allah sent the wind to the sea bed to make it solid like the land."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah saved Musa on Ashura, so Muslims fast that day."
+  },
+  {
+    "kind": "lesson",
+    "text": "None of the believers was lost"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:65"
+  },
+  {
+    "kind": "question",
+    "text": "Yusuf became minister"
+  },
+  {
+    "kind": "question",
+    "text": "Allah saved the Children of Israel"
+  },
+  {
+    "kind": "question",
+    "text": "The Kaaba was built"
+  },
+  {
+    "kind": "question",
+    "text": "Nuh's flood began"
+  },
+  {
+    "kind": "question",
+    "text": "Musa is not ours"
+  },
+  {
+    "kind": "question",
+    "text": "Forget that day"
+  },
+  {
+    "kind": "question",
+    "text": "Only Jews should fast"
+  },
+  {
+    "kind": "question",
+    "text": "What happened to Fir'awn's army, in 26:66?"
+  },
+  {
+    "kind": "question",
+    "text": "They crossed safely"
+  },
+  {
+    "kind": "question",
+    "text": "They were drowned"
+  },
+  {
+    "kind": "question",
+    "text": "Then We drowned the others."
+  },
+  {
+    "kind": "lesson",
+    "text": "Musa's story is proof of Allah's help to those who believe."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yet most do not believe"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mighty to punish, Merciful to forgive"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:67"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:67"
+  },
+  {
+    "kind": "question",
+    "text": "What does Musa's story prove, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "The sea is dangerous"
+  },
+  {
+    "kind": "question",
+    "text": "Allah aids His believers"
+  },
+  {
+    "kind": "question",
+    "text": "Kings always win"
+  },
+  {
+    "kind": "question",
+    "text": "Magic is real power"
+  },
+  {
+    "kind": "question",
+    "text": "Which two names close this story, in 26:68?"
+  },
+  {
+    "kind": "question",
+    "text": "All-Mighty, Most Merciful"
+  },
+  {
+    "kind": "question",
+    "text": "King, Holy"
+  },
+  {
+    "kind": "question",
+    "text": "And verily your Lord, He is truly the All-Mighty, the Most Merciful."
+  },
+  {
+    "kind": "question",
+    "text": "Most people still do not believe after such signs."
+  },
+  {
+    "kind": "question",
+    "text": "Verily, in this is indeed a sign, yet most of them are not believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ash-Shu'ara, ayahs 1 to 68!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim asked his father and people what their statues were."
+  },
+  {
+    "kind": "lesson",
+    "text": "He spoke out from a young age"
+  },
+  {
+    "kind": "lesson",
+    "text": "An example for this Ummah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:70"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:70"
+  },
+  {
+    "kind": "question",
+    "text": "Who did Ibrahim ask, in 26:70?"
+  },
+  {
+    "kind": "question",
+    "text": "His father and his people"
+  },
+  {
+    "kind": "question",
+    "text": "Why was his story told to the Ummah?"
+  },
+  {
+    "kind": "question",
+    "text": "To learn farming"
+  },
+  {
+    "kind": "question",
+    "text": "To fear statues"
+  },
+  {
+    "kind": "question",
+    "text": "To follow his example"
+  },
+  {
+    "kind": "question",
+    "text": "His people said they were devoted to idols."
+  },
+  {
+    "kind": "question",
+    "text": "We worship idols, and to them we are ever devoted."
+  },
+  {
+    "kind": "lesson",
+    "text": "Idols cannot hear or help; the people only copied their fathers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Do they hear when you call?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Copying is not a proof"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:74"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:74"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibrahim ask about the idols, in 26:72?"
+  },
+  {
+    "kind": "question",
+    "text": "Are they gold?"
+  },
+  {
+    "kind": "question",
+    "text": "Who made them?"
+  },
+  {
+    "kind": "question",
+    "text": "Are they old?"
+  },
+  {
+    "kind": "question",
+    "text": "Do they hear you?"
+  },
+  {
+    "kind": "question",
+    "text": "What was the people's only reason?"
+  },
+  {
+    "kind": "question",
+    "text": "They saw miracles"
+  },
+  {
+    "kind": "question",
+    "text": "Their fathers did it"
+  },
+  {
+    "kind": "question",
+    "text": "They said: (Nay) but we found our fathers doing so."
+  },
+  {
+    "kind": "question",
+    "text": "The people believed the idols could truly help."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim said idols are his enemies; only the Lord is not."
+  },
+  {
+    "kind": "lesson",
+    "text": "If they can harm, let them try"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nuh and Hud spoke the same way"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:77"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:77"
+  },
+  {
+    "kind": "question",
+    "text": "Who did Ibrahim exclude from his enmity, in 26:77?"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, they are enemies to me, save the Lord of Al-'Alamin."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibrahim show by daring the idols?"
+  },
+  {
+    "kind": "question",
+    "text": "He loved them"
+  },
+  {
+    "kind": "question",
+    "text": "They have no power"
+  },
+  {
+    "kind": "question",
+    "text": "He wanted gifts"
+  },
+  {
+    "kind": "question",
+    "text": "If these idols mean anything and have any influence, then let them do me any kind of harm."
+  },
+  {
+    "kind": "question",
+    "text": "Which word did Ibrahim leave lasting among his offspring?"
+  },
+  {
+    "kind": "question",
+    "text": "And he made it a Word lasting among his offspring, meaning: La Ilaha Illallah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim worshipped the One who created, guides and feeds him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He sends rain from the clouds"
+  },
+  {
+    "kind": "lesson",
+    "text": "Water for people and animals"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:79"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:79"
+  },
+  {
+    "kind": "question",
+    "text": "What two things does Allah do first, in 26:78?"
+  },
+  {
+    "kind": "question",
+    "text": "Builds and breaks"
+  },
+  {
+    "kind": "question",
+    "text": "Creates and guides"
+  },
+  {
+    "kind": "question",
+    "text": "Sleeps and wakes"
+  },
+  {
+    "kind": "question",
+    "text": "Buys and sells"
+  },
+  {
+    "kind": "question",
+    "text": "Who has created me, and it is He Who guides me."
+  },
+  {
+    "kind": "question",
+    "text": "How does Allah give drink, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "From the idols"
+  },
+  {
+    "kind": "question",
+    "text": "He does not"
+  },
+  {
+    "kind": "question",
+    "text": "He sends sweet rainwater"
+  },
+  {
+    "kind": "question",
+    "text": "Only from wells people dig"
+  },
+  {
+    "kind": "question",
+    "text": "Animals also drink from the water Allah sends."
+  },
+  {
+    "kind": "question",
+    "text": "So that many of those whom He has created, animals and men alike, may drink from it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim said: when I am ill, He cures me."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only Allah truly heals"
+  },
+  {
+    "kind": "lesson",
+    "text": "Good things are named for Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:80"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:80"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Ibrahim say when I am ill?"
+  },
+  {
+    "kind": "question",
+    "text": "He blamed doctors"
+  },
+  {
+    "kind": "question",
+    "text": "Out of respect for Allah"
+  },
+  {
+    "kind": "question",
+    "text": "He was never ill"
+  },
+  {
+    "kind": "question",
+    "text": "Who truly heals, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Only medicine"
+  },
+  {
+    "kind": "question",
+    "text": "Taking medicine goes against trusting Allah to cure."
+  },
+  {
+    "kind": "question",
+    "text": "Allah heals me with the means that may lead to recovery."
+  },
+  {
+    "kind": "lesson",
+    "text": "Visiting the sick, the Prophet ﷺ asked Allah, the One who cures."
+  },
+  {
+    "kind": "lesson",
+    "text": "Lord of the people, take it away"
+  },
+  {
+    "kind": "lesson",
+    "text": "No cure but His"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5675"
+  },
+  {
+    "kind": "question",
+    "text": "On Eid only"
+  },
+  {
+    "kind": "question",
+    "text": "When visiting the sick"
+  },
+  {
+    "kind": "question",
+    "text": "At sunrise only"
+  },
+  {
+    "kind": "question",
+    "text": "Whenever Allah's Messenger ﷺ paid a visit to a patient, he used to invoke Allah."
+  },
+  {
+    "kind": "question",
+    "text": "The Lord of idols"
+  },
+  {
+    "kind": "question",
+    "text": "The One Who cures"
+  },
+  {
+    "kind": "question",
+    "text": "The doctor's helper"
+  },
+  {
+    "kind": "question",
+    "text": "Cure him as You are the One Who cures."
+  },
+  {
+    "kind": "question",
+    "text": "Which cure does the dua ask for?"
+  },
+  {
+    "kind": "question",
+    "text": "One that leaves no illness"
+  },
+  {
+    "kind": "question",
+    "text": "A slow one"
+  },
+  {
+    "kind": "question",
+    "text": "A costly one"
+  },
+  {
+    "kind": "question",
+    "text": "A cure that leaves no disease."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ash-Shu'ara, ayahs 69 to 140?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah gives life and death, and only He forgives sins."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim hoped for forgiveness"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:82"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:82"
+  },
+  {
+    "kind": "question",
+    "text": "Who can forgive sins, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Any Prophet"
+  },
+  {
+    "kind": "question",
+    "text": "No one is able to forgive sins in this world or the Hereafter except Him."
+  },
+  {
+    "kind": "question",
+    "text": "When did Ibrahim hope to be forgiven, in 26:82?"
+  },
+  {
+    "kind": "question",
+    "text": "On the Day of Recompense"
+  },
+  {
+    "kind": "question",
+    "text": "On his birthday"
+  },
+  {
+    "kind": "question",
+    "text": "And Who, I hope, will forgive me my faults on the Day of Recompense."
+  },
+  {
+    "kind": "question",
+    "text": "Only Allah gives life and causes death."
+  },
+  {
+    "kind": "question",
+    "text": "He is the One Who gives life and causes death, and no one besides Him is able to do that."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ibrahim asked for knowledge and a good name after him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hukm means knowledge"
+  },
+  {
+    "kind": "lesson",
+    "text": "Peace be upon Ibrahim"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:84"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:84"
+  },
+  {
+    "kind": "question",
+    "text": "What is Hukm, per Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas said: This is knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibrahim ask for in 26:84?"
+  },
+  {
+    "kind": "question",
+    "text": "A good mention after him"
+  },
+  {
+    "kind": "question",
+    "text": "A tall palace"
+  },
+  {
+    "kind": "question",
+    "text": "Which garden did he ask to inherit, in 26:85?"
+  },
+  {
+    "kind": "question",
+    "text": "The Paradise of Delight"
+  },
+  {
+    "kind": "question",
+    "text": "A garden in Egypt"
+  },
+  {
+    "kind": "question",
+    "text": "His father's farm"
+  },
+  {
+    "kind": "question",
+    "text": "A royal garden"
+  },
+  {
+    "kind": "question",
+    "text": "And make me one of the inheritors of the Paradise of Delight."
+  },
+  {
+    "kind": "lesson",
+    "text": "On that Day only a clean heart helps, not wealth or sons."
+  },
+  {
+    "kind": "lesson",
+    "text": "Free of shirk"
+  },
+  {
+    "kind": "lesson",
+    "text": "The sound heart of a believer"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:89"
+  },
+  {
+    "kind": "question",
+    "text": "What will not help on that Day, in 26:88?"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth and sons"
+  },
+  {
+    "kind": "question",
+    "text": "The Day whereon neither wealth nor sons will avail."
+  },
+  {
+    "kind": "question",
+    "text": "What is a clean heart, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Free from impurity and shirk"
+  },
+  {
+    "kind": "question",
+    "text": "A happy heart"
+  },
+  {
+    "kind": "question",
+    "text": "A strong heart"
+  },
+  {
+    "kind": "question",
+    "text": "Meaning, free from any impurity or Shirk."
+  },
+  {
+    "kind": "question",
+    "text": "What did Sa'id bin al-Musayyib call it?"
+  },
+  {
+    "kind": "question",
+    "text": "The loud heart"
+  },
+  {
+    "kind": "question",
+    "text": "The sound heart"
+  },
+  {
+    "kind": "question",
+    "text": "The proud heart"
+  },
+  {
+    "kind": "question",
+    "text": "The soft heart"
+  },
+  {
+    "kind": "question",
+    "text": "Sa'id bin Al-Musayyib said: The clean heart is the sound heart."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ said: a good heart makes the body good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Stay away from doubtful things"
+  },
+  {
+    "kind": "lesson",
+    "text": "Keep the heart clean"
+  },
+  {
+    "kind": "question",
+    "text": "What piece of flesh did the Prophet ﷺ mean?"
+  },
+  {
+    "kind": "question",
+    "text": "The eye"
+  },
+  {
+    "kind": "question",
+    "text": "The hand"
+  },
+  {
+    "kind": "question",
+    "text": "What protects one's religion, per An-Nu'man's hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Staying silent always"
+  },
+  {
+    "kind": "question",
+    "text": "Avoiding doubtful things"
+  },
+  {
+    "kind": "question",
+    "text": "Arguing a lot"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever saves himself from these suspicious things saves his religion and his honor."
+  },
+  {
+    "kind": "question",
+    "text": "When the heart is spoiled, the whole body is spoiled."
+  },
+  {
+    "kind": "question",
+    "text": "But if it gets spoilt the whole body gets spoilt and that is the heart."
+  },
+  {
+    "kind": "lesson",
+    "text": "Paradise will be brought close, adorned for the people of taqwa."
+  },
+  {
+    "kind": "lesson",
+    "text": "They chose it over this world"
+  },
+  {
+    "kind": "lesson",
+    "text": "False gods cannot help anyone"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:90"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:90"
+  },
+  {
+    "kind": "question",
+    "text": "For whom is Paradise brought near, in 26:90?"
+  },
+  {
+    "kind": "question",
+    "text": "People of taqwa"
+  },
+  {
+    "kind": "question",
+    "text": "And Paradise will be brought near to those who had Taqwa."
+  },
+  {
+    "kind": "question",
+    "text": "How will Paradise look to them?"
+  },
+  {
+    "kind": "question",
+    "text": "Adorned and decorated"
+  },
+  {
+    "kind": "question",
+    "text": "It will be brought close to its people, adorned and decorated for them to behold it."
+  },
+  {
+    "kind": "question",
+    "text": "What did its people do in this world?"
+  },
+  {
+    "kind": "question",
+    "text": "Only wished for it"
+  },
+  {
+    "kind": "question",
+    "text": "Preferred it and strove for it"
+  },
+  {
+    "kind": "question",
+    "text": "Mocked it"
+  },
+  {
+    "kind": "lesson",
+    "text": "The misled will admit their error and wish to return, too late."
+  },
+  {
+    "kind": "lesson",
+    "text": "No intercessor, no close friend"
+  },
+  {
+    "kind": "lesson",
+    "text": "Choose rightly now"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:102"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:102"
+  },
+  {
+    "kind": "question",
+    "text": "What will they admit, in 26:97?"
+  },
+  {
+    "kind": "question",
+    "text": "We were tricked by Prophets"
+  },
+  {
+    "kind": "question",
+    "text": "We were in clear error"
+  },
+  {
+    "kind": "question",
+    "text": "By Allah, we were truly in a manifest error."
+  },
+  {
+    "kind": "question",
+    "text": "What will they wish for, in 26:102?"
+  },
+  {
+    "kind": "question",
+    "text": "A new idol"
+  },
+  {
+    "kind": "question",
+    "text": "A chance to return"
+  },
+  {
+    "kind": "question",
+    "text": "If we only had a chance to return, we shall truly be among the believers!"
+  },
+  {
+    "kind": "question",
+    "text": "Their leaders will be able to save them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Nuh was the first Messenger sent once idol worship began."
+  },
+  {
+    "kind": "lesson",
+    "text": "Denying one denies all"
+  },
+  {
+    "kind": "lesson",
+    "text": "Will you not have taqwa?"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:105"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:105"
+  },
+  {
+    "kind": "question",
+    "text": "Why does 26:105 say they denied the Messengers?"
+  },
+  {
+    "kind": "question",
+    "text": "Many came at once"
+  },
+  {
+    "kind": "question",
+    "text": "It is a mistake"
+  },
+  {
+    "kind": "question",
+    "text": "Nuh had many names"
+  },
+  {
+    "kind": "question",
+    "text": "When was Nuh sent, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "After idol worship began"
+  },
+  {
+    "kind": "question",
+    "text": "Before Adam"
+  },
+  {
+    "kind": "question",
+    "text": "After Musa"
+  },
+  {
+    "kind": "question",
+    "text": "What did Nuh ask his people, in 26:106?"
+  },
+  {
+    "kind": "question",
+    "text": "Will you travel?"
+  },
+  {
+    "kind": "question",
+    "text": "Will you build a ship?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nuh was a trustworthy Messenger who asked no reward from people."
+  },
+  {
+    "kind": "lesson",
+    "text": "He added and removed nothing"
+  },
+  {
+    "kind": "lesson",
+    "text": "His reward is with Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:109"
+  },
+  {
+    "kind": "question",
+    "text": "What did trustworthy mean for Nuh?"
+  },
+  {
+    "kind": "question",
+    "text": "Passing the message exactly"
+  },
+  {
+    "kind": "question",
+    "text": "Keeping money safe"
+  },
+  {
+    "kind": "question",
+    "text": "What payment did Nuh ask, in 26:109?"
+  },
+  {
+    "kind": "question",
+    "text": "Half their crops"
+  },
+  {
+    "kind": "question",
+    "text": "No reward do I ask of you for it; my reward is only from the Lord of all that exists."
+  },
+  {
+    "kind": "question",
+    "text": "Hud later said the very same words to his people."
+  },
+  {
+    "kind": "question",
+    "text": "He said to them, as Nuh had said to his people."
+  },
+  {
+    "kind": "lesson",
+    "text": "Nuh refused to send away poor believers to please the proud."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hearts are for Allah to judge"
+  },
+  {
+    "kind": "lesson",
+    "text": "Noble or common, all are welcome"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:114"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:114"
+  },
+  {
+    "kind": "question",
+    "text": "Why did the leaders refuse Nuh, in 26:111?"
+  },
+  {
+    "kind": "question",
+    "text": "Poor people followed him"
+  },
+  {
+    "kind": "question",
+    "text": "Who judges what is in people's hearts, per Nuh?"
+  },
+  {
+    "kind": "question",
+    "text": "Whatever is in their hearts is for Allah to know."
+  },
+  {
+    "kind": "question",
+    "text": "Which believers did Nuh welcome?"
+  },
+  {
+    "kind": "question",
+    "text": "Noble and common alike"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah saved Nuh and the believers in a ship full of pairs."
+  },
+  {
+    "kind": "lesson",
+    "text": "Nuh called for many years"
+  },
+  {
+    "kind": "lesson",
+    "text": "Judge between me and them"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:119"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:119"
+  },
+  {
+    "kind": "question",
+    "text": "What did his people threaten, in 26:116?"
+  },
+  {
+    "kind": "question",
+    "text": "To stone him"
+  },
+  {
+    "kind": "question",
+    "text": "To exile him to sea"
+  },
+  {
+    "kind": "question",
+    "text": "To fine him"
+  },
+  {
+    "kind": "question",
+    "text": "If you cease not, O Nuh you will surely be among those stoned."
+  },
+  {
+    "kind": "question",
+    "text": "What filled the laden ship, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Cargo and pairs of every species"
+  },
+  {
+    "kind": "question",
+    "text": "One that is filled with cargo and the couples, one pair from every species."
+  },
+  {
+    "kind": "question",
+    "text": "How did Nuh call his people?"
+  },
+  {
+    "kind": "question",
+    "text": "Night and day, secretly and openly"
+  },
+  {
+    "kind": "question",
+    "text": "Calling them to Allah night and day, in secret and openly."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hud was sent to 'Ad, a tall, strong people near Hadramawt."
+  },
+  {
+    "kind": "lesson",
+    "text": "They came after Nuh's people"
+  },
+  {
+    "kind": "lesson",
+    "text": "Blessed with wealth and gardens"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:124"
+  },
+  {
+    "kind": "question",
+    "text": "Sand hills near Hadramawt"
+  },
+  {
+    "kind": "question",
+    "text": "The banks of the Nile"
+  },
+  {
+    "kind": "question",
+    "text": "When did 'Ad live?"
+  },
+  {
+    "kind": "question",
+    "text": "In Madinah's time"
+  },
+  {
+    "kind": "question",
+    "text": "After the people of Nuh"
+  },
+  {
+    "kind": "question",
+    "text": "They lived after the time of Nuh."
+  },
+  {
+    "kind": "question",
+    "text": "Hud was a stranger from another land."
+  },
+  {
+    "kind": "question",
+    "text": "So Allah sent Hud, one of their own, as a Messenger."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hud warned against useless towers built only to show off."
+  },
+  {
+    "kind": "lesson",
+    "text": "They built as if living forever"
+  },
+  {
+    "kind": "lesson",
+    "text": "They were harsh like tyrants"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:128"
+  },
+  {
+    "kind": "question",
+    "text": "Why did 'Ad build their landmarks?"
+  },
+  {
+    "kind": "question",
+    "text": "To shelter the poor"
+  },
+  {
+    "kind": "question",
+    "text": "To pray in them"
+  },
+  {
+    "kind": "question",
+    "text": "To show off their strength"
+  },
+  {
+    "kind": "question",
+    "text": "Not because you need it, but for fun and to show off your strength."
+  },
+  {
+    "kind": "question",
+    "text": "How did they build, in 26:129?"
+  },
+  {
+    "kind": "question",
+    "text": "Only for guests"
+  },
+  {
+    "kind": "question",
+    "text": "As if living forever"
+  },
+  {
+    "kind": "question",
+    "text": "With mud"
+  },
+  {
+    "kind": "question",
+    "text": "Why was it blameworthy?"
+  },
+  {
+    "kind": "question",
+    "text": "It was too cheap"
+  },
+  {
+    "kind": "question",
+    "text": "It wasted time and effort"
+  },
+  {
+    "kind": "question",
+    "text": "It was too small"
+  },
+  {
+    "kind": "question",
+    "text": "It was ugly"
+  },
+  {
+    "kind": "question",
+    "text": "It was a waste of time and exhausted people's bodies for no purpose."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hud reminded them of cattle, children, gardens and springs."
+  },
+  {
+    "kind": "lesson",
+    "text": "Warning with encouragement"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fear a great Day"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:133"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:133"
+  },
+  {
+    "kind": "question",
+    "text": "Which blessings did Hud name, in 26:133-134?"
+  },
+  {
+    "kind": "question",
+    "text": "Ships and ports"
+  },
+  {
+    "kind": "question",
+    "text": "Horses and swords"
+  },
+  {
+    "kind": "question",
+    "text": "Cattle, children, gardens, springs"
+  },
+  {
+    "kind": "question",
+    "text": "He has aided you with cattle and children, and gardens and springs."
+  },
+  {
+    "kind": "question",
+    "text": "How did Hud call his people?"
+  },
+  {
+    "kind": "question",
+    "text": "Only by silence"
+  },
+  {
+    "kind": "question",
+    "text": "With hope and warning"
+  },
+  {
+    "kind": "question",
+    "text": "Only with threats"
+  },
+  {
+    "kind": "question",
+    "text": "So he called them to Allah with words of encouragement and words of warning."
+  },
+  {
+    "kind": "question",
+    "text": "Hud feared the punishment of a great Day for them."
+  },
+  {
+    "kind": "question",
+    "text": "Verily, I fear for you the torment of a Great Day."
+  },
+  {
+    "kind": "lesson",
+    "text": "'Ad ignored Hud, so a fierce wind ended them."
+  },
+  {
+    "kind": "lesson",
+    "text": "They followed their forefathers"
+  },
+  {
+    "kind": "lesson",
+    "text": "Stronger than the strongest"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:139"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:139"
+  },
+  {
+    "kind": "question",
+    "text": "What did 'Ad say to Hud, in 26:136?"
+  },
+  {
+    "kind": "question",
+    "text": "Preaching makes no difference"
+  },
+  {
+    "kind": "question",
+    "text": "Give us time"
+  },
+  {
+    "kind": "question",
+    "text": "It is the same to us whether you preach or be not of those who preach."
+  },
+  {
+    "kind": "question",
+    "text": "How were 'Ad destroyed, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "A strong, furious wind"
+  },
+  {
+    "kind": "question",
+    "text": "Why was a wind suited to them?"
+  },
+  {
+    "kind": "question",
+    "text": "They lived at sea"
+  },
+  {
+    "kind": "question",
+    "text": "It was summer"
+  },
+  {
+    "kind": "question",
+    "text": "It was stronger than their strength"
+  },
+  {
+    "kind": "question",
+    "text": "They loved wind"
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ash-Shu'ara, ayahs 69 to 140!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Salih was sent to Thamud, Arabs of Al-Hijr, after 'Ad."
+  },
+  {
+    "kind": "lesson",
+    "text": "He asked them for no reward"
+  },
+  {
+    "kind": "lesson",
+    "text": "He reminded them of blessings"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:142"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:142"
+  },
+  {
+    "kind": "question",
+    "text": "Yemen's sand hills"
+  },
+  {
+    "kind": "question",
+    "text": "When did Thamud live?"
+  },
+  {
+    "kind": "question",
+    "text": "After Isa"
+  },
+  {
+    "kind": "question",
+    "text": "After 'Ad, before Ibrahim"
+  },
+  {
+    "kind": "question",
+    "text": "Before Nuh"
+  },
+  {
+    "kind": "question",
+    "text": "Thamud came after 'Ad and before Ibrahim, peace be upon him."
+  },
+  {
+    "kind": "question",
+    "text": "Salih asked his people for no reward."
+  },
+  {
+    "kind": "question",
+    "text": "He told them that he did not seek any reward from them for his call to them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Thamud carved fine houses in mountains, with gardens and palms."
+  },
+  {
+    "kind": "lesson",
+    "text": "Will you be left safe forever?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Built for show, not need"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:149"
+  },
+  {
+    "kind": "question",
+    "text": "Where did Thamud build houses, in 26:149?"
+  },
+  {
+    "kind": "question",
+    "text": "On boats"
+  },
+  {
+    "kind": "question",
+    "text": "And you hew out in the mountains, houses with great skill."
+  },
+  {
+    "kind": "question",
+    "text": "What were they skilled in, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Shipbuilding"
+  },
+  {
+    "kind": "question",
+    "text": "Weaving silk"
+  },
+  {
+    "kind": "question",
+    "text": "Horse racing"
+  },
+  {
+    "kind": "question",
+    "text": "Stone-carving"
+  },
+  {
+    "kind": "question",
+    "text": "They were highly skilled in the arts of masonry and stone-carving."
+  },
+  {
+    "kind": "question",
+    "text": "What were their dates like, in 26:148?"
+  },
+  {
+    "kind": "question",
+    "text": "Very few"
+  },
+  {
+    "kind": "question",
+    "text": "Soft and ripe"
+  },
+  {
+    "kind": "question",
+    "text": "Dry and hard"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas said: when it becomes ripe and soft."
+  },
+  {
+    "kind": "lesson",
+    "text": "Salih warned: do not follow leaders who spread mischief."
+  },
+  {
+    "kind": "lesson",
+    "text": "The extravagant cause corruption"
+  },
+  {
+    "kind": "lesson",
+    "text": "They never set things right"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:151"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:151"
+  },
+  {
+    "kind": "question",
+    "text": "Who are the extravagant, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Their chiefs and leaders"
+  },
+  {
+    "kind": "question",
+    "text": "What do the extravagant do, in 26:152?"
+  },
+  {
+    "kind": "question",
+    "text": "Guard the land"
+  },
+  {
+    "kind": "question",
+    "text": "Make mischief, not reform"
+  },
+  {
+    "kind": "question",
+    "text": "Build schools"
+  },
+  {
+    "kind": "question",
+    "text": "Who make mischief in the land, and reform not."
+  },
+  {
+    "kind": "question",
+    "text": "Salih told them to obey their chiefs over Allah."
+  },
+  {
+    "kind": "question",
+    "text": "And follow not the command of the extravagant."
+  },
+  {
+    "kind": "lesson",
+    "text": "Thamud asked for a sign; a she-camel came out of a rock."
+  },
+  {
+    "kind": "lesson",
+    "text": "Water shared day by day"
+  },
+  {
+    "kind": "lesson",
+    "text": "Some believed, most did not"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:155"
+  },
+  {
+    "kind": "question",
+    "text": "Where did the she-camel come from?"
+  },
+  {
+    "kind": "question",
+    "text": "A rock that split open"
+  },
+  {
+    "kind": "question",
+    "text": "Then the rock to which they had pointed split open, revealing a she-camel."
+  },
+  {
+    "kind": "question",
+    "text": "How was the water shared, in 26:155?"
+  },
+  {
+    "kind": "question",
+    "text": "Each on its own day"
+  },
+  {
+    "kind": "question",
+    "text": "She never drank"
+  },
+  {
+    "kind": "question",
+    "text": "She will drink from your water one day, and on the next day you will drink from it."
+  },
+  {
+    "kind": "question",
+    "text": "What did Salih do before the sign came?"
+  },
+  {
+    "kind": "question",
+    "text": "He prayed to Allah"
+  },
+  {
+    "kind": "question",
+    "text": "He hit the rock"
+  },
+  {
+    "kind": "question",
+    "text": "Salih stood and prayed, then he prayed to Allah to grant them their request."
+  },
+  {
+    "kind": "lesson",
+    "text": "They harmed the she-camel against the warning, then felt regret."
+  },
+  {
+    "kind": "lesson",
+    "text": "Her milk fed them all"
+  },
+  {
+    "kind": "lesson",
+    "text": "Regret came too late"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:157"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:157"
+  },
+  {
+    "kind": "question",
+    "text": "What did the she-camel give them?"
+  },
+  {
+    "kind": "question",
+    "text": "Wool only"
+  },
+  {
+    "kind": "question",
+    "text": "Milk for everyone"
+  },
+  {
+    "kind": "question",
+    "text": "What did Salih warn them, in 26:156?"
+  },
+  {
+    "kind": "question",
+    "text": "Ride her"
+  },
+  {
+    "kind": "question",
+    "text": "Hide her"
+  },
+  {
+    "kind": "question",
+    "text": "And touch her not with harm, lest the torment of a Great Day should seize you."
+  },
+  {
+    "kind": "question",
+    "text": "They became regretful after harming her."
+  },
+  {
+    "kind": "question",
+    "text": "But they killed her, and then they became regretful."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah saved Lut, Ibrahim's nephew, and his family."
+  },
+  {
+    "kind": "lesson",
+    "text": "They lived in Sadum"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:160"
+  },
+  {
+    "kind": "question",
+    "text": "What did his people threaten, in 26:167?"
+  },
+  {
+    "kind": "question",
+    "text": "To drive him out"
+  },
+  {
+    "kind": "question",
+    "text": "If you cease not, O Lut, verily, you will be one of those who are driven out!"
+  },
+  {
+    "kind": "question",
+    "text": "Who was not saved with Lut's family?"
+  },
+  {
+    "kind": "question",
+    "text": "His guests"
+  },
+  {
+    "kind": "question",
+    "text": "This was his wife."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ash-Shu'ara, ayahs 141-227?"
+  },
+  {
+    "kind": "lesson",
+    "text": "The people of Al-Aykah were the people of Madyan, sent Shu'ayb."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Aykah was a worshipped tree"
+  },
+  {
+    "kind": "lesson",
+    "text": "One nation, two names"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:176"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:176"
+  },
+  {
+    "kind": "question",
+    "text": "Who were the people of Al-Aykah?"
+  },
+  {
+    "kind": "question",
+    "text": "The people of Madyan"
+  },
+  {
+    "kind": "question",
+    "text": "The companions of Al-Aykah were the people of Madyan, according to the most correct view."
+  },
+  {
+    "kind": "question",
+    "text": "What was Al-Aykah?"
+  },
+  {
+    "kind": "question",
+    "text": "A tree they worshipped"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Aykah, which was a tree which they used to worship."
+  },
+  {
+    "kind": "question",
+    "text": "Why is Shu'ayb not called their brother, in 26:177?"
+  },
+  {
+    "kind": "question",
+    "text": "He had no family"
+  },
+  {
+    "kind": "question",
+    "text": "The name honored their idol"
+  },
+  {
+    "kind": "question",
+    "text": "Because they called themselves by a name denoting their deification of Al-Aykah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shu'ayb said: weigh fairly; give as you take."
+  },
+  {
+    "kind": "lesson",
+    "text": "Use a true balance"
+  },
+  {
+    "kind": "lesson",
+    "text": "Do not cheat people"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:181"
+  },
+  {
+    "kind": "question",
+    "text": "What is the rule of fair trade, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Give as you take"
+  },
+  {
+    "kind": "question",
+    "text": "Take more than you give"
+  },
+  {
+    "kind": "question",
+    "text": "Only buy"
+  },
+  {
+    "kind": "question",
+    "text": "Give as you take, and take as you give."
+  },
+  {
+    "kind": "question",
+    "text": "What must the balance be, in 26:182?"
+  },
+  {
+    "kind": "question",
+    "text": "True and straight"
+  },
+  {
+    "kind": "question",
+    "text": "Heavy"
+  },
+  {
+    "kind": "question",
+    "text": "Golden"
+  },
+  {
+    "kind": "question",
+    "text": "And weigh with the true and straight balance."
+  },
+  {
+    "kind": "question",
+    "text": "Giving short measure is fine if no one notices."
+  },
+  {
+    "kind": "question",
+    "text": "And defraud not people by reducing their things."
+  },
+  {
+    "kind": "lesson",
+    "text": "They dared Shu'ayb to drop the sky; a shading cloud ended them."
+  },
+  {
+    "kind": "lesson",
+    "text": "My Lord knows best what you do"
+  },
+  {
+    "kind": "lesson",
+    "text": "They got what they asked for"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:189"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:189"
+  },
+  {
+    "kind": "question",
+    "text": "What did they dare Shu'ayb to do, in 26:187?"
+  },
+  {
+    "kind": "question",
+    "text": "Find gold"
+  },
+  {
+    "kind": "question",
+    "text": "Make the sky fall on them"
+  },
+  {
+    "kind": "question",
+    "text": "So, cause a piece of the heaven to fall on us, if you are of the truthful!"
+  },
+  {
+    "kind": "question",
+    "text": "What was Shu'ayb's answer, in 26:188?"
+  },
+  {
+    "kind": "question",
+    "text": "I will do it now"
+  },
+  {
+    "kind": "question",
+    "text": "I cannot hear you"
+  },
+  {
+    "kind": "question",
+    "text": "Pay me first"
+  },
+  {
+    "kind": "question",
+    "text": "He said: My Lord is the Best Knower of what you do."
+  },
+  {
+    "kind": "question",
+    "text": "Why did a cloud fit their punishment?"
+  },
+  {
+    "kind": "question",
+    "text": "They asked for the sky to fall"
+  },
+  {
+    "kind": "question",
+    "text": "They loved clouds"
+  },
+  {
+    "kind": "question",
+    "text": "This is what they asked for, when they asked for a part of the heaven to fall upon them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jibril, the trustworthy Ruh, brought the Quran down."
+  },
+  {
+    "kind": "lesson",
+    "text": "From the Lord of the worlds"
+  },
+  {
+    "kind": "lesson",
+    "text": "Nothing added or removed"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:193"
+  },
+  {
+    "kind": "question",
+    "text": "Who is the trustworthy Ruh, in 26:193?"
+  },
+  {
+    "kind": "question",
+    "text": "This refers to Jibril, peace be upon him."
+  },
+  {
+    "kind": "question",
+    "text": "Where was it brought down, in 26:194?"
+  },
+  {
+    "kind": "question",
+    "text": "Upon his heart"
+  },
+  {
+    "kind": "question",
+    "text": "On a stone"
+  },
+  {
+    "kind": "question",
+    "text": "Into a book"
+  },
+  {
+    "kind": "question",
+    "text": "Upon your heart that you may be (one) of the warners."
+  },
+  {
+    "kind": "question",
+    "text": "Scholars do not dispute that the Ruh is Jibril."
+  },
+  {
+    "kind": "question",
+    "text": "This is an issue concerning which there is no dispute."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran came in clear, eloquent Arabic, leaving no excuse."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mentioned in earlier Books"
+  },
+  {
+    "kind": "lesson",
+    "text": "Scholars of Israel knew it"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:195"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:195"
+  },
+  {
+    "kind": "question",
+    "text": "In which language was the Quran revealed, in 26:195?"
+  },
+  {
+    "kind": "question",
+    "text": "Plain Arabic"
+  },
+  {
+    "kind": "question",
+    "text": "Why clear Arabic, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "To rhyme"
+  },
+  {
+    "kind": "question",
+    "text": "To leave no excuse"
+  },
+  {
+    "kind": "question",
+    "text": "To be short"
+  },
+  {
+    "kind": "question",
+    "text": "To be secret"
+  },
+  {
+    "kind": "question",
+    "text": "So that it may be quite clear, leaving no room for excuses and establishing clear proof."
+  },
+  {
+    "kind": "question",
+    "text": "Who recognized it from their Books, in 26:197?"
+  },
+  {
+    "kind": "question",
+    "text": "Scholars of the Children of Israel"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah never punished a town before sending it a warner."
+  },
+  {
+    "kind": "lesson",
+    "text": "Comfort does not save anyone"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:208"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:208"
+  },
+  {
+    "kind": "question",
+    "text": "What comes before any town is punished, in 26:208?"
+  },
+  {
+    "kind": "question",
+    "text": "And never did We destroy a township but it had its warners."
+  },
+  {
+    "kind": "question",
+    "text": "What does this show about Allah, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "His anger only"
+  },
+  {
+    "kind": "question",
+    "text": "His hurry"
+  },
+  {
+    "kind": "question",
+    "text": "His distance"
+  },
+  {
+    "kind": "question",
+    "text": "His justice"
+  },
+  {
+    "kind": "question",
+    "text": "Allah tells us of His justice towards His creation."
+  },
+  {
+    "kind": "question",
+    "text": "Will years of enjoyment help deniers, in 26:207?"
+  },
+  {
+    "kind": "question",
+    "text": "No, it will not avail them"
+  },
+  {
+    "kind": "question",
+    "text": "All that with which they used to enjoy shall not avail them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Devils could never bring the Quran: it does not suit them."
+  },
+  {
+    "kind": "lesson",
+    "text": "They are unable to"
+  },
+  {
+    "kind": "lesson",
+    "text": "They are kept from hearing"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:211"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:211"
+  },
+  {
+    "kind": "question",
+    "text": "How many reasons does Ibn Kathir give?"
+  },
+  {
+    "kind": "question",
+    "text": "It could not be the case for three reasons that the Shayatin brought it down."
+  },
+  {
+    "kind": "question",
+    "text": "Why would the Quran not suit devils?"
+  },
+  {
+    "kind": "question",
+    "text": "It is too short"
+  },
+  {
+    "kind": "question",
+    "text": "It is in Arabic"
+  },
+  {
+    "kind": "question",
+    "text": "It is old"
+  },
+  {
+    "kind": "question",
+    "text": "It commands good"
+  },
+  {
+    "kind": "question",
+    "text": "Devils were kept from hearing it, in 26:212."
+  },
+  {
+    "kind": "question",
+    "text": "Verily, they have been removed far from hearing it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Told to warn his family, the Prophet ﷺ called from As-Safa."
+  },
+  {
+    "kind": "lesson",
+    "text": "They trusted his truthfulness"
+  },
+  {
+    "kind": "lesson",
+    "text": "He warned them of the Hereafter"
+  },
+  {
+    "kind": "question",
+    "text": "Where did the Prophet ﷺ call his people from?"
+  },
+  {
+    "kind": "question",
+    "text": "As-Safa"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ ascended the Safa (mountain) and started calling."
+  },
+  {
+    "kind": "question",
+    "text": "Why did Quraysh say they would believe him?"
+  },
+  {
+    "kind": "question",
+    "text": "He always told the truth"
+  },
+  {
+    "kind": "question",
+    "text": "They said: Yes, for we have not found you telling anything other than the truth."
+  },
+  {
+    "kind": "question",
+    "text": "Who does 26:214 tell him to warn first?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the Jinn"
+  },
+  {
+    "kind": "question",
+    "text": "His near kindred"
+  },
+  {
+    "kind": "question",
+    "text": "And warn your tribe of near kindred."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ told even Fatima: your own deeds must save you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Family ties do not replace faith"
+  },
+  {
+    "kind": "lesson",
+    "text": "Each must work for himself"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4771"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ tell Fatima?"
+  },
+  {
+    "kind": "question",
+    "text": "You are safe anyway"
+  },
+  {
+    "kind": "question",
+    "text": "Only pray at night"
+  },
+  {
+    "kind": "question",
+    "text": "Ask what you wish from my property, but I cannot save you from Allah."
+  },
+  {
+    "kind": "question",
+    "text": "What could Fatima ask him for?"
+  },
+  {
+    "kind": "question",
+    "text": "Paradise for free"
+  },
+  {
+    "kind": "question",
+    "text": "O Fatima, the daughter of Muhammad!"
+  },
+  {
+    "kind": "question",
+    "text": "Being related to a Prophet is enough to be saved."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah told the Prophet ﷺ to be humble and kind to believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Trust the Mighty, the Merciful"
+  },
+  {
+    "kind": "lesson",
+    "text": "He is your Helper"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:215"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:215"
+  },
+  {
+    "kind": "question",
+    "text": "How should he treat the believers, in 26:215?"
+  },
+  {
+    "kind": "question",
+    "text": "Kind and humble"
+  },
+  {
+    "kind": "question",
+    "text": "Strict and cold"
+  },
+  {
+    "kind": "question",
+    "text": "And be kind and humble to the believers who follow you."
+  },
+  {
+    "kind": "question",
+    "text": "Whom should he trust, in 26:217?"
+  },
+  {
+    "kind": "question",
+    "text": "The All-Mighty, Most Merciful"
+  },
+  {
+    "kind": "question",
+    "text": "And put your trust in the All-Mighty, the Most Merciful."
+  },
+  {
+    "kind": "question",
+    "text": "What is Allah to him, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Helper and Protector"
+  },
+  {
+    "kind": "question",
+    "text": "For He is your Helper, Protector and Supporter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah sees you stand in prayer, alone or in a group."
+  },
+  {
+    "kind": "lesson",
+    "text": "He sees every bow and sujud"
+  },
+  {
+    "kind": "lesson",
+    "text": "All-Hearing, All-Knowing"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:218"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:218"
+  },
+  {
+    "kind": "question",
+    "text": "What does standing up mean, per Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "Standing to fight"
+  },
+  {
+    "kind": "question",
+    "text": "Standing to pray"
+  },
+  {
+    "kind": "question",
+    "text": "Standing to trade"
+  },
+  {
+    "kind": "question",
+    "text": "Waking up only"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas said that the Ayah, Who sees you when you stand up, means: To pray."
+  },
+  {
+    "kind": "question",
+    "text": "When does Allah see you pray, per Qatadah?"
+  },
+  {
+    "kind": "question",
+    "text": "Alone and in congregation"
+  },
+  {
+    "kind": "question",
+    "text": "Which names end this passage, in 26:220?"
+  },
+  {
+    "kind": "question",
+    "text": "Creator, Shaper"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, He, only He, is the All-Hearer, the All-Knower."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fortune-tellers mix one stolen word with a hundred lies."
+  },
+  {
+    "kind": "lesson",
+    "text": "Devils come to liars"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:222"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 5762"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Prophet ﷺ say about fortune-tellers?"
+  },
+  {
+    "kind": "question",
+    "text": "Ask them often"
+  },
+  {
+    "kind": "question",
+    "text": "They are nothing"
+  },
+  {
+    "kind": "question",
+    "text": "They are Prophets"
+  },
+  {
+    "kind": "question",
+    "text": "Some people asked Allah's Messenger ﷺ about the fore-tellers."
+  },
+  {
+    "kind": "question",
+    "text": "How many lies are mixed with one true word?"
+  },
+  {
+    "kind": "question",
+    "text": "The foreteller then mixes with that word one hundred lies."
+  },
+  {
+    "kind": "question",
+    "text": "On whom do the devils descend, in 26:222?"
+  },
+  {
+    "kind": "question",
+    "text": "Every sinful liar"
+  },
+  {
+    "kind": "question",
+    "text": "They descend on every lying, sinful person."
+  },
+  {
+    "kind": "lesson",
+    "text": "Poets say what they do not do; the Prophet ﷺ was no poet."
+  },
+  {
+    "kind": "lesson",
+    "text": "The astray follow them"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran is not poetry"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:226"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:226"
+  },
+  {
+    "kind": "question",
+    "text": "What do such poets do, in 26:226?"
+  },
+  {
+    "kind": "question",
+    "text": "Say what they do not do"
+  },
+  {
+    "kind": "question",
+    "text": "Always tell the truth"
+  },
+  {
+    "kind": "question",
+    "text": "Teach Quran"
+  },
+  {
+    "kind": "question",
+    "text": "And that they say what they do not do."
+  },
+  {
+    "kind": "question",
+    "text": "How did Ibn Abbas explain 26:225?"
+  },
+  {
+    "kind": "question",
+    "text": "They indulge in nonsense"
+  },
+  {
+    "kind": "question",
+    "text": "They pray much"
+  },
+  {
+    "kind": "question",
+    "text": "They farm"
+  },
+  {
+    "kind": "question",
+    "text": "They travel"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas said: They indulge in every kind of nonsense."
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ was a poet."
+  },
+  {
+    "kind": "question",
+    "text": "The Messenger ﷺ to whom this Qur'an was revealed, was not a soothsayer or a poet."
+  },
+  {
+    "kind": "lesson",
+    "text": "Believing poets who do good and remember Allah are excepted."
+  },
+  {
+    "kind": "lesson",
+    "text": "Good deeds wipe out bad"
+  },
+  {
+    "kind": "lesson",
+    "text": "Words can defend the truth"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 26:227"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 26:227"
+  },
+  {
+    "kind": "question",
+    "text": "Which poets are excepted, in 26:227?"
+  },
+  {
+    "kind": "question",
+    "text": "The richest poets"
+  },
+  {
+    "kind": "question",
+    "text": "The oldest poets"
+  },
+  {
+    "kind": "question",
+    "text": "Except those who believe and do righteous deeds, and remember Allah much."
+  },
+  {
+    "kind": "question",
+    "text": "What did repentant poets do, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Left Arabia"
+  },
+  {
+    "kind": "question",
+    "text": "Burned their books"
+  },
+  {
+    "kind": "question",
+    "text": "Praised Islam to make up"
+  },
+  {
+    "kind": "question",
+    "text": "Stopped speaking"
+  },
+  {
+    "kind": "question",
+    "text": "So they praised Islam and its followers in order to make up for their insults."
+  },
+  {
+    "kind": "question",
+    "text": "What rule does Ibn Kathir give about repentant poets?"
+  },
+  {
+    "kind": "question",
+    "text": "Old sins stay forever"
+  },
+  {
+    "kind": "question",
+    "text": "Poems are sins"
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Ash-Shu'ara, ayahs 141-227!"
   },
   {
     "kind": "lesson",
