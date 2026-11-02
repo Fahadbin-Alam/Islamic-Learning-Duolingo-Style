@@ -847,4 +847,506 @@ const TAWBAH_THREE: DeepUnit = {
   ]
 };
 
-export const TAWBAH_UNITS: readonly DeepUnit[] = [TAWBAH_ONE, TAWBAH_TWO, TAWBAH_THREE];
+/** Ayahs 73 to 110: broken promises, small charity, true excuses, the foremost, charity that purifies, Quba. */
+const TAWBAH_FOUR: DeepUnit = {
+  key: "tawbah4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-9",
+  name: "At-Tawbah, ayahs 73 to 110",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "At-Tawbah",
+  lessons: [
+    {
+      slug: "a-broken-promise",
+      title: "A promise to Allah, then broken",
+      line: "Some promised charity if Allah made them rich, then held back.",
+      facts: ["Allah knows their secrets", "Keep promises to Allah"],
+      quote: q9(75),
+      source: ik(75, "Some swore that if Allah enriched them they would give charity and be righteous. When He did, they became stingy and broke their promise, so hypocrisy settled in their hearts.", "they did not fulfill their vows or say the truth with their words"),
+      difficulty: 2,
+      questions: [
+        { q: "What did they promise Allah, in 9:75?", a: "To give charity if made rich", wrong: ["To travel far", "To build a wall", "To fast a month"], why: "If He bestowed on us of His bounty, we will verily give Sadaqah." },
+        { q: "What did they do once Allah gave them wealth?", a: "They became stingy", wrong: ["They gave it all", "They moved away", "They built a masjid"], why: "When He gave them of His bounty, they became stingy." },
+        { q: "9:78 says Allah knows their secret talk.", tf: true, why: "Allah knows their secret ideas, and their Najwa." }
+      ]
+    },
+    {
+      slug: "signs-of-a-hypocrite",
+      title: "Three signs of a hypocrite",
+      line: "A hypocrite lies, breaks promises and betrays trusts.",
+      facts: ["Lying when speaking", "Breaking promises"],
+      quote: q9(77),
+      source: hadith("bukhari", "33", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said the signs of a hypocrite are three: when he speaks he lies, when he promises he breaks it, and when trusted he betrays.", "The signs of a hypocrite are three"),
+      difficulty: 2,
+      questions: [
+        { q: "How many signs of a hypocrite are in the hadith?", a: "Three", wrong: ["One", "Five", "Ten"], why: "The signs of a hypocrite are three." },
+        { q: "Which is NOT one of the three signs?", a: "Praying at night", wrong: ["Lying", "Breaking promises", "Betraying trusts"], why: "He lies, he breaks his promise, he betrays the trust." },
+        { q: "Keeping promises protects a Muslim from hypocrisy.", tf: true, why: "Whenever he promises, he always breaks it, is a sign of hypocrisy." }
+      ]
+    },
+    {
+      slug: "small-charity",
+      title: "Half a measure of dates",
+      line: "Allah values a small gift given sincerely; mocking it is wrong.",
+      facts: ["They mocked big and small gifts", "Allah sees the effort"],
+      quote: q9(79),
+      source: hadith("bukhari", "4668", "Abu Mas'ud", "Sahih", "When charity was urged, the Companions worked as porters to earn something to give. Abu Aqil brought half a sa', and the hypocrites mocked him; then 9:79 was revealed.", "came with one half of a Sa"),
+      difficulty: 2,
+      questions: [
+        { q: "How did they earn something to give, per Abu Mas'ud?", a: "They worked as porters", wrong: ["They sold their homes", "They borrowed it", "They found treasure"], why: "We began to work as porters to earn something we could give." },
+        { q: "What did the mockers say about the small gift?", a: "Allah does not need it", wrong: ["It is too much", "It is stolen", "It came late"], why: "Allah is not in need of the alms of this man." },
+        { q: "A small gift from little means is precious to Allah.", tf: true, why: "Those who could not find to give except what is available to them." }
+      ]
+    },
+    {
+      slug: "hotter-than-summer",
+      title: "Hotter than the summer heat",
+      line: "They said: do not go in the heat. Hellfire is far hotter.",
+      facts: ["They rejoiced at staying back", "Laugh little, cry much"],
+      quote: q9(81),
+      source: ik(81, "Those who stayed behind from Tabuk were glad and told others not to go out in the heat. Allah replied that the fire of Hell is far hotter, if only they understood.", "The fire of Hell is more intense in heat"),
+      difficulty: 3,
+      questions: [
+        { q: "What excuse did they give, in 9:81?", a: "Do not go out in the heat", wrong: ["It is too cold", "It is too dark", "It is too wet"], why: "And they said: March not forth in the heat." },
+        { q: "What was the reply, in 9:81?", a: "Hellfire is hotter", wrong: ["Rest at home", "Wait for winter", "Go at night"], why: "Say: The fire of Hell is more intense in heat." },
+        { q: "9:82 says they will laugh a little and cry much.", tf: true, why: "So let them laugh a little and cry much." }
+      ]
+    },
+    {
+      slug: "laugh-little",
+      title: "If you knew what I know",
+      line: "Knowing what lies ahead would make us laugh little, weep much.",
+      facts: ["The unseen is serious", "Live with awareness"],
+      quote: q9(82),
+      source: hadith("bukhari", "6485", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said: if you knew what I know, you would laugh little and weep much.", "you would laugh little and weep much"),
+      difficulty: 3,
+      questions: [
+        { q: "What would we do if we knew what he ﷺ knew?", a: "Laugh little, weep much", wrong: ["Laugh much", "Sleep more", "Eat more"], why: "You would laugh little and weep much." },
+        { q: "Which ayah carries the same words of laughing and crying?", a: "9:82", wrong: ["1:5", "2:255", "112:1"], why: "So let them laugh a little and cry much." },
+        { q: "The hadith teaches taking the Hereafter seriously.", tf: true, why: "If you knew that which I know." }
+      ]
+    },
+    {
+      slug: "true-believers-strive",
+      title: "They gave their best",
+      line: "The Messenger ﷺ and the believers strove with wealth and lives.",
+      facts: ["For them are the good things", "They are the successful"],
+      quote: q9(88),
+      source: ik(88, "After describing the hypocrites, Allah praised the faithful believers who strove with the Messenger ﷺ, and described their reward: good things and Gardens forever.", "This describes the qualities, as well as, the reward of faithful believers"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom does 9:88 praise?", a: "The Messenger ﷺ and the believers", wrong: ["Those who stayed", "The rich who asked leave", "The bedouins who lied"], why: "But the Messenger ﷺ and those who believed with him strove hard." },
+        { q: "What has Allah prepared for them, in 9:89?", a: "Gardens with rivers", wrong: ["Gold coins", "Big houses on earth", "Long lives"], why: "For them Allah has prepared Gardens under which rivers flow." },
+        { q: "9:89 calls it the supreme success.", tf: true, why: "That is the supreme success." }
+      ]
+    },
+    {
+      slug: "no-blame-on-the-weak",
+      title: "No blame on the weak",
+      line: "The weak, the sick and the poor carry no blame if sincere.",
+      facts: ["Sincere to Allah", "No complaint against good-doers"],
+      quote: q9(91),
+      source: ik(91, "Allah names real excuses: lasting weakness like blindness or limping, illness, or poverty. There is no sin on them if they stay sincere and do not discourage others.", "He first mentions the excuses that remain with a person"),
+      difficulty: 3,
+      questions: [
+        { q: "Who has no blame for staying back, in 9:91?", a: "The weak, ill and poor", wrong: ["The rich who asked", "The busy traders", "The lazy"], why: "There is no blame on those who are weak or ill or who find no resources." },
+        { q: "What condition does 9:91 give them?", a: "Being sincere to Allah", wrong: ["Paying a fine", "Leaving town", "Staying silent"], why: "If they are sincere and true to Allah and His Messenger." },
+        { q: "Islam asks no one more than they can bear.", tf: true, why: "No means of complaint can there be against the doers of good." }
+      ]
+    },
+    {
+      slug: "tears-of-the-sincere",
+      title: "They left in tears",
+      line: "With no mount to ride, they turned back weeping with grief.",
+      facts: ["No mounts were left", "Their eyes overflowed"],
+      quote: q9(92),
+      source: ik(92, "Some came asking for a mount to ride. When none was left, they turned away with eyes overflowing with tears, sad they had nothing to spend.", "with their eyes overflowing with tears of grief"),
+      difficulty: 4,
+      questions: [
+        { q: "Why did they come to the Prophet ﷺ, in 9:92?", a: "To ask for mounts", wrong: ["To ask for money", "To ask to stay", "To ask for food"], why: "Those who came to you to be provided with mounts." },
+        { q: "How did they leave, in 9:92?", a: "Weeping with grief", wrong: ["Laughing", "Angry", "Running"], why: "With their eyes overflowing with tears of grief." },
+        { q: "Their sadness showed how sincere they were.", tf: true, why: "Tears of grief that they could not find anything to spend." }
+      ]
+    },
+    {
+      slug: "with-you-by-intention",
+      title: "With you in reward",
+      line: "Those held back by a real excuse share the reward.",
+      facts: ["They crossed no valley", "Yet they were with you"],
+      quote: q9(92),
+      source: hadith("bukhari", "4423", "Anas ibn Malik", "Sahih", "Returning from Tabuk, the Prophet ﷺ said some people in Madinah were with them on every step and valley, because a genuine excuse kept them back.", "they were stopped by a genuine excuse"),
+      difficulty: 4,
+      questions: [
+        { q: "Why were some in Madinah counted as with them?", a: "A real excuse stopped them", wrong: ["They sent money", "They wrote letters", "They prayed longer"], why: "Because they were stopped by a genuine excuse." },
+        { q: "When did the Prophet ﷺ say this, per Anas?", a: "Returning from Tabuk", wrong: ["Before Badr", "At Hunayn", "During Hajj"], why: "Allah's Messenger returned from the Ghazwa of Tabuk." },
+        { q: "A sincere intention can earn reward without the deed.", tf: true, why: "They were with you all the time." }
+      ]
+    },
+    {
+      slug: "spending-for-nearness",
+      title: "Giving to come closer",
+      line: "Some bedouins gave to come closer to Allah.",
+      facts: ["Charity as nearness", "And the Prophet's ﷺ du'a"],
+      quote: q9(99),
+      source: ik(99, "Among the bedouins are believers who see what they spend as a way to come near to Allah and to receive the Messenger's ﷺ prayers. Allah will admit them to His mercy.", "means of nearness to Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "How did the believing bedouins see their spending, in 9:99?", a: "A way to come near Allah", wrong: ["A heavy fine", "A waste", "A tax"], why: "Look upon what they spend as means of nearness to Allah." },
+        { q: "How did the hypocrite bedouins see it, in 9:98?", a: "As a fine", wrong: ["As a gift", "As worship", "As a joy"], why: "Some look upon what they spend as a fine." },
+        { q: "9:99 says Allah will admit them to His mercy.", tf: true, why: "Allah will admit them to His mercy." }
+      ]
+    },
+    {
+      slug: "the-foremost",
+      title: "The foremost of the believers",
+      line: "Allah is pleased with the first Muhajirun and Ansar.",
+      facts: ["And those who followed well", "They are pleased with Him"],
+      quote: q9(100),
+      source: ik(100, "Allah is pleased with the foremost of the Muhajirun and Ansar and those who followed them in good. Some scholars said they are those who prayed towards both qiblahs.", "those who performed the prayer towards the two Qiblahs"),
+      difficulty: 4,
+      questions: [
+        { q: "With whom is Allah pleased, in 9:100?", a: "The foremost Muhajirun and Ansar", wrong: ["Only kings", "Only the rich", "Only the old"], why: "The foremost of the Muhajirin and the Ansar." },
+        { q: "Who are the foremost, per some scholars?", a: "Those who prayed to both qiblahs", wrong: ["Those born in Makkah", "Those who were rich", "Those who were tall"], why: "Those who performed the prayer towards the two Qiblahs." },
+        { q: "Those who follow them in good share in Allah's pleasure.", tf: true, why: "And also those who followed them exactly in faith." }
+      ]
+    },
+    {
+      slug: "mixed-deeds",
+      title: "Good and bad deeds mixed",
+      line: "Those who admit their sins can hope for Allah's forgiveness.",
+      facts: ["They admitted their error", "Allah is Most Merciful"],
+      quote: q9(102),
+      source: ik(102, "Some believers stayed behind out of laziness. They admitted their error to themselves and their Lord. They had good deeds and this bad deed, and Allah forgave them.", "These people admitted their error to themselves and their Lord"),
+      difficulty: 4,
+      questions: [
+        { q: "What did these believers do, in 9:102?", a: "They admitted their sins", wrong: ["They hid them", "They blamed others", "They boasted"], why: "Others who have acknowledged their sins." },
+        { q: "What had they mixed, in 9:102?", a: "A good deed with a bad one", wrong: ["Water with milk", "Gold with silver", "Truth with lies"], why: "They have mixed a deed that was righteous with another that was evil." },
+        { q: "Admitting a sin opens the way to Allah's mercy.", tf: true, why: "Perhaps Allah will turn unto them in forgiveness." }
+      ]
+    },
+    {
+      slug: "charity-purifies",
+      title: "Charity that purifies",
+      line: "Charity cleans the giver, and the Prophet ﷺ prayed for givers.",
+      facts: ["Purify and grow", "His prayer brings calm"],
+      quote: q9(103),
+      source: ik(103, "Allah told His Messenger to take charity from their wealth to purify them, and to pray for them, for his prayer is a calm and a mercy for them.", "to purify and sanctify them with it"),
+      difficulty: 5,
+      questions: [
+        { q: "What does charity do to the giver, in 9:103?", a: "Purifies them", wrong: ["Makes them poor", "Makes them famous", "Makes them tired"], why: "Take Sadaqah from their wealth in order to purify them." },
+        { q: "What does sakan mean, per Ibn Abbas?", a: "A mercy for them", wrong: ["A house", "A fine", "A long road"], why: "Your Salat are a Sakan for them: a mercy for them." },
+        { q: "The Prophet ﷺ was told to pray for those who give.", tf: true, why: "And Salli for them: supplicate for them." }
+      ]
+    },
+    {
+      slug: "dua-for-the-giver",
+      title: "A du'a for the giver",
+      line: "The Prophet ﷺ made du'a for each person who brought charity.",
+      facts: ["O Allah, bless them", "Thank the giver"],
+      quote: q9(103),
+      source: hadith("bukhari", "1497", "Abdullah ibn Abi Awfa", "Sahih", "Whenever someone brought charity, the Prophet ﷺ said: O Allah, send Your blessings on so-and-so. When Abdullah's father brought his, he prayed for the family of Abu Awfa.", "Send your blessings upon the offspring of Abu Aufa"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ say when charity came?", a: "O Allah, bless them", wrong: ["Put it there", "Is that all?", "Come back later"], why: "O Allah! Send your Blessings upon so and so." },
+        { q: "Whose family did he pray for, in the hadith?", a: "The family of Abu Awfa", wrong: ["The family of Pharaoh", "The family of Qarun", "No one"], why: "Send your blessings upon the offspring of Abu Aufa." },
+        { q: "Praying for those who give is a Sunnah.", tf: true, why: "Whenever a person came with his alms, he would say: O Allah, send your blessings." }
+      ]
+    },
+    {
+      slug: "a-date-like-a-mountain",
+      title: "A date that grows like a mountain",
+      line: "Allah accepts pure charity and grows it like a mountain.",
+      facts: ["Only from honest earnings", "Even one date"],
+      quote: q9(104),
+      source: hadith("bukhari", "1410", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said whoever gives even a date from honest earnings, Allah takes it in His right hand and grows it for him until it is as big as a mountain.", "it becomes as big as a mountain"),
+      difficulty: 5,
+      questions: [
+        { q: "How big can one date of charity grow, per the hadith?", a: "As big as a mountain", wrong: ["As big as a tree", "As big as a house", "It stays small"], why: "It becomes as big as a mountain." },
+        { q: "Which charity does Allah accept, per the hadith?", a: "From honest earnings", wrong: ["Any money at all", "Only gold", "Only large gifts"], why: "Allah accepts only the honestly earned money." },
+        { q: "9:104 says Allah accepts repentance and charity.", tf: true, why: "Allah accepts repentance from His servants and accepts the Sadaqat." }
+      ]
+    },
+    {
+      slug: "do-deeds",
+      title: "Do deeds, Allah will see",
+      line: "Work well: Allah, His Messenger and the believers will see.",
+      facts: ["Nothing is hidden", "Then He will tell you"],
+      quote: q9(105),
+      source: ik(105, "Mujahid said 9:105 warns those who disobey: their deeds will be shown to Allah, the Messenger ﷺ and the believers, on the Day when no secret is hidden.", "Their deeds will be shown to Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "Who will see your deeds, in 9:105?", a: "Allah, His Messenger, the believers", wrong: ["No one at all", "Only your family", "Only the angels"], why: "Allah will see your deeds, and so will His Messenger and the believers." },
+        { q: "What will Allah do in the end, in 9:105?", a: "Tell you what you did", wrong: ["Forget it all", "Ask your friends", "Hide it forever"], why: "Then He will inform you of what you used to do." },
+        { q: "9:105 is a call to do good deeds.", tf: true, why: "And say: Do deeds!" }
+      ]
+    },
+    {
+      slug: "masjid-of-taqwa",
+      title: "A masjid built on taqwa",
+      line: "Quba was built on taqwa; a masjid built to harm was rejected.",
+      facts: ["Masjid of harm: Dirar", "Quba: built on piety"],
+      quote: q9(108),
+      source: ik(108, "Hypocrites built a masjid next to Quba to harm and divide the believers. Allah told the Prophet ﷺ never to pray in it, and praised Masjid Quba, built on taqwa from the first day.", "which was built on piety from the first day"),
+      difficulty: 5,
+      questions: [
+        { q: "Which masjid was built on taqwa from the first day, per Ibn Kathir?", a: "Quba", wrong: ["Dirar", "A market hall", "A fort"], why: "Masjid Quba, which was built on piety from the first day." },
+        { q: "Why was Masjid Ad-Dirar built?", a: "To harm and divide believers", wrong: ["To teach children", "To feed the poor", "To house travellers"], why: "By way of harm and disbelief and to disunite the believers." },
+        { q: "The Prophet ﷺ was told never to pray in Masjid Ad-Dirar.", tf: true, why: "Never stand you therein." }
+      ]
+    },
+    {
+      slug: "visiting-quba",
+      title: "Visiting Quba",
+      line: "The Prophet ﷺ visited Quba every Saturday, walking or riding.",
+      facts: ["Men who love purity", "Allah loves the pure"],
+      quote: q9(108),
+      source: hadith("bukhari", "1193", "Abdullah ibn Dinar", "Sahih", "Ibn Umar said the Prophet ﷺ used to go to Masjid Quba every Saturday, sometimes walking and sometimes riding, and Ibn Umar did the same.", "used to go to the Mosque of Quba every Saturday"),
+      difficulty: 5,
+      questions: [
+        { q: "How often did he ﷺ visit Quba, per Ibn Umar?", a: "Every Saturday", wrong: ["Once a year", "Every Ramadan", "Only once"], why: "Used to go to the Mosque of Quba every Saturday." },
+        { q: "How did he ﷺ go there?", a: "Walking or riding", wrong: ["Only by boat", "Only at night", "Only with an army"], why: "Sometimes walking and sometimes riding." },
+        { q: "9:108 says Allah loves those who keep pure.", tf: true, why: "And Allah loves those who make themselves clean and pure." }
+      ]
+    },
+    {
+      slug: "edge-of-a-cliff",
+      title: "Built on the edge of a cliff",
+      line: "Building on taqwa is firm; building on harm crumbles.",
+      facts: ["Taqwa is a firm base", "Harm is a crumbling edge"],
+      quote: q9(109),
+      source: ik(109, "A masjid built on taqwa and Allah's pleasure is not like one built to cause harm. The second is like a building on the edge of a cliff that collapses into the Fire.", "built their Masjid on the edge of a steep hole"),
+      difficulty: 5,
+      questions: [
+        { q: "What is a building on harm like, in 9:109?", a: "On a crumbling cliff edge", wrong: ["On solid rock", "On a mountain top", "On a river"], why: "On the brink of an undetermined precipice ready to crumble down." },
+        { q: "What is the better foundation, in 9:109?", a: "Taqwa and Allah's pleasure", wrong: ["Gold and silver", "Many people", "Tall walls"], why: "He who laid the foundation of his building on Taqwa to Allah and His good pleasure." },
+        { q: "Ibn Kathir says the harmful masjid kept doubt in their hearts.", tf: true, why: "They inherited hypocrisy in their hearts." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 111 to 129: the great bargain, the believers' qualities, Tabuk's hardship, the three forgiven, the Prophet ﷺ. */
+const TAWBAH_FIVE: DeepUnit = {
+  key: "tawbah5",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-9",
+  name: "At-Tawbah, ayahs 111 to 129",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "At-Tawbah",
+  lessons: [
+    {
+      slug: "the-great-bargain",
+      title: "The best trade ever made",
+      line: "Allah bought the believers' lives and wealth for Paradise.",
+      facts: ["A promise in three books", "Rejoice in the deal"],
+      quote: q9(111),
+      source: ik(111, "Allah gives Paradise in return for lives and wealth given in His cause. This shows His generosity: He accepts as a price what He Himself already owns and gave.", "favor, generosity and bounty"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the price Allah gives, in 9:111?", a: "Paradise", wrong: ["Gold", "Fame", "Long life"], why: "For the price that theirs shall be the Paradise." },
+        { q: "Which books carry this promise, in 9:111?", a: "Tawrah, Injil and Quran", wrong: ["Only the Quran", "Only the Tawrah", "Only the Zabur"], why: "A promise in truth in the Tawrah and the Injil and the Qur'an." },
+        { q: "Allah buys what He already owns and gave.", tf: true, why: "He has accepted the good that He already owns and bestowed, as a price." }
+      ]
+    },
+    {
+      slug: "nine-qualities",
+      title: "Qualities of the believers",
+      line: "They repent, worship, praise, fast, bow and prostrate.",
+      facts: ["Command good, forbid evil", "Keep Allah's limits"],
+      quote: q9(112),
+      source: ik(112, "These are the believers Allah bought: they repent from all sins, worship, praise Him, fast, bow, prostrate, command good, forbid evil and keep His limits.", "who repent) from all sins and shun all evils"),
+      difficulty: 2,
+      questions: [
+        { q: "Which quality comes first in 9:112?", a: "Repenting", wrong: ["Fasting", "Bowing", "Praising"], why: "Those who repent, who worship, who praise." },
+        { q: "What does as-sa'ihun mean, per Ibn Kathir?", a: "Those who fast", wrong: ["Those who sleep", "Those who trade", "Those who sing"], why: "As-Sa'ihun: who fast." },
+        { q: "Keeping Allah's limits is among the qualities.", tf: true, why: "And who observe the limits set by Allah." }
+      ]
+    },
+    {
+      slug: "ibrahim-the-humble",
+      title: "Ibrahim, who called on Allah often",
+      line: "Ibrahim was awwah: always calling on Allah, and forbearing.",
+      facts: ["Awwah: calls on Allah often", "Halim: forbearing"],
+      quote: q9(114),
+      source: ik(114, "Ibrahim was awwah and forbearing. Ibn Mas'ud said awwah means one who calls on Allah often; others said humble, merciful or certain in faith.", "he invoked Allah always"),
+      difficulty: 2,
+      questions: [
+        { q: "What does awwah mean, per Ibn Mas'ud?", a: "One who calls on Allah often", wrong: ["One who travels", "One who builds", "One who fights"], why: "He invoked Allah always, according to Abdullah bin Mas'ud." },
+        { q: "Which two qualities of Ibrahim are in 9:114?", a: "Awwah and forbearing", wrong: ["Rich and strong", "Tall and fast", "Silent and alone"], why: "Verily, Ibrahim was Awwah and forbearing." },
+        { q: "Some scholars said awwah also means humble and merciful.", tf: true, why: "Who invokes Allah with humility, merciful." }
+      ]
+    },
+    {
+      slug: "clear-before-judging",
+      title: "Allah makes it clear first",
+      line: "Allah does not let a guided people stray before showing them.",
+      facts: ["The message comes first", "Then come the duties"],
+      quote: q9(115),
+      source: ik(115, "Allah does not lead a guided people astray until He makes clear to them what to avoid. Guidance and misguidance come after commands and prohibitions are made known.", "guidance or misguidance occurs after commands and prohibitions are established"),
+      difficulty: 3,
+      questions: [
+        { q: "What does Allah do before holding a people to account, in 9:115?", a: "Makes clear what to avoid", wrong: ["Punishes at once", "Stays silent", "Sends wealth"], why: "Until He makes clear to them what they should avoid." },
+        { q: "Who owns the heavens and the earth, in 9:116?", a: "Allah", wrong: ["The kings", "The angels", "No one"], why: "To Allah belongs the dominion of the heavens and the earth." },
+        { q: "9:116 says Allah gives life and causes death.", tf: true, why: "He gives life and He causes death." }
+      ]
+    },
+    {
+      slug: "the-hour-of-hardship",
+      title: "The hour of hardship",
+      line: "On the way to Tabuk, two men shared one date.",
+      facts: ["Little rain, great heat", "Allah forgave them"],
+      quote: q9(117),
+      source: ik(117, "Tabuk came in a year of little rain, intense heat and short supplies. Men shared a single date, and Allah forgave the Prophet ﷺ, the Muhajirun and the Ansar who followed him.", "It was a year with little rain, intense heat and scarcity of supplies and water"),
+      difficulty: 3,
+      questions: [
+        { q: "What was the year of Tabuk like, per Mujahid?", a: "Little rain, great heat", wrong: ["Cold and snowy", "Rich and easy", "Rainy and green"], why: "A year with little rain, intense heat and scarcity of supplies and water." },
+        { q: "How hungry were they, per Qatadah?", a: "Two men shared one date", wrong: ["They had feasts", "They ate meat daily", "They never ate"], why: "Two men used to divide a date between themselves." },
+        { q: "9:117 calls it the hour of hardship.", tf: true, why: "Who followed him in the time of distress." }
+      ]
+    },
+    {
+      slug: "never-stronger",
+      title: "Never stronger, yet he stayed",
+      line: "Ka'b had two camels and strength, yet he kept delaying.",
+      facts: ["Delay turned into missing it", "Do good while you can"],
+      quote: q9(118),
+      source: hadith("bukhari", "4418", "Ka'b ibn Malik", "Sahih", "Ka'b ibn Malik said he was never stronger or wealthier than when he stayed behind from Tabuk; he had two she-camels for the first time.", "I had never been stronger or wealthier than I was when I remained behind"),
+      difficulty: 3,
+      questions: [
+        { q: "How was Ka'b when he stayed behind?", a: "Stronger and richer than ever", wrong: ["Very sick", "Very poor", "Very old"], why: "I had never been stronger or wealthier than I was." },
+        { q: "How many she-camels did Ka'b have then?", a: "Two", wrong: ["None", "Ten", "One hundred"], why: "Never had I two she-camels before, but I had then." },
+        { q: "The lesson is not to delay good deeds.", tf: true, why: "He had the means, yet he stayed behind." }
+      ]
+    },
+    {
+      slug: "saved-by-the-truth",
+      title: "Saved by telling the truth",
+      line: "Ka'b told the truth instead of an excuse, and Allah saved him.",
+      facts: ["Fifty nights of waiting", "No lie, only truth"],
+      quote: q9(118),
+      source: ik(118, "Ka'b refused to make a false excuse and told the truth. After fifty hard nights Allah forgave the three. Ka'b said: Allah saved me for telling the truth.", "Allah has saved me for telling the truth"),
+      difficulty: 4,
+      questions: [
+        { q: "Why was Ka'b saved, in his own words?", a: "He told the truth", wrong: ["He was rich", "He hid away", "He had friends"], why: "Allah has saved me for telling the truth." },
+        { q: "How long did the three wait, per Ka'b?", a: "Fifty nights", wrong: ["Three nights", "One year", "Forty years"], why: "We remained in that condition for fifty nights." },
+        { q: "9:118 says the earth felt narrow to them.", tf: true, why: "For them the earth, vast as it is, was straitened." }
+      ]
+    },
+    {
+      slug: "with-the-truthful",
+      title: "Be with the truthful",
+      line: "Fear Allah and stay with those who are truthful.",
+      facts: ["Truth leads to good", "Good leads to Paradise"],
+      quote: q9(119),
+      source: hadith("bukhari", "6094", "Abdullah ibn Masud", "Sahih", "The Prophet ﷺ said truthfulness leads to righteousness and righteousness to Paradise; a man keeps telling the truth until he becomes truthful.", "Truthfulness leads to righteousness, and righteousness leads to Paradise"),
+      difficulty: 4,
+      questions: [
+        { q: "What does 9:119 tell believers to do?", a: "Be with the truthful", wrong: ["Be with the rich", "Be alone", "Be with poets"], why: "Have Taqwa of Allah, and be with those who are true." },
+        { q: "Where does truthfulness lead, per the hadith?", a: "To righteousness", wrong: ["To wealth", "To fame", "To trouble"], why: "Truthfulness leads to righteousness." },
+        { q: "Telling the truth again and again makes a person truthful.", tf: true, why: "A man keeps on telling the truth until he becomes a truthful person." }
+      ]
+    },
+    {
+      slug: "every-step-written",
+      title: "Every step is written",
+      line: "Thirst, tiredness and every step for Allah are written as good.",
+      facts: ["Thirst, tiredness, hunger", "No good is wasted"],
+      quote: q9(120),
+      source: ik(120, "No thirst, tiredness or hunger in Allah's cause, nor any step or valley crossed, but it is written as a good deed. Allah does not waste the reward of those who do good.", "is written to their credit"),
+      difficulty: 4,
+      questions: [
+        { q: "What does Allah write for each hardship in His cause?", a: "A good deed", wrong: ["Nothing", "A warning", "A fine"], why: "But is written to their credit as a deed of righteousness." },
+        { q: "What does zama' mean, per Ibn Kathir?", a: "Thirst", wrong: ["Sleep", "Joy", "Rain"], why: "Zama: thirst." },
+        { q: "Allah wastes the reward of those who do good.", tf: false, why: "Surely, Allah wastes not the reward of the doers of good." }
+      ]
+    },
+    {
+      slug: "learn-the-religion",
+      title: "Some must stay to learn",
+      line: "Not everyone goes out; some must learn the religion and teach.",
+      facts: ["Learn, then warn", "Understanding is a gift"],
+      quote: q9(122),
+      source: hadith("bukhari", "71", "Mu'awiyah", "Sahih", "The Prophet ﷺ said: if Allah wants good for a person, He gives him understanding of the religion. I only distribute; Allah is the One who gives.", "If Allah wants to do good to a person, He makes him comprehend the religion"),
+      difficulty: 4,
+      questions: [
+        { q: "Why should a group stay back, in 9:122?", a: "To learn the religion", wrong: ["To rest", "To trade", "To farm"], why: "That they may get instructions in religion." },
+        { q: "What does Allah give someone He wants good for?", a: "Understanding of the religion", wrong: ["A big house", "Many camels", "Fame"], why: "He makes him comprehend the religion." },
+        { q: "Those who learn should warn their people when they return.", tf: true, why: "And that they may warn their people when they return to them." }
+      ]
+    },
+    {
+      slug: "faith-increases",
+      title: "Faith goes up",
+      line: "Each surah increased the believers in faith, and they rejoiced.",
+      facts: ["Faith can rise and fall", "The Quran is a healing"],
+      quote: q9(124),
+      source: ik(124, "When a surah came down, it increased the believers in faith and they rejoiced. Ibn Kathir says this is one of the strongest proofs that faith increases and decreases.", "faith increases and decreases"),
+      difficulty: 5,
+      questions: [
+        { q: "What did each new surah do for believers, in 9:124?", a: "Increased their faith", wrong: ["Made them bored", "Made them doubt", "Changed nothing"], why: "As for those who believe, it has increased their faith." },
+        { q: "What does 9:124 prove, per Ibn Kathir?", a: "Faith goes up and down", wrong: ["Faith never changes", "Faith is only words", "Faith is wealth"], why: "One of the mightiest evidences that faith increases and decreases." },
+        { q: "The same surah added doubt to diseased hearts.", tf: true, why: "It will add Rijs (doubt) to their Rijs." }
+      ]
+    },
+    {
+      slug: "tested-every-year",
+      title: "Tested once or twice a year",
+      line: "Trials come to wake us up, so we repent and learn.",
+      facts: ["Learn from each trial", "Turn back to Allah"],
+      quote: q9(126),
+      source: ik(126, "The hypocrites are tested once or twice every year, yet they neither repent of past sins nor learn a lesson for the future. Mujahid said they were tested with drought and hunger.", "They neither repent from their previous sins nor learn a lesson for the future"),
+      difficulty: 5,
+      questions: [
+        { q: "How often are they tested, in 9:126?", a: "Once or twice a year", wrong: ["Once a lifetime", "Never", "Every hour"], why: "They are put in trial once or twice every year." },
+        { q: "What should a trial lead us to, per 9:126?", a: "Repentance and a lesson", wrong: ["Anger", "Giving up", "Blaming others"], why: "Yet, they turn not in repentance, nor do they learn a lesson." },
+        { q: "Mujahid said they were tested with drought and hunger.", tf: true, why: "Mujahid said that hypocrites are tested with drought and hunger." }
+      ]
+    },
+    {
+      slug: "a-messenger-from-you",
+      title: "A Messenger from among you",
+      line: "A Messenger came from among you, speaking your language.",
+      facts: ["Known for truth and honesty", "From your own people"],
+      quote: q9(128),
+      source: ik(128, "Allah sent a Messenger from among them, speaking their language. Ja'far told the Negus: Allah sent us a Messenger whose family, life, truth and honesty we know.", "whose family lineage , description, early days, truth and honesty we know"),
+      difficulty: 5,
+      questions: [
+        { q: "Where did the Messenger ﷺ come from, in 9:128?", a: "From among yourselves", wrong: ["From far away", "From the angels", "From the jinn"], why: "There has come unto you a Messenger from among yourselves." },
+        { q: "What did Ja'far tell the Negus they knew about him ﷺ?", a: "His family, truth and honesty", wrong: ["Only his name", "Only his wealth", "Nothing at all"], why: "Whose family lineage, description, early days, truth and honesty we know." },
+        { q: "Ibrahim prayed for a Messenger from among them (2:129).", tf: true, why: "Our Lord! Send among them a Messenger of their own." }
+      ]
+    },
+    {
+      slug: "he-cares-for-you",
+      title: "Your hardship grieves him",
+      line: "Your hardship grieves him ﷺ; he is kind and merciful to you.",
+      facts: ["He is eager for your good", "This religion is easy"],
+      quote: q9(128),
+      source: ik(128, "Whatever is hard on his Ummah grieves him. He is eager for their guidance and good, and kind and merciful to the believers. An authentic hadith says this religion is easy.", "Whatever would cause hardship to his Ummah or be difficult for them, then it grieves him"),
+      difficulty: 5,
+      questions: [
+        { q: "What grieves the Prophet ﷺ, in 9:128?", a: "Any hardship you face", wrong: ["Your wealth", "Your joy", "Your rest"], why: "It grieves him that you should receive any injury or difficulty." },
+        { q: "How is he ﷺ to the believers, in 9:128?", a: "Kind and merciful", wrong: ["Harsh and cold", "Distant", "Careless"], why: "For the believers he is full of pity, kind, and merciful." },
+        { q: "An authentic hadith says this religion is easy.", tf: true, why: "Verily, this religion is easy." }
+      ]
+    },
+    {
+      slug: "allah-is-enough-for-me",
+      title: "Allah is enough for me",
+      line: "If they turn away, say: Allah is enough for me.",
+      facts: ["Hasbiyallah", "Lord of the Mighty Throne"],
+      quote: q9(129),
+      source: ik(129, "The surah ends: if they turn away, say Allah is sufficient for me, there is no god but He, in Him I trust, and He is the Lord of the Mighty Throne.", "Allah is sufficient for me"),
+      difficulty: 5,
+      questions: [
+        { q: "What should one say when people turn away, in 9:129?", a: "Allah is enough for me", wrong: ["I give up", "I am alone", "I will get angry"], why: "Say: Allah is sufficient for me." },
+        { q: "Whose Lord is Allah called, at the end of 9:129?", a: "Lord of the Mighty Throne", wrong: ["Lord of the East", "Lord of the sea", "Lord of the city"], why: "He is the Lord of the Mighty Throne." },
+        { q: "9:129 is the last ayah of At-Tawbah.", tf: true, why: "At-Tawbah has 129 ayahs." }
+      ]
+    }
+  ]
+};
+
+export const TAWBAH_UNITS: readonly DeepUnit[] = [TAWBAH_ONE, TAWBAH_TWO, TAWBAH_THREE, TAWBAH_FOUR, TAWBAH_FIVE];
