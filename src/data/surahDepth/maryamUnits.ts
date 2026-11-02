@@ -330,4 +330,325 @@ const MARYAM_ONE: DeepUnit = {
   ]
 };
 
-export const MARYAM_UNITS: readonly DeepUnit[] = [MARYAM_ONE];
+/** Ayahs 41 to 98: Ibrahim and his father, the Prophets honoured in the surah, guarding the prayer, Paradise, and Allah's love. */
+const MARYAM_TWO: DeepUnit = {
+  key: "maryam2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-maryam",
+  name: "Maryam, ayahs 41 to 98",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Maryam",
+  lessons: [
+    {
+      slug: "ibrahim-a-man-of-truth",
+      title: "Ibrahim, a man of truth",
+      line: "Ibrahim gently asked his father why he worshipped idols.",
+      facts: ["Idols cannot hear or see", "He said: O my father"],
+      quote: q19(42),
+      source: ik(42, "Ibrahim was a truthful Prophet. He gently asked his father why he worshipped things that cannot hear, see, help or protect him.", "these idols will not benefit you, nor can they protect you from any harm"),
+      difficulty: 2,
+      questions: [
+        { q: "How is Ibrahim described in 19:41?", a: "A man of truth, a Prophet", wrong: ["A king", "A trader", "A poet"], why: "Verily, he was a man of truth, a Prophet." },
+        { q: "What can the idols not do, in 19:42?", a: "Hear or see", wrong: ["Be carved", "Be carried", "Be painted"], why: "Why do you worship that which hears not, sees not and cannot avail you in anything?" },
+        { q: "How did Ibrahim call his father?", a: "O my father", wrong: ["O old man", "O idol maker", "O you"], why: "When he said to his father: O my father!" }
+      ]
+    },
+    {
+      slug: "follow-me-i-will-guide-you",
+      title: "Follow me, I will guide you",
+      line: "Ibrahim said he had knowledge from Allah, and could guide him.",
+      facts: ["Do not obey Shaytan", "He feared for his father"],
+      quote: q19(43),
+      source: ik(43, "Ibrahim told his father that, though he was his son, Allah had given him knowledge his father did not have, so he should follow him to the straight path and not obey Shaytan.", "I have received knowledge from Allah that you do not know"),
+      difficulty: 3,
+      questions: [
+        { q: "What had come to Ibrahim, in 19:43?", a: "Knowledge his father lacked", wrong: ["Great wealth", "An army", "A palace"], why: "Verily, there has come to me the knowledge of that which came not unto you." },
+        { q: "What did he warn against, in 19:44?", a: "Worshipping Shaytan", wrong: ["Travelling", "Trading", "Farming"], why: "O my father! Worship not Shaytan." },
+        { q: "How is Shaytan described in 19:44?", a: "A rebel against the Most Gracious", wrong: ["A helper", "A friend", "A guide"], why: "Verily, Shaytan has been a rebel against the Most Gracious." }
+      ]
+    },
+    {
+      slug: "peace-be-on-you",
+      title: "Peace be on you",
+      line: "Threatened by his father, Ibrahim answered with peace.",
+      facts: ["Respect for parents", "He kept praying for him"],
+      quote: q19(47),
+      source: ik(47, "When his father threatened him, Ibrahim answered: Peace be on you. Out of respect for his father he would not harm him, and he would ask Allah to guide and forgive him.", "You will not receive any insult or harm from me"),
+      difficulty: 3,
+      questions: [
+        { q: "How did Ibrahim answer, in 19:47?", a: "Peace be on you", wrong: ["I will leave you", "You are wrong", "Be quiet"], why: "Ibrahim said: Peace be on you! I will ask forgiveness of my Lord for you." },
+        { q: "What did Ibrahim's peace mean, per Ibn Kathir?", a: "No insult or harm from him", wrong: ["Goodbye forever", "I win", "Let us fight"], why: "You will not receive any insult or harm from me." },
+        { q: "Why did he speak so, per Ibn Kathir?", a: "Respect for his father", wrong: ["Fear", "Tiredness", "Hunger"], why: "This is due to the respect and honor of fatherhood." }
+      ]
+    },
+    {
+      slug: "ishaq-and-yaqub",
+      title: "Ishaq and Ya'qub",
+      line: "Leaving idols behind, Ibrahim was given Ishaq and Ya'qub.",
+      facts: ["Both were Prophets", "Allah gave something better"],
+      quote: q19(49),
+      source: ik(49, "When Ibrahim left his people for Allah's sake, Allah gave him better in their place: his son Ishaq and grandson Ya'qub, both Prophets.", "Allah gave him in exchange those who were better than them"),
+      difficulty: 2,
+      questions: [
+        { q: "Whom did Allah give Ibrahim, in 19:49?", a: "Ishaq and Ya'qub", wrong: ["Musa and Harun", "Dawud and Sulayman", "Nuh and Hud"], why: "We gave him Ishaq and Ya'qub, and each one of them We made a Prophet." },
+        { q: "Who was Ya'qub to Ibrahim, per Ibn Kathir?", a: "His grandson", wrong: ["His brother", "His uncle", "His friend"], why: "His son, Ishaq, and Ishaq's son, Ya'qub." },
+        { q: "What does Allah give one who leaves wrong for Him?", a: "Something better", wrong: ["Nothing", "Less", "Only worry"], why: "Allah gave him in exchange those who were better than them." }
+      ]
+    },
+    {
+      slug: "musa-and-harun",
+      title: "Musa and Harun",
+      line: "Allah spoke to Musa and made his brother Harun a Prophet.",
+      facts: ["Musa was chosen", "He pleaded for his brother"],
+      quote: q19(53),
+      source: ik(53, "Musa was devoted and chosen, a Messenger and Prophet. Allah called him at the Mount and answered his plea to make his brother Harun a Prophet.", "No one in this life pleaded on behalf of someone else more than Musa pleaded for his brother"),
+      difficulty: 3,
+      questions: [
+        { q: "Where did Allah call Musa, in 19:52?", a: "The right side of the Mount", wrong: ["In Egypt", "On a ship", "In a cave"], why: "And We called him from the right side of the Mount." },
+        { q: "Who was made a Prophet with him, in 19:53?", a: "His brother Harun", wrong: ["His son", "Yusha", "Shuayb"], why: "And We granted him his brother Harun, also a Prophet, out of Our mercy." },
+        { q: "What did the Salaf say of Musa's plea?", a: "No one pleaded more for another", wrong: ["He asked for wealth", "He asked to rule", "He never asked"], why: "No one in this life pleaded on behalf of someone else more than Musa pleaded for his brother to be a Prophet." }
+      ]
+    },
+    {
+      slug: "ismail-true-to-his-promise",
+      title: "Isma'il kept his promise",
+      line: "Isma'il always kept his word and told his family to pray.",
+      facts: ["Promises kept", "Salah and Zakah at home"],
+      quote: q19(54),
+      source: ik(54, "Isma'il was praised as true to his promise. He fulfilled every promise to his Lord and urged his family to pray and give zakah, and Allah was pleased with him.", "He did not make any promise to his Lord, except that he fulfilled it"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Isma'il praised for, in 19:54?", a: "Keeping his promises", wrong: ["His wealth", "His speed", "His height"], why: "Verily, he was true to what he promised." },
+        { q: "What did he urge his family to do, in 19:55?", a: "Pray and give zakah", wrong: ["Travel", "Trade", "Build"], why: "And he would enjoin on his family and his people the Salah and the Zakah." },
+        { q: "Was Allah pleased with Isma'il, per 19:55?", a: "Yes", wrong: ["No", "Not yet", "Only once"], why: "And his Lord was pleased with him." }
+      ]
+    },
+    {
+      slug: "keep-your-promises",
+      title: "Keep your promises",
+      line: "Breaking promises is a sign of a hypocrite, so keep your word.",
+      facts: ["Speak the truth", "Return what is trusted"],
+      quote: q19(54),
+      source: hadith("bukhari", "33", "Abu Hurayrah", "Sahih", "The Prophet ﷺ said the signs of a hypocrite are three: he lies when he speaks, breaks his promises, and betrays a trust.", "Whenever he promises, he always breaks it"),
+      difficulty: 2,
+      questions: [
+        { q: "How many signs of a hypocrite are named?", a: "Three", wrong: ["One", "Five", "Seven"], why: "The signs of a hypocrite are three." },
+        { q: "What does a hypocrite do with promises?", a: "Breaks them", wrong: ["Keeps them", "Writes them", "Forgets nothing"], why: "Whenever he promises, he always breaks it." },
+        { q: "Keeping promises is a sign of a true believer, per Ibn Kathir.", tf: true, why: "If these are the characteristics of the hypocrites, then behaving contrary to these is a characteristic of the true believer." }
+      ]
+    },
+    {
+      slug: "idris-raised-high",
+      title: "Idris raised high",
+      line: "Idris was a truthful Prophet whom Allah raised to a high place.",
+      facts: ["Seen on the Night Journey", "In the fourth heaven"],
+      quote: q19(57),
+      source: ik(57, "Allah praised Idris as a truthful Prophet and raised him to a high station. The Prophet ﷺ passed him in the fourth heaven on the Night Journey.", "This means the fourth heaven"),
+      difficulty: 2,
+      questions: [
+        { q: "How is Idris described in 19:56?", a: "A man of truth, a Prophet", wrong: ["A king", "A sailor", "A builder"], why: "Verily, he was a man of truth, and a Prophet." },
+        { q: "What did Allah do for Idris, in 19:57?", a: "Raised him to a high station", wrong: ["Gave him a city", "Made him rich", "Gave him a ship"], why: "And We raised him to a high station." },
+        { q: "Where did Mujahid say the high station is?", a: "The fourth heaven", wrong: ["The first heaven", "A mountain", "A palace"], why: "Mujahid said: This means the fourth heaven." }
+      ]
+    },
+    {
+      slug: "they-fell-down-weeping",
+      title: "They fell down weeping",
+      line: "Hearing Allah's ayahs, the Prophets fell in sujud, weeping.",
+      facts: ["Chosen and guided", "Moved by the Quran"],
+      quote: q19(58),
+      source: ik(58, "These Prophets, from the children of Adam, Nuh, Ibrahim and Israel, were blessed and chosen. When Allah's ayahs were recited they fell in prostration, weeping.", "When the Ayat of the Most Gracious were recited unto them, they fell down prostrate and weeping"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophets do on hearing the ayahs, in 19:58?", a: "Fell in sujud, weeping", wrong: ["Walked away", "Laughed", "Slept"], why: "When the Ayat of the Most Gracious were recited unto them, they fell down prostrate and weeping." },
+        { q: "Does 19:58 mean only the Prophets named in Maryam?", a: "No, all the Prophets", wrong: ["Yes, only these", "Only Ibrahim", "Only Musa"], why: "This does not mean only these Prophets who were mentioned in this Surah. Rather, it is referring to all of those who were Prophets." },
+        { q: "Who is the offspring of Adam in 19:58, per As-Suddi?", a: "Idris", wrong: ["Nuh", "Musa", "Isa"], why: "That which is meant by the offspring of Adam is Idris." }
+      ]
+    },
+    {
+      slug: "do-not-lose-the-prayer",
+      title: "Do not lose the prayer",
+      line: "Later people lost the prayer, but those who repent are welcomed.",
+      facts: ["Prayer is the pillar", "Repentance opens Paradise"],
+      quote: q19(60),
+      source: ik(59, "Later generations lost the prayer and chased desires. Prayer is the pillar of the religion. Those who repent, believe and do good will enter Paradise and not be wronged.", "the prayer is the pillar and foundation of the religion"),
+      difficulty: 3,
+      questions: [
+        { q: "What did later people lose, in 19:59?", a: "The Salah", wrong: ["Their homes", "Their money", "Their land"], why: "Then, there has succeeded them a posterity who have lost the Salah and have followed lusts." },
+        { q: "What is prayer, per Ibn Kathir?", a: "The pillar of the religion", wrong: ["Something extra", "Only for elders", "Only on Friday"], why: "The prayer is the pillar and foundation of the religion. It is the best of the servants' deeds." },
+        { q: "Who will enter Paradise, in 19:60?", a: "Those who repent and do good", wrong: ["Only the rich", "No one", "Only the old"], why: "Except those who repent and believe, and work righteousness. Such will enter Paradise." }
+      ]
+    },
+    {
+      slug: "gardens-of-adn",
+      title: "Gardens of Adn",
+      line: "In Paradise there is no idle talk, only greetings of peace.",
+      facts: ["Promised in the unseen", "Provision morning and evening"],
+      quote: q19(62),
+      source: ik(62, "The Gardens of Adn are promised in the unseen, and Allah's promise will come. There is no useless talk there, only peace, with provision morning and evening.", "there is no ignorant, wasteful and useless speech"),
+      difficulty: 2,
+      questions: [
+        { q: "What do they hear in Paradise, in 19:62?", a: "Only Salam", wrong: ["Arguments", "Noise", "Lies"], why: "They shall not hear therein any Laghw, but only Salam." },
+        { q: "What is missing in Paradise, per Ibn Kathir?", a: "Useless, wasteful speech", wrong: ["Food", "Friends", "Light"], why: "In these gardens of Paradise there is no ignorant, wasteful and useless speech." },
+        { q: "When do they get provision, in 19:62?", a: "Morning and afternoon", wrong: ["Once a year", "Never", "Only at night"], why: "And they will have therein their sustenance, morning and afternoon." }
+      ]
+    },
+    {
+      slug: "angels-come-by-allahs-command",
+      title: "Angels come by His command",
+      line: "Jibril visits only by Allah's command, and Allah never forgets.",
+      facts: ["The Prophet ﷺ missed Jibril", "All is Allah's"],
+      quote: q19(64),
+      source: hadith("bukhari", "4731", "Ibn Abbas", "Sahih", "The Prophet ﷺ asked Jibril why he did not visit more often, and 19:64 was revealed: angels descend only by Allah's command.", "What prevents you from visiting us more often than you visit us now"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the Prophet ﷺ ask Jibril?", a: "To visit more often", wrong: ["To bring food", "To stay away", "To bring rain"], why: "What prevents you from visiting us more often than you visit us now?" },
+        { q: "How do angels descend, in 19:64?", a: "Only by Allah's command", wrong: ["Whenever they like", "Every hour", "Never"], why: "And we descend not except by the command of your Lord." },
+        { q: "What does 19:64 say of Allah?", a: "He is never forgetful", wrong: ["He sleeps", "He gets tired", "He forgets"], why: "And your Lord is never forgetful." }
+      ]
+    },
+    {
+      slug: "is-there-any-like-him",
+      title: "Is there any like Him?",
+      line: "Worship Allah patiently; nothing is like Him.",
+      facts: ["Be patient in worship", "None is equal to Allah"],
+      quote: q19(65),
+      source: ik(65, "Allah is Lord of the heavens, the earth and all between, so worship Him and be patient in it. Nothing is similar to Him.", "Do you know of any who is similar to Him"),
+      difficulty: 2,
+      questions: [
+        { q: "What should we do, in 19:65?", a: "Worship Him patiently", wrong: ["Rest", "Travel", "Argue"], why: "So worship Him and abide patiently in His worship." },
+        { q: "Whose Lord is He, in 19:65?", a: "The heavens, earth and all between", wrong: ["Only the earth", "Only the sky", "Only Arabia"], why: "Lord of the heavens and the earth, and all that is between them." },
+        { q: "Is anyone similar to Allah, per 19:65?", a: "No one", wrong: ["Kings", "Angels", "Prophets"], why: "Do you know of any who is similar to Him?" }
+      ]
+    },
+    {
+      slug: "nothing-before",
+      title: "Nothing before",
+      line: "People ask how they will rise; Allah made them from nothing.",
+      facts: ["First creation is proof", "Raising again is easier"],
+      quote: q19(67),
+      source: ik(67, "Some wonder how they will be raised after death. Allah reminds them He created them when they were nothing, so the first creation proves the second.", "Allah uses the beginning of creation as a proof for its repetition"),
+      difficulty: 2,
+      questions: [
+        { q: "What does man ask, in 19:66?", a: "Will I be raised alive after death?", wrong: ["Where is the sea?", "Who is king?", "When is rain?"], why: "And man says: When I am dead, shall I then be raised up alive?" },
+        { q: "What should man remember, in 19:67?", a: "He was once nothing", wrong: ["His wealth", "His house", "His name"], why: "Does not man remember that We created him before, while he was nothing?" },
+        { q: "What proves the raising, per Ibn Kathir?", a: "The first creation", wrong: ["Old stories", "Dreams", "Stars"], why: "Allah uses the beginning of creation as a proof for its repetition." }
+      ]
+    },
+    {
+      slug: "guidance-grows",
+      title: "Guidance grows",
+      line: "Allah gives more guidance to the guided; good deeds last.",
+      facts: ["Guidance increases", "Good deeds are better"],
+      quote: q19(76),
+      source: ik(76, "Allah increases the guided in guidance, and the good deeds that last are better with Him in reward and in the end.", "He informs of the increase in guidance of those who are rightly guided"),
+      difficulty: 2,
+      questions: [
+        { q: "Whom does Allah give more guidance, in 19:76?", a: "Those who walk aright", wrong: ["The proud", "The rich", "The careless"], why: "And Allah increases in guidance those who walk aright." },
+        { q: "What is better with Allah, in 19:76?", a: "Good deeds that last", wrong: ["Gold", "Big houses", "Fame"], why: "And the righteous good deeds that last are better with your Lord for reward." },
+        { q: "Guidance can grow and increase, per Ibn Kathir.", tf: true, why: "He informs of the increase in guidance of those who are rightly guided." }
+      ]
+    },
+    {
+      slug: "khabbab-and-the-debt",
+      title: "Khabbab and the debt",
+      line: "A denier mocked Khabbab, boasting of wealth after rising again.",
+      facts: ["Khabbab stayed firm", "No one knows the unseen"],
+      quote: q19(77),
+      source: hadith("bukhari", "4733", "Khabbab ibn al-Aratt", "Sahih", "Khabbab, a blacksmith in Makkah, asked Al-As bin Wail for his pay. He refused unless Khabbab left Islam, and mocked that he would have wealth and children after rising. Allah revealed 19:77-78.", "I was a blacksmith in Mecca"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Khabbab's work, in the hadith?", a: "A blacksmith", wrong: ["A farmer", "A tailor", "A sailor"], why: "I was a blacksmith in Makkah." },
+        { q: "What did Khabbab refuse to do?", a: "Disbelieve in Muhammad ﷺ", wrong: ["Make a sword", "Leave Makkah", "Ask for pay"], why: "I shall not disbelieve in Muhammad till Allah makes you die and then bring you to life again." },
+        { q: "What does 19:78 ask the boaster?", a: "Has he known the Unseen?", wrong: ["Is he rich?", "Is he strong?", "Is he old?"], why: "Has he known the Unseen or has he taken a covenant from the Most Gracious?" }
+      ]
+    },
+    {
+      slug: "a-delegation-to-the-most-gracious",
+      title: "Guests of the Most Gracious",
+      line: "The God-fearing will come to Allah like an honoured delegation.",
+      facts: ["Riding mounts of light", "Honoured guests"],
+      quote: q19(85),
+      source: ik(85, "On the Day of Resurrection the God-fearing will be gathered to the Most Gracious like an honoured delegation, riding noble mounts of light.", "They will come riding upon noble steeds of light"),
+      difficulty: 2,
+      questions: [
+        { q: "How will the God-fearing come, in 19:85?", a: "Like a delegation", wrong: ["Alone and lost", "Walking slowly", "In chains"], why: "The Day We shall gather those with Taqwa unto the Most Gracious, like a delegation." },
+        { q: "What will they ride, per Ibn Kathir?", a: "Noble steeds of light", wrong: ["Camels of gold", "Ships", "Clouds"], why: "They will come riding upon noble steeds of light." },
+        { q: "Can anyone intercede without Allah's permission, per 19:87?", a: "No", wrong: ["Yes, anyone", "Yes, kings", "Yes, idols"], why: "None shall have the power of intercession, but such a one as has received permission from the Most Gracious." }
+      ]
+    },
+    {
+      slug: "a-terrible-claim",
+      title: "A terrible claim",
+      line: "Claiming Allah has a son is so grave the heavens nearly tear.",
+      facts: ["Allah has no child", "All creation is His"],
+      quote: q19(92),
+      source: ik(88, "Saying the Most Gracious has a son is a terrible claim. The heavens, earth and mountains nearly break at it, because Allah has no partner, no child and no equal.", "He has no partners, no peer, no child, no mate and no coequal"),
+      difficulty: 3,
+      questions: [
+        { q: "How does 19:89 call the claim of a son?", a: "A terrible thing", wrong: ["A small thing", "A kind thing", "A wise thing"], why: "Indeed you have brought forth a thing Idda. Ibn Abbas, Mujahid, Qatadah and Malik all said: Terrible." },
+        { q: "What nearly happens at the claim, in 19:90?", a: "The heavens nearly tear", wrong: ["Rain falls", "Stars shine", "Seas freeze"], why: "Whereby the heavens are almost torn, and the earth is split asunder, and the mountains fall." },
+        { q: "Is it fitting for Allah to have a son, per 19:92?", a: "No", wrong: ["Yes", "Maybe", "Only one"], why: "But it is not suitable for the Most Gracious that He should beget a son." }
+      ]
+    },
+    {
+      slug: "each-comes-alone",
+      title: "Each comes alone",
+      line: "Everyone comes to Allah as a servant, and alone on that Day.",
+      facts: ["Allah counts everyone", "No one is forgotten"],
+      quote: q19(95),
+      source: ik(93, "Everyone in the heavens and earth comes to the Most Gracious as a servant. He knows and has counted each one, and each will come to Him alone on the Day of Resurrection.", "There is none in the heavens and the earth but comes unto the Most Gracious as a slave"),
+      difficulty: 3,
+      questions: [
+        { q: "How does everyone come to Allah, in 19:93?", a: "As His servant", wrong: ["As His partner", "As His equal", "As His child"], why: "There is none in the heavens and the earth but comes unto the Most Gracious as a slave." },
+        { q: "What has Allah done, in 19:94?", a: "Counted everyone fully", wrong: ["Forgotten some", "Lost track", "Counted only kings"], why: "Verily, He knows each one of them, and has counted them a full counting." },
+        { q: "How will each come on the Last Day, in 19:95?", a: "Alone", wrong: ["With his wealth", "With his army", "With his idols"], why: "And everyone of them will come to Him alone on the Day of Resurrection." }
+      ]
+    },
+    {
+      slug: "allah-places-love",
+      title: "Allah places love",
+      line: "For believers who do good, Allah places love in people's hearts.",
+      facts: ["Love from the Most Gracious", "Good deeds bring love"],
+      quote: q19(96),
+      source: ik(96, "For believers who do righteous deeds, the Most Gracious puts love for them in the hearts of His righteous servants.", "He plants love for them in the hearts of His righteous servants"),
+      difficulty: 2,
+      questions: [
+        { q: "What will the Most Gracious give, in 19:96?", a: "Love for them", wrong: ["Gold for them", "Fear of them", "Fame only"], why: "Verily, those who believe and work deeds of righteousness, the Most Gracious will bestow love for them." },
+        { q: "Where does Allah plant love, per Ibn Kathir?", a: "In righteous hearts", wrong: ["In gold", "In rocks", "In books"], why: "He plants love for them in the hearts of His righteous servants." },
+        { q: "Who earns the love, in 19:96?", a: "Believers who do good", wrong: ["The proud", "The famous", "The loud"], why: "Those who believe and work deeds of righteousness." }
+      ]
+    },
+    {
+      slug: "when-allah-loves-a-servant",
+      title: "When Allah loves a servant",
+      line: "When Allah loves someone, Jibril and the heavens love him too.",
+      facts: ["Jibril announces it", "Accepted on earth"],
+      quote: q19(96),
+      source: hadith("bukhari", "3209", "Abu Hurairah", "Sahih", "If Allah loves a person, He tells Jibril to love him. Jibril announces it in the heavens, the dwellers there love him, and he is accepted on earth.", "If Allah loves a person, He calls Gabriel"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom does Allah call first, in the hadith?", a: "Jibril", wrong: ["Mika'il", "Israfil", "The kings"], why: "If Allah loves a person, He calls Jibril saying: Allah loves so-and-so; love him." },
+        { q: "Who loves him after Jibril, in the hadith?", a: "The dwellers of heaven", wrong: ["No one", "Only animals", "Only kings"], why: "And so all the inhabitants of the Heaven would love him." },
+        { q: "What does he receive on earth, in the hadith?", a: "Acceptance among people", wrong: ["Riches", "A palace", "A crown"], why: "And then he is granted the pleasure of the people on the earth." }
+      ]
+    },
+    {
+      slug: "made-easy-in-your-tongue",
+      title: "Made easy to understand",
+      line: "Allah made the Quran easy, bringing good news and warning.",
+      facts: ["Easy to read and learn", "Past nations left no trace"],
+      quote: q19(97),
+      source: ik(97, "Allah made the Quran easy in the Prophet's ﷺ own language, to give good news to the God-fearing and warn the stubborn. Many nations before were destroyed and not even a whisper of them remains.", "So, We have made this easy in your own tongue"),
+      difficulty: 2,
+      questions: [
+        { q: "How did Allah make the Quran, in 19:97?", a: "Easy, in his own tongue", wrong: ["Hard to read", "Secret", "For scholars only"], why: "So, We have made this easy in your own tongue." },
+        { q: "To whom is it good news, in 19:97?", a: "Those who have Taqwa", wrong: ["The stubborn", "The proud", "Everyone equally"], why: "Only that you may give glad tidings to those who have Taqwa." },
+        { q: "What remains of past nations, in 19:98?", a: "Not even a whisper", wrong: ["Great cities", "Their kings", "Their armies"], why: "Can you find a single one of them or hear even a whisper of them?" }
+      ]
+    }
+  ]
+};
+
+export const MARYAM_UNITS: readonly DeepUnit[] = [MARYAM_ONE, MARYAM_TWO];
