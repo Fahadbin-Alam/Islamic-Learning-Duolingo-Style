@@ -88,6 +88,8 @@ export type LearnCardProps = {
   teach?: TeachLesson;
   /** How many questions the "quiz" page announces. */
   quizCount?: number;
+  /** A unit's test: the "quiz" page says "Test time!" and the pass mark. */
+  testPass?: number;
   /** The source's link and credits show on this page (the "facts" page, or the first page without one). */
   sourceHere?: boolean;
   onContinue: () => void;
@@ -178,6 +180,7 @@ export function LearnCard({
   marks = [],
   teach,
   quizCount,
+  testPass,
   sourceHere,
   onContinue,
   bottomInset,
@@ -241,7 +244,7 @@ export function LearnCard({
             </Text>
           ) : null}
           {page === "teach" && teach ? <TeachPage teach={teach} marks={marks} palette={palette} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
-          {page === "quiz" ? <QuizPage count={quizCount} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
+          {page === "quiz" ? <QuizPage count={quizCount} testPass={testPass} mascotVariant={mascotVariant} teacher={teacher} accent={accent} short={short} /> : null}
           {/* A surah's own lesson opens on a picture of what its name means. */}
           {surah && at("start") ? <SurahCover surah={surah.number} meaning={surah.meaning ?? arabic?.meaning} arabicName={arabic?.ar} short={short} /> : null}
           {/* NEW marks a new word, so it only shows with one the learner has not met yet. */}
@@ -716,12 +719,14 @@ function TeachPage({
 /** Quiz time: the circle's quiz is next. */
 function QuizPage({
   count,
+  testPass,
   mascotVariant,
   teacher,
   accent,
   short
 }: {
   count?: number;
+  testPass?: number;
   mascotVariant: string;
   teacher?: TeacherLook;
   accent: string;
@@ -731,9 +736,13 @@ function QuizPage({
     <View style={[styles.talkColumn, short ? styles.talkColumnShort : null]} testID="learn-quiz">
       <SlideIn delay={soon(150)} style={styles.bubbleTop}>
         <SpeechBubble tail="down" tailAlign="center">
-          <Text style={styles.bigLine}>{t("Quiz time!")}</Text>
+          <Text style={styles.bigLine}>{testPass ? t("Test time!") : t("Quiz time!")}</Text>
           <Text style={styles.quizSub}>
-            {count && count > 1 ? t("{count} questions on this circle. Get them right to move on.", { count }) : t("Get them right to move on.")}
+            {testPass && count
+              ? t("Get {count} of {total} right to pass this unit.", { count: testPass, total: count })
+              : count && count > 1
+                ? t("{count} questions from your last lessons, in new ways.", { count })
+                : t("Get them right to move on.")}
           </Text>
         </SpeechBubble>
       </SlideIn>

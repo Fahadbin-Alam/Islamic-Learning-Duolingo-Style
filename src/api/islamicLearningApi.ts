@@ -30,6 +30,7 @@ import type {
   XpSummary
 } from "../types";
 import { buildGuidedLesson } from "../services/lessonGuidance";
+import { isRecallLesson } from "../ui/lesson/lessonPages";
 import {
   REVIEW_SESSION_SIZE,
   dueCards,
@@ -118,11 +119,16 @@ export const learningApi: IslamicLearningApi = {
     const asked = lessonAtLevel(lessonForAge(lesson, mixAgeFor(user, ageGroup)), user, challengeLevel(user, ageGroup));
     const progressiveLesson = prepareLessonForSession(asked);
 
+    // A unit's last quiz circle is its test: each question once, a pass mark, and the circle opens the next unit
+    // only when it is passed.
+    const unitTest = isUnitTestLesson(lesson) && progressiveLesson.challenges.length >= TEST_OUT_MIN_QUESTIONS;
+
     return {
       id: `session_${lessonId}_${Date.now()}`,
       lesson: progressiveLesson,
       startedAt: new Date().toISOString(),
-      heartsAtStart: user.hearts.current
+      heartsAtStart: user.hearts.current,
+      ...(unitTest ? { isTest: true, unitTest: true, passingScore: testOutPassingScore(progressiveLesson.challenges.length) } : {})
     };
   },
   async getShopItems() {
@@ -818,6 +824,30 @@ export function createReviewSession(user: UserProfile, now = new Date()): Lesson
     mode: "lesson_practice",
     reviewDeck: true
   };
+}
+
+let unitTestNodeIds: Set<string> | undefined;
+
+/**
+ * A unit's test: the quiz circle (Final quiz, Big quiz, Review) that ends a unit. The quiz circles in the middle
+ * of a unit are quizzes: they ask again, in other formats, and are not scored.
+ */
+export function isUnitTestLesson(lesson: Lesson) {
+  if (!isRecallLesson(lesson)) return false;
+  if (!unitTestNodeIds) {
+    unitTestNodeIds = new Set();
+    for (const section of COURSE.sections) {
+      const lastByBranch = new Map<string, string>();
+      section.nodes.forEach((node) => lastByBranch.set(node.branchId, node.id));
+      lastByBranch.forEach((nodeId) => unitTestNodeIds!.add(nodeId));
+    }
+  }
+  return unitTestNodeIds.has(lesson.nodeId);
+}
+
+/** A unit's test started from its circle (not a test-out): passing it finishes the circle. */
+export function isUnitTestSession(session: LessonSession | undefined) {
+  return Boolean(session?.unitTest);
 }
 
 function isTestOutSession(session: LessonSession | undefined) {
