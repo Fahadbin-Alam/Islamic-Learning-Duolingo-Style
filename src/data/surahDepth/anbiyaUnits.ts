@@ -303,4 +303,227 @@ const ANBIYA_ONE: DeepUnit = {
   ]
 };
 
-export const ANBIYA_UNITS: readonly DeepUnit[] = [ANBIYA_ONE];
+/** Ayahs 36 to 75: haste, Allah who guards us, the Balance, and Ibrahim breaking the idols and the fire made cool. */
+const ANBIYA_TWO: DeepUnit = {
+  key: "anbiya2",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-21",
+  name: "Al-Anbiya, ayahs 36 to 75",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Anbiya",
+  lessons: [
+    {
+      slug: "created-of-haste",
+      title: "Created of haste",
+      line: "People are hasty, but Allah acts at the time He chooses.",
+      facts: ["Mocked yet patient", "Allah's timing is best"],
+      quote: q21(37),
+      source: ik(37, "The deniers mocked the Prophet ﷺ, and believers wished for quick justice. Allah said man is made hasty, but He delays, then acts at the right time, so do not rush Him.", "He waits, then He does not delay any longer"),
+      difficulty: 3,
+      questions: [
+        { q: "What is man created of, in 21:37?", a: "Haste", wrong: ["Patience", "Light", "Silence"], why: "Man is created of haste. I will show you My Ayat. So ask Me not to hasten them." },
+        { q: "What did the deniers do on seeing him ﷺ, in 21:36?", a: "Mocked him", wrong: ["Welcomed him", "Prayed with him", "Gave gifts"], why: "And when those who disbelieved see you, they take you not except for mockery." },
+        { q: "What does Allah say not to ask, in 21:37?", a: "To hasten His signs", wrong: ["For forgiveness", "For guidance", "For rain"], why: "I will show you My Ayat. So ask Me not to hasten them." }
+      ]
+    },
+    {
+      slug: "who-guards-you-night-and-day",
+      title: "Who guards you night and day?",
+      line: "Allah guards us night and day with an Eye that never sleeps.",
+      facts: ["Messengers were mocked before", "Idols cannot help"],
+      quote: q21(42),
+      source: ik(42, "Allah comforted His Messenger ﷺ: Messengers before were mocked too. Then He reminded people that He protects them by night and day, watching over them with an Eye that never sleeps.", "He protects them by night and by day, taking care of them and watching over them with His Eye that never sleeps"),
+      difficulty: 3,
+      questions: [
+        { q: "Were Messengers mocked before, in 21:41?", a: "Yes, many were", wrong: ["No, never", "Only one", "Only Musa"], why: "Indeed many Messengers were mocked before you." },
+        { q: "Who guards us night and day, in 21:42?", a: "The Most Gracious", wrong: ["Our idols", "Our wealth", "No one"], why: "Say: Who can guard and protect you in the night or in the day from the Most Gracious?" },
+        { q: "Can the false gods help themselves, in 21:43?", a: "No, they cannot", wrong: ["Yes, easily", "Only at night", "Only big ones"], why: "They have no power to help themselves, nor can they be protected from Us." }
+      ]
+    },
+    {
+      slug: "the-balances-of-justice",
+      title: "The Balances of justice",
+      line: "On that Day even a mustard seed's weight of deeds is counted.",
+      facts: ["No one wronged", "Every small deed counts"],
+      quote: q21(47),
+      source: ik(47, "Allah will set up the Balance of justice on the Day of Resurrection. No one will be wronged, and even a deed the weight of a mustard seed will be brought and weighed.", "The majority of scholars state that it is one Balance"),
+      difficulty: 3,
+      questions: [
+        { q: "What will be set up, in 21:47?", a: "Balances of justice", wrong: ["Tall towers", "Golden thrones", "Big gates"], why: "And We shall set up Balances of justice on the Day of Resurrection." },
+        { q: "What small weight will be brought, in 21:47?", a: "A mustard seed", wrong: ["A mountain", "A tree", "A rock"], why: "And if there be the weight of a mustard seed, We will bring it." },
+        { q: "How many Balances, per most scholars?", a: "One Balance", wrong: ["Seven", "Ten", "None"], why: "The majority of scholars state that it is one Balance, and the plural form is used here to reflect the large number of deeds." }
+      ]
+    },
+    {
+      slug: "light-on-the-tongue",
+      title: "Light on the tongue",
+      line: "Two short phrases are light to say but heavy on the Balance.",
+      facts: ["SubhanAllahi wa bihamdihi", "SubhanAllahil Azim"],
+      quote: q21(47),
+      source: hadith("bukhari", "6406", "Abu Hurairah", "Sahih", "The Prophet ﷺ said two phrases are easy on the tongue, heavy in the Balance and loved by the Most Merciful: SubhanAllahi wa bihamdihi, SubhanAllahil Azim.", "very easy for the tongue to say, but they are very heavy in the balance"),
+      difficulty: 3,
+      questions: [
+        { q: "How heavy are the two phrases in the Balance?", a: "Very heavy", wrong: ["Very light", "Weightless", "Like a feather"], why: "There are two expressions which are very easy for the tongue to say, but they are very heavy in the balance." },
+        { q: "Who loves these phrases, in the hadith?", a: "The Most Merciful", wrong: ["Only the angels", "Only scholars", "Kings"], why: "And are very dear to The Beneficent." },
+        { q: "Which phrase is one of the two?", a: "SubhanAllahi wa bihamdihi", wrong: ["Bismillah only", "Ameen", "Salam"], why: "And they are, Subhan Allah Al-Azim and Subhan Allah wa bihamdihi." }
+      ]
+    },
+    {
+      slug: "the-criterion-and-a-light",
+      title: "The criterion and a light",
+      line: "Allah gave Musa and Harun a criterion, a light and a reminder.",
+      facts: ["Truth from falsehood", "Fear Allah in private"],
+      quote: q21(48),
+      source: ik(48, "Allah gave Musa and Harun the Tawrah, a criterion between right and wrong and a light. The heavenly Books separate truth from falsehood. The Quran is also a blessed reminder.", "the heavenly Books included the distinction between truth and falsehood"),
+      difficulty: 3,
+      questions: [
+        { q: "What were Musa and Harun given, in 21:48?", a: "The criterion and a light", wrong: ["A kingdom", "An army", "Gold"], why: "And indeed We granted to Musa and Harun the criterion, and a shining light and a Reminder for those who have Taqwa." },
+        { q: "Who fears their Lord unseen, in 21:49?", a: "The God-fearing", wrong: ["The proud", "The careless", "The rich"], why: "Those who fear their Lord in the unseen, and they are afraid of the Hour." },
+        { q: "What is the Quran called, in 21:50?", a: "A blessed Reminder", wrong: ["An old tale", "A poem", "A riddle"], why: "And this is a blessed Reminder which We have sent down; will you then deny it?" }
+      ]
+    },
+    {
+      slug: "ibrahim-guided-young",
+      title: "Ibrahim guided young",
+      line: "From a young age, Allah guided Ibrahim to the truth.",
+      facts: ["He questioned the idols", "Allah knew him well"],
+      quote: q21(51),
+      source: ik(51, "Allah gave Ibrahim guidance early in his life. While still young he asked his father and people: what are these statues you are so devoted to?", "He had already guided him at an early age"),
+      difficulty: 3,
+      questions: [
+        { q: "When was Ibrahim guided, per Ibn Kathir?", a: "At an early age", wrong: ["In old age", "After a war", "Never"], why: "Allah is telling us that He gave guidance to Ibrahim aforetime, He had already guided him at an early age." },
+        { q: "What did he ask his people, in 21:52?", a: "What are these images?", wrong: ["Where is the market?", "Who is the king?", "When is the feast?"], why: "What are these images, to which you are devoted?" },
+        { q: "Whom did Ibrahim question, in 21:52?", a: "His father and people", wrong: ["Only strangers", "Only children", "Only kings"], why: "When he said to his father and his people: What are these images, to which you are devoted?" }
+      ]
+    },
+    {
+      slug: "we-found-our-fathers",
+      title: "We found our fathers",
+      line: "Their only proof was their fathers; Ibrahim said all had erred.",
+      facts: ["Copying is not proof", "Allah created all"],
+      quote: q21(53),
+      source: ik(53, "The people had no evidence except that their forefathers worshipped idols. Ibrahim said both they and their fathers were clearly wrong, and that their Lord is the Creator of the heavens and earth.", "they had no other evidence apart from the misguided actions of their forefathers"),
+      difficulty: 3,
+      questions: [
+        { q: "What was their reason, in 21:53?", a: "Our fathers worshipped them", wrong: ["The idols spoke", "A Prophet said so", "They had proof"], why: "They said: We found our fathers worshipping them." },
+        { q: "What did Ibrahim say of them, in 21:54?", a: "You and your fathers erred", wrong: ["You are right", "Only fathers erred", "Keep going"], why: "Indeed you and your fathers have been in manifest error." },
+        { q: "Who is your Lord, in 21:56?", a: "Lord of the heavens and earth", wrong: ["The biggest idol", "The king", "The sun"], why: "Nay, your Lord is the Lord of the heavens and the earth, Who created them." }
+      ]
+    },
+    {
+      slug: "ibrahim-broke-the-idols",
+      title: "Ibrahim broke the idols",
+      line: "While the people were out, Ibrahim broke all the idols but one.",
+      facts: ["The biggest was left", "To make them think"],
+      quote: q21(58),
+      source: ik(58, "Ibrahim promised to plan against the idols. When the people went to their festival, he broke them all to pieces except the biggest, so they would turn to it and think.", "he smashed them all, except for the biggest idol"),
+      difficulty: 4,
+      questions: [
+        { q: "Which idol did Ibrahim leave, in 21:58?", a: "The biggest one", wrong: ["The smallest one", "None", "The oldest one"], why: "So he broke them to pieces, except the biggest of them, that they might turn to it." },
+        { q: "Where were the people, per Ibn Kathir?", a: "At their festival", wrong: ["At war", "Asleep", "At sea"], why: "When they went out to their festival. They had a festival which they would go out to celebrate." },
+        { q: "How did they describe Ibrahim, in 21:60?", a: "A young man", wrong: ["An old king", "A stranger", "A soldier"], why: "We heard a young man talking against them, who is called Ibrahim." }
+      ]
+    },
+    {
+      slug: "ask-them-if-they-can-speak",
+      title: "Ask them if they can speak",
+      line: "Ibrahim said: ask the idols, if they can speak!",
+      facts: ["Before all the people", "They knew idols are silent"],
+      quote: q21(63),
+      source: ik(63, "Brought before a crowd, Ibrahim pointed at the biggest idol and said: ask them, if they can speak. He hoped they would admit by themselves that the idols could not speak at all.", "He was hoping that they would admit of their own volition that these idols could not speak"),
+      difficulty: 4,
+      questions: [
+        { q: "Why bring him before the people, in 21:61?", a: "So they could testify", wrong: ["To praise him", "To crown him", "To feed him"], why: "They said: Then bring him before the eyes of the people, that they may testify." },
+        { q: "What did Ibrahim tell them to do, in 21:63?", a: "Ask the idols", wrong: ["Pray to them", "Fix them", "Bury them"], why: "Ask them, if they can speak!" },
+        { q: "What did Ibrahim hope they would admit?", a: "Idols cannot speak", wrong: ["He was wrong", "Idols were angry", "Idols were hungry"], why: "He was hoping that they would admit of their own volition that these idols could not speak." }
+      ]
+    },
+    {
+      slug: "no-benefit-no-harm",
+      title: "No benefit, no harm",
+      line: "Why worship what can neither help you nor harm you?",
+      facts: ["They looked down", "Ibrahim won the argument"],
+      quote: q21(66),
+      source: ik(66, "The people looked down and admitted the idols cannot speak. Ibrahim asked: then why worship, instead of Allah, things that can neither help nor harm you? Have you no sense?", "if they cannot speak and they can neither benefit you nor harm you, then why do you worship them instead of Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the people admit, in 21:65?", a: "These idols do not speak", wrong: ["The idols are angry", "Ibrahim lied", "The idols ran"], why: "Indeed you know well that these speak not!" },
+        { q: "What can the idols do, in 21:66?", a: "Neither benefit nor harm", wrong: ["Bring rain", "Heal people", "Give children"], why: "Do you then worship besides Allah, things that can neither profit you nor harm you?" },
+        { q: "What did Ibrahim ask at the end, in 21:67?", a: "Have you then no sense?", wrong: ["Are you hungry?", "Where is the king?", "Who are you?"], why: "Fie upon you, and upon that which you worship besides Allah! Have you then no sense?" }
+      ]
+    },
+    {
+      slug: "o-fire-be-cool",
+      title: "O fire, be cool",
+      line: "They threw Ibrahim in a fire; Allah made it cool and safe.",
+      facts: ["Allah's command was swift", "Cool, but also safe"],
+      quote: q21(69),
+      source: ik(69, "Beaten in argument, they built a huge fire and threw Ibrahim in. Allah said: O fire, be cool and safe for Ibrahim. Ibn Abbas said without the word safe, the cold itself would have hurt him.", "Ibrahim would have been harmed by its coldness"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Allah command the fire, in 21:69?", a: "Be cool and safe", wrong: ["Burn higher", "Turn to water", "Move away"], why: "We said: O fire! Be you cool and safety for Ibrahim!" },
+        { q: "Why also say safe, per Ibn Abbas?", a: "Or the cold would harm him", wrong: ["To scare them", "No reason", "For the angels"], why: "Were it not for the fact that Allah said and safety, Ibrahim would have been harmed by its coldness." },
+        { q: "Who ended up the losers, in 21:70?", a: "Those who plotted", wrong: ["Ibrahim", "Lut", "The angels"], why: "And they wanted to harm him, but We made them the worst losers." }
+      ]
+    },
+    {
+      slug: "allah-is-sufficient-for-us",
+      title: "Allah is sufficient for us",
+      line: "In the fire, Ibrahim said: Allah is enough for me.",
+      facts: ["Hasbunallah wa nimal wakil", "Said by two Prophets"],
+      quote: q21(69),
+      source: hadith("bukhari", "4563", "Ibn Abbas", "Sahih", "Ibn Abbas said: Allah is sufficient for us and He is the best Disposer of affairs was said by Ibrahim when thrown into the fire, and by Muhammad ﷺ when people gathered against him.", "was said by Abraham when he was thrown into the fire"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Ibrahim say in the fire?", a: "Allah is sufficient for us", wrong: ["Help me, people", "I give up", "Nothing at all"], why: "Allah is Sufficient for us and He Is the Best Disposer of affairs, was said by Abraham when he was thrown into the fire." },
+        { q: "Which other Prophet said it?", a: "Muhammad ﷺ", wrong: ["Nuh", "Musa", "Yunus"], why: "And it was said by Muhammad ﷺ when they said: A great army is gathering against you." },
+        { q: "The words only increased the believers' faith.", tf: true, why: "But it only increased their faith and they said: Allah is Sufficient for us, and He is the Best Disposer." }
+      ]
+    },
+    {
+      slug: "the-gift-of-yaqub",
+      title: "The gift of Ya'qub",
+      line: "Allah gave Ibrahim Ishaq, and Ya'qub as an extra gift.",
+      facts: ["A blessed land", "A son who has a son"],
+      quote: q21(72),
+      source: ik(72, "Allah saved Ibrahim and Lut to a blessed land. He gave Ibrahim Ishaq, and then Ya'qub as an extra gift: a son who has a son. Each was righteous.", "The gift of a son who has a son"),
+      difficulty: 5,
+      questions: [
+        { q: "Whom did Allah give Ibrahim, in 21:72?", a: "Ishaq and Ya'qub", wrong: ["Musa and Harun", "Dawud", "Yusuf alone"], why: "And We bestowed upon him Ishaq, and Ya'qub Nafilatan. Each one We made righteous." },
+        { q: "What does Nafilatan mean, per Ata and Mujahid?", a: "As a gift", wrong: ["As a king", "As a servant", "As a test"], why: "Ata and Mujahid said: Nafilatan means as a gift." },
+        { q: "Who was rescued with Ibrahim, in 21:71?", a: "Lut", wrong: ["Nuh", "Hud", "Salih"], why: "And We rescued him and Lut to the land which We have blessed for the nations." }
+      ]
+    },
+    {
+      slug: "leaders-who-guided",
+      title: "Leaders who guided",
+      line: "Allah made them leaders who did the good they taught.",
+      facts: ["Salah and Zakah", "They worshipped Allah alone"],
+      quote: q21(73),
+      source: ik(73, "Allah made Ibrahim, Ishaq and Ya'qub leaders to follow, calling to Him. He inspired them to do good, pray and give zakah, and they practised what they told others.", "they did what they enjoined others to do"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Allah make them, in 21:73?", a: "Leaders guiding by His command", wrong: ["Kings", "Merchants", "Poets"], why: "And We made them leaders, guiding by Our command." },
+        { q: "What was revealed to them, in 21:73?", a: "Good deeds, Salah and Zakah", wrong: ["Trade rules", "War plans", "Poems"], why: "And We revealed to them the doing of good deeds, performing Salah, and the giving of Zakah." },
+        { q: "Did they practise what they taught, per Ibn Kathir?", a: "Yes, they did", wrong: ["No", "Only sometimes", "Only Ishaq"], why: "They did what they enjoined others to do." }
+      ]
+    },
+    {
+      slug: "lut-given-wisdom",
+      title: "Lut given wisdom",
+      line: "Lut followed Ibrahim; Allah gave him wisdom and knowledge.",
+      facts: ["He migrated with Ibrahim", "Among the righteous"],
+      quote: q21(74),
+      source: ik(74, "Lut believed in Ibrahim and migrated with him. Allah gave him wisdom and knowledge, made him a Prophet, saved him from a town that did shameful deeds, and entered him into His mercy.", "He believed in Ibrahim and followed him, and migrated with him"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Allah give Lut, in 21:74?", a: "Wisdom and knowledge", wrong: ["Gold", "An army", "A palace"], why: "And remember Lut, We gave him wisdom and knowledge." },
+        { q: "Whom did Lut follow, per Ibn Kathir?", a: "Ibrahim", wrong: ["Nuh", "Musa", "Hud"], why: "He believed in Ibrahim and followed him, and migrated with him." },
+        { q: "Where did Allah admit Lut, in 21:75?", a: "Into His mercy", wrong: ["Into a palace", "Into exile", "Into a cave"], why: "And We admitted him to Our mercy; truly, he was of the righteous." }
+      ]
+    }
+  ]
+};
+
+export const ANBIYA_UNITS: readonly DeepUnit[] = [ANBIYA_ONE, ANBIYA_TWO];
