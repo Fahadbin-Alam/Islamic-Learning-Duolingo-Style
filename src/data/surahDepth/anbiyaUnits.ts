@@ -526,4 +526,282 @@ const ANBIYA_TWO: DeepUnit = {
   ]
 };
 
-export const ANBIYA_UNITS: readonly DeepUnit[] = [ANBIYA_ONE, ANBIYA_TWO];
+const ANBIYA_THREE: DeepUnit = {
+  key: "anbiya3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-21",
+  name: "Al-Anbiya, ayahs 76 to 112",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Al-Anbiya",
+  lessons: [
+    {
+      slug: "nuh-answered",
+      title: "Nuh answered",
+      line: "Nuh called on Allah, and Allah saved him and his family.",
+      facts: ["He called his people for 950 years", "Allah saved him from the great distress"],
+      quote: q21(76),
+      source: ik(76, "Nuh called his people to Allah for a very long time and few believed. When he called on his Lord, Allah answered him and saved him and his family from the great distress.", "he remained among them for one thousand years less fifty"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Allah do when Nuh called, in 21:76?", a: "He answered and saved him", wrong: ["He ignored him", "He delayed it", "He sent him away"], why: "We answered his call and saved him and his family from the great distress." },
+        { tf: true, q: "Nuh called his people for 950 years, per Ibn Kathir.", why: "He remained among them for one thousand years less fifty." },
+        { q: "Who believed in Nuh, per Ibn Kathir?", a: "Only a few", wrong: ["Everyone", "All the kings", "No one at all"], why: "No one had believed in him except for a few." }
+      ]
+    },
+    {
+      slug: "dawud-sulayman-judge",
+      title: "Two Prophets judge",
+      line: "Dawud and Sulayman judged a case about sheep in a field.",
+      facts: ["Sheep grazed a field at night", "Allah gave Sulayman the right understanding"],
+      quote: q21(79),
+      source: ik(78, "Sheep strayed into a field at night and ate the crop. Dawud and Sulayman both judged the case. Allah gave Sulayman the better understanding, and gave both of them wisdom and knowledge.", "Allah praised Sulayman but He did not condemn Dawud"),
+      difficulty: 2,
+      questions: [
+        { q: "What ate the crop of the field, in 21:78?", a: "Sheep at night", wrong: ["Camels by day", "Birds", "Locusts"], why: "The sheep of certain people had pastured in it at night." },
+        { q: "Whom did Allah give the right understanding, in 21:79?", a: "Sulayman", wrong: ["Dawud alone", "The shepherd", "The farmer"], why: "And We made Sulayman to understand the case." },
+        { q: "What did both Prophets receive, in 21:79?", a: "Wisdom and knowledge", wrong: ["Only gold", "Only armies", "Nothing"], why: "And to each of them We gave wisdom and knowledge." }
+      ]
+    },
+    {
+      slug: "judge-two-rewards",
+      title: "A judge's reward",
+      line: "A judge who tries his best is rewarded, even if he errs.",
+      facts: ["Right verdict: two rewards", "Honest mistake: still one reward"],
+      quote: q21(79),
+      source: hadith("bukhari", "7352", "Amr ibn al-As", "Sahih", "The Prophet ﷺ said a judge who tries his best and is right gets two rewards, and if he tries his best and is wrong he still gets one reward.", "he will receive a double reward"),
+      difficulty: 3,
+      questions: [
+        { q: "What does a judge who tries hard and is right get?", a: "Two rewards", wrong: ["One reward", "No reward", "Ten rewards"], why: "If his verdict is correct he will receive a double reward." },
+        { tf: true, q: "A judge who tries hard but errs still gets a reward.", why: "If his verdict is wrong, even then he will get a reward." },
+        { q: "How did Allah treat Dawud's verdict, per Al-Hasan?", a: "He did not blame him", wrong: ["He blamed him", "He punished him", "He removed him"], why: "Allah praised Sulayman but He did not condemn Dawud." }
+      ]
+    },
+    {
+      slug: "mountains-birds-dawud",
+      title: "Mountains glorify with Dawud",
+      line: "Mountains and birds glorified Allah with Dawud's recitation.",
+      facts: ["Dawud had a beautiful voice", "He recited the Zabur"],
+      quote: q21(79),
+      source: ik(79, "Dawud had a beautiful voice when he recited the Zabur. The birds stopped in the air and repeated after him, and the mountains echoed his glorification of Allah.", "the birds would stop and hover in the air"),
+      difficulty: 3,
+      questions: [
+        { q: "What glorified Allah with Dawud, in 21:79?", a: "The mountains and the birds", wrong: ["The rivers and fish", "The stars", "The trees only"], why: "We subjected the mountains and the birds to glorify Our praises along with Dawud." },
+        { q: "What did the birds do, per Ibn Kathir?", a: "Hovered and repeated after him", wrong: ["Flew away", "Stayed silent", "Built nests"], why: "The birds would stop and hover in the air, and would repeat after him." },
+        { q: "Which Book did Dawud recite, per Ibn Kathir?", a: "The Zabur", wrong: ["The Tawrah", "The Injil", "The Suhuf of Ibrahim"], why: "This refers to the beauty of his voice when he recited his Book, Az-Zabur." }
+      ]
+    },
+    {
+      slug: "dawud-armor",
+      title: "Dawud's coats of mail",
+      line: "Allah taught Dawud to make chain armor to protect people.",
+      facts: ["Armor of linked rings", "A blessing to thank Allah for"],
+      quote: q21(80),
+      source: ik(80, "Allah taught Dawud how to make coats of mail from linked rings. Before that, people wore plated armor. It protected them, so Allah asks: are you then grateful?", "he was the first one to make rings of chain-armor"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah teach Dawud to make, in 21:80?", a: "Coats of mail", wrong: ["Ships", "Swords of gold", "Towers"], why: "And We taught him the making of metal coats of mail, to protect you." },
+        { tf: true, q: "Dawud was the first to make armor of linked rings, per Qatadah.", why: "He was the first one to make rings of chain-armor." },
+        { q: "What question ends 21:80?", a: "Are you then grateful?", wrong: ["Are you then strong?", "Will you fight?", "Who made it?"], why: "To protect you in your fighting. Are you then grateful?" }
+      ]
+    },
+    {
+      slug: "wind-for-sulayman",
+      title: "The wind for Sulayman",
+      line: "Allah made the strong wind run at Sulayman's command.",
+      facts: ["It ran to the blessed land", "Allah knows everything"],
+      quote: q21(81),
+      source: ik(81, "Allah subjected the strong wind to Sulayman. It ran by his command toward the land Allah had blessed. Allah is the All-Knower of everything.", "We subjugated the strong wind to Sulayman"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah subject to Sulayman, in 21:81?", a: "The strong wind", wrong: ["The sea", "The sun", "The rain"], why: "And to Sulayman We subjected the wind strongly raging, running by his command." },
+        { q: "Toward where did the wind run, in 21:81?", a: "The land Allah had blessed", wrong: ["The desert", "The far east", "The mountains"], why: "Running by his command towards the land which We had blessed." },
+        { tf: false, q: "Sulayman controlled the wind by his own power.", why: "Allah subjected the wind to him; it was a gift from Allah." }
+      ]
+    },
+    {
+      slug: "ayyub-patience",
+      title: "Ayyub's patience",
+      line: "Ayyub lost health, wealth and family, yet stayed patient.",
+      facts: ["He called on the Most Merciful", "Allah restored his family and more"],
+      quote: q21(83),
+      source: ik(83, "Ayyub was tested with the loss of his wealth, children and health. He stayed patient and called on Allah, the Most Merciful. Allah removed his distress and gave back his family and the like of them.", "The Prophet of Allah, Ayyub, upon him be peace, had the utmost patience"),
+      difficulty: 3,
+      questions: [
+        { q: "How did Ayyub describe Allah in his dua, in 21:83?", a: "Most Merciful of all", wrong: ["Most Powerful king", "Lord of armies", "Owner of gold"], why: "You are the Most Merciful of all those who show mercy." },
+        { q: "What did Allah restore to Ayyub, in 21:84?", a: "His family and the like", wrong: ["Only his house", "Nothing", "Only his camels"], why: "We restored his family to him, and the like thereof along with them." },
+        { q: "What quality is Ayyub the best example of?", a: "Patience", wrong: ["Wealth", "Strength", "Travel"], why: "Ayyub had the utmost patience, and he is the best example of that." }
+      ]
+    },
+    {
+      slug: "three-patient-ones",
+      title: "Three patient ones",
+      line: "Isma'il, Idris and Dhul-Kifl were all among the patient.",
+      facts: ["Isma'il was the son of Ibrahim", "Allah admitted them to His mercy"],
+      quote: q21(85),
+      source: ik(85, "Allah mentions Isma'il, Idris and Dhul-Kifl, all of them patient. Isma'il was the son of Ibrahim. Dhul-Kifl is named with Prophets, so it appears he was one too. Allah admitted them to His mercy.", "it appears that he was also a Prophet"),
+      difficulty: 4,
+      questions: [
+        { q: "Which three are named as patient, in 21:85?", a: "Isma'il, Idris and Dhul-Kifl", wrong: ["Nuh, Hud and Salih", "Musa, Harun and Isa", "Adam, Shith and Lut"], why: "And remember Isma'il, Idris and Dhul-Kifl: all were from among the patient." },
+        { q: "Whose son was Isma'il, per Ibn Kathir?", a: "Ibrahim", wrong: ["Ishaq", "Nuh", "Ya'qub"], why: "Isma'il was the son of Ibrahim Al-Khalil." },
+        { q: "Where did Allah admit them, in 21:86?", a: "Into His mercy", wrong: ["Into a palace", "Into a cave", "Into a ship"], why: "And We admitted them to Our mercy. Verily, they were of the righteous." }
+      ]
+    },
+    {
+      slug: "yunus-in-darkness",
+      title: "Yunus in the darkness",
+      line: "Yunus called on Allah from deep darkness inside the fish.",
+      facts: ["He left his people in anger", "Three layers of darkness"],
+      quote: q21(87),
+      source: ik(87, "Yunus left his people in anger. Inside the fish he called out in the darknesses: there is no god but You, glory be to You, I was of the wrongdoers. Allah answered him.", "The darkness of the belly of the fish, the darkness of the sea and the darkness of the night"),
+      difficulty: 3,
+      questions: [
+        { q: "Which three darknesses, per Ibn Mas'ud?", a: "Fish, sea and night", wrong: ["Cave, sea and storm", "Night, cloud and rain", "Well, prison and night"], why: "The darkness of the belly of the fish, the darkness of the sea and the darkness of the night." },
+        { q: "What does the name Dhun-Nun mean?", a: "The one of the fish", wrong: ["The one of the ship", "The one of the cave", "The one of the night"], why: "Nun refers to the fish; it is correct for it to be attributed to him." },
+        { q: "What did Yunus admit in his dua, in 21:87?", a: "I was a wrongdoer", wrong: ["I was right", "I was strong", "I was forgotten"], why: "Truly, I have been of the wrongdoers." }
+      ]
+    },
+    {
+      slug: "dua-of-yunus",
+      title: "The dua of Yunus",
+      line: "Any Muslim who says Yunus's dua is answered by Allah.",
+      facts: ["La ilaha illa anta, subhanaka", "Inni kuntu minaz-zalimin"],
+      quote: q21(88),
+      source: hadith("tirmidhi", "3505", "Sa'd ibn Abi Waqqas", "Sahih", "The Prophet ﷺ said the dua of Dhun-Nun in the fish was: none is worthy of worship but You, glory to You, I was of the wrongdoers. No Muslim calls with it except that Allah answers him.", "no Muslim man supplicates with it for anything, ever, except Allah responds to him"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom does Allah save like Yunus, in 21:88?", a: "The believers", wrong: ["Only Prophets", "Only kings", "No one else"], why: "And thus We do deliver the believers." },
+        { tf: true, q: "Allah answers any Muslim who calls with Yunus's dua.", why: "No Muslim supplicates with it for anything, ever, except Allah responds to him." },
+        { q: "How does Yunus's dua begin?", a: "None is worthy of worship but You", wrong: ["O Allah, give me wealth", "My Lord, forgive my people", "Glory be to my mountain"], why: "There is none worthy of worship except You, Glory to You." }
+      ]
+    },
+    {
+      slug: "zakariyya-hasten",
+      title: "They hastened to good",
+      line: "Zakariyya's family hastened to good with hope and fear.",
+      facts: ["Allah gave him Yahya", "They were humble before Allah"],
+      quote: q21(90),
+      source: ik(90, "Zakariyya asked not to be left alone. Allah gave him Yahya and cured his wife. They rushed to acts of worship and called on Allah with hope and fear, humble before Him.", "acts of worship and acts of obedience towards Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did Allah give Zakariyya, in 21:90?", a: "Yahya", wrong: ["Isa", "Isma'il", "Yusuf"], why: "So We answered his call, and We bestowed upon him Yahya." },
+        { q: "How did they call on Allah, in 21:90?", a: "With hope and fear", wrong: ["With pride", "Only in hard times", "With anger"], why: "They used to call on Us with hope and fear." },
+        { q: "What does hastening to good mean, per Ibn Kathir?", a: "Rushing to worship and obedience", wrong: ["Rushing to trade", "Walking fast", "Racing horses"], why: "Acts of worship and acts of obedience towards Allah." }
+      ]
+    },
+    {
+      slug: "maryam-a-sign",
+      title: "Maryam and her son a sign",
+      line: "Maryam and Isa are a sign that Allah can do anything.",
+      facts: ["Maryam guarded her chastity", "Isa was born without a father"],
+      quote: q21(91),
+      source: ik(91, "Allah made Maryam and her son a sign for the worlds: proof that He is able to do all things. When He wills a thing, He only says to it, Be, and it is.", "evidence that Allah is able to do all things"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Allah make Maryam and her son, in 21:91?", a: "A sign for the worlds", wrong: ["Kings", "Judges", "Merchants"], why: "And We made her and her son a sign for the nations." },
+        { q: "What does the sign show, per Ibn Kathir?", a: "Allah is able to do all things", wrong: ["Isa is a god", "Maryam was a queen", "Signs are rare"], why: "Evidence that Allah is able to do all things." },
+        { tf: false, q: "Isa had a human father, per the Quran.", why: "Allah created Isa without a father, as a sign of His power." }
+      ]
+    },
+    {
+      slug: "prophets-one-religion",
+      title: "One religion of the Prophets",
+      line: "All the Prophets brought one religion: worship Allah alone.",
+      facts: ["Their laws differed", "Their belief was the same"],
+      quote: q21(92),
+      source: hadith("bukhari", "3443", "Abu Hurairah", "Sahih", "The Prophet ﷺ said he is the nearest of people to Isa son of Maryam. The Prophets are brothers with different mothers, and their religion is one.", "The prophets are paternal brothers; their mothers are different, but their religion is one"),
+      difficulty: 4,
+      questions: [
+        { q: "What did the Prophets share, per the hadith?", a: "One religion", wrong: ["One mother", "One land", "One language"], why: "The prophets are paternal brothers; their mothers are different, but their religion is one." },
+        { q: "What does 'your Ummah is one' mean, per Ibn Abbas?", a: "Your religion is one", wrong: ["Your tribe is one", "Your city is one", "Your king is one"], why: "Your religion is one religion." },
+        { q: "What did differ between the Prophets, per Ibn Kathir?", a: "Their laws", wrong: ["Their God", "Their belief in Allah", "Nothing at all"], why: "The Laws of each Messenger may have differed, but all worshipped Allah alone." }
+      ]
+    },
+    {
+      slug: "no-effort-lost",
+      title: "No good effort is lost",
+      line: "A believer's good deeds are all written and never wasted.",
+      facts: ["Faith plus good deeds", "Allah records every deed"],
+      quote: q21(94),
+      source: ik(94, "Whoever does righteous deeds while a believer, his effort will not be rejected. Allah records every deed, and none of it is lost.", "all his deeds are recorded and nothing of them at all is lost"),
+      difficulty: 4,
+      questions: [
+        { q: "What happens to a believer's good effort, in 21:94?", a: "It is not rejected", wrong: ["It is forgotten", "It is halved", "It is delayed"], why: "Whoever does righteous good deeds while he is a believer, his efforts will not be rejected." },
+        { tf: true, q: "Allah records every good deed of the believer.", why: "All his deeds are recorded and nothing of them at all is lost." },
+        { q: "What two things does 21:94 join together?", a: "Faith and good deeds", wrong: ["Wealth and fame", "Strength and speed", "Travel and trade"], why: "Whoever does righteous good deeds while he is a believer." }
+      ]
+    },
+    {
+      slug: "greatest-terror-no-grief",
+      title: "No fear for them",
+      line: "The righteous feel no grief that Day; angels greet them.",
+      facts: ["Angels meet them at the graves", "This is your promised Day"],
+      quote: q21(103),
+      source: ik(103, "The greatest terror of that Day will not grieve the people of good. The angels will meet them as they rise from their graves, saying: this is your Day which you were promised.", "the angels will greet them on the Day of Resurrection"),
+      difficulty: 4,
+      questions: [
+        { q: "What will not grieve the righteous, in 21:103?", a: "The greatest terror", wrong: ["Their good deeds", "The angels", "Their families"], why: "The greatest terror will not grieve them." },
+        { q: "What will the angels say, in 21:103?", a: "This is your promised Day", wrong: ["Go back", "Wait longer", "Who are you?"], why: "This is your Day which you were promised." },
+        { q: "When do the angels greet them, per Ibn Kathir?", a: "As they rise from graves", wrong: ["At birth", "At marriage", "Never"], why: "The angels will greet them on the Day of Resurrection when they emerge from their graves." }
+      ]
+    },
+    {
+      slug: "heaven-rolled-scroll",
+      title: "The heaven rolled up",
+      line: "Allah will roll up the heaven like a written scroll.",
+      facts: ["He began creation, He will repeat it", "A promise binding on Allah"],
+      quote: q21(104),
+      source: ik(104, "On that Day Allah will roll up the heaven like a scroll of writing. As He began the first creation, He will bring it again. It is a promise He will surely keep.", "this will inevitably come to pass on the Day when Allah creates His creation anew"),
+      difficulty: 5,
+      questions: [
+        { q: "How will Allah roll up the heaven, in 21:104?", a: "Like a scroll for books", wrong: ["Like a carpet", "Like a tent", "Like a sail"], why: "The Day when We shall roll up the heaven like a Sijill for books." },
+        { q: "What will Allah repeat, in 21:104?", a: "The creation", wrong: ["The flood", "The night", "The seasons"], why: "As We began the first creation, We shall repeat it." },
+        { tf: true, q: "Bringing creation back is a promise Allah will keep.", why: "It is a promise binding upon Us. Truly, We shall do it." }
+      ]
+    },
+    {
+      slug: "righteous-inherit",
+      title: "The righteous inherit",
+      line: "Allah's righteous servants will inherit the land of Paradise.",
+      facts: ["Written in the Zabur", "A plain message for worshippers"],
+      quote: q21(105),
+      source: ik(105, "Allah wrote in the Zabur, after the Reminder, that His righteous servants will inherit the land. Ibn Abbas and many others said it means the land of Paradise.", "This means, the land of Paradise"),
+      difficulty: 5,
+      questions: [
+        { q: "Who will inherit the land, in 21:105?", a: "Allah's righteous servants", wrong: ["The strongest", "The richest", "The oldest"], why: "My righteous servants shall inherit the land." },
+        { q: "Which land, per Ibn Abbas?", a: "The land of Paradise", wrong: ["Egypt", "Yemen", "Rome"], why: "This means, the land of Paradise." },
+        { q: "In which Book was it written, in 21:105?", a: "The Zabur", wrong: ["The Injil", "No Book", "A poem"], why: "We have written in Az-Zabur after the Reminder." }
+      ]
+    },
+    {
+      slug: "mercy-to-worlds",
+      title: "A mercy to the worlds",
+      line: "Allah sent Muhammad ﷺ as a mercy to all the worlds.",
+      facts: ["Whoever accepts the mercy is blessed", "He refused to curse people"],
+      quote: q21(107),
+      source: hadith("muslim", "2599", "Abu Hurairah", "Sahih", "The Prophet ﷺ was asked to curse the idol worshippers. He said: I was not sent to curse, I was sent as a mercy.", "I have not been sent as the invoker of curse, but I have been sent as mercy"),
+      difficulty: 5,
+      questions: [
+        { q: "Why was Muhammad ﷺ sent, in 21:107?", a: "As a mercy to the worlds", wrong: ["To rule the Arabs only", "To gather wealth", "To build a palace"], why: "And We have sent you not but as a mercy for the worlds." },
+        { q: "What did the Prophet ﷺ say when asked to curse?", a: "I was sent as mercy", wrong: ["I will curse them", "Wait until tomorrow", "Ask someone else"], why: "I have not been sent as the invoker of curse, but I have been sent as mercy." },
+        { tf: false, q: "The mercy of the Prophet ﷺ was only for one tribe.", why: "He sent him as a mercy for all of them, per Ibn Kathir." }
+      ]
+    },
+    {
+      slug: "allah-knows-aloud-hidden",
+      title: "He knows what is hidden",
+      line: "Allah knows what is said aloud and what people hide.",
+      facts: ["Your God is One", "Allah is the One to ask for help"],
+      quote: q21(110),
+      source: ik(110, "Our God is only One God. Allah knows the Unseen completely: what people say openly and what they hide, the small and the great. The surah ends: our Lord is the Most Gracious, whose help is sought.", "Allah knows the Unseen in its entirety"),
+      difficulty: 5,
+      questions: [
+        { q: "What does Allah know, in 21:110?", a: "What is said aloud and hidden", wrong: ["Only what is said", "Only the past", "Only big things"], why: "He knows that which is spoken aloud and He knows that which you conceal." },
+        { q: "What was revealed about our God, in 21:108?", a: "He is One God", wrong: ["He has partners", "He has a son", "He sleeps"], why: "It is revealed to me that your God is only One God." },
+        { q: "How does Al-Anbiya end, in 21:112?", a: "Our Lord is the Most Gracious", wrong: ["Our Lord is far", "Our Lord is silent", "Our Lord is angry"], why: "Our Lord is the Most Gracious, Whose help is to be sought." }
+      ]
+    }
+  ]
+};
+
+export const ANBIYA_UNITS: readonly DeepUnit[] = [ANBIYA_ONE, ANBIYA_TWO, ANBIYA_THREE];
