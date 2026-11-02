@@ -5,6 +5,7 @@ import TopicApp from "./src/TopicApp";
 import { hydrateAppStorage } from "./src/services/appStorage";
 import { installWebAlert } from "./src/services/webAlert";
 import { PhoneFrame, useAppFonts } from "./src/ui";
+import { CrashScreen } from "./src/ui/CrashScreen";
 import Gallery from "./src/ui/gallery/Gallery";
 
 installWebAlert();
@@ -37,7 +38,9 @@ export default function App() {
   return storageReady ? (
     <SafeAreaProvider>
       <PhoneFrame>
-        <TopicApp />
+        <CrashScreen>
+          <TopicApp />
+        </CrashScreen>
       </PhoneFrame>
     </SafeAreaProvider>
   ) : null;

@@ -58,6 +58,9 @@ export type SettingsSheetProps = {
   /** "Off" or the chosen city, and opening the prayer-time lessons sheet. */
   prayerLabel?: string;
   onOpenPrayer?: () => void;
+  /** Anonymous usage stats (no names, no accounts); crash reports go either way. Hidden when there is nowhere to send them. */
+  shareStats?: boolean;
+  onToggleShareStats?: () => void;
 };
 
 // Labels that say the difference on their own; the line under them is a reminder only.
@@ -101,7 +104,9 @@ export function SettingsSheet({
   languageLabel,
   onOpenLanguage,
   prayerLabel,
-  onOpenPrayer
+  onOpenPrayer,
+  shareStats,
+  onToggleShareStats
 }: SettingsSheetProps) {
   useBackToClose(visible, onClose);
   const activeRole = ROLES.find((option) => option.id === role) ?? ROLES[0];
@@ -205,6 +210,15 @@ export function SettingsSheet({
               </>
             ) : null}
           </View>
+
+          {onToggleShareStats ? (
+            <View style={styles.roles}>
+              <View style={styles.card}>
+                <Toggle label={t("Share app stats")} icon="shield" value={Boolean(shareStats)} onToggle={onToggleShareStats} testID="settings-stats" />
+              </View>
+              <Text style={styles.hint}>{t("No names. Helps us fix bugs.")}</Text>
+            </View>
+          ) : null}
 
           {!guest && onLogout ? <GameButton label={t("Log out")} variant="secondary" fullWidth onPress={onLogout} testID="settings-logout" /> : null}
           {!guest && onDeleteAccount ? (

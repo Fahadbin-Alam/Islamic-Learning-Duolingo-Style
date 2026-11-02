@@ -237,6 +237,7 @@ import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
+import { ANALYTICS_CONFIG, ageBandFor, isUsageStatsOn, setAnalyticsContext, setUsageStatsOn, startAnalytics, track } from "./services/analytics";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
 import { teacherFor } from "./ui/lesson/Teacher";
 import { pictureForLesson, pictureForPage, pictureForQuestion, pictureForText } from "./data/lessonPictures";
@@ -414,7 +415,8 @@ type Action =
   | { type: "apply_user"; user: UserProfile }
   | { type: "apply_user_latest"; update: (user: UserProfile) => UserProfile }
   | { type: "sync_premium"; premium: PremiumStatus }
-  | { type: "reset_lesson" }
+  /** `reason` says why a running lesson ended early, for the usage stats only. */
+  | { type: "reset_lesson"; reason?: "quit" | "out_of_hearts" | "test_failed" }
   | { type: "make_harder"; challenges: LessonSession["lesson"]["challenges"]; user: UserProfile }
   | { type: "keep_difficulty" };
 
@@ -615,6 +617,55 @@ function screenForStep(step: FlowStep | undefined): Screen {
   return "lesson_question";
 }
 
+// Anonymous usage stats (see services/analytics): which lessons start, where they are left, which finish, which
+// tabs open. Read from the actions as they are dispatched, with the state they arrive in.
+function lessonStats(session: LessonSession) {
+  return {
+    lesson_id: session.lesson.id,
+    unit_id: session.lesson.branchId,
+    mode: session.mode ?? "standard",
+    questions: session.lesson.challenges.length
+  };
+}
+
+function trackAction(action: Action, state: AppState) {
+  switch (action.type) {
+    case "start_lesson":
+      track("lesson_start", lessonStats(action.session));
+      return;
+    case "finish_lesson":
+      if (state.activeSession) {
+        track("lesson_complete", { ...lessonStats(state.activeSession), mistakes: state.sessionMistakes });
+      }
+      return;
+    case "reset_lesson":
+      // A lesson left before its complete screen: where, and why.
+      if (state.activeSession && state.screen.startsWith("lesson_") && state.screen !== "lesson_complete") {
+        track("lesson_quit", {
+          ...lessonStats(state.activeSession),
+          reason: action.reason ?? "other",
+          screen: state.screen,
+          steps_done: state.doneCount,
+          questions_done: state.sessionCorrectCount + state.sessionMistakes,
+          mistakes: state.sessionMistakes
+        });
+      }
+      return;
+    case "select_topic":
+      track("topic_open", { topic_id: action.topicId, unit_id: action.unitId });
+      return;
+    case "open_review":
+    case "open_profile":
+    case "open_assessment":
+    case "open_shop":
+    case "open_social":
+      track("tab_open", { tab: action.type.slice("open_".length) });
+      return;
+    default:
+      return;
+  }
+}
+
 const NO_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 // The shop's "Free heart" video, offered again on the out-of-hearts sheet.
 const HEART_VIDEO = SHOP_ITEMS.find((item) => item.type === "rewarded_ad" && !item.gemsGranted);
@@ -652,7 +703,13 @@ export default function TopicApp() {
     styles.safeArea,
     { paddingTop: insets.top, paddingRight: insets.right, paddingBottom: insets.bottom, paddingLeft: insets.left }
   ];
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatchState] = useReducer(reducer, initialState);
+  const stateRef = useRef(state);
+  stateRef.current = state;
+  const dispatch = useCallback((action: Action) => {
+    trackAction(action, stateRef.current);
+    dispatchState(action);
+  }, []);
   const [accountModalVisible, setAccountModalVisible] = useState(false);
   const [outOfHearts, setOutOfHearts] = useState<OutOfHeartsSheet | undefined>(undefined);
   const [planOffer, setPlanOffer] = useState<PlanOffer | undefined>(undefined);
@@ -737,6 +794,7 @@ export default function TopicApp() {
   // "Want it harder?" is open: how many were right in a row when it opened (kept while the sheet slides away).
   const [harderOfferOpen, setHarderOfferOpen] = useState(false);
   const [harderInARow, setHarderInARow] = useState(0);
+  const [settingsShareStats, setSettingsShareStats] = useState(isUsageStatsOn);
   const [crew, setCrew] = useState<CrewState>({ status: "idle" });
   const [inviteEmail, setInviteEmail] = useState("");
   const [rankings, setRankings] = useState<RankingsState>({ status: "idle" });
@@ -952,6 +1010,13 @@ export default function TopicApp() {
   setActiveLanguage(currentLanguage);
   const strings = useMemo(() => getUiStrings(currentLanguage), [currentLanguage]);
   const learnerProfile = state.user?.learnerProfile ?? createEmptyLearnerProfile();
+  // Stats wait for the age on phones: under 13, events go with no id at all (see services/analytics).
+  const statsAgeBand = ageBandFor(ageGroup, state.user?.accountRole === "child");
+  const statsCanStart = Platform.OS === "web" || Boolean(ageGroup);
+  useEffect(() => {
+    setAnalyticsContext({ ageBand: statsAgeBand, language: currentLanguage });
+  }, [statsAgeBand, currentLanguage]);
+  useEffect(() => (statsCanStart ? startAnalytics() : undefined), [statsCanStart]);
   const soundPreferences = useMemo(
     () => ({
       enabled: state.user?.soundEffectsEnabled !== false,
@@ -1967,7 +2032,7 @@ export default function TopicApp() {
         // The last question and its sheet close first, so the sad result never sits over a cheering
         // mascot and a green answer. The sheet opens over the path: the score, then TRY AGAIN or BACK.
         void Speech.stop();
-        dispatch({ type: "reset_lesson" });
+        dispatch({ type: "reset_lesson", reason: "test_failed" });
         setTestOutResult({
           open: true,
           correct: state.sessionCorrectCount,
@@ -2019,7 +2084,7 @@ export default function TopicApp() {
       if (testLost || state.sessionCorrectCount < passingScore) {
         const nodeId = state.activeSession.lesson.nodeId;
         void Speech.stop();
-        dispatch({ type: "reset_lesson" });
+        dispatch({ type: "reset_lesson", reason: "test_failed" });
         setTestOutResult({
           open: true,
           correct: state.sessionCorrectCount,
@@ -2359,6 +2424,7 @@ export default function TopicApp() {
     setSettingsSoundEnabled(state.user.soundEffectsEnabled !== false);
     setSettingsReducedSound(Boolean(state.user.reducedSoundEffects));
     setSettingsDifficulty(state.user.difficulty ?? "auto");
+    setSettingsShareStats(isUsageStatsOn());
     setSettingsModalVisible(true);
   }
 
@@ -2620,6 +2686,10 @@ export default function TopicApp() {
     }
     dispatch({ type: "apply_user", user: nextUser });
     setSettingsModalVisible(false);
+    // Stats belong to this phone, not the account.
+    if (settingsShareStats !== isUsageStatsOn()) {
+      setUsageStatsOn(settingsShareStats);
+    }
 
     if (settingsStreakReminder || settingsIslamicReminder) {
       await requestIslamicNotificationPermission();
@@ -3131,7 +3201,7 @@ export default function TopicApp() {
 
     if (sheet?.inLesson) {
       void Speech.stop();
-      dispatch({ type: "reset_lesson" });
+      dispatch({ type: "reset_lesson", reason: "out_of_hearts" });
     }
 
     dispatch({ type: "open_shop" });
@@ -3144,7 +3214,7 @@ export default function TopicApp() {
 
     if (sheet?.inLesson) {
       void Speech.stop();
-      dispatch({ type: "reset_lesson" });
+      dispatch({ type: "reset_lesson", reason: "out_of_hearts" });
     }
   }
 
@@ -3310,7 +3380,7 @@ export default function TopicApp() {
       onQuit={() => {
         setQuitLessonVisible(false);
         void Speech.stop();
-        dispatch({ type: "reset_lesson" });
+        dispatch({ type: "reset_lesson", reason: "quit" });
         // A quiz started in Practice goes back there.
         if (state.activeSession?.mode === "quiz") {
           dispatch({ type: "open_review" });
@@ -3831,6 +3901,8 @@ export default function TopicApp() {
             setSettingsModalVisible(false);
             setPrayerModalVisible(true);
           }}
+          shareStats={settingsShareStats}
+          onToggleShareStats={ANALYTICS_CONFIG.apiKey ? () => setSettingsShareStats((value) => !value) : undefined}
         />
         <PrayerSheet
           visible={prayerModalVisible}
