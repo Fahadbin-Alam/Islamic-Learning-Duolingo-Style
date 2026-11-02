@@ -414,4 +414,574 @@ const NAML_TWO: DeepUnit = {
   ]
 };
 
-export const NAML_UNITS: readonly DeepUnit[] = [NAML_ONE, NAML_TWO];
+/** Ayahs 45 to 58: Salih and the nine plotters of Thamud, and Lut and his people. */
+const NAML_THREE: DeepUnit = {
+  key: "naml3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-27",
+  name: "An-Naml, ayahs 45 to 58",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Naml",
+  lessons: [
+    {
+      slug: "two-quarreling-parties",
+      title: "Two quarreling parties",
+      line: "Salih called Thamud to Allah, and they split into two groups.",
+      facts: ["Worship Allah alone", "Believers and disbelievers"],
+      quote: q27(45),
+      source: ik(45, "Allah sent Salih to Thamud to call them to worship Allah alone. They split into two parties quarreling with each other. Mujahid said these were the believers and the disbelievers.", "These were believers and disbelievers"),
+      difficulty: 2,
+      questions: [
+        { q: "Who was sent to Thamud, in 27:45?", a: "Salih", wrong: ["Hud", "Lut", "Shuayb"], why: "And indeed We sent to Thamud their brother Salih." },
+        { q: "What were the two parties, per Mujahid?", a: "Believers and disbelievers", wrong: ["Rich and poor", "Old and young", "Farmers and traders"], why: "Mujahid said: these were believers and disbelievers." },
+        { tf: true, q: "Salih called his people to worship Allah alone.", why: "Allah sent him to call them to worship Allah alone, with no partner." }
+      ]
+    },
+    {
+      slug: "ask-for-mercy-not-harm",
+      title: "Ask for mercy, not harm",
+      line: "Salih asked: why rush toward harm instead of asking forgiveness?",
+      facts: ["They dared him to bring harm", "Seek forgiveness for mercy"],
+      quote: q27(46),
+      source: ik(46, "Salih asked his people why they prayed for the punishment to come quickly, instead of asking Allah for His forgiveness and mercy.", "why are you praying for the punishment to come, and not asking Allah for His mercy"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Salih tell them to seek, in 27:46?", a: "Allah's forgiveness", wrong: ["Gold", "A new king", "Revenge"], why: "Why seek you not the forgiveness of Allah, that you may receive mercy?" },
+        { q: "What were they hastening, instead of good?", a: "Harm and punishment", wrong: ["Rain", "A feast", "A journey"], why: "Why do you seek to hasten the evil before the good?" },
+        { tf: false, q: "Salih wanted his people to be punished quickly.", why: "He asked why they did not seek forgiveness, that they may receive mercy." }
+      ]
+    },
+    {
+      slug: "your-omen-is-with-allah",
+      title: "Your omen is with Allah",
+      line: "They blamed Salih for bad luck; he said they were being tested.",
+      facts: ["Bad luck is no excuse", "Everything is by Allah's decree"],
+      quote: q27(47),
+      source: ik(47, "Whenever something bad happened, they said it was because of Salih and his companions. He said: your omen is with Allah; you are a people being tested. Qatadah said: tested to see whether you will obey or disobey.", "You are being tested to see whether you will obey or disobey"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did Thamud blame for bad things?", a: "Salih and his followers", wrong: ["The weather", "Their kings", "Other tribes"], why: "They said: we augur an omen from you and those with you." },
+        { q: "What were they, as Salih said in 27:47?", a: "A people being tested", wrong: ["A people forgiven", "A people of angels", "A people of kings"], why: "Nay, but you are a people that are being tested." },
+        { q: "Tested for what, per Qatadah?", a: "Whether they obey or disobey", wrong: ["How strong they are", "How rich they are", "How fast they run"], why: "You are being tested to see whether you will obey or disobey." }
+      ]
+    },
+    {
+      slug: "nine-mischief-makers",
+      title: "Nine mischief-makers",
+      line: "Nine leaders in the city spread corruption and would not reform.",
+      facts: ["They led the people astray", "They were behind the camel's killing"],
+      quote: q27(48),
+      source: ik(48, "There were nine men in the city of Thamud who spread mischief and would not reform. They forced their opinions on the people because they were the leaders and chiefs. Ibn Abbas said they were behind the killing of the she-camel.", "they were the leaders and chiefs"),
+      difficulty: 3,
+      questions: [
+        { q: "How many mischief-makers were in the city, in 27:48?", a: "Nine", wrong: ["Three", "Twelve", "Forty"], why: "And there were in the city nine Rahtin." },
+        { q: "Why could they force their opinions?", a: "They were leaders and chiefs", wrong: ["They were Prophets", "They were strangers", "They were children"], why: "They forced their opinions on the people, because they were the leaders and chiefs." },
+        { tf: true, q: "The nine would not reform themselves.", why: "Who made mischief in the land, and would not reform." }
+      ]
+    },
+    {
+      slug: "their-plot-backfired",
+      title: "Their plot backfired",
+      line: "They plotted at night against Salih, but Allah planned better.",
+      facts: ["They swore an oath together", "They did not perceive Allah's plan"],
+      quote: q27(50),
+      source: ik(50, "The nine swore an oath to attack Salih and his family at night and then deny it. They plotted a plot, and Allah planned a plan while they did not perceive it. Allah caused their plot to backfire.", "But Allah planned against them and caused their plot to backfire"),
+      difficulty: 4,
+      questions: [
+        { q: "When did they plan to strike, in 27:49?", a: "At night", wrong: ["At noon", "On a feast day", "At dawn prayer only"], why: "We shall make a secret night attack on him and his household." },
+        { q: "What happened to their plot?", a: "It backfired on them", wrong: ["It succeeded", "It was delayed a year", "Salih joined it"], why: "But Allah planned against them and caused their plot to backfire." },
+        { q: "What did they not perceive, in 27:50?", a: "Allah's plan", wrong: ["The road", "The night", "Their own oath"], why: "So, they plotted a plot, and We planned a plan, while they perceived not." }
+      ]
+    },
+    {
+      slug: "saved-are-the-believers",
+      title: "The believers were saved",
+      line: "Their homes lay empty, and Allah saved Salih and the believers.",
+      facts: ["Empty houses are a lesson", "Taqwa brings rescue"],
+      quote: q27(53),
+      source: ik(53, "Allah destroyed the plotters and their nation, and their houses lay deserted as a sign for people who know. He saved Salih and those who believed and had Taqwa.", "He saved Salih and the people who were with him"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom did Allah save, in 27:53?", a: "Those who believed and had Taqwa", wrong: ["The nine plotters", "The richest people", "No one"], why: "And We saved those who believed, and had Taqwa of Allah." },
+        { q: "What were their empty houses, in 27:52?", a: "A sign for people who know", wrong: ["A new market", "A palace", "A school"], why: "Verily, in this is indeed an Ayah for people who know." },
+        { tf: true, q: "Salih and those with him were saved.", why: "He saved Salih and the people who were with him." }
+      ]
+    },
+    {
+      slug: "lut-warns-his-people",
+      title: "Lut warns his people",
+      line: "Lut warned his people to stop a shameful sin they did openly.",
+      facts: ["They sinned openly", "Lut was a Messenger of Allah"],
+      quote: q27(54),
+      source: ik(54, "Allah tells us about His servant and Messenger Lut, who warned his people about a shameful sin no one had done before them, which they did openly while seeing one another.", "Allah tells us about His servant and Messenger Lut"),
+      difficulty: 4,
+      questions: [
+        { q: "Who warned his people in 27:54?", a: "Lut", wrong: ["Salih", "Musa", "Sulayman"], why: "And (remember) Lut! When he said to his people." },
+        { q: "How did his people commit their sin?", a: "Openly, seeing each other", wrong: ["Only in secret", "Only once", "By mistake"], why: "Do you commit immoral sins while you see?" },
+        { tf: true, q: "Lut was a servant and Messenger of Allah.", why: "Allah tells us about His servant and Messenger Lut." }
+      ]
+    },
+    {
+      slug: "driven-out-for-purity",
+      title: "Blamed for being pure",
+      line: "Lut's people wanted his family out for wanting to stay clean.",
+      facts: ["Purity was called a crime", "They had no other answer"],
+      quote: q27(56),
+      source: ik(56, "The people of Lut had no answer except to say: drive the family of Lut out of your city, they are men who want to be clean and pure. Their purity made the people uneasy.", "these are men who want to be clean and pure"),
+      difficulty: 5,
+      questions: [
+        { q: "What did his people want, in 27:56?", a: "Drive Lut's family out", wrong: ["Make Lut king", "Build him a house", "Follow Lut"], why: "Drive out the family of Lut from your city." },
+        { q: "Why did they want them out?", a: "They wanted to be pure", wrong: ["They were thieves", "They were rich", "They were strangers"], why: "Verily, these are men who want to be clean and pure!" },
+        { tf: false, q: "Lut's people gave him a kind answer.", why: "There was no other answer given by his people except that they said: drive out the family of Lut." }
+      ]
+    },
+    {
+      slug: "saved-except-his-wife",
+      title: "Saved, except his wife",
+      line: "Lut and his family were saved, except his wife.",
+      facts: ["She helped the wrongdoers", "Faith is not inherited"],
+      quote: q27(57),
+      source: ik(57, "Allah saved Lut and his family except his wife. She was destroyed with her people because she helped them and approved of their evil deeds.", "because she was a helper to what they did"),
+      difficulty: 5,
+      questions: [
+        { q: "Who was not saved, in 27:57?", a: "Lut's wife", wrong: ["Lut's daughters", "Lut himself", "The guests"], why: "So, We saved him and his family, except his wife." },
+        { q: "Why was his wife not saved?", a: "She helped the wrongdoers", wrong: ["She was ill", "She left early", "She was too old"], why: "Because she was a helper to what they did and she approved of their evil deeds." },
+        { q: "What does 27:58 call the rain?", a: "An evil rain for the warned", wrong: ["A blessed rain", "A gentle rain", "Spring rain"], why: "So, evil was the rain of those who were warned." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 59 to 66: praise Allah, and the questions that show no god is with Him: creation, the earth, the distressed, guidance, provision, and the Unseen. */
+const NAML_FOUR: DeepUnit = {
+  key: "naml4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-27",
+  name: "An-Naml, ayahs 59 to 66",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Naml",
+  lessons: [
+    {
+      slug: "praise-and-peace",
+      title: "Praise and peace",
+      line: "Praise Allah, and send peace on the servants He has chosen.",
+      facts: ["The chosen are the Prophets", "Companions are also included"],
+      quote: q27(59),
+      source: ik(59, "Allah commands His Messenger to praise Him for His countless blessings, and to send peace on His chosen servants: the Prophets and Messengers. Some said it means the Companions, and both views agree.", "He commands him to send peace upon the servants of Allah whom He chose"),
+      difficulty: 2,
+      questions: [
+        { q: "Whom does 27:59 send peace on?", a: "Allah's chosen servants", wrong: ["All kings", "The idols", "The jinn only"], why: "And peace be on His servants whom He has chosen!" },
+        { q: "Who are the chosen servants, mainly?", a: "The Prophets and Messengers", wrong: ["The angels only", "Rulers", "Poets"], why: "The meaning of the servants He has chose is the Prophets." },
+        { tf: true, q: "We praise Allah for His countless blessings.", why: "Praise and thanks be to Allah, for His innumerable blessings upon His servants." }
+      ]
+    },
+    {
+      slug: "gardens-full-of-beauty",
+      title: "Gardens full of beauty",
+      line: "Only Allah grows the trees from rain; no one else can.",
+      facts: ["Rain is His provision", "Is there a god with Allah?"],
+      quote: q27(60),
+      source: ik(60, "Allah created the heavens and the earth and sends rain, growing beautiful gardens. People are not able to make their trees grow. Only the Creator and Provider can do that, so He alone deserves worship.", "you are not able to cause their trees to grow"),
+      difficulty: 2,
+      questions: [
+        { q: "What grows from the rain, in 27:60?", a: "Gardens full of beauty", wrong: ["Mountains", "Stars", "Rivers of gold"], why: "Whereby We cause to grow wonderful gardens full of beauty and delight." },
+        { q: "Can people make those trees grow?", a: "No, only Allah can", wrong: ["Yes, easily", "Only kings can", "Only with idols"], why: "It is not in your ability to cause the growth of their trees." },
+        { tf: true, q: "Even idol worshippers admitted Allah sends the rain.", why: "Who sends down water from the sky? They will surely reply: Allah." }
+      ]
+    },
+    {
+      slug: "a-steady-earth",
+      title: "A steady earth",
+      line: "Allah made the earth steady, with rivers and mountains.",
+      facts: ["Mountains keep it firm", "Fresh and salt water stay apart"],
+      quote: q27(61),
+      source: ik(61, "Allah made the earth a stable home, placed fresh rivers in it and firm mountains to keep it steady, and set a barrier between fresh water and salt water so they do not spoil one another.", "He has placed a barrier between the fresh water and the salt water"),
+      difficulty: 3,
+      questions: [
+        { q: "What makes the earth steady, per Ibn Kathir?", a: "Firm mountains", wrong: ["The clouds", "The rivers", "The sun"], why: "High mountains which stabilize the earth and make it steadfast." },
+        { q: "What is between the two seas, in 27:61?", a: "A barrier", wrong: ["A bridge", "A wall of fire", "Nothing at all"], why: "And has set a barrier between the two seas." },
+        { q: "Why are the waters kept apart?", a: "So they do not spoil each other", wrong: ["For ships to race", "To make islands", "For fish to hide"], why: "To prevent them from mixing lest they corrupt one another." }
+      ]
+    },
+    {
+      slug: "who-answers-the-distressed",
+      title: "Who answers the distressed",
+      line: "Only Allah answers the one in distress and removes the harm.",
+      facts: ["Call on Him in hardship", "He removes the evil"],
+      quote: q27(62),
+      source: ik(62, "Allah is the One people call on in hardship. He is the only One the desperate turn to, and the only One who can relieve those struck by harm.", "the only One Who can relieve those who are stricken by harm"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom does Allah answer, in 27:62?", a: "The distressed who call Him", wrong: ["Only kings", "Only angels", "No one"], why: "Is not He Who responds to the distressed one, when he calls on Him." },
+        { q: "Who alone relieves those struck by harm?", a: "Allah", wrong: ["Doctors alone", "Idols", "The stars"], why: "The only One Who can relieve those who are stricken by harm." },
+        { tf: true, q: "Allah removes evil from those who call on Him.", why: "And Who removes the evil." }
+      ]
+    },
+    {
+      slug: "prayer-in-distress",
+      title: "A prayer for hard times",
+      line: "In distress, the Prophet ﷺ praised Allah, Lord of the Throne.",
+      facts: ["He said La ilaha illallah", "Lord of the heavens and earth"],
+      quote: q27(62),
+      source: hadith("bukhari", "6346", "Abdullah ibn Abbas", "Sahih", "At times of distress, the Prophet ﷺ used to say: none has the right to be worshipped but Allah, Lord of the mighty Throne; none but Allah, Lord of the heavens and the earth, Lord of the noble Throne.", "used to say at a time of distress"),
+      difficulty: 4,
+      questions: [
+        { q: "When did the Prophet ﷺ say this praise?", a: "At times of distress", wrong: ["Only at Eid", "Only at night", "Only when eating"], why: "Allah's Messenger ﷺ used to say at a time of distress." },
+        { q: "What did he call Allah in it?", a: "Lord of the Throne", wrong: ["Lord of the market", "Lord of Arabia only", "Lord of the idols"], why: "La ilaha illallahu Rabbul arsh il azim." },
+        { q: "Who narrated the prayer for distress?", a: "Abdullah ibn Abbas", wrong: ["Aisha", "Abu Hurairah", "Abu Dharr"], why: "Narrated Ibn Abbas: Allah's Messenger ﷺ used to say at a time of distress." }
+      ]
+    },
+    {
+      slug: "generation-after-generation",
+      title: "Generation after generation",
+      line: "Allah makes each generation inherit the earth from the last.",
+      facts: ["People come one after another", "This is His wisdom"],
+      quote: q27(62),
+      source: ik(62, "Allah makes people inheritors of the earth: each generation inherits from the one before. By His wisdom they come one after another, so the earth is not too crowded for them.", "each generation inherits from the generation that came before them"),
+      difficulty: 4,
+      questions: [
+        { q: "Whom does each generation inherit from?", a: "The generation before it", wrong: ["The angels", "The jinn", "No one"], why: "Each generation inherits from the generation that came before them." },
+        { q: "What does 27:62 say of our remembering?", a: "Little is it", wrong: ["It is perfect", "It is enough", "It is great"], why: "Little is that you remember!" },
+        { tf: false, q: "Allah created all people at one single time on earth.", why: "His wisdom ruled that they should be made generation after generation, nation after nation." }
+      ]
+    },
+    {
+      slug: "guide-in-the-darkness",
+      title: "Guide in the darkness",
+      line: "Allah guides travelers by stars and sends winds before rain.",
+      facts: ["Stars and landmarks guide", "Winds bring good news"],
+      quote: q27(63),
+      source: ik(63, "Allah guides people in the darkness of land and sea by the signs He made in the sky and on earth. He sends the winds ahead of the rain clouds as good news of His mercy.", "ahead of the clouds which bring rain"),
+      difficulty: 4,
+      questions: [
+        { q: "Where does Allah guide us, in 27:63?", a: "In darkness of land and sea", wrong: ["Only in cities", "Only by day", "Only in deserts"], why: "Is not He Who guides you in the darkness of the land and the sea." },
+        { q: "What comes before His mercy, the rain?", a: "The winds", wrong: ["The snow", "The birds", "The moon"], why: "And Who sends the winds as heralds of glad tidings, going before His mercy?" },
+        { tf: true, q: "Stars help people find their way.", why: "And landmarks and by the stars, they guide themselves." }
+      ]
+    },
+    {
+      slug: "bring-your-proof",
+      title: "Bring your proof",
+      line: "Allah creates and repeats creation; false gods have no proof.",
+      facts: ["He gives provision", "False gods have no proof"],
+      quote: q27(64),
+      source: ik(64, "Allah originates creation and will repeat it, and provides from the sky and earth. Those who worship others are told to bring their proof, but it is known they have none.", "it is known that they have no proof or evidence"),
+      difficulty: 5,
+      questions: [
+        { q: "What will Allah do after creating, in 27:64?", a: "Repeat it", wrong: ["Forget it", "Leave it", "Sell it"], why: "Is not He Who originates creation, and shall thereafter repeat it." },
+        { q: "What are the idol worshippers asked to bring?", a: "Their proof", wrong: ["Their gold", "Their armies", "Their camels"], why: "Say: Bring forth your proofs, if you are truthful." },
+        { q: "Do they have any proof?", a: "No, none at all", wrong: ["Yes, many", "Only one", "Only in books"], why: "It is known that they have no proof or evidence." }
+      ]
+    },
+    {
+      slug: "only-allah-knows-the-unseen",
+      title: "Only Allah knows the Unseen",
+      line: "No one in heaven or earth knows the Unseen except Allah.",
+      facts: ["Not even when the Hour comes", "Jibril was told the same"],
+      quote: q27(65),
+      source: ik(65, "Allah commands His Messenger to tell all creation that no one in the heavens or earth knows the Unseen except Allah. Not even the time of the Resurrection is known to them.", "no one among the dwellers of heaven and earth knows the Unseen, except Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "Who knows the Unseen, in 27:65?", a: "Allah alone", wrong: ["Fortune-tellers", "The angels", "Wise people"], why: "None in the heavens and the earth knows the Unseen except Allah." },
+        { q: "What answer did the Prophet ﷺ give Jibril about the Hour?", a: "He knew no more than the asker", wrong: ["Next year", "In a hundred years", "On a Friday soon"], why: "The one who is being asked about it does not know any more than the one who is asking." },
+        { tf: false, q: "Some people know exactly when the Resurrection will be.", why: "Nor can they perceive when they shall be resurrected." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 67 to 82: doubts about rising again, Allah's grace and knowledge, the Quran settles differences, trust in Allah, and the beast of the earth. */
+const NAML_FIVE: DeepUnit = {
+  key: "naml5",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-27",
+  name: "An-Naml, ayahs 67 to 82",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Naml",
+  lessons: [
+    {
+      slug: "tales-of-the-ancients",
+      title: "Not old tales",
+      line: "Deniers called rising again old tales they had heard for ages.",
+      facts: ["They doubted rising from dust", "They called it old stories"],
+      quote: q27(68),
+      source: ik(68, "The idol worshippers thought it unlikely that bodies would be made again after becoming dust. They said: we and our forefathers have heard this for a long time and never seen it happen.", "we and our forefathers have been hearing this for a long time"),
+      difficulty: 2,
+      questions: [
+        { q: "What did deniers doubt, in 27:67?", a: "Being raised from dust", wrong: ["That rain falls", "That the sun rises", "That trees grow"], why: "When we have become dust, shall we really be brought forth?" },
+        { q: "What did they call the promise, in 27:68?", a: "Tales of the ancients", wrong: ["A new law", "A poem", "A dream"], why: "Verily, these are nothing but tales of ancients." },
+        { tf: true, q: "They said their forefathers heard the same promise.", why: "Indeed we were promised this, we and our forefathers before." }
+      ]
+    },
+    {
+      slug: "travel-and-see",
+      title: "Travel and see",
+      line: "Travel the land, and see how Allah saved His Messengers.",
+      facts: ["Earlier nations are a lesson", "Believers were saved"],
+      quote: q27(69),
+      source: ik(69, "Allah tells deniers to travel the land and see what happened to those who denied the Messengers, and how Allah saved the noble Messengers and the believers who followed them.", "how Allah saved from among them the noble Messengers and the believers"),
+      difficulty: 2,
+      questions: [
+        { q: "What does 27:69 tell deniers to do?", a: "Travel the land and see", wrong: ["Stay at home", "Build towers", "Count their gold"], why: "Say to them: Travel in the land and see how has been the end of the criminals." },
+        { q: "Whom did Allah save in those nations?", a: "Messengers and believers", wrong: ["The richest", "The strongest", "No one"], why: "How Allah saved from among them the noble Messengers and the believers who followed them." },
+        { tf: true, q: "Old ruins show the truth of the Messengers.", why: "This will be an indication of the truth of the Message brought by the Messengers." }
+      ]
+    },
+    {
+      slug: "do-not-grieve",
+      title: "Do not grieve",
+      line: "Allah comforted the Prophet ﷺ: do not grieve over their plots.",
+      facts: ["Allah will help and support", "His religion will prevail"],
+      quote: q27(70),
+      source: ik(70, "To comfort the Prophet ﷺ, Allah told him not to grieve over the deniers or be distressed by their plots, for Allah will help and support him and make his religion prevail.", "Allah will help and support you"),
+      difficulty: 3,
+      questions: [
+        { q: "What did Allah tell the Prophet ﷺ, in 27:70?", a: "Do not grieve over them", wrong: ["Leave Makkah", "Stop preaching", "Fight at once"], why: "And grieve you not over them, nor be straitened because of what they plot." },
+        { q: "What did Allah promise against their plots?", a: "Help and support", wrong: ["Gold", "A palace", "Silence"], why: "Allah will help and support you, and cause your religion to prevail." },
+        { tf: true, q: "Allah comforts those who face unkind plots for the truth.", why: "Then, to comfort the Prophet ﷺ Allah says: and grieve you not over them." }
+      ]
+    },
+    {
+      slug: "full-of-grace",
+      title: "Full of grace",
+      line: "Allah gives people endless blessings, yet most do not thank Him.",
+      facts: ["The Hour may be near", "Few give thanks"],
+      quote: q27(73),
+      source: ik(73, "Asked when the promise will come, Allah said it may be close behind them. Your Lord is full of grace for mankind: He gives blessings abundantly even when people wrong themselves, yet few give thanks.", "He abundantly bestows His blessings on them"),
+      difficulty: 3,
+      questions: [
+        { q: "What is Allah full of for mankind, in 27:73?", a: "Grace", wrong: ["Anger", "Doubt", "Need"], why: "Verily, your Lord is full of grace for mankind." },
+        { q: "How many people give thanks?", a: "Few of them", wrong: ["All of them", "Most of them", "None ever"], why: "Yet most of them do not give thanks." },
+        { q: "What did Ibn Abbas say of what they hastened?", a: "It has come close", wrong: ["It will never come", "It is far away", "It was cancelled"], why: "That which you wish to hasten on has come close to you." }
+      ]
+    },
+    {
+      slug: "he-knows-what-hearts-hide",
+      title: "He knows what hearts hide",
+      line: "Allah knows what hearts hide as well as what they show.",
+      facts: ["Hidden and open are the same", "All is in a Clear Book"],
+      quote: q27(74),
+      source: ik(74, "Allah knows what is hidden in people's hearts just as He knows what is plain to see. Nothing hidden in the heavens or the earth is outside a Clear Book.", "He knows what is hidden in their hearts just as He knows what is easily visible"),
+      difficulty: 4,
+      questions: [
+        { q: "What does Allah know, in 27:74?", a: "What hearts hide and show", wrong: ["Only what we say", "Only what we do", "Only big things"], why: "Your Lord knows what their breasts conceal and what they reveal." },
+        { q: "Where is everything hidden, in 27:75?", a: "In a Clear Book", wrong: ["Under the sea", "In a cave", "Nowhere"], why: "There is nothing hidden in the heaven and the earth but it is in a Clear Book." },
+        { tf: true, q: "Allah knows our secrets as well as what we show.", why: "He knows what is hidden in their hearts just as He knows what is easily visible." }
+      ]
+    },
+    {
+      slug: "the-quran-settles-differences",
+      title: "The Quran settles differences",
+      line: "The Quran tells the truth where the Children of Israel differed.",
+      facts: ["Isa was a noble Messenger", "A guide and mercy"],
+      quote: q27(76),
+      source: ik(76, "The Quran tells the Children of Israel the truth about most things they differed over, such as Isa: he was a servant of Allah and a noble Messenger. And it is guidance for believing hearts and a mercy to them.", "it is guidance for the hearts of those who believe in it"),
+      difficulty: 4,
+      questions: [
+        { q: "To whom does the Quran explain differences, in 27:76?", a: "The Children of Israel", wrong: ["The jinn", "The angels", "The Romans"], why: "This Quran narrates to the Children of Israel most of that in which they differ." },
+        { q: "What was one thing they differed over?", a: "Isa", wrong: ["The weather", "Trade", "Farming"], why: "Such as their different opinions about Isa." },
+        { q: "What is the Quran for believers, in 27:77?", a: "A guide and a mercy", wrong: ["A puzzle", "A story only", "A burden"], why: "And truly, it is a guide and a mercy for the believers." }
+      ]
+    },
+    {
+      slug: "put-your-trust-in-allah",
+      title: "Put your trust in Allah",
+      line: "Trust Allah in every matter; you are upon the clear truth.",
+      facts: ["Allah judges between people", "Keep conveying the message"],
+      quote: q27(79),
+      source: ik(79, "Allah will judge between people on the Day of Resurrection. So put your trust in Allah in all your affairs and convey the Message, for you are on the clear truth.", "in all your affairs, and convey the Message of your Lord"),
+      difficulty: 4,
+      questions: [
+        { q: "In whom should we trust, in 27:79?", a: "Allah", wrong: ["Our wealth", "Our friends alone", "Luck"], why: "So, put your trust in Allah; surely, you are on manifest truth." },
+        { q: "Who will judge between them, in 27:78?", a: "Your Lord", wrong: ["The kings", "The scholars", "The crowd"], why: "Verily, your Lord will decide between them by His judgement." },
+        { tf: true, q: "Trust in Allah covers all of our affairs.", why: "Put your trust in Allah in all your affairs." }
+      ]
+    },
+    {
+      slug: "those-who-truly-hear",
+      title: "Those who truly hear",
+      line: "Only those with open hearts truly hear and accept the message.",
+      facts: ["Hearts can be deaf", "The humble respond"],
+      quote: q27(81),
+      source: ik(81, "The Prophet ﷺ could not make the heart-dead hear what benefits them. Only those whose hearing and sight benefit their hearts, and who are humble before Allah, respond to the message.", "hearing and insight will respond to you"),
+      difficulty: 5,
+      questions: [
+        { q: "Who truly hears, in 27:81?", a: "Those who believe in His Ayat", wrong: ["Everyone", "Only the loud", "Only the rich"], why: "You can only make to hear those who believe in Our Ayat, so they submit." },
+        { q: "What kind of people respond, per Ibn Kathir?", a: "The humble before Allah", wrong: ["The proud", "The careless", "The angry"], why: "Who are humble towards Allah and to the Message that comes to them." },
+        { tf: false, q: "Anyone can be forced to accept guidance.", why: "Nor can you lead the blind out of their error." }
+      ]
+    },
+    {
+      slug: "the-beast-of-the-earth",
+      title: "The beast of the earth",
+      line: "Near the end of time, a beast will speak to people.",
+      facts: ["A sign of the Hour", "When people neglect religion"],
+      quote: q27(82),
+      source: ik(82, "Near the end of time, when people become corrupt and neglect Allah's commands, Allah will bring out a beast from the earth that will speak to people.", "This is the beast which will emerge at the end of time"),
+      difficulty: 5,
+      questions: [
+        { q: "Where will the beast come from, in 27:82?", a: "From the earth", wrong: ["From the sea", "From the sky", "From a mountain cave"], why: "We shall bring out from the earth a beast for them, to speak to them." },
+        { q: "When will it emerge, per Ibn Kathir?", a: "At the end of time", wrong: ["In Musa's time", "Every year", "It already left"], why: "This is the beast which will emerge at the end of time." },
+        { tf: true, q: "The beast will speak to people.", why: "A beast for them, to speak to them." }
+      ]
+    },
+    {
+      slug: "hasten-to-good-deeds",
+      title: "Hurry to good deeds",
+      line: "Do good deeds now, before the great signs of the Hour come.",
+      facts: ["Six signs are named", "The beast is one of them"],
+      quote: q27(82),
+      source: hadith("muslim", "2947", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: hasten to do good deeds before six things happen: the sun rising from the west, the smoke, the Dajjal, the beast, a person's own death, or general turmoil.", "Hasten to do good deeds before six things happen"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ urge before the six signs?", a: "Hurry to good deeds", wrong: ["Hide at home", "Store food", "Stop working"], why: "Hasten to do good deeds before six things happen." },
+        { q: "How many things did he name?", a: "Six", wrong: ["Two", "Ten", "Forty"], why: "Hasten to do good deeds before six things happen." },
+        { q: "Which is one of the six?", a: "The sun rising from the west", wrong: ["A new moon", "A big harvest", "A long winter"], why: "The rising of the sun from the west, the smoke, the Dajjal, the beast." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 83 to 93: the gathering and questioning, night and day, the Trumpet, mountains like clouds, the reward of good deeds, and the Lord of Makkah. */
+const NAML_SIX: DeepUnit = {
+  key: "naml6",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-27",
+  name: "An-Naml, ayahs 83 to 93",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "An-Naml",
+  lessons: [
+    {
+      slug: "asked-about-beliefs-and-deeds",
+      title: "Asked about belief and deeds",
+      line: "On that Day, deniers are asked about their beliefs and deeds.",
+      facts: ["Gathered from every nation", "They will have no excuse"],
+      quote: q27(84),
+      source: ik(84, "On the Day of Resurrection a group from every nation who denied Allah's signs will be gathered and stand before Him. They will be asked about their beliefs and their deeds and have no excuse.", "they will be asked about their beliefs and their deeds"),
+      difficulty: 2,
+      questions: [
+        { q: "From where are deniers gathered, in 27:83?", a: "From every nation", wrong: ["From one city", "From the sea", "Only from Makkah"], why: "We shall gather out of every nation a Fawj of those who denied Our Ayat." },
+        { q: "What will they be asked about?", a: "Beliefs and deeds", wrong: ["Their clothes", "Their houses", "Their food"], why: "They will be asked about their beliefs and their deeds." },
+        { tf: false, q: "The deniers will give strong excuses that day.", why: "And they will be unable to speak." }
+      ]
+    },
+    {
+      slug: "night-for-rest-day-for-light",
+      title: "Night to rest, day to see",
+      line: "Allah made the night for rest and the day bright for work.",
+      facts: ["Darkness calms us", "Daylight lets us work"],
+      quote: q27(86),
+      source: ik(86, "In the darkness of night people stop their work and rest from the day. The day is full of light so they can work, earn a living and travel. These are signs for believers.", "Due to the darkness of the night they halt their activities"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the night for, in 27:86?", a: "To rest", wrong: ["To trade", "To travel far", "To build"], why: "We have made the night for them to rest therein." },
+        { q: "What is the day made, in 27:86?", a: "Sight-giving, full of light", wrong: ["Dark", "Silent", "Cold"], why: "And the day sight-giving." },
+        { tf: true, q: "Night and day are signs for those who believe.", why: "Verily, in this are Ayat for the people who believe." }
+      ]
+    },
+    {
+      slug: "the-trumpet-is-blown",
+      title: "The Trumpet is blown",
+      line: "The Trumpet is blown by Allah's command, and all come humbled.",
+      facts: ["Israfil blows it", "All come to Him humbly"],
+      quote: q27(87),
+      source: ik(87, "The Trumpet is a horn the angel Israfil will blow by Allah's command. Those in the heavens and earth will be terrified except whom Allah wills, and all will come to Him humbled.", "who will blow into it by the command of Allah"),
+      difficulty: 3,
+      questions: [
+        { q: "Which angel blows the Trumpet?", a: "Israfil", wrong: ["Jibril", "Mikail", "Malik"], why: "It is the angel Israfil who will blow into it by the command of Allah." },
+        { q: "How will all come to Allah, in 27:87?", a: "Humbled", wrong: ["Proud", "Laughing", "Asleep"], why: "And all shall come to Him, humbled." },
+        { tf: true, q: "Some will be spared the terror, as Allah wills.", why: "Will be terrified except him whom Allah wills." }
+      ]
+    },
+    {
+      slug: "mountains-pass-like-clouds",
+      title: "Mountains like clouds",
+      line: "Mountains look solid, yet that Day they will pass like clouds.",
+      facts: ["Allah perfected all things", "He knows what we do"],
+      quote: q27(88),
+      source: ik(88, "You see the mountains and think they will stay forever, but they will pass away like clouds, moving from their places. Allah perfected everything He made and knows all that His servants do.", "they will move away from their places"),
+      difficulty: 3,
+      questions: [
+        { q: "How will mountains pass, in 27:88?", a: "Like the clouds", wrong: ["Like rivers", "Like birds", "Like sand dunes"], why: "But they shall pass away as the passing away of the clouds." },
+        { q: "What did Allah perfect, in 27:88?", a: "All things", wrong: ["Only the sky", "Only the sea", "Only humans"], why: "The work of Allah, Who perfected all things." },
+        { tf: false, q: "Mountains will stay in place forever.", why: "They will move away from their places." }
+      ]
+    },
+    {
+      slug: "better-than-its-worth",
+      title: "Better than its worth",
+      line: "A good deed brings a better reward, and safety on that Day.",
+      facts: ["Sincere deeds for Allah", "Ten like it"],
+      quote: q27(89),
+      source: ik(89, "Whoever brings a good deed, done sincerely for Allah, will have better than it: Allah will give ten like it. They will be safe from the terror of that Day.", "He will give ten like it"),
+      difficulty: 4,
+      questions: [
+        { q: "What does a good deed earn, in 27:89?", a: "Better than its worth", wrong: ["Exactly the same", "Nothing", "Half of it"], why: "Whoever brings a good deed, will have better than its worth." },
+        { q: "How many times is it given, per Ibn Kathir?", a: "Ten like it", wrong: ["Two", "Three", "One"], why: "Allah has explained elsewhere in the Quran that He will give ten like it." },
+        { tf: true, q: "Doers of good will be safe from the terror that Day.", why: "And they will be safe from the terror on that Day." }
+      ]
+    },
+    {
+      slug: "ten-to-seven-hundred",
+      title: "Ten to seven hundred times",
+      line: "One good deed can be written ten to seven hundred times.",
+      facts: ["Even an intention counts", "One bad deed is written once"],
+      quote: q27(89),
+      source: hadith("bukhari", "6491", "Abdullah ibn Abbas", "Sahih", "Allah ordered the good and bad deeds to be written. Intending good counts as a full good deed; doing it is written ten to seven hundred times or more. A bad deed not done is written as a good deed; done, it is written only once.", "from ten to seven hundred times to many more times"),
+      difficulty: 4,
+      questions: [
+        { q: "How is a done good deed written?", a: "Ten to seven hundred times", wrong: ["Only once", "Twice", "Three times"], why: "Allah will write for him from ten to seven hundred times to many more times." },
+        { q: "What if one only intends a good deed?", a: "A full good deed", wrong: ["Nothing", "Half a deed", "A bad deed"], why: "Allah will write for him a full good deed." },
+        { q: "How is a bad deed that is done written?", a: "As one bad deed", wrong: ["As ten", "As seventy", "As a good deed"], why: "Then Allah will write one bad deed." }
+      ]
+    },
+    {
+      slug: "lord-of-this-city",
+      title: "Lord of this city",
+      line: "The Prophet ﷺ was told to worship the Lord of Makkah alone.",
+      facts: ["Allah made Makkah sacred", "Everything belongs to Him"],
+      quote: q27(91),
+      source: ik(91, "The Prophet ﷺ was commanded to worship only the Lord of this city, Makkah. Linking the word Lord to the city is a sign of honor and divine care for it. Allah made it sacred, and everything belongs to Him.", "a sign of honor and divine care for that city"),
+      difficulty: 5,
+      questions: [
+        { q: "Which city does 27:91 mean?", a: "Makkah", wrong: ["Madinah", "Jerusalem", "Saba"], why: "This city was made sacred by Allah the day He created the heavens and the earth." },
+        { q: "What does Lord of this city show?", a: "Honor and care for it", wrong: ["It is small", "It is new", "It is far away"], why: "A sign of honor and divine care for that city." },
+        { tf: true, q: "Everything belongs to Allah, not only Makkah.", why: "And to Whom belongs everything." }
+      ]
+    },
+    {
+      slug: "sacred-since-creation",
+      title: "Sacred since creation",
+      line: "Makkah has been sacred since the heavens and earth were made.",
+      facts: ["Its plants are not cut", "Its game is not chased"],
+      quote: q27(91),
+      source: hadith("bukhari", "1834", "Abdullah ibn Abbas", "Sahih", "On the day Makkah was opened, the Prophet ﷺ said Allah made it a sanctuary since creating the heavens and earth, until the Day of Resurrection. Its thorns are not uprooted, its game not chased, and lost things are picked up only to announce them.", "a sanctuary since the creation of the heavens and the earth"),
+      difficulty: 5,
+      questions: [
+        { q: "Since when has Makkah been a sanctuary?", a: "Since the heavens and earth were made", wrong: ["Since Musa", "Since last century", "Since the Hijrah"], why: "Allah has made this place a sanctuary since the creation of the heavens and the earth." },
+        { q: "What must not be chased in Makkah?", a: "Its game animals", wrong: ["Its pilgrims", "Its clouds", "Its merchants"], why: "Its game should not be chased." },
+        { q: "Who may pick up a lost item there?", a: "One who announces it", wrong: ["Anyone who wants it", "Only kings", "No one ever"], why: "Should not be picked up except by one who would announce that publicly." }
+      ]
+    },
+    {
+      slug: "someone-is-watching",
+      title: "Someone is watching",
+      line: "Recite the Quran; guidance helps the guided, and Allah sees all.",
+      facts: ["He is only a warner", "Allah is never unaware"],
+      quote: q27(93),
+      source: ik(93, "The Prophet ﷺ was told to recite the Quran: whoever is guided gains for himself. Allah will show His signs, and is never unaware of what we do. Imam Ahmad recited: when alone, do not say I am alone; say someone is watching me.", "Someone is watching me"),
+      difficulty: 5,
+      questions: [
+        { q: "Who gains from guidance, in 27:92?", a: "The one who is guided", wrong: ["Only the Prophet ﷺ", "No one", "Only angels"], why: "Whosoever receives guidance, receives it for the good of himself." },
+        { q: "What should you say when alone, per the verse Imam Ahmad recited?", a: "Someone is watching me", wrong: ["I am alone", "No one knows", "I am free"], why: "Do not say, I am alone. Rather say, Someone is watching me." },
+        { tf: false, q: "Allah is sometimes unaware of what we do.", why: "And your Lord is not unaware of what you do." }
+      ]
+    }
+  ]
+};
+
+export const NAML_UNITS: readonly DeepUnit[] = [NAML_ONE, NAML_TWO, NAML_THREE, NAML_FOUR, NAML_FIVE, NAML_SIX];
