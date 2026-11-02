@@ -860,4 +860,352 @@ const YUSUF_FOUR: DeepUnit = {
   ]
 };
 
-export const YUSUF_UNITS: readonly DeepUnit[] = [YUSUF_ONE, YUSUF_TWO, YUSUF_THREE, YUSUF_FOUR];
+/** Ayahs 83 to 101: Ya'qub's patience and hope, "I am Yusuf", forgiveness, the shirt and the scent, the dream fulfilled. */
+const YUSUF_FIVE: DeepUnit = {
+  key: "yusuf5",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-yusuf",
+  name: "Yusuf, ayahs 83 to 101",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Yusuf",
+  lessons: [
+    {
+      slug: "patience-once-more",
+      title: "Patience once more",
+      line: "Losing Binyamin, Ya'qub chose patience again, full of hope.",
+      facts: ["Maybe Allah brings them all", "The All-Knowing, All-Wise"],
+      quote: q12(83),
+      source: ik(83, "Ya'qub answered with the same words as before: patience is most fitting. He hoped Allah would bring back all three sons, Yusuf, Binyamin and the eldest.", "He then begged Allah to bring back his three sons"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Ya'qub say again, in 12:83?", a: "Patience is most fitting", wrong: ["I give up", "Bring me the king", "Go to war"], why: "So patience is most fitting (for me)." },
+        { q: "How many sons did he hope to have back?", a: "Three", wrong: ["One", "Two", "Ten"], why: "He then begged Allah to bring back his three sons: Yusuf, Binyamin and Rubil." },
+        { q: "Ya'qub said Allah may bring them all back to him.", tf: true, why: "May be Allah will bring them (back) all to me." }
+      ]
+    },
+    {
+      slug: "complaint-only-to-allah",
+      title: "My complaint is to Allah",
+      line: "Ya'qub grieved for Yusuf but complained only to Allah.",
+      facts: ["He wept until his sight went", "He knew Allah would fulfill the dream"],
+      quote: q12(86),
+      source: ik(83, "The new loss renewed Ya'qub's old grief, and his sight faded from sorrow. He held it in and complained to no created being, only to Allah, sure that Yusuf's dream would come true.", "suppressed his sorrow and did not complain to a created being"),
+      difficulty: 4,
+      questions: [
+        { q: "To whom did Ya'qub complain, in 12:86?", a: "Only to Allah", wrong: ["To the king", "To his sons", "To the neighbors"], why: "I only complain of my grief and sorrow to Allah." },
+        { q: "What happened to his sight, in 12:84?", a: "He lost it from sorrow", wrong: ["It grew sharper", "Nothing", "He hurt it in a fall"], why: "And he lost his sight because of the sorrow that he was suppressing." },
+        { q: "What did Ya'qub know from Allah, per Ibn Abbas?", a: "Yusuf's dream would come true", wrong: ["Binyamin stole", "The king would die", "A flood was near"], why: "The vision that Yusuf saw is truthful and Allah will certainly make it come true." }
+      ]
+    },
+    {
+      slug: "never-despair",
+      title: "Never despair of Allah's mercy",
+      line: "Go and search for Yusuf; never lose hope in Allah's mercy.",
+      facts: ["Only disbelievers despair", "Search in a good way"],
+      quote: q12(87),
+      source: ik(87, "Ya'qub sent his sons to look for Yusuf and his brother in a good way, gave them good news, and told them never to despair of Allah's mercy.", "He ordered them to never give up hope in Allah"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Ya'qub tell his sons to do, in 12:87?", a: "Search for Yusuf and his brother", wrong: ["Stay home", "Sell the flock", "Build a well"], why: "O my sons! Go you and inquire about Yusuf and his brother." },
+        { q: "Who despairs of Allah's mercy, in 12:87?", a: "The people who disbelieve", wrong: ["The patient", "The prophets", "The poor"], why: "Certainly no one despairs of Allah's mercy, except the people who disbelieve." },
+        { q: "Ya'qub had given up hope after so many years.", tf: false, why: "He ordered them to never give up hope in Allah." }
+      ]
+    },
+    {
+      slug: "be-charitable-to-us",
+      title: "Be charitable to us",
+      line: "The brothers came back poor and asked for kindness.",
+      facts: ["Hard times hit their family", "They brought little money"],
+      quote: q12(88),
+      source: ik(87, "Back before Yusuf, they said hardship had struck them, they had brought little money, so give full measure and be charitable. Allah rewards the charitable.", "we brought money for the food we want to buy, but it is not substantial"),
+      difficulty: 4,
+      questions: [
+        { q: "What had hit the family, in 12:88?", a: "A hard time", wrong: ["Great wealth", "A wedding", "A flood of gold"], why: "O Aziz! A hard time has hit us and our family." },
+        { q: "What did they ask for, in 12:88?", a: "Full measure and charity", wrong: ["A palace", "An army", "A ship"], why: "So pay us full measure and be charitable to us." },
+        { q: "Whom does Allah reward, in 12:88?", a: "The charitable", wrong: ["The proud", "The stingy", "The loud"], why: "Truly, Allah does reward the charitable." }
+      ]
+    },
+    {
+      slug: "i-am-yusuf",
+      title: "I am Yusuf",
+      line: "Yusuf wept and said: I am Yusuf, and this is my brother.",
+      facts: ["Taqwa and patience win", "After hardship comes ease"],
+      quote: q12(90),
+      source: ik(89, "Seeing their hardship and remembering his father's grief, Yusuf wept and told them who he was. He said whoever has Taqwa and patience, Allah never lets his reward be lost.", "so he cried and revealed his true identity to them"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the brothers ask, in 12:90?", a: "Are you indeed Yusuf?", wrong: ["Where is the cup?", "Who is the king?", "Can we go home?"], why: "They said: Are you indeed Yusuf?" },
+        { q: "What brings a reward that is never lost, in 12:90?", a: "Taqwa and patience", wrong: ["Wealth and power", "Beauty and youth", "Luck"], why: "He who has Taqwa, and is patient, then surely, Allah makes not the reward of the gooddoers to be lost." },
+        { q: "Yusuf told them who he was with a laugh of triumph.", tf: false, why: "He felt compassion and pity, so he cried and revealed his true identity to them." }
+      ]
+    },
+    {
+      slug: "no-blame-on-you-today",
+      title: "No blame on you today",
+      line: "They admitted their wrong; Yusuf said: no blame on you today.",
+      facts: ["He would never remind them", "He prayed for their forgiveness"],
+      quote: q12(92),
+      source: ik(89, "The brothers admitted Allah had preferred Yusuf and they had sinned. He told them there was no blame on them, he would not remind them again, and prayed Allah forgive them.", "There will be no blame for you today or admonishment"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the brothers admit, in 12:91?", a: "We have been sinners", wrong: ["We are kings", "We did nothing", "We will leave"], why: "Indeed Allah has preferred you above us, and we certainly have been sinners." },
+        { q: "What did Yusuf say, in 12:92?", a: "No reproach on you this day", wrong: ["You will be punished", "Go to prison", "Pay me back"], why: "He said: No reproach on you this day; may Allah forgive you." },
+        { q: "Yusuf promised not to bring up their wrong again.", tf: true, why: "I will not remind you after today of your error against me." }
+      ]
+    },
+    {
+      slug: "forgiving-raises-honor",
+      title: "Forgiving raises your honor",
+      line: "Whoever forgives, Allah only raises his honor.",
+      facts: ["Charity does not lessen wealth", "Humility lifts your rank"],
+      quote: q12(92),
+      source: hadith("muslim", "2588", "Abu Hurairah", "Sahih", "The Prophet ﷺ said charity does not decrease wealth, no one forgives except that Allah increases his honor, and no one humbles himself for Allah except that Allah raises him.", "no one forgives another except that Allah increases his honor"),
+      difficulty: 5,
+      questions: [
+        { q: "What does Allah give one who forgives?", a: "More honor", wrong: ["Less respect", "Nothing", "More enemies"], why: "No one forgives another except that Allah increases his honor." },
+        { q: "What happens to wealth given in charity?", a: "It does not decrease", wrong: ["It is lost", "It halves", "It is taxed"], why: "Charity does not decrease wealth." },
+        { q: "Yusuf's forgiveness of his brothers fits the hadith on forgiving.", tf: true, why: "No reproach on you this day; may Allah forgive you." }
+      ]
+    },
+    {
+      slug: "the-scent-of-yusuf",
+      title: "The scent of Yusuf",
+      line: "As the caravan left Egypt, Ya'qub sensed the scent of Yusuf.",
+      facts: ["Eight days' journey away", "They called it old error"],
+      quote: q12(94),
+      source: ik(93, "Yusuf sent his shirt to be cast on his father's face. When the caravan left Egypt, the wind carried its scent to Ya'qub from eight days away, though his sons said he was in his old error.", "He found his scent from a distance of eight days away"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Yusuf send to his father, in 12:93?", a: "His shirt", wrong: ["A letter", "A ring", "A camel"], why: "Go with this shirt of mine, and cast it over the face of my father." },
+        { q: "How far away did Ya'qub sense the scent, per Ibn Abbas?", a: "Eight days away", wrong: ["One step away", "A year away", "Next door"], why: "He found his scent from a distance of eight days away!" },
+        { q: "Qatadah said their harsh reply to their father was wrong.", tf: true, why: "So they uttered a harsh word to their father that they should never have uttered." }
+      ]
+    },
+    {
+      slug: "his-sight-returns",
+      title: "His sight returns",
+      line: "The shirt was cast on his face, and Ya'qub could see again.",
+      facts: ["I know from Allah what you do not", "He would seek forgiveness for them"],
+      quote: q12(96),
+      source: ik(96, "The bearer of good news cast the shirt on Ya'qub's face and his sight returned. The sons asked him to seek forgiveness for them, and he said he would ask his Lord.", "sight was restored to him"),
+      difficulty: 5,
+      questions: [
+        { q: "What happened when the shirt touched his face, in 12:96?", a: "His sight returned", wrong: ["He fell asleep", "He wept more", "Nothing changed"], why: "He cast it over his face, and his vision returned." },
+        { q: "What did the sons ask Ya'qub, in 12:97?", a: "Ask forgiveness for us", wrong: ["Give us gold", "Let us rule", "Forget Yusuf"], why: "O our father! Ask forgiveness (from Allah) for our sins." },
+        { q: "Ya'qub refused to pray for them.", tf: false, why: "I will ask my Lord for forgiveness for you, verily, He! Only He is the Oft-Forgiving." }
+      ]
+    },
+    {
+      slug: "the-dream-comes-true",
+      title: "The dream comes true",
+      line: "In Egypt the family bowed; Yusuf's childhood dream came true.",
+      facts: ["Eleven brothers and his parents", "Raised to his seat of honor"],
+      quote: q12(100),
+      source: ik(99, "Yusuf welcomed his family to Egypt in safety and raised his parents to his seat. They bowed before him, and he said: this is the meaning of my dream; my Lord made it come true.", "in reference to the dream that he narrated to his father before"),
+      difficulty: 5,
+      questions: [
+        { q: "What did Yusuf say when they bowed, in 12:100?", a: "This is the meaning of my dream", wrong: ["Stand up now", "Go home", "Bring the cup"], why: "O my father! This is the interpretation of my dream aforetime!" },
+        { q: "Whom did Yusuf raise to his seat, in 12:100?", a: "His parents", wrong: ["His brothers", "The king", "The 'Aziz"], why: "And he raised his parents to the throne." },
+        { q: "Who sowed enmity among the brothers, per 12:100?", a: "Shaytan", wrong: ["The king", "Binyamin", "The caravan"], why: "After Shaytan had sown enmity between me and my brothers." }
+      ]
+    },
+    {
+      slug: "prostration-only-to-allah",
+      title: "Prostration only to Allah",
+      line: "Bowing to rulers was allowed then; Islam keeps it for Allah.",
+      facts: ["Allowed from Adam to Isa", "Forbidden in our law"],
+      quote: q12(100),
+      source: ik(99, "In the laws of earlier Prophets, people could bow before men of authority. Islam made prostration only for Allah, the Exalted.", "Islam made prostration exclusively for Allah Alone"),
+      difficulty: 5,
+      questions: [
+        { q: "To whom is prostration in Islam?", a: "Allah alone", wrong: ["Kings", "Parents", "Scholars"], why: "Islam made prostration exclusively for Allah Alone." },
+        { q: "Bowing to men of authority was allowed in earlier laws.", tf: true, why: "This practice was allowed in the law of Adam until the law of Isa." },
+        { q: "Muslims today may prostrate to a ruler.", tf: false, why: "This practice was later prohibited in our law." }
+      ]
+    },
+    {
+      slug: "let-me-die-a-muslim",
+      title: "Let me die a Muslim",
+      line: "Yusuf prayed: let me die a Muslim and join the righteous.",
+      facts: ["After every blessing was complete", "Allah is his Wali in both worlds"],
+      quote: q12(101),
+      source: ik(101, "With his family together and his blessings complete, Yusuf asked Allah to keep His favor into the Hereafter: to die as a Muslim and join the righteous Prophets.", "He begged Him that, when he dies, he dies as a Muslim"),
+      difficulty: 5,
+      questions: [
+        { q: "How did Yusuf ask to die, in 12:101?", a: "As a Muslim", wrong: ["As a king", "Rich", "In Egypt"], why: "Cause me to die as a Muslim, and join me with the righteous." },
+        { q: "Whom did he ask to join, in 12:101?", a: "The righteous", wrong: ["The kings", "The rich", "The poets"], why: "And join me with the righteous." },
+        { q: "Whom did Yusuf call his Wali in both worlds?", a: "Allah", wrong: ["The king", "His father", "The 'Aziz"], why: "You are my Wali in this world and in the Hereafter." }
+      ]
+    },
+    {
+      slug: "the-highest-companion",
+      title: "The highest companion",
+      line: "The last words of the Prophet ﷺ chose the highest companions.",
+      facts: ["Like Yusuf, he chose Allah", "Prophets are given the choice"],
+      quote: q12(101),
+      source: hadith("bukhari", "4463", "Aishah", "Sahih", "Aishah said that as death came, the Prophet ﷺ looked up and said: O Allah, with the highest companions. A Prophet is shown his place in Paradise and given the choice.", "O Allah! (with) the highest companions"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ say at the end?", a: "O Allah, the highest companions", wrong: ["Bring me water", "Call Abu Bakr", "Close the door"], why: "He then looked at the ceiling of the house and said, O Allah! (with) the highest companions." },
+        { q: "Who narrated the hadith of the highest companions?", a: "Aishah", wrong: ["Ali", "Anas", "Umar"], why: "Narrated Aishah: When death approached him while his head was on my thigh." },
+        { q: "Ibn Kathir links this to Yusuf's prayer in 12:101.", tf: true, why: "It is possible that Yusuf said this supplication while dying, like the Prophet ﷺ." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 102 to 111: news of the Unseen, the signs people pass by, the way of the Messenger, and lessons for those who think. */
+const YUSUF_SIX: DeepUnit = {
+  key: "yusuf6",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-yusuf",
+  name: "Yusuf, ayahs 102 to 111",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Yusuf",
+  lessons: [
+    {
+      slug: "news-of-the-unseen",
+      title: "News of the Unseen",
+      line: "The Prophet ﷺ was not there; Allah told him the story.",
+      facts: ["Revealed, not witnessed", "A sign he is a Messenger"],
+      quote: q12(102),
+      source: ik(102, "The story of Yusuf is news of the Unseen revealed to the Prophet ﷺ. He was not with the brothers when they plotted; Allah taught it to him by revelation.", "you did not witness their conference nor saw them"),
+      difficulty: 5,
+      questions: [
+        { q: "How did the Prophet ﷺ know this story, in 12:102?", a: "Allah revealed it", wrong: ["He read old books", "Travelers told him", "He was there"], why: "That is of the news of the Ghayb (Unseen) which We reveal to you." },
+        { q: "Was the Prophet ﷺ there when the brothers plotted?", a: "No", wrong: ["Yes", "Only at the end", "Only at the well"], why: "You were not (present) with them when they arranged their plan together." },
+        { q: "Most people believe even when the Prophet ﷺ greatly wishes it.", tf: false, why: "And most of mankind will not believe even if you desire it eagerly." }
+      ]
+    },
+    {
+      slug: "no-reward-asked",
+      title: "No payment asked",
+      line: "The Prophet ﷺ asked no pay; the Quran is a reminder for all.",
+      facts: ["For mankind and jinn", "Sincere advice for Allah"],
+      quote: q12(104),
+      source: ik(102, "The Prophet ﷺ asked no price for his call. He gave sincere advice seeking Allah's Face. The Quran is a reminder for all the worlds.", "you do so seeking Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the Prophet ﷺ ask for his call, in 12:104?", a: "No reward at all", wrong: ["Gold", "A palace", "Land"], why: "And no reward you ask of them for it." },
+        { q: "What is the Quran, in 12:104?", a: "A reminder to all the worlds", wrong: ["A book for one tribe", "A poem", "A history only"], why: "It (the Quran) is no less than a Reminder unto the Alamin (men and Jinn)." },
+        { q: "He called people seeking Allah's Face.", tf: true, why: "You do so seeking Allah's Face and to deliver good and sincere advice." }
+      ]
+    },
+    {
+      slug: "signs-they-pass-by",
+      title: "Signs they pass by",
+      line: "People pass countless signs in sky and earth, and turn away.",
+      facts: ["Stars, seas and mountains", "Fruits of every taste"],
+      quote: q12(105),
+      source: ik(105, "Most people do not think about Allah's signs in the heavens and earth: stars, mountains, seas, deserts, and fruits alike in shape but different in taste.", "Allah states that most people do not think about His signs"),
+      difficulty: 5,
+      questions: [
+        { q: "What do people do with the signs, in 12:105?", a: "Pass by and turn away", wrong: ["Study them all", "Write poems", "Count them"], why: "And how many a sign in the heavens and the earth they pass by, while they are averse therefrom." },
+        { q: "Where are the signs, in 12:105?", a: "In the heavens and the earth", wrong: ["Only in books", "Only in Makkah", "Only at night"], why: "And how many a sign in the heavens and the earth." },
+        { q: "Ibn Kathir mentions fruits alike in shape but different in taste.", tf: true, why: "Plants and fruits that are similar in shape, but different in taste, scent, color." }
+      ]
+    },
+    {
+      slug: "faith-mixed-with-shirk",
+      title: "Faith mixed with shirk",
+      line: "Many say Allah created all, yet worship others with Him.",
+      facts: ["They admitted Allah created", "Swearing by other than Allah"],
+      quote: q12(106),
+      source: ik(106, "Ibn Abbas said many admit Allah created the heavens and earth, yet worship others with Him. Ibn Kathir also warns of hidden shirk, like swearing by other than Allah.", "They have a part of faith"),
+      difficulty: 5,
+      questions: [
+        { q: "What do most of them do, in 12:106?", a: "Believe, yet add partners", wrong: ["Believe purely", "Deny all gods", "Worship nothing"], why: "And most of them believe not in Allah except that they attribute partners unto Him." },
+        { q: "Who did they say created the heavens, per Ibn Abbas?", a: "Allah", wrong: ["Their idols", "The stars", "Nobody"], why: "When they are asked, Who created the heavens? They say, Allah did." },
+        { q: "Ibn Kathir lists swearing by other than Allah as shirk.", tf: true, why: "He who swears by other than Allah, commits Shirk." }
+      ]
+    },
+    {
+      slug: "swear-only-by-allah",
+      title: "Swear only by Allah",
+      line: "Swearing by other than Allah is a form of shirk.",
+      facts: ["Not by the Ka'bah either", "Ibn Umar corrected a man"],
+      quote: q12(106),
+      source: hadith("tirmidhi", "1535", "Ibn Umar", "Sahih", "Ibn Umar heard a man swear by the Ka'bah and told him not to swear by other than Allah, for the Prophet ﷺ said whoever swears by other than Allah has committed disbelief or shirk.", "Nothing is sworn by other than Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "What did the man swear by?", a: "The Ka'bah", wrong: ["Allah", "The Quran", "His father"], why: "Ibn Umar heard a man saying: No by the Kabah." },
+        { q: "By whom alone may we swear?", a: "Allah", wrong: ["The Ka'bah", "Our parents", "The Prophets"], why: "Nothing is sworn by other than Allah." },
+        { q: "Swearing by a holy place is fine in Islam.", tf: false, why: "Whoever swears by other than Allah, he has committed disbelief or shirk." }
+      ]
+    },
+    {
+      slug: "this-is-my-way",
+      title: "This is my way",
+      line: "Say: this is my way; I call to Allah with sure knowledge.",
+      facts: ["The Prophet ﷺ and his followers", "Glory be to Allah, no partner"],
+      quote: q12(108),
+      source: ik(108, "The Prophet's ﷺ way is to call to the testimony that none is worshipped but Allah, with sure knowledge and proof. Those who follow him call to the same.", "calls to this testimonial with sure knowledge, certainty and firm evidence"),
+      difficulty: 5,
+      questions: [
+        { q: "How does the Prophet ﷺ call to Allah, in 12:108?", a: "With sure knowledge", wrong: ["With force", "With guesses", "With magic"], why: "I invite unto Allah with sure knowledge, I and whosoever follows me." },
+        { q: "Who else calls this way, in 12:108?", a: "Whoever follows him", wrong: ["Only kings", "Only angels", "No one"], why: "I and whosoever follows me." },
+        { q: "The Prophet ﷺ said he is not of the idolaters.", tf: true, why: "And Glorified and Exalted be Allah. And I am not of the idolators." }
+      ]
+    },
+    {
+      slug: "a-call-and-its-reward",
+      title: "A call and its reward",
+      line: "Whoever calls to good gets the reward of all who follow.",
+      facts: ["Their reward is not lessened", "Calling to wrong carries sin"],
+      quote: q12(108),
+      source: hadith("muslim", "2674", "Abu Hurairah", "Sahih", "The Prophet ﷺ said whoever calls to guidance has a reward like those who follow it, without lessening theirs; whoever calls to error carries its sin like those who do it.", "He who called (people) to righteousness, there would be reward (assured) for him like the rewards of those who adhered to it"),
+      difficulty: 5,
+      questions: [
+        { q: "What does one who calls to good receive?", a: "The reward of those who follow", wrong: ["Nothing extra", "Only praise", "Gold"], why: "There would be reward for him like the rewards of those who adhered to it." },
+        { q: "Does it lessen the followers' reward?", a: "No, not at all", wrong: ["Yes, by half", "Yes, fully", "Only a little"], why: "Without their rewards being diminished in any respect." },
+        { q: "Calling others to wrong carries a share of the sin.", tf: true, why: "He who called people to error, he shall have to carry the burden of its sin." }
+      ]
+    },
+    {
+      slug: "messengers-were-men",
+      title: "Messengers were human",
+      line: "Allah sent Messengers who were men from the towns, not angels.",
+      facts: ["They ate food and walked markets", "Travel and see the end of deniers"],
+      quote: q12(109),
+      source: ik(109, "Allah sent Messengers from among humans, not angels, from the people of towns. People should travel and see how deniers ended, and know the Hereafter is better.", "They were not from among the residents of the heaven"),
+      difficulty: 5,
+      questions: [
+        { q: "Whom did Allah send as Messengers, in 12:109?", a: "Men He revealed to", wrong: ["Angels", "Jinn", "Kings only"], why: "And We sent not before you any but men unto whom We revealed." },
+        { q: "Where were they from, in 12:109?", a: "The people of towns", wrong: ["The sea", "The sky", "Far deserts only"], why: "From among the people of townships." },
+        { q: "What is best for those with Taqwa, in 12:109?", a: "The home of the Hereafter", wrong: ["A palace here", "Long life", "Fame"], why: "And verily, the home of the Hereafter is the best for those who have Taqwa." }
+      ]
+    },
+    {
+      slug: "a-lesson-for-those-who-think",
+      title: "A lesson for those who think",
+      line: "In these stories is a lesson for people of understanding.",
+      facts: ["Not a made-up tale", "Confirms the Books before"],
+      quote: q12(111),
+      source: ik(111, "The stories of the Messengers, how believers were saved and deniers ruined, are a lesson for people of sound mind. The Quran was not forged; it confirms the Books before it.", "it truly came from Allah"),
+      difficulty: 5,
+      questions: [
+        { q: "For whom are the stories a lesson, in 12:111?", a: "Men of understanding", wrong: ["Only children", "Only kings", "No one"], why: "Indeed in their stories, there is a lesson for men of understanding." },
+        { q: "Is the Quran a forged statement, per 12:111?", a: "No, it confirms what came before", wrong: ["Yes", "Partly", "No one knows"], why: "It is not a forged statement but a confirmation of that which was before it." },
+        { q: "Surah Yusuf ends by calling the Quran a guide and mercy.", tf: true, why: "And a guide and a mercy for the people who believe." }
+      ]
+    },
+    {
+      slug: "a-detailed-explanation",
+      title: "A detailed explanation",
+      line: "The Quran explains everything: what is allowed and what is not.",
+      facts: ["Worship and right conduct", "Allah's Names and Attributes"],
+      quote: q12(111),
+      source: ik(111, "The Quran is a detailed explanation of everything: the allowed and the forbidden, acts of worship, and Allah's Names and Attributes. It guides hearts from misguidance to guidance.", "Meaning the allowed, the prohibited, the preferred and the disliked matters"),
+      difficulty: 5,
+      questions: [
+        { q: "What is the Quran a detailed explanation of, in 12:111?", a: "Everything", wrong: ["Only history", "Only poems", "Only stories"], why: "And a detailed explanation of everything." },
+        { q: "What does the Quran teach about Allah, per Ibn Kathir?", a: "His Names and Attributes", wrong: ["His likeness to creation", "Nothing", "Only His anger"], why: "The Quran tells us about the Lord and about His Names and Attributes." },
+        { q: "The Quran guides hearts from misguidance to guidance.", tf: true, why: "With which their hearts are directed from misguidance to guidance." }
+      ]
+    }
+  ]
+};
+
+export const YUSUF_UNITS: readonly DeepUnit[] = [YUSUF_ONE, YUSUF_TWO, YUSUF_THREE, YUSUF_FOUR, YUSUF_FIVE, YUSUF_SIX];
