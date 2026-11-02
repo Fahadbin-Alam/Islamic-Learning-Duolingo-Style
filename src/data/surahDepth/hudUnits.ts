@@ -665,4 +665,352 @@ const HUD_TWO: DeepUnit = {
   ]
 };
 
-export const HUD_UNITS: readonly DeepUnit[] = [HUD_ONE, HUD_TWO];
+/** Ayahs 50 to 68: Hud and the people of 'Ad, then Salih, the she-camel and the people of Thamud. */
+const HUD_THREE: DeepUnit = {
+  key: "hud3",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-11",
+  name: "Hud, ayahs 50 to 68",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Hud",
+  lessons: [
+    {
+      slug: "hud-sent-to-aad",
+      title: "Hud is sent to 'Ad",
+      line: "Allah sent Hud to his people 'Ad: worship Allah alone.",
+      facts: ["Their idols were made-up names", "He asked them for no wage"],
+      quote: q11(50),
+      source: ik(50, "Hud told 'Ad to worship Allah alone and leave the idols they named as gods. He asked them for no reward; his reward was only from the One who created him.", "He only sought his reward from Allah, the One Who created him"),
+      difficulty: 2,
+      questions: [
+        { q: "To which people was Hud sent, in 11:50?", a: "'Ad", wrong: ["Thamud", "Madyan", "Quraysh"], why: "And to the 'Ad (people We sent) their brother Hud." },
+        { q: "Whom did Hud say his reward was from, in 11:51?", a: "The One who created him", wrong: ["The chiefs of 'Ad", "The traders", "His family"], why: "My reward is only from Him Who created me." },
+        { q: "Hud called his people to worship Allah with no partner.", tf: true, why: "Hud came to them commanding them to worship Allah alone, without any associates." }
+      ]
+    },
+    {
+      slug: "repent-for-rain-and-strength",
+      title: "Repent, and rain will come",
+      line: "Hud promised rain and strength to those who repent.",
+      facts: ["Forgiveness for the past", "Repentance for the future"],
+      quote: q11(52),
+      source: ik(52, "Whoever seeks forgiveness and repents, Allah makes his provision easy, eases his affairs and guards him. So Hud promised them abundant rain.", "Allah will make his sustenance easy for him, grant him ease in his affairs"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Hud promise if they repented, in 11:52?", a: "Abundant rain", wrong: ["Gold mines", "A new king", "Long winters"], why: "He will send you (from the sky) abundant rain." },
+        { q: "What else would Allah add, in 11:52?", a: "Strength to their strength", wrong: ["Years to their age", "Land to the sea", "Stars to the sky"], why: "And add strength to your strength, so do not turn away as criminals." },
+        { q: "Seeking forgiveness can make provision easier.", tf: true, why: "Allah will make his sustenance easy for him, grant him ease in his affairs." }
+      ]
+    },
+    {
+      slug: "our-gods-made-you-mad",
+      title: "They said: our gods struck you",
+      line: "'Ad said their idols had made Hud mad.",
+      facts: ["They asked for proof", "Idols cannot harm or help"],
+      quote: q11(54),
+      source: ik(54, "They said some of their idols had struck Hud with madness for defaming them. Yet the idols could not hear, see, help or harm anyone.", "these idols were inanimate objects that could not hear, see, befriend, or make enmity"),
+      difficulty: 3,
+      questions: [
+        { q: "What did 'Ad claim about Hud, in 11:54?", a: "Their gods made him mad", wrong: ["He was a king", "He was an angel", "He was rich"], why: "All that we say is that some of our gods have seized you with evil (madness)." },
+        { q: "What could their idols do, per Ibn Kathir?", a: "Nothing at all", wrong: ["Send rain", "Heal the sick", "Give strength"], why: "These idols were inanimate objects that could not hear, see, befriend, or make enmity." },
+        { q: "Hud declared himself free of everything they worshipped besides Allah.", tf: true, why: "I call Allah to witness and bear you witness that I am free from that which you ascribe as partners." }
+      ]
+    },
+    {
+      slug: "every-forelock-in-his-grasp",
+      title: "Every forelock in His grasp",
+      line: "Hud trusted Allah, who holds every creature by its forelock.",
+      facts: ["Plot all of you, said Hud", "Allah is on the straight path"],
+      quote: q11(56),
+      source: ik(56, "Every creature is under Allah's power and authority. He is the Best Judge, the Most Just, and He never wrongs anyone in His judgment.", "He is the Best Judge, the Most Just"),
+      difficulty: 3,
+      questions: [
+        { q: "In whom did Hud put his trust, in 11:56?", a: "Allah, his Lord and theirs", wrong: ["His strong tribe", "The idols", "His wealth"], why: "I put my trust in Allah, my Lord and your Lord!" },
+        { q: "What does Allah hold of every creature, in 11:56?", a: "Its forelock", wrong: ["Its shadow", "Its food only", "Its house"], why: "There is not a moving creature but He has the grasp of its forelock." },
+        { q: "Hud challenged them and their gods to plot against him.", tf: true, why: "So plot against me, all of you, and give me no respite." }
+      ]
+    },
+    {
+      slug: "aad-and-the-wind",
+      title: "The wind that ended 'Ad",
+      line: "Hud and the believers were saved; 'Ad was destroyed by a wind.",
+      facts: ["A barren wind", "Saved by Allah's mercy"],
+      quote: q11(58),
+      source: hadith("bukhari", "1035", "Ibn Abbas", "Sahih", "The Prophet ﷺ said he was given victory by the east wind, and the people of 'Ad were destroyed by the west wind.", "I was granted victory with As-Saba"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was saved, in 11:58?", a: "Hud and the believers", wrong: ["The chiefs", "No one", "Only the rich"], why: "We saved Hud and those who believed with him by a mercy from Us." },
+        { q: "What destroyed 'Ad, per the hadith?", a: "A wind", wrong: ["A flood", "An earthquake", "A fire"], why: "The nation of 'Ad was destroyed by Ad-Dabur (westerly wind)." },
+        { q: "Hud and the believers were saved by Allah's mercy.", tf: true, why: "We saved Hud and those who believed with him by a mercy from Us." }
+      ]
+    },
+    {
+      slug: "denying-one-messenger",
+      title: "Denying one Messenger is denying all",
+      line: "Rejecting Hud counted as rejecting all the Messengers.",
+      facts: ["They followed proud tyrants", "A curse followed them"],
+      quote: q11(59),
+      source: ik(59, "Whoever disbelieves in one Prophet has disbelieved in all of them, since belief in all of them is required. 'Ad followed every proud, stubborn leader instead.", "whoever disbelieves in a Prophet, then verily, he has disbelieved in all of the Prophets"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom did 'Ad disobey, in 11:59?", a: "His Messengers", wrong: ["Their kings", "Their parents", "Their guests"], why: "They rejected the Ayat of their Lord and disobeyed His Messengers." },
+        { q: "Whom did 'Ad follow instead, in 11:59?", a: "Every proud, stubborn one", wrong: ["The humble poor", "The Prophets", "The scholars"], why: "And followed the command of every proud, obstinate (oppressor of the truth)." },
+        { q: "Rejecting one Prophet counts as rejecting all of them.", tf: true, why: "Whoever disbelieves in a Prophet, then verily, he has disbelieved in all of the Prophets." }
+      ]
+    },
+    {
+      slug: "salih-sent-to-thamud",
+      title: "Salih is sent to Thamud",
+      line: "Thamud lived in rock-cut homes; Salih called them to Allah.",
+      facts: ["Between Tabuk and Madinah", "Made from the earth"],
+      quote: q11(61),
+      source: ik(61, "Thamud lived in cities carved from rock between Tabuk and Madinah, after 'Ad. Salih told them Allah made them from the earth and settled them in it.", "living in cities carved from the rocks, between Tabuk and Al-Madinah"),
+      difficulty: 3,
+      questions: [
+        { q: "To which people was Salih sent, in 11:61?", a: "Thamud", wrong: ["'Ad", "Madyan", "Saba"], why: "And to Thamud (people We sent) their brother Salih." },
+        { q: "Where did Thamud live, per Ibn Kathir?", a: "Between Tabuk and Madinah", wrong: ["In Yemen", "In Egypt", "By the Nile"], why: "Living in cities carved from the rocks, between Tabuk and Al-Madinah." },
+        { q: "Thamud lived before the people of 'Ad.", tf: false, why: "They lived after the people of 'Ad." }
+      ]
+    },
+    {
+      slug: "my-lord-is-near",
+      title: "My Lord is Near and Responsive",
+      line: "Salih said: seek forgiveness, for my Lord is Near and answers.",
+      facts: ["Near by His knowledge", "Do not lose patience in dua"],
+      quote: q11(61),
+      source: hadith("muslim", "2735", "Abu Hurairah", "Sahih", "A person's supplication is answered as long as he does not grow impatient and say: I prayed, but it was not answered.", "The supplication of every one of you is granted if he does not grow impatient"),
+      difficulty: 4,
+      questions: [
+        { q: "How did Salih describe his Lord, in 11:61?", a: "Near and Responsive", wrong: ["Far and silent", "Angry and harsh", "Busy and away"], why: "Certainly, my Lord is Near (to all by His knowledge), Responsive." },
+        { q: "What stops a dua from being answered, per the hadith?", a: "Growing impatient", wrong: ["Praying quietly", "Praying at night", "Praying in Arabic"], why: "The supplication of every one of you is granted if he does not grow impatient." },
+        { q: "Saying I prayed but got no answer can block a dua.", tf: true, why: "Is granted if he does not grow impatient and says: I supplicated but it was not granted." }
+      ]
+    },
+    {
+      slug: "you-were-our-hope",
+      title: "You were our hope until now",
+      line: "Thamud said Salih was their hope, until he spoke on idols.",
+      facts: ["They clung to their fathers' ways", "Salih stood on clear proof"],
+      quote: q11(62),
+      source: ik(62, "They said they had hoped much from Salih's sharp mind until he forbade what their fathers worshipped. Salih said he was on clear proof and could not leave his call.", "We had hope in your strong intellect before you began saying what you have said"),
+      difficulty: 4,
+      questions: [
+        { q: "How did Thamud see Salih before his call, in 11:62?", a: "As their hope", wrong: ["As a stranger", "As a thief", "As a poet"], why: "You have been among us as a figure of good hope until this!" },
+        { q: "Why did they refuse, in 11:62?", a: "Their fathers worshipped idols", wrong: ["Salih was poor", "Salih was young", "Salih was far away"], why: "Do you forbid us the worship of what our fathers have worshipped?" },
+        { q: "Salih said leaving his call would only bring him loss.", tf: true, why: "Then you increase me not but in loss." }
+      ]
+    },
+    {
+      slug: "the-she-camel-of-allah",
+      title: "The she-camel of Allah",
+      line: "They killed the she-camel, their sign, and had three days left.",
+      facts: ["Leave her to graze", "Three days to enjoy"],
+      quote: q11(64),
+      source: ik(64, "The she-camel of Allah was a sign for Thamud, and they were told to leave her to graze. They killed her, and Salih told them they had three days left.", "This she-camel of Allah is a sign to you"),
+      difficulty: 4,
+      questions: [
+        { q: "What was Thamud told to do with the she-camel, in 11:64?", a: "Leave her to graze", wrong: ["Ride her to war", "Sell her", "Lock her away"], why: "So leave her to graze in Allah's land, and touch her not with evil." },
+        { q: "How many days were they given after killing her, in 11:65?", a: "Three", wrong: ["Seven", "Forty", "One hundred"], why: "Enjoy yourselves in your homes for three days." },
+        { q: "Thamud left the she-camel unharmed.", tf: false, why: "But they harmed her, so he gave them three days." }
+      ]
+    },
+    {
+      slug: "the-awful-cry",
+      title: "The awful cry",
+      line: "A mighty cry seized the wrongdoers; the believers were saved.",
+      facts: ["Saved from that Day's disgrace", "As if they never lived there"],
+      quote: q11(67),
+      source: ik(66, "When the command came, Allah saved Salih and those who believed with him by His mercy, and the awful cry overtook the wrongdoers in their homes.", "We saved Salih and those who believed with him by a mercy from Us"),
+      difficulty: 4,
+      questions: [
+        { q: "What seized the wrongdoers of Thamud, in 11:67?", a: "An awful cry", wrong: ["A flood", "A wind", "A fire"], why: "And As-Sayhah (awful cry) overtook the wrongdoers." },
+        { q: "How did they look afterwards, in 11:68?", a: "As if they never lived there", wrong: ["Rich and happy", "Busy at work", "Sleeping safely"], why: "As if they had never lived there." },
+        { q: "Allah saved Salih and the believers with him.", tf: true, why: "We saved Salih and those who believed with him by a mercy from Us." }
+      ]
+    },
+    {
+      slug: "passing-their-ruins",
+      title: "Passing their ruins with tears",
+      line: "Passing Thamud's ruins, the Prophet ﷺ said: enter only weeping.",
+      facts: ["He covered his head", "He hurried through the valley"],
+      quote: q11(68),
+      source: hadith("bukhari", "4419", "Ibn Umar", "Sahih", "Passing Al-Hijr, the Prophet ﷺ said not to enter the homes of those who wronged themselves except weeping, lest the same thing strike you. He covered his head and hurried on.", "unless you enter in a weeping state"),
+      difficulty: 5,
+      questions: [
+        { q: "How should one pass the ruins of the punished, per the hadith?", a: "Weeping", wrong: ["Laughing", "Shopping", "Camping there"], why: "Do not enter the dwelling places of those people who were unjust to themselves unless you enter in a weeping state." },
+        { q: "What did the Prophet ﷺ do in that valley?", a: "Hurried through it", wrong: ["Stayed a week", "Built a house", "Held a feast"], why: "Then he covered his head and made his speed fast till he crossed the valley." },
+        { q: "Al-Hijr is where Thamud lived.", tf: true, why: "Thamud lived in cities carved from the rocks, between Tabuk and Al-Madinah." }
+      ]
+    }
+  ]
+};
+
+/** Ayahs 69 to 83: the angels visit Ibrahim, the good news of Ishaq and Ya'qub, Lut and the end of his people. */
+const HUD_FOUR: DeepUnit = {
+  key: "hud4",
+  topicId: "quran_tafseer",
+  branchId: "quran-surah-meaning-11",
+  name: "Hud, ayahs 69 to 83",
+  kind: "skill",
+  lessonType: "surah",
+  surahName: "Hud",
+  lessons: [
+    {
+      slug: "ibrahims-guests",
+      title: "Ibrahim welcomes his guests",
+      line: "Angels came to Ibrahim, and he rushed to bring food.",
+      facts: ["A roasted calf", "His greeting was even better"],
+      quote: q11(69),
+      source: ik(69, "Ibrahim answered their greeting of peace with a better one, then hurried to bring a roasted calf. The ayah teaches many manners of hosting guests.", "This verse contains many aspects of the etiquettes of hosting guests"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Ibrahim bring his guests, in 11:69?", a: "A roasted calf", wrong: ["Bread and water", "Dates only", "Nothing"], why: "And he hastened to entertain them with a roasted calf." },
+        { q: "Who were the guests, per Ibn Kathir?", a: "Angels", wrong: ["Traders", "Kings", "Shepherds"], why: "The word messengers here means angels." },
+        { q: "Ibrahim answered their greeting with peace too.", tf: true, why: "They said: Salaman! He answered, Salamun!" }
+      ]
+    },
+    {
+      slug: "honour-your-guest",
+      title: "Honour your guest",
+      line: "The Prophet ﷺ said a believer treats his guest generously.",
+      facts: ["Do not harm your neighbour", "Speak good or stay quiet"],
+      quote: q11(69),
+      source: hadith("bukhari", "6018", "Abu Hurayrah", "Sahih", "Whoever believes in Allah and the Last Day should not harm his neighbour, should be generous to his guest, and should speak good or stay quiet.", "should entertain his guest generously"),
+      difficulty: 2,
+      questions: [
+        { q: "How should a believer treat a guest, per the hadith?", a: "Generously", wrong: ["Quickly send him off", "Make him pay", "Ignore him"], why: "Anybody who believes in Allah and the Last Day should entertain his guest generously." },
+        { q: "What should a believer do with his words, per the hadith?", a: "Speak good or stay quiet", wrong: ["Speak loudly", "Argue often", "Speak only in poetry"], why: "Should talk what is good or keep quiet." },
+        { q: "Ibrahim hurried to serve his guests.", tf: true, why: "He (Ibrahim) left with haste in order to bring them food, as a host." }
+      ]
+    },
+    {
+      slug: "hands-did-not-reach",
+      title: "Their hands did not reach the food",
+      line: "The guests did not eat, so Ibrahim felt afraid.",
+      facts: ["Angels do not eat", "Sent to the people of Lut"],
+      quote: q11(70),
+      source: ik(70, "Angels do not want food and do not eat it. When they did not touch the meal, Ibrahim grew uneasy, and they told him not to fear: they were sent to Lut's people.", "angels are not concerned with food"),
+      difficulty: 3,
+      questions: [
+        { q: "Why did Ibrahim feel afraid, in 11:70?", a: "The guests did not eat", wrong: ["The guests shouted", "The food burned", "Night had come"], why: "But when he saw their hands went not towards it, he mistrusted them." },
+        { q: "To whom were the angels sent, in 11:70?", a: "The people of Lut", wrong: ["The people of Hud", "Fir'awn", "Thamud"], why: "Fear not, we have been sent against the people of Lut." },
+        { q: "Angels eat food like people do.", tf: false, why: "Angels are not concerned with food. They do not desire it, nor do they eat it." }
+      ]
+    },
+    {
+      slug: "good-news-of-ishaq",
+      title: "Good news of Ishaq and Ya'qub",
+      line: "Ibrahim's wife heard of a son, Ishaq, then Ya'qub.",
+      facts: ["She was old", "Allah's mercy on the household"],
+      quote: q11(71),
+      source: ik(71, "Even after losing hope, Ibrahim's wife was given good news of a son, Ishaq, who would himself have a son, Ya'qub, and many children after him.", "she was rewarded with the glad tidings of a son, even after her despair"),
+      difficulty: 3,
+      questions: [
+        { q: "Which son was promised, in 11:71?", a: "Ishaq", wrong: ["Yusuf", "Musa", "Dawud"], why: "But We gave her glad tidings of Ishaq." },
+        { q: "Who would come after Ishaq, in 11:71?", a: "Ya'qub", wrong: ["Sulayman", "Yunus", "Harun"], why: "And after Ishaq, of Ya'qub." },
+        { q: "Ya'qub was the son of Ishaq.", tf: true, why: "For verily, Ya'qub was the son of Ishaq." }
+      ]
+    },
+    {
+      slug: "do-you-wonder-at-allahs-decree",
+      title: "Do you wonder at Allah's decree?",
+      line: "She wondered how an old couple could have a child.",
+      facts: ["She was old, he was old", "Mercy and blessings on them"],
+      quote: q11(73),
+      source: ik(72, "She was amazed: how could an old woman with an old husband have a child? The angels said: do you wonder at Allah's decree? His mercy and blessings are on you.", "Shall I bear a child while I am an old woman, and here is my husband an old man"),
+      difficulty: 3,
+      questions: [
+        { q: "Why was she amazed, in 11:72?", a: "She and her husband were old", wrong: ["The guests were tall", "It was night", "They were far from home"], why: "Shall I bear a child while I am an old woman, and here is my husband an old man?" },
+        { q: "What did the angels say, in 11:73?", a: "Do you wonder at Allah's decree?", wrong: ["Go back home", "Be very afraid", "Leave this land"], why: "Do you wonder at the decree of Allah? The mercy of Allah and His blessings be on you." },
+        { q: "Allah is called All-Praiseworthy, All-Glorious at the end of 11:73.", tf: true, why: "Surely, He (Allah) is All-Praiseworthy, All-Glorious." }
+      ]
+    },
+    {
+      slug: "ibrahim-pleads",
+      title: "Ibrahim pleads for the town",
+      line: "Ibrahim, gentle and repentant, pleaded for Lut's town.",
+      facts: ["Forbearing and humble", "The decree had come"],
+      quote: q11(75),
+      source: ik(74, "Ibrahim asked: would you destroy a town with even one believer in it? They said Lut is there, and he and his family would be saved except his wife.", "would you destroy it"),
+      difficulty: 4,
+      questions: [
+        { q: "How does Allah describe Ibrahim, in 11:75?", a: "Forbearing, humble, repentant", wrong: ["Harsh and proud", "Rich and famous", "Quick to anger"], why: "Verily, Ibrahim was, without doubt, forbearing, used to invoke Allah with humility, and was repentant." },
+        { q: "What was Ibrahim told, in 11:76?", a: "The command has gone forth", wrong: ["They are forgiven", "Wait ten years", "Go there yourself"], why: "O Ibrahim! Forsake this. Indeed, the commandment of your Lord has gone forth." },
+        { q: "Ibrahim was told the torment could still be turned back.", tf: false, why: "Verily, there will come a torment for them which cannot be turned back." }
+      ]
+    },
+    {
+      slug: "a-distressful-day",
+      title: "A distressful day for Lut",
+      line: "Angels came to Lut as young men, and he feared for them.",
+      facts: ["His people did shameful deeds", "He must defend his guests"],
+      quote: q11(77),
+      source: ik(77, "Lut was grieved by his guests coming, because he feared his wicked people would harm them. Ibn Abbas said a distressful day means a severe test for him.", "A severe test for him"),
+      difficulty: 4,
+      questions: [
+        { q: "How did Lut feel when the guests came, in 11:77?", a: "Grieved and worried", wrong: ["Proud and happy", "Bored", "Angry at them"], why: "He was grieved on account of them and was concerned for them." },
+        { q: "What did Lut call that day, in 11:77?", a: "A distressful day", wrong: ["A happy day", "A feast day", "A day of rest"], why: "He said: This is a distressful day." },
+        { q: "Lut feared his people would harm his guests.", tf: true, why: "He was afraid that if he did not host them... someone else of his people would host them and harm them." }
+      ]
+    },
+    {
+      slug: "a-right-minded-man",
+      title: "Is there no right-minded man?",
+      line: "Lut begged them to fear Allah and not shame his guests.",
+      facts: ["A Prophet is like a father", "He pointed them to the lawful"],
+      quote: q11(78),
+      source: ik(78, "Lut pointed them to their lawful wives, since every Prophet is like a father to his nation. He asked them to fear Allah and not disgrace him with his guests.", "Every Prophet is like a father to his nation"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Lut ask his people, in 11:78?", a: "Is there no right-minded man?", wrong: ["Who will pay me?", "Where is my house?", "Who is your king?"], why: "Is there not among you a single right-minded man?" },
+        { q: "What is a Prophet like to his nation, per Mujahid?", a: "A father", wrong: ["A stranger", "A king", "A guard"], why: "Every Prophet is like a father to his nation." },
+        { q: "Lut asked them to have taqwa of Allah.", tf: true, why: "So have Taqwa of Allah and disgrace me not with regard to my guests!" }
+      ]
+    },
+    {
+      slug: "a-powerful-support",
+      title: "Lut wished for strong support",
+      line: "Lut wished for strength, yet Allah was his strongest support.",
+      facts: ["Allah is the strong support", "The angels revealed who they were"],
+      quote: q11(80),
+      source: hadith("bukhari", "3372", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: may Allah have mercy on Lut, he wished to have a powerful support.", "He wished to have a powerful support"),
+      difficulty: 4,
+      questions: [
+        { q: "What did Lut wish for, in 11:80?", a: "Strength or a strong support", wrong: ["Gold", "A new house", "A long trip"], why: "Would that I had strength to overpower you, or that I could betake myself to some powerful support." },
+        { q: "What did the Prophet ﷺ pray for Lut?", a: "Allah's mercy on him", wrong: ["A long life", "Great wealth", "A big army"], why: "May Allah send His mercy on Lut. He wished to have a powerful support." },
+        { q: "The angels told Lut his people would not reach him.", tf: true, why: "O Lut! Verily, we are the messengers from your Lord! They shall not reach you!" }
+      ]
+    },
+    {
+      slug: "leave-by-night",
+      title: "Leave by night, do not look back",
+      line: "Lut left by night with his family; his wife stayed behind.",
+      facts: ["Their time was the morning", "Do not look back"],
+      quote: q11(81),
+      source: ik(81, "The angels told Lut to leave with his family late at night and not turn back at the sound of the punishment. His wife would be struck with her people.", "do not rush towards that disturbing noise"),
+      difficulty: 5,
+      questions: [
+        { q: "When was Lut told to leave, in 11:81?", a: "In part of the night", wrong: ["At noon", "After a month", "Never"], why: "So travel with your family in a part of the night." },
+        { q: "When was the punishment set to come, in 11:81?", a: "In the morning", wrong: ["At sunset", "In a year", "At midday"], why: "Indeed, morning is their appointed time. Is not the morning near?" },
+        { q: "Lut's wife was saved with him.", tf: false, why: "But your wife (will remain behind), verily, the punishment which will afflict them, will afflict her." }
+      ]
+    },
+    {
+      slug: "the-town-overturned",
+      title: "The town turned upside down",
+      line: "Their town was overturned and stones of clay rained down.",
+      facts: ["It came at sunrise", "Never far from wrongdoers"],
+      quote: q11(82),
+      source: ik(82, "At sunrise the town was turned upside down and hard stones of baked clay rained on it. Such punishment is never far from those who do the same wrong.", "this vengeance (of Allah) is not far from similar wrongdoers"),
+      difficulty: 5,
+      questions: [
+        { q: "What happened to the town, in 11:82?", a: "Turned upside down", wrong: ["Moved away", "Became rich", "Was rebuilt"], why: "We turned them upside down, and rained on them stones of clay." },
+        { q: "What did Sijjil mean, per Ibn Abbas?", a: "Stones of clay", wrong: ["Drops of water", "Balls of fire", "Grains of sand"], why: "Sijjil is a Persian word meaning stones made of clay." },
+        { q: "Such punishment is far from those who do the same wrong.", tf: false, why: "And they are not ever far from the wrongdoers." }
+      ]
+    }
+  ]
+};
+
+export const HUD_UNITS: readonly DeepUnit[] = [HUD_ONE, HUD_TWO, HUD_THREE, HUD_FOUR];
