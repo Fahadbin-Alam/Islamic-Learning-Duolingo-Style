@@ -240,7 +240,7 @@ const ALAQ_TWO: DeepUnit = {
       questions: [
         { q: "What does 96:14 remind us?", a: "Allah sees", wrong: ["Allah sleeps", "Allah is far", "Allah forgets"], why: "Knows he not that Allah sees?" },
         { q: "What else does Allah do, per Ibn Kathir?", a: "Hears his words", wrong: ["Ignores him", "Fears him", "Needs him"], why: "Allah sees him and hears his words." },
-        { tf: true, q: "Remembering Allah sees us helps us do right.", why: "Allah sees him and hears his words, and He will compensate him in full." }
+        { q: "What does 96:13 ask about the one who stops prayer?", a: "What if he denies and turns away?", wrong: ["What if he is rich?", "What if he is tired?", "What if he is far?"], why: "Have you seen if he denies and turns away?" }
       ]
     },
     {
