@@ -55,6 +55,7 @@ import {
 } from "./api/islamicLearningApi";
 import { challengeLevel, HARDER_OFFER_AFTER, nextLevel, TOP_LEVEL } from "./data/challengeLevel";
 import { cleanReviewCards } from "./services/reviewDeck";
+import { ReviewBanner } from "./ui/screens/ReviewBanner";
 import { COURSE, LESSONS_BY_ID, SHOP_ITEMS } from "./data/course";
 import { buildTopicSearchIndex, searchTopics } from "./utils/topicSearch";
 import { dailyAutoDue, localDayNumber, markDailyShown, parseDailyShown } from "./data/dailyCard";
@@ -1251,6 +1252,7 @@ export default function TopicApp() {
   }, [localizedSections, pathNodes, prayerPrefs, season, state.user]);
   const storyReadIds = useMemo(() => new Set(Object.keys(state.user?.stories ?? {}).filter((id) => state.user?.stories?.[id]?.readAt)), [state.user?.stories]);
   const storyGroup = storyGroupFor(selectedSection.topicId);
+  const pathReviewDue = state.user ? reviewDueCount(state.user) : 0;
   const storyBanner = storyGroup ? (
     <StoryBanner
       group={storyGroup}
@@ -3491,7 +3493,8 @@ export default function TopicApp() {
           }
         : undefined,
     attempt: lessonStep?.attempt ?? 0,
-    review: challenge?.isReview,
+    // A question missed before and back from the Review deck says so; other review questions just say REVIEW.
+    review: challenge?.missedBefore ? ("missed" as const) : challenge?.isReview,
     mascotVariant: lessonMascot,
     accent: lessonAccent,
     praiseSeed: challenge?.id,
@@ -3613,14 +3616,14 @@ export default function TopicApp() {
                     {t("All of {topic}", { topic: selectedSection.title })}
                   </Text>
                 </Tappable>
-              ) : ramadanBanner && storyBanner ? (
+              ) : ramadanBanner || storyBanner || pathReviewDue > 0 ? (
                 <>
                   {ramadanBanner}
+                  {/* Missed questions due again (spaced review): one tap starts a Review of them. */}
+                  {pathReviewDue > 0 ? <ReviewBanner count={pathReviewDue} onOpen={startReviewDeck} /> : null}
                   {storyBanner}
                 </>
-              ) : (
-                ramadanBanner ?? storyBanner
-              )
+              ) : undefined
             }
           />
         )}
@@ -3736,7 +3739,7 @@ export default function TopicApp() {
                     }
                   : undefined}
                 attempt={lessonStep.attempt}
-                review={challenge.isReview}
+                review={challenge.missedBefore ? "missed" : challenge.isReview}
                 mascotVariant={lessonMascot}
                 accent={lessonAccent}
                 praiseSeed={challenge.id}
