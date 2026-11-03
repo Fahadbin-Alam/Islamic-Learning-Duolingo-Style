@@ -24500,6 +24500,74 @@
     "text": "The Preserved Tablet"
   },
   {
+    "kind": "course",
+    "text": "The sky of great stars"
+  },
+  {
+    "kind": "course",
+    "text": "The Promised Day"
+  },
+  {
+    "kind": "course",
+    "text": "The Witness and the Witnessed"
+  },
+  {
+    "kind": "course",
+    "text": "The special hour of Friday"
+  },
+  {
+    "kind": "course",
+    "text": "The people of the ditch"
+  },
+  {
+    "kind": "course",
+    "text": "Their only fault was faith"
+  },
+  {
+    "kind": "course",
+    "text": "Allah witnesses everything"
+  },
+  {
+    "kind": "course",
+    "text": "The boy and the monk"
+  },
+  {
+    "kind": "course",
+    "text": "We believe in the Lord of the boy"
+  },
+  {
+    "kind": "course",
+    "text": "If they do not repent"
+  },
+  {
+    "kind": "course",
+    "text": "The grip of your Lord"
+  },
+  {
+    "kind": "course",
+    "text": "The Forgiving, the Loving"
+  },
+  {
+    "kind": "course",
+    "text": "Owner of the Throne"
+  },
+  {
+    "kind": "course",
+    "text": "He does what He wills"
+  },
+  {
+    "kind": "course",
+    "text": "Fir'awn and Thamud"
+  },
+  {
+    "kind": "course",
+    "text": "Allah surrounds them"
+  },
+  {
+    "kind": "course",
+    "text": "A Glorious Quran"
+  },
+  {
     "kind": "arabic",
     "text": "The Nightcomer"
   },
@@ -152225,10 +152293,6 @@
   },
   {
     "kind": "question",
-    "text": "We believe in the Lord of the boy"
-  },
-  {
-    "kind": "question",
     "text": "We follow the king"
   },
   {
@@ -152302,10 +152366,6 @@
   {
     "kind": "question",
     "text": "The Rich, the Strong"
-  },
-  {
-    "kind": "question",
-    "text": "The Forgiving, the Loving"
   },
   {
     "kind": "question",
@@ -367120,10 +367180,6 @@
     "text": "Do they hold Allah's treasures, or rule over His creation?"
   },
   {
-    "kind": "lesson",
-    "text": "He does what He wills"
-  },
-  {
     "kind": "source",
     "text": "Quran 52:37"
   },
@@ -447169,6 +447225,1022 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah swears by the sky and its great stars."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Buruj: the great stars"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ayah 25:61 says the same"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:1"
+  },
+  {
+    "kind": "question",
+    "text": "By what does Allah swear in 85:1?"
+  },
+  {
+    "kind": "question",
+    "text": "The sea and its fish"
+  },
+  {
+    "kind": "question",
+    "text": "The heaven holding the Buruj"
+  },
+  {
+    "kind": "question",
+    "text": "What are the Buruj, per Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "How many Buruj did Ibn Jarir count for the sun and moon?"
+  },
+  {
+    "kind": "question",
+    "text": "The positions of the sun and the moon, which are twelve Buruj."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah swears by the Promised Day, the Day of Judgement."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Yawm al-Maw'ud: the Promised Day"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:2"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:2"
+  },
+  {
+    "kind": "question",
+    "text": "By what Day does Allah swear in 85:2?"
+  },
+  {
+    "kind": "question",
+    "text": "The first day of spring"
+  },
+  {
+    "kind": "question",
+    "text": "What is the Promised Day?"
+  },
+  {
+    "kind": "question",
+    "text": "The day of birth"
+  },
+  {
+    "kind": "question",
+    "text": "The Promised Day may never come."
+  },
+  {
+    "kind": "question",
+    "text": "And by the Promised Day."
+  },
+  {
+    "kind": "lesson",
+    "text": "Most say the Witness is Friday and the Witnessed is Arafah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shahid: Witness, Friday"
+  },
+  {
+    "kind": "lesson",
+    "text": "Mashhud: Witnessed, Arafah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:3"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:3"
+  },
+  {
+    "kind": "question",
+    "text": "By what does Allah swear in 85:3?"
+  },
+  {
+    "kind": "question",
+    "text": "The day and night"
+  },
+  {
+    "kind": "question",
+    "text": "The sea and land"
+  },
+  {
+    "kind": "question",
+    "text": "And by the Witness and by the Witnessed."
+  },
+  {
+    "kind": "question",
+    "text": "What is the Witness, per most scholars?"
+  },
+  {
+    "kind": "question",
+    "text": "What is the Witnessed, per most scholars?"
+  },
+  {
+    "kind": "question",
+    "text": "A Monday"
+  },
+  {
+    "kind": "question",
+    "text": "The night of travel"
+  },
+  {
+    "kind": "lesson",
+    "text": "Friday has a short hour when duas are answered."
+  },
+  {
+    "kind": "lesson",
+    "text": "Jumuah is blessed"
+  },
+  {
+    "kind": "lesson",
+    "text": "Make dua on Friday"
+  },
+  {
+    "kind": "question",
+    "text": "What is special about Friday, per the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "The sun is brighter"
+  },
+  {
+    "kind": "question",
+    "text": "It has no night"
+  },
+  {
+    "kind": "question",
+    "text": "An hour when duas are answered"
+  },
+  {
+    "kind": "question",
+    "text": "No one works"
+  },
+  {
+    "kind": "question",
+    "text": "There is an hour on Friday; a Muslim who asks Allah for something then will be given it."
+  },
+  {
+    "kind": "question",
+    "text": "How long is the hour?"
+  },
+  {
+    "kind": "question",
+    "text": "The whole day"
+  },
+  {
+    "kind": "question",
+    "text": "He showed with his hand how short it is."
+  },
+  {
+    "kind": "question",
+    "text": "Making dua on Friday is a good habit."
+  },
+  {
+    "kind": "lesson",
+    "text": "Cruel people dug a fiery ditch to make believers drop faith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Ukhdud: the ditch"
+  },
+  {
+    "kind": "lesson",
+    "text": "Qutila: cursed"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:4"
+  },
+  {
+    "kind": "question",
+    "text": "Who were cursed, per 85:4?"
+  },
+  {
+    "kind": "question",
+    "text": "The People of the Ditch"
+  },
+  {
+    "kind": "question",
+    "text": "What does Ukhdud mean?"
+  },
+  {
+    "kind": "question",
+    "text": "A ditch in the ground"
+  },
+  {
+    "kind": "question",
+    "text": "The plural of Ukhdud is Akhadid, which means ditches in the ground."
+  },
+  {
+    "kind": "question",
+    "text": "What did the believers refuse to do?"
+  },
+  {
+    "kind": "question",
+    "text": "Give up their faith"
+  },
+  {
+    "kind": "question",
+    "text": "However, the believers refused to recant."
+  },
+  {
+    "kind": "lesson",
+    "text": "The believers did nothing wrong except believe in Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Hamid: worthy of praise"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:8"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:8"
+  },
+  {
+    "kind": "question",
+    "text": "What was their only fault, per 85:8?"
+  },
+  {
+    "kind": "question",
+    "text": "That they were lazy"
+  },
+  {
+    "kind": "question",
+    "text": "That they believed in Allah"
+  },
+  {
+    "kind": "question",
+    "text": "That they stole"
+  },
+  {
+    "kind": "question",
+    "text": "That they lied"
+  },
+  {
+    "kind": "question",
+    "text": "Who watched what was done, per 85:7?"
+  },
+  {
+    "kind": "question",
+    "text": "Travellers far away"
+  },
+  {
+    "kind": "question",
+    "text": "The people sitting by the ditch"
+  },
+  {
+    "kind": "question",
+    "text": "And they witnessed what they were doing against the believers."
+  },
+  {
+    "kind": "question",
+    "text": "Allah is the Almighty and worthy of all praise."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Buruj, ayahs 1-10?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Everything belongs to Allah, and nothing is hidden from Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shahid: Witness"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah owns all"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:9"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:9"
+  },
+  {
+    "kind": "question",
+    "text": "To whom does the dominion belong, per 85:9?"
+  },
+  {
+    "kind": "question",
+    "text": "To Whom belongs the dominion of the heavens and the earth!"
+  },
+  {
+    "kind": "question",
+    "text": "Over what is Allah a Witness, per 85:9?"
+  },
+  {
+    "kind": "question",
+    "text": "The cruelty of the ditch was hidden from Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Nothing is concealed from Him in all of the heavens and the earth."
+  },
+  {
+    "kind": "lesson",
+    "text": "A boy learned faith from a monk and taught: only Allah cures."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only Allah heals"
+  },
+  {
+    "kind": "lesson",
+    "text": "Faith over magic"
+  },
+  {
+    "kind": "question",
+    "text": "What was the boy first sent to learn?"
+  },
+  {
+    "kind": "question",
+    "text": "Magic from a sorcerer"
+  },
+  {
+    "kind": "question",
+    "text": "Please send me a boy whom I can teach magic."
+  },
+  {
+    "kind": "question",
+    "text": "What did the boy tell the blind man?"
+  },
+  {
+    "kind": "question",
+    "text": "I cure everyone"
+  },
+  {
+    "kind": "question",
+    "text": "The king cures"
+  },
+  {
+    "kind": "question",
+    "text": "Gifts cure"
+  },
+  {
+    "kind": "question",
+    "text": "Only Allah cures"
+  },
+  {
+    "kind": "question",
+    "text": "I do not cure anybody; it is only Allah who cures people."
+  },
+  {
+    "kind": "question",
+    "text": "The blind man believed in Allah and was cured."
+  },
+  {
+    "kind": "question",
+    "text": "So, he believed in and supplicated to Allah, and Allah cured him."
+  },
+  {
+    "kind": "lesson",
+    "text": "The boy stayed firm, and in the end all the people believed."
+  },
+  {
+    "kind": "lesson",
+    "text": "Steadfastness wins hearts"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah saved him twice"
+  },
+  {
+    "kind": "question",
+    "text": "What did the boy say each time he was saved?"
+  },
+  {
+    "kind": "question",
+    "text": "The king let me go"
+  },
+  {
+    "kind": "question",
+    "text": "My friends hid me"
+  },
+  {
+    "kind": "question",
+    "text": "Allah saved me from them"
+  },
+  {
+    "kind": "question",
+    "text": "I escaped alone"
+  },
+  {
+    "kind": "question",
+    "text": "The boy said, Allah saved me from them."
+  },
+  {
+    "kind": "question",
+    "text": "What did the people say at the end?"
+  },
+  {
+    "kind": "question",
+    "text": "The people proclaimed, We believe in the Lord of the boy!"
+  },
+  {
+    "kind": "question",
+    "text": "What did the baby tell his mother?"
+  },
+  {
+    "kind": "question",
+    "text": "Be patient, you are on the truth"
+  },
+  {
+    "kind": "question",
+    "text": "Be patient mother!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Those who harmed believers are warned, unless they repent."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fatanu: tried, harmed"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:10"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:10"
+  },
+  {
+    "kind": "question",
+    "text": "Whom does 85:10 warn?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who travelled"
+  },
+  {
+    "kind": "question",
+    "text": "Those who fasted"
+  },
+  {
+    "kind": "question",
+    "text": "Those who harmed believing men and women"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, those who put into trial the believing men and believing women."
+  },
+  {
+    "kind": "question",
+    "text": "What condition does 85:10 give?"
+  },
+  {
+    "kind": "question",
+    "text": "And then grow rich"
+  },
+  {
+    "kind": "question",
+    "text": "And then move away"
+  },
+  {
+    "kind": "question",
+    "text": "And then sleep"
+  },
+  {
+    "kind": "question",
+    "text": "And then do not turn in repentance"
+  },
+  {
+    "kind": "question",
+    "text": "And then do not turn in repentance, then they will have the torment of Hell."
+  },
+  {
+    "kind": "question",
+    "text": "Even great wrongdoers are called to repent."
+  },
+  {
+    "kind": "question",
+    "text": "They do not cease from what they are doing, and do not regret what they had done before."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Buruj, ayahs 1-10!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Believers who do good get gardens: the great success."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Fawz al-Kabir: the great success"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:11"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:11"
+  },
+  {
+    "kind": "question",
+    "text": "What will believers who do good get, per 85:11?"
+  },
+  {
+    "kind": "question",
+    "text": "What does 85:11 call it?"
+  },
+  {
+    "kind": "question",
+    "text": "The gardens are the opposite of what is prepared for Allah's enemies."
+  },
+  {
+    "kind": "question",
+    "text": "This is the opposite of what he has prepared for His enemies of Fire and Hell."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah's punishment of the wrongdoers is severe and swift."
+  },
+  {
+    "kind": "lesson",
+    "text": "Batsh: seizing"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is Most Strong"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:12"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:12"
+  },
+  {
+    "kind": "question",
+    "text": "How is the punishment of your Lord, per 85:12?"
+  },
+  {
+    "kind": "question",
+    "text": "Unreal"
+  },
+  {
+    "kind": "question",
+    "text": "Severe and painful"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, the punishment of your Lord is severe and painful."
+  },
+  {
+    "kind": "question",
+    "text": "How fast does Allah's will happen, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "In a blink of an eye or faster"
+  },
+  {
+    "kind": "question",
+    "text": "After years"
+  },
+  {
+    "kind": "question",
+    "text": "In the matter of a blinking of an eye, or even swifter."
+  },
+  {
+    "kind": "question",
+    "text": "Allah needs help to do what He wants."
+  },
+  {
+    "kind": "question",
+    "text": "He is the One that whatever He wants, then it will be however He wants it to be."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah began creation and will bring it back just as easily."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yubdi: begins"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yu'id: repeats"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:13"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:13"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah do, per 85:13?"
+  },
+  {
+    "kind": "question",
+    "text": "Begins and repeats"
+  },
+  {
+    "kind": "question",
+    "text": "Forgets and leaves"
+  },
+  {
+    "kind": "question",
+    "text": "Waits and hopes"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, He it is Who begins and repeats."
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah repeat, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Mistakes"
+  },
+  {
+    "kind": "question",
+    "text": "He begins the creation, and He repeats it just as He began it."
+  },
+  {
+    "kind": "question",
+    "text": "Bringing us back to life is easy for Allah."
+  },
+  {
+    "kind": "question",
+    "text": "He repeats it just as He began it, without opposition or resistance."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah forgives whoever repents, and He is Al-Wadud, the Loving."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:14"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:14"
+  },
+  {
+    "kind": "question",
+    "text": "Which two names are in 85:14?"
+  },
+  {
+    "kind": "question",
+    "text": "The Strong and the Rich"
+  },
+  {
+    "kind": "question",
+    "text": "Oft-Forgiving and Al-Wadud"
+  },
+  {
+    "kind": "question",
+    "text": "The King and the Holy"
+  },
+  {
+    "kind": "question",
+    "text": "What does Al-Wadud mean, per Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "The Angry"
+  },
+  {
+    "kind": "question",
+    "text": "The Loving"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas and others have said about the name Al-Wadud, It means Al-Habib, the Loving."
+  },
+  {
+    "kind": "question",
+    "text": "Whose sins does Allah forgive, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever repents, whatever the sin"
+  },
+  {
+    "kind": "question",
+    "text": "He forgives the sin of whoever repents to Him, no matter what the sin may be."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah owns the mighty Throne above all creation; He is Al-Majid."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Majid: the Glorious"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:15"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:15"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah own, per 85:15?"
+  },
+  {
+    "kind": "question",
+    "text": "Owner of the Throne, Al-Majid, the Glorious."
+  },
+  {
+    "kind": "question",
+    "text": "Above all of the creation"
+  },
+  {
+    "kind": "question",
+    "text": "The Owner of the Mighty Throne that is above all of the creation."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Majid can describe Allah or His Throne, and both are correct."
+  },
+  {
+    "kind": "question",
+    "text": "Nevertheless, both meanings are correct."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah does whatever He wants; no one can overturn it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Fa'al: always doing"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:16"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:16"
+  },
+  {
+    "kind": "question",
+    "text": "How does 85:16 describe Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "Doer of nothing"
+  },
+  {
+    "kind": "question",
+    "text": "Waiting for help"
+  },
+  {
+    "kind": "question",
+    "text": "Doer of what He intends"
+  },
+  {
+    "kind": "question",
+    "text": "Who can counter His ruling, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "There is no one who can counter His ruling."
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Abu Bakr mean by his doctor?"
+  },
+  {
+    "kind": "question",
+    "text": "A healer from Yemen"
+  },
+  {
+    "kind": "question",
+    "text": "He said, I am the Doer of whatever I intend."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Buruj, ayahs 11-22?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah reminds us how strong armies like Fir'awn and Thamud fell."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Junud: the armies"
+  },
+  {
+    "kind": "lesson",
+    "text": "No power beats Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:18"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:17"
+  },
+  {
+    "kind": "question",
+    "text": "Whose story does 85:17-18 mention?"
+  },
+  {
+    "kind": "question",
+    "text": "Ad and Iram only"
+  },
+  {
+    "kind": "question",
+    "text": "What do the disbelievers do, per 85:19?"
+  },
+  {
+    "kind": "question",
+    "text": "Persist in denying"
+  },
+  {
+    "kind": "question",
+    "text": "Believe at once"
+  },
+  {
+    "kind": "question",
+    "text": "Repent"
+  },
+  {
+    "kind": "question",
+    "text": "Someone was able to stop the punishment of Fir'awn and Thamud."
+  },
+  {
+    "kind": "question",
+    "text": "He sent down upon them the punishment that no one was able to ward off from them."
+  },
+  {
+    "kind": "lesson",
+    "text": "No one can escape Allah; He surrounds them from every side."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muhit: encompassing"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:20"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:20"
+  },
+  {
+    "kind": "question",
+    "text": "How does Allah hold them, per 85:20?"
+  },
+  {
+    "kind": "question",
+    "text": "He encompasses them from behind"
+  },
+  {
+    "kind": "question",
+    "text": "Can they escape Him, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "They cannot escape Him or evade Him."
+  },
+  {
+    "kind": "question",
+    "text": "Allah has full power over every person."
+  },
+  {
+    "kind": "question",
+    "text": "He has power over them, and is able to compel them."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran is glorious, noble and full of honour."
+  },
+  {
+    "kind": "lesson",
+    "text": "Majid: glorious"
+  },
+  {
+    "kind": "lesson",
+    "text": "Honour the Quran"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 85:21"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:21"
+  },
+  {
+    "kind": "question",
+    "text": "How is the Quran described in 85:21?"
+  },
+  {
+    "kind": "question",
+    "text": "Glorious"
+  },
+  {
+    "kind": "question",
+    "text": "This is a Glorious Quran."
+  },
+  {
+    "kind": "question",
+    "text": "What does glorious mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "New"
+  },
+  {
+    "kind": "question",
+    "text": "Magnificent and noble"
+  },
+  {
+    "kind": "question",
+    "text": "Short and easy"
+  },
+  {
+    "kind": "question",
+    "text": "The Quran is ordinary speech."
+  },
+  {
+    "kind": "question",
+    "text": "This is a Glorious Quran, magnificent and noble."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran is kept in the Preserved Tablet, safe from any change."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Lawh al-Mahfuz: the Preserved Tablet"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Quran never changes"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 85:22"
+  },
+  {
+    "kind": "question",
+    "text": "Where is the Quran kept, per 85:22?"
+  },
+  {
+    "kind": "question",
+    "text": "In Al-Lawh Al-Mahfuz"
+  },
+  {
+    "kind": "question",
+    "text": "What is it guarded from, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Any increase, decrease or change"
+  },
+  {
+    "kind": "question",
+    "text": "Only fire"
+  },
+  {
+    "kind": "question",
+    "text": "Guarded from any increase, decrease, distortion, or change."
+  },
+  {
+    "kind": "question",
+    "text": "No one can change a letter of the Quran."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Buruj, ayahs 11-22!"
+  },
+  {
+    "kind": "lesson",
     "text": "The Quran was first sent down in the month of Ramadan."
   },
   {
@@ -447450,10 +448522,6 @@
   {
     "kind": "question",
     "text": "Who will enter through Ar-Rayyan?"
-  },
-  {
-    "kind": "question",
-    "text": "Those who fasted"
   },
   {
     "kind": "lesson",
