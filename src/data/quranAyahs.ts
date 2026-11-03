@@ -4597,6 +4597,12 @@ export const QURAN_AYAHS: Record<string, string> = {
   "101:9": "فَأُمُّهُۥ هَاوِيَةٞ", // Al-Qari'ah
   "101:10": "وَمَآ أَدۡرَىٰكَ مَا هِيَهۡ", // Al-Qari'ah
   "101:11": "نَارٌ حَامِيَةُۢ", // Al-Qari'ah
+  // At-Takathur, ayah by ayah
+  "102:2": "حَتَّىٰ زُرۡتُمُ ٱلۡمَقَابِرَ", // At-Takathur
+  "102:3": "كَلَّا سَوۡفَ تَعۡلَمُونَ", // At-Takathur
+  "102:5": "كَلَّا لَوۡ تَعۡلَمُونَ عِلۡمَ ٱلۡيَقِينِ", // At-Takathur
+  "102:6": "لَتَرَوُنَّ ٱلۡجَحِيمَ", // At-Takathur
+  "102:8": "ثُمَّ لَتُسۡـَٔلُنَّ يَوۡمَئِذٍ عَنِ ٱلنَّعِيمِ", // At-Takathur
 };
 
 /** The Arabic of an ayah, by "Quran 1:1" or "1:1"; undefined when it is not one the app shows. */

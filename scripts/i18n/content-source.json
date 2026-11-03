@@ -25816,6 +25816,50 @@
     "text": "Asked about blessings"
   },
   {
+    "kind": "course",
+    "text": "Competing for more"
+  },
+  {
+    "kind": "course",
+    "text": "Until you visit the graves"
+  },
+  {
+    "kind": "course",
+    "text": "Three things are yours"
+  },
+  {
+    "kind": "course",
+    "text": "Only deeds stay"
+  },
+  {
+    "kind": "course",
+    "text": "Growing old with wishes"
+  },
+  {
+    "kind": "course",
+    "text": "You shall come to know"
+  },
+  {
+    "kind": "course",
+    "text": "If you knew for sure"
+  },
+  {
+    "kind": "course",
+    "text": "You will see it"
+  },
+  {
+    "kind": "course",
+    "text": "Asked about the blessings"
+  },
+  {
+    "kind": "course",
+    "text": "A meal of dates"
+  },
+  {
+    "kind": "course",
+    "text": "Health and free time"
+  },
+  {
     "kind": "arabic",
     "text": "Time"
   },
@@ -156285,10 +156329,6 @@
   },
   {
     "kind": "question",
-    "text": "Until you visit the graves"
-  },
-  {
-    "kind": "question",
     "text": "With one valley of gold, what would a person want?"
   },
   {
@@ -156490,10 +156530,6 @@
   {
     "kind": "question",
     "text": "Houses and land"
-  },
-  {
-    "kind": "question",
-    "text": "Health and free time"
   },
   {
     "kind": "lesson",
@@ -464698,6 +464734,614 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about Al-Qari'ah, ayahs 6-11!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Chasing more of the world distracts people from the Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Takathur: competing for more"
+  },
+  {
+    "kind": "lesson",
+    "text": "Alhakum: it distracts you"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 102:1"
+  },
+  {
+    "kind": "question",
+    "text": "What diverts people, per 102:1?"
+  },
+  {
+    "kind": "question",
+    "text": "The mutual increase"
+  },
+  {
+    "kind": "question",
+    "text": "What does it distract from, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Seeking the Hereafter"
+  },
+  {
+    "kind": "question",
+    "text": "This distracts you from seeking the Hereafter and desiring it."
+  },
+  {
+    "kind": "question",
+    "text": "Love of the world can make us forget the Hereafter."
+  },
+  {
+    "kind": "question",
+    "text": "All are preoccupied by love of the world, its delights and its adornments."
+  },
+  {
+    "kind": "lesson",
+    "text": "The distraction lasts until death brings people to the graves."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Maqabir: the graves"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 102:2"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 102:2"
+  },
+  {
+    "kind": "question",
+    "text": "How long does the distraction last, per 102:2?"
+  },
+  {
+    "kind": "question",
+    "text": "Until Eid"
+  },
+  {
+    "kind": "question",
+    "text": "What does visit the graves mean, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Death comes to you"
+  },
+  {
+    "kind": "question",
+    "text": "You go on a trip"
+  },
+  {
+    "kind": "question",
+    "text": "You build a house"
+  },
+  {
+    "kind": "question",
+    "text": "You buy land"
+  },
+  {
+    "kind": "question",
+    "text": "This delays you until death comes to you and you visit the graves."
+  },
+  {
+    "kind": "question",
+    "text": "We should prepare for the Hereafter before death comes."
+  },
+  {
+    "kind": "question",
+    "text": "This delays you until death comes to you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only what we used up or gave away is truly ours."
+  },
+  {
+    "kind": "lesson",
+    "text": "Eaten, worn, or given"
+  },
+  {
+    "kind": "lesson",
+    "text": "Charity is sent ahead"
+  },
+  {
+    "kind": "question",
+    "text": "Which surah was he reciting then?"
+  },
+  {
+    "kind": "question",
+    "text": "At-Takathur"
+  },
+  {
+    "kind": "question",
+    "text": "As he was reciting: Abundance diverts you."
+  },
+  {
+    "kind": "question",
+    "text": "What does the son of Adam keep saying?"
+  },
+  {
+    "kind": "question",
+    "text": "My friend, my friend"
+  },
+  {
+    "kind": "question",
+    "text": "My home, my home"
+  },
+  {
+    "kind": "question",
+    "text": "My time, my time"
+  },
+  {
+    "kind": "question",
+    "text": "Charity is wealth sent ahead for us."
+  },
+  {
+    "kind": "lesson",
+    "text": "From all your wealth, only three things are really yours."
+  },
+  {
+    "kind": "lesson",
+    "text": "What you eat"
+  },
+  {
+    "kind": "lesson",
+    "text": "What you wear, what you give"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 2959"
+  },
+  {
+    "kind": "question",
+    "text": "How many things of his wealth are really his?"
+  },
+  {
+    "kind": "question",
+    "text": "Out of his wealth three things are only his."
+  },
+  {
+    "kind": "question",
+    "text": "Which of these is one of the three?"
+  },
+  {
+    "kind": "question",
+    "text": "What he locks away"
+  },
+  {
+    "kind": "question",
+    "text": "What he gives in charity"
+  },
+  {
+    "kind": "question",
+    "text": "Or he gives as charity, and this is what he stored for himself."
+  },
+  {
+    "kind": "question",
+    "text": "We take all our wealth with us when we die."
+  },
+  {
+    "kind": "question",
+    "text": "Because you are to depart and leave it for other people."
+  },
+  {
+    "kind": "lesson",
+    "text": "Family and money go home after the burial, but deeds stay."
+  },
+  {
+    "kind": "lesson",
+    "text": "Three follow the dead"
+  },
+  {
+    "kind": "lesson",
+    "text": "Deeds remain"
+  },
+  {
+    "kind": "question",
+    "text": "How many things follow the dead to the grave?"
+  },
+  {
+    "kind": "question",
+    "text": "A dead person is followed by three."
+  },
+  {
+    "kind": "question",
+    "text": "What stays with him?"
+  },
+  {
+    "kind": "question",
+    "text": "Relatives and his property go back while his deeds remain with him."
+  },
+  {
+    "kind": "question",
+    "text": "Good deeds are the only friends that stay."
+  },
+  {
+    "kind": "question",
+    "text": "His deeds remain with him."
+  },
+  {
+    "kind": "lesson",
+    "text": "With age, love of wealth and long life grow too."
+  },
+  {
+    "kind": "lesson",
+    "text": "Long hopes"
+  },
+  {
+    "kind": "lesson",
+    "text": "Love of wealth"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 6421"
+  },
+  {
+    "kind": "question",
+    "text": "Which two wishes grow with age?"
+  },
+  {
+    "kind": "question",
+    "text": "Love of sport and games"
+  },
+  {
+    "kind": "question",
+    "text": "Love of books and maps"
+  },
+  {
+    "kind": "question",
+    "text": "Love of wealth and long life"
+  },
+  {
+    "kind": "question",
+    "text": "Love of sleep and food"
+  },
+  {
+    "kind": "question",
+    "text": "What happens to these wishes as man ages?"
+  },
+  {
+    "kind": "question",
+    "text": "They turn to fear"
+  },
+  {
+    "kind": "question",
+    "text": "They become small"
+  },
+  {
+    "kind": "question",
+    "text": "They grow old with him"
+  },
+  {
+    "kind": "question",
+    "text": "The son of Adam grows old and so also two desires grow old with him."
+  },
+  {
+    "kind": "question",
+    "text": "Even old people must guard against greed."
+  },
+  {
+    "kind": "question",
+    "text": "Two desires grow old with him, love for wealth and a wish for a long life."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about At-Takathur, ayahs 1-4?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah warns twice: soon you will know the truth."
+  },
+  {
+    "kind": "lesson",
+    "text": "Kalla: Nay!"
+  },
+  {
+    "kind": "lesson",
+    "text": "A warning after a warning"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 102:3"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 102:3"
+  },
+  {
+    "kind": "question",
+    "text": "What does 102:3 say?"
+  },
+  {
+    "kind": "question",
+    "text": "Rest, all is fine!"
+  },
+  {
+    "kind": "question",
+    "text": "Go and play!"
+  },
+  {
+    "kind": "question",
+    "text": "Gather more!"
+  },
+  {
+    "kind": "question",
+    "text": "Nay! You shall come to know!"
+  },
+  {
+    "kind": "question",
+    "text": "What did Al-Hasan call 102:3-4?"
+  },
+  {
+    "kind": "question",
+    "text": "A threat after a threat"
+  },
+  {
+    "kind": "question",
+    "text": "To whom is 102:4 addressed, per Ad-Dahhak?"
+  },
+  {
+    "kind": "question",
+    "text": "You shall come to know, meaning, O you believers."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about At-Takathur, ayahs 1-4!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sure knowledge would stop us chasing wealth over the Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ilm al-yaqin: sure knowledge"
+  },
+  {
+    "kind": "lesson",
+    "text": "Knowledge changes actions"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 102:5"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 102:5"
+  },
+  {
+    "kind": "question",
+    "text": "What kind of knowledge does 102:5 mention?"
+  },
+  {
+    "kind": "question",
+    "text": "Secret knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Half knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "Old knowledge"
+  },
+  {
+    "kind": "question",
+    "text": "If you knew with a sure knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "What would sure knowledge stop, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Being diverted by rivalry for wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Real knowledge of the Hereafter changes how we live."
+  },
+  {
+    "kind": "question",
+    "text": "If you knew with true knowledge, you would not be diverted."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah explains the warning: people will see the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ayn al-yaqin: seeing for sure"
+  },
+  {
+    "kind": "lesson",
+    "text": "The warning explained"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 102:6"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 102:6"
+  },
+  {
+    "kind": "question",
+    "text": "What does 102:6 say they will see?"
+  },
+  {
+    "kind": "question",
+    "text": "The blazing Fire"
+  },
+  {
+    "kind": "question",
+    "text": "Verily, you shall see the blazing Fire!"
+  },
+  {
+    "kind": "question",
+    "text": "How will they see it, per 102:7?"
+  },
+  {
+    "kind": "question",
+    "text": "With certainty of sight"
+  },
+  {
+    "kind": "question",
+    "text": "Only in a story"
+  },
+  {
+    "kind": "question",
+    "text": "And again, you shall see it with certainty of sight!"
+  },
+  {
+    "kind": "question",
+    "text": "102:6-7 explain the warning of 102:3-4."
+  },
+  {
+    "kind": "question",
+    "text": "This is the explanation of the previous threat."
+  },
+  {
+    "kind": "lesson",
+    "text": "We will be asked about thanks for health, safety and food."
+  },
+  {
+    "kind": "lesson",
+    "text": "An-Naim: the blessings"
+  },
+  {
+    "kind": "lesson",
+    "text": "Thanks by worship"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 102:8"
+  },
+  {
+    "kind": "question",
+    "text": "What will we be asked about, per 102:8?"
+  },
+  {
+    "kind": "question",
+    "text": "The delights"
+  },
+  {
+    "kind": "question",
+    "text": "Then on that Day you shall be asked about the delights!"
+  },
+  {
+    "kind": "question",
+    "text": "Such as health, safety, sustenance and other things."
+  },
+  {
+    "kind": "question",
+    "text": "We thank Allah by worshipping Him."
+  },
+  {
+    "kind": "question",
+    "text": "Did you return His favors by being thankful to Him and worshipping Him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even a simple meal after hunger is a blessing to answer for."
+  },
+  {
+    "kind": "lesson",
+    "text": "A kind Ansari host"
+  },
+  {
+    "kind": "question",
+    "text": "What brought them out of their houses?"
+  },
+  {
+    "kind": "question",
+    "text": "They said: Allah's Messenger, it is hunger."
+  },
+  {
+    "kind": "question",
+    "text": "Who fed them?"
+  },
+  {
+    "kind": "question",
+    "text": "A trader from Syria"
+  },
+  {
+    "kind": "question",
+    "text": "Their neighbors in Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "A man of the Ansar"
+  },
+  {
+    "kind": "question",
+    "text": "And all of them came to the house of an Ansari."
+  },
+  {
+    "kind": "question",
+    "text": "He said they would be asked about that meal."
+  },
+  {
+    "kind": "question",
+    "text": "You will certainly be questioned about this bounty on the Day of judgment."
+  },
+  {
+    "kind": "lesson",
+    "text": "Health and free time are blessings many people waste."
+  },
+  {
+    "kind": "lesson",
+    "text": "Use your health well"
+  },
+  {
+    "kind": "lesson",
+    "text": "Fill free time with good"
+  },
+  {
+    "kind": "question",
+    "text": "Which two blessings do many people waste?"
+  },
+  {
+    "kind": "question",
+    "text": "Two blessings that many people are deceived into losing: health and free time."
+  },
+  {
+    "kind": "question",
+    "text": "What is a good use of free time?"
+  },
+  {
+    "kind": "question",
+    "text": "Forgetting Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Learning and good deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Wasting it all"
+  },
+  {
+    "kind": "question",
+    "text": "Hurting others"
+  },
+  {
+    "kind": "question",
+    "text": "There are two blessings that many people are deceived into losing."
+  },
+  {
+    "kind": "question",
+    "text": "Free time is not a blessing."
+  },
+  {
+    "kind": "question",
+    "text": "There are two blessings: health and free time."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about At-Takathur, ayahs 5-8!"
   },
   {
     "kind": "lesson",
