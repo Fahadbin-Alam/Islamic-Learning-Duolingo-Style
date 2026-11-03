@@ -232,6 +232,7 @@ import {
   StoryBanner,
   StorySheet,
   UpdateBanner,
+  OfflineBanner,
   tabForScreen,
   useNotices,
   type PathItem,
@@ -252,6 +253,8 @@ import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, Or
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
 import { questionSource, shortReference } from "./services/questionSource";
 import { openSource } from "./services/sourceLink";
+import { openWebPage, setOfflineLinkNotice, subscribeOnline, useOnline } from "./services/network";
+import { saveLessonsAhead } from "./services/offlineLessons";
 import { SCHOLAR_TREE, type ScholarYears } from "./data/scholarUnits";
 import { didRamadanToday, ramadanDoneDayNumbers, ramadanSeason, ramadanStreak } from "./data/ramadanCalendar";
 import { RAMADAN_TOPIC } from "./data/ramadanDays";
@@ -958,9 +961,12 @@ export default function TopicApp() {
     };
     const timer = setInterval(retry, 60000);
     const listener = PhoneAppState.addEventListener("change", (status) => status === "active" && retry());
+    // And the moment the phone gets its internet back.
+    const stopWatching = subscribeOnline((online) => online && retry());
     return () => {
       clearInterval(timer);
       listener.remove();
+      stopWatching();
     };
   }, []);
 
@@ -1495,6 +1501,24 @@ export default function TopicApp() {
     accent: selectedSection.accentColor
   });
 
+  // No internet: lessons go on as usual. A source asked for meanwhile says so in the app instead of opening a
+  // browser on an error page, and the next circles' recitations are saved once the internet is back.
+  const online = useOnline();
+  const notifyRef = useRef(notify);
+  notifyRef.current = notify;
+  useEffect(() => {
+    setOfflineLinkNotice(() => {
+      void notifyRef.current(t("No internet right now"), t("Tap it again when you are back online. The lesson keeps working."), { mood: "think" });
+    });
+    return () => setOfflineLinkNotice(null);
+  }, []);
+  const nextNodeId = sectionNextNode?.id;
+  useEffect(() => {
+    if (online && nextNodeId) {
+      void saveLessonsAhead(nextNodeId);
+    }
+  }, [online, nextNodeId]);
+
   // After a few minutes a guest is asked to make an account, but never in the middle of a lesson
   // or practice: the ask waits until they are back on the Foundation path with nothing else open.
   const guestUser = Boolean(state.user && !state.user.hasAccount);
@@ -1749,6 +1773,8 @@ export default function TopicApp() {
     };
 
     dispatch({ type: "apply_user", user: activeUser });
+    // While online, this circle's Quran recitations and the next few circles' are saved for no internet.
+    void saveLessonsAhead(node.id);
     // Kids mode builds the lesson at the easiest level; the saved profile keeps its own difficulty.
     const session = await learningApi.getLessonSession(node.firstLessonId, kidsMode ? kidsLearner(activeUser) : activeUser, lessonAge);
     challengeStartedAtRef.current = Date.now();
@@ -3571,6 +3597,7 @@ export default function TopicApp() {
             }}
           />
         )}
+        {!inLesson && !online && activeTab === "learn" && <OfflineBanner />}
         {!inLesson && updateReady && !updateClosed && (
           <UpdateBanner onUpdate={() => void openStore()} onClose={() => setUpdateClosed(true)} />
         )}
@@ -3650,7 +3677,7 @@ export default function TopicApp() {
             accent={lessonAccent}
             // The chip is the one source that says what the card says, by its short reference; none, no chip.
             learnSource={lesson.learnSource}
-            onOpenSource={(url) => void Linking.openURL(url).catch(() => undefined)}
+            onOpenSource={openWebPage}
             arabicRecitation={lessonRecitation ?? undefined}
             picture={lessonPicture}
             pagePicture={pagePicture}

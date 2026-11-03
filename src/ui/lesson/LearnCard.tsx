@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Linking, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
+import { Animated, ScrollView, StyleSheet, Text, useWindowDimensions, View, type LayoutChangeEvent } from "react-native";
 import type { ArabicTerm } from "../../data/arabicTerms";
 import { ArabicText, isArabicOnly, isQuranText, withHonorifics } from "../ArabicText";
 import { GameButton } from "../GameButton";
@@ -15,6 +15,7 @@ import { AyahListen, useAyahPlayback } from "./AyahListen";
 import { playAyah, stopAyah } from "../../services/ayahPlayer";
 import { quranAudioUrl } from "../../services/quranAudio";
 import { sourceUrl } from "../../services/sourceLink";
+import { openWebPage, useOnline } from "../../services/network";
 import { getActiveLanguage, t } from "../../i18n";
 import type { LessonPicture } from "../../data/lessonPictures";
 import { LessonPhoto } from "./LessonPhoto";
@@ -52,7 +53,7 @@ export type LearnCardProps = {
   learnSource?: { reference?: string; url: string; highlight?: string; category?: string; summary?: string };
   /** Older call sites: a chip with this label. Ignored when learnSource is given; pass learnSource instead. */
   source?: { label: string; url: string };
-  /** Defaults to opening the url with Linking. */
+  /** Defaults to opening the url in the browser (a short note instead with no internet). */
   onOpenSource?: (url: string) => void;
   /** Shows a round speaker button on the Arabic card (wire expo-speech with language "ar", or a clip). */
   onPlayAudio?: () => void;
@@ -192,6 +193,7 @@ export function LearnCard({
   const palette = topicPalette(accent);
   const onPlayAudio = arabicRecitation ? () => playAyah(arabicRecitation, { once: true }) : speak;
   const playback = useAyahPlayback();
+  const online = useOnline();
   const recitationFailed = Boolean(arabicRecitation) && playback.url === arabicRecitation && playback.status === "error";
   useEffect(() => (arabicRecitation ? () => stopAyah(arabicRecitation) : undefined), [arabicRecitation]);
   const { width, height } = useWindowDimensions();
@@ -232,7 +234,7 @@ export function LearnCard({
     if (onOpenSource) {
       onOpenSource(url);
     } else {
-      void Linking.openURL(url).catch(() => undefined);
+      openWebPage(url);
     }
   };
 
@@ -316,7 +318,7 @@ export function LearnCard({
                 <Text style={styles.meaning}>{withHonorifics(noBreakHyphens(t(arabic.meaning)))}</Text>
                 {recitationFailed ? (
                   <Text style={styles.audioError} testID="learn-audio-error">
-                    {t("Could not load. Check your internet.")}
+                    {online ? t("Could not load. Check your internet.") : t("No internet. This is not saved on your phone yet.")}
                   </Text>
                 ) : null}
               </View>

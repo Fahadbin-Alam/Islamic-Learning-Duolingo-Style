@@ -18,6 +18,7 @@ export { LeagueBadge, LeagueCard, LeagueResultSheet, leagueName, type LeagueCard
 export { RamadanBanner, type RamadanBannerProps } from "./RamadanBanner";
 export { RamadanDayPop, type RamadanDayPopProps } from "./RamadanDayPop";
 export { UpdateBanner, type UpdateBannerProps } from "./UpdateBanner";
+export { OfflineBanner } from "./OfflineBanner";
 export { RewardPop, type RewardPopProps } from "./RewardPop";
 export { AgeSheet, type AgeSheetProps } from "./AgeSheet";
 export { BackgroundSheet, type BackgroundSheetProps } from "./BackgroundSheet";
