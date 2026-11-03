@@ -32,6 +32,8 @@ export type PracticeHubProps = {
   onOpenQuizzes?: () => void;
   /** The best score on the path topic's quiz, in percent; unset until it is taken. */
   quizBest?: number;
+  /** STORIES: the Seerah and the Companions told as stories (story mode). */
+  onOpenStories?: () => void;
   /** MY LESSONS: practice questions from lessons already done. Left out until there are enough of them. */
   onStartLessonPractice?: () => void;
   /** Tabs replace back buttons; kept so the old call site still type-checks. */
@@ -178,6 +180,7 @@ export function PracticeHub({
   onGoFoundation,
   onStartLessonPractice,
   onOpenQuizzes,
+  onOpenStories,
   quizBest,
   mascotVariant = "hijabi",
   // The mascot's own default, so it matches the other screens when no accent is passed.
@@ -303,6 +306,27 @@ export function PracticeHub({
                   <Text style={styles.quizPillText}>{`${quizBest}%`}</Text>
                 </View>
               ) : null}
+              <Icon name="chevronRight" size={24} color={colors.lineLip} />
+            </View>
+          </Tappable>
+        </PopIn>
+      ) : null}
+
+      {onOpenStories ? (
+        <PopIn delay={222} from="up">
+          <Tappable onPress={onOpenStories} style={[styles.basicsRow, styles.quizRow]} testID="practice-stories" accessibilityLabel={t("Stories")}>
+            <View style={[styles.basicsIcon, { backgroundColor: lighten(colors.date, 0.85) }]}>
+              <Icon name="scroll" size={30} />
+            </View>
+            <View style={styles.quizText}>
+              <Text style={styles.basicsTitle} numberOfLines={1}>
+                {t("Stories")}
+              </Text>
+              <Text style={styles.quizLine} numberOfLines={2}>
+                {t("The Seerah and the Sahabah, told as stories")}
+              </Text>
+            </View>
+            <View style={[styles.rowEnd, styles.quizEnd]}>
               <Icon name="chevronRight" size={24} color={colors.lineLip} />
             </View>
           </Tappable>
