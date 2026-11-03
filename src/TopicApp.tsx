@@ -1035,7 +1035,10 @@ export default function TopicApp() {
     state.user?.lastLearningAt,
     state.user?.lastLoginAt,
     state.user?.reminderPreferences?.streakReminders,
-    state.user?.reminderPreferences?.islamicReminders
+    state.user?.reminderPreferences?.islamicReminders,
+    state.user?.league?.weekStart,
+    state.user?.league?.tier,
+    state.user?.league?.xp
   ]);
 
   // Prayer nudges skip the hour around a come-back reminder, so they are planned again whenever those are.
@@ -1048,7 +1051,10 @@ export default function TopicApp() {
     state.user?.lastLearningAt,
     state.user?.lastLoginAt,
     state.user?.reminderPreferences?.streakReminders,
-    state.user?.reminderPreferences?.islamicReminders
+    state.user?.reminderPreferences?.islamicReminders,
+    state.user?.league?.weekStart,
+    state.user?.league?.tier,
+    state.user?.league?.xp
   ]);
 
   // Tapping a prayer nudge opens the tiny lesson it promised.
