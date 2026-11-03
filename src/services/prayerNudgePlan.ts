@@ -1,5 +1,6 @@
 import { findPrayerCity } from "../data/prayerCities";
 import type { SupportedLanguage, UserProfile } from "../types";
+import { planLeagueReminders } from "./leagueReminders";
 import { planRamadanReminders } from "./ramadanReminders";
 import { getStoredItem, setStoredItem } from "./appStorage";
 import { PRAYERS, PRAYER_LABELS, defaultPrayerNudgePrefs, getPrayerTimes, type PrayerName, type PrayerNudgePrefs } from "./prayerTimes";
@@ -65,7 +66,8 @@ export function planPrayerNudges(prefs: PrayerNudgePrefs, user: UserProfile | un
   // In Ramadan the suhoor and iftar reminders take the place of a nudge close to them (Maghrib's, at iftar).
   const otherReminders = [
     ...comebackSlots(lastLearningAt, reminders?.streakReminders !== false, reminders?.islamicReminders !== false, now),
-    ...planRamadanReminders(prefs, now).map((reminder) => reminder.at.getTime())
+    ...planRamadanReminders(prefs, now).map((reminder) => reminder.at.getTime()),
+    ...planLeagueReminders(user, "en", now).map((reminder) => reminder.at.getTime())
   ];
   const nudges: PrayerNudge[] = [];
 
