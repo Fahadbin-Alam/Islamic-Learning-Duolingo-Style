@@ -4,7 +4,7 @@ import type { CrewMember, FriendBattle } from "../services/backendSync";
 import { pickFriendBattleQuestions, seededRandom } from "../services/battleQuestions";
 import { BATTLE_QUESTIONS } from "../services/ummah";
 import { BattleView, CrewView } from "../ui/screens";
-import { battlesWaitingOnMe, sortBattles } from "../ui/screens/CrewView";
+import { battlesWaitingOnMe, friendStreakLine, sortBattles, sortFriendStreaks } from "../ui/screens/CrewView";
 import { makeUser } from "./testUtils";
 
 jest.mock("../services/gameAudio", () => ({
@@ -128,6 +128,42 @@ describe("battles on the Friends page", () => {
     await fireEvent.press(screen.getByTestId("crew-share"));
     expect(screen.queryByTestId("grownup-question")).toBeNull();
     expect(handlers.onShareApp).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("friend streaks on the Friends page", () => {
+  const streak = (days: number, meToday: boolean, friendToday: boolean, best = days) => ({ days, best, meToday, friendToday });
+
+  it("says what each of the two still has to do today", () => {
+    expect(friendStreakLine(streak(4, true, true), "Yusuf")).toBe("You both learned today!");
+    expect(friendStreakLine(streak(4, true, false), "Yusuf")).toBe("Waiting for Yusuf to learn today");
+    expect(friendStreakLine(streak(4, false, true), "Yusuf")).toBe("Yusuf learned today. Your turn!");
+    expect(friendStreakLine(streak(4, false, false), "Yusuf")).toBe("Both do a lesson today to keep it!");
+    expect(friendStreakLine(streak(0, false, false), "Yusuf")).toBe("Both do a lesson today to start one!");
+  });
+
+  it("puts streaks the learner must save today first, then the longest", () => {
+    const long = { ...member(3, "Bilal", "friend", 10), friendStreak: streak(12, true, true) };
+    const atRisk = { ...member(4, "Zaid", "friend", 10), friendStreak: streak(2, false, true) };
+    const none = { ...member(5, "Omar", "friend", 10), friendStreak: streak(0, false, false) };
+    const oldServer = member(6, "Hamza", "friend", 10);
+    expect(sortFriendStreaks([none, long, oldServer, atRisk]).map((friend) => friend.id)).toEqual([4, 3, 5]);
+  });
+
+  it("lists each friend's shared streak and shows it on their card", async () => {
+    const withStreak = { ...yusuf, friendStreak: streak(5, false, true, 9) };
+    await renderCrew([], [withStreak]);
+    expect(screen.getByText("Friend streaks")).toBeTruthy();
+    expect(screen.getByTestId("friend-streak-days-2")).toHaveTextContent("5");
+    expect(screen.getByTestId("friend-streak-line-2")).toHaveTextContent("Yusuf learned today. Your turn!");
+    await fireEvent.press(screen.getByTestId("friend-streak-2"));
+    expect(screen.getByTestId("crew-friend-sheet-streak")).toHaveTextContent(/5 day friend streak/);
+    expect(screen.getByTestId("crew-friend-sheet-streak")).toHaveTextContent(/Best: 9/);
+  });
+
+  it("hides the list when the server sends no friend streaks", async () => {
+    await renderCrew([]);
+    expect(screen.queryByTestId("crew-friend-streaks")).toBeNull();
   });
 });
 
