@@ -447,8 +447,8 @@ const JINN_FOUR: DeepUnit = {
       difficulty: 3,
       questions: [
         { q: "Whom did the Prophet ﷺ call when told to warn his kin?", a: "Quraysh and his own family", wrong: ["Only strangers", "Only kings", "Only the jinn"], why: "O people of Quraish! Buy yourselves as I cannot save you from Allah's Punishment." },
-        { q: "What did he tell Fatimah she could ask for?", a: "His wealth", wrong: ["Safety from Allah", "A kingdom", "A long life"], why: "O Fatima bint Muhammad! Ask me anything from my wealth, but I cannot save you from Allah's Punishment." },
-        { tf: true, q: "Even the Prophet's ﷺ family needed their own faith and deeds.", why: "O Fatima bint Muhammad! Ask me anything from my wealth, but I cannot save you from Allah's Punishment." }
+        { q: "What did he tell Fatimah she could ask for?", a: "His wealth", wrong: ["Safety from Allah", "A kingdom", "A long life"], why: "O Fatimah bint Muhammad! Ask me anything from my wealth, but I cannot save you from Allah's Punishment." },
+        { tf: true, q: "Even the Prophet's ﷺ family needed their own faith and deeds.", why: "O Fatimah bint Muhammad! Ask me anything from my wealth, but I cannot save you from Allah's Punishment." }
       ]
     },
     {

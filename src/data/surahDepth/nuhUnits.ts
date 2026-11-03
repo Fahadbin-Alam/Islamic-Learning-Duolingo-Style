@@ -429,12 +429,12 @@ const NUH_FOUR: DeepUnit = {
       line: "The idols were named after righteous men who had died.",
       facts: ["Honoring is not worship", "Shaytan's slow trick"],
       quote: q71(23),
-      source: hadith("bukhari", "4920", "Ibn Abbas", "Sahih", "Ibn Abbas said the names of the idols belonged to pious men of Nuh's people; after they died, Satan inspired people to set up statues where they sat.", "formerly belonged to some pious men of the people of Noah"),
+      source: hadith("bukhari", "4920", "Ibn Abbas", "Sahih", "Ibn Abbas said the names of the idols belonged to pious men of Nuh's people; after they died, Satan inspired people to set up statues where they sat.", "formerly belonged to some pious men"),
       difficulty: 3,
       questions: [
-        { q: "Whose names did the idols carry?", a: "Pious men of Nuh's people", wrong: ["Kings of Egypt", "Angels", "Animals"], why: "The names of the idols formerly belonged to some pious men of the people of Noah." },
+        { q: "Whose names did the idols carry?", a: "Pious men of Nuh's people", wrong: ["Kings of Egypt", "Angels", "Animals"], why: "The names of the idols formerly belonged to some pious men of the people of Nuh." },
         { q: "Who whispered to make the statues?", a: "Satan", wrong: ["Nuh", "The pious men", "Angels"], why: "When they died Satan inspired their people to prepare and place idols at the places where they used to sit." },
-        { tf: true, q: "The idols of Nuh's people were later worshipped by Arabs.", why: "All the idols which were worshiped by the people of Noah were worshiped by the Arabs later on." }
+        { tf: true, q: "The idols of Nuh's people were later worshipped by Arabs.", why: "All the idols which were worshiped by the people of Nuh were worshiped by the Arabs later on." }
       ]
     },
     {
