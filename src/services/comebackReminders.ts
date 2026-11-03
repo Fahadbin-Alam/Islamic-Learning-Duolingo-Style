@@ -297,7 +297,31 @@ export function localDigits(value: number, language: SupportedLanguage) {
 export interface ComebackStatus {
   streakDays?: number;
   streakFreezes?: number;
+  /** Missed questions due again by the time the reminder goes out (spaced review, services/reviewDeck). */
+  reviewDue?: number;
 }
+
+// When questions the learner missed are back (spaced review), a few days away the camel says so instead.
+const REVIEW_STEPS: ReadonlySet<ComebackStep> = new Set<ComebackStep>(["day2", "day3", "day5", "day7"]);
+
+const REVIEW_COPY: Partial<Record<SupportedLanguage, ComebackMessage>> = {
+  en: {
+    title: "🐪 The questions you missed are back",
+    body: "Ready for another try? {count} to review. Get them right this time and they stick!"
+  },
+  bn: {
+    title: "🐪 যে প্রশ্নগুলো ভুল হয়েছিল, সেগুলো ফিরে এসেছে",
+    body: "আরেকবার চেষ্টা করবে? রিভিউ করার আছে {count}টি। এবার ঠিক করলে মনে থেকে যাবে!"
+  },
+  ur: {
+    title: "🐪 جو سوال غلط ہوئے تھے، وہ واپس آ گئے",
+    body: "ایک اور کوشش؟ دہرانے کے لیے {count} سوال۔ اس بار درست کریں تو یاد رہ جائیں گے!"
+  },
+  ar: {
+    title: "🐪 عادت الأسئلة التي أخطأت فيها",
+    body: "هل تحاول مرة أخرى؟ لديك {count} للمراجعة. أجب عنها إجابة صحيحة هذه المرة لترسخ في ذاكرتك!"
+  }
+};
 
 const VARIANTS = [COPY, ISLAMIC_COPY, SILLY_COPY];
 
@@ -316,6 +340,12 @@ export function comebackMessage(language: SupportedLanguage, step: ComebackStep,
       title: copy.title.replace("{count}", count),
       body: ((status.streakFreezes ?? 0) > 0 ? copy.freezeBody : copy.body).replace("{count}", count)
     };
+  }
+  // Missed questions waiting: say so, except on the Islamic-touch day, so the messages still take turns.
+  const reviewDue = Math.floor(status.reviewDue ?? 0);
+  if (REVIEW_STEPS.has(step) && reviewDue >= 1 && variant % VARIANTS.length !== 1) {
+    const copy = REVIEW_COPY[language] ?? REVIEW_COPY.en!;
+    return { title: copy.title, body: copy.body.replace("{count}", localDigits(reviewDue, language)) };
   }
   const table = VARIANTS[((variant % VARIANTS.length) + VARIANTS.length) % VARIANTS.length];
   return (table[language] ?? table.en!)[step];
