@@ -805,5 +805,20 @@
   "Both do a lesson today to start one!": "أنهيا درسًا اليوم كلاكما لتبدآ سلسلة!",
   "{count} day friend streak with {name}": "{count} أيام متتالية مع {name}",
   "{count} day friend streak": "{count} أيام متتالية مع صديقك",
-  "Best: {count}": "الأفضل: {count}"
+  "Best: {count}": "الأفضل: {count}",
+  "Awarded for finishing": "مُنحت لإتمام",
+  "Certificate": "شهادة",
+  "Certificates": "الشهادات",
+  "Finish a big unit, like Juz Amma or the Seerah, to earn your first certificate!": "أتمّ وحدة كبيرة مثل جزء عمّ أو السيرة لتحصل على شهادتك الأولى!",
+  "Juz Amma": "جزء عمّ",
+  "Keep going": "واصل",
+  "Share your certificate": "شارك شهادتك",
+  "The Prophets, Adam to Isa": "الأنبياء، من آدم إلى عيسى",
+  "The Seerah": "السيرة النبوية",
+  "This certificate is given to": "تُمنح هذه الشهادة إلى",
+  "You earned a certificate!": "لقد حصلت على شهادة!",
+  "for finishing": "لإتمامه",
+  "{count} lessons done": "{count} درسًا مكتملًا",
+  "{done} of {total} lessons": "{done} من {total} درسًا",
+  "🎓 I finished {title} on Muslimo!": "🎓 أتممت {title} على Muslimo!"
 }

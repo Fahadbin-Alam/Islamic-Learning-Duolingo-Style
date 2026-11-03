@@ -805,5 +805,20 @@
   "Both do a lesson today to start one!": "شروع کرنے کے لیے آج دونوں ایک سبق کریں!",
   "{count} day friend streak with {name}": "{name} کے ساتھ {count} دن کی اسٹریک",
   "{count} day friend streak": "دوست کے ساتھ {count} دن کی اسٹریک",
-  "Best: {count}": "بہترین: {count}"
+  "Best: {count}": "بہترین: {count}",
+  "Awarded for finishing": "مکمل کرنے پر دیا گیا",
+  "Certificate": "سرٹیفکیٹ",
+  "Certificates": "سرٹیفکیٹس",
+  "Finish a big unit, like Juz Amma or the Seerah, to earn your first certificate!": "پارہ عمّ یا سیرت جیسا کوئی بڑا یونٹ مکمل کریں اور اپنا پہلا سرٹیفکیٹ حاصل کریں!",
+  "Juz Amma": "پارہ عمّ",
+  "Keep going": "جاری رکھیں",
+  "Share your certificate": "اپنا سرٹیفکیٹ شیئر کریں",
+  "The Prophets, Adam to Isa": "انبیاء، آدم سے عیسیٰ تک",
+  "The Seerah": "سیرت",
+  "This certificate is given to": "یہ سرٹیفکیٹ دیا جاتا ہے",
+  "You earned a certificate!": "آپ نے سرٹیفکیٹ حاصل کر لیا!",
+  "for finishing": "مکمل کرنے پر",
+  "{count} lessons done": "{count} اسباق مکمل",
+  "{done} of {total} lessons": "{total} میں سے {done} اسباق",
+  "🎓 I finished {title} on Muslimo!": "🎓 میں نے Muslimo پر {title} مکمل کر لیا!"
 }

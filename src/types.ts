@@ -242,6 +242,8 @@ export interface UserProfile {
   quizScores?: Record<string, QuizScore>;
   /** Story mode: stories read to the end, by story id ("story-<unit>-<part>"; see src/services/stories.ts). */
   stories?: Record<string, StoryProgress>;
+  /** Certificates earned, by certificate id, with when the app saw each one earned (src/services/certificates.ts). */
+  certificates?: Record<string, string>;
   /** The Review deck: lesson questions missed on their first try, brought back until they stick (services/reviewDeck). */
   reviewCards?: ReviewCard[];
   /** How hard lessons are (Settings): "auto" climbs with the streak and lessons done (src/data/challengeLevel.ts). */

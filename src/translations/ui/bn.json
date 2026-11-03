@@ -805,5 +805,20 @@
   "Both do a lesson today to start one!": "শুরু করতে আজ দুজনেই একটা পাঠ করো!",
   "{count} day friend streak with {name}": "{name}-এর সাথে {count} দিনের স্ট্রিক",
   "{count} day friend streak": "বন্ধুর সাথে {count} দিনের স্ট্রিক",
-  "Best: {count}": "সেরা: {count}"
+  "Best: {count}": "সেরা: {count}",
+  "Awarded for finishing": "শেষ করার জন্য দেওয়া হলো",
+  "Certificate": "সার্টিফিকেট",
+  "Certificates": "সার্টিফিকেট",
+  "Finish a big unit, like Juz Amma or the Seerah, to earn your first certificate!": "আমপারা বা সীরাহর মতো একটি বড় ইউনিট শেষ করো, আর পাও তোমার প্রথম সার্টিফিকেট!",
+  "Juz Amma": "আমপারা",
+  "Keep going": "চালিয়ে যাও",
+  "Share your certificate": "তোমার সার্টিফিকেট শেয়ার করো",
+  "The Prophets, Adam to Isa": "নবীগণ, আদম থেকে ঈসা",
+  "The Seerah": "সীরাহ",
+  "This certificate is given to": "এই সার্টিফিকেট দেওয়া হলো",
+  "You earned a certificate!": "তুমি একটি সার্টিফিকেট পেয়েছ!",
+  "for finishing": "শেষ করার জন্য",
+  "{count} lessons done": "{count}টি পাঠ শেষ",
+  "{done} of {total} lessons": "{total}টির মধ্যে {done}টি পাঠ",
+  "🎓 I finished {title} on Muslimo!": "🎓 আমি Muslimo-তে {title} শেষ করেছি!"
 }

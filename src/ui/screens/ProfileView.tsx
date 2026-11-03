@@ -9,7 +9,7 @@ import { Mascot } from "../Mascot";
 import { PopIn } from "../PopIn";
 import { Tappable } from "../Tappable";
 import { colors, darken, fonts, lighten, radii, text } from "../theme";
-import { FormattedCount } from "./FormattedCount";
+import { FormattedCount, formatNumber } from "./FormattedCount";
 import { useGrownUpGate } from "./GrownUpGate";
 import { SwitchTrack } from "./sheetParts";
 import { SecretTap } from "./SecretTap";
@@ -25,6 +25,10 @@ export type ProfileViewProps = {
   onOpenFamily?: () => void;
   /** Share row: the phone's share menu with an invite and the store link. No grown-up check: the person picks who gets it in the share menu. */
   onShareApp?: () => void;
+  /** Certificates row: opens the list of certificates earned for finishing big units. */
+  onOpenCertificates?: () => void;
+  /** How many certificates are earned, shown on the Certificates row. */
+  certificateCount?: number;
   /** Crew and Shop are bottom tabs now; kept optional so the old call site still type-checks. */
   onOpenCrew?: () => void;
   onOpenShop?: () => void;
@@ -169,6 +173,8 @@ export function ProfileView({
   onOpenSettings,
   onOpenFamily,
   onShareApp,
+  onOpenCertificates,
+  certificateCount = 0,
   onCreateAccount,
   hasSavedAccount = false,
   soundEnabled,
@@ -263,6 +269,24 @@ export function ProfileView({
       ) : null}
 
       <View style={styles.menu}>
+        {onOpenCertificates ? (
+          <MenuRow
+            icon="trophy"
+            label={t("Certificates")}
+            onPress={onOpenCertificates}
+            testID="profile-certificates"
+            right={
+              certificateCount > 0 ? (
+                <View style={styles.countRow}>
+                  <Text style={styles.countPill} testID="profile-certificates-count">
+                    {formatNumber(certificateCount)}
+                  </Text>
+                  <Icon name="chevronRight" size={18} color={colors.lineLip} />
+                </View>
+              ) : undefined
+            }
+          />
+        ) : null}
         {onOpenFamily ? <MenuRow icon="family" label={t("Family")} onPress={() => ask(onOpenFamily)} testID="profile-family" /> : null}
         {onShareApp ? <MenuRow icon="share" label={t("Invite friends")} onPress={onShareApp} testID="profile-share" /> : null}
         <MenuRow icon="settings" label={strings.settings} onPress={onOpenSettings} testID="profile-settings" last={!onToggleSound} />
@@ -287,6 +311,23 @@ export function ProfileView({
 const AVATAR = 108;
 
 const styles = StyleSheet.create({
+  countRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 2
+  },
+  countPill: {
+    minWidth: 26,
+    paddingHorizontal: 6,
+    borderRadius: 13,
+    overflow: "hidden",
+    textAlign: "center",
+    fontFamily: fonts.displayHeavy,
+    fontSize: 15,
+    lineHeight: 26,
+    color: colors.white,
+    backgroundColor: colors.goldLip
+  },
   root: {
     flex: 1,
     backgroundColor: colors.snow
