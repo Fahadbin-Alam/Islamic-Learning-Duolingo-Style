@@ -129,6 +129,7 @@ describe("I finished day N", () => {
     expect(screen.getByText("Day 3 of Ramadan done!")).toBeTruthy();
     expect(screen.getByTestId("ramadan-moon-lit-1")).toBeTruthy();
     expect(screen.queryByTestId("ramadan-moon-lit-2")).toBeNull();
+    expect(screen.getByText("Learn Islam daily. Free on Google Play and the App Store.")).toBeTruthy();
     await fireEvent.press(screen.getByTestId("ramadan-day-share"));
     expect(onShare).toHaveBeenCalledTimes(1);
   });
