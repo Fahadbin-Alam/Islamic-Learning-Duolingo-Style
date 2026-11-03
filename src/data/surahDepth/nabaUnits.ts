@@ -272,6 +272,34 @@ const NABA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "hell-lies-in-wait",
+      title: "A place of waiting",
+      line: "Hell waits, ready, for those who rebel against the Messengers.",
+      facts: ["Mirsad: a place of waiting", "Ahqab: long ages of time"],
+      quote: q78(21),
+      source: ik(21, "Ibn Kathir says Hell is waiting in preparation for the Taghun, the rejectors who oppose the Messengers, as their final home.", "it is waiting in preparation"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Hell, per 78:21?", a: "A place of ambush", wrong: ["A place of rest", "A garden", "An empty land"], why: "Truly, Hell is a place of ambush, meaning, it is waiting in preparation." },
+        { q: "Who are the Taghun, per Ibn Kathir?", a: "Rejectors who oppose the Messengers", wrong: ["The angels", "The pious", "Travellers"], why: "These are the disobedient rejectors who oppose the Messengers." },
+        { tf: false, q: "Ahqab means a short moment.", why: "Huqb means a period of time." }
+      ]
+    },
+    {
+      slug: "nothing-cool-to-drink",
+      title: "Nothing cool to drink",
+      line: "In the Fire the deniers find no coolness and no good drink.",
+      facts: ["Bard: coolness", "Ask Allah for safety"],
+      quote: q78(24),
+      source: ik(24, "Ibn Kathir says they will find no coolness for their hearts and no good drink, and asks Allah to save us from that.", "they will not find any coolness in Hell for their hearts, nor any good drink"),
+      difficulty: 2,
+      questions: [
+        { q: "What will they not taste, per 78:24?", a: "Anything cool, or any drink", wrong: ["Any sweets", "Any fruit", "Any bread"], why: "Nothing cool shall they taste therein, nor any drink." },
+        { q: "What does Ibn Kathir ask after this?", a: "That Allah saves us from it", wrong: ["For more wealth", "For rain", "For a long life"], why: "May Allah save us from that by His beneficence and grace." },
+        { tf: true, q: "No coolness reaches their hearts in the Fire.", why: "They will not find any coolness in Hell for their hearts." }
+      ]
+    },
+    {
       slug: "an-exact-recompense",
       title: "An exact recompense",
       line: "Allah is perfectly just: each gets what his deeds earned.",
@@ -312,6 +340,20 @@ const NABA_TWO: DeepUnit = {
         { q: "How much for a good deed you do?", a: "Ten to seven hundred times or more", wrong: ["Just one", "Two times", "Five times"], why: "From ten to seven hundred times to many more times." },
         { tf: true, q: "A bad deed you hold back from is written as a good deed.", why: "If somebody intended to do a bad deed and he does not do it, then Allah will write a full good deed." }
       ]
+    },
+    {
+      slug: "so-taste-it",
+      title: "No increase but punishment",
+      line: "Deniers are told their punishment will only increase.",
+      facts: ["Dhuqu: taste", "Turn back to Allah now"],
+      quote: q78(30),
+      source: ik(30, "Ibn Kathir says the people of the Fire are told they will be given no increase except in punishment, matching their sins.", "We will never increase you in anything except torment according to its type"),
+      difficulty: 3,
+      questions: [
+        { q: "What increase do they get, per 78:30?", a: "Only more punishment", wrong: ["More time", "More food", "Forgiveness"], why: "So taste you. No increase shall We give you, except in torment." },
+        { q: "What did Abdullah bin Amr say of 78:30?", a: "No ayah on the Fire is harsher", wrong: ["The ayah is about Jannah", "The ayah came last", "The ayah is about rain"], why: "Allah did not reveal any Ayah against the people of the Hellfire worse than this Ayah." },
+        { tf: false, q: "Their punishment will slowly fade away.", why: "They will continue increasing in torment forever." }
+      ]
     }
   ]
 };
@@ -338,6 +380,20 @@ const NABA_THREE: DeepUnit = {
         { q: "What is for the pious, per 78:31?", a: "Success", wrong: ["Hardship", "Silence", "Nothing"], why: "Verily, for those who have Taqwa, there will be a success." },
         { q: "What are Hada'iq, per Ibn Kathir?", a: "Gardens of palm trees", wrong: ["Rivers of ice", "Desert tents", "Stone towers"], why: "And Hada'iq are gardens of palm trees and other things." },
         { tf: true, q: "Mujahid said the pious are saved from the Fire.", why: "Mujahid and Qatadah both said, They are successful and thus, they are saved from the Hellfire." }
+      ]
+    },
+    {
+      slug: "vineyards-and-companions",
+      title: "Vineyards and companions",
+      line: "Jannah has vineyards, and companions all of one age.",
+      facts: ["A'nab: grapevines", "Atrab: equal in age"],
+      quote: q78(33),
+      source: ik(33, "Ibn Kathir says Jannah has vineyards, and its companions are equal in age, all of one age.", "This means that they will only have one age"),
+      difficulty: 2,
+      questions: [
+        { q: "What grows in Jannah, per 78:32?", a: "Gardens and vineyards", wrong: ["Thorns", "Only grass", "Nothing"], why: "Hada'iq and vineyards." },
+        { q: "What does Atrab mean?", a: "Equal in age", wrong: ["Very old", "Very young", "Far away"], why: "Equal in age. This means that they will only have one age." },
+        { tf: true, q: "Hada'iq are gardens of palm trees and more.", why: "And Hada'iq are gardens of palm trees and other things." }
       ]
     },
     {
