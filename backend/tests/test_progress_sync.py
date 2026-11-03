@@ -128,3 +128,13 @@ def test_gems_take_the_latest_copy(client):
     sync(client, headers, gems=300)
 
     assert sync(client, headers, gems=250)["gems"] == 250
+
+
+def test_story_reads_merge_across_phones(client):
+    _, headers = register(client)
+    sync(client, headers, stories={"story-bilal-1": {"readAt": "2026-11-01T10:00:00Z", "reads": 2}})
+
+    user = sync(client, headers, stories={"story-bilal-1": {"readAt": "2026-11-02T10:00:00Z", "reads": 1}, "story-seerah-wahy-1": {"readAt": "2026-11-02T11:00:00Z", "reads": 1}})
+
+    assert user["stories"]["story-bilal-1"] == {"readAt": "2026-11-02T10:00:00Z", "reads": 2}
+    assert user["stories"]["story-seerah-wahy-1"]["reads"] == 1

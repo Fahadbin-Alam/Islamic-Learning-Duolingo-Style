@@ -229,6 +229,8 @@ import {
   ShopView,
   TopicPicker,
   QuizSheet,
+  StoryBanner,
+  StorySheet,
   UpdateBanner,
   tabForScreen,
   useNotices,
@@ -239,6 +241,8 @@ import {
   type QuizSheetTopic
 } from "./ui/screens";
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
+import { STORIES, storyGroupFor, type StoryGroup } from "./data/stories";
+import { recordStoryRead } from "./services/stories";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
@@ -776,6 +780,8 @@ export default function TopicApp() {
   const [lessonCompleteSummary, setLessonCompleteSummary] = useState<LessonCelebration | undefined>(undefined);
   const [quizSummary, setQuizSummary] = useState<QuizSummary | undefined>(undefined);
   const [quizSheetVisible, setQuizSheetVisible] = useState(false);
+  // Story mode: the shelf it opens on, while it is open.
+  const [storyShelf, setStoryShelf] = useState<StoryGroup | undefined>(undefined);
   // An opened chest: its gems land when the learner taps COLLECT.
   const [rewardCelebration, setRewardCelebration] = useState<{ stop: JourneyRewardStop } | undefined>(undefined);
   const [topicPickerVisible, setTopicPickerVisible] = useState(false);
@@ -1243,6 +1249,24 @@ export default function TopicApp() {
       />
     );
   }, [localizedSections, pathNodes, prayerPrefs, season, state.user]);
+  const storyReadIds = useMemo(() => new Set(Object.keys(state.user?.stories ?? {}).filter((id) => state.user?.stories?.[id]?.readAt)), [state.user?.stories]);
+  const storyGroup = storyGroupFor(selectedSection.topicId);
+  const storyBanner = storyGroup ? (
+    <StoryBanner
+      group={storyGroup}
+      accent={selectedSection.accentColor}
+      read={STORIES.filter((story) => story.group === storyGroup && storyReadIds.has(story.id)).length}
+      total={STORIES.filter((story) => story.group === storyGroup).length}
+      onOpen={() => setStoryShelf(storyGroup)}
+    />
+  ) : undefined;
+  const finishStory = (storyId: string, firstTryRight: number) => {
+    const user = state.user;
+    if (!user) return 0;
+    const record = recordStoryRead(user, storyId, firstTryRight);
+    dispatch({ type: "apply_user_latest", update: (latest) => withExperienceDefaults(recordStoryRead(latest, storyId, firstTryRight).user) });
+    return record.xp;
+  };
   const pickerTopics = useMemo<TopicPickerTopic[]>(() => {
     const completed = new Set(state.user?.completedNodeIds ?? []);
     const topics = localizedSections.map((section) => ({
@@ -3589,8 +3613,13 @@ export default function TopicApp() {
                     {t("All of {topic}", { topic: selectedSection.title })}
                   </Text>
                 </Tappable>
+              ) : ramadanBanner && storyBanner ? (
+                <>
+                  {ramadanBanner}
+                  {storyBanner}
+                </>
               ) : (
-                ramadanBanner
+                ramadanBanner ?? storyBanner
               )
             }
           />
@@ -3800,6 +3829,7 @@ export default function TopicApp() {
             onStartDailyChallenge={() => openFoundationAssessment("daily_challenge")}
             onStartLessonPractice={canPracticeLessons(state.user) ? startLessonPractice : undefined}
             onOpenQuizzes={() => setQuizSheetVisible(true)}
+            onOpenStories={() => setStoryShelf(storyGroupFor(selectedSection.topicId) ?? "seerah")}
             quizBest={getQuizScore(state.user, { kind: "topic", topicId: selectedSection.topicId })?.best}
             onGoFoundation={() => openTopicScreen("foundation")}
           />
@@ -3927,6 +3957,19 @@ export default function TopicApp() {
               dispatch({ type: "select_topic", topicId: topicId as TopicId, unitId: nodeId ? undefined : unitId });
               setPathReveal(nodeId);
             }}
+          />
+        )}
+        {!inLesson && (
+          <StorySheet
+            visible={Boolean(storyShelf)}
+            onClose={() => setStoryShelf(undefined)}
+            stories={STORIES}
+            readIds={storyReadIds}
+            group={storyShelf}
+            language={currentLanguage}
+            mascotVariant={selectedSection.mascot}
+            accent={selectedSection.accentColor}
+            onFinish={finishStory}
           />
         )}
         {!inLesson && (

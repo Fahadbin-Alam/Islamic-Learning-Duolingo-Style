@@ -778,5 +778,21 @@
   "Sign in to link a parent's account, so they see your progress live.": "سجّل الدخول لربط حساب أحد والديك، ليرى تقدّمك مباشرة.",
   "Your code (works once, for 24 hours)": "رمزك (يعمل مرة واحدة، لمدة 24 ساعة)",
   "Learn Islam daily. Free on Google Play.": "تعلّم الإسلام يوميًا. مجانًا على Google Play.",
-  "Learn Islam daily. Free on Google Play and the App Store.": "تعلّم الإسلام يوميًا. مجانًا على Google Play وApp Store."
+  "Learn Islam daily. Free on Google Play and the App Store.": "تعلّم الإسلام يوميًا. مجانًا على Google Play وApp Store.",
+  "All stories": "كل القصص",
+  "Done": "تم",
+  "Finish story": "أنهِ القصة",
+  "Keep reading": "تابع القراءة",
+  "Next story": "القصة التالية",
+  "Not quite. Try again!": "ليس تمامًا. حاول مرة أخرى!",
+  "Part {part} of {parts}": "الجزء {part} من {parts}",
+  "Start reading": "ابدأ القراءة",
+  "Story complete!": "اكتملت القصة!",
+  "Story mode": "وضع القصص",
+  "The Companions' lives, told as stories.": "حياة الصحابة، تُروى قصصًا.",
+  "The Seerah and the Sahabah, told as stories": "السيرة والصحابة، تُروى قصصًا",
+  "The life of the Prophet ﷺ, told as stories.": "حياة النبي ﷺ، تُروى قصصًا.",
+  "Your turn": "دورك الآن",
+  "{count} scenes": "{count} مشاهد",
+  "{done} of {total} read": "قُرئ {done} من {total}"
 }
