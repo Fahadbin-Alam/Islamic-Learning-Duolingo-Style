@@ -241,6 +241,8 @@ export interface UserProfile {
   ummah?: UmmahState;
   /** Quizzes taken, by quiz id ("topic:<topicId>" or "unit:<unitId>"; see src/services/quizzes.ts). */
   quizScores?: Record<string, QuizScore>;
+  /** Story mode: stories read to the end, by story id ("story-<unit>-<part>"; see src/services/stories.ts). */
+  stories?: Record<string, StoryProgress>;
   /** The Review deck: lesson questions missed on their first try, brought back until they stick (services/reviewDeck). */
   reviewCards?: ReviewCard[];
   /** How hard lessons are (Settings): "auto" climbs with the streak and lessons done (src/data/challengeLevel.ts). */
@@ -250,6 +252,13 @@ export interface UserProfile {
    * Picking a difficulty in Settings starts it again from 0.
    */
   challengeBoost?: number;
+}
+
+/** One story read in story mode. */
+export interface StoryProgress {
+  /** When it was last read to the end. */
+  readAt: string;
+  reads: number;
 }
 
 /** Lesson difficulty as the learner picks it in Settings; unset is "auto". */
