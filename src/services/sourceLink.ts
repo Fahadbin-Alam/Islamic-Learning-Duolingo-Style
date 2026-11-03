@@ -1,4 +1,4 @@
-import { Linking } from "react-native";
+import { openWebPage } from "./network";
 import { highlightFor } from "../data/sourceHighlights";
 import type { LessonSource } from "../types";
 
@@ -38,8 +38,8 @@ export function sourceUrl(source: Pick<LessonSource, "url" | "highlight"> & Part
   return highlightUrl(source.url, source.highlight ?? (source.summary ? highlightFor({ url: source.url, summary: source.summary }) : undefined));
 }
 
-/** Opens a source's page in the browser, at its highlighted words. */
+/** Opens a source's page in the browser, at its highlighted words (with no internet, a short note instead). */
 export function openSource(source: Pick<LessonSource, "url" | "highlight"> & Partial<Pick<LessonSource, "summary">>) {
   const url = sourceUrl(source);
-  if (url) void Linking.openURL(url).catch(() => undefined);
+  if (url) openWebPage(url);
 }

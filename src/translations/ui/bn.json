@@ -596,7 +596,6 @@
   "Open a new hadith": "নতুন একটি হাদিস খোলো",
   "{count} more in the chest": "সিন্দুকে আরও {count}টি",
   "{count} of {total} collected": "{total}টির মধ্যে {count}টি সংগ্রহ হয়েছে",
-  "Listen with no internet": "ইন্টারনেট ছাড়াই শোনো",
   "Quran audio offline": "অফলাইনে কুরআনের অডিও",
   "Saved, {size} MB": "সেভ হয়েছে, {size} MB",
   "Saving {done} of {total}": "সেভ হচ্ছে {total}টির মধ্যে {done}টি",
@@ -820,5 +819,11 @@
   "for finishing": "শেষ করার জন্য",
   "{count} lessons done": "{count}টি পাঠ শেষ",
   "{done} of {total} lessons": "{total}টির মধ্যে {done}টি পাঠ",
-  "🎓 I finished {title} on Muslimo!": "🎓 আমি Muslimo-তে {title} শেষ করেছি!"
+  "🎓 I finished {title} on Muslimo!": "🎓 আমি Muslimo-তে {title} শেষ করেছি!",
+  "No internet right now": "এখন ইন্টারনেট নেই",
+  "No internet. This is not saved on your phone yet.": "ইন্টারনেট নেই। এটা এখনও ফোনে সেভ হয়নি।",
+  "No internet. Lessons still work, and your progress is saved on this phone.": "ইন্টারনেট নেই। পাঠ তবুও চলবে, আর তোমার অগ্রগতি এই ফোনে সেভ থাকবে।",
+  "{done} of {total} saved. Saving all is big, use Wi-Fi.": "{total}টির মধ্যে {done}টি সেভ হয়েছে। সব সেভ করা বড় ডাউনলোড, ওয়াই-ফাই ব্যবহার করো।",
+  "Listen with no internet. Saving all is big, use Wi-Fi.": "ইন্টারনেট ছাড়া শোনো। সব সেভ করা বড় ডাউনলোড, ওয়াই-ফাই ব্যবহার করো।",
+  "Tap it again when you are back online. The lesson keeps working.": "ইন্টারনেট ফিরলে আবার চাপো। পাঠ চলতেই থাকবে।"
 }

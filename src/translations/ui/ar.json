@@ -596,7 +596,6 @@
   "Open a new hadith": "افتح حديثًا جديدًا",
   "{count} more in the chest": "{count} أخرى في الصندوق",
   "{count} of {total} collected": "جمعت {count} من {total}",
-  "Listen with no internet": "استمع بدون إنترنت",
   "Quran audio offline": "صوت القرآن بدون إنترنت",
   "Saved, {size} MB": "تم الحفظ، {size} ميغابايت",
   "Saving {done} of {total}": "جارٍ الحفظ: {done} من {total}",
@@ -820,5 +819,11 @@
   "for finishing": "لإتمامه",
   "{count} lessons done": "{count} درسًا مكتملًا",
   "{done} of {total} lessons": "{done} من {total} درسًا",
-  "🎓 I finished {title} on Muslimo!": "🎓 أتممت {title} على Muslimo!"
+  "🎓 I finished {title} on Muslimo!": "🎓 أتممت {title} على Muslimo!",
+  "No internet right now": "لا يوجد إنترنت الآن",
+  "No internet. This is not saved on your phone yet.": "لا يوجد إنترنت. هذا غير محفوظ على هاتفك بعد.",
+  "No internet. Lessons still work, and your progress is saved on this phone.": "لا يوجد إنترنت. الدروس تعمل كما هي، وتقدّمك محفوظ على هذا الهاتف.",
+  "{done} of {total} saved. Saving all is big, use Wi-Fi.": "حُفظ {done} من {total}. حفظ الكل تنزيل كبير، استخدم الواي فاي.",
+  "Listen with no internet. Saving all is big, use Wi-Fi.": "استمع دون إنترنت. حفظ الكل تنزيل كبير، استخدم الواي فاي.",
+  "Tap it again when you are back online. The lesson keeps working.": "اضغط عليه مرة أخرى عند عودة الإنترنت. الدرس يستمر كما هو."
 }
