@@ -4610,6 +4610,11 @@ export const QURAN_AYAHS: Record<string, string> = {
   "104:6": "نَارُ ٱللَّهِ ٱلۡمُوقَدَةُ", // Al-Humazah
   "104:8": "إِنَّهَا عَلَيۡهِم مُّؤۡصَدَةٞ", // Al-Humazah
   "104:9": "فِي عَمَدٖ مُّمَدَّدَةِۭ", // Al-Humazah
+  // Al-Fil, ayah by ayah
+  "105:2": "أَلَمۡ يَجۡعَلۡ كَيۡدَهُمۡ فِي تَضۡلِيلٖ", // Al-Fil
+  "105:3": "وَأَرۡسَلَ عَلَيۡهِمۡ طَيۡرًا أَبَابِيلَ", // Al-Fil
+  "105:4": "تَرۡمِيهِم بِحِجَارَةٖ مِّن سِجِّيلٖ", // Al-Fil
+  "105:5": "فَجَعَلَهُمۡ كَعَصۡفٖ مَّأۡكُولِۭ", // Al-Fil
 };
 
 /** The Arabic of an ayah, by "Quran 1:1" or "1:1"; undefined when it is not one the app shows. */
