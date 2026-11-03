@@ -50,3 +50,13 @@ export function ramadanShareMessage(day: number, streak: number, os?: string, io
 export function shareRamadanDay(day: number, streak: number) {
   return Share.share({ message: ramadanShareMessage(day, streak), title: "Muslimo" }).catch(() => undefined);
 }
+
+/** "I finished Juz Amma on Muslimo!" with the store links, for a certificate (src/services/certificates.ts). */
+export function certificateShareMessage(title: string, os?: string, iosLive?: boolean) {
+  return `${t("🎓 I finished {title} on Muslimo!", { title })} ${t("Learn with me, one short lesson a day:")}\n${inviteLinks(os, iosLive)}`;
+}
+
+/** The phone's share menu with a certificate's message. */
+export function shareCertificate(title: string) {
+  return Share.share({ message: certificateShareMessage(title), title: "Muslimo" }).catch(() => undefined);
+}

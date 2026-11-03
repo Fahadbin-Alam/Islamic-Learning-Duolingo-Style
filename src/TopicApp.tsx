@@ -246,7 +246,9 @@ import { recordStoryRead } from "./services/stories";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
 import { shareApp } from "./services/shareApp";
-import { shareRamadanCard } from "./services/shareCard";
+import { shareCertificateCard, shareRamadanCard } from "./services/shareCard";
+import { biggestFirst, buildCertificates, certificateProgress, earnedCertificateIds, recordCertificates, type CertificateProgress } from "./services/certificates";
+import { CertificatePop, CertificatesSheet } from "./ui/screens/Certificates";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
@@ -1217,6 +1219,33 @@ export default function TopicApp() {
     }
     ramadanDoneBefore.current = { userId: user?.id, done };
   }, [state.user]);
+  // Certificates (services/certificates.ts): one pops up when a lesson finishes the last circle of a big unit, a
+  // whole topic or a group like Juz Amma. Ones already earned when the app opens are kept quietly, with no date.
+  const certificates = useMemo(() => buildCertificates(localizedSections), [localizedSections]);
+  const earnedCertificates = useMemo(() => earnedCertificateIds(certificates, state.user?.completedNodeIds), [certificates, state.user?.completedNodeIds]);
+  const [certificateQueue, setCertificateQueue] = useState<string[]>([]);
+  const [shownCertificate, setShownCertificate] = useState<CertificateProgress | undefined>(undefined);
+  const [certificatesSheetVisible, setCertificatesSheetVisible] = useState(false);
+  const certificatesBefore = useRef<{ userId?: number; ids?: Set<string> }>({});
+  useEffect(() => {
+    const userId = state.user?.id;
+    const before = certificatesBefore.current;
+    const now = new Set(earnedCertificates);
+    if (before.ids && before.userId === userId) {
+      const fresh = earnedCertificates.filter((id) => !before.ids!.has(id));
+      if (fresh.length) {
+        const order = biggestFirst(certificates.filter((certificate) => fresh.includes(certificate.id))).map((certificate) => certificate.id);
+        setCertificateQueue((queue) => [...queue, ...order.filter((id) => !queue.includes(id))]);
+        dispatch({ type: "apply_user_latest", update: (latest) => recordCertificates(latest, fresh) });
+      }
+    }
+    certificatesBefore.current = { userId, ids: now };
+  }, [certificates, earnedCertificates, state.user?.id]);
+  const certificateItems = useMemo(
+    () => (certificatesSheetVisible || certificateQueue.length ? certificateProgress(certificates, state.user) : []),
+    [certificateQueue.length, certificates, certificatesSheetVisible, state.user]
+  );
+  const certificateName = state.user?.hasAccount ? state.user.displayName.trim().split(/\s+/)[0] || undefined : undefined;
   const ramadanBanner = useMemo(() => {
     const user = state.user;
     const ramadan = localizedSections.find((section) => section.topicId === RAMADAN_TOPIC);
@@ -3847,6 +3876,8 @@ export default function TopicApp() {
             onOpenSettings={openSettingsModal}
             onOpenFamily={openFamily}
             onShareApp={() => void shareApp(invite?.code, invite?.rewardDates)}
+            certificateCount={earnedCertificates.length}
+            onOpenCertificates={() => setCertificatesSheetVisible(true)}
             hasSavedAccount={hasSavedAccount}
             onCreateAccount={() => openAccountPanel()}
           />
@@ -3970,6 +4001,14 @@ export default function TopicApp() {
             mascotVariant={selectedSection.mascot}
             accent={selectedSection.accentColor}
             onFinish={finishStory}
+          />
+        )}
+        {!inLesson && (
+          <CertificatesSheet
+            visible={certificatesSheetVisible}
+            items={certificateItems}
+            onOpen={setShownCertificate}
+            onClose={() => setCertificatesSheetVisible(false)}
           />
         )}
         {!inLesson && (
@@ -4132,6 +4171,27 @@ export default function TopicApp() {
               void shareRamadanCard(card, season.day, ramadanStreak(state.user!)).finally(() => setRamadanPop(false));
             }}
             onClose={() => setRamadanPop(false)}
+          />
+        ) : null}
+        {certificateQueue.length && !inLesson && !rewardCelebration && !ramadanPop ? (
+          <CertificatePop
+            item={certificateItems.find((item) => item.certificate.id === certificateQueue[0])}
+            name={certificateName}
+            fresh
+            onShare={(card) => {
+              const title = certificateItems.find((item) => item.certificate.id === certificateQueue[0])?.certificate.title ?? "";
+              // The picture is taken while the card is still on screen; it closes once the share menu is done.
+              void shareCertificateCard(card, title).finally(() => setCertificateQueue((queue) => queue.slice(1)));
+            }}
+            onClose={() => setCertificateQueue((queue) => queue.slice(1))}
+          />
+        ) : null}
+        {shownCertificate ? (
+          <CertificatePop
+            item={shownCertificate}
+            name={certificateName}
+            onShare={(card) => void shareCertificateCard(card, shownCertificate.certificate.title)}
+            onClose={() => setShownCertificate(undefined)}
           />
         ) : null}
         <RewardPop
