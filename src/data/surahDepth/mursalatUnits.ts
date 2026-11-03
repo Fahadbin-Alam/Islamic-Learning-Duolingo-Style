@@ -267,7 +267,7 @@ const MURSALAT_THREE: DeepUnit = {
       questions: [
         { q: "To what will deniers be told to go, per 77:29?", a: "What they used to deny", wrong: ["A garden", "Their homes", "A river"], why: "Depart you to that which you used to deny!" },
         { q: "Does that shade protect them, per 77:31?", a: "No, it is of no use", wrong: ["Yes, fully", "Only at night", "Only for the rich"], why: "Neither shady nor of any use against the fierce flame of the Fire." },
-        { tf: false, q: "The smoke of the Fire gives cool shade.", why: "It will not protect them from the heat of the flame." }
+        { q: "What did Ibn Masud liken the sparks of 77:32 to?", a: "Forts", wrong: ["Stars", "Raindrops", "Leaves"], why: "Its sparks will shoot out from its flame like huge castles. Ibn Masud said, Like forts." }
       ]
     },
     {
@@ -281,7 +281,7 @@ const MURSALAT_THREE: DeepUnit = {
       questions: [
         { q: "What will they not do, per 77:35?", a: "Speak", wrong: ["Walk", "See", "Hear"], why: "That will be a Day when they shall not speak." },
         { q: "What are they not permitted, per 77:36?", a: "To put forth any excuse", wrong: ["To sit", "To look up", "To drink"], why: "And they will not be permitted to put forth any excuse." },
-        { tf: true, q: "Ibn Kathir says the Day of Judgement happens in stages.", why: "The courts of the Day of Judgement will occur in stages." }
+        { q: "What does 77:33 compare the sparks to?", a: "Sufr camels", wrong: ["White doves", "Small fish", "Green trees"], why: "As if they were Sufr camels, meaning black camels." }
       ]
     },
     {

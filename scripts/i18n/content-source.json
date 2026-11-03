@@ -26260,6 +26260,38 @@
     "text": "His wife"
   },
   {
+    "kind": "course",
+    "text": "The call from the mountain"
+  },
+  {
+    "kind": "course",
+    "text": "Never heard a lie"
+  },
+  {
+    "kind": "course",
+    "text": "Who was Abu Lahab?"
+  },
+  {
+    "kind": "course",
+    "text": "A prayer and news"
+  },
+  {
+    "kind": "course",
+    "text": "A Fire of flames"
+  },
+  {
+    "kind": "course",
+    "text": "Family cannot save you"
+  },
+  {
+    "kind": "course",
+    "text": "His wife, Umm Jamil"
+  },
+  {
+    "kind": "course",
+    "text": "A rope of palm fiber"
+  },
+  {
     "kind": "arabic",
     "text": "The Sincerity"
   },
@@ -158242,10 +158274,6 @@
   {
     "kind": "question",
     "text": "A flower necklace"
-  },
-  {
-    "kind": "question",
-    "text": "A rope of palm fiber"
   },
   {
     "kind": "question",
@@ -435857,11 +435885,11 @@
   },
   {
     "kind": "question",
-    "text": "The drinks of Jannah will taste plain."
+    "text": "Whom does 76:4 warn, just before the righteous?"
   },
   {
     "kind": "question",
-    "text": "Its taste will be delicious in Paradise."
+    "text": "Allah informs of what he has waiting for those who disbelieve in Him."
   },
   {
     "kind": "lesson",
@@ -438041,11 +438069,15 @@
   },
   {
     "kind": "question",
-    "text": "The smoke of the Fire gives cool shade."
+    "text": "What did Ibn Masud liken the sparks of 77:32 to?"
   },
   {
     "kind": "question",
-    "text": "It will not protect them from the heat of the flame."
+    "text": "Raindrops"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Masud said, Like forts."
   },
   {
     "kind": "lesson",
@@ -438097,11 +438129,23 @@
   },
   {
     "kind": "question",
-    "text": "Ibn Kathir says the Day of Judgement happens in stages."
+    "text": "What does 77:33 compare the sparks to?"
   },
   {
     "kind": "question",
-    "text": "The courts of the Day of Judgement will occur in stages."
+    "text": "Small fish"
+  },
+  {
+    "kind": "question",
+    "text": "Sufr camels"
+  },
+  {
+    "kind": "question",
+    "text": "White doves"
+  },
+  {
+    "kind": "question",
+    "text": "As if they were Sufr camels, meaning black camels."
   },
   {
     "kind": "lesson",
@@ -469454,6 +469498,490 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about An-Nasr, ayah 3!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The Prophet ﷺ climbed a mountain and called Quraysh to listen."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Batha: a valley"
+  },
+  {
+    "kind": "lesson",
+    "text": "Quraysh gathered"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4972"
+  },
+  {
+    "kind": "question",
+    "text": "Where did the Prophet ﷺ call Quraysh?"
+  },
+  {
+    "kind": "question",
+    "text": "On a mountain near Al-Batha"
+  },
+  {
+    "kind": "question",
+    "text": "Inside his house"
+  },
+  {
+    "kind": "question",
+    "text": "At a far market"
+  },
+  {
+    "kind": "question",
+    "text": "He went out towards Al-Batha and ascended the mountain."
+  },
+  {
+    "kind": "question",
+    "text": "What did he first ask them?"
+  },
+  {
+    "kind": "question",
+    "text": "Would they believe a warning from him"
+  },
+  {
+    "kind": "question",
+    "text": "Would they pay him"
+  },
+  {
+    "kind": "question",
+    "text": "Would they travel with him"
+  },
+  {
+    "kind": "question",
+    "text": "Would they make him king"
+  },
+  {
+    "kind": "question",
+    "text": "Quraysh said yes, they would believe him."
+  },
+  {
+    "kind": "question",
+    "text": "They replied, Yes."
+  },
+  {
+    "kind": "lesson",
+    "text": "Even his enemies said they had never heard him lie."
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Sadiq: the truthful"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih al-Bukhari 4971"
+  },
+  {
+    "kind": "question",
+    "text": "What did Quraysh say about his honesty?"
+  },
+  {
+    "kind": "question",
+    "text": "They never heard him lie"
+  },
+  {
+    "kind": "question",
+    "text": "He lied sometimes"
+  },
+  {
+    "kind": "question",
+    "text": "We have never heard you telling a lie."
+  },
+  {
+    "kind": "question",
+    "text": "What did he call himself to them?"
+  },
+  {
+    "kind": "question",
+    "text": "I am a plain warner to you of a coming severe punishment."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Lahab thanked him for the warning."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Lahab said, May you perish!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Lahab was the Prophet's ﷺ uncle, yet he opposed him harshly."
+  },
+  {
+    "kind": "lesson",
+    "text": "Name: Abdul-Uzza"
+  },
+  {
+    "kind": "lesson",
+    "text": "Lahab: flame, for his bright face"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 111:1"
+  },
+  {
+    "kind": "question",
+    "text": "How was Abu Lahab related to the Prophet ﷺ?"
+  },
+  {
+    "kind": "question",
+    "text": "He was his neighbor"
+  },
+  {
+    "kind": "question",
+    "text": "He was his teacher"
+  },
+  {
+    "kind": "question",
+    "text": "He was his uncle"
+  },
+  {
+    "kind": "question",
+    "text": "He was his cousin"
+  },
+  {
+    "kind": "question",
+    "text": "This man Abu Lahab was one of the uncles of the Messenger of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Why was he called Abu Lahab?"
+  },
+  {
+    "kind": "question",
+    "text": "He loved the sun"
+  },
+  {
+    "kind": "question",
+    "text": "His face was bright"
+  },
+  {
+    "kind": "question",
+    "text": "He lit fires"
+  },
+  {
+    "kind": "question",
+    "text": "He was a cook"
+  },
+  {
+    "kind": "question",
+    "text": "He was only called Abu Lahab because of the brightness of his face."
+  },
+  {
+    "kind": "question",
+    "text": "Being a relative did not stop him from opposing Islam."
+  },
+  {
+    "kind": "question",
+    "text": "He used to often cause harm to the Messenger of Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "First comes a prayer against him, then news of his end."
+  },
+  {
+    "kind": "lesson",
+    "text": "Tabbat: may they perish"
+  },
+  {
+    "kind": "lesson",
+    "text": "Wa tabb: and he perished"
+  },
+  {
+    "kind": "question",
+    "text": "What is the first part of 111:1, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "A rule on trade"
+  },
+  {
+    "kind": "question",
+    "text": "A supplication against him"
+  },
+  {
+    "kind": "question",
+    "text": "A praise of him"
+  },
+  {
+    "kind": "question",
+    "text": "A story of his youth"
+  },
+  {
+    "kind": "question",
+    "text": "What is the second part?"
+  },
+  {
+    "kind": "question",
+    "text": "Information about him"
+  },
+  {
+    "kind": "question",
+    "text": "A question to him"
+  },
+  {
+    "kind": "question",
+    "text": "A gift for him"
+  },
+  {
+    "kind": "question",
+    "text": "The second is information about him."
+  },
+  {
+    "kind": "question",
+    "text": "The surah answered Abu Lahab's own words, May you perish."
+  },
+  {
+    "kind": "lesson",
+    "text": "His money and his children could not save him from Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Mal: wealth"
+  },
+  {
+    "kind": "lesson",
+    "text": "Kasab: his children"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 111:2"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 111:2"
+  },
+  {
+    "kind": "question",
+    "text": "What will not benefit him, per 111:2?"
+  },
+  {
+    "kind": "question",
+    "text": "His wealth and his children"
+  },
+  {
+    "kind": "question",
+    "text": "What does Kasab mean, per Ibn Abbas?"
+  },
+  {
+    "kind": "question",
+    "text": "Money can buy safety on the Day of Judgment."
+  },
+  {
+    "kind": "question",
+    "text": "His wealth and his children will not benefit him!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Masad, ayahs 1-2!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Lahab, whose name means flame, will meet a Fire of flames."
+  },
+  {
+    "kind": "lesson",
+    "text": "Dhat lahab: of flames"
+  },
+  {
+    "kind": "lesson",
+    "text": "A fitting end"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 111:3"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 111:3"
+  },
+  {
+    "kind": "question",
+    "text": "What does 111:3 say he will enter?"
+  },
+  {
+    "kind": "question",
+    "text": "A Fire full of flames"
+  },
+  {
+    "kind": "question",
+    "text": "Which word links his name and the Fire?"
+  },
+  {
+    "kind": "question",
+    "text": "Ma, water"
+  },
+  {
+    "kind": "question",
+    "text": "Ard, earth"
+  },
+  {
+    "kind": "question",
+    "text": "Lahab, flame"
+  },
+  {
+    "kind": "question",
+    "text": "He will enter a Fire full of flames (Lahab)."
+  },
+  {
+    "kind": "question",
+    "text": "Opposing the truth to the end has a bad outcome."
+  },
+  {
+    "kind": "question",
+    "text": "He will enter a Fire full of flames!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Even the Prophet's ﷺ family must save themselves through faith."
+  },
+  {
+    "kind": "lesson",
+    "text": "Each soul for itself"
+  },
+  {
+    "kind": "lesson",
+    "text": "Faith, not family"
+  },
+  {
+    "kind": "source",
+    "text": "Sahih Muslim 204"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did he warn by name, per the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "His tribes and even Fatimah"
+  },
+  {
+    "kind": "question",
+    "text": "O Fatimah, rescue thyself from the Fire."
+  },
+  {
+    "kind": "question",
+    "text": "Why must each person save themselves?"
+  },
+  {
+    "kind": "question",
+    "text": "He was too busy"
+  },
+  {
+    "kind": "question",
+    "text": "He had no power to protect them from Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Being related to the Prophet ﷺ guarantees Paradise."
+  },
+  {
+    "kind": "question",
+    "text": "I have no power to protect you from Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "His wife Umm Jamil stood by him in fighting the truth."
+  },
+  {
+    "kind": "lesson",
+    "text": "Arwah bint Harb"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sister of Abu Sufyan"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 111:4"
+  },
+  {
+    "kind": "question",
+    "text": "Who is the wife in 111:4?"
+  },
+  {
+    "kind": "question",
+    "text": "His wife was among the leading women of the Quraysh and she was known as Umm Jamil."
+  },
+  {
+    "kind": "question",
+    "text": "Whose sister was Umm Jamil?"
+  },
+  {
+    "kind": "question",
+    "text": "She helped her husband in his rejection."
+  },
+  {
+    "kind": "question",
+    "text": "She was supportive of her husband in his disbelief, rejection and obstinacy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Masad is a twisted rope made from palm fibers."
+  },
+  {
+    "kind": "lesson",
+    "text": "Masad: palm-fiber rope"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hablun: rope"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 111:5"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 111:5"
+  },
+  {
+    "kind": "question",
+    "text": "What is in her neck, per 111:5?"
+  },
+  {
+    "kind": "question",
+    "text": "A pearl chain"
+  },
+  {
+    "kind": "question",
+    "text": "A twisted rope of Masad"
+  },
+  {
+    "kind": "question",
+    "text": "A gold necklace"
+  },
+  {
+    "kind": "question",
+    "text": "A silk scarf"
+  },
+  {
+    "kind": "question",
+    "text": "What is Masad made from, per Al-Jawhari?"
+  },
+  {
+    "kind": "question",
+    "text": "Fibers or palm leaves"
+  },
+  {
+    "kind": "question",
+    "text": "It is also a rope made from fibers or palm leaves."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Masad is the surah named after the rope."
+  },
+  {
+    "kind": "question",
+    "text": "In her neck is a twisted rope of Masad."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Masad, ayahs 3-5!"
   },
   {
     "kind": "lesson",

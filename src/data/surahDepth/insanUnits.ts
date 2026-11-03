@@ -115,7 +115,7 @@ const INSAN_ONE: DeepUnit = {
       questions: [
         { q: "Who drinks the cup mixed with Kafur?", a: "The Abrar, the righteous", wrong: ["The proud", "The lazy", "The liars"], why: "Verily, the Abrar, righteous believers, shall drink of a cup mixed with Kafur." },
         { q: "What is Kafur known for?", a: "Cooling and fragrance", wrong: ["Being bitter", "Being salty", "Being heavy"], why: "Cooling, having a nice fragrance and in addition to this its taste will be delicious in Paradise." },
-        { tf: false, q: "The drinks of Jannah will taste plain.", why: "Its taste will be delicious in Paradise." }
+        { q: "Whom does 76:4 warn, just before the righteous?", a: "The disbelievers", wrong: ["The orphans", "The travelers", "The farmers"], why: "Allah informs of what he has waiting for those who disbelieve in Him." }
       ]
     },
     {
