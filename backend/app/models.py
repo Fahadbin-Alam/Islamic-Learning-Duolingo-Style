@@ -121,6 +121,34 @@ class FriendBattle(Base):
     opponent: Mapped["User"] = relationship(foreign_keys=[opponent_id])
 
 
+class FamilyLink(Base):
+    """A parent's account following a child's account live on the Family page. Made only from a short code the
+    child's phone shows (behind the grown-up gate), so nobody can follow a child by typing their email."""
+
+    __tablename__ = "family_links"
+    __table_args__ = (UniqueConstraint("parent_id", "child_id", name="uq_family_link_pair"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    parent_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    child_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    parent: Mapped["User"] = relationship(foreign_keys=[parent_id])
+    child: Mapped["User"] = relationship(foreign_keys=[child_id])
+
+
+class FamilyLinkCode(Base):
+    """The child's one-time code for linking a parent. One per child; a new one replaces it, and it expires."""
+
+    __tablename__ = "family_link_codes"
+
+    code: Mapped[str] = mapped_column(String(12), primary_key=True)
+    child_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, unique=True, index=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+
+    child: Mapped["User"] = relationship(foreign_keys=[child_id])
+
+
 class Invite(Base):
     """A new learner typing a friend's invite code. Each learner can use one code, once; the friend who invited
     them collects their reward the next time their app asks (see backend/app/api/routes/invites.py)."""

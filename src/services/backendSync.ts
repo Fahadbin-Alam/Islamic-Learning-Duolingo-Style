@@ -354,6 +354,53 @@ export async function removeCrewMember(friendId: number) {
 }
 
 /**
+ * Live family links (backend/app/api/routes/family.py): the child's phone shows a one-time code behind the grown-up
+ * gate, a parent's account types it in, and from then on the parent sees the child's progress without new codes.
+ */
+export type LinkedKid = {
+  id: number;
+  name: string;
+  avatarInitials: string;
+  streakDays: number;
+  lastStreakDate: string | null;
+  totalXp: number;
+  xpByDay: Record<string, number>;
+  lessonsDone: number;
+  completedNodeIds: string[];
+  nodeStars: Record<string, number>;
+  lastLearningAt: string | null;
+};
+
+export type LinkedParent = { id: number; name: string; avatarInitials: string };
+
+export type FamilyLinks = { kids: LinkedKid[]; parents: LinkedParent[] };
+
+export async function fetchFamilyLinks(today: string) {
+  const body = await backendRequest<FamilyLinks>(`/api/family?today=${encodeURIComponent(today)}`, { headers: authHeaders() });
+  return { kids: body.kids ?? [], parents: body.parents ?? [] };
+}
+
+export async function makeFamilyLinkCode() {
+  return backendRequest<{ code: string; expiresAt: string }>("/api/family/code", { method: "POST", headers: authHeaders() });
+}
+
+export async function linkFamilyKid(code: string, today: string) {
+  return backendRequest<LinkedKid>(`/api/family/kids?today=${encodeURIComponent(today)}`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ code })
+  });
+}
+
+export async function unlinkFamilyKid(childId: number) {
+  await backendRequest(`/api/family/kids/${childId}`, { method: "DELETE", headers: authHeaders() });
+}
+
+export async function unlinkFamilyParent(parentId: number) {
+  await backendRequest(`/api/family/parents/${parentId}`, { method: "DELETE", headers: authHeaders() });
+}
+
+/**
  * A quiz battle between two friends (see backend/app/api/routes/battles.py): one asks, the other says yes, then
  * both answer the same questions (picked from `seed`). Their score shows only once both have played.
  */

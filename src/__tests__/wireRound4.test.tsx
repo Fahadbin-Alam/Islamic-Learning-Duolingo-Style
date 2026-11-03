@@ -80,8 +80,9 @@ const QURAN = COURSE.sections.find((section) => section.topicId === "quran_tafse
 const FOUNDATION = COURSE.sections.find((section) => section.topicId === "foundation")!;
 const quranUnits = QURAN.branches.map((branch) => QURAN.nodes.filter((node) => node.branchId === branch.id)).filter((nodes) => nodes.length > 0);
 // A short surah unit after the first (the Quran goes in mushaf order, so unit 2 is the long Al-Baqarah): its key
-// tests all of the rest of it in one go.
-const SHORT = quranUnits.findIndex((nodes, index) => index > 0 && nodes.length <= 12);
+// tests all of the rest of it in one go. It needs at least 6 circles, so the key after JUMP HERE on the fourth
+// still has enough questions for a fair test; surahs not yet taught ayah by ayah can have only 4.
+const SHORT = quranUnits.findIndex((nodes, index) => index > 0 && nodes.length >= 6 && nodes.length <= 12);
 
 function testOut(user: UserProfile, branchId: string, jumpNodeId?: string) {
   const plan = getTestOutPlan(user, branchId, jumpNodeId)!;
