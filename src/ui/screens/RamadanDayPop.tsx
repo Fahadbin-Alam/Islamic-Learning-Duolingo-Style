@@ -1,5 +1,6 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useRef } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import { IOS_APP_LIVE } from "../../services/shareApp";
 import { Confetti } from "../Confetti";
 import { GameButton } from "../GameButton";
 import { Icon } from "../Icon";
@@ -21,7 +22,8 @@ export type RamadanDayPopProps = {
   doneDays: number[];
   streak: number;
   accent: string;
-  onShare: () => void;
+  /** Gets the card's face, to share as a picture (shareCard.native.ts). */
+  onShare: (card: View | null) => void;
   onClose: () => void;
 };
 
@@ -31,6 +33,7 @@ export type RamadanDayPopProps = {
  */
 export function RamadanDayPop({ visible, day, length, doneDays, streak, accent, onShare, onClose }: RamadanDayPopProps) {
   useBackToClose(visible, onClose);
+  const face = useRef<View>(null);
   if (!visible) {
     return null;
   }
@@ -46,7 +49,8 @@ export function RamadanDayPop({ visible, day, length, doneDays, streak, accent, 
         </Tappable>
         <Confetti active count={36} />
         <PopIn style={styles.card}>
-          <View style={[styles.face, { backgroundColor: lighten(accent, 0.86), borderColor: lighten(accent, 0.55) }]}>
+          {/* The face is what gets shared as a picture, so it carries the app's name and where to get it. */}
+          <View ref={face} collapsable={false} style={[styles.face, { backgroundColor: lighten(accent, 0.86), borderColor: lighten(accent, 0.55) }]} testID="ramadan-day-card">
             <View style={[styles.emblem, { backgroundColor: accent, borderBottomColor: darken(accent) }]}>
               <Icon name="moon" size={40} />
             </View>
@@ -73,8 +77,9 @@ export function RamadanDayPop({ visible, day, length, doneDays, streak, accent, 
               })}
             </View>
             <Text style={styles.brand}>Muslimo</Text>
+            <Text style={styles.store}>{Platform.OS === "ios" || IOS_APP_LIVE ? t("Learn Islam daily. Free on Google Play and the App Store.") : t("Learn Islam daily. Free on Google Play.")}</Text>
           </View>
-          <GameButton label={t("Share")} color={accent} fullWidth onPress={onShare} testID="ramadan-day-share" />
+          <GameButton label={t("Share")} color={accent} fullWidth onPress={() => onShare(face.current)} testID="ramadan-day-share" />
           <GameButton label={t("Not now")} variant="ghost" fullWidth onPress={onClose} testID="ramadan-day-close" />
         </PopIn>
       </View>
@@ -154,8 +159,15 @@ const styles = StyleSheet.create({
     transform: [{ scale: 1.25 }]
   },
   brand: {
-    ...text.tiny,
     fontFamily: fonts.displayHeavy,
-    letterSpacing: 1
+    fontSize: 18,
+    lineHeight: 22,
+    letterSpacing: 1,
+    color: colors.ink
+  },
+  store: {
+    ...text.tiny,
+    textAlign: "center",
+    marginTop: -space.sm
   }
 });

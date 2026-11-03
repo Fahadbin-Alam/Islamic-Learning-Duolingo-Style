@@ -241,7 +241,8 @@ import {
 import { getQuizScore, recordQuizScore, unitsToGoOver } from "./services/quizzes";
 import { addFamilyKid, buildFamilySnapshot, encodeFamilyCode, removeFamilyKid, snapshotFromLinkedKid, type FamilyKid } from "./services/familyCode";
 import { getFamilyId, loadFamilyKids, peekFamilyId, saveFamilyKids } from "./services/familyStorage";
-import { shareApp, shareRamadanDay } from "./services/shareApp";
+import { shareApp } from "./services/shareApp";
+import { shareRamadanCard } from "./services/shareCard";
 import { isUpdateAvailable, openStore } from "./services/appUpdate";
 import { attemptOrder, ExerciseView, LearnCard, LessonComplete, LessonScreen, OrderGame, HarderSheet, QuitSheet, QuizComplete, isPlayablePractice, lessonStars } from "./ui/lesson";
 import { getBranchArabic, getLessonArabic, getNodeArabic, getTopicArabic, isFirstUseOfWord } from "./data/arabicTerms";
@@ -1238,7 +1239,7 @@ export default function TopicApp() {
             : undefined
         }
         onReminders={prayerPrefs.ramadan && prayerPrefs.cityId ? undefined : () => setPrayerModalVisible(true)}
-        onShare={season.phase === "ramadan" ? () => void shareRamadanDay(season.day, ramadanStreak(user)) : undefined}
+        onShare={season.phase === "ramadan" ? () => setRamadanPop(true) : undefined}
       />
     );
   }, [localizedSections, pathNodes, prayerPrefs, season, state.user]);
@@ -4083,9 +4084,9 @@ export default function TopicApp() {
             doneDays={ramadanDoneDayNumbers(state.user)}
             streak={ramadanStreak(state.user)}
             accent={localizedSections.find((section) => section.topicId === RAMADAN_TOPIC)?.accentColor ?? colors.green}
-            onShare={() => {
-              setRamadanPop(false);
-              void shareRamadanDay(season.day, ramadanStreak(state.user!));
+            onShare={(card) => {
+              // The picture is taken while the card is still on screen; it closes once the share menu is done.
+              void shareRamadanCard(card, season.day, ramadanStreak(state.user!)).finally(() => setRamadanPop(false));
             }}
             onClose={() => setRamadanPop(false)}
           />
