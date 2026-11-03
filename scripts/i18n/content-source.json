@@ -25125,6 +25125,98 @@
   },
   {
     "kind": "course",
+    "text": "By the night"
+  },
+  {
+    "kind": "course",
+    "text": "By the day"
+  },
+  {
+    "kind": "course",
+    "text": "Male and female"
+  },
+  {
+    "kind": "course",
+    "text": "Your efforts differ"
+  },
+  {
+    "kind": "course",
+    "text": "Gives and fears Allah"
+  },
+  {
+    "kind": "course",
+    "text": "Believes in the best"
+  },
+  {
+    "kind": "course",
+    "text": "The path of ease"
+  },
+  {
+    "kind": "course",
+    "text": "Keep doing good"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Bakr freed the weak"
+  },
+  {
+    "kind": "course",
+    "text": "Greedy and self-sufficient"
+  },
+  {
+    "kind": "course",
+    "text": "Denies the best"
+  },
+  {
+    "kind": "course",
+    "text": "The path to hardship"
+  },
+  {
+    "kind": "course",
+    "text": "A warning of the Fire"
+  },
+  {
+    "kind": "course",
+    "text": "The most wretched"
+  },
+  {
+    "kind": "course",
+    "text": "Denies and turns away"
+  },
+  {
+    "kind": "course",
+    "text": "All enter, but who refuses"
+  },
+  {
+    "kind": "course",
+    "text": "The pious kept far"
+  },
+  {
+    "kind": "course",
+    "text": "Giving to purify"
+  },
+  {
+    "kind": "course",
+    "text": "No favour to repay"
+  },
+  {
+    "kind": "course",
+    "text": "For the Face of Allah"
+  },
+  {
+    "kind": "course",
+    "text": "He will be pleased"
+  },
+  {
+    "kind": "course",
+    "text": "Abu Bakr the giver"
+  },
+  {
+    "kind": "course",
+    "text": "Called from every gate"
+  },
+  {
+    "kind": "course",
     "text": "Surah Ad-Duha"
   },
   {
@@ -154034,10 +154126,6 @@
   {
     "kind": "lesson",
     "text": "Not to repay a favor"
-  },
-  {
-    "kind": "lesson",
-    "text": "He will be pleased"
   },
   {
     "kind": "source",
@@ -301826,10 +301914,6 @@
   {
     "kind": "lesson",
     "text": "Glory to Him Who made pairs of plants, people and more."
-  },
-  {
-    "kind": "lesson",
-    "text": "Male and female"
   },
   {
     "kind": "lesson",
@@ -455878,6 +455962,1434 @@
   {
     "kind": "lesson",
     "text": "The last test: everything about Ash-Shams, ayahs 11-15!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah swears by the night when it covers all with darkness."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Layl: the night"
+  },
+  {
+    "kind": "lesson",
+    "text": "Yaghsha: covers"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:1"
+  },
+  {
+    "kind": "question",
+    "text": "By what does Allah swear in 92:1?"
+  },
+  {
+    "kind": "question",
+    "text": "The sun as it rises"
+  },
+  {
+    "kind": "question",
+    "text": "The wind as it blows"
+  },
+  {
+    "kind": "question",
+    "text": "The night as it envelops"
+  },
+  {
+    "kind": "question",
+    "text": "The sea as it roars"
+  },
+  {
+    "kind": "question",
+    "text": "The creation, with darkness"
+  },
+  {
+    "kind": "question",
+    "text": "Al-Layl is among the short surahs for Isha."
+  },
+  {
+    "kind": "question",
+    "text": "By the night as it envelops, 92."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah swears by the day when it appears with bright light."
+  },
+  {
+    "kind": "lesson",
+    "text": "An-Nahar: the day"
+  },
+  {
+    "kind": "lesson",
+    "text": "Tajalla: shines out"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:2"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:2"
+  },
+  {
+    "kind": "question",
+    "text": "By what does Allah swear in 92:2?"
+  },
+  {
+    "kind": "question",
+    "text": "The star as it falls"
+  },
+  {
+    "kind": "question",
+    "text": "The rain as it pours"
+  },
+  {
+    "kind": "question",
+    "text": "The day as it appears"
+  },
+  {
+    "kind": "question",
+    "text": "The night as it ends"
+  },
+  {
+    "kind": "question",
+    "text": "How does the day appear, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "With light and radiance"
+  },
+  {
+    "kind": "question",
+    "text": "With clouds"
+  },
+  {
+    "kind": "question",
+    "text": "With cold"
+  },
+  {
+    "kind": "question",
+    "text": "Meaning, with its light and its radiance."
+  },
+  {
+    "kind": "question",
+    "text": "Night and day are the same, so Allah swears by one thing."
+  },
+  {
+    "kind": "question",
+    "text": "These things that are being sworn by are opposites."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah swears by Himself, who made male and female in pairs."
+  },
+  {
+    "kind": "lesson",
+    "text": "Dhakar: male"
+  },
+  {
+    "kind": "lesson",
+    "text": "Untha: female"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:3"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:3"
+  },
+  {
+    "kind": "question",
+    "text": "By Whom does Allah swear in 92:3?"
+  },
+  {
+    "kind": "question",
+    "text": "Him Who created male and female"
+  },
+  {
+    "kind": "question",
+    "text": "The first king"
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah says Allah created you in pairs?"
+  },
+  {
+    "kind": "question",
+    "text": "51:49 says Allah made pairs of everything."
+  },
+  {
+    "kind": "question",
+    "text": "And of everything We have created pairs."
+  },
+  {
+    "kind": "lesson",
+    "text": "People work in different ways: some do good and some do evil."
+  },
+  {
+    "kind": "lesson",
+    "text": "Shatta: different, scattered"
+  },
+  {
+    "kind": "lesson",
+    "text": "Opposites, like night and day"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:4"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:4"
+  },
+  {
+    "kind": "question",
+    "text": "What does 92:4 say about our efforts?"
+  },
+  {
+    "kind": "question",
+    "text": "They are diverse"
+  },
+  {
+    "kind": "question",
+    "text": "They are all equal"
+  },
+  {
+    "kind": "question",
+    "text": "They do not matter"
+  },
+  {
+    "kind": "question",
+    "text": "Certainly, your efforts and deeds are diverse."
+  },
+  {
+    "kind": "question",
+    "text": "How do the oaths fit the answer, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Both are colours"
+  },
+  {
+    "kind": "question",
+    "text": "Both are sounds"
+  },
+  {
+    "kind": "question",
+    "text": "Both are numbers"
+  },
+  {
+    "kind": "question",
+    "text": "Both are opposites"
+  },
+  {
+    "kind": "question",
+    "text": "Some people do good and some do evil."
+  },
+  {
+    "kind": "question",
+    "text": "There are those who do good and there are those who do evil."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Layl, ayahs 1-4!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The first person gives what Allah commanded and fears Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "A'ta: gave"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ittaqa: had Taqwa"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:5"
+  },
+  {
+    "kind": "question",
+    "text": "What two things does he do, per 92:5?"
+  },
+  {
+    "kind": "question",
+    "text": "Gives and has Taqwa"
+  },
+  {
+    "kind": "question",
+    "text": "Boasts and hoards"
+  },
+  {
+    "kind": "question",
+    "text": "Runs and hides"
+  },
+  {
+    "kind": "question",
+    "text": "As for him who gives and has Taqwa."
+  },
+  {
+    "kind": "question",
+    "text": "What does he give, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Only to the rich"
+  },
+  {
+    "kind": "question",
+    "text": "What he was commanded to give"
+  },
+  {
+    "kind": "question",
+    "text": "He gives what he has been commanded to give."
+  },
+  {
+    "kind": "question",
+    "text": "He fears Allah in all his affairs."
+  },
+  {
+    "kind": "lesson",
+    "text": "He believes Allah will reward him for what he gives."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Husna: the best reward"
+  },
+  {
+    "kind": "lesson",
+    "text": "Giving is never lost"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:6"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:6"
+  },
+  {
+    "kind": "question",
+    "text": "What does he believe in, per 92:6?"
+  },
+  {
+    "kind": "question",
+    "text": "And believes in Al-Husna."
+  },
+  {
+    "kind": "question",
+    "text": "What is Al-Husna, per Khusayf?"
+  },
+  {
+    "kind": "question",
+    "text": "The reward"
+  },
+  {
+    "kind": "question",
+    "text": "Khusayf said, In the reward."
+  },
+  {
+    "kind": "question",
+    "text": "Qatadah said Al-Husna means a new house."
+  },
+  {
+    "kind": "question",
+    "text": "This was said by Qatadah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah makes the way to goodness easy for the generous believer."
+  },
+  {
+    "kind": "lesson",
+    "text": "Good leads to more good"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:7"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:7"
+  },
+  {
+    "kind": "question",
+    "text": "What will Allah make smooth for him, per 92:7?"
+  },
+  {
+    "kind": "question",
+    "text": "A sea path"
+  },
+  {
+    "kind": "question",
+    "text": "The path of hardship"
+  },
+  {
+    "kind": "question",
+    "text": "A road of gold"
+  },
+  {
+    "kind": "question",
+    "text": "What did Ibn Abbas say the ease is for?"
+  },
+  {
+    "kind": "question",
+    "text": "Goodness"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Abbas said, Meaning for goodness."
+  },
+  {
+    "kind": "question",
+    "text": "Doing good opens the door to more good."
+  },
+  {
+    "kind": "question",
+    "text": "Allah rewards those who intend good with success."
+  },
+  {
+    "kind": "lesson",
+    "text": "Muhammad ﷺ said: keep doing good deeds, each is made easy."
+  },
+  {
+    "kind": "lesson",
+    "text": "Work, do not just wait"
+  },
+  {
+    "kind": "lesson",
+    "text": "He recited 92:5-10"
+  },
+  {
+    "kind": "question",
+    "text": "What did the Companions ask?"
+  },
+  {
+    "kind": "question",
+    "text": "Should we stop doing deeds?"
+  },
+  {
+    "kind": "question",
+    "text": "What did he tell them?"
+  },
+  {
+    "kind": "question",
+    "text": "Carry on doing good deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Stop and wait"
+  },
+  {
+    "kind": "question",
+    "text": "Carry on doing good deeds, for everybody will find easy to do such deeds."
+  },
+  {
+    "kind": "question",
+    "text": "He then recited ayahs of Al-Layl."
+  },
+  {
+    "kind": "question",
+    "text": "Then he recited: As for him who gives and fears Allah, and believes in the best."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr freed weak Muslims, seeking only Allah's reward."
+  },
+  {
+    "kind": "lesson",
+    "text": "He freed the old and women"
+  },
+  {
+    "kind": "lesson",
+    "text": "Sincere giving"
+  },
+  {
+    "kind": "question",
+    "text": "Whom did Abu Bakr free in Makkah?"
+  },
+  {
+    "kind": "question",
+    "text": "Only his cousins"
+  },
+  {
+    "kind": "question",
+    "text": "Weak people who accepted Islam"
+  },
+  {
+    "kind": "question",
+    "text": "Only strong guards"
+  },
+  {
+    "kind": "question",
+    "text": "He used to free the elderly and the women when they accepted Islam."
+  },
+  {
+    "kind": "question",
+    "text": "What did he say he wanted?"
+  },
+  {
+    "kind": "question",
+    "text": "Strong helpers"
+  },
+  {
+    "kind": "question",
+    "text": "I only want what is with Allah."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr freed people to gain bodyguards."
+  },
+  {
+    "kind": "lesson",
+    "text": "The second person is stingy and thinks he does not need Allah."
+  },
+  {
+    "kind": "lesson",
+    "text": "Bakhil: stingy"
+  },
+  {
+    "kind": "lesson",
+    "text": "Istaghna: felt no need"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:8"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:8"
+  },
+  {
+    "kind": "question",
+    "text": "How is the second person described in 92:8?"
+  },
+  {
+    "kind": "question",
+    "text": "Brave and fair"
+  },
+  {
+    "kind": "question",
+    "text": "But he who is greedy and thinks himself self-sufficient."
+  },
+  {
+    "kind": "question",
+    "text": "Whom does he think he does not need?"
+  },
+  {
+    "kind": "question",
+    "text": "Considers himself to be in no need of his Lord."
+  },
+  {
+    "kind": "question",
+    "text": "Stinginess and pride often go together."
+  },
+  {
+    "kind": "question",
+    "text": "He is stingy with his wealth and considers himself to be in no need of his Lord."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Layl, ayahs 5-11?"
+  },
+  {
+    "kind": "lesson",
+    "text": "He denies that there is any reward in the Hereafter."
+  },
+  {
+    "kind": "lesson",
+    "text": "Kadhdhaba: denied"
+  },
+  {
+    "kind": "lesson",
+    "text": "No hope of reward"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:9"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:9"
+  },
+  {
+    "kind": "question",
+    "text": "What does he deny, per 92:9?"
+  },
+  {
+    "kind": "question",
+    "text": "And denies Al-Husna."
+  },
+  {
+    "kind": "question",
+    "text": "What is Al-Husna that he denies?"
+  },
+  {
+    "kind": "question",
+    "text": "A new car"
+  },
+  {
+    "kind": "question",
+    "text": "A garden here"
+  },
+  {
+    "kind": "question",
+    "text": "Recompense in the Hereafter"
+  },
+  {
+    "kind": "question",
+    "text": "Meaning, the recompense in the abode of the Hereafter."
+  },
+  {
+    "kind": "question",
+    "text": "He gives freely because he hopes for reward."
+  },
+  {
+    "kind": "question",
+    "text": "He is greedy and denies Al-Husna."
+  },
+  {
+    "kind": "lesson",
+    "text": "Whoever chooses evil is left to the hard path he chose."
+  },
+  {
+    "kind": "lesson",
+    "text": "Usra: hardship"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:10"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:10"
+  },
+  {
+    "kind": "question",
+    "text": "What will be made smooth for him, per 92:10?"
+  },
+  {
+    "kind": "question",
+    "text": "The path to evil"
+  },
+  {
+    "kind": "question",
+    "text": "A golden road"
+  },
+  {
+    "kind": "question",
+    "text": "A garden path"
+  },
+  {
+    "kind": "question",
+    "text": "We will make smooth for him the path to evil."
+  },
+  {
+    "kind": "question",
+    "text": "What happens to one who intends good?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah gives him success"
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir links this to 6:110."
+  },
+  {
+    "kind": "question",
+    "text": "And We shall leave them in their trespass to wander blindly."
+  },
+  {
+    "kind": "lesson",
+    "text": "When he dies, all his saved money will not help him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Taradda: went down"
+  },
+  {
+    "kind": "lesson",
+    "text": "Spend it well while alive"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:11"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:11"
+  },
+  {
+    "kind": "question",
+    "text": "What does 92:11 ask?"
+  },
+  {
+    "kind": "question",
+    "text": "Where is his house?"
+  },
+  {
+    "kind": "question",
+    "text": "Who is his friend?"
+  },
+  {
+    "kind": "question",
+    "text": "What will his wealth avail him?"
+  },
+  {
+    "kind": "question",
+    "text": "What did Mujahid say goes down means?"
+  },
+  {
+    "kind": "question",
+    "text": "When he dies"
+  },
+  {
+    "kind": "question",
+    "text": "When he sits"
+  },
+  {
+    "kind": "question",
+    "text": "Mujahid said, This means when he dies."
+  },
+  {
+    "kind": "question",
+    "text": "Hoarded wealth can save a person after death."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Layl, ayahs 5-11!"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah has taken on Himself to show us the right way."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Huda: guidance"
+  },
+  {
+    "kind": "lesson",
+    "text": "Halal and haram made clear"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:12"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:12"
+  },
+  {
+    "kind": "question",
+    "text": "What is upon Allah, per 92:12?"
+  },
+  {
+    "kind": "question",
+    "text": "To stop the night"
+  },
+  {
+    "kind": "question",
+    "text": "To give guidance"
+  },
+  {
+    "kind": "question",
+    "text": "To give everyone gold"
+  },
+  {
+    "kind": "question",
+    "text": "To end hardship"
+  },
+  {
+    "kind": "question",
+    "text": "Truly, on Us is to give guidance."
+  },
+  {
+    "kind": "question",
+    "text": "What did Qatadah say Allah will explain?"
+  },
+  {
+    "kind": "question",
+    "text": "What is lawful and forbidden"
+  },
+  {
+    "kind": "question",
+    "text": "Stock prices"
+  },
+  {
+    "kind": "question",
+    "text": "Star names"
+  },
+  {
+    "kind": "question",
+    "text": "We will explain what is lawful and what is prohibited."
+  },
+  {
+    "kind": "question",
+    "text": "Ibn Kathir links this to 16:9."
+  },
+  {
+    "kind": "question",
+    "text": "And upon Allah is the responsibility to explain the Straight path."
+  },
+  {
+    "kind": "lesson",
+    "text": "This world and the Hereafter both belong to Allah alone."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Akhirah: the Hereafter"
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Ula: this world"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:13"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:13"
+  },
+  {
+    "kind": "question",
+    "text": "What belongs to Allah, per 92:13?"
+  },
+  {
+    "kind": "question",
+    "text": "And truly, unto Us belong the last and the first."
+  },
+  {
+    "kind": "question",
+    "text": "What is the last?"
+  },
+  {
+    "kind": "question",
+    "text": "Last night"
+  },
+  {
+    "kind": "question",
+    "text": "The final exam"
+  },
+  {
+    "kind": "question",
+    "text": "The last, the Hereafter, and the first, this world."
+  },
+  {
+    "kind": "question",
+    "text": "Someone else controls this world besides Allah."
+  },
+  {
+    "kind": "question",
+    "text": "They both belong to Us and I am in complete control of them."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah warns us out of mercy, to keep us from the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Talazza: blazing"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:14"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:14"
+  },
+  {
+    "kind": "question",
+    "text": "What does Allah warn of in 92:14?"
+  },
+  {
+    "kind": "question",
+    "text": "A dark sea"
+  },
+  {
+    "kind": "question",
+    "text": "Therefore I have warned you of a Fire Talazza."
+  },
+  {
+    "kind": "question",
+    "text": "What does Talazza mean, per Mujahid?"
+  },
+  {
+    "kind": "question",
+    "text": "Blazing"
+  },
+  {
+    "kind": "question",
+    "text": "Mujahid said, Blazing."
+  },
+  {
+    "kind": "question",
+    "text": "A warning gives us time to choose the right path."
+  },
+  {
+    "kind": "question",
+    "text": "Therefore I have warned you."
+  },
+  {
+    "kind": "lesson",
+    "text": "Only the most wretched person will enter it for good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Belief saves"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:15"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:15"
+  },
+  {
+    "kind": "question",
+    "text": "Who enters it, per 92:15?"
+  },
+  {
+    "kind": "question",
+    "text": "None shall enter it save the most wretched."
+  },
+  {
+    "kind": "question",
+    "text": "How will it surround him, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Only in front"
+  },
+  {
+    "kind": "question",
+    "text": "On all sides"
+  },
+  {
+    "kind": "question",
+    "text": "None will enter surrounded by it on all sides except the most wretched."
+  },
+  {
+    "kind": "question",
+    "text": "Allah explains who the most wretched is nowhere."
+  },
+  {
+    "kind": "question",
+    "text": "Then Allah explains who this, the most wretched, is."
+  },
+  {
+    "kind": "lesson",
+    "text": "He denies in his heart and turns away from good deeds."
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:16"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:16"
+  },
+  {
+    "kind": "question",
+    "text": "What two things does he do, per 92:16?"
+  },
+  {
+    "kind": "question",
+    "text": "Gives and smiles"
+  },
+  {
+    "kind": "question",
+    "text": "Learns and teaches"
+  },
+  {
+    "kind": "question",
+    "text": "Prays and fasts"
+  },
+  {
+    "kind": "question",
+    "text": "Where does he deny, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "In his heart"
+  },
+  {
+    "kind": "question",
+    "text": "Who denies, meaning, in his heart."
+  },
+  {
+    "kind": "question",
+    "text": "What does he turn away from?"
+  },
+  {
+    "kind": "question",
+    "text": "Doing deeds with his limbs"
+  },
+  {
+    "kind": "question",
+    "text": "And turns away, meaning, from acting with his limbs."
+  },
+  {
+    "kind": "lesson",
+    "text": "The whole Ummah enters Paradise, except those who refuse."
+  },
+  {
+    "kind": "lesson",
+    "text": "Obeying him is the way in"
+  },
+  {
+    "kind": "lesson",
+    "text": "Refusing is disobeying"
+  },
+  {
+    "kind": "question",
+    "text": "Who will not enter Paradise, per the hadith?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who are sick"
+  },
+  {
+    "kind": "question",
+    "text": "Those who refuse"
+  },
+  {
+    "kind": "question",
+    "text": "Those who are poor"
+  },
+  {
+    "kind": "question",
+    "text": "Those who are young"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever is quiet"
+  },
+  {
+    "kind": "question",
+    "text": "Whoever is shy"
+  },
+  {
+    "kind": "question",
+    "text": "Obeying him is the way into Paradise."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Layl, ayahs 12-16!"
+  },
+  {
+    "kind": "lesson",
+    "text": "The person with Taqwa will be kept far away from the Fire."
+  },
+  {
+    "kind": "lesson",
+    "text": "Al-Atqa: the most pious"
+  },
+  {
+    "kind": "lesson",
+    "text": "Saved by Taqwa"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:17"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:17"
+  },
+  {
+    "kind": "question",
+    "text": "Who is kept far from it, per 92:17?"
+  },
+  {
+    "kind": "question",
+    "text": "Those with fame"
+  },
+  {
+    "kind": "question",
+    "text": "Those with power"
+  },
+  {
+    "kind": "question",
+    "text": "Those with money"
+  },
+  {
+    "kind": "question",
+    "text": "And those with Taqwa will be far removed from it."
+  },
+  {
+    "kind": "question",
+    "text": "What happens to the most pious, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "He is saved from the Fire"
+  },
+  {
+    "kind": "question",
+    "text": "He is tested again"
+  },
+  {
+    "kind": "question",
+    "text": "The righteous, pure, most pious person will be saved from the Fire."
+  },
+  {
+    "kind": "question",
+    "text": "The next ayah explains who this person is."
+  },
+  {
+    "kind": "question",
+    "text": "Then He explains who he is by His saying, He who gives of his wealth."
+  },
+  {
+    "kind": "lesson",
+    "text": "He gives his money to obey Allah and to make himself pure."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yatazakka: purifies himself"
+  },
+  {
+    "kind": "lesson",
+    "text": "Charity cleans the heart"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:18"
+  },
+  {
+    "kind": "question",
+    "text": "Why does he give, per 92:18?"
+  },
+  {
+    "kind": "question",
+    "text": "To get a reward from people"
+  },
+  {
+    "kind": "question",
+    "text": "For self-purification"
+  },
+  {
+    "kind": "question",
+    "text": "He who gives of his wealth for self-purification."
+  },
+  {
+    "kind": "question",
+    "text": "In what does he spend, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "In boasting"
+  },
+  {
+    "kind": "question",
+    "text": "In waste"
+  },
+  {
+    "kind": "question",
+    "text": "In obedience of his Lord"
+  },
+  {
+    "kind": "question",
+    "text": "He spends his wealth in obedience of his Lord in order to purify himself."
+  },
+  {
+    "kind": "question",
+    "text": "Giving charity has no effect on the giver."
+  },
+  {
+    "kind": "question",
+    "text": "In order to purify himself, his wealth and whatever Allah has bestowed upon him."
+  },
+  {
+    "kind": "lesson",
+    "text": "He gives with no favour to repay or to get back."
+  },
+  {
+    "kind": "lesson",
+    "text": "Ni'mah tujza: a favour repaid"
+  },
+  {
+    "kind": "lesson",
+    "text": "Pure giving"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:19"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:19"
+  },
+  {
+    "kind": "question",
+    "text": "What is not in his mind, per 92:19?"
+  },
+  {
+    "kind": "question",
+    "text": "A favour to be paid back"
+  },
+  {
+    "kind": "question",
+    "text": "Purifying himself"
+  },
+  {
+    "kind": "question",
+    "text": "And who has in mind no favor from anyone to be paid back."
+  },
+  {
+    "kind": "question",
+    "text": "What kind of giving is praised?"
+  },
+  {
+    "kind": "question",
+    "text": "Giving for praise"
+  },
+  {
+    "kind": "question",
+    "text": "Giving as a trade"
+  },
+  {
+    "kind": "question",
+    "text": "Giving with nothing wanted back"
+  },
+  {
+    "kind": "question",
+    "text": "Giving his wealth is not done so that he may gain some favor from someone."
+  },
+  {
+    "kind": "question",
+    "text": "Sincere giving does not wait for a reward from people."
+  },
+  {
+    "kind": "question",
+    "text": "He gives not to get something in return."
+  },
+  {
+    "kind": "lesson",
+    "text": "He gives only seeking the Face of his Lord, the Most High."
+  },
+  {
+    "kind": "lesson",
+    "text": "Wajh Rabbihi: his Lord's Face"
+  },
+  {
+    "kind": "lesson",
+    "text": "Hoping to see Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:20"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:20"
+  },
+  {
+    "kind": "question",
+    "text": "Why does he give, per 92:20?"
+  },
+  {
+    "kind": "question",
+    "text": "To seek the Face of his Lord"
+  },
+  {
+    "kind": "question",
+    "text": "Except to seek the Face of his Lord, the Most High."
+  },
+  {
+    "kind": "question",
+    "text": "What does he hope for, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "A title"
+  },
+  {
+    "kind": "question",
+    "text": "To see Allah in Paradise"
+  },
+  {
+    "kind": "question",
+    "text": "A big house here"
+  },
+  {
+    "kind": "question",
+    "text": "Hoping to attain the blessing of seeing Him in the final abode."
+  },
+  {
+    "kind": "question",
+    "text": "He gives so people will praise him."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah promises that such a giver will surely be pleased."
+  },
+  {
+    "kind": "lesson",
+    "text": "Yarda: will be pleased"
+  },
+  {
+    "kind": "source",
+    "text": "Quran 92:21"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir Ibn Kathir 92:21"
+  },
+  {
+    "kind": "question",
+    "text": "What does 92:21 promise?"
+  },
+  {
+    "kind": "question",
+    "text": "He will surely be pleased"
+  },
+  {
+    "kind": "question",
+    "text": "He will be tested"
+  },
+  {
+    "kind": "question",
+    "text": "He will be sad"
+  },
+  {
+    "kind": "question",
+    "text": "He will be forgotten"
+  },
+  {
+    "kind": "question",
+    "text": "He, surely, will be pleased."
+  },
+  {
+    "kind": "question",
+    "text": "Who will be pleased, per Ibn Kathir?"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed those with these characteristics will be pleased."
+  },
+  {
+    "kind": "question",
+    "text": "Sincere giving leads to being pleased in the end."
+  },
+  {
+    "kind": "lesson",
+    "text": "Abu Bakr was first in the Ummah to have all these qualities."
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Siddiq: the truthful"
+  },
+  {
+    "kind": "lesson",
+    "text": "The ayahs are general too"
+  },
+  {
+    "kind": "question",
+    "text": "About whom did many scholars say 92:17-21 came down?"
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr As-Siddiq"
+  },
+  {
+    "kind": "question",
+    "text": "Is the wording only for him?"
+  },
+  {
+    "kind": "question",
+    "text": "Only for Makkah"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, only him"
+  },
+  {
+    "kind": "question",
+    "text": "Indeed, the wording of these Ayat is general."
+  },
+  {
+    "kind": "question",
+    "text": "Abu Bakr gave so that people would owe him."
+  },
+  {
+    "kind": "question",
+    "text": "And did not consider any of the people as owning him some favor."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Layl, ayahs 17-21?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Muhammad ﷺ hoped Abu Bakr is called from every gate."
+  },
+  {
+    "kind": "lesson",
+    "text": "Gates: prayer, fasting, charity"
+  },
+  {
+    "kind": "lesson",
+    "text": "Ar-Rayyan: the fasting gate"
+  },
+  {
+    "kind": "question",
+    "text": "Which gate is for those who fast?"
+  },
+  {
+    "kind": "question",
+    "text": "The gate of kings"
+  },
+  {
+    "kind": "question",
+    "text": "The gate of trade"
+  },
+  {
+    "kind": "question",
+    "text": "The gate of sleep"
+  },
+  {
+    "kind": "question",
+    "text": "What did Abu Bakr ask?"
+  },
+  {
+    "kind": "question",
+    "text": "Is anyone called from all gates?"
+  },
+  {
+    "kind": "question",
+    "text": "How tall are the gates?"
+  },
+  {
+    "kind": "question",
+    "text": "Who built the gates?"
+  },
+  {
+    "kind": "question",
+    "text": "When do they open?"
+  },
+  {
+    "kind": "question",
+    "text": "What did Muhammad ﷺ reply?"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, and I hope you are one"
+  },
+  {
+    "kind": "question",
+    "text": "Yes, and I hope you will be among those, O Abu Bakr."
+  },
+  {
+    "kind": "lesson",
+    "text": "The last test: everything about Al-Layl, ayahs 17-21!"
   },
   {
     "kind": "lesson",
