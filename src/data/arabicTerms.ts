@@ -159,6 +159,8 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "hadith-book-adab": { ar: "كتاب الأدب", translit: "Kitab al-adab", meaning: "The Book of Good Manners" },
   "hadith-book-food": { ar: "كتاب الأطعمة والأشربة", translit: "Kitab al-at'imah wal-ashribah", meaning: "The Book of Food and Drink" },
   "hadith-book-dua": { ar: "كتاب الدعوات", translit: "Kitab ad-da'awat", meaning: "The Book of Supplications" },
+  "hadith-book-riqaq": { ar: "كتاب الرقاق", translit: "Kitab ar-riqaq", meaning: "The Book of Soft Hearts" },
+  "hadith-book-libas": { ar: "كتاب اللباس", translit: "Kitab al-libas", meaning: "The Book of Dress" },
   "prayer-reward": { ar: "فضل الصلاة", translit: "Fadl as-salah", meaning: "The virtue of prayer" },
   "prayer-extra": { ar: "صلاة التطوع", translit: "Salat at-tatawwu'", meaning: "Voluntary prayer" },
   "prayer-jumuah": { ar: "صلاة الجمعة", translit: "Salat al-jumu'ah", meaning: "The Friday prayer" },
@@ -767,7 +769,7 @@ const LEARN_FORMS = [
   "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
   "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
   "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
-  "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ", "كِتَابُ الْإِيمَانِ", "كِتَابُ الطَّهَارَةِ", "كِتَابُ الْأَدَبِ", "كِتَابُ الْأَطْعِمَةِ وَالْأَشْرِبَةِ", "كِتَابُ الدَّعَوَاتِ",
+  "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ", "كِتَابُ الْإِيمَانِ", "كِتَابُ الطَّهَارَةِ", "كِتَابُ الْأَدَبِ", "كِتَابُ الْأَطْعِمَةِ وَالْأَشْرِبَةِ", "كِتَابُ الدَّعَوَاتِ", "كِتَابُ الرِّقَاقِ", "كِتَابُ اللِّبَاسِ",
   "فَضْلُ الصَّلَاةِ", "صَلَاةُ التَّطَوُّعِ", "صَلَاةُ الْجُمُعَةِ", "أَذْكَارُ بَعْدَ الصَّلَاةِ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
