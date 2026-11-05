@@ -924,6 +924,368 @@ const DUA: DeepUnit = {
   ]
 };
 
+const RIQAQ: DeepUnit = {
+  key: "book-riqaq",
+  topicId: "sahihayn",
+  branchId: "hadith-book-riqaq",
+  branch: { title: "The Book of Soft Hearts", description: "From the Books of Ar-Riqaq and Az-Zuhd: hadith that make this world small and the heart soft." },
+  name: "the Book of Soft Hearts",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "the-square-and-the-line",
+      title: "The square and the line",
+      line: "He ﷺ drew a square: our lifetime, with hopes reaching past it.",
+      facts: ["The square is our lifetime", "Small lines are troubles"],
+      source: hadith("bukhari", "6417", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ drew a square with a line going out of it and small lines on it. He said: this is a person, the square is his lifetime around him, the line going out is his hope, and the small lines are the troubles that may come to him.", "this (line), which is outside (the square), is his hope"),
+      difficulty: 2,
+      questions: [
+        { q: "In the drawing, what did the square stand for?", a: "A person's lifetime", wrong: ["His house", "His money", "His city"], why: "His lease of life encircles him from all sides." },
+        { q: "What was the line going outside the square?", a: "His hope", wrong: ["His family", "His road", "His food"], why: "This line, which is outside the square, is his hope." },
+        { q: "Our hopes often reach further than our lifetime.", tf: true, why: "The line of hope goes outside the square. Sahih al-Bukhari 6417." }
+      ]
+    },
+    {
+      slug: "slave-of-money",
+      title: "A slave of money",
+      line: "Wretched is the one who is pleased only when given money.",
+      facts: ["Dinar, dirham and fine clothes", "Pleased only when given"],
+      source: hadith("bukhari", "6435", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: wretched is the slave of the dinar, the dirham and fine clothes; if he is given he is pleased, and if not he is unhappy.", "if he is given, he is pleased; otherwise he is dissatisfied"),
+      difficulty: 2,
+      questions: [
+        { q: "What makes the slave of money happy?", a: "Only being given things", wrong: ["Prayer", "Helping others", "Learning"], why: "If he is given, he is pleased." },
+        { q: "What happens when he is not given?", a: "He is unhappy", wrong: ["He thanks Allah", "He gives more", "He smiles"], why: "Otherwise he is dissatisfied." },
+        { q: "A believer's heart should belong to Allah, not to money.", tf: true, why: "Sahih al-Bukhari 6435 warns against being a slave of wealth." }
+      ]
+    },
+    {
+      slug: "green-and-sweet",
+      title: "Wealth is green and sweet",
+      line: "Wealth is sweet; taken without greed, Allah blesses it.",
+      facts: ["Asked three times by Hakim", "The giving hand is better"],
+      source: hadith("bukhari", "6441", "Hakim ibn Hizam", "Sahih", "Hakim asked the Prophet ﷺ three times and was given each time. Then he said: this wealth is green and sweet; whoever takes it without greed is blessed in it, and whoever takes it with greed is like one who eats and is never full. The upper hand is better than the lower hand.", "whoever takes it without greed, Allah will bless it for him"),
+      difficulty: 2,
+      questions: [
+        { q: "How did the Prophet ﷺ describe wealth?", a: "Green and sweet", wrong: ["Heavy and dark", "Bitter and old", "Cold and hard"], why: "This wealth is like green and sweet fruit." },
+        { q: "One who takes wealth greedily is like...?", a: "One who eats and is never full", wrong: ["A sleeping lion", "A happy bird", "A full well"], why: "He will be like the one who eats but is never satisfied." },
+        { q: "Which hand is better?", a: "The upper, giving hand", wrong: ["The lower, taking hand", "Both are the same", "The empty hand"], why: "The upper hand is better than the lower hand." }
+      ]
+    },
+    {
+      slug: "gold-like-uhud",
+      title: "Gold like Mount Uhud",
+      line: "With gold like Uhud, he ﷺ would keep it only three nights.",
+      facts: ["He would spend it for Allah", "Except what pays a debt"],
+      source: hadith("bukhari", "6445", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: if I had gold like Mount Uhud, I would not like any of it to stay with me after three nights, except what I keep to pay a debt.", "it would not please me that anything of it should remain with me after three nights"),
+      difficulty: 2,
+      questions: [
+        { q: "How much gold did he ﷺ imagine having?", a: "As much as Mount Uhud", wrong: ["One coin", "A small bag", "A ring"], why: "If I had gold equal to the mountain of Uhud." },
+        { q: "How long would he ﷺ keep it?", a: "No more than three nights", wrong: ["Forever", "A whole year", "Ten years"], why: "It would not please me that it remain after three nights." },
+        { q: "What would he ﷺ keep back?", a: "Enough to repay debts", wrong: ["A new house", "Nothing for anyone", "Gifts for himself"], why: "Except what I would keep for repaying debts." }
+      ]
+    },
+    {
+      slug: "the-simple-bed",
+      title: "A simple bed",
+      line: "His ﷺ mattress was leather stuffed with palm fibres.",
+      facts: ["Told by Aishah", "No soft feathers"],
+      source: hadith("bukhari", "6456", "Aishah", "Sahih", "Aishah said: the mattress of the Prophet ﷺ was made of leather stuffed with palm fibres.", "made of a leather case stuffed with palm fibres"),
+      difficulty: 1,
+      questions: [
+        { q: "What was his ﷺ mattress stuffed with?", a: "Palm fibres", wrong: ["Silk", "Feathers", "Cotton"], why: "A leather case stuffed with palm fibres." },
+        { q: "Who told us about his mattress?", a: "Aishah", wrong: ["Abu Hurairah", "Anas", "Umar"], why: "Sahih al-Bukhari 6456, narrated by Aishah." },
+        { q: "The Prophet ﷺ slept on a very fancy bed.", tf: false, why: "His bed was simple leather with palm fibres." }
+      ]
+    },
+    {
+      slug: "three-crescents",
+      title: "Three new moons, no cooking",
+      line: "Two months could pass with no cooking in his ﷺ homes.",
+      facts: ["Dates and water", "Milk gifts from Ansar neighbours"],
+      source: hadith("bukhari", "6459", "Aishah", "Sahih", "Aishah told Urwah: we would see three new moons in two months and no fire was lit for cooking in the homes of the Prophet ﷺ. We lived on dates and water, and Ansar neighbours sent milk.", "We used to see three crescents in two months"),
+      difficulty: 2,
+      questions: [
+        { q: "What were the two black things they lived on?", a: "Dates and water", wrong: ["Bread and meat", "Rice and beans", "Honey and milk"], why: "The two black things, dates and water." },
+        { q: "Who sometimes sent them milk?", a: "Their Ansar neighbours", wrong: ["Traders from Syria", "No one", "The king of Persia"], why: "Neighbours from the Ansar had milch she-camels." },
+        { q: "How many new moons could pass without cooking?", a: "Three", wrong: ["One", "Ten", "Twelve"], why: "Three crescents in two months." }
+      ]
+    },
+    {
+      slug: "moths-and-the-fire",
+      title: "Holding us back",
+      line: "Like moths rushing to a fire, he ﷺ holds us back.",
+      facts: ["He holds us by our belts", "He wants us safe"],
+      source: hadith("bukhari", "6483", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: my example is like a man who lit a fire, and moths began falling into it while he tried to stop them. I hold you by your belts to keep you from the Fire, but you rush into it.", "I take hold of the knots at your waist"),
+      difficulty: 2,
+      questions: [
+        { q: "What rushed into the fire in this example?", a: "Moths and insects", wrong: ["Birds", "Fish", "Camels"], why: "Moths and other insects started falling into the fire." },
+        { q: "What does the Prophet ﷺ do for us in the example?", a: "Holds us back by our belts", wrong: ["Pushes us", "Walks away", "Sleeps"], why: "I take hold of the knots at your waist." },
+        { q: "This hadith shows how much he ﷺ cared for his ummah.", tf: true, why: "He tried his best to keep people safe. Sahih al-Bukhari 6483." }
+      ]
+    },
+    {
+      slug: "look-below-you",
+      title: "Look at those below you",
+      line: "If you see someone with more, think of someone with less.",
+      facts: ["More money or looks", "Brings thankfulness"],
+      source: hadith("bukhari", "6490", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: if one of you looks at someone given more wealth and better looks, let him also look at someone who has less than him.", "then he should also look at the one who is inferior to him"),
+      difficulty: 1,
+      questions: [
+        { q: "You see a friend with a new phone. What fits this hadith?", a: "Think of those with less", wrong: ["Feel angry", "Complain all day", "Take his phone"], why: "Look at the one who has less than you." },
+        { q: "What two things are named in this hadith?", a: "Wealth and looks", wrong: ["Height and age", "Food and drink", "Cars and houses"], why: "Made superior to him in property and appearance." },
+        { q: "Looking at those with less helps us thank Allah.", tf: true, why: "Sahih al-Bukhari 6490." }
+      ]
+    },
+    {
+      slug: "al-adba-the-camel",
+      title: "The camel that was beaten",
+      line: "His ﷺ fast camel lost a race: nothing worldly stays on top.",
+      facts: ["The camel was Al-Adba", "A bedouin's camel won"],
+      source: hadith("bukhari", "6501", "Anas ibn Malik", "Sahih", "The Prophet ﷺ had a fast camel called Al-Adba that no one beat, until a bedouin's camel won a race. The Muslims were sad, and he ﷺ said: Allah has made it so that nothing rises high in this world but He lowers it.", "nothing would be raised high in this world except that He lowers"),
+      difficulty: 2,
+      questions: [
+        { q: "What was the name of his ﷺ fast camel?", a: "Al-Adba", wrong: ["Al-Buraq", "Mahmud", "Al-Jamal"], why: "He had a she-camel called Al-Adba." },
+        { q: "Who beat Al-Adba in the race?", a: "A bedouin on his camel", wrong: ["Abu Bakr", "A horse rider", "Nobody"], why: "There came a bedouin riding a camel of his, and it outstripped it." },
+        { q: "What lesson did he ﷺ give?", a: "Nothing worldly stays on top", wrong: ["Always win races", "Sell slow camels", "Never race"], why: "Nothing is raised high in this world except that He lowers it." }
+      ]
+    },
+    {
+      slug: "relieved-or-relieving",
+      title: "Resting or giving rest",
+      line: "A believer who dies rests from hardship, going to Allah's mercy.",
+      facts: ["Said as a funeral passed", "Rest from the world's troubles"],
+      source: hadith("bukhari", "6512", "Abu Qatadah", "Sahih", "A funeral passed and the Prophet ﷺ said: resting or giving rest. He explained that a believer rests from the hardships of the world and goes to Allah's mercy.", "A believer is relieved (by death) from the troubles and hardships of the world"),
+      difficulty: 2,
+      questions: [
+        { q: "When did he ﷺ say this?", a: "As a funeral passed", wrong: ["At a wedding", "At Eid", "In a market"], why: "A funeral procession passed by." },
+        { q: "Where does the believer go after death?", a: "To Allah's mercy", wrong: ["To nowhere", "Back home", "To the market"], why: "He leaves for the Mercy of Allah." },
+        { q: "For a believer, death brings rest from the world's hardships.", tf: true, why: "Sahih al-Bukhari 6512." }
+      ]
+    },
+    {
+      slug: "do-not-insult-the-dead",
+      title: "Don't speak ill of the dead",
+      line: "Do not insult the dead; they have met what they did.",
+      facts: ["Told by Aishah", "Their deeds are done"],
+      source: hadith("bukhari", "6516", "Aishah", "Sahih", "The Prophet ﷺ said: do not insult the dead, for they have reached what they sent ahead.", "Do not abuse the dead, for they have reached the result of what they have done"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ forbid about the dead?", a: "Insulting them", wrong: ["Praying for them", "Remembering them", "Visiting graves"], why: "Do not abuse the dead." },
+        { q: "Why not insult them?", a: "They have met their deeds", wrong: ["They can hear us", "It is boring", "They will return"], why: "They have reached the result of what they have done." },
+        { q: "We may make dua for Muslims who have died.", tf: true, why: "Insulting is forbidden; praying for them is good." }
+      ]
+    },
+    {
+      slug: "this-world-is-a-prison",
+      title: "A prison for the believer",
+      line: "This world is a prison for the believer; Jannah waits ahead.",
+      facts: ["The believer holds back for Allah", "His true joy is ahead"],
+      source: hadith("muslim", "2956", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: this world is a prison for the believer and a paradise for the disbeliever.", "The world is a prison-house for a believer"),
+      difficulty: 2,
+      questions: [
+        { q: "What is this world for the believer?", a: "A prison", wrong: ["A paradise", "A forever home", "A playground"], why: "The world is a prison-house for a believer." },
+        { q: "Why is it like a prison for him?", a: "He holds back for Allah", wrong: ["He has no friends", "He is always sick", "He cannot walk"], why: "He keeps away from what Allah forbids, waiting for Jannah." },
+        { q: "The believer's best reward comes in the Hereafter.", tf: true, why: "Sahih Muslim 2956." }
+      ]
+    }
+  ]
+};
+
+const DRESS: DeepUnit = {
+  key: "book-dress",
+  topicId: "sahihayn",
+  branchId: "hadith-book-libas",
+  branch: { title: "The Book of Dress", description: "From the Books of Dress: how the Prophet ﷺ dressed, his shoes, ring and scent." },
+  name: "the Book of Dress",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "the-hibra-cloth",
+      title: "His favourite cloth",
+      line: "His ﷺ favourite garment was the Hibra, a cloth from Yemen.",
+      facts: ["Told by Anas", "Made in Yemen"],
+      source: hadith("bukhari", "5813", "Anas ibn Malik", "Sahih", "Anas said: the garment the Prophet ﷺ loved most to wear was the Hibra, a Yemeni cloth.", "The most beloved garment to the Prophet (ﷺ) to wear was the Hibra"),
+      difficulty: 1,
+      questions: [
+        { q: "Which garment did he ﷺ love most?", a: "The Hibra", wrong: ["A silk robe", "A golden crown", "A leather coat"], why: "The most beloved garment to him was the Hibra." },
+        { q: "Where did the Hibra cloth come from?", a: "Yemen", wrong: ["Rome", "India", "Egypt"], why: "A kind of Yemenese cloth." },
+        { q: "Anas told us about this cloth.", tf: true, why: "Sahih al-Bukhari 5813, narrated by Anas." }
+      ]
+    },
+    {
+      slug: "sads-handkerchiefs",
+      title: "Better than silk",
+      line: "Sa'd's handkerchiefs in Jannah beat the finest silk here.",
+      facts: ["People admired a silk gift", "Jannah is far better"],
+      source: hadith("bukhari", "5836", "Al-Bara ibn Azib", "Sahih", "The Prophet ﷺ was given a silk garment and the people admired it. He said: the handkerchiefs of Sa'd ibn Mu'adh in Paradise are better than this.", "in Paradise are better than this"),
+      difficulty: 2,
+      questions: [
+        { q: "What gift amazed the companions?", a: "A silk garment", wrong: ["A horse", "A sword", "A book"], why: "He was given a silk garment as a gift." },
+        { q: "What did he ﷺ say is better than it?", a: "Sa'd's handkerchiefs in Jannah", wrong: ["A gold ring", "A new house", "A bigger gift"], why: "The handkerchiefs of Sa'd bin Mu'adh in Paradise are better." },
+        { q: "Even the smallest thing in Jannah is better than the best of this world.", tf: true, why: "Sahih al-Bukhari 5836." }
+      ]
+    },
+    {
+      slug: "silk-for-men",
+      title: "Silk is not for men",
+      line: "Men who wear silk here will not wear it in the Hereafter.",
+      facts: ["This ruling is for men", "Women may wear silk"],
+      source: hadith("bukhari", "5832", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: whoever wears silk in this world will not wear it in the Hereafter.", "Whoever wears silk in this world shall not wear it in the Hereafter"),
+      difficulty: 2,
+      questions: [
+        { q: "What happens to a man who wears silk in this world?", a: "He won't wear it in the Hereafter", wrong: ["He gets more", "Nothing at all", "He becomes rich"], why: "He shall not wear it in the Hereafter." },
+        { q: "Who is this ruling for?", a: "Men", wrong: ["Women", "Children only", "Everyone"], why: "Scholars agree women are allowed to wear silk." },
+        { q: "Women are forbidden to wear silk.", tf: false, why: "The ban on silk is for men only." }
+      ]
+    },
+    {
+      slug: "right-shoe-first",
+      title: "Right shoe first",
+      line: "Put the right shoe on first and take the left off first.",
+      facts: ["Right on first", "Right off last"],
+      source: hadith("bukhari", "5855", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: when you put on shoes, start with the right; when you take them off, start with the left.", "put on the right shoe first; and if you want to take them off, take the left one first"),
+      difficulty: 1,
+      questions: [
+        { q: "Which shoe goes on first?", a: "The right", wrong: ["The left", "Either one", "Both at once"], why: "Put on the right shoe first." },
+        { q: "Which shoe comes off first?", a: "The left", wrong: ["The right", "Neither", "The heavier one"], why: "Take the left one first." },
+        { q: "The right shoe is the first on and the last off.", tf: true, why: "Sahih al-Bukhari 5855." }
+      ]
+    },
+    {
+      slug: "both-shoes",
+      title: "Not one shoe",
+      line: "Don't walk in one shoe: wear both or none.",
+      facts: ["Both shoes", "Or no shoes at all"],
+      source: hadith("bukhari", "5856", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: none of you should walk in one shoe; wear both or take both off.", "he should either put on both shoes or put on no shoes"),
+      difficulty: 1,
+      questions: [
+        { q: "One strap breaks. What fits this hadith?", a: "Take both shoes off", wrong: ["Hop on one shoe", "Walk in one shoe", "Throw one away"], why: "Put on both shoes or no shoes." },
+        { q: "How should we walk?", a: "In both shoes or none", wrong: ["In one shoe", "Backwards", "Only barefoot"], why: "Sahih al-Bukhari 5856." },
+        { q: "Walking in just one shoe is the Sunnah.", tf: false, why: "None of you should walk wearing one shoe only." }
+      ]
+    },
+    {
+      slug: "wear-sandals",
+      title: "Like riding",
+      line: "Wear sandals often: walking in them is like riding.",
+      facts: ["Said on a journey", "Told by Jabir"],
+      source: hadith("muslim", "2096", "Jabir ibn Abdullah", "Sahih", "On a journey the Prophet ﷺ said: wear sandals often, for a man in sandals is as if he is riding.", "for a man is riding as it were when he wears sandals"),
+      difficulty: 1,
+      questions: [
+        { q: "Walking in sandals is like...?", a: "Riding", wrong: ["Swimming", "Flying", "Sleeping"], why: "A man is riding as it were when he wears sandals." },
+        { q: "When did he ﷺ say this?", a: "On a journey", wrong: ["At a wedding", "In a market", "At home"], why: "During an expedition, says Jabir." },
+        { q: "Good sandals make long walks easier.", tf: true, why: "Sahih Muslim 2096." }
+      ]
+    },
+    {
+      slug: "the-silver-ring",
+      title: "The ring of the caliphs",
+      line: "His ﷺ silver ring passed to Abu Bakr, Umar, then Uthman.",
+      facts: ["Engraved: Muhammad, Messenger of Allah", "Lost in the well of Aris"],
+      source: hadith("bukhari", "5873", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ had a silver ring made. After him Abu Bakr wore it, then Umar, then Uthman, until it fell into the well of Aris. On it was engraved: Muhammad, the Messenger of Allah.", "Afterwards it was worn by Abu Bakr"),
+      difficulty: 2,
+      questions: [
+        { q: "What was his ﷺ ring made of?", a: "Silver", wrong: ["Gold", "Iron", "Wood"], why: "He had a silver ring made for himself." },
+        { q: "Who wore it after Abu Bakr?", a: "Umar", wrong: ["Ali", "Mu'awiyah", "Bilal"], why: "Then by Umar, and then by Uthman." },
+        { q: "Where was the ring lost?", a: "In the well of Aris", wrong: ["In the sea", "In a market", "In the desert"], why: "Till it fell in the Aris well." }
+      ]
+    },
+    {
+      slug: "his-hair",
+      title: "His blessed hair",
+      line: "His ﷺ hair was neither very straight nor very curly.",
+      facts: ["Between earlobes and shoulders", "Told by Anas"],
+      source: hadith("bukhari", "5905", "Anas ibn Malik", "Sahih", "Anas said: his hair was neither very straight nor very curly, and it reached between his shoulders and his earlobes.", "neither much straight, nor much curly"),
+      difficulty: 1,
+      questions: [
+        { q: "How was his ﷺ hair?", a: "Neither very straight nor curly", wrong: ["Very curly", "Very straight", "Shaved always"], why: "Neither much straight, nor much curly." },
+        { q: "How long was it?", a: "Between earlobes and shoulders", wrong: ["Down to his waist", "Very short", "To his knees"], why: "Between his shoulders and his earlobes." },
+        { q: "Anas described the hair of the Prophet ﷺ.", tf: true, why: "Sahih al-Bukhari 5905." }
+      ]
+    },
+    {
+      slug: "never-refused-scent",
+      title: "He never refused perfume",
+      line: "He ﷺ never turned down a gift of perfume.",
+      facts: ["Anas did the same", "A small, kind sunnah"],
+      source: hadith("bukhari", "5929", "Thumamah ibn Abdullah", "Sahih", "Anas never refused a gift of perfume and said the Prophet ﷺ never refused perfume.", "the Prophet (ﷺ) never used to refuse (a gift of) scent"),
+      difficulty: 1,
+      questions: [
+        { q: "What gift did he ﷺ never refuse?", a: "Perfume", wrong: ["Gold", "Horses", "Land"], why: "He never used to refuse a gift of scent." },
+        { q: "Which companion copied this?", a: "Anas", wrong: ["Khalid", "Abu Jahl", "Salman"], why: "Anas never used to refuse a gift of scent." },
+        { q: "Accepting perfume as a gift follows the Sunnah.", tf: true, why: "Sahih al-Bukhari 5929." }
+      ]
+    },
+    {
+      slug: "the-best-scent",
+      title: "The best scent",
+      line: "Aishah perfumed him ﷺ with the best scent she could find.",
+      facts: ["Its shine showed on his head", "And on his beard"],
+      source: hadith("bukhari", "5923", "Aishah", "Sahih", "Aishah said: I perfumed the Prophet ﷺ with the best scent I could find, until I saw its shine on his head and beard.", "with the best scent available"),
+      difficulty: 1,
+      questions: [
+        { q: "What scent did Aishah use?", a: "The best she could find", wrong: ["The cheapest", "None at all", "A strong smoke"], why: "With the best scent available." },
+        { q: "Where could its shine be seen?", a: "On his head and beard", wrong: ["On his shoes", "On his cloak", "On his hands only"], why: "I saw the shine of the scent on his head and beard." },
+        { q: "Smelling nice is part of a Muslim's good manners.", tf: true, why: "He ﷺ loved good scent. Sahih al-Bukhari 5923." }
+      ]
+    },
+    {
+      slug: "none-more-handsome",
+      title: "No one more handsome",
+      line: "Al-Bara said he never saw anything more handsome than him ﷺ.",
+      facts: ["He was of medium height", "Told by Al-Bara"],
+      source: hadith("bukhari", "5848", "Al-Bara ibn Azib", "Sahih", "Al-Bara said: the Prophet ﷺ was of medium height. I saw him in a red suit, and I never saw anything better looking than him.", "I did not see anything better than him"),
+      difficulty: 1,
+      questions: [
+        { q: "How tall was the Prophet ﷺ?", a: "Of medium height", wrong: ["Very tall", "Very short", "A giant"], why: "The Prophet ﷺ was of a modest height." },
+        { q: "What did Al-Bara never see?", a: "Anything better than him", wrong: ["A camel", "A city", "A sword"], why: "I did not see anything better than him." },
+        { q: "Al-Bara ibn Azib narrated this.", tf: true, why: "Sahih al-Bukhari 5848." }
+      ]
+    },
+    {
+      slug: "four-beds",
+      title: "The fourth bed",
+      line: "Beds for you, your wife and a guest; a fourth is Shaytan's.",
+      facts: ["Keep what you need", "No showing off"],
+      source: hadith("muslim", "2084", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: a bed for a man, a bed for his wife, a third for a guest, and the fourth is for Shaytan.", "the fourth one is for the Satan"),
+      difficulty: 2,
+      questions: [
+        { q: "Who is the third bed for?", a: "A guest", wrong: ["A cat", "A neighbour's child", "Storage"], why: "The third one for the guest." },
+        { q: "Who is the fourth bed for?", a: "Shaytan", wrong: ["A king", "A teacher", "A merchant"], why: "The fourth one is for the Satan." },
+        { q: "This hadith teaches us to avoid waste and showing off.", tf: true, why: "Keep what you need. Sahih Muslim 2084." }
+      ]
+    },
+    {
+      slug: "children-on-his-mount",
+      title: "Children on his ride",
+      line: "Children ran to greet him ﷺ; he lifted one before, one behind.",
+      facts: ["On arriving in Makkah", "Bani Abdul Muttalib's children"],
+      source: hadith("bukhari", "5965", "Abdullah ibn Abbas", "Sahih", "When the Prophet ﷺ reached Makkah, the children of Bani Abdul Muttalib came to meet him. He put one in front of him and another behind him on his ride.", "He then mounted one of them in front of him and the other behind him"),
+      difficulty: 1,
+      questions: [
+        { q: "Who came out to meet him in Makkah?", a: "Children of his clan", wrong: ["Soldiers", "Traders", "Kings"], why: "The children of Bani Abdul Muttalib received him." },
+        { q: "What did he ﷺ do with two of them?", a: "Lifted them onto his ride", wrong: ["Sent them home", "Ignored them", "Gave them chores"], why: "One in front of him and the other behind him." },
+        { q: "The Prophet ﷺ was kind and playful with children.", tf: true, why: "Sahih al-Bukhari 5965." }
+      ]
+    },
+    {
+      slug: "not-on-the-face",
+      title: "Never on the face",
+      line: "He ﷺ forbade hitting an animal on its face or marking it there.",
+      facts: ["Kindness to animals", "The face is honoured"],
+      source: hadith("muslim", "2116a", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ forbade striking animals on the face or branding them on the face.", "forbade (the animals to be beaten) on the face"),
+      difficulty: 1,
+      questions: [
+        { q: "Where must an animal never be hit?", a: "On its face", wrong: ["Anywhere is fine", "Only on Fridays", "In the stable"], why: "He forbade animals being beaten on the face." },
+        { q: "What else did he ﷺ forbid on the face?", a: "Branding it", wrong: ["Washing it", "Feeding it", "Petting it"], why: "Or cauterisation on the face." },
+        { q: "Islam teaches kindness to animals.", tf: true, why: "Sahih Muslim 2116." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -939,4 +1301,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS];
