@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Ma'un ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -103,6 +103,20 @@ const MAUN_ONE: DeepUnit = {
         { q: "Whom should we greet, per the hadith?", a: "Those we know and those we do not", wrong: ["Only friends", "Only family", "Only elders"], why: "Greet those whom you know and those whom you do not know." },
         { tf: false, q: "Salam is only for people we already know.", why: "Greet those whom you know and those whom you do not know." }
       ]
+    },
+    {
+      slug: "if-not-even-urging",
+      title: "If he will not even urge",
+      line: "Who won't urge feeding the poor won't feed them himself.",
+      facts: ["As-Sa'di explains", "From the lesser to the greater"],
+      quote: q107(3),
+      source: saadi(107, 3, "As-Sa'di says if he does not even urge others to feed the poor, then all the more he does not feed them himself.", "ومن باب أولى أنه بنفسه لا يطعم المسكين"),
+      difficulty: 2,
+      questions: [
+        { q: "If he won't urge others to feed the poor, then...?", a: "He won't feed them himself", wrong: ["He feeds them in secret", "He gives gold", "He builds homes"], why: "All the more, he does not feed the poor himself." },
+        { q: "Which scholar explains 107:3 so?", a: "As-Sa'di", wrong: ["Al-Bukhari", "Imam Malik", "Ibn Hajar"], why: "Tafsir as-Sa'di on 107:3." },
+        { tf: true, q: "Telling others to feed the poor is a good deed too.", why: "Allah blames the one who does not urge it. As-Sa'di on 107:3." }
+      ]
     }
   ]
 };
@@ -157,6 +171,20 @@ const MAUN_TWO: DeepUnit = {
         { q: "Who said Sahun can mean praying late?", a: "Masruq and Abu Ad-Duha", wrong: ["Ibn Jarir and Qatadah", "Mujahid and Ikrimah", "Ibn Zayd and Ata"], why: "This was said by Masruq and Abu Ad-Duha." },
         { q: "What else can Sahun mean, per Ibn Kathir?", a: "Not fulfilling its pillars", wrong: ["Praying too long", "Praying in a group", "Praying at the mosque"], why: "It may also refer to not fulfilling its pillars and conditions." },
         { tf: true, q: "The wording covers all these meanings.", why: "The wording of the Ayah comprises all of these meanings." }
+      ]
+    },
+    {
+      slug: "wasting-the-prayer",
+      title: "Wasting the prayer",
+      line: "Heedless of prayer: missing its time and its pillars.",
+      facts: ["As-Sa'di explains", "Arkan: pillars of prayer"],
+      quote: q107(5),
+      source: saadi(107, 5, "As-Sa'di says those heedless of prayer waste it: they leave its time and miss its pillars, while slips inside prayer happen to everyone.", "مفوتون لأركانها"),
+      difficulty: 2,
+      questions: [
+        { q: "What does being heedless of prayer include?", a: "Missing its time and pillars", wrong: ["Praying in a group", "Making dua", "Praying sunnah"], why: "Leaving its time, missing its pillars." },
+        { q: "Slips inside the prayer happen to...?", a: "Everyone", wrong: ["Only the lazy", "No one", "Only children"], why: "Forgetting in prayer happens to everyone, even the Prophet ﷺ." },
+        { tf: false, q: "Forgetting something inside prayer is the sin in 107:5.", why: "The blame is for wasting the prayer, says as-Sa'di." }
       ]
     },
     {
