@@ -549,6 +549,381 @@ const ADAB: DeepUnit = {
   ]
 };
 
+const FOOD: DeepUnit = {
+  key: "book-food",
+  topicId: "sahihayn",
+  branchId: "hadith-book-food",
+  branch: { title: "The Book of Food and Drink", description: "From the Books of Food and Drinks: how the Prophet ﷺ ate, drank and shared his food." },
+  name: "the Book of Food and Drink",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "feed-the-hungry",
+      title: "Feed, visit, set free",
+      line: "Feed the hungry, visit the sick, and free the captive.",
+      facts: ["Three good deeds", "Told by Abu Musa"],
+      source: hadith("bukhari", "5373", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said: feed the hungry, visit the sick, and set the captive free.", "Give food to the hungry, pay a visit to the sick"),
+      difficulty: 1,
+      questions: [
+        { q: "Whom did he ﷺ tell us to feed?", a: "The hungry", wrong: ["Only guests who are rich", "Only family", "No one"], why: "Sahih al-Bukhari 5373." },
+        { q: "Feed the hungry, free the captive, and...?", a: "Visit the sick", wrong: ["Build a tower", "Buy new clothes", "Win a race"], why: "Three deeds in one short hadith." },
+        { q: "Giving food to a hungry person is a deed the Prophet ﷺ ordered.", tf: true, why: "Give food to the hungry." }
+      ]
+    },
+    {
+      slug: "food-for-two",
+      title: "Enough for one more",
+      line: "Food for two is enough for three; three's for four.",
+      facts: ["Share your plate", "Blessing in sharing"],
+      source: hadith("bukhari", "5392", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: the food of two is enough for three, and the food of three is enough for four.", "The food for two persons is sufficient for three"),
+      difficulty: 1,
+      questions: [
+        { q: "Food for two people is enough for...?", a: "Three people", wrong: ["One person", "Ten people", "Nobody"], why: "Sahih al-Bukhari 5392." },
+        { q: "A friend comes while you eat with your brother. What fits?", a: "Share the food", wrong: ["Hide the plate", "Tell him to leave", "Eat faster"], why: "Food for two is enough for three." },
+        { q: "Food for three people is enough for four.", tf: true, why: "Sharing brings blessing." }
+      ]
+    },
+    {
+      slug: "one-stomach",
+      title: "A believer eats little",
+      line: "A believer is content with a little food.",
+      facts: ["Eats in one stomach", "Not greedy for food"],
+      source: hadith("bukhari", "5394", "Ibn Umar", "Sahih", "The Prophet ﷺ said: a believer eats in one stomach (is content with a little), while a disbeliever eats in seven.", "A believer eats in one intestine"),
+      difficulty: 2,
+      questions: [
+        { q: "How does a believer eat, says Bukhari 5394?", a: "Content with a little", wrong: ["As much as he can", "Only sweets", "Never at all"], why: "He eats in one stomach." },
+        { q: "What does eating in one stomach mean?", a: "Being content with little", wrong: ["Eating once a year", "Eating alone", "Eating standing"], why: "Not greedy for food." },
+        { q: "Eating far too much is the way of a believer.", tf: false, why: "A believer is content with a little." }
+      ]
+    },
+    {
+      slug: "not-leaning",
+      title: "Not leaning back",
+      line: "The Prophet ﷺ said: I do not eat while leaning back.",
+      facts: ["Told by Abu Juhayfah", "Humble when eating"],
+      source: hadith("bukhari", "5398", "Abu Juhayfah", "Sahih", "The Prophet ﷺ said: I do not eat while leaning.", "I do not take my meals while leaning"),
+      difficulty: 1,
+      questions: [
+        { q: "How did the Prophet ﷺ not eat?", a: "Leaning back", wrong: ["Sitting", "With his right hand", "With others"], why: "Sahih al-Bukhari 5398." },
+        { q: "Who heard him say it?", a: "Abu Juhayfah", wrong: ["Abu Jahl", "Abu Lahab", "Qarun"], why: "A young companion." },
+        { q: "Sitting humbly while eating follows his Sunnah.", tf: true, why: "He did not eat leaning." }
+      ]
+    },
+    {
+      slug: "lick-your-fingers",
+      title: "Where is the blessing?",
+      line: "Eat a dropped bite, lick your fingers: blessing may be there.",
+      facts: ["Clean the dropped bite", "Don't leave it for Shaytan"],
+      source: hadith("muslim", "2033b", "Jabir ibn Abdullah", "Sahih", "If a bite falls, pick it up, wipe off any dirt and eat it, and do not leave it for Shaytan. Do not wipe your hand until you lick your fingers, for you do not know where the blessing in your food is.", "he does not know in what portion of the food the blessing lies"),
+      difficulty: 1,
+      questions: [
+        { q: "A clean bite falls on the mat. What do you do?", a: "Wipe it and eat it", wrong: ["Kick it away", "Leave it there", "Throw the plate"], why: "Sahih Muslim 2033." },
+        { q: "Why lick your fingers before wiping them?", a: "The blessing may be there", wrong: ["To be silly", "To skip washing", "To make noise"], why: "You don't know where the blessing is." },
+        { q: "We should leave dropped food for Shaytan.", tf: false, why: "Do not leave it for Shaytan." }
+      ]
+    },
+    {
+      slug: "share-with-the-cook",
+      title: "Share with the one who cooked",
+      line: "Give the one who cooked your food a share of it.",
+      facts: ["He bore the heat", "At least a handful or two"],
+      source: hadith("bukhari", "5460", "Abu Hurairah", "Sahih", "When your servant brings your food, if you don't seat him with you, give him a handful or two, for he bore its heat and worked to cook it.", "for he has suffered from its heat"),
+      difficulty: 2,
+      questions: [
+        { q: "Who should get a share of the food?", a: "The one who cooked it", wrong: ["Only the eldest", "Only guests", "No one"], why: "Sahih al-Bukhari 5460." },
+        { q: "Why does the cook deserve a share?", a: "He bore its heat", wrong: ["He is rich", "He asked loudly", "He is a king"], why: "He suffered its heat and worked hard." },
+        { q: "Inviting the cook to eat with you is even better.", tf: true, why: "If not, at least a handful or two." }
+      ]
+    },
+    {
+      slug: "three-days-bread",
+      title: "A simple table",
+      line: "His family never had wheat bread three days running.",
+      facts: ["Told by Aishah", "A simple, humble life"],
+      source: hadith("bukhari", "5416", "Aishah", "Sahih", "The family of Muhammad ﷺ never ate their fill of wheat bread for three days in a row from his coming to Madinah until he died.", "had not eaten wheat bread to their satisfaction for three consecutive days"),
+      difficulty: 2,
+      questions: [
+        { q: "What did his family not have three days in a row?", a: "Wheat bread to the full", wrong: ["Water", "Prayer", "Visitors"], why: "Sahih al-Bukhari 5416." },
+        { q: "What does this teach about his life?", a: "It was simple and humble", wrong: ["He loved feasts", "He was greedy", "He hoarded food"], why: "He chose a simple life." },
+        { q: "Who told us this?", a: "Aishah", wrong: ["Abu Jahl", "Fir'awn", "Qarun"], why: "She lived in his home." }
+      ]
+    },
+    {
+      slug: "the-gourd",
+      title: "The tailor's gourd",
+      line: "Anas saw him ﷺ pick out gourd, so Anas loved gourd forever.",
+      facts: ["A tailor's invitation", "Barley bread and soup"],
+      source: hadith("bukhari", "5436", "Anas ibn Malik", "Sahih", "A tailor invited the Prophet ﷺ to a meal of barley bread and soup with gourd. I saw him pick out the gourd, and I have loved gourd ever since.", "since then I have kept on liking gourd"),
+      difficulty: 1,
+      questions: [
+        { q: "Who invited the Prophet ﷺ to this meal?", a: "A tailor", wrong: ["A king", "A rich trader", "A general"], why: "He accepted a simple man's invitation." },
+        { q: "What did the Prophet ﷺ pick from the dish?", a: "Gourd", wrong: ["Gold", "Candy", "Pearls"], why: "Sahih al-Bukhari 5436." },
+        { q: "Anas loved gourd because the Prophet ﷺ liked it.", tf: true, why: "Since then I have loved gourd." }
+      ]
+    },
+    {
+      slug: "garlic-and-onion",
+      title: "Fresh breath for the masjid",
+      line: "Ate raw garlic or onion? Keep away from the masjid.",
+      facts: ["Don't bother people", "Told by Jabir"],
+      source: hadith("bukhari", "5452", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: whoever has eaten garlic or onion should keep away from us, or from our masjid.", "Whoever has eaten garlic or onion should keep away from us"),
+      difficulty: 2,
+      questions: [
+        { q: "After eating raw garlic, where should you not go?", a: "The masjid", wrong: ["Home", "School", "The park"], why: "Sahih al-Bukhari 5452." },
+        { q: "Why keep away?", a: "The smell bothers people", wrong: ["Garlic is haram", "It breaks wudu", "It is a sin to eat"], why: "Care for those praying near you." },
+        { q: "Eating garlic is forbidden in Islam.", tf: false, why: "It is allowed; just keep its smell from the masjid." }
+      ]
+    },
+    {
+      slug: "every-intoxicant",
+      title: "Every intoxicant",
+      line: "Every drink that intoxicates is haram.",
+      facts: ["Asked about honey wine", "Told by Aishah"],
+      source: hadith("bukhari", "5585", "Aishah", "Sahih", "The Prophet ﷺ was asked about bit', a drink made from honey. He said: every drink that intoxicates is haram.", "All drinks that intoxicate are unlawful"),
+      difficulty: 2,
+      questions: [
+        { q: "Which drinks are haram, says Bukhari 5585?", a: "Every drink that intoxicates", wrong: ["Only grape wine", "Only milk", "None of them"], why: "Whatever it is made from." },
+        { q: "He ﷺ was asked about a drink made from...?", a: "Honey", wrong: ["Water", "Rice", "Coffee"], why: "Al-bit' was a honey drink." },
+        { q: "A new kind of drink that makes people drunk is halal.", tf: false, why: "Every intoxicating drink is haram." }
+      ]
+    },
+    {
+      slug: "three-breaths",
+      title: "Three breaths",
+      line: "He ﷺ drank in three breaths, breathing outside the cup.",
+      facts: ["More quenching", "Healthier and better"],
+      source: hadith("muslim", "2028b", "Anas ibn Malik", "Sahih", "The Prophet ﷺ breathed three times while drinking, outside the cup, and said: it quenches thirst more, is healthier and better.", "It is more thirst- quenching, healthier and more wholesome"),
+      difficulty: 1,
+      questions: [
+        { q: "In how many breaths did he ﷺ drink?", a: "Three", wrong: ["One", "Ten", "Twenty"], why: "Sahih Muslim 2028." },
+        { q: "Where did he breathe?", a: "Outside the cup", wrong: ["Into the cup", "Under water", "Nowhere"], why: "Never breathe into the drink." },
+        { q: "He said three breaths quench thirst more.", tf: true, why: "More quenching, healthier and better." }
+      ]
+    },
+    {
+      slug: "the-right-first",
+      title: "The right first",
+      line: "He ﷺ served the man on his right before Abu Bakr.",
+      facts: ["Abu Bakr was on his left", "The right, then the right"],
+      source: hadith("bukhari", "5619", "Anas ibn Malik", "Sahih", "Milk was brought to the Prophet ﷺ with a bedouin on his right and Abu Bakr on his left. He drank, gave it to the bedouin and said: the right, then the right.", "The right (first)"),
+      difficulty: 2,
+      questions: [
+        { q: "Who got the drink after the Prophet ﷺ?", a: "The bedouin on his right", wrong: ["Abu Bakr on his left", "The youngest", "No one"], why: "Sahih al-Bukhari 5619." },
+        { q: "Who sat on his left?", a: "Abu Bakr", wrong: ["Abu Jahl", "Qarun", "Fir'awn"], why: "Yet the right came first." },
+        { q: "When passing drinks round, start with the person on your right.", tf: true, why: "The right, then the right." }
+      ]
+    },
+    {
+      slug: "cover-the-cup",
+      title: "Cover it, even with a stick",
+      line: "Cover your drink, even with just a stick across it.",
+      facts: ["A cup of milk from An-Naqi", "Told by Jabir"],
+      source: hadith("bukhari", "5605", "Jabir ibn Abdullah", "Sahih", "Abu Humayd brought a cup of milk from An-Naqi. The Prophet ﷺ said: why didn't you cover it, even by putting a stick across it?", "Will you not cover it, even by placing a stick across"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ tell Abu Humayd about the milk?", a: "Cover it", wrong: ["Spill it", "Sell it", "Hide it in sand"], why: "Sahih al-Bukhari 5605." },
+        { q: "With what, at the very least?", a: "A stick across it", wrong: ["Gold", "A rock", "Nothing"], why: "Even by placing a stick across it." },
+        { q: "Covering food and drink is a sunnah.", tf: true, why: "He asked: will you not cover it?" }
+      ]
+    }
+  ]
+};
+
+const DUA: DeepUnit = {
+  key: "book-dua",
+  topicId: "sahihayn",
+  branchId: "hadith-book-dua",
+  branch: { title: "The Book of Supplications", description: "From the Books of Invocations and Remembrance: duas the Prophet ﷺ made and taught." },
+  name: "the Book of Supplications",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "abu-bakr-dua",
+      title: "Abu Bakr's dua",
+      line: "Abu Bakr asked for a dua for prayer: I wronged myself much.",
+      facts: ["Allahumma inni zalamtu nafsi", "Only You forgive sins"],
+      source: hadith("bukhari", "6326", "Abdullah ibn Amr", "Sahih", "Abu Bakr asked for a dua to say in prayer. He ﷺ said: say, O Allah, I have wronged myself greatly, and none forgives sins but You, so forgive me and have mercy on me; You are the Forgiving, the Merciful.", "Allahumma inni zalamtu nafsi zulman kathiran"),
+      difficulty: 2,
+      questions: [
+        { q: "Who asked for this dua to say in prayer?", a: "Abu Bakr", wrong: ["Abu Jahl", "Abu Lahab", "Qarun"], why: "Sahih al-Bukhari 6326." },
+        { q: "The dua says: none forgives sins but...?", a: "Allah", wrong: ["Our friends", "Kings", "Ourselves"], why: "Wa la yaghfirudh-dhunuba illa anta." },
+        { q: "Even Abu Bakr asked Allah to forgive his wrongs.", tf: true, why: "I have wronged myself greatly." }
+      ]
+    },
+    {
+      slug: "ask-firmly",
+      title: "Ask with certainty",
+      line: "Ask Allah firmly; don't say: give me if You wish.",
+      facts: ["No one forces Allah", "Ask with full hope"],
+      source: hadith("bukhari", "6338", "Anas ibn Malik", "Sahih", "When one of you asks Allah, let him ask firmly and not say: O Allah, give me if You wish, for no one can force Allah.", "he should ask with determination"),
+      difficulty: 2,
+      questions: [
+        { q: "How should we ask Allah?", a: "Firmly, with full hope", wrong: ["Unsure and doubtful", "Once, then give up", "Only in secret places"], why: "Sahih al-Bukhari 6338." },
+        { q: "Which words did he ﷺ tell us not to say?", a: "Give me if You wish", wrong: ["Ya Allah", "Ameen", "Alhamdulillah"], why: "No one can force Allah anyway." },
+        { q: "Ask Allah as one sure He can give.", tf: true, why: "Ask with determination." }
+      ]
+    },
+    {
+      slug: "no-wishing-death",
+      title: "Never wish for death",
+      line: "In hardship, don't wish for death; ask Allah for what's best.",
+      facts: ["Let me live while life is good", "Take me when death is better"],
+      source: hadith("bukhari", "6351", "Anas ibn Malik", "Sahih", "None of you should wish for death because of a hardship. If he must, let him say: O Allah, keep me alive while life is better for me, and take me when death is better for me.", "Let me live as long as life is better for me"),
+      difficulty: 3,
+      questions: [
+        { q: "A hard time comes. What did he ﷺ forbid?", a: "Wishing for death", wrong: ["Making dua", "Being patient", "Asking for help"], why: "Sahih al-Bukhari 6351." },
+        { q: "What does the dua ask Allah for?", a: "Life while it is better for me", wrong: ["Money only", "Fame", "Long holidays"], why: "Keep me alive while life is better." },
+        { q: "Feeling very sad? Talk to Allah and to a trusted adult.", tf: true, why: "Ask Allah for what is best, and get help." }
+      ]
+    },
+    {
+      slug: "worry-and-grief",
+      title: "From worry and grief",
+      line: "He ﷺ sought refuge from worry, grief, laziness and heavy debt.",
+      facts: ["Allahumma inni a'udhu bika minal hammi wal hazan", "Also from cowardice and stinginess"],
+      source: hadith("bukhari", "6369", "Anas ibn Malik", "Sahih", "The Prophet ﷺ used to say: O Allah, I seek refuge in You from worry and grief, from weakness and laziness, from cowardice and stinginess, from heavy debt and from being overpowered by men.", "I seek refuge with You from worry and grief"),
+      difficulty: 2,
+      questions: [
+        { q: "Which two feelings does this dua start with?", a: "Worry and grief", wrong: ["Joy and peace", "Hunger and thirst", "Heat and cold"], why: "Sahih al-Bukhari 6369." },
+        { q: "Which of these is also in the dua?", a: "Laziness", wrong: ["Kindness", "Patience", "Charity"], why: "From weakness and laziness." },
+        { q: "The Prophet ﷺ asked Allah's help against heavy debt.", tf: true, why: "From being heavily in debt." }
+      ]
+    },
+    {
+      slug: "forgive-my-mistakes",
+      title: "Forgive my mistakes",
+      line: "Forgive my mistakes, my ignorance, and what I overdid.",
+      facts: ["Allahummaghfir li khati'ati", "Jokes and serious, all of it"],
+      source: hadith("bukhari", "6399", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ prayed: O Allah, forgive my mistakes, my ignorance, my going too far in my affairs, and what You know better than me; forgive what I did in jest and in earnest, by error and on purpose.", "Allahumma ighfirli khati"),
+      difficulty: 3,
+      questions: [
+        { q: "What does this dua first ask Allah to forgive?", a: "My mistakes", wrong: ["My enemies", "My money", "My house"], why: "Sahih al-Bukhari 6399." },
+        { q: "What else is named?", a: "My ignorance", wrong: ["My height", "My name", "My shoes"], why: "Khati'ati wa jahli." },
+        { q: "The dua asks forgiveness even for what Allah knows better than us.", tf: true, why: "And what You know better than me." }
+      ]
+    },
+    {
+      slug: "turn-harm-into-good",
+      title: "A dua for anyone you hurt",
+      line: "The Prophet ﷺ asked Allah to turn his harsh words into good.",
+      facts: ["A gift on the Day of Resurrection", "Bringing that person near to Allah"],
+      source: hadith("bukhari", "6361", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: O Allah, if I ever spoke harshly to a believer, make that a means of bringing him near to You on the Day of Resurrection.", "please let that be a means of bringing him near to You"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ ask for anyone he spoke harshly to?", a: "That it bring them near to Allah", wrong: ["That they forget it", "That they be punished", "That they move away"], why: "Let that be a means of bringing him near to You." },
+        { q: "When did he ask for this good to reach them?", a: "On the Day of Resurrection", wrong: ["The next morning", "In Ramadan only", "At the next Jumuah"], why: "Sahih al-Bukhari 6361." },
+        { q: "This dua was made for believers.", tf: true, why: "If I should ever abuse a believer." }
+      ]
+    },
+    {
+      slug: "dearer-than-the-world",
+      title: "Dearer than the whole world",
+      line: "Four words of dhikr: dearer to him ﷺ than the world.",
+      facts: ["Four short words", "Dearer than all the sun rises on"],
+      source: hadith("muslim", "2695", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: saying subhanallah, alhamdulillah, la ilaha illallah and Allahu akbar is dearer to me than everything the sun rises over.", "is dearer to me than anything over which the sun rises"),
+      difficulty: 1,
+      questions: [
+        { q: "These four words are dearer to him ﷺ than...?", a: "All the sun rises over", wrong: ["One date", "A small cup", "A pair of shoes"], why: "Sahih Muslim 2695." },
+        { q: "Which of these is one of the four?", a: "Allahu akbar", wrong: ["Good morning", "See you later", "Hello"], why: "With subhanallah, alhamdulillah and la ilaha illallah." },
+        { q: "Saying these four words is easy and greatly loved.", tf: true, why: "Dearer than everything under the sun." }
+      ]
+    },
+    {
+      slug: "new-muslim-dua",
+      title: "The dua for a new Muslim",
+      line: "He ﷺ taught new Muslims to ask forgiveness and mercy.",
+      facts: ["Allahummaghfir li warhamni", "Wahdini warzuqni"],
+      source: hadith("muslim", "2697a", "Tariq ibn Ashyam", "Sahih", "When someone accepted Islam, the Prophet ﷺ taught him to say: O Allah, forgive me, have mercy on me, guide me and provide for me.", "grant me pardon, have mercy upon me, direct me to the path of righteousness and provide me sustenance"),
+      difficulty: 1,
+      questions: [
+        { q: "Whom did he ﷺ teach this dua to first?", a: "Those who just accepted Islam", wrong: ["Only kings", "Only children", "Only traders"], why: "Sahih Muslim 2697." },
+        { q: "Forgive me, have mercy, guide me, and...?", a: "Provide for me", wrong: ["Make me famous", "Make me king", "Make me tall"], why: "Warzuqni: provide for me." },
+        { q: "This short dua asks for good in this life and the next.", tf: true, why: "Forgiveness, mercy, guidance and provision." }
+      ]
+    },
+    {
+      slug: "bedtime-thanks",
+      title: "Thanks before sleep",
+      line: "At bedtime, praise Allah who fed us, gave drink and shelter.",
+      facts: ["Many have no shelter", "Count your blessings"],
+      source: hadith("muslim", "2715", "Anas ibn Malik", "Sahih", "When he ﷺ went to bed he said: praise be to Allah who fed us, gave us drink, was enough for us and gave us shelter; how many have no one to suffice them or shelter them.", "Praise is due to Allah Who fed us, provided us drink"),
+      difficulty: 1,
+      questions: [
+        { q: "When did he ﷺ say this praise?", a: "At bedtime", wrong: ["At sunrise only", "At Eid only", "Before a journey"], why: "Sahih Muslim 2715." },
+        { q: "What does the dua remember?", a: "Many have no shelter", wrong: ["Everyone is rich", "Food is boring", "Nothing at all"], why: "So we thank Allah for ours." },
+        { q: "This dua thanks Allah for food, drink and a home.", tf: true, why: "Who fed us, gave us drink and shelter." }
+      ]
+    },
+    {
+      slug: "guidance-and-taqwa",
+      title: "Guidance, taqwa, purity, enough",
+      line: "O Allah, I ask You for guidance, taqwa, purity and contentment.",
+      facts: ["Al-huda wat-tuqa", "Wal-'afafa wal-ghina"],
+      source: hadith("muslim", "2721a", "Abdullah ibn Mas'ud", "Sahih", "The Prophet ﷺ used to pray: O Allah, I ask You for guidance, taqwa, chastity and freedom from need.", "I beg of Thee the right guidance, safeguard against evils, chastity and freedom from want"),
+      difficulty: 2,
+      questions: [
+        { q: "What does this dua ask for first?", a: "Guidance", wrong: ["Gold", "A palace", "Fame"], why: "Sahih Muslim 2721." },
+        { q: "Al-ghina here means...?", a: "Not needing people", wrong: ["Singing", "Being loud", "Travel"], why: "Freedom from want." },
+        { q: "Taqwa is one of the four things asked for.", tf: true, why: "Al-huda, at-tuqa, al-'afaf, al-ghina." }
+      ]
+    },
+    {
+      slug: "straight-as-an-arrow",
+      title: "Straight as an arrow",
+      line: "Ask for guidance, and picture an arrow flying straight.",
+      facts: ["Taught to Ali", "Allahumma ihdini wa saddidni"],
+      source: hadith("muslim", "2725a", "Ali ibn Abi Talib", "Sahih", "He ﷺ told Ali: say, O Allah, guide me and keep me on the straight path; and when you say it, think of being guided on the road and of the straightness of an arrow.", "keep in mind the straightness of the arrow"),
+      difficulty: 3,
+      questions: [
+        { q: "Who was taught this dua?", a: "Ali ibn Abi Talib", wrong: ["Abu Jahl", "Qarun", "Fir'awn"], why: "Sahih Muslim 2725." },
+        { q: "What should you picture when asking to be kept straight?", a: "A straight arrow", wrong: ["A twisting snake", "A spinning top", "A falling leaf"], why: "The straightness of the arrow." },
+        { q: "Thinking about a dua's meaning makes it stronger.", tf: true, why: "He told Ali to keep the meaning in mind." }
+      ]
+    },
+    {
+      slug: "rooster-and-donkey",
+      title: "The rooster and the donkey",
+      line: "Hear a rooster? Ask for Allah's favor. A donkey? Seek refuge.",
+      facts: ["Rooster sees an angel", "Donkey sees a devil"],
+      source: hadith("muslim", "2729", "Abu Hurairah", "Sahih", "When you hear the rooster crow, ask Allah for His favor, for it has seen an angel; when you hear a donkey bray, seek refuge in Allah from Shaytan, for it has seen a devil.", "When you listen to the crowing of the cock, ask Allah for His favour"),
+      difficulty: 2,
+      questions: [
+        { q: "A rooster crows at dawn. What do you do?", a: "Ask Allah for His favor", wrong: ["Shout back", "Cover your ears", "Nothing"], why: "Sahih Muslim 2729." },
+        { q: "A donkey brays. What do you say?", a: "A'udhu billahi minash-shaytan", wrong: ["Alhamdulillah", "Ameen", "Mashallah"], why: "It has seen a devil." },
+        { q: "The rooster crows when it has seen an angel.", tf: true, why: "So ask Allah for His favor." }
+      ]
+    },
+    {
+      slug: "keep-your-blessings",
+      title: "Keep Your blessings on me",
+      line: "Ask Allah to keep His blessings and His protection on you.",
+      facts: ["Allahumma inni a'udhu bika min zawali ni'matik", "Told by Ibn Umar"],
+      source: hadith("muslim", "2739", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ prayed: O Allah, I seek refuge in You from the loss of Your blessing, the change of Your protection, Your sudden punishment and all Your displeasure.", "from the withdrawal of Thine blessing and the change of Thine protection"),
+      difficulty: 3,
+      questions: [
+        { q: "What does this dua ask Allah to keep?", a: "His blessings on us", wrong: ["Our enemies", "Our bad habits", "Nothing"], why: "Sahih Muslim 2739." },
+        { q: "And from what else does it seek refuge?", a: "All of Allah's displeasure", wrong: ["Rain", "Friends", "School"], why: "And from every displeasure of Yours." },
+        { q: "Blessings can be lost, so we ask Allah to keep them.", tf: true, why: "From the withdrawal of Your blessing." }
+      ]
+    },
+    {
+      slug: "as-you-think-of-me",
+      title: "As My servant thinks of Me",
+      line: "Allah says: I am as My servant thinks of Me.",
+      facts: ["Remember Allah, He remembers you", "Come walking, He comes running"],
+      source: hadith("muslim", "2675a", "Abu Hurairah", "Sahih", "Allah says: I am as My servant thinks of Me, and I am with him when he remembers Me. If he remembers Me in a gathering, I remember him in a better gathering; if he comes a hand's span closer, I come an arm's length closer.", "I am near to the thought of My servant as he thinks about Me"),
+      difficulty: 3,
+      questions: [
+        { q: "Allah is as His servant...?", a: "Thinks of Him", wrong: ["Looks", "Dresses", "Shouts"], why: "Sahih Muslim 2675." },
+        { q: "If you remember Allah in a gathering, He remembers you...?", a: "In a better gathering", wrong: ["Never", "Only at night", "Only if rich"], why: "Better than his remembrance." },
+        { q: "So think well of Allah and expect good from Him.", tf: true, why: "I am as My servant thinks of Me." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -564,4 +939,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA];
