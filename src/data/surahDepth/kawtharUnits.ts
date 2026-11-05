@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Kawthar ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -160,6 +160,20 @@ const KAWTHAR_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "why-prayer-and-sacrifice",
+      title: "Why prayer and sacrifice?",
+      line: "These two are named as the best acts of worship.",
+      facts: ["As-Sa'di explains", "Heart, body and wealth"],
+      quote: q108(2),
+      source: saadi(108, 2, "As-Sa'di says prayer and sacrifice are named because they are among the best worship: prayer humbles heart and body, and sacrifice gives wealth the soul loves.", "لأنهما من أفضل العبادات وأجل القربات"),
+      difficulty: 2,
+      questions: [
+        { q: "Why are prayer and sacrifice named in 108:2?", a: "They are among the best worship", wrong: ["They are the easiest", "They are only for Eid", "They cost nothing"], why: "Among the best acts of worship, says as-Sa'di." },
+        { q: "What does a sacrifice give up for Allah?", a: "Wealth we love", wrong: ["Our sleep", "Our friends", "Our home"], why: "Giving wealth the soul is made to love." },
+        { tf: true, q: "Prayer humbles both the heart and the body.", why: "As-Sa'di on 108:2." }
+      ]
+    },
+    {
       slug: "who-is-really-cut-off",
       title: "Who is really cut off?",
       line: "Whoever hates the Prophet ﷺ is the one truly cut off.",
@@ -185,6 +199,20 @@ const KAWTHAR_TWO: DeepUnit = {
         { q: "What did Allah preserve, per Ibn Kathir?", a: "The Prophet's ﷺ remembrance", wrong: ["His enemy's fame", "An old idol", "A trade route"], why: "Allah preserved his remembrance for all the world to see." },
         { q: "How long will his message be followed?", a: "Until the Day of Gathering", wrong: ["One century", "Until he died", "Ten years"], why: "This will continue for all of time until the Day of Gathering." },
         { tf: true, q: "The enemies' claim proved completely wrong.", why: "Allah forbid! To the contrary, Allah preserved his remembrance." }
+      ]
+    },
+    {
+      slug: "cut-off-from-all-good",
+      title: "Cut off from all good",
+      line: "His hater is cut off from good, in deeds and name.",
+      facts: ["As-Sa'di explains", "Al-Abtar: cut off"],
+      quote: q108(3),
+      source: saadi(108, 3, "As-Sa'di says the one who hates the Prophet ﷺ is cut off from all good, cut off in deeds and in being remembered.", "المقطوع من كل خير"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the hater of the Prophet ﷺ cut off from?", a: "All good", wrong: ["Only money", "Only family", "Nothing"], why: "Cut off from all good, says as-Sa'di." },
+        { q: "What else of his is cut off?", a: "His deeds and mention", wrong: ["His food", "His sleep", "His clothes"], why: "Cut off in deeds, cut off in mention." },
+        { tf: true, q: "The Prophet ﷺ has many helpers and followers.", why: "As-Sa'di on 108:3." }
       ]
     }
   ]

@@ -25997,6 +25997,10 @@
   },
   {
     "kind": "course",
+    "text": "The year of his birth"
+  },
+  {
+    "kind": "course",
     "text": "Allah defends His House"
   },
   {
@@ -26052,6 +26056,14 @@
     "text": "Praise Him for food"
   },
   {
+    "kind": "course",
+    "text": "Two of the greatest gifts"
+  },
+  {
+    "kind": "course",
+    "text": "Lord of this House"
+  },
+  {
     "kind": "arabic",
     "text": "The Small Kindnesses"
   },
@@ -26081,11 +26093,19 @@
   },
   {
     "kind": "course",
+    "text": "If he will not even urge"
+  },
+  {
+    "kind": "course",
     "text": "Careless about prayer"
   },
   {
     "kind": "course",
     "text": "About, not in"
+  },
+  {
+    "kind": "course",
+    "text": "Wasting the prayer"
   },
   {
     "kind": "course",
@@ -26157,11 +26177,19 @@
   },
   {
     "kind": "course",
+    "text": "Why prayer and sacrifice?"
+  },
+  {
+    "kind": "course",
     "text": "Who is really cut off?"
   },
   {
     "kind": "course",
     "text": "His name lives on"
+  },
+  {
+    "kind": "course",
+    "text": "Cut off from all good"
   },
   {
     "kind": "arabic",
@@ -26194,6 +26222,10 @@
   {
     "kind": "course",
     "text": "Whom I worship"
+  },
+  {
+    "kind": "course",
+    "text": "Why is it said twice?"
   },
   {
     "kind": "course",
@@ -26248,6 +26280,14 @@
     "text": "The sign in his Ummah"
   },
   {
+    "kind": "course",
+    "text": "Good deeds end with istighfar"
+  },
+  {
+    "kind": "course",
+    "text": "Thanks bring more help"
+  },
+  {
     "kind": "arabic",
     "text": "The Palm Fiber"
   },
@@ -26290,6 +26330,10 @@
   {
     "kind": "course",
     "text": "A rope of palm fiber"
+  },
+  {
+    "kind": "course",
+    "text": "A sign that came true"
   },
   {
     "kind": "arabic",
@@ -475817,6 +475861,66 @@
   },
   {
     "kind": "lesson",
+    "text": "The Elephant came in the very year the Prophet ﷺ was born."
+  },
+  {
+    "kind": "lesson",
+    "text": "As-Sa'di explains"
+  },
+  {
+    "kind": "lesson",
+    "text": "A sign before his mission"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 105:5"
+  },
+  {
+    "kind": "question",
+    "text": "What happened in the Year of the Elephant?"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ was born"
+  },
+  {
+    "kind": "question",
+    "text": "Makkah was conquered"
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di calls the event a sign of...?"
+  },
+  {
+    "kind": "question",
+    "text": "A long drought"
+  },
+  {
+    "kind": "question",
+    "text": "A war with Rome"
+  },
+  {
+    "kind": "question",
+    "text": "His coming message"
+  },
+  {
+    "kind": "question",
+    "text": "One of the signs before his message, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Fil shows Allah's power and the truth of His Messenger ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 105:1 lists both."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Fil, ayahs 3-5?"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah protected the Ka'bah to honor it, not the Quraysh."
   },
   {
@@ -475878,10 +475982,6 @@
   {
     "kind": "question",
     "text": "The Ancient House, which We will honor, magnify, and venerate."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Al-Fil, ayahs 3-5?"
   },
   {
     "kind": "lesson",
@@ -476353,6 +476453,106 @@
   },
   {
     "kind": "lesson",
+    "text": "Can you still remember these about Quraysh, ayahs 3-4?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Plenty of food and safety are among life's biggest gifts."
+  },
+  {
+    "kind": "lesson",
+    "text": "Gifts that call for thanks"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 106:4"
+  },
+  {
+    "kind": "question",
+    "text": "Which two gifts does as-Sa'di call among the greatest?"
+  },
+  {
+    "kind": "question",
+    "text": "Food and safety"
+  },
+  {
+    "kind": "question",
+    "text": "Horses and camels"
+  },
+  {
+    "kind": "question",
+    "text": "Plenty of provision and safety, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What do such gifts call for?"
+  },
+  {
+    "kind": "question",
+    "text": "Blessings that make thanks to Allah due."
+  },
+  {
+    "kind": "question",
+    "text": "Feeling safe at home is a blessing from Allah."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 106:4."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah is Lord of all, yet names the House to honor it."
+  },
+  {
+    "kind": "lesson",
+    "text": "The Ka'bah's high rank"
+  },
+  {
+    "kind": "question",
+    "text": "Why does Allah say Lord of this House?"
+  },
+  {
+    "kind": "question",
+    "text": "To please Quraysh"
+  },
+  {
+    "kind": "question",
+    "text": "To honor the House"
+  },
+  {
+    "kind": "question",
+    "text": "He owns only it"
+  },
+  {
+    "kind": "question",
+    "text": "Because of its virtue and honor, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "Of what is Allah the Lord?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the Ka'bah"
+  },
+  {
+    "kind": "question",
+    "text": "Of everything"
+  },
+  {
+    "kind": "question",
+    "text": "Otherwise He is the Lord of all things."
+  },
+  {
+    "kind": "question",
+    "text": "Allah is Lord of the Ka'bah only."
+  },
+  {
+    "kind": "question",
+    "text": "He is Lord of everything."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about Quraysh, ayahs 3-4!"
   },
   {
@@ -476593,6 +476793,54 @@
   },
   {
     "kind": "lesson",
+    "text": "Who won't urge feeding the poor won't feed them himself."
+  },
+  {
+    "kind": "lesson",
+    "text": "From the lesser to the greater"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 107:3"
+  },
+  {
+    "kind": "question",
+    "text": "If he won't urge others to feed the poor, then...?"
+  },
+  {
+    "kind": "question",
+    "text": "He gives gold"
+  },
+  {
+    "kind": "question",
+    "text": "He builds homes"
+  },
+  {
+    "kind": "question",
+    "text": "He won't feed them himself"
+  },
+  {
+    "kind": "question",
+    "text": "He feeds them in secret"
+  },
+  {
+    "kind": "question",
+    "text": "Which scholar explains 107:3 so?"
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di"
+  },
+  {
+    "kind": "question",
+    "text": "Tafsir as-Sa'di on 107:3."
+  },
+  {
+    "kind": "question",
+    "text": "Telling others to feed the poor is a good deed too."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about Al-Ma'un, ayahs 1-3!"
   },
   {
@@ -476793,6 +477041,54 @@
   },
   {
     "kind": "lesson",
+    "text": "Heedless of prayer: missing its time and its pillars."
+  },
+  {
+    "kind": "lesson",
+    "text": "Arkan: pillars of prayer"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 107:5"
+  },
+  {
+    "kind": "question",
+    "text": "What does being heedless of prayer include?"
+  },
+  {
+    "kind": "question",
+    "text": "Praying sunnah"
+  },
+  {
+    "kind": "question",
+    "text": "Missing its time and pillars"
+  },
+  {
+    "kind": "question",
+    "text": "Leaving its time, missing its pillars."
+  },
+  {
+    "kind": "question",
+    "text": "Slips inside the prayer happen to...?"
+  },
+  {
+    "kind": "question",
+    "text": "Only the lazy"
+  },
+  {
+    "kind": "question",
+    "text": "Forgetting in prayer happens to everyone, even the Prophet ﷺ."
+  },
+  {
+    "kind": "question",
+    "text": "Forgetting something inside prayer is the sin in 107:5."
+  },
+  {
+    "kind": "question",
+    "text": "The blame is for wasting the prayer, says as-Sa'di."
+  },
+  {
+    "kind": "lesson",
     "text": "Prayer at its proper time is the deed Allah loves most."
   },
   {
@@ -476893,6 +477189,10 @@
   },
   {
     "kind": "lesson",
+    "text": "Can you still remember these about Al-Ma'un, ayahs 4-7?"
+  },
+  {
+    "kind": "lesson",
     "text": "Allah will show the real intention of those who show off."
   },
   {
@@ -476938,10 +477238,6 @@
   {
     "kind": "question",
     "text": "He who does good things in public to show off, Allah will disclose his real intention."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Al-Ma'un, ayahs 4-7?"
   },
   {
     "kind": "lesson",
@@ -477465,6 +477761,62 @@
   },
   {
     "kind": "lesson",
+    "text": "These two are named as the best acts of worship."
+  },
+  {
+    "kind": "lesson",
+    "text": "Heart, body and wealth"
+  },
+  {
+    "kind": "question",
+    "text": "Why are prayer and sacrifice named in 108:2?"
+  },
+  {
+    "kind": "question",
+    "text": "They cost nothing"
+  },
+  {
+    "kind": "question",
+    "text": "They are among the best worship"
+  },
+  {
+    "kind": "question",
+    "text": "They are the easiest"
+  },
+  {
+    "kind": "question",
+    "text": "They are only for Eid"
+  },
+  {
+    "kind": "question",
+    "text": "Among the best acts of worship, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What does a sacrifice give up for Allah?"
+  },
+  {
+    "kind": "question",
+    "text": "Wealth we love"
+  },
+  {
+    "kind": "question",
+    "text": "Our home"
+  },
+  {
+    "kind": "question",
+    "text": "Giving wealth the soul is made to love."
+  },
+  {
+    "kind": "question",
+    "text": "Prayer humbles both the heart and the body."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 108:2."
+  },
+  {
+    "kind": "lesson",
     "text": "Whoever hates the Prophet ﷺ is the one truly cut off."
   },
   {
@@ -477562,6 +477914,42 @@
   {
     "kind": "question",
     "text": "The enemies' claim proved completely wrong."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Kawthar, ayahs 2-3?"
+  },
+  {
+    "kind": "lesson",
+    "text": "His hater is cut off from good, in deeds and name."
+  },
+  {
+    "kind": "question",
+    "text": "What is the hater of the Prophet ﷺ cut off from?"
+  },
+  {
+    "kind": "question",
+    "text": "All good"
+  },
+  {
+    "kind": "question",
+    "text": "Cut off from all good, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "What else of his is cut off?"
+  },
+  {
+    "kind": "question",
+    "text": "His deeds and mention"
+  },
+  {
+    "kind": "question",
+    "text": "The Prophet ﷺ has many helpers and followers."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 108:3."
   },
   {
     "kind": "lesson",
@@ -477830,6 +478218,50 @@
   {
     "kind": "question",
     "text": "Nor will you worship whom I worship."
+  },
+  {
+    "kind": "lesson",
+    "text": "Said twice: first the act, then a fixed way of theirs."
+  },
+  {
+    "kind": "lesson",
+    "text": "Repeated on purpose"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 109:3"
+  },
+  {
+    "kind": "question",
+    "text": "What does the first saying show, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "The act is not done"
+  },
+  {
+    "kind": "question",
+    "text": "The first shows the act does not exist."
+  },
+  {
+    "kind": "question",
+    "text": "What does the repeat show?"
+  },
+  {
+    "kind": "question",
+    "text": "It became a fixed trait"
+  },
+  {
+    "kind": "question",
+    "text": "The second shows it has become a fixed trait."
+  },
+  {
+    "kind": "question",
+    "text": "Worship mixed with shirk is not true worship of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 109:3."
   },
   {
     "kind": "lesson",
@@ -478437,6 +478869,78 @@
   },
   {
     "kind": "lesson",
+    "text": "Great deeds end with istighfar; this hinted his life was ending."
+  },
+  {
+    "kind": "lesson",
+    "text": "Get ready to meet Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Which deeds end with seeking forgiveness?"
+  },
+  {
+    "kind": "question",
+    "text": "Prayer and Hajj"
+  },
+  {
+    "kind": "question",
+    "text": "Great deeds like prayer and Hajj end with istighfar."
+  },
+  {
+    "kind": "question",
+    "text": "What did the command hint at?"
+  },
+  {
+    "kind": "question",
+    "text": "His life was near its end"
+  },
+  {
+    "kind": "question",
+    "text": "His appointed time had come near, says as-Sa'di."
+  },
+  {
+    "kind": "question",
+    "text": "We can end our good deeds with Astaghfirullah."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 110:3."
+  },
+  {
+    "kind": "lesson",
+    "text": "Praise and seeking forgiveness keep Allah's help coming."
+  },
+  {
+    "kind": "lesson",
+    "text": "14:7: thank and get more"
+  },
+  {
+    "kind": "question",
+    "text": "What keeps Allah's help coming, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Praise and istighfar"
+  },
+  {
+    "kind": "question",
+    "text": "Help continues and grows with praise and seeking forgiveness."
+  },
+  {
+    "kind": "question",
+    "text": "Which ayah does he link this to?"
+  },
+  {
+    "kind": "question",
+    "text": "If you are grateful, I will surely give you more."
+  },
+  {
+    "kind": "question",
+    "text": "Thanking Allah is a reason for more blessing."
+  },
+  {
+    "kind": "lesson",
     "text": "Allah is At-Tawwab: He keeps accepting all who turn back."
   },
   {
@@ -478966,6 +479470,50 @@
   {
     "kind": "question",
     "text": "In her neck is a twisted rope of Masad."
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah foretold they would not believe, and so it was."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 111:5"
+  },
+  {
+    "kind": "question",
+    "text": "Were Abu Lahab and his wife alive when it came?"
+  },
+  {
+    "kind": "question",
+    "text": "Only his wife"
+  },
+  {
+    "kind": "question",
+    "text": "Only Abu Lahab"
+  },
+  {
+    "kind": "question",
+    "text": "No, both had died"
+  },
+  {
+    "kind": "question",
+    "text": "The surah came while they had not yet died."
+  },
+  {
+    "kind": "question",
+    "text": "What did the surah show about them?"
+  },
+  {
+    "kind": "question",
+    "text": "They would become rich"
+  },
+  {
+    "kind": "question",
+    "text": "It follows that they would not accept Islam."
+  },
+  {
+    "kind": "question",
+    "text": "Al-Masad is a clear sign of the Quran's truth."
   },
   {
     "kind": "lesson",

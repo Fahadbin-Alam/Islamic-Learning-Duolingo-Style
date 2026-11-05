@@ -72,5 +72,24 @@ export function quran(surah: number, ayahNumber: number, summary: string): Lesso
   };
 }
 
+/**
+ * Tafsir as-Sa'di on an ayah, on quran.com (Arabic). `summary` says his point in plain English; `highlight` is his exact
+ * Arabic words on that page, so the link opens with them lit up.
+ */
+export function saadi(surah: number, ayahNumber: number, summary: string, highlight: string): LessonSource {
+  return {
+    id: `deep_saadi_${surah}_${ayahNumber}`,
+    site: "Quran.com",
+    category: "tafsir",
+    title: `Tafsir as-Sa'di on Quran ${surah}:${ayahNumber}`,
+    url: `https://quran.com/${surah}:${ayahNumber}/tafsirs/ar-tafseer-al-saddi`,
+    reference: `Tafsir as-Sa'di ${surah}:${ayahNumber}`,
+    from: "Tafsir as-Sa'di (Arabic), on Quran.com",
+    grade: "Tafsir",
+    summary,
+    highlight
+  };
+}
+
 /** An ayah's Arabic (from quranAyahs.ts) and its reference, for a lesson card's quote. */
 export const quranQuote = (surah: number, number: number) => ({ text: QURAN_AYAHS[`${surah}:${number}`], reference: `Quran ${surah}:${number}` });
