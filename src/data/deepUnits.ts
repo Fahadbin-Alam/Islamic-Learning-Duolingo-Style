@@ -11,6 +11,7 @@ import { AQIDAH_UNITS } from "./aqidahUnits";
 import { FASTING_UNITS } from "./fastingUnits";
 import { ZAKAT_UNITS } from "./zakatUnits";
 import { HADITH_UNITS } from "./hadithUnits";
+import { HADITH_BOOK_UNITS, SAHIHAYN_SECTION } from "./hadithBooks";
 import { PRAYER_UNITS } from "./prayerUnits";
 import { HAJJ_UNITS } from "./hajjUnits";
 import { SAHABA_UNITS } from "./sahabaUnits";
@@ -2869,7 +2870,7 @@ const ASR: DeepUnit = {
 
 const SURAH_DEEP_UNITS: readonly DeepUnit[] = [NAS, FALAQ, IKHLAS, ASR, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
-export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
+export const DEEP_UNITS: readonly DeepUnit[] = [ABU_BAKR, UMAR, UTHMAN, ALI, ...SAHABA_UNITS, MUHAJIRUN, FATIHAH, MULK, NAS, FALAQ, IKHLAS, ASR, SPEECH, PARENTS, NEIGHBORS, ANGER, SPOUSES, CHILDREN, ...WOMEN_UNITS, ...LIFE_UNITS, ...SCHOLAR_UNITS, ...AKHIRAH_UNITS, ...PROPHET_UNITS, ...SEERAH_UNITS, ...AQIDAH_UNITS, ...FASTING_UNITS, ...ZAKAT_UNITS, ...HADITH_UNITS, ...HADITH_BOOK_UNITS, ...PRAYER_UNITS, ...HAJJ_UNITS, ...BAQARAH_UNITS, ...SURAH_DEPTH_UNITS];
 
 // The hand-written answer comes first, so the four choices turn by a stable hash of the question id.
 function turn<T>(id: string, items: T[]): T[] {
@@ -3001,7 +3002,7 @@ export function addSurahDeepUnits(content: { course: LearningCourse; lessonsById
 function addUnits(content: { course: LearningCourse; lessonsById: Record<string, Lesson> }, deepUnits: readonly DeepUnit[]) {
   const lessonsById = { ...content.lessonsById };
   // A topic made only of deep units (Scholars, Eid, Day of Judgment) starts as an empty section.
-  const all = [SCHOLARS_SECTION, EID_SECTION, AKHIRAH_SECTION].reduce(
+  const all = [SCHOLARS_SECTION, EID_SECTION, AKHIRAH_SECTION, SAHIHAYN_SECTION].reduce(
     (sections, empty) => (sections.some((section) => section.topicId === empty.topicId) ? sections : [...sections, empty]),
     content.course.sections
   );

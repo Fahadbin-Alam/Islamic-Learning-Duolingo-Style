@@ -57,6 +57,7 @@ const TOPIC_ICONS: Partial<Record<TopicId, IconName>> = {
   hadith: "bookOpen",
   scholars: "quill",
   akhirah: "sun",
+  sahihayn: "bookOpen",
   manners: "handHeart",
   marriage: "homeHeart",
   intro: "door",
