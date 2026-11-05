@@ -157,6 +157,8 @@ export const BRANCH_ARABIC: Record<string, ArabicTerm> = {
   "hadith-book-iman": { ar: "كتاب الإيمان", translit: "Kitab al-iman", meaning: "The Book of Faith" },
   "hadith-book-taharah": { ar: "كتاب الطهارة", translit: "Kitab at-taharah", meaning: "The Book of Purification" },
   "hadith-book-adab": { ar: "كتاب الأدب", translit: "Kitab al-adab", meaning: "The Book of Good Manners" },
+  "hadith-book-food": { ar: "كتاب الأطعمة والأشربة", translit: "Kitab al-at'imah wal-ashribah", meaning: "The Book of Food and Drink" },
+  "hadith-book-dua": { ar: "كتاب الدعوات", translit: "Kitab ad-da'awat", meaning: "The Book of Supplications" },
   "prayer-reward": { ar: "فضل الصلاة", translit: "Fadl as-salah", meaning: "The virtue of prayer" },
   "prayer-extra": { ar: "صلاة التطوع", translit: "Salat at-tatawwu'", meaning: "Voluntary prayer" },
   "prayer-jumuah": { ar: "صلاة الجمعة", translit: "Salat al-jumu'ah", meaning: "The Friday prayer" },
@@ -765,7 +767,7 @@ const LEARN_FORMS = [
   "غَزْوَةُ بَدْرٍ", "غَزْوَةُ أُحُدٍ", "غَزْوَةُ الْخَنْدَقِ", "صُلْحُ الْحُدَيْبِيَةِ", "فَتْحُ مَكَّةَ", "حَجَّةُ الْوَدَاعِ وَالْوَفَاةُ", "الْخُلُقُ الْعَظِيمُ",
   "فَضْلُ الصِّيَامِ", "السُّحُورُ وَالْإِفْطَارُ", "صِيَامُ التَّطَوُّعِ", "رُخَصُ الصِّيَامِ", "لَيَالِي الْعَشْرِ",
   "رُكْنُ الزَّكَاةِ", "زَكَاةُ الْفِطْرِ", "كُلُّ مَعْرُوفٍ صَدَقَةٌ", "الْإِنْفَاقُ فِي سَبِيلِ اللَّهِ",
-  "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ", "كِتَابُ الْإِيمَانِ", "كِتَابُ الطَّهَارَةِ", "كِتَابُ الْأَدَبِ",
+  "أَحَادِيثُ مَشْهُورَةٌ", "صَلَاحُ الْقَلْبِ", "طَلَبُ الْعِلْمِ", "كِتَابُ الْإِيمَانِ", "كِتَابُ الطَّهَارَةِ", "كِتَابُ الْأَدَبِ", "كِتَابُ الْأَطْعِمَةِ وَالْأَشْرِبَةِ", "كِتَابُ الدَّعَوَاتِ",
   "فَضْلُ الصَّلَاةِ", "صَلَاةُ التَّطَوُّعِ", "صَلَاةُ الْجُمُعَةِ", "أَذْكَارُ بَعْدَ الصَّلَاةِ",
   "الْعُمْرَةُ", "الْبَيْتُ الْحَرَامُ", "الْمَسَاجِدُ الثَّلَاثَةُ",
   ...SURAH_NAMES.map((name) => `سُورَةُ ${name}`)
