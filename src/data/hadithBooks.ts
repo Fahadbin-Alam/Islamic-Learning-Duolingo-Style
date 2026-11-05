@@ -2024,6 +2024,290 @@ const PRAYER: DeepUnit = {
   ]
 };
 
+const FASTING: DeepUnit = {
+  key: "book-fasting",
+  topicId: "sahihayn",
+  branchId: "hadith-book-sawm",
+  branch: { title: "The Book of Fasting", description: "From the Books of Fasting: the moon, suhur, Ashura and the fasts of the Prophet ﷺ." },
+  name: "the Book of Fasting",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "fast-when-you-see-the-moon",
+      title: "Fast when you see the moon",
+      line: "Fast on seeing the new moon, and stop on seeing the next.",
+      facts: ["Cloudy sky: Sha'ban is 30 days", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "1909", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: start fasting when you see the crescent, stop when you see it, and if it is cloudy, complete thirty days of Sha'ban.", "Start fasting on seeing the crescent"),
+      difficulty: 1,
+      questions: [
+        { q: "What starts the Ramadan fast?", a: "Seeing the crescent", wrong: ["A full moon", "The first rain", "Sunrise only"], why: "Start fasting on seeing the crescent." },
+        { q: "If the sky is cloudy, Sha'ban is counted as...?", a: "Thirty days", wrong: ["Ten days", "Twenty days", "Forty days"], why: "Complete thirty days of Sha'ban." },
+        { q: "Seeing the crescent also ends Ramadan.", tf: true, why: "Give up fasting on seeing the crescent. Sahih al-Bukhari 1909." }
+      ]
+    },
+    {
+      slug: "twenty-nine-or-thirty",
+      title: "29 or 30 days",
+      line: "A month is sometimes 29 days and sometimes 30.",
+      facts: ["He ﷺ showed it with his fingers", "Told by Ibn Umar"],
+      source: hadith("bukhari", "1913", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ said: the month is like this and this, sometimes 29 days and sometimes 30.", "sometimes of 29 days and sometimes of thirty days"),
+      difficulty: 1,
+      questions: [
+        { q: "How long can a lunar month be?", a: "29 or 30 days", wrong: ["Always 31 days", "Always 28 days", "40 days"], why: "Sometimes of 29 days and sometimes of thirty days." },
+        { q: "Who narrated this?", a: "Ibn Umar", wrong: ["Anas", "Jabir", "Abu Musa"], why: "Sahih al-Bukhari 1913." },
+        { q: "Ramadan always has exactly 30 days.", tf: false, why: "It can be 29 or 30. Sahih al-Bukhari 1913." }
+      ]
+    },
+    {
+      slug: "no-fast-just-before-ramadan",
+      title: "Not a day or two before",
+      line: "Do not fast just before Ramadan, unless it is your habit.",
+      facts: ["A habit fast is allowed", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "1914", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: none of you should fast a day or two before Ramadan, unless it is a fast he usually keeps.", "None of you should fast a day or two before the month of Ramadan"),
+      difficulty: 2,
+      questions: [
+        { q: "What should we not do just before Ramadan?", a: "Fast a day or two", wrong: ["Pray at night", "Give charity", "Read Quran"], why: "None of you should fast a day or two before Ramadan." },
+        { q: "Who may still fast that day?", a: "One with that habit", wrong: ["Nobody at all", "Only travelers", "Only children"], why: "Unless he has the habit of fasting." },
+        { q: "Someone who always fasts Mondays may fast that Monday.", tf: true, why: "If it is his habit, he can fast. Sahih al-Bukhari 1914." }
+      ]
+    },
+    {
+      slug: "eat-till-the-second-adhan",
+      title: "Eat until the dawn adhan",
+      line: "Bilal called at night; eat until Ibn Umm Maktum calls at dawn.",
+      facts: ["Two callers in Madinah", "Told by Aishah"],
+      source: hadith("bukhari", "1918", "Aishah", "Sahih", "Bilal gave the adhan at night, so the Prophet ﷺ said: eat and drink until Ibn Umm Maktum calls, for he calls at dawn.", "Carry on taking your meals (eat and drink) till Ibn Um Maktum pronounces the Adhan"),
+      difficulty: 2,
+      questions: [
+        { q: "Whose adhan meant it was dawn?", a: "Ibn Umm Maktum", wrong: ["Bilal", "Abu Bakr", "Umar"], why: "He does not pronounce it till it is dawn." },
+        { q: "When did Bilal give his adhan?", a: "At night", wrong: ["At noon", "At sunset", "Never"], why: "Bilal used to pronounce the Adhan at night." },
+        { q: "Suhur may be eaten until dawn comes.", tf: true, why: "Carry on eating till dawn. Sahih al-Bukhari 1918." }
+      ]
+    },
+    {
+      slug: "suhur-then-fajr",
+      title: "Suhur, then hurry to Fajr",
+      line: "Sahl ate suhur with his family, then hurried to pray Fajr.",
+      facts: ["Suhur close to Fajr", "Told by Sahl ibn Sad"],
+      source: hadith("bukhari", "1920", "Sahl ibn Sad", "Sahih", "Sahl said: I used to eat suhur with my family, then hurry to pray Fajr with the Prophet ﷺ.", "I used to take my Suhur meals with my family"),
+      difficulty: 1,
+      questions: [
+        { q: "With whom did Sahl eat suhur?", a: "His family", wrong: ["Alone", "Strangers", "The army"], why: "I used to take my Suhur meals with my family." },
+        { q: "What did he hurry to after suhur?", a: "The Fajr prayer", wrong: ["Sleep", "The market", "Breakfast"], why: "Then hurry up for the Fajr prayer." },
+        { q: "Suhur was eaten close to Fajr time.", tf: true, why: "He hurried from suhur to Fajr. Sahih al-Bukhari 1920." }
+      ]
+    },
+    {
+      slug: "no-blame-on-travelers",
+      title: "No blame on the journey",
+      line: "On journeys, no one blamed another for fasting or not.",
+      facts: ["Both were with him ﷺ", "Told by Anas"],
+      source: hadith("bukhari", "1947", "Anas ibn Malik", "Sahih", "Anas said: we traveled with the Prophet ﷺ, and those fasting did not blame those not fasting, nor the other way round.", "neither did the fasting persons criticize those who were not fasting"),
+      difficulty: 1,
+      questions: [
+        { q: "On journeys, did they blame each other about fasting?", a: "No, never", wrong: ["Yes, always", "Only the young", "Only at night"], why: "Neither criticized the other." },
+        { q: "Who narrated this?", a: "Anas", wrong: ["Umar", "Hudhayfah", "Salman"], why: "Sahih al-Bukhari 1947." },
+        { q: "A traveler may choose to fast or not, and is not blamed.", tf: true, why: "Sahih al-Bukhari 1947." }
+      ]
+    },
+    {
+      slug: "no-nonstop-fasting",
+      title: "No fasting day and night",
+      line: "He ﷺ forbade joining fasts with no food between them.",
+      facts: ["Called al-wisal", "Allah fed him ﷺ"],
+      source: hadith("bukhari", "1962", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ forbade al-wisal. They said: but you do it. He said: I am not like you; Allah gives me food and drink.", "I am not like you, for I am given food and drink by Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "What is al-wisal?", a: "Fasting nonstop with no iftar", wrong: ["A night prayer", "A kind of charity", "A short fast"], why: "He ﷺ forbade Al-Wisal." },
+        { q: "Why could he ﷺ do it?", a: "Allah fed him", wrong: ["He was a king", "He was young", "He ate in secret"], why: "I am given food and drink by Allah." },
+        { q: "We are told to join fasts with no food between.", tf: false, why: "He forbade it. Sahih al-Bukhari 1962." }
+      ]
+    },
+    {
+      slug: "three-things-advice",
+      title: "Three things to keep",
+      line: "Fast three days a month, pray Duha, and pray witr before sleep.",
+      facts: ["Advice to Abu Hurairah", "Small, steady deeds"],
+      source: hadith("bukhari", "1981", "Abu Hurairah", "Sahih", "Abu Hurairah said: my friend ﷺ advised me to fast three days each month, pray two rakahs of Duha, and pray witr before sleeping.", "to fast three days a month"),
+      difficulty: 1,
+      questions: [
+        { q: "How many days a month did he ﷺ advise fasting?", a: "Three", wrong: ["One", "Ten", "Fifteen"], why: "To fast three days a month." },
+        { q: "When should witr be prayed, in this advice?", a: "Before sleeping", wrong: ["At noon", "After Asr", "At sunrise"], why: "To pray witr before sleeping." },
+        { q: "The advice also had two rakahs of Duha.", tf: true, why: "Two rakat of Duha prayer. Sahih al-Bukhari 1981." }
+      ]
+    },
+    {
+      slug: "not-friday-alone",
+      title: "Not Friday on its own",
+      line: "He ﷺ forbade fasting on a Friday picked out by itself.",
+      facts: ["Jabir was asked", "Join it with another day"],
+      source: hadith("bukhari", "1984", "Jabir ibn Abdullah", "Sahih", "Jabir was asked: did the Prophet ﷺ forbid fasting on Fridays? He said yes, meaning fasting that day alone.", "Did the Prophet (ﷺ) forbid fasting on Fridays"),
+      difficulty: 2,
+      questions: [
+        { q: "Which day should not be fasted alone?", a: "Friday", wrong: ["Monday", "Thursday", "Saturday"], why: "Did the Prophet ﷺ forbid fasting on Fridays? Yes." },
+        { q: "Who answered the question?", a: "Jabir", wrong: ["Aishah", "Ibn Abbas", "Anas"], why: "Sahih al-Bukhari 1984." },
+        { q: "The warning is about fasting Friday on its own.", tf: true, why: "If he intends to fast only that day. Sahih al-Bukhari 1984." }
+      ]
+    },
+    {
+      slug: "milk-at-arafah",
+      title: "Milk at Arafah",
+      line: "At Arafah, he ﷺ drank milk from Maymunah for all to see.",
+      facts: ["He ﷺ was on Hajj", "People saw he was not fasting"],
+      source: hadith("bukhari", "1989", "Maymunah", "Sahih", "People were unsure if the Prophet ﷺ was fasting at Arafah, so Maymunah sent him milk and he drank it while people watched.", "he drank it and the people were looking at him"),
+      difficulty: 2,
+      questions: [
+        { q: "What did Maymunah send him ﷺ?", a: "Milk", wrong: ["Water", "Dates", "Honey"], why: "I sent milk while he was standing at Arafat." },
+        { q: "Why did people wonder?", a: "If he was fasting", wrong: ["If he was ill", "If he would leave", "If it would rain"], why: "The people doubted whether he was fasting." },
+        { q: "He ﷺ drank it while people watched.", tf: true, why: "The people were looking at him. Sahih al-Bukhari 1989." }
+      ]
+    },
+    {
+      slug: "ashura-became-optional",
+      title: "Ashura became a choice",
+      line: "Once Ramadan was made a duty, the Ashura fast became optional.",
+      facts: ["The 10th of Muharram", "Told by Aishah"],
+      source: hadith("bukhari", "2001", "Aishah", "Sahih", "The Prophet ﷺ ordered fasting on Ashura, and when Ramadan was made a duty, fasting Ashura became a free choice.", "it became optional for one to fast on that day"),
+      difficulty: 1,
+      questions: [
+        { q: "After Ramadan was made a duty, Ashura became...?", a: "Optional", wrong: ["Forbidden", "A duty", "Forgotten"], why: "It became optional to fast on that day." },
+        { q: "Which day is Ashura?", a: "10th of Muharram", wrong: ["1st of Ramadan", "9th of Dhul-Hijjah", "15th of Sha'ban"], why: "The tenth of Muharram." },
+        { q: "Ashura was fasted before Ramadan was a duty.", tf: true, why: "He ordered fasting it first. Sahih al-Bukhari 2001." }
+      ]
+    },
+    {
+      slug: "ashura-and-ramadan",
+      title: "The fasts he ﷺ loved most",
+      line: "No fast was sought more by him ﷺ than Ashura and Ramadan.",
+      facts: ["Told by Ibn Abbas", "A day and a month"],
+      source: hadith("bukhari", "2006", "Abdullah ibn Abbas", "Sahih", "Ibn Abbas said: I never saw the Prophet ﷺ seek a fast more than Ashura and the month of Ramadan.", "this month, meaning the month of Ramadan"),
+      difficulty: 1,
+      questions: [
+        { q: "Which day did he ﷺ seek most to fast?", a: "Ashura", wrong: ["Friday", "Eid day", "Arafah only"], why: "Except this day, the day of Ashura." },
+        { q: "Which month, too?", a: "Ramadan", wrong: ["Rajab", "Shawwal", "Safar"], why: "And this month, meaning Ramadan." },
+        { q: "Who narrated this?", a: "Ibn Abbas", wrong: ["Abu Bakr", "Ibn Masud", "Bilal"], why: "Sahih al-Bukhari 2006." }
+      ]
+    }
+  ]
+};
+
+const ZAKAT: DeepUnit = {
+  key: "book-zakat",
+  topicId: "sahihayn",
+  branchId: "hadith-book-zakah",
+  branch: { title: "The Book of Zakat", description: "From the Books of Zakat: what is due, who gives, and the honour of not begging." },
+  name: "the Book of Zakat",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "best-charity-family-first",
+      title: "Start with your family",
+      line: "The best charity leaves you still rich; start with your family.",
+      facts: ["Those you look after first", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "1426", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: the best charity is given by one who is still well off, and start with those you support.", "start giving first to your dependents"),
+      difficulty: 1,
+      questions: [
+        { q: "Whom should you give to first?", a: "Your dependents", wrong: ["Strangers only", "The rich", "No one"], why: "Start giving first to your dependents." },
+        { q: "The best charity comes from one who is...?", a: "Still well off", wrong: ["Left with nothing", "In debt", "Showing off"], why: "Practiced by a wealthy person." },
+        { q: "Spending on your family is part of charity.", tf: true, why: "Sahih al-Bukhari 1426." }
+      ]
+    },
+    {
+      slug: "the-nisab",
+      title: "Below the limit, no zakat",
+      line: "No zakat is due below five camels, five wasqs or five uqiyahs.",
+      facts: ["Below it, nothing is due", "Told by Abu Said"],
+      source: hadith("bukhari", "1459", "Abu Said al-Khudri", "Sahih", "The Prophet ﷺ said: no zakat is due on less than five wasqs of dates, five uqiyahs of silver, or five camels.", "no Zakat is imposed on less than five camels"),
+      difficulty: 3,
+      questions: [
+        { q: "Is zakat due on fewer than five camels?", a: "No", wrong: ["Yes, always", "Only in Ramadan", "Only for kings"], why: "No Zakat is imposed on less than five camels." },
+        { q: "Which of these has a zakat limit in this hadith?", a: "Dates", wrong: ["Water", "Firewood", "Sand"], why: "No Zakat is imposed on less than five Awsuq of dates." },
+        { q: "Silver also has a limit for zakat.", tf: true, why: "Less than five Awaq of silver. Sahih al-Bukhari 1459." }
+      ]
+    },
+    {
+      slug: "charity-for-her-gift-for-us",
+      title: "Charity for her, a gift for us",
+      line: "Charity meat given to Barirah became a gift when she shared it.",
+      facts: ["He ﷺ did not take sadaqah", "Told by Anas"],
+      source: hadith("bukhari", "1495", "Anas ibn Malik", "Sahih", "Meat given to Barirah as charity was brought to the Prophet ﷺ. He said: it is charity for Barirah and a gift for us.", "This meat is a thing of charity for Barira but it is a gift for us"),
+      difficulty: 2,
+      questions: [
+        { q: "Who first got the meat as charity?", a: "Barirah", wrong: ["Aishah", "Fatimah", "Umm Ayman"], why: "It had been given to Barira in charity." },
+        { q: "For the Prophet ﷺ the meat was...?", a: "A gift", wrong: ["Zakat", "Forbidden", "Spoiled"], why: "It is a gift for us." },
+        { q: "Charity changes into a gift once the poor person gives it on.", tf: true, why: "Sahih al-Bukhari 1495." }
+      ]
+    },
+    {
+      slug: "zakat-on-crops",
+      title: "A tenth or a twentieth",
+      line: "Rain-fed crops give a tenth; crops watered by work, a twentieth.",
+      facts: ["Less work, more zakat", "Told by Jabir"],
+      source: hadith("muslim", "981", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: a tenth is due on crops watered by rivers or rain, and a twentieth on crops watered by camels.", "a twentieth on what is watered by camels"),
+      difficulty: 3,
+      questions: [
+        { q: "Crops watered by rain give...?", a: "A tenth", wrong: ["A half", "Nothing", "A hundredth"], why: "A tenth is payable on what is watered by rivers, or rains." },
+        { q: "Crops watered with camel work give...?", a: "A twentieth", wrong: ["A tenth", "A third", "All of it"], why: "A twentieth on what is watered by camels." },
+        { q: "Hard work to water lowers the zakat share.", tf: true, why: "Sahih Muslim 981." }
+      ]
+    },
+    {
+      slug: "begging-for-more",
+      title: "Begging to get richer",
+      line: "Begging to grow rich is asking for hot coals.",
+      facts: ["Ask only in real need", "Told by Abu Hurairah"],
+      source: hadith("muslim", "1041", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: whoever begs from people to increase his wealth is only asking for live coals.", "is asking only for live coals"),
+      difficulty: 2,
+      questions: [
+        { q: "Begging to grow rich is like asking for...?", a: "Live coals", wrong: ["Gold", "Blessings", "Flowers"], why: "Is asking only for live coals." },
+        { q: "Who narrated this?", a: "Abu Hurairah", wrong: ["Muadh", "Anas", "Umar"], why: "Sahih Muslim 1041." },
+        { q: "Begging for more when you have enough is good.", tf: false, why: "It is asking for live coals. Sahih Muslim 1041." }
+      ]
+    },
+    {
+      slug: "hasan-and-the-date",
+      title: "Throw it out, Hasan",
+      line: "Al-Hasan took a charity date; he ﷺ told him to throw it out.",
+      facts: ["His ﷺ family take no sadaqah", "Told by Abu Hurairah"],
+      source: hadith("muslim", "1069a", "Abu Hurairah", "Sahih", "Al-Hasan put a date of the charity in his mouth. The Prophet ﷺ said: throw it out; do you not know that we do not eat charity?", "we do not eat the sadaqa"),
+      difficulty: 1,
+      questions: [
+        { q: "What did Al-Hasan put in his mouth?", a: "A charity date", wrong: ["A coin", "Bread", "A stone"], why: "He took one of the dates of the sadaqa." },
+        { q: "Why did he ﷺ stop him?", a: "His family eats no sadaqah", wrong: ["It was sour", "It was dirty", "It was a fast day"], why: "Don't you know that we do not eat the sadaqa?" },
+        { q: "The family of the Prophet ﷺ does not take sadaqah.", tf: true, why: "Sahih Muslim 1069a." }
+      ]
+    },
+    {
+      slug: "date-in-the-street",
+      title: "A date in the street",
+      line: "He ﷺ found a date and left it, in case it was charity.",
+      facts: ["Careful with what is doubtful", "Told by Anas"],
+      source: hadith("muslim", "1071a", "Anas ibn Malik", "Sahih", "The Prophet ﷺ found a date in the street and said: if it were not possibly charity, I would have eaten it.", "If it were not of sadaqa I would have eaten it"),
+      difficulty: 1,
+      questions: [
+        { q: "Where did he ﷺ find the date?", a: "In the street", wrong: ["In the masjid", "In a tree", "In his pocket"], why: "He found a date in the street." },
+        { q: "Why didn't he ﷺ eat it?", a: "It might be charity", wrong: ["He was full", "It was rotten", "He disliked dates"], why: "If it were not of sadaqa I would have eaten it." },
+        { q: "Being careful with doubtful things is from the Sunnah.", tf: true, why: "Sahih Muslim 1071a." }
+      ]
+    },
+    {
+      slug: "just-enough-provision",
+      title: "Just enough to live",
+      line: "He ﷺ prayed: Allah, give the family of Muhammad just enough.",
+      facts: ["Not riches, enough", "Told by Abu Hurairah"],
+      source: hadith("muslim", "1055", "Abu Hurairah", "Sahih", "The Prophet ﷺ prayed: O Allah, make the provision of the family of Muhammad just enough to live on.", "make the provision of Muhammad"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ ask for his family?", a: "Just enough to live", wrong: ["Great riches", "Palaces", "Nothing at all"], why: "Sufficient just to sustain life." },
+        { q: "Who narrated this?", a: "Abu Hurairah", wrong: ["Aishah", "Ali", "Anas"], why: "Sahih Muslim 1055." },
+        { q: "He ﷺ loved a simple life for his family.", tf: true, why: "Sahih Muslim 1055." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -2039,4 +2323,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER, FASTING, ZAKAT];
