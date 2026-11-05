@@ -1286,6 +1286,368 @@ const DRESS: DeepUnit = {
   ]
 };
 
+const TRADE: DeepUnit = {
+  key: "book-trade",
+  topicId: "sahihayn",
+  branchId: "hadith-book-buyu",
+  branch: { title: "The Book of Trade", description: "From the Books of Sales and Trade: earning, buying and selling the halal way." },
+  name: "the Book of Trade",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "halal-or-haram-money",
+      title: "Care where money comes from",
+      line: "A time will come when people won't care if money is halal.",
+      facts: ["A warning from the Prophet ﷺ", "Always check your earnings"],
+      source: hadith("bukhari", "2059", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: a time will come when people will not care whether they earn their money lawfully or unlawfully.", "one will not care how one gains one"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ warn people would stop caring about?", a: "Whether money is halal", wrong: ["How much they sleep", "What they wear", "Where they travel"], why: "One will not care how one gains money, legally or illegally." },
+        { q: "A Muslim checks that his money is halal.", tf: true, why: "Sahih al-Bukhari 2059 warns against not caring." },
+        { q: "How should a Muslim earn?", a: "Only in lawful ways", wrong: ["Any way at all", "By tricking people", "By luck only"], why: "Do not be like those who do not care." }
+      ]
+    },
+    {
+      slug: "the-iron-armour",
+      title: "Grain on credit",
+      line: "He ﷺ bought grain on credit and left his armour as pledge.",
+      facts: ["Bought from a Jewish man", "Trade with all people is allowed"],
+      source: hadith("bukhari", "2068", "Aishah", "Sahih", "Aishah said: the Prophet ﷺ bought food grain from a Jewish man on credit and gave him his iron armour as a pledge.", "purchased food grains from a Jew on credit and mortgaged his iron armor"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Prophet ﷺ buy on credit?", a: "Food grain", wrong: ["A horse", "A house", "Silk"], why: "He purchased food grains on credit." },
+        { q: "What did he leave as a pledge?", a: "His iron armour", wrong: ["His ring", "His sword", "His camel"], why: "He mortgaged his iron armor to him." },
+        { q: "Muslims may trade fairly with people of other faiths.", tf: true, why: "He bought from a Jewish man. Sahih al-Bukhari 2068." }
+      ]
+    },
+    {
+      slug: "working-hands",
+      title: "Working with their hands",
+      line: "The companions worked with their hands and were told to bathe.",
+      facts: ["Hard work is honourable", "Keep clean after work"],
+      source: hadith("bukhari", "2071", "Aishah", "Sahih", "Aishah said: the companions of the Prophet ﷺ did their own manual work, so they would sweat, and they were told to take a bath.", "used to practice manual labor"),
+      difficulty: 1,
+      questions: [
+        { q: "What kind of work did the companions do?", a: "Work with their hands", wrong: ["No work at all", "Only trading gold", "Only writing"], why: "They used to practice manual labor." },
+        { q: "What were they told to do after sweating?", a: "Take a bath", wrong: ["Sleep", "Buy perfume only", "Stay home"], why: "They were advised to take a bath." },
+        { q: "Working hard with your hands is a shameful thing.", tf: false, why: "The companions did it. Sahih al-Bukhari 2071." }
+      ]
+    },
+    {
+      slug: "carry-the-wood",
+      title: "Better than asking",
+      line: "Carrying firewood to sell is better than begging from people.",
+      facts: ["Earn with your own effort", "Keep your honour"],
+      source: hadith("bukhari", "2074", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: it is better for one of you to cut a bundle of wood and carry it on his back than to ask someone who may or may not give him.", "cut a bundle of wood and carry it over his back"),
+      difficulty: 1,
+      questions: [
+        { q: "What is better than asking people for money?", a: "Carrying wood to earn", wrong: ["Sleeping all day", "Taking secretly", "Doing nothing"], why: "Cut a bundle of wood and carry it over his back." },
+        { q: "Why is asking people risky?", a: "They may or may not give", wrong: ["They are always rich", "It is too easy", "It is fun"], why: "Rather than to ask someone who may or may not give him." },
+        { q: "Islam praises earning your own living.", tf: true, why: "Sahih al-Bukhari 2074." }
+      ]
+    },
+    {
+      slug: "easygoing-trader",
+      title: "An easygoing trader",
+      line: "Allah's mercy is on one who is easy when buying and selling.",
+      facts: ["Easy when buying", "Easy when asking for a debt"],
+      source: hadith("bukhari", "2076", "Jabir ibn Abdullah", "Sahih", "The Prophet ﷺ said: may Allah have mercy on a man who is easygoing when he buys, when he sells and when he asks for his money back.", "lenient in his buying, selling, and in demanding back his money"),
+      difficulty: 1,
+      questions: [
+        { q: "Who gets Allah's mercy in this hadith?", a: "One who is easy in trade", wrong: ["One who shouts", "One who cheats", "One who never sells"], why: "Lenient in his buying and selling." },
+        { q: "When else should we be easy?", a: "When asking for a debt back", wrong: ["When lying", "When angry", "When sleeping"], why: "And in demanding back his money." },
+        { q: "Bargaining harshly and rudely is the Sunnah.", tf: false, why: "The Prophet ﷺ prayed for the easygoing trader." }
+      ]
+    },
+    {
+      slug: "forgive-the-debtor",
+      title: "The forgiving lender",
+      line: "A lender let poor debtors off, so Allah forgave him.",
+      facts: ["He told his workers to forgive", "Allah forgave him"],
+      source: hadith("bukhari", "2078", "Abu Hurairah", "Sahih", "The Prophet ﷺ told of a merchant who lent to people; when a debtor was in hardship he told his workers: let him off, so that Allah may let us off. So Allah forgave him.", "Forgive him so that Allah may forgive us"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the lender do for poor debtors?", a: "Let them off", wrong: ["Took their house", "Shouted at them", "Added more"], why: "Forgive him so that Allah may forgive us." },
+        { q: "What did Allah do for him?", a: "Forgave him", wrong: ["Made him poor", "Ignored him", "Took his shop"], why: "So, Allah forgave him." },
+        { q: "Being gentle with people in debt is loved by Allah.", tf: true, why: "Sahih al-Bukhari 2078." }
+      ]
+    },
+    {
+      slug: "swearing-to-sell",
+      title: "Oaths that kill blessing",
+      line: "Swearing may sell the goods but removes Allah's blessing.",
+      facts: ["Oaths to push a sale", "Blessing is lost"],
+      source: hadith("bukhari", "2087", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: swearing may help sell the goods, but it wipes out the blessing.", "that will be deprived of Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "What does swearing a lot help a seller do?", a: "Sell the goods", wrong: ["Pray more", "Sleep well", "Get healthy"], why: "Swearing may persuade the buyer." },
+        { q: "What does it take away?", a: "Allah's blessing", wrong: ["The price tag", "The shop sign", "The weather"], why: "That will be deprived of Allah's blessing." },
+        { q: "Honest selling without oaths brings more barakah.", tf: true, why: "Sahih al-Bukhari 2087." }
+      ]
+    },
+    {
+      slug: "until-they-part",
+      title: "Until they part",
+      line: "Buyer and seller may cancel until they part ways.",
+      facts: ["A fair right for both", "Told by Hakim ibn Hizam"],
+      source: hadith("bukhari", "2108", "Hakim ibn Hizam", "Sahih", "The Prophet ﷺ said: the buyer and the seller may cancel or keep the deal as long as they have not parted.", "have the option of canceling or confirming the deal unless they separate"),
+      difficulty: 2,
+      questions: [
+        { q: "Until when can a deal be cancelled?", a: "Until they part", wrong: ["Never", "After a year", "Only on Fridays"], why: "Unless they separate." },
+        { q: "Who has this choice?", a: "Both buyer and seller", wrong: ["Only the buyer", "Only the seller", "Only the judge"], why: "The buyer and the seller have the option." },
+        { q: "Who narrated this hadith?", a: "Hakim ibn Hizam", wrong: ["Abu Bakr", "Bilal", "Salman"], why: "Sahih al-Bukhari 2108." }
+      ]
+    },
+    {
+      slug: "no-cheating",
+      title: "Say: no cheating",
+      line: "A man often tricked in trade was told to say: no cheating.",
+      facts: ["Say it when you buy", "Protects the weak buyer"],
+      source: hadith("bukhari", "2117", "Abdullah ibn Umar", "Sahih", "A man told the Prophet ﷺ that he was often cheated when buying. He told him to say when buying: no cheating.", "told him to say at the time of buying"),
+      difficulty: 1,
+      questions: [
+        { q: "What problem did the man have?", a: "He was often cheated", wrong: ["He was too rich", "He had no shop", "He could not walk"], why: "He was always betrayed in purchasing." },
+        { q: "What was he told to say when buying?", a: "No cheating", wrong: ["Give it free", "Hurry up", "Maybe later"], why: "Say at the time of buying: No cheating." },
+        { q: "Islam protects people from being tricked in trade.", tf: true, why: "Sahih al-Bukhari 2117." }
+      ]
+    },
+    {
+      slug: "measure-your-food",
+      title: "Measure and be blessed",
+      line: "Measure your food and you will be blessed.",
+      facts: ["Know what you have", "Plan and avoid waste"],
+      source: hadith("bukhari", "2128", "Al-Miqdam ibn Ma'dikarib", "Sahih", "The Prophet ﷺ said: measure your food and you will be blessed in it.", "Measure your foodstuff and you will be blessed"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ tell us to measure?", a: "Our food", wrong: ["Our steps", "Our hair", "The sky"], why: "Measure your foodstuff." },
+        { q: "What comes from measuring it?", a: "Blessing", wrong: ["Sadness", "Hunger", "Noise"], why: "And you will be blessed." },
+        { q: "Planning and measuring well is part of the Sunnah.", tf: true, why: "Sahih al-Bukhari 2128." }
+      ]
+    },
+    {
+      slug: "ripe-fruit-only",
+      title: "Sell fruit when ready",
+      line: "Don't sell fruit on the tree before it is clearly ripening.",
+      facts: ["Forbidden for seller and buyer", "Protects both from loss"],
+      source: hadith("bukhari", "2194", "Abdullah ibn Umar", "Sahih", "The Prophet ﷺ forbade selling fruit until it is clearly good, and forbade this to both seller and buyer.", "forbade the sale of fruits till their benefit is evident"),
+      difficulty: 2,
+      questions: [
+        { q: "When may fruit on trees be sold?", a: "When clearly good", wrong: ["Before flowers", "Any time", "Before planting"], why: "Till their benefit is evident." },
+        { q: "Who was forbidden this early sale?", a: "Both seller and buyer", wrong: ["Only the seller", "Only the buyer", "No one"], why: "He forbade both the seller and the buyer." },
+        { q: "This rule protects people from unfair losses.", tf: true, why: "Fruit may be ruined before it ripens. Sahih al-Bukhari 2194." }
+      ]
+    },
+    {
+      slug: "gold-for-gold",
+      title: "Gold for gold, equal weight",
+      line: "Gold for gold or silver for silver only in equal weight.",
+      facts: ["A rule against riba", "Gold for silver as you like"],
+      source: hadith("bukhari", "2175", "Abu Bakrah", "Sahih", "The Prophet ﷺ said: do not sell gold for gold except equal in weight, nor silver for silver except equal in weight; but sell gold for silver or silver for gold as you like.", "sell gold for silver or silver for gold as you like"),
+      difficulty: 3,
+      questions: [
+        { q: "How must gold be swapped for gold?", a: "Equal in weight", wrong: ["Double the weight", "Any amount", "Never at all"], why: "Don't sell gold for gold unless equal in weight." },
+        { q: "Gold for silver may be traded...?", a: "As you like", wrong: ["Never", "Only equal weight", "Only at night"], why: "Sell gold for silver or silver for gold as you like." },
+        { q: "These rules guard against riba, unfair interest.", tf: true, why: "Sahih al-Bukhari 2175." }
+      ]
+    },
+    {
+      slug: "pay-the-worker",
+      title: "Pay the worker",
+      line: "He ﷺ paid the cupper and asked his masters to ease his tax.",
+      facts: ["Paid a sa of dates", "Kind to a hard worker"],
+      source: hadith("bukhari", "2102", "Anas ibn Malik", "Sahih", "Abu Taybah did cupping for the Prophet ﷺ, so he ordered that he be paid a sa of dates and asked his masters to lower the tax he owed them.", "ordered that he be paid one Sa of dates"),
+      difficulty: 2,
+      questions: [
+        { q: "How was Abu Taybah paid?", a: "With a sa of dates", wrong: ["With nothing", "With a horse", "With a book"], why: "He ordered that he be paid one Sa of dates." },
+        { q: "What else did he ﷺ do for him?", a: "Asked to ease his tax", wrong: ["Sent him away", "Took his tools", "Raised his tax"], why: "He ordered his masters to reduce his tax." },
+        { q: "Workers should be paid for their work.", tf: true, why: "Sahih al-Bukhari 2102." }
+      ]
+    }
+  ]
+};
+
+const MEDICINE: DeepUnit = {
+  key: "book-medicine",
+  topicId: "sahihayn",
+  branchId: "hadith-book-tibb",
+  branch: { title: "The Book of Medicine", description: "From the Books of Medicine: cures, duas for the sick, and trusting Allah." },
+  name: "the Book of Medicine",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "a-cure-for-every-disease",
+      title: "A cure for every disease",
+      line: "Allah sent no disease without also sending its cure.",
+      facts: ["Seek treatment", "Healing is from Allah"],
+      source: hadith("bukhari", "5678", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: there is no disease that Allah has created except that He has also created its cure.", "There is no disease that Allah has created, except that He also has created its treatment"),
+      difficulty: 1,
+      questions: [
+        { q: "What did Allah create along with every disease?", a: "Its cure", wrong: ["A worse disease", "Nothing", "A new name"], why: "He also has created its treatment." },
+        { q: "Seeing a doctor goes against trusting Allah.", tf: false, why: "Allah made cures, so we seek them and trust Him." },
+        { q: "Who narrated this hadith?", a: "Abu Hurairah", wrong: ["Umar", "Ali", "Bilal"], why: "Sahih al-Bukhari 5678." }
+      ]
+    },
+    {
+      slug: "honey-and-cupping",
+      title: "Honey and cupping",
+      line: "Healing in honey and cupping; he ﷺ disliked branding with fire.",
+      facts: ["A gulp of honey", "He forbade cauterising"],
+      source: hadith("bukhari", "5680", "Abdullah ibn Abbas", "Sahih", "The Prophet ﷺ said: healing is in three: a drink of honey, cupping, and branding with fire, but I forbid my ummah from branding.", "Healing is in three things: A gulp of honey, cupping"),
+      difficulty: 2,
+      questions: [
+        { q: "Which drink did he ﷺ name for healing?", a: "Honey", wrong: ["Coffee", "Juice", "Cold water only"], why: "A gulp of honey." },
+        { q: "Which treatment did he ﷺ forbid his ummah?", a: "Branding with fire", wrong: ["Honey", "Cupping", "Resting"], why: "I forbid my followers to use branding with fire." },
+        { q: "How many healing things are named?", a: "Three", wrong: ["One", "Seven", "Ten"], why: "Healing is in three things." }
+      ]
+    },
+    {
+      slug: "black-seed",
+      title: "The black seed",
+      line: "Black seed has healing for every disease except death.",
+      facts: ["Called habbat as-sawda", "Death has no cure"],
+      source: hadith("bukhari", "5688", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: there is healing in the black seed for every disease except death.", "There is healing in black cumin for all diseases except death"),
+      difficulty: 1,
+      questions: [
+        { q: "What seed did he ﷺ praise for healing?", a: "The black seed", wrong: ["The apple seed", "The sunflower seed", "The rice seed"], why: "There is healing in black cumin." },
+        { q: "What can the black seed not cure?", a: "Death", wrong: ["A cold", "A cough", "A headache"], why: "For all diseases except death." },
+        { q: "The black seed is mentioned in Sahih al-Bukhari.", tf: true, why: "Sahih al-Bukhari 5688." }
+      ]
+    },
+    {
+      slug: "talbina",
+      title: "Talbina for the sick",
+      line: "Aishah advised talbina for the sick: not tasty, but good.",
+      facts: ["A soft barley food", "Good even if disliked"],
+      source: hadith("bukhari", "5690", "Aishah", "Sahih", "Aishah used to recommend talbina and said: the sick person dislikes it, yet it is good for him.", "It is disliked (by the patient) although it is beneficial"),
+      difficulty: 2,
+      questions: [
+        { q: "What food did Aishah recommend for the sick?", a: "Talbina", wrong: ["Sweets", "Fried meat", "Ice cream"], why: "Aishah used to recommend at-Talbina." },
+        { q: "What did she say about its taste?", a: "Disliked, but beneficial", wrong: ["Very tasty", "Harmful", "Too sweet"], why: "It is disliked although it is beneficial." },
+        { q: "Some good medicine does not taste nice.", tf: true, why: "Sahih al-Bukhari 5690." }
+      ]
+    },
+    {
+      slug: "truffles",
+      title: "Truffles like manna",
+      line: "Truffles are like manna, and their water heals the eyes.",
+      facts: ["They grow without planting", "Good for the eyes"],
+      source: hadith("bukhari", "5708", "Sa'id ibn Zayd", "Sahih", "The Prophet ﷺ said: truffles are like manna, and their water is healing for the eyes.", "Truffles are like Manna"),
+      difficulty: 2,
+      questions: [
+        { q: "Truffles are like...?", a: "Manna", wrong: ["Gold", "Stones", "Leaves"], why: "Truffles are like Manna." },
+        { q: "What is their water good for?", a: "The eyes", wrong: ["The teeth", "The feet", "The hair"], why: "Their water heals eye diseases." },
+        { q: "Why are they like manna?", a: "They grow without planting", wrong: ["They are sweet", "They fly", "They are gold"], why: "They grow naturally without man's care." }
+      ]
+    },
+    {
+      slug: "cool-the-fever",
+      title: "Cool a fever with water",
+      line: "Cool a fever down with water.",
+      facts: ["Told by Aishah", "Water helps the body"],
+      source: hadith("bukhari", "5725", "Aishah", "Sahih", "The Prophet ﷺ said: fever is from the heat of Jahannam, so cool it down with water.", "so abate fever with water"),
+      difficulty: 1,
+      questions: [
+        { q: "What should we cool a fever with?", a: "Water", wrong: ["Fire", "Sand", "Oil"], why: "Abate fever with water." },
+        { q: "Who narrated this hadith?", a: "Aishah", wrong: ["Abu Bakr", "Anas", "Umar"], why: "Sahih al-Bukhari 5725." },
+        { q: "Using water to cool a fever follows his advice ﷺ.", tf: true, why: "So abate fever with water." }
+      ]
+    },
+    {
+      slug: "ruqyah-for-the-eye",
+      title: "Ruqyah for the evil eye",
+      line: "A girl had the evil eye; he ﷺ said: treat her with ruqyah.",
+      facts: ["In Umm Salamah's house", "Ruqyah is reciting for healing"],
+      source: hadith("bukhari", "5739", "Umm Salamah", "Sahih", "The Prophet ﷺ saw a girl in Umm Salamah's house with a dark mark on her face. He said: she is affected by the evil eye, so treat her with ruqyah.", "so treat her with a Ruqya"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ say had affected the girl?", a: "The evil eye", wrong: ["Hunger", "The sun", "A fall"], why: "She is under the effect of an evil eye." },
+        { q: "What treatment did he ﷺ order?", a: "Ruqyah", wrong: ["Ignoring it", "Cutting her hair", "Moving house"], why: "So treat her with a Ruqya." },
+        { q: "Whose house was this in?", a: "Umm Salamah's", wrong: ["Abu Jahl's", "Bilal's", "A stranger's"], why: "Sahih al-Bukhari 5739." }
+      ]
+    },
+    {
+      slug: "good-word-omen",
+      title: "No bad omens",
+      line: "No bad omens in Islam; he ﷺ liked hearing a good word.",
+      facts: ["No tiyarah", "Fal: a hopeful good word"],
+      source: hadith("bukhari", "5754", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: there is no bad omen, and the best is fal. They asked what fal is. He said: a good word that one of you hears.", "A good word that one of you hears"),
+      difficulty: 2,
+      questions: [
+        { q: "A black cat crosses your path. What fits Islam?", a: "Trust Allah, no bad omen", wrong: ["Go back home", "Cancel your plans", "Be afraid all day"], why: "There is no Tiyara." },
+        { q: "What is fal?", a: "A good word you hear", wrong: ["A lucky charm", "A magic spell", "A star sign"], why: "A good word that one of you hears." },
+        { q: "Hoping for good is better than fearing bad omens.", tf: true, why: "Sahih al-Bukhari 5754." }
+      ]
+    },
+    {
+      slug: "ajwa-dates",
+      title: "Ajwa dates in the morning",
+      line: "Ajwa dates each morning protect from poison and magic that day.",
+      facts: ["Told by Sa'd", "Seven dates in another report"],
+      source: hadith("bukhari", "5768", "Sa'd ibn Abi Waqqas", "Sahih", "The Prophet ﷺ said: whoever eats some Ajwa dates every morning will not be harmed by poison or magic that day until night.", "he will not be affected by poison or magic on that day till night"),
+      difficulty: 2,
+      questions: [
+        { q: "Which dates are named?", a: "Ajwa dates", wrong: ["Any sweets", "Figs", "Grapes"], why: "If somebody takes some Ajwa dates every morning." },
+        { q: "When should they be eaten?", a: "In the morning", wrong: ["At midnight", "Only in Ramadan", "Once a year"], why: "Every morning." },
+        { q: "What do they protect from that day?", a: "Poison and magic", wrong: ["Rain", "Tiredness", "Cold"], why: "He will not be affected by poison or magic." }
+      ]
+    },
+    {
+      slug: "keep-sick-apart",
+      title: "Keep the sick apart",
+      line: "Don't mix sick animals with healthy ones: take care.",
+      facts: ["A step to stop spreading", "Care plus trust in Allah"],
+      source: hadith("bukhari", "5771", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: sick animals should not be brought among healthy ones.", "should not be mixed up with healthy cattle"),
+      difficulty: 2,
+      questions: [
+        { q: "What should not be mixed with healthy animals?", a: "Sick animals", wrong: ["Young animals", "Fat animals", "Clean animals"], why: "Should not be mixed up with healthy cattle." },
+        { q: "Taking care to stop sickness spreading is good.", tf: true, why: "As a precaution. Sahih al-Bukhari 5771." },
+        { q: "Your class has a stomach bug going round. What fits?", a: "Wash hands and take care", wrong: ["Share every cup", "Ignore it", "Hug the sick"], why: "Take precautions and trust Allah." }
+      ]
+    },
+    {
+      slug: "hand-on-the-pain",
+      title: "Hand on the pain",
+      line: "Hand on the pain: Bismillah thrice, then refuge seven times.",
+      facts: ["Bismillah three times", "A'udhu billahi wa qudratihi"],
+      source: hadith("muslim", "2202", "Uthman ibn Abi al-As", "Sahih", "Uthman complained of pain, and the Prophet ﷺ said: put your hand where it hurts, say Bismillah three times, and seven times: I seek refuge in Allah and His power from the evil of what I feel and fear.", "Place your hand at the place where you feel pain"),
+      difficulty: 2,
+      questions: [
+        { q: "Where do you put your hand?", a: "Where it hurts", wrong: ["On your head always", "In your pocket", "On the floor"], why: "Place your hand at the place where you feel pain." },
+        { q: "How many times do you say Bismillah?", a: "Three", wrong: ["One", "Ten", "Seven"], why: "Say Bismillah three times." },
+        { q: "How many times is the refuge said?", a: "Seven", wrong: ["Two", "Three", "Forty"], why: "And seven times A'udhu billahi wa qudratihi." }
+      ]
+    },
+    {
+      slug: "jibrils-ruqyah",
+      title: "Jibril's ruqyah",
+      line: "When he ﷺ was ill, Jibril recited ruqyah over him.",
+      facts: ["In the name of Allah", "From every harm and envious eye"],
+      source: hadith("muslim", "2186", "Abu Sa'id al-Khudri", "Sahih", "Jibril came to the Prophet ﷺ when he was ill and said: in the name of Allah I recite over you, from everything that harms you and the eye of the envious; may Allah heal you.", "safeguard you from every evil that may harm you"),
+      difficulty: 2,
+      questions: [
+        { q: "Who recited ruqyah over him ﷺ?", a: "Jibril", wrong: ["Abu Bakr", "Umar", "A doctor"], why: "Gabriel came to Allah's Messenger ﷺ." },
+        { q: "With whose name did the ruqyah begin?", a: "Allah's", wrong: ["Jibril's", "A king's", "No name"], why: "In the name of Allah." },
+        { q: "The ruqyah asked Allah to heal him.", tf: true, why: "Allah would cure you. Sahih Muslim 2186." }
+      ]
+    },
+    {
+      slug: "ruqyah-without-shirk",
+      title: "Ruqyah without shirk",
+      line: "Ruqyah is fine as long as it has no shirk.",
+      facts: ["Show it to someone who knows", "Only call on Allah"],
+      source: hadith("muslim", "2200", "Awf ibn Malik", "Sahih", "Companions asked about the ruqyahs they used before Islam. He ﷺ said: show me your ruqyahs; there is no harm in ruqyah that has no shirk.", "There is no harm in the incantation which does not smack of polytheism"),
+      difficulty: 2,
+      questions: [
+        { q: "Which ruqyah is allowed?", a: "One with no shirk", wrong: ["Any words at all", "Words to idols", "Secret spells"], why: "No harm in the incantation which does not smack of polytheism." },
+        { q: "What did he ﷺ ask them to do first?", a: "Show him their ruqyah", wrong: ["Burn it", "Hide it", "Sell it"], why: "Let me know your incantation." },
+        { q: "Ruqyah may call on others besides Allah.", tf: false, why: "Shirk makes it forbidden. Sahih Muslim 2200." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -1301,4 +1663,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE];
