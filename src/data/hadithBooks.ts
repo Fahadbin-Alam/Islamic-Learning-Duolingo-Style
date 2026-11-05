@@ -1648,6 +1648,382 @@ const MEDICINE: DeepUnit = {
   ]
 };
 
+const COMPANIONS: DeepUnit = {
+  key: "book-companions",
+  topicId: "sahihayn",
+  branchId: "hadith-book-sahabah",
+  branch: { title: "The Book of the Companions", description: "From the Books of the Virtues of the Companions: the people the Prophet ﷺ loved." },
+  name: "the Book of the Companions",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "abu-bakr-umar-uthman",
+      title: "Abu Bakr, then Umar, then Uthman",
+      line: "The companions counted Abu Bakr best, then Umar, then Uthman.",
+      facts: ["Said in his ﷺ lifetime", "Told by Ibn Umar"],
+      source: hadith("bukhari", "3655", "Abdullah ibn Umar", "Sahih", "Ibn Umar said: in the lifetime of the Prophet ﷺ we used to rank Abu Bakr as the best, then Umar, then Uthman.", "We used to regard Abu Bakr as the best"),
+      difficulty: 1,
+      questions: [
+        { q: "Whom did the companions count as the best?", a: "Abu Bakr", wrong: ["Khalid", "Bilal", "Salman"], why: "We used to regard Abu Bakr as the best." },
+        { q: "Who came after Umar?", a: "Uthman", wrong: ["Mu'awiyah", "Zayd", "Hamzah"], why: "Then Umar, and then Uthman." },
+        { q: "Who narrated this?", a: "Ibn Umar", wrong: ["Abu Hurairah", "Anas", "Aishah"], why: "Sahih al-Bukhari 3655." }
+      ]
+    },
+    {
+      slug: "fatimah-part-of-me",
+      title: "Fatimah is part of me",
+      line: "Fatimah is part of me; whoever angers her angers me.",
+      facts: ["His ﷺ beloved daughter", "Told by Al-Miswar"],
+      source: hadith("bukhari", "3714", "Al-Miswar ibn Makhramah", "Sahih", "The Prophet ﷺ said: Fatimah is a part of me, so whoever angers her angers me.", "Fatima is a part of me"),
+      difficulty: 1,
+      questions: [
+        { q: "Whom did he ﷺ call a part of himself?", a: "Fatimah", wrong: ["Aishah", "Khadijah", "Zaynab"], why: "Fatima is a part of me." },
+        { q: "Angering Fatimah meant...?", a: "Angering him ﷺ", wrong: ["Nothing", "Pleasing him", "A small joke"], why: "He who makes her angry, makes me angry." },
+        { q: "Fatimah was the daughter of the Prophet ﷺ.", tf: true, why: "Sahih al-Bukhari 3714." }
+      ]
+    },
+    {
+      slug: "usamah-and-hasan",
+      title: "O Allah, love them",
+      line: "He ﷺ held Usamah and Al-Hasan and prayed: Allah, love them.",
+      facts: ["Both in his lap", "As I love them"],
+      source: hadith("bukhari", "3735", "Usamah ibn Zayd", "Sahih", "The Prophet ﷺ would take Usamah and Al-Hasan on his lap and say: O Allah, love them, for I love them.", "O Allah! Love them, as I love them"),
+      difficulty: 1,
+      questions: [
+        { q: "Which two children did he ﷺ hold?", a: "Usamah and Al-Hasan", wrong: ["Umar and Ali", "Bilal and Anas", "Zayd and Hamzah"], why: "He used to take Usama and Al-Hasan in his lap." },
+        { q: "What did he ﷺ ask Allah for them?", a: "To love them", wrong: ["To make them rich", "To make them kings", "Nothing"], why: "O Allah! Love them, as I love them." },
+        { q: "The Prophet ﷺ showed his love to children openly.", tf: true, why: "Sahih al-Bukhari 3735." }
+      ]
+    },
+    {
+      slug: "abu-bakr-carries-hasan",
+      title: "Abu Bakr carries Al-Hasan",
+      line: "Abu Bakr carried Al-Hasan and said he looked like the Prophet ﷺ.",
+      facts: ["Ali laughed", "Love for his ﷺ family"],
+      source: hadith("bukhari", "3750", "Uqbah ibn al-Harith", "Sahih", "I saw Abu Bakr carrying Al-Hasan and saying: you look like the Prophet ﷺ, not like Ali, while Ali laughed.", "was laughing at this"),
+      difficulty: 1,
+      questions: [
+        { q: "Whom did Abu Bakr carry?", a: "Al-Hasan", wrong: ["Usamah", "Anas", "Bilal"], why: "I saw Abu Bakr carrying Al-Hasan." },
+        { q: "Whom did he say Al-Hasan looked like?", a: "The Prophet ﷺ", wrong: ["Umar", "Abu Talib", "Hamzah"], why: "You resemble the Prophet ﷺ and not Ali." },
+        { q: "How did Ali react?", a: "He laughed", wrong: ["He was upset", "He left", "He cried"], why: "While Ali was laughing at this." }
+      ]
+    },
+    {
+      slug: "bilal-freed-for-allah",
+      title: "Freed for Allah",
+      line: "Bilal asked Abu Bakr to free him for the work of Allah.",
+      facts: ["Abu Bakr bought and freed him", "Bilal's heart was for Allah"],
+      source: hadith("bukhari", "3755", "Qays ibn Abi Hazim", "Sahih", "Bilal said to Abu Bakr: if you bought me for yourself, keep me; but if you bought me for Allah, then leave me to work for Allah.", "if you have bought me for Allah"),
+      difficulty: 2,
+      questions: [
+        { q: "Who had bought Bilal's freedom?", a: "Abu Bakr", wrong: ["Umar", "Abu Jahl", "Uthman"], why: "Bilal said to Abu Bakr: if you have bought me." },
+        { q: "What did Bilal want if freed for Allah?", a: "To work for Allah", wrong: ["To get rich", "To travel alone", "To rest forever"], why: "Leave me for Allah's work." },
+        { q: "Abu Bakr spent his wealth to free believers.", tf: true, why: "Sahih al-Bukhari 3755." }
+      ]
+    },
+    {
+      slug: "abdullah-is-pious",
+      title: "Abdullah is a righteous man",
+      line: "He ﷺ told Hafsah: your brother Abdullah is a righteous man.",
+      facts: ["Abdullah ibn Umar", "Told to his sister Hafsah"],
+      source: hadith("bukhari", "3740", "Hafsah", "Sahih", "The Prophet ﷺ said to Hafsah: Abdullah is a righteous man.", "is a pious man"),
+      difficulty: 1,
+      questions: [
+        { q: "Whom did he ﷺ call a righteous man?", a: "Abdullah ibn Umar", wrong: ["Abu Lahab", "Abu Sufyan", "Ka'b"], why: "Abdullah is a pious man." },
+        { q: "To whom did he ﷺ say it?", a: "His sister Hafsah", wrong: ["Aishah", "Fatimah", "Umm Sulaym"], why: "He had said to her, Hafsa." },
+        { q: "Abdullah ibn Umar was the son of Umar ibn al-Khattab.", tf: true, why: "Ibn Umar narrated it from his sister Hafsa." }
+      ]
+    },
+    {
+      slug: "umm-sulaym",
+      title: "Visiting Umm Sulaym",
+      line: "He ﷺ visited Umm Sulaym out of care: her brother died with him.",
+      facts: ["Anas's mother", "Her brother was a martyr"],
+      source: hadith("muslim", "2455", "Anas ibn Malik", "Sahih", "The Prophet ﷺ visited Umm Sulaym, and when asked why he said: I feel great care for her; her brother died as a martyr with me.", "I feel great compassion for her"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did he ﷺ visit Umm Sulaym?", a: "He felt compassion for her", wrong: ["To buy dates", "To ask for help", "By accident"], why: "I feel great compassion for her." },
+        { q: "Umm Sulaym was the mother of...?", a: "Anas ibn Malik", wrong: ["Umar", "Bilal", "Usamah"], why: "Anas reported it about his mother." },
+        { q: "Caring for the families of martyrs is a Sunnah.", tf: true, why: "Sahih Muslim 2455." }
+      ]
+    },
+    {
+      slug: "steps-in-jannah",
+      title: "Footsteps in Jannah",
+      line: "In Jannah he ﷺ heard footsteps: Ghumaysa, Anas's mother.",
+      facts: ["Also called Umm Sulaym", "Daughter of Milhan"],
+      source: hadith("muslim", "2456", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: I entered Paradise and heard footsteps. I asked who it was; they said: Ghumaysa bint Milhan, the mother of Anas.", "She is Ghumaisa, daughter of Milhan"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ hear in Jannah?", a: "Footsteps", wrong: ["Thunder", "A bell", "Singing birds"], why: "I heard the noise of steps." },
+        { q: "Whose footsteps were they?", a: "Ghumaysa, Anas's mother", wrong: ["Khadijah", "Bilal's", "Hafsah"], why: "She is Ghumaisa, daughter of Milhan." },
+        { q: "Ghumaysa and Umm Sulaym are the same woman.", tf: true, why: "Both names are for the mother of Anas." }
+      ]
+    },
+    {
+      slug: "throne-shook-for-sad",
+      title: "The Throne shook for Sa'd",
+      line: "The Throne of the Most Merciful shook when Sa'd ibn Mu'adh died.",
+      facts: ["Chief of the Aws", "Said beside his bier"],
+      source: hadith("muslim", "2466a", "Jabir ibn Abdullah", "Sahih", "With the bier of Sa'd ibn Mu'adh before them, the Prophet ﷺ said: the Throne of the Most Merciful shook at the death of Sa'd ibn Mu'adh.", "The Throne of the most Gracious shook at the death of Sa"),
+      difficulty: 2,
+      questions: [
+        { q: "What shook at Sa'd's death?", a: "The Throne of Allah", wrong: ["A mountain", "The sea", "A palm tree"], why: "The Throne of the most Gracious shook." },
+        { q: "Which companion was this?", a: "Sa'd ibn Mu'adh", wrong: ["Sa'd ibn Abi Waqqas", "Sa'id ibn Zayd", "Salman"], why: "At the death of Sa'd bin Mu'adh." },
+        { q: "Sa'd ibn Mu'adh was greatly honoured by Allah.", tf: true, why: "Sahih Muslim 2466." }
+      ]
+    },
+    {
+      slug: "always-a-smile",
+      title: "Always a smile",
+      line: "Jarir said: he ﷺ never looked at me except with a smile.",
+      facts: ["Never turned him away", "Since Jarir became Muslim"],
+      source: hadith("muslim", "2475a", "Jarir ibn Abdullah", "Sahih", "Jarir said: since I became Muslim, the Prophet ﷺ never refused to see me and never looked at me except with a smile.", "never looked at me but with a smile"),
+      difficulty: 1,
+      questions: [
+        { q: "How did he ﷺ always look at Jarir?", a: "With a smile", wrong: ["With a frown", "Without looking", "Angrily"], why: "Never looked at me but with a smile." },
+        { q: "Did he ﷺ ever refuse to see Jarir?", a: "Never", wrong: ["Often", "Every Friday", "Only in Ramadan"], why: "Never refused me permission to see him." },
+        { q: "Smiling at your brother is part of the Sunnah.", tf: true, why: "Sahih Muslim 2475." }
+      ]
+    },
+    {
+      slug: "the-sharing-ashariyyun",
+      title: "The sharing tribe",
+      line: "Short of food, the Ash'aris pooled it and shared it equally.",
+      facts: ["They are from me", "And I am from them"],
+      source: hadith("muslim", "2500", "Abu Musa al-Ash'ari", "Sahih", "The Prophet ﷺ said: when the Ash'aris run short of food, they gather all they have in one cloth and share it equally. They are from me and I am from them.", "They are from me and I am from them"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the Ash'aris do when food ran low?", a: "Pooled and shared equally", wrong: ["Kept it secret", "Sold it", "Ate alone"], why: "They collect whatever is with them and partake equally." },
+        { q: "What did he ﷺ say about them?", a: "They are from me", wrong: ["They are strangers", "They are greedy", "Nothing"], why: "They are from me and I am from them." },
+        { q: "Sharing food fairly in hard times is loved by the Prophet ﷺ.", tf: true, why: "Sahih Muslim 2500." }
+      ]
+    },
+    {
+      slug: "the-ansar",
+      title: "My family, the Ansar",
+      line: "Accept the good of the Ansar and forgive their slips.",
+      facts: ["They will become fewer", "Be kind to them"],
+      source: hadith("muslim", "2510", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: the Ansar are my family and trusted friends. People will grow in number but they will become fewer, so accept the good from them and overlook their mistakes.", "The Ansar are my family and my trusted friends"),
+      difficulty: 2,
+      questions: [
+        { q: "What did he ﷺ call the Ansar?", a: "My family and trusted friends", wrong: ["Strangers", "Traders", "Guests"], why: "The Ansar are my family and my trusted friends." },
+        { q: "What should we do with their mistakes?", a: "Overlook them", wrong: ["Spread them", "Punish them", "Laugh at them"], why: "Overlook their failings." },
+        { q: "The Ansar welcomed the Prophet ﷺ in Madinah.", tf: true, why: "They are his helpers. Sahih Muslim 2510." }
+      ]
+    },
+    {
+      slug: "ghifar-and-aslam",
+      title: "Ghifar and Aslam",
+      line: "Allah forgave Ghifar and gave Aslam safety.",
+      facts: ["Told to Abu Dharr", "Abu Dharr was from Ghifar"],
+      source: hadith("muslim", "2514a", "Abu Dharr", "Sahih", "The Prophet ﷺ told Abu Dharr: go to your people and say: Allah has forgiven Ghifar and given safety to Aslam.", "Ghifar (is a tribe) to whom Allah granted pardon"),
+      difficulty: 2,
+      questions: [
+        { q: "Which tribe did Allah forgive?", a: "Ghifar", wrong: ["Quraysh", "Thaqif", "Hawazin"], why: "Ghifar is a tribe to whom Allah granted pardon." },
+        { q: "Which tribe was given safety?", a: "Aslam", wrong: ["Tamim", "Ghatafan", "Asad"], why: "Aslam is the tribe to whom Allah granted safety." },
+        { q: "Who carried this good news to his people?", a: "Abu Dharr", wrong: ["Bilal", "Khalid", "Salman"], why: "Go to your people and say. Sahih Muslim 2514." }
+      ]
+    },
+    {
+      slug: "guide-the-daws",
+      title: "O Allah, guide Daws",
+      line: "Asked to curse Daws, he ﷺ prayed: O Allah, guide Daws.",
+      facts: ["At-Tufayl's tribe", "Mercy, not curses"],
+      source: hadith("muslim", "2524", "Abu Hurairah", "Sahih", "At-Tufayl said the tribe of Daws had refused and asked him to curse them. The Prophet ﷺ said: O Allah, guide Daws and bring them to me.", "Allah guide aright the tribe of Daws and direct them to me"),
+      difficulty: 2,
+      questions: [
+        { q: "What did At-Tufayl ask for Daws?", a: "A curse on them", wrong: ["Gold", "Rain", "A wedding"], why: "Invoke curse upon them." },
+        { q: "What did he ﷺ pray instead?", a: "O Allah, guide Daws", wrong: ["Destroy Daws", "Nothing", "Leave them"], why: "Allah guide aright the tribe of Daws." },
+        { q: "Which famous companion came from Daws?", a: "Abu Hurairah", wrong: ["Umar", "Ali", "Bilal"], why: "Abu Hurairah, the narrator, was from Daws." }
+      ]
+    }
+  ]
+};
+
+
+const PRAYER: DeepUnit = {
+  key: "book-prayer",
+  topicId: "sahihayn",
+  branchId: "hadith-book-salah",
+  branch: { title: "The Book of Prayer", description: "From the Books of Prayer: how the Prophet ﷺ prayed, step by step." },
+  name: "the Book of Prayer",
+  kind: "skill",
+  lessonType: "skill",
+  lessons: [
+    {
+      slug: "between-adhan-and-iqamah",
+      title: "A prayer between the two calls",
+      line: "There is a prayer between the adhan and the iqamah.",
+      facts: ["He ﷺ said it three times", "For whoever wants to pray"],
+      source: hadith("bukhari", "624", "Abdullah ibn Mughaffal", "Sahih", "The Prophet ﷺ said three times: there is a prayer between the two calls, for whoever wants to pray.", "There is a prayer between the two Adhans"),
+      difficulty: 1,
+      questions: [
+        { q: "When is this extra prayer?", a: "Between adhan and iqamah", wrong: ["After sunrise", "Only at night", "After Eid"], why: "There is a prayer between the two Adhans." },
+        { q: "How many times did he ﷺ say it?", a: "Three", wrong: ["One", "Seven", "Ten"], why: "He said it thrice." },
+        { q: "This prayer is for whoever wants to pray it.", tf: true, why: "For the one who wants to pray. Sahih al-Bukhari 624." }
+      ]
+    },
+    {
+      slug: "do-not-rush-the-imam",
+      title: "Never rise before the imam",
+      line: "Do not lift your head before the imam does.",
+      facts: ["Follow the imam", "A strong warning"],
+      source: hadith("bukhari", "691", "Abu Hurairah", "Sahih", "The Prophet ﷺ warned the one who raises his head before the imam that his head may be made like a donkey's.", "who raises his head before the Imam"),
+      difficulty: 2,
+      questions: [
+        { q: "In prayer, you should move...?", a: "After the imam", wrong: ["Before the imam", "Whenever you like", "Faster than him"], why: "Do not raise your head before the Imam." },
+        { q: "Which animal is named in the warning?", a: "A donkey", wrong: ["A camel", "A horse", "A cat"], why: "Into that of a donkey." },
+        { q: "Rushing ahead of the imam is fine.", tf: false, why: "He ﷺ warned against it. Sahih al-Bukhari 691." }
+      ]
+    },
+    {
+      slug: "shorter-for-a-crying-child",
+      title: "Shorter for a crying baby",
+      line: "Hearing a baby cry, he ﷺ made the prayer shorter.",
+      facts: ["Mercy for the mother", "Told by Abu Qatadah"],
+      source: hadith("bukhari", "707", "Abu Qatadah", "Sahih", "The Prophet ﷺ said: I start the prayer wanting to make it long, then I hear a child crying and make it short.", "on hearing the cries of a child, I cut it short"),
+      difficulty: 1,
+      questions: [
+        { q: "What made him ﷺ shorten the prayer?", a: "A child crying", wrong: ["Rain", "Hunger", "A guest"], why: "On hearing the cries of a child, I cut it short." },
+        { q: "Whom did he ﷺ not want to trouble?", a: "The mother", wrong: ["The imam", "The guard", "The traveler"], why: "I dislike to trouble the child's mother." },
+        { q: "An imam should think of the people behind him.", tf: true, why: "Sahih al-Bukhari 707." }
+      ]
+    },
+    {
+      slug: "bow-and-prostrate-properly",
+      title: "Bow and prostrate properly",
+      line: "Do your bowing and your prostrations properly and calmly.",
+      facts: ["He ﷺ saw them from behind", "Told by Anas"],
+      source: hadith("bukhari", "742", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: do the bowing and prostrations properly, for I see you from behind me.", "Perform the bowing and the prostrations properly"),
+      difficulty: 1,
+      questions: [
+        { q: "What must be done properly?", a: "Bowing and prostrations", wrong: ["Only the adhan", "Only the dua", "Only standing"], why: "Perform the bowing and the prostrations properly." },
+        { q: "He ﷺ said he could see them from...?", a: "Behind him", wrong: ["The roof", "Far away", "A window"], why: "I see you from behind me." },
+        { q: "Rushing through bowing is the right way.", tf: false, why: "Do it properly. Sahih al-Bukhari 742." }
+      ]
+    },
+    {
+      slug: "looking-around-in-prayer",
+      title: "Do not look around",
+      line: "Looking around in prayer lets Shaytan steal from it.",
+      facts: ["Aishah asked him ﷺ", "Keep your eyes still"],
+      source: hadith("bukhari", "751", "Aishah", "Sahih", "Aishah asked about looking around in prayer. He ﷺ said: Shaytan steals part of the prayer that way.", "It is a way of stealing by which Satan takes away"),
+      difficulty: 1,
+      questions: [
+        { q: "Who asked about looking around?", a: "Aishah", wrong: ["Umar", "Anas", "Bilal"], why: "Aisha asked Allah's Messenger." },
+        { q: "Looking around in prayer is like...?", a: "Shaytan stealing", wrong: ["Extra reward", "A sunnah", "Resting"], why: "A way of stealing by which Satan takes away." },
+        { q: "We should keep our focus in prayer.", tf: true, why: "Sahih al-Bukhari 751." }
+      ]
+    },
+    {
+      slug: "the-marked-cloth",
+      title: "The cloth that distracted",
+      line: "A patterned cloth distracted him ﷺ, so he gave it back.",
+      facts: ["He asked for a plain one", "Told by Aishah"],
+      source: hadith("bukhari", "752", "Aishah", "Sahih", "The Prophet ﷺ prayed in a marked cloth and said: its marks distracted me. Take it back and bring me a plain one.", "The marks on it diverted my attention"),
+      difficulty: 2,
+      questions: [
+        { q: "What distracted him ﷺ?", a: "Marks on a cloth", wrong: ["A noise", "A bird", "The sun"], why: "The marks on it diverted my attention." },
+        { q: "What did he ﷺ ask for instead?", a: "A plain cloth", wrong: ["A gold cloth", "A new rug", "Nothing"], why: "Bring an Inbijaniya (from him), a plain sheet." },
+        { q: "Pray where little distracts you.", tf: true, why: "Sahih al-Bukhari 752." }
+      ]
+    },
+    {
+      slug: "balanced-prayer",
+      title: "Every part in balance",
+      line: "His ﷺ bowing, prostrations and pauses were nearly equal.",
+      facts: ["No part rushed", "Told by Al-Bara"],
+      source: hadith("bukhari", "801", "Al-Bara ibn Azib", "Sahih", "The bowing, the prostrations, the standing after bowing and the sitting between prostrations of the Prophet ﷺ were about equal.", "used to be equal in duration"),
+      difficulty: 2,
+      questions: [
+        { q: "How long were the parts of his ﷺ prayer?", a: "About equal", wrong: ["Very rushed", "Only bowing long", "Random"], why: "Used to be equal in duration." },
+        { q: "Who narrated this?", a: "Al-Bara", wrong: ["Abu Bakr", "Hudhayfah", "Samurah"], why: "Sahih al-Bukhari 801." },
+        { q: "The pause between prostrations should be skipped.", tf: false, why: "He ﷺ paused there too. Sahih al-Bukhari 801." }
+      ]
+    },
+    {
+      slug: "seven-bones",
+      title: "Prostrate on seven bones",
+      line: "We prostrate on seven bones and leave our clothes and hair.",
+      facts: ["Forehead, hands, knees, feet", "Told by Ibn Abbas"],
+      source: hadith("bukhari", "810", "Abdullah ibn Abbas", "Sahih", "The Prophet ﷺ said: we were ordered to prostrate on seven bones and not to tuck up our clothes or hair.", "We have been ordered to prostrates on seven bones"),
+      difficulty: 1,
+      questions: [
+        { q: "On how many bones do we prostrate?", a: "Seven", wrong: ["Two", "Four", "Ten"], why: "Ordered to prostrate on seven bones." },
+        { q: "What should we not tuck up?", a: "Clothes or hair", wrong: ["Our shoes", "Our prayer rug", "Our sleeves only"], why: "Not to tuck up the clothes or hair." },
+        { q: "Who narrated this?", a: "Ibn Abbas", wrong: ["Anas", "Aishah", "Abu Dharr"], why: "Sahih al-Bukhari 810." }
+      ]
+    },
+    {
+      slug: "forearms-off-the-ground",
+      title: "Lift your forearms",
+      line: "In sujud, keep your forearms off the ground.",
+      facts: ["Be straight in sujud", "Told by Anas"],
+      source: hadith("bukhari", "822", "Anas ibn Malik", "Sahih", "The Prophet ﷺ said: be straight in prostration, and do not lay your forearms on the ground like a dog.", "Be straight in the prostrations"),
+      difficulty: 1,
+      questions: [
+        { q: "In sujud, your forearms should be...?", a: "Off the ground", wrong: ["Flat on the ground", "Behind your back", "On your knees"], why: "None of you should put his forearms on the ground." },
+        { q: "Laying the forearms flat is compared to...?", a: "A dog", wrong: ["A lion", "A bird", "A camel"], why: "Like a dog." },
+        { q: "We should be straight in prostration.", tf: true, why: "Sahih al-Bukhari 822." }
+      ]
+    },
+    {
+      slug: "mud-on-his-forehead",
+      title: "Mud on his forehead",
+      line: "He ﷺ prostrated in mud and water, and it marked his forehead.",
+      facts: ["He ﷺ did not avoid it", "Told by Abu Said"],
+      source: hadith("bukhari", "836", "Abu Said al-Khudri", "Sahih", "Abu Said said: I saw the Prophet ﷺ prostrate in mud and water, and I saw the mud on his forehead.", "saw the mark of mud on his forehead"),
+      difficulty: 1,
+      questions: [
+        { q: "What was on his ﷺ forehead?", a: "Mud", wrong: ["Ink", "Sand only", "Paint"], why: "I saw the mark of mud on his forehead." },
+        { q: "He ﷺ prostrated in...?", a: "Mud and water", wrong: ["Snow", "A palace", "Grass"], why: "Prostrating in mud and water." },
+        { q: "He ﷺ skipped sujud because of the mud.", tf: false, why: "He prostrated in it. Sahih al-Bukhari 836." }
+      ]
+    },
+    {
+      slug: "facing-the-people",
+      title: "Turning to the people",
+      line: "After the prayer, he ﷺ turned to face the people.",
+      facts: ["The imam turns around", "Told by Samurah"],
+      source: hadith("bukhari", "845", "Samurah ibn Jundub", "Sahih", "Samurah said: when the Prophet ﷺ finished the prayer, he would turn to face us.", "used to face us on completion of the prayer"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ do after leading prayer?", a: "Faced the people", wrong: ["Left at once", "Slept", "Faced the wall"], why: "He used to face us on completion of the prayer." },
+        { q: "Who narrated this?", a: "Samurah", wrong: ["Umar", "Bilal", "Abu Musa"], why: "Sahih al-Bukhari 845." },
+        { q: "He ﷺ turned to the people after he finished.", tf: true, why: "Sahih al-Bukhari 845." }
+      ]
+    },
+    {
+      slug: "clean-mouth-at-night",
+      title: "A clean mouth for night prayer",
+      line: "Rising for night prayer, he ﷺ first cleaned his mouth.",
+      facts: ["Before standing to pray", "Told by Hudhayfah"],
+      source: hadith("bukhari", "889", "Hudhayfah", "Sahih", "Hudhayfah said: when the Prophet ﷺ got up at night to pray, he would clean his mouth.", "he used to clean his mouth"),
+      difficulty: 1,
+      questions: [
+        { q: "What did he ﷺ do on waking at night?", a: "Cleaned his mouth", wrong: ["Ate food", "Went back to sleep", "Went to the market"], why: "He used to clean his mouth." },
+        { q: "Who narrated this?", a: "Hudhayfah", wrong: ["Anas", "Abu Hurairah", "Aishah"], why: "Sahih al-Bukhari 889." },
+        { q: "Cleanliness is part of getting ready to pray.", tf: true, why: "Sahih al-Bukhari 889." }
+      ]
+    },
+    {
+      slug: "a-bath-every-week",
+      title: "A bath every seven days",
+      line: "Allah has a right on every Muslim: a bath every seven days.",
+      facts: ["At least once a week", "Told by Abu Hurairah"],
+      source: hadith("bukhari", "898", "Abu Hurairah", "Sahih", "The Prophet ﷺ said: it is Allah's right on every Muslim to bathe at least once in seven days.", "take a bath (at least) once in seven days"),
+      difficulty: 1,
+      questions: [
+        { q: "At least how often should a Muslim bathe?", a: "Once in seven days", wrong: ["Once a month", "Once a year", "Never"], why: "Once in seven days." },
+        { q: "Whose right is this bath?", a: "Allah's right", wrong: ["The king's", "No one's", "A neighbor's"], why: "It is Allah's right on every Muslim." },
+        { q: "Islam cares about keeping clean.", tf: true, why: "Sahih al-Bukhari 898." }
+      ]
+    }
+  ]
+};
+
 /** The Bukhari and Muslim topic. Its units hold only deep lessons, added by addDeepUnits. */
 export const SAHIHAYN_SECTION: LearningSection = {
   id: "sahihayn",
@@ -1663,4 +2039,4 @@ export const SAHIHAYN_SECTION: LearningSection = {
   nodes: []
 };
 
-export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE];
+export const HADITH_BOOK_UNITS: readonly DeepUnit[] = [FAITH, PURITY, ADAB, FOOD, DUA, RIQAQ, DRESS, TRADE, MEDICINE, COMPANIONS, PRAYER];
