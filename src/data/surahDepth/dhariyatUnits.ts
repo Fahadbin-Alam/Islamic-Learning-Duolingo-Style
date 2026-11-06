@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Adh-Dhariyat ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -143,6 +143,20 @@ const DHARIYAT_ONE: DeepUnit = {
         { q: "What does 51:8 say they have?", a: "Different ideas", wrong: ["One clear view", "No ideas", "Good proofs"], why: "Certainly, you have different ideas." },
         { q: "About what were their ideas different, per Qatadah?", a: "About the Quran", wrong: ["About trade", "About poetry", "About weather"], why: "Qatadah commented on the Ayah, You have different ideas about the Quran." },
         { tf: true, q: "Their claims contradicted one another, per Ibn Kathir.", why: "Have different and confused opinions that do not connect or conform to each other." }
+      ]
+    },
+    {
+      slug: "falsehood-contradicts-itself",
+      title: "Falsehood contradicts itself",
+      line: "The deniers' clashing words prove them false; the truth agrees.",
+      facts: ["As-Sa'di explains", "No contradictions in the Quran"],
+      quote: q51(9),
+      source: saadi(51, 9, "As-Sa'di says the deniers' differing words prove their claims are false, while the truth the Prophet ﷺ brought agrees with itself with no contradiction, which shows it is from Allah.", "واختلاف قولهم، دليل على فساده وبطلانه"),
+      difficulty: 2,
+      questions: [
+        { q: "What do the deniers' differing words show, per as-Sa'di?", a: "Their claims are false", wrong: ["They are wise", "They are right", "Nothing"], why: "Their differing words prove their claims false, says as-Sa'di." },
+        { q: "How is the truth the Prophet ﷺ brought different?", a: "It never contradicts itself", wrong: ["It changes daily", "It is unclear", "It is secret"], why: "It agrees with itself with no contradiction." },
+        { tf: true, q: "If the Quran were not from Allah, it would have many contradictions.", why: "As-Sa'di on 51:9." }
       ]
     },
     {
@@ -801,6 +815,20 @@ const DHARIYAT_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "what-fleeing-means",
+      title: "What fleeing means",
+      line: "Flee from ignorance to knowledge and from sin to obedience.",
+      facts: ["As-Sa'di explains", "Fleeing to Allah"],
+      quote: q51(50),
+      source: saadi(51, 50, "As-Sa'di says fleeing to Allah means running from what He dislikes to what He loves: from ignorance to knowledge, disbelief to faith, sin to obedience, and heedlessness to remembering Allah.", "فرار من الجهل إلى العلم، ومن الكفر إلى الإيمان، ومن المعصية إلى الطاعة، ومن الغفلة إلى ذكر الله"),
+      difficulty: 2,
+      questions: [
+        { q: "What does fleeing to Allah include, per as-Sa'di?", a: "From sin to obedience", wrong: ["From people to caves", "From work to sleep", "From home to travel"], why: "Fleeing from sin to obedience, says as-Sa'di." },
+        { q: "Fleeing from heedlessness leads to...?", a: "Remembering Allah", wrong: ["More games", "Sleeping", "Forgetting"], why: "From heedlessness to the remembrance of Allah." },
+        { tf: true, q: "Returning to Allah is called fleeing because safety is only with Him.", why: "As-Sa'di on 51:50." }
+      ]
+    },
+    {
       slug: "no-other-god",
       title: "No other god",
       line: "Do not set up any other god along with Allah.",
@@ -882,6 +910,20 @@ const DHARIYAT_THREE: DeepUnit = {
         { q: "Why were jinn and mankind created, in 51:56?", a: "To worship Allah", wrong: ["To get rich", "To rule others", "To play"], why: "And I created not the Jinn and mankind except that they should worship Me." },
         { q: "Does Allah need our worship, per Ibn Kathir?", a: "No, He does not need them", wrong: ["Yes", "Sometimes", "Only on Fridays"], why: "I, Allah, only created them so that I order them to worship Me, not that I need them." },
         { tf: true, q: "51:56 names both jinn and mankind.", why: "And I created not the Jinn and mankind except that they should worship Me." }
+      ]
+    },
+    {
+      slug: "know-him-to-worship-him",
+      title: "Know Him to worship Him",
+      line: "The more a person knows Allah, the more complete his worship.",
+      facts: ["As-Sa'di explains", "Knowledge and worship"],
+      quote: q51(56),
+      source: saadi(51, 56, "As-Sa'di says worship includes knowing Allah, loving Him and turning to Him, so complete worship depends on knowing Allah, and the more a servant knows his Lord, the more perfect his worship.", "بل كلما ازداد العبد معرفة لربه، كانت عبادته أكمل"),
+      difficulty: 2,
+      questions: [
+        { q: "What makes worship more complete, per as-Sa'di?", a: "Knowing Allah more", wrong: ["More money", "More sleep", "More food"], why: "The more a servant knows his Lord, the more perfect his worship, says as-Sa'di." },
+        { q: "Why did Allah create jinn and humans?", a: "To worship Him", wrong: ["Because He needs them", "To play", "To get rich"], why: "He created them to worship Him, not from any need of them." },
+        { tf: true, q: "All the Messengers called people to worship Allah.", why: "As-Sa'di on 51:56." }
       ]
     },
     {
