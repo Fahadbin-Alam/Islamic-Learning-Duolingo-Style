@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Hujurat ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -45,6 +45,20 @@ const HUJURAT_ONE: DeepUnit = {
         { q: "What does 49:1 forbid?", a: "Deciding before Allah and His Messenger", wrong: ["Praying at night", "Giving charity", "Asking questions"], why: "O you who believe! Make not a decision in advance before Allah and His Messenger." },
         { q: "What did Ibn Abbas say 49:1 means?", a: "Say nothing against Quran and Sunnah", wrong: ["Speak first always", "Never ask anything", "Only listen to elders"], why: "Do not say anything that contradicts the Qur'an and Sunnah." },
         { q: "What does Allah know, per Ibn Kathir on 49:1?", a: "Your intentions", wrong: ["Only your words", "Only the past", "Only big deeds"], why: "Knowing, your intentions." }
+      ]
+    },
+    {
+      slug: "what-taqwa-is",
+      title: "What Taqwa is",
+      line: "Taqwa is obeying Allah upon light, hoping for His reward.",
+      facts: ["As-Sa'di explains", "Taqwa"],
+      quote: q49(1),
+      source: saadi(49, 1, "As-Sa'di quotes Talq ibn Habib: Taqwa is to obey Allah upon light from Allah, hoping for His reward, and to leave disobeying Allah upon light from Allah, fearing His punishment.", "أن تعمل بطاعة الله، على نور من الله، ترجو ثواب الله، وأن تترك معصية الله، على نور من الله، تخشى عقاب الله"),
+      difficulty: 2,
+      questions: [
+        { q: "How did Talq ibn Habib describe Taqwa, quoted by as-Sa'di?", a: "Obeying Allah upon light, hoping for reward", wrong: ["Staying away from people", "Only fasting", "Never speaking"], why: "Obey Allah upon light from Allah, hoping for His reward." },
+        { q: "Why do we leave sins, in that description of Taqwa?", a: "Fearing Allah's punishment", wrong: ["To look good", "Because they are boring", "For money"], why: "Leave disobedience upon light, fearing His punishment." },
+        { tf: true, q: "Once the Sunnah is clear, it comes before anyone's opinion.", why: "As-Sa'di on 49:1." }
       ]
     },
     {
@@ -157,6 +171,20 @@ const HUJURAT_ONE: DeepUnit = {
         { q: "What would have been better for them, in 49:5?", a: "To wait until he came out", wrong: ["To shout louder", "To leave", "To climb in"], why: "And if they had patience till you could come out to them, it would have been better for them." },
         { q: "Which two names end 49:5?", a: "Forgiving, Most Merciful", wrong: ["Strong, Mighty", "First, Last", "King, Holy"], why: "And Allah is Forgiving, Most Merciful." },
         { tf: true, q: "Ibn Kathir says Allah then invites them to repent.", why: "Allah, Worthy of all praise, then encourages them to turn to Him in repentance." }
+      ]
+    },
+    {
+      slug: "manners-show-the-mind",
+      title: "Manners show the mind",
+      line: "Good manners are the sign of a person's good sense.",
+      facts: ["As-Sa'di explains", "Adab"],
+      quote: q49(5),
+      source: saadi(49, 5, "As-Sa'di says Allah blamed those who shouted from outside for lacking sense, because good manners are a sign of intelligence and a sign that Allah wants good for a person.", "فأدب العبد، عنوان عقله، وأن الله مريد به الخير"),
+      difficulty: 2,
+      questions: [
+        { q: "What do a person's good manners show, per as-Sa'di?", a: "His good sense", wrong: ["His wealth", "His height", "His age"], why: "A servant's manners are the sign of his mind, says as-Sa'di." },
+        { q: "Why were those who shouted from outside blamed in Al-Hujurat?", a: "They lacked sense and manners", wrong: ["They came late", "They were too quiet", "They brought gifts"], why: "Allah blamed them for not using sense and manners." },
+        { tf: true, q: "Good manners can be a sign that Allah wants good for a person.", why: "As-Sa'di on 49:5." }
       ]
     },
     {
@@ -338,6 +366,20 @@ const HUJURAT_TWO: DeepUnit = {
         { q: "Why not mock others, in 49:11?", a: "They may be better than you", wrong: ["They will tell on you", "It wastes time", "It is too loud"], why: "Let not a group scoff at another group, it may be that the latter are better than the former." },
         { q: "Who does 49:11 also tell not to mock others?", a: "Women as well as men", wrong: ["Only kings", "Only children", "Only traders"], why: "Nor let some women scoff at other women, it may be that the latter are better than the former." },
         { tf: true, q: "The one being mocked may be dearer to Allah.", why: "The injured party could be more honored and dearer to Allah the Exalted than those who ridicule and belittle them." }
+      ]
+    },
+    {
+      slug: "like-one-body",
+      title: "Like one body",
+      line: "A fellow believer is called your self: believers are one body.",
+      facts: ["As-Sa'di explains", "One body"],
+      quote: q49(11),
+      source: saadi(49, 11, "As-Sa'di says Allah called a fellow believer your own self in 49:11 because believers should be like one body, and because whoever finds fault with others invites them to find fault with him.", "وسمي الأخ المؤمن نفسًا لأخيه، لأن المؤمنين ينبغي أن يكون هكذا حالهم كالجسد الواحد"),
+      difficulty: 2,
+      questions: [
+        { q: "Why does Al-Hujurat 49:11 call a fellow believer yourselves?", a: "Believers are like one body", wrong: ["They share a house", "They look alike", "They have one name"], why: "Believers should be like one body, says as-Sa'di." },
+        { q: "What happens to someone who mocks others, per as-Sa'di?", a: "He invites them to mock him", wrong: ["He gains respect", "Nothing happens", "He gets rewarded"], why: "Finding fault with others makes them find fault with you." },
+        { tf: false, q: "Every nickname at all is banned in Al-Hujurat 49:11.", why: "Only nicknames that hurt are banned, says as-Sa'di." }
       ]
     },
     {
