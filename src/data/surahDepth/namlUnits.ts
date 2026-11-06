@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah An-Naml ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -217,6 +217,20 @@ const NAML_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "a-smile-not-a-roar",
+      title: "A smile, not a roar",
+      line: "Prophets mostly smiled when amused, and so did our Prophet ﷺ.",
+      facts: ["As-Sa'di explains", "Prophetic manners"],
+      quote: q27(19),
+      source: saadi(27, 19, "As-Sa'di says Sulayman smiled at the ant's clear, caring words; Prophets have perfect manners, and their laughter is mostly a smile, as most of the Prophet's ﷺ laughter was smiling.", "كما كان الرسول صلى الله عليه وسلم جل ضحكه التبسم"),
+      difficulty: 2,
+      questions: [
+        { q: "How did the Prophet ﷺ mostly laugh, per as-Sa'di?", a: "With a smile", wrong: ["Very loudly", "Never at all", "Only at night"], why: "Most of his ﷺ laughter was smiling, says as-Sa'di." },
+        { q: "Why did Sulayman smile at the ant, per as-Sa'di on 27:19?", a: "He liked her clear, caring words", wrong: ["She was funny-looking", "She was lost", "She was tiny"], why: "He admired her eloquence and her care for the ants." },
+        { tf: true, q: "Sulayman then asked Allah to help him thank Him for His blessings.", why: "As-Sa'di on 27:19." }
+      ]
+    },
+    {
       slug: "make-me-grateful",
       title: "Make me grateful",
       line: "Sulayman asked Allah to help him give thanks and do good.",
@@ -367,6 +381,20 @@ const NAML_TWO: DeepUnit = {
         { q: "How fast was the throne brought, in 27:40?", a: "In the blink of an eye", wrong: ["In a month", "In a year", "By noon"], why: "I will bring it to you within the twinkling of an eye!" },
         { q: "What did Sulayman call it?", a: "The grace of my Lord", wrong: ["My own power", "Luck", "Magic"], why: "This is by the grace of my Lord, to test me whether I am grateful or ungrateful!" },
         { q: "Who gains from gratitude, in 27:40?", a: "The grateful himself", wrong: ["Allah needs it", "The king", "No one"], why: "And whoever is grateful, truly, his gratitude is for himself." }
+      ]
+    },
+    {
+      slug: "a-test-not-a-boast",
+      title: "A test, not a boast",
+      line: "Sulayman saw his power as a test, not a reason to boast.",
+      facts: ["As-Sa'di explains", "Shukr in power"],
+      quote: q27(40),
+      source: saadi(27, 40, "As-Sa'di says when the throne appeared, Sulayman was not fooled by his kingdom as foolish kings are; he knew it was a test from his Lord and feared falling short in thanking Him.", "فلم يغتر عليه السلام بملكه وسلطانه وقدرته كما هو دأب الملوك الجاهلين، بل علم أن ذلك اختبار من ربه"),
+      difficulty: 2,
+      questions: [
+        { q: "How did Sulayman see his great power, per as-Sa'di?", a: "As a test from Allah", wrong: ["As his own doing", "As a reason to boast", "As luck"], why: "He knew it was a test from his Lord, says as-Sa'di." },
+        { q: "Who benefits when a person gives thanks, in An-Naml 27:40?", a: "The one who thanks", wrong: ["Allah needs it", "No one", "Only kings"], why: "Whoever is grateful is grateful for his own good." },
+        { tf: true, q: "Allah is Rich and Generous, giving good even to the ungrateful.", why: "As-Sa'di on 27:40." }
       ]
     },
     {
