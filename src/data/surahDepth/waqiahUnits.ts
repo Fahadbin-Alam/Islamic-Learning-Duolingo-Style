@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Waqi'ah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -339,6 +339,20 @@ const WAQIAH_ONE: DeepUnit = {
         { q: "How do they sit, in 56:16?", a: "Reclining face to face", wrong: ["Back to back", "In a line", "Alone"], why: "Reclining thereon, face to face." },
         { q: "Is anyone in the back rows?", a: "No, none of them", wrong: ["Yes, the poor", "Yes, the young", "Yes, the late"], why: "None of them will be in the back lines." },
         { tf: true, q: "Facing each other shows love and friendship.", why: "They will face each other, and none of them will be in the back lines." }
+      ]
+    },
+    {
+      slug: "pure-hearts-facing",
+      title: "Pure hearts facing",
+      line: "They face each other because their hearts are pure and kind.",
+      facts: ["As-Sa'di explains", "Good manners in Paradise"],
+      quote: q56(16),
+      source: saadi(56, 16, "As-Sa'di says the foremost recline facing each other because of the purity of their hearts, their good manners, and their hearts being turned toward one another.", "من صفاء قلوبهم، وحسن أدبهم، وتقابل قلوبهم"),
+      difficulty: 2,
+      questions: [
+        { q: "Why do the foremost face each other, per as-Sa'di?", a: "Pure hearts and good manners", wrong: ["No room", "To argue", "By chance"], why: "From the purity of their hearts and good manners, says as-Sa'di." },
+        { q: "How do the foremost sit in Al-Waqi'ah 56:16?", a: "At ease, at rest", wrong: ["Standing in fear", "Walking", "Hiding"], why: "Sitting firmly, at peace and resting." },
+        { tf: true, q: "There is no ill feeling between the people of Paradise.", why: "As-Sa'di on 56:16." }
       ]
     },
     {
@@ -873,6 +887,20 @@ const WAQIAH_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "hope-kept-them-busy",
+      title: "Long hopes kept them busy",
+      line: "Long hopes for this world kept them from doing good deeds.",
+      facts: ["As-Sa'di explains", "Mutrafin"],
+      quote: q56(45),
+      source: saadi(56, 45, "As-Sa'di says those on the left were busied by this world, worked for it and enjoyed it, and their long hopes distracted them from doing good deeds; that is the luxury Allah blamed.", "فألهاهم الأمل عن إحسان العمل"),
+      difficulty: 2,
+      questions: [
+        { q: "What distracted those on the left from good deeds?", a: "Long hopes for this world", wrong: ["Too much prayer", "Helping others", "Reading the Quran"], why: "Their hopes distracted them from good deeds, says as-Sa'di." },
+        { q: "Which luxury did Allah blame, per as-Sa'di?", a: "Enjoyment that made them forget deeds", wrong: ["Eating halal", "Clean clothes", "A home"], why: "This world busied them and they worked only for it." },
+        { tf: true, q: "Enjoying halal things is not what Al-Waqi'ah 56:45 blames.", why: "As-Sa'di on 56:45." }
+      ]
+    },
+    {
       slug: "persisting-in-great-sin",
       title: "Persisting in great sin",
       line: "They kept on in the great sin and never meant to repent.",
@@ -1376,6 +1404,20 @@ const WAQIAH_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "all-of-us-travel",
+      title: "We are all travellers",
+      line: "Life is a journey; from birth we travel to our Lord.",
+      facts: ["As-Sa'di explains", "Why travellers are named"],
+      quote: q56(73),
+      source: saadi(56, 73, "As-Sa'di says travellers may be named because this whole world is a place of travel, and from birth each servant is travelling to his Lord, so fire is a provision on the way and a reminder of the lasting home.", "لأن الدنيا كلها دار سفر، والعبد من حين ولد فهو مسافر إلى ربه"),
+      difficulty: 2,
+      questions: [
+        { q: "Why might travellers be named in Al-Waqi'ah 56:73?", a: "All of life is a journey", wrong: ["Only travellers use fire", "Travel is bad", "Fire is for deserts"], why: "This world is a place of travel, says as-Sa'di." },
+        { q: "From when is a person travelling to Allah, per as-Sa'di?", a: "From birth", wrong: ["From old age", "From marriage", "From death only"], why: "From the time he is born, he travels to his Lord." },
+        { tf: true, q: "Our fire reminds us of the Fire of the Hereafter.", why: "As-Sa'di on 56:73." }
+      ]
+    },
+    {
       slug: "fire-for-everyone",
       title: "Fire for everyone",
       line: "Everyone needs fire to cook, keep warm and light the dark.",
@@ -1680,6 +1722,20 @@ const WAQIAH_FOUR: DeepUnit = {
         { q: "Who are the Muqarrabin, in 56:88?", a: "The near ones", wrong: ["The far ones", "The deniers", "The strangers"], why: "Then, if he be of the Muqarrabin." },
         { q: "What did they do, per Ibn Kathir?", a: "Duties and extra worship", wrong: ["Only duties", "Nothing", "Only trade"], why: "Who fulfilled the obligations and the recommended acts of worship." },
         { tf: true, q: "56:88-96 are the three groups again, at death.", why: "These are the three types of conditions that people face upon their death." }
+      ]
+    },
+    {
+      slug: "near-ones-and-the-right",
+      title: "Near ones and the right",
+      line: "The near ones did extra good and left even extra allowed things.",
+      facts: ["As-Sa'di explains", "Two good groups"],
+      quote: q56(88),
+      source: saadi(56, 88, "As-Sa'di says the near ones did the duties and the extra good deeds and left the forbidden, the disliked and too much of the allowed, while those on the right did the duties and left the forbidden.", "وهم الذين أدوا الواجبات والمستحبات، وتركوا المحرمات والمكروهات وفضول المباحات"),
+      difficulty: 3,
+      questions: [
+        { q: "What did the near ones do, per as-Sa'di on 56:88?", a: "Duties and extra good deeds", wrong: ["Only duties", "Nothing extra", "Only fasting"], why: "They did the duties and the recommended acts, says as-Sa'di." },
+        { q: "What did those on the right do, per as-Sa'di?", a: "Duties, and left the forbidden", wrong: ["Nothing", "Only extras", "Only charity"], why: "They did the duties and left the forbidden, says as-Sa'di." },
+        { tf: true, q: "The near ones even left too much of the allowed things.", why: "As-Sa'di on 56:88." }
       ]
     },
     {

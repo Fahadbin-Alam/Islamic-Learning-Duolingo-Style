@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ar-Rahman ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -101,6 +101,20 @@ const RAHMAN_ONE: DeepUnit = {
         { q: "What did Al-Hasan say Al-Bayan means?", a: "Eloquent speech", wrong: ["Good sight", "Strong arms", "Fast running"], why: "He taught him Al-Bayan. Al-Hasan said: Eloquent speech." },
         { q: "Which parts form letters, per Ibn Kathir?", a: "Mouth, tongue and lips", wrong: ["Hands and feet", "Eyes and ears", "Heart and lungs"], why: "The alveolar bridge, the tongue and the lips." },
         { tf: true, q: "Speech helps us recite the Quran.", why: "Teaching the servants how to recite it by making it easy for them to speak." }
+      ]
+    },
+    {
+      slug: "speech-and-writing",
+      title: "Speech and writing",
+      line: "Al-Bayan covers both speaking and writing what is in your mind.",
+      facts: ["As-Sa'di explains", "A gift above animals"],
+      quote: q55(4),
+      source: saadi(55, 4, "As-Sa'di says Al-Bayan is making clear what is in the heart, covering both speaking and writing, and it is among the greatest blessings that set humans apart from animals.", "وهذا شامل للتعليم النطقي والتعليم الخطي"),
+      difficulty: 1,
+      questions: [
+        { q: "What does Al-Bayan include, per as-Sa'di?", a: "Speaking and writing", wrong: ["Only singing", "Only walking", "Only eating"], why: "It covers speech and writing, says as-Sa'di." },
+        { q: "What does Al-Bayan set humans apart from?", a: "Other animals", wrong: ["Angels", "Prophets", "Each other"], why: "It is a blessing that distinguishes humans from other creatures." },
+        { tf: true, q: "Being able to write is a blessing from Allah.", why: "As-Sa'di on 55:4." }
       ]
     },
     {
@@ -241,6 +255,20 @@ const RAHMAN_ONE: DeepUnit = {
         { q: "Who are you both, per Ibn Kathir?", a: "Mankind and jinn", wrong: ["Two angels", "Two kings", "Two brothers"], why: "O mankind and Jinn, which of the favors that Allah has given to you do you deny?" },
         { q: "What should we say when we hear it?", a: "None of Your favors do we deny", wrong: ["Nothing", "Maybe later", "Some of them"], why: "O Allah! None of Your favors do we deny. All praise is due to You." },
         { tf: true, q: "Ibn Abbas would answer: Nay, our Lord!", why: "Ibn Abbas used to say, Nay, our Lord! meaning, None of Your favors do we deny." }
+      ]
+    },
+    {
+      slug: "the-jinns-answer",
+      title: "The jinn's answer",
+      line: "Hearing Allah's favours, we should admit them and thank Him.",
+      facts: ["As-Sa'di explains", "None of Your favours we deny"],
+      quote: q55(13),
+      source: saadi(55, 13, "As-Sa'di praises the jinn's answer when the Prophet ﷺ recited Ar-Rahman: none of Your favours, our Lord, do we deny, so praise is Yours; a servant should admit Allah's favours and thank Him.", "فهذا الذي ينبغي للعبد إذا تليت عليه نعم الله وآلاؤه، أن يقر بها ويشكر"),
+      difficulty: 2,
+      questions: [
+        { q: "What did the jinn say at each which favour line?", a: "We deny none of Your favours", wrong: ["They stayed silent", "They laughed", "They left"], why: "None of Your favours, our Lord, do we deny; to You is praise." },
+        { q: "What should we do when Allah's favours are recited, per as-Sa'di?", a: "Admit them and thank Him", wrong: ["Ignore them", "Count them only", "Forget them"], why: "A servant should affirm them and give thanks, says as-Sa'di." },
+        { tf: true, q: "The favours in Ar-Rahman are for both humans and jinn.", why: "As-Sa'di on 55:13." }
       ]
     },
     {
@@ -506,6 +534,20 @@ const RAHMAN_TWO: DeepUnit = {
         { q: "Who asks of Allah, in 55:29?", a: "All in the heavens and earth", wrong: ["Only prophets", "Only the poor", "Only angels"], why: "Whosoever is in the heavens and on the earth begs of Him." },
         { q: "Name one of His daily affairs, per Ubayd.", a: "He answers the one who calls", wrong: ["He sleeps", "He rests", "He forgets"], why: "Of His affairs is that He answers the supplicant, or gives to the one requesting." },
         { tf: false, q: "Allah needs His creatures.", why: "Allah affirms that He is Rich, Free of all wants for anyone else and that all creatures stand in need of Him." }
+      ]
+    },
+    {
+      slug: "never-tired-of-asking",
+      title: "Never tired of our asking",
+      line: "Allah never tires of people asking Him again and again.",
+      facts: ["As-Sa'di explains", "Every day a new matter"],
+      quote: q55(29),
+      source: saadi(55, 29, "As-Sa'di says Allah answers every need each day, and no matter distracts Him from another; the insistence of those who insist does not weary Him, nor the long asking of those who ask.", "ولا يبرمه إلحاح الملحين، ولا طول مسألة السائلين"),
+      difficulty: 2,
+      questions: [
+        { q: "Does asking Allah many times tire Him, per as-Sa'di?", a: "No, never", wrong: ["Yes", "After ten times", "Only at night"], why: "The insistence of askers never wearies Him, says as-Sa'di." },
+        { q: "What does Allah do every day, per Ar-Rahman 55:29?", a: "Meets the needs of all", wrong: ["Rests", "Nothing", "Only one thing"], why: "He enriches the poor, heals the broken, gives and holds back." },
+        { tf: true, q: "Every creature needs Allah every moment.", why: "As-Sa'di on 55:29." }
       ]
     },
     {
