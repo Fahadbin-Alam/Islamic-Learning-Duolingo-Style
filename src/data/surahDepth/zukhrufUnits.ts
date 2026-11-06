@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Az-Zukhruf ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -1022,6 +1022,20 @@ const ZUKHRUF_FOUR: DeepUnit = {
         { q: "Whose friendship lasts, in 43:67?", a: "Those who have Taqwa", wrong: ["The richest", "The loudest", "The strongest"], why: "Friends on that Day will be foes one to another except those who have Taqwa." },
         { q: "Which friendship lasts forever, per Ibn Kathir?", a: "Friendship for the sake of Allah", wrong: ["Friendship for money", "Friendship for fame", "Friendship for games"], why: "Except for that which is for the sake of Allah, which will last forever." },
         { q: "Which Prophet warned his people the same way, in 29:25?", a: "Ibrahim", wrong: ["Nuh", "Yunus", "Lut"], why: "This is like the statement of Ibrahim, peace be upon him, to his people." }
+      ]
+    },
+    {
+      slug: "love-that-lasts",
+      title: "Love that lasts",
+      line: "Love for Allah's sake lasts, because He lasts forever.",
+      facts: ["As-Sa'di explains", "Love for Allah"],
+      quote: q43(67),
+      source: saadi(43, 67, "As-Sa'di says friends who loved each other for other than Allah become enemies on Judgment Day, but the love of the God-fearing lasts, because it lasts as long as the One it was for.", "فإن محبتهم تدوم وتتصل، بدوام من كانت المحبة لأجله"),
+      difficulty: 2,
+      questions: [
+        { q: "Why do some friendships turn to enmity on Judgment Day?", a: "They were not for Allah", wrong: ["They were too short", "They were too far apart", "They were too young"], why: "Their love was for other than Allah, says as-Sa'di." },
+        { q: "Why does the love of the God-fearing last, per as-Sa'di?", a: "It was for Allah, Who lasts", wrong: ["They met often", "They were rich", "They were relatives"], why: "It lasts as long as the One it was for." },
+        { tf: true, q: "Friends who helped each other in sin become enemies on that Day.", why: "As-Sa'di on 43:67." }
       ]
     },
     {
