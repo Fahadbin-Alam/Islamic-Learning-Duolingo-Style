@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Tur ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -310,6 +310,20 @@ const TUR_TWO: DeepUnit = {
         { q: "Where will the people of Taqwa be, in 52:17?", a: "In Gardens and delight", wrong: ["In a desert", "In the sea", "On a mountain"], why: "Verily, those who have Taqwa will be in Gardens and Delight." },
         { q: "With whom are they contrasted, per Ibn Kathir?", a: "The miserable ones", wrong: ["The angels", "The prophets", "The animals"], why: "In contrast to the torment and punishment of the miserable." },
         { tf: true, q: "Taqwa means being mindful and fearful of Allah.", why: "Verily, those who have Taqwa will be in Gardens and Delight." }
+      ]
+    },
+    {
+      slug: "between-fear-and-hope",
+      title: "Between fear and hope",
+      line: "After the warning comes Paradise, so hearts hold fear and hope.",
+      facts: ["As-Sa'di explains", "Targhib and tarhib"],
+      quote: q52(17),
+      source: saadi(52, 17, "As-Sa'di says after the punishment of the deniers, Allah mentions the delight of the pious to join encouragement and warning, so hearts stay between fear and hope.", "ليجمع بين الترغيب والترهيب، فتكون القلوب بين الخوف والرجاء"),
+      difficulty: 2,
+      questions: [
+        { q: "Why does Paradise follow the warning in At-Tur?", a: "To keep fear and hope together", wrong: ["To fill space", "By chance", "To end the surah"], why: "So hearts stay between fear and hope, says as-Sa'di." },
+        { q: "A believer's heart should hold...?", a: "Both fear and hope", wrong: ["Only fear", "Only hope", "Neither"], why: "Hearts between fear and hope." },
+        { tf: true, q: "The delight of Paradise is for heart, soul and body.", why: "As-Sa'di on 52:17." }
       ]
     },
     {
@@ -799,6 +813,20 @@ const TUR_THREE: DeepUnit = {
         { q: "What is he ﷺ told to do, in 52:48?", a: "Wait patiently", wrong: ["Rush them", "Give up", "Argue"], why: "So wait patiently for the decision of your Lord." },
         { q: "What does Allah promise him ﷺ, per Ibn Kathir?", a: "To protect him from people", wrong: ["Wealth", "A palace", "A long journey"], why: "We will surely protect you from the people." },
         { q: "When should he ﷺ glorify Allah, in 52:48?", a: "When he gets up", wrong: ["Only at noon", "Only in Ramadan", "Never aloud"], why: "And glorify the praises of your Lord when you get up." }
+      ]
+    },
+    {
+      slug: "patience-through-dhikr",
+      title: "Patience through dhikr",
+      line: "The Prophet ﷺ was told to find patience through dhikr.",
+      facts: ["As-Sa'di explains", "Glorify when you rise"],
+      quote: q52(48),
+      source: saadi(52, 48, "As-Sa'di says Allah told His Messenger ﷺ to be patient with His decree, promised to protect him, and told him to seek help for patience through dhikr and worship.", "وأمره أن يستعين على الصبر بالذكر والعبادة"),
+      difficulty: 2,
+      questions: [
+        { q: "How should we find help to be patient, per as-Sa'di on 52:48?", a: "Through dhikr and worship", wrong: ["By complaining", "By sleeping", "By arguing"], why: "Seek help for patience through dhikr and worship, says as-Sa'di." },
+        { q: "What does under Our eyes mean in At-Tur 52:48?", a: "Seen and protected by Allah", wrong: ["Hidden from Allah", "Left alone", "Forgotten"], why: "In Allah's sight, guarded and cared for." },
+        { tf: true, q: "Glorifying at the end of the night includes the time of Fajr.", why: "As-Sa'di on 52:49." }
       ]
     },
     {
