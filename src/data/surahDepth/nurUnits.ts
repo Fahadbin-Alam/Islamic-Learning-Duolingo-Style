@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah An-Nur ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -273,6 +273,20 @@ const NUR_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "a-mercy-like-warning-of-poison",
+      title: "Like a poison warning",
+      line: "Allah forbids sins out of mercy, as one forbids deadly poison.",
+      facts: ["As-Sa'di explains", "Tazkiyah"],
+      quote: q24(21),
+      source: saadi(24, 21, "As-Sa'di says Allah forbidding sins is a blessing to thank Him for, keeping us clean of filth as He forbids eating deadly poison; and with Shaytan calling, the soul leaning to evil and faith weak, no one would ever become pure without Allah's grace and mercy.", "كما نهاهم عن أكل السموم القاتلة"),
+      difficulty: 2,
+      questions: [
+        { q: "What is Allah's ban on sins like, per as-Sa'di on 24:21?", a: "A warning against deadly poison", wrong: ["A heavy chain", "A random rule", "A punishment"], why: "It protects us, as forbidding deadly poison does." },
+        { q: "How does anyone become pure of sins, per as-Sa'di?", a: "By Allah's grace and mercy", wrong: ["By his own strength", "By wealth", "By luck"], why: "Without His grace and mercy, no one would ever be purified." },
+        { tf: true, q: "Tazkiyah means both becoming pure and growing in good.", why: "As-Sa'di on 24:21." }
+      ]
+    },
+    {
       slug: "forgive-like-abu-bakr",
       title: "Forgive like Abu Bakr",
       line: "Abu Bakr forgave his poor cousin and kept helping him.",
@@ -493,6 +507,20 @@ const NUR_TWO: DeepUnit = {
         { q: "What is Allah, in 24:35?", a: "The Light of the heavens and earth", wrong: ["A star in the sky", "The sun", "A lamp in a house"], why: "Allah is the Light of the heavens and the earth." },
         { q: "What does it mean, per Ibn Abbas?", a: "Guide of all who live in them", wrong: ["Maker of lamps", "Owner of the sun only", "Keeper of fire"], why: "Means, the Guide of the inhabitants of the heavens and the earth." },
         { tf: true, q: "As-Suddi said the heavens and earth are lit by His Light.", why: "By His Light the heavens and earth are illuminated." }
+      ]
+    },
+    {
+      slug: "his-book-is-light",
+      title: "His Book is light",
+      line: "Allah's Book, His law and faith in hearts are all light.",
+      facts: ["As-Sa'di explains", "Nur"],
+      quote: q24(35),
+      source: saadi(24, 35, "As-Sa'di says Allah is the Light of the heavens and the earth in what is seen and what is meant: by Him the Throne, sun, moon and Paradise shine, and His Book is light, His law is light, and faith in the hearts of believers is light; wherever His light is missing, there is darkness.", "فكتابه نور، وشرعه نور"),
+      difficulty: 2,
+      questions: [
+        { q: "Which of these is light, per as-Sa'di on 24:35?", a: "Allah's Book and His law", wrong: ["Only the sun", "Only lamps", "Only the stars"], why: "His Book is light, His law is light, and faith in hearts is light." },
+        { q: "What is left where Allah's light is missing, per as-Sa'di?", a: "Darkness", wrong: ["More light", "Peace", "Nothing changes"], why: "Wherever His light is missing, there is darkness." },
+        { tf: true, q: "Faith in a believer's heart is a light from Allah.", why: "As-Sa'di on 24:35." }
       ]
     },
     {
