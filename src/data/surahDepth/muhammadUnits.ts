@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Muhammad ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -355,6 +355,20 @@ const MUHAMMAD_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "roads-to-knowing-tawhid",
+      title: "Roads to knowing Tawhid",
+      line: "The greatest road to Tawhid is reflecting on Allah's names.",
+      facts: ["As-Sa'di explains", "Tawhid"],
+      quote: q47(19),
+      source: saadi(47, 19, "As-Sa'di says knowing that none deserves worship but Allah is a duty on every person, and the greatest way to know it is to reflect on Allah's names, qualities and actions.", "والطريق إلى العلم بأنه لا إله إلا هو أمور: أحدها بل أعظمها: تدبر أسمائه وصفاته"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the greatest way to know Tawhid, per as-Sa'di?", a: "Reflecting on Allah's names and qualities", wrong: ["Reading stories", "Travelling far", "Asking anyone"], why: "The greatest way is reflecting on His names and qualities, says as-Sa'di." },
+        { q: "Who must learn that none deserves worship but Allah?", a: "Every person", wrong: ["Only scholars", "Only the old", "Only kings"], why: "It is a duty on every person, and it falls from no one." },
+        { tf: true, q: "Knowing that idols cannot help or harm also leads to Tawhid.", why: "As-Sa'di on 47:19." }
+      ]
+    },
+    {
       slug: "seventy-times-a-day",
       title: "Seventy times a day",
       line: "The Prophet ﷺ sought forgiveness over seventy times a day.",
@@ -478,6 +492,20 @@ const MUHAMMAD_TWO: DeepUnit = {
         { q: "What does 47:24 urge us to do?", a: "Reflect upon the Quran", wrong: ["Only listen to it", "Hang it on a wall", "Read it fast only"], why: "Will they not then reflect upon the Quran?" },
         { q: "What may be on some hearts, in 47:24?", a: "Locks", wrong: ["Crowns", "Flowers", "Lights"], why: "Or are there locks upon their hearts?" },
         { q: "What did a young man from Yemen say?", a: "Locks stay until Allah opens them", wrong: ["Hearts have no locks", "Only kings have locks", "He said nothing"], why: "Indeed, there are locks upon them until Allah opens them." }
+      ]
+    },
+    {
+      slug: "reflection-leads-to-all-good",
+      title: "Reflection leads to all good",
+      line: "Reflecting on the Quran guides to every good.",
+      facts: ["As-Sa'di explains", "Tadabbur"],
+      quote: q47(24),
+      source: saadi(47, 24, "As-Sa'di says if people truly reflected on the Quran, it would guide them to every good, warn them of every evil, fill their hearts with faith and show them the road to Allah and Paradise.", "فإنهم لو تدبروه، لدلهم على كل خير، ولحذرهم من كل شر، ولملأ قلوبهم من الإيمان"),
+      difficulty: 2,
+      questions: [
+        { q: "What would reflecting on the Quran do, per as-Sa'di?", a: "Guide to every good", wrong: ["Make life boring", "Change nothing", "Make people proud"], why: "It would guide them to every good, says as-Sa'di." },
+        { q: "What fills the heart when a person reflects on the Quran?", a: "Faith", wrong: ["Fear of people", "Boredom", "Pride"], why: "Reflection fills hearts with faith and certainty." },
+        { tf: true, q: "Reflecting on the Quran teaches us about our Lord's names.", why: "As-Sa'di on 47:24." }
       ]
     },
     {
