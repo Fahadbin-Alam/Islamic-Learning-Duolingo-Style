@@ -7017,6 +7017,10 @@
   },
   {
     "kind": "course",
+    "text": "Change works both ways"
+  },
+  {
+    "kind": "course",
     "text": "Lightning: fear and hope"
   },
   {
@@ -7042,6 +7046,10 @@
   {
     "kind": "course",
     "text": "Metal in the fire"
+  },
+  {
+    "kind": "course",
+    "text": "Hearts like valleys"
   },
   {
     "kind": "course",
@@ -7090,6 +7098,10 @@
   {
     "kind": "course",
     "text": "Hearts find rest"
+  },
+  {
+    "kind": "course",
+    "text": "Nothing sweeter"
   },
   {
     "kind": "course",
@@ -7310,6 +7322,10 @@
   {
     "kind": "course",
     "text": "The firm word"
+  },
+  {
+    "kind": "course",
+    "text": "Firm against doubts"
   },
   {
     "kind": "course",
@@ -237333,6 +237349,66 @@
   },
   {
     "kind": "lesson",
+    "text": "Turn from sin to obedience, and Allah turns hardship into good."
+  },
+  {
+    "kind": "lesson",
+    "text": "Change starts within"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 13:11"
+  },
+  {
+    "kind": "question",
+    "text": "What happens when people turn from sin to obedience, per as-Sa'di on 13:11?"
+  },
+  {
+    "kind": "question",
+    "text": "They lose blessings"
+  },
+  {
+    "kind": "question",
+    "text": "They become poor"
+  },
+  {
+    "kind": "question",
+    "text": "Allah changes their state to good"
+  },
+  {
+    "kind": "question",
+    "text": "Allah changes their misery into good, joy and mercy."
+  },
+  {
+    "kind": "question",
+    "text": "When does Allah take a blessing away, per as-Sa'di on 13:11?"
+  },
+  {
+    "kind": "question",
+    "text": "When they give charity"
+  },
+  {
+    "kind": "question",
+    "text": "When people change to sin or ingratitude"
+  },
+  {
+    "kind": "question",
+    "text": "When they pray more"
+  },
+  {
+    "kind": "question",
+    "text": "He removes it when they change from faith, obedience or thanks."
+  },
+  {
+    "kind": "question",
+    "text": "Changing for the better brings Allah's mercy."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 13:11."
+  },
+  {
+    "kind": "lesson",
     "text": "The last test: everything about Ar-Ra'd, ayahs 1 to 11!"
   },
   {
@@ -237834,6 +237910,50 @@
   {
     "kind": "question",
     "text": "Ibn Kathir says some of the early scholars wept when they could not understand a parable."
+  },
+  {
+    "kind": "lesson",
+    "text": "A big valley holds much water; a big heart holds much knowledge."
+  },
+  {
+    "kind": "lesson",
+    "text": "The parable of the flood"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 13:17"
+  },
+  {
+    "kind": "question",
+    "text": "What are the valleys like, per as-Sa'di on 13:17?"
+  },
+  {
+    "kind": "question",
+    "text": "Hearts that hold guidance"
+  },
+  {
+    "kind": "question",
+    "text": "Hearts take in guidance as valleys take in rain."
+  },
+  {
+    "kind": "question",
+    "text": "What is the foam like, per as-Sa'di on 13:17?"
+  },
+  {
+    "kind": "question",
+    "text": "Doubts and desires in the heart"
+  },
+  {
+    "kind": "question",
+    "text": "Doubts and desires float like foam, then fade away."
+  },
+  {
+    "kind": "question",
+    "text": "The rain in the parable stands for the guidance Allah sent down."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 13:17."
   },
   {
     "kind": "lesson",
@@ -238693,6 +238813,62 @@
   },
   {
     "kind": "lesson",
+    "text": "Nothing is sweeter to a heart than loving its Creator."
+  },
+  {
+    "kind": "lesson",
+    "text": "Love of Allah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 13:28"
+  },
+  {
+    "kind": "question",
+    "text": "What is sweetest to the heart, per as-Sa'di on 13:28?"
+  },
+  {
+    "kind": "question",
+    "text": "Loving its Creator"
+  },
+  {
+    "kind": "question",
+    "text": "Nothing is sweeter to hearts than loving their Creator."
+  },
+  {
+    "kind": "question",
+    "text": "What makes a person remember Allah more, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "Eating more"
+  },
+  {
+    "kind": "question",
+    "text": "Talking more"
+  },
+  {
+    "kind": "question",
+    "text": "Knowing and loving Him more"
+  },
+  {
+    "kind": "question",
+    "text": "The more one knows and loves Him, the more one remembers Him."
+  },
+  {
+    "kind": "question",
+    "text": "Hearts find their rest in the remembrance of Allah."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 13:28."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ar-Ra'd, ayahs 25 to 31?"
+  },
+  {
+    "kind": "lesson",
     "text": "Remembering Allah is life; forgetting Him is like being dead."
   },
   {
@@ -238746,10 +238922,6 @@
   {
     "kind": "question",
     "text": "Narrated Abu Musa: The Prophet ﷺ said the one who celebrates the praises of his Lord."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Ar-Ra'd, ayahs 25 to 31?"
   },
   {
     "kind": "lesson",
@@ -239702,10 +239874,6 @@
   {
     "kind": "question",
     "text": "What increases the life span, per a sahih hadith Ibn Kathir notes?"
-  },
-  {
-    "kind": "question",
-    "text": "Eating more"
   },
   {
     "kind": "lesson",
@@ -241701,6 +241869,66 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah keeps believers firm against doubts and against desires."
+  },
+  {
+    "kind": "lesson",
+    "text": "Thabat"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 14:27"
+  },
+  {
+    "kind": "question",
+    "text": "How does Allah keep a believer firm against doubts, per as-Sa'di on 14:27?"
+  },
+  {
+    "kind": "question",
+    "text": "By ending his life"
+  },
+  {
+    "kind": "question",
+    "text": "By hiding all doubts"
+  },
+  {
+    "kind": "question",
+    "text": "By guiding him to certainty"
+  },
+  {
+    "kind": "question",
+    "text": "By making him rich"
+  },
+  {
+    "kind": "question",
+    "text": "When doubts come, He guides them to certainty."
+  },
+  {
+    "kind": "question",
+    "text": "How does Allah keep a believer firm against desires, per as-Sa'di?"
+  },
+  {
+    "kind": "question",
+    "text": "A firm will to put Allah first"
+  },
+  {
+    "kind": "question",
+    "text": "Giving in to them"
+  },
+  {
+    "kind": "question",
+    "text": "A firm will puts what Allah loves before the soul's wishes."
+  },
+  {
+    "kind": "question",
+    "text": "The ayah points to the questioning in the grave."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 14:27."
+  },
+  {
+    "kind": "lesson",
     "text": "In the grave, the believer testifies: La ilaha illallah."
   },
   {
@@ -241742,6 +241970,10 @@
   {
     "kind": "question",
     "text": "Narrated Al-Bara bin Azib: When a faithful believer is made to sit in his grave."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Ibrahim, ayahs 24 to 34?"
   },
   {
     "kind": "lesson",
@@ -241794,10 +242026,6 @@
   {
     "kind": "question",
     "text": "And they set up rivals to Allah, to mislead (men) from His path!"
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Ibrahim, ayahs 24 to 34?"
   },
   {
     "kind": "lesson",
@@ -486810,10 +487038,6 @@
   {
     "kind": "question",
     "text": "By giving him wings"
-  },
-  {
-    "kind": "question",
-    "text": "By making him rich"
   },
   {
     "kind": "question",

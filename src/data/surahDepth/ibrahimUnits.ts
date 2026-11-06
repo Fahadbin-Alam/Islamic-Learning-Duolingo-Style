@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ibrahim ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -483,6 +483,20 @@ const IBRAHIM_THREE: DeepUnit = {
         { q: "Whom does Allah keep firm, in 14:27?", a: "Those who believe", wrong: ["The strong", "The rich", "Everyone"], why: "Allah will keep firm those who believe, with the word that stands firm." },
         { q: "Where does Allah keep them firm, in 14:27?", a: "In this world and the Hereafter", wrong: ["Only in this world", "Only in battle", "Only at home"], why: "In this world, and in the Hereafter." },
         { q: "What does Allah do, at the end of 14:27?", a: "Whatever He wills", wrong: ["What people ask", "Nothing", "What kings want"], why: "And Allah does what He wills." }
+      ]
+    },
+    {
+      slug: "firm-against-doubts-and-desires",
+      title: "Firm against doubts",
+      line: "Allah keeps believers firm against doubts and against desires.",
+      facts: ["As-Sa'di explains", "Thabat"],
+      quote: q14(27),
+      source: saadi(14, 27, "As-Sa'di says Allah keeps believers firm in this life: when doubts come, by guiding them to certainty, and when desires come, by a firm will to put what Allah loves first; and in the Hereafter, at death on Islam and in the grave when they answer: Allah is my Lord, Islam my religion, Muhammad my Prophet.", "فيثبتهم الله في الحياة الدنيا عند ورود الشبهات بالهداية إلى اليقين"),
+      difficulty: 2,
+      questions: [
+        { q: "How does Allah keep a believer firm against doubts, per as-Sa'di on 14:27?", a: "By guiding him to certainty", wrong: ["By making him rich", "By ending his life", "By hiding all doubts"], why: "When doubts come, He guides them to certainty." },
+        { q: "How does Allah keep a believer firm against desires, per as-Sa'di?", a: "A firm will to put Allah first", wrong: ["Giving in to them", "Ignoring Allah", "Hiding away"], why: "A firm will puts what Allah loves before the soul's wishes." },
+        { tf: true, q: "The ayah points to the questioning in the grave.", why: "As-Sa'di on 14:27." }
       ]
     },
     {
