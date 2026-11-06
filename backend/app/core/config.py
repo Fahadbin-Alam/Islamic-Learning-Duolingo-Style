@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     environment: str = "development"
     database_url: str = Field(default=f"sqlite:///{DEFAULT_SQLITE_PATH.as_posix()}")
     session_ttl_hours: int = 24 * 30
-    cors_origins_raw: str = "https://fahadbin-alam.github.io,http://localhost:8082,http://localhost:19006,http://localhost:3000"
+    cors_origins_raw: str = "http://localhost:8082,http://localhost:19006,http://localhost:3000"
     # Sign in with Google: the OAuth client ids an id token may be issued for (comma separated). The
     # app asks for tokens with its web client id, so that one is enough. Empty turns Google off.
     google_client_ids_raw: str = ""

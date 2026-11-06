@@ -26,3 +26,12 @@ def test_stats_count_users_and_hide_personal_data(client, auth_headers, monkeypa
     assert body["series"]["newAccounts"][-1] >= 1
     assert body["money"]["subscriptionsMonthlyUsd"] >= 0
     assert "@" not in response.text  # no emails leave the server
+
+
+def test_stats_page_origin_may_call_the_api(client):
+    response = client.options(
+        "/api/admin/stats",
+        headers={"Origin": "https://fahadbin-alam.github.io", "Access-Control-Request-Method": "GET", "Access-Control-Request-Headers": "x-admin-key"},
+    )
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "https://fahadbin-alam.github.io"

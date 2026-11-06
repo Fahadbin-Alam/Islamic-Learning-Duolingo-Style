@@ -18,11 +18,14 @@ from backend.app.api.routes.subscriptions import router as subscriptions_router
 from backend.app.core.config import settings
 
 
+STATS_PAGE_ORIGIN = "https://fahadbin-alam.github.io"
+
 app = FastAPI(title=settings.app_name, version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins,
+    # The owner's stats page (site/stats.html) lives on GitHub Pages, so that origin is always allowed.
+    allow_origins=[*settings.cors_origins, STATS_PAGE_ORIGIN],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
