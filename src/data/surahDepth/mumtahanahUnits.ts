@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Mumtahanah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -495,6 +495,20 @@ const MUMTAHANAH_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "hope-makes-it-easy",
+      title: "Hope makes it easy",
+      line: "Hoping for Allah's reward makes every hard thing easy.",
+      facts: ["As-Sa'di explains", "Not easy for everyone"],
+      quote: q60(6),
+      source: saadi(60, 6, "As-Sa'di says following Ibrahim's example is not easy for everyone, only for those who hope for Allah and the Last Day, because faith and hoping for reward make every hard thing easy.", "فإن الإيمان واحتساب الأجر والثواب، يسهل على العبد كل عسير"),
+      difficulty: 2,
+      questions: [
+        { q: "What makes hard deeds easy, per as-Sa'di on 60:6?", a: "Faith and hoping for reward", wrong: ["Money", "Sleep", "Luck"], why: "Faith and hoping for reward make every hard thing easy, says as-Sa'di." },
+        { q: "For whom is Ibrahim's example easy to follow?", a: "Those who hope for Allah", wrong: ["Everyone", "No one", "Only kings"], why: "Those who hope for Allah and the Last Day." },
+        { tf: true, q: "Whoever turns away from following the good harms only himself.", why: "As-Sa'di on 60:6." }
+      ]
+    },
+    {
       slug: "allah-al-ghani",
       title: "Al-Ghani, the Rich",
       line: "Allah needs no one; whoever turns away harms only himself.",
@@ -952,6 +966,20 @@ const MUMTAHANAH_FOUR: DeepUnit = {
         { q: "What did the Prophet ﷺ say to a woman who agreed?", a: "I have accepted your pledge", wrong: ["Go home", "Pay first", "Come tomorrow"], why: "I have accepted your pledge of allegiance." },
         { q: "Who described the women's pledge?", a: "Aishah", wrong: ["Hind", "Asma", "Hafsah"], why: "Aisha the wife of the Prophet ﷺ said, Allah's Messenger used to examine the believing women." },
         { tf: true, q: "He took the women's pledge by words.", why: "He did not receive their pledge except by saying: I have accepted your pledge." }
+      ]
+    },
+    {
+      slug: "duties-for-all",
+      title: "Duties for everyone",
+      line: "The women's pledge covered duties both men and women share.",
+      facts: ["As-Sa'di explains", "Bay'at an-nisa"],
+      quote: q60(12),
+      source: saadi(60, 12, "As-Sa'di says the pledge of the women was on the duties that are binding on men and women alike at all times, and the Prophet ﷺ comforted them and asked Allah to forgive them.", "على إقامة الواجبات المشتركة، التي تجب على الذكور والنساء في جميع الأوقات"),
+      difficulty: 2,
+      questions: [
+        { q: "What duties did the women pledge, per as-Sa'di?", a: "Duties men and women share", wrong: ["Only for women", "Only for men", "No duties"], why: "Duties binding on men and women at all times, says as-Sa'di." },
+        { q: "What did the Prophet ﷺ do after their pledge?", a: "Asked Allah to forgive them", wrong: ["Sent them away", "Said nothing", "Gave them gold"], why: "He comforted them and asked forgiveness for them." },
+        { tf: true, q: "The pledge in Al-Mumtahanah 60:12 began with worshipping Allah alone.", why: "As-Sa'di on 60:12." }
       ]
     },
     {

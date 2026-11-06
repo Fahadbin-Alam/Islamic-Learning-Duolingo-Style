@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Hadid ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -649,6 +649,20 @@ const HADID_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "his-wealth-yet-a-loan",
+      title: "His wealth, yet a loan",
+      line: "The wealth is Allah's, yet He kindly calls our giving a loan.",
+      facts: ["As-Sa'di explains", "The generosity of Allah"],
+      quote: q57(11),
+      source: saadi(57, 11, "As-Sa'di says it is Allah's generosity that He calls spending a loan, though the wealth is His and the servant is His, and He promises to multiply it on the Day when everyone needs even a little reward.", "سماه قرضا، والمال ماله، والعبد عبده"),
+      difficulty: 2,
+      questions: [
+        { q: "Why is calling charity a loan so generous, per as-Sa'di?", a: "The wealth is already Allah's", wrong: ["Allah needs money", "We own it all", "It is paid back in gold"], why: "The wealth is His and the servant is His, says as-Sa'di." },
+        { q: "When is the loan to Allah multiplied, per as-Sa'di?", a: "On the Day of Judgment", wrong: ["Never", "Only in this life", "The next morning"], why: "On the Day when everyone sees how much they need." },
+        { tf: true, q: "A good loan to Allah is given from halal wealth with a willing heart.", why: "As-Sa'di on 57:11." }
+      ]
+    },
+    {
       slug: "a-garden-given-to-allah",
       title: "A garden given to Allah",
       line: "Abu Ad-Dahdah gave his garden of six hundred palms to Allah.",
@@ -981,6 +995,20 @@ const HADID_THREE: DeepUnit = {
         { q: "What does Siddiqun mean?", a: "True believers", wrong: ["Traders", "Travelers", "Soldiers"], why: "Describing them as Siddiqun, true believers." },
         { q: "Which ayah lists Prophets, Siddiqin, martyrs, righteous?", a: "4:69", wrong: ["1:7", "2:1", "113:1"], why: "Of the Prophets, the Siddiqin, the martyrs, and the righteous. (4:69)" },
         { tf: true, q: "Ibn Kathir says Siddiq is higher than martyr.", why: "So there is no doubt that Siddiq is a better status than the martyr." }
+      ]
+    },
+    {
+      slug: "between-believers-and-prophets",
+      title: "Above believers, below prophets",
+      line: "The Siddiqun rank above other believers and below the prophets.",
+      facts: ["As-Sa'di explains", "Faith in word and deed"],
+      quote: q57(19),
+      source: saadi(57, 19, "As-Sa'di says faith is belief and speech of the heart and tongue and the deeds of the body, and those who gather all of it are the Siddiqun, above the rank of ordinary believers and below the prophets.", "الذين مرتبتهم فوق مرتبة عموم المؤمنين، ودون مرتبة الأنبياء"),
+      difficulty: 3,
+      questions: [
+        { q: "Where do the Siddiqun rank, per as-Sa'di?", a: "Above believers, below prophets", wrong: ["Above prophets", "Below everyone", "Same as angels"], why: "Above ordinary believers and below the prophets, says as-Sa'di." },
+        { q: "What does faith include, per as-Sa'di on 57:19?", a: "Heart, tongue and deeds", wrong: ["Only words", "Only thoughts", "Only wealth"], why: "Words and deeds of the heart, tongue and body." },
+        { tf: true, q: "The Siddiqun gather all parts of the religion, seen and unseen.", why: "As-Sa'di on 57:19." }
       ]
     },
     {
@@ -1386,6 +1414,20 @@ const HADID_FOUR: DeepUnit = {
         { q: "What does Mizan mean, per Mujahid?", a: "Justice", wrong: ["A sword", "A mountain", "A ship"], why: "The Mizan), that is, justice, according to Mujahid, Qatadah and others." },
         { q: "Why were the Book and Mizan sent?", a: "So people keep up justice", wrong: ["For decoration", "For trade only", "To be hidden"], why: "That mankind may keep up justice." },
         { tf: true, q: "Ar-Rahman 55:7 also mentions the Mizan.", why: "And the heaven: He has raised it high, and He has set up the Mizan. (55:7)" }
+      ]
+    },
+    {
+      slug: "all-messengers-brought-justice",
+      title: "All brought justice",
+      line: "Every Messenger's law stood on justice, though details differed.",
+      facts: ["As-Sa'di explains", "Qist: fairness"],
+      quote: q57(25),
+      source: saadi(57, 25, "As-Sa'di says the Mizan is justice in words and deeds, and the ayah shows all Messengers agree on the base of the law, which is justice, even if its forms differ by time and situation.", "وهذا دليل على أن الرسل متفقون في قاعدة الشرع، وهو القيام بالقسط"),
+      difficulty: 3,
+      questions: [
+        { q: "What do all Messengers agree on, per as-Sa'di on 57:25?", a: "Standing for justice", wrong: ["The same language", "The same city", "The same food"], why: "The base of every law is justice, says as-Sa'di." },
+        { q: "What can differ between the Messengers' laws?", a: "Forms of justice by time", wrong: ["Belief in Allah", "Honesty", "Nothing ever"], why: "The kinds of justice differ with times and states." },
+        { tf: true, q: "The Mizan in Al-Hadid 57:25 means justice.", why: "As-Sa'di on 57:25." }
       ]
     },
     {
