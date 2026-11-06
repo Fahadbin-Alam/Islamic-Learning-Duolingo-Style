@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah An-Nisa ayah by ayah, the way Al-Baqarah and Ali 'Imran are taught: every ayah or small group of ayahs gets a
 // lesson, explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one
@@ -331,6 +331,20 @@ const NISA_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "weak-in-five-ways",
+      title: "Weak in five ways",
+      line: "Allah lightened the religion since people are weak in many ways.",
+      facts: ["As-Sa'di explains", "Ease in the Shari'ah"],
+      quote: q4(28),
+      source: saadi(4, 28, "As-Sa'di says Allah makes things light by making His commands easy and, where hardship comes, allowing what need requires; this is from His mercy and knowledge of man's weakness in every way: weak in body, will, resolve, faith and patience, so He lightens what they cannot bear.", "ضعف البنية، وضعف الإرادة، وضعف العزيمة، وضعف الإيمان، وضعف الصبر"),
+      difficulty: 2,
+      questions: [
+        { q: "Why does Allah lighten the religion, per as-Sa'di on 4:28?", a: "People are weak", wrong: ["People are perfect", "Rules do not matter", "To test less"], why: "He knows man is weak in body, will, resolve, faith and patience." },
+        { q: "Which is one weakness as-Sa'di lists on 4:28?", a: "Weak patience", wrong: ["Weak hearing", "Weak teeth", "Weak memory of names"], why: "He lists weakness of body, will, resolve, faith and patience." },
+        { tf: true, q: "In real need, Allah allows what would otherwise be forbidden.", why: "As-Sa'di on 4:28." }
+      ]
+    },
+    {
       slug: "trade",
       title: "Fair trade only",
       line: "Do not eat each other's wealth wrongly; trade by consent.",
@@ -611,6 +625,20 @@ const NISA_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "what-counts-as-a-trust",
+      title: "What counts as a trust",
+      line: "A trust is anything put in your care: jobs, money, secrets.",
+      facts: ["As-Sa'di explains", "Amanah"],
+      quote: q4(58),
+      source: saadi(4, 58, "As-Sa'di says trusts are everything a person is trusted with and told to fulfil, given back in full, not short or late; they include positions of authority, wealth and secrets, and even the commands only Allah sees; and judging with justice covers blood, wealth and honour, for near and far, friend and foe.", "ويدخل في ذلك أمانات الولايات والأموال والأسرار"),
+      difficulty: 2,
+      questions: [
+        { q: "Which of these is a trust, per as-Sa'di on 4:58?", a: "A secret told to you", wrong: ["Your own dream", "A passing cloud", "A song"], why: "Trusts include positions, wealth and secrets." },
+        { q: "How must a trust be returned, per as-Sa'di on 4:58?", a: "In full and on time", wrong: ["Half of it", "Whenever you like", "To anyone"], why: "Give it back complete, not short or delayed, to its owner." },
+        { tf: true, q: "Some trusts are duties that only Allah sees.", why: "As-Sa'di on 4:58." }
+      ]
+    },
+    {
       slug: "obey",
       title: "Obey in what is good",
       line: "Obey Allah, the Messenger ﷺ, and leaders, only in good.",
@@ -762,6 +790,20 @@ const NISA_TWO: DeepUnit = {
         { q: "What does 4:83 blame people for?", a: "Spreading news without checking", wrong: ["Keeping quiet", "Asking scholars", "Making dua"], why: "Adha'u bih: they broadcast it." },
         { q: "Whom should news go to first, in 4:83?", a: "The Messenger ﷺ and those in charge", wrong: ["The whole market", "Enemies", "Children"], why: "Wa law raddahu ilar-rasul." },
         { q: "Passing on a false hadith knowingly makes you...", a: "One of the liars", wrong: ["A scholar", "A hero", "Excused"], why: "Ibn Kathir quotes the Sahih." }
+      ]
+    },
+    {
+      slug: "think-before-you-share",
+      title: "Think before you share",
+      line: "Before passing on news, think: does it bring good or harm?",
+      facts: ["As-Sa'di explains", "Spreading news"],
+      quote: q4(83),
+      source: saadi(4, 83, "As-Sa'di says when news of safety or fear comes, believers should not rush to spread it but take it to the people of knowledge and sound judgment, who share it if it brings good; and the ayah forbids rushing to spread things as soon as they are heard, and orders thinking before speaking: is it of benefit or not?", "والأمر بالتأمل قبل الكلام والنظر فيه"),
+      difficulty: 2,
+      questions: [
+        { q: "What should you do with big news, per as-Sa'di on 4:83?", a: "Take it to those who know", wrong: ["Post it at once", "Add to it", "Tell everyone"], why: "Take it to people of knowledge and sound judgment first." },
+        { q: "What does 4:83 order before speaking, per as-Sa'di?", a: "Thinking it through", wrong: ["Speaking fast", "Shouting", "Guessing"], why: "Think before speaking: is it of benefit or not?" },
+        { tf: true, q: "Some true news is better not spread if its harm is greater.", why: "As-Sa'di on 4:83." }
       ]
     },
     {
@@ -945,6 +987,20 @@ const NISA_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "most-talk-has-no-good",
+      title: "Most talk has no good",
+      line: "Most talk is either useless or harmful, except three kinds.",
+      facts: ["As-Sa'di explains", "Guarding the tongue"],
+      quote: q4(114),
+      source: saadi(4, 114, "As-Sa'di says there is no good in much of people's private talk: it is either useless, like extra allowed chatter, or pure harm, like forbidden speech; the exceptions are urging charity, urging what is good, and making peace between people, for quarrels bring endless harm and division.", "فإما لا فائدة فيه كفضول الكلام المباح، وإما شر ومضرة محضة"),
+      difficulty: 2,
+      questions: [
+        { q: "What two kinds of talk have no good, per as-Sa'di on 4:114?", a: "Useless talk and harmful talk", wrong: ["Dua and dhikr", "Advice and peace", "Teaching and learning"], why: "Talk without good is either useless or harmful." },
+        { q: "Why is making peace so valued, per as-Sa'di on 4:114?", a: "Quarrels bring endless harm", wrong: ["It earns money", "It is easy", "It makes you famous"], why: "Quarrels and anger bring more harm and division than can be counted." },
+        { tf: true, q: "Urging charity is one of the exceptions in 4:114.", why: "As-Sa'di on 4:114." }
+      ]
+    },
+    {
       slug: "nature",
       title: "Shaytan's promises",
       line: "Shaytan promises and gives false hopes; his promise is deceit.",
@@ -1040,6 +1096,20 @@ const NISA_THREE: DeepUnit = {
         { q: "Against whom must you still speak the truth, in 4:135?", a: "Yourself, parents and relatives", wrong: ["Only strangers", "Only enemies", "No one"], why: "Wa law 'ala anfusikum awil-walidayn." },
         { q: "Should someone's wealth or poverty change your witness?", tf: false, why: "In yakun ghaniyyan aw faqiran fallahu awla bihima." },
         { q: "Ibn Kathir says the truth stands...", a: "Above everyone", wrong: ["Below family", "Equal to tribe", "Behind money"], why: "Do not compromise for their sake." }
+      ]
+    },
+    {
+      slug: "justice-with-allahs-gifts",
+      title: "Justice with Allah's gifts",
+      line: "Being just with Allah means not using His gifts to disobey Him.",
+      facts: ["As-Sa'di explains", "Qist"],
+      quote: q4(135),
+      source: saadi(4, 135, "As-Sa'di says stand for justice in the rights of Allah and of people: justice with Allah is not using His blessings to disobey Him but spending them in obeying Him; justice with people is giving all their rights as you want yours, and treating them as you love to be treated; and the greatest obstacle to justice is following desire.", "فالقسط في حقوق الله أن لا يستعان بنعمه على معصيته"),
+      difficulty: 2,
+      questions: [
+        { q: "What is justice in Allah's rights, per as-Sa'di on 4:135?", a: "Not using His gifts to disobey Him", wrong: ["Praying once a year", "Giving only money", "Avoiding people"], why: "Do not use His blessings to disobey Him; use them to obey Him." },
+        { q: "What most blocks justice, per as-Sa'di on 4:135?", a: "Following desire", wrong: ["Lack of money", "Too much sleep", "Bad weather"], why: "The greatest obstacle to justice is following desires." },
+        { tf: true, q: "Treat people as you love to be treated.", why: "As-Sa'di on 4:135." }
       ]
     },
     {
