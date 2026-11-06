@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Hud ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -1300,6 +1300,20 @@ const HUD_SIX: DeepUnit = {
         { q: "What do good deeds do, in 11:114?", a: "Remove bad deeds", wrong: ["Add to sins", "Nothing at all", "Only bring wealth"], why: "Verily, the good deeds remove the evil deeds." },
         { q: "What are the five prayers like, per the hadith?", a: "Bathing in a river", wrong: ["Climbing a hill", "Eating a meal", "Lighting a fire"], why: "If there was a river at the door of anyone of you and he took a bath in it five times a day..." },
         { q: "Allah never wastes the reward of those who do good.", tf: true, why: "And be patient; verily, Allah wastes not the reward of the doers of good." }
+      ]
+    },
+    {
+      slug: "which-sins-prayer-wipes",
+      title: "Which sins prayer wipes",
+      line: "Prayers wipe out minor sins if major ones are avoided.",
+      facts: ["As-Sa'di explains", "Minor and major sins"],
+      quote: q11(114),
+      source: saadi(11, 114, "As-Sa'di says the five prayers and the extra prayers are among the greatest good deeds, and they wipe out bad deeds, meaning the minor sins, as the sahih hadith limits it: the five prayers, Friday to Friday and Ramadan to Ramadan wipe out what is between them, as long as major sins are avoided.", "والمراد بذلك: الصغائر"),
+      difficulty: 3,
+      questions: [
+        { q: "Which sins do the prayers wipe out, per as-Sa'di on 11:114?", a: "The minor sins", wrong: ["Only major sins", "No sins", "Only other people's sins"], why: "He says it means the minor sins, as the sahih hadith explains." },
+        { q: "What must be avoided for the prayers to wipe out sins, per as-Sa'di?", a: "Major sins", wrong: ["Sleep", "Food", "Work"], why: "They wipe out what is between them as long as major sins are avoided." },
+        { tf: true, q: "Keeping up good deeds needs striving and patience.", why: "As-Sa'di on 11:114." }
       ]
     },
     {

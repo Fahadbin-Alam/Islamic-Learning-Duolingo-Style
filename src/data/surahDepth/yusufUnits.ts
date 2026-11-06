@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Yusuf ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -189,6 +189,20 @@ const YUSUF_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "what-beautiful-patience-is",
+      title: "What beautiful patience is",
+      line: "Beautiful patience has no anger and no complaining to people.",
+      facts: ["As-Sa'di explains", "Sabr jamil"],
+      quote: q12(18),
+      source: saadi(12, 18, "As-Sa'di says Ya'qub promised beautiful patience, free of anger and of complaining to people, seeking Allah's help, not his own strength; and later he complained only to Allah, because complaining to the Creator does not go against beautiful patience.", "لأن الشكوى إلى الخالق لا تنافي الصبر الجميل"),
+      difficulty: 2,
+      questions: [
+        { q: "What is beautiful patience free of, per as-Sa'di on 12:18?", a: "Anger and complaining to people", wrong: ["Dua", "Hope", "Tears to Allah"], why: "It is free of anger and of complaining to the creation." },
+        { q: "Does complaining to Allah break beautiful patience, per as-Sa'di?", a: "No, it does not", wrong: ["Yes, always", "Only at night", "Only for Prophets"], why: "Complaining to the Creator does not go against beautiful patience." },
+        { tf: true, q: "Ya'qub sought Allah's help, not his own strength, to be patient.", why: "As-Sa'di on 12:18." }
+      ]
+    },
+    {
       slug: "patience-at-the-first-blow",
       title: "Patience at the first blow",
       line: "Real patience is shown at the first moment of hardship.",
@@ -283,6 +297,20 @@ const YUSUF_TWO: DeepUnit = {
         { q: "What did Allah turn away from Yusuf, in 12:24?", a: "Evil and sin", wrong: ["His brothers", "His dreams", "His wealth"], why: "Thus it was, that We might turn away from him evil and immoral sins." },
         { q: "What kind of servant was Yusuf, in 12:24?", a: "Sincere and chosen", wrong: ["Proud", "Careless", "Forgetful"], why: "Surely, he was one of Our Mukhlasin servants, chosen and purified." },
         { q: "Ibn Jarir names exactly what sign Yusuf saw.", tf: false, why: "He says it should be left vague, as Allah left it." }
+      ]
+    },
+    {
+      slug: "patience-by-choice",
+      title: "Patience by choice",
+      line: "Patience by choice is greater than patience you cannot avoid.",
+      facts: ["As-Sa'di explains", "Two kinds of patience"],
+      quote: q12(24),
+      source: saadi(12, 24, "As-Sa'di says the trial in the 'Aziz's house was greater for Yusuf than the trial of his brothers, and his patience in it earned more reward, because it was patience by choice, though many things pushed toward the sin, while his patience with his brothers was patience he had no way to avoid, like an illness.", "لأنه صبر اختيار مع وجود الدواعي الكثيرة"),
+      difficulty: 3,
+      questions: [
+        { q: "Which patience of Yusuf earned more reward, per as-Sa'di on 12:24?", a: "Refusing the sin by choice", wrong: ["Staying in the well", "Being sold as a boy", "Waiting for food"], why: "It was patience by choice, though much pushed him to the sin." },
+        { q: "What is patience with an illness like, per as-Sa'di?", a: "Patience one cannot avoid", wrong: ["Patience by choice", "No patience at all", "Patience for show"], why: "Hardships that come without choice are borne by forced patience." },
+        { tf: true, q: "Yusuf put the love of Allah before his own desire.", why: "As-Sa'di on 12:24." }
       ]
     },
     {
@@ -910,6 +938,20 @@ const YUSUF_FIVE: DeepUnit = {
         { q: "What did Ya'qub tell his sons to do, in 12:87?", a: "Search for Yusuf and his brother", wrong: ["Stay home", "Sell the flock", "Build a well"], why: "O my sons! Go you and inquire about Yusuf and his brother." },
         { q: "Who despairs of Allah's mercy, in 12:87?", a: "The people who disbelieve", wrong: ["The patient", "The prophets", "The poor"], why: "Certainly no one despairs of Allah's mercy, except the people who disbelieve." },
         { q: "Ya'qub had given up hope after so many years.", tf: false, why: "He ordered them to never give up hope in Allah." }
+      ]
+    },
+    {
+      slug: "hope-makes-you-try",
+      title: "Hope makes you try",
+      line: "Hope pushes you to work hard; despair makes you lazy.",
+      facts: ["As-Sa'di explains", "Raja'"],
+      quote: q12(87),
+      source: saadi(12, 87, "As-Sa'di says Ya'qub told his sons to search hard and not despair, for hope makes a servant strive for what he hopes for, while despair makes him slow and lazy; and a servant's hope in Allah's mercy grows with his faith.", "فإن الرجاء يوجب للعبد السعي والاجتهاد فيما رجاه"),
+      difficulty: 2,
+      questions: [
+        { q: "What does hope lead a person to do, per as-Sa'di on 12:87?", a: "Strive and work hard", wrong: ["Sit and wait", "Give up", "Sleep more"], why: "Hope makes a servant strive for what he hopes for." },
+        { q: "What does despair cause, per as-Sa'di on 12:87?", a: "Slowness and laziness", wrong: ["More effort", "More faith", "More joy"], why: "Despair makes a person slow and heavy." },
+        { tf: true, q: "The stronger a person's faith, the more he hopes for Allah's mercy.", why: "As-Sa'di on 12:87." }
       ]
     },
     {
