@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Nuh ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -46,6 +46,20 @@ const NUH_ONE: DeepUnit = {
         { q: "Why was Nuh sent to his people?", a: "To warn them", wrong: ["To rule them", "To trade with them", "To build a city"], why: "Warn your people before there comes to them a painful torment." },
         { q: "What would happen if they repented?", a: "The punishment would be lifted", wrong: ["They would get gold", "Nothing at all", "They would rule others"], why: "If they would repent and turn to Allah, then the punishment would be lifted from them." },
         { tf: false, q: "Allah punished Nuh's people without any warning.", why: "He sent him to his people commanding him to warn them of the punishment of Allah before it befell them." }
+      ]
+    },
+    {
+      slug: "a-surah-for-one-story",
+      title: "A surah for one story",
+      line: "Surah Nuh tells only his story, for his long years of calling.",
+      facts: ["As-Sa'di explains", "950 years of da'wah"],
+      quote: q71(1),
+      source: saadi(71, 1, "As-Sa'di says Allah told only the story of Nuh in Surah Nuh because he stayed so long among his people, calling them again and again to worship Allah alone.", "لم يذكر الله في هذه السورة سوى قصة نوح وحدها لطول لبثه في قومه"),
+      difficulty: 1,
+      questions: [
+        { q: "Why does Surah Nuh tell only Nuh's story?", a: "He called his people so long", wrong: ["It is a short surah", "No other story fit", "It came first"], why: "Because of how long he stayed among them, says as-Sa'di." },
+        { q: "What did Nuh keep calling his people to?", a: "Worship Allah alone", wrong: ["Build a city", "Fight a war", "Leave their land"], why: "He kept calling to tawhid and away from shirk." },
+        { tf: true, q: "Nuh called his people again and again.", why: "As-Sa'di on 71:1." }
       ]
     },
     {
@@ -519,6 +533,20 @@ const NUH_FOUR: DeepUnit = {
         { q: "For whom did Nuh ask forgiveness first?", a: "Himself and his parents", wrong: ["His enemies", "His idols", "No one"], why: "My Lord! Forgive me, and my parents." },
         { q: "Who else is in Nuh's dua?", a: "All believing men and women", wrong: ["Only his family", "Only the living", "Only scholars"], why: "And all the believing men and women." },
         { tf: true, q: "Praying for all believers like Nuh did is recommended.", why: "For this reason, it is recommended to supplicate like this, in following the example of Nuh." }
+      ]
+    },
+    {
+      slug: "parents-come-first",
+      title: "Parents come first",
+      line: "Nuh named his parents in his dua, as their right is great.",
+      facts: ["As-Sa'di explains", "Then all believers"],
+      quote: q71(28),
+      source: saadi(71, 28, "As-Sa'di says Nuh named himself, his parents and those who entered his home first because their right is stronger, then he made dua for all believers.", "خص المذكورين لتأكد حقهم وتقديم برهم"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Nuh name his parents in his dua?", a: "Their right is great", wrong: ["They were prophets", "By chance", "They asked him"], why: "Their right is stronger and their kindness comes first, says as-Sa'di." },
+        { q: "After them, whom did Nuh pray for?", a: "All believers", wrong: ["Only himself", "No one", "Only his ship"], why: "Then he made the dua general for all believers." },
+        { tf: true, q: "Making dua for our parents is part of kindness to them.", why: "As-Sa'di on 71:28." }
       ]
     },
     {

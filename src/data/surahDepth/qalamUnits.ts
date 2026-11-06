@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Qalam ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -227,6 +227,20 @@ const QALAM_ONE: DeepUnit = {
         { q: "Who knows best who is guided?", a: "Allah", wrong: ["The crowd", "The rich", "The poets"], why: "Your Lord is the best Knower of those who are guided." },
         { q: "What else does Allah know, per 68:7?", a: "Who has gone astray", wrong: ["Only the weather", "Nothing", "Only numbers"], why: "Your Lord is the best Knower of him who has gone astray from His path." },
         { tf: false, q: "People decide who is truly guided.", why: "He knows which of the two groups are truly guided among you." }
+      ]
+    },
+    {
+      slug: "guidance-for-the-fit",
+      title: "Guidance for the ready",
+      line: "In His wisdom, Allah guides hearts that are fit for guidance.",
+      facts: ["As-Sa'di explains", "Wisdom in guidance"],
+      quote: q68(7),
+      source: saadi(68, 7, "As-Sa'di says Allah knowing who is astray and who is guided shows His wisdom: He guides those who are fit for guidance and not others.", "حيث كان يهدي من يصلح للهداية"),
+      difficulty: 3,
+      questions: [
+        { q: "Whom does Allah guide, per as-Sa'di on 68:7?", a: "Those fit for guidance", wrong: ["Random people", "Only the rich", "No one"], why: "He guides those suited for guidance, says as-Sa'di." },
+        { q: "Al-Qalam 68:7 is a promise for whom?", a: "The guided", wrong: ["The deniers", "The proud", "The stingy"], why: "A warning to the lost, a promise to the guided." },
+        { tf: true, q: "Allah's guidance follows His perfect wisdom.", why: "As-Sa'di on 68:7." }
       ]
     }
   ]
@@ -742,6 +756,20 @@ const QALAM_FOUR: DeepUnit = {
         { q: "Whose punishment is described?", a: "Those who withhold the poor's right", wrong: ["Those who give charity", "Those who pray", "Those who fast"], why: "Is stingy with what Allah has given him and withholds the right of the poor and needy." },
         { q: "Which punishment is greater?", a: "That of the Hereafter", wrong: ["That of this life", "They are equal", "Neither"], why: "But truly, the punishment of the Hereafter is greater if they but knew." },
         { tf: true, q: "The poor have a right in our wealth.", why: "Withholds the right of the poor and needy." }
+      ]
+    },
+    {
+      slug: "losing-what-you-misused",
+      title: "Losing what you misused",
+      line: "Allah may take away the very thing used for wrong.",
+      facts: ["As-Sa'di explains", "When most needed"],
+      quote: q68(33),
+      source: saadi(68, 33, "As-Sa'di says a worldly punishment is that Allah takes away the very thing a person misused and preferred over the Hereafter, just when he needs it most.", "أن يسلب الله العبد الشيء الذي طغى به وبغى"),
+      difficulty: 2,
+      questions: [
+        { q: "What might Allah take from one who misuses a blessing?", a: "That very blessing", wrong: ["Nothing at all", "Only his sleep", "Someone else's"], why: "He takes the thing he transgressed with, says as-Sa'di." },
+        { q: "When was the garden taken, per as-Sa'di?", a: "When they needed it most", wrong: ["When they were away", "Years later", "Never"], why: "It is removed when he needs it most." },
+        { tf: true, q: "The punishment of the Hereafter is greater.", why: "As-Sa'di on 68:33." }
       ]
     }
   ]
