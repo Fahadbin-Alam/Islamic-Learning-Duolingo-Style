@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ad-Duha ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -103,6 +103,20 @@ const DUHA_ONE: DeepUnit = {
         { q: "What is better for him, per 93:4?", a: "The Hereafter", wrong: ["Gold", "A palace", "A kingdom"], why: "And indeed the Hereafter is better for you than the present." },
         { q: "How did he treat worldly things, per Ibn Kathir?", a: "He cared little for them", wrong: ["He collected them", "He boasted of them", "He chased them"], why: "He was the greatest of them in his disregard for worldly matters." },
         { tf: false, q: "At the end he chose to stay in this world.", why: "He chose that which is with Allah over this lowly world." }
+      ]
+    },
+    {
+      slug: "each-stage-better",
+      title: "Each stage better",
+      line: "Every later part of his ﷺ life was better than the one before.",
+      facts: ["As-Sa'di explains", "Rising step by step"],
+      quote: q93(4),
+      source: saadi(93, 4, "As-Sa'di says every later stage of the Prophet's ﷺ life was better than the one before; he kept rising until he reached a rank no one else reached.", "كل حالة متأخرة من أحوالك"),
+      difficulty: 2,
+      questions: [
+        { q: "How did each stage of his ﷺ life compare?", a: "Better than before", wrong: ["Worse than before", "Always the same", "Unknown"], why: "Each later state was better than the earlier, says as-Sa'di." },
+        { q: "Until when did he ﷺ keep rising?", a: "Until he died", wrong: ["Until age 40", "Until the Hijrah", "Until Badr"], why: "He kept rising in rank until he died." },
+        { tf: true, q: "Allah gave His Messenger ﷺ victory over his enemies.", why: "As-Sa'di on 93:4." }
       ]
     },
     {

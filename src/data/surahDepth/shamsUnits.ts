@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Ash-Shams ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -106,6 +106,20 @@ const SHAMS_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "day-and-night-in-order",
+      title: "Day and night in order",
+      line: "Light and dark take turns so neatly: proof Allah knows all.",
+      facts: ["As-Sa'di explains", "Sun, moon, day, night"],
+      quote: q91(4),
+      source: saadi(91, 4, "As-Sa'di says light and dark, sun and moon taking turns in perfect order for our good is the greatest proof that Allah knows all, can do all, and alone deserves worship.", "أكبر دليل على أن الله بكل شيء عليم"),
+      difficulty: 2,
+      questions: [
+        { q: "What does the neat order of day and night prove?", a: "Allah knows and can do all", wrong: ["Nature made itself", "It happens by chance", "The sun is a god"], why: "The greatest proof that Allah knows all and can do all, says as-Sa'di." },
+        { q: "Who alone deserves worship, per as-Sa'di on 91:4?", a: "Allah", wrong: ["The sun", "The moon", "The stars"], why: "He alone is worshipped; all else worshipped is false." },
+        { tf: true, q: "Day and night taking turns is for our good.", why: "For the good of His servants. As-Sa'di on 91:4." }
+      ]
+    },
+    {
       slug: "the-sky-and-its-building",
       title: "The sky and its building",
       line: "Allah swears by the sky and how He raised it high.",
@@ -158,6 +172,20 @@ const SHAMS_TWO: DeepUnit = {
         { q: "By what does Allah swear in 91:7?", a: "The soul and Who shaped it", wrong: ["The body only", "The sea", "The sky"], why: "By Nafs, and Ma Sawwaha." },
         { q: "Upon what nature was it made, per Ibn Kathir?", a: "Al-Fitrah", wrong: ["Anger", "Greed", "Forgetfulness"], why: "Upon the correct nature, Al-Fitrah." },
         { q: "Which ayah speaks of Allah's Fitrah?", a: "30:30", wrong: ["2:2", "18:10", "55:1"], why: "Allah's Fitrah with which He has created mankind." }
+      ]
+    },
+    {
+      slug: "the-soul-a-great-sign",
+      title: "The soul, a great sign",
+      line: "Without the soul, the body would be only a useless statue.",
+      facts: ["As-Sa'di explains", "Love, hate, worry, will"],
+      quote: q91(7),
+      source: saadi(91, 7, "As-Sa'di says the soul is one of Allah's great signs: light, quick and full of feelings, and without it the body would be a useless statue.", "لكان البدن مجرد تمثال لا فائدة فيه"),
+      difficulty: 2,
+      questions: [
+        { q: "Without the soul, the body would be...?", a: "A useless statue", wrong: ["Stronger", "Lighter", "Faster"], why: "The body would be only a statue with no use, says as-Sa'di." },
+        { q: "Which of these does the soul feel?", a: "Love and hate", wrong: ["Only hunger", "Nothing", "Only cold"], why: "Worry, will, aim, love and hate." },
+        { tf: true, q: "The soul is one of Allah's great signs.", why: "As-Sa'di on 91:7." }
       ]
     },
     {

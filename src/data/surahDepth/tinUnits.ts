@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Tin ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -214,6 +214,20 @@ const TIN_TWO: DeepUnit = {
         { q: "What does 95:8 ask?", a: "Is not Allah the best of judges?", wrong: ["Is not the king fair?", "Is not the sea deep?", "Is not the sky blue?"], why: "Is not Allah the best of judges?" },
         { q: "What does the best judge never do, per Ibn Kathir?", a: "Oppress anyone", wrong: ["Speak", "Know", "Decide"], why: "Who does not oppress or do any injustice to anyone." },
         { tf: false, q: "Allah's judgement can be unfair to someone.", why: "Who does not oppress or do any injustice to anyone." }
+      ]
+    },
+    {
+      slug: "not-left-without-purpose",
+      title: "Not left without purpose",
+      line: "The Wisest Judge never leaves people without rules or reward.",
+      facts: ["As-Sa'di explains", "A home we return to"],
+      quote: q95(8),
+      source: saadi(95, 8, "As-Sa'di says Allah's wisdom would never leave people without commands or reward; the One who raised us must return us to our lasting home.", "أن يترك الخلق سدى"),
+      difficulty: 2,
+      questions: [
+        { q: "Would Allah leave people with no rules or reward?", a: "Never", wrong: ["Yes, always", "Only some people", "Only animals"], why: "His wisdom does not leave creation without purpose, says as-Sa'di." },
+        { q: "Where must Allah return people to?", a: "Their lasting home", wrong: ["Their first city", "The sea", "Nowhere"], why: "A home that is their final place." },
+        { tf: true, q: "Allah gave us more blessings than we can count.", why: "As-Sa'di on 95:8." }
       ]
     },
     {
