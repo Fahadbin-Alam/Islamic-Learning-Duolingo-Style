@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Al-Anfal ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a
 // lesson, explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one
@@ -77,6 +77,20 @@ const ANFAL_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "fear-that-stops-sin",
+      title: "Fear that stops sin",
+      line: "True fear of Allah shows when it holds you back from sin.",
+      facts: ["As-Sa'di explains", "Khashyah"],
+      quote: q8(2),
+      source: saadi(8, 2, "As-Sa'di says the true believers' hearts tremble when Allah is mentioned, and this fear keeps them from what is forbidden, for the greatest sign of fearing Allah is that it stops its owner from sins; and whoever's obedience is less, his faith is less.", "فإن خوف اللّه تعالى أكبر علاماته أن يحجز صاحبه عن الذنوب"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the greatest sign of fearing Allah, per as-Sa'di on 8:2?", a: "It stops a person from sins", wrong: ["Crying loudly", "Wearing white", "Talking about it"], why: "The fear of Allah shows most in holding a person back from sins." },
+        { q: "What does less obedience show, per as-Sa'di on 8:2?", a: "Less faith", wrong: ["More faith", "More wealth", "Nothing"], why: "Whoever's obedience is less, his faith is less." },
+        { tf: true, q: "Faith can be complete or less than complete.", why: "As-Sa'di on 8:2." }
+      ]
+    },
+    {
       slug: "faith-grows",
       title: "Faith grows with the Quran",
       line: "When Allah's ayahs are recited, the believers' faith increases.",
@@ -88,6 +102,20 @@ const ANFAL_ONE: DeepUnit = {
         { q: "What increases when the ayahs are recited, in 8:2?", a: "Their faith", wrong: ["Their wealth", "Their fear of people", "Their sleep"], why: "Zadat-hum imana." },
         { q: "On whom do the believers rely, in 8:2?", a: "Their Lord", wrong: ["Their tribe", "Their wealth", "Their weapons"], why: "Wa ala rabbihim yatawakkalun." },
         { q: "Faith can increase, as 8:2 shows.", tf: true, why: "They increase their faith and conviction." }
+      ]
+    },
+    {
+      slug: "why-ayahs-raise-faith",
+      title: "Why ayahs raise faith",
+      line: "Listening with a present heart is what makes ayahs raise faith.",
+      facts: ["As-Sa'di explains", "Tadabbur"],
+      quote: q8(2),
+      source: saadi(8, 2, "As-Sa'di says faith rises when ayahs are recited because believers listen and bring their hearts to reflect, and reflection is a deed of the heart; it teaches them a meaning, reminds them of what they forgot, or stirs love of good, longing for their Lord, or fear that keeps them from sins.", "لأن التدبر من أعمال القلوب"),
+      difficulty: 2,
+      questions: [
+        { q: "Why does reciting ayahs raise faith, per as-Sa'di on 8:2?", a: "Believers reflect with present hearts", wrong: ["The voice is loud", "The room is quiet", "The book is new"], why: "They listen and reflect, and reflection is a deed of the heart." },
+        { q: "Which of these can reflecting on an ayah bring, per as-Sa'di?", a: "A reminder of what was forgotten", wrong: ["More wealth", "More sleep", "Fame"], why: "It may teach a meaning or remind of what they forgot." },
+        { tf: true, q: "Tawakkul carries all deeds; none are complete without it.", why: "As-Sa'di on 8:2." }
       ]
     },
     {
@@ -339,6 +367,20 @@ const ANFAL_TWO: DeepUnit = {
         { q: "What does Allah come between, in 8:24?", a: "A person and his heart", wrong: ["Two brothers", "Day and night", "Two armies"], why: "Annallaha yahulu baynal-mar'i wa qalbih." },
         { q: "What du'a did the Prophet ﷺ often say, per Ibn Kathir?", a: "Make my heart firm on Your religion", wrong: ["Give me a kingdom", "Make me famous", "Give me long life"], why: "O You Who changes the hearts, make my heart firm on Your religion." },
         { q: "To Allah we will all be gathered, says 8:24.", tf: true, why: "Wa annahu ilayhi tuhsharun." }
+      ]
+    },
+    {
+      slug: "answer-the-first-call",
+      title: "Answer the first call",
+      line: "Do not turn away Allah's command the first time it comes.",
+      facts: ["As-Sa'di explains", "Answering Allah"],
+      quote: q8(24),
+      source: saadi(8, 24, "As-Sa'di says the life of the heart is in worshipping Allah and obeying Him and His Messenger ﷺ; so beware of refusing Allah's command the first time it comes, lest you are blocked from it when you later want it, for Allah turns hearts as He wills, so say often: O Turner of hearts, keep my heart firm on Your religion.", "فإياكم أن تردوا أمر اللّه أول ما يأتيكم"),
+      difficulty: 2,
+      questions: [
+        { q: "What does as-Sa'di warn against on 8:24?", a: "Refusing Allah's command at first", wrong: ["Praying at night", "Giving charity", "Reading Quran"], why: "Refusing at first may block you from it when you later want it." },
+        { q: "Where is the life of the heart, per as-Sa'di on 8:24?", a: "In worshipping and obeying Allah", wrong: ["In wealth", "In sleep", "In games"], why: "The life of heart and soul is in worshipping Allah." },
+        { tf: true, q: "As-Sa'di advises saying often: O Turner of hearts, keep my heart firm.", why: "As-Sa'di on 8:24." }
       ]
     },
     {
