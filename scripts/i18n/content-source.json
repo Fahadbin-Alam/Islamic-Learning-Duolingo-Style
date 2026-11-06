@@ -2569,7 +2569,15 @@
   },
   {
     "kind": "course",
+    "text": "Faith that sets us apart"
+  },
+  {
+    "kind": "course",
     "text": "They pray and give"
+  },
+  {
+    "kind": "course",
+    "text": "Establish, not just do"
   },
   {
     "kind": "course",
@@ -2706,6 +2714,10 @@
   {
     "kind": "course",
     "text": "Patience and prayer"
+  },
+  {
+    "kind": "course",
+    "text": "Three kinds of patience"
   },
   {
     "kind": "course",
@@ -2909,6 +2921,10 @@
   },
   {
     "kind": "course",
+    "text": "Heart and tongue together"
+  },
+  {
+    "kind": "course",
     "text": "Allah is with the patient"
   },
   {
@@ -2921,7 +2937,15 @@
   },
   {
     "kind": "course",
+    "text": "The double loss"
+  },
+  {
+    "kind": "course",
     "text": "To Allah we belong"
+  },
+  {
+    "kind": "course",
+    "text": "We belong to Him"
   },
   {
     "kind": "course",
@@ -2973,6 +2997,10 @@
   },
   {
     "kind": "course",
+    "text": "How fasting builds taqwa"
+  },
+  {
+    "kind": "course",
     "text": "Ease for the sick"
   },
   {
@@ -2982,6 +3010,10 @@
   {
     "kind": "course",
     "text": "I am near"
+  },
+  {
+    "kind": "course",
+    "text": "Two kinds of nearness"
   },
   {
     "kind": "course",
@@ -3017,6 +3049,10 @@
   },
   {
     "kind": "course",
+    "text": "An answer is not proof"
+  },
+  {
+    "kind": "course",
     "text": "Sweet words, bad deeds"
   },
   {
@@ -3034,6 +3070,10 @@
   {
     "kind": "course",
     "text": "It may be good for you"
+  },
+  {
+    "kind": "course",
+    "text": "Hard good is still good"
   },
   {
     "kind": "course",
@@ -3122,6 +3162,10 @@
   {
     "kind": "course",
     "text": "Given wisdom"
+  },
+  {
+    "kind": "course",
+    "text": "What hikmah is"
   },
   {
     "kind": "course",
@@ -177677,6 +177721,62 @@
   },
   {
     "kind": "lesson",
+    "text": "Believing in the unseen is what sets a Muslim apart."
+  },
+  {
+    "kind": "lesson",
+    "text": "Iman bil-ghayb"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:3"
+  },
+  {
+    "kind": "question",
+    "text": "What belief sets a Muslim apart, per as-Sa'di on 2:3?"
+  },
+  {
+    "kind": "question",
+    "text": "Belief in the unseen"
+  },
+  {
+    "kind": "question",
+    "text": "Belief in what we see"
+  },
+  {
+    "kind": "question",
+    "text": "Anyone can believe what they see; believing the unseen sets the Muslim apart."
+  },
+  {
+    "kind": "question",
+    "text": "Why do believers accept the unseen, per as-Sa'di on 2:3?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah and His Messenger ﷺ told them"
+  },
+  {
+    "kind": "question",
+    "text": "Their dreams showed it"
+  },
+  {
+    "kind": "question",
+    "text": "Their elders guessed it"
+  },
+  {
+    "kind": "question",
+    "text": "They believe it because of what Allah and His Messenger ﷺ told."
+  },
+  {
+    "kind": "question",
+    "text": "Belief in the Hereafter is part of belief in the unseen."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:3."
+  },
+  {
+    "kind": "lesson",
     "text": "They keep up the prayer and spend from what Allah gave them."
   },
   {
@@ -177730,6 +177830,58 @@
   {
     "kind": "question",
     "text": "Ibn Kathir includes it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Can you still remember these about Al-Baqarah, ayahs 1 to 74?"
+  },
+  {
+    "kind": "lesson",
+    "text": "Allah said establish the prayer, not just do it."
+  },
+  {
+    "kind": "lesson",
+    "text": "Iqamah"
+  },
+  {
+    "kind": "question",
+    "text": "Why did Allah say establish the prayer, per as-Sa'di on 2:3?"
+  },
+  {
+    "kind": "question",
+    "text": "Its outer form alone is not enough"
+  },
+  {
+    "kind": "question",
+    "text": "It is shorter to say"
+  },
+  {
+    "kind": "question",
+    "text": "Prayer is optional"
+  },
+  {
+    "kind": "question",
+    "text": "Establishing means outwardly and inwardly, not just going through the motions."
+  },
+  {
+    "kind": "question",
+    "text": "What is the soul of prayer, per as-Sa'di on 2:3?"
+  },
+  {
+    "kind": "question",
+    "text": "A long dua only"
+  },
+  {
+    "kind": "question",
+    "text": "A present, thinking heart"
+  },
+  {
+    "kind": "question",
+    "text": "Its inner side is a present heart that reflects on what it says and does."
+  },
+  {
+    "kind": "question",
+    "text": "Completing the pillars and conditions is the outer side of establishing prayer."
   },
   {
     "kind": "lesson",
@@ -177806,10 +177958,6 @@
   {
     "kind": "question",
     "text": "Given to Musa."
-  },
-  {
-    "kind": "lesson",
-    "text": "Can you still remember these about Al-Baqarah, ayahs 1 to 74?"
   },
   {
     "kind": "lesson",
@@ -179838,6 +179986,74 @@
   {
     "kind": "question",
     "text": "Those sure to meet their Lord."
+  },
+  {
+    "kind": "lesson",
+    "text": "Patience to obey, patience from sin, patience in hardship."
+  },
+  {
+    "kind": "lesson",
+    "text": "Sabr"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:45"
+  },
+  {
+    "kind": "question",
+    "text": "Which is NOT one of the kinds of patience, per as-Sa'di on 2:45?"
+  },
+  {
+    "kind": "question",
+    "text": "Patience to win arguments"
+  },
+  {
+    "kind": "question",
+    "text": "Patience upon obeying Allah"
+  },
+  {
+    "kind": "question",
+    "text": "Patience away from sin"
+  },
+  {
+    "kind": "question",
+    "text": "Patience in painful decrees"
+  },
+  {
+    "kind": "question",
+    "text": "The three are obeying, leaving sin, and bearing hardship."
+  },
+  {
+    "kind": "question",
+    "text": "Why is prayer light for the humble, per as-Sa'di on 2:45?"
+  },
+  {
+    "kind": "question",
+    "text": "They pray alone"
+  },
+  {
+    "kind": "question",
+    "text": "They hope for Allah's reward"
+  },
+  {
+    "kind": "question",
+    "text": "They pray quickly"
+  },
+  {
+    "kind": "question",
+    "text": "They skip parts"
+  },
+  {
+    "kind": "question",
+    "text": "Fear of Allah and hope for His reward make it easy for them."
+  },
+  {
+    "kind": "question",
+    "text": "Prayer is heavy for everyone, even the humble."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:45: it is easy for the humble."
   },
   {
     "kind": "lesson",
@@ -183365,6 +183581,54 @@
   },
   {
     "kind": "lesson",
+    "text": "The best dhikr is when the heart and tongue agree."
+  },
+  {
+    "kind": "lesson",
+    "text": "Dhikr"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:152"
+  },
+  {
+    "kind": "question",
+    "text": "What is the best dhikr, per as-Sa'di on 2:152?"
+  },
+  {
+    "kind": "question",
+    "text": "When heart and tongue agree"
+  },
+  {
+    "kind": "question",
+    "text": "The loudest one"
+  },
+  {
+    "kind": "question",
+    "text": "Tongue only"
+  },
+  {
+    "kind": "question",
+    "text": "What reward does Allah give for remembering Him, per as-Sa'di on 2:152?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah remembers you"
+  },
+  {
+    "kind": "question",
+    "text": "He remembers whoever remembers Him."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di calls dhikr the head of gratitude."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:152."
+  },
+  {
+    "kind": "lesson",
     "text": "Good in every state"
   },
   {
@@ -183505,6 +183769,70 @@
   },
   {
     "kind": "lesson",
+    "text": "The impatient lose twice: the thing, and the reward."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:155"
+  },
+  {
+    "kind": "question",
+    "text": "What two losses does the impatient person get, per as-Sa'di on 2:155?"
+  },
+  {
+    "kind": "question",
+    "text": "Friends and food"
+  },
+  {
+    "kind": "question",
+    "text": "Sleep and health"
+  },
+  {
+    "kind": "question",
+    "text": "The thing, and the reward"
+  },
+  {
+    "kind": "question",
+    "text": "Money and time"
+  },
+  {
+    "kind": "question",
+    "text": "He loses what he loved and the reward of patience."
+  },
+  {
+    "kind": "question",
+    "text": "Why do tests come in small amounts, per as-Sa'di on 2:155?"
+  },
+  {
+    "kind": "question",
+    "text": "Allah forgets"
+  },
+  {
+    "kind": "question",
+    "text": "They are random"
+  },
+  {
+    "kind": "question",
+    "text": "They are punishments only"
+  },
+  {
+    "kind": "question",
+    "text": "Tests purify, not destroy"
+  },
+  {
+    "kind": "question",
+    "text": "If He tested with all fear or hunger they would perish."
+  },
+  {
+    "kind": "question",
+    "text": "For the patient, a test can turn into a blessing."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:155."
+  },
+  {
+    "kind": "lesson",
     "text": "In loss, say: to Allah we belong, and to Him we return."
   },
   {
@@ -183554,6 +183882,66 @@
   {
     "kind": "question",
     "text": "Allahumma'jurni fi musibati."
+  },
+  {
+    "kind": "lesson",
+    "text": "Knowing we belong to Allah is a strong cause of patience."
+  },
+  {
+    "kind": "lesson",
+    "text": "Istirja"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:156"
+  },
+  {
+    "kind": "question",
+    "text": "What does 'we belong to Allah' mean, per as-Sa'di on 2:156?"
+  },
+  {
+    "kind": "question",
+    "text": "We are owned by Allah"
+  },
+  {
+    "kind": "question",
+    "text": "We are His equals"
+  },
+  {
+    "kind": "question",
+    "text": "We own ourselves"
+  },
+  {
+    "kind": "question",
+    "text": "We are owned by Him and under His command."
+  },
+  {
+    "kind": "question",
+    "text": "What helps patience most, per as-Sa'di on 2:156?"
+  },
+  {
+    "kind": "question",
+    "text": "Staying busy only"
+  },
+  {
+    "kind": "question",
+    "text": "Knowing we are His and return to Him"
+  },
+  {
+    "kind": "question",
+    "text": "Forgetting the loss"
+  },
+  {
+    "kind": "question",
+    "text": "Being His and returning to Him is among the strongest causes of patience."
+  },
+  {
+    "kind": "question",
+    "text": "'To Him we return' reminds us of reward on the Day of Return."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:156."
   },
   {
     "kind": "lesson",
@@ -184341,6 +184729,58 @@
   },
   {
     "kind": "lesson",
+    "text": "Fasting trains the heart to feel Allah watching."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:183"
+  },
+  {
+    "kind": "question",
+    "text": "How does fasting train the heart, per as-Sa'di on 2:183?"
+  },
+  {
+    "kind": "question",
+    "text": "To feel Allah watching"
+  },
+  {
+    "kind": "question",
+    "text": "To love food more"
+  },
+  {
+    "kind": "question",
+    "text": "To speak less to family"
+  },
+  {
+    "kind": "question",
+    "text": "He leaves what he could reach because he knows Allah sees him."
+  },
+  {
+    "kind": "question",
+    "text": "What does hunger teach the rich, per as-Sa'di on 2:183?"
+  },
+  {
+    "kind": "question",
+    "text": "To comfort the poor"
+  },
+  {
+    "kind": "question",
+    "text": "To buy more food"
+  },
+  {
+    "kind": "question",
+    "text": "Tasting hunger moves them to help the poor."
+  },
+  {
+    "kind": "question",
+    "text": "Fasting weakens Shaytan's paths, so sins become fewer."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:183."
+  },
+  {
+    "kind": "lesson",
     "text": "The sick or traveling can make up the days later."
   },
   {
@@ -184473,6 +184913,10 @@
   },
   {
     "kind": "lesson",
+    "text": "Can you still remember these about Al-Baqarah, ayahs 177 to 286?"
+  },
+  {
+    "kind": "lesson",
     "text": "When My servants ask about Me: I am near, I answer."
   },
   {
@@ -184549,7 +184993,55 @@
   },
   {
     "kind": "lesson",
-    "text": "Can you still remember these about Al-Baqarah, ayahs 177 to 286?"
+    "text": "Allah is near all by knowledge, near His callers by answering."
+  },
+  {
+    "kind": "lesson",
+    "text": "Dua"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:186"
+  },
+  {
+    "kind": "question",
+    "text": "To whom is Allah near by answering, per as-Sa'di on 2:186?"
+  },
+  {
+    "kind": "question",
+    "text": "Those who worship and call Him"
+  },
+  {
+    "kind": "question",
+    "text": "That special nearness is for His worshippers and callers."
+  },
+  {
+    "kind": "question",
+    "text": "What can block a dua, per as-Sa'di on 2:186?"
+  },
+  {
+    "kind": "question",
+    "text": "Being humble"
+  },
+  {
+    "kind": "question",
+    "text": "Eating haram"
+  },
+  {
+    "kind": "question",
+    "text": "Raising hands"
+  },
+  {
+    "kind": "question",
+    "text": "He names eating haram as something that stops an answer."
+  },
+  {
+    "kind": "question",
+    "text": "Allah is near all creation by His knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:186."
   },
   {
     "kind": "lesson",
@@ -185017,6 +185509,50 @@
   },
   {
     "kind": "lesson",
+    "text": "Allah may answer anyone's dua; that alone is not His love."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:201"
+  },
+  {
+    "kind": "question",
+    "text": "Is an answered dua always proof of Allah's love, per as-Sa'di on 2:201?"
+  },
+  {
+    "kind": "question",
+    "text": "No, Allah answers many people"
+  },
+  {
+    "kind": "question",
+    "text": "He answers Muslim, disbeliever and sinner."
+  },
+  {
+    "kind": "question",
+    "text": "Which is good in this world, per as-Sa'di on 2:201?"
+  },
+  {
+    "kind": "question",
+    "text": "Endless sleep"
+  },
+  {
+    "kind": "question",
+    "text": "A righteous spouse"
+  },
+  {
+    "kind": "question",
+    "text": "He lists halal provision, a righteous spouse, children and useful knowledge."
+  },
+  {
+    "kind": "question",
+    "text": "Good in the Hereafter includes safety in the grave and from the Fire."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:201."
+  },
+  {
+    "kind": "lesson",
     "text": "Some talk sweetly, but when given power, spread ruin."
   },
   {
@@ -185326,6 +185862,62 @@
   {
     "kind": "question",
     "text": "Trust Allah's plan."
+  },
+  {
+    "kind": "lesson",
+    "text": "Good deeds we find hard are surely good for us."
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:216"
+  },
+  {
+    "kind": "question",
+    "text": "What are good deeds the soul finds hard, per as-Sa'di on 2:216?"
+  },
+  {
+    "kind": "question",
+    "text": "Not worth it"
+  },
+  {
+    "kind": "question",
+    "text": "Surely good"
+  },
+  {
+    "kind": "question",
+    "text": "Surely bad"
+  },
+  {
+    "kind": "question",
+    "text": "Good deeds disliked for their hardship are good without doubt."
+  },
+  {
+    "kind": "question",
+    "text": "When Allah turns you from something you love, what should you do, per as-Sa'di on 2:216?"
+  },
+  {
+    "kind": "question",
+    "text": "Be angry"
+  },
+  {
+    "kind": "question",
+    "text": "Blame people"
+  },
+  {
+    "kind": "question",
+    "text": "Thank Allah and trust Him"
+  },
+  {
+    "kind": "question",
+    "text": "Allah is more merciful to you than you are to yourself."
+  },
+  {
+    "kind": "question",
+    "text": "Sins the soul loves are bad, even if they seem comfortable."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:216."
   },
   {
     "kind": "lesson",
@@ -186782,6 +187374,66 @@
   {
     "kind": "question",
     "text": "Ulul-albab."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hikmah is useful knowledge, good deeds, and knowing the why."
+  },
+  {
+    "kind": "lesson",
+    "text": "Hikmah"
+  },
+  {
+    "kind": "source",
+    "text": "Tafsir as-Sa'di 2:269"
+  },
+  {
+    "kind": "question",
+    "text": "What is hikmah, per as-Sa'di on 2:269?"
+  },
+  {
+    "kind": "question",
+    "text": "Talking a lot"
+  },
+  {
+    "kind": "question",
+    "text": "Useful knowledge and good deeds"
+  },
+  {
+    "kind": "question",
+    "text": "Hikmah is useful knowledge, righteous deeds and knowing the reasons of the laws."
+  },
+  {
+    "kind": "question",
+    "text": "How does a servant become complete, per as-Sa'di on 2:269?"
+  },
+  {
+    "kind": "question",
+    "text": "Knowing only"
+  },
+  {
+    "kind": "question",
+    "text": "Acting without knowing"
+  },
+  {
+    "kind": "question",
+    "text": "Collecting books"
+  },
+  {
+    "kind": "question",
+    "text": "Knowing the truth and acting on it"
+  },
+  {
+    "kind": "question",
+    "text": "His knowing and his doing must both be completed."
+  },
+  {
+    "kind": "question",
+    "text": "Whoever is given hikmah has been given much good."
+  },
+  {
+    "kind": "question",
+    "text": "As-Sa'di on 2:269."
   },
   {
     "kind": "lesson",
@@ -193896,10 +194548,6 @@
     "text": "No one succeeds without patience, steadfastness and guarding."
   },
   {
-    "kind": "lesson",
-    "text": "Sabr"
-  },
-  {
     "kind": "source",
     "text": "Tafsir as-Sa'di 3:200"
   },
@@ -194094,10 +194742,6 @@
   {
     "kind": "question",
     "text": "Allah is far away"
-  },
-  {
-    "kind": "question",
-    "text": "Allah forgets"
   },
   {
     "kind": "question",
@@ -234266,10 +234910,6 @@
   {
     "kind": "question",
     "text": "Anger and complaining to people"
-  },
-  {
-    "kind": "question",
-    "text": "Dua"
   },
   {
     "kind": "question",
@@ -308604,10 +309244,6 @@
     "text": "Wisdom is useful knowledge with good deeds, not knowledge alone."
   },
   {
-    "kind": "lesson",
-    "text": "Hikmah"
-  },
-  {
     "kind": "source",
     "text": "Tafsir as-Sa'di 31:12"
   },
@@ -314486,10 +315122,6 @@
   {
     "kind": "question",
     "text": "What has no set limit, per Ibn Abbas?"
-  },
-  {
-    "kind": "question",
-    "text": "Dhikr"
   },
   {
     "kind": "question",
@@ -344809,10 +345441,6 @@
   },
   {
     "kind": "question",
-    "text": "Talking a lot"
-  },
-  {
-    "kind": "question",
     "text": "Knowing the good and choosing it is the sign of sense."
   },
   {
@@ -353866,10 +354494,6 @@
   {
     "kind": "question",
     "text": "What does Allah command in 40:77?"
-  },
-  {
-    "kind": "question",
-    "text": "Be angry"
   },
   {
     "kind": "question",
@@ -412041,10 +412665,6 @@
   },
   {
     "kind": "question",
-    "text": "They are random"
-  },
-  {
-    "kind": "question",
     "text": "All-Wise in His creating, commanding and legislating."
   },
   {
@@ -444737,10 +445357,6 @@
   },
   {
     "kind": "question",
-    "text": "The loudest one"
-  },
-  {
-    "kind": "question",
     "text": "Did he take revenge for himself?"
   },
   {
@@ -446606,10 +447222,6 @@
   {
     "kind": "question",
     "text": "What does Taghin mean, per Ibn Kathir?"
-  },
-  {
-    "kind": "question",
-    "text": "Being humble"
   },
   {
     "kind": "question",

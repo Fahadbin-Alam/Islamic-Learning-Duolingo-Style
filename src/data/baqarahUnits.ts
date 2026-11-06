@@ -1,5 +1,5 @@
 import type { LessonSource } from "../types";
-import { hadith, quranQuote, type DeepUnit } from "./deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "./deepKit";
 
 // Surah Al-Baqarah ayah by ayah: after the unit's short circles and its passages, every ayah or small group of
 // ayahs gets a lesson of its own, so a learner walks through the whole surah slowly. Each card is one ayah's
@@ -90,6 +90,20 @@ const BAQARAH_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "faith-that-sets-apart",
+      title: "Faith that sets us apart",
+      line: "Believing in the unseen is what sets a Muslim apart.",
+      facts: ["As-Sa'di explains", "Iman bil-ghayb"],
+      quote: q2(3),
+      source: saadi(2, 3, "As-Sa'di says believing in things we can see does not set a Muslim apart from a disbeliever; what matters is believing in the unseen, which we have not seen, only because Allah and His Messenger ﷺ told us; this faith is what sets the Muslim apart, and it covers the past and future unseen, the Hereafter and Allah's attributes.", "فهذا الإيمان الذي يميز به المسلم من الكافر"),
+      difficulty: 2,
+      questions: [
+        { q: "What belief sets a Muslim apart, per as-Sa'di on 2:3?", a: "Belief in the unseen", wrong: ["Belief in what we see", "Belief in luck", "Belief in stars"], why: "Anyone can believe what they see; believing the unseen sets the Muslim apart." },
+        { q: "Why do believers accept the unseen, per as-Sa'di on 2:3?", a: "Allah and His Messenger ﷺ told them", wrong: ["They saw it", "Their dreams showed it", "Their elders guessed it"], why: "They believe it because of what Allah and His Messenger ﷺ told." },
+        { tf: true, q: "Belief in the Hereafter is part of belief in the unseen.", why: "As-Sa'di on 2:3." }
+      ]
+    },
+    {
       slug: "pray-spend",
       title: "They pray and give",
       line: "They keep up the prayer and spend from what Allah gave them.",
@@ -101,6 +115,20 @@ const BAQARAH_ONE: DeepUnit = {
         { q: "What does 'establish the prayer' mean?", a: "Pray it properly and on time", wrong: ["Build a mosque", "Pray once a year", "Talk about prayer"], why: "With its bowing, sujud and humility." },
         { q: "Who gave them what they spend?", a: "Allah", wrong: ["Their friends", "Luck", "Themselves alone"], why: "They spend from what We provided them." },
         { q: "Spending on your own family counts as good spending.", tf: true, why: "Ibn Kathir includes it." }
+      ]
+    },
+    {
+      slug: "establish-not-just-do",
+      title: "Establish, not just do",
+      line: "Allah said establish the prayer, not just do it.",
+      facts: ["As-Sa'di explains", "Iqamah"],
+      quote: q2(3),
+      source: saadi(2, 3, "As-Sa'di says Allah did not say they do the prayer, since its outer form alone is not enough: establishing it outwardly means completing its pillars, duties and conditions, and inwardly means its soul, a present heart that thinks about what it says and does; that prayer stops evil and earns the reward.", "لأنه لا يكفي فيها مجرد الإتيان بصورتها الظاهرة"),
+      difficulty: 2,
+      questions: [
+        { q: "Why did Allah say establish the prayer, per as-Sa'di on 2:3?", a: "Its outer form alone is not enough", wrong: ["It is shorter to say", "Prayer is optional", "Only for scholars"], why: "Establishing means outwardly and inwardly, not just going through the motions." },
+        { q: "What is the soul of prayer, per as-Sa'di on 2:3?", a: "A present, thinking heart", wrong: ["A loud voice", "A long dua only", "Fine clothes"], why: "Its inner side is a present heart that reflects on what it says and does." },
+        { tf: true, q: "Completing the pillars and conditions is the outer side of establishing prayer.", why: "As-Sa'di on 2:3." }
       ]
     },
     {
@@ -591,6 +619,20 @@ const BAQARAH_ONE: DeepUnit = {
         { q: "What two things should we seek help through?", a: "Patience and prayer", wrong: ["Money and fame", "Anger and shouting", "Games and sleep"], why: "Quran 2:45." },
         { q: "What did the Prophet ﷺ do when worried?", a: "He prayed", wrong: ["He slept", "He shouted", "He ran"], why: "Ibn Kathir reports it." },
         { q: "Who finds prayer easy, in 2:45-46?", a: "The humble", wrong: ["The proud", "The lazy", "The rich"], why: "Those sure to meet their Lord." }
+      ]
+    },
+    {
+      slug: "three-kinds-of-patience",
+      title: "Three kinds of patience",
+      line: "Patience to obey, patience from sin, patience in hardship.",
+      facts: ["As-Sa'di explains", "Sabr"],
+      quote: q2(45),
+      source: saadi(2, 45, "As-Sa'di says Allah told them to seek help in all their affairs with every kind of patience: patience upon obeying Allah until it is done, patience away from sin until it is left, and patience with painful decrees without anger; and prayer, the scale of faith, is easy for the humble because they hope for Allah's reward.", "وهو الصبر على طاعة الله حتى يؤديها"),
+      difficulty: 2,
+      questions: [
+        { q: "Which is NOT one of the kinds of patience, per as-Sa'di on 2:45?", a: "Patience to win arguments", wrong: ["Patience upon obeying Allah", "Patience away from sin", "Patience in painful decrees"], why: "The three are obeying, leaving sin, and bearing hardship." },
+        { q: "Why is prayer light for the humble, per as-Sa'di on 2:45?", a: "They hope for Allah's reward", wrong: ["They pray quickly", "They skip parts", "They pray alone"], why: "Fear of Allah and hope for His reward make it easy for them." },
+        { tf: false, q: "Prayer is heavy for everyone, even the humble.", why: "As-Sa'di on 2:45: it is easy for the humble." }
       ]
     },
     {
@@ -1390,6 +1432,20 @@ const BAQARAH_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "heart-and-tongue-together",
+      title: "Heart and tongue together",
+      line: "The best dhikr is when the heart and tongue agree.",
+      facts: ["As-Sa'di explains", "Dhikr"],
+      quote: q2(152),
+      source: saadi(2, 152, "As-Sa'di says Allah promised the best reward for remembering Him: that He remembers whoever remembers Him; the best dhikr is what the heart and tongue agree on, the dhikr that brings knowing Allah, loving Him and great reward; and dhikr is the head of gratitude.", "ما تواطأ عليه القلب واللسان"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the best dhikr, per as-Sa'di on 2:152?", a: "When heart and tongue agree", wrong: ["The loudest one", "Tongue only", "Only in Ramadan"], why: "The best dhikr is what the heart and tongue agree on." },
+        { q: "What reward does Allah give for remembering Him, per as-Sa'di on 2:152?", a: "Allah remembers you", wrong: ["Gold", "Long life only", "Nothing"], why: "He remembers whoever remembers Him." },
+        { tf: true, q: "As-Sa'di calls dhikr the head of gratitude.", why: "As-Sa'di on 2:152." }
+      ]
+    },
+    {
       slug: "with-patient",
       title: "Allah is with the patient",
       line: "Seek help in patience and prayer; Allah is with the patient.",
@@ -1432,6 +1488,20 @@ const BAQARAH_TWO: DeepUnit = {
       ]
     },
     {
+      slug: "the-double-loss",
+      title: "The double loss",
+      line: "The impatient lose twice: the thing, and the reward.",
+      facts: ["As-Sa'di explains", "Tests"],
+      quote: q2(155),
+      source: saadi(2, 155, "As-Sa'di says tests must come so the truthful are told apart from the liars; they come in small amounts, because tests purify and do not destroy; when they come people split in two: the impatient get two losses, losing what they loved and losing the reward of patience, while the patient find the test becomes a blessing.", "فالجازع, حصلت له المصيبتان"),
+      difficulty: 2,
+      questions: [
+        { q: "What two losses does the impatient person get, per as-Sa'di on 2:155?", a: "The thing, and the reward", wrong: ["Money and time", "Friends and food", "Sleep and health"], why: "He loses what he loved and the reward of patience." },
+        { q: "Why do tests come in small amounts, per as-Sa'di on 2:155?", a: "Tests purify, not destroy", wrong: ["Allah forgets", "They are random", "They are punishments only"], why: "If He tested with all fear or hunger they would perish." },
+        { tf: true, q: "For the patient, a test can turn into a blessing.", why: "As-Sa'di on 2:155." }
+      ]
+    },
+    {
       slug: "inna-lillah",
       title: "To Allah we belong",
       line: "In loss, say: to Allah we belong, and to Him we return.",
@@ -1443,6 +1513,20 @@ const BAQARAH_TWO: DeepUnit = {
         { q: "What do the patient say in hardship, in 2:156?", a: "To Allah we belong and to Him we return", wrong: ["It's not fair", "Why me?", "I give up"], why: "Inna lillahi wa inna ilayhi raji'un." },
         { q: "What did Umm Salamah get after saying the dua?", a: "Someone better: the Prophet ﷺ as husband", wrong: ["Nothing", "Gold", "A palace"], why: "Muslim 918a." },
         { q: "What is added to the dua in Muslim 918a?", a: "O Allah, reward me and give me better", wrong: ["Take everything", "Make me famous", "Punish others"], why: "Allahumma'jurni fi musibati." }
+      ]
+    },
+    {
+      slug: "we-belong-to-him",
+      title: "We belong to Him",
+      line: "Knowing we belong to Allah is a strong cause of patience.",
+      facts: ["As-Sa'di explains", "Istirja"],
+      quote: q2(156),
+      source: saadi(2, 156, "As-Sa'di says 'we belong to Allah' means we are owned by Him and under His command, so when He tests us in our lives or wealth, the Most Merciful has acted in what He owns; and 'to Him we return' means He will reward us on the Day of Return; so knowing we are His and return to Him is among the strongest causes of patience.", "فكون العبد لله, وراجع إليه, من أقوى أسباب الصبر"),
+      difficulty: 2,
+      questions: [
+        { q: "What does 'we belong to Allah' mean, per as-Sa'di on 2:156?", a: "We are owned by Allah", wrong: ["We are His equals", "We own ourselves", "We are lost"], why: "We are owned by Him and under His command." },
+        { q: "What helps patience most, per as-Sa'di on 2:156?", a: "Knowing we are His and return to Him", wrong: ["Forgetting the loss", "Blaming others", "Staying busy only"], why: "Being His and returning to Him is among the strongest causes of patience." },
+        { tf: true, q: "'To Him we return' reminds us of reward on the Day of Return.", why: "As-Sa'di on 2:156." }
       ]
     },
     {
@@ -1641,6 +1725,20 @@ const BAQARAH_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "how-fasting-builds-taqwa",
+      title: "How fasting builds taqwa",
+      line: "Fasting trains the heart to feel Allah watching.",
+      facts: ["As-Sa'di explains", "Taqwa"],
+      quote: q2(183),
+      source: saadi(2, 183, "As-Sa'di says fasting is among the biggest causes of taqwa: the fasting person leaves what he wants for Allah's sake; he trains himself to feel Allah watching, leaving food he could reach; fasting narrows Shaytan's paths; it increases good deeds; and when the rich taste hunger they comfort the poor.", "فإن الصيام من أكبر أسباب التقوى"),
+      difficulty: 2,
+      questions: [
+        { q: "How does fasting train the heart, per as-Sa'di on 2:183?", a: "To feel Allah watching", wrong: ["To love food more", "To sleep more", "To speak less to family"], why: "He leaves what he could reach because he knows Allah sees him." },
+        { q: "What does hunger teach the rich, per as-Sa'di on 2:183?", a: "To comfort the poor", wrong: ["To buy more food", "To boast", "Nothing"], why: "Tasting hunger moves them to help the poor." },
+        { tf: true, q: "Fasting weakens Shaytan's paths, so sins become fewer.", why: "As-Sa'di on 2:183." }
+      ]
+    },
+    {
       slug: "sick-traveler",
       title: "Ease for the sick",
       line: "The sick or traveling can make up the days later.",
@@ -1680,6 +1778,20 @@ const BAQARAH_THREE: DeepUnit = {
         { q: "How close is Allah to one who calls Him, in 2:186?", a: "Near", wrong: ["Far away", "Too busy", "Unreachable"], why: "Fa inni qarib." },
         { q: "Do we need a go-between to ask Allah?", a: "No, ask Him directly", wrong: ["Yes, always", "Only through a king", "Only once a year"], why: "I answer the caller." },
         { q: "What does Allah ask of us in return?", a: "Respond to Him and believe", wrong: ["Pay Him", "Forget Him", "Ask nothing"], why: "Falyastajibu li walyu'minu bi." }
+      ]
+    },
+    {
+      slug: "two-kinds-of-nearness",
+      title: "Two kinds of nearness",
+      line: "Allah is near all by knowledge, near His callers by answering.",
+      facts: ["As-Sa'di explains", "Dua"],
+      quote: q2(186),
+      source: saadi(2, 186, "As-Sa'di says dua is of two kinds, dua of worship and dua of asking, and nearness is of two kinds: nearness by knowledge to all creation, and nearness to His worshippers and callers by answering, help and success; whoever calls with a present heart, with nothing like haram food blocking it, has Allah's promise of an answer.", "والقرب نوعان"),
+      difficulty: 2,
+      questions: [
+        { q: "To whom is Allah near by answering, per as-Sa'di on 2:186?", a: "Those who worship and call Him", wrong: ["Only kings", "Only angels", "No one"], why: "That special nearness is for His worshippers and callers." },
+        { q: "What can block a dua, per as-Sa'di on 2:186?", a: "Eating haram", wrong: ["Praying at night", "Raising hands", "Being humble"], why: "He names eating haram as something that stops an answer." },
+        { tf: true, q: "Allah is near all creation by His knowledge.", why: "As-Sa'di on 2:186." }
       ]
     },
     {
@@ -1795,6 +1907,20 @@ const BAQARAH_THREE: DeepUnit = {
       ]
     },
     {
+      slug: "an-answer-is-not-proof",
+      title: "An answer is not proof",
+      line: "Allah may answer anyone's dua; that alone is not His love.",
+      facts: ["As-Sa'di explains", "Dua"],
+      quote: q2(201),
+      source: saadi(2, 201, "As-Sa'di says Allah answers the dua of every caller, Muslim, disbeliever or sinner, but answering is not proof of His love except in asking for the Hereafter and the needs of religion; good in this world includes halal provision, a righteous spouse and useful knowledge, and good in the Hereafter is safety from punishment and Allah's pleasure; so this dua is the most complete.", "ولكن ليست إجابته دعاء من دعاه, دليلا على محبته له وقربه منه"),
+      difficulty: 3,
+      questions: [
+        { q: "Is an answered dua always proof of Allah's love, per as-Sa'di on 2:201?", a: "No, Allah answers many people", wrong: ["Yes, always", "Only on Fridays", "Only for the rich"], why: "He answers Muslim, disbeliever and sinner; proof is only in matters of the Hereafter and religion." },
+        { q: "Which is good in this world, per as-Sa'di on 2:201?", a: "A righteous spouse", wrong: ["Fame", "Revenge", "Endless sleep"], why: "He lists halal provision, a righteous spouse, children and useful knowledge." },
+        { tf: true, q: "Good in the Hereafter includes safety in the grave and from the Fire.", why: "As-Sa'di on 2:201." }
+      ]
+    },
+    {
       slug: "sweet-words",
       title: "Sweet words, bad deeds",
       line: "Some talk sweetly, but when given power, spread ruin.",
@@ -1862,6 +1988,20 @@ const BAQARAH_THREE: DeepUnit = {
         { q: "What does 2:216 say about things we dislike?", a: "They may be good for us", wrong: ["They are always bad", "They never happen", "They are luck"], why: "'Asa an takrahu shay'an wa huwa khayrun lakum." },
         { q: "Who knows what is truly best?", a: "Allah", wrong: ["Only us", "Our phones", "Nobody"], why: "Wallahu ya'lamu wa antum la ta'lamun." },
         { q: "You missed the bus and met a friend who needed help. What fits 2:216?", a: "It may have been good for you", wrong: ["It was pure bad luck", "Allah forgot you", "Nothing happens for a reason"], why: "Trust Allah's plan." }
+      ]
+    },
+    {
+      slug: "hard-good-is-good",
+      title: "Hard good is still good",
+      line: "Good deeds we find hard are surely good for us.",
+      facts: ["As-Sa'di explains", "Qadar"],
+      quote: q2(216),
+      source: saadi(2, 216, "As-Sa'di says this is a general rule: good deeds the soul dislikes for their hardship are good without doubt, and bad deeds it loves for imagined comfort are bad without doubt; in worldly matters it is not always so, but when a believer loves something and Allah turns him from it, it is usually better for him, since Allah is more merciful to him than he is to himself.", "أن أفعال الخير التي تكرهها النفوس لما فيها من المشقة أنها خير بلا شك"),
+      difficulty: 2,
+      questions: [
+        { q: "What are good deeds the soul finds hard, per as-Sa'di on 2:216?", a: "Surely good", wrong: ["Surely bad", "Not worth it", "Only for scholars"], why: "Good deeds disliked for their hardship are good without doubt." },
+        { q: "When Allah turns you from something you love, what should you do, per as-Sa'di on 2:216?", a: "Thank Allah and trust Him", wrong: ["Be angry", "Give up", "Blame people"], why: "Allah is more merciful to you than you are to yourself." },
+        { tf: true, q: "Sins the soul loves are bad, even if they seem comfortable.", why: "As-Sa'di on 2:216." }
       ]
     },
     {
@@ -2212,6 +2352,20 @@ const BAQARAH_THREE: DeepUnit = {
         { q: "What has someone with wisdom been given, in 2:269?", a: "Much good", wrong: ["Little", "Nothing", "Only trouble"], why: "Khayran kathira." },
         { q: "What did Ibn Abbas say wisdom means in 2:269?", a: "Understanding the Quran", wrong: ["Being old", "Being rich", "Being loud"], why: "Ibn Kathir reports it." },
         { q: "Who takes the lesson, says 2:269?", a: "People of understanding", wrong: ["Nobody", "Only kings", "Only children"], why: "Ulul-albab." }
+      ]
+    },
+    {
+      slug: "what-hikmah-is",
+      title: "What hikmah is",
+      line: "Hikmah is useful knowledge, good deeds, and knowing the why.",
+      facts: ["As-Sa'di explains", "Hikmah"],
+      quote: q2(269),
+      source: saadi(2, 269, "As-Sa'di says hikmah is useful knowledge and righteous deeds, and knowing the secrets and reasons behind the laws; whoever is given it is given much good, since it brings happiness in both worlds; a servant is complete only through it: knowing the truth, then doing good and leaving evil.", "وهي العلم النافع والعمل الصالح ومعرفة أسرار الشرائع وحكمها"),
+      difficulty: 2,
+      questions: [
+        { q: "What is hikmah, per as-Sa'di on 2:269?", a: "Useful knowledge and good deeds", wrong: ["Being rich", "Talking a lot", "Being old"], why: "Hikmah is useful knowledge, righteous deeds and knowing the reasons of the laws." },
+        { q: "How does a servant become complete, per as-Sa'di on 2:269?", a: "Knowing the truth and acting on it", wrong: ["Knowing only", "Acting without knowing", "Collecting books"], why: "His knowing and his doing must both be completed." },
+        { tf: true, q: "Whoever is given hikmah has been given much good.", why: "As-Sa'di on 2:269." }
       ]
     },
     {
