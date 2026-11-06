@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.app.api.routes.admin import router as admin_router
 from backend.app.api.routes.analytics import router as analytics_router
 from backend.app.api.routes.auth import router as auth_router
 from backend.app.api.routes.battles import router as battles_router
@@ -17,11 +18,14 @@ from backend.app.api.routes.subscriptions import router as subscriptions_router
 from backend.app.core.config import settings
 
 
+STATS_PAGE_ORIGIN = "https://fahadbin-alam.github.io"
+
 app = FastAPI(title=settings.app_name, version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins,
+    # The owner's stats page (site/stats.html) lives on GitHub Pages, so that origin is always allowed.
+    allow_origins=[*settings.cors_origins, STATS_PAGE_ORIGIN],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -48,3 +52,4 @@ app.include_router(catalog_router, prefix="/api")
 app.include_router(learning_router, prefix="/api")
 app.include_router(subscriptions_router, prefix="/api")
 app.include_router(analytics_router, prefix="/api")
+app.include_router(admin_router, prefix="/api")
