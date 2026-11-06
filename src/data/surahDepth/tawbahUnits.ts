@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah At-Tawbah ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a
 // lesson, explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one
@@ -1249,6 +1249,20 @@ const TAWBAH_FIVE: DeepUnit = {
       ]
     },
     {
+      slug: "truthful-inside-and-out",
+      title: "Truthful inside and out",
+      line: "The truthful are true in words, in deeds and in their states.",
+      facts: ["As-Sa'di explains", "Sidq"],
+      quote: q9(119),
+      source: saadi(9, 119, "As-Sa'di says be with the truthful, whose words are true and whose deeds and states are only true, free of laziness and slackness, safe from bad aims, and full of sincerity and good intention, for truthfulness leads to righteousness, and righteousness leads to Paradise.", "الذين أقوالهم صدق، وأعمالهم، وأحوالهم لا تكون إلا صدقا"),
+      difficulty: 2,
+      questions: [
+        { q: "In what are the truthful true, per as-Sa'di on 9:119?", a: "Words, deeds and states", wrong: ["Only words", "Only looks", "Only dreams"], why: "Their words, deeds and states are all true." },
+        { q: "Where does truthfulness lead, per as-Sa'di on 9:119?", a: "To righteousness, then Paradise", wrong: ["To wealth", "To fame", "To nothing"], why: "Truthfulness leads to righteousness, and righteousness to Paradise." },
+        { tf: true, q: "True deeds are free of laziness and bad aims.", why: "As-Sa'di on 9:119." }
+      ]
+    },
+    {
       slug: "every-step-written",
       title: "Every step is written",
       line: "Thirst, tiredness and every step for Allah are written as good.",
@@ -1274,6 +1288,34 @@ const TAWBAH_FIVE: DeepUnit = {
         { q: "Why should a group stay back, in 9:122?", a: "To learn the religion", wrong: ["To rest", "To trade", "To farm"], why: "That they may get instructions in religion." },
         { q: "What does Allah give someone He wants good for?", a: "Understanding of the religion", wrong: ["A big house", "Many camels", "Fame"], why: "He makes him comprehend the religion." },
         { q: "Those who learn should warn their people when they return.", tf: true, why: "And that they may warn their people when they return to them." }
+      ]
+    },
+    {
+      slug: "knowledge-is-for-sharing",
+      title: "Knowledge is for sharing",
+      line: "Spreading knowledge is a blessing and reward for the scholar.",
+      facts: ["As-Sa'di explains", "Spreading knowledge"],
+      quote: q9(122),
+      source: saadi(9, 122, "As-Sa'di says the ayah shows the virtue of knowledge, above all understanding the religion, and that whoever learns must spread it and advise people, for knowledge spreading from a scholar is part of his blessing and reward that keeps growing; a scholar who keeps it to himself, his knowledge dies with him.", "فإن انتشار العلم عن العالم، من بركته وأجره"),
+      difficulty: 2,
+      questions: [
+        { q: "What must a learner do with knowledge, per as-Sa'di on 9:122?", a: "Spread it and advise people", wrong: ["Hide it", "Sell it", "Forget it"], why: "Whoever learns must spread it and teach others." },
+        { q: "What happens to a scholar who keeps knowledge to himself, per as-Sa'di?", a: "His knowledge dies with him", wrong: ["It grows anyway", "He gets more reward", "Nothing at all"], why: "When he dies, his knowledge and its fruit die too." },
+        { tf: true, q: "Understanding the religion is among the most important matters.", why: "As-Sa'di on 9:122." }
+      ]
+    },
+    {
+      slug: "someone-for-every-need",
+      title: "Someone for every need",
+      line: "Muslims should prepare people to take care of each shared need.",
+      facts: ["As-Sa'di explains", "Serving the Ummah"],
+      quote: q9(122),
+      source: saadi(9, 122, "As-Sa'di says the ayah also gives a fine lesson: Muslims should prepare, for every one of their shared needs, people who take it on, give it their time and work hard at it, not turning to other things, so that all their interests are cared for.", "أن المسلمين ينبغي لهم أن يعدوا لكل مصلحة من مصالحهم العامة من يقوم بها"),
+      difficulty: 3,
+      questions: [
+        { q: "Why should not every believer go out at once, per as-Sa'di on 9:122?", a: "Other needs would be lost", wrong: ["They were lazy", "It was forbidden", "No one cared"], why: "If all went, much hardship would come and other needs would be lost." },
+        { q: "What should Muslims prepare for each shared need, per as-Sa'di?", a: "People who take it on", wrong: ["Nothing at all", "Only money", "Only buildings"], why: "Each shared need should have people who work hard at it." },
+        { tf: true, q: "Some believers stayed back to learn the religion and teach their people.", why: "As-Sa'di on 9:122." }
       ]
     },
     {
