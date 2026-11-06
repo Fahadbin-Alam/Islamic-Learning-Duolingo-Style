@@ -1,5 +1,5 @@
 import type { LessonSource } from "../../types";
-import { hadith, quranQuote, type DeepUnit } from "../deepKit";
+import { hadith, quranQuote, saadi, type DeepUnit } from "../deepKit";
 
 // Surah Az-Zumar ayah by ayah, the way the surahs before it are taught: every ayah or small group of ayahs gets a lesson,
 // explained as Tafsir Ibn Kathir explains it (the abridged English on quran.com), with a sahih hadith where one explains
@@ -328,6 +328,20 @@ const ZUMAR_ONE: DeepUnit = {
       ]
     },
     {
+      slug: "best-deed-best-time",
+      title: "Best deed, best time",
+      line: "Prayer is the best worship; night is its best time.",
+      facts: ["As-Sa'di explains", "Qiyam al-Layl"],
+      quote: q39(9),
+      source: saadi(39, 9, "As-Sa'di says 39:9 praises one who obeys Allah with the best worship, prayer, at the best time, the night, while fearing the Hereafter and hoping for Allah's mercy, inside and out.", "مطيع للّه بأفضل العبادات وهي الصلاة، وأفضل الأوقات وهو أوقات الليل"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the best worship, per as-Sa'di on 39:9?", a: "Prayer", wrong: ["Travel", "Trade", "Sleep"], why: "The best worship is prayer, says as-Sa'di." },
+        { q: "What is the best time for it, per as-Sa'di?", a: "The night", wrong: ["Noon", "Market hours", "Any busy time"], why: "The best times are the hours of the night." },
+        { tf: true, q: "The one praised in Az-Zumar 39:9 fears the Hereafter and hopes for mercy.", why: "As-Sa'di on 39:9." }
+      ]
+    },
+    {
       slug: "fear-and-hope",
       title: "Fear and hope",
       line: "The believer fears the Hereafter and hopes for Allah's mercy.",
@@ -520,6 +534,20 @@ const ZUMAR_TWO: DeepUnit = {
         { q: "What do they follow, in 39:18?", a: "The best of the Word", wrong: ["Rumours", "The crowd", "Their whims"], why: "Those who listen to the Word and follow the best thereof." },
         { q: "What does following the best mean, per Ibn Kathir?", a: "Understanding it and acting on it", wrong: ["Only hearing it", "Selling it", "Hiding it"], why: "Those who understand it and act in accordance with it." },
         { q: "What do men of understanding have, per Ibn Kathir?", a: "Sound reasoning, upright nature", wrong: ["Great wealth", "Many servants", "Loud voices"], why: "They possess sound reasoning and an upright nature." }
+      ]
+    },
+    {
+      slug: "the-best-of-all-speech",
+      title: "The best of all speech",
+      line: "The best speech of all is Allah's and His Messenger's ﷺ.",
+      facts: ["As-Sa'di explains", "Ulul-Albab"],
+      quote: q39(18),
+      source: saadi(39, 18, "As-Sa'di says people of sense listen to all speech, tell good from bad and follow the best, and the best speech of all is the speech of Allah and His Messenger ﷺ; that choosing is the sign of sense.", "وأحسنه على الإطلاق كلام اللّه وكلام رسوله"),
+      difficulty: 2,
+      questions: [
+        { q: "What is the best speech of all, per as-Sa'di?", a: "Allah's and His Messenger's ﷺ", wrong: ["The poets'", "The kings'", "Our own"], why: "The best speech is that of Allah and His Messenger ﷺ, says as-Sa'di." },
+        { q: "What is the sign of real sense, per as-Sa'di on 39:18?", a: "Telling good from bad and choosing it", wrong: ["Talking a lot", "Being rich", "Being old"], why: "Knowing the good and choosing it is the sign of sense." },
+        { tf: false, q: "One who knows the good but lets desire win has full sense.", why: "As-Sa'di says his sense is lacking." }
       ]
     },
     {
@@ -744,6 +772,20 @@ const ZUMAR_TWO: DeepUnit = {
         { q: "What is the first man like, in 39:29?", a: "Owned by quarrelling partners", wrong: ["A free king", "A rich trader", "A poet"], why: "A man belonging to many partners disputing with one another." },
         { q: "Whom does the parable describe, per Ibn Abbas?", a: "The idolater and the sincere believer", wrong: ["Two kings", "Two brothers", "Two cities"], why: "This Ayah is the parable of the idolator and the sincere believer." },
         { tf: false, q: "The two men in the parable are equal.", why: "Are those two equal in comparison? meaning, they are not the same." }
+      ]
+    },
+    {
+      slug: "tawhid-brings-rest",
+      title: "Tawhid brings rest",
+      line: "Serving One Lord alone gives the heart full rest and calm.",
+      facts: ["As-Sa'di explains", "Tawhid and calm"],
+      quote: q39(29),
+      source: saadi(39, 29, "As-Sa'di says the idolater is like a slave owned by quarrelling partners, never at rest, calling on one then another, while the one who worships Allah alone is in full rest and calm.", "والموحد مخلص لربه، قد خلصه اللّه من الشركة لغيره، فهو في أتم راحة وأكمل طمأنينة"),
+      difficulty: 2,
+      questions: [
+        { q: "Who is like the slave of quarrelling partners, in Az-Zumar 39:29?", a: "The one who worships many gods", wrong: ["The traveler", "The farmer", "The student"], why: "The idolater is never settled, says as-Sa'di." },
+        { q: "What does Tawhid give the heart, per as-Sa'di?", a: "Full rest and calm", wrong: ["Worry", "Confusion", "Nothing"], why: "The one who worships Allah alone is in full rest and calm." },
+        { tf: true, q: "The slave of one master knows what his master wants.", why: "As-Sa'di on 39:29." }
       ]
     },
     {
